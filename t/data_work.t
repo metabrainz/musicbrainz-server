@@ -65,8 +65,8 @@ ok($names{'Traits'} > 1);
 
 my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 
 $work = $work_data->insert({
         name => 'Traits',
@@ -99,8 +99,8 @@ $work_data->delete($work);
 $work = $work_data->get_by_id($work->id);
 ok(!defined $work);
 
-$raw_sql->Commit;
-$sql->Commit;
+$raw_sql->commit;
+$sql->commit;
 
 
 # Both #1 and #2 are in the DB
@@ -110,11 +110,11 @@ $work = $work_data->get_by_id(2);
 ok(defined $work);
 
 # Merge #2 into #1
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 $work_data->merge(1, 2);
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 # Only #1 is now in the DB
 $work = $work_data->get_by_id(1);

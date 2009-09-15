@@ -101,7 +101,7 @@ sub insert
         my $row = $self->_hash_to_row($group, \%names);
         $row->{gid} = $group->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->InsertRow('release_group', $row, 'id'),
+            id => $sql->insert_row('release_group', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -115,7 +115,7 @@ sub update
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('release_group', $row, { id => $group_id });
+    $sql->update_row('release_group', $row, { id => $group_id });
 }
 
 sub delete
@@ -127,7 +127,7 @@ sub delete
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
+    $sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
 }
 
@@ -143,7 +143,7 @@ sub merge
 
     # Move releases to the new release group
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('UPDATE release SET release_group = ?
+    $sql->do('UPDATE release SET release_group = ?
               WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 
     $self->_delete_and_redirect_gids('release_group', $new_id, @old_ids);

@@ -31,14 +31,14 @@ $link_id = $c->model('Link')->find_or_insert({
 });
 is($link_id, 2);
 
-$sql->Begin;
+$sql->begin;
 $link_id = $c->model('Link')->find_or_insert({
     link_type_id => 1,
     begin_date => { year => 2009 },
     end_date => { year => 2010 },
     attributes => [ 1, 3 ],
 });
-$sql->Commit;
+$sql->commit;
 is($link_id, 100);
 
 my $link = $c->model('Link')->get_by_id(100);

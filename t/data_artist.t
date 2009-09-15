@@ -16,8 +16,8 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
 my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
 does_ok($artist_data, 'MusicBrainz::Server::Data::Editable');
@@ -89,8 +89,8 @@ $artist_data->annotation->delete(2);
 $annotation = $artist_data->annotation->get_latest(2);
 ok(!defined $annotation);
 
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 # ---
 # Searching for artists
@@ -102,8 +102,8 @@ is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Test Artist" );
 is( $results->[0]->entity->sort_name, "Artist, Test" );
 
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 
 # ---
 # Find/insert artist names
@@ -214,5 +214,5 @@ $artist = $artist_data->get_by_id(1);
 ok(defined $artist);
 is($artist->name, 'Test Artist');
 
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;

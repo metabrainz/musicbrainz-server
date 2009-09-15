@@ -79,7 +79,7 @@ sub merge_labels
 {
     my ($self, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('UPDATE release_label SET label = ?
+    $sql->do('UPDATE release_label SET label = ?
               WHERE label IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
@@ -88,7 +88,7 @@ sub merge_releases
     my ($self, $new_id, @old_ids) = @_;
     # XXX avoid duplicates
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('UPDATE release_label SET release = ?
+    $sql->do('UPDATE release_label SET release = ?
               WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
@@ -100,7 +100,7 @@ sub update
         label => 'label_id',
     });
     my $sql = Sql->new($self->c->dbh);
-    $sql->Update('release_label', $row, { id => $id });
+    $sql->update_row('release_label', $row, { id => $id });
 }
 
 sub delete
@@ -108,7 +108,7 @@ sub delete
     my ($self, @release_label_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM release_label WHERE id IN (' . placeholders(@release_label_ids) . ')';
-    $sql->Do($query, @release_label_ids);
+    $sql->do($query, @release_label_ids);
 }
 
 __PACKAGE__->meta->make_immutable;

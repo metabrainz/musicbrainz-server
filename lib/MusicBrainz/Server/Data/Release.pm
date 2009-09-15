@@ -125,7 +125,7 @@ sub insert
         my $row = $self->_hash_to_row($release, \%names);
         $row->{gid} = $release->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->InsertRow('release', $row, 'id'),
+            id => $sql->insert_row('release', $row, 'id'),
             gid => $row->{gid},
         );
     }
@@ -138,7 +138,7 @@ sub update
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('release', $row, { id => $release_id });
+    $sql->update_row('release', $row, { id => $release_id });
 }
 
 sub delete
@@ -150,7 +150,7 @@ sub delete
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
+    $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
         @release_ids);
     return;
 }
@@ -169,14 +169,14 @@ sub merge
 
     # XXX allow actual tracklists/mediums merging
     my $sql = Sql->new($self->c->dbh);
-    my $pos = $sql->SelectSingleValue('
+    my $pos = $sql->select_single_value('
         SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
     foreach my $old_id (@old_ids) {
-        my $medium_ids = $sql->SelectSingleColumnArray('
+        my $medium_ids = $sql->select_single_column_array('
             SELECT id FROM medium WHERE release=?
             ORDER BY position', $old_id);
         foreach my $medium_id (@$medium_ids) {
-            $sql->Do('UPDATE medium SET release=?, position=? WHERE id=?',
+            $sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
                      $new_id, ++$pos, $medium_id);
         }
     }

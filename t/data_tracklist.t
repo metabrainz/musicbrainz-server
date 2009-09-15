@@ -29,7 +29,7 @@ is ( scalar($tracklist2->all_tracks), 9 );
 is ( $tracklist2->tracks->[3]->name, "The Painter's Link" );
 
 my $sql = Sql->new($c->dbh);
-Sql::RunInTransaction(sub {
+Sql::run_in_transaction(sub {
     $tracklist_data->offset_track_positions(1, 4, 1);
     $tracklist1 = $tracklist_data->get_by_id(1);
     is ( $tracklist1->id, 1 );

@@ -101,13 +101,13 @@ sub merge_recordings
     my $sql = Sql->new($self->c->dbh);
 
     # Delete links from @old_ids that already exist for $new_id
-    $sql->Do('DELETE FROM recording_puid
+    $sql->do('DELETE FROM recording_puid
               WHERE recording IN ('.placeholders(@old_ids).') AND
                   puid IN (SELECT puid FROM recording_puid WHERE recording = ?)',
               @old_ids, $new_id);
 
     # Move the rest
-    $sql->Do('UPDATE recording_puid SET recording = ?
+    $sql->do('UPDATE recording_puid SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')',
               $new_id, @old_ids);
 }
@@ -119,14 +119,14 @@ sub delete_recordings
     my $sql = Sql->new($self->c->dbh);
 
     # Remove PUID<->recording links
-    my $puid_ids = $sql->SelectSingleColumnArray('
+    my $puid_ids = $sql->select_single_column_array('
         DELETE FROM recording_puid
         WHERE recording IN ('.placeholders(@ids).')
         RETURNING puid', @ids);
 
     # Remove unreferenced PUIDs
     if (@$puid_ids) {
-        $sql->Do('
+        $sql->do('
             DELETE FROM puid WHERE
                 id IN ('.placeholders(@$puid_ids).') AND
                 id NOT IN (

@@ -42,7 +42,7 @@ sub create : Local Args(0) RequireAuth(relationship_editor)
         my $values = $form->values;
 
         my $sql = Sql->new($c->dbh);
-        Sql::RunInTransaction(sub { $c->model('LinkAttributeType')->insert($values) }, $sql);
+        Sql::run_in_transaction(sub { $c->model('LinkAttributeType')->insert($values) }, $sql);
 
         my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'created' });
         $c->response->redirect($url);
@@ -63,7 +63,7 @@ sub edit : Local Args(1) RequireAuth(relationship_editor)
         my $values = $form->values;
 
         my $sql = Sql->new($c->dbh);
-        Sql::RunInTransaction(sub { $c->model('LinkAttributeType')->update($id, $values) }, $sql);
+        Sql::run_in_transaction(sub { $c->model('LinkAttributeType')->update($id, $values) }, $sql);
 
         my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'updated' });
         $c->response->redirect($url);
@@ -80,7 +80,7 @@ sub delete : Local Args(1) RequireAuth(relationship_editor)
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $sql = Sql->new($c->dbh);
-        Sql::RunInTransaction(sub { $c->model('LinkAttributeType')->delete($id) }, $sql);
+        Sql::run_in_transaction(sub { $c->model('LinkAttributeType')->delete($id) }, $sql);
 
         my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'deleted' });
         $c->response->redirect($url);

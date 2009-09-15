@@ -66,7 +66,7 @@ ok($names{'Protection'} > 2);
 
 my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
-$sql->Begin;
+$sql->begin;
 $release = $release_data->insert({
         name => 'Protection',
         artist_credit => 1,
@@ -117,7 +117,7 @@ is($release->country_id, 1);
 $release_data->delete($release);
 $release = $release_data->get_by_id($release->id);
 ok(!defined $release);
-$sql->Commit;
+$sql->commit;
 
 # Both #1 and #2 are in the DB
 $release = $release_data->get_by_id(1);
@@ -126,11 +126,11 @@ $release = $release_data->get_by_id(2);
 ok(defined $release);
 
 # Merge #2 into #1
-$raw_sql->Begin;
-$sql->Begin;
+$raw_sql->begin;
+$sql->begin;
 $release_data->merge(1, 2);
-$raw_sql->Commit;
-$sql->Commit;
+$raw_sql->commit;
+$sql->commit;
 
 # Only #1 is now in the DB
 $release = $release_data->get_by_id(1);

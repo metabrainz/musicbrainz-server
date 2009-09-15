@@ -109,13 +109,13 @@ check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
 
 # Make sure we can insert edit notes while already in a transaction
 my $sql = Sql->new($c->raw_dbh);
-$sql->Begin;
+$sql->begin;
 lives_ok {
     $en_data->insert($edit->id, {
             editor_id => 3,
             text => 'Note' })
 };
-$sql->Commit;
+$sql->commit;
 
 # Test adding edit notes with email sending
 $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 1 });

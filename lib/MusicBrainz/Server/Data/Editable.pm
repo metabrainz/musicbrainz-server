@@ -20,7 +20,7 @@ role {
         my ($self, $adjust, @ids) = @_;
         my $sql = Sql->new($self->_dbh);
         my $query = "UPDATE $table SET editpending = editpending + ? WHERE id IN (" . placeholders(@ids) . ")";
-        $sql->Do($query, $adjust, @ids);
+        $sql->do($query, $adjust, @ids);
     };
 
 };

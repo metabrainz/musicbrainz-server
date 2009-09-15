@@ -21,7 +21,7 @@ sub get_by_gid
     my $table = $self->_gid_redirect_table;
     if (defined($table)) {
         my $sql = Sql->new($self->c->mb->dbh);
-        my $id = $sql->SelectSingleValue("SELECT newid FROM $table WHERE gid=?", $gid);
+        my $id = $sql->select_single_value("SELECT newid FROM $table WHERE gid=?", $gid);
         if (defined($id)) {
             return $self->get_by_id($id);
         }
@@ -41,7 +41,7 @@ sub remove_gid_redirects
     my ($self, @ids) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
-    $sql->Do("DELETE FROM $table WHERE newid IN (" . placeholders(@ids) . ')', @ids);
+    $sql->do("DELETE FROM $table WHERE newid IN (" . placeholders(@ids) . ')', @ids);
 }
 
 sub add_gid_redirects
@@ -51,7 +51,7 @@ sub add_gid_redirects
     my $table = $self->_gid_redirect_table;
     my $query = "INSERT INTO $table (gid, newid) VALUES " .
                 (join ", ", ('(?, ?)') x keys %redirects);
-    $sql->Do($query, %redirects);
+    $sql->do($query, %redirects);
 }
 
 sub update_gid_redirects
@@ -59,7 +59,7 @@ sub update_gid_redirects
     my ($self, $new_id, @old_ids) = @_; 
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
-    $sql->Do("
+    $sql->do("
         UPDATE $table SET newid = ?
         WHERE newid IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
@@ -73,7 +73,7 @@ sub _delete_and_redirect_gids
 
     # Delete the recording and select current GIDs
     my $sql = Sql->new($self->c->dbh);
-    my $old_gids = $sql->SelectSingleColumnArray('
+    my $old_gids = $sql->select_single_column_array('
         DELETE FROM '.$table.'
         WHERE id IN ('.placeholders(@old_ids).')
         RETURNING gid', @old_ids);

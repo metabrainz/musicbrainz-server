@@ -106,7 +106,7 @@ sub insert
         my $row = $self->_hash_to_row($label, \%names);
         $row->{gid} = $label->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->InsertRow('label', $row, 'id'),
+            id => $sql->insert_row('label', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -119,7 +119,7 @@ sub update
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('label', $row, { id => $label_id });
+    $sql->update_row('label', $row, { id => $label_id });
     return 1;
 }
 
@@ -138,7 +138,7 @@ sub delete
     $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
+    $sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
     return 1;
 }
 

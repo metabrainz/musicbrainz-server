@@ -117,7 +117,7 @@ my $dbh = $mb->{dbh};
 # Log in to the raw DB, or duplicate handles to the main DB
 my $rawmb = new MusicBrainz;
 $rawmb->Login(db => 'RAWDATA');
-my $rawsql = Sql->new($rawmb->{dbh});   
+my $rawsql = Sql->new($rawmb->{dbh});
 my $rawdbh = $rawmb->{dbh};
 
 # This hash indicates which tables may need to be pulled from a vertical DB
@@ -146,7 +146,7 @@ my %table_db_mapping =
 	'edit_release_group'					=>	{ dbh => $rawdbh, sql => $rawsql },
 	'edit_work'								=>	{ dbh => $rawdbh, sql => $rawsql },
 	'vote'									=>	{ dbh => $rawdbh, sql => $rawsql },
-	'_default_'								=>	{ dbh => $dbh, sql => $sql } 
+	'_default_'								=>	{ dbh => $dbh, sql => $sql }
 );
 
 my @tables = qw(
@@ -303,15 +303,15 @@ open(my $lockfh, ">>/tmp/.mb-export-lock") or die $!;
 use Fcntl qw( LOCK_EX );
 flock($lockfh, LOCK_EX) or die $!;
 
-$sql->AutoCommit;
-$sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-$sql->Begin;
+$sql->auto_commit;
+$sql->do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$sql->begin;
 
-$rawsql->AutoCommit;
-$rawsql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-$rawsql->Begin;
+$rawsql->auto_commit;
+$rawsql->do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$rawsql->begin;
 
-my $now = $sql->SelectSingleValue("SELECT NOW()");
+my $now = $sql->select_single_value("SELECT NOW()");
 
 # Write the TIMESTAMP file
 # This used to be free text; now it's parseable.  It contains a PostgreSQL
@@ -321,7 +321,7 @@ writefile("TIMESTAMP", "$now\n");
 # Get the replication control data
 
 my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
-	my $row = $sql->SelectSingleRowHash("SELECT * FROM replication_control");
+	my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
 	$row ||= {};
 	@$row{qw(
 		current_schema_sequence
@@ -342,8 +342,8 @@ writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 
 if (grep { $_ eq "editor_sanitised" } @tables)
 {
-	$sql->Do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
-	$sql->Do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
+	$sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
+	$sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
 }
 
 $| = 1;
@@ -367,7 +367,7 @@ sub table_rowcount
 	# Get the right sql module
 	my $sql = $table_db_mapping{'_default_'}->{'sql'};
 	$sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
-	$sql->SelectSingleValue(
+	$sql->select_single_value(
 		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
 		$table,
 	);
@@ -388,7 +388,7 @@ sub dumptable
 
 	my $estrows = table_rowcount($table) || 1;
 
-	$sql->Do("COPY $table TO stdout");
+	$sql->do("COPY $table TO stdout");
 	my $buffer;
 	my $rows = 0;
 
@@ -440,7 +440,7 @@ my $fAnyReplicationData = 0;
 for my $table (@replication_tables)
 {
 	$fAnyReplicationData = 1
-		if $sql->SelectSingleValue("SELECT COUNT(*) FROM $table") > 0;
+		if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
 }
 
 if ($fDoReplication)
@@ -468,7 +468,7 @@ if ($fDoReplication)
 		# the final transaction included in each packet.
 		$iReplicationSequence ||= 0;
 
-		$sql->Do(
+		$sql->do(
 			"UPDATE replication_control
 			SET current_replication_sequence = ?,
 			last_replication_date = NOW()",
@@ -503,10 +503,10 @@ dumptable("replication_control");
 
 # Make sure our replication data is safe before we commit its removal from the database
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
-$sql->Commit;
+$sql->commit;
 
 # There should've been no changes on this handle, so call rollback
-$rawsql->Rollback;
+$rawsql->rollback;
 
 my $dumptime = tv_interval($t0);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
@@ -759,8 +759,8 @@ sub writefile
 
 sub empty_replication_tables
 {
-	$sql->Do("DELETE FROM dbmirror_PendingData");
-	$sql->Do("DELETE FROM dbmirror_Pending");
+	$sql->do("DELETE FROM dbmirror_PendingData");
+	$sql->do("DELETE FROM dbmirror_Pending");
 	# As soon as we commit, the replication data is gone from the DB, so we must
 	# be sure that we have a safe copy.
 	$erase_tmpdir_on_exit = 0;
@@ -769,10 +769,10 @@ sub empty_replication_tables
 sub optimise_replication_tables
 {
 	print localtime() . " : Optimising replication tables\n";
-	$sql->AutoCommit;
-	$sql->Do("VACUUM FULL ANALYZE dbmirror_PendingData");
-	$sql->AutoCommit;
-	$sql->Do("VACUUM FULL ANALYZE dbmirror_Pending");
+	$sql->auto_commit;
+	$sql->do("VACUUM FULL ANALYZE dbmirror_PendingData");
+	$sql->auto_commit;
+	$sql->do("VACUUM FULL ANALYZE dbmirror_Pending");
 }
 
 sub copy_readme

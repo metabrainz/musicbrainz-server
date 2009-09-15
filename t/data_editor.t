@@ -40,7 +40,7 @@ my $editor2 = $editor_data->get_by_name('new_editor');
 is_deeply($editor, $editor2);
 
 # Test crediting
-Sql::RunInTransaction(sub {
+Sql::run_in_transaction(sub {
         $editor_data->credit($editor->id, $STATUS_APPLIED);
         $editor_data->credit($editor->id, $STATUS_APPLIED, 1);
         $editor_data->credit($editor->id, $STATUS_FAILEDVOTE);

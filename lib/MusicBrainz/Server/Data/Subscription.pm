@@ -27,14 +27,14 @@ sub subscribe
     my $column = $self->column;
 
     my $sql = Sql->new($self->c->dbh);
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
 
-        return if $sql->SelectSingleValue("
+        return if $sql->select_single_value("
             SELECT id FROM $table WHERE editor = ? AND $column = ?",
             $user_id, $id);
 
         my $max_edit_id = $self->c->model('Edit')->get_max_id() || 0;
-        $sql->Do("INSERT INTO $table (editor, $column, lasteditsent)
+        $sql->do("INSERT INTO $table (editor, $column, lasteditsent)
                   VALUES (?, ?, ?)", $user_id, $id, $max_edit_id);
 
     }, $sql);
@@ -48,9 +48,9 @@ sub unsubscribe
     my $column = $self->column;
 
     my $sql = Sql->new($self->c->dbh);
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
 
-        $sql->Do("
+        $sql->do("
             DELETE FROM $table WHERE editor = ? AND $column = ?",
             $user_id, $id);
 
@@ -65,7 +65,7 @@ sub check_subscription
     my $column = $self->column;
 
     my $sql = Sql->new($self->c->dbh);
-    return $sql->SelectSingleValue("
+    return $sql->select_single_value("
         SELECT 1 FROM $table
         WHERE editor = ? AND $column = ?",
         $user_id, $id) ? 1 : 0;
@@ -98,7 +98,7 @@ sub get_subscribed_editor_count
     my $column = $self->column;
     my $sql = Sql->new($self->c->dbh);
 
-    return $sql->SelectSingleValue("SELECT count(*) FROM $table
+    return $sql->select_single_value("SELECT count(*) FROM $table
                                     WHERE $column = ?", $entity_id);
 }
 
@@ -111,13 +111,13 @@ sub merge
     my $sql = Sql->new($self->c->dbh);
 
     # Remove duplicate joins
-    $sql->Do("DELETE FROM $table
+    $sql->do("DELETE FROM $table
               WHERE $column IN (".placeholders(@old_ids).") AND
                   editor IN (SELECT editor FROM $table WHERE $column = ?)",
               @old_ids, $new_id);
 
     # Move all remaining joins to the new entity
-    $sql->Do("UPDATE $table SET $column = ?
+    $sql->do("UPDATE $table SET $column = ?
               WHERE $column IN (".placeholders(@old_ids).")",
               $new_id, @old_ids);
 }
@@ -130,7 +130,7 @@ sub delete
     my $column = $self->column;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do("DELETE FROM $table
+    $sql->do("DELETE FROM $table
               WHERE $column IN (".placeholders(@ids).")", @ids);
 }
 

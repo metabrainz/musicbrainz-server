@@ -61,8 +61,8 @@ is( $results->[0]->entity->id, 1 );
 
 my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 
 $rg = $rg_data->insert({
         name => 'My Demons',
@@ -99,5 +99,5 @@ ok(!defined $rg);
 $rg = $rg_data->get_by_id(1);
 ok(defined $rg);
 
-$raw_sql->Commit;
-$sql->Commit;
+$raw_sql->commit;
+$sql->commit;

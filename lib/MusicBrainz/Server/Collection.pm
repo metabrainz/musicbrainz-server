@@ -118,7 +118,7 @@ sub AddRelease
             $rawsql->Begin();
 
             # add MBID to the collection
-            $rawsql->Quiet(1);
+            $rawsql->quiet(1);
             $rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)',
                         $this->{collectionId}, $releaseId);
 
@@ -162,7 +162,7 @@ sub AddReleaseWithId
     eval
     {
         $rawsql->Begin();
-        $rawsql->Quiet(1);
+        $rawsql->quiet(1);
 
         # add MBID to the collection
         $rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);

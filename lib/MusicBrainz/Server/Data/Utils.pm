@@ -75,14 +75,14 @@ sub load_meta
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
     my $sql = Sql->new($c->mb->dbh);
-    $sql->Select("SELECT * FROM $table
+    $sql->select("SELECT * FROM $table
                   WHERE id IN (" . placeholders(@ids) . ")", @ids);
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-    $sql->Finish;
+    $sql->finish;
 }
 
 
@@ -115,14 +115,14 @@ sub query_to_list
 {
     my ($dbh, $builder, $query, @args) = @_;
     my $sql = Sql->new($dbh);
-    $sql->Select($query, @args);
+    $sql->select($query, @args);
     my @result;
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $obj = $builder->($row);
         push @result, $obj;
     }
-    $sql->Finish;
+    $sql->finish;
     return @result;
 }
 
@@ -130,15 +130,15 @@ sub query_to_list_limited
 {
     my ($dbh, $offset, $limit, $builder, $query, @args) = @_;
     my $sql = Sql->new($dbh);
-    $sql->Select($query, @args);
+    $sql->select($query, @args);
     my @result;
     while ($limit--) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $obj = $builder->($row);
         push @result, $obj;
     }
-    my $hits = $sql->Rows + $offset;
-    $sql->Finish;
+    my $hits = $sql->row_count + $offset;
+    $sql->finish;
     return (\@result, $hits);
 }
 
@@ -153,7 +153,7 @@ sub insert_and_create
     for my $obj (@objs)
     {
         my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
-        my $id = $sql->InsertRow($data->_table, \%row, 'id');
+        my $id = $sql->insert_row($data->_table, \%row, 'id');
         push @ret, $class->new( id => $id, %$obj);
     }
 

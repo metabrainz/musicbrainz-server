@@ -89,7 +89,7 @@ sub get_by_id
 
     my $query = "SELECT * FROM l_${type0}_${type1} WHERE id = ?";
     my $sql = Sql->new($self->c->dbh);
-    my $row = $sql->SelectSingleRowHash($query, $id)
+    my $row = $sql->select_single_row_hash($query, $id)
         or return undef;
 
     return $self->_new_from_row($row);
@@ -121,9 +121,9 @@ sub _load
             SELECT * FROM l_${type0}_${type1}
             WHERE " . join(" OR ", @cond) . "
             ORDER BY id";
-        $sql->Select($query, @params);
+        $sql->select($query, @params);
         while (1) {
-            my $row = $sql->NextRowHashRef or last;
+            my $row = $sql->next_row_hash_ref or last;
             my $entity0 = $row->{entity0};
             my $entity1 = $row->{entity1};
             if ($type eq $type0 && exists $objs_by_id{$entity0}) {
@@ -139,7 +139,7 @@ sub _load
                 push @rels, $rel;
             }
         }
-        $sql->Finish;
+        $sql->finish;
     }
     return @rels;
 }
@@ -226,14 +226,14 @@ sub merge_entities
         my ($table, $entity0, $entity1) = @$t;
         # Delete all relationships from the source entities,
         # which don't already exist on the target entity
-        $sql->Do("
+        $sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@source_ids) . ") AND
                 EXISTS (SELECT 1 FROM $table b WHERE $entity0 = ? AND
                     a.$entity1 = b.$entity1 AND a.link = b.link)
         ", @source_ids, $target_id);
         # Move all remaining relationships
-        $sql->Do("
+        $sql->do("
             UPDATE $table SET $entity0 = ?
             WHERE $entity0 IN (" . placeholders(@source_ids) . ")
         ", $target_id, @source_ids);
@@ -247,7 +247,7 @@ sub delete_entities
     my $sql = Sql->new($self->c->dbh);
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
-        $sql->Do("
+        $sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@ids) . ")
         ", @ids);
@@ -270,7 +270,7 @@ sub insert
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
     };
-    my $id = $sql->InsertRow("l_${type0}_${type1}", $row, 'id');
+    my $id = $sql->insert_row("l_${type0}_${type1}", $row, 'id');
 
     return $self->_entity_class->new( id => $id );
 }
@@ -291,7 +291,7 @@ sub update
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
     };
-    $sql->Update("l_${type0}_${type1}", $row, { id => $id });
+    $sql->update_row("l_${type0}_${type1}", $row, { id => $id });
 }
 
 sub delete
@@ -300,7 +300,7 @@ sub delete
     $self->_check_types($type0, $type1);
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do("DELETE FROM l_${type0}_${type1}
+    $sql->do("DELETE FROM l_${type0}_${type1}
               WHERE id IN (" . placeholders(@ids) . ")", @ids);
 }
 
@@ -313,7 +313,7 @@ sub adjust_edit_pending
     my $query = "UPDATE l_${type0}_${type1}
                  SET editpending = editpending + ?
                  WHERE id IN (" . placeholders(@ids) . ")";
-    $sql->Do($query, $adjust, @ids);
+    $sql->do($query, $adjust, @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

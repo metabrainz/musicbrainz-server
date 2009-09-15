@@ -32,9 +32,9 @@ is($puids[0]->puid->puid, '134478d1-306e-41a1-8b37-ff525e53c8be');
 is($puids[1]->puid->puid, 'be42c064-91ba-4e0d-8841-085fb9ab8b17');
 
 my $sql = Sql->new($c->dbh);
-$sql->Begin;
+$sql->begin;
 $c->model('RecordingPUID')->merge_recordings(1, 2);
-$sql->Commit;
+$sql->commit;
 
 @puids = $c->model('RecordingPUID')->find_by_recording(1);
 is(scalar @puids, 3);
@@ -45,14 +45,14 @@ is($puids[2]->puid->puid, 'be42c064-91ba-4e0d-8841-085fb9ab8b17');
 @puids = $c->model('RecordingPUID')->find_by_recording(2);
 is(scalar @puids, 0);
 
-$sql->Begin;
+$sql->begin;
 $c->model('RecordingPUID')->delete_recordings(1);
-$sql->Commit;
+$sql->commit;
 
 @puids = $c->model('RecordingPUID')->find_by_recording(1);
 is(scalar @puids, 0);
 
-my $cnt = $sql->SelectSingleValue('SELECT count(*) FROM puid WHERE id IN (1,2,3)');
+my $cnt = $sql->select_single_value('SELECT count(*) FROM puid WHERE id IN (1,2,3)');
 is($cnt, 1);
 
 @puids = $c->model('RecordingPUID')->find_by_recording(3);

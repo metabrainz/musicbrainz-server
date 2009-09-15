@@ -38,7 +38,7 @@ sub get_latest
                 " WHERE " . $self->type . " = ?" .
                 " ORDER BY created DESC LIMIT 1";
     my $sql = Sql->new($self->c->mb->dbh);
-    my $row = $sql->SelectSingleRowHash($query, $id)
+    my $row = $sql->select_single_row_hash($query, $id)
         or return undef;
     return $self->_new_from_row($row);
 }
@@ -57,12 +57,12 @@ sub edit
 {
     my ($self, $annotation_hash) = @_;
     my $sql = Sql->new($self->c->dbh);
-    my $annotation_id = $sql->InsertRow('annotation', {
+    my $annotation_id = $sql->insert_row('annotation', {
         editor => $annotation_hash->{editor_id},
         text => $annotation_hash->{text},
         changelog => $annotation_hash->{changelog}
     }, 'id');
-    $sql->InsertRow($self->table, {
+    $sql->insert_row($self->table, {
         $self->type => $annotation_hash->{ $self->type . '_id'},
         annotation => $annotation_id
     });
@@ -75,10 +75,10 @@ sub delete
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")" .
                 " RETURNING annotation";
     my $sql = Sql->new($self->c->dbh);
-    my $annotations = $sql->SelectSingleColumnArray($query, @ids);
+    my $annotations = $sql->select_single_column_array($query, @ids);
     return 1 unless scalar @$annotations;
     $query = "DELETE FROM annotation WHERE id IN (" . placeholders(@$annotations) . ")";
-    $sql->Do($query, @$annotations);
+    $sql->do($query, @$annotations);
     return 1;
 }
 
@@ -88,7 +88,7 @@ sub merge
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
-    $sql->Do("UPDATE $table SET $type = ?
+    $sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 

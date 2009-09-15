@@ -52,8 +52,8 @@ ok($names{'RAM Records'} > 1);
 
 my $sql = Sql->new($c->dbh);
 my $sql_raw = Sql->new($c->raw_dbh);
-$sql->Begin;
-$sql_raw->Begin;
+$sql->begin;
+$sql_raw->begin;
 
 $label = $label_data->insert({
         name => 'RAM Records',
@@ -101,5 +101,5 @@ ok(!defined $label);
 $label = $label_data->get_by_id(1);
 ok(defined $label);
 
-$sql_raw->Commit;
-$sql->Commit;
+$sql_raw->commit;
+$sql->commit;

@@ -36,18 +36,18 @@ sub get_tree
     my ($self, $type0, $type1) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+    $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   WHERE entitytype0=? AND entitytype1=?
                   ORDER BY childorder, id', $type0, $type1);
     my %id_to_obj;
     my @objs;
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
         push @objs, $obj;
     }
-    $sql->Finish;
+    $sql->finish;
 
     my $root = MusicBrainz::Server::Entity::LinkType->new;
     foreach my $obj (@objs) {
@@ -64,19 +64,19 @@ sub get_attribute_type_list
 
     my $sql = Sql->new($self->c->dbh);
     if (defined $id) {
-        $sql->Select('SELECT t.id, t.name, at.link_type, at.min, at.max
+        $sql->select('SELECT t.id, t.name, at.link_type, at.min, at.max
                           FROM link_attribute_type t
                           LEFT JOIN link_type_attribute_type at
                               ON t.id = at.attribute_type AND at.link_type = ?
                       WHERE t.parent IS NULL ORDER BY t.childorder, t.id', $id);
     }
     else {
-        $sql->Select('SELECT t.id, t.name FROM link_attribute_type t
+        $sql->select('SELECT t.id, t.name FROM link_attribute_type t
                       WHERE t.parent IS NULL ORDER BY t.childorder, t.id');
     }
     my @result;
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         push @result, {
             type   => $row->{id},
             active => $row->{link_type} ? 1 : 0,
@@ -85,7 +85,7 @@ sub get_attribute_type_list
             name   => $row->{name},
         };
     }
-    $sql->Finish;
+    $sql->finish;
 
     return \@result;
 }
@@ -97,10 +97,10 @@ sub insert
     my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     $row->{gid} = $values->{gid} || generate_gid();
-    my $id = $sql->InsertRow('link_type', $row, 'id');
+    my $id = $sql->insert_row('link_type', $row, 'id');
     if (exists $values->{attributes}) {
         foreach my $attrib (@{$values->{attributes}}) {
-            $sql->InsertRow('link_type_attribute_type', {
+            $sql->insert_row('link_type_attribute_type', {
                 link_type      => $id,
                 attribute_type => $attrib->{type},
                 min            => $attrib->{min},
@@ -118,12 +118,12 @@ sub update
     my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     if (%$row) {
-        $sql->Update('link_type', $row, { id => $id });
+        $sql->update_row('link_type', $row, { id => $id });
     }
     if (exists $values->{attributes}) {
-        $sql->Do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
+        $sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
         foreach my $attrib (@{$values->{attributes}}) {
-            $sql->InsertRow('link_type_attribute_type', {
+            $sql->insert_row('link_type_attribute_type', {
                 link_type      => $id,
                 attribute_type => $attrib->{type},
                 min            => $attrib->{min},
@@ -138,8 +138,8 @@ sub delete
     my ($self, $id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
-    $sql->Do('DELETE FROM link_type WHERE id = ?', $id);
+    $sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
+    $sql->do('DELETE FROM link_type WHERE id = ?', $id);
 }
 
 sub _hash_to_row

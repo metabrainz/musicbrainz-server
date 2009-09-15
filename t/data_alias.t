@@ -16,7 +16,7 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
 
 my $sql = Sql->new($c->dbh);
-$sql->Begin;
+$sql->begin;
 
 # Artist data should do the alias role
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
@@ -74,7 +74,7 @@ $artist_data->alias->delete(1);
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
-$sql->Commit;
+$sql->commit;
 
 # Make sure other data types support aliases
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);

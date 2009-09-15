@@ -14,7 +14,7 @@ sub create_collection
     my ($self, $user) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    return $sql->SelectSingleValue("INSERT INTO editor_collection (editor)
+    return $sql->select_single_value("INSERT INTO editor_collection (editor)
                                     VALUES (?) RETURNING id", $user->id);
 }
 
@@ -23,7 +23,7 @@ sub find_collection
     my ($self, $user) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    return $sql->SelectSingleValue("SELECT id FROM editor_collection
+    return $sql->select_single_value("SELECT id FROM editor_collection
                                     WHERE editor = ?", $user->id);
 }
 
@@ -32,8 +32,8 @@ sub add_release_to_collection
     my ($self, $collection_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->AutoCommit(1);
-    $sql->Do("INSERT INTO editor_collection_release (collection, release)
+    $sql->auto_commit;
+    $sql->do("INSERT INTO editor_collection_release (collection, release)
               VALUES (?, ?)", $collection_id, $release_id);
 }
 
@@ -42,8 +42,8 @@ sub remove_release_from_collection
     my ($self, $collection_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->AutoCommit(1);
-    $sql->Do("DELETE FROM editor_collection_release
+    $sql->auto_commit;
+    $sql->do("DELETE FROM editor_collection_release
               WHERE collection = ? AND release = ?",
               $collection_id, $release_id);
 }
@@ -53,7 +53,7 @@ sub check_release
     my ($self, $collection_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    return $sql->SelectSingleValue("
+    return $sql->select_single_value("
         SELECT 1 FROM editor_collection_release
         WHERE collection = ? AND release = ?",
         $collection_id, $release_id) ? 1 : 0;
@@ -67,13 +67,13 @@ sub merge_releases
 
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
     # a collection that already contain $new_id)
-    $sql->Do("DELETE FROM editor_collection_release
+    $sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@old_ids).") AND
                   collection IN (SELECT collection FROM editor_collection_release WHERE release = ?)",
               @old_ids, $new_id);
 
     # Move all remaining joins to the new release
-    $sql->Do("UPDATE editor_collection_release SET release = ?
+    $sql->do("UPDATE editor_collection_release SET release = ?
               WHERE release IN (".placeholders(@old_ids).")",
               $new_id, @old_ids);
 }
@@ -83,7 +83,7 @@ sub delete_releases
     my ($self, @ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do("DELETE FROM editor_collection_release
+    $sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@ids).")", @ids);
 }
 

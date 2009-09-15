@@ -116,22 +116,22 @@ sub search
     my $search_timeout = 60 * 1000;
 
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->AutoCommit(1);
-    $sql->Do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
-    $sql->AutoCommit(1);
-    $sql->Do('SET SESSION statement_timeout TO ?', $search_timeout);
+    $sql->auto_commit;
+    $sql->do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
+    $sql->auto_commit;
+    $sql->do('SET SESSION statement_timeout TO ?', $search_timeout);
 
     if ($use_hard_search_limit) {
-        $sql->Select($query, $query_str, $hard_search_limit, $offset);
+        $sql->select($query, $query_str, $hard_search_limit, $offset);
     }
     else {
-        $sql->Select($query, $query_str, $offset);
+        $sql->select($query, $query_str, $offset);
     }
 
     my @result;
     my $pos = $offset + 1;
     while ($limit--) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $res = MusicBrainz::Server::Entity::SearchResult->new(
             position => $pos++,
             score => int(100 * $row->{rank}),
@@ -139,8 +139,8 @@ sub search
         );
         push @result, $res;
     }
-    my $hits = $sql->Rows + $offset;
-    $sql->Finish;
+    my $hits = $sql->row_count + $offset;
+    $sql->finish;
     return (\@result, $hits);
 
 }

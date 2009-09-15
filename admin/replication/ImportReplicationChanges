@@ -138,8 +138,8 @@ sub ImportTable
 	{
 		open(LOAD, "<", $file) or die "open $file: $!";
 
-		$sql->Begin;
-		$sql->Do("COPY \"$table\" FROM stdin");
+		$sql->begin;
+		$sql->do("COPY \"$table\" FROM stdin");
 		my $dbh = $sql->{dbh};
 
 		$p->("", "");
@@ -165,7 +165,7 @@ sub ImportTable
 		close LOAD
 			or die $!;
 
-		$sql->Commit;
+		$sql->commit;
 
 		die "Error loading data"
 			if -f $file and empty($table);
@@ -178,7 +178,7 @@ sub ImportTable
 
 	return 1 unless $@;
 	warn "Error loading $file: $@";
-	$sql->Rollback;
+	$sql->rollback;
 
 	++$errors, return 0 if $fIgnoreErrors;
 	exit 1;
@@ -188,7 +188,7 @@ sub empty
 {
 	my $table = shift;
 
-	my $any = $sql->SelectSingleValue(
+	my $any = $sql->select_single_value(
 		"SELECT 1 FROM \"$table\" LIMIT 1",
 	);
 
@@ -197,14 +197,14 @@ sub empty
 
 sub ImportReplicationTables
 {
-	$sql->AutoCommit;
-	eval { $sql->Do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId"') };
-	$sql->AutoCommit;
-	eval { $sql->Do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey"') };
-	$sql->AutoCommit;
-	eval { $sql->Do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey"') };
+	$sql->auto_commit;
+	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId"') };
+	$sql->auto_commit;
+	eval { $sql->do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey"') };
+	$sql->auto_commit;
+	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey"') };
 
-	for my $table (qw( Pending PendingData )) 
+	for my $table (qw( Pending PendingData ))
     {
 		my $file = find_file($table);
 		$file or print("No data file found for '$table', skipping\n"), die;
@@ -218,11 +218,11 @@ sub ImportReplicationTables
         ImportTable($table, $file);
 	}
 
-	$sql->Begin;
-	$sql->Do('ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId")');
-	$sql->Do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey")');
-	$sql->Do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_SeqId" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
-	$sql->Commit;
+	$sql->begin;
+	$sql->do('ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId")');
+	$sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey")');
+	$sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_SeqId" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
+	$sql->commit;
 
     return 1;
 }
@@ -262,7 +262,7 @@ sub find_file
 				push @tmpdirs, $dir;
 				return $dir;
 			}
-			
+
 			use Errno 'EEXIST';
 			next if $! == EEXIST;
 

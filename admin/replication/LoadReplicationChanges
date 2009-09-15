@@ -99,9 +99,9 @@ my $sql = Sql->new($mb->{dbh});
 my $dbh = $mb->{dbh};
 
 # Retrieve current_schema_sequence and current_replication_sequence
- 
+
 my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
-	my $row = $sql->SelectSingleRowHash("SELECT * FROM replication_control");
+	my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
 	$row ||= {};
 	@$row{qw(
 		current_schema_sequence
@@ -130,7 +130,7 @@ unless (defined $iReplicationSequence)
 
 check_foreign_keys();
 
-if ($sql->SelectSingleValue('SELECT COUNT(*) FROM "Pending"'))
+if ($sql->select_single_value('SELECT COUNT(*) FROM "Pending"'))
 {
 	print localtime() . " : Continuing a previously aborted load\n";
 	goto APPLY_CHANGES;
@@ -280,7 +280,7 @@ exit $? if $?;
 $iNextReplicationSequence = $iReplicationSequence + 1
 	if not defined $iNextReplicationSequence;
 {
-	my $row = $sql->SelectSingleRowHash("SELECT * FROM replication_control");
+	my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
 	$row->{current_replication_sequence} == $iNextReplicationSequence
 		or die "Applied changes, but current_replication_sequence is $row->{current_replication_sequence} not $iNextReplicationSequence\n";
 	not defined($TIMESTAMP)
@@ -310,7 +310,7 @@ sub check_foreign_keys
 {
 	my %non_rep = map { $_ => 1 } NON_REPLICATED_TABLES;
 
-	my $fks = $sql->SelectListOfHashes("
+	my $fks = $sql->select_list_of_hashes("
 		SELECT	c.conname, a.relname AS fk_table, b.relname AS pk_table
 		FROM	pg_constraint c, pg_class a, pg_class b
 		WHERE	a.oid = c.conrelid
@@ -324,7 +324,7 @@ sub check_foreign_keys
 
 	for my $bad (@bad)
 	{
-		$bad->{fk_rows} = $sql->SelectSingleValue(
+		$bad->{fk_rows} = $sql->select_single_value(
 			"SELECT COUNT(*) FROM $bad->{fk_table}",
 		);
 	}
@@ -352,7 +352,7 @@ EOF
 	print "Empty the tables:\n";
 	printf "  DELETE FROM %s;\n", $_->{fk_table} for @bad;
 	print "\n";
-	
+
 	print localtime() . " : Replication abandoned\n";
 	exit 1;
 }

@@ -317,7 +317,7 @@ sub ArtistMissing
 	eval
 	{
 		$rawsql->Begin();
-		#$rawsql->Quiet(1);
+		#$rawsql->quiet(1);
 		$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
 	};
 	

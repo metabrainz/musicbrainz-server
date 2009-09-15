@@ -129,7 +129,7 @@ sub load_release_info
 {
     my (@ids) = @_;
 
-    my $data = $sql->SelectListOfHashes('
+    my $data = $sql->select_list_of_hashes('
         SELECT r.id, releasedate, c.name AS country, barcode, catno, l.name AS label, r.format
         FROM public.release r
             LEFT JOIN public.label l ON r.label = l.id
@@ -138,19 +138,19 @@ sub load_release_info
     return map { $_->{id} => $_ } @$data;
 }
 
-$sql->Begin;
+$sql->begin;
 eval {
 
 print STDERR "Loading attribute types\n";
 my %attr_id_map;
-$sql->Select("SELECT * FROM public.link_attribute_type");
+$sql->select("SELECT * FROM public.link_attribute_type");
 while (1) {
-    my $row = $sql->NextRowHashRef or last;
+    my $row = $sql->next_row_hash_ref or last;
     $attr_id_map{$row->{id}} = $row;
 }
-$sql->Finish;
+$sql->finish;
 
-$sql->Do("TRUNCATE link_attribute_type");
+$sql->do("TRUNCATE link_attribute_type");
 print STDERR "Inserting attribute types\n";
 foreach my $attr (values %attr_id_map) {
     next if $attr->{name} eq 'ROOT';
@@ -158,7 +158,7 @@ foreach my $attr (values %attr_id_map) {
     while ($root->{parent} > 0) {
         $root = $attr_id_map{$root->{parent}};
     }
-    $sql->Do("
+    $sql->do("
         INSERT INTO link_attribute_type
             (id, parent, root, childorder, gid, name, description)
             VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -167,12 +167,12 @@ foreach my $attr (values %attr_id_map) {
 }
 
 my %attr_map;
-$sql->Select("SELECT * FROM public.link_attribute_type WHERE parent=0");
+$sql->select("SELECT * FROM public.link_attribute_type WHERE parent=0");
 while (1) {
-    my $row = $sql->NextRowHashRef or last;
+    my $row = $sql->next_row_hash_ref or last;
     $attr_map{$row->{name}} = $row->{id};
 }
-$sql->Finish;
+$sql->finish;
 
 my @entity_types = (
     'album', 'artist', 'label', 'track', 'url',
@@ -268,8 +268,8 @@ my %album_ar_types = (
     },
 );
 
-$sql->Do("TRUNCATE link_type");
-$sql->Do("TRUNCATE link_type_attribute_type");
+$sql->do("TRUNCATE link_type");
+$sql->do("TRUNCATE link_type_attribute_type");
 my %link_type_map;
 foreach my $orig_t0 (@entity_types) {
     foreach my $orig_t1 (@entity_types) {
@@ -288,7 +288,7 @@ foreach my $orig_t0 (@entity_types) {
         else {
             push @new_t, [$new_t0, $new_t1];
         }
-        my $rows = $sql->SelectListOfHashes("SELECT * FROM public.lt_${orig_t0}_${orig_t1}");
+        my $rows = $sql->select_list_of_hashes("SELECT * FROM public.lt_${orig_t0}_${orig_t1}");
         my $i = 0;
         foreach my $t (@new_t) {
             ($new_t0, $new_t1) = @$t;
@@ -301,7 +301,7 @@ foreach my $orig_t0 (@entity_types) {
             print STDERR "Converting $orig_t0<=>$orig_t1 link types to $new_t0<=>$new_t1\n";
             # Generate IDs for new link types and save them in a global hash
             foreach my $row (@$rows) {
-                my $id = $sql->SelectSingleValue("SELECT nextval('link_type_id_seq')");
+                my $id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
                 $link_type_map{$key} = $id;
             }
@@ -331,7 +331,7 @@ foreach my $orig_t0 (@entity_types) {
                     $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/$id");
                     $gid = $uuid->export("str");
                 }
-                $sql->Do("
+                $sql->do("
                     INSERT INTO link_type
                         (id, parent, childorder, gid, name, description, linkphrase,
                         rlinkphrase, shortlinkphrase, priority, entitytype0,
@@ -343,7 +343,7 @@ foreach my $orig_t0 (@entity_types) {
                 foreach my $attr (split / /, $row->{attribute}) {
                     my ($name, $limits) = split /=/, $attr;
                     my ($min_l, $max_l) = split /-/, $limits;
-                    $sql->Do("
+                    $sql->do("
                         INSERT INTO link_type_attribute_type
                             (link_type, attribute_type, min, max)
                             VALUES (?, ?, ?, ?)
@@ -356,18 +356,18 @@ foreach my $orig_t0 (@entity_types) {
 
 print STDERR "Loading release group ID map\n";
 my %rg_id_map;
-$sql->Select("SELECT id, release_group FROM public.album");
+$sql->select("SELECT id, release_group FROM public.album");
 while (1) {
-    my $row = $sql->NextRowRef or last;
+    my $row = $sql->next_row_ref or last;
     $rg_id_map{$row->[0]} = $row->[1];
 }
-$sql->Finish;
+$sql->finish;
 
 print STDERR "Loading release ID map\n";
 my %release_id_map;
-$sql->Select("SELECT album, release FROM tmp_release_album");
+$sql->select("SELECT album, release FROM tmp_release_album");
 while (1) {
-    my $row = $sql->NextRowRef or last;
+    my $row = $sql->next_row_ref or last;
     if (exists $release_id_map{$row->[0]}) {
         push @{ $release_id_map{$row->[0]} }, $row->[1];
     }
@@ -375,10 +375,10 @@ while (1) {
         $release_id_map{$row->[0]} = [ $row->[1] ];
     }
 }
-$sql->Finish;
+$sql->finish;
 
-$sql->Do("TRUNCATE link");
-$sql->Do("TRUNCATE link_attribute");
+$sql->do("TRUNCATE link");
+$sql->do("TRUNCATE link_attribute");
 
 my $m_clean = 0;
 my $m_not_clean = 0;
@@ -394,7 +394,7 @@ foreach my $orig_t0 (@entity_types) {
         print STDERR "Converting $orig_t0 <=> $orig_t1 links\n";
 
         my %attribs;
-        my $rows = $sql->SelectListOfHashes("SELECT * FROM public.link_attribute WHERE link_type='${orig_t0}_${orig_t1}'");
+        my $rows = $sql->select_list_of_hashes("SELECT * FROM public.link_attribute WHERE link_type='${orig_t0}_${orig_t1}'");
         foreach my $row (@$rows) {
             my $link = $row->{link};
             if (!exists($attribs{$link})) {
@@ -407,7 +407,7 @@ foreach my $orig_t0 (@entity_types) {
 
         if ($orig_t0 eq "album" && $orig_t1 eq "url") {
             # Load also the URLs
-            $rows = $sql->SelectListOfHashes("
+            $rows = $sql->select_list_of_hashes("
                 SELECT l.*, url.url FROM public.l_${orig_t0}_${orig_t1} l
                 LEFT JOIN public.url ON l.link1=url.id");
             # Load Discogs URL data
@@ -422,7 +422,7 @@ foreach my $orig_t0 (@entity_types) {
             close(DISCOGS);
         }
         else {
-            $rows = $sql->SelectListOfHashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
+            $rows = $sql->select_list_of_hashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
         }
         my $i = 0;
         my $cnt = scalar(@$rows);
@@ -540,7 +540,7 @@ foreach my $orig_t0 (@entity_types) {
                 (scalar(@entity0) > 1 || scalar(@entity1) > 1)) {
                 #printf STDERR " ** Disambiguating %s and %s\n", join(',', @entity0), join(',', @entity1);
                 my @ids = (@entity0, @entity1);
-                my $rinfo = $sql->SelectListOfHashes('
+                my $rinfo = $sql->select_list_of_hashes('
                     SELECT id, releasedate, country, barcode, catno, label
                     FROM public.release r
                     WHERE r.id IN ('.placeholders(@ids).')', @ids);
@@ -665,11 +665,11 @@ foreach my $orig_t0 (@entity_types) {
             my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
             my $link_id;
             if (!exists($links{$key})) {
-                $link_id = $sql->SelectSingleValue("SELECT nextval('link_id_seq')");
+                $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
                 $links{$key} = $link_id;
                 my @begindate = split(/-/, $begindate);
                 my @enddate = split(/-/, $enddate);
-                $sql->Do("
+                $sql->do("
                     INSERT INTO link
                         (id, link_type, begindate_year, begindate_month, begindate_day,
                         enddate_year, enddate_month, enddate_day, attributecount)
@@ -683,7 +683,7 @@ foreach my $orig_t0 (@entity_types) {
                     ($enddate[2] + 0) || undef,
                     scalar(@attrs));
                 foreach my $attr (@attrs) {
-                    $sql->Do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                    $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
                         $link_id, $attr);
                 }
             }
@@ -700,7 +700,7 @@ foreach my $orig_t0 (@entity_types) {
                 $key = join("_", $link_id, $entity0, $entity1);
                 if (!exists($l_links{$key})) {
                     $l_links{$key} = 1;
-                    $sql->Do("INSERT INTO l_${new_t0}_${new_t1}
+                    $sql->do("INSERT INTO l_${new_t0}_${new_t1}
                         (link, entity0, entity1) VALUES (?, ?, ?)",
                         $link_id, $entity0, $entity1);
                     $n_links++;
@@ -715,10 +715,10 @@ foreach my $orig_t0 (@entity_types) {
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
 
-    $sql->Do("DROP TABLE tmp_release_album");
-    $sql->Commit;
+    $sql->do("DROP TABLE tmp_release_album");
+    $sql->commit;
 };
 if ($@) {
     printf STDERR "ERROR: %s\n", $@;
-    $sql->Rollback;
+    $sql->rollback;
 }

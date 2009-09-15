@@ -15,10 +15,10 @@ $mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->dbh);
 my $sql2 = Sql->new($mb->dbh);
 
-$sql->Begin;
+$sql->begin;
 eval {
 
-$sql->Do("
+$sql->do("
 
 CREATE TABLE tmp_artist_credit_repl
 (
@@ -36,7 +36,7 @@ SELECT a.id, a.name
 ");
 
 # Generate a table with all member artists
-$sql->Select("
+$sql->select("
     SELECT a.id, link1 AS collab_id, a.name AS name_id, an.name
     FROM public.l_artist_artist l
         JOIN artist a ON l.link0=a.id
@@ -44,7 +44,7 @@ $sql->Select("
     WHERE link_type=11 AND link1 IN (SELECT id FROM tmp_collabs)");
 my %members;
 while (1) {
-    my $row = $sql->NextRowHashRef or last;
+    my $row = $sql->next_row_hash_ref or last;
     if (!exists $members{$row->{collab_id}}) {
         $members{$row->{collab_id}} = [];
     }
@@ -52,7 +52,7 @@ while (1) {
 }
 
 # Generate a table with all aliases for member artists
-$sql->Select("
+$sql->select("
     SELECT a.artist AS id, a.name AS name_id, an.name
     FROM public.l_artist_artist l
         JOIN artist_alias a ON l.link0=a.artist
@@ -60,7 +60,7 @@ $sql->Select("
     WHERE link_type=11 AND link1 IN (SELECT id FROM tmp_collabs)");
 my %aliases;
 while (1) {
-    my $row = $sql->NextRowHashRef or last;
+    my $row = $sql->next_row_hash_ref or last;
     if (!exists $aliases{$row->{id}}) {
         $aliases{$row->{id}} = [];
     }
@@ -69,11 +69,11 @@ while (1) {
 
 open LOG, ">upgrade-artistcredit.log";
 
-$sql->Select("SELECT id, name FROM tmp_collabs");
+$sql->select("SELECT id, name FROM tmp_collabs");
 my $checked = 0;
-my $total = $sql->Rows;
+my $total = $sql->row_count;
 while (1) {
-    my $row = $sql->NextRowRef or last;
+    my $row = $sql->next_row_ref or last;
     my ($collab_id, $collab_name) = @$row;
 
     $checked += 1;
@@ -129,18 +129,18 @@ while (1) {
     next if $not_found;
 
     # There must be no other ARs
-    next if $sql2->SelectSingleValue("SELECT 1 FROM public.l_artist_artist l
+    next if $sql2->select_single_value("SELECT 1 FROM public.l_artist_artist l
                                       WHERE link_type!=11 AND link1=? LIMIT 1",
                                       $collab_id);
-    next if $sql2->SelectSingleValue("SELECT 1 FROM public.l_artist_artist l
+    next if $sql2->select_single_value("SELECT 1 FROM public.l_artist_artist l
                                       WHERE link0=? LIMIT 1", $collab_id);
-    next if $sql2->SelectSingleValue("SELECT 1 FROM public.l_artist_label l
+    next if $sql2->select_single_value("SELECT 1 FROM public.l_artist_label l
                                       WHERE link0=? LIMIT 1", $collab_id);
-    next if $sql2->SelectSingleValue("SELECT 1 FROM public.l_artist_track l
+    next if $sql2->select_single_value("SELECT 1 FROM public.l_artist_track l
                                       WHERE link0=? LIMIT 1", $collab_id);
-    next if $sql2->SelectSingleValue("SELECT 1 FROM public.l_album_artist l
+    next if $sql2->select_single_value("SELECT 1 FROM public.l_album_artist l
                                       WHERE link1=? LIMIT 1", $collab_id);
-    next if $sql2->SelectSingleValue("SELECT 1 FROM public.l_artist_url l
+    next if $sql2->select_single_value("SELECT 1 FROM public.l_artist_url l
                                       WHERE link0=? LIMIT 1", $collab_id);
 
     if ($checked % 100 == 1) {
@@ -195,7 +195,7 @@ while (1) {
 
     print LOG "Collaboration: ($collab_id) $collab_name\n";
 
-    my $ac_id = $sql2->SelectSingleValue("
+    my $ac_id = $sql2->select_single_value("
         INSERT INTO artist_credit (artistcount) VALUES (?)
         RETURNING id", scalar(@artists));
     foreach my $artist (@artists) {
@@ -203,40 +203,40 @@ while (1) {
         my $name_id = $artist->{name_id};
         unless ($name_id) {
             print LOG "    * Looking up name_id\n";
-            $name_id = $sql2->SelectSingleValue("
+            $name_id = $sql2->select_single_value("
                 SELECT id FROM artist_name WHERE name = ?",
                 $artist->{name});
             unless ($name_id) {
                 print LOG "    * Missing name_id\n";
-                $name_id = $sql2->SelectSingleValue("
+                $name_id = $sql2->select_single_value("
                     INSERT INTO artist_name (name) VALUES (?)
                     RETURNING id", $artist->{name});
             }
         }
-        $sql2->Do("INSERT INTO artist_credit_name (artist_credit, position,
+        $sql2->do("INSERT INTO artist_credit_name (artist_credit, position,
                    artist, name, joinphrase) VALUES (?, ?, ?, ?, ?)",
                    $ac_id, $artist->{position}, $artist->{artist},
                    $name_id, $artist->{joinphrase} || undef);
     }
 
-    $sql2->Do("INSERT INTO tmp_artist_credit_repl VALUES (?, ?)", $collab_id, $ac_id);
+    $sql2->do("INSERT INTO tmp_artist_credit_repl VALUES (?, ?)", $collab_id, $ac_id);
 
-    #$sql2->Do("UPDATE recording SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
-    #$sql2->Do("UPDATE release SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
-    #$sql2->Do("UPDATE release_group SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
-    #$sql2->Do("UPDATE track SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
-    #$sql2->Do("UPDATE work SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
+    #$sql2->do("UPDATE recording SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
+    #$sql2->do("UPDATE release SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
+    #$sql2->do("UPDATE release_group SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
+    #$sql2->do("UPDATE track SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
+    #$sql2->do("UPDATE work SET artist_credit=? WHERE artist_credit=?", $ac_id, $collab_id);
 
-    #$sql2->Do("DELETE FROM artist_credit WHERE id=?", $collab_id);
-    #$sql2->Do("DELETE FROM artist WHERE id=?", $collab_id);
+    #$sql2->do("DELETE FROM artist_credit WHERE id=?", $collab_id);
+    #$sql2->do("DELETE FROM artist WHERE id=?", $collab_id);
 }
-$sql->Finish;
+$sql->finish;
 
-$sql2->Do("DROP INDEX tmp_artist_name_name");
+$sql2->do("DROP INDEX tmp_artist_name_name");
 
-    $sql->Commit;
+    $sql->commit;
 };
 if ($@) {
     printf STDERR "ERROR: %s\n", $@;
-    $sql->Rollback;
+    $sql->rollback;
 }

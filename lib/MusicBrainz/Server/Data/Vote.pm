@@ -45,8 +45,8 @@ sub enter_votes
 
     my $sql = Sql->new($self->c->raw_dbh);
     my $query;
-    Sql::RunInTransaction(sub {
-        $sql->Do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
+    Sql::run_in_transaction(sub {
+        $sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
         # Filter votes on edits that are open and were not created by the voter
         my @edit_ids = map { $_->{edit_id} } @votes;
@@ -62,7 +62,7 @@ sub enter_votes
         $query = 'UPDATE vote SET superseded = TRUE' .
                  ' WHERE editor = ? AND superseded = FALSE AND edit IN (' . placeholders(@edit_ids) . ')'.
                  ' RETURNING edit, vote';
-        my $superseded = $sql->SelectListOfHashes($query, $editor_id, @edit_ids);
+        my $superseded = $sql->select_list_of_hashes($query, $editor_id, @edit_ids);
 
         my %delta;
         # Change the vote count delta for any votes that were changed
@@ -74,14 +74,14 @@ sub enter_votes
 
         # Select all the edits that have not yet received a no vote
         $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote != ?';
-        my $emailed = $sql->SelectSingleColumnArray($query, @edit_ids, $VOTE_NO);
+        my $emailed = $sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
         my %already_emailed = map { $_ => 1 } @$emailed;
 
         # Insert our new votes
         $query = 'INSERT INTO vote (editor, edit, vote) VALUES ';
         $query .= join ", ", (('(?, ?, ?)') x @votes);
         $query .= ' RETURNING edit, vote';
-        my $voted = $sql->SelectListOfHashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
+        my $voted = $sql->select_list_of_hashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
         my %edit_to_vote = map { $_->{edit} => $_->{vote} } @$voted;
         my @email_edit_ids = grep { $edit_to_vote{$_} == $VOTE_NO }
                              grep { !exists $already_emailed{$_} } @edit_ids;
@@ -94,7 +94,7 @@ sub enter_votes
 
             $query = 'UPDATE edit SET yesvotes = yesvotes + ?, novotes = novotes + ?' .
                      ' WHERE id = ?';
-            $sql->Do($query, $delta{ $id }->{yes} || 0, $delta{ $id }->{no} || 0, $id);
+            $sql->do($query, $delta{ $id }->{yes} || 0, $delta{ $id }->{no} || 0, $id);
         }
 
         # Send out the emails for no votes

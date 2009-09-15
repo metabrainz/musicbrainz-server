@@ -53,11 +53,11 @@ for $rel ($artist1->all_relationships) {
 }
 
 my $sql = Sql->new($c->dbh);
-$sql->Begin;
-$sql->Do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
+$sql->begin;
+$sql->do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
 # Merge ARs for artist #2 to #1
 $rel_data->merge_entities('artist', 1, 2);
-$sql->Commit;
+$sql->commit;
 
 $artist1->clear_relationships;
 $artist2->clear_relationships;
@@ -67,25 +67,25 @@ is( scalar($artist1->all_relationships), 3 );
 # Nothing left here
 is( scalar($artist2->all_relationships), 0 );
 
-$sql->Begin;
+$sql->begin;
 # Delete artist-recording AR with ID 4
 $rel_data->delete('artist', 'recording', 4);
-$sql->Commit;
+$sql->commit;
 
 $artist1->clear_relationships;
 $rel_data->load($artist1);
 is( scalar($artist1->all_relationships), 2 );
 
-$sql->Begin;
+$sql->begin;
 # Delete ARs for artist #2
 $rel_data->delete_entities('artist', 1);
-$sql->Commit;
+$sql->commit;
 
 $artist1->clear_relationships;
 $rel_data->load($artist1);
 is( scalar($artist1->all_relationships), 0, 'Relationship->delete deleted all ARs' );
 
-$sql->Begin;
+$sql->begin;
 $rel = $rel_data->insert('artist', 'recording', {
     link_type_id => 1,
     begin_date => { year => 2008, month => 2, day => 3 },
@@ -94,7 +94,7 @@ $rel = $rel_data->insert('artist', 'recording', {
     entity0_id => 1,
     entity1_id => 1
 });
-$sql->Commit;
+$sql->commit;
 is($rel->id, 100);
 
 $artist1->clear_relationships;
@@ -108,7 +108,7 @@ is_deeply($rel->link->begin_date, { year => 2008, month => 2, day => 3 });
 is_deeply($rel->link->end_date, { year => 2008, month => 2, day => 8 });
 is($rel->phrase, 'performed additional guitar and string instruments on');
 
-$sql->Begin;
+$sql->begin;
 $rel_data->update('artist', 'recording', 100, {
     link_type_id => 1,
     begin_date => undef,
@@ -117,7 +117,7 @@ $rel_data->update('artist', 'recording', 100, {
     entity0_id => 1,
     entity1_id => 1
 });
-$sql->Commit;
+$sql->commit;
 
 $artist1->clear_relationships;
 $rel_data->load($artist1);
@@ -133,16 +133,16 @@ is($rel->phrase, 'performed string instruments on');
 $rel = $rel_data->get_by_id('artist', 'recording', 100);
 is($rel->edits_pending, 0);
 
-$sql->Begin;
+$sql->begin;
 $rel_data->adjust_edit_pending('artist', 'recording', +1, 100);
-$sql->Commit;
+$sql->commit;
 
 $rel = $rel_data->get_by_id('artist', 'recording', 100);
 is($rel->edits_pending, 1);
 
-$sql->Begin;
+$sql->begin;
 $rel_data->adjust_edit_pending('artist', 'recording', -1, 100);
-$sql->Commit;
+$sql->commit;
 
 $rel = $rel_data->get_by_id('artist', 'recording', 100);
 is($rel->edits_pending, 0);

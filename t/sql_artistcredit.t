@@ -10,17 +10,17 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $sql = Sql->new($c->mb->{dbh});
-my $rc1 = $sql->SelectSingleValue("SELECT refcount FROM artist_name WHERE id=100");
-my $rc2 = $sql->SelectSingleValue("SELECT refcount FROM artist_name WHERE id=103");
+my $rc1 = $sql->select_single_value("SELECT refcount FROM artist_name WHERE id=100");
+my $rc2 = $sql->select_single_value("SELECT refcount FROM artist_name WHERE id=103");
 
 is ( $rc1, 2 );
 is ( $rc2, 1 );
 
-$sql->AutoCommit(1);
-$sql->Do("DELETE FROM artist_credit WHERE id=100");
+$sql->auto_commit(1);
+$sql->do("DELETE FROM artist_credit WHERE id=100");
 
-$rc1 = $sql->SelectSingleValue("SELECT refcount FROM artist_name WHERE id=100");
-$rc2 = $sql->SelectSingleValue("SELECT refcount FROM artist_name WHERE id=103");
+$rc1 = $sql->select_single_value("SELECT refcount FROM artist_name WHERE id=100");
+$rc2 = $sql->select_single_value("SELECT refcount FROM artist_name WHERE id=103");
 
 is ( $rc1, 2 );
 is ( $rc2, undef );

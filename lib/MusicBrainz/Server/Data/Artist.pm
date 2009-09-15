@@ -111,7 +111,7 @@ sub insert
         $row->{gid} = $artist->{gid} || generate_gid();
 
         push @created, $class->new(
-            id => $sql->InsertRow('artist', $row, 'id'),
+            id => $sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -125,7 +125,7 @@ sub update
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('artist', $row, { id => $artist_id });
+    $sql->update_row('artist', $row, { id => $artist_id });
 }
 
 sub delete
@@ -144,7 +144,7 @@ sub delete
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do($query, @artist_ids);
+    $sql->do($query, @artist_ids);
     return 1;
 }
 

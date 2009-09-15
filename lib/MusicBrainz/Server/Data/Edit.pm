@@ -61,7 +61,7 @@ sub get_max_id
     my ($self) = @_;
 
     my $sql = Sql->new($self->c->raw_dbh);
-    return $sql->SelectSingleValue("SELECT id FROM edit ORDER BY id DESC
+    return $sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
                                     LIMIT 1");
 }
 
@@ -109,10 +109,10 @@ sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->raw_dbh);
-    $sql->Do("DELETE FROM edit_$type
+    $sql->do("DELETE FROM edit_$type
               WHERE edit IN (SELECT edit FROM edit_$type WHERE $type = ?) AND
                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-    $sql->Do("UPDATE edit_$type SET $type = ?
+    $sql->do("UPDATE edit_$type SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
@@ -138,7 +138,7 @@ sub create
     $as_auto_edit = 0 if ($privs & $UNTRUSTED_FLAG);
     $edit->auto_edit($as_auto_edit);
     
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
         $edit->insert;
 
         # Automatically accept auto-edits on insert
@@ -160,7 +160,7 @@ sub create
             autoedit => $edit->auto_edit,
         };
 
-        my $edit_id = $sql_raw->InsertRow('edit', $row, 'id');
+        my $edit_id = $sql_raw->insert_row('edit', $row, 'id');
         $edit->id($edit_id);
 
         my $ents = $edit->related_entities;
@@ -168,7 +168,7 @@ sub create
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
             my @all_ids = ($edit_id) x @$ids;
-            $sql_raw->Do($query, zip @all_ids, @$ids); 
+            $sql_raw->do($query, zip @all_ids, @$ids); 
         }
 
         if ($edit->is_open) {
@@ -222,9 +222,9 @@ sub cancel
     my ($self, $edit) = @_;
     return unless $edit->is_open;
     my $sql_raw = Sql->new($self->c->raw_dbh);
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
-        $sql_raw->Do($query, $STATUS_TOBEDELETED, $edit->id);
+        $sql_raw->do($query, $STATUS_TOBEDELETED, $edit->id);
         $edit->adjust_edit_pending(-1);
    }, $sql_raw);
 }
@@ -235,10 +235,10 @@ sub _close
     return unless $edit->is_open;
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
         my $status = &$close_sub($edit);
         my $query = "UPDATE edit SET status = ?, closetime = NOW() WHERE id = ?";
-        $sql_raw->Do($query, $status, $edit->id);
+        $sql_raw->do($query, $status, $edit->id);
         $edit->adjust_edit_pending(-1);
         $self->c->model('Editor')->credit($edit->editor_id, $status);
     }, $sql, $sql_raw);

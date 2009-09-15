@@ -84,9 +84,9 @@ sub insert
     my ($self, $data) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    return Sql::RunInTransaction(sub {
+    return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
-            id => $sql->InsertRow('editor', $data, 'id'),
+            id => $sql->insert_row('editor', $data, 'id'),
             name => $data->{name},
             password => $data->{password},
             accepted_edits => 0,
@@ -102,16 +102,16 @@ sub update_email
     my ($self, $editor, $email) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
         if ($email) {
-            my $email_confirmation_date = $sql->SelectSingleValue(
+            my $email_confirmation_date = $sql->select_single_value(
                 'UPDATE editor SET email=?, emailconfirmdate=NOW()
                 WHERE id=? RETURNING emailconfirmdate', $email, $editor->id);
             $editor->email($email);
             $editor->email_confirmation_date($email_confirmation_date);
         }
         else {
-            $sql->Do('UPDATE editor SET email=NULL, emailconfirmdate=NULL
+            $sql->do('UPDATE editor SET email=NULL, emailconfirmdate=NULL
                       WHERE id=?', $editor->id);
             delete $editor->{email};
             delete $editor->{email_confirmation_date};
@@ -124,8 +124,8 @@ sub update_password
     my ($self, $editor, $password) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    Sql::RunInTransaction(sub {
-        $sql->Do('UPDATE editor SET password=? WHERE id=?',
+    Sql::run_in_transaction(sub {
+        $sql->do('UPDATE editor SET password=? WHERE id=?',
                  $password, $editor->id);
     }, $sql);
 }
@@ -135,8 +135,8 @@ sub update_profile
     my ($self, $editor, $website, $bio) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    Sql::RunInTransaction(sub {
-        $sql->Do('UPDATE editor SET website=?, bio=? WHERE id=?',
+    Sql::run_in_transaction(sub {
+        $sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
                  $website || undef, $bio || undef, $editor->id);
     }, $sql);
 }
@@ -152,7 +152,7 @@ sub load_preferences
     my ($self, $editor) = @_;
     my $query = "SELECT name, value FROM editor_preference WHERE editor = ?";
     my $sql = Sql->new($self->c->dbh);
-    my $prefs = $sql->SelectListOfHashes($query, $editor->id);
+    my $prefs = $sql->select_list_of_hashes($query, $editor->id);
     $editor->preferences(MusicBrainz::Server::Entity::Preferences->new());
     for my $pref (@$prefs) {
         my ($key, $value) = ($pref->{name}, $pref->{value});
@@ -166,14 +166,14 @@ sub save_preferences
     my ($self, $editor, $values) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
 
-        $sql->Do('DELETE FROM editor_preference WHERE editor = ?', $editor->id);
+        $sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor->id);
         my $preferences_meta = $editor->preferences->meta;
         foreach my $name (keys %$values) {
             my $default = $preferences_meta->get_attribute($name)->default;
             unless ($default eq $values->{$name}) {
-                $sql->InsertRow('editor_preference', {
+                $sql->insert_row('editor_preference', {
                     editor => $editor->id,
                     name   => $name,
                     value  => $values->{$name},
@@ -195,7 +195,7 @@ sub credit
     $column = "autoeditsaccepted" if $status == $STATUS_APPLIED && $as_autoedit;
     $column ||= "editsfailed";
     my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
-    $sql->Do($query, $editor_id);
+    $sql->do($query, $editor_id);
 }
 
 no Moose;

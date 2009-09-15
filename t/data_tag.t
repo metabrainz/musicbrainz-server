@@ -33,11 +33,11 @@ is( scalar(@$tags), 4 );
 my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
 
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 $tag_data->delete(4);
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 @tags = $tag_data->find_top_tags(4, 2);
 is( scalar(@tags), 0 );
@@ -72,11 +72,11 @@ is($tags->[1]->entity->name, 'Artist 1');
 #     (3, 4, 5)
 #     (4, 4, 2)
 
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 $tag_data->merge(3, 4);
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 #     (1, 3, 1)
 #     (1, 3, 2)
@@ -145,5 +145,5 @@ is( $tags[3]->count, 1 );
 is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
-$tags = $raw_sql->SelectSingleColumnArray("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
+$tags = $raw_sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
 is_deeply([5], $tags);

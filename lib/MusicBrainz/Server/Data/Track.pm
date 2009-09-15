@@ -123,7 +123,7 @@ sub update
     my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($track_hash->{name});
     my $row = $self->_create_row($track_hash, \%names);
-    $sql->Update('track', $row, { id => $track_id });
+    $sql->update_row('track', $row, { id => $track_id });
 }
 
 sub insert
@@ -136,7 +136,7 @@ sub insert
     for my $track_hash (@track_hashes) {
         my $row = $self->_create_row($track_hash, \%names);
         push @created, $class->new(
-            id => $sql->InsertRow('track', $row, 'id')
+            id => $sql->insert_row('track', $row, 'id')
         );
     }
     return @created > 1 ? @created : $created[0];
@@ -147,7 +147,7 @@ sub delete
     my ($self, @track_ids) = @_;
     my $query = 'DELETE FROM track WHERE id IN (' . placeholders(@track_ids) . ')';
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do($query, @track_ids);
+    $sql->do($query, @track_ids);
     return 1;
 }
 

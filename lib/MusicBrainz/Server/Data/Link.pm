@@ -51,15 +51,15 @@ sub get_by_ids
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
         my $sql = Sql->new($self->c->mb->dbh);
-        $sql->Select($query, @ids);
+        $sql->select($query, @ids);
         while (1) {
-            my $row = $sql->NextRowHashRef or last;
+            my $row = $sql->next_row_hash_ref or last;
             my $id = $row->{link};
             if (exists $data->{$id}) {
                 $data->{$id}->add_attribute(lc $row->{name}, lc $row->{value});
             }
         }
-        $sql->Finish;
+        $sql->finish;
     }
     return $data;
 }
@@ -109,7 +109,7 @@ sub find_or_insert
     my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
 
     my $sql = Sql->new($self->c->dbh);
-    my $id = $sql->SelectSingleValue($query, @args);
+    my $id = $sql->select_single_value($query, @args);
 
     return $id if defined $id;
 
@@ -119,10 +119,10 @@ sub find_or_insert
     };
     add_partial_date_to_row($row, $values->{begin_date}, "begindate");
     add_partial_date_to_row($row, $values->{end_date}, "enddate");
-    $id = $sql->InsertRow("link", $row, "id");
+    $id = $sql->insert_row("link", $row, "id");
 
     foreach my $attr (@attrs) {
-        $sql->InsertRow("link_attribute", {
+        $sql->insert_row("link_attribute", {
             link           => $id,
             attribute_type => $attr,
         });

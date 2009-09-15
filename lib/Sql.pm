@@ -1,186 +1,109 @@
-#!/usr/bin/perl -w
-# vi: set ts=4 sw=4 :
-#____________________________________________________________________________
-#
-#	MusicBrainz -- the open music metadata database
-#
-#	Copyright (C) 2001 Robert Kaye
-#
-#	This program is free software; you can redistribute it and/or modify
-#	it under the terms of the GNU General Public License as published by
-#	the Free Software Foundation; either version 2 of the License, or
-#	(at your option) any later version.
-#
-#	This program is distributed in the hope that it will be useful,
-#	but WITHOUT ANY WARRANTY; without even the implied warranty of
-#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#	GNU General Public License for more details.
-#
-#	You should have received a copy of the GNU General Public License
-#	along with this program; if not, write to the Free Software
-#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#	$Id$
-#____________________________________________________________________________
-
 package Sql;
+use Moose;
 
-use strict;
 use DBDefs;
-use Carp qw(cluck croak carp);
+use Carp qw( cluck croak carp );
+use TryCatch;
 use utf8 ();
 
-use constant SQL_DEBUG => 0;
+has 'debug' => (
+    isa => 'Bool',
+    is => 'rw',
+    default => sub { exists $ENV{SQL_DEBUG} && $ENV{SQL_DEBUG} }
+);
 
-sub new
+has 'dbh' => (
+    is => 'ro',
+    isa => 'DBI::db',
+    required => 1,
+    handles => [qw( errstr quote )],
+);
+
+has 'quiet' => (
+    isa => 'Bool',
+    is => 'rw',
+    default => 0,
+);
+
+has '_auto_commit' => (
+    isa => 'Bool',
+    is => 'rw',
+    default => 0
+);
+
+has 'sth' => (
+    is => 'rw',
+    handles => {
+        row_count => 'rows',
+        finish => 'finish',
+        next_row => 'fetchrow_array',
+        next_row_ref => 'fetch',
+        next_row_hash_ref => 'fetchrow_hashref',
+    },
+);
+
+sub BUILDARGS
 {
-	my ($type, $dbh) = @_;
-	my $this = {};
-
-	$this->{dbh} = $dbh;
-	$this->{Quiet} = 0;
-
-	bless $this, ref($type) || $type;
+    my ($self, $dbh) = @_;
+    croak "Missing required argument 'dbh'" unless defined $dbh;
+    return { dbh => $dbh };
 }
 
-sub Quiet
+sub auto_commit
 {
-	my ($this, $q) = @_;
-
-	$this->{Quiet} = $q;
+    my $self = shift;
+    carp 'auto_commit called while already in transaction' if $self->is_in_transaction;
+    $self->_auto_commit(1);
 }
 
-# Allow one auto commit transaction!
-sub AutoCommit
+sub is_in_transaction
 {
-	my ($this) = @_;
-	return carp('$sql->AutoCommit called inside a transaction')
-		if not $this->{dbh}{AutoCommit};
-    cluck('$sql->AutoCommit called twice')
-        if $this->{auto_commit_next_statement};
-	$this->{auto_commit_next_statement} = 1;
+    my $self = shift;
+    return !$self->dbh->{AutoCommit};
 }
 
-sub IsInTransaction
+sub select
 {
-	return !$_[0]->{dbh}{AutoCommit};
+    my ($self, $query, @params) = @_;
+    my $prepare_method = (@params ? "prepare_cached" : "prepare");
+
+    try {
+        my $tt = Sql::Timer->new($query, \@params) if $self->debug;
+
+        $self->sth( $self->dbh->$prepare_method($query) );
+        $self->sth->execute(@params);
+        return $self->sth->rows;
+    }
+    catch ($err) {
+        $self->finish;
+        croak "Failed query:\n\t'$query'\n\t(@params)\n$err\n" unless $self->quiet;
+    };
 }
 
-sub Quote
+sub do
 {
-	my ($this, $data) = @_;
-	my $r = $this->{dbh}->quote($data);
-	utf8::downgrade($r);
-	$r;
-}
+    my ($self, $query, @params) = @_;
 
-sub Select
-{
-	my ($this, $query, @params) = @_;
-	my ($ret, $t);
+    if ($self->_auto_commit == 0 && !$self->is_in_transaction) {
+        croak 'do called while not in transaction, or marked to auto commit';
+    }
 
-	my $prepare = (@params ? "prepare_cached" : "prepare");
+    my $prepare_method = (@params ? "prepare_cached" : "prepare");
 
-	$ret = eval
-	{
-		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		$this->{STH} = $this->{dbh}->$prepare($query);
-		$ret = $this->{STH}->execute(@params);
+    $self->_auto_commit(0) if $self->_auto_commit;
+    try {
+        my $tt = Sql::Timer->new($query, \@params) if $self->debug;
+        utf8::downgrade($_) for ($query, @params);
+        my $sth = $self->dbh->$prepare_method($query);
+        my $rows = $sth->execute(@params);
+        $sth->finish;
+        return $rows;
+    }
+    catch ($err) {
+        croak "Failed query:\n\t'$query'\n\t(@params)\n$err\n" unless $self->quiet;
+    };
 
-		return $this->{STH}->rows;
-	};
-	if ($@)
-	{
-		my $err = $@;
-
-		$this->{STH}->finish;
-		$this->{ERR} = $this->{dbh}->errstr;
-		cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
-			unless ($this->{Quiet});
-		die $err;
-	}
-	return $ret;
-}
-
-sub Finish
-{
-	my ($this) = @_;
-
-	$this->{STH}->finish if $this->{STH};
-}
-
-sub Rows
-{
-	my ($this) = @_;
-
-	$this->{STH}->rows;
-}
-
-sub NextRow
-{
-	my ($this) = @_;
-
-	return $this->{STH}->fetchrow_array;
-}
-
-sub NextRowRef
-{
-	my ($this) = @_;
-
-	return $this->{STH}->fetch;
-}
-
-sub NextRowHashRef
-{
-	my ($this) = @_;
-
-	return $this->{STH}->fetchrow_hashref;
-}
-
-sub GetError
-{
-	my ($this) = @_;
-
-	return $this->{ERR};
-}
-
-sub Do
-{
-	my ($this, $query, @params) = @_;
-	my $ret;
-
-	if ($this->{dbh}{AutoCommit})
-	{
-		# We're not in a transaction.  ->AutoCommit should be true.
-		# (Side-effect: clear ->AutoCommit).
-		delete $this->{auto_commit_next_statement}
-			or croak '$sql->Do called with neither $sql->Begin nor $sql->AutoCommit';
-	} else {
-		# We are in a transaction.	Check that ->AutoCommit is false.
-		not $this->{auto_commit_next_statement}
-			or croak '$sql->Do called with both $sql->Begin and $sql->AutoCommit';
-	}
-
-	my $prepare = (@params ? "prepare_cached" : "prepare");
-
-	$ret = eval
-	{
-		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		utf8::downgrade($query);
-		my $sth = $this->{dbh}->$prepare($query);
-		utf8::downgrade($_) for @params;
-		$sth->execute(@params);
-	};
-	if ($@)
-	{
-		my $err = $@;
-
-		$this->{ERR} = $this->{dbh}->errstr;
-		cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
-			unless ($this->{Quiet});
-		die $err;
-	}
-	return 0+$ret;
+    return 1;
 }
 
 # Insert a single row into a table, $tab; $row is a hash reference, where the
@@ -191,113 +114,97 @@ sub Do
 # using ->GetLastInsertId.  If the table has no auto-id field, call this in
 # void context.
 
-sub InsertRow
+sub insert_row
 {
-	my ($this, $tab, $row, $returning) = @_;
-	(ref($row) eq "HASH" and %$row)
-		or croak "Missing or empty row";
+    my ($self, $table, $row, $returning) = @_;
 
-	my (@columns, @expressions, @values);
+    unless (ref($row) eq 'HASH' && %$row) {
+        croak 'Cannot insert a missing or empty row';
+    }
 
-	while (my ($k, $v) = each %$row)
-	{
-		push @columns, $k;
-		push(@expressions, $$v), next
-			if ref $v eq 'SCALAR';
-		push @expressions, "?";
-		push @values, $v;
-	}
+    my (@columns, @expressions, @values);
+    while (my ($col, $val) = each %$row) {
+        push @columns, $col;
+        if (ref $val eq 'SCALAR') {
+            push(@expressions, $$val);
+        }
+        else {
+            push @expressions, "?";
+            push @values, $val;
+        }
+    }
 
-	local $" = ", ";
-    my $query = "INSERT INTO $tab (@columns) VALUES (@expressions)";
-    $query .= " RETURNING $returning" if $returning;
-	my $id = $returning
-        ? $this->SelectSingleValue($query, @values)
-        : $this->Do($query, @values);
+    my $query = "INSERT INTO $table (" . join(',', @columns) .') VALUES (' .
+                join(',', @expressions) . ')';
 
-	return if not defined wantarray;
-    return $id;
+    if ($returning) {
+        $query .= " RETURNING $returning";
+        return $self->select_single_value($query, @values);
+    }
+    else {
+        $self->do($query, @values);
+    }
 }
 
-sub Update
+sub update_row
 {
     my ($self, $table, $update, $conditions) = @_;
     my @update_columns = keys %$update;
     my @condition_columns = keys %$conditions;
 
-    if(@update_columns == 0) {
-        carp "Sql->Update called with no columns to update!";
-        return;
-    }
+    croak 'update_row called with no columns to update' unless @update_columns;
+    croak 'update_row called with no where clause' unless @condition_columns;
 
     my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
                 ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
-    $self->Do($query,
+    $self->do($query,
         (map { $update->{$_} } @update_columns),
         (map { $conditions->{$_} } @condition_columns));
 }
 
-sub Begin
+sub begin
 {
-	my $this = $_[0];
-	carp '$sql->Begin called while $sql->AutoCommit still active'
-		if delete $this->{auto_commit_next_statement};
-	croak '$sql->Begin called while already in a transaction'
-        if not $this->{dbh}{AutoCommit};
-	$this->{dbh}->{AutoCommit} = 0;
+    my $self = shift;
+    carp 'begin called while auto_commit still active' if $self->_auto_commit;
+    croak 'begin called while already in a transaction' if $self->is_in_transaction;
+    $self->dbh->{AutoCommit} = 0;
 }
 
-sub Commit
+sub commit
 {
-	my $this = $_[0];
+    my $self = shift;
+    croak 'commit called without begin' unless $self->is_in_transaction;
 
-	croak '$sql->Commit called without $sql->Begin'
-		if $this->{dbh}->{AutoCommit};
-
-	my $ret = eval
-	{
-		my $rv = $this->{dbh}->commit;
-		cluck("Commit failed") if ($rv eq '' && !$this->{Quiet});
-		return $rv;
-	};
-
-	if ($@)
-	{
-		my $err = $@;
-		cluck($err) unless ($this->{Quiet});
-		eval { $this->Rollback };
-		$this->{dbh}{AutoCommit} = 1;
-		die $err;
-	}
-
-	$this->{dbh}{AutoCommit} = 1;
-	return $ret;
+    try {
+        my $rv = $self->dbh->commit;
+        cluck "Commit failed" if ($rv eq '' && !$self->quiet);
+        $self->dbh->{AutoCommit} = 1;
+        return $rv;
+    }
+    catch ($err) {
+        $self->dbh->{AutoCommit} = 1;
+        cluck $err unless ($self->quiet);
+        eval { $self->rollback };
+        croak $err;
+    }
 }
 
-sub Rollback
+sub rollback
 {
-	my $this = $_[0];
+    my $self = shift;
+    croak 'rollback called without begin' unless $self->is_in_transaction;
 
-	croak '$sql->Rollback called without $sql->Begin'
-		if $this->{dbh}->{AutoCommit};
-
-	my $ret = eval
-	{
-		my $rv = $this->{dbh}->rollback;
-		cluck("Rollback failed") if ($rv eq '' && !$this->{Quiet});
-		return $rv;
-	};
-
-    $this->{dbh}{AutoCommit} = 1;
-
-	if ($@)
-	{
-		my $err = $@;
-		cluck($err) unless ($this->{Quiet});
-		die $err;
-	}
-
-	return $ret;
+    try {
+        my $rv = $self->dbh->rollback;
+        cluck "Rollback failed" if ($rv eq '' && !$self->quiet);
+        $self->dbh->{AutoCommit} = 1;
+        return $rv;
+    }
+    catch ($err) {
+        $self->dbh->{AutoCommit} = 1;
+        cluck $err unless $self->quiet;
+        croak $err;
+    }
 }
 
 # AutoTransaction: call back the given code reference,
@@ -305,98 +212,63 @@ sub Rollback
 # if required (i.e. if we are not already in a transaction).
 # Calling context is preserved.	 Exceptions may be thrown.
 
-sub AutoTransaction
+sub auto_transaction
 {
-	my ($self, $sub) = @_;
-	# If we're already in a transaction, just run the code.
-	return &$sub if not $self->{dbh}{AutoCommit};
+    my ($self, $sub) = @_;
 
-	# Otherwise, Begin, run the code, and Commit.  Rollback if anything
-	# false.  Always leave the transaction closed.
-	my ($r, @r);
-	my $w = wantarray;
+    # If we're already in a transaction, just run the code.
+    return &$sub if $self->is_in_transaction;
 
-	eval {
-		$self->Begin;
-
-		@r = &$sub() if $w;
-		$r = &$sub() if defined $w and not $w;
-		&$sub() if not defined $w;
-
-		$self->Commit;
-		1;
-	} or do {
-		my $e = $@;
-		eval { $self->Rollback };
-		die $e;
-	};
-
-	($w ? @r : $r);
+    # Otherwise, do a normal auto-transaction
+    _auto_transaction($sub, $self);
 }
 
-sub _RunInTransaction_one
+sub _auto_transaction {
+    my ($sub, @sql) = @_;
+
+    $_->begin for @sql;
+    my $w = wantarray;
+    try {
+        my (@r, $r);
+
+        @r = &$sub() if $w;
+        $r = &$sub() if defined $w and not $w;
+        &$sub() if not defined $w;
+
+        $_->commit for @sql;
+
+        return $w ? @r : $r;
+    }
+    catch ($err) {
+        for my $sql (@sql) {
+            eval { $sql->rollback };
+        }
+        croak $err;
+    }
+}
+
+sub _run_in_transaction_one
 {
     my ($sub, $sql) = @_;
-
-    my ($r, @r);
-    my $w = wantarray;
-
-    $sql->Begin;
-    eval {
-
-        @r = &$sub() if $w;
-        $r = &$sub() if defined $w and not $w;
-        &$sub() if not defined $w;
-
-        $sql->Commit;
-    };
-    if ($@) {
-        my $e = $@;
-        eval { $sql->Rollback };
-        die $e;
-    }
-
-    return ($w ? @r : $r);
+    return _auto_transaction($sub, $sql);
 }
 
-sub _RunInTransaction_two
+# XXX use two-phase commit
+sub _run_in_transaction_two
 {
     my ($sub, $sql_1, $sql_2) = @_;
-
-    my ($r, @r);
-    my $w = wantarray;
-
-    $sql_1->Begin;
-    $sql_2->Begin;
-    eval {
-
-        @r = &$sub() if $w;
-        $r = &$sub() if defined $w and not $w;
-        &$sub() if not defined $w;
-
-        # XXX use two-phase commit
-        $sql_1->Commit;
-        $sql_2->Commit;
-    };
-    if ($@) {
-        my $e = $@;
-        eval { $sql_1->Rollback };
-        eval { $sql_2->Rollback };
-        die $e;
-    }
-
-    return ($w ? @r : $r);
+    return _auto_transaction($sub, $sql_1, $sql_2);
 }
 
-sub RunInTransaction
+sub run_in_transaction
 {
     my ($sub, $sql_1, $sql_2) = @_;
 
     if (!defined $sql_2 || $sql_1 == $sql_2) {
-        return _RunInTransaction_one($sub, $sql_1);
+        return _run_in_transaction_one($sub, $sql_1);
     }
     else {
-        return _RunInTransaction_two($sub, $sql_1, $sql_2);
+        return _run_in_transaction_two($sub, $sql_1, $sql_2);
     }
 }
 
@@ -404,307 +276,258 @@ sub RunInTransaction
 # timeout?
 sub is_timeout
 {
-	$_[1] =~ /(?:Query was cancelled|canceling query|statement timeout)/i;
+    my ($self, $error) = @_;
+    return $error =~ /(?:Query was cancelled|canceling query|statement timeout)/i;
 }
 
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,
 # run the given SELECT query using prepare_cached, retrieve the required data,
 # and then "finish" the statement handle.
 
-# Run a SELECT query.  Depending on the number of resulting rows:
-# 0 rows: return "undef".
-# >1 row: raise an error.
-# 1 row: return a reference to a hash containing the row data.
-
-sub SelectSingleRowHash
+sub _select_single_row
 {
-	my ($this, $query, @params) = @_;
-	
-	croak "No DBH!" unless $this->{dbh};
+    my ($self, $query, $params, $type) = @_;
 
-	my $row = eval
-	{
-		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{dbh}->prepare_cached($query);
-		my $rv = $sth->execute(@params)
-			or die;
-		my $firstRow = $sth->fetchrow_hashref;
-		my $nextRow = $sth->fetchrow_hashref
-			if $firstRow;
-		$sth->finish;
-		die "Query in SelectSingleRowHash returned more than one row"
-			if $nextRow;
-		$firstRow;
-	};
+    my $method = "fetchrow_$type";
+    my @params = @$params;
 
-	return $row unless $@;
+    try {
+        my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-	my $err = $@;
-	$this->{ERR} = $this->{dbh}->errstr;
-	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
-		unless ($this->{Quiet});
-	die $err;
+        my $sth = $self->dbh->prepare_cached($query);
+        my $rv  = $sth->execute(@params) or croak 'Could not execute query';
+
+        my $first_row = $sth->$method;
+        my $next_row  = $sth->$method if $first_row;
+
+        $sth->finish;
+        croak 'Query returned more than one row (expected 1 row)' if $next_row;
+
+        return $first_row;
+    }
+    catch ($err) {
+	cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
+            unless $self->quiet;
+        croak $err;
+    };
 }
 
-# Run a SELECT query.  Depending on the number of resulting rows:
-# 0 rows: return "undef".
-# >1 row: raise an error.
-# 1 row: return a reference to an array containing the row data.
-
-sub SelectSingleRowArray
+sub select_single_row_hash
 {
-	my ($this, $query, @params) = @_;
-	
-	croak "No DBH!" unless $this->{dbh};
+    my ($self, $query, @params) = @_;
+    return $self->_select_single_row($query, \@params, 'hashref');
+}
 
-	my $row = eval
-	{
-		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{dbh}->prepare_cached($query);
-		my $rv = $sth->execute(@params)
-			or die;
-		my $firstRow = $sth->fetchrow_arrayref;
-		my $nextRow = $sth->fetchrow_arrayref
-			if $firstRow;
-		$sth->finish;
-		die "Query in SelectSingleRowArray returned more than one row"
-			if $nextRow;
-		$firstRow;
-	};
 
-	return $row unless $@;
-
-	my $err = $@;
-	$this->{ERR} = $this->{dbh}->errstr;
-	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
-		unless ($this->{Quiet});
-	die $err;
+sub select_single_row_array
+{
+    my ($self, $query, @params) = @_;
+    return $self->_select_single_row($query, \@params, 'arrayref');
 }
 
 # Run a SELECT query.  Depending on the number of resulting columns:
 # >1 column (and at least one row): raise an error.
 # otherwise: return a reference to an array containing the column data.
-
-sub SelectSingleColumnArray
+sub select_single_column_array
 {
-	my ($this, $query, @params) = @_;
-	
-	croak "No DBH!" unless $this->{dbh};
+    my ($self, $query, @params) = @_;
 
-	my $col = eval
-	{
-		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{dbh}->prepare_cached($query);
-		my $rv = $sth->execute(@params)
-			or die;
+    my $rows = $self->select_list_of_lists($query, @params);
+    return [] unless @$rows;
 
-		my @vals;
+    croak 'Query returned multiple columns' if @{ $rows->[0] } > 1;
 
-		for (;;)
-		{
-			my @row	 = $sth->fetchrow_array
-				or last;
-			die unless @row == 1;
-			push @vals, $row[0];
-		}
-
-		$sth->finish;
-
-		\@vals;
-	};
-
-	return $col unless $@;
-
-	my $err = $@;
-	$this->{ERR} = $this->{dbh}->errstr;
-	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
-		unless ($this->{Quiet});
-	die $err;
+    return [ map { $_->[0] } @$rows ];
 }
 
 # Run a SELECT query.  Must return either no data (return "undef"), or exactly
 # one row, one column (return that value).
 
-sub SelectSingleValue
+sub select_single_value
 {
-	my ($this, $query, @params) = @_;
-	
-	croak "No DBH!" unless $this->{dbh};
-	
-	my $row = $this->SelectSingleRowArray($query, @params);
-	$row or return undef;
+    my ($self, $query, @params) = @_;
 
-	return $row->[0] unless @$row != 1;
-
-	cluck("Failed query:\n	'$query'\n	(@params)\nmore than one column\n")
-		unless ($this->{Quiet});
-	die "Query in SelectSingleValue returned more than one column";
+    my $row = $self->select_single_column_array($query, @params);
+    return unless $row;
+    return $row->[0];
 }
+
+sub _select_list
+{
+    my ($self, $query, $params, $type, $form_row) = @_;
+    $form_row ||= sub { shift };
+
+    my $method = "fetchrow_$type";
+    my @params = @$params;
+
+    try {
+        my $tt = Sql::Timer->new($query, $params) if $self->debug;
+
+        my $sth = $self->dbh->prepare_cached($query);
+        my $rv  = $sth->execute(@params) or croak 'Could not execute query';
+
+        my @vals;
+        while(my $row = $sth->$method) {
+            push @vals, $form_row->($row);
+        }
+
+        $sth->finish;
+        return \@vals;
+    }
+    catch ($err) {
+	cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
+            unless $self->quiet;
+        croak $err;
+    };
+}
+
 
 # Run a SELECT query.  Return a reference to an array of rows, where each row
 # is a reference to an array of columns.
 
-sub SelectListOfLists
+sub select_list_of_lists
 {
-	my ($this, $query, @params) = @_;
-	
-	croak "No DBH!" unless $this->{dbh};
+    my ($self, $query, @params) = @_;
 
-	my $data = eval
-	{
-		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{dbh}->prepare_cached($query);
-		my $rv = $sth->execute(@params)
-			or croak;
+    # http://search.cpan.org/~timb/DBI-1.609/DBI.pm#fetchrow_arrayref
+    # "Note that the same array reference is returned for each fetch"
+    # -- we need different arary refs! (aCiD2)
+    my $form_row = sub {
+        my $row = shift;
+        return [ @$row ];
+    };
 
-		my @vals;
-
-		for (;;)
-		{
-			my @row	 = $sth->fetchrow_array
-				or last;
-			push @vals, \@row;
-		}
-
-		$sth->finish;
-
-		\@vals;
-	};
-
-	return $data unless $@;
-
-	my $err = $@;
-	$this->{ERR} = $this->{dbh}->errstr;
-	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
-		unless ($this->{Quiet});
-	die $err;
+    $self->_select_list($query, \@params, 'arrayref', $form_row);
 }
 
 # Run a SELECT query.  Return a reference to an array of rows, where each row
 # is a reference to a hash of the column data.
 
-sub SelectListOfHashes
+sub select_list_of_hashes
 {
-	my ($this, $query, @params) = @_;
-	
-	croak "No DBH!" unless $this->{dbh};
-
-	my $data = eval
-	{
-		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{dbh}->prepare_cached($query);
-		my $rv = $sth->execute(@params)
-			or die;
-
-		my @vals;
-
-		for (;;)
-		{
-			my $row = $sth->fetchrow_hashref
-				or last;
-			push @vals, $row;
-		}
-
-		$sth->finish;
-
-		\@vals;
-	};
-
-	return $data unless $@;
-
-	my $err = $@;
-	$this->{ERR} = $this->{dbh}->errstr;
-	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
-		unless ($this->{Quiet});
-	die $err;
+    my ($self, $query, @params) = @_;
+    $self->_select_list($query, \@params, 'hashref');
 }
 
-# Return the min/max values (in scalar context, the max only)
-# of a column in one or more tables.
-
-sub GetColumnRange
+sub get_column_range
 {
-	my ($self, $tables, $column, $cmpfunc) = @_;
-	$tables = [ $tables ] if not ref $tables;
-	$column = "id" if not defined $column;
-	$cmpfunc ||= sub { $_[0] <=> $_[1] };
+    my ($self, $tables, $column, $cmpfunc) = @_;
+    $tables = [ $tables ] if not ref $tables;
+    $column = "id" if not defined $column;
+    $cmpfunc ||= sub { $_[0] <=> $_[1] };
 
-	# Postgres is poor at optimising SELECT MIN(id) FROM table
-	# (or MAX).  It uses a table scan, instead of an index scan.
-	# However for the following queries it gets it right:
+    # Postgres is poor at optimising SELECT MIN(id) FROM table
+    # (or MAX).  It uses a table scan, instead of an index scan.
+    # However for the following queries it gets it right:
 
-	my ($min, $max) = (undef, undef);
-	for my $table (@$tables)
-	{
-		my $thismin = $self->SelectSingleValue(
-			"SELECT $column FROM $table ORDER BY 1 ASC LIMIT 1",
-		);
-		$min = $thismin
-			if defined($thismin)
-			and (not defined($min) or &$cmpfunc($thismin, $min)<0);
+    my ($min, $max);
+    for my $table (@$tables) {
+        my $thismin = $self->select_single_value(
+            "SELECT $column FROM $table ORDER BY 1 ASC LIMIT 1",
+        );
+        $min = $thismin
+            if defined($thismin)
+                and (not defined($min) or &$cmpfunc($thismin, $min)<0);
 
-		my $thismax = $self->SelectSingleValue(
-			"SELECT $column FROM $table ORDER BY 1 DESC LIMIT 1",
-		);
-		$max = $thismax
-			if defined($thismax)
-			and (not defined($max) or &$cmpfunc($thismax, $max)>0);
-	}
+        my $thismax = $self->select_single_value(
+            "SELECT $column FROM $table ORDER BY 1 DESC LIMIT 1",
+        );
+        $max = $thismax
+            if defined($thismax)
+                and (not defined($max) or &$cmpfunc($thismax, $max)>0);
+    }
 
-	return ($min, $max);
+    return ($min, $max);
 }
 
 ################################################################################
 
 package Sql::Timer;
+use Moose;
 
 use Time::HiRes qw( gettimeofday tv_interval );
 
-sub new
+has 'sql' => (
+    isa => 'Str',
+    is => 'rw'
+);
+
+has 'args' => (
+    is => 'ro'
+);
+
+has 'file' => (
+    isa => 'Str',
+    is => 'ro',
+);
+
+has 'line_number' => (
+    isa => 'Num',
+    is => 'ro'
+);
+
+has 't0' => (
+    isa => 'ArrayRef',
+    is => 'ro'
+);
+
+sub BUILDARGS
 {
-	my ($class, $sql, $args) = @_;
+    my ($self, $sql, $args) = @_;
 
-	#printf STDERR "Starting SQL: \"%s\" (%s)\n",
-	#	 $sql, join(", ", @$args);
+    my $i = 0;
+    my $c;
+    while($i < 10) {
+        $c = [ (caller(++$i)) ];
+        last unless $c->[1] eq __FILE__;
+    }
 
-	bless {
-		SQL => $sql,
-		ARGS => $args,
-		CALLER => [ caller(1) ],
-		T0 => [ gettimeofday ],
-	}, ref($class) || $class;
+    return {
+        sql => $sql,
+        args => $args,
+        file => $c->[1],
+        line_number => $c->[2],
+        t0 => [ gettimeofday ],
+    };
 }
 
-sub DESTROY
+sub DEMOLISH
 {
-	my $self = shift;
-	my $t = tv_interval($self->{T0});
-	$self->{SQL} =~ s/\s+/ /sg;
+    my $self = shift;
+    my $t = tv_interval($self->t0);
+    my $sql = $self->sql;
+    $sql =~ s/\s+/ /sg;
 
-	# Uncomment this if you're only interested in queries which take longer
-	# than $somelimit
-	#return if $t < 0.1;
+    # Uncomment this if you're only interested in queries which take longer
+    # than $somelimit
+    #return if $t < 0.1;
 
-	local $" = ", ";
-	my $msg = sprintf "SQL: %8.4fs \"%s\" (%s)",
-		$t,
-		$self->{SQL},
-		join(", ", @{ $self->{ARGS} }),
-		;
+    local $" = ", ";
+    my $msg = sprintf "SQL: %8.4fs \"%s\" (%s)", $t,
+        $sql, join(", ", @{ $self->args });
 
-	# Is there a way of doing this using Carp?
-	my $i = 1;
-	{
-		my @c = caller($i)
-			or return warn $msg;
-		++$i, redo if $c[0] =~ /^Sql($|::Timer$)/;
-        # RUAOK: This used to be output with LogFile, but that forced the inclusion of 
-        # the Apache per modules wich is a bit much for installing a DB only server
-        # Besides, now postgres has better query tuning support than this function. :-)
-		print STDERR "sql: $msg at $c[1] line $c[2]\n";
-        return;
-	}
+    printf STDERR "sql: %s at %s line %d\n", $msg, $self->file, $self->line_number;
 }
 
 1;
-# eof Sql.pm
+
+=head1 LICENSE
+
+Copyright (C) 2001 Robert Kaye
+Copyright (C) 2009 Oliver Charles
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

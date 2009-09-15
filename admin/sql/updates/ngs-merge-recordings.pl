@@ -197,14 +197,14 @@ sub process_tracks
     #printf STDERR "-------------------------------\n";
 }
 
-Sql::RunInTransaction(sub {
+Sql::run_in_transaction(sub {
 
     open LOG, ">upgrade-merge-recordings.log";
 
     # Use 'first track release' track-track ARs
     printf STDERR "Processing 'first track release' ARs\n";
 
-    $sql->Select("
+    $sql->select("
         SELECT link0, link1
         FROM public.l_track_track l
             JOIN public.track r0 ON r0.id = l.link0
@@ -213,17 +213,17 @@ Sql::RunInTransaction(sub {
             abs(r0.length - r1.length) < 5000
         ");
     while (1) {
-        my $link = $sql->NextRowRef or last;
+        my $link = $sql->next_row_ref or last;
         add_merge($link->[0], $link->[1]);
         $targets{$link->[0]} = 1;
         #printf LOG "Same track: $old_id => $new_id\n";
     }
-    $sql->Finish;
+    $sql->finish;
 
     # Use 'transliteration' album-album ARs
     printf STDERR "Processing 'transliteration' ARs\n";
 
-    $sql->Select("
+    $sql->select("
         SELECT link0, link1
         FROM public.l_album_album l
             JOIN public.album a0 ON a0.id = l.link0
@@ -236,12 +236,12 @@ Sql::RunInTransaction(sub {
         ");
     my $j = 0;
     while (1) {
-        my $link = $sql->NextRowRef or last;
+        my $link = $sql->next_row_ref or last;
         my ($new_album_id, $old_album_id) = @$link;
         printf STDERR "$j\r";
         $j += 1;
 
-        my $tracks = $sql2->SelectListOfLists("
+        my $tracks = $sql2->select_list_of_lists("
             SELECT t.id, t.length, aj.album
             FROM public.albumjoin aj
                 JOIN public.track t ON t.id = aj.track
@@ -272,15 +272,15 @@ Sql::RunInTransaction(sub {
         }
 
     }
-    $sql->Finish;
+    $sql->finish;
 
     # Use PUIDs
     printf STDERR "Processing PUIDs\n";
 
     printf STDERR " - Loading album types\n";
-    $sql->Select("SELECT id, attributes FROM public.album");;
+    $sql->select("SELECT id, attributes FROM public.album");;
     while (1) {
-        my $row = $sql->NextRowRef or last;
+        my $row = $sql->next_row_ref or last;
         my ($id, $attributes) = @$row;
         my $type = 0;
         my $status = 0;
@@ -294,10 +294,10 @@ Sql::RunInTransaction(sub {
         }
         $album_type{$id} = ($status << 8) | $type;
     }
-    $raw_sql->Finish;
+    $raw_sql->finish;
 
     printf STDERR " - Loading PUIDs with multiple tracks\n";
-    $sql->Select("
+    $sql->select("
         SELECT p.puid, t.id, t.name, t.artist, t.length, a.album
         FROM public.track t
             JOIN public.albumjoin a ON a.track=t.id
@@ -312,21 +312,21 @@ Sql::RunInTransaction(sub {
     my @tracks;
     my $last_puid = 0;
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         if ($row->{puid} != $last_puid) {
             process_tracks([ @tracks ]) if @tracks;
             $last_puid = $row->{puid};
             undef @tracks;
-            printf STDERR "%d/%d\r", $i, $sql->Rows;
+            printf STDERR "%d/%d\r", $i, $sql->row_count;
         }
         push @tracks, $row;
         $i += 1;
     }
     process_tracks([ @tracks ]) if @tracks;
-    $sql->Finish;
+    $sql->finish;
 
     printf STDERR "Processing ISRCs with multiple tracks\n";
-    $sql->Select("
+    $sql->select("
         SELECT p.isrc, t.id, t.name, t.artist, t.length, a.album
         FROM public.track t
             JOIN public.albumjoin a ON a.track=t.id
@@ -340,18 +340,18 @@ Sql::RunInTransaction(sub {
     $i = 1;
     my $last_isrc = '';
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         if ($row->{isrc} ne $last_isrc) {
             process_tracks([ @tracks ]) if @tracks;
             $last_isrc = $row->{isrc};
             undef @tracks;
-            printf STDERR "%d/%d\r", $i, $sql->Rows;
+            printf STDERR "%d/%d\r", $i, $sql->row_count;
         }
         push @tracks, $row;
         $i += 1;
     }
     process_tracks([ @tracks ]) if @tracks;
-    $sql->Finish;
+    $sql->finish;
 
     undef @tracks;
     undef %album_type;
@@ -372,12 +372,12 @@ Sql::RunInTransaction(sub {
     undef %link_map;
     undef %link_map_update;
 
-    $sql->Do("CREATE TEMPORARY TABLE tmp_recording_merge (
+    $sql->do("CREATE TEMPORARY TABLE tmp_recording_merge (
         old_rec INTEGER NOT NULL,
         new_rec INTEGER NOT NULL
     )");
 
-    $raw_sql->Do("CREATE TEMPORARY TABLE tmp_recording_merge (
+    $raw_sql->do("CREATE TEMPORARY TABLE tmp_recording_merge (
         old_rec INTEGER NOT NULL,
         new_rec INTEGER NOT NULL
     )");
@@ -413,11 +413,11 @@ Sql::RunInTransaction(sub {
 
         # Add them to the database
         printf LOG "Merging %s to %s\n", join(',', @old_ids), $new_id;
-        $sql->Do("
+        $sql->do("
             INSERT INTO tmp_recording_merge
             VALUES " . join(",", ("(?,?)") x scalar(@old_ids)),
             map { ($_, $new_id) } @old_ids);
-        $raw_sql->Do("
+        $raw_sql->do("
             INSERT INTO tmp_recording_merge
             VALUES " . join(",", ("(?,?)") x scalar(@old_ids)),
             map { ($_, $new_id) } @old_ids);
@@ -428,7 +428,7 @@ Sql::RunInTransaction(sub {
     undef %targets_sec;
 
     printf STDERR "Merging isrc\n";
-    $sql->Do("
+    $sql->do("
 SELECT
     DISTINCT ON (COALESCE(new_rec, recording), isrc) id, COALESCE(new_rec, recording), isrc, source, editpending
 INTO TEMPORARY tmp_isrc
@@ -454,7 +454,7 @@ DROP TABLE tmp_isrc;
             $table = "l_recording_${type}";
         }
         printf STDERR "Merging $table\n";
-        $sql->Do("
+        $sql->do("
 SELECT
     DISTINCT ON (link, $entity0, COALESCE(new_rec, $entity1))
         id, link, $entity0, COALESCE(new_rec, $entity1) AS $entity1, editpending
@@ -469,7 +469,7 @@ DROP TABLE tmp_$table;
     }
 
     printf STDERR "Merging l_recording_recording\n";
-    $sql->Do("
+    $sql->do("
 SELECT
     DISTINCT ON (link, COALESCE(rm0.new_rec, entity0), COALESCE(rm1.new_rec, entity1)) id, link, COALESCE(rm0.new_rec, entity0) AS entity0, COALESCE(rm1.new_rec, entity1) AS entity1, editpending
 INTO TEMPORARY tmp_l_recording_recording
@@ -484,7 +484,7 @@ DROP TABLE tmp_l_recording_recording;
 ");
 
     printf STDERR "Merging recording_annotation\n";
-    $sql->Do("
+    $sql->do("
 SELECT
     COALESCE(new_rec, recording), annotation
 INTO TEMPORARY tmp_recording_annotation
@@ -497,7 +497,7 @@ DROP TABLE tmp_recording_annotation;
 ");
 
     printf STDERR "Merging recording_gid_redirect\n";
-    $sql->Do("
+    $sql->do("
 SELECT
     gid, COALESCE(new_rec, newid)
 INTO TEMPORARY tmp_recording_gid_redirect
@@ -515,7 +515,7 @@ INSERT INTO recording_gid_redirect
 ");
 
     printf STDERR "Merging recording_puid\n";
-    $sql->Do("
+    $sql->do("
 SELECT
     DISTINCT ON (puid, COALESCE(new_rec, recording)) id, puid, COALESCE(new_rec, recording), editpending
 INTO TEMPORARY tmp_recording_puid
@@ -528,7 +528,7 @@ DROP TABLE tmp_recording_puid;
 ");
 
     printf STDERR "Merging recording\n";
-    $sql->Do("
+    $sql->do("
 SELECT recording.*
 INTO TEMPORARY tmp_recording
 FROM recording
@@ -541,7 +541,7 @@ DROP TABLE tmp_recording;
 ");
 
     printf STDERR "Merging track\n";
-    $sql->Do("
+    $sql->do("
 SELECT
     id, COALESCE(new_rec, recording), tracklist, position, name, artist_credit, length, editpending
 INTO TEMPORARY tmp_track
@@ -554,7 +554,7 @@ DROP TABLE tmp_track;
 ");
 
     printf STDERR "Merging recording_tag_raw\n";
-    $raw_sql->Do("
+    $raw_sql->do("
 SELECT
     DISTINCT COALESCE(new_rec, recording), editor, tag
 INTO TEMPORARY tmp_recording_tag_raw
@@ -567,7 +567,7 @@ DROP TABLE tmp_recording_tag_raw;
 ");
 
     printf STDERR "Merging recording_rating_raw\n";
-    $raw_sql->Do("
+    $raw_sql->do("
 SELECT COALESCE(new_rec, recording), editor, avg(rating)
 INTO TEMPORARY tmp_recording_rating_raw
 FROM recording_rating_raw
@@ -580,32 +580,32 @@ DROP TABLE tmp_recording_rating_raw;
 ");
 
     printf STDERR "Merging recording_meta\n";
-    $sql->Do("TRUNCATE recording_meta");
-    $sql->Do("INSERT INTO recording_meta (id) SELECT id FROM recording");
-    $raw_sql->Select("
+    $sql->do("TRUNCATE recording_meta");
+    $sql->do("INSERT INTO recording_meta (id) SELECT id FROM recording");
+    $raw_sql->select("
         SELECT recording, avg(rating), count(*)
         FROM recording_rating_raw
         GROUP BY recording");
-    $sql->Do("CREATE UNIQUE INDEX tmp_recording_meta_idx ON recording_meta (id)");
+    $sql->do("CREATE UNIQUE INDEX tmp_recording_meta_idx ON recording_meta (id)");
     while (1) {
-        my $row = $raw_sql->NextRowRef or last;
+        my $row = $raw_sql->next_row_ref or last;
         my ($id, $rating, $count) = @$row;
-        $sql->Do("UPDATE recording_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+        $sql->do("UPDATE recording_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
     }
-    $raw_sql->Finish;
-    $sql->Do("DROP INDEX tmp_recording_meta_idx");
+    $raw_sql->finish;
+    $sql->do("DROP INDEX tmp_recording_meta_idx");
 
     printf STDERR "Merging recording_tag\n";
-    $sql->Do("TRUNCATE recording_tag");
-    $raw_sql->Select("
+    $sql->do("TRUNCATE recording_tag");
+    $raw_sql->select("
         SELECT recording, tag, count(*)
         FROM recording_tag_raw
         GROUP BY recording, tag");
     while (1) {
-        my $row = $raw_sql->NextRowRef or last;
+        my $row = $raw_sql->next_row_ref or last;
         my ($recording, $tag, $count) = @$row;
-        $sql->Do("INSERT INTO recording_tag (recording, tag, count)", $recording, $tag, $count);
+        $sql->do("INSERT INTO recording_tag (recording, tag, count)", $recording, $tag, $count);
     }
-    $raw_sql->Finish;
+    $raw_sql->finish;
 
 }, $sql, $raw_sql);

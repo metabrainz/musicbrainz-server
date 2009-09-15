@@ -62,13 +62,13 @@ sub merge_recordings
     my $sql = Sql->new($self->c->dbh);
 
     # Delete ISRCs from @old_ids that already exist for $new_id
-    $sql->Do('DELETE FROM isrc
+    $sql->do('DELETE FROM isrc
               WHERE recording IN ('.placeholders(@old_ids).') AND
                   isrc IN (SELECT isrc FROM isrc WHERE recording = ?)',
               @old_ids, $new_id);
 
     # Move the rest
-    $sql->Do('UPDATE isrc SET recording = ?
+    $sql->do('UPDATE isrc SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')',
               $new_id, @old_ids);
 }
@@ -80,7 +80,7 @@ sub delete_recordings
     my $sql = Sql->new($self->c->dbh);
 
     # Remove ISRCs
-    $sql->Do('DELETE FROM isrc
+    $sql->do('DELETE FROM isrc
               WHERE recording IN ('.placeholders(@ids).')', @ids);
 }
 

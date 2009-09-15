@@ -90,7 +90,7 @@ sub insert
         my $row = $self->_hash_to_row($recording, \%names);
         $row->{gid} = $recording->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->InsertRow('recording', $row, 'id'),
+            id => $sql->insert_row('recording', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -104,7 +104,7 @@ sub update
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('recording', $row, { id => $recording->id });
+    $sql->update_row('recording', $row, { id => $recording->id });
     return $recording;
 }
 
@@ -119,7 +119,7 @@ sub delete
     $self->rating->delete($recording->id);
     $self->remove_gid_redirects($recording->id);
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do('DELETE FROM recording WHERE id = ?', $recording->id);
+    $sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
     return;
 }
 
@@ -164,7 +164,7 @@ sub merge
 
     # Move tracks to the new recording
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('UPDATE track SET recording = ?
+    $sql->do('UPDATE track SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);

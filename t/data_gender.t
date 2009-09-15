@@ -36,7 +36,7 @@ is($gs[0]->id, 1);
 is($gs[1]->id, 2);
 
 my $sql = Sql->new($c->mb->dbh);
-$sql->Begin;
+$sql->begin;
 
 my $new_gender = $gender_data->insert({ name => 'Unknown' });
 ok(defined $new_gender, 'should return instantiated object');
@@ -48,4 +48,4 @@ is($new_gender->name, 'Unknown');
 my $created = $gender_data->get_by_id($new_gender->id);
 ok(defined $created);
 is_deeply($created, $new_gender, 'getting gender should be same as created gender');
-$sql->Commit;
+$sql->commit;

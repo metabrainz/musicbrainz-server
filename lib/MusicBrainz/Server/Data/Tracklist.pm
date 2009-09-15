@@ -26,7 +26,7 @@ sub offset_track_positions
     my $sql = Sql->new($self->c->dbh);
     my $query = 'UPDATE track SET position = position + ?' .
                 ' WHERE position >= ? AND tracklist = ?';
-    $sql->Do($query, $offset, $start_position, $tracklist_id);
+    $sql->do($query, $offset, $start_position, $tracklist_id);
 }
 
 __PACKAGE__->meta->make_immutable;

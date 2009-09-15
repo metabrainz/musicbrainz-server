@@ -62,12 +62,12 @@ sub delete
 {
     my ($self, @entity_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do("
+    $sql->do("
         DELETE FROM " . $self->tag_table . "
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
     my $raw_sql = Sql->new($self->c->raw_dbh);
-    $raw_sql->Do("
+    $raw_sql->do("
         DELETE FROM " . $self->tag_table . "_raw
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
@@ -87,12 +87,12 @@ sub _merge
     my $raw_sql = Sql->new($self->c->raw_dbh);
 
     # Load the tag ids for both entities
-    my $old_tag_ids = $sql->SelectSingleColumnArray("
+    my $old_tag_ids = $sql->select_single_column_array("
         SELECT tag
           FROM $assoc_table
          WHERE $entity_type = ?", $old_entity_id);
 
-    my $new_tag_ids = $sql->SelectSingleColumnArray("
+    my $new_tag_ids = $sql->select_single_column_array("
         SELECT tag
           FROM $assoc_table
          WHERE $entity_type = ?", $new_entity_id);
@@ -107,12 +107,12 @@ sub _merge
 
             # Load the editor ids for this tag and both entities
             # TODO: move this outside of this loop, to avoid multiple queries
-            my $old_editor_ids = $raw_sql->SelectSingleColumnArray("
+            my $old_editor_ids = $raw_sql->select_single_column_array("
                 SELECT editor
                   FROM $assoc_table_raw
                  WHERE $entity_type = ? AND tag = ?", $old_entity_id, $tag_id);
 
-            my $new_editor_ids = $raw_sql->SelectSingleColumnArray("
+            my $new_editor_ids = $raw_sql->select_single_column_array("
                 SELECT editor
                   FROM $assoc_table_raw
                  WHERE $entity_type = ? AND tag = ?", $new_entity_id, $tag_id);
@@ -123,7 +123,7 @@ sub _merge
                 # If the raw tag doesn't exist for the target entity, move it
                 if (!$new_editor_ids{$editor_id})
                 {
-                    $raw_sql->Do("
+                    $raw_sql->do("
                         UPDATE $assoc_table_raw
                            SET $entity_type = ?
                          WHERE $entity_type = ?
@@ -136,7 +136,7 @@ sub _merge
             # Update the aggregated tag count for moved raw tags
             if ($count)
             {
-                $sql->Do("
+                $sql->do("
                     UPDATE $assoc_table
                        SET count = count + ?
                      WHERE $entity_type = ? AND tag = ?", $count, $new_entity_id, $tag_id);
@@ -146,11 +146,11 @@ sub _merge
         # If the tag doesn't exist for the target entity, move it
         else
         {
-            $sql->Do("
+            $sql->do("
                 UPDATE $assoc_table
                    SET $entity_type = ?
                  WHERE $entity_type = ? AND tag = ?", $new_entity_id, $old_entity_id, $tag_id);
-            $raw_sql->Do("
+            $raw_sql->do("
                 UPDATE $assoc_table_raw
                    SET $entity_type = ?
                  WHERE $entity_type = ? AND tag = ?", $new_entity_id, $old_entity_id, $tag_id);
@@ -158,8 +158,8 @@ sub _merge
     }
 
     # Delete unused tags
-    $sql->Do("DELETE FROM $assoc_table WHERE $entity_type = ?", $old_entity_id);
-    $raw_sql->Do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $old_entity_id);
+    $sql->do("DELETE FROM $assoc_table WHERE $entity_type = ?", $old_entity_id);
+    $raw_sql->do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $old_entity_id);
 }
 
 sub merge
@@ -228,13 +228,13 @@ sub update
 
     @new_tags = $self->parse_tags($input);
 
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
 
         # Load the existing raw tag ids for this entity
 
         my %old_tag_info;
         my @old_tags;
-        my $old_tag_ids = $raw_sql->SelectSingleColumnArray("
+        my $old_tag_ids = $raw_sql->select_single_column_array("
             SELECT tag
               FROM $assoc_table_raw
              WHERE $entity_type = ?
@@ -242,15 +242,15 @@ sub update
         if (scalar(@$old_tag_ids)) {
             # Load the corresponding tag strings from the main server
             #
-            @old_tags = $sql->Select("SELECT id, name FROM tag
+            @old_tags = $sql->select("SELECT id, name FROM tag
                                       WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
                                       @$old_tag_ids);
             # Create a lookup friendly hash from the old tags
             if (@old_tags) {
-                while (my $row = $sql->NextRowRef()) {
+                while (my $row = $sql->next_row_ref()) {
                     $old_tag_info{$row->[1]} = $row->[0];
                 }
-                $sql->Finish();
+                $sql->finish();
             }
         }
 
@@ -264,7 +264,7 @@ sub update
 
             # Lookup tag id for current tag, checking for UNICODE
             my $tag_id = eval {
-                $sql->SelectSingleValue("SELECT id FROM tag WHERE name = ?", $tag);
+                $sql->select_single_value("SELECT id FROM tag WHERE name = ?", $tag);
             };
             if ($@) {
                 my $err = $@;
@@ -272,25 +272,25 @@ sub update
                 die $err;
             }
             if (!defined $tag_id) {
-                $tag_id = $sql->SelectSingleValue("INSERT INTO tag (name) VALUES (?) RETURNING id", $tag);
+                $tag_id = $sql->select_single_value("INSERT INTO tag (name) VALUES (?) RETURNING id", $tag);
             }
 
             # Add raw tag associations
-            $raw_sql->Do("INSERT INTO $assoc_table_raw ($entity_type, tag, editor) VALUES (?, ?, ?)", $entity_id, $tag_id, $user_id);
+            $raw_sql->do("INSERT INTO $assoc_table_raw ($entity_type, tag, editor) VALUES (?, ?, ?)", $entity_id, $tag_id, $user_id);
 
             # Look for the association in the aggregate tags
-            $count = $sql->SelectSingleValue("SELECT count
+            $count = $sql->select_single_value("SELECT count
                                                    FROM $assoc_table
                                                   WHERE $entity_type = ?
                                                     AND tag = ?", $entity_id, $tag_id);
 
             # if not found, add it
             if (!$count) {
-                $sql->Do("INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, 1)", $entity_id, $tag_id);
+                $sql->do("INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, 1)", $entity_id, $tag_id);
             }
             else {
                 # Otherwise increment the refcount
-                $sql->Do("UPDATE $assoc_table SET count = count + 1 WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id);
+                $sql->do("UPDATE $assoc_table SET count = count + 1 WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id);
             }
 
             # With this tag taken care of remove it from the list
@@ -300,30 +300,30 @@ sub update
         # For any of the old tags that were not affected, remove them since the user doesn't seem to want them anymore
         foreach my $tag (keys %old_tag_info) {
             # Lookup tag id for current tag
-            my $tag_id = $sql->SelectSingleValue("SELECT tag.id FROM tag WHERE tag.name = ?", $tag);
+            my $tag_id = $sql->select_single_value("SELECT tag.id FROM tag WHERE tag.name = ?", $tag);
             die "Cannot load tag" if (!$tag_id);
 
             # Remove the raw tag association
-            $raw_sql->Do("DELETE FROM $assoc_table_raw
+            $raw_sql->do("DELETE FROM $assoc_table_raw
                                 WHERE $entity_type = ?
                                   AND tag = ?
                                   AND editor = ?", $entity_id, $tag_id, $user_id);
 
             # Decrement the count for this tag
-            $count = $sql->SelectSingleValue("SELECT count
+            $count = $sql->select_single_value("SELECT count
                                                 FROM $assoc_table
                                                WHERE $entity_type = ?
                                                  AND tag = ?", $entity_id, $tag_id);
 
             if (defined $count && $count > 1) {
                 # Decrement the refcount
-                $sql->Do("UPDATE $assoc_table SET count = count - 1
+                $sql->do("UPDATE $assoc_table SET count = count - 1
                            WHERE $entity_type = ?
                              AND tag = ?", $entity_id, $tag_id);
             }
             else {
                 # if count goes to zero, remove the association
-                $sql->Do("DELETE FROM $assoc_table
+                $sql->do("DELETE FROM $assoc_table
                            WHERE $entity_type = ?
                              AND tag = ?", $entity_id, $tag_id);
             }

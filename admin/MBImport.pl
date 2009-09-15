@@ -51,7 +51,7 @@ sub usage
 Usage: MBImport.pl [options] FILE ...
 
         --help            show this help
-        --fix-broken-utf8 replace invalid UTF-8 byte sequences with a 
+        --fix-broken-utf8 replace invalid UTF-8 byte sequences with a
                           special U+FFFD codepoint (UTF-8: 0xEF 0xBF 0xBD)
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
@@ -97,7 +97,7 @@ my $sql = Sql->new($mb->{dbh});
 # Log in to the raw DB
 my $rawmb = new MusicBrainz;
 $rawmb->Login(db => 'RAWDATA');
-my $rawsql = Sql->new($rawmb->{dbh});   
+my $rawsql = Sql->new($rawmb->{dbh});
 
 # This hash indicates which tables may need to be pushed to a vertical DB
 my %table_db_mapping =
@@ -222,8 +222,8 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 # --without-replication, then replication_control.current_replication_sequence
 # would be invalid - we should trust the REPLICATION_SEQUENCE file instead.
 # The current_schema_sequence /is/ valid, however.
-$sql->AutoCommit;
-$sql->Do(
+$sql->auto_commit;
+$sql->do(
 	"UPDATE replication_control
 	SET current_replication_sequence = ?,
 	last_replication_date = ?",
@@ -278,13 +278,13 @@ sub ImportTable
 		# into.  Please make sure you've got the right copy of the server
 		# code, as described in the INSTALL file.
 
-		$sql->Begin;
-		$sql->Do("COPY $table FROM stdin");
+		$sql->begin;
+		$sql->do("COPY $table FROM stdin");
 		my $dbh = $sql->{dbh};
 
 		$p->("", "") if $fProgress;
 		my $t;
-		
+
 		require Encode;
 		while (<LOAD>)
 		{
@@ -314,7 +314,7 @@ sub ImportTable
 		close LOAD
 			or die $!;
 
-		$sql->Commit;
+		$sql->commit;
 
 		die "Error loading data"
 			if -f $file and empty($table);
@@ -327,7 +327,7 @@ sub ImportTable
 
 	return 1 unless $@;
 	warn "Error loading $file: $@";
-	$sql->Rollback;
+	$sql->rollback;
 
 	++$errors, return 0 if $fIgnoreErrors;
 	exit 1;
@@ -339,7 +339,7 @@ sub empty
 
     my $sql = $table_db_mapping{'_default_'};
     $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
-	my $any = $sql->SelectSingleValue(
+	my $any = $sql->select_single_value(
 		"SELECT 1 FROM $table LIMIT 1",
 	);
 

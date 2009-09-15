@@ -119,7 +119,7 @@ sub update
     my ($self, $medium_id, $medium_hash) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $row = $self->_create_row($medium_hash);
-    $sql->Update('medium', $row, { id => $medium_id });
+    $sql->update_row('medium', $row, { id => $medium_id });
 }
 
 sub insert
@@ -132,7 +132,7 @@ sub insert
         my $row = $self->_create_row($medium_hash);
 
         push @created, $class->new(
-            id => $sql->InsertRow('medium', $row, 'id')
+            id => $sql->insert_row('medium', $row, 'id')
         );
     }
     return @medium_hashes > 1 ? @created : $created[0];
@@ -142,7 +142,7 @@ sub delete
 {
     my ($self, @ids) = @_;
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
+    $sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
 
 sub _create_row

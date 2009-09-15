@@ -24,9 +24,9 @@ is($isrcs[0]->isrc, 'DEE250800230');
 is($isrcs[1]->isrc, 'DEE250800231');
 
 my $sql = Sql->new($c->dbh);
-$sql->Begin;
+$sql->begin;
 $c->model('ISRC')->merge_recordings(1, 2);
-$sql->Commit;
+$sql->commit;
 
 @isrcs = $c->model('ISRC')->find_by_recording(1);
 is(scalar @isrcs, 2);
@@ -36,9 +36,9 @@ is($isrcs[1]->isrc, 'DEE250800231');
 @isrcs = $c->model('ISRC')->find_by_recording(2);
 is(scalar @isrcs, 0);
 
-$sql->Begin;
+$sql->begin;
 $c->model('ISRC')->delete_recordings(1);
-$sql->Commit;
+$sql->commit;
 
 @isrcs = $c->model('ISRC')->find_by_recording(1);
 is(scalar @isrcs, 0);

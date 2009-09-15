@@ -89,11 +89,11 @@ is($artist->rating, 33);
 my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
 
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 $rating_data->delete(1);
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 0 );
@@ -104,12 +104,12 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c, "
         VALUES (1, 1, 50), (2, 1, 60), (2, 2, 70), (1, 3, 40), (1, 4, 10);
 ");
 
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 $rating_data->_update_aggregate_rating(1);
 $rating_data->_update_aggregate_rating(2);
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 $artist_data->load_meta($artist);
@@ -119,11 +119,11 @@ $artist = MusicBrainz::Server::Entity::Artist->new( id => 2 );
 $artist_data->load_meta($artist);
 is($artist->rating, 65);
 
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 $rating_data->merge(1, 2);
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 $artist_data->load_meta($artist);

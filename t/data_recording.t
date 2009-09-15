@@ -54,8 +54,8 @@ is( $results->[0]->entity->name, "A Coral Room" );
 
 my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 
 $rec = $rec_data->insert({
         name => 'Traits',
@@ -84,8 +84,8 @@ $rec_data->delete($rec);
 $rec = $rec_data->get_by_id($rec->id);
 ok(!defined $rec);
 
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 # Both #1 and #2 are in the DB
 $rec = $rec_data->get_by_id(1);
@@ -94,11 +94,11 @@ $rec = $rec_data->get_by_id(2);
 ok(defined $rec);
 
 # Merge #2 into #1
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 $rec_data->merge(1, 2);
-$sql->Commit;
-$raw_sql->Commit;
+$sql->commit;
+$raw_sql->commit;
 
 # Only #1 is now in the DB
 $rec = $rec_data->get_by_id(1);

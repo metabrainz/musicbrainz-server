@@ -87,27 +87,27 @@ my $sql = Sql->new($mb->{dbh});
 my $sql2 = Sql->new($mb->{dbh});
 my $slave = Sql->new($mb->{dbh});
 
-$sql->AutoCommit;
-$sql->Do("SET search_path = public");
+$sql->auto_commit;
+$sql->do("SET search_path = public");
 
-$sql->AutoCommit;
-$sql->Do("SET TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-$sql->AutoCommit;
-$sql->Do("SET CONSTRAINTS ALL DEFERRED");
+$sql->auto_commit;
+$sql->do("SET TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$sql->auto_commit;
+$sql->do("SET CONSTRAINTS ALL DEFERRED");
 
 #Obtain a list of pending transactions using ordering by our approximation
 #to the commit time.  The commit time approximation is taken to be the
 #SeqId of the last row edit in the transaction.
 my $query = 'SELECT pd."XID",MAX("SeqId") FROM "Pending" pd GROUP BY pd."XID" ORDER BY MAX(pd."SeqId")';
 
-my $total_statements = $sql->SelectSingleValue(
+my $total_statements = $sql->select_single_value(
 	'SELECT COUNT(*) FROM "Pending"',
 );
 
 # This loop loops through each pending transaction in the proper order.
 # The Pending row edits for that transaction will be queried from the
 # master and sent + committed to the slaves.
-if (my $totalrows = $sql->Select($query))
+if (my $totalrows = $sql->select($query))
 {
 	my @row;
 
@@ -137,7 +137,7 @@ if (my $totalrows = $sql->Select($query))
 
 		$p->("", "");
 
-	while(@row = $sql->NextRow)
+	while(@row = $sql->next_row)
 	{
 		my $XID = $row[0];
 		my $maxSeqId = $row[1];
@@ -157,13 +157,13 @@ if (my $totalrows = $sql->Select($query))
 			ORDER BY "SeqId", "IsKey" DESC
 		|;
 
-		if ($sql2->Select($query, $XID))
+		if ($sql2->select($query, $XID))
 		{
 			my (@row2, $curTuple);
 
 			print localtime() . " : BEGIN XID #$XID (max seq #$maxSeqId)\n" if $debug_xact;
-			$slave->Begin;
-			while(@row2 = $sql2->NextRow)
+			$slave->begin;
+			while(@row2 = $sql2->next_row)
 			{
 				# TODO: Figure out how to handle errors here
 				if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID))
@@ -172,12 +172,12 @@ if (my $totalrows = $sql->Select($query))
 				}
 				++$strows;
 			}
-			$slave->Do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
+			$slave->do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
 			print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
-			$slave->Commit;
+			$slave->commit;
 		}
 
-		$sql2->Finish;
+		$sql2->finish;
 
 		++$rows;
 		unless ($rows & 0x1F and time() == $lasttime)
@@ -191,7 +191,7 @@ if (my $totalrows = $sql->Select($query))
 	$p->("\r", sprintf(" %.2f sec\n", $interval));
 
 }
-	$sql->Finish;
+	$sql->finish;
 
 print localtime() . " : Summary of changes applied:\n";
 print "Inserts  Updates  Deletes  Table\n";
@@ -208,14 +208,14 @@ print localtime() . " : Replication changes applied\n";
 	{
 		print localtime() . " : Checking that $table is empty\n";
 
-		my $n = $sql->SelectSingleValue(
+		my $n = $sql->select_single_value(
 			"SELECT COUNT(*) FROM \"$table\"",
 		);
 		die "$table still contains data (rows=$n)!" if $n;
 
 		print localtime() . " : Optimising $table\n";
-		$sql->AutoCommit;
-		$sql->Do("VACUUM ANALYZE \"$table\"");
+		$sql->auto_commit;
+		$sql->do("VACUUM ANALYZE \"$table\"");
 	}
 }
 
@@ -267,7 +267,7 @@ sub mirrorInsert
 
 	print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
 	show_long_sql($statement, $args) if $long_sql;
-	$slave->Do($statement, @$args);
+	$slave->do($statement, @$args);
 
 	return 1;
 }
@@ -285,7 +285,7 @@ sub mirrorDelete
 
 	print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
 	show_long_sql($statement, $args) if $long_sql;
-	$slave->Do($statement, @$args);
+	$slave->do($statement, @$args);
 
 	return 1;
 }
@@ -299,14 +299,14 @@ sub mirrorUpdate
 	my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
 		or die;
 
-	my @row2 = $result->NextRow;
+	my @row2 = $result->next_row;
 	my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row2[4]);
 
 	my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);
 
 	print localtime() . " : UPDATE $tableName\n" if $short_sql;
 	show_long_sql($statement, $args) if $long_sql;
-	$slave->Do($statement, @$args);
+	$slave->do($statement, @$args);
 
 	return 1;
 }

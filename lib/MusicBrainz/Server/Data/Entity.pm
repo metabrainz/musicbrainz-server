@@ -72,14 +72,14 @@ sub _get_by_keys
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ")";
     my $sql = Sql->new($self->_dbh);
-    $sql->Select($query, @ids);
+    $sql->select($query, @ids);
     my %result;
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $result{$obj->id} = $obj;
     }
-    $sql->Finish;
+    $sql->finish;
     return \%result;
 }
 

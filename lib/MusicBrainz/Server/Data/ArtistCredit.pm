@@ -29,9 +29,9 @@ sub get_by_ids
         $result{$id} = $obj;
         $counts{$id} = 0;
     }
-    $sql->Select($query, @ids);
+    $sql->select($query, @ids);
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my %info = (
             artist_id => $row->{artist},
             name => $row->{name}
@@ -47,7 +47,7 @@ sub get_by_ids
         $result{$id}->add_name($obj);
         $counts{$id} += 1;
     }
-    $sql->Finish;
+    $sql->finish;
     foreach my $id (@ids) {
         $result{$id}->artist_count($counts{$id});
     }
@@ -88,16 +88,16 @@ sub find_or_insert
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artistcount = ?";
     my @args = zip @positions, @artists, @names, @$join_phrases;
     pop @args unless defined $join_phrases->[$#names];
-    my $id = $sql->SelectSingleValue($query, @args, scalar @names);
+    my $id = $sql->select_single_value($query, @args, scalar @names);
 
     if(!defined $id)
     {
-        $id = $sql->InsertRow('artist_credit', { artistcount => scalar @names }, 'id');
+        $id = $sql->insert_row('artist_credit', { artistcount => scalar @names }, 'id');
         my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $self->c);
         my %names_id = $artist_data->find_or_insert_names(@names);
         for my $i (@positions)
         {
-            $sql->InsertRow('artist_credit_name', {
+            $sql->insert_row('artist_credit_name', {
                     artist_credit => $id,
                     position => $i,
                     artist => $artists[$i],
@@ -114,7 +114,7 @@ sub merge_artists
 {
     my ($self, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('UPDATE artist_credit_name SET artist = ?
+    $sql->do('UPDATE artist_credit_name SET artist = ?
               WHERE artist IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
 

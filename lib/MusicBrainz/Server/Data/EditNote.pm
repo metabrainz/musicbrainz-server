@@ -65,8 +65,8 @@ sub insert
     } keys %$note_hash;
     $r{edit} = $edit_id;
     my $sql = Sql->new($self->c->raw_dbh);
-    $sql->AutoCommit(1) if !$sql->IsInTransaction;
-    $sql->InsertRow('edit_note', \%r);
+    $sql->auto_commit;
+    $sql->insert_row('edit_note', \%r);
 }
 
 sub add_note

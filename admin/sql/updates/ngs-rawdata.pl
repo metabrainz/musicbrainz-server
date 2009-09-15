@@ -17,42 +17,42 @@ my $raw_mb = MusicBrainz->new;
 $raw_mb->Login(db => "RAWDATA");
 my $raw_sql = Sql->new($raw_mb->dbh);
 
-$sql->Begin;
-$raw_sql->Begin;
+$sql->begin;
+$raw_sql->begin;
 eval {
 
 print "Converting artist data\n";
 
-$raw_sql->Do("
+$raw_sql->do("
     INSERT INTO artist_rating_raw (artist, editor, rating)
         SELECT artist, editor, rating * 20 FROM public.artist_rating_raw
     ");
 
-$raw_sql->Do("
+$raw_sql->do("
     INSERT INTO artist_tag_raw (artist, editor, tag)
         SELECT artist, moderator, tag FROM public.artist_tag_raw
     ");
 
 print "Converting label data\n";
 
-$raw_sql->Do("
+$raw_sql->do("
     INSERT INTO label_rating_raw (label, editor, rating)
         SELECT label, editor, rating * 20 FROM public.label_rating_raw
     ");
 
-$raw_sql->Do("
+$raw_sql->do("
     INSERT INTO label_tag_raw (label, editor, tag)
         SELECT label, moderator, tag FROM public.label_tag_raw
     ");
 
 print "Converting recording data\n";
 
-$raw_sql->Do("
+$raw_sql->do("
     INSERT INTO recording_rating_raw (recording, editor, rating)
         SELECT track, editor, rating * 20 FROM public.track_rating_raw
     ");
 
-$raw_sql->Do("
+$raw_sql->do("
     INSERT INTO recording_tag_raw (recording, editor, tag)
         SELECT track, moderator, tag FROM public.track_tag_raw
     ");
@@ -61,20 +61,20 @@ print "Converting release group data\n";
 
 
 print " * Loading release group map\n";
-my $albums = $sql->SelectListOfHashes("SELECT id, release_group FROM public.album");
+my $albums = $sql->select_list_of_hashes("SELECT id, release_group FROM public.album");
 my %rg_map = map { $_->{id} => $_->{release_group} } @$albums;
 $albums = undef;
 
-$raw_sql->Do("CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}')");
+$raw_sql->do("CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}')");
 
 print " * Converting raw tags\n";
 my %aggr;
-$raw_sql->Select("
+$raw_sql->select("
     SELECT tag, moderator, array_accum(release)
     FROM public.release_tag_raw
     GROUP BY tag, moderator");
 while (1) {
-    my $row = $raw_sql->NextRowRef or last;
+    my $row = $raw_sql->next_row_ref or last;
     my ($tag, $editor, $ids) = @$row;
     # Unpack the array if using old DBD::Pg
     if (ref $ids ne 'ARRAY') {
@@ -84,7 +84,7 @@ while (1) {
     my %ids = map { $rg_map{$_} => 1 } @$ids;
     my @ids = keys %ids;
     foreach my $id (@ids) {
-        $raw_sql->Do("
+        $raw_sql->do("
             INSERT INTO release_group_tag_raw (release_group, editor, tag)
             VALUES (?, ?, ?)", $id, $editor, $tag);
         unless (exists $aggr{$id}) {
@@ -98,13 +98,13 @@ while (1) {
         }
     }
 }
-$raw_sql->Finish;
+$raw_sql->finish;
 
 print " * Converting aggregated tags\n";
 foreach my $id (keys %aggr) {
     my %tags = %{ $aggr{$id} };
     foreach my $tag (keys %tags) {
-        $sql->Do("
+        $sql->do("
             INSERT INTO release_group_tag (release_group, tag, count)
             VALUES (?, ?, ?)", $id, $tag, $tags{$tag});
     }
@@ -113,14 +113,14 @@ foreach my $id (keys %aggr) {
 
 print " * Converting raw ratings\n";
 # Iterate over all raw ratings
-$raw_sql->Select("
+$raw_sql->select("
     SELECT rating * 20, editor, release
     FROM public.release_rating_raw
     ORDER BY editor");
 my $user_id = 0;
 my @user_data;
 while (1) {
-    my $row = $raw_sql->NextRowRef;
+    my $row = $raw_sql->next_row_ref;
     my $new_user_id = $row ? $row->[1] : 0;
     if ($user_id != $new_user_id) {
         # If this is a new user, process their ratings
@@ -137,7 +137,7 @@ while (1) {
             # Iterate over unique RGs and add average raw ratings
             foreach my $rg (keys %rg_rating_sum) {
                 my $rating = int(0.5 + $rg_rating_sum{$rg} / $rg_rating_cnt{$rg});
-                $raw_sql->Do("
+                $raw_sql->do("
                     INSERT INTO release_group_rating_raw (release_group, editor, rating)
                     VALUES (?, ?, ?)", $rg, $user_id, $rating);
             }
@@ -151,65 +151,65 @@ while (1) {
 %rg_map = ();
 
 print " * Converting average ratings\n";
-$sql->Do("CREATE UNIQUE INDEX tmp_release_group_meta_idx ON release_group_meta (id)");
-$raw_sql->Select("
+$sql->do("CREATE UNIQUE INDEX tmp_release_group_meta_idx ON release_group_meta (id)");
+$raw_sql->select("
     SELECT release_group, avg(rating), count(*)
     FROM release_group_rating_raw
     GROUP BY release_group");
 while (1) {
-    my $row = $raw_sql->NextRowRef or last;
+    my $row = $raw_sql->next_row_ref or last;
     my ($id, $rating, $count) = @$row;
-    $sql->Do("UPDATE release_group_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+    $sql->do("UPDATE release_group_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
 }
-$raw_sql->Finish;
-$sql->Do("DROP INDEX tmp_release_group_meta_idx");
+$raw_sql->finish;
+$sql->do("DROP INDEX tmp_release_group_meta_idx");
 
-$raw_sql->Do("DROP AGGREGATE array_accum (anyelement)");
+$raw_sql->do("DROP AGGREGATE array_accum (anyelement)");
 
 print " * Converting CD stubs\n";
-$raw_sql->Do("INSERT INTO cdtoc_raw SELECT * FROM public.cdtoc_raw");
-$raw_sql->Do("INSERT INTO release_raw SELECT * FROM public.release_raw");
-$raw_sql->Do("INSERT INTO track_raw SELECT * FROM public.track_raw");
+$raw_sql->do("INSERT INTO cdtoc_raw SELECT * FROM public.cdtoc_raw");
+$raw_sql->do("INSERT INTO release_raw SELECT * FROM public.release_raw");
+$raw_sql->do("INSERT INTO track_raw SELECT * FROM public.track_raw");
 
 print " * Loading album->release map\n";
 
-$sql->Select("
+$sql->select("
     SELECT a.id, r.id AS release
     FROM release r
         JOIN public.album a ON a.gid::uuid = r.gid
 ");
 my %release_map;
 while (1) {
-    my $row = $sql->NextRowRef or last;
+    my $row = $sql->next_row_ref or last;
     $release_map{ $row->[0] } = $row->[1];
 }
-$sql->Finish;
+$sql->finish;
 
 print " * Converting collections\n";
 
-$raw_sql->Select("SELECT id, moderator FROM public.collection_info");
+$raw_sql->select("SELECT id, moderator FROM public.collection_info");
 while (1) {
-    my $row = $raw_sql->NextRowRef or last;
+    my $row = $raw_sql->next_row_ref or last;
     my ($id, $editor_id) = @$row;
-    $sql->Do("INSERT INTO editor_collection (id, editor) VALUES (?, ?)",
+    $sql->do("INSERT INTO editor_collection (id, editor) VALUES (?, ?)",
              $id, $editor_id);
 }
-$raw_sql->Finish;
+$raw_sql->finish;
 
-$raw_sql->Select("SELECT collection_info, album
+$raw_sql->select("SELECT collection_info, album
                   FROM public.collection_has_release_join");
 while (1) {
-    my $row = $raw_sql->NextRowRef or last;
+    my $row = $raw_sql->next_row_ref or last;
     my ($collection_id, $album_id) = @$row;
-    $sql->Do("INSERT INTO editor_collection_release (collection, release)
+    $sql->do("INSERT INTO editor_collection_release (collection, release)
               VALUES (?, ?)", $collection_id, $release_map{$album_id});
 }
-$raw_sql->Finish;
+$raw_sql->finish;
 
-    $sql->Commit;
-    $raw_sql->Commit;
+    $sql->commit;
+    $raw_sql->commit;
 };
 if ($@) {
-    $sql->Rollback;
-    $raw_sql->Rollback;
+    $sql->rollback;
+    $raw_sql->rollback;
 }

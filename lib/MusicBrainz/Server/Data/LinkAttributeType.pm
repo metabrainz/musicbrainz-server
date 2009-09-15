@@ -44,17 +44,17 @@ sub get_tree
     my ($self) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+    $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   ORDER BY childorder, id');
     my %id_to_obj;
     my @objs;
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
         push @objs, $obj;
     }
-    $sql->Finish;
+    $sql->finish;
 
     my $root = MusicBrainz::Server::Entity::LinkAttributeType->new;
     foreach my $obj (@objs) {
@@ -71,7 +71,7 @@ sub find_root
 
     my $sql = Sql->new($self->c->dbh);
     my $query = 'SELECT root FROM ' . $self->_table . ' WHERE id = ?';
-    return $sql->SelectSingleValue($query, $id);
+    return $sql->select_single_value($query, $id);
 }
 
 sub insert
@@ -80,20 +80,20 @@ sub insert
 
     my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
-    $row->{id} = $sql->SelectSingleValue("SELECT nextval('link_attribute_type_id_seq')");
+    $row->{id} = $sql->select_single_value("SELECT nextval('link_attribute_type_id_seq')");
     $row->{gid} = $values->{gid} || generate_gid();
     $row->{root} = $row->{parent} ? $self->find_root($row->{parent}) : $row->{id};
-    $sql->InsertRow('link_attribute_type', $row);
+    $sql->insert_row('link_attribute_type', $row);
     return $self->_entity_class->new( id => $row->{id}, gid => $row->{gid} );
 }
 
 sub _update_root
 {
     my ($self, $sql, $parent, $root) = @_;
-    my $ids = $sql->SelectSingleColumnArray('SELECT id FROM link_attribute_type
+    my $ids = $sql->select_single_column_array('SELECT id FROM link_attribute_type
                                              WHERE parent = ?', $parent);
     if (@$ids) {
-        $sql->Do('UPDATE link_attribute_type SET root = ?
+        $sql->do('UPDATE link_attribute_type SET root = ?
                   WHERE id IN ('.placeholders(@$ids).')', $root, @$ids);
         foreach my $id (@$ids) {
             $self->_update_root($sql, $id, $root);
@@ -112,7 +112,7 @@ sub update
             $row->{root} = $self->find_root($row->{parent});
             $self->_update_root($sql, $id, $row->{root});
         }
-        $sql->Update('link_attribute_type', $row, { id => $id });
+        $sql->update_row('link_attribute_type', $row, { id => $id });
     }
 }
 
@@ -121,7 +121,7 @@ sub delete
     my ($self, $id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('DELETE FROM link_attribute_type WHERE id = ?', $id);
+    $sql->do('DELETE FROM link_attribute_type WHERE id = ?', $id);
 }
 
 sub _hash_to_row

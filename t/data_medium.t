@@ -46,7 +46,7 @@ ok( !$medium_data->load() );
 
 # Test editing mediums
 my $sql = Sql->new($c->dbh);
-$sql->Begin;
+$sql->begin;
 
 $medium_data->update(1, {
         tracklist_id => 2,
@@ -63,4 +63,4 @@ is ( $medium->position, 5 );
 is ( $medium->name, 'Edited name' );
 is ( $medium->format_id, 2 );
 
-$sql->Commit;
+$sql->commit;

@@ -45,13 +45,13 @@ sub load_user_ratings
         WHERE editor = ? AND $type IN (".placeholders(@ids).")";
 
     my $sql = Sql->new($self->c->raw_dbh);
-    $sql->Select($query, $user_id, @ids);
+    $sql->select($query, $user_id, @ids);
     while (1) {
-        my $row = $sql->NextRowHashRef or last;
+        my $row = $sql->next_row_hash_ref or last;
         my $obj = $id_to_obj{$row->{id}};
         $obj->user_rating($row->{rating});
     }
-    $sql->Finish;
+    $sql->finish;
 }
 
 sub _update_aggregate_rating
@@ -66,7 +66,7 @@ sub _update_aggregate_rating
     my $table_raw = $type . '_rating_raw';
 
     # Update the aggregate rating
-    my $row = $raw_sql->SelectSingleRowArray("
+    my $row = $raw_sql->select_single_row_array("
         SELECT count(rating), sum(rating)
         FROM $table_raw WHERE $type = ?
         GROUP BY $type", $entity_id);
@@ -74,7 +74,7 @@ sub _update_aggregate_rating
     my ($rating_count, $rating_sum) = defined $row ? @$row : (undef, undef);
 
     my $rating_avg = ($rating_count ? int($rating_sum / $rating_count + 0.5) : undef);
-    $sql->Do("UPDATE $table SET ratingcount = ?, rating = ?
+    $sql->do("UPDATE $table SET ratingcount = ?, rating = ?
               WHERE id = ?", $rating_count, $rating_avg, $entity_id);
 
     return ($rating_count, $rating_sum);
@@ -92,13 +92,13 @@ sub merge
 
     # Remove duplicate joins (ie, rows with entities from @old_ids and
     # tagged by editors that already tagged $new_id)
-    $raw_sql->Do("DELETE FROM $table_raw
+    $raw_sql->do("DELETE FROM $table_raw
                   WHERE $type IN (".placeholders(@old_ids).") AND
                       editor IN (SELECT editor FROM $table_raw WHERE $type = ?)",
                   @old_ids, $new_id);
 
     # Move all remaining joins to the new entity
-    $raw_sql->Do("UPDATE $table_raw SET $type = ?
+    $raw_sql->do("UPDATE $table_raw SET $type = ?
                   WHERE $type IN (".placeholders(@old_ids).")",
                   $new_id, @old_ids);
 
@@ -112,7 +112,7 @@ sub delete
 {
     my ($self, @entity_ids) = @_;
     my $raw_sql = Sql->new($self->c->raw_dbh);
-    $raw_sql->Do("
+    $raw_sql->do("
         DELETE FROM " . $self->type . "_rating_raw
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
@@ -127,32 +127,32 @@ sub update
 
     my $sql = Sql->new($self->c->dbh);
     my $raw_sql = Sql->new($self->c->raw_dbh);
-    Sql::RunInTransaction(sub {
+    Sql::run_in_transaction(sub {
 
         my $type = $self->type;
         my $table = $type . '_meta';
         my $table_raw = $type . '_rating_raw';
 
         # Check if user has already rated this entity
-        my $whetherrated = $raw_sql->SelectSingleValue("
+        my $whetherrated = $raw_sql->select_single_value("
             SELECT rating FROM $table_raw
             WHERE $type = ? AND editor = ?", $entity_id, $user_id);
         if (defined $whetherrated) {
             # Already rated - so update
             if ($rating) {
-                $raw_sql->Do("UPDATE $table_raw SET rating = ?
+                $raw_sql->do("UPDATE $table_raw SET rating = ?
                               WHERE $type = ? AND editor = ?",
                               $rating, $entity_id, $user_id);
             }
             else {
-                $raw_sql->Do("DELETE FROM $table_raw
+                $raw_sql->do("DELETE FROM $table_raw
                               WHERE $type = ? AND editor = ?",
                               $entity_id, $user_id);
             }
         }
         elsif ($rating) {
             # Not rated - so insert raw rating value, unless rating = 0
-            $raw_sql->Do("INSERT INTO $table_raw (rating, $type, editor)
+            $raw_sql->do("INSERT INTO $table_raw (rating, $type, editor)
                           VALUES (?, ?, ?)", $rating, $entity_id, $user_id);
         }
 

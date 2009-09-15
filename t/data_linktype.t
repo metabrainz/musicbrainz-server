@@ -18,16 +18,16 @@ is($link_type->id, 1);
 is($link_type->name, 'instrument');
 is($link_type->short_link_phrase, 'performer');
 
-$sql->Begin;
+$sql->begin;
 $c->model('LinkType')->update(1, { name => 'instrument test' });
-$sql->Commit;
+$sql->commit;
 
 $link_type = $c->model('LinkType')->get_by_id(1);
 is($link_type->id, 1);
 is($link_type->name, 'instrument test');
 is($link_type->short_link_phrase, 'performer');
 
-$sql->Begin;
+$sql->begin;
 $link_type = $c->model('LinkType')->insert({
     parent_id => 1,
     name => 'instrument test',
@@ -38,24 +38,24 @@ $link_type = $c->model('LinkType')->insert({
         { type => 1, min => 0, max => 1 }
     ],
 });
-$sql->Commit;
+$sql->commit;
 
 is($link_type->id, 100);
 
-my $row = $sql->SelectSingleRowHash('SELECT * FROM link_type_attribute_type WHERE link_type=100');
+my $row = $sql->select_single_row_hash('SELECT * FROM link_type_attribute_type WHERE link_type=100');
 is($row->{attribute_type}, 1);
 is($row->{min}, 0);
 is($row->{max}, 1);
 
-$sql->Begin;
+$sql->begin;
 $link_type = $c->model('LinkType')->update(100, {
     attributes => [
         { type => 2 }
     ],
 });
-$sql->Commit;
+$sql->commit;
 
-$row = $sql->SelectSingleRowHash('SELECT * FROM link_type_attribute_type WHERE link_type=100');
+$row = $sql->select_single_row_hash('SELECT * FROM link_type_attribute_type WHERE link_type=100');
 is($row->{attribute_type}, 2);
 is($row->{min}, undef);
 is($row->{max}, undef);
@@ -63,18 +63,18 @@ is($row->{max}, undef);
 $link_type = $c->model('LinkType')->get_by_id(100);
 is($link_type->parent_id, 1);
 
-$sql->Begin;
+$sql->begin;
 $link_type = $c->model('LinkType')->update(100, {
     parent_id => undef,
 });
-$sql->Commit;
+$sql->commit;
 
 $link_type = $c->model('LinkType')->get_by_id(100);
 is($link_type->parent_id, undef);
 
-$sql->Begin;
+$sql->begin;
 $link_type = $c->model('LinkType')->delete(100);
-$sql->Commit;
+$sql->commit;
 
 $link_type = $c->model('LinkType')->get_by_id(100);
 is($link_type, undef);

@@ -30,7 +30,7 @@ is ( $ac->names->[1]->artist->name, "David Bowie" );
 is ( $ac->names->[1]->join_phrase, undef );
 
 my $sql = Sql->new($c->mb->dbh);
-$sql->Begin;
+$sql->begin;
 $ac = $artist_credit_data->find_or_insert(
     { name => 'Queen', artist => 1 }, ' & ',
     { name => 'David Bowie', artist => 2 });
@@ -47,4 +47,4 @@ $ac = $artist_credit_data->get_by_id(1);
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);
 
-$sql->Commit;
+$sql->commit;

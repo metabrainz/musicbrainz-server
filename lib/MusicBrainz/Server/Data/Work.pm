@@ -78,7 +78,7 @@ sub insert
         my $row = $self->_hash_to_row($work, \%names);
         $row->{gid} = $work->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->InsertRow('work', $row, 'id'),
+            id => $sql->insert_row('work', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -91,7 +91,7 @@ sub update
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('work', $row, { id => $work_id });
+    $sql->update_row('work', $row, { id => $work_id });
 }
 
 sub delete
@@ -103,7 +103,7 @@ sub delete
     $self->rating->delete($work->id);
     $self->remove_gid_redirects($work->id);
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do('DELETE FROM work WHERE id = ?', $work->id);
+    $sql->do('DELETE FROM work WHERE id = ?', $work->id);
     return;
 }
 

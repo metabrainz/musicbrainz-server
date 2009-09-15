@@ -33,7 +33,7 @@ is( $rls->[3]->release->id, 1 );
 is( $rls->[3]->catalog_number, "ABC-123-X" );
 
 my $sql = Sql->new($c->dbh);
-$sql->Begin;
+$sql->begin;
 
 $rl_data->merge_labels(1, 2);
 ($rls, $hits) = $rl_data->find_by_label(1, 100);
@@ -42,6 +42,6 @@ is($hits, 4);
 ($rls, $hits) = $rl_data->find_by_label(2, 100);
 is($hits, 0);
 
-$sql->Commit;
+$sql->commit;
 
 done_testing;

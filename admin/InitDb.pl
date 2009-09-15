@@ -40,7 +40,7 @@ my $SYSMB = $SYSTEM->modify(database => $READWRITE->database);
 MusicBrainz::Server::Database->register("SYSMB", $SYSMB);
 
 # Check to make sure that the main and raw databases are not the same
-die "The READWRITE database and the RAWDATA database cannot be the same. Use a different name for the RAWDATA database." 
+die "The READWRITE database and the RAWDATA database cannot be the same. Use a different name for the RAWDATA database."
    if ($RAWDATA->database eq $READWRITE->database);
 
 my $REPTYPE = &DBDefs::REPLICATION_TYPE;
@@ -93,8 +93,8 @@ sub CreateReplicationFunction
 	$mb->Login(db => "SYSMB");
 	my $sql = Sql->new($mb->{dbh});
 
-	$sql->AutoCommit;
-	$sql->Do(
+	$sql->auto_commit;
+	$sql->do(
 		"CREATE FUNCTION \"recordchange\" () RETURNS trigger
 		AS ?, 'recordchange' LANGUAGE 'C'",
 		$path_to_pending_so,
@@ -113,7 +113,7 @@ sub CreateReplicationFunction
     }
 }
 
-sub Create 
+sub Create
 {
     my $createdb = $_[0];
     my $system_sql;
@@ -145,15 +145,15 @@ sub Create
 
         my $username = $db->username;
 
-        if (!($system_sql->SelectSingleValue(
+        if (!($system_sql->select_single_value(
             "SELECT 1 FROM pg_shadow WHERE usename = ?", $username)))
         {
             my $passwordclause = "";
             $passwordclause = "PASSWORD '$_'"
                 if local $_ = $db->password;
 
-            $system_sql->AutoCommit;
-            $system_sql->Do(
+            $system_sql->auto_commit;
+            $system_sql->do(
                 "CREATE USER $username $passwordclause NOCREATEDB NOCREATEUSER",
             );
         }
@@ -161,9 +161,9 @@ sub Create
 
 	my $dbname = $db->database;
 	print localtime() . " : Creating database '$dbname'\n";
-	$system_sql->AutoCommit;
+	$system_sql->auto_commit;
 	my $dbuser = $db->username;
-	$system_sql->Do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
+	$system_sql->do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
 
 	# You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
 	# "createlang" is simpler :-)
@@ -251,7 +251,7 @@ sub GrantSelect
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => $name);
 	my $dbh = $mb->{dbh};
-	$dbh->{AutoCommit} = 1;
+	$dbh->auto_commit;
 
 	my $username = $READONLY->username;
 	return if $username eq $READWRITE->username;
@@ -303,7 +303,7 @@ Options are:
      --psql=PATH        Specify the path to the "psql" utility
      --postgres=NAME    Specify the name of the system user
      --createdb         Create the database, PL/PGSQL language and user
-  -i --import           Prepare the database and then import the data from 
+  -i --import           Prepare the database and then import the data from
                         the given files
   -c --clean            Prepare a ready to use empty database
      --[no]echo         When running the various SQL scripts, echo the commands

@@ -23,11 +23,11 @@ role
         my $sql = Sql->new($self->c->mb->dbh);
         my $query = "SELECT id, name FROM $table" .
                     ' WHERE name IN (' . placeholders(@names) . ')';
-        my $found = $sql->SelectListOfHashes($query, @names);
+        my $found = $sql->select_list_of_hashes($query, @names);
         my %found_names = map { $_->{name} => $_->{id} } @$found;
         for my $new_name (grep { !exists $found_names{$_} } @names)
         {
-            my $id = $sql->InsertRow($table, {
+            my $id = $sql->insert_row($table, {
                     name => $new_name,
                 }, 'id');
             $found_names{$new_name} = $id;

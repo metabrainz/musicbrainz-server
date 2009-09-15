@@ -26,7 +26,7 @@ my $coverart_update_query = "
     UPDATE release_meta
     SET coverarturl=?, infourl=? WHERE id=?";
 
-$rw_sql->Begin;
+$rw_sql->begin;
 
 printf STDERR "Amazon URLs\n";
 my $query = "
@@ -37,18 +37,18 @@ my $query = "
         JOIN url ON l.entity1=url.id
     WHERE link_type.name='amazon asin'
 ";
-$sql->Select($query);
+$sql->select($query);
 my $cnt = 0;
 while (1) {
-    my $row = $sql->NextRowHashRef or last;
+    my $row = $sql->next_row_hash_ref or last;
     my ($asin, $coverarturl, $store) = MusicBrainz::Server::CoverArt->ParseAmazonURL($row->{url});
     next unless $coverarturl;
-    $rw_sql->Do($amazon_update_query, $coverarturl || undef, $asin || undef, $store || undef, $row->{id});
+    $rw_sql->do($amazon_update_query, $coverarturl || undef, $asin || undef, $store || undef, $row->{id});
     if ($cnt++ % 10 == 0) {
-        printf STDERR "%d/%d\r", $cnt, $sql->Rows;
+        printf STDERR "%d/%d\r", $cnt, $sql->row_count;
     }
 }
-$sql->Finish;
+$sql->finish;
 
 printf STDERR "Cover art URLs\n";
 $query = "
@@ -59,17 +59,17 @@ $query = "
         JOIN url ON l.entity1=url.id
     WHERE link_type.name='cover art link'
 ";
-$sql->Select($query);
+$sql->select($query);
 $cnt = 0;
 while (1) {
-    my $row = $sql->NextRowHashRef or last;
+    my $row = $sql->next_row_hash_ref or last;
     my ($name, $coverarturl, $infourl) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($row->{url});
     next unless $coverarturl;
-    $rw_sql->Do($coverart_update_query, $coverarturl || undef, $infourl || undef, $row->{id});
+    $rw_sql->do($coverart_update_query, $coverarturl || undef, $infourl || undef, $row->{id});
     if ($cnt++ % 10 == 0) {
-        printf STDERR "%d/%d\r", $cnt, $sql->Rows;
+        printf STDERR "%d/%d\r", $cnt, $sql->row_count;
     }
 }
-$sql->Finish;
+$sql->finish;
 
-$rw_sql->Commit;
+$rw_sql->commit;

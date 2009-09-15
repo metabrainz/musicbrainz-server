@@ -51,8 +51,8 @@ sub prepare_test_database
     $query = $class->_load_query($query, "admin/sql/InsertTestData.sql");
 
     my $sql = Sql->new($c->dbh);
-    $sql->AutoCommit(1);
-    $sql->Do($query);
+    $sql->auto_commit;
+    $sql->do($query);
 }
 
 sub prepare_raw_test_database
@@ -62,8 +62,8 @@ sub prepare_raw_test_database
     $query = $class->_load_query($query, "t/sql/clean_raw_db.sql");
 
     my $sql = Sql->new($c->raw_dbh);
-    $sql->AutoCommit(1);
-    $sql->Do($query);
+    $sql->auto_commit;
+    $sql->do($query);
 }
 
 sub prepare_test_server
@@ -78,7 +78,7 @@ sub get_latest_edit
     my ($class, $c) = @_;
     my $ed = MusicBrainz::Server::Data::Edit->new(c => $c);
     my $sql = Sql->new($c->raw_dbh);
-    my $last_id = $sql->SelectSingleValue("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
+    my $last_id = $sql->select_single_value("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
     return $ed->get_by_id($last_id);
 }
 
