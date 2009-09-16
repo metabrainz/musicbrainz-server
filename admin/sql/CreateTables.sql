@@ -773,7 +773,7 @@ CREATE TABLE release_group_meta
 (
     id                  INTEGER NOT NULL, -- PK, references release_group.id CASCADE
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    releasecount        INTEGER DEFAULT 0,
+    releasecount        INTEGER NOT NULL DEFAULT 0,
     firstreleasedate_year   SMALLINT,
     firstreleasedate_month  SMALLINT,
     firstreleasedate_day    SMALLINT,

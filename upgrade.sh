@@ -26,6 +26,8 @@ echo `date` : Migrating data
 ./admin/sql/updates/ngs-rawdata.pl
 ./admin/sql/updates/ngs-artistcredit-2.pl
 
+echo `date` : Merging releases
+./admin/sql/updates/ngs-merge-releases.pl
 echo `date` : Merging recordings
 ./admin/sql/updates/ngs-merge-recordings.pl
 
