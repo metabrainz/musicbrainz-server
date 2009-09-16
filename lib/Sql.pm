@@ -35,12 +35,17 @@ has 'sth' => (
     is => 'rw',
     handles => {
         row_count => 'rows',
-        finish => 'finish',
         next_row => 'fetchrow_array',
         next_row_ref => 'fetch',
         next_row_hash_ref => 'fetchrow_hashref',
     },
 );
+
+sub finish
+{
+    my ($self) = @_;
+    $self->sth->finish if exists $self->{sth};
+}
 
 sub BUILDARGS
 {
