@@ -23,17 +23,40 @@
 </table>
 
 <h2>[%- l('Appears on releases') -%]</h2>
-<ul>
-    [% FOR medium=release_media %]
-    <li>
-        [% l('{release} by {artist}', {
-                release=link_release(medium.release),
-                artist=artist_credit(medium.release.artist_credit)
-            }) %]
-        [% l('(disc {n})', {n=medium.position}) %]
-    </li>
-    [% END %]
-</ul>
+
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('#') %]</th>
+            <th>[% l('Title') %]</th>
+            <th>[% l('Artist') %]</th>
+            <th>[% l('Date') %]</th>
+            <th>[% l('Country') %]</th>
+            <th>[% l('Label') %]</th>
+            <th>[% l('Catalog#') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [% FOR medium=release_media %]
+        [%- release=medium.release -%]
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <td>[% medium.position %]/[% release.medium_count %]</td>
+            <td>[% link_release(release) %]</td>
+            <td>[% artist_credit(release.artist_credit) %]</td>
+            <td>[% release.date.format %]</td>
+            <td>
+                [%- IF release.country -%]
+                <abbr title="[% release.country.name | html %]">
+                    [% release.country.iso_code | html %]
+                </abbr>
+                [%- END -%]
+            </td>
+            <td>[% release_label_list(release.labels) %]</td>
+            <td>[% release_catno_list(release.labels) %]</td>
+        </tr>
+        [%- END -%]
+    </tbody>
+</table>
 
 </div>
 

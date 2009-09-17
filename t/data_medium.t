@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 29;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::Medium';
 
 use MusicBrainz::Server::Context;
@@ -36,9 +36,11 @@ is( $hits, 2 );
 is ( scalar @$results, 2 );
 is( $results->[0]->id, 1 );
 is( $results->[0]->release->name, 'Aerial' );
+is( $results->[0]->release->artist_credit_id, 1 );
 is( $results->[0]->position, 1 );
 is( $results->[1]->id, 3 );
 is( $results->[1]->release->name, 'Aerial' );
+is( $results->[1]->release->artist_credit_id, 1 );
 is( $results->[1]->position, 1 );
 
 # just check that it doesn't die
@@ -64,3 +66,5 @@ is ( $medium->name, 'Edited name' );
 is ( $medium->format_id, 2 );
 
 $sql->commit;
+
+done_testing;

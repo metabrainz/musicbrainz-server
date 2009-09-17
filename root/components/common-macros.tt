@@ -252,3 +252,15 @@ END -%]
 [% END %]
 ]
 [%- END -%]
+
+[%- MACRO release_label_list(labels) BLOCK;
+    out = [];
+    out.push(link_label(label.label)) FOR label=labels;
+    out.join(', ');
+END -%]
+
+[%- MACRO release_catno_list(labels) BLOCK;
+    out = [];
+    out.push(label.catalog_number) FOR label=labels;
+    out.join(', ');
+END -%]

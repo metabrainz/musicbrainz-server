@@ -29,10 +29,13 @@ sub show : Chained('tracklist') PathPart('')
             $c->model('Medium')->find_by_tracklist($tracklist->id, shift, shift);
         });
 
+    my @releases = map { $_->release } @$release_media;
     $c->model('ArtistCredit')->load(
-        @{ $tracklist->tracks },
-        map { $_->release } @$release_media
-    );
+        $tracklist->all_tracks, @releases);
+    $c->model('Country')->load(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels } @releases);
 
     $c->stash(
         show_artists => 1,

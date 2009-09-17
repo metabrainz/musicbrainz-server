@@ -90,7 +90,7 @@ sub find_by_tracklist
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
-                release.artist_credit AS r_artist_credit,
+                release.artist_credit AS r_artist_credit_id,
                 release.date_year AS r_date_year,
                 release.date_month AS r_date_month,
                 release.date_day AS r_date_day,

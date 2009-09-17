@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 14;
+use Test::More;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -28,4 +28,11 @@ $mech->content_contains('2:03', 'track 1');
 
 $mech->content_contains('/release/f34c079d-374e-4436-9448-da92dedef3ce', 'shows releases');
 $mech->content_contains('Arrival', 'shows releases');
-$mech->content_contains('disc 1', 'shows releases');
+$mech->content_contains('1/2', 'release medium position');
+$mech->content_contains('Warp Records', 'release label');
+$mech->content_contains('ABC-123', 'release catno');
+$mech->content_contains('ABC-123-X', 'release catno');
+$mech->content_contains('GB', 'release country');
+$mech->content_contains('2009-05-08', 'release date');
+
+done_testing;
