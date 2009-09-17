@@ -83,7 +83,7 @@
                 </div>
             </p>
             <p>
-                [% l('Alternatively, you might just want to {uri|search} or {browse|browse} the MusicBrainz database. If you spot a mistake, or something that is missing, you can even {edit|edit or add more data}!', { uri => c.uri_for('/search'), edit => doc_link('HowEditingWorks'), browse => c.uri_for('/browse/artist')}) %]
+                [% l('Alternatively, you might just want to {search_url|search} or {browse_url|browse} the MusicBrainz database. If you spot a mistake, or something that is missing, you can even {edit|edit or add more data}!', { search_url => c.uri_for('/search'), edit => doc_link('HowEditingWorks'), browse_url => c.uri_for('/browse/artist')}) %]
             </p>
             <p>
                 [% l('If you are new to MusicBrainz, please take a moment to read the {doc_begin|beginners\' guide} before editing the database.', {doc_begin => doc_link('BeginnersGuide')}) %]
