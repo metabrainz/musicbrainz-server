@@ -347,9 +347,9 @@ INSERT INTO isrc (isrc, recording) VALUES ('DEE250800230', 2);
 TRUNCATE TABLE link_attribute_type CASCADE;
 
 INSERT INTO link_attribute_type (id, root, gid, name)
-    VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'Additional');
+    VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'additional');
 INSERT INTO link_attribute_type (id, root, gid, name)
-    VALUES (2, 2, '108d76bd-95eb-4099-aed6-447e4ec78553', 'Instrument');
+    VALUES (2, 2, '108d76bd-95eb-4099-aed6-447e4ec78553', 'instrument');
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (3, 2, 2, '4f7bb10f-396c-466a-8221-8e93f5e454f9', 'String Instruments');
 INSERT INTO link_attribute_type (id, parent, root, gid, name)

@@ -1,62 +1,16 @@
-package MusicBrainz::Server::Entity::LinkAttributeType;
+package MusicBrainz::Server::Entity::LinkAttribute;
 
 use Moose;
-use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has 'parent_id' => (
+has 'type_id' => (
     is => 'rw',
     isa => 'Int',
 );
 
-has 'parent' => (
+has 'type' => (
     is => 'rw',
     isa => 'LinkAttributeType',
-);
-
-has 'root_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'root' => (
-    is => 'rw',
-    isa => 'LinkAttributeType',
-);
-
-has 'name' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has 'description' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has 'child_order' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[LinkAttributeType]',
-    lazy => 1,
-    default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_children',
-        push => 'add_child',
-        clear => 'clear_children',
-    }
 );
 
 __PACKAGE__->meta->make_immutable;

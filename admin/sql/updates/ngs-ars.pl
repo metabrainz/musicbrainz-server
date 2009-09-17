@@ -343,11 +343,13 @@ foreach my $orig_t0 (@entity_types) {
                 foreach my $attr (split / /, $row->{attribute}) {
                     my ($name, $limits) = split /=/, $attr;
                     my ($min_l, $max_l) = split /-/, $limits;
+                    $min_l = $min_l eq '' ? undef : $min_l;
+                    $max_l = $max_l eq '' ? undef : $max_l;
                     $sql->do("
                         INSERT INTO link_type_attribute_type
                             (link_type, attribute_type, min, max)
                             VALUES (?, ?, ?, ?)
-                    ", $id, $attr_map{$name}, $min_l || undef, $max_l || undef);
+                    ", $id, $attr_map{$name}, $min_l, $max_l);
                 }
             }
         }

@@ -79,6 +79,19 @@ has 'children' => (
     }
 );
 
+has 'attributes' => (
+    is => 'rw',
+    isa => 'ArrayRef[LinkTypeAttribute]',
+    metaclass => 'Collection::Array',
+    default => sub { [] },
+    lazy => 1,
+    provides => {
+        clear => 'clear_attributes',
+        elements => 'all_attributes',
+        push => 'add_attribute'
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

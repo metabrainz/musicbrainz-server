@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Data::Artist;
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Edit::Utils qw( date_closure );
 use MusicBrainz::Server::Types qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
@@ -51,20 +51,11 @@ has '+data' => (
     ]
 );
 
-sub _date_closure
-{
-    my $attr = shift;
-    return sub {
-        my $a = shift;
-        return partial_date_to_hash($a->$attr); 
-    };
-}
-
 sub _mapping
 {
     return (
-        begin_date => _date_closure('begin_date'),
-        end_date => _date_closure('end_date'),
+        begin_date => date_closure('begin_date'),
+        end_date => date_closure('end_date'),
     );
 }
 

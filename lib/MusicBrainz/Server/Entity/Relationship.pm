@@ -100,7 +100,19 @@ sub _build_phrase
 {
     my $self = shift;
 
-    my %attrs = %{ $self->link->attributes };
+    my @attrs = $self->link->all_attributes;
+    my %attrs;
+    foreach my $attr (@attrs) {
+        my $name = lc $attr->root->name;
+        my $value = lc $attr->name;
+        if (exists $attrs{$name}) {
+            push @{$attrs{$name}}, $value;
+        }
+        else {
+            $attrs{$name} = [ $value ];
+        }
+    }
+
     my $phrase =
         $self->direction == $DIRECTION_FORWARD
         ? $self->link->type->link_phrase

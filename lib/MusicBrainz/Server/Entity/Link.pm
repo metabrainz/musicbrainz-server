@@ -33,26 +33,42 @@ has 'end_date' => (
 
 has 'attributes' => (
     is => 'rw',
-    isa => 'HashRef[ArrayRef]',
-    metaclass => 'Collection::Hash',
-    default => sub { +{} },
+    isa => 'ArrayRef[LinkAttributeType]',
+    metaclass => 'Collection::Array',
+    default => sub { [] },
     lazy => 1,
     provides => {
         clear => 'clear_attributes',
-        exists => 'has_attribute',
-        get => 'get_attribute'
+        elements => 'all_attributes',
+        push => 'add_attribute'
     }
 );
 
-sub add_attribute
+sub has_attribute
 {
-    my ($self, $name, $value) = @_;
-    if ($self->has_attribute($name)) {
-        push @{$self->attributes->{$name}}, $value;
+    my ($self, $name) = @_;
+
+    $name = lc $name;
+    foreach my $attr ($self->all_attributes) {
+        if (defined $attr->root && lc $attr->root->name eq $name) {
+            return 1;
+        }
     }
-    else {
-        $self->attributes->{$name} = [$value];
+    return 0;
+}
+
+sub get_attribute
+{
+    my ($self, $name) = @_;
+
+    my @values;
+    $name = lc $name;
+    foreach my $attr ($self->all_attributes) {
+        if (defined $attr->root && lc $attr->root->name eq $name) {
+            push @values, lc $attr->name;
+        }
     }
+    return \@values;
 }
 
 __PACKAGE__->meta->make_immutable;

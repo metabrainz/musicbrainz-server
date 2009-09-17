@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Link;
 use Moose;
 use Sql;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
     add_partial_date_to_row
@@ -11,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'link' };
 
 sub _table
 {
@@ -38,13 +40,18 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Link';
 }
 
-sub get_by_ids
+sub _load_attributes
 {
-    my ($self, @ids) = @_;
-    my $data = MusicBrainz::Server::Data::Entity::get_by_ids($self, @ids);
+    my ($self, $data, @ids) = @_;
+
     if (@ids) {
         my $query = "
-            SELECT link, attr.name AS value, root_attr.name
+            SELECT
+                link,
+                attr.id,
+                attr.name AS name,
+                root_attr.id AS root_id,
+                root_attr.name AS root_name
             FROM link_attribute
                 JOIN link_attribute_type AS attr ON attr.id = link_attribute.attribute_type
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
@@ -56,12 +63,37 @@ sub get_by_ids
             my $row = $sql->next_row_hash_ref or last;
             my $id = $row->{link};
             if (exists $data->{$id}) {
-                $data->{$id}->add_attribute(lc $row->{name}, lc $row->{value});
+                my $attr = MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    id => $row->{id},
+                    name => $row->{name},
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        id => $row->{root_id},
+                        name => $row->{root_name},
+                    ),
+                );
+                $data->{$id}->add_attribute($attr);
             }
         }
         $sql->finish;
     }
+}
+
+sub get_by_ids
+{
+    my ($self, @ids) = @_;
+    my $data = MusicBrainz::Server::Data::Entity::get_by_ids($self, @ids);
+    $self->_load_attributes($data, @ids);
     return $data;
+}
+
+sub get_by_id
+{
+    my ($self, $id) = @_;
+    my $obj = MusicBrainz::Server::Data::Entity::get_by_id($self, $id);
+    if (defined $obj) {
+        $self->_load_attributes({ $id => $obj }, $id);
+    }
+    return $obj;
 }
 
 sub load

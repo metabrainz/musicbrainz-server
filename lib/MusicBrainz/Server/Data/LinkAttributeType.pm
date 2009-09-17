@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'linkattrtype' };
 
 sub _table
 {
@@ -37,6 +38,12 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::LinkAttributeType';
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'type', @objs);
 }
 
 sub get_tree

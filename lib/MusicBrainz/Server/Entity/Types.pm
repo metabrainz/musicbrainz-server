@@ -56,11 +56,17 @@ subtype 'Link'
 subtype 'Linkable'
     => as role_type 'MusicBrainz::Server::Entity::Linkable';
 
+subtype 'LinkAttribute'
+    => as class_type 'MusicBrainz::Server::Entity::LinkAttribute';
+
 subtype 'LinkAttributeType'
     => as class_type 'MusicBrainz::Server::Entity::LinkAttributeType';
 
 subtype 'LinkType'
     => as class_type 'MusicBrainz::Server::Entity::LinkType';
+
+subtype 'LinkTypeAttribute'
+    => as class_type 'MusicBrainz::Server::Entity::LinkTypeAttribute';
 
 subtype 'Country'
     => as class_type 'MusicBrainz::Server::Entity::Country';

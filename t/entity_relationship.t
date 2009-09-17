@@ -5,6 +5,7 @@ use Test::More tests => 11;
 
 use_ok 'MusicBrainz::Server::Entity::Relationship';
 use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::Link;
 
 is( MusicBrainz::Server::Entity::Relationship::_join_attrs([]), '' );
@@ -24,7 +25,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
-        attributes => {},
+        attributes => [],
     ),
 );
 is( $rel->phrase, 'was arranged by' );
@@ -33,9 +34,14 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
-        attributes => {
-            'additional' => ['additional'],
-        },
+        attributes => [
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'additional',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'additional',
+                ),
+            ),
+        ]
     ),
 );
 is( $rel->phrase, 'was additionally arranged by' );
@@ -44,9 +50,14 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
-        attributes => {
-            'instrument' => ['orchestra'],
-        },
+        attributes => [
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'orchestra',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'instrument',
+                ),
+            ),
+        ]
     ),
 );
 is( $rel->phrase, 'has orchestra arranged by' );
@@ -55,9 +66,20 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
-        attributes => {
-            'instrument' => ['orchestra', 'piano'],
-        },
+        attributes => [
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'orchestra',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'instrument',
+                ),
+            ),
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'piano',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'instrument',
+                ),
+            ),
+        ]
     ),
 );
 is( $rel->phrase, 'has orchestra and piano arranged by' );
@@ -66,10 +88,20 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
-        attributes => {
-            'instrument' => ['orchestra'],
-            'additional' => ['additional'],
-        },
+        attributes => [
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'orchestra',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'instrument',
+                ),
+            ),
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'additional',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'additional',
+                ),
+            ),
+        ]
     ),
 );
 is( $rel->phrase, 'has orchestra additionally arranged by' );

@@ -3,9 +3,16 @@ package MusicBrainz::Server::Data::LinkType;
 use Moose;
 use Sql;
 use MusicBrainz::Server::Entity::LinkType;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row generate_gid );
+use MusicBrainz::Server::Entity::LinkTypeAttribute;
+use MusicBrainz::Server::Data::Utils qw(
+    load_subobjects
+    hash_to_row
+    generate_gid
+    placeholders
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'linktype' };
 
 sub _table
 {
@@ -23,6 +30,51 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::LinkType';
+}
+
+sub _load_attributes
+{
+    my ($self, $data, @ids) = @_;
+
+    if (@ids) {
+        my $query = "
+            SELECT *
+            FROM link_type_attribute_type
+            WHERE link_type IN (" . placeholders(@ids) . ")
+            ORDER BY link_type";
+        my $sql = Sql->new($self->c->mb->dbh);
+        $sql->select($query, @ids);
+        while (1) {
+            my $row = $sql->next_row_hash_ref or last;
+            my $id = $row->{link_type};
+            if (exists $data->{$id}) {
+                my %args = ( type_id => $row->{attribute_type} );
+                $args{min} = $row->{min} if defined $row->{min};
+                $args{max} = $row->{max} if defined $row->{max};
+                my $attr = MusicBrainz::Server::Entity::LinkTypeAttribute->new(%args);
+                $data->{$id}->add_attribute($attr);
+            }
+        }
+        $sql->finish;
+    }
+}
+
+sub get_by_ids
+{
+    my ($self, @ids) = @_;
+    my $data = MusicBrainz::Server::Data::Entity::get_by_ids($self, @ids);
+    $self->_load_attributes($data, @ids);
+    return $data;
+}
+
+sub get_by_id
+{
+    my ($self, $id) = @_;
+    my $obj = MusicBrainz::Server::Data::Entity::get_by_id($self, $id);
+    if (defined $obj) {
+        $self->_load_attributes({ $id => $obj }, $id);
+    }
+    return $obj;
 }
 
 sub load
@@ -48,6 +100,8 @@ sub get_tree
         push @objs, $obj;
     }
     $sql->finish;
+
+    $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
 
     my $root = MusicBrainz::Server::Entity::LinkType->new;
     foreach my $obj (@objs) {

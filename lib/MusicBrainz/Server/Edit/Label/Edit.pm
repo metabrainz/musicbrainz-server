@@ -6,7 +6,7 @@ use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
 use MusicBrainz::Server::Data::Label;
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Edit::Utils qw( date_closure );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 
 extends 'MusicBrainz::Server::Edit';
@@ -50,20 +50,11 @@ has '+data' => (
     ]
 );
 
-sub _date_closure
-{
-    my $attr = shift;
-    return sub {
-        my $a = shift;
-        return partial_date_to_hash($a->$attr); 
-    };
-}
-
 sub _mapping
 {
     return (
-        begin_date => _date_closure('begin_date'),
-        end_date => _date_closure('end_date'),
+        begin_date => date_closure('begin_date'),
+        end_date => date_closure('end_date'),
     );
 }
 

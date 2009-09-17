@@ -64,3 +64,21 @@ dl.properties label {
     float: none;
     width: auto;
 }
+
+div.ar-descr {
+    background: #F9F9F9;
+    padding: 4px;
+    border: dotted 1px #D0D0D0;
+    margin: 0.5em;
+}
+
+a.selectFilterPrev,
+a.selectFilterNext {
+    color: #000;
+    text-decoration: none;
+}
+
+a.selectFilterPrev:hover,
+a.selectFilterNext:hover {
+    color: #666;
+}

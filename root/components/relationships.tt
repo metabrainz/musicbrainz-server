@@ -29,6 +29,12 @@
             [%- IF relationship.edits_pending %]</span>[% END -%]
             [%- IF c.user_exists -%]
             [
+                <a href="[% c.uri_for_action('/edit/relationship/edit', {
+                    type0 => relationship.link.type.entity0_type,
+                    type1 => relationship.link.type.entity1_type,
+                    id => relationship.id,
+                    returnto => c.req.uri
+                }) %]">[% l('Edit') %]</a> |
                 <a href="[% c.uri_for_action('/edit/relationship/delete', {
                     type0 => relationship.link.type.entity0_type,
                     type1 => relationship.link.type.entity1_type,
