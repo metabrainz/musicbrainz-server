@@ -95,7 +95,6 @@ override 'accept' => sub
 
 sub _xml_arguments { return ForceArray => [ 'artist_credit' ] }
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

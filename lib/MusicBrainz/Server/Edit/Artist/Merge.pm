@@ -70,7 +70,6 @@ override 'accept' => sub
     $self->c->model('Artist')->merge($self->new_artist_id, $self->old_artist_id);
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

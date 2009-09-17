@@ -70,7 +70,6 @@ override 'accept' => sub
     $self->c->model('Label')->merge($self->new_label_id, $self->old_label_id);
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

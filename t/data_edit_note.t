@@ -17,8 +17,6 @@ BEGIN {
     extends 'MusicBrainz::Server::Edit';
 
     sub edit_type { 111; }
-
-    MockEdit->register_type;
 };
 
 BEGIN {
@@ -62,6 +60,9 @@ RAWSQL
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
 MusicBrainz::Server::Test->prepare_raw_test_database($c, $raw_sql);
+
+use MusicBrainz::Server::EditRegistry;
+MusicBrainz::Server::EditRegistry->register_type("MockEdit");
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $c);

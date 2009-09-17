@@ -4,7 +4,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
-use MusicBrainz::Server::Edit::Work::Edit;
 
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::RelationshipRole';

@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
@@ -24,8 +25,10 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c);
     use Moose;
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { 1 }
-    MockEdit->register_type;
 }
+
+use MusicBrainz::Server::EditRegistry;
+MusicBrainz::Server::EditRegistry->register_type("MockEdit", 1);
 
 my $edit = $c->model('Edit')->create(
     editor_id => 1,

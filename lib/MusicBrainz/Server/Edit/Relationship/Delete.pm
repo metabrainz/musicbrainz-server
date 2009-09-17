@@ -78,7 +78,6 @@ sub accept
         $self->data->{relationship_id});
 }
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

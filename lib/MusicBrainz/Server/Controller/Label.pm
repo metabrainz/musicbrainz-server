@@ -13,10 +13,6 @@ with 'MusicBrainz::Server::Controller::EditListingRole';
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use Data::Page;
 
-use MusicBrainz::Server::Edit::Label::Create;
-use MusicBrainz::Server::Edit::Label::Delete;
-use MusicBrainz::Server::Edit::Label::Edit;
-use MusicBrainz::Server::Edit::Label::Merge;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Form::Label;
 use Sql;

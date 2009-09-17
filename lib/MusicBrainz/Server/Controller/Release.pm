@@ -16,7 +16,6 @@ use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Controller::TagRole;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
-use MusicBrainz::Server::Edit::Release::Edit;
 
 =head1 NAME
 

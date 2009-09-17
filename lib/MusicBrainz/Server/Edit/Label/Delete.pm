@@ -40,7 +40,6 @@ override 'accept' => sub
     $self->c->model('Label')->delete($self->label_id);
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

@@ -247,22 +247,6 @@ sub initialize
     $self->data(\%opts);
 }
 
-our %_types;
-
-sub register_type
-{
-    my $class = shift;
-    my $type = $class->edit_type;
-    warn "Type $type already registered" if exists $_types{$type};
-    $_types{$type} = $class;
-}
-
-sub class_from_type
-{
-    my ($class, $type) = @_;
-    return $_types{$type};
-}
-
 sub _mapping { }
 sub _change_hash
 {

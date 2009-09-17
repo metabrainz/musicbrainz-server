@@ -22,10 +22,6 @@ use ModDefs;
 use UserSubscription;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
-use MusicBrainz::Server::Edit::Artist::Create;
-use MusicBrainz::Server::Edit::Artist::Edit;
-use MusicBrainz::Server::Edit::Artist::Delete;
-use MusicBrainz::Server::Edit::Artist::Merge;
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use Sql;

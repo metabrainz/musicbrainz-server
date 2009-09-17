@@ -40,7 +40,6 @@ sub accept
         $track->position + 1, -1);
 }
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -4,7 +4,6 @@ use Moose;
 BEGIN { extends 'Catalyst::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
-use MusicBrainz::Server::Edit::Relationship::Delete;
 
 sub delete : Local RequireAuth
 {

@@ -41,7 +41,6 @@ override 'accept' => sub
     $artist_data->delete($self->artist_id);
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

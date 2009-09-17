@@ -10,12 +10,14 @@ BEGIN { use_ok 'MusicBrainz::Server::Data::Edit' };
     use Moose;
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { 123 }
-    MockEdit->register_type;
 }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Types qw( :edit_status );
+
+use MusicBrainz::Server::EditRegistry;
+MusicBrainz::Server::EditRegistry->register_type("MockEdit");
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');

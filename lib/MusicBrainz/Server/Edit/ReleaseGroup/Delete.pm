@@ -47,7 +47,6 @@ override 'accept' => sub
     $rg_data->delete($self->release_group_id);
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

@@ -5,7 +5,7 @@ use Carp qw( croak );
 use DateTime;
 use List::MoreUtils qw( uniq zip );
 use MusicBrainz::Server::Data::Editor;
-use MusicBrainz::Server::Edit;
+use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
@@ -34,7 +34,7 @@ sub _new_from_row
     my ($self, $row) = @_;
 
     # Readd the class marker
-    my $class = MusicBrainz::Server::Edit->class_from_type($row->{type})
+    my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or die "Could not look up class for type";
     my $data = XMLin($row->{data}, SuppressEmpty => undef, KeyAttr => [], $class->_xml_arguments);
 
@@ -126,7 +126,7 @@ sub create
     my $type = delete $opts{edit_type} or croak "edit_type required";
     my $editor_id = delete $opts{editor_id} or croak "editor_id required";
     my $privs = $opts{privileges} || 0;
-    my $class = MusicBrainz::Server::Edit->class_from_type($type)
+    my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or die "Could not lookup edit type for $type";
 
     my $edit = $class->new( editor_id => $editor_id, c => $self->c );

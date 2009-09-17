@@ -51,7 +51,6 @@ sub accept
     $self->c->model('ReleaseLabel')->delete($self->release_label_id);
 }
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
-use MusicBrainz::Server::Edit::ReleaseGroup::Delete;
 use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Annotation';

@@ -4,7 +4,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
-use MusicBrainz::Server::Edit::WikiDoc::Change;
 
 sub index : Path Args(0) RequireAuth(wiki_transcluder)
 {

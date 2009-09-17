@@ -53,7 +53,6 @@ sub accept
         $self->data->{page}, $self->data->{new_version});
 }
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

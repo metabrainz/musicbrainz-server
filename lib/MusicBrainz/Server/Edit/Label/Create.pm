@@ -81,7 +81,6 @@ before 'restore' => sub
     $self->label_id(delete $hash->{label_id});
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

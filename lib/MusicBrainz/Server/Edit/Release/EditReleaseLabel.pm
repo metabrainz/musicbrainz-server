@@ -76,7 +76,6 @@ sub accept
     $self->c->model('ReleaseLabel')->update($self->release_label_id, $self->data->{new});
 }
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

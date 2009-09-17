@@ -87,7 +87,6 @@ override 'accept' => sub
 };
 
 __PACKAGE__->meta->make_immutable;
-__PACKAGE__->register_type;
 
 no Moose;
 1;

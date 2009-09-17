@@ -63,6 +63,5 @@ override 'accept' => sub
     $medium_data->update($self->medium_id, $self->data->{new});
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 1;

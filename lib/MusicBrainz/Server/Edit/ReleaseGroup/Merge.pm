@@ -59,7 +59,6 @@ override 'accept' => sub
     $self->c->model('ReleaseGroup')->merge($self->new_release_group_id, $self->old_release_group_id);
 };
 
-__PACKAGE__->register_type;
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
