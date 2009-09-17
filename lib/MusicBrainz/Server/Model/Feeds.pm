@@ -39,7 +39,7 @@ sub get
                         body => encode("utf-8", $entry->summary->body),
                     },
                     link => encode("utf-8", $entry->link),
-                    issued => encode("utf-8", $entry->issued),
+                    issued => $entry->issued,
                 };
             }
 

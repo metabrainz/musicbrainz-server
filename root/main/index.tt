@@ -19,7 +19,7 @@
                         </h3>
                         [% post.summary.body %]
                         <p style="text-align: right;">
-                            [% l('Posted:') %] [% post.issued %]
+                            [% l('Posted:') %] [% UserDate.format(post.issued) %]
                             <br/>
                             <a href="[% post.link %]">
                                 [% l('Read more&hellip;') %]
