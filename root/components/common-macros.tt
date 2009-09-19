@@ -11,9 +11,7 @@
 [%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
 [%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
 [%- USE UserDate(c.user.preferences) -%]
-[%- MACRO doc_link(to) BLOCK -%]
-    [% c.uri_for('/doc', to) %]
-[%- END -%]
+[%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
@@ -206,14 +204,14 @@ END -%]
 
 [%- MACRO link_edit(edit, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/edit/$action", edit.id);
+    link = c.uri_for_action("/edit/$action", [ edit.id ]);
     text = text || html_escape(edit.id);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
-[% MACRO login_url(redirect) BLOCK;
+[%- MACRO login_url(redirect) BLOCK;
     c.uri_for_action('/user/login', { uri => redirect || c.req.path });
-END%]
+END-%]
 
 [%- MACRO request_login(text) BLOCK -%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>

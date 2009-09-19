@@ -1,8 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <meta http-equiv="expires" content="1" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
         <link rel="stylesheet" type="text/css" href="/static/main.css" />
@@ -40,7 +38,7 @@
         [%- END -%]
     </head>
     <body>
-        <div id="header"><div id="header-inner">
+        <div id="header">
             <div id="header-logo"><a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a><div>
                 [%- USE sidebar = FormRenderer(sidebar_search) -%]
                 <form action="[% c.uri_for('/search') %]" method="get"><span>
@@ -49,29 +47,25 @@
                     <input type="submit" value="Search" />
                 </span></form>
             </div></div>
-            <div id="header-menu"><div class="inner">
-                <div>
-                    <ul>
-                    [%- IF c.user_exists -%]
-                        <li>[% link_editor(c.user) %]</li>
-                        <li><a href="[% c.uri_for_action('/user/logout') %]">Log out</a></li>
-                    [%- ELSE -%]
-                        <li>[% request_login() %]</li>
-                        <li><a href="[% c.uri_for_action('/user/register') %]">Create account</a></li>
-                    [%- END -%]
-                    </ul>
-                </div>
+            <div id="header-menu"><div>
+                <ul class="r">
+                [%- IF c.user_exists -%]
+                    <li>[% link_editor(c.user) %]</li>
+                    <li><a href="[% c.uri_for_action('/user/logout') %]">Log out</a></li>
+                [%- ELSE -%]
+                    <li>[% request_login() %]</li>
+                    <li><a href="[% c.uri_for_action('/user/register') %]">Create account</a></li>
+                [%- END -%]
+                </ul>
                 [%- INCLUDE "layout/menu.tt" -%]
+                <div class="r"></div><div class="l">
             </div></div>
-        </div></div>
+        </div>
 
-        <div class="page[% IF full_width %] fullwidth[% END %]"><div class="tl"><div class="bl">[% IF !full_width %]<div class="bg">[%  END %]<div class="tr">
-        <div class="br">
-
-
+        <div class="page[% IF full_width %] fullwidth[% END %]">
         [%- content -%]
-
-        </div></div></div>[% IF !full_width %]</div>[%  END %]</div></div>
+        <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+        </div>
 
         <p id="footer">
             <a href="http://metabrainz.org/donate">Donate</a> |
