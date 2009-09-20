@@ -16,12 +16,12 @@ sub gather_data_from_query
     $args ||= [];
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->Select($query, @$args);
-    while (my $row = $sql->NextRowHashRef) {
+    $sql->select($query, @$args);
+    while (my $row = $sql->next_row_hash_ref) {
         next if $filter and not($row = &$filter($row));
         $writer->Print($row);
     }
-    $sql->Finish;
+    $sql->finish;
 }
 
 sub run
