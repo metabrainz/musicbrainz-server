@@ -38,6 +38,21 @@ my %ReleaseFormatNames = (
    16 => 'DCC',
 );
 
+my %AmazonReleaseFormatMap = (
+   'Audio CD'           => 'CD',
+   'CD-R'               => 'CD',
+   'CD-ROM'             => 'CD',
+   'Audio Cassette'     => 'Cassette',
+   'Hörkassett'         => 'Cassette',
+   'DVD Audio'          => 'DVD',
+   'DVD-Audio'          => 'DVD',
+   'Album vinyle'       => 'Vinyl',
+   'MP3 Download'       => 'Digital Media',
+   'Téléchargement MP3' => 'Digital Media',
+   'MP3-Download'       => 'Digital Media',
+   'Mini-Disc'          => 'MiniDisc',
+);
+
 sub mangle_catno
 {
     my $catno = lc $_[0] || '';
@@ -122,6 +137,100 @@ sub match_discogs_country
             }
         }
     }
+    return @matches;
+}
+
+my %amz_clean = map { $_ => 0 } qw( barcode barcode2 date year_format );
+my $amz_not_clean = 0;
+
+sub match_amazon_barcode
+{
+    my ($amazon_info, $mb_info, @entity0) = @_;
+
+    # Try to match barcodes
+    my @matches;
+    if ($amazon_info->[3]) {
+	my $amazon_barcode = $amazon_info->[3];
+        $amazon_barcode =~ s/^0+//; # remove leading zeros
+        foreach my $entity0 (@entity0) {
+            my $barcode = $mb_info->{$entity0}->{barcode} || '';
+            $barcode =~ s/^0+//; # remove leading zeros
+            next unless $barcode;
+            if ($barcode eq $amazon_barcode) {
+                push @matches, $entity0;
+            }
+        }
+    }
+    $amz_clean{barcode}++ if @matches;
+    return @matches;
+}
+
+sub match_amazon_barcode_2
+{
+    my ($amazon_info, $mb_info, @entity0) = @_;
+
+    # Try to match parts of barcodes
+    my @matches;
+    if ($amazon_info->[3]) {
+	my $amazon_barcode = $amazon_info->[3];
+        $amazon_barcode =~ s/^0+//; # remove leading zeros
+        foreach my $entity0 (@entity0) {
+            my $barcode = $mb_info->{$entity0}->{barcode} || '';
+            $barcode =~ s/^0+//; # remove leading zeros
+            next unless $barcode;
+            if (index($barcode, $amazon_barcode) >= 0 || index($amazon_barcode, $barcode) >= 0) {
+                push @matches, $entity0;
+            }
+        }
+    }
+    $amz_clean{barcode2}++ if @matches;
+    return @matches;
+}
+
+sub match_amazon_date
+{
+    my ($amazon_info, $mb_info, @entity0) = @_;
+
+    # Try to match release date (and format)
+    my @matches;
+    if ($amazon_info->[4]) {
+        my $amazon_date = $amazon_info->[4];
+        my $amazon_format = $AmazonReleaseFormatMap{$amazon_info->[5]} || $amazon_info->[5];
+
+        foreach my $entity0 (@entity0) {
+            my $date = $mb_info->{$entity0}->{releasedate} || '';
+            my $format = $ReleaseFormatNames{$mb_info->{$entity0}->{format} || ''} || '';
+            if ($date && $date eq $amazon_date &&
+                ($format eq '' || $format eq $amazon_format)) {
+                push @matches, $entity0;
+            }
+        }
+    }
+    $amz_clean{date}++ if @matches;
+    return @matches;
+}
+
+sub match_amazon_year_format
+{
+    my ($amazon_info, $mb_info, @entity0) = @_;
+
+    # Try to match release year and format
+    my @matches;
+    if ($amazon_info->[4] && $amazon_info->[5]) {
+        my $amazon_year = substr($amazon_info->[4], 0, 4);
+        my $amazon_format = $AmazonReleaseFormatMap{$amazon_info->[5]} || $amazon_info->[5];
+
+        foreach my $entity0 (@entity0) {
+            my $year = substr($mb_info->{$entity0}->{releasedate} || '', 0, 4);
+            my $format = $ReleaseFormatNames{$mb_info->{$entity0}->{format} || ''} || '';
+            if ($year && $format && $year eq $amazon_year &&
+                $format eq $amazon_format) {
+                push @matches, $entity0;
+                $amz_clean{year_format}++;
+            }
+        }
+    }
+    $amz_clean{year_format}++ if @matches;
     return @matches;
 }
 
@@ -298,6 +407,7 @@ foreach my $orig_t0 (@entity_types) {
                 ($new_t0, $new_t1) = ($new_t1, $new_t0);
                 $reverse = 1;
             }
+            $sql->do("TRUNCATE l_${new_t0}_${new_t1}");
             print STDERR "Converting $orig_t0<=>$orig_t1 link types to $new_t0<=>$new_t1\n";
             # Generate IDs for new link types and save them in a global hash
             foreach my $row (@$rows) {
@@ -406,6 +516,7 @@ foreach my $orig_t0 (@entity_types) {
         }
 
         my %discogs;
+        my %amazon;
 
         if ($orig_t0 eq "album" && $orig_t1 eq "url") {
             # Load also the URLs
@@ -422,6 +533,16 @@ foreach my $orig_t0 (@entity_types) {
                 $discogs{$fields[0]} = \@fields;
             }
             close(DISCOGS);
+            # Load Amazon URL data
+            LWP::Simple::mirror("http://users.musicbrainz.org/~luks/ngs/amazon.dat", "amazon.dat");
+            open(AMAZON, "<amazon.dat");
+            while (<AMAZON>) {
+                my $line = $_;
+                $line =~ s/\s*$//;
+                my @fields = split /\t/, $line;
+                $amazon{$fields[0]} = \@fields;
+            }
+            close(AMAZON);
         }
         else {
             $rows = $sql->select_list_of_hashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
@@ -533,6 +654,43 @@ foreach my $orig_t0 (@entity_types) {
                         }
                     }
                     @entity0 = @matches;
+                }
+            }
+
+            # Try to disambiguate Amazon release URLs
+            if ($new_t0 eq "release" && $new_t1 eq "url" && $row->{link_type} == 30 && scalar(@entity0) > 1 && scalar(@entity1) == 1) {
+                my $amazon_info = $amazon{$row->{link1}};
+                if (defined $amazon_info) {
+                    my %mb_info = load_release_info(@entity0);
+                    #printf "Amazon info: @{$amazon_info}\n";
+                    #foreach my $r (keys %mb_info) {
+                    #    my %info = %{$mb_info{$r}};
+                    #    printf "MB info %s:\n", $r;
+                    #    foreach my $k (keys %info) {
+                    #        printf " %s => %s\n", $k, $info{$k};
+                    #    }
+                    #}
+                    my @matches = match_amazon_barcode($amazon_info, \%mb_info, @entity0);
+                    #printf "Barcode matches: @matches\n" if @matches;
+                    unless (@matches) {
+                        @matches = match_amazon_barcode_2($amazon_info, \%mb_info, @entity0);
+                        #printf "Barcode2 matches: @matches\n" if @matches;
+                        unless (@matches) {
+                            @matches = match_amazon_date($amazon_info, \%mb_info, @entity0);
+                            #printf "Date matches: @matches\n" if @matches;
+                            unless (@matches) {
+                                @matches = match_amazon_year_format($amazon_info, \%mb_info, @entity0);
+                                #printf "Year+format matches: @matches\n" if @matches;
+                                unless (@matches) {
+                                    @matches = @entity0;
+                                    $amz_not_clean++;
+                                    #printf "No matches: @matches\n" if @matches;
+                                }
+                            }
+                        }
+                    }
+                    @entity0 = @matches;
+                    #printf "---------------------------------------------------\n";
                 }
             }
 
@@ -716,6 +874,9 @@ foreach my $orig_t0 (@entity_types) {
 }
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
+#my $amz_clean_total = 0; ($amz_clean_total += $amz_clean{$_}) for keys %amz_clean;
+#printf STDERR "release-asin disamguation: %d/%d clean\n", $amz_clean_total, $amz_clean_total + $amz_not_clean;
+#printf STDERR " %s: %d\n", $_, $amz_clean{$_} for keys %amz_clean;
 
     $sql->do("DROP TABLE tmp_release_album");
     $sql->commit;
