@@ -102,6 +102,7 @@ ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_pkey;
 ALTER TABLE track DROP CONSTRAINT track_pkey;
 ALTER TABLE track_name DROP CONSTRAINT track_name_pkey;
 ALTER TABLE tracklist DROP CONSTRAINT tracklist_pkey;
+ALTER TABLE tracklist_index DROP CONSTRAINT tracklist_index_pkey;
 ALTER TABLE url DROP CONSTRAINT url_pkey;
 ALTER TABLE work DROP CONSTRAINT work_pkey;
 ALTER TABLE work_annotation DROP CONSTRAINT work_annotation_pkey;

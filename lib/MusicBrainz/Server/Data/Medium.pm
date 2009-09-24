@@ -95,7 +95,8 @@ sub find_by_tracklist
                 release.date_month AS r_date_month,
                 release.date_day AS r_date_day,
                 release.country AS r_country, release.status AS r_status,
-                release.packaging AS r_packaging
+                release.packaging AS r_packaging,
+                release.release_group AS r_release_group
         FROM
             medium
             JOIN release ON release.id = medium.release

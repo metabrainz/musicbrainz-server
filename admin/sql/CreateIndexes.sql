@@ -166,6 +166,8 @@ CREATE UNIQUE INDEX track_name_idx_name ON track_name (name);
 
 CREATE INDEX tracklist_idx_trackcount ON tracklist (trackcount);
 
+CREATE INDEX tracklist_index_idx ON tracklist_index USING gist (toc);
+
 CREATE UNIQUE INDEX url_idx_gid ON url (gid);
 CREATE UNIQUE INDEX url_idx_url ON url (url);
 

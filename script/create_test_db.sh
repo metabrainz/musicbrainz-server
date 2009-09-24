@@ -8,6 +8,9 @@ echo 'DROP SCHEMA musicbrainz_test CASCADE;' | ./admin/psql --profile=test RAWDA
 echo 'CREATE SCHEMA musicbrainz_test;' | ./admin/psql --profile=test READWRITE
 echo 'CREATE SCHEMA musicbrainz_test;' | ./admin/psql --profile=test RAWDATA
 
+echo `date` : Installing cube extension
+./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz_test
+
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateTables.sql
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateFunctions.sql
 ./admin/psql --profile=test --system READWRITE <./admin/sql/CreateSearchConfiguration.sql

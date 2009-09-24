@@ -102,6 +102,7 @@ ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
 ALTER TABLE track_name ADD CONSTRAINT track_name_pkey PRIMARY KEY (id);
 ALTER TABLE tracklist ADD CONSTRAINT tracklist_pkey PRIMARY KEY (id);
+ALTER TABLE tracklist_index ADD CONSTRAINT tracklist_index_pkey PRIMARY KEY (tracklist);
 ALTER TABLE url ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 ALTER TABLE work ADD CONSTRAINT work_pkey PRIMARY KEY (id);
 ALTER TABLE work_annotation ADD CONSTRAINT work_annotation_pkey PRIMARY KEY (work, annotation);

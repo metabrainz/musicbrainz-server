@@ -12,6 +12,9 @@ echo `date` : Upgrading to N.G.S.!!1!
 echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql READWRITE
 echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql RAWDATA
 
+echo `date` : Installing cube extension
+./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz
+
 echo `date` : Creating schema
 ./admin/psql READWRITE <./admin/sql/CreateTables.sql
 ./admin/psql READWRITE <./admin/sql/CreateFunctions.sql
@@ -30,6 +33,8 @@ echo `date` : Merging releases
 ./admin/sql/updates/ngs-merge-releases.pl
 echo `date` : Merging recordings
 ./admin/sql/updates/ngs-merge-recordings.pl
+echo `date` : Create tracklist index
+./admin/psql READWRITE < ./admin/sql/updates/ngs-cdlookup.sql
 
 echo `date` : Fixing refcounts
 ./admin/psql READWRITE <./admin/sql/updates/ngs-refcount.sql

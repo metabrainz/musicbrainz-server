@@ -855,6 +855,13 @@ CREATE TABLE tracklist
     trackcount          INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE tracklist_index
+(
+    tracklist           INTEGER, -- PK
+    tracks              INTEGER, 
+    toc                 CUBE
+);
+
 CREATE TABLE url
 (
     id                  SERIAL,

@@ -102,6 +102,7 @@ DROP TABLE tag_relation;
 DROP TABLE track;
 DROP TABLE track_name;
 DROP TABLE tracklist;
+DROP TABLE tracklist_index;
 DROP TABLE url;
 DROP TABLE work;
 DROP TABLE work_annotation;

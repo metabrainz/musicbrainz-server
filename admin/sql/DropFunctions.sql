@@ -31,6 +31,8 @@ DROP FUNCTION a_upd_release();
 DROP FUNCTION a_upd_release_group();
 DROP FUNCTION a_upd_track();
 DROP FUNCTION a_upd_work();
+DROP FUNCTION create_bounding_cube(durations INTEGER[], fuzzy INTEGER);
+DROP FUNCTION create_cube_from_durations(durations INTEGER[]);
 DROP FUNCTION dec_refcount(tbl varchar, row_id integer, val integer);
 DROP FUNCTION from_hex(t text);
 DROP FUNCTION generate_uuid_v3(namespace varchar, name varchar);

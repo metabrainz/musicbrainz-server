@@ -119,6 +119,7 @@ DROP INDEX track_idx_recording;
 DROP INDEX track_idx_tracklist;
 DROP INDEX track_name_idx_name;
 DROP INDEX tracklist_idx_trackcount;
+DROP INDEX tracklist_index_idx;
 DROP INDEX url_idx_gid;
 DROP INDEX url_idx_url;
 DROP INDEX work_idx_artist_credit;

@@ -1,0 +1,35 @@
+[%- WRAPPER 'layout.tt' full_width=1 title=l("CD Lookup") -%]
+    <h1>[% l("CD Lookup results") %]</h1>
+    [% IF results.size %]
+        <p>[% l("Found more than one match for the CD with toc {toc}: ", { toc => toc }) %]</p>
+        <table class="tbl">
+            <thead>
+            <tr>
+                <th>[% l("Match") %] *</th>
+                <th>[% l("Release") %]</th>
+                <th>[% l("Artist") %]</th>
+                <th>[% l("Date") %]</th>
+                <th>[% l("Format") %]</th>
+                <th>[% l("Type") %]</th>
+                <th>[% l("Status") %]</th>
+            </tr>
+            </thead>
+            <tbody>
+            [% FOREACH result IN results %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>[% result.distance | format_length %]</td>
+                    <td>[% link_release(result.medium.release) %]</td>
+                    <td>[% artist_credit(result.medium.release.artist_credit) %]</td>
+                    <td>[% result.medium.release.date.format %]</td>
+                    <td>[% result.medium.format_name %]</td>
+                    <td>[% result.medium.release.release_group.type_name or "-" %]</td>
+                    <td>[% result.medium.release.status_name or "-" %]</td>
+                </tr>
+            [% END %]
+            </tbody>
+        </table>
+        <p>[% l("* Match indicates the total difference in seconds between the CD you requested and the matches we found.") %]</p>
+    [% ELSE %]
+        <p>[% l("No matching CDs were found for toc {toc}.", { toc => toc }) %]</p>
+    [% END %]
+[%- END -%]
