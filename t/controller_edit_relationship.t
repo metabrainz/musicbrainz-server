@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( xml_ok );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
@@ -17,6 +17,7 @@ $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/edit/relationship/delete?type0=artist&type1=recording&id=1');
+xml_ok($mech->content);
 $mech->content_contains('Test Alias', 'entity0');
 $mech->content_contains('King of the Mountain', 'entity1');
 $mech->submit_form(
@@ -35,6 +36,7 @@ is_deeply($edit->data, {
 $c->model('Edit')->reject($edit);
 
 $mech->get_ok('/edit/relationship/edit?type0=artist&type1=recording&id=1');
+xml_ok($mech->content);
 $mech->content_contains('Test Alias', 'entity0');
 $mech->content_contains('King of the Mountain', 'entity1');
 $mech->submit_form(

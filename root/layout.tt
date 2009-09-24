@@ -58,7 +58,7 @@
                 [%- END -%]
                 </ul>
                 [%- INCLUDE "layout/menu.tt" -%]
-                <div class="r"></div><div class="l">
+                <div class="r"></div><div class="l"></div>
             </div></div>
         </div>
 

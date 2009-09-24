@@ -4,8 +4,7 @@ use warnings;
 use HTTP::Request::Common;
 use Test::More;
 
-use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( xml_ok );
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 MusicBrainz::Server::Test->prepare_test_server();
@@ -14,6 +13,7 @@ use Test::WWW::Mechanize::Catalyst;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce");
+xml_ok($mech->content);
 $mech->content_like(qr/Dancing Queen/, 'work title');
 $mech->content_like(qr/ABBA/, 'artist credit');
 $mech->content_like(qr/Composition/, 'work type');
@@ -32,17 +32,21 @@ is($mech->status(), 404);
 
 # Test tags
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/tags");
+xml_ok($mech->content);
 $mech->content_like(qr{musical});
 ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/ratings");
+xml_ok($mech->content);
 
 # Test editing the work
 $mech->get_ok('/login');
+xml_ok($mech->content);
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+xml_ok($mech->content);
 my $request = POST $mech->uri, [
     'edit-work.iswc' => 'T-123456789-0',
     'edit-work.comment' => 'A comment!',
@@ -55,6 +59,7 @@ my $request = POST $mech->uri, [
 my $response = $mech->request($request);
 ok($mech->success);
 ok($mech->uri =~ qr{/work/745c079d-374e-4436-9448-da92dedef3ce$});
+xml_ok($mech->content);
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');

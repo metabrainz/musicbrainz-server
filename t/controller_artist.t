@@ -1,10 +1,9 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 73;
+use Test::More;
 
 BEGIN {
-    use MusicBrainz::Server::Context;
-    use MusicBrainz::Server::Test;
+    use MusicBrainz::Server::Test qw( xml_ok );
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -22,6 +21,7 @@ use Test::WWW::Mechanize::Catalyst;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok("/artist/745c079d-374e-4436-9448-da92dedef3ce", 'fetch artist index page');
+xml_ok($mech->content);
 $mech->title_like(qr/Test Artist/, 'title has artist name');
 $mech->content_like(qr/Test Artist/, 'content has artist name');
 $mech->content_like(qr/Artist, Test/, 'content has artist sort name');
@@ -51,6 +51,7 @@ $mech->content_like(qr{/release-group/7348f3a0-454e-11de-8a39-0800200c9a66}, 're
 
 # Test /artist/gid/works
 $mech->get_ok('/artist/a45c079d-374e-4436-9448-da92dedef3cf/works', 'get ABBA page');
+xml_ok($mech->content);
 $mech->title_like(qr/ABBA/, 'title has ABBA');
 $mech->title_like(qr/works/i, 'title indicates works listing');
 $mech->content_contains('Dancing Queen');
@@ -58,6 +59,7 @@ $mech->content_contains('/work/745c079d-374e-4436-9448-da92dedef3ce', 'has a lin
 
 # Test /artist/gid/recordings
 $mech->get_ok('/artist/a45c079d-374e-4436-9448-da92dedef3cf/recordings', 'get ABBA page');
+xml_ok($mech->content);
 $mech->title_like(qr/ABBA/, 'title has ABBA');
 $mech->title_like(qr/recordings/i, 'title indicates recordings listing');
 $mech->content_contains('Dancing Queen');
@@ -66,6 +68,7 @@ $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce', 'has 
 
 # Test /artist/gid/releases
 $mech->get_ok('/artist/a45c079d-374e-4436-9448-da92dedef3cf/releases', 'get ABBA page');
+xml_ok($mech->content);
 $mech->title_like(qr/ABBA/, 'title has ABBA');
 $mech->title_like(qr/releases/i, 'title indicates releases listing');
 $mech->content_contains('Arrival', 'release title');
@@ -74,23 +77,28 @@ $mech->content_contains('/release/f34c079d-374e-4436-9448-da92dedef3ce', 'has a 
 
 # Test aliases
 $mech->get_ok('/artist/945c079d-374e-4436-9448-da92dedef3cf/aliases', 'get artist aliases');
+xml_ok($mech->content);
 $mech->content_contains('Test Alias', 'has the artist alias');
 
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce', 'get artist aliases');
+xml_ok($mech->content);
 $mech->content_unlike(qr/Test Alias/, 'other artist pages do not have the alias');
 
 # Test relationships
 $mech->get_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/relationships', 'get artist relationships');
+xml_ok($mech->content);
 $mech->content_contains('performed guitar');
 $mech->content_contains('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
 
 # Test tags
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
+xml_ok($mech->content);
 $mech->content_like(qr{musical});
 ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/ratings', 'get artist ratings');
+xml_ok($mech->content);
 $mech->content_contains('new_editor');
 $mech->content_contains('4 - ');
 
@@ -99,6 +107,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/artist/create');
+xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-artist.name' => 'controller artist',
@@ -141,6 +150,7 @@ is_deeply($edit->data, {
 
 # Test editing artists
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-artist.name' => 'edit artist',
@@ -211,6 +221,7 @@ is_deeply($edit->data, { artist_id => 3 });
 
 # Test merging artists
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/merge');
+xml_ok($mech->content);
 $response = $mech->submit_form(
     with_fields => {
         'filter.query' => 'David',
@@ -235,11 +246,15 @@ is_deeply($edit->data, {
 
 # Test tagging
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tag');
+xml_ok($mech->content);
 $response = $mech->submit_form(
     with_fields => {
         'tag.tags' => 'World Music, Jazz',
     }
 );
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
+xml_ok($mech->content);
 $mech->content_contains('world music');
 $mech->content_contains('jazz');
+
+done_testing;

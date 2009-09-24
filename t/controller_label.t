@@ -1,10 +1,9 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 39;
+use Test::More;
 
 BEGIN {
-    use MusicBrainz::Server::Context;
-    use MusicBrainz::Server::Test;
+    use MusicBrainz::Server::Test qw( xml_ok );
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -15,6 +14,7 @@ use Test::WWW::Mechanize::Catalyst;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok("/label/46f0f4cd-8aab-4b33-b698-f459faf64190", 'fetch label index');
+xml_ok($mech->content);
 $mech->title_like(qr/Warp Records/, 'title has label name');
 $mech->content_like(qr/Warp Records/, 'content has label name');
 $mech->content_like(qr/Sheffield based electronica label/, 'disambiguation comments');
@@ -34,21 +34,25 @@ $mech->content_like(qr{/release/f34c079d-374e-4436-9448-da92dedef3ce}, 'links to
 
 # Test aliases
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/aliases', 'get label aliases');
+xml_ok($mech->content);
 $mech->content_contains('Test Label Alias', 'has the label alias');
 
 # Test tags
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
+xml_ok($mech->content);
 $mech->content_like(qr{musical});
 ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/ratings', 'get label ratings');
+xml_ok($mech->content);
 
 # Test creating new artists via the create artist form
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/label/create');
+xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
@@ -91,6 +95,7 @@ is_deeply($edit->data, {
 
 # Test deleting artists via the website
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/delete');
+xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'confirm.edit_note' => ' ',    
@@ -105,6 +110,7 @@ is_deeply($edit->data, { label_id => 2 });
 
 # Test editing labels
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/edit');
+xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
@@ -166,6 +172,7 @@ is_deeply($edit->data, {
 
 # Test merging labels
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/merge');
+xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'filter.query' => 'Another',
@@ -186,3 +193,5 @@ is_deeply($edit->data, {
         old_label => 2,
         new_label => 3,
     });
+
+done_testing;

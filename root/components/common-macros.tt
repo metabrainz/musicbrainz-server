@@ -235,7 +235,7 @@ END -%]
         [%- END -%]
         [%- IF c.user_exists -%]
             [%- FOR rating IN [ 1 .. 5 ] -%]
-            <a href="[% rating_rate_url(entity, entity.user_rating == 20 * rating ? 0 : rating) %]" class="stars-[% rating %]"
+            <a href="[% rating_rate_url(entity, entity.user_rating == 20 * rating ? 0 : rating) | html %]" class="stars-[% rating %]"
                 title="[% ln('Rate: {rating} star', 'Rate: {rating} stars', rating, { rating => rating }) %]">[% rating %]</a>
             [%- END -%]
         [%- END -%]

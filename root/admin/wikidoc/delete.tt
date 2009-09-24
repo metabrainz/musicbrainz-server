@@ -6,7 +6,7 @@
     [%- l('Are you sure you wish to remove the <strong>{page}</strong> page from the transclusion index?', { page => page }) -%]
 </p>
 
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri | html %]" method="post">
     <input type="submit" name="confirm.submit" value="[% l('Delete') %]" />
 </form>
 

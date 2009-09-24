@@ -230,7 +230,6 @@
     [%- ELSE -%]
         <li>
             [% request_login(l('Account')) %]
-            </a>
             <ul>
 	        <li>
                     <a href="[% c.uri_for_action('/user/register') %]">

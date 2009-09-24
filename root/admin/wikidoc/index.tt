@@ -5,7 +5,7 @@
 <p>
 [
     <a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('New wiki page') %]</a> |
-    <a href="[% c.uri_for_action('/admin/wikidoc/index', { showcur => 1 }) %]">[% l('Show current versions') %]</a>
+    <a href="[% c.uri_for_action('/admin/wikidoc/index', { showcur => 1 }) | html %]">[% l('Show current versions') %]</a>
 ]
 </p>
 
@@ -41,8 +41,8 @@
             </td>
             <td class="c">
                 [
-                    <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) %]">[% l('Update') %]</a> |
-                    <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) %]">[% l('Delete') %]</a>
+                    <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
+                    <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Delete') %]</a>
                 ]
             </td>
         </tr>

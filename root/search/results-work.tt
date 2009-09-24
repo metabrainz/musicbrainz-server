@@ -1,9 +1,7 @@
-[% extra_js = 'jquery/jquery.tablesorter.min.js searchresults.js' %]
-[% extra_css = 'jquery/tablesort.css' %]
-
 [% WRAPPER "layout.tt" title=l("Search Results") %]
-    [% WRAPPER "components/box.tt" header=l("Search Results") %]
-        [% IF results.size %]
+    <h1>[% l("Search Results") %]</h1>
+    <div class="content">
+        [%- IF results.size -%]
             [% WRAPPER 'components/with-pager.tt' total=1 %]
                 <table class="tbl">
                     <thead>
@@ -24,9 +22,9 @@
                     </tbody>
                 </table>
             [% END %]
-        [% ELSE %]
+        [%- ELSE -%]
             <p>[% l('No results found') %]</p>
         [%- END -%]
-    [% END %]
-    [% INCLUDE "search/form.tt" %]
+        [%- INCLUDE "search/form.tt" -%]
+    </div>
 [% END %]

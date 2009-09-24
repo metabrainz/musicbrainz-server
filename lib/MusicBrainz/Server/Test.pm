@@ -8,8 +8,14 @@ use MusicBrainz::Server::Database;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
 use Sql;
+use Test::Builder;
+use XML::Parser;
 
 MusicBrainz::Server::Database->profile("test");
+
+use base 'Exporter';
+
+our @EXPORT_OK = qw( xml_ok );
 
 sub create_test_context
 {
@@ -80,6 +86,42 @@ sub get_latest_edit
     my $sql = Sql->new($c->raw_dbh);
     my $last_id = $sql->select_single_value("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
     return $ed->get_by_id($last_id);
+}
+
+my $Test = Test::Builder->new();
+
+sub diag_lineno
+{
+    my @lines = split /\n/, $_[0];
+    my $line = 1;
+    foreach (@lines) {
+        diag $line, $_;
+        $line += 1;
+    }
+}
+
+sub xml_ok
+{
+    my ($content, $message) = @_;
+
+    $message ||= "invalid XML";
+
+    my $parser = XML::Parser->new(Style => 'Tree');
+    eval { $parser->parse($content) };
+    if ($@) {
+        my $error = $@;
+        my @lines = split /\n/, $content;
+        my $line = 1;
+        foreach (@lines) {
+            $Test->diag(sprintf "%03d %s", $line, $_);
+            $line += 1;
+        }
+        $Test->diag("XML::Parser error: $error");
+        return $Test->ok(0, $message);
+    }
+    else {
+        return $Test->ok(1, $message);
+    }
 }
 
 1;

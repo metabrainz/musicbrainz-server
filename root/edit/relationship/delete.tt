@@ -9,7 +9,7 @@
             }) -%]
     </p>
 
-    <form action="[% c.req.uri %]" method="post">
+    <form action="[% c.req.uri | html %]" method="post">
         [%- USE r = FormRenderer(form) -%]
         [%- INCLUDE 'forms/edit-note.tt' -%]
         [%- form_submit(l('Delete')) -%]

@@ -3,8 +3,7 @@ use strict;
 use Test::More;
 
 BEGIN {
-    use MusicBrainz::Server::Context;
-    use MusicBrainz::Server::Test;
+    use MusicBrainz::Server::Test qw( xml_ok );
     my $c = MusicBrainz::Server::Test->create_test_context();
     MusicBrainz::Server::Test->prepare_test_database($c);
     MusicBrainz::Server::Test->prepare_test_server();
@@ -14,6 +13,7 @@ use Test::WWW::Mechanize::Catalyst;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok("/tracklist/1", 'fetch tracklist index page');
+xml_ok($mech->content);
 $mech->content_contains('Dancing Queen', 'track 1');
 $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce', 'track 1');
 $mech->content_contains('ABBA', 'track 1');

@@ -4,24 +4,24 @@
 
 [%- USE r = FormRenderer(form) -%]
 
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri | html %]" method="post">
 
 <p>
 <table>
     <tr>
         <td>[% r.label('page', l('Page:')) %]</td>
-        <td colspan="2">[% r.text('page') %]
+        <td>[% r.text('page') %]</td>
     </tr>
 
     <tr>
         <td>[% r.label('version', l('Version:')) %]</td>
-        <td colspan="2">[% r.text('version', { size => 5 }) %]
+        <td>[% r.text('version', { size => 5 }) %]</td>
     </tr>
 
     <tr>
         <td></td>
-        <td colspan="2"><input type="submit" value="[% l('Save') %]"></td>
-    </td>
+        <td><input type="submit" value="[% l('Save') %]" /></td>
+    </tr>
 
 </table>
 </p>

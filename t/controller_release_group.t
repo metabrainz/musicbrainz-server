@@ -1,10 +1,9 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 34;
+use Test::More;
 
 BEGIN {
-    use MusicBrainz::Server::Context;
-    use MusicBrainz::Server::Test;
+    use MusicBrainz::Server::Test qw( xml_ok );
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -15,6 +14,7 @@ use Test::WWW::Mechanize::Catalyst;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'fetch release group');
+xml_ok($mech->content);
 $mech->title_like(qr/Arrival/, 'title has release group name');
 $mech->content_like(qr/Arrival/, 'content has release group name');
 $mech->content_like(qr/Album/, 'has release group type');
@@ -24,6 +24,7 @@ $mech->content_like(qr{/artist/a45c079d-374e-4436-9448-da92dedef3cf}, 'link to a
 $mech->content_like(qr/Test annotation 5/, 'has annotation');
 
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5', 'fetch Aerial release group');
+xml_ok($mech->content);
 $mech->content_like(qr/Aerial/);
 $mech->content_like(qr/2xCD/, 'correct medium format');
 $mech->content_like(qr/7 \+ 9/, 'correct track count');
@@ -50,16 +51,19 @@ TODO: {
 
 # Test tags
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/tags');
+xml_ok($mech->content);
 $mech->content_like(qr{This release group has no tags});
 
 # Test ratings
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/ratings', 'get rg ratings');
+xml_ok($mech->content);
 
 # Test removing release groups
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce/delete');
+xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'confirm.edit_note' => ' ',    
@@ -71,3 +75,5 @@ ok($mech->uri =~ qr{/release-group/234c079d-374e-4436-9448-da92dedef3ce}, 'shoul
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Delete');
 is_deeply($edit->data, { release_group => 1 });
+
+done_testing;

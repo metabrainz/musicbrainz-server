@@ -7,7 +7,7 @@ END %]
 [% MACRO characters(chars) BLOCK %]
     [% FOR char IN chars %]
         <td class="char">
-            <a href="[% append_link(char) %]">[% char | upper %]</a>
+            <a href="[% append_link(char) | html %]">[% char | upper %]</a>
         </td>
     [% END %]
 [% END %]
@@ -19,13 +19,13 @@ END %]
 [% ELSE %]
     <table class="browse">
         <tr>
-            <td><a href="[% append_link('_') %]">[% l('symbol') %]</a></td>
+            <td><a href="[% append_link('_') | html %]">[% l('symbol') %]</a></td>
             [% characters([
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                 'j', 'k', 'l', 'm' ]) %]
         </tr>
         <tr>
-            <td><a href="[% append_link(' ') %]">[% l('space') %]</a></td>
+            <td><a href="[% append_link(' ') | html %]">[% l('space') %]</a></td>
             [% characters([
                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
                 'w', 'x', 'y', 'z' ]) %]
