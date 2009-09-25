@@ -17,7 +17,7 @@
             <tbody>
             [% FOREACH result IN results %]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    <td>[% result.distance | format_length %]</td>
+                    <td>[% result.distance | format_distance %]</td>
                     <td>[% link_release(result.medium.release) %]</td>
                     <td>[% artist_credit(result.medium.release.artist_credit) %]</td>
                     <td>[% result.medium.release.date.format %]</td>

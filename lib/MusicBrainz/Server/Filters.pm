@@ -27,6 +27,13 @@ sub format_length
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
 }
 
+sub format_distance
+{
+    my $ms = shift;
+    return "0 s" if (!$ms);
+    return MusicBrainz::Server::Track::FormatTrackLength($ms);
+}
+
 sub format_wikitext
 {
     my ($text) = @_;
