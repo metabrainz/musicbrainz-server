@@ -1,0 +1,24 @@
+.overlay:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #FC6714;
+}
+
+.page h1 span {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+}
+
+span.comment {
+    font-color: #eee !important;
+    font-size: 14px !important;
+}
+
+input#release-name {
+    font-size: inherit;
+}
+
+#sidebar select {
+    max-width: 11em
+}

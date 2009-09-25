@@ -1,3 +1,10 @@
+[% BLOCK layout_head %]
+   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
+   <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
+   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
+   <script src="[% c.uri_for('/static/scripts/ar.js') %]" type="text/javascript"></script>
+[% END %]
+
 [%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 extra_js='ar.js' include_js_text_strings=1 -%]
 
 <h1>[% l('Edit Relationship') %]</h1>

@@ -283,7 +283,7 @@ sub edit_title : Chained('load') Form
     return unless $c->form_posted && $form->validate($c->req->params);
 
     $form->edit_title;
-    
+
     $c->flash->{ok} = "Thanks, your release edit has been entered " .
                       "into the moderation queue";
 
@@ -301,9 +301,22 @@ sub edit : Chained('load') RequireAuth
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-    my $form = $c->form(form => 'Release', item => $release);
+    $c->model('ReleaseLabel')->load($release);
+    $c->model('Label')->load(@{ $release->labels });
+    $c->model('Medium')->load_for_releases($release);
 
-    if ($form->submitted_and_valid($c->req->params)) {
+    my @mediums = $release->all_mediums;
+    my @tracklists = map { $_->tracklist } @mediums;
+
+    $c->model('MediumFormat')->load(@mediums);
+    $c->model('Track')->load_for_tracklists(@tracklists);
+
+    my @tracks = map { $_->all_tracks } @tracklists;
+
+    $c->model('ArtistCredit')->load(@tracks, $release);
+
+    my $form = $c->form(form => 'Release', init_object => $release);
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my %args = map { $_ => $form->field($_)->value }
             qw( name comment packaging_id status_id script_id language_id
                 country_id barcode artist_credit date );
@@ -337,7 +350,7 @@ sub duplicate : Chained('load')
 sub _load_related : Private
 {
     my ($self, $c) = @_;
-    
+
     my $release = $self->entity;
     $c->stash->{artist}         = $c->model('Artist')->load($release->artist);
     $c->stash->{tracks}         = $c->model('Track')->load_from_release($release);

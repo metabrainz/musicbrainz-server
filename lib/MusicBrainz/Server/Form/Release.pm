@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Form::Release;
 use HTML::FormHandler::Moose;
 
+use MusicBrainz::Server::Track;
+
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Edit';
 
@@ -46,6 +48,26 @@ has_field 'comment' => (
 has_field 'name' => (
     type => 'Text',
 );
+
+has_field 'labels' => ( type => 'Repeatable' );
+has_field 'labels.catalog_number' => ( type => 'Text' );
+has_field 'labels.deleted' => ( type => 'Checkbox' );
+has_field 'labels.label_id' => ( type => 'Text' );
+
+has_field 'mediums' => ( type => 'Repeatable' );
+has_field 'mediums.name' => ( type => 'Text' );
+
+has_field 'mediums.tracklist' => ( type => 'Compound' );
+has_field 'mediums.tracklist.tracks' => ( type => 'Repeatable' );
+has_field 'mediums.tracklist.tracks.name' => ( type => 'Text' );
+has_field 'mediums.tracklist.tracks.artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
+has_field 'mediums.tracklist.tracks.length' => (
+    type => 'Text',
+    deflation => sub { MusicBrainz::Server::Track::FormatTrackLength($_) },
+    fif_from_value => 1
+);
+
+has_field 'artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
 
 sub options_status_id    { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id { shift->_select_all('ReleasePackaging') }

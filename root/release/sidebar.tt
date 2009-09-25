@@ -103,7 +103,23 @@
             USE r = FormRenderer(form);
             editable_property(l('Barcode:'), release.barcode, r.text('barcode'), 'barcode', '');
         END;
-    END %]
+        IF release.labels.size OR editing %]
+           <h3>[% l('Released on:') %]</h3>
+           <ul class="release-labels links">
+               [% FOR label=release.labels %]
+                   [% field = form.field('labels').field(loop.index) %]
+                   <li class="release-label">
+                       [% r.checkbox(field.field('deleted'), class => 'delete') %]
+                       [% r.hidden(field.field('label_id'), class => 'label-id') %]
+                       [% link_label(label.label) %]
+                       &ndash;
+                       [% r.text(form.field('labels').field(loop.index).field('catalog_number'),
+                                 size => 8, class => 'catalog-number') %]
+                   </li>
+               [% END %]
+           </ul>
+       [% END;
+   END %]
 
 [%
 WRAPPER 'layout/sidebar.tt';

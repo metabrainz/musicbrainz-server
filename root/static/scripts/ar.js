@@ -1,3 +1,21 @@
+/* Copyright (C) 2009 Lukas Lalinsky
+   Copyright (C) 2009 Oliver Charles
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
 $(function() {
 
     function incrementLastPart(s) {
@@ -16,12 +34,12 @@ $(function() {
                 message = selected.descr;
             }
             else {
-                message = MusicBrainz.text.PleaseSelectARSubtype;
+                message = MB.text.PleaseSelectARSubtype;
             }
             attrs = selected.attrs;
         }
         else {
-            message = MusicBrainz.text.PleaseSelectARType;
+            message = MB.text.PleaseSelectARType;
             attrs = {};
         }
         $('#type_descr').html(message);
@@ -69,7 +87,7 @@ $(function() {
 
     $('div.ar-attr .selects').each(function() {
         var selects = $(this);
-        var btn = $('<input type="button" value="' + MusicBrainz.text.AddAnother + '" />');
+        var btn = $(MB.html.input({ type: 'button', value: MB.text.AddAnother} ));
         btn.click(function() {
             var lastDiv = selects.find('div:last');
             var lastSelectName = lastDiv.find('select').attr('name');
@@ -84,9 +102,9 @@ $(function() {
         selects.after(btn);
         selects.find('div').each(function() {
             $(this).append(' ')
-                .append('<a href="#" class="selectFilterPrev">&#9668;</a>')
-                .append('<input type="text" size="7" class="selectFilter">')
-                .append('<a href="#" class="selectFilterNext">&#9658;</a>');
+                .append(MB.html.a({ href: '#', 'class': 'selectFilterPrev' }, '&#9668'))
+                .append(MB.html.input({ type: 'text', size: '7', 'class': 'selectFilter' }))
+                .append(MB.html.a({ href: '#', 'class': 'selectFilterNext' }, '&#9658;'));
         });
     });
 

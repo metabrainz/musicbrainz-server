@@ -14,7 +14,7 @@ use UNIVERSAL::require;
 #         -Debug: activates the debug mode for very useful log messages
 #   ConfigLoader: will load the configuration from a YAML file in the
 #                 application's home directory
-# Static::Simple: will serve static files from the application's root 
+# Static::Simple: will serve static files from the application's root
 #                 directory
 
 my @args = qw/
@@ -32,7 +32,7 @@ Authentication
 
 our $VERSION = '0.01';
 
-# Configure the application. 
+# Configure the application.
 #
 # Note that settings in musicbrainz.yml (or other external
 # configuration file that you set up manually) take precedence
@@ -76,9 +76,9 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
                 class => '+MusicBrainz::Server::Authentication::Store'
             }
         },
-        "musicbrainz.org" => { 
+        "musicbrainz.org" => {
             use_session => 0,
-            credential => { 
+            credential => {
                 class =>          'HTTP',
                 type  =>          'digest',
                 password_type  => 'clear',

@@ -78,8 +78,9 @@ sub error_500 : Private
     $c->detach;
 }
 
-sub js_text_strings : Path('/text_strings.js') {
+sub js_text_strings : Path('/text.js') {
     my ($self, $c) = @_;
+    $c->res->content_type('text/javascript');
     $c->stash->{template} = 'scripts/text_strings.tt';
 }
 
@@ -139,7 +140,7 @@ sub begin : Private
 
 =head2 end
 
-Attempt to render a view, if needed. This will also set up some global variables in the 
+Attempt to render a view, if needed. This will also set up some global variables in the
 context containing important information about the server used on the majority of templates,
 and also the current user.
 
@@ -175,7 +176,7 @@ sub end : ActionClass('RenderView')
                 close(SVN);
                 if ($ver eq "exported")
                 {
-                    $ver = "(not in SVN)" 
+                    $ver = "(not in SVN)"
                 }
                 else
                 {
