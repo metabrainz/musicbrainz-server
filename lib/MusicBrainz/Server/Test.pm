@@ -15,7 +15,7 @@ MusicBrainz::Server::Database->profile("test");
 
 use base 'Exporter';
 
-our @EXPORT_OK = qw( xml_ok );
+our @EXPORT_OK = qw( accept_edit reject_edit xml_ok );
 
 sub create_test_context
 {
@@ -122,6 +122,32 @@ sub xml_ok
     else {
         return $Test->ok(1, $message);
     }
+}
+
+sub accept_edit
+{
+    my ($c, $edit) = @_;
+
+    my $sql = Sql->new($c->dbh);
+    my $raw_sql = Sql->new($c->raw_dbh);
+    $sql->begin;
+    $raw_sql->begin;
+    $c->model('Edit')->accept($edit);
+    $sql->commit;
+    $raw_sql->commit;
+}
+
+sub reject_edit
+{
+    my ($c, $edit) = @_;
+
+    my $sql = Sql->new($c->dbh);
+    my $raw_sql = Sql->new($c->raw_dbh);
+    $sql->begin;
+    $raw_sql->begin;
+    $c->model('Edit')->reject($edit);
+    $sql->commit;
+    $raw_sql->commit;
 }
 
 1;

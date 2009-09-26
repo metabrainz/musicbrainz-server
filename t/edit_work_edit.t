@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
@@ -5,7 +6,7 @@ use Test::More;
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Work::Edit' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
@@ -28,7 +29,7 @@ is($edit->work->id, 1);
 is_unchanged($edit->work);
 is($edit->work->edits_pending, 1);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 $work = $c->model('Work')->get_by_id(1);
 is_unchanged($work);
@@ -36,7 +37,7 @@ is($work->edits_pending, 0);
 
 $work = $c->model('Work')->get_by_id(1);
 $edit = create_edit($work);
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $work = $c->model('Work')->get_by_id(1);
 $c->model('ArtistCredit')->load($work);

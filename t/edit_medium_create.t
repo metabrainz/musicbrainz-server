@@ -8,7 +8,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Create'; }
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+create_medium');
@@ -38,7 +38,7 @@ is($edit->medium->position, 1);
 is($edit->medium->release_id, 1);
 is($edit->medium->edits_pending, 1);
 
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 my $medium = $c->model('Medium')->get_by_id($edit->medium_id);
 is($medium->edits_pending, 0);
@@ -55,7 +55,7 @@ $edit = $c->model('Edit')->create(
 );
 
 my $medium_id = $edit->medium_id;
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 $medium = $c->model('Medium')->get_by_id($medium_id);
 ok(!defined $medium);

@@ -7,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Merge' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
@@ -25,7 +25,7 @@ my $a2 = $c->model('Artist')->get_by_id(2);
 is($a1->edits_pending, 1);
 is($a2->edits_pending, 1);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 # Test loading entities
 $edit = $c->model('Edit')->get_by_id($edit->id);
@@ -44,7 +44,7 @@ is($a1->edits_pending, 0);
 is($a2->edits_pending, 0);
 
 $edit = create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $a1 = $c->model('Artist')->get_by_id(1);
 $a2 = $c->model('Artist')->get_by_id(2);

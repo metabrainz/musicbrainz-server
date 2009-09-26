@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
@@ -5,7 +6,7 @@ use Test::More;
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Tracklist::AddTrack' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_TRACKLIST_ADDTRACK );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+add_track');
@@ -28,7 +29,7 @@ verify_tracklist($tracklist, [1, 'First Track'], [2, 'Second Track'], [3, 'Third
 
 
 # Test rejecting the edit
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 # Make sure the track has been removed
 $tracklist = $c->model('Tracklist')->get_by_id(1);
@@ -39,7 +40,7 @@ verify_tracklist($tracklist, [1, 'First Track'], [2, 'Second Track'], [3, 'Third
 
 # Test accepting the edit
 $edit = append_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 # Make sure the tracklist looks correct
 $tracklist = $c->model('Tracklist')->get_by_id(1);
@@ -65,7 +66,7 @@ verify_tracklist($tracklist, [1, 'Prepended Track'], [2, 'First Track'], [3, 'Se
     [4, 'Third Track'], [5, 'Appended Track']);
 
 # Test rejecting the edit
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 # Make sure the track has been removed
 $tracklist = $c->model('Tracklist')->get_by_id(1);
@@ -76,7 +77,7 @@ verify_tracklist($tracklist, [1, 'First Track'], [2, 'Second Track'], [3, 'Third
 
 # Test accepting the edit
 $edit = prepend_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 # Make sure the tracklist looks correct
 $tracklist = $c->model('Tracklist')->get_by_id(1);

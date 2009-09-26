@@ -3,6 +3,7 @@ use Moose;
 
 use Carp qw( croak );
 use DateTime;
+use TryCatch;
 use List::MoreUtils qw( uniq zip );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
@@ -54,6 +55,23 @@ sub _new_from_row
     $edit->language_id($row->{language}) if $row->{language};
     $edit->restore($data);
     $edit->close_time($row->{closetime}) if defined $row->{closetime};
+    return $edit;
+}
+
+# Load an edit from the DB and try to get an exclusive lock on it
+sub get_by_id_and_lock
+{
+    my ($self, $id) = @_;
+
+    my $query =
+        "SELECT " . $self->_columns . " FROM " . $self->_table . " " .
+        "WHERE id = ? FOR UPDATE NOWAIT";
+
+    my $sql = Sql->new($self->_dbh);
+    my $row = $sql->select_single_row_hash($query, $id);
+    return unless defined $row;
+
+    my $edit = $self->_new_from_row($row);
     return $edit;
 }
 
@@ -202,60 +220,94 @@ sub load_all
     }
 }
 
-sub accept
+# Runs it's own transaction
+sub approve
 {
     my ($self, $edit, $editor) = @_;
-    # XXX !defined $editor is a hack for the tests which do not pass an editor at all
-    if (!defined $editor || $edit->can_approve($editor->privileges))
-    {
-        $self->_close($edit, sub { $self->_do_accept(shift) });
-    }
+
+    my $sql = Sql->new($self->c->dbh);
+    my $sql_raw = Sql->new($self->c->raw_dbh);
+    Sql::run_in_transaction(sub {
+        # Load the edit again, but this time lock it for updates
+        $edit = $self->get_by_id_and_lock($edit->id);
+        # Apply the changes and close the edit
+        $self->accept($edit);
+    }, $sql, $sql_raw);
 }
 
 sub _do_accept
 {
     my ($self, $edit) = @_;
-    eval { $edit->accept };
-    warn $@ if $@;
-    return $@ ? $STATUS_ERROR : $STATUS_APPLIED;
+
+    try {
+        $edit->accept;
+    }
+    catch ($err) {
+        warn $err;
+        return $STATUS_ERROR;
+    };
+    return $STATUS_APPLIED;
 }
 
-sub reject
+sub _do_reject
+{
+    my ($self, $edit, $status) = @_;
+
+    try {
+        $edit->reject;
+    }
+    catch ($err) {
+        warn $err;
+        return $STATUS_ERROR;
+    };
+    return $status;
+}
+
+# Must be called in a transaction
+sub accept
 {
     my ($self, $edit) = @_;
-    $self->_close($edit, sub {
-        my $edit = shift;
-        eval { $edit->reject };
-        warn $@ if $@;
-        return $@ ? $STATUS_ERROR : $STATUS_FAILEDVOTE;
-   });
+
+    die "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
+    $self->_close($edit, sub { $self->_do_accept(shift) });
 }
 
+# Must be called in a transaction
+sub reject
+{
+    my ($self, $edit, $status) = @_;
+
+    $status ||= $STATUS_FAILEDVOTE;
+    my $expected_status = ($status == $STATUS_DELETED)
+        ? $STATUS_TOBEDELETED
+        : $STATUS_OPEN;
+    die "The edit is not open anymore." if $edit->status != $expected_status;
+    $self->_close($edit, sub { $self->_do_reject(shift, $status) });
+}
+
+# Runs it's own transaction
 sub cancel
 {
     my ($self, $edit) = @_;
-    return unless $edit->is_open;
+
+    my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
     Sql::run_in_transaction(sub {
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
         $sql_raw->do($query, $STATUS_TOBEDELETED, $edit->id);
         $edit->adjust_edit_pending(-1);
-   }, $sql_raw);
+   }, $sql, $sql_raw);
 }
 
 sub _close
 {
     my ($self, $edit, $close_sub) = @_;
-    return unless $edit->is_open;
-    my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
-    Sql::run_in_transaction(sub {
-        my $status = &$close_sub($edit);
-        my $query = "UPDATE edit SET status = ?, closetime = NOW() WHERE id = ?";
-        $sql_raw->do($query, $status, $edit->id);
-        $edit->adjust_edit_pending(-1);
-        $self->c->model('Editor')->credit($edit->editor_id, $status);
-    }, $sql, $sql_raw);
+    my $status = &$close_sub($edit);
+    my $query = "UPDATE edit SET status = ?, closetime = NOW() WHERE id = ?";
+    $sql_raw->do($query, $status, $edit->id);
+    $edit->adjust_edit_pending(-1);
+    $self->c->model('Editor')->credit($edit->editor_id, $status);
 }
 
 __PACKAGE__->meta->make_immutable;

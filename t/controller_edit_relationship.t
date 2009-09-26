@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use MusicBrainz::Server::Test qw( xml_ok );
+use MusicBrainz::Server::Test qw( xml_ok reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
@@ -33,7 +33,7 @@ is_deeply($edit->data, {
     relationship_id => 1
 });
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 $mech->get_ok('/edit/relationship/edit?type0=artist&type1=recording&id=1');
 xml_ok($mech->content);

@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
@@ -5,7 +6,7 @@ use Test::More;
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::DeleteReleaseLabel' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+delete_rl');
@@ -23,7 +24,7 @@ ok(defined $edit->release);
 is($edit->release->id, $edit->release_id);
 is($edit->release->edits_pending, 1);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 my $release = $c->model('Release')->get_by_id(1);
 $c->model('ReleaseLabel')->load($release);
@@ -33,7 +34,7 @@ is($release->labels->[1]->id, 2);
 is($release->labels->[2]->id, 3);
 
 $edit = create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
 $c->model('ReleaseLabel')->load($release);

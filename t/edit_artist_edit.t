@@ -6,7 +6,7 @@ use Test::More;
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Edit' }
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
@@ -26,7 +26,7 @@ is_unchanged($artist);
 is($artist->edits_pending, 1);
 
 # Test rejecting the edit
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 $artist = $c->model('Artist')->get_by_id(1);
 is_unchanged($artist);
@@ -36,7 +36,7 @@ is($artist->edits_pending, 0);
 $artist = $c->model('Artist')->get_by_id(1);
 $edit = _create_full_edit($artist);
 
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $artist = $c->model('Artist')->get_by_id(1);
 is($artist->name, 'New Name');
@@ -69,7 +69,7 @@ TODO: {
         end_date => { year => undef, month => undef, day => undef },
     );
 
-    $c->model('Edit')->accept($edit);
+    accept_edit($c, $edit);
     $artist = $c->model('Artist')->get_by_id(1);
     is($artist->country_id, undef);
     is($artist->gender_id, undef);

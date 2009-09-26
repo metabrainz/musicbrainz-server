@@ -1,9 +1,10 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Edit' }
 
@@ -23,12 +24,12 @@ is($edit->medium->id, $edit->medium_id);
 is_unchanged($edit->medium);
 is($edit->medium->edits_pending, 1);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 $medium = $medium = $c->model('Medium')->get_by_id(1);
 is($medium->edits_pending, 0);
 
 $edit = create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $medium = $medium = $c->model('Medium')->get_by_id(1);
 is($medium->tracklist_id, 2);

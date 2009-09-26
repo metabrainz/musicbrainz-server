@@ -7,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::Edit' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
@@ -28,13 +28,13 @@ is($edit->label->edits_pending, 1);
 my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 $label = $c->model('Label')->get_by_id($edit->label_id);
 is_unchanged($label);
 is($label->edits_pending, 0);
 
 $edit = create_full_edit($label);
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $label = $c->model('Label')->get_by_id($edit->label_id);
 is($label->name, 'Edit Name');

@@ -7,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Delete' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_delete');
@@ -28,14 +28,14 @@ $c->model('Edit')->load_all($edit);
 is($edit->artist->id, 1);
 
 # Test rejecting the edit
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 $artist = $c->model('Artist')->get_by_id(1);
 ok(defined $artist);
 is($artist->edits_pending, 0);
 
 # Test accepting the edit
 $edit = _create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 $artist = $c->model('Artist')->get_by_id(1);
 ok(!defined $artist);
 

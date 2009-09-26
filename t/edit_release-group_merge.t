@@ -7,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::ReleaseGroup::Merge' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_MERGE );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Context->new();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_merge');
@@ -23,13 +23,13 @@ my $rgs = $c->model('ReleaseGroup')->get_by_ids(1, 2);
 is($rgs->{1}->edits_pending, 1);
 is($rgs->{2}->edits_pending, 1);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 $rgs = $c->model('ReleaseGroup')->get_by_ids(1, 2);
 ok(defined $rgs->{1});
 ok(defined $rgs->{2});
 
 $edit = create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 $rgs = $c->model('ReleaseGroup')->get_by_ids(1, 2);
 ok(defined $rgs->{1});
 ok(!defined $rgs->{2});

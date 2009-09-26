@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
@@ -6,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::Edit' };
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
@@ -33,14 +34,14 @@ is($edit->release->id, $release->id);
 is($edit->release->edits_pending, 1);
 is_unchanged($edit->release);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 $release = $c->model('Release')->get_by_id(1);
 is_unchanged($release);
 is($release->edits_pending, 0);
 
 # Accept the edit
 $edit = create_edit($release);
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
 $c->model('ArtistCredit')->load($release);

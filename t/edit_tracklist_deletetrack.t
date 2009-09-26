@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
@@ -5,7 +6,7 @@ use Test::More;
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Tracklist::DeleteTrack' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_TRACKLIST_DELETETRACK );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+add_track');
@@ -20,10 +21,10 @@ is($edit->track->id, 1);
 is($edit->track->edits_pending, 1);
 is($edit->track->id, $edit->track_id);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 $edit = create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 my $track = $c->model('Track')->get_by_id(1);
 ok(!defined $track);

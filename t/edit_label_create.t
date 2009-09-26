@@ -8,7 +8,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::Create'; }
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+labeltype');
@@ -42,13 +42,13 @@ is($edit->label->end_date->year, 2005);
 is($edit->label->end_date->month, 5);
 is($edit->label->end_date->day, 30);
 
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 my $label = $c->model('Label')->get_by_id($edit->label_id);
 is($label->edits_pending, 0);
 
 # Test rejecting the edit
 $edit = create_edit();
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);

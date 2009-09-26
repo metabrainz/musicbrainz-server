@@ -7,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_EDIT );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -29,13 +29,13 @@ $c->model('Edit')->load_all($edit);
 is($edit->release_group_id, 1);
 is($edit->release_group->id, 1);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 $rg = $c->model('ReleaseGroup')->get_by_id(1);
 is_unchanged($rg);
 is($rg->edits_pending, 0);
 
 $edit = create_edit($rg);
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 $rg = $c->model('ReleaseGroup')->get_by_id(1);
 $c->model('ArtistCredit')->load($rg);
 is($rg->edits_pending, 0);

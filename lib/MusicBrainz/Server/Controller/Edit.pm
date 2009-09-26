@@ -114,7 +114,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
         };
     }
 
-    $c->model('Edit')->accept($edit);
+    $c->model('Edit')->approve($edit);
     $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
 }
 

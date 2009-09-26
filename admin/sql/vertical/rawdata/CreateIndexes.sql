@@ -9,8 +9,10 @@
 -- Alphabetical order by table
 
 CREATE INDEX edit_idx_editor ON edit (editor);
-CREATE INDEX edit_idx_status ON edit (status);
 CREATE INDEX edit_idx_type ON edit (type);
+
+-- Partial index for status (excludes applied edits)
+CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
 
 CREATE INDEX edit_note_idx_edit ON edit_note (edit);
 CREATE INDEX vote_idx_edit ON vote (edit);

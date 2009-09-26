@@ -7,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::Merge'; }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_MERGE );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_merge');
@@ -25,7 +25,7 @@ my $l2 = $c->model('Label')->get_by_id(2);
 is($l1->edits_pending, 1);
 is($l2->edits_pending, 1);
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 # Test loading entities
 $edit = $c->model('Edit')->get_by_id($edit->id);
@@ -44,7 +44,7 @@ is($l1->edits_pending, 0);
 is($l2->edits_pending, 0);
 
 $edit = create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 
 $l1 = $c->model('Label')->get_by_id(1);
 $l2 = $c->model('Label')->get_by_id(2);
