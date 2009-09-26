@@ -1,5 +1,4 @@
 MODULE_big = unaccent
-SHLIB_LINK += -lunac
 OBJS = unaccent.o
 DATA_built = unaccent.sql
 DATA = uninstall_unaccent.sql
