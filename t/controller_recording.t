@@ -4,10 +4,11 @@ use Test::More;
 
 BEGIN {
     use MusicBrainz::Server::Test qw( xml_ok );
-    my $c = MusicBrainz::Server::Test->create_test_context();
-    MusicBrainz::Server::Test->prepare_test_database($c);
-    MusicBrainz::Server::Test->prepare_test_server();
 }
+
+my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_server();
 
 use Test::WWW::Mechanize::Catalyst;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
@@ -48,4 +49,27 @@ xml_ok($mech->content);
 $mech->content_contains('puid/b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', 'has puid 1');
 $mech->content_contains('puid/134478d1-306e-41a1-8b37-ff525e53c8be', 'has puid 2');
 
+<<<<<<< HEAD
+=======
+# Test adding annotations
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+$mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+$mech->submit_form(
+    with_fields => {
+        'edit-annotation.text' => 'This is my annotation',
+        'edit-annotation.changelog' => 'Changelog here',
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddAnnotation');
+is_deeply($edit->data, {
+    entity_id => 1,
+    text => 'This is my annotation',
+    changelog => 'Changelog here',
+    editor_id => 1
+});
+
+>>>>>>> Tests
 done_testing;

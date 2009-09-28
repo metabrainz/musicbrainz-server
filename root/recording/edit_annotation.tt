@@ -1,0 +1,5 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+    [% INCLUDE 'recording/header.tt' %]
+    <h2>[% l('Edit recording annotation') %]</h2>
+    [% INCLUDE 'annotation/edit.tt' %]
+[% END %]

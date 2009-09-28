@@ -66,7 +66,7 @@ $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce/delete');
 xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
-        'confirm.edit_note' => ' ',    
+        'confirm.edit_note' => ' ',
     }
 );
 ok($mech->success);
@@ -75,5 +75,22 @@ ok($mech->uri =~ qr{/release-group/234c079d-374e-4436-9448-da92dedef3ce}, 'shoul
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Delete');
 is_deeply($edit->data, { release_group => 1 });
+
+# Test adding annotations
+$mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+$mech->submit_form(
+    with_fields => {
+        'edit-annotation.text' => 'This is my annotation',
+        'edit-annotation.changelog' => 'Changelog here',
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation');
+is_deeply($edit->data, {
+    entity_id => 1,
+    text => 'This is my annotation',
+    changelog => 'Changelog here',
+    editor_id => 1
+});
 
 done_testing;

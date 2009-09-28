@@ -257,4 +257,21 @@ xml_ok($mech->content);
 $mech->content_contains('world music');
 $mech->content_contains('jazz');
 
+# Test adding annotations
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+$mech->submit_form(
+    with_fields => {
+        'edit-annotation.text' => 'This is my annotation',
+        'edit-annotation.changelog' => 'Changelog here',
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAnnotation');
+is_deeply($edit->data, {
+    entity_id => 3,
+    text => 'This is my annotation',
+    changelog => 'Changelog here',
+    editor_id => 1
+});
+
 done_testing;

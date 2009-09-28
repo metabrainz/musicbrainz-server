@@ -34,7 +34,8 @@ is($mech->status(), 404);
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/tags");
 xml_ok($mech->content);
 $mech->content_like(qr{musical});
-ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
+ok($mech->find_link(url_regex => qr{/tag/musical}),
+    'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/ratings");
@@ -79,8 +80,7 @@ is_deeply($edit->data, {
     }
 });
 
-TODO:
-{
+TODO: {
     local $TODO = 'Support editing the artist credit';
     is_deeply($edit->data->{new}{artist_credit}, [
         { artist => 2, name => 'Foo' }
@@ -89,5 +89,26 @@ TODO:
         { artist => 1, name => 'Abba' }
     ]);
 }
+
+# Test adding annotations
+$mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation");
+$mech->submit_form(
+    with_fields => {
+        'edit-annotation.text'      => 'This is my annotation',
+        'edit-annotation.changelog' => 'Changelog here',
+    }
+);
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Work::AddAnnotation');
+is_deeply(
+    $edit->data,
+    {
+        entity_id => 1,
+        text      => 'This is my annotation',
+        changelog => 'Changelog here',
+        editor_id => 1
+    }
+);
 
 done_testing;

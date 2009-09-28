@@ -1,3 +1,9 @@
+[% BLOCK add_annotation_link %]
+<a href="[% c.uri_for_action("/$type/edit_annotation", [ gid ]) %]">
+    [% l('Add an annotation') %]
+</a>
+[% END %]
+
 <div class="annotation" id="annotation_box">
     [%- IF annotation.text -%]
         <div class="body" id="annotation_box_body">
@@ -18,10 +24,7 @@
 
             <div class="options">
                 [%- IF c.user_exists -%]
-                    [%- INCLUDE 'components/piped-list.tt' list = [
-                        { link => c.uri_for_action("/$type/edit_annotation", [ gid ], annotation.id), text => l('Edit') },
-                        { link => c.uri_for_action("/$type/annotation_history", [ gid ]), text => l('History') }
-                        ] -%]
+                    [% PROCESS add_annotation_link %]
                 [%- ELSE -%]
                     [% l('Please {uri|log in} to edit this annotation.', {uri => c.uri_for('/user/login')}) %]
                 [%- END -%]
@@ -34,9 +37,7 @@
         </div>
         <div class="options">
             [%- IF c.user_exists -%]
-                <a href="[% c.uri_for_action("/$type/edit_annotation", [ gid ]) %]">
-                    [% l('Add an annotation') %]
-                </a>
+                [% PROCESS add_annotation_link %]
             [%- ELSE -%]
                 [% l('Please {uri|log in} to add an annotation.', {uri => login_url() }) %]
             [%- END -%]

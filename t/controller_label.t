@@ -98,7 +98,7 @@ $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/delete');
 xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
-        'confirm.edit_note' => ' ',    
+        'confirm.edit_note' => ' ',
     }
 );
 ok($mech->success);
@@ -193,5 +193,22 @@ is_deeply($edit->data, {
         old_label => 2,
         new_label => 3,
     });
+
+# Test adding annotations
+$mech->get_ok('/label/4b4ccf60-658e-11de-8a39-0800200c9a66/edit_annotation');
+$mech->submit_form(
+    with_fields => {
+        'edit-annotation.text' => 'This is my annotation',
+        'edit-annotation.changelog' => 'Changelog here',
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAnnotation');
+is_deeply($edit->data, {
+    entity_id => 3,
+    text => 'This is my annotation',
+    changelog => 'Changelog here',
+    editor_id => 1
+});
 
 done_testing;

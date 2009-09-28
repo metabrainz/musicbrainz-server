@@ -63,7 +63,7 @@ sub edit
         changelog => $annotation_hash->{changelog}
     }, 'id');
     $sql->insert_row($self->table, {
-        $self->type => $annotation_hash->{ $self->type . '_id'},
+        $self->type => $annotation_hash->{entity_id},
         annotation => $annotation_id
     });
 }

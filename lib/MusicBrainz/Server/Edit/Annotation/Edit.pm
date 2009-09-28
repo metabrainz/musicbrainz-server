@@ -5,6 +5,7 @@ use Moose::Util::TypeConstraints qw( enum );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -12,7 +13,7 @@ has '+data' => (
     isa => Dict[
         editor_id => Int,
         text => Str,
-        changelog => Str,
+        changelog => Nullable[Str],
         entity_id => Int,
     ],
 );
@@ -35,11 +36,8 @@ sub edit_conditions
 sub accept
 {
     my $self = shift;
-    my %data = %{ $self->data };
     my $model = $self->_annotation_model;
-    # We have to remap this, as annotation wants to see 'artist_id' for example, not 'entity_id'
-    $data{ $model->type . '_id' } = delete $data{entity_id};
-    $model->edit(\%data);
+    $model->edit($self->data);
 }
 
 sub _annotation_model { die 'Not implemented' }
@@ -47,7 +45,6 @@ sub _annotation_model { die 'Not implemented' }
 sub initialize
 {
     my ($self, %opts) = @_;
-    $opts{entity_id} = delete $opts{ $self->_annotation_model->type . '_id' };
     $self->data({
         %opts,
         editor_id => $self->editor_id,

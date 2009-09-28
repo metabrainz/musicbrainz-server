@@ -1,7 +1,23 @@
 package MusicBrainz::Server::Controller::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::Constants qw( :annotation );
+use MusicBrainz::Server::Edit::Artist::AddAnnotation;
+use MusicBrainz::Server::Edit::Label::AddAnnotation;
+use MusicBrainz::Server::Edit::Recording::AddAnnotation;
+use MusicBrainz::Server::Edit::Release::AddAnnotation;
+use MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation;
+use MusicBrainz::Server::Edit::Work::AddAnnotation;
 
 requires 'load', 'show';
+
+my %model_to_edit_type = (
+    Artist => $EDIT_ARTIST_ADD_ANNOTATION,
+    Label => $EDIT_LABEL_ADD_ANNOTATION,
+    Recording => $EDIT_RECORDING_ADD_ANNOTATION,
+    Release => $EDIT_RELEASE_ADD_ANNOTATION,
+    ReleaseGroup => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
+    Work => $EDIT_WORK_ADD_ANNOTATION,
+);
 
 sub latest_annotation : Chained('load') PathPart('annotation')
 {
@@ -15,16 +31,31 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     );
 }
 
-after 'show' => sub 
+after 'show' => sub
 {
     my ($self, $c) = @_;
     $c->model($self->{model})->annotation->load_latest($c->stash->{$self->{entity_name}});
 };
 
-sub edit_annotation : Chained('load') PathPart
+sub edit_annotation : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
-    $c->detach('/error_404')
+
+    my $model = $self->{model};
+    my $type = $self->{entity_name};
+    my $entity = $c->stash->{$type};
+    $c->model($model)->annotation->load_latest($entity);
+    my $form = $c->form( form => 'Annotation', item => $entity->latest_annotation );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $model_to_edit_type{$model},
+            editor_id => $c->user->id,
+            entity_id => $entity->id,
+            text => $form->field('text')->value,
+            changelog => $form->field('changelog')->value,
+        );
+    }
 }
 
 sub annotation_history : Chained('load') PathPart

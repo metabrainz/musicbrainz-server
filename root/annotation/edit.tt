@@ -1,10 +1,13 @@
-[%- WRAPPER "$entity.entity_type/layout.tt" title=l("Edit Annotation") -%]
-    [%- WRAPPER 'components/box.tt' header=l('Edit Annotation') -%]
-        [%- WRAPPER 'forms/form.tt' moderation=1 -%]
-            [%- WRAPPER 'forms/fieldset.tt' legend=l('Annotation') -%]
-                [% INCLUDE 'forms/generic/row.tt' field=form.field('annotation') label=l('Annotation') -%]
-                [% INCLUDE 'forms/generic/row.tt' field=form.field('change_log') label=l('Change Log') -%]
-            [%- END -%]
-        [%- END -%]
-    [%- END -%]
-[%- END -%]
+<form action="[% c.uri.path %]" method="post">
+    <p>[% l('Please do <strong>not</strong> post any copyrighted texts here! Please note that any content submitted
+             to MusicBrainz will be made available to the public under {open|open licenses}.',
+             { open => doc_link('MusicBrainzLicense') }) %]</p>
+
+    [% USE r = FormRenderer(form) %]
+    [% r.textarea('text', style => 'width: 95%; height: 40em') %]
+    <p>
+        [% r.label('changelog', l('Change log:')) %]
+        [% r.text('changelog', style => 'width: 80%') %]
+    </p>
+    [% form_submit(l('Add annotation')) %]
+</form>
