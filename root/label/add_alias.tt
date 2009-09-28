@@ -1,12 +1,12 @@
-[%- SET styleGuidelines=1 -%]
-[%- PROCESS 'scripts/suitereqs.tt' -%]
-[% WRAPPER 'label/layout.tt' title=l('Add Label Alias') %]
-    [% WRAPPER 'components/box.tt' header=l('Add Label Alias') %]
-        [%- INCLUDE 'scripts/module_style_guidelines.tt' -%]
-        [% WRAPPER 'forms/form.tt' %]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('alias') label=l('Label Alias') %]
-            [% INCLUDE 'forms/edit-note.tt' %]
-            [% INCLUDE 'forms/submit.tt' label=l('Enter Edit') %]
-        [% END %]
-    [% END %]
-[% END %]
+[%- WRAPPER 'label/layout.tt' -%]
+    <h1>[% l('Add label alias') %]</h1>
+    <ul>
+        <li>[% l('MusicBrainz uses label aliases mainly as variant names or search hints.') %]</li>
+        <li>[% l('If you see a misspelled alias here, it most likely is listed on purpose,
+                  and should not be renamed or removed. Please see {aa|label aliases}
+                  for more details.', {aa => doc_link('LabelAlias')}) %]</li>
+        <li>[% l('Please note that aliases are currently required to be <strong>unique for all
+                  labels</strong>. You can circumvent this limitation by adding a comment to the
+                  alias, preferably in parentheses.') %]</li>
+    [%- INCLUDE 'alias/edit_form.tt' %]
+[%- END -%]

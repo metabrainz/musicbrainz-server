@@ -242,23 +242,6 @@ sub delete : Chained('load') PathPart RequireAuth
     }
 }
 
-sub add_alias : Chained('load') Form
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $form = $self->form;
-
-    return unless $self->submit_and_validate($c);
-
-    my $label = $self->entity;
-
-    $form->create_for($label);
-
-    $c->response->redirect($c->entity_url($label, 'aliases'));
-}
-
 sub edit_alias : Chained('load') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;

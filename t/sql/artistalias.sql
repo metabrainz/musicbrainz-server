@@ -24,6 +24,6 @@ INSERT INTO artist_alias (id, artist, name) VALUES (2, 1, 4);
 INSERT INTO artist_alias (id, artist, name) VALUES (3, 3, 4);
 
 ALTER SEQUENCE artist_name_id_seq RESTART 5;
-ALTER SEQUENCE artist_alias_id_seq RESTART 3;
+ALTER SEQUENCE artist_alias_id_seq RESTART 4;
 
 COMMIT;

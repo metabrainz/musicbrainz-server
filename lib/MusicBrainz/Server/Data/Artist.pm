@@ -137,7 +137,7 @@ sub delete
 
     $self->c->model('Relationship')->delete_entities('artist', @artist_ids);
     $self->annotation->delete(@artist_ids);
-    $self->alias->delete(@artist_ids);
+    $self->alias->delete_parents(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
     $self->subscription->delete(@artist_ids);

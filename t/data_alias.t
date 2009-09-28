@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 26;
+use Test::More;
 use Test::Moose;
 use DateTime;
 use MusicBrainz::Server::Context;
@@ -21,6 +21,7 @@ $sql->begin;
 # Artist data should do the alias role
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
 does_ok($artist_data, 'MusicBrainz::Server::Data::AliasRole');
+does_ok($artist_data->alias, 'MusicBrainz::Server::Data::Editable');
 
 # Make sure we can load specific aliases
 my $alias = $artist_data->alias->get_by_id(1);
@@ -70,12 +71,20 @@ $alias_set = $artist_data->alias->find_by_entity_id(3);
 is(scalar @$alias_set, 0);
 
 # Test deleting aliases
-$artist_data->alias->delete(1);
+$artist_data->alias->delete_parents(1);
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
-$sql->commit;
+# Test inserting new aliases
+$artist_data->alias->insert({ artist_id => 1, alias => 'New alias' });
+$alias_set = $artist_data->alias->find_by_entity_id(1);
+is(scalar @$alias_set, 1);
+is($alias_set->[0]->name, 'New alias');
+
+$sql->Commit;
 
 # Make sure other data types support aliases
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 does_ok($label_data, 'MusicBrainz::Server::Data::AliasRole');
+
+done_testing;

@@ -103,7 +103,7 @@ sub find
         else {
             my $placeholders = placeholders(@ids);
             $subquery = "SELECT edit FROM edit_$type
-                          WHERE $type IN ($placeholders) 
+                          WHERE $type IN ($placeholders)
                        GROUP BY edit HAVING count(*) = ?";
             push @args, scalar @ids;
         }
@@ -200,7 +200,7 @@ sub create
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
             my @all_ids = ($edit_id) x @$ids;
-            $sql_raw->do($query, zip @all_ids, @$ids); 
+            $sql_raw->do($query, zip @all_ids, @$ids);
         }
 
         if ($edit->is_open) {
@@ -216,7 +216,8 @@ sub load_all
     my ($self, @edits) = @_;
     my @models = uniq map { @{ $_->models } } @edits;
     for my $model (@models) {
-        $self->c->model($model)->load(@edits);
+        my $m = ref $model ? $model : $self->c->model($model);
+        $m->load(@edits);
     }
 }
 

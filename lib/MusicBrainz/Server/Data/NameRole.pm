@@ -16,6 +16,12 @@ role
 
     requires 'c';
 
+    has 'name_table' => (
+        isa => 'Str',
+        is => 'ro',
+        default => $table
+    );
+
     method 'find_or_insert_names' => sub
     {
         my ($self, @names) = @_;
@@ -32,7 +38,7 @@ role
                 }, 'id');
             $found_names{$new_name} = $id;
         }
-        return %found_names; 
+        return %found_names;
     }
 };
 

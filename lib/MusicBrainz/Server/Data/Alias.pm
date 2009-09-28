@@ -1,11 +1,19 @@
 package MusicBrainz::Server::Data::Alias;
 use Moose;
 
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-has [qw( name_table table type entity )] => (
+# with MusicBrainz::Server::Data::Editable -- see AliasRole for when this is applied
+
+has 'parent' => (
+    does => 'MusicBrainz::Server::Data::NameRole',
+    is => 'rw',
+    required => 1
+);
+
+has [qw( table type entity )] => (
     isa      => 'Str',
     is       => 'rw',
     required => 1
@@ -15,7 +23,7 @@ sub _table
 {
     my $self = shift;
     return sprintf '%s JOIN %s name ON %s.name=name.id',
-        $self->table, $self->name_table, $self->table
+        $self->table, $self->parent->name_table, $self->table
 }
 
 sub _columns
@@ -52,7 +60,23 @@ sub find_by_entity_id
     return [ values %{ $self->_get_by_keys($self->type, @ids) } ];
 }
 
+sub load
+{
+    my ($self, @objects) = @_;
+    load_subobjects($self, 'alias', @objects);
+}
+
 sub delete
+{
+    my ($self, @ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $query = "DELETE FROM " . $self->table .
+                " WHERE id IN (" . placeholders(@ids) . ")";
+    $sql->Do($query, @ids);
+    return 1;
+}
+
+sub delete_entities
 {
     my ($self, @ids) = @_;
     my $sql = Sql->new($self->c->dbh);
@@ -60,6 +84,24 @@ sub delete
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")";
     $sql->do($query, @ids);
     return 1;
+}
+
+sub insert
+{
+    my ($self, @alias_hashes) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
+    my %names = $self->parent->find_or_insert_names(map { $_->{alias} } @alias_hashes);
+    my @created;
+    $class->require;
+    for my $hash (@alias_hashes) {
+        push @created, $class->new(
+            id => $sql->InsertRow($table, {
+                $type => $hash->{$type . '_id'},
+                name => $names{ $hash->{alias} }
+            }, 'id'));
+    }
+    return wantarray ? @created : $created[0];
 }
 
 sub merge

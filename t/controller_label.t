@@ -211,4 +211,18 @@ is_deeply($edit->data, {
     editor_id => 1
 });
 
+# Test adding aliases
+$mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/add-alias');
+my $response = $mech->submit_form(
+    with_fields => {
+        'edit-alias.alias' => 'An alias'
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAlias');
+is_deeply($edit->data, {
+    entity_id => 2,
+    alias => 'An alias',
+});
+
 done_testing;

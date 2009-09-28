@@ -132,7 +132,7 @@ sub delete
 
     $self->c->model('Relationship')->delete_entities('label', @label_ids);
     $self->annotation->delete(@label_ids);
-    $self->alias->delete(@label_ids);
+    $self->alias->delete_parents(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
     $self->subscription->delete(@label_ids);

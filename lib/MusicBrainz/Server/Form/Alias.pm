@@ -1,36 +1,13 @@
 package MusicBrainz::Server::Form::Alias;
+use HTML::FormHandler::Moose;
+extends 'MusicBrainz::Server::Form';
+with 'MusicBrainz::Server::Form::Edit';
 
-use strict;
-use warnings;
+has '+name' => ( default => 'edit-alias' );
 
-use base 'MusicBrainz::Server::Form';
-
-sub name { 'alias' }
-
-sub profile
-{
-    shift->with_mod_fields({
-        required => {
-            alias => {
-                type => 'Text',
-                size => 50,
-            },
-        },
-    });
-}
-
-sub init_value
-{
-    my ($self, $field, $item) = @_;
-    $item ||= $self->item;
-
-    return unless defined $item;
-
-    use Switch;
-    switch ($field->name)
-    {
-        case ('alias') { return $item->name; }
-    }
-}
+has_field 'alias' => (
+    type => 'Text',
+    required => 1
+);
 
 1;

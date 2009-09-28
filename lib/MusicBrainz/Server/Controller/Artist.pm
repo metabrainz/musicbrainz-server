@@ -199,7 +199,7 @@ sub show : PathPart('') Chained('load')
     my $release_groups;
     if ($c->stash->{artist}->id == $VARTIST_ID)
     {
-        $c->stash( template => 'artist/browse_various.tt' );        
+        $c->stash( template => 'artist/browse_various.tt' );
     }
     else
     {
@@ -563,30 +563,6 @@ sub change_quality : Chained('load') Form('DataQuality')
                       "into the moderation queue";
 
     $c->response->redirect($c->entity_url($artist, 'show'));
-}
-
-=head2 add_alias
-
-Allow users to add an alias to this artist
-
-=cut
-
-sub add_alias : Chained('load') Form
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $form = $self->form;
-
-    return unless $self->submit_and_validate($c);
-
-    $form->create_for($self->entity);
-
-    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($self->entity, 'aliases'));
 }
 
 =head2 remove_alias

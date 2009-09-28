@@ -1,0 +1,9 @@
+<form action="[% c.req.uri %]" method="post">
+    [% USE r = FormRenderer(form) %]
+    <p>
+        [% r.label('alias', l('Alias name:')) %]
+        [% r.text('alias') %]
+    </p>
+    [% INCLUDE 'forms/edit-note.tt' %]
+    [% form_submit(l('Enter edit')) %]
+</form>

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::AliasRole;
 use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Alias;
+use Moose::Util qw( ensure_all_roles );
 
 parameter 'type' => (
     isa => 'Str',
@@ -11,12 +12,6 @@ parameter 'type' => (
 parameter 'table' => (
     isa => 'Str',
     default => sub { shift->type . "_alias" },
-    lazy => 1
-);
-
-parameter 'name_table' => (
-    isa => 'Str',
-    default => sub { shift->type . "_name" },
     lazy => 1
 );
 
@@ -35,13 +30,14 @@ role
     method '_build_alias' => sub
     {
         my $self = shift;
-        return MusicBrainz::Server::Data::Alias->new(
+        my $alias = MusicBrainz::Server::Data::Alias->new(
             c      => $self->c,
-            name_table => $params->name_table,
             type => $params->type,
             table => $params->table,
-            entity => $self->_entity_class . 'Alias'
+            entity => $self->_entity_class . 'Alias',
+            parent => $self
         );
+        ensure_all_roles($alias, 'MusicBrainz::Server::Data::Editable' => { table => $params->table });
     }
 };
 
