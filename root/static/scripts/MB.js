@@ -15,6 +15,8 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+'use strict';
+
 // Namespaces
 var MB = {
     // Classes, common controls used throughout MusicBrainz
@@ -26,6 +28,9 @@ var MB = {
     // Predicates to be used in $.grep
     predicate: {},
 
+    // Hold translated text strings
     text: {},
-    url: {},
+
+    // Hold any URLs that controls might use
+    url: {}
 };

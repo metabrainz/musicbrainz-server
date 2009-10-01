@@ -15,6 +15,10 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+/*jslint */
+/*global MB */
+'use strict';
+
 (function(MB) {
     $.extend(MB.utility, {
         displayedValue: function(element) {
@@ -26,7 +30,7 @@
             }
         },
         noOp: function(event) {
-            event.preventDefault()
+            event.preventDefault();
         }
     });
 })(MB);

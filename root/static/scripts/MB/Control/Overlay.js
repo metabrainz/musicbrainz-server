@@ -15,12 +15,16 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+/*jslint */
+/*global MB */
+'use strict';
+
 (function(MB) {
     MB.Control.Overlay = function(content) {
         var self = this;
 
         self.overlay = $(content)
-            .click(function() { self.hideOverlay() })
+            .click(function() { self.hideOverlay(); })
             .addClass('overlay');
 
         var elementToOverlay;

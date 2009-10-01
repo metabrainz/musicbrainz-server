@@ -15,8 +15,14 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function(MB) {
-    MB.html = function() {
+/*jslint */
+/*global MB */
+'use strict';
+
+(function (MB) {
+    MB.html = function () {
+        var self = {};
+
         var supportedTags = (
             'a br button dd div img input label li span strong ' +
             'table tbody td th thead tr ul'
@@ -26,13 +32,15 @@
             var formatted = [];
             var key, value;
             for(key in attributes) {
-                value = attributes[key];
-                if (value) {
-                    formatted.push(key + '="' + self.escape(value) + '"');
+                if(attributes.hasOwnProperty(key)) {
+                    value = attributes[key];
+                    if (value) {
+                        formatted.push(key + '="' + self.escape(value) + '"');
+                    }
                 }
             }
             return formatted.join(' ');
-        };
+        }
 
         function createTag(element) {
             return function (attributes, content) {
@@ -40,10 +48,9 @@
                 var ret = '<' + element + (attrs ? ' ' + attrs : '');
                 ret += content && content.length ? '>' + content + '</' + element + '>' : ' />';
                 return ret;
-            }
+            };
         }
 
-        var self = {};
         $.each(supportedTags, function() { self[this] = createTag(this); });
 
         self.escape = function(html) {
