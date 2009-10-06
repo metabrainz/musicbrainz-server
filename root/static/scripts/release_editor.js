@@ -64,7 +64,27 @@
             var removeButton = new MB.Control.ToggleButton(MB.url.ReleaseEditor.removeImages);
             removeButton.draw(checkbox);
         });
+
+        // Label lookups
+        $('#sidebar ul.release-labels span.label').each(overlayLabelLookup);
     });
+
+    function overlayLabelLookup() {
+        var labelText = $(this);
+        var idField = labelText.parent().find('input.label-id');
+        var lookup = new MB.Control.EntityLookup('label' ,{
+            defaultValue: labelText.text(),
+            idInput: idField,
+            selection: function(result) {
+                labelText.text(result.name).show();
+                lookup.query.hide();
+            }
+        });
+        idField.after(lookup.query);
+
+        var lookupOverlay = new MB.Control.Overlay(labelText);
+        lookupOverlay.draw(lookup.query);
+    }
 
     function spanOverlay(field, text) {
         text = text || (field.val() ? MB.html.escape(MB.utility.displayedValue(field))

@@ -3,6 +3,8 @@
     <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/MB/predicate.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/InlineDialog.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/Lookup.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/MB/Control/Overlay.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/MB/Control/ToggleButton.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/release_editor.js') %]" type="text/javascript"></script>

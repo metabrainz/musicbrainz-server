@@ -26,3 +26,38 @@ img.image-button {
 #sidebar select {
     max-width: 11em
 }
+
+div.dialog {
+    background: white;
+    border: 1px solid #aaa;
+    padding: 10px;
+}
+
+div.lookup-results div.info,
+div.lookup-results ul {
+    margin-bottom: 10px;
+}
+
+div.lookup-results ul {
+    padding: 0;
+}
+
+div.lookup-results li
+{
+    display: block;
+    padding: 3pt 5pt;
+    cursor: pointer;
+    border-bottom: 1px dotted #ddd;
+}
+div.lookup-results li.odd {
+    background: #eee;
+}
+
+div.lookup-results span.info {
+    font-size: 10px;
+}
+
+div.lookup-results li:hover {
+    background: #FC6714;
+    color: white;
+}

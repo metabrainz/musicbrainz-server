@@ -18,8 +18,11 @@ sub search : Local
         my ($search_results, $hits) = $c->model('DirectSearch')->search($type, $query,
                                                                         $limit, $offset);
 
+
         $json = {
             results => [ map {
+                my $name_is_latin = $_->entity->name =~ /^[\p{Latin}\p{Common}\p{Inherited}]+$/;
+
                 my $r = {
                     name => $_->entity->name,
                     id => $_->entity->id,
@@ -30,7 +33,8 @@ sub search : Local
                     if ($_->entity->can('comment') && $_->entity->comment);
 
                 $r->{sort_name} = $_->entity->sort_name
-                    if ($_->entity->can('sort_name') && $_->entity->sort_name);
+                    if (!$name_is_latin && $_->entity->can('sort_name') &&
+                            $_->entity->sort_name);
 
                 $r;
             } @$search_results ],

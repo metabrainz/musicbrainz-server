@@ -34,6 +34,9 @@
         Searching:             '[% l('Searching&hellip;') %]',
         PleaseSelectARSubtype : "[% l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.") %]",
         PleaseSelectARType    : "[% l("Please select a relationship type.") %]",
-        AddAnother            : "[% l("Add another") %]"
+        AddAnother            : "[% l("Add another") %]",
+        ClickLookup           : "[% l('Please click lookup to search') %]",
+        Lookup                : "[% l('Lookup') %]",
+        SearchErrorOccured    : "[% l('Sorry, an error occured during your search') %]"
     });
 })(MB);

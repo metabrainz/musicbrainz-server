@@ -29,6 +29,7 @@
         ).split(' ');
 
         function formatAttributes(attributes) {
+            if (!attributes || attributes.length == 0) { return ''; }
             var formatted = [];
             var key, value;
             for(key in attributes) {

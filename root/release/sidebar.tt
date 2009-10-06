@@ -111,7 +111,7 @@
                    <li class="release-label">
                        [% r.checkbox(field.field('deleted'), class => 'remove') %]
                        [% r.hidden(field.field('label_id'), class => 'label-id') %]
-                       [% link_label(label.label) %]
+                       [% editing ? '<span class="label">' _ label.label.name _ '</span>' : link_label(label.label) %]
                        &ndash;
                        [% r.text(form.field('labels').field(loop.index).field('catalog_number'),
                                  size => 8, class => 'catalog-number') %]
