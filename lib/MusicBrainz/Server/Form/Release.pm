@@ -56,6 +56,7 @@ has_field 'labels.label_id' => ( type => 'Text' );
 
 has_field 'mediums' => ( type => 'Repeatable' );
 has_field 'mediums.name' => ( type => 'Text' );
+has_field 'mediums.remove' => ( type => 'Checkbox' );
 
 has_field 'mediums.tracklist' => ( type => 'Compound' );
 has_field 'mediums.tracklist.tracks' => ( type => 'Repeatable' );
@@ -66,6 +67,7 @@ has_field 'mediums.tracklist.tracks.length' => (
     deflation => sub { MusicBrainz::Server::Track::FormatTrackLength($_) },
     fif_from_value => 1
 );
+has_field 'mediums.tracklist.tracks.deleted' => ( type => 'Checkbox' );
 
 has_field 'artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
 

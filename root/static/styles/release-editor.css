@@ -19,6 +19,10 @@ input#release-name {
     font-size: inherit;
 }
 
+img.image-button {
+    vertical-align: middle;
+    margin: 2px;
+}
 #sidebar select {
     max-width: 11em
 }

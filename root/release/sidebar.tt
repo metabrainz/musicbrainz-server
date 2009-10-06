@@ -109,7 +109,7 @@
                [% FOR label=release.labels %]
                    [% field = form.field('labels').field(loop.index) %]
                    <li class="release-label">
-                       [% r.checkbox(field.field('deleted'), class => 'delete') %]
+                       [% r.checkbox(field.field('deleted'), class => 'remove') %]
                        [% r.hidden(field.field('label_id'), class => 'label-id') %]
                        [% link_label(label.label) %]
                        &ndash;

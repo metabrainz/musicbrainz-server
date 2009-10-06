@@ -4,6 +4,7 @@
     <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/MB/predicate.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/MB/Control/Overlay.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/ToggleButton.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/static/scripts/release_editor.js') %]" type="text/javascript"></script>
     <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
@@ -34,17 +35,21 @@
               </thead>
             [%- FOR medium=release.mediums -%]
                 [% medium_field = form.field('mediums').field(loop.index) %]
-                <tr class="subh">
+                <tr class="subh medium">
                     <th class="first">[% medium.position %]</th>
                     <th colspan="4">
+                        [% r.checkbox(medium_field.field('remove'), class => 'remove') %]
                         [% r.text(medium_field.field('name'), class => 'medium-name') %]
                     </th>
                 </tr>
                 [%- FOR track=medium.tracklist.tracks -%]
                     [% track_field = medium_field.field('tracklist').field('tracks').field(loop.index) %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <tr class="track[% ' ev' IF loop.count % 2 == 0 %]">
                         <td>[% track.position %]</td>
-                        <td>[% r.text(track_field.field('name'), class => 'track-name') %]</td>
+                        <td>
+                          [% r.checkbox(track_field.field('deleted'), class => 'remove') %]
+                          [% r.text(track_field.field('name'), class => 'track-name') %]
+                        </td>
                         <td>[% r.artist_credit_editor(track_field.field('artist_credit')) %]</td>
                         <td>[% r.text(track_field.field('length'), class => 'track-length', size => 5)  %]</td>
                     </tr>

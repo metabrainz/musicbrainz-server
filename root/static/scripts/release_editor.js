@@ -16,6 +16,15 @@
 */
 
 (function ($) {
+    $.extend(MB.url, {
+        ReleaseEditor: {
+            removeImages: {
+                onImage: '/static/images/release_editor/remove-on.png',
+                offImage: '/static/images/release_editor/remove-off.png'
+            }
+        }
+    });
+
     $(function() {
         // Very simple overlays
         $("#sidebar dd:not(.date) > :input")
@@ -24,7 +33,7 @@
             .add($('#mediums input.medium-name'))
             .add($('#mediums input.track-name'))
             .add($('#mediums input.track-length'))
-            .each(function() { spanOverlay($(this)) });
+            .each(function() { spanOverlay($(this)); });
 
         // Release disambiguation comment
         var comment = $('#comment');
@@ -34,11 +43,27 @@
         var date = $('#sidebar dl.properties dd.date');
         var dateText = date
             .find(":input[value!='']")
-            .map(function() { return MB.html.escape(this.value) })
+            .map(function() { return MB.html.escape(this.value); })
             .get().join('&ndash;') || MB.text.UnknownPlaceholder;
 
         var dateOverlay = new MB.Control.Overlay(MB.html.dd({}, dateText));
         dateOverlay.draw(date);
+
+        // Deleting release labels & mediums
+        $('#sidebar li.release-label input.remove')
+            .add('#mediums tr.medium input.remove')
+            .each(function() {
+                var remove = new MB.Control.ToggleButton(MB.url.ReleaseEditor.removeImages);
+                remove.draw($(this));
+            });
+
+        // Deleting tracks labels
+        $('#mediums tr.track').each(function() {
+            var row = this;
+            var checkbox = $('input.remove', this);
+            var removeButton = new MB.Control.ToggleButton(MB.url.ReleaseEditor.removeImages);
+            removeButton.draw(checkbox);
+        });
     });
 
     function spanOverlay(field, text) {
