@@ -60,6 +60,7 @@ has_field 'mediums.remove' => ( type => 'Checkbox' );
 
 has_field 'mediums.tracklist' => ( type => 'Compound' );
 has_field 'mediums.tracklist.tracks' => ( type => 'Repeatable' );
+has_field 'mediums.tracklist.tracks.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist.tracks.name' => ( type => 'Text' );
 has_field 'mediums.tracklist.tracks.artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
 has_field 'mediums.tracklist.tracks.length' => (

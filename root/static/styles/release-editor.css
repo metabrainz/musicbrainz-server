@@ -61,3 +61,32 @@ div.lookup-results li:hover {
     background: #FC6714;
     color: white;
 }
+
+td.position {
+    cursor: move;
+}
+
+tr.being-dragged td {
+    background: #FC6714 !important;
+}
+
+tr.overAbove {
+    border-top: 2px solid black !important;
+}
+tr.overBelow {
+    border-bottom: 2px solid black !important;
+}
+table.dragHelper {
+    background: white;
+    border: 1px solid black;
+}
+
+table#mediums {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6pt 0;
+}
+
+table#mediums table.tbl {
+    margin: 6pt 0;
+}

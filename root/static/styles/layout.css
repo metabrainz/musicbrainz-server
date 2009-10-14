@@ -339,7 +339,8 @@ div.tabs {
     border-left: solid 1px #CCCCCC;
 }
 
-.page table.tbl tr.subh td {
+.page table.tbl tr.subh td,
+.page table.tbl tr.subh th {
     font-size: 95%;
     background: url(../images/table-header-2.gif) repeat-x 0 50%;
     font-weight: bold;

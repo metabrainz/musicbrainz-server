@@ -67,6 +67,37 @@
 
         // Label lookups
         $('#sidebar ul.release-labels span.label').each(overlayLabelLookup);
+
+        // Support moving tracks
+        var trackSorter = new MB.Control.TableSorting({
+            dragComplete: function(row, oldTable) {
+                // Loop over each changed medium...
+                var mediums = row.parent('table');
+                mediums.add(oldTable);
+                $('table#mediums tbody').each(function() {
+                    // Loop over each track
+                    $(this).find('tr').each(function(i) {
+                        i += 1; // Tracks are indexed from 1, not 0
+                        var trackRow = $(this);
+                        trackRow.toggleClass('ev', i % 2 == 0);
+                        var posCell = trackRow.find('td.position');
+                        posCell.find('span').text(i);
+                        posCell.find('input:first').val(i);
+                    });
+                });
+            },
+            dragHandle: 'td.position'
+        });
+
+        trackSorter.addTables('table#mediums table.medium');
+        trackSorter.activate();
+
+        // Support moving mediums
+        var mediumSorter = new MB.Control.TableSorting({
+            dragHandle: 'tr.subh th.position'
+        });
+        mediumSorter.addTables('table#mediums');
+        mediumSorter.activate();
     });
 
     function overlayLabelLookup() {
