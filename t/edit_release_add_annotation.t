@@ -15,7 +15,7 @@ my $edit = $c->model('Edit')->create(
     edit_type => $EDIT_RELEASE_ADD_ANNOTATION,
     editor_id => 1,
 
-    release_id => 1,
+    entity_id => 1,
     text => 'Test annotation',
     changelog => 'A changelog',
 );

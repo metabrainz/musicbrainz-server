@@ -71,7 +71,7 @@ $alias_set = $artist_data->alias->find_by_entity_id(3);
 is(scalar @$alias_set, 0);
 
 # Test deleting aliases
-$artist_data->alias->delete_parents(1);
+$artist_data->alias->delete_entities(1);
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
@@ -81,7 +81,7 @@ $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
 
-$sql->Commit;
+$sql->commit;
 
 # Make sure other data types support aliases
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);

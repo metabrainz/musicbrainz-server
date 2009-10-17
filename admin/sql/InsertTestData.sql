@@ -473,6 +473,8 @@ ALTER SEQUENCE release_name_id_seq RESTART 5;
 ALTER SEQUENCE track_name_id_seq RESTART 20;
 ALTER SEQUENCE work_name_id_seq RESTART 2;
 
+ALTER SEQUENCE annotation_id_seq RESTART 8;
+
 ALTER SEQUENCE tag_id_seq RESTART 100;
 
 SET client_min_messages TO 'NOTICE';

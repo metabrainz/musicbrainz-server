@@ -1,9 +1,10 @@
+#!/usr/bin/perl
 use strict;
 use Test::More;
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::AddAlias' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_ADD_ALIAS );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
@@ -26,7 +27,7 @@ is($edit->alias->id, $edit->alias_id);
 is($edit->artist->edits_pending, 1);
 is($edit->alias->name, 'Another alias');
 
-$c->model('Edit')->reject($edit);
+reject_edit($c, $edit);
 
 my $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 2);
@@ -35,7 +36,7 @@ my $artist = $c->model('Artist')->get_by_id(1);
 is($artist->edits_pending, 0);
 
 my $edit = _create_edit();
-$c->model('Edit')->accept($edit);
+accept_edit($c, $edit);
 $c->model('Edit')->load_all($edit);
 is($edit->artist->edits_pending, 0);
 is($edit->alias->edits_pending, 0);

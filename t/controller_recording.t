@@ -49,8 +49,6 @@ xml_ok($mech->content);
 $mech->content_contains('puid/b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', 'has puid 1');
 $mech->content_contains('puid/134478d1-306e-41a1-8b37-ff525e53c8be', 'has puid 2');
 
-<<<<<<< HEAD
-=======
 # Test adding annotations
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -71,5 +69,4 @@ is_deeply($edit->data, {
     editor_id => 1
 });
 
->>>>>>> Tests
 done_testing;

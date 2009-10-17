@@ -72,7 +72,7 @@ sub delete
     my $sql = Sql->new($self->c->dbh);
     my $query = "DELETE FROM " . $self->table .
                 " WHERE id IN (" . placeholders(@ids) . ")";
-    $sql->Do($query, @ids);
+    $sql->do($query, @ids);
     return 1;
 }
 
@@ -96,7 +96,7 @@ sub insert
     $class->require;
     for my $hash (@alias_hashes) {
         push @created, $class->new(
-            id => $sql->InsertRow($table, {
+            id => $sql->insert_row($table, {
                 $type => $hash->{$type . '_id'},
                 name => $names{ $hash->{alias} }
             }, 'id'));
