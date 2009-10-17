@@ -56,10 +56,11 @@ sub view : Local Args(1)
 
     my $releases;
     my $collection_id = $c->stash->{user_collection};
+    my $order = $c->req->params->{order} || 'date';
 
     if ($collection_id) {
         $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_collection($collection_id, shift, shift);
+            $c->model('Release')->find_by_collection($collection_id, shift, shift, $order);
         });
         $c->model('ArtistCredit')->load(@$releases);
         $c->model('Medium')->load_for_releases(@$releases);
@@ -69,9 +70,12 @@ sub view : Local Args(1)
         $c->model('Label')->load(map { $_->all_labels } @$releases);
     }
 
-    $c->stash->{user} = $user;
-    $c->stash->{releases} = $releases;
-    $c->stash->{template} = 'user/collection.tt';
+    $c->stash(
+        user => $user,
+        order => $order,
+        releases => $releases,
+        template => 'user/collection.tt',
+    );
 }
 
 1;

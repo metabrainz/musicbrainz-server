@@ -1,6 +1,7 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::Utils';
 
 use MusicBrainz::Server::Context;
@@ -30,3 +31,35 @@ my ($result, $hits) = MusicBrainz::Server::Data::Utils::query_to_list_limited(
 is ( scalar(@result), 1 );
 is ( $hits, 2 );
 is ( $result[0]->{id}, 1 );
+
+my $order_by;
+
+$order_by = MusicBrainz::Server::Data::Utils::order_by(
+    undef, "1", { "1" => "a, b", "2" => "c, b" });
+is ( $order_by, "a, b" );
+
+$order_by = MusicBrainz::Server::Data::Utils::order_by(
+    "1", "1", { "1" => "a, b", "2" => "c, b" });
+is ( $order_by, "a, b" );
+
+$order_by = MusicBrainz::Server::Data::Utils::order_by(
+    "3", "1", { "1" => "a, b", "2" => "c, b" });
+is ( $order_by, "a, b" );
+
+$order_by = MusicBrainz::Server::Data::Utils::order_by(
+    "2", "1", { "1" => "a, b", "2" => "c, b" });
+is ( $order_by, "c, b" );
+
+$order_by = MusicBrainz::Server::Data::Utils::order_by(
+    "-1", "1", { "1" => "a, b", "2" => "c, b" });
+is ( $order_by, "a DESC, b DESC" );
+
+$order_by = MusicBrainz::Server::Data::Utils::order_by(
+    "-2", "1", { "1" => "a, b", "2" => "c, b" });
+is ( $order_by, "c DESC, b DESC" );
+
+$order_by = MusicBrainz::Server::Data::Utils::order_by(
+    "-3", "1", { "1" => "a, b", "2" => "c, b" });
+is ( $order_by, "a, b" );
+
+done_testing;

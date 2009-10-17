@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
     placeholders
     query_to_list_limited
+    order_by
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -100,14 +101,22 @@ sub find_by_release_group
 
 sub find_by_collection
 {
-    my ($self, $collection_id, $limit, $offset) = @_;
+    my ($self, $collection_id, $limit, $offset, $order) = @_;
+
+    my $order_by = order_by($order, "date", {
+        "date"   => "date_year, date_month, date_day, name.name",
+        "title"  => "name.name, date_year, date_month, date_day, name.name",
+        "artist" => "artist_credit_id, date_year, date_month, date_day, name.name", # XXX
+    });
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                     JOIN editor_collection_release c
                         ON release.id = c.release
                  WHERE c.collection = ?
-                 ORDER BY date_year, date_month, date_day, name.name
+                 ORDER BY $order_by
                  OFFSET ?";
+
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $collection_id, $offset || 0);

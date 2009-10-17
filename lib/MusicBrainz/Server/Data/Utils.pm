@@ -25,6 +25,7 @@ our @EXPORT_OK = qw(
     query_to_list
     query_to_list_limited
     type_to_model
+    order_by
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -203,6 +204,28 @@ sub add_partial_date_to_row
 sub type_to_model
 {
     return $TYPE_TO_MODEL{$_[0]} || undef;
+}
+
+sub order_by
+{
+    my ($order, $default, $map) = @_;
+
+    my $order_by = $map->{$default};
+    if ($order) {
+        my $desc = 0;
+        if ($order =~ /-(.*)/) {
+            $desc = 1;
+            $order = $1;
+        }
+        if (exists $map->{$order}) {
+            $order_by = $map->{$order};
+            if ($desc) {
+                my @list = map { "$_ DESC" } split ',', $order_by;
+                $order_by = join ',', @list;
+            }
+        }
+    }
+    return $order_by;
 }
 
 1;

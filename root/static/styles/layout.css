@@ -348,6 +348,10 @@ div.tabs {
     border-bottom: solid 1px #999999;
 }
 
+.page table.tbl th a {
+    color: #000;
+}
+
 .page table.tbl th.first {
     border-left: none;
 }
