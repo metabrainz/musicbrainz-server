@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Ajax;
 BEGIN { use Moose; extends 'Catalyst::Controller' };
 
 use List::Util qw( min );
+use Encode qw(decode_utf8);
 
 sub search : Local
 {
@@ -21,7 +22,8 @@ sub search : Local
 
         $json = {
             results => [ map {
-                my $name_is_latin = $_->entity->name =~ /^[\p{Latin}\p{Common}\p{Inherited}]+$/;
+                my $dec_name = decode_utf8($_->entity->name);
+                my $name_is_latin = $dec_name =~ /^[\p{Latin}\p{Common}\p{Inherited}]+$/;
 
                 my $r = {
                     name => $_->entity->name,

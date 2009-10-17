@@ -98,6 +98,12 @@
         });
         mediumSorter.addTables('table#mediums');
         mediumSorter.activate();
+
+        // Editing artist credits
+        $('div.artist-credit').each(function() {
+            var acEditor = new MB.Control.ArtistCreditEditor($(this));
+            acEditor.textDisplay.addClass('overlay');
+        });
     });
 
     function overlayLabelLookup() {

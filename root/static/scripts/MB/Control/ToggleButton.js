@@ -36,7 +36,6 @@
 
         var state = options.defaultOn;
         var input;
-        fireCallback();
 
         self.image = $(MB.html.img({
             'class': 'image-button',

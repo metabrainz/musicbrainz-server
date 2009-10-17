@@ -98,6 +98,7 @@
             event.preventDefault();
             var selected = $(event.target).closest('li').data('result');
             $(options.idInput).val(selected.id);
+            self.query.val(selected.name);
             self.hideResults();
 
             if (options.selection) {
@@ -107,10 +108,12 @@
 
         function resultRow(result) {
             var contents = MB.html.strong({}, result.name);
-            var info = $.grep([ result.sort_name, result.comment ], MB.predicate.isTrue);
-            if (info) {
+            if(result.comment) {
+                contents += ' (' + result.comment + ')'; 
+            }
+            if (result.sort_name) {
                 contents += MB.html.br();
-                contents += MB.html.span({ 'class': 'info' }, info.join(' / '));
+                contents += MB.html.span({ 'class': 'info' }, result.sort_name);
             }
             var row = $(MB.html.li({}, contents));
             return row.data('result', result).click(function(event) { makeSelection(event); });

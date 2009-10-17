@@ -90,3 +90,18 @@ table#mediums {
 table#mediums table.tbl {
     margin: 6pt 0;
 }
+
+.ac-editor table {
+    margin: 8pt 0;
+}
+.ac-editor th {
+    text-align: left;
+}
+.ac-editor input.join {
+    width: 2em;
+}
+
+div.ac-editor .buttons {
+    float: right;
+    margin-top: 8pt;
+}

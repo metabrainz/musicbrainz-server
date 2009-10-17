@@ -186,24 +186,10 @@ sub artist_credit_editor
         $self->_render_input($_->field('join_phrase'), 'text', class => 'join')
     ] } $field->field('names')->fields;
 
-    my $editor = $self->h->div({ class => 'credits' }, [
+    return $self->h->div({ id => $field->html_name, class => 'artist-credit' }, [
         map {
             $self->h->div({ class => 'credit' }, $_)
         } @credits
-    ]);
-
-    # Preview
-    return $self->h->div({ class => 'container', id => $field->html_name }, [
-        $self->h->p({ class => 'preview' }, [
-            map {
-                my $name = $_->artist
-                    ? $self->h->a({ href => "/artist/" . $_->artist->gid }, [ $_->name ])
-                    : $_->name;
-
-                ($name, $_->join_phrase);
-            } @{ $preview->names }
-        ]),
-        $editor
     ]);
 }
 
