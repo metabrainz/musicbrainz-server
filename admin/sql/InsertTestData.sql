@@ -475,6 +475,9 @@ ALTER SEQUENCE work_name_id_seq RESTART 2;
 
 ALTER SEQUENCE annotation_id_seq RESTART 8;
 
+ALTER SEQUENCE artist_alias_id_seq RESTART 8;
+ALTER SEQUENCE label_alias_id_seq RESTART 8;
+
 ALTER SEQUENCE tag_id_seq RESTART 100;
 
 SET client_min_messages TO 'NOTICE';
