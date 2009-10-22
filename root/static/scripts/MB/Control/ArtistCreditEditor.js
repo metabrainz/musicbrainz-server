@@ -23,6 +23,8 @@
         }
     });
 
+    var currentEditor = undefined;
+
     MB.Control.ArtistCreditEditor = function(creditContainer, options) {
         var self = this;
 
@@ -180,6 +182,7 @@
             });
 
             self.textDisplay.html(createTextRepresentation());
+            currentEditor = undefined;
 
             if (options.confirmed) {
                 options.confirmed(credits);
@@ -187,10 +190,7 @@
         });
         cancel.click(function(event) {
             event.preventDefault();
-            dialog.hide();
-            editorBody.empty();
-            creditsFromArray(savedCredits);
-            updateLivePreview();
+            self.cancel();
         });
 
         $.extend(self, {
@@ -200,7 +200,18 @@
                 editorBody.append(ac.row);
             },
             openAt: function(node) {
+                if (currentEditor) {
+                    currentEditor.cancel();
+                }
                 dialog.showAt(node);
+                currentEditor = self;
+            },
+            cancel: function() {
+                dialog.hide();
+                editorBody.empty();
+                creditsFromArray(savedCredits);
+                updateLivePreview();
+                currentEditor = undefined;
             }
         });
 
