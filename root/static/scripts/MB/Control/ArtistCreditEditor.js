@@ -162,6 +162,7 @@
             dialog.hide();
             savedCredits = [];
 
+            creditContainer.empty();
             $.each(credits, function(i) {
                 var credit = this;
                 if (credit.remove.is(':checked')) {
@@ -171,7 +172,7 @@
                 $.each(fieldMapping, function(name, accessor) {
                     creditContainer.append(MB.html.input({
                         type: 'hidden',
-                        name: creditContainer.attr('id') + '.' + i + '.' + name,
+                        name: creditContainer.attr('id') + '.names.' + i + '.' + name,
                         value: credit[accessor].val()
                     }));
                 });

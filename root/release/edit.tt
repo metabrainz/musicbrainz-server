@@ -24,7 +24,7 @@
                 [% r.text('name', id => 'release-name') %]
                 <span class="comment">([% r.text('comment', id => 'comment') %])</span>
             </h1>
-            <div>
+            <div id="release-artist">
                 [% r.artist_credit_editor('artist_credit') %]
             </div>
 
@@ -53,13 +53,13 @@
                           <th class="length">[% l('Length') %]</th>
                         </tr>
                       </thead>
+                      <tfoot />
                       <tbody>
                         [%- FOR track=medium.tracklist.tracks -%]
                         [% track_field = medium_field.field('tracklist').field('tracks').field(loop.index) %]
                         <tr class="track[% ' ev' IF loop.count % 2 == 0 %]">
                           <td class="position">
-                            <span>[% track.position %]</span>
-                            [% r.hidden(track_field.field('position')) %]
+                            [% r.text(track_field.field('position'), class => 'pos') %]
                           </td>
                           <td>[% r.text(track_field.field('name'), class => 'track-name') %]</td>
                           <td>[% r.artist_credit_editor(track_field.field('artist_credit')) %]</td>

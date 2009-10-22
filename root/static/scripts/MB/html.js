@@ -55,7 +55,7 @@
         $.each(supportedTags, function() { self[this] = createTag(this); });
 
         self.escape = function(html) {
-            return html
+            return html.toString()
                 .replace(/&/g, '&amp;')
                 .replace(/>/g, '&gt;')
                 .replace(/</g, '&lt;')

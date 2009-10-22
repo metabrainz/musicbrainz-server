@@ -31,8 +31,6 @@
             .add($('li.release-label input.catalog-number'))
             .add($('#release-name'))
             .add($('#mediums input.medium-name'))
-            .add($('#mediums input.track-name'))
-            .add($('#mediums input.track-length'))
             .each(function() { spanOverlay($(this)); });
 
         // Release disambiguation comment
@@ -56,14 +54,6 @@
                 var remove = new MB.Control.ToggleButton(MB.url.ReleaseEditor.removeImages);
                 remove.draw($(this));
             });
-
-        // Deleting tracks labels
-        $('#mediums tr.track').each(function() {
-            var row = this;
-            var checkbox = $('input.remove', this);
-            var removeButton = new MB.Control.ToggleButton(MB.url.ReleaseEditor.removeImages);
-            removeButton.draw(checkbox);
-        });
 
         // Label lookups
         $('#sidebar ul.release-labels span.label').each(overlayLabelLookup);
@@ -109,9 +99,69 @@
         mediumSorter.activate();
 
         // Editing artist credits
-        $('div.artist-credit').each(function() {
-            var acEditor = new MB.Control.ArtistCreditEditor($(this));
-            acEditor.textDisplay.addClass('overlay');
+        acEditor($('#release-artist div.artist-credit'));
+
+        // Setup track rows
+        $('table#mediums tbody tr.track').each(function() {
+            setupTrackRow($(this));
+        });
+
+        // Support for creating new tracks
+        $('table#mediums .medium tbody').each(function(mediumNumber) {
+            var table = $(this);
+            var newRow = $(MB.html.tr());
+
+            var createTrackRow = function(ev) {
+                ev.preventDefault();
+                
+                var pos = table.find('tr.track').length;
+                var prefix = 'edit-release.mediums.' + mediumNumber
+                    + '.tracklist.tracks.' + pos + '.';
+                
+                pos++; // We display tracks with '1' as the starting index
+
+                var artistCredit = $('#release-artist .artist-credit').clone();
+                artistCredit.attr('id', prefix + 'artist_credit');
+                artistCredit.find('input').each(function() {
+                    var inp = $(this);
+                    inp.attr('name', inp.attr('name').replace('edit-release.', prefix));
+                });
+                
+                var tr = $(MB.html.tr({ 'class': 'track' + (pos % 2 == 0 ? ' ev' : '') },
+                    MB.html.td({ 'class': 'position' },
+                        MB.html.input({
+                            'class': 'pos',
+                            value: pos,
+                            name: prefix + 'position'
+                        })) +
+                    MB.html.td({},
+                        MB.html.input({
+                            'class': 'track-name',
+                            name: prefix + 'name'
+                        })) +
+                    MB.html.td({},
+                        MB.html.div({
+                            'class': 'artist-credit',
+                            id: prefix + 'artist_credit'
+                        }, artistCredit.html())) +
+                    MB.html.td({},
+                        MB.html.input({
+                            'class': 'track-length',
+                            value: '?:??',
+                            name: prefix + 'length'
+                        }))
+                ));
+                table.append(tr);
+                setupTrackRow(tr);
+                trackSorter.activate();
+            };
+            
+            $(MB.html.td({ colspan: '4' }))
+                .append(
+                    $(MB.html.button({}, MB.text.AddNewTrack))
+                        .click(createTrackRow))
+                .appendTo(newRow);
+            table.closest('table').find('tfoot').append(newRow);
         });
 
         // Overlay Medium Format
@@ -120,6 +170,30 @@
             console.log(MB.utility.displayedValue($(this)));
         });
     });
+
+    function setupTrackRow(row) {
+        // Deleting tracks
+        var checkbox = $('input.remove', this);
+        var removeButton = new MB.Control.ToggleButton(MB.url.ReleaseEditor.removeImages);
+        removeButton.draw(checkbox);
+
+        // Overlays
+        row.find('input.track-name, input.track-length')
+           .each(function() { spanOverlay($(this)); });
+
+        // Artist credit editor
+        acEditor(row.find('div.artist-credit'));
+
+        // Moving tracks
+        var pos = row.find('input.pos');
+        pos.after(MB.html.span({ 'class': 'position' }, pos.val())).hide();
+    }
+
+    function acEditor(container) {
+        var acEditor = new MB.Control.ArtistCreditEditor(container);
+        acEditor.textDisplay.addClass('overlay');
+        return acEditor
+    }
 
     function overlayLabelLookup() {
         var labelText = $(this);
