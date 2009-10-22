@@ -94,7 +94,16 @@
 
         // Support moving mediums
         var mediumSorter = new MB.Control.TableSorting({
-            dragHandle: 'tr.subh th.position'
+            dragHandle: 'tr.subh th.position',
+            dragComplete: function(row, oldTable) {
+                // Loop over each medium
+                $('table#mediums table.medium').each(function(i) {
+                    i++;
+                    var posCell = $(this).find('th.position');
+                    posCell.find('input').val(i);
+                    posCell.find('span').text(i);
+                });
+            }
         });
         mediumSorter.addTables('table#mediums');
         mediumSorter.activate();

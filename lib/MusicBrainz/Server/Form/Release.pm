@@ -58,6 +58,7 @@ has_field 'mediums' => ( type => 'Repeatable' );
 has_field 'mediums.name' => ( type => 'Text' );
 has_field 'mediums.remove' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
+has_field 'mediums.position' => ( type => 'Integer' );
 
 has_field 'mediums.tracklist' => ( type => 'Compound' );
 has_field 'mediums.tracklist.tracks' => ( type => 'Repeatable' );
