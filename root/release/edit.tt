@@ -39,6 +39,7 @@
                         <tr class="subh">
                           <th class="position">[% medium.position %]</td>
                           <th colspan="3">
+                            [% r.select(medium_field.field('format_id'), class => 'medium-format') %] :
                             [% r.text(medium_field.field('name'), class => 'medium-name') %]
                           </th>
                         </tr>

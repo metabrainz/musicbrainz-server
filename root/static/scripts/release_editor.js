@@ -104,6 +104,12 @@
             var acEditor = new MB.Control.ArtistCreditEditor($(this));
             acEditor.textDisplay.addClass('overlay');
         });
+
+        // Overlay Medium Format
+        $('select.medium-format').each(function() {
+            spanOverlay($(this));
+            console.log(MB.utility.displayedValue($(this)));
+        });
     });
 
     function overlayLabelLookup() {
