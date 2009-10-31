@@ -9,10 +9,12 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Artist::AddAlias
     MusicBrainz::Server::Edit::Artist::AddAnnotation
     MusicBrainz::Server::Edit::Artist::Create
+    MusicBrainz::Server::Edit::Artist::DeleteAlias
     MusicBrainz::Server::Edit::Artist::Delete
     MusicBrainz::Server::Edit::Artist::Edit
     MusicBrainz::Server::Edit::Artist::Merge
     MusicBrainz::Server::Edit::Label::AddAlias
+    MusicBrainz::Server::Edit::Label::DeleteAlias
     MusicBrainz::Server::Edit::Label::AddAnnotation
     MusicBrainz::Server::Edit::Label::Create
     MusicBrainz::Server::Edit::Label::Delete

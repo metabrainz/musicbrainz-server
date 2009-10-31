@@ -3,7 +3,7 @@
         <table class="tbl">
             <thead>
                 <tr>
-                    <th>[% l('Alias') %]</th>
+                    <th colspan="[% c.user_exists ? 2 : 1 %]">[% l('Alias') %]</th>
                 </tr>
             </thead>
             <tbody>
@@ -13,12 +13,10 @@
                         [% alias.name | html %]
                     </td>
                     [% IF c.user_exists %]
-                        <td>
-                            [% links = [
-                                { link => c.entity_url(entity, 'remove_alias', alias.id), text => l('Remove'), }
-                                { link => c.entity_url(entity, 'edit_alias', alias.id), text => l('Edit'), }
-                            ] %]
-                            [% INCLUDE 'components/piped-list.tt' list=links %]
+                        <td style="width: 10em">
+                            <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
+                              [% l('Delete') %]
+                            </a>
                         </td>
                     [% END %]
                 </tr>

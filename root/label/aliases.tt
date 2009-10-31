@@ -1,3 +1,4 @@
 [%- WRAPPER "label/layout.tt" title=l('Aliases') page='aliases' -%]
-[%- INCLUDE "components/aliases.tt" entity=label -%]
+    [%- INCLUDE "components/aliases.tt" entity=label
+        delete_path='/label/delete_alias' -%]
 [%- END -%]

@@ -225,4 +225,18 @@ is_deeply($edit->data, {
     alias => 'An alias',
 });
 
+# Test deleting aliases
+$mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/alias/1/delete');
+my $response = $mech->submit_form(
+    with_fields => {
+        'confirm.edit_note' => ''
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Label::DeleteAlias');
+is_deeply($edit->data, {
+    entity_id => 2,
+    alias_id => 1,
+});
+
 done_testing;
