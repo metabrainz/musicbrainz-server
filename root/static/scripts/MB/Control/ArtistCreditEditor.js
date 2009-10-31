@@ -69,7 +69,9 @@
 
             this.row
                 .append(
-                    $(MB.html.td()).append(this.remove))
+                    $(MB.html.td())
+                        .append('<span class="mover">Move </span>')
+                        .append(this.remove))
                 .append(
                     $(MB.html.td())
                         .append(this.lookup.query)
@@ -80,20 +82,22 @@
                 )
                 .append($(MB.html.td()).append(this.joinPhrase));
 
-            var remove = new MB.Control.ToggleButton({
+            this.removeControl = new MB.Control.ToggleButton({
                     onImage: MB.url.ArtistCreditEditor.removeArtistOn,
                     offImage: MB.url.ArtistCreditEditor.removeArtistOff,
                     toggleOn: function() {
                         thisRow.row.find('input').attr('disabled', true);
                         updateLivePreview();
+                        toggleDel();
                     },
                     toggleOff: function() {
                         thisRow.row.find('input').attr('disabled', false);
                         updateLivePreview();
+                        toggleDel();
                     }
                 });
 
-            remove.draw(this.remove);
+            this.removeControl.draw(this.remove);
         };
 
         options = $.extend({
@@ -120,6 +124,18 @@
             .appendTo(dialog.dialog);
 
         var editorBody = $(MB.html.tbody()).appendTo(editor);
+
+        var creditSorting = new MB.Control.TableSorting({
+            dragHandle: '.mover',
+            dragComplete: function(row, oldTable, origPos, newPos) {
+                var credit = credits[origPos];
+
+                credits.splice(origPos, 1);
+                credits.splice(newPos, 0, credit);
+                updateLivePreview();
+            }
+        });
+        creditSorting.addTables(editor);
 
         // Row to add a new artist credit
         var newLookup = new MB.Control.EntityLookup('artist', {
@@ -199,6 +215,7 @@
                 var ac = new ArtistCredit(artist);
                 credits.push(ac);
                 editorBody.append(ac.row);
+                creditSorting.activate();
             },
             openAt: function(node) {
                 if (currentEditor) {
@@ -219,6 +236,7 @@
         // Initialize the current artist credit
         creditsFromContainer();
         savedCredits = credits;
+        toggleDel();
 
         // Previews
         self.textDisplay = $('<span>')
@@ -249,7 +267,8 @@
             }).join('');
         }
 
-        function creditsFromContainer() {
+        function creditsFromContainer(creditSep) {
+            creditSep = creditSep || 'div.credit';
             credits = [];
             editorBody.empty();
             creditContainer.find('div.credit').each(function() {
@@ -267,6 +286,24 @@
             $.each(creditArray, function() {
                 self.appendArtist(this.artist);
             });
+        }
+
+        function toggleDel() {
+            var rows = editor.find('tr input.removed:not(:checked)');
+            if(rows.length > 1) {
+                editor.find('tr').each(function(i) {
+                    if(!credits[i]) { return false; }
+                    credits[i].removeControl.enable();
+                });
+            } else {
+                var row = rows.closest('tr');
+                $.each(credits, function() {
+                    if (this.row[0] === row[0]) {
+                        this.removeControl.disable();
+                        return false;
+                    }
+                });
+            }
         }
     };
 })(MB);

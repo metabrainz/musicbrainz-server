@@ -29,6 +29,7 @@
         var insertMethod;
         var oldTable;
         var rows;
+        var startPos;
 
         var dragHelper = $(MB.html.table({
                              style: 'position: absolute',
@@ -64,6 +65,8 @@
             rows = tables.find('> tbody > tr');
 
             currentDrag = $(el);
+            startPos = currentDrag.prevAll().length;
+            
             oldTable = currentDrag.parent('table');
             dragHelper.append(currentDrag).show();
 
@@ -85,10 +88,10 @@
             dragHelper.hide().empty();
 
             if (options.dragComplete) {
-                options.dragComplete(currentDrag, oldTable);
+                options.dragComplete(currentDrag, oldTable, startPos, currentDrag.prevAll().length);
             }
 
-            currentDrag = currentOver = oldTable = null;
+            currentDrag = currentOver = oldTable = startPos = null;
         }
 
         function above(element, y) {

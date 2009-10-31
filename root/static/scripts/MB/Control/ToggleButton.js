@@ -19,7 +19,8 @@
     $.extend(MB.url, {
         ToggleButton: {
             defaultOn: '/static/images/release_editor/edit-on.png',
-            defaultOff: '/static/images/release_editor/edit-off.png'
+            defaultOff: '/static/images/release_editor/edit-off.png',
+            defaultDisable: '/static/images/release_editor/remove-disabled.png',
         }
     });
 
@@ -31,7 +32,8 @@
             toggleOn: undefined,
             toggleOff: undefined,
             onImage: MB.url.ToggleButton.defaultOn,
-            offImage: MB.url.ToggleButton.defaultOff
+            offImage: MB.url.ToggleButton.defaultOff,
+            disableImage: MB.url.ToggleButton.defaultDisable,
         }, options);
 
         var state = options.defaultOn;
@@ -55,8 +57,18 @@
             draw: function(checkbox) {
                 input = $(checkbox);
                 updateCheckbox();
-                self.image.click(function() { self.toggle(); });
+                self.image.click(self.toggle);
                 input.hide().after(self.image);
+            },
+            enable: function() {
+                input.attr('disabled', false);
+                updateImage();
+                self.image.bind('click', self.toggle);
+            },
+            disable: function() {
+                input.attr('disabled', 'disabled');
+                self.image.attr('src', options.disableImage);
+                self.image.unbind('click', self.toggle);
             }
         });
 

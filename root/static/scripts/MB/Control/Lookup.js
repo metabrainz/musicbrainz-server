@@ -153,6 +153,7 @@
             clear: function() {
                 clearResults();
                 self.query.val('');
+                info.html(MB.text.ClickLookup);
             },
             goToPage: function(page) {
                 self.search(lastSearch, page);
