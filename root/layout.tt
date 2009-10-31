@@ -2,6 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        [%- IF looks_like_ie -%]
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        [%- END -%]
         <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
         <link rel="stylesheet" type="text/css" href="/static/main.css" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
@@ -38,6 +41,14 @@
                 <div class="r"></div><div class="l"></div>
             </div></div>
         </div>
+
+        [%- IF needs_chrome -%]
+        <div id="chrome-prompt">
+          It looks like you're using Internet Explorer but do not have Google Chrome installed.
+          We highly recommend the use of Google Chrome Frame!<br />
+          <a href="/chrome_frame">More information&hellip;</a>
+        </div>
+        [%- END -%]
 
         <div class="page[% IF full_width %] fullwidth[% END %]">
         [%- content -%]

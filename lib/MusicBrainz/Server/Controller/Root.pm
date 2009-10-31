@@ -106,6 +106,11 @@ sub begin : Private
         }
     }
 
+    if ($c->req->user_agent =~ /MSIE/i) {
+        $c->stash->{looks_like_ie} = 1;
+        $c->stash->{needs_chrome} = !($c->req->user_agent =~ /chromeframe/i);
+    }
+
     # Setup the searchs on the sidebar
     $c->form( sidebar_search => 'Search::Search' );
 
@@ -208,6 +213,12 @@ sub end : ActionClass('RenderView')
     $c->stash->{release_format} = \&MusicBrainz::Server::ReleaseEvent::release_format_name;
 
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
+}
+
+sub chrome_frame : Local
+{
+    my ($self, $c) = @_;
+    $c->stash( template => 'main/frame.tt' );
 }
 
 =head1 LICENSE

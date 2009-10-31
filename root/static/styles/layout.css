@@ -677,3 +677,12 @@ span.mp {
 #rightSide ul#blog li {
     list-style-type: none;
 }
+
+#chrome-prompt {
+    margin: 6pt 0;
+    text-align: center;
+    font-weight: bold;
+    background: #FFBA58;
+    padding: 4pt;
+    border: 2px solid #FC6714;
+}
