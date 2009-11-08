@@ -83,6 +83,8 @@ before 'restore' => sub
     $self->track_id(delete $hash->{track_id});
 };
 
+sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -75,12 +75,13 @@ Readonly our $EDIT_WORK_ADD_ANNOTATION => 45;
 
 Readonly our $EDIT_MEDIUM_CREATE => 51;
 Readonly our $EDIT_MEDIUM_EDIT => 52;
+Readonly our $EDIT_MEDIUM_DELETE => 53;
 
 Readonly our $EDIT_TRACK_EDIT => 62;
 
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 
-
+Readonly our $EDIT_TRACKLIST_CREATE => 81;
 Readonly our $EDIT_TRACKLIST_ADDTRACK => 85;
 Readonly our $EDIT_TRACKLIST_DELETETRACK => 86;
 

@@ -45,4 +45,30 @@ Sql::run_in_transaction(sub {
     is($tracklist1->tracks->[6]->position, 8);
 }, $sql);
 
+my $tracklist = $tracklist_data->insert([{
+    name => 'Track 1',
+    position => 1,
+    artist_credit => 1,
+    recording => 1
+}, {
+    name => 'Track 2',
+    position => 2,
+    artist_credit => 1,
+    recording => 2
+}]);
+isa_ok($tracklist, 'MusicBrainz::Server::Entity::Tracklist');
+
+$tracklist = $tracklist_data->get_by_id($tracklist->id);
+$track_data->load_for_tracklists($tracklist);
+is($tracklist->track_count, 2);
+is($tracklist->all_tracks, 2);
+is($tracklist->tracks->[0]->name, 'Track 1');
+is($tracklist->tracks->[0]->position, 1);
+is($tracklist->tracks->[0]->artist_credit_id, 1);
+is($tracklist->tracks->[0]->recording_id, 1);
+is($tracklist->tracks->[1]->name, 'Track 2');
+is($tracklist->tracks->[1]->position, 2);
+is($tracklist->tracks->[1]->artist_credit_id, 1);
+is($tracklist->tracks->[1]->recording_id, 2);
+
 done_testing;

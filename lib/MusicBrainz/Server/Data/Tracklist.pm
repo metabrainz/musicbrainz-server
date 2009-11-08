@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Tracklist;
 
 use Moose;
 use MusicBrainz::Server::Entity::Tracklist;
+use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -27,6 +28,34 @@ sub offset_track_positions
     my $query = 'UPDATE track SET position = position + ?' .
                 ' WHERE position >= ? AND tracklist = ?';
     $sql->do($query, $offset, $start_position, $tracklist_id);
+}
+
+sub insert
+{
+    my ($self, $tracks) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $id = $sql->insert_row('tracklist', { trackcount => 0 }, 'id');
+    my @tracks = @$tracks;
+    $_->{tracklist} = $id for @tracks;
+    $self->c->model('Track')->insert(@tracks);
+    my $class = $self->_entity_class;
+    return $class->new( id => $id );
+}
+
+sub delete
+{
+    my ($self, @tracklist_ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $query = 'DELETE FROM track WHERE tracklist IN (' . placeholders(@tracklist_ids). ')';
+    $sql->do($query, @tracklist_ids);
+    $query = 'DELETE FROM tracklist WHERE id IN ('. placeholders(@tracklist_ids) . ')';
+    $sql->do($query, @tracklist_ids);
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'tracklist', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -15,7 +15,16 @@ __PACKAGE__->config(
 use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Controller::TagRole;
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_EDIT
+    $EDIT_TRACK_EDIT
+    $EDIT_TRACKLIST_DELETETRACK
+    $EDIT_TRACKLIST_ADDTRACK
+    $EDIT_TRACKLIST_CREATE
+    $EDIT_MEDIUM_CREATE
+    $EDIT_MEDIUM_DELETE
+    $EDIT_MEDIUM_EDIT
+);
 
 # A duration lookup has to match within this many milliseconds
 use constant DURATION_LOOKUP_RANGE => 10000;
@@ -317,20 +326,115 @@ sub edit : Chained('load') RequireAuth
 
     my $form = $c->form(form => 'Release', init_object => $release);
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my %args = map { $_ => $form->field($_)->value }
-            qw( name comment packaging_id status_id script_id language_id
-                country_id barcode artist_credit date );
-
-        my $edit = $c->model('Edit')->create(
-            edit_type => $EDIT_RELEASE_EDIT,
-            editor_id => $c->user->id,
+        my $release_edit = $self->_create_edit($c, $EDIT_RELEASE_EDIT,
+            $form => [qw( name comment packaging_id status_id script_id language_id
+                         country_id barcode artist_credit date )],
             release => $release,
-            %args
-        );
+        ),
+
+        my %track_id = map { $_->id => $_ } @tracks;
+        my %medium_id = map { $_->id => $_ } @mediums;
+
+        for my $medium_field ($form->field('mediums')->fields) {
+            # Editing mediums
+            # First check if we need to create a new tracklist
+            my $tracklist_id = $medium_field->field('tracklist')->field('id')->value;
+
+            # Editing tracks
+            for my $track_field ($medium_field->field('tracklist')->field('tracks')->fields) {
+                if ($track_field->field('id')->has_value) {
+                    my $track = $track_id{ $track_field->field('id')->value };
+                    if ($track_field->field('deleted')->value) {
+                        $c->model('Edit')->create(
+                            editor_id => $c->user->id,
+                            edit_type => $EDIT_TRACKLIST_DELETETRACK,
+                            track_id => $track->id
+                        );
+                    }
+                    else {
+                        # Editing an existing track
+                        $self->_create_edit($c, $EDIT_TRACK_EDIT,
+                            $track_field => [qw( position name artist_credit )],
+                            track => $track,
+                        );
+                    }
+                }
+                elsif ($tracklist_id) {
+                    # We are creating a new track (and not a new tracklist)
+                    $self->_create_edit($c, $EDIT_TRACKLIST_ADDTRACK,
+                        $track_field => [qw( position name artist_credit )],
+                        tracklist_id => $tracklist_id,
+                    );
+                }
+            }
+
+            my $has_tracks = $medium_field->field('tracklist')->field('tracks')->has_fields;
+            if(!$tracklist_id && $has_tracks) {
+                # We have some tracks but no tracklist ID - so create a new tracklist
+                my @tracks = map { +{
+                    name          => $_->field('name')->value,
+                    position      => $_->field('position')->value,
+                    artist_credit => $_->field('artist_credit')->value,
+                } } $medium_field->field('tracklist')->field('tracks')->fields;
+
+                my $create_tl = $c->model('Edit')->create(
+                    editor_id => $c->user->id,
+                    edit_type => $EDIT_TRACKLIST_CREATE,
+                    tracks    => \@tracks,
+                );
+
+                $tracklist_id = $create_tl->tracklist_id;
+            }
+
+            if($medium_field->field('id')->has_value) {
+                my $medium = $medium_id{ $medium_field->field('id')->value };
+                # Edit existing medium
+                if($medium_field->field('deleted')->value) {
+                    $c->model('Edit')->create(
+                        editor_id => $c->user->id,
+                        edit_type => $EDIT_MEDIUM_DELETE,
+                        medium_id => $medium->id
+                    );
+                }
+                else {
+                    $self->_create_edit(
+                        $c, $EDIT_MEDIUM_EDIT,
+                        $medium_field => [qw( name format_id position )],
+                        medium => $medium
+                    );
+                }
+            }
+            else {
+                # Create a new medium
+                $self->_create_edit($c, $EDIT_MEDIUM_CREATE,
+                    $medium_field => [qw( name format_id position )],
+                    tracklist_id => $tracklist_id,
+                    release_id => $release->id
+                );
+            }
+        }
 
         $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
         $c->detach;
     }
+}
+
+sub _create_edit {
+    my ($self, $c, $type, $parent, $fields, %extra) = @_;
+
+    my %args = map { $_ => $parent->field($_)->value }
+        grep { $parent->field($_)->has_value }
+            @$fields;
+
+    return unless %args;
+
+    $args{$_} = $extra{$_} for keys %extra;
+
+    $c->model('Edit')->create(
+        edit_type => $type,
+        editor_id => $c->user->id,
+        %args,
+    );
 }
 
 =head2 duplicate

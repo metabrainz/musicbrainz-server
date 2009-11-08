@@ -18,7 +18,6 @@ has_field 'packaging_id' => (
 
 has_field 'artist_credit' => (
     type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
-    required => 1,
 );
 
 has_field 'barcode' => (
@@ -54,14 +53,23 @@ has_field 'labels.catalog_number' => ( type => 'Text' );
 has_field 'labels.deleted' => ( type => 'Checkbox' );
 has_field 'labels.label_id' => ( type => 'Text' );
 
-has_field 'mediums' => ( type => 'Repeatable' );
+has_field 'mediums' => (
+    num_when_empty => 0,
+    type => 'Repeatable'
+);
+has_field 'mediums.id' => ( type => 'Integer' );
 has_field 'mediums.name' => ( type => 'Text' );
-has_field 'mediums.remove' => ( type => 'Checkbox' );
+has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => 'Integer' );
 
 has_field 'mediums.tracklist' => ( type => 'Compound' );
-has_field 'mediums.tracklist.tracks' => ( type => 'Repeatable' );
+has_field 'mediums.tracklist.id' => ( type => 'Integer' );
+has_field 'mediums.tracklist.tracks' => (
+    num_when_empty => 0,
+    type => 'Repeatable'
+);
+has_field 'mediums.tracklist.tracks.id' => ( type => 'Integer' );
 has_field 'mediums.tracklist.tracks.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist.tracks.name' => ( type => 'Text' );
 has_field 'mediums.tracklist.tracks.artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );

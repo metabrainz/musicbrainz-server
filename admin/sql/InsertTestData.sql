@@ -119,20 +119,24 @@ INSERT INTO work (id, gid, name, artist_credit, type, iswc) VALUES
 TRUNCATE release_status CASCADE;
 
 INSERT INTO release_status (id, name) VALUES (1, 'Official');
+INSERT INTO release_status (id, name) VALUES (2, 'Promotional');
 
 TRUNCATE release_packaging CASCADE;
 
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
+INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
 
 TRUNCATE language CASCADE;
 
 INSERT INTO language (id, isocode_3t, isocode_3b, isocode_2, name, frequency)
-    VALUES (1, 'deu', 'ger', 'de', 'German', 2);
+    VALUES (1, 'deu', 'ger', 'de', 'German', 2),
+           (2, 'lit', 'lit', 'lt', 'Lithuanian', 1);
 
 TRUNCATE script CASCADE;
 
 INSERT INTO script (id, isocode, isonumber, name, frequency)
-    VALUES (1, 'Ugar', '040', 'Ugaritic', 2);
+    VALUES (1, 'Ugar', '040', 'Ugaritic', 2),
+           (2, 'Hebr', '125', 'Hebrew', 4);
 
 TRUNCATE label_type CASCADE;
 
@@ -462,6 +466,7 @@ ALTER SEQUENCE gender_id_seq RESTART 3;
 ALTER SEQUENCE artist_id_seq RESTART 10;
 ALTER SEQUENCE artist_credit_id_seq RESTART 5;
 ALTER SEQUENCE label_id_seq RESTART 4;
+ALTER SEQUENCE medium_id_seq RESTART 7;
 ALTER SEQUENCE recording_id_seq RESTART 18;
 ALTER SEQUENCE release_id_seq RESTART 4;
 ALTER SEQUENCE release_group_id_seq RESTART 5;
@@ -477,6 +482,8 @@ ALTER SEQUENCE annotation_id_seq RESTART 8;
 
 ALTER SEQUENCE artist_alias_id_seq RESTART 8;
 ALTER SEQUENCE label_alias_id_seq RESTART 8;
+ALTER SEQUENCE track_id_seq RESTART 20;
+ALTER SEQUENCE medium_id_seq RESTART 7;
 
 ALTER SEQUENCE tag_id_seq RESTART 100;
 

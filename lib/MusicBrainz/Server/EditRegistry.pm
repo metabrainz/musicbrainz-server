@@ -21,6 +21,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Label::Edit
     MusicBrainz::Server::Edit::Label::Merge
     MusicBrainz::Server::Edit::Medium::Create
+    MusicBrainz::Server::Edit::Medium::Delete
     MusicBrainz::Server::Edit::Medium::Edit
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Relationship::Edit
@@ -35,6 +36,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
     MusicBrainz::Server::Edit::Track::Edit
     MusicBrainz::Server::Edit::Tracklist::AddTrack
+    MusicBrainz::Server::Edit::Tracklist::Create
     MusicBrainz::Server::Edit::Tracklist::DeleteTrack
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAnnotation
