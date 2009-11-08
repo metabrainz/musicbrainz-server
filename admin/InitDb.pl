@@ -19,7 +19,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id$
+#   $Id: InitDb.pl 12153 2009-09-24 23:08:08Z robert $
 #____________________________________________________________________________
 
 use FindBin;
@@ -101,7 +101,7 @@ sub InstallExtension
 
     chomp($sharedir);
 
-    open(SCRIPT, "$sharedir/contrib/$ext") or die;
+    open(SCRIPT, "$sharedir/contrib/$ext") or die "Cannot open $sharedir/contrib/$ext";
     local $/;
     my $sql = <SCRIPT>;
     close(SCRIPT);
