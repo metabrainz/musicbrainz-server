@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
     placeholders
     query_to_list_limited
+    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -86,6 +87,43 @@ sub find_by_artist
             return $rg;
         },
         $query, $artist_id, $offset || 0);
+}
+
+# This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases
+sub filter_by_artist
+{
+    my ($self, $artist_id, $type) = @_;
+    my $query = "SELECT " . $self->_columns . ",
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day,
+                    rgm.releasecount,
+                    rgm.ratingcount,
+                    rgm.rating
+                 FROM " . $self->_table . "
+                    JOIN release_group_meta rgm
+                        ON rgm.id = rg.id
+                    JOIN artist_credit_name acn
+                        ON acn.artist_credit = rg.artist_credit
+                 WHERE acn.artist = ?
+                   AND type = ?
+                 ORDER BY
+                    rg.type,
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day,
+                    name.name";
+    return query_to_list(
+        $self->c->dbh, sub {
+            my $row = $_[0];
+            my $rg = $self->_new_from_row($row);
+            $rg->rating($row->{rating}) if defined $row->{rating};
+            $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
+            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
+            $rg->release_count($row->{releasecount} || 0);
+            return $rg;
+        },
+        $query, $artist_id, $type);
 }
 
 sub insert

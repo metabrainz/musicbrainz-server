@@ -22,6 +22,7 @@ requires 'Catalyst::Plugin::StackTrace'                => '0.09';
 requires 'Catalyst::Plugin::Static::Simple'            => '0.21';
 requires 'Catalyst::Runtime'                           => '5.80007';
 requires 'Catalyst::View::TT'                          => '0.29';
+requires 'Data::OptList';
 requires 'Data::Page'                                  => '2.01';
 requires 'Date::Calc'                                  => '5.4';
 requires 'DateTime::TimeZone';
