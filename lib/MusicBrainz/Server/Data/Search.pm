@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Work;
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -33,8 +34,12 @@ sub search
     my $query;
     my $use_hard_search_limit = 1;
     my $hard_search_limit;
+    my $deleted_entity = undef;
 
     if ($type eq "artist" || $type eq "label") {
+
+        $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
+
         $query = "
             SELECT
                 entity.id,
@@ -55,6 +60,7 @@ sub search
                 JOIN ${type} AS entity ON (r.id = entity.name OR r.id = entity.sortname OR alias.${type} = entity.id)
                 JOIN ${type}_name AS aname ON entity.name = aname.id
                 JOIN ${type}_name AS asortname ON entity.sortname = asortname.id
+                WHERE entity.id != ?
             GROUP BY
                 entity.id, entity.gid, entity.comment, aname.name, asortname.name
             ORDER BY
@@ -62,6 +68,7 @@ sub search
             OFFSET
                 ?
         ";
+
         $hard_search_limit = $offset * 2;
     }
     elsif ($type eq "recording" || $type eq "release" || $type eq "release_group" || $type eq "work") {
@@ -121,12 +128,12 @@ sub search
     $sql->auto_commit;
     $sql->do('SET SESSION statement_timeout TO ?', $search_timeout);
 
-    if ($use_hard_search_limit) {
-        $sql->select($query, $query_str, $hard_search_limit, $offset);
-    }
-    else {
-        $sql->select($query, $query_str, $offset);
-    }
+    my @query_args = ();
+    push @query_args, $hard_search_limit if $use_hard_search_limit;
+    push @query_args, $deleted_entity if $deleted_entity;
+    push @query_args, $offset;
+
+    $sql->select($query, $query_str, @query_args);
 
     my @result;
     my $pos = $offset + 1;
