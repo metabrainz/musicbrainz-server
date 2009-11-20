@@ -233,6 +233,20 @@ sub load_meta
     }, @_);
 }
 
+sub find_ids_by_track_ids
+{
+    my ($self, @ids) = @_;
+    my $query = 'SELECT release
+                   FROM medium
+                  WHERE tracklist IN (
+                            SELECT tracklist FROM track
+                             WHERE id IN (' . placeholders(@ids) . ')
+                        )';
+    my $sql = Sql->new($self->c->dbh);
+    return $sql->select_single_column_array($query, @ids);
+}
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

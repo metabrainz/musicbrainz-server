@@ -20,6 +20,14 @@ sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }
 
 sub alter_edit_pending { { Track => [ shift->track_id ] } }
+sub related_entities
+{
+    my $self = shift;
+    return {
+        release => $self->c->model('Release')->find_ids_by_track_ids($self->track_id)
+    }
+}
+
 
 has 'track_id' => (
     isa => 'Int',
