@@ -4,6 +4,33 @@ BEGIN { use Moose; extends 'Catalyst::Controller' };
 use List::Util qw( min );
 use Encode qw(decode_utf8);
 
+sub lookup_tracklist : Local
+{
+    my ($self, $c) = @_;
+
+    my $release_name = $c->req->query_params->{release};
+    my $offset = $c->req->query_params->{offset} || 0;
+    my $limit = min ($c->req->query_params->{limit} || 10), 100;
+
+    if ($release_name) {
+        my ($search_results, $hits) = $c->model('DirectSearch')->search('release',
+            $release_name, $limit, $offset);
+
+        my @releases = map { $_->entity } @$search_results;
+
+        $c->model('Medium')->load_for_releases(@releases);
+        my @mediums = map { $_->all_mediums } @releases;
+
+        my @tracklists = map { $_->tracklist } @mediums;
+        $c->model('Track')->load_for_tracklists(@tracklists);
+        $c->model('ArtistCredit')->load(@releases, map { $_->all_tracks } @tracklists);
+
+        $c->stash(
+            releases => [ @releases ],
+        );
+    }
+}
+
 sub search : Local
 {
     my ($self, $c) = @_;

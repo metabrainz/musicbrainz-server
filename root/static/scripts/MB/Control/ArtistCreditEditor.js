@@ -135,7 +135,8 @@
                 updateLivePreview();
             }
         });
-        creditSorting.addTables(editor);
+        creditSorting.addDragSource(editor);
+        creditSorting.addDropTarget(editor);
 
         // Row to add a new artist credit
         var newLookup = new MB.Control.EntityLookup('artist', {
@@ -215,7 +216,7 @@
                 var ac = new ArtistCredit(artist);
                 credits.push(ac);
                 editorBody.append(ac.row);
-                creditSorting.activate();
+                creditSorting.rebind();
             },
             openAt: function(node) {
                 if (currentEditor) {

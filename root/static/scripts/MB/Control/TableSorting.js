@@ -20,12 +20,12 @@
         var self = this;
 
         options = $.extend({
-            dragComplete: undefined
+            dragComplete: undefined,
         }, options);
 
         var currentDrag;
         var currentOver;
-        var tables;
+        var dragTables, dropTables;
         var insertMethod;
         var oldTable;
         var rows;
@@ -43,7 +43,7 @@
             ev.preventDefault();
 
             // The cell the user clicked on isn't necessarily the row we want
-            var possible = tables.children('tbody').children('tr');
+            var possible = dragTables.children('tbody').children('tr');
             var el = ev.target;
             while (el) {
                 var index = $.inArray(el, possible);
@@ -62,13 +62,15 @@
                 .mousemove(mouseMove)
                 .mouseup(endDrag);
 
-            rows = tables.find('> tbody > tr');
+            rows = dropTables.find('> tbody > tr');
 
             currentDrag = $(el);
             startPos = currentDrag.prevAll().length;
             
             oldTable = currentDrag.parent('table');
-            dragHelper.append(currentDrag).show();
+            dragHelper
+                .append(currentDrag.clone())
+                .show();
 
             mouseMove(ev);
         }
@@ -129,7 +131,8 @@
             var mY = ev.pageY;
             var over = null;
             rows.each(function() {
-                over = $(this);                   
+                over = $(this);
+                if(over === currentDrag) { return false; }
                 insertMethod = above(over, mY) ? 'before' : 'after';
 
                 // Keep looping *until* we find a row that the mouse is in
@@ -144,11 +147,15 @@
         }
 
         $.extend(self, {
-            activate: function(t) {
-                tables.find(options.dragHandle).mousedown(beginDrag);
+            rebind: function() {
+                dragTables.find(options.dragHandle).mousedown(beginDrag);
             },
-            addTables: function(tab) {
-                tables = tables ? tables.add(tab) : $(tab);
+            addDragSource: function(tab) {
+                dragTables = dragTables ? dragTables.add(tab) : $(tab);
+                dragTables.find(options.dragHandle).mousedown(beginDrag);
+            },
+            addDropTarget: function(tab) {
+                dropTables = dropTables ? dropTables.add(tab) : $(tab);
             }
         });
     };

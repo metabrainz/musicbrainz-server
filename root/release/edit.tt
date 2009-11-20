@@ -34,10 +34,10 @@
                 [% medium_field = form.field('mediums').field(loop.index) %]
                 <tr>
                   <td>
-                    <table class="medium tbl">
+                    <table class="medium tbl" id="[% medium_field.html_name %]">
                       <thead>
                         <tr class="subh">
-                          <th class="position">
+                          <th class="medium-position">
                             <span>[% medium.position %]</span>
                             [% r.hidden(medium_field.field('position'), class => 'medium-position') %]
                           </th>
@@ -73,6 +73,50 @@
               [%- END -%]
               </tbody>
             </table>
+
+            <table id="new-medium" class="tbl medium" style="display: none">           
+                <thead>
+                    <tr class="subh">
+                        <th class="medium-position">
+                            <span></span>
+                            <input type="hidden"/>
+                        </th>
+                        <th colspan="3">
+                           <input class="medium-name" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="position">[% l('#') %]</th>
+                        <th class="title">[% l('Title') %]</th>
+                        <th class="artist">[% l('Artist') %]</th>
+                        <th class="length">[% l('Length') %]</th>
+                    </tr>
+                </thead>
+                <tfoot />
+                <tbody />
+            </table>
+
+            <fieldset>
+                <legend>[% l('Add an existing tracklist') %]</legend>
+                <p>[% l('MusicBrainz supports using the same tracklist over multiple
+                         releases, which is very convenient when the same disc can be found
+                         in multiple releases (for example box sets). If you wish to reuse
+                         an existing tracklist, search for the release name, and drag the
+                         tracklist you wish to use into the release editor above.') %]</p>
+
+                <p>
+                  <label>[% l('Release name:') %]</label>
+                  <input id="existing-release-name" />
+                  <input id="lookup-release" type="button"
+                         value="[% l('Lookup release') %]"
+                         style="margin-right: 10pt"/>
+                </p>
+
+                <div class="results">
+                    <table class="tbl" id="lookup-tracklist-results">
+                    </table>
+                </div>
+            </fieldset>
 
             [%- INCLUDE 'forms/edit-note.tt' -%]
             [% form_submit(l('Edit')) %]

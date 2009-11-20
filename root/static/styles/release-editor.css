@@ -105,3 +105,13 @@ div.ac-editor .buttons {
     float: right;
     margin-top: 8pt;
 }
+
+.position {
+    width: 1.5em;
+}
+.length {
+    width: 5em;
+}
+.title {
+    width: 60%;
+}

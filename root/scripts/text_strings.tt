@@ -39,5 +39,6 @@
         Lookup                : "[% l('Lookup') %]",
         SearchErrorOccured    : "[% l('Sorry, an error occured during your search') %]",
         AddNewTrack:            "[% l('Add another track') %]",
+        AddAnotherMedium      : "[% l('Add another medium') %]"
     });
 })(MB);
