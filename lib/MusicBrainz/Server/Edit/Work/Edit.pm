@@ -9,7 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_WORK_EDIT }
 sub edit_name { 'Edit work' }
@@ -62,9 +62,8 @@ sub initialize
     $self->work($work);
     $self->work_id($work->id);
     $self->data({
-        old => $self->_change_hash($work, keys %opts),
-        new => { %opts },
-        work => $work->id
+        work => $work->id,
+        $self->_change_data($work, %opts)
     });
 }
 

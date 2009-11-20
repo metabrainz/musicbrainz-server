@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { 'Edit Medium' }
@@ -50,9 +50,8 @@ sub initialize
 
     $self->medium($medium);
     $self->data({
-        old => $self->_change_hash($medium, keys %opts),
-        new => { %opts },
         medium => $medium->id,
+        $self->_change_data($medium, %opts)
     });
 }
 

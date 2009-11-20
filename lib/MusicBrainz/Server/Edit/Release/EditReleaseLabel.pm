@@ -63,10 +63,9 @@ sub initialize
         unless defined $release_label;
 
     $self->data({
-        old => $self->_change_hash($release_label, keys %opts),
-        new => { %opts },
         release_label_id => $release_label->id,
-        release_id => $release_label->release_id
+        release_id => $release_label->release_id,
+        $self->_change_data($release_label, keys %opts),
     });
 };
 

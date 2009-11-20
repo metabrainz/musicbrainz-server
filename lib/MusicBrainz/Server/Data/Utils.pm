@@ -7,12 +7,14 @@ use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
 use Sql;
 use Readonly;
+use Storable;
 use UNIVERSAL::require;
 
 our @EXPORT_OK = qw(
     artist_credit_to_ref
     defined_hash
     hash_to_row
+    deep_equal
     add_partial_date_to_row
     generate_gid
     insert_and_create
@@ -226,6 +228,12 @@ sub order_by
         }
     }
     return $order_by;
+}
+
+sub deep_equal {
+    my ($a, $b) = @_;
+    local $Storable::canonical = 1;
+    return (Storable::freeze($a) eq Storable::freeze($b));
 }
 
 1;

@@ -125,7 +125,7 @@ sub find_or_insert
         }
     }
 
-    my @attrs = @{ $values->{attributes} };
+    my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
 
     push @conditions, "attributecount = ?";
     push @args, scalar(@attrs);

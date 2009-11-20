@@ -13,7 +13,7 @@ use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { "Edit ReleaseGroup" }
@@ -71,9 +71,8 @@ sub initialize
 
     $self->release_group($release_group);
     $self->data({
-        old => $self->_change_hash($release_group, keys %args),
-        new => \%args,
-        release_group => $release_group->id
+        release_group => $release_group->id,
+        $self->_change_data($release_group, %args)
     });
 };
 

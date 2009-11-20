@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Test::More tests => 2;
-BEGIN { use_ok 'MusicBrainz::Server::Edit' }
+BEGIN { use_ok 'MusicBrainz::Server::Edit::WithDifferences' }
 
 {
     package Entity;
@@ -19,7 +19,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit' }
 {
     package TestEdit;
     use Moose;
-    extends 'MusicBrainz::Server::Edit';
+    extends 'MusicBrainz::Server::Edit::WithDifferences';
 
     sub _mapping
     {

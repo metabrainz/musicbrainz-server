@@ -10,7 +10,7 @@ use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_ARTIST_EDIT }
 sub edit_name { "Create Artist" }
@@ -67,9 +67,8 @@ sub initialize
 
     $self->artist($artist);
     $self->data({
-        old => $self->_change_hash($artist, keys %opts),
-        new => { %opts },
-        artist => $artist->id
+        artist => $artist->id,
+        $self->_change_data($artist, %opts)
     });
 };
 

@@ -148,7 +148,12 @@ sub create
         or die "Could not lookup edit type for $type";
 
     my $edit = $class->new( editor_id => $editor_id, c => $self->c );
-    $edit->initialize(%opts);
+    try {
+        $edit->initialize(%opts);
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChange $e) {
+        return;
+    }
 
     my $quality = $edit->determine_quality;
     my $conditions = $edit->edit_conditions->{$quality};

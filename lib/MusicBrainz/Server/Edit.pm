@@ -247,18 +247,6 @@ sub initialize
     $self->data(\%opts);
 }
 
-sub _mapping { }
-sub _change_hash
-{
-    my ($self, $instance, @keys) = @_;
-    my %mapping = $self->_mapping;
-    my %old = map {
-        my $mapped = exists $mapping{$_} ? $mapping{$_} : $_;
-        $_ => ref $mapped eq 'CODE' ? $mapped->($instance) : $instance->$mapped;
-    } @keys;
-    return \%old;
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -8,7 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Constants qw( $EDIT_TRACK_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }
@@ -66,8 +66,7 @@ sub initialize
     $self->track($track);
     $self->data({
         track => $track->id,
-        old => $self->_change_hash($track, keys %opts),
-        new => { %opts },
+        $self->_change_data($track, %opts)
     });
 }
 

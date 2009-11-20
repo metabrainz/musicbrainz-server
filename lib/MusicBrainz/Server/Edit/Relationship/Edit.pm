@@ -9,7 +9,7 @@ use MusicBrainz::Server::Edit::Utils qw( date_closure );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { "Edit Relationship" }
@@ -95,8 +95,7 @@ sub initialize
         type0 => $type0,
         type1 => $type1,
         relationship_id => $relationship->id,
-        old => $self->_change_hash($relationship->link, keys %opts),
-        new => { %opts },
+        $self->_change_data($relationship->link, %opts)
     });
 }
 

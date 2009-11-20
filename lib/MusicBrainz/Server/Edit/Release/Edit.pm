@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref partial_date_to_hash );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable PartialDateHash );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { 'Edit Release '}
@@ -75,11 +75,10 @@ sub initialize
 
     $self->release($release);
     $self->data({
-        old => $self->_change_hash($release, keys %opts),
-        new => \%opts,
         release => $release->id,
+        $self->_change_data($release, %opts)
     });
-};
+}
 
 override 'accept' => sub
 {

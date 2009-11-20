@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Edit::Utils qw( date_closure );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { "Edit Label" }
@@ -65,9 +65,8 @@ sub initialize
     die "You must specify the label object to edit" unless defined $label;
 
     $self->data({
-        old => $self->_change_hash($label, keys %args),
-        new => \%args,
-        label => $label->id
+        label => $label->id,
+        $self->_change_data($label, %args)
     });
 };
 

@@ -46,6 +46,7 @@ requires 'Locale::Maketext'                            => '1.12';
 requires 'Locale::Maketext::Extract::Plugin::TT2';
 requires 'Locale::TextDomain'                          => '1.16';
 requires 'List::MoreUtils'                             => '0.22';
+requires 'Match::Smart';
 requires 'MIME::Lite'                                  => '3.023';
 requires 'Moose'                                       => '0.87';
 requires 'MooseX::AttributeHelpers'                    => '0.17';
