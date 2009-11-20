@@ -34,6 +34,8 @@
                 [% medium_field = form.field('mediums').field(loop.index) %]
                 <tr>
                   <td>
+                    [% r.hidden(medium_field.field('id'));
+                       r.hidden(medium_field.field('tracklist').field('id')) %]
                     <table class="medium tbl" id="[% medium_field.html_name %]">
                       <thead>
                         <tr class="subh">
@@ -61,7 +63,10 @@
                           <td class="position">
                             [% r.text(track_field.field('position'), class => 'pos') %]
                           </td>
-                          <td>[% r.text(track_field.field('name'), class => 'track-name') %]</td>
+                          <td>
+                            [% r.hidden(track_field.field('id'));
+                               r.text(track_field.field('name'), class => 'track-name') %]
+                          </td>
                           <td>[% r.artist_credit_editor(track_field.field('artist_credit')) %]</td>
                           <td>[% r.text(track_field.field('length'), class => 'track-length', size => 5)  %]</td>
                         </tr>

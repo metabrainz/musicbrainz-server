@@ -13,12 +13,13 @@ sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { 'Edit Medium' }
 
 sub alter_edit_pending { { Medium => [ shift->data->{medium_id} ] } }
+sub related_entities { { release => [ shift->release_id ] } }
 sub models { [qw( Medium )] }
 
 subtype 'MediumHash'
     => as Dict[
         position => Optional[Int],
-        name => Optional[Str],
+        name => Nullable[Str],
         format_id => Nullable[Int],
     ];
 
@@ -28,6 +29,11 @@ has '+data' => (
         old => find_type_constraint('MediumHash'),
         new => find_type_constraint('MediumHash'),
     ]
+);
+
+has 'release_id' => (
+    isa => 'Int',
+    is => 'rw',
 );
 
 sub foreign_keys {
@@ -75,6 +81,7 @@ sub initialize
     my $medium = delete $opts{medium}
         or die 'You must specify the medium to edit';
 
+    $self->release_id($medium->release_id);
     $self->data({
         medium => $medium->id,
         $self->_change_data($medium, %opts)
