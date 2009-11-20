@@ -2,6 +2,7 @@
     <tr>
         <th>[% l('Edit ID:') %]</th>
         <td>[% link_edit(edit) %]</td>
+    </tr>
     <tr>
         <th>[% l('Editor:') %]</th>
         <td>[%- link_editor(edit.editor) -%]</td>

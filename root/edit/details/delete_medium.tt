@@ -1,0 +1,18 @@
+<table class="details">
+  <tr>
+    <th>[% l('Medium:') %]</th>
+    <td>
+      [% l('"{name}."', { name => edit.display_data.name }) %]
+      [% l('{format} {position} for {release} by {artist}',
+           { format => edit.display_data.format.name || l('Medium'),
+             position => edit.display_data.position,
+             release => link_release(edit.display_data.release),
+             artist => artist_credit(edit.display_data.release.artist_credit) }) %]
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Tracklist:') %]</th>
+    <td>[% link_tracklist({ id => edit.display_data.tracklist_id }, 'show', l('Show')) %]</td>
+  </tr>
+</table>

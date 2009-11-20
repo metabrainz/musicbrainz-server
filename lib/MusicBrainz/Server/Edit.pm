@@ -81,6 +81,12 @@ has 'data' => (
     is => 'rw',
 );
 
+has 'display_data' => (
+    isa => 'HashRef',
+    is => 'rw',
+    predicate => 'is_loaded'
+);
+
 has 'auto_edit' => (
     isa => 'Bool',
     is => 'rw',
@@ -223,15 +229,12 @@ sub adjust_edit_pending
     }
 }
 
-=head2 models
-
-A list of all models that should attempt to load additional data for this edit.
-
-Returns an array ref of model names
-
-=cut
-
-sub models { return [] }
+sub foreign_keys { { } }
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+    return { };
+}
 
 sub accept { }
 sub reject { }

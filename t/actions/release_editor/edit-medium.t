@@ -39,4 +39,18 @@ is_deeply($edit->data, {
     }
 }, '...edit has the right data');
 
+$c->model('Edit')->load_all($edit);
+use Data::Dumper;
+warn Dumper $edit->display_data;
+
+
+$mech->get_ok('/edit/' . $edit->id);
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('Renamed Medium', '..has new medium name');
+$mech->content_contains('A Sea of Honey', '..has old medium name');
+$mech->content_contains('Format', '..has old format name');
+$mech->content_contains('Musical Box', '..has new format name');
+$mech->content_contains('2', '..has new position');
+$mech->content_contains('1', '..has old position');
+
 done_testing;

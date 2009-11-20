@@ -23,8 +23,12 @@ ok($mech->success, '...submit edit');
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Delete', '...edit is a delete-medium edit');
-is_deeply($edit->data, {
-    medium_id => 1,
-}, '...edit has the right data');
+is($edit->data->{medium_id}, 1, '...edit has the correct medium id');
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+$mech->content_contains('A Sea of Honey', '..contains old medium name');
+$mech->content_contains('Format', '..contains old medium format');
+$mech->content_contains('1', '..contains old medium position');
+$mech->content_contains('/tracklist/1', '..contains link to show the tracklist for the medium');
 
 done_testing;

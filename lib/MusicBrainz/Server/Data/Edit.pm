@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Edit;
 use Moose;
 
 use Carp qw( croak );
+use Data::OptList;
 use DateTime;
 use TryCatch;
 use List::MoreUtils qw( uniq zip );
@@ -219,10 +220,44 @@ sub create
 sub load_all
 {
     my ($self, @edits) = @_;
-    my @models = uniq map { @{ $_->models } } @edits;
-    for my $model (@models) {
+
+    my $objects_to_load  = {}; # Objects loaded with get_by_id
+    my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
+
+    for my $edit (@edits) {
+        my $edit_references = $edit->foreign_keys;
+        while (my ($model, $ids) = each %$edit_references) {
+            $objects_to_load->{$model} ||= [];
+            $ids = Data::OptList::mkopt_hash($ids);
+            while (my ($object_id, $extra_models) = each %$ids) {
+                push @{ $objects_to_load->{$model} }, $object_id;
+                $post_load_models->{$model}->{$object_id} = $extra_models
+                    if $extra_models && @$extra_models;
+            }
+        }
+    }
+
+    my $loaded = {};
+    my $load_arguments = {};
+    while (my ($model, $ids) = each %$objects_to_load) {
         my $m = ref $model ? $model : $self->c->model($model);
-        $m->load(@edits);
+        $loaded->{$model} = $m->get_by_ids(@$ids);
+
+        # Now we need to load any extra information about each object
+        for my $id (@$ids) {
+            for my $extra (@{ $post_load_models->{$model}->{$id} }) {
+                $load_arguments->{$extra} ||= [];
+                push @{ $load_arguments->{$extra} }, $loaded->{$model}->{$id};
+            }
+        }
+    }
+
+    while (my ($model, $objs) = each %$load_arguments) {
+        $self->c->model($model)->load(@$objs);
+    }
+
+    for my $edit (@edits) {
+        $edit->display_data($edit->build_display_data($loaded));
     }
 }
 

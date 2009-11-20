@@ -35,4 +35,14 @@ is($edit->data->{format_id}, 1, '...edit has the right data');
 is($edit->data->{name}, 'Unreleased Hits', '...edit has the right data');
 ok($edit->data->{tracklist_id}, '...edit has the right data');
 
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+xml_ok($mech->content, '..is valid xml');
+$mech->content_contains('Unreleased Hits', '..contains medium name');
+$mech->content_contains('5', '..contains medium position'); # This is a really sloppy test...
+$mech->content_contains('Format', '..contains format name');
+$mech->content_contains('Aerial', '..contains release name');
+$mech->content_contains('/release/f205627f-b70a-409d-adbe-66289b614e80', '...with a link to the release');
+$mech->content_contains('Artist', '..contains release artist name');
+$mech->content_contains('/artist/945c079d-374e-4436-9448-da92dedef3cf', '...with a link to the artist');
+
 done_testing;

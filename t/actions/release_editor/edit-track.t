@@ -17,7 +17,7 @@ my $request = POST $mech->uri, [
     'edit-release.mediums.0.tracklist.id' => '1',
     'edit-release.mediums.0.tracklist.tracks.0.name' => 'Renamed track',
     'edit-release.mediums.0.tracklist.tracks.0.artist_credit.names.0.name' => 'The Edit Ninja',
-    'edit-release.mediums.0.tracklist.tracks.0.artist_credit.names.0.artist_id' => '5',
+    'edit-release.mediums.0.tracklist.tracks.0.artist_credit.names.0.artist_id' => '2',
     'edit-release.mediums.0.tracklist.tracks.0.id' => '1',
     'edit-release.mediums.0.tracklist.tracks.0.length' => '4:20',
     'edit-release.mediums.0.tracklist.tracks.0.position' => '4',
@@ -33,7 +33,7 @@ is_deeply($edit->data, {
     new => {
         name => 'Renamed track',
         artist_credit => [
-        { name => 'The Edit Ninja', artist => 5 }
+        { name => 'The Edit Ninja', artist => 2 }
         ],
         position => 4,
     },
@@ -51,5 +51,14 @@ TODO: {
     ok(exists $edit->data->{new}->{length});
     ok(exists $edit->data->{old}->{length});
 }
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('Renamed track', '..contains new track name');
+$mech->content_contains('King of the Mountain', '..contains old track name');
+$mech->content_contains('The Edit Ninja', '..contains new artist name');
+$mech->content_contains('Artist', '..contains new artist name');
+$mech->content_contains('4', '..contains new position');
+$mech->content_contains('1', '..contains old position');
 
 done_testing;

@@ -68,6 +68,8 @@ sub _new_from_row
 sub _get_by_keys
 {
     my ($self, $key, @ids) = @_;
+    @ids = grep { defined && $_ } @ids;
+    return unless @ids;
     my $query = "SELECT " . $self->_columns . 
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ")";

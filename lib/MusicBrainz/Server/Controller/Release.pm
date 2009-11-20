@@ -348,7 +348,7 @@ sub edit : Chained('load') RequireAuth
                         $c->model('Edit')->create(
                             editor_id => $c->user->id,
                             edit_type => $EDIT_TRACKLIST_DELETETRACK,
-                            track_id => $track->id
+                            track => $track
                         );
                     }
                     else {
@@ -393,7 +393,7 @@ sub edit : Chained('load') RequireAuth
                     $c->model('Edit')->create(
                         editor_id => $c->user->id,
                         edit_type => $EDIT_MEDIUM_DELETE,
-                        medium_id => $medium->id
+                        medium => $medium
                     );
                 }
                 else {

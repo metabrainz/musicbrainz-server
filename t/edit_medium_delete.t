@@ -37,9 +37,10 @@ ok(!defined $medium);
 done_testing;
 
 sub _create_edit {
+    my $medium = $c->model('Medium')->get_by_id(1);
     return $c->model('Edit')->create(
         edit_type => $EDIT_MEDIUM_DELETE,
-        medium_id => 1,
+        medium => $medium,
         editor_id => 1
     );
 }

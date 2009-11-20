@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Edit::Medium::Delete;
 use Moose;
 
-use MooseX::Types::Moose qw( Int );
+use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Edit';
@@ -11,31 +12,57 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { 'Delete medium' }
 
-sub alter_edit_pending { { Medium => [ shift->medium_id ] } }
-sub models { [qw( Medium )] }
-
-has 'medium_id' => (
-    isa     => 'Int',
-    is      => 'rw',
-    lazy    => 1,
-    default => sub { shift->data->{medium_id} }
-);
-
-has 'medium' => (
-    isa => 'Medium',
-    is => 'rw'
-);
+sub alter_edit_pending { { Medium => [ shift->data->{medium_id} ] } }
 
 has '+data' => (
     isa => Dict[
-        medium_id => Int
+        medium_id => Int,
+        format_id => Nullable[Int],
+        tracklist_id => Int,
+        name => Nullable[Str],
+        position => Int,
+        release_id => Int
     ]
 );
+
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        MediumFormat => { $self->data->{format_id} => [] },
+        Release => { $self->data->{release_id} => [qw( ArtistCredit )] }
+    };
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+    return {
+        format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
+        release => $loaded->{Release}->{ $self->data->{release_id} },
+        map { $_ => $self->data->{$_} } qw( name position tracklist_id )
+    }
+}
+
+sub initialize
+{
+    my ($self, %args) = @_;
+
+    my $medium = $args{medium} or die 'Missing required medium object';
+    $self->data({
+        medium_id => $medium->id,
+        format_id => $medium->format_id,
+        tracklist_id => $medium->tracklist_id,
+        name => $medium->name,
+        position => $medium->position,
+        release_id => $medium->release_id,
+    });
+}
 
 sub accept
 {
     my $self = shift;
-    $self->c->model('Medium')->delete($self->medium_id);
+    $self->c->model('Medium')->delete($self->data->{medium_id});
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -16,8 +16,8 @@ my $tests = Test::Aggregate::Nested->new( {
     startup  => sub {
         MusicBrainz::Server::Test->prepare_test_server();
         MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
-        MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
         MusicBrainz::Server::Test->prepare_test_database($c, '+release_editor');
+        MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
         MusicBrainz::Server::Test->prepare_raw_test_database($c);
     },
     teardown => sub { get('/logout') }

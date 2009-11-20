@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_TRACKLIST_ADDTRACK );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Utils qw( load_artist_credit_definitions artist_credit_from_loaded_definition );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -18,11 +19,6 @@ has 'track_id' => (
     is => 'rw'
 );
 
-has 'track' => (
-    isa =>  'Track',
-    is => 'rw'
-);
-
 has '+data' => (
     isa => Dict[
         tracklist_id => Int,
@@ -33,6 +29,28 @@ has '+data' => (
         length => Nullable[Int],
     ],
 );
+
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Recording => { $self->data->{recording_id} => [] },
+        Artist => { load_artist_credit_definitions($self->data->{artist_credit}) }
+    };
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        name => $self->data->{name},
+        length => $self->data->{length},
+        tracklist_id => $self->data->{tracklist_id},
+        artist => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
+        recording => $loaded->{Recording}->{ $self->data->{recording_id} }
+    };
+}
 
 sub insert
 {
@@ -54,7 +72,6 @@ sub insert
     }
 
     my $track = $self->c->model('Track')->insert(\%data);
-    $self->track($track);
     $self->track_id($track->id);
 }
 

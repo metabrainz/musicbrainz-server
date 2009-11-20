@@ -1,12 +1,18 @@
 package MusicBrainz::Server::Edit::Track::Edit;
 use Moose;
 
+use Moose::Util::TypeConstraints qw( as find_type_constraint subtype );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use Moose::Util::TypeConstraints qw( as find_type_constraint subtype );
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Constants qw( $EDIT_TRACK_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
+use MusicBrainz::Server::Edit::Utils qw(
+    changed_relations
+    changed_display_data
+    load_artist_credit_definitions
+    artist_credit_from_loaded_definition
+);
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
@@ -14,18 +20,12 @@ sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }
 
 sub alter_edit_pending { { Track => [ shift->track_id ] } }
-sub models { [qw( Track )] }
 
 has 'track_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
     default => sub { shift->data->{track} }
-);
-
-has 'track' => (
-    isa => 'Track',
-    is => 'rw',
 );
 
 subtype 'TrackHash',
@@ -45,6 +45,46 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    my $relations = {};
+    changed_relations($self->data, $relations,
+        Recording => 'recording_id',
+    );
+
+    if (exists $self->data->{new}{artist_credit}) {
+        $relations->{Artist} = {
+            map {
+                load_artist_credit_definitions($self->data->{$_}{artist_credit})
+            } qw( new old )
+        }
+    }
+
+    return $relations;
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    my $data = changed_display_data($self->data, $loaded,
+        recording    => [ qw( recording_id Recording )],
+        tracklist_id => 'tracklist_id',
+        position     => 'position',
+        name         => 'name',
+    );
+
+    if (exists $self->data->{new}{artist_credit}) {
+        $data->{artist_credit} = {
+            new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
+            old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
+        }
+    }
+
+    return $data;
+}
+
 sub _mapping
 {
     return (
@@ -63,7 +103,6 @@ sub initialize
     }
 
     $self->track_id($track->id);
-    $self->track($track);
     $self->data({
         track => $track->id,
         $self->_change_data($track, %opts)

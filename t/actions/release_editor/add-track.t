@@ -36,4 +36,22 @@ is_deeply($edit->data, {
     position => 4
 }, '...edit has the right data');
 
+my $track = $c->model('Track')->get_by_id($edit->track_id);
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
+xml_ok($mech->content, '..xml is valid');
+$mech->content_contains('New track', '..contains track name');
+$mech->content_contains('A new recording was created for this track',
+                        '..contains indicitation that this is a new recording');
+$mech->content_contains('/tracklist/1', '..contains a link to the tracklist');
+$mech->content_contains('The Edit Ninja', '..contains the artist name');
+$mech->content_contains('/artist/9f5ad190-caee-11de-8a39-0800200c9a66', '...and a link to the artist');
+
+TODO:
+{
+    local $TODO = 'Length in the edit';
+    ok(exists $edit->data->{length});
+    $mech->content_contains('4:20', '..contains the track length');
+}
+
 done_testing;

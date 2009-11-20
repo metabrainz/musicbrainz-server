@@ -15,7 +15,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80/edit', 'edit header details');
 my $request = POST $mech->uri, [
     'edit-release.artist_credit.names.0.name' => 'Bob Marley',
-    'edit-release.artist_credit.names.0.artist_id' => 4,
+    'edit-release.artist_credit.names.0.artist_id' => 2,
     'edit-release.name' => 'A new name',
     'edit-release.comment' => 'With a fancy comment',
 ];
@@ -29,7 +29,7 @@ is_deeply($edit->data, {
     release => 1,
     new => {
         artist_credit => [
-        { name => 'Bob Marley', artist => 4 }
+        { name => 'Bob Marley', artist => 2 }
         ],
         name => 'A new name',
         comment => 'With a fancy comment',
@@ -42,5 +42,13 @@ is_deeply($edit->data, {
         ]
     }
 }, '...edit has the right data');
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('A new name', '..contains new name');
+$mech->content_contains('Aerial', '..contains old name');
+$mech->content_contains('Artist', '..contains old artist name');
+$mech->content_contains('Bob Marley', '..contains new artist name');
+$mech->content_contains('With a fancy comment', '..contains new comment');
 
 done_testing;

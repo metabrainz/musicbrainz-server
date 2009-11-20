@@ -12,24 +12,12 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { 'Edit Medium' }
 
-sub alter_edit_pending { { Medium => [ shift->medium_id ] } }
+sub alter_edit_pending { { Medium => [ shift->data->{medium_id} ] } }
 sub models { [qw( Medium )] }
-
-has 'medium_id' => (
-    isa => 'Int',
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{medium} }
-);
-
-has 'medium' => (
-    is => 'rw',
-);
 
 subtype 'MediumHash'
     => as Dict[
         position => Optional[Int],
-        tracklist_id => Optional[Int],
         name => Optional[Str],
         format_id => Nullable[Int],
     ];
@@ -42,13 +30,51 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys {
+    my $self = shift;
+    if (exists $self->data->{new}{format_id}) {
+        return {
+            MediumFormat => {
+                $self->data->{new}{format_id} => [],
+                $self->data->{old}{format_id} => [],
+            }
+        }
+    }
+    else {
+        return { };
+    }
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+    my $data = {};
+
+    if (exists $self->data->{new}{format_id}) {
+        $data->{format} = {
+            new => $loaded->{MediumFormat}->{ $self->data->{new}{format_id} },
+            old => $loaded->{MediumFormat}->{ $self->data->{old}{format_id} }
+        };
+    }
+
+    for my $attribute (qw( name position )) {
+        if (exists $self->data->{new}{$attribute}) {
+            $data->{$attribute} = {
+                new => $self->data->{new}{$attribute},
+                old => $self->data->{old}{$attribute},
+            };
+        }
+    }
+
+    return $data;
+}
+
 sub initialize
 {
     my ($self, %opts) = @_;
     my $medium = delete $opts{medium}
         or die 'You must specify the medium to edit';
 
-    $self->medium($medium);
     $self->data({
         medium => $medium->id,
         $self->_change_data($medium, %opts)

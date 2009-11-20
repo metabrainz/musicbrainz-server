@@ -22,9 +22,9 @@ my $request = POST $mech->uri, [
     'edit-release.date.day' => '25',
     'edit-release.packaging_id' => '2',
     'edit-release.status_id', '2',
-    'edit-release.language_id' => '2',
-    'edit-release.script_id' => '2',
-    'edit-release.country_id' => '2',
+    'edit-release.language_id' => '1',
+    'edit-release.script_id' => '1',
+    'edit-release.country_id' => '1',
     'edit-release.barcode' => '9780596001087',
 ];
 
@@ -43,9 +43,9 @@ is_deeply($edit->data, {
         },
         packaging_id => 2,
         status_id => 2,
-        language_id => 2,
-        script_id => 2,
-        country_id => 2,
+        language_id => 1,
+        script_id => 1,
+        country_id => 1,
         barcode => '9780596001087',
     },
     old => {
@@ -62,5 +62,18 @@ is_deeply($edit->data, {
         barcode => undef,
     }
 }, '...edit has the correct data');
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('2009', '..contains new year');
+$mech->content_contains('10', '..contains new month');
+$mech->content_contains('25', '..contains new day');
+$mech->content_contains('2007', '..contains old year');
+$mech->content_contains('Digipak', '..contains new packaging name');
+$mech->content_contains('Promotion', '..contains new status name');
+$mech->content_contains('9780596001087', '..contains new barcode');
+$mech->content_contains('Ugar', '..contains new script');
+$mech->content_contains('German', '..contains new language');
+$mech->content_contains('United Kingdom', '..contains new country');
 
 done_testing;

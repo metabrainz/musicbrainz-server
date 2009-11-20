@@ -14,16 +14,10 @@ sub edit_type { $EDIT_MEDIUM_CREATE }
 sub edit_name { "Create Medium" }
 
 sub alter_edit_pending { { Medium => [ shift->medium_id ] } }
-sub models { [qw( Medium )] }
 
 has 'medium_id' => (
     isa => 'Int',
-    is  => 'rw'
-);
-
-has 'medium' => (
-    isa => 'Medium',
-    is => 'rw'
+    is => 'rw',
 );
 
 has '+data' => (
@@ -36,12 +30,31 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Release => { $self->data->{release_id} => [ 'ArtistCredit' ] },
+        MediumFormat => { $self->data->{format_id} => [] }
+    };
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+    return {
+        name         => $self->data->{name},
+        format       => $loaded->{MediumFormat}->{ $self->data->{format_id} },
+        position     => $self->data->{position},
+        release      => $loaded->{Release}->{ $self->data->{release_id} },
+        tracklist_id => $self->data->{tracklist_id},
+    };
+}
+
 sub insert
 {
     my $self = shift;
     my $medium = $self->c->model('Medium')->insert( $self->data );
-
-    $self->medium($medium);
     $self->medium_id($medium->id);
 }
 

@@ -29,14 +29,12 @@ ok(defined $edit->medium_id);
 ok(defined $edit->id);
 
 $c->model('Edit')->load_all($edit);
-ok(defined $edit->medium);
-is($edit->medium->id, $edit->medium_id);
-is($edit->medium->name, 'Studio');
-is($edit->medium->format_id, 1);
-is($edit->medium->tracklist_id, 1);
-is($edit->medium->position, 1);
-is($edit->medium->release_id, 1);
-is($edit->medium->edits_pending, 1);
+ok($edit->display_data);
+is($edit->display_data->{name}, 'Studio');
+is($edit->display_data->{position}, 1);
+is($edit->display_data->{format}->id, 1);
+is($edit->display_data->{release}->id, 1);
+is($edit->display_data->{release}->artist_credit->name, 'Tosca');
 
 accept_edit($c, $edit);
 

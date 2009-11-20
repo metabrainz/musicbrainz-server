@@ -34,4 +34,14 @@ is_deeply($edit->data, {
     name => 'Unreleased Hits',
 }, '...edit has the right data');
 
+$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
+xml_ok($mech->content, '..is valid xml');
+$mech->content_contains('Unreleased Hits', '..contains medium name');
+$mech->content_contains('3', '..contains medium position'); # This is a really sloppy test...
+$mech->content_contains('Aerial', '..contains release name');
+$mech->content_contains('/release/f205627f-b70a-409d-adbe-66289b614e80', '...with a link to the release');
+$mech->content_contains('Artist', '..contains release artist name');
+$mech->content_contains('/artist/945c079d-374e-4436-9448-da92dedef3cf', '...with a link to the artist');
+$mech->content_contains('/tracklist/3', '..contains a link to the tracklist');
+
 done_testing;

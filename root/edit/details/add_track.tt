@@ -1,0 +1,36 @@
+ <table class="details">
+   [%- IF edit.display_data.name -%]
+   <tr>
+     <th>[% l('Name:') %]</th>
+     <td>[% edit.display_data.name %]</td>
+   </tr>
+   [%- END -%]
+
+   <tr>
+     <th>[% l('Artist:') %]</th>
+     <td>[% artist_credit(edit.display_data.artist) %]</td>
+   </tr>
+
+   <tr>
+     <th>[% l('Recording:') %]</th>
+     <td>
+       [%- IF edit.display_data.recording;
+             link_recording(edit.display_data.recording);
+           ELSE;
+             l('A new recording was created for this track');
+           END -%]
+     </td>
+   </tr>
+
+   <tr>
+     <th>[% l('Tracklist:') %]</th>
+     <td>
+       <a href="[% c.uri_for_action('/tracklist/show', [ edit.display_data.tracklist_id ]) %]">Show</a>
+     </td>
+   </tr>
+
+   <tr>
+     <th>[% l('Length:') %]</th>
+     <td>[% edit.display_data.length | format_length %]</td>
+   </tr>
+ </table>
