@@ -71,6 +71,7 @@ recommends 'Apache::Session';
 recommends 'Apache::Session::File';
 
 build_requires 'Test::Differences';
+build_requires 'Test::Aggregate';
 build_requires 'XML::Parser';
 
 catalyst;
