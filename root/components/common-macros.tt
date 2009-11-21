@@ -29,6 +29,12 @@ two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
 END; -%]
+[%- MACRO display_age(age) BLOCK -%]
+    [%- IF age.0 -%][%- ln('{num} year', '{num}&nbsp;years', years, { num => age.0 }) -%]
+    [%- ELSIF age.1 -%][%- ln('{num} month', '{num}&nbsp;months', months, { num => age.1 }) -%]
+    [%- ELSE -%][%- ln('{num} day', '{num}&nbsp;days', days, { num => age.2 }) -%]
+    [%- END -%]
+[%- END -%]
 [%- MACRO entity_link(entity, noicon) IF entity -%]
     [%- mpclass = entity.has_mod_pending ? ' class="mp"' : '' -%]
     [%- IF entity.entity_type == "url" -%]

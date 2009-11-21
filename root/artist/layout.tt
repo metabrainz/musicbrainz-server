@@ -14,6 +14,9 @@
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
                     [% artist.begin_date.format or l("present") %] &mdash;
                     [% artist.end_date.format or l("present") %]
+                    [% IF artist.has_age %]
+                       ([% display_age (artist.age) %])
+                    [% END %]
                 [% END %]
             [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')

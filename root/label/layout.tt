@@ -9,6 +9,9 @@
             [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
                 [% label.begin_date.format or l("present") %] &mdash;
                 [% label.end_date.format or l("present") %]
+                [% IF label.has_age %]
+                   ([% display_age (label.age) %])
+                [% END %]
             [% END %]
         [%- END -%]
         [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')

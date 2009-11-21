@@ -60,6 +60,8 @@ has 'end_date' => (
     default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
 );
 
+with 'MusicBrainz::Server::Entity::AgeRole';
+
 has 'country_id' => (
     is => 'rw',
     isa => 'Int'
