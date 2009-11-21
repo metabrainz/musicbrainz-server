@@ -43,7 +43,7 @@ sub _change_data {
         }
     }
 
-    MusicBrainz::Server::Edit::Exception::NoChanges->throw unless keys %$new && keys %$old;
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw unless keys %$new && keys %$old;
 
     return (
         old => $old,

@@ -152,7 +152,7 @@ sub create
     try {
         $edit->initialize(%opts);
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChange $e) {
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
         return;
     }
 
