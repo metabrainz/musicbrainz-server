@@ -31,7 +31,7 @@
         var fieldMapping = {
             join_phrase: 'joinPhrase',
             name: 'altName',
-            id: 'id'
+            artist_id: 'id'
         };
 
         function ArtistCredit(artist) {
