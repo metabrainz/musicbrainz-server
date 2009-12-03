@@ -39,11 +39,6 @@ is_deeply($edit->data, {
     }
 }, '...edit has the right data');
 
-$c->model('Edit')->load_all($edit);
-use Data::Dumper;
-warn Dumper $edit->display_data;
-
-
 $mech->get_ok('/edit/' . $edit->id);
 xml_ok($mech->content, '..valid xml');
 $mech->content_contains('Renamed Medium', '..has new medium name');

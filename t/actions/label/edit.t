@@ -19,7 +19,7 @@ my $response = $mech->submit_form(
         'edit-label.sort_name' => 'label, controller',
         'edit-label.type_id' => 2,
         'edit-label.label_code' => 12345,
-        'edit-label.country_id' => 1,
+        'edit-label.country_id' => 2,
         'edit-label.begin_date.year' => 1990,
         'edit-label.begin_date.month' => 01,
         'edit-label.begin_date.day' => 02,
@@ -38,7 +38,7 @@ is_deeply($edit->data, {
             name => 'controller label',
             sort_name => 'label, controller',
             type_id => 2,
-            country_id => 1,
+            country_id => 2,
             label_code => 12345,
             comment => 'label created in controller_label.t',
             begin_date => {

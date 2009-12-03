@@ -15,7 +15,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation");
 $mech->submit_form(
     with_fields => {
-        'edit-annotation.text'      => 'This is my annotation',
+        'edit-annotation.text'      => 'Test annotation 6. This is my annotation',
         'edit-annotation.changelog' => 'Changelog here',
     }
 );
@@ -26,7 +26,7 @@ is_deeply(
     $edit->data,
     {
         entity_id => 1,
-        text      => 'This is my annotation',
+        text      => 'Test annotation 6. This is my annotation',
         changelog => 'Changelog here',
         editor_id => 1
     }
