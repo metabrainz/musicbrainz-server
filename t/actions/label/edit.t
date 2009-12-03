@@ -1,0 +1,75 @@
+use strict;
+use Test::More;
+
+use Catalyst::Test 'MusicBrainz::Server';
+use MusicBrainz::Server::Test qw( xml_ok );
+use Test::WWW::Mechanize::Catalyst;
+
+my ($res, $c) = ctx_request('/');
+my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+$mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/edit');
+xml_ok($mech->content);
+my $response = $mech->submit_form(
+    with_fields => {
+        'edit-label.name' => 'controller label',
+        'edit-label.sort_name' => 'label, controller',
+        'edit-label.type_id' => 2,
+        'edit-label.label_code' => 12345,
+        'edit-label.country_id' => 1,
+        'edit-label.begin_date.year' => 1990,
+        'edit-label.begin_date.month' => 01,
+        'edit-label.begin_date.day' => 02,
+        'edit-label.end_date.year' => 2003,
+        'edit-label.end_date.month' => 4,
+        'edit-label.end_date.day' => 15,
+        'edit-label.comment' => 'label created in controller_label.t',
+    }
+);
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
+is_deeply($edit->data, {
+        label => 2,
+        new => {
+            name => 'controller label',
+            sort_name => 'label, controller',
+            type_id => 2,
+            country_id => 1,
+            label_code => 12345,
+            comment => 'label created in controller_label.t',
+            begin_date => {
+                year => 1990,
+                month => 01,
+                day => 02
+            },
+            end_date => {
+                year => 2003,
+                month => 4,
+                day => 15
+            },
+        },
+        old => {
+            name => 'Warp Records',
+            sort_name => 'Warp Records',
+            type_id => 1,
+            country_id => 1,
+            label_code => 2070,
+            comment => 'Sheffield based electronica label',
+            begin_date => {
+                year => 1989,
+                month => 2,
+                day => 3
+            },
+            end_date => {
+                year => 2008,
+                month => 05,
+                day => 19
+            },
+        }
+    });
+
+done_testing;
