@@ -48,7 +48,7 @@ sub edit : Chained('load') PathPart RequireAuth
     $c->model('WorkType')->load($work);
     $c->model('ArtistCredit')->load($work);
 
-    my $form = $c->form(form => 'Work', item => $work);
+    my $form = $c->form(form => 'Work', init_object => $work);
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my $edit = $c->model('Edit')->create(
             editor_id => $c->user->id,
@@ -56,7 +56,8 @@ sub edit : Chained('load') PathPart RequireAuth
             work => $work,
 
             (map { $_ => $form->field($_)->value }
-                 qw( type_id name comment iswc ))
+                 grep { $form->field($_)->has_value }
+                     qw( type_id name comment iswc artist_credit ))
         );
 
         $c->response->redirect($c->uri_for_action('/work/show', [ $work->gid ]));

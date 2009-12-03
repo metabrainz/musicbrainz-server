@@ -1,6 +1,11 @@
 <form action="[% c.req.uri %]" method="post">
     [% USE r = FormRenderer(form) %]
     [% form.errors.join(" ") %]
+    <div class="row" id="artist">
+      [% r.label('artist_credit', l('Artist:'), fake => 1) %]
+      [% r.artist_credit_editor('artist_credit') %]
+    </div>
+    
     <p>
         [% r.label('name', l('Name:')) %]
         [% r.text('name') %]

@@ -53,8 +53,8 @@ my $request = POST $mech->uri, [
     'edit-work.comment' => 'A comment!',
     'edit-work.type_id' => 2,
     'edit-work.name' => 'Another name',
-    'edit-work.artist_credit.0.name' => 'Foo',
-    'edit-work.artist_credit.0.artist_id' => '2',
+    'edit-work.artist_credit.names.0.name' => 'Foo',
+    'edit-work.artist_credit.names.0.artist_id' => '3',
 ];
 
 my $response = $mech->request($request);
@@ -71,24 +71,34 @@ is_deeply($edit->data, {
         type_id => 2,
         comment => 'A comment!',
         iswc => 'T-123.456.789-0',
+        artist_credit => [
+        { artist => 3, name => 'Foo' }
+        ]
     },
     old => {
         type_id => 1,
         comment => undef,
         iswc => 'T-000.000.001-0',
         name => 'Dancing Queen',
+        artist_credit => [
+        { artist => 6, name => 'ABBA' }
+        ]
     }
 });
 
-TODO: {
-    local $TODO = 'Support editing the artist credit';
-    is_deeply($edit->data->{new}{artist_credit}, [
-        { artist => 2, name => 'Foo' }
-    ]);
-    is_deeply($edit->data->{old}{artist_credit}, [
-        { artist => 1, name => 'Abba' }
-    ]);
-}
+$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('Another name', '..has new name');
+$mech->content_contains('Dancing Queen', '..has old name');
+$mech->content_contains('T-123.456.789-0', '..has new iswc');
+$mech->content_contains('T-000.000.001-0', '..has old iswc');
+$mech->content_contains('Symphony', '..has new work type');
+$mech->content_contains('Composition', '..has old work type');
+$mech->content_contains('A comment!', '..has new comment');
+$mech->content_contains('Foo', '..has new artist');
+$mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '...and links to artist');
+$mech->content_contains('ABBA', '..has old artist');
+$mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', '...and links to artist');
 
 # Test adding annotations
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation");
@@ -99,7 +109,7 @@ $mech->submit_form(
     }
 );
 
-my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+$edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::AddAnnotation');
 is_deeply(
     $edit->data,

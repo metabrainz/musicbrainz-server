@@ -22,12 +22,9 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
 my ($edits) = $c->model('Edit')->find({ work => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
-$edit = $c->model('Edit')->get_by_id($edit->id);
-$c->model('Edit')->load_all($edit);
-is($edit->work_id, 1);
-is($edit->work->id, 1);
-is_unchanged($edit->work);
-is($edit->work->edits_pending, 1);
+$work = $c->model('Work')->get_by_id(1);
+is_unchanged($work);
+is($work->edits_pending, 1);
 
 reject_edit($c, $edit);
 

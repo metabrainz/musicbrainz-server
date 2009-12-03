@@ -6,6 +6,12 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Utils qw(
+    changed_relations
+    changed_display_data
+    load_artist_credit_definitions
+    artist_credit_from_loaded_definition
+);
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
@@ -16,7 +22,6 @@ sub edit_name { 'Edit work' }
 
 sub related_entities { { work => [ shift->work_id ] } }
 sub alter_edit_pending { { Work => [ shift->work_id ] } }
-sub models { [qw( Work )] }
 
 has 'work_id' => (
     isa => 'Int',
@@ -46,6 +51,48 @@ has '+data' => (
         old => find_type_constraint('WorkHash')
     ],
 );
+
+sub foreign_keys
+{
+    my $self = shift;
+    my $relations = {};
+    changed_relations($self->data, $relations,
+        WorkType => 'type_id',
+    );
+
+    if (exists $self->data->{new}{artist_credit}) {
+        $relations->{Artist} = {
+            map {
+                load_artist_credit_definitions($self->data->{$_}{artist_credit})
+            } qw( new old )
+        }
+    }
+
+    return $relations;
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    my %map = (
+        name    => 'name',
+        comment => 'comment',
+        type    => [ qw( type_id WorkType ) ],
+        iswc    => 'iswc',
+    );
+
+    my $data = changed_display_data($self->data, $loaded, %map);
+
+    if (exists $self->data->{new}{artist_credit}) {
+        $data->{artist_credit} = {
+            new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
+            old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
+        }
+    }
+
+    return $data;
+}
 
 sub initialize
 {
