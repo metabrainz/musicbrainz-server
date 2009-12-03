@@ -33,7 +33,6 @@ is_deeply($edit->data, {
     type1 => 'recording',
     relationship_id => 1,
     old => {
-        link_type_id => 1,
         begin_date => {
             year => undef,
             month => undef,
@@ -47,7 +46,6 @@ is_deeply($edit->data, {
         attributes => [4],
     },
     new => {
-        link_type_id => 1,
         begin_date => {
             year => 1994,
             month => undef,
