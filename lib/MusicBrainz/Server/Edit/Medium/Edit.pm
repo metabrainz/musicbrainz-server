@@ -12,7 +12,7 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { 'Edit Medium' }
 
-sub alter_edit_pending { { Medium => [ shift->data->{medium_id} ] } }
+sub alter_edit_pending { { Medium => [ shift->data->{medium} ] } }
 sub related_entities { { release => [ shift->release_id ] } }
 sub models { [qw( Medium )] }
 
@@ -21,6 +21,7 @@ subtype 'MediumHash'
         position => Optional[Int],
         name => Nullable[Str],
         format_id => Nullable[Int],
+        tracklist_id => Optional[Int],
     ];
 
 has '+data' => (
@@ -92,7 +93,7 @@ override 'accept' => sub
 {
     my ($self) = @_;
     my $medium_data = $self->c->model('Medium');
-    $medium_data->update($self->medium_id, $self->data->{new});
+    $medium_data->update($self->data->{medium}, $self->data->{new});
 };
 
 __PACKAGE__->meta->make_immutable;

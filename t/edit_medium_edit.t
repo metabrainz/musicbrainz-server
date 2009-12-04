@@ -19,10 +19,9 @@ my $edit = create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Edit');
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
-$c->model('Edit')->load_all($edit);
-is($edit->medium->id, $edit->medium_id);
-is_unchanged($edit->medium);
-is($edit->medium->edits_pending, 1);
+$medium = $c->model('Medium')->get_by_id(1);
+is_unchanged($medium);
+is($medium->edits_pending, 1);
 
 reject_edit($c, $edit);
 $medium = $medium = $c->model('Medium')->get_by_id(1);

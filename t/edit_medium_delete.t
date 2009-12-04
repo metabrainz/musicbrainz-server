@@ -17,14 +17,12 @@ my $edit = _create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Delete');
 
 # Make sure we can load the artist
-$c->model('Edit')->load_all($edit);
-is($edit->medium_id, 1);
-is($edit->medium->id, $edit->medium_id);
-is($edit->medium->edits_pending, 1);
+my $medium = $c->model('Medium')->get_by_id(1);
+is($medium->edits_pending, 1);
 
 # Test rejecting the edit
 reject_edit($c, $edit);
-my $medium = $c->model('Medium')->get_by_id(1);
+$medium = $c->model('Medium')->get_by_id(1);
 ok(defined $medium);
 is($medium->edits_pending, 0);
 
