@@ -19,11 +19,9 @@ my $edit = create_full_edit($label);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
-$c->model('Edit')->load_all($edit);
-is($edit->label_id, $label->id);
-is($edit->label->id, $label->id);
-is_unchanged($edit->label);
-is($edit->label->edits_pending, 1);
+$label = $c->model('Label')->get_by_id(1);
+is_unchanged($label);
+is($label->edits_pending, 1);
 
 my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
