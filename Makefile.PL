@@ -24,7 +24,7 @@ requires 'Catalyst::Runtime'                           => '5.80007';
 requires 'Catalyst::View::TT'                          => '0.29';
 requires 'Data::OptList';
 requires 'Data::Page'                                  => '2.01';
-requires 'Date::Calc'                                  => '5.4';
+requires 'Date::Calc'                                  => '5.8';
 requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Pg'                        => '0.16004';
 requires 'DBD::Pg'                                     => '2.11.8';
