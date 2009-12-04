@@ -6,6 +6,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use Moose::Util::TypeConstraints qw( subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -14,7 +15,6 @@ sub edit_type { $EDIT_LABEL_CREATE }
 
 sub related_entities { { label => [ shift->label_id ] } }
 sub alter_edit_pending { { Label => [ shift->label_id ] } }
-sub models { [qw( Label ) ] }
 
 has '+data' => (
     isa => Dict[
@@ -36,6 +36,32 @@ has '+data' => (
         comment => Optional[Str],
     ]
 );
+
+sub foreign_keys
+{
+    my $self = shift;
+
+    return {
+        LabelType => [ $self->data->{type_id} ],
+        Country   => [ $self->data->{country_id} ],
+    };
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    my $data = {
+        name       => $self->data->{name},
+        sort_name  => $self->data->{sort_name},
+        type       => $loaded->{LabelType}->{ $self->data->{type_id} },
+        label_code => $self->data->{label_code},
+        country    => $loaded->{Country}->{ $self->data->{country_id} },
+        comment    => $self->data->{comment},
+        begin_date => partial_date_from_row($self->data->{begin_date}),
+        end_date   => partial_date_from_row($self->data->{end_date}),
+    };
+}
 
 has 'label_id' => (
     isa => 'Int',

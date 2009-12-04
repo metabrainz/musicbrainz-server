@@ -53,4 +53,15 @@ is_deeply($edit->data, {
         },
     });
 
+$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('controller label', '..has name');
+$mech->content_contains('label, controller', '..has sort name');
+$mech->content_contains('label created in controller_label.t', '..has comment');
+$mech->content_like(qr/1990\D+01\D+02/, '..has begin date');
+$mech->content_like(qr/2003\D+04\D+15/, '..has end date');
+$mech->content_contains('Special MusicBrainz Label', '..has type name');
+$mech->content_contains('United Kingdom', '..has country');
+$mech->content_contains('12345', '..has label code');
+
 done_testing;
