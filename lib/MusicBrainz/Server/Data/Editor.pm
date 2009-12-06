@@ -55,8 +55,12 @@ sub _entity_class
 sub get_by_name
 {
     my ($self, $name) = @_;
-    my @result = values %{$self->_get_by_keys('name', $name)};
-    return $result[0];
+    my $sql = Sql->new($self->c->dbh);
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE lower(name) = ? LIMIT 1';
+    my $row = $sql->select_single_row_hash($query, lc $name);
+    return $self->_new_from_row($row);
 }
 
 sub find_by_email

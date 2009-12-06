@@ -39,6 +39,9 @@ is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 07, d
 my $editor2 = $editor_data->get_by_name('new_editor');
 is_deeply($editor, $editor2);
 
+$editor2 = $editor_data->get_by_name('nEw_EdItOr');
+is_deeply($editor, $editor2, 'fetching by name is case insensitive');
+
 # Test crediting
 Sql::run_in_transaction(sub {
         $editor_data->credit($editor->id, $STATUS_APPLIED);
