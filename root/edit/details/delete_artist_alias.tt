@@ -1,0 +1,10 @@
+<table class="details">
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td>[% link_artist(edit.display_data.artist) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Alias:') %]</th>
+    <td>[% edit.display_data.alias | html %]</td>
+  </tr>
+</table>

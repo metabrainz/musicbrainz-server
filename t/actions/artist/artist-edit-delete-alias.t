@@ -23,7 +23,13 @@ my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::DeleteAlias');
 is_deeply($edit->data, {
     entity_id => 3,
-    alias_id => 1,
+    alias_id  => 1,
+    name      => 'Test Alias',
 });
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('Test Artist', '..has artist name');
+$mech->content_contains('Test Alias', '..has alias name');
 
 done_testing;

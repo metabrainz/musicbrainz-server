@@ -21,7 +21,13 @@ my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::DeleteAlias');
 is_deeply($edit->data, {
     entity_id => 2,
-    alias_id => 1,
+    alias_id  => 1,
+    name      => 'Test Label Alias',
 });
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('Warp Records', '..has label name');
+$mech->content_contains('Test Label Alias', '..has alias name');
 
 done_testing;

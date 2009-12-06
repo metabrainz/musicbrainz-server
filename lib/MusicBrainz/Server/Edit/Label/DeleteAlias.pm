@@ -37,6 +37,26 @@ has 'label' => (
     is => 'rw'
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Label => [ $self->label_id ],
+    };
+}
+
+around 'build_display_data' => sub
+{
+    my $orig = shift;
+    my ($self, $loaded) = @_;
+
+    my $data = $self->$orig($loaded);
+    $data->{label} = $loaded->{Label}->{ $self->label_id };
+
+    return $data;
+};
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

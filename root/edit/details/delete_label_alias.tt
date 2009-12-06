@@ -1,0 +1,10 @@
+<table class="details">
+  <tr>
+    <th>[% l('Label:') %]</th>
+    <td>[% link_label(edit.display_data.label) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Alias:') %]</th>
+    <td>[% edit.display_data.alias | html %]</td>
+  </tr>
+</table>

@@ -11,6 +11,8 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
+my $alias = $c->model('Artist')->alias->get_by_id(1);
+
 my $edit = _create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::DeleteAlias');
 
@@ -19,12 +21,14 @@ is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->artist_id, 1);
-is($edit->artist->id, 1);
-is($edit->artist->edits_pending, 1);
-is($edit->alias_id, 1);
-is($edit->alias->id, 1);
-is($edit->alias->edits_pending, 1);
+is($edit->display_data->{artist}->id, 1);
+is($edit->display_data->{alias}, 'Alias 1');
+
+$alias = $c->model('Artist')->alias->get_by_id(1);
+is($alias->edits_pending, 1);
+
+my $artist = $c->model('Artist')->get_by_id(1);
+is($artist->edits_pending, 1);
 
 my $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 2);
@@ -34,18 +38,21 @@ MusicBrainz::Server::Test::reject_edit($c, $edit);
 my $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 2);
 
-my $artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(1);
 is($artist->edits_pending, 0);
 
-my $alias = $c->model('Artist')->alias->get_by_id(1);
+$alias = $c->model('Artist')->alias->get_by_id(1);
 ok(defined $alias);
 is($alias->edits_pending, 0);
 
 my $edit = _create_edit();
 MusicBrainz::Server::Test::accept_edit($c, $edit);
-$c->model('Edit')->load_all($edit);
-is($edit->artist->edits_pending, 0);
-ok(!defined $edit->alias);
+
+$artist = $c->model('Artist')->get_by_id(1);
+is($artist->edits_pending, 0);
+
+$alias = $c->model('Artist')->alias->get_by_id(1);
+ok(!defined $alias);
 
 $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 1);
@@ -57,6 +64,6 @@ sub _create_edit {
         edit_type => $EDIT_ARTIST_DELETE_ALIAS,
         editor_id => 1,
         entity_id => 1,
-        alias_id => 1,
+        alias     => $alias,
     );
 }

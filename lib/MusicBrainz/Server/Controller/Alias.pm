@@ -67,7 +67,7 @@ sub delete_alias : Chained('alias') PathPart('delete') RequireAuth
         my $edit = $c->model('Edit')->create(
             edit_type => $model_to_edit_type{delete}->{ $self->{model} },
             editor_id => $c->user->id,
-            alias_id  => $alias->id,
+            alias     => $alias,
             entity_id => $c->stash->{ $self->{entity_name} }->id,
         );
 
