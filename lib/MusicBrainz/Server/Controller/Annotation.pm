@@ -31,23 +31,6 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     );
 }
 
-sub revision : Chained('load') PathPart('annotation') Args(1)
-{
-    my ($self, $c, $id) = @_;
-
-    my $entity = $c->stash->{$self->{entity_name}};
-    my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
-        or $c->detach('/error_404');
-
-    $c->stash(
-        annotation => $annotation,
-        template   => 'annotation/common.tt',
-        gid        => $entity->gid,
-        type       => $self->{entity_name},
-        full_annotation => 1
-    );
-}
-
 after 'show' => sub
 {
     my ($self, $c) = @_;
