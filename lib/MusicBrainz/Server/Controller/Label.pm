@@ -232,7 +232,7 @@ sub delete : Chained('load') PathPart RequireAuth
         my $edit = $c->model('Edit')->create(
             editor_id => $c->user->id,
             edit_type => $EDIT_LABEL_DELETE,
-            label_id => $label->id
+            label => $label
         );
 
         my $url = $edit->is_open ? $c->uri_for_action('/label/show', [ $label->gid ])
