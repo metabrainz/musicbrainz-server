@@ -7,9 +7,14 @@
 <div class="annotation" id="annotation_box">
     [%- IF annotation.text -%]
         <div class="body" id="annotation_box_body">
-            [% annotation.summary | format_wikitext  %]
-            [% IF annotation.summary_is_short %]
-                <p><a href="[% c.uri_for_action("/$type/latest_annotation", [ gid ]) %]">Read more&hellip;</a></p>
+            [% IF full_annotation %]
+                [% annotation.text | format_wikitext  %]
+            [% ELSE %]
+                [% annotation.summary | format_wikitext  %]
+                [% IF annotation.summary_is_short %]
+                    <p><a href="[% c.uri_for_action("/$type/revision", [ gid, annotation.id ]) %]">
+                        Read more&hellip;</a></p>
+                [% END %]
             [% END %]
         </div>
         [%- IF show_change_log -%]
