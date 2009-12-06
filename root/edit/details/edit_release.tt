@@ -9,7 +9,7 @@
 
   [% IF edit.display_data.comment %]
   <tr>
-    <th>[% l('Name:') %]</th>
+    <th>[% l('Comment:') %]</th>
     <td class="old">[% edit.display_data.comment.old %]</td>
     <td class="new">[% edit.display_data.comment.new %]</td>
   </tr>
