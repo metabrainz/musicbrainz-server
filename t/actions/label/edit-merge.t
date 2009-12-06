@@ -34,4 +34,11 @@ is_deeply($edit->data, {
         new_label => 3,
     });
 
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+xml_ok($mech->content, '..valid xml');
+$mech->content_contains('Warp Records', '..contains old name');
+$mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190', '..contains old label link');
+$mech->content_contains('Another Label', '..contains new name');
+$mech->content_contains('/label/4b4ccf60-658e-11de-8a39-0800200c9a66', '..contains new label link');
+
 done_testing;

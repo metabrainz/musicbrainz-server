@@ -9,7 +9,7 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_LABEL_MERGE }
-sub edit_name { "Merge Labels" }
+sub edit_name { "Merge labels" }
 
 sub related_entities
 {
@@ -27,8 +27,6 @@ sub alter_edit_pending
     }
 }
 
-sub models { [qw( Label )] }
-
 has 'old_label_id' => (
     isa => 'Int',
     is => 'rw',
@@ -43,17 +41,30 @@ has 'new_label_id' => (
     default => sub { shift->data->{new_label} }
 );
 
-has [qw( old_label new_label )] => (
-    isa => 'Label',
-    is => 'rw'
-);
-
 has '+data' => (
     isa => Dict[
         new_label => Int,
         old_label => Int,
     ]
 );
+
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Label => [ $self->data->{old_label}, $self->data->{new_label} ],
+    };
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        new => $loaded->{Label}->{ $self->data->{new_label} },
+        old => $loaded->{Label}->{ $self->data->{old_label} },
+    };
+}
 
 sub initialize
 {
