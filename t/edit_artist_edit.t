@@ -52,6 +52,29 @@ is($artist->end_date->year, 2000);
 is($artist->end_date->month, 3);
 is($artist->end_date->day, 20);
 
+
+# load the edit and test if it provides a populated ->display_data
+$edit = $c->model('Edit')->get_by_id($edit->id);
+$c->model('Edit')->load_all($edit);
+
+is($edit->display_data->{name}->{old}, 'Artist Name');
+is($edit->display_data->{name}->{new}, 'New Name');
+is($edit->display_data->{sort_name}->{old}, 'Artist Name');
+is($edit->display_data->{sort_name}->{new}, 'New Sort');
+is($edit->display_data->{type}->{old}, undef);
+is($edit->display_data->{type}->{new}->name, 'Group');
+is($edit->display_data->{gender}->{old}, undef);
+is($edit->display_data->{gender}->{new}->{name}, 'Male');
+is($edit->display_data->{country}->{old}, undef);
+is($edit->display_data->{country}->{new}->{name}, 'United Kingdom');
+is($edit->display_data->{comment}->{old}, undef);
+is($edit->display_data->{comment}->{new}, 'New comment');
+is($edit->display_data->{begin_date}->{old}->format, '');
+is($edit->display_data->{begin_date}->{new}->format, '1990-05-10');
+is($edit->display_data->{end_date}->{old}->format, '');
+is($edit->display_data->{end_date}->{new}->format, '2000-03-20');
+
+
 # Make sure we can use NULL values where possible
 TODO: {
     local $TODO = 'Allow setting columns to NULL';
@@ -81,8 +104,6 @@ TODO: {
 # Test loading entities for the edit
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);
-ok(defined $edit->artist);
-is($edit->artist->id, $edit->artist_id);
 
 done_testing;
 

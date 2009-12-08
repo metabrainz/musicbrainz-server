@@ -17,6 +17,23 @@ has 'day' => (
     isa => 'Int'
 );
 
+around BUILDARGS => sub {
+    my $orig = shift;
+    my $class = shift;
+
+    return $class->$orig( @_ ) unless @_ == 1;
+
+    my $info = shift;
+
+    for my $key (keys %$info)
+    {
+        delete $info->{$key} unless defined $info->{$key};
+    }
+    
+    return $class->$orig( $info );
+};
+
+
 sub is_empty
 {
     my ($self) = @_;

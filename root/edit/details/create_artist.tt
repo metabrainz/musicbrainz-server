@@ -1,10 +1,46 @@
 <table class="details">
     <tr>
         <th>[% l('Name:') %]</th>
-        <td>[% edit.artist.name %]</td>
+        <td>[% edit.display_data.name %]</td>
     </tr>
     <tr>
         <th>[% l('Sort name:') %]</th>
-        <td>[% edit.artist.sort_name %]</td>
+        <td>[% edit.display_data.sort_name %]</td>
     </tr>
+    [% IF edit.display_data.comment %]
+    <tr>
+        <th>[% l('Comment:') %]</th>
+        <td>[% edit.display_data.comment %]</td>
+    </tr>
+    [% END %]
+    [% IF edit.display_data.type %]
+    <tr>
+        <th>[% l('Type:') %]</th>
+        <td>[% edit.display_data.type.name %]</td>
+    </tr>
+    [% END %]
+    [% IF edit.display_data.gender %]
+    <tr>
+        <th>[% l('Gender:') %]</th>
+        <td>[% edit.display_data.gender.name %]</td>
+    </tr>
+    [% END %]
+    [% IF edit.display_data.country %]
+    <tr>
+        <th>[% l('Country:') %]</th>
+        <td>[% edit.display_data.country.name %]</td>
+    </tr>
+    [% END %]
+    [% IF edit.display_data.begin_date %]
+    <tr>
+        <th>[% l('Begin date:') %]</th>
+        <td>[% edit.display_data.begin_date.format %]</td>
+    </tr>
+    [% END %]
+    [% IF edit.display_data.end_date %]
+    <tr>
+        <th>[% l('End date:') %]</th>
+        <td>[% edit.display_data.end_date.format %]</td>
+    </tr>
+    [% END %]
 </table>

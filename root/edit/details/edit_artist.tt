@@ -1,8 +1,65 @@
-[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
-    { label=l('Name'), new=new.ArtistName, prev=prev.ArtistName },
-    { label=l('Type'), new=new.Type, prev=prev.Type },
-    { label=l('Sort name'), new=new.SortName, prev=prev.SortName },
-    { label=l('Resolution'), new=new.Resolution, prev=prev.Resolution },
-    { label=l('Begin Date'), new=new.BeginDate, prev=prev.BeginDate },
-    { label=l('End Date'), new=new.EndDate, prev=prev.EndDate },
-] -%]
+<table class="details">
+  [% IF edit.display_data.name %]
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td class="old">[% edit.display_data.name.old %]</td>
+    <td class="new">[% edit.display_data.name.new %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.sort_name %]
+  <tr>
+    <th>[% l('Sort name:') %]</th>
+    <td class="old">[% edit.display_data.sort_name.old %]</td>
+    <td class="new">[% edit.display_data.sort_name.new %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Comment:') %]</th>
+    <td class="old">[% edit.display_data.comment.old %]</td>
+    <td class="new">[% edit.display_data.comment.new %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.type %]
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td class="old">[% edit.display_data.type.old.name %]</td>
+    <td class="new">[% edit.display_data.type.new.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.gender %]
+  <tr>
+    <th>[% l('Gender:') %]</th>
+    <td class="old">[% edit.display_data.gender.old.name %]</td>
+    <td class="new">[% edit.display_data.gender.new.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.country %]
+  <tr>
+    <th>[% l('Country:') %]</th>
+    <td class="old">[% edit.display_data.country.old.name %]</td>
+    <td class="new">[% edit.display_data.country.new.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.begin_date %]
+  <tr>
+    <th>[% l('Begin date:') %]</th>
+    <td class="old">[% edit.display_data.begin_date.old.format %]</td>
+    <td class="new">[% edit.display_data.begin_date.new.format %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.end_date %]
+  <tr>
+    <th>[% l('End date:') %]</th>
+    <td class="old">[% edit.display_data.end_date.old.format %]</td>
+    <td class="new">[% edit.display_data.end_date.new.format %]</td>
+  </tr>
+  [% END %]
+</table>

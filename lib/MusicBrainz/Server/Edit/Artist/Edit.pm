@@ -1,19 +1,24 @@
 package MusicBrainz::Server::Edit::Artist::Edit;
 use Moose;
 
+use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
+use MooseX::Types::Moose qw( Maybe Str Int );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Edit::Utils qw( date_closure );
 use MusicBrainz::Server::Types qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
-use MooseX::Types::Moose qw( Maybe Str Int );
-use MooseX::Types::Structured qw( Dict Optional );
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+use MusicBrainz::Server::Edit::Utils qw(
+    changed_relations
+    changed_display_data
+);
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_ARTIST_EDIT }
-sub edit_name { "Create Artist" }
+sub edit_name { "Edit Artist" }
 
 sub related_entities { { artist => [ shift->artist_id ] } }
 sub alter_edit_pending { { Artist => [ shift->artist_id ] } }
@@ -50,6 +55,51 @@ has '+data' => (
         old => find_type_constraint('ArtistHash'),
     ]
 );
+
+sub foreign_keys
+{
+    my ($self) = @_;
+    my $relations = {};
+    changed_relations($self->data, $relations, (
+                          ArtistType => 'type_id',
+                          Country => 'country_id',
+                          Gender => 'gender_id',
+                      ));
+
+    return $relations;
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    my %map = (
+        type       => [ qw( type_id ArtistType )],
+        gender     => [ qw( gender_id Gender )],
+        country    => [ qw( country_id Country )],
+        name       => 'name',
+        sort_name  => 'sort_name',
+        comment    => 'comment',
+    );
+
+    my $data = changed_display_data($self->data, $loaded, %map);
+
+    if (exists $self->data->{new}{begin_date}) {
+        $data->{begin_date} = {
+            new => PartialDate->new($self->data->{new}{begin_date}),
+            old => PartialDate->new($self->data->{old}{begin_date}),
+        };
+    }
+
+    if (exists $self->data->{new}{end_date}) {
+        $data->{end_date} = {
+            new => PartialDate->new($self->data->{new}{end_date}),
+            old => PartialDate->new($self->data->{old}{end_date}),
+        };
+    }
+
+    return $data;
+}
 
 sub _mapping
 {

@@ -55,4 +55,18 @@ is_deeply($edit->data, {
         },
     });
 
+
+# Test display of edit data
+$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
+xml_ok ($mech->content, '..xml is valid');
+$mech->content_contains ('controller artist', '.. contains artist name');
+$mech->content_contains ('artist, controller', '.. contains sort name');
+$mech->content_contains ('Person', '.. contains artist type');
+$mech->content_contains ('United States', '.. contains country');
+$mech->content_contains ('Female', '.. contains artist gender');
+$mech->content_contains ('artist created in controller_artist.t',
+                         '.. contains artist comment');
+$mech->content_contains ('1990-01-02', '.. contains begin date');
+$mech->content_contains ('2003-04-15', '.. contains end date');
+
 done_testing;

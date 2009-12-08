@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Utils qw( defined_hash );
 use MusicBrainz::Server::Types qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -31,6 +32,31 @@ sub edit_conditions
 }
 
 sub related_entities { return { artist => [ shift->artist_id ] } }
+
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        ArtistType => [$self->data->{type_id}],
+        Gender => [$self->data->{gender_id}],
+        Country => [$self->data->{country_id}]
+    };
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        ( map { $_ => $self->data->{$_} } qw( name sort_name comment ) ),
+        type => $loaded->{ArtistType}->{$self->data->{type_id}},
+        gender => $loaded->{Gender}->{$self->data->{gender_id}},
+        country => $loaded->{Country}->{$self->data->{country_id}},
+        begin_date => PartialDate->new($self->data->{begin_date}),
+        end_date => PartialDate->new($self->data->{end_date}),
+    };
+}
+
 sub models { [qw( Artist )] }
 
 has 'artist_id' => (
