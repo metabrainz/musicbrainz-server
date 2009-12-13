@@ -45,6 +45,7 @@ sub _dbh
 sub _new_from_row
 {
     my ($self, $row, $prefix) = @_;
+    return unless $row;
     my %info;
     my %mapping = %{$self->_column_mapping};
     my @attribs = %mapping ? keys %mapping : keys %{$row};
