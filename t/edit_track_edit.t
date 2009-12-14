@@ -27,9 +27,6 @@ is_unchanged($track);
 is($track->edits_pending, 1);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
-$c->model('Edit')->load_all($edit);
-is($edit->track_id, 1);
-is($edit->track->id, 1);
 
 reject_edit($c, $edit);
 
