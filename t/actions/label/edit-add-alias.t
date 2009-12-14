@@ -24,4 +24,11 @@ is_deeply($edit->data, {
     alias => 'An alias',
 });
 
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+xml_ok($mech->content, '..valid xml'); 
+
+$mech->content_contains('Warp Records', '..contains label name');
+$mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190', '..contains label link');
+$mech->content_contains('An alias', '..contains alias name');
+
 done_testing;

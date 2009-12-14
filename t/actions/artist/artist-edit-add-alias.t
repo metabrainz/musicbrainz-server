@@ -26,4 +26,11 @@ is_deeply($edit->data, {
     alias => 'An alias',
 });
 
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+xml_ok($mech->content, '..valid xml');
+
+$mech->content_contains('Test Artist', '..contains artist name');
+$mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '..contains artist link');
+$mech->content_contains('An alias', '..contains alias name');
+
 done_testing;

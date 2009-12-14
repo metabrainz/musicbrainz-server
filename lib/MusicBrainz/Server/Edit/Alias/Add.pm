@@ -15,6 +15,21 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    return {};
+}
+
+sub build_display_data
+{
+    my $self = shift;
+
+    return {
+        alias => $self->data->{alias},
+    };
+}
+
 has 'alias' => (
     is => 'rw'
 );

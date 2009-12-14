@@ -20,11 +20,6 @@ sub adjust_edit_pending
     $self->c->model('Artist')->alias->adjust_edit_pending($adjust, $self->alias_id);
 }
 
-sub models {
-    my $self = shift;
-    return [ $self->c->model('Artist'), $self->c->model('Artist')->alias ];
-}
-
 has 'artist_id' => (
     isa => 'Int',
     is => 'rw',
@@ -32,10 +27,27 @@ has 'artist_id' => (
     default => sub { shift->data->{entity_id} }
 );
 
-has 'artist' => (
-    isa => 'Artist',
-    is => 'rw'
-);
+around 'foreign_keys' => sub
+{
+    my $orig = shift;
+    my $self = shift;
+
+    my $keys = $self->$orig();
+    $keys->{Artist}->{ $self->artist_id } = [];
+
+    return $keys;
+};
+
+around 'build_display_data' => sub
+{
+    my $orig = shift;
+    my ($self, $loaded) = @_;
+
+    my $data =  $self->$orig($loaded);
+    $data->{artist} = $loaded->{Artist}->{ $self->artist_id };
+
+    return $data;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

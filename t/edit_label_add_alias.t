@@ -19,28 +19,32 @@ my ($edits) = $c->model('Edit')->find({ label => 1 }, 10, 0);
 is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
 
+my $label = $c->model('Label')->get_by_id(1);
+is($label->edits_pending, 1);
+
 $c->model('Edit')->load_all($edit);
-is($edit->label_id, 1);
-is($edit->label->id, 1);
-ok($edit->alias_id > 3);
-is($edit->alias->id, $edit->alias_id);
-is($edit->label->edits_pending, 1);
-is($edit->alias->name, 'Another alias');
+is($edit->display_data->{label}->id, 1);
+is($edit->display_data->{alias}, 'Another alias');
+
+my $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
+is(@$alias_set, 3);
 
 reject_edit($c, $edit);
 
-my $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
+$alias_set = $c->model('Label')->alias->find_by_entity_id(1);
 is(@$alias_set, 2);
 
-my $label = $c->model('Label')->get_by_id(1);
+$label = $c->model('Label')->get_by_id(1);
 is($label->edits_pending, 0);
 
 my $edit = _create_edit();
 accept_edit($c, $edit);
-$c->model('Edit')->load_all($edit);
-is($edit->label->edits_pending, 0);
-is($edit->alias->edits_pending, 0);
-is($edit->alias->name, 'Another alias');
+
+$label = $c->model('Label')->get_by_id(1);
+is($label->edits_pending, 0);
+
+$alias_set = $c->model('Label')->alias->find_by_entity_id(1);
+is(@$alias_set, 3);
 
 done_testing;
 

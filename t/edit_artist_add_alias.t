@@ -20,16 +20,18 @@ is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->artist_id, 1);
-is($edit->artist->id, 1);
-ok($edit->alias_id > 3);
-is($edit->alias->id, $edit->alias_id);
-is($edit->artist->edits_pending, 1);
-is($edit->alias->name, 'Another alias');
+is($edit->display_data->{artist}->id, 1);
+is($edit->display_data->{alias}, 'Another alias');
+
+my $artist = $c->model('Artist')->get_by_id(1);
+is($artist->edits_pending, 1);
+
+my $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
+is(@$alias_set, 3);
 
 reject_edit($c, $edit);
 
-my $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
+$alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 2);
 
 my $artist = $c->model('Artist')->get_by_id(1);
@@ -37,10 +39,12 @@ is($artist->edits_pending, 0);
 
 my $edit = _create_edit();
 accept_edit($c, $edit);
-$c->model('Edit')->load_all($edit);
-is($edit->artist->edits_pending, 0);
-is($edit->alias->edits_pending, 0);
-is($edit->alias->name, 'Another alias');
+
+$artist = $c->model('Artist')->get_by_id(1);
+is($artist->edits_pending, 0);
+
+$alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
+is(@$alias_set, 3);
 
 done_testing;
 
