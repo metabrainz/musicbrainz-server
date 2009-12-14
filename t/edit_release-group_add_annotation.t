@@ -25,14 +25,20 @@ my ($edits) = $c->model('Edit')->find({ release_group => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->release_group->id, $edit->release_group_id);
-is($edit->release_group_id, 1);
+is($edit->display_data->{release_group}->id, 1);
+is($edit->display_data->{changelog}, 'A changelog');
+is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
-$c->model('ReleaseGroup')->annotation->load_latest($edit->release_group);
-my $annotation = $edit->release_group->latest_annotation;
+my $release_group = $c->model('ReleaseGroup')->get_by_id(1);
+
+$c->model('ReleaseGroup')->annotation->load_latest($release_group);
+my $annotation = $release_group->latest_annotation;
 ok(defined $annotation);
 is($annotation->editor_id, 1);
 is($annotation->text, 'Test annotation');
 is($annotation->changelog, 'A changelog');
+
+my $annotation2 = $c->model('ReleaseGroup')->annotation->get_by_id($edit->annotation_id);
+is_deeply($annotation, $annotation2);
 
 done_testing;

@@ -25,14 +25,20 @@ my ($edits) = $c->model('Edit')->find({ work => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->work->id, $edit->work_id);
-is($edit->work_id, 1);
+is($edit->display_data->{work}->id, 1);
+is($edit->display_data->{changelog}, 'A changelog');
+is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
-$c->model('Work')->annotation->load_latest($edit->work);
-my $annotation = $edit->work->latest_annotation;
+my $work = $c->model('Work')->get_by_id(1);
+
+$c->model('Work')->annotation->load_latest($work);
+my $annotation = $work->latest_annotation;
 ok(defined $annotation);
 is($annotation->editor_id, 1);
 is($annotation->text, 'Test annotation');
 is($annotation->changelog, 'A changelog');
+
+my $annotation2 = $c->model('Work')->annotation->get_by_id($edit->annotation_id);
+is_deeply($annotation, $annotation2);
 
 done_testing;

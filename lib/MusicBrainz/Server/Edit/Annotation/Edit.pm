@@ -18,6 +18,20 @@ has '+data' => (
     ],
 );
 
+has 'annotation_id' => (
+    isa => 'Int',
+    is => 'rw',
+);
+
+sub build_display_data
+{
+    my $self = shift;
+    return {
+        changelog     => $self->data->{changelog},
+        annotation_id => $self->annotation_id
+    };
+}
+
 sub edit_conditions
 {
     my $conditions = {
@@ -33,11 +47,12 @@ sub edit_conditions
     };
 }
 
-sub accept
+sub insert
 {
     my $self = shift;
     my $model = $self->_annotation_model;
-    $model->edit($self->data);
+    my $id = $model->edit($self->data);
+    $self->annotation_id($id);
 }
 
 sub _annotation_model { die 'Not implemented' }
@@ -50,6 +65,20 @@ sub initialize
         editor_id => $self->editor_id,
     });
 }
+
+override 'to_hash' => sub
+{
+    my $self = shift;
+    my $hash = super(@_);
+    $hash->{annotation_id} = $self->annotation_id;
+    return $hash;
+};
+
+before 'restore' => sub
+{
+    my ($self, $hash) = @_;
+    $self->annotation_id(delete $hash->{annotation_id});
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -25,6 +25,25 @@ has 'work' => (
     is => 'rw',
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Work => [ $self->work_id ],
+    };
+}
+
+around 'build_display_data' => sub
+{
+    my $orig = shift;
+    my ($self, $loaded) = @_;
+
+    my $data = $self->$orig();
+    $data->{work} = $loaded->{Work}->{ $self->work_id };
+
+    return $data;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

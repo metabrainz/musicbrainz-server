@@ -66,6 +66,7 @@ sub edit
         $self->type => $annotation_hash->{entity_id},
         annotation => $annotation_id
     });
+    return $annotation_id;
 }
 
 sub delete

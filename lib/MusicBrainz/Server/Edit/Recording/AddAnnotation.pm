@@ -25,6 +25,25 @@ has 'recording' => (
     is => 'rw',
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Recording => [ $self->recording_id ],
+    };
+}
+
+around 'build_display_data' => sub
+{
+    my $orig = shift;
+    my ($self, $loaded) = @_;
+
+    my $data = $self->$orig();
+    $data->{recording} = $loaded->{Recording}->{ $self->recording_id };
+
+    return $data;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

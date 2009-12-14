@@ -1,0 +1,14 @@
+<table class="details">
+  <tr>
+    <th>[% l('Recording:') %]</th>
+    <td>[% link_recording(edit.display_data.recording) %]
+  </tr>
+  <tr>
+    <th>[% l('Changelog:') %]</th>
+    <td>
+      <a href="[% c.uri_for_action('/recording/revision', [ edit.display_data.recording.gid ], edit.display_data.annotation_id) %]">
+        [% edit.display_data.changelog %]
+      </a>
+    </td>
+  </tr>
+</table>

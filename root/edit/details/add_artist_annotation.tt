@@ -1,3 +1,14 @@
-[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
-    { label => l('Change Log'), new => moderation.changelog }
-] no_prev=1-%]
+<table class="details">
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td>[% link_artist(edit.display_data.artist) %]
+  </tr>
+  <tr>
+    <th>[% l('Changelog:') %]</th>
+    <td>
+      <a href="[% c.uri_for_action('/artist/revision', [ edit.display_data.artist.gid ], edit.display_data.annotation_id) %]">
+        [% edit.display_data.changelog %]
+      </a>
+    </td>
+  </tr>
+</table>

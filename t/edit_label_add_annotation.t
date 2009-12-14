@@ -26,14 +26,20 @@ my ($edits) = $c->model('Edit')->find({ label => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->label->id, $edit->label_id);
-is($edit->label_id, 1);
+is($edit->display_data->{label}->id, 1);
+is($edit->display_data->{changelog}, 'A changelog');
+is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
-$c->model('Label')->annotation->load_latest($edit->label);
-my $annotation = $edit->label->latest_annotation;
+my $label = $c->model('Label')->get_by_id(1);
+
+$c->model('Label')->annotation->load_latest($label);
+my $annotation = $label->latest_annotation;
 ok(defined $annotation);
 is($annotation->editor_id, 1);
 is($annotation->text, 'Test annotation');
 is($annotation->changelog, 'A changelog');
+
+my $annotation2 = $c->model('Label')->annotation->get_by_id($edit->annotation_id);
+is_deeply($annotation, $annotation2);
 
 done_testing;

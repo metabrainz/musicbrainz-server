@@ -25,6 +25,25 @@ has 'release_group' => (
     is => 'rw',
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        ReleaseGroup => [ $self->release_group_id ],
+    };
+}
+
+around 'build_display_data' => sub
+{
+    my $orig = shift;
+    my ($self, $loaded) = @_;
+
+    my $data = $self->$orig();
+    $data->{release_group} = $loaded->{ReleaseGroup}->{ $self->release_group_id };
+
+    return $data;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

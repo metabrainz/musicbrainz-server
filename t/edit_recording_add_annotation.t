@@ -25,14 +25,20 @@ my ($edits) = $c->model('Edit')->find({ recording => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);
-is($edit->recording->id, $edit->recording_id);
-is($edit->recording_id, 1);
+is($edit->display_data->{recording}->id, 1);
+is($edit->display_data->{changelog}, 'A changelog');
+is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
-$c->model('Recording')->annotation->load_latest($edit->recording);
-my $annotation = $edit->recording->latest_annotation;
+my $recording = $c->model('Recording')->get_by_id(1);
+
+$c->model('Recording')->annotation->load_latest($recording);
+my $annotation = $recording->latest_annotation;
 ok(defined $annotation);
 is($annotation->editor_id, 1);
 is($annotation->text, 'Test annotation');
 is($annotation->changelog, 'A changelog');
+
+my $annotation2 = $c->model('Recording')->annotation->get_by_id($edit->annotation_id);
+is_deeply($annotation, $annotation2);
 
 done_testing;

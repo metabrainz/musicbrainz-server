@@ -1,0 +1,14 @@
+<table class="details">
+  <tr>
+    <th>[% l('Work:') %]</th>
+    <td>[% link_work(edit.display_data.work) %]
+  </tr>
+  <tr>
+    <th>[% l('Changelog:') %]</th>
+    <td>
+      <a href="[% c.uri_for_action('/work/revision', [ edit.display_data.work.gid ], edit.display_data.annotation_id) %]">
+        [% edit.display_data.changelog %]
+      </a>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,14 @@
+<table class="details">
+  <tr>
+    <th>[% l('Release group:') %]</th>
+    <td>[% link_release_group(edit.display_data.release_group) %]
+  </tr>
+  <tr>
+    <th>[% l('Changelog:') %]</th>
+    <td>
+      <a href="[% c.uri_for_action('/release_group/revision', [ edit.display_data.release_group.gid ], edit.display_data.annotation_id) %]">
+        [% edit.display_data.changelog %]
+      </a>
+    </td>
+  </tr>
+</table>
