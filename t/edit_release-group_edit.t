@@ -25,10 +25,6 @@ $rg = $c->model('ReleaseGroup')->get_by_id(1);
 is($rg->edits_pending, 1);
 is_unchanged($rg);
 
-$c->model('Edit')->load_all($edit);
-is($edit->release_group_id, 1);
-is($edit->release_group->id, 1);
-
 reject_edit($c, $edit);
 $rg = $c->model('ReleaseGroup')->get_by_id(1);
 is_unchanged($rg);

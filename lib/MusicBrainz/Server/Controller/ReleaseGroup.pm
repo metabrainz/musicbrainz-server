@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::ReleaseGroup;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE $EDIT_RELEASEGROUP_EDIT );
 use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Annotation';
@@ -75,6 +75,26 @@ sub delete : Chained('load') PathPart RequireAuth
 
         $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg->gid ]));
         $c->detach;
+    }
+}
+
+sub edit : Chained('load') PathPart RequireAuth
+{
+    my ($self, $c) = @_;
+    my $rg = $c->stash->{rg};
+
+    my $form = $c->form( form => 'ReleaseGroup', init_object => $rg );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            edit_type => $EDIT_RELEASEGROUP_EDIT,
+            release_group => $rg,
+            (map { $_ => $form->field($_)->value }
+                 grep { $form->field($_)->has_value }
+                     qw( type_id name comment artist_credit ))
+        );
+
+        $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg->gid ]));
     }
 }
 

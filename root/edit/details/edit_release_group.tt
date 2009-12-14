@@ -1,0 +1,33 @@
+<table class="details">
+  [%- IF edit.display_data.name -%]
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td class="old">[% edit.display_data.name.new | html %]</td>
+    <td class="new">[% edit.display_data.name.old | html %]</td>
+  </tr>
+  [%- END -%]
+
+  [%- IF edit.display_data.comment -%]
+  <tr>
+    <th>[% l('Comment:') %]</th>
+    <td class="old">[% edit.display_data.comment.new | html %]</td>
+    <td class="new">[% edit.display_data.comment.old | html %]</td>
+  </tr>
+  [%- END -%]
+
+  [%- IF edit.display_data.type -%]
+  <tr>
+    <th>[% l('Work Type:') %]</th>
+    <td class="old">[% edit.display_data.type.new.name | html %]</td>
+    <td class="new">[% edit.display_data.type.old.name | html %]</td>
+  </tr>
+  [%- END -%]
+
+  [%- IF edit.display_data.artist_credit -%]
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td class="old">[% artist_credit(edit.display_data.artist_credit.new) %]</td>
+    <td class="new">[% artist_credit(edit.display_data.artist_credit.old) %]</td>
+  </tr>
+  [%- END -%]
+</table>

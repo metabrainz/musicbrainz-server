@@ -9,6 +9,12 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
 );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Utils qw(
+    changed_relations
+    changed_display_data
+    load_artist_credit_definitions
+    artist_credit_from_loaded_definition
+);
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -16,22 +22,16 @@ use MooseX::Types::Structured qw( Dict Optional );
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { "Edit ReleaseGroup" }
+sub edit_name { "Edit release group" }
 
 sub related_entities { { release_group => [ shift->release_group_id ] } }
 sub alter_edit_pending { { ReleaseGroup => [ shift->release_group_id ] } }
-sub models { [qw( ReleaseGroup )] }
 
 has 'release_group_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
     default => sub { shift->data->{release_group} }
-);
-
-has 'release_group' => (
-    isa => 'ReleaseGroup',
-    is => 'rw'
 );
 
 subtype 'ReleaseGroupHash'
@@ -49,6 +49,47 @@ has '+data' => (
         old => find_type_constraint('ReleaseGroupHash'),
     ]
 );
+
+sub foreign_keys
+{
+    my $self = shift;
+    my $relations = {};
+    changed_relations($self->data, $relations,
+        ReleaseGroupType => 'type_id',
+    );
+
+    if (exists $self->data->{new}{artist_credit}) {
+        $relations->{Artist} = {
+            map {
+                load_artist_credit_definitions($self->data->{$_}{artist_credit})
+            } qw( new old )
+        }
+    }
+
+    return $relations;
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    my %map = (
+        name    => 'name',
+        comment => 'comment',
+        type    => [ qw( type_id ReleaseGroupType ) ],
+    );
+
+    my $data = changed_display_data($self->data, $loaded, %map);
+
+    if (exists $self->data->{new}{artist_credit}) {
+        $data->{artist_credit} = {
+            new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
+            old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
+        }
+    }
+
+    return $data;
+}
 
 sub _mapping
 {
@@ -69,7 +110,6 @@ sub initialize
         $ac_data->load($release_group);
     }
 
-    $self->release_group($release_group);
     $self->data({
         release_group => $release_group->id,
         $self->_change_data($release_group, %args)
