@@ -12,21 +12,20 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+add_track');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
+my $track = $c->model('Track')->get_by_id(1);
+
 my $edit = create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::Tracklist::DeleteTrack');
 
-$c->model('Edit')->load_all($edit);
-ok(defined $edit->track);
-is($edit->track->id, 1);
-is($edit->track->edits_pending, 1);
-is($edit->track->id, $edit->track_id);
+$track = $c->model('Track')->get_by_id(1);
+is($track->edits_pending, 1);
 
 reject_edit($c, $edit);
 
 $edit = create_edit();
 accept_edit($c, $edit);
 
-my $track = $c->model('Track')->get_by_id(1);
+$track = $c->model('Track')->get_by_id(1);
 ok(!defined $track);
 
 my $tracklist = $c->model('Tracklist')->get_by_id(1);
@@ -41,6 +40,6 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_TRACKLIST_DELETETRACK,
         editor_id => 1,
-        track_id => 1
+        track => $track
     );
 }

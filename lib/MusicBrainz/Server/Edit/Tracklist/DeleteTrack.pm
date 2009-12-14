@@ -64,8 +64,8 @@ sub initialize
 sub accept
 {
     my $self = shift;
-    my $track = $self->c->model('Track')->get_by_id($self->track_id);
-    $self->c->model('Track')->delete($self->track_id);
+    my $track = $self->c->model('Track')->get_by_id($self->data->{track_id});
+    $self->c->model('Track')->delete($self->data->{track_id});
     $self->c->model('Tracklist')->offset_track_positions($track->tracklist_id,
         $track->position + 1, -1);
 }
