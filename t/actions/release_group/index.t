@@ -38,4 +38,11 @@ $mech->content_like(qr{Warp Records}, 'has uk label');
 $mech->content_like(qr{82796 97772 2}, 'has uk label');
 $mech->content_like(qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'has uk label');
 
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+$mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'fetch release group');
+$mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/merge',
+                        'has link to merge release groups');
+
+
 done_testing;

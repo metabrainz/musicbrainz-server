@@ -1,5 +1,8 @@
-[%- USE qr = FormRenderer(query_form);
-    USE rr = FormRenderer(results_form) -%]
+[%- USE qr = FormRenderer(query_form) -%]
+
+[% BLOCK format_result;
+   link_entity(entity);
+   END %]
 
 <form action="[% c.req.uri %]" method="post">
     <p>
@@ -7,17 +10,21 @@
         [% qr.text('query') %]
         <input type="submit" name="search" value="[% l('Search') %]" />
     </p>
+</form>
 
+<form action="[% c.req.uri %]" method="GET">
 [%- IF search_results.size -%]
     <div class="row">
-        [% rr.label('selected_id', l('Search Results:'), fake => 1) %]
+      <p>[% l('Results:') %]
         <ul class="radio-list">
             [%- FOREACH entity=search_results -%]
+              [%- entity = entity.entity -%]
                 <li>
-                    [%- entity = entity.entity;
-                        field = results_form.field('selected_id') -%]
-                    <input type="radio" name="[% field.html_name %]" value="[% entity.id %]" for="[% "${field.id}-${entity.id}" %]" />
-                    <label class="inline" for="[% "${field.id}-${entity.id}" %]">[% link_entity(entity) %]</label>
+                  <input type="radio" name="[% name %]" value="[% entity.$field %]"
+                         for="[% "${field.id}-${entity.id}" %]" />
+                  <label class="inline" for="[% "${field.id}-${entity.id}" %]">
+                    [% PROCESS format_result %]
+                  </label>
                 </li>
             [%- END -%]
         </ul>
@@ -26,5 +33,4 @@
         [% form_submit(confirm_label) %]
     </p>
 [%- END -%]
-
 </form>

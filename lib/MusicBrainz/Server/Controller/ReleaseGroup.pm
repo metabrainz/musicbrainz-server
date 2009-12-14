@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::ReleaseGroup;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE $EDIT_RELEASEGROUP_EDIT );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE $EDIT_RELEASEGROUP_EDIT $EDIT_RELEASEGROUP_MERGE );
 use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Annotation';
@@ -95,6 +95,50 @@ sub edit : Chained('load') PathPart RequireAuth
         );
 
         $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg->gid ]));
+    }
+}
+
+sub merge : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $old = $c->stash->{rg};
+
+    if ($c->req->query_params->{dest}) {
+        my $new = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
+        $c->model('ArtistCredit')->load($new);
+
+        my $form = $c->form( form => 'Confirm' );
+        $c->stash(
+            template => 'release_group/merge_confirm.tt',
+            old_rg => $old,
+            new_rg => $new
+        );
+
+        if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+            my $edit = $c->model('Edit')->create(
+                editor_id => $c->user->id,
+                edit_type => $EDIT_RELEASEGROUP_MERGE,
+                old_release_group_id => $old->id,
+                new_release_group_id => $new->id
+            );
+
+            $c->response->redirect($c->uri_for_action('/release_group/show', [ $new->gid ]));
+        }
+        $c->stash( template => 'release_group/merge_confirm.tt' );
+    }
+    else {
+        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
+        if ($query->submitted_and_valid($c->req->params)) {
+            my $results = $self->_load_paged($c, sub {
+                    $c->model('DirectSearch')->search('release_group', $query->field('query')->value, shift, shift)
+                });
+            $c->model('ArtistCredit')->load(map { $_->entity } @$results);
+
+            $c->stash(
+                search_results => $results
+            );
+        }
+        $c->stash( template => 'release_group/merge_search.tt' );
     }
 }
 

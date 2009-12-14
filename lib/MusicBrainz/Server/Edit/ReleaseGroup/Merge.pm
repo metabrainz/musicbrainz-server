@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { "Merge Release Groups" }
+sub edit_name { "Merge release groups" }
 sub edit_type { $EDIT_RELEASEGROUP_MERGE }
 
 sub related_entities
@@ -27,8 +27,6 @@ sub alter_edit_pending
     }
 }
 
-sub models { [qw( ReleaseGroup )] }
-
 sub old_release_group_id { shift->data->{old_group} }
 sub new_release_group_id { shift->data->{new_group} }
 
@@ -43,6 +41,28 @@ has '+data' => (
         new_group => Int,
     ]
 );
+
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        ReleaseGroup => {
+            $self->data->{old_group} => [qw( ArtistCredit )],
+            $self->data->{new_group} => [qw( ArtistCredit )],
+        }
+    };
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        new => $loaded->{ReleaseGroup}->{ $self->data->{new_group} },
+        old => $loaded->{ReleaseGroup}->{ $self->data->{old_group} },
+    };
+}
+
 
 sub initialize
 {

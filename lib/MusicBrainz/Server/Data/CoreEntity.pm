@@ -14,6 +14,7 @@ sub _gid_redirect_table
 sub get_by_gid
 {
     my ($self, $gid) = @_;
+    return unless $gid;
     my @result = values %{$self->_get_by_keys("gid", $gid)};
     if (scalar(@result)) {
         return $result[0];

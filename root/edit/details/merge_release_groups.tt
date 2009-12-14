@@ -1,0 +1,17 @@
+<table class="details">
+  <tr>
+    <th>[% l('Old release group:') %]</th>
+    <td>[% l('{release_group} by {artist}',
+               { release_group => link_release_group(edit.display_data.old),
+                 artist => artist_credit(edit.display_data.old.artist_credit)}) %]
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('New release group:') %]</th>
+    <td>[% l('{release_group} by {artist}',
+               { release_group => link_release_group(edit.display_data.new),
+                 artist => artist_credit(edit.display_data.new.artist_credit)}) %]
+    </td>
+  </tr>
+</table>
