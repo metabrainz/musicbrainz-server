@@ -216,7 +216,7 @@ END -%]
 END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => redirect || c.req.path });
+    c.uri_for_action('/user/login', { uri => redirect || c.req.uri });
 END-%]
 
 [%- MACRO request_login(text) BLOCK -%]

@@ -47,7 +47,7 @@ sub do_login : Private
     my $form = $c->form(form => 'User::Login');
     my $redirect = defined $c->req->query_params->{uri}
         ? $c->req->query_params->{uri}
-        : $c->req->path;
+        : $c->req->uri;
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
@@ -61,7 +61,7 @@ sub do_login : Private
         else
         {
             # Logged in OK
-            $c->response->redirect($c->uri_for("/$redirect"));
+            $c->response->redirect($redirect);
             $c->detach;
         }
     }
