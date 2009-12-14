@@ -27,12 +27,9 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit');
 my ($edits) = $c->model('Edit')->find({ release => $release->id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
-$edit = $c->model('Edit')->get_by_id($edit->id);
-$c->model('Edit')->load_all($edit);
-is($edit->release_id, $release->id);
-is($edit->release->id, $release->id);
-is($edit->release->edits_pending, 1);
-is_unchanged($edit->release);
+$release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 1);
+is_unchanged($release);
 
 reject_edit($c, $edit);
 $release = $c->model('Release')->get_by_id(1);
