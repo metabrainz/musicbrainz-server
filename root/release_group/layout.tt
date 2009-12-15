@@ -19,6 +19,7 @@
         <ul class="links">
             [% IF c.user_exists %]
                <li>[% link_release_group(rg, 'merge', l('Merge release group')) %]</li>
+               <li>[% link_release_group(rg, 'Edit', l('Edit this release group')) %]</li>
             [% ELSE %]
                <li>[% request_login(l('Please login to edit this release group')) %]</li>
             [% END %]
