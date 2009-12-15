@@ -1,6 +1,8 @@
 POTFILES=$(sort $(shell find ../lib -type f -name \*.pm)) \
 		 $(sort $(shell find ../lib -type f -name \*.pl)) 
 
+TT=$(sort $(shell find ../root -type f -name \*.tt))
+
 POFILES=$(wildcard *.po)
 MOFILES=$(POFILES:.po=.mo)
 
@@ -20,8 +22,7 @@ mb_server.pot: $(POTFILES)
 	@if perl -e '($$ver)=`xgettext -V | head -n 1`=~/.*\s+([0-9]+\.[0-9]+)/; die "gettext $$ver too old, not updating the pot file\n" if $$ver < 0.16'; then \
 		echo "Rebuilding the .pot file"; \
 		echo "- Update templates .pot"; \
-		./update-messages.py ; \
-		echo "- Update lib/ .pot"; \
+		./extract_pot $(TT) | msguniq -s > mb_server.pot; \
 		xgettext --from-code utf-8 --keyword=__ --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES) ; \
 	fi
 

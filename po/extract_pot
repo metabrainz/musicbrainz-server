@@ -1,0 +1,138 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Locale::PO;
+use feature 'say';
+use Data::Dumper;
+use Template::Parser;
+
+my @MARKERS = qw/l ln/;
+
+if (! defined $ARGV[0]) {
+    print "Need filename";
+    exit;
+}
+
+my $po = new Locale::PO(-msgid=>'', -msgstr=>
+                        "Project-Id-Version: PACKAGE VERSION\\n" .
+                        "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\\n" .
+                        "Last-Translator: FULL NAME <EMAIL\@ADDRESS>\\n" .
+                        "Language-Team: LANGUAGE <LL\@li.org>\\n" .
+                        "MIME-Version: 1.0\\n" .
+                        "Content-Type: text/plain; charset=utf-8\\n" .
+                        "Content-Transfer-Encoding: ENCODING\\n");
+
+print $po->dump();
+
+map {
+    print $_->dump();
+} map {
+    parse_file($_);
+} @ARGV;
+
+sub get_translations {
+    my $data = shift;
+    my @translations = ();
+    my $line_number;
+    while (my $item = shift @$data) {
+        if (ref $item eq q{} && $item eq 'TEXT') {
+            shift @$data;
+            next;
+        } 
+        if ((ref $item) eq 'ARRAY') {
+            # remove two first items = source and line numbers
+            # TODO: Evaluate line numbers too
+            shift @$item;
+            $line_number = shift @$item;
+            # If we get a number range, leave only the first number
+            $line_number =~ s/-.*//xmsg;
+            push @translations, [ $line_number, get_translations(shift @$item) ];
+            next;
+        }
+        if ( ref $item eq q{} && $item eq 'IDENT') {
+            my $s = shift @$data;
+            if ( grep { $s eq $_ } @MARKERS ) {
+                my @contents = ();
+                # Two parens at the start
+                shift @$data;
+                shift @$data;
+                my $pars = 2;
+                while ($pars > 0) {
+                    my $i = shift @$data;
+                    if ($i eq '(') {
+                        $pars++;
+                    }
+                    if ($i eq ')') {
+                        $pars--;
+                    }
+                    push @contents, $i;
+                }
+                # Two parens at the back
+                pop @contents;
+                pop @contents;
+                push @translations, \@contents;
+            }
+        }
+    }
+    return \@translations;
+}
+
+sub parse_file {
+    my ($file) = @_;
+
+    my $string = q{};
+    open FILE, $file or die "Couldn't open file: $!"; 
+    while (<FILE>){
+        $string .= $_;
+    }
+    close FILE;
+
+    my $parser = Template::Parser->new({
+        PRE_CHOMP  => 1,
+        POST_CHOMP => 1,
+    });
+
+    my $data = $parser->split_text($string) || die $parser->error();
+
+    my $strings = get_translations($data);
+
+    my @pos;
+
+    # We now have our strings as arrayref of arrayrefs
+    for (@{$strings}) {
+        my $line_number = shift @{$_};
+        my $content = shift @{$_};
+        next unless @{$content};
+        $content = $content->[0];
+        my $po = Locale::PO->new();
+        $po->add_flag('perl-format');
+        my $cur = shift @{$content};
+        $po->reference("$file:$line_number");
+        if (defined $cur && $cur eq 'LITERAL' ) {
+            my $msgid = shift @{$content};
+            $msgid =~ s/\r*\n\s*/ /xmsg;
+            $msgid =~ s/\\'/'/xmsg;
+            $msgid =~ s/^\'(.*)\'$/$1/xmsg;
+            $po->msgid($msgid);
+            $po->msgstr("");
+        }
+        my $next = shift @{$_};
+        if ( defined $next && $next eq 'COMMA' ) {
+            shift @{$content};
+            if (shift @{$content} eq 'LITERAL') {
+                my $plural = shift @{$content};
+                $plural =~ s/\r*\n\s*/ /xmsg;
+                $plural =~ s/\\'/'/xmsg;
+                $plural =~ s/^\'(.*)\'$/$1/xmsg;
+                $po->msgid_plural($plural);
+                delete $po->{msgstr};
+                $po->msgstr_n( {0 => "", 1 => ""});
+            }
+        }
+        push @pos, $po if defined $cur && $cur eq 'LITERAL';
+    };
+
+    return @pos;
+}

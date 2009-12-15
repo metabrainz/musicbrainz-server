@@ -1,17 +1,6 @@
 Translations in Musicbrainz
 ===========================
 
-Quickstart
-----------
-
-1. Install python-babel
-2. Checkout and install svn://svn.tt2.org/tt/Template-Python/trunk
-3. Update .po files as desired
-4. Run make install to install translation files
-
-Full picture
-------------
-
 This is a short introduction to i18n inside of MusicBrainz
 
 We want MusicBrainz server to have state of the art localizing. This
@@ -33,8 +22,7 @@ shape for translation (i.e. marking them appropriately). No
 translations would be prepared at this step, the system would still
 work in English, but introducing translations would be a matter of
 including some .po files. This is currently implemented as
-Catalyst::Plugin::I18N::Gettext, with code parts form
-Locale::gettext_pp tailored to our needs (reading from .mo files).
+Catalyst::Plugin::I18N::Gettext, which uses Locale::TextDomain.
 
 2. Implement automatical .pot generation.
 
@@ -43,11 +31,13 @@ is capable of doing so, generated non-standard plurals, and xgettext
 (from GNU gettext) doesn't parse TemplateToolkit's syntax
 properly.
 
-Currently, an ad-hoc .pot generation method has been implemented which
-requires Babel (http://babel.edgewall.org) and TemplateToolkit's
+Previously, an ad-hoc .pot generation method had been implemented
+which required Babel (http://babel.edgewall.org) and TemplateToolkit's
 Python port (checkout from svn://svn.tt2.org/tt/Template-Python/trunk)
-to work. To update the .pot file, update-messages.py file has to be
-started, everything else should happen automagically.
+to work. In the end, that ad-hoc implementation has been replaced by a
+perl-based one, thus removing the need for Template-Toolkit Python
+port and Babel. Still, the implementation is to be considered ad-hoc
+and experimental, but works in our case.
 
 However, this is not really a sane implementation. Since
 Locale::Maketext::Lexicon lacks support for proper gettext
@@ -101,9 +91,7 @@ Plurals are done with an ln()-function:
 Perl code
 ---------
 
+To be written.
 
-
-TODO: write proper Makefiles for .po and .pot files generation
-TODO: write a .pot file generator
 TODO: check javascript translation needs
 TODO: check database's translation needs
