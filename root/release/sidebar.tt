@@ -121,6 +121,17 @@
        [% END;
    END %]
 
+[% BLOCK links %]
+    <ul class="links">
+      [% IF c.user_exists %]
+        <li>[% link_release(release, 'edit', l('Edit this release')) %]</li>
+      [% ELSE %]
+        <li>[% request_login(l('Please login to edit this release')) %]</li>
+      [% END %]
+      <li>[% link_release(release, 'edits', l('View editing history')) %]</li>
+    </ul>
+[% END %]
+           
 [%
 WRAPPER 'layout/sidebar.tt';
     INCLUDE cover_art;
@@ -132,10 +143,10 @@ WRAPPER 'layout/sidebar.tt';
         INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group;
         INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags entity=release.release_group
         tag_this_text=l('Tag this release group');
+        INCLUDE links;
+        INCLUDE other_versions;
+        INCLUDE collection IF c.user_exists;
     END;
-
-    INCLUDE other_versions UNLESS editing;
-    INCLUDE collection IF c.user_exists && !editing;
 END;
 
 -%]
