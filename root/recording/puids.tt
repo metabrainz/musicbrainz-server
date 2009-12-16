@@ -2,10 +2,14 @@
 
 <h2>[%- l('Associated PUIDs') -%]</h2>
 
+[% IF puids.size %]
 <ul>
     [% FOR puid IN puids %]
     <li>[% link_puid(puid.puid) %]</li>
     [% END %]
 </ul>
+[% ELSE %]
+<p>[% l('This recording does not have any assossciated PUIDs') %]</p>
+[% END %]
 
 [%- END -%]
