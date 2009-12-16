@@ -1,4 +1,4 @@
-[% WRAPPER 'release_group/layout.tt' full_width=1 %]
+[% WRAPPER 'layout.tt' full_width=1 %]
     [% INCLUDE 'release_group/header.tt' %]
     <h2>[% l('Edit release group annotation') %]</h2>
     [% INCLUDE 'annotation/edit.tt' %]
