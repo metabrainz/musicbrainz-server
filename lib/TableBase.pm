@@ -39,7 +39,7 @@ This class serves as a base class for all of the main MusicBrainz entities
 
 =head2 entity_type
 
-A string representation of this type of entity, commonly used to get the assossciated table back.
+A string representation of this type of entity, commonly used to get the associated table back.
 
 =cut
 
@@ -70,7 +70,7 @@ has 'id' => (
 
 =head2 mbid
 
-A unique global-identifier assossciated with this entity.
+A unique global-identifier associated with this entity.
 
 =cut
 

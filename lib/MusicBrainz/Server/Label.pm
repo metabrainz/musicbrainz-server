@@ -98,7 +98,7 @@ has 'type' => (
 
 =head2 resolution
 
-A comment assossciated with this label, usually used for disambiguation
+A comment associated with this label, usually used for disambiguation
 
 =cut
 
@@ -135,7 +135,7 @@ has 'end_date' => (
 
 =head3 country_name
 
-Returns the name of the country assossciated with this label
+Returns the name of the country associated with this label
 
 =cut
 

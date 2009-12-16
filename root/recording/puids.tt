@@ -9,7 +9,7 @@
     [% END %]
 </ul>
 [% ELSE %]
-<p>[% l('This recording does not have any assossciated PUIDs') %]</p>
+<p>[% l('This recording does not have any associated PUIDs') %]</p>
 [% END %]
 
 [%- END -%]

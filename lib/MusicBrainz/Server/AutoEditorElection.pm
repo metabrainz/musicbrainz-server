@@ -253,7 +253,7 @@ sub pending_elections
 Load the election with database id, C<id>.
 
 %opts is a hash that can be used to modify the bahavior of this method. If
-the C<with_editors> key exists, all assossciated editors (candidate, proposer,
+the C<with_editors> key exists, all associated editors (candidate, proposer,
 seconders) will be fully loaded Editor objects. Otherwise, only the ID will be
 guaranteed available.
 

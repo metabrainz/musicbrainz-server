@@ -170,7 +170,7 @@ sub remove
 
 =head2 remove_by_track
 
-Remove all the PUIDs from the database that are assossciated with a certain
+Remove all the PUIDs from the database that are associated with a certain
 track.
 
 =cut
