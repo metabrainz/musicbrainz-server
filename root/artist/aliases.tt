@@ -1,4 +1,5 @@
 [%- WRAPPER "artist/layout.tt" title=l("Aliases") page='aliases' -%]
     [%- INCLUDE "components/aliases.tt" entity=artist
-        delete_path='/artist/delete_alias' -%]
+        delete_path='/artist/delete_alias'
+        add_path='/artist/add_alias' -%]
 [%- END -%]

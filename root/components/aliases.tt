@@ -28,3 +28,13 @@
             [%- l('{entity} has no aliases.', {entity => entity_link(entity)}) -%]
         </p>
     [%- END -%]
+    [% IF c.user_exists %]
+       <p>
+         <a href="[% c.uri_for_action(add_path, [ entity.gid ]) %]">
+           [% l('Add a new alias') %]
+         </a>
+       </p>
+    [% ELSE %]
+       </p>[% l('Please {log_in|login} to add or edit aliases',
+                { log_in => login_url() }) %]</p>
+    [% END %]
