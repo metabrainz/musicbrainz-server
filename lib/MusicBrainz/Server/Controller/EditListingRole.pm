@@ -15,7 +15,6 @@ sub edits : Chained('load') PathPart
 
     my $edits = $self->_load_paged($c, sub {
         my ($offset, $limit) = @_;
-        warn $offset; warn $limit;
         $c->model('Edit')->find({ $name => $entity->id }, $offset, $limit);
     });
 
