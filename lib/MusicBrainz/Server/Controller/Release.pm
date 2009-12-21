@@ -177,7 +177,7 @@ sub show : Chained('load') PathPart('')
     my @mediums = $release->all_mediums;
     $c->model('MediumFormat')->load(@mediums);
 
-    my @tracklists = map { $_->tracklist } @mediums;
+    my @tracklists = grep { defined } map { $_->tracklist } @mediums;
     $c->model('Track')->load_for_tracklists(@tracklists);
 
     my @tracks = map { $_->all_tracks } @tracklists;

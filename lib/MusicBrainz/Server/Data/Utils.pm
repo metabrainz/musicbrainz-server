@@ -75,6 +75,7 @@ sub load_subobjects
 sub load_meta
 {
     my ($c, $table, $builder, @objs) = @_;
+    return unless @objs;
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
     my $sql = Sql->new($c->mb->dbh);

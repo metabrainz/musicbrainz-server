@@ -182,6 +182,7 @@ sub has_multiple_artists
 {
     my ($self) = @_;
     foreach my $medium ($self->all_mediums) {
+        next unless $medium->tracklist;
         foreach my $track ($medium->tracklist->all_tracks) {
             if ($track->artist_credit_id != $self->artist_credit_id) {
                 return 1;
