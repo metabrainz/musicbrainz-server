@@ -37,7 +37,6 @@
             [% END %]
             [% IF c.user_exists %]
                 <li>[% link_artist(artist, 'edit', l('Edit this artist')) %]</li>
-                <li>[% link_artist(artist, 'delete', l('Delete this artist')) %]</li>
                 <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
             [% ELSE %]
                 <li>[% request_login(l('Please login to edit this artist')) %]</li>

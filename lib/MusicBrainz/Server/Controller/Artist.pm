@@ -370,32 +370,6 @@ sub create : Local RequireAuth
     }
 }
 
-sub delete : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my $artist = $c->stash->{artist};
-    my $can_delete = 1;
-    return unless $can_delete;
-
-    my $form = $c->form( form => 'Confirm' );
-    $c->stash( can_delete => 1 );
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            edit_type => $EDIT_ARTIST_DELETE,
-            artist_id => $artist->id
-        );
-
-        my $url = $edit->is_open ? $c->uri_for_action('/artist/show', [ $artist->gid ])
-                                 : $c->uri_for_action('/search');
-        $c->response->redirect($url);
-        $c->detach;
-    }
-}
-
 =head2 edit
 
 Allows users to edit the data about this artist.
