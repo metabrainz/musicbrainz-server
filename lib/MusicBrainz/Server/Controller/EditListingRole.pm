@@ -11,6 +11,7 @@ sub edits : Chained('load') PathPart
     
     my $name = $self->{entity_name};
     my $entity = $c->stash->{ $name };
+    $name =~ s/rg/release_group/;
 
     my $edits = $self->_load_paged($c, sub {
         my ($offset, $limit) = @_;
