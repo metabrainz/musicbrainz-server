@@ -315,7 +315,7 @@ sub edit : Chained('load') RequireAuth
     $c->model('Medium')->load_for_releases($release);
 
     my @mediums = $release->all_mediums;
-    my @tracklists = map { $_->tracklist } @mediums;
+    my @tracklists = grep { defined } map { $_->tracklist } @mediums;
 
     $c->model('MediumFormat')->load(@mediums);
     $c->model('Track')->load_for_tracklists(@tracklists);
