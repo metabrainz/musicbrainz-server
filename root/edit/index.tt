@@ -27,7 +27,7 @@
         [% END %]
     </table>
 
-    [% IF c.user_exists %]
+    [% IF c.user_exists && edit.is_open %]
         [% IF edit.editor_may_vote(c.user) %]
             <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
                 <input type="hidden" value="[% c.req.uri %]" name="url" />
