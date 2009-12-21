@@ -11,7 +11,7 @@ our %EXPORT_TAGS = (
             $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED )
     ],
     vote => [
-        qw( $VOTE_NO $VOTE_ABSTAIN $VOTE_NO_VOTE $VOTE_YES )
+        qw( $VOTE_NO $VOTE_ABSTAIN $VOTE_YES )
     ],
     edit_status => [
         qw( $STATUS_OPEN      $STATUS_APPLIED     $STATUS_FAILEDVOTE
@@ -38,7 +38,6 @@ Readonly our $ELECTION_ACCEPTED   => 4;
 Readonly our $ELECTION_REJECTED   => 5;
 Readonly our $ELECTION_CANCELLED  => 6;
 
-Readonly our $VOTE_NO_VOTE => -2;
 Readonly our $VOTE_ABSTAIN => -1;
 Readonly our $VOTE_NO      =>  0;
 Readonly our $VOTE_YES     =>  1;
@@ -75,8 +74,7 @@ subtype 'AutoEditorElectionStatus'
 
 subtype 'VoteOption'
     => as 'Int'
-    => where { $_ >= $VOTE_NO_VOTE && $_ <= $VOTE_YES };
-
+    => where { $_ >= $VOTE_ABSTAIN && $_ <= $VOTE_YES };
 
 subtype 'EditStatus'
     => as 'Int'

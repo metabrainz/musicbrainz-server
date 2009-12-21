@@ -91,4 +91,10 @@ $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
 is(scalar @{ $email_transport->deliveries }, 1);
 is($email_transport->deliveries->[-1]->{email}, $email);
 
+# Entering invalid votes doesn't do anything
+$c->model('Vote')->load_for_edits($edit);
+my $old_count = @{ $edit->votes };
+$c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 123 });
+is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
+
 done_testing;

@@ -41,7 +41,6 @@ sub vote_name
 {
     my $self = shift;
     my %names = (
-        $VOTE_NO_VOTE => 'No vote',
         $VOTE_ABSTAIN => 'Abstain',
         $VOTE_NO => 'No',
         $VOTE_YES => 'Yes',
