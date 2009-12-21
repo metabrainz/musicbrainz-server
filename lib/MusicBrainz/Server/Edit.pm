@@ -141,6 +141,14 @@ sub editor_may_vote
                    $editor->accepted_edits > 10;
 }
 
+sub auto_edit_for_editor
+{
+    my ($self, $editor) = @_;
+    return $editor
+        && $self->edit_conditions->{ $self->quality }->{auto_edit}
+        && $editor->is_auto_editor;
+}
+
 sub edit_type { die 'Not implemented' }
 sub edit_name { '' }
 

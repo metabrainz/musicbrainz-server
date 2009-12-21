@@ -1,3 +1,23 @@
+[% BLOCK approve %]
+  [% IF !summary && edit.auto_edit_for_editor(c.user) %]
+  <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]"
+        style="display: inline">
+    <input type="hidden" name="url" value="[% c.req.uri %]" />
+    <input type="submit" value="[% l('Approve') %]" />
+  </form>
+  [% END %]
+[% END %]
+
+[% BLOCK cancel %]
+  [% IF !summary && edit.auto_edit_for_editor(c.user) %]
+  <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]"
+        style="display: inline">
+    <input type="hidden" name="url" value="[% c.req.uri %]" />
+    <input type="submit" value="[% l('Cancel') %]" />
+  </form>
+  [% END %]
+[% END %]
+
 <table class="details">
     <tr>
         <th>[% l('Edit ID:') %]</th>
@@ -13,19 +33,25 @@
     </tr>
     <tr>
         <th>[% l('Status:') %]</th>
-        <td>[% edit.status_name %]</td>
+        <td>
+          [% edit.status_name %]
+          [% IF edit.is_open;
+             PROCESS approve;
+             PROCESS cancel;
+             END %]
+        </td>
     </tr>
     <tr>
-        <th>[% l('Opened:') %]</th>
-        <td>[% UserDate.format(edit.created_time) %]</td>
+      <th>[% l('Opened:') %]</th>
+      <td>[% UserDate.format(edit.created_time) %]</td>
     </tr>
     <tr>
-    [% IF edit.is_open %]
-        <th>[% l('Expires:') %]</th>
-        <td>[% UserDate.format(edit.expires_time) %]</td>
-    [% ELSE %]
-        <th>[% l('Closed:') %]</th>
-        <td>[% UserDate.format(edit.close_time) %]</td>
-    [% END %]
+      [% IF edit.is_open %]
+      <th>[% l('Expires:') %]</th>
+      <td>[% UserDate.format(edit.expires_time) %]</td>
+      [% ELSE %]
+      <th>[% l('Closed:') %]</th>
+      <td>[% UserDate.format(edit.close_time) %]</td>
+      [% END %]
     </tr>
 </table>

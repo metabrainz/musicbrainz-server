@@ -10,7 +10,7 @@
                     </tr>
                     <tr>
                         <td class="edit-info">
-                            [% INCLUDE 'edit/info.tt' %]
+                            [% INCLUDE 'edit/info.tt' summary=1 %]
                         </td>
                         <td class="edit-details">
                             [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
