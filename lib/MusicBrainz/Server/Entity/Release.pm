@@ -145,7 +145,7 @@ sub combined_track_count
     return "" if !@mediums;
     my @counts;
     foreach my $medium (@mediums) {
-        push @counts, $medium->tracklist->track_count;
+        push @counts, $medium->tracklist ? $medium->tracklist->track_count : 0;
     }
     return join " + ", @counts;
 }
