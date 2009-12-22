@@ -14,5 +14,9 @@ $mech->title_like(qr/Aerial/, 'title has release name');
 $mech->content_like(qr/Aerial/, 'content has release name');
 $mech->content_like(qr/Kate Bush/, 'release artist credit');
 $mech->content_like(qr/Test Artist/, 'artist credit on the last track');
+$mech->content_contains('343 960 2', 'has catalog number');
+$mech->content_contains('Warp Records', 'contains label name');
+$mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
+                        'has a link to the label');
 
 done_testing;

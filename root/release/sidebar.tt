@@ -107,14 +107,18 @@
            <h3>[% l('Released on:') %]</h3>
            <ul class="release-labels links">
                [% FOR label=release.labels %]
-                   [% field = form.field('labels').field(loop.index) %]
                    <li class="release-label">
+                     [% IF editing %]
+                       [% field = form.field('labels').field(loop.index) %]
                        [% r.checkbox(field.field('deleted'), class => 'remove') %]
                        [% r.hidden(field.field('label_id'), class => 'label-id') %]
-                       [% editing ? '<span class="label">' _ label.label.name _ '</span>' : link_label(label.label) %]
+                       [% '<span class="label">' _ label.label.name _ '</span>' %]
                        &ndash;
                        [% r.text(form.field('labels').field(loop.index).field('catalog_number'),
                                  size => 8, class => 'catalog-number') %]
+                     [% ELSE %]
+                       [% link_label(label.label) %] &ndash; [% label.catalog_number %]
+                     [% END %]
                    </li>
                [% END %]
            </ul>
