@@ -2200,9 +2200,15 @@ msgstr ""
 #, perl-format
 msgid ""
 "If you think this is our fault (for example, you found a broken link <i>and "
-"the link you found is on our site</i>, then please contact us at {email|"
-"email}, or via <abbr title=\"Internet Relay Chat\">IRC</abbr> in {irc|the "
-"#musicbrainz channel} on FreeNode.&nbsp; Thank you."
+"the link you found is on our site</i>) please contact us at {email|"
+"support@musicbrainz.org}, or via <abbr title=\"Internet Relay Chat\">IRC</abbr> in {irc|the "
+"#musicbrainz channel} on freenode."
+msgstr ""
+
+#: main/404.tt:13
+#, perl-format
+msgid ""
+"Thank you."
 msgstr ""
 
 #: main/index.tt:48
