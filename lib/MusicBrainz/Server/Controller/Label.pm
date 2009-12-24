@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::Alias';
+with 'MusicBrainz::Server::Controller::DetailsRole';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
 with 'MusicBrainz::Server::Controller::TagRole';
@@ -62,14 +63,6 @@ after 'load' => sub
     $c->model('LabelType')->load($label);
 };
 
-=head2 perma
-
-Display details about a permanant link to this label.
-
-=cut
-
-sub perma : Chained('load') { }
-
 =head2 google
 
 Redirect to Google and search for this label (using MusicBrainz colours).
@@ -121,14 +114,6 @@ sub show : PathPart('') Chained('load')
         releases => $release_labels,
     );
 }
-
-=head2 details
-
-Display detailed information about a given label
-
-=cut
-
-sub details : Chained('load') { }
 
 =head2 WRITE METHODS
 

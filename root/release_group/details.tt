@@ -1,22 +1,22 @@
-[% WRAPPER "recording/layout.tt" title=l('Details') page='details' %]
+[% WRAPPER "release_group/layout.tt" title=l('Details') page='details' %]
 
 <table class="details">
   <tr>
     <th>[%- l('Name:') -%]</th>
-    <td>[% recording_link(recording) %]</td>
+    <td>[% release_group_link(release_group) %]</td>
   </tr>
   <tr>
     <th>[%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}:',
                {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
     </th>
-    <td>[% recording.gid %]</td>
+    <td>[% rg.gid %]</td>
   </tr>
   <tr>
     <th>
       [% l('Permanent link:') %]
     </th>
     <td>
-      [% perma="http://musicbrainz.org/recording/${recording.gid}.html" %]
+      [% perma="http://musicbrainz.org/release-group/${rg.gid}.html" %]
       <a href="[% perma | url %]">
         [%- perma | html -%]
       </a>

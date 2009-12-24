@@ -1,49 +1,27 @@
 [% WRAPPER "artist/layout.tt" title=l('Details') page='details' %]
-    [% WRAPPER "components/box.tt" header=l('Artist Information') %]
-        <table class="details">
-            <tr>
-                <th>
-                    [%- l('{name|Artist Name}', {name => doc_link("ArtistName")}) -%]:
-                </th>
-                <td>
-                    [% entity_link(artist) %]
-                    [% IF artist.resolution %]
-                        ([% artist.resolution %])
-                    [% END %]
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    [%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}', {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
-                </th>
-                <td>
-                    [% artist.mbid %]
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    [% l('Permanent link:') %]
-                </th>
-                <td>
-                    [% perma="http://musicbrainz.org/artist/${artist.mbid}" %]
-                    <a href="[% perma | url %]">
-                        [%- perma | html -%]
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    [% l('Subscriber Count:') %]
-                </th>
-                <td>
-                    [%- IF artist.subscribers.size > 0 -%]
-                        [% artist.subscribers.size %]
-                    [%- ELSE -%]
-                        0
-                    [%- END -%]
-                </td>
-            </tr>
-        </table>
-    [% END %]
-    [%- INCLUDE 'components/perma-link.tt' entity=artist -%]
+
+<table class="details">
+  <tr>
+    <th>[%- l('Name:') -%]</th>
+    <td>[% artist_link(artist) %]</td>
+  </tr>
+  <tr>
+    <th>[%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}:',
+               {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
+    </th>
+    <td>[% artist.gid %]</td>
+  </tr>
+  <tr>
+    <th>
+      [% l('Permanent link:') %]
+    </th>
+    <td>
+      [% perma="http://musicbrainz.org/artist/${artist.gid}.html" %]
+      <a href="[% perma | url %]">
+        [%- perma | html -%]
+      </a>
+    </td>
+  </tr>
+</table>
+
 [% END %]

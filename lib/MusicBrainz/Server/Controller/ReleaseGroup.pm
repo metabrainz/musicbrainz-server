@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE $EDIT_RELEASEGR
 use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Annotation';
+with 'MusicBrainz::Server::Controller::DetailsRole';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
 with 'MusicBrainz::Server::Controller::TagRole';
@@ -51,9 +52,6 @@ sub show : Chained('load') PathPart('')
         releases => $releases
     );
 }
-
-# TODO
-sub details : Chained('load') { }
 
 sub delete : Chained('load') PathPart RequireAuth
 {

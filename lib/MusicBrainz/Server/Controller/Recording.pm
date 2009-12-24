@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
+with 'MusicBrainz::Server::Controller::DetailsRole';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
 with 'MusicBrainz::Server::Controller::TagRole';
@@ -69,25 +70,10 @@ Show details of a recording
 
 =cut
 
-sub details : Chained('load')
+after 'details' => sub
 {
-    my ($self, $c) = @_;
-
-    my $recording = $self->entity;
-    $c->stash(
-        relations    => $c->model('Relation')->load_relations($recording),
-        tags         => $c->model('Tag')->top_tags($recording),
-        release      => $c->model('Release')->load($recording->release),
-        show_ratings => $c->user_exists ? $c->user->preferences->get("show_ratings") : 1,
-        puids        => $c->model('PUID')->new_from_recording($recording),
-        rating       => $c->model('Rating')->get_rating({
-            entity_type => 'recording',
-            entity_id   => $recording->id,
-            user_id     => $c->user_exists ? $c->user->id : 0,
-        }),
-        template     => 'recording/details.tt',
-    );
-}
+    # XXX Load PUID count?
+};
 
 sub show : Chained('load') PathPart('')
 {

@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::Alias';
+with 'MusicBrainz::Server::Controller::DetailsRole';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
 with 'MusicBrainz::Server::Controller::TagRole';
@@ -140,24 +141,6 @@ sub appearances : Chained('load')
 
     $c->stash->{releases} = $c->model('Release')->find_linked_albums($artist);
 }
-
-=head2 perma
-
-Display the perma-link for a given artist.
-
-=cut
-
-# Empty because everything we need is in added to the stash with sub artist.
-sub perma : Chained('load') { }
-
-=head2 details
-
-Display detailed information about a specific artist.
-
-=cut
-
-# Empty because everything we need is in added to the stash with sub artist.
-sub details : Chained('load') { }
 
 =head2 nats
 

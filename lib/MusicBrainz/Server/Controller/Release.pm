@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Annotation';
+with 'MusicBrainz::Server::Controller::DetailsRole';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::EditListingRole';
 
@@ -85,22 +86,6 @@ after 'load' => sub
         $c->model('ArtistCredit')->load($release);
     }
 };
-
-=head2 perma
-
-Display permalink information for a release
-
-=cut
-
-sub perma : Chained('load') { }
-
-=head2 details
-
-Display detailed information about a release
-
-=cut
-
-sub details : Chained('load') { }
 
 sub discids : Chained('load')
 {
