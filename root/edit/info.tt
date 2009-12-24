@@ -9,7 +9,7 @@
 [% END %]
 
 [% BLOCK cancel %]
-  [% IF !summary && edit.auto_edit_for_editor(c.user) %]
+  [% IF !summary && edit.is_open && edit.editor_id == c.user.id %]
   <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]"
         style="display: inline">
     <input type="hidden" name="url" value="[% c.req.uri %]" />
