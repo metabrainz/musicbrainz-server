@@ -27,7 +27,7 @@
         [% END %]
     </table>
 
-    [% IF c.user_exists && edit.is_open %]
+    [% IF c.user_exists %]
         [% IF edit.editor_may_vote(c.user) %]
             <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
                 <input type="hidden" value="[% c.req.uri %]" name="url" />
@@ -42,6 +42,10 @@
 
                 [% form_submit(l('Vote')) %]
             </form>
+        [% ELSE %]
+            <p>
+                 [% l('You are not currently able to vote on this edit') %]
+            </p>
         [% END %]
     [% ELSE %]
         <p>
