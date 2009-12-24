@@ -12,6 +12,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Artist::DeleteAlias
     MusicBrainz::Server::Edit::Artist::Delete
     MusicBrainz::Server::Edit::Artist::Edit
+    MusicBrainz::Server::Edit::Artist::EditAlias
     MusicBrainz::Server::Edit::Artist::Merge
     MusicBrainz::Server::Edit::Label::AddAlias
     MusicBrainz::Server::Edit::Label::DeleteAlias
@@ -19,6 +20,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Label::Create
     MusicBrainz::Server::Edit::Label::Delete
     MusicBrainz::Server::Edit::Label::Edit
+    MusicBrainz::Server::Edit::Label::EditAlias
     MusicBrainz::Server::Edit::Label::Merge
     MusicBrainz::Server::Edit::Medium::Create
     MusicBrainz::Server::Edit::Medium::Delete

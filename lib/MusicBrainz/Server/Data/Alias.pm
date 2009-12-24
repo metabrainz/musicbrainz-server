@@ -117,6 +117,15 @@ sub merge
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
+sub update
+{
+    my ($self, $alias_id, $alias_hash) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $table = $self->table;
+    my $type = $self->type;
+    $sql->update_row($table, $alias_hash, { id => $alias_id });
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

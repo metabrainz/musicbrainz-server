@@ -16,6 +16,9 @@
                         <td style="width: 10em">
                             <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
                               [% l('Delete') %]
+                            </a> | 
+                            <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">
+                              [% l('Edit') %]
                             </a>
                         </td>
                     [% END %]

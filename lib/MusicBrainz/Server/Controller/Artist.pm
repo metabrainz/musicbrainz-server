@@ -539,63 +539,6 @@ sub change_quality : Chained('load') Form('DataQuality')
     $c->response->redirect($c->entity_url($artist, 'show'));
 }
 
-=head2 remove_alias
-
-Allow users to remove an alias from an artist
-
-=cut
-
-sub remove_alias : Chained('load') Args(1) Form
-{
-    my ($self, $c, $alias_id) = @_;
-
-    my $artist = $self->entity;
-    my $alias  = $c->model('Alias')->load($artist, $alias_id);
-
-    $c->stash->{alias} = $alias;
-
-    my $form = $self->form;
-    $form->init($alias);
-
-    return unless $self->submit_and_validate($c);
-
-    $form->remove_from($artist);
-
-    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($artist, 'aliases'));
-}
-
-=head2 edit_alias
-
-Alow users to edit an alias for an artist
-
-=cut
-
-sub edit_alias : Chained('load') Args(1) Form
-{
-    my ($self, $c, $alias_id) = @_;
-
-    my $artist = $c->stash->{artist};
-    my $alias  = $c->model('Alias')->load($artist, $alias_id);
-
-    my $form = $self->form;
-    $form->init($alias);
-
-    $c->stash->{alias   } = $alias;
-    $c->stash->{template} = 'artist/edit_alias.tt';
-
-    return unless $self->submit_and_validate($c);
-
-    $form->edit_for($artist);
-
-    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($artist, 'aliases'));
-}
-
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

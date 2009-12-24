@@ -4,11 +4,9 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 requires 'load';
 
 use MusicBrainz::Server::Constants qw(
-    $EDIT_ARTIST_ADD_ALIAS $EDIT_LABEL_ADD_ALIAS
-    $EDIT_ARTIST_DELETE_ALIAS $EDIT_LABEL_DELETE_ALIAS
+    $EDIT_ARTIST_ADD_ALIAS $EDIT_LABEL_ADD_ALIAS $EDIT_ARTIST_EDIT_ALIAS
+    $EDIT_ARTIST_DELETE_ALIAS $EDIT_LABEL_DELETE_ALIAS $EDIT_LABEL_EDIT_ALIAS
 );
-use MusicBrainz::Server::Edit::Artist::AddAlias;
-use MusicBrainz::Server::Edit::Label::AddAlias;
 
 my %model_to_edit_type = (
     add => {
@@ -18,6 +16,10 @@ my %model_to_edit_type = (
     delete => {
         Artist => $EDIT_ARTIST_DELETE_ALIAS,
         Label  => $EDIT_LABEL_DELETE_ALIAS,
+    },
+    edit => {
+        Artist => $EDIT_ARTIST_EDIT_ALIAS,
+        Label  => $EDIT_LABEL_EDIT_ALIAS,
     }
 );
 
@@ -69,6 +71,24 @@ sub delete_alias : Chained('alias') PathPart('delete') RequireAuth
             editor_id => $c->user->id,
             alias     => $alias,
             entity_id => $c->stash->{ $self->{entity_name} }->id,
+        );
+
+        $self->_redir_to_aliases($c);
+    }
+}
+
+sub edit_alias : Chained('alias') PathPart('edit') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $alias = $c->stash->{alias};
+    my $form = $c->form( form => 'Alias', item => $alias );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $model_to_edit_type{edit}->{ $self->{model} },
+            editor_id => $c->user->id,
+            alias     => $alias,
+            entity_id => $c->stash->{ $self->{entity_name} }->id,
+            name      => $form->field('alias')->value
         );
 
         $self->_redir_to_aliases($c);
