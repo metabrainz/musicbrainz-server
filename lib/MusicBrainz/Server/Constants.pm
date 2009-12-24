@@ -79,6 +79,7 @@ Readonly our $EDIT_MEDIUM_DELETE => 53;
 
 Readonly our $EDIT_TRACK_EDIT => 62;
 
+Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 
 Readonly our $EDIT_TRACKLIST_CREATE => 81;

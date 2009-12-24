@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Editable' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::TagRole' => { type => 'recording' };
 
@@ -99,13 +100,12 @@ sub insert
 
 sub update
 {
-    my ($self, $recording, $update) = @_;
+    my ($self, $recording_id, $update) = @_;
     my $sql = Sql->new($self->c->mb->dbh);
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('recording', $row, { id => $recording->id });
-    return $recording;
+    $sql->update_row('recording', $row, { id => $recording_id });
 }
 
 sub delete

@@ -1,14 +1,20 @@
-[%- SET styleGuidelines=1 -%]
-[%- PROCESS 'scripts/suitereqs.tt' -%]
-[% WRAPPER 'track/layout.tt' title="Edit Track" %]
-    [% WRAPPER 'components/box.tt' header="Edit Track Number, Title, and Duration" %]
-        [% WRAPPER 'forms/form.tt' %]
-            [%- WRAPPER 'forms/fieldset.tt' legend='Track Details' -%]
-                [% INCLUDE 'forms/generic/row.tt' field=form.field('track') label="Track:" %]
-            [%- END -%]
-            [%- INCLUDE 'scripts/module_guess_case.tt' -%]
-            [% INCLUDE 'forms/edit-note.tt' %]
-            [% INCLUDE 'forms/submit.tt' label="Enter Edit" %]
-        [% END %]
-    [% END %]
+[%- BLOCK layout_head -%]
+    <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/predicate.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCreditEditor.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/InlineDialog.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/Lookup.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/Overlay.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/ToggleButton.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/MB/Control/TableSorting.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/static/scripts/edit_work.js') %]" type="text/javascript"></script>
+    <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+[%- END -%]
+
+[% WRAPPER 'layout.tt' full_width=1 %]
+   [% INCLUDE 'recording/header.tt' %]
+   [% INCLUDE 'recording/edit_form.tt' %]
 [% END %]

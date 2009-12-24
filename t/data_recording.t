@@ -71,7 +71,7 @@ is($rec->artist_credit_id, 1);
 is($rec->comment, 'Drum & bass track');
 ok(defined $rec->gid);
 
-$rec_data->update($rec, {
+$rec_data->update($rec->id, {
         name => 'Traits (remix)',
         comment => 'New remix',
     });

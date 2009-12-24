@@ -24,6 +24,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::Delete
     MusicBrainz::Server::Edit::Medium::Edit
     MusicBrainz::Server::Edit::Recording::AddAnnotation
+    MusicBrainz::Server::Edit::Recording::Edit
     MusicBrainz::Server::Edit::Relationship::Edit
     MusicBrainz::Server::Edit::Relationship::Delete
     MusicBrainz::Server::Edit::Release::AddAnnotation

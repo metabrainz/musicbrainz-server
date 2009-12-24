@@ -14,6 +14,7 @@ __PACKAGE__->config(
     model       => 'Recording',
 );
 
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Adapter qw(Google);
 
 =head1 NAME
@@ -135,23 +136,27 @@ Edit recording details (sequence number, recording time and title)
 
 =cut
 
-sub edit : Chained('load') Form
+sub edit : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
+    my $recording = $c->stash->{recording};
+    $c->model('ArtistCredit')->load($recording);
 
-    my $recording = $self->entity;
+    my $form = $c->form(form => 'Recording', init_object => $recording);
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            edit_type => $EDIT_RECORDING_EDIT,
+            recording => $recording,
 
-    my $form = $self->form;
-    $form->init($recording);
+            (map { $_ => $form->field($_)->value }
+                 grep { $form->field($_)->has_value }
+                     qw( name comment length artist_credit ))
+        );
 
-    return unless $self->submit_and_validate($c);
-
-    $form->edit;
-
-    $c->flash->{ok} = "Thank you, your edits have been added to the queue";
-    $c->response->redirect($c->entity_url($recording, 'show'));
+        $c->response->redirect($c->uri_for_action('/recording/show', [ $recording->gid ]));
+    }
 }
 
 sub remove : Chained('load') Form

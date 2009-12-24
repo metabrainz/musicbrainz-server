@@ -1,0 +1,20 @@
+<form action="[% c.req.uri %]" method="post">
+  [% USE r = FormRenderer(form) %]
+  <div class="row" id="artist">
+    [% r.label('artist_credit', l('Artist:'), fake => 1) %]
+    [% r.artist_credit_editor('artist_credit') %]
+  </div>
+  <p>
+    [% r.label('name', l('Name:')) %]
+    [% r.text('name') %]
+  </p>
+  <p>
+    [% r.label('comment', l('Comment:')) %]
+    [% r.text('comment') %]
+  </p>
+  <p>
+    [% r.label('length', l('Length:')) %]
+    [% r.text('length') %]
+  </p>
+  [% form_submit(l('Enter Edit')) %]
+</form>
