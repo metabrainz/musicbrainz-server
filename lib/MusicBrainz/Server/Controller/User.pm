@@ -503,7 +503,7 @@ Display a users profile page.
 
 =cut
 
-sub profile : Local Args(1) RequireAuth
+sub profile : Local Args(1)
 {
     my ($self, $c, $user_name) = @_;
 
