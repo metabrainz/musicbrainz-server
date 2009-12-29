@@ -121,54 +121,54 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/work/$action", [ work.gid ]);
     text = text || html_escape(work.name);
-    '<span class="mp">' IF work.edits_pending;
+    '<span class="mp">' IF work.edits_pending AND action != 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF work.edits_pending;
+    '</span>' IF work.edits_pending AND action != 'show';
 END -%]
 
 [%- MACRO link_label(label, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/label/$action", [ label.gid ]);
     text = text || html_escape(label.name);
-    '<span class="mp">' IF label.edits_pending;
+    '<span class="mp">' IF label.edits_pending AND action != 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF label.edits_pending;
+    '</span>' IF label.edits_pending AND action != 'show';
 END -%]
 
 [%- MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text || html_escape(artist.name);
-    '<span class="mp">' IF artist.edits_pending;
+    '<span class="mp">' IF artist.edits_pending AND action != 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF artist.edits_pending;
+    '</span>' IF artist.edits_pending AND action != 'show';
 END -%]
 
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
     text = text || html_escape(release.name);
-    '<span class="mp">' IF release.edits_pending;
+    '<span class="mp">' IF release.edits_pending AND action != 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF release.edits_pending;
+    '</span>' IF release.edits_pending AND action != 'show';
 END -%]
 
 [%- MACRO link_release_group(rg, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
     text = text || html_escape(rg.name);
-    '<span class="mp">' IF rg.edits_pending;
+    '<span class="mp">' IF rg.edits_pending AND action != 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF rg.edits_pending;
+    '</span>' IF rg.edits_pending AND action != 'show';
 END -%]
 
 [%- MACRO link_recording(recording, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
     text = text || html_escape(recording.name);
-    '<span class="mp">' IF recording.edits_pending;
+    '<span class="mp">' IF recording.edits_pending AND action != 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF recording.edits_pending;
+    '</span>' IF recording.edits_pending AND action != 'show';
 END -%]
 
 [%- MACRO link_tracklist(tracklist, action, text) BLOCK;
