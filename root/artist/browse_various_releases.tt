@@ -1,0 +1,8 @@
+[%- WRAPPER 'artist/layout.tt' -%]
+  [%- INCLUDE 'browse/page_selector.tt' -%]
+  [%- IF releases.size -%]
+    [%- WRAPPER 'components/with-pager.tt' -%]
+      [%- INCLUDE 'release_group/releases-list.tt' %]
+    [%- END -%]
+  [%- END -%]
+[%- END -%]

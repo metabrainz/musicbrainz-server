@@ -1,0 +1,6 @@
+[%- WRAPPER 'artist/layout.tt' -%]
+  [%- INCLUDE 'browse/page_selector.tt' -%]
+  [%- IF works.size -%]
+    [%- INCLUDE 'artist/works-list.tt' WRAPPER 'components/with-pager.tt' -%]
+  [%- END -%]
+[%- END -%]

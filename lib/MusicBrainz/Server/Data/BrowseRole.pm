@@ -7,15 +7,18 @@ requires '_columns', '_table';
 
 sub find_by_name_prefix
 {
-    my ($self, $prefix, $limit, $offset) = @_;
+    my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
 
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
                  WHERE page_index(name.name) BETWEEN page_index(?) AND
-                                                     page_index_max(?)
-                 ORDER BY name.name OFFSET ?";
+                                                     page_index_max(?)";
+
+    $query .= " AND ($conditions)" if $conditions;
+    $query .= ' ORDER BY name.name OFFSET ?';
+
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $prefix, $prefix, $offset || 0);
+        $query, $prefix, $prefix, @bind, $offset || 0);
 }
 
 no Moose::Role;

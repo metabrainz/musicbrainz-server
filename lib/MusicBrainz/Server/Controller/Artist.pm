@@ -182,6 +182,13 @@ sub show : PathPart('') Chained('load')
     my $release_groups;
     if ($c->stash->{artist}->id == $VARTIST_ID)
     {
+        my $index = $c->req->query_params->{index};
+        if ($index) {
+            $release_groups = $self->_load_paged($c, sub {
+                $c->model('ReleaseGroup')->find_by_name_prefix_va($index, shift,
+                                                                  shift);
+            });
+        }
         $c->stash( template => 'artist/browse_various.tt' );
     }
     else
@@ -217,7 +224,14 @@ sub works : Chained('load')
 
     if ($artist->id == $VARTIST_ID)
     {
-        # TBD
+        my $index = $c->req->query_params->{index};
+        if ($index) {
+            $works = $self->_load_paged($c, sub {
+                $c->model('Work')->find_by_name_prefix_va($index, shift,
+                                                                  shift);
+            });
+        }
+        $c->stash( template => 'artist/browse_various_works.tt' );
     }
     else
     {
@@ -288,7 +302,14 @@ sub releases : Chained('load')
 
     if ($artist->id == $VARTIST_ID)
     {
-        # TBD
+        my $index = $c->req->query_params->{index};
+        if ($index) {
+            $releases = $self->_load_paged($c, sub {
+                $c->model('Release')->find_by_name_prefix_va($index, shift,
+                                                                  shift);
+            });
+        }
+        $c->stash( template => 'artist/browse_various_releases.tt' );
     }
     else
     {

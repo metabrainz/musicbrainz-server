@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Data::NameRole' => { name_table => 'work_name' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'work' };
 with 'MusicBrainz::Server::Data::TagRole' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'work' };
-with 'MusicBrainz::Server::Data::BrowseRole';
+with 'MusicBrainz::Server::Data::BrowseVARole';
 
 sub _table
 {

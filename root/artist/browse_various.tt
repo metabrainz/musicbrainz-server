@@ -1,36 +1,29 @@
 [%- WRAPPER 'artist/layout.tt' -%]
-    [%- INCLUDE 'browse/page_selector.tt' -%]
-    [%- WRAPPER 'components/box.tt' header=l('Releases') %]
-        [%- WRAPPER 'components/with-pager.tt' -%]
-            <table class="releases">
-                <tbody>
-                [% FOR release IN releases %]
-                    <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
-                        <td class="tracks">
-                            [%- release.track_count -%]
-                        </td>
-                        <td class="discids">
-                            [%- release.discid_count -%]
-                        </td>
-                        <td class="puids">
-                            [%- release.puid_count -%]
-                        </td>
-                        <td class="status">
-                            [%- release_attribute(release.release_status) -%]
-                        </td>
-                        <td class="date">
-                            [%- release.first_release_date -%]
-                        </td>
-                        <td class="language">
-                            <abbr title="[% release.language.name %] / [% release.script.name %]">
-                                [% release.language.iso_code_3t %]
-                            </abbr>
-                        </td>
-                        <td>[% entity_link(release) %]</td>
-                    </tr>
-                [% END %]
-                </tbody>
-            </table>
-        [%- END -%]
+  [%- INCLUDE 'browse/page_selector.tt' -%]
+  [%- IF release_groups.size -%]
+    [%- WRAPPER 'components/with-pager.tt' -%]
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="year c">[% l('Year') %]</th>
+          <th>[% l('Title') %]</th>
+          <th>[% l('Type') %]</th>
+          <th class="rating c">[% l('Rating') %]</th>
+          <th class="count c">[% l('Releases') %]</th>
+        </tr>
+      </thead>
+      <tbody>
+        [% FOR rg IN release_groups %]
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+          <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
+          <td>[% link_release_group(rg) %]</td>
+          <td>[% rg.type.name %]</td>
+          <td class="c">[% rating_stars(rg) %]</td>
+          <td class="c">[% rg.release_count %]</td>
+        </tr>
+        [% END %]
+      </tbody>
+    </table>
     [%- END -%]
+  [%- END -%]
 [%- END -%]
