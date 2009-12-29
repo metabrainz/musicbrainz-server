@@ -38,14 +38,14 @@
                  header = l("You are using a MusicBrainz $server_details.staging_server server!")
                  color = "purple" %]
                 <p>
-                    [% l('Unless you want to be testing the latest and greatest MusicBrainz features you probably want to go to the <img src="{ext_link}" alt="{ext_site}" />{uri| main MusicBrainz server}.', {ext_link => c.uri_for('/static/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org"}) %]
+                    [% l('Unless you want to be testing the latest and greatest MusicBrainz features you probably want to go to the main server {uri|http://musicbrainz.org}<img src="{ext_link}" alt="{ext_site}"/>.', {ext_link => c.uri_for('/static/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org"}) %]
                 </p>
             [% END %]
         [% END %]
         [% IF server_details.is_slave_db %]
-            [% WRAPPER "components/box.tt" header=l("You are using a MusicBrainz mirror") colour="purple" %]
+            [% WRAPPER "components/box.tt" header=l("You are using a MusicBrainz mirror!") colour="purple" %]
                 <p>
-                    [% l('If you want to edit the MusicBrainz data, you will need to go to the {uri|<img src="{url}" alt="{ext_site}" width="12" /> main MusicBrainz server}.', {url => c.uri_for('/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org/"}) %]
+                    [% l('If you want to edit the MusicBrainz data, you will need to go to the {uri|main MusicBrainz server}<img src=\"{ext_link}\" alt=\"{ext_site}\" width=\"12\" />.', {ext_link => c.uri_for('/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org/"}) %]
                 </p>
             [% END %]
         [% END %]
@@ -58,29 +58,27 @@
             <p>
                 [% l('You can use MusicBrainz right now to automatically identify and label your music files - all you have to do is download and run a MusicBrainz enabled tagger. {taggers|Read more about our taggers}.', { taggers => doc_link('MusicBrainzTagger')}) %]
             </p>
-            <p>
-                <div>
-                    <a href="[% c.uri_for('/doc/PicardDownload') %]" title="[% l("Download Picard") %]">
-                        <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
-                        [% l('Download Picard') %]
-                    </a>
-                    [% l('[Windows/Linux]') %]
-                </div>
-                <div>
-                    <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="[% l("Download Magic-Tagger") %]">
-                        <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
-                        [% l('Download Magic-Tagger') %]
-                    </a>
-                    [% l('[Windows -- {info|More info...}]', {info="http://www.magic-tagger.com"}) %]
-                </div>
-                <div>
-                    <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="[% l('Download Jaikoz Tag Editor') %]">
-                        <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
-                        [% l('Download Jaikoz Tag Editor') %]
-                    </a>
-                    [% l('[Windows, Linux, Mac OS X -- {info|More info...}]', {info="http://www.jthink.net/jaikoz"}) %]
-                </div>
-            </p>
+            <div>
+                <a href="[% c.uri_for('/doc/PicardDownload') %]" title="[% l("Download Picard") %]">
+                    <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
+                    [% l('Download Picard') %]
+                </a>
+                [% l('[Windows/Linux]') %]
+            </div>
+            <div>
+                <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="[% l("Download Magic-Tagger") %]">
+                    <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
+                    [% l('Download Magic-Tagger') %]
+                </a>
+                [% l('[Windows -- {info|More info...}]', {info="http://www.magic-tagger.com"}) %]
+            </div>
+            <div>
+                <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="[% l('Download Jaikoz Tag Editor') %]">
+                    <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
+                    [% l('Download Jaikoz Tag Editor') %]
+                </a>
+                [% l('[Windows, Linux, Mac OS X -- {info|More info...}]', {info="http://www.jthink.net/jaikoz"}) %]
+            </div>
             <p>
                 [% l('Alternatively, you might just want to {search_url|search} or {browse_url|browse} the MusicBrainz database. If you spot a mistake, or something that is missing, you can even {edit|edit or add more data}!', { search_url => c.uri_for('/search'), edit => doc_link('HowEditingWorks'), browse_url => c.uri_for('/browse/artist')}) %]
             </p>

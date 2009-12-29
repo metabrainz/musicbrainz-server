@@ -44,9 +44,8 @@
 
         [%- IF needs_chrome -%]
         <div id="chrome-prompt">
-          It looks like you're using Internet Explorer but do not have Google Chrome installed.
-          We highly recommend the use of Google Chrome Frame!<br />
-          <a href="/chrome_frame">More information&hellip;</a>
+          It looks like you're using Internet Explorer.<br />
+          To get the most out of this website we highly recommend the use of Google Chrome Frame. <a href="/chrome_frame">More information&hellip;</a>
         </div>
         [%- END -%]
 

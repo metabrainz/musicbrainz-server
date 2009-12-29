@@ -2216,8 +2216,8 @@ msgstr ""
 #, perl-format
 msgid ""
 "If you want to edit the MusicBrainz data, you will need to go to the {uri|"
-"<img src=\"{url}\" alt=\"{ext_site}\" width=\"12\" /> main MusicBrainz "
-"server}."
+"main MusicBrainz server}<img src=\"{ext_link}\" alt=\"{ext_site}\""
+"width=\"12\" />."
 msgstr ""
 
 #: components/perma-link.tt:5
@@ -4962,8 +4962,8 @@ msgstr ""
 #, perl-format
 msgid ""
 "Unless you want to be testing the latest and greatest MusicBrainz features "
-"you probably want to go to the <img src=\"{ext_link}\" alt=\"{ext_site}\" />"
-"{uri| main MusicBrainz server}."
+"you probably want to go to the main server {uri|http://musicbrainz.org}<img"
+"src="{ext_link}" alt="{ext_site}"/>."
 msgstr ""
 
 #: artist/layout.tt:30 label/layout.tt:24 user/profile.tt:126
@@ -5450,7 +5450,7 @@ msgstr ""
 
 #: main/index.tt:46
 #, perl-format
-msgid "You are using a MusicBrainz mirror"
+msgid "You are using a MusicBrainz mirror!"
 msgstr ""
 
 #: main/index.tt:59
