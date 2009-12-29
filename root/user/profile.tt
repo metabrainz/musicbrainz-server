@@ -120,7 +120,7 @@
                 [% l('(none)') %]
             [% END %]
 
-            [% UNLESS viewing_own_profile %]
+            [% IF !viewing_own_profile && c.user_exists %]
                 [
                 [% IF subscribed %]
                     <a href="[% c.uri_for_action('/user/subscriptions/editor/remove', { id => user.id }) %]">[% l('Unsubscribe') %]</a>
