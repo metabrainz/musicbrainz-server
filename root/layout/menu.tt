@@ -148,7 +148,7 @@
                 </a>
             </li>
             <li>
-                <a href="[% c.uri_for('/moderation/conditions') %]">
+                <a href="[% c.uri_for('/edit/conditions') %]">
                     [% l('Edit Conditions') %]
                 </a>
             </li>
