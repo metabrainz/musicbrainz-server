@@ -93,13 +93,13 @@
                 [%- l('{doc|3<sup>rd</sup> Party}', {doc => doc_link('MusicBrainz_Enabled_Applications')}) -%]
             </li>
             <li>
-                [%- l('{doc|Jaikoz Tag Editor}', {doc => doc_link('Jaikoz_MP3_Tag_Editor')}) -%]
+                [%- l('{doc|MusicBrainz Picard}', {doc => doc_link('MusicBrainz_Picard')}) -%]
             </li>
             <li>
                 [%- l('{doc|Magic Tagger}', {doc => doc_link('Magic_Tagger')}) -%]
             </li>
             <li>
-                [%- l('{doc|MusicBrainz Picard}', {doc => doc_link('MusicBrainz_Picard')}) -%]
+                [%- l('{doc|Jaikoz Tag Editor}', {doc => doc_link('Jaikoz_MP3_Tag_Editor')}) -%]
             </li>
         </ul>
     </li>
