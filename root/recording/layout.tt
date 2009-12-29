@@ -19,6 +19,16 @@
     [% END %]
     [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
     [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags tag_this_text=l('Tag this recording') -%]
+
+    <ul class="links">
+      [% IF c.user_exists %]
+      <li>[% link_recording(recording, 'edit', l('Edit this recording')) %]</li>
+      [% ELSE %]
+      <li>[% request_login(l('Please login to edit this recording')) %]</li>
+      [% END %]
+      <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
+    </ul>
+    
     [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
 [% END %]
 
