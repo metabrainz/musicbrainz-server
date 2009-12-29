@@ -99,7 +99,7 @@
                 [%- l('{doc|Magic Tagger}', {doc => doc_link('Magic_Tagger')}) -%]
             </li>
             <li>
-                [%- l('{doc|Picard Tagger}', {doc => doc_link('Picard_Tagger')}) -%]
+                [%- l('{doc|MusicBrainz Picard}', {doc => doc_link('MusicBrainz_Picard')}) -%]
             </li>
         </ul>
     </li>

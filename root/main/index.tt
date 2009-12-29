@@ -59,7 +59,7 @@
                 [% l('You can use MusicBrainz right now to automatically identify and label your music files - all you have to do is download and run a MusicBrainz enabled tagger. {taggers|Read more about our taggers}.', { taggers => doc_link('MusicBrainzTagger')}) %]
             </p>
             <div>
-                <a href="[% c.uri_for('/doc/PicardDownload') %]" title="[% l("Download Picard") %]">
+                <a href="[% c.uri_for('/doc/MusicBrainz_Picard') %]" title="[% l("Download Picard") %]">
                     <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
                     [% l('Download Picard') %]
                 </a>
