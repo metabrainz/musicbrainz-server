@@ -28,6 +28,7 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     type_to_model
     order_by
+    check_in_use
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -89,6 +90,15 @@ sub load_meta
     $sql->finish;
 }
 
+sub check_in_use
+{
+    my ($sql, %queries) = @_;
+
+    my @queries = keys %queries;
+    my $query = join ' UNION ', map { "SELECT 1 FROM $_" } @queries;
+    return 1 if $sql->select_single_value($query, map { @{$queries{$_}} } @queries );
+    return;
+}
 
 sub partial_date_from_row
 {

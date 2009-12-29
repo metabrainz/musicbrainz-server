@@ -156,9 +156,37 @@ sub update
     $sql->update_row('release_group', $row, { id => $group_id });
 }
 
+sub in_use
+{
+    my ($self, $release_group_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    return in_use($sql,
+        'release                    WHERE release_group = ?' => [ $release_group_id ],
+        'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
+        'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
+        'l_recording_release_group  WHERE entity1 = ?' => [ $release_group_id ],
+        'l_release_release_group    WHERE entity1 = ?' => [ $release_group_id ],
+        'l_release_group_url        WHERE entity0 = ?' => [ $release_group_id ],
+        'l_release_group_work       WHERE entity0 = ?' => [ $release_group_id ],
+        'l_release_group_release_group WHERE entity0 = ? OR entity1 = ?' => [ $release_group_id, $release_group_id ],
+    );
+}
+
+sub can_delete
+{
+    my ($self, $release_group_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    my $refcount = $sql->select_single_column_array('SELECT 1 FROM release WHERE release_group = ?', $release_group_id);
+    return @$refcount == 0;
+}
+
 sub delete
 {
     my ($self, @group_ids) = @_;
+    @group_ids = grep { !$self->in_use($_) } @group_ids;
+
     $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
     $self->annotation->delete(@group_ids);
     $self->tags->delete(@group_ids);

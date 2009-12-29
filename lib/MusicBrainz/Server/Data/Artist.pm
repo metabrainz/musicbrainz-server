@@ -128,12 +128,22 @@ sub update
     $sql->update_row('artist', $row, { id => $artist_id });
 }
 
+sub can_delete
+{
+    my ($self, $artist_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $active_credits = $sql->select_single_column_array(
+        'SELECT refcount FROM artist_credit, artist_credit_name name
+          WHERE name.artist = ? AND name.artist_credit = id AND refcount > 0',
+        $artist_id
+    );
+    return @$active_credits == 0;
+}
+
 sub delete
 {
     my ($self, @artist_ids) = @_;
-    my $can_delete = 1;
-    # XXX Checks to see if artist is in use (core entities that depend on this artist)
-    return unless $can_delete;
+    @artist_ids = grep { $self->can_delete($_) } @artist_ids;
 
     $self->c->model('Relationship')->delete_entities('artist', @artist_ids);
     $self->annotation->delete(@artist_ids);

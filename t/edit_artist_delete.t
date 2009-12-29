@@ -7,6 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Delete' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
+use MusicBrainz::Server::Types ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -23,10 +24,6 @@ is($edits->[0]->id, $edit->id);
 my $artist = $c->model('Artist')->get_by_id(1);
 is($artist->edits_pending, 1);
 
-# Make sure we can load the artist
-$c->model('Edit')->load_all($edit);
-is($edit->artist->id, 1);
-
 # Test rejecting the edit
 reject_edit($c, $edit);
 $artist = $c->model('Artist')->get_by_id(1);
@@ -34,6 +31,22 @@ ok(defined $artist);
 is($artist->edits_pending, 0);
 
 # Test accepting the edit
+# This should fail as the artist has a recording linked
+$edit = _create_edit();
+accept_edit($c, $edit);
+$artist = $c->model('Artist')->get_by_id(1);
+is($edit->status, $STATUS_FAILEDDEP);
+ok(defined $artist);
+
+# Delete the recording and enter the edit
+my $sql = Sql->new($c->dbh);
+my $sql_raw = Sql->new($c->raw_dbh);
+Sql::run_in_transaction(
+    sub {
+        my $recording = $c->model('Recording')->get_by_id(1);
+        $c->model('Recording')->delete($recording);
+    }, $sql, $sql_raw);
+
 $edit = _create_edit();
 accept_edit($c, $edit);
 $artist = $c->model('Artist')->get_by_id(1);

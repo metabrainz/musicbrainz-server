@@ -65,6 +65,8 @@ $label = $label_data->insert({
 isa_ok($label, 'MusicBrainz::Server::Entity::Label');
 ok($label->id > 1);
 
+is($c->model('Label')->in_use($label->id), 0);
+
 $label = $label_data->get_by_id($label->id);
 is($label->name, 'RAM Records');
 is($label->sort_name, 'RAM Records');

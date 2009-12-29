@@ -108,9 +108,19 @@ sub update
     $sql->update_row('recording', $row, { id => $recording_id });
 }
 
+sub can_delete
+{
+    my ($self, $recording_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $refcount = $sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
+    return @$refcount == 0;
+}
+
 sub delete
 {
     my ($self, $recording) = @_;
+    return unless $self->can_delete($recording->id);
+
     $self->c->model('Relationship')->delete_entities('recording', $recording->id);
     $self->c->model('RecordingPUID')->delete_recordings($recording->id);
     $self->c->model('ISRC')->delete_recordings($recording->id);

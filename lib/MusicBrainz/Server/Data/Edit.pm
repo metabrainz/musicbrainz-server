@@ -283,8 +283,10 @@ sub _do_accept
     try {
         $edit->accept;
     }
+    catch (MusicBrainz::Server::Edit::Exceptions::FailedDependency $err) {
+        return $STATUS_FAILEDDEP;
+    }
     catch ($err) {
-        warn $err;
         return $STATUS_ERROR;
     };
     return $STATUS_APPLIED;
@@ -298,7 +300,6 @@ sub _do_reject
         $edit->reject;
     }
     catch ($err) {
-        warn $err;
         return $STATUS_ERROR;
     };
     return $status;
@@ -348,6 +349,7 @@ sub _close
     my $query = "UPDATE edit SET status = ?, closetime = NOW() WHERE id = ?";
     $sql_raw->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1);
+    $edit->status($status);
     $self->c->model('Editor')->credit($edit->editor_id, $status);
 }
 

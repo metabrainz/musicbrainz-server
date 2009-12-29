@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
 use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
@@ -37,12 +38,12 @@ has 'artist' => (
 override 'accept' => sub
 {
     my $self = shift;
-    my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $self->c);
-    $artist_data->delete($self->artist_id);
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw
+          if $self->c->model('Artist')->in_use($self->artist_id);
+    $self->c->model('Artist')->delete($self->artist_id);
 };
 
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
 1;
-

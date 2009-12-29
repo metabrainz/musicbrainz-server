@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     load_subobjects
     query_to_list_limited
+    check_in_use
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -123,12 +124,35 @@ sub update
     return 1;
 }
 
+sub in_use
+{
+    my ($self, $label_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    return in_use($sql,
+        'release_label         WHERE label = ?'   => [ $label_id ],
+        'l_artist_label        WHERE entity1 = ?' => [ $label_id ],
+        'l_label_recording     WHERE entity0 = ?' => [ $label_id ],
+        'l_label_release       WHERE entity0 = ?' => [ $label_id ],
+        'l_label_release_group WHERE entity0 = ?' => [ $label_id ],
+        'l_label_url           WHERE entity0 = ?' => [ $label_id ],
+        'l_label_work          WHERE entity0 = ?' => [ $label_id ],
+        'l_label_label         WHERE entity0 = ? OR entity1 = ?'=> [ $label_id, $label_id ],
+    );
+}
+
+sub can_delete
+{
+    my ($self, $label_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $refcount = $sql->select_single_column_array('SELECT 1 FROM release_label WHERE label = ?', $label_id);
+    return @$refcount == 0;
+}
+
 sub delete
 {
     my ($self, @label_ids) = @_;
-    my $can_delete = 1;
-    # XXX Checks to see if label is in use
-    return unless $can_delete;
+    @label_ids = grep { $self->can_delete($_) } @label_ids;
 
     $self->c->model('Relationship')->delete_entities('label', @label_ids);
     $self->annotation->delete(@label_ids);

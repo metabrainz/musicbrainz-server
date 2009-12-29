@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 80;
+use Test::More;
 use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
@@ -214,5 +214,20 @@ $artist = $artist_data->get_by_id(1);
 ok(defined $artist);
 is($artist->name, 'Test Artist');
 
-$sql->commit;
-$raw_sql->commit;
+# ---
+# Checking when an artist is in use or not
+
+ok($artist_data->can_delete(1));
+my $ac = $c->model('ArtistCredit')->find_or_insert({ artist => 1, name => 'Calibre' });
+ok($artist_data->can_delete(1));
+
+my $rec = $c->model('Recording')->insert({
+    name => "Love's Too Tight Too Mention",
+    artist_credit => $ac,
+    comment => 'Drum & bass track',
+});
+
+ok(!$artist_data->can_delete(1));
+
+done_testing;
+

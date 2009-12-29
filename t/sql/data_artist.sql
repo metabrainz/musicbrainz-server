@@ -1,6 +1,9 @@
 BEGIN;
 SET client_min_messages TO 'WARNING';
 
+TRUNCATE artist_credit CASCADE;
+TRUNCATE recording CASCADE;
+
 TRUNCATE artist_type CASCADE;
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
