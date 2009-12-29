@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Test;
 
 use DBDefs;
+use FindBin '$Bin';
 use MusicBrainz;
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
@@ -9,6 +10,8 @@ use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
 use Sql;
 use Test::Builder;
+use Test::Mock::Class;
+use Template;
 use XML::Parser;
 
 MusicBrainz::Server::Database->profile("test");
@@ -148,6 +151,37 @@ sub reject_edit
     $c->model('Edit')->reject($edit);
     $sql->commit;
     $raw_sql->commit;
+}
+
+my $mock;
+sub mock_context
+{
+    $mock ||= do {
+        my $meta_c = Test::Mock::Class->create_mock_anon_class();
+        $meta_c->add_mock_method('uri_for_action');
+        $meta_c->new_object;
+    };
+    return $mock;
+}
+
+my $tt;
+sub evaluate_template
+{
+    my ($class, $template, %vars) = @_;
+    $tt ||= Template->new({
+        INCLUDE_PATH => "$Bin/../root",
+        TEMPLATE_EXTENSION => '.tt',
+        PLUGIN_BASE => 'MusicBrainz::Server::Plugin',
+        PRE_PROCESS => [
+            'components/common-macros.tt',
+        ]
+    });
+
+    $vars{c} ||= mock_context();
+
+    my $out = '';
+    $tt->process(\$template, \%vars, \$out) || die $tt->error();
+    return $out;
 }
 
 1;
