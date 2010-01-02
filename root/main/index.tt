@@ -45,7 +45,7 @@
         [% IF server_details.is_slave_db %]
             [% WRAPPER "components/box.tt" header=l("You are using a MusicBrainz mirror!") colour="purple" %]
                 <p>
-                    [% l('If you want to edit the MusicBrainz data, you will need to go to the {uri|main MusicBrainz server}<img src=\"{ext_link}\" alt=\"{ext_site}\" width=\"12\" />.', {ext_link => c.uri_for('/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org/"}) %]
+                    [% l('If you want to edit the MusicBrainz data, you will need to go to the {uri|main MusicBrainz server}<img src="{ext_link}" alt="{ext_site}" width="12" />.', {ext_link => c.uri_for('/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org/"}) %]
                 </p>
             [% END %]
         [% END %]
