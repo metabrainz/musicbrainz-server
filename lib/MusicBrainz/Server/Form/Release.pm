@@ -73,11 +73,7 @@ has_field 'mediums.tracklist.tracks.id' => ( type => 'Integer' );
 has_field 'mediums.tracklist.tracks.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist.tracks.name' => ( type => 'Text' );
 has_field 'mediums.tracklist.tracks.artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
-has_field 'mediums.tracklist.tracks.length' => (
-    type => 'Text',
-    deflation => sub { MusicBrainz::Server::Track::FormatTrackLength($_) },
-    fif_from_value => 1
-);
+has_field 'mediums.tracklist.tracks.length' => ( type => '+MusicBrainz::Server::Form::Field::Length' );
 has_field 'mediums.tracklist.tracks.deleted' => ( type => 'Checkbox' );
 
 has_field 'artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );

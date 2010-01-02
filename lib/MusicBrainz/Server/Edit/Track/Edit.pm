@@ -6,7 +6,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_TRACK_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
+use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
@@ -42,7 +42,8 @@ subtype 'TrackHash',
         recording_id => Optional[Int],
         tracklist_id => Optional[Int],
         artist_credit => Optional[ArtistCreditDefinition],
-        position => Optional[Int]
+        position => Optional[Int],
+        length => Nullable[Int],
     ];
 
 has '+data' => (
@@ -81,6 +82,7 @@ sub build_display_data
         tracklist_id => 'tracklist_id',
         position     => 'position',
         name         => 'name',
+        length       => 'length',
     );
 
     if (exists $self->data->{new}{artist_credit}) {

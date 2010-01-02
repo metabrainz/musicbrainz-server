@@ -36,21 +36,17 @@ is_deeply($edit->data, {
         { name => 'The Edit Ninja', artist => 2 }
         ],
         position => 4,
+        length => 260000
     },
     old => {
         name => 'King of the Mountain',
         artist_credit => [
         { name => 'Artist', artist => 1 }
         ],
-        position => 1
+        position => 1,
+        length => 293720
     }
 }, '...edit has the right data');
-
-TODO: {
-    local $TODO = 'Support editing the length of tracks';
-    ok(exists $edit->data->{new}->{length});
-    ok(exists $edit->data->{old}->{length});
-}
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 xml_ok($mech->content, '..valid xml');
@@ -60,5 +56,7 @@ $mech->content_contains('The Edit Ninja', '..contains new artist name');
 $mech->content_contains('Artist', '..contains new artist name');
 $mech->content_contains('4', '..contains new position');
 $mech->content_contains('1', '..contains old position');
+$mech->content_contains('4:54', '..contains old track length');
+$mech->content_contains('4:20', '..contains new track length');
 
 done_testing;

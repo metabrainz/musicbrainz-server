@@ -339,7 +339,7 @@ sub edit : Chained('load') RequireAuth
                     else {
                         # Editing an existing track
                         $self->_create_edit($c, $EDIT_TRACK_EDIT,
-                            $track_field => [qw( position name artist_credit )],
+                            $track_field => [qw( position name artist_credit length )],
                             track => $track,
                         );
                     }
