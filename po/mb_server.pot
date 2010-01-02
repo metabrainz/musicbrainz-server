@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-30 17:59+0100\n"
+"POT-Creation-Date: 2010-01-02 16:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2608,7 +2608,8 @@ msgid "Length"
 msgstr ""
 
 #: ../root/edit/details/add_track.tt:33 ../root/edit/details/add_track_kv.tt:7
-#: ../root/edit/details/edit_recording.tt:20 ../root/recording/edit_form.tt:16
+#: ../root/edit/details/edit_recording.tt:20
+#: ../root/edit/details/edit_track.tt:28 ../root/recording/edit_form.tt:16
 #: ../root/recording/layout.tt:11
 #, perl-format
 msgid "Length:"

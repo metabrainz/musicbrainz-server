@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mbserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-30 17:59+0100\n"
-"PO-Revision-Date: 2009-03-27 12:21+0000\n"
-"Last-Translator: MaXeR <Unknown>\n"
+"POT-Creation-Date: 2010-01-02 16:56+0100\n"
+"PO-Revision-Date: 2009-04-20 07:18+0000\n"
+"Last-Translator: Nikolai Prokoschenko <Unknown>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2009-04-03 21:48+0000\n"
+"X-Launchpad-Export-Date: 2010-01-02 15:32+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../root/user/lost_password.tt:7
@@ -193,7 +193,7 @@ msgstr ""
 #: ../root/layout/menu.tt:162
 #, fuzzy, perl-format
 msgid "Add Label"
-msgstr "إضافة إصدار جديد"
+msgstr "إضافة إصدار"
 
 #: ../root/release_editor/confirm_artists.tt:17
 #, perl-format
@@ -206,19 +206,19 @@ msgid "Add New Label"
 msgstr "إضافة إصدار جديد"
 
 #: ../root/artist/add_non_album.tt:3 ../root/artist/add_non_album.tt:4
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add Non-Album Track"
-msgstr "المسار"
+msgstr ""
 
 #: ../root/artist/no_nats.tt:4 ../root/release/nats.tt:11
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add Non-Album Tracks"
-msgstr "المسار"
+msgstr ""
 
 #: ../root/edit/show.tt:107
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add Note"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/admin/wikidoc/create.tt:1 ../root/admin/wikidoc/create.tt:3
 #, fuzzy, perl-format
@@ -262,9 +262,9 @@ msgid "Add a new alias"
 msgstr "إضافة إصدار جديد"
 
 #: ../root/annotation/common.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add an annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/release/edit.tt:105
 #, fuzzy, perl-format
@@ -272,19 +272,19 @@ msgid "Add an existing tracklist"
 msgstr "إضافة إصدار جديد"
 
 #: ../root/annotation/edit.tt:12
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/scripts/text_strings.tt:37
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add another"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/scripts/text_strings.tt:42
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add another medium"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/release_editor/release_data.tt:48
 #, fuzzy, perl-format
@@ -293,9 +293,9 @@ msgstr "إضافة إصدار جديد"
 
 #: ../root/release_editor/release_data.tt:29
 #: ../root/scripts/text_strings.tt:41
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add another track"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/artist/add_alias.tt:2
 #, fuzzy, perl-format
@@ -303,9 +303,9 @@ msgid "Add artist alias"
 msgstr "إضافة إصدار جديد"
 
 #: ../root/edit/index.tt:71
-#, fuzzy, perl-format
+#, perl-format
 msgid "Add edit note"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/label/add_alias.tt:2
 #, fuzzy, perl-format
@@ -342,9 +342,9 @@ msgid "Alias"
 msgstr ""
 
 #: ../root/alias/edit_form.tt:4
-#, perl-format
+#, fuzzy, perl-format
 msgid "Alias name:"
-msgstr ""
+msgstr "عنوان الإصدار"
 
 #: ../root/edit/details/add_artist_alias.tt:7
 #: ../root/edit/details/add_artistalias.tt:4
@@ -398,9 +398,9 @@ msgid "Allow other users to see my tags"
 msgstr ""
 
 #: ../root/release/confirm_move.tt:9
-#, fuzzy, perl-format
+#, perl-format
 msgid "Also change Track Artists"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/main/index.tt:83
 #, perl-format
@@ -588,9 +588,9 @@ msgid "Artist Details"
 msgstr "الفنان"
 
 #: ../root/scripts/module_guideline_list.tt:17
-#, fuzzy, perl-format
+#, perl-format
 msgid "Artist Name Style"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:18
 #, perl-format
@@ -669,19 +669,19 @@ msgid "Associated with recordings"
 msgstr ""
 
 #: ../root/cdtoc/index.tt:64
-#, fuzzy, perl-format
+#, perl-format
 msgid "Attached to releases"
-msgstr "الإصدارات"
+msgstr ""
 
 #: ../root/relate/create.tt:13 ../root/release_editor/release_data.tt:34
-#, fuzzy, perl-format
+#, perl-format
 msgid "Attributes"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/admin/linktype/form.tt:56 ../root/edit/relationship/edit.tt:52
-#, fuzzy, perl-format
+#, perl-format
 msgid "Attributes:"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:19
 #, perl-format
@@ -702,9 +702,9 @@ msgid "Auto-Editor Elections"
 msgstr ""
 
 #: ../root/forms/auto-editor.tt:2 ../root/user/adjust_flags.tt:8
-#, fuzzy, perl-format
+#, perl-format
 msgid "AutoEditor"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/layout/menu.tt:37
 #, perl-format
@@ -816,7 +816,7 @@ msgstr ""
 #: ../root/layout/menu.tt:121
 #, fuzzy, perl-format
 msgid "Browse Artists"
-msgstr "تأكيد الفنان"
+msgstr "الفنان"
 
 #: ../root/edit/open.tt:3
 #, perl-format
@@ -878,9 +878,9 @@ msgid "CD Shopping Sites"
 msgstr ""
 
 #: ../root/cdtoc/index.tt:5
-#, fuzzy, perl-format
+#, perl-format
 msgid "CD TOC details"
-msgstr "المسارات"
+msgstr ""
 
 #: ../root/edit/info.tt:16 ../root/edit/list.tt:33
 #: ../root/elections/details.tt:9 ../root/release_editor/confirm.tt:14
@@ -956,16 +956,16 @@ msgstr ""
 #: ../root/layout/menu.tt:195 ../root/user/change_password.tt:1
 #: ../root/user/change_password.tt:3 ../root/user/change_password.tt:25
 #: ../root/user/change_password_ok.tt:1 ../root/user/change_password_ok.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Change Password"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/recording/change_artist.tt:1 ../root/recording/change_artist.tt:2
 #: ../root/recording/change_artist_search.tt:3
 #: ../root/recording/change_artist_search.tt:4
 #, fuzzy, perl-format
 msgid "Change Track Artist"
-msgstr "الفنان"
+msgstr "تأكيد الفنان"
 
 #: ../root/edit/vote_options.tt:28
 #, perl-format
@@ -1029,9 +1029,9 @@ msgid "Classical Style Guidelines"
 msgstr ""
 
 #: ../root/scripts/module_search_replace.tt:25
-#, fuzzy, perl-format
+#, perl-format
 msgid "Clear fields"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/user/edit_ok.tt:12
 #, perl-format
@@ -1091,18 +1091,18 @@ msgstr "تأكيد الفنان"
 #: ../root/artist/remove_alias.tt:5
 #, fuzzy, perl-format
 msgid "Confirm Artist Alias Removal"
-msgstr "تأكيد الفنانين"
+msgstr "تأكيد الفنان"
 
 #: ../root/release_editor/confirm_labels.tt:3
 #: ../root/release_editor/confirm_labels.tt:4
 #, fuzzy, perl-format
 msgid "Confirm Label"
-msgstr "تأكيد"
+msgstr "تأكيد إضافة الإصدار"
 
 #: ../root/puid/remove.tt:11
 #, fuzzy, perl-format
 msgid "Confirm Removal"
-msgstr "تأكيد"
+msgstr "تأكيد إضافة الإصدار"
 
 #: ../root/artist/edit_form.tt:29
 #, perl-format
@@ -1121,14 +1121,14 @@ msgid ""
 msgstr ""
 
 #: ../root/user/change_password.tt:21
-#, fuzzy, perl-format
+#, perl-format
 msgid "Confirm new password:"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/user/register.tt:25 ../root/user/reset_password.tt:16
-#, fuzzy, perl-format
+#, perl-format
 msgid "Confirm password:"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/user/registered.tt:4
 #, perl-format
@@ -1143,9 +1143,9 @@ msgid "Contact"
 msgstr ""
 
 #: ../root/layout/footer-bar.tt:56
-#, fuzzy, perl-format
+#, perl-format
 msgid "Contact Details"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/release_editor/confirm.tt:13 ../root/release_editor/submit.tt:2
 #, perl-format
@@ -1190,9 +1190,9 @@ msgid "Cover Art"
 msgstr "تأكيد الفنان"
 
 #: ../root/user/register.tt:34
-#, fuzzy, perl-format
+#, perl-format
 msgid "Create Account"
-msgstr "تأكيد الفنان"
+msgstr ""
 
 #: ../root/artist/edit_form.tt:84
 #, fuzzy, perl-format
@@ -1205,14 +1205,14 @@ msgid "Create Label"
 msgstr ""
 
 #: ../root/relate/create.tt:4
-#, fuzzy, perl-format
+#, perl-format
 msgid "Create Relationship:"
-msgstr "تأكيد الفنان"
+msgstr ""
 
 #: ../root/relate/create.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Create Releationship"
-msgstr "تأكيد الفنان"
+msgstr ""
 
 #: ../root/user/login.tt:40
 #, perl-format
@@ -1221,9 +1221,9 @@ msgstr ""
 
 #: ../root/layout/menu.tt:236 ../root/user/register.tt:1
 #: ../root/user/register.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Create an Account"
-msgstr "تأكيد الفنان"
+msgstr ""
 
 #: ../root/label/edit_form.tt:69
 #, perl-format
@@ -1276,18 +1276,18 @@ msgid "Data Quality setting"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:22
-#, fuzzy, perl-format
+#, perl-format
 msgid "Data Track Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/cdtoc/index.tt:73 ../root/forms/widgets/release_event.tt:10
 #: ../root/forms/widgets/release_event_labels.tt:5 ../root/label/index.tt:13
 #: ../root/release/lookup.tt:11 ../root/release/release.tt:56
 #: ../root/release_group/releases-list.tt:7 ../root/tracklist/index.tt:33
 #: ../root/user/collection.tt:14
-#, fuzzy, perl-format
+#, perl-format
 msgid "Date"
-msgstr "فحص المكررات"
+msgstr ""
 
 #: ../root/artist/edit_form.tt:67 ../root/label/edit_form.tt:55
 #, perl-format
@@ -1316,15 +1316,15 @@ msgstr ""
 #: ../root/admin/wikidoc/index.tt:45 ../root/components/aliases.tt:18
 #: ../root/edit/relationship/delete.tt:15 ../root/label/delete.tt:1
 #: ../root/release_group/delete.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "Delete"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/alias/delete.tt:3 ../root/artist/delete_alias.tt:3
 #: ../root/label/delete_alias.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Delete Alias"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/label/delete.tt:13
 #, perl-format
@@ -1333,19 +1333,19 @@ msgstr ""
 
 #: ../root/admin/linkattributetype/delete.tt:1
 #: ../root/admin/linkattributetype/delete.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Delete Link Attribute Type"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/admin/linktype/delete.tt:1 ../root/admin/linktype/delete.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Delete Link Type"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/edit/relationship/delete.tt:1 ../root/edit/relationship/delete.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Delete Relationship"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/release_group/delete.tt:13
 #, fuzzy, perl-format
@@ -1358,9 +1358,9 @@ msgid "Delete Release Group "
 msgstr "الإصدارات"
 
 #: ../root/label/layout.tt:34
-#, fuzzy, perl-format
+#, perl-format
 msgid "Delete this label"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/artist/add_non_album.tt:17
 #, perl-format
@@ -1386,9 +1386,9 @@ msgstr ""
 #: ../root/label/details.tt:1 ../root/recording/details.tt:1
 #: ../root/release/details.tt:1 ../root/release_group/details.tt:1
 #: ../root/work/details.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "Details"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/release/info-links.tt:1
 #, perl-format
@@ -1396,9 +1396,9 @@ msgid "Details / Link"
 msgstr ""
 
 #: ../root/scripts/module_track_parser.tt:57
-#, fuzzy, perl-format
+#, perl-format
 msgid "Detect Track times"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/release_editor/track_count.tt:6
 #, perl-format
@@ -1530,9 +1530,9 @@ msgid "Edit <abbr title=\"Uniform Resource Locator\">URL</abbr>"
 msgstr ""
 
 #: ../root/layout/menu.tt:190
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit Account"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/artist/edit.tt:1 ../root/artist/edit_form.tt:86
 #, fuzzy, perl-format
@@ -1550,20 +1550,20 @@ msgid "Edit ID:"
 msgstr "تحرير"
 
 #: ../root/label/edit.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit Label"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/admin/linkattributetype/edit.tt:1
 #: ../root/admin/linkattributetype/edit.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit Link Attribute Type"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/admin/index.tt:8 ../root/layout/menu.tt:286
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit Link Attribute Types"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/admin/linktype/edit.tt:1 ../root/admin/linktype/edit.tt:3
 #, perl-format
@@ -1581,20 +1581,20 @@ msgid "Edit Note"
 msgstr "تحرير"
 
 #: ../root/edit/show.tt:101
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit Notes"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/user/edit.tt:1 ../root/user/edit.tt:3 ../root/user/edit_ok.tt:1
 #: ../root/user/edit_ok.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit Profile"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/edit/relationship/edit.tt:8 ../root/edit/relationship/edit.tt:10
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit Relationship"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/release/edit_attributes.tt:3 ../root/release/edit_attributes.tt:4
 #, fuzzy, perl-format
@@ -1617,14 +1617,14 @@ msgid "Edit URL"
 msgstr "تحرير"
 
 #: ../root/artist/edit_alias.tt:2
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit artist alias"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/artist/edit_annotation.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit artist annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/label/edit_alias.tt:2
 #, fuzzy, perl-format
@@ -1632,24 +1632,24 @@ msgid "Edit label alias"
 msgstr "إضافة إصدار جديد"
 
 #: ../root/label/edit_annotation.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit label annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/edit/index.tt:68 ../root/forms/edit-note.tt:10
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit note:"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/edit/index.tt:57
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit notes"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/recording/edit_annotation.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit recording annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/release/edit_annotation.tt:3
 #, fuzzy, perl-format
@@ -1657,29 +1657,29 @@ msgid "Edit release annotation"
 msgstr "معلومات الإصدار"
 
 #: ../root/release_group/edit_annotation.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit release group annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/artist/layout.tt:39
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit this artist"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/label/layout.tt:33
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit this label"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/recording/layout.tt:25
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit this recording"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/release/sidebar.tt:131
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit this release"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/release_group/layout.tt:22
 #, fuzzy, perl-format
@@ -1692,14 +1692,14 @@ msgid "Edit work"
 msgstr "تحرير"
 
 #: ../root/work/edit_annotation.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edit work annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/edit/show.tt:2
 #, fuzzy, perl-format
 msgid "Edit {id}"
-msgstr "إستمرار التحرير"
+msgstr "تحرير"
 
 #: ../root/edit/show.tt:1
 #, perl-format
@@ -1714,12 +1714,12 @@ msgstr "تحرير"
 #: ../root/user/profile.tt:36
 #, fuzzy, perl-format
 msgid "Editing"
-msgstr "إستمرار التحرير"
+msgstr "تحرير"
 
 #: ../root/release/tracks.tt:34
-#, fuzzy, perl-format
+#, perl-format
 msgid "Editing Links"
-msgstr "إستمرار التحرير"
+msgstr ""
 
 #: ../root/layout/menu.tt:142
 #, perl-format
@@ -1732,9 +1732,9 @@ msgid "Editor"
 msgstr "تحرير"
 
 #: ../root/elections/propose_form.tt:7
-#, fuzzy, perl-format
+#, perl-format
 msgid "Editor Name"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/statistics/top_editors.tt:43
 #, perl-format
@@ -1783,9 +1783,9 @@ msgid "Edits for {entity}"
 msgstr ""
 
 #: ../root/label/edits.tt:2
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edits for {label}"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/recording/edits.tt:2
 #, perl-format
@@ -1798,9 +1798,9 @@ msgid "Edits for {release}"
 msgstr ""
 
 #: ../root/release_group/edits.tt:2
-#, fuzzy, perl-format
+#, perl-format
 msgid "Edits for {rg}"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/user/profile.tt:151
 #, perl-format
@@ -1908,9 +1908,9 @@ msgid ""
 msgstr ""
 
 #: ../root/freedb/index.tt:9
-#, fuzzy, perl-format
+#, perl-format
 msgid "Enter the release"
-msgstr "الإصدارات"
+msgstr ""
 
 #: ../root/edit/open.tt:10
 #, perl-format
@@ -1956,9 +1956,9 @@ msgid "Expires:"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:25
-#, fuzzy, perl-format
+#, perl-format
 msgid "Extra Title Information Style"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/user/profile.tt:152
 #, perl-format
@@ -1966,9 +1966,9 @@ msgid "Failed edits"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:26
-#, fuzzy, perl-format
+#, perl-format
 msgid "Featuring Artist Style"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/forms/form.tt:3
 #, perl-format
@@ -1981,9 +1981,9 @@ msgid "Finnish Capitalization"
 msgstr ""
 
 #: ../root/cdtoc/index.tt:17
-#, fuzzy, perl-format
+#, perl-format
 msgid "First track:"
-msgstr "المسار"
+msgstr ""
 
 #: ../root/search/error/wrapper.tt:5
 #, perl-format
@@ -1998,9 +1998,9 @@ msgid "For executive producers"
 msgstr ""
 
 #: ../root/layout/menu.tt:244 ../root/layout/sidebar/login.tt:14
-#, fuzzy, perl-format
+#, perl-format
 msgid "Forgot Password"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/user/login.tt:34
 #, perl-format
@@ -2077,9 +2077,9 @@ msgid "GPL"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:27
-#, fuzzy, perl-format
+#, perl-format
 msgid "Game Soundtrack Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/artist/edit_form.tt:58 ../root/artist/layout.tt:10
 #: ../root/edit/details/create_artist.tt:24
@@ -2509,9 +2509,9 @@ msgid ""
 msgstr ""
 
 #: ../root/release_editor/confirm.tt:15
-#, fuzzy, perl-format
+#, perl-format
 msgid "Keep Editing"
-msgstr "إستمرار التحرير"
+msgstr ""
 
 #: ../root/scripts/module_guess_case.tt:46
 #, perl-format
@@ -2565,15 +2565,15 @@ msgid "Labels starting with “{index}”"
 msgstr ""
 
 #: ../root/release_editor/release_data.tt:40
-#, fuzzy, perl-format
+#, perl-format
 msgid "Language"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/edit/details/edit_release.tt:52
 #: ../root/release/edit_attributes.tt:17
-#, fuzzy, perl-format
+#, perl-format
 msgid "Language:"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/user/profile.tt:164
 #, perl-format
@@ -2581,9 +2581,9 @@ msgid "Last 28 days"
 msgstr ""
 
 #: ../root/cdtoc/index.tt:21
-#, fuzzy, perl-format
+#, perl-format
 msgid "Last track:"
-msgstr "المسار"
+msgstr ""
 
 #: ../root/layout/sidebar/sidebar-lastupdate.tt:2
 #, perl-format
@@ -2611,7 +2611,8 @@ msgid "Length"
 msgstr ""
 
 #: ../root/edit/details/add_track.tt:33 ../root/edit/details/add_track_kv.tt:7
-#: ../root/edit/details/edit_recording.tt:20 ../root/recording/edit_form.tt:16
+#: ../root/edit/details/edit_recording.tt:20
+#: ../root/edit/details/edit_track.tt:28 ../root/recording/edit_form.tt:16
 #: ../root/recording/layout.tt:11
 #, perl-format
 msgid "Length:"
@@ -2629,9 +2630,9 @@ msgstr ""
 
 #: ../root/admin/linkattributetype/index.tt:1
 #: ../root/admin/linkattributetype/index.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Link Attribute Types"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/admin/linktype/index.tt:1 ../root/admin/linktype/index.tt:3
 #, perl-format
@@ -2649,14 +2650,14 @@ msgid "Lithuanian Capitalization"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:29
-#, fuzzy, perl-format
+#, perl-format
 msgid "Live Bootleg Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:30
-#, fuzzy, perl-format
+#, perl-format
 msgid "Live Track Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/scripts/module_track_parser.tt:75
 #, perl-format
@@ -2700,15 +2701,15 @@ msgid "Lookup"
 msgstr ""
 
 #: ../root/release/edit.tt:116
-#, fuzzy, perl-format
+#, perl-format
 msgid "Lookup release"
-msgstr "الإصدارات"
+msgstr ""
 
 #: ../root/user/lost_password.tt:1 ../root/user/lost_password.tt:3
 #: ../root/user/lost_password_sent.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "Lost Password"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/user/lost_username.tt:1 ../root/user/lost_username.tt:3
 #: ../root/user/lost_username_sent.tt:1
@@ -2778,7 +2779,7 @@ msgstr ""
 #: ../root/artist/merge_search.tt:1
 #, fuzzy, perl-format
 msgid "Merge Artists"
-msgstr "تأكيد الفنان"
+msgstr "الفنان"
 
 #: ../root/label/merge_confirm.tt:1 ../root/label/merge_confirm.tt:2
 #: ../root/label/merge_search.tt:1
@@ -2873,19 +2874,19 @@ msgid "Move Release"
 msgstr "الإصدارات"
 
 #: ../root/release/confirm_move.tt:1 ../root/release/confirm_move.tt:2
-#, fuzzy, perl-format
+#, perl-format
 msgid "Move Release to Another Artist"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/release/move.tt:3 ../root/release/move.tt:4
-#, fuzzy, perl-format
+#, perl-format
 msgid "Move Release to another Artist"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:35
-#, fuzzy, perl-format
+#, perl-format
 msgid "Multiple Title Style"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/layout/header.tt:3 ../root/layout/header.tt:7
 #, perl-format
@@ -2957,9 +2958,9 @@ msgid "MusicIP"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:36
-#, fuzzy, perl-format
+#, perl-format
 msgid "Musical Soundtrack Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/layout/sidebar/user.tt:4
 #, perl-format
@@ -3024,9 +3025,9 @@ msgstr ""
 #: ../root/admin/linkattributetype/create.tt:1
 #: ../root/admin/linkattributetype/create.tt:3
 #: ../root/admin/linkattributetype/index.tt:7
-#, fuzzy, perl-format
+#, perl-format
 msgid "New Link Attribute Type"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/admin/linktype/create.tt:1 ../root/admin/linktype/create.tt:3
 #: ../root/admin/linktype/tree.tt:8
@@ -3035,14 +3036,14 @@ msgid "New Link Type"
 msgstr ""
 
 #: ../root/edit/details/merge_labels.tt:8
-#, fuzzy, perl-format
+#, perl-format
 msgid "New label:"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/user/change_password.tt:16
-#, fuzzy, perl-format
+#, perl-format
 msgid "New password:"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/edit/details/merge_release_groups.tt:11
 #, fuzzy, perl-format
@@ -3075,9 +3076,9 @@ msgid "No"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:37
-#, fuzzy, perl-format
+#, perl-format
 msgid "No Artist Style"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/tag/artist.tt:1
 #, perl-format
@@ -3126,9 +3127,9 @@ msgstr ""
 
 #: ../root/artist/releases.tt:5 ../root/label/index.tt:36
 #: ../root/release_group/index.tt:6
-#, fuzzy, perl-format
+#, perl-format
 msgid "No releases found"
-msgstr "الإصدارات"
+msgstr ""
 
 #: ../root/user/collection.tt:43
 #, perl-format
@@ -3224,19 +3225,19 @@ msgid "Number of Tracks on the Release"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:38
-#, fuzzy, perl-format
+#, perl-format
 msgid "OCReMix Series Style"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/edit/details/merge_labels.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Old label:"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/user/change_password.tt:11
-#, fuzzy, perl-format
+#, perl-format
 msgid "Old password:"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/edit/details/merge_release_groups.tt:3
 #, fuzzy, perl-format
@@ -3264,9 +3265,9 @@ msgid "Opened:"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:39
-#, fuzzy, perl-format
+#, perl-format
 msgid "Opera Track Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/relate/create.tt:38
 #, perl-format
@@ -3315,9 +3316,9 @@ msgid "Packaging:"
 msgstr ""
 
 #: ../root/admin/wikidoc/index.tt:15
-#, fuzzy, perl-format
+#, perl-format
 msgid "Page"
-msgstr "إضافة إصدار"
+msgstr ""
 
 #: ../root/main/404.tt:2
 #, perl-format
@@ -3335,9 +3336,9 @@ msgid "Page {cur} of {total}"
 msgstr ""
 
 #: ../root/admin/wikidoc/create.tt:12 ../root/admin/wikidoc/edit.tt:12
-#, fuzzy, perl-format
+#, perl-format
 msgid "Page:"
-msgstr "إضافة إصدار"
+msgstr ""
 
 #: ../root/admin/linkattributetype/form.tt:8 ../root/admin/linktype/form.tt:8
 #, perl-format
@@ -3345,9 +3346,9 @@ msgid "Parent:"
 msgstr ""
 
 #: ../root/scripts/module_track_parser.tt:21
-#, fuzzy, perl-format
+#, perl-format
 msgid "Parse All"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/scripts/module_track_parser.tt:14
 #, fuzzy, perl-format
@@ -3355,15 +3356,15 @@ msgid "Parse Titles"
 msgstr "عنوان الإصدار"
 
 #: ../root/scripts/module_guideline_list.tt:40
-#, fuzzy, perl-format
+#, perl-format
 msgid "Part Number Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/user/login.tt:27 ../root/user/register.tt:20
 #: ../root/user/reset_password.tt:11
-#, fuzzy, perl-format
+#, perl-format
 msgid "Password:"
-msgstr "تأكيد"
+msgstr ""
 
 #: ../root/artist/details.tt:16 ../root/label/details.tt:16
 #: ../root/recording/details.tt:16 ../root/release/details.tt:16
@@ -3476,19 +3477,19 @@ msgid "Please login to edit this artist"
 msgstr ""
 
 #: ../root/label/layout.tt:37
-#, fuzzy, perl-format
+#, perl-format
 msgid "Please login to edit this label"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/recording/layout.tt:27
-#, fuzzy, perl-format
+#, perl-format
 msgid "Please login to edit this recording"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/release/sidebar.tt:133
-#, fuzzy, perl-format
+#, perl-format
 msgid "Please login to edit this release"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/release_group/layout.tt:24
 #, perl-format
@@ -3672,9 +3673,9 @@ msgid ""
 msgstr ""
 
 #: ../root/components/aliases.tt:41
-#, fuzzy, perl-format
+#, perl-format
 msgid "Please {log_in|login} to add or edit aliases"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/annotation/common.tt:47
 #, perl-format
@@ -3813,9 +3814,9 @@ msgstr ""
 
 #: ../root/artist/browse_various.tt:11 ../root/artist/index.tt:19
 #: ../root/release/index.tt:14 ../root/tracklist/index.tt:16
-#, fuzzy, perl-format
+#, perl-format
 msgid "Rating"
-msgstr "إستمرار التحرير"
+msgstr ""
 
 #: ../root/layout/sidebar/sidebar-rating.tt:2
 #, perl-format
@@ -3835,9 +3836,9 @@ msgid "Read more&hellip;"
 msgstr ""
 
 #: ../root/recording/header.tt:13
-#, fuzzy, perl-format
+#, perl-format
 msgid "Recording by {artist}"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/report/isrc_with_many_recordings.tt:16
 #, perl-format
@@ -3845,9 +3846,9 @@ msgid "Recording count"
 msgstr ""
 
 #: ../root/recording/layout.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "Recording “{name}” by {artist}"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/edit/details/add_recording_annotation.tt:3
 #: ../root/edit/details/add_track.tt:15
@@ -3876,9 +3877,9 @@ msgid "Relationship"
 msgstr ""
 
 #: ../root/edit/relationship/edit.tt:32
-#, fuzzy, perl-format
+#, perl-format
 msgid "Relationship Details"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/user/adjust_flags.tt:17
 #, perl-format
@@ -3933,7 +3934,7 @@ msgstr "عنوان الإصدار"
 #: ../root/release_editor/release_data.tt:43
 #, fuzzy, perl-format
 msgid "Release Events"
-msgstr "عنوان الإصدار"
+msgstr "الإصدارات"
 
 #: ../root/search/results-release_group.tt:10
 #, fuzzy, perl-format
@@ -3978,12 +3979,12 @@ msgstr "عنوان الإصدار"
 #: ../root/release_group/header.tt:12
 #, fuzzy, perl-format
 msgid "Release group by {artist}"
-msgstr "عنوان الإصدار"
+msgstr "الإصدارات"
 
 #: ../root/release_group/layout.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "Release group “{name}” by {artist}"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/edit/details/add_release_group_annotation.tt:3
 #, fuzzy, perl-format
@@ -4001,9 +4002,9 @@ msgid "Release name:"
 msgstr "عنوان الإصدار"
 
 #: ../root/release/layout.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "Release “{name}” by {artist}"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/edit/details/add_release_annotation.tt:3
 #: ../root/edit/details/create_medium.tt:17
@@ -4014,7 +4015,7 @@ msgstr "الإصدارات"
 #: ../root/release/sidebar.tt:107
 #, fuzzy, perl-format
 msgid "Released on:"
-msgstr "الإصدارات"
+msgstr "عنوان الإصدار"
 
 #: ../root/artist/browse_various.tt:12 ../root/artist/index.tt:20
 #: ../root/label/header.tt:1 ../root/recording/header.tt:1
@@ -4055,14 +4056,14 @@ msgid "Remove"
 msgstr ""
 
 #: ../root/artist/remove_alias.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Remove Artist Alias"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/label/remove_alias.tt:3 ../root/label/remove_alias.tt:4
-#, fuzzy, perl-format
+#, perl-format
 msgid "Remove Label Alias"
-msgstr "إضافة إصدار جديد"
+msgstr ""
 
 #: ../root/puid/remove.tt:1 ../root/puid/remove.tt:2
 #, perl-format
@@ -4082,7 +4083,7 @@ msgstr ""
 #: ../root/release/remove.tt:3 ../root/release/remove.tt:4
 #, fuzzy, perl-format
 msgid "Remove Release"
-msgstr "إضافة إصدار جديد"
+msgstr "إضافة إصدار"
 
 #: ../root/recording/remove.tt:3
 #, perl-format
@@ -4137,9 +4138,9 @@ msgid ""
 msgstr ""
 
 #: ../root/components/search.tt:18
-#, perl-format
+#, fuzzy, perl-format
 msgid "Results:"
-msgstr ""
+msgstr "الإصدارات"
 
 #: ../root/user/contact.tt:20
 #, perl-format
@@ -4147,9 +4148,9 @@ msgid "Reveal my email address"
 msgstr ""
 
 #: ../root/admin/linktype/form.tt:32 ../root/admin/linktype/tree.tt:23
-#, perl-format
+#, fuzzy, perl-format
 msgid "Reverse link phrase:"
-msgstr ""
+msgstr "عنوان الإصدار"
 
 #: ../root/layout/menu.tt:147
 #, perl-format
@@ -4293,9 +4294,9 @@ msgid "See other versions of this release"
 msgstr ""
 
 #: ../root/freedb/choose_artist.tt:2
-#, fuzzy, perl-format
+#, perl-format
 msgid "Select Artist Type"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/scripts/module_style_guidelines.tt:7
 #, perl-format
@@ -4381,9 +4382,9 @@ msgid "Server version:"
 msgstr ""
 
 #: ../root/scripts/module_track_parser.tt:48
-#, fuzzy, perl-format
+#, perl-format
 msgid "Set Release Title from first line"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/user/reset_password.tt:5
 #, perl-format
@@ -4416,9 +4417,9 @@ msgid "Show Style Guideline Lookup"
 msgstr ""
 
 #: ../root/scripts/module_track_parser.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "Show Track Parser"
-msgstr "المسارات"
+msgstr ""
 
 #: ../root/release/edit_attributes.tt:23
 #, perl-format
@@ -4576,9 +4577,9 @@ msgid "Sort name:"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:46
-#, fuzzy, perl-format
+#, perl-format
 msgid "Soundtrack Title Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:86
 #, perl-format
@@ -4638,9 +4639,9 @@ msgid "Subscribe"
 msgstr ""
 
 #: ../root/label/subscriptions.tt:25
-#, fuzzy, perl-format
+#, perl-format
 msgid "Subscribe to this Label."
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/artist/subscribe.tt:20
 #, perl-format
@@ -4663,14 +4664,14 @@ msgid "Subscribers"
 msgstr ""
 
 #: ../root/layout/menu.tt:205 ../root/user/profile.tt:99
-#, fuzzy, perl-format
+#, perl-format
 msgid "Subscriptions"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:48
-#, fuzzy, perl-format
+#, perl-format
 msgid "Subtitle Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/annotation/common.tt:22
 #, perl-format
@@ -4704,9 +4705,9 @@ msgid "Tag this artist"
 msgstr ""
 
 #: ../root/label/layout.tt:22 ../root/label/tag.tt:2
-#, fuzzy, perl-format
+#, perl-format
 msgid "Tag this label"
-msgstr "تحرير"
+msgstr ""
 
 #: ../root/recording/layout.tt:21 ../root/recording/tag.tt:2
 #, perl-format
@@ -4989,9 +4990,9 @@ msgid "This recording does not have an annotation"
 msgstr ""
 
 #: ../root/recording/puids.tt:12
-#, fuzzy, perl-format
+#, perl-format
 msgid "This recording does not have any associated PUIDs"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/recording/tags.tt:2
 #, perl-format
@@ -4999,9 +5000,9 @@ msgid "This recording has no tags."
 msgstr ""
 
 #: ../root/release/annotation.tt:1
-#, fuzzy, perl-format
+#, perl-format
 msgid "This release does not have an annotation"
-msgstr "معلومات الإصدار"
+msgstr ""
 
 #: ../root/release_group/delete.tt:17
 #, perl-format
@@ -5176,27 +5177,27 @@ msgstr "المسار"
 #: ../root/release/tracks.tt:28
 #, fuzzy, perl-format
 msgid "Track Artist"
-msgstr "الفنان"
+msgstr "المسارات"
 
 #: ../root/release/tracks.tt:31
-#, fuzzy, perl-format
+#, perl-format
 msgid "Track Duration"
-msgstr "الفنان"
+msgstr ""
 
 #: ../root/release/tracks.tt:22
-#, fuzzy, perl-format
+#, perl-format
 msgid "Track Number"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/release/tracks.tt:25
 #, fuzzy, perl-format
 msgid "Track Title"
-msgstr "العنوان"
+msgstr "المسارات"
 
 #: ../root/release_editor/track_count.tt:10
 #, fuzzy, perl-format
 msgid "Track count"
-msgstr "العنوان"
+msgstr "المسار"
 
 #: ../root/cdtoc/index.tt:29
 #, fuzzy, perl-format
@@ -5284,9 +5285,9 @@ msgid "Unknown"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:49
-#, fuzzy, perl-format
+#, perl-format
 msgid "Unknown Artist Style"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/release_editor/release_data.tt:10
 #, perl-format
@@ -5320,9 +5321,9 @@ msgid "Unsubscribe from this artist."
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:50
-#, fuzzy, perl-format
+#, perl-format
 msgid "Untitled Bootleg Style"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:51
 #, fuzzy, perl-format
@@ -5330,9 +5331,9 @@ msgid "Untitled Release Style"
 msgstr "عنوان الإصدار"
 
 #: ../root/scripts/module_guideline_list.tt:52
-#, fuzzy, perl-format
+#, perl-format
 msgid "Untitled Track Style"
-msgstr "العنوان"
+msgstr ""
 
 #: ../root/user/adjust_flags.tt:14 ../root/user/profile.tt:79
 #, perl-format
@@ -5346,9 +5347,9 @@ msgid "Update"
 msgstr ""
 
 #: ../root/admin/wikidoc/edit.tt:1 ../root/admin/wikidoc/edit.tt:3
-#, fuzzy, perl-format
+#, perl-format
 msgid "Update Page"
-msgstr "إضافة إصدار"
+msgstr ""
 
 #: ../root/components/tag.tt:1
 #, perl-format
@@ -5402,9 +5403,9 @@ msgstr ""
 
 #: ../root/user/login.tt:23 ../root/user/lost_password.tt:15
 #: ../root/user/register.tt:15
-#, perl-format
+#, fuzzy, perl-format
 msgid "Username:"
-msgstr ""
+msgstr "عنوان الإصدار"
 
 #: ../root/layout/footer-bar.tt:35 ../root/layout/footer-bar.tt:38
 #, perl-format
@@ -5412,9 +5413,9 @@ msgid "Valid <abbr title="
 msgstr ""
 
 #: ../root/freedb/choose_artist.tt:15
-#, fuzzy, perl-format
+#, perl-format
 msgid "Various Artists"
-msgstr "تأكيد الفنان"
+msgstr ""
 
 #: ../root/admin/wikidoc/index.tt:16
 #, perl-format
@@ -5511,9 +5512,9 @@ msgid "Votes tally:"
 msgstr ""
 
 #: ../root/elections/details.tt:79
-#, fuzzy, perl-format
+#, perl-format
 msgid "Voting"
-msgstr "إستمرار التحرير"
+msgstr ""
 
 #: ../root/elections/details.tt:83
 #, perl-format
@@ -6121,9 +6122,9 @@ msgid "{doc|Development}"
 msgstr ""
 
 #: ../root/layout/menu.tt:134
-#, fuzzy, perl-format
+#, perl-format
 msgid "{doc|Editing}"
-msgstr "إستمرار التحرير"
+msgstr ""
 
 #: ../root/layout/sidebar/sites.tt:8
 #, perl-format
@@ -6333,9 +6334,9 @@ msgid "{mbid|<abbr title=\"MusicBrainz IDentifier\">MBID</abbr>}:"
 msgstr ""
 
 #: ../root/tag/entity-list.tt:10
-#, fuzzy, perl-format
+#, perl-format
 msgid "{name} by {artist}"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/components/common-macros.tt:35
 #, perl-format
@@ -6354,9 +6355,9 @@ msgstr ""
 
 #: ../root/edit/details/merge_release_groups.tt:4
 #: ../root/edit/details/merge_release_groups.tt:12
-#, fuzzy, perl-format
+#, perl-format
 msgid "{release_group} by {artist}"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/elections/details.tt:43
 #, perl-format
@@ -6369,9 +6370,9 @@ msgid "{type0}-{type1} Link Types"
 msgstr ""
 
 #: ../root/work/header.tt:9
-#, fuzzy, perl-format
+#, perl-format
 msgid "{type} by {artist}"
-msgstr "عنوان الإصدار"
+msgstr ""
 
 #: ../root/tag/display.tt:3
 #, perl-format
@@ -6440,61 +6441,3 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:39
 msgid "Please choose another username, this one is already taken"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Artist Information"
-#~ msgstr "معلومات الإصدار"
-
-#, fuzzy
-#~ msgid "Delete this artist"
-#~ msgstr "عنوان الإصدار"
-
-#, fuzzy
-#~ msgid "Release Details"
-#~ msgstr "عنوان الإصدار"
-
-#, fuzzy
-#~ msgid "Track Information"
-#~ msgstr "معلومات الإصدار"
-
-#, fuzzy
-#~ msgid "{doc|Title}"
-#~ msgstr "العنوان"
-
-#, fuzzy
-#~ msgid "Hide Track Parser"
-#~ msgstr "المسارات"
-
-#, fuzzy
-#~ msgid "Parse Track Times"
-#~ msgstr "العنوان"
-
-#, fuzzy
-#~ msgid "Add a release event"
-#~ msgstr "إضافة إصدار جديد"
-
-#, fuzzy
-#~ msgid "Insert Track"
-#~ msgstr "المسار"
-
-#, fuzzy
-#~ msgid "Add / Edit Release Presets"
-#~ msgstr "إضافة إصدار جديد"
-
-#, fuzzy
-#~ msgid "Any release that does not fit any of the categories above."
-#~ msgstr "لا، إصداري ليس واحداً من الأعلى"
-
-#, fuzzy
-#~ msgid "Pseudo-Release"
-#~ msgstr "إضافة إصدار"
-
-#, fuzzy
-#~ msgid "PseudoReleases"
-#~ msgstr "الإصدارات"
-
-#~ msgid "Check For Duplicates"
-#~ msgstr "البحث عن المكررات"
-
-#~ msgid "Yes, my Release is one of the above"
-#~ msgstr "نعم، إصداري واحد من الأعلى"
