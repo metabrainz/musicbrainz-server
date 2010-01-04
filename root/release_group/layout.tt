@@ -20,10 +20,10 @@
             [% IF c.user_exists %]
                <li>[% link_release_group(rg, 'merge', l('Merge release group')) %]</li>
                <li>[% link_release_group(rg, 'edit', l('Edit this release group')) %]</li>
+               <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
             [% ELSE %]
                <li>[% request_login(l('Please login to edit this release group')) %]</li>
             [% END %]
-            <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]

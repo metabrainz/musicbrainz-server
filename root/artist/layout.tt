@@ -38,10 +38,10 @@
             [% IF c.user_exists %]
                 <li>[% link_artist(artist, 'edit', l('Edit this artist')) %]</li>
                 <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
+                <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
             [% ELSE %]
                 <li>[% request_login(l('Please login to edit this artist')) %]</li>
             [% END %]
-                <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
