@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
+    check_in_use
     defined_hash
     generate_gid
     load_subobjects
@@ -161,7 +162,7 @@ sub in_use
     my ($self, $release_group_id) = @_;
     my $sql = Sql->new($self->c->dbh);
 
-    return in_use($sql,
+    return check_in_use($sql,
         'release                    WHERE release_group = ?' => [ $release_group_id ],
         'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
         'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
