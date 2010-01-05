@@ -32,10 +32,10 @@
                                     <a href="[% c.uri_for_action('edit/cancel', [ edit.id ], { url=c.req.uri }) %]">
                                         [% l('Cancel') %]</a>
                                 [% END %]
+
+                                [% INCLUDE 'edit/vote.tt' n=loop.index %]
                             </p>
-                            [% END %]
-                            
-                            [% INCLUDE 'edit/vote.tt' n=loop.index %]
+                            [% END %]                           
                         </td>
                     </tr>
                     [% IF edit.notes.size %]
