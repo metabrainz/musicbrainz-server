@@ -362,7 +362,8 @@ sub _build_transport
 sub _send_email
 {
     my ($self, $email) = @_;
-    my $to = Email::Address->parse($email->header('To'));
+    my @all_to = Email::Address->parse($email->header('To'));
+    my $to = $all_to[0];
     return unless $to && $to->address;
 
     my $args = { transport => $self->transport };
