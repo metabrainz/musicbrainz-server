@@ -1,4 +1,26 @@
-[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
-    { label=l('<abbr title="Uniform Resource Locator">URL</abbr>'), new=new.URL, prev=prev.URL },
-    { label=l('Description'), new=new.Desc, prev=prev.Desc },
-] -%]
+[% MACRO show_url(url) BLOCK %]
+    <a href="[% url | url %]">[% url | html %]</a>
+[% END %]
+
+<table class="details">
+  [% IF edit.display_data.uri %]
+  <tr>
+    <th>[% l('URL:') %]</th>
+    <td class="old">[% show_url(edit.display_data.uri.old) %]</td>
+    <td class="new">[% show_url(edit.display_data.uri.new) %]</td>
+  </tr>
+  [% ELSE %]
+  <tr>
+    <th>[% l('URL:') %]</th>
+    <td colspan="2">[% show_url(edit.display_data.url.url) %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.description %]
+  <tr>
+    <th>[% l('Description:') %]</th>
+    <td class="old">[% edit.display_data.description.old %]</td>
+    <td class="new">[% edit.display_data.description.new %]</td>
+  </tr>
+  [% END %]
+</table>

@@ -1,9 +1,12 @@
 package MusicBrainz::Server::Data::URL;
-
 use Moose;
+
+use Carp;
+use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::Editable' => { table => 'url' };
 
 sub _table
 {
@@ -20,6 +23,24 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::URL';
+}
+
+sub update
+{
+    my ($self, $url_id, $url_hash) = @_;
+    croak '$url_id must be present and > 0' unless $url_id > 0;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my $row = $self->_hash_to_row($url_hash);
+    $sql->update_row('url', $row, { id => $url_id });
+}
+
+sub _hash_to_row
+{
+    my ($self, $values) = @_;
+    return hash_to_row($values, {
+        url => 'url',
+        description => 'description'
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -1,9 +1,7 @@
 package MusicBrainz::Server::Form::Field::URL;
+use Moose;
 
-use strict;
-use warnings;
-
-use base 'Form::Processor::Field::Text';
+extends 'HTML::FormHandler::Field::Text';
 
 sub validate
 {
@@ -11,12 +9,13 @@ sub validate
 
     return unless $self->SUPER::validate;
 
-    my $url = $self->input;
+    my $url = $self->value;
 
     return $self->add_error('Enter a valid url "e.g. http://google.com/"')
         unless MusicBrainz::Server::URL->IsLegalURL($url);
 
-    return 1;
+    $self->_set_value($url);
 }
 
+__PACKAGE__->meta->make_immutable;
 1;

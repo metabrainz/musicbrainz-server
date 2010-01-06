@@ -1,0 +1,24 @@
+[%- WRAPPER "layout.tt" title=l("URL Information") -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+    <ul class="links">
+      [% IF c.user_exists %]
+      <li>[% link_url(url, 'edit', l('Edit this URL')) %]</li>
+      [% ELSE %]
+      <li>[% request_login(l('Please login to edit this URL')) %]</li>
+      [% END %]
+    </ul>
+    [% END %]
+    
+    <table class="details">
+      <tr>
+        <th>[% l('URL:') %]</th>
+        <td><a href="[% url.url | url %]">[% url.url | html %]</a></td>
+      </tr>
+      [% IF url.description %]
+      <tr>
+        <th>[% l('Description:') %]</th>
+        <td>[% url.description | html %]</td>
+      </tr>
+      [% END %]
+    </table>
+[%- END -%]

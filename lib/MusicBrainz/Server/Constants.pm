@@ -94,6 +94,8 @@ Readonly our $EDIT_RELATIONSHIP_DELETE => 92;
 
 Readonly our $EDIT_WIKIDOC_CHANGE => 93;
 
+Readonly our $EDIT_URL_EDIT => 101;
+
 =head1 NAME
 
 MusicBrainz::Server::Constant - constants used in the database that

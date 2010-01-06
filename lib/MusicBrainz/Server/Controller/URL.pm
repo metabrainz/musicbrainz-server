@@ -1,9 +1,14 @@
 package MusicBrainz::Server::Controller::URL;
+use Moose;
 
-use strict;
-use warnings;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use base 'MusicBrainz::Server::Controller';
+__PACKAGE__->config(
+    model => 'URL',
+    entity_name => 'url'
+);
+
+use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 
 =head1 NAME
 
@@ -19,31 +24,14 @@ relationships).
 
 =head1 METHODS
 
-=head2 url
-
-Base method for chaining - loads the URL into the stash
-
 =cut
 
-sub url : Chained CaptureArgs(1)
-{
-    my ($self, $c, $mbid) = @_;
-    $c->stash->{url} = $c->model('Url')->load($mbid);
-}
+sub base : Chained('/') PathPart('url') CaptureArgs(0) { }
 
-# TODO
-sub show : Chained('url') PathPart('') { }
-
-=head2 info
-
-Provides information about a given link
-
-=cut
-
-sub info : Chained('url')
+sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
-    $c->forward('relations');
+    $c->stash->{template} = 'url/index.tt';
 }
 
 =head2 relations
@@ -66,22 +54,26 @@ Edit the details of an already existing link
 
 =cut
 
-sub edit : Chained('url') Form
+sub edit : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
     my $url = $c->stash->{url};
+    my $form = $c->form(form => 'URL', item => $url);
+    warn $form->errors;
+    
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
+    {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_URL_EDIT,
+            editor_id => $c->user->id,
+            url_entity => $url,
+            map { $_ => $form->field($_)->value }
+                grep { $form->field($_)->has_input }
+                    qw( url description )
+        );
 
-    my $form = $self->form;
-    $form->init($url);
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    $form->insert;
-
-    $c->response->redirect($c->entity_url($url, 'info'));
+        $c->response->redirect($c->uri_for_action('/url/show', [ $url->gid ]));
+    }
 }
 
 =head1 LICENSE

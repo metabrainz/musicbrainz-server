@@ -1,15 +1,15 @@
-[%- SET styleGuidelines=1 -%]
-[%- PROCESS 'scripts/suitereqs.tt' -%]
-[% WRAPPER 'layout.tt' title=l('Edit URL') %]
-    [% WRAPPER 'components/box.tt' header=l('Edit <abbr title="Uniform Resource Locator">URL</abbr>') %]
-        [%- INCLUDE 'scripts/module_style_guidelines.tt' -%]
-        [%#- This next is needed only to get the guideline button to clear the Edit Note line, as this form has no non-note content. -#%]
-        <br style="margin-bottom: .8em;" />
-        [% WRAPPER 'forms/form.tt' %]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('url') label=l("<abbr title="Uniform Resource Locator">URL</abbr>") %]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('description') label=l('Description') %]
-            [% INCLUDE 'forms/edit-note.tt' %]
-            [% INCLUDE 'forms/submit.tt' label=l('Enter Edit') %]
-        [% END %]
-    [% END %]
+[% WRAPPER 'layout.tt' title=l('Edit URL') full_width=1 %]
+    <form action="[% c.req.uri %]" method="post">
+      [% USE r = FormRenderer(form) %]
+      <p>
+        [% r.label('url', l('URL:')) %]
+        [% r.text('url') %]
+      </p>
+      <p>
+        [% r.label('description', l('Description:')) %]
+        [% r.text('description') %]
+      </p>
+      [% INCLUDE 'forms/edit-note.tt' %]
+      [% form_submit(l('Enter edit')) %]
+    </form>
 [% END %]
