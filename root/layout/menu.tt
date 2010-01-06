@@ -186,7 +186,7 @@
             </a>
             <ul>
                 <li>
-                    <a href="[% c.uri_for('/user/edit') %]">
+                    <a href="[% c.uri_for('/account/edit') %]">
                         [% l('Edit Account') %]
                     </a>
                 </li>

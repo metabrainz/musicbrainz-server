@@ -16,6 +16,7 @@ body {
 a { color:#002BBA; text-decoration: none; }
 a:visited { color:#3C5DCE; }
 a:hover { color:#FC6714; text-decoration: underline; }
+a:active, a:focus { outline-style: none; }
 
 #header {
     width: 100%;
@@ -226,7 +227,7 @@ h1 {
     color: #000;
 }
 
-.page h1 span {
+.page h1 span, .page h1 span.comment {
     font-size: 12px;
     font-weight: normal;
     color: #666;
@@ -234,9 +235,10 @@ h1 {
 
 .artistheader, .releaseheader, .rgheader, .recordingheader, .labelheader {
     padding-left: 38px;
-    background: url('../images/aicon_lg.png') 0 4px no-repeat;
+    background: 0 4px no-repeat;
 }
 
+.artistheader { background-image: url('../images/aicon_lg.png') }
 .releaseheader { background-image: url('../images/licon_lg.png') }
 .rgheader { background-image: url('../images/gicon_lg.png') }
 .recordingheader { background-image: url('../images/ticon_lg.png') }

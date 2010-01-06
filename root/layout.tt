@@ -21,11 +21,11 @@
         <div id="header">
             <div id="header-logo"><a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a><div>
                 [%- USE sidebar = FormRenderer(sidebar_search) -%]
-                <form action="[% c.uri_for('/search') %]" method="get"><span>
+                <form action="[% c.uri_for('/search') %]" method="get">
                     [%- sidebar.select('type') %] [% sidebar.text('query') -%]
                     <input type="hidden" name="direct" value="on" />
                     <input type="submit" value="Search" />
-                </span></form>
+                </form>
             </div></div>
             <div id="header-menu"><div>
                 <ul class="r">

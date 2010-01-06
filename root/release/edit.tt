@@ -20,12 +20,14 @@
         [% INCLUDE 'release/sidebar.tt' editing=1 %]
 
         <div class="content">
-            <h1>
-                [% r.text('name', id => 'release-name') %]
-                <span class="comment">([% r.text('comment', id => 'comment') %])</span>
-            </h1>
-            <div id="release-artist">
-                [% r.artist_credit_editor('artist_credit') %]
+            <div class="releaseheader">
+                <h1>
+                    [% r.text('name', id => 'release-name') %]
+                    <span class="comment">([% r.text('comment', id => 'comment') %])</span>
+                </h1>
+                <div id="release-artist">
+                    [% r.artist_credit_editor('artist_credit') %]
+                </div>
             </div>
 
             <table id="mediums">
