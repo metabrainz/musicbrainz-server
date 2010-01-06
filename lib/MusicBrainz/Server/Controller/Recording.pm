@@ -125,24 +125,20 @@ Edit recording details (sequence number, recording time and title)
 sub edit : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-
+    
     my $recording = $c->stash->{recording};
     $c->model('ArtistCredit')->load($recording);
 
-    my $form = $c->form(form => 'Recording', init_object => $recording);
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            edit_type => $EDIT_RECORDING_EDIT,
-            recording => $recording,
-
-            (map { $_ => $form->field($_)->value }
-                 grep { $form->field($_)->has_value }
-                     qw( name comment length artist_credit ))
-        );
-
-        $c->response->redirect($c->uri_for_action('/recording/show', [ $recording->gid ]));
-    }
+    $self->edit_action($c, 
+        form => 'Recording',
+        item => $recording,
+        type => $EDIT_RECORDING_EDIT,
+        edit_args => { recording => $recording },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/recording/show', [ $recording->gid ]));
+        }
+    );
 }
 
 sub remove : Chained('load') Form

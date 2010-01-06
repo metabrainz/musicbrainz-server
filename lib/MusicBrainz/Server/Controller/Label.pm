@@ -131,75 +131,54 @@ sub merge : Chained('load') RequireAuth
         $new_label = $c->controller('Search')->filter($c, 'label', 'Label');
     }
 
-    my $form = $c->form( form => 'Confirm' );
     $c->stash(
         template => 'label/merge_confirm.tt',
         new_label => $new_label,
         old_label => $old_label
     );
 
-    if($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            edit_type => $EDIT_LABEL_MERGE,
+    $self->edit_action($c,
+        form => 'Confirm',
+        type => $EDIT_LABEL_MERGE,
+        edit_args => {
             old_label_id => $old_label->id,
             new_label_id => $new_label->id,
-        );
-
-        $c->response->redirect($c->uri_for_action('/label/show', [ $new_label->gid ]));
-        $c->detach;
-    }
+        },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/label/show', [ $new_label->gid ]));
+        }
+    );
 }
 
 sub edit : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-
     my $label = $c->stash->{label};
-    my $form = $c->form( form => 'Label', item => $label );
-    if ($c->form_posted && $form->process( params => $c->req->params ))
-    {
-        my %edit = map { $_ => $form->field($_)->value }
-            qw( name sort_name type_id label_code country_id begin_date end_date comment );
-
-        my $edit = $c->model('Edit')->create(
-            edit_type => $EDIT_LABEL_EDIT,
-            editor_id => $c->user->id,
-            label => $label,
-            %edit
-        );
-
-        if ($edit->label)
-        {
-            $c->response->redirect($c->uri_for_action('/label/show', [ $edit->label->gid ]));
-            $c->detach;
+    $self->edit_action($c,
+        form => 'Label',
+        item => $label,
+        type => $EDIT_LABEL_EDIT,
+        edit_args => { label => $label },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/label/show', [ $label->gid ]));
         }
-    }
+    );
 }
 
 sub create : Local RequireAuth
 {
     my ($self, $c) = @_;
-
-    my $form = $c->form( form => 'Label' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my %edit = map { $_ => $form->field($_)->value }
-            qw( name sort_name type_id label_code country_id begin_date end_date comment );
-
-        my $edit = $c->model('Edit')->create(
-            edit_type => $EDIT_LABEL_CREATE,
-            editor_id => $c->user->id,
-            %edit
-        );
-
-        if ($edit->label)
-        {
-            $c->response->redirect($c->uri_for_action('/label/show', [ $edit->label->gid ]));
-            $c->detach;
+    $self->edit_action($c,
+        form => 'Label',
+        type => $EDIT_LABEL_CREATE,
+        on_creation => sub {
+            my $edit = shift;
+            $c->response->redirect(
+                $c->uri_for_action('/label/show', [ $edit->label->gid ]));
         }
-    }
+    );
 }
 
 sub delete : Chained('load') PathPart RequireAuth
@@ -207,24 +186,19 @@ sub delete : Chained('load') PathPart RequireAuth
     my ($self, $c) = @_;
 
     my $label = $c->stash->{label};
-    my $can_delete = 1;
-    return unless $can_delete;
+    return unless $c->model('Label')->can_delete($label->id);
 
-    my $form = $c->form( form => 'Confirm' );
-    $c->stash( can_delete => $can_delete );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            edit_type => $EDIT_LABEL_DELETE,
-            label => $label
-        );
-
-        my $url = $edit->is_open ? $c->uri_for_action('/label/show', [ $label->gid ])
-                                 : $c->uri_for_action('/search');
-        $c->response->redirect($url);
-        $c->detach;
-    }
+    $self->edit_action($c,
+        form => 'Confirm',
+        type => $EDIT_LABEL_DELETE,
+        edit_args => { label => $label },
+        on_creation => sub {
+            my $edit = shift;
+            my $url = $edit->is_open ? $c->uri_for_action('/label/show', [ $label->gid ])
+                : $c->uri_for_action('/search');
+            $c->response->redirect($url);
+        }
+    );
 }
 
 1;

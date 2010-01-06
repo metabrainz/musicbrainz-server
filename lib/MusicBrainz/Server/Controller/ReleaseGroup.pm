@@ -57,43 +57,33 @@ sub delete : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
     my $rg = $c->stash->{rg};
-    my $can_delete = 1;
+    return unless $c->model('ReleaseGroup')->can_delete($rg->id);
     
-    return unless $can_delete;
-    my $form = $c->form( form => 'Confirm' );
-    $c->stash( can_delete => $can_delete );
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params) )
-    {
-        my $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            edit_type => $EDIT_RELEASEGROUP_DELETE,
-            release_group_id => $rg->id
-        );
-
-        $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg->gid ]));
-        $c->detach;
-    }
+    $self->edit_action($c,
+        form => 'Confirm',
+        type => $EDIT_RELEASEGROUP_DELETE,
+        edit_args => { release_group_id => $rg->id },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/release_group/show', [ $rg->gid ]));
+        }
+    );
 }
 
 sub edit : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
     my $rg = $c->stash->{rg};
-
-    my $form = $c->form( form => 'ReleaseGroup', init_object => $rg );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            edit_type => $EDIT_RELEASEGROUP_EDIT,
-            release_group => $rg,
-            (map { $_ => $form->field($_)->value }
-                 grep { $form->field($_)->has_value }
-                     qw( type_id name comment artist_credit ))
-        );
-
-        $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg->gid ]));
-    }
+    $self->edit_action($c,
+        form => 'ReleaseGroup',
+        item => $rg,
+        type => $EDIT_RELEASEGROUP_EDIT,
+        edit_args => { release_group => $rg },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/release_group/show', [ $rg->gid ]));
+        }
+    );
 }
 
 sub merge : Chained('load') RequireAuth
@@ -105,24 +95,25 @@ sub merge : Chained('load') RequireAuth
         my $new = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
         $c->model('ArtistCredit')->load($new);
 
-        my $form = $c->form( form => 'Confirm' );
         $c->stash(
             template => 'release_group/merge_confirm.tt',
             old_rg => $old,
             new_rg => $new
         );
 
-        if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-            my $edit = $c->model('Edit')->create(
-                editor_id => $c->user->id,
-                edit_type => $EDIT_RELEASEGROUP_MERGE,
+        $c->stash( template => 'release_group/merge_confirm.tt' );
+        $self->edit_action($c,
+            form => 'Confirm',
+            type => $EDIT_RELEASEGROUP_MERGE,
+            edit_args => {
                 old_release_group_id => $old->id,
                 new_release_group_id => $new->id
-            );
-
-            $c->response->redirect($c->uri_for_action('/release_group/show', [ $new->gid ]));
-        }
-        $c->stash( template => 'release_group/merge_confirm.tt' );
+            },
+            on_creation => sub {
+                $c->response->redirect(
+                    $c->uri_for_action('/release_group/show', [ $new->gid ]));
+            }
+        );
     }
     else {
         my $query = $c->form( query_form => 'Search::Query', name => 'filter' );

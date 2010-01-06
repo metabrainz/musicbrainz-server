@@ -23,6 +23,11 @@ has_field 'artist_credit' => (
     type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
 );
 
+sub edit_field_names
+{
+    return qw( name length comment artist_credit );
+}
+
 sub options_type_id { shift->_select_all('RecordingType') }
 
 1;

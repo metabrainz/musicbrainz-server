@@ -46,6 +46,12 @@ has_field 'not_dupe' => (
     type => 'Boolean',
 );
 
+sub edit_field_names
+{
+    return qw( name sort_name type_id gender_id country_id
+               begin_date end_date comment );
+}
+
 sub options_gender_id   { shift->_select_all('Gender') }
 sub options_type_id     { shift->_select_all('ArtistType') }
 sub options_country_id  { shift->_select_all('Country') }

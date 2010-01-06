@@ -41,6 +41,12 @@ has_field 'comment' => (
     type => 'Text',
 );
 
+sub edit_field_names
+{
+    return qw( name sort_name comment type_id country_id
+               begin_date end_date label_code );
+}
+
 sub options_type_id    { shift->_select_all('LabelType') }
 sub options_country_id { shift->_select_all('Country') }
 

@@ -57,22 +57,19 @@ after 'show' => sub
 sub edit_annotation : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
-
     my $model = $self->{model};
     my $type = $self->{entity_name};
     my $entity = $c->stash->{$type};
     $c->model($model)->annotation->load_latest($entity);
-    my $form = $c->form( form => 'Annotation', item => $entity->latest_annotation );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $edit = $c->model('Edit')->create(
-            edit_type => $model_to_edit_type{$model},
-            editor_id => $c->user->id,
+    $self->edit_action($c,
+        form => 'Annotation',
+        item => $entity->latest_annotation,
+        type => $model_to_edit_type{$model},
+        edit_args => {
             entity_id => $entity->id,
-            text => $form->field('text')->value,
-            changelog => $form->field('changelog')->value,
-        );
-    }
+        }
+    );
 }
 
 sub annotation_history : Chained('load') PathPart

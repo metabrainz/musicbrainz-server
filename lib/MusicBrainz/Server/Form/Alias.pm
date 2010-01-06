@@ -10,4 +10,6 @@ has_field 'alias' => (
     required => 1
 );
 
+sub edit_field_names { qw(alias) }
+
 1;

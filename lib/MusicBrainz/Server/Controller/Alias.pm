@@ -45,54 +45,47 @@ sub alias : Chained('load') PathPart('alias') CaptureArgs(1)
 sub add_alias : Chained('load') PathPart('add-alias') RequireAuth
 {
     my ($self, $c) = @_;
-    my $form = $c->form( form => 'Alias' );
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $edit = $c->model('Edit')->create(
-            edit_type => $model_to_edit_type{add}->{ $self->{model} },
-            editor_id => $c->user->id,
-            alias => $form->field('alias')->value,
+    $self->edit_action($c,
+        form => 'Alias',
+        type => $model_to_edit_type{add}->{ $self->{model} },
+        edit_args => {
             $type.'_id' => $entity->id,
-        );
-
-        $self->_redir_to_aliases($c);
-    }
+        },
+        on_creation => sub { $self->_redir_to_aliases($c) }
+    );
 }
 
 sub delete_alias : Chained('alias') PathPart('delete') RequireAuth
 {
-    my ($self, $c, $alias_id) = @_;
+    my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
-    my $form = $c->form( form => 'Confirm' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $edit = $c->model('Edit')->create(
-            edit_type => $model_to_edit_type{delete}->{ $self->{model} },
-            editor_id => $c->user->id,
+    $self->edit_action($c,
+        form => 'Confirm',
+        type => $model_to_edit_type{delete}->{ $self->{model} },
+        edit_args => {
             alias     => $alias,
             entity_id => $c->stash->{ $self->{entity_name} }->id,
-        );
-
-        $self->_redir_to_aliases($c);
-    }
+        },
+        on_creation => sub { $self->_redir_to_aliases($c) }
+    );
 }
 
 sub edit_alias : Chained('alias') PathPart('edit') RequireAuth
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
-    my $form = $c->form( form => 'Alias', item => $alias );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $edit = $c->model('Edit')->create(
-            edit_type => $model_to_edit_type{edit}->{ $self->{model} },
-            editor_id => $c->user->id,
+    $self->edit_action($c,
+        form => 'Alias',
+        item => $alias,
+        type => $model_to_edit_type{edit}->{ $self->{model} },
+        edit_args => {
             alias     => $alias,
             entity_id => $c->stash->{ $self->{entity_name} }->id,
-            name      => $form->field('alias')->value
-        );
-
-        $self->_redir_to_aliases($c);
-    }
+        },
+        on_creation => sub { $self->_redir_to_aliases($c) }
+    );
 }
 
 sub _redir_to_aliases

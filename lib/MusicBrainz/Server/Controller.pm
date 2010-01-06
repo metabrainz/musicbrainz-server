@@ -70,6 +70,35 @@ sub submit_and_validate
     }
 }
 
+sub edit_action
+{
+    my ($self, $c, %opts) = @_;
+
+    my %form_args;
+    $form_args{item} = $opts{item} if exists $opts{item};
+    my $form = $c->form( form => $opts{form}, %form_args );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
+    {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $opts{type},
+            editor_id => $c->user->id,
+            (map { $_->name => $_->value } $form->edit_fields),
+            %{ $opts{edit_args} || {} },
+        ) or die "Could not create edit";
+
+        if ($form->does('MusicBrainz::Server::Form::Edit') &&
+                $form->field('edit_note')->value) {
+            $c->model('EditNote')->add_note($edit->id, {
+                text      => $form->field('edit_note')->value,
+                editor_id => $c->user->id,
+            })
+        }
+
+        $opts{on_creation}->($edit) if exists $opts{on_creation};
+    }
+}
+
 sub _load_paged
 {
     my ($self, $c, $loader) = @_;

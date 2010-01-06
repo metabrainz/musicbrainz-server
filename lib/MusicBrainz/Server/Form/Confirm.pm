@@ -5,4 +5,6 @@ extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Edit';
 has '+name' => ( default => 'confirm' );
 
+sub edit_field_names { () }
+
 1;

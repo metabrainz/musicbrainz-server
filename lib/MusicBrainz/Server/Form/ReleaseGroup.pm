@@ -25,4 +25,6 @@ has_field 'artist_credit' => (
 
 sub options_type_id { shift->_select_all('ReleaseGroupType') }
 
+sub edit_field_names { qw( type_id name comment artist_credit ) }
+
 1;

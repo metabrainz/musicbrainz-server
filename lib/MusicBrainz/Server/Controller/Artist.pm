@@ -353,25 +353,14 @@ is done via L<MusicBrainz::Server::Form::Artist>
 sub create : Local RequireAuth
 {
     my ($self, $c) = @_;
-
-    my $form = $c->form(form => 'Artist');
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my %edit = map { $_ => $form->field($_)->value }
-            qw( name sort_name gender_id type_id country_id begin_date end_date comment);
-
-        my $edit = $c->model('Edit')->create(
-            edit_type => $EDIT_ARTIST_CREATE,
-            editor_id => $c->user->id,
-            %edit
-        );
-
-        if ($edit->artist)
-        {
-            $c->response->redirect($c->uri_for_action('/artist/show', [ $edit->artist->gid ]));
-            $c->detach;
+    $self->edit_action($c,
+        form        => 'Artist',
+        type        => $EDIT_ARTIST_CREATE,
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/artist/show', [ shift->artist->gid ]));
         }
-    }
+    );
 }
 
 =head2 edit
@@ -387,27 +376,18 @@ into the MusicBrainz database.
 
 sub edit : Chained('load') RequireAuth
 {
-    my ($self, $c, $mbid) = @_;
-
-    my $form = $c->form( form => 'Artist', item => $c->stash->{artist});
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my %edit = map { $_ => $form->field($_)->value }
-            qw( name sort_name gender_id type_id country_id begin_date end_date comment);
-
-        my $edit = $c->model('Edit')->create(
-            edit_type => $EDIT_ARTIST_EDIT,
-            editor_id => $c->user->id,
-            artist => $c->stash->{artist},
-            %edit
-        );
-
-        if ($edit->artist)
-        {
-            $c->response->redirect($c->uri_for_action('/artist/show', [ $edit->artist->gid ]));
-            $c->detach;
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{artist};
+    $self->edit_action($c, 
+        form => 'Artist',
+        item => $artist,
+        type => $EDIT_ARTIST_EDIT,
+        edit_args => { artist => $artist },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/artist/show', [ $c->stash->{artist}->gid ]));
         }
-    }
+    );
 }
 
 =head2 add_release
@@ -432,33 +412,30 @@ Merge 2 artists into a single artist
 sub merge : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-    my $old_artist = $c->stash->{artist};
-
-    my $new_artist;
-    unless ($new_artist = $c->model('Artist')->get_by_gid($c->req->query_params->{gid}))
-    {
+    my ($old_artist, $new_artist);
+    $old_artist = $c->stash->{artist};
+    unless ($new_artist = $c->model('Artist')->get_by_gid($c->req->query_params->{gid})) {
         $c->stash( template => 'artist/merge_search.tt' );
         $new_artist = $c->controller('Search')->filter($c, 'artist', 'Artist', $old_artist->id);
     }
-
-    my $form = $c->form( form => 'Confirm' );
     $c->stash(
         template => 'artist/merge_confirm.tt',
         old_artist => $old_artist,
         new_artist => $new_artist
     );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            edit_type => $EDIT_ARTIST_MERGE,
+    $self->edit_action($c,
+        form => 'Confirm',
+        type => $EDIT_ARTIST_MERGE,
+        edit_args => {
             old_artist_id => $old_artist->id,
             new_artist_id => $new_artist->id
-        );
-
-        $c->response->redirect($c->uri_for_action('/artist/show', [ $new_artist->gid ]));
-    }
+        },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/artist/show', [ $new_artist->gid ]));
+        }
+    );
 }
 
 =head2 rating
