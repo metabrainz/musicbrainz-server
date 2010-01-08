@@ -2,7 +2,6 @@ package MusicBrainz::Server::Data::EntityTag;
 use Moose;
 
 use List::MoreUtils qw( uniq );
-use Encode qw( decode encode );
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
@@ -179,11 +178,11 @@ sub merge
 #  - load existing tags for user/entity from raw tables into a hash
 
 #  - for each tag in tag list:
-#        is tag in existing tag list? 
+#        is tag in existing tag list?
 #           yes, remove from existing tag list, continue
 #        find tag string in tag table, if not found, add it
 #        add tag assoc to raw tables
-#        find tag assoc in aggregate tables. 
+#        find tag assoc in aggregate tables.
 #        if not found
 #            add it
 #        else
@@ -205,9 +204,8 @@ sub parse_tags
         $_ =~ s/\s+/ /sg;
         # remove leading and trailing whitespace
         $_ =~ s/^\s*(.*?)\s*$/$1/;
-        $_ = encode "utf-8", $_;
         $_;
-    } split ',', lc(decode "utf-8", $input);
+    } split ',', $input;
 
     # make sure the list contains only unique tags
     return uniq(@tags);
