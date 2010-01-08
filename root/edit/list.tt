@@ -1,7 +1,7 @@
 [% IF edits.size %]
     [% WRAPPER 'components/with-pager.tt' %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
-            <input type="hidden" name="url" value="[% c.req.uri %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
             <table class="edit-list">
                 [%- FOREACH edit=edits -%]
                     <tr class="seperator">

@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Data::Page;
 use DBDefs;
+use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 
 __PACKAGE__->config(
     entity_name => 'edit',
@@ -134,18 +135,16 @@ Show a list of open moderations
 
 =cut
 
-sub open : Local
+sub open : Local RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
+    my $edits = $self->_load_paged($c, sub {
+         $c->model('Edit')->find({ status => $STATUS_OPEN }, shift, shift);
+    });
 
-    my $page = $c->req->{query_params}->{page} || 1;
-
-    my ($edits, $pager)= $c->model('Moderation')->list_open($page);
-
-    $c->stash->{pager} = $pager;
-    $c->stash->{edits} = $edits;
+    $c->model('Edit')->load_all(@$edits);
+    $c->stash( edits => $edits );
 }
 
 =head2 for_type
