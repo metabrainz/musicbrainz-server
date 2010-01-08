@@ -2,7 +2,7 @@
     [%- WRAPPER 'components/box.tt' header=l('Remove PUID {puid}', {puid=puid.puid}) -%]
         [% artist %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('Are you sure you want to remove the assossciation between PUID <code>{puid}</code> and the track {track} by {artist}?', { puid=puid.puid, track=entity_link(track), artist=entity_link(track.artist) })) -%]
+            [%- create_guideline(l('Are you sure you want to remove the association between PUID <code>{puid}</code> and the track {track} by {artist}?', { puid=puid.puid, track=entity_link(track), artist=entity_link(track.artist) })) -%]
             [%- create_guideline(l('If so, please enter an edit note below.')) %]
         [% END %]
 
