@@ -30,7 +30,7 @@ Session::State::Cookie
 
 Authentication
 
-Unicode
+Unicode::Encoding
 /;
 
 our $VERSION = '0.01';
@@ -48,6 +48,7 @@ require MusicBrainz::Server::Filters;
 __PACKAGE__->config(
     name => 'MusicBrainz::Server',
     default_view => 'Default',
+    encoding => 'UTF-8',
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,

@@ -20,6 +20,7 @@ requires 'Catalyst::Plugin::Session::State::Cookie'    => '0.11';
 requires 'Catalyst::Plugin::Session::Store::FastMmap'  => '0.07';
 requires 'Catalyst::Plugin::StackTrace'                => '0.09';
 requires 'Catalyst::Plugin::Static::Simple'            => '0.21';
+requires 'Catalyst::Plugin::Unicode';
 requires 'Catalyst::Runtime'                           => '5.80007';
 requires 'Catalyst::View::TT'                          => '0.29';
 requires 'Data::OptList';

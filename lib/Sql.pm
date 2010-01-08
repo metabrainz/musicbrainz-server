@@ -98,7 +98,6 @@ sub do
     $self->_auto_commit(0) if $self->_auto_commit;
     try {
         my $tt = Sql::Timer->new($query, \@params) if $self->debug;
-        utf8::downgrade($_) for ($query, @params);
         my $sth = $self->dbh->$prepare_method($query);
         my $rows = $sth->execute(@params);
         $sth->finish;
