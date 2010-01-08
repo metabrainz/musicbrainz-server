@@ -85,6 +85,8 @@ sub options_language_id       { shift->_select_all('Language') }
 sub options_script_id         { shift->_select_all('Script') }
 sub options_mediums_format_id { shift->_select_all('MediumFormat') }
 
+sub edit_field_names { qw() }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

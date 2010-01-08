@@ -20,13 +20,12 @@ my ($edits) = $c->model('Edit')->find({ release_group => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
-$c->model('Edit')->load_all($edit);
-is($edit->release_group_id, 1);
-is($edit->release_group->id, 1);
-is($edit->release_group->edits_pending, 1);
+
+my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+is($rg->edits_pending, 1);
 
 reject_edit($c, $edit);
-my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+$rg = $c->model('ReleaseGroup')->get_by_id(1);
 ok(defined $rg);
 is($rg->edits_pending, 0);
 

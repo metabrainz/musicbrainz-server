@@ -395,30 +395,43 @@ Merge 2 artists into a single artist
 sub merge : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-    my ($old_artist, $new_artist);
-    $old_artist = $c->stash->{artist};
-    unless ($new_artist = $c->model('Artist')->get_by_gid($c->req->query_params->{gid})) {
-        $c->stash( template => 'artist/merge_search.tt' );
-        $new_artist = $c->controller('Search')->filter($c, 'artist', 'Artist', $old_artist->id);
-    }
-    $c->stash(
-        template => 'artist/merge_confirm.tt',
-        old_artist => $old_artist,
-        new_artist => $new_artist
-    );
+    my $old = $c->stash->{artist};
 
-    $self->edit_action($c,
-        form => 'Confirm',
-        type => $EDIT_ARTIST_MERGE,
-        edit_args => {
-            old_artist_id => $old_artist->id,
-            new_artist_id => $new_artist->id
-        },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/artist/show', [ $new_artist->gid ]));
+    if ($c->req->query_params->{dest}) {
+        my $new = $c->model('Artist')->get_by_gid($c->req->query_params->{dest});
+
+        $c->stash(
+            template => 'artist/merge_confirm.tt',
+            old_artist => $old,
+            new_artist => $new
+        );
+
+        $self->edit_action($c,
+            form => 'Confirm',
+            type => $EDIT_ARTIST_MERGE,
+            edit_args => {
+                old_artist_id => $old->id,
+                new_artist_id => $new->id
+            },
+            on_creation => sub {
+                $c->response->redirect(
+                    $c->uri_for_action('/artist/show', [ $new->gid ]));
+            }
+        );
+    }
+    else {
+        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
+        if ($query->submitted_and_valid($c->req->params)) {
+            my $results = $self->_load_paged($c, sub {
+                    $c->model('DirectSearch')->search('artist', $query->field('query')->value, shift, shift)
+                });
+
+            $c->stash(
+                search_results => $results
+            );
         }
-    );
+        $c->stash( template => 'artist/merge_search.tt' );
+    }
 }
 
 =head2 rating

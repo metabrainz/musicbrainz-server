@@ -23,7 +23,7 @@ $response = $mech->submit_form(
 );
 $response = $mech->submit_form(
     with_fields => {
-        'results.selected_id' => 3
+        'dest' => '745c079d-374e-4436-9448-da92dedef3ce'
     });
 $response = $mech->submit_form(
     with_fields => { 'confirm.edit_note' => ' ' }

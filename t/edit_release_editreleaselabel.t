@@ -21,11 +21,8 @@ my ($edits) = $c->model('Edit')->find({ release => 1 }, 10, 0);
 is(scalar @$edits, 1);
 is($edits->[0]->id, $edit->id);
 
-$c->model('Edit')->load_all($edit);
-ok(defined $edit->release);
-is($edit->release->id, $edit->release_id);
-is($edit->release_id, $rl->release_id);
-is($edit->release->edits_pending, 1);
+my $release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 1);
 
 $rl = $c->model('ReleaseLabel')->get_by_id(1);
 is($rl->label_id, 1);
@@ -37,7 +34,7 @@ $rl = $c->model('ReleaseLabel')->get_by_id(1);
 is($rl->label_id, 1);
 is($rl->catalog_number, 'ABC-123');
 
-my $release = $c->model('Release')->get_by_id($rl->release_id);
+$release = $c->model('Release')->get_by_id($rl->release_id);
 is($release->edits_pending, 0);
 
 $edit = create_edit();

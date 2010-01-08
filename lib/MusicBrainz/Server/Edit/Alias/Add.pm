@@ -10,7 +10,7 @@ sub _alias_model { die 'Not implemented' }
 
 has '+data' => (
     isa => Dict[
-        alias => Str,
+        name      => Str,
         entity_id => Int
     ]
 );
@@ -26,7 +26,7 @@ sub build_display_data
     my $self = shift;
 
     return {
-        alias => $self->data->{alias},
+        alias => $self->data->{name},
     };
 }
 

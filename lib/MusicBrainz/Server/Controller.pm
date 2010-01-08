@@ -75,7 +75,7 @@ sub edit_action
     my ($self, $c, %opts) = @_;
 
     my %form_args;
-    $form_args{item} = $opts{item} if exists $opts{item};
+    $form_args{init_object} = $opts{item} if exists $opts{item};
     my $form = $c->form( form => $opts{form}, %form_args );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params))
@@ -85,9 +85,10 @@ sub edit_action
             editor_id => $c->user->id,
             (map { $_->name => $_->value } $form->edit_fields),
             %{ $opts{edit_args} || {} },
-        ) or die "Could not create edit";
+        );
 
-        if ($form->does('MusicBrainz::Server::Form::Edit') &&
+        if (defined $edit &&
+                $form->does('MusicBrainz::Server::Form::Edit') &&
                 $form->field('edit_note')->value) {
             $c->model('EditNote')->add_note($edit->id, {
                 text      => $form->field('edit_note')->value,

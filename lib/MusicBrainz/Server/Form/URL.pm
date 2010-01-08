@@ -15,5 +15,7 @@ has_field 'description' => (
     type => 'Text'
 );
 
+sub edit_field_names { qw( url description ) }
+
 __PACKAGE__->meta->make_immutable;
 1;

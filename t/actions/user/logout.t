@@ -15,7 +15,7 @@ $mech->get('/');
 $mech->get_ok('/logout');
 xml_ok($mech->content);
 is($mech->uri->path, '/', 'Redirected to the previous URL');
-$mech->get_ok('/user/profile/new_editor');
+$mech->get_ok('/artist/create');
 xml_ok($mech->content);
 $mech->content_contains('Please log in using the form below');
 $mech->get('/login');

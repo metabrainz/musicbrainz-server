@@ -16,7 +16,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/alias/1/edit');
 my $response = $mech->submit_form(
     with_fields => {
-        'edit-alias.alias' => 'Edited alias'
+        'edit-alias.name' => 'Edited alias'
     });
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);

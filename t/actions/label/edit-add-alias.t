@@ -14,18 +14,18 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/add-alias');
 my $response = $mech->submit_form(
     with_fields => {
-        'edit-alias.alias' => 'An alias'
+        'edit-alias.name' => 'An alias'
     });
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAlias');
 is_deeply($edit->data, {
     entity_id => 2,
-    alias => 'An alias',
+    name => 'An alias',
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-xml_ok($mech->content, '..valid xml'); 
+xml_ok($mech->content, '..valid xml');
 
 $mech->content_contains('Warp Records', '..contains label name');
 $mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190', '..contains label link');

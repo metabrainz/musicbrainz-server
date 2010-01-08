@@ -7,14 +7,13 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_name { 'Edit Release Label' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 sub related_entities { { release => [ shift->release_id ] } }
-sub models { [qw( Release )] }
 
 subtype 'ReleaseLabelHash'
     => as Dict[
@@ -31,29 +30,8 @@ has '+data' => (
     ]
 );
 
-has 'release_id' => (
-    isa => 'Int',
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{release_id} }
-);
-
-has 'release' => (
-    isa => 'Release',
-    is => 'rw',
-);
-
-has 'release_label_id' => (
-    isa => 'Int',
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{release_label_id} }
-);
-
-has 'release_label' => (
-    isa => 'ReleaseLabel',
-    is => 'rw',
-);
+sub release_id { shift->data->{release_id} }
+sub release_label_id { shift->data->{release_label_id} }
 
 sub initialize
 {
@@ -65,7 +43,7 @@ sub initialize
     $self->data({
         release_label_id => $release_label->id,
         release_id => $release_label->release_id,
-        $self->_change_data($release_label, keys %opts),
+        $self->_change_data($release_label, %opts),
     });
 };
 

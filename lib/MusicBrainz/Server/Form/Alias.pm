@@ -5,11 +5,11 @@ with 'MusicBrainz::Server::Form::Edit';
 
 has '+name' => ( default => 'edit-alias' );
 
-has_field 'alias' => (
+has_field 'name' => (
     type => 'Text',
     required => 1
 );
 
-sub edit_field_names { qw(alias) }
+sub edit_field_names { qw(name) }
 
 1;

@@ -129,7 +129,7 @@ sub in_use
     my ($self, $label_id) = @_;
     my $sql = Sql->new($self->c->dbh);
 
-    return in_use($sql,
+    return check_in_use($sql,
         'release_label         WHERE label = ?'   => [ $label_id ],
         'l_artist_label        WHERE entity1 = ?' => [ $label_id ],
         'l_label_recording     WHERE entity0 = ?' => [ $label_id ],

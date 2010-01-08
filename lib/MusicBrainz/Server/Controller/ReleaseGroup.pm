@@ -57,17 +57,18 @@ sub delete : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
     my $rg = $c->stash->{rg};
-    return unless $c->model('ReleaseGroup')->can_delete($rg->id);
-    
-    $self->edit_action($c,
-        form => 'Confirm',
-        type => $EDIT_RELEASEGROUP_DELETE,
-        edit_args => { release_group_id => $rg->id },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/release_group/show', [ $rg->gid ]));
-        }
-    );
+    if($c->model('ReleaseGroup')->can_delete($rg->id)) {
+        $c->stash( can_delete => 1 );
+        $self->edit_action($c,
+            form => 'Confirm',
+            type => $EDIT_RELEASEGROUP_DELETE,
+            edit_args => { release_group_id => $rg->id },
+            on_creation => sub {
+                $c->response->redirect(
+                    $c->uri_for_action('/release_group/show', [ $rg->gid ]));
+            }
+        );
+    }
 }
 
 sub edit : Chained('load') PathPart RequireAuth

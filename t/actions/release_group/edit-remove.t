@@ -11,7 +11,7 @@ my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Ser
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-$mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce/delete');
+$mech->get_ok('/release-group/ecc33260-454c-11de-8a39-0800200c9a66/delete');
 xml_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
@@ -19,10 +19,10 @@ my $response = $mech->submit_form(
     }
 );
 ok($mech->success);
-ok($mech->uri =~ qr{/release-group/234c079d-374e-4436-9448-da92dedef3ce}, 'should redirect to artist page via gid');
+ok($mech->uri =~ qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66}, 'should redirect to artist page via gid');
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Delete');
-is_deeply($edit->data, { release_group => 1 });
+is_deeply($edit->data, { release_group => 3 });
 
 done_testing;

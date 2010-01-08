@@ -92,14 +92,14 @@ sub insert
     my ($self, @alias_hashes) = @_;
     my $sql = Sql->new($self->c->dbh);
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-    my %names = $self->parent->find_or_insert_names(map { $_->{alias} } @alias_hashes);
+    my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         push @created, $class->new(
             id => $sql->insert_row($table, {
                 $type => $hash->{$type . '_id'},
-                name => $names{ $hash->{alias} }
+                name => $names{ $hash->{name} }
             }, 'id'));
     }
     return wantarray ? @created : $created[0];

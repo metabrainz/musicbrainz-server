@@ -60,7 +60,7 @@ has 'duplicates' => (
     is => 'rw',
     default => sub { [] },
     handles => {
-        has_duplicates => 'is_empty'
+        has_duplicates => 'count'
     }
 );
 
@@ -75,7 +75,7 @@ sub validate
 
     $self->duplicates([ $self->ctx->model('Artist')->find_by_name($self->field('name')->value) ]);
 
-    $self->field('not_dupe')->required($self->has_duplicates);
+    $self->field('not_dupe')->required($self->has_duplicates ? 1 : 0);
     $self->field('not_dupe')->validate_field;
 }
 

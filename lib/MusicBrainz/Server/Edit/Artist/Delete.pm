@@ -39,7 +39,7 @@ override 'accept' => sub
 {
     my $self = shift;
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw
-          if $self->c->model('Artist')->in_use($self->artist_id);
+          unless $self->c->model('Artist')->can_delete($self->artist_id);
     $self->c->model('Artist')->delete($self->artist_id);
 };
 

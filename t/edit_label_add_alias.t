@@ -53,6 +53,6 @@ sub _create_edit {
         edit_type => $EDIT_LABEL_ADD_ALIAS,
         editor_id => 1,
         label_id => 1,
-        alias => 'Another alias',
+        name => 'Another alias',
     );
 }

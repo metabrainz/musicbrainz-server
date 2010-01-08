@@ -19,14 +19,12 @@ my ($edits) = $c->model('Edit')->find({ release => 1 }, 10, 0);
 is(scalar @$edits, 1);
 is($edits->[0]->id, $edit->id);
 
-$c->model('Edit')->load_all($edit);
-ok(defined $edit->release);
-is($edit->release->id, $edit->release_id);
-is($edit->release->edits_pending, 1);
+my $release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 1);
 
 reject_edit($c, $edit);
 
-my $release = $c->model('Release')->get_by_id(1);
+$release = $c->model('Release')->get_by_id(1);
 $c->model('ReleaseLabel')->load($release);
 is($release->label_count, 3);
 is($release->labels->[0]->id, 1);

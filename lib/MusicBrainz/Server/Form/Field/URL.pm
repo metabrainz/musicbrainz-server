@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Form::Field::URL;
 use Moose;
 
+use MusicBrainz::Server::Validation qw( is_valid_url );
+
 extends 'HTML::FormHandler::Field::Text';
 
 sub validate
@@ -12,7 +14,7 @@ sub validate
     my $url = $self->value;
 
     return $self->add_error('Enter a valid url "e.g. http://google.com/"')
-        unless MusicBrainz::Server::URL->IsLegalURL($url);
+        unless is_valid_url($url);
 
     $self->_set_value($url);
 }

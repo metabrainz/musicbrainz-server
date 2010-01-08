@@ -37,6 +37,7 @@ require Exporter;
         is_valid_isrc
         is_valid_iswc
         format_iswc
+        is_valid_url
     )
 }
 
@@ -142,6 +143,20 @@ sub format_iswc
     my $iswc = shift;
     $iswc =~ s/^T-(\d{3})\.?(\d{3})\.?(\d{3})-(\d)/T-$1.$2.$3-$4/;
     return $iswc;
+}
+
+sub is_valid_url
+{
+    my ($url) = @_;
+    return if $url =~ /\s/;
+
+    require URI;
+    my $u = eval { URI->new($url) }
+        or return 0;
+
+    return 0 if $u->scheme eq '';
+    return 0 unless $u->authority =~ /\./;
+    return 1;
 }
 
 # Create a date string if the parameters are valid, or return undef.

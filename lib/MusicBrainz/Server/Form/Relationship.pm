@@ -74,6 +74,8 @@ sub options_link_type_id
     return [ $self->_build_options($root, 'link_phrase', 'ROOT', '&nbsp;') ];
 }
 
+sub edit_field_names { qw() }
+
 1;
 
 =head1 COPYRIGHT

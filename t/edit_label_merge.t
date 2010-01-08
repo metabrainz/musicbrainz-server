@@ -27,17 +27,6 @@ is($l2->edits_pending, 1);
 
 reject_edit($c, $edit);
 
-# Test loading entities
-$edit = $c->model('Edit')->get_by_id($edit->id);
-TODO: {
-    local $TODO = 'Support loading labels with non-conventional attribute names';
-#    $c->model('Edit')->load_all($edit);
-    ok(defined $edit->old_label);
-    ok(defined $edit->new_label);
-#    is($edit->old_label->id, $edit->old_label_id);
-#    is($edit->new_label->id, $edit->new_label_id);
-}
-
 $l1 = $c->model('Label')->get_by_id(1);
 $l2 = $c->model('Label')->get_by_id(2);
 is($l1->edits_pending, 0);

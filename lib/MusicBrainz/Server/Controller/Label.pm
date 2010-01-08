@@ -108,33 +108,43 @@ sub show : PathPart('') Chained('load')
 sub merge : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-    my $old_label = $c->stash->{label};
+    my $old = $c->stash->{label};
 
-    my $new_label;
-    unless($new_label = $c->model('Label')->get_by_gid($c->req->query_params->{gid}))
-    {
-        $c->stash( template => 'label/merge_search.tt' );
-        $new_label = $c->controller('Search')->filter($c, 'label', 'Label');
+    if ($c->req->query_params->{dest}) {
+        my $new = $c->model('Label')->get_by_gid($c->req->query_params->{dest});
+
+        $c->stash(
+            template => 'label/merge_confirm.tt',
+            old_label => $old,
+            new_label => $new
+        );
+
+        $self->edit_action($c,
+            form => 'Confirm',
+            type => $EDIT_LABEL_MERGE,
+            edit_args => {
+                old_label_id => $old->id,
+                new_label_id => $new->id
+            },
+            on_creation => sub {
+                $c->response->redirect(
+                    $c->uri_for_action('/label/show', [ $new->gid ]));
+            }
+        );
     }
+    else {
+        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
+        if ($query->submitted_and_valid($c->req->params)) {
+            my $results = $self->_load_paged($c, sub {
+                    $c->model('DirectSearch')->search('label', $query->field('query')->value, shift, shift)
+                });
 
-    $c->stash(
-        template => 'label/merge_confirm.tt',
-        new_label => $new_label,
-        old_label => $old_label
-    );
-
-    $self->edit_action($c,
-        form => 'Confirm',
-        type => $EDIT_LABEL_MERGE,
-        edit_args => {
-            old_label_id => $old_label->id,
-            new_label_id => $new_label->id,
-        },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/label/show', [ $new_label->gid ]));
+            $c->stash(
+                search_results => $results
+            );
         }
-    );
+        $c->stash( template => 'label/merge_search.tt' );
+    }
 }
 
 sub edit : Chained('load') RequireAuth
@@ -172,19 +182,20 @@ sub delete : Chained('load') PathPart RequireAuth
     my ($self, $c) = @_;
 
     my $label = $c->stash->{label};
-    return unless $c->model('Label')->can_delete($label->id);
-
-    $self->edit_action($c,
-        form => 'Confirm',
-        type => $EDIT_LABEL_DELETE,
-        edit_args => { label => $label },
-        on_creation => sub {
-            my $edit = shift;
-            my $url = $edit->is_open ? $c->uri_for_action('/label/show', [ $label->gid ])
-                : $c->uri_for_action('/search');
-            $c->response->redirect($url);
-        }
-    );
+    if($c->model('Label')->can_delete($label->id)) {
+        $c->stash( can_delete => 1 );
+        $self->edit_action($c,
+            form => 'Confirm',
+            type => $EDIT_LABEL_DELETE,
+            edit_args => { label => $label },
+            on_creation => sub {
+                my $edit = shift;
+                my $url = $edit->is_open ? $c->uri_for_action('/label/show', [ $label->gid ])
+                    : $c->uri_for_action('/search');
+                $c->response->redirect($url);
+            }
+        );
+    }
 }
 
 1;
