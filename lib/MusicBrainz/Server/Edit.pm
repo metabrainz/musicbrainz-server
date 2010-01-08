@@ -3,7 +3,6 @@ use Moose;
 
 use Carp qw( croak );
 use DateTime;
-use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
@@ -97,9 +96,9 @@ has 'edit_notes' => (
     isa => 'ArrayRef',
     is => 'rw',
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        push => 'add_edit_note',
+    traits => [ 'Array' ],
+    handles => {
+        add_edit_note => 'push',
     }
 );
 
@@ -107,19 +106,18 @@ has 'votes' => (
     isa => 'ArrayRef',
     is => 'rw',
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        push => 'add_vote',
-    },
-    curries => {
-        grep => {
-            votes_for_editor => sub {
-                my ($self, $body, $editor_id) = @_;
-                $body->($self, sub { $_->editor_id == $editor_id });
-            },
-        }
+    traits => [ 'Array' ],
+    handles => {
+        add_vote => 'push',
+        _grep_votes => 'grep'
     }
 );
+
+sub votes_for_editor
+{
+    my ($self, $editor_id) = @_;
+    $self->_grep_votes(sub { $_->editor_id == $editor_id });
+}
 
 sub latest_vote_for_editor
 {

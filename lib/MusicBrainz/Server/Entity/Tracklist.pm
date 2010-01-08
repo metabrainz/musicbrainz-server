@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Tracklist;
-
 use Moose;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
@@ -17,11 +16,11 @@ has 'tracks' => (
     isa => 'ArrayRef[Track]',
     lazy => 1,
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_tracks',
-        push => 'add_track',
-        clear => 'clear_tracks',
+    traits => [ 'Array' ],
+    handles => {
+        all_tracks => 'elements',
+        add_track => 'push',
+        clear_tracks => 'clear'
     }
 );
 

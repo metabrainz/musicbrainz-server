@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::LinkAttributeType;
-
 use Moose;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
@@ -51,11 +50,11 @@ has 'children' => (
     isa => 'ArrayRef[LinkAttributeType]',
     lazy => 1,
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_children',
-        push => 'add_child',
-        clear => 'clear_children',
+    traits => [ 'Array' ],
+    handles => {
+        all_children => 'elements',
+        add_child => 'push',
+        clear_children => 'clear'
     }
 );
 

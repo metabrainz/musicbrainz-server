@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Medium;
-
 use Moose;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
@@ -58,10 +57,10 @@ has 'cdtocs' => (
     isa => 'ArrayRef[MediumCDTOC]',
     lazy => 1,
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_cdtocs',
-        push => 'add_cdtoc',
+    traits => [ 'Array' ],
+    handles => {
+        all_cdtocs => 'elements',
+        add_cdtoc => 'push'
     }
 );
 

@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Link;
-
 use Moose;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -34,13 +33,13 @@ has 'end_date' => (
 has 'attributes' => (
     is => 'rw',
     isa => 'ArrayRef[LinkAttributeType]',
-    metaclass => 'Collection::Array',
+    traits => [ 'Array' ],
     default => sub { [] },
     lazy => 1,
-    provides => {
-        clear => 'clear_attributes',
-        elements => 'all_attributes',
-        push => 'add_attribute'
+    handles => {
+        clear_attributes => 'clear',
+        all_attributes   => 'elements',
+        add_attribute    => 'push'
     }
 );
 

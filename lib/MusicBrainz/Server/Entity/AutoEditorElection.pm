@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::AutoEditorElection;
 use Moose;
 
-use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( :election_status );
 
@@ -23,21 +22,21 @@ has 'status' => (
 );
 
 has 'yes_votes' => (
-    metaclass => 'Counter',
+    traits    => [ 'Counter' ],
     isa       => 'Int',
     is        => 'rw',
-    provides  => {
-        inc => '_inc_yes',
+    handles   => {
+        _inc_yes => 'inc'
     },
     default   => 0,
 );
 
 has 'no_votes' => (
-    metaclass => 'Counter',
+    traits    => [ 'Counter' ],
     isa       => 'Int',
     is        => 'rw',
-    provides  => {
-        inc => '_inc_no'
+    handles   => {
+        _inc_no => 'inc'
     },
     default   => 0,
 );

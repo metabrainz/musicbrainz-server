@@ -1,28 +1,27 @@
 package MusicBrainz::Server::Entity::Taggable;
-
 use Moose::Role;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::Types;
 
 has 'tags' => (
     is => 'rw',
     isa => 'ArrayRef[AggregatedTag]',
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_tags',
-        push => 'add_tag',
-        clear => 'clear_tags'
+    traits => [ 'Array' ],
+    handles => {
+        all_tags => 'elements',
+        add_tag => 'push',
+        clear_tags => 'clear'
     }
 );
 
 has 'user_tags' => (
     is => 'rw',
     isa => 'ArrayRef[UserTag]',
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_user_tags',
-        push => 'add_user_tag',
-        clear => 'clear_user_tags'
+    traits => [ 'Array' ],
+    handles => {
+        all_user_tags => 'elements',
+        add_user_tag => 'push',
+        clear_user_tags => 'clear'
     }
 );
 

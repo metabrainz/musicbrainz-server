@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Release;
-
 use Moose;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -115,12 +114,12 @@ has 'labels' => (
     isa => 'ArrayRef[ReleaseLabel]',
     lazy => 1,
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_labels',
-        push => 'add_label',
-        clear => 'clear_labels',
-        count => 'label_count',
+    traits => [ 'Array' ],
+    handles => {
+        all_labels => 'elements',
+        add_label => 'push',
+        clear_labels => 'clear',
+        label_count => 'count'
     }
 );
 
@@ -129,12 +128,12 @@ has 'mediums' => (
     isa => 'ArrayRef[Medium]',
     lazy => 1,
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_mediums',
-        push => 'add_medium',
-        clear => 'clear_mediums',
-        count => 'medium_count',
+    traits => [ 'Array' ],
+    handles => {
+        all_mediums => 'elements',
+        add_medium => 'push',
+        clear_mediums => 'clear',
+        medium_count => 'count'
     }
 );
 

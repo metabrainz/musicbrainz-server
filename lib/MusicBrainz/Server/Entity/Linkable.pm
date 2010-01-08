@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Linkable;
-
 use Moose::Role;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::Types;
 
 has 'relationships' => (
@@ -9,11 +8,11 @@ has 'relationships' => (
     isa => 'ArrayRef[Relationship]',
     default => sub { [] },
     lazy => 1,
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_relationships',
-        push => 'add_relationship',
-        clear => 'clear_relationships'
+    traits => [ 'Array' ],
+    handles => {
+        all_relationships   => 'elements',
+        add_relationship    => 'push',
+        clear_relationships => 'clear'
     }
 );
 

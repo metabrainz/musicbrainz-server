@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::ArtistCredit;
-
 use Moose;
-use MooseX::AttributeHelpers;
+
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
@@ -10,10 +9,10 @@ has 'names' => (
     is => 'rw',
     isa => 'ArrayRef[ArtistCreditName]',
     default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        push => 'add_name',
-        clear => 'clear_names',
+    traits => [ 'Array' ],
+    handles => {
+        add_name => 'push',
+        clear_names => 'clear'
     }
 );
 

@@ -1,8 +1,6 @@
 package MusicBrainz::Server::Form::Artist;
 use HTML::FormHandler::Moose;
 
-use MooseX::AttributeHelpers;
-
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Edit';
 
@@ -57,12 +55,12 @@ sub options_type_id     { shift->_select_all('ArtistType') }
 sub options_country_id  { shift->_select_all('Country') }
 
 has 'duplicates' => (
-    metaclass => 'Collection::List',
+    traits => [ 'Array' ],
     isa => 'ArrayRef',
     is => 'rw',
     default => sub { [] },
-    provides => {
-        empty => 'has_duplicates',
+    handles => {
+        has_duplicates => 'is_empty'
     }
 );
 

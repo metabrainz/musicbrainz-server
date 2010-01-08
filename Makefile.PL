@@ -49,7 +49,6 @@ requires 'List::MoreUtils'                             => '0.22';
 requires 'Match::Smart';
 requires 'MIME::Lite'                                  => '3.023';
 requires 'Moose'                                       => '0.87';
-requires 'MooseX::AttributeHelpers'                    => '0.17';
 requires 'MooseX::MethodAttributes'                    => '0.14';
 requires 'MooseX::Role::Parameterized'                 => '0.10';
 requires 'MooseX::Storage'                             => '0.150';
