@@ -31,7 +31,7 @@
                 [%- IF c.user_exists -%]
                     [% PROCESS add_annotation_link %]
                 [%- ELSE -%]
-                    [% l('Please {uri|log in} to edit this annotation.', {uri => c.uri_for('/user/login')}) %]
+                    [% l('Please {uri|log in} to edit this annotation.', {uri => login_url()}) %]
                 [%- END -%]
             </div>
         </div>
