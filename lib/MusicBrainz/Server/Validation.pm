@@ -38,6 +38,7 @@ require Exporter;
         is_valid_iswc
         format_iswc
         is_valid_url
+        is_positive_integer
     )
 }
 
@@ -65,7 +66,7 @@ sub IsNonEmptyString
 }
 
 
-sub IsNonNegInteger
+sub is_positive_integer
 {
 	my $t = shift;
 	defined($t) and not ref($t) and $t =~ /\A(\d{1,20})\z/;
@@ -220,7 +221,7 @@ sub IsValidDate
 
 	defined() or $_ = "" for ($y, $m, $d);
 	MusicBrainz::Server::Validation::TrimInPlace($y, $m, $d);
-	$_ eq "" or MusicBrainz::Server::Validation::IsNonNegInteger($_) or return
+	$_ eq "" or is_positive_integer($_) or return
 		for ($y, $m, $d);
 
 	# All valid dates have a year

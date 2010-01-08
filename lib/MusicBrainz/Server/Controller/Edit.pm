@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 __PACKAGE__->config(
     entity_name => 'edit',
@@ -35,6 +36,7 @@ sub base : Chained('/') PathPart('edit') CaptureArgs(0) { }
 sub _load
 {
     my ($self, $c, $edit_id) = @_;
+    return unless is_positive_integer($edit_id);
     return $c->model('Edit')->get_by_id($edit_id);
 }
 

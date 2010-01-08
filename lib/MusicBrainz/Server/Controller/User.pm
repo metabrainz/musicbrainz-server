@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz;
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 use UserPreference;
 
 use MusicBrainz::Server::Form::User::Login;
@@ -184,7 +185,7 @@ sub verify_email : Path('/verify-email')
     my $time    = $c->request->params->{time};
     my $key     = $c->request->params->{chk};
 
-    unless (MusicBrainz::Server::Validation::IsNonNegInteger($user_id) && $user_id) {
+    unless (is_positive_integer($user_id) && $user_id) {
         $c->stash(
             message => $c->gettext('The user ID is missing or, is in an invalid format.'),
             template => 'user/verify_email_error.tt',
@@ -198,7 +199,7 @@ sub verify_email : Path('/verify-email')
         );
     }
 
-    unless (MusicBrainz::Server::Validation::IsNonNegInteger($time) && $time) {
+    unless (is_positive_integer($time) && $time) {
         $c->stash(
             message => $c->gettext('The time is missing, or is in an invalid format.'),
             template => 'user/verify_email_error.tt',

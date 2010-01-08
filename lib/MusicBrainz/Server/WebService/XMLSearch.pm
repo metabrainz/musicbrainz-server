@@ -3,6 +3,8 @@ package MusicBrainz::Server::WebService::XMLSearch;
 use base 'Exporter';
 our @EXPORT_OK = qw( xml_search );
 
+use MusicBrainz::Server::Validation qw( is_positive_integer );
+
 # Escape special characters in a Lucene search query
 sub escape_query
 {
@@ -22,9 +24,9 @@ sub xml_search
     my $offset = 0;
     my $limit = $args->{limit} || 0;
 
-    if (defined $args->{offset} && MusicBrainz::Server::Validation::IsNonNegInteger($args->{offset}))
+    if (defined $args->{offset} && is_positive_integer($args->{offset}))
     {
-        $offset = $args->{offset} 
+        $offset = $args->{offset}
     }
     $limit = 25 if ($limit < 1 || $limit > 100);
 
