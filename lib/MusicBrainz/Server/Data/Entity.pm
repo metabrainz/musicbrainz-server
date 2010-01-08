@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Data::Entity;
 use Moose;
 
+use Class::MOP;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use UNIVERSAL::require;
 use Carp qw( confess );
 
 has 'c' => (
@@ -62,7 +62,7 @@ sub _new_from_row
         $info{$attrib} = $val if defined $val;
     }
     my $entity_class = $self->_entity_class;
-    $entity_class->require;
+    Class::MOP::load_class($entity_class);
     return $entity_class->new(%info);
 }
 

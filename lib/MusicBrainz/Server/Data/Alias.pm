@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Alias;
 use Moose;
 
+use Class::MOP;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -93,7 +94,7 @@ sub insert
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
     my %names = $self->parent->find_or_insert_names(map { $_->{alias} } @alias_hashes);
     my @created;
-    $class->require;
+    Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         push @created, $class->new(
             id => $sql->insert_row($table, {

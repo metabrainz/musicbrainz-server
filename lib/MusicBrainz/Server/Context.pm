@@ -3,7 +3,7 @@ package MusicBrainz::Server::Context;
 use Moose;
 use MusicBrainz;
 use MusicBrainz::Server::CacheManager;
-use UNIVERSAL::require;
+use Class::MOP;
 
 has 'cache_manager' => (
     is => 'ro',
@@ -59,7 +59,7 @@ sub model
 {
     my ($self, $name) = @_;
     my $class_name = "MusicBrainz::Server::Data::$name";
-    $class_name->require;
+    Class::MOP::load_class($class_name);
     return $class_name->new(c => $self);
 }
 

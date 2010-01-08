@@ -1,6 +1,6 @@
 package MusicBrainz::Server::EditRegistry;
 
-require UNIVERSAL::require;
+use Class::MOP;
 
 our %_types;
 our $_registered = 0;
@@ -84,7 +84,7 @@ sub _register_type
 sub _register_default_types
 {
     foreach my $class (@CLASSES) {
-        $class->require or die $@;
+        Class::MOP::load_class($class) or die $@;
         _register_type(undef, $class);
     }
     $_registered = 1;

@@ -2,13 +2,13 @@ package MusicBrainz::Server::Data::Utils;
 
 use base 'Exporter';
 
+use Class::MOP;
 use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
 use Sql;
 use Readonly;
 use Storable;
-use UNIVERSAL::require;
 
 our @EXPORT_OK = qw(
     artist_credit_to_ref
@@ -160,7 +160,7 @@ sub insert_and_create
 {
     my ($data, @objs) = @_;
     my $class = $data->_entity_class;
-    $class->require;
+    Class::MOP::load_class($class);
     my $sql = Sql->new($data->c->mb->dbh);
     my %map = $data->_attribute_mapping;
     my @ret;
