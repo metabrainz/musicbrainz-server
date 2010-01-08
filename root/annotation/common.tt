@@ -1,6 +1,6 @@
 [% BLOCK add_annotation_link %]
 <a href="[% c.uri_for_action("/$type/edit_annotation", [ gid ]) %]">
-    [% l('Add an annotation') %]
+    [% annotation.text ? l('Edit annotation') : l('Add an annotation') %]
 </a>
 [% END %]
 
