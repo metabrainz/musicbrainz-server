@@ -66,5 +66,10 @@
         </p>
     </fieldset>
     [% INCLUDE 'forms/edit-note.tt' %]
-    [% form_submit(l('Create label')) %]
+
+    [% IF new %]
+        [% form_submit(l('Create Label')) %]
+    [% ELSE %]
+        [% form_submit(l('Edit Label')) %]
+    [% END %]
 </form>

@@ -1,6 +1,6 @@
 [%- SET styleGuidelines=1 -%]
 [%- PROCESS 'scripts/suitereqs.tt' -%]
-[%- INCLUDE "label/edit_form.tt"
+[%- INCLUDE "label/edit_form.tt" new=1
     WRAPPER "components/box.tt" header=l('Create Label')
     WRAPPER 'layout.tt' title=l('Create Label') -%]
 
