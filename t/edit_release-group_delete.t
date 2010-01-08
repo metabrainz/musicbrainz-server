@@ -13,6 +13,7 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
+my $rg = $c->model('ReleaseGroup')->get_by_id(1);
 my $edit = create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Delete');
 
@@ -21,7 +22,7 @@ is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 
-my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+$rg = $c->model('ReleaseGroup')->get_by_id(1);
 is($rg->edits_pending, 1);
 
 reject_edit($c, $edit);
@@ -40,6 +41,6 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_DELETE,
         editor_id => 1,
-        release_group_id => 1,
+        release_group => $rg,
     );
 }

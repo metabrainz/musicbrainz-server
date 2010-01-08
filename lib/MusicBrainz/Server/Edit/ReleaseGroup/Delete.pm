@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Entity::Types;
-use MooseX::Types::Moose qw( Int );
+use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
@@ -14,36 +14,40 @@ sub edit_name { "Delete Release Group" }
 
 sub related_entities { { release_group => [ shift->release_group_id ] } }
 sub alter_edit_pending { { ReleaseGroup => [ shift->release_group_id ] } }
-sub models { [qw( ReleaseGroup )] }
 
 has '+data' => (
     isa => Dict[
-        release_group => Int
+        release_group => Int,
+        name => Str,
     ]
 );
 
-has 'release_group_id' => (
-    isa => 'Int',
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{release_group} }
-);
+sub release_group_id { shift->data->{release_group} }
 
-has 'release_group' => (
-    isa => 'ReleaseGroup',
-    is => 'rw'
-);
+sub build_display_data
+{
+    return {
+        name => shift->data->{name}
+    }
+}
 
 sub initialize
 {
     my ($self, %args) = @_;
-    $self->data({ release_group => $args{release_group_id} });
+    my $release_group = delete $args{release_group} or die "Required 'release_group' object";
+
+    $self->data({
+        name          => $release_group->name,
+        release_group => $release_group->id,
+    });
 }
 
 override 'accept' => sub
 {
     my $self = shift;
     my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $self->c);
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw
+          unless $rg_data->can_delete($self->release_group_id);
     $rg_data->delete($self->release_group_id);
 };
 

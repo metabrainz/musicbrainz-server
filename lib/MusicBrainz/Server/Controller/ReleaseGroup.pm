@@ -62,7 +62,7 @@ sub delete : Chained('load') PathPart RequireAuth
         $self->edit_action($c,
             form => 'Confirm',
             type => $EDIT_RELEASEGROUP_DELETE,
-            edit_args => { release_group_id => $rg->id },
+            edit_args => { release_group => $rg },
             on_creation => sub {
                 $c->response->redirect(
                     $c->uri_for_action('/release_group/show', [ $rg->gid ]));
