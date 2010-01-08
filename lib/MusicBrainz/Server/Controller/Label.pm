@@ -63,20 +63,6 @@ after 'load' => sub
     $c->model('LabelType')->load($label);
 };
 
-=head2 google
-
-Redirect to Google and search for this label (using MusicBrainz colours).
-
-=cut
-
-sub google : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $label = $self->entity;
-
-    $c->response->redirect(Google($label->name));
-}
-
 =head2 relations
 
 Show all relations to this label

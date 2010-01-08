@@ -13,7 +13,6 @@ __PACKAGE__->config(
     model       => 'Release',
 );
 
-use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Controller::TagRole;
 
 use MusicBrainz::Server::Constants qw(
@@ -96,18 +95,6 @@ sub discids : Chained('load')
     my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
     $c->model('CDTOC')->load(@medium_cdtocs);
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
-}
-
-=head2 google
-
-Redirect to Google and search for this release's name.
-
-=cut
-
-sub google : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->response->redirect(Google($self->entity->name));
 }
 
 =head2 tags
@@ -235,56 +222,6 @@ sub lookup : Local
 }
 
 =head2 WRITE METHODS
-
-=head2 change_quality
-
-Change the data quality of a release
-
-=cut
-
-sub change_quality : Chained('load') Form('DataQuality')
-{
-    my ($self, $c, $mbid) = @_;
-
-    $c->forward('/user/login');
-
-    my $release = $self->entity;
-
-    my $form = $self->form;
-    $form->init($release);
-
-    return unless $self->submit_and_validate($c);
-
-    $form->change_quality($c->model('Release'));
-
-    $c->flash->{ok} = "Thanks, your release edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($release, 'show'));
-}
-
-sub edit_title : Chained('load') Form
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $release = $self->entity;
-
-    my $form = $self->form;
-    $form->init($release);
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    $form->edit_title;
-
-    $c->flash->{ok} = "Thanks, your release edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($release, 'show'));
-}
-
-=head2 edit
 
 Edit a release in release editor
 
@@ -446,45 +383,6 @@ sub _load_related : Private
     $c->stash->{release_events} = $c->model('Release')->load_events($release, country_id => 1);
 }
 
-sub move : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-    $c->forward('/search/filter_artist');
-
-    my $result = $c->stash->{search_result};
-    if (defined $result)
-    {
-        my $release = $self->entity;
-        $c->response->redirect($c->entity_url($release, 'move_to', $result->id));
-    }
-}
-
-sub move_to : Chained('load') Args(1) Form('Release::Move')
-{
-    my ($self, $c, $new_artist) = @_;
-
-    $c->forward('/user/login');
-
-    my $release = $self->entity;
-
-    my $old_artist = $c->model('Artist')->load($release->artist);
-    $new_artist = $c->model('Artist')->load($new_artist);
-    $c->stash->{new_artist} = $new_artist;
-
-    my $form = $self->form;
-    $form->init($release);
-
-    $c->stash->{template} = 'release/confirm_move.tt';
-
-    return unless $self->submit_and_validate($c);
-
-    $form->move($old_artist, $new_artist);
-
-    $c->response->redirect($c->entity_url($release, 'show'));
-}
-
 =head2 rating
 
 Rate a release
@@ -499,84 +397,6 @@ sub rating : Chained('load') Args(2)
     $c->forward('/user/login');
     $c->forward('/rating/do_rating', ['artist', $entity, $new_vote]);
     $c->response->redirect($c->entity_url($self->entity, 'show'));
-}
-
-sub remove : Chained('load') Form
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $release = $self->entity;
-
-    my $form = $self->form;
-    $form->init($release);
-
-    return unless $self->submit_and_validate($c);
-
-    $form->remove;
-
-    $c->response->redirect($c->entity_url($release, 'show'));
-}
-
-sub convert_to_single_artist : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->stash->{template} = 'release/convert_to_single_search.tt';
-
-    $c->forward('/user/login');
-    $c->forward('/search/filter_artist');
-
-    my $result = $c->stash->{search_result};
-    if (defined $result)
-    {
-        my $release = $self->entity;
-        $c->response->redirect($c->entity_url($release,
-					      'confirm_convert_to_single_artist',
-					      $result->id));
-    }
-}
-
-sub confirm_convert_to_single_artist : Chained('load') Args(1)
-    Form('Release::ConvertToSingleArtist')
-{
-    my ($self, $c, $new_artist) = @_;
-
-    $c->forward('/user/login');
-
-    $c->stash->{template} = 'release/convert_to_single_artist.tt';
-
-    my $release    = $self->entity;
-    $new_artist = $c->model('Artist')->load($new_artist);
-    $c->stash->{new_artist} = $new_artist;
-
-    my $form = $self->form;
-    $form->init($release);
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    $form->convert($new_artist);
-
-    $c->response->redirect($c->entity_url($release, 'show'));
-}
-
-sub edit_attributes : Chained('load') Form
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $release = $self->entity;
-
-    my $form = $self->form;
-    $form->init($release);
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    $form->update_model;
-
-    $c->response->redirect($c->entity_url($release, 'show'));
 }
 
 =head1 LICENSE

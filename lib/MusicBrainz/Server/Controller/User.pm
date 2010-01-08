@@ -6,7 +6,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz;
 use MusicBrainz::Server::Authentication::User;
-use MusicBrainz::Server::Editor;
 use UserPreference;
 
 use MusicBrainz::Server::Form::User::Login;
@@ -537,7 +536,7 @@ sub profile : Local Args(1)
 #        [ "yes", &ModDefs::VOTE_YES ],
 #        [ "no", &ModDefs::VOTE_NO ],
 #        [ "abstain", &ModDefs::VOTE_ABS ],
-#        [ "total", "TOTAL" ] 
+#        [ "total", "TOTAL" ]
 #    ) {
 #        my $recent = $recent_votes->{$v->[1]};
 #        my $all    = $all_votes->{$v->[1]};
@@ -718,40 +717,6 @@ sub donate : Local
     $c->stash->{nag} = $donateinfo[0];
     $c->stash->{days} = int($donateinfo[1]);
     $c->stash->{template} = 'user/donate.tt';
-}
-
-=head2 adjust_flags
-
-Allow a user to adjust their user flags (only works on test servers)
-
-=cut
-
-sub adjust_flags : Local Form
-{
-    my ($self, $c) = @_;
-
-    use MusicBrainz::Server::Replication ':replication_type';
-    use DBDefs;
-    $c->detach('/error_404')
-        unless (DBDefs::REPLICATION_TYPE == RT_STANDALONE);
-
-    $c->forward('/user/login');
-
-    my $form = $self->form;
-    $c->user->Refresh;
-    $form->init($c->user);
-
-    return unless $self->submit_and_validate($c);
-
-    $c->user->SetUserInfo(
-        privs =>
-            ($form->value('auto_editor') && &MusicBrainz::Server::Editor::AUTOMOD_FLAG) |
-            ($form->value('untrusted') && &MusicBrainz::Server::Editor::UNTRUSTED_FLAG) |
-            ($form->value('bot') && &MusicBrainz::Server::Editor::BOT_FLAG) |
-            ($form->value('link_editor') && &MusicBrainz::Server::Editor::LINK_MODERATOR_FLAG) |
-            ($form->value('wiki_transcluder') && &MusicBrainz::Server::Editor::WIKI_TRANSCLUSION_FLAG) |
-            ($form->value('mbid_submitter') && &MusicBrainz::Server::Editor::MBID_SUBMITTER_FLAG)
-    );
 }
 
 1;

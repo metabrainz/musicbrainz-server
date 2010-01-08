@@ -16,7 +16,6 @@ __PACKAGE__->config(
 );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
-use MusicBrainz::Server::Adapter qw(Google);
 
 =head1 NAME
 
@@ -106,12 +105,6 @@ sub puids : Chained('load') PathPart('puids')
     );
 }
 
-sub google : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->response->redirect(Google($self->entity->name));
-}
-
 =head2 DESTRUCTIVE METHODS
 
 This methods alter data
@@ -139,74 +132,6 @@ sub edit : Chained('load') RequireAuth
                 $c->uri_for_action('/recording/show', [ $recording->gid ]));
         }
     );
-}
-
-sub remove : Chained('load') Form
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $recording = $self->entity;
-
-    my $form = $self->form;
-    $form->init($recording);
-
-    return unless $self->submit_and_validate($c);
-
-    my $release = $c->model('Release')->load($recording->release);
-
-    $form->remove_from_release($release);
-
-    $c->flash->{ok} = "Thanks, your recording edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($release, 'show'));
-}
-
-sub change_artist : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-    $c->forward('/search/filter_artist');
-
-    my $result = $c->stash->{search_result};
-    if (defined $result)
-    {
-        my $recording = $self->entity;
-        $c->response->redirect($c->entity_url($recording, 'confirm_change_artist',
-					      $result->id));
-    }
-    else
-    {
-        $c->stash->{template} = 'recording/change_artist_search.tt';
-    }
-}
-
-sub confirm_change_artist : Chained('load') Args(1)
-    Form('Recording::ChangeArtist')
-{
-    my ($self, $c, $new_artist_id) = @_;
-
-    $c->forward('/user/login');
-
-    my $recording      = $self->entity;
-    my $new_artist = $c->model('Artist')->load($new_artist_id);
-    $c->stash->{new_artist} = $new_artist;
-
-    my $form = $self->form;
-    $form->init($recording);
-
-    $c->stash->{template} = 'recording/change_artist.tt';
-
-    return unless $self->submit_and_validate($c);
-
-    my $release = $c->model('Release')->load($recording->release);
-
-    $form->change_artist($new_artist);
-
-    $c->response->redirect($c->entity_url($release, 'show'));
 }
 
 =head1 LICENSE

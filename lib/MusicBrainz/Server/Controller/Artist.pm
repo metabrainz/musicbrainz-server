@@ -18,9 +18,6 @@ __PACKAGE__->config(
 
 use Data::Page;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
-use MusicBrainz::Server::Adapter qw(Google);
-use ModDefs;
-use UserSubscription;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Form::Artist;
@@ -97,20 +94,6 @@ sub similar : Chained('load')
     my $artist = $self->entity;
 
     $c->stash->{similar_artists} = $c->model('Artist')->find_similar_artists($artist);
-}
-
-=head2 google
-
-Search Google for this artist
-
-=cut
-
-sub google : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->response->redirect(Google($artist->name));
 }
 
 =head2 relations
@@ -464,60 +447,6 @@ sub import : Local
 {
     my ($self, $c) = @_;
     die "This is a stub method";
-}
-
-=head2 add_non_album
-
-Add non-album tracks to this artist (creating the special non-album
-release if necessary)
-
-=cut
-
-sub add_non_album : Chained('load') Form
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $artist = $self->entity;
-
-    my $form = $self->form;
-    $form->init($artist);
-
-    return unless $self->submit_and_validate($c);
-
-    $form->add_track;
-
-    $c->flash->{ok} = 'Thanks, your edit has been entered into the moderation queue';
-
-    $c->response->redirect($c->entity_url($artist, 'show'));
-}
-
-=head2 change_quality
-
-Change the data quality of this artist
-
-=cut
-
-sub change_quality : Chained('load') Form('DataQuality')
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $artist = $self->entity;
-
-    my $form = $self->form;
-    $form->init($artist);
-
-    return unless $self->submit_and_validate($c);
-
-    $form->change_quality($c->model('Artist'));
-
-    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($artist, 'show'));
 }
 
 =head1 LICENSE

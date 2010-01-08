@@ -5,7 +5,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Data::Page;
 use DBDefs;
-use MusicBrainz::Server::Vote;
 
 __PACKAGE__->config(
     entity_name => 'edit',
@@ -174,8 +173,6 @@ sub for_type : Path('entity') Args(2)
 Display a table of all edit types, and their relative conditions
 for acceptance
 
-=cut
-
 sub conditions : Local
 {
     my ($self, $c) = @_;
@@ -249,5 +246,7 @@ sub conditions : Local
         )
     ];
 }
+
+=cut
 
 1;

@@ -76,19 +76,6 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             store => {
                 class => '+MusicBrainz::Server::Authentication::Store'
             }
-        },
-        "musicbrainz.org" => {
-            use_session => 0,
-            credential => {
-                class =>          'HTTP',
-                type  =>          'digest',
-                password_type  => 'clear',
-                password_field => 'password',
-                username_field => 'username'
-            },
-            store => {
-                class => '+MusicBrainz::Server::Authentication::WebService'
-            }
         }
     }
 };

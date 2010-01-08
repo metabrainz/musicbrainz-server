@@ -5,11 +5,6 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
-use MusicBrainz::Server::Artist;
-use MusicBrainz::Server::Label;
-use MusicBrainz::Server::Release;
-use MusicBrainz::Server::Tag;
-use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 =head1 NAME
