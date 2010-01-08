@@ -94,6 +94,8 @@ sub Login
    $this->{dbh} = DBI->connect($db->dbi_args);
    return 0 if (!$this->{dbh});
 
+        $this->{dbh}->{pg_enable_utf8} = 1;
+
 	# Since DBD::Pg 1.4, $dbh->prepare uses real PostgreSQL prepared
 	# queries, but the codebase uses some queries that are not valid on
 	# the server side.

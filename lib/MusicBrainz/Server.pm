@@ -29,6 +29,8 @@ Session
 Session::State::Cookie
 
 Authentication
+
+Unicode
 /;
 
 our $VERSION = '0.01';
@@ -60,6 +62,7 @@ __PACKAGE__->config(
             'components/common-macros.tt',
             'components/forms.tt',
         ],
+        ENCODING => 'UTF-8',
     },
 );
 
