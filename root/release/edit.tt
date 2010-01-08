@@ -14,7 +14,7 @@
     <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
 [%- END -%]
 
-[%- WRAPPER 'layout.tt' edit=1 -%]
+[%- WRAPPER 'layout.tt' edit=1 title='Editing "' _ release.name -%]
     <form action="[% c.req.uri %]" method="post">
         [% USE r = FormRenderer(form) %]
         [% INCLUDE 'release/sidebar.tt' editing=1 %]
