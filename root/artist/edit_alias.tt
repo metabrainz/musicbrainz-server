@@ -5,8 +5,5 @@
         <li>[% l('If you see a misspelled alias here, it most likely is listed on purpose,
                   and should not be renamed or removed. Please see {aa|artist aliases}
                   for more details.', {aa => doc_link('ArtistAlias')}) %]</li>
-        <li>[% l('Please note that aliases are currently required to be <strong>unique for all
-                  artists</strong>. You can circumvent this limitation by adding a comment to the
-                  alias, preferably in parentheses.') %]</li>
     [%- INCLUDE 'alias/edit_form.tt' %]
 [%- END -%]
