@@ -55,11 +55,15 @@
     [% END %]
 
     <h2>[% l('Edit notes') %]</h2>
-    [% FOR note=edit.edit_notes %]
-    <div class="edit-note">
-      <h3>[% l('{editor} ({date}):', editor=link_editor(note.editor), date=UserDate.format(note.post_time)) %]</h3>
-      [% note.text %]
-    </div>
+    [% IF edit.edit_notes.size %]
+        [% FOR note=edit.edit_notes %]
+        <div class="edit-note">
+          <h3>[% l('{editor} ({date}):', editor=link_editor(note.editor), date=UserDate.format(note.post_time)) %]</h3>
+          [% note.text %]
+        </div>
+        [% END %]
+    [% ELSE %]
+        <p>[% l('No edit notes have been added') %]</p>
     [% END %]
     [% IF c.user_exists %]
        <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
