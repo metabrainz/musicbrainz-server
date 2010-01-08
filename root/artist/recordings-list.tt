@@ -11,7 +11,7 @@
     <tbody>
         [%- FOR recording=recordings -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td>[% link_recording(recording) %]</td>
+            <td>[% link_recording(recording) %] [% disambiguation(recording) %]</td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(recording.artist_credit) %]</td>
             [%- END -%]
