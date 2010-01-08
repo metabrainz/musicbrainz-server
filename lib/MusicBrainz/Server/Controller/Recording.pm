@@ -71,7 +71,10 @@ Show details of a recording
 
 after 'details' => sub
 {
+    my ($self, $c) = @_;
     # XXX Load PUID count?
+    my $recording = $c->stash->{recording};
+    $c->model('ArtistCredit')->load($recording);
 };
 
 sub show : Chained('load') PathPart('')
