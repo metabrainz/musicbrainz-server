@@ -688,3 +688,32 @@ span.mp {
     padding: 4pt;
     border: 2px solid #FC6714;
 }
+
+
+
+dl.profileinfo {
+	display: block;
+}
+
+dl.profileinfo dt {
+	clear: left;
+	display: block;
+	font-weight: bold;
+	float: left;
+	width: 125px;
+	text-align: right;
+	padding: 5px;
+}
+
+dl.profileinfo dd {
+	clear: right;
+	display: block;
+	white-space: nowrap;
+	padding: 5px;
+	margin-left: 10px;
+}
+
+table.statistics {
+	float: left;
+	margin: 8px;
+}

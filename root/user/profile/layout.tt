@@ -13,6 +13,7 @@
     ['index', generic_link(c.uri_for_action("/user/profile", user.name), l('Profile'))],
     ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist/view", user.name), l('Subscriptions'))],
     ['collection', generic_link(c.uri_for_action("/user/collection/view", user.name), l('Collection'))],
+    ['ratings', generic_link(c.uri_for_action("/user/collection/view", user.name), l('Ratings'))],
 ] -%]
 
     [% INCLUDE 'components/tabs.tt' list=info_links %]
