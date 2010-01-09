@@ -342,11 +342,16 @@ INSERT INTO release_group_gid_redirect SELECT gid::uuid, newid FROM public.gid_r
 ------------------------
 
 INSERT INTO editor (id, name, password, privs, email, website, bio,
-    membersince, emailconfirmdate, lastlogindate, editsaccepted,
-    editsrejected, autoeditsaccepted, editsfailed)
-    SELECT id, name, password, privs, email, weburl, bio, membersince,
+    emailconfirmdate, lastlogindate, editsaccepted,
+    editsrejected, autoeditsaccepted, editsfailed, membersince)
+    SELECT id, name, password, privs, email, weburl, bio,
         emailconfirmdate, lastlogindate, modsaccepted, modsrejected,
-        automodsaccepted, modsfailed FROM public.moderator;
+        automodsaccepted, modsfailed,
+        CASE
+            WHEN membersince = epoch  '2000-01-01' THEN NULL
+            ELSE membersince
+        END
+        FROM public.moderator;
 
 INSERT INTO editor_preference (id, editor, name, value)
     SELECT
