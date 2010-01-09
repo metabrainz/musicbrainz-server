@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller;
-use Moose; 
+use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
 use Data::Page;
+use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation;
 
 __PACKAGE__->config(
@@ -80,12 +81,21 @@ sub edit_action
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params))
     {
+        my @options = (map { $_->name => $_->value } $form->edit_fields);
+        my %extra   = %{ $opts{edit_args} || {} };
+        my $privs   = $c->user->privileges;
+
+        if ($c->user->is_auto_editor && !$form->field('as_auto_editor')->value) {
+            $privs &= ~$AUTO_EDITOR_FLAG;
+        }
+
         my $edit = $c->model('Edit')->create(
             edit_type => $opts{type},
             editor_id => $c->user->id,
-            (map { $_->name => $_->value } $form->edit_fields),
-            %{ $opts{edit_args} || {} },
-        );
+            privileges => $privs,
+            @options,
+            %extra,
+        ) or die "Could not create edit";
 
         if (defined $edit &&
                 $form->does('MusicBrainz::Server::Form::Edit') &&

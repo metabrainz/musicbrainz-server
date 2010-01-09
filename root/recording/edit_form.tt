@@ -16,5 +16,7 @@
     [% r.label('length', l('Length:')) %]
     [% r.text('length') %]
   </p>
+  [%- INCLUDE 'forms/edit-note.tt' -%]
+  [%- INCLUDE 'forms/auto-editor.tt' -%]
   [% form_submit(l('Enter Edit')) %]
 </form>

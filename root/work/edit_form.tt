@@ -22,5 +22,7 @@
         [% r.label('type_id', l('Type:')) %]
         [% r.select('type_id') %]
     </p>
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [%- INCLUDE 'forms/auto-editor.tt' -%]
     [% form_submit(l('Enter Edit')) %]
 </form>

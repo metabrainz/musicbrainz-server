@@ -144,7 +144,7 @@ sub create
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
     my $editor_id = delete $opts{editor_id} or croak "editor_id required";
-    my $privs = $opts{privileges} || 0;
+    my $privs = delete $opts{privileges} || 0;
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or die "Could not lookup edit type for $type";
 

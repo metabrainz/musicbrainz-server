@@ -10,6 +10,7 @@
         <form action="[% c.req.uri %]" method="post">
             [%- USE r = FormRenderer(form) -%]
             [%- INCLUDE 'forms/edit-note.tt' -%]
+            [%- INCLUDE 'forms/auto-editor.tt' -%]
             [%- form_submit(l('Delete Label')) -%]
         </form>
     [%- ELSE -%]

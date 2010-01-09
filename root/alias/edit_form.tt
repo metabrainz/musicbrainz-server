@@ -5,5 +5,6 @@
         [% r.text('name') %]
     </p>
     [% INCLUDE 'forms/edit-note.tt' %]
+    [% INCLUDE 'forms/auto-editor.tt' %]
     [% form_submit(l('Enter edit')) %]
 </form>

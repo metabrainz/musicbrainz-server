@@ -8,6 +8,16 @@ has_field 'edit_note' => (
     label => 'Edit note:',
 );
 
+has_field 'as_auto_editor' => (
+    type => 'Checkbox',
+);
+
+sub default_as_auto_editor
+{
+    my $self = shift;
+    return $self->ctx->user->is_auto_editor;
+};
+
 sub edit_fields
 {
     my ($self) = @_;
