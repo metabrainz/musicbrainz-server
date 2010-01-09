@@ -1,7 +1,7 @@
 <table class="details">
   <tr>
     <th>[% l('Label:') %]</th>
-    <td>[% link_label(edit.display_data.label) %]
+    <td>[% link_label(edit.display_data.label) %]</td>
   </tr>
   <tr>
     <th>[% l('Changelog:') %]</th>
