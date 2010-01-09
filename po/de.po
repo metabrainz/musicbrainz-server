@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mbserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-02 16:56+0100\n"
+"POT-Creation-Date: 2010-01-09 20:14+0000\n"
 "PO-Revision-Date: 2009-12-21 23:25+0000\n"
 "Last-Translator: aebi <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
@@ -35,40 +35,34 @@ msgstr ""
 msgid "\"{name}.\""
 msgstr ""
 
-#: ../root/recording/index.tt:11 ../root/release/edit.tt:52
-#: ../root/release/edit.tt:94 ../root/tracklist/index.tt:30
+#: ../root/recording/index.tt:11 ../root/release/edit.tt:54
+#: ../root/release/edit.tt:96 ../root/tracklist/index.tt:30
 #, perl-format
 msgid "#"
 msgstr "#"
-
-#: ../root/main/404.tt:4
-#, perl-format
-msgid "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 404)"
-msgstr "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 404)"
-
-#: ../root/main/500.tt:6
-#, perl-format
-msgid "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 500)"
-msgstr "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 500)"
 
 #: ../root/edit/notes.tt:22
 #, perl-format
 msgid "(None)"
 msgstr "(Keine)"
 
+#: ../root/user/profile.tt:35
+#, perl-format
+msgid "(hidden)"
+msgstr ""
+
 #: ../root/annotation/common.tt:22
 #, perl-format
 msgid "(no change log)"
 msgstr "(kein Änderungsprotokoll)"
 
-#: ../root/tag/summary.tt:13 ../root/user/profile.tt:67
-#: ../root/user/profile.tt:91 ../root/user/profile.tt:96
-#: ../root/user/profile.tt:120
+#: ../root/user/profile.tt:32 ../root/user/profile.tt:75
+#: ../root/user/profile.tt:80
 #, perl-format
 msgid "(none)"
 msgstr "(keine)"
 
-#: ../root/user/profile.tt:182 ../root/user/profile.tt:188
+#: ../root/user/profile.tt:155 ../root/user/profile.tt:161
 #, perl-format
 msgid "({pc}%)"
 msgstr "({pc}%)"
@@ -80,15 +74,20 @@ msgid ""
 "requested and the matches we found."
 msgstr ""
 
-#: ../root/url/edit.tt:9
+#: ../root/user/profile.tt:87
 #, perl-format
-msgid "<abbr title="
-msgstr "<abbr title="
+msgid "0"
+msgstr ""
 
-#: ../root/release/release.tt:65
-#, perl-format
-msgid "<abbr title=\"Catalog Number\">Catalog #</abbr>"
-msgstr "<abbr title=\"Katalognummer\">Katalog #</abbr>"
+#: ../root/main/404.tt:4
+#, fuzzy, perl-format
+msgid "<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 404"
+msgstr "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 404)"
+
+#: ../root/main/500.tt:6
+#, fuzzy, perl-format
+msgid "<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 500"
+msgstr "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 500)"
 
 #: ../root/user/adjust_flags.tt:23
 #, perl-format
@@ -100,28 +99,7 @@ msgstr ""
 msgid "<abbr title=\"Subversion\">SVN</abbr> Viewer"
 msgstr ""
 
-#: ../root/edit/details/edit_url.tt:1 ../root/relate/cc.tt:10
-#: ../root/relate/url.tt:16
-#, perl-format
-msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr>"
-msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr>"
-
-#: ../root/relate/url.tt:14
-#, perl-format
-msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr> Details"
-msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr> Details"
-
-#: ../root/url/info.tt:2
-#, perl-format
-msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr> Information"
-msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr> Information"
-
-#: ../root/url/info.tt:6
-#, perl-format
-msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr>:"
-msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr>:"
-
-#: ../root/forms/auto-editor.tt:4
+#: ../root/forms/auto-editor.tt:5
 #, perl-format
 msgid ""
 "<strong>AutoEditor privileges</strong>: If you untick this checkbox, this "
@@ -146,9 +124,9 @@ msgid "A new recording was created for this track"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:16
-#, perl-format
+#, fuzzy, perl-format
 msgid "Abbreviation Style"
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/forms/edit-note.tt:4
 #, fuzzy, perl-format
@@ -160,10 +138,10 @@ msgstr "Bemerkung hinzufügen"
 msgid "Abstain"
 msgstr "Enthalten"
 
-#: ../root/user/profile.tt:149
-#, perl-format
-msgid "Accepted non-autoedits"
-msgstr "Akzeptierte nicht-autoedits"
+#: ../root/user/profile.tt:114
+#, fuzzy, perl-format
+msgid "Accepted"
+msgstr "Benuzterkonto erstellt"
 
 #: ../root/layout/menu.tt:185 ../root/layout/menu.tt:232
 #, perl-format
@@ -201,22 +179,7 @@ msgstr "Bemerkung hinzufügen"
 msgid "Add Label"
 msgstr "Label Hinzufügen"
 
-#: ../root/release_editor/confirm_artists.tt:17
-#, perl-format
-msgid "Add New Artist"
-msgstr "Neuen Künstler hinzufügen"
-
-#: ../root/release_editor/confirm_labels.tt:17
-#, perl-format
-msgid "Add New Label"
-msgstr "Neues Label hinzufügen"
-
-#: ../root/artist/add_non_album.tt:3 ../root/artist/add_non_album.tt:4
-#, perl-format
-msgid "Add Non-Album Track"
-msgstr ""
-
-#: ../root/artist/no_nats.tt:4 ../root/release/nats.tt:11
+#: ../root/release/nats.tt:11
 #, perl-format
 msgid "Add Non-Album Tracks"
 msgstr ""
@@ -236,43 +199,22 @@ msgstr "Seite hinzufügen"
 msgid "Add Relationship"
 msgstr "Beziehung hinzufügen"
 
-#: ../root/release_editor/release_data.tt:4
-#: ../root/release_editor/track_count.tt:1
-#, perl-format
-msgid "Add Release"
-msgstr "Veröffentlichung hinzufügen"
-
 #: ../root/layout/menu.tt:167
 #, fuzzy, perl-format
 msgid "Add Various Artists Release"
 msgstr "Diverse Interpreten"
-
-#: ../root/relate/cc.tt:4
-#, perl-format
-msgid "Add a Creative Commons license"
-msgstr "Creative Commons Lizenz hinzufügen"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:2
 #, perl-format
 msgid "Add a New Artist"
 msgstr "Neuen Künstler hinzufügen"
 
-#: ../root/release_editor/release_data.tt:5
-#, perl-format
-msgid "Add a new Release"
-msgstr "Neue Veröffentlichung hinzufügen"
-
 #: ../root/components/aliases.tt:37
 #, fuzzy, perl-format
 msgid "Add a new alias"
 msgstr "Neue Veröffentlichung hinzufügen"
 
-#: ../root/annotation/common.tt:3
-#, perl-format
-msgid "Add an annotation"
-msgstr "Bemerkung hinzufügen"
-
-#: ../root/release/edit.tt:105
+#: ../root/release/edit.tt:107
 #, fuzzy, perl-format
 msgid "Add an existing tracklist"
 msgstr "Künstler-Alias hinzufügen"
@@ -292,12 +234,6 @@ msgstr "Weiteren Titel hinzufügen"
 msgid "Add another medium"
 msgstr "Weiteren Titel hinzufügen"
 
-#: ../root/release_editor/release_data.tt:48
-#, fuzzy, perl-format
-msgid "Add another release event"
-msgstr "Neue Veröffentlichung hinzufügen"
-
-#: ../root/release_editor/release_data.tt:29
 #: ../root/scripts/text_strings.tt:41
 #, perl-format
 msgid "Add another track"
@@ -308,7 +244,7 @@ msgstr "Weiteren Titel hinzufügen"
 msgid "Add artist alias"
 msgstr "Künstler-Alias hinzufügen"
 
-#: ../root/edit/index.tt:71
+#: ../root/edit/index.tt:75
 #, perl-format
 msgid "Add edit note"
 msgstr "Bemerkung hinzufügen"
@@ -322,11 +258,6 @@ msgstr "Label-Alias hinzufügen"
 #, perl-format
 msgid "Add to collection"
 msgstr "Zur Sammlung hinzufügen"
-
-#: ../root/relate/create.tt:14
-#, perl-format
-msgid "Additional"
-msgstr "Zusätzlich"
 
 #: ../root/user/adjust_flags.tt:1 ../root/user/adjust_flags.tt:2
 #, perl-format
@@ -374,14 +305,9 @@ msgid "Aliases for {entity_name}"
 msgstr "Aliase für {entity_name}"
 
 #: ../root/admin/linktype/tree.tt:7
-#, perl-format
+#, fuzzy, perl-format
 msgid "All Link Types"
-msgstr ""
-
-#: ../root/tag/all.tt:3
-#, perl-format
-msgid "All Tags:"
-msgstr "Alle Tags:"
+msgstr "Bemerkungen"
 
 #: ../root/user/preferences.tt:31
 #, perl-format
@@ -402,11 +328,6 @@ msgstr "Andere Benutzer dürfen meine Abonnements sehen"
 #, perl-format
 msgid "Allow other users to see my tags"
 msgstr "Andere Benutzer dürfen meine Tags sehen"
-
-#: ../root/release/confirm_move.tt:9
-#, perl-format
-msgid "Also change Track Artists"
-msgstr "Auch den Titel-Artist wechseln"
 
 #: ../root/main/index.tt:83
 #, perl-format
@@ -448,12 +369,6 @@ msgstr "Neue Veröffentlichung hinzufügen"
 msgid "Approve"
 msgstr "Genehmigen"
 
-#: ../root/freedb/choose_artist.tt:5
-#, perl-format
-msgid ""
-"Are the tracks of this release credited to a single artist, or more than one?"
-msgstr ""
-
 #: ../root/artist/merge_confirm.tt:4
 #, perl-format
 msgid ""
@@ -480,23 +395,6 @@ msgstr ""
 "Wollen Sie den Artist {artist1} mit dem Artist {artist2} wirklich "
 "verschmelzen?"
 
-#: ../root/release/confirm_move.tt:5
-#, fuzzy, perl-format
-msgid ""
-"Are you sure you want to move the release {release} to the artist {artist}?"
-msgstr ""
-"Wollen Sie den Alias <strong>{alias}</strong>, der auf den Artist {artist} "
-"zeigt wirklich löschen?"
-
-#: ../root/artist/remove_alias.tt:7
-#, perl-format
-msgid ""
-"Are you sure you want to remove the alias <strong>{alias}</strong>, which "
-"points to the artist {artist}?"
-msgstr ""
-"Wollen Sie den Alias <strong>{alias}</strong>, der auf den Artist {artist} "
-"zeigt wirklich löschen?"
-
 #: ../root/artist/delete_alias.tt:8
 #, fuzzy, perl-format
 msgid ""
@@ -514,34 +412,6 @@ msgid ""
 msgstr ""
 "Wollen Sie den Alias <strong>{alias}</strong>, der auf den Artist {artist} "
 "zeigt wirklich löschen?"
-
-#: ../root/puid/remove.tt:5
-#, perl-format
-msgid ""
-"Are you sure you want to remove the assossciation between PUID <code>{puid}</"
-"code> and the track {track} by {artist}?"
-msgstr ""
-"Wollen Sie die Beziehung zwischen der PUID <code>{puid}</code> und dem Titel "
-"{track} von {artist} wirklich auflösen?"
-
-#: ../root/release/remove.tt:6
-#, fuzzy, perl-format
-msgid "Are you sure you want to remove the release {release}?"
-msgstr "Wollen Sie den Titel {track} wirklich löschen?"
-
-#: ../root/recording/remove.tt:6
-#, perl-format
-msgid "Are you sure you want to remove the track {track}?"
-msgstr "Wollen Sie den Titel {track} wirklich löschen?"
-
-#: ../root/relate/remove.tt:6
-#, perl-format
-msgid ""
-"Are you sure you want to remove the {type1}-to-{type22} relationship from "
-"{source} to {dest}?"
-msgstr ""
-"Wollen Sie die {type1}-zu-{type22}-Beziehung von {source} zu {dest} wirklich "
-"löschen?"
 
 #: ../root/admin/linkattributetype/delete.tt:6
 #, fuzzy, perl-format
@@ -594,15 +464,12 @@ msgstr "Wollen Sie den Artist {artist} wirklich löschen?"
 msgid "Are you sure?"
 msgstr "Sind Sie sich sicher?"
 
-#: ../root/artist/add_non_album.tt:26 ../root/artist/appearances.tt:9
 #: ../root/artist/header.tt:15 ../root/artist/recordings-list.tt:6
 #: ../root/artist/works-list.tt:6 ../root/cdtoc/index.tt:72
 #: ../root/isrc/index.tt:11 ../root/label/index.tt:11 ../root/puid/index.tt:11
-#: ../root/release/convert_to_single_search.tt:9 ../root/release/edit.tt:54
-#: ../root/release/edit.tt:96 ../root/release/index.tt:12
-#: ../root/release/lookup.tt:10 ../root/release/move.tt:9
-#: ../root/release_editor/confirm_artists.tt:15
-#: ../root/release_editor/release_data.tt:18 ../root/report/artist_list.tt:5
+#: ../root/release/edit.tt:56 ../root/release/edit.tt:98
+#: ../root/release/index.tt:12 ../root/release/lookup.tt:10
+#: ../root/release/move.tt:9 ../root/report/artist_list.tt:5
 #: ../root/report/release_list.tt:6 ../root/scripts/text_strings.tt:21
 #: ../root/search/results-recording.tt:11 ../root/search/results-release.tt:11
 #: ../root/search/results-release_group.tt:11
@@ -611,11 +478,6 @@ msgstr "Sind Sie sich sicher?"
 #, perl-format
 msgid "Artist"
 msgstr "Künstler"
-
-#: ../root/artist/appearances.tt:1
-#, fuzzy, perl-format
-msgid "Artist Credits"
-msgstr "Künstler Details"
 
 #: ../root/artist/edit_form.tt:40
 #, perl-format
@@ -647,7 +509,6 @@ msgstr "Künstler Abonnements"
 #: ../root/edit/details/edit_release.tt:20
 #: ../root/edit/details/edit_release_group.tt:28
 #: ../root/edit/details/edit_track.tt:12 ../root/edit/details/edit_work.tt:36
-#: ../root/edit/details/mac_to_sac.tt:4 ../root/edit/details/merge_artist.tt:4
 #: ../root/edit/relationship/edit.tt:16
 #: ../root/recording/change_artist_search.tt:9
 #: ../root/recording/edit_form.tt:4 ../root/recording/layout.tt:9
@@ -689,15 +550,6 @@ msgstr ""
 "Bemerkung zu dieser Änderung eingeben bevor Sie diese Änderung gutheissen "
 "können."
 
-#: ../root/elections/propose_form.tt:4
-#, perl-format
-msgid ""
-"As you are are an auto-editor, you may propose a new candidate by elected to "
-"become an auto-editor."
-msgstr ""
-"Da Sie ein Auto-Editor sind, können Sie neue Kandidaten für die Auto-Editor-"
-"Wahl vorschlagen."
-
 #: ../root/recording/puids.tt:3
 #, perl-format
 msgid "Associated PUIDs"
@@ -709,14 +561,9 @@ msgid "Associated with recordings"
 msgstr "Änderungen an {recording}"
 
 #: ../root/cdtoc/index.tt:64
-#, perl-format
+#, fuzzy, perl-format
 msgid "Attached to releases"
-msgstr ""
-
-#: ../root/relate/create.tt:13 ../root/release_editor/release_data.tt:34
-#, perl-format
-msgid "Attributes"
-msgstr "Attribute"
+msgstr "Neue Veröffentlichung hinzufügen"
 
 #: ../root/admin/linktype/form.tt:56 ../root/edit/relationship/edit.tt:52
 #, perl-format
@@ -728,19 +575,6 @@ msgstr "Attribute:"
 msgid "Audio Book Style"
 msgstr ""
 
-#: ../root/elections/proposed.tt:1 ../root/elections/proposed.tt:2
-#, perl-format
-msgid "Auto-Editor Candidate Proposed"
-msgstr ""
-
-#: ../root/elections/details.tt:1 ../root/elections/details.tt:2
-#: ../root/elections/elections.tt:1 ../root/elections/elections.tt:2
-#: ../root/elections/no_privs.tt:1 ../root/elections/no_privs.tt:2
-#: ../root/elections/problem.tt:1 ../root/elections/problem.tt:2
-#, perl-format
-msgid "Auto-Editor Elections"
-msgstr "Auto-Editor-Wahlen"
-
 #: ../root/forms/auto-editor.tt:2 ../root/user/adjust_flags.tt:8
 #, perl-format
 msgid "AutoEditor"
@@ -751,17 +585,10 @@ msgstr "Auto-Editor"
 msgid "Autoeditor Elections"
 msgstr "Auto-Editor-Wahlen"
 
-#: ../root/user/profile.tt:150
+#: ../root/user/profile.tt:118
 #, perl-format
 msgid "Autoedits"
 msgstr "Autoedits"
-
-#: ../root/forms/widgets/release_event.tt:26
-#: ../root/forms/widgets/release_event_labels.tt:9
-#: ../root/release/release.tt:68
-#, perl-format
-msgid "Barcode"
-msgstr "Strichcode"
 
 #: ../root/edit/details/edit_release.tt:76 ../root/release/sidebar.tt:101
 #, perl-format
@@ -803,11 +630,6 @@ msgstr "Bitte lesen sie zuerst den {coc|MusicBrainz Verhaltenskodex}."
 msgid "Begin Date:"
 msgstr "Anfangsdatum:"
 
-#: ../root/relate/create.tt:47
-#, perl-format
-msgid "Begin date"
-msgstr "Anfangsdatum"
-
 #: ../root/edit/details/create_artist.tt:36
 #: ../root/edit/details/create_label.tt:20
 #: ../root/edit/details/edit_artist.tt:52
@@ -825,23 +647,10 @@ msgid ""
 "sure to include it!"
 msgstr ""
 
-#: ../root/user/profile.tt:95
-#, perl-format
-msgid "Bio"
-msgstr "Über mich"
-
-#: ../root/user/edit.tt:25
+#: ../root/user/edit.tt:25 ../root/user/profile.tt:79
 #, perl-format
 msgid "Bio:"
 msgstr "Über mich:"
-
-#: ../root/artist/add_non_album.tt:8
-#, perl-format
-msgid ""
-"Blank tracks will be ignored.  Leave empty the fields that you do not need."
-msgstr ""
-"Leere Titel werden ignoriert. Lassen sie die Felder, welche Sie nicht "
-"benötigen, frei."
 
 #: ../root/user/adjust_flags.tt:11
 #, perl-format
@@ -849,9 +658,9 @@ msgid "Bot"
 msgstr "Roboter"
 
 #: ../root/scripts/module_guideline_list.tt:20
-#, perl-format
+#, fuzzy, perl-format
 msgid "Box Set Name Style"
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/layout/sidebar/sites.tt:17
 #, perl-format
@@ -929,8 +738,7 @@ msgid "CD TOC details"
 msgstr "Details"
 
 #: ../root/edit/info.tt:16 ../root/edit/list.tt:33
-#: ../root/elections/details.tt:9 ../root/release_editor/confirm.tt:14
-#: ../root/release_editor/submit.tt:3 ../root/scripts/text_strings.tt:24
+#: ../root/scripts/text_strings.tt:24
 #, perl-format
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -941,19 +749,6 @@ msgid ""
 "Cancelling a pending edit will take effect within an hour, while removing an "
 "artist alias has to be voted on according to the voting process."
 msgstr ""
-
-#: ../root/artist/remove_alias.tt:10
-#, perl-format
-msgid ""
-"Cancelling a pending edit will take effect within an hour, while removing "
-"data already accepted into the databse has to be voted on according to the "
-"voting process."
-msgstr ""
-
-#: ../root/elections/details.tt:6 ../root/elections/elections.tt:7
-#, perl-format
-msgid "Candidate"
-msgstr "Kandidat"
 
 #: ../root/scripts/module_guideline_list.tt:62
 #, perl-format
@@ -975,24 +770,12 @@ msgstr ""
 msgid "Catalog #"
 msgstr "Katalognummer"
 
-#: ../root/forms/widgets/release_event.tt:22
-#: ../root/forms/widgets/release_event_labels.tt:8
-#, perl-format
-msgid "Catalog Number"
-msgstr "Katalognummer"
-
 #: ../root/cdtoc/index.tt:76 ../root/recording/index.tt:19
 #: ../root/release_group/releases-list.tt:10 ../root/tracklist/index.tt:36
 #: ../root/user/collection.tt:17
 #, perl-format
 msgid "Catalog#"
 msgstr "Katalognummer"
-
-#: ../root/artist/change_quality.tt:3 ../root/artist/change_quality.tt:4
-#: ../root/release/change_quality.tt:3 ../root/release/change_quality.tt:4
-#, perl-format
-msgid "Change Data Quality"
-msgstr "Datenqualität ändern"
 
 #: ../root/edit/details/add_track_annotation.tt:1
 #, perl-format
@@ -1038,7 +821,7 @@ msgstr "Änderungsprotokoll:"
 msgid "Changes:"
 msgstr "Änderungen:"
 
-#: ../root/user/profile.tt:144
+#: ../root/user/profile.tt:63
 #, perl-format
 msgid "Charter Member"
 msgstr ""
@@ -1052,11 +835,6 @@ msgstr "Chatprotokoll"
 #, fuzzy, perl-format
 msgid "Check Donation Status"
 msgstr "Aktueller Status"
-
-#: ../root/release_editor/check_duplicates.tt:1
-#, perl-format
-msgid "Check Duplicates"
-msgstr "Duplikate überprüfen"
 
 #: ../root/admin/linkattributetype/form.tt:14
 #: ../root/admin/linktype/form.tt:14 ../root/admin/linktype/tree.tt:21
@@ -1089,16 +867,6 @@ msgstr ""
 msgid "Closed:"
 msgstr "Geschlossen:"
 
-#: ../root/relate/create.tt:26
-#, perl-format
-msgid "Co"
-msgstr "Co"
-
-#: ../root/relate/create.tt:28
-#, perl-format
-msgid "Co-[role]"
-msgstr "Co-[rolle]"
-
 #: ../root/user/collection.tt:1 ../root/user/collection.tt:3
 #, perl-format
 msgid "Collection"
@@ -1122,33 +890,6 @@ msgstr "Kommentar:"
 #, perl-format
 msgid "Conditions:"
 msgstr "Bedingungen:"
-
-#: ../root/release_editor/confirm.tt:1
-#, fuzzy, perl-format
-msgid "Confirm Add Release"
-msgstr "Veröffentlichung hinzufügen"
-
-#: ../root/release_editor/confirm_artists.tt:3
-#: ../root/release_editor/confirm_artists.tt:4
-#, perl-format
-msgid "Confirm Artist"
-msgstr "Artist bestätigen"
-
-#: ../root/artist/remove_alias.tt:5
-#, perl-format
-msgid "Confirm Artist Alias Removal"
-msgstr "Löschen des Artist-Alias bestätigen"
-
-#: ../root/release_editor/confirm_labels.tt:3
-#: ../root/release_editor/confirm_labels.tt:4
-#, perl-format
-msgid "Confirm Label"
-msgstr "Label bestätigen"
-
-#: ../root/puid/remove.tt:11
-#, fuzzy, perl-format
-msgid "Confirm Removal"
-msgstr "Label bestätigen"
 
 #: ../root/artist/edit_form.tt:29
 #, perl-format
@@ -1185,38 +926,14 @@ msgstr ""
 "Glückwunsch, Ihr neues Benutzerkonto wurde erstellt und Sie sind jetzt bei "
 "MusicBrainz angemeldet!"
 
-#: ../root/user/profile.tt:45
-#, perl-format
-msgid "Contact"
-msgstr "Kontakt"
-
 #: ../root/layout/footer-bar.tt:56
 #, perl-format
 msgid "Contact Details"
 msgstr "Kontakt-Details"
 
-#: ../root/release_editor/confirm.tt:13 ../root/release_editor/submit.tt:2
-#, perl-format
-msgid "Continue"
-msgstr "Weiter"
-
-#: ../root/release/convert_to_single_search.tt:3
-#: ../root/release/convert_to_single_search.tt:4
-#, perl-format
-msgid "Convert Release to a Single Artist"
-msgstr ""
-
-#: ../root/release/convert_to_single_artist.tt:3
-#: ../root/release/convert_to_single_artist.tt:4
-#, perl-format
-msgid "Convert to Single Artist"
-msgstr ""
-
-#: ../root/cdtoc/index.tt:74 ../root/forms/widgets/release_event.tt:14
-#: ../root/forms/widgets/release_event_labels.tt:6 ../root/label/index.tt:14
-#: ../root/recording/index.tt:17 ../root/release/release.tt:59
-#: ../root/release_group/releases-list.tt:8 ../root/tracklist/index.tt:34
-#: ../root/user/collection.tt:15
+#: ../root/cdtoc/index.tt:74 ../root/label/index.tt:14
+#: ../root/recording/index.tt:17 ../root/release_group/releases-list.tt:8
+#: ../root/tracklist/index.tt:34 ../root/user/collection.tt:15
 #, perl-format
 msgid "Country"
 msgstr "Land"
@@ -1247,20 +964,10 @@ msgstr "Benutzerkonto erstellen"
 msgid "Create Artist"
 msgstr "Artist erstellen"
 
-#: ../root/label/create.tt:3
+#: ../root/label/create.tt:3 ../root/label/edit_form.tt:71
 #, perl-format
 msgid "Create Label"
 msgstr "Label erstellen"
-
-#: ../root/relate/create.tt:4
-#, perl-format
-msgid "Create Relationship:"
-msgstr "Beziehung erstellen:"
-
-#: ../root/relate/create.tt:3
-#, perl-format
-msgid "Create Releationship"
-msgstr "Beziehung erstellen"
 
 #: ../root/user/login.tt:40
 #, perl-format
@@ -1273,30 +980,15 @@ msgstr "Neues Benutzerkonto eröffnen"
 msgid "Create an Account"
 msgstr "Benutzerkonto eröffnen"
 
-#: ../root/label/edit_form.tt:69
-#, perl-format
-msgid "Create label"
-msgstr "Label erstellen"
-
 #: ../root/layout/footer-bar.tt:5 ../root/layout/sidebar/partners.tt:19
 #, perl-format
 msgid "Creative Commons"
 msgstr "Creative Commons"
 
-#: ../root/elections/details.tt:19
-#, perl-format
-msgid "Current Status"
-msgstr "Aktueller Status"
-
 #: ../root/admin/wikidoc/index.tt:18
 #, perl-format
 msgid "Current version"
 msgstr "Aktuelle Version"
-
-#: ../root/release/edit_attributes.tt:21
-#, perl-format
-msgid "Currently only showing the most common languages and scripts."
-msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:64
 #, perl-format
@@ -1313,26 +1005,14 @@ msgstr "Tschechischer Modus"
 msgid "Danish Capitalization"
 msgstr ""
 
-#: ../root/release/change_quality.tt:10
-#, fuzzy, perl-format
-msgid "Data Quality"
-msgstr "Datenqualität ändern"
-
-#: ../root/artist/change_quality.tt:15
-#, fuzzy, perl-format
-msgid "Data Quality setting"
-msgstr "Datenqualität ändern"
-
 #: ../root/scripts/module_guideline_list.tt:22
-#, perl-format
+#, fuzzy, perl-format
 msgid "Data Track Style"
-msgstr ""
+msgstr "Stücke"
 
-#: ../root/cdtoc/index.tt:73 ../root/forms/widgets/release_event.tt:10
-#: ../root/forms/widgets/release_event_labels.tt:5 ../root/label/index.tt:13
-#: ../root/release/lookup.tt:11 ../root/release/release.tt:56
-#: ../root/release_group/releases-list.tt:7 ../root/tracklist/index.tt:33
-#: ../root/user/collection.tt:14
+#: ../root/cdtoc/index.tt:73 ../root/label/index.tt:13
+#: ../root/release/lookup.tt:11 ../root/release_group/releases-list.tt:7
+#: ../root/tracklist/index.tt:33 ../root/user/collection.tt:14
 #, perl-format
 msgid "Date"
 msgstr "Datum"
@@ -1364,28 +1044,28 @@ msgstr ""
 #: ../root/admin/linkattributetype/delete.tt:10
 #: ../root/admin/linktype/delete.tt:10 ../root/admin/wikidoc/delete.tt:10
 #: ../root/admin/wikidoc/index.tt:45 ../root/components/aliases.tt:18
-#: ../root/edit/relationship/delete.tt:15 ../root/label/delete.tt:1
+#: ../root/edit/relationship/delete.tt:16 ../root/label/delete.tt:1
 #: ../root/release_group/delete.tt:1
 #, perl-format
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../root/alias/delete.tt:3 ../root/artist/delete_alias.tt:3
+#: ../root/alias/delete.tt:4 ../root/artist/delete_alias.tt:3
 #: ../root/label/delete_alias.tt:3
 #, fuzzy, perl-format
 msgid "Delete Alias"
 msgstr "Artist löschen"
 
-#: ../root/label/delete.tt:13
+#: ../root/label/delete.tt:14
 #, perl-format
 msgid "Delete Label"
 msgstr "Label löschen"
 
 #: ../root/admin/linkattributetype/delete.tt:1
 #: ../root/admin/linkattributetype/delete.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "Delete Link Attribute Type"
-msgstr ""
+msgstr "Attribute"
 
 #: ../root/admin/linktype/delete.tt:1 ../root/admin/linktype/delete.tt:3
 #, fuzzy, perl-format
@@ -1397,7 +1077,7 @@ msgstr "Label löschen"
 msgid "Delete Relationship"
 msgstr "Beziehung löschen"
 
-#: ../root/release_group/delete.tt:13
+#: ../root/release_group/delete.tt:14
 #, fuzzy, perl-format
 msgid "Delete Release Group"
 msgstr "Veröffentlichungen"
@@ -1412,60 +1092,31 @@ msgstr "Veröffentlichungen"
 msgid "Delete this label"
 msgstr "Dieses Label löschen"
 
-#: ../root/artist/add_non_album.tt:17
-#, perl-format
-msgid ""
-"Demo tracks and promotional tracks that have never been released on a "
-"release are good candidates for non-album tracks."
-msgstr ""
-
-#: ../root/relate/url.tt:17 ../root/url/edit.tt:10
-#, perl-format
-msgid "Description"
-msgstr "Beschreibung"
-
 #: ../root/admin/linkattributetype/form.tt:26
 #: ../root/admin/linkattributetype/index.tt:20
 #: ../root/admin/linktype/form.tt:44 ../root/admin/linktype/tree.tt:24
-#: ../root/url/info.tt:14
+#: ../root/edit/details/edit_url.tt:21 ../root/url/edit.tt:9
+#: ../root/url/index.tt:19
 #, perl-format
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: ../root/artist/details.tt:1 ../root/elections/elections.tt:11
-#: ../root/label/details.tt:1 ../root/recording/details.tt:1
-#: ../root/release/details.tt:1 ../root/release_group/details.tt:1
-#: ../root/work/details.tt:1
+#: ../root/artist/details.tt:1 ../root/label/details.tt:1
+#: ../root/recording/details.tt:1 ../root/release/details.tt:1
+#: ../root/release_group/details.tt:1 ../root/work/details.tt:1
 #, perl-format
 msgid "Details"
 msgstr "Details"
 
-#: ../root/release/info-links.tt:1
-#, perl-format
-msgid "Details / Link"
-msgstr "Details / Link"
-
 #: ../root/scripts/module_track_parser.tt:57
-#, perl-format
+#, fuzzy, perl-format
 msgid "Detect Track times"
-msgstr ""
-
-#: ../root/release_editor/track_count.tt:6
-#, perl-format
-msgid ""
-"Did you know that you can {uri|import Releases} from the {doc_freedb|FreeDB "
-"database}?"
-msgstr ""
+msgstr "Titel Artist ändern"
 
 #: ../root/layout/sidebar/partners.tt:24
 #, perl-format
 msgid "Digital West Networks Inc."
 msgstr "Digital West Networks Inc."
-
-#: ../root/freedb/index.tt:17
-#, perl-format
-msgid "Direct Import"
-msgstr "Direkter Import"
 
 #: ../root/layout/sidebar/search.tt:10
 #, perl-format
@@ -1477,35 +1128,30 @@ msgstr "Direkte Suche"
 msgid "Direct database search"
 msgstr "Direkte Datenbanksuche"
 
-#: ../root/release/release.tt:37
-#, fuzzy, perl-format
-msgid "Disc ID:"
-msgstr "Änderungs-ID:"
-
 #: ../root/scripts/module_guideline_list.tt:23
-#, perl-format
+#, fuzzy, perl-format
 msgid "Disc Number Style"
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/release/discids.tt:8
-#, perl-format
+#, fuzzy, perl-format
 msgid "DiscID"
-msgstr ""
+msgstr "Änderungs-ID:"
 
 #: ../root/cdtoc/index.tt:1 ../root/cdtoc/index.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "DiscID “{discid}”"
-msgstr ""
+msgstr "Editor “{user}”"
 
 #: ../root/cdtoc/index.tt:9
-#, perl-format
+#, fuzzy, perl-format
 msgid "DiscID:"
-msgstr ""
+msgstr "Änderungs-ID:"
 
 #: ../root/release/discids.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "DiscIDs"
-msgstr ""
+msgstr "Änderungs-ID:"
 
 #: ../root/layout/sidebar/partners.tt:4
 #, fuzzy, perl-format
@@ -1563,8 +1209,7 @@ msgid "EP Style"
 msgstr ""
 
 #: ../root/components/aliases.tt:21 ../root/components/relationships.tt:37
-#: ../root/release/edit.tt:127 ../root/release/tracks.tt:63
-#: ../root/user/profile.tt:16
+#: ../root/release/edit.tt:130
 #, perl-format
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -1573,11 +1218,6 @@ msgstr "Bearbeiten"
 #, perl-format
 msgid "Edit #{id}"
 msgstr "Änderungsnummer {id}"
-
-#: ../root/url/edit.tt:4
-#, fuzzy, perl-format
-msgid "Edit <abbr title=\"Uniform Resource Locator\">URL</abbr>"
-msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr>"
 
 #: ../root/layout/menu.tt:190
 #, perl-format
@@ -1599,26 +1239,26 @@ msgstr "Sammlung bearbeiten"
 msgid "Edit ID:"
 msgstr "Änderungs-ID:"
 
-#: ../root/label/edit.tt:3
+#: ../root/label/edit.tt:3 ../root/label/edit_form.tt:73
 #, perl-format
 msgid "Edit Label"
 msgstr "Label bearbeiten"
 
 #: ../root/admin/linkattributetype/edit.tt:1
 #: ../root/admin/linkattributetype/edit.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "Edit Link Attribute Type"
-msgstr ""
+msgstr "Attribute"
 
 #: ../root/admin/index.tt:8 ../root/layout/menu.tt:286
-#, perl-format
+#, fuzzy, perl-format
 msgid "Edit Link Attribute Types"
-msgstr ""
+msgstr "Attribute"
 
 #: ../root/admin/linktype/edit.tt:1 ../root/admin/linktype/edit.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "Edit Link Type"
-msgstr ""
+msgstr "Bemerkungen"
 
 #: ../root/admin/index.tt:7 ../root/layout/menu.tt:285
 #, fuzzy, perl-format
@@ -1646,25 +1286,20 @@ msgstr "Profil bearbeiten"
 msgid "Edit Relationship"
 msgstr "Beziehung bearbeiten"
 
-#: ../root/release/edit_attributes.tt:3 ../root/release/edit_attributes.tt:4
-#, fuzzy, perl-format
-msgid "Edit Release Attributes"
-msgstr "Dieses Label bearbeiten"
-
-#: ../root/release/edit_title.tt:3 ../root/release/edit_title.tt:4
-#, fuzzy, perl-format
-msgid "Edit Release Title"
-msgstr "Beziehung bearbeiten"
-
 #: ../root/edit/info.tt:31
 #, fuzzy, perl-format
 msgid "Edit Type:"
 msgstr "Bemerkung:"
 
-#: ../root/url/edit.tt:3
+#: ../root/url/edit.tt:1
 #, perl-format
 msgid "Edit URL"
 msgstr "URL bearbeiten"
+
+#: ../root/annotation/common.tt:3
+#, fuzzy, perl-format
+msgid "Edit annotation"
+msgstr "Label-Annotation bearbeiten"
 
 #: ../root/artist/edit_alias.tt:2
 #, fuzzy, perl-format
@@ -1686,7 +1321,7 @@ msgstr "Label-Alias bearbeiten"
 msgid "Edit label annotation"
 msgstr "Label-Annotation bearbeiten"
 
-#: ../root/edit/index.tt:68 ../root/forms/edit-note.tt:10
+#: ../root/edit/index.tt:72 ../root/forms/edit-note.tt:10
 #, perl-format
 msgid "Edit note:"
 msgstr "Bemerkung:"
@@ -1710,6 +1345,11 @@ msgstr "Label-Annotation bearbeiten"
 #, fuzzy, perl-format
 msgid "Edit release group annotation"
 msgstr "Label-Annotation bearbeiten"
+
+#: ../root/url/index.tt:5
+#, fuzzy, perl-format
+msgid "Edit this URL"
+msgstr "URL bearbeiten"
 
 #: ../root/artist/layout.tt:39
 #, perl-format
@@ -1761,35 +1401,10 @@ msgstr "Änderungsnummer {id}"
 msgid "Edit:"
 msgstr "Bearbeiten"
 
-#: ../root/user/profile.tt:36
-#, fuzzy, perl-format
-msgid "Editing"
-msgstr "Bearbeiten"
-
-#: ../root/release/tracks.tt:34
-#, fuzzy, perl-format
-msgid "Editing Links"
-msgstr "Bemerkungen"
-
 #: ../root/layout/menu.tt:142
 #, fuzzy, perl-format
 msgid "Editing Suggestions"
 msgstr "Beziehung bearbeiten"
-
-#: ../root/elections/details.tt:119 ../root/statistics/top_editors.tt:7
-#, perl-format
-msgid "Editor"
-msgstr "Editor"
-
-#: ../root/elections/propose_form.tt:7
-#, perl-format
-msgid "Editor Name"
-msgstr "Name des Editors"
-
-#: ../root/statistics/top_editors.tt:43
-#, perl-format
-msgid "Editor Statistics"
-msgstr "Editor Statistiken"
 
 #: ../root/user/subscriptions/editor.tt:1
 #: ../root/user/subscriptions/editor.tt:3 ../root/user/subscriptions/menu.tt:5
@@ -1817,10 +1432,15 @@ msgstr "Editoren die diesen Artist abonniert haben"
 msgid "Editors subscribed to this Label"
 msgstr "Editoren die dieses Label abonniert haben"
 
-#: ../root/layout/menu.tt:118 ../root/statistics/top_editors.tt:10
+#: ../root/layout/menu.tt:118
 #, perl-format
 msgid "Edits"
 msgstr "Änderungen"
+
+#: ../root/user/profile.tt:111
+#, perl-format
+msgid "Edits ({view_url|view})"
+msgstr ""
 
 #: ../root/artist/edits.tt:2 ../root/work/edits.tt:2
 #, perl-format
@@ -1852,20 +1472,10 @@ msgstr "Änderungen an {release}"
 msgid "Edits for {rg}"
 msgstr "Änderungen an {rg}"
 
-#: ../root/user/profile.tt:151
-#, fuzzy, perl-format
-msgid "Edits voted down"
-msgstr "Bemerkung bearbeiten"
-
 #: ../root/layout/footer-bar.tt:10
 #, perl-format
 msgid "Electronic Frontier Foundation"
 msgstr "Electronic Frontier Foundation"
-
-#: ../root/user/profile.tt:53
-#, perl-format
-msgid "Email"
-msgstr "E-Mail-Adresse"
 
 #: ../root/user/verify_email_error.tt:1 ../root/user/verify_email_error.tt:3
 #, perl-format
@@ -1888,35 +1498,21 @@ msgid "Email Sent!"
 msgstr "Email gesendet!"
 
 #: ../root/user/edit.tt:15 ../root/user/lost_password.tt:20
-#: ../root/user/lost_username.tt:12 ../root/user/register.tt:30
+#: ../root/user/lost_username.tt:12 ../root/user/profile.tt:18
+#: ../root/user/register.tt:30
 #, perl-format
 msgid "Email:"
 msgstr "E-Mail-Adresse:"
-
-#: ../root/forms/auto-editor.tt:6
-#, perl-format
-msgid "Enable AutoEditor priviliges"
-msgstr "AutoEditor-Rechte aktivieren"
 
 #: ../root/cdtoc/index.tt:36
 #, perl-format
 msgid "End"
 msgstr "Ende"
 
-#: ../root/elections/elections.tt:10
-#, perl-format
-msgid "End Date"
-msgstr "Enddatum"
-
 #: ../root/artist/edit_form.tt:76
 #, perl-format
 msgid "End Date:"
 msgstr "Enddatum:"
-
-#: ../root/relate/create.tt:48
-#, perl-format
-msgid "End date"
-msgstr "Enddatum"
 
 #: ../root/edit/details/create_artist.tt:42
 #: ../root/edit/details/create_label.tt:27
@@ -1932,39 +1528,18 @@ msgstr "Enddatum:"
 msgid "English Capitalization"
 msgstr ""
 
-#: ../root/artist/merge_confirm.tt:8 ../root/label/merge_confirm.tt:8
+#: ../root/artist/merge_confirm.tt:9 ../root/label/merge_confirm.tt:9
 #: ../root/label/remove_alias.tt:10 ../root/recording/change_artist.tt:5
-#: ../root/recording/edit_form.tt:19 ../root/recording/remove.tt:10
-#: ../root/relate/cc.tt:12 ../root/release/convert_to_single_artist.tt:10
-#: ../root/release/edit_title.tt:11 ../root/release/remove.tt:10
-#: ../root/release_group/edit_form.tt:23
-#: ../root/release_group/merge_confirm.tt:11 ../root/url/edit.tt:12
-#: ../root/work/edit_form.tt:25
-#, perl-format
+#: ../root/recording/edit_form.tt:21 ../root/release_group/edit_form.tt:23
+#: ../root/release_group/merge_confirm.tt:12 ../root/work/edit_form.tt:27
+#, fuzzy, perl-format
 msgid "Enter Edit"
-msgstr ""
+msgstr "Bemerkungen"
 
-#: ../root/alias/edit_form.tt:8 ../root/edit/relationship/edit.tt:89
-#: ../root/release_editor/confirm.tt:9
-#, perl-format
+#: ../root/alias/edit_form.tt:9 ../root/edit/relationship/edit.tt:90
+#: ../root/url/edit.tt:13
+#, fuzzy, perl-format
 msgid "Enter edit"
-msgstr ""
-
-#: ../root/freedb/index.tt:19
-#, perl-format
-msgid ""
-"Enter the category / ID of the <abbr title=\"Compact Disc\">CD</abbr> you "
-"want to import (e.g. <code>rock/a10bda0b</code>):"
-msgstr ""
-
-#: ../root/freedb/index.tt:9
-#, fuzzy, perl-format
-msgid "Enter the release"
-msgstr "Dieses Label bearbeiten"
-
-#: ../root/edit/open.tt:10
-#, fuzzy, perl-format
-msgid "Enter votes"
 msgstr "Bemerkungen"
 
 #: ../root/user/lost_username.tt:7
@@ -1995,11 +1570,6 @@ msgstr ""
 msgid "Estonian Capitalization"
 msgstr ""
 
-#: ../root/relate/create.tt:22
-#, fuzzy, perl-format
-msgid "Executive"
-msgstr "Aktiv:"
-
 #: ../root/edit/info.tt:50 ../root/edit/show.tt:38
 #, perl-format
 msgid "Expires:"
@@ -2010,15 +1580,15 @@ msgstr ""
 msgid "Extra Title Information Style"
 msgstr "Informationen zum Künstler"
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:126
 #, perl-format
-msgid "Failed edits"
+msgid "Failed"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:26
-#, perl-format
+#, fuzzy, perl-format
 msgid "Featuring Artist Style"
-msgstr ""
+msgstr "Artist erstellen"
 
 #: ../root/forms/form.tt:3
 #, perl-format
@@ -2042,11 +1612,6 @@ msgid ""
 "text search syntax} documentation."
 msgstr ""
 
-#: ../root/relate/create.tt:24
-#, perl-format
-msgid "For executive producers"
-msgstr ""
-
 #: ../root/layout/menu.tt:244 ../root/layout/sidebar/login.tt:14
 #, fuzzy, perl-format
 msgid "Forgot Password"
@@ -2057,9 +1622,7 @@ msgstr "Passwort ändern"
 msgid "Forgot your {link1|username} or {link2|password}?"
 msgstr ""
 
-#: ../root/cdtoc/index.tt:70 ../root/forms/widgets/release_event.tt:30
-#: ../root/forms/widgets/release_event_labels.tt:10
-#: ../root/release/lookup.tt:12 ../root/release/release.tt:71
+#: ../root/cdtoc/index.tt:70 ../root/release/lookup.tt:12
 #: ../root/release_group/releases-list.tt:5 ../root/user/collection.tt:12
 #, perl-format
 msgid "Format"
@@ -2077,9 +1640,9 @@ msgid "Forums"
 msgstr ""
 
 #: ../root/admin/linktype/form.tt:26 ../root/admin/linktype/tree.tt:22
-#, perl-format
+#, fuzzy, perl-format
 msgid "Forward link phrase:"
-msgstr ""
+msgstr "Alias:"
 
 #: ../root/release/lookup.tt:4
 #, perl-format
@@ -2091,30 +1654,15 @@ msgstr ""
 msgid "Found {n} result"
 msgstr ""
 
-#: ../root/freedb/index.tt:21
-#, perl-format
-msgid "FreeDB ID"
-msgstr ""
-
 #: ../root/layout/menu.tt:172
 #, fuzzy, perl-format
 msgid "FreeDB Import"
 msgstr "Direkter Import"
 
-#: ../root/freedb/index.tt:7
-#, fuzzy, perl-format
-msgid "FreeDB Search"
-msgstr "Direkte Suche"
-
-#: ../root/freedb/index.tt:1 ../root/freedb/index.tt:2
-#, perl-format
-msgid "FreeDB Search and Import"
-msgstr ""
-
 #: ../root/cdtoc/index.tt:13
-#, perl-format
+#, fuzzy, perl-format
 msgid "FreeDB:"
-msgstr ""
+msgstr "Direkter Import"
 
 #: ../root/scripts/module_guideline_list.tt:70
 #, perl-format
@@ -2158,9 +1706,9 @@ msgstr ""
 #: ../root/report/isrc_with_many_recordings.tt:8
 #: ../root/report/releases_without_language.tt:8
 #: ../root/report/releases_without_script.tt:8
-#, perl-format
+#, fuzzy, perl-format
 msgid "Generated on {date}"
-msgstr ""
+msgstr "Enddatum"
 
 #: ../root/scripts/module_guideline_list.tt:71
 #, perl-format
@@ -2197,11 +1745,6 @@ msgstr ""
 msgid "Guess Case Settings"
 msgstr ""
 
-#: ../root/relate/create.tt:18
-#, perl-format
-msgid "Guest"
-msgstr ""
-
 #: ../root/scripts/module_guideline_list.tt:73
 #, perl-format
 msgid "Hebrew Capitalization"
@@ -2212,19 +1755,14 @@ msgstr ""
 msgid "History"
 msgstr "Verlauf"
 
-#: ../root/user/profile.tt:85
+#: ../root/user/profile.tt:69
 #, perl-format
-msgid "Homepage"
+msgid "Homepage:"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:74
 #, perl-format
 msgid "Hungarian Capitalization"
-msgstr ""
-
-#: ../root/forms/widgets/release_event.tt:46
-#, perl-format
-msgid "I know what I am doing, this is the correct catalog number"
 msgstr ""
 
 #: ../root/layout/sidebar/sites.tt:33
@@ -2282,20 +1820,6 @@ msgid ""
 "name."
 msgstr ""
 
-#: ../root/puid/remove.tt:6
-#, perl-format
-msgid "If so, please enter an edit note below."
-msgstr ""
-
-#: ../root/relate/create.tt:45
-#, perl-format
-msgid ""
-"If the relationship type you selected indicates a temporal relationship (e."
-"g. <em>was a member of</em>), then enter the begin and/or end dates below.  "
-"These dates are optional, and leaving the end date blank indicates that this "
-"relationship is still active today."
-msgstr ""
-
 #: ../root/artist/delete_alias.tt:11 ../root/label/delete_alias.tt:11
 #, perl-format
 msgid ""
@@ -2303,16 +1827,6 @@ msgid ""
 "{cancel|how to cancel pending edits}, to cancel the pending add track edit. "
 "Removing pending edits, rather than entering new edits helps reducing the "
 "amount of open edits in the system."
-msgstr ""
-
-#: ../root/relate/remove.tt:7
-#, perl-format
-msgid ""
-"If you added this relationship by mistake, please follow the instructions in "
-"{doc_cancel|how to cancel pending edits}, to cancel the pending {doc_reledit|"
-"add relationship edit} of this relationship.  Removing pending edits, rather "
-"than entering new edits helps reducing the amount of open edits in the "
-"System."
 msgstr ""
 
 #: ../root/main/index.tt:89
@@ -2325,30 +1839,11 @@ msgid ""
 "new data."
 msgstr ""
 
-#: ../root/release_editor/release_data.tt:11
-#, perl-format
-msgid ""
-"If you are editing a {va_release|Various Artists Release}, or if you have "
-"chosen to display the track artists, you can click on the change button of "
-"the artist(s) you would like to change. <span class=\"only-if-no-javascript"
-"\">(Available only if you have JavaScript enabled.)  If you have JavaScript "
-"disabled, or if</span><span class=\"only-if-javascript hidden\">If</span> "
-"you need to add new artists, the next page will let you specify the track "
-"artists."
-msgstr ""
-
 #: ../root/main/index.tt:86
 #, perl-format
 msgid ""
 "If you are new to MusicBrainz, please take a moment to read the {doc_begin|"
 "beginners' guide} before editing the database."
-msgstr ""
-
-#: ../root/release_editor/check_duplicates.tt:12
-#, perl-format
-msgid ""
-"If you are sure that your Release is different, please confirm by selecting "
-"the button below."
 msgstr ""
 
 #: ../root/user/edit.tt:7
@@ -2370,15 +1865,6 @@ msgid ""
 "server, the passwords may have been reset to \"mb\". If you still cannot "
 "login, try to clear the cookies for musicbrainz.org, and/or clearing the "
 "browser cache."
-msgstr ""
-
-#: ../root/artist/remove_alias.tt:9
-#, perl-format
-msgid ""
-"If you recently added this alias by mistake, please follow the instructions "
-"about {doc_cancel|how to cancel pending edits}.  Removing pending edits, "
-"rather than entering new edits, helps reduce the number of edits open in the "
-"system."
 msgstr ""
 
 #: ../root/search/form.tt:30
@@ -2428,27 +1914,6 @@ msgid ""
 "\" />."
 msgstr ""
 
-#: ../root/components/perma-link.tt:5
-#, perl-format
-msgid ""
-"If you wish to add a permanent link to the MusicBrainz {type} {entity} from "
-"your web page or blog, choose one of the link styles below."
-msgstr ""
-
-#: ../root/components/perma-link.tt:25
-#, perl-format
-msgid ""
-"If you wish to use a link with an icon (e.g. {entity}), you can use the "
-"following markup:"
-msgstr ""
-
-#: ../root/components/perma-link.tt:9
-#, perl-format
-msgid ""
-"If you wish to use a text link (e.g. {entity}), you can use the following "
-"markup:"
-msgstr ""
-
 #: ../root/user/edit.tt:8
 #, perl-format
 msgid ""
@@ -2457,37 +1922,12 @@ msgid ""
 "account?}"
 msgstr ""
 
-#: ../root/relate/url.tt:7
-#, perl-format
-msgid ""
-"If you would like to link directly to a downloadable music track, please "
-"ensure that the music is licensed under some free license such as one of the "
-"{ccurl|Creative Commons licenses}, the {eff|<abbr title=\"Electronic "
-"Frontier Foundation\">EFF</abbr>'s Open Audio license}, or is otherwise "
-"legally available for free download by the general public."
-msgstr ""
-
 #: ../root/user/donate.tt:8
 #, perl-format
 msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
 "have donated, but you are still being nagged, please {contact|contact us}."
 msgstr ""
-
-#: ../root/freedb/index.tt:22
-#, fuzzy, perl-format
-msgid "Import"
-msgstr "Wichtig:"
-
-#: ../root/freedb/choose_artist.tt:1
-#, perl-format
-msgid "Import FreeDB Release"
-msgstr ""
-
-#: ../root/artist/add_non_album.tt:13
-#, perl-format
-msgid "Important:"
-msgstr "Wichtig:"
 
 #: ../root/user/register.tt:60
 #, perl-format
@@ -2501,24 +1941,19 @@ msgstr ""
 msgid "Incorrect username or password"
 msgstr ""
 
-#: ../root/release/info-links.tt:24
-#, perl-format
-msgid "Info:"
-msgstr "Information:"
-
 #: ../root/search/links.tt:98
 #, fuzzy, perl-format
 msgid "Information Sites"
 msgstr "Informationen zum Künstler"
 
-#: ../root/relate/create.tt:30
-#, perl-format
-msgid "Instrument"
-msgstr ""
-
 #: ../root/scripts/module_guideline_list.tt:28
 #, perl-format
 msgid "Instrumental Style"
+msgstr ""
+
+#: ../root/user/profile.tt:45
+#, perl-format
+msgid "Internal/Bot"
 msgstr ""
 
 #: ../root/layout/sidebar/sites.tt:32
@@ -2551,18 +1986,6 @@ msgstr ""
 msgid "Join Phrase"
 msgstr ""
 
-#: ../root/components/perma-link.tt:6
-#, perl-format
-msgid ""
-"Just highlight (Ctrl+a) the content in the textbox, and copy (Ctrl+c) and "
-"paste (Ctrl+v) it into your web page or blog."
-msgstr ""
-
-#: ../root/release_editor/confirm.tt:15
-#, perl-format
-msgid "Keep Editing"
-msgstr ""
-
 #: ../root/scripts/module_guess_case.tt:46
 #, perl-format
 msgid "Keep UPPERCASED words uppercased."
@@ -2573,12 +1996,9 @@ msgstr ""
 msgid "LGPL"
 msgstr ""
 
-#: ../root/cdtoc/index.tt:75 ../root/forms/widgets/release_event.tt:18
-#: ../root/forms/widgets/release_event_labels.tt:7 ../root/label/header.tt:12
-#: ../root/recording/index.tt:18 ../root/release/release.tt:62
-#: ../root/release_editor/confirm_labels.tt:14
-#: ../root/release_group/releases-list.tt:9 ../root/tracklist/index.tt:35
-#: ../root/user/collection.tt:16
+#: ../root/cdtoc/index.tt:75 ../root/label/header.tt:12
+#: ../root/recording/index.tt:18 ../root/release_group/releases-list.tt:9
+#: ../root/tracklist/index.tt:35 ../root/user/collection.tt:16
 #, fuzzy, perl-format
 msgid "Label"
 msgstr "Label Hinzufügen"
@@ -2614,18 +2034,12 @@ msgstr "Label Hinzufügen"
 msgid "Labels starting with “{index}”"
 msgstr "Künstler beginnend mit “{index}”"
 
-#: ../root/release_editor/release_data.tt:40
-#, perl-format
-msgid "Language"
-msgstr ""
-
 #: ../root/edit/details/edit_release.tt:52
-#: ../root/release/edit_attributes.tt:17
-#, perl-format
+#, fuzzy, perl-format
 msgid "Language:"
-msgstr ""
+msgstr "Alias:"
 
-#: ../root/user/profile.tt:164
+#: ../root/user/profile.tt:137
 #, perl-format
 msgid "Last 28 days"
 msgstr ""
@@ -2653,9 +2067,9 @@ msgstr ""
 #: ../root/artist/recordings-list.tt:8 ../root/cdtoc/index.tt:35
 #: ../root/isrc/index.tt:12 ../root/puid/index.tt:12
 #: ../root/recording/index.tt:13 ../root/release/discids.tt:10
-#: ../root/release/edit.tt:55 ../root/release/edit.tt:97
-#: ../root/release/index.tt:15 ../root/release/tracks.tt:31
-#: ../root/search/results-recording.tt:12 ../root/tracklist/index.tt:17
+#: ../root/release/edit.tt:57 ../root/release/edit.tt:99
+#: ../root/release/index.tt:15 ../root/search/results-recording.tt:12
+#: ../root/tracklist/index.tt:17
 #, perl-format
 msgid "Length"
 msgstr ""
@@ -2673,11 +2087,6 @@ msgstr ""
 msgid "Lesser General Public License"
 msgstr ""
 
-#: ../root/relate/cc.tt:9
-#, perl-format
-msgid "License"
-msgstr ""
-
 #: ../root/admin/linkattributetype/index.tt:1
 #: ../root/admin/linkattributetype/index.tt:3
 #, fuzzy, perl-format
@@ -2685,9 +2094,9 @@ msgid "Link Attribute Types"
 msgstr "Attribute"
 
 #: ../root/admin/linktype/index.tt:1 ../root/admin/linktype/index.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "Link Types"
-msgstr ""
+msgstr "Bemerkungen"
 
 #: ../root/layout/menu.tt:113
 #, perl-format
@@ -2705,9 +2114,9 @@ msgid "Live Bootleg Style"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:30
-#, perl-format
+#, fuzzy, perl-format
 msgid "Live Track Style"
-msgstr ""
+msgstr "Stücke"
 
 #: ../root/scripts/module_track_parser.tt:75
 #, perl-format
@@ -2734,7 +2143,7 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: ../root/components/common-macros.tt:228 ../root/layout/menu.tt:240
+#: ../root/components/common-macros.tt:219 ../root/layout/menu.tt:240
 #: ../root/user/login.tt:30
 #, perl-format
 msgid "Log in"
@@ -2750,10 +2159,10 @@ msgstr ""
 msgid "Lookup"
 msgstr ""
 
-#: ../root/release/edit.tt:116
-#, perl-format
+#: ../root/release/edit.tt:118
+#, fuzzy, perl-format
 msgid "Lookup release"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/user/lost_password.tt:1 ../root/user/lost_password.tt:3
 #: ../root/user/lost_password_sent.tt:1
@@ -2763,9 +2172,9 @@ msgstr "Passwort ändern"
 
 #: ../root/user/lost_username.tt:1 ../root/user/lost_username.tt:3
 #: ../root/user/lost_username_sent.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "Lost Username"
-msgstr ""
+msgstr "Alias:"
 
 #: ../root/search/links.tt:67
 #, perl-format
@@ -2773,9 +2182,9 @@ msgid "Lyrics Sites"
 msgstr ""
 
 #: ../root/layout/sidebar/sites.tt:22
-#, perl-format
+#, fuzzy, perl-format
 msgid "Mailing Lists"
-msgstr ""
+msgstr "Bemerkungen"
 
 #: ../root/main/index.tt:94
 #, perl-format
@@ -2794,9 +2203,9 @@ msgstr ""
 
 #: ../root/ajax/lookup_tracklist.tt:13 ../root/release/discids.tt:18
 #: ../root/release/index.tt:23
-#, perl-format
+#, fuzzy, perl-format
 msgid "Medium"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: ../root/edit/details/delete_medium.tt:3
 #: ../root/edit/details/edit_medium.tt:3
@@ -2810,13 +2219,13 @@ msgid "Medley Style"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:32
-#, perl-format
+#, fuzzy, perl-format
 msgid "Member of Band Relationship Style"
-msgstr ""
+msgstr "Beziehung löschen"
 
-#: ../root/user/profile.tt:138
+#: ../root/user/profile.tt:57
 #, perl-format
-msgid "Member since"
+msgid "Member since:"
 msgstr ""
 
 #: ../root/artist/merge_search.tt:9 ../root/label/merge_search.tt:9
@@ -2860,14 +2269,14 @@ msgid "Merge this label into another"
 msgstr ""
 
 #: ../root/user/contact.tt:14
-#, perl-format
+#, fuzzy, perl-format
 msgid "Message:"
-msgstr ""
+msgstr "Seite hinzufügen"
 
 #: ../root/layout/sidebar/sites.tt:12
-#, perl-format
+#, fuzzy, perl-format
 msgid "MetaBrainz"
-msgstr ""
+msgstr "Werde ein Teil von MusicBrainz"
 
 #: ../root/main/index.tt:6
 #, fuzzy, perl-format
@@ -2889,49 +2298,10 @@ msgstr ""
 msgid "More info&hellip;"
 msgstr ""
 
-#: ../root/statistics/top_editors.tt:46
-#, perl-format
-msgid "Most active editors in the last week (open and accepted edits)"
-msgstr ""
-
-#: ../root/statistics/top_editors.tt:50
-#, perl-format
-msgid "Most active editors overall (accepted edits)"
-msgstr ""
-
-#: ../root/statistics/top_editors.tt:54
-#, perl-format
-msgid "Most active voters in the last week (counting only yes and no votes)"
-msgstr ""
-
-#: ../root/statistics/top_editors.tt:58
-#, perl-format
-msgid "Most active voters overall (yes and no votes only)"
-msgstr ""
-
-#: ../root/artist/add_non_album.tt:18
-#, perl-format
-msgid ""
-"Most live versions are released on singles. If you want to enter those "
-"tracks into MusicBrainz, please enter them as the single, or import the "
-"single from {freedb|FreeDB}, instead of adding them as {nonalbum_tracks|non-"
-"album tracks}."
-msgstr ""
-
-#: ../root/release/confirm_move.tt:11
-#, fuzzy, perl-format
-msgid "Move Release"
-msgstr "Veröffentlichungen"
-
-#: ../root/release/confirm_move.tt:1 ../root/release/confirm_move.tt:2
-#, perl-format
-msgid "Move Release to Another Artist"
-msgstr ""
-
 #: ../root/release/move.tt:3 ../root/release/move.tt:4
-#, perl-format
+#, fuzzy, perl-format
 msgid "Move Release to another Artist"
-msgstr ""
+msgstr "Artist erstellen"
 
 #: ../root/scripts/module_guideline_list.tt:35
 #, perl-format
@@ -2961,7 +2331,7 @@ msgid ""
 "Find out more in the {uri|introduction}."
 msgstr ""
 
-#: ../root/release/edit.tt:106
+#: ../root/release/edit.tt:108
 #, perl-format
 msgid ""
 "MusicBrainz supports using the same tracklist over multiple releases, which "
@@ -2983,24 +2353,24 @@ msgid "MusicBrainz uses label aliases mainly as variant names or search hints."
 msgstr ""
 
 #: ../root/layout.tt:10
-#, perl-format
+#, fuzzy, perl-format
 msgid "MusicBrainz: Artist"
-msgstr ""
+msgstr "Werde ein Teil von MusicBrainz"
 
 #: ../root/layout.tt:11
-#, perl-format
+#, fuzzy, perl-format
 msgid "MusicBrainz: Label"
-msgstr ""
+msgstr "MusicBrainz Blog"
 
 #: ../root/layout.tt:12
-#, perl-format
+#, fuzzy, perl-format
 msgid "MusicBrainz: Release"
-msgstr ""
+msgstr "MusicBrainz Blog"
 
 #: ../root/layout.tt:13
-#, perl-format
+#, fuzzy, perl-format
 msgid "MusicBrainz: Track"
-msgstr ""
+msgstr "Werde ein Teil von MusicBrainz"
 
 #: ../root/layout/sidebar/partners.tt:14
 #, perl-format
@@ -3017,22 +2387,12 @@ msgstr ""
 msgid "My Profile"
 msgstr "Profil bearbeiten"
 
-#: ../root/rating/display.tt:1
-#, perl-format
-msgid "My Ratings"
-msgstr ""
-
 #: ../root/edit/show.tt:89
-#, perl-format
-msgid "My Vote:"
-msgstr ""
-
-#: ../root/user/profile.tt:22
 #, fuzzy, perl-format
-msgid "My account"
-msgstr "Benutzerkonto"
+msgid "My Vote:"
+msgstr "Datum:"
 
-#: ../root/user/profile.tt:142
+#: ../root/user/profile.tt:61
 #, perl-format
 msgid "N/A"
 msgstr ""
@@ -3044,12 +2404,12 @@ msgstr ""
 #: ../root/search/results-artist.tt:10 ../root/search/results-label.tt:10
 #: ../root/search/results-recording.tt:10 ../root/search/results-release.tt:10
 #: ../root/search/results-tag.tt:10 ../root/search/results-work.tt:10
-#: ../root/user/profile.tt:51 ../root/user/subscriptions/artist.tt:13
+#: ../root/user/profile.tt:16 ../root/user/subscriptions/artist.tt:13
 #: ../root/user/subscriptions/editor.tt:13
 #: ../root/user/subscriptions/label.tt:13
-#, perl-format
+#, fuzzy, perl-format
 msgid "Name"
-msgstr ""
+msgstr "Datum:"
 
 #: ../root/admin/linkattributetype/form.tt:20
 #: ../root/admin/linktype/form.tt:20 ../root/artist/details.tt:5
@@ -3075,15 +2435,15 @@ msgstr "Datum:"
 #: ../root/admin/linkattributetype/create.tt:1
 #: ../root/admin/linkattributetype/create.tt:3
 #: ../root/admin/linkattributetype/index.tt:7
-#, perl-format
+#, fuzzy, perl-format
 msgid "New Link Attribute Type"
-msgstr ""
+msgstr "Attribute"
 
 #: ../root/admin/linktype/create.tt:1 ../root/admin/linktype/create.tt:3
 #: ../root/admin/linktype/tree.tt:8
-#, perl-format
+#, fuzzy, perl-format
 msgid "New Link Type"
-msgstr ""
+msgstr "Label löschen"
 
 #: ../root/edit/details/merge_labels.tt:8
 #, fuzzy, perl-format
@@ -3103,11 +2463,6 @@ msgstr "Veröffentlichungen"
 #: ../root/admin/wikidoc/index.tt:7
 #, perl-format
 msgid "New wiki page"
-msgstr ""
-
-#: ../root/edit/details/add_release.tt:4
-#, perl-format
-msgid "New:"
 msgstr ""
 
 #: ../root/layout/menu.tt:44 ../root/main/index.tt:4
@@ -3140,6 +2495,11 @@ msgstr ""
 msgid "No cover image available."
 msgstr ""
 
+#: ../root/edit/index.tt:66
+#, perl-format
+msgid "No edit notes have been added"
+msgstr ""
+
 #: ../root/tag/label.tt:1
 #, perl-format
 msgid "No labels tagged with this tag were found."
@@ -3150,15 +2510,10 @@ msgstr ""
 msgid "No matching CDs were found for toc {toc}."
 msgstr ""
 
-#: ../root/elections/details.tt:135
-#, perl-format
-msgid "No one has voted on this election yet"
-msgstr ""
-
 #: ../root/artist/recordings.tt:5
-#, perl-format
+#, fuzzy, perl-format
 msgid "No recordings found"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/tag/recording.tt:1
 #, perl-format
@@ -3171,48 +2526,38 @@ msgid "No release groups found"
 msgstr "Veröffentlichungen"
 
 #: ../root/tag/release_group.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "No release groups tagged with this tag were found."
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/artist/releases.tt:5 ../root/label/index.tt:36
 #: ../root/release_group/index.tt:6
-#, perl-format
+#, fuzzy, perl-format
 msgid "No releases found"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/user/collection.tt:43
-#, perl-format
+#, fuzzy, perl-format
 msgid "No releases found in collection."
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/recording/index.tt:46
-#, perl-format
+#, fuzzy, perl-format
 msgid "No releases found which feature this recording"
-msgstr ""
+msgstr "Änderungen an {recording}"
 
 #: ../root/scripts/text_strings.tt:32
-#, perl-format
+#, fuzzy, perl-format
 msgid "No results"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/search/results-artist.tt:29 ../root/search/results-label.tt:29
 #: ../root/search/results-recording.tt:28 ../root/search/results-release.tt:26
 #: ../root/search/results-release_group.tt:26 ../root/search/results-tag.tt:24
 #: ../root/search/results-work.tt:26
-#, perl-format
+#, fuzzy, perl-format
 msgid "No results found"
-msgstr ""
-
-#: ../root/tag/cloud.tt:13
-#, perl-format
-msgid "No tags"
-msgstr ""
-
-#: ../root/elections/elections.tt:30
-#, perl-format
-msgid "No users have been elected to become an auto-editor."
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/edit/vote.tt:15
 #, perl-format
@@ -3229,26 +2574,9 @@ msgstr ""
 msgid "No works tagged with this tag were found."
 msgstr ""
 
-#: ../root/tag/display.tt:22 ../root/tag/display_summary.tt:26
+#: ../root/user/profile.tt:48
 #, perl-format
-msgid "No {type} have been tagged with \"{tag}\""
-msgstr ""
-
-#: ../root/statistics/top_editors.tt:37
-#, perl-format
-msgid "Nobody!"
-msgstr ""
-
-#: ../root/user/profile.tt:42
-#, perl-format
-msgid "Nominate for autoeditor"
-msgstr ""
-
-#: ../root/artist/add_non_album.tt:16
-#, perl-format
-msgid ""
-"Non-album tracks are designed for tracks that have not been released on "
-"<strong>ANY</strong> {doc_release|release}."
+msgid "Normal User"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:80
@@ -3256,28 +2584,15 @@ msgstr ""
 msgid "Norwegian Capitalization"
 msgstr ""
 
-#: ../root/artist/change_quality.tt:7
-#, perl-format
-msgid ""
-"Note that this is <strong>only</strong> to change the {doc_quality|Data "
-"Quality} setting.  {doc_quality|Data Quality} has nothing to do with "
-"<em>popularity</em>."
-msgstr ""
-
 #: ../root/edit/details/edit_tracknum.tt:1
 #, fuzzy, perl-format
 msgid "Number"
 msgstr "Katalognummer"
 
-#: ../root/release_editor/track_count.tt:2
-#, perl-format
-msgid "Number of Tracks on the Release"
-msgstr ""
-
 #: ../root/scripts/module_guideline_list.tt:38
-#, perl-format
+#, fuzzy, perl-format
 msgid "OCReMix Series Style"
-msgstr ""
+msgstr "Artist erstellen"
 
 #: ../root/edit/details/merge_labels.tt:3
 #, fuzzy, perl-format
@@ -3299,7 +2614,7 @@ msgstr "Veröffentlichungen"
 msgid "Ooops!"
 msgstr ""
 
-#: ../root/edit/open.tt:1 ../root/statistics/top_editors.tt:13
+#: ../root/edit/open.tt:1
 #, fuzzy, perl-format
 msgid "Open Edits"
 msgstr "Änderungen"
@@ -3315,14 +2630,9 @@ msgid "Opened:"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:39
-#, perl-format
+#, fuzzy, perl-format
 msgid "Opera Track Style"
-msgstr ""
-
-#: ../root/relate/create.tt:38
-#, perl-format
-msgid "Orchestra"
-msgstr ""
+msgstr "Stücke"
 
 #: ../root/layout/sidebar/partners.tt:29
 #, perl-format
@@ -3334,7 +2644,7 @@ msgstr ""
 msgid "Original Design"
 msgstr ""
 
-#: ../root/user/profile.tt:167
+#: ../root/user/profile.tt:140
 #, perl-format
 msgid "Overall"
 msgstr ""
@@ -3351,14 +2661,9 @@ msgid "PUID"
 msgstr ""
 
 #: ../root/puid/index.tt:1 ../root/puid/index.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "PUID “{puid}”"
-msgstr ""
-
-#: ../root/release/box-summary.tt:5
-#, perl-format
-msgid "PUIDs"
-msgstr ""
+msgstr "Editor “{user}”"
 
 #: ../root/edit/details/edit_release.tt:36
 #, perl-format
@@ -3391,9 +2696,9 @@ msgid "Page:"
 msgstr "Seite hinzufügen"
 
 #: ../root/admin/linkattributetype/form.tt:8 ../root/admin/linktype/form.tt:8
-#, perl-format
+#, fuzzy, perl-format
 msgid "Parent:"
-msgstr ""
+msgstr "Seite hinzufügen"
 
 #: ../root/scripts/module_track_parser.tt:21
 #, perl-format
@@ -3401,14 +2706,14 @@ msgid "Parse All"
 msgstr ""
 
 #: ../root/scripts/module_track_parser.tt:14
-#, perl-format
+#, fuzzy, perl-format
 msgid "Parse Titles"
-msgstr ""
+msgstr "Alias:"
 
 #: ../root/scripts/module_guideline_list.tt:40
-#, perl-format
+#, fuzzy, perl-format
 msgid "Part Number Style"
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/user/login.tt:27 ../root/user/register.tt:20
 #: ../root/user/reset_password.tt:11
@@ -3435,11 +2740,6 @@ msgid ""
 "other editors know a bit more about you."
 msgstr ""
 
-#: ../root/elections/details.tt:107
-#, perl-format
-msgid "Please <a href=\"{url}\">log in</a> to vote on this election"
-msgstr ""
-
 #: ../root/search/form.tt:26
 #, fuzzy, perl-format
 msgid "Please Note:"
@@ -3448,16 +2748,6 @@ msgstr "Alias:"
 #: ../root/scripts/text_strings.tt:38
 #, perl-format
 msgid "Please click lookup to search"
-msgstr ""
-
-#: ../root/release_editor/confirm_artists.tt:7
-#, perl-format
-msgid "Please confirm the artist <strong>{artist}</strong>"
-msgstr ""
-
-#: ../root/release_editor/confirm_labels.tt:7
-#, perl-format
-msgid "Please confirm the label <strong>{label}</strong>"
 msgstr ""
 
 #: ../root/annotation/edit.tt:2
@@ -3474,15 +2764,6 @@ msgid ""
 "Please download and use Picard. By doing so, you will be using and adding to "
 "the MusicBrainz database."
 msgstr ""
-
-#: ../root/artist/add_non_album.tt:7
-#, perl-format
-msgid ""
-"Please enter the titles of the tracks you wish to add as {nonalbum_doc|non-"
-"album tracks}."
-msgstr ""
-"Bitte geben Sie die Titel der Stücke, welche Sie einfügen möchten als "
-"{nonalbum_doc|non-album tracks} ein."
 
 #: ../root/artist/merge_search.tt:5
 #, perl-format
@@ -3523,17 +2804,22 @@ msgid ""
 "case sensitive."
 msgstr ""
 
-#: ../root/artist/layout.tt:42
+#: ../root/url/index.tt:7
+#, fuzzy, perl-format
+msgid "Please login to edit this URL"
+msgstr "Dieses Label löschen"
+
+#: ../root/artist/layout.tt:43
 #, fuzzy, perl-format
 msgid "Please login to edit this artist"
 msgstr "Diesen Artist löschen"
 
-#: ../root/label/layout.tt:37
+#: ../root/label/layout.tt:38
 #, fuzzy, perl-format
 msgid "Please login to edit this label"
 msgstr "Dieses Label löschen"
 
-#: ../root/recording/layout.tt:27
+#: ../root/recording/layout.tt:28
 #, fuzzy, perl-format
 msgid "Please login to edit this recording"
 msgstr "Änderungen an {recording}"
@@ -3543,36 +2829,15 @@ msgstr "Änderungen an {recording}"
 msgid "Please login to edit this release"
 msgstr "Dieses Label bearbeiten"
 
-#: ../root/release_group/layout.tt:24
+#: ../root/release_group/layout.tt:25
 #, fuzzy, perl-format
 msgid "Please login to edit this release group"
 msgstr "Dieses Label bearbeiten"
 
-#: ../root/work/layout.tt:26
-#, perl-format
+#: ../root/work/layout.tt:27
+#, fuzzy, perl-format
 msgid "Please login to edit this work"
-msgstr ""
-
-#: ../root/forms/widgets/select.tt:16
-#, perl-format
-msgid "Please make a selection"
-msgstr ""
-
-#: ../root/artist/add_alias.tt:8 ../root/artist/edit_alias.tt:8
-#, perl-format
-msgid ""
-"Please note that aliases are currently required to be <strong>unique for all "
-"artists</strong>. You can circumvent this limitation by adding a comment to "
-"the alias, preferably in parentheses."
-msgstr ""
-
-#: ../root/label/add_alias.tt:8 ../root/label/edit_alias.tt:8
-#, perl-format
-msgid ""
-"Please note that aliases are currently required to be <strong>unique for all "
-"labels</strong>. You can circumvent this limitation by adding a comment to "
-"the alias, preferably in parentheses."
-msgstr ""
+msgstr "Diesen Artist löschen"
 
 #: ../root/label/edit_form.tt:4
 #, perl-format
@@ -3622,32 +2887,11 @@ msgid ""
 "to update the information of this label."
 msgstr ""
 
-#: ../root/release_editor/track_count.tt:7
-#, perl-format
-msgid ""
-"Please read the {doc_styleguide|Style Guidelines}, then enter the number of "
-"Tracks on this Release to begin the add release wizard."
-msgstr ""
-
 #: ../root/artist/edit_form.tt:5
 #, perl-format
 msgid ""
 "Please read the {doc_styleguide|Style Guidelines}, then provide the "
 "necessary information about the new artist below."
-msgstr ""
-
-#: ../root/freedb/choose_artist.tt:6
-#, perl-format
-msgid ""
-"Please read the {relartist} style for instructions on how to select the "
-"proper {relartist}."
-msgstr ""
-
-#: ../root/elections/proposed.tt:6
-#, perl-format
-msgid ""
-"Please remember to follow the election <a href=\"{url}\">online</a> and on "
-"the mailing lists."
 msgstr ""
 
 #: ../root/label/delete.tt:5
@@ -3664,7 +2908,7 @@ msgid ""
 "edit-type}, before entering this edit"
 msgstr ""
 
-#: ../root/artist/delete_alias.tt:5 ../root/artist/remove_alias.tt:8
+#: ../root/artist/delete_alias.tt:5
 #, perl-format
 msgid ""
 "Please review the documentation about {aliases|artist aliases}, before "
@@ -3676,27 +2920,6 @@ msgstr ""
 msgid ""
 "Please review the documentation about {aliases|label aliases}, before "
 "entering this edit."
-msgstr ""
-
-#: ../root/release_editor/confirm_labels.tt:12
-#, perl-format
-msgid ""
-"Please search and select the correct Label.  If searching yields no useful "
-"results, you can use the form below to add a new Label."
-msgstr ""
-
-#: ../root/release_editor/confirm_artists.tt:12
-#, perl-format
-msgid ""
-"Please search and select the correct artist.  If searching yields no useful "
-"results, you may add the artist using the form below."
-msgstr ""
-
-#: ../root/release/change_quality.tt:7
-#, perl-format
-msgid ""
-"Please select a new {quality|Data Quality} level, and enter an {note|edit "
-"note} to justify this edit."
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:36
@@ -3711,11 +2934,6 @@ msgid ""
 "selected relationship type is only used for grouping subtypes."
 msgstr ""
 
-#: ../root/artist/change_quality.tt:6
-#, perl-format
-msgid "Please select the new {doc_quality|Data Quality} setting."
-msgstr ""
-
 #: ../root/artist/edit_form.tt:8
 #, perl-format
 msgid ""
@@ -3725,29 +2943,29 @@ msgid ""
 msgstr ""
 
 #: ../root/components/aliases.tt:41
-#, perl-format
+#, fuzzy, perl-format
 msgid "Please {log_in|login} to add or edit aliases"
-msgstr ""
+msgstr "Dieses Label bearbeiten"
 
 #: ../root/annotation/common.tt:47
-#, perl-format
+#, fuzzy, perl-format
 msgid "Please {uri|log in} to add an annotation."
-msgstr ""
+msgstr "Label-Annotation bearbeiten"
 
 #: ../root/annotation/common.tt:34
-#, perl-format
+#, fuzzy, perl-format
 msgid "Please {uri|log in} to edit this annotation."
-msgstr ""
+msgstr "Diesen Artist löschen"
 
 #: ../root/release/nats.tt:15
-#, perl-format
+#, fuzzy, perl-format
 msgid "Please {uri|log in} to edit this list."
-msgstr ""
+msgstr "Diesen Artist löschen"
 
 #: ../root/release/edit-links.tt:15
-#, perl-format
+#, fuzzy, perl-format
 msgid "Please {uri|log in} to edit this release"
-msgstr ""
+msgstr "Dieses Label bearbeiten"
 
 #: ../root/scripts/module_guideline_list.tt:81
 #, perl-format
@@ -3776,11 +2994,6 @@ msgstr "Bedingungen:"
 msgid "Possible Duplicate Artists"
 msgstr ""
 
-#: ../root/release_editor/check_duplicates.tt:3
-#, perl-format
-msgid "Possible duplicate Release(s) found"
-msgstr ""
-
 #: ../root/main/index.tt:21
 #, fuzzy, perl-format
 msgid "Posted:"
@@ -3791,12 +3004,6 @@ msgstr "Geschlossen:"
 #: ../root/user/preferences_ok.tt:1 ../root/user/preferences_ok.tt:3
 #, perl-format
 msgid "Preferences"
-msgstr ""
-
-#: ../root/freedb/choose_artist.tt:9 ../root/freedb/choose_artist.tt:14
-#: ../root/release_editor/confirm.tt:2
-#, perl-format
-msgid "Preview"
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:27
@@ -3824,51 +3031,31 @@ msgstr ""
 msgid "Profile"
 msgstr "Profil bearbeiten"
 
-#: ../root/elections/propose_form.tt:8
-#, perl-format
-msgid "Propose"
-msgstr ""
-
-#: ../root/elections/propose.tt:1 ../root/elections/propose_form.tt:2
-#, fuzzy, perl-format
-msgid "Propose a Candidate"
-msgstr "Kandidat"
-
-#: ../root/elections/details.tt:15
-#, perl-format
-msgid "Proposed At"
-msgstr ""
-
-#: ../root/elections/details.tt:37
-#, perl-format
-msgid "Proposed By"
-msgstr ""
-
 #: ../root/scripts/module_guideline_list.tt:96
 #, perl-format
 msgid "Proposed, not Official"
 msgstr ""
 
 #: ../root/edit/details/change_release_quality.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "Quality"
-msgstr ""
+msgstr "Datenqualität ändern"
 
 #: ../root/components/search.tt:9 ../root/search/form.tt:6
 #, perl-format
 msgid "Query:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:250
+#: ../root/components/common-macros.tt:241
 #, perl-format
 msgid "Rate: {rating} star"
 msgstr ""
 
 #: ../root/artist/browse_various.tt:11 ../root/artist/index.tt:19
 #: ../root/release/index.tt:14 ../root/tracklist/index.tt:16
-#, perl-format
+#, fuzzy, perl-format
 msgid "Rating"
-msgstr ""
+msgstr "Warnung:"
 
 #: ../root/layout/sidebar/sidebar-rating.tt:2
 #, fuzzy, perl-format
@@ -3878,9 +3065,9 @@ msgstr "Warnung:"
 #: ../root/artist/ratings.tt:1 ../root/components/ratings.tt:1
 #: ../root/label/ratings.tt:1 ../root/recording/ratings.tt:1
 #: ../root/release_group/ratings.tt:1 ../root/work/ratings.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "Ratings"
-msgstr ""
+msgstr "Warnung:"
 
 #: ../root/main/index.tt:24
 #, perl-format
@@ -3893,14 +3080,14 @@ msgid "Recording by {artist}"
 msgstr "Bearbeite {artist}"
 
 #: ../root/report/isrc_with_many_recordings.tt:16
-#, perl-format
+#, fuzzy, perl-format
 msgid "Recording count"
-msgstr ""
+msgstr "Bearbeite {artist}"
 
 #: ../root/recording/layout.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "Recording “{name}” by {artist}"
-msgstr ""
+msgstr "Bearbeite {artist}"
 
 #: ../root/edit/details/add_recording_annotation.tt:3
 #: ../root/edit/details/add_track.tt:15
@@ -3918,16 +3105,6 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: ../root/relate/url.tt:4
-#, perl-format
-msgid "Relate {type} to URL"
-msgstr ""
-
-#: ../root/relate/create.tt:6
-#, fuzzy, perl-format
-msgid "Relationship"
-msgstr "Beziehung hinzufügen"
-
 #: ../root/edit/relationship/edit.tt:32
 #, fuzzy, perl-format
 msgid "Relationship Details"
@@ -3936,11 +3113,6 @@ msgstr "Beziehung hinzufügen"
 #: ../root/user/adjust_flags.tt:17
 #, fuzzy, perl-format
 msgid "Relationship Editor"
-msgstr "Beziehung hinzufügen"
-
-#: ../root/relate/create.tt:43
-#, fuzzy, perl-format
-msgid "Relationship Timespan"
 msgstr "Beziehung hinzufügen"
 
 #: ../root/artist/relationships.tt:1 ../root/components/relationships.tt:1
@@ -3968,11 +3140,6 @@ msgstr "Artist erstellen"
 msgid "Release Artist Style"
 msgstr "Artist erstellen"
 
-#: ../root/release_editor/release_data.tt:32
-#, fuzzy, perl-format
-msgid "Release Attributes"
-msgstr "Attribute"
-
 #: ../root/recording/index.tt:16
 #, fuzzy, perl-format
 msgid "Release Date"
@@ -3983,44 +3150,14 @@ msgstr "Alias:"
 msgid "Release Event Style"
 msgstr "Alias:"
 
-#: ../root/release_editor/release_data.tt:43
-#, fuzzy, perl-format
-msgid "Release Events"
-msgstr "Veröffentlichungen"
-
 #: ../root/search/results-release_group.tt:10
 #, fuzzy, perl-format
 msgid "Release Group"
 msgstr "Veröffentlichungen"
 
-#: ../root/release_editor/release_data.tt:16
-#, fuzzy, perl-format
-msgid "Release Information"
-msgstr "Informationen zum Künstler"
-
-#: ../root/release/edit_attributes.tt:15
-#, fuzzy, perl-format
-msgid "Release Language"
-msgstr "Alias:"
-
-#: ../root/release/edit_attributes.tt:11
-#, fuzzy, perl-format
-msgid "Release Status:"
-msgstr "Alias:"
-
-#: ../root/artist/appearances.tt:10 ../root/recording/index.tt:14
+#: ../root/recording/index.tt:14
 #, fuzzy, perl-format
 msgid "Release Title"
-msgstr "Alias:"
-
-#: ../root/release/edit_attributes.tt:8
-#, perl-format
-msgid "Release Type &amp; Status"
-msgstr ""
-
-#: ../root/release/edit_attributes.tt:10
-#, fuzzy, perl-format
-msgid "Release Type:"
 msgstr "Alias:"
 
 #: ../root/release/header.tt:12
@@ -4034,11 +3171,12 @@ msgid "Release group by {artist}"
 msgstr "Veröffentlichungen"
 
 #: ../root/release_group/layout.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "Release group “{name}” by {artist}"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/edit/details/add_release_group_annotation.tt:3
+#: ../root/edit/details/delete_release_group.tt:3
 #, fuzzy, perl-format
 msgid "Release group:"
 msgstr "Veröffentlichungen"
@@ -4048,15 +3186,15 @@ msgstr "Veröffentlichungen"
 msgid "Release groups starting with “{index}”"
 msgstr "Künstler beginnend mit “{index}”"
 
-#: ../root/release/edit.tt:113
+#: ../root/release/edit.tt:115
 #, fuzzy, perl-format
 msgid "Release name:"
 msgstr "Alias:"
 
 #: ../root/release/layout.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "Release “{name}” by {artist}"
-msgstr ""
+msgstr "Diesen Artist löschen"
 
 #: ../root/edit/details/add_release_annotation.tt:3
 #: ../root/edit/details/create_medium.tt:17
@@ -4099,48 +3237,22 @@ msgid "Remix Style"
 msgstr ""
 
 #: ../root/components/relationships.tt:43
-#: ../root/forms/widgets/release_event.tt:5
 #: ../root/user/subscriptions/artist.tt:24
 #: ../root/user/subscriptions/editor.tt:24
 #: ../root/user/subscriptions/label.tt:24
-#, perl-format
-msgid "Remove"
-msgstr ""
-
-#: ../root/artist/remove_alias.tt:3
 #, fuzzy, perl-format
-msgid "Remove Artist Alias"
-msgstr "Künstler-Alias hinzufügen"
+msgid "Remove"
+msgstr "Genehmigen"
 
 #: ../root/label/remove_alias.tt:3 ../root/label/remove_alias.tt:4
 #, fuzzy, perl-format
 msgid "Remove Label Alias"
 msgstr "Label-Alias hinzufügen"
 
-#: ../root/puid/remove.tt:1 ../root/puid/remove.tt:2
-#, perl-format
-msgid "Remove PUID {puid}"
-msgstr ""
-
 #: ../root/admin/wikidoc/delete.tt:1 ../root/admin/wikidoc/delete.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "Remove Page"
-msgstr ""
-
-#: ../root/relate/remove.tt:4
-#, fuzzy, perl-format
-msgid "Remove Relationship"
-msgstr "Beziehung löschen"
-
-#: ../root/release/remove.tt:3 ../root/release/remove.tt:4
-#, fuzzy, perl-format
-msgid "Remove Release"
 msgstr "Veröffentlichung hinzufügen"
-
-#: ../root/recording/remove.tt:3
-#, perl-format
-msgid "Remove Track"
-msgstr ""
 
 #: ../root/scripts/module_search_replace.tt:39
 #, perl-format
@@ -4152,25 +3264,15 @@ msgstr ""
 msgid "Remove from collection"
 msgstr "Zur Sammlung hinzufügen"
 
-#: ../root/recording/remove.tt:4
-#, perl-format
-msgid "Remove {track}"
-msgstr ""
-
-#: ../root/forms/widgets/release_event_labels.tt:4
-#, perl-format
-msgid "Remove?"
-msgstr ""
-
 #: ../root/scripts/module_search_replace.tt:14
-#, perl-format
+#, fuzzy, perl-format
 msgid "Replace with:"
-msgstr ""
+msgstr "Alias:"
 
 #: ../root/report/index.tt:1 ../root/report/index.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "Reports"
-msgstr ""
+msgstr "Wichtig:"
 
 #: ../root/user/lost_password.tt:24 ../root/user/reset_password.tt:1
 #: ../root/user/reset_password.tt:3 ../root/user/reset_password.tt:20
@@ -4205,9 +3307,9 @@ msgid "Reverse link phrase:"
 msgstr "Alias:"
 
 #: ../root/layout/menu.tt:147
-#, perl-format
+#, fuzzy, perl-format
 msgid "Review / Vote on Edits"
-msgstr ""
+msgstr "Änderungen durchsuchen"
 
 #: ../root/scripts/module_guideline_list.tt:83
 #, perl-format
@@ -4235,35 +3337,18 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: ../root/release_editor/release_data.tt:41
-#, perl-format
-msgid "Script"
-msgstr ""
-
 #: ../root/edit/details/edit_release.tt:44
-#: ../root/release/edit_attributes.tt:18
 #, fuzzy, perl-format
 msgid "Script:"
 msgstr "Beschreibung:"
 
-#: ../root/components/search.tt:11 ../root/freedb/index.tt:13
-#: ../root/layout/menu.tt:108 ../root/layout/sidebar/search.tt:8
-#: ../root/search/error/wrapper.tt:1 ../root/search/form.tt:1
-#: ../root/search/form.tt:21 ../root/search/index.tt:1
-#: ../root/search/links.tt:7
+#: ../root/components/search.tt:11 ../root/layout/menu.tt:108
+#: ../root/layout/sidebar/search.tt:8 ../root/search/error/wrapper.tt:1
+#: ../root/search/form.tt:1 ../root/search/form.tt:21
+#: ../root/search/index.tt:1 ../root/search/links.tt:7
 #, fuzzy, perl-format
 msgid "Search"
 msgstr "Direkte Suche"
-
-#: ../root/release_editor/confirm_artists.tt:10
-#, perl-format
-msgid "Search For An Existing Artist"
-msgstr ""
-
-#: ../root/release_editor/confirm_labels.tt:10
-#, perl-format
-msgid "Search For An Existing Label"
-msgstr ""
 
 #: ../root/search/links.tt:16
 #, perl-format
@@ -4279,9 +3364,9 @@ msgstr ""
 #: ../root/search/results-release_group.tt:2 ../root/search/results-tag.tt:1
 #: ../root/search/results-tag.tt:2 ../root/search/results-work.tt:1
 #: ../root/search/results-work.tt:2
-#, perl-format
+#, fuzzy, perl-format
 msgid "Search Results"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/scripts/module_search_replace.tt:21
 #, perl-format
@@ -4299,33 +3384,18 @@ msgid "Search for an Editor"
 msgstr ""
 
 #: ../root/scripts/module_search_replace.tt:6
-#, perl-format
+#, fuzzy, perl-format
 msgid "Search for:"
-msgstr ""
+msgstr "Direkte Suche"
 
 #: ../root/search/form.tt:29
 #, perl-format
 msgid "Search indexes are currently updated once a day at 1800 GMT (10am PST)."
 msgstr ""
 
-#: ../root/freedb/index.tt:11
-#, perl-format
-msgid "Search query"
-msgstr ""
-
 #: ../root/scripts/text_strings.tt:34
 #, perl-format
 msgid "Searching&hellip;"
-msgstr ""
-
-#: ../root/elections/details.tt:55
-#, perl-format
-msgid "Second"
-msgstr ""
-
-#: ../root/elections/details.tt:41
-#, perl-format
-msgid "Seconded By"
 msgstr ""
 
 #: ../root/cdtoc/index.tt:40 ../root/cdtoc/index.tt:42
@@ -4341,41 +3411,13 @@ msgid ""
 msgstr ""
 
 #: ../root/release/sidebar.tt:14
-#, perl-format
+#, fuzzy, perl-format
 msgid "See other versions of this release"
-msgstr ""
-
-#: ../root/freedb/choose_artist.tt:2
-#, perl-format
-msgid "Select Artist Type"
-msgstr ""
+msgstr "Dieses Label bearbeiten"
 
 #: ../root/scripts/module_style_guidelines.tt:7
 #, perl-format
 msgid "Select a guideline to view:"
-msgstr ""
-
-#: ../root/relate/cc.tt:6
-#, perl-format
-msgid ""
-"Select a {ccurl|Creative Commons} {licenses|license} and enter the <abbr "
-"title=\"Uniform Resource Locator\">URL</abbr> where this release can be "
-"downloaded. If possible, please link directly to a media file (e.g. mp3). "
-"Please note that the <abbr title=\"Uniform Resource Locator\">URL</abbr> "
-"must be a valid <abbr title=\"Uniform Resource Locator\">URL</abbr>, "
-"including the <code>http://</code> or <code>ftp://</code> protocol portion "
-"of the <abbr title=\"Uniform Resource Locator\">URL</abbr>."
-msgstr ""
-
-#: ../root/relate/url.tt:6
-#, perl-format
-msgid ""
-"Select the <abbr title=\"Uniform Resource Locator\">URL</abbr> relationship "
-"type and enter the <abbr title=\"Uniform Resource Locator\">URL</abbr> "
-"below. Please note that the <abbr title=\"Uniform Resource Locator\">URL</"
-"abbr> must be a valid <abbr title=\"Uniform Resource Locator\">URL</abbr>, "
-"including the http:// or ftp:// protocol portion of the <abbr title="
-"\"Uniform Resource Locator\">URL</abbr>."
 msgstr ""
 
 #: ../root/scripts/module_guess_case.tt:5
@@ -4400,11 +3442,6 @@ msgstr ""
 msgid "Send a copy to my own email address"
 msgstr ""
 
-#: ../root/user/profile.tt:40
-#, perl-format
-msgid "Send email"
-msgstr ""
-
 #: ../root/scripts/module_track_parser.tt:66
 #, perl-format
 msgid ""
@@ -4419,9 +3456,9 @@ msgid "Separators:"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:44
-#, perl-format
+#, fuzzy, perl-format
 msgid "Series Number Style"
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/layout/menu.tt:54
 #, perl-format
@@ -4444,9 +3481,9 @@ msgid "Set a new password for your Musicbrainz account."
 msgstr ""
 
 #: ../root/admin/linktype/form.tt:38
-#, perl-format
+#, fuzzy, perl-format
 msgid "Short link phrase:"
-msgstr ""
+msgstr "Alias:"
 
 #: ../root/admin/wikidoc/index.tt:38 ../root/edit/details/delete_medium.tt:16
 #, perl-format
@@ -4473,20 +3510,15 @@ msgstr ""
 msgid "Show Track Parser"
 msgstr ""
 
-#: ../root/release/edit_attributes.tt:23
-#, perl-format
-msgid "Show all"
-msgstr ""
-
 #: ../root/admin/wikidoc/index.tt:8
 #, fuzzy, perl-format
 msgid "Show current versions"
 msgstr "Aktuelle Version"
 
 #: ../root/layout/sidebar/sidebar-rating.tt:5
-#, perl-format
+#, fuzzy, perl-format
 msgid "Show user ratings"
-msgstr ""
+msgstr "Länge"
 
 #: ../root/scripts/text_strings.tt:33
 #, perl-format
@@ -4494,16 +3526,6 @@ msgid ""
 "Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
 "<strong>{matches}</strong>"
 msgstr ""
-
-#: ../root/artist/similar.tt:1 ../root/artist/similar.tt:2
-#, perl-format
-msgid "Similar Artists"
-msgstr "Ähnliche Künstler"
-
-#: ../root/freedb/choose_artist.tt:4
-#, fuzzy, perl-format
-msgid "Single Artist or Various Artists?"
-msgstr "Diverse Interpreten"
 
 #: ../root/scripts/module_guideline_list.tt:85
 #, perl-format
@@ -4513,11 +3535,6 @@ msgstr ""
 #: ../root/scripts/text_strings.tt:26
 #, perl-format
 msgid "Some artists credited with alternative names"
-msgstr ""
-
-#: ../root/elections/problem.tt:3
-#, perl-format
-msgid "Sorry, a problem occured"
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:40
@@ -4533,11 +3550,6 @@ msgstr ""
 #: ../root/forms/form.tt:6
 #, perl-format
 msgid "Sorry, but some errors were present in the data you provided."
-msgstr ""
-
-#: ../root/elections/no_privs.tt:4
-#, perl-format
-msgid "Sorry, but this page is only accessible to auto-editors."
 msgstr ""
 
 #: ../root/search/error/no-results.tt:3
@@ -4584,21 +3596,16 @@ msgid "Sorry, we could not find any release starting with “{index}”"
 msgstr "Künstler beginnend mit “{index}”"
 
 #: ../root/search/editor.tt:18
-#, perl-format
+#, fuzzy, perl-format
 msgid ""
 "Sorry, we could not find any users matching the query for <code>{query}</"
 "code>"
-msgstr ""
+msgstr "Künstler beginnend mit “{index}”"
 
 #: ../root/browse/work.tt:29
 #, fuzzy, perl-format
 msgid "Sorry, we could not find any work starting with “{index}”"
 msgstr "Künstler beginnend mit “{index}”"
-
-#: ../root/artist/similar.tt:14
-#, perl-format
-msgid "Sorry, we do not have any data about similar artists for {artist}."
-msgstr ""
 
 #: ../root/search/error/no-info.tt:3
 #, perl-format
@@ -4615,9 +3622,9 @@ msgid "Sort Name"
 msgstr "Name des Editors"
 
 #: ../root/scripts/module_guideline_list.tt:45
-#, perl-format
+#, fuzzy, perl-format
 msgid "Sort Name Style"
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/artist/edit_form.tt:46 ../root/artist/layout.tt:4
 #: ../root/edit/details/create_artist.tt:7
@@ -4629,9 +3636,9 @@ msgid "Sort name:"
 msgstr "Anfangsdatum"
 
 #: ../root/scripts/module_guideline_list.tt:46
-#, perl-format
+#, fuzzy, perl-format
 msgid "Soundtrack Title Style"
-msgstr ""
+msgstr "Stücke"
 
 #: ../root/scripts/module_guideline_list.tt:86
 #, perl-format
@@ -4639,9 +3646,9 @@ msgid "Spanish Capitalization"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:47
-#, perl-format
+#, fuzzy, perl-format
 msgid "Split-Release Title Style"
-msgstr ""
+msgstr "Artist erstellen"
 
 #: ../root/layout/menu.tt:258
 #, perl-format
@@ -4653,21 +3660,21 @@ msgstr ""
 msgid "Start"
 msgstr "Anfangsdatum"
 
-#: ../root/elections/elections.tt:9
-#, perl-format
-msgid "Start Date"
-msgstr "Anfangsdatum"
+#: ../root/user/profile.tt:108
+#, fuzzy, perl-format
+msgid "Statistics"
+msgstr "Editor Statistiken"
 
-#: ../root/elections/elections.tt:8 ../root/release/lookup.tt:14
+#: ../root/release/lookup.tt:14
 #, fuzzy, perl-format
 msgid "Status"
 msgstr "Aktueller Status"
 
 #: ../root/edit/details/edit_release.tt:68 ../root/edit/info.tt:35
 #: ../root/edit/show.tt:22
-#, perl-format
+#, fuzzy, perl-format
 msgid "Status:"
-msgstr ""
+msgstr "Aktueller Status"
 
 #: ../root/layout/sidebar/sites.tt:45
 #, perl-format
@@ -4685,10 +3692,9 @@ msgid "Subject:"
 msgstr ""
 
 #: ../root/artist/layout.tt:35 ../root/label/layout.tt:29
-#: ../root/user/profile.tt:128
-#, perl-format
+#, fuzzy, perl-format
 msgid "Subscribe"
-msgstr ""
+msgstr "Künstler Abonnements"
 
 #: ../root/label/subscriptions.tt:25
 #, fuzzy, perl-format
@@ -4701,29 +3707,29 @@ msgid "Subscribe to this artist."
 msgstr "Editoren die diesen Artist abonniert haben"
 
 #: ../root/layout/sidebar/user.tt:24
-#, perl-format
+#, fuzzy, perl-format
 msgid "Subscribed"
-msgstr ""
+msgstr "Künstler Abonnements"
 
 #: ../root/artist/subscribe.tt:1 ../root/label/subscriptions.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "Subscribed Editors"
-msgstr ""
+msgstr "Editoren die diesen Artist abonniert haben"
 
 #: ../root/layout/menu.tt:210
-#, perl-format
+#, fuzzy, perl-format
 msgid "Subscribers"
-msgstr ""
+msgstr "Künstler Abonnements"
 
-#: ../root/layout/menu.tt:205 ../root/user/profile.tt:99
+#: ../root/layout/menu.tt:205
 #, fuzzy, perl-format
 msgid "Subscriptions"
 msgstr "Künstler Abonnements"
 
 #: ../root/scripts/module_guideline_list.tt:48
-#, perl-format
+#, fuzzy, perl-format
 msgid "Subtitle Style"
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/annotation/common.tt:22
 #, perl-format
@@ -4773,9 +3779,9 @@ msgid "Tag this release group"
 msgstr "Dieses Label bearbeiten"
 
 #: ../root/work/layout.tt:20 ../root/work/tag.tt:2
-#, perl-format
+#, fuzzy, perl-format
 msgid "Tag this work"
-msgstr ""
+msgstr "Diesen Artisten bearbeiten"
 
 #: ../root/tag/header.tt:10 ../root/tag/layout.tt:1
 #, perl-format
@@ -4789,7 +3795,7 @@ msgstr "Schlagworte"
 
 #: ../root/artist/tags.tt:1 ../root/components/tags.tt:1
 #: ../root/label/tags.tt:1 ../root/recording/tags.tt:1
-#: ../root/release_group/tags.tt:1 ../root/tag/all.tt:1 ../root/work/tags.tt:1
+#: ../root/release_group/tags.tt:1 ../root/work/tags.tt:1
 #, perl-format
 msgid "Tags"
 msgstr "Schlagworte"
@@ -4799,20 +3805,10 @@ msgstr "Schlagworte"
 msgid "Tags:"
 msgstr "Schlagworte"
 
-#: ../root/tag/summary.tt:1
-#, fuzzy, perl-format
-msgid "Tags: "
-msgstr "Schlagworte"
-
-#: ../root/components/perma-link.tt:14 ../root/components/perma-link.tt:30
-#, perl-format
-msgid "Text Link:"
-msgstr ""
-
 #: ../root/user/donate.tt:12
-#, perl-format
+#, fuzzy, perl-format
 msgid "Thank you for contributing to MusicBrainz."
-msgstr ""
+msgstr "Wollen Sie den Artist {artist} wirklich löschen?"
 
 #: ../root/user/verified.tt:4
 #, perl-format
@@ -4824,28 +3820,9 @@ msgstr ""
 msgid "Thank you."
 msgstr ""
 
-#: ../root/elections/proposed.tt:3
-#, perl-format
-msgid ""
-"Thanks! {user} has sucessfully proposed, and is now awaiting 2 people to "
-"second your proposal."
-msgstr ""
-
-#: ../root/user/profile.tt:140
+#: ../root/user/profile.tt:59
 #, perl-format
 msgid "The Dawn of the Project"
-msgstr ""
-
-#: ../root/artist/change_quality.tt:9
-#, perl-format
-msgid "The data quality for {artist} is currently set to:"
-msgstr ""
-
-#: ../root/release_editor/release_data.tt:9
-#, perl-format
-msgid ""
-"The fields below allow you to enter information about the title, track title"
-"(s), and artist(s) for this release."
 msgstr ""
 
 #: ../root/report/index.tt:6
@@ -4861,20 +3838,6 @@ msgstr ""
 msgid "The page you requested does not exist."
 msgstr ""
 
-#: ../root/components/perma-link.tt:4
-#, perl-format
-msgid ""
-"The permanent link for the MusicBrainz {type} {entity} is {uri|html_uri}."
-msgstr ""
-
-#: ../root/relate/remove.tt:8
-#, perl-format
-msgid ""
-"The removal of pending edits is immediate, while the the {doc_vote|voting "
-"process} has to be voted on according to the {doc_rmrel|remove relationship "
-"edit}."
-msgstr ""
-
 #: ../root/search/error/internal-error.tt:3
 #, perl-format
 msgid ""
@@ -4887,21 +3850,9 @@ msgstr ""
 msgid "The server returned the following error message:"
 msgstr ""
 
-#: ../root/user/profile.tt:111
-#, perl-format
-msgid "The subscriptions for {user} are private."
-msgstr ""
-
 #: ../root/doc/bare_error.tt:3 ../root/doc/error.tt:4
 #, perl-format
 msgid "The wiki page {id} does not exist."
-msgstr ""
-
-#: ../root/release/change_quality.tt:6
-#, perl-format
-msgid ""
-"The {quality|Data Quality} for {release} is currently set to: <strong>"
-"{rel_qual}</strong>."
 msgstr ""
 
 #: ../root/main/index.tt:8
@@ -4912,15 +3863,10 @@ msgid ""
 "MusicBrainz are tax deductible!"
 msgstr ""
 
-#: ../root/user/profile.tt:105
-#, perl-format
-msgid "The {view|subscriptions} for {user} are public."
-msgstr ""
-
 #: ../root/release/discids.tt:34
-#, perl-format
+#, fuzzy, perl-format
 msgid "There are no DiscIDs attached to this release."
-msgstr ""
+msgstr "Editoren die dieses Label abonniert haben"
 
 #: ../root/artist/subscribe.tt:11
 #, fuzzy, perl-format
@@ -4947,69 +3893,22 @@ msgstr ""
 msgid "There is no editor with this name."
 msgstr ""
 
-#: ../root/url/info.tt:17
-#, fuzzy, perl-format
-msgid ""
-"This <abbr title=\"Uniform Resource Locator\">URL</abbr> has no description."
-msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr> Information"
-
 #: ../root/artist/annotation.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "This artist does not have an annotation"
-msgstr ""
+msgstr "Label-Annotation bearbeiten"
 
 #: ../root/artist/tags.tt:2
-#, perl-format
+#, fuzzy, perl-format
 msgid "This artist has no tags."
-msgstr ""
-
-#: ../root/relate/create.tt:40
-#, perl-format
-msgid "This attribute describes a type of orchestra."
-msgstr ""
-
-#: ../root/relate/create.tt:36
-#, perl-format
-msgid "This attribute describes a type of vocal performance."
-msgstr ""
-
-#: ../root/relate/create.tt:16
-#, perl-format
-msgid ""
-"This attribute describes if a particular performance role was considered "
-"normal or additional."
-msgstr ""
-
-#: ../root/relate/create.tt:32
-#, perl-format
-msgid ""
-"This attribute describes the possible instruments that can be captured as "
-"part of a performance."
-msgstr ""
-
-#: ../root/relate/create.tt:20
-#, perl-format
-msgid "This attribute indicates a "
-msgstr ""
-
-#: ../root/release/edit_title.tt:6
-#, perl-format
-msgid ""
-"This form allows you to edit the {title|title of this release}.  Please read "
-"the {doc_sg|style guidelines} before entering any edits."
-msgstr ""
-
-#: ../root/elections/details.tt:72
-#, perl-format
-msgid "This information will be shown when the election has closed"
-msgstr ""
+msgstr "Dieses Label bearbeiten"
 
 #: ../root/doc/page.tt:26
 #, perl-format
 msgid "This is a copy of wiki page"
 msgstr ""
 
-#: ../root/label/delete.tt:17
+#: ../root/label/delete.tt:18
 #, perl-format
 msgid ""
 "This label cannot be deleted, because there are still releases, tracks and/"
@@ -5022,9 +3921,9 @@ msgid "This label does not have an annotation"
 msgstr "Label-Annotation bearbeiten"
 
 #: ../root/label/tags.tt:2
-#, perl-format
+#, fuzzy, perl-format
 msgid "This label has no tags."
-msgstr ""
+msgstr "Dieses Label bearbeiten"
 
 #: ../root/layout/footer-bar.tt:31
 #, perl-format
@@ -5037,26 +3936,26 @@ msgid "This page has not been reviewed by our documentation team."
 msgstr ""
 
 #: ../root/recording/annotation.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "This recording does not have an annotation"
-msgstr ""
+msgstr "Label-Annotation bearbeiten"
 
 #: ../root/recording/puids.tt:12
-#, perl-format
+#, fuzzy, perl-format
 msgid "This recording does not have any associated PUIDs"
-msgstr ""
+msgstr "Label-Annotation bearbeiten"
 
 #: ../root/recording/tags.tt:2
-#, perl-format
+#, fuzzy, perl-format
 msgid "This recording has no tags."
-msgstr ""
+msgstr "Dieses Label bearbeiten"
 
 #: ../root/release/annotation.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "This release does not have an annotation"
-msgstr ""
+msgstr "Label-Annotation bearbeiten"
 
-#: ../root/release_group/delete.tt:17
+#: ../root/release_group/delete.tt:18
 #, perl-format
 msgid ""
 "This release group cannot be deleted, because there are still releases, "
@@ -5064,9 +3963,9 @@ msgid ""
 msgstr ""
 
 #: ../root/release_group/annotation.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "This release group does not have an annotation"
-msgstr ""
+msgstr "Label-Annotation bearbeiten"
 
 #: ../root/release_group/tags.tt:2
 #, fuzzy, perl-format
@@ -5103,14 +4002,9 @@ msgstr ""
 msgid "This report shows releases that have a script but no language set."
 msgstr ""
 
-#: ../root/user/profile.tt:156 ../root/user/profile.tt:158
+#: ../root/user/profile.tt:131
 #, perl-format
 msgid "This table shows a summary of votes cast by this editor."
-msgstr ""
-
-#: ../root/release/tracks.tt:2 ../root/release/tracks.tt:4
-#, perl-format
-msgid "This table shows information about each track on this release."
 msgstr ""
 
 #: ../root/artist/merge_search.tt:3
@@ -5129,25 +4023,20 @@ msgid "This wizard allows you to merge {rg} into another release group."
 msgstr ""
 
 #: ../root/work/annotation.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "This work does not have an annotation"
-msgstr ""
+msgstr "Label-Annotation bearbeiten"
 
 #: ../root/work/tags.tt:2
-#, perl-format
+#, fuzzy, perl-format
 msgid "This work has no tags."
-msgstr ""
+msgstr "Dieses Label bearbeiten"
 
 #: ../root/doc/page.tt:13
 #, perl-format
 msgid ""
 "This {doclink1|WikiDocs page} is based on revision #{doclink2|version} of "
 "{doclink3|title}"
-msgstr ""
-
-#: ../root/forms/widgets/switch.tt:18
-#, perl-format
-msgid "Tick this box to make this {label} editable."
 msgstr ""
 
 #: ../root/cdtoc/index.tt:39 ../root/cdtoc/index.tt:41
@@ -5164,13 +4053,12 @@ msgstr ""
 #: ../root/artist/browse_various.tt:9 ../root/artist/index.tt:18
 #: ../root/cdtoc/index.tt:71 ../root/isrc/index.tt:10
 #: ../root/label/index.tt:10 ../root/puid/index.tt:10
-#: ../root/recording/index.tt:12 ../root/release/edit.tt:53
-#: ../root/release/edit.tt:95 ../root/release/edit_title.tt:9
-#: ../root/release/index.tt:10 ../root/release_editor/release_data.tt:17
+#: ../root/recording/index.tt:12 ../root/release/edit.tt:55
+#: ../root/release/edit.tt:97 ../root/release/index.tt:10
 #: ../root/tracklist/index.tt:12 ../root/tracklist/index.tt:31
-#, perl-format
+#, fuzzy, perl-format
 msgid "Title"
-msgstr ""
+msgstr "Stücke"
 
 #: ../root/edit/details/add_track_kv.tt:3
 #, perl-format
@@ -5182,14 +4070,6 @@ msgstr ""
 #: ../root/browse/work.tt:32
 #, perl-format
 msgid "To begin browsing, please select a letter above."
-msgstr ""
-
-#: ../root/artist/add_non_album.tt:10
-#, perl-format
-msgid ""
-"To enter a non-album track you are <strong>required</strong> to provide an "
-"{edit_note|edit note} which lets the voters know why you think this is a "
-"{nonalbum_track|non-album track}."
 msgstr ""
 
 #: ../root/browse/artist.tt:30 ../root/browse/label.tt:30
@@ -5210,46 +4090,21 @@ msgstr ""
 msgid "Total artists found: {count}"
 msgstr ""
 
-#: ../root/cdtoc/index.tt:25 ../root/release/release.tt:43
+#: ../root/cdtoc/index.tt:25
 #, perl-format
 msgid "Total length:"
 msgstr ""
 
 #: ../root/report/releases_without_language.tt:7
 #: ../root/report/releases_without_script.tt:7
-#, perl-format
+#, fuzzy, perl-format
 msgid "Total releases found: {count}"
-msgstr ""
+msgstr "Veröffentlichungen"
 
-#: ../root/artist/add_non_album.tt:29 ../root/cdtoc/index.tt:33
+#: ../root/cdtoc/index.tt:33
 #, perl-format
 msgid "Track"
 msgstr "Stück"
-
-#: ../root/release/tracks.tt:28
-#, fuzzy, perl-format
-msgid "Track Artist"
-msgstr "Titel Artist ändern"
-
-#: ../root/release/tracks.tt:31
-#, fuzzy, perl-format
-msgid "Track Duration"
-msgstr "Länge"
-
-#: ../root/release/tracks.tt:22
-#, fuzzy, perl-format
-msgid "Track Number"
-msgstr "Katalognummer"
-
-#: ../root/release/tracks.tt:25
-#, fuzzy, perl-format
-msgid "Track Title"
-msgstr "Stücke"
-
-#: ../root/release_editor/track_count.tt:10
-#, fuzzy, perl-format
-msgid "Track count"
-msgstr "Benutzerkonto"
 
 #: ../root/cdtoc/index.tt:29
 #, fuzzy, perl-format
@@ -5273,10 +4128,8 @@ msgstr "Stücke"
 msgid "Tracklist:"
 msgstr "Stücke"
 
-#: ../root/artist/add_non_album.tt:24 ../root/release/box-summary.tt:3
-#: ../root/release/discids.tt:9 ../root/release_editor/release_data.tt:20
-#: ../root/release_group/releases-list.tt:6 ../root/tracklist/index.tt:7
-#: ../root/user/collection.tt:13
+#: ../root/release/discids.tt:9 ../root/release_group/releases-list.tt:6
+#: ../root/tracklist/index.tt:7 ../root/user/collection.tt:13
 #, perl-format
 msgid "Tracks"
 msgstr "Stücke"
@@ -5291,8 +4144,7 @@ msgstr ""
 msgid "Turkish Capitalization"
 msgstr ""
 
-#: ../root/artist/browse_various.tt:10 ../root/relate/create.tt:9
-#: ../root/relate/url.tt:15 ../root/release/lookup.tt:13
+#: ../root/artist/browse_various.tt:10 ../root/release/lookup.tt:13
 #: ../root/report/artist_list.tt:6
 #, perl-format
 msgid "Type"
@@ -5317,14 +4169,20 @@ msgstr ""
 #: ../root/release_group/edit_form.tt:16 ../root/release_group/layout.tt:11
 #: ../root/search/form.tt:10 ../root/work/edit_form.tt:22
 #: ../root/work/layout.tt:12
-#, perl-format
+#, fuzzy, perl-format
 msgid "Type:"
-msgstr ""
+msgstr "Bemerkung:"
 
-#: ../root/url/info.tt:1
+#: ../root/url/index.tt:1
 #, fuzzy, perl-format
 msgid "URL Information"
 msgstr "Informationen zum Künstler"
+
+#: ../root/edit/details/edit_url.tt:8 ../root/edit/details/edit_url.tt:14
+#: ../root/url/edit.tt:5 ../root/url/index.tt:14
+#, perl-format
+msgid "URL:"
+msgstr ""
 
 #: ../root/scripts/module_search_replace.tt:27
 #, perl-format
@@ -5337,16 +4195,9 @@ msgid "Unknown"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:49
-#, perl-format
+#, fuzzy, perl-format
 msgid "Unknown Artist Style"
-msgstr ""
-
-#: ../root/release_editor/release_data.tt:10
-#, perl-format
-msgid ""
-"Unless the release has attached {discids|Disc IDs}, you can remove tracks by "
-"activating the remove button on the left of the track title fields."
-msgstr ""
+msgstr "Künstler Details"
 
 #: ../root/main/index.tt:41
 #, perl-format
@@ -5357,7 +4208,6 @@ msgid ""
 msgstr ""
 
 #: ../root/artist/layout.tt:33 ../root/label/layout.tt:27
-#: ../root/user/profile.tt:126
 #, perl-format
 msgid "Unsubscribe"
 msgstr ""
@@ -5378,22 +4228,21 @@ msgid "Untitled Bootleg Style"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:51
-#, perl-format
+#, fuzzy, perl-format
 msgid "Untitled Release Style"
-msgstr ""
+msgstr "Beziehung bearbeiten"
 
 #: ../root/scripts/module_guideline_list.tt:52
 #, perl-format
 msgid "Untitled Track Style"
 msgstr ""
 
-#: ../root/user/adjust_flags.tt:14 ../root/user/profile.tt:79
+#: ../root/user/adjust_flags.tt:14
 #, perl-format
 msgid "Untrusted"
 msgstr ""
 
-#: ../root/admin/wikidoc/index.tt:44 ../root/artist/change_quality.tt:17
-#: ../root/release/change_quality.tt:12
+#: ../root/admin/wikidoc/index.tt:44
 #, fuzzy, perl-format
 msgid "Update"
 msgstr "Datum"
@@ -5404,9 +4253,9 @@ msgid "Update Page"
 msgstr "Seite hinzufügen"
 
 #: ../root/components/tag.tt:1
-#, perl-format
+#, fuzzy, perl-format
 msgid "Update Tags"
-msgstr ""
+msgstr "Seite hinzufügen"
 
 #: ../root/user/adjust_flags.tt:27
 #, perl-format
@@ -5433,15 +4282,10 @@ msgstr ""
 msgid "User Account Flags"
 msgstr ""
 
-#: ../root/user/profile.tt:136
+#: ../root/user/profile.tt:42
 #, fuzzy, perl-format
-msgid "User Statistics"
-msgstr "Editor Statistiken"
-
-#: ../root/user/profile.tt:74
-#, perl-format
-msgid "User type"
-msgstr ""
+msgid "User type:"
+msgstr "Alias:"
 
 #: ../root/layout/sidebar/sites.tt:50
 #, perl-format
@@ -5464,15 +4308,10 @@ msgstr "Alias:"
 msgid "Valid <abbr title="
 msgstr "<abbr title="
 
-#: ../root/freedb/choose_artist.tt:15
-#, perl-format
-msgid "Various Artists"
-msgstr "Diverse Interpreten"
-
 #: ../root/admin/wikidoc/index.tt:16
-#, perl-format
+#, fuzzy, perl-format
 msgid "Version"
-msgstr ""
+msgstr "Beschreibung:"
 
 #: ../root/admin/wikidoc/create.tt:17 ../root/admin/wikidoc/edit.tt:17
 #, fuzzy, perl-format
@@ -5484,31 +4323,11 @@ msgstr "Beschreibung:"
 msgid "Versus Style"
 msgstr ""
 
-#: ../root/tag/display_summary.tt:21
-#, perl-format
-msgid "View More"
-msgstr ""
-
-#: ../root/artist/layout.tt:44 ../root/label/layout.tt:39
-#: ../root/recording/layout.tt:29 ../root/release/sidebar.tt:135
-#: ../root/release_group/layout.tt:26 ../root/work/layout.tt:28
+#: ../root/artist/layout.tt:41 ../root/label/layout.tt:36
+#: ../root/recording/layout.tt:26 ../root/release/sidebar.tt:135
+#: ../root/release_group/layout.tt:23 ../root/work/layout.tt:25
 #, perl-format
 msgid "View editing history"
-msgstr ""
-
-#: ../root/statistics/top_editors.tt:28
-#, perl-format
-msgid "View open edits&hellip;"
-msgstr ""
-
-#: ../root/user/subscriptions.tt:24
-#, perl-format
-msgid "View:"
-msgstr ""
-
-#: ../root/relate/create.tt:34
-#, perl-format
-msgid "Vocals"
 msgstr ""
 
 #: ../root/scripts/module_guideline_list.tt:54
@@ -5517,11 +4336,9 @@ msgid "Volume Number Style"
 msgstr ""
 
 #: ../root/edit/index.tt:43 ../root/edit/list.tt:50
-#: ../root/elections/details.tt:96 ../root/elections/details.tt:97
-#: ../root/elections/details.tt:120
-#, perl-format
+#, fuzzy, perl-format
 msgid "Vote"
-msgstr ""
+msgstr "Datum:"
 
 #: ../root/layout/sidebar/user.tt:19
 #, fuzzy, perl-format
@@ -5533,53 +4350,19 @@ msgstr "Änderungen durchsuchen"
 msgid "Vote:"
 msgstr "Datum:"
 
-#: ../root/elections/details.tt:121
-#, perl-format
-msgid "Voted At"
-msgstr ""
+#: ../root/user/profile.tt:122
+#, fuzzy, perl-format
+msgid "Voted down"
+msgstr "Bemerkung bearbeiten"
 
-#: ../root/elections/details.tt:71 ../root/user/profile.tt:155
+#: ../root/user/profile.tt:133
 #, perl-format
-msgid "Votes"
-msgstr ""
-
-#: ../root/elections/details.tt:66
-#, perl-format
-msgid "Votes Against"
-msgstr ""
-
-#: ../root/elections/details.tt:114
-#, perl-format
-msgid "Votes Cast"
-msgstr ""
-
-#: ../root/elections/details.tt:62
-#, perl-format
-msgid "Votes For"
+msgid "Votes ({view_url|view})"
 msgstr ""
 
 #: ../root/edit/index.tt:10
 #, perl-format
 msgid "Votes tally:"
-msgstr ""
-
-#: ../root/elections/details.tt:79
-#, perl-format
-msgid "Voting"
-msgstr ""
-
-#: ../root/elections/details.tt:83
-#, perl-format
-msgid ""
-"Voting is not yet open. If you would like to support this candidate, you can "
-"second their nomination. If you do not support this candidate, please note "
-"that you cannot cast a \"No\" vote (or abstain) until two seconders have "
-"been found."
-msgstr ""
-
-#: ../root/elections/details.tt:102
-#, perl-format
-msgid "Voting on this election is now closed."
 msgstr ""
 
 #: ../root/artist/edit_form.tt:18 ../root/label/edit_form.tt:11
@@ -5590,11 +4373,6 @@ msgstr "Warnung:"
 #: ../root/report/not_available.tt:6
 #, perl-format
 msgid "We are sorry, but data for this report is not available right now."
-msgstr ""
-
-#: ../root/release_editor/check_duplicates.tt:7
-#, perl-format
-msgid "We found the following similar Release(s) already in our database:"
 msgstr ""
 
 #: ../root/search/editor.tt:5
@@ -5664,13 +4442,6 @@ msgstr ""
 msgid "Welcome to MusicBrainz!"
 msgstr "Werde ein Teil von MusicBrainz"
 
-#: ../root/release_editor/check_duplicates.tt:11
-#, perl-format
-msgid ""
-"Were you adding one of the following Release(s) which already is in the "
-"database?"
-msgstr ""
-
 #: ../root/main/index.tt:52
 #, fuzzy, perl-format
 msgid "What is MusicBrainz?"
@@ -5731,9 +4502,9 @@ msgstr ""
 
 #: ../root/edit/details/edit_release_group.tt:20
 #: ../root/edit/details/edit_work.tt:28
-#, perl-format
+#, fuzzy, perl-format
 msgid "Work Type:"
-msgstr ""
+msgstr "Bemerkung:"
 
 #: ../root/edit/details/add_work_annotation.tt:3
 #, perl-format
@@ -5745,8 +4516,7 @@ msgstr ""
 msgid "Works starting with “{index}”"
 msgstr "Künstler beginnend mit “{index}”"
 
-#: ../root/artist/appearances.tt:8 ../root/artist/browse_various.tt:8
-#: ../root/artist/index.tt:17
+#: ../root/artist/browse_various.tt:8 ../root/artist/index.tt:17
 #, perl-format
 msgid "Year"
 msgstr "Jahr"
@@ -5773,37 +4543,10 @@ msgstr ""
 msgid "Yiddish Capitalization"
 msgstr ""
 
-#: ../root/artist/add_non_album.tt:11
-#, perl-format
-msgid ""
-"You are <strong>strongly encouraged</strong> to include a <abbr title="
-"\"Uniform Resource Locator\">URL</abbr> in your edit notes which will allow "
-"the voters to evaluate the correctness of this edit."
-msgstr ""
-
-#: ../root/artist/add_non_album.tt:9
-#, perl-format
-msgid ""
-"You are <strong>strongly encouraged</strong> to include the length of the "
-"track, rather than leaving that field blank."
-msgstr ""
-"Es wird <strong>dringend empfohlen</strong> die Länge eines Stückes "
-"anzugeben, statt das zugehörige Feld leer zu lassen."
-
 #: ../root/artist/edit_form.tt:4
 #, fuzzy, perl-format
 msgid "You are about to add an artist to MusicBrainz."
 msgstr "Wollen Sie den Artist {artist} wirklich löschen?"
-
-#: ../root/release_editor/track_count.tt:5
-#, perl-format
-msgid "You are about to manually add a {doc_release|Release}."
-msgstr ""
-
-#: ../root/elections/details.tt:91
-#, perl-format
-msgid "You are already supporting this election, and do not need to vote."
-msgstr ""
 
 #: ../root/label/edit_form.tt:12
 #, perl-format
@@ -5819,18 +4562,10 @@ msgid ""
 "exactly the same, as these existing artists:"
 msgstr ""
 
-#: ../root/user/subscriptions.tt:12
-#, perl-format
-msgid ""
-"You are currently subscribed to <strong>{num_artist}</strong> artists, "
-"<strong>{num_label}</strong> labels and <strong>{num_editor}</strong> "
-"editors."
-msgstr ""
-
 #: ../root/edit/index.tt:47
-#, perl-format
+#, fuzzy, perl-format
 msgid "You are not currently able to vote on this edit"
-msgstr ""
+msgstr "Editoren die diesen Artist abonniert haben"
 
 #: ../root/user/subscriptions/artist.tt:34
 #, fuzzy, perl-format
@@ -5838,19 +4573,14 @@ msgid "You are not subscribed to any artists."
 msgstr "Editoren die diesen Artist abonniert haben"
 
 #: ../root/user/subscriptions/editor.tt:34
-#, perl-format
+#, fuzzy, perl-format
 msgid "You are not subscribed to any editors."
-msgstr ""
+msgstr "Editoren die diesen Artist abonniert haben"
 
 #: ../root/user/subscriptions/label.tt:34
 #, fuzzy, perl-format
 msgid "You are not subscribed to any labels."
 msgstr "Editoren die dieses Label abonniert haben"
-
-#: ../root/user/subscriptions.tt:55
-#, perl-format
-msgid "You are not subscribed to any {type}."
-msgstr ""
 
 #: ../root/artist/edit_form.tt:28
 #, perl-format
@@ -5889,13 +4619,6 @@ msgid ""
 "Artists to which you have subscribed."
 msgstr ""
 
-#: ../root/relate/url.tt:10
-#, perl-format
-msgid ""
-"You may not link to digital audio files or sites where unauthorized copies "
-"of copyrighted works can be downloaded."
-msgstr ""
-
 #: ../root/user/registered.tt:21
 #, perl-format
 msgid ""
@@ -5927,11 +4650,6 @@ msgstr ""
 #, fuzzy, perl-format
 msgid "Your Ratings"
 msgstr "Länge"
-
-#: ../root/user/subscriptions.tt:1
-#, fuzzy, perl-format
-msgid "Your Subscriptions"
-msgstr "Künstler Abonnements"
 
 #: ../root/user/email_sent.tt:5
 #, perl-format
@@ -5969,24 +4687,9 @@ msgstr ""
 msgid "Your search query was deemed invalid by our ruthless search server."
 msgstr ""
 
-#: ../root/user/profile.tt:109
-#, perl-format
-msgid "Your subscriptions are private."
-msgstr ""
-
-#: ../root/user/profile.tt:103
-#, perl-format
-msgid "Your {view|subscriptions} are public."
-msgstr ""
-
 #: ../root/scripts/text_strings.tt:28
 #, perl-format
 msgid "[ Unknown ]"
-msgstr ""
-
-#: ../root/user/profile.tt:70
-#, perl-format
-msgid "[Hidden]"
 msgstr ""
 
 #: ../root/main/index.tt:73
@@ -6014,44 +4717,39 @@ msgstr ""
 msgid "add a disambiguation comment"
 msgstr ""
 
-#: ../root/relate/edit_all.tt:14
-#, fuzzy, perl-format
-msgid "edit"
-msgstr "Bearbeiten"
-
 #: ../root/components/relationships.tt:18
 #, perl-format
 msgid "from {begin_date} until {end_date}"
 msgstr ""
 
 #: ../root/components/relationships.tt:24
-#, perl-format
+#, fuzzy, perl-format
 msgid "from {date}"
-msgstr ""
+msgstr "Enddatum"
 
 #: ../root/components/relationships.tt:15
 #, fuzzy, perl-format
 msgid "in {date}"
 msgstr "Anfangsdatum"
 
-#: ../root/components/common-macros.tt:42
+#: ../root/doc/page.tt:7
 #, fuzzy, perl-format
-msgid "info"
+msgid "more info"
 msgstr "Information:"
 
-#: ../root/doc/page.tt:7
-#, perl-format
-msgid "more info"
-msgstr ""
-
-#: ../root/layout/sidebar/sidebar-tags.tt:1 ../root/tag/summary.tt:9
+#: ../root/layout/sidebar/sidebar-tags.tt:1
 #, perl-format
 msgid "more&hellip;"
 msgstr ""
 
 #: ../root/edit/list.tt:23
-#, perl-format
+#, fuzzy, perl-format
 msgid "no"
+msgstr "Information:"
+
+#: ../root/user/profile.tt:51
+#, perl-format
+msgid "nominate for autoeditor"
 msgstr ""
 
 #: ../root/components/relationships.tt:13
@@ -6065,24 +4763,34 @@ msgstr "Enddatum"
 msgid "present"
 msgstr ""
 
-#: ../root/components/common-macros.tt:69
+#: ../root/components/common-macros.tt:56
 #, fuzzy, perl-format
 msgid "releases"
 msgstr "Veröffentlichungen"
 
-#: ../root/relate/edit_all.tt:17
-#, fuzzy, perl-format
-msgid "remove"
-msgstr "Genehmigen"
+#: ../root/user/profile.tt:37
+#, perl-format
+msgid "send email"
+msgstr ""
 
 #: ../root/browse/page_selector.tt:28
 #, perl-format
 msgid "space"
 msgstr ""
 
+#: ../root/user/profile.tt:94
+#, perl-format
+msgid "subscribe"
+msgstr ""
+
 #: ../root/browse/page_selector.tt:22
 #, perl-format
 msgid "symbol"
+msgstr ""
+
+#: ../root/user/profile.tt:92
+#, perl-format
+msgid "unsubscribe"
 msgstr ""
 
 #: ../root/components/relationships.tt:27
@@ -6095,14 +4803,15 @@ msgstr "Enddatum"
 msgid "yes"
 msgstr ""
 
-#: ../root/artist/no_nats.tt:3
-#, perl-format
-msgid "{artist} currently has no non-album tracks."
-msgstr ""
-
-#: ../root/user/profile.tt:118
+#: ../root/user/profile.tt:85
 #, perl-format
 msgid "{count} ({url|view})"
+msgstr ""
+
+#: ../root/user/profile.tt:115 ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123 ../root/user/profile.tt:127
+#, perl-format
+msgid "{count} ({view_url|view})"
 msgstr ""
 
 #: ../root/layout/menu.tt:93
@@ -6115,37 +4824,32 @@ msgstr ""
 msgid "{doc|<abbr title=\"Frequently Asked Questions\">FAQs</abbr>}"
 msgstr ""
 
-#: ../root/url/info.tt:22
-#, perl-format
-msgid "{doc|<abbr title=\"MusicBrainz IDentifier\">MBID</abbr>}"
-msgstr ""
-
 #: ../root/layout/menu.tt:271
 #, perl-format
 msgid "{doc|<abbr title=\"Subversion\">SVN</abbr> Modules}"
 msgstr ""
 
 #: ../root/layout/menu.tt:137
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|About Editing}"
-msgstr ""
+msgstr "Auto-Editor"
 
 #: ../root/layout/menu.tt:6
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|About MusicBrainz}"
-msgstr ""
+msgstr "Werde ein Teil von MusicBrainz"
 
 #: ../root/layout/menu.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|About}"
-msgstr ""
+msgstr "Auto-Editor"
 
 #: ../root/layout/sidebar/search.tt:14
 #, perl-format
 msgid "{doc|Advanced Query}"
 msgstr ""
 
-#: ../root/user/profile.tt:76
+#: ../root/user/profile.tt:44
 #, fuzzy, perl-format
 msgid "{doc|AutoEditor}"
 msgstr "Auto-Editor"
@@ -6156,9 +4860,9 @@ msgid "{doc|ContactUs}"
 msgstr "Kontakt"
 
 #: ../root/layout/menu.tt:251
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Contribute}"
-msgstr ""
+msgstr "Kontakt"
 
 #: ../root/layout/menu.tt:325
 #, perl-format
@@ -6166,9 +4870,9 @@ msgid "{doc|Copyright Issues}"
 msgstr ""
 
 #: ../root/layout/menu.tt:81
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Database}"
-msgstr ""
+msgstr "Kontakt"
 
 #: ../root/layout/menu.tt:27 ../root/layout/menu.tt:265
 #, perl-format
@@ -6176,14 +4880,14 @@ msgid "{doc|Development}"
 msgstr ""
 
 #: ../root/layout/menu.tt:134
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Editing}"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: ../root/layout/sidebar/sites.tt:8
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Find a Mirror}"
-msgstr ""
+msgstr "Jaikoz Tag Editor herunterladen"
 
 #: ../root/layout/menu.tt:90
 #, perl-format
@@ -6196,9 +4900,9 @@ msgid "{doc|Help Wanted}"
 msgstr ""
 
 #: ../root/layout/menu.tt:295
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Help}"
-msgstr ""
+msgstr "Verlauf"
 
 #: ../root/layout/menu.tt:18
 #, fuzzy, perl-format
@@ -6231,9 +4935,9 @@ msgid "{doc|LiveDataFeed}"
 msgstr ""
 
 #: ../root/layout/menu.tt:33
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Logo}"
-msgstr ""
+msgstr "Auto-Editor"
 
 #: ../root/layout/menu.tt:99
 #, fuzzy, perl-format
@@ -6246,14 +4950,14 @@ msgid "{doc|Mailing Lists}"
 msgstr ""
 
 #: ../root/layout/menu.tt:9
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Mirrors}"
-msgstr ""
+msgstr "Verlauf"
 
 #: ../root/layout/menu.tt:96
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|MusicBrainz Picard}"
-msgstr ""
+msgstr "Werde ein Teil von MusicBrainz"
 
 #: ../root/layout/menu.tt:12
 #, perl-format
@@ -6261,21 +4965,21 @@ msgid "{doc|People}"
 msgstr ""
 
 #: ../root/layout/menu.tt:15
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Privacy}"
-msgstr ""
+msgstr "Verlauf"
 
 #: ../root/layout/menu.tt:69
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Products}"
-msgstr ""
+msgstr "Kontakt"
 
 #: ../root/user/register.tt:44
 #, perl-format
 msgid "{doc|Read on for the full MusicBrainz Privacy Policy}"
 msgstr ""
 
-#: ../root/user/profile.tt:78
+#: ../root/user/profile.tt:46
 #, fuzzy, perl-format
 msgid "{doc|Relationship Editor}"
 msgstr "Beziehung hinzufügen"
@@ -6286,14 +4990,14 @@ msgid "{doc|Server Statistics}"
 msgstr "Editor Statistiken"
 
 #: ../root/layout/menu.tt:78
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Server}"
-msgstr ""
+msgstr "Editor Statistiken"
 
 #: ../root/layout/menu.tt:24
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Social Contract}"
-msgstr ""
+msgstr "Kontakt"
 
 #: ../root/layout/menu.tt:304
 #, perl-format
@@ -6301,19 +5005,19 @@ msgid "{doc|Style Guidelines}"
 msgstr ""
 
 #: ../root/layout/menu.tt:268
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Subversion Access}"
-msgstr ""
+msgstr "Editor Statistiken"
 
-#: ../root/user/profile.tt:80
-#, perl-format
+#: ../root/user/profile.tt:47
+#, fuzzy, perl-format
 msgid "{doc|Transclusion Editor}"
-msgstr ""
+msgstr "Auto-Editor"
 
 #: ../root/layout/menu.tt:87
-#, perl-format
+#, fuzzy, perl-format
 msgid "{doc|Web Service}"
-msgstr ""
+msgstr "Editor Statistiken"
 
 #: ../root/layout/menu.tt:72
 #, perl-format
@@ -6325,12 +5029,7 @@ msgstr ""
 msgid "{doc|libtunepimp}"
 msgstr ""
 
-#: ../root/release/box-summary.tt:12
-#, fuzzy, perl-format
-msgid "{dq} data quality"
-msgstr "Datenqualität ändern"
-
-#: ../root/edit/index.tt:60
+#: ../root/edit/index.tt:61
 #, perl-format
 msgid "{editor} ({date}):"
 msgstr ""
@@ -6350,12 +5049,12 @@ msgstr "Editoren die dieses Label abonniert haben"
 msgid "{editor} is not subscribed to any labels."
 msgstr "Editoren die dieses Label abonniert haben"
 
-#: ../root/user/profile.tt:62
+#: ../root/user/profile.tt:27
 #, perl-format
 msgid "{email} (<strong>unverified!</strong>)"
 msgstr ""
 
-#: ../root/user/profile.tt:57
+#: ../root/user/profile.tt:22
 #, perl-format
 msgid "{email} (verified at {date})"
 msgstr ""
@@ -6388,9 +5087,9 @@ msgid "{mbid|<abbr title=\"MusicBrainz IDentifier\">MBID</abbr>}:"
 msgstr ""
 
 #: ../root/tag/entity-list.tt:10
-#, perl-format
+#, fuzzy, perl-format
 msgid "{name} by {artist}"
-msgstr ""
+msgstr "Bearbeite {artist}"
 
 #: ../root/components/common-macros.tt:35
 #, perl-format
@@ -6409,29 +5108,19 @@ msgstr ""
 
 #: ../root/edit/details/merge_release_groups.tt:4
 #: ../root/edit/details/merge_release_groups.tt:12
-#, perl-format
+#, fuzzy, perl-format
 msgid "{release_group} by {artist}"
-msgstr ""
-
-#: ../root/elections/details.tt:43
-#, perl-format
-msgid "{s1} and {s2}"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: ../root/admin/linktype/tree.tt:1 ../root/admin/linktype/tree.tt:3
-#, perl-format
+#, fuzzy, perl-format
 msgid "{type0}-{type1} Link Types"
-msgstr ""
+msgstr "Label löschen"
 
 #: ../root/work/header.tt:9
 #, fuzzy, perl-format
 msgid "{type} by {artist}"
 msgstr "Bearbeite {artist}"
-
-#: ../root/tag/display.tt:3
-#, perl-format
-msgid "{type} tagged with \"{tag}\""
-msgstr ""
 
 #: ../root/work/layout.tt:1
 #, fuzzy, perl-format
@@ -6443,24 +5132,6 @@ msgstr "Änderungen an {artist}"
 msgid ""
 "{uri_search|Search} or {uri_browse|browse} the MusicBrainz data for your "
 "favourite Artists, or for your {uri_fav|favourite releases}."
-msgstr ""
-
-#: ../root/user/subscriptions.tt:16
-#, perl-format
-msgid ""
-"{user} is currently subscribed to <strong>{num_artist}</strong> artists, "
-"<strong>{num_label}</strong> labels and <strong>{num_editor}</strong> "
-"editors."
-msgstr ""
-
-#: ../root/user/subscriptions.tt:75
-#, perl-format
-msgid "{user} is not subscribed to any {type}."
-msgstr ""
-
-#: ../root/user/subscriptions.tt:66
-#, perl-format
-msgid "{user} is subscribed to the following {type}:"
 msgstr ""
 
 #: ../root/edit/show.tt:57
@@ -6495,6 +5166,345 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:39
 msgid "Please choose another username, this one is already taken"
 msgstr ""
+
+#~ msgid "<abbr title="
+#~ msgstr "<abbr title="
+
+#~ msgid "<abbr title=\"Catalog Number\">Catalog #</abbr>"
+#~ msgstr "<abbr title=\"Katalognummer\">Katalog #</abbr>"
+
+#~ msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr>"
+#~ msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr>"
+
+#~ msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr> Details"
+#~ msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr> Details"
+
+#~ msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr> Information"
+#~ msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr> Information"
+
+#~ msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr>:"
+#~ msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr>:"
+
+#~ msgid "Accepted non-autoedits"
+#~ msgstr "Akzeptierte nicht-autoedits"
+
+#~ msgid "Add New Artist"
+#~ msgstr "Neuen Künstler hinzufügen"
+
+#~ msgid "Add New Label"
+#~ msgstr "Neues Label hinzufügen"
+
+#~ msgid "Add Release"
+#~ msgstr "Veröffentlichung hinzufügen"
+
+#~ msgid "Add a Creative Commons license"
+#~ msgstr "Creative Commons Lizenz hinzufügen"
+
+#~ msgid "Add a new Release"
+#~ msgstr "Neue Veröffentlichung hinzufügen"
+
+#~ msgid "Add an annotation"
+#~ msgstr "Bemerkung hinzufügen"
+
+#, fuzzy
+#~ msgid "Add another release event"
+#~ msgstr "Neue Veröffentlichung hinzufügen"
+
+#~ msgid "Additional"
+#~ msgstr "Zusätzlich"
+
+#~ msgid "All Tags:"
+#~ msgstr "Alle Tags:"
+
+#~ msgid "Also change Track Artists"
+#~ msgstr "Auch den Titel-Artist wechseln"
+
+#, fuzzy
+#~ msgid ""
+#~ "Are you sure you want to move the release {release} to the artist "
+#~ "{artist}?"
+#~ msgstr ""
+#~ "Wollen Sie den Alias <strong>{alias}</strong>, der auf den Artist "
+#~ "{artist} zeigt wirklich löschen?"
+
+#~ msgid ""
+#~ "Are you sure you want to remove the alias <strong>{alias}</strong>, which "
+#~ "points to the artist {artist}?"
+#~ msgstr ""
+#~ "Wollen Sie den Alias <strong>{alias}</strong>, der auf den Artist "
+#~ "{artist} zeigt wirklich löschen?"
+
+#~ msgid ""
+#~ "Are you sure you want to remove the assossciation between PUID <code>"
+#~ "{puid}</code> and the track {track} by {artist}?"
+#~ msgstr ""
+#~ "Wollen Sie die Beziehung zwischen der PUID <code>{puid}</code> und dem "
+#~ "Titel {track} von {artist} wirklich auflösen?"
+
+#, fuzzy
+#~ msgid "Are you sure you want to remove the release {release}?"
+#~ msgstr "Wollen Sie den Titel {track} wirklich löschen?"
+
+#~ msgid "Are you sure you want to remove the track {track}?"
+#~ msgstr "Wollen Sie den Titel {track} wirklich löschen?"
+
+#~ msgid ""
+#~ "Are you sure you want to remove the {type1}-to-{type22} relationship from "
+#~ "{source} to {dest}?"
+#~ msgstr ""
+#~ "Wollen Sie die {type1}-zu-{type22}-Beziehung von {source} zu {dest} "
+#~ "wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Artist Credits"
+#~ msgstr "Künstler Details"
+
+#~ msgid ""
+#~ "As you are are an auto-editor, you may propose a new candidate by elected "
+#~ "to become an auto-editor."
+#~ msgstr ""
+#~ "Da Sie ein Auto-Editor sind, können Sie neue Kandidaten für die Auto-"
+#~ "Editor-Wahl vorschlagen."
+
+#~ msgid "Attributes"
+#~ msgstr "Attribute"
+
+#~ msgid "Auto-Editor Elections"
+#~ msgstr "Auto-Editor-Wahlen"
+
+#~ msgid "Barcode"
+#~ msgstr "Strichcode"
+
+#~ msgid "Begin date"
+#~ msgstr "Anfangsdatum"
+
+#~ msgid "Bio"
+#~ msgstr "Über mich"
+
+#~ msgid ""
+#~ "Blank tracks will be ignored.  Leave empty the fields that you do not "
+#~ "need."
+#~ msgstr ""
+#~ "Leere Titel werden ignoriert. Lassen sie die Felder, welche Sie nicht "
+#~ "benötigen, frei."
+
+#~ msgid "Candidate"
+#~ msgstr "Kandidat"
+
+#~ msgid "Catalog Number"
+#~ msgstr "Katalognummer"
+
+#~ msgid "Change Data Quality"
+#~ msgstr "Datenqualität ändern"
+
+#~ msgid "Check Duplicates"
+#~ msgstr "Duplikate überprüfen"
+
+#~ msgid "Co"
+#~ msgstr "Co"
+
+#~ msgid "Co-[role]"
+#~ msgstr "Co-[rolle]"
+
+#, fuzzy
+#~ msgid "Confirm Add Release"
+#~ msgstr "Veröffentlichung hinzufügen"
+
+#~ msgid "Confirm Artist"
+#~ msgstr "Artist bestätigen"
+
+#~ msgid "Confirm Artist Alias Removal"
+#~ msgstr "Löschen des Artist-Alias bestätigen"
+
+#~ msgid "Confirm Label"
+#~ msgstr "Label bestätigen"
+
+#, fuzzy
+#~ msgid "Confirm Removal"
+#~ msgstr "Label bestätigen"
+
+#~ msgid "Contact"
+#~ msgstr "Kontakt"
+
+#~ msgid "Continue"
+#~ msgstr "Weiter"
+
+#~ msgid "Create Relationship:"
+#~ msgstr "Beziehung erstellen:"
+
+#~ msgid "Create Releationship"
+#~ msgstr "Beziehung erstellen"
+
+#~ msgid "Create label"
+#~ msgstr "Label erstellen"
+
+#~ msgid "Current Status"
+#~ msgstr "Aktueller Status"
+
+#, fuzzy
+#~ msgid "Data Quality setting"
+#~ msgstr "Datenqualität ändern"
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid "Details / Link"
+#~ msgstr "Details / Link"
+
+#~ msgid "Direct Import"
+#~ msgstr "Direkter Import"
+
+#, fuzzy
+#~ msgid "Edit <abbr title=\"Uniform Resource Locator\">URL</abbr>"
+#~ msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr>"
+
+#, fuzzy
+#~ msgid "Edit Release Attributes"
+#~ msgstr "Dieses Label bearbeiten"
+
+#~ msgid "Editor"
+#~ msgstr "Editor"
+
+#~ msgid "Editor Name"
+#~ msgstr "Name des Editors"
+
+#~ msgid "Editor Statistics"
+#~ msgstr "Editor Statistiken"
+
+#~ msgid "Email"
+#~ msgstr "E-Mail-Adresse"
+
+#~ msgid "Enable AutoEditor priviliges"
+#~ msgstr "AutoEditor-Rechte aktivieren"
+
+#~ msgid "End Date"
+#~ msgstr "Enddatum"
+
+#~ msgid "End date"
+#~ msgstr "Enddatum"
+
+#, fuzzy
+#~ msgid "Enter the release"
+#~ msgstr "Dieses Label bearbeiten"
+
+#, fuzzy
+#~ msgid "Executive"
+#~ msgstr "Aktiv:"
+
+#, fuzzy
+#~ msgid "FreeDB Search"
+#~ msgstr "Direkte Suche"
+
+#~ msgid "Important:"
+#~ msgstr "Wichtig:"
+
+#~ msgid "Info:"
+#~ msgstr "Information:"
+
+#, fuzzy
+#~ msgid "Move Release"
+#~ msgstr "Veröffentlichungen"
+
+#, fuzzy
+#~ msgid "My account"
+#~ msgstr "Benutzerkonto"
+
+#~ msgid ""
+#~ "Please enter the titles of the tracks you wish to add as {nonalbum_doc|"
+#~ "non-album tracks}."
+#~ msgstr ""
+#~ "Bitte geben Sie die Titel der Stücke, welche Sie einfügen möchten als "
+#~ "{nonalbum_doc|non-album tracks} ein."
+
+#, fuzzy
+#~ msgid "Propose a Candidate"
+#~ msgstr "Kandidat"
+
+#, fuzzy
+#~ msgid "Relationship"
+#~ msgstr "Beziehung hinzufügen"
+
+#, fuzzy
+#~ msgid "Relationship Timespan"
+#~ msgstr "Beziehung hinzufügen"
+
+#, fuzzy
+#~ msgid "Release Attributes"
+#~ msgstr "Attribute"
+
+#, fuzzy
+#~ msgid "Release Events"
+#~ msgstr "Veröffentlichungen"
+
+#, fuzzy
+#~ msgid "Release Information"
+#~ msgstr "Informationen zum Künstler"
+
+#, fuzzy
+#~ msgid "Release Status:"
+#~ msgstr "Alias:"
+
+#, fuzzy
+#~ msgid "Release Type:"
+#~ msgstr "Alias:"
+
+#, fuzzy
+#~ msgid "Remove Artist Alias"
+#~ msgstr "Künstler-Alias hinzufügen"
+
+#, fuzzy
+#~ msgid "Remove Relationship"
+#~ msgstr "Beziehung löschen"
+
+#~ msgid "Similar Artists"
+#~ msgstr "Ähnliche Künstler"
+
+#, fuzzy
+#~ msgid "Single Artist or Various Artists?"
+#~ msgstr "Diverse Interpreten"
+
+#~ msgid "Start Date"
+#~ msgstr "Anfangsdatum"
+
+#, fuzzy
+#~ msgid "Tags: "
+#~ msgstr "Schlagworte"
+
+#, fuzzy
+#~ msgid ""
+#~ "This <abbr title=\"Uniform Resource Locator\">URL</abbr> has no "
+#~ "description."
+#~ msgstr "<abbr title=\"Uniform Resource Locator\">URL</abbr> Information"
+
+#, fuzzy
+#~ msgid "Track Duration"
+#~ msgstr "Länge"
+
+#, fuzzy
+#~ msgid "Track Number"
+#~ msgstr "Katalognummer"
+
+#, fuzzy
+#~ msgid "Track count"
+#~ msgstr "Benutzerkonto"
+
+#~ msgid "Various Artists"
+#~ msgstr "Diverse Interpreten"
+
+#~ msgid ""
+#~ "You are <strong>strongly encouraged</strong> to include the length of the "
+#~ "track, rather than leaving that field blank."
+#~ msgstr ""
+#~ "Es wird <strong>dringend empfohlen</strong> die Länge eines Stückes "
+#~ "anzugeben, statt das zugehörige Feld leer zu lassen."
+
+#, fuzzy
+#~ msgid "Your Subscriptions"
+#~ msgstr "Künstler Abonnements"
+
+#, fuzzy
+#~ msgid "{dq} data quality"
+#~ msgstr "Datenqualität ändern"
 
 #~ msgid "({url|remove})"
 #~ msgstr "({url|entfernen})"

@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use Locale::PO;
-use feature 'say';
 use Data::Dumper;
 use Template::Parser;
 
@@ -40,7 +39,7 @@ sub get_translations {
         if (ref $item eq q{} && $item eq 'TEXT') {
             shift @$data;
             next;
-        } 
+        }
         if ((ref $item) eq 'ARRAY') {
             # remove two first items = source and line numbers
             # TODO: Evaluate line numbers too
@@ -83,7 +82,7 @@ sub parse_file {
     my ($file) = @_;
 
     my $string = q{};
-    open FILE, $file or die "Couldn't open file: $!"; 
+    open FILE, $file or die "Couldn't open file: $!";
     while (<FILE>){
         $string .= $_;
     }
