@@ -102,7 +102,7 @@ has [qw( registration_date last_login_date email_confirmation_date )] => (
 sub is_charter
 {
     my $self = shift;
-    return !($self->registration_date);
+    return !($self->registration_date) || ($self->registration_date->year == 1970);
 }
 
 sub is_newbie
