@@ -59,7 +59,7 @@
                 [% l('The Dawn of the Project') %]
             [% ELSIF user.is_special %]
                 [% l('N/A') %]
-            [% ELSIF user.charter %]
+            [% ELSIF user.is_charter %]
                 [% l('Charter Member') %]
             [% ELSE %]
                 [% UserDate.format(user.registration_date) %]
