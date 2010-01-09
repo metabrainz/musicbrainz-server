@@ -47,5 +47,5 @@
     [%- END -%]
     </ul>
 [%- ELSE -%]
-    [% l('{link} has no relationships.', { link => entity_link(source) }) -%]
+    [% l('{link} has no relationships.', { link => link_entity(source) }) -%]
 [%- END -%]

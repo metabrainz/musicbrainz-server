@@ -604,71 +604,6 @@ sub contact : Chained('base') RequireAuth
     }
 }
 
-=head2 subscriptions
-
-View all subscriptions
-
-=cut
-
-sub subscriptions : Local
-{
-    my ($self, $c, $user, $type) = @_;
-    $c->forward('/user/login');
-
-    $user ||= $c->user->name;
-    $c->stash->{user} = $user =
-        $c->model('User')->load({ username => $user })
-        or $c->detach('/error_404');
-
-    my $viewing_own;
-    if ($user->name eq $c->user->name)
-    {
-        $viewing_own = $c->stash->{viewing_own} = 1;
-    }
-
-    $type ||= 'artist';
-
-    my $page = $c->req->query_params->{page} || 1;
-    my ($entities, $pager) = $c->model('Subscription')->users_subscribed_entities($user, $type, $page);
-
-    $c->stash->{type}     = $type;
-    $c->stash->{entities} = $entities;
-    $c->stash->{pager}    = $pager;
-
-    $c->stash->{artist_count} = $c->model('Subscription')->user_artist_count($user);
-    $c->stash->{label_count } = $c->model('Subscription')->user_label_count($user);
-    $c->stash->{editor_count} = $c->model('Subscription')->user_editor_count($user);
-
-    return unless ($viewing_own && $c->form_posted);
-
-    # Make sure we have a list of IDs
-    my $ids = $c->req->params->{id};
-    $ids    = ref $ids ? $ids : [ $ids ];
-
-    my @entities = map
-        {
-            my $class = "MusicBrainz::Server::" . ucfirst($type);
-            my $obj = $class->new($c->mb->{dbh});
-            $obj->id($_);
-
-            $obj;
-        } @$ids;
-
-    use Switch;
-    switch($type)
-    {
-        case ('artist') {
-            $c->model('Subscription')->unsubscribe_from_artists($c->user, [ @entities ]);
-        }
-
-        case ('label') {
-            $c->model('Subscription')->unsubscribe_from_labels($c->user, [ @entities ]);
-        }
-    }
-
-    $c->response->redirect($c->req->uri);
-}
-
 =head2 preferences
 
 Change the users preferences
@@ -698,26 +633,6 @@ sub preferences : Path('/account/preferences') RequireAuth
         $c->response->redirect($c->uri_for_action('/user/preferences', { ok => 1 }));
         $c->detach;
     }
-}
-
-=head2 donate
-
-Check the status of donations and ask for one.
-
-=cut
-
-sub donate : Local
-{
-    my ($self, $c) = @_;
-
-    $c->forward('login');
-
-    my $user = $c->user;
-    my @donateinfo = MusicBrainz::Server::Editor::NagCheck($user);
-
-    $c->stash->{nag} = $donateinfo[0];
-    $c->stash->{days} = int($donateinfo[1]);
-    $c->stash->{template} = 'user/donate.tt';
 }
 
 1;

@@ -1,4 +1,0 @@
-<textarea name="[% name %]" id="[% id %]"
-        [% IF cols %]cols="[% cols %]"[% END %]
-        [% IF rows %]rows="[% rows %]"[% END %]
-        [% extra_attributes %]>[% value %]</textarea>

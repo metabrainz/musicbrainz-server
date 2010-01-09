@@ -12,7 +12,7 @@
                 [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
                 <ul>
                     [% FOREACH dupe=dupes %]
-                    <li>[% entity_link(dupe) %]</li>
+                    <li>[% link_label(dupe) %]</li>
                     [% END %]
                 </ul>
             </p>

@@ -7,5 +7,5 @@
     [%- END -%]
     </ul>
 [%- ELSE -%]
-    [% l('{link} has no ratings.', { link => entity_link(source) }) -%]
+    [% l('{link} has no ratings.', { link => link_entity(source) }) -%]
 [%- END -%]

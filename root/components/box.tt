@@ -1,24 +1,2 @@
-[%#- The box component is used to section of blocks of text and give them a specific header. By using the box component,
-     you will also produce a box with a style that is consistent with the rest of the MusicBrainz website.
-
-     You can specify the following variables:
-
-     - color (optional): This can be either 'orange' or 'purple' - and will change the colour of the boxes header.
-                         Defaults to 'orange'
-     - header: The header of the box
--%]
-[%- DEFAULT
-    color = 'orange'
--%]
-<div 
-    [%- IF id -%]
-        id="[%- id -%]"
-    [%- END -%]
-    class="box [% color %]">
-    <h2>
-        [% header %]
-    </h2>
-    <div class="content">
-        [% content %]
-    </div>
-</div>
+<h2>[% header %]</h2>
+[% content %]

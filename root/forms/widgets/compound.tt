@@ -1,3 +1,0 @@
-[%- FOREACH sub_field IN field.sub_form.sorted_fields -%]
-    [%- INCLUDE 'forms/input.tt' field=sub_field type=sub_field.widget class=sub_field.style value=(sub_field.input || sub_field.value) %]
-[%- END -%]

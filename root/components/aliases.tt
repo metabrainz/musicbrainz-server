@@ -16,7 +16,7 @@
                         <td style="width: 10em">
                             <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
                               [% l('Delete') %]
-                            </a> | 
+                            </a> |
                             <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">
                               [% l('Edit') %]
                             </a>
@@ -28,7 +28,7 @@
         </table>
     [%- ELSE -%]
         <p>
-            [%- l('{entity} has no aliases.', {entity => entity_link(entity)}) -%]
+            [%- l('{entity} has no aliases.', {entity => link_entity(entity)}) -%]
         </p>
     [%- END -%]
     [% IF c.user_exists %]
