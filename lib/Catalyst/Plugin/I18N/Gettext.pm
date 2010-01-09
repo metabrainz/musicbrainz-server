@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use DBDefs;
+use Encode;
 
 use I18N::LangTags ();
 use I18N::LangTags::Detect;
@@ -60,8 +61,10 @@ sub __expand
 {
     my ($translation, %args) = @_;
 
+    $translation = decode('utf-8', $translation);
+
     my $re = join '|', map { quotemeta $_ } keys %args;
-    
+
     $translation =~ s/\{($re)\|(.*?)\}/defined $args{$1} ? "<a href=\"" . $args{$1} . "\">" . (defined $args{$2} ? $args{$2} : $2) . "<\/a>" : "{$0}"/ge;
     $translation =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
 
