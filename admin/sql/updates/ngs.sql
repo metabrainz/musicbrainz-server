@@ -348,7 +348,7 @@ INSERT INTO editor (id, name, password, privs, email, website, bio,
         emailconfirmdate, lastlogindate, modsaccepted, modsrejected,
         automodsaccepted, modsfailed,
         CASE
-            WHEN membersince = epoch  '2000-01-01' THEN NULL
+            WHEN membersince < '2000-01-01' THEN NULL
             ELSE membersince
         END
         FROM public.moderator;
