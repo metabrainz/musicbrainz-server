@@ -5,7 +5,10 @@ extends 'HTML::FormHandler::Field::Compound';
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 
-has_field 'names'=> ( type => 'Repeatable' );
+has_field 'names'=> (
+    type => 'Repeatable',
+    num_when_empty => 0
+);
 
 has_field 'names.name' => (
     type => 'Text',

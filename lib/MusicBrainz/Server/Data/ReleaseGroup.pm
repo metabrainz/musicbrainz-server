@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
     defined_hash
+    check_in_use
     generate_gid
     load_subobjects
     partial_date_from_row

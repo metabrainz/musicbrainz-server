@@ -62,6 +62,7 @@ Readonly our $EDIT_LABEL_ADD_ALIAS => 16;
 Readonly our $EDIT_LABEL_DELETE_ALIAS => 17;
 Readonly our $EDIT_LABEL_EDIT_ALIAS => 18;
 
+Readonly our $EDIT_RELEASEGROUP_CREATE => 20;
 Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
 Readonly our $EDIT_RELEASEGROUP_MERGE => 24;
 Readonly our $EDIT_RELEASEGROUP_EDIT => 21;

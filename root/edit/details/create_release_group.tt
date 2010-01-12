@@ -1,0 +1,25 @@
+<table class="details">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.display_data.name %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td>[% artist_credit(edit.display_data.artist_credit) %]</td>
+  </tr>
+
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Comment:') %]</td>
+    <td>[% edit.display_data.comment %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.type %]
+  <tr>
+    <th>[% l('Type:') %]</td>
+    <td>[% edit.display_data.type.name %]</td>
+  </tr>
+  [% END %]
+</table>

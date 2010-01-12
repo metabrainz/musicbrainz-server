@@ -175,15 +175,12 @@
         var buttons = $(MB.html.div({ 'class': 'buttons' }))
             .append(cancel).append('&nbsp;').append(done).appendTo(dialog.dialog);
 
-        done.click(function() {
-            dialog.hide();
-            savedCredits = [];
-
-            creditContainer.empty();
+        function updateSavedCredits() {
             $.each(credits, function(i) {
                 var credit = this;
                 if (credit.remove.is(':checked')) {
                     credit.row.remove();
+                    return;
                 }
 
                 $.each(fieldMapping, function(name, accessor) {
@@ -198,6 +195,14 @@
             savedCredits = credits = $.grep(credits, function(credit) {
                 return !credit.remove.is(':checked');
             });
+        }
+
+        done.click(function() {
+            dialog.hide();
+            savedCredits = [];
+
+            creditContainer.empty();
+            updateSavedCredits();
 
             self.textDisplay.html(createTextRepresentation());
             currentEditor = undefined;
@@ -252,6 +257,19 @@
             .html(createTextRepresentation());
         $('input', editorBody[0])
             .live('keyup', updateLivePreview);
+
+        // If we start with no artist credits, show a text box to add an artist
+        if (credits.length === 0) {
+            var startingArtist = new MB.Control.EntityLookup('artist', {
+                selection: function(result) {
+                    startingArtist.query.remove();
+                    self.appendArtist(result);
+                    updateSavedCredits();
+                    self.textDisplay.html(createTextRepresentation());
+                }
+            });
+            self.textDisplay.after(startingArtist.query);
+        }
 
         function updateLivePreview() {
             livePreview.html(createTextRepresentation());

@@ -2,7 +2,12 @@ package MusicBrainz::Server::Controller::ReleaseGroup;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE $EDIT_RELEASEGROUP_EDIT $EDIT_RELEASEGROUP_MERGE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASEGROUP_DELETE
+    $EDIT_RELEASEGROUP_EDIT
+    $EDIT_RELEASEGROUP_MERGE
+    $EDIT_RELEASEGROUP_CREATE
+);
 use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Annotation';
@@ -11,6 +16,9 @@ with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
 with 'MusicBrainz::Server::Controller::TagRole';
 with 'MusicBrainz::Server::Controller::EditListingRole';
+
+use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
 __PACKAGE__->config(
     model       => 'ReleaseGroup',
@@ -69,6 +77,36 @@ sub delete : Chained('load') PathPart RequireAuth
             }
         );
     }
+}
+
+sub create : Path('/release-group/create') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $rg = MusicBrainz::Server::Entity::ReleaseGroup->new;
+    my $artist_gid = $c->req->query_params->{artist};
+    if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
+        $rg->artist_credit(
+            ArtistCredit->new(
+                names => [
+                    ArtistCreditName->new(
+                        artist_id => $artist->id,
+                        name => $artist->name,
+                    )
+                ]
+            )
+        );
+    }
+
+    $self->edit_action($c,
+        form => 'ReleaseGroup',
+        type => $EDIT_RELEASEGROUP_CREATE,
+        item => $rg,
+        on_creation => sub {
+            my $edit = shift;
+            $c->response->redirect(
+                $c->uri_for_action('/release_group/show', [ $edit->release_group->gid ]));
+        }
+    );
 }
 
 sub edit : Chained('load') PathPart RequireAuth
