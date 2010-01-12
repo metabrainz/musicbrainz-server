@@ -81,7 +81,7 @@
               </tbody>
             </table>
 
-            <table id="new-medium" class="tbl medium" style="display: none">           
+            <table id="new-medium" class="tbl medium" style="display: none">
                 <thead>
                     <tr class="subh">
                         <th class="medium-position">
@@ -126,8 +126,7 @@
             </fieldset>
 
             [%- INCLUDE 'forms/edit-note.tt' -%]
-            [%- INCLUDE 'forms/auto-editor.tt' -%]
-            [% form_submit(l('Edit')) %]
+            [% enter_edit() %]
         </div>
     </form>
 [%- END -%]

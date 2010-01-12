@@ -21,6 +21,7 @@ has_field 'comment' => (
 
 has_field 'artist_credit' => (
     type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
+    required => 1
 );
 
 sub options_type_id { shift->_select_all('ReleaseGroupType') }

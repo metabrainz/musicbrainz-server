@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' title=l('Add a New Artist') -%]
+[%- WRAPPER 'layout.tt' title=l('Add a New Artist') full_width=1 -%]
     [%- WRAPPER 'components/box.tt' header=l('Add a New Artist') -%]
         [%- INCLUDE 'artist/edit_form.tt' new=1 -%]
     [%- END -%]

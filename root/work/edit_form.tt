@@ -1,28 +1,11 @@
 <form action="[% c.req.uri %]" method="post">
     [% USE r = FormRenderer(form) %]
-    [% form.errors.join(" ") %]
-    <div class="row" id="artist">
-      [% r.label('artist_credit', l('Artist:'), fake => 1) %]
-      [% r.artist_credit_editor('artist_credit') %]
-    </div>
-    
-    <p>
-        [% r.label('name', l('Name:')) %]
-        [% r.text('name') %]
-    </p>
-    <p>
-        [% r.label('comment', l('Comment:')) %]
-        [% r.text('comment') %]
-    </p>
-    <p>
-        [% r.label('iswc', l('ISWC:')) %]
-        [% r.text('iswc') %]
-    </p>
-    <p>
-        [% r.label('type_id', l('Type:')) %]
-        [% r.select('type_id') %]
-    </p>
+    [% form_row_artist_credit(r, 'artist_credit', l('Artist:')) %]
+    [% form_row_text(r, 'name', l('Name:')) %]
+    [% form_row_text(r, 'comment', l('Comment:')) %]
+    [% form_row_text(r, 'iswc', l('ISWC:')) %]
+    [% form_row_select(r, 'type_id', l('Type:')) %]
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
-    [%- INCLUDE 'forms/auto-editor.tt' -%]
-    [% form_submit(l('Enter Edit')) %]
+    [% enter_edit() %]
 </form>

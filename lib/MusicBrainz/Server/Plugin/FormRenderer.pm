@@ -40,11 +40,13 @@ sub _render_input
 {
     my ($self, $field, $type, %attrs) = @_;
     return unless ref $field;
+    my $class = delete $attrs{class} || '';
     return $self->h->input({
             type => $type,
             id => "id-" . $field->html_name,
             value => $field->fif,
             name => $field->html_name,
+            class => $class . ($field->has_errors ? ' error' : ''),
             %attrs
         });
 }

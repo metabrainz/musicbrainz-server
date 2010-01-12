@@ -1,10 +1,7 @@
 <form action="[% c.req.uri %]" method="post">
     [% USE r = FormRenderer(form) %]
-    <p>
-        [% r.label('name', l('Alias name:')) %]
-        [% r.text('name') %]
-    </p>
+    [% form_row_text(r, 'name', l('Alias name:')) %]
+
     [% INCLUDE 'forms/edit-note.tt' %]
-    [% INCLUDE 'forms/auto-editor.tt' %]
-    [% form_submit(l('Enter edit')) %]
+    [% enter_edit() %]
 </form>

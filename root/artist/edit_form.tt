@@ -19,7 +19,7 @@
             [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
             <ul>
                 [% FOREACH dupe=form.duplicates %]
-                <li>[% link_artist(dupe) %]</li>
+                <li>[% link_artist(dupe) %] [% disambiguation(dupe) %]</li>
                 [% END %]
             </ul>
         </p>
@@ -38,51 +38,22 @@
 
     <fieldset>
         <legend>[% l('Artist Details') %]</legend>
-        <p>
-            [% r.label('name', l('Name:')) %]
-            [% r.text('name') %]
-        </p>
-        <p>
-            [% r.label('sort_name', l('Sort name:')) %]
-            [% r.text('sort_name') %]
-        </p>
-        <p>
-            [% r.label('comment', l('Comment:')) %]
-            [% r.text('comment') %]
-        </p>
-        <p>
-            [% r.label('type_id', l('Type:')) %]
-            [% r.select('type_id') %]
-        </p>
-        <p>
-            [% r.label('gender_id', l('Gender:')) %]
-            [% r.select('gender_id') %]
-        </p>
-        <p>
-            [% r.label('country_id', l('Country:')) %]
-            [% r.select('country_id') %]
-        </p>
+        [% form_row_text(r, 'name', l('Name:')) %]
+        [% form_row_text(r, 'sort_name', l('Sort name:')) %]
+        [% form_row_text(r, 'comment', l('Comment:')) %]
+        [% form_row_select(r, 'type_id', l('Type:')) %]
+        [% form_row_select(r, 'gender_id', l('Gender:')) %]
+        [% form_row_select(r, 'country_id', l('Country:')) %]
     </fieldset>
     <fieldset>
         <legend>[% l('Date Period') %]</legend>
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
-        <div class="row">
-            [% r.label('begin_date', l('Begin Date:'), fake => 1) %]
-            [% r.date('begin_date') %]
-        </div>
-        <div class="row">
-            [% r.label('end_date', l('End Date:'), fake => 1) %]
-            [% r.date('end_date') %]
-        </div>
+        [% form_row_date(r, 'begin_date', l('Begin date:')) %]
+        [% form_row_date(r, 'end_date', l('Begin date:')) %]
     </fieldset>
     [% INCLUDE 'forms/edit-note.tt' %]
-    [% INCLUDE 'forms/auto-editor.tt' %]
 
-    [% IF new %]
-        [% form_submit(l('Create Artist')) %]
-    [% ELSE %]
-        [% form_submit(l('Edit Artist')) %]
-    [% END %]
+    [% enter_edit() %]
 </form>

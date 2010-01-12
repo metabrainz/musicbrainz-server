@@ -10,12 +10,12 @@ fieldset legend {
     padding: 0 0.5em;
 }
 
-form div.row,
-form p {
+form div.row {
     clear: left;
+    margin-bottom: 1em;
 }
 
-form p label,
+form div.row label,
 form div.row div.label {
     float: left;
     text-align: right;
@@ -27,13 +27,44 @@ form div.row p { float: none; clear: none; }
 
 form div.no-label,
 ul.radio-list,
-form p.no-label {
+form p.no-label,
+form ul.errors {
     margin-left: 11em;
+}
+
+form ul.errors {
+    margin-top: 0.3em;
+    padding-left: 1em;
+}
+
+form ul.errors li {
+    color: #ff2222;
+    list-style-type: none;
+}
+
+input.error,
+select.error {
+    background: #ffaaaa;
+}
+
+div.enter-edit .auto-editor {
+    float: left;
+    padding-top: 5pt;
+}
+
+div.enter-edit input.submit {
+    font-size: 18pt;
+    float: right;
 }
 
 ul.radio-list {
     list-style-type: none;
     padding: 0;
+}
+
+label.required,
+div.required {
+    font-weight: bold;
 }
 
 textarea {

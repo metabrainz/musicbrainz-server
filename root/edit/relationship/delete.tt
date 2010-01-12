@@ -12,8 +12,7 @@
     <form action="[% c.req.uri | html %]" method="post">
         [%- USE r = FormRenderer(form) -%]
         [%- INCLUDE 'forms/edit-note.tt' -%]
-        [%- INCLUDE 'forms/auto-editor.tt' -%]
-        [%- form_submit(l('Delete')) -%]
+        [% enter_edit() %]
     </form>
 
 [%- END -%]

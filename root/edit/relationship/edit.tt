@@ -40,7 +40,7 @@ var typeInfo = [% type_info %];
         <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
         <td colspan="2">
             [% r.select('link_type_id') %]
-            [% form_field_errors(form, 'link_type_id') %]
+            [% field_errors(form, 'link_type_id') %]
             <div class="ar-descr" id="type_descr"></div>
         </td>
     </tr>
@@ -57,7 +57,10 @@ var typeInfo = [% type_info %];
             [% IF field.type == 'Repeatable' %]
                 <div class="selects">
                 [% FOR subfield IN field.fields %]
-                <div>[% r.select(subfield) %]</div>
+                <div>
+                  [% r.select(subfield) %]
+                  [% field_errors(form, subfield) %]
+                </div>
                 [% END %]
                 </div>
                 <div class="ar-descr">[% attr.description %]</div>
@@ -65,7 +68,7 @@ var typeInfo = [% type_info %];
                 [% r.checkbox(field) %] [% attr.name %]
                 <div class="ar-descr">[% attr.description %]</div>
             [% END %]
-            [% form_field_errors(form, field) %]
+            [% field_errors(form, field) %]
             </div>
         [% END %]
         </td>
@@ -73,21 +76,19 @@ var typeInfo = [% type_info %];
     <tr>
         <td class="label">[% r.label('begin_date', l('Begin date:')) %]</td>
         <td colspan="2">[% r.date('begin_date') %]
-        [% form_field_errors(form, 'begin_date') %]</td>
+        [% field_errors(form, 'begin_date') %]</td>
     </tr>
     <tr>
         <td class="label">[% r.label('end_date', l('End date:')) %]</td>
         <td colspan="2">[% r.date('end_date') %]
-        [% form_field_errors(form, 'end_date') %]</td>
+        [% field_errors(form, 'end_date') %]</td>
     </tr>
 </table>
 
 </fieldset>
 
 [% INCLUDE 'forms/edit-note.tt' %]
-[%- INCLUDE 'forms/auto-editor.tt' -%]
-
-[% form_submit(l('Enter edit')) %]
+[% enter_edit() %]
 
 </form>
 
