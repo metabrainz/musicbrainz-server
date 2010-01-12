@@ -19,7 +19,7 @@ sub has_age
 {
     my ($self) = @_;
 
-    return (!$self->begin_date->is_empty);
+    return (!$self->begin_date->is_empty) && ($self->begin_date <= $self->end_date);
 }
 
 sub age
