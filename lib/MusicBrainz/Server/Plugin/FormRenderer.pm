@@ -152,7 +152,7 @@ sub checkbox
     my $field = $self->_lookup_field($field_name) or return;
     return $self->_render_input($field, 'checkbox',
         checked => $field->value ? "checked" : undef,
-        value => $field->value,
+        value => $field->checkbox_value,
         %$attrs
     );
 }
