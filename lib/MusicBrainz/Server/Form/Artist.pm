@@ -71,7 +71,7 @@ sub validate
     # Don't check for dupes if the not_dupe checkbox is ticked, or the
     # user hasn't changed the artist's name
     return if $self->field('not_dupe')->value;
-    return if $self->item && $self->item->name eq $self->field('name')->value;
+    return if $self->init_object && $self->init_object->name eq $self->field('name')->value;
 
     $self->duplicates([ $self->ctx->model('Artist')->find_by_name($self->field('name')->value) ]);
 
