@@ -220,11 +220,11 @@ INSERT INTO
     editor ( id, name, password, privs, email, website, bio,
              emailconfirmdate, membersince, lastlogindate, editsaccepted, editsrejected,
              autoeditsaccepted, editsfailed)
-    VALUES ( 1, 'new_editor', 'password', 1, 'test@editor.org', 'http://musicbrainz.org',
+    VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
              'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
 
 INSERT INTO editor_preference (editor, name, value) VALUES (1, 'public_ratings', '0');
-             
+
 TRUNCATE artist_alias CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (8, 'Test Alias');
