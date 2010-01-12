@@ -58,22 +58,16 @@ sub edit : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
     my $url = $c->stash->{url};
-    my $form = $c->form(form => 'URL', item => $url);
-    warn $form->errors;
-    
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        my $edit = $c->model('Edit')->create(
-            edit_type => $EDIT_URL_EDIT,
-            editor_id => $c->user->id,
-            url_entity => $url,
-            map { $_ => $form->field($_)->value }
-                grep { $form->field($_)->has_input }
-                    qw( url description )
-        );
-
-        $c->response->redirect($c->uri_for_action('/url/show', [ $url->gid ]));
-    }
+    $self->edit_action($c,
+        form => 'URL',
+        item => $url,
+        type => $EDIT_URL_EDIT,
+        edit_args => { url_entity => $url },
+        on_creation => sub {
+            $c->response->redirect(
+                $c->uri_for_action('/url/show', [ $url->gid ]));
+        }
+    );
 }
 
 =head1 LICENSE
