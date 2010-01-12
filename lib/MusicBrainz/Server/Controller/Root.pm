@@ -139,6 +139,8 @@ sub begin : Private
     {
         $c->session->{tport} = $c->req->query_params->{tport};
     }
+
+    $c->stash( staging_server => DBDefs::DB_STAGING_SERVER() );
 }
 
 =head2 end
