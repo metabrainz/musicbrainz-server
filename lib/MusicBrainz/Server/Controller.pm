@@ -71,6 +71,32 @@ sub submit_and_validate
     }
 }
 
+sub _insert_edit {
+    my ($self, $c, $form, %opts) = @_;
+
+    my $privs   = $c->user->privileges;
+    if ($c->user->is_auto_editor && !$form->field('as_auto_editor')->value) {
+        $privs &= ~$AUTO_EDITOR_FLAG;
+    }
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => $c->user->id,
+        privileges => $privs,
+        %opts
+    ) or die "Could not create edit";
+
+    if (defined $edit &&
+            $form->does('MusicBrainz::Server::Form::Edit') &&
+            $form->field('edit_note')->value) {
+        $c->model('EditNote')->add_note($edit->id, {
+            text      => $form->field('edit_note')->value,
+            editor_id => $c->user->id,
+        });
+    }
+
+    return $edit;
+}
+
 sub edit_action
 {
     my ($self, $c, %opts) = @_;
@@ -83,28 +109,12 @@ sub edit_action
     {
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
-        my $privs   = $c->user->privileges;
 
-        if ($c->user->is_auto_editor && !$form->field('as_auto_editor')->value) {
-            $privs &= ~$AUTO_EDITOR_FLAG;
-        }
-
-        my $edit = $c->model('Edit')->create(
+        my $edit = $self->_insert_edit($c, $form,
             edit_type => $opts{type},
-            editor_id => $c->user->id,
-            privileges => $privs,
             @options,
-            %extra,
-        ) or die "Could not create edit";
-
-        if (defined $edit &&
-                $form->does('MusicBrainz::Server::Form::Edit') &&
-                $form->field('edit_note')->value) {
-            $c->model('EditNote')->add_note($edit->id, {
-                text      => $form->field('edit_note')->value,
-                editor_id => $c->user->id,
-            })
-        }
+            %extra
+        );
 
         $opts{on_creation}->($edit) if exists $opts{on_creation};
     }

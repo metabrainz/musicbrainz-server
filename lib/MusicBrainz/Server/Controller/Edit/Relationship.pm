@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Edit::Relationship;
 use Moose;
 
-BEGIN { extends 'Catalyst::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
@@ -100,10 +100,8 @@ sub edit : Local RequireAuth
         }
 
         my $values = $form->values;
-        my $edit = $c->model('Edit')->create(
+        my $edit = $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_EDIT,
-            editor_id => $c->user->id,
-
             type0        => $type0,
             type1        => $type1,
             relationship => $rel,
@@ -138,9 +136,8 @@ sub delete : Local RequireAuth
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $values = $form->values;
 
-        my $edit = $c->model('Edit')->create(
+        my $edit = $self->_insert_edit($c, $form,
             edit_type    => $EDIT_RELATIONSHIP_DELETE,
-            editor_id    => $c->user->id,
 
             type0        => $type0,
             type1        => $type1,
