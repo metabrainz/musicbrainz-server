@@ -1,15 +1,10 @@
 [% WRAPPER 'layout.tt' title=l('Edit URL') full_width=1 %]
     <form action="[% c.req.uri %]" method="post">
       [% USE r = FormRenderer(form) %]
-      <p>
-        [% r.label('url', l('URL:')) %]
-        [% r.text('url') %]
-      </p>
-      <p>
-        [% r.label('description', l('Description:')) %]
-        [% r.text('description') %]
-      </p>
+      [% form_row_text(r, 'url', l('URL:')) %]
+      [% form_row_text(r, 'description', l('Description:')) %]
+
       [% INCLUDE 'forms/edit-note.tt' %]
-      [% form_submit(l('Enter edit')) %]
+      [% enter_edit() %]
     </form>
 [% END %]

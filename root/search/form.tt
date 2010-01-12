@@ -1,26 +1,5 @@
 <h2>[% l("Search") %]</h2>
-[%- USE search = FormRenderer(form) -%]
-<div class="searchform">
-    <form action="[% c.uri_for_action('/search/direct') %]" method="get">
-        <p>
-            [% search.label('query', l('Query:')) %]
-            [% search.text('query') %]
-        </p>
-        <p>
-            [% search.label('type', l('Type:')) %]
-            [% search.select('type') %]
-        </p>
-        <p class="no-label">
-            [% search.checkbox('advanced') %]
-            [% search.inline_label('advanced', l('Use advanced query syntax')) %]
-        </p>
-        <p class="no-label">
-            [% search.checkbox('direct') %]
-            [% search.inline_label('direct', l('Direct database search')) %]
-        </p>
-        [% form_submit(l('Search')) %]
-    </form>
-</div>
+
 <div class="searchinfo">
     <strong>
         [% l('Please Note:') %]
@@ -30,3 +9,19 @@
         [%- create_guideline(l('If you require up to the minute correct search, please use the direct database search')) %]
     [% END %]
 </div>
+
+[%- USE search = FormRenderer(form) -%]
+<div class="searchform">
+    <form action="[% c.uri_for_action('/search/direct') %]" method="get">
+        [% form_row_text(search, 'query', l('Query:')) %]
+        [% form_row_select(search, 'type', l('Type:')) %]
+        [% form_row_text(search, 'query', l('Query:')) %]
+        [% form_row_checkbox(search, 'advanced', l('Use advanced query syntax:')) %]
+        [% form_row_checkbox(search, 'direct', l('Direct database syntax:')) %]
+
+        <div class="row no-label">
+        [% form_submit(l('Search')) %]
+        </div>
+    </form>
+</div>
+

@@ -8,12 +8,11 @@
 MusicBrainz account information.') %]</p>
 
     <form action="[% c.req.uri %]" method="post">
-        <p>
-            [% r.label('email', l('Email:')) %]
-            [% r.text('email') %]
-            [% form_field_errors(form, 'email') %]
-        </p>
+        [% form_row_text(r, 'email', l('Email:')) %]
+
+        <div class="row no-label">
         [% form_submit(l('Send Email')) %]
+        </div>
     </form>
 
 [% END %]

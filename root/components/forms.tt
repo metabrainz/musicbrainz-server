@@ -55,6 +55,22 @@
     [% END %]
 [% END %]
 
+[% MACRO form_row_password(r, field_name, label) BLOCK %]
+    [% WRAPPER form_row %]
+      [% r.label(field_name, label) %]
+      [% r.password(field_name) %]
+      [% field_errors(form, field_name) %]
+    [% END %]
+[% END %]
+
+[% MACRO form_row_checkbox(r, field_name, label) BLOCK %]
+    <div class="row no-label">
+      [% r.checkbox(field_name) %]
+      [% r.label(field_name, label, inline => 1) %]
+      [% field_errors(form, field_name) %]
+    </div>
+[% END %]
+
 [% MACRO form_row_select(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label) %]

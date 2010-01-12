@@ -8,35 +8,21 @@
 
     <fieldset>
         <legend>[% l('Regional settings') %]</legend>
-        <p>
-            [% r.label('datetime_format', l('Date/time format:')) %]
-            [% r.select('datetime_format') %]
-        </p>
-        <p>
-            [% r.label('timezone', l('Timezone:')) %]
-            [% r.select('timezone') %]
-        </p>
+        [% form_row_select(r, 'datetime_format', l('Date/time format:')) %]
+        [% form_row_select(r, 'timezone', l('Timezone:')) %]
     </fieldset>
 
     <fieldset>
         <legend>[% l('Privacy') %]</legend>
-        <p>
-            [% r.checkbox('public_subscriptions') %]
-            [% l('Allow other users to see my subscriptions') %]
-            <br />
-            [% r.checkbox('public_tags') %]
-            [% l('Allow other users to see my tags') %]
-            <br />
-            [% r.checkbox('public_ratings') %]
-            [% l('Allow other users to see my ratings') %]
-            <br />
-            [% r.checkbox('public_collection') %]
-            [% l('Allow other users to see my release collection') %]
-        </p>
+        [% form_row_checkbox(r, 'public_subscriptions', l('Allow other users to see my subscriptions')) %]
+        [% form_row_checkbox(r, 'public_tags', l('Allow other users to see my tags')) %]
+        [% form_row_checkbox(r, 'public_ratings', l('Allow other users to see my ratings')) %]
+        [% form_row_checkbox(r, 'public_collection', l('Allow other users to see my release collection')) %]
     </fieldset>
 
+    <div class="no-label row">
     [% form_submit(l('Save')) %]
-
+    </div>
 </form>
 
 [% END %]

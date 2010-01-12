@@ -19,15 +19,12 @@ the browser cache.', { server => server_details.staging_server }) %]
         [% IF login_form.has_errors || bad_login -%]
             <p><strong>[% l('Incorrect username or password') %]</strong></p>
         [%- END %]
-        <p>
-            [% r.label('username', l('Username:')) %]
-            [% r.text('username') %]
-        </p>
-        <p>
-            [% r.label('password', l('Password:')) %]
-            [% r.password('password') %]
-        </p>
+        [% form_row_text(r, 'username', l('Username:')) %]
+        [% form_row_password(r, 'password', l('Password:')) %]
+
+        <div class="label no-label">
         [% form_submit(l('Log in')) %]
+        </div>
     </form>
     <ul>
         <li>

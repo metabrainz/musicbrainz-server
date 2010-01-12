@@ -5,9 +5,6 @@
 
     [% USE r = FormRenderer(form) %]
     [% r.textarea('text', style => 'width: 95%; height: 40em') %]
-    <p>
-        [% r.label('changelog', l('Change log:')) %]
-        [% r.text('changelog', style => 'width: 80%') %]
-    </p>
-    [% form_submit(l('Add annotation')) %]
+    [% form_row_text(r, 'changelog', l('Change log:')) %]
+    [% enter_edit() %]
 </form>

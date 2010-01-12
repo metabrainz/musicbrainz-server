@@ -1,29 +1,25 @@
-[%- WRAPPER 'layout.tt' title=l("Send Email") full_width=1 -%]
+=[%- WRAPPER 'layout.tt' title=l("Send Email") full_width=1 -%]
 
     <h1>[% l('Send Email') %]</h1>
 
     [%- USE r = FormRenderer(form) -%]
 
     <form action="[% c.req.uri %]" method="post">
-        <p>
-            [% r.label('subject', l('Subject:')) %]
-            [% r.text('subject') %]
-            [% form_field_errors(form, 'subject') %]
-        </p>
-        <p>
+        [% form_row_text(r, 'subject', l('Subject:')) %]
+        [% form_row_text(r, 'subject', l('Subject:')) %]
+
+        [% WRAPPER form_row %]
             [% r.label('body', l('Message:')) %]
             [% r.textarea('body', { cols => 50, rows => 5 }) %]
             [% form_field_errors(form, 'body') %]
-        </p>
-        <p class="no-label">
-            [% r.checkbox('reveal_address') %]
-            [% l('Reveal my email address') %]
-        </p>
-        <p class="no-label">
-            [% r.checkbox('send_to_self') %]
-            [% l('Send a copy to my own email address') %]
-        </p>
+        [% END %]
+
+        [% form_row_checkbox(r, 'reveal_address', l('Reveal my address address')) %]
+        [% form_row_checkbox(r, 'send_to_self', l('Send a copy to my own email address')) %]
+
+        <div class="no-label row">
         [% form_submit(l('Send')) %]
+        </div>
     </form>
 
 [%- END -%]

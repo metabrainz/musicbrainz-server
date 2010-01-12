@@ -11,27 +11,13 @@
     [%- USE r = FormRenderer(register_form) -%]
 
     <form action="[% c.req.uri %]" method="post">
-        <p>
-            [% r.label('username', l('Username:')) %]
-            [% r.text('username') %]
-            [% form_field_errors(register_form, 'username') %]
-        </p>
-        <p>
-            [% r.label('password', l('Password:')) %]
-            [% r.password('password') %]
-            [% form_field_errors(register_form, 'password') %]
-        </p>
-        <p>
-            [% r.label('confirm_password', l('Confirm password:')) %]
-            [% r.password('confirm_password') %]
-            [% form_field_errors(register_form, 'confirm_password') %]
-        </p>
-        <p>
-            [% r.label('email', l('Email:')) %]
-            [% r.text('email') %]
-            [% form_field_errors(register_form, 'email') %]
-        </p>
+        [% form_row_text(r, 'username', l('Username:')) %]
+        [% form_row_password(r, 'password', l('Password:')) %]
+        [% form_row_password(r, 'confirm_password', l('Confirm password:')) %]
+        [% form_row_text(r, 'email', l('Email:')) %]
+        <div class="row no-label">
         [% form_submit(l('Create Account')) %]
+        </div>
     </form>
 
 
