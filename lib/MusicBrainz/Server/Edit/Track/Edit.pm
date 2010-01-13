@@ -112,6 +112,14 @@ sub initialize
         $self->c->model('ArtistCredit')->load($track);
     }
 
+    if ($opts{length}) {
+        # Format both the track times into MM:SS, to avoid sub-second differences
+        my $old_length = MusicBrainz::Server::Track::FormatTrackLength($track->length);
+        my $new_length = MusicBrainz::Server::Track::FormatTrackLength($opts{length});
+
+        delete $opts{length} if $old_length eq $new_length;
+    }
+
     $self->track_id($track->id);
     $self->data({
         track => $track->id,
