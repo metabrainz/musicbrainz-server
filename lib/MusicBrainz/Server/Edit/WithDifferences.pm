@@ -31,16 +31,8 @@ sub _change_data {
     for my $key (keys %$old) {
         my $n = $new->{$key};
         my $o = $old->{$key};
-        my $equal;
-        if (defined $n && defined $o) {
-            $equal = (ref $o || ref $n)
-                ? deep_equal($n, $o)
-                : smart_match($n, $o);
-        } elsif (!defined $n && !defined $o) {
-            $equal = 1;
-        }
 
-        if ($equal) {
+        if (deep_equal($n, $o)) {
             delete $old->{$key};
             delete $new->{$key};
         }
