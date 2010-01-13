@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 24;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::PUID';
 use_ok 'MusicBrainz::Server::Data::RecordingPUID';
 
@@ -59,3 +59,13 @@ is($cnt, 1);
 is(scalar @puids, 2);
 is($puids[0]->puid->puid, '5226b265-0ba5-4679-98e4-427e72b5b8cf');
 is($puids[1]->puid->puid, '134478d1-306e-41a1-8b37-ff525e53c8be');
+
+Sql::run_in_transaction(sub {
+    $c->model('RecordingPUID')->delete($puids[0]->puid_id, $puids[0]->id, 3);
+}, $sql);
+
+@puids = $c->model('RecordingPUID')->find_by_recording(3);
+is(scalar @puids, 1);
+is($puids[0]->puid->puid, '134478d1-306e-41a1-8b37-ff525e53c8be');
+
+done_testing;

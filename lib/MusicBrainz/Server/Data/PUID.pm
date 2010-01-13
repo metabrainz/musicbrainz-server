@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::PUID;
-
 use Moose;
+
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -38,6 +39,23 @@ sub get_by_puid
     my ($self, $puid) = @_;
     my @result = values %{$self->_get_by_keys("puid.puid", $puid)};
     return $result[0];
+}
+
+sub delete_unused_puids
+{
+    my ($self, @puid_ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    # Remove unreferenced PUIDs
+    if (@puid_ids) {
+        $sql->do('
+            DELETE FROM puid WHERE
+                id IN ('.placeholders(@puid_ids).') AND
+                id NOT IN (
+                    SELECT puid FROM recording_puid
+                    WHERE puid IN ('.placeholders(@puid_ids).')
+                    GROUP BY puid HAVING count(*) > 0)
+            ', @puid_ids, @puid_ids);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -5,6 +5,8 @@ use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
+with 'MusicBrainz::Server::Data::Editable' => { table => 'recording_puid' };
+
 sub _table
 {
     return 'recording_puid';
@@ -51,13 +53,45 @@ sub find_by_recording
         ORDER BY recording_puid.id";
     return query_to_list(
         $self->c->dbh, sub {
-            my $row = shift;
-            my $recording_puid = $self->_new_from_row($row);
-            my $puid = MusicBrainz::Server::Data::PUID->_new_from_row($row, 'p_');
-            $recording_puid->puid($puid);
-            return $recording_puid;
+            $self->_create_recording_puid(shift);
         },
         $query, $recording_id);
+}
+
+sub get_by_recording_puid
+{
+    my ($self, $recording_id, $puid_str) = @_;
+
+    my $query = "
+        SELECT
+            recording_puid.id,
+            recording_puid.puid,
+            recording_puid.recording,
+            recording_puid.editpending,
+            puid.id AS p_id,
+            puid.puid AS p_puid,
+            clientversion.version AS p_version
+        FROM
+            recording_puid
+            JOIN puid ON puid.id = recording_puid.puid
+            JOIN clientversion ON clientversion.id = puid.version
+        WHERE recording_puid.recording = ? AND puid.puid = ?
+        ORDER BY recording_puid.id";
+
+    my $sql = Sql->new($self->c->dbh);
+    my $row = $sql->select_single_row_hash($query, $recording_id, $puid_str)
+        or return;
+
+    return $self->_create_recording_puid($row);
+}
+
+sub _create_recording_puid
+{
+    my ($self, $row) = @_;
+    my $recording_puid = $self->_new_from_row($row);
+    my $puid = $self->c->model('PUID')->_new_from_row($row, 'p_');
+    $recording_puid->puid($puid);
+    return $recording_puid;
 }
 
 sub find_by_puid
@@ -85,11 +119,7 @@ sub find_by_puid
         ORDER BY name.name, recording.id";
     return query_to_list(
         $self->c->dbh, sub {
-            my $row = shift;
-            my $recording_puid = $self->_new_from_row($row);
-            my $recording = MusicBrainz::Server::Data::Recording->_new_from_row($row, 'r_');
-            $recording_puid->recording($recording);
-            return $recording_puid;
+            return $self->_create_recording_puid(shift);
         },
         $query, $puid_id);
 }
@@ -124,17 +154,16 @@ sub delete_recordings
         WHERE recording IN ('.placeholders(@ids).')
         RETURNING puid', @ids);
 
-    # Remove unreferenced PUIDs
-    if (@$puid_ids) {
-        $sql->do('
-            DELETE FROM puid WHERE
-                id IN ('.placeholders(@$puid_ids).') AND
-                id NOT IN (
-                    SELECT puid FROM recording_puid
-                    WHERE puid IN ('.placeholders(@$puid_ids).')
-                    GROUP BY puid HAVING count(*) > 0)
-            ', @$puid_ids, @$puid_ids);
-    }
+    $self->c->model('PUID')->delete_unused_puids(@$puid_ids);
+}
+
+sub delete
+{
+    my ($self, $puid_id, $recording_puid_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $query = 'DELETE FROM recording_puid WHERE id = ?';
+    $sql->do($query, $recording_puid_id);
+    $self->c->model('PUID')->delete_unused_puids($puid_id);
 }
 
 __PACKAGE__->meta->make_immutable;

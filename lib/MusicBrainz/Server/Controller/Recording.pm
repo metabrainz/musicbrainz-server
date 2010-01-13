@@ -15,7 +15,7 @@ __PACKAGE__->config(
     model       => 'Recording',
 );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT $EDIT_PUID_DELETE );
 
 =head1 NAME
 
@@ -135,6 +135,36 @@ sub edit : Chained('load') RequireAuth
                 $c->uri_for_action('/recording/show', [ $recording->gid ]));
         }
     );
+}
+
+sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $puid_str = $c->req->query_params->{puid};
+    my $recording = $c->stash->{recording};
+    my $puid = $c->model('RecordingPUID')->get_by_recording_puid($recording->id, $puid_str);
+
+    if (!$puid) {
+        $c->stash( message => 'Not a valid PUID' );
+        $c->detach('/error_500');
+    }
+    else
+    {
+        $c->model('ArtistCredit')->load($recording);
+        $c->stash( puid => $puid );
+
+        $self->edit_action($c,
+            form => 'Confirm',
+            type => $EDIT_PUID_DELETE,
+            edit_args => {
+                puid => $puid,
+            },
+            on_creation => sub {
+                $c->response->redirect(
+                    $c->uri_for_action('/recording/puids', [ $recording->gid ]));
+            }
+        );
+    }
 }
 
 =head1 LICENSE
