@@ -134,7 +134,7 @@ eval {
 			printf STDERR " %d/%d\r", $j, scalar(@heads);
 			printf LOG "Merging %d/%d = %s\n", $j, scalar(@heads), join(',', @discs);
 			my $releases = $sql->select_list_of_hashes("
-				SELECT release.id, release_name.name, barcode, date_year, date_month, date_day, country, release_label.label
+				SELECT release.id, release_name.name, barcode, date_year, date_month, date_day, country, release_label.label, release.artist_credit
 				FROM release 
 					JOIN release_name ON release.name = release_name.id
 					LEFT JOIN release_label ON release.id = release_label.release
@@ -144,7 +144,7 @@ eval {
 			my @mediums;
 			my $last_discno = 0;
 			my %seen_position;
-			my $ref_name;
+			my ($ref_name, $ref_artist);
 			foreach my $id (@discs) {
 				my $name = $releases{$id}->{name};
 				my $origname = $name;
@@ -155,7 +155,10 @@ eval {
 					$discno = $2 if $2;
 					$disctitle = $3 if $3;
 				}
-				$ref_name = $name if $id eq $discs[0];
+				if ($id eq $discs[0]) {
+					$ref_name = $name;
+					$ref_artist = $releases{$id}->{artist_credit};
+				}
 
 				# Stop if we have 2 mediums at the same position
 				if (exists $seen_position{$discno}) {
@@ -165,10 +168,11 @@ eval {
 				}
 				$seen_position{$discno} = 1;
 				
-				# Check that all discs have the same name and release info (excepted cat# and format),
+				# Check that all discs have the same name, artist and release info (excepted cat# and format),
 				# otherwise skip this discs group
 				unless ($id eq $discs[0]) { 
-					if (lc($ref_name) ne lc($name) || score_rinfo_similarity($releases{$discs[0]}, $releases{$id}) < 1.0) {
+					if (lc($ref_name) ne lc($name) || $releases{$id}->{artist_credit} ne $ref_artist
+						|| score_rinfo_similarity($releases{$discs[0]}, $releases{$id}) < 1.0) {
 						printf ERRLOG "Non matching discs group skipped: %s - %s | %s\n\n", join(',', @discs), $ref_name, $name;
 						@discs = ();
 						last;
