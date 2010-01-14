@@ -119,7 +119,11 @@ sub find_by_puid
         ORDER BY name.name, recording.id";
     return query_to_list(
         $self->c->dbh, sub {
-            return $self->_create_recording_puid(shift);
+            my $row = shift;
+            my $recording_puid = $self->_new_from_row($row);
+            my $recording = $self->c->model('Recording')->_new_from_row($row, 'r_');
+            $recording_puid->recording($recording);
+            return $recording_puid;
         },
         $query, $puid_id);
 }
