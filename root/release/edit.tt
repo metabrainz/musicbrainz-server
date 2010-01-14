@@ -22,14 +22,18 @@
         <div class="content">
             <div class="releaseheader">
                 <h1>
-                    [% r.text('name', id => 'release-name') %]
+                    “[% r.text('name', id => 'release-name') %]”
                     <span class="comment">([% r.text('comment', id => 'comment') %])</span>
                 </h1>
                 <div id="release-artist">
-                    [% r.artist_credit_editor('artist_credit') %]
+                  <span class="prefix">~</span>
+                  [% l('Release by {artist}', { artist => r.artist_credit_editor('artist_credit') }) %]
                 </div>
             </div>
 
+            [% INCLUDE 'release/tabs.tt' page='edit'%]
+
+            <h2>[% l('Track listing') %]</h2>
             <table id="mediums">
               <tbody>
                 [%- FOR medium=release.mediums -%]

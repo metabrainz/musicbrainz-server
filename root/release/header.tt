@@ -1,10 +1,3 @@
-[%- info_links = [
-    ['index', link_release(release, 'show', l('Release'))],
-    ['relationships', link_release(release, 'relationships', l('Relationships'))],
-    ['discids', link_release(release, 'discids', l('DiscIDs'))],
-    ['details', link_release(release, 'details', l('Details'))],
-] -%]
-
 <div class="releaseheader">
 <h1>“[% link_release(release) %]” [% disambiguation(release) %]</h1>
 <p class="subheader">
@@ -13,4 +6,4 @@
 </p>
 </div>
 
-[% INCLUDE 'components/tabs.tt' list=info_links %]
+[% INCLUDE 'release/tabs.tt' %]
