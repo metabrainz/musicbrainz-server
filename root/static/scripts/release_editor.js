@@ -101,11 +101,6 @@
             setupMedium($(this));
         });
 
-        // Overlay Medium Format
-        $('select.medium-format').each(function() {
-            spanOverlay($(this));
-        });
-        
         // Creating new mediums
         var newMedium = $(MB.html.button({}, MB.text.AddAnotherMedium))
             .insertAfter('#mediums')
@@ -156,21 +151,22 @@
 
     function setupMedium(mediumTable, locked) {
         mediumSorter.rebind();
-        
+
         // Support for creating new tracks
         var newRow = $(MB.html.tr());
 
         // Overlay the medium name
         spanOverlay(mediumTable.find('input.medium-name'));
+        spanOverlay(mediumTable.find('select.medium-format'));
 
         if(locked) { return; }
 
         var createTrackRow = function(ev) {
             ev.preventDefault();
-                
+
             var pos = mediumTable.find('tr.track').length;
             var prefix = mediumTable.attr('id') + '.tracklist.tracks.' + pos + '.';
-                
+
             pos++; // We display tracks with '1' as the starting index
 
             var artistCredit = $('#release-artist .artist-credit').clone();
@@ -179,7 +175,7 @@
                 var inp = $(this);
                 inp.attr('name', inp.attr('name').replace('edit-release.', prefix));
             });
-                
+
             var tr = $(MB.html.tr({ 'class': 'track' + (pos % 2 == 0 ? ' ev' : '') },
                          MB.html.td({ 'class': 'position' },
                              MB.html.input({
@@ -208,7 +204,7 @@
             setupTrackRow(tr);
             trackSorter.rebind();
         };
-            
+
         $(MB.html.td({ colspan: '4' }))
             .append(
                 $(MB.html.button({}, MB.text.AddNewTrack))

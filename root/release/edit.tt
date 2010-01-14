@@ -14,7 +14,7 @@
     <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
 [%- END -%]
 
-[%- WRAPPER 'layout.tt' edit=1 title='Editing "' _ release.name -%]
+[%- WRAPPER 'layout.tt' edit=1 title='Editing "' _ release.name _ '"' -%]
     <form action="[% c.req.uri %]" method="post">
         [% USE r = FormRenderer(form) %]
         [% INCLUDE 'release/sidebar.tt' editing=1 %]
@@ -89,6 +89,12 @@
                             <input type="hidden"/>
                         </th>
                         <th colspan="3">
+                           <select class="medium-format">
+                             <option />
+                             [% FOR format = medium_formats %]
+                             <option value="[% format.id %]">[% format.name %]</option>
+                             [% END %]
+                           </select> :
                            <input class="medium-name" />
                         </th>
                     </tr>

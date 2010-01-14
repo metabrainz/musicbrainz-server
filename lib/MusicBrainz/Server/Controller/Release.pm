@@ -246,6 +246,8 @@ sub edit : Chained('load') RequireAuth
 
     $c->model('ArtistCredit')->load(@tracks, $release);
 
+    $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
+
     my $form = $c->form(form => 'Release', init_object => $release);
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my $release_edit = $self->_create_edit($c, $EDIT_RELEASE_EDIT,
