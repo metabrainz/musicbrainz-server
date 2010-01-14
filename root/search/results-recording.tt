@@ -11,7 +11,7 @@
                             <th>[% l('Length') %]</th>
                             <th>[% l('Artist') %]</th>
                             <th>[% l('Release') %]</th>
-                            <th>[% l('Track') %]</th>
+                            <th style="width:46px;" colspan="2">[% l('Track') %]</th>
                             <th>[% l('Medium') %]</th>
                             <th>[% l('Type') %]</th>
                         </tr>
@@ -30,8 +30,8 @@
                                         <td colspan="4">&nbsp;</td>
                                     [%- END -%]
                                     <td>[%- link_release(release) -%]</td>
-                                    <td>[%- release.mediums.0.tracklist.tracks.0.position + 1 -%] / 
-                                        [%- release.combined_track_count -%]</td>
+                                    <td style="text-align:right;">[%- release.mediums.0.tracklist.tracks.0.position + 1 -%] / </td>
+                                    <td style="text-align:left;">[%- release.combined_track_count -%]</td>
                                     <td>[%- release.mediums.0.position -%]</td>
                                     <td>[%- release.release_group.type.name -%]</td>
                                     [%- linenum = linenum + 1 -%]
