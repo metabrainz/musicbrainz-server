@@ -33,7 +33,8 @@
 
             [% INCLUDE 'release/tabs.tt' page='edit'%]
 
-            <h2>[% l('Track listing') %]</h2>
+            <fieldset>
+            <legend>[% l('Track listing') %]</legend>
             <table id="mediums">
               <tbody>
                 [%- FOR medium=release.mediums -%]
@@ -112,6 +113,7 @@
                 <tfoot />
                 <tbody />
             </table>
+            </fieldset>
 
             <fieldset>
                 <legend>[% l('Add an existing tracklist') %]</legend>

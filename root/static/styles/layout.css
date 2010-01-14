@@ -247,11 +247,13 @@ h1 {
 .recordingheader { background-image: url('../images/ticon_lg.png') }
 .labelheader { background-image: url('../images/bicon_lg.png') }
 
-h2 {
+h2,
+fieldset legend {
     margin-top: 1em;
     margin-bottom: 0;
     font-size: 120%;
     color: #FC6714;
+    font-weight: bold;
 }
 
 h3 {

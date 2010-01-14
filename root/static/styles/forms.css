@@ -1,18 +1,15 @@
 fieldset {
-    margin-bottom: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     border: none;
-    border-top: 1px solid #aaa;
+    padding: 0;
 }
 
-fieldset legend {
-    font-size: 12pt;
-    font-weight: bold;
-    padding: 0 0.5em;
-}
+fieldset legend { margin-top: 0; }
 
 form div.row {
     clear: left;
-    margin-bottom: 1em;
+    margin: 0.5em 0;
 }
 
 form div.row label,
