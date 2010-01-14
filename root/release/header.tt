@@ -1,7 +1,7 @@
 <div class="releaseheader">
 <h1>“[% link_release(release) %]” [% disambiguation(release) %]</h1>
 <p class="subheader">
-    <span>~</span>
+    <span class="prefix">~</span>
         [% l('Release by {artist}', {artist = artist_credit(release.artist_credit)})%]
 </p>
 </div>

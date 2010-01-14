@@ -9,7 +9,7 @@
 <div class="labelheader">
 <h1>[% link_label(label) %] [% disambiguation(label) %]</h1>
 <p class="subheader">
-    <span>~</span> [% l("Label") %]
+    <span class="prefix">~</span> [% l("Label") %]
 </p>
 </div>
 

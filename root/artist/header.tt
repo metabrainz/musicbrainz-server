@@ -12,7 +12,7 @@
 <div class="artistheader">
 <h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>
 <p class="subheader">
-    <span>~</span> [% html_escape(artist.type_name) or l("Artist") %]
+    <span class="prefix">~</span> [% html_escape(artist.type_name) or l("Artist") %]
 </p>
 </div>
 
