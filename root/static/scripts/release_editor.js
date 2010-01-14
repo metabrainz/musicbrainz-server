@@ -197,7 +197,8 @@
                              MB.html.input({
                                  'class': 'track-length',
                                  value: '?:??',
-                                 name: prefix + 'length'
+                                 name: prefix + 'length',
+                                 size: 5
                              }))
                      ));
             mediumTable.append(tr);
