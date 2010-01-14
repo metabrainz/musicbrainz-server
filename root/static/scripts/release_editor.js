@@ -225,8 +225,10 @@
         removeButton.draw(checkbox);
 
         // Overlays
-        row.find('input.track-name, input.track-length')
+        row.find('input.track-name')
            .each(function() { spanOverlay($(this)); });
+        row.find('input.track-length')
+            .each(function() { spanOverlay($(this), this.value || '?:??'); });
 
         // Artist credit editor
         acEditor(row.find('div.artist-credit'));
