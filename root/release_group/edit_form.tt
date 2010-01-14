@@ -1,9 +1,12 @@
 <form action="[% c.req.uri %]" method="post">
   [% USE r = FormRenderer(form) %]
-  [% form_row_artist_credit(r, 'artist_credit', l('Artist:')) %]
-  [% form_row_text(r, 'name', l('Name:')) %]
-  [% form_row_text(r, 'comment', l('Comment:')) %]
-  [% form_row_select(r, 'type_id', l('Type:')) %]
+  <fieldset>
+    <legend>[% l('Release Group Details') %]</legend>
+    [% form_row_artist_credit(r, 'artist_credit', l('Artist:')) %]
+    [% form_row_text(r, 'name', l('Name:')) %]
+    [% form_row_text(r, 'comment', l('Comment:')) %]
+    [% form_row_select(r, 'type_id', l('Type:')) %]
+  </fieldset>
 
   [% INCLUDE 'forms/edit-note.tt' %]
   [% enter_edit() %]

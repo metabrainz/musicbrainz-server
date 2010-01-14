@@ -7,6 +7,7 @@
     ['aliases', link_artist(artist, 'aliases', l('Aliases'))],
     ['tags', link_artist(artist, 'tags', l('Tags'))],
     ['details', link_artist(artist, 'details', l('Details'))],
+    ['edit', link_artist(artist, 'edit', l('Edit'))],
 ] -%]
 
 <div class="artistheader">

@@ -22,13 +22,12 @@
 
     <ul class="links">
       [% IF c.user_exists %]
-      <li>[% link_recording(recording, 'edit', l('Edit this recording')) %]</li>
       <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
       [% ELSE %]
       <li>[% request_login(l('Please login to edit this recording')) %]</li>
       [% END %]
     </ul>
-    
+
     [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
 [% END %]
 

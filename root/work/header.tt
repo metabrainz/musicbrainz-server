@@ -1,6 +1,7 @@
 [%- info_links = [
     ['index', link_work(work, 'show', l('Overview'))],
     ['relationships', link_work(work, 'relationships', l('Relationships'))],
+    ['edit', link_work(work, 'edit', l('Edit'))],
 ] -%]
 
 <h1>“[% link_work(work) %]” [% disambiguation(work) %]</h1>

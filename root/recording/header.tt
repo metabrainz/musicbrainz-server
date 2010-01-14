@@ -4,6 +4,7 @@
     ['tags', link_recording(recording, 'tags', l('Tags'))],
     ['puids', link_recording(recording, 'puids', l('PUIDs'))],
     ['details', link_recording(recording, 'details', l('Details'))],
+    ['edit', link_recording(recording, 'edit', l('Edit'))],
 ] -%]
 
 <div class="recordingheader">

@@ -1,3 +1,5 @@
-[%- INCLUDE "label/edit_form.tt"
-    WRAPPER "components/box.tt" header=l('Edit Label')
-    WRAPPER 'layout.tt' title=l('Edit Label') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Edit Label') full_width=1;
+      INCLUDE 'label/header.tt' page='edit';
+      INCLUDE "label/edit_form.tt";
+    END -%]
+

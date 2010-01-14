@@ -14,7 +14,7 @@
     <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
 [%- END -%]
 
-[% WRAPPER 'layout.tt' full_width=1 %]
-   [% INCLUDE 'recording/header.tt' %]
+[% WRAPPER 'layout.tt' full_width=1 title=l('Edit recording') %]
+   [% INCLUDE 'recording/header.tt' page='edit' %]
    [% INCLUDE 'recording/edit_form.tt' %]
 [% END %]

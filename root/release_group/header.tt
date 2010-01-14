@@ -3,6 +3,7 @@
     ['relationships', link_release_group(rg, 'relationships', l('Relationships'))],
     ['tags', link_release_group(rg, 'tags', l('Tags'))],
     ['details', link_release_group(rg, 'details', l('Details'))],
+    ['edit', link_release_group(rg, 'edit', l('Edit'))],
 ] -%]
 
 <div class="rgheader">

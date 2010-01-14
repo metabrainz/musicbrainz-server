@@ -4,6 +4,7 @@
     ['aliases', link_label(label, 'aliases', l('Aliases'))],
     ['tags', link_label(label, 'tags', l('Tags'))],
     ['details', link_label(label, 'details', l('Details'))],
+    ['edit', link_label(label, 'edit', l('Edit'))],
 ] -%]
 
 <div class="labelheader">

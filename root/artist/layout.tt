@@ -36,7 +36,6 @@
                 [% END %]
             [% END %]
             [% IF c.user_exists %]
-                <li>[% link_artist(artist, 'edit', l('Edit this artist')) %]</li>
                 <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
                 <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
                 <li>

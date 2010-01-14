@@ -21,7 +21,6 @@
 
     <ul class="links">
         [% IF c.user_exists %]
-           <li>[% link_work(work, 'edit', l('Edit work')) %]</li>
            <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
         [% ELSE %]
            <li>[% request_login(l('Please login to edit this work')) %]</li>
