@@ -1,56 +1,39 @@
-package MusicBrainz::Server::Entity::Annotation;
+package MusicBrainz::Server::Entity::FreeDB;
 
 use Moose;
-use MusicBrainz::Server::Types;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Entity::AnnotationRole;
 
 extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
 
-has 'parent' => ( 
-    does => 'MusicBrainz::Server::Entity::AnnotationRole', 
-    is => 'rw' 
+has 'discid' => (
+    is => 'rw',
+    isa => 'Str'
 );
 
-has 'editor_id' => (
+has 'title' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'artist' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'track_count' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'editor' => (
-    is => 'rw',
-    isa => 'Editor'
-);
-
-has 'text' => (
+has 'year' => (
     is => 'rw',
     isa => 'Str'
 );
 
-has 'changelog' => (
+has 'category' => (
     is => 'rw',
     isa => 'Str'
 );
-
-has 'creation_date' => (
-    is => 'rw',
-    isa => 'DateTime',
-    coerce => 1
-);
-
-sub summary
-{
-    my $self = shift;
-    my ($summary) = split /\n\n/, $self->text;
-    return $summary;
-}
-
-sub summary_is_short
-{
-    my $self = shift;
-    return $self->summary ne $self->text;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -58,7 +41,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 Robert Kaye
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

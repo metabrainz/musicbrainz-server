@@ -32,6 +32,9 @@ subtype 'AutoEditorElectionVote'
 subtype 'CDTOC'
     => as class_type 'MusicBrainz::Server::Entity::CDTOC';
 
+subtype 'CDStub'
+    => as class_type 'MusicBrainz::Server::Entity::CDStub';
+
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
 

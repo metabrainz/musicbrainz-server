@@ -8,7 +8,6 @@ use base 'MusicBrainz::Server::Controller';
 use LWP::UserAgent;
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
-use URI::Escape qw( uri_escape );
 
 sub search : Path('')
 {
@@ -20,7 +19,19 @@ sub search : Path('')
     if ($form->process( params => $c->req->query_params ))
     {
         if ($form->field('type')->value eq 'editor') {
+            $form->field('direct')->value(1);
             $c->forward('editor');
+        }
+        elsif ($form->field('type')->value eq 'annotation' ||
+               $form->field('type')->value eq 'freedb' ||
+               $form->field('type')->value eq 'cdstub') {
+            $form->field('direct')->value(0);
+            $c->forward('external');
+        }
+        elsif ($form->field('type')->value eq 'tag')
+        {
+            $form->field('direct')->value(1);
+            $c->forward('direct');
         }
         else {
             $c->forward($form->field('direct')->value ? 'direct' : 'external');
@@ -71,6 +82,67 @@ sub direct : Private
         results  => $results,
         type     => $type,
     );
+}
+
+sub external : Private
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->stash->{form};
+    $c->stash->{template} = 'search/search.tt';
+
+    return unless keys %{ $c->req->query_params } && $form->validate($c->req->query_params);
+
+    my $type   = $form->field('type')->value;
+    my $query  = $form->field('query')->value;
+
+    $c->stash->{query} = $query;
+
+    $c->detach('/search/editor') if $type eq 'editor';
+    
+    my $limit  = $form->field('limit') ? $form->field('limit')->value : 25;
+    my $page   = $c->request->query_params->{page} || 1;
+    my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
+
+    my $search = $c->model('Search');
+    my $ua;
+    if (&DBDefs::_RUNNING_TESTS) 
+    {
+        $ua = MusicBrainz::Server::Test::mock_search_server($type);
+    }
+    my $ret = $search->external_search($c, $type, $query, $limit, $page, $adv, $ua);
+
+    if (exists $ret->{error})
+    {
+        # Something went wrong with the search
+        my $template = 'search/error/';
+
+        # Switch on the response code to decide which template to provide
+        use Switch;
+        switch($ret->{code})
+        {
+            case 404 { $template .= 'no-results.tt'; }
+            case 403 { $template .= 'no-info.tt'; };
+            case 500 { $template .= 'internal-error.tt'; }
+            case 400 { $template .= 'invalid.tt'; }
+
+            else { $template .= 'general.tt'; }
+        }
+
+        $c->stash->{content}  = $ret->{error};
+        $c->stash->{query}    = $query;
+        $c->stash->{type}     = $type;
+        $c->stash->{template} = $template;
+
+        $c->detach;
+    }
+    else
+    {
+        $c->stash->{pager}    = $ret->{pager};
+        $c->stash->{offset}   = $ret->{offset};
+        $c->stash->{results}  = $ret->{results};
+        $c->stash->{template} ="search/results-$type.tt";
+    }
 }
 
 sub filter : Private
@@ -129,8 +201,7 @@ no moderator could be found, the user is informed.
 
 =head2 external
 
-Search using an external search engine (currently Lucene, but moving
-towards Xapian).
+Search using an external search engine 
 
 =head2 filter_artist
 

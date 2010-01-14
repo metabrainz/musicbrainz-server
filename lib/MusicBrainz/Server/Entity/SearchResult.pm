@@ -18,6 +18,13 @@ has 'entity' => (
     isa => 'Entity'
 );
 
+has 'extra' => (
+    is => 'rw',
+    isa => 'ArrayRef[Entity]',
+    lazy => 1,
+    default => sub { [] },
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

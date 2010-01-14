@@ -28,6 +28,18 @@ $partial = { 'year' => 1476, 'month' => 12, 'day' => undef };
 $date = MusicBrainz::Server::Entity::PartialDate->new( $partial );
 is ($date->format, "1476-12");
 
+$date = MusicBrainz::Server::Entity::PartialDate->new( "1476" );
+is ($date->format, "1476");
+
+$date = MusicBrainz::Server::Entity::PartialDate->new( "1476-12" );
+is ($date->format, "1476-12");
+
+$date = MusicBrainz::Server::Entity::PartialDate->new( "1476-12-1" );
+is ($date->format, "1476-12-01");
+
+$date = MusicBrainz::Server::Entity::PartialDate->new( "1476-12-01" );
+is ($date->format, "1476-12-01");
+
 done_testing;
 
 1;

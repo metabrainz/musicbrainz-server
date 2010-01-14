@@ -24,6 +24,14 @@ around BUILDARGS => sub {
     return $class->$orig( @_ ) unless @_ == 1;
 
     my $info = shift;
+    if (!ref($info) && $info =~ /(\d{4})-?(\d{1,2})?-?(\d{1,2})?/)
+    {
+        $info = {};
+        $info->{year} = $1 if ($1);
+        $info->{month} = $2 if ($2);
+        $info->{day} = $3 if ($3);
+        return $class->$orig( $info );
+    }
 
     for my $key (keys %$info)
     {

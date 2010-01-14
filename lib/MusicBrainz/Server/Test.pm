@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
 use Sql;
 use Test::Builder;
-use Test::Mock::Class;
+use Test::Mock::Class ':all';
 use Template;
 use XML::Parser;
 
@@ -182,6 +182,24 @@ sub evaluate_template
     my $out = '';
     $tt->process(\$template, \%vars, \$out) || die $tt->error();
     return $out;
+}
+
+sub mock_search_server
+{
+    my ($type) = @_;
+
+    local $/;
+    open(JSON, "t/json/search_$type.json") or die;
+    my $json = <JSON>;
+    close(JSON);
+
+    my $mock = mock_class 'LWP::UserAgent' => 'LWP::UserAgent::Mock';
+    my $mock_server = $mock->new_object;
+    $mock_server->mock_return(
+        'get' => sub {
+            HTTP::Response->new(200, undef, undef, $json);
+        }
+    );
 }
 
 1;

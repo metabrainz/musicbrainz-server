@@ -1,0 +1,5 @@
+[%- WRAPPER 'layout.tt' title=l('DiscID “{discid}”', { discid => discid }) full_width=1 -%]
+
+<p> Stub for [% discid %]</p>
+
+[%- END -%]

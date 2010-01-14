@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::AnnotationRole;
 use MooseX::Role::Parameterized;
 
-use MusicBrainz::Server::Data::Annotation;
+use MusicBrainz::Server::Data::EntityAnnotation;
 
 parameter 'type' => (
     isa => 'Str',
@@ -29,7 +29,7 @@ role
     method '_build_annotation_data' => sub
     {
         my $self = shift;
-        return MusicBrainz::Server::Data::Annotation->new(
+        return MusicBrainz::Server::Data::EntityAnnotation->new(
             c => $self->c,
             type => $params->type,
             table => $params->table,

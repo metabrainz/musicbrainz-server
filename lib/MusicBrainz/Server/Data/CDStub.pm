@@ -1,39 +1,46 @@
-package MusicBrainz::Server::Data::Annotation;
+package MusicBrainz::Server::Data::CDStub;
+
 use Moose;
+use MusicBrainz::Server::Data::Utils qw(
+    load_subobjects
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
 sub _table
 {
-    'annotation';
+    return 'cdtoc';
 }
 
 sub _columns
 {
-    return 'id, editor AS editor_id, text, changelog,
-            created AS creation_date';
+    return 'id, discid, freedbid, trackcount, leadoutoffset, trackoffset';
+}
+
+sub _column_mapping
+{
+    return {
+        id => 'id',
+        discid => 'discid',
+        freedbid => 'freedbid',
+        track_count => 'trackcount',
+        leadout_offset => 'leadoutoffset',
+        track_offset => 'trackoffset',
+    };
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::Annotation';
+    return 'MusicBrainz::Server::Entity::CDStub';
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
+no Moose;
 1;
-
-=head1 NAME
-
-MusicBrainz::Server::Data::Annotation
-
-=head1 DESCRIPTION
-
-Provides support for loading annotations from the database.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 Robert Kaye
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -50,4 +57,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

@@ -1,16 +1,30 @@
 package MusicBrainz::Server::Data::Search;
 
 use Moose;
+use Class::MOP; 
+use JSON;
 use Sql;
 use Readonly;
+use Data::Page;
+use URI::Escape qw( uri_escape );
 use MusicBrainz::Server::Entity::SearchResult;
+use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::ReleaseGroup;
+use MusicBrainz::Server::Entity::ReleaseGroupType;
+use MusicBrainz::Server::Entity::Language;
+use MusicBrainz::Server::Entity::Script;
+use MusicBrainz::Server::Entity::Release;
+use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Work;
+use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -152,6 +166,303 @@ sub search
 
 }
 
+# ---------------- External (Indexed) Search ----------------------
+
+# The XML schema uses a slightly different terminology for things
+# and the schema defines how data is passed between the main
+# server and the search server. In order to shove the dat back into
+# the object model, we need to do some ugly ass tweaking....
+
+# The mapping of XML/JSON centric terms to object model terms.
+my %mapping = (
+    'disambiguation' => 'comment',
+    'sort-name'      => 'sort_name',
+    'title'          => 'name',
+    'artist-credit'  => 'artist_credit',
+    'status'         => '',
+    'country'        => '',
+    'label-code'     => 'label_code',
+);
+
+# Fix up the key names so that the data returned from the JSON service
+# matches up with the data returned from the DB for easy object creation
+sub schema_fixup
+{
+    my ($self, $data, $c, $type) = @_;
+
+    return unless (ref($data) eq 'HASH');
+
+    if (exists $data->{id} && $type eq 'freedb')
+    {
+        $data->{discid} = $data->{id};
+        delete $data->{name};
+    }
+
+    # Special case to handle the ids
+    $data->{gid} = $data->{id};
+    $data->{id} = 1;
+
+    foreach my $k (keys %mapping)
+    {
+        if (exists $data->{$k})
+        {
+            $data->{$mapping{$k}} = $data->{$k} if ($mapping{$k});
+            delete $data->{$k};
+        }
+    }
+
+    if ($type eq 'artist' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
+    }
+    if (($type eq 'artist' || $type eq 'label') && exists $data->{'life-span'})
+    {
+        $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin}) 
+            if (exists $data->{'life-span'}->{begin});
+        $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end}) 
+            if (exists $data->{'life-span'}->{end});
+    }
+    if ($type eq 'label' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::LabelType->new( name => $data->{type} );
+    }
+    if ($type eq 'release-group' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
+    }
+    if ($type eq 'cdstub' && exists $data->{gid})
+    {
+        $data->{discid} = $data->{gid};
+        delete $data->{gid};
+        $data->{title} = $data->{name};
+        delete $data->{name};
+    }
+    if ($type eq 'annotation' && exists $data->{entity})
+    {
+        my $entity_model = $c->model( type_to_model($data->{type}) )->_entity_class;
+        $data->{parent} = $entity_model->new( { name => $data->{name}, gid => $data->{entity} });
+        delete $data->{entity};
+        delete $data->{type};
+    }
+    if ($type eq 'freedb' && exists $data->{name})
+    {
+        $data->{title} = $data->{name};
+        delete $data->{name};
+    }
+    if (($type eq 'cdstub' || $type eq 'freedb') && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
+    {
+        $data->{track_count} = $data->{"track-list"}->{count};
+        delete $data->{"track-list"}->{count};
+    }
+    if ($type eq 'release')
+    {
+        if (exists $data->{date})
+        {
+            $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
+        }
+        if (exists $data->{"text-representation"} && 
+            exists $data->{"text-representation"}->{language})
+        {
+            $data->{language} = MusicBrainz::Server::Entity::Language->new( { 
+                iso_code_3t => $data->{"text-representation"}->{language} 
+            } );
+        }
+        if (exists $data->{"text-representation"} && 
+            exists $data->{"text-representation"}->{script})
+        {
+            $data->{script} = MusicBrainz::Server::Entity::Script->new( 
+                    { iso_code => $data->{"text-representation"}->{script} }
+            );
+        }
+        if (exists $data->{"medium-list"} && 
+            exists $data->{"medium-list"}->{medium}->[0] && 
+            exists $data->{"medium-list"}->{medium}->[0]->{"track-list"})
+        {
+            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new( 
+                track_count => $data->{"medium-list"}->{medium}->[0]->{"track-list"}->{count} 
+            );
+            $data->{mediums} = [ MusicBrainz::Server::Entity::Medium->new( 
+                "tracklist" => $tracklist
+            ) ];
+            delete $data->{"medium-list"};
+        }
+    }
+    if ($type eq 'recording' &&
+        exists $data->{"release-list"} && 
+        exists $data->{"release-list"}->{release}->[0] &&
+        exists $data->{"release-list"}->{release}->[0]->{"medium-list"} &&
+        exists $data->{"release-list"}->{release}->[0]->{"medium-list"}->{medium})
+    {
+        my @releases;
+
+        foreach my $release (@{$data->{"release-list"}->{release}})
+        {
+            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new(  
+                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{count},
+                tracks => [ MusicBrainz::Server::Entity::Track->new(
+                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} 
+                ) ]
+            );
+            my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new( 
+                type => MusicBrainz::Server::Entity::ReleaseGroupType->new( 
+                    name => $release->{"release-group"}->{type} || ''
+                ) 
+            );
+            push @releases, MusicBrainz::Server::Entity::Release->new( 
+                gid     => $release->{id},
+                name    => $release->{title},
+                mediums => [ 
+                    MusicBrainz::Server::Entity::Medium->new( 
+                         tracklist => $tracklist,
+                         position  => $release->{"medium-list"}->{medium}->[0]->{"position"}
+                    )
+                ],
+                release_group => $release_group
+            );
+#            $c->log->debug(Dumper($data->{mediums}));
+        }
+        $data->{_extra} = \@releases;
+    }
+
+    foreach my $k (keys %{$data})
+    {
+        if (ref($data->{$k}) eq 'HASH')
+        {
+            $self->schema_fixup($data->{$k}, $c, $type);
+        }
+        if (ref($data->{$k}) eq 'ARRAY')
+        {
+            foreach my $item (@{$data->{$k}})
+            {
+                $self->schema_fixup($item, $c, $type);
+            }
+        }
+    }
+
+    if (exists $data->{'artist_credit'})
+    {
+        my @credits;
+        foreach my $namecredit (@{$data->{"artist_credit"}->{"name-credit"}})
+        {
+            push @credits, MusicBrainz::Server::Entity::ArtistCreditName->new( {
+                    artist => MusicBrainz::Server::Entity::Artist->new($namecredit->{artist}),
+                    join_phrase => $namecredit->{joinphrase} || '' } );
+        }
+        $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
+    }
+}
+
+# Escape special characters in a Lucene search query
+sub escape_query
+{
+    my $str = shift;
+    $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/g;
+    return $str;
+}
+
+sub external_search
+{
+    my ($self, $c, $type, $query, $limit, $page, $adv, $ua) = @_;
+
+    my $fixed_type = $type;
+    $fixed_type =~ s/release-group/release_group/;
+    my $entity_model = $c->model( type_to_model($fixed_type) )->_entity_class;
+    Class::MOP::load_class($entity_model);
+    my $offset = ($page - 1) * $limit;
+
+    if ($query eq '!!!' and $type eq 'artist')
+    {
+        $query = 'chkchkchk';
+    }
+
+    unless ($adv)
+    {
+        $query = escape_query($query);
+
+        if ($type eq 'artist')
+        {
+            $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
+        }
+    }
+
+    $query = uri_escape($query);
+    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
+                                 DBDefs::LUCENE_SERVER,
+                                 $type,
+                                 $query,
+                                 $offset,
+                                 $limit,);
+
+    $ua = LWP::UserAgent->new if (!defined $ua);
+    $ua->timeout (5);
+    $ua->env_proxy;
+
+    # Dispatch the search request.
+    my $response = $ua->get($search_url);
+    unless ($response->is_success)
+    {
+        return { code => $response->code, error => $response->content };
+    }
+    else
+    {
+        my $data = JSON->new->utf8->decode($response->content);
+
+        my @results;
+        my $xmltype = $type;
+        $xmltype =~ s/freedb/freedb-disc/;
+        my $pos = 0;
+        foreach my $t (@{$data->{"$xmltype-list"}->{$xmltype}})
+        {
+            $self->schema_fixup($t, $c, $type);
+            push @results, MusicBrainz::Server::Entity::SearchResult->new(
+                    position => $pos++,
+                    score  => $t->{score},
+                    entity => $entity_model->new($t),
+                    extra  => $t->{_extra} || []   # Not all data fits into the object model, this is for those cases
+                );
+        }
+        my ($total_hits) = $data->{"$xmltype-list"}->{count};
+
+        # If the user searches for annotations, they will get the results in wikiformat - we need to
+        # convert this to HTML.
+        if ($type eq 'annotation')
+        {
+            foreach my $result (@results)
+            {
+                use Text::WikiFormat;
+                use DBDefs;
+
+                $result->{entity}->text(Text::WikiFormat::format($result->{entity}->{text}, {}, 
+                                        { 
+                                          prefix => "http://".DBDefs::WIKITRANS_SERVER, 
+                                          extended => 1, 
+                                          absolute_links => 1, 
+                                          implicit_links => 0 
+                                        }));
+                $result->{type} = ref($result->{entity}->{parent}); 
+                $result->{type} =~ s/MusicBrainz::Server::Entity:://;
+                $result->{type} = lc($result->{type});
+            } 
+        }
+
+        if ($total_hits == 1 && ($type eq 'artist' || $type eq 'release' || $type eq 'label'))
+        {
+            my $redirect = $results[0]->{entity}->{gid};
+            my $type_controller = $c->controller( "MusicBrainz::Server::Controller::" . ucfirst($type));
+            my $action = $type_controller->action_for('show');
+
+            $c->res->redirect($c->uri_for($action, [ $redirect ]));
+            $c->detach;
+        }
+        
+        my $pager = Data::Page->new;
+        $pager->current_page($page);
+        $pager->entries_per_page($limit);
+        $pager->total_entries($total_hits);
+
+        return { pager => $pager, offset => $offset, results => \@results };
+    }
+}
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

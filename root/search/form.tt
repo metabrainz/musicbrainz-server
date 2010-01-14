@@ -1,22 +1,11 @@
 <h2>[% l("Search") %]</h2>
 
-<div class="searchinfo">
-    <strong>
-        [% l('Please Note:') %]
-    </strong>
-    [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('Search indexes are currently updated once a day at 1800 GMT (10am PST).')) %]
-        [%- create_guideline(l('If you require up to the minute correct search, please use the direct database search')) %]
-    [% END %]
-</div>
-
 [%- USE search = FormRenderer(form) -%]
 <div class="searchform">
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">
         [% form_row_text(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
-        [% form_row_text(search, 'query', l('Query:')) %]
-        [% form_row_checkbox(search, 'advanced', l('Use advanced query syntax:')) %]
+        [% form_row_checkbox(search, 'advanced', l('Use advanced query syntax (indexed search only):')) %]
         [% form_row_checkbox(search, 'direct', l('Direct database syntax:')) %]
 
         <div class="row no-label">
@@ -25,3 +14,12 @@
     </form>
 </div>
 
+<div class="searchinfo">
+    <strong>
+        [% l('Please Note:') %]
+    </strong>
+    [%- WRAPPER 'layout/guidelines.tt' -%]
+        [%- create_guideline(l('Search indexes are currently updated every 6 hours.')) %]
+        [%- create_guideline(l('If you require up to the minute correct search, please use the direct database search')) %]
+    [% END %]
+</div>

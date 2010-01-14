@@ -197,6 +197,20 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_cdstub(cdstub, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/cdstub/$action", [ cdstub.discid ]);
+    text = text || html_escape(cdstub.discid);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
+[%- MACRO link_freedb(freedb, action, text) BLOCK;
+    action = action || 'import';
+    link = c.uri_for_action("/freedb/$action", [ freedb.discid ]);
+    text = text || html_escape(freedb.discid);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", editor.name);

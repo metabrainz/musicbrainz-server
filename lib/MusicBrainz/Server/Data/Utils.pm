@@ -33,7 +33,10 @@ our @EXPORT_OK = qw(
 );
 
 Readonly my %TYPE_TO_MODEL => (
+    'annotation'    => 'Annotation',
     'artist'        => 'Artist',
+    'cdstub'        => 'CDStub',
+    'freedb'        => 'FreeDB',
     'label'         => 'Label',
     'recording'     => 'Recording',
     'release'       => 'Release',

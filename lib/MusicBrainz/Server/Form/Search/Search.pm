@@ -24,12 +24,15 @@ sub options_type
 {
     return [
         'artist'        => 'Artist',
-        'label'         => 'Label',
-        'recording'     => 'Recording',
+        'release-group' => 'Release Group',
         'release'       => 'Release',
-        'release_group' => 'Release Group',
+        'recording'     => 'Recording',
         'work'          => 'Work',
+        'label'         => 'Label',
+        'annotation'    => 'Annotation',
+        'cdstub'        => 'CD Stub',
         'editor'        => 'Editor',
+        'freedb'        => 'FreeDB',
         'tag'           => 'Tag',
     ];
 }
