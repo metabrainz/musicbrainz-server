@@ -36,7 +36,7 @@
             },
             hideOverlay: function() {
                 self.overlay.hide();
-                elementToOverlay.show();
+                elementToOverlay.show().find(':input:first').add(elementToOverlay).focus();
             },
             draw: function(toOverlay) {
                 elementToOverlay = toOverlay;
