@@ -40,7 +40,7 @@ sub _load
     return $c->model('Edit')->get_by_id($edit_id);
 }
 
-sub show : Chained('load') PathPart('')
+sub show : Chained('load') PathPart('') RequireAuth
 {
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
