@@ -6,6 +6,7 @@ use warnings;
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
+use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
 use base 'Exporter';
 
@@ -15,6 +16,8 @@ our @EXPORT_OK = qw(
     artist_credit_from_loaded_definition
     changed_relations
     changed_display_data
+    edit_status_name
+    status_names
 );
 
 sub date_closure
@@ -22,7 +25,7 @@ sub date_closure
     my $attr = shift;
     return sub {
         my $a = shift;
-        return partial_date_to_hash($a->$attr); 
+        return partial_date_to_hash($a->$attr);
     };
 }
 
@@ -79,6 +82,30 @@ sub changed_display_data
 
     return $display;
 }
+
+our %STATUS_NAMES = (
+    $STATUS_OPEN         => 'Open',
+    $STATUS_APPLIED      => 'Applied',
+    $STATUS_FAILEDVOTE   => 'Failed vote',
+    $STATUS_FAILEDDEP    => 'Failed dependency',
+    $STATUS_ERROR        => 'Error',
+    $STATUS_FAILEDPREREQ => 'Failed prerequisite',
+    $STATUS_NOVOTES      => 'No votes',
+    $STATUS_TOBEDELETED  => 'Due to be deleted',
+    $STATUS_DELETED      => 'Deleted',
+);
+
+sub edit_status_name
+{
+    my ($status) = @_;
+    return $STATUS_NAMES{ $status };
+}
+
+sub status_names
+{
+    return %STATUS_NAMES
+}
+
 
 1;
 

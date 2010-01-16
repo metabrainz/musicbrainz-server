@@ -113,11 +113,15 @@ sub find
     }
 
     my @params = keys %$p;
-    push @pred, "$_ = ?" for @params;
-    push @args, $p->{$_} for @params;
+    while (my ($param, $value) = each %$p) {
+        next unless defined $value;
+        my @values = ref($value) ? @$value : ($value);
+        push @pred, (join " OR ", (("$param = ?") x @values));
+        push @args, @values;
+    }
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
-    $query .= ' WHERE ' . join ' AND ', @pred if @pred;
+    $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
     $query .= ' ORDER BY id DESC';
 
     return query_to_list_limited($self->c->raw_dbh, $offset, $limit, sub {

@@ -4,6 +4,7 @@ use Moose;
 use Carp qw( croak );
 use DateTime;
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
@@ -61,18 +62,7 @@ has 'status' => (
 sub status_name
 {
     my $self = shift;
-    my %names = (
-        $STATUS_OPEN => 'Open',
-        $STATUS_APPLIED => 'Applied',
-        $STATUS_FAILEDVOTE => 'Failed vote',
-        $STATUS_FAILEDDEP => 'Failed dependency',
-        $STATUS_ERROR => 'Error',
-        $STATUS_FAILEDPREREQ => 'Failed prerequisite',
-        $STATUS_NOVOTES => 'No votes',
-        $STATUS_TOBEDELETED => 'Due to be deleted',
-        $STATUS_DELETED => 'Deleted',
-    );
-    return $names{ $self->status };
+    return edit_status_name($self->status);
 }
 
 has 'data' => (

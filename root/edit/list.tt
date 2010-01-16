@@ -47,7 +47,9 @@
                     [% END %]
                 [%- END -%]
             </table>
-            [% form_submit(l('Vote')) %]
+            <div class="row no-label" style="text-align: right">
+              [% form_submit(l('Vote')) %]
+            </div>
         </form>
     [% END %]
 [% ELSE %]

@@ -1,0 +1,4 @@
+[% WRAPPER 'layout.tt' full_width=1 title=l('Search For Edits') %]
+    <h1>[% l('Search For Edits') %]</h1>
+    [% INCLUDE 'edit/list.tt' %]
+[% END %]

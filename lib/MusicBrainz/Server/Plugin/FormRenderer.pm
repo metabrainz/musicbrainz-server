@@ -5,6 +5,8 @@ use warnings;
 
 use base 'Template::Plugin';
 
+use List::Util qw( first );
+
 use Carp;
 use HTML::Tiny;
 
@@ -125,10 +127,14 @@ sub select
     my ($self, $field_name, $attrs) = @_;
     my $field = $self->_lookup_field($field_name) or return;
 
+    my @selected = $field->multiple ? @{ $field->value || [] } : ( $field->value );
+
     my @options = map {
+        my $option = $_;
+        my $selected = @selected && first { $option->{value} eq $_ } @selected;
         $self->h->option({
             value => $_->{value},
-            selected => defined $field->value && $field->value eq $_->{value} ? "selected" : undef,
+            selected => $selected ? "selected" : undef,
         }, $_->{label})
     } @{ $field->options };
 
@@ -142,6 +148,7 @@ sub select
     return $self->h->select({
         id => "id-" . $field->html_name,
         name => $field->html_name,
+        multiple => $field->multiple ? "multiple" : undef,
         %{ $attrs || {} }
     }, \@options);
 }

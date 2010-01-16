@@ -146,27 +146,32 @@ sub open : Local RequireAuth
     });
 
     $c->model('Edit')->load_all(@$edits);
+    $c->model('Editor')->load(@$edits);
+
     $c->stash( edits => $edits );
 }
 
-=head2 for_type
-
-Show all edits for a certain entity
-
-=cut
-
-sub for_type : Path('entity') Args(2)
+sub search : Local RequireAuth
 {
-    my ($self, $c, $type, $mbid) = @_;
+    my ($self, $c) = @_;
 
-    my $page = $c->req->{query_params}->{page} || 1;
+    my $form = $c->form( form => 'Search::Edits' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $edits = $self->_load_paged($c, sub {
+            return $c->model('Edit')->find({
+                type   => $form->field('type')->value,
+                status => $form->field('status')->value,
+            }, shift, shift);
+        });
 
-    my $entity = $c->model(ucfirst $type)->load($mbid);
-    my ($edits, $pager) = $c->model('Moderation')->edits_for_entity($entity, $page);
+        $c->model('Edit')->load_all(@$edits);
+        $c->model('Editor')->load(@$edits);
 
-    $c->stash->{edits}  = $edits;
-    $c->stash->{pager}  = $pager;
-    $c->stash->{entity} = $entity;
+        $c->stash(
+            edits    => $edits,
+            template => 'edit/search_results.tt'
+        );
+    }
 }
 
 =head2 conditions
