@@ -17,12 +17,12 @@
                                 INCLUDE "edit/details/${edit_template}.tt" %]
                         </td>
                         <td class="vote-actions">
-                            <p>[% edit.yes_votes %] 
+                            <p>[% edit.yes_votes %]
                             [% l('yes') %] :
-                            [% edit.no_votes %] 
+                            [% edit.no_votes %]
                             [% l('no') %]</p>
 
-                            [% IF edit.is_open %]
+                            [% IF edit.is_open && c.user_exists %]
                             <p>
                                 [% IF edit.can_approve(c.user.privileges) %]
                                     <a href="[% c.uri_for_action('edit/approve', [ edit.id ], { url=c.req.uri }) %]">

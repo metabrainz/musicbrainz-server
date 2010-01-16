@@ -48,20 +48,20 @@
                    {url=doc_link('Voting_FAQ')}) %]
             </p>
         [% END %]
+
+        [% IF edit.is_open AND staging_server %]
+            <h2>[% l('Testing features') %]</h2>
+            <p>[% l('The following features are only available on testing servers, to aid in testing') %]</p>
+            <ul>
+              <li><a href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Accept') %]</a></li>
+              <li><a href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject') %]</a></li>
+            </ul>
+        [% END %]
     [% ELSE %]
         <p>
             [% l('You must be logged in to vote on edits') %]
             [% request_login() %]
         </p>
-    [% END %]
-
-    [% IF edit.is_open AND staging_server %]
-        <h2>[% l('Testing features') %]</h2>
-        <p>[% l('The following servers are only available on testing servers, to aid in testing') %]</p>
-        <ul>
-          <li><a href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Accept') %]</a></li>
-          <li><a href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject') %]</a></li>
-        </ul>
     [% END %]
 
     <h2>[% l('Edit notes') %]</h2>
