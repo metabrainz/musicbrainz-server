@@ -1,9 +1,10 @@
 [%- WRAPPER 'label/layout.tt' -%]
-    <h1>[% l('Edit label alias') %]</h1>
+    <h2>[% l('Edit label alias') %]</h2>
     <ul>
         <li>[% l('MusicBrainz uses label aliases mainly as variant names or search hints.') %]</li>
         <li>[% l('If you see a misspelled alias here, it most likely is listed on purpose,
                   and should not be renamed or removed. Please see {aa|label aliases}
                   for more details.', {aa => doc_link('LabelAlias')}) %]</li>
+    </ul>
     [%- INCLUDE 'alias/edit_form.tt' %]
 [%- END -%]
