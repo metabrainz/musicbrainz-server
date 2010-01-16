@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::AggregatedTag;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Entity';
+extends 'MusicBrainz::Server::Entity';
 
 has 'tag_id' => (
     is => 'rw',

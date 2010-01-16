@@ -10,12 +10,12 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Form::Confirm;
 
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::DetailsRole';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-with 'MusicBrainz::Server::Controller::RatingRole';
-with 'MusicBrainz::Server::Controller::TagRole';
-with 'MusicBrainz::Server::Controller::EditListingRole';
+with 'MusicBrainz::Server::Controller::Role::Annotation';
+with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::Relationship';
+with 'MusicBrainz::Server::Controller::Role::Rating';
+with 'MusicBrainz::Server::Controller::Role::Tag';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';

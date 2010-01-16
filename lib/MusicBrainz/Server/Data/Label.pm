@@ -15,18 +15,18 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'label' };
-with 'MusicBrainz::Server::Data::AliasRole' => { type => 'label' };
-with 'MusicBrainz::Server::Data::NameRole' => { name_table => 'label_name' };
-with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'label' };
-with 'MusicBrainz::Server::Data::Editable' => { table => 'label' };
-with 'MusicBrainz::Server::Data::RatingRole' => { type => 'label' };
-with 'MusicBrainz::Server::Data::TagRole' => { type => 'label' };
-with 'MusicBrainz::Server::Data::SubscriptionRole' => {
+with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
+with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_label',
     column => 'label'
 };
-with 'MusicBrainz::Server::Data::BrowseRole';
+with 'MusicBrainz::Server::Data::Role::Browse';
 
 sub _table
 {

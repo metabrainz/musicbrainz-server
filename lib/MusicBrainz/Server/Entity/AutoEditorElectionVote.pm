@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( :vote );
 
-extends 'MusicBrainz::Server::Entity::Entity';
+extends 'MusicBrainz::Server::Entity';
 
 has 'election' => (
     isa => 'AutoEditorElection',

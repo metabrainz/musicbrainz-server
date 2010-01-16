@@ -2,8 +2,8 @@ package MusicBrainz::Server::Entity::CoreEntity;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
+extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'gid' => (
     is => 'rw',

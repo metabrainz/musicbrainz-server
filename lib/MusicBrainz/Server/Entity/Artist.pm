@@ -5,11 +5,11 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
-with 'MusicBrainz::Server::Entity::LastUpdateRole';
-with 'MusicBrainz::Server::Entity::RatingRole';
+with 'MusicBrainz::Server::Entity::Role::Taggable';
+with 'MusicBrainz::Server::Entity::Role::Linkable';
+with 'MusicBrainz::Server::Entity::Role::Annotation';
+with 'MusicBrainz::Server::Entity::Role::LastUpdate';
+with 'MusicBrainz::Server::Entity::Role::Rating';
 
 has 'sort_name' => (
     is => 'rw',
@@ -62,7 +62,7 @@ has 'end_date' => (
     default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
 );
 
-with 'MusicBrainz::Server::Entity::AgeRole';
+with 'MusicBrainz::Server::Entity::Role::Age';
 
 has 'country_id' => (
     is => 'rw',

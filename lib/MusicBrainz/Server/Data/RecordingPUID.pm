@@ -5,7 +5,7 @@ use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-with 'MusicBrainz::Server::Data::Editable' => { table => 'recording_puid' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording_puid' };
 
 sub _table
 {

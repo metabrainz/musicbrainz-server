@@ -3,13 +3,13 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::Alias';
-with 'MusicBrainz::Server::Controller::DetailsRole';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-with 'MusicBrainz::Server::Controller::RatingRole';
-with 'MusicBrainz::Server::Controller::TagRole';
-with 'MusicBrainz::Server::Controller::EditListingRole';
+with 'MusicBrainz::Server::Controller::Role::Annotation';
+with 'MusicBrainz::Server::Controller::Role::Alias';
+with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::Relationship';
+with 'MusicBrainz::Server::Controller::Role::Rating';
+with 'MusicBrainz::Server::Controller::Role::Tag';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use Data::Page;

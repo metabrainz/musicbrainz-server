@@ -42,7 +42,7 @@ subtype 'Editor'
     => as class_type 'MusicBrainz::Server::Entity::Editor';
 
 subtype 'Entity'
-    => as class_type 'MusicBrainz::Server::Entity::Entity';
+    => as class_type 'MusicBrainz::Server::Entity';
 
 subtype 'Label'
     => as class_type 'MusicBrainz::Server::Entity::Label';
@@ -57,7 +57,7 @@ subtype 'Link'
     => as class_type 'MusicBrainz::Server::Entity::Link';
 
 subtype 'Linkable'
-    => as role_type 'MusicBrainz::Server::Entity::Linkable';
+    => as role_type 'MusicBrainz::Server::Entity::Role::Linkable';
 
 subtype 'LinkAttribute'
     => as class_type 'MusicBrainz::Server::Entity::LinkAttribute';

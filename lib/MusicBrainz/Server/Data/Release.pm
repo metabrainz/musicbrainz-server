@@ -13,10 +13,10 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'release' };
-with 'MusicBrainz::Server::Data::NameRole' => { name_table => 'release_name' };
-with 'MusicBrainz::Server::Data::Editable' => { table => 'release' };
-with 'MusicBrainz::Server::Data::BrowseVARole';
+with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
+with 'MusicBrainz::Server::Data::Role::BrowseVA';
 
 sub _table
 {

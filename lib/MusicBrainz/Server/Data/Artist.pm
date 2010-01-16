@@ -18,18 +18,18 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::AliasRole' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::NameRole' => { name_table => 'artist_name' };
-with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'artist' };
-with 'MusicBrainz::Server::Data::Editable' => { table => 'artist' };
-with 'MusicBrainz::Server::Data::RatingRole' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::TagRole' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::SubscriptionRole' => {
+with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_artist',
     column => 'artist'
 };
-with 'MusicBrainz::Server::Data::BrowseRole';
+with 'MusicBrainz::Server::Data::Role::Browse';
 
 sub _table
 {

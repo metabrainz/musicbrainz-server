@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::PUID;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Entity';
+extends 'MusicBrainz::Server::Entity';
 
 has 'puid' => (
     is => 'rw',

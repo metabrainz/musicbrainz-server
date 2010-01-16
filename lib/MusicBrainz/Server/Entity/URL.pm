@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::URL;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Linkable';
+with 'MusicBrainz::Server::Entity::Role::Linkable';
 
 has 'url' => (
     is => 'rw',

@@ -6,8 +6,8 @@ use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'lng' };
-with 'MusicBrainz::Server::Data::SelectAll';
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'lng' };
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
 {

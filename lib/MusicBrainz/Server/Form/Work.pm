@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::Work;
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';
 
-with 'MusicBrainz::Server::Form::Edit';
+with 'MusicBrainz::Server::Form::Role::Edit';
 
 has '+name' => ( default => 'edit-work' );
 

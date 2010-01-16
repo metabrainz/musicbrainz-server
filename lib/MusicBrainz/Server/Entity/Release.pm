@@ -5,9 +5,9 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
-with 'MusicBrainz::Server::Entity::LastUpdateRole';
+with 'MusicBrainz::Server::Entity::Role::Linkable';
+with 'MusicBrainz::Server::Entity::Role::Annotation';
+with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 
 has 'status_id' => (
     is => 'rw',

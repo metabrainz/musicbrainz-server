@@ -4,8 +4,8 @@ use Moose;
 use Readonly;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
+extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'isrc' => (
     is => 'rw',

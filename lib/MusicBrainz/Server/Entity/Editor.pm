@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Types qw( :privileges );
 
-extends 'MusicBrainz::Server::Entity::Entity';
+extends 'MusicBrainz::Server::Entity';
 
 has 'name' => (
     is  => 'rw',

@@ -4,7 +4,7 @@ use Readonly;
 use MusicBrainz::Server::Entity::DurationLookupResult;
 use MusicBrainz::Server::Entity::Medium;
 
-with 'MusicBrainz::Server::Data::ContextRole';
+with 'MusicBrainz::Server::Data::Role::Context';
 
 Readonly our $DIMENSIONS => 6;
 

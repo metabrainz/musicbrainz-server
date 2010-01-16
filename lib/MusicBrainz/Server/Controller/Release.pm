@@ -3,17 +3,17 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::DetailsRole';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-with 'MusicBrainz::Server::Controller::EditListingRole';
+with 'MusicBrainz::Server::Controller::Role::Annotation';
+with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::Relationship';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 __PACKAGE__->config(
     entity_name => 'release',
     model       => 'Release',
 );
 
-use MusicBrainz::Server::Controller::TagRole;
+use MusicBrainz::Server::Controller::Role::Tag;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT
@@ -67,7 +67,7 @@ after 'load' => sub
     my $entity = $c->stash->{$self->{entity_name}};
     my @tags = $c->model('ReleaseGroup')->tags->find_top_tags(
         $release->release_group->id,
-        $MusicBrainz::Server::Controller::TagRoleTOP_TAGS_COUNT);
+        $MusicBrainz::Server::Controller::Role::Tag::TOP_TAGS_COUNT);
     $c->stash->{top_tags} = \@tags;
 
     # Check user's collection

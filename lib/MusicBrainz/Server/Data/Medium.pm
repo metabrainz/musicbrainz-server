@@ -12,7 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Editable' => { table => 'medium' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
 
 sub _table
 {

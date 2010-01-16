@@ -5,8 +5,8 @@ use MusicBrainz::Server::Entity::Country;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'c' };
-with 'MusicBrainz::Server::Data::SelectAll' => { order_by => [ 'name ASC' ] };
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'c' };
+with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' ] };
 
 sub _table
 {

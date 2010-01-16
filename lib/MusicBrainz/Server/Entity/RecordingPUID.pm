@@ -2,8 +2,8 @@ package MusicBrainz::Server::Entity::RecordingPUID;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
+extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'puid_id' => (
     is => 'rw',

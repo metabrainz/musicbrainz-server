@@ -5,8 +5,8 @@ use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'wt' };
-with 'MusicBrainz::Server::Data::SelectAll';
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'wt' };
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
 {

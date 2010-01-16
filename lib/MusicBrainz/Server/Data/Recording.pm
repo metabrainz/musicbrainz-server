@@ -12,10 +12,10 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Editable' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::RatingRole' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::TagRole' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
+with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 
 sub _table
 {

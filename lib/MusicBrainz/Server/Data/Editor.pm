@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::SubscriptionRole' => {
+with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_editor',
     column => 'subscribededitor'
 };

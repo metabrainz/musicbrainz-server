@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( :election_status );
 
-extends 'MusicBrainz::Server::Entity::Entity';
+extends 'MusicBrainz::Server::Entity';
 
 has [qw( candidate proposer seconder_1 seconder_2 )] => (
     isa => 'Editor',

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Entity::ReleasePackaging;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Entity::Entity';
+extends 'MusicBrainz::Server::Entity';
 
 has 'name' => (
     is => 'rw',

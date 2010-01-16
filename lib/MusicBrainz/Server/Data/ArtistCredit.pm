@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'ac' };
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
 
 sub get_by_ids
 {

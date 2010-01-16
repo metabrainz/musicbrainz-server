@@ -16,11 +16,11 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Editable' => { table => 'release_group' };
-with 'MusicBrainz::Server::Data::RatingRole' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::TagRole' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::BrowseVARole';
+with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
+with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
+with 'MusicBrainz::Server::Data::Role::BrowseVA';
 
 sub _table
 {

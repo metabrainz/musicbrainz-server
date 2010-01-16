@@ -8,8 +8,8 @@ use MusicBrainz::Server::Validation;
 Readonly our $DIRECTION_FORWARD  => 1;
 Readonly our $DIRECTION_BACKWARD => 2;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with  'MusicBrainz::Server::Entity::Editable';
+extends 'MusicBrainz::Server::Entity';
+with  'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'link_id' => (
     is => 'rw',

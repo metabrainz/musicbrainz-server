@@ -5,7 +5,7 @@ use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::SelectAll';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
 {

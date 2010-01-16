@@ -11,7 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'linkattrtype' };
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
 
 sub _table
 {
