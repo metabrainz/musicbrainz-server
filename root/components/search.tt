@@ -32,6 +32,6 @@
     </div>
     <div class="row no-label">
       [% form_submit(confirm_label) %]
-    </p>
+    </div>
 [%- END -%]
 </form>
