@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::ArtistCredit;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
+use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -30,6 +31,19 @@ sub name
         $result .= $name->join_phrase if $name->join_phrase;
     }
     return $result;
+}
+
+sub from_artist
+{
+    my ($class, $artist) = @_;
+    return $class->new(
+        names => [
+            ArtistCreditName->new(
+                artist_id => $artist->id,
+                name      => $artist->name
+            )
+        ]
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

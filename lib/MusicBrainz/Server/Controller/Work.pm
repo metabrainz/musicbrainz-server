@@ -41,25 +41,19 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-sub edit : Chained('load') PathPart RequireAuth
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form           => 'Work',
+    edit_type      => $EDIT_WORK_EDIT,
+    edit_arguments => sub { work => shift }
+};
+
+before 'edit' => sub
 {
     my ($self, $c) = @_;
-
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('ArtistCredit')->load($work);
-
-    $self->edit_action($c,
-        form => 'Work',
-        item => $work,
-        type => $EDIT_WORK_EDIT,
-        edit_args => { work => $work },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/work/show', [ $work->gid ]));
-        }
-    );
-}
+};
 
 1;
 

@@ -105,97 +105,33 @@ sub show : PathPart('') Chained('load')
 
 =cut
 
-sub merge : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $old = $c->stash->{label};
-
-    if ($c->req->query_params->{dest}) {
-        my $new = $c->model('Label')->get_by_gid($c->req->query_params->{dest});
-
-        $c->stash(
-            template => 'label/merge_confirm.tt',
-            old_label => $old,
-            new_label => $new
-        );
-
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_LABEL_MERGE,
-            edit_args => {
-                old_label_id => $old->id,
-                new_label_id => $new->id
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action('/label/show', [ $new->gid ]));
-            }
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_LABEL_MERGE,
+    confirmation_template => 'label/merge_confirm.tt',
+    search_template       => 'label/merge_search.tt',
+    edit_arguments => sub {
+        return (
+            old_label_id => shift->id,
+            new_label_id => shift->id,
         );
     }
-    else {
-        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-        if ($query->submitted_and_valid($c->req->params)) {
-            my $results = $self->_load_paged($c, sub {
-                    $c->model('DirectSearch')->search('label', $query->field('query')->value, shift, shift)
-                });
+};
 
-            $c->stash(
-                search_results => $results
-            );
-        }
-        $c->stash( template => 'label/merge_search.tt' );
-    }
-}
+with 'MusicBrainz::Server::Controller::Role::Create' => {
+    form      => 'Label',
+    edit_type => $EDIT_LABEL_CREATE,
+    gid_from_edit => sub { shift->label->gid }
+};
 
-sub edit : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $label = $c->stash->{label};
-    $self->edit_action($c,
-        form => 'Label',
-        item => $label,
-        type => $EDIT_LABEL_EDIT,
-        edit_args => { label => $label },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/label/show', [ $label->gid ]));
-        }
-    );
-}
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form           => 'Label',
+    edit_type      => $EDIT_LABEL_EDIT,
+    edit_arguments => sub { label => shift }
+};
 
-sub create : Local RequireAuth
-{
-    my ($self, $c) = @_;
-    $self->edit_action($c,
-        form => 'Label',
-        type => $EDIT_LABEL_CREATE,
-        on_creation => sub {
-            my $edit = shift;
-            $c->response->redirect(
-                $c->uri_for_action('/label/show', [ $edit->label->gid ]));
-        }
-    );
-}
-
-sub delete : Chained('load') PathPart RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my $label = $c->stash->{label};
-    if($c->model('Label')->can_delete($label->id)) {
-        $c->stash( can_delete => 1 );
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_LABEL_DELETE,
-            edit_args => { label => $label },
-            on_creation => sub {
-                my $edit = shift;
-                my $url = $edit->is_open ? $c->uri_for_action('/label/show', [ $label->gid ])
-                    : $c->uri_for_action('/search');
-                $c->response->redirect($url);
-            }
-        );
-    }
-}
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type      => $EDIT_LABEL_DELETE,
+    edit_arguments => sub { label => shift }
+};
 
 1;

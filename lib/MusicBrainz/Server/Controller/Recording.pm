@@ -118,24 +118,17 @@ Edit recording details (sequence number, recording time and title)
 
 =cut
 
-sub edit : Chained('load') RequireAuth
-{
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form           => 'Recording',
+    edit_type      => $EDIT_RECORDING_EDIT,
+    edit_arguments => sub { recording => shift },
+};
+
+before 'edit' => sub {
     my ($self, $c) = @_;
-    
     my $recording = $c->stash->{recording};
     $c->model('ArtistCredit')->load($recording);
-
-    $self->edit_action($c, 
-        form => 'Recording',
-        item => $recording,
-        type => $EDIT_RECORDING_EDIT,
-        edit_args => { recording => $recording },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/recording/show', [ $recording->gid ]));
-        }
-    );
-}
+};
 
 sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
 {

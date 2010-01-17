@@ -28,6 +28,7 @@ our @EXPORT_OK = qw(
     query_to_list
     query_to_list_limited
     type_to_model
+    model_to_type
     order_by
     check_in_use
 );
@@ -224,6 +225,12 @@ sub add_partial_date_to_row
 sub type_to_model
 {
     return $TYPE_TO_MODEL{$_[0]} || undef;
+}
+
+sub model_to_type
+{
+    my %map = reverse %TYPE_TO_MODEL;
+    return $map{$_[0]} || undef;
 }
 
 sub order_by

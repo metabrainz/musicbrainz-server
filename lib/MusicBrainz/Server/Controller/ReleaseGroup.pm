@@ -18,7 +18,6 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
-use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
 __PACKAGE__->config(
     model       => 'ReleaseGroup',
@@ -61,114 +60,45 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-sub delete : Chained('load') PathPart RequireAuth
-{
-    my ($self, $c) = @_;
-    my $rg = $c->stash->{rg};
-    if($c->model('ReleaseGroup')->can_delete($rg->id)) {
-        $c->stash( can_delete => 1 );
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_RELEASEGROUP_DELETE,
-            edit_args => { release_group => $rg },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action('/release_group/show', [ $rg->gid ]));
-            }
-        );
-    }
-}
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type      => $EDIT_RELEASEGROUP_DELETE,
+    edit_arguments => sub { release_group => shift }
+};
 
-sub create : Path('/release-group/create') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $rg = MusicBrainz::Server::Entity::ReleaseGroup->new;
-    my $artist_gid = $c->req->query_params->{artist};
-    if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
-        $rg->artist_credit(
-            ArtistCredit->new(
-                names => [
-                    ArtistCreditName->new(
-                        artist_id => $artist->id,
-                        name => $artist->name,
-                    )
-                ]
-            )
-        );
-    }
-
-    $self->edit_action($c,
-        form => 'ReleaseGroup',
-        type => $EDIT_RELEASEGROUP_CREATE,
-        item => $rg,
-        on_creation => sub {
-            my $edit = shift;
-            $c->response->redirect(
-                $c->uri_for_action('/release_group/show', [ $edit->release_group->gid ]));
-        }
-    );
-}
-
-sub edit : Chained('load') PathPart RequireAuth
-{
-    my ($self, $c) = @_;
-    my $rg = $c->stash->{rg};
-    $self->edit_action($c,
-        form => 'ReleaseGroup',
-        item => $rg,
-        type => $EDIT_RELEASEGROUP_EDIT,
-        edit_args => { release_group => $rg },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/release_group/show', [ $rg->gid ]));
-        }
-    );
-}
-
-sub merge : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $old = $c->stash->{rg};
-
-    if ($c->req->query_params->{dest}) {
-        my $new = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
-        $c->model('ArtistCredit')->load($new);
-
-        $c->stash(
-            template => 'release_group/merge_confirm.tt',
-            old_rg => $old,
-            new_rg => $new
-        );
-
-        $c->stash( template => 'release_group/merge_confirm.tt' );
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_RELEASEGROUP_MERGE,
-            edit_args => {
-                old_release_group_id => $old->id,
-                new_release_group_id => $new->id
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action('/release_group/show', [ $new->gid ]));
-            }
-        );
-    }
-    else {
-        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-        if ($query->submitted_and_valid($c->req->params)) {
-            my $results = $self->_load_paged($c, sub {
-                    $c->model('DirectSearch')->search('release_group', $query->field('query')->value, shift, shift)
-                });
-            $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-
-            $c->stash(
-                search_results => $results
+with 'MusicBrainz::Server::Controller::Role::Create' => {
+    path           => '/release-group/create',
+    form           => 'Recording',
+    edit_type      => $EDIT_RELEASEGROUP_CREATE,
+    gid_from_edit  => sub { shift->release_group->gid },
+    edit_arguments => sub {
+        my ($self, $c) = @_;
+        my $artist_gid = $c->req->query_params->{artist};
+        if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
+            my $rg = MusicBrainz::Server::Entity::ReleaseGroup->new(
+                artist_credit => ArtistCredit->from_artist($artist)
             );
+            return ( item => $rg );
         }
-        $c->stash( template => 'release_group/merge_search.tt' );
     }
-}
+};
+
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form           => 'ReleaseGroup',
+    edit_type      => $EDIT_RELEASEGROUP_EDIT,
+    edit_arguments => sub { release_group => shift }
+};
+
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_RELEASEGROUP_MERGE,
+    confirmation_template => 'release_group/merge_confirm.tt',
+    search_template       => 'release_group/merge_search.tt',
+    edit_arguments => sub {
+        return (
+            old_release_group_id => shift->id,
+            new_release_group_id => shift->id,
+        );
+    }
+};
 
 1;
 

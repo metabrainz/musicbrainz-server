@@ -333,18 +333,11 @@ is done via L<MusicBrainz::Server::Form::Artist>
 
 =cut
 
-sub create : Local RequireAuth
-{
-    my ($self, $c) = @_;
-    $self->edit_action($c,
-        form        => 'Artist',
-        type        => $EDIT_ARTIST_CREATE,
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/artist/show', [ shift->artist->gid ]));
-        }
-    );
-}
+with 'MusicBrainz::Server::Controller::Role::Create' => {
+    form      => 'Artist',
+    edit_type => $EDIT_ARTIST_CREATE,
+    gid_from_edit => sub { shift->artist->gid }
+};
 
 =head2 edit
 
@@ -357,21 +350,11 @@ into the MusicBrainz database.
 
 =cut
 
-sub edit : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
-    $self->edit_action($c, 
-        form => 'Artist',
-        item => $artist,
-        type => $EDIT_ARTIST_EDIT,
-        edit_args => { artist => $artist },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/artist/show', [ $c->stash->{artist}->gid ]));
-        }
-    );
-}
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form           => 'Artist',
+    edit_type      => $EDIT_ARTIST_EDIT,
+    edit_arguments => sub { return (artist => shift) }
+};
 
 =head2 add_release
 
@@ -392,47 +375,17 @@ Merge 2 artists into a single artist
 
 =cut
 
-sub merge : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $old = $c->stash->{artist};
-
-    if ($c->req->query_params->{dest}) {
-        my $new = $c->model('Artist')->get_by_gid($c->req->query_params->{dest});
-
-        $c->stash(
-            template => 'artist/merge_confirm.tt',
-            old_artist => $old,
-            new_artist => $new
-        );
-
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_ARTIST_MERGE,
-            edit_args => {
-                old_artist_id => $old->id,
-                new_artist_id => $new->id
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action('/artist/show', [ $new->gid ]));
-            }
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_ARTIST_MERGE,
+    confirmation_template => 'artist/merge_confirm.tt',
+    search_template       => 'artist/merge_search.tt',
+    edit_arguments => sub {
+        return (
+            old_artist_id => shift->id,
+            new_artist_id => shift->id,
         );
     }
-    else {
-        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-        if ($query->submitted_and_valid($c->req->params)) {
-            my $results = $self->_load_paged($c, sub {
-                    $c->model('DirectSearch')->search('artist', $query->field('query')->value, shift, shift)
-                });
-
-            $c->stash(
-                search_results => $results
-            );
-        }
-        $c->stash( template => 'artist/merge_search.tt' );
-    }
-}
+};
 
 =head2 rating
 

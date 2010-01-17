@@ -3,14 +3,13 @@ package MusicBrainz::Server::Entity::Annotation;
 use Moose;
 use MusicBrainz::Server::Types;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Entity::AnnotationRole;
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
-has 'parent' => ( 
-    does => 'MusicBrainz::Server::Entity::AnnotationRole', 
-    is => 'rw' 
+has 'parent' => (
+    does => 'MusicBrainz::Server::Entity::Role::Annotation',
+    is => 'rw'
 );
 
 has 'editor_id' => (

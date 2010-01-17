@@ -1,0 +1,60 @@
+package MusicBrainz::Server::Controller::Role::Create;
+use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+
+parameter 'form' => (
+    isa => 'Str',
+    required => 1
+);
+
+parameter 'edit_type' => (
+    isa => 'Int',
+    required => 1
+);
+
+parameter 'gid_from_edit' => (
+    isa => 'CodeRef',
+    required => 1
+);
+
+parameter 'edit_arguments' => (
+    isa => 'CodeRef',
+    default => sub { sub { } }
+);
+
+parameter 'path' => (
+    isa => 'Str'
+);
+
+role {
+    my $params = shift;
+    my %extra = @_;
+
+    my %attrs = ( RequireAuth => undef );
+    if ($params->path) {
+        $attrs{Path}  = $params->path;
+    }
+    else {
+        $attrs{Local} = undef;
+    }
+
+    $extra{consumer}->name->config(
+        action => {
+            create => \%attrs
+        }
+    );
+
+    method 'create' => sub {
+        my ($self, $c) = @_;
+        $self->edit_action($c,
+            form        => $params->form,
+            type        => $params->edit_type,
+            on_creation => sub {
+                $c->response->redirect(
+                    $c->uri_for_action($self->action_for('show'), [ $params->gid_from_edit->(shift) ]));
+            },
+            $params->edit_arguments->($self, $c)
+        );
+    };
+};
+
+1;
