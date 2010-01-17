@@ -23,6 +23,7 @@
     <ul class="links">
       [% IF c.user_exists %]
       <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
+      <li>[% link_recording(recording, 'merge', l('Merge this recording with another')) %]</li>
       [% ELSE %]
       <li>[% request_login(l('Please login to edit this recording')) %]</li>
       [% END %]

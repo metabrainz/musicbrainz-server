@@ -15,7 +15,11 @@ __PACKAGE__->config(
     model       => 'Recording',
 );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT $EDIT_PUID_DELETE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_EDIT
+    $EDIT_RECORDING_MERGE
+    $EDIT_PUID_DELETE
+);
 
 =head1 NAME
 
@@ -123,10 +127,34 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     edit_type      => $EDIT_RECORDING_EDIT,
 };
 
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_RECORDING_MERGE,
+    search_template => 'recording/merge_search.tt',
+    confirmation_template => 'recording/merge_confirm.tt'
+};
+
 before 'edit' => sub {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
     $c->model('ArtistCredit')->load($recording);
+};
+
+after 'merge' => sub {
+    my ($self, $c) = @_;
+    $c->model('ArtistCredit')->load(
+        $c->stash->{recording}, $c->stash->{old}, $c->stash->{new}
+    );
+};
+
+around '_merge_search' => sub {
+    my $orig = shift;
+    my ($self, $c, $query) = @_;
+
+    my $results = $self->$orig($c, $query);
+    use Devel::Dwarn;
+    Dwarn $results;
+    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
+    return $results;
 };
 
 sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth

@@ -67,11 +67,7 @@ role {
         else {
             my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
             if ($query->submitted_and_valid($c->req->params)) {
-                my $results = $self->_load_paged($c, sub {
-                    $c->model('DirectSearch')->search(model_to_type($self->{model}),
-                                                      $query->field('query')->value, shift, shift)
-                });
-
+                my $results = $self->_merge_search($c, $query->field('query')->value);
                 $results = [ grep { $_->entity->id != $old->id } @$results ];
                 $c->stash( search_results => $results );
             }
@@ -79,5 +75,14 @@ role {
         }
     };
 };
+
+sub _merge_search {
+    my ($self, $c, $query) = @_;
+    return $self->_load_paged($c, sub {
+        $c->model('DirectSearch')->search(model_to_type($self->{model}),
+                                          $query, shift, shift)
+    });
+}
+
 
 1;

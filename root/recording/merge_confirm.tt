@@ -1,0 +1,12 @@
+[% WRAPPER 'recording/layout.tt' title=l('Merge Recordings') %]
+    <h2>[% l('Merge Recordings') %]</h2>
+    [% WRAPPER 'layout/guidelines.tt' %]
+        [%- create_guideline(l('Are you sure that you want to merge {recording1} by {artist1} into the {recording2} by {artist2}?', {recording1 => link_recording(old), artist1 => artist_credit(old.artist_credit),
+                  recording2 => link_recording(new), artist2 => artist_credit(new.artist_credit) })) -%]
+    [%- END -%]
+    <form action="[% c.req.uri_with( gid => new_recording.gid ) %]" method="post">
+        [% INCLUDE "forms/edit-note.tt" %]
+        [%- INCLUDE 'forms/auto-editor.tt' -%]
+        [% form_submit(l('Enter Edit')) %]
+    </form>
+[% END %]
