@@ -40,6 +40,10 @@ role {
 
         if ($c->req->query_params->{dest}) {
             my $new = $c->model($self->{model})->get_by_gid($c->req->query_params->{dest});
+            if ($new->id eq $old->id) {
+                $c->stash( message => 'You cannot merge an entity into itself' );
+                $c->detach('/error_500');
+            }
 
             $c->stash(
                 template => $params->confirmation_template,
@@ -68,6 +72,7 @@ role {
                                                       $query->field('query')->value, shift, shift)
                 });
 
+                $results = [ grep { $_->entity->id != $old->id } @$results ];
                 $c->stash( search_results => $results );
             }
             $c->stash( template => $params->search_template );
