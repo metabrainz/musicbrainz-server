@@ -13,17 +13,6 @@
 
 <form action="[% c.req.uri | html %]" method="post">
 
-[% MACRO entity_label(type) BLOCK;
-    IF type == 'artist'; l('Artist:');
-    ELSIF type == 'label'; l('Label:');
-    ELSIF type == 'release'; l('Release:');
-    ELSIF type == 'release_group'; l('Release group:');
-    ELSIF type == 'recording'; l('Recording:');
-    ELSIF type == 'work'; l('Work:');
-    ELSIF type == 'url'; l('URL:');
-    END;
-END %]
-
 <script type="text/javascript">
 var typeInfo = [% type_info %];
 </script>

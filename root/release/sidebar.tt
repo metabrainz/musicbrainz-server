@@ -129,13 +129,14 @@
     <ul class="links">
       [% IF c.user_exists %]
         <li>[% link_release(release, 'edit', l('Edit this release')) %]</li>
+        <li>[% use_in_relationship(release) %]</li>
       [% ELSE %]
         <li>[% request_login(l('Please login to edit this release')) %]</li>
       [% END %]
       <li>[% link_release(release, 'edits', l('View editing history')) %]</li>
     </ul>
 [% END %]
-           
+
 [%
 WRAPPER 'layout/sidebar.tt';
     INCLUDE cover_art;

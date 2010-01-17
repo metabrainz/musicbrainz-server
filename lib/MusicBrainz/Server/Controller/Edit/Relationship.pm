@@ -6,10 +6,40 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIP_EDIT
+    $EDIT_RELATIONSHIP_CREATE
     );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Relationship::Delete;
 use MusicBrainz::Server::Edit::Relationship::Edit;
 use JSON;
+
+sub build_type_info
+{
+    my ($tree) = @_;
+
+    sub _builder
+    {
+        my ($root, $info) = @_;
+
+        if ($root->id) {
+            my %attrs = map { $_->type_id => [
+                defined $_->min ? 0 + $_->min : undef,
+                defined $_->max ? 0 + $_->max : undef,
+            ] } $root->all_attributes;
+            $info->{$root->id} = {
+                descr => $root->description,
+                attrs => \%attrs,
+            };
+        }
+        foreach my $child ($root->all_children) {
+            _builder($child, $info);
+        }
+    }
+
+    my %type_info;
+    _builder($tree, \%type_info);
+    return %type_info;
+}
 
 sub edit : Local RequireAuth
 {
@@ -25,28 +55,7 @@ sub edit : Local RequireAuth
     $c->model('Relationship')->load_entities($rel);
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
-
-    sub build_type_info
-    {
-        my ($root, $info) = @_;
-
-        if ($root->id) {
-            my %attrs = map { $_->type_id => [
-                defined $_->min ? 0 + $_->min : undef,
-                defined $_->max ? 0 + $_->max : undef,
-            ] } $root->all_attributes;
-            $info->{$root->id} = {
-                descr => $root->description,
-                attrs => \%attrs,
-            };
-        }
-        foreach my $child ($root->all_children) {
-            build_type_info($child, $info);
-        }
-    }
-
-    my %type_info;
-    build_type_info($tree, \%type_info);
+    my %type_info = build_type_info($tree);
 
     $c->stash(
         root => $tree,
@@ -113,6 +122,77 @@ sub edit : Local RequireAuth
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
         $c->response->redirect($redirect);
+        $c->detach;
+    }
+}
+
+sub create : Local RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $qp = $c->req->query_params;
+    my ($type0, $type1)         = ($qp->{type0},  $qp->{type1});
+    my ($source_gid, $dest_gid) = ($qp->{entity0}, $qp->{entity1});
+    if (!$type0 || !$type1 || !$source_gid || !$dest_gid) {
+        $c->stash( message => 'Invalid arguments' );
+        $c->detach('/error_500');
+    }
+
+    my $source_model = $c->model(type_to_model($type0));
+    my $dest_model   = $c->model(type_to_model($type1));
+    if (!$source_model || !$dest_model) {
+        $c->stash( message => 'Invalid entities' );
+        $c->detach('/error_500');
+    }
+
+    my $source = $source_model->get_by_gid($source_gid);
+    my $dest   = $dest_model->get_by_gid($dest_gid);
+
+    my $tree = $c->model('LinkType')->get_tree($type0, $type1);
+    my %type_info = build_type_info($tree);
+
+    $c->stash(
+        root      => $tree,
+        type_info => JSON->new->latin1->encode(\%type_info),
+    );
+
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree();
+    $c->stash( attr_tree => $attr_tree );
+
+    my $form = $c->form( form => 'Relationship' );
+    $c->stash(
+        source => $source, source_type => $type0,
+        dest   => $dest,   dest_type   => $type1
+    );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my @attributes;
+        foreach my $attr ($attr_tree->all_children) {
+            my $value = $form->field('attrs')->field($attr->name)->value;
+            if (defined $value) {
+                if (scalar $attr->all_children) {
+                    push @attributes, @{ $value };
+                }
+                elsif ($value) {
+                    push @attributes, $attr->id;
+                }
+            }
+        }
+
+        $self->_insert_edit($c, $form,
+            edit_type    => $EDIT_RELATIONSHIP_CREATE,
+            type0        => $type0,
+            type1        => $type1,
+            entity0      => $source->id,
+            entity1      => $dest->id,
+            begin_date   => $form->field('begin_date')->value,
+            end_date     => $form->field('end_date')->value,
+            link_type_id => $form->field('link_type_id')->value,
+            attributes   => \@attributes,
+        );
+
+        my $redirect = $c->controller(type_to_model($type0))->action_for('show');
+        $c->response->redirect($c->uri_for_action($redirect, [ $source_gid ]));
         $c->detach;
     }
 }

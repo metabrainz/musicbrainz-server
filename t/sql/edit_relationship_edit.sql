@@ -22,4 +22,6 @@ INSERT INTO link (id, link_type, attributecount) VALUES (1, 1, 0);
 
 INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 1, 2);
 
+ALTER SEQUENCE l_artist_artist_id_seq RESTART 2;
+
 COMMIT;

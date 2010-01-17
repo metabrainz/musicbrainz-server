@@ -3,12 +3,13 @@
     <ul class="links">
       [% IF c.user_exists %]
       <li>[% link_url(url, 'edit', l('Edit this URL')) %]</li>
+      <li>[% use_in_relationship(url) %]</li>
       [% ELSE %]
       <li>[% request_login(l('Please login to edit this URL')) %]</li>
       [% END %]
     </ul>
     [% END %]
-    
+
     <table class="details">
       <tr>
         <th>[% l('URL:') %]</th>

@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Role::Relationship;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
+
 requires 'load';
 
 sub relationships : Chained('load') PathPart('relationships')
@@ -20,6 +22,34 @@ sub relationships : Chained('load') PathPart('relationships')
     $c->stash(
         relationships => \@relationships,
     );
+}
+
+sub relate : Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $type   = model_to_type( $self->{model} );
+    my $entity = $c->stash->{ $self->{entity_name} };
+
+    if ($c->session->{relationship}) {
+        $c->response->redirect($c->uri_for('/edit/relationship/create', {
+            type0 => $c->session->{relationship}->{type0},
+            type1 => $type,
+            entity0 => $c->session->{relationship}->{entity0},
+            entity1 => $entity->gid
+        }));
+
+        delete $c->session->{relationship};
+    }
+    else {
+        $c->session->{relationship} = {
+            type0   => $type,
+            entity0 => $entity->gid,
+            name    => $entity->name
+        };
+
+        $c->response->redirect($c->req->referer);
+    }
 }
 
 no Moose::Role;

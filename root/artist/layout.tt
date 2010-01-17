@@ -38,6 +38,7 @@
             [% IF c.user_exists %]
                 <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
                 <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
+                <li>[% use_in_relationship(artist) %]</li>
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
                     [% l('Create a new release group') %]
