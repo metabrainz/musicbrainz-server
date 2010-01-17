@@ -115,7 +115,7 @@ sub get_by_ids
 
 sub _load
 {
-    my ($self, $type, @objs) = @_;
+    my ($self, $type, $target_type, @objs) = @_;
     my @target_types = @TYPES;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my %objs_by_id = map { $_->id => $_ } @objs;
@@ -198,9 +198,9 @@ sub load_entities
     }
 }
 
-sub load
+sub load_subset
 {
-    my ($self, @objs) = @_;
+    my ($self, $types, @objs) = @_;
     my %objs_by_type;
     return unless @objs; # nothing to do
     foreach my $obj (@objs) {
@@ -212,19 +212,26 @@ sub load
     }
     my @rels;
     foreach my $type (keys %objs_by_type) {
-        push @rels, $self->_load($type, @{$objs_by_type{$type}});
+        push @rels, $self->_load($type, $types, @{$objs_by_type{$type}});
     }
     $self->c->model('Link')->load(@rels);
     $self->c->model('LinkType')->load(map { $_->link } @rels);
     $self->load_entities(@rels);
 }
 
+sub load
+{
+    my ($self, @objs) = @_;
+    return $self->load_subset(\@TYPES, @objs);
+}
+
 sub _generate_table_list
 {
-    my ($type) = @_;
+    my ($type, @end_types) = @_;
     # Generate a list of all possible type combinations
     my @types;
-    foreach my $t (@TYPES) {
+    @end_types = @TYPES unless @end_types;
+    foreach my $t (@end_types) {
         if ($type le $t) {
             push @types, ["l_${type}_${t}", 'entity0', 'entity1'];
         }

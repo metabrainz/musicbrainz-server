@@ -98,6 +98,14 @@ $sql->commit;
 is($rel->id, 100);
 
 $artist1->clear_relationships;
+$rel_data->load_subset([ 'artist' ], $artist1);
+is(scalar($artist1->all_relationships), 0);
+
+$artist1->clear_relationships;
+$rel_data->load_subset([ 'recording' ], $artist1);
+is(scalar($artist1->all_relationships), 1);
+
+$artist1->clear_relationships;
 $rel_data->load($artist1);
 is(scalar($artist1->all_relationships), 1);
 
