@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Sql;
-use Test::More tests => 44;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::Relationship';
 use MusicBrainz::Server::Entity::Artist;
 
@@ -132,6 +132,11 @@ is($rel->phrase, 'performed string instruments on');
 
 $rel = $rel_data->get_by_id('artist', 'recording', 100);
 is($rel->edits_pending, 0);
+is_deeply(
+    $rel_data->get_by_ids('artist', 'recording', 100),
+    {
+        100 => $rel
+    });
 
 $sql->begin;
 $rel_data->adjust_edit_pending('artist', 'recording', +1, 100);
@@ -146,3 +151,5 @@ $sql->commit;
 
 $rel = $rel_data->get_by_id('artist', 'recording', 100);
 is($rel->edits_pending, 0);
+
+done_testing;

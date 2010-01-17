@@ -95,6 +95,24 @@ sub get_by_id
     return $self->_new_from_row($row);
 }
 
+sub get_by_ids
+{
+    my ($self, $type0, $type1, @ids) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $query = "SELECT * FROM l_${type0}_${type1} WHERE id IN (" . placeholders(@ids) . ")";
+    my $sql = Sql->new($self->c->dbh);
+    $sql->select($query, @ids);
+    my %result;
+    while (1) {
+        my $row = $sql->next_row_hash_ref or last;
+        my $obj = $self->_new_from_row($row);
+        $result{$obj->id} = $obj;
+    }
+    $sql->finish;
+    return \%result;
+}
+
 sub _load
 {
     my ($self, $type, @objs) = @_;
