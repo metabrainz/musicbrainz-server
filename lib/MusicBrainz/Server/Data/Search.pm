@@ -54,6 +54,9 @@ sub search
 
         $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
 
+        my $extra_columns = '';
+        $extra_columns .= 'entity.labelcode,' if $type eq 'label';
+
         $query = "
             SELECT
                 entity.id,
@@ -61,6 +64,10 @@ sub search
                 entity.comment,
                 aname.name AS name,
                 asortname.name AS sortname,
+                entity.type,
+                entity.begindate_year, entity.begindate_month, entity.begindate_day,
+                entity.enddate_year, entity.enddate_month, entity.enddate_day,
+                $extra_columns
                 MAX(rank) AS rank
             FROM
                 (
@@ -76,7 +83,9 @@ sub search
                 JOIN ${type}_name AS asortname ON entity.sortname = asortname.id
                 WHERE entity.id != ?
             GROUP BY
-                entity.id, entity.gid, entity.comment, aname.name, asortname.name
+                $extra_columns entity.id, entity.gid, entity.comment, aname.name, asortname.name, entity.type,
+                entity.begindate_year, entity.begindate_month, entity.begindate_day,
+                entity.enddate_year, entity.enddate_month, entity.enddate_day
             ORDER BY
                 rank DESC, sortname, name
             OFFSET
@@ -89,10 +98,17 @@ sub search
         my $type2 = $type;
         $type2 = "track" if $type eq "recording";
         $type2 = "release" if $type eq "release_group";
+
         my $extra_columns = "";
-        if ($type eq "recording") {
-            $extra_columns = "entity.length,";
-        }
+        $extra_columns .= 'entity.type AS type_id,'
+            if ($type eq 'release_group');
+
+        $extra_columns = "entity.length,"
+            if ($type eq "recording");
+
+        $extra_columns .= 'entity.language, entity.script,'
+            if ($type eq 'release');
+
         $query = "
             SELECT
                 entity.id,

@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
     placeholders
     query_to_list_limited
+    query_to_list
     order_by
 );
 
@@ -117,6 +118,21 @@ sub find_by_track_artist
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub find_by_recording
+{
+    my ($self, $recording_id) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE release.id IN (
+                    SELECT release FROM medium
+                      JOIN track ON track.tracklist = medium.tracklist
+                      JOIN recording ON recording.id = track.recording
+                     WHERE recording.id = ?
+                )';
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                         $query, $recording_id);
 }
 
 sub find_by_collection

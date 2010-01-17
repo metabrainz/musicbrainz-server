@@ -71,10 +71,39 @@ sub direct : Private
     my $results = $self->_load_paged($c, sub {
        $c->model('DirectSearch')->search($type, $query, shift, shift);
     });
+    my @entities = map { $_->entity } @$results;
+
+    use Switch;
+    switch($type) {
+        case 'artist' {
+            $c->model('ArtistType')->load(@entities);
+        }
+        case 'release_group' {
+            $c->model('ReleaseGroupType')->load(@entities);
+        }
+        case 'release' {
+            $c->model('Language')->load(@entities);
+            $c->model('Script')->load(@entities);
+            $c->model('Medium')->load_for_releases(@entities);
+        }
+        case 'label' {
+            $c->model('LabelType')->load(@entities);
+        }
+        case 'recording' {
+            for my $result (@$results) {
+                my @releases = $c->model('Release')->find_by_recording($result->entity->id);
+                $result->extra(\@releases);
+            }
+            my @releases = map { @{ $_->extra } } @$results;
+            $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+            $c->model('Medium')->load_for_releases(@releases);
+        }
+    }
 
     if ($type =~ /(recording|work|release|release_group)/)
     {
-        $c->model('ArtistCredit')->load(map { $_->entity } @$results);
+        $c->model('ArtistCredit')->load(@entities);
     }
 
     $c->stash(

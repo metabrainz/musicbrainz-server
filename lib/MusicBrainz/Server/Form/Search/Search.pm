@@ -24,7 +24,7 @@ sub options_type
 {
     return [
         'artist'        => 'Artist',
-        'release-group' => 'Release Group',
+        'release_group' => 'Release Group',
         'release'       => 'Release',
         'recording'     => 'Recording',
         'work'          => 'Work',
