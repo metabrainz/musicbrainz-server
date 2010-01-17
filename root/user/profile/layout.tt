@@ -14,6 +14,8 @@
     ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist/view", user.name), l('Subscriptions'))],
     ['collection', generic_link(c.uri_for_action("/user/collection/view", user.name), l('Collection'))],
     ['ratings', generic_link(c.uri_for_action("/user/collection/view", user.name), l('Ratings'))],
+    ['open_edits', generic_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
+    ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ] -%]
 
     [% INCLUDE 'components/tabs.tt' list=info_links %]

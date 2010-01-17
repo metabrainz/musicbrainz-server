@@ -1,0 +1,4 @@
+[% WRAPPER 'user/profile/layout.tt' title=l('All Edits') page='all_edits' %]
+   <h2>[% l('All Edits by {name}', { name => html_escape(user.name) }) %]</h2>
+   [% INCLUDE 'edit/list.tt' %]
+[% END %]
