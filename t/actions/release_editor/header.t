@@ -26,7 +26,7 @@ ok($mech->success, '...submit edit');
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit', '...edit is a edit-release edit');
 is_deeply($edit->data, {
-    release => 1,
+    entity_id => 1,
     new => {
         artist_credit => [
         { name => 'Bob Marley', artist => 2 }

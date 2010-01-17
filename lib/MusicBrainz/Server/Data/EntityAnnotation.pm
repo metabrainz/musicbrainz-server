@@ -47,7 +47,7 @@ sub load_latest
 {
     my ($self, @objs) = @_;
     for my $obj (@objs) {
-        next unless $obj->does('MusicBrainz::Server::Entity::AnnotationRole');
+        next unless $obj->does('MusicBrainz::Server::Entity::Role::Annotation');
         my $annotation = $self->get_latest($obj->id) or next;
         $obj->latest_annotation($annotation);
     }

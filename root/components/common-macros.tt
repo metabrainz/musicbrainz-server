@@ -110,7 +110,7 @@ END -%]
     text = text || html_escape(work.name);
     '<span class="mp">' IF work.edits_pending AND action == 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF work.edits_pending AND action != 'show';
+    '</span>' IF work.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_label(label, action, text) BLOCK;

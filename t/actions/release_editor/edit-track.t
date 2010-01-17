@@ -29,7 +29,7 @@ ok($mech->success, '...submit edit');
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Track::Edit', '...edit is a edit-track edit');
 is_deeply($edit->data, {
-    track => 1,
+    entity_id => 1,
     new => {
         name => 'Renamed track',
         artist_credit => [

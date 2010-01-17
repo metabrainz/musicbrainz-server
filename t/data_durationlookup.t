@@ -16,7 +16,7 @@ my $sql = Sql->new($c->dbh);
 my $raw_sql = Sql->new($c->raw_dbh);
 
 my $lookup_data = MusicBrainz::Server::Data::DurationLookup->new(c => $c);
-does_ok($lookup_data, 'MusicBrainz::Server::Data::ContextRole');
+does_ok($lookup_data, 'MusicBrainz::Server::Data::Role::Context');
 
 my $result = $lookup_data->lookup("1 10 323860 182 36697 68365 94047 125922 180342 209172 245422 275887 300862", 10000);
 is ( defined $result->[0] && $result->[0]->medium->tracklist_id, 1 );

@@ -34,7 +34,7 @@ ok($mech->success, '...post an edit request');
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit', '...edit isa edit-release edit');
 is_deeply($edit->data, {
-    release => 1,
+    entity_id => 1,
     new => {
         date => {
              year => 2009,

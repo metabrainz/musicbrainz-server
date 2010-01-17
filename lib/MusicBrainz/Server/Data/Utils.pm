@@ -257,7 +257,7 @@ sub order_by
 
 sub deep_equal {
     my ($a, $b) = @_;
-    return unless (ref($a) == ref(b));
+    return unless (ref($a) eq ref($b));
 
     if (ref($a) eq 'HASH') {
         return unless %$a == %$b;

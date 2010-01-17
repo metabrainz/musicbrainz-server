@@ -128,10 +128,9 @@ sub select
     my $field = $self->_lookup_field($field_name) or return;
 
     my @selected = $field->multiple ? @{ $field->value || [] } : ( $field->value );
-
     my @options = map {
         my $option = $_;
-        my $selected = @selected && first { $option->{value} eq $_ } @selected;
+        my $selected = @selected > 0  && first { $_ && $option->{value} && $option->{value} eq $_ } @selected;
         $self->h->option({
             value => $_->{value},
             selected => $selected ? "selected" : undef,

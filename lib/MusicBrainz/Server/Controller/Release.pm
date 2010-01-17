@@ -168,7 +168,7 @@ sub show : Chained('load') PathPart('')
 
 =head2 show
 
-Lookup a CD 
+Lookup a CD
 
 Given a TOC, carry out a fuzzy TOC lookup and display the matches in a table
 
@@ -178,7 +178,7 @@ sub medium_sort
 {
     ($a->medium->format_id || 99) <=> ($b->medium->format_id || 99)
         or
-    ($a->medium->release->release_group->type_id || 99) <=> ($b->medium->release->release_group->type_id || 99) 
+    ($a->medium->release->release_group->type_id || 99) <=> ($b->medium->release->release_group->type_id || 99)
         or
     ($a->medium->release->status_id || 99) <=> ($b->medium->release->status_id || 99)
         or
@@ -253,7 +253,7 @@ sub edit : Chained('load') RequireAuth
         my $release_edit = $self->_create_edit($c, $EDIT_RELEASE_EDIT,
             $form => [qw( name comment packaging_id status_id script_id language_id
                          country_id barcode artist_credit date )],
-            release => $release,
+            to_edit => $release,
         ),
 
         my %track_id = map { $_->id => $_ } @tracks;
@@ -279,7 +279,7 @@ sub edit : Chained('load') RequireAuth
                         # Editing an existing track
                         $self->_create_edit($c, $EDIT_TRACK_EDIT,
                             $track_field => [qw( position name artist_credit length )],
-                            track => $track,
+                            to_edit => $track,
                         );
                     }
                 }
@@ -324,7 +324,7 @@ sub edit : Chained('load') RequireAuth
                     $self->_create_edit(
                         $c, $EDIT_MEDIUM_EDIT,
                         $medium_field => [qw( name format_id position )],
-                        medium => $medium
+                        to_edit => $medium
                     );
                 }
             }

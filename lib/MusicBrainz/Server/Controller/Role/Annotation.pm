@@ -46,7 +46,10 @@ sub revision : Chained('load') PathPart('annotation') Args(1)
 after 'show' => sub
 {
     my ($self, $c) = @_;
-    $c->model($self->{model})->annotation->load_latest($c->stash->{$self->{entity_name}});
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $type = $self->{model};
+
+    $c->model($type)->annotation->load_latest($entity);
 };
 
 sub edit_annotation : Chained('load') PathPart RequireAuth

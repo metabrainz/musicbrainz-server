@@ -32,7 +32,7 @@ is ( $countries->{2}->id, 2 );
 is ( $countries->{2}->iso_code, "US" );
 is ( $countries->{2}->name, "United States" );
 
-does_ok($country_data, 'MusicBrainz::Server::Data::SelectAll');
+does_ok($country_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @cts = $country_data->get_all;
 is(@cts, 2);
 is($cts[0]->id, 1);

@@ -54,21 +54,10 @@ Edit the details of an already existing link
 
 =cut
 
-sub edit : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $url = $c->stash->{url};
-    $self->edit_action($c,
-        form => 'URL',
-        item => $url,
-        type => $EDIT_URL_EDIT,
-        edit_args => { url_entity => $url },
-        on_creation => sub {
-            $c->response->redirect(
-                $c->uri_for_action('/url/show', [ $url->gid ]));
-        }
-    );
-}
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form      => 'URL',
+    edit_type => $EDIT_URL_EDIT,
+};
 
 =head1 LICENSE
 

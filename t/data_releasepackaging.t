@@ -20,7 +20,7 @@ my $lts = $lt_data->get_by_ids(1);
 is ( $lts->{1}->id, 1 );
 is ( $lts->{1}->name, "Jewel Case" );
 
-does_ok($lt_data, 'MusicBrainz::Server::Data::SelectAll');
+does_ok($lt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @types = $lt_data->get_all;
 is(@types, 1);
 is($types[0]->id, 1);

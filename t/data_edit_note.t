@@ -17,6 +17,7 @@ BEGIN {
     extends 'MusicBrainz::Server::Edit';
 
     sub edit_type { 111; }
+    sub edit_name { 'mock edit' }
 };
 
 BEGIN {

@@ -25,6 +25,7 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c);
     use Moose;
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { 1 }
+    sub edit_name { 'mock edit' }
 }
 
 use MusicBrainz::Server::EditRegistry;

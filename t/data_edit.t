@@ -11,6 +11,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Data::Edit' };
     use Moose;
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { 123 }
+    sub edit_name { 'mock edit' }
 }
 
 use Sql;
@@ -83,7 +84,7 @@ is($hits, 1);
 is(scalar @$edits, 1);
 is($edits->[0]->id, 4);
 
-# Test accepting edits 
+# Test accepting edits
 my $edit = $edit_data->get_by_id(1);
 $sql->begin;
 $raw_sql->begin;

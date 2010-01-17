@@ -26,7 +26,7 @@ ok($mech->success, '...submit edit');
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Edit', '...edit is a edit-medium edit');
 is_deeply($edit->data, {
-    medium => 1,
+    entity_id => 1,
     new => {
         name => 'Renamed Medium',
         format_id => 2,

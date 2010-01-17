@@ -20,7 +20,7 @@ $sql->begin;
 $raw_sql->begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
-does_ok($artist_data, 'MusicBrainz::Server::Data::Editable');
+does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Editable');
 
 
 # ----

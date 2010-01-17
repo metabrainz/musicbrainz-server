@@ -16,7 +16,7 @@ use Test::More tests => 14;
     package MyCachedEntityData;
     use Moose;
     extends 'MyEntityData';
-    with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'prefix' };
+    with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'prefix' };
     has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
 
     package MockCache;

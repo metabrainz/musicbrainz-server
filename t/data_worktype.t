@@ -27,7 +27,7 @@ is ( $wts->{1}->name, "Composition" );
 is ( $wts->{2}->id, 2 );
 is ( $wts->{2}->name, "Symphony" );
 
-does_ok($wt_data, 'MusicBrainz::Server::Data::SelectAll');
+does_ok($wt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @types = $wt_data->get_all;
 is(@types, 2);
 is($types[0]->id, 1);

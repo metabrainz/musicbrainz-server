@@ -27,7 +27,7 @@ is ( $rgts->{1}->name, "Album" );
 is ( $rgts->{2}->id, 2 );
 is ( $rgts->{2}->name, "Single" );
 
-does_ok($rgt_data, 'MusicBrainz::Server::Data::SelectAll');
+does_ok($rgt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @types = $rgt_data->get_all;
 is(@types, 2);
 is($types[0]->id, 1);

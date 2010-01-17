@@ -26,7 +26,7 @@ is ( $languages->{1}->iso_code_3b, "ger" );
 is ( $languages->{1}->iso_code_2, "de" );
 is ( $languages->{1}->name, "German" );
 
-does_ok($language_data, 'MusicBrainz::Server::Data::SelectAll');
+does_ok($language_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @languages = $language_data->get_all;
 is(@languages, 1);
 is($languages[0]->id, 1);

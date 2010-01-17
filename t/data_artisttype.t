@@ -28,7 +28,7 @@ is ( $ats->{1}->name, "Person" );
 is ( $ats->{2}->id, 2 );
 is ( $ats->{2}->name, "Group" );
 
-does_ok($at_data, 'MusicBrainz::Server::Data::SelectAll');
+does_ok($at_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @types = $at_data->get_all;
 is(@types, 3);
 is($types[0]->id, 1);

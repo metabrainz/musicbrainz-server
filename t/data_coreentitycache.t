@@ -28,7 +28,7 @@ use Test::More tests => 17;
     package MyCachedEntityData;
     use Moose;
     extends 'MyEntityData';
-    with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'prefix' };
+    with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'prefix' };
 
     package MockCache;
     use Moose;

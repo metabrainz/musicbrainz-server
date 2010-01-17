@@ -22,7 +22,7 @@ is ( $scripts->{1}->id, 1 );
 is ( $scripts->{1}->iso_code, "Ugar" );
 is ( $scripts->{1}->name, "Ugaritic" );
 
-does_ok($script_data, 'MusicBrainz::Server::Data::SelectAll');
+does_ok($script_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @scripts = $script_data->get_all;
 is(@scripts, 1);
 is($scripts[0]->id, 1);

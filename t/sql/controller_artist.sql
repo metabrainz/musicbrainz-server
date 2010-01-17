@@ -8,6 +8,7 @@ TRUNCATE artist_annotation CASCADE;
 TRUNCATE artist_credit CASCADE;
 TRUNCATE artist_credit_name CASCADE;
 TRUNCATE artist_name CASCADE;
+TRUNCATE artist_type CASCADE;
 TRUNCATE country CASCADE;
 TRUNCATE editor CASCADE;
 TRUNCATE gender CASCADE;
@@ -34,6 +35,7 @@ INSERT INTO artist_name (id, name) VALUES
     (3, 'Empty Artist'),
     (4, 'Test Alias');
 
+INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist
     (id, gid, name, sortname, type, gender, country,
      begindate_year, begindate_month, begindate_day,
@@ -69,7 +71,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, date_year,
     (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 3, 1, 1, 2009, 5, 8);
 
 INSERT INTO editor (id, name, password) VALUES (1, 'new_editor', 'password');
-    
+
 INSERT INTO annotation (id, editor, text) VALUES
     (1, 1, 'Test annotation 1' || chr(10) || chr(10) || 'More annotation');
 
@@ -132,5 +134,9 @@ INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
 
 INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
 INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
+
+ALTER SEQUENCE artist_alias_id_seq RESTART 2;
+ALTER SEQUENCE annotation_id_seq RESTART 2;
+ALTER SEQUENCE tag_id_seq RESTART 3;
 
 COMMIT;
