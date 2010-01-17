@@ -41,7 +41,7 @@ is_deeply($edit->data, {
         comment => undef,
         artist_credit => [ { artist => 6, name => 'ABBA' } ]
     },
-    release_group => 1
+    entity_id => 1
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');

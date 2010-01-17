@@ -109,29 +109,20 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_LABEL_MERGE,
     confirmation_template => 'label/merge_confirm.tt',
     search_template       => 'label/merge_search.tt',
-    edit_arguments => sub {
-        return (
-            old_label_id => shift->id,
-            new_label_id => shift->id,
-        );
-    }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Label',
     edit_type => $EDIT_LABEL_CREATE,
-    gid_from_edit => sub { shift->label->gid }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Label',
     edit_type      => $EDIT_LABEL_EDIT,
-    edit_arguments => sub { label => shift }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_LABEL_DELETE,
-    edit_arguments => sub { label => shift }
 };
 
 1;

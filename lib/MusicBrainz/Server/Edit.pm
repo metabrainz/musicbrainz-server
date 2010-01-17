@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit;
 use Moose;
+use MooseX::ABC;
 
 use Carp qw( croak );
 use DateTime;
@@ -8,6 +9,8 @@ use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+
+requires 'edit_type', 'edit_name';
 
 has 'c' => (
     isa => 'Object',
@@ -137,9 +140,6 @@ sub auto_edit_for_editor
         && $self->edit_conditions->{ $self->quality }->{auto_edit}
         && $editor->is_auto_editor;
 }
-
-sub edit_type { die 'Not implemented' }
-sub edit_name { '' }
 
 # Subclasses should reimplement this, if they want different edit conditions.
 #

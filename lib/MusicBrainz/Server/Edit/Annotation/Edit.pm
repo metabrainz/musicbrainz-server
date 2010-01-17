@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Annotation::Edit;
 use Moose;
+use MooseX::ABC;
 
 use Moose::Util::TypeConstraints qw( enum );
 use MooseX::Types::Moose qw( Int Str );

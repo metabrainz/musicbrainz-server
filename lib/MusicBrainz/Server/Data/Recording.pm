@@ -16,6 +16,7 @@ with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 
 sub _table
 {

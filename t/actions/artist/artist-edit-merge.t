@@ -33,8 +33,8 @@ ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Merge');
 is_deeply($edit->data, {
-        old_artist => 4,
-        new_artist => 3,
+        old_entity_id => 4,
+        new_entity_id => 3,
     });
 
 done_testing;

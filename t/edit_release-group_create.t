@@ -24,7 +24,7 @@ ok(defined $edit->release_group_id);
 my ($edits, $hits) = $c->model('Edit')->find({ release_group => $edit->release_group_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
-my $rg = $c->model('ReleaseGroup')->get_by_gid($edit->release_group->gid);
+my $rg = $c->model('ReleaseGroup')->get_by_id($edit->release_group_id);
 $c->model('ArtistCredit')->load($rg);
 ok(defined $rg);
 is($rg->name, 'Empty Release Group');
@@ -36,13 +36,13 @@ is($rg->edits_pending, 1);
 
 reject_edit($c, $edit);
 
-$rg = $c->model('ReleaseGroup')->get_by_gid($edit->release_group->gid);
+$rg = $c->model('ReleaseGroup')->get_by_id($edit->release_group_id);
 ok(!defined $rg);
 
 $edit = create_edit();
 accept_edit($c, $edit);
 
-$rg = $c->model('ReleaseGroup')->get_by_gid($edit->release_group->gid);
+$rg = $c->model('ReleaseGroup')->get_by_id($edit->release_group_id);
 ok(defined $rg);
 is($rg->edits_pending, 0);
 

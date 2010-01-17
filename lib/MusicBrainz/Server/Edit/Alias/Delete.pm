@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Alias::Delete;
 use Moose;
+use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );

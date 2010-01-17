@@ -56,7 +56,7 @@ sub create_full_edit {
         edit_type => $EDIT_LABEL_EDIT,
         editor_id => 2,
 
-        label => $label,
+        to_edit => $label,
         name => 'Edit Name',
         sort_name => 'Edit Sort',
         comment => 'Edit comment',

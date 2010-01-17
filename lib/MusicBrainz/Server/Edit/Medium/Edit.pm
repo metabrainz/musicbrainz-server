@@ -5,36 +5,30 @@ use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 
-extends 'MusicBrainz::Server::Edit::WithDifferences';
+extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { 'Edit Medium' }
+sub _edit_model { 'Medium' }
+sub medium_id { shift->medium_id }
 
-sub alter_edit_pending { { Medium => [ shift->data->{medium} ] } }
-sub related_entities { { release => [ shift->release_id ] } }
-sub models { [qw( Medium )] }
-
-subtype 'MediumHash'
-    => as Dict[
+sub change_fields
+{
+    return Dict[
         position => Optional[Int],
         name => Nullable[Str],
         format_id => Nullable[Int],
         tracklist_id => Optional[Int],
     ];
+}
 
 has '+data' => (
     isa => Dict[
-        medium => Int,
-        old => find_type_constraint('MediumHash'),
-        new => find_type_constraint('MediumHash'),
+        entity_id => Int,
+        old => change_fields(),
+        new => change_fields()
     ]
-);
-
-has 'release_id' => (
-    isa => 'Int',
-    is => 'rw',
 );
 
 sub foreign_keys {
@@ -76,25 +70,7 @@ sub build_display_data
     return $data;
 }
 
-sub initialize
-{
-    my ($self, %opts) = @_;
-    my $medium = delete $opts{medium}
-        or die 'You must specify the medium to edit';
-
-    $self->release_id($medium->release_id);
-    $self->data({
-        medium => $medium->id,
-        $self->_change_data($medium, %opts)
-    });
-}
-
-override 'accept' => sub
-{
-    my ($self) = @_;
-    my $medium_data = $self->c->model('Medium');
-    $medium_data->update($self->data->{medium}, $self->data->{new});
-};
-
 __PACKAGE__->meta->make_immutable;
+no Moose;
+
 1;

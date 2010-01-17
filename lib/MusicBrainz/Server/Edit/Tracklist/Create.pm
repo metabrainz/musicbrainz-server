@@ -6,22 +6,12 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-extends 'MusicBrainz::Server::Edit';
+extends 'MusicBrainz::Server::Edit::Generic::Create';
 
 sub edit_type { $EDIT_TRACKLIST_CREATE }
 sub edit_name { "Create tracklist" }
-
-sub models { [qw( Tracklist )] }
-
-has 'tracklist_id' => (
-    isa => 'Int',
-    is  => 'rw'
-);
-
-has 'tracklist' => (
-    isa => 'Tracklist',
-    is => 'rw'
-);
+sub _create_model { 'Tracklist' }
+sub tracklist_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
@@ -36,10 +26,10 @@ has '+data' => (
     ]
 );
 
-sub insert
+sub _insert_hash
 {
-    my $self = shift;
-    my @tracks = @{ $self->data->{tracks} };
+    my ($self, $data) = @_;
+    my @tracks = @{ $data->{tracks} };
 
     for my $track (@tracks) {
         $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
@@ -53,31 +43,8 @@ sub insert
         }
     }
 
-    my $tl = $self->c->model('Tracklist')->insert(\@tracks);
-    $self->tracklist_id($tl->id);
+    return \@tracks;
 }
-
-sub reject
-{
-    my $self = shift;
-    $self->c->model('Tracklist')->delete($self->tracklist_id);
-}
-
-# tracklist_id is handled separately, as it should not be copied if the edit is cloned
-# (a new different tracklist_id would be used)
-override 'to_hash' => sub
-{
-    my $self = shift;
-    my $hash = super(@_);
-    $hash->{tracklist_id} = $self->tracklist_id;
-    return $hash;
-};
-
-before 'restore' => sub
-{
-    my ($self, $hash) = @_;
-    $self->tracklist_id(delete $hash->{tracklist_id});
-};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

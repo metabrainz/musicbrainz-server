@@ -48,7 +48,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_MERGE,
         editor_id => 1,
-        old_label_id => 1,
-        new_label_id => 2,
+        old_entity_id => 1,
+        new_entity_id => 2,
     );
 }

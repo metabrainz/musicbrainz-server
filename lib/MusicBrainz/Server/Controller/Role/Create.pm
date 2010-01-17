@@ -11,11 +11,6 @@ parameter 'edit_type' => (
     required => 1
 );
 
-parameter 'gid_from_edit' => (
-    isa => 'CodeRef',
-    required => 1
-);
-
 parameter 'edit_arguments' => (
     isa => 'CodeRef',
     default => sub { sub { } }
@@ -50,7 +45,7 @@ role {
             type        => $params->edit_type,
             on_creation => sub {
                 $c->response->redirect(
-                    $c->uri_for_action($self->action_for('show'), [ $params->gid_from_edit->(shift) ]));
+                    $c->uri_for_action($self->action_for('show'), [ shift->entity->gid ]))
             },
             $params->edit_arguments->($self, $c)
         );

@@ -40,7 +40,7 @@ done_testing;
 sub create_edit {
     return  $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_DELETE,
-        label     => $label,
+        to_delete => $label,
         editor_id => 1
     );
 }

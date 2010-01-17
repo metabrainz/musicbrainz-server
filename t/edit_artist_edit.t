@@ -78,7 +78,7 @@ is($edit->display_data->{end_date}->{new}->format, '2000-03-20');
 $edit = $c->model('Edit')->create(
     edit_type => $EDIT_ARTIST_EDIT,
     editor_id => 2,
-    artist => $artist,
+    to_edit => $artist,
 
     comment => undef,
     type_id => undef,
@@ -107,7 +107,7 @@ sub _create_full_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 2,
-        artist => $artist,
+        to_edit => $artist,
 
         name => 'New Name',
         sort_name => 'New Sort',

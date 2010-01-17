@@ -25,7 +25,7 @@ my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Delete');
 is_deeply($edit->data, {
     name => 'Empty Label',
-    label_id => 4
+    entity_id => 4
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

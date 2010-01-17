@@ -32,7 +32,7 @@ xml_ok($mech->content);
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
 is_deeply($edit->data, {
-    work => 1,
+    entity_id => 1,
     new => {
         name => 'Another name',
         type_id => 2,

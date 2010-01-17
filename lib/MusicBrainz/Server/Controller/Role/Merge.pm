@@ -51,7 +51,8 @@ role {
                 form => 'Confirm',
                 type => $params->edit_type,
                 edit_args => {
-                    $params->edit_arguments->($old, $new)
+                    old_entity_id => $old->id,
+                    new_entity_id => $new->id
                 },
                 on_creation => sub {
                     $c->response->redirect(

@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' }
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 
 sub _table
 {

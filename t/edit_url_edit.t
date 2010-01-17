@@ -45,7 +45,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_URL_EDIT,
         editor_id => 1,
-        url_entity => $url,
+        to_edit => $url,
         url => 'http://google.com/',
         description => 'Google'
     );

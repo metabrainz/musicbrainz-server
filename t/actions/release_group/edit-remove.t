@@ -23,7 +23,7 @@ ok($mech->uri =~ qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66}, 'shoul
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Delete');
-is_deeply($edit->data, { release_group => 3, name => 'Test RG 1' });
+is_deeply($edit->data, { entity_id => 3, name => 'Test RG 1' });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 xml_ok($mech->content, '..is valid xml');

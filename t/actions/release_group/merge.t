@@ -30,8 +30,8 @@ ok($mech->uri =~ qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66});
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Merge');
 is_deeply($edit->data, {
-        old_group => 1,
-        new_group => 3,
+        old_entity_id => 1,
+        new_entity_id => 3,
     });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');

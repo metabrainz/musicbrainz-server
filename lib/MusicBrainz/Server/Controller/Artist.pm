@@ -348,7 +348,6 @@ is done via L<MusicBrainz::Server::Form::Artist>
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Artist',
     edit_type => $EDIT_ARTIST_CREATE,
-    gid_from_edit => sub { shift->artist->gid }
 };
 
 =head2 edit
@@ -365,7 +364,6 @@ into the MusicBrainz database.
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Artist',
     edit_type      => $EDIT_ARTIST_EDIT,
-    edit_arguments => sub { return (artist => shift) }
 };
 
 =head2 add_release
@@ -391,12 +389,6 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_ARTIST_MERGE,
     confirmation_template => 'artist/merge_confirm.tt',
     search_template       => 'artist/merge_search.tt',
-    edit_arguments => sub {
-        return (
-            old_artist_id => shift->id,
-            new_artist_id => shift->id,
-        );
-    }
 };
 
 =head2 rating

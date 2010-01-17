@@ -41,6 +41,6 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_DELETE,
         editor_id => 1,
-        release_group => $rg,
+        to_delete => $rg,
     );
 }

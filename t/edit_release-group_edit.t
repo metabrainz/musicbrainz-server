@@ -47,7 +47,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_EDIT,
         editor_id => 2,
-        release_group => $rg,
+        to_edit => $rg,
 
         artist_credit => [
             { name => 'Break', artist => 1 },

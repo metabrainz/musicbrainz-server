@@ -121,7 +121,6 @@ Edit recording details (sequence number, recording time and title)
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Recording',
     edit_type      => $EDIT_RECORDING_EDIT,
-    edit_arguments => sub { recording => shift },
 };
 
 before 'edit' => sub {

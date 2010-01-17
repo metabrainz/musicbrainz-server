@@ -76,7 +76,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_EDIT,
         editor_id => 1,
-        release => $release,
+        to_edit => $release,
         name => 'Edited name',
         comment => 'Edited comment',
         status_id => 1,

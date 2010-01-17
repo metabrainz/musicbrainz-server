@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Alias::Edit;
 use Moose;
+use MooseX::ABC;
 
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Int Str );
@@ -41,7 +42,7 @@ sub build_display_data
 
     my $type = $self->_alias_model->type;
     my $model = type_to_model($type);
-    
+
     return {
         alias => {
             new => $self->data->{new}{name},
@@ -69,7 +70,7 @@ sub initialize
         $self->_change_data($alias, %opts)
     });
 }
-    
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

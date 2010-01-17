@@ -30,6 +30,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     column => 'artist'
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 
 sub _table
 {

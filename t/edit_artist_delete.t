@@ -14,6 +14,8 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_delete');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
+my $artist = $c->model('Artist')->get_by_id(1);
+
 my $edit = _create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Delete');
 
@@ -21,7 +23,7 @@ my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 
-my $artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(1);
 is($artist->edits_pending, 1);
 
 # Test rejecting the edit
@@ -57,7 +59,7 @@ done_testing;
 sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_DELETE,
-        artist_id => 1,
+        to_delete => $artist,
         editor_id => 1
     );
 }

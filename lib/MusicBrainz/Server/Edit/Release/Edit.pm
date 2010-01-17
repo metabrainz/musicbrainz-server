@@ -1,12 +1,10 @@
 package MusicBrainz::Server::Edit::Release::Edit;
 use Moose;
 
-use Moose::Util::TypeConstraints qw( subtype as find_type_constraint );
 use MooseX::Types::Moose qw( Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
+
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
-use MusicBrainz::Server::Data::ArtistCredit;
-use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     partial_date_to_hash
@@ -20,16 +18,15 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
 );
 
-extends 'MusicBrainz::Server::Edit::WithDifferences';
+extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { 'Edit Release' }
+sub _edit_model { 'Release' }
 
-sub related_entities { { release => [ shift->data->{release} ] } }
-sub alter_edit_pending { { Release => [ shift->data->{release} ] } }
-
-subtype 'ReleaseHash'
-    => as Dict[
+sub change_fields
+{
+    return Dict[
         name => Optional[Str],
         packaging_id => Nullable[Int],
         status_id => Nullable[Int],
@@ -42,12 +39,13 @@ subtype 'ReleaseHash'
         comment => Optional[Maybe[Str]],
         artist_credit => Optional[ArtistCreditDefinition]
     ];
+}
 
 has '+data' => (
     isa => Dict[
-        release => Int,
-        new => find_type_constraint('ReleaseHash'),
-        old => find_type_constraint('ReleaseHash'),
+        entity_id => Int,
+        new => change_fields(),
+        old => change_fields()
     ]
 );
 
@@ -118,35 +116,21 @@ sub _mapping
     );
 }
 
-sub initialize
+before 'initialize' => sub
 {
     my ($self, %opts) = @_;
-    my $release = delete $opts{release};
-    die "You must specify the release object to edit" unless defined $release;
-
-    if (!$release->artist_credit_loaded)
-    {
-        my $ac_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $self->c);
-        $ac_data->load($release);
+    my $release = $opts{to_edit} or return;
+    if (exists $opts{artist_credit} && !$release->artist_credit) {
+        $self->c->model('ArtistCredit')->load($release);
     }
-
-    $self->data({
-        release => $release->id,
-        $self->_change_data($release, %opts)
-    });
-}
-
-override 'accept' => sub
-{
-    my ($self) = @_;
-    my $ac_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $self->c);
-    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-
-    my %data = %{ $self->data->{new} };
-    $data{artist_credit} = $ac_data->find_or_insert(@{ $data{artist_credit} });
-
-    $release_data->update($self->data->{release}, \%data);
 };
+
+sub _edit_hash
+{
+    my ($self, $data) = @_;
+    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} });
+    return $data;
+}
 
 sub _xml_arguments { return ForceArray => [ 'artist_credit' ] }
 

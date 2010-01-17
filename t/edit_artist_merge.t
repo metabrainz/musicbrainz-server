@@ -27,17 +27,6 @@ is($a2->edits_pending, 1);
 
 reject_edit($c, $edit);
 
-# Test loading entities
-$edit = $c->model('Edit')->get_by_id($edit->id);
-TODO: {
-    local $TODO = 'Support loading artists with non-conventional attribute names';
-#    $c->model('Edit')->load_all($edit);
-    ok(defined $edit->old_artist);
-    ok(defined $edit->new_artist);
-#    is($edit->old_artist->id, $edit->old_artist_id);
-#    is($edit->new_artist->id, $edit->new_artist_id);
-}
-
 $a1 = $c->model('Artist')->get_by_id(1);
 $a2 = $c->model('Artist')->get_by_id(2);
 is($a1->edits_pending, 0);
@@ -59,7 +48,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_MERGE,
         editor_id => 1,
-        old_artist_id => 1,
-        new_artist_id => 2,
+        old_entity_id => 1,
+        new_entity_id => 2,
     );
 }

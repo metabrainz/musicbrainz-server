@@ -62,14 +62,12 @@ sub show : Chained('load') PathPart('')
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASEGROUP_DELETE,
-    edit_arguments => sub { release_group => shift }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     path           => '/release-group/create',
     form           => 'Recording',
     edit_type      => $EDIT_RELEASEGROUP_CREATE,
-    gid_from_edit  => sub { shift->release_group->gid },
     edit_arguments => sub {
         my ($self, $c) = @_;
         my $artist_gid = $c->req->query_params->{artist};
@@ -85,7 +83,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'ReleaseGroup',
     edit_type      => $EDIT_RELEASEGROUP_EDIT,
-    edit_arguments => sub { release_group => shift }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {

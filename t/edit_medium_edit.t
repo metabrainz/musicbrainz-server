@@ -43,7 +43,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         editor_id => 1,
         edit_type => $EDIT_MEDIUM_EDIT,
-        medium => $medium,
+        to_edit => $medium,
         format_id => 1,
         name => 'Edited name',
         tracklist_id => 2,

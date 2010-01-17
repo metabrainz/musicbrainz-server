@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::WithDifferences;
 use Moose;
+use MooseX::ABC;
 
 use Match::Smart qw( smart_match );
 use MusicBrainz::Server::Edit::Exceptions;

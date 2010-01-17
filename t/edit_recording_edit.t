@@ -51,7 +51,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RECORDING_EDIT,
         editor_id => 1,
-        recording => $recording,
+        to_edit => $recording,
         name => 'Edited name',
         comment => 'Edited comment',
         length => '12345',

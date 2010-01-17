@@ -44,7 +44,6 @@ sub show : PathPart('') Chained('load')
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Work',
     edit_type      => $EDIT_WORK_EDIT,
-    edit_arguments => sub { work => shift }
 };
 
 before 'edit' => sub

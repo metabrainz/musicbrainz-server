@@ -48,7 +48,7 @@ is($track->edits_pending, 0);
 $edit = $c->model('Edit')->create(
     edit_type => $EDIT_TRACK_EDIT,
     editor_id => 1,
-    track => $track,
+    to_edit => $track,
     position => 3
 );
 accept_edit($c, $edit);
@@ -81,7 +81,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         editor_id => 1,
         edit_type => $EDIT_TRACK_EDIT,
-        track => $track,
+        to_edit => $track,
         name => 'Edited name',
         artist_credit => [ { artist => 1, name => 'Foo' } ],
         recording_id => 3

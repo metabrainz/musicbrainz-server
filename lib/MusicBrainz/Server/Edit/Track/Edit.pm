@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Edit::Track::Edit;
 use Moose;
 
-use Moose::Util::TypeConstraints qw( as find_type_constraint subtype );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
+
 use MusicBrainz::Server::Constants qw( $EDIT_TRACK_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
@@ -14,12 +14,13 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
 );
 
-extends 'MusicBrainz::Server::Edit::WithDifferences';
+extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }
+sub _edit_model { 'Track' }
+sub track_id { shift->entity_id }
 
-sub alter_edit_pending { { Track => [ shift->track_id ] } }
 sub related_entities
 {
     my $self = shift;
@@ -28,16 +29,9 @@ sub related_entities
     }
 }
 
-
-has 'track_id' => (
-    isa => 'Int',
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{track} }
-);
-
-subtype 'TrackHash',
-    as Dict[
+sub change_fields
+{
+    return Dict[
         name => Optional[Str],
         recording_id => Optional[Int],
         tracklist_id => Optional[Int],
@@ -45,12 +39,13 @@ subtype 'TrackHash',
         position => Optional[Int],
         length => Nullable[Int],
     ];
+}
 
 has '+data' => (
     isa => Dict[
-        track => Int,
-        old => find_type_constraint('TrackHash'),
-        new => find_type_constraint('TrackHash')
+        entity_id => Int,
+        old => change_fields(),
+        new => change_fields()
     ]
 );
 
@@ -102,13 +97,11 @@ sub _mapping
     );
 }
 
-sub initialize
+before 'initialize' => sub
 {
     my ($self, %opts) = @_;
-    my $track = delete $opts{track}
-        or die 'Must specify the track object to edit';
-
-    if (!defined $track->artist_credit) {
+    my $track = $opts{to_edit} or return;
+    if (exists $opts{artist_credit} && !$track->artist_credit) {
         $self->c->model('ArtistCredit')->load($track);
     }
 
@@ -119,31 +112,24 @@ sub initialize
 
         delete $opts{length} if $old_length eq $new_length;
     }
+};
 
-    $self->track_id($track->id);
-    $self->data({
-        track => $track->id,
-        $self->_change_data($track, %opts)
-    });
-}
-
-sub accept
+sub _edit_hash
 {
-    my ($self) = @_;
-    my %data = %{ $self->data->{new} };
+    my ($self, $data) = @_;
 
-    if (exists $data{position}) {
+    if (exists $data->{position}) {
         my $track = $self->c->model('Track')->get_by_id($self->track_id);
         $self->c->model('Tracklist')->offset_track_positions($track->tracklist_id, $track->position +1, -1);
-        $self->c->model('Tracklist')->offset_track_positions($track->tracklist_id, $data{position}, +1);
+        $self->c->model('Tracklist')->offset_track_positions($track->tracklist_id, $data->{position}, +1);
     }
 
-    if (exists $data{artist_credit}) {
-        my $ac = $self->c->model('ArtistCredit')->find_or_insert(@{ $data{artist_credit} });
-        $data{artist_credit} = $ac;
+    if (exists $data->{artist_credit}) {
+        my $ac = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} });
+        $data->{artist_credit} = $ac;
     }
 
-    $self->c->model('Track')->update($self->track_id, \%data);
+    return $data;
 }
 
 sub _xml_arguments { ForceArray => [ 'artist_credit' ] }

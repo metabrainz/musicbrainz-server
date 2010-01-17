@@ -232,6 +232,9 @@ sub load_all
         my $edit_references = $edit->foreign_keys;
         while (my ($model, $ids) = each %$edit_references) {
             $objects_to_load->{$model} ||= [];
+            if (ref($ids) eq 'ARRAY') {
+                $ids = [ grep { defined } @$ids ];
+            }
             $ids = Data::OptList::mkopt_hash($ids);
             while (my ($object_id, $extra_models) = each %$ids) {
                 push @{ $objects_to_load->{$model} }, $object_id;

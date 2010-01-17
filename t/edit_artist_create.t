@@ -7,7 +7,6 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Create' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -27,7 +26,6 @@ my $edit = $c->model('Edit')->create(
     begin_date => { 'year' => 1981, 'month' => 5 },
 );
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Create');
-is($edit->status, $STATUS_APPLIED, 'edit should automatically be applied');
 
 ok(defined $edit->artist_id, 'edit should store the artist id');
 
@@ -39,7 +37,7 @@ ok(defined $artist);
 is($artist->name, 'Junior Boys');
 is($artist->gender_id, 1);
 is($artist->comment, 'Canadian electronica duo');
-is($artist->edits_pending, 0);
+is($artist->edits_pending, 1);
 is($artist->begin_date->format, "1981-05" );
 
 $edit = $c->model('Edit')->get_by_id($edit->id);

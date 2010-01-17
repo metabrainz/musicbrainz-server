@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Edit::Recording::Edit;
 use Moose;
 
-use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
@@ -14,28 +13,28 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
 );
 
-extends 'MusicBrainz::Server::Edit::WithDifferences';
+extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
 sub edit_name { 'Edit recording' }
+sub _edit_model { 'Recording' }
+sub recording_id { return shift->entity_id }
 
-sub related_entities   { { recording => [ shift->recording_id ] } }
-sub alter_edit_pending { { Recording => [ shift->recording_id ] } }
-
-sub recording_id { return shift->data->{recording_id} }
-
-subtype 'RecordingHash' => as Dict[
-    name => Optional[Str],
-    artist_credit => Optional[ArtistCreditDefinition],
-    length => Nullable[Int],
-    comment => Nullable[Str]
-];
+sub change_fields
+{
+    Dict[
+        name          => Optional[Str],
+        artist_credit => Optional[ArtistCreditDefinition],
+        length        => Nullable[Int],
+        comment       => Nullable[Str]
+    ];
+}
 
 has '+data' => (
     isa => Dict[
-        recording_id => Int,
-        old => find_type_constraint('RecordingHash'),
-        new => find_type_constraint('RecordingHash')
+        entity_id => Int,
+        old => change_fields(),
+        new => change_fields(),
     ]
 );
 
@@ -78,23 +77,14 @@ sub build_display_data
     return $data;
 }
 
-sub initialize
+before 'initialize' => sub
 {
     my ($self, %opts) = @_;
-    my $recording = delete $opts{recording}
-        or die 'You must specify a recording object to edit';
-
-    if (exists $opts{artist_credit} && !$recording->artist_credit)
-    { 
-        my $ac_data = $self->c->model('ArtistCredit');
-        $ac_data->load($recording);
+    my $recording = $opts{to_edit} or return;
+    if (exists $opts{artist_credit} && !$recording->artist_credit) {
+        $self->c->model('ArtistCredit')->load($recording);
     }
-
-    $self->data({
-        recording_id => $recording->id,
-        $self->_change_data($recording, %opts)
-    });
-}
+};
 
 sub _mapping
 {
@@ -103,17 +93,17 @@ sub _mapping
     );
 }
 
-override 'accept' => sub
+sub _edit_hash
 {
-    my $self = shift;
-
-    my %data = %{ $self->data->{new} };
-    $data{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data{artist_credit} })
-        if (exists $data{artist_credit});
-
-    $self->c->model('Recording')->update($self->recording_id, \%data);
-};
+    my ($self, $data) = @_;
+    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} })
+        if (exists $data->{artist_credit});
+    return $data;
+}
 
 sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 
 1;

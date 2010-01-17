@@ -6,11 +6,6 @@ parameter 'edit_type' => (
     required => 1
 );
 
-parameter 'edit_arguments' => (
-    isa => 'CodeRef',
-    default => sub { sub { } }
-);
-
 role {
     my $params = shift;
     my %extra = @_;
@@ -31,7 +26,7 @@ role {
                 form        => 'Confirm',
                 type        => $params->edit_type,
                 item        => $edit_entity,
-                edit_args   => { $params->edit_arguments->($edit_entity) },
+                edit_args   => { to_delete => $edit_entity },
                 on_creation => sub {
                     my $edit = shift;
                     my $url = $edit->is_open

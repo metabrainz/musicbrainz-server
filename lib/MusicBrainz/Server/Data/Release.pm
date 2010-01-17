@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 
 sub _table
 {

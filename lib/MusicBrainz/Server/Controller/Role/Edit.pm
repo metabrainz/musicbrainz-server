@@ -11,11 +11,6 @@ parameter 'edit_type' => (
     required => 1
 );
 
-parameter 'edit_arguments' => (
-    isa => 'CodeRef',
-    default => sub { sub { } }
-);
-
 role {
     my $params = shift;
     my %extra = @_;
@@ -34,7 +29,7 @@ role {
             form        => $params->form,
             type        => $params->edit_type,
             item        => $edit_entity,
-            edit_args   => { $params->edit_arguments->($edit_entity) },
+            edit_args   => { to_edit => $edit_entity },
             on_creation => sub {
                 $c->response->redirect(
                     $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ]));

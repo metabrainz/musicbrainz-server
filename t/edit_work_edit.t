@@ -52,7 +52,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_WORK_EDIT,
         editor_id => 1,
-        work => $work,
+        to_edit => $work,
         name => 'Edited name',
         comment => 'Edited comment',
         iswc => '123456789123456',
