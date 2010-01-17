@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 42;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::ReleaseGroup';
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Search;
@@ -36,6 +36,12 @@ is( $hits, 2 );
 is( scalar(@$rgs), 2 );
 is( $rgs->[0]->id, 1 );
 is( $rgs->[1]->id, 2 );
+
+
+($rgs, $hits) = $rg_data->find_by_track_artist(1, 100);
+is( $hits, 1 );
+is( scalar(@$rgs), 1 );
+is( $rgs->[0]->id, 3 );
 
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $c);
 my $release = $release_data->get_by_id(1);
@@ -101,3 +107,5 @@ ok(defined $rg);
 
 $raw_sql->commit;
 $sql->commit;
+
+done_testing;

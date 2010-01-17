@@ -2,6 +2,9 @@
     <thead>
         <tr>
             <th>[% l('Release') %]</th>
+            [% IF show_va %]
+            <th>[% l('Artist') %]</th>
+            [% END %]
             <th>[% l('Format') %]</th>
             <th>[% l('Tracks') %]</th>
             <th>[% l('Date') %]</th>
@@ -14,6 +17,9 @@
         [%- FOR release=releases -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% link_release(release) %]</td>
+            [% IF show_va %]
+            <td>[% artist_credit(release.artist_credit) %]</td>
+            [% END %]
             <td>[% release.combined_format_name or "-" %]</td>
             <td>[% release.combined_track_count or "-" %]</td>
             <td>[% release.date.format %]</td>

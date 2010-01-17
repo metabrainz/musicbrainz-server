@@ -99,6 +99,25 @@ sub find_by_release_group
         $query, $release_group_id, $offset || 0);
 }
 
+sub find_by_track_artist
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE release.id IN (
+                     SELECT release FROM medium
+                         JOIN track tr
+                         ON tr.tracklist = medium.tracklist
+                         JOIN artist_credit_name acn
+                         ON acn.artist_credit = tr.artist_credit
+                     WHERE acn.artist = ?)
+                 ORDER BY date_year, date_month, date_day, name.name
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
+}
+
 sub find_by_collection
 {
     my ($self, $collection_id, $limit, $offset, $order) = @_;

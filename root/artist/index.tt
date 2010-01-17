@@ -16,6 +16,9 @@
                             <tr>
                                 <th class="year c">[% l('Year') %]</th>
                                 <th>[% l('Title') %]</th>
+                                [% IF show_va %]
+                                <th>[% l('Artist') %]</th>
+                                [% END %]
                                 <th class="rating c">[% l('Rating') %]</th>
                                 <th class="count c">[% l('Releases') %]</th>
                             </tr>
@@ -26,6 +29,9 @@
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
                     <td>[% link_release_group(rg) %]</td>
+                    [% IF show_va %]
+                    <td>[% artist_credit(rg.artist_credit) %]</td>
+                    [% END %]
                     <td class="c">[% rating_stars(rg) %]</td>
                     <td class="c">[% rg.release_count %]</td>
                 </tr>
@@ -38,5 +44,8 @@
     [%- ELSE -%]
         <p>[% l('No release groups found') %]</p>
     [%- END -%]
-
+    [% IF !show_va %]
+        <p>[% l('This artist may also appear on releases by various artists. {show_all|Show all releases}',
+                { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+    [% END %]
 [% END %]

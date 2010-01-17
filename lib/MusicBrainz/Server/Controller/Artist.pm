@@ -176,8 +176,14 @@ sub show : PathPart('') Chained('load')
     }
     else
     {
+        my $method = 'find_by_artist';
+        if ($c->req->query_params->{va}) {
+            $method = 'find_by_track_artist';
+            $c->stash( show_va => 1 );
+        }
+
         $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->find_by_artist($c->stash->{artist}->id, shift, shift);
+                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
             });
         if ($c->user_exists) {
             $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
@@ -296,8 +302,14 @@ sub releases : Chained('load')
     }
     else
     {
+        my $method = 'find_by_artist';
+        if ($c->req->query_params->{va}) {
+            $method = 'find_by_track_artist';
+            $c->stash( show_va => 1 );
+        }
+
         $releases = $self->_load_paged($c, sub {
-                $c->model('Release')->find_by_artist($artist->id, shift, shift);
+                $c->model('Release')->$method($artist->id, shift, shift);
             });
 
         $c->stash( template => 'artist/releases.tt' );

@@ -4,4 +4,8 @@
     [%- ELSE -%]
         <p>[%- l('No releases found') -%]</p>
     [%- END -%]
+    [% IF !show_va %]
+        <p>[% l('This artist may also appear on releases by various artists. {show_all|Show all releases}',
+                { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+    [% END %]
 [%- END -%]

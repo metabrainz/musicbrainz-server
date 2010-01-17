@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 66;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::Release';
 use MusicBrainz::Server::Data::ReleaseLabel;
 
@@ -45,6 +45,11 @@ is( $hits, 2 );
 is( scalar(@$releases), 2 );
 is( $releases->[0]->id, 1 );
 is( $releases->[1]->id, 2 );
+
+($releases, $hits) = $release_data->find_by_track_artist(1, 100);
+is( $hits, 1 );
+is( scalar(@$releases), 1 );
+is( $releases->[0]->id, 3 );
 
 ($releases, $hits) = $release_data->find_by_release_group(1, 100);
 is( $hits, 2 );
@@ -137,3 +142,5 @@ $release = $release_data->get_by_id(1);
 ok(defined $release);
 $release = $release_data->get_by_id(2);
 ok(!defined $release);
+
+done_testing;
