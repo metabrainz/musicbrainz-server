@@ -55,7 +55,7 @@ requires 'MIME::Lite'                                  => '3.023';
 requires 'Moose'                                       => '0.87';
 requires 'MooseX::ABC';
 requires 'MooseX::MethodAttributes'                    => '0.14';
-requires 'MooseX::Role::Parameterized'                 => '0.10';
+requires 'MooseX::Role::Parameterized'                 => '0.15';
 requires 'MooseX::Storage'                             => '0.150';
 requires 'MooseX::Types'                               => '0.16';
 requires 'MooseX::Types::Structured'                   => '0.16';
