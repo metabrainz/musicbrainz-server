@@ -722,3 +722,16 @@ table.statistics {
 	float: left;
 	margin: 8px;
 }
+
+table.details td.new {
+    background: #B1EBB0;
+}
+
+table.details td.old {
+    background: #EBB1BA;
+}
+
+table.details td.new,
+table.details td.old {
+    border: 1px solid #CCC;
+}
