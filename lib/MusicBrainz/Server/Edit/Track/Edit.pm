@@ -97,8 +97,10 @@ sub _mapping
     );
 }
 
-before 'initialize' => sub
+around 'initialize' => sub
 {
+    my $orig = shift;
+
     my ($self, %opts) = @_;
     my $track = $opts{to_edit} or return;
     if (exists $opts{artist_credit} && !$track->artist_credit) {
@@ -112,6 +114,8 @@ before 'initialize' => sub
 
         delete $opts{length} if $old_length eq $new_length;
     }
+
+    $self->$orig(%opts);
 };
 
 sub _edit_hash
