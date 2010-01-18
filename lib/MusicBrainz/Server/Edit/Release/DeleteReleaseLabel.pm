@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Delete Release Label' }
+sub edit_name { 'Remove release label' }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }

@@ -12,7 +12,7 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
-sub edit_name { "Edit Relationship" }
+sub edit_name { "Edit relationship" }
 
 sub _xml_arguments { ForceArray => ['attributes'] }
 

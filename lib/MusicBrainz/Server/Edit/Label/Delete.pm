@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE );
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 
 sub edit_type { $EDIT_LABEL_DELETE }
-sub edit_name { "Delete Label" }
+sub edit_name { "Delete label" }
 sub _delete_model { 'Label' }
 
 __PACKAGE__->meta->make_immutable;

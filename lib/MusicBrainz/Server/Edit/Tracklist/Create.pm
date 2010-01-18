@@ -9,7 +9,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
 sub edit_type { $EDIT_TRACKLIST_CREATE }
-sub edit_name { "Create tracklist" }
+sub edit_name { "Add tracklist" }
 sub _create_model { 'Tracklist' }
 sub tracklist_id { shift->entity_id }
 

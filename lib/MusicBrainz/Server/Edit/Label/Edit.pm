@@ -13,7 +13,7 @@ use MusicBrainz::Server::Edit::Utils qw( date_closure changed_relations changed_
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { "Edit Label" }
+sub edit_name { "Edit label" }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
 

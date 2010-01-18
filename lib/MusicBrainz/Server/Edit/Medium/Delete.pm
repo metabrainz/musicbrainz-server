@@ -10,7 +10,7 @@ use MusicBrainz::Server::Entity::Types;
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
-sub edit_name { 'Delete medium' }
+sub edit_name { 'Remove medium' }
 
 sub alter_edit_pending { { Medium => [ shift->data->{medium_id} ] } }
 

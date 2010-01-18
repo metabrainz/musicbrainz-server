@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
-sub edit_name { 'Create release group' }
+sub edit_name { 'Add release group' }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }
 sub _create_model { 'ReleaseGroup' }
 sub release_group_id { shift->entity_id }

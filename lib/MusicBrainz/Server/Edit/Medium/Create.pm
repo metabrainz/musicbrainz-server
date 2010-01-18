@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
-sub edit_name { "Create Medium" }
+sub edit_name { "Add medium" }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
 

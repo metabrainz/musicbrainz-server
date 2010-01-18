@@ -9,7 +9,7 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
-sub edit_name { "Delete Relationship" }
+sub edit_name { "Remove relationship" }
 
 has '+data' => (
     isa => Dict[

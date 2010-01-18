@@ -9,7 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
-sub edit_name { 'Edit Medium' }
+sub edit_name { 'Edit medium' }
 sub _edit_model { 'Medium' }
 sub medium_id { shift->medium_id }
 

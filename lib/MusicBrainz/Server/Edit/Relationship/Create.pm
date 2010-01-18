@@ -11,7 +11,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
-sub edit_name { 'Create relationship' }
+sub edit_name { 'Add relationship' }
 sub _create_model { 'Relationship' }
 
 has '+data' => (

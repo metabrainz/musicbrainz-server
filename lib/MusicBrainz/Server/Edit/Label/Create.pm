@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
-sub edit_name { "Create Label" }
+sub edit_name { "Add label" }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub _create_model { 'Label' }
 sub label_id { shift->entity_id }

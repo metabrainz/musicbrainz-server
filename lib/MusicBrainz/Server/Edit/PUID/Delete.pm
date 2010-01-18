@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_PUID_DELETE }
-sub edit_name { 'Delete PUID' }
+sub edit_name { 'Remove PUID' }
 
 sub alter_edit_pending  { { RecordingPUID => [ shift->recording_puid_id ] } }
 sub related_entities    { { recording     => [ shift->recording_id ] } }

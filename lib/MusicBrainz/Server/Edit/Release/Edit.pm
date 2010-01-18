@@ -21,7 +21,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
-sub edit_name { 'Edit Release' }
+sub edit_name { 'Edit release' }
 sub _edit_model { 'Release' }
 
 sub change_fields

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw( load_artist_credit_definitions artist_c
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Delete Track' }
+sub edit_name { 'Remove track' }
 sub edit_type { $EDIT_TRACKLIST_DELETETRACK }
 
 sub alter_edit_pending { { Track => [ shift->data->{track_id} ] } }

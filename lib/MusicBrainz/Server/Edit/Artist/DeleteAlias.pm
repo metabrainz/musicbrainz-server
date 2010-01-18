@@ -7,7 +7,7 @@ extends 'MusicBrainz::Server::Edit::Alias::Delete';
 
 sub _alias_model { shift->c->model('Artist')->alias }
 
-sub edit_name { 'Delete artist alias' }
+sub edit_name { 'Remove artist alias' }
 sub edit_type { $EDIT_ARTIST_DELETE_ALIAS }
 
 sub related_entities { { artist => [ shift->artist_id ] } }

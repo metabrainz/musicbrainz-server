@@ -9,7 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
-sub edit_name { 'Edit Release Label' }
+sub edit_name { 'Edit release label' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }

@@ -11,7 +11,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
 sub edit_type { $EDIT_ARTIST_CREATE }
-sub edit_name { "Create artist" }
+sub edit_name { "Add artist" }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
 

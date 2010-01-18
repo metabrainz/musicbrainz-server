@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 
 sub edit_type { $EDIT_RELEASEGROUP_DELETE }
-sub edit_name { "Delete Release Group" }
+sub edit_name { "Remove release group" }
 sub _delete_model { 'ReleaseGroup' }
 sub release_group_id { shift->entity_id }
 
