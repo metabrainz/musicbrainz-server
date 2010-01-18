@@ -10,20 +10,21 @@
 [%- page.content -%]
 [%- IF page.version -%]
     <div class="wikidocs-footer">
-        [%- l("This {doclink1|WikiDocs page} is based on revision #{doclink2|version} of {doclink3|title}", 
+        [%- l("This {doclink1|WikiDocs page} is based on revision #{doclink2|version} of {doclink3|title}",
             {
-                doclink1 => doc_link("WikiDocs"), 
-                doclink2 => wiki_history_link(wiki_server, page.id, page.version),
+                doclink1 => doc_link("WikiDocs"),
+                doclink2 => wiki_history_link(wiki_server, id, page.version),
                 version  => page.version,
-                doclink3 => wiki_link(wiki_server, page.id),
+                doclink3 => wiki_link(wiki_server, id),
                 title    => page.title
-            } 
+            }
         ) -%]
     </div>
 
 [%- ELSE -%]
     <div class="wikidocs-footer">
-    [%- l('This is a copy of wiki page') -%] <a href="http://[%- wiki_server -%]/[%- page.id -%]">[%- page.title -%]</a>. 
+    [%- l('This is a copy of wiki page {url|page}.', { url => 'http://' _ wiki_server _ '/' _ id,
+                                                     page => page.title }) -%]
     </div>
 [%- END -%]
 [%- END -%]
