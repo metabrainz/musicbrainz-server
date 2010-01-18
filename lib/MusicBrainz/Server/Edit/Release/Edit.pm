@@ -128,7 +128,10 @@ before 'initialize' => sub
 sub _edit_hash
 {
     my ($self, $data) = @_;
-    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} });
+    if ($data->{artist_credit}) {
+        $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} });
+    }
+
     return $data;
 }
 
