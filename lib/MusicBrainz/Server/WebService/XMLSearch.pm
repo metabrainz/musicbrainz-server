@@ -176,7 +176,7 @@ sub xml_search
     }
 
     use URI::Escape qw( uri_escape );
-    my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/2/$type/?" .
+    my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/2/$resource/?" .
               "max=$limit&type=$resource&fmt=xml&offset=$offset&query=". uri_escape($query);
 
     require LWP::UserAgent;

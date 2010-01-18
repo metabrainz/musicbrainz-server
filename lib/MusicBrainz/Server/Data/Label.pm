@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     load_subobjects
     query_to_list_limited
+    query_to_list
     check_in_use
 );
 
@@ -88,6 +89,25 @@ sub find_by_subscribed_editor
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
+}
+
+sub find_by_artist
+{
+    my ($self, $artist_id) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . " 
+                 WHERE label.id IN (
+                         SELECT rl.label
+                         FROM release_label rl
+                         JOIN release ON rl.release = release.id
+                         JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
+                         WHERE acn.artist = ?
+                 )
+                 ORDER BY label.id";
+
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $artist_id);
 }
 
 sub load

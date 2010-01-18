@@ -7,7 +7,7 @@ has 'gid' => (
     isa => 'Int'
 );
 
-has 'artist' => (
+has 'artists' => (
     is => 'rw',
     isa => 'Int'
 );
@@ -22,7 +22,7 @@ has 'limit' => (
     isa => 'Int'
 );
 
-has 'tracks' => (
+has 'recordings' => (
     is => 'rw',
     isa => 'Int'
 );
@@ -47,7 +47,7 @@ has 'discs' => (
     isa => 'Int'
 );
 
-has 'trackrels' => (
+has 'recordingrels' => (
     is => 'rw',
     isa => 'Int'
 );
@@ -98,6 +98,16 @@ has 'releases' => (
 );
 
 has 'releasegroups' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'releasegrouprels' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'workrels' => (
     is => 'rw',
     isa => 'Int'
 );
@@ -156,6 +166,32 @@ has 'rel_status' => (
     is => 'rw',
     isa => 'Int'
 );
+
+sub has_rels
+{
+    my ($self) = @_;
+
+    return 1 if ($self->artistrels || $self->releaserels || $self->workrels ||
+                 $self->urlrels || $self->labelrels || $self->tracklevelrels ||
+                 $self->releasegrouprels || $self->recordingrels); 
+    return 0;
+}
+
+sub get_rel_types
+{
+    my ($self) = @_;
+
+    my @rels;
+    push @rels, 'artist' if ($self->artistrels);
+    push @rels, 'release' if ($self->releaserels);
+    push @rels, 'release-group' if ($self->releasegrouprels);
+    push @rels, 'recording' if ($self->recordingrels);
+    push @rels, 'label' if ($self->labelrels);
+    push @rels, 'work' if ($self->workrels);
+    push @rels, 'url' if ($self->urlrels);
+
+    return \@rels;
+}
 
 sub BUILD
 {

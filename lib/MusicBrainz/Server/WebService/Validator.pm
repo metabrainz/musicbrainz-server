@@ -1,6 +1,9 @@
 package MusicBrainz::Server::WebService::Validator;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::WebService::WebServiceInc;
+use Readonly;
+
+Readonly my $DEFAULT_SERIALIZATION_TYPE => "xml";
 
 parameter defs => (
    isa => 'ArrayRef',
@@ -21,7 +24,7 @@ sub validate_inc
 {
     my ($c,$inc, $def) = @_;
 
-    my @inc = split(/[+ ]/, $inc);
+    my @inc = split(/[+ ]/, $inc || '');
     my %acc = map { $_ => 1 } @{ $def };
     my $allow_type = exists $acc{"rg_type"};
     my $allow_status = exists $acc{"rel_status"};
@@ -30,6 +33,7 @@ sub validate_inc
     my @filtered;
     for my $i (@inc) 
     {
+        $i =~ s/release-groups/releasegroups/;
         if ($allow_type && exists $types{$i})
         {
             if ($type_used)
@@ -72,10 +76,10 @@ role {
         load_type_and_status($c) if (!%types);
 
         # Set up the serializers so we can report errors in the correct format
-        $c->stash->{serializer} = $serializers->{$c->req->params->{type}}->new();
+        $c->stash->{serializer} = $serializers->{$DEFAULT_SERIALIZATION_TYPE}->new();
 
         my $resource = $c->req->path;
-        $resource =~ s/ws\/2\/(\w+?)\/.*$/$1/;
+        $resource =~ s/ws\/2\/([\w-]+?)\/.*$/$1/;
 
         foreach my $def (@{ $r->defs })
         {
@@ -87,7 +91,7 @@ role {
             my $params_ok = 1;
             foreach my $arg (@{ $def->[1]->{required} })
             {
-                if ($c->req->params->{$arg} eq '')
+                if (!exists $c->req->params->{$arg} || $c->req->params->{$arg} eq '')
                 {
                     $params_ok = 0;
                     last;
@@ -104,8 +108,10 @@ role {
                 return 0 unless ($inc);
             }
 
-            # Check the type and prepare a serializer
-            my $type = $c->req->params->{type};
+            # Check the type and prepare a serializer. For now, since we only support XML
+            # we're going to default to XML. In the future if we want to add more serializations,
+            # we will add support for requesting the format via the Content-type headers.
+            my $type = $DEFAULT_SERIALIZATION_TYPE; 
             unless (defined($type) && exists $serializers->{$type}) {
                 my @types = keys %{$serializers};
                 $c->stash->{error} = 'Invalid content type. Must be set to ' . join(' or ', @types) . '.';
@@ -118,7 +124,6 @@ role {
         }
         $c->stash->{error} = "The given parameters do not match any available query type for the $resource resource.";
         return 0;
-
     }
 };
 
