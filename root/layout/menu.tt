@@ -114,7 +114,7 @@
                 </a>
             </li>
 	    <li>
-                <a href="[% c.uri_for('/moderation/search') %]">
+                <a href="[% c.uri_for_action('/edit/search') %]">
                     [% l('Edits') %]
                 </a>
             </li>

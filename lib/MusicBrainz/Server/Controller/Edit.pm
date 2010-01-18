@@ -151,7 +151,7 @@ sub open : Local RequireAuth
     $c->stash( edits => $edits );
 }
 
-sub search : Local RequireAuth
+sub search : Path('/search/edits') RequireAuth
 {
     my ($self, $c) = @_;
 
