@@ -70,6 +70,7 @@ sub find_or_insert
     my @artists = map { $_->{artist} } @$credits;
     my @names = map { $_->{name} } @$credits;
 
+    my $name = "";
     my (@joins, @conditions);
     for my $i (@positions) {
         my $join = "JOIN artist_credit_name acn_$i ON acn_$i.artist_credit = ac.id " .
@@ -80,6 +81,8 @@ sub find_or_insert
         $condition .= " AND acn_$i.joinphrase = ?" if defined $join_phrases->[$i];
         push @joins, $join;
         push @conditions, $condition;
+        $name .= $names[$i];
+        $name .= $join_phrases->[$i] if defined $join_phrases->[$i];
     }
 
     my $sql = Sql->new($self->c->mb->dbh);
@@ -92,9 +95,11 @@ sub find_or_insert
 
     if(!defined $id)
     {
-        $id = $sql->insert_row('artist_credit', { artistcount => scalar @names }, 'id');
-        my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $self->c);
-        my %names_id = $artist_data->find_or_insert_names(@names);
+        my %names_id = $self->c->model('Artist')->find_or_insert_names(@names, $name);
+        $id = $sql->insert_row('artist_credit', {
+            name => $names_id{$name},
+            artistcount => scalar @names,
+        }, 'id');
         for my $i (@positions)
         {
             $sql->insert_row('artist_credit_name', {

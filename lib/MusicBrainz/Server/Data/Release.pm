@@ -139,16 +139,21 @@ sub find_by_collection
 {
     my ($self, $collection_id, $limit, $offset, $order) = @_;
 
+    my $extra_join = "";
     my $order_by = order_by($order, "date", {
         "date"   => "date_year, date_month, date_day, name.name",
         "title"  => "name.name, date_year, date_month, date_day, name.name",
-        "artist" => "artist_credit_id, date_year, date_month, date_day, name.name", # XXX
+        "artist" => sub {
+            $extra_join = "JOIN artist_name ac_name ON ac_name.id=release.artist_credit";
+            return "ac_name.name, date_year, date_month, date_day, name.name";
+        },
     });
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                     JOIN editor_collection_release c
                         ON release.id = c.release
+                    $extra_join
                  WHERE c.collection = ?
                  ORDER BY $order_by
                  OFFSET ?";

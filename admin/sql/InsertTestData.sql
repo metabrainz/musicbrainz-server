@@ -49,6 +49,7 @@ TRUNCATE artist_credit CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (5, 'Queen');
 INSERT INTO artist_name (id, name) VALUES (6, 'David Bowie');
+INSERT INTO artist_name (id, name) VALUES (104, 'Queen & David Bowie');
 
 INSERT INTO artist (id, gid, name, sortname) VALUES
     (4, '945c079d-374e-4436-9448-da92dedef3cf', 5, 5);
@@ -56,7 +57,7 @@ INSERT INTO artist (id, gid, name, sortname) VALUES
 INSERT INTO artist (id, gid, name, sortname) VALUES
     (5, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 6, 6);
 
-INSERT INTO artist_credit (id, artistcount) VALUES (1, 2);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 104, 2);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 0, 4, 5, ' & ');
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 5, 6, NULL);
 
@@ -67,7 +68,7 @@ INSERT INTO artist_name (id, name) VALUES (102, 'Sort Name');
 INSERT INTO artist_name (id, name) VALUES (103, 'Credit Name');
 INSERT INTO artist (id, gid, name, sortname) VALUES (100, '24c94140-456b-11de-8a39-0800200c9a66', 100, 100);
 INSERT INTO artist (id, gid, name, sortname) VALUES (101, '374d65d0-456b-11de-8a39-0800200c9a66', 101, 102);
-INSERT INTO artist_credit (id, artistcount) VALUES (100, 2);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (100, 100, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (100, 0, 100, 103, NULL);
 
 TRUNCATE recording CASCADE;
@@ -80,7 +81,7 @@ TRUNCATE release_name CASCADE;
 INSERT INTO artist_name (id, name) VALUES (7, 'ABBA');
 
 INSERT INTO artist (id, gid, name, sortname) VALUES (6, 'a45c079d-374e-4436-9448-da92dedef3cf', 7, 7);
-INSERT INTO artist_credit (id, artistcount) VALUES (2, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (2, 7, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (2, 0, 6, 7);
 
 INSERT INTO track_name (id, name) VALUES (1, 'Dancing Queen');
@@ -94,7 +95,7 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (1, '234c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1);
 
 -- Test multiple release groups on a page
-INSERT INTO artist_credit (id, artistcount) VALUES (4, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (4, 3, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (4, 0, 3, 3);
 
 INSERT INTO release_name (id, name) VALUES (3, 'Test RG 1');
@@ -247,7 +248,7 @@ INSERT INTO artist_name (id, name) VALUES (10, 'Bush, Kate');
 INSERT INTO artist (id, gid, name, sortname, begindate_year, begindate_month, begindate_day, type)
     VALUES (7, '4b585938-f271-45e2-b19a-91c634b5e396', 9, 10, 1958, 7, 30, 1);
 
-INSERT INTO artist_credit (id, artistcount) VALUES (3, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (3, 9, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (3, 0, 7, 9);
 
 INSERT INTO release_name (id, name) VALUES (2, 'Aerial');

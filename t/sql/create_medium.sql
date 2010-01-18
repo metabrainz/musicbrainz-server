@@ -14,7 +14,7 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Tosca');
 INSERT INTO artist (id, gid, name, sortname)
     VALUES (1, '82a72730-792f-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, artistcount) VALUES (1, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, name, artist) VALUES (1, 1, 1, 1);
 
 INSERT INTO release_name (id, name) VALUES (1, 'No Hassle');

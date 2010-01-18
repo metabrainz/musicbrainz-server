@@ -247,6 +247,9 @@ sub order_by
         }
         if (exists $map->{$order}) {
             $order_by = $map->{$order};
+            if (ref($order_by) eq 'CODE') {
+                $order_by = $order_by->();
+            }
             if ($desc) {
                 my @list = map { "$_ DESC" } split ',', $order_by;
                 $order_by = join ',', @list;

@@ -15,7 +15,7 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sortname)
     VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1);
 
-INSERT INTO artist_credit (id, artistcount) VALUES (1, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase)
     VALUES (1, 0, 1, 1, NULL);
 

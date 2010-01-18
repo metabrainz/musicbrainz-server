@@ -59,6 +59,7 @@ CREATE TABLE artist_tag
 
 CREATE TABLE artist_credit (
     id                  SERIAL,
+    name                INTEGER NOT NULL, -- references artist_name.id
     artistcount         SMALLINT NOT NULL,
     refcount            INTEGER DEFAULT 0
 );
@@ -79,8 +80,7 @@ CREATE TABLE artist_gid_redirect
 
 CREATE TABLE artist_name (
     id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
+    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE artist_type (
@@ -520,8 +520,7 @@ CREATE TABLE label_gid_redirect
 
 CREATE TABLE label_name (
     id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
+    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE label_tag
@@ -795,8 +794,7 @@ CREATE TABLE release_group_type (
 
 CREATE TABLE release_name (
     id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
+    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE script
@@ -845,8 +843,7 @@ CREATE TABLE track
 
 CREATE TABLE track_name (
     id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
+    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE tracklist
@@ -905,8 +902,7 @@ CREATE TABLE work_meta
 
 CREATE TABLE work_name (
     id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
+    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE work_tag

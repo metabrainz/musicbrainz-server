@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 21;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::ArtistCredit';
 
 use MusicBrainz::Server::Context;
@@ -30,21 +30,29 @@ is ( $ac->names->[1]->artist->name, "David Bowie" );
 is ( $ac->names->[1]->join_phrase, undef );
 
 my $sql = Sql->new($c->mb->dbh);
-$sql->begin;
 $ac = $artist_credit_data->find_or_insert(
     { name => 'Queen', artist => 1 }, ' & ',
     { name => 'David Bowie', artist => 2 });
 is($ac, 1);
 
+$sql->begin;
 $ac = $artist_credit_data->find_or_insert(
     { name => 'Massive Attack', artist => 1 }, ' and ',
     { name => 'Portishead', artist => 2 });
+$sql->commit;
 ok(defined $ac);
 ok($ac > 1);
 
+my $name = $sql->select_single_value('
+    SELECT name FROM artist_name
+    WHERE id=(SELECT name FROM artist_credit WHERE id=?)', $ac);
+is($name, "Massive Attack and Portishead");
+
+$sql->begin;
 $artist_credit_data->merge_artists(3, 2);
+$sql->commit;
 $ac = $artist_credit_data->get_by_id(1);
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);
 
-$sql->commit;
+done_testing;

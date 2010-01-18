@@ -69,12 +69,14 @@ while (1) {
 
 open LOG, ">upgrade-artistcredit.log";
 
-$sql->select("SELECT id, name FROM tmp_collabs");
+$sql->select("
+    SELECT c.id, c.name, n.id AS name_id
+    FROM tmp_collabs c JOIN artist_name n ON n.name=c.name");
 my $checked = 0;
 my $total = $sql->row_count;
 while (1) {
     my $row = $sql->next_row_ref or last;
-    my ($collab_id, $collab_name) = @$row;
+    my ($collab_id, $collab_name, $collab_name_id) = @$row;
 
     $checked += 1;
 
@@ -196,8 +198,8 @@ while (1) {
     print LOG "Collaboration: ($collab_id) $collab_name\n";
 
     my $ac_id = $sql2->select_single_value("
-        INSERT INTO artist_credit (artistcount) VALUES (?)
-        RETURNING id", scalar(@artists));
+        INSERT INTO artist_credit (name, artistcount) VALUES (?, ?)
+        RETURNING id", $collab_name_id, scalar(@artists));
     foreach my $artist (@artists) {
         print LOG "  * Artist ", $artist->{position}, ". '", $artist->{artist_name}, "'=>'", $artist->{name}, "' '", $artist->{joinphrase}, "' \n";
         my $name_id = $artist->{name_id};

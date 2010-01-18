@@ -8,48 +8,12 @@ CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
 CREATE TRIGGER a_upd_artist AFTER UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE a_upd_artist();
 
-CREATE TRIGGER a_del_artist AFTER DELETE ON artist
-    FOR EACH ROW EXECUTE PROCEDURE a_del_artist();
-
-
-CREATE TRIGGER a_ins_artist_alias AFTER INSERT ON artist_alias
-    FOR EACH ROW EXECUTE PROCEDURE a_ins_artist_alias();
-
-CREATE TRIGGER a_upd_artist_alias AFTER UPDATE ON artist_alias
-    FOR EACH ROW EXECUTE PROCEDURE a_upd_artist_alias();
-
-CREATE TRIGGER a_del_artist_alias AFTER DELETE ON artist_alias
-    FOR EACH ROW EXECUTE PROCEDURE a_del_artist_alias();
-
-
-CREATE TRIGGER a_ins_artist_credit_name AFTER INSERT ON artist_credit_name
-    FOR EACH ROW EXECUTE PROCEDURE a_ins_artist_credit_name();
-
-CREATE TRIGGER a_upd_artist_credit_name AFTER UPDATE ON artist_credit_name
-    FOR EACH ROW EXECUTE PROCEDURE a_upd_artist_credit_name();
-
-CREATE TRIGGER a_del_artist_credit_name AFTER DELETE ON artist_credit_name
-    FOR EACH ROW EXECUTE PROCEDURE a_del_artist_credit_name();
-
 
 CREATE TRIGGER a_ins_label AFTER INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE a_ins_label();
 
 CREATE TRIGGER a_upd_label AFTER UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE a_upd_label();
-
-CREATE TRIGGER a_del_label AFTER DELETE ON label
-    FOR EACH ROW EXECUTE PROCEDURE a_del_label();
-
-
-CREATE TRIGGER a_ins_label_alias AFTER INSERT ON label_alias
-    FOR EACH ROW EXECUTE PROCEDURE a_ins_label_alias();
-
-CREATE TRIGGER a_upd_label_alias AFTER UPDATE ON label_alias
-    FOR EACH ROW EXECUTE PROCEDURE a_upd_label_alias();
-
-CREATE TRIGGER a_del_label_alias AFTER DELETE ON label_alias
-    FOR EACH ROW EXECUTE PROCEDURE a_del_label_alias();
 
 
 CREATE TRIGGER a_ins_recording AFTER INSERT ON recording

@@ -49,7 +49,7 @@ INSERT INTO artist (id, gid, name, sortname)
     VALUES (1, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 1, 1),
            (2, '2fed031c-0e89-406e-b9f0-3d192637907a', 2, 2);
 
-INSERT INTO artist_credit (id, artistcount) VALUES (1, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase)
     VALUES (1, 0, 1, 1, NULL);
 

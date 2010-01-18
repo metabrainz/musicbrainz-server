@@ -28,7 +28,7 @@ INSERT INTO artist (id, gid, name, sortname, type,
         resolution
     FROM public.artist a JOIN artist_name n1 ON a.name = n1.name JOIN artist_name n2 ON a.sortname = n2.name;
 
-INSERT INTO artist_credit (id, artistcount) SELECT id, 1 FROM artist;
+INSERT INTO artist_credit (id, name, artistcount) SELECT id, name, 1 FROM artist;
 SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));
 
 INSERT INTO artist_credit_name (artist_credit, artist, name, position) SELECT id, id, name, 0 FROM artist;
