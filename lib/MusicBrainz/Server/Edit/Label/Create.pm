@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Moose::Util::TypeConstraints qw( subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 
@@ -18,21 +19,13 @@ sub label_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name => Str,
-        sort_name => Optional[Str],
-        type_id => Optional[Int],
-        label_code => Optional[Int],
-        begin_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int]
-        ]],
-        end_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int]
-        ]],
-        country_id => Optional[Int],
-        comment => Optional[Str],
+        sort_name => Str,
+        type_id => Nullable[Int],
+        label_code => Nullable[Int],
+        begin_date => Nullable[PartialDateHash],
+        end_date => Nullable[PartialDateHash],
+        country_id => Nullable[Int],
+        comment => Nullable[Str],
     ]
 );
 
