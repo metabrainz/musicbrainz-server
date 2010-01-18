@@ -1,9 +1,52 @@
-[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
-    { label=l('Name'), new=new.LabelName },
-    { label=l('Sort name'), new=new.SortName },
-    { label=l('Comment'), new=new.Resolution },
-    { label=l('Label code'), new=new.LabelCode },
-    { label=l('Country'), new=new.Conutry },
-    { label=l('Founded'), new=new.BeginDate },
-    { label=l('Dissolved'), new=new.EndDate },
-] no_prev=1 -%]
+<table class="details">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.display_data.name %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Sort name:') %]</th>
+    <td>[% edit.display_data.sort_name %]</td>
+  </tr>
+
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Comment:') %]</th>
+    <td>[% edit.display_data.comment %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.begin_date %]
+  <tr>
+    <th>[% l('Begin date:') %]</th>
+    <td>[% edit.display_data.begin_date.format %]</td>
+  </tr>
+  [% END %]
+  
+  [% IF edit.display_data.end_date %]
+  <tr>
+    <th>[% l('End date:') %]</th>
+    <td>[% edit.display_data.end_date.format %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.country %]
+  <tr>
+    <th>[% l('Country:') %]</th>
+    <td>[% edit.display_data.country.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.type %]
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.label_code %]
+  <tr>
+    <th>[% l('Label code:') %]</th>
+    <td>[% edit.display_data.label_code %]</td>
+  </tr>
+  [% END %]
+</table>
