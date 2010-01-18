@@ -21,18 +21,24 @@ sub options_type
     my $self = shift;
     my @types = MusicBrainz::Server::EditRegistry->get_all_classes;
     return [
-        map {
+        _sort_hash_value(map {
             Class::MOP::load_class($_);
             $_->edit_type => $_->edit_name;
-        } @types
+        } @types)
     ];
 }
 
 sub options_status
 {
     return [
-        status_names()
+        _sort_hash_value(status_names())
     ];
+}
+
+sub _sort_hash_value
+{
+    my %hash = @_;
+    return map { $_ => $hash{$_} } sort { $hash{$a} cmp $hash{$b} } keys %hash;
 }
 
 no Moose;
