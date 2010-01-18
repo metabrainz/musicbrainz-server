@@ -19,7 +19,13 @@ sub has_age
 {
     my ($self) = @_;
 
-    return (!$self->begin_date->is_empty) && ($self->begin_date <= $self->end_date);
+    # seperately check if end_date has a positive year if it isn't empty.
+    # (N_Delta_YMD doesn't like negative years).
+    return 0 unless ( $self->end_date->is_empty || $self->end_date->year () > 0 );
+
+    return (!$self->begin_date->is_empty) && 
+        ($self->begin_date->year () > 0) &&
+        ($self->begin_date <= $self->end_date);
 }
 
 sub age
