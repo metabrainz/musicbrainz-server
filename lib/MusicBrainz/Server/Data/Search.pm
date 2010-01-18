@@ -6,7 +6,7 @@ use JSON;
 use Sql;
 use Readonly;
 use Data::Page;
-use URI::Escape qw( uri_escape );
+use URI::Escape qw( uri_escape_utf8 );
 use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::ReleaseGroup;
@@ -335,7 +335,6 @@ sub schema_fixup
                 ],
                 release_group => $release_group
             );
-#            $c->log->debug(Dumper($data->{mediums}));
         }
         $data->{_extra} = \@releases;
     }
@@ -398,10 +397,11 @@ sub external_search
         if ($type eq 'artist')
         {
             $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
+            $c->log->debug($query);
         }
     }
 
-    $query = uri_escape($query);
+    $query = uri_escape_utf8($query);
     my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
                                  DBDefs::LUCENE_SERVER,
                                  $type,
@@ -464,7 +464,7 @@ sub external_search
         if ($total_hits == 1 && ($type eq 'artist' || $type eq 'release' || $type eq 'label'))
         {
             my $redirect = $results[0]->{entity}->{gid};
-            my $type_controller = $c->controller( "MusicBrainz::Server::Controller::" . ucfirst($type));
+            my $type_controller = $c->controller(ucfirst($type));
             my $action = $type_controller->action_for('show');
 
             $c->res->redirect($c->uri_for($action, [ $redirect ]));
