@@ -47,8 +47,10 @@ sub insert
 {
     my $self = shift;
 
-    my $data = $self->_insert_hash($self->data);
-    my $entity = $self->c->model( $self->_create_model )->insert( $data );
+    # Make a copy of the data so we don't accidently modify it
+    my %data = %{ $self->data };
+    my $hash = $self->_insert_hash(\%data);
+    my $entity = $self->c->model( $self->_create_model )->insert( $hash );
 
     $self->entity($entity);
     $self->entity_id($entity->id);
