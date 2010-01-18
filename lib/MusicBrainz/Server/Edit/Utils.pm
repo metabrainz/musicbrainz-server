@@ -91,8 +91,8 @@ our %STATUS_NAMES = (
     $STATUS_ERROR        => 'Error',
     $STATUS_FAILEDPREREQ => 'Failed prerequisite',
     $STATUS_NOVOTES      => 'No votes',
-    $STATUS_TOBEDELETED  => 'Due to be deleted',
-    $STATUS_DELETED      => 'Deleted',
+    $STATUS_TOBEDELETED  => 'Due to be cancelled',
+    $STATUS_DELETED      => 'Cancelled',
 );
 
 sub edit_status_name
