@@ -67,6 +67,21 @@ __PACKAGE__->config(
     },
 );
 
+if (DBDefs::EMAIL_BUGS) {
+    __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
+        emit_module => 'Catalyst::Plugin::ErrorCatcher::Email'
+    };
+
+    __PACKAGE__->config->{'Plugin::ErrorCatcher::Email'} = {
+        to => DBDefs::EMAIL_BUGS(),
+        from => 'bug-reporter@' . DBDefs::WEB_SERVER(),
+        use_tags => 1,
+        subject => 'Unhandled error in %f (line %l)'
+    };
+
+    push @args, "ErrorCatcher";
+}
+
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
     use_session => 0,
