@@ -1,0 +1,17 @@
+<table class="details">
+  <tr>
+    <th>[% l('Old recording:') %]</th>
+    <td>
+      [% l('{recording} by {artist}', { recording => link_recording(edit.display_data.old),
+                                        artist => artist_credit(edit.display_data.old.artist_credit)  }) %]
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('New recording:') %]</th>
+    <td>
+      [% l('{recording} by {artist}', { recording => link_recording(edit.display_data.new),
+                                        artist => artist_credit(edit.display_data.new.artist_credit)  }) %]
+    </td>
+  </tr>
+</table>
