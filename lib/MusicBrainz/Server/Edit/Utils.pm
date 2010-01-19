@@ -63,9 +63,6 @@ sub artist_credit_from_loaded_definition
         );
         $ac->join_phrase($join) if $join;
 
-        use Devel::Dwarn;
-        Dwarn $ac;
-
         push @names, $ac;
     }
 
