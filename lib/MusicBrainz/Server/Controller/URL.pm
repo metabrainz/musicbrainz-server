@@ -10,6 +10,8 @@ __PACKAGE__->config(
 
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 
+with 'MusicBrainz::Server::Controller::Role::Relationship';
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Url - Catalyst Controller for working
@@ -32,20 +34,6 @@ sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     $c->stash->{template} = 'url/index.tt';
-}
-
-=head2 relations
-
-List all relations of a url
-
-=cut
-
-sub relations : Chained('url')
-{
-    my ($self, $c) = @_;
-    my $url = $c->stash->{url};
-
-    $c->stash->{relations} = $c->model('Relation')->load_relations($url);
 }
 
 =head2 edit
