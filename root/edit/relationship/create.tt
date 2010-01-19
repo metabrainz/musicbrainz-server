@@ -1,0 +1,84 @@
+[% BLOCK layout_head %]
+   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
+   <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
+   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
+   <script src="[% c.uri_for('/static/scripts/ar.js') %]" type="text/javascript"></script>
+[% END %]
+
+[%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
+
+<h2>[% l('Create Relationship') %]</h2>
+
+[%- USE r = FormRenderer(form) -%]
+
+<form action="[% c.req.uri | html %]" method="post">
+
+<script type="text/javascript">
+var typeInfo = [% type_info %];
+</script>
+
+<fieldset>
+    <legend>[% l('Relationship Details') %]</legend>
+
+<table class="form">
+    <tr>
+        <td class="label">[% entity_label(source_type) %]</td>
+        <td colspan="2">[% link_entity(source) %]</td>
+    </tr>
+    <tr>
+        <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
+        <td colspan="2">
+            [% r.select('link_type_id') %]
+            [% field_errors(form, 'link_type_id') %]
+            <div class="ar-descr" id="type_descr"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">[% entity_label(dest_type) %]</td>
+        <td colspan="2">[% link_entity(dest) %]</td>
+    </tr>
+    <tr>
+        <td class="label"><label>[% l('Attributes:') %]</label></td>
+        <td>
+        [% FOR attr IN attr_tree.children %]
+            <div id="attr-section-[% attr.id %]" class="ar-attr">
+            [% field = form.field('attrs').field(attr.name) %]
+            [% IF field.type == 'Repeatable' %]
+                <div class="selects">
+                [% FOR subfield IN field.fields %]
+                <div>
+                  [% r.select(subfield) %]
+                  [% field_errors(form, subfield) %]
+                </div>
+                [% END %]
+                </div>
+                <div class="ar-descr">[% attr.description %]</div>
+            [% ELSE %]
+                [% r.checkbox(field) %] [% attr.name %]
+                <div class="ar-descr">[% attr.description %]</div>
+            [% END %]
+            [% field_errors(form, field) %]
+            </div>
+        [% END %]
+        </td>
+    </tr>
+    <tr>
+        <td class="label">[% r.label('begin_date', l('Begin date:')) %]</td>
+        <td colspan="2">[% r.date('begin_date') %]
+        [% field_errors(form, 'begin_date') %]</td>
+    </tr>
+    <tr>
+        <td class="label">[% r.label('end_date', l('End date:')) %]</td>
+        <td colspan="2">[% r.date('end_date') %]
+        [% field_errors(form, 'end_date') %]</td>
+    </tr>
+</table>
+
+</fieldset>
+
+[% INCLUDE 'forms/edit-note.tt' %]
+[% enter_edit() %]
+
+</form>
+
+[% END %]
