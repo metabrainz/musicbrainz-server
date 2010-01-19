@@ -31,21 +31,46 @@ sub date_closure
 
 sub load_artist_credit_definitions
 {
-    return map { $_->{artist} => [] } map { @{ $_ } } @_;
+    my $ac = shift;
+    my @ac = @$ac;
+
+    my %load;
+    while(@ac) {
+        my $artist = shift @ac;
+        my $join   = shift @ac;
+
+        $load{ $artist->{artist} } = [];
+    }
+
+    return %load;
 }
 
 sub artist_credit_from_loaded_definition
 {
     my ($loaded, $definition) = @_;
+
+    my @names;
+    my @def = @$definition;
+
+    while (@def)
+    {
+        my $artist = shift @def;
+        my $join = shift @def;
+
+        my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
+            name => $artist->{name},
+            artist => $loaded->{Artist}->{ $artist->{artist} }
+        );
+        $ac->join_phrase($join) if $join;
+
+        use Devel::Dwarn;
+        Dwarn $ac;
+
+        push @names, $ac;
+    }
+
     return MusicBrainz::Server::Entity::ArtistCredit->new(
-        names => [
-            map {
-                MusicBrainz::Server::Entity::ArtistCreditName->new(
-                    name => $_->{name},
-                    artist => $loaded->{Artist}->{ $_->{artist} }
-                );
-            } @$definition,
-        ]
+        names => \@names
     );
 }
 
