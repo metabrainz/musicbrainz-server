@@ -29,14 +29,16 @@ sub validate
     my $self = shift;
 
     my @credits;
-    for my $field ($self->field('names')->fields)
-    {
+    my @fields = $self->field('names')->fields;
+    while (@fields) {
+        my $field = shift @fields;
+
         my $name = $field->field('name')->value;
         my $id = $field->field('artist_id')->value;
-        my $join = $field->field('join_phrase')->value;
+        my $join = $field->field('join_phrase')->value || undef;
 
         push @credits, { artist => $id, name => $name };
-        push @credits, $join if defined $join;
+        push @credits, $join if $join || @fields;
     }
 
     $self->value(\@credits);
