@@ -1,4 +1,3 @@
-[%- INCLUDE 'scripts/module_load_status.tt' -%]
 [%- WRAPPER 'layout/guidelines.tt' -%]
     [%- IF new -%]
         [%- create_guideline(l('You are about to add an artist to MusicBrainz.')) -%]
