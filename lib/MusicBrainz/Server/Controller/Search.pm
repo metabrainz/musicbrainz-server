@@ -203,8 +203,6 @@ sub filter : Private
 
 sub plugins : Local { }
 
-sub links : Local { }
-
 1;
 
 =head1 NAME

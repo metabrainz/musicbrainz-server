@@ -109,11 +109,6 @@
         </a>
         <ul>
 	    <li>
-                <a href="[% c.uri_for('/search/links') %]">
-                    [% l('Links') %]
-                </a>
-            </li>
-	    <li>
                 <a href="[% c.uri_for_action('/edit/search') %]">
                     [% l('Edits') %]
                 </a>
