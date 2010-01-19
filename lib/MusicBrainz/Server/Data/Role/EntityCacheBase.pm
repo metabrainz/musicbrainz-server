@@ -19,11 +19,11 @@ around 'get_by_ids' => sub
         delete $ids{$id};
     }
     if (%ids) {
-        %data = %{$self->$orig(keys %ids)};
-        foreach my $id (keys %data) {
-            $result{$id} = $data{$id};
+        my $data = $self->$orig(keys %ids) || {};
+        foreach my $id (keys %$data) {
+            $result{$id} = $data->{$id};
         }
-        $self->_add_to_cache($cache, %data);
+        $self->_add_to_cache($cache, %$data);
     }
     return \%result;
 };
