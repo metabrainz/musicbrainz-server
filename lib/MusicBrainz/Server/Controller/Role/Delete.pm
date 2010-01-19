@@ -31,7 +31,7 @@ role {
                     my $edit = shift;
                     my $url = $edit->is_open
                         ? $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ])
-                        : $c->uri_for_action('/search');
+                        : $c->uri_for_action('/search/search');
                     $c->response->redirect($url);
                 },
             );
