@@ -153,7 +153,7 @@ while (1) {
 print " * Converting average ratings\n";
 $sql->do("CREATE UNIQUE INDEX tmp_release_group_meta_idx ON release_group_meta (id)");
 $raw_sql->select("
-    SELECT release_group, avg(rating), count(*)
+    SELECT release_group, avg(rating)::INT, count(*)
     FROM release_group_rating_raw
     GROUP BY release_group");
 while (1) {
@@ -210,6 +210,7 @@ $raw_sql->finish;
     $raw_sql->commit;
 };
 if ($@) {
+    printf STDERR "ERROR: %s\n", $@;
     $sql->rollback;
     $raw_sql->rollback;
 }
