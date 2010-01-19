@@ -379,9 +379,7 @@ sub external_search
 {
     my ($self, $c, $type, $query, $limit, $page, $adv, $ua) = @_;
 
-    my $fixed_type = $type;
-    $fixed_type =~ s/release-group/release_group/;
-    my $entity_model = $c->model( type_to_model($fixed_type) )->_entity_class;
+    my $entity_model = $c->model( type_to_model($type) )->_entity_class;
     Class::MOP::load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
@@ -397,17 +395,18 @@ sub external_search
         if ($type eq 'artist')
         {
             $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
-            $c->log->debug($query);
         }
     }
 
     $query = uri_escape_utf8($query);
+    $type =~ s/release_group/release-group/;
     my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
                                  DBDefs::LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
                                  $limit,);
+    $c->log->debug($search_url);
 
     $ua = LWP::UserAgent->new if (!defined $ua);
     $ua->timeout (5);
