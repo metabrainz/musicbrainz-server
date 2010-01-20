@@ -583,7 +583,7 @@ DROP TABLE tmp_recording_rating_raw;
     $sql->do("TRUNCATE recording_meta");
     $sql->do("INSERT INTO recording_meta (id) SELECT id FROM recording");
     $raw_sql->select("
-        SELECT recording, avg(rating), count(*)
+        SELECT recording, avg(rating)::INT, count(*)
         FROM recording_rating_raw
         GROUP BY recording");
     $sql->do("CREATE UNIQUE INDEX tmp_recording_meta_idx ON recording_meta (id)");
