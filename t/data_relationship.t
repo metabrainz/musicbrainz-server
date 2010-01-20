@@ -99,15 +99,15 @@ is($rel->id, 100);
 
 $artist1->clear_relationships;
 $rel_data->load_subset([ 'artist' ], $artist1);
-is(scalar($artist1->all_relationships), 0);
+is(scalar($artist1->all_relationships), 0, 'filter to just artist rels');
 
 $artist1->clear_relationships;
 $rel_data->load_subset([ 'recording' ], $artist1);
-is(scalar($artist1->all_relationships), 1);
+is(scalar($artist1->all_relationships), 1, 'filter to just recording rels');
 
 $artist1->clear_relationships;
 $rel_data->load($artist1);
-is(scalar($artist1->all_relationships), 1);
+is(scalar($artist1->all_relationships), 1, 'allow all rels');
 
 $rel = $artist1->relationships->[0];
 is($rel->id, 100);
@@ -136,15 +136,10 @@ is($rel->id, 100);
 is($rel->link->id, 101);
 is_deeply($rel->link->begin_date, { });
 is_deeply($rel->link->end_date, { });
-is($rel->phrase, 'performed string instruments on');
+is($rel->phrase, 'performed string instruments on', 'phrase');
 
 $rel = $rel_data->get_by_id('artist', 'recording', 100);
 is($rel->edits_pending, 0);
-is_deeply(
-    $rel_data->get_by_ids('artist', 'recording', 100),
-    {
-        100 => $rel
-    });
 
 $sql->begin;
 $rel_data->adjust_edit_pending('artist', 'recording', +1, 100);

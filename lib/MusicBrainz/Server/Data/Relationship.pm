@@ -95,32 +95,10 @@ sub get_by_id
     return $self->_new_from_row($row);
 }
 
-sub get_by_ids
-{
-    my ($self, $type0, $type1, $entity) = @_;
-    $self->_check_types($type0, $type1);
-
-    my $query = "SELECT id FROM l_${type0}_${type1} WHERE entity0 = ? OR entity1 = ?";
-    my $sql = Sql->new($self->c->dbh);
-    my $ids = $sql->select_single_column_array($query, $entity, $entity)
-        or return undef;
-
-    $query = "SELECT * FROM l_${type0}_${type1} WHERE id IN (" . placeholders(@{$ids}) . ")";
-    $sql->select($query, @{$ids});
-    my %result;
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
-        my $obj = $self->_new_from_row($row);
-        $result{$obj->id} = $obj;
-    }
-    $sql->finish;
-    return \%result;
-}
-
 sub _load
 {
-    my ($self, $type, $target_type, @objs) = @_;
-    my @target_types = @TYPES;
+    my ($self, $type, $target_types, @objs) = @_;
+    my @target_types = @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my %objs_by_id = map { $_->id => $_ } @objs;
     my @ids = keys %objs_by_id;
