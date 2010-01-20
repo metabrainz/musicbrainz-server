@@ -6,6 +6,7 @@ use Readonly;
 use LWP::UserAgent;
 use MusicBrainz::Server::Entity::WikiDocPage;
 use URI::Escape qw( uri_unescape );
+use Encode qw( decode );
 
 has 'c' => (
     is => 'rw',
@@ -121,8 +122,7 @@ sub _load_page
         return undef;
     }
 
-    my $content = $response->content;
-
+    my $content = decode "utf-8", $response->content;
     if ($content =~ /<div class="noarticletext">/s) {
         return undef;
     }
