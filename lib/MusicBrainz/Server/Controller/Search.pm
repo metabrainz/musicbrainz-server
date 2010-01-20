@@ -69,8 +69,24 @@ sub direct : Private
     my $query  = $form->field('query')->value;
 
     my $results = $self->_load_paged($c, sub {
-       $c->model('DirectSearch')->search($c, $type, $query, shift, shift);
+       $c->model('DirectSearch')->search($type, $query, shift, shift);
     });
+
+    if (@$results == 1) {
+        if ($type eq 'artist' || $type eq 'release' ||
+                $type eq 'label' || $type eq 'release-group')
+        {
+            my $redirect;
+            $redirect = $result[0]->entity->gid;
+
+            my $type_controller = $c->controller(type_to_model($type));
+            my $action = $type_controller->action_for('show');
+
+            $c->res->redirect($c->uri_for($action, [ $redirect ]));
+            $c->detach;
+        }
+    }
+
     my @entities = map { $_->entity } @$results;
 
     use Switch;
