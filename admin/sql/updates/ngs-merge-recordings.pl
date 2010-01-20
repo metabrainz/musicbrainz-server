@@ -604,7 +604,7 @@ DROP TABLE tmp_recording_rating_raw;
     while (1) {
         my $row = $raw_sql->next_row_ref or last;
         my ($recording, $tag, $count) = @$row;
-        $sql->do("INSERT INTO recording_tag (recording, tag, count)", $recording, $tag, $count);
+        $sql->do("INSERT INTO recording_tag (recording, tag, count) VALUES (?, ?, ?)", $recording, $tag, $count);
     }
     $raw_sql->finish;
 
