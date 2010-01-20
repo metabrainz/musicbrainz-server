@@ -83,7 +83,12 @@ sub _insert_edit {
         editor_id => $c->user->id,
         privileges => $privs,
         %opts
-    ) or die "Could not create edit";
+    );
+
+    if (!$edit) {
+        use Data::Dumper;
+        die "Could not create edit\n" . Dumper(\%opts);
+    }
 
     if (defined $edit &&
             $form->does('MusicBrainz::Server::Form::Edit') &&
