@@ -460,9 +460,20 @@ sub external_search
             } 
         }
 
-        if ($total_hits == 1 && ($type eq 'artist' || $type eq 'release' || $type eq 'label'))
+        if ($total_hits == 1 && ($type eq 'artist' || $type eq 'release' || 
+            $type eq 'label' || $type eq 'release-group' || $type eq 'cdstub'))
         {
-            my $redirect = $results[0]->{entity}->{gid};
+            my $redirect;
+
+            $type =~ s/release-group/ReleaseGroup/;
+            if ($type eq 'cdstub')
+            {
+                $redirect = $results[0]->{entity}->{discid};
+            }
+            else
+            {
+                $redirect = $results[0]->{entity}->{gid};
+            }
             my $type_controller = $c->controller(ucfirst($type));
             my $action = $type_controller->action_for('show');
 
