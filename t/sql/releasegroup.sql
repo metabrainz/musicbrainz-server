@@ -51,7 +51,7 @@ INSERT INTO release_group_gid_redirect (gid, newid) VALUES ('77637e8c-be66-46ea-
 INSERT INTO artist_name (id, name) VALUES (2, 'Various Artists');
 INSERT INTO artist (id, gid, name, sortname)
     VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_credit (id, artistcount) VALUES (2, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (2, 2, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, joinphrase) VALUES (2, 2, 2, 1, NULL);
 
 INSERT into release_name (id, name) VALUES (4, 'Various Release');

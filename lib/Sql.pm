@@ -80,8 +80,8 @@ sub select
         return $self->sth->rows;
     }
     catch ($err) {
-        $self->finish;
         croak "Failed query:\n\t'$query'\n\t(@params)\n$err\n" unless $self->quiet;
+        $self->finish;
     };
 }
 

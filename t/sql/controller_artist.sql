@@ -52,7 +52,7 @@ INSERT INTO artist (id, gid, name, sortname) VALUES
 INSERT INTO artist_alias (id, name, artist, editpending)
     VALUES (1, 4, 3, 2);
 
-INSERT INTO artist_credit (id, artistcount) VALUES (1, 1);
+INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 3, 1, NULL);
 
 INSERT INTO release_group_type (id, name) VALUES (1, 'Album');

@@ -72,7 +72,7 @@ INSERT INTO release_gid_redirect (gid, newid) VALUES ('71dc55d8-0fc6-41c1-94e0-8
 INSERT INTO artist_name (id, name) VALUES (2, 'Various Artists');
 INSERT INTO artist (id, gid, name, sortname)
     VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_credit (id, artistcount) VALUES (2, 1);
+INSERT INTO artist_credit (id, naem, artistcount) VALUES (2, 2, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, joinphrase) VALUES (2, 2, 2, 1, NULL);
 
 INSERT into release_name (id, name) VALUES (3, 'Various Release');
