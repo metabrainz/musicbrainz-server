@@ -77,7 +77,7 @@ sub direct : Private
                 $type eq 'label' || $type eq 'release-group')
         {
             my $redirect;
-            $redirect = $result[0]->entity->gid;
+            $redirect = $results->[0]->entity->gid;
 
             my $type_controller = $c->controller(type_to_model($type));
             my $action = $type_controller->action_for('show');
@@ -144,14 +144,14 @@ sub external : Private
     $c->stash->{query} = $query;
 
     $c->detach('/search/editor') if $type eq 'editor';
-    
+
     my $limit  = $form->field('limit') ? $form->field('limit')->value : 25;
     my $page   = $c->request->query_params->{page} || 1;
     my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
 
     my $search = $c->model('Search');
     my $ua;
-    if (&DBDefs::_RUNNING_TESTS) 
+    if (&DBDefs::_RUNNING_TESTS)
     {
         $ua = MusicBrainz::Server::Test::mock_search_server($type);
     }
