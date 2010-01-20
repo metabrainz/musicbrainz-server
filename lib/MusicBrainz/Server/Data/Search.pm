@@ -40,7 +40,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
 
 sub search
 {
-    my ($self, $type, $query_str, $limit, $offset) = @_;
+    my ($self, $c, $type, $query_str, $limit, $offset) = @_;
     return ([], 0) unless $query_str && $type;
 
     $offset ||= 0;
@@ -178,6 +178,20 @@ sub search
     }
     my $hits = $sql->row_count + $offset;
     $sql->finish;
+
+    if ($sql->row_count == 1 && ($type eq 'artist' || $type eq 'release' || 
+        $type eq 'label' || $type eq 'release-group'))
+    {
+        my $redirect;
+
+        $type =~ s/release-group/ReleaseGroup/;
+        $redirect = $result[0]->{entity}->{gid};
+        my $type_controller = $c->controller(type_to_model($type));
+        my $action = $type_controller->action_for('show');
+
+        $c->res->redirect($c->uri_for($action, [ $redirect ]));
+        $c->detach;
+    }
     return (\@result, $hits);
 
 }
@@ -474,7 +488,7 @@ sub external_search
             {
                 $redirect = $results[0]->{entity}->{gid};
             }
-            my $type_controller = $c->controller(ucfirst($type));
+            my $type_controller = $c->controller(type_to_model($type));
             my $action = $type_controller->action_for('show');
 
             $c->res->redirect($c->uri_for($action, [ $redirect ]));
