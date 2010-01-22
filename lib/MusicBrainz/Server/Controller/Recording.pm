@@ -158,8 +158,6 @@ around '_merge_search' => sub {
     my ($self, $c, $query) = @_;
 
     my $results = $self->$orig($c, $query);
-    use Devel::Dwarn;
-    Dwarn $results;
     $c->model('ArtistCredit')->load(map { $_->entity } @$results);
     return $results;
 };
