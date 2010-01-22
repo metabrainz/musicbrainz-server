@@ -89,12 +89,26 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASEGROUP_MERGE,
     confirmation_template => 'release_group/merge_confirm.tt',
     search_template       => 'release_group/merge_search.tt',
-    edit_arguments => sub {
-        return (
-            old_release_group_id => shift->id,
-            new_release_group_id => shift->id,
-        );
-    }
+};
+
+after 'merge' => sub
+{
+    my ($self, $c) = @_;
+
+    $c->model('ArtistCredit')->load(
+        $c->stash->{old}, $c->stash->{new}
+    );
+};
+
+around '_merge_search' => sub
+{
+    my $orig = shift;
+    my ($self, $c, $query) = @_;
+
+    my $results = $self->$orig($c, $query);
+    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
+
+    return $results;
 };
 
 1;

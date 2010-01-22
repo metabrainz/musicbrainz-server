@@ -6,11 +6,6 @@ parameter 'edit_type' => (
     required => 1
 );
 
-parameter 'edit_arguments' => (
-    isa => 'CodeRef',
-    default => sub { sub { } }
-);
-
 parameter 'confirmation_template' => (
     isa => 'Str',
     required => 1
