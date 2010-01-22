@@ -4,7 +4,7 @@
    link_entity(entity); ' '; disambiguation(entity);
    END %]
 
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri %]" method="get">
     [% WRAPPER form_row %]
         [% qr.label('query', l('Query:')) %]
         [% qr.text('query') %]
@@ -17,18 +17,22 @@
 [%- IF search_results.size -%]
     <div class="row">
       <div class="label required">[% l('Results:') %]</div>
-      <ul class="radio-list">
-        [%- FOREACH entity=search_results -%]
-        [%- entity = entity.entity -%]
-        <li>
-          <input type="radio" name="[% name %]" value="[% entity.$field %]"
-                 for="[% "${field.id}-${entity.id}" %]" />
-          <label class="inline" for="[% "${field.id}-${entity.id}" %]">
-            [% PROCESS format_result %]
-          </label>
-        </li>
-        [%- END -%]
-      </ul>
+      <div class="no-label">
+        [% WRAPPER 'components/with-pager.tt' %]
+         <ul class="radio-list">
+          [%- FOREACH entity=search_results -%]
+          [%- entity = entity.entity -%]
+          <li>
+            <input type="radio" name="[% name %]" value="[% entity.$field %]"
+                   for="[% "${field.id}-${entity.id}" %]" />
+            <label class="inline" for="[% "${field.id}-${entity.id}" %]">
+              [% PROCESS format_result %]
+            </label>
+          </li>
+          [%- END -%]
+        </ul>
+        [% END %]
+      </div>
     </div>
     <div class="row no-label">
       [% form_submit(confirm_label) %]

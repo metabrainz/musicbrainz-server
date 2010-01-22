@@ -22,8 +22,8 @@ form div.row div.label {
 
 form div.row p { float: none; clear: none; }
 
-form div.no-label,
-ul.radio-list,
+form div.row > div.no-label,
+form div.row > ul.radio-list,
 form p.no-label,
 form ul.errors {
     margin-left: 11em;
