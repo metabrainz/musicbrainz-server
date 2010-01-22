@@ -10,7 +10,7 @@
     <p>
         [% l('If you have trouble logging in, please note that since this
 is a {server} server, the passwords
-may have been reset to "mb". If you still cannot login, try
+may have been reset to "mb". If you still cannot log in, try
 to clear the cookies for musicbrainz.org, and/or clearing
 the browser cache.', { server => server_details.staging_server }) %]
     </p>

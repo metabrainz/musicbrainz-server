@@ -24,7 +24,7 @@
            <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
            <li>[% use_in_relationship(work) %]</li>
         [% ELSE %]
-           <li>[% request_login(l('Please login to edit this work')) %]</li>
+           <li>[% request_login(l('Please log in to edit this work')) %]</li>
         [% END %]
     </ul>
 

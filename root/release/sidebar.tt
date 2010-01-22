@@ -131,7 +131,7 @@
         <li>[% link_release(release, 'edit', l('Edit this release')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
       [% ELSE %]
-        <li>[% request_login(l('Please login to edit this release')) %]</li>
+        <li>[% request_login(l('Please log in to edit this release')) %]</li>
       [% END %]
       <li>[% link_release(release, 'edits', l('View editing history')) %]</li>
     </ul>

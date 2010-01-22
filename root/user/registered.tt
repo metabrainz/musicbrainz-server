@@ -21,7 +21,7 @@
             [% l('You may proceed to <a href="{uri}">your user profile</a>, or
                   maybe you want to {edit|start editing}!',
                   { uri => c.uri_for('/user/profile'),
-                    edit => doc_link("HowEditingWorks") }) %]
+                    edit => doc_link("How_Editing_Works") }) %]
         </p>
     [% END %]
 [% END %]

@@ -139,6 +139,6 @@
         <li id="note.1"> Voting period in days.</li>
         <li id="note.2"> Unanimous votes required to shortcut the edit period.</li>
         <li id="note.3"> Expire action when edit has no votes (abstain votes excluded).</li>
-        <li id="note.4"> [%- doc_link('AutoEdit', 'Auto-edit') -%] for all users</li>
+        <li id="note.4"> [%- doc_link('Auto-Edit', 'Auto-edit') -%] for all users</li>
     </ol>
 [% END %]

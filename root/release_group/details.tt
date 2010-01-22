@@ -6,8 +6,8 @@
     <td>[% release_group_link(release_group) %]</td>
   </tr>
   <tr>
-    <th>[%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}:',
-               {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
+    <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+               {mbid => doc_link("MusicBrainz_Identifier")}) -%]
     </th>
     <td>[% rg.gid %]</td>
   </tr>

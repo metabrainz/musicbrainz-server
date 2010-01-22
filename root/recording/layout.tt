@@ -26,7 +26,7 @@
       <li>[% link_recording(recording, 'merge', l('Merge this recording with another')) %]</li>
       <li>[% use_in_relationship(recording) %]</li>
       [% ELSE %]
-      <li>[% request_login(l('Please login to edit this recording')) %]</li>
+      <li>[% request_login(l('Please log in to edit this recording')) %]</li>
       [% END %]
     </ul>
 

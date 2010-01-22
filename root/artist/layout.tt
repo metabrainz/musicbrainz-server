@@ -45,7 +45,7 @@
                   </a>
                 </li>
             [% ELSE %]
-                <li>[% request_login(l('Please login to edit this artist')) %]</li>
+                <li>[% request_login(l('Please log in to edit this artist')) %]</li>
             [% END %]
         </ul>
 

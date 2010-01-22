@@ -23,7 +23,7 @@
                <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
                <li>[% use_in_relationship(rg) %]</li>
             [% ELSE %]
-               <li>[% request_login(l('Please login to edit this release group')) %]</li>
+               <li>[% request_login(l('Please log in to edit this release group')) %]</li>
             [% END %]
         </ul>
 

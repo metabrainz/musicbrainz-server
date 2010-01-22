@@ -1,9 +1,9 @@
 [% WRAPPER 'release_group/layout.tt' title=l("Merge Release Groups") RadioClick=1 %]
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {rg} into another release group.', {rg => link_release_group(rg)})) -%]
-        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge release groups} before entering this edit.', {doc_merging => doc_link("HowToMergeReleaseGroups")})) -%]
-        [%- create_guideline(l('Please enter the {name|release group name} of the release group into which you would like to merge this release group, and press <em>search</em> to start the search.', {name => doc_link('ReleaseGroupName')})) -%]
-        [%- create_guideline(l('When you have found the release groupthat you would like to merge {rg} into, please select that entity and click <em>merge</em>.', {rg => release_group_link(rg)})) -%]
+        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge release groups} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Release_Groups")})) -%]
+        [%- create_guideline(l('Please enter the {name|release group name} of the release group into which you would like to merge this release group, and press <em>search</em> to start the search.', {name => doc_link('Release_Group_Name')})) -%]
+        [%- create_guideline(l('When you have found the release group that you would like to merge {rg} into, please select that entity and click <em>merge</em>.', {rg => release_group_link(rg)})) -%]
     [%- END -%]
 
     [%- BLOCK format_result -%]

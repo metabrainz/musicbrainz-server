@@ -2,11 +2,11 @@
     [%- WRAPPER 'forms/fieldset.tt' legend=l('AutoEditor') -%]
         [% USE r = FormRenderer(form) %]
         <p>
-            [% l('<strong>AutoEditor privileges</strong>: If you untick this checkbox, this edit will be entered as if you would not have {status|AutoEditor} status. You can enable them any time again.', {status => doc_link('AutoEditor')}) %]
+            [% l('<strong>AutoEditor privileges</strong>: If you untick this checkbox, this edit will be entered as if you would not have {status|AutoEditor} status. You can enable them any time again.', {status => doc_link('Auto-Editor')}) %]
         </p>
         <p>
             [% r.checkbox('as_auto_editor') %]
-            [% r.label('as_auto_editor', 'Enable auto-editor priveleges for this edit', inline => 1) %]
+            [% r.label('as_auto_editor', 'Enable auto-editor privileges for this edit', inline => 1) %]
         </p>
     [%- END -%]
 [%- END -%]

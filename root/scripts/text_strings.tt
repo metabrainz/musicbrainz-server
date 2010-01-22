@@ -37,7 +37,7 @@
         AddAnother            : "[% l("Add another") %]",
         ClickLookup           : "[% l('Please click lookup to search') %]",
         Lookup                : "[% l('Lookup') %]",
-        SearchErrorOccured    : "[% l('Sorry, an error occured during your search') %]",
+        SearchErrorOccured    : "[% l('Sorry, an error occurred during your search') %]",
         AddNewTrack:            "[% l('Add another track') %]",
         AddAnotherMedium      : "[% l('Add another medium') %]"
     });

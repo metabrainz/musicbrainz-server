@@ -1,8 +1,8 @@
 [% WRAPPER 'label/layout.tt' title=l("Merge Labels") %]
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {label} into another label.', {label => link_label(label)})) -%]
-        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge labels} before entering this edit.', {doc_merging => doc_link("HowToMergeLabels")})) -%]
-        [%- create_guideline(l('Please enter the {name|label name} of the label into which you would like to merge this label, and press <em>search</em> to start the search.', {name => doc_link('LabelName')})) -%]
+        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge labels} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Labels")})) -%]
+        [%- create_guideline(l('Please enter the {name|label name} of the label into which you would like to merge this label, and press <em>search</em> to start the search.', {name => doc_link('Label_Name')})) -%]
         [%- create_guideline(l('When you have found the label that you would like to merge {label} into, please select that entity and click <em>merge</em>.', {label => label_link(label)})) -%]
     [%- END -%]
 

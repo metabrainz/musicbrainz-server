@@ -5,7 +5,7 @@
             [%- l('Are you sure you wish to remove the release group {rg} by {artist} from MusicBrainz?', { rg => link_release_group(rg), artist => artist_credit(rg.artist_credit) }) -%]
         </p>
         [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('Please review the documentation about the {doc_remove|remove release group edit-type}, before entering this edit', {doc_remove => doc_link('RemoveReleasegroupEdit')})) -%]
+            [%- create_guideline(l('Please review the documentation about the {doc_remove|remove release group edit-type}, before entering this edit', {doc_remove => doc_link('Remove_Release_Group_Edit')})) -%]
         [%- END -%]
         <form action="[% c.req.uri %]" method="post">
             [%- USE r = FormRenderer(form) -%]

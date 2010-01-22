@@ -1,4 +1,4 @@
-Translations in Musicbrainz
+Translations in MusicBrainz
 ===========================
 
 This is a short introduction to i18n inside of MusicBrainz
@@ -24,7 +24,7 @@ work in English, but introducing translations would be a matter of
 including some .po files. This is currently implemented as
 Catalyst::Plugin::I18N::Gettext, which uses Locale::TextDomain.
 
-2. Implement automatical .pot generation.
+2. Implement automatic .pot generation.
 
 This has been the tricky part so far: xgettext.pl (from maketext) which
 is capable of doing so, generated non-standard plurals, and xgettext
@@ -51,7 +51,7 @@ bison parser could help eventually. One problem might be that gettext
 might be slow to appear in distributions (compared to CPAN) but it
 would only take a statically linked binary to generate the .pot file
 once the templates change and this will probably happen only
-everysooften.
+every so often.
 
 Preparing the code
 ==================
@@ -75,7 +75,7 @@ parameter and a parameter hash:
 
 [% l('You may proceed to <a href=\"{url}\">your user profile</a>,
       or maybe you want to {edit_link}', url => c.uri_for('/user/profile
-     '), edit_link => doc_link("HowEditingWorks", l("start editing!"))
+     '), edit_link => doc_link("How_Editing_Works", l("start editing!"))
 %]
 
 Plurals are done with an ln()-function:
@@ -95,3 +95,4 @@ To be written.
 
 TODO: check javascript translation needs
 TODO: check database's translation needs
+

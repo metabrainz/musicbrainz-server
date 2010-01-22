@@ -6,8 +6,8 @@
     <td>[% label_link(label) %]</td>
   </tr>
   <tr>
-    <th>[%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}:',
-               {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
+    <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+               {mbid => doc_link("MusicBrainz_Identifier")}) -%]
     </th>
     <td>[% label.gid %]</td>
   </tr>

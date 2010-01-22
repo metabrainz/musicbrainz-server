@@ -4,7 +4,7 @@
         <li>[% l('MusicBrainz uses artist aliases mainly as variant names or search hints.') %]</li>
         <li>[% l('If you see a misspelled alias here, it most likely is listed on purpose,
                   and should not be renamed or removed. Please see {aa|artist aliases}
-                  for more details.', {aa => doc_link('ArtistAlias')}) %]</li>
+                  for more details.', {aa => doc_link('Artist_Alias')}) %]</li>
     </ul>
     [%- INCLUDE 'alias/edit_form.tt' %]
 [%- END -%]

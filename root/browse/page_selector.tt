@@ -14,7 +14,7 @@ END %]
 
 [%- IF index && index.length > 5 -%]
     <p>
-        [% l('<strong>Note:</strong> You have requested to browse listings using a query longer than 5 charaters.  We do not index data at this level of granularity.  You may want to use the the various {uri|search pages} instead.', {uri => c.uri_for('/search')}) %]
+        [% l('<strong>Note:</strong> You have requested to browse listings using a query longer than 5 characters.  We do not index data at this level of granularity.  You may want to use the the various {uri|search pages} instead.', {uri => c.uri_for('/search')}) %]
     </p>
 [% ELSE %]
     <table class="browse">

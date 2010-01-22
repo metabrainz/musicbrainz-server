@@ -81,7 +81,7 @@
                 [%- l('{doc|Database}', {doc => doc_link('Database')}) -%]
             </li>
             <li>
-                [%- l('{doc|LiveDataFeed}', {doc => doc_link('Live_Data_Feed')}) -%]
+                [%- l('{doc|Live Data Feed}', {doc => doc_link('Live_Data_Feed')}) -%]
             </li>
             <li>
                 [%- l('{doc|Web Service}', {doc => doc_link('Web_Service')}) -%]
@@ -217,7 +217,7 @@
                 </li>
                 <li>
                     <a href="[% c.uri_for_action('/user/logout') %]">
-                        [% l('Log out') %]
+                        [% l('Log Out') %]
                     </a>
                 </li>
             </ul>
@@ -232,7 +232,7 @@
                     </a>
                 </li>
 	        <li>
-                    [% request_login(l('Log in')) %]
+                    [% request_login(l('Log In')) %]
                 </li>
 	        <li>
                     <a href="[% c.uri_for_action('/user/lost_password') %]">
@@ -290,7 +290,7 @@
         [%- l('{doc|Help}', {doc => doc_link('Contact_Us')}) -%]
         <ul>
             <li>
-                [%- l('{doc|ContactUs}', {doc => doc_link('Contact_Us')}) -%]
+                [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
             </li>
             <li>
                 [%- l('{doc|<abbr title="Frequently Asked Questions">FAQs</abbr>}', {doc => doc_link('Frequently_Asked_Questions')}) -%]
@@ -313,7 +313,7 @@
             </li>
             <li>
                 <a href="http://bugs.musicbrainz.org">
-                    [% l('Bugs / <abbr title="Requests for Enhancement">RFEs</abbr>') %]
+                    [% l('Bugs/<abbr title="Requests for Enhancement">RFEs</abbr>') %]
                 </a>
             </li>
             <li>

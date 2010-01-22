@@ -1,8 +1,8 @@
 [%- WRAPPER 'layout/guidelines.tt' -%]
     [%- IF new -%]
         [%- create_guideline(l('You are about to add an artist to MusicBrainz.')) -%]
-        [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('StyleGuideline')})) -%]
-        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment|add a comment to this artist}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('ArtistComment')})) -%]
+        [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('Style_Guideline')})) -%]
+        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment|add a comment to this artist}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('Artist_Comment')})) -%]
     [%- END -%]
     [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. <span class="only-if-no-javascript">(Available only if you have JavaScript enabled.)</span>')) -%]
 [%- END -%]
@@ -25,7 +25,7 @@
 
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
-            [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('ArtistComment')})) -%]
+            [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('Artist_Comment')})) -%]
         [%- END -%]
 
         <p class="no-label">

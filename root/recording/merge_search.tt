@@ -1,8 +1,8 @@
 [% WRAPPER 'recording/layout.tt' title=l("Merge Recordings") %]
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {recording} into another recording.', {recording => link_recording(recording)})) -%]
-        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge recordings} before entering this edit.', {doc_merging => doc_link("HowToMergeRecordings")})) -%]
-        [%- create_guideline(l('Please enter the {name|recording name} of the recording into which you would like to merge this recording, and press <em>search</em> to start the search.', {name => doc_link('RecordingName')})) -%]
+        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge recordings} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Recordings")})) -%]
+        [%- create_guideline(l('Please enter the {name|recording name} of the recording into which you would like to merge this recording, and press <em>search</em> to start the search.', {name => doc_link('Recording_Name')})) -%]
         [%- create_guideline(l('When you have found the recording that you would like to merge {recording} into, please select that entity and click <em>merge</em>.', {recording => recording_link(recording)})) -%]
     [%- END -%]
 

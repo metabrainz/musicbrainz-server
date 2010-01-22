@@ -6,8 +6,8 @@
     <td>[% artist_link(artist) %]</td>
   </tr>
   <tr>
-    <th>[%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}:',
-               {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
+    <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+               {mbid => doc_link("MusicBrainz_Identifier")}) -%]
     </th>
     <td>[% artist.gid %]</td>
   </tr>

@@ -4,7 +4,7 @@
     [% WRAPPER 'layout/guidelines.tt' %]
        [% create_guideline(l("Please review the documentation about {aliases|artist aliases},
                               before entering this edit.",
-                             { aliases => doc_link('ArtistAliases') })) %]
+                             { aliases => doc_link('Artist_Alias') })) %]
        [% create_guideline(l("Are you sure you want to remove the alias {alias} , which
                               points to the artist {artist}?",
                              { alias => alias.name, artist => link_artist(artist) })) %]
@@ -13,7 +13,7 @@
                               cancel the pending add track edit. Removing pending edits,
                               rather than entering new edits helps reducing the amount of
                               open edits in the system.",
-                             { cancel => doc_link('HowToCancelEdits') })) %]
+                             { cancel => doc_link('How_To_Cancel_Edits') })) %]
        [% create_guideline(l("Cancelling a pending edit will take effect within an hour,
                               while removing an artist alias has to be voted on according to
                               the voting process.")) %]

@@ -35,7 +35,7 @@
             <li>[% use_in_relationship(label) %]</li>
             <li>[% link_label(label, 'edits', l('View editing history')) %]</li>
         [% ELSE %]
-            <li>[% request_login(l('Please login to edit this label')) %]</li>
+            <li>[% request_login(l('Please log in to edit this label')) %]</li>
         [% END %]
     </ul>
 

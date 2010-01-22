@@ -28,7 +28,7 @@ $email->get_body =~ qr{http://localhost(/reset-password.*)};
 my $reset_password_path = $1;
 $mech->get_ok($reset_password_path);
 xml_ok($mech->content);
-$mech->content_contains("Set a new password for your Musicbrainz account.");
+$mech->content_contains("Set a new password for your MusicBrainz account.");
 $mech->submit_form( with_fields => {
     'resetpassword.password' => 'new_password',
     'resetpassword.confirm_password' => 'new_password_2'

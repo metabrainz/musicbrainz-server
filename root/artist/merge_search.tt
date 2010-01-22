@@ -1,8 +1,8 @@
 [% WRAPPER 'artist/layout.tt' title=l("Merge Artists") RadioClick=1 %]
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {artist} into another artist.', {artist => link_artist(artist)})) -%]
-        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge artists} before entering this edit.', {doc_merging => doc_link("HowToMergeArtists")})) -%]
-        [%- create_guideline(l('Please enter the {name|artist name} of the artist into which you would like to merge this artist, and press <em>search</em> to start the search.', {name => doc_link('ArtistName')})) -%]
+        [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge artists} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Artists")})) -%]
+        [%- create_guideline(l('Please enter the {name|artist name} of the artist into which you would like to merge this artist, and press <em>search</em> to start the search.', {name => doc_link('Artist_Name')})) -%]
         [%- create_guideline(l('When you have found the artist that you would like to merge {artist} into, please select that entity and click <em>merge</em>.', {artist => artist_link(artist)})) -%]
     [%- END -%]
 
