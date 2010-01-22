@@ -181,15 +181,16 @@ sub create
     Sql::run_in_transaction(sub {
         $edit->insert;
 
+        my $now = DateTime->now;
+        my $duration = DateTime::Duration->new( days => $conditions->{duration} );
+
         # Automatically accept auto-edits on insert
         if ($edit->auto_edit) {
             my $st = $self->_do_accept($edit);
             $edit->status($st);
             $self->c->model('Editor')->credit($edit->editor_id, $st, 1);
+            $edit->close_time($now)
         };
-
-        my $now = DateTime->now;
-        my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
         my $row = {
             editor => $edit->editor_id,
@@ -200,6 +201,7 @@ sub create
             expiretime => $now + $duration,
             autoedit => $edit->auto_edit,
             quality => $edit->quality,
+            closetime => $edit->close_time
         };
 
         my $edit_id = $sql_raw->insert_row('edit', $row, 'id');
