@@ -11,6 +11,7 @@ __PACKAGE__->config(
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 
 with 'MusicBrainz::Server::Controller::Role::Relationship';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 =head1 NAME
 

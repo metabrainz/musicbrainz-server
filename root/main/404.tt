@@ -7,9 +7,16 @@
         [%- l('The page you requested does not exist.') -%]
     </p>
     <p>
-        [%- l('If you think this is our fault (for example, you found a broken link <i>and the link you found is on our site</i>) please contact us at {email|support@musicbrainz.org}, or via <abbr title="Internet Relay Chat">IRC</abbr> in the {irc|#musicbrainz channel} on freenode.', {email="mailto&#x3a;support&#x0040;musicbrainz.org", irc="irc://irc.freenode.net/musicbrainz"}) -%]
+        [%- l('If you think this is our fault (for example, you found a broken link <i>and the link you found is
+               on our site</i>) please let us know! You can use our {jira|bug tracker}, contact us at
+               {email|support@musicbrainz.org}, or via <abbr title="Internet Relay Chat">IRC</abbr> in the
+               {irc|#musicbrainz channel} on FreeNode.',
+               { email="mailto&#x3a;support&#x0040;musicbrainz.org",
+                 irc="irc://irc.freenode.net/musicbrainz",
+                 jira="http://jira.musicbrainz.org"
+               }) -%]
     </p>
     <p>
-        [%- l('Thank you.') -%]
+        [%- l('Thank you, and sorry for the inconvenience!') -%]
     </p>
 [% END %]
