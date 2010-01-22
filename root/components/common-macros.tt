@@ -167,12 +167,12 @@ END -%]
 
 [%- MACRO link_url(url, action, text) BLOCK;
     action = action || 'show';
-    IF action;
-      link = c.uri_for_action("/url/$action", [ url.gid ]);
-      text = text || html_escape(url.url);
+    link = c.uri_for_action("/url/$action", [ url.gid ]);
+    text = text || html_escape(url.url);
+    IF action != 'show';
       '<a href="' _ link _ '">' _ text _ '</a>';
     ELSE;
-      '<a href="' _ url.url _ '">' _ text _ '</a>' _ '[<a href="' _ link _ '">' _ l('info') _ '</a>]';
+      '<a href="' _ url.url _ '">' _ url.url _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]
 
