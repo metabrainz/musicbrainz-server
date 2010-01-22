@@ -55,6 +55,13 @@ after 'load' => sub
     $c->stash( isrcs => \@isrcs );
 };
 
+after 'tags' => sub
+{
+    my ($self, $c) = @_;
+    my $recording = $c->stash->{recording};
+    $c->model('ArtistCredit')->load($recording);
+};
+
 =head2 relations
 
 Shows all relations to a given recording
