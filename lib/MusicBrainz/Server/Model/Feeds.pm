@@ -34,11 +34,11 @@ sub get
             my @entries;
             for my $entry ($feed_obj->entries) {
                 push @entries, {
-                    title => encode("utf-8", $entry->title),
+                    title => $entry->title,
                     summary => {
-                        body => encode("utf-8", $entry->summary->body),
+                        body => $entry->summary->body,
                     },
-                    link => encode("utf-8", $entry->link),
+                    link => $entry->link,
                     issued => $entry->issued,
                 };
             }
