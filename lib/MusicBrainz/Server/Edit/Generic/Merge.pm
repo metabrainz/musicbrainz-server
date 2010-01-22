@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Generic::Merge;
 use Moose;
 use MooseX::ABC;
 
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
@@ -23,6 +24,30 @@ sub related_entities
     return {
         model_to_type($self->_merge_model) => $self->_entities
     }
+}
+
+sub edit_conditions
+{
+    return {
+        $QUALITY_LOW => {
+            duration      => 4,
+            votes         => 1,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_NORMAL => {
+            duration      => 14,
+            votes         => 3,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_HIGH => {
+            duration      => 14,
+            votes         => 4,
+            expire_action => $EXPIRE_REJECT,
+            auto_edit     => 0,
+        },
+    };
 }
 
 has '+data' => (
