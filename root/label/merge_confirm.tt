@@ -1,7 +1,7 @@
 [% WRAPPER 'label/layout.tt' title=l('Merge Labels') %]
     <h2>[% l('Merge Labels') %]</h2>
     [% WRAPPER 'layout/guidelines.tt' %]
-        [%- create_guideline(l('Are you sure that you want to merge the label {label1} into the label {label2}?', {label1 => link_label(old_label), label2 => link_label(new_label)})) -%]
+        [%- create_guideline(l('Are you sure that you want to merge the label {label1} into the label {label2}?', {label1 => link_label(old), label2 => link_label(new)})) -%]
     [%- END -%]
     <form action="[% c.req.uri_with( gid => new_label.gid ) %]" method="post">
         [% INCLUDE "forms/edit-note.tt" %]
