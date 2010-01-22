@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' -%]
+[%- WRAPPER 'layout.tt' full_width=1 -%]
     <h1>[% l('Edit #{id}', {id = edit.id}) %]</h1>
 
     [%- INCLUDE "edit/info.tt" -%]
