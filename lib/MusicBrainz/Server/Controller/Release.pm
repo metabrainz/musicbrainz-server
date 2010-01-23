@@ -97,18 +97,6 @@ sub discids : Chained('load')
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
 }
 
-=head2 tags
-
-Show all of this release's tags
-
-=cut
-
-sub tags : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->forward('/tags/entity', [ $self->entity ]);
-}
-
 =head2 relations
 
 Show all relationships attached to this release
