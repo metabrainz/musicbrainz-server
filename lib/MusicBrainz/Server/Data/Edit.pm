@@ -159,6 +159,10 @@ sub create
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
         return;
     }
+    catch ($err) {
+        use Data::Dumper;
+        croak join "\n\n", "Could not create error", Dumper(\%opts), $err;
+    }
 
     my $quality = $edit->determine_quality;
     my $conditions = $edit->edit_conditions->{$quality};
