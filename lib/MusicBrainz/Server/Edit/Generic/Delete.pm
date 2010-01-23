@@ -3,6 +3,7 @@ use Moose;
 use MooseX::ABC;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
@@ -11,6 +12,30 @@ use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 requires '_delete_model';
+
+sub edit_conditions
+{
+    return {
+        $QUALITY_LOW => {
+            duration      => 4,
+            votes         => 1,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_NORMAL => {
+            duration      => 14,
+            votes         => 3,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_HIGH => {
+            duration      => 14,
+            votes         => 4,
+            expire_action => $EXPIRE_REJECT,
+            auto_edit     => 0,
+        },
+    };
+}
 
 sub alter_edit_pending
 {
