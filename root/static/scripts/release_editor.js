@@ -56,6 +56,19 @@
                 remove.draw($(this));
             });
 
+        // Add an option to create new release labels
+        var newReleaseLabel = $(MB.html.li({}, MB.html.button({}, 'Add a new release label')));
+
+        var rlIndex = $('#sidebar ul.release-labels li.release-label').length;
+        newReleaseLabel
+            .appendTo($('#sidebar ul.release-labels'))
+            .click(function(ev) {
+                ev.preventDefault();
+                var row = MB.newRow(rlIndex++);
+                newReleaseLabel.before(row);
+                MB.setupRow(row);
+            });
+
         // Label lookups
         $('#sidebar ul.release-labels span.label').each(overlayLabelLookup);
 
