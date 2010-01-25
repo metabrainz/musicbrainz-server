@@ -14,6 +14,7 @@ CREATE UNIQUE INDEX artist_name_idx_name ON artist_name (name);
 CREATE INDEX artist_name_idx_page ON artist_name (page_index(name));
 
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
+CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
 
 CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
 
@@ -119,6 +120,7 @@ CREATE UNIQUE INDEX label_name_idx_name ON label_name (name);
 CREATE INDEX label_name_idx_page ON label_name (page_index(name));
 
 CREATE INDEX label_tag_idx_tag ON label_tag (tag);
+CREATE INDEX label_tag_idx_label ON label_tag (label);
 
 CREATE UNIQUE INDEX language_idx_isocode_3b ON language (isocode_3b);
 CREATE UNIQUE INDEX language_idx_isocode_3t ON language (isocode_3t);
@@ -136,6 +138,8 @@ CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
 CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid);
 
 CREATE INDEX recording_tag_idx_tag ON recording_tag (tag);
+CREATE INDEX recording_tag_idx_recording ON recording_tag (recording);
+
 
 CREATE UNIQUE INDEX release_idx_gid ON release (gid);
 CREATE INDEX release_idx_name ON release (name);
@@ -151,6 +155,8 @@ CREATE INDEX release_group_idx_name ON release_group (name);
 CREATE INDEX release_group_idx_artist_credit ON release_group (artist_credit);
 
 CREATE INDEX release_group_tag_idx_tag ON release_group_tag (tag);
+CREATE INDEX release_group_tag_idx_release_group ON release_group_tag (release_group);
+
 
 CREATE UNIQUE INDEX release_name_idx_name ON release_name (name);
 CREATE INDEX release_name_idx_page ON release_name (page_index(name));
