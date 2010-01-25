@@ -11,6 +11,7 @@ ALTER TABLE artist_alias DROP CONSTRAINT artist_alias_fk_artist;
 ALTER TABLE artist_alias DROP CONSTRAINT artist_alias_fk_name;
 ALTER TABLE artist_annotation DROP CONSTRAINT artist_annotation_fk_artist;
 ALTER TABLE artist_annotation DROP CONSTRAINT artist_annotation_fk_annotation;
+ALTER TABLE artist_credit DROP CONSTRAINT artist_credit_fk_name;
 ALTER TABLE artist_credit_name DROP CONSTRAINT artist_credit_name_fk_artist_credit;
 ALTER TABLE artist_credit_name DROP CONSTRAINT artist_credit_name_fk_artist;
 ALTER TABLE artist_credit_name DROP CONSTRAINT artist_credit_name_fk_name;

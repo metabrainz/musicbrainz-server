@@ -31,6 +31,8 @@ CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor
 CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
 CREATE INDEX historicalstat_name_snapshotdate ON historicalstat (name, snapshotdate);
 
+CREATE INDEX isrc_idx_isrc ON isrc (isrc);
+
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_recording_idx_uniq ON l_artist_recording (entity0, entity1, link);

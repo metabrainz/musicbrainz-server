@@ -20,6 +20,7 @@ DROP INDEX editor_subscribe_editor_idx_uniq;
 DROP INDEX editor_subscribe_label_idx_uniq;
 DROP INDEX historicalstat_date;
 DROP INDEX historicalstat_name_snapshotdate;
+DROP INDEX isrc_idx_isrc;
 DROP INDEX l_artist_artist_idx_entity1;
 DROP INDEX l_artist_artist_idx_uniq;
 DROP INDEX l_artist_label_idx_entity1;
