@@ -72,13 +72,15 @@ The following people have contributed to the MusicBrainz server:
   Matthew Exon
   - fixed bug #1066072
 
-  Nikki <nikki@lmfao.org.uk>
+  Nikki
   - Contributed a tiny add note patch
+  - Contributed two new reports (unlinked discs and pregaptracks)
 
   Lukas Lalinsky
   - contributed a patch to make better use of client-side Javascript
     (when adding / editing artists)
   - contributed several patches to fix outstanding bugs
+  - contributed vast amount of code and brainpower
 
   Stefan Kestenholz
   - contributed a patch to make better use of client-side Javascript
@@ -104,5 +106,19 @@ The following people have contributed to the MusicBrainz server:
 
   Nikolai 'pronik' Prokoschenko
   - Lead the majority of work on internationalization
+
+  Mustaqil "Muzz" Ali
+  - Submitted patch for #3329
+
+  Pavan Chander
+  - Help with various HTML/CSS fixes
+
+  Daniel Michel
+  - Created release groups icons
+
+  Aurélien Mino
+  - Created ratings feature
+  - Many many bug fixes 
+  - Programming support on a variety of features/bugs
 
 (please send change requests to rob@musicbrainz.org or maintainer)
