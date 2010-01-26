@@ -135,6 +135,19 @@ sub find_by_recording
                          $query, $recording_id);
 }
 
+sub find_by_medium
+{
+    my ($self, $medium_id, $limit, $offset) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE release.id IN (
+                    SELECT release FROM medium
+                     WHERE medium.id = ?
+                )';
+    return query_to_list_limited($self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+                                 $query, $medium_id);
+}
+
 sub find_by_collection
 {
     my ($self, $collection_id, $limit, $offset, $order) = @_;
