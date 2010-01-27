@@ -31,18 +31,8 @@ package DBDefs;
 
 # The Server Root, i.e. the parent directory of admin, cgi-bin and htdocs
 sub MB_SERVER_ROOT	{ "/home/httpd/musicbrainz/mb_server" }
-# The htdocs directory
-sub HTDOCS_ROOT		{ MB_SERVER_ROOT() . "/htdocs" }
 # The data import directory (used by some reports)
 sub DATA_IMPORT_DIR	{ "/home/httpd/musicbrainz/data-import" }
-
-# These two settings specify where to create the Apache::Session files
-# that are needed for HTTP session persistence
-sub LOCK_DIR		{ "/home/httpd/musicbrainz/locks" }
-sub SESSION_DIR		{ "/home/httpd/musicbrainz/sessions" }
-
-# Mason's data_dir
-sub MASON_DIR		{ "/home/httpd/musicbrainz/mason" }
 
 ################################################################################
 # The Database
@@ -86,7 +76,7 @@ MusicBrainz::Server::Database->register_all(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 11 }
+sub DB_SCHEMA_SEQUENCE { 12 }
 
 # What type of server is this?
 # * RT_MASTER - this is a master replication server.  Changes are allowed, and
