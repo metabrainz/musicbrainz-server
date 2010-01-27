@@ -7,8 +7,8 @@ eval `./admin/ShowDBDefs`
 
 echo `date` : Upgrading to N.G.S.!!1!
 
-echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql READWRITE
-echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql RAWDATA
+#echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql READWRITE
+#echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql RAWDATA
 echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql READWRITE
 echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql RAWDATA
 
@@ -66,8 +66,11 @@ echo `date` : Fixing sequences
 ./admin/psql READWRITE <./admin/sql/SetSequences.sql
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/SetSequences.sql
 
-echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
-echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
+echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
+echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
+
+#echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
+#echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
 
 echo `date` : Done
 
