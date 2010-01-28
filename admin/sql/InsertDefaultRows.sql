@@ -2,16 +2,16 @@
 
 BEGIN;
 
-INSERT INTO artist_name (id, name, refcount) VALUES
-    (1, 'Various Artists', 2),
-    (2, 'Deleted Artist', 2);
+INSERT INTO artist_name (id, name) VALUES
+    (1, 'Various Artists'),
+    (2, 'Deleted Artist');
 
 INSERT INTO artist (name, sortname, gid) VALUES
     (1, 1, '89ad4ac3-39f7-470e-963a-56509c546377'),
     (2, 2, 'c06aa285-520e-40c0-b776-83d2c9e8a6d1');
 
-INSERT INTO label_name (id, name, refcount) VALUES
-    (1, 'Deleted Label', 2);
+INSERT INTO label_name (id, name) VALUES
+    (1, 'Deleted Label');
 
 INSERT INTO label (name, sortname, gid) VALUES
     (1, 1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1');
