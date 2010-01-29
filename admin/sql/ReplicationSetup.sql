@@ -1,6 +1,12 @@
 \set ON_ERROR_STOP 1
+SET search_path = musicbrainz;
 
 BEGIN;
+
+-- To "install" the pending.so function, execute this as user postgres
+-- Normally this is done by InitDb.pl so you don't really have to worry about it.
+--CREATE FUNCTION "recordchange" () RETURNS trigger AS
+--'$libdir/pending', 'recordchange' LANGUAGE 'C';
 
 CREATE TABLE "Pending" (
     "SeqId" serial,

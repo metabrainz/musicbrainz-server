@@ -1,123 +1,84 @@
 -- Adjust this setting to control where the objects get created.
-SET search_path = public;
+SET search_path = musicbrainz;
 
 \set ON_ERROR_STOP 1
 
 BEGIN;
 
-CREATE TRIGGER "reptg_album" 
-AFTER INSERT OR DELETE OR UPDATE ON "album"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_album_amazon_asin" 
-AFTER INSERT OR DELETE OR UPDATE ON "album_amazon_asin"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_album_cdtoc" 
-AFTER INSERT OR DELETE OR UPDATE ON "album_cdtoc"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_albumjoin" 
-AFTER INSERT OR DELETE OR UPDATE ON "albumjoin"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_albummeta" 
-AFTER INSERT OR DELETE OR UPDATE ON "albummeta"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_albumwords" 
-AFTER INSERT OR DELETE OR UPDATE ON "albumwords"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_annotation" 
+CREATE TRIGGER "reptg_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_artist" 
+CREATE TRIGGER "reptg_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_artist_meta" 
+CREATE TRIGGER "reptg_artist_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_artist_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_artist_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_meta"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_artist_relation" 
-AFTER INSERT OR DELETE OR UPDATE ON "artist_relation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_artistalias" 
-AFTER INSERT OR DELETE OR UPDATE ON "artistalias"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_artist_tag" 
+CREATE TRIGGER "reptg_artist_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_artistwords" 
-AFTER INSERT OR DELETE OR UPDATE ON "artistwords"
+CREATE TRIGGER "reptg_artist_credit"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_credit"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
--- Not replicated: automod_election, automod_election_vote
+CREATE TRIGGER "reptg_artist_credit_name"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_credit_name"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_cdtoc" 
+CREATE TRIGGER "reptg_artist_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_artist_name"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_name"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_artist_type"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+
+-- not replicated:
+-- editor editor_preference editor_subscribe_artist editor_subscribe_label 
+-- editor_subscribe_editor editor_collection editor_collection_release
+
+CREATE TRIGGER "reptg_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "cdtoc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_clientversion" 
+CREATE TRIGGER "reptg_clientversion"
 AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_country" 
+CREATE TRIGGER "reptg_country"
 AFTER INSERT OR DELETE OR UPDATE ON "country"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_currentstat" 
-AFTER INSERT OR DELETE OR UPDATE ON "currentstat"
+-- not replicated:
+-- currentstat
+
+CREATE TRIGGER "reptg_gender"
+AFTER INSERT OR DELETE OR UPDATE ON "gender"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_historicalstat" 
-AFTER INSERT OR DELETE OR UPDATE ON "historicalstat"
+CREATE TRIGGER "reptg_isrc"
+AFTER INSERT OR DELETE OR UPDATE ON "isrc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_label" 
-AFTER INSERT OR DELETE OR UPDATE ON "label"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_label_meta" 
-AFTER INSERT OR DELETE OR UPDATE ON "label_meta"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_labelalias"
-AFTER INSERT OR DELETE OR UPDATE ON "labelalias"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_label_tag"
-AFTER INSERT OR DELETE OR UPDATE ON "label_tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_labelwords" 
-AFTER INSERT OR DELETE OR UPDATE ON "labelwords"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_l_album_album"
-AFTER INSERT OR DELETE OR UPDATE ON "l_album_album"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_l_album_artist"
-AFTER INSERT OR DELETE OR UPDATE ON "l_album_artist"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_l_album_label"
-AFTER INSERT OR DELETE OR UPDATE ON "l_album_label"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_l_album_track"
-AFTER INSERT OR DELETE OR UPDATE ON "l_album_track"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_l_album_url"
-AFTER INSERT OR DELETE OR UPDATE ON "l_album_url"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+-- not replicated:
+-- historicalstat
 
 CREATE TRIGGER "reptg_l_artist_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_artist"
@@ -127,40 +88,148 @@ CREATE TRIGGER "reptg_l_artist_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_l_artist_track"
-AFTER INSERT OR DELETE OR UPDATE ON "l_artist_track"
+CREATE TRIGGER "reptg_l_artist_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_artist_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_artist_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_artist_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_artist_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_label_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_l_label_track"
-AFTER INSERT OR DELETE OR UPDATE ON "l_label_track"
+CREATE TRIGGER "reptg_l_label_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_label_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_label_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_label_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_l_track_track"
-AFTER INSERT OR DELETE OR UPDATE ON "l_track_track"
+CREATE TRIGGER "reptg_l_label_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_l_track_url"
-AFTER INSERT OR DELETE OR UPDATE ON "l_track_url"
+CREATE TRIGGER "reptg_l_recording_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_recording_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_recording_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_recording_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_recording_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_recording_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_recording_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_recording_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_recording_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_recording_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_release_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_release_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_release_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_release_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_release_group_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_release_group_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_release_group_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_url_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_url_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_language" 
+CREATE TRIGGER "reptg_l_url_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_url_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_work_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_work_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label"
+AFTER INSERT OR DELETE OR UPDATE ON "label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "label_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "label_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_meta"
+AFTER INSERT OR DELETE OR UPDATE ON "label_meta"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "label_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_name"
+AFTER INSERT OR DELETE OR UPDATE ON "label_name"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "label_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_type"
+AFTER INSERT OR DELETE OR UPDATE ON "label_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_language"
 AFTER INSERT OR DELETE OR UPDATE ON "language"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_link"
+AFTER INSERT OR DELETE OR UPDATE ON "link"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_link_attribute"
@@ -171,138 +240,175 @@ CREATE TRIGGER "reptg_link_attribute_type"
 AFTER INSERT OR DELETE OR UPDATE ON "link_attribute_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_album_album"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_album_album"
+CREATE TRIGGER "reptg_link_type"
+AFTER INSERT OR DELETE OR UPDATE ON "link_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_album_artist"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_album_artist"
+CREATE TRIGGER "reptg_link_type_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "link_type_attribute_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_album_label"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_album_label"
+CREATE TRIGGER "reptg_medium"
+AFTER INSERT OR DELETE OR UPDATE ON "medium"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_album_track"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_album_track"
+CREATE TRIGGER "reptg_medium_cdtoc"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_cdtoc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_album_url"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_album_url"
+CREATE TRIGGER "reptg_medium_format"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_format"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_artist_artist"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_artist"
+CREATE TRIGGER "reptg_puid"
+AFTER INSERT OR DELETE OR UPDATE ON "puid"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_artist_label"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_label"
+CREATE TRIGGER "reptg_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "recording"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_artist_track"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_track"
+CREATE TRIGGER "reptg_recording_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_artist_url"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_url"
+CREATE TRIGGER "reptg_recording_meta"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_meta"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_label_label"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_label_label"
+CREATE TRIGGER "reptg_recording_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_label_track"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_label_track"
+CREATE TRIGGER "reptg_recording_puid"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_puid"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_label_url"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_label_url"
+CREATE TRIGGER "reptg_recording_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_lt_track_track"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_track_track"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_lt_track_url"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_track_url"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_lt_url_url"
-AFTER INSERT OR DELETE OR UPDATE ON "lt_url_url"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
--- Not replicated: moderation_open, moderation_note_open
--- Not replicated: moderation_closed, moderation_note_closed
--- Not replicated: moderator
--- Not replicated: moderator_preference
--- Not replicated: moderator_subscribe_artist
--- Not replicated: moderator_subscribe_label
-
-CREATE TRIGGER "reptg_puid" 
-AFTER INSERT OR DELETE ON "puid"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_puidjoin" 
-AFTER INSERT OR DELETE ON "puidjoin"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_release" 
+CREATE TRIGGER "reptg_release"
 AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_release_tag" 
-AFTER INSERT OR DELETE OR UPDATE ON "release_tag"
+CREATE TRIGGER "reptg_release_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "release_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_replication_control" 
-AFTER INSERT OR DELETE OR UPDATE ON "replication_control"
+CREATE TRIGGER "reptg_release_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "release_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_script" 
+CREATE TRIGGER "reptg_release_meta"
+AFTER INSERT OR DELETE OR UPDATE ON "release_meta"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_label"
+AFTER INSERT OR DELETE OR UPDATE ON "release_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_packaging"
+AFTER INSERT OR DELETE OR UPDATE ON "release_packaging"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_status"
+AFTER INSERT OR DELETE OR UPDATE ON "release_status"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_meta"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_meta"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_name"
+AFTER INSERT OR DELETE OR UPDATE ON "release_name"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_script"
 AFTER INSERT OR DELETE OR UPDATE ON "script"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_script_language" 
+CREATE TRIGGER "reptg_script_language"
 AFTER INSERT OR DELETE OR UPDATE ON "script_language"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_stats" 
-AFTER INSERT OR DELETE OR UPDATE ON "stats"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_tag" 
+CREATE TRIGGER "reptg_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_track" 
+CREATE TRIGGER "reptg_tag_relation"
+AFTER INSERT OR DELETE OR UPDATE ON "tag_relation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_track"
 AFTER INSERT OR DELETE OR UPDATE ON "track"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_track_meta" 
-AFTER INSERT OR DELETE OR UPDATE ON "track_meta"
+CREATE TRIGGER "reptg_track_name"
+AFTER INSERT OR DELETE OR UPDATE ON "track_name"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_track_tag" 
-AFTER INSERT OR DELETE OR UPDATE ON "track_tag"
+CREATE TRIGGER "reptg_tracklist"
+AFTER INSERT OR DELETE OR UPDATE ON "tracklist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_trackwords" 
-AFTER INSERT OR DELETE OR UPDATE ON "trackwords"
+CREATE TRIGGER "reptg_tracklist_index"
+AFTER INSERT OR DELETE OR UPDATE ON "tracklist_index"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_url"
 AFTER INSERT OR DELETE OR UPDATE ON "url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_gid_redirect"
-AFTER INSERT OR DELETE OR UPDATE ON "gid_redirect"
+CREATE TRIGGER "reptg_work"
+AFTER INSERT OR DELETE OR UPDATE ON "work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
--- Not replicated: vote_closed, vote_open
-
-CREATE TRIGGER "reptg_wordlist" 
-AFTER INSERT OR DELETE OR UPDATE ON "wordlist"
+CREATE TRIGGER "reptg_work_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "work_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_work_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "work_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_work_meta"
+AFTER INSERT OR DELETE OR UPDATE ON "work_meta"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_work_name"
+AFTER INSERT OR DELETE OR UPDATE ON "work_name"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_work_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "work_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_work_type"
+AFTER INSERT OR DELETE OR UPDATE ON "work_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+
 
 COMMIT;
 

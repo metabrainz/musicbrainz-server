@@ -280,8 +280,8 @@ my @tables = qw(
 );
 
 my @replication_tables = qw(
-	dbmirror_Pending
-	dbmirror_PendingData
+	"Pending"
+	"PendingData"
 );
 
 @tables = @tablelist if @tablelist;
