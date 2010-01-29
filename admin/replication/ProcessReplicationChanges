@@ -88,7 +88,7 @@ my $sql2 = Sql->new($mb->{dbh});
 my $slave = Sql->new($mb->{dbh});
 
 $sql->auto_commit;
-$sql->do("SET search_path = public");
+$sql->do("SET search_path = musicbrainz");
 
 $sql->auto_commit;
 $sql->do("SET TRANSACTION ISOLATION LEVEL SERIALIZABLE");

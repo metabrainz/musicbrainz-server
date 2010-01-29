@@ -139,7 +139,7 @@ sub ImportTable
 		open(LOAD, "<", $file) or die "open $file: $!";
 
 		$sql->begin;
-		$sql->do("COPY \"$table\" FROM stdin");
+		$sql->do("COPY $table FROM stdin");
 		my $dbh = $sql->{dbh};
 
 		$p->("", "");
@@ -189,7 +189,7 @@ sub empty
 	my $table = shift;
 
 	my $any = $sql->select_single_value(
-		"SELECT 1 FROM \"$table\" LIMIT 1",
+		"SELECT 1 FROM $table LIMIT 1",
 	);
 
 	not defined $any;
@@ -198,13 +198,13 @@ sub empty
 sub ImportReplicationTables
 {
 	$sql->auto_commit;
-	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId"') };
+	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId" CASCADE') };
 	$sql->auto_commit;
-	eval { $sql->do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey"') };
+	eval { $sql->do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey" CASCADE') };
 	$sql->auto_commit;
-	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey"') };
+	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey" CASCADE') };
 
-	for my $table (qw( Pending PendingData ))
+	for my $table (('"Pending"', '"PendingData"'))
     {
 		my $file = find_file($table);
 		$file or print("No data file found for '$table', skipping\n"), die;

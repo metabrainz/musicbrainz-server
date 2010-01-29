@@ -246,7 +246,7 @@ unless (defined($TIMESTAMP) and $TIMESTAMP =~ /\A(.*)\n\z/)
 }
 
 # Check existence of the Pending and PendingData data files
-for my $f (qw( Pending PendingData ))
+for my $f (('"Pending"', '"PendingData"'))
 {
 	next if -f "$mydir/mbdump/$f";
 	print localtime() . " : There is no mbdump/$f file in this archive!\n";
@@ -259,8 +259,8 @@ print localtime() . " : Importing Pending and PendingData files\n";
 system "$FindBin::Bin/ImportReplicationChanges",
 	"--tmp-dir", $tmpdir,
 	"--",
-	"$mydir/mbdump/Pending",
-	"$mydir/mbdump/PendingData",
+	"$mydir/mbdump/\"Pending\"",
+	"$mydir/mbdump/\"PendingData\"",
 	;
 exit $? if $?;
 
