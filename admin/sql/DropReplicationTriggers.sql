@@ -1,8 +1,8 @@
-\unset ON_ERROR_STOP
+SET search_path = musicbrainz;
 
 SET autocommit TO 'on';
 
-DROP TRIGGER "reptg_annotation" ON "annotation" FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+DROP TRIGGER "reptg_annotation" ON "annotation";
 DROP TRIGGER "reptg_artist" ON "artist";
 DROP TRIGGER "reptg_artist_alias" ON "artist_alias";
 DROP TRIGGER "reptg_artist_annotation" ON "artist_annotation";
@@ -98,6 +98,7 @@ DROP TRIGGER "reptg_release_group_tag" ON "release_group_tag";
 DROP TRIGGER "reptg_release_group_type" ON "release_group_type";
 DROP TRIGGER "reptg_release_name" ON "release_name";
 DROP TRIGGER "reptg_script" ON "script";
+DROP TRIGGER "reptg_replication_control" ON "replication_control";
 DROP TRIGGER "reptg_script_language" ON "script_language";
 DROP TRIGGER "reptg_tag" ON "tag";
 DROP TRIGGER "reptg_tag_relation" ON "tag_relation";
@@ -114,6 +115,5 @@ DROP TRIGGER "reptg_work_name" ON "work_name";
 DROP TRIGGER "reptg_work_tag" ON "work_tag";
 DROP TRIGGER "reptg_work_type" ON "work_type";
 
-COMMIT;
 
 -- vi: set ts=4 sw=4 et :

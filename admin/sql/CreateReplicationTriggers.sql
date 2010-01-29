@@ -344,6 +344,10 @@ CREATE TRIGGER "reptg_release_name"
 AFTER INSERT OR DELETE OR UPDATE ON "release_name"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_replication_control"
+AFTER INSERT OR DELETE OR UPDATE ON "replication_control"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_script"
 AFTER INSERT OR DELETE OR UPDATE ON "script"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -407,8 +411,6 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 CREATE TRIGGER "reptg_work_type"
 AFTER INSERT OR DELETE OR UPDATE ON "work_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-
 
 COMMIT;
 
