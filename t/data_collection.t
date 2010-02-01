@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 9;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::Collection';
 
 use MusicBrainz::Server::Test;
@@ -31,3 +31,11 @@ $sql->commit;
 ok(!$coll_data->check_release(1, 1), 'Release #1 has been deleted');
 ok(!$coll_data->check_release(2, 1), 'Release #1 has been deleted');
 ok(!$coll_data->check_release(2, 4), 'Release #4 has been deleted');
+
+$coll_data->add_release_to_collection (1, 3);
+ok($coll_data->check_release(1, 3), 'Release #3 has been added to collection #1');
+
+$coll_data->add_release_to_collection (1, 3);
+ok($coll_data->check_release(1, 3), 'No exception occured when re-adding release #3');
+
+done_testing;

@@ -33,8 +33,13 @@ sub add_release_to_collection
 
     my $sql = Sql->new($self->c->dbh);
     $sql->auto_commit;
+
+    my $rows = $sql->select ("SELECT * FROM editor_collection_release 
+       WHERE collection=? AND release=?", $collection_id, $release_id);
+    $sql->finish;
+
     $sql->do("INSERT INTO editor_collection_release (collection, release)
-              VALUES (?, ?)", $collection_id, $release_id);
+              VALUES (?, ?)", $collection_id, $release_id) unless $rows;
 }
 
 sub remove_release_from_collection
