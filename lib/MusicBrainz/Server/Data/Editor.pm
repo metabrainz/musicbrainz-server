@@ -83,6 +83,20 @@ sub find_by_subscribed_editor
         $query, $editor_id, $offset || 0);
 }
 
+sub find_subscribers
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_subscribe_editor s ON editor.id = s.editor
+                 WHERE s.subscribededitor = ?
+                 ORDER BY editor.name, editor.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
+}
+
 sub insert
 {
     my ($self, $data) = @_;
@@ -218,6 +232,7 @@ Provides support for fetching editors from the database
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Oliver Charles
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,0 +1,33 @@
+[% WRAPPER "user/profile/layout.tt" title=l("Subscribers") page="subscribers" %]
+
+    <h2>[% l("Subscribers") %]</h2>
+
+    [%- IF editors.size -%]
+
+        [%- WRAPPER 'components/with-pager.tt' -%]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[%- l('Name') -%]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [%- FOR editor IN editors -%]
+                <tr>
+                    <td>[% link_editor(editor) %]</td>
+                </tr>
+                [%- END -%]
+            </tbody>
+        </table>
+        [%- END -%]
+
+    [%- ELSE -%]
+        [% IF c.user_exists && user.id == c.user.id %]
+        <p>[%- l('You have no subscribers.') -%]</p>
+        [% ELSE %]
+        <p>[%- l('{editor} has no subscribers.', { editor => html_escape(user.name) }) -%]</p>
+        [% END %]
+    [%- END -%]
+
+
+[% END %]
