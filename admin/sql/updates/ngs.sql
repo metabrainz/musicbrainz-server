@@ -364,11 +364,11 @@ INSERT INTO editor_preference (id, editor, name, value)
             ELSE name
         END AS name,
         CASE
-            WHEN value = 'GMT0BST' THEN 'Europe/London'
-            WHEN value = 'GST3GDT' THEN 'GMT'
-            WHEN value = 'CET-1CEST' THEN 'CET'
-            WHEN value = 'EET-2EEST' THEN 'EET'
-            WHEN value LIKE 'posix/%' THEN substr(value, 7)
+            WHEN name = 'timezone' AND value = 'GMT0BST'    THEN 'Europe/London'
+            WHEN name = 'timezone' AND value = 'GST3GDT'    THEN 'GMT'
+            WHEN name = 'timezone' AND value = 'CET-1CEST'  THEN 'CET'
+            WHEN name = 'timezone' AND value = 'EET-2EEST'  THEN 'EET'
+            WHEN name = 'timezone' AND value LIKE 'posix/%' THEN substr(value, 7)
             ELSE value
         END AS value
         FROM public.moderator_preference;
