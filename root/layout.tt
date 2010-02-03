@@ -63,5 +63,10 @@
             <a href="http://musicbrainz.org/doc/License">License</a> |
             <a href="http://musicbrainz.org/doc/Contact_Us">Contact</a>
         </p>
+
+        [%- IF c.session.tport -%]
+            <iframe name="tagger-iframe" height="0" width="0" frameborder="0"></iframe>
+        [%- END -%]
+
     </body>
 </html>

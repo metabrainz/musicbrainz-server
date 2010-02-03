@@ -1,7 +1,0 @@
-[% USE date %]
-[%- IF c.session.tport -%]
-    <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% mbid %]&t=[% date.now %]"
-        target="tagger-iframe" title="[% l('Open in tagger') %]">
-        <img src="[% c.uri_for('/static/images/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
-    </a>
-[%- END -%]

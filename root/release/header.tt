@@ -1,4 +1,9 @@
 <div class="releaseheader">
+
+[%- IF c.session.tport -%]
+    [% tagger_icon(release) %]
+[%- END -%]
+
 <h1>“[% link_release(release) %]” [% disambiguation(release) %]</h1>
 <p class="subheader">
     <span class="prefix">~</span>

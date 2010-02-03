@@ -11,6 +11,9 @@
                             <th>[% l('Artist') %]</th>
                             <th>[% l('Tracks') %]</th>
                             <th>[% l('Lang/Script') %]</th>
+                            [%- IF c.session.tport -%]
+                                <th>[% l('Tagger') %]</th>
+                            [%- END -%]
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +24,9 @@
                             <td>[% artist_credit(result.entity.artist_credit) %]</td>
                             <td>[% result.entity.combined_track_count %]</td>
                             <td>[% result.entity.language.iso_code_3t %] / [% result.entity.script.iso_code%]</td>
+                            [%- IF c.session.tport -%]
+                                <td>[% tagger_icon(result.entity) %]</td>
+                            [%- END -%]
                         </tr>
                         [%- END -%]
                     </tbody>

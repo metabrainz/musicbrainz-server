@@ -247,6 +247,10 @@ h1 {
 .recordingheader { background-image: url('../images/ticon_lg.png') }
 .labelheader { background-image: url('../images/bicon_lg.png') }
 
+.tagger-icon img { border: 0; }
+.releaseheader .tagger-icon { margin-top: 1em; float: right; }
+
+
 h2,
 fieldset legend {
     margin-top: 1em;
