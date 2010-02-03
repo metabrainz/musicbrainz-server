@@ -6,6 +6,11 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use MusicBrainz::Server::Edit::Utils qw(
+    load_artist_credit_definitions
+    artist_credit_from_loaded_definition
+);
+
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
 sub edit_type { $EDIT_TRACKLIST_CREATE }
@@ -26,6 +31,36 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Artist => {
+            map {
+                load_artist_credit_definitions($_->{artist_credit})
+            } @{ $self->data->{tracks} }
+        }
+    }
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        tracks => [
+            map { +{
+                artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
+                name          => $_->{name},
+                length        => $_->{length},
+                position      => $_->{position},
+            } }
+            sort { $a->{position} <=> $b->{position} }
+                @{ $self->data->{tracks} }
+        ]
+    }
+}
+
 sub _insert_hash
 {
     my ($self, $data) = @_;
@@ -45,6 +80,8 @@ sub _insert_hash
 
     return \@tracks;
 }
+
+sub _xml_arguments { ForceArray => [ 'artist_credit', 'tracks' ] }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
