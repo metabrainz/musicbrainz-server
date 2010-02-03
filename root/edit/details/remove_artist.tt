@@ -1,0 +1,6 @@
+<table class="details">
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td>[% edit.display_data.name %]</td>
+  </tr>
+</table>
