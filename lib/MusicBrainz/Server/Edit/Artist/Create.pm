@@ -44,12 +44,12 @@ has '+data' => (
         name       => Str,
         gid        => Optional[Str],
         sort_name  => Optional[Str],
-        type_id    => Optional[Int],
-        gender_id  => Optional[Int],
-        country_id => Optional[Int],
-        comment    => Optional[Str],
-        begin_date => Optional[PartialDateHash],
-        end_date   => Optional[PartialDateHash],
+        type_id    => Nullable[Int],
+        gender_id  => Nullable[Int],
+        country_id => Nullable[Int],
+        comment    => Nullable[Str],
+        begin_date => Nullable[PartialDateHash],
+        end_date   => Nullable[PartialDateHash],
     ]
 );
 
