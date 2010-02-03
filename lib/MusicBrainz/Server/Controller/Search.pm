@@ -6,7 +6,7 @@ use warnings;
 use base 'MusicBrainz::Server::Controller';
 
 use LWP::UserAgent;
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
 
