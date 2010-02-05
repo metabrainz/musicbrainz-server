@@ -90,15 +90,16 @@ sub find_by_artist
 
 sub find_by_release_group
 {
-    my ($self, $release_group_id, $limit, $offset) = @_;
+    my ($self, $ids, $limit, $offset) = @_;
+    my @ids = ref $ids ? @$ids : ( $ids );
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE release_group = ?
+                 WHERE release_group IN (" . placeholders(@ids) . ")
                  ORDER BY date_year, date_month, date_day, name.name
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $release_group_id, $offset || 0);
+        $query, @ids, $offset || 0);
 }
 
 sub find_by_track_artist
@@ -122,30 +123,33 @@ sub find_by_track_artist
 
 sub find_by_recording
 {
-    my ($self, $recording_id) = @_;
+    my ($self, $ids) = @_;
+    my @ids = ref $ids ? @$ids : ( $ids );
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
                     SELECT release FROM medium
                       JOIN track ON track.tracklist = medium.tracklist
                       JOIN recording ON recording.id = track.recording
-                     WHERE recording.id = ?
+                     WHERE recording.id IN (' . placeholders(@ids) . ')
                 )';
     return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
-                         $query, $recording_id);
+                         $query, @{ids});
 }
 
 sub find_by_medium
 {
-    my ($self, $medium_id, $limit, $offset) = @_;
+    my ($self, $ids, $limit, $offset) = @_;
+    my @ids = ref $ids ? @$ids : ( $ids );
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
                     SELECT release FROM medium
-                     WHERE medium.id = ?
-                )';
+                     WHERE medium.id IN (' . placeholders(@ids) . ')
+                )
+                OFFSET ?';
     return query_to_list_limited($self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-                                 $query, $medium_id);
+                                 $query, @{ids}, $offset || 0);
 }
 
 sub find_by_collection

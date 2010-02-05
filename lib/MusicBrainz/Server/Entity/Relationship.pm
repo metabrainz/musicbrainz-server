@@ -67,6 +67,14 @@ sub source_type
         : $self->link->type->entity1_type;
 }
 
+sub source_key
+{
+    my ($self) = @_;
+    return ($self->source_type eq 'url')
+        ? $self->source->url
+        : $self->source->gid;
+}
+
 sub target
 {
     my ($self) = @_;
@@ -80,6 +88,14 @@ sub target_type
     return ($self->direction == $DIRECTION_FORWARD)
         ? $self->link->type->entity1_type
         : $self->link->type->entity0_type;
+}
+
+sub target_key
+{
+    my ($self) = @_;
+    return ($self->target_type eq 'url')
+        ? $self->target->url
+        : $self->target->gid;
 }
 
 sub _join_attrs

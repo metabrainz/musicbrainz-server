@@ -49,7 +49,7 @@ sub xml_search
         $term =~ s/\s*(.*?)\s*$/$1/;
         if (not $term =~ /^\s*$/)
         {
-            $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
+            $query = "label:($term)(sortname:($term) alias:($term) !label:($term))";
         }
     }
     elsif ($resource eq 'release')
@@ -107,7 +107,7 @@ sub xml_search
             $query .= " AND script:" . $args->{script};
         }
     }
-    elsif ($resource eq 'track')
+    elsif ($resource eq 'recording')
     {
         $query = "";
         my $term =  escape_query($args->{track});
@@ -160,9 +160,21 @@ sub xml_search
             $query .= " AND tracks:" . $args->{count};
         }
     }
+    elsif ($resource eq 'work')
+    {
+        my $term = escape_query($args->{label});
+        $term =~ s/\s*(.*?)\s*$/$1/;
+        if (not $term =~ /^\s*$/)
+        {
+            $query = $term;
+        }
+    }
     else
     {
-        die "Invalid resource: $resource\n";
+        return { 
+            error => "Invalid resource $resource.", 
+            code  => RC_BAD_REQUEST
+        };
     }
 
     $query =~ s/^ AND //;
@@ -171,7 +183,7 @@ sub xml_search
     {
         return { 
             error => "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.", 
-            code  => RC_BAD_REQUEST
+            code  => 400
         };
     }
 

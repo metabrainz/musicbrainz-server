@@ -2,170 +2,14 @@ package MusicBrainz::Server::WebService::WebServiceInc;
 
 use Moose;
 
-has 'gid' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artists' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'counts' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'limit' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'recordings' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'duration' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artistrels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'releaserels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'discs' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'recordingrels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'urlrels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'releaseevents' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artistid' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'releaseid' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'trackid' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'title' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'tracknum' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'trmids' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'releases' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'releasegroups' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'releasegrouprels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'workrels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'puids' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'aliases' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'labels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'labelrels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'tracklevelrels' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'tags' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'ratings' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'usertags' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'userratings' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'rg_type' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'rel_status' => (
-    is => 'rw',
-    isa => 'Int'
-);
+has $_ => (
+    is  => 'rw',
+    isa => 'Int',
+    default => 0
+) for qw( gid artists counts limit recordings duration artistrels releaserels discs
+          recordingrels urlrels releaseevents artistid releaseid trackid title tracknum
+          releases releasegroups releasegrouprels workrels puids isrcs aliases labels 
+          labelrels tracklevelrels tags ratings usertags userratings rg_type rel_status);
 
 sub has_rels
 {
@@ -184,7 +28,7 @@ sub get_rel_types
     my @rels;
     push @rels, 'artist' if ($self->artistrels);
     push @rels, 'release' if ($self->releaserels);
-    push @rels, 'release-group' if ($self->releasegrouprels);
+    push @rels, 'release_group' if ($self->releasegrouprels);
     push @rels, 'recording' if ($self->recordingrels);
     push @rels, 'label' if ($self->labelrels);
     push @rels, 'work' if ($self->workrels);
@@ -207,6 +51,14 @@ sub BUILD
     if (exists $args->{rg_type} && $args->{rg_type})
     {
         $methods{rg_type}->set_value($self, $args->{rg_type});
+    }
+    if (exists $args->{relations} && $args->{relations})
+    {
+        foreach my $rel (@{$args->{relations}})
+        {
+            $rel =~ s/-//g;
+            $methods{$rel}->set_value($self, 1);
+        }
     }
 
     foreach my $arg (@{$args->{inc}})

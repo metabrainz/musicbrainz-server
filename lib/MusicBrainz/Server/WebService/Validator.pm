@@ -10,6 +10,16 @@ parameter defs => (
 );
 
 our (%types, %statuses);
+our %relation_types = (
+    "artist-rels" => 1,
+    "release-rels" => 1,
+    "release-group-rels" => 1,
+    "recording-rels" => 1,
+    "label-rels" => 1,
+    "work-rels" => 1,
+    "url-rels" => 1,
+);
+
 sub load_type_and_status
 {
     my ($c) = @_;
@@ -22,17 +32,20 @@ sub load_type_and_status
 
 sub validate_inc
 {
-    my ($c,$inc, $def) = @_;
+    my ($c, $resource, $inc, $def) = @_;
 
     my @inc = split(/[+ ]/, $inc || '');
     my %acc = map { $_ => 1 } @{ $def };
-    my $allow_type = exists $acc{"rg_type"};
-    my $allow_status = exists $acc{"rel_status"};
+    my $allow_type = exists $acc{"_rg_type"};
+    my $allow_status = exists $acc{"_rel_status"};
+    my $allow_relations = exists $acc{"_relations"};
     my $type_used = 0;
     my $status_used = 0;
+    my @relations_used;
     my @filtered;
     for my $i (@inc) 
     {
+        next if (!$i);
         $i =~ s/release-groups/releasegroups/;
         if ($allow_type && exists $types{$i})
         {
@@ -54,16 +67,27 @@ sub validate_inc
             $status_used = $statuses{$i};
             next;
         }
+        if ($allow_relations && exists $relation_types{$i})
+        {
+            push @relations_used, $i;
+            next;
+        }
         if (!exists $acc{$i})
         {
-            $c->stash->{error} = "$i is not a valid option for the inc parameter for this resource.";
+            $c->stash->{error} = "$i is not a valid option for the inc parameter for the $resource resource.";
             return;
         }
         push @filtered, $i;
     }
     return MusicBrainz::Server::WebService::WebServiceInc->new(inc => \@filtered,
                                                                rg_type => $type_used, 
-                                                               rel_status => $status_used);
+                                                               rel_status => $status_used, 
+                                                               relations => \@relations_used);
+}
+
+sub get_default_serialization_type
+{
+    return $DEFAULT_SERIALIZATION_TYPE;
 }
 
 role {
@@ -104,7 +128,7 @@ role {
             my $inc;
             if ($def->[1]->{inc})
             {
-                $inc = validate_inc($c, $c->req->params->{inc}, $def->[1]->{inc});
+                $inc = validate_inc($c, $resource, $c->req->params->{inc}, $def->[1]->{inc});
                 return 0 unless ($inc);
             }
 

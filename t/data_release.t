@@ -51,6 +51,10 @@ is( $hits, 1 );
 is( scalar(@$releases), 1 );
 is( $releases->[0]->id, 3 );
 
+my @release_list = $release_data->find_by_recording(1);
+is( scalar(@release_list), 1 );
+is( $release_list[0]->id, 3 );
+
 ($releases, $hits) = $release_data->find_by_release_group(1, 100);
 is( $hits, 2 );
 is( scalar(@$releases), 2 );

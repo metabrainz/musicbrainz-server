@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 13;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::ISRC';
 
 use Sql;
@@ -23,6 +23,9 @@ is(scalar @isrcs, 2);
 is($isrcs[0]->isrc, 'DEE250800230');
 is($isrcs[1]->isrc, 'DEE250800231');
 
+@isrcs = $c->model('ISRC')->find_by_recording([1, 2]);
+is(scalar @isrcs, 3);
+
 my $sql = Sql->new($c->dbh);
 $sql->begin;
 $c->model('ISRC')->merge_recordings(1, 2);
@@ -42,3 +45,5 @@ $sql->commit;
 
 @isrcs = $c->model('ISRC')->find_by_recording(1);
 is(scalar @isrcs, 0);
+
+done_testing;
