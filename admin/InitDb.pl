@@ -19,7 +19,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id: InitDb.pl 12153 2009-09-24 23:08:08Z robert $
+#   $Id$
 #____________________________________________________________________________
 
 use FindBin;
@@ -257,6 +257,10 @@ sub CreateRelations
     {
         CreateReplicationFunction();
         RunSQLScript($READWRITE, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
+    }
+    if ($REPTYPE == RT_SLAVE)
+    {
+        RunSQLScript($READWRITE, "ReplicationSetup.sql", "Setting up replication ...");
     }
 
     print localtime() . " : Optimizing database ...\n";
