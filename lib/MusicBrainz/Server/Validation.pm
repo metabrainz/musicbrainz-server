@@ -39,6 +39,7 @@ require Exporter;
         format_iswc
         is_valid_url
         is_positive_integer
+        is_valid_discid
     )
 }
 
@@ -158,6 +159,12 @@ sub is_valid_url
     return 0 if $u->scheme eq '';
     return 0 unless $u->authority =~ /\./;
     return 1;
+}
+
+sub is_valid_discid
+{
+    my $discid = shift;
+    return $discid =~ /^[A-Za-z0-9._-]{27}-/;
 }
 
 # Create a date string if the parameters are valid, or return undef.
