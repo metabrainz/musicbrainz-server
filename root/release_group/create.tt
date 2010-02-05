@@ -15,6 +15,7 @@
 [%- END -%]
 
 [% WRAPPER 'layout.tt' full_width=1 title=l('Add new release group') %]
+   [% INCLUDE 'artist/header.tt' artist=initial_artist IF initial_artist %]
    <h2>[% l('Create a New Release Group') %]</h2>
    [% INCLUDE 'release_group/edit_form.tt' new=1 %]
 [% END %]

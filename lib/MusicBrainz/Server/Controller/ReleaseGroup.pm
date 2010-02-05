@@ -75,6 +75,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             my $rg = MusicBrainz::Server::Entity::ReleaseGroup->new(
                 artist_credit => ArtistCredit->from_artist($artist)
             );
+            $c->stash( initial_artist => $artist );
             return ( item => $rg );
         }
     }
