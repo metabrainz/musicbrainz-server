@@ -364,11 +364,25 @@ INSERT INTO editor_preference (id, editor, name, value)
             ELSE name
         END AS name,
         CASE
-            WHEN name = 'timezone' AND value = 'GMT0BST'    THEN 'Europe/London'
-            WHEN name = 'timezone' AND value = 'GST3GDT'    THEN 'GMT'
-            WHEN name = 'timezone' AND value = 'CET-1CEST'  THEN 'CET'
-            WHEN name = 'timezone' AND value = 'EET-2EEST'  THEN 'EET'
-            WHEN name = 'timezone' AND value LIKE 'posix/%' THEN substr(value, 7)
+            WHEN name = 'timezone' AND value = 'HAST10HADT'     THEN 'America/Adak'
+            WHEN name = 'timezone' AND value = 'AST4ADT'        THEN 'America/Thule'
+            WHEN name = 'timezone' AND value = 'NST03:30NDT'    THEN 'America/St_Johns'
+            WHEN name = 'timezone' AND value = 'GST3GDT'        THEN 'GMT'
+            WHEN name = 'timezone' AND value = 'AZOT2AZOST'     THEN 'Atlantic/Azores'
+            WHEN name = 'timezone' AND value = 'WAT0WEST'       THEN 'WET'
+            WHEN name = 'timezone' AND value = 'WAT1WAST'       THEN 'Africa/Windhoek'
+            WHEN name = 'timezone' AND value = 'GMT0BST'        THEN 'Europe/London'
+            WHEN name = 'timezone' AND value = 'CET-1CEST'      THEN 'CET'
+            WHEN name = 'timezone' AND value = 'EET-2EEST'      THEN 'EET'
+            WHEN name = 'timezone' AND value = 'IST-05:30IDT'   THEN 'Asia/Calcutta'
+            WHEN name = 'timezone' AND value = 'AWST-8AWDT'     THEN 'Australia/Perth'
+            WHEN name = 'timezone' AND value = 'KST-9KDT'       THEN 'Asia/Seoul'
+            WHEN name = 'timezone' AND value = 'JST-9JDT'       THEN 'Asia/Tokyo'
+            WHEN name = 'timezone' AND value = 'ACST-09:30ACDT' THEN 'Australia/Adelaide'
+            WHEN name = 'timezone' AND value = 'AEST-10AEDT'    THEN 'Australia/Melbourne'
+            WHEN name = 'timezone' AND value = 'IDLE-12'        THEN 'Pacific/Auckland'
+            WHEN name = 'timezone' AND value = 'NZST-12NZDT'    THEN 'Pacific/Auckland'
+            WHEN name = 'timezone' AND value LIKE 'posix/%'   THEN substr(value, 7)
             ELSE value
         END AS value
         FROM public.moderator_preference;
