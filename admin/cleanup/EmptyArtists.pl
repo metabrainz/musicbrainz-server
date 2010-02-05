@@ -6,6 +6,7 @@
 #
 #   Copyright (C) 1998 Robert Kaye
 #   Copyright (C) 2001 Luke Harless
+#   Copyright (C) 2010 MetaBrainz Foundation
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -34,22 +35,11 @@ use Getopt::Long;
 
 use DBDefs;
 use MusicBrainz;
-use Moderation;
+use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Constants qw ( $EDIT_ARTIST_DELETE );;
+use MusicBrainz::Server::Types qw( $BOT_FLAG $AUTO_EDITOR_FLAG );
 use Sql;
 use ModDefs;
-use UserStuff;
-
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{dbh});
-
-my $mb2 = MusicBrainz->new;
-$mb2->Login;
-my $sqlWrite = Sql->new($mb2->{dbh});
-
-my $vertmb = new MusicBrainz;
-$vertmb->Login(db => 'RAWDATA');
-my $sqlVert = Sql->new($vertmb->{dbh});
 
 my $use_auto_mod = 1;
 my $moderator = &ModDefs::MODBOT_MODERATOR;
@@ -57,15 +47,19 @@ my $remove = 1;
 my $verbose;
 my $summary = 1;
 
+my $c = MusicBrainz::Server::Context->create_script_context();
+my $sql = Sql->new($c->dbh);
+my $sqlWrite = Sql->new($c->dbh);
+my $sqlVert = Sql->new($c->raw_dbh);
+
 GetOptions(
 	"automod!"		=> \$use_auto_mod,
-	"moderator=s"	=> sub {
-		my $user = $_[1];
-		my $u = UserStuff->new($mb->{dbh});
-		(undef, my $uid) = $u->GetUserPasswordAndId($user);
-		$uid or die "No such moderator '$user'";
-		$moderator = $uid;
-	},
+ 	"moderator=s"	=> sub {
+ 		my $user = $_[1];
+                my $editor = $c->model('Editor')->get_by_name ($user);
+ 		$editor or die "No such moderator '$user'";
+                $moderator = $editor->id;
+ 	},
 	"remove!"		=> \$remove,
 	"verbose!"		=> \$verbose,
 	"summary!"		=> \$summary,
@@ -100,184 +94,113 @@ $verbose = ($remove ? 0 : 1)
 print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), exit 1
 	unless $remove or $verbose or $summary;
 
-print localtime() . " : Finding unused artists (using album/AR/mod criteria)\n";
+print localtime() . " : Finding unused artists (using artist credit/AR/edit criteria)\n";
 
-$sql->Begin;
-$sql->Select(<<EOF) or die;
+my $query = <<EOF;
 
-	SELECT	a.id, a.name, a.sortname
-    INTO TEMP empty_artist_albums
-	FROM	artist a
+    SELECT a.id, a.name, a.sortname
+    FROM artist a
 
-	-- Look for albums 
-	LEFT JOIN (
-		SELECT artist, COUNT(*) AS albums FROM album GROUP BY artist
-	) t1
-		ON a.id = t1.artist
+    -- Look for artist credits
+    LEFT JOIN (
+        SELECT artist, COUNT(*) AS credits FROM artist_credit_name GROUP BY artist
+    ) t1
+    ON a.id = t1.artist
 
     -- Look for AR artist-artist relationships
-	LEFT JOIN (
-        SELECT link0 as artist, COUNT(*) AS arar_links FROM l_artist_artist GROUP BY link0
-		UNION
-        SELECT link1 as artist, COUNT(*) AS arar_links FROM l_artist_artist GROUP BY link1
-	) t3
-        ON a.id = t3.artist
+    LEFT JOIN (
+        SELECT entity0 as artist, COUNT(*) AS artist_artist FROM l_artist_artist GROUP BY entity0
+        UNION
+        SELECT entity1 as artist, COUNT(*) AS artist_artist FROM l_artist_artist GROUP BY entity1
+    ) t3
+    ON a.id = t3.artist
 
-    -- Look for AR album-artist relationships
-	LEFT JOIN (
-        SELECT link1 as artist, COUNT(*) AS alar_links FROM l_album_artist GROUP BY link1
-	) t4
-        ON a.id = t4.artist
+    -- Look for AR artist-release relationships
+    LEFT JOIN (
+        SELECT entity0 as artist, COUNT(*) AS artist_release FROM l_artist_release GROUP BY entity0
+    ) t4
+    ON a.id = t4.artist
 
-    -- Look for AR artist-track relationships
-	LEFT JOIN (
-        SELECT link0 as artist, COUNT(*) AS artr_links FROM l_artist_track GROUP BY link0
-	) t5
-        ON a.id = t5.artist
-
-    -- Look for AR artist-url relationships
-	LEFT JOIN (
-        SELECT link0 as artist, COUNT(*) AS arur_links FROM l_artist_url GROUP BY link0
-	) t6
-        ON a.id = t6.artist
+    -- Look for AR artist-release_group relationships
+    LEFT JOIN (
+        SELECT entity0 as artist, COUNT(*) AS artist_release_group FROM l_artist_release_group GROUP BY entity0
+    ) t5
+    ON a.id = t5.artist
 
     -- Look for AR artist-label relationships
-	LEFT JOIN (
-        SELECT link0 as artist, COUNT(*) AS arla_links FROM l_artist_label GROUP BY link0
-	) t8
-        ON a.id = t8.artist
+    LEFT JOIN (
+        SELECT entity0 as artist, COUNT(*) AS artist_label FROM l_artist_label GROUP BY entity0
+    ) t6
+    ON a.id = t6.artist
 
-    -- Look for pending 'Move Album', 'Change Track Artist' and SAC moderations
-	LEFT JOIN (
-        SELECT 
-	  CASE split_part(newvalue, E'\\n', 3)
-	    WHEN '' THEN split_part(newvalue, E'\\n', 2)
-	    ELSE         split_part(newvalue, E'\\n', 3)
-	  END AS artist, COUNT(*) AS mods FROM moderation_open WHERE type=8 OR type=10 OR type=13 GROUP BY newvalue
-	) t7
-        ON a.id = t7.artist::integer
+    -- Look for AR artist-recording relationships
+    LEFT JOIN (
+        SELECT entity0 as artist, COUNT(*) AS artist_recording FROM l_artist_recording GROUP BY entity0
+    ) t7
+    ON a.id = t7.artist
 
-	WHERE	t1.albums IS NULL
-	AND		t3.arar_links IS NULL
-	AND		t4.alar_links IS NULL
-	AND		t5.artr_links IS NULL
-	AND		t6.arur_links IS NULL
-	AND		t8.arla_links IS NULL
-	AND		t7.mods IS NULL
-	AND		a.modpending = 0
-	ORDER BY sortname
+    -- Look for AR artist-url relationships
+    LEFT JOIN (
+        SELECT entity0 as artist, COUNT(*) AS artist_url FROM l_artist_url GROUP BY entity0
+    ) t8
+    ON a.id = t8.artist
 
-EOF
-$sql->Finish;
+    -- Look for AR artist-work relationships
+    LEFT JOIN (
+        SELECT entity0 as artist, COUNT(*) AS artist_work FROM l_artist_work GROUP BY entity0
+    ) t9
+    ON a.id = t9.artist
 
-print localtime() . " : Finding unused artists (using track criteria)\n";
-
-$sql->Select(<<EOF) or die;
-
-	SELECT	a.id
-    INTO TEMP empty_artist_tracks
-	FROM	artist a
-
-	-- Look for tracks 
-	LEFT JOIN (
-        SELECT artist, COUNT(*) AS tracks FROM track GROUP BY artist
-	) t2
-        ON a.id = t2.artist
-
-	WHERE   t2.tracks IS NULL
-	AND		a.modpending = 0
-	ORDER BY sortname
+    WHERE	t1.credits IS NULL
+    AND         t3.artist_artist        IS NULL
+    AND         t4.artist_release       IS NULL
+    AND         t5.artist_release_group IS NULL
+    AND         t6.artist_label         IS NULL
+    AND         t7.artist_recording     IS NULL
+    AND         t8.artist_url           IS NULL
+    AND         t9.artist_work          IS NULL
+    AND		a.editpending = 0
+    ORDER BY sortname
 
 EOF
-$sql->Finish;
 
-print localtime() . " : Collating unused artists\n";
-
-$sql->Select(<<EOF) or die;
-
-	SELECT	eaa.id, eaa.name, eaa.sortname
-	FROM	empty_artist_tracks eat, empty_artist_albums eaa
-    WHERE   eat.id = eaa.id 
-
-EOF
+$sql->select ($query);
 
 my $count = 0;
 my $removed = 0;
-my $privs = &UserStuff::BOT_FLAG;
-$privs |= &UserStuff::AUTOMOD_FLAG if $use_auto_mod;
+my $privs = $BOT_FLAG;
+$privs |= $AUTO_EDITOR_FLAG if $use_auto_mod;
 
-while (my ($id, $name, $sortname) = $sql->NextRow)
+while (my ($id, $name, $sortname) = $sql->next_row)
 {
-	next if $id == &ModDefs::VARTIST_ID;
-	next if $id == &ModDefs::DARTIST_ID;
+    next if $id == &ModDefs::VARTIST_ID;
+    next if $id == &ModDefs::DARTIST_ID;
 
-	++$count;
+    ++$count;
 
-	if (not $remove)
-	{
-		printf "%s : Need to remove %6d %-30.30s (%s)\n",
-			scalar localtime,
-			$id, $name, $sortname
-			if $verbose;
-		next;
-	}
+    if (not $remove)
+    {
+        printf "%s : Need to remove %6d %-30.30s (%s)\n",
+            scalar localtime, $id, $name, $sortname if $verbose;
+        next;
+    }
 
-	$sqlWrite->Begin;
-	$sqlVert->Begin;
+    my $artist = $c->model('Artist')->get_by_id ($id);
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_DELETE,
+        to_delete => $artist,
+        editor_id => $moderator,
+        privileges => $privs
+        );
 
-    $Moderation::DBConnections{READWRITE} = $sqlWrite;
-    $Moderation::DBConnections{RAWDATA} = $sqlVert;
-	
-	eval
-	{
-		use MusicBrainz::Server::Artist;
-		my $ar = MusicBrainz::Server::Artist->new($sqlWrite->{dbh});
-
-		# No need to load the whole record, hopefully...
-		$ar->SetId($id);
-		$ar->SetName($name);
-		$ar->SetSortName($sortname);
-
-		use Moderation;
-		my @mods = Moderation->InsertModeration(
-			DBH	=> $sqlWrite->{dbh},
-			uid	=> $moderator,
-			privs => $privs,
-			type => &ModDefs::MOD_REMOVE_ARTIST,
-			# --
-			artist => $ar,
-            notrans => 1
-		);
-		$sqlWrite->Commit;
-		$sqlVert->Commit;
-
-		my $modid = 0;
-		$modid = $mods[0]->GetId if @mods;
 		
-		printf "%s : Inserted mod %6d for %6d %-30.30s (%s)\n",
-			scalar localtime,
-			$modid,
-			$id, $name, $sortname
-			if $verbose;
-
-		++$removed;
-		1;
-	} or do {
-		my $err = $@;
-		$sqlWrite->Rollback;
-		$sqlVert->Rollback;
-		printf "%s : Error removing %6d %-30.30s (%s):\n  %s\n",
-			scalar localtime,
-			$id, $name, $sortname,
-			$err;
-	};
-    delete $Moderation::DBConnections{READWRITE};
-    delete $Moderation::DBConnections{RAWDATA};
+    printf "%s : Inserted mod %6d for %6d %-30.30s (%s)\n",
+        scalar localtime, $edit->id,
+        $id, $name, $sortname if $verbose;
+    
+    ++$removed;
+    1;
 }
-
-# Issue a commit on the main handle to drop the temp tables
-$sql->Commit;
-$sql->Finish;
 
 if ($summary)
 {
