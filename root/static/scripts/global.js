@@ -1,4 +1,6 @@
-$(function() {
+$(document).ready (function() {
+
+    $('.only-if-no-javascript').hide ();
 
     // Ratings
     $('span.star-rating a').click(function() {
