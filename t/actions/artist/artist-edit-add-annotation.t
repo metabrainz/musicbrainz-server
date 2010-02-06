@@ -20,6 +20,8 @@ $mech->submit_form(
         'edit-annotation.changelog' => 'Changelog here',
     });
 
+ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/?$}, 'should redirect to artist page via gid');
+
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAnnotation');
 is_deeply($edit->data, {

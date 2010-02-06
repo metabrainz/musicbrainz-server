@@ -66,6 +66,11 @@ sub edit_annotation : Chained('load') PathPart RequireAuth
         type => $model_to_edit_type{$model},
         edit_args => {
             entity_id => $entity->id,
+        },
+        on_creation => sub {
+            my $show = $self->action_for('show');
+            $c->response->redirect($c->uri_for_action($show, [ $entity->gid ]));
+            $c->detach;
         }
     );
 }
