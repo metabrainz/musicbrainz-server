@@ -172,7 +172,8 @@ END -%]
     IF action != 'show';
       '<a href="' _ link _ '">' _ text _ '</a>';
     ELSE;
-      '<a href="' _ url.url _ '">' _ url.url _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
+      text = url.url | uri_decode | html;
+      '<a href="' _ url.url _ '">' _ text _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]
 
