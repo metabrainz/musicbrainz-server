@@ -54,4 +54,18 @@
       <td>[% UserDate.format(edit.close_time) %]</td>
       [% END %]
     </tr>
+    [% IF edit.is_open %]
+    <tr>
+      <th>[% l('Conditions:') %]</th>
+      <td>
+        [% quality_name(edit.quality) %],
+        [% SWITCH edit.conditions.expire_action;
+           CASE 1; l('accept on expiration');
+           CASE 2; l('reject on expiration');
+           END %],
+        [% ln('1 vote to accept/reject', '{n} unanimous votes to accept/reject',
+              edit.conditions.votes, { n => edit.conditions.votes }) %]
+      </td>
+    </tr>
+    [% END %]
 </table>

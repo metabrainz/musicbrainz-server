@@ -173,6 +173,12 @@ sub edit_conditions
     };
 }
 
+sub conditions
+{
+    my $self = shift;
+    return $self->edit_conditions->{ $self->quality };
+}
+
 sub determine_quality
 {
     return $QUALITY_NORMAL;
