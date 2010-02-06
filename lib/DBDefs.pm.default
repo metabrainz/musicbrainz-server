@@ -38,40 +38,37 @@ sub DATA_IMPORT_DIR	{ "/home/httpd/musicbrainz/data-import" }
 # The Database
 ################################################################################
 
-require MusicBrainz::Server::Database;
-MusicBrainz::Server::Database->register_all(
-    {
-	# How to connect when we need read-write access to the database
-	READWRITE => {
-	    database	=> "musicbrainz_db",
-	    username	=> "musicbrainz_user",
-	    password	=> "",
-	    host	=> "",
-	    port	=> "",
-	},
-	# How to connect for read-only access.  See "REPLICATION_TYPE" (below)
-	READONLY => undef,
-	# How to connect for administrative access
-	SYSTEM	=> {
-	    database	=> "template1",
-	    username	=> "postgres",
-	    password	=> "",
-	    host	=> "",
-	    port	=> "",
-	},
-
-    # Raw data lives in a seperate DB to avoid the main DB from balooning in size.
-	RAWDATA => 
-    {
-	    database	=> "musicbrainz_db_raw",
-	    username	=> "musicbrainz_user",
-	    password	=> "",
-	    host	=> "",
-	    port	=> "",
-	},
-    # Fill out only if RAWDATA lives on a different host from the READWRITE server. 
-	RAWDATA_SYSTEM => undef,  
+use MusicBrainz::Server::DatabaseConnectionFactory;
+MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
+    # How to connect when we need read-write access to the database
+    READWRITE => {
+        database	=> "musicbrainz_db",
+        username	=> "musicbrainz_user",
+        password	=> "",
+        host	=> "",
+        port	=> "",
     },
+    # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
+    # READONLY => undef,
+    # How to connect for administrative access
+    SYSTEM	=> {
+        database	=> "template1",
+        username	=> "postgres",
+        password	=> "",
+        host	=> "",
+        port	=> "",
+    },
+    # Raw data lives in a seperate DB to avoid the main DB from balooning in size.
+    RAWDATA =>
+    {
+        database	=> "musicbrainz_db_raw",
+        username	=> "musicbrainz_user",
+        password	=> "",
+        host	=> "",
+        port	=> "",
+    },
+    # Fill out only if RAWDATA lives on a different host from the READWRITE server.
+    # RAWDATA_SYSTEM => undef,
 );
 
 # The schema sequence number.  Must match the value in
