@@ -31,6 +31,7 @@ requires 'Date::Calc'                                  => '5.8';
 requires 'Date::Parse';
 requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Pg'                        => '0.16004';
+requires 'DBIx::Connector';
 requires 'DBD::Pg'                                     => '2.11.8';
 requires 'DBI'                                         => '1.607';
 requires 'Devel::Peek'                                 => '1.03';
