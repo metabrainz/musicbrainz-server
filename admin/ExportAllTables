@@ -115,7 +115,7 @@ my $dbh = $c->dbh;
 
 # Log in to the raw DB, or duplicate handles to the main DB
 my $rawsql = Sql->new($c->raw_dbh);
-my $rawdbh = $c->raw_dbh};
+my $rawdbh = $c->raw_dbh;
 
 # This hash indicates which tables may need to be pulled from a vertical DB
 my %table_db_mapping =
