@@ -81,7 +81,7 @@ sub create : Chained('tree_setup') RequireAuth(relationship_editor)
         $values->{entity1_type} = $c->stash->{type1};
         $values->{attributes} = $self->_get_attribute_values($form);
 
-        my $sql = Sql->new($c->dbh);
+        my $sql = Sql->new($c->model('MB')->dbh);
         Sql::run_in_transaction(sub { $c->model('LinkType')->insert($values) }, $sql);
 
         my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'created' });
@@ -114,7 +114,7 @@ sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
         my $values = $form->values;
         $values->{attributes} = $self->_get_attribute_values($form);
 
-        my $sql = Sql->new($c->dbh);
+        my $sql = Sql->new($c->model('MB')->dbh);
         Sql::run_in_transaction(sub { $c->model('LinkType')->update($id, $values) }, $sql);
 
         my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
@@ -136,7 +136,7 @@ sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     my $form = $c->form( form => 'Confirm' );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $sql = Sql->new($c->dbh);
+        my $sql = Sql->new($c->model('MB')->dbh);
         Sql::run_in_transaction(sub { $c->model('LinkType')->delete($id) }, $sql);
 
         my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'deleted' });

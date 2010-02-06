@@ -177,7 +177,7 @@ sub filter_by_artist
 sub insert
 {
     my ($self, @groups) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my @created;
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names(map { $_->{name} } @groups);
@@ -197,7 +197,7 @@ sub insert
 sub update
 {
     my ($self, $group_id, $update) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
@@ -240,7 +240,7 @@ sub delete
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
 }

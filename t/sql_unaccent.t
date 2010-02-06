@@ -3,12 +3,13 @@ use strict;
 use warnings;
 use Test::More;
 
+use encoding 'utf8';
 use MusicBrainz::Server::Test;
 use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 
-my $sql = Sql->new($c->mb->{dbh});
+my $sql = Sql->new($c->dbh);
 
 my $val = $sql->select_single_value("SELECT unaccent('foo');");
 is ($val, "foo");

@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Context;
-
 use Moose;
-use MusicBrainz;
+
 use MusicBrainz::Server::CacheManager;
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
 
 has 'cache_manager' => (
@@ -11,48 +11,24 @@ has 'cache_manager' => (
     handles => [ 'cache' ]
 );
 
-has '_logout' => (
-    is => 'rw',
-    isa => 'Int',
-    default => 0
-);
-
-has 'mb' => (
+has 'conn' => (
     is => 'ro',
-    isa => 'MusicBrainz',
-    lazy => 1,
-    required => 0,
-    default => sub {
-        my $self = shift;
-        my $mb = MusicBrainz->new;
-        $mb->Login;
-        $self->_logout($self->_logout | 1);
-        return $mb;
-    },
-    handles => [ 'dbh' ]
+    handles => [ 'dbh' ],
+    lazy_build => 1,
 );
 
-has 'raw_mb' => (
-    is => 'ro',
-    isa => 'MusicBrainz',
-    lazy => 1,
-    required => 0,
-    default => sub {
-        my $self = shift;
-        my $mb = MusicBrainz->new;
-        $mb->Login(db => 'RAWDATA');
-        $self->_logout($self->_logout | 2);
-        return $mb;
-    },
-    handles => { 'raw_dbh' => 'dbh' }
+sub _build_conn {
+    return DatabaseConnectionFactory->get_connection('READWRITE');
+}
+
+has 'raw_conn' => (
+    is         => 'ro',
+    handles    => { raw_dbh => 'dbh' },
+    lazy_build => 1,
 );
 
-sub logout
-{
-    my $self = shift;
-
-    $self->mb->Logout if $self->_logout & 1;
-    $self->raw_mb->Logout if $self->_logout & 2;
+sub _build_raw_conn {
+    return DatabaseConnectionFactory->get_connection('RAWDATA');
 }
 
 sub model

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Edit;
 use Moose;
 
-use Carp qw( croak );
+use Carp qw( carp croak );
 use Data::OptList;
 use DateTime;
 use TryCatch;
@@ -300,6 +300,7 @@ sub _do_accept
         return $STATUS_FAILEDDEP;
     }
     catch ($err) {
+        carp("Could not accept " . $edit->id . ": $err");
         return $STATUS_ERROR;
     };
     return $STATUS_APPLIED;
@@ -313,6 +314,7 @@ sub _do_reject
         $edit->reject;
     }
     catch ($err) {
+        carp("Could not reject " . $edit->id . ": $err");
         return $STATUS_ERROR;
     };
     return $status;

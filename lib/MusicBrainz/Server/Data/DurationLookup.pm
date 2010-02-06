@@ -62,7 +62,7 @@ sub lookup
 
     my $dur_string = "'{" . join(",", @durations) . "}'";
 
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my $list = $sql->select_list_of_hashes(
             "SELECT ti.tracklist AS tracklist, 
                     cube_distance(toc, create_cube_from_durations($dur_string)) AS distance, 

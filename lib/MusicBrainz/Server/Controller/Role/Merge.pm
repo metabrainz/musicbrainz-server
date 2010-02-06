@@ -75,8 +75,8 @@ role {
 sub _merge_search {
     my ($self, $c, $query) = @_;
     return $self->_load_paged($c, sub {
-        $c->model('DirectSearch')->search(model_to_type($self->{model}),
-                                          $query, shift, shift)
+        $c->model('Search')->search(model_to_type($self->{model}),
+                                    $query, shift, shift)
     });
 }
 

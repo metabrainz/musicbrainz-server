@@ -7,7 +7,7 @@ use Test::More;
 use Test::WWW::Mechanize::Catalyst;
 
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
-my ($res, $c) = ctx_request('/');
+my $c = MusicBrainz::Server::Test->create_test_context;
 
 # Test creating new artists via the create artist form
 $mech->get_ok('/login');

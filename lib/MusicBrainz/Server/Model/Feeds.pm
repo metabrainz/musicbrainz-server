@@ -16,7 +16,7 @@ sub get
     my ($self, $c, $feed_id, $uri) = @_;
 
     # Check cache first
-    my $feed = $c->cache("feed")->get("feed:${feed_id}");
+    my $feed = $c->model('MB')->cache("feed")->get("feed:${feed_id}");
     if (!$feed)
     {
         # Loading is a bit complicated, but we have to ensure we fetch the
@@ -45,7 +45,7 @@ sub get
 
             $feed = { entries => \@entries };
 
-            $c->cache("feed")->set("feed:${feed_id}", $feed, $DEFAULT_UPDATE_INTERVAL);
+            $c->model('MB')->cache("feed")->set("feed:${feed_id}", $feed, $DEFAULT_UPDATE_INTERVAL);
         }
     }
 

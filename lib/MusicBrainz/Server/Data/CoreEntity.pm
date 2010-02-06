@@ -21,7 +21,7 @@ sub get_by_gid
     }
     my $table = $self->_gid_redirect_table;
     if (defined($table)) {
-        my $sql = Sql->new($self->c->mb->dbh);
+        my $sql = Sql->new($self->c->dbh);
         my $id = $sql->select_single_value("SELECT newid FROM $table WHERE gid=?", $gid);
         if (defined($id)) {
             return $self->get_by_id($id);

@@ -119,7 +119,7 @@ sub load
 sub insert
 {
     my ($self, @labels) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name } } @labels);
     my $class = $self->_entity_class;
     my @created;
@@ -138,7 +138,7 @@ sub insert
 sub update
 {
     my ($self, $label_id, $update) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
     $sql->update_row('label', $row, { id => $label_id });
@@ -182,7 +182,7 @@ sub delete
     $self->rating->delete(@label_ids);
     $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
     return 1;
 }

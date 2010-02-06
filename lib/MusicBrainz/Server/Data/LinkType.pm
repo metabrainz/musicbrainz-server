@@ -42,7 +42,7 @@ sub _load_attributes
             FROM link_type_attribute_type
             WHERE link_type IN (" . placeholders(@ids) . ")
             ORDER BY link_type";
-        my $sql = Sql->new($self->c->mb->dbh);
+        my $sql = Sql->new($self->c->dbh);
         $sql->select($query, @ids);
         while (1) {
             my $row = $sql->next_row_hash_ref or last;

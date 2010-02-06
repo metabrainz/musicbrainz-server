@@ -5,12 +5,13 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
-use MusicBrainz;
 use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::Context;
 use Sql;
 open LOG, ">release-merge.log";
 open ERRLOG, ">release-merge-errors.log";
+
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $c = MusicBrainz::Server::Context->create_script_context();
 my $sql = Sql->new($c->dbh);

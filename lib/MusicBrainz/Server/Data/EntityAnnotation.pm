@@ -37,7 +37,7 @@ sub get_latest
                 " FROM " . $self->_table .
                 " WHERE " . $self->type . " = ?" .
                 " ORDER BY created DESC LIMIT 1";
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my $row = $sql->select_single_row_hash($query, $id)
         or return undef;
     return $self->_new_from_row($row);

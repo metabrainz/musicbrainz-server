@@ -8,7 +8,7 @@ use Test::WWW::Mechanize::Catalyst;
 
 MusicBrainz::Server::Test->prepare_test_server;
 
-my ($res, $c) = ctx_request('/');
+my $c = MusicBrainz::Server::Test->create_test_context;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok('/register', 'Fetch registration page');

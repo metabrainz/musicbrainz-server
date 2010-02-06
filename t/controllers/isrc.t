@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test;
 use Catalyst::Test 'MusicBrainz::Server';
 use Test::Aggregate::Nested;
 
-my ($res, $c) = ctx_request('/');
+my $c = MusicBrainz::Server::Test->create_test_context;
 
 my $tests = Test::Aggregate::Nested->new( {
     dirs     => 't/actions/isrc',

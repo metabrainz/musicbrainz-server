@@ -26,15 +26,14 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
-use MusicBrainz;
+use MusicBrainz::Server::Context;
 use Sql;
 
-$mb = MusicBrainz->new;
-$mb->Login;
-$sql = Sql->new($mb->{dbh});
+my $c = MusicBrainz::Server::Context->new;
+$sql = Sql->new($c->dbh);
 
 use MusicBrainz::Server::Statistic;
-my $s = MusicBrainz::Server::Statistic->new($mb->{dbh});
+my $s = MusicBrainz::Server::Statistic->new($c->dbh);
 
 $sql->Begin;
 $s->RecalculateAll;
@@ -47,6 +46,3 @@ if (-t STDOUT)
 	printf "%10d : %s\n", $all->{$_}, $_
 		for sort keys %$all;
 }
-
-# Disconnect
-$mb->Logout;

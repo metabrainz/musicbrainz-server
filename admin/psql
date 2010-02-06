@@ -26,12 +26,16 @@
 # Given a database connection key, this script simply exec's "psql" with the
 # appropriate args.
 
+use strict;
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use strict;
 use DBDefs;
 use Getopt::Long;
+
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $profile;
 my $system = 0;
@@ -42,12 +46,11 @@ GetOptions(
 ) or exit 2;
 
 my $key = shift;
-my $db = MusicBrainz::Server::Database->get($key)
-	or die "No such database '$key'\n";
+my $db = Databases->get($key) or die "No such database '$key'\n";
 
 if ($system) {
-    my $sys_db = MusicBrainz::Server::Database->get("SYSTEM");
-    $db = $sys_db->modify(database => $db->database);
+    my $sys_db = Databases->get("SYSTEM");
+    $db = $db->meta->clone_object($db, database => $sys_db->database);
 }
 
 if (defined $profile && $profile eq "test") {
@@ -58,5 +61,3 @@ else {
 }
 
 exec "psql", $db->shell_args;
-
-# eof psql

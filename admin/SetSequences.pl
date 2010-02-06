@@ -29,7 +29,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
-use MusicBrainz;
+use MusicBrainz::Server::Context;
 use Sql;
 
 sub SetSequence
@@ -51,7 +51,7 @@ sub SetSequence
 
         $sql->SelectSingleValue("SELECT SETVAL(?, ?)", $seq, $max);
         $sql->Commit;
-    
+
         printf "%12d  %s\n", $max, $seq;
     };
     if ($@)
@@ -60,9 +60,8 @@ sub SetSequence
     }
 }
 
-my $mb = MusicBrainz->new;
-$mb->Login(db => "READWRITE");
-my $sql = Sql->new($mb->{dbh});
+my $c = MusicBrainz::Server::Context->new;
+my $sql = Sql->new($c->dbh);
 
 SetSequence($sql, "album");
 SetSequence($sql, "albumjoin");

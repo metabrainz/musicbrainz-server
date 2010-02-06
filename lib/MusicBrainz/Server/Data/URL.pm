@@ -29,7 +29,7 @@ sub update
 {
     my ($self, $url_id, $url_hash) = @_;
     croak '$url_id must be present and > 0' unless $url_id > 0;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($url_hash);
     $sql->update_row('url', $row, { id => $url_id });
 }

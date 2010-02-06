@@ -22,7 +22,7 @@ requires 'Catalyst::Plugin::StackTrace'                => '0.09';
 requires 'Catalyst::Plugin::Static::Simple'            => '0.21';
 requires 'Catalyst::Plugin::Unicode';
 requires 'Catalyst::Plugin::Unicode::Encoding';
-requires 'Catalyst::Runtime'                           => '5.80007';
+requires 'Catalyst::Runtime'                           => '5.80020';
 requires 'Catalyst::View::TT'                          => '0.29';
 requires 'Class::MOP::Package';
 requires 'Data::OptList';

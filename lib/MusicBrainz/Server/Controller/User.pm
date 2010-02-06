@@ -4,7 +4,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
-use MusicBrainz;
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use UserPreference;
@@ -520,7 +519,7 @@ sub profile : Local Args(1)
     $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
 
-#    my $vote = MusicBrainz::Server::Vote->new($c->mb->dbh);
+#    my $vote = MusicBrainz::Server::Vote->new($c->model('MB')->dbh);
 #    my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
 #    my $recent_votes = $vote->RecentVotesForUser_as_hashref($user->id);
 
@@ -551,7 +550,7 @@ sub profile : Local Args(1)
 #        };
 #    }
 
-#    $c->stash->{preferences} = $c->model('User')->get_preferences_hash($user);
+#    $c->stash->{preferences} = $c->model('Editor')->get_preferences_hash($user);
 
     $c->stash(
         user     => $user,

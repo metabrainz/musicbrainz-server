@@ -29,12 +29,11 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
 use DBDefs;
-use MusicBrainz;
+use MusicBrainz::Server::Context;
 use Sql;
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{dbh});
+my $mb = MusicBrainz::Server::Context->new;
+my $sql = Sql->new($mb->dbh);
 
 use strict;
 
@@ -48,7 +47,7 @@ if (@ARGV)
 		or die $!;
 }
 
-$sql->Begin;
+$sql->begin;
 my $n = 0;
 
 while (<$fh>)
@@ -64,19 +63,19 @@ while (<$fh>)
 	$name =~ s/\bAnd\b/and/g;
 	$name =~ s/\bOf\b/of/g;
 
-	$sql->SelectSingleValue(
+	$sql->select_single_value(
 		"SELECT id FROM country WHERE name = ? AND isocode = ?",
 		$name, $isocode,
 	) and next;
 
-	$sql->Do(
+	$sql->do(
 		"INSERT INTO country (name, isocode) VALUES (?, ?)",
 		$name, $isocode,
 	);
 	++$n;
 }
 
-$sql->Commit;
+$sql->commit;
 
 print "Loaded $n countries\n";
 

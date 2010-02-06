@@ -22,22 +22,26 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+use warnings;
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use MusicBrainz;
 use DBDefs;
 use MusicBrainz::Server::Replication ':replication_type';
 
-my $READWRITE = MusicBrainz::Server::Database->get("READWRITE");
-my $READONLY = MusicBrainz::Server::Database->get("READONLY");
-my $RAWDATA = MusicBrainz::Server::Database->get("RAWDATA");
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
+my $READWRITE = Databases->get("READWRITE");
+my $READONLY  = Databases->get("READONLY");
+my $RAWDATA   = Databases->get("RAWDATA");
 
 # Register a new database connection as the system user, but to the MB
 # database
-my $SYSTEM = MusicBrainz::Server::Database->get("SYSTEM");
-my $SYSMB = $SYSTEM->modify(database => $READWRITE->database);
-MusicBrainz::Server::Database->register("SYSMB", $SYSMB);
+my $SYSTEM = Databases->get("SYSTEM");
+my $SYSMB  = $SYSTEM->meta->clone_object($SYSTEM, database => $READWRITE->database);
+Databases->register_database("SYSMB", $SYSMB);
 
 # Check to make sure that the main and raw databases are not the same
 die "The READWRITE database and the RAWDATA database cannot be the same. Use a different name for the RAWDATA database."
@@ -57,7 +61,6 @@ warn "Warning: this is a slave replication server, but there is no READONLY conn
     if $REPTYPE == RT_SLAVE and not $READONLY;
 
 use Getopt::Long;
-use strict;
 
 my $fEcho = 0;
 my $fQuiet = 0;
@@ -117,9 +120,8 @@ sub InstallExtension
 sub CreateReplicationFunction
 {
     # Now connect to that database
-    my $mb = MusicBrainz->new;
-    $mb->Login(db => "SYSMB");
-    my $sql = Sql->new($mb->{dbh});
+    my $mb = Databases->get_connection('SYSMB');
+    my $sql = Sql->new( $mb->dbh );
 
     $sql->auto_commit;
     $sql->do(
@@ -135,9 +137,8 @@ sub CreateReplicationFunction
     sub get_sql
     {
         my ($name) = shift;
-        $mb = MusicBrainz->new;
-        $mb->Login(db => $name);
-        $sql = Sql->new($mb->{dbh});
+        $mb = Databases->get_connection($name);
+        $sql = Sql->new($mb->dbh);
     }
 }
 
@@ -162,10 +163,10 @@ sub Create
     else
     {
         $sysname = $createdb . "_SYSTEM";
-    $sysname = "SYSTEM" if not defined MusicBrainz::Server::Database->get($sysname);
+        $sysname = "SYSTEM" if not defined Databases->get($sysname);
     }
 
-    my $db = MusicBrainz::Server::Database->get($createdb);
+    my $db = Databases->get($createdb);
 
     {
         # Check the cluster uses the C locale
@@ -282,9 +283,8 @@ sub GrantSelect
 
     my $name = $_[0];
 
-    my $mb = MusicBrainz->new;
-    $mb->Login(db => $name);
-    my $dbh = $mb->{dbh};
+    my $mb = Databases->get_connection($name);
+    my $dbh = $mb->dbh;
     $dbh->auto_commit;
 
     my $username = $READONLY->username;

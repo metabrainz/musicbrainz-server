@@ -21,7 +21,7 @@ sub get_by_ids
                 "JOIN artist_name n2 ON n2.id=artist.name " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my %result;
     my %counts;
     foreach my $id (@ids) {
@@ -85,7 +85,7 @@ sub find_or_insert
         $name .= $join_phrases->[$i] if defined $join_phrases->[$i];
     }
 
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my $query = "SELECT ac.id FROM artist_credit ac " .
                 join(" ", @joins) .
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artistcount = ?";

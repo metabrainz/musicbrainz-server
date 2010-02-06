@@ -70,7 +70,7 @@ sub direct : Private
     my $query  = $form->field('query')->value;
 
     my $results = $self->_load_paged($c, sub {
-       $c->model('DirectSearch')->search($type, $query, shift, shift);
+       $c->model('Search')->search($type, $query, shift, shift);
     });
 
     if (@$results == 1) {

@@ -102,7 +102,7 @@ sub load
 sub insert
 {
     my ($self, @artists) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @artists);
     my $class = $self->_entity_class;
     my @created;
@@ -123,7 +123,7 @@ sub update
 {
     my ($self, $artist_id, $update) = @_;
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
     $sql->update_row('artist', $row, { id => $artist_id });
@@ -154,7 +154,7 @@ sub delete
     $self->subscription->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     $sql->do($query, @artist_ids);
     return 1;
 }

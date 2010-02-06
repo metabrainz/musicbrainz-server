@@ -6,7 +6,6 @@ use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use List::MoreUtils qw( uniq );
-use MusicBrainz;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;

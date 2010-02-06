@@ -90,13 +90,12 @@ my $lockfh;
 	exit;
 }
 
-use MusicBrainz;
-my $mb = new MusicBrainz;
-$mb->Login(db => "READWRITE");
+use MusicBrainz::Server::Context;
+my $mb = MusicBrainz::Server::Context->new;
 
 use Sql;
-my $sql = Sql->new($mb->{dbh});
-my $dbh = $mb->{dbh};
+my $sql = Sql->new($c->dbh);
+my $dbh = $c->dbh;
 
 # Retrieve current_schema_sequence and current_replication_sequence
 

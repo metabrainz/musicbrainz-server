@@ -13,7 +13,7 @@ sub lookup_tracklist : Local
     my $limit = min ($c->req->query_params->{limit} || 10), 100;
 
     if ($release_name) {
-        my ($search_results, $hits) = $c->model('DirectSearch')->search('release',
+        my ($search_results, $hits) = $c->model('Search')->search('release',
             $release_name, $limit, $offset);
 
         my @releases = map { $_->entity } @$search_results;
@@ -43,8 +43,8 @@ sub search : Local
     my $json = {};
     if ($query && $type)
     {
-        my ($search_results, $hits) = $c->model('DirectSearch')->search($type, $query,
-                                                                        $limit, $offset);
+        my ($search_results, $hits) = $c->model('Search')->search($type, $query,
+                                                                  $limit, $offset);
 
 
         $json = {

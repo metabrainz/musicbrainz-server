@@ -6,7 +6,7 @@ use MusicBrainz::Server::Test qw( accept_edit xml_ok );
 use Test::More;
 use Test::WWW::Mechanize::Catalyst;
 
-my ($res, $c) = ctx_request('/');
+my $c = MusicBrainz::Server::Test->create_test_context;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get('/login');

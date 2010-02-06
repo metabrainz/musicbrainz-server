@@ -28,14 +28,13 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
-use MusicBrainz;
+use MusicBrainz::Server::Context;
 use Sql;
 use UserSubscription;
 
-my $mb = MusicBrainz->new;
-$mb->Login;
+my $mb = MusicBrainz::Server::Context->new;
 
-my $subs = UserSubscription->new($mb->{dbh});
+my $subs = UserSubscription->new($c->dbh);
 $subs->{'verbose'} = 1 if -t;
 
 use Getopt::Long;

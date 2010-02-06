@@ -5,18 +5,18 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
-use MusicBrainz;
 use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
 use LWP::Simple qw();
 use OSSP::uuid;
 
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
 my $UUID_NS_URL = OSSP::uuid->new;
 $UUID_NS_URL->load("ns:URL");
 
-my $mb = MusicBrainz->new;
-$mb->Login(db => "READWRITE");
+my $mb = Databases->get_connection('READWRITE');
 my $sql = Sql->new($mb->dbh);
 
 my %ReleaseFormatNames = (

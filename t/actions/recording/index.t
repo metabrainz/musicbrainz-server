@@ -5,7 +5,7 @@ use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok );
 use Test::WWW::Mechanize::Catalyst;
 
-my ($res, $c) = ctx_request('/');
+my $c = MusicBrainz::Server::Test->create_test_context;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8', 'fetch recording');

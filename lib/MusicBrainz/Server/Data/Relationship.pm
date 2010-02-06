@@ -103,7 +103,7 @@ sub _load
     my %objs_by_id = map { $_->id => $_ } @objs;
     my @ids = keys %objs_by_id;
     my @rels;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     foreach my $t (@types) {
         my $type0 = $t->[0];
         my $type1 = $t->[1];

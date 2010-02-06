@@ -28,10 +28,11 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use Getopt::Long;
-use MusicBrainz;
 use DBDefs;
 use Sql;
 use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
+
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
@@ -90,13 +91,11 @@ EOF
 $fHelp and usage();
 @ARGV or usage();
 
-my $mb = MusicBrainz->new;
-$mb->Login(db => "READWRITE");
+my $mb = Databases->get_connection('READWRITE');
 my $sql = Sql->new($mb->{dbh});
 
 # Log in to the raw DB
-my $rawmb = new MusicBrainz;
-$rawmb->Login(db => 'RAWDATA');
+my $rawmb = Databases->get_connection('RAWDATA');
 my $rawsql = Sql->new($rawmb->{dbh});
 
 # This hash indicates which tables may need to be pushed to a vertical DB

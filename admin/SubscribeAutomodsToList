@@ -28,7 +28,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
-use MusicBrainz;
+use MusicBrainz::Server::Context;
 use Sql;
 use UserStuff;
 use String::ShellQuote qw( shell_quote );
@@ -39,9 +39,8 @@ GetOptions(
 	"--config-file|f=s"	=> \$sConfigFile,
 ) or exit 2;
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{dbh});
+my $mb = MusicBrainz::Server::Context->new;
+my $sql = Sql->new($mb->dbh);
 
 use vars qw( %allowed_nonmember_automods %allowed_posting_guests );
 

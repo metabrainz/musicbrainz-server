@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Search;
 
 use Moose;
-use Class::MOP; 
+use Class::MOP;
 use JSON;
 use Sql;
 use Readonly;
@@ -152,7 +152,7 @@ sub search
     my $fuzzy_search_limit = 10000;
     my $search_timeout = 60 * 1000;
 
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     $sql->auto_commit;
     $sql->do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
     $sql->auto_commit;

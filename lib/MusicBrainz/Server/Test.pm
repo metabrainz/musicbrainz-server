@@ -2,10 +2,8 @@ package MusicBrainz::Server::Test;
 
 use DBDefs;
 use FindBin '$Bin';
-use MusicBrainz;
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Database;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
 use Sql;
@@ -14,24 +12,31 @@ use Test::Mock::Class ':all';
 use Template;
 use XML::Parser;
 
-MusicBrainz::Server::Database->profile("test");
-
 use base 'Exporter';
 
 our @EXPORT_OK = qw( accept_edit reject_edit xml_ok );
 
+use MusicBrainz::Server::DatabaseConnectionFactory;
+MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
+
+my $test_context;
+
 sub create_test_context
 {
-    my $cache_manager = MusicBrainz::Server::CacheManager->new(
-        profiles => {
-            null => {
-                class => 'Cache::Null',
-                wrapped => 1,
+    $test_context ||= do {
+        my $cache_manager = MusicBrainz::Server::CacheManager->new(
+            profiles => {
+                null => {
+                    class => 'Cache::Null',
+                    wrapped => 1,
+                },
             },
-        },
-        default_profile => 'null',
-    );
-    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
+            default_profile => 'null',
+        );
+        MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
+    };
+
+    return $test_context;
 }
 
 sub _load_query

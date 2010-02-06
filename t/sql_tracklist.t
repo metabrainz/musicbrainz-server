@@ -9,7 +9,7 @@ use Sql;
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
-my $sql = Sql->new($c->mb->{dbh});
+my $sql = Sql->new($c->dbh);
 my $tc1 = $sql->select_single_value("SELECT trackcount FROM tracklist WHERE id=1");
 my $tc2 = $sql->select_single_value("SELECT trackcount FROM tracklist WHERE id=2");
 

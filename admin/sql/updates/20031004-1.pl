@@ -29,12 +29,12 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
-use MusicBrainz;
 use Sql;
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{dbh});
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
+my $mb = Databases->get_connection('READWRITE');
+my $sql = Sql->new($mb->dbh);
 
 $sql->Begin;
 

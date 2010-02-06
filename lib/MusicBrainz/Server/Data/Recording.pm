@@ -82,7 +82,7 @@ sub load
 sub insert
 {
     my ($self, @recordings) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names(map { $_->{name} } @recordings);
     my $class = $self->_entity_class;
@@ -102,7 +102,7 @@ sub insert
 sub update
 {
     my ($self, $recording_id, $update) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
@@ -129,7 +129,7 @@ sub delete
     $self->tags->delete($recording->id);
     $self->rating->delete($recording->id);
     $self->remove_gid_redirects($recording->id);
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
     return;
 }

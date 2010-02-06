@@ -10,12 +10,22 @@ use Sql;
 use Log::Dispatch;
 use DateTime;
 use DateTime::Duration;
+use MusicBrainz::Server::DatabaseConnectionFactory;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test::Connector;
 use MusicBrainz::Server::Edit;
 use MusicBrainz::Server::Constants qw( :edit_type :quality );
 use MusicBrainz::Server::Types qw( :edit_status );
 
 use MusicBrainz::Server::Edit::Label::Create;
+
+{
+    package MockEdit;
+    use Moose;
+    extends 'MusicBrainz::Server::Edit';
+    sub edit_name { 'Mock edit' }
+    sub edit_type { 1234 }
+}
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+editqueue');
@@ -80,9 +90,10 @@ $raw_sql->auto_commit(1);
 $raw_sql->do("UPDATE edit SET yesvotes=100 WHERE id=101");
 
 # Acquire an exclusive lock on the edit
-my $mb2 = MusicBrainz->new;
-$mb2->Login(db => 'RAWDATA');
-my $sql2 = Sql->new($mb2->dbh);
+my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('RAWDATA');
+my $raw2   = MusicBrainz::Server::Test::Connector->new(database => $raw_db);
+
+my $sql2 = Sql->new($raw2->dbh);
 $sql2->begin;
 $sql2->select_single_row_array('SELECT * FROM edit WHERE id=101 FOR UPDATE');
 
@@ -108,7 +119,7 @@ is($edit->status, $STATUS_APPLIED, 'applied');
 # Low-level tests
 
 # Expired one day ago, without votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(0);
 $edit->no_votes(0);
@@ -117,7 +128,7 @@ my $status = $queue->_determine_new_status($edit);
 is($status, $STATUS_APPLIED);
 
 # Expired one day ago, without votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_HIGH);
 $edit->yes_votes(0);
 $edit->no_votes(0);
@@ -126,7 +137,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, $STATUS_FAILEDVOTE);
 
 # Expired one day ago, 1 no vote, 0 yes votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(0);
 $edit->no_votes(1);
@@ -135,7 +146,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, $STATUS_FAILEDVOTE);
 
 # Expired one day ago, 0 no votes, 1 yes vote
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(1);
 $edit->no_votes(0);
@@ -144,7 +155,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, $STATUS_APPLIED);
 
 # Expired one day ago, 1 no vote, 1 yes vote
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(1);
 $edit->no_votes(1);
@@ -153,7 +164,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, $STATUS_FAILEDVOTE);
 
 # Not expired, without votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(0);
 $edit->no_votes(0);
@@ -162,7 +173,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, undef);
 
 # Not expired, 3 yes votes, 0 no votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(3);
 $edit->no_votes(0);
@@ -171,7 +182,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, $STATUS_APPLIED);
 
 # Not expired, 0 yes votes, 3 no votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(0);
 $edit->no_votes(3);
@@ -180,7 +191,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, $STATUS_FAILEDVOTE);
 
 # Not expired, 2 yes votes, 0 no votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(2);
 $edit->no_votes(0);
@@ -189,7 +200,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, undef);
 
 # Not expired, 0 yes votes, 2 no votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(0);
 $edit->no_votes(2);
@@ -198,7 +209,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, undef);
 
 # Not expired, 3 yes votes, 1 no vote
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(3);
 $edit->no_votes(1);
@@ -207,7 +218,7 @@ $status = $queue->_determine_new_status($edit);
 is($status, undef);
 
 # Not expired, 1 yes vote, 3 no votes
-$edit = MusicBrainz::Server::Edit->new();
+$edit = MockEdit->new();
 $edit->quality($QUALITY_NORMAL);
 $edit->yes_votes(1);
 $edit->no_votes(3);

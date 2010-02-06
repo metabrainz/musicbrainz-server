@@ -5,16 +5,15 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
-use MusicBrainz;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
 
-my $mb = MusicBrainz->new;
-$mb->Login(db => "READWRITE");
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
+my $mb = Databases->get_connection('READWRITE');
 my $sql = Sql->new($mb->dbh);
 
-my $raw_mb = MusicBrainz->new;
-$raw_mb->Login(db => "RAWDATA");
+my $raw_mb = Databases->get_connection('RAWDATA');
 my $raw_sql = Sql->new($raw_mb->dbh);
 
 $sql->begin;

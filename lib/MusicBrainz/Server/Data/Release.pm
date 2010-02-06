@@ -183,7 +183,7 @@ sub find_by_collection
 sub insert
 {
     my ($self, @releases) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my @created;
     my %names = $self->find_or_insert_names(map { $_->{name} } @releases);
     my $class = $self->_entity_class;
@@ -202,7 +202,7 @@ sub insert
 sub update
 {
     my ($self, $release_id, $update) = @_;
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $sql->update_row('release', $row, { id => $release_id });
@@ -216,7 +216,7 @@ sub delete
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
-    my $sql = Sql->new($self->c->mb->dbh);
+    my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
         @release_ids);
     return;

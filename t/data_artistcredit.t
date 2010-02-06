@@ -29,7 +29,7 @@ is ( $ac->names->[1]->artist->gid, "5441c29d-3602-4898-b1a1-b77fa23b8e50" );
 is ( $ac->names->[1]->artist->name, "David Bowie" );
 is ( $ac->names->[1]->join_phrase, undef );
 
-my $sql = Sql->new($c->mb->dbh);
+my $sql = Sql->new($c->dbh);
 $ac = $artist_credit_data->find_or_insert(
     { name => 'Queen', artist => 1 }, ' & ',
     { name => 'David Bowie', artist => 2 });

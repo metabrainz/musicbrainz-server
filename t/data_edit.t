@@ -15,7 +15,6 @@ BEGIN { use_ok 'MusicBrainz::Server::Data::Edit' };
 }
 
 use Sql;
-use MusicBrainz;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Types qw( :edit_status );
@@ -109,9 +108,7 @@ is($editor->rejected_edits, 3);
 # Test approving edits, while something (editqueue) is holding a lock on it
 
 # Acquire an exclusive lock on the edit
-my $mb2 = MusicBrainz->new;
-$mb2->Login(db => 'RAWDATA');
-my $sql2 = Sql->new($mb2->dbh);
+my $sql2 = Sql->new($c->raw_dbh);
 $sql2->begin;
 $sql2->select_single_row_array('SELECT * FROM edit WHERE id=5 FOR UPDATE');
 

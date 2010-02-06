@@ -5,7 +5,7 @@ use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok );
 use Test::WWW::Mechanize::Catalyst;
 
-my ($res, $c) = ctx_request('/');
+my $c = MusicBrainz::Server::Test->create_test_context;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80/edits',

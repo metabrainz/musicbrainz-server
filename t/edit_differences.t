@@ -21,6 +21,9 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::WithDifferences' }
     use Moose;
     extends 'MusicBrainz::Server::Edit::WithDifferences';
 
+    sub edit_name { 'Test Edit' }
+    sub edit_type { 12345 }
+
     sub _mapping
     {
         return (

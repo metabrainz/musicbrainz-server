@@ -5,8 +5,6 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
-use MusicBrainz;
-use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use UNIVERSAL::require;
 
@@ -134,51 +132,6 @@ if (&DBDefs::USE_ETAGS) {
 
 # Start the application
 __PACKAGE__->setup(@args);
-
-has '_mb_cache_manager' => (
-    is => 'rw',
-    lazy => 1,
-    builder => '_build__mb_cache_manager'
-);
-
-has '_mb_context' => (
-    is => 'rw',
-    lazy_build => 1,
-    handles => [ 'mb', 'dbh', 'raw_mb', 'raw_dbh', 'cache' ]
-);
-
-sub _build__mb_cache_manager
-{
-    my $opts = &DBDefs::CACHE_MANAGER_OPTIONS;
-    if (&DBDefs::_RUNNING_TESTS) {
-        $opts = {
-            profiles => {
-                null => {
-                    class => 'Cache::Null',
-                    wrapped => 1,
-                },
-            },
-            default_profile => 'null',
-        };
-    }
-    return MusicBrainz::Server::CacheManager->new($opts);
-}
-
-sub _build__mb_context
-{
-    my $self = shift;
-    return MusicBrainz::Server::Context->new(
-        cache_manager => $self->_mb_cache_manager);
-}
-
-after 'dispatch' => sub
-{
-    my $self = shift;
-    if ($self->_has_mb_context) {
-        $self->_mb_context->logout;
-        $self->_clear_mb_context;
-    }
-};
 
 =head2 form_posted
 
