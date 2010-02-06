@@ -44,9 +44,9 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     READWRITE => {
         database	=> "musicbrainz_db",
         username	=> "musicbrainz_user",
-        password	=> "",
-        host	=> "",
-        port	=> "",
+#       password        => "",
+#       host            => "",
+#       port            => "",
     },
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     # READONLY => undef,
@@ -54,18 +54,18 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     SYSTEM	=> {
         database	=> "template1",
         username	=> "postgres",
-        password	=> "",
-        host	=> "",
-        port	=> "",
+#       password        => "",
+#       host            => "",
+#       port            => "",
     },
     # Raw data lives in a seperate DB to avoid the main DB from balooning in size.
     RAWDATA =>
     {
         database	=> "musicbrainz_db_raw",
         username	=> "musicbrainz_user",
-        password	=> "",
-        host	=> "",
-        port	=> "",
+#       password        => "",
+#       host            => "",
+#       port            => "",
     },
     # Fill out only if RAWDATA lives on a different host from the READWRITE server.
     # RAWDATA_SYSTEM => undef,
@@ -264,7 +264,7 @@ my %amazon_store_associate_ids = (
     'amazon.fr'		=> 'musicbrainz0e-21',
 );
 
-sub AWS_ASSOCIATE_ID 
+sub AWS_ASSOCIATE_ID
 {
     return keys %amazon_store_associate_ids if not @_;
     return $amazon_store_associate_ids{$_[0]};
