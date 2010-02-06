@@ -515,11 +515,10 @@ sub profile : Local Args(1)
     if ($c->user_exists && $c->user->id eq $user->id) {
         $c->stash->{viewing_own_profile} = 1;
     }
-    else {
-        my $subscr_model = $c->model('Editor')->subscription;
-        $c->stash->{subscribed} = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
-        $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
-    }
+
+    my $subscr_model = $c->model('Editor')->subscription;
+    $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
+    $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
 
 #    my $vote = MusicBrainz::Server::Vote->new($c->mb->dbh);
 #    my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
