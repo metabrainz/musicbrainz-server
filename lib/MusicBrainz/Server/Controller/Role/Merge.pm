@@ -61,6 +61,7 @@ role {
         }
         else {
             my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
+            $query->field('query')->input($old->name);
             if ($query->submitted_and_valid($c->req->params)) {
                 my $results = $self->_merge_search($c, $query->field('query')->value);
                 $results = [ grep { $_->entity->id != $old->id } @$results ];

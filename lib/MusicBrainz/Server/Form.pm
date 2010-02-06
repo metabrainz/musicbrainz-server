@@ -8,7 +8,7 @@ has '+html_prefix' => ( default => 1 );
 sub submitted_and_valid
 {
     my ($self, $params) = @_;
-    return $self->process( params => $params) && $self->has_params;
+    return $self->process( params => $params) && $self->has_params if values %$params;
 }
 
 sub _select_all
