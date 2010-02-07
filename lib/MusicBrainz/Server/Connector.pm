@@ -4,7 +4,7 @@ use Moose;
 use DBIx::Connector;
 use Sql;
 
-sub _schema { 'musicbrainz' }
+sub _schema { shift->database->schema }
 
 has 'conn' => (
     isa        => 'DBIx::Connector',
@@ -41,9 +41,10 @@ sub _build_conn
         $sql->auto_commit(1);
         $sql->do("SET CLIENT_ENCODING = 'UNICODE'");
 
-        my $schema = $self->_schema;
-        $sql->auto_commit(1);
-        $sql->do("SET search_path TO '$schema'");
+        if (my $schema = $self->_schema) {
+            $sql->auto_commit(1);
+            $sql->do("SET search_path TO '$schema'");
+        }
     });
 
     return $conn;
