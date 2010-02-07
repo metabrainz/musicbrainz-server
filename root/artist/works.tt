@@ -4,4 +4,10 @@
     [%- ELSE -%]
         <p>[%- l('No works found') -%]</p>
     [%- END -%]
+
+    <p>
+      <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
+        [% l('Create a work') %]
+      </a>
+    </p>
 [%- END -%]

@@ -44,6 +44,11 @@
                     [% l('Create a new release group') %]
                   </a>
                 </li>
+                <li>
+                  <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
+                    [% l('Create a work') %]
+                  </a>
+                </li>
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this artist')) %]</li>
             [% END %]
