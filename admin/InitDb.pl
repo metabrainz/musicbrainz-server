@@ -196,7 +196,8 @@ sub Create
 
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)
-    my $sys_in_thisdb =  MusicBrainz::Server::Database->get($sysname)->modify(database => $dbname);
+    my $sys_db = Databases->get($sysname);
+    my $sys_in_thisdb = $sys_db->meta->clone_object($sys_db, database => $dbname);
     my @opts = $sys_in_thisdb->shell_args;
     splice(@opts, -1, 0, "-d");
     push @opts, "plpgsql";
