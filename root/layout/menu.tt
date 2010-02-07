@@ -75,10 +75,10 @@
                 [%- l('{doc|libtunepimp}', {doc => doc_link('libtunepimp')}) -%]
             </li>
             <li>
-                [%- l('{doc|Server}', {doc => doc_link('Server')}) -%]
+                [%- l('{doc|MusicBrainz Server}', {doc => doc_link('MusicBrainz_Server')}) -%]
             </li>
             <li>
-                [%- l('{doc|Database}', {doc => doc_link('Database')}) -%]
+                [%- l('{doc|MusicBrainz Database}', {doc => doc_link('MusicBrainz_Database')}) -%]
             </li>
             <li>
                 [%- l('{doc|Live Data Feed}', {doc => doc_link('Live_Data_Feed')}) -%]
