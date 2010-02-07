@@ -48,6 +48,10 @@ is($alias_set->[1]->artist_id, 1);
 $alias_set = $artist_data->alias->find_by_entity_id(2);
 is(scalar @$alias_set, 0);
 
+# Make sure we can check if an entity has a given alias
+ok($artist_data->alias->has_alias(1, 'Alias 1'), 'artist 1 has Alias 1 alias');
+ok(!$artist_data->alias->has_alias(1, 'Alias Foo'), 'artist 1 does not have Alias Foo alias');
+
 # Test merging aliases together
 $artist_data->alias->merge(1, 2);
 

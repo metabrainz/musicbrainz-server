@@ -106,7 +106,7 @@ sub edit_action
 {
     my ($self, $c, %opts) = @_;
 
-    my %form_args;
+    my %form_args = %{ $opts{form_args} };
     $form_args{init_object} = $opts{item} if exists $opts{item};
     my $form = $c->form( form => $opts{form}, %form_args );
 

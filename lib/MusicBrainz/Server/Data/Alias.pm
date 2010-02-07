@@ -61,6 +61,18 @@ sub find_by_entity_id
     return [ values %{ $self->_get_by_keys($self->type, @ids) } ];
 }
 
+sub has_alias
+{
+    my ($self, $entity_id, $alias_name) = @_;
+    my $sql  = Sql->new($self->c->dbh);
+    my $type = $self->type;
+    return defined $sql->select_single_value(
+        'SELECT 1 FROM ' . $self->_table .
+        " WHERE $type = ? AND name.name = ?",
+        $entity_id, $alias_name
+    );
+}
+
 sub load
 {
     my ($self, @objects) = @_;

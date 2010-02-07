@@ -47,8 +47,10 @@ sub add_alias : Chained('load') PathPart('add-alias') RequireAuth
     my ($self, $c) = @_;
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
+    my $alias_model = $c->model( $self->{model} )->alias;
     $self->edit_action($c,
         form => 'Alias',
+        form_args => { parent_id => $entity->id, alias_model => $alias_model },
         type => $model_to_edit_type{add}->{ $self->{model} },
         edit_args => {
             $type.'_id' => $entity->id,
@@ -76,8 +78,12 @@ sub edit_alias : Chained('alias') PathPart('edit') RequireAuth
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
+    my $type = $self->{entity_name};
+    my $entity = $c->stash->{ $type };
+    my $alias_model = $c->model( $self->{model} )->alias;
     $self->edit_action($c,
         form => 'Alias',
+        form_args => { parent_id => $entity->id, alias_model => $alias_model },
         item => $alias,
         type => $model_to_edit_type{edit}->{ $self->{model} },
         edit_args => {
