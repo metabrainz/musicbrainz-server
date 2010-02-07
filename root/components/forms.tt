@@ -13,7 +13,7 @@
                inline => 1) %]
   </div>
   [% END %]
-  <input type="submit" class="submit" value="[% l('Enter edit') %]" />
+  <input type="submit" class="submit" value="[% l('Submit') %]" />
 </div>
 [% END %]
 
