@@ -48,6 +48,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAnnotation
+    MusicBrainz::Server::Edit::Work::Create
     MusicBrainz::Server::Edit::Work::Edit
 );
 
