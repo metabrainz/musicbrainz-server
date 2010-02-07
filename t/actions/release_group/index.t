@@ -30,6 +30,7 @@ $mech->content_like(qr{2005-11-07}, 'has uk release');
 $mech->content_like(qr{Warp Records}, 'has uk label');
 $mech->content_like(qr{343 960 2}, 'has uk label');
 $mech->content_like(qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'has uk label');
+$mech->content_like(qr{0827969777220}, 'has uk barcode');
 
 $mech->content_like(qr{/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b}, 'has us release');
 $mech->content_like(qr{United States}, 'has us release');
@@ -37,6 +38,7 @@ $mech->content_like(qr{2005-11-08}, 'has us release');
 $mech->content_like(qr{Warp Records}, 'has uk label');
 $mech->content_like(qr{82796 97772 2}, 'has uk label');
 $mech->content_like(qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'has uk label');
+$mech->content_like(qr{0094634396028}, 'has the us barcode');
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
