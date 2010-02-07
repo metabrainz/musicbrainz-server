@@ -44,9 +44,7 @@ sub shell_args
 
     push @args, map { $_ => $vars{$_} } grep { $vars{$_} } keys %vars;
 
-    # FIXME how to supply the password?
-    warn "Don't know how to supply the password on the shell\n"
-        if $self->password;
+    push @args, "-w";
 
     push @args, $self->database;
 
