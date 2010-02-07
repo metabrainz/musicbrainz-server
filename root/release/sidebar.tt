@@ -134,6 +134,9 @@
         <li>[% request_login(l('Please log in to edit this release')) %]</li>
       [% END %]
       <li>[% link_release(release, 'edits', l('View editing history')) %]</li>
+      [% IF release.edits_pending %]
+        <li>[% link_release(release, 'open_edits', l('Open edits')) %]</li>
+      [% END %]
     </ul>
 [% END %]
 
