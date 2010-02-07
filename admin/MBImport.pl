@@ -284,7 +284,7 @@ sub ImportTable
 		$p->("", "") if $fProgress;
 		my $t;
 
-		require Encode;
+		use Encode;
 		while (<LOAD>)
 		{
 			$t = $_;
