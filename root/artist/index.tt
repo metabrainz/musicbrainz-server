@@ -47,5 +47,8 @@
     [% IF !show_va %]
         <p>[% l('This artist may also appear on releases by various artists. {show_all|Show all releases}',
                 { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+    [% ELSE %]
+        <p>[% l('Showing all releases. {show_subset|Show only releases by this artist}',
+                { show_subset = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
     [% END %]
 [% END %]
