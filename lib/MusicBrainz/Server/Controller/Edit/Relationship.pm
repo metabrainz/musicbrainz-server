@@ -148,6 +148,11 @@ sub create : Local RequireAuth
     my $source = $source_model->get_by_gid($source_gid);
     my $dest   = $dest_model->get_by_gid($dest_gid);
 
+    if ($source->id == $dest->id) {
+        $c->stash( message => 'A relationship requires 2 different entities' );
+        $c->detach('/error_500');
+    }
+
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
     my %type_info = build_type_info($tree);
 
