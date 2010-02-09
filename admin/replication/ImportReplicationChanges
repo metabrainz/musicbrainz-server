@@ -68,7 +68,7 @@ $fHelp and usage();
 
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
-my $c = MusicBrainz::Server::Context->new
+my $c = MusicBrainz::Server::Context->new;
 my $sql = Sql->new($c->dbh);
 
 for my $arg (@ARGV)

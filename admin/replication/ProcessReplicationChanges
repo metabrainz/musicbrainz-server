@@ -82,7 +82,6 @@ my %bytable;
 
 my $c = MusicBrainz::Server::Context->new;;
 
-$mb->Login(db => "READWRITE");
 my $sql = Sql->new($c->dbh);
 my $sql2 = Sql->new($c->dbh);
 my $slave = Sql->new($c->dbh);
