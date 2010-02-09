@@ -34,8 +34,8 @@ sub validate {
     return 1 unless (defined $day && length $day);
 
     return 1 if Date::Calc::check_date ($year, $month, $day);
-    
-    return $self->add_error ("invalid date")
+
+    return $self->add_error ("invalid date");
 }
 
 1;

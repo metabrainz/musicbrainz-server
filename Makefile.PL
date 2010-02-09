@@ -44,7 +44,7 @@ requires 'Email::MIME';
 requires 'Email::MIME::Creator';
 requires 'Email::Valid'                                => '0.179';
 requires 'Exception::Class'                            => '1.29';
-requires 'HTML::FormHandler'                           => '0.28';
+requires 'HTML::FormHandler'                           => '0.30001';
 requires 'HTML::Tiny'                                  => '1.05';
 requires 'JSON'                                        => '2.14';
 requires 'Locale::PO';
