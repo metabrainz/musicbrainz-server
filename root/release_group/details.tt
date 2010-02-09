@@ -16,7 +16,7 @@
       [% l('Permanent link:') %]
     </th>
     <td>
-      [% perma="http://musicbrainz.org/release-group/${rg.gid}.html" %]
+      [% perma="http://musicbrainz.org/release-group/${rg.gid}" %]
       <a href="[% perma | url %]">
         [%- perma | html -%]
       </a>
