@@ -4,6 +4,8 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Track;
+use URI::Escape;
+use Encode qw( decode );
 use Text::WikiFormat;
 
 sub release_date
@@ -48,6 +50,12 @@ sub format_wikitext
         absolute_links => 1,
         implicit_links => 0
     });
+}
+
+sub uri_decode
+{
+    my ($uri) = @_;
+    return decode('utf-8', uri_unescape($uri));
 }
 
 1;
