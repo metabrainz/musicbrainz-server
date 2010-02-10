@@ -88,6 +88,10 @@
                     text => release.combined_format_name,
                 },
                 {
+                    label => l('Quality:'),
+                    text => quality_name(release.quality),
+                },
+                {
                     label => l('Type:'),
                     text => release.release_group.type.name,
                 },

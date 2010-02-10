@@ -22,6 +22,8 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(artist.country.name)
                    IF artist.country -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Quality:')
+               content=quality_name(artist.quality) %]
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
