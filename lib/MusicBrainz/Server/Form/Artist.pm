@@ -3,6 +3,7 @@ use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'edit-artist' );
 
@@ -26,14 +27,6 @@ has_field 'type_id' => (
 
 has_field 'country_id' => (
     type => 'Select',
-);
-
-has_field 'begin_date' => (
-    type => '+MusicBrainz::Server::Form::Field::PartialDate',
-);
-
-has_field 'end_date' => (
-    type => '+MusicBrainz::Server::Form::Field::PartialDate',
 );
 
 has_field 'comment' => (
