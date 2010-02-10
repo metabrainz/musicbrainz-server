@@ -4,19 +4,12 @@ use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'ar' );
 
 has_field 'link_type_id' => (
     type => 'Select',
-);
-
-has_field 'begin_date' => (
-    type => '+MusicBrainz::Server::Form::Field::PartialDate',
-);
-
-has_field 'end_date' => (
-    type => '+MusicBrainz::Server::Form::Field::PartialDate',
 );
 
 sub trim
