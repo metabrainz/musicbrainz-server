@@ -50,6 +50,22 @@ ok($form->process({ 'begin_date.year' => 2000,
                     'end_date.day' => 17
                 }));
 
+ok($form->process({ 'begin_date.year' => 2000,
+                    'begin_date.month' => 5,
+                    'begin_date.day' => 12,
+                    'end_date.year' => '',
+                    'end_date.month' => '',
+                    'end_date.day' => '',
+                }), 'Handles stuff with only a begin date');
+
+ok($form->process({ 'begin_date.year' => 2000,
+                    'begin_date.month' => 5,
+                    'begin_date.day' => 12,
+                    'end_date.year' => 2001,
+                    'end_date.month' => '',
+                    'end_date.day' => '',
+                }), 'Handles stuff with only 1 partial date');
+
 # Bad
 ok(!$form->process({ 'begin_date.year' => 2005, 'end_date.year' => 1981 }));
 
