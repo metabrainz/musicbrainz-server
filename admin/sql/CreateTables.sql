@@ -25,7 +25,8 @@ CREATE TABLE artist (
     country             INTEGER, -- references country.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0,
+    quality             SMALLINT NOT NULL DEFAULT -1
 );
 
 CREATE TABLE artist_alias
@@ -701,7 +702,8 @@ CREATE TABLE release (
     date_day            SMALLINT,
     barcode             VARCHAR(255),
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0,
+    quality             SMALLINT NOT NULL DEFAULT -1
 );
 
 CREATE TABLE release_annotation
@@ -855,7 +857,7 @@ CREATE TABLE tracklist
 CREATE TABLE tracklist_index
 (
     tracklist           INTEGER, -- PK
-    tracks              INTEGER, 
+    tracks              INTEGER,
     toc                 CUBE
 );
 

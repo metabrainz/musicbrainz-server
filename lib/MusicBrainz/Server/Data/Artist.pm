@@ -44,7 +44,7 @@ sub _columns
     return 'artist.id, gid, name.name, sortname.name AS sortname, ' .
            'type, country, gender, editpending, ' .
            'begindate_year, begindate_month, begindate_day, ' .
-           'enddate_year, enddate_month, enddate_day, comment';
+           'enddate_year, enddate_month, enddate_day, comment, quality';
 }
 
 sub _id_column
@@ -71,6 +71,7 @@ sub _column_mapping
         end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
         edits_pending => 'editpending',
         comment => 'comment',
+        quality => 'quality'
     };
 }
 

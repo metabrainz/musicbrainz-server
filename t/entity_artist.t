@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Moose;
 use Date::Calc qw(This_Year);
 use_ok 'MusicBrainz::Server::Entity::Artist';
 use_ok 'MusicBrainz::Server::Entity::ArtistType';
@@ -11,6 +12,8 @@ ok( defined $artist->begin_date );
 ok( $artist->begin_date->is_empty );
 ok( defined $artist->end_date );
 ok( $artist->end_date->is_empty );
+
+does_ok( $artist, 'MusicBrainz::Server::Entity::Role::Quality' );
 
 is( $artist->type_name, undef );
 $artist->type(MusicBrainz::Server::Entity::ArtistType->new(id => 1, name => 'Person'));

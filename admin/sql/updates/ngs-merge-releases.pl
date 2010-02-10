@@ -356,15 +356,15 @@ eval {
 	WHERE rm0.old_rel IS NULL;
 
 	INSERT INTO release_name (name)
-		SELECT DISTINCT t.name 
+		SELECT DISTINCT t.name
 		FROM tmp_release t
 			LEFT JOIN release_name n ON t.name=n.name
 		WHERE n.id IS NULL;
 
 	TRUNCATE release;
-	INSERT INTO release 
+	INSERT INTO release
 		SELECT t.id, gid, n.id, artist_credit, release_group, status, packaging, country, language, script,
-			date_year, date_month, date_day, barcode, comment, editpending
+			date_year, date_month, date_day, barcode, comment, editpending, quality
 		 FROM tmp_release t
 			JOIN release_name n ON t.name = n.name;
 	DROP TABLE tmp_release;
