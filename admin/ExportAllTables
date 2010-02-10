@@ -755,8 +755,8 @@ sub writefile
 
 sub empty_replication_tables
 {
-	$sql->do("DELETE FROM dbmirror_PendingData");
-	$sql->do("DELETE FROM dbmirror_Pending");
+	$sql->do("DELETE FROM \"PendingData\"");
+	$sql->do("DELETE FROM \"Pending\"");
 	# As soon as we commit, the replication data is gone from the DB, so we must
 	# be sure that we have a safe copy.
 	$erase_tmpdir_on_exit = 0;
@@ -766,9 +766,9 @@ sub optimise_replication_tables
 {
 	print localtime() . " : Optimising replication tables\n";
 	$sql->auto_commit;
-	$sql->do("VACUUM FULL ANALYZE dbmirror_PendingData");
+	$sql->do("VACUUM FULL ANALYZE \"PendingData\"");
 	$sql->auto_commit;
-	$sql->do("VACUUM FULL ANALYZE dbmirror_Pending");
+	$sql->do("VACUUM FULL ANALYZE \"Pending\"");
 }
 
 sub copy_readme
