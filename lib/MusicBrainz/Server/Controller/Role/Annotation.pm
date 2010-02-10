@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation );
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 requires 'load', 'show';
 
@@ -18,37 +19,38 @@ sub latest_annotation : Chained('load') PathPart('annotation')
 {
     my ($self, $c) = @_;
 
-    my $entity = $c->stash->{$self->{entity_name}};
+    my $entity = $c->stash->{entity};
     my $annotation = $c->model($self->{model})->annotation->get_latest($entity->id);
 
     $c->stash(
         annotation => $annotation,
+        type       => model_to_type($self->{model}),
+        template   => $self->action_namespace . '/annotation_revision.tt'
     );
 }
 
-sub revision : Chained('load') PathPart('annotation') Args(1)
+sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
 {
     my ($self, $c, $id) = @_;
 
-    my $entity = $c->stash->{$self->{entity_name}};
+    my $entity = $c->stash->{entity};
     my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
         or $c->detach('/error_404');
 
     $c->stash(
         annotation => $annotation,
-        template   => 'annotation/common.tt',
         gid        => $entity->gid,
-        type       => $self->{namespace},
-        full_annotation => 1
+        type       => model_to_type($self->{model}),
     );
 }
 
 after 'show' => sub
 {
     my ($self, $c) = @_;
-    my $entity = $c->stash->{$self->{entity_name}};
+    my $entity = $c->stash->{entity};
     my $type = $self->{model};
 
+    $c->stash->{type} = model_to_type($type);
     $c->model($type)->annotation->load_latest($entity);
 };
 
@@ -56,8 +58,7 @@ sub edit_annotation : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
     my $model = $self->{model};
-    my $type = $self->{entity_name};
-    my $entity = $c->stash->{$type};
+    my $entity = $c->stash->{entity};
     $c->model($model)->annotation->load_latest($entity);
 
     $self->edit_action($c,
