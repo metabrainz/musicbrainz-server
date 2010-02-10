@@ -2,6 +2,12 @@
 
     <h1>[% l("Log In") %]</h1>
 
+    [% IF required_login %]
+    <p>
+        [% l('The page you are trying to view requires you to be logged in') %]
+    </p>
+    [% END %]
+
     [%- USE r = FormRenderer(login_form) -%]
     <p>
         [% l('Please log in using the form below. Note that the password field <em>is</em> case sensitive.') %]
