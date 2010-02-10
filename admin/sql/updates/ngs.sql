@@ -363,7 +363,19 @@ INSERT INTO editor_preference (id, editor, name, value)
             WHEN name = 'datetimeformat' THEN 'datetime_format'
             ELSE name
         END, value
-        FROM public.moderator_preference;
+        FROM public.moderator_preference
+        WHERE name NOT IN (
+            'mod_add_album_link', 'navbar_mod_show_select_page', 'vote_abs_default',
+            'remove_recent_link_on_add', 'reveal_address_when_mailing',
+            'sendcopy_when_mailing', 'JSDiff', 'show_ratings', 'release_show_relationshipslinks',
+            'release_show_annotationlinks', 'use_amazon_store', 'google_domain',
+            'topmenu_submenu_types', 'topmenu_dropdown_trigger', 'JSMoveFocus',
+            'JSDebug', 'sidebar_panel_sites', 'sidebar_panel_user', 'sidebar_panel_search',
+            'sidebar_panel_topmods', 'sidebar_panel_stats', 'nosidebar', 'css_noentityicons',
+            'show_inline_mods', 'show_inline_mods_random', 'css_nosmallfonts',
+            'autofix_open',
+        );
+
 INSERT INTO editor_subscribe_artist SELECT * FROM public.moderator_subscribe_artist;
 INSERT INTO editor_subscribe_label SELECT * FROM public.moderator_subscribe_label;
 INSERT INTO editor_subscribe_editor SELECT * FROM public.editor_subscribe_editor;
