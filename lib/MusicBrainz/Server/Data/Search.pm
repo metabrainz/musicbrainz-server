@@ -395,7 +395,12 @@ sub external_search
 
         if ($type eq 'artist')
         {
-            $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
+            $query = "artist:\"$query\"^1.6 " .
+                     "(+sortname:\"$query\"^1.6 -artist:\"$query\") " .
+                     "(+alias:\"$query\" -artist:\"$query\" -sortname:\"$query\") " .
+                     "(+(artist:($query)^0.8) -artist:\"$query\" -sortname:\"$query\" -alias:\"$query\") " .
+                     "(+(sortname:($query)^0.8) -artist:($query) -sortname:\"$query\" -alias:\"$query\") " .
+                     "(+(alias:($query)^0.4) -artist:($query) -sortname:($query) -alias:\"$query\")";
         }
     }
 
