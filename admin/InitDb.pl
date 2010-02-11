@@ -79,6 +79,7 @@ sub RunSQLScript
     my $stdout = ($fQuiet ? ">/dev/null" : "");
 
     $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz";
+    $ENV{"PGPASSWORD"} = $db->password;
     print "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |\n";
     open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |")
         or die "exec '$psql': $!";
@@ -203,6 +204,7 @@ sub Create
     my @opts = $sys_in_thisdb->shell_args;
     splice(@opts, -1, 0, "-d");
     push @opts, "plpgsql";
+    $ENV{"PGPASSWORD"} = $sys_db->password;
     system "createlang", @opts;
     die "\nFailed to create language\n" if ($? >> 8);
 }
@@ -212,10 +214,12 @@ sub CreateRelations
     my $import = shift;
 
     my $opts = $READWRITE->shell_args;
+    $ENV{"PGPASSWORD"} = $READWRITE->password;
     system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
     die "\nFailed to create schema\n" if ($? >> 8);
 
     $opts = $RAWDATA->shell_args;
+    $ENV{"PGPASSWORD"} = $RAWDATA->password;
     system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
     die "\nFailed to create schema\n" if ($? >> 8);
 
@@ -269,11 +273,13 @@ sub CreateRelations
 
     print localtime() . " : Optimizing database ...\n";
     $opts = $READWRITE->shell_args;
+    $ENV{"PGPASSWORD"} = $READWRITE->password;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 
     print localtime() . " : Optimizing rawdata database ...\n";
     $opts = $RAWDATA->shell_args;
+    $ENV{"PGPASSWORD"} = $RAWDATA->password;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize rawdata database\n" if ($? >> 8);
 

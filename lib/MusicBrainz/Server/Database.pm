@@ -44,8 +44,6 @@ sub shell_args
 
     push @args, map { $_ => $vars{$_} } grep { $vars{$_} } keys %vars;
 
-    push @args, "-w";
-
     push @args, $self->database;
 
     if (wantarray) {
