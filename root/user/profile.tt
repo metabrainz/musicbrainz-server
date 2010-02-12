@@ -1,6 +1,5 @@
 [% extra_css = "user.css" %]
 [% WRAPPER "user/profile/layout.tt" page="index" %]
-
     [% BLOCK property %]
         <dt>
             [% name %]
@@ -16,27 +15,27 @@
         [% html_escape(user.name) WRAPPER property name=l("Name") %]
 
         [% WRAPPER property name=l("Email:") %]
-            [% IF viewing_own_profile %]
-                [% IF user.email %]
-                    [% IF user.email_confirmation_date %]
-                        [%- l('{email} (verified at {date})', {
-                                email => html_escape(user.email),
-                                date  => UserDate.format(user.email_confirmation_date)
-                            }) -%]
-                    [% ELSE %]
-                        [%- l('{email} (<strong>unverified!</strong>)', {
-                                email => html_escape(user.email)
-                            }) -%]
-                    [% END %]
+            [% IF user.email %]
+                [% IF viewing_own_profile %]
+                    [%- l('{email}', { email => html_escape(user.email) }) %]
                 [% ELSE %]
-                    [% l('(none)') %]
+                    [%- l('(hidden)') -%]
+                [% END %]
+
+                [% IF user.email_confirmation_date %]
+                    [%- l('(verified at {date})', {
+                        date  => UserDate.format(user.email_confirmation_date)
+                    }) -%]
+                [% ELSE %]
+                        [%- l('(<strong>unverified!</strong>)') -%]
+                [% END %]
+
+                [% IF c.user_exists AND NOT viewing_own_profile %]
+                    (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("send email") %]</a>)
                 [% END %]
             [% ELSE %]
-                [% l('(hidden)') %]
-                    [% UNLESS viewing_own_profile %]
-                        (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("send email") %]</a>)
-                    [% END %]
-           [% END %]
+                [% l('(none)') %]
+            [% END %]
         [% END %]
 
         [% WRAPPER property name=l("User type:") %]
