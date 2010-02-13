@@ -29,9 +29,7 @@ sub validate {
     my $day = $self->field('day')->value;
 
     # anything partial cannot be checked, and is therefore considered valid.
-    return 1 unless (defined $year && length $year);
-    return 1 unless (defined $month && length $month);
-    return 1 unless (defined $day && length $day);
+    return 1 unless ($year && $month && $day);
 
     return 1 if Date::Calc::check_date ($year, $month, $day);
 
