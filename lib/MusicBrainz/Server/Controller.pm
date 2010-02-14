@@ -33,7 +33,12 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
     my $entity = $self->_load($c, $gid)
         or $c->detach('/error_404');
 
-    $c->stash->{$self->{entity_name}} = $entity;
+    $c->stash(
+        # First stash is more convenient for the actual controller
+        # Second is useful to roles or other places that need introspection
+        $self->{entity_name} => $entity,
+        entity               => $entity
+    );
 }
 
 sub _load

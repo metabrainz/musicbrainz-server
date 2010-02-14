@@ -1,5 +1,5 @@
 [% BLOCK add_annotation_link %]
-<a href="[% c.uri_for_action("/$type/edit_annotation", [ gid ]) %]">
+<a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
     [% annotation.text ? l('Edit annotation') : l('Add an annotation') %]
 </a>
 [% END %]
@@ -12,7 +12,7 @@
             [% ELSE %]
                 [% annotation.summary | format_wikitext  %]
                 [% IF annotation.summary_is_short %]
-                    <p><a href="[% c.uri_for_action("/$type/revision", [ gid ], annotation.id) %]">
+                    <p><a href="[% c.uri_for(c.controller.action_for('annotation_revision'), [ gid ], annotation.id) %]">
                         Read more&hellip;</a></p>
                 [% END %]
             [% END %]

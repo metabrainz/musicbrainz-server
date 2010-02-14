@@ -6,7 +6,7 @@
   <tr>
     <th>[% l('Changelog:') %]</th>
     <td>
-      <a href="[% c.uri_for_action('/recording/revision', [ edit.display_data.recording.gid ], edit.display_data.annotation_id) %]">
+      <a href="[% c.uri_for_action('/recording/annotation_revision', [ edit.display_data.recording.gid ], edit.display_data.annotation_id) %]">
         [% edit.display_data.changelog %]
       </a>
     </td>
