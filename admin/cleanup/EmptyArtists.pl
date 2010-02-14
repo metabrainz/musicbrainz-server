@@ -34,7 +34,6 @@ use lib "$FindBin::Bin/../../lib";
 use Getopt::Long;
 
 use DBDefs;
-use MusicBrainz;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw ( $EDIT_ARTIST_DELETE );;
 use MusicBrainz::Server::Types qw( $BOT_FLAG $AUTO_EDITOR_FLAG );
