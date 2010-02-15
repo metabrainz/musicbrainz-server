@@ -1,4 +1,5 @@
-[% WRAPPER 'layout.tt' title=l('Edit URL') full_width=1 %]
+[% WRAPPER 'url/layout.tt' title=l('Edit URL') page='edit' -%]
+  <h2>[% l('Edit URL') %]</h2>
     <form action="[% c.req.uri %]" method="post">
       [% USE r = FormRenderer(form) %]
       [% form_row_text(r, 'url', l('URL:')) %]

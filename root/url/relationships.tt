@@ -1,0 +1,3 @@
+[%- WRAPPER 'url/layout.tt' title=l('URL Relationships') page='relationships' -%]
+    [%- INCLUDE "components/relationships.tt" -%]
+[%- END -%]

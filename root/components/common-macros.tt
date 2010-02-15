@@ -8,6 +8,7 @@
 [%- MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%- MACRO url_escape(url) BLOCK; url | url; END -%]
 [%- MACRO html_escape(url) BLOCK; url | html; END -%]
+[%- MACRO display_url(url) BLOCK; url | uri_decode | html; END -%]
 [%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
 [%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
 [%- USE UserDate(c.user.preferences) -%]
@@ -168,11 +169,10 @@ END -%]
 [%- MACRO link_url(url, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/url/$action", [ url.gid ]);
-    text = text || html_escape(url.url);
-    IF action != 'show';
-      '<a href="' _ link _ '">' _ text _ '</a>';
+    IF text;
+      '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
     ELSE;
-      text = url.url | uri_decode | html;
+      text = display_url(url.url);
       '<a href="' _ url.url _ '">' _ text _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]
