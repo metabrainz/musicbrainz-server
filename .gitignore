@@ -2,3 +2,5 @@
 /inc
 /Makefile
 /META.yml
+*~
+.#*
