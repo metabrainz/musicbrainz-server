@@ -2,10 +2,19 @@
 
 [%- IF tags.size -%]
     [%- WRAPPER 'components/with-pager.tt' -%]
-    <ul>
-    [%- FOREACH tag IN tags -%]
-        <li>[% tag.count %] - [% link_tag(tag.tag) %]</li>
-    [%- END -%]
-    </ul>
+    <table class="tbl">
+      <thead>
+        <th>[% l('Tag') %]</th>
+        <th style="width: 10em">[% l('Usage Count') %]</th>
+      </thead>
+      <tbody>
+        [%- FOREACH tag IN tags -%]
+        <tr>
+          <td>[% link_tag(tag.tag) %]</td>
+          <td>[% tag.count %]</td>
+        </tr>
+        [%- END -%]
+      </tbody>
+    </table>
     [%- END -%]
 [%- ELSE -%]<p>[% no_tags_text %]</p>[%- END -%]
