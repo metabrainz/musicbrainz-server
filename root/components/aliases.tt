@@ -1,4 +1,4 @@
-<h2>[% l("Aliases for {entity_name}", {entity_name => entity.name}) %]</h2>
+<h2>[% l("Aliases") %]</h2>
     [%- IF aliases.size > 0 -%]
         <table class="tbl">
             <thead>
