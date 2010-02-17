@@ -13,7 +13,7 @@ extends 'MusicBrainz::Server::Edit';
 has '+data' => (
     isa => Dict[
         editor_id => Int,
-        text => Str,
+        text      => Nullable[Str],
         changelog => Nullable[Str],
         entity_id => Int,
     ],

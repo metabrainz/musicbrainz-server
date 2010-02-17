@@ -7,7 +7,6 @@ has '+name' => (default => 'edit-annotation');
 
 has_field 'text' => (
     type     => 'Text',
-    required => 1,
 );
 
 has_field 'changelog' => (type => 'Text');
