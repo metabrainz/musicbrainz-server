@@ -27,7 +27,7 @@
 <table class="tbl">
     <thead>
         <tr>
-            <th>[% l('#') %]</th>
+            <th>[% l('Medium #') %]</th>
             <th>[% l('Title') %]</th>
             <th>[% l('Artist') %]</th>
             <th>[% l('Date') %]</th>
