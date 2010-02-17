@@ -14,7 +14,7 @@ my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Ser
 $mech->get_ok('/lost-username');
 xml_ok($mech->content);
 $mech->submit_form( with_fields => { 'lostusername.email' => 'test@email.com' } );
-$mech->content_contains("We've sent you informations about your MusicBrainz account.");
+$mech->content_contains("We've sent you information about your MusicBrainz account.");
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->deliveries->[-1]->{email};
