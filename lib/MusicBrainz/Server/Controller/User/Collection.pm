@@ -54,12 +54,15 @@ sub view : Local Args(1) RequireAuth
     $c->detach('/error_404')
         if (!defined $user);
 
-    $c->detach ('/error_403')
-        if ($user->id != $c->user->id);
-
+    if ($c->user->id != $user->id)
+    {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach ('/error_403')
+            unless $user->preferences->public_collection;
+    }
 
     my $releases;
-    my $collection_id = $c->stash->{user_collection};
+    my $collection_id = $c->model('Collection')->find_collection($user);
     my $order = $c->req->params->{order} || 'date';
 
     if ($collection_id) {
