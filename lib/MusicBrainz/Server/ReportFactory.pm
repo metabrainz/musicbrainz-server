@@ -12,10 +12,6 @@ my @all = qw(
     NoScript
 );
 
-@all = qw(
-    ReleasesToConvert
-);
-
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
