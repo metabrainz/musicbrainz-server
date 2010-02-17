@@ -4,6 +4,8 @@ SET client_min_messages TO 'warning';
 TRUNCATE editor CASCADE;
 TRUNCATE editor_preference;
 TRUNCATE editor_subscribe_editor;
+TRUNCATE editor_collection CASCADE;
+TRUNCATE editor_collection_release CASCADE;
 
 INSERT INTO editor (id, name, password, privs, email, website, bio, membersince,
         emailconfirmdate, lastlogindate, editsaccepted, editsrejected,
@@ -26,5 +28,9 @@ INSERT INTO editor_subscribe_editor (editor, subscribededitor, lasteditsent)
    VALUES (2, 1, 3);
 
 ALTER SEQUENCE editor_id_seq RESTART 3;
+
+INSERT INTO editor_collection (id, editor) VALUES (1, 2);
+INSERT INTO editor_collection_release (collection, release)
+    VALUES (1, 1), (1, 2);
 
 COMMIT;

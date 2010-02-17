@@ -45,7 +45,7 @@ sub remove : Local
     $c->detach;
 }
 
-sub view : Local Args(1) RequireAuth
+sub view : Local Args(1)
 {
     my ($self, $c, $user_name) = @_;
 
@@ -54,7 +54,7 @@ sub view : Local Args(1) RequireAuth
     $c->detach('/error_404')
         if (!defined $user);
 
-    if ($c->user->id != $user->id)
+    if (!defined $c->user || $c->user->id != $user->id)
     {
         $c->model('Editor')->load_preferences($user);
         $c->detach ('/error_403')
