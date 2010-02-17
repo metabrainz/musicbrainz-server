@@ -59,6 +59,14 @@ sub default : Path
     $c->detach('/error_404');
 }
 
+sub error_403 : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(403);
+    $c->stash->{template} = 'main/403.tt';
+}
+
 sub error_404 : Private
 {
     my ($self, $c) = @_;

@@ -45,7 +45,7 @@ sub remove : Local
     $c->detach;
 }
 
-sub view : Local Args(1)
+sub view : Local Args(1) RequireAuth
 {
     my ($self, $c, $user_name) = @_;
 
@@ -53,6 +53,10 @@ sub view : Local Args(1)
 
     $c->detach('/error_404')
         if (!defined $user);
+
+    $c->detach ('/error_403')
+        if ($user->id != $c->user->id);
+
 
     my $releases;
     my $collection_id = $c->stash->{user_collection};
