@@ -11,6 +11,10 @@ sub show : Path('')
 
     my $id = join '/', @args;
     $id =~ s/ /_/g;
+
+    $c->detach('/error_404')
+        if $id =~ /^Special:/;
+
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
