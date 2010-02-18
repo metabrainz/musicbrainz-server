@@ -373,7 +373,7 @@ INSERT INTO editor_preference (id, editor, name, value)
             'JSDebug', 'sidebar_panel_sites', 'sidebar_panel_user', 'sidebar_panel_search',
             'sidebar_panel_topmods', 'sidebar_panel_stats', 'nosidebar', 'css_noentityicons',
             'show_inline_mods', 'show_inline_mods_random', 'css_nosmallfonts',
-            'autofix_open',
+            'autofix_open'
         );
 
 INSERT INTO editor_subscribe_artist SELECT * FROM public.moderator_subscribe_artist;
