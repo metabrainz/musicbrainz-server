@@ -195,6 +195,12 @@ while (1) {
 }
 $raw_sql->finish;
 
+# Collection should be private by default, since we had no preference before
+$sql->do("SELECT SETVAL('editor_preference_id_seq', (SELECT MAX(id) FROM editor_preference))");
+$sql->do("INSERT INTO editor_preference (editor, name, value)
+            SELECT editor, 'public_collection', 0
+            FROM editor_collection");
+
 $raw_sql->select("SELECT collection_info, album
                   FROM public.collection_has_release_join");
 while (1) {
