@@ -3,7 +3,7 @@
 <table class="details">
   <tr>
     <th>[%- l('Name:') -%]</th>
-    <td>[% release_link(release) %]</td>
+    <td>[% link_release(release) %]</td>
   </tr>
   <tr>
     <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
