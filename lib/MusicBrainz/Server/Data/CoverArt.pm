@@ -120,25 +120,31 @@ sub load
     for my $release (@releases) {
         for my $relationship ($release->all_relationships) {
             my $lt_name = $relationship->link->type->name;
-            next unless $self->can_parse($lt_name);
 
-            my $cover_url = $relationship->target->url;
-
-            my $cover_art;
-            for my $provider (@{ $self->get_providers($lt_name) }) {
-                next unless $provider->handles($cover_url);
-                $cover_art = $provider->lookup_cover_art($cover_url)
-                    and last;
-            }
-
-            # Couldn't parse cover art from this relationship, try another
-            next if !defined $cover_art;
+            my $cover_art = $self->parse_from_type_url($lt_name, $relationship->target->url)
+                # Couldn't parse cover art from this relationship, try another
+                or next;
 
             # Loaded fine, finish parsing this release and move onto the next
             $release->cover_art($cover_art);
             last;
         }
     }
+}
+
+sub parse_from_type_url
+{
+    my ($self, $type, $url) = @_;
+    return unless $self->can_parse($type);
+
+    my $cover_art;
+    for my $provider (@{ $self->get_providers($type) }) {
+        next unless $provider->handles($url);
+        $cover_art = $provider->lookup_cover_art($url)
+            and last;
+    }
+
+    return $cover_art;
 }
 
 1;
