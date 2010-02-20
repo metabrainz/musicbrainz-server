@@ -275,6 +275,9 @@ sub AWS_DEVELOPER_ID { "D1TBI5FHXK38IE" }
 # Always use the ids now
 sub AWS_USE_ASSOCIATE_IDS { 1 }
 
+sub AWS_PRIVATE { '' }
+sub AWS_PUBLIC { '' }
+
 ################################################################################
 # Sessions (advanced)
 ################################################################################

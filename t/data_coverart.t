@@ -11,22 +11,12 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::URL';
 
-subtest 'Parses valid cover art relationships' => sub {
-    my $release = Release->new( name => 'Test release' );
-    $release->add_relationship(
-        Relationship->new(
-            link => Link->new(
-                type => LinkType->new(
-                    name => 'coverart'
-                ),
-            ),
-            entity1 => URL->new(
-                url => 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg',
-            ),
-            direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
-        )
-    );
+use LWP::UserAgent;
+my $ua = LWP::UserAgent->new;
+$ua->env_proxy;
 
+subtest 'Parses valid cover art relationships' => sub {
+    my $release = make_release('coverart', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 
     $c->model('CoverArt')->load($release);
     ok($release->has_cover_art);
@@ -37,20 +27,7 @@ subtest 'Parses valid cover art relationships' => sub {
 };
 
 subtest 'Doesnt parse invalid cover art relationships' => sub {
-    my $release = Release->new( name => 'Test release' );
-    $release->add_relationship(
-        Relationship->new(
-            link => Link->new(
-                type => LinkType->new(
-                    name => 'coverart'
-                ),
-            ),
-            entity1 => URL->new(
-                url => 'http://www.google.com',
-            ),
-            direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
-        )
-    );
+    my $release = make_release('coverart', 'http://www.google.com');
 
     $c->model('CoverArt')->load($release);
     ok(!$release->has_cover_art);
@@ -58,4 +35,45 @@ subtest 'Doesnt parse invalid cover art relationships' => sub {
     done_testing;
 };
 
+subtest 'Handles Amazon ASINs' => sub {
+    my $release = make_release('asin', 'http://www.amazon.com/gp/product/B000003TA4');
+
+    $c->model('CoverArt')->load($release);
+    ok($release->has_cover_art);
+    ok($ua->get($release->cover_art->image_uri)->is_success);
+
+    done_testing;
+};
+
+subtest 'Handles Amazon ASINs for downloads' => sub {
+    my $release = make_release('asin', 'http://www.amazon.com/gp/product/B000W23HCY');
+
+    $c->model('CoverArt')->load($release);
+    ok($release->has_cover_art);
+    ok($ua->get($release->cover_art->image_uri)->is_success);
+
+    done_testing;
+};
+
 done_testing;
+
+sub make_release
+{
+    my ($type, $url) = @_;
+    my $release = Release->new( name => 'Test release' );
+    $release->add_relationship(
+        Relationship->new(
+            link => Link->new(
+                type => LinkType->new(
+                    name => $type
+                ),
+            ),
+            entity1 => URL->new(
+                url => $url,
+            ),
+            direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+        )
+    );
+
+    return $release;
+}

@@ -1,9 +1,75 @@
 package MusicBrainz::Server::CoverArt::Provider::WebService::Amazon;
 use Moose;
 
+use Net::Amazon::AWSSign;
+use LWP::UserAgent;
+use XML::Simple;
+
+use aliased 'MusicBrainz::Server::CoverArt';
+
 extends 'MusicBrainz::Server::CoverArt::Provider';
 
+has '+link_type_name' => (
+    default => 'asin',
+);
 
+has '_aws_signature' => (
+    is => 'ro',
+    lazy_build => 1,
+);
+
+sub _build__aws_signature
+{
+    my $public  = DBDefs::AWS_PUBLIC();
+    my $private = DBDefs::AWS_PRIVATE();
+    return Net::Amazon::AWSSign->new($public, $private);
+}
+
+sub handles
+{
+    # Handle any thing that is an Amazon ASIN url relationship (but only if
+    # the server config has AWS keys)
+    my $public  = DBDefs::AWS_PUBLIC();
+    my $private = DBDefs::AWS_PRIVATE();
+    return $public && $private;
+}
+
+sub lookup_cover_art
+{
+    my ($self, $uri) = @_;
+    my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
+    return unless $asin;
+
+    my $url = "http://ecs.amazonaws.com/onca/xml?" .
+                  "Service=AWSECommerceService&" .
+                  "Operation=ItemLookup&" .
+                  "ItemId=$asin&" .
+                  "ResponseGroup=Images";
+
+    $url = $self->_aws_signature->addRESTSecret($url);
+
+    my $lwp = LWP::UserAgent->new;
+    $lwp->env_proxy;
+    my $response = $lwp->get($url) or return;
+
+    my $xml_res = XMLin($response->decoded_content, ForceArray => [ 'ImageSet' ]);
+
+    my $image_url;
+    for my $image_set (@{ $xml_res->{Items}->{Item}->{ImageSets}->{ImageSet} }) {
+        next unless $image_set->{Category} eq 'primary';
+        $image_url = $image_set->{MediumImage}->{URL};
+    }
+
+    return unless $image_url;
+
+    my $cover_art = CoverArt->new(
+        provider        => $self,
+        image_uri       => $image_url,
+        information_uri => $uri
+    );
+
+    return $cover_art;
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

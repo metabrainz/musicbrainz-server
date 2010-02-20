@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Data::CoverArt;
 use Moose;
 
-use aliased 'MusicBrainz::Server::CoverArt::Provider::RegularExpression' => 'RegularExpressionProvider';
+use aliased 'MusicBrainz::Server::CoverArt::Provider::RegularExpression'  => 'RegularExpressionProvider';
+use aliased 'MusicBrainz::Server::CoverArt::Provider::WebService::Amazon' => 'AmazonProvider';
 
 has 'providers' => (
     isa => 'ArrayRef',
@@ -85,6 +86,9 @@ sub _build_providers {
             uri_expression     => '^(.*)$',
             image_uri_template => '$1',
         ),
+        AmazonProvider->new(
+            name => 'Amazon',
+        )
     ];
 }
 
