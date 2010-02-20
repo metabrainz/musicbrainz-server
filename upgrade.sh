@@ -43,8 +43,8 @@ echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql
 
-echo `date` : Collecting cover art URLs
-./admin/RebuildCoverArtUrls.pl
+#echo `date` : Collecting cover art URLs
+#./admin/RebuildCoverArtUrls.pl
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then

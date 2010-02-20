@@ -4,7 +4,7 @@ BEGIN;
 -- Misc
 ------------------------
 
-INSERT INTO country SELECT * FROM public.country;
+INSERT INTO country SELECT * FROM public.country WHERE id!=239; -- Exclude [Unknown Country]
 INSERT INTO language SELECT * FROM public.language;
 INSERT INTO script SELECT * FROM public.script;
 INSERT INTO script_language SELECT * FROM public.script_language;
@@ -156,7 +156,7 @@ INSERT INTO release
         NULLIF(substr(releasedate, 1, 4)::int, 0),
         NULLIF(substr(releasedate, 6, 2)::int, 0),
         NULLIF(substr(releasedate, 9, 2)::int, 0),
-        country,
+        NULLIF(country, 239), -- Use NULL instead of [Unknown Country]
         language,
         script
     FROM public.release r
@@ -275,7 +275,9 @@ INSERT INTO label (id, gid, name, sortname, type,
         NULLIF(substr(enddate, 1, 4)::int, 0),
         NULLIF(substr(enddate, 6, 2)::int, 0),
         NULLIF(substr(enddate, 9, 2)::int, 0),
-        resolution, country, labelcode
+        resolution,
+        NULLIF(country, 239), -- Use NULL instead of [Unknown Country]
+        labelcode
     FROM public.label a JOIN label_name n1 ON a.name = n1.name JOIN label_name n2 ON a.sortname = n2.name;
 
 INSERT INTO label_alias (label, name)

@@ -68,7 +68,7 @@ while (1) {
     push @{$aliases{$row->{id}}}, $row;
 }
 
-open LOG, ">upgrade-artistcredit.log";
+open LOG, ">:utf8", "upgrade-artistcredit.log";
 
 $sql->select("
     SELECT c.id, c.name, n.id AS name_id
@@ -80,6 +80,10 @@ while (1) {
     my ($collab_id, $collab_name, $collab_name_id) = @$row;
 
     $checked += 1;
+
+    my $collab_name_lc = lc($collab_name);
+    # Does lower-casing the string change the length?
+    my $is_lc_safe = length($collab_name) == length($collab_name_lc);
 
     # Select all members of the collaboration
     my $members = $members{$collab_id} || [];
@@ -114,7 +118,13 @@ while (1) {
         @names = sort { length $b->{name} <=> length $a->{name} } @names;
 
         for my $name (@names) {
-            $index = index(lc($collab_name), lc($name->{name}));
+            my $name_lc = lc($name->{name});
+            if ($is_lc_safe && length($name_lc) == length($name->{name})) {
+                $index = index($collab_name_lc, $name_lc);
+            }
+            else {
+                $index = index($collab_name, $name->{name});
+            }
             if ($index != -1) {
                 # Remember which name matched
                 $member->{'creditname'} = $name;

@@ -209,7 +209,8 @@ Sql::run_in_transaction(sub {
             JOIN public.track r0 ON r0.id = l.link0
             JOIN public.track r1 ON r1.id = l.link1
         WHERE l.link_type = 2 AND
-            abs(r0.length - r1.length) < 5000
+            abs(r0.length - r1.length) < 5000 AND
+            r0.artist = r1.artist
         ");
     while (1) {
         my $link = $sql->next_row_ref or last;
@@ -229,9 +230,7 @@ Sql::run_in_transaction(sub {
             JOIN public.albummeta am0 ON am0.id = a0.id
             JOIN public.album a1 ON a1.id = l.link1
             JOIN public.albummeta am1 ON am1.id = a1.id
-        WHERE l.link_type = 15 AND
-            am0.tracks = am1.tracks AND
-            (103 = a1.attributes[2] OR 103 = a1.attributes[3])
+        WHERE l.link_type = 15 AND am0.tracks = am1.tracks
         ");
     my $j = 0;
     while (1) {

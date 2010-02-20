@@ -8,8 +8,8 @@ use DBDefs;
 use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::Context;
 use Sql;
-open LOG, ">release-merge.log";
-open ERRLOG, ">release-merge-errors.log";
+open LOG, ">:utf8", "release-merge.log";
+open ERRLOG, ">:utf8", "release-merge-errors.log";
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
@@ -125,6 +125,9 @@ eval {
 		CREATE INDEX tmp_release_label_idx_release ON release_label (release);
 		CREATE INDEX tmp_release_idx_id ON release (id);
 		CREATE INDEX tmp_release_name_idx_id ON release_name (id);
+		ANALYZE release;
+		ANALYZE release_name;
+		ANALYZE release_label;
 	");
 
 	my $j = 1;
