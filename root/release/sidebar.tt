@@ -147,7 +147,7 @@ WRAPPER 'layout/sidebar.tt';
     UNLESS editing;
         INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group;
         INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags entity=release.release_group
-        tag_this_text=l('Tag this release group');
+        tag_this_text=l('Tag release group');
         INCLUDE links;
         INCLUDE other_versions;
         INCLUDE collection IF c.user_exists;
