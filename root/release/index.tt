@@ -3,7 +3,6 @@
 [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
 <h2>Track listing</h2>
-
 <table class="tbl">
     <thead>
         <tr>
