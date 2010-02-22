@@ -666,8 +666,9 @@ dl.properties dt {
     line-height: 200%;
 }
 
+.page table.tbl tr.mp td,
 span.mp {
-    background: #FFFFCC;
+    background: #FD9;
 }
 
 /* Extra CSS Styles for the landing page */

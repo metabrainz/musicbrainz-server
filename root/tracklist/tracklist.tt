@@ -1,6 +1,5 @@
-[%- FOR track=tracklist.tracks;
-    recording = track.recording %]
-<tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+[%- FOR track=tracklist.tracks; recording = track.recording %]
+<tr class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]">
     <td>[% track.position %]</td>
     <td>[% link_recording(recording, 'show', track.name) %]</td>
     [%- IF show_artists -%]
