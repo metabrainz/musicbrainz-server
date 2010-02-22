@@ -57,7 +57,7 @@ sub view : Local Args(1)
     if (!defined $c->user || $c->user->id != $user->id)
     {
         $c->model('Editor')->load_preferences($user);
-        $c->detach ('/error_403')
+        $c->detach('/error_403')
             unless $user->preferences->public_collection;
     }
 
