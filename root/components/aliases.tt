@@ -3,7 +3,14 @@
         <table class="tbl">
             <thead>
                 <tr>
-                    <th colspan="[% c.user_exists ? 2 : 1 %]">[% l('Alias') %]</th>
+                    <th>
+                        [% l('Alias') %]
+                    </th>
+                    [% IF c.user_exists %]
+                        <th style="width: 10em">
+                            [% l('Actions') %]
+                        </td>
+                    [% END %]
                 </tr>
             </thead>
             <tbody>
@@ -13,12 +20,12 @@
                         [% alias.name | html %]
                     </td>
                     [% IF c.user_exists %]
-                        <td style="width: 10em">
-                            <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
-                              [% l('Delete') %]
-                            </a> |
+                        <td>
                             <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">
-                              [% l('Edit') %]
+                              [%- l('Edit') -%]
+                            </a> | 
+                            <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
+                              [%- l('Delete') -%]
                             </a>
                         </td>
                     [% END %]
