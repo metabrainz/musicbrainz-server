@@ -46,6 +46,7 @@ has_field 'comment' => (
 
 has_field 'name' => (
     type => 'Text',
+    required => 1
 );
 
 has_field 'labels' => ( type => 'Repeatable' );
@@ -71,7 +72,7 @@ has_field 'mediums.tracklist.tracks' => (
 );
 has_field 'mediums.tracklist.tracks.id' => ( type => 'Integer' );
 has_field 'mediums.tracklist.tracks.position' => ( type => 'Integer' );
-has_field 'mediums.tracklist.tracks.name' => ( type => 'Text' );
+has_field 'mediums.tracklist.tracks.name' => ( type => 'Text', required => 1 );
 has_field 'mediums.tracklist.tracks.artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
 has_field 'mediums.tracklist.tracks.length' => ( type => '+MusicBrainz::Server::Form::Field::Length' );
 has_field 'mediums.tracklist.tracks.deleted' => ( type => 'Checkbox' );
