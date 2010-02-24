@@ -254,15 +254,20 @@ END -%]
 [%- MACRO rating_stars(entity) BLOCK -%]
 <span class="inline-rating">
     <span class="star-rating small-star">
+        [%- current_star_rating = entity.user_rating ? 5 * entity.user_rating / 100 : 0 -%]
         [%- IF entity.user_rating -%]
-        <span class="current-user-rating" style="width:[% entity.user_rating %]%;">[% 5 * entity.user_rating / 100 %]</span>
+        <span class="current-user-rating" style="width:[% entity.user_rating %]%;">[% current_star_rating %]</span>
         [%- ELSIF entity.rating_count -%]
         <span class="current-rating" style="width:[% entity.rating %]%;">[% 5 * entity.rating / 100 %]</span>
         [%- END -%]
         [%- IF c.user_exists -%]
             [%- FOR rating IN [ 1 .. 5 ] -%]
-            <a href="[% rating_rate_url(entity, entity.user_rating == 20 * rating ? 0 : rating) | html %]" class="stars-[% rating %]"
-                title="[% ln('Rate: {rating} star', 'Rate: {rating} stars', rating, { rating => rating }) %]">[% rating %]</a>
+                <a href="[% rating_rate_url(entity, 0) | html %]" class="stars-[% rating %] remove-rating"
+                   title="[% l('Remove your rating') %]"
+                   style="[% 'display: none' IF rating != current_star_rating %]">[% rating %]</a>
+                <a href="[% rating_rate_url(entity, rating) | html %]" class="stars-[% rating %] set-rating"
+                   title="[% ln('Rate: {rating} star', 'Rate: {rating} stars', rating, { rating => rating }) %]"
+                   style="[% 'display: none' IF rating == current_star_rating %]">[% rating %]</a>
             [%- END -%]
         [%- END -%]
     </span>

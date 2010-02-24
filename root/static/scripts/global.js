@@ -34,15 +34,13 @@ $(document).ready (function() {
                 // No ratings, remove it
                 currentRatingSpan.remove();
             }
-            // Update links
-            ratingLink.parent().children('a').each(function(i) {
-                var originalRating = 100 * (1 + i) / 5;
-                var newRating = data.rating == originalRating ? 0 : originalRating;
-                var oldRatingMatch = this.href.match(/rating=([0-9]+)/);
-                if (oldRatingMatch[1] != newRating) {
-                    this.href = this.href.replace(oldRatingMatch[0], 'rating=' + newRating);
-                }
-            });
+
+            var currentStar = ".stars-" + (5 * rating / 100);
+
+            ratingLink.parent().find(".remove-rating").not(currentStar).hide ();
+            ratingLink.parent().find(".remove-rating" + currentStar).show ();
+            ratingLink.parent().find(".set-rating" + currentStar).hide ();
+            ratingLink.parent().find(".set-rating").not(currentStar).show ();
         })
         return false;
     });
