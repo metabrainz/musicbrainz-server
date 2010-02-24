@@ -25,6 +25,7 @@ requires 'Catalyst::Plugin::Unicode::Encoding';
 requires 'Catalyst::Runtime'                           => '5.80020';
 requires 'Catalyst::View::TT'                          => '0.29';
 requires 'Class::MOP::Package';
+requires 'Clone';
 requires 'Data::OptList';
 requires 'Data::Page'                                  => '2.01';
 requires 'Date::Calc'                                  => '5.8';
