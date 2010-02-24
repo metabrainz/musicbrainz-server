@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Generic::Create;
 use Moose;
 use MooseX::ABC;
 
+use Clone qw( clone );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 extends 'MusicBrainz::Server::Edit';
@@ -48,8 +49,7 @@ sub insert
     my $self = shift;
 
     # Make a copy of the data so we don't accidently modify it
-    my %data = %{ $self->data };
-    my $hash = $self->_insert_hash(\%data);
+    my $hash   = $self->_insert_hash(clone($self->data));
     my $entity = $self->c->model( $self->_create_model )->insert( $hash );
 
     $self->entity($entity);
