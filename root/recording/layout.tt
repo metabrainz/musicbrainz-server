@@ -23,6 +23,9 @@
     <ul class="links">
       [% IF c.user_exists %]
       <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
+      [% IF recording.edits_pending %]
+        <li>[% link_recording(recording, 'open_edits', l('Open edits')) %]</li>
+      [% END %]
       <li>[% link_recording(recording, 'merge', l('Merge this recording with another')) %]</li>
       <li>[% use_in_relationship(recording) %]</li>
       [% ELSE %]

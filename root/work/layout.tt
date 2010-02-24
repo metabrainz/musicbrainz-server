@@ -23,6 +23,9 @@
         [% IF c.user_exists %]
            <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
            <li>[% use_in_relationship(work) %]</li>
+           [% IF work.edits_pending %]
+             <li>[% link_work(work, 'open_edits', l('Open edits')) %]</li>
+           [% END %]
         [% ELSE %]
            <li>[% request_login(l('Please log in to edit this work')) %]</li>
         [% END %]
