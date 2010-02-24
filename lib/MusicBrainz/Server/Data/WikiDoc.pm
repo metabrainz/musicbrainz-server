@@ -27,8 +27,8 @@ sub _fix_html_markup
 
     my $temp = "";
     while(1) {
-        if ($content =~ s[(.*?)<a(\s+?)href\="(.*?)"(.*?)>(.*?)</a>][]s) {
-            my ($text, $pre, $url, $post, $linktext) = ($1, $2, $3, $4, $5);
+        if ($content =~ s[(.*?)<a(\s+?)href\="(.*?)"(.*?)>(.*?)</a>(.*)][]s) {
+            my ($text, $pre, $url, $post, $linktext, $etc) = ($1, $2, $3, $4, $5, $6);
 
             # if this is not a link to the wikidocs server, don't mess with it.
             if (!($url =~ /^http:\/\/$wiki_server/)) {
@@ -58,7 +58,7 @@ sub _fix_html_markup
                 }
             }
             $newpost .= " class=\"$css\""; 
-            $temp .= "$text<a".$pre."href=\"http://$server/doc/$url\"$newpost>$linktext</a>";
+            $temp .= "$text<a".$pre."href=\"http://$server/doc/$url\"$newpost>$linktext</a>$etc";
         }
         else {
             last;
