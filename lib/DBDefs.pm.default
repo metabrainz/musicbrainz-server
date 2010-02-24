@@ -44,7 +44,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     READWRITE => {
         database	=> "musicbrainz_db",
         schema          => "musicbrainz",
-        username	=> "musicbrainz_user",
+        username	=> "musicbrainz",
 #       password        => "",
 #       host            => "",
 #       port            => "",
@@ -64,7 +64,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {
         database	=> "musicbrainz_db_raw",
         schema          => "musicbrainz",
-        username	=> "musicbrainz_user",
+        username	=> "musicbrainz",
 #       password        => "",
 #       host            => "",
 #       port            => "",
