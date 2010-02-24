@@ -1,0 +1,16 @@
+[%- info_links = [
+    ['index', link_url(url, 'show', l('Overview'))],
+    ['relationships', link_url(url, 'relationships', l('Relationships'))],
+    ['edit', link_url(url, 'edit', l('Edit'))],
+] -%]
+
+<div class="urlheader">
+<h1>[% link_url(url, 'show', display_url(url.url)) %]</h1>
+[% IF url.description %]
+<p class="subheader">
+    <span class="prefix">~</span> [% html_escape(url.description) %]
+</p>
+[% END %]
+</div>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]
