@@ -4,6 +4,7 @@ use DBDefs;
 use MusicBrainz::Server::PagedReport;
 
 my @all = qw(
+    ReleasesToConvert
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
     ISRCsWithManyRecordings
@@ -11,6 +12,7 @@ my @all = qw(
     NoScript
 );
 
+use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
