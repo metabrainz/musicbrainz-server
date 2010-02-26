@@ -128,7 +128,11 @@ sub _load_page
     }
 
     if ($content =~ /<span class="redirectText"><a href="http:\/\/.*?\/(.*?)"/) {
-        return $self->get_page(uri_unescape($1));
+        my $canonical = uri_unescape($1);
+        my $page = $self->get_page($canonical);
+        $page->{canonical} = $canonical;
+
+        return $page;
     }
 
     return $self->_create_page($id, $version, $content, $index);

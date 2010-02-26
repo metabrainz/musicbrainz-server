@@ -18,6 +18,10 @@ sub show : Path('')
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
+    if ($page->{canonical}) {
+        $c->response->redirect($c->uri_for ('/doc', $page->{canonical}));
+    }
+
     my $bare = $c->req->param('bare') || 0;
     $c->stash(
         id => $id,
