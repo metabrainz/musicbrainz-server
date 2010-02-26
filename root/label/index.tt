@@ -32,7 +32,7 @@
                             [%- END -%]
                         </td>
                         [%- IF c.session.tport -%]
-                            <td>[% tagger_icon(release) %]</td>
+                            <td>[% tagger_icon(release.release) %]</td>
                         [%- END -%]
                     </tr>
                     [%- END -%]
@@ -42,5 +42,4 @@
             <p>[% l('No releases found') %]</p>
         [%- END -%]
     [%- END -%]
-
 [% END %]
