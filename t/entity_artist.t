@@ -13,8 +13,6 @@ ok( $artist->begin_date->is_empty );
 ok( defined $artist->end_date );
 ok( $artist->end_date->is_empty );
 
-does_ok( $artist, 'MusicBrainz::Server::Entity::Role::Quality' );
-
 is( $artist->type_name, undef );
 $artist->type(MusicBrainz::Server::Entity::ArtistType->new(id => 1, name => 'Person'));
 is( $artist->type_name, 'Person' );

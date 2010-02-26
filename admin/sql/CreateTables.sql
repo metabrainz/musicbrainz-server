@@ -25,8 +25,7 @@ CREATE TABLE artist (
     country             INTEGER, -- references country.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0,
-    quality             SMALLINT NOT NULL DEFAULT -1
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE artist_alias

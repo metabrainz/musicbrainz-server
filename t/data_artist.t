@@ -40,7 +40,6 @@ is ( $artist->end_date->month, 3 );
 is ( $artist->end_date->day, 4 );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, 'Yet Another Test Artist' );
-is ( $artist->quality, -1 );
 
 # Test loading metadata
 $artist_data->load_meta($artist);
@@ -64,7 +63,6 @@ is ( $artist->end_date->month, undef );
 is ( $artist->end_date->day, undef );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, undef );
-is ( $artist->quality, 0 );
 
 # ---
 # Test annotations
