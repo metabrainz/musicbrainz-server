@@ -1,9 +1,28 @@
+/*
+
+musicbrainz_collate, a postgresql extension to sort with the UCA.
+Copyright 2010  MetaBrainz Foundation
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
+
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
+
+*/
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-#include <sys/stat.h>
 
 #include <unicode/utypes.h>
 #include <unicode/ucol.h>
@@ -18,20 +37,6 @@ Datum musicbrainz_collate (PG_FUNCTION_ARGS);
 
 PG_FUNCTION_INFO_V1(musicbrainz_collate);
 
-static void
-warplog (char *msg)
-{
-    FILE *fp;
-
-    fp = fopen ("/tmp/musicbrainz_collate.log", "ab");
-    fwrite (msg, 1, strlen (msg), fp);
-    fwrite ("\n", 1, strlen ("\n"), fp);
-    fclose (fp);
-
-    chmod ("/tmp/musicbrainz_collate.log", 0777);
-}
-
-
 static UChar *
 unicode_from_pg_text (text *pg_input)
 {
@@ -43,8 +48,6 @@ unicode_from_pg_text (text *pg_input)
     UChar *ret;
     int32_t size;
 
-    warplog ("unicode_from_pg_text entered");
-
     /* get size.  FIXME: should pre-allocate for performance. */
     u_strFromUTF8WithSub (NULL, 0, &size, input, len, 0xFFFD, NULL, &status);
     size += 1;
@@ -52,8 +55,6 @@ unicode_from_pg_text (text *pg_input)
 
     status = U_ZERO_ERROR;
     u_strFromUTF8WithSub (ret, size, NULL, input, len, 0xFFFD, NULL, &status);
-
-    warplog ("unicode_from_pg_text exit");
 
     return ret;
 }
@@ -65,16 +66,12 @@ sortkey_from_unicode (UChar *input, uint8_t **output)
     UCollator * collator = ucol_openFromShortString ("", FALSE, NULL, &status);
     int32_t size;
 
-    warplog ("sortkey_from_unicode entered");
-
     /* FIXME: check status here. */
 
     /* get size.  FIXME: should pre-allocate for performance. */
     size = ucol_getSortKey (collator, input, -1, NULL, 0);
     *output = (uint8_t *) malloc (sizeof (uint8_t) * size);
     ucol_getSortKey (collator, input, -1, *output, size);
-
-    warplog ("sortkey_from_unicode exit");
 
     return size;
 }
@@ -87,10 +84,6 @@ musicbrainz_collate (PG_FUNCTION_ARGS)
     int32_t sortkeylen;
     bytea *output;
 
-    warplog ("");
-    warplog ("===========================");
-    warplog ("musicbrainz_collated started");
-
     if (PG_ARGISNULL (0)) 
     {
         PG_RETURN_NULL();
@@ -99,24 +92,14 @@ musicbrainz_collate (PG_FUNCTION_ARGS)
     unicode = unicode_from_pg_text (PG_GETARG_TEXT_P(0));
     sortkeylen = sortkey_from_unicode (unicode, &sortkey);
 
-    warplog ("palloc output variable");
-
     output = (bytea *)palloc (sortkeylen + VARHDRSZ);
-
-    warplog ("SET_VARSIZE on sortkey");
 
     SET_VARSIZE (output, sortkeylen + VARHDRSZ);
 
-    warplog ("memcpy from sortkey to output");
-
     memcpy (VARDATA (output), sortkey, sortkeylen);
-
-    warplog ("free memory");
 
     free (unicode);
     free (sortkey);
-
-    warplog ("return output");
 
     PG_RETURN_BYTEA_P( output );
 }
