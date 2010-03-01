@@ -29,7 +29,7 @@ like($page->content, qr{<h3>Section</h3>});
 
 $wd = $c->model('WikiDoc');
 $page = $wd->get_page('XML_Webservice');
-is ($page->{canonical}, 'XML_Web_Service', 'Resolved canonical wiki id');
+is($page->canonical, 'XML_Web_Service', 'Resolved canonical wiki id');
 
 LWP::UserAgent::Mockable->finished;
 
