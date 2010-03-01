@@ -19,7 +19,7 @@ sub show : Path('')
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
     if ($page->{canonical}) {
-        $c->response->redirect($c->uri_for ('/doc', $page->{canonical}));
+        $c->response->redirect($c->uri_for ('/doc', $page->{canonical}), 301);
     }
 
     my $bare = $c->req->param('bare') || 0;
