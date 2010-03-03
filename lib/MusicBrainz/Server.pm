@@ -54,6 +54,7 @@ __PACKAGE__->config(
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
+            'language' => \&MusicBrainz::Server::Filters::language
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',

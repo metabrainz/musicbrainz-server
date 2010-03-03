@@ -4,6 +4,7 @@
             <thead>
                 <tr>
                     <th colspan="[% c.user_exists ? 2 : 1 %]">[% l('Alias') %]</th>
+                    <th style="width: 5em">[% l('Language') %]</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                             </a>
                         </td>
                     [% END %]
+                    <td>[% alias.locale | language %]</td>
                 </tr>
             [%- END -%]
             </tbody>
