@@ -52,6 +52,7 @@ requires 'Locale::PO';
 requires 'Locale::TextDomain'                          => '1.16';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                             => '0.22';
+requires 'LWP::UserAgent::Mockable';
 requires 'Match::Smart';
 requires 'MIME::Lite'                                  => '3.023';
 requires 'Moose'                                       => '0.87';

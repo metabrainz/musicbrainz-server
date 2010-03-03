@@ -128,7 +128,7 @@ sub _load_page
     }
 
     if ($content =~ /<span class="redirectText"><a href="http:\/\/.*?\/(.*?)"/) {
-        return $self->get_page(uri_unescape($1));
+        return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => uri_unescape($1) });
     }
 
     return $self->_create_page($id, $version, $content, $index);
