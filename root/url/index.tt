@@ -3,7 +3,7 @@
     <table class="details">
       <tr>
         <th>[% l('URL:') %]</th>
-        <td><a href="[% url.url | url %]">[% url.url | html %]</a></td>
+        <td><a href="[% html_escape(url.url) %]">[% display_url(url.url) %]</a></td>
       </tr>
       [% IF url.description %]
       <tr>

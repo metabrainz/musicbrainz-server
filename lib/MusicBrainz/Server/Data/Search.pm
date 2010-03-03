@@ -360,8 +360,10 @@ sub schema_fixup
         my @credits;
         foreach my $namecredit (@{$data->{"artist_credit"}->{"name-credit"}})
         {
+            my $artist = MusicBrainz::Server::Entity::Artist->new($namecredit->{artist});
             push @credits, MusicBrainz::Server::Entity::ArtistCreditName->new( {
-                    artist => MusicBrainz::Server::Entity::Artist->new($namecredit->{artist}),
+                    artist => $artist,
+                    name => $namecredit->{name} || $artist->{name},
                     join_phrase => $namecredit->{joinphrase} || '' } );
         }
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
