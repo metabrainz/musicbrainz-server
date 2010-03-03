@@ -234,14 +234,6 @@ END-%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>
 [%- END -%]
 
-[%- MACRO rating_rate_url(entity, rating) BLOCK;
-    c.uri_for_action("/rating/rate", {
-        entity_type => entity_type(entity),
-        entity_id   => entity.id,
-        rating      => rating * 20,
-    });
-END -%]
-
 [%- MACRO tagger_icon(release) BLOCK -%]
     [% USE date %]
     <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% release.gid %]&t=[% date.now %]"
@@ -250,6 +242,26 @@ END -%]
     </a>
 [%- END -%]
 
+[%- MACRO rating_titles BLOCK -%]
+<script type="text/javascript">
+    var mbz = (mbz) ? mbz : {};
+
+    mbz.ratingTitles = [];
+    mbz.ratingTitles[0] = "[% l('Remove your rating') %]";
+    [%- FOR rating IN [ 1 .. 5 ] -%]
+        mbz.ratingTitles[[% rating * 20 %]] =
+        "[% ln('Rate: {rating} star', 'Rate: {rating} stars', rating, { rating => rating }) %]";
+    [%- END -%]
+</script>
+[%- END -%]
+
+[%- MACRO rating_rate_url(entity, rating) BLOCK;
+    c.uri_for_action("/rating/rate", {
+        entity_type => entity_type(entity),
+        entity_id   => entity.id,
+        rating      => rating * 20,
+    });
+END -%]
 
 [%- MACRO rating_stars(entity) BLOCK -%]
 <span class="inline-rating">
@@ -262,12 +274,13 @@ END -%]
         [%- END -%]
         [%- IF c.user_exists -%]
             [%- FOR rating IN [ 1 .. 5 ] -%]
+                [%- IF rating == current_star_rating -%]
                 <a href="[% rating_rate_url(entity, 0) | html %]" class="stars-[% rating %] remove-rating"
-                   title="[% l('Remove your rating') %]"
-                   style="[% 'display: none' IF rating != current_star_rating %]">[% rating %]</a>
+                   title="[% l('Remove your rating') %]">[% rating %]</a>
+                [%- ELSE -%]
                 <a href="[% rating_rate_url(entity, rating) | html %]" class="stars-[% rating %] set-rating"
-                   title="[% ln('Rate: {rating} star', 'Rate: {rating} stars', rating, { rating => rating }) %]"
-                   style="[% 'display: none' IF rating == current_star_rating %]">[% rating %]</a>
+                   title="[% ln('Rate: {rating} star', 'Rate: {rating} stars', rating, { rating => rating }) %]">[% rating %]</a>
+                [%- END -%]
             [%- END -%]
         [%- END -%]
     </span>

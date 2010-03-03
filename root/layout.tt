@@ -14,8 +14,9 @@
         [%- UNLESS no_javascript -%]
             <script type="text/javascript" src="[% c.uri_for('/static/scripts/jquery/jquery-1.3.2.min.js') %]"></script>
             <script type="text/javascript" src="[% c.uri_for('/static/scripts/global.js') %]"></script>
+            [% rating_titles() %]
         [%- END -%]
-        [% BLOCK layout_head %][% END%]
+        [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
     </head>
     <body>
