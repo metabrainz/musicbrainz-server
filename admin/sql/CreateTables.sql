@@ -33,6 +33,7 @@ CREATE TABLE artist_alias
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist.id
     name                INTEGER NOT NULL, -- references artist_name.id
+    locale              TEXT,
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 
@@ -495,6 +496,7 @@ CREATE TABLE label_alias
     id                  SERIAL,
     label               INTEGER NOT NULL, -- references label.id
     name                INTEGER NOT NULL, -- references label_name.id
+    locale              TEXT,
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 
