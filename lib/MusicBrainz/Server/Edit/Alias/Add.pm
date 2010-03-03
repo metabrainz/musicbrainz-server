@@ -4,6 +4,7 @@ use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -12,7 +13,8 @@ sub _alias_model { die 'Not implemented' }
 has '+data' => (
     isa => Dict[
         name      => Str,
-        entity_id => Int
+        entity_id => Int,
+        locale    => Nullable[Str]
     ]
 );
 
@@ -27,7 +29,8 @@ sub build_display_data
     my $self = shift;
 
     return {
-        alias => $self->data->{name},
+        alias  => $self->data->{name},
+        locale => $self->data->{locale}
     };
 }
 

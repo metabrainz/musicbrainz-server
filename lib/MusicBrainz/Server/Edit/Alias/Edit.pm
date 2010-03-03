@@ -6,6 +6,7 @@ use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
@@ -13,7 +14,8 @@ sub _alias_model { die 'Not implemented' }
 
 subtype 'AliasHash'
     => as Dict[
-        name => Str,
+        name   => Str,
+        locale => Nullable[Str]
     ];
 
 has '+data' => (
@@ -47,6 +49,10 @@ sub build_display_data
         alias => {
             new => $self->data->{new}{name},
             old => $self->data->{old}{name}
+        },
+        locale => {
+            new => $self->data->{new}{locale},
+            old => $self->data->{old}{locale}
         },
         $type => $loaded->{$model}{ $self->data->{entity_id} }
     };
