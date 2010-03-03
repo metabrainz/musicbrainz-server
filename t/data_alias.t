@@ -83,10 +83,11 @@ $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
 # Test inserting new aliases
-$artist_data->alias->insert({ artist_id => 1, name => 'New alias' });
+$artist_data->alias->insert({ artist_id => 1, name => 'New alias', locale => 'en_AU' });
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
+is($alias_set->[0]->locale, 'en_AU');
 
 $sql->commit;
 

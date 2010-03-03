@@ -111,8 +111,9 @@ sub insert
     for my $hash (@alias_hashes) {
         push @created, $class->new(
             id => $sql->insert_row($table, {
-                $type => $hash->{$type . '_id'},
-                name => $names{ $hash->{name} }
+                $type  => $hash->{$type . '_id'},
+                name   => $names{ $hash->{name} },
+                locale => $hash->{locale}
             }, 'id'));
     }
     return wantarray ? @created : $created[0];
