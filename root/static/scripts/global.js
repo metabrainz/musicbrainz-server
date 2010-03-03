@@ -42,7 +42,7 @@ $(document).ready (function() {
                 if (oldRatingMatch[1] != newRating)
                 {
                     this.href = this.href.replace(oldRatingMatch[0], 'rating=' + newRating);
-                    $(this).attr ('title', mbz.ratingTitles[newRating]);
+                    $(this).attr ('title', MB.text.RatingTitles[5 * newRating / 100]);
                 }
             });
 
