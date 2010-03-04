@@ -96,6 +96,7 @@ sub logout : Path('/logout')
 
     if ($c->user_exists) {
         $c->logout;
+        $c->delete_session;
     }
 
     $self->redirect_back($c, '/logout', '/');
