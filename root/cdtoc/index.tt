@@ -13,12 +13,8 @@
             <th>[% l('FreeDB:') %]</th>
             <td>[% cdtoc.freedbid %]</td>
         </tr>
-        <tr>
-            <th>[% l('First track:') %]</th>
-            <td>[% cdtoc.first_track %]</td>
-        </tr>
-        <tr>
-            <th>[% l('Last track:') %]</th>
+       <tr>
+            <th>[% l('Total tracks:') %]</th>
             <td>[% cdtoc.last_track %]</td>
         </tr>
         <tr>

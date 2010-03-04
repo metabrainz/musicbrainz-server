@@ -1,7 +1,8 @@
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
+    <h2>[% l('Works') %]</h2>
     [%- IF works.size -%]
         [%- INCLUDE 'artist/works-list.tt' WRAPPER 'components/with-pager.tt' -%]
     [%- ELSE -%]
-        <p>[%- l('No works found') -%]</p>
+        <p>[%- l('No works found.') -%]</p>
     [%- END -%]
 [%- END -%]

@@ -1,32 +1,38 @@
 [%- WRAPPER 'recording/layout.tt' page='puids' %]
 
-<h2>[%- l('Associated PUIDs') -%]</h2>
+    <h2>[%- l('Associated PUIDs') -%]</h2>
 
-[% IF puids.size %]
-<table class="tbl">
-  <thead>
-    <tr>
-      <th colspan="[% c.user_exists ? 2 : 1 %]">[% l('PUID') %]</th>
-    </tr>
-  </thead>
-  [% FOR puid IN puids %]
-  <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-    <td>[% link_puid(puid.puid) %]</td>
-    [% IF c.user_exists %]
-    <td>
-      <a href="[% c.uri_for_action('/recording/delete_puid', [ recording.gid ], { puid => puid.puid.puid }) %]">
-        Delete</a>
-    </td>
+    [% IF puids.size %]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th colspan="[% c.user_exists ? 2 : 1 %]">[% l('PUID') %]</th>
+                    [% IF c.user_exists %]
+                        <th style="width: 5em">
+                            [% l('Actions') %]
+                        </td>
+                    [% END %]
+                </tr>
+            </thead>
+            [% FOR puid IN puids %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>[% link_puid(puid.puid) %]</td>
+                    [% IF c.user_exists %]
+                        <td>
+                          <a href="[% c.uri_for_action('/recording/delete_puid', [ recording.gid ], { puid => puid.puid.puid }) %]">
+                            Delete</a>
+                        </td>
+                    [% END %]
+                </tr>
+            [% END %]
+        </table>
+
+        [% UNLESS c.user_exists %]
+            <p>[% l('Please {login_url|login} to edit these PUIDs.', { login_url => login_url() }) %]</p>
+        [% END %]
+
+    [% ELSE %]
+        <p>[% l('This recording does not have any associated PUIDs') %]</p>
     [% END %]
-  </tr>
-  [% END %]
-</table>
-
-[% UNLESS c.user_exists %]
-    <p>[% l('Please {login_url|login} to edit these PUIDs.', { login_url => login_url() }) %]</p>
-[% END %]
-[% ELSE %]
-<p>[% l('This recording does not have any associated PUIDs') %]</p>
-[% END %]
 
 [%- END -%]
