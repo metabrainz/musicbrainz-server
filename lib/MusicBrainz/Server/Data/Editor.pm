@@ -167,15 +167,21 @@ sub load
 
 sub load_preferences
 {
-    my ($self, $editor) = @_;
-    my $query = "SELECT name, value FROM editor_preference WHERE editor = ?";
+    my ($self, @editors) = @_;
+
+    my $query = sprintf "SELECT editor, name, value ".
+        "FROM editor_preference WHERE editor in (%s)",
+        join (", ", ("?")x@editors);
+
+    my %editors = map { $_->id => $_ } @editors;
+
     my $sql = Sql->new($self->c->dbh);
-    my $prefs = $sql->select_list_of_hashes($query, $editor->id);
-    $editor->preferences(MusicBrainz::Server::Entity::Preferences->new());
+    my $prefs = $sql->select_list_of_hashes($query, keys %editors);
+
     for my $pref (@$prefs) {
-        my ($key, $value) = ($pref->{name}, $pref->{value});
-        next unless $editor->preferences->can($key);
-        $editor->preferences->$key($value);
+        my ($editor_id, $key, $value) = ($pref->{editor}, $pref->{name}, $pref->{value});
+        next unless $editors{$editor_id}->preferences->can($key);
+        $editors{$editor_id}->preferences->$key($value);
     }
 }
 
