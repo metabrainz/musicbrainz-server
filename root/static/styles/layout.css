@@ -722,9 +722,8 @@ dl.profileinfo dt {
 dl.profileinfo dd {
 	clear: right;
 	display: block;
-	white-space: nowrap;
 	padding: 5px;
-	margin-left: 10px;
+	margin-left: 130px;
 }
 
 table.statistics {

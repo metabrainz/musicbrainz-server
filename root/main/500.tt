@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" title=l("Error 500: Internal Server Error") %]
+[% WRAPPER "layout.tt" title=l("Error 500: Internal Server Error") full_width=1 %]
     <h1>
         [% l('Ooops!') %]
     </h1>
