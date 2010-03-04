@@ -123,7 +123,7 @@ on the link below to verify your email address:
 $verification_link
 
 If clicking the link directly does not work, you may need to manually cut
-and paste the link into the location bar of your preferred web browser.
+and paste the link into the address bar of your preferred web browser.
 
 Thanks for using MusicBrainz!
 
