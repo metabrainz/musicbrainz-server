@@ -4,7 +4,7 @@
              { open => doc_link('MusicBrainz_License') }) %]</p>
 
     [% USE r = FormRenderer(form) %]
-    [% r.textarea('text', style => 'width: 95%; height: 40em') %]
+    [% r.textarea('text', { cols => 80, rows => 10 }) %]
     [% form_row_text(r, 'changelog', l('Change log:')) %]
     [% enter_edit() %]
 </form>

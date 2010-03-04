@@ -15,7 +15,7 @@
       [% form_row_text(r, 'website', l('Website:')) %]
       [% WRAPPER form_row %]
         [% r.label('biography', l('Bio:')) %]
-        [% r.textarea('biography', { cols => 50, rows => 4 }) %]
+        [% r.textarea('biography', { cols => 80, rows => 5 }) %]
         [% field_errors(form, 'biography') %]
       [% END %]
       <div class="row no-label">
