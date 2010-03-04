@@ -29,7 +29,7 @@ INSERT INTO editor_subscribe_editor (editor, subscribededitor, lasteditsent)
 
 ALTER SEQUENCE editor_id_seq RESTART 3;
 
-INSERT INTO editor_collection (id, editor) VALUES (1, 2);
+INSERT INTO editor_collection (id, editor) VALUES (1, 2), (2, 1);
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 2);
 

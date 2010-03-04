@@ -62,7 +62,10 @@ sub view : Local Args(1)
     }
 
     my $releases;
-    my $collection_id = $c->model('Collection')->find_collection($user);
+    my $collection_id = $c->user_exists && $c->user->id == $user->id
+        ? $c->stash->{user_collection}
+        : $c->model('Collection')->find_collection($user);
+
     my $order = $c->req->params->{order} || 'date';
 
     if ($collection_id) {
