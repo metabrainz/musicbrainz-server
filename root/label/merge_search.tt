@@ -1,4 +1,4 @@
-[% WRAPPER 'label/layout.tt' title=l("Merge Labels") %]
+[% WRAPPER 'label/layout.tt' title=l("Merge Labels") full_width=1 %]
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {label} into another label.', {label => link_label(label)})) -%]
         [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge labels} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Labels")})) -%]

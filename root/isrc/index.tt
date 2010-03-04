@@ -4,23 +4,23 @@
 
     <h2>[% l('Associated with recordings') %]</h2>
 
-<table class="tbl">
-    <thead>
-        <tr>
-            <th>[% l('Title') %]</th>
-            <th>[% l('Artist') %]</th>
-            <th>[% l('Length') %]</th>
-        </tr>
-    </thead>
-    <tbody>
-        [%- FOR recording=recordings -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td>[% link_recording(recording) %]</td>
-            <td>[% artist_credit(recording.artist_credit) %]</td>
-            <td>[% recording.length | format_length %]</td>
-        </tr>
-        [%- END -%]
-    </tbody>
-</table>
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>[% l('Title') %]</th>
+                <th>[% l('Artist') %]</th>
+                <th class="treleases">[% l('Length') %]</th>
+            </tr>
+        </thead>
+        <tbody>
+            [%- FOR recording=recordings -%]
+            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <td>[% link_recording(recording) %]</td>
+                <td>[% artist_credit(recording.artist_credit) %]</td>
+                <td>[% recording.length | format_length %]</td>
+            </tr>
+            [%- END -%]
+        </tbody>
+    </table>
 
 [%- END -%]

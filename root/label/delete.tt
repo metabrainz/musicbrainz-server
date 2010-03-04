@@ -1,4 +1,4 @@
-[%- WRAPPER 'label/layout.tt' title=l('Delete') -%]
+[%- WRAPPER 'label/layout.tt' title=l('Delete') full_width=1 -%]
     <h2>Delete Label</h2>
     [%- IF can_delete -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]

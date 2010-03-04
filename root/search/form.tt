@@ -1,5 +1,3 @@
-<h2>[% l("Search") %]</h2>
-
 [%- USE search = FormRenderer(form) -%]
 <div class="searchform">
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">

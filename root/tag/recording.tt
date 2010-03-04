@@ -1,2 +1,3 @@
 [%- INCLUDE 'tag/entity-list.tt' page='recording', show_artist_credits=1
-    no_entities_text=l('No recordings tagged with this tag were found.') -%]
+    no_entities_text=l('No recordings tagged with this tag were found.') 
+    heading=l('Appears on recordings')-%]
