@@ -1,5 +1,5 @@
 [%- WRAPPER 'recording/layout.tt' page='index' %]
-
+    <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'recording/annotation.tt' summary=1 -%]
 
     <h2>[%- l('Appears on releases') -%]</h2>
@@ -43,7 +43,7 @@
                 </tbody>
             </table>
         [%- ELSE -%]
-            <p>[% l('No releases found which feature this recording') %]</p>
+            <p>[% l('No releases found which feature this recording.') %]</p>
         [%- END -%]
     [%- END -%]
 

@@ -3,6 +3,6 @@
     [%- IF releases.size -%]
         [%- INCLUDE 'release_group/releases-list.tt' WRAPPER 'components/with-pager.tt' -%]
     [%- ELSE -%]
-        <p>[% l('No releases found') -%]</p>
+        <p>[% l('No releases found.') -%]</p>
     [%- END -%]
 [%- END -%]

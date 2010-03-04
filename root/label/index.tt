@@ -1,4 +1,5 @@
 [%- WRAPPER "label/layout.tt" page='index' -%]
+    <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'label/annotation.tt' summary=1 -%]
 
     <h2>Releases</h2>
@@ -39,7 +40,7 @@
                 </tbody>
             </table>
         [%- ELSE -%]
-            <p>[% l('No releases found') %]</p>
+            <p>[% l('No releases found.') %]</p>
         [%- END -%]
     [%- END -%]
 [% END %]
