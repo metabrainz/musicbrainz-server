@@ -1,4 +1,5 @@
 [%- USE u = Utils -%]
+[%- PROCESS 'components/rating-macros.tt' -%]
 [%- MACRO create_guideline(text) BLOCK -%]
     <li>
         [%- text -%]
@@ -234,39 +235,12 @@ END-%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>
 [%- END -%]
 
-[%- MACRO rating_rate_url(entity, rating) BLOCK;
-    c.uri_for_action("/rating/rate", {
-        entity_type => entity_type(entity),
-        entity_id   => entity.id,
-        rating      => rating * 20,
-    });
-END -%]
-
 [%- MACRO tagger_icon(release) BLOCK -%]
     [% USE date %]
     <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% release.gid %]&t=[% date.now %]"
         target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
         <img src="[% c.uri_for('/static/images/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
     </a>
-[%- END -%]
-
-
-[%- MACRO rating_stars(entity) BLOCK -%]
-<span class="inline-rating">
-    <span class="star-rating small-star">
-        [%- IF entity.user_rating -%]
-        <span class="current-user-rating" style="width:[% entity.user_rating %]%;">[% 5 * entity.user_rating / 100 %]</span>
-        [%- ELSIF entity.rating_count -%]
-        <span class="current-rating" style="width:[% entity.rating %]%;">[% 5 * entity.rating / 100 %]</span>
-        [%- END -%]
-        [%- IF c.user_exists -%]
-            [%- FOR rating IN [ 1 .. 5 ] -%]
-            <a href="[% rating_rate_url(entity, entity.user_rating == 20 * rating ? 0 : rating) | html %]" class="stars-[% rating %]"
-                title="[% ln('Rate: {rating} star', 'Rate: {rating} stars', rating, { rating => rating }) %]">[% rating %]</a>
-            [%- END -%]
-        [%- END -%]
-    </span>
-</span>
 [%- END -%]
 
 [%- MACRO piped_link_list(list) BLOCK -%]

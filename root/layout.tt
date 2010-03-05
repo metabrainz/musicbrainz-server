@@ -13,9 +13,11 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
         [%- UNLESS no_javascript -%]
             <script type="text/javascript" src="[% c.uri_for('/static/scripts/jquery/jquery-1.3.2.min.js') %]"></script>
+            <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB.js') %]"></script>
+            <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
             <script type="text/javascript" src="[% c.uri_for('/static/scripts/global.js') %]"></script>
         [%- END -%]
-        [% BLOCK layout_head %][% END%]
+        [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
     </head>
     <body>
