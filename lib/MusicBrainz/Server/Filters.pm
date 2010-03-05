@@ -5,7 +5,7 @@ use warnings;
 
 use MusicBrainz::Server::Track;
 use URI::Escape;
-use Encode qw( decode );
+use Encode;
 use Text::WikiFormat;
 
 sub release_date
@@ -55,7 +55,9 @@ sub format_wikitext
 sub uri_decode
 {
     my ($uri) = @_;
-    return decode('utf-8', uri_unescape($uri));
+    my $dec = uri_unescape($uri);
+    Encode::_utf8_on($dec);
+    return $dec;
 }
 
 1;
