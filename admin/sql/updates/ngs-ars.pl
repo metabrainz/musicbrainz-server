@@ -357,7 +357,6 @@ my %album_ar_types = (
         2 => 'release', # samples material
     },
     'url' => {
-        24 => 'release', # discogs
         25 => 'release', # musicmoz
         16 => 'release', # discography
         18 => 'release', # get the music
@@ -411,6 +410,11 @@ foreach my $orig_t0 (@entity_types) {
             print STDERR "Converting $orig_t0<=>$orig_t1 link types to $new_t0<=>$new_t1\n";
             # Generate IDs for new link types and save them in a global hash
             foreach my $row (@$rows) {
+                if ($orig_t0 eq "album" && exists $album_ar_types{$orig_t1}
+                        && exists $album_ar_types{$orig_t1}->{ $row->{id} }
+                        && $album_ar_types{$orig_t1}->{ $row->{id} } ne ($reverse ? $new_t1 : $new_t0)) {
+                    next;
+                } 
                 my $id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
                 $link_type_map{$key} = $id;
@@ -427,6 +431,7 @@ foreach my $orig_t0 (@entity_types) {
                     $rlinkphrase = $row->{'rlinkphrase'};
                 }
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
+                next unless exists $link_type_map{$key};
                 my $id = $link_type_map{$key};
                 my $parent_id = $row->{parent} || undef;
                 if (defined($parent_id)) {
