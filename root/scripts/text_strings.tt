@@ -41,12 +41,12 @@
         AddNewTrack:            "[% l('Add another track') %]",
         AddAnotherMedium      : "[% l('Add another medium') %]",
         RatingTitles: [
-              "[% rating_tooltip (0) %]",
-              "[% rating_tooltip (1) %]",
-              "[% rating_tooltip (2) %]",
-              "[% rating_tooltip (3) %]",
-              "[% rating_tooltip (4) %]",
-              "[% rating_tooltip (5) %]",
+              "[% rating_tooltip(0) %]",
+              "[% rating_tooltip(1) %]",
+              "[% rating_tooltip(2) %]",
+              "[% rating_tooltip(3) %]",
+              "[% rating_tooltip(4) %]",
+              "[% rating_tooltip(5) %]",
         ]
     });
 })(MB);
