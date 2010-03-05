@@ -1,8 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Welcome to MusicBrainz!") full_width=1 %]
     <div id="rightSide">
-        <h1>
-            [% l('News') %]
-        </h1>
         [% WRAPPER "components/box.tt" color="purple" header=l("MetaBrainz Foundation") %]
             <p>
                 [% l('The {uri|MetaBrainz Foundation}, a California 501.(c).3 non-profit corporation, operates the MusicBrainz project. All {donate|donations} to MusicBrainz are tax deductible!', {uri="http://metabrainz.org", donate="http://metabrainz.org/donate"}) %]
