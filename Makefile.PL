@@ -1,65 +1,49 @@
 #!/usr/bin/perl
+use 5.8.8;
+
 use inc::Module::Install;
 
-name 'musicbrainz';
-all_from 'lib/MusicBrainz/Server.pm';
+name 'MusicBrainz-Server';
+abstract 'MusicBrainz web server';
+author 'MetaBrainz Foundation';
+license 'gpl';
+version_from 'lib/MusicBrainz/Server.pm';
 
-requires 'Algorithm::Diff'                             => '1.1902';
-requires 'Cache'                                       => '2.04';
-requires 'Cache::Memcached'                            => '1.24';
-requires 'Cache::Memcached::Fast'                      => '0.16';
+# Mandatory modules
 requires 'Catalyst::Action::RenderView'                => '0.09';
-requires 'Catalyst::Component::ACCEPT_CONTEXT'         => '0.06';
-requires 'Catalyst::Model::Factory'                    => '0.03';
 requires 'Catalyst::Plugin::Authentication'            => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP'  => '1.009';
-requires 'Catalyst::Plugin::Cache::HTTP';
-requires 'Catalyst::Plugin::ConfigLoader'              => '0.24';
 requires 'Catalyst::Plugin::I18N'                      => '0.09';
-requires 'Catalyst::Plugin::Session::State::Cookie'    => '0.11';
-requires 'Catalyst::Plugin::Session::Store::FastMmap'  => '0.07';
-requires 'Catalyst::Plugin::StackTrace'                => '0.09';
-requires 'Catalyst::Plugin::Static::Simple'            => '0.21';
-requires 'Catalyst::Plugin::Unicode';
 requires 'Catalyst::Plugin::Unicode::Encoding';
 requires 'Catalyst::Runtime'                           => '5.80021';
 requires 'Catalyst::View::TT'                          => '0.29';
-requires 'Class::MOP::Package';
+requires 'Class::MOP';
 requires 'Clone';
 requires 'Data::OptList';
 requires 'Data::Page'                                  => '2.01';
 requires 'Date::Calc'                                  => '5.8';
-requires 'Date::Parse';
 requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Pg'                        => '0.16004';
 requires 'DBIx::Connector';
 requires 'DBD::Pg'                                     => '2.11.8';
 requires 'DBI'                                         => '1.607';
-requires 'Devel::Peek'                                 => '1.03';
-requires 'Digest::MD5'                                 => '2.39';
+requires 'Digest::MD5'                                 => '2.36';
 requires 'Digest::SHA1'                                => '2.110';
 requires 'Email::Address';
-requires 'Email::Date::Format'                         => '1.002';
 requires 'Email::Sender';
 requires 'Email::MIME';
 requires 'Email::MIME::Creator';
-requires 'Email::Valid'                                => '0.179';
 requires 'Exception::Class'                            => '1.29';
 requires 'HTML::FormHandler'                           => '0.30001';
 requires 'HTML::Tiny'                                  => '1.05';
 requires 'JSON'                                        => '2.14';
-requires 'Locale::PO';
-requires 'Locale::TextDomain'                          => '1.16';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                             => '0.22';
-requires 'LWP::UserAgent::Mockable';
 requires 'Match::Smart';
-requires 'MIME::Lite'                                  => '3.023';
 requires 'Moose'                                       => '0.87';
 requires 'MooseX::ABC';
 requires 'MooseX::MethodAttributes'                    => '0.14';
 requires 'MooseX::Role::Parameterized'                 => '0.16';
-requires 'MooseX::Storage'                             => '0.150';
 requires 'MooseX::Types'                               => '0.16';
 requires 'MooseX::Types::Structured'                   => '0.16';
 requires 'MRO::Compat'                                 => '0.10';
@@ -67,21 +51,45 @@ requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                  => '1.060200';
 requires 'Readonly'                                    => '1.03';
 requires 'String::ShellQuote'                          => '1.030';
-requires 'String::Similarity'                          => '1.030';
-requires 'Text::Unaccent'                              => '1.080';
 requires 'Text::WikiFormat'                            => '0.790';
 requires 'TryCatch';
 requires 'XML::Feed'                                   => '0.410';
-requires 'XML::Simple'                                 => '2.18';
+requires 'XML::Simple'                                 => '2.14';
 requires 'YAML'                                        => '0.680';
 
-recommends 'Apache::Session';
-recommends 'Apache::Session::File';
-recommends 'Catalyst::Restarter';
+feature 'ETag Caching' =>
+    -default                        => 1,
+    'Catalyst::Plugin::Cache::HTTP' => 1,
+    ;
 
-build_requires 'Test::Differences';
-build_requires 'Test::Aggregate';
-build_requires 'XML::Parser';
+feature 'Default caching setup' =>
+    -default                 => 1,
+    'Cache::Memory'          => 1,
+    'Cache::Memcached::Fast' => '1.24'
+    ;
+
+feature 'Default session store/state management' =>
+    -default                                     => 1,
+    'Catalyst::Plugin::Session::State::Cookie'   => '0.11',
+    'Catalyst::Plugin::Session::Store::FastMmap' => '0.07',
+    ;
+
+feature 'Developer features' =>
+    -default                           => 1,
+    'Catalyst::Plugin::StackTrace'     => '0.09',
+    'Catalyst::Plugin::Static::Simple' => '0.21',
+    ;
+
+# These are just for I18N
+requires 'Locale::PO';
+requires 'Locale::TextDomain'                          => '1.16';
+
+#author_requires 'Catalyst::Restarter';
+
+test_requires 'LWP::UserAgent::Mockable';
+test_requires 'Test::Differences';
+test_requires 'Test::Aggregate';
+test_requires 'XML::Parser';
 
 catalyst;
 

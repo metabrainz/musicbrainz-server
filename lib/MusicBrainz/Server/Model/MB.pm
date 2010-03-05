@@ -45,6 +45,8 @@ sub models {
         push @models, [ $model_name, "MusicBrainz::Server::Model::$model_name" ];
     }
 
+    push @models, 'MusicBrainz::Server::Email';
+
     return @models;
 }
 
