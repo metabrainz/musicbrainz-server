@@ -363,7 +363,7 @@ div.tabs {
     color: #000;
 }
 
-.page table.tbl th.first {
+.page table.tbl th:first-child {
     border-left: none;
 }
 
@@ -376,11 +376,12 @@ div.tabs {
     background: #F2F2F2;
 }
 
+.page table.tbl th.pos { width: 1em; }
 .page table.tbl th.year { width: 4em; }
 .page table.tbl th.count { width: 2em; }
 .page table.tbl th.rating { width: 50px; }
+.page table.tbl th.treleases { width: 3em; }
 .page table.tbl .c { text-align: center; }
-th.treleases { width: 3em; }
 .page table.tbl .t { text-align: right; }
 
 p.nfo span {

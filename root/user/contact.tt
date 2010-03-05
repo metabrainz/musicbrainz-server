@@ -10,7 +10,7 @@
 
         [% WRAPPER form_row %]
             [% r.label('body', l('Message:')) %]
-            [% r.textarea('body', { cols => 50, rows => 5 }) %]
+            [% r.textarea('body', { cols => 50, rows => 10 }) %]
             [% form_field_errors(form, 'body') %]
         [% END %]
 
