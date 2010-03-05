@@ -59,10 +59,15 @@ sub edit_annotation : Chained('load') PathPart RequireAuth
     my ($self, $c) = @_;
     my $model = $self->{model};
     my $entity = $c->stash->{entity};
-    $c->model($model)->annotation->load_latest($entity);
+    my $annotation_model = $c->model($model)->annotation;
+    $annotation_model->load_latest($entity);
 
     $self->edit_action($c,
         form => 'Annotation',
+        form_args => {
+            annotation_model => $annotation_model,
+            entity_id        => $entity->id
+        },
         item => $entity->latest_annotation,
         type => $model_to_edit_type{$model},
         edit_args => {
