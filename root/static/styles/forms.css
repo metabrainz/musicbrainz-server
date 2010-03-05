@@ -70,14 +70,13 @@ textarea {
     padding: 0.5em;
 }
 
-textarea.edit-note {
-    width: 45em;
-    height: 6em;
-}
-
 label.inline {
     float: none !important;
     width: auto !important;
+}
+
+.contact-form .no-label input {
+    margin-left:10em;
 }
 
 div.container { margin-left: 11em }

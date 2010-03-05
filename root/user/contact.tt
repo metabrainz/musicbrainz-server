@@ -4,7 +4,7 @@
 
     [%- USE r = FormRenderer(form) -%]
 
-    <form action="[% c.req.uri %]" method="post">
+    <form action="[% c.req.uri %]" method="post" class="contact-form">
         [% form_row_text(r, 'subject', l('Subject:')) %]
 
         [% WRAPPER form_row %]
@@ -16,8 +16,8 @@
         [% form_row_checkbox(r, 'reveal_address', l('Reveal my address address')) %]
         [% form_row_checkbox(r, 'send_to_self', l('Send a copy to my own email address')) %]
 
-        <div class="no-label row">
-        [% form_submit(l('Send')) %]
+        <div class="row no-label">
+            [% form_submit(l('Send')) %]
         </div>
     </form>
 
