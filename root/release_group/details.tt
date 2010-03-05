@@ -1,5 +1,5 @@
 [% WRAPPER "release_group/layout.tt" title=l('Details') page='details' %]
-
+<h2>[%- l('Details') -%]</h2>
 <table class="details">
   <tr>
     <th>[%- l('Name:') -%]</th>
