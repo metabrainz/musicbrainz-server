@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' full_width=1 title=l("CD Lookup") -%]
+[%- WRAPPER 'layout.tt' title=l("CD Lookup") full_width=1 -%]
     <h1>[% l("CD Lookup results") %]</h1>
     [% IF results.size %]
         <p>[% l("Found more than one match for the CD with toc {toc}: ", { toc => toc }) %]</p>

@@ -36,6 +36,12 @@ a:active, a:focus { outline-style: none; }
     padding: 0;
 }
 
+#header-logo #id-type {
+    margin-right: 4px;
+    margin-left: 10px;
+    padding: 2px;
+}
+
 #header-logo a {
     color: #FFF;
 }
@@ -706,29 +712,29 @@ span.mp {
 
 
 dl.profileinfo {
-	display: block;
+    display: block;
 }
 
 dl.profileinfo dt {
-	clear: left;
-	display: block;
-	font-weight: bold;
-	float: left;
-	width: 125px;
-	text-align: right;
-	padding: 5px;
+    clear: left;
+    display: block;
+    font-weight: bold;
+    float: left;
+    width: 125px;
+    text-align: right;
+    padding: 5px;
 }
 
 dl.profileinfo dd {
-	clear: right;
-	display: block;
-	padding: 5px;
-	margin-left: 130px;
+    clear: right;
+    display: block;
+    padding: 5px;
+    margin-left: 130px;
 }
 
 table.statistics {
-	float: left;
-	margin: 8px;
+    float: left;
+    margin: 8px;
 }
 
 table.details td.new {

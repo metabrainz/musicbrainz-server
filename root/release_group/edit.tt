@@ -14,7 +14,7 @@
     <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
 [%- END -%]
 
-[% WRAPPER 'layout.tt' full_width=1 title=l('Edit release group')  %]
+[% WRAPPER 'layout.tt' title=l('Edit Release Group') full_width=1 %]
    [% INCLUDE 'release_group/header.tt' page='edit' %]
    [% INCLUDE 'release_group/edit_form.tt' %]
 [% END %]

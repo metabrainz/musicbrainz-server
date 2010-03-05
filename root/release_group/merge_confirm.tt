@@ -1,4 +1,4 @@
-[% WRAPPER 'release_group/layout.tt' title=l('Merge Release Groups') %]
+[% WRAPPER 'release_group/layout.tt' title=l('Merge Release Groups') full_width=1 %]
     <h2>[% l('Merge Release Groups') %]</h2>
     [% WRAPPER 'layout/guidelines.tt' %]
         [%- create_guideline(l('Are you sure that you want to merge the release group {rg1} by {artist1} into the

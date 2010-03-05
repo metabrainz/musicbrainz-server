@@ -1,4 +1,4 @@
-[%- WRAPPER 'label/layout.tt' full_width=1 -%]
+[%- WRAPPER 'label/layout.tt' title=l('Add Label Alias') full_width=1 -%]
     <h2>[% l('Add label alias') %]</h2>
     <ul>
         <li>[% l('MusicBrainz uses label aliases mainly as variant names or search hints.') %]</li>

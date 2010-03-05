@@ -1,4 +1,4 @@
-[% WRAPPER 'recording/layout.tt' title=l('Merge Recordings') %]
+[% WRAPPER 'recording/layout.tt' title=l('Merge Recordings') full_width=1 %]
     <h2>[% l('Merge Recordings') %]</h2>
     [% WRAPPER 'layout/guidelines.tt' %]
         [%- create_guideline(l('Are you sure that you want to merge {recording1} by {artist1} into the {recording2} by {artist2}?', {recording1 => link_recording(old), artist1 => artist_credit(old.artist_credit),

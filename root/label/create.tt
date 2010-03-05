@@ -1,4 +1,4 @@
-[%- INCLUDE "label/edit_form.tt" new=1
-    WRAPPER "components/box.tt" header=l('Create Label')
-    WRAPPER 'layout.tt' title=l('Create Label') full_width=1 -%]
-
+[%- WRAPPER 'layout.tt' title=l('Add a New Label') full_width=1 -%]
+    <h1>[%- l('Add a New Label') -%]</h1>
+    [%- INCLUDE 'label/edit_form.tt' new=1 -%]
+[%- END -%]
