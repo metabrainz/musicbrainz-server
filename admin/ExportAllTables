@@ -256,6 +256,7 @@ my @tables = qw(
 	release_group_type
 	release_label
 	release_meta
+        release_meta_sanitised
 	release_name
 	release_packaging
 	release_status
@@ -341,6 +342,12 @@ if (grep { $_ eq "editor_sanitised" } @tables)
 {
 	$sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
 	$sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
+}
+
+if (grep { $_ eq 'release_meta_sanitised' } @tables)
+{
+        $sql->do("SELECT * INTO TEMPORARY TABLE release_meta_sanitised FROM release_meta");
+        $sql->do("UPDATE release_meta_sanitised SET coverarturl = '' WHERE coverarturl ~ 'http://ecx.images-amazon.com/%'");
 }
 
 $| = 1;
@@ -617,7 +624,7 @@ my @group_derived = qw(
 	release_group_annotation
 	release_group_meta
 	release_group_tag
-	release_meta
+	release_meta_sanitised
 	tag
 	tag_relation
 	work_annotation
