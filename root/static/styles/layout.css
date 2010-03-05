@@ -653,6 +653,7 @@ table.edit-list td.edit-details {
 table.details th {
     text-align: right;
     padding-left: 10pt;
+    width: 110px;
 }
 
 dl.properties {
@@ -683,6 +684,7 @@ span.mp {
 }
 
 #rightSide {
+    margin-top: 22px;
     float: right;
     width: 200pt;
 }
