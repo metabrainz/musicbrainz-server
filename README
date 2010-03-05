@@ -1,28 +1,23 @@
-The MusicBrainz server README
+The MusicBrainz Server README
 
-This file lists a number of web pages which will hopefully answer your
-questions.  I've taken this approach because this file was and is mostly
-only poorly maintained, but the web pages are much more likely to contain
-up-to-date information.
+The MusicBrainz Server is the web frontend to the MusicBrainz Database, and is
+accessable at http://musicbrainz.org.
 
-* Where to find us
-  http://musicbrainz.org/
+MusicBrainz is a user-maintained open community that collects, and makes 
+available to the public, music metadata in the form of a relational database.
+For more information see http://musicbrainz.org/doc/About_MusicBrainz.
 
-* About the MusicBrainz Project
-  http://musicbrainz.org/doc/AboutMusicBrainz
+More information
+* http://musicbrainz.org/doc/MusicBrainz_Server
+* http://musicbrainz.org/doc/MusicBrainz_Database
+* http://musicbrainz.org/doc/Database_Schema
+* http://musicbrainz.org/doc/MusicBrainz_License 
+  (contains data licensing information, the software license is in COPYING)
 
-* Licenses for the data (see COPYING for license of the software)
-  http://musicbrainz.org/doc/MusicBrainzLicense
+Contact us
+* In #musicbrainz-devel on irc.freenode.net
+* http://musicbrainz.org/doc/Contact_Us
 
-* Server architecture overview
-  http://musicbrainz.org/doc/Server
 
-* Database structure
-  http://musicbrainz.org/doc/DatabaseSchema
 
-* An overview of the mb_server codebase
-  http://musicbrainz.org/doc/ServerCodebase
-
-* Help!
-  http://musicbrainz.org/doc/ContactUs
-
+MusicBrainz - http://musicbrainz.org

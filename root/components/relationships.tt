@@ -21,7 +21,7 @@
                         }) %]
                     [%- END -%]
                 [%- ELSE -%]
-                    [% l('from {date}', { date => relationship.link.begin_date.format }) %]
+                    [% l('from {date} to present', { date => relationship.link.begin_date.format }) %]
                 [%- END -%]
             [%- ELSIF !relationship.link.end_date.is_empty -%]
                 [% l('until {date}', { date => relationship.link.end_date.format }) %]

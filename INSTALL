@@ -21,11 +21,13 @@ Prequisites
 
 	    perl -v
 
-2)  Postgres 8.3
+2)  PostgreSQL 8.3
 
     This is to set up the MusicBrainz database. If you compile Postgres from source, make sure to
     also compile the cube extension found in contrib/cube. The database import script will take
     care of installing that extension into the database when it creates the database for you.
+
+    You will need pg_config, so make sure to also install the PostgreSQL development libraries.
 
 Getting going
 -------------
