@@ -96,7 +96,7 @@ sub _insert_edit {
     }
 
     if (defined $edit &&
-            $form->does('MusicBrainz::Server::Form::Edit') &&
+            $form->does('MusicBrainz::Server::Form::Role::Edit') &&
             $form->field('edit_note')->value) {
         $c->model('EditNote')->add_note($edit->id, {
             text      => $form->field('edit_note')->value,
