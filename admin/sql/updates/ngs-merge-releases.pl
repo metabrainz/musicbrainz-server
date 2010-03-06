@@ -346,8 +346,8 @@ eval {
 			WHEN rm1.new_rel IS NOT NULL THEN regexp_replace(n.name, E'\\\\s+[(](disc [0-9]+(: .*?)?|bonus disc(: .*?)?)[)]\$', '')
 			ELSE n.name
 		END,
-		artist_credit, release_group, status, packaging, country, language, script, 
-		date_year, date_month, date_day, barcode, comment, editpending
+		artist_credit, release_group, status, packaging, country, language, script,
+		date_year, date_month, date_day, barcode, comment, editpending, quality
 	INTO TEMPORARY tmp_release
 	FROM release
 		INNER JOIN release_name n ON release.name=n.id
