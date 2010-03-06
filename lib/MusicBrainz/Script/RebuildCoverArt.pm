@@ -53,15 +53,25 @@ sub run
 
     my $releases = $self->c->model('CoverArt')->find_outdated_releases($self->since);
 
+    my $completed = 0;
+    my $total = @$releases;
     my $started_at = DateTime->now;
+
+    printf STDERR "There are %d releases to update\n", $total;
+
     $self->sql->begin;
     while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
                (my $row = shift @$releases))
     {
         $self->c->model('CoverArt')->cache_cover_art($row->{release}, $row->{link_type}, $row->{url});
+        if ($completed++ % 10 == 0) {
+            printf STDERR "%d/%d\r", $completed, $total;
+        }
     }
     $self->sql->finish;
     $self->sql->commit;
+
+    printf STDERR "Processed %d, %d still need to be updated\n", $completed, $total - $completed;
 }
 
 __PACKAGE__->meta->make_immutable;
