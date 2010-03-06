@@ -58,13 +58,7 @@ sub run
     while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
                (my $row = shift @$releases))
     {
-        my $cover_art =  $self->c->model('CoverArt')->parse_from_type_url($row->{link_type}, $row->{url})
-            or next;
-
-        my $update = $cover_art->cache_data;
-        $update->{coverfetched} = DateTime->now;
-
-        $self->sql->update_row('release_meta', $update, { id => $row->{release} });
+        $self->c->model('CoverArt')->cache_cover_art($row->{release}, $row->{link_type}, $row->{url});
     }
     $self->sql->finish;
     $self->sql->commit;

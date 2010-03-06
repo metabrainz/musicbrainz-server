@@ -163,6 +163,19 @@ sub find_outdated_releases
                                        @url_types);
 }
 
+sub cache_cover_art
+{
+    my ($self, $release_id, $link_type, $url) = @_;
+    my $cover_art =  $self->parse_from_type_url($link_type, $url)
+        or return;
+
+    my $update = $cover_art->cache_data;
+    $update->{coverfetched} = DateTime->now;
+
+    my $sql = Sql->new($self->c->dbh);
+    $sql->update_row('release_meta', $update, { id => $release_id });
+}
+
 sub parse_from_type_url
 {
     my ($self, $type, $url) = @_;
