@@ -63,6 +63,7 @@ requires 'MooseX::Storage'                             => '0.150';
 requires 'MooseX::Types'                               => '0.16';
 requires 'MooseX::Types::Structured'                   => '0.16';
 requires 'MRO::Compat'                                 => '0.10';
+requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                  => '1.060200';
 requires 'Readonly'                                    => '1.03';
 requires 'String::ShellQuote'                          => '1.030';

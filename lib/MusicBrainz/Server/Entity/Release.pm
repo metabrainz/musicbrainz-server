@@ -196,6 +196,12 @@ has [qw( cover_art_url info_url amazon_asin amazon_store )] => (
     isa => 'Str',
 );
 
+has 'cover_art' => (
+    isa       => 'MusicBrainz::Server::CoverArt',
+    is        => 'rw',
+    predicate => 'has_cover_art',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
