@@ -1,4 +1,4 @@
-[%- WRAPPER 'release_group/layout.tt' title=l('Delete') -%]
+[%- WRAPPER 'release_group/layout.tt' title=l('Delete Release Group') full_width=1 -%]
     <h2>[% l('Delete Release Group ') %]</h2>
     [%- IF can_delete -%]
         <p>

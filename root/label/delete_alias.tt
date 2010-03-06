@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Remove Label Alias') full_width=1 -%]
     [% INCLUDE 'label/header.tt' %]
     <h2>[% l('Delete Alias') %]</h2>
     [% WRAPPER 'layout/guidelines.tt' %]

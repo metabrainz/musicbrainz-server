@@ -1,4 +1,4 @@
-[%- WRAPPER 'artist/layout.tt' -%]
+[%- WRAPPER 'artist/layout.tt' title=l('Edit Artist Alias') full_width=1 -%]
     <h2>[% l('Edit artist alias') %]</h2>
     <ul>
         <li>[% l('MusicBrainz uses artist aliases mainly as variant names or search hints.') %]</li>

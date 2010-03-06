@@ -1,3 +1,4 @@
 [%- WRAPPER 'layout.tt' title=l('Search') full_width=1 -%]
+    <h1>[% l("Search") %]</h1>
     [%- INCLUDE 'search/form.tt' -%]
 [%- END -%]

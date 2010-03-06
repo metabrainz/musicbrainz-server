@@ -12,7 +12,7 @@
     <input type="hidden" value="[% edit.id %]" name="[% name %].edit_id" />
     <table>
         <tr>
-            <td>[% vote_checkbox(l('No vote'), -2) %]</td>
+            <td>[% vote_checkbox(l('None'), -2) %]</td>
             <td>[% vote_checkbox(l('Abstain'), -1) %]</td>
             <td>[% vote_checkbox(l('No'), 0) %]</td>
             <td>[% vote_checkbox(l('Yes'), 1) %]</td>

@@ -9,7 +9,7 @@
                     { label => l('Yes'),     value => 'y', id => 'yes' },
                     { label => l('No'),      value => 'n', id => 'no' },
                     { label => l('Abstain'), value => 'a', id => 'abs' },
-                    { label => l('No Vote'), value => '',  id => 'nv' },
+                    { label => l('None'),    value => '',  id => 'nv' },
                 ] -%]
                 [% FOR opt=options %]
                     <td>
