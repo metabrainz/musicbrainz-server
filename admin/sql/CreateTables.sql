@@ -730,7 +730,8 @@ CREATE TABLE release_meta
     coverarturl         VARCHAR(255),
     infourl             VARCHAR(255),
     amazonasin          VARCHAR(10),
-    amazonstore         VARCHAR(20)
+    amazonstore         VARCHAR(20),
+    coverfetched        TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE release_label (
