@@ -42,8 +42,8 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            $_ => code2language($_)
-        } all_language_codes()
+            language2code($_) => $_
+        } sort { $a cmp $b } all_language_names()
     ];
 }
 
