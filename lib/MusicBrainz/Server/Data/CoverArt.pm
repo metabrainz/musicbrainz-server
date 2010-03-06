@@ -4,6 +4,11 @@ use Moose;
 use aliased 'MusicBrainz::Server::CoverArt::Provider::RegularExpression'  => 'RegularExpressionProvider';
 use aliased 'MusicBrainz::Server::CoverArt::Provider::WebService::Amazon' => 'AmazonProvider';
 
+use DateTime::Format::Pg;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
+
+with 'MusicBrainz::Server::Data::Role::Context';
+
 has 'providers' => (
     isa => 'ArrayRef',
     is  => 'ro',
@@ -99,7 +104,8 @@ has '_handled_link_types' => (
     traits     => [ 'Hash' ],
     handles    => {
         can_parse     => 'exists',
-        get_providers => 'get'
+        get_providers => 'get',
+        handled_types => 'keys',
     }
 );
 
@@ -130,6 +136,31 @@ sub load
             last;
         }
     }
+}
+
+sub find_outdated_releases
+{
+    my ($self, $since) = @_;
+
+    my @url_types = $self->handled_types;
+
+    my $query = '
+        SELECT url.url, l.entity0 AS release, link_type.name AS link_type
+          FROM l_release_url l
+          JOIN link      ON l.link = link.id
+          JOIN link_type ON link.link_type = link_type.id
+          JOIN url       ON l.entity1 = url.id
+         WHERE l.entity0 IN (
+                 SELECT id FROM release_meta
+                  WHERE coverfetched IS NULL
+                     OR NOW() - coverfetched > ?
+             ) AND
+               link_type.name IN ('  . placeholders(@url_types) . ')';
+
+    my $pg_date_formatter = DateTime::Format::Pg->new;
+    my $sql = Sql->new($self->c->dbh);
+    return $sql->select_list_of_hashes($query, $pg_date_formatter->format_duration($since),
+                                       @url_types);
 }
 
 sub parse_from_type_url
