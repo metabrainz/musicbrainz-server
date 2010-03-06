@@ -5,7 +5,7 @@ use Net::Amazon::AWSSign;
 use LWP::UserAgent;
 use XML::Simple;
 
-use aliased 'MusicBrainz::Server::CoverArt';
+use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 
 extends 'MusicBrainz::Server::CoverArt::Provider';
 
@@ -65,7 +65,8 @@ sub lookup_cover_art
     my $cover_art = CoverArt->new(
         provider        => $self,
         image_uri       => $image_url,
-        information_uri => $uri
+        information_uri => $uri,
+        asin            => $asin
     );
 
     return $cover_art;
