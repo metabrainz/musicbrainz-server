@@ -1,6 +1,7 @@
 package MusicBrainz::Server::CoverArt::Provider::WebService::Amazon;
 use Moose;
 
+use Time::HiRes qw (sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
 use LWP::UserAgent;
 use XML::Simple;
@@ -17,6 +18,8 @@ has '_aws_signature' => (
     is => 'ro',
     lazy_build => 1,
 );
+
+my $last_request_time;
 
 sub _build__aws_signature
 {
@@ -47,6 +50,12 @@ sub lookup_cover_art
                   "ResponseGroup=Images";
 
     $url = $self->_aws_signature->addRESTSecret($url);
+
+    # Respect Amazon SLA
+    if ($last_request_time) {
+        sleep(1 - tv_interval($last_request_time));
+    }
+    $last_request_time = [ gettimeofday ];
 
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
