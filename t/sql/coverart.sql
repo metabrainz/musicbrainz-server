@@ -39,8 +39,8 @@ INSERT INTO url (id, gid, url)
                'http://www.amazon.com/gp/product/B000W23HCY');
 
 INSERT INTO link_type (id, gid, name, linkphrase, rlinkphrase, shortlinkphrase)
-    VALUES (1, '6538e340-2925-11df-8a39-0800200c9a66', 'coverart', 'has coverart at', 'provides coverart for', 'coverart'),
-           (2, '6d47b930-2925-11df-8a39-0800200c9a66', 'asin', 'has amazon asin', 'is an amazon asin for', 'asin');
+    VALUES (1, '6538e340-2925-11df-8a39-0800200c9a66', 'cover art link', 'has coverart at', 'provides coverart for', 'coverart'),
+           (2, '6d47b930-2925-11df-8a39-0800200c9a66', 'amazon asin', 'has amazon asin', 'is an amazon asin for', 'asin');
 
 INSERT INTO link (id, link_type) VALUES (1, 1), (2, 2);
 

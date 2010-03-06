@@ -10,7 +10,7 @@ use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 extends 'MusicBrainz::Server::CoverArt::Provider';
 
 has '+link_type_name' => (
-    default => 'asin',
+    default => 'amazon asin',
 );
 
 has '_aws_signature' => (

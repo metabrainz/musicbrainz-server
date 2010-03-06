@@ -16,7 +16,7 @@ my $ua = LWP::UserAgent->new;
 $ua->env_proxy;
 
 subtest 'Parses valid cover art relationships' => sub {
-    my $release = make_release('coverart', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
+    my $release = make_release('cover art link', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 
     $c->model('CoverArt')->load($release);
     ok($release->has_cover_art);
@@ -27,7 +27,7 @@ subtest 'Parses valid cover art relationships' => sub {
 };
 
 subtest 'Doesnt parse invalid cover art relationships' => sub {
-    my $release = make_release('coverart', 'http://www.google.com');
+    my $release = make_release('cover art link', 'http://www.google.com');
 
     $c->model('CoverArt')->load($release);
     ok(!$release->has_cover_art);
@@ -35,28 +35,25 @@ subtest 'Doesnt parse invalid cover art relationships' => sub {
     done_testing;
 };
 
-# FIXME: the following tests are broken, I've made a ticket
-# in jira: http://jira.musicbrainz.org/browse/MBS-785    --warp.
+subtest 'Handles Amazon ASINs' => sub {
+    my $release = make_release('amazon asin', 'http://www.amazon.com/gp/product/B000003TA4');
 
-# subtest 'Handles Amazon ASINs' => sub {
-#     my $release = make_release('asin', 'http://www.amazon.com/gp/product/B000003TA4');
+     $c->model('CoverArt')->load($release);
+     ok($release->has_cover_art);
+     ok($ua->get($release->cover_art->image_uri)->is_success);
 
-#     $c->model('CoverArt')->load($release);
-#     ok($release->has_cover_art);
-#     ok($ua->get($release->cover_art->image_uri)->is_success);
+     done_testing;
+};
 
-#     done_testing;
-# };
+subtest 'Handles Amazon ASINs for downloads' => sub {
+    my $release = make_release('amazon asin', 'http://www.amazon.com/gp/product/B000W23HCY');
 
-# subtest 'Handles Amazon ASINs for downloads' => sub {
-#     my $release = make_release('asin', 'http://www.amazon.com/gp/product/B000W23HCY');
+    $c->model('CoverArt')->load($release);
+    ok($release->has_cover_art);
+    ok($ua->get($release->cover_art->image_uri)->is_success);
 
-#     $c->model('CoverArt')->load($release);
-#     ok($release->has_cover_art);
-#     ok($ua->get($release->cover_art->image_uri)->is_success);
-
-#     done_testing;
-# };
+    done_testing;
+};
 
 done_testing;
 

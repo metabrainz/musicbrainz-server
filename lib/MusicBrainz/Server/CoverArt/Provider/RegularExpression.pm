@@ -24,7 +24,7 @@ has 'info_uri_template' => (
 );
 
 has '+link_type_name' => (
-    default  => 'coverart'
+    default  => 'cover art link'
 );
 
 has 'domain' => (
