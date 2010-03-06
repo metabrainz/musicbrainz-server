@@ -174,7 +174,7 @@ sub load_preferences
 
     my $query = sprintf "SELECT editor, name, value ".
         "FROM editor_preference WHERE editor IN (%s)",
-        placeholders (keys %editors);
+        placeholders(keys %editors);
 
     my $sql = Sql->new($self->c->dbh);
     my $prefs = $sql->select_list_of_hashes($query, keys %editors);
