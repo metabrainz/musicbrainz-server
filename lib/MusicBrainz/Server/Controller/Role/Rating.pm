@@ -10,6 +10,7 @@ sub ratings : Chained('load') PathPart('ratings')
     my $entity = $c->stash->{$self->{entity_name}};
     my @ratings = $c->model($self->{model})->rating->find_by_entity_id($entity->id);
     $c->model('Editor')->load(@ratings);
+    $c->model('Editor')->load_preferences(map { $_->editor } @ratings);
 
     $c->stash(
         ratings => \@ratings,

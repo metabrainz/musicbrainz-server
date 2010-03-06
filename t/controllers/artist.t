@@ -20,7 +20,8 @@ my $tests = Test::Aggregate::Nested->new( {
 TRUNCATE artist_tag_raw CASCADE;
 TRUNCATE artist_rating_raw CASCADE;
 INSERT INTO artist_tag_raw (artist, editor, tag) VALUES (3, 1, 1), (3, 2, 1);
-INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (3, 1, 4);
+INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (3, 1, 20);
+INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (3, 2, 100);
 ');
     },
     teardown => sub { get('/logout') }

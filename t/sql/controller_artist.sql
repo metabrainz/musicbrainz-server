@@ -71,6 +71,10 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, date_year,
     (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 3, 1, 1, 2009, 5, 8);
 
 INSERT INTO editor (id, name, password) VALUES (1, 'new_editor', 'password');
+INSERT INTO editor (id, name, password) VALUES (2, 'alice', 'password');
+
+-- Alice has private ratings.
+INSERT INTO editor_preference (editor, name, value) VALUES (2, 'public_ratings', '0');
 
 INSERT INTO annotation (id, editor, text) VALUES
     (1, 1, 'Test annotation 1' || chr(10) || chr(10) || 'More annotation');

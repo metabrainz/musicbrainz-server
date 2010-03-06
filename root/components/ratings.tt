@@ -2,10 +2,20 @@
 
 [%- IF ratings.size -%]
     <ul>
+    [%- private_ratings = 0 -%]
     [%- FOREACH rating IN ratings -%]
+        [%- IF rating.editor.preferences.public_ratings == 0 -%]
+        [%- private_ratings = private_ratings + 1 -%]
+        [%- ELSE -%]
         <li>[% rating.rating %] - [% link_editor(rating.editor) %]</li>
+        [%- END -%]
     [%- END -%]
     </ul>
+    [%- IF private_ratings -%]
+    <p>
+      [%- ln('{count} private rating not listed.', '{count} private ratings not listed.', private_ratings, { count => private_ratings }); -%]
+    </p>
+    [%- END -%]
 [%- ELSE -%]
     [% l('{link} has no ratings.', { link => link_entity(source) }) -%]
 [%- END -%]
