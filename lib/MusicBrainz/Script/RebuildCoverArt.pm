@@ -28,6 +28,11 @@ has 'sql' => (
     lazy_build => 1,
 );
 
+sub _build_sql
+{
+    return Sql->new(shift->c->dbh);
+}
+
 has 'since' => (
     isa      => 'DateTime::Duration',
     is       => 'ro',
@@ -36,11 +41,13 @@ has 'since' => (
     default  => sub { DateTime::Duration->new( weeks => 2 ) }
 );
 
-sub _build_sql
-{
-    return Sql->new(shift->c->dbh);
-}
-
+has 'max_run_time' => (
+    isa      => 'DateTime::Duration',
+    is       => 'ro',
+    required => 1,
+    traits   => [ 'NoGetopt' ],
+    default  => sub { DateTime::Duration->new( minutes => 10 ) }
+);
 
 sub run
 {
@@ -65,8 +72,11 @@ sub run
     $self->sql->select($query, $pg_date_formatter->format_duration($self->since),
                        @url_types);
 
+    my $started_at = DateTime->now;
+
     $self->sql->begin;
-    while (my $row = $self->sql->next_row_hash_ref)
+    while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
+               (my $row = $self->sql->next_row_hash_ref))
     {
         my $cover_art =  $self->c->model('CoverArt')->parse_from_type_url($row->{link_type}, $row->{url})
             or next;
