@@ -347,7 +347,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
 if (grep { $_ eq 'release_meta_sanitised' } @tables)
 {
         $sql->do("SELECT * INTO TEMPORARY TABLE release_meta_sanitised FROM release_meta");
-        $sql->do("UPDATE release_meta_sanitised SET coverarturl = '' WHERE coverarturl ~ 'http://ecx.images-amazon.com/%'");
+        $sql->do("UPDATE release_meta_sanitised SET coverarturl = '' WHERE amazonasin IS NOT NULL");
 }
 
 $| = 1;
