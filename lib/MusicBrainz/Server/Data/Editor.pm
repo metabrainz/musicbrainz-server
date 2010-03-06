@@ -6,6 +6,7 @@ use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
+    placeholders
 );
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
 
@@ -169,11 +170,11 @@ sub load_preferences
 {
     my ($self, @editors) = @_;
 
-    my $query = sprintf "SELECT editor, name, value ".
-        "FROM editor_preference WHERE editor in (%s)",
-        join (", ", ("?")x@editors);
-
     my %editors = map { $_->id => $_ } @editors;
+
+    my $query = sprintf "SELECT editor, name, value ".
+        "FROM editor_preference WHERE editor IN (%s)",
+        placeholders (keys %editors);
 
     my $sql = Sql->new($self->c->dbh);
     my $prefs = $sql->select_list_of_hashes($query, keys %editors);
