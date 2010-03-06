@@ -45,6 +45,6 @@ INSERT INTO link_type (id, gid, name, linkphrase, rlinkphrase, shortlinkphrase)
 INSERT INTO link (id, link_type) VALUES (1, 1), (2, 2);
 
 INSERT INTO l_release_url (link, entity0, entity1)
-    VALUES (1, 1, 1), (2, 1, 2);
+    VALUES (1, 1, 1), (2, 2, 2);
 
 COMMIT;
