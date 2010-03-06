@@ -70,7 +70,6 @@ sub _rewrite {
     return $template;
 }
 
-
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
