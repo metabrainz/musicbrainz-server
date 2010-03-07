@@ -1,5 +1,5 @@
 [%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name -%]
-    [% IF !full_width %]
+
         [% WRAPPER 'layout/sidebar.tt' %]
             [% WRAPPER 'layout/sidebar/properties.tt' %]
                 [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
@@ -55,7 +55,7 @@
 
             [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
         [% END %]
-    [% END %]
+
     <div class="content">
         [%- INCLUDE "artist/header.tt" -%]
         [%- content -%]

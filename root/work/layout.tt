@@ -5,7 +5,6 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
-[% IF !full_width %]
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
@@ -34,7 +33,6 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
     [% END %]
-[% END %]
 
 <div class="content">
     [%- INCLUDE 'work/header.tt' %]
