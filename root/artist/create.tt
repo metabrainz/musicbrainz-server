@@ -1,4 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('Add a New Artist') full_width=1 -%]
-    <h1>[%- l('Add a New Artist') -%]</h1>
-    [%- INCLUDE 'artist/edit_form.tt' new=1 -%]
+    <div class="content">
+        <h1>[%- l('Add a New Artist') -%]</h1>
+        [%- INCLUDE 'artist/edit_form.tt' new=1 -%]
+    </div>
 [%- END -%]

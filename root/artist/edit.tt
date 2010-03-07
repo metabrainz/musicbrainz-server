@@ -1,4 +1,3 @@
-[% WRAPPER 'layout.tt' title=l('Edit Artist') full_width=1 %]
-    [% INCLUDE 'artist/header.tt' page='edit' %]
+[% WRAPPER 'artist/layout.tt' title=l('Edit Artist') full_width=1 page='edit' %]
     [% INCLUDE 'artist/edit_form.tt' %]
 [% END %]
