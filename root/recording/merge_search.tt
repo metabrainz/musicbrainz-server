@@ -1,4 +1,5 @@
 [% WRAPPER 'recording/layout.tt' title=l("Merge Recordings") full_width=1 %]
+    <h2>[% l('Merge Recordings') %]</h2>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {recording} into another recording.', {recording => link_recording(recording)})) -%]
         [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge recordings} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Recordings")})) -%]

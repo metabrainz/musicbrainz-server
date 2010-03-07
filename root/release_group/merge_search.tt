@@ -1,4 +1,5 @@
 [% WRAPPER 'release_group/layout.tt' title=l("Merge Release Groups") RadioClick=1 full_width=1 %]
+    <h2>[% l('Merge Release Groups') %]</h2>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {rg} into another release group.', {rg => link_release_group(rg)})) -%]
         [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge release groups} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Release_Groups")})) -%]
