@@ -1,49 +1,49 @@
 [%- WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name -%]
 
-        [% WRAPPER 'layout/sidebar.tt' %]
-            [% WRAPPER 'layout/sidebar/properties.tt' %]
-                [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-                   content=html_escape(label.type_name)
-                       IF label.type -%]
-                [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
-                    [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
-                        [% label.begin_date.format or l("present") %] &mdash;
-                        [% label.end_date.format or l("present") %]
-                        [% IF label.has_age %]
-                           ([% display_age (label.age) %])
-                        [% END %]
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+               content=html_escape(label.type_name)
+                   IF label.type -%]
+            [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
+                [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
+                    [% label.begin_date.format or l("present") %] &mdash;
+                    [% label.end_date.format or l("present") %]
+                    [% IF label.has_age %]
+                       ([% display_age (label.age) %])
                     [% END %]
-                [%- END -%]
-                [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-                   content=html_escape(label.country.name)
-                       IF label.country -%]
-            [% END %]
-            [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
-            [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags tag_this_text=l('Tag this label') -%]
-
-            <ul class="links">
-            [% IF c.user_exists %]
-                [% IF subscribed %]
-                    <li><a href="[% c.uri_for_action('/user/subscriptions/label/remove', { id => label.id }) %]">[% l('Unsubscribe') %]</a></li>
-                [% ELSE %]
-                    <li><a href="[% c.uri_for_action('/user/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
                 [% END %]
-            [% END %]
-                [% IF c.user_exists %]
-                    <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
-                    <li>[% link_label(label, 'merge', l('Merge this label into another')) %]</li>
-                    <li>[% use_in_relationship(label) %]</li>
-                    <li>[% link_label(label, 'edits', l('View editing history')) %]</li>
-                    [% IF label.edits_pending %]
-                      <li>[% link_label(label, 'open_edits', l('Open edits')) %]</li>
-                    [% END %]
-                [% ELSE %]
-                    <li>[% request_login(l('Please log in to edit this label')) %]</li>
-                [% END %]
-            </ul>
-
-            [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
+            [%- END -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
+               content=html_escape(label.country.name)
+                   IF label.country -%]
         [% END %]
+        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags tag_this_text=l('Tag this label') -%]
+
+        <ul class="links">
+        [% IF c.user_exists %]
+            [% IF subscribed %]
+                <li><a href="[% c.uri_for_action('/user/subscriptions/label/remove', { id => label.id }) %]">[% l('Unsubscribe') %]</a></li>
+            [% ELSE %]
+                <li><a href="[% c.uri_for_action('/user/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
+            [% END %]
+        [% END %]
+            [% IF c.user_exists %]
+                <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
+                <li>[% link_label(label, 'merge', l('Merge this label into another')) %]</li>
+                <li>[% use_in_relationship(label) %]</li>
+                <li>[% link_label(label, 'edits', l('View editing history')) %]</li>
+                [% IF label.edits_pending %]
+                  <li>[% link_label(label, 'open_edits', l('Open edits')) %]</li>
+                [% END %]
+            [% ELSE %]
+                <li>[% request_login(l('Please log in to edit this label')) %]</li>
+            [% END %]
+        </ul>
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
+    [% END %]
 
     <div class="content">
         [%- INCLUDE "label/header.tt" -%]

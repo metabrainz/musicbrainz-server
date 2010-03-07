@@ -4,41 +4,41 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
-[% WRAPPER 'layout/sidebar.tt' %]
-    [% WRAPPER 'layout/sidebar/properties.tt' %]
-        [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-           content=artist_credit(recording.artist_credit) %]
-        [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-           content=u.filter(recording.length, 'format_length')
-               IF recording.length -%]
-        [%- FOR isrc IN isrcs -%]
-            [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]
-            <a href="[% c.uri_for_action('/isrc/show', [ isrc.isrc ]) %]">[% isrc.isrc %]</a>
-            [% END %]
-        [%- END -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+               content=artist_credit(recording.artist_credit) %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
+               content=u.filter(recording.length, 'format_length')
+                   IF recording.length -%]
+            [%- FOR isrc IN isrcs -%]
+                [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]
+                <a href="[% c.uri_for_action('/isrc/show', [ isrc.isrc ]) %]">[% isrc.isrc %]</a>
+                [% END %]
+            [%- END -%]
+        [% END %]
+        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags tag_this_text=l('Tag this recording') -%]
+
+        <ul class="links">
+          [% IF c.user_exists %]
+          <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
+          [% IF recording.edits_pending %]
+            <li>[% link_recording(recording, 'open_edits', l('Open edits')) %]</li>
+          [% END %]
+          <li>[% link_recording(recording, 'merge', l('Merge this recording with another')) %]</li>
+          <li>[% use_in_relationship(recording) %]</li>
+          [% ELSE %]
+          <li>[% request_login(l('Please log in to edit this recording')) %]</li>
+          [% END %]
+        </ul>
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
     [% END %]
-    [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
-    [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags tag_this_text=l('Tag this recording') -%]
 
-    <ul class="links">
-      [% IF c.user_exists %]
-      <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
-      [% IF recording.edits_pending %]
-        <li>[% link_recording(recording, 'open_edits', l('Open edits')) %]</li>
-      [% END %]
-      <li>[% link_recording(recording, 'merge', l('Merge this recording with another')) %]</li>
-      <li>[% use_in_relationship(recording) %]</li>
-      [% ELSE %]
-      <li>[% request_login(l('Please log in to edit this recording')) %]</li>
-      [% END %]
-    </ul>
-
-    [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
-[% END %]
-
-<div class="content">
-    [%- INCLUDE 'recording/header.tt' %]
-    [%- content -%]
-</div>
+    <div class="content">
+        [%- INCLUDE 'recording/header.tt' %]
+        [%- content -%]
+    </div>
 
 [%- END -%]
