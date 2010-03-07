@@ -1,15 +1,16 @@
 [%- WRAPPER "url/layout.tt" title=l("URL Information") page='index' -%]
-  <h2>[% l('URL Details') %]</h2>
+    <h2>[% l('URL Details') %]</h2>
     <table class="details">
-      <tr>
-        <th>[% l('URL:') %]</th>
-        <td><a href="[% html_escape(url.url) %]">[% display_url(url.url) %]</a></td>
-      </tr>
-      [% IF url.description %]
-      <tr>
-        <th>[% l('Description:') %]</th>
-        <td>[% url.description | html %]</td>
-      </tr>
-      [% END %]
+        <tr>
+            <th>[% l('URL:') %]</th>
+            <td><a href="[% html_escape(url.url) %]">[% display_url(url.url) %]</a></td>
+        </tr>
+        [% IF url.description %]
+            <tr>
+                <th>[% l('Description:') %]</th>
+                <td>[% url.description | html %]</td>
+            </tr>
+        [% END %]
     </table>
 [%- END -%]
+

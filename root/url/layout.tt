@@ -1,17 +1,17 @@
 [% WRAPPER 'layout.tt' %]
-   [% IF !full_width %]
-   [% WRAPPER 'layout/sidebar.tt' %]
-    <ul class="links">
-      [% IF c.user_exists %]
-      <li>[% use_in_relationship(url) %]</li>
-      [% ELSE %]
-      <li>[% request_login(l('Please login to edit this URL')) %]</li>
-      [% END %]
-    </ul>
-   [% END %]
-   [% END %]
-  <div class="content">
-   [% INCLUDE 'url/header.tt' %]
-   [% content %]
-  </div>
+    [% IF !full_width %]
+        [% WRAPPER 'layout/sidebar.tt' %]
+            <ul class="links">
+                [% IF c.user_exists %]
+                    <li>[% use_in_relationship(url) %]</li>
+                [% ELSE %]
+                    <li>[% request_login(l('Please login to edit this URL')) %]</li>
+                [% END %]
+            </ul>
+        [% END %]
+    [% END %]
+    <div class="content">
+    [% INCLUDE 'url/header.tt' %]
+    [% content %]
+    </div>
 [% END %]

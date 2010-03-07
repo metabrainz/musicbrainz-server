@@ -4,33 +4,33 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
     [% IF !full_width %]
-    [% WRAPPER 'layout/sidebar.tt' %]
-        [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-               content=artist_credit(rg.artist_credit) %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(rg.type_name)
-                   IF rg.type -%]
-        [%- END -%]
+        [% WRAPPER 'layout/sidebar.tt' %]
+            [% WRAPPER 'layout/sidebar/properties.tt' %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+                   content=artist_credit(rg.artist_credit) %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                   content=html_escape(rg.type_name)
+                       IF rg.type -%]
+            [%- END -%]
 
-        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=rg -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=rg tags=top_tags tag_this_text=l('Tag release group') -%]
+            [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=rg -%]
+            [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=rg tags=top_tags tag_this_text=l('Tag release group') -%]
 
-        <ul class="links">
-            [% IF c.user_exists %]
-               <li>[% link_release_group(rg, 'merge', l('Merge release group')) %]</li> <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
-               [% IF rg.edits_pending %]
-                 <li>[% link_release_group(rg, 'open_edits', l('Open edits')) %]</li>
-               [% END %]
-               <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
-               <li>[% use_in_relationship(rg) %]</li>
-            [% ELSE %]
-               <li>[% request_login(l('Please log in to edit this release group')) %]</li>
-            [% END %]
-        </ul>
+            <ul class="links">
+                [% IF c.user_exists %]
+                    <li>[% link_release_group(rg, 'merge', l('Merge release group')) %]</li> <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
+                    [% IF rg.edits_pending %]
+                        <li>[% link_release_group(rg, 'open_edits', l('Open edits')) %]</li>
+                    [% END %]
+                    <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
+                    <li>[% use_in_relationship(rg) %]</li>
+                [% ELSE %]
+                   <li>[% request_login(l('Please log in to edit this release group')) %]</li>
+                [% END %]
+            </ul>
 
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
-    [% END %]
+            [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
+        [% END %]
     [% END %]
 
     <div class="content">
