@@ -29,6 +29,7 @@ ok(defined $alias, 'returns an object');
 isa_ok($alias, 'MusicBrainz::Server::Entity::ArtistAlias', 'not an artist alias');
 is($alias->name, 'Alias 1', 'alias name');
 is($alias->artist_id, 1, 'artist id');
+ok(!$alias->locale, 'has no locale');
 
 # Loading the artist from an alias
 $artist_data->load($alias);
@@ -41,8 +42,10 @@ my $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 2);
 is($alias_set->[0]->name, 'Alias 1');
 is($alias_set->[0]->artist_id, 1);
+is($alias_set->[0]->locale, undef);
 is($alias_set->[1]->name, 'Alias 2');
 is($alias_set->[1]->artist_id, 1);
+is($alias_set->[1]->locale, 'en_GB');
 
 # Attempt finding aliases for an artist with no aliases
 $alias_set = $artist_data->alias->find_by_entity_id(2);
@@ -80,10 +83,11 @@ $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
 # Test inserting new aliases
-$artist_data->alias->insert({ artist_id => 1, name => 'New alias' });
+$artist_data->alias->insert({ artist_id => 1, name => 'New alias', locale => 'en_AU' });
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
+is($alias_set->[0]->locale, 'en_AU');
 
 $sql->commit;
 

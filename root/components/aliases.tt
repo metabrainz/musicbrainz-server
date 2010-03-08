@@ -11,6 +11,7 @@
                             [% l('Actions') %]
                         </td>
                     [% END %]
+                    <th style="width: 5em">[% l('Language') %]</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,12 +24,13 @@
                         <td>
                             <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">
                               [%- l('Edit') -%]
-                            </a> | 
+                            </a> |
                             <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
                               [%- l('Delete') -%]
                             </a>
                         </td>
                     [% END %]
+                    <td>[% alias.locale | language %]</td>
                 </tr>
             [%- END -%]
             </tbody>

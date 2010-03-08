@@ -10,12 +10,18 @@ has 'name' => (
     isa => 'Str'
 );
 
+has 'locale' => (
+    is  => 'rw',
+    isa => 'Str',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify

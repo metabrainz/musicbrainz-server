@@ -1,6 +1,7 @@
 <form action="[% c.req.uri %]" method="post">
     [% USE r = FormRenderer(form) %]
     [% form_row_text(r, 'name', l('Alias name:')) %]
+    [% form_row_select(r, 'locale', l('Language:')) %]
 
     [% INCLUDE 'forms/edit-note.tt' %]
     [% enter_edit() %]

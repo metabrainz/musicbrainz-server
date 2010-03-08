@@ -3,6 +3,7 @@ package MusicBrainz::Server::Filters;
 use strict;
 use warnings;
 
+use Locale::Language;
 use MusicBrainz::Server::Track;
 use URI::Escape;
 use Encode;
@@ -58,6 +59,11 @@ sub uri_decode
     my $dec = uri_unescape($uri);
     Encode::_utf8_on($dec);
     return $dec;
+}
+
+sub language
+{
+    return code2language(shift);
 }
 
 1;

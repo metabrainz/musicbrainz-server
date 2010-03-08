@@ -8,4 +8,10 @@
     <td class="old">[% edit.display_data.alias.old | html %]</td>
     <td class="new">[% edit.display_data.alias.new | html %]</td>
   </tr>
+  [% IF edit.display_data.locale %]
+  <tr>
+    <th>[% l('Locale:') %]</th>
+    <td>[% edit.display_data.locale | language %]</td>
+  </tr>
+  [% END %]
 </table>

@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Form::Alias;
 use HTML::FormHandler::Moose;
+
+use Locale::Language;
+
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
@@ -8,6 +11,11 @@ has '+name' => ( default => 'edit-alias' );
 has_field 'name' => (
     type => 'Text',
     required => 1
+);
+
+has_field 'locale' => (
+    type     => 'Select',
+    required => 0
 );
 
 has 'parent_id' => (
@@ -22,12 +30,21 @@ has 'alias_model' => (
     required => 1
 );
 
-sub edit_field_names { qw(name) }
+sub edit_field_names { qw(name locale) }
 
 sub validate_name {
     my ($self, $field) = @_;
     $field->add_error('This alias has already been added')
         if $self->alias_model->has_alias( $self->parent_id, $field->value );
+}
+
+sub options_locale {
+    my ($self, $field) = @_;
+    return [
+        map {
+            language2code($_) => $_
+        } sort { $a cmp $b } all_language_names()
+    ];
 }
 
 1;
