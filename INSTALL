@@ -53,12 +53,16 @@ Getting going
 
         perl -MCPAN -e 'install Module::Install'
 
-    Now, build the Makefile, and install dependancies (if necessary)
+    Now, build the Makefile, and install dependancies (if necessary). Som sections are marked
+    optional, but you are generally encouraged to accept the defaults and install everything.
+    Optional sections are generally there for the convenience of the master server which uses
+    a slightly different stack.
 
         perl ./Makefile.PL
-        sudo make installdeps
 
-        This will generate a standard Makefile, which you can use to install dependancies:
+    This will generate a standard Makefile, which you can use to install dependancies.
+
+        sudo make installdeps
 
 4) Create the databases
 
