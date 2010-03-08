@@ -1,14 +1,16 @@
 [% WRAPPER "user/profile/layout.tt" title=l("Ratings") page="ratings" %]
 
-    [% FOREACH entity IN [ 
-        ["Artist ratings", "artist"], 
-        ["Label ratings", "label"], 
-        ["Release group ratings", "release_group"],
-        ["Recording ratings", "recording"], 
-        ["Work ratings", "work"],
-        ] 
+    [% has_ratings = 0 %]
+    [% FOREACH entity IN [
+        [l("Artist ratings"), "artist"],
+        [l("Label ratings"), "label"],
+        [l("Release group ratings"), "release_group"],
+        [l("Recording ratings"), "recording"],
+        [l("Work ratings"), "work"],
+        ]
     %]
         [% IF ratings.${ entity.1 }.size %]
+            [% has_ratings = 1 %]
             <h2>[% entity.0 %]</h2>
             <ul>
             [% FOREACH rating IN ratings.${ entity.1 } %]
@@ -16,5 +18,9 @@
             [% END %]
             </ul>
         [% END %]
+    [% END %]
+    [% UNLESS has_ratings %]
+        <h2>[%- l('Ratings') -%]</h2>
+        <p>[%- l('{user} has not rated anything.', { user => user.name }) %]</p>
     [% END %]
 [% END %]
