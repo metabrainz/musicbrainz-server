@@ -18,12 +18,12 @@
 
         <ul class="links">
             [% IF c.user_exists %]
-               <li>[% link_release_group(rg, 'merge', l('Merge release group')) %]</li> <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
-               [% IF rg.edits_pending %]
-                 <li>[% link_release_group(rg, 'open_edits', l('Open edits')) %]</li>
-               [% END %]
-               <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
-               <li>[% use_in_relationship(rg) %]</li>
+                <li>[% link_release_group(rg, 'merge', l('Merge release group')) %]</li> <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
+                [% IF rg.edits_pending %]
+                    <li>[% link_release_group(rg, 'open_edits', l('Open edits')) %]</li>
+                [% END %]
+                <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
+                <li>[% use_in_relationship(rg) %]</li>
             [% ELSE %]
                <li>[% request_login(l('Please log in to edit this release group')) %]</li>
             [% END %]

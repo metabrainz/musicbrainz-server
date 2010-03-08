@@ -5,34 +5,34 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
-[% WRAPPER 'layout/sidebar.tt' %]
-    [% WRAPPER 'layout/sidebar/properties.tt' %]
-        [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-           content=artist_credit(work.artist_credit) %]
-        [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-           content=html_escape(work.type.name)
-               IF work.type -%]
-        [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
-           content=html_escape(work.iswc)
-               IF work.iswc -%]
-    [% END %]
-    [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
-    [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags tag_this_text=l('Tag this work') -%]
-
-    <ul class="links">
-        [% IF c.user_exists %]
-           <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
-           <li>[% use_in_relationship(work) %]</li>
-           [% IF work.edits_pending %]
-             <li>[% link_work(work, 'open_edits', l('Open edits')) %]</li>
-           [% END %]
-        [% ELSE %]
-           <li>[% request_login(l('Please log in to edit this work')) %]</li>
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+               content=artist_credit(work.artist_credit) %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+               content=html_escape(work.type.name)
+                   IF work.type -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
+               content=html_escape(work.iswc)
+                   IF work.iswc -%]
         [% END %]
-    </ul>
+        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags tag_this_text=l('Tag this work') -%]
 
-    [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
-[% END %]
+        <ul class="links">
+            [% IF c.user_exists %]
+               <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
+               <li>[% use_in_relationship(work) %]</li>
+               [% IF work.edits_pending %]
+                 <li>[% link_work(work, 'open_edits', l('Open edits')) %]</li>
+               [% END %]
+            [% ELSE %]
+               <li>[% request_login(l('Please log in to edit this work')) %]</li>
+            [% END %]
+        </ul>
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
+    [% END %]
 
 <div class="content">
     [%- INCLUDE 'work/header.tt' %]

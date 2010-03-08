@@ -1,4 +1,5 @@
 [%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name -%]
+
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')

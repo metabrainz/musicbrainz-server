@@ -15,6 +15,8 @@
 [%- END -%]
 
 [% WRAPPER 'layout.tt' title=l('Add a new recording') full_width=1 %]
-    <h1>[%- l('Add a new recording') -%]</h1>
-    [% INCLUDE 'recording/edit_form.tt' %]
+    <div class="content">
+        <h1>[%- l('Add a new recording') -%]</h1>
+        [% INCLUDE 'recording/edit_form.tt' %]
+    </div>
 [% END %]

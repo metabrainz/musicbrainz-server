@@ -1,5 +1,4 @@
-[%- WRAPPER 'layout.tt' title=l('Remove Artist Alias') full_width=1 -%]
-    [% INCLUDE 'artist/header.tt' %]
+[%- WRAPPER 'artist/layout.tt' title=l('Remove Artist Alias') full_width=1 -%]
     <h2>[% l('Remove Alias') %]</h2>
     [% WRAPPER 'layout/guidelines.tt' %]
        [% create_guideline(l("Please review the documentation about {aliases|artist aliases},

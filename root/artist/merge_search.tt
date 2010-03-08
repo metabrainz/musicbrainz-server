@@ -1,4 +1,5 @@
 [% WRAPPER 'artist/layout.tt' title=l("Merge Artists") RadioClick=1 full_width=1 %]
+    <h2>[% l('Merge Artists') %]</h2>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('This wizard allows you to merge {artist} into another artist.', {artist => link_artist(artist)})) -%]
         [%- create_guideline(l('Please read the guideline on {doc_merging|how to merge artists} before entering this edit.', {doc_merging => doc_link("How_To_Merge_Artists")})) -%]
