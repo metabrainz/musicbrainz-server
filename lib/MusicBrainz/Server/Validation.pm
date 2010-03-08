@@ -33,7 +33,6 @@ require Exporter;
     our @ISA = qw( Exporter );
     our @EXPORT_OK = qw(
         encode_entities
-        unaccent
         is_valid_isrc
         is_valid_iswc
         format_iswc
@@ -45,7 +44,6 @@ require Exporter;
 
 use strict;
 use Encode qw( decode encode );
-use Text::Unaccent qw( unac_string );
 use Date::Calc qw( check_date Delta_YMD );
 use Carp qw( carp cluck croak );
 
@@ -293,21 +291,6 @@ sub IsValidEAN
 	}
 	return 0;
 }
-
-# This wrapper will prevent us from having the stupid patched version of the Text::Unaccent library
-# which in turn will make the mb_server install process simpler.
-sub unaccent($)
-{
-    my $str = shift;
-
-    return ( defined $str ? unac_string('UTF-8', ''.$str) : '' );
-}
-
-sub NormaliseSortText
-{
-	lc decode('utf-8', unaccent(shift));
-}
-*NormalizeSortText = \&NormaliseSortText;
 
 sub normalize
 {

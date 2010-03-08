@@ -40,7 +40,6 @@ use ModDefs qw( VARTIST_ID );
 use MusicBrainz::Server::Language;
 use MusicBrainz::Server::PUID;
 use MusicBrainz::Server::Script;
-use MusicBrainz::Server::Validation qw( unaccent );
 use POSIX qw(:locale_h);
 
 
@@ -442,7 +441,7 @@ sub Remove
 
     $album = $this->id();
     return if (!defined $album);
-  
+
     $sql = Sql->new($this->dbh);
     require MusicBrainz::Server::ReleaseCDTOC;
 	MusicBrainz::Server::ReleaseCDTOC->RemoveAlbum($this->{dbh}, $album);
