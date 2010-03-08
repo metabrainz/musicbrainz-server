@@ -1,0 +1,20 @@
+[% WRAPPER "user/profile/layout.tt" title=l("Ratings") page="ratings" %]
+
+    [% FOREACH entity IN [ 
+        ["Artist ratings", "artist"], 
+        ["Label ratings", "label"], 
+        ["Release group ratings", "release_group"],
+        ["Recording ratings", "recording"], 
+        ["Work ratings", "work"],
+        ] 
+    %]
+        [% IF ratings.${ entity.1 }.size %]
+            <h2>[% entity.0 %]</h2>
+            <ul>
+            [% FOREACH rating IN ratings.${ entity.1 } %]
+                <li>[% rating.rating %] - [% link_entity (rating.${ entity.1 }) %]</li>
+            [% END %]
+            </ul>
+        [% END %]
+    [% END %]
+[% END %]
