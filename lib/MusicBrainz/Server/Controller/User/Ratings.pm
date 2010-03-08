@@ -3,14 +3,11 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-sub view : Local Args(1)
+sub view : Chained('/user/base') PathPath('ratings')
 {
-    my ($self, $c, $user_name) = @_;
+    my ($self, $c) = @_;
 
-    my $user = $c->model('Editor')->get_by_name($user_name);
-
-    $c->detach('/error_404')
-        if (!defined $user);
+    my $user = $c->stash->{user};
 
     if (!defined $c->user || $c->user->id != $user->id)
     {
