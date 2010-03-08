@@ -2,6 +2,9 @@
 use 5.8.8;
 
 use inc::Module::Install;
+use Module::Install::AutoInstall;
+use Module::Install::AuthorRequires;
+use Module::Install::AuthorTests;
 
 name 'MusicBrainz-Server';
 abstract 'MusicBrainz web server';
@@ -85,7 +88,8 @@ feature 'Developer features' =>
 requires 'Locale::PO';
 requires 'Locale::TextDomain' => '1.16';
 
-#author_requires 'Catalyst::Restarter';
+author_requires 'Test::NoTabs';
+author_requires 'Test::EOL';
 
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Test::Differences';
@@ -93,6 +97,8 @@ test_requires 'Test::Aggregate';
 test_requires 'XML::Parser';
 
 catalyst;
+
+author_tests 't/author'
 
 install_script glob('script/*.pl');
 auto_install;
