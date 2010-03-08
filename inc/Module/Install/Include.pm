@@ -5,29 +5,29 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION @ISA $ISCORE};
 BEGIN {
-	$VERSION = '0.94';
-	@ISA     = 'Module::Install::Base';
-	$ISCORE  = 1;
+        $VERSION = '0.94';
+        @ISA     = 'Module::Install::Base';
+        $ISCORE  = 1;
 }
 
 sub include {
-	shift()->admin->include(@_);
+        shift()->admin->include(@_);
 }
 
 sub include_deps {
-	shift()->admin->include_deps(@_);
+        shift()->admin->include_deps(@_);
 }
 
 sub auto_include {
-	shift()->admin->auto_include(@_);
+        shift()->admin->auto_include(@_);
 }
 
 sub auto_include_deps {
-	shift()->admin->auto_include_deps(@_);
+        shift()->admin->auto_include_deps(@_);
 }
 
 sub auto_include_dependent_dists {
-	shift()->admin->auto_include_dependent_dists(@_);
+        shift()->admin->auto_include_dependent_dists(@_);
 }
 
 1;

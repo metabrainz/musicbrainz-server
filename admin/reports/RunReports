@@ -38,35 +38,35 @@ $| = 1;
 my $outputdir = &DBDefs::MB_SERVER_ROOT . "/htdocs/reports/generated";
 
 mkdir $outputdir
-	or $!{'EEXIST'}
-	or die "mkdir: $!\n";
+    or $!{'EEXIST'}
+    or die "mkdir: $!\n";
 
 my @all = qw(
-	admin/reports/AlbumsToConvert.pl
-	admin/reports/ArtistsThatMayBeGroups
-	admin/reports/ArtistsThatMayBePersons
-	admin/reports/BadWin32CDTOCs
-	admin/reports/BadAmazonURLs
-	admin/reports/BrokenDiscIDs
-	admin/reports/DiscIDsWithManyReleases
-	admin/reports/DuplicateAlbums
-	admin/reports/DuplicateArtists.pl
-	admin/reports/DuplicateArtists2
-	admin/reports/DuplicatePUIDsPerAlbum
-	admin/reports/FeaturingArtists
-	admin/reports/NoLanguage
-	admin/reports/NoScript
-	admin/reports/NoUpperCase
-	admin/reports/PUIDsWithManyTracks
-	admin/reports/SuperfluousDataTracks
-	admin/reports/SuspectTrackCharacters
-	admin/reports/TooManyCapitals
-	admin/reports/TracksCalledUnknown
-	admin/reports/TracksNamedWithSequence.pl
-	admin/reports/TracksWithManyPUIDs
-	admin/reports/TracksWithoutTimes
-	admin/reports/TracksWithSequenceIssues
-	admin/reports/WrongCharset
+    admin/reports/AlbumsToConvert.pl
+    admin/reports/ArtistsThatMayBeGroups
+    admin/reports/ArtistsThatMayBePersons
+    admin/reports/BadWin32CDTOCs
+    admin/reports/BadAmazonURLs
+    admin/reports/BrokenDiscIDs
+    admin/reports/DiscIDsWithManyReleases
+    admin/reports/DuplicateAlbums
+    admin/reports/DuplicateArtists.pl
+    admin/reports/DuplicateArtists2
+    admin/reports/DuplicatePUIDsPerAlbum
+    admin/reports/FeaturingArtists
+    admin/reports/NoLanguage
+    admin/reports/NoScript
+    admin/reports/NoUpperCase
+    admin/reports/PUIDsWithManyTracks
+    admin/reports/SuperfluousDataTracks
+    admin/reports/SuspectTrackCharacters
+    admin/reports/TooManyCapitals
+    admin/reports/TracksCalledUnknown
+    admin/reports/TracksNamedWithSequence.pl
+    admin/reports/TracksWithManyPUIDs
+    admin/reports/TracksWithoutTimes
+    admin/reports/TracksWithSequenceIssues
+    admin/reports/WrongCharset
 );
 
 
@@ -79,74 +79,74 @@ my $errors = 0;
 
 for my $script (@all)
 {
-	my $scriptname = basename($script);
+    my $scriptname = basename($script);
 
-	my $output = basename($script);
-	$output =~ s/\.pl$//;
-	$output = "$outputdir/$output";
+    my $output = basename($script);
+    $output =~ s/\.pl$//;
+    $output = "$outputdir/$output";
 
-	unless (grep { $scriptname =~ /$_/i } @ARGV)
-	{
-		print localtime() . " : Not running $script\n";
-		next;
-	}
+    unless (grep { $scriptname =~ /$_/i } @ARGV)
+    {
+        print localtime() . " : Not running $script\n";
+        next;
+    }
 
-	my $tempdir = tempdir(DIR => $outputdir, CLEANUP => 1);
-	if (not $tempdir)
-	{
-		warn "tempdir: $!\n";
-		++$errors;
-		next;
-	}
-	if (not -w "$tempdir") {
-		warn "Can't write to $tempdir!\n";
-		++$errors;
-		next;
-	}
+    my $tempdir = tempdir(DIR => $outputdir, CLEANUP => 1);
+    if (not $tempdir)
+    {
+        warn "tempdir: $!\n";
+        ++$errors;
+        next;
+    }
+    if (not -w "$tempdir") {
+        warn "Can't write to $tempdir!\n";
+        ++$errors;
+        next;
+    }
 
-	$script = &DBDefs::MB_SERVER_ROOT . "/" . $script;
+    $script = &DBDefs::MB_SERVER_ROOT . "/" . $script;
 
-	print localtime() . " : Running $scriptname (in $tempdir)\n";
-	my $t0 = time;
-	system "$script --output-dir=$tempdir";
-	my $t = time() - $t0;
+    print localtime() . " : Running $scriptname (in $tempdir)\n";
+    my $t0 = time;
+    system "$script --output-dir=$tempdir";
+    my $t = time() - $t0;
 
-	my $size = 0;
-	$size += -s($_) for glob("$tempdir/*");
-	$size ||= "unknown";
-	print localtime() . " : $scriptname finished; status=$? time=$t size=$size\n";
+    my $size = 0;
+    $size += -s($_) for glob("$tempdir/*");
+    $size ||= "unknown";
+    print localtime() . " : $scriptname finished; status=$? time=$t size=$size\n";
 
-	if ($? != 0)
-	{
-		warn "$scriptname exited with $?\n";
-		++$errors;
-		rmtree($tempdir);
-		next;
-	}
+    if ($? != 0)
+    {
+        warn "$scriptname exited with $?\n";
+        ++$errors;
+        rmtree($tempdir);
+        next;
+    }
 
-	unless (chmod 0755, $tempdir)
-	{
-		warn "chmod $tempdir: $!\n";
-		++$errors;
-	}
+    unless (chmod 0755, $tempdir)
+    {
+        warn "chmod $tempdir: $!\n";
+        ++$errors;
+    }
 
-	if (-d $output and not rmtree($output))
-	{
-		warn "Failed to remove existing directory $output: $!\n";
-		++$errors;
-		next;
-	}
+    if (-d $output and not rmtree($output))
+    {
+        warn "Failed to remove existing directory $output: $!\n";
+        ++$errors;
+        next;
+    }
 
-	unless (rename $tempdir, $output)
-	{
-		warn "Failed to rename $tempdir to $output: $!\n";
-		++$errors;
-		rmtree($tempdir);
-		next;
-	}
+    unless (rename $tempdir, $output)
+    {
+        warn "Failed to rename $tempdir to $output: $!\n";
+        ++$errors;
+        rmtree($tempdir);
+        next;
+    }
 
-	# Hooray!
-	print localtime() . " : $scriptname successfully swapped in\n";
+    # Hooray!
+    print localtime() . " : $scriptname successfully swapped in\n";
 }
 
 print localtime() . " : Completed with 1 error\n" if $errors == 1;

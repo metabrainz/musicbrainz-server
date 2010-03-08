@@ -8,35 +8,35 @@ cd "$MB_SERVER_ROOT"
 # Only run one "hourly.sh" at a time
 if [ "$1" != "gotlock" ]
 then
-	true ${LOCKFILE:=/tmp/hourly.sh.lock}
-	$MB_SERVER_ROOT/bin/runexclusive -f "$LOCKFILE" --no-wait \
-		$MB_SERVER_ROOT/admin/cron/hourly.sh gotlock
-	if [ $? = 100 ]
-	then
-		echo "Aborted - there is already another hourly.sh running"
-	fi
-	exit
+    true ${LOCKFILE:=/tmp/hourly.sh.lock}
+    $MB_SERVER_ROOT/bin/runexclusive -f "$LOCKFILE" --no-wait \
+        $MB_SERVER_ROOT/admin/cron/hourly.sh gotlock
+    if [ $? = 100 ]
+    then
+        echo "Aborted - there is already another hourly.sh running"
+    fi
+    exit
 fi
 # We have the lock - on with the show.
 
 . ./admin/functions.sh
 
 OUTPUT=`
-	./admin/CheckVotes.pl --verbose --summary --ignore-deadlocks 2>&1
+    ./admin/CheckVotes.pl --verbose --summary --ignore-deadlocks 2>&1
 ` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
 
 ./admin/RemoveOldSessions > /dev/null
 
 OUTPUT=`
-	./admin/ResetSigserverCount --threshold=3 2>&1
+    ./admin/ResetSigserverCount --threshold=3 2>&1
 ` || echo "$OUTPUT"
 
 OUTPUT=`
-	./admin/RunExport 2>&1
+    ./admin/RunExport 2>&1
 ` || echo "$OUTPUT"
 
 OUTPUT=`
-	./admin/SubscribeAutomodsToList 2>&1
+    ./admin/SubscribeAutomodsToList 2>&1
 ` || echo "$OUTPUT"
 
 # eof

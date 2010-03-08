@@ -48,94 +48,94 @@ sub id { shift->uid }
 ################################################################################
 
 our @allowed_datetime_formats = (
-	'%Y-%m-%d %H:%M:%S %Z',
-	'%c',
-	'%x %X',
-	'%X %x',
-	'%A %B %e %Y, %H:%M',
-	'%d %B %Y %H:%M:%S',
-	'%a %b %e %Y, %H:%M',
-	'%d %b %Y %H:%M:%S',
-	'%d/%m/%Y %H:%M:%S',
-	'%m/%d/%Y %H:%M:%S',
-	'%d.%m.%Y %H:%M:%S',
-	'%m.%d.%Y %H:%M:%S',
+    '%Y-%m-%d %H:%M:%S %Z',
+    '%c',
+    '%x %X',
+    '%X %x',
+    '%A %B %e %Y, %H:%M',
+    '%d %B %Y %H:%M:%S',
+    '%a %b %e %Y, %H:%M',
+    '%d %b %Y %H:%M:%S',
+    '%d/%m/%Y %H:%M:%S',
+    '%m/%d/%Y %H:%M:%S',
+    '%d.%m.%Y %H:%M:%S',
+    '%m.%d.%Y %H:%M:%S',
 );
 
 sub allowed_datetime_formats { @allowed_datetime_formats }
 
 our @allowed_timezones = (
-	[ "IDLW12"			=> "-1200 International Date Line West" ],
-	#[ "NT"	=> "-1100 Nome" ],
-	[ "HAST10HADT"		=> "-1000 Hawaii-Aleutian" ],
-	[ "AKST9AKDT"		=> "-0900 Alaska" ],
-	[ "PST8PDT"			=> "-0800 Pacific" ],
-	[ "MST7MDT"			=> "-0700 Mountain" ],
-	[ "CST6CDT"			=> "-0600 Central" ],
-	[ "EST5EDT"			=> "-0500 Eastern" ],
-	[ "AST4ADT"			=> "-0400 Atlantic" ],
-	[ "NST03:30NDT"		=> "-0330 Newfoundland" ],
-	[ "GST3GDT"			=> "-0300 Greenland" ],
-	[ "AZOT2AZOST"		=> "-0200 Azores" ],
-	[ "WAT1WAST"		=> "-0100 West Africa" ],
-	[ "WET0WEST"		=> "+0000 Western European" ],
-	[ "UTC"				=> "+0000 Universal Coordinated" ],
-	[ "GMT0BST"			=> "+0000 Greenwich Mean (UK)" ],
-	[ "CET-1CEST"		=> "+0100 Central European" ],
-	[ "EET-2EEST"		=> "+0200 Eastern European" ],
-	#[ "BT"				=> "+0300 Baghdad, USSR Zone 2" ],
-	#[ "IT"				=> "+0330 Iran" ],
-	#[ "ZP4"			=> "+0400 USSR Zone 3" ],
-	#[ "ZP5"			=> "+0500 USSR Zone 4" ],
-	[ "IST-05:30IDT"	=> "+0530 Indian" ],
-	#[ "ZP6"			=> "+0600 USSR Zone 5" ],
-	#[ "ZP7"			=> "+0700 USSR Zone 6" ],
-	#[ "JT"				=> "+0730 Java" ],
-	[ "AWST-8AWDT"		=> "+0800 Western Australian" ],
-	#[ "CCT"			=> "+0800 China Coast, USSR Zone 7" ],
-	[ "KST-9KDT"		=> "+0900 Korean" ],
-	[ "JST-9JDT"		=> "+0900 Japan, USSR Zone 8" ],
-	[ "ACST-09:30ACDT"	=> "+0930 Central Australian" ],
-	[ "AEST-10AEDT"		=> "+1000 Eastern Australian" ],
-	[ "Australia/Melbourne" => "+1100 Australia/Melbourne" ],
-	[ "IDLE-12"			=> "+1200 International Date Line East" ],
-	[ "NZST-12NZDT"		=> "+1200 New Zealand" ],
+    [ "IDLW12"                  => "-1200 International Date Line West" ],
+    #[ "NT"     => "-1100 Nome" ],
+    [ "HAST10HADT"              => "-1000 Hawaii-Aleutian" ],
+    [ "AKST9AKDT"               => "-0900 Alaska" ],
+    [ "PST8PDT"                 => "-0800 Pacific" ],
+    [ "MST7MDT"                 => "-0700 Mountain" ],
+    [ "CST6CDT"                 => "-0600 Central" ],
+    [ "EST5EDT"                 => "-0500 Eastern" ],
+    [ "AST4ADT"                 => "-0400 Atlantic" ],
+    [ "NST03:30NDT"             => "-0330 Newfoundland" ],
+    [ "GST3GDT"                 => "-0300 Greenland" ],
+    [ "AZOT2AZOST"              => "-0200 Azores" ],
+    [ "WAT1WAST"                => "-0100 West Africa" ],
+    [ "WET0WEST"                => "+0000 Western European" ],
+    [ "UTC"                             => "+0000 Universal Coordinated" ],
+    [ "GMT0BST"                 => "+0000 Greenwich Mean (UK)" ],
+    [ "CET-1CEST"               => "+0100 Central European" ],
+    [ "EET-2EEST"               => "+0200 Eastern European" ],
+    #[ "BT"                             => "+0300 Baghdad, USSR Zone 2" ],
+    #[ "IT"                             => "+0330 Iran" ],
+    #[ "ZP4"                    => "+0400 USSR Zone 3" ],
+    #[ "ZP5"                    => "+0500 USSR Zone 4" ],
+    [ "IST-05:30IDT"    => "+0530 Indian" ],
+    #[ "ZP6"                    => "+0600 USSR Zone 5" ],
+    #[ "ZP7"                    => "+0700 USSR Zone 6" ],
+    #[ "JT"                             => "+0730 Java" ],
+    [ "AWST-8AWDT"              => "+0800 Western Australian" ],
+    #[ "CCT"                    => "+0800 China Coast, USSR Zone 7" ],
+    [ "KST-9KDT"                => "+0900 Korean" ],
+    [ "JST-9JDT"                => "+0900 Japan, USSR Zone 8" ],
+    [ "ACST-09:30ACDT"  => "+0930 Central Australian" ],
+    [ "AEST-10AEDT"             => "+1000 Eastern Australian" ],
+    [ "Australia/Melbourne" => "+1100 Australia/Melbourne" ],
+    [ "IDLE-12"                 => "+1200 International Date Line East" ],
+    [ "NZST-12NZDT"             => "+1200 New Zealand" ],
 );
 
 # Seed the allowed timezones list with files found in
 # /usr/share/zoneinfo/posix - there must be an official way to do this!
 {
-	my $tzdir = "/usr/share/zoneinfo";
+    my $tzdir = "/usr/share/zoneinfo";
 
-	my @posix_zones;
-	my $sub = sub {
-		-f $_ or return;
-		s/^\Q$tzdir\E\///;
+    my @posix_zones;
+    my $sub = sub {
+        -f $_ or return;
+        s/^\Q$tzdir\E\///;
 
-		my $offset = ""; # " ????";
-		(my $name = $_) =~ tr/_/ /;
-		$name =~ s/^posix\///;
-		$name =~ s[\s*/\s*][ / ]g;
+        my $offset = ""; # " ????";
+        (my $name = $_) =~ tr/_/ /;
+        $name =~ s/^posix\///;
+        $name =~ s[\s*/\s*][ / ]g;
 
-		push @posix_zones, [ $_, $offset ? "$offset $name" : $name ];
-	};
+        push @posix_zones, [ $_, $offset ? "$offset $name" : $name ];
+    };
 
-	# Find files using the shell.  This is to avoid loading File::Find,
-	# which seems to be a "fat" module.
-	if (open(my $pipe, "-|", "find", $tzdir."/posix", "-print0"))
-	{
-		local $/ = chr(0);
-		while(defined(my $found = <$pipe>))
-		{
-			chomp $found;
-			local $_ = $found;
-			lstat $_;
-			&$sub($found);
-		}
-		close $pipe;
-	}
+    # Find files using the shell.  This is to avoid loading File::Find,
+    # which seems to be a "fat" module.
+    if (open(my $pipe, "-|", "find", $tzdir."/posix", "-print0"))
+    {
+        local $/ = chr(0);
+        while(defined(my $found = <$pipe>))
+        {
+                chomp $found;
+                local $_ = $found;
+                lstat $_;
+                &$sub($found);
+        }
+        close $pipe;
+    }
 
-	push @allowed_timezones, sort { $a->[1] cmp $b->[1] } @posix_zones;
+    push @allowed_timezones, sort { $a->[1] cmp $b->[1] } @posix_zones;
 }
 
 sub allowed_timezones { @allowed_timezones }
@@ -143,9 +143,9 @@ sub allowed_timezones { @allowed_timezones }
 sub allowed_amazon_stores { &DBDefs::AWS_ASSOCIATE_ID(), "use the same store as the cover art" }
 
 {
-	# From http://www.google.com/language_tools?hl=en , and google.com added
-	# since it didn't seem to be in that list.
-	our @allowed_google_domains = qw(
+    # From http://www.google.com/language_tools?hl=en , and google.com added
+    # since it didn't seem to be in that list.
+    our @allowed_google_domains = qw(
 www.google.ae
 www.google.as
 www.google.at
@@ -242,8 +242,8 @@ www.google.td
 www.google.tt
 www.google.uz
 www.google.vg
-	);
-	sub allowed_google_domains { @allowed_google_domains }
+    );
+    sub allowed_google_domains { @allowed_google_domains }
 }
 
 ################################################################################
@@ -314,25 +314,25 @@ addpref('email_notify_release', 1, \&check_bool);
 
 sub addpref
 {
-	my ($key, $defaultvalue, $checksub) = @_;
+    my ($key, $defaultvalue, $checksub) = @_;
 
-	defined($checksub->($defaultvalue))
-		or warn "Default value '$defaultvalue' for preference '$key' is not valid";
+    defined($checksub->($defaultvalue))
+        or warn "Default value '$defaultvalue' for preference '$key' is not valid";
 
-	$prefs{$key} = {
-		KEY		=> $key,
-		DEFAULT	=> $defaultvalue,
-		CHECK	=> $checksub,
-	};
+    $prefs{$key} = {
+        KEY             => $key,
+        DEFAULT => $defaultvalue,
+        CHECK   => $checksub,
+    };
 }
 
 sub defaults_as_hashref
 {
-	+{
-		map {
-			($_->{KEY} => $_->{DEFAULT})
-		} values %prefs
-	};
+    +{
+        map {
+                ($_->{KEY} => $_->{DEFAULT})
+        } values %prefs
+    };
 }
 
 sub valid_keys { keys %prefs }
@@ -347,62 +347,62 @@ sub check_bool { $_[0] ? 1 : 0 }
 
 sub check_int
 {
-	my ($min, $max, $value) = @_;
-	$value =~ /\A(\d+)\z/ or return undef;
-	$value = 0+$1;
-	return undef if defined $min and $value < $min;
-	return undef if defined $max and $value > $max;
-	$value;
+    my ($min, $max, $value) = @_;
+    $value =~ /\A(\d+)\z/ or return undef;
+    $value = 0+$1;
+    return undef if defined $min and $value < $min;
+    return undef if defined $max and $value > $max;
+    $value;
 }
 
 sub check_datetimeformat
 {
-	my $value = shift;
-	$_ eq $value and return $value
-		for @allowed_datetime_formats;
-	undef;
+    my $value = shift;
+    $_ eq $value and return $value
+        for @allowed_datetime_formats;
+    undef;
 }
 
 sub check_timezone
 {
-	my $value = shift;
-	$_->[0] eq $value and return $value
-		for @allowed_timezones;
-	undef;
+    my $value = shift;
+    $_->[0] eq $value and return $value
+        for @allowed_timezones;
+    undef;
 }
 
 sub check_amazon_store
 {
-	my $value = shift;
+    my $value = shift;
 
-	$_ eq $value and return $value
-		for allowed_amazon_stores();
-	undef;
+    $_ eq $value and return $value
+        for allowed_amazon_stores();
+    undef;
 }
 
 sub check_google_domain
 {
-	my $value = shift;
+    my $value = shift;
 
-	$_ eq $value and return $value
-		for allowed_google_domains();
-	undef;
+    $_ eq $value and return $value
+        for allowed_google_domains();
+    undef;
 }
 
 sub check_in
 {
-	my ($values, $value) = @_;
-	$_ eq $value and return $value
-		for @$values;
-	undef;
+    my ($values, $value) = @_;
+    $_ eq $value and return $value
+        for @$values;
+    undef;
 }
 
 sub check_text
 {
-	my $value = shift;
+    my $value = shift;
 
-	return $value;
-	undef;
+    return $value;
+    undef;
 }
 
 ################################################################################
@@ -455,8 +455,8 @@ sub load
     {
         my ($key, $value) = @$_;
 
-		my $info = $prefs{$key}
-			or carp("Moderator #$uid has invalid saved preference '$key'"), next;
+        my $info = $prefs{$key}
+                or carp("Moderator #$uid has invalid saved preference '$key'"), next;
 
         my $newValue = $info->{CHECK}->($value);
 
@@ -476,16 +476,16 @@ the default value for it will be returned.
 
 sub get
 {
-	my ($self, $key) = @_;
+    my ($self, $key) = @_;
 
-	my $info = $prefs{$key}
-		or carp("UserPreference::get called with invalid key '$key'"), return undef;
+    my $info = $prefs{$key}
+        or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
-	my $value = $self->prefs->{$key};
+    my $value = $self->prefs->{$key};
     $value = defined $value ? $value
            :                  $info->{DEFAULT};
     
-	return $value;
+    return $value;
 }
 
 =head2 C<set> KEY, VALUE
@@ -496,16 +496,16 @@ Sets a user preference with KEY to VALUE
 
 sub set
 {
-	my ($self, $key, $value) = @_;
+    my ($self, $key, $value) = @_;
 
-	my $info = $prefs{$key}
-		or carp("UserPreference::set called with invalid key '$key'"), return;
+    my $info = $prefs{$key}
+        or carp("UserPreference::set called with invalid key '$key'"), return;
 
-	my $newvalue = $info->{CHECK}->($value);
-	defined $newvalue
-		or carp("UserPreference::set called with invalid value '$value' for key '$key'"), return;
+    my $newvalue = $info->{CHECK}->($value);
+    defined $newvalue
+        or carp("UserPreference::set called with invalid value '$value' for key '$key'"), return;
 
-	$self->prefs->{$key} = $newvalue;
+    $self->prefs->{$key} = $newvalue;
 }
 
 =head2 C<save>
@@ -524,7 +524,7 @@ sub save
 
     eval {
         $sql->Begin if $wrap_transaction;
-		$sql->Do("DELETE FROM moderator_preference WHERE moderator = ?", $uid);
+        $sql->Do("DELETE FROM moderator_preference WHERE moderator = ?", $uid);
 
         while (my ($key, $value) = each %{$self->prefs})
         {
@@ -543,69 +543,69 @@ sub save
 
 sub LoadForUser
 {
-	my ($user) = @_;
+    my ($user) = @_;
 
-	my $uid = $user->id
-		or return;
+    my $uid = $user->id
+        or return;
 
-	my $sql = Sql->new($user->dbh);
-	my $rows = $sql->SelectListOfLists(
-		"SELECT name, value FROM moderator_preference WHERE moderator = ?",
-		$uid,
-	);
+    my $sql = Sql->new($user->dbh);
+    my $rows = $sql->SelectListOfLists(
+        "SELECT name, value FROM moderator_preference WHERE moderator = ?",
+        $uid,
+    );
 
     my $preferences = {};
-	for (@$rows)
-	{
-		my ($key, $value) = @$_;
+    for (@$rows)
+    {
+        my ($key, $value) = @$_;
 
-		my $info = $prefs{$key}
-			or warn("Moderator #$uid has invalid saved preference '$key'"), next;
-		my $newvalue = $info->{CHECK}->($value);
-		defined $newvalue
-			or warn("Moderator #$uid has invalid saved value '$value' for preference '$key'"), next;
+        my $info = $prefs{$key}
+                or warn("Moderator #$uid has invalid saved preference '$key'"), next;
+        my $newvalue = $info->{CHECK}->($value);
+        defined $newvalue
+                or warn("Moderator #$uid has invalid saved value '$value' for preference '$key'"), next;
 
-		$preferences->{$key} = $newvalue;
-	}
+        $preferences->{$key} = $newvalue;
+    }
 
     return $preferences;
 }
 
 sub SaveForUser
 {
-	my ($user) = @_;
+    my ($user) = @_;
 
-	my $uid = $user->id
-		or return;
+    my $uid = $user->id
+        or return;
 
-	require MusicBrainz::Server::Editor;
-	my $s = MusicBrainz::Server::Editor->GetSession;
-	tied %$s
-		or carp("UserPreference::SaveForUser called, but %session is not tied"), return;
+    require MusicBrainz::Server::Editor;
+    my $s = MusicBrainz::Server::Editor->GetSession;
+    tied %$s
+        or carp("UserPreference::SaveForUser called, but %session is not tied"), return;
 
-	my $sql = Sql->new($user->dbh);
-	my $wrap_transaction = $sql->dbh->{AutoCommit};
-	
-	eval {
-		$sql->Begin if $wrap_transaction;
-		$sql->Do("DELETE FROM moderator_preference WHERE moderator = ?", $uid);
+    my $sql = Sql->new($user->dbh);
+    my $wrap_transaction = $sql->dbh->{AutoCommit};
+    
+    eval {
+        $sql->Begin if $wrap_transaction;
+        $sql->Do("DELETE FROM moderator_preference WHERE moderator = ?", $uid);
 
-		while (my ($key, $value) = each %$s)
-		{
-			$key =~ s/^PREF_// or next;
-			$sql->Do(
-				"INSERT INTO moderator_preference (moderator, name, value) VALUES (?, ?, ?)",
-				$uid, $key, $value,
-			);
-		}
+        while (my ($key, $value) = each %$s)
+        {
+                $key =~ s/^PREF_// or next;
+                $sql->Do(
+                        "INSERT INTO moderator_preference (moderator, name, value) VALUES (?, ?, ?)",
+                        $uid, $key, $value,
+                );
+        }
 
-		$sql->Commit if $wrap_transaction;
-		1;
-	} or do {
-		my $e = $@;
-		$sql->Rollback if $wrap_transaction;
-		die $e;
-	};
+        $sql->Commit if $wrap_transaction;
+        1;
+    } or do {
+        my $e = $@;
+        $sql->Rollback if $wrap_transaction;
+        die $e;
+    };
 }
 
 ################################################################################
@@ -614,19 +614,19 @@ sub SaveForUser
 
 sub get_for_user
 {
-	my ($key, $user) = @_;
-	my $info = $prefs{$key}
-		or carp("UserPreference::get called with invalid key '$key'"), return undef;
+    my ($key, $user) = @_;
+    my $info = $prefs{$key}
+        or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
-	my $sql = Sql->new($user->dbh);
-	my $value = $sql->SelectSingleValue(
-		"SELECT value FROM moderator_preference WHERE moderator = ? AND name = ?",
-		$user->id,
-		$key,
-	);
+    my $sql = Sql->new($user->dbh);
+    my $value = $sql->SelectSingleValue(
+        "SELECT value FROM moderator_preference WHERE moderator = ? AND name = ?",
+        $user->id,
+        $key,
+    );
 
-	defined($value) or return $info->{DEFAULT};
-	$value;
+    defined($value) or return $info->{DEFAULT};
+    $value;
 }
 
 no Moose;

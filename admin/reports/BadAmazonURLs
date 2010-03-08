@@ -34,11 +34,11 @@ use base qw( MusicBrainz::Server::ReportScript );
 
 sub GatherData
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $sql = $self->SqlObj;
+    my $sql = $self->SqlObj;
 
-	$self->GatherDataFromQuery(<<'EOF');
+    $self->GatherDataFromQuery(<<'EOF');
          SELECT url, album.id as release, album.name as name, url.id as urlid
            FROM url, album, l_album_url 
           WHERE link1 = url.id 

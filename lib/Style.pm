@@ -137,7 +137,7 @@ sub NormalizeDiscNumbers
             $new =~ s/\s*[(\/|:,-]*\s*$//;
             $new .= " (disc $disc)";
     
-	    $new = encode "utf-8", $new;
+        $new = encode "utf-8", $new;
             return $new;
         }
     }

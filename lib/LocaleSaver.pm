@@ -71,8 +71,8 @@ sub new {
     my $old = setlocale($type);
     my $self = bless [$type, $old], $class;
     setlocale($type, $locale)
-	or die "setlocale($type, $locale): $!"
-	    if @_ == 3;
+    or die "setlocale($type, $locale): $!"
+        if @_ == 3;
     $self;
 }
 

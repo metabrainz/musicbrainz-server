@@ -42,12 +42,12 @@ sub SetSequence
     {
         $sql->Begin;
 
-		if (not defined $max)
-		{
-			$max = $sql->GetColumnRange($table);
-		}
+        if (not defined $max)
+        {
+                $max = $sql->GetColumnRange($table);
+        }
 
-		$max++;
+        $max++;
 
         $sql->SelectSingleValue("SELECT SETVAL(?, ?)", $seq, $max);
         $sql->Commit;

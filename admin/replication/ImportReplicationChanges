@@ -36,14 +36,14 @@ my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
 
 GetOptions(
-	"help|h"       		=> \$fHelp,
-	"ignore-errors|i!"	=> \$fIgnoreErrors,
-	"tmp-dir|t=s"		=> \$tmpdir,
+    "help|h"                    => \$fHelp,
+    "ignore-errors|i!"  => \$fIgnoreErrors,
+    "tmp-dir|t=s"               => \$tmpdir,
 );
 
 sub usage
 {
-	print <<EOF;
+    print <<EOF;
 Usage: ImportReplicationChanges [options] FILE ...
 
         --help            show this help
@@ -73,19 +73,19 @@ my $sql = Sql->new($c->dbh);
 
 for my $arg (@ARGV)
 {
-	-e $arg or die "'$arg' not found";
-	next if -d _;
-	-f _ or die "'$arg' is neither a regular file nor a directory";
+    -e $arg or die "'$arg' not found";
+    next if -d _;
+    -f _ or die "'$arg' is neither a regular file nor a directory";
 
-	next unless $arg =~ /\.tar\.(gz|bz2)$/;
+    next unless $arg =~ /\.tar\.(gz|bz2)$/;
 
-	my $mode = ($1 eq "gz" ? "gzip" : "bzip2");
+    my $mode = ($1 eq "gz" ? "gzip" : "bzip2");
 
-	my $dir = make_tmp_dir();
-	print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
-	system "tar -C $dir --$mode -xvf $arg";
-	exit $? if $?;
-	$arg = $dir;
+    my $dir = make_tmp_dir();
+    print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
+    system "tar -C $dir --$mode -xvf $arg";
+    exit $? if $?;
+    $arg = $dir;
 }
 
 use Time::HiRes qw( gettimeofday tv_interval );
@@ -97,8 +97,8 @@ my $errors = 0;
 print localtime() . " : starting import\n";
 
 printf "%-30.30s %9s %4s %9s\n",
-	"Table", "Rows", "est%", "rows/sec",
-	;
+    "Table", "Rows", "est%", "rows/sec",
+    ;
 
 ImportReplicationTables();
 
@@ -106,7 +106,7 @@ print localtime() . " : import finished\n";
 
 my $dumptime = tv_interval($t0);
 printf "Loaded %d tables (%d rows) in %d seconds\n",
-	$tables, $totalrows, $dumptime;
+    $tables, $totalrows, $dumptime;
 
 exit($errors ? 1 : 0);
 
@@ -114,99 +114,99 @@ sub ImportTable
 {
     my ($table, $file) = @_;
 
-	print localtime() . " : load $table\n";
+    print localtime() . " : load $table\n";
 
-	my $rows = 0;
+    my $rows = 0;
 
-	my $t1 = [gettimeofday];
-	my $interval;
+    my $t1 = [gettimeofday];
+    my $interval;
 
-	my $size = -s($file) || 1;
+    my $size = -s($file) || 1;
 
-	my $p = sub {
-		my ($pre, $post) = @_;
-		no integer;
-		printf $pre."%-30.30s %9d %3d%% %9d".$post,
-			$table, $rows, int(100 * tell(LOAD) / $size),
-			$rows / ($interval||1);
-	};
+    my $p = sub {
+        my ($pre, $post) = @_;
+        no integer;
+        printf $pre."%-30.30s %9d %3d%% %9d".$post,
+                $table, $rows, int(100 * tell(LOAD) / $size),
+                $rows / ($interval||1);
+    };
 
-	$| = 1;
+    $| = 1;
 
-	eval
-	{
-		open(LOAD, "<", $file) or die "open $file: $!";
+    eval
+    {
+        open(LOAD, "<", $file) or die "open $file: $!";
 
-		$sql->begin;
-		$sql->do("COPY $table FROM stdin");
-		my $dbh = $sql->{dbh};
+        $sql->begin;
+        $sql->do("COPY $table FROM stdin");
+        my $dbh = $sql->{dbh};
 
-		$p->("", "");
+        $p->("", "");
 
-		while (<LOAD>)
-		{
-			$dbh->func($_, "putline") or die;
+        while (<LOAD>)
+        {
+                $dbh->func($_, "putline") or die;
 
-			++$rows;
-			unless ($rows & 0xFFF)
-			{
-				$interval = tv_interval($t1);
-				$p->("\r", "");
-			}
-		}
+                ++$rows;
+                unless ($rows & 0xFFF)
+                {
+                        $interval = tv_interval($t1);
+                        $p->("\r", "");
+                }
+        }
 
-		$dbh->func("\\.\n", "putline") or die;
-		$dbh->func("endcopy") or die;
+        $dbh->func("\\.\n", "putline") or die;
+        $dbh->func("endcopy") or die;
 
-		$interval = tv_interval($t1);
-		$p->("\r", sprintf(" %.2f sec\n", $interval));
+        $interval = tv_interval($t1);
+        $p->("\r", sprintf(" %.2f sec\n", $interval));
 
-		close LOAD
-			or die $!;
+        close LOAD
+                or die $!;
 
-		$sql->commit;
+        $sql->commit;
 
-		die "Error loading data"
-			if -f $file and empty($table);
+        die "Error loading data"
+                if -f $file and empty($table);
 
-		++$tables;
-		$totalrows += $rows;
+        ++$tables;
+        $totalrows += $rows;
 
-		1;
-	};
+        1;
+    };
 
-	return 1 unless $@;
-	warn "Error loading $file: $@";
-	$sql->rollback;
+    return 1 unless $@;
+    warn "Error loading $file: $@";
+    $sql->rollback;
 
-	++$errors, return 0 if $fIgnoreErrors;
-	exit 1;
+    ++$errors, return 0 if $fIgnoreErrors;
+    exit 1;
 }
 
 sub empty
 {
-	my $table = shift;
+    my $table = shift;
 
-	my $any = $sql->select_single_value(
-		"SELECT 1 FROM $table LIMIT 1",
-	);
+    my $any = $sql->select_single_value(
+        "SELECT 1 FROM $table LIMIT 1",
+    );
 
-	not defined $any;
+    not defined $any;
 }
 
 sub ImportReplicationTables
 {
-	$sql->auto_commit;
-	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId" CASCADE') };
-	$sql->auto_commit;
-	eval { $sql->do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey" CASCADE') };
-	$sql->auto_commit;
-	eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey" CASCADE') };
+    $sql->auto_commit;
+    eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId" CASCADE') };
+    $sql->auto_commit;
+    eval { $sql->do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey" CASCADE') };
+    $sql->auto_commit;
+    eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey" CASCADE') };
 
-	for my $table (('"Pending"', '"PendingData"'))
+    for my $table (('"Pending"', '"PendingData"'))
     {
-		my $file = find_file($table);
-		$file or print("No data file found for '$table', skipping\n"), die;
+        my $file = find_file($table);
+        $file or print("No data file found for '$table', skipping\n"), die;
 
         if (not empty($table))
         {
@@ -215,59 +215,59 @@ sub ImportReplicationTables
         }
 
         ImportTable($table, $file);
-	}
+    }
 
-	$sql->begin;
-	$sql->do('ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId")');
-	$sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey")');
-	$sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_SeqId" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
-	$sql->commit;
+    $sql->begin;
+    $sql->do('ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId")');
+    $sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey")');
+    $sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_SeqId" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
+    $sql->commit;
 
     return 1;
 }
 
 sub find_file
 {
-	my $table = shift;
+    my $table = shift;
 
-	for my $arg (@ARGV)
-	{
-		use File::Basename;
-		return $arg if -f $arg and basename($arg) eq $table;
-		return "$arg/$table" if -f "$arg/$table";
-		return "$arg/mbdump/$table" if -f "$arg/mbdump/$table";
-	}
+    for my $arg (@ARGV)
+    {
+        use File::Basename;
+        return $arg if -f $arg and basename($arg) eq $table;
+        return "$arg/$table" if -f "$arg/$table";
+        return "$arg/mbdump/$table" if -f "$arg/mbdump/$table";
+    }
 
-	undef;
+    undef;
 }
 
 {
-	my @tmpdirs;
+    my @tmpdirs;
 
-	END
-	{
-		use File::Path;
-		rmtree(\@tmpdirs);
-	}
+    END
+    {
+        use File::Path;
+        rmtree(\@tmpdirs);
+    }
 
-	sub make_tmp_dir
-	{
-		for (my $i = 0; ; ++$i)
-		{
-			my $dir = "$tmpdir/ImportRepl-$$-$i";
+    sub make_tmp_dir
+    {
+        for (my $i = 0; ; ++$i)
+        {
+                my $dir = "$tmpdir/ImportRepl-$$-$i";
 
-			if (mkdir $dir)
-			{
-				push @tmpdirs, $dir;
-				return $dir;
-			}
+                if (mkdir $dir)
+                {
+                        push @tmpdirs, $dir;
+                        return $dir;
+                }
 
-			use Errno 'EEXIST';
-			next if $! == EEXIST;
+                use Errno 'EEXIST';
+                next if $! == EEXIST;
 
-			die "Error creating temporary directory ($!)";
-		}
-	}
+                die "Error creating temporary directory ($!)";
+        }
+    }
 }
 
 # vi: set ts=4 sw=4 :

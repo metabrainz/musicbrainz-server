@@ -150,7 +150,7 @@ sub match_amazon_barcode
     # Try to match barcodes
     my @matches;
     if ($amazon_info->[3]) {
-	my $amazon_barcode = $amazon_info->[3];
+    my $amazon_barcode = $amazon_info->[3];
         $amazon_barcode =~ s/^0+//; # remove leading zeros
         foreach my $entity0 (@entity0) {
             my $barcode = $mb_info->{$entity0}->{barcode} || '';
@@ -172,7 +172,7 @@ sub match_amazon_barcode_2
     # Try to match parts of barcodes
     my @matches;
     if ($amazon_info->[3]) {
-	my $amazon_barcode = $amazon_info->[3];
+    my $amazon_barcode = $amazon_info->[3];
         $amazon_barcode =~ s/^0+//; # remove leading zeros
         foreach my $entity0 (@entity0) {
             my $barcode = $mb_info->{$entity0}->{barcode} || '';

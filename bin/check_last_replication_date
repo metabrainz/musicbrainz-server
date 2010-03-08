@@ -20,7 +20,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#	This script originally by Dave Evans.
+#    This script originally by Dave Evans.
 #____________________________________________________________________________
 
 =pod
@@ -46,8 +46,8 @@ my $warn = 3600 * 6;
 my $crit = 3600 * 24;
 
 GetOptions(
-	"warn|w=i"	=> \$warn,
-	"critical|c=i"	=> \$crit,
+    "warn|w=i"  => \$warn,
+    "critical|c=i"      => \$crit,
 ) or exit 2;
 
 @ARGV == 0 or die "Usage: $0 [-w SECONDS] [-c SECONDS]\n";
@@ -55,8 +55,8 @@ GetOptions(
 use MusicBrainz::Server::Replication ':replication_type';
 if (&DBDefs::REPLICATION_TYPE != RT_SLAVE)
 {
-	print "This is not a slave database!\n";
-	exit 2;
+    print "This is not a slave database!\n";
+    exit 2;
 }
 
 my $mb = MusicBrainz->new;
@@ -64,22 +64,22 @@ $mb->Login;
 my $sql = Sql->new($mb->{dbh});
 
 my $row = $sql->SelectSingleRowHash(
-	"
-	SELECT
-	(last_replication_date < NOW() - ?::INTERVAL) as warn,
-	(last_replication_date < NOW() - ?::INTERVAL) as crit,
-	last_replication_date,
-	NOW() - last_replication_date as age
-	FROM replication_control
-	",
-	"$warn seconds",
-	"$crit seconds",
+    "
+    SELECT
+    (last_replication_date < NOW() - ?::INTERVAL) as warn,
+    (last_replication_date < NOW() - ?::INTERVAL) as crit,
+    last_replication_date,
+    NOW() - last_replication_date as age
+    FROM replication_control
+    ",
+    "$warn seconds",
+    "$crit seconds",
 );
 
 if (not $row)
 {
-	print "No replication control data!\n";
-	exit 2;
+    print "No replication control data!\n";
+    exit 2;
 }
 
 print ($row->{crit} ? "CRITICAL" : $row->{warn} ? "WARNING" : "OK");

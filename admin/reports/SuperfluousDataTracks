@@ -36,39 +36,39 @@ use MusicBrainz::Server::Release;
 
 sub GatherData
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->GatherDataFromQuery(<<'EOF', [ &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME ]);
-		SELECT
-			ar.id AS artist_id,
-			ar.name AS artist_name,
-			ar.sortname AS artist_sortname,
-			ar.resolution AS artist_resolution,
-			ar.modpending AS artist_modpending,
-			al.id AS album_id,
-			al.name AS album_name,
-			al.modpending AS album_modpending
-		FROM
-			album al, artist ar, albummeta m
-		WHERE
-			al.artist = ar.id
-			AND al.name <> ?
-			AND	m.id = al.id
-			AND	al.id IN (
-			(
-				SELECT
-					album
-				FROM
-					albummeta, albumjoin, track
-				WHERE
-					track.id = albumjoin.track
-					AND albumjoin.album = albummeta.id
-					AND albumjoin.sequence = albummeta.tracks
-					AND track.name ~* '([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)' )
-			)
-			AND m.discids = 0
-		ORDER BY
-			al.id DESC
+    $self->GatherDataFromQuery(<<'EOF', [ &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME ]);
+        SELECT
+                ar.id AS artist_id,
+                ar.name AS artist_name,
+                ar.sortname AS artist_sortname,
+                ar.resolution AS artist_resolution,
+                ar.modpending AS artist_modpending,
+                al.id AS album_id,
+                al.name AS album_name,
+                al.modpending AS album_modpending
+        FROM
+                album al, artist ar, albummeta m
+        WHERE
+                al.artist = ar.id
+                AND al.name <> ?
+                AND     m.id = al.id
+                AND     al.id IN (
+                (
+                        SELECT
+                                album
+                        FROM
+                                albummeta, albumjoin, track
+                        WHERE
+                                track.id = albumjoin.track
+                                AND albumjoin.album = albummeta.id
+                                AND albumjoin.sequence = albummeta.tracks
+                                AND track.name ~* '([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)' )
+                )
+                AND m.discids = 0
+        ORDER BY
+                al.id DESC
 EOF
 
 }

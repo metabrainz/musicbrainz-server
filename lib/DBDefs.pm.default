@@ -30,9 +30,9 @@ package DBDefs;
 ################################################################################
 
 # The Server Root, i.e. the parent directory of admin, cgi-bin and htdocs
-sub MB_SERVER_ROOT	{ "/home/httpd/musicbrainz/mb_server" }
+sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/mb_server" }
 # The data import directory (used by some reports)
-sub DATA_IMPORT_DIR	{ "/home/httpd/musicbrainz/data-import" }
+sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 
 ################################################################################
 # The Database
@@ -42,9 +42,9 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect when we need read-write access to the database
     READWRITE => {
-        database	=> "musicbrainz_db",
+        database    => "musicbrainz_db",
         schema          => "musicbrainz",
-        username	=> "musicbrainz",
+        username    => "musicbrainz",
 #       password        => "",
 #       host            => "",
 #       port            => "",
@@ -52,9 +52,9 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     # READONLY => undef,
     # How to connect for administrative access
-    SYSTEM	=> {
-        database	=> "template1",
-        username	=> "postgres",
+    SYSTEM    => {
+        database    => "template1",
+        username    => "postgres",
 #       password        => "",
 #       host            => "",
 #       port            => "",
@@ -62,9 +62,9 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # Raw data lives in a seperate DB to avoid the main DB from balooning in size.
     RAWDATA =>
     {
-        database	=> "musicbrainz_db_raw",
+        database    => "musicbrainz_db_raw",
         schema          => "musicbrainz",
-        username	=> "musicbrainz",
+        username    => "musicbrainz",
 #       password        => "",
 #       host            => "",
 #       port            => "",
@@ -94,8 +94,8 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 
 # The host names of the HTML / RDF parts of the server
 # To use a port number other than 80, add it like so: "myhost:8000"
-sub WEB_SERVER	     { "www.musicbrainz.example.com" }
-sub RDF_SERVER	     { "rdf.musicbrainz.example.com" }
+sub WEB_SERVER         { "www.musicbrainz.example.com" }
+sub RDF_SERVER         { "rdf.musicbrainz.example.com" }
 sub LUCENE_SERVER    { "search.musicbrainz.org" }
 
 ################################################################################
@@ -119,7 +119,7 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 ################################################################################
 # Documentation Server Settings
 ################################################################################
-sub WIKITRANS_SERVER	 { "wiki.musicbrainz.org" }
+sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
 sub WIKITRANS_INDEX_FILE { MB_SERVER_ROOT() . "/root/static/wikidocs/index.txt" }
 sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 
@@ -139,8 +139,8 @@ sub CACHE_DEFAULT_DELETE { 4 }
 # XXX remove this
 # Cache::Memcached options
 our %CACHE_OPTIONS = (
-	servers => [ '127.0.0.1:11211' ],
-	debug => 0,
+    servers => [ '127.0.0.1:11211' ],
+    debug => 0,
 );
 sub CACHE_OPTIONS { \%CACHE_OPTIONS }
 
@@ -235,7 +235,7 @@ sub MOD_PERIOD_GRACE { '1 week' }
 
 # If this file exists (and is writeable by the web server), debugging
 # information is logged here.
-sub DEBUG_LOG	{ "/tmp/musicbrainz-debug.log" }
+sub DEBUG_LOG    { "/tmp/musicbrainz-debug.log" }
 
 # Preload files when starting the server? Should normally be 1. Sometimes easier
 # to develop new features with it turned off
@@ -258,12 +258,12 @@ sub ANNOTATION_LOCK_TIME { 60*15 }
 
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (
-    'amazon.ca'		=> 'musicbrainz01-20',
-    'amazon.co.jp'	=> 'musicbrainz-22',
-    'amazon.co.uk'	=> 'musicbrainz0c-21',
-    'amazon.com'	=> 'musicbrainz0d-20',
-    'amazon.de'		=> 'musicbrainz00-21',
-    'amazon.fr'		=> 'musicbrainz0e-21',
+    'amazon.ca'         => 'musicbrainz01-20',
+    'amazon.co.jp'    => 'musicbrainz-22',
+    'amazon.co.uk'    => 'musicbrainz0c-21',
+    'amazon.com'    => 'musicbrainz0d-20',
+    'amazon.de'         => 'musicbrainz00-21',
+    'amazon.fr'         => 'musicbrainz0e-21',
 );
 
 sub AWS_ASSOCIATE_ID
@@ -293,8 +293,8 @@ sub AWS_PUBLIC { '' }
 sub SESSION_STORE { "Session::Store::FastMmap" }
 sub SESSION_STORE_ARGS
 {
-	{
-	}
+    {
+    }
 }
 
 # For redundant front end web servers, sessions can be stored in a postgres
@@ -304,12 +304,12 @@ sub SESSION_STORE_ARGS
 #sub SESSION_STORE { "Session::Store::DBI" }
 #sub SESSION_STORE_ARGS
 #{
-#	{
-#		dbi_dsn   => "dbi:Pg:dbname=mb_sessions",
-#		dbi_user  => "musicbrainz_user",
-#		dbi_pass  => "",
-#		dbi_table => "sessions",
-#	}
+#    {
+#       dbi_dsn   => "dbi:Pg:dbname=mb_sessions",
+#       dbi_user  => "musicbrainz_user",
+#       dbi_pass  => "",
+#       dbi_table => "sessions",
+#    }
 #}
 
 sub USE_ETAGS { 1 }

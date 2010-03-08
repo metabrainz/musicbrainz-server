@@ -12,10 +12,10 @@ my $just_echo;
 use Getopt::Long;
 Getopt::Long::Configure(qw( no_ignore_case ));
 GetOptions(
-	"k"		=> \$show_kept,
-	"r"		=> \$show_removed,
-	"n"		=> \$dry_run,
-	"e"		=> \$just_echo,
+    "k"         => \$show_kept,
+    "r"         => \$show_removed,
+    "n"         => \$dry_run,
+    "e"         => \$just_echo,
 ) or exit 2;
 
 my $errors = 0;
@@ -26,39 +26,39 @@ exit;
 
 sub prune_dir
 {
-	my ($fullexport) = @_;
+    my ($fullexport) = @_;
 
-	my @dirs;
-	opendir(my $dh, $fullexport) or die "opendir $fullexport: $!\n";
-	push @dirs, sort
-		grep { -d "$fullexport/$_" }
-		grep /\A\d\d\d\d\d\d\d\d-\d\d\d\d\d\d\z/,
-		readdir $dh;
-	closedir $dh;
+    my @dirs;
+    opendir(my $dh, $fullexport) or die "opendir $fullexport: $!\n";
+    push @dirs, sort
+        grep { -d "$fullexport/$_" }
+        grep /\A\d\d\d\d\d\d\d\d-\d\d\d\d\d\d\z/,
+        readdir $dh;
+    closedir $dh;
 
-	@dirs or warn "No exports found in $fullexport - are you sure this is a fullexport directory?\n";
+    @dirs or warn "No exports found in $fullexport - are you sure this is a fullexport directory?\n";
 
-	# Keep the newest 2 backups
-	for (1..2)
-	{
-		defined(my $dir = pop @dirs) or last;
-		print "Keeping $fullexport/$dir\n" if $show_kept;
-	}
+    # Keep the newest 2 backups
+    for (1..2)
+    {
+        defined(my $dir = pop @dirs) or last;
+        print "Keeping $fullexport/$dir\n" if $show_kept;
+    }
 
-	for my $dir (@dirs)
-	{
-		print "Removing $fullexport/$dir\n" if $show_removed;
-		next if $dry_run;
+    for my $dir (@dirs)
+    {
+        print "Removing $fullexport/$dir\n" if $show_removed;
+        next if $dry_run;
 
-		my @echo = ($just_echo ? ("echo") : ());
-		system @echo, "/bin/rm", "-rf", "$fullexport/$dir";
+        my @echo = ($just_echo ? ("echo") : ());
+        system @echo, "/bin/rm", "-rf", "$fullexport/$dir";
 
-		unless ($? == 0)
-		{
-			warn "'rm -rf $fullexport/$dir' failed (rc=$?)\n";
-			++$errors;
-		}
-	}
+        unless ($? == 0)
+        {
+                warn "'rm -rf $fullexport/$dir' failed (rc=$?)\n";
+                ++$errors;
+        }
+    }
 }
 
 # eof

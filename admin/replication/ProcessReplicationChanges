@@ -11,8 +11,8 @@
 # specific host.  The database on that host is then updated with the changes.
 #
 #
-#	 Written by Steven Singer (ssinger@navtechinc.com)
-#	 (c) 2001-2002 Navtech Systems Support Inc.
+#     Written by Steven Singer (ssinger@navtechinc.com)
+#     (c) 2001-2002 Navtech Systems Support Inc.
 # ALL RIGHTS RESERVED;
 #
 # Permission to use, copy, modify, and distribute this software and its
@@ -65,11 +65,11 @@ my $short_sql = 0;
 my $debug_xact = 0;
 my $skip_seqid;
 GetOptions(
-	"short-sql"		=> \$short_sql,
-	"long-sql"		=> \$long_sql,
-	"debug-xact"	=> \$debug_xact,
-	"skip-seqid|s=i"=> \$skip_seqid,
-	"help|h"		=> sub { print $help; exit },
+    "short-sql"         => \$short_sql,
+    "long-sql"          => \$long_sql,
+    "debug-xact"        => \$debug_xact,
+    "skip-seqid|s=i"=> \$skip_seqid,
+    "help|h"            => sub { print $help; exit },
 ) or exit 2;
 print($help), exit 2 if @ARGV;
 
@@ -100,7 +100,7 @@ $sql->do("SET CONSTRAINTS ALL DEFERRED");
 my $query = 'SELECT pd."XID",MAX("SeqId") FROM "Pending" pd GROUP BY pd."XID" ORDER BY MAX(pd."SeqId")';
 
 my $total_statements = $sql->select_single_value(
-	'SELECT COUNT(*) FROM "Pending"',
+    'SELECT COUNT(*) FROM "Pending"',
 );
 
 # This loop loops through each pending transaction in the proper order.
@@ -108,114 +108,114 @@ my $total_statements = $sql->select_single_value(
 # master and sent + committed to the slaves.
 if (my $totalrows = $sql->select($query))
 {
-	my @row;
+    my @row;
 
-	use Time::HiRes qw( gettimeofday tv_interval );
-	my $t1 = [gettimeofday];
-	my $interval;
-	my $rows = 0;
-	my $strows = 0;
+    use Time::HiRes qw( gettimeofday tv_interval );
+    my $t1 = [gettimeofday];
+    my $interval;
+    my $rows = 0;
+    my $strows = 0;
 
-	printf "%9s %9s %4s %9s %9s\n", "XIDs", "Stmts", "est%", "XIDs/sec", "Stmt/sec";
+    printf "%9s %9s %4s %9s %9s\n", "XIDs", "Stmts", "est%", "XIDs/sec", "Stmt/sec";
 
-	my $lasttime;
-	my $p = sub {
-		my ($pre, $post) = @_;
-		no integer;
-		printf $pre."%9d %9d %3d%% %9d %9d".$post,
-			$rows, $strows,
-			int(100 * $strows / $total_statements),
-			$rows / ($interval||1),
-			$strows / ($interval||1),
-			;
-		$lasttime = time;
-	};
+    my $lasttime;
+    my $p = sub {
+        my ($pre, $post) = @_;
+        no integer;
+        printf $pre."%9d %9d %3d%% %9d %9d".$post,
+                $rows, $strows,
+                int(100 * $strows / $total_statements),
+                $rows / ($interval||1),
+                $strows / ($interval||1),
+                ;
+        $lasttime = time;
+    };
 
-	$p = sub { $lasttime = time }
-		if $short_sql or $long_sql or $debug_xact;
+    $p = sub { $lasttime = time }
+        if $short_sql or $long_sql or $debug_xact;
 
-		$p->("", "");
+        $p->("", "");
 
-	while(@row = $sql->next_row)
-	{
-		my $XID = $row[0];
-		my $maxSeqId = $row[1];
-		my $seqId;
+    while(@row = $sql->next_row)
+    {
+        my $XID = $row[0];
+        my $maxSeqId = $row[1];
+        my $seqId;
 
-		if ($skip_seqid and $maxSeqId <= $skip_seqid)
-		{
-			print localtime() . " : Ignoring SeqId #$maxSeqId\n";
-			next;
-		}
+        if ($skip_seqid and $maxSeqId <= $skip_seqid)
+        {
+                print localtime() . " : Ignoring SeqId #$maxSeqId\n";
+                next;
+        }
 
-		my $query = qq|
-			SELECT	pnd."SeqId", pnd."TableName", pnd."Op", pnddata."IsKey", pnddata."Data" AS "Data"
-			FROM	"Pending" pnd, "PendingData" pnddata
-			WHERE	pnd."SeqId" = pnddata."SeqId"
-			AND		pnd."XID" = ?
-			ORDER BY "SeqId", "IsKey" DESC
-		|;
+        my $query = qq|
+                SELECT  pnd."SeqId", pnd."TableName", pnd."Op", pnddata."IsKey", pnddata."Data" AS "Data"
+                FROM    "Pending" pnd, "PendingData" pnddata
+                WHERE   pnd."SeqId" = pnddata."SeqId"
+                AND             pnd."XID" = ?
+                ORDER BY "SeqId", "IsKey" DESC
+        |;
 
-		if ($sql2->select($query, $XID))
-		{
-			my (@row2, $curTuple);
+        if ($sql2->select($query, $XID))
+        {
+                my (@row2, $curTuple);
 
-			print localtime() . " : BEGIN XID #$XID (max seq #$maxSeqId)\n" if $debug_xact;
-			$slave->begin;
-			while(@row2 = $sql2->next_row)
-			{
-				# TODO: Figure out how to handle errors here
-				if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID))
-				{
-					die "Mirror command failed.\n";
-				}
-				++$strows;
-			}
-			$slave->do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
-			print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
-			$slave->commit;
-		}
+                print localtime() . " : BEGIN XID #$XID (max seq #$maxSeqId)\n" if $debug_xact;
+                $slave->begin;
+                while(@row2 = $sql2->next_row)
+                {
+                        # TODO: Figure out how to handle errors here
+                        if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID))
+                        {
+                                die "Mirror command failed.\n";
+                        }
+                        ++$strows;
+                }
+                $slave->do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
+                print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
+                $slave->commit;
+        }
 
-		$sql2->finish;
+        $sql2->finish;
 
-		++$rows;
-		unless ($rows & 0x1F and time() == $lasttime)
-		{
-			$interval = tv_interval($t1);
-			$p->("\r", "");
-		}
-	}
+        ++$rows;
+        unless ($rows & 0x1F and time() == $lasttime)
+        {
+                $interval = tv_interval($t1);
+                $p->("\r", "");
+        }
+    }
 
-	$interval = tv_interval($t1);
-	$p->("\r", sprintf(" %.2f sec\n", $interval));
+    $interval = tv_interval($t1);
+    $p->("\r", sprintf(" %.2f sec\n", $interval));
 
 }
-	$sql->finish;
+    $sql->finish;
 
 print localtime() . " : Summary of changes applied:\n";
 print "Inserts  Updates  Deletes  Table\n";
 for my $t (sort keys %bytable)
 {
-	printf "%7d  %7d  %7d  %s\n", @{ $bytable{$t} }, $t;
+    printf "%7d  %7d  %7d  %s\n", @{ $bytable{$t} }, $t;
 }
 printf "%7d  %7d  %7d  %s\n", $ins, $upd, $del, "(total)";
 
 print localtime() . " : Replication changes applied\n";
 
 {
-	for my $table (qw( PendingData Pending ))
-	{
-		print localtime() . " : Checking that $table is empty\n";
+    for my $table (qw( PendingData Pending ))
+    {
+        print localtime() . " : Checking that $table is empty\n";
 
-		my $n = $sql->select_single_value(
-			"SELECT COUNT(*) FROM \"$table\"",
-		);
-		die "$table still contains data (rows=$n)!" if $n;
+        my $n = $sql->select_single_value(
+                "SELECT COUNT(*) FROM \"$table\"",
+        );
+        die "$table still contains data (rows=$n)!" if $n;
 
-		print localtime() . " : Optimising $table\n";
-		$sql->auto_commit;
-		$sql->do("VACUUM ANALYZE \"$table\"");
-	}
+        print localtime() . " : Optimising $table\n";
+        $sql->auto_commit;
+        $sql->do("VACUUM ANALYZE \"$table\"");
+    }
 }
 
 print localtime() . " : ProcessReplicationChanges complete\n";
@@ -223,101 +223,101 @@ exit;
 
 sub mirrorCommand
 {
-	my ($op, $result, $slave, $row, $transId)  = @_;
+    my ($op, $result, $slave, $row, $transId)  = @_;
 
-	my $table = $row->[1];
-	$table =~ s/^"public"\.//;
-	$row->[1] = $table;
-	my $t = ($bytable{$table} ||= [0,0,0]);
+    my $table = $row->[1];
+    $table =~ s/^"public"\.//;
+    $row->[1] = $table;
+    my $t = ($bytable{$table} ||= [0,0,0]);
 
-	if($op eq 'i')
-	{
-		++$ins;
-		++$t->[0];
-		return mirrorInsert($result, $slave, $row, $transId);
-	}
-	elsif($op eq 'd')
-	{
-		++$del;
-		++$t->[2];
-		return mirrorDelete($result, $slave, $row, $transId);
-	}
-	elsif($op eq 'u')
-	{
-		++$upd;
-		++$t->[1];
-		return mirrorUpdate($result, $slave, $row, $transId);
-	}
-	return 0;
+    if($op eq 'i')
+    {
+        ++$ins;
+        ++$t->[0];
+        return mirrorInsert($result, $slave, $row, $transId);
+    }
+    elsif($op eq 'd')
+    {
+        ++$del;
+        ++$t->[2];
+        return mirrorDelete($result, $slave, $row, $transId);
+    }
+    elsif($op eq 'u')
+    {
+        ++$upd;
+        ++$t->[1];
+        return mirrorUpdate($result, $slave, $row, $transId);
+    }
+    return 0;
 }
 
 use MusicBrainz::Server::dbmirror;
 
 sub mirrorInsert
 {
-	my ($result, $slave, $row, $transId)  = @_;
-	my $seqId = $row->[0];
-	my $tableName = $row->[1];
+    my ($result, $slave, $row, $transId)  = @_;
+    my $seqId = $row->[0];
+    my $tableName = $row->[1];
 
-	my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
-		or die;
+    my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+        or die;
 
-	my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_insert($tableName, $valuepairs);
+    my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_insert($tableName, $valuepairs);
 
-	print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
-	show_long_sql($statement, $args) if $long_sql;
-	$slave->do($statement, @$args);
+    print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
+    show_long_sql($statement, $args) if $long_sql;
+    $slave->do($statement, @$args);
 
-	return 1;
+    return 1;
 }
 
 sub mirrorDelete
 {
-	my ($result, $slave, $row, $transId) = @_;
-	my $seqId = $row->[0];
-	my $tableName = $row->[1];
+    my ($result, $slave, $row, $transId) = @_;
+    my $seqId = $row->[0];
+    my $tableName = $row->[1];
 
-	my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
-		or die;
+    my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+        or die;
 
-	my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_delete($tableName, $keypairs);
+    my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_delete($tableName, $keypairs);
 
-	print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
-	show_long_sql($statement, $args) if $long_sql;
-	$slave->do($statement, @$args);
+    print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
+    show_long_sql($statement, $args) if $long_sql;
+    $slave->do($statement, @$args);
 
-	return 1;
+    return 1;
 }
 
 sub mirrorUpdate
 {
-	my ($result, $slave, $row, $transId) = @_;
-	my $seqId = $row->[0];
-	my $tableName = $row->[1];
+    my ($result, $slave, $row, $transId) = @_;
+    my $seqId = $row->[0];
+    my $tableName = $row->[1];
 
-	my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
-		or die;
+    my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+        or die;
 
-	my @row2 = $result->next_row;
-	my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row2[4]);
+    my @row2 = $result->next_row;
+    my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row2[4]);
 
-	my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);
+    my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);
 
-	print localtime() . " : UPDATE $tableName\n" if $short_sql;
-	show_long_sql($statement, $args) if $long_sql;
-	$slave->do($statement, @$args);
+    print localtime() . " : UPDATE $tableName\n" if $short_sql;
+    show_long_sql($statement, $args) if $long_sql;
+    $slave->do($statement, @$args);
 
-	return 1;
+    return 1;
 }
 
 sub show_long_sql
 {
-	my ($statement, $args) = @_;
-	printf "%s : %s (%s)\n",
-		scalar(localtime),
-		$statement,
-		join(" ", map { defined() ? $_ : "NULL" } @$args),
-		;
+    my ($statement, $args) = @_;
+    printf "%s : %s (%s)\n",
+        scalar(localtime),
+        $statement,
+        join(" ", map { defined() ? $_ : "NULL" } @$args),
+        ;
 }
 
 1;

@@ -20,23 +20,23 @@ my $users = UserStuff->new($mb->{dbh});
 
 for my $acc (@$accs)
 {
-	my $email = delete $acc->{email};
-	my $user = $users->_new_from_row($acc);
-	my $error = $user->SendFirstVerificationEmail($email);
-	warn "Failed: ".$acc->{name}." ($error)\n" if $error;
-	print "Sent to $acc->{name} ($email)\n";
+    my $email = delete $acc->{email};
+    my $user = $users->_new_from_row($acc);
+    my $error = $user->SendFirstVerificationEmail($email);
+    warn "Failed: ".$acc->{name}." ($error)\n" if $error;
+    print "Sent to $acc->{name} ($email)\n";
 }
 
 sub UserStuff::SendFirstVerificationEmail
 {
-	my ($self, $email) = @_;
+    my ($self, $email) = @_;
 
-	my $name = $self->GetName;
-	my $url = $self->GetEmailActivationLink($email);
+    my $name = $self->GetName;
+    my $url = $self->GetEmailActivationLink($email);
 
-	use Text::Wrap qw( fill $columns );
-	local $columns = 70;
-	my $body = fill("", "", <<EOF) . "\n"
+    use Text::Wrap qw( fill $columns );
+    local $columns = 70;
+    my $body = fill("", "", <<EOF) . "\n"
 Hello,
 
 This email is about your account at MusicBrainz, "$name".
@@ -45,7 +45,7 @@ $email,
 so we're just sending you this message so that we can confirm
 that this address is correct.
 EOF
-	. <<EOF;
+    . <<EOF;
 
 Please click on the link below to verify your email address:
 
@@ -63,20 +63,20 @@ Thanks for using MusicBrainz!
 -- The MusicBrainz Team
 EOF
 
-	require MusicBrainz::Server::Mail;
-	my $mail = MusicBrainz::Server::Mail->new(
-		Sender		=> 'Webserver <webserver@musicbrainz.org>',
-		From		=> 'MusicBrainz <noreply@musicbrainz.org>',
-		To			=> MusicBrainz::Server::Mail->format_address_line($self->GetName, $email),
-		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
-		Subject		=> "email address verification",
-		Type		=> "text/plain",
-		Encoding	=> "quoted-printable",
-		Data		=> $body,
-	);
+    require MusicBrainz::Server::Mail;
+    my $mail = MusicBrainz::Server::Mail->new(
+        Sender          => 'Webserver <webserver@musicbrainz.org>',
+        From            => 'MusicBrainz <noreply@musicbrainz.org>',
+        To                      => MusicBrainz::Server::Mail->format_address_line($self->GetName, $email),
+        "Reply-To"      => 'MusicBrainz Support <support@musicbrainz.org>',
+        Subject         => "email address verification",
+        Type            => "text/plain",
+        Encoding        => "quoted-printable",
+        Data            => $body,
+    );
     $mail->attr("content-type.charset" => "utf-8");
 
-	$self->SendFormattedEmail(entity => $mail, to => $email);
+    $self->SendFormattedEmail(entity => $mail, to => $email);
 }
 
 # eof

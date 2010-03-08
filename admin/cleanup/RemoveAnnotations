@@ -51,10 +51,10 @@ my $dry_run = 0;
 my $verbose = -t;
 my $summary = -t;
 GetOptions(
-	"dry-run|dryrun!"	=> \$dry_run,
-	"verbose!"			=> \$verbose,
-	"summary!"			=> \$summary,
-	"help"				=> sub { showhelp(); exit 0; },
+    "dry-run|dryrun!"   => \$dry_run,
+    "verbose!"                  => \$verbose,
+    "summary!"                  => \$summary,
+    "help"                              => sub { showhelp(); exit 0; },
 ) or exit 2;
 showhelp(), exit 2 if @ARGV;
 
@@ -80,17 +80,17 @@ added to the Select call below.
 print localtime() . " : Selecting annotations\n";
 
 my $ids = $sql->SelectSingleColumnArray(
-	  " SELECT	id "
-	. " FROM	annotation a "
-	. " WHERE	( a.type = ? AND a.rowid NOT IN (SELECT id FROM artist) ) "
-	. "		OR ( a.type = ? AND a.rowid NOT IN (SELECT id FROM album) ) ",
-	ARTIST_ANNOTATION,
-	RELEASE_ANNOTATION,
+      " SELECT  id "
+    . " FROM    annotation a "
+    . " WHERE   ( a.type = ? AND a.rowid NOT IN (SELECT id FROM artist) ) "
+    . "         OR ( a.type = ? AND a.rowid NOT IN (SELECT id FROM album) ) ",
+    ARTIST_ANNOTATION,
+    RELEASE_ANNOTATION,
 );
 
 unless ( defined $ids )
 {
-	die localtime() . " : Select failed\n";
+    die localtime() . " : Select failed\n";
 }
 
 my $selected = @$ids;
@@ -100,26 +100,26 @@ print localtime() . " : Selected $selected annotations\n";
 
 foreach my $id ( @$ids )
 {
-	print localtime() . " : Deleting annotation #$id\n" if $verbose;
+    print localtime() . " : Deleting annotation #$id\n" if $verbose;
 
-	unless ( $dry_run ) {
-		if ( $sql->Do("DELETE FROM annotation WHERE id = ?", $id) )
-		{
-			$deleted++;
-		}
-		else
-		{
-			warn localtime() . " : Annotation #$id couldn't be deleted\n";
-		}
-	}
+    unless ( $dry_run ) {
+        if ( $sql->Do("DELETE FROM annotation WHERE id = ?", $id) )
+        {
+                $deleted++;
+        }
+        else
+        {
+                warn localtime() . " : Annotation #$id couldn't be deleted\n";
+        }
+    }
 }
 
 $sql->Finish;
 
 printf (<<EOF, scalar(localtime), $selected, $deleted) if $summary;
 %s : Summary follows:
-		Selected: %d
-		Deleted: %d
+        Selected: %d
+        Deleted: %d
 EOF
 
 # eof RemoveAnnotations

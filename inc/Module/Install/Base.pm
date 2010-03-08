@@ -3,13 +3,13 @@ package Module::Install::Base;
 use strict 'vars';
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.94';
+        $VERSION = '0.94';
 }
 
 # Suspend handler for "redefined" warnings
 BEGIN {
-	my $w = $SIG{__WARN__};
-	$SIG{__WARN__} = sub { $w };
+        my $w = $SIG{__WARN__};
+        $SIG{__WARN__} = sub { $w };
 }
 
 =pod
@@ -42,14 +42,14 @@ Constructor -- need to preserve at least _top
 =cut
 
 sub new {
-	my $class = shift;
-	unless ( defined &{"${class}::call"} ) {
-		*{"${class}::call"} = sub { shift->_top->call(@_) };
-	}
-	unless ( defined &{"${class}::load"} ) {
-		*{"${class}::load"} = sub { shift->_top->load(@_) };
-	}
-	bless { @_ }, $class;
+        my $class = shift;
+        unless ( defined &{"${class}::call"} ) {
+                *{"${class}::call"} = sub { shift->_top->call(@_) };
+        }
+        unless ( defined &{"${class}::load"} ) {
+                *{"${class}::load"} = sub { shift->_top->load(@_) };
+        }
+        bless { @_ }, $class;
 }
 
 =pod
@@ -61,9 +61,9 @@ The main dispatcher - copy extensions if missing
 =cut
 
 sub AUTOLOAD {
-	local $@;
-	my $func = eval { shift->_top->autoload } or return;
-	goto &$func;
+        local $@;
+        my $func = eval { shift->_top->autoload } or return;
+        goto &$func;
 }
 
 =pod
@@ -75,7 +75,7 @@ Returns the top-level B<Module::Install> object.
 =cut
 
 sub _top {
-	$_[0]->{_top};
+        $_[0]->{_top};
 }
 
 =pod
@@ -90,9 +90,9 @@ with an empty C<AUTOLOAD> method that does nothing at all.
 =cut
 
 sub admin {
-	$_[0]->_top->{admin}
-	or
-	Module::Install::Base::FakeAdmin->new;
+        $_[0]->_top->{admin}
+        or
+        Module::Install::Base::FakeAdmin->new;
 }
 
 =pod
@@ -106,7 +106,7 @@ program start. True if that's the case. False, otherwise.
 =cut 
 
 sub is_admin {
-	$_[0]->admin->VERSION;
+        $_[0]->admin->VERSION;
 }
 
 sub DESTROY {}
@@ -116,7 +116,7 @@ package Module::Install::Base::FakeAdmin;
 my $fake;
 
 sub new {
-	$fake ||= bless(\@_, $_[0]);
+        $fake ||= bless(\@_, $_[0]);
 }
 
 sub AUTOLOAD {}
@@ -125,7 +125,7 @@ sub DESTROY {}
 
 # Restore warning handler
 BEGIN {
-	$SIG{__WARN__} = $SIG{__WARN__}->();
+        $SIG{__WARN__} = $SIG{__WARN__}->();
 }
 
 1;

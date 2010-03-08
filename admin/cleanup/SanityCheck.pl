@@ -392,10 +392,10 @@ sub Cleanup
             print "  Moderation $row[0] references non-existing artist $row[1].\n";
             $count++;
 
-	    my $openclosed = (
-		($row[2] == STATUS_OPEN or $row[2] == STATUS_TOBEDELETED)
-		? "open" : "closed"
-	    );
+        my $openclosed = (
+        ($row[2] == STATUS_OPEN or $row[2] == STATUS_TOBEDELETED)
+        ? "open" : "closed"
+        );
             $dbh->do("update moderation_$openclosed set Artist = " . DARTIST_ID .
                      " where id = $row[0]") if ($fix);
         }

@@ -35,25 +35,25 @@ sub _set_language {
 
 sub gettext
 {
-	my ($c, $msgid, $vars) = @_;
+    my ($c, $msgid, $vars) = @_;
 
 
         my %vars = %$vars if (ref $vars eq "HASH");
 
         _set_language($c);
 
-	return __expand(__($msgid), %vars);
+    return __expand(__($msgid), %vars);
 }
 
 sub ngettext
 {
-	my ($c, $msgid, $msgid_plural, $n, $vars) = @_;
+    my ($c, $msgid, $msgid_plural, $n, $vars) = @_;
 
         my %vars = %$vars if (ref $vars eq "HASH");
 
         _set_language($c);
 
-	return __expand(__n($msgid, $msgid_plural, $n), %vars);
+    return __expand(__n($msgid, $msgid_plural, $n), %vars);
 }
 
 

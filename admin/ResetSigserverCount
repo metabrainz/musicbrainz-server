@@ -37,11 +37,11 @@ my $verbose = -t;
 
 use Getopt::Long;
 GetOptions(
-	"fix!"		=> \$fix,
-	"polls=i"	=> \$polls,
-	"wait=i"	=> \$wait,
-	"verbose!"	=> \$verbose,
-	"threshold=i"	=> \$fix_if_gt_than,
+    "fix!"              => \$fix,
+    "polls=i"   => \$polls,
+    "wait=i"    => \$wait,
+    "verbose!"  => \$verbose,
+    "threshold=i"       => \$fix_if_gt_than,
 ) or exit 2;
 die if @ARGV;
 
@@ -55,16 +55,16 @@ my $min = undef;
 my $sent = 0;
 while ($sent < $polls)
 {
-	my $value = $c->get("sigservers");
-	++$sent;
-	print "$value " if $verbose;
-	defined($value) or next;
-	$min = $value
-		if not defined($min)
-		or $value < $min;
-	last if $min == 0; # < $fix_if_gt_than;
+    my $value = $c->get("sigservers");
+    ++$sent;
+    print "$value " if $verbose;
+    defined($value) or next;
+    $min = $value
+        if not defined($min)
+        or $value < $min;
+    last if $min == 0; # < $fix_if_gt_than;
 } continue {
-	select(undef, undef, undef, 0.25);
+    select(undef, undef, undef, 0.25);
 }
 
 print "\n" if $verbose;
@@ -73,14 +73,14 @@ printf "Min polled value over %d requests was %d\n", $sent, $min;
 
 if ($min <= $fix_if_gt_than)
 {
-	print "Counter does not need resetting\n";
-	exit;
+    print "Counter does not need resetting\n";
+    exit;
 }
 
 if (not $fix)
 {
-	print "Not fixing\n";
-	exit 1;
+    print "Not fixing\n";
+    exit 1;
 }
 
 open(my $fh, ">$lockfile") or die "open: $!";

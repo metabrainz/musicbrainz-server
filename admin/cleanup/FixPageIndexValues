@@ -44,12 +44,12 @@ my $fFix = 1;
 my $fHelp = 0;
 
 GetOptions(
-	"artist!"	=> \$do{'artist'},
-	"album!"	=> \$do{'album'},
-	"label!"	=> \$do{'label'},
-	"verbose!"	=> \$fVerbose,
-	"fix!"		=> \$fFix,
-	"help!"		=> \$fHelp,
+    "artist!"   => \$do{'artist'},
+    "album!"    => \$do{'album'},
+    "label!"    => \$do{'label'},
+    "verbose!"  => \$fVerbose,
+    "fix!"              => \$fFix,
+    "help!"             => \$fHelp,
 ) or exit 2;
 
 $fHelp = 1 if @ARGV;
@@ -87,70 +87,70 @@ Process("label", "sortname") if $do{"label"};
 
 sub Process
 {
-	my ($table, $namecol) = @_;
+    my ($table, $namecol) = @_;
 
-	my ($ok, $wrong, $fixed, $failed) = (0, 0, 0, 0);
-	$sqlRead->Select("SELECT id, $namecol, page FROM $table");
+    my ($ok, $wrong, $fixed, $failed) = (0, 0, 0, 0);
+    $sqlRead->Select("SELECT id, $namecol, page FROM $table");
 
-	while (my ($id, $name, $page) = $sqlRead->NextRow)
-	{
-		my $correctpage = $tb->CalculatePageIndex($name);
-		++$ok, next if $page == $correctpage;
+    while (my ($id, $name, $page) = $sqlRead->NextRow)
+    {
+        my $correctpage = $tb->CalculatePageIndex($name);
+        ++$ok, next if $page == $correctpage;
 
-		printf "%s #%d '%s' : %s => %s\n",
-			$table, $id, decode("utf-8", $name),
-			page_index_to_string($page),
-			page_index_to_string($correctpage),
-			if $fVerbose;
+        printf "%s #%d '%s' : %s => %s\n",
+                $table, $id, decode("utf-8", $name),
+                page_index_to_string($page),
+                page_index_to_string($correctpage),
+                if $fVerbose;
 
-		++$wrong;
+        ++$wrong;
 
-		$fFix or next;
+        $fFix or next;
 
-		eval {
-			$sqlWrite->Begin;
-			$sqlWrite->Do(
-				"UPDATE $table SET page = ? WHERE id = ? AND page = ? AND $namecol = ?",
-				$correctpage, $id, $page, $name,
-			) or die "Failed to update $table #$id";
-			$sqlWrite->Commit;
-		};
+        eval {
+                $sqlWrite->Begin;
+                $sqlWrite->Do(
+                        "UPDATE $table SET page = ? WHERE id = ? AND page = ? AND $namecol = ?",
+                        $correctpage, $id, $page, $name,
+                ) or die "Failed to update $table #$id";
+                $sqlWrite->Commit;
+        };
 
-		++$fixed, next unless $@;
+        ++$fixed, next unless $@;
 
-		printf STDERR "Error fixing %s #%d: %s\n",
-			$table, $id, $@;
+        printf STDERR "Error fixing %s #%d: %s\n",
+                $table, $id, $@;
 
-		if (not $sqlWrite->{dbh}->{AutoCommit})
-		{
-			$sqlWrite->Rollback;
-		}
+        if (not $sqlWrite->{dbh}->{AutoCommit})
+        {
+                $sqlWrite->Rollback;
+        }
 
-		++$failed;
-	}
+        ++$failed;
+    }
 
-	printf "%s: already ok = %d; wrong = %d; fixed = %d; failed = %d\n",
-		$table, $ok, $wrong, $fixed, $failed;
+    printf "%s: already ok = %d; wrong = %d; fixed = %d; failed = %d\n",
+        $table, $ok, $wrong, $fixed, $failed;
 }
 
 sub page_index_to_string
 {
-	my $i = shift;
-	my @n;
+    my $i = shift;
+    my @n;
 
-	while ($i > 0)
-	{
-		unshift @n, ($i & 0x1F);
-		$i >>=5;
-	}
+    while ($i > 0)
+    {
+        unshift @n, ($i & 0x1F);
+        $i >>=5;
+    }
 
-	my @c = map {
-		$_ == 0 ? "_" :
-		$_ == 1 ? "*" :
-		chr(ord('A')-2+$_)
-	} @n;
+    my @c = map {
+        $_ == 0 ? "_" :
+        $_ == 1 ? "*" :
+        chr(ord('A')-2+$_)
+    } @n;
 
-	join "", @c;
+    join "", @c;
 }
 
 # eof FixPageIndexValues

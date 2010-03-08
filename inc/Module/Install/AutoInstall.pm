@@ -5,9 +5,9 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION @ISA $ISCORE};
 BEGIN {
-	$VERSION = '0.94';
-	@ISA     = 'Module::Install::Base';
-	$ISCORE  = 1;
+        $VERSION = '0.94';
+        @ISA     = 'Module::Install::Base';
+        $ISCORE  = 1;
 }
 
 sub AutoInstall { $_[0] }

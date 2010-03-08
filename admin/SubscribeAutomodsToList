@@ -36,7 +36,7 @@ use String::ShellQuote qw( shell_quote );
 my $sConfigFile = "$FindBin::Bin/SubscribeAutomodsToList.conf";
 use Getopt::Long qw( GetOptions );
 GetOptions(
-	"--config-file|f=s"	=> \$sConfigFile,
+    "--config-file|f=s" => \$sConfigFile,
 ) or exit 2;
 
 my $mb = MusicBrainz::Server::Context->new;
@@ -46,38 +46,38 @@ use vars qw( %allowed_nonmember_automods %allowed_posting_guests );
 
 if (-f $sConfigFile)
 {
-	$@ = ""; $! = 0;
-	do $sConfigFile or die ($!||$@);
+    $@ = ""; $! = 0;
+    do $sConfigFile or die ($!||$@);
 }
 
 my $automods = $sql->SelectListOfLists("SELECT name, email FROM moderator
-	WHERE (privs & ?) > 0", UserStuff::AUTOMOD_FLAG);
+    WHERE (privs & ?) > 0", UserStuff::AUTOMOD_FLAG);
 
 {
-	my $rsync_script = &DBDefs::MB_SERVER_ROOT . "/bin/rsync-automods-list";
-	last unless -f $rsync_script and -x _;
-	require POSIX;
-	pipe(my $r, my $w) or die $!;
-	defined(my $pid = fork) or die $!;
-	if ($pid == 0)
-	{
-		close($w);
-		POSIX::dup2(fileno($r), &POSIX::STDIN_FILENO) != -1 or die $!;
-		close($r);
-		{ exec $rsync_script };
-		die $!;
-	}
+    my $rsync_script = &DBDefs::MB_SERVER_ROOT . "/bin/rsync-automods-list";
+    last unless -f $rsync_script and -x _;
+    require POSIX;
+    pipe(my $r, my $w) or die $!;
+    defined(my $pid = fork) or die $!;
+    if ($pid == 0)
+    {
+        close($w);
+        POSIX::dup2(fileno($r), &POSIX::STDIN_FILENO) != -1 or die $!;
+        close($r);
+        { exec $rsync_script };
+        die $!;
+    }
 
-	close $r;
-	for (@$automods)
-	{
-		printf $w "%s\0%s\0\0", @$_;
-	}
-	printf $w "\0";
-	close $w;
+    close $r;
+    for (@$automods)
+    {
+        printf $w "%s\0%s\0\0", @$_;
+    }
+    printf $w "\0";
+    close $w;
 
-	waitpid $pid, 0;
-	exit($? >> 8);
+    waitpid $pid, 0;
+    exit($? >> 8);
 }
 
 my %automods = map { lc($_->[1]) => $_->[0] } @$automods;
@@ -85,16 +85,16 @@ my %automods = map { lc($_->[1]) => $_->[0] } @$automods;
 my $mailmandir = "/usr/local/mailman";
 my $listname = "musicbrainz-automods";
 die "TODO: modify $0 to be able to handle shell metacharacters in \$mailmandir"
-	if $mailmandir ne shell_quote($mailmandir);
+    if $mailmandir ne shell_quote($mailmandir);
 die "TODO: modify $0 to be able to handle shell metacharacters in \$listname"
-	if $listname ne shell_quote($listname);
+    if $listname ne shell_quote($listname);
 
 my %list;
 for (`cd $mailmandir ; bin/withlist -l -r getsetmodusers.listusers $listname`)
 {
-	chomp;
-	my ($ismod, $addr, $name) = split /\t/;
-	$list{lc $addr} = [ $ismod, $name ];
+    chomp;
+    my ($ismod, $addr, $name) = split /\t/;
+    $list{lc $addr} = [ $ismod, $name ];
 }
 
 my @subscribe;
@@ -106,131 +106,131 @@ my @renames;
 # Any automods not on the list?
 while (my ($email, $name) = each %automods)
 {
-	next if $list{$email};
+    next if $list{$email};
 
-	my $allowed_name = $allowed_nonmember_automods{$email};
-	my $allowed = (defined($allowed_name) and $allowed_name eq $name);
-	next if $allowed;
+    my $allowed_name = $allowed_nonmember_automods{$email};
+    my $allowed = (defined($allowed_name) and $allowed_name eq $name);
+    next if $allowed;
 
-	push @subscribe, $email;
+    push @subscribe, $email;
 }
 
 # Any automods who are on the list, but who are not allowed to post?
 while (my ($email, $name) = each %automods)
 {
-	my $t = $list{$email} or next;
-	push @turn_off_mod_flag, $email if $t->[0] eq "Y";
+    my $t = $list{$email} or next;
+    push @turn_off_mod_flag, $email if $t->[0] eq "Y";
 }
 
 # Automods who are on the list, but whose mailman names don't match their moderator names?
 while (my ($email, $name) = each %automods)
 {
-	my $t = $list{$email} or next;
-	push @renames, $email if $t->[1] ne $name;
+    my $t = $list{$email} or next;
+    push @renames, $email if $t->[1] ne $name;
 }
 
 # Anyone on the list who isn't an automod (just for interest)?
 while (my ($email, $t) = each %list)
 {
-	next if $automods{$email};
-	if ($t->[0] eq "Y")
-	{
-		push @guests, $email;
-	} else {
-		my $allowed_name = $allowed_posting_guests{$email};
-		my $allowed = (defined($allowed_name) and $allowed_name eq $t->[1]);
-		next if $allowed;
-		push @posting_guests, $email;
-	}
+    next if $automods{$email};
+    if ($t->[0] eq "Y")
+    {
+        push @guests, $email;
+    } else {
+        my $allowed_name = $allowed_posting_guests{$email};
+        my $allowed = (defined($allowed_name) and $allowed_name eq $t->[1]);
+        next if $allowed;
+        push @posting_guests, $email;
+    }
 }
 
 @$_ = sort @$_
-	for (\@subscribe, \@turn_off_mod_flag, \@guests, \@posting_guests, \@renames);
+    for (\@subscribe, \@turn_off_mod_flag, \@guests, \@posting_guests, \@renames);
 
 #use Data::Dumper;
 #print Data::Dumper->Dump([ \%automods, \%list, \@subscribe, \@turn_off_mod_flag, \@guests, \@posting_guests, \@renames ],
-#	[ qw( *automods *list *subscribe *turn_off_mod_flag *guests *posting_guests *renames ) ]);
+#    [ qw( *automods *list *subscribe *turn_off_mod_flag *guests *posting_guests *renames ) ]);
 
 {
-	print "# Automoderators:\n";
-	print "#   $automods{$_} <$_>\n" for sort keys %automods;
-	print "\n";
+    print "# Automoderators:\n";
+    print "#   $automods{$_} <$_>\n" for sort keys %automods;
+    print "\n";
 }
 
 {
-	print "# List members:\n";
-	print "#  ($list{$_}[0]) <$_> $list{$_}[1]\n" for sort keys %list;
-	print "\n";
+    print "# List members:\n";
+    print "#  ($list{$_}[0]) <$_> $list{$_}[1]\n" for sort keys %list;
+    print "\n";
 }
 
 {
-	print "# Automoderators not on the list:\n";
-	print "\n" if @subscribe;
+    print "# Automoderators not on the list:\n";
+    print "\n" if @subscribe;
 
-	for my $email (@subscribe)
-	{
-		my $name = $automods{$email};
-		print "#   $name <$email>\n";
-		my $qemail = shell_quote($email);
-		my $qname = shell_quote($name);
-		print "echo $qemail | $mailmandir/bin/add_members -r - -w y $listname\n";
-		print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setmodoff $listname $qemail )\n";
-		print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setname $listname $qemail $qname )\n";
-		print "\n";
-	}
+    for my $email (@subscribe)
+    {
+        my $name = $automods{$email};
+        print "#   $name <$email>\n";
+        my $qemail = shell_quote($email);
+        my $qname = shell_quote($name);
+        print "echo $qemail | $mailmandir/bin/add_members -r - -w y $listname\n";
+        print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setmodoff $listname $qemail )\n";
+        print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setname $listname $qemail $qname )\n";
+        print "\n";
+    }
 
-	print "# None\n\n" if not @subscribe;
+    print "# None\n\n" if not @subscribe;
 }
 
 {
-	print "# Automoderators on the list, but not allowed to post:\n";
-	print "\n" if @turn_off_mod_flag;
+    print "# Automoderators on the list, but not allowed to post:\n";
+    print "\n" if @turn_off_mod_flag;
 
-	for my $email (@turn_off_mod_flag)
-	{
-		my $name = $automods{$email};
-		my $lname = $list{$email}[1];
-		my $qemail = shell_quote($email);
-		print "#   $name <$email> $lname\n";
-		print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setmodoff $listname $qemail )\n";
-		print "\n";
-	}
+    for my $email (@turn_off_mod_flag)
+    {
+        my $name = $automods{$email};
+        my $lname = $list{$email}[1];
+        my $qemail = shell_quote($email);
+        print "#   $name <$email> $lname\n";
+        print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setmodoff $listname $qemail )\n";
+        print "\n";
+    }
 
-	print "# None\n\n" if not @turn_off_mod_flag;
+    print "# None\n\n" if not @turn_off_mod_flag;
 }
 
 {
-	print "# Non-automoderators on the list who are allowed to post:\n";
-	print "\n" if @posting_guests;
+    print "# Non-automoderators on the list who are allowed to post:\n";
+    print "\n" if @posting_guests;
 
-	for my $email (@posting_guests)
-	{
-		my $lname = $list{$email}[1];
-		print "#   <$email> $lname\n";
-		my $qemail = shell_quote($email);
-		print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setmodon $listname $qemail )\n";
-		print "\n";
-	}
+    for my $email (@posting_guests)
+    {
+        my $lname = $list{$email}[1];
+        print "#   <$email> $lname\n";
+        my $qemail = shell_quote($email);
+        print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setmodon $listname $qemail )\n";
+        print "\n";
+    }
 
-	print "# None\n\n" if not @posting_guests;
+    print "# None\n\n" if not @posting_guests;
 }
 
 {
-	print "# Automoderators whose names are wrong:\n";
-	print "\n" if @renames;
+    print "# Automoderators whose names are wrong:\n";
+    print "\n" if @renames;
 
-	for my $email (@renames)
-	{
-		my $name = $automods{$email};
-		my $lname = $list{$email}[1];
-		print "#   $name <$email> $lname\n";
-		my $qemail = shell_quote($email);
-		my $qname = shell_quote($name);
-		print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setname $listname $qemail $qname )\n";
-		print "\n";
-	}
+    for my $email (@renames)
+    {
+        my $name = $automods{$email};
+        my $lname = $list{$email}[1];
+        print "#   $name <$email> $lname\n";
+        my $qemail = shell_quote($email);
+        my $qname = shell_quote($name);
+        print "( cd $mailmandir ; bin/withlist -l -r getsetmodusers.setname $listname $qemail $qname )\n";
+        print "\n";
+    }
 
-	print "# None\n\n" if not @renames;
+    print "# None\n\n" if not @renames;
 }
 
 # eof

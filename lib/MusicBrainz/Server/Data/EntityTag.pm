@@ -213,7 +213,7 @@ sub parse_tags
 
 sub update
 {
-	my ($self, $user_id, $entity_id, $input) = @_;
+    my ($self, $user_id, $entity_id, $input) = @_;
 
     my (@new_tags, @old_tags, $count);
 

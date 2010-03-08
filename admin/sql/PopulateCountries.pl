@@ -40,11 +40,11 @@ use strict;
 my $fh;
 if (@ARGV)
 {
-	$fh = *ARGV;
+    $fh = *ARGV;
 } else {
-	my $url = 'http://ftp.ics.uci.edu/pub/ietf/http/related/iso3166.txt';
-	open($fh, "wget --quiet -O- $url |")
-		or die $!;
+    my $url = 'http://ftp.ics.uci.edu/pub/ietf/http/related/iso3166.txt';
+    open($fh, "wget --quiet -O- $url |")
+        or die $!;
 }
 
 $sql->begin;
@@ -52,27 +52,27 @@ my $n = 0;
 
 while (<$fh>)
 {
-	/^(.*?)\s+([A-Z][A-Z])\s+([A-Z][A-Z][A-Z])\s+(\d\d\d)(?:\s|$)/
-		or next;
-	my ($name, $isocode) = ($1, $2);
+    /^(.*?)\s+([A-Z][A-Z])\s+([A-Z][A-Z][A-Z])\s+(\d\d\d)(?:\s|$)/
+        or next;
+    my ($name, $isocode) = ($1, $2);
 
-	$name = lc $name;
-	$name =~ s/\b(\w)/uc $1/eg;
-	$name =~ s/\bD'/d'/g;
-	$name =~ s/'S\b/'s/g;
-	$name =~ s/\bAnd\b/and/g;
-	$name =~ s/\bOf\b/of/g;
+    $name = lc $name;
+    $name =~ s/\b(\w)/uc $1/eg;
+    $name =~ s/\bD'/d'/g;
+    $name =~ s/'S\b/'s/g;
+    $name =~ s/\bAnd\b/and/g;
+    $name =~ s/\bOf\b/of/g;
 
-	$sql->select_single_value(
-		"SELECT id FROM country WHERE name = ? AND isocode = ?",
-		$name, $isocode,
-	) and next;
+    $sql->select_single_value(
+        "SELECT id FROM country WHERE name = ? AND isocode = ?",
+        $name, $isocode,
+    ) and next;
 
-	$sql->do(
-		"INSERT INTO country (name, isocode) VALUES (?, ?)",
-		$name, $isocode,
-	);
-	++$n;
+    $sql->do(
+        "INSERT INTO country (name, isocode) VALUES (?, ?)",
+        $name, $isocode,
+    );
+    ++$n;
 }
 
 $sql->commit;

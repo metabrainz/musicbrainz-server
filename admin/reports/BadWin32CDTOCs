@@ -34,40 +34,40 @@ use base qw( MusicBrainz::Server::ReportScript );
 
 sub GatherData
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $sql = $self->SqlObj;
+    my $sql = $self->SqlObj;
 
-	$self->GatherDataFromQuery(<<'EOF');
-		SELECT
-			ar_1.id AS artist_id_1,
-			ar_1.name AS artist_name_1,
-			ar_1.sortname AS artist_sortname_1,
-			ar_1.resolution AS artist_resolution_1,
-			al_1.id AS album_id_1,
-			al_1.name AS album_name_1,
+    $self->GatherDataFromQuery(<<'EOF');
+        SELECT
+                ar_1.id AS artist_id_1,
+                ar_1.name AS artist_name_1,
+                ar_1.sortname AS artist_sortname_1,
+                ar_1.resolution AS artist_resolution_1,
+                al_1.id AS album_id_1,
+                al_1.name AS album_name_1,
 
-			ar_2.id AS artist_id_2,
-			ar_2.name AS artist_name_2,
-			ar_2.sortname AS artist_sortname_2,
-			ar_2.resolution AS artist_resolution_2,
-			al_2.id AS album_id_2,
-			al_2.name AS album_name_2
-		from
-			cdtoc cd_1
-			INNER JOIN album_cdtoc ac_1 ON cd_1.id=ac_1.cdtoc
-			INNER JOIN album al_1 ON al_1.id = ac_1.album
-			INNER JOIN artist ar_1 ON ar_1.id = al_1.artist,
-			cdtoc cd_2
-			INNER JOIN album_cdtoc ac_2 ON cd_2.id=ac_2.cdtoc
-			INNER JOIN album al_2 ON al_2.id = ac_2.album
-			INNER JOIN artist ar_2 ON ar_2.id = al_2.artist
-		WHERE
-			cd_1.trackoffset = cd_2.trackoffset
-			AND	cd_1.id != cd_2.id
-			AND	cd_1.leadoutoffset + 150 = cd_2.leadoutoffset
-		ORDER BY
-			ar_1.sortname, al_1.name
+                ar_2.id AS artist_id_2,
+                ar_2.name AS artist_name_2,
+                ar_2.sortname AS artist_sortname_2,
+                ar_2.resolution AS artist_resolution_2,
+                al_2.id AS album_id_2,
+                al_2.name AS album_name_2
+        from
+                cdtoc cd_1
+                INNER JOIN album_cdtoc ac_1 ON cd_1.id=ac_1.cdtoc
+                INNER JOIN album al_1 ON al_1.id = ac_1.album
+                INNER JOIN artist ar_1 ON ar_1.id = al_1.artist,
+                cdtoc cd_2
+                INNER JOIN album_cdtoc ac_2 ON cd_2.id=ac_2.cdtoc
+                INNER JOIN album al_2 ON al_2.id = ac_2.album
+                INNER JOIN artist ar_2 ON ar_2.id = al_2.artist
+        WHERE
+                cd_1.trackoffset = cd_2.trackoffset
+                AND     cd_1.id != cd_2.id
+                AND     cd_1.leadoutoffset + 150 = cd_2.leadoutoffset
+        ORDER BY
+                ar_1.sortname, al_1.name
 EOF
 
 }

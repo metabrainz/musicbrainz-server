@@ -37,89 +37,89 @@ use MusicBrainz::Server::Artist;
 
 sub GatherData
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->Log("Opening file");
-	my $file = &DBDefs::DATA_IMPORT_DIR . '/DuplicateArtists2.txt';
-	open(FILE, $file)
-		or warn("open $file: $!"), return;
-	$self->{DATA_TIMESTAMP} = (stat FILE)[9];
+    $self->Log("Opening file");
+    my $file = &DBDefs::DATA_IMPORT_DIR . '/DuplicateArtists2.txt';
+    open(FILE, $file)
+        or warn("open $file: $!"), return;
+    $self->{DATA_TIMESTAMP} = (stat FILE)[9];
 
-	$self->Log("Reading file");
+    $self->Log("Reading file");
 
-	my @input;
-	while (<FILE>)
-	{
-		chomp;
-		my @mb_ids = split(' ', $_);
+    my @input;
+    while (<FILE>)
+    {
+        chomp;
+        my @mb_ids = split(' ', $_);
 
-		push @input, [ map { +{ artist_mbid => $_ } } @mb_ids ];
-	}
+        push @input, [ map { +{ artist_mbid => $_ } } @mb_ids ];
+    }
 
-	close FILE;
+    close FILE;
 
-	$self->Log("Querying database");
-	my $sql = $self->SqlObj;
+    $self->Log("Querying database");
+    my $sql = $self->SqlObj;
 
-	my @dupes;
-	foreach my $artists (@input)
-	{
-		my @entry;
-		foreach my $artist (@$artists)
-		{
-			my $ar = MusicBrainz::Server::Artist->new($self->DBH);
-			$ar->SetMBId($artist->{artist_mbid});
+    my @dupes;
+    foreach my $artists (@input)
+    {
+        my @entry;
+        foreach my $artist (@$artists)
+        {
+                my $ar = MusicBrainz::Server::Artist->new($self->DBH);
+                $ar->SetMBId($artist->{artist_mbid});
 
-			next unless $ar->LoadFromId;
+                next unless $ar->LoadFromId;
 
-			my $num_albums = $sql->SelectSingleValue("
-				SELECT
-					COUNT(*)
-				FROM
-					album
-				WHERE
-					artist = ?", $ar->GetId);
+                my $num_albums = $sql->SelectSingleValue("
+                        SELECT
+                                COUNT(*)
+                        FROM
+                                album
+                        WHERE
+                                artist = ?", $ar->GetId);
 
-			my $num_tracks = $sql->SelectSingleValue("
-				SELECT
-					COUNT(*)
-				FROM
-					track
-				WHERE
-					artist = ?", $ar->GetId);
+                my $num_tracks = $sql->SelectSingleValue("
+                        SELECT
+                                COUNT(*)
+                        FROM
+                                track
+                        WHERE
+                                artist = ?", $ar->GetId);
 
-			$artist->{id} = $ar->GetId;
-			$artist->{num_albums} = $num_albums;
-			$artist->{num_tracks} = $num_tracks;
-			$artist->{sort_name} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
+                $artist->{id} = $ar->GetId;
+                $artist->{num_albums} = $num_albums;
+                $artist->{num_tracks} = $num_tracks;
+                $artist->{sort_name} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
 
-			push @entry, $artist;
-		}
+                push @entry, $artist;
+        }
 
-		push @dupes, \@entry if @entry >= 2;
-	}
+        push @dupes, \@entry if @entry >= 2;
+    }
 
-	$self->Log("Saving results");
-	my $report = $self->PagedReport;
+    $self->Log("Saving results");
+    my $report = $self->PagedReport;
 
-	foreach my $artists (sort { $a->[0]->{sort_name}
-									cmp $b->[0]->{sort_name} } @dupes)
-	{
-		delete $_->{sort_name} foreach @$artists;
-		$report->Print($artists);
-	}
+    foreach my $artists (sort { $a->[0]->{sort_name}
+                                                                cmp $b->[0]->{sort_name} } @dupes)
+    {
+        delete $_->{sort_name} foreach @$artists;
+        $report->Print($artists);
+    }
 
 }
 
 sub CreateIndexFile
 {
-	my $self = shift;
+    my $self = shift;
 
-	open(my $fh, ">", $self->ReportDir . "/TIMESTAMP") or die $!;
-	print $fh "% return $self->{DATA_TIMESTAMP};\n";
-	close $fh;
+    open(my $fh, ">", $self->ReportDir . "/TIMESTAMP") or die $!;
+    print $fh "% return $self->{DATA_TIMESTAMP};\n";
+    close $fh;
 
-	$self->SUPER::CreateIndexFile(@_);
+    $self->SUPER::CreateIndexFile(@_);
 }
 
 __PACKAGE__->new->RunReport;

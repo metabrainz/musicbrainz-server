@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '1.03';
+        $VERSION = '1.03';
 }
 
 # special map on pre-defined feature sets
@@ -448,24 +448,24 @@ sub _install_cpanplus {
 }
 
 sub _cpanplus_config {
-	my @config = ();
-	while ( @_ ) {
-		my ($key, $value) = (shift(), shift());
-		if ( $key eq 'prerequisites_policy' ) {
-			if ( $value eq 'follow' ) {
-				$value = CPANPLUS::Internals::Constants::PREREQ_INSTALL();
-			} elsif ( $value eq 'ask' ) {
-				$value = CPANPLUS::Internals::Constants::PREREQ_ASK();
-			} elsif ( $value eq 'ignore' ) {
-				$value = CPANPLUS::Internals::Constants::PREREQ_IGNORE();
-			} else {
-				die "*** Cannot convert option $key = '$value' to CPANPLUS version.\n";
-			}
-		} else {
-			die "*** Cannot convert option $key to CPANPLUS version.\n";
-		}
-	}
-	return @config;
+        my @config = ();
+        while ( @_ ) {
+                my ($key, $value) = (shift(), shift());
+                if ( $key eq 'prerequisites_policy' ) {
+                        if ( $value eq 'follow' ) {
+                                $value = CPANPLUS::Internals::Constants::PREREQ_INSTALL();
+                        } elsif ( $value eq 'ask' ) {
+                                $value = CPANPLUS::Internals::Constants::PREREQ_ASK();
+                        } elsif ( $value eq 'ignore' ) {
+                                $value = CPANPLUS::Internals::Constants::PREREQ_IGNORE();
+                        } else {
+                                die "*** Cannot convert option $key = '$value' to CPANPLUS version.\n";
+                        }
+                } else {
+                        die "*** Cannot convert option $key to CPANPLUS version.\n";
+                }
+        }
+        return @config;
 }
 
 sub _install_cpan {
@@ -689,7 +689,7 @@ sub _load_cpan {
         # Newer versions of CPAN have a HandleConfig module
         CPAN::HandleConfig->load;
     } else {
-    	# Older versions had the load method in Config directly
+        # Older versions had the load method in Config directly
         CPAN::Config->load;
     }
 }

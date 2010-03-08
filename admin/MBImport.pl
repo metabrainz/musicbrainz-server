@@ -40,15 +40,15 @@ my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
 
 GetOptions(
-	"help|h"       		=> \$fHelp,
-	"ignore-errors|i!"	=> \$fIgnoreErrors,
-	"tmp-dir|t=s"		=> \$tmpdir,
-	"fix-broken-utf8"	=> \$fFixUTF8,
+    "help|h"                    => \$fHelp,
+    "ignore-errors|i!"  => \$fIgnoreErrors,
+    "tmp-dir|t=s"               => \$tmpdir,
+    "fix-broken-utf8"   => \$fFixUTF8,
 );
 
 sub usage
 {
-	print <<EOF;
+    print <<EOF;
 Usage: MBImport.pl [options] FILE ...
 
         --help            show this help
@@ -83,9 +83,9 @@ Note: The --fix-broken-utf8 is usefull when upgrading a database to
       invalid in UTF-8. It does not really fix the data, because the
       original encoding can't be determined automatically. Instead it
       replaces the affected byte sequence with the special Unicode "replacement
-	  character" U+FFFD. A warning is printed on every such replacement.
+      character" U+FFFD. A warning is printed on every such replacement.
 EOF
-	exit;
+    exit;
 }
 
 $fHelp and usage();
@@ -101,62 +101,62 @@ my $rawsql = Sql->new($rawmb->dbh);
 # This hash indicates which tables may need to be pushed to a vertical DB
 my %table_db_mapping =
 (
-	'artist_rating_raw'						=>	$rawsql,
-	'artist_tag_raw'						=>	$rawsql,
-	'release_group_rating_raw'				=>	$rawsql,
-	'release_group_tag_raw'					=>	$rawsql,
-	'recording_rating_raw'					=>	$rawsql,
-	'recording_tag_raw'						=>	$rawsql,
-	'label_rating_raw'						=>	$rawsql,
-	'label_tag_raw'							=>	$rawsql,
-	'work_rating_raw'						=>	$rawsql,
-	'work_tag_raw'							=>	$rawsql,
-	'cdtoc_raw'								=>	$rawsql,
-	'release_raw'							=>	$rawsql,
-	'track_raw'								=>	$rawsql,
-	'vote'									=>	$rawsql,
-	'edit'									=>	$rawsql,
-	'edit_artist'							=>	$rawsql,
-	'edit_label'							=>	$rawsql,
-	'edit_note'								=>	$rawsql,
-	'edit_recording'						=>	$rawsql,
-	'edit_release'							=>	$rawsql,
-	'edit_release_group'					=>	$rawsql,
-	'edit_work'								=>	$rawsql,
-	'vote'									=>	$rawsql,
-	'_default_'								=>	$sql
+    'artist_rating_raw'                                         =>      $rawsql,
+    'artist_tag_raw'                                            =>      $rawsql,
+    'release_group_rating_raw'                          =>      $rawsql,
+    'release_group_tag_raw'                                     =>      $rawsql,
+    'recording_rating_raw'                                      =>      $rawsql,
+    'recording_tag_raw'                                         =>      $rawsql,
+    'label_rating_raw'                                          =>      $rawsql,
+    'label_tag_raw'                                                     =>      $rawsql,
+    'work_rating_raw'                                           =>      $rawsql,
+    'work_tag_raw'                                                      =>      $rawsql,
+    'cdtoc_raw'                                                         =>      $rawsql,
+    'release_raw'                                                       =>      $rawsql,
+    'track_raw'                                                         =>      $rawsql,
+    'vote'                                                                      =>      $rawsql,
+    'edit'                                                                      =>      $rawsql,
+    'edit_artist'                                                       =>      $rawsql,
+    'edit_label'                                                        =>      $rawsql,
+    'edit_note'                                                         =>      $rawsql,
+    'edit_recording'                                            =>      $rawsql,
+    'edit_release'                                                      =>      $rawsql,
+    'edit_release_group'                                        =>      $rawsql,
+    'edit_work'                                                         =>      $rawsql,
+    'vote'                                                                      =>      $rawsql,
+    '_default_'                                                         =>      $sql
 );
 
 my @tar_to_extract;
 
 for my $arg (@ARGV)
 {
-	-e $arg or die "'$arg' not found";
-	next if -d _;
-	-f _ or die "'$arg' is neither a regular file nor a directory";
+    -e $arg or die "'$arg' not found";
+    next if -d _;
+    -f _ or die "'$arg' is neither a regular file nor a directory";
 
-	next unless $arg =~ /\.tar(?:\.(gz|bz2))?$/;
+    next unless $arg =~ /\.tar(?:\.(gz|bz2))?$/;
 
-	my $decompress = "";
-	$decompress = "--gzip" if $1 and $1 eq "gz";
-	$decompress = "--bzip2" if $1 and $1 eq "bz2";
+    my $decompress = "";
+    $decompress = "--gzip" if $1 and $1 eq "gz";
+    $decompress = "--bzip2" if $1 and $1 eq "bz2";
 
-	use File::Temp qw( tempdir );
-	my $dir = tempdir("MBImport-XXXXXXXX", DIR => $tmpdir, CLEANUP => 1)
-		or die $!;
+    use File::Temp qw( tempdir );
+    my $dir = tempdir("MBImport-XXXXXXXX", DIR => $tmpdir, CLEANUP => 1)
+        or die $!;
 
-	validate_tar($arg, $dir, $decompress);
-	push @tar_to_extract, [ $arg, $dir, $decompress ];
+    validate_tar($arg, $dir, $decompress);
+    push @tar_to_extract, [ $arg, $dir, $decompress ];
 
-	$arg = $dir;
+    $arg = $dir;
 }
 
 for (@tar_to_extract)
 {
-	my ($tar, $dir, $decompress) = @$_;
-	print localtime() . " : tar -C $dir $decompress -xvf $tar\n";
-	system "tar -C $dir $decompress -xvf $tar";
-	exit $? if $?;
+    my ($tar, $dir, $decompress) = @$_;
+    print localtime() . " : tar -C $dir $decompress -xvf $tar\n";
+    system "tar -C $dir $decompress -xvf $tar";
+    exit $? if $?;
 }
 
 print localtime() . " : Validating snapshot\n";
@@ -172,27 +172,27 @@ print localtime() . " : Snapshot timestamp is $timestamp\n";
 my $SCHEMA_SEQUENCE = read_all_and_check("SCHEMA_SEQUENCE");
 if (not defined $SCHEMA_SEQUENCE)
 {
-	print STDERR localtime() . " : No SCHEMA_SEQUENCE in import files - continuing anyway\n";
-	print STDERR localtime() . " : Don't be surprised if this import fails\n";
-	$| = 1, print(chr(7)), sleep 5
-		if -t STDOUT;
+    print STDERR localtime() . " : No SCHEMA_SEQUENCE in import files - continuing anyway\n";
+    print STDERR localtime() . " : Don't be surprised if this import fails\n";
+    $| = 1, print(chr(7)), sleep 5
+        if -t STDOUT;
 } elsif ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE) {
-	printf STDERR "%s : Schema sequence mismatch - codebase is %d, snapshot files are %d\n",
-		scalar localtime,
-		&DBDefs::DB_SCHEMA_SEQUENCE,
-		$SCHEMA_SEQUENCE,
-		;
-	exit 1;
+    printf STDERR "%s : Schema sequence mismatch - codebase is %d, snapshot files are %d\n",
+        scalar localtime,
+        &DBDefs::DB_SCHEMA_SEQUENCE,
+        $SCHEMA_SEQUENCE,
+        ;
+    exit 1;
 }
 
 # We should have REPLICATION_SEQUENCE files, and they should all match too.
 my $iReplicationSequence = read_all_and_check("REPLICATION_SEQUENCE");
 $iReplicationSequence = "" if not defined $iReplicationSequence;
 print localtime() . " : This snapshot corresponds to replication sequence #$iReplicationSequence\n"
-	if $iReplicationSequence ne "";
+    if $iReplicationSequence ne "";
 print localtime() . " : This snapshot does not correspond to any replication sequence"
-	. " - you will not be able to update this database using replication\n"
-	if $iReplicationSequence eq "";
+    . " - you will not be able to update this database using replication\n"
+    if $iReplicationSequence eq "";
 
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
@@ -203,8 +203,8 @@ my $errors = 0;
 print localtime() . " : starting import\n";
 
 printf "%-30.30s %9s %4s %9s\n",
-	"Table", "Rows", "est%", "rows/sec",
-	;
+    "Table", "Rows", "est%", "rows/sec",
+    ;
 
 ImportAllTables();
 
@@ -212,7 +212,7 @@ print localtime() . " : import finished\n";
 
 my $dumptime = tv_interval($t0);
 printf "Loaded %d tables (%d rows) in %d seconds\n",
-	$tables, $totalrows, $dumptime;
+    $tables, $totalrows, $dumptime;
 
 
 # Set replication_control.current_replication_sequence according to
@@ -223,11 +223,11 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 # The current_schema_sequence /is/ valid, however.
 $sql->auto_commit;
 $sql->do(
-	"UPDATE replication_control
-	SET current_replication_sequence = ?,
-	last_replication_date = ?",
-	($iReplicationSequence eq "" ? undef : $iReplicationSequence),
-	($iReplicationSequence eq "" ? undef : $timestamp),
+    "UPDATE replication_control
+    SET current_replication_sequence = ?,
+    last_replication_date = ?",
+    ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
+    ($iReplicationSequence eq "" ? undef : $timestamp),
 );
 
 exit($errors ? 1 : 0);
@@ -238,370 +238,370 @@ sub ImportTable
 {
     my ($table, $file) = @_;
 
-	print localtime() . " : load $table\n";
+    print localtime() . " : load $table\n";
 
-	my $rows = 0;
+    my $rows = 0;
 
-	my $t1 = [gettimeofday];
-	my $interval;
+    my $t1 = [gettimeofday];
+    my $interval;
 
-	my $size = -s($file)
-		or return 1;
+    my $size = -s($file)
+        or return 1;
 
-	my $p = sub {
-		my ($pre, $post) = @_;
-		no integer;
-		printf $pre."%-30.30s %9d %3d%% %9d".$post,
-			$table, $rows, int(100 * tell(LOAD) / $size),
-			$rows / ($interval||1);
-	};
+    my $p = sub {
+        my ($pre, $post) = @_;
+        no integer;
+        printf $pre."%-30.30s %9d %3d%% %9d".$post,
+                $table, $rows, int(100 * tell(LOAD) / $size),
+                $rows / ($interval||1);
+    };
 
-	$| = 1;
+    $| = 1;
 
     my $sql = $table_db_mapping{'_default_'};
     $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
 
-	eval
-	{
-		# open in :bytes mode (always keep byte octets), to allow fixing of invalid
-		# UTF-8 byte sequences in --fix-broken-utf8 mode.
-		# in default mode, the Pg driver will take care of the UTF-8 transformation
-		# and croak on any invalid UTF-8 character
-		open(LOAD, "<:bytes", $file) or die "open $file: $!";
+    eval
+    {
+        # open in :bytes mode (always keep byte octets), to allow fixing of invalid
+        # UTF-8 byte sequences in --fix-broken-utf8 mode.
+        # in default mode, the Pg driver will take care of the UTF-8 transformation
+        # and croak on any invalid UTF-8 character
+        open(LOAD, "<:bytes", $file) or die "open $file: $!";
 
-		# If you're looking at this code because your import failed, maybe
-		# with an error like this:
-		#   ERROR:  copy: line 1, Missing data for column "automodsaccepted"
-		# then the chances are it's because the data you're trying to load
-		# doesn't match the structure of the database you're trying to load it
-		# into.  Please make sure you've got the right copy of the server
-		# code, as described in the INSTALL file.
+        # If you're looking at this code because your import failed, maybe
+        # with an error like this:
+        #   ERROR:  copy: line 1, Missing data for column "automodsaccepted"
+        # then the chances are it's because the data you're trying to load
+        # doesn't match the structure of the database you're trying to load it
+        # into.  Please make sure you've got the right copy of the server
+        # code, as described in the INSTALL file.
 
-		$sql->begin;
-		$sql->do("COPY $table FROM stdin");
-		my $dbh = $sql->{dbh};
+        $sql->begin;
+        $sql->do("COPY $table FROM stdin");
+        my $dbh = $sql->{dbh};
 
-		$p->("", "") if $fProgress;
-		my $t;
+        $p->("", "") if $fProgress;
+        my $t;
 
-		use Encode;
-		while (<LOAD>)
-		{
-			$t = $_;
-			if ($fFixUTF8) {
-				# replaces any invalid UTF-8 character with special 0xFFFD codepoint
-				# and warn on any such occurence
-				$t = Encode::decode("UTF-8", $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
-			}
-			if (!$dbh->pg_putcopydata($t))
-			{
-				print "ERROR while processing: ", $t;
-				die;
-			}
+        use Encode;
+        while (<LOAD>)
+        {
+                $t = $_;
+                if ($fFixUTF8) {
+                        # replaces any invalid UTF-8 character with special 0xFFFD codepoint
+                        # and warn on any such occurence
+                        $t = Encode::decode("UTF-8", $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
+                }
+                if (!$dbh->pg_putcopydata($t))
+                {
+                        print "ERROR while processing: ", $t;
+                        die;
+                }
 
-			++$rows;
-			unless ($rows & 0xFFF)
-			{
-				$interval = tv_interval($t1);
-				$p->("\r", "") if $fProgress;
-			}
-		}
-		$dbh->pg_putcopyend() or die;
-		$interval = tv_interval($t1);
-		$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
+                ++$rows;
+                unless ($rows & 0xFFF)
+                {
+                        $interval = tv_interval($t1);
+                        $p->("\r", "") if $fProgress;
+                }
+        }
+        $dbh->pg_putcopyend() or die;
+        $interval = tv_interval($t1);
+        $p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
 
-		close LOAD
-			or die $!;
+        close LOAD
+                or die $!;
 
-		$sql->commit;
+        $sql->commit;
 
-		die "Error loading data"
-			if -f $file and empty($table);
+        die "Error loading data"
+                if -f $file and empty($table);
 
-		++$tables;
-		$totalrows += $rows;
+        ++$tables;
+        $totalrows += $rows;
 
-		1;
-	};
+        1;
+    };
 
-	return 1 unless $@;
-	warn "Error loading $file: $@";
-	$sql->rollback;
+    return 1 unless $@;
+    warn "Error loading $file: $@";
+    $sql->rollback;
 
-	++$errors, return 0 if $fIgnoreErrors;
-	exit 1;
+    ++$errors, return 0 if $fIgnoreErrors;
+    exit 1;
 }
 
 sub empty
 {
-	my $table = shift;
+    my $table = shift;
 
     my $sql = $table_db_mapping{'_default_'};
     $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
-	my $any = $sql->select_single_value(
-		"SELECT 1 FROM $table LIMIT 1",
-	);
+    my $any = $sql->select_single_value(
+        "SELECT 1 FROM $table LIMIT 1",
+    );
 
-	not defined $any;
+    not defined $any;
 }
 
 sub ImportAllTables
 {
-	for my $table (qw(
-		artist_rating_raw
-		artist_tag_raw
-		cdtoc_raw
-		currentstat
-		edit
-		edit_artist
-		edit_label
-		edit_note
-		edit_recording
-		edit_release
-		edit_release_group
-		edit_work
-		historicalstat
-		label_rating_raw
-		label_tag_raw
-		recording_rating_raw
-		recording_tag_raw
-		release_group_rating_raw
-		release_group_tag_raw
-		release_raw
-		track_raw
-		vote
-		work_rating_raw
-		work_tag_raw
-		annotation
-		artist
-		artist_alias
-		artist_annotation
-		artist_credit
-		artist_credit_name
-		artist_gid_redirect
-		artist_meta
-		artist_name
-		artist_tag
-		artist_type
-		cdtoc
-		clientversion
-		country
-		editor
-		editor_preference
-		editor_sanitised
-		editor_subscribe_artist
-		editor_subscribe_editor
-		editor_subscribe_label
-		gender
-		isrc
-		l_artist_artist
-		l_artist_label
-		l_artist_recording
-		l_artist_release
-		l_artist_release_group
-		l_artist_url
-		l_artist_work
-		l_label_label
-		l_label_recording
-		l_label_release
-		l_label_release_group
-		l_label_url
-		l_label_work
-		l_recording_recording
-		l_recording_release
-		l_recording_release_group
-		l_recording_url
-		l_recording_work
-		l_release_group_release_group
-		l_release_group_url
-		l_release_group_work
-		l_release_release
-		l_release_release_group
-		l_release_url
-		l_release_work
-		l_url_url
-		l_url_work
-		l_work_work
-		label
-		label_alias
-		label_annotation
-		label_gid_redirect
-		label_meta
-		label_name
-		label_tag
-		label_type
-		language
-		link
-		link_attribute
-		link_attribute_type
-		link_type
-		link_type_attribute_type
-		medium
-		medium_cdtoc
-		medium_format
-		puid
-		recording
-		recording_annotation
-		recording_gid_redirect
-		recording_meta
-		recording_puid
-		recording_tag
-		release
-		release_annotation
-		release_gid_redirect
-		release_group
-		release_group_annotation
-		release_group_gid_redirect
-		release_group_meta
-		release_group_tag
-		release_group_type
-		release_label
-		release_meta
-		release_name
-		release_packaging
-		release_status
-		script
-		script_language
-		tag
-		tag_relation
-		track
-		track_name
-		tracklist
-		url
-		work
-		work_annotation
-		work_gid_redirect
-		work_meta
-		work_name
-		work_tag
-		work_type
-	)) {
-		my $file = (find_file($table))[0];
-		$file or print("No data file found for '$table', skipping\n"), next;
+    for my $table (qw(
+        artist_rating_raw
+        artist_tag_raw
+        cdtoc_raw
+        currentstat
+        edit
+        edit_artist
+        edit_label
+        edit_note
+        edit_recording
+        edit_release
+        edit_release_group
+        edit_work
+        historicalstat
+        label_rating_raw
+        label_tag_raw
+        recording_rating_raw
+        recording_tag_raw
+        release_group_rating_raw
+        release_group_tag_raw
+        release_raw
+        track_raw
+        vote
+        work_rating_raw
+        work_tag_raw
+        annotation
+        artist
+        artist_alias
+        artist_annotation
+        artist_credit
+        artist_credit_name
+        artist_gid_redirect
+        artist_meta
+        artist_name
+        artist_tag
+        artist_type
+        cdtoc
+        clientversion
+        country
+        editor
+        editor_preference
+        editor_sanitised
+        editor_subscribe_artist
+        editor_subscribe_editor
+        editor_subscribe_label
+        gender
+        isrc
+        l_artist_artist
+        l_artist_label
+        l_artist_recording
+        l_artist_release
+        l_artist_release_group
+        l_artist_url
+        l_artist_work
+        l_label_label
+        l_label_recording
+        l_label_release
+        l_label_release_group
+        l_label_url
+        l_label_work
+        l_recording_recording
+        l_recording_release
+        l_recording_release_group
+        l_recording_url
+        l_recording_work
+        l_release_group_release_group
+        l_release_group_url
+        l_release_group_work
+        l_release_release
+        l_release_release_group
+        l_release_url
+        l_release_work
+        l_url_url
+        l_url_work
+        l_work_work
+        label
+        label_alias
+        label_annotation
+        label_gid_redirect
+        label_meta
+        label_name
+        label_tag
+        label_type
+        language
+        link
+        link_attribute
+        link_attribute_type
+        link_type
+        link_type_attribute_type
+        medium
+        medium_cdtoc
+        medium_format
+        puid
+        recording
+        recording_annotation
+        recording_gid_redirect
+        recording_meta
+        recording_puid
+        recording_tag
+        release
+        release_annotation
+        release_gid_redirect
+        release_group
+        release_group_annotation
+        release_group_gid_redirect
+        release_group_meta
+        release_group_tag
+        release_group_type
+        release_label
+        release_meta
+        release_name
+        release_packaging
+        release_status
+        script
+        script_language
+        tag
+        tag_relation
+        track
+        track_name
+        tracklist
+        url
+        work
+        work_annotation
+        work_gid_redirect
+        work_meta
+        work_name
+        work_tag
+        work_type
+    )) {
+        my $file = (find_file($table))[0];
+        $file or print("No data file found for '$table', skipping\n"), next;
 
-		if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
-		{
-			my $basetable = $table;
-			$basetable =~ s/_sanitised$//;
+        if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+        {
+                my $basetable = $table;
+                $basetable =~ s/_sanitised$//;
 
-			if (grep { $basetable eq $_ } NON_REPLICATED_TABLES)
-			{
-				warn "Skipping non-replicated table $basetable\n";
-				next;
-			}
-		}
+                if (grep { $basetable eq $_ } NON_REPLICATED_TABLES)
+                {
+                        warn "Skipping non-replicated table $basetable\n";
+                        next;
+                }
+        }
 
-		if ($table =~ /^(.*)_sanitised$/)
-		{
-			my $basetable = $1;
+        if ($table =~ /^(.*)_sanitised$/)
+        {
+                my $basetable = $1;
 
-			if (not empty($basetable))
-			{
-				warn "$basetable table already contains data; skipping $table\n";
-				next;
-			}
+                if (not empty($basetable))
+                {
+                        warn "$basetable table already contains data; skipping $table\n";
+                        next;
+                }
 
-			print localtime() . " : loading $file into $basetable\n";
-			ImportTable($basetable, $file) or next;
+                print localtime() . " : loading $file into $basetable\n";
+                ImportTable($basetable, $file) or next;
 
-		} else {
-			if (not empty($table))
-			{
-				warn "$table already contains data; skipping\n";
-				next;
-			}
+        } else {
+                if (not empty($table))
+                {
+                        warn "$table already contains data; skipping\n";
+                        next;
+                }
 
-			ImportTable($table, $file);
-		}
-	}
+                ImportTable($table, $file);
+        }
+    }
 
     return 1;
 }
 
 sub find_file
 {
-	my $table = shift;
-	my @r;
+    my $table = shift;
+    my @r;
 
-	for my $arg (@ARGV)
-	{
-		use File::Basename;
-		push(@r, $arg), next if -f $arg and basename($arg) eq $table;
-		push(@r, "$arg/$table"), next if -f "$arg/$table";
-		push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
-	}
+    for my $arg (@ARGV)
+    {
+        use File::Basename;
+        push(@r, $arg), next if -f $arg and basename($arg) eq $table;
+        push(@r, "$arg/$table"), next if -f "$arg/$table";
+        push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
+    }
 
-	@r;
+    @r;
 }
 
 sub read_all_and_check
 {
-	my $file = shift;
+    my $file = shift;
 
-	my @files = find_file($file);
-	my %contents;
-	my %uniq;
+    my @files = find_file($file);
+    my %contents;
+    my %uniq;
 
-	for my $foundfile (@files)
-	{
-		open(my $fh, "<$foundfile") or die $!;
-		my $contents = do { local $/; <$fh> };
-		close $fh;
-		$contents{$foundfile} = $contents;
-		++$uniq{$contents};
-	}
+    for my $foundfile (@files)
+    {
+        open(my $fh, "<$foundfile") or die $!;
+        my $contents = do { local $/; <$fh> };
+        close $fh;
+        $contents{$foundfile} = $contents;
+        ++$uniq{$contents};
+    }
 
-	chomp(my @v = sort keys %uniq);
+    chomp(my @v = sort keys %uniq);
 
-	if (@v > 1)
-	{
-		print STDERR localtime(). " : Aborting import - your $file files don't match!\n";
-		print STDERR localtime(). " : The different $file files follow:\n";
-		print STDERR " $_\n" for @v;
-		exit 1;
-	}
+    if (@v > 1)
+    {
+        print STDERR localtime(). " : Aborting import - your $file files don't match!\n";
+        print STDERR localtime(). " : The different $file files follow:\n";
+        print STDERR " $_\n" for @v;
+        exit 1;
+    }
 
-	$v[0];
+    $v[0];
 }
 
 sub validate_tar
 {
-	my ($tar, $dir, $decompress) = @_;
+    my ($tar, $dir, $decompress) = @_;
 
-	# One of the more annoying things that can go wrong with imports is
-	# schema sequence mismatches.  It's annoying because this script has to
-	# first decompress and extract all the tar files, which take a while.
-	# /Then/ the error is uncovered, the script exits, all the extracted
-	# data is wiped, and you have to start again.  Grrr.
+    # One of the more annoying things that can go wrong with imports is
+    # schema sequence mismatches.  It's annoying because this script has to
+    # first decompress and extract all the tar files, which take a while.
+    # /Then/ the error is uncovered, the script exits, all the extracted
+    # data is wiped, and you have to start again.  Grrr.
 
-	# Here we extract just the first 100Kb of each tar file, which should
-	# contain all the relevant SCHEMA_SEQUENCE, TIMESTAMP files etc.
+    # Here we extract just the first 100Kb of each tar file, which should
+    # contain all the relevant SCHEMA_SEQUENCE, TIMESTAMP files etc.
 
-	my $cat_cmd = (
-		not($decompress) ? "cat"
-		: $decompress eq "--gzip" ? "gunzip"
-		: $decompress eq "--bzip2" ? "bunzip2"
-		: die
-	);
+    my $cat_cmd = (
+        not($decompress) ? "cat"
+        : $decompress eq "--gzip" ? "gunzip"
+        : $decompress eq "--bzip2" ? "bunzip2"
+        : die
+    );
 
-	print localtime() . " : Pre-checking $tar\n";
-	system "$cat_cmd < $tar | head --bytes=102400 | tar -C $dir -xf- 2>/dev/null";
+    print localtime() . " : Pre-checking $tar\n";
+    system "$cat_cmd < $tar | head --bytes=102400 | tar -C $dir -xf- 2>/dev/null";
 
-	if (open(my $fh, "<", "$dir/SCHEMA_SEQUENCE"))
-	{
-		my $all = do { local $/; <$fh> };
-		close $fh;
-		chomp($all);
-		if ($all ne &DBDefs::DB_SCHEMA_SEQUENCE)
-		{
-			printf STDERR "%s : Schema sequence mismatch - codebase is %d, $tar is %d\n",
-				scalar localtime,
-				&DBDefs::DB_SCHEMA_SEQUENCE,
-				$all,
-				;
-			exit 1;
-		}
-	}
+    if (open(my $fh, "<", "$dir/SCHEMA_SEQUENCE"))
+    {
+        my $all = do { local $/; <$fh> };
+        close $fh;
+        chomp($all);
+        if ($all ne &DBDefs::DB_SCHEMA_SEQUENCE)
+        {
+                printf STDERR "%s : Schema sequence mismatch - codebase is %d, $tar is %d\n",
+                        scalar localtime,
+                        &DBDefs::DB_SCHEMA_SEQUENCE,
+                        $all,
+                        ;
+                exit 1;
+        }
+    }
 }
 
 # vi: set ts=4 sw=4 :
