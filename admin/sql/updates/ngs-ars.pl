@@ -397,10 +397,9 @@ foreach my $orig_t0 (@entity_types) {
             push @new_t, [$new_t0, $new_t1];
         }
         my $rows = $sql->select_list_of_hashes("SELECT * FROM public.lt_${orig_t0}_${orig_t1}");
-        my $i = 0;
+        my %seen_ar_type;
         foreach my $t (@new_t) {
             ($new_t0, $new_t1) = @$t;
-            $i++;
             my $reverse = 0;
             if ($new_t0 gt $new_t1) {
                 ($new_t0, $new_t1) = ($new_t1, $new_t0);
@@ -440,12 +439,13 @@ foreach my $orig_t0 (@entity_types) {
                     $parent_id = $link_type_map{$key} || undef;
                 }
                 my $gid = $row->{mbid};
-                if ($i > 1) {
+                if (exists $seen_ar_type{$row->{id}}) {
                     # Generate a new UUID if we are making a copy
                     my $uuid = OSSP::uuid->new;
                     $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/$id");
                     $gid = $uuid->export("str");
                 }
+                $seen_ar_type{$row->{id}} = 1;
                 $sql->do("
                     INSERT INTO link_type
                         (id, parent, childorder, gid, name, description, linkphrase,
