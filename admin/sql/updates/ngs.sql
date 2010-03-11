@@ -319,6 +319,46 @@ INSERT INTO recording_meta (id, rating, ratingcount)
 DROP INDEX tmp_track_name_name;
 
 ------------------------
+-- Works
+------------------------
+
+INSERT INTO work_name (name)
+    SELECT DISTINCT track.name 
+    FROM public.track
+    WHERE id IN (
+        SELECT link1 
+            FROM public.l_artist_track l
+                JOIN public.lt_artist_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('composer', 'lyricist')
+        UNION
+        SELECT link0 
+            FROM public.l_track_url l
+                JOIN public.lt_track_url lt ON lt.id = l.link_type
+            WHERE lt.name IN ('lyrics')
+    );
+
+CREATE UNIQUE INDEX tmp_work_name_name ON work_name (name);
+
+INSERT INTO work (id, gid, name, artist_credit)
+    SELECT DISTINCT track.id, gid::uuid, n.id, COALESCE(new_ac, track.artist)
+    FROM public.track 
+        JOIN work_name n ON n.name = track.name
+        LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac
+    WHERE track.id IN (
+        SELECT link1 
+            FROM public.l_artist_track l
+                JOIN public.lt_artist_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('composer', 'lyricist')
+        UNION
+        SELECT link0 
+            FROM public.l_track_url l
+                JOIN public.lt_track_url lt ON lt.id = l.link_type
+            WHERE lt.name IN ('lyrics')
+    );
+
+DROP INDEX tmp_work_name_name;
+
+------------------------
 -- Redirects
 ------------------------
 

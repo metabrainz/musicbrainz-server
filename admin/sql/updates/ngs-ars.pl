@@ -377,6 +377,16 @@ my %album_ar_types = (
     },
 );
 
+my %track_ar_types = (
+    'artist' => {
+        14 => 'work',  # composer
+        16 => 'work',  # lyricist
+    },
+    'url' => {
+        25 => 'work',  # lyrics
+    }
+);
+
 $sql->do("TRUNCATE link_type");
 $sql->do("TRUNCATE link_type_attribute_type");
 my %link_type_map;
@@ -386,6 +396,7 @@ foreach my $orig_t0 (@entity_types) {
         my @new_t;
         my $new_t0 = $new_entity_types{$orig_t0} || $orig_t0;
         my $new_t1 = $new_entity_types{$orig_t1} || $orig_t1;
+        # Release/Release-group AR types
         if ($orig_t0 eq 'album' && $orig_t1 eq 'album') {
             push @new_t, ['release', 'release'];
             push @new_t, ['release_group', 'release_group'];
@@ -393,6 +404,21 @@ foreach my $orig_t0 (@entity_types) {
         elsif ($orig_t0 eq 'album') {
             push @new_t, ['release', $new_t1];
             push @new_t, ['release_group', $new_t1];
+        }
+        # Track/Work AR types
+        elsif ($orig_t0 eq 'track' && $orig_t1 eq 'track') {
+            push @new_t, ['recording', 'recording'];
+            push @new_t, ['work', 'work'];
+        }
+        ## XXX: will only work unless %track_ar_types has some values for 'album'
+        elsif ($orig_t0 eq 'track') {
+            push @new_t, ['recording', $new_t1];
+            push @new_t, ['work', $new_t1];
+        }
+        ## XXX: will only work unless %track_ar_types has some values for 'album'
+        elsif ($orig_t1 eq 'track') {
+            push @new_t, [$new_t0, 'recording'];
+            push @new_t, [$new_t0, 'work'];
         }
         else {
             push @new_t, [$new_t0, $new_t1];
@@ -411,6 +437,16 @@ foreach my $orig_t0 (@entity_types) {
             print STDERR "Converting $orig_t0<=>$orig_t1 link types to $new_t0<=>$new_t1\n";
             # Generate IDs for new link types and save them in a global hash
             foreach my $row (@$rows) {
+                if ($orig_t0 eq "track" && exists $track_ar_types{$orig_t1}
+                        && exists $track_ar_types{$orig_t1}->{ $row->{id} }
+                        && $track_ar_types{$orig_t1}->{ $row->{id} } ne ($reverse ? $new_t1 : $new_t0)) {
+                    next;
+                } 
+                elsif ($orig_t1 eq "track" && exists $track_ar_types{$orig_t0}
+                        && exists $track_ar_types{$orig_t0}->{ $row->{id} }
+                        && $track_ar_types{$orig_t0}->{ $row->{id} } ne ($reverse ? $new_t0 : $new_t1)) {
+                    next;
+                } 
                 my $id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
                 $link_type_map{$key} = $id;
@@ -427,6 +463,7 @@ foreach my $orig_t0 (@entity_types) {
                     $rlinkphrase = $row->{'rlinkphrase'};
                 }
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
+                next unless exists $link_type_map{$key};
                 my $id = $link_type_map{$key};
                 my $parent_id = $row->{parent} || undef;
                 if (defined($parent_id)) {
@@ -465,6 +502,27 @@ foreach my $orig_t0 (@entity_types) {
         }
     }
 }
+
+print STDERR "Initializing recording-work AR types\n";
+my $root_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
+my $uuid = OSSP::uuid->new;
+$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$root_id");
+my $gid = $uuid->export("str");
+$sql->do("INSERT INTO link_type
+    (id, gid, name, linkphrase,
+    rlinkphrase, shortlinkphrase, entitytype0, entitytype1)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    $root_id, $gid, "ROOT", "", "", "ROOT", "recording", "work");
+
+my $recording_work_link_type_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
+$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$recording_work_link_type_id");
+$gid = $uuid->export("str");
+$sql->do("INSERT INTO link_type
+    (id, gid, name, description, linkphrase,
+    rlinkphrase, shortlinkphrase, entitytype0, entitytype1)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    $recording_work_link_type_id, $gid, "performance", "", "is a performance of", "has performance", "performance", "recording", "work");
+
 
 print STDERR "Loading release group ID map\n";
 my %rg_id_map;
@@ -590,6 +648,13 @@ foreach my $orig_t0 (@entity_types) {
                 if ($row->{url} =~ qr{/master/}) {
                     $new_t0 = "release_group";
                 }
+            }
+
+            if ($orig_t1 eq "track" && exists $track_ar_types{$orig_t0}) {
+                $new_t1 = $track_ar_types{$orig_t0}->{ $row->{link_type} } || "recording";
+            }
+            if ($orig_t0 eq "track" && exists $track_ar_types{$orig_t1}) {
+                $new_t0 = $track_ar_types{$orig_t1}->{ $row->{link_type} } || "recording";
             }
 
             my $reverse = 0;
@@ -872,6 +937,16 @@ foreach my $orig_t0 (@entity_types) {
     }
 
 }
+
+# Insert default recording-work AR type
+my $recording_work_link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+$sql->do("INSERT INTO link (id, link_type)
+   VALUES (?, ?)", $recording_work_link_id, $recording_work_link_type_id);
+
+$sql->do("INSERT INTO l_recording_work
+    (link, entity0, entity1) 
+    SELECT ?, id, id FROM work",
+    $recording_work_link_id);
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
 #my $amz_clean_total = 0; ($amz_clean_total += $amz_clean{$_}) for keys %amz_clean;
