@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Relationship;
 use Moose;
 use Readonly;
 use Sql;
-use Carp qw( croak );
+use Carp qw( carp croak );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Label;
@@ -51,7 +51,7 @@ sub _entity_class
 
 sub _new_from_row
 {
-    my ($self, $row, $obj) = @_;
+    my ($self, $row, $obj, $matching_entity_type) = @_;
     my $entity0 = $row->{entity0};
     my $entity1 = $row->{entity1};
     my %info = (
@@ -62,13 +62,16 @@ sub _new_from_row
         entity1_id => $entity1,
     );
     if (defined $obj) {
-        if ($entity0 == $obj->id) {
+        if ($matching_entity_type == 0 && $entity0 == $obj->id) {
             $info{entity0} = $obj;
             $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD;
         }
-        else {
+        elsif ($matching_entity_type == 1 && $entity1 == $obj->id) {
             $info{entity1} = $obj;
             $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
+        }
+        else {
+            carp "Neither relationship end-point matched the object.";
         }
     }
     return MusicBrainz::Server::Entity::Relationship->new(%info);
@@ -128,13 +131,13 @@ sub _load
             my $entity1 = $row->{entity1};
             if ($type eq $type0 && exists $objs_by_id{$entity0}) {
                 my $obj = $objs_by_id{$entity0};
-                my $rel = $self->_new_from_row($row, $obj);
+                my $rel = $self->_new_from_row($row, $obj, 0);
                 $obj->add_relationship($rel);
                 push @rels, $rel;
             }
             if ($type eq $type1 && exists $objs_by_id{$entity1}) {
                 my $obj = $objs_by_id{$entity1};
-                my $rel = $self->_new_from_row($row, $obj);
+                my $rel = $self->_new_from_row($row, $obj, 1);
                 $obj->add_relationship($rel);
                 push @rels, $rel;
             }
