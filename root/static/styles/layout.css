@@ -678,6 +678,16 @@ dl.properties dt {
     line-height: 200%;
 }
 
+dl.search-plugins dt {
+    font-weight: bold;
+}
+
+dl.search-plugins dt,
+dl.search-plugins dd {
+    line-height: 200%;
+}
+
+
 .page table.tbl tr.mp td,
 span.mp {
     background: #FD9;
