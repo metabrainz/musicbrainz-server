@@ -1,12 +1,14 @@
 [%- WRAPPER 'layout.tt' title=l('Reports') full_width=1 -%]
-
+<div class="content">
 <h1>[% l('Reports') %]</h1>
 
 <p>
-    [% l("The following links show pages that are likely to contain data that
-          does not conform to the style guidelines. If you'd like to participate
-          in the editing process, but do not know where to start, check out these
-          pages.") %]
+    [% l('If you\'d like to participate in the editing process, but do not know where
+          to start, the following reports should be useful. These reports scour the
+          database looking for data that might require fixing, either to comply with
+          the {style|style guidelines}, or in other cases where administrative
+          "clean up" tasks are required.',
+          { style => doc_link('Official_Style_Guideline') }) %]
 </p>
 
 <h2>[% l('Artists') %]</h2>
@@ -29,5 +31,5 @@
 <ul>
     <li><a href="[% c.uri_for_action('/report/show', 'ISRCsWithManyRecordings') %]">[% l('ISRCs with multiple recordings') %]</a></li>
 </ul>
-
+</div>
 [%- END -%]
