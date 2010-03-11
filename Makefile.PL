@@ -98,7 +98,7 @@ test_requires 'XML::Parser';
 
 catalyst;
 
-author_tests 't/author'
+author_tests 't/author';
 
 install_script glob('script/*.pl');
 auto_install;
