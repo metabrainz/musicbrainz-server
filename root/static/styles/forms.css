@@ -30,7 +30,7 @@ form ul.errors {
 
 form ul.errors {
     margin-top: 0.3em;
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 
 form ul.errors li {
@@ -109,4 +109,8 @@ a.selectFilterNext {
 a.selectFilterPrev:hover,
 a.selectFilterNext:hover {
     color: #666;
+}
+
+table.tbl + div.searchform {
+    margin-top: 2em;
 }
