@@ -34,11 +34,11 @@
                     ml => doc_link('Mailing_List') }) -%]</p>
 
         <p>[% l("If you're interested in receiving information from MusicBrainz staff or communicating
-                 with other users, {ml|please subscribe to our mailing lists}.", 
+                 with other users, {ml|please subscribe to our mailing lists}.",
                  { ml => doc_link('Mailing_List') }) %]</p>
 
         <p>[%- l('MusicBrainz has one account type for all users. If you represent an artist or label,
-                  please also use the above form to register.') -%]</p>
+                  please use the above form to create an account.') -%]</p>
 
 </div>
 [% END %]
