@@ -94,9 +94,15 @@ sub get_ratings
 {
     my ($self, $user) = @_;
 
-    my @entities = ( 'artist', 'label', 'recording', 'release_group', 'work' );
 
-    return { map { $_ => $self->_get_ratings_for_type ($user->id, $_) } @entities };
+    my $ratings = {};
+    foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
+    {
+        my $data = $self->_get_ratings_for_type ($user->id, $entity);
+        $ratings->{$entity} = $data if scalar @$data;
+    }
+
+    return $ratings;
 }
 
 sub find_by_email
