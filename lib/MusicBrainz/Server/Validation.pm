@@ -135,13 +135,13 @@ sub TrimInPlace
 sub is_valid_iswc
 {
     my $iswc = shift;
-    return $iswc =~ /^T-\d{3}\.?\d{3}\.?\d{3}-\d/;
+    return $iswc =~ /^T-?\d{3}\.?\d{3}\.?\d{3}[-.]?\d/;
 }
 
 sub format_iswc
 {
     my $iswc = shift;
-    $iswc =~ s/^T-(\d{3})\.?(\d{3})\.?(\d{3})-(\d)/T-$1.$2.$3-$4/;
+    $iswc =~ s/^T-?(\d{3})\.?(\d{3})\.?(\d{3})[-.]?(\d)/T-$1.$2.$3-$4/;
     return $iswc;
 }
 
