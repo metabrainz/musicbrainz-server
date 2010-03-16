@@ -51,7 +51,7 @@ unicode_from_pg_text (text *pg_input)
     /* get size.  FIXME: should pre-allocate for performance. */
     u_strFromUTF8WithSub (NULL, 0, &size, input, len, 0xFFFD, NULL, &status);
     size += 1;
-    ret = (UChar *) malloc (sizeof (UChar) * size);
+    ret = (UChar *) palloc (sizeof (UChar) * size);
 
     status = U_ZERO_ERROR;
     u_strFromUTF8WithSub (ret, size, NULL, input, len, 0xFFFD, NULL, &status);
@@ -70,7 +70,7 @@ sortkey_from_unicode (UChar *input, uint8_t **output)
 
     /* get size.  FIXME: should pre-allocate for performance. */
     size = ucol_getSortKey (collator, input, -1, NULL, 0);
-    *output = (uint8_t *) malloc (sizeof (uint8_t) * size);
+    *output = (uint8_t *) palloc (sizeof (uint8_t) * size);
     ucol_getSortKey (collator, input, -1, *output, size);
 
     return size;
@@ -98,8 +98,8 @@ musicbrainz_collate (PG_FUNCTION_ARGS)
 
     memcpy (VARDATA (output), sortkey, sortkeylen);
 
-    free (unicode);
-    free (sortkey);
+    pfree (unicode);
+    pfree (sortkey);
 
     PG_RETURN_BYTEA_P( output );
 }

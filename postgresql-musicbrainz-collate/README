@@ -26,8 +26,9 @@ Installation
 
   $ make
   $ sudo make install
-  $ psql -U root musicbrainz_db
+  $ psql musicbrainz_db
 
+  musicbrainz_db=# set search_path=musicbrainz
   musicbrainz_db=# \i install.sql
   CREATE FUNCTION
   musicbrainz_db=# \q
