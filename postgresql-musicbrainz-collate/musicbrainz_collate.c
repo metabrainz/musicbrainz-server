@@ -73,6 +73,8 @@ sortkey_from_unicode (UChar *input, uint8_t **output)
     *output = (uint8_t *) palloc (sizeof (uint8_t) * size);
     ucol_getSortKey (collator, input, -1, *output, size);
 
+    ucol_close (collator);
+
     return size;
 }
 
