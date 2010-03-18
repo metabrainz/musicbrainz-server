@@ -2,9 +2,6 @@
 use 5.8.8;
 
 use inc::Module::Install;
-use Module::Install::AutoInstall;
-use Module::Install::AuthorRequires;
-use Module::Install::AuthorTests;
 
 name 'MusicBrainz-Server';
 abstract 'MusicBrainz web server';
@@ -68,7 +65,7 @@ feature 'ETag Caching' =>
 feature 'Default caching setup' =>
     -default                 => 1,
     'Cache::Memory'          => '2.04',
-    'Cache::Memcached::Fast' => '1.24'
+    'Cache::Memcached::Fast' => '0.16'
     ;
 
 feature 'Default session store/state management' =>
@@ -81,7 +78,7 @@ feature 'Developer features' =>
     -default                           => 1,
     'Catalyst::Plugin::StackTrace'     => '0.09',
     'Catalyst::Plugin::Static::Simple' => '0.21',
-    'Catalyst::Restarter'              => '1.25',
+    'Catalyst::Devel'                  => '1.25',
     ;
 
 # These are just for I18N
