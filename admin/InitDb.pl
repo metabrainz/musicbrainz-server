@@ -192,7 +192,9 @@ sub Create
     print localtime() . " : Creating database '$dbname'\n";
     $system_sql->auto_commit;
     my $dbuser = $db->username;
-    $system_sql->do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
+    $system_sql->do(
+        "CREATE DATABASE $dbname WITH OWNER = $dbuser ".
+        "TEMPLATE template0 ENCODING = 'UNICODE' LC_COLLATE = 'C'");
 
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)
