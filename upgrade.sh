@@ -69,8 +69,8 @@ echo `date` : Fixing sequences
 echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
 echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
-#echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
-#echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
+echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
+echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
 
 echo `date` : Done
 
