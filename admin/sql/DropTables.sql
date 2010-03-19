@@ -105,6 +105,7 @@ DROP TABLE tracklist;
 DROP TABLE tracklist_index;
 DROP TABLE url;
 DROP TABLE work;
+DROP TABLE work_alias;
 DROP TABLE work_annotation;
 DROP TABLE work_gid_redirect;
 DROP TABLE work_meta;

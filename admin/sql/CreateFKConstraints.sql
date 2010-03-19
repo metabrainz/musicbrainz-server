@@ -913,6 +913,16 @@ ALTER TABLE work
    FOREIGN KEY (type)
    REFERENCES work_type(id);
 
+ALTER TABLE work_alias
+   ADD CONSTRAINT work_alias_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_alias
+   ADD CONSTRAINT work_alias_fk_name
+   FOREIGN KEY (name)
+   REFERENCES work_name(id);
+
 ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_work
    FOREIGN KEY (work)

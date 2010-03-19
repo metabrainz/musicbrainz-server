@@ -79,5 +79,6 @@ SELECT setval('track_name_id_seq', (SELECT MAX(id) FROM track_name));
 SELECT setval('tracklist_id_seq', (SELECT MAX(id) FROM tracklist));
 SELECT setval('url_id_seq', (SELECT MAX(id) FROM url));
 SELECT setval('work_id_seq', (SELECT MAX(id) FROM work));
+SELECT setval('work_alias_id_seq', (SELECT MAX(id) FROM work_alias));
 SELECT setval('work_name_id_seq', (SELECT MAX(id) FROM work_name));
 SELECT setval('work_type_id_seq', (SELECT MAX(id) FROM work_type));
