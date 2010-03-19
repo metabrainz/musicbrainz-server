@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
@@ -100,6 +101,7 @@ sub delete
     my ($self, $work) = @_;
     $self->c->model('Relationship')->delete_entities('work', $work->id);
     $self->annotation->delete($work->id);
+    $self->alias->delete_entities($work->id);
     $self->tags->delete($work->id);
     $self->rating->delete($work->id);
     $self->remove_gid_redirects($work->id);
@@ -112,6 +114,7 @@ sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
