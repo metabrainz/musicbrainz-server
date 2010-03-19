@@ -99,7 +99,7 @@ sub get_ratings
     foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
     {
         my $data = $self->_get_ratings_for_type ($user->id, $entity);
-        $ratings->{$entity} = $data if scalar @$data;
+        $ratings->{$entity} = $data if @$data;
     }
 
     return $ratings;
