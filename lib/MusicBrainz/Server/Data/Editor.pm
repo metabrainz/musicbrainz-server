@@ -5,8 +5,9 @@ use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
-    query_to_list_limited
     placeholders
+    query_to_list_limited
+    type_to_model
 );
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
 
@@ -62,6 +63,46 @@ sub get_by_name
                 ' WHERE lower(name) = ? LIMIT 1';
     my $row = $sql->select_single_row_hash($query, lc $name);
     return $self->_new_from_row($row);
+}
+
+sub _get_ratings_for_type
+{
+    my ($self, $id, $type) = @_;
+
+    my $query = "
+        SELECT $type AS id, rating FROM ${type}_rating_raw
+        WHERE editor = ? ORDER BY rating DESC, editor";
+
+    my $sql = Sql->new($self->c->raw_dbh);
+
+    my $results = $sql->select_list_of_hashes ($query, $id);
+    my $entities = $self->c->model(type_to_model($type))->get_by_ids(map { $_->{id} } @$results);
+
+    my $ratings = [];
+
+    for my $row (@$results) {
+        push @$ratings, {
+            $type => $entities->{$row->{id}},
+            rating => $row->{rating},
+        }
+    }
+
+    return $ratings;
+}
+
+sub get_ratings
+{
+    my ($self, $user) = @_;
+
+
+    my $ratings = {};
+    foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
+    {
+        my $data = $self->_get_ratings_for_type ($user->id, $entity);
+        $ratings->{$entity} = $data if @$data;
+    }
+
+    return $ratings;
 }
 
 sub find_by_email
