@@ -10,8 +10,6 @@ use Readonly;
 use Data::OptList;
 
 # This defines what options are acceptable for WS calls
-# rel_status and rg_type are special cases that allow for one release status and one release group
-# type per call to be specified.
 my $ws_defs = Data::OptList::mkopt([
      artist => {
          method   => 'GET',
