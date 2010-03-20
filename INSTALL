@@ -1,5 +1,5 @@
 Installing the MusicBrainz Server
----------------------------------
+=================================
 
 The MusicBrainz Server (musicbrainz-server) is the web frontend to the
 MusicBrainz Database, and is accessible at http://musicbrainz.org.
