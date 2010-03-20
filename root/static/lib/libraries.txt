@@ -14,13 +14,6 @@ url:     http://jquery.com/plugins/project/ajaxqueue
 note:    the version included here was taken from jquery.autocomplete,
          it is different from the version distributed on jquery.com.
 
--- jquery/jquery.jqote.js --
-
-library: jQote
-license: DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE, Version 2
-author:  aefxx
-url:     http://aefxx.com/jquery-plugins/jqote/
-
 -- jquery.autocomplete/ --
 
 library: jQuery Autocomplete plugin
