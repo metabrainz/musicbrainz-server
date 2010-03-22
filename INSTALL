@@ -5,14 +5,17 @@ The MusicBrainz Server (musicbrainz-server) is the web frontend to the
 MusicBrainz Database, and is accessible at http://musicbrainz.org.
 
 This document explains the steps necessary to setup your own MusicBrainz Server.
+If you require any assistance with these instructions, please feel free to
+contact us via the information given at the bottom of this document.
 
 Prerequisites
 -------------
 
 1)  Linux operating system
 
-    The MusicBrainz development team uses a mix of Ubuntu and Debian. Be
-    prepared for a world of hurt if you wish to set the server up on Windows.
+    The MusicBrainz development team uses a mix of Ubuntu and Debian. If you are
+    running Windows or Mac OS X we recommend you set up a Debian or Ubuntu
+    virtual machine.
 
 2)  Perl (at least version 5.8.0)
 
@@ -88,9 +91,13 @@ Installing Perl dependencies
 
         sudo make installdeps
 
-    NOTE: You will have to manually install OSSP::UUID by running:
+    NOTE: You will have to manually install some of the dependencies by running:
 
+        # OSSP::UUID
         sudo apt-get install libossp-uuid-perl
+
+        # Test::WWW::Mechanize
+        sudo apt-get install libtest-www-mechanize-perl
 
     If you have trouble installing any of the dependencies you may have to
     force their installation by running:
@@ -134,8 +141,8 @@ Creating the database
 3)  Create the databases
 
     You have two options when it comes to databases. You can either opt for a
-    clean database with just the schema (useful for developers with little
-    free diskspace), or you can import a full database dump.
+    clean database with just the schema (useful for developers with limited
+    disk space), or you can import a full database dump.
 
     a)  Use a clean database
 
@@ -165,9 +172,9 @@ Creating the database
 
     c)  Importing a non-NGS database dump
 
-        IMPORTANT NOTE: This method requires the time consuming process of
-        manually converting the database from the existing schema to the NGS
-        format, and is not recommended.
+        NOTE: This method requires the time consuming process of manually
+        converting the database from the existing schema to the NGS format, and
+        is not recommended.
 
         Follow these instructions for a "Database only" install:
 
@@ -201,8 +208,8 @@ Starting the server
 
 2)  Troubleshooting
 
-    If you have any difficulties in setting up the server - please contact
-    aCiD2 in #musicbrainz-devel on irc.freenode.net, or file a bug at
-    http://jira.musicbrainz.org.
+    If you have any difficulties, please feel free to contact aCiD2 or warp in
+    #musicbrainz-devel on irc.freenode.net, or email the developer mailing list
+    at musicbrainz-devel [at] lists musicbrainz.org
 
     Good luck, and happy hacking!
