@@ -686,21 +686,164 @@ span.mp {
 /* Extra CSS Styles for the landing page */
 
 #leftSide {
-    margin-right: 210pt;
+    margin-right: 260px;
 }
 
 #rightSide {
-    margin-top: 22px;
     float: right;
-    width: 200pt;
+    margin-top: 16px;
+    width: 260px;
 }
 
-#rightSide ul#blog {
-    padding: 0;
+.lower {
+    clear: both;
+    text-align: center;
 }
 
-#rightSide ul#blog li {
+.links {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0 10px;
+}
+
+ul#blog {
+    margin: 0.3em 0;
+    list-style-image: none;
     list-style-type: none;
+}
+
+.lower .portal {
+    margin-right: 30px;
+}
+
+.portal {
+    height: 100px;
+    padding-left: 112px;
+    margin-bottom: 20px;
+    background-repeat: no-repeat;
+    background-position: 8px top;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+}
+
+.portal h2 {
+    margin-top: 0;
+}
+
+#rightSide h2,
+#leftSide h2 {
+    /*color: #000000;*/
+}
+
+.page ul {
+	line-height: 1.5em;
+	list-style-image: url(http://wiki.xabbu.net/wiki/skins/monobook/bullet.gif);
+	list-style-type: square;
+	margin: 0.3em 0 0 1.5em;
+	padding: 0;
+}
+
+.userportal {
+    background-image: url('/static/images/Userportal.png');
+    width: 140px;
+}
+
+.productportal {
+    background-image: url('/static/images/Crystal_Clear_app_download_manager.png');
+    width: 192px;
+}
+
+.devportal {
+    background-image: url('/static/images/Administrators.png');
+    width: 187px;
+}
+
+.taggerportal {
+    background-image: url('http://wiki.xabbu.net/wiki/images/thumb/5/56/MusicBrainz_Picard.png/96px-MusicBrainz_Picard.png');
+}
+
+.introportal {
+    background-image: url('http://wiki.xabbu.net/wiki/images/thumb/6/61/Crystal_Clear_app_kdict.png/32px-Crystal_Clear_app_kdict.png');
+    width: 140px;
+    height: 36px;
+    padding-left: 48px;
+}
+
+.introportal h2 {
+    font-size: 18px;
+    margin-top: 4px;
+}
+
+#triple {
+    clear: both;
+}
+
+#triple .triple-column {
+    float: left;
+    margin-right: 2%;
+    width: 32%;
+}
+
+#triple .triple-column-last {
+    margin: 0;
+}
+
+#rightSide .triple-column {
+    margin-bottom: 40px;
+}
+
+.triple-column img {
+    float:left;
+    margin: 10px 0 0 2px;
+}
+
+.triple-column p {
+    margin-left: 70px;
+}
+
+.triple-column ul {
+    margin-top: 10px;
+    margin-left: 90px;
+}
+
+.triple-column h2 {
+    background-color: #736DAB;
+    padding: 5px 0 5px 7px;
+    border-bottom: 4px solid #FFBA58;
+}
+
+#rightSide .triple-column h2 {
+    background-color: #FFBA58;
+    border-bottom: 4px solid #736DAB;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+}
+
+.triple-column h2 a {
+    color: #FFFFFF !important;
+}
+
+#rightSide .triple-column h2 a {
+    color: #000000 !important;
+}
+
+#triple h2.community {
+    /*background-image: url('http://wiki.xabbu.net/wiki/images/thumb/4/42/Userportal.png/16px-Userportal.png');*/
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
+}
+
+#triple h2.products {
+    /*background-image: url('http://wiki.xabbu.net/wiki/images/thumb/2/2b/Crystal_Clear_app_download_manager.png/16px-Crystal_Clear_app_download_manager.png');*/
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
+}
+
+#triple h2.developers {
+    /*background-image: url('http://wiki.xabbu.net/wiki/images/thumb/b/b1/Administrators.png/16px-Administrators.png');*/
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
 }
 
 #chrome-prompt {
