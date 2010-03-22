@@ -173,7 +173,7 @@ END -%]
     IF text;
       '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
     ELSE;
-      text = display_url(url.url);
+      text = display_url(url.customdisplay);
       '<a href="' _ url.url _ '">' _ text _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]

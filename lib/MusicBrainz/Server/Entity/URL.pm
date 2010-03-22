@@ -20,6 +20,24 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
+has 'linktype' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+sub customdisplay {
+    my $self = shift;
+
+    my $name = $self->url;
+
+    if ($self->linktype eq 'wikipedia') {
+        $name =~ s/^http:\/\/([\w-]{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+        $name =~ tr/_/ /;
+    }
+
+    return $name;
+}
+
 sub name { shift->url }
 
 __PACKAGE__->meta->make_immutable;

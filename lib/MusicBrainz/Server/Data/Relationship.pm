@@ -169,16 +169,19 @@ sub load_entities
         $data_by_type{$type} =
             $self->c->model(type_to_model($type))->get_by_ids(@ids);
     }
+
     foreach my $rel (@rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             my $obj = $data_by_type{$type}->{$rel->entity0_id};
             $rel->entity0($obj) if defined($obj);
+            $obj->linktype($rel->link->type->name) if $obj->meta->get_attribute('linktype');
         }
         if ($rel->entity1_id && !defined($rel->entity1)) {
             my $type = $rel->link->type->entity1_type;
             my $obj = $data_by_type{$type}->{$rel->entity1_id};
             $rel->entity1($obj) if defined($obj);
+            $obj->linktype($rel->link->type->name) if $obj->meta->get_attribute('linktype');
         }
     }
 }
