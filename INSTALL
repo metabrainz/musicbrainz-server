@@ -210,6 +210,8 @@ Starting the server
 
     If you have any difficulties, please feel free to contact aCiD2 or warp in
     #musicbrainz-devel on irc.freenode.net, or email the developer mailing list
-    at musicbrainz-devel [at] lists musicbrainz.org
+    at musicbrainz-devel [at] lists musicbrainz.org.
+
+    If you find any bugs, please report them on http://jira.musicbrainz.org.
 
     Good luck, and happy hacking!
