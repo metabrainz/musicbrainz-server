@@ -185,11 +185,11 @@ sub show : PathPart('') Chained('load')
         $release_groups = $self->_load_paged($c, sub {
                 $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
             });
-        if ($c->user_exists) {
-            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
-        }
-
         $c->stash( template => 'artist/index.tt' );
+    }
+
+    if ($c->user_exists) {
+        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
     }
 
     $c->model('ArtistCredit')->load(@$release_groups);
