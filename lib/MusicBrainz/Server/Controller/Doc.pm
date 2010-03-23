@@ -18,6 +18,8 @@ sub show : Path('')
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
+    $c->detach('/error_404') unless $page;
+
     if ($page->canonical) {
         $c->response->redirect($c->uri_for('/doc', $page->{canonical}), 301);
         return;

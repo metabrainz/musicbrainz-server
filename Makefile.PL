@@ -37,6 +37,7 @@ requires 'Email::MIME::Creator';
 requires 'Exception::Class'                           => '1.29';
 requires 'HTML::FormHandler'                          => '0.30001';
 requires 'HTML::Tiny'                                 => '1.05';
+requires 'HTML::TreeBuilder::XPath';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                            => '0.22';
