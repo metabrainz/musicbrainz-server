@@ -43,11 +43,7 @@
                     [% index = i - 1 %]
                     <tr>
                         <td>[% i %]</td>
-                        [%- IF cdtoc.last_track == 1 -%]
-                        [%- track = cdtoc.track_details -%]
-                        [%- ELSE -%]
                         [%- track = cdtoc.track_details.$index -%]
-                        [%- END -%]
                         <td>[% track.start_time | format_length %]</td>
                         <td>[% track.start_sectors %]</td>
                         <td>[% track.length_time | format_length %]</td>
