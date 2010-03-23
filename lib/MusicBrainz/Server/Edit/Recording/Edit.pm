@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
 );
+use MusicBrainz::Server::Track;
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
@@ -83,6 +84,12 @@ before 'initialize' => sub
     my $recording = $opts{to_edit} or return;
     if (exists $opts{artist_credit} && !$recording->artist_credit) {
         $self->c->model('ArtistCredit')->load($recording);
+    }
+
+    if (exists $opts{length}) {
+        delete $opts{length}
+            if MusicBrainz::Server::Track::FormatTrackLength($opts{length}) eq
+                MusicBrainz::Server::Track::FormatTrackLength($recording->length);
     }
 };
 
