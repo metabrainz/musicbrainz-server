@@ -16,22 +16,21 @@ form div.row label,
 form div.row div.label {
     float: left;
     text-align: right;
-    width: 10em;
+    width: 11em;
     margin-right: 1em;
 }
 
 form div.row p { float: none; clear: none; }
 
-form div.row > div.no-label,
-form div.row > ul.radio-list,
+form div.no-label,
 form p.no-label,
 form ul.errors {
-    margin-left: 11em;
+    margin-left: 12em;
 }
 
 form ul.errors {
     margin-top: 0.3em;
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 
 form ul.errors li {
@@ -42,6 +41,12 @@ form ul.errors li {
 input.error,
 select.error {
     background: #ffaaaa;
+}
+
+form .register-username-note {
+    font-style: italic;
+    font-size: 90%;
+    margin-left: 0.5em;
 }
 
 div.enter-edit .auto-editor {
@@ -75,10 +80,6 @@ label.inline {
     width: auto !important;
 }
 
-.contact-form .no-label input {
-    margin-left:10em;
-}
-
 div.container { margin-left: 11em }
 
 span.formerrors {
@@ -108,4 +109,8 @@ a.selectFilterNext {
 a.selectFilterPrev:hover,
 a.selectFilterNext:hover {
     color: #666;
+}
+
+table.tbl + div.searchform {
+    margin-top: 2em;
 }

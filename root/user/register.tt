@@ -1,49 +1,44 @@
 [% WRAPPER "layout.tt" title=l("Create an Account") full_width=1 %]
-
+<div class="content">
     <h1>[% l("Create an Account") %]</h1>
 
-    [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('Please fill out the fields below to create a new MusicBrainz account.')) %]
-        [%- create_guideline(l('Before doing so, please read the {coc|MusicBrainz Code of Conduct}', {coc => doc_link('Code_Of_Conduct')})) -%]
-        [%- create_guideline(l('If you have any questions, please review the {faq|Frequently Asked Questions (FAQ)}, or post it to the appropriate {ml|Mailing List}.', {faq => doc_link('Frequently_Asked_Questions'), ml => doc_link('Mailing_List')})) -%]
-    [% END %]
+        <p>[%- l('<strong>Note that any contributions you make to MusicBrainz will be released
+                into the Public Domain and/or licensed under a Creative Commons by-nc-sa license.
+                Furthermore, you give the MetaBrainz Foundation the right to license this
+                data for commercial use. Please read our {doc|license page} for more details.</strong>',
+                { doc => doc_link('MusicBrainz_License') }) -%]</p>
+
+        <p>[%- l('MusicBrainz believes strongly in the privacy of its users! Any personal
+                  information you choose to provide will not be sold or shared with anyone else.
+                  For full details, please see the {doc|MusicBrainz Privacy Policy}.',
+                  {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]</p>
 
     [%- USE r = FormRenderer(register_form) -%]
-
     <form action="[% c.req.uri %]" method="post">
         [% form_row_text(r, 'username', l('Username:')) %]
+        <div class="row no-label">
+            <span class="register-username-note">Your username will be publically visible.</span>
+        </div>
         [% form_row_password(r, 'password', l('Password:')) %]
         [% form_row_password(r, 'confirm_password', l('Confirm password:')) %]
         [% form_row_text(r, 'email', l('Email:')) %]
         <div class="row no-label">
+            <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_of_Conduct') }) %]<p>
         [% form_submit(l('Create Account')) %]
         </div>
     </form>
 
+        <p>[%- l('If you have any questions, please review the {faq|FAQs}, or post them to the
+                  appropriate {ml|mailing list}.',
+                  { faq => doc_link('Frequently_Asked_Questions'),
+                    ml => doc_link('Mailing_List') }) -%]</p>
 
-    <h2>[%- l('We respect your privacy') %]</h2>
+        <p>[% l("If you're interested in receiving information from MusicBrainz staff or communicating
+                 with other users, {ml|please subscribe to our mailing lists}.",
+                 { ml => doc_link('Mailing_List') }) %]</p>
 
-    <p>
-        [%- l('Rest assured that we will not pass your email address on to anyone, including other MusicBrainz users, without your most explicit consent. At any time you can fill in your email address if it's currently blank, remove it if it's currently filled in or change from one address to another.') %]
-    </p>
-    <p>
-        [%- l('{doc|Read on for the full MusicBrainz Privacy Policy}', {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]
-    </p>
+        <p>[%- l('MusicBrainz has one account type for all users. If you represent an artist or label,
+                  please use the above form to create an account.') -%]</p>
 
-    <h3>[% l('What your email address will <em>not</em> be used for:') %]</h3>
-    <p>
-        [% l("We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, {ml|please subscribe to our mailing lists}.", {ml => doc_link('Mailing_List')}) %]
-    </p>
-    <h3>[%- l('What your email address <em>will</em> be used for:') -%]</h3>
-    <p>
-        [% l('Because some users, unfortunately, made lots of questionable edits and could not be contacted to fix their mistakes, we now require a confirmed (i.e. working) email address before a user can make edits to the database.') %]
-    </p>
-
-    [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('When you enter your email address, other editors will be able to send messages to you (likewise, you will be able to send messages to them).')) %]
-        [%- create_guideline(l('Any notes attached to your edits will be emailed to you. This enables you to remove, correct or clarify edits which will otherwise be rejected.')) %]
-        [%- create_guideline(l('You may choose to "subscribe" (for free) to your favourite Artists, in which case MusicBrainz will send you a daily list of edits made to the Artists to which you have subscribed.')) %]
-        [%- create_guideline(l('In all cases your email address will not be revealed to other MusicBrainz users.  They will see only your user name.')) %]
-    [% END %]
-
+</div>
 [% END %]
