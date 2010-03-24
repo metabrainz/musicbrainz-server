@@ -25,7 +25,7 @@ my $page = $wd->_create_page('Artist_Name', 123, '
 
 is($page->title, 'Artist Name');
 is($page->version, 123);
-like($page->content, qr{<h3>Section</h3>});
+like($page->content, qr{<h3> Section</h3>});
 
 $wd = $c->model('WikiDoc');
 $page = $wd->get_page('XML_Webservice');
