@@ -1,7 +1,11 @@
-<h2>Browse</h2>
+[% IF entity_title %]
+    <h2>[% l('Browse {entity_title}', { entity_title => entity_title }) %]</h2>
+[% ELSE %]
+    <h2>[% l('Browse Further') %]</h2>
+[% END %]
 
 [% MACRO append_link(char) BLOCK;
-    c.req.uri_with( index => "${c.req.query_params.index}${char}", page => 1 );
+    c.uri_for_action('/browse/' _ entity, { index => "${c.req.query_params.index}${char}", page => 1 });
 END %]
 
 [% MACRO characters(chars) BLOCK %]

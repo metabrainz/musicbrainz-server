@@ -1,8 +1,8 @@
 [% WRAPPER 'layout.tt' title=l("Browse Releases") full_width=1 %]
-
+<div class="content">
     <h1>[% l("Browse Releases") %]</h1>
 
-    [% INCLUDE "browse/page_selector.tt" %]
+    [% INCLUDE "browse/page_selector.tt" entity="release" %]
 
     [% IF entities.size %]
         <h2>[% l('Releases starting with “{index}”', { index => html_escape(index) }) %]</h2>
@@ -32,5 +32,5 @@
             <p>[% l('To begin browsing, please select a letter above.') %]</p>
         [% END %]
     [% END %]
-
+</div>
 [% END %]
