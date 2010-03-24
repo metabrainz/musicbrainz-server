@@ -11,16 +11,19 @@ contact us via the information given at the bottom of this document.
 Prerequisites
 -------------
 
-1)  Linux operating system
+1)  A Unix based operating system
 
-    The MusicBrainz development team uses a mix of Ubuntu and Debian. If you are
-    running Windows or Mac OS X we recommend you set up a Debian or Ubuntu
-    virtual machine.
+    The MusicBrainz development team uses a mix of Ubuntu and Debian, but
+    Mac OS X will work just fine. If you are running Windows we recommend you
+    set up a Debian or Ubuntu virtual machine.
+
+    This document will assume you are using Ubuntu for its instructions.
 
 2)  Perl (at least version 5.8.0)
 
     Perl 5.10.0 is acceptable, but be aware that it has some quirks in handling
     subroutine attributes which can make debugging difficult in a few cases.
+    However, these issues were fixed in Perl 5.10.1.
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
@@ -71,23 +74,18 @@ Server configuration
 Installing Perl dependencies
 ----------------------------
 
-1)  Install Module::Install
+1)  Build Makefile
 
-    Module::Install is required to install all the Perl dependencies.
-
-        sudo cpan -i Module::Install
-
-2)  Build Makefile and install dependancies (if necessary)
-
-    Some sections are marked optional, but you are generally encouraged to
-    accept the defaults and install everything. Optional sections are generally
-    there for the convenience of the master server which uses a slightly
-    different stack.
+    Some sections are marked optional, but you are encouraged to accept the
+    defaults and install everything. Optional sections are generally there for
+    the convenience of the master server which uses a slightly different stack.
 
         perl ./Makefile.PL
 
-    This will have generated a standard Makefile which you can use to install
-    dependencies by running:
+2)  Install dependencies
+
+    This above will have generated a standard Makefile which you can use to
+    automatically install dependencies by running:
 
         sudo make installdeps
 
