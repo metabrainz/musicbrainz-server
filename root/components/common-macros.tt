@@ -83,14 +83,13 @@ END -%]
 [%- END -%]
 
 [%- MACRO link_entity(entity, action, text) BLOCK;
-    type = "$entity";
-    IF    type.search('Entity::Artist='); link_artist(entity, action, text);
-    ELSIF type.search('Entity::Work='); link_work(entity, action, text);
-    ELSIF type.search('Entity::Label='); link_label(entity, action, text);
-    ELSIF type.search('Entity::Release='); link_release(entity, action, text);
-    ELSIF type.search('Entity::ReleaseGroup='); link_release_group(entity, action, text);
-    ELSIF type.search('Entity::Recording='); link_recording(entity, action, text);
-    ELSIF type.search('Entity::URL='); link_url(entity, action, text);
+    IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
     END;
 END -%]
 
@@ -173,7 +172,7 @@ END -%]
     IF text;
       '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
     ELSE;
-      text = display_url(url.customdisplay);
+      text = display_url(url.pretty_name);
       '<a href="' _ url.url _ '">' _ text _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]

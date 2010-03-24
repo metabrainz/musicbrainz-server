@@ -13,7 +13,7 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
-use MusicBrainz::Server::Data::Utils qw( placeholders type_to_model );
+use MusicBrainz::Server::Data::Utils qw( placeholders type_to_model linktype_to_model );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -151,18 +151,30 @@ sub load_entities
 {
     my ($self, @rels) = @_;
     my %ids_by_type;
+    my %urls_by_type;
     foreach my $rel (@rels) {
+        my $linktype = $rel->link->type->name;
+        $urls_by_type{$linktype} = [] if !exists($urls_by_type{$linktype});
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
-            $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
-            push @{$ids_by_type{$type}}, $rel->entity0_id;
+            if ($type eq 'url') {
+                push @{$urls_by_type{$linktype}}, $rel->entity0_id;
+            } else {
+                $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
+                push @{$ids_by_type{$type}}, $rel->entity0_id;
+            }
         }
         if ($rel->entity1_id && !defined($rel->entity1)) {
             my $type = $rel->link->type->entity1_type;
-            $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
-            push @{$ids_by_type{$type}}, $rel->entity1_id;
+            if ($type eq 'url') {
+                push @{$urls_by_type{$linktype}}, $rel->entity1_id;
+            } else {
+                $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
+                push @{$ids_by_type{$type}}, $rel->entity1_id;
+            }
         }
     }
+
     my %data_by_type;
     foreach my $type (keys %ids_by_type) {
         my @ids = @{$ids_by_type{$type}};
@@ -170,18 +182,26 @@ sub load_entities
             $self->c->model(type_to_model($type))->get_by_ids(@ids);
     }
 
+    $data_by_type{'url'} = {};
+    foreach my $linktype (keys %urls_by_type) {
+        my @ids = @{$urls_by_type{$linktype}};
+        my $urls = $self->c->model(linktype_to_model($linktype))->get_by_ids(@ids);
+
+        foreach my $key (keys %$urls) {
+            $data_by_type{'url'}->{$key} = $urls->{$key};
+        }
+    }
+
     foreach my $rel (@rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             my $obj = $data_by_type{$type}->{$rel->entity0_id};
             $rel->entity0($obj) if defined($obj);
-            $obj->linktype($rel->link->type->name) if $obj->meta->get_attribute('linktype');
         }
         if ($rel->entity1_id && !defined($rel->entity1)) {
             my $type = $rel->link->type->entity1_type;
             my $obj = $data_by_type{$type}->{$rel->entity1_id};
             $rel->entity1($obj) if defined($obj);
-            $obj->linktype($rel->link->type->name) if $obj->meta->get_attribute('linktype');
         }
     }
 }

@@ -1,28 +1,12 @@
-package MusicBrainz::Server::Entity::URL;
-
+package MusicBrainz::Server::Data::URL::Wikipedia;
 use Moose;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Role::Linkable';
+extends 'MusicBrainz::Server::Data::URL';
 
-has 'url' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'description' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'reference_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-sub pretty_name { shift->url }
-
-sub name { shift->url }
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::URL::Wikipedia';
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

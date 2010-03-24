@@ -1,28 +1,17 @@
-package MusicBrainz::Server::Entity::URL;
+package MusicBrainz::Server::Entity::URL::Wikipedia;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Role::Linkable';
+extends 'MusicBrainz::Server::Entity::URL';
 
-has 'url' => (
-    is => 'rw',
-    isa => 'Str'
-);
+sub pretty_name {
+    my $name = shift->url;
 
-has 'description' => (
-    is => 'rw',
-    isa => 'Str'
-);
+    $name =~ s{^http://([\w-]{2,})\.wikipedia\.org/wiki/(.*)$}{$1: $2}o;
+    $name =~ s/_/ /g;
 
-has 'reference_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-sub pretty_name { shift->url }
-
-sub name { shift->url }
+    return $name;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -30,7 +19,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
