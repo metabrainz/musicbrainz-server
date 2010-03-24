@@ -1,5 +1,5 @@
 [% IF entity_title %]
-    <h2>[% l('Browse {entity_title}', { entity_title => entity_title }) %]</h2>
+    <h2>[% entity_title %]</h2>
 [% ELSE %]
     <h2>[% l('Browse Further') %]</h2>
 [% END %]
