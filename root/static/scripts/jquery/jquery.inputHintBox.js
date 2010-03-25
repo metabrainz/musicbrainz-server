@@ -38,9 +38,9 @@
 /**
  * Example, you have a shiny div and you want to use it as a Shell for hint messages
  * <div id="shiny_box">
- * 	<span id="round-tleft"><span id="round-tright">
- *	<div class="shiny_box_body"></div>
- * 	<span id="round-bleft"><span id="round-bright">
+ *     <span id="round-tleft"><span id="round-tright">
+ *    <div class="shiny_box_body"></div>
+ *     <span id="round-bleft"><span id="round-bright">
  * </div>
  *
  * You have a inputs like:
@@ -59,7 +59,7 @@
  * @param Map options Optional settings
  * @option jQueryDom @div box to show, if this is set then className do not apply
  * @option String @div_sub css selector, use this when you need to write the Dynamic html into a element Inside the @div box,
- 							example: .body, this will search for .body in context of @div
+                                                example: .body, this will search for .body in context of @div
  * @option String @className This class will be added to the dynamic created div box. Default: "input_hint_box"
  * @option String @source Source of box message text html: attr | html, Default: "attr"
  * @option String @attr If @source = "attr" then html will be taken from the attribute named @attr. Default: "title"
@@ -71,103 +71,103 @@
 
 (function($) {
 $.fn.inputHintBox = function(options) {
-	options = $.extend({}, $.inputHintBoxer.defaults, options);
-	
-	this.each(function(){
-		new $.inputHintBoxer(this,options);
-	});
-	return this;
+    options = $.extend({}, $.inputHintBoxer.defaults, options);
+    
+    this.each(function(){
+        new $.inputHintBoxer(this,options);
+    });
+    return this;
 }
 
 $.inputHintBoxer = function(input, options) {
-	var $guideObject,$input = $guideObject = $(input), box, boxMouseDown = false;
-	
-	//$guideObject - in left of this object hint box will be positioned
-	
-	// If @type=radio then it must be inside a label and we should put the hint box in the right side of the label
-	if ( ($input.attr('type') == 'radio' || $input.attr('type') == 'checkbox') && $input.parent().is('label') ) {
-		$guideObject = $( $input.parent() );
-	}
-	
+    var $guideObject,$input = $guideObject = $(input), box, boxMouseDown = false;
+    
+    //$guideObject - in left of this object hint box will be positioned
+    
+    // If @type=radio then it must be inside a label and we should put the hint box in the right side of the label
+    if ( ($input.attr('type') == 'radio' || $input.attr('type') == 'checkbox') && $input.parent().is('label') ) {
+        $guideObject = $( $input.parent() );
+    }
+    
 
-	function init() {
-		var boxHtml = options.html != ''?options.html:
-					  	options.source == 'attr'?$input.attr(options.attr): '';
-			
-		if (typeof boxHtml === "undefined") boxHtml = '';
-		box = options.div != '' ? options.div.clone() : $("<div/>").addClass(options.className);
-		box = box.css('display','none').attr("id", options.id).addClass('_hintBox').appendTo(options.attachTo);
-		
-		if (options.div_sub == '') box.html(boxHtml);
-		else $(options.div_sub,box).html(boxHtml);
-		
-		$input.focus(function() {
-			$('body').mousedown(global_mousedown_listener);
-			show();
-		}).blur(function(){
-			prepare_hide();
-		});
-	}
-	
-	// This is evaluated each time to prevent probs with elements with display none
-	function align() {
-		var offsets = $guideObject.position(),
-			left = offsets.left + $guideObject.width() + options.incrementLeft + 5 + ($.browser.safari?5:($.browser.msie?10:($.browser.mozilla?6:0))),
-			top = offsets.top + options.incrementTop + ($.browser.msie?14:($.browser.mozilla?8:0));
-		box.css({position:"absolute",top:top,left:left});
-	}
-	
-	function show() {
-		align();
-		box.fadeIn('fast');
-	}
-	
-	function prepare_hide() {
-		// We want to allow user to select and copy/paste content from the box
-		// So delay a bit to see where user click
-		$('body').click(global_click_listener);
-		if (boxMouseDown) return;
-		$.inputHintBoxer.mostRecentHideTimer = setTimeout(function(){hide()},300);
-	}
-	
-	var global_click_listener = function(e) {
-		var $e = $(e.target),c='._hintBox';
-		clearTimeout($.inputHintBoxer.mostRecentHideTimer);
-		if ($e.parents(c).length == 0 && $e.is(c) == false) hide();
-	};
-	
-	// Prevent hiding when selecting..
-	// When user Select a text to select, a Mousedown is fired BEFORE blur of input
-	// This why we need to know when a Mousedown is done to our object
-	var global_mousedown_listener = function(e) {
-		var $e = $(e.target),c='._hintBox';
-		boxMouseDown = ($e.parents(c).length != 0 || $e.is(c) != false);
-	}
-	
-	function hide() {
-		$('body').unbind('click',global_click_listener);
-		$('body').unbind('mousedown',global_mousedown_listener);
-		align();
-		box.fadeOut('fast');
-	}
-	
-	init();
-	return {}
+    function init() {
+        var boxHtml = options.html != ''?options.html:
+                                        options.source == 'attr'?$input.attr(options.attr): '';
+                
+        if (typeof boxHtml === "undefined") boxHtml = '';
+        box = options.div != '' ? options.div.clone() : $("<div/>").addClass(options.className);
+        box = box.css('display','none').attr("id", options.id).addClass('_hintBox').appendTo(options.attachTo);
+        
+        if (options.div_sub == '') box.html(boxHtml);
+        else $(options.div_sub,box).html(boxHtml);
+        
+        $input.focus(function() {
+                $('body').mousedown(global_mousedown_listener);
+                show();
+        }).blur(function(){
+                prepare_hide();
+        });
+    }
+    
+    // This is evaluated each time to prevent probs with elements with display none
+    function align() {
+        var offsets = $guideObject.position(),
+                left = offsets.left + $guideObject.width() + options.incrementLeft + 5 + ($.browser.safari?5:($.browser.msie?10:($.browser.mozilla?6:0))),
+                top = offsets.top + options.incrementTop + ($.browser.msie?14:($.browser.mozilla?8:0));
+        box.css({position:"absolute",top:top,left:left});
+    }
+    
+    function show() {
+        align();
+        box.fadeIn('fast');
+    }
+    
+    function prepare_hide() {
+        // We want to allow user to select and copy/paste content from the box
+        // So delay a bit to see where user click
+        $('body').click(global_click_listener);
+        if (boxMouseDown) return;
+        $.inputHintBoxer.mostRecentHideTimer = setTimeout(function(){hide()},300);
+    }
+    
+    var global_click_listener = function(e) {
+        var $e = $(e.target),c='._hintBox';
+        clearTimeout($.inputHintBoxer.mostRecentHideTimer);
+        if ($e.parents(c).length == 0 && $e.is(c) == false) hide();
+    };
+    
+    // Prevent hiding when selecting..
+    // When user Select a text to select, a Mousedown is fired BEFORE blur of input
+    // This why we need to know when a Mousedown is done to our object
+    var global_mousedown_listener = function(e) {
+        var $e = $(e.target),c='._hintBox';
+        boxMouseDown = ($e.parents(c).length != 0 || $e.is(c) != false);
+    }
+    
+    function hide() {
+        $('body').unbind('click',global_click_listener);
+        $('body').unbind('mousedown',global_mousedown_listener);
+        align();
+        box.fadeOut('fast');
+    }
+    
+    init();
+    return {}
 };
 
 $.inputHintBoxer.mostRecentHideTimer = 0;
 
 $.inputHintBoxer.defaults = {
-	div: '',
-	className: 'input_hint_box',
-	source: 'attr', // attr or html
-	div_sub: '', // Where to write
-	attr: 'title',
-	html: '',
+    div: '',
+    className: 'input_hint_box',
+    source: 'attr', // attr or html
+    div_sub: '', // Where to write
+    attr: 'title',
+    html: '',
         id: '',
-	incrementLeft: 5,
-	incrementTop: 0,
-	attachTo: 'body'
+    incrementLeft: 5,
+    incrementTop: 0,
+    attachTo: 'body'
 }
 
 })(jQuery);

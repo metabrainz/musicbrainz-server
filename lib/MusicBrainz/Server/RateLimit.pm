@@ -28,40 +28,40 @@ use strict;
 
 =pod
 
-	use MusicBrainz::Server::RateLimit;
+    use MusicBrainz::Server::RateLimit;
 
-	$key = "whatever ...";
+    $key = "whatever ...";
 
-	# Simple interface
+    # Simple interface
 
-	# undef on error, otherwise boolean
-	$over_limit = MusicBrainz::Server::RateLimit->simple_test($key);
+    # undef on error, otherwise boolean
+    $over_limit = MusicBrainz::Server::RateLimit->simple_test($key);
 
-	# empty list on error, otherwise (over_limit, rate, limit, period)
-	@r = MusicBrainz::Server::RateLimit->simple_test($key);
+    # empty list on error, otherwise (over_limit, rate, limit, period)
+    @r = MusicBrainz::Server::RateLimit->simple_test($key);
 
-	# Overloaded OO interface
+    # Overloaded OO interface
 
-	$t = MusicBrainz::Server::RateLimit->test("some key");
+    $t = MusicBrainz::Server::RateLimit->test("some key");
 
-	# $t is either undef (on error), or
-	# an object with the following properties:
-	
-	$t->over_limit; # boolean
-	$t->rate; # current rate of this key
-	$t->limit; # limit rate of this key
-	$t->period; # in seconds
+    # $t is either undef (on error), or
+    # an object with the following properties:
+    
+    $t->over_limit; # boolean
+    $t->rate; # current rate of this key
+    $t->limit; # limit rate of this key
+    $t->period; # in seconds
 
-	$t->msg; # something like "10.2, limit is 10.0 per 30 seconds"
-	         # might be useful for debugging, or maybe for a message
-		 # to show the user
+    $t->msg; # something like "10.2, limit is 10.0 per 30 seconds"
+             # might be useful for debugging, or maybe for a message
+         # to show the user
 
-	$t; # overloaded in boolean context as $t->over_limit
+    $t; # overloaded in boolean context as $t->over_limit
 
-	if (my $t = MusicBrainz::Server::RateLimit->test("some key")
-	{
-		die "Slow down!  " . $t->msg;
-	}
+    if (my $t = MusicBrainz::Server::RateLimit->test("some key")
+    {
+        die "Slow down!  " . $t->msg;
+    }
 
 =cut
 
@@ -70,93 +70,93 @@ package MusicBrainz::Server::RateLimit;
 require IO::Socket::INET;
 
 {
-	my $last_server = '';
-	my $last_socket;
+    my $last_server = '';
+    my $last_socket;
 
-	sub get_socket
-	{
-		my ($class, $server) = @_;
-		return $last_socket
-			if $server eq $last_server
-			and $last_socket;
-		close $last_socket if $last_socket;
+    sub get_socket
+    {
+        my ($class, $server) = @_;
+        return $last_socket
+                if $server eq $last_server
+                and $last_socket;
+        close $last_socket if $last_socket;
 
-		$last_server = $server;
-		$last_socket = IO::Socket::INET->new(
-			Proto		=> 'udp',
-			PeerAddr	=> $server,
-		);
-	}
+        $last_server = $server;
+        $last_socket = IO::Socket::INET->new(
+                Proto           => 'udp',
+                PeerAddr        => $server,
+        );
+    }
 
-	sub force_close
-	{
-		close $last_socket if $last_socket;
-		$last_socket = undef;
-	}
+    sub force_close
+    {
+        close $last_socket if $last_socket;
+        $last_socket = undef;
+    }
 }
 
 our $id = 0;
 
 sub simple_test
 {
-	my ($class, $key) = @_;
+    my ($class, $key) = @_;
 
-	my $server = &DBDefs::RATELIMIT_SERVER;
-	defined($server) or return;
-	my $sock = $class->get_socket($server);
+    my $server = &DBDefs::RATELIMIT_SERVER;
+    defined($server) or return;
+    my $sock = $class->get_socket($server);
 
-	{ use integer; ++$id; $id &= 0xFFFF }
+    { use integer; ++$id; $id &= 0xFFFF }
 
-	my $request = "$id over_limit $key";
-	my $r;
+    my $request = "$id over_limit $key";
+    my $r;
 
-	$r = send($sock, $request, 0);
-	if (not defined $r)
-	{
-		# Send error
-		return;
-	}
+    $r = send($sock, $request, 0);
+    if (not defined $r)
+    {
+        # Send error
+        return;
+    }
 
-	my $rv = '';
-	vec($rv, fileno($sock), 1) = 1;
-	select($rv, undef, undef, 0.1);
+    my $rv = '';
+    vec($rv, fileno($sock), 1) = 1;
+    select($rv, undef, undef, 0.1);
 
-	if (not vec($rv, fileno($sock), 1))
-	{
-		# Timeout
-		return;
-	}
+    if (not vec($rv, fileno($sock), 1))
+    {
+        # Timeout
+        return;
+    }
 
-	my $data;
-	$r = recv($sock, $data, 1000, 0);
-	if (not defined $r)
-	{
-		# Receive error
-		return;
-	}
+    my $data;
+    $r = recv($sock, $data, 1000, 0);
+    if (not defined $r)
+    {
+        # Receive error
+        return;
+    }
 
-	unless ($data =~ s/\A($id) //)
-	{
-		force_close();
-		return;
-	}
+    unless ($data =~ s/\A($id) //)
+    {
+        force_close();
+        return;
+    }
 
-	if ($data =~ /^ok ([YN]) ([\d.]+) ([\d.]+) (\d+)$/)
-	{
-		my ($over_limit, $rate, $limit, $period) = ($1 eq "Y", $2, $3, $4);
-		return(wantarray ? ($over_limit, $rate, $limit, $period) : $over_limit);
-	}
+    if ($data =~ /^ok ([YN]) ([\d.]+) ([\d.]+) (\d+)$/)
+    {
+        my ($over_limit, $rate, $limit, $period) = ($1 eq "Y", $2, $3, $4);
+        return(wantarray ? ($over_limit, $rate, $limit, $period) : $over_limit);
+    }
 
-	return;
+    return;
 }
 
 sub test
 {
-	my $class = shift;
-	my @r = $class->simple_test(@_)
-		or return undef;
-	my $tc = $class->test_class;
-	return $tc->new(@r);
+    my $class = shift;
+    my @r = $class->simple_test(@_)
+        or return undef;
+    my $tc = $class->test_class;
+    return $tc->new(@r);
 }
 
 sub test_class { "MusicBrainz::Server::RateLimit::TestResult" }
@@ -165,31 +165,31 @@ package MusicBrainz::Server::RateLimit::TestResult;
 
 sub new
 {
-	my ($class, $over_limit, $rate, $limit, $period) = @_;
-	bless {
-		over_limit	=> $over_limit,
-		rate		=> $rate,
-		limit		=> $limit,
-		period		=> $period,
-	}, $class;
+    my ($class, $over_limit, $rate, $limit, $period) = @_;
+    bless {
+        over_limit      => $over_limit,
+        rate            => $rate,
+        limit           => $limit,
+        period          => $period,
+    }, $class;
 }
 
 use overload
-	'bool' => 'over_limit',
-	;
+    'bool' => 'over_limit',
+    ;
 
-sub over_limit	{ $_[0]{over_limit} }
-sub rate		{ $_[0]{rate} }
-sub limit		{ $_[0]{limit} }
-sub period		{ $_[0]{period} }
+sub over_limit    { $_[0]{over_limit} }
+sub rate        { $_[0]{rate} }
+sub limit       { $_[0]{limit} }
+sub period      { $_[0]{period} }
 
 sub msg
 {
-	sprintf "%.1f, limit is %.1f per %d seconds",
-		$_[0]->rate,
-		$_[0]->limit,
-		$_[0]->period,
-		;
+    sprintf "%.1f, limit is %.1f per %d seconds",
+        $_[0]->rate,
+        $_[0]->limit,
+        $_[0]->period,
+        ;
 }
 
 1;

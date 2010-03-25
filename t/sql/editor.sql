@@ -18,7 +18,6 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, membersince,
 INSERT INTO editor_preference (editor, name, value)
     VALUES (1, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
            (1, 'timezone', 'UTC'),
-           (1, 'public_ratings', '0'),
            (2, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
            (2, 'timezone', 'UTC'),
            (2, 'public_ratings', '0'),

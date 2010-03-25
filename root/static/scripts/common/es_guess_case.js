@@ -2797,7 +2797,7 @@ function findBasicErrors(ruleSet, type, number, stringBeingFixed, mode, keepUppe
                 };
             for (i in ruleSet.sentenceEndingPunctuation) {
                 if (ruleSet.sentenceEndingPunctuation.hasOwnProperty(i)) {
-		            if (new RegExp(stringBeingFixed).test(ruleSet.sentenceEndingPunctuation[i])) {
+                    if (new RegExp(stringBeingFixed).test(ruleSet.sentenceEndingPunctuation[i])) {
                         stringBeingFixed = splitFix(stringBeingFixed, ruleSet.sentenceEndingPunctuation[i]);
                     }
                 }

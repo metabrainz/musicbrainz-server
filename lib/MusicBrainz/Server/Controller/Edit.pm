@@ -68,9 +68,9 @@ sub add_note : Chained('load') PathPart('add-note') RequireAuth
     my $form = $c->form(form => 'EditNote');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('EditNote')->add_note($edit->id, {
-	    editor_id => $c->user->id,
-	    text => $form->field('text')->value
-	});
+        editor_id => $c->user->id,
+        text => $form->field('text')->value
+    });
     }
 
     $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));

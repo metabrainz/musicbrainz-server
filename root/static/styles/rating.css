@@ -4,83 +4,83 @@
 .star-rating a:focus,
 .star-rating .current-user-rating,
 .star-rating .current-rating{
-	background: url('../images/rating_star.gif') left -1000px repeat-x;
+    background: url('../images/rating_star.gif') left -1000px repeat-x;
 }
 
 .star-rating{
-	position:relative;
-	width:125px;
-	height:25px;
-	overflow:hidden;
-	list-style:none;
-	margin:0;
-	padding:0;
-	background-position: 0px 0px;
+    position:relative;
+    width:125px;
+    height:25px;
+    overflow:hidden;
+    list-style:none;
+    margin:0;
+    padding:0;
+    background-position: 0px 0px;
 }
 
 .star-rating li{
-	display: inline;
+    display: inline;
 }
 
 .star-rating a, 
 .star-rating .current-user-rating,
 .star-rating .current-rating{
-	position:absolute;
-	top:0;
-	left:0;
-	text-indent:-1000em;
-	height:25px;
-	line-height:25px;
-	outline:none;
-	overflow:hidden;
-	border: none;
+    position:absolute;
+    top:0;
+    left:0;
+    text-indent:-1000em;
+    height:25px;
+    line-height:25px;
+    outline:none;
+    overflow:hidden;
+    border: none;
 }
 
 .star-rating a:hover{
-	background-position: 0px -25px;
+    background-position: 0px -25px;
 }
 
 .star-rating a.one-star{
-	width:20%;
-	z-index:6;
+    width:20%;
+    z-index:6;
 }
 
 .star-rating a.two-stars{
-	width:40%;
-	z-index:5;
+    width:40%;
+    z-index:5;
 }
 
 .star-rating a.three-stars{
-	width:60%;
-	z-index:4;
+    width:60%;
+    z-index:4;
 }
 
 .star-rating a.four-stars{
-	width:80%;
-	z-index:3;
+    width:80%;
+    z-index:3;
 }
 
 .star-rating a.five-stars{
-	width:100%;
-	z-index:2;
+    width:100%;
+    z-index:2;
 }
 
 .star-rating .current-rating{
-	z-index:1;
-	background-position: 0px -75px;
-}	
+    z-index:1;
+    background-position: 0px -75px;
+}    
 
 .star-rating .current-user-rating{
-	z-index:1;
-	background-position: 0px -50px;
-}	
+    z-index:1;
+    background-position: 0px -50px;
+}    
 
 /* for an inline rater */
 .inline-rating{
-	display:-moz-inline-block;
-	display:-moz-inline-box;
-	display:inline-block;
-	vertical-align: middle;
+    display:-moz-inline-block;
+    display:-moz-inline-box;
+    display:inline-block;
+    vertical-align: middle;
 }
 .inline-rating ul {
     margin: 0;
@@ -89,8 +89,8 @@
 
 /* smaller star */
 .small-star{
-	width:50px;
-	height:10px;
+    width:50px;
+    height:10px;
 }
 
 .small-star,
@@ -99,19 +99,19 @@
 .small-star a:focus,
 .small-star .current-user-rating,
 .small-star .current-rating{
-	background-image: url('../images/rating_star_small.gif');
-	line-height: 10px;
-	height: 10px;
+    background-image: url('../images/rating_star_small.gif');
+    line-height: 10px;
+    height: 10px;
 }
 
 .small-star a:hover{
-	background-position: 0px -20px;
+    background-position: 0px -20px;
 }
 
 .small-star .current-rating{
-	background-position: 0px -30px;
+    background-position: 0px -30px;
 }
 
 .small-star .current-user-rating{
-	background-position: 0px -10px;
+    background-position: 0px -10px;
 }

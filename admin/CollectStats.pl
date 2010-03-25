@@ -42,7 +42,7 @@ $sql->Commit;
 
 if (-t STDOUT)
 {
-	my $all = $s->FetchAllAsHashRef;
-	printf "%10d : %s\n", $all->{$_}, $_
-		for sort keys %$all;
+    my $all = $s->FetchAllAsHashRef;
+    printf "%10d : %s\n", $all->{$_}, $_
+        for sort keys %$all;
 }

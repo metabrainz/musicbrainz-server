@@ -21,40 +21,40 @@ set -o errexit
 # Make a date/time stamp for the full export
 if [ "$WITH_FULL_EXPORT" ]
 then
-	EXPORT_STAMP=`TZ=UTC date +'%Y%m%d-%H%M%S'`
-	EXPORT_ARG="--with-full-export"
+    EXPORT_STAMP=`TZ=UTC date +'%Y%m%d-%H%M%S'`
+    EXPORT_ARG="--with-full-export"
 else
-	EXPORT_ARG="--without-full-export"
+    EXPORT_ARG="--without-full-export"
 fi
 
 echo `date`" : Making database snapshot"
 ./admin/ExportAllTables \
-	$EXPORT_ARG \
-	--with-replication \
-	--output-dir "$TEMP_DIR" \
-	--compress \
-	|| exit $?
+    $EXPORT_ARG \
+    --with-replication \
+    --output-dir "$TEMP_DIR" \
+    --compress \
+    || exit $?
 
 # Create necessary directories and set permissions.  If we're not doing a full
 # export then $EXPORT_STAMP is empty, so that argument is ignored.
 
 mkdir -m "$BACKUP_DIR_MODE" -p \
-	"$BACKUP_DIR"/fullexport/ \
-	"$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
-	"$BACKUP_DIR"/replication
+    "$BACKUP_DIR"/fullexport/ \
+    "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
+    "$BACKUP_DIR"/replication
 chown "$BACKUP_USER:$BACKUP_GROUP" \
-	"$BACKUP_DIR"/fullexport/ \
-	"$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
-	"$BACKUP_DIR"/replication
+    "$BACKUP_DIR"/fullexport/ \
+    "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
+    "$BACKUP_DIR"/replication
 
 mkdir -m "$FTP_DIR_MODE" -p \
-	"$FTP_DATA_DIR"/fullexport/ \
-	"$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
-	"$FTP_DATA_DIR"/replication
+    "$FTP_DATA_DIR"/fullexport/ \
+    "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
+    "$FTP_DATA_DIR"/replication
 chown "$FTP_USER:$FTP_GROUP" \
-	"$FTP_DATA_DIR"/fullexport/ \
-	"$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
-	"$FTP_DATA_DIR"/replication
+    "$FTP_DATA_DIR"/fullexport/ \
+    "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
+    "$FTP_DATA_DIR"/replication
 
 # Was a replication packet created?
 shopt -s nullglob
@@ -65,42 +65,42 @@ shopt -u nullglob
 # FTP directory.
 if [ "$REPLICATION_FILE" ]
 then
-	chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
-	chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
-	cp -a "$TEMP_DIR"/replication-*.tar.bz2 "$BACKUP_DIR"/replication/
+    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
+    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
+    cp -a "$TEMP_DIR"/replication-*.tar.bz2 "$BACKUP_DIR"/replication/
 
-	chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
-	chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
-	mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
-	/root/backup/run
+    chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
+    chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
+    mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
+    /root/backup/run
 fi
 
 if [ "$WITH_FULL_EXPORT" ]
 then
-	# The remaining files are the full database export, including the
-	# private data.
-	# Copy the full export to the backup directory
-	chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/*
-	chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/*
-	cp -a "$TEMP_DIR"/* "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP"/
+    # The remaining files are the full database export, including the
+    # private data.
+    # Copy the full export to the backup directory
+    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/*
+    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/*
+    cp -a "$TEMP_DIR"/* "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP"/
 
-	# Now remove the "private" file(s)
-	rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2
+    # Now remove the "private" file(s)
+    rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2
 
-	# and move the rest to the FTP directory
-	chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/*
-	chmod "$FTP_FILE_MODE" "$TEMP_DIR"/*
-	mv "$TEMP_DIR"/* "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP"/
+    # and move the rest to the FTP directory
+    chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/*
+    chmod "$FTP_FILE_MODE" "$TEMP_DIR"/*
+    mv "$TEMP_DIR"/* "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP"/
 
-	# Finally create a "latest-is" file, indicating the export we just did.
-	rm -rf "$FTP_DATA_DIR"/fullexport/latest-is-*
-	> "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
-	chmod "$FTP_FILE_MODE" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
-	chown "$FTP_USER:$FTP_GROUP" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
+    # Finally create a "latest-is" file, indicating the export we just did.
+    rm -rf "$FTP_DATA_DIR"/fullexport/latest-is-*
+    > "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
+    chmod "$FTP_FILE_MODE" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
+    chown "$FTP_USER:$FTP_GROUP" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
 
-	$mb_server/bin/delete-old-fullexports -k -r "$BACKUP_DIR"/fullexport "$FTP_DATA_DIR"/fullexport
-	$mb_server/bin/rsync-fullexport-files
-	/root/backup/run
+    $mb_server/bin/delete-old-fullexports -k -r "$BACKUP_DIR"/fullexport "$FTP_DATA_DIR"/fullexport
+    $mb_server/bin/rsync-fullexport-files
+    /root/backup/run
 fi
 
 $mb_server/bin/rsync-replication-files

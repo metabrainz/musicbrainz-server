@@ -2,25 +2,25 @@
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
-#	MusicBrainz -- the open internet music database
+#    MusicBrainz -- the open internet music database
 #
-#	Copyright (C) 1998 Robert Kaye
+#    Copyright (C) 1998 Robert Kaye
 #
-#	This program is free software; you can redistribute it and/or modify
-#	it under the terms of the GNU General Public License as published by
-#	the Free Software Foundation; either version 2 of the License, or
-#	(at your option) any later version.
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
 #
-#	This program is distributed in the hope that it will be useful,
-#	but WITHOUT ANY WARRANTY; without even the implied warranty of
-#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#	GNU General Public License for more details.
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
 #
-#	You should have received a copy of the GNU General Public License
-#	along with this program; if not, write to the Free Software
-#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#	$Id$
+#    $Id$
 #____________________________________________________________________________
 
 use FindBin;
@@ -41,25 +41,25 @@ sub insert
 
    if (scalar(@$path) == 1)
    {
-	   if (scalar(@$types) == 0)
-	   {
-		   my $temp = $tree;
-		   while(defined($temp))
-		   {
-			   if (defined($temp) && $temp->{_types} && scalar($temp->{_types}) > 0)
-			   {
-				   $types = [ @{$temp->{_types}} ];
-				   last;
-			   }
-			   $temp = $temp->{_parent};
-		   }
-	       print Dumper(\%tree) if (scalar(@$types) == 0);
-	       die("Item '" . join("/", @$path) . "' has no type.\n") if (scalar(@$types) == 0);
-       }			   
+       if (scalar(@$types) == 0)
+       {
+           my $temp = $tree;
+           while(defined($temp))
+           {
+                   if (defined($temp) && $temp->{_types} && scalar($temp->{_types}) > 0)
+                   {
+                           $types = [ @{$temp->{_types}} ];
+                           last;
+                   }
+                   $temp = $temp->{_parent};
+           }
+           print Dumper(\%tree) if (scalar(@$types) == 0);
+           die("Item '" . join("/", @$path) . "' has no type.\n") if (scalar(@$types) == 0);
+       }                   
 
        $tree->{$path->[0]} = { _types=>$types, _parent=>$tree, _attr=>$attr, _count=>$count,
-	                           _linkphrase=>$linkphrase, _rlinkphrase=>$rlinkphrase, _desc=>$desc };
-	   return;
+                               _linkphrase=>$linkphrase, _rlinkphrase=>$rlinkphrase, _desc=>$desc };
+       return;
    }
   
    my $off = shift @$path;
@@ -68,113 +68,113 @@ sub insert
 
 sub childHasType
 {
-	my ($tree, $type) = @_;
+    my ($tree, $type) = @_;
 
-	foreach my $key (keys %$tree)
-	{
-		next if ($key =~ /^_/);
-		foreach my $test (@{$tree->{$key}->{_types}})
-		{
-			return 1 if ($test eq $type);
-		}
-	}
+    foreach my $key (keys %$tree)
+    {
+        next if ($key =~ /^_/);
+        foreach my $test (@{$tree->{$key}->{_types}})
+        {
+                return 1 if ($test eq $type);
+        }
+    }
 
-	return 0;
+    return 0;
 }
 
 sub printTree
 {
-	my ($tree, $level, $type) = @_;
+    my ($tree, $level, $type) = @_;
 
-	my @s;
-	foreach my $key (keys %$tree)
-	{
-		next if ($key =~ /^_/);
-		push @s, $key;
-	}
+    my @s;
+    foreach my $key (keys %$tree)
+    {
+        next if ($key =~ /^_/);
+        push @s, $key;
+    }
 
     foreach my $key (sort { $tree->{$a}->{_count} <=> $tree->{$b}->{_count} } @s)
-	{
-		next if ($key =~ /^_/);
-		my $ok = 0;
-		foreach my $test (@{$tree->{$key}->{_types}})
-		{
+    {
+        next if ($key =~ /^_/);
+        my $ok = 0;
+        foreach my $test (@{$tree->{$key}->{_types}})
+        {
             if (($test eq 'all' && childHasType($tree->{$key}, $type)) || $test eq $type)
-			{
-				$ok = 1;
-				last;
-			}
-		}
-		next if (!$ok);
+                {
+                        $ok = 1;
+                        last;
+                }
+        }
+        next if (!$ok);
 
         foreach (0..$level) { print "  "; };
         print "$key ";
-		my $attr = $tree->{$key}->{_attr};
-		print "($attr) " if ($attr);
-		print join(", ", @{$tree->{$key}->{_types}}) . "\n";
-		printTree($tree->{$key}, $level+1, $type);
-	}
+        my $attr = $tree->{$key}->{_attr};
+        print "($attr) " if ($attr);
+        print join(", ", @{$tree->{$key}->{_types}}) . "\n";
+        printTree($tree->{$key}, $level+1, $type);
+    }
 }
 
 sub writeTree
 {
-	my ($sql, $tree, $level, $type, $id, $parent) = @_;
+    my ($sql, $tree, $level, $type, $id, $parent) = @_;
 
-	my $type_ = $type;
-	$type_ =~ s/-/_/;
-	my @parts = split '-', $type;
-	my $rtype = $parts[1] . "-" . $parts[0];
+    my $type_ = $type;
+    $type_ =~ s/-/_/;
+    my @parts = split '-', $type;
+    my $rtype = $parts[1] . "-" . $parts[0];
 
-	if ($level == -1)
-	{
+    if ($level == -1)
+    {
         $sql->Do("INSERT INTO lt_$type_ (id, parent, childorder, mbid, name, description, linkphrase, rlinkphrase, attribute) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      	     	 0, 0, 0, TableBase::CreateNewGlobalId(), 'ROOT', '', '', '', '');
-	}
+                 0, 0, 0, TableBase::CreateNewGlobalId(), 'ROOT', '', '', '', '');
+    }
 
-	my @s;
-	foreach my $key (keys %$tree)
-	{
-		next if ($key =~ /^_/);
-		push @s, $key;
-	}
+    my @s;
+    foreach my $key (keys %$tree)
+    {
+        next if ($key =~ /^_/);
+        push @s, $key;
+    }
 
-	my $childorder = 0;
+    my $childorder = 0;
     foreach my $key (sort { $tree->{$a}->{_count} <=> $tree->{$b}->{_count} } @s)
-	{
-		next if ($key =~ /^_/);
-		my $ok = 0;
-		my $inv = 0;
-		foreach my $test (@{$tree->{$key}->{_types}})
-		{
+    {
+        next if ($key =~ /^_/);
+        my $ok = 0;
+        my $inv = 0;
+        foreach my $test (@{$tree->{$key}->{_types}})
+        {
             if (($test eq 'all' && childHasType($tree->{$key}, $type)) || $test eq $type)
-			{
-				$ok = 1;
-				$inv = 0;
-				last;
-			}
+                {
+                        $ok = 1;
+                        $inv = 0;
+                        last;
+                }
             if ($test eq 'all' && childHasType($tree->{$key}, $rtype) || $test eq $rtype)
-			{
-				$ok = 1;
-				$inv = 1;
-				last;
-			}
-		}
-		next if (!$ok);
+                {
+                        $ok = 1;
+                        $inv = 1;
+                        last;
+                }
+        }
+        next if (!$ok);
 
-		my $attr = $tree->{$key}->{_attr};
-		my $linkphrase = $tree->{$key}->{_linkphrase};
-		my $rlinkphrase = $tree->{$key}->{_rlinkphrase};
-		my $desc = $tree->{$key}->{_desc};
-		($rlinkphrase, $linkphrase) = ($linkphrase, $rlinkphrase) if ($inv);
+        my $attr = $tree->{$key}->{_attr};
+        my $linkphrase = $tree->{$key}->{_linkphrase};
+        my $rlinkphrase = $tree->{$key}->{_rlinkphrase};
+        my $desc = $tree->{$key}->{_desc};
+        ($rlinkphrase, $linkphrase) = ($linkphrase, $rlinkphrase) if ($inv);
         $sql->Do("INSERT INTO lt_$type_ (id, parent, childorder, mbid, name, description, linkphrase, rlinkphrase, attribute) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      	     	 $id, $parent, $childorder, TableBase::CreateNewGlobalId(), $key, $desc, $linkphrase, $rlinkphrase, $attr);
-		$id++;
-		$id = writeTree($sql, $tree->{$key}, $level+1, $type, $id, $id - 1);
+                 $id, $parent, $childorder, TableBase::CreateNewGlobalId(), $key, $desc, $linkphrase, $rlinkphrase, $attr);
+        $id++;
+        $id = writeTree($sql, $tree->{$key}, $level+1, $type, $id, $id - 1);
 
-		$childorder++;
-	}
+        $childorder++;
+    }
 
-	return $id;
+    return $id;
 }
 
 my ($linkphrase, $rlinkphrase, $desc);
@@ -185,87 +185,87 @@ my @path;
 my $count = 0;
 while(defined($line = <>))
 {
-	$line =~ s/\s*$//g;
-	next if (!$line);
-	next if ($line =~ /^#/);
+    $line =~ s/\s*$//g;
+    next if (!$line);
+    next if ($line =~ /^#/);
 
-	my $name = $line;
-	my $attr = $line;
+    my $name = $line;
+    my $attr = $line;
     my @types;
-	while(1)
-	{
-		if ($line =~ s/\[(.*?)\]//)
-		{
-			my $temp = $1;
-			$temp =~ s/--/-/g;
-			push @types, $temp;
-		}
-		else
-		{
-			last;
-		}
-	}
+    while(1)
+    {
+        if ($line =~ s/\[(.*?)\]//)
+        {
+                my $temp = $1;
+                $temp =~ s/--/-/g;
+                push @types, $temp;
+        }
+        else
+        {
+                last;
+        }
+    }
 
-	if ($name =~ s/\<(.*?)\>//)
-	{
-	    ($linkphrase, $rlinkphrase, $desc) = split '\|', $1;
-		$linkphrase =~ s/\s*(.*?)\s*/$1/;
-		$rlinkphrase =~ s/\s*(.*?)\s*/$1/;
-		$desc =~ s/\s*(.*?)\s*/$1/;
-	}
-	else
-	{
-	    ($linkphrase, $rlinkphrase, $desc) = ("Forward linkphrase", "Reverse linkphrase", "Description");
-	}
+    if ($name =~ s/\<(.*?)\>//)
+    {
+        ($linkphrase, $rlinkphrase, $desc) = split '\|', $1;
+        $linkphrase =~ s/\s*(.*?)\s*/$1/;
+        $rlinkphrase =~ s/\s*(.*?)\s*/$1/;
+        $desc =~ s/\s*(.*?)\s*/$1/;
+    }
+    else
+    {
+        ($linkphrase, $rlinkphrase, $desc) = ("Forward linkphrase", "Reverse linkphrase", "Description");
+    }
 
-	if ($name =~ s/\((.*?)\)//)
-	{
-		$attr = $1;
-	}
-	else
-	{
-		$attr = '';
-	}
+    if ($name =~ s/\((.*?)\)//)
+    {
+        $attr = $1;
+    }
+    else
+    {
+        $attr = '';
+    }
 
 
-	my $ind;
-	$name =~ s/\s*\(.*\)\s*|\s*\[.*\]\s*|\s*\<.*\>\s*|,//g;
+    my $ind;
+    $name =~ s/\s*\(.*\)\s*|\s*\[.*\]\s*|\s*\<.*\>\s*|,//g;
     if ($name =~ s/^(\s*)//)
-	{
-		$ind = length($1);
-	}
-	else
-	{
-		$ind = 0;
-	}
-	$ind /= 2;
+    {
+        $ind = length($1);
+    }
+    else
+    {
+        $ind = 0;
+    }
+    $ind /= 2;
 
-	if ($ind == $level)
-	{
-	    pop @path;
-	    push @path, $name;
-	}
-	elsif ($ind > $level)
-	{
-		$level++;
-	    push @path, $name;
-	} 
-	elsif ($ind < $level)
-	{
-		for(0..($level - $ind))
-		{
-			pop @path;
-			$level--;
-		}
-		push @path, $name;
-		$level++;
-	}
+    if ($ind == $level)
+    {
+        pop @path;
+        push @path, $name;
+    }
+    elsif ($ind > $level)
+    {
+        $level++;
+        push @path, $name;
+    } 
+    elsif ($ind < $level)
+    {
+        for(0..($level - $ind))
+        {
+                pop @path;
+                $level--;
+        }
+        push @path, $name;
+        $level++;
+    }
 
     #foreach (0..$level) { print "  "; };
     #print "Add: /" . join('/', @path) . "\n";
 
-	@types = qw(all) if (scalar(@types) == 0 && $level == 0);
-	insert([@path], \%tree, [@types], $attr, $count++, $linkphrase, $rlinkphrase, $desc);
+    @types = qw(all) if (scalar(@types) == 0 && $level == 0);
+    insert([@path], \%tree, [@types], $attr, $count++, $linkphrase, $rlinkphrase, $desc);
 }
 
 my $mb = MusicBrainz->new;
@@ -274,14 +274,14 @@ my $sql = Sql->new($mb->{dbh});
 
 foreach my $x (qw(album artist track url))
 {
-	foreach my $y (qw(album artist track url))
-	{
-		if (($x cmp $y) < 1)
-		{
-			$sql->Begin();
-			writeTree($sql, \%tree, -1, "$x-$y", 1, 0);
-			$sql->Commit();
-		}
-	}
+    foreach my $y (qw(album artist track url))
+    {
+        if (($x cmp $y) < 1)
+        {
+                $sql->Begin();
+                writeTree($sql, \%tree, -1, "$x-$y", 1, 0);
+                $sql->Commit();
+        }
+    }
 }
 

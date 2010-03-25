@@ -10,10 +10,10 @@ my $timeout;
 
 use Getopt::Long;
 GetOptions(
-	"lockfile|f=s"		=> \$lockfile,
-	"wait|w"			=> sub { $wait = 1 },
-	"nowait|no-wait|n"	=> sub { $wait = 0 },
-	"timeout|t=i"		=> \$timeout,
+    "lockfile|f=s"              => \$lockfile,
+    "wait|w"                    => sub { $wait = 1 },
+    "nowait|no-wait|n"  => sub { $wait = 0 },
+    "timeout|t=i"               => \$timeout,
 ) or exit 2;
 
 defined($lockfile) or die "No lockfile defined\n";
@@ -26,8 +26,8 @@ alarm($timeout) if $timeout;
 
 unless (flock($fh, LOCK_EX | ($wait ? 0 : LOCK_NB)))
 {
-	exit 100 if $!{EWOULDBLOCK};
-	die $! unless $!{EINTR};
+    exit 100 if $!{EWOULDBLOCK};
+    die $! unless $!{EINTR};
 }
 
 alarm(0);

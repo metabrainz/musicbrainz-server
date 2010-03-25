@@ -216,7 +216,7 @@ Edit a release in release editor
 
 =cut
 
-sub edit : Chained('load') RequireAuth
+sub edit : Chained('load') RequireAuth Edit
 {
     my ($self, $c) = @_;
 

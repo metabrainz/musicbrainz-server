@@ -54,7 +54,7 @@ after 'show' => sub
     $c->model($type)->annotation->load_latest($entity);
 };
 
-sub edit_annotation : Chained('load') PathPart RequireAuth
+sub edit_annotation : Chained('load') PathPart RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $model = $self->{model};

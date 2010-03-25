@@ -19,6 +19,7 @@ requires 'Catalyst::Runtime'                          => '5.80021';
 requires 'Catalyst::View::TT'                         => '0.29';
 requires 'Class::MOP';
 requires 'Clone';
+requires 'Data::Compare';
 requires 'Data::OptList';
 requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
@@ -39,7 +40,6 @@ requires 'HTML::Tiny'                                 => '1.05';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                            => '0.22';
-requires 'Match::Smart';
 requires 'Moose'                                      => '0.87';
 requires 'MooseX::ABC';
 requires 'MooseX::MethodAttributes'                   => '0.14';
@@ -65,7 +65,7 @@ feature 'ETag Caching' =>
 feature 'Default caching setup' =>
     -default                 => 1,
     'Cache::Memory'          => '2.04',
-    'Cache::Memcached::Fast' => '1.24'
+    'Cache::Memcached::Fast' => '0.16'
     ;
 
 feature 'Default session store/state management' =>
@@ -78,14 +78,15 @@ feature 'Developer features' =>
     -default                           => 1,
     'Catalyst::Plugin::StackTrace'     => '0.09',
     'Catalyst::Plugin::Static::Simple' => '0.21',
-    'Catalyst::Restarter'              => '1.25',
+    'Catalyst::Devel'                  => '1.25',
     ;
 
 # These are just for I18N
 requires 'Locale::PO';
 requires 'Locale::TextDomain' => '1.16';
 
-#author_requires 'Catalyst::Restarter';
+author_requires 'Test::NoTabs';
+author_requires 'Test::EOL';
 
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Test::Differences';
@@ -93,6 +94,8 @@ test_requires 'Test::Aggregate';
 test_requires 'XML::Parser';
 
 catalyst;
+
+author_tests 't/author';
 
 install_script glob('script/*.pl');
 auto_install;

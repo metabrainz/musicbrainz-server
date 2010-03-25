@@ -4,7 +4,6 @@ use base 'Exporter';
 
 use Class::MOP;
 use List::MoreUtils qw( zip );
-use Match::Smart qw( smart_match );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
 use Sql;
@@ -15,7 +14,6 @@ our @EXPORT_OK = qw(
     artist_credit_to_ref
     defined_hash
     hash_to_row
-    deep_equal
     add_partial_date_to_row
     generate_gid
     insert_and_create
@@ -257,32 +255,6 @@ sub order_by
         }
     }
     return $order_by;
-}
-
-sub deep_equal {
-    my ($a, $b) = @_;
-    return unless (ref($a) eq ref($b));
-
-    if (ref($a) eq 'HASH') {
-        return unless %$a == %$b;
-        while (my ($key, $value) = each %$a) {
-            return unless deep_equal($a->{$key}, $b->{$key});
-        }
-        return 1;
-    }
-    elsif (ref($a) eq 'ARRAY') {
-        return unless @$a == @$b;
-        for my $i (0..@a) {
-            return unless deep_equal($a->[$i], $b->[$i]);
-        }
-        return 1;
-    }
-    elsif (!ref($a)) {
-        return smart_match($a, $b);
-    }
-
-    # A reference, but something we can check yet
-    return;
 }
 
 1;

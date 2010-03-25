@@ -39,78 +39,78 @@ use MusicBrainz::Server::Artist;
 
 sub GatherData
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->Log("Querying database");
-	my $sql = $self->SqlObj;
+    $self->Log("Querying database");
+    my $sql = $self->SqlObj;
 
-	my $data = $sql->SelectListOfLists("
-		SELECT 
-			a.artist, 
-			j.album, 
-			t.id, 
-			j.sequence, 
-			t.name
-		FROM 
-			track t, albumjoin j, album a
-		WHERE 
-			j.track = t.id
-			AND  a.id = j.album
-			AND t.name ~ '^[0-9]'
-			AND t.name ~ ('^0*' || j.sequence || '[^0-9]')
-		ORDER BY 
-			a.artist, j.album, j.sequence
-	");
+    my $data = $sql->SelectListOfLists("
+        SELECT 
+                a.artist, 
+                j.album, 
+                t.id, 
+                j.sequence, 
+                t.name
+        FROM 
+                track t, albumjoin j, album a
+        WHERE 
+                j.track = t.id
+                AND  a.id = j.album
+                AND t.name ~ '^[0-9]'
+                AND t.name ~ ('^0*' || j.sequence || '[^0-9]')
+        ORDER BY 
+                a.artist, j.album, j.sequence
+    ");
 
-	# Index the tracks by album-artist, album:
+    # Index the tracks by album-artist, album:
 
-	my $artists = {};
+    my $artists = {};
 
-	for (@$data)
-	{
-		push @{ $artists->{ $_->[0] }{ALBUMS}{ $_->[1] }{TRACKS} }, $_;
-	}
+    for (@$data)
+    {
+        push @{ $artists->{ $_->[0] }{ALBUMS}{ $_->[1] }{TRACKS} }, $_;
+    }
 
-	my $al = MusicBrainz::Server::Release->new($self->{dbh});
-	my $ar = MusicBrainz::Server::Artist->new($self->{dbh});
+    my $al = MusicBrainz::Server::Release->new($self->{dbh});
+    my $ar = MusicBrainz::Server::Artist->new($self->{dbh});
 
-	for my $artistid (keys %$artists)
-	{
-		my $albums = $artists->{$artistid}{ALBUMS};
+    for my $artistid (keys %$artists)
+    {
+        my $albums = $artists->{$artistid}{ALBUMS};
 
-		# Remove albums with two or fewer tracks like this
-		for my $albumid (keys %$albums)
-		{
-			delete $albums->{$albumid}, next
-				if @{ $albums->{$albumid}{TRACKS} } <= 2;
+        # Remove albums with two or fewer tracks like this
+        for my $albumid (keys %$albums)
+        {
+                delete $albums->{$albumid}, next
+                        if @{ $albums->{$albumid}{TRACKS} } <= 2;
 
-			$al->SetId($albumid);
-			$al->LoadFromId;
+                $al->SetId($albumid);
+                $al->LoadFromId;
 
-			$albums->{$albumid}{ID} = $albumid;
-			$albums->{$albumid}{NAME} = $al->GetName;
-			$albums->{$albumid}{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($al->GetName);
-		}
+                $albums->{$albumid}{ID} = $albumid;
+                $albums->{$albumid}{NAME} = $al->GetName;
+                $albums->{$albumid}{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($al->GetName);
+        }
 
-		# Remove the artists if we've removed all their albums
-		delete $artists->{$artistid}, next
-			unless keys %$albums;
+        # Remove the artists if we've removed all their albums
+        delete $artists->{$artistid}, next
+                unless keys %$albums;
 
-		$ar->SetId($artistid);
-		$ar->LoadFromId;
+        $ar->SetId($artistid);
+        $ar->LoadFromId;
 
-		$artists->{$artistid}{ID} = $artistid;
-		$artists->{$artistid}{NAME} = $ar->GetName;
-		$artists->{$artistid}{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
-	}
+        $artists->{$artistid}{ID} = $artistid;
+        $artists->{$artistid}{NAME} = $ar->GetName;
+        $artists->{$artistid}{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
+    }
 
-	$self->Log("Saving results");
-	my $report = $self->PagedReport;
+    $self->Log("Saving results");
+    my $report = $self->PagedReport;
 
-	for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %$artists)
-	{
-		$report->Print($artist);
-	}
+    for my $artist (sort { $a->{_sort_} cmp $b->{_sort_} } values %$artists)
+    {
+        $report->Print($artist);
+    }
 }
 
 __PACKAGE__->new->RunReport;

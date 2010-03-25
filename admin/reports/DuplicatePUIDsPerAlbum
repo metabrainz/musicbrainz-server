@@ -34,84 +34,84 @@ use base qw( MusicBrainz::Server::ReportScript );
 
 sub GatherData
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->Log("Querying database");
-	my $sql = $self->SqlObj;
+    $self->Log("Querying database");
+    my $sql = $self->SqlObj;
 
-	$sql->AutoCommit;
+    $sql->AutoCommit;
 
-	# get artist + album info for PUID dupes.
-	my $rows = $sql->SelectListOfHashes('
-		SELECT
-			album.id AS album_id,
-			album.name AS album_name,
-			artist.id AS artist_id,
-			artist.name AS artist_name,
-			artist.sortname AS artist_sortname,
-			artist.resolution AS artist_resolution,
-			puid.puid,
-			freq
-		FROM
-			(SELECT
-				album,
-				puid,
-				COUNT(*) AS freq
-			 FROM
-			 	albumjoin
-			 INNER JOIN
-			 	puidjoin
-			 	USING (track)
-				GROUP BY album, puid
-				HAVING COUNT(*) > 1
-			) tmp
-			INNER JOIN
-				puid ON tmp.puid = puid.id
-			INNER JOIN
-				album ON tmp.album = album.id
-			INNER JOIN
-				artist ON album.artist = artist.id
-		-- order DESC to get an ASC order when pop-ing from the result array
-		ORDER BY
-			artist.sortname DESC, album.name DESC;');
-	#EOF
+    # get artist + album info for PUID dupes.
+    my $rows = $sql->SelectListOfHashes('
+        SELECT
+                album.id AS album_id,
+                album.name AS album_name,
+                artist.id AS artist_id,
+                artist.name AS artist_name,
+                artist.sortname AS artist_sortname,
+                artist.resolution AS artist_resolution,
+                puid.puid,
+                freq
+        FROM
+                (SELECT
+                        album,
+                        puid,
+                        COUNT(*) AS freq
+                 FROM
+                        albumjoin
+                 INNER JOIN
+                        puidjoin
+                        USING (track)
+                        GROUP BY album, puid
+                        HAVING COUNT(*) > 1
+                ) tmp
+                INNER JOIN
+                        puid ON tmp.puid = puid.id
+                INNER JOIN
+                        album ON tmp.album = album.id
+                INNER JOIN
+                        artist ON album.artist = artist.id
+        -- order DESC to get an ASC order when pop-ing from the result array
+        ORDER BY
+                artist.sortname DESC, album.name DESC;');
+    #EOF
 
-	$self->Log("number of results: " . scalar @$rows);
-	my $report = $self->PagedReport;
+    $self->Log("number of results: " . scalar @$rows);
+    my $report = $self->PagedReport;
 
-	# reorder data to save storrage and get structure for report
-	my @results;
-	my $cur; $cur->{'album_id'} = "";
-	my $row;
-	while (1)
-	{
-		$row = pop @$rows;
-		if (!defined $row)
-		{
-			if (defined $cur) { push @results, $cur; }
-			last;
-		}
+    # reorder data to save storrage and get structure for report
+    my @results;
+    my $cur; $cur->{'album_id'} = "";
+    my $row;
+    while (1)
+    {
+        $row = pop @$rows;
+        if (!defined $row)
+        {
+                if (defined $cur) { push @results, $cur; }
+                last;
+        }
 
-		if ($cur->{'album_id'} ne $row->{'album_id'})
-		{
-			push @results, $cur;
-			$cur = {
-				artist_id => $row->{'artist_id'},
-				artist_name => $row->{'artist_name'},
-				artist_sortname => $row->{'artist_sortname'},
-				artist_resolution => $row->{'artist_resolution'},
-				album_id    => $row->{'album_id'},
-				album_name  => $row->{'album_name'},
-			};
-		}
-		push @{ $cur->{'puids'} }, {
-			puid    => $row->{'puid'},
-			freq   => $row->{'freq'}
-		};
-	}
+        if ($cur->{'album_id'} ne $row->{'album_id'})
+        {
+                push @results, $cur;
+                $cur = {
+                        artist_id => $row->{'artist_id'},
+                        artist_name => $row->{'artist_name'},
+                        artist_sortname => $row->{'artist_sortname'},
+                        artist_resolution => $row->{'artist_resolution'},
+                        album_id    => $row->{'album_id'},
+                        album_name  => $row->{'album_name'},
+                };
+        }
+        push @{ $cur->{'puids'} }, {
+                puid    => $row->{'puid'},
+                freq   => $row->{'freq'}
+        };
+    }
 
-	$self->Log("Saving results");
-	for (@results) { $report->Print($_); }
+    $self->Log("Saving results");
+    for (@results) { $report->Print($_); }
 }
 
 __PACKAGE__->new->RunReport;

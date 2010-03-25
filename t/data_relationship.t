@@ -5,6 +5,8 @@ use Sql;
 use Test::More;
 use_ok 'MusicBrainz::Server::Data::Relationship';
 use MusicBrainz::Server::Entity::Artist;
+use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::Entity::Relationship;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -31,6 +33,7 @@ ok( $rel->link->has_attribute('instrument') );
 is( $rel->link->get_attribute('instrument')->[0], 'guitar' );
 is( $rel->entity1->name, 'Track 1' );
 is( $rel->edits_pending, 1 );
+is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
 
 for $rel ($artist1->all_relationships) {
     if ($rel->link_id == 2) {
@@ -41,6 +44,7 @@ for $rel ($artist1->all_relationships) {
         is( $rel->link->get_attribute('instrument')->[0], 'string instruments' );
         is( $rel->entity1->name, 'Track 2' );
         is( $rel->edits_pending, 0 );
+        is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
     }
     else {
         isnt( $rel->link, undef );
@@ -49,8 +53,15 @@ for $rel ($artist1->all_relationships) {
         is( $rel->link->get_attribute('instrument')->[0], 'guitar' );
         is( $rel->entity1->name, 'Track 1' );
         is( $rel->edits_pending, 0 );
+        is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
     }
 }
+
+my $recording1 = MusicBrainz::Server::Entity::Recording->new(id => 1);
+$rel_data->load($recording1);
+is( scalar($recording1->all_relationships), 2 );
+is( $recording1->relationships->[0]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
+is( $recording1->relationships->[1]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
 
 my $sql = Sql->new($c->dbh);
 $sql->begin;

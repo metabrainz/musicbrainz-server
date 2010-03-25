@@ -34,44 +34,44 @@ package MusicBrainz::Server::dbmirror;
 
 sub prepare_insert
 {
-	my ($table, $valuepairs) = @_;
-	%$valuepairs or die;
+    my ($table, $valuepairs) = @_;
+    %$valuepairs or die;
 
-	my @k = sort keys %$valuepairs;
-	my $colnames = join ", ", map { qq["$_"] } @k;
-	my $params = join ", ", map { "?" } @k;
-	my @args = @$valuepairs{@k};
+    my @k = sort keys %$valuepairs;
+    my $colnames = join ", ", map { qq["$_"] } @k;
+    my $params = join ", ", map { "?" } @k;
+    my @args = @$valuepairs{@k};
 
-	my $sql = qq[INSERT INTO $table ($colnames) VALUES ($params)];
-	return($sql, \@args);
+    my $sql = qq[INSERT INTO $table ($colnames) VALUES ($params)];
+    return($sql, \@args);
 }
 
 sub prepare_update
 {
-	my ($table, $valuepairs, $keypairs) = @_;
-	%$valuepairs or die;
-	%$keypairs or die;
+    my ($table, $valuepairs, $keypairs) = @_;
+    %$valuepairs or die;
+    %$keypairs or die;
 
-	my @k = sort keys %$valuepairs;
-	my $setclause = join ", ", map { qq["$_" = ?] } @k;
-	my @setargs = @$valuepairs{@k};
+    my @k = sort keys %$valuepairs;
+    my $setclause = join ", ", map { qq["$_" = ?] } @k;
+    my @setargs = @$valuepairs{@k};
 
-	my ($whereclause, $whereargs) = make_where_clause($keypairs);
+    my ($whereclause, $whereargs) = make_where_clause($keypairs);
 
-	my $sql = qq[UPDATE $table SET $setclause WHERE $whereclause];
-	my @args = (@setargs, @$whereargs);
-	return($sql, \@args);
+    my $sql = qq[UPDATE $table SET $setclause WHERE $whereclause];
+    my @args = (@setargs, @$whereargs);
+    return($sql, \@args);
 }
 
 sub prepare_delete
 {
-	my ($table, $keypairs) = @_;
-	%$keypairs or die;
+    my ($table, $keypairs) = @_;
+    %$keypairs or die;
 
-	my ($whereclause, $whereargs) = make_where_clause($keypairs);
+    my ($whereclause, $whereargs) = make_where_clause($keypairs);
 
-	my $sql = qq[DELETE FROM $table WHERE $whereclause];
-	return($sql, $whereargs);
+    my $sql = qq[DELETE FROM $table WHERE $whereclause];
+    return($sql, $whereargs);
 }
 
 # Given a hash of column-value pairs, construct a WHERE clause (using SQL
@@ -79,26 +79,26 @@ sub prepare_delete
 
 sub make_where_clause
 {
-	my $keypairs = $_[0]; # as returned by unpack_data
-	$keypairs or die;
-	%$keypairs or die;
+    my $keypairs = $_[0]; # as returned by unpack_data
+    $keypairs or die;
+    %$keypairs or die;
 
-	my @conditions;
-	my @args;
+    my @conditions;
+    my @args;
 
-	for my $column (sort keys %$keypairs)
-	{
-		if (defined(my $value = $keypairs->{$column}))
-		{
-			push @conditions, qq["$column" = ?];
-			push @args, $value;
-		} else {
-			push @conditions, qq["$column" IS NULL];
-		}
-	}
+    for my $column (sort keys %$keypairs)
+    {
+        if (defined(my $value = $keypairs->{$column}))
+        {
+                push @conditions, qq["$column" = ?];
+                push @args, $value;
+        } else {
+                push @conditions, qq["$column" IS NULL];
+        }
+    }
 
-	my $clause = join " AND ", @conditions;
-	return ($clause, \@args);
+    my $clause = join " AND ", @conditions;
+    return ($clause, \@args);
 }
 
 # Given a packed string from "PendingData"."Data", this sub unpacks it into
@@ -107,51 +107,51 @@ sub make_where_clause
 
 sub unpack_data
 {
-	my $packed = $_[0];
-	my %answer;
+    my $packed = $_[0];
+    my %answer;
 
-	while (length($packed))
-	{
-		# "ColumnName"=
-		my ($k) = ($packed =~ /\A"(.*?)"=/)
-			or warn("Failed to parse: expected [\"ColumnName\"=] but found [$packed]"), return undef;
-		substr($packed, 0, $+[0], '');
+    while (length($packed))
+    {
+        # "ColumnName"=
+        my ($k) = ($packed =~ /\A"(.*?)"=/)
+                or warn("Failed to parse: expected [\"ColumnName\"=] but found [$packed]"), return undef;
+        substr($packed, 0, $+[0], '');
 
-		my $v = undef;
-		# Optionally, a quoted string
-		if ($packed =~ s/\A'//)
-		{
-			$v = "";
+        my $v = undef;
+        # Optionally, a quoted string
+        if ($packed =~ s/\A'//)
+        {
+                $v = "";
 
-			for (;;)
-			{
-				# \\ => \
-				$v .= "\\", next if $packed =~ s/\A\\\\//;
+                for (;;)
+                {
+                        # \\ => \
+                        $v .= "\\", next if $packed =~ s/\A\\\\//;
 
-				# \' => '
-				# '' => '
-				$v .= "'", next if $packed =~ s/\A[\\']'//;
+                        # \' => '
+                        # '' => '
+                        $v .= "'", next if $packed =~ s/\A[\\']'//;
 
-				# End of string
-				last if $packed =~ s/\A'//;
+                        # End of string
+                        last if $packed =~ s/\A'//;
 
-				$packed ne ''
-				  	or warn("Failed to parse: expected string data but found end of string"), return undef;
+                        $packed ne ''
+                                or warn("Failed to parse: expected string data but found end of string"), return undef;
 
-				# any other char == itself
-				$v .= substr($packed, 0, 1, '');
-			}
-		}
+                        # any other char == itself
+                        $v .= substr($packed, 0, 1, '');
+                }
+        }
 
-		# A space
-		$packed =~ s/\A //
-			or warn("Failed to parse: expected [ ] but found [$packed]"), return undef;
+        # A space
+        $packed =~ s/\A //
+                or warn("Failed to parse: expected [ ] but found [$packed]"), return undef;
 
-		#print "Found $k = $v\n";
-		$answer{$k} = $v;
-	}
+        #print "Found $k = $v\n";
+        $answer{$k} = $v;
+    }
 
-	return \%answer;
+    return \%answer;
 }
 
 1;

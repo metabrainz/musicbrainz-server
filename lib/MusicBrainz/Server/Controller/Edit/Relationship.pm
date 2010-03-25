@@ -41,7 +41,7 @@ sub build_type_info
     return %type_info;
 }
 
-sub edit : Local RequireAuth
+sub edit : Local RequireAuth Edit
 {
     my ($self, $c) = @_;
 
@@ -126,7 +126,7 @@ sub edit : Local RequireAuth
     }
 }
 
-sub create : Local RequireAuth
+sub create : Local RequireAuth Edit
 {
     my ($self, $c) = @_;
 
@@ -202,7 +202,7 @@ sub create : Local RequireAuth
     }
 }
 
-sub delete : Local RequireAuth
+sub delete : Local RequireAuth Edit
 {
     my ($self, $c) = @_;
 

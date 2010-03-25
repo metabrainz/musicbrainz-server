@@ -51,17 +51,17 @@ my $verbose;
 my $summary = 1;
 
 GetOptions(
-	"remove!"		=> \$remove,
-	"verbose!"		=> \$verbose,
-	"summary!"		=> \$summary,
-	"help|h|?"		=> sub { usage(); exit },
+    "remove!"           => \$remove,
+    "verbose!"          => \$verbose,
+    "summary!"          => \$summary,
+    "help|h|?"          => sub { usage(); exit },
 ) or exit 2;
 
 usage(), exit 2 if @ARGV;
 
 sub usage
 {
-	print <<EOF;
+    print <<EOF;
 Usage: UnusedTracks [OPTIONS]
 
 Allowed options are:
@@ -76,20 +76,20 @@ EOF
 }
 
 $verbose = ($remove ? 0 : 1)
-	unless defined $verbose;
+    unless defined $verbose;
 
 print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), exit 1
-	unless $remove or $verbose or $summary;
+    unless $remove or $verbose or $summary;
 
 print localtime() . " : Finding unused tracks\n";
 
 $sql->Select(<<EOF);
 
-	SELECT	t.id
-	FROM	track t
-		LEFT JOIN albumjoin j
-			ON j.track = t.id
-	WHERE	j.track IS NULL
+    SELECT      t.id
+    FROM        track t
+        LEFT JOIN albumjoin j
+                ON j.track = t.id
+    WHERE       j.track IS NULL
 
 EOF
 
@@ -98,58 +98,58 @@ my $removed = 0;
 
 while (my ($id) = $sql->NextRow)
 {
-	next if $id == &ModDefs::VARTIST_ID;
-	next if $id == &ModDefs::DARTIST_ID;
+    next if $id == &ModDefs::VARTIST_ID;
+    next if $id == &ModDefs::DARTIST_ID;
 
-	++$count;
+    ++$count;
 
-	if (not $remove)
-	{
-		printf "%s : Need to remove track #%d\n",
-			scalar localtime,
-			$id,
-			if $verbose;
-		next;
-	}
+    if (not $remove)
+    {
+        printf "%s : Need to remove track #%d\n",
+                scalar localtime,
+                $id,
+                if $verbose;
+        next;
+    }
 
-	$sqlWrite->Begin;
-	
-	eval
-	{
-		use MusicBrainz::Server::Track;
-		my $tr = MusicBrainz::Server::Track->new($sqlWrite->{dbh});
-		$tr->SetId($id);
-		$tr->Remove;
-		$sqlWrite->Commit;
+    $sqlWrite->Begin;
+    
+    eval
+    {
+        use MusicBrainz::Server::Track;
+        my $tr = MusicBrainz::Server::Track->new($sqlWrite->{dbh});
+        $tr->SetId($id);
+        $tr->Remove;
+        $sqlWrite->Commit;
 
-		printf "%s : Deleted track #%d\n",
-			scalar localtime,
-			$id,
-			if $verbose;
+        printf "%s : Deleted track #%d\n",
+                scalar localtime,
+                $id,
+                if $verbose;
 
-		++$removed;
-		1;
-	} or do {
-		my $err = $@;
-		$sqlWrite->Rollback;
-		printf "%s : Error removing track #%d:\n  %s\n",
-			scalar localtime,
-			$id,
-			$err;
-	};
+        ++$removed;
+        1;
+    } or do {
+        my $err = $@;
+        $sqlWrite->Rollback;
+        printf "%s : Error removing track #%d:\n  %s\n",
+                scalar localtime,
+                $id,
+                $err;
+    };
 }
 
 $sql->Finish;
 
 if ($summary)
 {
-	printf "%s : Found %d unused track%s.\n",
-		scalar localtime,
-		$count, ($count==1 ? "" : "s");
-	printf "%s : Successfully removed %d track%s\n",
-		scalar localtime,
-		$removed, ($removed==1 ? "" : "s")
-		if $remove;
+    printf "%s : Found %d unused track%s.\n",
+        scalar localtime,
+        $count, ($count==1 ? "" : "s");
+    printf "%s : Successfully removed %d track%s\n",
+        scalar localtime,
+        $removed, ($removed==1 ? "" : "s")
+        if $remove;
 }
 
 print localtime() . " : UnusedTracks finished\n";

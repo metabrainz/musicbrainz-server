@@ -214,7 +214,7 @@ sub rollback
 # AutoTransaction: call back the given code reference,
 # automatically applying a Begin/Commit/Rollback around it
 # if required (i.e. if we are not already in a transaction).
-# Calling context is preserved.	 Exceptions may be thrown.
+# Calling context is preserved.     Exceptions may be thrown.
 
 sub auto_transaction
 {
@@ -310,7 +310,7 @@ sub _select_single_row
         return $first_row;
     }
     catch ($err) {
-	cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
+    cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
         croak $err;
     };
@@ -379,7 +379,7 @@ sub _select_list
         return \@vals;
     }
     catch ($err) {
-	cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
+    cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
         croak $err;
     };

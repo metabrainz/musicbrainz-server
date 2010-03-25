@@ -43,21 +43,21 @@ my $fDoReplication = 0;
 my @tablelist;
 
 GetOptions(
-	"output-dir|d=s"	=> \$OutputDir,
-	"tmp-dir|t=s"		=> \$dir,
-	"compress|c!"		=> \$fCompress,
-	"keep-files|k!"		=> \$fKeepFiles,
-	"table=s"			=> \@tablelist,
-	"with-replication"		=> sub { $fDoReplication = 1 },
-	"without-replication"	=> sub { $fDoReplication = 0 },
-	"with-full-export"		=> sub { $fDoFullExport = 1 },
-	"without-full-export"	=> sub { $fDoFullExport = 0 },
-	"help"				=> \$fHelp,
+    "output-dir|d=s"    => \$OutputDir,
+    "tmp-dir|t=s"               => \$dir,
+    "compress|c!"               => \$fCompress,
+    "keep-files|k!"             => \$fKeepFiles,
+    "table=s"                   => \@tablelist,
+    "with-replication"          => sub { $fDoReplication = 1 },
+    "without-replication"       => sub { $fDoReplication = 0 },
+    "with-full-export"          => sub { $fDoFullExport = 1 },
+    "without-full-export"       => sub { $fDoFullExport = 0 },
+    "help"                              => \$fHelp,
 );
 
 sub usage
 {
-	print <<EOF;
+    print <<EOF;
 Usage: ExportAllTables [options]
 
         --help            show this help
@@ -89,13 +89,13 @@ usage(), exit 1 if not $fDoFullExport and @tablelist;
 my $erase_tmpdir_on_exit = 0;
 END
 {
-	if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
-	{
-		print localtime() . " : Disk space just before erasing tmp dir:\n";
-		system "/bin/df -m";
-		print localtime() . " : Erasing $dir\n";
-		system "/bin/rm", "-rf", $dir;
-	}
+    if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
+    {
+        print localtime() . " : Disk space just before erasing tmp dir:\n";
+        system "/bin/df -m";
+        print localtime() . " : Erasing $dir\n";
+        system "/bin/rm", "-rf", $dir;
+    }
 }
 
 use File::Temp qw( tempdir );
@@ -120,166 +120,166 @@ my $rawdbh = $c->raw_dbh;
 # This hash indicates which tables may need to be pulled from a vertical DB
 my %table_db_mapping =
 (
-	'artist_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'artist_tag_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'release_group_rating_raw'				=>	{ dbh => $rawdbh, sql => $rawsql },
-	'release_group_tag_raw'					=>	{ dbh => $rawdbh, sql => $rawsql },
-	'recording_rating_raw'					=>	{ dbh => $rawdbh, sql => $rawsql },
-	'recording_tag_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'label_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'label_tag_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
-	'work_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'work_tag_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
-	'cdtoc_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
-	'release_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
-	'track_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
-	'vote'									=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit'									=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit_artist'							=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit_label'							=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit_note'								=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit_recording'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit_release'							=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit_release_group'					=>	{ dbh => $rawdbh, sql => $rawsql },
-	'edit_work'								=>	{ dbh => $rawdbh, sql => $rawsql },
-	'vote'									=>	{ dbh => $rawdbh, sql => $rawsql },
-	'_default_'								=>	{ dbh => $dbh, sql => $sql }
+    'artist_rating_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'artist_tag_raw'                                            =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_group_rating_raw'                          =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_group_tag_raw'                                     =>      { dbh => $rawdbh, sql => $rawsql },
+    'recording_rating_raw'                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'recording_tag_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'label_rating_raw'                                          =>      { dbh => $rawdbh, sql => $rawsql },
+    'label_tag_raw'                                                     =>      { dbh => $rawdbh, sql => $rawsql },
+    'work_rating_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
+    'work_tag_raw'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'cdtoc_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_raw'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
+    'track_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_artist'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_label'                                                        =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_note'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_recording'                                            =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_release'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_release_group'                                        =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_work'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    '_default_'                                                         =>      { dbh => $dbh, sql => $sql }
 );
 
 my @tables = qw(
-	artist_rating_raw
-	artist_tag_raw
-	cdtoc_raw
-	currentstat
-	edit
-	edit_artist
-	edit_label
-	edit_note
-	edit_recording
-	edit_release
-	edit_release_group
-	edit_work
-	historicalstat
-	label_rating_raw
-	label_tag_raw
-	recording_rating_raw
-	recording_tag_raw
-	release_group_rating_raw
-	release_group_tag_raw
-	release_raw
-	track_raw
-	vote
-	work_rating_raw
-	work_tag_raw
-	annotation
-	artist
-	artist_alias
-	artist_annotation
-	artist_credit
-	artist_credit_name
-	artist_gid_redirect
-	artist_meta
-	artist_name
-	artist_tag
-	artist_type
-	cdtoc
-	clientversion
-	country
-	editor
-	editor_preference
-	editor_sanitised
-	editor_subscribe_artist
-	editor_subscribe_editor
-	editor_subscribe_label
-	gender
-	isrc
-	l_artist_artist
-	l_artist_label
-	l_artist_recording
-	l_artist_release
-	l_artist_release_group
-	l_artist_url
-	l_artist_work
-	l_label_label
-	l_label_recording
-	l_label_release
-	l_label_release_group
-	l_label_url
-	l_label_work
-	l_recording_recording
-	l_recording_release
-	l_recording_release_group
-	l_recording_url
-	l_recording_work
-	l_release_group_release_group
-	l_release_group_url
-	l_release_group_work
-	l_release_release
-	l_release_release_group
-	l_release_url
-	l_release_work
-	l_url_url
-	l_url_work
-	l_work_work
-	label
-	label_alias
-	label_annotation
-	label_gid_redirect
-	label_meta
-	label_name
-	label_tag
-	label_type
-	language
-	link
-	link_attribute
-	link_attribute_type
-	link_type
-	link_type_attribute_type
-	medium
-	medium_cdtoc
-	medium_format
-	puid
-	recording
-	recording_annotation
-	recording_gid_redirect
-	recording_meta
-	recording_puid
-	recording_tag
-	release
-	release_annotation
-	release_gid_redirect
-	release_group
-	release_group_annotation
-	release_group_gid_redirect
-	release_group_meta
-	release_group_tag
-	release_group_type
-	release_label
-	release_meta
+    artist_rating_raw
+    artist_tag_raw
+    cdtoc_raw
+    currentstat
+    edit
+    edit_artist
+    edit_label
+    edit_note
+    edit_recording
+    edit_release
+    edit_release_group
+    edit_work
+    historicalstat
+    label_rating_raw
+    label_tag_raw
+    recording_rating_raw
+    recording_tag_raw
+    release_group_rating_raw
+    release_group_tag_raw
+    release_raw
+    track_raw
+    vote
+    work_rating_raw
+    work_tag_raw
+    annotation
+    artist
+    artist_alias
+    artist_annotation
+    artist_credit
+    artist_credit_name
+    artist_gid_redirect
+    artist_meta
+    artist_name
+    artist_tag
+    artist_type
+    cdtoc
+    clientversion
+    country
+    editor
+    editor_preference
+    editor_sanitised
+    editor_subscribe_artist
+    editor_subscribe_editor
+    editor_subscribe_label
+    gender
+    isrc
+    l_artist_artist
+    l_artist_label
+    l_artist_recording
+    l_artist_release
+    l_artist_release_group
+    l_artist_url
+    l_artist_work
+    l_label_label
+    l_label_recording
+    l_label_release
+    l_label_release_group
+    l_label_url
+    l_label_work
+    l_recording_recording
+    l_recording_release
+    l_recording_release_group
+    l_recording_url
+    l_recording_work
+    l_release_group_release_group
+    l_release_group_url
+    l_release_group_work
+    l_release_release
+    l_release_release_group
+    l_release_url
+    l_release_work
+    l_url_url
+    l_url_work
+    l_work_work
+    label
+    label_alias
+    label_annotation
+    label_gid_redirect
+    label_meta
+    label_name
+    label_tag
+    label_type
+    language
+    link
+    link_attribute
+    link_attribute_type
+    link_type
+    link_type_attribute_type
+    medium
+    medium_cdtoc
+    medium_format
+    puid
+    recording
+    recording_annotation
+    recording_gid_redirect
+    recording_meta
+    recording_puid
+    recording_tag
+    release
+    release_annotation
+    release_gid_redirect
+    release_group
+    release_group_annotation
+    release_group_gid_redirect
+    release_group_meta
+    release_group_tag
+    release_group_type
+    release_label
+    release_meta
         release_meta_sanitised
-	release_name
-	release_packaging
-	release_status
-	script
-	script_language
-	tag
-	tag_relation
-	track
-	track_name
-	tracklist
-	url
-	work
-	work_annotation
-	work_gid_redirect
-	work_meta
-	work_name
-	work_tag
-	work_type
+    release_name
+    release_packaging
+    release_status
+    script
+    script_language
+    tag
+    tag_relation
+    track
+    track_name
+    tracklist
+    url
+    work
+    work_annotation
+    work_gid_redirect
+    work_meta
+    work_name
+    work_tag
+    work_type
 );
 
 my @replication_tables = qw(
-	"Pending"
-	"PendingData"
+    "Pending"
+    "PendingData"
 );
 
 @tables = @tablelist if @tablelist;
@@ -319,18 +319,18 @@ writefile("TIMESTAMP", "$now\n");
 # Get the replication control data
 
 my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
-	my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
-	$row ||= {};
-	@$row{qw(
-		current_schema_sequence
-		current_replication_sequence
-		last_replication_date
-	)};
+    my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
+    $row ||= {};
+    @$row{qw(
+        current_schema_sequence
+        current_replication_sequence
+        last_replication_date
+    )};
 };
 
 $iSchemaSequence or die "Don't know what schema sequence number we're using";
 $iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE
-	or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs::DB_SCHEMA_SEQUENCE (".&DBDefs::DB_SCHEMA_SEQUENCE.")";
+    or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs::DB_SCHEMA_SEQUENCE (".&DBDefs::DB_SCHEMA_SEQUENCE.")";
 
 # Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
 # integer.
@@ -340,8 +340,8 @@ writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 
 if (grep { $_ eq "editor_sanitised" } @tables)
 {
-	$sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
-	$sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
+    $sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
+    $sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
 }
 
 if (grep { $_ eq 'release_meta_sanitised' } @tables)
@@ -353,153 +353,153 @@ if (grep { $_ eq 'release_meta_sanitised' } @tables)
 $| = 1;
 
 printf "%-30.30s %9s %4s %9s\n",
-	"Table", "Rows", "est%", "rows/sec",
-	;
+    "Table", "Rows", "est%", "rows/sec",
+    ;
 
 my %rowcounts;
 
 for my $table (@tables)
 {
-	dumptable($table);
+    dumptable($table);
 }
 
 sub table_rowcount
 {
-	my $table = shift;
-	$table =~ s/_sanitised$//;
+    my $table = shift;
+    $table =~ s/_sanitised$//;
 
-	# Get the right sql module
-	my $sql = $table_db_mapping{'_default_'}->{'sql'};
-	$sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
-	$sql->select_single_value(
-		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
-		$table,
-	);
+    # Get the right sql module
+    my $sql = $table_db_mapping{'_default_'}->{'sql'};
+    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
+    $sql->select_single_value(
+        "SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
+        $table,
+    );
 }
 
 sub dumptable
 {
-	my $table = shift;
+    my $table = shift;
 
-	# Get the right sql/dbh module
-	my $sql = $table_db_mapping{'_default_'}->{'sql'};
-	$sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
-	my $dbh = $table_db_mapping{'_default_'}->{'dbh'};
-	$dbh = $table_db_mapping{$table}->{'dbh'} if (exists $table_db_mapping{$table});
+    # Get the right sql/dbh module
+    my $sql = $table_db_mapping{'_default_'}->{'sql'};
+    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
+    my $dbh = $table_db_mapping{'_default_'}->{'dbh'};
+    $dbh = $table_db_mapping{$table}->{'dbh'} if (exists $table_db_mapping{$table});
 
-	open(DUMP, ">$dir/mbdump/$table")
-		or die $!;
+    open(DUMP, ">$dir/mbdump/$table")
+        or die $!;
 
-	my $estrows = table_rowcount($table) || 1;
+    my $estrows = table_rowcount($table) || 1;
 
-	$sql->do("COPY $table TO stdout");
-	my $buffer;
-	my $rows = 0;
+    $sql->do("COPY $table TO stdout");
+    my $buffer;
+    my $rows = 0;
 
-	my $t1 = [gettimeofday];
-	my $interval;
+    my $t1 = [gettimeofday];
+    my $interval;
 
-	my $p = sub {
-		my ($pre, $post) = @_;
-		no integer;
-		printf $pre."%-30.30s %9d %3d%% %9d".$post,
-			$table, $rows, int(100 * $rows / $estrows),
-			$rows / ($interval||1);
-	};
+    my $p = sub {
+        my ($pre, $post) = @_;
+        no integer;
+        printf $pre."%-30.30s %9d %3d%% %9d".$post,
+                $table, $rows, int(100 * $rows / $estrows),
+                $rows / ($interval||1);
+    };
 
-	$p->("", "") if $fProgress;
+    $p->("", "") if $fProgress;
 
-	my $longest = 0;
+    my $longest = 0;
 
-	while ($dbh->pg_getcopydata($buffer) >= 0)
-	{
-		$longest = length($buffer) if length($buffer) > $longest;
-		print DUMP $buffer
-			or die $!;
+    while ($dbh->pg_getcopydata($buffer) >= 0)
+    {
+        $longest = length($buffer) if length($buffer) > $longest;
+        print DUMP $buffer
+                or die $!;
 
-		++$rows;
-		unless ($rows & 0xFFF)
-		{
-			$interval = tv_interval($t1);
-			$p->("\r", "") if $fProgress;
-		}
-	}
+        ++$rows;
+        unless ($rows & 0xFFF)
+        {
+                $interval = tv_interval($t1);
+                $p->("\r", "") if $fProgress;
+        }
+    }
 
-	close DUMP
-		or die $!;
+    close DUMP
+        or die $!;
 
-	$interval = tv_interval($t1);
-	$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
-	print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
+    $interval = tv_interval($t1);
+    $p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
+    print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
 
-	++$tables;
-	$totalrows += $rows;
-	$rowcounts{$table} = $rows;
+    ++$tables;
+    $totalrows += $rows;
+    $rowcounts{$table} = $rows;
 
-	$rows;
+    $rows;
 }
 
 # Is there any replication data to dump?
 my $fAnyReplicationData = 0;
 for my $table (@replication_tables)
 {
-	$fAnyReplicationData = 1
-		if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
+    $fAnyReplicationData = 1
+        if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
 }
 
 if ($fDoReplication)
 {
-	if ($fAnyReplicationData or not $iReplicationSequence)
-	{
-		# Are we starting replication for the first time?
-		if (not defined $iReplicationSequence)
-		{
-			# If we're currently not at a replication point, then let's turn this
-			# one into sequence #0.
-			$iReplicationSequence = 0;
+    if ($fAnyReplicationData or not $iReplicationSequence)
+    {
+        # Are we starting replication for the first time?
+        if (not defined $iReplicationSequence)
+        {
+                # If we're currently not at a replication point, then let's turn this
+                # one into sequence #0.
+                $iReplicationSequence = 0;
 
-			# In this case we may as well ditch any pending
-			# replication data; no-one can ever load and apply packet #0, so it
-			# will effectively just be there for cosmetic reasons.
-			empty_replication_tables();
-		} else {
-			# Otherwise, we're moving on to the next replication sequence
-			# number.
-			++$iReplicationSequence;
-		}
+                # In this case we may as well ditch any pending
+                # replication data; no-one can ever load and apply packet #0, so it
+                # will effectively just be there for cosmetic reasons.
+                empty_replication_tables();
+        } else {
+                # Otherwise, we're moving on to the next replication sequence
+                # number.
+                ++$iReplicationSequence;
+        }
 
-		# Set the replication sequence number.  This should (I think) be
-		# the final transaction included in each packet.
-		$iReplicationSequence ||= 0;
+        # Set the replication sequence number.  This should (I think) be
+        # the final transaction included in each packet.
+        $iReplicationSequence ||= 0;
 
-		$sql->do(
-			"UPDATE replication_control
-			SET current_replication_sequence = ?,
-			last_replication_date = NOW()",
-			$iReplicationSequence,
-		);
+        $sql->do(
+                "UPDATE replication_control
+                SET current_replication_sequence = ?,
+                last_replication_date = NOW()",
+                $iReplicationSequence,
+        );
 
-		print localtime() . " : Producing replication packet #$iReplicationSequence\n";
+        print localtime() . " : Producing replication packet #$iReplicationSequence\n";
 
-		# Dump 'em
-		dumptable($_) for @replication_tables;
+        # Dump 'em
+        dumptable($_) for @replication_tables;
 
-		# Remove the rows we just dumped
-		empty_replication_tables();
+        # Remove the rows we just dumped
+        empty_replication_tables();
 
-		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
-	} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
-		print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
-	} else {
-		print localtime() . " : No replication data dumped - not producing a replication packet\n";
-		writefile("REPLICATION_SEQUENCE", "");
-	}
+        writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+    } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
+        print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
+        writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+    } else {
+        print localtime() . " : No replication data dumped - not producing a replication packet\n";
+        writefile("REPLICATION_SEQUENCE", "");
+    }
 } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
-	print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-	writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+    print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
+    writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 } else {
-	writefile("REPLICATION_SEQUENCE", "");
+    writefile("REPLICATION_SEQUENCE", "");
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
@@ -514,8 +514,8 @@ $rawsql->rollback;
 
 my $dumptime = tv_interval($t0);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
-	scalar localtime,
-	$tables, $totalrows, $dumptime;
+    scalar localtime,
+    $tables, $totalrows, $dumptime;
 
 optimise_replication_tables() if $fDoReplication;
 
@@ -529,189 +529,189 @@ undef $c;
 close $lockfh;
 
 my @group_core = qw(
-	artist
-	artist_alias
-	artist_credit
-	artist_credit_name
-	artist_gid_redirect
-	artist_name
-	artist_type
-	cdtoc
-	clientversion
-	country
-	gender
-	isrc
-	l_artist_artist
-	l_artist_label
-	l_artist_recording
-	l_artist_release
-	l_artist_release_group
-	l_artist_url
-	l_artist_work
-	l_label_label
-	l_label_recording
-	l_label_release
-	l_label_release_group
-	l_label_url
-	l_label_work
-	l_recording_recording
-	l_recording_release
-	l_recording_release_group
-	l_recording_url
-	l_recording_work
-	l_release_group_release_group
-	l_release_group_url
-	l_release_group_work
-	l_release_release
-	l_release_release_group
-	l_release_url
-	l_release_work
-	l_url_url
-	l_url_work
-	l_work_work
-	label
-	label_alias
-	label_gid_redirect
-	label_name
-	label_type
-	language
-	link
-	link_attribute
-	link_attribute_type
-	link_type
-	link_type_attribute_type
-	medium
-	medium_cdtoc
-	medium_format
-	puid
-	recording
-	recording_gid_redirect
-	recording_puid
-	release
-	release_gid_redirect
-	release_group
-	release_group_annotation
-	release_group_gid_redirect
-	release_group_type
-	release_label
-	release_name
-	release_packaging
-	release_status
-	script
-	script_language
-	track
-	track_name
-	tracklist
-	url
-	work
-	work_gid_redirect
-	work_name
-	work_type
-	);
+    artist
+    artist_alias
+    artist_credit
+    artist_credit_name
+    artist_gid_redirect
+    artist_name
+    artist_type
+    cdtoc
+    clientversion
+    country
+    gender
+    isrc
+    l_artist_artist
+    l_artist_label
+    l_artist_recording
+    l_artist_release
+    l_artist_release_group
+    l_artist_url
+    l_artist_work
+    l_label_label
+    l_label_recording
+    l_label_release
+    l_label_release_group
+    l_label_url
+    l_label_work
+    l_recording_recording
+    l_recording_release
+    l_recording_release_group
+    l_recording_url
+    l_recording_work
+    l_release_group_release_group
+    l_release_group_url
+    l_release_group_work
+    l_release_release
+    l_release_release_group
+    l_release_url
+    l_release_work
+    l_url_url
+    l_url_work
+    l_work_work
+    label
+    label_alias
+    label_gid_redirect
+    label_name
+    label_type
+    language
+    link
+    link_attribute
+    link_attribute_type
+    link_type
+    link_type_attribute_type
+    medium
+    medium_cdtoc
+    medium_format
+    puid
+    recording
+    recording_gid_redirect
+    recording_puid
+    release
+    release_gid_redirect
+    release_group
+    release_group_annotation
+    release_group_gid_redirect
+    release_group_type
+    release_label
+    release_name
+    release_packaging
+    release_status
+    script
+    script_language
+    track
+    track_name
+    tracklist
+    url
+    work
+    work_gid_redirect
+    work_name
+    work_type
+    );
 
 my @group_derived = qw(
-	annotation
-	artist_annotation
-	artist_meta
-	artist_tag
-	label_annotation
-	label_meta
-	label_tag
-	recording_annotation
-	recording_meta
-	recording_tag
-	release_annotation
-	release_group_annotation
-	release_group_meta
-	release_group_tag
-	release_meta_sanitised
-	tag
-	tag_relation
-	work_annotation
-	work_meta
-	work_tag
-	);
+    annotation
+    artist_annotation
+    artist_meta
+    artist_tag
+    label_annotation
+    label_meta
+    label_tag
+    recording_annotation
+    recording_meta
+    recording_tag
+    release_annotation
+    release_group_annotation
+    release_group_meta
+    release_group_tag
+    release_meta_sanitised
+    tag
+    tag_relation
+    work_annotation
+    work_meta
+    work_tag
+    );
 
 my @group_stats = qw(
-	currentstat
-	historicalstat
+    currentstat
+    historicalstat
 );
 
 my @group_editor = qw(
-	editor_sanitised
-	);
+    editor_sanitised
+    );
 
 my @group_edit = qw(
-	edit
-	edit_artist
-	edit_label
-	edit_note
-	edit_recording
-	edit_release
-	edit_release_group
-	edit_work
-	vote
-	);
+    edit
+    edit_artist
+    edit_label
+    edit_note
+    edit_recording
+    edit_release
+    edit_release_group
+    edit_work
+    vote
+    );
 
 my @group_closedmoderation = qw(
-	moderation_closed
-	moderation_note_closed
-	vote_closed
-	);
+    moderation_closed
+    moderation_note_closed
+    vote_closed
+    );
 
 my @group_private = qw(
-	artist_rating_raw
-	artist_tag_raw
-	editor
-	editor_preference
-	editor_subscribe_artist
-	editor_subscribe_editor
-	editor_subscribe_label
-	label_rating_raw
-	label_tag_raw
-	recording_rating_raw
-	recording_tag_raw
-	release_group_rating_raw
-	release_group_tag_raw
-	work_rating_raw
-	work_tag_raw
+    artist_rating_raw
+    artist_tag_raw
+    editor
+    editor_preference
+    editor_subscribe_artist
+    editor_subscribe_editor
+    editor_subscribe_label
+    label_rating_raw
+    label_tag_raw
+    recording_rating_raw
+    recording_tag_raw
+    release_group_rating_raw
+    release_group_tag_raw
+    work_rating_raw
+    work_tag_raw
 );
 
 my @group_cdstubs = qw(
-	cdtoc_raw
-	release_raw
-	track_raw
+    cdtoc_raw
+    release_raw
+    track_raw
 );
 
 use File::Copy qw( copy );
 
 if ($fCompress and $fDoFullExport)
 {
-	copy_readme() or die $!;
-	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
-	make_tar("mbdump.tar.bz2", @group_core);
+    copy_readme() or die $!;
+    copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
+    make_tar("mbdump.tar.bz2", @group_core);
 
-	copy_readme() or die $!;
-	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
-	make_tar("mbdump-derived.tar.bz2", @group_derived);
-	make_tar("mbdump-editor.tar.bz2",  @group_editor);
-	make_tar("mbdump-edit.tar.bz2",  @group_edit);
-	make_tar("mbdump-stats.tar.bz2",  @group_stats);
-	make_tar("mbdump-private.tar.bz2", @group_private);
-	make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
+    copy_readme() or die $!;
+    copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+    make_tar("mbdump-derived.tar.bz2", @group_derived);
+    make_tar("mbdump-editor.tar.bz2",  @group_editor);
+    make_tar("mbdump-edit.tar.bz2",  @group_edit);
+    make_tar("mbdump-stats.tar.bz2",  @group_stats);
+    make_tar("mbdump-private.tar.bz2", @group_private);
+    make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
 }
 
 if ($fCompress and $fDoReplication)
 {
-	my $tarfile = "replication-$iReplicationSequence.tar.bz2";
+    my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
-	if (grep { $rowcounts{$_} } @replication_tables)
-	{
-		copy_readme() or die $!;
-		# Go for the "most restrictive" license
-		copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
-		make_tar($tarfile, @replication_tables);
-	}
+    if (grep { $rowcounts{$_} } @replication_tables)
+    {
+        copy_readme() or die $!;
+        # Go for the "most restrictive" license
+        copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+        make_tar($tarfile, @replication_tables);
+    }
 }
 
 # Tar files all created safely... we can erase the tmpdir on exit
@@ -724,66 +724,66 @@ exit;
 
 sub make_tar
 {
-	my ($tarfile, @files) = @_;
+    my ($tarfile, @files) = @_;
 
-	@files = map { "mbdump/$_" } grep { defined $rowcounts{$_} } @files;
+    @files = map { "mbdump/$_" } grep { defined $rowcounts{$_} } @files;
 
-	# These ones go first, so MBImport can quickly find them
-	unshift @files, qw(
-		TIMESTAMP
-		COPYING
-		README
-		REPLICATION_SEQUENCE
-		SCHEMA_SEQUENCE
-	);
+    # These ones go first, so MBImport can quickly find them
+    unshift @files, qw(
+        TIMESTAMP
+        COPYING
+        README
+        REPLICATION_SEQUENCE
+        SCHEMA_SEQUENCE
+    );
 
-	my $t0 = [gettimeofday];
-	print localtime() . " : Creating $tarfile\n";
-	system { "/bin/tar" } "tar",
-		"-C", $dir,
-		"--bzip2",
-		"--create",
-		"--verbose",
-		"--file", "$OutputDir/$tarfile",
-		"--",
-		@files,
-		;
-	$? == 0 or die "Tar returned $?";
-	printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
+    my $t0 = [gettimeofday];
+    print localtime() . " : Creating $tarfile\n";
+    system { "/bin/tar" } "tar",
+        "-C", $dir,
+        "--bzip2",
+        "--create",
+        "--verbose",
+        "--file", "$OutputDir/$tarfile",
+        "--",
+        @files,
+        ;
+    $? == 0 or die "Tar returned $?";
+    printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
 }
 
 sub writefile
 {
-	my ($file, $contents) = @_;
-	open(my $fh, ">$dir/$file") or die $!;
-	print $fh $contents or die $!;
-	close $fh or die $!;
+    my ($file, $contents) = @_;
+    open(my $fh, ">$dir/$file") or die $!;
+    print $fh $contents or die $!;
+    close $fh or die $!;
 }
 
 sub empty_replication_tables
 {
-	$sql->do("DELETE FROM \"PendingData\"");
-	$sql->do("DELETE FROM \"Pending\"");
-	# As soon as we commit, the replication data is gone from the DB, so we must
-	# be sure that we have a safe copy.
-	$erase_tmpdir_on_exit = 0;
+    $sql->do("DELETE FROM \"PendingData\"");
+    $sql->do("DELETE FROM \"Pending\"");
+    # As soon as we commit, the replication data is gone from the DB, so we must
+    # be sure that we have a safe copy.
+    $erase_tmpdir_on_exit = 0;
 }
 
 sub optimise_replication_tables
 {
-	print localtime() . " : Optimising replication tables\n";
-	$sql->auto_commit;
-	$sql->do("VACUUM FULL ANALYZE \"PendingData\"");
-	$sql->auto_commit;
-	$sql->do("VACUUM FULL ANALYZE \"Pending\"");
+    print localtime() . " : Optimising replication tables\n";
+    $sql->auto_commit;
+    $sql->do("VACUUM FULL ANALYZE \"PendingData\"");
+    $sql->auto_commit;
+    $sql->do("VACUUM FULL ANALYZE \"Pending\"");
 }
 
 sub copy_readme
 {
-	my $svn_url = `svn info | grep "URL:" | colrm 1 5`;
-	chomp($svn_url);
+    my $svn_url = `svn info | grep "URL:" | colrm 1 5`;
+    chomp($svn_url);
 
-	my $text = <<END;
+    my $text = <<END;
 The files in this directory are snapshots of the MusicBrainz database,
 in a format suitable for import into a PostgreSQL database. To import
 them, you need a compatible version of the MusicBrainz server software.
@@ -795,7 +795,7 @@ svn co $svn_url mb_server
 
 After that, follow the instructions given in mb_server/INSTALL.
 END
-	writefile("README", $text);
+    writefile("README", $text);
 }
 
 # eof ExportAllTables

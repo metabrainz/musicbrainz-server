@@ -52,24 +52,24 @@ my $sqlWrite = Sql->new($c->dbh);
 my $sqlVert = Sql->new($c->raw_dbh);
 
 GetOptions(
-	"automod!"		=> \$use_auto_mod,
- 	"moderator=s"	=> sub {
- 		my $user = $_[1];
+    "automod!"          => \$use_auto_mod,
+     "moderator=s"      => sub {
+        my $user = $_[1];
                 my $editor = $c->model('Editor')->get_by_name ($user);
- 		$editor or die "No such moderator '$user'";
+        $editor or die "No such moderator '$user'";
                 $moderator = $editor->id;
- 	},
-	"remove!"		=> \$remove,
-	"verbose!"		=> \$verbose,
-	"summary!"		=> \$summary,
-	"help|h|?"		=> sub { usage(); exit },
+     },
+    "remove!"           => \$remove,
+    "verbose!"          => \$verbose,
+    "summary!"          => \$summary,
+    "help|h|?"          => sub { usage(); exit },
 ) or exit 2;
 
 usage(), exit 2 if @ARGV;
 
 sub usage
 {
-	print <<EOF;
+    print <<EOF;
 Usage: EmptyArtists.pl [OPTIONS]
 
 Allowed options are:
@@ -88,10 +88,10 @@ EOF
 }
 
 $verbose = ($remove ? 0 : 1)
-	unless defined $verbose;
+    unless defined $verbose;
 
 print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), exit 1
-	unless $remove or $verbose or $summary;
+    unless $remove or $verbose or $summary;
 
 print localtime() . " : Finding unused artists (using artist credit/AR/edit criteria)\n";
 
@@ -150,7 +150,7 @@ my $query = <<EOF;
     ) t9
     ON a.id = t9.artist
 
-    WHERE	t1.credits IS NULL
+    WHERE    t1.credits IS NULL
     AND         t3.artist_artist        IS NULL
     AND         t4.artist_release       IS NULL
     AND         t5.artist_release_group IS NULL
@@ -158,7 +158,7 @@ my $query = <<EOF;
     AND         t7.artist_recording     IS NULL
     AND         t8.artist_url           IS NULL
     AND         t9.artist_work          IS NULL
-    AND		a.editpending = 0
+    AND         a.editpending = 0
     ORDER BY sortname
 
 EOF
@@ -192,7 +192,7 @@ while (my ($id, $name, $sortname) = $sql->next_row)
         privileges => $privs
         );
 
-		
+        
     printf "%s : Inserted mod %6d for %6d %-30.30s (%s)\n",
         scalar localtime, $edit->id,
         $id, $name, $sortname if $verbose;
@@ -203,13 +203,13 @@ while (my ($id, $name, $sortname) = $sql->next_row)
 
 if ($summary)
 {
-	printf "%s : Found %d unused artist%s.\n",
-		scalar localtime,
-		$count, ($count==1 ? "" : "s");
-	printf "%s : Successfully removed %d artist%s\n",
-		scalar localtime,
-		$removed, ($removed==1 ? "" : "s")
-		if $remove;
+    printf "%s : Found %d unused artist%s.\n",
+        scalar localtime,
+        $count, ($count==1 ? "" : "s");
+    printf "%s : Successfully removed %d artist%s\n",
+        scalar localtime,
+        $removed, ($removed==1 ? "" : "s")
+        if $remove;
 }
 
 print localtime() . " : EmptyArtists.pl finished\n";

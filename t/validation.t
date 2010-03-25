@@ -28,11 +28,14 @@ ok(!MusicBrainz::Server::Validation::is_valid_discid('123'));
 
 ok(is_valid_iswc('T-000.000.001-0'));
 ok(is_valid_iswc('T-000000001-0'));
-ok(!is_valid_iswc('T0000000010'));
+ok(is_valid_iswc('T-000000001.0'));
+ok(is_valid_iswc('T0000000010'));
 ok(!is_valid_iswc('T00010'));
 ok(!is_valid_iswc('T-000.000-0'));
 
 is(format_iswc('T-000.000.001-0'), 'T-000.000.001-0');
 is(format_iswc('T-000000001-0'), 'T-000.000.001-0');
+is(format_iswc('T-000000001.0'), 'T-000.000.001-0');
+is(format_iswc('T0000000010'), 'T-000.000.001-0');
 
 done_testing;

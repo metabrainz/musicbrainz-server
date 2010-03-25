@@ -48,51 +48,51 @@ my ($count, $error, $invalidtoc, $have);
 
 while($line = <>)
 {
-	$line =~ s/^\s*?(.*?)\s*$/$1/;
+    $line =~ s/^\s*?(.*?)\s*$/$1/;
     if (!$line)
-	{
-		my %tocdata = MusicBrainz::Server::CDTOC::ParseTOC(undef, $data->{toc});
-		if (%tocdata)
-		{
-	        $data->{source} = MusicBrainz::Server::CDStub::CDSTUB_SOURCE_CDBABY;
-			$data->{discid} = $tocdata{discid};
+    {
+        my %tocdata = MusicBrainz::Server::CDTOC::ParseTOC(undef, $data->{toc});
+        if (%tocdata)
+        {
+            $data->{source} = MusicBrainz::Server::CDStub::CDSTUB_SOURCE_CDBABY;
+                $data->{discid} = $tocdata{discid};
 
-			if (!$rc->Lookup($data->{discid}) && !scalar(@{$cdtoc->newFromDiscID($data->{discid})}))
-			{
-				my $err = $rc->Insert($data);
-				if ($err)
-				{
-					#print "Error inserting cd ".$data->{comment}.": $err\n";
-					$error++;
-				}
-			    else
-			    {
-					#print "Inserted $data->{title} by $data->{artist}\n";
-					$count++;
-					print "Inserted $count cds.\n" if ($count % 1000 == 0);
-			    }
-			}
-			else
-			{
-				$have++;
-			}
-		}
-		else
-		{
-			#print "Invalid toc for cd ".($data->{cdbaby} || '').": " . ($data->{toc} || '') . "\n";
-			$invalidtoc++;
-		}
+                if (!$rc->Lookup($data->{discid}) && !scalar(@{$cdtoc->newFromDiscID($data->{discid})}))
+                {
+                        my $err = $rc->Insert($data);
+                        if ($err)
+                        {
+                                #print "Error inserting cd ".$data->{comment}.": $err\n";
+                                $error++;
+                        }
+                    else
+                    {
+                                #print "Inserted $data->{title} by $data->{artist}\n";
+                                $count++;
+                                print "Inserted $count cds.\n" if ($count % 1000 == 0);
+                    }
+                }
+                else
+                {
+                        $have++;
+                }
+        }
+        else
+        {
+                #print "Invalid toc for cd ".($data->{cdbaby} || '').": " . ($data->{toc} || '') . "\n";
+                $invalidtoc++;
+        }
 
-		$data = ();
-		next;
-	}
+        $data = ();
+        next;
+    }
 
-	($k, $v) = split /=/, $line, 2;
-	$data->{artist} = $v if ($k eq 'artist');
-	$data->{title} = $v if ($k eq 'album');
-	$data->{toc} = $v if ($k eq 'toc');
-	$data->{barcode} = $v if ($k eq 'barcode');
-	$data->{comment} = $v if ($k eq 'comment');
-	$data->{tracks}->[$1]->{title} = $v if ($k =~ /^track(\d+)/);
+    ($k, $v) = split /=/, $line, 2;
+    $data->{artist} = $v if ($k eq 'artist');
+    $data->{title} = $v if ($k eq 'album');
+    $data->{toc} = $v if ($k eq 'toc');
+    $data->{barcode} = $v if ($k eq 'barcode');
+    $data->{comment} = $v if ($k eq 'comment');
+    $data->{tracks}->[$1]->{title} = $v if ($k =~ /^track(\d+)/);
 }
 print "Imported $count CDs. Already had $have CDs. Encountered $invalidtoc invalid tocs and $error insert errors."

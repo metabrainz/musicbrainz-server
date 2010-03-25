@@ -41,15 +41,15 @@ $mb->Login;
 my $sql = Sql->new($mb->{dbh});
 
 eval {
-	$sql->Begin;
+    $sql->Begin;
 
-	my $u = UserStuff->newFromName($mb->{dbh}, $name);
-	$u or die "User '$name' not found";
-	$u->GetPrivs & &UserStuff::AUTOMOD_FLAG
-		or die "User '$name' is not an automod";
-	$u->SetUserInfo(privs => $u->GetPrivs &~ &UserStuff::AUTOMOD_FLAG);
+    my $u = UserStuff->newFromName($mb->{dbh}, $name);
+    $u or die "User '$name' not found";
+    $u->GetPrivs & &UserStuff::AUTOMOD_FLAG
+        or die "User '$name' is not an automod";
+    $u->SetUserInfo(privs => $u->GetPrivs &~ &UserStuff::AUTOMOD_FLAG);
 
-	$sql->Commit;
+    $sql->Commit;
 };
 
 my $err = $@;

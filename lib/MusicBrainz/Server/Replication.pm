@@ -33,39 +33,39 @@ use constant RT_SLAVE => 2;
 use constant RT_STANDALONE => 3;
 
 use constant NON_REPLICATED_TABLES => qw(
-	automod_election
-	automod_election_vote
-	moderation_closed
-	moderation_note_closed
-	moderation_note_open
-	moderation_open
-	moderator
-	moderator_preference
-	moderator_subscribe_artist
-	puidjoin_stat
-	puid_stat
-	vote_closed
-	vote_open
+    automod_election
+    automod_election_vote
+    moderation_closed
+    moderation_note_closed
+    moderation_note_open
+    moderation_open
+    moderator
+    moderator_preference
+    moderator_subscribe_artist
+    puidjoin_stat
+    puid_stat
+    vote_closed
+    vote_open
 );
 
 use Exporter;
 {
-	our @ISA = qw( Exporter );
-	our %EXPORT_TAGS = (
-		replication_type => [qw(
-			RT_MASTER
-			RT_SLAVE
-			RT_STANDALONE
-		)],
-	);
-	our @EXPORT_OK = do {
-		my %seen;
-		grep { not $seen{$_}++ } map { @$_ } values %EXPORT_TAGS
-	};
-	push @EXPORT_OK, qw(
-		NON_REPLICATED_TABLES
-	);
-	$EXPORT_TAGS{'all'} = \@EXPORT_OK;
+    our @ISA = qw( Exporter );
+    our %EXPORT_TAGS = (
+        replication_type => [qw(
+                RT_MASTER
+                RT_SLAVE
+                RT_STANDALONE
+        )],
+    );
+    our @EXPORT_OK = do {
+        my %seen;
+        grep { not $seen{$_}++ } map { @$_ } values %EXPORT_TAGS
+    };
+    push @EXPORT_OK, qw(
+        NON_REPLICATED_TABLES
+    );
+    $EXPORT_TAGS{'all'} = \@EXPORT_OK;
 }
 
 1;

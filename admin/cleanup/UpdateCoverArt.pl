@@ -36,8 +36,8 @@ use Getopt::Long;
 my $dry_run = 0;
 my $help = 0;
 GetOptions(
-	"dry-run|dryrun!"	=> \$dry_run,
-	"help"				=> \$help,
+    "dry-run|dryrun!"   => \$dry_run,
+    "help"                              => \$help,
 ) or exit 2;
 $help = 1 if @ARGV;
 

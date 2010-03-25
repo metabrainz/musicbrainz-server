@@ -70,13 +70,13 @@ my ($la_lwm, $la_hwm) = (1, 2);
 my $sleep;
 my $start_id;
 GetOptions(
-	"chunk=i"	=> \$chunk,
-	"commit=i"	=> \$commit,
-	"full"		=> \$full,
-	"la-hwm=f"	=> \$la_hwm,
-	"la-lwm=f"	=> \$la_lwm,
-	"sleep=i"	=> \$sleep,
-	"start-id=i"=> \$start_id,
+    "chunk=i"   => \$chunk,
+    "commit=i"  => \$commit,
+    "full"              => \$full,
+    "la-hwm=f"  => \$la_hwm,
+    "la-lwm=f"  => \$la_lwm,
+    "sleep=i"   => \$sleep,
+    "start-id=i"=> \$start_id,
 ) or exit 2;
 
 use DBDefs;
@@ -101,158 +101,158 @@ print localtime() . " : min=$iMin threshold=$threshold_mod_id max=$iMax\n";
 my $types = join ",", &ModDefs::MOD_ADD_TRMS, &ModDefs::MOD_ADD_PUIDS;
 
 nibble(
-	"SELECT id FROM moderation_closed WHERE type IN ($types) AND id BETWEEN ? AND ?",
-	$iMin, $threshold_mod_id,
-	[ "moderation_note_closed", "moderation" ],
-	[ "vote_closed", "moderation" ],
-	[ "moderation_closed", "id" ],
+    "SELECT id FROM moderation_closed WHERE type IN ($types) AND id BETWEEN ? AND ?",
+    $iMin, $threshold_mod_id,
+    [ "moderation_note_closed", "moderation" ],
+    [ "vote_closed", "moderation" ],
+    [ "moderation_closed", "id" ],
 );
 
 sub nibble
 {
-	my ($getidquery, $iMin, $iMax, @deletelist) = @_;
+    my ($getidquery, $iMin, $iMax, @deletelist) = @_;
 
-	require POSIX;
-	my $now = POSIX::strftime('%Y%m%d-%H%M%S-UTC', gmtime);
+    require POSIX;
+    my $now = POSIX::strftime('%Y%m%d-%H%M%S-UTC', gmtime);
 
-	my $filename;
-	my $fh;
-	for (my $n=1; ; ++$n)
-	{
-		$filename = "oldmods-$now-$n.dat";
-		use Fcntl qw( O_CREAT O_RDWR O_EXCL );
-		sysopen($fh, $filename, O_CREAT|O_RDWR|O_EXCL) and last;
-		next if $!{EEXIST};
-		die "open >$filename: $!";
-	}
-	print localtime() . " : Saving to $filename\n";
+    my $filename;
+    my $fh;
+    for (my $n=1; ; ++$n)
+    {
+        $filename = "oldmods-$now-$n.dat";
+        use Fcntl qw( O_CREAT O_RDWR O_EXCL );
+        sysopen($fh, $filename, O_CREAT|O_RDWR|O_EXCL) and last;
+        next if $!{EEXIST};
+        die "open >$filename: $!";
+    }
+    print localtime() . " : Saving to $filename\n";
 
-	print $fh "-- schema sequence " . &DBDefs::DB_SCHEMA_SEQUENCE . "\n"
-		or die $!;
+    print $fh "-- schema sequence " . &DBDefs::DB_SCHEMA_SEQUENCE . "\n"
+        or die $!;
 
-	my $done = 0;
-	while (not $done)
-	{
-		check_loadavg();
+    my $done = 0;
+    while (not $done)
+    {
+        check_loadavg();
 
-		my $pos = tell $fh;
-		require IO::Handle;
+        my $pos = tell $fh;
+        require IO::Handle;
 
-		$sql->AutoCommit;
-		$sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+        $sql->AutoCommit;
+        $sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
 
-		eval {
-			$sql->Begin;
+        eval {
+                $sql->Begin;
 
-			my $iLocalMax = $iMin + $chunk - 1;
+                my $iLocalMax = $iMin + $chunk - 1;
 
-			# Make the list of IDs that we're going to process
-			print localtime() . " : Getting ID set ($iMin - $iLocalMax)\n";
-			$sql->Do("CREATE TEMPORARY TABLE tmp_ids AS $getidquery LIMIT $chunk", $iMin, $iLocalMax);
-			my $count = $sql->SelectSingleValue("SELECT COUNT(*) FROM tmp_ids");
-			print localtime() . " : Got $count IDs\n";
+                # Make the list of IDs that we're going to process
+                print localtime() . " : Getting ID set ($iMin - $iLocalMax)\n";
+                $sql->Do("CREATE TEMPORARY TABLE tmp_ids AS $getidquery LIMIT $chunk", $iMin, $iLocalMax);
+                my $count = $sql->SelectSingleValue("SELECT COUNT(*) FROM tmp_ids");
+                print localtime() . " : Got $count IDs\n";
 
-			if ($count == 0)
-			{
-				$sql->Do("DROP TABLE tmp_ids");
-				$sql->Commit;
-				$iMin = $iLocalMax + 1;
-				$done = 1 if $iMin > $iMax;
-				return;
-			}
+                if ($count == 0)
+                {
+                        $sql->Do("DROP TABLE tmp_ids");
+                        $sql->Commit;
+                        $iMin = $iLocalMax + 1;
+                        $done = 1 if $iMin > $iMax;
+                        return;
+                }
 
-			$fh->autoflush(0);
-			print $fh "BEGIN;\n" or die $!;
+                $fh->autoflush(0);
+                print $fh "BEGIN;\n" or die $!;
 
-			for my $q (@deletelist)
-			{
-				my ($tab, $col) = @$q;
-				print localtime() . " : $tab.$col\n";
+                for my $q (@deletelist)
+                {
+                        my ($tab, $col) = @$q;
+                        print localtime() . " : $tab.$col\n";
 
-				$sql->Do("CREATE TEMPORARY TABLE tmp_copy AS"
-					. " SELECT * FROM $tab WHERE $col IN (SELECT id FROM tmp_ids)");
+                        $sql->Do("CREATE TEMPORARY TABLE tmp_copy AS"
+                                . " SELECT * FROM $tab WHERE $col IN (SELECT id FROM tmp_ids)");
 
-				copy_table_to_fh($sql, "tmp_copy", $fh, "$tab\t");
+                        copy_table_to_fh($sql, "tmp_copy", $fh, "$tab\t");
 
-				$sql->Do("DROP TABLE tmp_copy");
-				$sql->Do("DELETE FROM $tab WHERE $col IN (SELECT id FROM tmp_ids)");
-			}
-			$fh->autoflush(1);
-			$sql->Do("DROP TABLE tmp_ids");
-			print $fh "COMMIT;\n" or die $!;
-			$sql->Commit;
-		};
-		if ($@) {
-			my $err = $@;
-			eval { $sql->Rollback };
-			print "Rolling back $filename to $pos\n";
-			seek($fh, $pos, 0) or die $!;
-			truncate($fh, $pos) or die $!;
-			die $err;
-		}
-		print localtime() . " : Committed $filename to ".tell($fh)."\n";
-		sleep $sleep if defined $sleep;
-	}
+                        $sql->Do("DROP TABLE tmp_copy");
+                        $sql->Do("DELETE FROM $tab WHERE $col IN (SELECT id FROM tmp_ids)");
+                }
+                $fh->autoflush(1);
+                $sql->Do("DROP TABLE tmp_ids");
+                print $fh "COMMIT;\n" or die $!;
+                $sql->Commit;
+        };
+        if ($@) {
+                my $err = $@;
+                eval { $sql->Rollback };
+                print "Rolling back $filename to $pos\n";
+                seek($fh, $pos, 0) or die $!;
+                truncate($fh, $pos) or die $!;
+                die $err;
+        }
+        print localtime() . " : Committed $filename to ".tell($fh)."\n";
+        sleep $sleep if defined $sleep;
+    }
 
-	print localtime() . " : Nibble complete\n";
+    print localtime() . " : Nibble complete\n";
 }
 
 exit 0;
 
 sub check_loadavg
 {
-	my $la = loadavg();
-	return if $la < $la_hwm;
-	local $| = 1;
-	print localtime() . " : Waiting for load average ($la) to fall ...";
-	while (1)
-	{
-		sleep 10;
-		$la = loadavg();
-		print " $la";
-		last if $la < $la_lwm;
-	}
-	print "\n";
-	print localtime() . " : Continuing\n";
+    my $la = loadavg();
+    return if $la < $la_hwm;
+    local $| = 1;
+    print localtime() . " : Waiting for load average ($la) to fall ...";
+    while (1)
+    {
+        sleep 10;
+        $la = loadavg();
+        print " $la";
+        last if $la < $la_lwm;
+    }
+    print "\n";
+    print localtime() . " : Continuing\n";
 }
 
 sub loadavg
 {
-	open(my $fh, "<", "/proc/loadavg") or return undef;
-	my $line = <$fh>;
-	close $fh;
-	return (split ' ', $line)[0];
+    open(my $fh, "<", "/proc/loadavg") or return undef;
+    my $line = <$fh>;
+    close $fh;
+    return (split ' ', $line)[0];
 }
 
 sub copy_table_to_fh
 {
-	my ($sql, $table, $fh, $prefix) = @_;
+    my ($sql, $table, $fh, $prefix) = @_;
 
-	$sql->Do("COPY \"$table\" TO stdout");
-	my $buffer;
-	my $rows = 0;
+    $sql->Do("COPY \"$table\" TO stdout");
+    my $buffer;
+    my $rows = 0;
 
-	# This has to be at least as large as the longest line given
-	# by "copy table to stdout".
-	# Currently the largest value is moderation #2575726 at approx
-	# 312,851 bytes.
-	my $max = 315_000; my $maxline = __LINE__;
-	my $longest = 0;
+    # This has to be at least as large as the longest line given
+    # by "copy table to stdout".
+    # Currently the largest value is moderation #2575726 at approx
+    # 312,851 bytes.
+    my $max = 315_000; my $maxline = __LINE__;
+    my $longest = 0;
 
-	my $dbh = $sql->{dbh};
-	while ($dbh->func($buffer, $max, "getline"))
-	{
-		die "\nProbable data truncation!  See $0 line $maxline"
-			if length($buffer) >= $max-1;
+    my $dbh = $sql->{dbh};
+    while ($dbh->func($buffer, $max, "getline"))
+    {
+        die "\nProbable data truncation!  See $0 line $maxline"
+                if length($buffer) >= $max-1;
 
-		$longest = length($buffer) if length($buffer) > $longest;
-		print $fh "$prefix$buffer\n"
-			or die $!;
+        $longest = length($buffer) if length($buffer) > $longest;
+        print $fh "$prefix$buffer\n"
+                or die $!;
 
-		++$rows;
-	}
+        ++$rows;
+    }
 
-	$dbh->func("endcopy") or die;
+    $dbh->func("endcopy") or die;
 }
 
 # eof ArchiveOldModerations

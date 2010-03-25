@@ -66,12 +66,12 @@ my $verbose = 0;
 my $summary = 0;
 my $progress = 0;
 GetOptions(
-	"debug!"			=> \$debug,
-	"dry-run|dryrun|n"	=> \$dry_run,
-	"verbose|v"			=> \$verbose,
-	"summary|s"			=> \$summary,
-	"progress|p"		=> \$progress,
-	"help|h"			=> sub { showhelp(); exit 0; },
+    "debug!"                    => \$debug,
+    "dry-run|dryrun|n"  => \$dry_run,
+    "verbose|v"                 => \$verbose,
+    "summary|s"                 => \$summary,
+    "progress|p"                => \$progress,
+    "help|h"                    => sub { showhelp(); exit 0; },
 ) or exit 2;
 showhelp(), exit 2 if @ARGV;
 
@@ -103,37 +103,37 @@ my $cdtocfactory = MusicBrainz::Server::CDTOC->new($mb->{dbh});
 
 while (my $row = $sql->NextRowHashRef)
 {
-	print "$i/$rows\r" if $progress and not $i % 31;
-	++$i;
+    print "$i/$rows\r" if $progress and not $i % 31;
+    ++$i;
 
-	my $cdtoc = $cdtocfactory->_new_from_row($row);
-	my $id = $cdtoc->GetId;
+    my $cdtoc = $cdtocfactory->_new_from_row($row);
+    my $id = $cdtoc->GetId;
 
-	if (@{ $cdtoc->GetTrackOffsets } != $cdtoc->GetTrackCount)
-	{
-		push @delete_unparseable, $row;
-		warn "cdtoc #$id has track count mismatch\n";
-		next;
-	}
+    if (@{ $cdtoc->GetTrackOffsets } != $cdtoc->GetTrackCount)
+    {
+        push @delete_unparseable, $row;
+        warn "cdtoc #$id has track count mismatch\n";
+        next;
+    }
 
-	my %info = MusicBrainz::Server::CDTOC->ParseTOC($cdtoc->GetTOC);
+    my %info = MusicBrainz::Server::CDTOC->ParseTOC($cdtoc->GetTOC);
 
-	if (not %info)
-	{
-		push @delete_unparseable, $row;
-		warn "cdtoc #$id does not parse\n";
-		next;
-	}
+    if (not %info)
+    {
+        push @delete_unparseable, $row;
+        warn "cdtoc #$id does not parse\n";
+        next;
+    }
 
-	my $correct_discid = $info{discid};
-	my $correct_freedbid = $info{freedbid};
+    my $correct_discid = $info{discid};
+    my $correct_freedbid = $info{freedbid};
 
-	++$perfect, next
-		if $row->{discid} eq $correct_discid
-		and $row->{freedbid} eq $correct_freedbid;
+    ++$perfect, next
+        if $row->{discid} eq $correct_discid
+        and $row->{freedbid} eq $correct_freedbid;
 
-	push @fix_discid, [ $id, $correct_discid, $correct_freedbid ];
-	warn "Will fix cdtoc #$id\n";
+    push @fix_discid, [ $id, $correct_discid, $correct_freedbid ];
+    warn "Will fix cdtoc #$id\n";
 }
 
 $sql->Finish;
@@ -141,27 +141,27 @@ print "$i/$rows\n" if $progress;
 
 printf <<EOF,
 %s : Summary follows:
-		Perfect: %d
-		Unparseable: %d
-		Fix discid / freedbid: %d
+        Perfect: %d
+        Unparseable: %d
+        Fix discid / freedbid: %d
 EOF
-	scalar localtime,
-	$perfect,
-	0+@delete_unparseable,
-	0+@fix_discid,
-	if $summary;
+    scalar localtime,
+    $perfect,
+    0+@delete_unparseable,
+    0+@fix_discid,
+    if $summary;
 
 unless (@delete_unparseable
-	or @fix_discid
+    or @fix_discid
 ) {
-	print localtime() . " : Nothing to fix - exiting\n";
-	exit 0;
+    print localtime() . " : Nothing to fix - exiting\n";
+    exit 0;
 }
 
 if ($dry_run)
 {
-	print localtime() . " : Dry run requested - not fixing data\n";
-	exit 1;
+    print localtime() . " : Dry run requested - not fixing data\n";
+    exit 1;
 }
 
 # Fix it!
@@ -171,42 +171,42 @@ $sql->Do("LOCK TABLE cdtoc IN EXCLUSIVE MODE");
 
 if (@delete_unparseable)
 {
-	printf "%s : Deleting %d unparseable CDTOC row%s\n",
-		scalar localtime,
-		0+@delete_unparseable,
-		(@delete_unparseable==1 ? "" : "s"),
-		;
+    printf "%s : Deleting %d unparseable CDTOC row%s\n",
+        scalar localtime,
+        0+@delete_unparseable,
+        (@delete_unparseable==1 ? "" : "s"),
+        ;
 
-	for my $row (@delete_unparseable)
-	{
-		print localtime() . " : Deleting cdtoc #$row->{id} with unparseable TOC\n"
-			if $verbose;
-		$sql->Do("DELETE FROM album_cdtoc WHERE cdtoc = ?", $row->{id});
-		$sql->Do("DELETE FROM cdtoc WHERE id = ?", $row->{id});
-	}
+    for my $row (@delete_unparseable)
+    {
+        print localtime() . " : Deleting cdtoc #$row->{id} with unparseable TOC\n"
+                if $verbose;
+        $sql->Do("DELETE FROM album_cdtoc WHERE cdtoc = ?", $row->{id});
+        $sql->Do("DELETE FROM cdtoc WHERE id = ?", $row->{id});
+    }
 }
 
 if (@fix_discid)
 {
-	printf "%s : Fixing %d incorrect discid / freedbid row%s\n",
-		scalar localtime,
-		0+@fix_discid,
-		(@fix_discid==1 ? "" : "s"),
-		;
-	
-	for my $fix (@fix_discid)
-	{
-		my ($id, $correct_discid, $correct_freedbid) = @$fix;
+    printf "%s : Fixing %d incorrect discid / freedbid row%s\n",
+        scalar localtime,
+        0+@fix_discid,
+        (@fix_discid==1 ? "" : "s"),
+        ;
+    
+    for my $fix (@fix_discid)
+    {
+        my ($id, $correct_discid, $correct_freedbid) = @$fix;
 
-		print localtime() . " : Fixing cdtoc #$id with wrong discid / freedbid\n"
-			if $verbose;
-		$sql->Do(
-			"UPDATE cdtoc SET discid = ?, freedbid = ? WHERE id = ?",
-			$correct_discid,
-			$correct_freedbid,
-			$id,
-		);
-	}
+        print localtime() . " : Fixing cdtoc #$id with wrong discid / freedbid\n"
+                if $verbose;
+        $sql->Do(
+                "UPDATE cdtoc SET discid = ?, freedbid = ? WHERE id = ?",
+                $correct_discid,
+                $correct_freedbid,
+                $id,
+        );
+    }
 }
 
 $sql->Commit;

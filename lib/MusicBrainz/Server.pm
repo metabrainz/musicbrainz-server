@@ -117,15 +117,15 @@ else {
 }
 
 if (&DBDefs::CATALYST_DEBUG) {
-	push @args, "-Debug";
+    push @args, "-Debug";
 }
 
 if (&DBDefs::SESSION_COOKIE) {
-	__PACKAGE__->config->{session}{cookie_name} = &DBDefs::SESSION_COOKIE;
+    __PACKAGE__->config->{session}{cookie_name} = &DBDefs::SESSION_COOKIE;
 }
 
 if (&DBDefs::SESSION_DOMAIN) {
-	__PACKAGE__->config->{session}{cookie_domain} = &DBDefs::SESSION_DOMAIN;
+    __PACKAGE__->config->{session}{cookie_domain} = &DBDefs::SESSION_DOMAIN;
 }
 
 __PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;

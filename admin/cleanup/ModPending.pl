@@ -36,21 +36,21 @@ my $eachmod = -t;
 my $lockmode = "full";
 
 GetOptions(
-	"verbose!"		=> \$verbose,
-	"eachmod!"		=> \$eachmod,
-	"lockmode=s"	=> sub {
-		my $mode = $_[1];
-		$mode =~ /^(full|none|blank)$/ or die "Unknown lockmode\n";
-		$lockmode = $mode;
-	},
-	"help|h|?"		=> sub { usage(); exit },
+    "verbose!"          => \$verbose,
+    "eachmod!"          => \$eachmod,
+    "lockmode=s"        => sub {
+        my $mode = $_[1];
+        $mode =~ /^(full|none|blank)$/ or die "Unknown lockmode\n";
+        $lockmode = $mode;
+    },
+    "help|h|?"          => sub { usage(); exit },
 ) or exit 2;
 
 usage(), exit 2 if @ARGV;
 
 sub usage
 {
-	print <<EOF;
+    print <<EOF;
 Usage: ModPending.pl [OPTIONS]
 
 Allowed options are:
@@ -82,14 +82,14 @@ $mb->Login;
 my $sql = Sql->new($mb->{dbh});
 
 $verbose
-	? open(LOG, ">&STDOUT")
-	: open(LOG, ">/dev/null");
+    ? open(LOG, ">&STDOUT")
+    : open(LOG, ">/dev/null");
 
 ################################################################################
 
 my @lock_tables =
 qw(
-	moderation_open
+    moderation_open
     album
     album_cdtoc
     albumjoin
@@ -137,7 +137,7 @@ qw(
 my @columns =
 qw(
     album
-	album.attributes[1]
+    album.attributes[1]
     album.modpending_lang
     album_cdtoc.modpending
     albumjoin
@@ -186,8 +186,8 @@ print LOG localtime() . " : Beginning transaction, locking tables\n";
 
 if ($lockmode eq "full" or $lockmode eq "blank")
 {
-	$sql->Begin;
-	$sql->Do("LOCK TABLE ".join(", ", @lock_tables)." IN EXCLUSIVE MODE");
+    $sql->Begin;
+    $sql->Do("LOCK TABLE ".join(", ", @lock_tables)." IN EXCLUSIVE MODE");
 }
 
 # Reset modpending to zero
@@ -196,29 +196,29 @@ print LOG localtime() . " : Blanking non-zero modpending counts\n";
 
 for (@columns) 
 {
-	my ($table, $expr) = split /\./, $_;
-	$expr ||= "modpending";
-	$sql->AutoCommit if $lockmode eq "none";
-	$a = $sql->Do("UPDATE $table SET $expr = 0 WHERE $expr < 0");
-	$sql->AutoCommit if $lockmode eq "none";
-	$b = $sql->Do("UPDATE $table SET $expr = 0 WHERE $expr > 0");
-	printf LOG "%s : %-24.24s - %4d negative, %4d positive\n",
-		scalar(localtime),
-		"$table.$expr", $a, $b;
+    my ($table, $expr) = split /\./, $_;
+    $expr ||= "modpending";
+    $sql->AutoCommit if $lockmode eq "none";
+    $a = $sql->Do("UPDATE $table SET $expr = 0 WHERE $expr < 0");
+    $sql->AutoCommit if $lockmode eq "none";
+    $b = $sql->Do("UPDATE $table SET $expr = 0 WHERE $expr > 0");
+    printf LOG "%s : %-24.24s - %4d negative, %4d positive\n",
+        scalar(localtime),
+        "$table.$expr", $a, $b;
 }
 
 # Find all open moderations
 
 print LOG localtime() . " : Finding open moderations\n";
 my $ids = $sql->SelectSingleColumnArray(
-	"SELECT id FROM moderation_open WHERE status = " . STATUS_OPEN
+    "SELECT id FROM moderation_open WHERE status = " . STATUS_OPEN
 );
 print LOG localtime() . " :   ".@$ids." mods open\n";
 
 if ($lockmode eq "blank")
 {
-	print LOG localtime() . " : Committing transaction\n";
-	$sql->Commit;
+    print LOG localtime() . " : Committing transaction\n";
+    $sql->Commit;
 }
 
 # For each open moderation, construct the handler object and call its
@@ -228,52 +228,52 @@ my $modclass = Moderation->new($mb->{dbh});
 my $n = 0;
 
 $eachmod
-	? open(EACHMOD, ">&STDOUT")
-	: open(EACHMOD, ">/dev/null");
+    ? open(EACHMOD, ">&STDOUT")
+    : open(EACHMOD, ">/dev/null");
 
 for my $modid (@$ids)
 {
-	++$n;
-	printf EACHMOD "%6d of %d - mod #%d",
-		$n, scalar(@$ids), $modid;
+    ++$n;
+    printf EACHMOD "%6d of %d - mod #%d",
+        $n, scalar(@$ids), $modid;
 
-	$sql->Begin
-		if $lockmode eq "blank" or $lockmode eq "none";
+    $sql->Begin
+        if $lockmode eq "blank" or $lockmode eq "none";
 
-	my $mod = $modclass->CreateFromId($modid);
+    my $mod = $modclass->CreateFromId($modid);
 
-	if (not ref($mod))
-	{
-		print EACHMOD " - load failed\n";
-		warn "Could not load moderation #$modid\n";
-		$sql->Commit
-			if $lockmode eq "blank" or $lockmode eq "none";
-		next;
-	}
+    if (not ref($mod))
+    {
+        print EACHMOD " - load failed\n";
+        warn "Could not load moderation #$modid\n";
+        $sql->Commit
+                if $lockmode eq "blank" or $lockmode eq "none";
+        next;
+    }
 
-	printf EACHMOD " - %s (%s #%d)",
-		$mod->Name, $mod->GetTable, $mod->GetRowId;
+    printf EACHMOD " - %s (%s #%d)",
+        $mod->Name, $mod->GetTable, $mod->GetRowId;
 
-	if (eval { $mod->AdjustModPending(+1); 1 })
-	{
-		print EACHMOD " - ok\n";
-		$sql->Commit
-			if $lockmode eq "blank" or $lockmode eq "none";
-		next;
-	}
+    if (eval { $mod->AdjustModPending(+1); 1 })
+    {
+        print EACHMOD " - ok\n";
+        $sql->Commit
+                if $lockmode eq "blank" or $lockmode eq "none";
+        next;
+    }
 
-	print EACHMOD " - AdjustModPending failed\n";
-	warn "Error encountered for moderation #$modid 'AdjustModPending': $@\n";
-	$sql->Rollback
-		if $lockmode eq "blank" or $lockmode eq "none";
+    print EACHMOD " - AdjustModPending failed\n";
+    warn "Error encountered for moderation #$modid 'AdjustModPending': $@\n";
+    $sql->Rollback
+        if $lockmode eq "blank" or $lockmode eq "none";
 }
 
 # Commit!
 
 if ($lockmode eq "full")
 {
-	print LOG localtime() . " : Committing transaction\n";
-	$sql->Commit;
+    print LOG localtime() . " : Committing transaction\n";
+    $sql->Commit;
 }
 print LOG localtime() . " : Done!\n";
 
