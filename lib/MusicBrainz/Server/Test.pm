@@ -23,6 +23,8 @@ my $test_context;
 
 sub create_test_context
 {
+    my ($class, %args) = @_;
+
     $test_context ||= do {
         my $cache_manager = MusicBrainz::Server::CacheManager->new(
             profiles => {
@@ -33,7 +35,10 @@ sub create_test_context
             },
             default_profile => 'null',
         );
-        MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
+        MusicBrainz::Server::Context->new(
+            cache_manager => $cache_manager,
+            %args
+        );
     };
 
     return $test_context;
