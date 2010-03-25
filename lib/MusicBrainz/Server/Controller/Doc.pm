@@ -13,7 +13,7 @@ sub show : Path('')
     $id =~ s/ /_/g;
 
     $c->detach('/error_404')
-        if $id =~ /^(Special|User):/;
+        if $id =~ /^(Special|User):/i;
 
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
