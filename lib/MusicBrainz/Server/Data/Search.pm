@@ -414,7 +414,6 @@ sub external_search
                                  $query,
                                  $offset,
                                  $limit,);
-    $c->log->debug($search_url);
 
     $ua = LWP::UserAgent->new if (!defined $ua);
     $ua->timeout (5);

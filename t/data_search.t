@@ -7,12 +7,15 @@ use Test::Moose;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Test::Mock::Class ':all';
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 use_ok 'MusicBrainz::Server::Data::Search';
 
 sub load_data
 {
     my ($type) = @_;
+
+    ok (type_to_model($type), "$type has a model");
 
     return MusicBrainz::Server::Data::Search->new()->external_search(
             MusicBrainz::Server::Test->create_test_context(), 
@@ -40,9 +43,7 @@ is ( $artist->comment, 'folk-rock/psychedelic band' );
 is ( $artist->gid, '34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47' );
 is ( $artist->type->name, 'group' );
 
-
-
-$data = load_data('release-group');
+$data = load_data('release_group');
 
 is ( @{$data->{results} }, 25 );
 

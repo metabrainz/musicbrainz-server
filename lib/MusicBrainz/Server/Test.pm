@@ -199,7 +199,8 @@ sub mock_search_server
     my ($type) = @_;
 
     local $/;
-    open(JSON, "t/json/search_$type.json") or die;
+    my $searchresults = "t/json/search_".lc($type).".json";
+    open(JSON, $searchresults) or die ("Could not open $searchresults");
     my $json = <JSON>;
     close(JSON);
 
