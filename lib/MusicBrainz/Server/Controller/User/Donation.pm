@@ -10,10 +10,10 @@ sub view : Chained('/user/base') PathPart('donation') RequireAuth
     my $user = $c->stash->{user};
 
     $c->detach('/error_403')
-        unless (defined $c->user && $c->user->id == $user->id);
+        unless $c->{stash}->{viewing_own_profile};
 
     my $nag = 1;
-    $nag = 0 if ($user->is_nag_free || $user->is_auto_editor || $user->is_bot || 
+    $nag = 0 if ($user->is_nag_free || $user->is_auto_editor || $user->is_bot ||
                  $user->is_relationship_editor || $user->is_wiki_transcluder);
 
     my $days = 0.0;
@@ -21,8 +21,8 @@ sub view : Chained('/user/base') PathPart('donation') RequireAuth
     {
         use LWP::Simple;
         use URI::Escape;
-        $days = get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($self->GetName));
-        if ($days =~ /\s*([-01]+),([-0-9.]+)\s*/) 
+        $days = get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($user->name));
+        if ($days =~ /\s*([-01]+),([-0-9.]+)\s*/)
         {
             $nag = $1;
             $days = $2;
