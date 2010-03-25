@@ -50,7 +50,7 @@ role {
                 form => 'Confirm',
                 type => $params->edit_type,
                 edit_args => {
-                    old_entity_id => $old->id,
+                    old_entities  => [ { id => $old->id, name => $old->name } ],
                     new_entity_id => $new->id
                 },
                 on_creation => sub {
