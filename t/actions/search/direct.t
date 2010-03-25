@@ -15,12 +15,12 @@ $mech->content_contains('Kate Bush', 'has correct search result');
 $mech->content_contains('Bush, Kate', 'has artist sortname');
 $mech->content_contains('/artist/4b585938-f271-45e2-b19a-91c634b5e396', 'has link to artist');
 
-$mech->get_ok('/search?query=Warp&type=label&direct=on', 'perform label search');
-xml_ok($mech->content);
-$mech->content_contains('1 result', 'has result count');
-$mech->content_contains('Warp Records', 'has correct search result');
-$mech->content_contains('Sheffield based electronica label', 'has label comment');
-$mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190', 'has link to label');
+$mech->requests_redirectable( [] );
+$mech->get ('/search?query=Warp&type=label&direct=on');
+is ($mech->status(), 302, "Single result, redirected");
+ok ($mech->response()->header('location') =~ m{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, '... to label page');
+
+$mech->requests_redirectable( ['GET', 'HEAD'] );
 
 $mech->get_ok('/search?query=Dancing+Queen&type=work&direct=on', 'perform works search');
 xml_ok($mech->content);

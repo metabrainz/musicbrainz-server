@@ -56,12 +56,13 @@ is($editor->rejected_edits, 3);
 is($editor->failed_edits, 10);
 is($editor->accepted_auto_edits, 60);
 
+my $alice = $editor_data->get_by_name('alice');
 # Test preferences
-is($editor->preferences->public_ratings, 1, 'use default preference');
-$editor_data->load_preferences($editor);
-is($editor->preferences->public_ratings, 0, 'load preferences');
-is($editor->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
-is($editor->preferences->timezone, 'UTC', 'timezone loaded');
+is($alice->preferences->public_ratings, 1, 'use default preference');
+$editor_data->load_preferences($alice);
+is($alice->preferences->public_ratings, 0, 'load preferences');
+is($alice->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
+is($alice->preferences->timezone, 'UTC', 'timezone loaded');
 
 my $new_editor_2 = $editor_data->insert({
     name => 'new_editor_2',
