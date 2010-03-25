@@ -438,7 +438,7 @@ INSERT INTO isrc SELECT * FROM tmp_isrc;
 DROP TABLE tmp_isrc;
 ");
 
-    my @entity_types = qw(artist label release release_group url );
+    my @entity_types = qw(artist label release release_group url work);
     foreach my $type (@entity_types) {
         my ($entity0, $entity1, $table);
         if ($type lt "recording") {
