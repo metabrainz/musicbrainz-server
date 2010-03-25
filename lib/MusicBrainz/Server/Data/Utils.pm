@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Utils;
 use base 'Exporter';
 
 use Class::MOP;
+use Data::Compare;
 use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
@@ -15,6 +16,7 @@ our @EXPORT_OK = qw(
     defined_hash
     hash_to_row
     add_partial_date_to_row
+    remove_equal
     generate_gid
     insert_and_create
     generate_gid
@@ -255,6 +257,21 @@ sub order_by
         }
     }
     return $order_by;
+}
+
+sub remove_equal
+{
+    my ($old, $new) = @_;
+
+    for my $key (keys %$old) {
+        my $n = $new->{$key};
+        my $o = $old->{$key};
+
+        if (Compare($n, $o)) {
+            delete $old->{$key};
+            delete $new->{$key};
+        }
+    }
 }
 
 1;
