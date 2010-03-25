@@ -3,7 +3,6 @@ use Moose;
 
 use Memoize;
 use Module::Pluggable::Object;
-use URI::Escape qw( uri_escape uri_unescape );
 
 memoize(qw(
     artist_name
@@ -61,8 +60,6 @@ sub _new_from_row
         table          => $row->{tab},
         column         => $row->{col},
         row_id         => $row->{rowid},
-        previous_value => $class->deserialize_previous_value ? $self->deserialize($row->{prevvalue}) : $row->{prevvalue},
-        new_value      => $class->deserialize_new_value      ? $self->deserialize($row->{newvalue})  : $row->{newvalue},
         created_time   => $row->{opentime},
         expires_time   => $row->{expiretime},
         close_time     => $row->{closetime},
@@ -76,7 +73,12 @@ sub _new_from_row
     # Some edits do not set an artist ID
     $args{artist_id} = $row->{artist} if $row->{artist};
 
-    return $class->new(%args);
+    my $edit = $class->new(%args);
+
+    $edit->previous_value($edit->deserialize_previous_value($row->{prevvalue}));
+    $edit->new_value($edit->deserialize_new_value($row->{newvalue}));
+
+    return $edit;
 }
 
 # Maps release to release groups
@@ -123,31 +125,6 @@ sub artist_name
           JOIN artist_name name ON artist.name=name.id
          WHERE artist.id = ?
     }, $id) || sprintf '[ Artist #%d ]', $id;
-}
-
-sub deserialize
-{
-    my ($self, $serialized) = @_;
-    return {} unless $serialized;
-
-    my %kv;
-    for my $line (split /\n/, $serialized) {
-        my ($k, $v) = split /=/, $line, 2;
-        return undef unless defined $v;
-        $kv{$k} = $self->_decode_value($v);
-    }
-
-    return \%kv;
-}
-
-sub _decode_value
-{
-    my ($self, $value) = @_;
-    my ($scheme, $data) = $value =~ /\A\x1B(\w+);(.*)\z/s
-        or return $value;
-
-    return uri_unescape($data) if $scheme eq "URI";
-    die "Unknown encoding scheme '$scheme'";
 }
 
 no Moose;

@@ -3,6 +3,8 @@ use Moose;
 use MooseX::ABC;
 use MooseX::Types::Moose qw( Int HashRef Maybe Object Str );
 
+use URI::Escape qw( uri_escape uri_unescape );
+
 extends 'MusicBrainz::Server::Edit';
 
 has 'migration' => (
@@ -29,11 +31,36 @@ has [qw( table column )] => (
 
 has [qw( new_value previous_value )] => (
     isa => Maybe[HashRef | Str],
-    is  => 'ro',
+    is  => 'rw',
 );
 
-sub deserialize_previous_value { 1 }
-sub deserialize_new_value      { 1 }
+sub deserialize
+{
+    my ($self, $serialized) = @_;
+    return {} unless $serialized;
+
+    my %kv;
+    for my $line (split /\n/, $serialized) {
+        my ($k, $v) = split /=/, $line, 2;
+        return undef unless defined $v;
+        $kv{$k} = $self->_decode_value($v);
+    }
+
+    return \%kv;
+}
+
+sub _decode_value
+{
+    my ($self, $value) = @_;
+    my ($scheme, $data) = $value =~ /\A\x1B(\w+);(.*)\z/s
+        or return $value;
+
+    return uri_unescape($data) if $scheme eq "URI";
+    die "Unknown encoding scheme '$scheme'";
+}
+
+sub deserialize_previous_value { shift->deserialize(shift) }
+sub deserialize_new_value      { shift->deserialize(shift) }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
