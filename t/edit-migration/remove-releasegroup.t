@@ -11,24 +11,13 @@ my $c = MusicBrainz::Server::Test->create_test_context;
 my $mocks = Test::Mock::Context->new;
 my $mock_sql = $mocks->mock('Sql');
 $mocks->expect($mock_sql, 'select');
-$mocks->expect($mock_sql, 'next_row_hash_ref')->return({
-    id         => 12345,
-    artist     => 9876,
-    moderator  => 101,
-    tab        => 'release_group',
-    col        => 'name',
-    type       => 68,
-    status     => 2,
-    rowid      => 1234,
-    prevvalue  => 'Removed release group',
-    newvalue   => undef,
-    yesvotes   => 5,
-    novotes    => 3,
-    automod    => 1,
-    opentime   => '2010-01-22 19:34:17+00',
-    closetime  => '2010-01-29 19:34:17+00',
-    expiretime => '2010-02-05 19:34:17+00'
-});
+$mocks->expect($mock_sql, 'next_row_hash_ref')->return(
+    MusicBrainz::Server::Test->old_edit_row(
+        type       => 68,
+        rowid      => 1234,
+        prevvalue  => 'Removed release group',
+        newvalue   => undef,
+    ));
 $mocks->expect($mock_sql, 'next_row_hash_ref')->return(undef);
 $mocks->expect($mock_sql, 'finish');
 
