@@ -52,7 +52,10 @@ sub edit_conditions
 
 has '+data' => (
     isa => Dict[
-        new_entity_id => Int,
+        new_entity => Dict[
+            id   => Int,
+            name => Str
+        ],
         old_entities => ArrayRef[ Dict[
             name => Str,
             id   => Int
@@ -60,7 +63,7 @@ has '+data' => (
     ]
 );
 
-sub new_entity_id { shift->data->{new_entity_id} }
+sub new_entity { shift->data->{new_entity} }
 
 sub foreign_keys
 {
@@ -76,7 +79,8 @@ sub build_display_data
     my $model = $self->_merge_model;
 
     my $data = {
-        new => $loaded->{ $model }->{ $self->new_entity_id },
+        new => $loaded->{ $model }->{ $self->new_entity->{id} } ||
+            $self->c->model($model)->_entity_class->new($self->new_entity),
         old => []
     };
 
@@ -93,14 +97,14 @@ sub build_display_data
 override 'accept' => sub
 {
     my $self = shift;
-    $self->c->model( $self->_merge_model )->merge($self->new_entity_id, $self->_old_ids);
+    $self->c->model( $self->_merge_model )->merge($self->new_entity->{id}, $self->_old_ids);
 };
 
 sub _entity_ids
 {
     my $self = shift;
     return [
-        $self->new_entity_id,
+        $self->new_entity->{id},
         $self->_old_ids
     ];
 }

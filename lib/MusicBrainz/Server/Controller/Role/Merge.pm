@@ -51,7 +51,7 @@ role {
                 type => $params->edit_type,
                 edit_args => {
                     old_entities  => [ { id => $old->id, name => $old->name } ],
-                    new_entity_id => $new->id
+                    new_entity    => { id => $new->id, name => $new->name },
                 },
                 on_creation => sub {
                     $c->response->redirect(
