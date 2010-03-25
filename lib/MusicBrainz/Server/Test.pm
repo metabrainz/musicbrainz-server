@@ -212,6 +212,26 @@ sub mock_search_server
     );
 }
 
+sub old_edit_row
+{
+    my ($self, %args) = @_;
+    return {
+        id         => 11851325,
+        moderator  => 395103,
+        rowid      => 12345,
+        status     => 1,
+        yesvotes   => 5,
+        novotes    => 3,
+        automod    => 1,
+        opentime   => '2010-01-22 19:34:17+00',
+        closetime  => '2010-01-29 19:34:17+00',
+        expiretime => '2010-02-05 19:34:17+00',
+        tab        => 'artist',
+        col        => 'name',
+        %args
+    };
+}
+
 1;
 
 =head1 COPYRIGHT
