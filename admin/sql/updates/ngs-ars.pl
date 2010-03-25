@@ -379,11 +379,20 @@ my %album_ar_types = (
 
 my %track_ar_types = (
     'artist' => {
+        13 => 'work',  # composition
         14 => 'work',  # composer
+        15 => 'work',  # arranger
         16 => 'work',  # lyricist
+        43 => 'work',  # instrumentator
+        44 => 'work',  # orchestrator
+        51 => 'work',  # librettist
     },
     'url' => {
+        #18 => 'work',  # other databases
+        #23 => 'work',  # ibdb
+        #24 => 'work',  # iobdb
         25 => 'work',  # lyrics
+        26 => 'work',  # score
     }
 );
 

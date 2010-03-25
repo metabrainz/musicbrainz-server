@@ -329,12 +329,13 @@ INSERT INTO work_name (name)
         SELECT link1 
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('composer', 'lyricist')
+            WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
+                             'orchestrator', 'librettist')
         UNION
         SELECT link0 
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
-            WHERE lt.name IN ('lyrics')
+            WHERE lt.name IN ('lyrics', 'score')
     );
 
 CREATE UNIQUE INDEX tmp_work_name_name ON work_name (name);
@@ -348,12 +349,13 @@ INSERT INTO work (id, gid, name, artist_credit)
         SELECT link1 
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('composer', 'lyricist')
+            WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
+                             'orchestrator', 'librettist')
         UNION
         SELECT link0 
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
-            WHERE lt.name IN ('lyrics')
+            WHERE lt.name IN ('lyrics', 'score')
     );
 
 DROP INDEX tmp_work_name_name;
