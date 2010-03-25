@@ -48,7 +48,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RECORDING_MERGE,
         editor_id => 1,
-        old_entity_id => 1,
+        old_entities => [ { id => 1, name => 'Old Recording' } ],
         new_entity_id => 2,
     );
 }

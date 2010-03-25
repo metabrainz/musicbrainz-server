@@ -4,7 +4,7 @@ use MooseX::ABC;
 
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
-use MooseX::Types::Moose qw( Int );
+use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
@@ -14,7 +14,7 @@ sub alter_edit_pending
 {
     my $self = shift;
     return {
-        $self->_merge_model => $self->_entities
+        $self->_merge_model => $self->_entity_ids
     }
 }
 
@@ -22,7 +22,7 @@ sub related_entities
 {
     my $self = shift;
     return {
-        model_to_type($self->_merge_model) => $self->_entities
+        model_to_type($self->_merge_model) => $self->_entity_ids
     }
 }
 
@@ -53,18 +53,20 @@ sub edit_conditions
 has '+data' => (
     isa => Dict[
         new_entity_id => Int,
-        old_entity_id => Int,
+        old_entities => ArrayRef[ Dict[
+            name => Str,
+            id   => Int
+        ] ]
     ]
 );
 
 sub new_entity_id { shift->data->{new_entity_id} }
-sub old_entity_id { shift->data->{old_entity_id} }
 
 sub foreign_keys
 {
     my $self = shift;
     return {
-        $self->_merge_model => $self->_entities
+        $self->_merge_model => $self->_entity_ids
     }
 }
 
@@ -72,26 +74,44 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     my $model = $self->_merge_model;
-    return {
-        old => $loaded->{ $model }->{ $self->old_entity_id },
-        new => $loaded->{ $model }->{ $self->new_entity_id }
+
+    my $data = {
+        new => $loaded->{ $model }->{ $self->new_entity_id },
+        old => []
+    };
+
+    for my $old (@{ $self->data->{old_entities} }) {
+        my $ent = $loaded->{ $model }->{ $old->{id} } ||
+            $self->c->model($model)->_entity_class->new($old);
+
+        push @{ $data->{old} }, $ent;
     }
+
+    return $data;
 }
 
 override 'accept' => sub
 {
     my $self = shift;
-    $self->c->model( $self->_merge_model )->merge($self->new_entity_id, $self->old_entity_id);
+    $self->c->model( $self->_merge_model )->merge($self->new_entity_id, $self->_old_ids);
 };
 
-sub _entities
+sub _entity_ids
 {
     my $self = shift;
     return [
-        $self->old_entity_id,
-        $self->new_entity_id
+        $self->new_entity_id,
+        $self->_old_ids
     ];
 }
+
+sub _old_ids
+{
+    my $self = shift;
+    return map { $_->{id} } @{ $self->data->{old_entities} }
+}
+
+sub _xml_arguments { ForceArray => ['old_entities'] }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

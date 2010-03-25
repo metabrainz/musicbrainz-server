@@ -40,7 +40,9 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_MERGE,
         editor_id => 1,
-        old_entity_id => 2,
+        old_entities => [
+            { id => 2, name => 'Old RG 1' }
+        ],
         new_entity_id => 1,
     );
 }
