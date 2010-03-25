@@ -49,6 +49,6 @@ sub create_edit {
         edit_type => $EDIT_RECORDING_MERGE,
         editor_id => 1,
         old_entities => [ { id => 1, name => 'Old Recording' } ],
-        new_entity_id => 2,
+        new_entity => { id => 2, name => 'New Recording' },
     );
 }

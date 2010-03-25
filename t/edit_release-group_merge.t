@@ -43,6 +43,6 @@ sub create_edit {
         old_entities => [
             { id => 2, name => 'Old RG 1' }
         ],
-        new_entity_id => 1,
+        new_entity => { id => 1, name => 'New RG' },
     );
 }
