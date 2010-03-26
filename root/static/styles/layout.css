@@ -622,46 +622,6 @@ pre code {
     width: 0.7em;
 }
 
-.edit-list {
-    margin: 10px 0 0 0;
-    background: #FFF url(../images/page-bg-edit.gif) repeat-y top right;
-}
-
-.edit-list:nth-child(2n) {
-    background-color: #F2F2F2;
-}
-
-.edit-list .vote-actions {
-    width: 218px;
-    padding-top: 5px;
-    float: right;
-    font-size: 95%;
-}
-
-.vote-actions .vote-count {
-    margin-bottom: 5px;
-}
-
-.edit-list table.voteopts {
-    width: 160px;
-    margin: 0 24px;
-}
-
-.edit-list .edit-content {
-    margin-right: 250px;
-}
-
-.edit-list .edit-content > h2 {
-    margin-top: 0;
-}
-
-.seperator {
-    clear: both;
-    border-bottom: 1px solid;
-    height: 10px;
-    background-color: #FFFFFF;
-}
-
 table.details th {
     text-align: right;
     padding-left: 10pt;
@@ -699,11 +659,7 @@ span.mp {
     background: #FD9;
 }
 
-/* Edit page CSS */
-
-.edit-list .cancel-edit {
-    text-align: center;
-}
+/* Edit pages */
 
 .cancel-edit form {
     display: inline;
@@ -772,6 +728,50 @@ table.voteopts td {
     color:#999999;
     float:right;
     font-weight:normal;
+}
+
+.edit-list {
+    margin: 10px 0 0 0;
+    background: #FFFFFF url(../images/page-bg-edit.gif) repeat-y top right;
+}
+
+.edit-list:nth-child(2n) {
+    background-color: #F2F2F2;
+}
+
+.edit-list .vote-actions {
+    width: 218px;
+    padding-top: 5px;
+    float: right;
+    font-size: 95%;
+}
+
+.vote-actions .vote-count {
+    margin-bottom: 5px;
+}
+
+.vote-actions .cancel-edit {
+    text-align: center;
+}
+
+.vote-actions table.voteopts {
+    width: 160px;
+    margin: 0 24px;
+}
+
+.edit-list .edit-content {
+    margin-right: 250px;
+}
+
+.edit-list .edit-content > h2 {
+    margin-top: 0;
+}
+
+.seperator {
+    clear: both;
+    border-bottom: 1px solid;
+    height: 10px;
+    background-color: #FFFFFF;
 }
 
 /* Extra CSS Styles for the landing page */

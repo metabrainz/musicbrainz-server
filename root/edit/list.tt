@@ -31,8 +31,8 @@
                     <div class="seperator">
                     </div>
                 </div>
-
             [%- END -%]
+
             <input type="hidden" name="url" value="[% c.req.uri %]" />
             <div class="row no-label" style="text-align: right">
               [% form_submit(l('Vote')) %]

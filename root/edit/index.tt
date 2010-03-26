@@ -92,13 +92,13 @@
                 </td>
             </tr>
             [% FOR vote=edit.votes %]
-            <tr[% ' class="superseded"' IF vote.superseded %]>
-                <th>[% link_editor(vote.editor) %]:</th>
-                <td class="vote">
-                    [% vote.vote_name %]
-                    <span class="date">[% UserDate.format(vote.vote_time) %]</span>
-                </td>
-            </tr>
+                <tr[% ' class="superseded"' IF vote.superseded %]>
+                    <th>[% link_editor(vote.editor) %]:</th>
+                    <td class="vote">
+                        [% vote.vote_name %]
+                        <span class="date">[% UserDate.format(vote.vote_time) %]</span>
+                    </td>
+                </tr>
             [% END %]
             [% IF edit.editor_may_vote(c.user) %]
                 <tr>
@@ -112,6 +112,7 @@
                 </tr>
             [% END %]
         </table>
+
         [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
             <div class="cancel-edit">
                 [% PROCESS approve %]

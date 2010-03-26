@@ -1,30 +1,30 @@
 [% BLOCK approve %]
-  [% IF edit.auto_edit_for_editor(c.user) %]
-  <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
-    <input type="hidden" name="url" value="[% c.req.uri %]" />
-    <input type="submit" value="[% l('Approve') %]" />
-  </form>
-  [% END %]
+    [% IF edit.auto_edit_for_editor(c.user) %]
+        <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Approve edit') %]" />
+        </form>
+    [% END %]
 [% END %]
 
 [% BLOCK cancel %]
-  [% IF edit.is_open && edit.editor_id == c.user.id %]
-  <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
-    <input type="hidden" name="url" value="[% c.req.uri %]" />
-    <input type="submit" value="[% l('Cancel') %]" />
-  </form>
-  [% END %]
+    [% IF edit.is_open && edit.editor_id == c.user.id %]
+        <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Cancel edit') %]" />
+        </form>
+    [% END %]
 [% END %]
 
 [% IF summary %]
     <div class="c">
-    [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
-        <div class="vote-count">[%- edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]</div>
-    [% END %]
+        [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
+            <div class="vote-count">[%- edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]</div>
+        [% END %]
 
-    [% IF edit.is_open && c.user_exists %]
-        [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
-    [% END %]
+        [% IF edit.is_open && c.user_exists %]
+            [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
+        [% END %]
     </div>
 [% END %]
 
