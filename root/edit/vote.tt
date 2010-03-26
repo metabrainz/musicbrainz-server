@@ -9,7 +9,6 @@
         <label for="id-[% name %].vote">[% label %]</label>
     [% END %]
 
-    <input type="hidden" value="[% edit.id %]" name="[% name %].edit_id" />
     <table class="voteopts">
         <tr>
             <td class="yes">[% vote_checkbox(l('Yes'), 1) %]</td>
@@ -20,6 +19,7 @@
             [% ELSE %]
                 <td>[% form_submit(l('Vote')) %]</td>
             [% END %]
+            <input type="hidden" value="[% edit.id %]" name="[% name %].edit_id" />
         </tr>
     </table>
 [% END %]
