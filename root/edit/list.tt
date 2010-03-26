@@ -1,49 +1,39 @@
 [% IF edits.size %]
     [% WRAPPER 'components/with-pager.tt' %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
-            <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <table class="edit-list">
-                [%- FOREACH edit=edits -%]
-                    <tr class="seperator">
-                        <td colspan="3">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="edit-details">
+            [%- FOREACH edit=edits -%]
+                <div class="edit-list">
+                    <div class="vote-actions">
+                        [% INCLUDE 'edit/info.tt' summary=1 %]
+                    </div>
+
+                    <div class="edit-content">
+                        <h2>[% link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ html_escape(edit.edit_name))) %]</h2>
+                        <p class="subheader">
+                            <span class="prefix">~</span>
+                            [% l('{status} edit by {editor}',
+                                { status => html_escape(edit.status_name),
+                                  editor => link_editor(edit.editor) }) %]
+                            [% '(<dfn title="This edit was automatically applied.">auto-edit</dfn>)' IF edit.autoedit %]
+                        </p>
+                        <div class="edit-details">
+                            <h2>[% l('Changes') %]</h2>
                             [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
                                 INCLUDE "edit/details/${edit_template}.tt" %]
-                        </td>
-                        <td class="vote-actions">
-                            <p class="c">
-                                [
-                                [% IF edit.can_approve(c.user.privileges) %]
-                                    <a href="[% c.uri_for_action('edit/approve', [ edit.id ], { url=c.req.uri }) %]">
-                                        [%- l('Approve') -%]</a>
-                                [% END %]
-                                [% "|" IF edit.can_approve(c.user.privileges) && c.user.id == edit.editor_id %]
-                                [% IF edit.is_open && c.user.id == edit.editor_id %]
-                                    <a href="[% c.uri_for_action('edit/cancel', [ edit.id ], { url=c.req.uri }) %]">
-                                        [% l('Cancel') %]</a>
-                                [% END %]
-                                ]
-                            </p>
-
-                            [% INCLUDE 'edit/info.tt' summary=1 %]
-
-                            [% IF edit.is_open && c.user_exists %]
-                                [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
-                            [% END %]                           
-                        </td>
-                    </tr>
-                    [% IF edit.edit_notes.size %]
-                        <tr>
-                            <td colspan="3">
+                        </div>
+                        [% IF edit.edit_notes.size %]
+                            <div class="edit-notes">
+                                <h2>[% l('Edit notes') %]</h2>
                                 [% INCLUDE "edit/notes.tt" %]
-                            </td>
-                        </tr>
-                    [% END %]
-                [%- END -%]
-            </table>
+                            </div>
+                        [% END %]
+                    </div>
+                    <div class="seperator">
+                    </div>
+                </div>
+
+            [%- END -%]
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
             <div class="row no-label" style="text-align: right">
               [% form_submit(l('Vote')) %]
             </div>
