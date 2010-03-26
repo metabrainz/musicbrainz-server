@@ -9,9 +9,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="edit-info">
-                            [% INCLUDE 'edit/info.tt' summary=1 %]
-                        </td>
                         <td class="edit-details">
                             [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
                                 INCLUDE "edit/details/${edit_template}.tt" %]
@@ -31,17 +28,10 @@
                                 ]
                             </p>
 
-                            [%- WRAPPER 'layout/sidebar/properties.tt' -%]
-                                [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-                                    content=edit.status_name -%]
-                                [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
-                                    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Votes:')
-                                        content=edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]
-                                [% END %]
-                            [% END %]
+                            [% INCLUDE 'edit/info.tt' summary=1 %]
 
                             [% IF edit.is_open && c.user_exists %]
-                                <p>[% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]</p>
+                                [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
                             [% END %]                           
                         </td>
                     </tr>

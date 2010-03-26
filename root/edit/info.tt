@@ -19,19 +19,18 @@
 [% END %]
 
 [%- WRAPPER 'layout/sidebar/properties.tt' -%]
-    [% IF summary %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Editor:')
             content="<strong>" _ link_editor(edit.editor) _ "</strong>" -%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Edit ID:')
             content=link_edit(edit) -%]
-    [% ELSE %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
             content=html_escape(edit.status_name) -%]
-    [% END %]
+[% END %]
 
-    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
-        content=html_escape(UserDate.format(edit.created_time)) -%]
-    
+[%- WRAPPER 'layout/sidebar/properties.tt' -%]
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
+            content=html_escape(UserDate.format(edit.created_time)) -%]
+
     [% IF edit.is_open %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Expires:')
             content=html_escape(UserDate.format(edit.expires_time)) -%]
@@ -43,7 +42,12 @@
             content=html_escape(UserDate.format(edit.close_time)) -%]
     [% END %]
 
-    [% IF !summary %]
+    [% IF summary %]
+        [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Votes:')
+                content=edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]
+        [% END %]
+    [% ELSE %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Affects:')
                 content=quality_name(edit.quality) -%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Requires:')
@@ -56,29 +60,6 @@
 
 [% IF !summary %]
     <p><strong>[% edit_status_description(edit) %]</strong></p>
-    <p class="editconditions">
-        <!--[% IF edit.is_open %]
-            [%- l('This edit affects {quality} data. It requires
-                   {votes} to instantly accept or reject this edit and
-                   if no votes are received the edit will be automatically
-                   {conditions}.',
-                 { quality => quality_name(edit.quality),
-                   votes => ln('1 vote', '{n} unanimous votes',
-                               edit.conditions.votes, { n => edit.conditions.votes })
-                   conditions =>  edit_conditions(edit.conditions.expire_action)
-                }) -%]
-        [% ELSE %]
-            [%- l('This edit affected {quality}. It required
-                   {votes} to instantly accept or reject the edit and
-                   if no votes were received the edit would have been automatically
-                   {conditions}.',
-                 { quality => quality_name(edit.quality),
-                   votes => ln('1 vote', '{n} unanimous votes',
-                               edit.conditions.votes, { n => edit.conditions.votes })
-                   conditions =>  edit_conditions(edit.conditions.expire_action)
-                }) -%]
-        [% END %]-->
-    </p>
     <p>[%- l('For more information:') -%]</p>
     <ul class="links">
         <li>[%- l('{doc|Voting FAQ}', { doc => doc_link('Voting_FAQ') }) -%]</li>

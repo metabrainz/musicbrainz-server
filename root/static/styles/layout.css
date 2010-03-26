@@ -641,22 +641,15 @@ table.edit-list tr.seperator {
     background-color: #ffba58;
 }
 
-table.edit-list td.edit-info {
-    padding: 0 5px;
-    width: 225px;
-}
-
 table.edit-list td.vote-actions {
     vertical-align: middle;
-    width: 175px;
+    width: 225px;
     padding: 0 5px;
 }
-table.edit-list td.vote-actions table {
+table.edit-list table.voteopts {
     width: 100%;
-    text-align: center;
 }
 
-table.edit-list td.edit-info,
 table.edit-list td.edit-details {
     vertical-align: top;
 }
@@ -666,7 +659,6 @@ table.details th {
     padding-left: 10pt;
     width: 110px;
 }
-
 
 dl.properties {
     margin-bottom: 12pt;
@@ -741,6 +733,10 @@ table.vote-tally tr.superseded a {
 table.vote-tally .date {
     text-align: right;
     float: right;
+}
+
+table.voteopts td {
+    text-align: center;
 }
 
 .edit-notes {
