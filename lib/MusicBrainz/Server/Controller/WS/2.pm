@@ -621,7 +621,7 @@ sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $serializers{MusicBrainz::Server::WebService::Validator::get_default_serialization_type()}->new();
+    $c->stash->{serializer} = $serializers{$self->get_default_serialization_type}->new();
     $c->stash->{error} = "Invalid resource: $resource. ";
     $c->detach('bad_req');
 }
