@@ -105,11 +105,10 @@ Installing Perl dependencies
 Creating the database
 ---------------------
 
-1)  Install C extension
+1)  Install PostgreSQL Unaccent Extension
 
-    Before you start, you need to install a C extension on your database server.
-    You will need PostgreSQL development headers for this. To build the
-    extension run these commands:
+    Before you start, you need to install the PostgreSQL Unaccent Extension on
+    your database server. To build the extension run these commands:
 
         cd postgresql-unaccent
         make
@@ -196,8 +195,8 @@ Starting the server
     You should now have everything ready to run the development server!
 
     The development server is a lightweight HTTP server that gives good debug
-    output and is much more convenient than having to set up a full blown stack.
-    Just run:
+    output and is much more convenient than having to set up a standalone
+    server. Just run:
 
         ./script/musicbrainz_server.pl -r
 
