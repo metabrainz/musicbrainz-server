@@ -49,6 +49,8 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAnnotation
     MusicBrainz::Server::Edit::Work::Edit
+
+    MusicBrainz::Server::Edit::Historic::EditReleaseName
 );
 
 sub register_type
