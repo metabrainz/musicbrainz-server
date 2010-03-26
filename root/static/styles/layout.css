@@ -759,8 +759,13 @@ table.voteopts td {
     margin: 0 24px;
 }
 
+.vote-actions dl.properties {
+    margin: 5px 0;
+}
+
 .edit-list .edit-content {
     margin-right: 250px;
+    padding: 5px 0 0 5px;
 }
 
 .edit-list .edit-content > h2 {
