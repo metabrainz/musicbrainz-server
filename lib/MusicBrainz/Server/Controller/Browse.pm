@@ -23,6 +23,14 @@ sub _browse
     );
 }
 
+sub index : Path Args(0)
+{
+    my ($self, $c) = @_;
+
+    $c->stash( template => 'browse/index.tt' );
+
+}
+
 sub artist : Local
 {
     my ($self, $c) = @_;
