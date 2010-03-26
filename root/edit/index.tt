@@ -42,8 +42,8 @@
             })
         }
     </script>
-
 [%- END -%]
+
 [% BLOCK approve %]
     [% IF !summary && edit.auto_edit_for_editor(c.user) %]
         <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
@@ -67,6 +67,7 @@
         [%- INCLUDE "edit/info.tt" -%]
     [% END %]
     <div class="content">
+
         <div class="editheader">
             <h1>[% link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ html_escape(edit.edit_name))) %]</h1>
             <p class="subheader">
@@ -75,27 +76,17 @@
             </p>
         </div>
 
-
         <h2>[% l('Changes') %]</h2>
         [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
             INCLUDE "edit/details/${edit_template}.tt" %]
 
         <h2>[% l('Votes') %]</h2>
-            <!--[%- WRAPPER 'layout/sidebar/properties.tt' -%]
-                [%- INCLUDE 'layout/sidebar/property.tt' label=l('Votes:')
-                    content=edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') IF edit.latest_vote_for_editor(c.user.id) || (c.user.id == edit.editor_id) -%]
-                [% FOR vote=edit.votes %]
-                    [%- INCLUDE 'layout/sidebar/property.tt' label=link_editor(vote.editor) _ ":"
-                        content=vote.vote_name _ " " _ UserDate.format(vote.vote_time) -%]
-                [% END %]
-            [% END %]-->
         [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
             <div class="cancel-edit">
                 [% PROCESS approve %]
                 [% PROCESS cancel %]
             </div>
         [% END %]
-
 
         <table class="vote-tally">
             <tr>
@@ -125,13 +116,15 @@
                 </tr>
             [% END %]
         </table>
-        [% IF edit.is_open && !edit.editor_may_vote(c.user) %]
+
+        [% IF edit.is_open && !edit.editor_may_vote(c.user) && (edit.editor_id != c.user.id) %]
+            [%# The current user check is necessary because !edit.editor_may_vote
+            comes back true when the current user is the edit.editor. %]
             <p>
                 [% l('You are not currently able to vote on this edit. ({url|Details})',
                     { url=doc_link('Voting_FAQ') }) %]
             </p>
         [% END %]
-
 
         [% IF c.user_exists %]
             [% IF edit.is_open AND staging_server %]
@@ -154,6 +147,7 @@
         <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
             [% INCLUDE 'edit/add_note.tt' %]
         </form>
+
     </div>
 [%- END -%]
 
