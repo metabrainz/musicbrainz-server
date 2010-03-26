@@ -5,8 +5,8 @@
     [% MACRO vote_checkbox(label, value) BLOCK %]
         [% checked = c.user_exists && edit.latest_vote_for_editor(c.user.id).vote == value %]
         <input type="radio" value="[% value %]" name="[% name %].vote"
-            [%- 'checked="checked"' IF checked -%] /><br />
-        <label for="id-[% name %].vote">[% label %]</label>
+            id="id-[% name %]-[% label %]" [%- 'checked="checked"' IF checked -%] /><br />
+        <label for="id-[% name %]-[% label %]">[% label %]</label>
     [% END %]
 
     <table class="voteopts">
