@@ -1,12 +1,15 @@
-[% WRAPPER 'layout.tt' full_width=1 title=l('Search For Edits') %]
-   <h1>[% l('Search For Edits') %]</h1>
-   <form action="[% c.req.uri %]" method="post">
-     [% USE r = FormRenderer(form) %]
-     [% form_row_select(r, 'type', l('Type:')) %]
-     [% form_row_select(r, 'status', l('Status:')) %]
+[% WRAPPER 'layout.tt' title=l('Search for Edits') full_width=1 %]
+    <div class="content">
+       <h1>[% l('Search for Edits') %]</h1>
+       <form action="[% c.req.uri %]" method="post">
+         [% USE r = FormRenderer(form) %]
+         [% form_row_select(r, 'type', l('Type:')) %]
+         [% form_row_select(r, 'status', l('Status:')) %]
 
-     <div class="row no-label">
-       [% form_submit(l("Search")) %]
-     </div>
-   </form>
+         <div class="row no-label">
+           [% form_submit(l("Search")) %]
+         </div>
+       </form>
+   </div>
 [% END %]
+

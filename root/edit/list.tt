@@ -17,28 +17,35 @@
                                 INCLUDE "edit/details/${edit_template}.tt" %]
                         </td>
                         <td class="vote-actions">
-                            <p>[% edit.yes_votes %]
-                            [% l('yes') %] :
-                            [% edit.no_votes %]
-                            [% l('no') %]</p>
-
-                            [% IF edit.is_open && c.user_exists %]
-                            <p>
+                            <p class="c">
+                                [
                                 [% IF edit.can_approve(c.user.privileges) %]
                                     <a href="[% c.uri_for_action('edit/approve', [ edit.id ], { url=c.req.uri }) %]">
-                                        [% l('Approve') %]</a>
+                                        [%- l('Approve') -%]</a>
                                 [% END %]
-                                [% IF c.user.id == edit.editor_id %]
+                                [% "|" IF edit.can_approve(c.user.privileges) && c.user.id == edit.editor_id %]
+                                [% IF edit.is_open && c.user.id == edit.editor_id %]
                                     <a href="[% c.uri_for_action('edit/cancel', [ edit.id ], { url=c.req.uri }) %]">
                                         [% l('Cancel') %]</a>
                                 [% END %]
-
-                                [% INCLUDE 'edit/vote.tt' n=loop.index %]
+                                ]
                             </p>
+
+                            [%- WRAPPER 'layout/sidebar/properties.tt' -%]
+                                [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
+                                    content=edit.status_name -%]
+                                [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
+                                    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Votes:')
+                                        content=edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]
+                                [% END %]
+                            [% END %]
+
+                            [% IF edit.is_open && c.user_exists %]
+                                <p>[% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]</p>
                             [% END %]                           
                         </td>
                     </tr>
-                    [% IF edit.notes.size %]
+                    [% IF edit.edit_notes.size %]
                         <tr>
                             <td colspan="3">
                                 [% INCLUDE "edit/notes.tt" %]

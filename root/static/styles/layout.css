@@ -387,13 +387,16 @@ div.tabs {
 .page table.tbl th.count { width: 2em; }
 .page table.tbl th.rating { width: 50px; }
 .page table.tbl th.treleases { width: 3em; }
-.page table.tbl .c { text-align: center; }
 .page table.tbl .t { text-align: right; }
 
 p.nfo span {
     display: block;
     padding-top: 0.1em;
     padding-bottom: 0.1em;
+}
+
+.c {
+    text-align: center;
 }
 
 .credits {
@@ -634,21 +637,23 @@ table.edit-list td td {
 }
 
 table.edit-list tr.seperator {
-    height: 5px;
+    height: 10px;
     background-color: #ffba58;
 }
 
 table.edit-list td.edit-info {
-    width: 25%;
+    padding: 0 5px;
+    width: 225px;
 }
 
 table.edit-list td.vote-actions {
-    text-align: center;
     vertical-align: middle;
-    width: 18%;
+    width: 175px;
+    padding: 0 5px;
 }
 table.edit-list td.vote-actions table {
     width: 100%;
+    text-align: center;
 }
 
 table.edit-list td.edit-info,
@@ -661,6 +666,7 @@ table.details th {
     padding-left: 10pt;
     width: 110px;
 }
+
 
 dl.properties {
     margin-bottom: 12pt;
