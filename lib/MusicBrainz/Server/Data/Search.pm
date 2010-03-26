@@ -21,7 +21,7 @@ use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
-use MusicBrainz::Server::Data::Work;
+use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
