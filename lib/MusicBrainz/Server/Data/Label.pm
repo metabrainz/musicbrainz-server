@@ -95,7 +95,7 @@ sub find_by_artist
 {
     my ($self, $artist_id) = @_;
     my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . " 
+                 FROM " . $self->_table . "
                  WHERE label.id IN (
                          SELECT rl.label
                          FROM release_label rl
