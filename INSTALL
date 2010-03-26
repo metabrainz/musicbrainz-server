@@ -1,142 +1,214 @@
-Installing mb_server
---------------------
+Installing the MusicBrainz Server
+=================================
 
-mb_server is the web front end to the MusicBrainz data (as displayed at
-http://musicbrainz.org/), and this document explains how you can get everything
-up and running.
+The MusicBrainz Server (musicbrainz-server) is the web frontend to the
+MusicBrainz Database, and is accessible at http://musicbrainz.org.
 
-We've tried to make installation as painless as possible, but first - a few
-prerequisites:
+This document explains the steps necessary to setup your own MusicBrainz Server.
+If you require any assistance with these instructions, please feel free to
+contact us via the information given at the bottom of this document.
 
-Prequisites
------------
-
-1)	Perl 5.8.0
-
-	Perl 5.8.0 (minimum) is required. You can use Perl 5.10.0, but be aware that it
-	has some quirks in handling subroutine attributes, which can make debugging
-	difficult in a few cases.
-
-	You can check your installed version of Perl with:
-
-	    perl -v
-
-2)  PostgreSQL 8.3
-
-    This is to set up the MusicBrainz database. If you compile Postgres from source, make sure to
-    also compile the cube extension found in contrib/cube. The database import script will take
-    care of installing that extension into the database when it creates the database for you.
-
-    You will need pg_config, so make sure to also install the PostgreSQL development libraries.
-
-Getting going
+Prerequisites
 -------------
 
-1) Make a checkout of the code.
+1)  A Unix based operating system
 
-    git clone git://git.musicbrainz.org/musicbrainz-server/core.git mb_server
+    The MusicBrainz development team uses a mix of Ubuntu and Debian, but
+    Mac OS X will work just fine. If you are running Windows we recommend you
+    set up a Debian or Ubuntu virtual machine.
 
-2) Configure the server
+    This document will assume you are using Ubuntu for its instructions.
 
-	cd mb_server
-	cp lib/DBDefs.pm.default lib/DBDefs.pm
+2)  Perl (at least version 5.8.0)
 
-    Edit the newly copied DBDefs.pm as need be. For the most part, it should be
-    fine to use as is. Refer to INSTALL for more indepth info about this, and
-    how it ties in with running a copy of the MusicBrainz database.
+    Perl 5.10.0 is acceptable, but be aware that it has some quirks in handling
+    subroutine attributes which can make debugging difficult in a few cases.
+    However, these issues were fixed in Perl 5.10.1.
 
-3) Install prerequisite Perl modules
+    Perl comes bundled with most Linux operating systems, you can check your
+    installed version of Perl with:
 
-    The Module::Install module reads a file called Makefile.PL to create a standard
-    Makefile. This Makefile can then be used to install dependant Perl modules. First,
-    make sure you have inc-Module-Install on your system:
+        perl -v
 
-        perl -MCPAN -e 'install Module::Install'
+3)  PostgreSQL (at least version 8.3)
 
-    Now, build the Makefile, and install dependancies (if necessary). Som sections are marked
-    optional, but you are generally encouraged to accept the defaults and install everything.
-    Optional sections are generally there for the convenience of the master server which uses
-    a slightly different stack.
+    PostgreSQL is required, along with its development libraries. To install
+    using packages run the following, replacing 8.x with the latest version.
+
+        sudo apt-get install postgresql-8.x postgresql-server-dev-8.x postgresql-contrib
+
+    Alternatively, you may compile PostgreSQL from source, but then make sure
+    to also compile the cube extension found in contrib/cube. The database
+    import script will take care of installing that extension into the database
+    when it creates the database for you.
+
+4)  Git
+
+    The MusicBrainz development team uses Git for their DVCS. To install Git,
+    run the following:
+
+        sudo apt-get install git-core
+
+Server configuration
+--------------------
+
+1)  Download the source code.
+
+        git clone git://git.musicbrainz.org/musicbrainz-server/core.git musicbrainz-server
+        cd musicbrainz-server
+
+2)  Modify the server configuration file.
+
+        cp lib/DBDefs.pm.default lib/DBDefs.pm
+
+    Edit the value of MB_SERVER_ROOT to point to where your musicbrainz-server
+    directory is. The rest of the default values in DBDefs.pm should be fine to
+    use as is.
+
+3)  WikiDoc page support (optional)
+
+    If you would like to have the /doc pages load properly, run:
+
+       wget -O root/static/wikidocs/index.txt http://musicbrainz.org/generated/wikitrans-index
+
+Installing Perl dependencies
+----------------------------
+
+1)  Build Makefile
+
+    Some sections are marked optional, but you are encouraged to accept the
+    defaults and install everything. Optional sections are generally there for
+    the convenience of the master server which uses a slightly different stack.
 
         perl ./Makefile.PL
 
-    This will generate a standard Makefile, which you can use to install dependancies.
+2)  Install dependencies
+
+    This above will have generated a standard Makefile which you can use to
+    automatically install dependencies by running:
 
         sudo make installdeps
 
-4) Create the databases
+    NOTE: You will have to manually install some of the dependencies by running:
 
-    Before you start, you need to install a C extension on your database server. You will
-    need PostgreSQL development headers for this. To build the extension run these commands:
+        # OSSP::UUID
+        sudo apt-get install libossp-uuid-perl
+
+        # Test::WWW::Mechanize
+        sudo apt-get install libtest-www-mechanize-perl
+
+    If you have trouble installing any of the dependencies you may have to
+    force their installation by running:
+
+        sudo cpan -f <Module::Name>
+
+Creating the database
+---------------------
+
+1)  Install PostgreSQL Unaccent Extension
+
+    Before you start, you need to install the PostgreSQL Unaccent Extension on
+    your database server. To build the extension run these commands:
 
         cd postgresql-unaccent
         make
         sudo make install
 
-	You have 2 options when it comes to databases. You can either opt for a clean database,
-	with just the schema (useful for developers with little free diskspace), or you can use
-	a copy of the MusicBrainz data.
+2)  Setup PostgreSQL authentication
 
-	a) Using Clean Databases
+    For normal operation, the server only needs to connect from one or two OS
+    users (whoever your web server / crontabs run as), to one database (the
+    MusicBrainz Database), as one PostgreSQL user. The PostgreSQL database name
+    and user name are given in DBDefs.pm (look for the "READWRITE" key).
+    For example, if you run your web server and crontabs
+    as "www-user", the following configuration recipe may prove useful:
 
-		To use clean databases, all you need to do is run:
+        # in pg_hba.conf (Note: The order of lines is important!):
+        local    musicbrainz_db    musicbrainz_user    ident    mb_map
 
-			./admin/InitDb.pl --createdb --clean
+        # in pg_ident.conf:
+        mb_map    www-user    musicbrainz_user
 
-	b) Using Database Dumps pre NGS
+    Alternatively, if you are running a server for development purposes and
+    don't require any special access permissions, the following configuration
+    in pg_hba.conf will suffice:
 
-                IMPORTANT NOTE: Until the actual release of the NGS code-base you will need to import
-                data using the 20090524 code-base!! Follow these instructions for a "Database only" install:
+        local   all    all    trust
 
-                        http://bugs.musicbrainz.org/browser/mb_server/branches/RELEASE_20090524-BRANCH/INSTALL
+3)  Create the databases
 
-                To ensure that the data imports cleanly, make sure to use a data dump from 2009-06-19 or later!
+    You have two options when it comes to databases. You can either opt for a
+    clean database with just the schema (useful for developers with limited
+    disk space), or you can import a full database dump.
 
-                Once you have the database properly loaded, return to the NGS codebase and run:
+    a)  Use a clean database
 
-                        ./upgrade.sh
+        To use a clean database, all you need to do is run:
 
-                This will convert the data to the NGS format. Please note that this process will take some
-                time -- please be patient!
+            ./admin/InitDb.pl --createdb --clean
 
-	c) Using Database Dumps post NGS release (Fall 2009)
+    b)  Import an NGS database dump
 
-		MusicBrainz frequently do full dumps of the database, which you can import to your own
-		local database. This is the best option for long term developers. The database dumps are
-		stored at
+        The easiest way to import the database is to use an NGS database dump.
+        These are periodic dumps of the database that are compatible with the
+        NGS format and don't require you to manually convert the data. They're
+        available here:
 
-			ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport
+            ftp://ftp.musicbrainz.org/pub/musicbrainz/data/ngs/
 
-		To get going, you need at least the mbdump.tar.bz2 and mbdump-derived.tar.bz2 archives,
-		but you can grab whichever dumps suit your needs. Assuming the dumps have been downloaded
-		to `/tmp/dumps/' you can then import with:
+        To get going, you need at least the mbdump.tar.bz2 and
+        mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit
+        your needs. Assuming the dumps have been downloaded to /tmp/dumps/ you
+        can import them with:
 
-			./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            /admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
-		--echo just gives us a bit more feedback, in case this goes wrong - you can leave it off.
-		Remember to change the paths to your mbdump*.tar.bz2 files, if they are not in /tmp/dumps/.
+        --echo just gives us a bit more feedback in case this goes wrong, you
+        may leave it off. Remember to change the paths to your mbdump*.tar.bz2
+        files, if they are not in /tmp/dumps/.
 
-5) Load WikiDocs transclusion file (optional)
+    c)  Importing a non-NGS database dump
 
-	If you would like to have the /doc pages load properly on a RT_STANDALONE installation, follow
-	these steps:
+        NOTE: This method requires the time consuming process of manually
+        converting the database from the existing schema to the NGS format, and
+        is not recommended.
 
-	       cd <mb_server>/root/static/wikidocs
-	       curl http://musicbrainz.org/generated/wikitrans-index > index.txt
+        Follow these instructions for a "Database only" install:
 
-	After this, the documentation index should be loadable.
+            http://bugs.musicbrainz.org/browser/mb_server/branches/RELEASE_20090524-BRANCH/INSTALL
 
-6) Start the development server
+        To ensure that the data imports cleanly, make sure to use a data dump
+        from 2009-06-19 or later!
 
-	You should now have everything ready to run the development server! The development server is
-	a lightweight HTTP server, that gives good debug output, and is much more convenient than having
-	to set up a full blown stack. Just run:
+        Once the data has been imported, return to the NGS codebase and run:
 
-		./script/musicbrainz_server.pl -r
+            ./upgrade.sh
 
-	Visiting http://your.machines.ip.address:3000 should now present you with the mb_server frontend.
+        This will convert the data to the NGS format and will take some time.
+        Please be patient!
 
-If, however, this *doesn't* happen - please contact aCiD2 on IRC, or file a bug at
-http://bugs.musicbrainz.org.
+Starting the server
+------------------
 
-Good luck, and happy hacking!
+1)  Start the development server
+
+    You should now have everything ready to run the development server!
+
+    The development server is a lightweight HTTP server that gives good debug
+    output and is much more convenient than having to set up a standalone
+    server. Just run:
+
+        ./script/musicbrainz_server.pl -r
+
+    Visiting http://your.machines.ip.address:3000 should now present you with
+    your own running instance of the MusicBrainz Server.
+
+2)  Troubleshooting
+
+    If you have any difficulties, please feel free to contact aCiD2 or warp in
+    #musicbrainz-devel on irc.freenode.net, or email the developer mailing list
+    at musicbrainz-devel [at] lists musicbrainz.org.
+
+    If you find any bugs, please report them on http://jira.musicbrainz.org.
+
+    Good luck, and happy hacking!
