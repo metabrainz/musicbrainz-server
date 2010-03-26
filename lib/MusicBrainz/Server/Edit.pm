@@ -127,8 +127,8 @@ sub is_open
 sub editor_may_vote
 {
     my ($self, $editor) = @_;
-    return defined $self->is_open &&
-                   $editor && $editor->id != $self->editor_id &&
+    return $self->is_open &&
+                   defined $editor && $editor->id != $self->editor_id &&
                    $editor->email_confirmation_date &&
                    $editor->accepted_edits > 10;
 }
