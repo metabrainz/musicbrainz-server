@@ -1,7 +1,6 @@
 [% BLOCK approve %]
-  [% IF summary && edit.auto_edit_for_editor(c.user) %]
-  <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]"
-        style="display: inline">
+  [% IF edit.auto_edit_for_editor(c.user) %]
+  <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
     <input type="hidden" name="url" value="[% c.req.uri %]" />
     <input type="submit" value="[% l('Approve') %]" />
   </form>
@@ -9,27 +8,29 @@
 [% END %]
 
 [% BLOCK cancel %]
-  [% IF summary && edit.is_open && edit.editor_id == c.user.id %]
-  <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]"
-        style="display: inline">
+  [% IF edit.is_open && edit.editor_id == c.user.id %]
+  <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
     <input type="hidden" name="url" value="[% c.req.uri %]" />
     <input type="submit" value="[% l('Cancel') %]" />
   </form>
   [% END %]
 [% END %]
 
-[%- WRAPPER 'layout/sidebar/properties.tt' -%]
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Editor:')
-            content="<strong>" _ link_editor(edit.editor) _ "</strong>" -%]
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Edit ID:')
-            content=link_edit(edit) -%]
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-            content=html_escape(edit.status_name) -%]
+[% IF summary %]
+    <div class="c">
+    [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
+        <div class="vote-count">[%- edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]</div>
+    [% END %]
+
+    [% IF edit.is_open && c.user_exists %]
+        [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
+    [% END %]
+    </div>
 [% END %]
 
 [%- WRAPPER 'layout/sidebar/properties.tt' -%]
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
-            content=html_escape(UserDate.format(edit.created_time)) -%]
+    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
+        content=html_escape(UserDate.format(edit.created_time)) -%]
 
     [% IF edit.is_open %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Expires:')
@@ -42,12 +43,7 @@
             content=html_escape(UserDate.format(edit.close_time)) -%]
     [% END %]
 
-    [% IF summary %]
-        [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
-            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Votes:')
-                content=edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]
-        [% END %]
-    [% ELSE %]
+    [% IF !summary %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Affects:')
                 content=quality_name(edit.quality) -%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Requires:')
@@ -58,7 +54,14 @@
     [% END %]
 [% END %]
 
-[% IF !summary %]
+[% IF summary %]
+    [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+        <div class="cancel-edit">
+            [% PROCESS approve %]
+            [% PROCESS cancel %]
+        </div>
+    [% END %]
+[% ELSE %]
     <p><strong>[% edit_status_description(edit) %]</strong></p>
     <p>[%- l('For more information:') -%]</p>
     <ul class="links">
