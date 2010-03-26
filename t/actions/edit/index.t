@@ -61,7 +61,7 @@ subtest 'Check edit conditions for default settings' => sub {
     xml_ok($mech->content);
 
     $mech->content_contains('default quality level', 'mentions quality level');
-    $mech->content_contains('accept on expiration', 'mentions expire action');
+    $mech->content_contains('Accept on expiration', 'mentions expire action');
     $mech->content_contains('3 unanimous votes to accept/reject', 'mentions vote period');
 
     done_testing;
@@ -72,7 +72,7 @@ subtest 'Check edit conditions for alternative settings' => sub {
     xml_ok($mech->content);
 
     $mech->content_contains('high quality level', 'mentions quality level');
-    $mech->content_contains('reject on expiration', 'mentions expire action');
+    $mech->content_contains('Reject on expiration', 'mentions expire action');
     $mech->content_contains('50 unanimous votes to accept/reject', 'mentions vote period');
 
     done_testing;

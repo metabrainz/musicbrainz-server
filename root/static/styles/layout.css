@@ -693,6 +693,81 @@ span.mp {
     background: #FD9;
 }
 
+/* Edit page CSS */
+
+.cancel-edit {
+    margin: 6px 0 0;
+}
+
+.cancel-edit form {
+    display: inline;
+    margin-right: 5px;
+}
+
+table.vote-tally {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.vote-tally tr:nth-child(n+3) {
+    border-top: 1px dotted #999999;
+}
+
+table.vote-tally th {
+    text-align: right;
+    white-space: nowrap;
+}
+
+table.vote-tally .vote {
+    width: 100%;
+    padding: 5px 5px 5px 10px;
+}
+
+table.vote-tally .aggregate {
+    padding: 10px;
+}
+
+table.vote-tally tr.superseded,
+table.vote-tally tr.superseded a {
+    color: #999999;
+}
+
+table.vote-tally .date {
+    text-align: right;
+    float: right;
+}
+
+.edit-notes {
+    margin-bottom: 10px
+}
+
+.edit-notes .edit-note {
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.edit-notes .edit-note:nth-child(2n) {
+    background-color: #F2F2F2;
+}
+
+.edit-notes .edit-note h3 {
+    font-weight: normal;
+    padding-left: 18px;
+    background: url('../images/user.png') no-repeat;
+    height: 16px;
+    margin: 0 0 5px;
+}
+
+.edit-notes .edit-note h3.Yes { background: url('../images/user_add.png') no-repeat; }
+.edit-notes .edit-note h3.No { background: url('../images/user_delete.png') no-repeat; }
+.edit-notes .edit-note h3.owner { font-weight: bold; }
+
+.edit-notes .edit-note .date {
+    color:#999999;
+    float:right;
+    font-weight:normal;
+}
+
 /* Extra CSS Styles for the landing page */
 
 #leftSide {

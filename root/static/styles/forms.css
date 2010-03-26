@@ -75,6 +75,17 @@ textarea {
     padding: 0.5em;
 }
 
+.add-edit-note textarea {
+    width: 350px;
+    color: #999999;
+    display: block;
+}
+
+.add-edit-note input {
+    display: none;
+    margin-top: 5px;
+}
+
 label.inline {
     float: none !important;
     width: auto !important;

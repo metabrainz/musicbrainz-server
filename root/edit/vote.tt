@@ -12,10 +12,13 @@
     <input type="hidden" value="[% edit.id %]" name="[% name %].edit_id" />
     <table>
         <tr>
-            <td>[% vote_checkbox(l('None'), -2) %]</td>
-            <td>[% vote_checkbox(l('Abstain'), -1) %]</td>
-            <td>[% vote_checkbox(l('No'), 0) %]</td>
-            <td>[% vote_checkbox(l('Yes'), 1) %]</td>
+            <td class="yes">[% vote_checkbox(l('Yes'), 1) %]</td>
+            <td class="no">[% vote_checkbox(l('No'), 0) %]</td>
+            <td class="abstain">[% vote_checkbox(l('Abstain'), -1) %]</td>
+            [% IF summary %]
+                <td class="none">[% vote_checkbox(l('None'), -2) %]</td>
+            [% END %]
+            <td>[% form_submit(l('Vote')) IF !summary %]</td>
         </tr>
     </table>
 [% END %]
