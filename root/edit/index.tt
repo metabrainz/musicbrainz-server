@@ -45,7 +45,7 @@
 [%- END -%]
 
 [% BLOCK approve %]
-    [% IF !summary && edit.auto_edit_for_editor(c.user) %]
+    [% IF edit.auto_edit_for_editor(c.user) %]
         <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
             <input type="hidden" name="url" value="[% c.req.uri %]" />
             <input type="submit" value="[% l('Approve edit') %]" />
@@ -54,7 +54,7 @@
 [% END %]
 
 [% BLOCK cancel %]
-    [% IF !summary && edit.is_open && edit.editor_id == c.user.id %]
+    [% IF edit.is_open && edit.editor_id == c.user.id %]
         <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
             <input type="hidden" name="url" value="[% c.req.uri %]" />
             <input type="submit" value="[% l('Cancel edit') %]" />
@@ -72,7 +72,10 @@
             <h1>[% link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ html_escape(edit.edit_name))) %]</h1>
             <p class="subheader">
                 <span class="prefix">~</span>
-                [% l('Created by {editor}', {editor => link_editor(edit.editor) }) %]
+                [% l('{status} edit by {editor}',
+                    { status => html_escape(edit.status_name),
+                      editor => link_editor(edit.editor) }) %]
+                [% '(<dfn title="This edit was automatically applied.">auto-edit</dfn>)' IF edit.autoedit %]
             </p>
         </div>
 
@@ -81,13 +84,6 @@
             INCLUDE "edit/details/${edit_template}.tt" %]
 
         <h2>[% l('Votes') %]</h2>
-        [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
-            <div class="cancel-edit">
-                [% PROCESS approve %]
-                [% PROCESS cancel %]
-            </div>
-        [% END %]
-
         <table class="vote-tally">
             <tr>
                 <th>[% l('Vote tally:') %]</th>
@@ -116,6 +112,12 @@
                 </tr>
             [% END %]
         </table>
+        [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+            <div class="cancel-edit">
+                [% PROCESS approve %]
+                [% PROCESS cancel %]
+            </div>
+        [% END %]
 
         [% IF edit.is_open && !edit.editor_may_vote(c.user) && (edit.editor_id != c.user.id) %]
             [%# The current user check is necessary because !edit.editor_may_vote
@@ -141,12 +143,13 @@
                 [%- request_login() -%]
             </p>
         [% END %]
-
-        <h2>[% l('Edit notes') %]</h2>
-        [% INCLUDE 'edit/notes.tt' %]
-        <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
-            [% INCLUDE 'edit/add_note.tt' %]
-        </form>
+        <div class="edit-notes">
+            <h2>[% l('Edit notes') %]</h2>
+            [% INCLUDE 'edit/notes.tt' %]
+            <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
+                [% INCLUDE 'edit/add_note.tt' %]
+            </form>
+        </div>
 
     </div>
 [%- END -%]

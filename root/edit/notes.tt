@@ -10,17 +10,15 @@
 [% END %]
 
 [% IF edit.edit_notes.size %]
-    <div class="edit-notes">
-        [% FOR note=edit.edit_notes %]
-            <div class="edit-note">
-                <h3 class="[%- PROCESS votename -%]">
-                    [%- l('{editor}', { editor => link_editor(note.editor) }) -%]
-                    <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
-                </h3>
-                [%- note.text -%]
-            </div>
-        [% END %]
-    </div>
+    [% FOR note=edit.edit_notes %]
+        <div class="edit-note">
+            <h3 class="[%- PROCESS votename -%]">
+                [%- l('{editor}', { editor => link_editor(note.editor) }) -%]
+                <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
+            </h3>
+            [%- note.text -%]
+        </div>
+    [% END %]
 [% ELSE %]
     <p><em>[% l('No edit notes have been added.') %]</em></p>
 [% END %]
