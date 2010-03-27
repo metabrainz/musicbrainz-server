@@ -17,7 +17,11 @@
             [% IF summary %]
                 <td class="none">[% vote_checkbox(l('None'), -2) %]</td>
             [% ELSE %]
-                <td>[% form_submit(l('Vote')) %]</td>
+                [% IF edit.latest_vote_for_editor(c.user.id).vote %]
+                    <td>[% form_submit(l('Change vote')) %]</td>
+                [% ELSE %]
+                    <td>[% form_submit(l('Enter vote')) %]</td>
+                [% END %]
             [% END %]
             <input type="hidden" value="[% edit.id %]" name="[% name %].edit_id" />
         </tr>
