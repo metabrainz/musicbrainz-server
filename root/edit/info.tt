@@ -1,12 +1,28 @@
 [% IF summary %]
-    <div class="c">
-        [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
+
+        [% IF edit.latest_vote_for_editor(c.user.id) %]
+            <div class="my-vote">
+                <strong>[%- l('My vote: ') -%]</strong>
+                [%- edit.latest_vote_for_editor(c.user.id).vote_name -%]
+            </div>
+        [% ELSIF c.user.id == edit.editor_id %]
+            <div class="my-vote">
+                <strong>[%- l('My vote: ') -%]</strong>
+                [%- l('N/A') -%]
+            </div>
+        [% ELSIF !edit.is_open %]
+            <div class="my-vote">
+                <strong>[%- l('My vote: ') -%]</strong>
+                [%- l('Did not vote') -%]
+            </div>
+        [% END %]
+
+        [% IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open %]
             <div class="vote-count">[%- edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]</div>
         [% END %]
 
-        [% IF edit.is_open && c.user_exists %]
-            [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
-        [% END %]
+    <div class="c">
+        [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
     </div>
 [% END %]
 

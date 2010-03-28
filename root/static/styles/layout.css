@@ -746,17 +746,24 @@ table.voteopts td {
     font-size: 95%;
 }
 
+.vote-actions .my-vote {
+    float: left;
+}
+
 .vote-actions .vote-count {
-    margin-bottom: 5px;
+    float: right;
+    margin: 0 10px 5px 0;
 }
 
 .vote-actions table.voteopts {
     width: 160px;
     margin: 0 24px;
+    clear: both;
 }
 
 .vote-actions dl.properties {
     margin: 5px 0;
+    clear: both;
 }
 
 .edit-list .edit-content {
