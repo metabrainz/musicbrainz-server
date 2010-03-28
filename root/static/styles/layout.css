@@ -746,6 +746,11 @@ table.voteopts td {
     font-size: 95%;
 }
 
+.vote-actions .edit-status {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
 .vote-actions .my-vote {
     float: left;
 }

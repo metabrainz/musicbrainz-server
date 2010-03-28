@@ -18,9 +18,8 @@
 
     <p class="subheader">
         <span class="prefix">~</span>
-        [% l('{status} edit by {editor}',
-            { status => html_escape(edit.status_name),
-              editor => link_editor(edit.editor) }) %]
+        [% l('Edit by {editor}',
+            { editor => link_editor(edit.editor) }) %]
         [% '(<dfn title="This edit was automatically applied.">auto-edit</dfn>)' IF edit.autoedit %]
     </p>
 </div>
