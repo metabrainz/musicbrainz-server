@@ -1,3 +1,21 @@
+[% BLOCK approve %]
+    [% IF edit.auto_edit_for_editor(c.user) %]
+        <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Approve edit') %]" />
+        </form>
+    [% END %]
+[% END %]
+
+[% BLOCK cancel %]
+    [% IF edit.is_open && edit.editor_id == c.user.id %]
+        <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Cancel edit') %]" />
+        </form>
+    [% END %]
+[% END %]
+
 [% IF edits.size %]
     [% WRAPPER 'components/with-pager.tt' %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
@@ -8,25 +26,33 @@
                     </div>
 
                     <div class="edit-content">
+                        [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+                            <div class="cancel-edit">
+                                [% PROCESS approve %]
+                                [% PROCESS cancel %]
+                            </div>
+                        [% END %]
+
                         <h2>[% link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ html_escape(edit.edit_name))) %]</h2>
                         <p class="subheader">
                             <span class="prefix">~</span>
-                            [% l('{status} edit by {editor}',
+                            [%- l('{status} edit by {editor}',
                                 { status => html_escape(edit.status_name),
-                                  editor => link_editor(edit.editor) }) %]
+                                  editor => link_editor(edit.editor) }) -%]
                             [% '(<dfn title="This edit was automatically applied.">auto-edit</dfn>)' IF edit.autoedit %]
                         </p>
                         <div class="edit-details">
-                            <h2>[% l('Changes') %]</h2>
                             [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
                                 INCLUDE "edit/details/${edit_template}.tt" %]
                         </div>
+
                         [% IF edit.edit_notes.size %]
                             <div class="edit-notes">
                                 <h2>[% l('Edit notes') %]</h2>
                                 [% INCLUDE "edit/notes.tt" %]
                             </div>
                         [% END %]
+
                     </div>
                     <div class="seperator">
                     </div>

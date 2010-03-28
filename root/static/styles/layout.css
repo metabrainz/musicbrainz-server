@@ -661,6 +661,10 @@ span.mp {
 
 /* Edit pages */
 
+.cancel-edit {
+    float: right;
+}
+
 .cancel-edit form {
     display: inline;
     margin-right: 5px;
@@ -683,10 +687,6 @@ table.vote-tally th {
 table.vote-tally .vote {
     width: 100%;
     padding: 5px 5px 5px 10px;
-}
-
-table.vote-tally .aggregate {
-    padding: 10px;
 }
 
 table.vote-tally tr.superseded,
@@ -748,10 +748,6 @@ table.voteopts td {
 
 .vote-actions .vote-count {
     margin-bottom: 5px;
-}
-
-.vote-actions .cancel-edit {
-    text-align: center;
 }
 
 .vote-actions table.voteopts {

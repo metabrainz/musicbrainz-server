@@ -1,21 +1,3 @@
-[% BLOCK approve %]
-    [% IF edit.auto_edit_for_editor(c.user) %]
-        <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
-            <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <input type="submit" value="[% l('Approve edit') %]" />
-        </form>
-    [% END %]
-[% END %]
-
-[% BLOCK cancel %]
-    [% IF edit.is_open && edit.editor_id == c.user.id %]
-        <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
-            <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <input type="submit" value="[% l('Cancel edit') %]" />
-        </form>
-    [% END %]
-[% END %]
-
 [% IF summary %]
     <div class="c">
         [% IF (edit.is_open && edit.latest_vote_for_editor(c.user.id)) || c.user.id == edit.editor_id || !edit.is_open %]
@@ -54,14 +36,7 @@
     [% END %]
 [% END %]
 
-[% IF summary %]
-    [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
-        <div class="cancel-edit">
-            [% PROCESS approve %]
-            [% PROCESS cancel %]
-        </div>
-    [% END %]
-[% ELSE %]
+[% IF !summary %]
     <p><strong>[% edit_status_description(edit) %]</strong></p>
     <p>[%- l('For more information:') -%]</p>
     <ul class="links">
