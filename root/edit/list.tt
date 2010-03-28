@@ -26,21 +26,7 @@
                     </div>
 
                     <div class="edit-content">
-                        [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
-                            <div class="cancel-edit">
-                                [% PROCESS approve %]
-                                [% PROCESS cancel %]
-                            </div>
-                        [% END %]
-
-                        <h2>[% link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ html_escape(edit.edit_name))) %]</h2>
-                        <p class="subheader">
-                            <span class="prefix">~</span>
-                            [%- l('{status} edit by {editor}',
-                                { status => html_escape(edit.status_name),
-                                  editor => link_editor(edit.editor) }) -%]
-                            [% '(<dfn title="This edit was automatically applied.">auto-edit</dfn>)' IF edit.autoedit %]
-                        </p>
+                        [% INCLUDE 'edit/header.tt' summary=1 %]
                         <div class="edit-details">
                             [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
                                 INCLUDE "edit/details/${edit_template}.tt" %]

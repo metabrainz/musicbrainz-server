@@ -1,0 +1,26 @@
+<div class="edit-header">
+    [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+        <div class="cancel-edit">
+            [% PROCESS approve %]
+            [% PROCESS cancel %]
+        </div>
+    [% END %]
+
+    [% IF summary %]
+        <h2>
+            [%- link_edit(edit, show, html_escape('Edit #' _ edit.id)) _ " - " _ html_escape(edit.edit_name) -%]
+        </h2>
+    [% ELSE %]
+        <h1>
+            [%- "Edit #" _ edit.id _ " - " _ html_escape(edit.edit_name) -%]
+        </h1>
+    [% END %]
+
+    <p class="subheader">
+        <span class="prefix">~</span>
+        [% l('{status} edit by {editor}',
+            { status => html_escape(edit.status_name),
+              editor => link_editor(edit.editor) }) %]
+        [% '(<dfn title="This edit was automatically applied.">auto-edit</dfn>)' IF edit.autoedit %]
+    </p>
+</div>

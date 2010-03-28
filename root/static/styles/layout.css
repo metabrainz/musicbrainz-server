@@ -764,8 +764,9 @@ table.voteopts td {
     padding: 5px 0 0 5px;
 }
 
-.edit-list .edit-content > h2 {
+.edit-list .edit-header > h2 {
     margin-top: 0;
+    color: #000000;
 }
 
 .seperator {
