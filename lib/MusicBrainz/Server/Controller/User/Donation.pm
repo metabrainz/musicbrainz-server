@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Controller::User::Donation;
 use Moose;
+use LWP;
+use URI::Escape;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -19,19 +21,28 @@ sub view : Chained('/user/base') PathPart('donation') RequireAuth
     my $days = 0.0;
     if ($nag)
     {
-        use LWP::Simple;
-        use URI::Escape;
-        $days = get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($user->name));
-        if ($days =~ /\s*([-01]+),([-0-9.]+)\s*/)
+        my $ua = LWP::UserAgent->new;
+        $ua->agent("MusicBrainz server");
+        $ua->timeout(5); # in seconds.
+
+        my $response = $ua->request(HTTP::Request->new (GET => 
+            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='. 
+            uri_escape($user->name)));
+
+        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
         {
             $nag = $1;
             $days = $2;
+        }
+        else
+        {
+            $c->detach('/error_500');
         }
     }
 
     $c->stash(
         nag => $nag,
-        days => $days,
+        days => sprintf ("%.0f", $days),
         template => 'user/donation.tt',
     );
 }
