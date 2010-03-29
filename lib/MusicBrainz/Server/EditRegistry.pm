@@ -54,6 +54,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::EditAlias
 
     MusicBrainz::Server::Edit::Historic::EditReleaseName
+    MusicBrainz::Server::Edit::Historic::AddTrack
 );
 
 sub register_type
