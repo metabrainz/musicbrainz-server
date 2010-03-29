@@ -37,6 +37,19 @@ Datum musicbrainz_collate (PG_FUNCTION_ARGS);
 
 PG_FUNCTION_INFO_V1(musicbrainz_collate);
 
+#define PREALLOC_SIZE 256
+
+
+static int
+icu_failure (UErrorCode status)
+{
+    if (U_SUCCESS(status))
+        return 0;
+
+    ereport(ERROR, (errmsg("ICU error: %s", u_errorName (status))));
+    return 1;
+}
+
 static UChar *
 unicode_from_pg_text (text *pg_input)
 {
@@ -45,16 +58,27 @@ unicode_from_pg_text (text *pg_input)
     char *input = VARDATA (pg_input);
     int32_t len = VARSIZE (pg_input) - VARHDRSZ;
 
-    UChar *ret;
+    UChar *ret = (UChar *) palloc (sizeof (UChar) * PREALLOC_SIZE);
     int32_t size;
 
-    /* get size.  FIXME: should pre-allocate for performance. */
-    u_strFromUTF8WithSub (NULL, 0, &size, input, len, 0xFFFD, NULL, &status);
-    size += 1;
-    ret = (UChar *) palloc (sizeof (UChar) * size);
+    u_strFromUTF8WithSub (ret, PREALLOC_SIZE, &size, input, len, 0xFFFD, NULL, &status);
 
-    status = U_ZERO_ERROR;
-    u_strFromUTF8WithSub (ret, size, NULL, input, len, 0xFFFD, NULL, &status);
+    /* always allocate 1 character more than neccesary, this ensures that
+     * u_strFromUTF8WithSub() will write a zero-terminated string. */
+    if (++size > PREALLOC_SIZE)
+    {
+        pfree (ret);
+        ret = (UChar *) palloc (sizeof (UChar) * size);
+
+        status = U_ZERO_ERROR;
+        u_strFromUTF8WithSub (ret, size, NULL, input, len, 0xFFFD, NULL, &status);
+    }
+
+    if (icu_failure (status))
+    {
+        pfree (ret);
+        return NULL;
+    }
 
     return ret;
 }
@@ -66,14 +90,25 @@ sortkey_from_unicode (UChar *input, uint8_t **output)
     UCollator * collator = ucol_openFromShortString ("", FALSE, NULL, &status);
     int32_t size;
 
-    /* FIXME: check status here. */
+    if (icu_failure (status))
+        return 0;
 
-    /* get size.  FIXME: should pre-allocate for performance. */
-    size = ucol_getSortKey (collator, input, -1, NULL, 0);
-    *output = (uint8_t *) palloc (sizeof (uint8_t) * size);
-    ucol_getSortKey (collator, input, -1, *output, size);
+    *output = (uint8_t *) palloc (sizeof (uint8_t) * PREALLOC_SIZE);
+    size = ucol_getSortKey (collator, input, -1, *output, PREALLOC_SIZE);
+
+    if (size > PREALLOC_SIZE)
+    {
+        pfree (*output);
+        *output = (uint8_t *) palloc (sizeof (uint8_t) * size);
+        ucol_getSortKey (collator, input, -1, *output, size);
+    }
 
     ucol_close (collator);
+
+    if (size < 1)
+    {
+        ereport(ERROR, (errmsg("ICU sortkey is zero")));
+    }
 
     return size;
 }
@@ -92,7 +127,16 @@ musicbrainz_collate (PG_FUNCTION_ARGS)
     }
 
     unicode = unicode_from_pg_text (PG_GETARG_TEXT_P(0));
+    if (!unicode)
+    {
+        PG_RETURN_NULL();
+    }
+
     sortkeylen = sortkey_from_unicode (unicode, &sortkey);
+    if (!sortkeylen)
+    {
+        PG_RETURN_NULL();
+    }
 
     output = (bytea *)palloc (sortkeylen + VARHDRSZ);
 
