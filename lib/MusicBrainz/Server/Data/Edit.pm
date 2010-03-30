@@ -269,7 +269,7 @@ sub load_all
         while (my ($model, $ids) = each %$edit_references) {
             $objects_to_load->{$model} ||= [];
             if (ref($ids) eq 'ARRAY') {
-                $ids = [ grep { defined } @$ids ];
+                $ids = [ uniq grep { defined } @$ids ];
             }
             $ids = Data::OptList::mkopt_hash($ids);
             while (my ($object_id, $extra_models) = each %$ids) {

@@ -13,8 +13,7 @@
                             [% INCLUDE 'edit/info.tt' summary=1 %]
                         </td>
                         <td class="edit-details">
-                            [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
-                                INCLUDE "edit/details/${edit_template}.tt" %]
+                            [%- INCLUDE "edit/details/${edit.edit_template}.tt" %]
                         </td>
                         <td class="vote-actions">
                             <p>[% edit.yes_votes %]
@@ -35,7 +34,7 @@
 
                                 [% INCLUDE 'edit/vote.tt' n=loop.index %]
                             </p>
-                            [% END %]                           
+                            [% END %]
                         </td>
                     </tr>
                     [% IF edit.notes.size %]
