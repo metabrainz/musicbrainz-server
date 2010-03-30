@@ -317,3 +317,33 @@ END -%]
         CASE 8; l('This edit was recently cancelled.');
         CASE 9; l('This edit was cancelled.');
 END %]
+
+[% MACRO expiration_time(datetime) BLOCK %]
+    [% IF Countdown.in_the_future(datetime) %]
+        [% IF Countdown.total_days(datetime) > 0 %]
+            [%# l('Expires in <dfn title="{exactdate}">' . $delta . '</dfn> days.' %]
+            [% ln('Expires in {n} day', 'Expires in {n} days', Countdown.total_days(datetime),
+                 { n => Countdown.total_days(datetime) }) %]
+        [% ELSE %]
+            [% IF Countdown.hours(datetime) == 1 && Countdown.minutes(datetime) == 1 %]
+                [% l('Expires in {hour} hour, {min} minute',
+                    { hour => Countdown.hours(datetime),
+                      min  => Countdown.minutes(datetime) }) %]
+            [% ELSIF Countdown.hours == 1 %]
+                [% l('Expires in {hour} hour, {mins} minutes',
+                    { hour => Countdown.hours(edit.expire_time),
+                      mins => Countdown.minutes(edit.expire_time) }) %]
+            [% ELSIF Countdown.minutes == 1 %]
+                [% l('Expires in {hours} hours, {min} minute',
+                    { hours => Countdown.hours(datetime),
+                      min   => Countdown.minutes(datetime) }) %]
+            [% ELSE %]
+                [% l('Expires in {hours} hours, {mins} minutes',
+                    { hours => Countdown.hours(datetime),
+                      mins  => Countdown.minutes(datetime) }) %]
+            [% END %]
+        [% END %]
+    [% ELSE %]
+        [% l('N/A') %]
+    [% END %]
+[% END %]
