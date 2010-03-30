@@ -161,6 +161,10 @@ dfn {
     background-color: #D4D4D4;
 }
 
+#header-menu .separator {
+    border-top: 1px dotted;
+}
+
 .page {
     margin-top: 1em;
     padding: 1em 1em 1em 1em;

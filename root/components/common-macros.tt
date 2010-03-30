@@ -288,9 +288,9 @@ END %]
 END %]
 
 [% MACRO quality_name(quality) SWITCH quality;
-    CASE -1; l('unknown quality level');
     CASE 0;  l('low quality level');
-    CASE 1;  l('default quality level');
+    CASE 1;
+    CASE -1; l('default quality level');
     CASE 2;  l('high quality level');
 END %]
 

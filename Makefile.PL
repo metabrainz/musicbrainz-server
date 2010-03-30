@@ -92,6 +92,7 @@ author_requires 'Test::EOL';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Test::Differences';
 test_requires 'Test::Aggregate';
+test_requires 'Test::JSON';
 test_requires 'XML::Parser';
 
 catalyst;

@@ -82,7 +82,7 @@ subtype 'EditStatus'
 
 subtype 'Quality'
     => as 'Int'
-    => where { $_ >= $QUALITY_LOW && $_ <= $QUALITY_HIGH };
+    => where { $_ >= $QUALITY_LOW && $_ <= $QUALITY_HIGH || $_ == $QUALITY_UNKNOWN };
 
 1;
 

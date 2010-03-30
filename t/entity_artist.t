@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Moose;
 use Date::Calc qw(This_Year);
 use_ok 'MusicBrainz::Server::Entity::Artist';
 use_ok 'MusicBrainz::Server::Entity::ArtistType';

@@ -29,7 +29,7 @@ sub _columns
 {
     return 'release.id, gid, name.name, release.artist_credit AS artist_credit_id,
             release_group, status, packaging, date_year, date_month, date_day,
-            country, comment, editpending, barcode, script, language';
+            country, comment, editpending, barcode, script, language, quality';
 }
 
 sub _id_column
@@ -59,6 +59,7 @@ sub _column_mapping
         barcode => 'barcode',
         script_id => 'script',
         language_id => 'language',
+        quality => 'quality'
     };
 }
 
