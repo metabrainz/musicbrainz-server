@@ -1,21 +1,3 @@
-[% BLOCK approve %]
-    [% IF edit.auto_edit_for_editor(c.user) %]
-        <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
-            <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <input type="submit" value="[% l('Approve edit') %]" />
-        </form>
-    [% END %]
-[% END %]
-
-[% BLOCK cancel %]
-    [% IF edit.is_open && edit.editor_id == c.user.id %]
-        <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
-            <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <input type="submit" value="[% l('Cancel edit') %]" />
-        </form>
-    [% END %]
-[% END %]
-
 [% IF edits.size %]
     [% WRAPPER 'components/with-pager.tt' %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
