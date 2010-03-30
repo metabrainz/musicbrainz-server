@@ -490,13 +490,24 @@ sub change_password : Path('/account/change-password') RequireAuth
 
 sub base : Chained PathPart('user') CaptureArgs(1)
 {
-    my ($self, $c, $editor_name) = @_;
+    my ($self, $c, $user_name) = @_;
 
-    my $editor = $c->model('Editor')->get_by_name($editor_name);
+    my $user = $c->model('Editor')->get_by_name($user_name);
     $c->detach('/error_404')
-        unless defined $editor;
+        unless defined $user;
 
-    $c->stash( user => $editor );
+    $c->stash( user => $user );
+
+    if ($c->user_exists && $c->user->id == $user->id)
+    {
+        $c->stash->{viewing_own_profile} = 1;
+        $c->stash->{show_collection} = 1;
+    }
+    else
+    {
+        $c->model('Editor')->load_preferences($user);
+        $c->stash->{show_collection} = $user->preferences->public_collection;
+    }
 }
 
 =head2 profile
@@ -514,11 +525,11 @@ sub profile : Local Args(1)
     $c->detach('/error_404')
         if (!defined $user);
 
-    if ($c->user_exists && $c->user->id == $user->id) 
+    if ($c->user_exists && $c->user->id == $user->id)
     {
         $c->stash->{viewing_own_profile} = 1;
         $c->stash->{show_collection} = 1;
-    } 
+    }
     else
     {
         $c->model('Editor')->load_preferences($user);
