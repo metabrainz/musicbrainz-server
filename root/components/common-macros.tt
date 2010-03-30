@@ -13,6 +13,7 @@
 [%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
 [%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
 [%- USE UserDate(c.user.preferences) -%]
+[%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]

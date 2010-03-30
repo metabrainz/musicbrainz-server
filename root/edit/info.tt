@@ -1,3 +1,33 @@
+[% BLOCK expiration_time %]
+    [% IF Countdown.in_the_future(edit.expires_time) %]
+        [% IF Countdown.total_days(edit.expires_time) > 0 %]
+            [%# l('Expires in <dfn title="{exactdate}">' . $delta . '</dfn> days.' %]
+            [% ln('Expires in {n} day', 'Expires in {n} days', Countdown.total_days(edit.expires_time),
+                 { n => Countdown.total_days(edit.expires_time) }) %]
+        [% ELSE %]
+            [% IF Countdown.hours(edit.expires_time) == 1 && Countdown.minutes(edit.expires_time) == 1 %]
+                [% l('Expires in {hour} hour, {min} minute',
+                    { hour => Countdown.hours(edit.expires_time),
+                      min  => Countdown.minutes(edit.expires_time) }) %]
+            [% ELSIF Countdown.hours == 1 %]
+                [% l('Expires in {hour} hour, {mins} minutes',
+                    { hour => Countdown.hours(edit.expire_time),
+                      mins => Countdown.minutes(edit.expire_time) }) %]
+            [% ELSIF Countdown.minutes == 1 %]
+                [% l('Expires in {hours} hours, {min} minute',
+                    { hours => Countdown.hours(edit.expires_time),
+                      min   => Countdown.minutes(edit.expires_time) }) %]
+            [% ELSE %]
+                [% l('Expires in {hours} hours, {mins} minutes',
+                    { hours => Countdown.hours(edit.expires_time),
+                      mins  => Countdown.minutes(edit.expires_time) }) %]
+            [% END %]
+        [% END %]
+    [% ELSE %]
+        [% l('N/A') %]
+    [% END %]
+[% END %]
+
 <div class="edit-status">
     [% IF edit.status == 1 %]
     [% ELSIF edit.status == 2 %]
@@ -38,10 +68,16 @@
     </div>
 [% END %]
 
+<p>
+    [% PROCESS expiration_time %]
+</p>
+
 [%- WRAPPER 'layout/sidebar/properties.tt' -%]
 
-    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Expires:')
+    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Old expiration:')
         content=UserDate.countdown(edit.expires_time)-%]
+    [%-# INCLUDE 'layout/sidebar/property.tt' label=l('New expiration:')
+        content=PROCESS expiration_time -%]
 
     [% IF !summary %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
