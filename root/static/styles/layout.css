@@ -792,6 +792,43 @@ table.voteopts td {
     background-color: #FFFFFF;
 }
 
+.search-toggle {
+    text-align: center;
+}
+
+.search-toggle p {
+    margin: 5px;
+    display: inline-block;
+}
+
+.search-toggle a {
+    cursor: pointer;
+}
+
+.search-refine {
+    display: none;
+    padding: 5px;
+    border-bottom: 1px solid;
+}
+
+.search-refine div.row {
+    display: inline-block;
+}
+
+.search-help {
+    background-color: #F2F2F2;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.search-help dl.properties {
+    margin: 0;
+}
+
+.search-help dl.properties dt {
+    width: 90px
+}
+
 /* Extra CSS Styles for the landing page */
 
 #leftSide {
