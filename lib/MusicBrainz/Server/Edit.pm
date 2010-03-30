@@ -12,6 +12,14 @@ use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
 requires 'edit_type', 'edit_name';
 
+sub edit_template
+{
+    my $self = shift;
+    my $name = lc($self->edit_name);
+    $name =~ s/\s+/_/g;
+    return $name;
+}
+
 has 'c' => (
     isa => 'Object',
     is => 'rw'
