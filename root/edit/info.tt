@@ -39,6 +39,10 @@
 [% END %]
 
 [%- WRAPPER 'layout/sidebar/properties.tt' -%]
+
+    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Expires:')
+        content=UserDate.countdown(edit.expires_time)-%]
+
     [% IF !summary %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
             content=html_escape(UserDate.format(edit.created_time)) -%]
