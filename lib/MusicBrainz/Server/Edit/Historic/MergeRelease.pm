@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::MergeRelease;
 use Moose;
 use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE );
 
 extends 'MusicBrainz::Server::Edit::Historic';
@@ -56,7 +56,9 @@ has '+data' => (
         new_release => Dict[
             release_ids => ArrayRef[Int],
             name        => Str
-        ]
+        ],
+        merge_attributes => Bool,
+        merge_language   => Bool,
     ]
 );
 
@@ -93,7 +95,9 @@ sub build_display_data
                     Release->new(name => $self->data->{new_release}{name})
                 }
             } ],
-        }
+        },
+        merge_attributes => $self->data->{merge_attributes},
+        merge_language   => $self->data->{merge_language}
     }
 }
 
@@ -120,7 +124,9 @@ sub upgrade
                     $self->new_value->{"AlbumId$_"}),
                 name => $self->new_value->{"AlbumName$_"}
             } } @old_releases
-        ]
+        ],
+        merge_language   => $self->new_value->{merge_langscript} || 0,
+        merge_attributes => $self->new_value->{merge_attributes} || 0,
     });
 
     return $self;

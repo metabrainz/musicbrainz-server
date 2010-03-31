@@ -24,4 +24,14 @@
       </ul>
     </td>
   </tr>
+
+  <tr>
+    <th>[% l('Merge attributes:') %]</th>
+    <td>[% edit.display_data.merge_attributes ? l('Yes') : l('No') %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Merge language &amp; script:') %]</th>
+    <td>[% edit.display_data.merge_language ? l('Yes') : l('No') %]</td>
+  </tr>
 </table>
