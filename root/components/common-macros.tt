@@ -322,26 +322,15 @@ END %]
     [% IF Countdown.in_the_future(datetime) %]
         [% IF Countdown.total_days(datetime) > 0 %]
             [%# l('Expires in <dfn title="{exactdate}">' . $delta . '</dfn> days.' %]
-            [% ln('Expires in {n} day', 'Expires in {n} days', Countdown.total_days(datetime),
-                 { n => Countdown.total_days(datetime) }) %]
+            [% l('Expires in {days}',
+                { days => ln('{num} day', '{num} days', Countdown.total_days(datetime),
+                            { num => Countdown.total_days(datetime) }) }) %]
         [% ELSE %]
-            [% IF Countdown.hours(datetime) == 1 && Countdown.minutes(datetime) == 1 %]
-                [% l('Expires in {hour} hour, {min} minute',
-                    { hour => Countdown.hours(datetime),
-                      min  => Countdown.minutes(datetime) }) %]
-            [% ELSIF Countdown.hours == 1 %]
-                [% l('Expires in {hour} hour, {mins} minutes',
-                    { hour => Countdown.hours(edit.expire_time),
-                      mins => Countdown.minutes(edit.expire_time) }) %]
-            [% ELSIF Countdown.minutes == 1 %]
-                [% l('Expires in {hours} hours, {min} minute',
-                    { hours => Countdown.hours(datetime),
-                      min   => Countdown.minutes(datetime) }) %]
-            [% ELSE %]
-                [% l('Expires in {hours} hours, {mins} minutes',
-                    { hours => Countdown.hours(datetime),
-                      mins  => Countdown.minutes(datetime) }) %]
-            [% END %]
+            [% l('Expires in {hours}, {minutes}',
+                { hours   => ln('{num} hour', '{num} hours', Countdown.hours(datetime),
+                               { num => Countdown.hours(datetime) }),
+                  minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
+                               { num => Countdown.minutes(datetime) }) }) %]
         [% END %]
     [% ELSE %]
         [% l('N/A') %]
