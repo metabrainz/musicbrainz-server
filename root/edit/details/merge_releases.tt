@@ -1,0 +1,27 @@
+<table>
+  <tr>
+    <th>[% l('Old Releases:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases.old %]
+        <li>[% l('{release} by {artist}',
+                 { release => link_release(release),
+                   artist  => artist_credit(release.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('New Releases:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases.new %]
+        <li>[% l('{release} by {artist}',
+                 { release => link_release(release),
+                   artist  => artist_credit(release.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table>
