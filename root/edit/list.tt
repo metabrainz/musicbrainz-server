@@ -1,15 +1,3 @@
-[%- BLOCK layout_head -%]
-    <script type="text/javascript">
-        window.onload = function() {
-            $('.search-refine select').attr('size', '10');
-
-            $('.search-toggle p').click(function () {
-                $('.search-refine').slideToggle('500');
-            })
-        }
-    </script>
-[%- END -%]
-
     <div class="search-help">
         <dl class="properties">
             <dt>
