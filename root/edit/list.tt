@@ -1,3 +1,63 @@
+[%- BLOCK layout_head -%]
+    <script type="text/javascript">
+        window.onload = function() {
+            $('.search-refine select').attr('size', '10');
+
+            $('.search-toggle p').click(function () {
+                $('.search-refine').slideToggle('500');
+            })
+        }
+    </script>
+[%- END -%]
+
+    <div class="search-help">
+        <dl class="properties">
+            <dt>
+                [% l('Quick links:') %]
+            </dt>
+            <dd>
+                [%- l('{url|Open edits}', { url => c.uri_for('/edit/open') }) -%]
+                | 
+                [%- l('{url|Subscribed artists}', { url => '/404' }) -%]
+                | 
+                [%- l('{url|Subscribed editors}', { url => '/404' }) -%]
+            </dd>
+            <dt>
+                [% l('Help:') %]
+            </dt>
+            <dd>
+                [%- l('{doc|Editing FAQ}', { doc => doc_link('Editing_FAQ') }) -%]
+                | 
+                [%- l('{doc|Style guidelines}', { doc => doc_link('Official_Style_Guidelines') }) -%]
+                | 
+                [%- l('{doc|How editing works}', { doc => doc_link('How_Editing_Works') }) -%]
+            </dd>
+        </dl>
+    </div>
+
+[% IF search %]
+    <div class="search-refine">
+        <form action="[% c.req.uri %]" method="post">
+            [% USE r = FormRenderer(form) %]
+            [% form_row_select(r, 'type', l('Type:')) %]
+            [% form_row_select(r, 'status', l('Status:')) %]
+
+         <div class="row no-label">
+             [% form_submit(l("Search")) %]
+         </div>
+       </form>
+    </div>
+[% END %]
+
+<div class="search-toggle">
+    <p>
+        <strong>[%- ln('Found {n} edit', 'Found {n} edits' , pager.total_entries, { n => pager.total_entries}) -%]</strong>
+        [% IF search %]
+            (<a>[% l('search again') %]</a>)
+        [% END %]
+    </p>
+</div>
+
 [% IF edits.size %]
     [% WRAPPER 'components/with-pager.tt' %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
