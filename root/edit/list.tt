@@ -1,27 +1,27 @@
-    <div class="search-help">
-        <dl class="properties">
-            <dt>
-                [% l('Quick links:') %]
-            </dt>
-            <dd>
-                [%- l('{url|Open edits}', { url => c.uri_for('/edit/open') }) -%]
-                | 
-                [%- l('{url|Subscribed artists}', { url => '/404' }) -%]
-                | 
-                [%- l('{url|Subscribed editors}', { url => '/404' }) -%]
-            </dd>
-            <dt>
-                [% l('Help:') %]
-            </dt>
-            <dd>
-                [%- l('{doc|Editing FAQ}', { doc => doc_link('Editing_FAQ') }) -%]
-                | 
-                [%- l('{doc|Style guidelines}', { doc => doc_link('Official_Style_Guidelines') }) -%]
-                | 
-                [%- l('{doc|How editing works}', { doc => doc_link('How_Editing_Works') }) -%]
-            </dd>
-        </dl>
-    </div>
+<div class="search-help">
+    <dl class="properties">
+        <dt>
+            [% l('Quick links:') %]
+        </dt>
+        <dd>
+            [%- l('{url|Open edits}', { url => c.uri_for('/edit/open') }) -%]
+            | 
+            [%- l('{url|Subscribed artists}', { url => '/404' }) -%]
+            | 
+            [%- l('{url|Subscribed editors}', { url => '/404' }) -%]
+        </dd>
+        <dt>
+            [% l('Help:') %]
+        </dt>
+        <dd>
+            [%- l('{doc|Editing FAQ}', { doc => doc_link('Editing_FAQ') }) -%]
+            | 
+            [%- l('{doc|Style guidelines}', { doc => doc_link('Official_Style_Guidelines') }) -%]
+            | 
+            [%- l('{doc|How editing works}', { doc => doc_link('How_Editing_Works') }) -%]
+        </dd>
+    </dl>
+</div>
 
 [% IF search %]
     <div class="search-refine">
