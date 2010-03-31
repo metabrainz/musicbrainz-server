@@ -319,17 +319,22 @@ END -%]
 END %]
 
 [% MACRO expiration_time(datetime) BLOCK %]
-    [% IF Countdown.in_the_future(datetime) %]
-        [% IF Countdown.total_days(datetime) > 0 %]
+    [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
+        [% IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days %]
             [% l('Expires in <dfn title="{exactdate}">{days}</dfn>',
                 { days => ln('{num} day', '{num} days', Countdown.total_days(datetime),
                             { num => Countdown.total_days(datetime) })
                   exactdate => UserDate.format(datetime) }) %]
-        [% ELSE %]
+        [% ELSIF Countdown.hours(datetime) > 0 # Show hours and minutes %]
             [% l('Expires in <dfn title="{exactdate}">{hours}, {minutes}</dfn>',
                 { hours   => ln('{num} hour', '{num} hours', Countdown.hours(datetime),
                                { num => Countdown.hours(datetime) }),
                   minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
+                               { num => Countdown.minutes(datetime) })
+                  exactdate => UserDate.format(datetime) }) %]
+        [% ELSE # Only show minutes %]
+            [% l('Expires in <dfn title="{exactdate}">{minutes}</dfn>',
+                { minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
                                { num => Countdown.minutes(datetime) })
                   exactdate => UserDate.format(datetime) }) %]
         [% END %]
