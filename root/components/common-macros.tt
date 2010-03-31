@@ -321,16 +321,17 @@ END %]
 [% MACRO expiration_time(datetime) BLOCK %]
     [% IF Countdown.in_the_future(datetime) %]
         [% IF Countdown.total_days(datetime) > 0 %]
-            [%# l('Expires in <dfn title="{exactdate}">' . $delta . '</dfn> days.' %]
-            [% l('Expires in {days}',
+            [% l('Expires in <dfn title="{exactdate}">{days}</dfn>',
                 { days => ln('{num} day', '{num} days', Countdown.total_days(datetime),
-                            { num => Countdown.total_days(datetime) }) }) %]
+                            { num => Countdown.total_days(datetime) })
+                  exactdate => UserDate.format(datetime) }) %]
         [% ELSE %]
-            [% l('Expires in {hours}, {minutes}',
+            [% l('Expires in <dfn title="{exactdate}">{hours}, {minutes}</dfn>',
                 { hours   => ln('{num} hour', '{num} hours', Countdown.hours(datetime),
                                { num => Countdown.hours(datetime) }),
                   minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
-                               { num => Countdown.minutes(datetime) }) }) %]
+                               { num => Countdown.minutes(datetime) })
+                  exactdate => UserDate.format(datetime) }) %]
         [% END %]
     [% ELSE %]
         [% l('N/A') %]
