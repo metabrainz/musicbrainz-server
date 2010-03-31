@@ -1,5 +1,6 @@
 <div class="edit-status">
     [% IF edit.status == 1 %]
+        <strong>[%- expiration_time(edit.expires_time) -%]</strong>
     [% ELSIF edit.status == 2 %]
         <strong>[%- l('Edit applied') -%]</strong>
     [% ELSIF edit.status == 8 %]
@@ -7,7 +8,7 @@
     [% ELSIF edit.status == 9 %]
         <strong>[%- l('Edit cancelled') -%]</strong>
     [% ELSE %]
-        <strong>[%- l('Edit <dfn title="' _ edit_status_description(edit) _ '">failed</dfn>') -%]</strong>
+        <strong>[%- edit.status_name(edit) -%]</strong>
     [% END %]
 </div>
 
@@ -40,23 +41,15 @@
 
 [%- WRAPPER 'layout/sidebar/properties.tt' -%]
 
-    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Old expiration:')
-        content=UserDate.countdown(edit.expires_time)-%]
-    [%- INCLUDE 'layout/sidebar/property.tt' label=l('New expiration:')
-        content=expiration_time(edit.expires_time) -%]
-
     [% IF !summary %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
             content=html_escape(UserDate.format(edit.created_time)) -%]
     [% END %]
 
-    [% IF edit.is_open %]
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Expires:')
-            content=html_escape(UserDate.format(edit.expires_time)) -%]
-    [% ELSIF edit.status == 8 %]
+    [% IF !edit.is_open && edit.status == 8 %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
             content=l('<em>Cancelling</em>') -%]
-    [% ELSE %]
+    [% ELSIF !edit.is_open %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
             content=html_escape(UserDate.format(edit.close_time)) -%]
     [% END %]
