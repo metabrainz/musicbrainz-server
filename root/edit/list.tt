@@ -89,7 +89,8 @@
 
             <input type="hidden" name="url" value="[% c.req.uri %]" />
             <div class="row no-label" style="text-align: right">
-              [% form_submit(l('Vote')) %]
+                [% l('Click here to vote on all the edits on this page:') %]
+                [% form_submit(l('Vote')) %]
             </div>
         </form>
     [% END %]
