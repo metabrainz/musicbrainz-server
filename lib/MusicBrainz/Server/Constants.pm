@@ -138,6 +138,7 @@ Readonly our $EDIT_HISTORIC_EDIT_LINK_TYPE          => 237;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_TYPE        => 238;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_ATTR        => 243;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE   => 244;
+Readonly our $EDIT_HISTORIC_EDIT_TRACK_LENGTH       => 245;
 Readonly our $EDIT_HISTORIC_REMOVE_PUID             => 246;
 Readonly our $EDIT_HISTORIC_ADD_RELEASE_EVENTS      => 249;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS     => 250;

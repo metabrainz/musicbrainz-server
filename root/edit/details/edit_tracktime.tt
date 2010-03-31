@@ -1,3 +1,0 @@
-[% INCLUDE 'moderation/mods/diff_table.tt' changes=[
-   { label=l('Duration'), new=track_length(new), prev=track_length(prev) },
-] -%]

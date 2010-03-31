@@ -37,7 +37,7 @@ sub _new_from_row
 
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
-        or die "Could not look up class for type";
+        or die "Could not look up class for type ".$row->{type};
     my $data = xml2pl($row->{data});
 
     my $edit = $class->new(
