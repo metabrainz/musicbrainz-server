@@ -49,7 +49,10 @@
            </form>
         </div>
         <div class="search-toggle">
-            <p><a>[% l('Refine your search') %]</a></p>
+            <p>
+                <strong>[%- ln('Found {n} edit', 'Found {n} edits' , pager.total_entries, { n => pager.total_entries}) -%]</strong>
+                (<a>[% l('search again') %]</a>)
+            </p>
         </div>
 
         [% INCLUDE 'edit/list.tt' %]
