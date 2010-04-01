@@ -69,6 +69,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::ChangeReleaseQuality
     MusicBrainz::Server::Edit::Historic::ChangeTrackArtist
     MusicBrainz::Server::Edit::Historic::EditReleaseAttrs
+    MusicBrainz::Server::Edit::Historic::EditReleaseEvents
     MusicBrainz::Server::Edit::Historic::EditReleaseEventsOld
     MusicBrainz::Server::Edit::Historic::EditReleaseLanguage
     MusicBrainz::Server::Edit::Historic::EditReleaseName
