@@ -84,12 +84,6 @@ feature 'Developer features' =>
     'Catalyst::Devel'                  => '1.25',
     ;
 
-feature 'Scripts' =>
-    -default           => 0,
-    'MooseX::Runnable' => 0.02,
-    'MooseX::Getopt'   => 0.27,
-    ;
-
 # These are just for I18N
 requires 'Locale::PO';
 requires 'Locale::TextDomain' => '1.16';
