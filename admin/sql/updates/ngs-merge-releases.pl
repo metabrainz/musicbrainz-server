@@ -117,7 +117,7 @@ eval {
     }
 
     $sql->do("
-        CREATE TEMPORARY TABLE tmp_release_merge (
+        CREATE TABLE tmp_release_merge (
                 old_rel INTEGER NOT NULL,
                 new_rel INTEGER NOT NULL
         );

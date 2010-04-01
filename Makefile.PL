@@ -41,6 +41,7 @@ requires 'HTML::TreeBuilder::XPath';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                            => '0.22';
+requires 'Module::Pluggable'                          => '3.9';
 requires 'Moose'                                      => '0.87';
 requires 'MooseX::ABC';
 requires 'MooseX::MethodAttributes'                   => '0.14';
@@ -56,6 +57,7 @@ requires 'Text::WikiFormat'                           => '0.790';
 requires 'TryCatch';
 requires 'XML::Feed'                                  => '0.410';
 requires 'XML::Simple'                                => '2.14';
+requires 'XML::Dumper'                                => '0.81';
 requires 'YAML'                                       => '0.680';
 
 feature 'ETag Caching' =>
@@ -80,6 +82,12 @@ feature 'Developer features' =>
     'Catalyst::Plugin::StackTrace'     => '0.09',
     'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
+    ;
+
+feature 'Scripts' =>
+    -default           => 0,
+    'MooseX::Runnable' => 0.02,
+    'MooseX::Getopt'   => 0.27,
     ;
 
 # These are just for I18N

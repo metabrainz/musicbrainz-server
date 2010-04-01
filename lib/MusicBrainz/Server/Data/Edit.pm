@@ -11,7 +11,7 @@ use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
-use XML::Simple;
+use XML::Dumper;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -38,7 +38,7 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or die "Could not look up class for type";
-    my $data = XMLin($row->{data}, SuppressEmpty => undef, KeyAttr => [], $class->_xml_arguments);
+    my $data = xml2pl($row->{data});
 
     my $edit = $class->new(
         c => $self->c,
@@ -140,6 +140,36 @@ sub merge_entities
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
+sub insert
+{
+    my ($self, $edit) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $sql_raw = Sql->new($self->c->raw_dbh);
+
+    my $row = {
+        id         => $edit->id,
+        editor     => $edit->editor_id,
+        data       => pl2xml($edit->to_hash, NoAttr => 1),
+        status     => $edit->status,
+        type       => $edit->edit_type,
+        opentime   => $edit->created_time,
+        expiretime => $edit->expires_time,
+        autoedit   => $edit->auto_edit,
+        closetime  => $edit->close_time,
+    };
+
+    $sql_raw->insert_row('edit', $row);
+
+    my $ents = $edit->related_entities;
+    while (my ($type, $ids) = each %$ents) {
+        next unless @$ids;
+        my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
+        $query .= join ", ", ("(?, ?)") x @$ids;
+        my @all_ids = ($edit->id) x @$ids;
+        $sql_raw->do($query, zip @all_ids, @$ids);
+    }
+}
+
 sub create
 {
     my ($self, %opts) = @_;
@@ -198,7 +228,7 @@ sub create
 
         my $row = {
             editor => $edit->editor_id,
-            data => XMLout($edit->to_hash, NoAttr => 1),
+            data => pl2xml($edit->to_hash),
             status => $edit->status,
             type => $edit->edit_type,
             opentime => $now,

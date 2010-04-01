@@ -1,0 +1,67 @@
+package MusicBrainz::Server::Edit::Historic;
+use Moose;
+use MooseX::ABC;
+use MooseX::Types::Moose qw( Int HashRef Maybe Object Str );
+
+use URI::Escape qw( uri_escape uri_unescape );
+
+extends 'MusicBrainz::Server::Edit';
+
+has 'migration' => (
+    isa     => Object,
+    is      => 'ro',
+    handles => [qw(
+        find_release_group_id
+        resolve_album_id
+        resolve_release_id
+        resolve_recording_id
+        artist_name
+    )]
+);
+
+has [qw( artist_id row_id )] => (
+    isa => Int,
+    is  => 'ro',
+);
+
+has [qw( table column )] => (
+    isa => Str,
+    is  => 'ro'
+);
+
+has [qw( new_value previous_value )] => (
+    isa => Maybe[HashRef | Str],
+    is  => 'rw',
+);
+
+sub deserialize
+{
+    my ($self, $serialized) = @_;
+    return {} unless $serialized;
+
+    my %kv;
+    for my $line (split /\n/, $serialized) {
+        my ($k, $v) = split /=/, $line, 2;
+        return undef unless defined $v;
+        $kv{$k} = $self->_decode_value($v);
+    }
+
+    return \%kv;
+}
+
+sub _decode_value
+{
+    my ($self, $value) = @_;
+    my ($scheme, $data) = $value =~ /\A\x1B(\w+);(.*)\z/s
+        or return $value;
+
+    return uri_unescape($data) if $scheme eq "URI";
+    die "Unknown encoding scheme '$scheme'";
+}
+
+sub deserialize_previous_value { shift->deserialize(shift) }
+sub deserialize_new_value      { shift->deserialize(shift) }
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
+1;
