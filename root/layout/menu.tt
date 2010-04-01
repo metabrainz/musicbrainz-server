@@ -34,7 +34,7 @@
                         <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Link Attribute Types') %]</a></li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]
-                        <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude Docs') %]</a></li>
+                        <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a></li>
                     [% END %]
                 </ul>
             </li>
