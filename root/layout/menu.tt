@@ -25,6 +25,20 @@
                 </li>
             </ul>
         </li>
+        [% IF c.user_exists && (c.user.is_relationship_editor || c.user.is_wiki_transcluder) %]
+            <li>
+                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Administration') %]</a>
+                <ul>
+                    [% IF c.user.is_relationship_editor %]
+                        <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Link Types') %]</a></li>
+                        <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Link Attribute Types') %]</a></li>
+                    [% END %]
+                    [% IF c.user.is_wiki_transcluder %]
+                        <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude Docs') %]</a></li>
+                    [% END %]
+                </ul>
+            </li>
+        [% END %]
         <li>
             [% l('{data|My Data}', {data => c.uri_for_action('/user/collection/view', c.user.name)}) %]</a>
             <ul>
@@ -180,20 +194,6 @@
             </ul>
         </li>
     [%- END -%]
-    [% IF c.user_exists && (c.user.is_relationship_editor || c.user.is_wiki_transcluder) %]
-        <li>
-            <a href="[% c.uri_for_action('/admin/index') %]">[% l('Administration') %]</a>
-            <ul>
-                [% IF c.user.is_relationship_editor %]
-                    <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Link Types') %]</a></li>
-                    <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Link Attribute Types') %]</a></li>
-                [% END %]
-                [% IF c.user.is_wiki_transcluder %]
-                    <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude Docs') %]</a></li>
-                [% END %]
-            </ul>
-        </li>
-    [% END %]
     <li>
         [%- l('{doc|Documentation}', {doc => doc_link('MusicBrainz_Documentation')}) -%]
         <ul>
