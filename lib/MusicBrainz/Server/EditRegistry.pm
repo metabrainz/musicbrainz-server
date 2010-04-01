@@ -90,6 +90,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents
     MusicBrainz::Server::Edit::Historic::RemoveTrack
     MusicBrainz::Server::Edit::Historic::SACToMAC
+    MusicBrainz::Server::Edit::Historic::SetTrackLengthsFromCDTOC
 );
 
 sub register_type
