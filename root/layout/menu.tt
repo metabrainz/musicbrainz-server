@@ -27,7 +27,7 @@
         </li>
         [% IF c.user_exists && (c.user.is_relationship_editor || c.user.is_wiki_transcluder) %]
             <li>
-                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Administration') %]</a>
+                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
                     [% IF c.user.is_relationship_editor %]
                         <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Link Types') %]</a></li>
