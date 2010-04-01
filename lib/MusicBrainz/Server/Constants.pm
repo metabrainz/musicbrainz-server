@@ -129,6 +129,7 @@ Readonly our $EDIT_HISTORIC_ADD_TRACK_KV            => 218;
 Readonly our $EDIT_HISTORIC_REMOVE_DISCID           => 220;
 Readonly our $EDIT_HISTORIC_MOVE_DISCID             => 221;
 Readonly our $EDIT_HISTORIC_MERGE_RELEASE           => 223;
+Readonly our $EDIT_HISTORIC_REMOVE_RELEASES         => 224;
 Readonly our $EDIT_HISTORIC_MERGE_RELEASE_MAC       => 225;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_ATTRS      => 226;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD => 229;

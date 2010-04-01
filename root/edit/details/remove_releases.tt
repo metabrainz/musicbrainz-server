@@ -1,0 +1,17 @@
+<table class="details">
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td colspan="2">
+      <ul>
+        [% FOR release=edit.display_data.releases %]
+        <li>
+           <span class="removed" 
+               title="[% l('This release has been removed, ReleaseId: {id}', { id => release.id }) %]">
+           [%- release.name -%]
+           </span>
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table
