@@ -15,14 +15,16 @@ role {
     my $params       = shift;
     my $name_columns = $params->name_columns;
 
-    has '_name_columns' => (
+    has 'name_columns' => (
         is      => 'ro',
         lazy    => 1,
         default => sub {
             my $self = shift;
-            return $self->_name_constraints->map(f {
-                return $_->target_columns->[0];
-            });
+            return {
+                $self->_name_constraints->map(f {
+                    $_->source_columns->[0]->name => $_->target_columns->[0];
+                })->flatten
+            };
         }
     );
 

@@ -84,18 +84,18 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Artist';
 }
 
-sub find_by_subscribed_editor
-{
-    my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_subscribe_artist s ON artist.id = s.artist
-                 WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
-                 OFFSET ?";
+method find_by_subscribed_editor ($editor_id, $limit, $offset) {
+    my $subscriptions_table = schema->table('editor_subscribe_artist');
+    my $query = $self->_select
+        ->from($self->table, $subscriptions_table)
+        ->where($subscriptions_table->column('editor'), '=', $editor_id)
+        ->order_by(Function->new('musicbrainz_collate', $self->name_columns->{name}),
+                   $self->table->column('id'))
+        ->limit(undef, $offset || 0);
+
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
 sub load
