@@ -25,10 +25,6 @@ with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' 
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_artist',
-    column => 'artist'
-};
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 
@@ -39,6 +35,12 @@ sub _build_table { schema->table('artist') }
 with 'MusicBrainz::Server::Data::Role::FeyName';
 with 'MusicBrainz::Server::Data::Role::Gid' => {
     redirect_table => schema->table('artist_gid_redirect')
+};
+with 'MusicBrainz::Server::Data::Role::LoadMeta' => {
+    metadata_table => schema->table('artist_meta')
+};
+with 'MusicBrainz::Server::Data::Role::FeySubscription' => {
+    subscription_table => schema->table('editor_subscribe_artist'),
 };
 
 sub _table
@@ -54,11 +56,6 @@ sub _columns
            'type, country, gender, editpending, ' .
            'begindate_year, begindate_month, begindate_day, ' .
            'enddate_year, enddate_month, enddate_day, comment';
-}
-
-sub _id_column
-{
-    return 'artist.id';
 }
 
 sub _column_mapping
@@ -78,9 +75,9 @@ sub _column_mapping
     };
 }
 
-sub _entity_class
+sub _id_column
 {
-    return 'MusicBrainz::Server::Entity::Artist';
+    return 'artist.id';
 }
 
 method find_by_subscribed_editor ($editor_id, $limit, $offset) {
@@ -209,10 +206,6 @@ sub _hash_to_row
 
     return $row;
 }
-
-with 'MusicBrainz::Server::Data::Role::LoadMeta' => {
-    metadata_table => schema->table('artist_meta')
-};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
