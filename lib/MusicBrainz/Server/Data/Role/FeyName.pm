@@ -4,6 +4,7 @@ use Carp qw( confess );
 use Fey::FK;
 use Function::Parameters 'f';
 use List::Util qw( first );
+use List::MoreUtils qw( uniq );
 use Moose::Autobox;
 use MusicBrainz::Schema qw( schema );
 
@@ -25,6 +26,17 @@ role {
                     $_->source_columns->[0]->name => $_->target_columns->[0];
                 })->flatten
             };
+        }
+    );
+
+    has '_name_table' => (
+        is      => 'ro',
+        lazy    => 1,
+        default => sub {
+            my $self = shift;
+            return first { defined }
+                map { $_->target_table }
+                    $self->_name_constraints->flatten;
         }
     );
 
@@ -73,6 +85,29 @@ role {
         }
 
         return $sql;
+    };
+
+    method find_or_insert_names => sub {
+        my $self = shift;
+        my @names = uniq grep { defined } @_
+            or return;
+
+        my $table = $self->_name_table;
+        my $query = Fey::SQL->new_select
+            ->select($table)->from($table)
+            ->where($table->column('name'), 'IN', @names);
+
+        my $found = $self->sql->select_list_of_hashes(
+            $query->sql($self->sql->dbh), $query->bind_params);
+        my %found_names = map { $_->{name} => $_->{id} } @$found;
+
+        for my $new_name (grep { !exists $found_names{$_} } @names) {
+            my $id = $self->sql->insert_row($table->name, {
+                    name => $new_name,
+                }, 'id');
+            $found_names{$new_name} = $id;
+        }
+        return %found_names;
     };
 };
 

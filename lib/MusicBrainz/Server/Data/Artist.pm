@@ -21,7 +21,6 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
