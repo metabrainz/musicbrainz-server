@@ -211,16 +211,9 @@ sub _hash_to_row
     return $row;
 }
 
-sub load_meta
-{
-    my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "artist_meta", sub {
-        my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-    }, @_);
-}
+with 'MusicBrainz::Server::Data::Role::LoadMeta' => {
+    metadata_table => schema->table('artist_meta')
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

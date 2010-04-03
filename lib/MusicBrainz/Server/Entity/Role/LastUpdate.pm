@@ -4,9 +4,10 @@ use Moose::Role;
 use MusicBrainz::Server::Types;
 
 has 'last_update_date' => (
-    is => 'rw',
-    isa => 'DateTime',
-    coerce => 1,
+    is       => 'rw',
+    isa      => 'Maybe[DateTime]',
+    coerce   => 1,
+    init_arg => 'lastupdate'
 );
 
 no Moose::Role;

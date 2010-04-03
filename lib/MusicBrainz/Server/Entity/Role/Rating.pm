@@ -3,7 +3,7 @@ use Moose::Role;
 
 has 'rating' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Maybe[Int]'
 );
 
 has 'user_rating' => (
@@ -12,8 +12,9 @@ has 'user_rating' => (
 );
 
 has 'rating_count' => (
-    is => 'rw',
-    isa => 'Int'
+    is       => 'rw',
+    isa      => 'Maybe[Int]',
+    init_arg => 'ratingcount',
 );
 
 no Moose::Role;
