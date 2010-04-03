@@ -38,6 +38,9 @@ use MusicBrainz::Schema qw( schema );
 sub _build_table { schema->table('artist') }
 
 with 'MusicBrainz::Server::Data::Role::FeyName';
+with 'MusicBrainz::Server::Data::Role::Gid' => {
+    redirect_table => schema->table('artist_gid_redirect')
+};
 
 sub _table
 {
@@ -57,11 +60,6 @@ sub _columns
 sub _id_column
 {
     return 'artist.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'artist_gid_redirect';
 }
 
 sub _column_mapping
