@@ -14,6 +14,9 @@ use XML::Parser;
 
 use base 'Exporter';
 
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+use Carp qw( confess );
+
 our @EXPORT_OK = qw( accept_edit reject_edit xml_ok );
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
@@ -66,6 +69,10 @@ sub _load_query
 sub prepare_test_database
 {
     my ($class, $c, $query) = @_;
+
+    my $connection = Databases->get_connection('READWRITE');
+    confess "This is running on the wrong schema!"
+        unless $connection->_schema =~ /test/;
 
     $query = $class->_load_query($query, "admin/sql/InsertTestData.sql");
 
