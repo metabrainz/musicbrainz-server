@@ -11,10 +11,8 @@ extends 'MusicBrainz::Server::Data::Entity';
 has 'table' => (
     is         => 'ro',
     lazy_build => 1,
-    init_arg   => undef,
+    isa        => 'Fey::Table',
 );
-
-requires '_build_table';
 
 has 'columns' => (
     is         => 'ro',

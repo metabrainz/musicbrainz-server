@@ -3,12 +3,13 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Moose;
+use MusicBrainz::Server::Test;
+
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
 
 use DateTime;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
 use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();

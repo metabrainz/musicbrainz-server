@@ -32,6 +32,40 @@ role {
             return $self->get_by_id($id);
         }
     };
+
+    method remove_gid_redirects => sub
+    {
+        my ($self, @ids) = @_;
+        my $query = Fey::SQL->new_delete
+            ->from($table)
+            ->where($table->column('newid'), 'IN', @ids);
+
+        $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+    };
+
+    method add_gid_redirects => sub
+    {
+        my ($self, %redirects) = @_;
+        my $query = Fey::SQL->new_insert->into($table);
+
+        while (my ($gid, $newid) = each %redirects) {
+            $query->values( newid => $newid, gid => $gid );
+        }
+
+        $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+    };
+
+    method update_gid_redirects => sub
+    {
+        my ($self, $new_id, @old_ids) = @_;
+
+        my $query = Fey::SQL->new_update
+            ->update($table)
+            ->set($table->column('newid'), $new_id)
+            ->where($table->column('newid'), 'IN', @old_ids);
+
+        $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+    };
 };
 
 1;
