@@ -130,15 +130,18 @@ sub update
     $sql->update_row('artist', $row, { id => $artist_id });
 }
 
-sub can_delete
-{
-    my ($self, $artist_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $active_credits = $sql->select_single_column_array(
-        'SELECT refcount FROM artist_credit, artist_credit_name name
-          WHERE name.artist = ? AND name.artist_credit = id AND refcount > 0',
-        $artist_id
-    );
+method can_delete ($artist_id) {
+    my $ac = schema->table('artist_credit');
+    my $ac_name = schema->table('artist_credit_name');
+
+    my $query = Fey::SQL->new_select
+        ->select($ac->column('refcount'))
+        ->from($ac, $ac_name)
+        ->where($ac->column('refcount'), '>', 0)
+        ->where($ac_name->column('artist'), '=', $artist_id);
+
+    my $active_credits = $self->sql->select_single_column_array(
+        $query->sql($self->sql->dbh), $query->bind_params);
     return @$active_credits == 0;
 }
 
