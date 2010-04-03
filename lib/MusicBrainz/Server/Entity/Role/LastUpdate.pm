@@ -1,11 +1,12 @@
 package MusicBrainz::Server::Entity::Role::LastUpdate;
 use Moose::Role;
 
-use MusicBrainz::Server::Types;
+use MusicBrainz::Server::ExtraTypes qw( DateTime );
+use MooseX::Types::Moose qw( Undef );
 
 has 'last_update_date' => (
     is       => 'rw',
-    isa      => 'Maybe[DateTime]',
+    isa      => DateTime | Undef,
     coerce   => 1,
     init_arg => 'lastupdate'
 );
