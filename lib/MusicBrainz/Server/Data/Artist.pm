@@ -3,6 +3,7 @@ use Moose;
 
 use Carp;
 use List::MoreUtils qw( uniq );
+use Method::Signatures::Simple;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
@@ -17,7 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
 );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
@@ -31,6 +32,12 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
+
+use MusicBrainz::Schema qw( schema );
+
+sub _build_table { schema->table('artist') }
+
+with 'MusicBrainz::Server::Data::Role::FeyName';
 
 sub _table
 {

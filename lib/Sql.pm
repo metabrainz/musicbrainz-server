@@ -67,6 +67,12 @@ sub is_in_transaction
     return !$self->dbh->{AutoCommit};
 }
 
+sub fey_select
+{
+    my ($self, $query) = @_;
+    return $self->select($query->sql($self->dbh), $query->bind_params);
+}
+
 sub select
 {
     my ($self, $query, @params) = @_;
