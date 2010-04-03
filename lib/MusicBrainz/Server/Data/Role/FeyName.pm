@@ -23,7 +23,8 @@ role {
             my $self = shift;
             return {
                 $self->_name_constraints->map(f {
-                    $_->source_columns->[0]->name => $_->target_columns->[0];
+                    $_->source_columns->[0]->name =>
+                        $_->target_table->column('name');
                 })->flatten
             };
         }

@@ -21,7 +21,7 @@ $sql->begin;
 
 # Artist data should do the alias role
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
-does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Alias');
+does_ok($artist_data, 'MusicBrainz::Server::Data::Role::FeyAlias');
 does_ok($artist_data->alias, 'MusicBrainz::Server::Data::Role::Editable');
 
 # Make sure we can load specific aliases

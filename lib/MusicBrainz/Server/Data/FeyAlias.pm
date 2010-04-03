@@ -49,15 +49,17 @@ sub _entity_class
 
 method find_by_entity_id (@ids)
 {
-    return [ values %{ $self->_get_by_keys($self->type, @ids) } ];
+    return [ values %{ $self->_get_by_keys($self->_join_column, @ids) } ];
 }
 
 method has_alias ($entity_id, $alias_name)
 {
+    my $name = $self->name_columns->{name};
     my $query = Fey::SQL->new_select
-        ->select(1)->from($self->table)
-        ->where($self->_join_column, '=', $entity_id)
-        ->where($self->name_columns->{name}, '=', $alias_name);
+            ->select(1)
+            ->from($self->table, $name->table)
+            ->where($self->_join_column, '=', $entity_id)
+            ->where($name, '=', $alias_name);
 
     return $self->sql->select_single_value(
         $query->sql($self->sql->dbh), $query->bind_params

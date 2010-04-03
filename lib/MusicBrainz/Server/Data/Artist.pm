@@ -31,19 +31,18 @@ use MusicBrainz::Schema qw( schema );
 
 sub _build_table { schema->table('artist') }
 
-with 'MusicBrainz::Server::Data::Role::FeyName';
-with 'MusicBrainz::Server::Data::Role::Gid' => {
-    redirect_table => schema->table('artist_gid_redirect')
-};
-with 'MusicBrainz::Server::Data::Role::LoadMeta' => {
-    metadata_table => schema->table('artist_meta')
-};
-with 'MusicBrainz::Server::Data::Role::FeySubscription' => {
-    subscription_table => schema->table('editor_subscribe_artist'),
-};
-with 'MusicBrainz::Server::Data::Role::FeyAlias' => {
-    alias_table => schema->table('artist_alias')
-};
+with
+    'MusicBrainz::Server::Data::Role::FeyName',
+    'MusicBrainz::Server::Data::Role::Gid' => {
+        redirect_table     => schema->table('artist_gid_redirect') },
+    'MusicBrainz::Server::Data::Role::LoadMeta' => {
+        metadata_table     => schema->table('artist_meta') },
+    'MusicBrainz::Server::Data::Role::FeySubscription' => {
+        subscription_table => schema->table('editor_subscribe_artist'), },
+    'MusicBrainz::Server::Data::Role::FeyAlias' => {
+        alias_table        => schema->table('artist_alias') },
+    'MusicBrainz::Server::Data::Role::FeyAnnotation' => {
+        annotation_table   => schema->table('artist_annotation') };
 
 sub _table
 {
