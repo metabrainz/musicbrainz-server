@@ -5,14 +5,17 @@ use Sql;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkTypeAttribute;
 use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
     hash_to_row
     generate_gid
     placeholders
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linktype' };
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linktype' },
+     'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'type' };
+
+sub _build_table { schema->table('link_type') }
 
 sub _table
 {
@@ -25,6 +28,24 @@ sub _columns
             entitytype0 AS entity0_type, entitytype1 AS entity1_type,
             rlinkphrase AS reverse_link_phrase, description, priority,
             childorder AS child_order, shortlinkphrase AS short_link_phrase';
+}
+
+sub _column_mapping
+{
+    return {
+        id                  => 'id',
+        parent_id           => 'parent',
+        gid                 => 'gid',
+        name                => 'name',
+        link_phrase         => 'linkphrase',
+        entity0_type        => 'entitytype0',
+        entity1_type        => 'entitytype1',
+        reverse_link_phrase => 'rlinkphrase',
+        description         => 'description',
+        priority            => 'priority',
+        child_order         => 'child_order',
+        short_link_phrase   => 'shortlinkphrase',
+    }
 }
 
 sub _entity_class
@@ -59,29 +80,25 @@ sub _load_attributes
     }
 }
 
-sub get_by_ids
+around get_by_ids => sub
 {
+    my $orig = shift;
     my ($self, @ids) = @_;
-    my $data = MusicBrainz::Server::Data::Entity::get_by_ids($self, @ids);
+    my $data = $self->$orig(@ids);
     $self->_load_attributes($data, @ids);
     return $data;
-}
+};
 
-sub get_by_id
+around get_by_id => sub
 {
+    my $orig = shift;
     my ($self, $id) = @_;
-    my $obj = MusicBrainz::Server::Data::Entity::get_by_id($self, $id);
+    my $obj = $self->$orig($id);
     if (defined $obj) {
         $self->_load_attributes({ $id => $obj }, $id);
     }
     return $obj;
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
-}
+};
 
 sub get_tree
 {

@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
     placeholders
-    load_subobjects
     query_to_list_limited
 );
 use MusicBrainz::Schema qw( schema raw_schema );
@@ -27,7 +26,8 @@ with
     'MusicBrainz::Server::Data::Role::Editable',
     'MusicBrainz::Server::Data::Role::Rating' => {
         rating_table       => raw_schema->table('recording_rating_raw')
-    };
+    },
+    'MusicBrainz::Server::Data::Role::Subobject';
 
 sub _build_table { schema->table('recording') }
 
@@ -80,12 +80,6 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    return load_subobjects($self, 'recording', @objs);
 }
 
 sub insert

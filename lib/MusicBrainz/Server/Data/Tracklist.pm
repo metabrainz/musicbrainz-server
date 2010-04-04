@@ -2,9 +2,13 @@ package MusicBrainz::Server::Data::Tracklist;
 
 use Moose;
 use MusicBrainz::Server::Entity::Tracklist;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('tracklist') }
 
 sub _table
 {
@@ -14,6 +18,14 @@ sub _table
 sub _columns
 {
     return 'id, trackcount AS track_count';
+}
+
+sub _column_mapping
+{
+    return {
+        id          => 'id',
+        track_count => 'trackcount',
+    }
 }
 
 sub _entity_class
@@ -50,12 +62,6 @@ sub delete
     $sql->do($query, @tracklist_ids);
     $query = 'DELETE FROM tracklist WHERE id IN ('. placeholders(@tracklist_ids) . ')';
     $sql->do($query, @tracklist_ids);
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'tracklist', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -5,7 +5,6 @@ use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
-    load_subobjects
     partial_date_from_row
     placeholders
     query_to_list_limited
@@ -26,7 +25,8 @@ with
     'MusicBrainz::Server::Data::Role::Annotation' => {
         annotation_table   => schema->table('release_annotation') },
     'MusicBrainz::Server::Data::Role::Editable',
-    'MusicBrainz::Server::Data::Role::BrowseVA';
+    'MusicBrainz::Server::Data::Role::BrowseVA',
+    'MusicBrainz::Server::Data::Role::Subobject';
 
 sub _build_table { schema->table('release') }
 
@@ -71,12 +71,6 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Release';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    return load_subobjects($self, 'release', @objs);
 }
 
 sub find_by_artist

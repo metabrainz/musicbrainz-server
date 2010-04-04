@@ -2,10 +2,13 @@ package MusicBrainz::Server::Data::Tag;
 
 use Moose;
 use MusicBrainz::Server::Entity::Tag;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'tag' };
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'tag' },
+     'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('tag') }
 
 sub _table
 {
@@ -33,14 +36,9 @@ sub _entity_class
 sub get_by_name
 {
     my ($self, $name) = @_;
-    my @result = values %{$self->_get_by_keys('name', $name)};
+    my @result = values %{$self->_get_by_keys($self->table->column('name'),
+                                              $name)};
     return $result[0];
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'tag', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

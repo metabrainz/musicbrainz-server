@@ -2,11 +2,14 @@ package MusicBrainz::Server::Data::ReleasePackaging;
 
 use Moose;
 use MusicBrainz::Server::Entity::ReleasePackaging;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'rp' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'packaging' };
+
+sub _build_table { schema->table('release_packaging') }
 
 sub _table
 {
@@ -21,12 +24,6 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::ReleasePackaging';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'packaging', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

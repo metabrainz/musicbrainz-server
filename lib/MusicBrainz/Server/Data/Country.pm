@@ -2,11 +2,14 @@ package MusicBrainz::Server::Data::Country;
 
 use Moose;
 use MusicBrainz::Server::Entity::Country;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'c' };
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' ] };
+with 'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('country') }
 
 sub _table
 {
@@ -23,10 +26,13 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Country';
 }
 
-sub load
+sub _column_mapping
 {
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'country', @objs);
+    return {
+        id       => 'id',
+        iso_code => 'isocode',
+        name     => 'name'
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

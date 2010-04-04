@@ -1,11 +1,11 @@
 use strict;
 use warnings;
 use Test::More;
+use MusicBrainz::Server::Test;
+
 use_ok 'MusicBrainz::Server::Data::Tracklist';
 use MusicBrainz::Server::Data::Track;
-
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');

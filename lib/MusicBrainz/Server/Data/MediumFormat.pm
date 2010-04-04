@@ -2,11 +2,14 @@ package MusicBrainz::Server::Data::MediumFormat;
 
 use Moose;
 use MusicBrainz::Server::Entity::MediumFormat;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'mf' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'format' };
+
+sub _build_table { schema->table('medium_format') }
 
 sub _table
 {
@@ -21,12 +24,6 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::MediumFormat';
-}
-
-sub load
-{
-    my ($self, @media) = @_;
-    load_subobjects($self, 'format', @media);
 }
 
 __PACKAGE__->meta->make_immutable;

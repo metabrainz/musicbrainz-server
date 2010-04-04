@@ -4,14 +4,25 @@ use Moose;
 use Sql;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
     hash_to_row
     generate_gid
     placeholders
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' },
+     'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'type' };
+
+sub _build_table { schema->table('link_attribute_type') }
+
+override '_build_columns' => sub {
+    my $self = shift;
+    return [
+        map { $self->table->column($_) }
+            qw( id parent childorder gid name description )
+    ];
+};
 
 sub _table
 {
@@ -38,12 +49,6 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::LinkAttributeType';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
 }
 
 sub get_tree

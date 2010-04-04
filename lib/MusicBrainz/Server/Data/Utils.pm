@@ -21,7 +21,6 @@ our @EXPORT_OK = qw(
     insert_and_create
     generate_gid
     load_meta
-    load_subobjects
     partial_date_from_row
     partial_date_to_hash
     placeholders
@@ -57,29 +56,6 @@ sub artist_credit_to_ref
         @credit;
     } @{ $artist_credit->names } ];
     return $ac;
-}
-
-sub load_subobjects
-{
-    my ($data_access, $attr_obj, @objs) = @_;
-    @objs = grep { defined } @objs;
-    return unless @objs;
-
-    my $attr_id = $attr_obj . "_id";
-    @objs = grep { defined } @objs;
-    my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @objs;
-    my @ids = grep { $_ } keys %ids;
-    my $data;
-    if (@ids) {
-        $data = $data_access->get_by_ids(@ids);
-        foreach my $obj (@objs) {
-            my $id = $obj->meta->find_attribute_by_name($attr_id)->get_value($obj);
-            if (defined $id && exists $data->{$id}) {
-                $obj->meta->find_attribute_by_name($attr_obj)->set_value($obj, $data->{$id});
-            }
-        }
-    }
-    return defined $data ? values %{$data} : ();
 }
 
 sub load_meta

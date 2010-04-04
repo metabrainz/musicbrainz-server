@@ -2,10 +2,13 @@ package MusicBrainz::Server::Data::ReleaseGroupType;
 
 use Moose;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::SelectAll';
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::SelectAll',
+     'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'type' };
+
+sub _build_table { schema->table('release_group_type') }
 
 sub _table
 {
@@ -20,12 +23,6 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::ReleaseGroupType';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

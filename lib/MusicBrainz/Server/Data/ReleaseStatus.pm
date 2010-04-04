@@ -2,11 +2,14 @@ package MusicBrainz::Server::Data::ReleaseStatus;
 
 use Moose;
 use MusicBrainz::Server::Entity::ReleaseStatus;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'rs' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'status' };
+
+sub _build_table { schema->table('release_status') }
 
 sub _table
 {
@@ -21,12 +24,6 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::ReleaseStatus';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'status', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -1,11 +1,12 @@
 package MusicBrainz::Server::Data::CDTOC;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
-);
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('cdtoc') }
 
 sub _table
 {
@@ -37,14 +38,9 @@ sub _entity_class
 sub get_by_discid
 {
     my ($self, $discid) = @_;
-    my @result = values %{$self->_get_by_keys("discid", $discid)};
+    my @result = values %{$self->_get_by_keys($self->table->column("discid"),
+                                              $discid)};
     return $result[0];
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'cdtoc', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -5,7 +5,6 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
     placeholders
     query_to_list
     query_to_list_limited
@@ -14,6 +13,7 @@ use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable';
+with 'MusicBrainz::Server::Data::Role::Subobject';
 
 sub _build_table { schema->table('medium') }
 
@@ -70,12 +70,6 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Medium';
 }
 
-sub load
-{
-    my ($self, @objs) = @_;
-    return load_subobjects($self, 'medium', @objs);
-}
-
 sub load_for_releases
 {
     my ($self, @releases) = @_;
@@ -102,7 +96,7 @@ sub find_by_tracklist
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
-                release.artist_credit AS r_artist_credit_id,
+                release.artist_credit AS r_artist_credit,
                 release.date_year AS r_date_year,
                 release.date_month AS r_date_month,
                 release.date_day AS r_date_day,

@@ -7,12 +7,15 @@ use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
     add_partial_date_to_row
-    load_subobjects
     placeholders
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'link' };
+with 'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('link') }
 
 sub _table
 {
@@ -78,29 +81,25 @@ sub _load_attributes
     }
 }
 
-sub get_by_ids
+around get_by_ids => sub
 {
+    my $orig = shift;
     my ($self, @ids) = @_;
-    my $data = MusicBrainz::Server::Data::Entity::get_by_ids($self, @ids);
+    my $data = $self->$orig(@ids);
     $self->_load_attributes($data, @ids);
     return $data;
-}
+};
 
-sub get_by_id
+around get_by_id => sub
 {
+    my $orig = shift;
     my ($self, $id) = @_;
-    my $obj = MusicBrainz::Server::Data::Entity::get_by_id($self, $id);
+    my $obj = $self->$orig($id);
     if (defined $obj) {
         $self->_load_attributes({ $id => $obj }, $id);
     }
     return $obj;
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'link', @objs);
-}
+};
 
 sub find_or_insert
 {

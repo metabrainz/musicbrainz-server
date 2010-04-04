@@ -1,11 +1,11 @@
 package MusicBrainz::Server::Data::CDStub;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
-);
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
+
+sub _build_table { schema->table('cdtoc') }
 
 sub _table
 {

@@ -4,7 +4,6 @@ use Moose;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
     placeholders
     query_to_list_limited
     type_to_model
@@ -12,9 +11,11 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
 use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => schema->table('editor_subscribe_editor') };
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with
+    'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => schema->table('editor_subscribe_editor') },
+    'MusicBrainz::Server::Data::Role::Subobject';
 
 sub _build_table { schema->table('editor') }
 
@@ -109,7 +110,7 @@ sub get_ratings
 sub find_by_email
 {
     my ($self, $email) = @_;
-    return values %{$self->_get_by_keys('email', $email)};
+    return values %{$self->_get_by_keys($self->table->column('email'), $email)};
 }
 
 sub find_by_subscribed_editor
@@ -200,12 +201,6 @@ sub update_profile
         $sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
                  $website || undef, $bio || undef, $editor->id);
     }, $sql);
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'editor', @objs);
 }
 
 sub load_preferences

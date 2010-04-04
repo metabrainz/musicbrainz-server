@@ -8,7 +8,6 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     check_in_use
     generate_gid
-    load_subobjects
     partial_date_from_row
     placeholders
     query_to_list_limited
@@ -23,6 +22,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group
 
 with
     'MusicBrainz::Server::Data::Role::Name',
+    'MusicBrainz::Server::Data::Role::Subobject',
     'MusicBrainz::Server::Data::Role::Gid' => {
         redirect_table     => schema->table('release_group_gid_redirect') },
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
@@ -31,7 +31,7 @@ with
         annotation_table   => schema->table('release_group_annotation') },
     'MusicBrainz::Server::Data::Role::Editable',
     'MusicBrainz::Server::Data::Role::Rating' => {
-        rating_type        => raw_schema->table('release_group_rating_raw')
+        rating_table       => raw_schema->table('release_group_rating_raw')
     };
 
 sub _build_table { schema->table('release_group') }
@@ -69,12 +69,6 @@ sub _id_column
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::ReleaseGroup';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'release_group', @objs);
 }
 
 sub find_by_artist

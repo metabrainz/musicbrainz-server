@@ -6,10 +6,11 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Data::Artist;
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' },
+     'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'artist_credit' };
 
 sub get_by_ids
 {
@@ -52,12 +53,6 @@ sub get_by_ids
         $result{$id}->artist_count($counts{$id});
     }
     return \%result;
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'artist_credit', @objs);
 }
 
 sub find_or_insert

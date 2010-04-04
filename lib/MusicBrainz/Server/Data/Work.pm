@@ -5,7 +5,6 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
-    load_subobjects
     placeholders
     query_to_list_limited
 );
@@ -20,13 +19,14 @@ with
     'MusicBrainz::Server::Data::Role::Alias' => {
         alias_table        => schema->table('work_alias')
     },
+    'MusicBrainz::Server::Data::Role::Subobject',
     'MusicBrainz::Server::Data::Role::Gid' => {
         redirect_table     => schema->table('work_gid_redirect') },
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
         metadata_table     => schema->table('work_meta') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
         annotation_table   => schema->table('work_annotation') },
-    'MusicBrainz::Server::Data::Role::Editable' => {
+    'MusicBrainz::Server::Data::Role::Rating' => {
         rating_table       => raw_schema->table('work_rating_raw')
     },
     'MusicBrainz::Server::Data::Role::BrowseVA';
@@ -82,12 +82,6 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'work', @objs);
 }
 
 sub insert

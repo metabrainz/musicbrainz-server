@@ -6,7 +6,6 @@ use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Medium;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
     query_to_list
     query_to_list_limited
     placeholders
@@ -15,7 +14,8 @@ use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable',
-     'MusicBrainz::Server::Data::Role::Name';
+    'MusicBrainz::Server::Data::Role::Name',
+    'MusicBrainz::Server::Data::Role::Subobject';
 
 sub _build_table { schema->table('track') }
 
@@ -52,12 +52,6 @@ sub _id_column
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Track';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'track', @objs);
 }
 
 sub load_for_tracklists

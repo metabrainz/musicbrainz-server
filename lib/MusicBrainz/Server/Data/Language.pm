@@ -2,12 +2,14 @@ package MusicBrainz::Server::Data::Language;
 
 use Moose;
 use MusicBrainz::Server::Entity::Language;
+use MusicBrainz::Schema qw( schema );
 
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
-
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'lng' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('language') }
 
 sub _table
 {
@@ -20,15 +22,21 @@ sub _columns
            'isocode_2 AS iso_code_2, name, frequency';
 }
 
+sub _column_mapping
+{
+    return {
+        id          => 'id',
+        iso_code_3t => 'isocode_3t',
+        iso_code_3b => 'isocode_3b',
+        iso_code_2  => 'isocode_2',
+        name        => 'name',
+        frequency   => 'frequency',
+    }
+}
+
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Language';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'language', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -2,11 +2,14 @@ package MusicBrainz::Server::Data::ArtistType;
 
 use Moose;
 use MusicBrainz::Server::Entity::ArtistType;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'at' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'type' };
+
+sub _build_table  { schema->table('artist_type') }
 
 sub _table
 {
@@ -23,11 +26,6 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::ArtistType';
 }
 
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

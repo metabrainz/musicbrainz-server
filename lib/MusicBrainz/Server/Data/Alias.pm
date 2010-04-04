@@ -3,7 +3,7 @@ use Moose;
 
 use Fey::SQL;
 use Method::Signatures::Simple;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 
@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Data::FeyEntity';
 # with MusicBrainz::Server::Data::Role::Editable
 # with MusicBrainz::Server::Data::Role::Name
 with 'MusicBrainz::Server::Data::Role::Joined';
+with 'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'alias' };
 
 method _column_mapping
 {
@@ -45,11 +46,6 @@ method has_alias ($entity_id, $alias_name)
     return $self->sql->select_single_value(
         $query->sql($self->sql->dbh), $query->bind_params
     );
-}
-
-method load (@objects)
-{
-    load_subobjects($self, 'alias', @objects);
 }
 
 method delete (@ids)

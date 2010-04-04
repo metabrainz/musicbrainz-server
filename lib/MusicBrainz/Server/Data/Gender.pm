@@ -4,13 +4,16 @@ use Moose;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Data::Utils qw(
     insert_and_create
-    load_subobjects
     placeholders
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'g' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('gender') }
 
 sub _table
 {
@@ -25,12 +28,6 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Gender';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'gender', @objs);
 }
 
 sub insert

@@ -2,12 +2,14 @@ package MusicBrainz::Server::Data::Script;
 
 use Moose;
 use MusicBrainz::Server::Entity::Script;
+use MusicBrainz::Schema qw( schema );
 
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
-
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'scr' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Subobject';
+
+sub _build_table { schema->table('script') }
 
 sub _table
 {
@@ -19,15 +21,20 @@ sub _columns
     return 'id, isocode AS iso_code, isonumber AS iso_number, name, frequency';
 }
 
+sub _column_mapping
+{
+    return {
+        id         => 'id',
+        iso_code   => 'isocode',
+        iso_number => 'isonumber',
+        name       => 'name',
+        frequency  => 'frequency',
+    }
+}
+
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Script';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'script', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

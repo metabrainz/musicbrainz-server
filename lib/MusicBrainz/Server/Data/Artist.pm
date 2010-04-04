@@ -14,7 +14,6 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     partial_date_from_row
     placeholders
-    load_subobjects
     query_to_list_limited
 );
 use MusicBrainz::Schema qw( schema raw_schema );
@@ -39,7 +38,8 @@ with
     'MusicBrainz::Server::Data::Role::Rating' => {
         rating_table       => raw_schema->table('artist_rating_raw')
     },
-    'MusicBrainz::Server::Data::Role::Browse';
+    'MusicBrainz::Server::Data::Role::Browse',
+    'MusicBrainz::Server::Data::Role::Subobject';
 
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
@@ -95,12 +95,6 @@ method find_by_subscribed_editor ($editor_id, $limit, $offset) {
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query->sql($self->sql->dbh), $query->bind_params);
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'artist', @objs);
 }
 
 sub insert

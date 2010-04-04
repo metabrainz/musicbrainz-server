@@ -9,7 +9,6 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     partial_date_from_row
     placeholders
-    load_subobjects
     query_to_list_limited
     query_to_list
     check_in_use
@@ -36,7 +35,8 @@ with
     'MusicBrainz::Server::Data::Role::Rating' => {
         rating_table       => raw_schema->table('label_rating_raw')
     },
-    'MusicBrainz::Server::Data::Role::Browse';
+    'MusicBrainz::Server::Data::Role::Browse',
+    'MusicBrainz::Server::Data::Role::Subobject';
 
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
@@ -121,12 +121,6 @@ sub find_by_artist
     return query_to_list(
         $self->c->dbh, sub { $self->_new_from_row(@_) },
         $query, $artist_id);
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'label', @objs);
 }
 
 sub insert

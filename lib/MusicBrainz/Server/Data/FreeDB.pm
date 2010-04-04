@@ -1,9 +1,6 @@
 package MusicBrainz::Server::Data::FreeDB;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
-);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
