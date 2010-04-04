@@ -19,15 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreFeyEntity';
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Browse';
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
-
-sub _build_table { schema->table('artist') }
+extends 'MusicBrainz::Server::Data::FeyEntity';
 
 with
     'MusicBrainz::Server::Data::Role::Name',
@@ -41,6 +33,15 @@ with
         alias_table        => schema->table('artist_alias') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
         annotation_table   => schema->table('artist_annotation') };
+
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Browse';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
+
+sub _build_table { schema->table('artist') }
 
 sub _table
 {

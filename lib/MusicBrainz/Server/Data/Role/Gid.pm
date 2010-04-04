@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::Gid;
 use MooseX::Role::Parameterized;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 parameter 'redirect_table';
 
@@ -7,8 +8,7 @@ role {
     my $params = shift;
     my $table  = $params->redirect_table;
 
-    around get_by_gid => sub {
-        my $orig = shift;
+    method get_by_gid => sub {
         my ($self, $gid) = @_;
         return unless $gid;
 
@@ -65,6 +65,23 @@ role {
             ->where($table->column('newid'), 'IN', @old_ids);
 
         $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+    };
+
+    method _delete_and_redirect_gids => sub
+    {
+        my ($self, $table, $new_id, @old_ids) = @_;
+
+        # Update all GID redirects from @old_ids to $new_id
+        $self->update_gid_redirects($new_id, @old_ids);
+
+        # Delete the recording and select current GIDs
+        my $old_gids = $self->sql->select_single_column_array('
+            DELETE FROM '.$table.'
+            WHERE id IN ('.placeholders(@old_ids).')
+            RETURNING gid', @old_ids);
+
+        # Add redirects from GIDs of the deleted recordings to $new_id
+        $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
     };
 };
 

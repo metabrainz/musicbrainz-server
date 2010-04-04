@@ -6,7 +6,7 @@ use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreFeyEntity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' };
 
 sub _build_table { schema->table('url') }

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Role::Name;
 use MooseX::Role::Parameterized;
 use Carp qw( confess );
 use Fey::FK;
+use aliased 'Fey::Literal::Function';
 use Function::Parameters 'f';
 use List::Util qw( first );
 use List::MoreUtils qw( uniq );
@@ -109,6 +110,30 @@ role {
             $found_names{$new_name} = $id;
         }
         return %found_names;
+    };
+
+    method 'find_by_name' => sub
+    {
+        my ($self, $name) = @_;
+        my $query = $self->_select
+            ->where($self->name_columns->{name}, '=', $name);
+
+        return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) },
+                             $query->sql($self->sql->dbh), $query->bind_params);
+    };
+
+    method autocomplete_name => sub
+    {
+        my ($self, $name, $limit) = @_;
+        $limit ||= 10;
+
+        my $query = $self->_select
+            ->where(Function->new('lower', $self->name_columns->{name}),
+                    'LIKE', lc("$name%"))
+            ->limit($limit);
+
+        return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) },
+                             $query->sql($self->sql->dbh), $query->bind_params);
     };
 };
 

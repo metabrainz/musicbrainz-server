@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreFeyEntity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };

@@ -16,7 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreFeyEntity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };

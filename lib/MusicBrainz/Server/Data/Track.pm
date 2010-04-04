@@ -13,7 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreFeyEntity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' },
     'MusicBrainz::Server::Data::Role::Name';
 

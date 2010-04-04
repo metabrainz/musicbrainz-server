@@ -16,15 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreFeyEntity';
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Browse';
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
-
-sub _build_table { schema->table('label') }
+extends 'MusicBrainz::Server::Data::FeyEntity';
 
 with
     'MusicBrainz::Server::Data::Role::Annotation' => {
@@ -38,6 +30,15 @@ with
         redirect_table     => schema->table('label_gid_redirect') },
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
         metadata_table     => schema->table('label_meta') };
+
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
+with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::Browse';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
+
+sub _build_table { schema->table('label') }
 
 sub _table
 {
