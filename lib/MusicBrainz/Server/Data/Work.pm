@@ -13,7 +13,6 @@ use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 
 with
@@ -29,7 +28,8 @@ with
         annotation_table   => schema->table('work_annotation') },
     'MusicBrainz::Server::Data::Role::Editable' => {
         rating_table       => raw_schema->table('work_rating_raw')
-    };
+    },
+    'MusicBrainz::Server::Data::Role::BrowseVA';
 
 sub _build_table { schema->table('work') }
 

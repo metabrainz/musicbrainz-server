@@ -35,10 +35,10 @@ with
     'MusicBrainz::Server::Data::Role::Editable',
     'MusicBrainz::Server::Data::Role::Rating' => {
         rating_table       => raw_schema->table('label_rating_raw')
-    };
+    },
+    'MusicBrainz::Server::Data::Role::Browse';
 
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 
 sub _build_table { schema->table('label') }

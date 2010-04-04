@@ -1,27 +1,32 @@
 package MusicBrainz::Server::Data::Role::Browse;
 use Moose::Role;
+use Method::Signatures::Simple;
+use namespace::autoclean;
 
+use aliased 'Fey::Literal::Function';
 use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 
-requires '_columns', '_table';
-
-sub find_by_name_prefix
+method _find_by_name_prefix_sql ($prefix, $offset)
 {
-    my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
-
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                 WHERE page_index(name.name) BETWEEN page_index(?) AND
-                                                     page_index_max(?)";
-
-    $query .= " AND ($conditions)" if $conditions;
-    $query .= ' ORDER BY musicbrainz_collate(name.name) OFFSET ?';
-
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $prefix, $prefix, @bind, $offset || 0);
+    return $self->_select
+        ->where(
+            Function->new('page_index', $self->name_columns->{name}),
+            'BETWEEN',
+            Function->new('page_index',     $prefix),
+            Function->new('page_index_max', $prefix),
+        )
+        ->order_by(Function->new('musicbrainz_collate', $self->name_columns->{name}))
+        ->limit(undef, $offset);
 }
 
-no Moose::Role;
+method find_by_name_prefix ($prefix, $limit, $offset)
+{
+    my $query = $self->_find_by_name_prefix_sql($prefix, $offset);
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query->sql($self->c->dbh), $query->bind_params);
+}
+
 1;
 
 =head1 COPYRIGHT
