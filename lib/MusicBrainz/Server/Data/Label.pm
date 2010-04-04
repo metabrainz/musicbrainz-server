@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     check_in_use
 );
-use MusicBrainz::Schema qw( schema );
+use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 
@@ -32,9 +32,11 @@ with
         metadata_table     => schema->table('label_meta') },
     'MusicBrainz::Server::Data::Role::CoreEntityCache' => {
         prefix             => 'label' },
-    'MusicBrainz::Server::Data::Role::Editable';
+    'MusicBrainz::Server::Data::Role::Editable',
+    'MusicBrainz::Server::Data::Role::Rating' => {
+        rating_table       => raw_schema->table('label_rating_raw')
+    };
 
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };

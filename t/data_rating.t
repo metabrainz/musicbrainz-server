@@ -31,8 +31,8 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c, "
         VALUES (1, 1, 50), (2, 2, 50), (1, 3, 40), (1, 4, 10);
 ");
 
-my $rating_data = MusicBrainz::Server::Data::Rating->new(
-    c => $c, type => 'artist');
+my $rating_data = $c->model('Artist')->rating;
+
 my @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 3 );
 is( $ratings[0]->editor_id, 1 );

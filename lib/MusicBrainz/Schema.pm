@@ -6,10 +6,19 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 use MusicBrainz::Schema::Loader;
 use Sub::Exporter -setup => { exports => [qw( schema raw_schema )] };
 
-my $schema;
+my ($schema, $raw_schema);
 
-sub schema {
-    $schema ||= _rw_schema();
+sub schema     { $schema     ||= _rw_schema()  }
+sub raw_schema { $raw_schema ||= _raw_schema() }
+
+sub _raw_schema {
+    my $rawdata = Databases->get_connection('RAWDATA');
+    my $loader = MusicBrainz::Schema::Loader->new(
+        dbh    => $rawdata->dbh,
+        schema => $rawdata->database->schema
+    );
+
+    my $schema = $loader->make_schema;
 }
 
 sub _rw_schema {

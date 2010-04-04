@@ -14,10 +14,9 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
     query_to_list
 );
-use MusicBrainz::Schema qw( schema );
+use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
@@ -30,7 +29,10 @@ with
         metadata_table     => schema->table('release_group_meta') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
         annotation_table   => schema->table('release_group_annotation') },
-    'MusicBrainz::Server::Data::Role::Editable';
+    'MusicBrainz::Server::Data::Role::Editable',
+    'MusicBrainz::Server::Data::Role::Rating' => {
+        rating_type        => raw_schema->table('release_group_rating_raw')
+    };
 
 sub _build_table { schema->table('release_group') }
 

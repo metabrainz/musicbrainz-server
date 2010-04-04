@@ -7,6 +7,11 @@ role {
     my $params = shift;
     my $table  = $params->metadata_table;
 
+    has 'metadata_table' => (
+        is      => 'ro',
+        default => sub { $table }
+    );
+
     method load_meta => sub {
         my $self = shift;
         my @objs = @_ or return;

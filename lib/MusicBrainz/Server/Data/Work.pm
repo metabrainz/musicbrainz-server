@@ -9,10 +9,9 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list_limited
 );
-use MusicBrainz::Schema qw( schema );
+use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
@@ -28,7 +27,9 @@ with
         metadata_table     => schema->table('work_meta') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
         annotation_table   => schema->table('work_annotation') },
-    'MusicBrainz::Server::Data::Role::Editable';
+    'MusicBrainz::Server::Data::Role::Editable' => {
+        rating_table       => raw_schema->table('work_rating_raw')
+    };
 
 sub _build_table { schema->table('work') }
 

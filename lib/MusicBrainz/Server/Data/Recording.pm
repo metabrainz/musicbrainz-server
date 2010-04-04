@@ -10,10 +10,9 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
 );
-use MusicBrainz::Schema qw( schema );
+use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 
@@ -25,7 +24,10 @@ with
         metadata_table     => schema->table('recording_meta') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
         annotation_table   => schema->table('recording_annotation') },
-    'MusicBrainz::Server::Data::Role::Editable';
+    'MusicBrainz::Server::Data::Role::Editable',
+    'MusicBrainz::Server::Data::Role::Rating' => {
+        rating_table       => raw_schema->table('recording_rating_raw')
+    };
 
 sub _build_table { schema->table('recording') }
 

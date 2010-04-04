@@ -3,33 +3,29 @@ use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Rating;
 
-parameter 'type' => (
-    isa => 'Str',
-    required => 1,
-);
+parameter 'rating_table';
 
-role
-{
+role {
     my $params = shift;
+    my $table  = $params->rating_table;
 
     requires 'c', '_entity_class';
 
     has 'rating' => (
-        is => 'ro',
-        builder => '_build_rating',
-        lazy => 1
+        is         => 'ro',
+        lazy_build => 1
     );
 
-    method '_build_rating' => sub
-    {
+    method _build_rating => sub {
         my $self = shift;
         return MusicBrainz::Server::Data::Rating->new(
-            c => $self->c, type => $params->type);
-    }
+            c      => $self->c,
+            parent => $self,
+            table  => $table,
+        );
+    };
 };
 
-
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT

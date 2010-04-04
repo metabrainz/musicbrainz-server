@@ -17,7 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
 );
-use MusicBrainz::Schema qw( schema );
+use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 
@@ -35,9 +35,11 @@ with
         annotation_table   => schema->table('artist_annotation') },
     'MusicBrainz::Server::Data::Role::CoreEntityCache' => {
         prefix             => 'artist' },
-    'MusicBrainz::Server::Data::Role::Editable';
+    'MusicBrainz::Server::Data::Role::Editable',
+    'MusicBrainz::Server::Data::Role::Rating' => {
+        rating_table       => raw_schema->table('artist_rating_raw')
+    };
 
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
