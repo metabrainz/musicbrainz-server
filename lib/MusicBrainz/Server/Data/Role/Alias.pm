@@ -28,9 +28,7 @@ role
         );
         ensure_all_roles(
             $alias,
-            'MusicBrainz::Server::Data::Role::Editable' => {
-                table => $table->name
-            },
+            'MusicBrainz::Server::Data::Role::Editable',
             'MusicBrainz::Server::Data::Role::Name' => {
                 name_columns => [qw( name )],
             }

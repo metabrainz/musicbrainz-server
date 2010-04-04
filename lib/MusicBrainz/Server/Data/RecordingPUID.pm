@@ -2,10 +2,13 @@ package MusicBrainz::Server::Data::RecordingPUID;
 
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording_puid' };
+with 'MusicBrainz::Server::Data::Role::Editable';
+
+sub _build_table { schema->table('recording_puid') }
 
 sub _table
 {

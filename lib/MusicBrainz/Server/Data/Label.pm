@@ -29,10 +29,11 @@ with
     'MusicBrainz::Server::Data::Role::Gid' => {
         redirect_table     => schema->table('label_gid_redirect') },
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
-        metadata_table     => schema->table('label_meta') };
+        metadata_table     => schema->table('label_meta') },
+    'MusicBrainz::Server::Data::Role::CoreEntityCache' => {
+        prefix             => 'label' },
+    'MusicBrainz::Server::Data::Role::Editable';
 
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Browse';

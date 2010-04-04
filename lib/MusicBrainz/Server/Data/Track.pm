@@ -14,8 +14,8 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' },
-    'MusicBrainz::Server::Data::Role::Name';
+with 'MusicBrainz::Server::Data::Role::Editable',
+     'MusicBrainz::Server::Data::Role::Name';
 
 sub _build_table { schema->table('track') }
 

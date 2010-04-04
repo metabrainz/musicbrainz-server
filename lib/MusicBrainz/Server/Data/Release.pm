@@ -15,7 +15,6 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 
@@ -26,7 +25,8 @@ with
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
         metadata_table     => schema->table('release_meta') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
-        annotation_table   => schema->table('release_annotation') };
+        annotation_table   => schema->table('release_annotation') },
+    'MusicBrainz::Server::Data::Role::Editable';
 
 sub _build_table { schema->table('release') }
 

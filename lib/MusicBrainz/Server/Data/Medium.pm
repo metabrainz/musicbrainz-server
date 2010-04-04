@@ -10,9 +10,21 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::Editable';
+
+sub _build_table { schema->table('medium') }
+
+around _select => sub
+{
+    my $orig = shift;
+    my ($self) = @_;
+    return $self->$orig
+        ->select(schema->table('tracklist')->column('trackcount'))
+        ->from($self->table, schema->table('tracklist'))
+};
 
 sub _table
 {

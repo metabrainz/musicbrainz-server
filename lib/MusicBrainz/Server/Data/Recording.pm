@@ -13,7 +13,6 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
@@ -25,7 +24,8 @@ with
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
         metadata_table     => schema->table('recording_meta') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
-        annotation_table   => schema->table('recording_annotation') };
+        annotation_table   => schema->table('recording_annotation') },
+    'MusicBrainz::Server::Data::Role::Editable';
 
 sub _build_table { schema->table('recording') }
 

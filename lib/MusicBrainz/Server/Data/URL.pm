@@ -7,7 +7,7 @@ use MusicBrainz::Server::Entity::URL;
 use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' };
+with 'MusicBrainz::Server::Data::Role::Editable';
 
 sub _build_table { schema->table('url') }
 

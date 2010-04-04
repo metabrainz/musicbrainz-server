@@ -1,31 +1,22 @@
 package MusicBrainz::Server::Data::Role::Editable;
-use MooseX::Role::Parameterized;
+use Moose::Role;
+use Fey::Literal::Term;
+use Fey::SQL;
+use Method::Signatures::Simple;
+use namespace::autoclean;
 
-use MusicBrainz::Server::Data::Utils qw( placeholders );
-use Sql;
+method adjust_edit_pending ($amount, @ids) {
+    my $ep_column  = $self->table->column('editpending');
+    my $adjustment = Fey::Literal::Term->new($ep_column, '+', $amount);
+    my $query = Fey::SQL->new_update
+        ->update($self->table)
+        ->set($ep_column, $adjustment)
+        ->where($self->table->column('id'), 'IN', @ids);
 
-parameter 'table' => (
-    isa => 'Str',
-    required => 1
-);
+    $self->sql->do($query->sql($self->sql->dbh),
+                   $query->bind_params);
+}
 
-role {
-    my $params = shift;
-    my $table = $params->table;
-
-    requires '_dbh';
-
-    method 'adjust_edit_pending' => sub
-    {
-        my ($self, $adjust, @ids) = @_;
-        my $sql = Sql->new($self->_dbh);
-        my $query = "UPDATE $table SET editpending = editpending + ? WHERE id IN (" . placeholders(@ids) . ")";
-        $sql->do($query, $adjust, @ids);
-    };
-
-};
-
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT

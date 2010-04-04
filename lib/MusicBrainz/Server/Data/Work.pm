@@ -14,7 +14,6 @@ use MusicBrainz::Schema qw( schema );
 extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 
@@ -28,7 +27,8 @@ with
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
         metadata_table     => schema->table('work_meta') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
-        annotation_table   => schema->table('work_annotation') };
+        annotation_table   => schema->table('work_annotation') },
+    'MusicBrainz::Server::Data::Role::Editable';
 
 sub _build_table { schema->table('work') }
 

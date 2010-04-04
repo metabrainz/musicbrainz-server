@@ -32,10 +32,11 @@ with
     'MusicBrainz::Server::Data::Role::Alias' => {
         alias_table        => schema->table('artist_alias') },
     'MusicBrainz::Server::Data::Role::Annotation' => {
-        annotation_table   => schema->table('artist_annotation') };
+        annotation_table   => schema->table('artist_annotation') },
+    'MusicBrainz::Server::Data::Role::CoreEntityCache' => {
+        prefix             => 'artist' },
+    'MusicBrainz::Server::Data::Role::Editable';
 
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Browse';
