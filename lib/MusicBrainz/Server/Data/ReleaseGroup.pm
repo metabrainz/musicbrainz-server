@@ -14,14 +14,25 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
     query_to_list
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
+extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
+
+with
+    'MusicBrainz::Server::Data::Role::Name',
+    'MusicBrainz::Server::Data::Role::Gid' => {
+        redirect_table     => schema->table('release_group_gid_redirect') },
+    'MusicBrainz::Server::Data::Role::LoadMeta' => {
+        metadata_table     => schema->table('release_group_meta') },
+    'MusicBrainz::Server::Data::Role::Annotation' => {
+        annotation_table   => schema->table('release_group_annotation') };
+
+sub _build_table { schema->table('release_group') }
 
 sub _table
 {
@@ -35,14 +46,22 @@ sub _columns
             comment, editpending AS edits_pending';
 }
 
+sub _column_mapping
+{
+    return {
+        id               => 'id',
+        gid              => 'gid',
+        name             => 'name',
+        type_id          => 'type',
+        artist_credit_id => 'artist_credit',
+        comment          => 'comment',
+        edits_pending    => 'editpending'
+    };
+}
+
 sub _id_column
 {
     return 'rg.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'release_group_gid_redirect';
 }
 
 sub _entity_class
@@ -279,18 +298,6 @@ sub _hash_to_row
     }
 
     return { defined_hash(%row) };
-}
-
-sub load_meta
-{
-    my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_group_meta", sub {
-        my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->release_count($row->{releasecount});
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-    }, @_);
 }
 
 __PACKAGE__->meta->make_immutable;

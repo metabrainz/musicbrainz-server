@@ -2,11 +2,11 @@
 use strict;
 use warnings;
 use Test::More;
-use_ok 'MusicBrainz::Server::Data::Release';
-use MusicBrainz::Server::Data::ReleaseLabel;
+use MusicBrainz::Server::Test;
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
+use_ok 'MusicBrainz::Server::Data::Release';
+use MusicBrainz::Server::Data::ReleaseLabel;
 use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();

@@ -11,10 +11,13 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
     placeholders
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'track_name' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
+extends 'MusicBrainz::Server::Data::CoreFeyEntity';
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' },
+    'MusicBrainz::Server::Data::Role::Name';
+
+sub _build_table { schema->table('track') }
 
 sub _table
 {

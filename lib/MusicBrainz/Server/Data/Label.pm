@@ -14,21 +14,30 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     check_in_use
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
+extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_label',
-    column => 'label'
-};
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
+
+sub _build_table { schema->table('label') }
+
+with
+    'MusicBrainz::Server::Data::Role::Annotation' => {
+        annotation_table   => schema->table('label_annotation') },
+    'MusicBrainz::Server::Data::Role::Name',
+    'MusicBrainz::Server::Data::Role::Alias' => {
+        alias_table        => schema->table('label_alias') },
+    'MusicBrainz::Server::Data::Role::Subscription' => {
+        subscription_table => schema->table('editor_subscribe_label'), },
+    'MusicBrainz::Server::Data::Role::Gid' => {
+        redirect_table     => schema->table('label_gid_redirect') },
+    'MusicBrainz::Server::Data::Role::LoadMeta' => {
+        metadata_table     => schema->table('label_meta') };
 
 sub _table
 {
@@ -229,17 +238,6 @@ sub _hash_to_row
     }
 
     return { defined_hash(%row) };
-}
-
-sub load_meta
-{
-    my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "label_meta", sub {
-        my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-    }, @_);
 }
 
 __PACKAGE__->meta->make_immutable;

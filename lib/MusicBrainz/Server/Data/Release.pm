@@ -12,13 +12,23 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     order_by
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
+extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
+
+with
+    'MusicBrainz::Server::Data::Role::Name',
+    'MusicBrainz::Server::Data::Role::Gid' => {
+        redirect_table     => schema->table('release_gid_redirect') },
+    'MusicBrainz::Server::Data::Role::LoadMeta' => {
+        metadata_table     => schema->table('release_meta') },
+    'MusicBrainz::Server::Data::Role::Annotation' => {
+        annotation_table   => schema->table('release_annotation') };
+
+sub _build_table { schema->table('release') }
 
 sub _table
 {
@@ -37,18 +47,13 @@ sub _id_column
     return 'release.id';
 }
 
-sub _gid_redirect_table
-{
-    return 'release_gid_redirect';
-}
-
 sub _column_mapping
 {
     return {
         id => 'id',
         gid => 'gid',
         name => 'name',
-        artist_credit_id => 'artist_credit_id',
+        artist_credit_id => 'artist_credit',
         release_group_id => 'release_group',
         status_id => 'status',
         packaging_id => 'packaging',
@@ -295,19 +300,6 @@ sub _hash_to_row
     }
 
     return { defined_hash(%row) };
-}
-
-sub load_meta
-{
-    my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
-        my ($obj, $row) = @_;
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-        $obj->cover_art_url($row->{coverarturl}) if defined $row->{coverarturl};
-        $obj->info_url($row->{infourl}) if defined $row->{infourl};
-        $obj->amazon_asin($row->{amazonasin}) if defined $row->{amazonasin};
-        $obj->amazon_store($row->{amazonstore}) if defined $row->{amazonstore};
-    }, @_);
 }
 
 sub find_ids_by_track_ids

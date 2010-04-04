@@ -1,42 +1,19 @@
 package MusicBrainz::Server::Data::Alias;
 use Moose;
 
-use Class::MOP;
+use Fey::SQL;
+use Method::Signatures::Simple;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 
-# with MusicBrainz::Server::Data::Role::Editable -- see AliasRole for when this is applied
+# See AliasRole for when these are applied:
+# with MusicBrainz::Server::Data::Role::Editable
+# with MusicBrainz::Server::Data::Role::Name
+with 'MusicBrainz::Server::Data::Role::Joined';
 
-has 'parent' => (
-    does => 'MusicBrainz::Server::Data::Role::Name',
-    is => 'rw',
-    required => 1
-);
-
-has [qw( table type entity )] => (
-    isa      => 'Str',
-    is       => 'rw',
-    required => 1
-);
-
-sub _table
+method _column_mapping
 {
-    my $self = shift;
-    return sprintf '%s JOIN %s name ON %s.name=name.id',
-        $self->table, $self->parent->name_table, $self->table
-}
-
-sub _columns
-{
-    my $self = shift;
-    return sprintf '%s.id, name.name, %s, locale, editpending',
-        $self->table, $self->type;
-}
-
-sub _column_mapping
-{
-    my $self = shift;
     return {
         id                  => 'id',
         name                => 'name',
@@ -46,71 +23,67 @@ sub _column_mapping
     };
 }
 
-sub _id_column
-{
-    return shift->table . '.id';
-}
-
 sub _entity_class
 {
-    return shift->entity;
+    return shift->parent->_entity_class . 'Alias';
 }
 
-sub find_by_entity_id
+method find_by_entity_id (@ids)
 {
-    my ($self, @ids) = @_;
-    return [ values %{ $self->_get_by_keys($self->type, @ids) } ];
+    return [ values %{ $self->_get_by_keys($self->_join_column, @ids) } ];
 }
 
-sub has_alias
+method has_alias ($entity_id, $alias_name)
 {
-    my ($self, $entity_id, $alias_name) = @_;
-    my $sql  = Sql->new($self->c->dbh);
-    my $type = $self->type;
-    return defined $sql->select_single_value(
-        'SELECT 1 FROM ' . $self->_table .
-        " WHERE $type = ? AND name.name = ?",
-        $entity_id, $alias_name
+    my $name = $self->name_columns->{name};
+    my $query = Fey::SQL->new_select
+            ->select(1)
+            ->from($self->table, $name->table)
+            ->where($self->_join_column, '=', $entity_id)
+            ->where($name, '=', $alias_name);
+
+    return $self->sql->select_single_value(
+        $query->sql($self->sql->dbh), $query->bind_params
     );
 }
 
-sub load
+method load (@objects)
 {
-    my ($self, @objects) = @_;
     load_subobjects($self, 'alias', @objects);
 }
 
-sub delete
+method delete (@ids)
 {
-    my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $query = "DELETE FROM " . $self->table .
-                " WHERE id IN (" . placeholders(@ids) . ")";
-    $sql->do($query, @ids);
+    my $query = Fey::SQL->new_delete
+        ->from($self->table)
+        ->where($self->table->column('id'), 'IN', @ids);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
     return 1;
 }
 
-sub delete_entities
+method delete_entities (@ids)
 {
-    my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $query = "DELETE FROM " . $self->table .
-                " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")";
-    $sql->do($query, @ids);
+    my $query = Fey::SQL->new_delete
+        ->from($self->table)
+        ->where($self->_join_column, 'IN', @ids);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
     return 1;
 }
 
-sub insert
+method insert (@alias_hashes)
 {
-    my ($self, @alias_hashes) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
+    my $table = $self->table->name;
+    my $type  = $self->_join_column->name;
+    my $class = $self->_entity_class;
+
     my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         push @created, $class->new(
-            id => $sql->insert_row($table, {
+            id => $self->sql->insert_row($table, {
                 $type  => $hash->{$type . '_id'},
                 name   => $names{ $hash->{name} },
                 locale => $hash->{locale}
@@ -119,26 +92,32 @@ sub insert
     return wantarray ? @created : $created[0];
 }
 
-sub merge
+method merge ($new_id, @old_ids)
 {
-    my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $table = $self->table;
-    my $type = $self->type;
-    $sql->do("DELETE FROM $table
-              WHERE name IN (SELECT name FROM $table WHERE $type = ?) AND
-                    $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-    $sql->do("UPDATE $table SET $type = ?
-              WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+    my $query;
+
+    my $sub_q = Fey::SQL->new_select
+        ->select($self->table->column('name'))
+        ->from($self->table)
+        ->where($self->_join_column, '=', $new_id);
+
+    $query = Fey::SQL->new_delete
+        ->from($self->table)
+        ->where($self->table->column('name'), 'IN', $sub_q)
+        ->where($self->_join_column, 'IN', @old_ids);
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+
+    $query = Fey::SQL->new_update
+        ->update($self->table)
+        ->set($self->_join_column, $new_id)
+        ->where($self->_join_column, 'IN', @old_ids);
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub update
+method update ($alias_id, $alias_hash)
 {
-    my ($self, $alias_id, $alias_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $table = $self->table;
-    my $type = $self->type;
-    $sql->update_row($table, $alias_hash, { id => $alias_id });
+    my $table = $self->table->name;
+    $self->sql->update_row($table, $alias_hash, { id => $alias_id });
 }
 
 no Moose;

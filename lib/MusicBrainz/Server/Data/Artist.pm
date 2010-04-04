@@ -17,6 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
 );
+use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
@@ -26,21 +27,19 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 
-use MusicBrainz::Schema qw( schema );
-
 sub _build_table { schema->table('artist') }
 
 with
-    'MusicBrainz::Server::Data::Role::FeyName',
+    'MusicBrainz::Server::Data::Role::Name',
     'MusicBrainz::Server::Data::Role::Gid' => {
         redirect_table     => schema->table('artist_gid_redirect') },
     'MusicBrainz::Server::Data::Role::LoadMeta' => {
         metadata_table     => schema->table('artist_meta') },
-    'MusicBrainz::Server::Data::Role::FeySubscription' => {
+    'MusicBrainz::Server::Data::Role::Subscription' => {
         subscription_table => schema->table('editor_subscribe_artist'), },
-    'MusicBrainz::Server::Data::Role::FeyAlias' => {
+    'MusicBrainz::Server::Data::Role::Alias' => {
         alias_table        => schema->table('artist_alias') },
-    'MusicBrainz::Server::Data::Role::FeyAnnotation' => {
+    'MusicBrainz::Server::Data::Role::Annotation' => {
         annotation_table   => schema->table('artist_annotation') };
 
 sub _table

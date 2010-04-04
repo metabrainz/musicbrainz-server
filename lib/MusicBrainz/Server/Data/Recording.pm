@@ -10,13 +10,24 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
+extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
+
+with
+    'MusicBrainz::Server::Data::Role::Name',
+    'MusicBrainz::Server::Data::Role::Gid' => {
+        redirect_table     => schema->table('recording_gid_redirect') },
+    'MusicBrainz::Server::Data::Role::LoadMeta' => {
+        metadata_table     => schema->table('recording_meta') },
+    'MusicBrainz::Server::Data::Role::Annotation' => {
+        annotation_table   => schema->table('recording_annotation') };
+
+sub _build_table { schema->table('recording') }
 
 sub _table
 {
@@ -29,27 +40,23 @@ sub _columns
             recording.artist_credit AS artist_credit_id, length,
             comment, editpending AS edits_pending';
 }
+
 sub _column_mapping
 {
     return {
         id               => 'id',
         gid              => 'gid',
         name             => 'name',
-        artist_credit_id => 'artist_credit_id',
+        artist_credit_id => 'artist_credit',
         length           => 'length',
         comment          => 'comment',
-        edits_pending    => 'edits_pending',
+        edits_pending    => 'editpending',
     };
 }
 
 sub _id_column
 {
     return 'recording.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'recording_gid_redirect';
 }
 
 sub _entity_class
@@ -148,17 +155,6 @@ sub _hash_to_row
     }
 
     return { defined_hash(%row) };
-}
-
-sub load_meta
-{
-    my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "recording_meta", sub {
-        my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-    }, @_);
 }
 
 sub merge

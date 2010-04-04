@@ -94,7 +94,7 @@ $sql->commit;
 
 # Make sure other data types support aliases
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
-does_ok($label_data, 'MusicBrainz::Server::Data::Role::Alias');
+does_ok($label_data, 'MusicBrainz::Server::Data::Role::FeyAlias');
 
 my $work_data = MusicBrainz::Server::Data::Work->new(c => $c);
 does_ok($work_data, 'MusicBrainz::Server::Data::Role::Alias');

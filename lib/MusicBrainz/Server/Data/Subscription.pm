@@ -1,159 +1,153 @@
 package MusicBrainz::Server::Data::Subscription;
-
 use Moose;
-use Sql;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
-
-has 'c' => (
-    is => 'rw',
-    isa => 'Object'
+use Method::Signatures::Simple;
+use namespace::autoclean;
+use List::Util qw( first );
+use MusicBrainz::Server::Data::Utils qw(
+    placeholders
+    query_to_list
+    query_to_list_limited
 );
 
-has 'table' => (
-    is => 'ro',
-    isa => 'Str'
+extends 'MusicBrainz::Server::Data::FeyEntity';
+
+has 'parent' => (
+    is       => 'ro',
+    required => 1
 );
 
-has 'column' => (
-    is => 'ro',
-    isa => 'Str'
+has '_subscription_column' => (
+    is         => 'ro',
+    lazy_build => 1,
 );
 
-sub subscribe
-{
-    my ($self, $user_id, $id) = @_;
+method _build__subscription_column {
+    my @fks  = $self->parent->table->schema
+        ->foreign_keys_between_tables($self->parent->table, $self->table);
 
-    my $table = $self->table;
-    my $column = $self->column;
+    return first { defined }
+        map { $_->source_columns->[0] } @fks;
+}
 
-    my $sql = Sql->new($self->c->dbh);
-    Sql::run_in_transaction(sub {
+method check_subscription ($editor_id, $entity_id) {
+    my $query = Fey::SQL->new_select
+        ->select(Fey::Literal::Number->new(1))
+        ->from($self->table)
+        ->where($self->table->column('editor'), '=', $editor_id)
+        ->where($self->_subscription_column, '=', $entity_id);
 
-        return if $sql->select_single_value("
-            SELECT id FROM $table WHERE editor = ? AND $column = ?",
-            $user_id, $id);
+    return $self->sql->select_single_value(
+        $query->sql($self->sql->dbh),
+        $query->bind_params) ? 1 : 0;
+}
+
+method subscribe ($editor_id, $entity_id) {
+    Sql::run_in_transaction(sub
+    {
+        return if $self->check_subscription($editor_id, $entity_id);
 
         my $max_edit_id = $self->c->model('Edit')->get_max_id() || 0;
-        $sql->do("INSERT INTO $table (editor, $column, lasteditsent)
-                  VALUES (?, ?, ?)", $user_id, $id, $max_edit_id);
+        my $query = Fey::SQL->new_insert
+            ->into(
+                $self->table->column('editor'), $self->_subscription_column,
+                $self->table->column('lasteditsent')
+            )->values(
+                editor                            => $editor_id,
+                $self->_subscription_column->name => $entity_id,
+                lasteditsent                      => $max_edit_id
+            );
 
-    }, $sql);
+        $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+    }, $self->sql);
 }
 
-sub unsubscribe
+method unsubscribe ($editor_id, $entity_id)
 {
-    my ($self, $user_id, $id) = @_;
+    Sql::run_in_transaction(sub
+    {
+        my $query = Fey::SQL->new_delete
+            ->from($self->table)
+            ->where($self->table->column('editor'), '=', $editor_id)
+            ->where($self->_subscription_column, '=', $entity_id);
 
-    my $table = $self->table;
-    my $column = $self->column;
-
-    my $sql = Sql->new($self->c->dbh);
-    Sql::run_in_transaction(sub {
-
-        $sql->do("
-            DELETE FROM $table WHERE editor = ? AND $column = ?",
-            $user_id, $id);
-
-    }, $sql);
+        $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+    }, $self->sql);
 }
 
-sub check_subscription
+method find_subscribed_editors ($entity_id)
 {
-    my ($self, $user_id, $id) = @_;
-
-    my $table = $self->table;
-    my $column = $self->column;
-
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("
-        SELECT 1 FROM $table
-        WHERE editor = ? AND $column = ?",
-        $user_id, $id) ? 1 : 0;
-}
-
-sub find_subscribed_editors
-{
-    my ($self, $entity_id) = @_;
-
-    require MusicBrainz::Server::Data::Editor;
-    my $table = $self->table;
-    my $column = $self->column;
-    my $query = "
-        SELECT " . MusicBrainz::Server::Data::Editor->_columns . "
-        FROM " . MusicBrainz::Server::Data::Editor->_table . "
-            JOIN $table s ON editor.id = s.editor
-        WHERE s.$column = ?
-        ORDER BY editor.name, editor.id";
+    my $editor = $self->c->model('Editor');
+    my $query = $editor->_select
+        ->from($editor->table, $self->table)
+        ->where($self->_subscription_column, '=', $entity_id)
+        ->order_by($editor->table->column('name'),
+                   $editor->table->column('id'));
 
     return query_to_list(
-        $self->c->dbh, sub { MusicBrainz::Server::Data::Editor->_new_from_row(@_) },
-        $query, $entity_id);
+        $self->c->dbh, sub {
+            MusicBrainz::Server::Data::Editor->_new_from_row(@_) },
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub get_subscribed_editor_count
+method get_subscribed_editor_count ($entity_id)
 {
-    my ($self, $entity_id) = @_;
+    my $query = Fey::SQL->new_select
+        ->select(Fey::Literal::Function('count', '*'))
+        ->from($self->table)
+        ->where($self->_subscription_column, '=', $entity_id);
 
-    my $table = $self->table;
-    my $column = $self->column;
-    my $sql = Sql->new($self->c->dbh);
-
-    return $sql->select_single_value("SELECT count(*) FROM $table
-                                    WHERE $column = ?", $entity_id);
+    return $self->sql->select_single_value(
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub merge
+method merge ($new_id, @old_ids)
 {
-    my ($self, $new_id, @old_ids) = @_;
-
-    my $table = $self->table;
-    my $column = $self->column;
-    my $sql = Sql->new($self->c->dbh);
+    my $query;
 
     # Remove duplicate joins
-    $sql->do("DELETE FROM $table
-              WHERE $column IN (".placeholders(@old_ids).") AND
-                  editor IN (SELECT editor FROM $table WHERE $column = ?)",
-              @old_ids, $new_id);
+    my $sub_q = Fey::SQL->new_select
+        ->select($self->table->column('editor'))
+        ->from($self->table)
+        ->where($self->_subscription_column, '=', $new_id);
+
+    $query = Fey::SQL->new_delete
+        ->from($self->table)
+        ->where($self->_subscription_column, 'IN', @old_ids)
+        ->where($self->table->column('editor'), 'IN', $sub_q);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
 
     # Move all remaining joins to the new entity
-    $sql->do("UPDATE $table SET $column = ?
-              WHERE $column IN (".placeholders(@old_ids).")",
-              $new_id, @old_ids);
+    $query = Fey::SQL->new_update
+        ->update($self->table)
+        ->set($self->_subscription_column, $new_id)
+        ->where($self->_subscription_column, 'IN', @old_ids);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+};
+
+method delete (@ids)
+{
+    my $query = Fey::SQL->new_delete
+        ->from($self->table)
+        ->where($self->_subscription_column, 'IN', @ids);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub delete
+method find_by_subscribed_editor ($editor_id, $limit, $offset)
 {
-    my ($self, @ids) = @_;
+    my $query = $self->_select
+        ->from($self->parent->table, $self->table)
+        ->where($self->table->column('editor'), '=', $editor_id)
+        ->order_by($self->name_columns->{name},
+                   $self->parent->table->column('id'))
+        ->limit(undef, $offset || 0);
 
-    my $table = $self->table;
-    my $column = $self->column;
-
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM $table
-              WHERE $column IN (".placeholders(@ids).")", @ids);
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
-1;
 
-=head1 COPYRIGHT
-
-Copyright (C) 2009 Lukas Lalinsky
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-=cut

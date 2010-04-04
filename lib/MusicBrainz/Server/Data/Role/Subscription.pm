@@ -1,37 +1,24 @@
 package MusicBrainz::Server::Data::Role::Subscription;
 use MooseX::Role::Parameterized;
-
 use MusicBrainz::Server::Data::Subscription;
 
-parameter 'table' => (
-    isa => 'Str',
-    required => 1,
-);
+parameter 'subscription_table';
 
-parameter 'column' => (
-    isa => 'Str',
-    required => 1,
-);
-
-role
-{
-    my $params = shift;
-
-    requires 'c';
+role {
+    my $params    = shift;
+    my $sub_table = $params->subscription_table;
 
     has 'subscription' => (
-        is => 'ro',
-        lazy => 1,
-        builder => '_build_subscription_data',
+        is         => 'ro',
+        lazy_build => 1
     );
 
-    method '_build_subscription_data' => sub
-    {
+    method _build_subscription => sub {
         my $self = shift;
         return MusicBrainz::Server::Data::Subscription->new(
-            c => $self->c,
-            table => $params->table,
-            column => $params->column,
+            c      => $self->c,
+            table  => $sub_table,
+            parent => $self
         );
     };
 };
@@ -57,4 +44,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

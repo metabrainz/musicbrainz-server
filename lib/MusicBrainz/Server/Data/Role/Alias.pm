@@ -1,30 +1,21 @@
 package MusicBrainz::Server::Data::Role::Alias;
 use MooseX::Role::Parameterized;
-
-use MusicBrainz::Server::Data::Alias;
 use Moose::Util qw( ensure_all_roles );
+use MusicBrainz::Server::Data::Alias;
+use namespace::autoclean;
 
-parameter 'type' => (
-    isa => 'Str',
-    required => 1,
-);
-
-parameter 'table' => (
-    isa => 'Str',
-    default => sub { shift->type . "_alias" },
-    lazy => 1
+parameter 'alias_table' => (
+    required => 1
 );
 
 role
 {
     my $params = shift;
-
-    requires 'c', '_entity_class';
+    my $table  = $params->alias_table;
 
     has 'alias' => (
-        is => 'ro',
-        builder => '_build_alias',
-        lazy => 1
+        is         => 'ro',
+        lazy_build => 1
     );
 
     method '_build_alias' => sub
@@ -32,17 +23,23 @@ role
         my $self = shift;
         my $alias = MusicBrainz::Server::Data::Alias->new(
             c      => $self->c,
-            type => $params->type,
-            table => $params->table,
-            entity => $self->_entity_class . 'Alias',
+            table  => $table,
             parent => $self
         );
-        ensure_all_roles($alias, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
-    }
+        ensure_all_roles(
+            $alias,
+            'MusicBrainz::Server::Data::Role::Editable' => {
+                table => $table->name
+            },
+            'MusicBrainz::Server::Data::Role::Name' => {
+                name_columns => [qw( name )],
+            }
+        );
+
+        return $alias;
+    };
 };
 
-
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT

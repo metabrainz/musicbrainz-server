@@ -2,12 +2,12 @@
 use strict;
 use warnings;
 use Test::More tests => 45;
+use MusicBrainz::Server::Test;
+
 use_ok 'MusicBrainz::Server::Data::Work';
 use MusicBrainz::Server::Data::WorkType;
 use MusicBrainz::Server::Data::Search;
-
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+work');

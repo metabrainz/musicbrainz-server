@@ -4,20 +4,23 @@ use Moose;
 use Carp;
 use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Server::Entity::URL;
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::CoreFeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' };
 
-sub _table
-{
-    return 'url';
-}
+sub _build_table { schema->table('url') }
 
-sub _columns
+sub _column_mapping
 {
-    return 'id, gid, url, description,
-            editpending AS edits_pending,
-            refcount AS reference_count';
+    return {
+        id              => 'id',
+        gid             => 'gid',
+        url             => 'url',
+        description     => 'description',
+        edits_pending   => 'editpending',
+        reference_count => 'refcount',
+    }
 }
 
 sub _entity_class

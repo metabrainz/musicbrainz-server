@@ -6,7 +6,6 @@ use Data::OptList;
 use DateTime;
 use TryCatch;
 use List::MoreUtils qw( uniq zip );
-use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );

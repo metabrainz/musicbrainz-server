@@ -3,15 +3,8 @@ use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::EntityAnnotation;
 
-parameter 'type' => (
-    isa => 'Str',
-    required => 1,
-);
-
-parameter 'table' => (
-    isa => 'Str',
-    default => sub { shift->type . "_annotation" },
-    lazy => 1
+parameter 'annotation_table' => (
+    required => 1
 );
 
 role
@@ -31,8 +24,8 @@ role
         my $self = shift;
         return MusicBrainz::Server::Data::EntityAnnotation->new(
             c => $self->c,
-            type => $params->type,
-            table => $params->table,
+            table  => $params->annotation_table,
+            parent => $self
         );
     };
 };

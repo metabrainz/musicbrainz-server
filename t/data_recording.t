@@ -2,12 +2,13 @@
 use strict;
 use warnings;
 use Test::More tests => 38;
+use MusicBrainz::Server::Test;
+
 use_ok 'MusicBrainz::Server::Data::Recording';
 use MusicBrainz::Server::Data::Search;
 use encoding 'utf8';
-
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
+
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');

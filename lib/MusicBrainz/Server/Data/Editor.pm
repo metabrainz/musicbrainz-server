@@ -10,12 +10,13 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
+use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_editor',
-    column => 'subscribededitor'
-};
+    table => schema->table('editor_subscribe_editor') };
+
+sub _build_table { schema->table('editor') }
 
 sub _table
 {

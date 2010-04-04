@@ -1,28 +1,34 @@
 package MusicBrainz::Server::Data::EntityAnnotation;
 use Moose;
 
+use Method::Signatures::Simple;
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Schema qw( schema );
+use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
+with 'MusicBrainz::Server::Data::Role::Joined';
 
-has [qw( type table )] => (
-    is => 'rw',
-    isa => 'Str',
-    required => 1
-);
-
-sub _table
+around _select => sub
 {
+    my $orig = shift;
     my $self = shift;
-    return $self->table . ' ea
-            JOIN annotation a ON ea.annotation=a.id';
-}
+    my $annotation_table = schema->table('annotation');
+    return $self->$orig
+        ->select($annotation_table)
+        ->from($self->table, $annotation_table);
+};
 
-sub _columns
+sub _column_mapping
 {
-    return 'id, editor AS editor_id, text, changelog,
-            created AS creation_date';
+    return {
+        id            => 'id',
+        editor_id     => 'editor',
+        text          => 'text',
+        changelog     => 'changelog',
+        creation_date => 'created'
+    };
 }
 
 sub _entity_class
@@ -30,22 +36,21 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Annotation';
 }
 
-sub get_latest
+method get_latest ($entity_id)
 {
-    my ($self, $id) = @_;
-    my $query = "SELECT " . $self->_columns .
-                " FROM " . $self->_table .
-                " WHERE " . $self->type . " = ?" .
-                " ORDER BY created DESC LIMIT 1";
-    my $sql = Sql->new($self->c->dbh);
-    my $row = $sql->select_single_row_hash($query, $id)
+    my $query = $self->_select
+        ->where($self->_join_column, '=', $entity_id)
+        ->order_by(schema->table('annotation')->column('created'), 'DESC')
+        ->limit(1);
+
+    my $row = $self->sql->select_single_row_hash(
+        $query->sql($self->sql->dbh), $query->bind_params)
         or return undef;
     return $self->_new_from_row($row);
 }
 
-sub load_latest
+method load_latest (@objs)
 {
-    my ($self, @objs) = @_;
     for my $obj (@objs) {
         next unless $obj->does('MusicBrainz::Server::Entity::Role::Annotation');
         my $annotation = $self->get_latest($obj->id) or next;
@@ -53,49 +58,44 @@ sub load_latest
     }
 }
 
-sub edit
+method edit ($annotation_hash)
 {
-    my ($self, $annotation_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $annotation_id = $sql->insert_row('annotation', {
-        editor => $annotation_hash->{editor_id},
-        text => $annotation_hash->{text},
+    my $annotation_id = $self->sql->insert_row('annotation', {
+        editor    => $annotation_hash->{editor_id},
+        text      => $annotation_hash->{text},
         changelog => $annotation_hash->{changelog}
     }, 'id');
-    $sql->insert_row($self->table, {
+    $self->sql->insert_row($self->table, {
         $self->type => $annotation_hash->{entity_id},
-        annotation => $annotation_id
+        annotation  => $annotation_id
     });
     return $annotation_id;
 }
 
-sub delete
+method delete (@ids)
 {
-    my ($self, @ids) = @_;
-    my $query = "DELETE FROM " . $self->table .
+    my $query = "DELETE FROM " . $self->table->name .
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")" .
                 " RETURNING annotation";
-    my $sql = Sql->new($self->c->dbh);
-    my $annotations = $sql->select_single_column_array($query, @ids);
+
+    my $annotations = $self->sql->select_single_column_array($query, @ids);
     return 1 unless scalar @$annotations;
     $query = "DELETE FROM annotation WHERE id IN (" . placeholders(@$annotations) . ")";
-    $sql->do($query, @$annotations);
+    $self->sql->do($query, @$annotations);
     return 1;
 }
 
-sub merge
+method merge ($new_id, @old_ids)
 {
-    my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $table = $self->table;
-    my $type = $self->type;
-    $sql->do("UPDATE $table SET $type = ?
-              WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+    my $query = Fey::SQL->new_update
+        ->update($self->table)
+        ->set($self->_join_column, $new_id)
+        ->where($self->_join_column, 'IN', @old_ids);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
-1;
 
 =head1 NAME
 

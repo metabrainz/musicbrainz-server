@@ -1,13 +1,14 @@
 #!/usr/bin/perl
 use strict;
+use warnings;
 use Test::More;
+use MusicBrainz::Server::Test;
+
+use_ok 'MusicBrainz::Server::Data::Editor';
 use DateTime;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
 use Sql;
-
-BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');

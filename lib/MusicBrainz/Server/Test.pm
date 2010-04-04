@@ -4,7 +4,6 @@ use DBDefs;
 use FindBin '$Bin';
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
 use Sql;
 use Test::Builder;
@@ -102,10 +101,9 @@ sub prepare_test_server
 sub get_latest_edit
 {
     my ($class, $c) = @_;
-    my $ed = MusicBrainz::Server::Data::Edit->new(c => $c);
     my $sql = Sql->new($c->raw_dbh);
     my $last_id = $sql->select_single_value("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
-    return $ed->get_by_id($last_id);
+    return $c->model('Edit')->get_by_id($last_id);
 }
 
 my $Test = Test::Builder->new();

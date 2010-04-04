@@ -22,13 +22,19 @@ sub _rw_schema {
     my $schema = $loader->make_schema;
 
     # Weak references
-    $schema->add_foreign_key(
+    $schema->add_foreign_key($_) for
         Fey::FK->new(
             target_columns => [ $schema->table('artist')->column('id') ],
             source_columns => [
                 $schema->table('editor_subscribe_artist')->column('artist') ],
-        )
-      );
+        ),
+        Fey::FK->new(
+            target_columns => [ $schema->table('label')->column('id') ],
+            source_columns => [
+                $schema->table('editor_subscribe_label')->column('label') ],
+        );
+
+    return $schema;
 }
 
 1;
