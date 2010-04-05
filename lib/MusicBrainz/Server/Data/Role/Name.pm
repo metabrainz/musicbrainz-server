@@ -135,6 +135,43 @@ role {
         return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) },
                              $query->sql($self->sql->dbh), $query->bind_params);
     };
+
+    around 'insert' => sub {
+        my $orig = shift;
+        my ($self, @hashes) = @_;
+
+        return $self->$orig($self->_names_for_hashes(@hashes));
+    };
+
+    around 'update' => sub {
+        my $orig = shift;
+        my ($self, $id, $hash) = @_;
+
+        return $self->$orig($id, $self->_names_for_hashes($hash));
+    };
+
+    method _names_for_hashes => sub {
+        my ($self, @hashes) = @_;
+        my %rev_map = reverse %{ $self->_column_mapping };
+        my @name_cols = map { $rev_map{$_ } }
+            keys %{ $self->name_columns };
+
+        my %names = $self->find_or_insert_names(
+            @hashes->map( f ($hash) {
+                @name_cols->map(f ($col) {
+                    return $hash->{$col};
+                })->flatten;
+            })->flatten);
+
+        for my $hash (@hashes) {
+            for my $col (@name_cols) {
+                my $name = $hash->{$col} or next;
+                $hash->{$col} = $names{ $name };
+            }
+        }
+
+        return @hashes;
+    };
 };
 
 1;

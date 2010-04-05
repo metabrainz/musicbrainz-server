@@ -36,6 +36,11 @@ role
 
         return $alias;
     };
+
+    before _delete => sub {
+        my ($self, @ids) = @_;
+        $self->alias->delete_entities(@ids);
+    };
 };
 
 1;

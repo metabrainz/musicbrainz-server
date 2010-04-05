@@ -24,6 +24,11 @@ role {
             table  => $table,
         );
     };
+
+    before _delete => sub {
+        my ($self, @ids) = @_;
+        $self->rating->delete(@ids);
+    };
 };
 
 1;

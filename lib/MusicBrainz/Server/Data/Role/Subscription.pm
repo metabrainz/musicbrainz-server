@@ -21,6 +21,11 @@ role {
             parent => $self
         );
     };
+
+    before _delete => sub {
+        my ($self, @ids) = @_;
+        $self->subscription->delete(@ids);
+    };
 };
 
 1;

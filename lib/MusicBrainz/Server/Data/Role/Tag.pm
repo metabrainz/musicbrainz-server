@@ -31,6 +31,10 @@ role
         );
     };
 
+    before _delete => sub {
+        my ($self, @ids) = @_;
+        $self->tags->delete(@ids);
+    };
 };
 
 1;

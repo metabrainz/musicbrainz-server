@@ -28,6 +28,11 @@ role
             parent => $self
         );
     };
+
+    before '_delete' => sub {
+        my ($self, @ids) = @_;
+        $self->annotation->delete(@ids);
+    };
 };
 
 1;

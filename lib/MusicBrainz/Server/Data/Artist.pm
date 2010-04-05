@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Data::Artist;
 use Moose;
-
-use Carp;
-use List::MoreUtils qw( uniq );
 use Method::Signatures::Simple;
+use namespace::autoclean;
+
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
@@ -11,7 +11,6 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     hash_to_row
     add_partial_date_to_row
-    generate_gid
     partial_date_from_row
     placeholders
     query_to_list_limited
@@ -44,89 +43,27 @@ with
         tag_table          => schema->table('artist_tag'),
         raw_tag_table      => raw_schema->table('artist_tag_raw')
     },
-    'MusicBrainz::Server::Data::Role::LinksToEdit';
+    'MusicBrainz::Server::Data::Role::LinksToEdit',
+    'MusicBrainz::Server::Data::Role::Relationship';
 
-sub _build_table { schema->table('artist') }
+method _build_table  { schema->table('artist') }
+method _entity_class { 'MusicBrainz::Server::Entity::Artist' }
 
-sub _table
-{
-    return 'artist ' .
-           'JOIN artist_name name ON artist.name=name.id ' .
-           'JOIN artist_name sortname ON artist.sortname=sortname.id';
-}
-
-sub _columns
-{
-    return 'artist.id, gid, name.name, sortname.name AS sortname, ' .
-           'type, country, gender, editpending, ' .
-           'begindate_year, begindate_month, begindate_day, ' .
-           'enddate_year, enddate_month, enddate_day, comment';
-}
-
-sub _column_mapping
+method _column_mapping
 {
     return {
-        id => 'id',
-        gid => 'gid',
-        name => 'name',
-        sort_name => 'sortname',
-        type_id => 'type',
-        country_id => 'country',
-        gender_id => 'gender',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begindate_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
+        id            => 'id',
+        gid           => 'gid',
+        name          => 'name',
+        sort_name     => 'sortname',
+        type_id       => 'type',
+        country_id    => 'country',
+        gender_id     => 'gender',
+        begin_date    => sub { partial_date_from_row(shift, shift() . 'begindate_') },
+        end_date      => sub { partial_date_from_row(shift, shift() . 'enddate_') },
         edits_pending => 'editpending',
-        comment => 'comment',
+        comment       => 'comment',
     };
-}
-
-sub _id_column
-{
-    return 'artist.id';
-}
-
-method find_by_subscribed_editor ($editor_id, $limit, $offset) {
-    my $subscriptions_table = schema->table('editor_subscribe_artist');
-    my $query = $self->_select
-        ->from($self->table, $subscriptions_table)
-        ->where($subscriptions_table->column('editor'), '=', $editor_id)
-        ->order_by(Function->new('musicbrainz_collate', $self->name_columns->{name}),
-                   $self->table->column('id'))
-        ->limit(undef, $offset || 0);
-
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query->sql($self->sql->dbh), $query->bind_params);
-}
-
-sub insert
-{
-    my ($self, @artists) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @artists);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $artist (@artists)
-    {
-        my $row = $self->_hash_to_row($artist, \%names);
-        $row->{gid} = $artist->{gid} || generate_gid();
-
-        push @created, $class->new(
-            id => $sql->insert_row('artist', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @artists > 1 ? @created : $created[0];
-}
-
-sub update
-{
-    my ($self, $artist_id, $update) = @_;
-    croak '$artist_id must be present and > 0' unless $artist_id > 0;
-    my $sql = Sql->new($self->c->dbh);
-    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
-    my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('artist', $row, { id => $artist_id });
 }
 
 method can_delete ($artist_id) {
@@ -142,24 +79,6 @@ method can_delete ($artist_id) {
     my $active_credits = $self->sql->select_single_column_array(
         $query->sql($self->sql->dbh), $query->bind_params);
     return @$active_credits == 0;
-}
-
-sub delete
-{
-    my ($self, @artist_ids) = @_;
-    @artist_ids = grep { $self->can_delete($_) } @artist_ids;
-
-    $self->c->model('Relationship')->delete_entities('artist', @artist_ids);
-    $self->annotation->delete(@artist_ids);
-    $self->alias->delete_entities(@artist_ids);
-    $self->tags->delete(@artist_ids);
-    $self->rating->delete(@artist_ids);
-    $self->subscription->delete(@artist_ids);
-    $self->remove_gid_redirects(@artist_ids);
-    my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do($query, @artist_ids);
-    return 1;
 }
 
 sub merge
@@ -184,10 +103,12 @@ sub _hash_to_row
     my ($self, $values, $names) = @_;
 
     my $row = hash_to_row($values, {
-        country => 'country_id',
-        type    => 'type_id',
-        gender  => 'gender_id',
-        comment => 'comment',
+        country  => 'country_id',
+        type     => 'type_id',
+        gender   => 'gender_id',
+        comment  => 'comment',
+        name     => 'name',
+        sortname => 'sort_name',
     });
 
     if (exists $values->{begin_date}) {
@@ -196,14 +117,6 @@ sub _hash_to_row
 
     if (exists $values->{end_date}) {
         add_partial_date_to_row($row, $values->{end_date}, 'enddate');
-    }
-
-    if (exists $values->{name}) {
-        $row->{name} = $names->{ $values->{name} };
-    }
-
-    if (exists $values->{sort_name}) {
-        $row->{sortname} = $names->{ $values->{sort_name} };
     }
 
     return $row;
