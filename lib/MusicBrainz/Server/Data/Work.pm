@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Data::Work;
-
 use Moose;
-use MusicBrainz::Server::Entity::Work;
+use Method::Signatures::Simple;
+use namespace::autoclean;
+
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
-    generate_gid
-    placeholders
+    hash_to_row
     query_to_list_limited
 );
 use MusicBrainz::Schema qw( schema raw_schema );
@@ -34,18 +33,8 @@ with
     },
     'MusicBrainz::Server::Data::Role::LinksToEdit';
 
-sub _build_table { schema->table('work') }
-
-sub _table
-{
-    return 'work JOIN work_name name ON work.name=name.id';
-}
-
-sub _columns
-{
-    return 'work.id, gid, type, name.name, work.artist_credit, iswc,
-            comment, editpending';
-}
+method _build_table  { schema->table('work') }
+method _entity_class { 'MusicBrainz::Server::Entity::Work' }
 
 sub _column_mapping
 {
@@ -61,103 +50,35 @@ sub _column_mapping
     };
 }
 
-sub _id_column
+method find_by_artist ($artist_id, $limit, $offset)
 {
-    return 'work.id';
-}
+    my $acn = schema->table('artist_credit_name');
 
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Work';
-}
+    # XXX Fey should be able to cope with this
+    my $work_acn = Fey::FK->new(
+        source_columns => [ $self->table->column('artist_credit') ],
+        target_columns => [ $acn->column('artist_credit') ]);
 
-sub find_by_artist
-{
-    my ($self, $artist_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                     JOIN artist_credit_name acn
-                         ON acn.artist_credit = work.artist_credit
-                 WHERE acn.artist = ?
-                 ORDER BY musicbrainz_collate(name.name)
-                 OFFSET ?";
+    my $query = $self->_select
+        ->from($self->table, $acn, $work_acn)
+        ->where($acn->column('artist'), '=', $artist_id)
+        ->order_by(Function->new('musicbrainz_collate', $self->name_columns->{name}))
+        ->limit(undef, $offset || 0);
+
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
+        $query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub insert
+method _hash_to_row ($work)
 {
-    my ($self, @works) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my %names = $self->find_or_insert_names(map { $_->{name} } @works);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $work (@works)
-    {
-        my $row = $self->_hash_to_row($work, \%names);
-        $row->{gid} = $work->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $sql->insert_row('work', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @works > 1 ? @created : $created[0];
-}
-
-sub update
-{
-    my ($self, $work_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('work', $row, { id => $work_id });
-}
-
-sub delete
-{
-    my ($self, $work) = @_;
-    $self->c->model('Relationship')->delete_entities('work', $work->id);
-    $self->annotation->delete($work->id);
-    $self->alias->delete_entities($work->id);
-    $self->tags->delete($work->id);
-    $self->rating->delete($work->id);
-    $self->remove_gid_redirects($work->id);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM work WHERE id = ?', $work->id);
-    return;
-}
-
-sub merge
-{
-    my ($self, $new_id, @old_ids) = @_;
-
-    $self->alias->merge($new_id, @old_ids);
-    $self->annotation->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
-
-    $self->_delete_and_redirect_gids('work', $new_id, @old_ids);
-    return 1;
-}
-
-sub _hash_to_row
-{
-    my ($self, $work, $names) = @_;
-    my %row = (
-        artist_credit => $work->{artist_credit},
-        iswc => $work->{iswc},
-        comment => $work->{comment},
-        type => $work->{type_id},
-    );
-
-    if ($work->{name}) {
-        $row{name} = $names->{$work->{name}};
-    }
-
-    return { defined_hash(%row) };
+    return hash_to_row($work, {
+        artist_credit => 'artist_credit',
+        iswc          => 'iswc',
+        type          => 'type_id',
+        comment       => 'comment',
+        name          => 'name',
+    });
 }
 
 __PACKAGE__->meta->make_immutable;
