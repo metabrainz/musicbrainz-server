@@ -33,6 +33,7 @@
            'inc' => 'artists+labels+discs+recordings' } ) %]
       <a href="[% link %]">[% display_url(link) %]</a>
     </td>
+  </tr>
 </table>
 
 [% END %]

@@ -12,6 +12,10 @@
     <td>[% work.gid %]</td>
   </tr>
   <tr>
+    <th>[% l('Last updated:') %]</th>
+    <td>[% UserDate.format(work.last_update_date) %]</td>
+  </tr>
+  <tr>
     <th>
       [% l('Permanent link:') %]
     </th>
@@ -20,6 +24,13 @@
       <a href="[% perma | url %]">
         [%- perma | html -%]
       </a>
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('XML:') %]</th>
+    <td>
+      [% link = c.uri_for('/ws/2/work', work.gid, { 'inc' => 'artists' }) %]
+      <a href="[% link %]">[% display_url(link) %]</a>
     </td>
   </tr>
 </table>
