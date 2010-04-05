@@ -46,9 +46,8 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, gid, type AS type_id, name.name,
-            rg.artist_credit AS artist_credit_id,
-            comment, editpending AS edits_pending';
+    return 'rg.id, gid, type, name.name, rg.artist_credit,
+            comment, editpending';
 }
 
 sub _column_mapping

@@ -7,6 +7,7 @@ use Function::Parameters 'f';
 use List::Util qw( first );
 use List::MoreUtils qw( uniq );
 use Moose::Autobox;
+use MusicBrainz::Server::Data::Utils qw( query_to_list );
 use MusicBrainz::Schema qw( schema );
 
 parameter 'name_columns' => (

@@ -17,7 +17,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, trackcount AS track_count';
+    return 'id, trackcount';
 }
 
 sub _column_mapping

@@ -37,7 +37,7 @@ sub _table
 
 sub _columns
 {
-    return 'release.id, gid, name.name, release.artist_credit AS artist_credit_id,
+    return 'release.id, gid, name.name, release.artist_credit,
             release_group, status, packaging, date_year, date_month, date_day,
             country, comment, editpending, barcode, script, language, quality';
 }

@@ -65,7 +65,7 @@ method edit ($annotation_hash)
         text      => $annotation_hash->{text},
         changelog => $annotation_hash->{changelog}
     }, 'id');
-    $self->sql->insert_row($self->table, {
+    $self->sql->insert_row($self->table->name, {
         $self->type => $annotation_hash->{entity_id},
         annotation  => $annotation_id
     });

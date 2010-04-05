@@ -24,10 +24,8 @@ sub _table
 
 sub _columns
 {
-    return 'id, parent AS parent_id, gid, name, linkphrase AS link_phrase,
-            entitytype0 AS entity0_type, entitytype1 AS entity1_type,
-            rlinkphrase AS reverse_link_phrase, description, priority,
-            childorder AS child_order, shortlinkphrase AS short_link_phrase';
+    return 'id, parent, gid, name, linkphrase, entitytype0, entitytype1,
+            rlinkphrase, description, priority, childorder, shortlinkphrase';
 }
 
 sub _column_mapping

@@ -18,7 +18,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, isocode AS iso_code, isonumber AS iso_number, name, frequency';
+    return 'id, isocode, isonumber, name, frequency';
 }
 
 sub _column_mapping

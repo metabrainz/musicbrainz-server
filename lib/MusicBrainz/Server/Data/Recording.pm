@@ -41,9 +41,8 @@ sub _table
 
 sub _columns
 {
-    return 'recording.id, gid, name.name,
-            recording.artist_credit AS artist_credit_id, length,
-            comment, editpending AS edits_pending';
+    return 'recording.id, gid, name.name, recording.artist_credit, length,
+            comment, editpending';
 }
 
 sub _column_mapping
