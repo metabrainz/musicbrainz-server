@@ -36,9 +36,12 @@ with
         rating_table       => raw_schema->table('label_rating_raw')
     },
     'MusicBrainz::Server::Data::Role::Browse',
-    'MusicBrainz::Server::Data::Role::Subobject';
+    'MusicBrainz::Server::Data::Role::Subobject',
+       'MusicBrainz::Server::Data::Role::Tag' => {
+        tag_table          => schema->table('label_tag'),
+        raw_tag_table      => raw_schema->table('label_tag_raw')
+    };
 
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 
 sub _build_table { schema->table('label') }

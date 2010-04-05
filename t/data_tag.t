@@ -10,8 +10,7 @@ use MusicBrainz::Server::Test;
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+tag');
 
-my $tag_data = MusicBrainz::Server::Data::EntityTag->new(
-    c => $c, type => 'artist', tag_table => 'artist_tag');
+my $tag_data = $c->model('Artist')->tags;
 
 my @tags = $tag_data->find_top_tags(3, 2);
 is( scalar(@tags), 2 );

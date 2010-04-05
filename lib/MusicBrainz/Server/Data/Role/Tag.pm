@@ -3,20 +3,14 @@ use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::EntityTag;
 
-parameter 'type' => (
-    isa => 'Str',
-    required => 1
-);
-
-parameter 'tag_table' => (
-    isa => 'Str',
-    lazy => 1,
-    default => sub { shift->type . '_tag' }
-);
+parameter 'tag_table';
+parameter 'raw_tag_table';
 
 role
 {
-    my $params = shift;
+    my $params    = shift;
+    my $table     = $params->tag_table;
+    my $raw_table = $params->raw_tag_table;
 
     requires 'c';
 
@@ -30,10 +24,10 @@ role
     {
         my $self = shift;
         MusicBrainz::Server::Data::EntityTag->new(
-            c => $self->c,
-            tag_table => $params->tag_table,
-            type => $params->type,
-            parent => $self,
+            c         => $self->c,
+            rw_table  => $table,
+            raw_table => $raw_$table,
+            parent    => $self,
         );
     };
 

@@ -39,9 +39,12 @@ with
         rating_table       => raw_schema->table('artist_rating_raw')
     },
     'MusicBrainz::Server::Data::Role::Browse',
-    'MusicBrainz::Server::Data::Role::Subobject';
+    'MusicBrainz::Server::Data::Role::Subobject',
+    'MusicBrainz::Server::Data::Role::Tag' => {
+        tag_table          => schema->table('artist_tag'),
+        raw_tag_table      => raw_schema->table('artist_tag_raw')
+    };
 
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 
 sub _build_table { schema->table('artist') }

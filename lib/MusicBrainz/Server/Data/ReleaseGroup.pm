@@ -16,7 +16,6 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 
@@ -32,6 +31,10 @@ with
     'MusicBrainz::Server::Data::Role::Editable',
     'MusicBrainz::Server::Data::Role::Rating' => {
         rating_table       => raw_schema->table('release_group_rating_raw')
+    },
+    'MusicBrainz::Server::Data::Role::Tag' => {
+        tag_table          => schema->table('release_group_tag'),
+        raw_tag_table      => raw_schema->table('release_group_tag_raw')
     };
 
 sub _build_table { schema->table('release_group') }

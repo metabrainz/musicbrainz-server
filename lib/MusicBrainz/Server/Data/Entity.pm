@@ -6,21 +6,7 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Carp qw( confess );
 
-has 'c' => (
-    is => 'rw',
-    isa => 'Object'
-);
-
-has 'sql' => (
-    isa => 'Sql',
-    is  => 'ro',
-    lazy_build => 1
-);
-
-sub _build_sql {
-    my $self = shift;
-    return Sql->new($self->_dbh);
-}
+with 'MusicBrainz::Server::Data::Role::Context';
 
 sub _columns
 {
@@ -46,11 +32,6 @@ sub _column_mapping
 sub _attribute_mapping
 {
     return {};
-}
-
-sub _dbh
-{
-    shift->c->dbh;
 }
 
 sub _new_from_row

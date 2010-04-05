@@ -12,7 +12,6 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 
 with
@@ -27,7 +26,11 @@ with
     'MusicBrainz::Server::Data::Role::Rating' => {
         rating_table       => raw_schema->table('recording_rating_raw')
     },
-    'MusicBrainz::Server::Data::Role::Subobject';
+    'MusicBrainz::Server::Data::Role::Subobject',
+    'MusicBrainz::Server::Data::Role::Tag' => {
+        tag_table          => schema->table('recording_tag'),
+        raw_tag_table      => raw_schema->table('recording_tag_raw')
+    };
 
 sub _build_table { schema->table('recording') }
 

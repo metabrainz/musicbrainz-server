@@ -6,6 +6,22 @@ has 'c' => (
     isa => 'Object'
 );
 
+has 'sql' => (
+    isa => 'Sql',
+    is  => 'ro',
+    lazy_build => 1
+);
+
+sub _build_sql {
+    my $self = shift;
+    return Sql->new($self->_dbh);
+}
+
+sub _dbh
+{
+    shift->c->dbh;
+}
+
 no Moose::Role;
 1;
 
