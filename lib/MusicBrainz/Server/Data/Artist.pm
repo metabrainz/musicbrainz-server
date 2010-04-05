@@ -43,9 +43,8 @@ with
     'MusicBrainz::Server::Data::Role::Tag' => {
         tag_table          => schema->table('artist_tag'),
         raw_tag_table      => raw_schema->table('artist_tag_raw')
-    };
-
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
+    },
+    'MusicBrainz::Server::Data::Role::LinksToEdit';
 
 sub _build_table { schema->table('artist') }
 

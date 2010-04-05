@@ -40,9 +40,8 @@ with
        'MusicBrainz::Server::Data::Role::Tag' => {
         tag_table          => schema->table('label_tag'),
         raw_tag_table      => raw_schema->table('label_tag_raw')
-    };
-
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
+    },
+    'MusicBrainz::Server::Data::Role::LinksToEdit';
 
 sub _build_table { schema->table('label') }
 
