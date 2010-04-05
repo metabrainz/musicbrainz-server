@@ -3,7 +3,7 @@ use Moose;
 
 use Fey::SQL;
 use Method::Signatures::Simple;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( hash_to_row placeholders );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 
@@ -48,16 +48,6 @@ method has_alias ($entity_id, $alias_name)
     );
 }
 
-method delete (@ids)
-{
-    my $query = Fey::SQL->new_delete
-        ->from($self->table)
-        ->where($self->table->column('id'), 'IN', @ids);
-
-    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
-    return 1;
-}
-
 method delete_entities (@ids)
 {
     my $query = Fey::SQL->new_delete
@@ -66,26 +56,6 @@ method delete_entities (@ids)
 
     $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
     return 1;
-}
-
-method insert (@alias_hashes)
-{
-    my $table = $self->table->name;
-    my $type  = $self->_join_column->name;
-    my $class = $self->_entity_class;
-
-    my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
-    my @created;
-    Class::MOP::load_class($class);
-    for my $hash (@alias_hashes) {
-        push @created, $class->new(
-            id => $self->sql->insert_row($table, {
-                $type  => $hash->{$type . '_id'},
-                name   => $names{ $hash->{name} },
-                locale => $hash->{locale}
-            }, 'id'));
-    }
-    return wantarray ? @created : $created[0];
 }
 
 method merge ($new_id, @old_ids)
@@ -110,11 +80,15 @@ method merge ($new_id, @old_ids)
     $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
 }
 
-method update ($alias_id, $alias_hash)
+method _hash_to_row ($alias)
 {
-    my $table = $self->table->name;
-    $self->sql->update_row($table, $alias_hash, { id => $alias_id });
+    return hash_to_row($alias, {
+        $self->type => $self->type . '_id',
+        locale      => 'locale',
+        name        => 'name',
+    });
 }
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
