@@ -1,14 +1,9 @@
 package MusicBrainz::Server::Data::Recording;
-
 use Moose;
-use MusicBrainz::Server::Entity::Recording;
-use MusicBrainz::Server::Data::Track;
-use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
-    generate_gid
-    placeholders
-    query_to_list_limited
-);
+use Method::Signatures::Simple;
+use namespace::autoclean;
+
+use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
@@ -30,20 +25,11 @@ with
         tag_table          => schema->table('recording_tag'),
         raw_tag_table      => raw_schema->table('recording_tag_raw')
     },
-    'MusicBrainz::Server::Data::Role::LinksToEdit';
+    'MusicBrainz::Server::Data::Role::LinksToEdit',
+    'MusicBrainz::Server::Data::Role::HasArtistCredit';
 
-sub _build_table { schema->table('recording') }
-
-sub _table
-{
-    return 'recording JOIN track_name name ON recording.name=name.id';
-}
-
-sub _columns
-{
-    return 'recording.id, gid, name.name, recording.artist_credit, length,
-            comment, editpending';
-}
+method _build_table  { schema->table('recording') }
+method _entity_class { 'MusicBrainz::Server::Entity::Recording' }
 
 sub _column_mapping
 {
@@ -58,122 +44,40 @@ sub _column_mapping
     };
 }
 
-sub _id_column
+method can_delete ($recording_id)
 {
-    return 'recording.id';
+    my $track_table = $self->c->model('Track')->table;
+    my $query = Fey::SQL->new_select
+        ->select(1)->from($track_table)
+        ->where($track_table->column('recording'), '=', $recording_id)
+        ->limit(1);
+
+    return !defined $self->sql->select_single_value(
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Recording';
-}
-
-sub find_by_artist
-{
-    my ($self, $artist_id, $limit, $offset) = @_;
-
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                     JOIN artist_credit_name acn
-                         ON acn.artist_credit = recording.artist_credit
-                 WHERE acn.artist = ?
-                 ORDER BY musicbrainz_collate(name.name)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
-}
-
-sub insert
-{
-    my ($self, @recordings) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
-    my %names = $track_data->find_or_insert_names(map { $_->{name} } @recordings);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $recording (@recordings)
-    {
-        my $row = $self->_hash_to_row($recording, \%names);
-        $row->{gid} = $recording->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $sql->insert_row('recording', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @recordings > 1 ? @created : $created[0];
-}
-
-sub update
-{
-    my ($self, $recording_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
-    my %names = $track_data->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('recording', $row, { id => $recording_id });
-}
-
-sub can_delete
-{
-    my ($self, $recording_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $refcount = $sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
-    return @$refcount == 0;
-}
-
-sub delete
-{
-    my ($self, $recording) = @_;
-    return unless $self->can_delete($recording->id);
-
-    $self->c->model('Relationship')->delete_entities('recording', $recording->id);
-    $self->c->model('RecordingPUID')->delete_recordings($recording->id);
-    $self->c->model('ISRC')->delete_recordings($recording->id);
-    $self->annotation->delete($recording->id);
-    $self->tags->delete($recording->id);
-    $self->rating->delete($recording->id);
-    $self->remove_gid_redirects($recording->id);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
-    return;
-}
-
-sub _hash_to_row
-{
-    my ($self, $recording, $names) = @_;
-    my %row = (
-        artist_credit => $recording->{artist_credit},
-        length => $recording->{length},
-        comment => $recording->{comment},
-    );
-
-    if ($recording->{name}) {
-        $row{name} = $names->{$recording->{name}};
-    }
-
-    return { defined_hash(%row) };
-}
-
-sub merge
+# We don't change the actual merge method, as Role::Gid provides that
+before merge => sub
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    $self->annotation->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->c->model('RecordingPUID')->merge_recordings($new_id, @old_ids);
-    $self->c->model('ISRC')->merge_recordings($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);
-
     # Move tracks to the new recording
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE track SET recording = ?
-              WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $track_table = $self->c->model('Track')->table;
+    my $query = Fey::SQL->new_update
+        ->update($track_table)->set($track_table->column('recording'), $new_id)
+        ->where($track_table->column('recording'), 'IN', @old_ids);
 
-    $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
-    return 1;
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
+};
+
+method _hash_to_row ($recording)
+{
+    return hash_to_row($recording, {
+        artist_credit => 'artist_credit',
+        length        => 'length',
+        comment       => 'comment',
+        name          => 'name'
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

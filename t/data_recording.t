@@ -82,7 +82,7 @@ $rec = $rec_data->get_by_id($rec->id);
 is($rec->name, 'Traits (remix)');
 is($rec->comment, 'New remix');
 
-$rec_data->delete($rec);
+$rec_data->delete($rec->id);
 $rec = $rec_data->get_by_id($rec->id);
 ok(!defined $rec);
 

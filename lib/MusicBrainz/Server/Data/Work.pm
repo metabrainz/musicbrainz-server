@@ -3,10 +3,7 @@ use Moose;
 use Method::Signatures::Simple;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Data::Utils qw(
-    hash_to_row
-    query_to_list_limited
-);
+use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Schema qw( schema raw_schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
@@ -31,7 +28,8 @@ with
         tag_table          => schema->table('work_tag'),
         raw_tag_table      => raw_schema->table('work_tag_raw')
     },
-    'MusicBrainz::Server::Data::Role::LinksToEdit';
+    'MusicBrainz::Server::Data::Role::LinksToEdit',
+    'MusicBrainz::Server::Data::Role::HasArtistCredit';
 
 method _build_table  { schema->table('work') }
 method _entity_class { 'MusicBrainz::Server::Entity::Work' }
@@ -48,26 +46,6 @@ sub _column_mapping
         comment          => 'comment',
         edits_pending    => 'editpending',
     };
-}
-
-method find_by_artist ($artist_id, $limit, $offset)
-{
-    my $acn = schema->table('artist_credit_name');
-
-    # XXX Fey should be able to cope with this
-    my $work_acn = Fey::FK->new(
-        source_columns => [ $self->table->column('artist_credit') ],
-        target_columns => [ $acn->column('artist_credit') ]);
-
-    my $query = $self->_select
-        ->from($self->table, $acn, $work_acn)
-        ->where($acn->column('artist'), '=', $artist_id)
-        ->order_by(Function->new('musicbrainz_collate', $self->name_columns->{name}))
-        ->limit(undef, $offset || 0);
-
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query->sql($self->c->dbh), $query->bind_params);
 }
 
 method _hash_to_row ($work)
