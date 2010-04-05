@@ -70,18 +70,21 @@ role {
         $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
     };
 
-    method _delete_and_redirect_gids => sub
-    {
-        my ($self, $table, $new_id, @old_ids) = @_;
+    around 'merge' => sub {
+        my $orig = shift;
+        my ($self, $new_id, @old_ids) = @_;
 
         # Update all GID redirects from @old_ids to $new_id
         $self->update_gid_redirects($new_id, @old_ids);
 
+        my $query = Fey::SQL::Pg->new_delete
+            ->from($self->table)
+            ->where($self->table->column('id'), 'IN', @old_ids)
+            ->returning($self->table->column('gid'));
+
         # Delete the recording and select current GIDs
-        my $old_gids = $self->sql->select_single_column_array('
-            DELETE FROM '.$table.'
-            WHERE id IN ('.placeholders(@old_ids).')
-            RETURNING gid', @old_ids);
+        my $old_gids = $self->sql->select_single_column_array(
+            $query->sql($self->sql->dbh), $query->bind_params);
 
         # Add redirects from GIDs of the deleted recordings to $new_id
         $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);

@@ -26,6 +26,11 @@ role {
         my ($self, @ids) = @_;
         $self->subscription->delete(@ids);
     };
+
+    before merge => sub {
+        my ($self, $new_id, @old_ids) = @_;
+        $self->subscription->merge($new_id, @old_ids);
+    };
 };
 
 1;

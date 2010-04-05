@@ -33,6 +33,11 @@ role
         my ($self, @ids) = @_;
         $self->annotation->delete(@ids);
     };
+
+    before merge => sub {
+        my ($self, $new_id, @old_ids) = @_;
+        $self->annotation->merge($new_id, @old_ids);
+    };
 };
 
 1;

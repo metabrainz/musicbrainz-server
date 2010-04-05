@@ -41,6 +41,11 @@ role
         my ($self, @ids) = @_;
         $self->alias->delete_entities(@ids);
     };
+
+    before merge => sub {
+        my ($self, $new_id, @old_ids) = @_;
+        $self->alias->merge($new_id, @old_ids);
+    };
 };
 
 1;

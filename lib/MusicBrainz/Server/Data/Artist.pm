@@ -3,17 +3,10 @@ use Moose;
 use Method::Signatures::Simple;
 use namespace::autoclean;
 
-use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Entity::Artist;
-use MusicBrainz::Server::Data::ArtistCredit;
-use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
     hash_to_row
     add_partial_date_to_row
     partial_date_from_row
-    placeholders
-    query_to_list_limited
 );
 use MusicBrainz::Schema qw( schema raw_schema );
 
@@ -84,18 +77,8 @@ method can_delete ($artist_id) {
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
-
-    $self->alias->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
-    $self->annotation->merge($new_id, @old_ids);
     $self->c->model('ArtistCredit')->merge_artists($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('artist', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('artist', $new_id, @old_ids);
-
-    $self->_delete_and_redirect_gids('artist', $new_id, @old_ids);
-    return 1;
+    # Deletion is handled by the Gid role
 }
 
 sub _hash_to_row

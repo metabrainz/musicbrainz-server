@@ -29,6 +29,11 @@ role {
         my ($self, @ids) = @_;
         $self->rating->delete(@ids);
     };
+
+    before merge => sub {
+        my ($self, $new_id, @old_ids) = @_;
+        $self->rating->merge($new_id, @old_ids);
+    };
 };
 
 1;

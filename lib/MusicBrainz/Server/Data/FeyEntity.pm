@@ -98,6 +98,8 @@ method delete (@ids)
     $self->_delete(grep { $self->can_delete($_) } @ids);
 }
 
+method merge ($new_id, @old_ids) { }
+
 method _get_by_keys ($column, @ids) {
     @ids = uniq grep { defined && $_ } @ids or return;
 

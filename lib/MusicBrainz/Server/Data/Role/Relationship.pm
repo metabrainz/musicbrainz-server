@@ -7,4 +7,10 @@ before '_delete' => sub {
     $self->c->model('Relationship')->delete_entities($self->table->name, @ids);
 };
 
+before merge => sub {
+    my ($self, $new_id, @old_ids) = @_;
+    $self->c->model('Relationship')->merge_entities($self->table->name,
+                                                    $new_id, @old_ids);
+};
+
 1;

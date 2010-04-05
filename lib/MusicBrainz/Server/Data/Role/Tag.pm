@@ -35,6 +35,11 @@ role
         my ($self, @ids) = @_;
         $self->tags->delete(@ids);
     };
+
+    before merge => sub {
+        my ($self, $new_id, @old_ids) = @_;
+        $self->tags->merge($new_id, @old_ids);
+    };
 };
 
 1;
