@@ -31,6 +31,20 @@ role {
         my ($self, $new_id, @old_ids) = @_;
         $self->subscription->merge($new_id, @old_ids);
     };
+
+    method find_by_subscribed_editor => sub
+    {
+        my ($self, $editor_id, $limit, $offset) = @_;
+        my $query = $self->_select
+            ->from($self->table, $sub_table)
+            ->where($sub_table->column('editor'), '=', $editor_id)
+            ->order_by($self->name_columns->{name}, $self->table->primary_key)
+            ->limit(undef, $offset || 0);
+
+        return query_to_list_limited(
+            $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+            $query->sql($self->c->dbh), $query->bind_params);
+    };
 };
 
 1;

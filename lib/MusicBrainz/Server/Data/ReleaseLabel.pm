@@ -9,8 +9,11 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
+
+sub _build_table { schema->table('release_label') }
 
 sub _table
 {
@@ -19,17 +22,16 @@ sub _table
 
 sub _columns
 {
-    return 'rl.id AS rl_id, rl.release AS rl_release, rl.label AS rl_label,
-            rl.catno AS rl_catno';
+    return 'rl.id, rl.release, rl.label, catno';
 }
 
 sub _column_mapping
 {
     return {
-        id             => 'rl_id',
-        release_id     => 'rl_release',
-        label_id       => 'rl_label',
-        catalog_number => 'rl_catno',
+        id             => 'id',
+        release_id     => 'release',
+        label_id       => 'label',
+        catalog_number => 'catno',
     };
 }
 

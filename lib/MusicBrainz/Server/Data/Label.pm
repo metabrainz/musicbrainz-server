@@ -1,17 +1,14 @@
 package MusicBrainz::Server::Data::Label;
-
 use Moose;
-use MusicBrainz::Server::Data::Edit;
-use MusicBrainz::Server::Data::ReleaseLabel;
-use MusicBrainz::Server::Entity::Label;
+use Method::Signatures::Simple;
+use namespace::autoclean;
+
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
-    generate_gid
-    partial_date_from_row
-    placeholders
-    query_to_list_limited
-    query_to_list
+    add_partial_date_to_row
     check_in_use
+    hash_to_row
+    partial_date_from_row
+    query_to_list
 );
 use MusicBrainz::Schema qw( schema raw_schema );
 
@@ -43,123 +40,54 @@ with
     },
     'MusicBrainz::Server::Data::Role::LinksToEdit';
 
-sub _build_table { schema->table('label') }
-
-sub _table
-{
-    return 'label ' .
-           'JOIN label_name name ON label.name=name.id ' .
-           'JOIN label_name sortname ON label.sortname=sortname.id';
-}
-
-sub _columns
-{
-    return 'label.id, gid, name.name, sortname.name AS sortname, ' .
-           'type, country, editpending, labelcode, ' .
-           'begindate_year, begindate_month, begindate_day, ' .
-           'enddate_year, enddate_month, enddate_day, comment';
-}
-
-sub _id_column
-{
-    return 'label.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'label_gid_redirect';
-}
+method _build_table  { schema->table('label') }
+method _entity_class { 'MusicBrainz::Server::Entity::Label' }
 
 sub _column_mapping
 {
     return {
-        id => 'id',
-        gid => 'gid',
-        name => 'name',
-        sort_name => 'sortname',
-        type_id => 'type',
-        country_id => 'country',
-        label_code => 'labelcode',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begindate_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
+        id            => 'id',
+        gid           => 'gid',
+        name          => 'name',
+        sort_name     => 'sortname',
+        type_id       => 'type',
+        country_id    => 'country',
+        label_code    => 'labelcode',
+        begin_date    => sub { partial_date_from_row(shift, shift() . 'begindate_') },
+        end_date      => sub { partial_date_from_row(shift, shift() . 'enddate_') },
         edits_pending => 'editpending',
-        comment => 'comment',
+        comment       => 'comment',
     };
 }
 
-sub _entity_class
+method find_by_artist ($artist_id)
 {
-    return 'MusicBrainz::Server::Entity::Label';
-}
+    my $rl      = $self->c->model('ReleaseLabel')->table;
+    my $release = $self->c->model('Release')->table;
+    my $acn     = schema->table('artist_credit_name');
+    my $acn_release = Fey::FK->new(
+        source_columns => [ $release->column('artist_credit') ],
+        target_columns => [ $acn->column('artist_credit') ]
+    );
 
-sub find_by_subscribed_editor
-{
-    my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_subscribe_label s ON label.id = s.label
-                 WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(name.name), label.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
-}
+    my $rl_subq = Fey::SQL->new_select
+        ->select($rl->column('label'))
+        ->from($rl, $release)
+        ->from($release, $acn, $acn_release)
+        ->where($acn->column('artist'), '=', $artist_id);
 
-sub find_by_artist
-{
-    my ($self, $artist_id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE label.id IN (
-                         SELECT rl.label
-                         FROM release_label rl
-                         JOIN release ON rl.release = release.id
-                         JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
-                         WHERE acn.artist = ?
-                 )
-                 ORDER BY label.id";
+    my $query = $self->_select
+        ->where($self->table->column('id'), 'IN', $rl_subq)
+        ->order_by($self->table->column('id'));
 
     return query_to_list(
         $self->c->dbh, sub { $self->_new_from_row(@_) },
         $query, $artist_id);
 }
 
-sub insert
+method in_use ($label_id)
 {
-    my ($self, @labels) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name } } @labels);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $label (@labels)
-    {
-        my $row = $self->_hash_to_row($label, \%names);
-        $row->{gid} = $label->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $sql->insert_row('label', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @labels > 1 ? @created : $created[0];
-}
-
-sub update
-{
-    my ($self, $label_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
-    my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('label', $row, { id => $label_id });
-    return 1;
-}
-
-sub in_use
-{
-    my ($self, $label_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-
-    return check_in_use($sql,
+    return check_in_use($self->sql,
         'release_label         WHERE label = ?'   => [ $label_id ],
         'l_artist_label        WHERE entity1 = ?' => [ $label_id ],
         'l_label_recording     WHERE entity0 = ?' => [ $label_id ],
@@ -171,78 +99,41 @@ sub in_use
     );
 }
 
-sub can_delete
+method can_delete ($label_id)
 {
-    my ($self, $label_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $refcount = $sql->select_single_column_array('SELECT 1 FROM release_label WHERE label = ?', $label_id);
-    return @$refcount == 0;
+    my $rl_table = $self->c->model('ReleaseLabel')->table;
+    my $query = Fey::SQL->new_select
+        ->select(1)->from($rl_table)
+        ->where($rl_table->column('label'), '=', $label_id)
+        ->limit(1);
+
+    return !defined $self->sql->select_single_value(
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub delete
+method _hash_to_row ($label)
 {
-    my ($self, @label_ids) = @_;
-    @label_ids = grep { $self->can_delete($_) } @label_ids;
+    my $row = hash_to_row($label, {
+        comment   => 'comment',
+        country   => 'country_id',
+        type      => 'type_id',
+        labelcode => 'label_code',
+        name      => 'name',
+        sortname  => 'sort_name',
+    });
 
-    $self->c->model('Relationship')->delete_entities('label', @label_ids);
-    $self->annotation->delete(@label_ids);
-    $self->alias->delete_entities(@label_ids);
-    $self->tags->delete(@label_ids);
-    $self->rating->delete(@label_ids);
-    $self->subscription->delete(@label_ids);
-    $self->remove_gid_redirects(@label_ids);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
-    return 1;
-}
-
-sub merge
-{
-    my ($self, $new_id, @old_ids) = @_;
-
-    $self->alias->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
-    $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('ReleaseLabel')->merge_labels($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('label', $new_id, @old_ids);
-
-    $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
-    return 1;
-}
-
-sub _hash_to_row
-{
-    my ($self, $label, $names) = @_;
-    my %row = (
-        begindate_year => $label->{begin_date}->{year},
-        begindate_month => $label->{begin_date}->{month},
-        begindate_day => $label->{begin_date}->{day},
-        enddate_year => $label->{end_date}->{year},
-        enddate_month => $label->{end_date}->{month},
-        enddate_day => $label->{end_date}->{day},
-        comment => $label->{comment},
-        country => $label->{country_id},
-        type => $label->{type_id},
-        labelcode => $label->{label_code},
-    );
-
-    if ($label->{name}) {
-        $row{name} = $names->{$label->{name}};
+    if (exists $label->{begin_date}) {
+        add_partial_date_to_row($row, $label->{begin_date}, 'begindate');
     }
 
-    if ($label->{sort_name}) {
-        $row{sortname} = $names->{$label->{sort_name}};
+    if (exists $label->{end_date}) {
+        add_partial_date_to_row($row, $label->{end_date}, 'enddate');
     }
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
-1;
 
 =head1 COPYRIGHT
 
