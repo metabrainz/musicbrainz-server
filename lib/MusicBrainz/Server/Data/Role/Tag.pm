@@ -26,7 +26,7 @@ role
         MusicBrainz::Server::Data::EntityTag->new(
             c         => $self->c,
             rw_table  => $table,
-            raw_table => $raw_$table,
+            raw_table => $raw_table,
             parent    => $self,
         );
     };
