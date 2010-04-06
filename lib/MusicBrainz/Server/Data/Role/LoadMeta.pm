@@ -29,6 +29,12 @@ role {
         }
         $self->sql->finish;
     };
+
+    method _select_with_meta => sub {
+        my $self = shift;
+        return $self->_select
+            ->select($table)->from($self->table, $table);
+    };
 };
 
 1;

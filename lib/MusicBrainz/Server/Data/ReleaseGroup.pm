@@ -1,13 +1,13 @@
 package MusicBrainz::Server::Data::ReleaseGroup;
-
 use Moose;
+use Method::Signatures::Simple;
+use namespace::autoclean;
+
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
-    defined_hash
-    check_in_use
-    generate_gid
+    hash_to_row
     partial_date_from_row
     placeholders
     query_to_list_limited
@@ -37,18 +37,8 @@ with
     'MusicBrainz::Server::Data::Role::BrowseVA',
     'MusicBrainz::Server::Data::Role::LinksToEdit';
 
-sub _build_table { schema->table('release_group') }
-
-sub _table
-{
-    return 'release_group rg JOIN release_name name ON rg.name=name.id';
-}
-
-sub _columns
-{
-    return 'rg.id, gid, type, name.name, rg.artist_credit,
-            comment, editpending';
-}
+sub _build_table  { schema->table('release_group') }
+sub _entity_class { 'MusicBrainz::Server::Entity::ReleaseGroup' }
 
 sub _column_mapping
 {
@@ -63,39 +53,30 @@ sub _column_mapping
     };
 }
 
-sub _id_column
+method _find_by_artist_query ($artist_id, $limit, $offset)
 {
-    return 'rg.id';
+    my $acn = schema->table('artist_credit_name');
+
+    # XXX Fey should be able to cope with this
+    my $work_acn = Fey::FK->new(
+        source_columns => [ $self->table->column('artist_credit') ],
+        target_columns => [ $acn->column('artist_credit') ]);
+
+    return $self->_select_with_meta
+        ->from($self->table, $acn, $work_acn)
+        ->where($acn->column('artist'), '=', $artist_id)
+        ->order_by(
+            (map {
+                $self->metadata_table->column("firstreleasedate_$_")
+            } qw( year month day )),
+            $self->name_columns->{name},
+        )
+        ->limit(undef, $offset || 0);
 }
 
-sub _entity_class
+method find_by_artist ($artist_id, $limit, $offset)
 {
-    return 'MusicBrainz::Server::Entity::ReleaseGroup';
-}
-
-sub find_by_artist
-{
-    my ($self, $artist_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    rgm.releasecount,
-                    rgm.ratingcount,
-                    rgm.rating
-                 FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
-                    JOIN artist_credit_name acn
-                        ON acn.artist_credit = rg.artist_credit
-                 WHERE acn.artist = ?
-                 ORDER BY
-                    rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    name.name
-                 OFFSET ?";
+    my $query = $self->_find_by_artist_query($artist_id, $limit, $offset);
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
             my $row = $_[0];
@@ -106,41 +87,43 @@ sub find_by_artist
             $rg->release_count($row->{releasecount} || 0);
             return $rg;
         },
-        $query, $artist_id, $offset || 0);
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub find_by_track_artist
+method find_by_track_artist ($artist_id, $limit, $offset)
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    rgm.releasecount,
-                    rgm.ratingcount,
-                    rgm.rating
-                 FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
-                    JOIN artist_credit_name acn
-                        ON acn.artist_credit = rg.artist_credit
-                 WHERE rg.id IN (
-                     SELECT release_group FROM release
-                         JOIN medium
-                         ON medium.release = release.id
-                         JOIN track tr
-                         ON tr.tracklist = medium.tracklist
-                         JOIN artist_credit_name acn
-                         ON acn.artist_credit = tr.artist_credit
-                     WHERE acn.artist = ?
-                 )
-                 ORDER BY
-                    rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    name.name
-                 OFFSET ?";
+    my $acn = schema->table('artist_credit_name');
+    my $release = $self->c->model('Release')->table;
+    my $medium = $self->c->model('Medium')->table;
+    my $track = $self->c->model('Track')->table;
+
+    # XXX Fey should be able to cope with this
+    my $medium_track = Fey::FK->new(
+        source_columns => [ $medium->column('tracklist') ],
+        target_columns => [ $track->column('tracklist') ]);
+
+    my $track_acn = Fey::FK->new(
+        source_columns => [ $track->column('artist_credit') ],
+        target_columns => [ $acn->column('artist_credit') ]);
+
+    my $tracks_subq = Fey::SQL->new_select
+        ->select($release->column('release_group'))
+        ->from($release)
+        ->from($release, $medium)
+        ->from($medium, $track, $medium_track)
+        ->from($track, $acn, $track_acn)
+        ->where($acn->column('artist'), '=', $artist_id);
+
+    my $query = $self->_select_with_meta
+        ->where($self->table->column('id'), 'IN', $tracks_subq)
+        ->order_by(
+            (map {
+                $self->metadata_table->column("firstreleasedate_$_")
+            } qw( year month day )),
+            $self->name_columns->{name},
+        )
+        ->limit(undef, $offset || 0);
+
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
             my $row = $_[0];
@@ -151,33 +134,15 @@ sub find_by_track_artist
             $rg->release_count($row->{releasecount} || 0);
             return $rg;
         },
-        $query, $artist_id, $offset || 0);
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
 # This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases
-sub filter_by_artist
+method filter_by_artist ($artist_id, $type)
 {
-    my ($self, $artist_id, $type) = @_;
-    my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    rgm.releasecount,
-                    rgm.ratingcount,
-                    rgm.rating
-                 FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
-                    JOIN artist_credit_name acn
-                        ON acn.artist_credit = rg.artist_credit
-                 WHERE acn.artist = ?
-                   AND type = ?
-                 ORDER BY
-                    rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    name.name";
+    my $query = $self->_find_by_artist_query
+        ->where($self->table->column('type'), '=', $type);
+
     return query_to_list(
         $self->c->dbh, sub {
             my $row = $_[0];
@@ -188,45 +153,12 @@ sub filter_by_artist
             $rg->release_count($row->{releasecount} || 0);
             return $rg;
         },
-        $query, $artist_id, $type);
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub insert
+method in_use ($release_group_id)
 {
-    my ($self, @groups) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my @created;
-    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-    my %names = $release_data->find_or_insert_names(map { $_->{name} } @groups);
-    my $class = $self->_entity_class;
-    for my $group (@groups)
-    {
-        my $row = $self->_hash_to_row($group, \%names);
-        $row->{gid} = $group->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $sql->insert_row('release_group', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @groups > 1 ? @created : $created[0];
-}
-
-sub update
-{
-    my ($self, $group_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-    my %names = $release_data->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('release_group', $row, { id => $group_id });
-}
-
-sub in_use
-{
-    my ($self, $release_group_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-
-    return check_in_use($sql,
+    return check_in_use($self->sql,
         'release                    WHERE release_group = ?' => [ $release_group_id ],
         'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
         'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
@@ -238,69 +170,40 @@ sub in_use
     );
 }
 
-sub can_delete
+method can_delete ($release_group_id)
 {
-    my ($self, $release_group_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
+    my $release_table = $self->c->model('Release')->table;
+    my $query = Fey::SQL->new_select
+        ->select(1)->from($release_table)
+        ->where($release_table->column('release_group'), '=', $release_group_id)
+        ->limit(1);
 
-    my $refcount = $sql->select_single_column_array('SELECT 1 FROM release WHERE release_group = ?', $release_group_id);
-    return @$refcount == 0;
+    return !defined $self->sql->select_single_value(
+        $query->sql($self->sql->dbh), $query->bind_params);
 }
 
-sub delete
-{
-    my ($self, @group_ids) = @_;
-    @group_ids = grep { !$self->in_use($_) } @group_ids;
-
-    $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
-    $self->annotation->delete(@group_ids);
-    $self->tags->delete(@group_ids);
-    $self->rating->delete(@group_ids);
-    $self->remove_gid_redirects(@group_ids);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
-    return;
-}
-
-sub merge
+before merge => sub
 {
     my ($self, $new_id, @old_ids) = @_;
-
-    $self->annotation->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
 
     # Move releases to the new release group
     my $sql = Sql->new($self->c->dbh);
     $sql->do('UPDATE release SET release_group = ?
               WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
-
-    $self->_delete_and_redirect_gids('release_group', $new_id, @old_ids);
-    return 1;
-}
+};
 
 sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
-    my %row = (
-        artist_credit => $group->{artist_credit},
-        comment => $group->{comment},
-        type => $group->{type_id},
-    );
-
-    if ($group->{name})
-    {
-        $row{name} = $names->{$group->{name}};
-    }
-
-    return { defined_hash(%row) };
+    return hash_to_row($group, {
+        artist_credit => 'artist_credit',
+        comment       => 'comment',
+        type          => 'type_id',
+        name          => 'name'
+    });
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
-1;
 
 =head1 NAME
 
