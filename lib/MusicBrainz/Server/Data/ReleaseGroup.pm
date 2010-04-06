@@ -187,9 +187,13 @@ before merge => sub
     my ($self, $new_id, @old_ids) = @_;
 
     # Move releases to the new release group
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE release SET release_group = ?
-              WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $release_table = $self->c->model('Release')->table;
+    my $query = Fey::SQL->new_update
+        ->update($release_table)
+        ->set($release_table->column('release_group'), $new_id)
+        ->where($release_table->column('release_group'), 'IN', @old_ids);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
 };
 
 sub _hash_to_row
