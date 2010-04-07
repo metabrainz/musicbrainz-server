@@ -28,9 +28,10 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
-chdir &DBDefs::HTDOCS_ROOT or die $!;
+chdir &DBDefs::MB_SERVER_ROOT or die $!;
+chdir "root/static" or die $!;
 
-vRefreshImportedStyleSheets("brainz.css");
+vRefreshImportedStyleSheets("main.css");
 
 sub vRefreshImportedStyleSheets
 {

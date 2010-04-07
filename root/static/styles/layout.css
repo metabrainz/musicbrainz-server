@@ -2,6 +2,7 @@ body {
     padding: 0;
     margin: 0;
     background-color: #E7E7E7;
+    color: #000;
     font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
     font-size: 12px;
     min-width: 780px;
@@ -154,6 +155,10 @@ a:active, a:focus { outline-style: none; }
     font-weight: normal;
     margin: 0;
     background-color: #D4D4D4;
+}
+
+#header-menu .separator {
+    border-top: 1px dotted;
 }
 
 .page {
@@ -677,6 +682,16 @@ dl.properties dd,
 dl.properties dt {
     line-height: 200%;
 }
+
+dl.search-plugins dt {
+    font-weight: bold;
+}
+
+dl.search-plugins dt,
+dl.search-plugins dd {
+    line-height: 200%;
+}
+
 
 .page table.tbl tr.mp td,
 span.mp {

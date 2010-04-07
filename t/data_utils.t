@@ -62,17 +62,4 @@ $order_by = MusicBrainz::Server::Data::Utils::order_by(
     "-3", "1", { "1" => "a, b", "2" => "c, b" });
 is ( $order_by, "a, b" );
 
-ok(MusicBrainz::Server::Data::Utils::deep_equal(1, 1));
-ok(MusicBrainz::Server::Data::Utils::deep_equal([ 1 ], [ 1 ]));
-ok(MusicBrainz::Server::Data::Utils::deep_equal(1, 1));
-ok(MusicBrainz::Server::Data::Utils::deep_equal(
-    [{
-        artist => 5,
-        name   => 'foo',
-    }],
-    [{
-        name => 'foo',
-        artist => 5,
-    }]));
-
 done_testing;

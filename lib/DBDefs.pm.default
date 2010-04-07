@@ -29,8 +29,8 @@ package DBDefs;
 # Directories
 ################################################################################
 
-# The Server Root, i.e. the parent directory of admin, cgi-bin and htdocs
-sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/mb_server" }
+# The server root, i.e. the parent directory of admin, bin, lib, root, etc.
+sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 # The data import directory (used by some reports)
 sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 

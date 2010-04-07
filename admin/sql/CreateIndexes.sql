@@ -191,6 +191,10 @@ CREATE INDEX work_name_idx_page ON work_name (page_index(name));
 
 CREATE INDEX work_tag_idx_tag ON work_tag (tag);
 
+-- lowercase indexes for javascript autocomplete
+CREATE INDEX artist_name_idx_lower_name ON artist_name (lower(name));
+CREATE INDEX label_name_idx_lower_name ON label_name (lower(name));
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

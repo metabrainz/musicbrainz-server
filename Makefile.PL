@@ -2,9 +2,6 @@
 use 5.8.8;
 
 use inc::Module::Install;
-use Module::Install::AutoInstall;
-use Module::Install::AuthorRequires;
-use Module::Install::AuthorTests;
 
 name 'MusicBrainz-Server';
 abstract 'MusicBrainz web server';
@@ -22,6 +19,7 @@ requires 'Catalyst::Runtime'                          => '5.80021';
 requires 'Catalyst::View::TT'                         => '0.29';
 requires 'Class::MOP';
 requires 'Clone';
+requires 'Data::Compare';
 requires 'Data::OptList';
 requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
@@ -39,10 +37,11 @@ requires 'Email::MIME::Creator';
 requires 'Exception::Class'                           => '1.29';
 requires 'HTML::FormHandler'                          => '0.30001';
 requires 'HTML::Tiny'                                 => '1.05';
+requires 'HTML::TreeBuilder::XPath';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                            => '0.22';
-requires 'Match::Smart';
+requires 'Module::Pluggable'                          => '3.9';
 requires 'Moose'                                      => '0.87';
 requires 'MooseX::ABC';
 requires 'MooseX::MethodAttributes'                   => '0.14';
@@ -58,6 +57,7 @@ requires 'Text::WikiFormat'                           => '0.790';
 requires 'TryCatch';
 requires 'XML::Feed'                                  => '0.410';
 requires 'XML::Simple'                                => '2.14';
+requires 'XML::Dumper'                                => '0.81';
 requires 'YAML'                                       => '0.680';
 
 feature 'ETag Caching' =>
@@ -68,7 +68,7 @@ feature 'ETag Caching' =>
 feature 'Default caching setup' =>
     -default                 => 1,
     'Cache::Memory'          => '2.04',
-    'Cache::Memcached::Fast' => '1.24'
+    'Cache::Memcached::Fast' => '0.16'
     ;
 
 feature 'Default session store/state management' =>
@@ -81,7 +81,7 @@ feature 'Developer features' =>
     -default                           => 1,
     'Catalyst::Plugin::StackTrace'     => '0.09',
     'Catalyst::Plugin::Static::Simple' => '0.21',
-    'Catalyst::Restarter'              => '1.25',
+    'Catalyst::Devel'                  => '1.25',
     ;
 
 # These are just for I18N
@@ -94,6 +94,7 @@ author_requires 'Test::EOL';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Test::Differences';
 test_requires 'Test::Aggregate';
+test_requires 'Test::JSON';
 test_requires 'XML::Parser';
 
 catalyst;

@@ -2,9 +2,8 @@ package MusicBrainz::Server::Edit::WithDifferences;
 use Moose;
 use MooseX::ABC;
 
-use Match::Smart qw( smart_match );
+use Data::Compare;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Data::Utils qw( deep_equal );
 use Scalar::Util qw( reftype );
 use Storable qw( freeze );
 
@@ -33,7 +32,7 @@ sub _change_data {
         my $n = $new->{$key};
         my $o = $old->{$key};
 
-        if (deep_equal($n, $o)) {
+        if (Compare($n, $o)) {
             delete $old->{$key};
             delete $new->{$key};
         }

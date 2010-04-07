@@ -59,6 +59,15 @@ sub default : Path
     $c->detach('/error_404');
 }
 
+sub error_401 : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(401);
+    $c->stash->{template} = 'main/401.tt';
+    $c->detach;
+}
+
 sub error_403 : Private
 {
     my ($self, $c) = @_;
@@ -133,6 +142,11 @@ sub begin : Private
                 }
             }
         }
+    }
+
+    if (exists $c->action->attributes->{Edit} && $c->user_exists)
+    {
+        $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
     }
 
     # Load current relationship

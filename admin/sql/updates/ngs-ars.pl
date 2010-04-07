@@ -296,8 +296,10 @@ my %album_ar_types = (
         13 => 'release_group',  # cover
         17 => 'release',        # part of set
         11 => 'release_group',  # live performance
+        8  => 'release_group',  # compilations
         9  => 'release_group',  # DJ-mix
         3  => 'release',        # remaster
+        4  => 'release_group',  # remixes
         7  => 'release_group',  # remix
         5  => 'release_group',  # mash-up
         2  => 'release',        # first album release
@@ -357,12 +359,10 @@ my %album_ar_types = (
         2 => 'release', # samples material
     },
     'url' => {
-        24 => 'release', # discogs
         25 => 'release', # musicmoz
-        16 => 'release', # discography
+        16 => 'release_group', # discography
         18 => 'release', # get the music
         29 => 'release', # Affiliate links
-        22 => 'release', # other databases
         32 => 'release', # creative commons licensed download
         23 => 'release_group', # wikipedia
         21 => 'release', # download for free
@@ -398,10 +398,9 @@ foreach my $orig_t0 (@entity_types) {
             push @new_t, [$new_t0, $new_t1];
         }
         my $rows = $sql->select_list_of_hashes("SELECT * FROM public.lt_${orig_t0}_${orig_t1}");
-        my $i = 0;
+        my %seen_ar_type;
         foreach my $t (@new_t) {
             ($new_t0, $new_t1) = @$t;
-            $i++;
             my $reverse = 0;
             if ($new_t0 gt $new_t1) {
                 ($new_t0, $new_t1) = ($new_t1, $new_t0);
@@ -411,6 +410,11 @@ foreach my $orig_t0 (@entity_types) {
             print STDERR "Converting $orig_t0<=>$orig_t1 link types to $new_t0<=>$new_t1\n";
             # Generate IDs for new link types and save them in a global hash
             foreach my $row (@$rows) {
+                if ($orig_t0 eq "album" && exists $album_ar_types{$orig_t1}
+                        && exists $album_ar_types{$orig_t1}->{ $row->{id} }
+                        && $album_ar_types{$orig_t1}->{ $row->{id} } ne ($reverse ? $new_t1 : $new_t0)) {
+                    next;
+                } 
                 my $id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
                 $link_type_map{$key} = $id;
@@ -427,6 +431,7 @@ foreach my $orig_t0 (@entity_types) {
                     $rlinkphrase = $row->{'rlinkphrase'};
                 }
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
+                next unless exists $link_type_map{$key};
                 my $id = $link_type_map{$key};
                 my $parent_id = $row->{parent} || undef;
                 if (defined($parent_id)) {
@@ -435,12 +440,13 @@ foreach my $orig_t0 (@entity_types) {
                     $parent_id = $link_type_map{$key} || undef;
                 }
                 my $gid = $row->{mbid};
-                if ($i > 1) {
+                if (exists $seen_ar_type{$row->{id}}) {
                     # Generate a new UUID if we are making a copy
                     my $uuid = OSSP::uuid->new;
                     $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/$id");
                     $gid = $uuid->export("str");
                 }
+                $seen_ar_type{$row->{id}} = 1;
                 $sql->do("
                     INSERT INTO link_type
                         (id, parent, childorder, gid, name, description, linkphrase,

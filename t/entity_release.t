@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use Test::More tests => 30;
+use Test::Moose;
 use_ok 'MusicBrainz::Server::Entity::Release';
 use_ok 'MusicBrainz::Server::Entity::ReleasePackaging';
 use_ok 'MusicBrainz::Server::Entity::ReleaseStatus';
@@ -13,6 +14,8 @@ use_ok 'MusicBrainz::Server::Entity::Track';
 my $release = MusicBrainz::Server::Entity::Release->new();
 ok( defined $release->date );
 ok( $release->date->is_empty );
+
+does_ok( $release, 'MusicBrainz::Server::Entity::Role::Quality' );
 
 $release->edits_pending(2);
 is( $release->edits_pending, 2 );

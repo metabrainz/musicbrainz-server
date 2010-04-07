@@ -1,33 +1,35 @@
 [%- WRAPPER 'layout.tt' title=l('Reports') full_width=1 -%]
+    <div class="content">
+        <h1>[% l('Reports') %]</h1>
 
-<h1>[% l('Reports') %]</h1>
+        <p>
+            [% l('If you\'d like to participate in the editing process, but do not know where
+                  to start, the following reports should be useful. These reports scour the
+                  database looking for data that might require fixing, either to comply with
+                  the {style|style guidelines}, or in other cases where administrative
+                  "clean up" tasks are required.',
+                  { style => doc_link('Official_Style_Guideline') }) %]
+        </p>
 
-<p>
-    [% l("The following links show pages that are likely to contain data that
-          does not conform to the style guidelines. If you'd like to participate
-          in the editing process, but do not know where to start, check out these
-          pages.") %]
-</p>
+        <h2>[% l('Artists') %]</h2>
 
-<h2>[% l('Artists') %]</h2>
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBeGroups') %]">[% l('Artists that may be groups') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBePersons') %]">[% l('Artists that may be persons') %]</a></li>
+        </ul>
 
-<ul>
-    <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBeGroups') %]">[% l('Artists that may be groups') %]</a></li>
-    <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBePersons') %]">[% l('Artists that may be persons') %]</a></li>
-</ul>
+        <h2>[% l('Releases') %]</h2>
 
-<h2>[% l('Releases') %]</h2>
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesToConvert') %]">[% l('Releases which might need converting to "multiple artists"') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'NoLanguage') %]">[% l('Releases without language but script') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'NoScript') %]">[% l('Releases without script but language') %]</a></li>
+        </ul>
 
-<ul>
-    <li><a href="[% c.uri_for_action('/report/show', 'ReleasesToConvert') %]">[% l('Releases which might need converting to "multiple artists"') %]</a></li>
-    <li><a href="[% c.uri_for_action('/report/show', 'NoLanguage') %]">[% l('Releases without language but script') %]</a></li>
-    <li><a href="[% c.uri_for_action('/report/show', 'NoScript') %]">[% l('Releases without script but language') %]</a></li>
-</ul>
+        <h2>[% l('ISRCs') %]</h2>
 
-<h2>[% l('ISRCs') %]</h2>
-
-<ul>
-    <li><a href="[% c.uri_for_action('/report/show', 'ISRCsWithManyRecordings') %]">[% l('ISRCs with multiple recordings') %]</a></li>
-</ul>
-
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'ISRCsWithManyRecordings') %]">[% l('ISRCs with multiple recordings') %]</a></li>
+        </ul>
+    </div>
 [%- END -%]

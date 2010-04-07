@@ -3,10 +3,20 @@ use MooseX::Role::Parameterized;
 use MusicBrainz::Server::WebService::WebServiceInc;
 use Readonly;
 
-Readonly my $DEFAULT_SERIALIZATION_TYPE => "xml";
+parameter default_serialization_type => (
+    is => 'ro',
+    isa => 'Str',
+    default => 'xml',
+);
+
+parameter version => (
+    is => 'ro',
+    isa => 'Str',
+    default => '2',
+);
 
 parameter defs => (
-   isa => 'ArrayRef',
+    isa => 'ArrayRef',
 );
 
 our (%types, %statuses);
@@ -43,7 +53,7 @@ sub validate_inc
     my $status_used = 0;
     my @relations_used;
     my @filtered;
-    for my $i (@inc) 
+    for my $i (@inc)
     {
         next if (!$i);
         $i =~ s/release-groups/releasegroups/;
@@ -80,30 +90,31 @@ sub validate_inc
         push @filtered, $i;
     }
     return MusicBrainz::Server::WebService::WebServiceInc->new(inc => \@filtered,
-                                                               rg_type => $type_used, 
-                                                               rel_status => $status_used, 
+                                                               rg_type => $type_used,
+                                                               rel_status => $status_used,
                                                                relations => \@relations_used);
-}
-
-sub get_default_serialization_type
-{
-    return $DEFAULT_SERIALIZATION_TYPE;
 }
 
 role {
     my $r = shift;
-    
-    method 'validate' => sub 
+
+    method 'get_default_serialization_type' => sub
+    {
+        return $r->default_serialization_type;
+    };
+
+    method 'validate' => sub
     {
         my ($self, $c, $serializers) = @_;
 
         load_type_and_status($c) if (!%types);
 
         # Set up the serializers so we can report errors in the correct format
-        $c->stash->{serializer} = $serializers->{$DEFAULT_SERIALIZATION_TYPE}->new();
+        $c->stash->{serializer} = $serializers->{$r->default_serialization_type}->new();
 
         my $resource = $c->req->path;
-        $resource =~ s/ws\/2\/([\w-]+?)\/.*$/$1/;
+        my $version = quotemeta ($r->version);
+        $resource =~ s,ws/$version/([\w-]+?)(/.*)?$,$1,;
 
         foreach my $def (@{ $r->defs })
         {
@@ -124,6 +135,15 @@ role {
             }
             next unless $params_ok;
 
+            # include optional arguments
+            foreach my $arg (@{ $def->[1]->{optional} })
+            {
+                if (exists $c->req->params->{$arg} && $c->req->params->{$arg} ne '')
+                {
+                    $c->stash->{args}->{$arg} = $c->req->params->{$arg};
+                }
+            }
+
             # Check to make sure that only appropriate inc values have been requested
             my $inc;
             if ($def->[1]->{inc})
@@ -135,7 +155,7 @@ role {
             # Check the type and prepare a serializer. For now, since we only support XML
             # we're going to default to XML. In the future if we want to add more serializations,
             # we will add support for requesting the format via the Content-type headers.
-            my $type = $DEFAULT_SERIALIZATION_TYPE; 
+            my $type = $r->default_serialization_type;
             unless (defined($type) && exists $serializers->{$type}) {
                 my @types = keys %{$serializers};
                 $c->stash->{error} = 'Invalid content type. Must be set to ' . join(' or ', @types) . '.';
@@ -148,7 +168,7 @@ role {
         }
         $c->stash->{error} = "The given parameters do not match any available query type for the $resource resource.";
         return 0;
-    }
+    };
 };
 
 1;
