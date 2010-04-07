@@ -1,28 +1,48 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
+use Method::Signatures::Simple;
+use namespace::autoclean;
 
+use List::Util qw( first );
 use List::MoreUtils qw( part zip );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Data::Artist;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' },
      'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'artist_credit' };
 
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $query = "SELECT artist, artist_name.name, joinphrase, artist_credit, artist.id, gid, n2.name AS artist_name " .
-                "FROM artist_credit_name " .
-                "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
-                "JOIN artist ON artist.id=artist_credit_name.artist " .
-                "JOIN artist_name n2 ON n2.id=artist.name " .
-                "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
-                "ORDER BY artist_credit, position";
-    my $sql = Sql->new($self->c->dbh);
+    my $query = do
+    {
+        my $acn         = schema->table('artist_credit_name');
+        my $ac          = schema->table('artist_credit');
+        my $artist      = $self->c->model('Artist')->table;
+        my $artist_name = schema->table('artist_name')->alias('artist_name');
+        my $ac_name     = schema->table('artist_name')->alias('ac_name');
+
+        my $name_fk = first { $_->has_column($artist->column('name')) }
+            schema->foreign_keys_between_tables($artist, $artist_name);
+
+        Fey::SQL->new_select
+            ->select(
+                $acn->column('artist'), $ac_name->column('name'),
+                $acn->column('joinphrase'), $acn->column('artist_credit'),
+                $artist->column('id'), $artist->column('gid'),
+                $artist_name->column('name')->alias('artist_name')
+            )
+            ->from($acn)
+            ->from($acn, $ac_name)
+            ->from($artist, $acn)
+            ->from($artist, $artist_name, $name_fk)
+            ->where($acn->column('artist_credit'), 'IN', @ids)
+            ->order_by($acn->column('artist_credit'), $acn->column('position'));
+    };
+
     my %result;
     my %counts;
     foreach my $id (@ids) {
@@ -30,97 +50,114 @@ sub get_by_ids
         $result{$id} = $obj;
         $counts{$id} = 0;
     }
-    $sql->select($query, @ids);
+
+    $self->sql->select($query->sql($self->sql->dbh), @ids);
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my %info = (
             artist_id => $row->{artist},
-            name => $row->{name}
+            name      => $row->{name}
         );
         $info{join_phrase} = $row->{joinphrase} if defined $row->{joinphrase};
         my $obj = MusicBrainz::Server::Entity::ArtistCreditName->new(%info);
         $obj->artist(MusicBrainz::Server::Entity::Artist->new(
-            id => $row->{id},
-            gid => $row->{gid},
+            id   => $row->{id},
+            gid  => $row->{gid},
             name => $row->{artist_name},
         ));
         my $id = $row->{artist_credit};
         $result{$id}->add_name($obj);
         $counts{$id} += 1;
     }
-    $sql->finish;
+    $self->sql->finish;
     foreach my $id (@ids) {
         $result{$id}->artist_count($counts{$id});
     }
     return \%result;
 }
 
-sub find_or_insert
+method find_or_insert (@artist_joinphrase)
 {
-    my ($self, @artist_joinphrase) = @_;
-
     my $i = 0;
     my ($credits, $join_phrases) = part { $i++ % 2 } @artist_joinphrase;
     my @positions = (0..scalar @$credits - 1);
     my @artists = map { $_->{artist} } @$credits;
     my @names = map { $_->{name} } @$credits;
 
+    my $ac  = schema->table('artist_credit');
+    my $query = Fey::SQL->new_select
+        ->select($ac->column('id'))->from($ac)
+        ->where($ac->column('artistcount'), '=', scalar @names);
+
     my $name = "";
-    my (@joins, @conditions);
     for my $i (@positions) {
-        my $join = "JOIN artist_credit_name acn_$i ON acn_$i.artist_credit = ac.id " .
-                   "JOIN artist_name an_$i ON an_$i.id = acn_$i.name";
-        my $condition = "acn_$i.position = ? AND ".
-                        "acn_$i.artist = ? AND ".
-                        "an_$i.name = ?";
-        $condition .= " AND acn_$i.joinphrase = ?" if defined $join_phrases->[$i];
-        push @joins, $join;
-        push @conditions, $condition;
+        my $acn = schema->table('artist_credit_name')->alias("acn_$i");
+        my $an  = schema->table('artist_name')->alias("an_$i");
+
+        $query
+            ->from($ac, $acn)
+            ->from($acn, $an)
+            ->where($acn->column('position'),   '=', $positions[$i])
+            ->where($acn->column('artist'),     '=', $artists[$i])
+            ->where($acn->column('joinphrase'), '=', $join_phrases->[$i])
+            ->where($an->column('name'),        '=', $names[$i]);
+
         $name .= $names[$i];
         $name .= $join_phrases->[$i] if defined $join_phrases->[$i];
     }
 
-    my $sql = Sql->new($self->c->dbh);
-    my $query = "SELECT ac.id FROM artist_credit ac " .
-                join(" ", @joins) .
-                " WHERE " . join(" AND ", @conditions) . " AND ac.artistcount = ?";
-    my @args = zip @positions, @artists, @names, @$join_phrases;
-    pop @args unless defined $join_phrases->[$#names];
-    my $id = $sql->select_single_value($query, @args, scalar @names);
+    my $id = $self->sql->select_single_value(
+        $query->sql($self->sql->dbh), $query->bind_params);
 
     if(!defined $id)
     {
-        my %names_id = $self->c->model('Artist')->find_or_insert_names(@names, $name);
-        $id = $sql->insert_row('artist_credit', {
-            name => $names_id{$name},
-            artistcount => scalar @names,
-        }, 'id');
+        my %names_id = $self->c->model('Artist')->find_or_insert_names(@names,
+                                                                       $name);
+
+        $query = Fey::SQL::Pg->new_insert
+            ->into(map { $ac->column($_) } qw( name artistcount ))
+            ->returning($ac->column('id'))
+            ->values(
+                name        => $names_id{$name},
+                artistcount => scalar @names,
+            );
+
+        $id = $self->sql->select_single_value(
+            $query->sql($self->sql->dbh), $query->bind_params);
+
+        die "NO RETURN!" unless $id;
+
+        my $acn = schema->table('artist_credit_name');
         for my $i (@positions)
         {
-            $sql->insert_row('artist_credit_name', {
+            $query = Fey::SQL->new_insert
+                ->into($acn)
+                ->values(
                     artist_credit => $id,
-                    position => $i,
-                    artist => $artists[$i],
-                    name => $names_id{$names[$i]},
-                    joinphrase => $join_phrases->[$i],
-                });
+                    position      => $i,
+                    artist        => $artists[$i],
+                    name          => $names_id{$names[$i]},
+                    joinphrase    => $join_phrases->[$i],
+                );
+            $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
         }
     }
 
     return $id;
 }
 
-sub merge_artists
+method merge_artists ($new_id, @old_ids)
 {
-    my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE artist_credit_name SET artist = ?
-              WHERE artist IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $acn = schema->table('artist_credit_name');
+    my $query = Fey::SQL->new_update
+        ->update($acn)
+        ->set($acn->column('artist'), $new_id)
+        ->where($acn->column('artist'), 'IN', @old_ids);
+
+    $self->sql->do($query->sql($self->sql->dbh), $query->bind_params);
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
-1;
 
 =head1 COPYRIGHT
 
