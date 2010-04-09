@@ -5,7 +5,7 @@
         [%- IF looks_like_ie -%]
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
         [%- END -%]
-        <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
+        <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
         <link rel="stylesheet" type="text/css" href="/static/main.css" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
