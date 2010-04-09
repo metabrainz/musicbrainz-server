@@ -1,25 +1,17 @@
 [% WRAPPER "layout.tt" title=l("Welcome to MusicBrainz!") full_width=1 %]
     <h1>[% l('Welcome to MusicBrainz!') %]</h1>
     <div id="rightSide">
-        <!--<h2>[% l("News") %]</h2>
-        <ul id="blog">
-            [% FOREACH post IN blog.entries %]
-                [% LAST IF loop.count > 5 %]
-                <li><a href="[% post.link %]">[% post.title | html_entity  %]</a><br/ ><span class="lastupdate">[% UserDate.format(post.issued) %]</span></li>
-            [% END %]
-            <li><a href="http://blog.musicbrainz.org">[% l('Older news…') %]</a></li>
-        </ul>-->
-        
+
         <div id="taggers" class="triple-column">
             <h2 class="taggers"><a href="">Tag Your Music »</a></h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/5/56/MusicBrainz_Picard.png/64px-MusicBrainz_Picard.png">
             <ul>
                 <li>[% l('{doc|MusicBrainz Picard}',
-                    { doc => doc_link('Beginners_Guid') }) %]</li>
+                    { doc => doc_link('MusicBrainz_Picard') }) %]</li>
                 <li>[% l('{doc|Jaikoz}',
-                    { doc => doc_link('How_Editing_Wors') }) %]</li>
+                    { doc => doc_link('Jaikoz') }) %]</li>
                 <li>[% l('{doc|Magic MP3 Tagger}',
-                    { doc => doc_link('Official_Style_Guielines') }) %]</li>
+                    { doc => doc_link('Magic_MP3_Tagger') }) %]</li>
             </ul>
         </div>
 
@@ -57,18 +49,28 @@
         [% END %]
 
 
-        <h2>[% l("What is MusicBrainz?") %]</h2>
         <p>
-            <strong>[% l('MusicBrainz is a community maintained open source encyclopedia of music information.') %]</strong>
+            <strong>[% l('MusicBrainz is an open source encyclopedia of music information.') %]</strong>
         </p>
 
         <p>
-            [% l('Our primary purpose is to collect as much information about music as possible. This means that we want everyone — including you — to <a href="/">contribute</a> to the project by adding information about artists and their related works.') %]
-        <!--</p>
-
-        <p>-->
-            [% l('We do not discriminate or prefer one type of music over another. Whether it\'s popular or fringe, western or eastern, or even if it isn\'t performed by humans — we want it all to be entered into MusicBrainz.') %]
+            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users. We want everyone — including you — to <a>participate and contribute</a>.') %]
         </p>
+
+        <p>
+            [% l('MusicBrainz was created for two primary purposes:') %]
+        </p>
+
+        <ol>
+            <li>
+                [% l('<strong>To be the ultimate source of music information</strong> by collecting and making available to the public the entire {doc|MusicBrainz Database} — <em>for free</em>.',
+                    { doc => doc_link('MusicBrainz_Database') }) %]
+            </li>
+            <li>
+                [% l('<strong>To be the univeral lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification} to enable meaningful conversations by both people and machines.',
+                    { doc => doc_link('MusicBrainz_Identification') }) %]
+            </li>
+        </ol>
 
         <p>
             [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
@@ -83,15 +85,6 @@
                   contract => doc_link('Social_Contract'),
                   faq => doc_link('Frequently_Asked_Questions') }) %]
         </div>
-
-        <h2>[% l('Why use MusicBrainz?') %]</h2>
-        <p>
-            [% l('Lorum ipsum. Bash CDDB. Lorum ipsum. Lorum ipsum. Bash CDDB. Lorum ipsum. Lorum ipsum. Bash CDDB. Lorum ipsum. Lorum ipsum. Bash CDDB. Lorum ipsum.') %]
-        </p>
-        <p>
-            [% l('Lorum ipsum. Bash FreeDB. Lorum ipsum. Lorum ipsum. Bash FreeDB. Lorum ipsum. Lorum ipsum. Bash FreeDB. Lorum ipsum. Lorum ipsum. Bash FreeDB. Lorum ipsum. ') %]
-        </p>
-
     </div>
 
             <!--<p>
@@ -105,72 +98,24 @@
                 [% l('The MusicBrainz Server can also accessed from a client application like a {tagger|MusicBrainz-powered tagger} or CD ripper.',
                     { tagger => doc_link('MusicBrainz_Tagger') }) %]
             </p>-->
-            
-        <!--<h2>[% l('History') %]</h2>
-        <p>
-            [% l('In 2000, Gracenote took over the free CDDB project and commercialized it, essentially charging users for access to the very data they had themselves contributed. In response, Robert Kaye founded MusicBrainz. The project has since grown rapidly from a one-man operation to a global community of music fans. Along the way, the scope of the project has expanded from its origins as a mere a CDDB replacement to today, where MusicBrainz has become a true encyclopedia of music.') %]
-        </p>-->
 
-        <!---->
-
-<!--<div class="lower">
-        <div class="userportal portal">
-            <h2><a href="">[% l('Community') %]</a></h2>
-            <ul>
-                <li>[% l('{doc|Beginners guide}',
-                    { doc => doc_link('Beginners_Guide') }) %]</li>
-                <li>[% l('{doc|Editing introduction}',
-                    { doc => doc_link('How_Editing_Works') }) %]</li>
-                <li>[% l('{doc|Style guidelines}',
-                    { doc => doc_link('Official_Style_Guidelines') }) %]</li>
-                <li>[% l('{doc|FAQs}',
-                    { doc => doc_link('Frequently_Asked_Questions') }) %]</li>
-            </ul>
-        </div>
-
-        <div class="productportal portal">
-            <h2><a href="">[% l('Products') %]</a></h2>
-            <ul>
-                <li>[% l('{doc|MusicBrainz enabled taggers}',
-                    { doc => doc_link('MusicBrainz_Tagger') }) %]</li>
-                <li>[% l('{doc|MusicBrainz Server}',
-                    { doc => doc_link('MusicBrainz_Server') }) %]</li>
-                <li>[% l('{doc|MusicBrainz Database}',
-                    { doc => doc_link('MusicBrainz_Database') }) %]</li>
-            </ul>
-        </div>
-        <div class="devportal portal">
-            <h2><a href="">[% l('Developers') %]</a></h2>
-            <ul>
-                <li>[% l('{doc|Download the database}',
-                    { doc => doc_link('Database_Download')}) %]</li>
-                <li>[% l('{doc|Setup your own server}',
-                    { doc => doc_link('Server_Setup') }) %]</li>
-                <li>[% l('{doc|Development libraries}',
-                    { doc => doc_link('Products') }) %]</li>
-                <li>[% l('{doc|Web service documentation}',
-                    { doc => doc_link('XML_Web_Service') }) %]</li>
-            </ul>
-        </div>
-    </div>-->
-    
     <div id="triple">
         <div id="community" class="triple-column">
-            <h2 class="community"><a href="">Community »</a></h2>
+            <h2 class="community">Community »</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/4/42/Userportal.png/64px-Userportal.png">
             <p><a href="/404">Become a part of our <strong>global community</strong> and start <strong>contributing</strong> to the project!</a></p>
         </div>
 
         <div id="products" class="triple-column">
-            <h2 class="products"><a href="">MusicBrainz Database »</a></h2>
+            <h2 class="products">MusicBrainz Database »</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/2/2b/Crystal_Clear_app_download_manager.png/64px-Crystal_Clear_app_download_manager.png">
-            <p><a href="/404">The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded for <strong>free</strong>. <br/><em>See our other products.</em></a></p>
+            <p><a href="/404">The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded for <strong>free</strong>.</a></p>
         </div>
 
-        <div id="developers" class="triple-column triple-column-last">
-            <h2 class="developers"><a href="/choose">Developers »</a></h2>
+        <div id="developers" class="triple-column">
+            <h2 class="developers">Developers »</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/b/b1/Administrators.png/64px-Administrators.png">
-            <p><a href="/choose">Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.</a></p>
+            <p><a href="/404">Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.</a></p>
         </div>
 
     </div>
