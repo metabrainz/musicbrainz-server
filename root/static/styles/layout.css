@@ -204,6 +204,8 @@ a:active, a:focus { outline-style: none; }
     margin-right: 250px;
 }
 
+.content table.tbl { margin-bottom: 1em; }
+
 .fullwidth .content {
     margin-right: 0px;
 }
