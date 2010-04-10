@@ -16,7 +16,9 @@
                 [%- l('{editor}', { editor => link_editor(note.editor) }) -%]
                 <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
             </h3>
-            [%- note.text -%]
+            <div class="edit-note-text">
+                [%- note.text -%]
+            </div>
         </div>
     [% END %]
 [% ELSE %]

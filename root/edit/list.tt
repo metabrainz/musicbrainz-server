@@ -64,7 +64,6 @@
 
                         [% IF edit.edit_notes.size %]
                             <div class="edit-notes">
-                                <h2>[% l('Edit notes') %]</h2>
                                 [% INCLUDE "edit/notes.tt" %]
                             </div>
                         [% END %]

@@ -110,6 +110,7 @@
                 [%- request_login() -%]
             </p>
         [% END %]
+
         <div class="edit-notes">
             <h2>[% l('Edit notes') %]</h2>
             [% INCLUDE 'edit/notes.tt' %]
@@ -117,7 +118,6 @@
                 [% INCLUDE 'edit/add_note.tt' %]
             </form>
         </div>
-
     </div>
 [%- END -%]
 
