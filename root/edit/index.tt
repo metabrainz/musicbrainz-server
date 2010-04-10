@@ -58,17 +58,17 @@
 
         <h2>[% l('Votes') %]</h2>
         <table class="vote-tally">
-            <tr>
-                <th>[% l('Vote tally:') %]</th>
+            <tr class="noborder">
+                <th>[% l('Vote tally') %]</th>
                 <td class="vote">
                     [% l('{yes} yes : {no} no', { yes => edit.yes_votes, no => edit.no_votes }) %]
                 </td>
             </tr>
             [% IF edit.editor_may_vote(c.user) %]
-                <tr>
+                <tr class="noborder">
                     <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
                         <input type="hidden" value="[% c.req.uri %]" name="url" />
-                        <th>[% l('My vote:') %]</th>
+                        <th>[% l('My vote') %]</th>
                         <td class="vote">
                             [% INCLUDE 'edit/vote.tt' %]
                         </td>
@@ -77,7 +77,7 @@
             [% END %]
             [% FOR vote=edit.votes %]
                 <tr[% ' class="superseded"' IF vote.superseded %]>
-                    <th>[% link_editor(vote.editor) %]:</th>
+                    <th>[% link_editor(vote.editor) %]</th>
                     <td class="vote">
                         [% vote.vote_name %]
                         <span class="date">[% UserDate.format(vote.vote_time) %]</span>

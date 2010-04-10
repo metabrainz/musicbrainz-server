@@ -14,8 +14,9 @@ table.vote-tally {
     border-collapse: collapse;
 }
 
-table.vote-tally tr:nth-child(n+3) {
+table.vote-tally tr {
     border-top: 1px dotted #999999;
+    border-bottom: 1px dotted #999999;
 }
 
 table.vote-tally th {

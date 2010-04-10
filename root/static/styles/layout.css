@@ -408,6 +408,10 @@ p.nfo span {
     text-align: center;
 }
 
+.noborder {
+    border: none !important;
+}
+
 .credits {
     margin-top: 1em;
 }
