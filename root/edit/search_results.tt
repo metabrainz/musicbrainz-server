@@ -3,7 +3,7 @@
         window.onload = function() {
             $('.search-refine select').attr('size', '10');
 
-            $('.search-toggle p').click(function () {
+            $('.search-toggle a').click(function () {
                 $('.search-refine').slideToggle('500');
             })
         }
