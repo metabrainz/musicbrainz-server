@@ -3,7 +3,7 @@
     <div id="rightSide">
 
         <div id="taggers" class="triple-column">
-            <h2 class="taggers"><a href="">Tag Your Music »</a></h2>
+            <h2 class="taggers">Tag Your Music »</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/5/56/MusicBrainz_Picard.png/64px-MusicBrainz_Picard.png">
             <ul>
                 <li>[% l('{doc|MusicBrainz Picard}',
@@ -16,7 +16,7 @@
         </div>
 
         <div id="guide" class="triple-column">
-            <h2><a href="arst">[% l('Quick Start »') %]</a></h2>
+            <h2>[% l('Quick Start »') %]</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/6/61/Crystal_Clear_app_kdict.png/64px-Crystal_Clear_app_kdict.png">
             <ul>
                 <li>[% l('{doc|Beginners guide}',
@@ -100,7 +100,7 @@
             </p>-->
 
     <div id="triple">
-        <div id="community" class="triple-column">
+        <div id="community" class="triple-column first-column">
             <h2 class="community">Community »</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/4/42/Userportal.png/64px-Userportal.png">
             <p><a href="/404">Become a part of our <strong>global community</strong> and start <strong>contributing</strong> to the project!</a></p>
@@ -112,7 +112,7 @@
             <p><a href="/404">The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded for <strong>free</strong>.</a></p>
         </div>
 
-        <div id="developers" class="triple-column">
+        <div id="developers" class="triple-column last-column">
             <h2 class="developers">Developers »</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/b/b1/Administrators.png/64px-Administrators.png">
             <p><a href="/404">Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.</a></p>
