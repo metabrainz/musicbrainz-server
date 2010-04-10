@@ -9,6 +9,11 @@
     margin-right: 5px;
 }
 
+.edit-list .cancel-edit {
+    float: none;
+    margin-bottom: 10px;
+}
+
 table.vote-tally {
     width: 100%;
     border-collapse: collapse;
@@ -46,7 +51,7 @@ table.voteopts td {
 .edit-notes .edit-note {
     margin: 5px 0;
     padding: 5px;
-    background-color: #FAFAFA;
+/*    background-color: #FAFAFA;*/
 }
 
 .edit-notes .edit-note-text {
@@ -58,7 +63,7 @@ table.voteopts td {
     background-image: url('../images/user.png');
     background-repeat: no-repeat;
     background-position: 5px 50%;
-    background-color: #e7e7e7;
+    background-color: #F0F0F0;
     height: 16px;
     margin: 0 0 10px;
     padding: 5px 10px 5px 26px;
@@ -82,41 +87,46 @@ table.voteopts td {
 }
 
 .edit-notes .edit-note .date {
-    color: #555555;
+    color: #333333;
     float: right;
     font-weight: normal;
 }
 
 .edit-list {
-    margin: 10px 0 0 0;
-    background: #FFFFFF url(../images/page-bg-edit.gif) repeat-y top right;
+    clear: both;
+    margin: 20px 0 0 0;
+    background-color: #FAFAFA;
+}
+
+.edit-list .edit-details {
+    margin-top: 10px;
 }
 
 .edit-list .vote-actions {
-    width: 218px;
-    padding-top: 5px;
     float: right;
-    font-size: 95%;
+    width: 220px;
+    background-color: #E5E5E5;
+    border-right: 10px solid #007700;
+    padding-left: 10px;
 }
 
-.vote-actions .edit-status {
-    text-align: center;
-    padding-bottom: 5px;
-}
-
-.vote-actions .my-vote {
+.edit-list .my-vote {
     float: left;
 }
 
-.vote-actions .vote-count {
+.edit-list .vote-count {
     float: right;
-    margin: 0 10px 5px 0;
 }
 
-.vote-actions table.voteopts {
+.edit-list table.voteopts {
     width: 160px;
     margin: 0 24px;
+}
+
+.edit-list .edit-expiration {
     clear: both;
+    font-weight: bold;
+    line-height: 200%;
 }
 
 .vote-actions dl.properties {
@@ -124,24 +134,62 @@ table.voteopts td {
     clear: both;
 }
 
-.edit-list .edit-content {
-    margin-right: 250px;
-    padding: 5px 0 0 5px;
-}
-
 .edit-list .edit-header > h2 {
     margin-top: 0;
 }
 
+.edit-list .edit-header {
+    background-color: #E5E5E5;
+    padding: 0 10px 10px 10px;
+}
+
+.edit-list .edit-header h2 {
+    color: #000000;
+    padding-top: 10px;
+}
+
 .edit-list .edit-notes {
-    margin-top: 20px;
+    margin: 20px 20px 0 20px;
+    clear: both;
+}
+
+.edit-list .edit-description dl.properties {
+    margin: 0;
+    clear: both;
+}
+
+.edit-header .edit-description {
+    float: right;
+    width: 210px;
+    margin-top: 6px;
+}
+
+.edit-list .edit-header.open {
+/*    border-left: solid 10px #007700;*/
+    border-right: solid 10px #007700;
+}
+
+.edit-list .edit-header.cancelling {
+/*    border-left: solid 10px #999999;*/
+    border-right: solid 10px #999999;
+}
+
+.edit-list .edit-header.cancelled {
+/*    border-left: solid 10px #000000;*/
+    border-right: solid 10px #000000;
+}
+
+.edit-list .edit-header.failed {
+/*    border-left: solid 10px #CC0000;*/
+    border-right: solid 10px #CC0000;
+}
+
+.edit-header .edit-status {
+    font-weight: bold;
 }
 
 .seperator {
     clear: both;
-    border-bottom: 1px solid;
-    height: 10px;
-    background-color: #FFFFFF;
 }
 
 .search-toggle {
@@ -160,6 +208,7 @@ table.voteopts td {
     display: none;
     padding: 5px;
     border-bottom: 1px solid;
+    background-color: #FAFAFA;
 }
 
 .search-refine div.row {
@@ -167,7 +216,7 @@ table.voteopts td {
 }
 
 .search-help {
-    background-color: #F2F2F2;
+    background-color: #E5E5E5;
     margin-top: 5px;
     padding: 5px;
 }

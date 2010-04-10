@@ -16,21 +16,73 @@
     [% END %]
 [% END %]
 
-<div class="edit-header">
-    [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
-        <div class="cancel-edit">
-            [% PROCESS approve %]
-            [% PROCESS cancel %]
-        </div>
+[% BLOCK edit_status %]
+    [% IF edit.status == 1 %]
+        [%- " open" -%]
+    [% ELSIF edit.status == 2 %]
+        [%- " applied" -%]
+    [% ELSIF edit.status == 8 %]
+        [%- " cancelling" -%]
+    [% ELSIF edit.status == 9 %]
+        [%- " cancelled" -%]
+    [% ELSE %]
+        [%- " failed" -%]
     [% END %]
+[% END %]
 
+<div class="edit-header[%- PROCESS edit_status -%]">
     [% IF summary %]
+        <div class="edit-description">
+            [% IF edit.latest_vote_for_editor(c.user.id) %]
+                <div class="my-vote">
+                    <strong>[%- l('My vote: ') -%]</strong>
+                    [%- edit.latest_vote_for_editor(c.user.id).vote_name -%]
+                </div>
+            [% ELSIF c.user.id == edit.editor_id %]
+                <div class="my-vote">
+                    <strong>[%- l('My vote: ') -%]</strong>
+                    [%- l('N/A') -%]
+                </div>
+            [% ELSIF !edit.is_open %]
+                <div class="my-vote">
+                    <strong>[%- l('My vote: ') -%]</strong>
+                    [%- l('No vote') -%]
+                </div>
+            [% END %]
+
+            [% IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open %]
+                <div class="vote-count">[%- edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]</div>
+            [% END %]
+
+            [% IF edit.status == 1 %]
+                <div class="edit-expiration">
+                    [% expiration_time(edit.expires_time) %]
+                </div>
+            [% END %]
+
+            [%- WRAPPER 'layout/sidebar/properties.tt' -%]
+                [% IF !edit.is_open && edit.status == 8 %]
+                    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
+                        content=l('<em>Cancelling</em>') -%]
+                [% ELSIF !edit.is_open %]
+                    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
+                        content=html_escape(UserDate.format(edit.close_time)) -%]
+                [% END %]
+            [% END %]
+            <!--[% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]-->
+        </div>
         <h2>
-            [%- link_edit(edit, show, html_escape('Edit #' _ edit.id)) _ " - " _ html_escape(edit.edit_name) -%]
+            [%- link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ edit.edit_name)) -%]
         </h2>
     [% ELSE %]
+        [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+            <div class="cancel-edit">
+                [% PROCESS approve %]
+                [% PROCESS cancel %]
+            </div>
+        [% END %]
         <h1>
-            [%- "Edit #" _ edit.id _ " - " _ html_escape(edit.edit_name) -%]
+            [%- 'Edit #' _ edit.id _ ' - ' _ html_escape(edit.edit_name) -%]
         </h1>
     [% END %]
 

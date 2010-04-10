@@ -1,3 +1,21 @@
+[% BLOCK approve %]
+    [% IF edit.auto_edit_for_editor(c.user) %]
+        <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Approve edit') %]" />
+        </form>
+    [% END %]
+[% END %]
+
+[% BLOCK cancel %]
+    [% IF edit.is_open && edit.editor_id == c.user.id %]
+        <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Cancel edit') %]" />
+        </form>
+    [% END %]
+[% END %]
+
 <div class="search-help">
     <dl class="properties">
         <dt>
@@ -51,24 +69,33 @@
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
             [%- FOREACH edit=edits -%]
                 <div class="edit-list">
-                    <div class="vote-actions">
-                        [% INCLUDE 'edit/info.tt' summary=1 %]
-                    </div>
+                    [% INCLUDE 'edit/header.tt' summary=1 %]
 
-                    <div class="edit-content">
-                        [% INCLUDE 'edit/header.tt' summary=1 %]
-                        <div class="edit-details">
-                            [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
-                                INCLUDE "edit/details/${edit_template}.tt" %]
+                    [% IF edit.status == 1 %]
+                        <div class="vote-actions">
+                            [% INCLUDE 'edit/info.tt' summary=1 %]
+                            [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+                                <div class="cancel-edit c">
+                                    [% PROCESS approve %]
+                                    [% PROCESS cancel %]
+                                </div>
+                            [% END %]
                         </div>
+                    [% END %]
 
-                        [% IF edit.edit_notes.size %]
-                            <div class="edit-notes">
-                                [% INCLUDE "edit/notes.tt" %]
-                            </div>
-                        [% END %]
 
+
+                    <div class="edit-details">
+                        [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
+                            INCLUDE "edit/details/${edit_template}.tt" %]
                     </div>
+
+                    [% IF edit.edit_notes.size %]
+                        <div class="edit-notes">
+                            [% INCLUDE "edit/notes.tt" %]
+                        </div>
+                    [% END %]
+
                     <div class="seperator">
                     </div>
                 </div>

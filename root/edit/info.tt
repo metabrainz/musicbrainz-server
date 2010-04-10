@@ -1,18 +1,15 @@
-<div class="edit-status">
+<!--<div class="edit-status">
     [% IF edit.status == 1 %]
         <strong>[%- expiration_time(edit.expires_time) -%]</strong>
-    [% ELSIF edit.status == 2 %]
-        <strong>[%- l('Edit applied') -%]</strong>
     [% ELSIF edit.status == 8 %]
         <strong>[%- l('Due to be cancelled') -%]</strong>
-    [% ELSIF edit.status == 9 %]
-        <strong>[%- l('Edit cancelled') -%]</strong>
+    [% ELSIF edit.status == 2 || edit.status == 9 %]
     [% ELSE %]
         <strong>[%- edit.status_name(edit) -%]</strong>
     [% END %]
-</div>
+</div>-->
 
-[% IF summary %]
+<!--[% IF summary %]
         [% IF edit.latest_vote_for_editor(c.user.id) %]
             <div class="my-vote">
                 <strong>[%- l('My vote: ') -%]</strong>
@@ -26,7 +23,7 @@
         [% ELSIF !edit.is_open %]
             <div class="my-vote">
                 <strong>[%- l('My vote: ') -%]</strong>
-                [%- l('Did not vote') -%]
+                [%- l('No vote') -%]
             </div>
         [% END %]
 
@@ -37,24 +34,42 @@
     <div class="c">
         [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
     </div>
-[% END %]
+[% END %]-->
+
+[% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
 
 [%- WRAPPER 'layout/sidebar/properties.tt' -%]
+    [% IF summary %]
+        [% IF edit.status == 1 %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
+                content=l('Open') -%]
+        [% ELSIF edit.status == 2 %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
+                content=l('Applied') -%]
+        [% ELSIF edit.status == 9 %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
+                content=l('Cancelled') -%]
+        [% END %]
 
-    [% IF !summary %]
+        [% IF !edit.is_open && edit.status == 8 %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
+                content=l('<em>Cancelling</em>') -%]
+        [% ELSIF !edit.is_open %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
+                content=html_escape(UserDate.format(edit.close_time)) -%]
+        [% END %]
+    [% ELSE %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
             content=html_escape(UserDate.format(edit.created_time)) -%]
-    [% END %]
 
-    [% IF !edit.is_open && edit.status == 8 %]
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-            content=l('<em>Cancelling</em>') -%]
-    [% ELSIF !edit.is_open %]
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-            content=html_escape(UserDate.format(edit.close_time)) -%]
-    [% END %]
+        [% IF !edit.is_open && edit.status == 8 %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
+                content=l('<em>Cancelling</em>') -%]
+        [% ELSIF !edit.is_open %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
+                content=html_escape(UserDate.format(edit.close_time)) -%]
+        [% END %]
 
-    [% IF !summary %]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Affects:')
                 content=quality_name(edit.quality) -%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Requires:')
