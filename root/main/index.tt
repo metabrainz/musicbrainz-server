@@ -1,7 +1,5 @@
-[% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - Open Source Encyclopedia of Music Information") full_width=1 %]
-    <h1>[% l('Welcome to MusicBrainz!') %]</h1>
-    <div id="rightSide">
-
+[% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - Open Source Encyclopedia of Music Information") homepage=1 %]
+    <div id="sidebar">
         <div id="taggers" class="triple-column">
             <h2 class="taggers">Tag Your Music »</h2>
             <img src="http://wiki.xabbu.net/wiki/images/thumb/5/56/MusicBrainz_Picard.png/64px-MusicBrainz_Picard.png">
@@ -29,17 +27,17 @@
                     { doc => doc_link('Frequently_Asked_Questions') }) %]</li>
             </ul>
         </div>
-
     </div>
 
-    <div id="leftSide">
-
+    <div class="content">
+        <h1>[% l('Welcome to MusicBrainz!') %]</h1>
         [% IF !server_details.staging_server %]
             <h2>[% l("You are using a MusicBrainz $server_details.staging_server server!") %]</h2>
             <p>
                 [% l('Unless you want to be testing the latest and greatest MusicBrainz features you probably want to go to the main server {uri|http://musicbrainz.org}<img src="{ext_link}" alt="{ext_site}"/>.', {ext_link => c.uri_for('/static/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org"}) %]
             </p>
         [% END %]
+
         [% IF server_details.is_slave_db %]
             [% WRAPPER "components/box.tt" header=l("You are using a MusicBrainz mirror!") colour="purple" %]
                 <p>
@@ -47,7 +45,6 @@
                 </p>
             [% END %]
         [% END %]
-
 
         <p>
             <strong>[% l('MusicBrainz is an open source encyclopedia of music information.') %]</strong>
@@ -78,14 +75,13 @@
                   free => doc_link('MusicBrainz_License') }) %]
         </p>
 
-        <div class="links">
+        <div class="linkbar">
             [% l('{about|More Information} — {faq|FAQs} — {contract|Social Contract}',
                 { about => doc_link('About_MusicBrainz'),
                   contact => doc_link('Contact_Us'),
                   contract => doc_link('Social_Contract'),
                   faq => doc_link('Frequently_Asked_Questions') }) %]
         </div>
-    </div>
 
             <!--<p>
                 [% l('The MusicBrainz website is powered by the {server|MusicBrainz Server} which in turn uses the expansive {database|MusicBrainz Database}. Both these products (and others) are licensed using {license|commonly accepted open licenses} and are free to download for non-commercial use.',
@@ -98,6 +94,7 @@
                 [% l('The MusicBrainz Server can also accessed from a client application like a {tagger|MusicBrainz-powered tagger} or CD ripper.',
                     { tagger => doc_link('MusicBrainz_Tagger') }) %]
             </p>-->
+    </div>
 
     <div id="triple">
         <div id="community" class="triple-column first-column">
@@ -117,8 +114,5 @@
             <img src="http://wiki.xabbu.net/wiki/images/thumb/b/b1/Administrators.png/64px-Administrators.png">
             <p><a href="/404">Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.</a></p>
         </div>
-
     </div>
-
-
 [% END %]
