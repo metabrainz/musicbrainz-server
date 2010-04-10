@@ -13,9 +13,9 @@ body {
     font-size: 12px;
 }*/
 
-a { color:#002BBA; text-decoration: none; }
+a, .homepage a:visited { color:#002BBA; text-decoration: none; }
 a:visited { color:#3C5DCE; }
-a:hover { color:#FC6714; text-decoration: underline; }
+a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
 #header {
@@ -695,7 +695,7 @@ span.mp {
     background: #FD9;
 }
 
-/* Extra CSS Styles for the homepage */
+/* Extra CSS for the homepage */
 
 #triple {
     clear: both;
