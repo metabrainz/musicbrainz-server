@@ -111,7 +111,7 @@ sub puid : Private
 {
     my ($self, $c) = @_;
 
-    my $puid = $c->stash->{form}->field('puid')->value();
+    my $puid = $c->stash->{taglookup}->field('puid')->value();
     my @releases = $c->model('Release')->find_by_puid($puid);
 
     $c->model('ArtistCredit')->load(@releases);
@@ -128,7 +128,7 @@ sub external : Private
 {
     my ($self, $c) = @_;
 
-    my $form = $c->stash->{form};
+    my $form = $c->stash->{taglookup};
     my @terms;
     my $parsed = _parse_filename($form->field('filename')->value());
     my $mapping = { artist => 'artist', track => 'track', release => 'release',
@@ -176,7 +176,7 @@ sub index : Path('')
     my ($self, $c) = @_;
 
     my $form = $c->form( query_form => 'TagLookup' );
-    $c->stash->{form} = $form;
+    $c->stash->{taglookup} = $form;
 
     $c->stash->{nag} = $self->nag_check($c);
 

@@ -16,6 +16,7 @@ sub search : Path('')
 
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
+    $c->stash->{taglookup} = $c->form( query_form => 'TagLookup' );
 
     if ($form->process( params => $c->req->query_params ))
     {
