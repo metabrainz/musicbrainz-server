@@ -126,8 +126,13 @@ sub external : Private
     my $limit = 25;
     my $page   = $c->request->query_params->{page} || 1;
     my $adv = 1;
+    my $ua;
 
-    my $ret = $c->model('Search')->external_search($c, $type, $query, $limit, $page, $adv);
+    if (&DBDefs::_RUNNING_TESTS)
+    {
+        $ua = MusicBrainz::Server::Test::mock_search_server($type);
+    }
+    my $ret = $c->model('Search')->external_search($c, $type, $query, $limit, $page, $adv, $ua);
     if (exists $ret->{error})
     {
         if ($ret->{code} == 400 || $ret->{code} == 404)
