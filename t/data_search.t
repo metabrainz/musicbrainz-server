@@ -148,6 +148,19 @@ is ( $freedb->title,  'Love');
 is ( $freedb->category, 'misc');
 is ( $freedb->year, '');
 is ( $freedb->track_count, '19');
+
+my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+my @direct = MusicBrainz::Server::Data::Search->new(c => $c)->search(
+    'release', 'Blonde on blonde', 25, 0, 0);
+
+my $results = $direct[0];
+
+is ($direct[1], 2, "two search results");
+is ($results->[0]->entity->name, 'Blonde on Blonde', 'exact phrase ranked first');
+is ($results->[1]->entity->name, 'Blues on Blonde on Blonde', 'longer phrase ranked second');
+
 done_testing;
 
 1;

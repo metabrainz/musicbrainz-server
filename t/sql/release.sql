@@ -75,7 +75,7 @@ INSERT INTO artist (id, gid, name, sortname)
 INSERT INTO artist_credit (id, name, artistcount) VALUES (2, 2, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, joinphrase) VALUES (2, 2, 2, 1, NULL);
 
-INSERT into release_name (id, name) VALUES (3, 'Various Release');
+INSERT INTO release_name (id, name) VALUES (3, 'Various Release');
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (2, '25b6fe30-ff5b-11de-8a39-0800200c9a66', 3, 2);
 INSERT INTO release (id, gid, name, artist_credit, release_group)
@@ -89,8 +89,21 @@ INSERT INTO recording (id, artist_credit, name, gid)
 INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
     VALUES (1, 1, 1, 1, 1, 1);
 
-ALTER SEQUENCE release_name_id_seq RESTART 4;
-ALTER SEQUENCE release_group_id_seq RESTART 2;
-ALTER SEQUENCE release_id_seq RESTART 4;
+-- test search ranking.
+INSERT INTO release_name (id, name) VALUES (4, 'Blues on Blonde on Blonde');
+INSERT INTO release_group (id, gid, name, artist_credit)
+    VALUES (3, 'ac9a0149-5bb7-3fec-b6ac-16eaa529a28c', 4, 2);
+INSERT INTO release (id, gid, name, artist_credit, release_group)
+    VALUES (4, '6ef989ad-0158-4bbf-b446-c863d50cd6b6', 4, 2, 3);
+
+INSERT INTO release_name (id, name) VALUES (5, 'Blonde on Blonde');
+INSERT INTO release_group (id, gid, name, artist_credit)
+    VALUES (4, '329fb554-2a81-3d8a-8e22-ec2c66810019', 5, 2);
+INSERT INTO release (id, gid, name, artist_credit, release_group)
+    VALUES (5, '538aff00-a009-4515-a064-11a6d5a502ee', 5, 2, 3);
+
+ALTER SEQUENCE release_name_id_seq RESTART 6;
+ALTER SEQUENCE release_group_id_seq RESTART 5;
+ALTER SEQUENCE release_id_seq RESTART 6;
 
 COMMIT;
