@@ -17,7 +17,7 @@
                    IF work.iswc -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags tag_this_text=l('Tag this work') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags more=more_tags tag_this_text=l('Tag this work') -%]
 
         <ul class="links">
             [% IF c.user_exists %]

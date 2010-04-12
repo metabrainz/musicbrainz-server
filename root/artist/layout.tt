@@ -26,7 +26,7 @@
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags tag_this_text=l('Tag this artist') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags more=more_tags tag_this_text=l('Tag this artist') -%]
 
         <ul class="links">
             [% IF c.user_exists %]
