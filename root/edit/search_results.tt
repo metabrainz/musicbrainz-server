@@ -5,6 +5,7 @@
 
             $('.search-toggle a').click(function () {
                 $('.search-refine').slideToggle('500');
+                return false;
             })
         }
     </script>

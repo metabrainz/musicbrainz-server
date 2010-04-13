@@ -200,10 +200,6 @@ table.voteopts td {
     margin: 5px;
 }
 
-.search-toggle a {
-    cursor: pointer;
-}
-
 .search-refine {
     display: none;
     padding: 5px;

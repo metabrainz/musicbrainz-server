@@ -55,11 +55,11 @@
     </div>
 [% END %]
 
-<div class="search-toggle">
+<div class="search-toggle c">
     <p>
         <strong>[%- ln('Found {n} edit', 'Found {n} edits' , pager.total_entries, { n => pager.total_entries}) -%]</strong>
         [% IF search %]
-            (<a>[% l('search again') %]</a>)
+            (<a href="[% c.uri_for_action('/edit/search') %]">[% l('search again') %]</a>)
         [% END %]
     </p>
 </div>
