@@ -44,8 +44,10 @@ table.vote-tally .date {
     float: right;
 }
 
-table.voteopts td {
+.voteopts div {
     text-align: center;
+    display: inline-block;
+    margin: 0 5px;
 }
 
 .edit-notes .edit-note {
