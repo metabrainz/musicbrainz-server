@@ -1,36 +1,26 @@
-
-[% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
-
-[%- WRAPPER 'layout/sidebar/properties.tt' -%]
-    [% IF summary %]
-        [% IF edit.status == 1 %]
+[% IF summary %]
+    [% IF edit.status != 1 && edit.status != 2 && edit.status != 8 && edit.status != 9 %]
+        [%- WRAPPER 'layout/sidebar/properties.tt' -%]
             [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-                content=l('Open') -%]
-        [% ELSIF edit.status == 2 %]
-            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-                content=l('Applied') -%]
-        [% ELSIF edit.status == 9 %]
-            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-                content=l('Cancelled') -%]
+                content=edit.status_name -%]
         [% END %]
+    [% END %]
 
-        [% IF !edit.is_open && edit.status == 8 %]
-            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-                content=l('<em>Cancelling</em>') -%]
-        [% ELSIF !edit.is_open %]
-            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-                content=html_escape(UserDate.format(edit.close_time)) -%]
-        [% END %]
-    [% ELSE %]
+    [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
+[% ELSE %]
+    <p><strong>[% edit_status_description(edit) %]</strong></p>
+
+    [%- WRAPPER 'layout/sidebar/properties.tt' -%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
             content=html_escape(UserDate.format(edit.created_time)) -%]
 
-        [% IF !edit.is_open && edit.status == 8 %]
+        [%- IF edit.is_open -%]
+            <div class="edit-expiration">
+                [% expiration_time(edit.expires_time) %]
+            </div>
+        [% ELSE %]
             [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-                content=l('<em>Cancelling</em>') -%]
-        [% ELSIF !edit.is_open %]
-            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-                content=html_escape(UserDate.format(edit.close_time)) -%]
+                content=(edit.status == 8) ? l('<em>Cancelling</em>') : html_escape(UserDate.format(edit.close_time)) %]
         [% END %]
 
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Affects:')
@@ -41,10 +31,7 @@
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Conditions:')
                 content=edit_conditions(edit.conditions.expire_action) -%]
     [% END %]
-[% END %]
 
-[% IF !summary %]
-    <p><strong>[% edit_status_description(edit) %]</strong></p>
     <p>[%- l('For more information:') -%]</p>
     <ul class="links">
         <li>[%- l('{doc|Voting FAQ}', { doc => doc_link('Voting_FAQ') }) -%]</li>

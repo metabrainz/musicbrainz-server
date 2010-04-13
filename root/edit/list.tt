@@ -71,19 +71,16 @@
                 <div class="edit-list">
                     [% INCLUDE 'edit/header.tt' summary=1 %]
 
-                    [% IF edit.status == 1 %]
-                        <div class="vote-actions">
-                            [% INCLUDE 'edit/info.tt' summary=1 %]
-                            [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
-                                <div class="cancel-edit c">
-                                    [% PROCESS approve %]
-                                    [% PROCESS cancel %]
-                                </div>
-                            [% END %]
-                        </div>
-                    [% END %]
+                    <div class="vote-actions c">
+                        [% INCLUDE 'edit/info.tt' summary=1 %]
 
-
+                        [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+                            <div class="cancel-edit">
+                                [% PROCESS approve %]
+                                [% PROCESS cancel %]
+                            </div>
+                        [% END %]
+                    </div>
 
                     <div class="edit-details">
                         [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
