@@ -1,4 +1,10 @@
-/* Edit pages */
+/* Edit pages ('edit/index.tt' and 'edit/list.tt') */
+
+.edit-expiration {
+    clear: both;
+    font-weight: bold;
+    line-height: 200%;
+}
 
 .cancel-edit {
     float: right;
@@ -11,7 +17,7 @@
 
 .edit-list .cancel-edit {
     float: none;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 table.vote-tally {
@@ -50,10 +56,13 @@ table.vote-tally .date {
     margin: 0 5px;
 }
 
+/*
+** Edit notes
+*/
+
 .edit-notes .edit-note {
     margin: 5px 0;
     padding: 5px;
-/*    background-color: #FAFAFA;*/
 }
 
 .edit-notes .edit-note-text {
@@ -73,7 +82,6 @@ table.vote-tally .date {
 
 .edit-notes .edit-note h3.Yes {
     background-image: url('../images/user_add.png');
-    background-repeat: no-repeat;
 }
 /*.edit-notes .edit-note h3.Yes {
     background-image:url("../images/user.png"), url("http://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Ambox_emblem_plus.svg/48px-Ambox_emblem_plus.svg.png");
@@ -81,7 +89,6 @@ table.vote-tally .date {
 
 .edit-notes .edit-note h3.No {
     background-image: url('../images/user_delete.png');
-    background-repeat: no-repeat;
 }
 
 .edit-notes .edit-note h3.owner {
@@ -94,10 +101,52 @@ table.vote-tally .date {
     font-weight: normal;
 }
 
+/*
+** Edit list ('edit/list.tt')
+*/
+
 .edit-list {
     clear: both;
-    margin: 20px 0 0 0;
+    margin: 20px 0;
     background-color: #FAFAFA;
+}
+
+.edit-list .edit-header {
+    background-color: #E5E5E5;
+    border-right: 10px solid transparent;
+    padding: 0 10px 10px 10px;
+}
+
+.edit-list .edit-header > h2 {
+    margin-top: 0;
+}
+
+.edit-list .edit-header h2 {
+    padding-top: 10px;
+}
+
+.edit-list .edit-description {
+    float: right;
+    width: 210px;
+    margin-top: 6px;
+}
+
+.edit-list .edit-description dl.properties {
+    margin: 0;
+    clear: both;
+}
+
+.edit-list .edit-header.open { border-right: solid 10px #007700; }
+.edit-list .edit-header.cancelling { border-right: solid 10px #999999; }
+.edit-list .edit-header.cancelled { border-right: solid 10px #000000; }
+.edit-list .edit-header.failed { border-right: solid 10px #CC0000; }
+
+.edit-list .my-vote {
+    float: left;
+}
+
+.edit-list .vote-count {
+    float: right;
 }
 
 .edit-list .edit-details {
@@ -112,82 +161,14 @@ table.vote-tally .date {
     padding-left: 10px;
 }
 
-.edit-list .my-vote {
-    float: left;
-}
-
-.edit-list .vote-count {
-    float: right;
-}
-
-.edit-list table.voteopts {
-    width: 160px;
-    margin: 0 24px;
-}
-
-.edit-list .edit-expiration {
-    clear: both;
-    font-weight: bold;
-    line-height: 200%;
-}
-
-.vote-actions dl.properties {
+.edit-list .vote-actions dl.properties {
     margin: 5px 0;
     clear: both;
 }
 
-.edit-list .edit-header > h2 {
-    margin-top: 0;
-}
-
-.edit-list .edit-header {
-    background-color: #E5E5E5;
-    padding: 0 10px 10px 10px;
-}
-
-.edit-list .edit-header h2 {
-    color: #000000;
-    padding-top: 10px;
-}
-
 .edit-list .edit-notes {
-    margin: 20px 20px 0 20px;
+    margin: 20px 20px 0 40px;
     clear: both;
-}
-
-.edit-list .edit-description dl.properties {
-    margin: 0;
-    clear: both;
-}
-
-.edit-header .edit-description {
-    float: right;
-    width: 210px;
-    margin-top: 6px;
-}
-
-.edit-list .edit-header.open {
-/*    border-left: solid 10px #007700;*/
-    border-right: solid 10px #007700;
-}
-
-.edit-list .edit-header.cancelling {
-/*    border-left: solid 10px #999999;*/
-    border-right: solid 10px #999999;
-}
-
-.edit-list .edit-header.cancelled {
-/*    border-left: solid 10px #000000;*/
-    border-right: solid 10px #000000;
-}
-
-.edit-list .edit-header.failed {
-/*    border-left: solid 10px #CC0000;*/
-    border-right: solid 10px #CC0000;
-}
-
-.edit-header .edit-status {
-    font-weight: bold;
 }
 
 .seperator {
