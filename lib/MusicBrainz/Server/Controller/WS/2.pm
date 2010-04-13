@@ -16,78 +16,75 @@ Readonly our $MAX_ITEMS => 25;
 # rel_status and rg_type are special cases that allow for one release status and one release group
 # type per call to be specified.
 my $ws_defs = Data::OptList::mkopt([
-     artist => { 
+     artist => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ]
      },
-     artist => { 
-                         method   => 'GET', 
-                         inc      => [ qw( aliases discs labels _relations _rel_status _rg_type ) ],
+     artist => {
+                         method   => 'GET',
+                         inc      => [ qw(aliases discs labels _relations _rel_status _rg_type tags) ],
      },
-     "release-group" => { 
+     "release-group" => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ]
      },
-     "release-group" => { 
+     "release-group" => {
                          method   => 'GET',
-                         inc      => [ qw( artists releases _relations) ],
+                         inc      => [ qw(artists releases _relations tags) ],
      },
-     release => { 
-                         method   => 'GET',
-                         required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
-     },
-     release => { 
-                         method   => 'GET',
-                         inc      => [ qw(artists discs labels isrcs recordings releasegroups _relations)] 
-     },
-     recording => { 
+     release => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ]
      },
-     recording => { 
-                         method   => 'GET', 
-                         inc      => [ qw( artists isrcs puids releases _relations
-                                     )] 
+     release => {
+                         method   => 'GET',
+                         inc      => [ qw(artists discs isrcs labels recordings releasegroups _relations)]
      },
-     label => { 
+     recording => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ]
      },
-     label => { 
+     recording => {
                          method   => 'GET',
-                         inc      => [ qw( aliases  _relations
-                                     ) ], 
+                         inc      => [ qw(artists isrcs puids releases _relations tags) ]
      },
-     work => { 
+     label => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ]
      },
-     work => { 
+     label => {
                          method   => 'GET',
-                         inc      => [ qw( artists  _relations
-                                     )]
+                         inc      => [ qw(aliases  _relations tags) ],
      },
-     puid => { 
+     work => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ]
+     },
+     work => {
+                         method   => 'GET',
+                         inc      => [ qw(artists  _relations tags) ]
+     },
+     puid => {
                          method   => 'GET',
                          inc      => [ qw(artists releases releasegroups) ],
      },
-     isrc => { 
+     isrc => {
                          method   => 'GET',
                          inc      => [ qw(artists releases releasegroups) ],
      },
-     disc => { 
-                         method   => 'GET', 
-                         inc      => [ qw(artists releasegroups) ], 
+     disc => {
+                         method   => 'GET',
+                         inc      => [ qw(artists releasegroups) ],
      },
 ]);
 
-with 'MusicBrainz::Server::WebService::Validator' => 
+with 'MusicBrainz::Server::WebService::Validator' =>
 {
      defs => $ws_defs
 };
@@ -119,7 +116,7 @@ sub end : Private
 {
 }
 
-sub root : Chained('/') PathPart("ws/2") CaptureArgs(0) 
+sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 {
     my ($self, $c) = @_;
     $self->validate($c, \%serializers) or $c->detach('bad_req');
@@ -149,6 +146,13 @@ sub artist : Chained('root') PathPart('artist') Args(1)
     {
         $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id);
     }
+
+    if ($c->stash->{inc}->tags)
+    {
+        my @tags = $c->model('Artist')->tags->find_tags($artist->id);
+        $opts->{tags} = $tags[0];
+    }
+
     if ($c->stash->{inc}->rg_type)
     {
         my @rg = $c->model('ReleaseGroup')->filter_by_artist($artist->id, $c->stash->{inc}->rg_type);
@@ -166,7 +170,7 @@ sub artist : Chained('root') PathPart('artist') Args(1)
             @releases = grep { $_->status->id == $c->stash->{inc}->rel_status } @{$releases[0]};
 
             my %rg_to_rel_map;
-            foreach my $rel (@releases) 
+            foreach my $rel (@releases)
             {
                 $rg_to_rel_map{$rel->release_group_id} = [] if (!exists $rg_to_rel_map{$rel->release_group_id});
                 push @{$rg_to_rel_map{$rel->release_group_id}}, $rel;
@@ -235,6 +239,12 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
         if ($c->stash->{inc}->artists);
 
     my $opts = {};
+    if ($c->stash->{inc}->tags)
+    {
+        my @tags = $c->model('ReleaseGroup')->tags->find_tags($rg->id);
+        $opts->{tags} = $tags[0];
+    }
+
     if ($c->stash->{inc}->releases)
     {
         $opts->{releases} = $self->_load_paged($c, sub {
@@ -306,7 +316,7 @@ sub release: Chained('root') PathPart('release') Args(1)
 
     if ($c->stash->{inc}->labels)
     {
-        $c->model('ReleaseLabel')->load($release); 
+        $c->model('ReleaseLabel')->load($release);
         $c->model('Label')->load($release->all_labels)
     }
 
@@ -376,6 +386,13 @@ sub recording: Chained('root') PathPart('recording') Args(1)
         if ($c->stash->{inc}->artists);
 
     my $opts = {};
+
+    if ($c->stash->{inc}->tags)
+    {
+        my @tags = $c->model('Recording')->tags->find_tags($recording->id);
+        $opts->{tags} = $tags[0];
+    }
+
     if ($c->stash->{inc}->releases)
     {
         my @releases = $self->_load_paged($c, sub {
@@ -437,8 +454,15 @@ sub label : Chained('root') PathPart('label') Args(1)
     }
 
     my $opts = {};
-    $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id) 
+    $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id)
         if ($c->stash->{inc}->aliases);
+
+    if ($c->stash->{inc}->tags)
+    {
+        my @tags = $c->model('Label')->tags->find_tags($label->id);
+        $opts->{tags} = $tags[0];
+    }
+
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
@@ -486,6 +510,12 @@ sub work : Chained('root') PathPart('work') Args(1)
     }
 
     my $opts = {};
+    if ($c->stash->{inc}->tags)
+    {
+        my @tags = $c->model('Work')->tags->find_tags($work->id);
+        $opts->{tags} = $tags[0];
+    }
+
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();

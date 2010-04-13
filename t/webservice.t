@@ -15,43 +15,43 @@ use XML::LibXML;
 # These relation inc arguments will be attached to each URL if it contains the string &RELS&
 my $rels = '+artist-rels+release-group-rels+release-rels+recording-rels+work-rels+label-rels+url-rels';
 
-my $test_data = 
+my $test_data =
 [
-   { 
-     url => '/ws/2/artist/5441c29d-3602-4898-b1a1-b77fa23b8e50/?inc=sa-album+sa-official+aliases+labels+discs&RELS&', 
-     resource => 'artist' 
+   {
+     url => '/ws/2/artist/5441c29d-3602-4898-b1a1-b77fa23b8e50/?inc=sa-album+sa-official+aliases+labels+discs+tags&RELS&',
+     resource => 'artist'
    },
-   { 
-     url => '/ws/2/release-group/234c079d-374e-4436-9448-da92dedef3ce/?inc=artists+releases&RELS&', 
-     resource => 'release-group' 
+   {
+     url => '/ws/2/release-group/234c079d-374e-4436-9448-da92dedef3ce/?inc=artists+releases+tags&RELS&',
+     resource => 'release-group'
    },
-   { 
-     url => '/ws/2/release/f205627f-b70a-409d-adbe-66289b614e80?inc=artists+discs+labels+isrcs+recordings+release-groups+&RELS&', 
-     resource => 'release' 
+   {
+     url => '/ws/2/release/f205627f-b70a-409d-adbe-66289b614e80?inc=artists+discs+labels+isrcs+recordings+release-groups&RELS&',
+     resource => 'release'
    },
-   { 
-     url => '/ws/2/recording/54b9d183-7dab-42ba-94a3-7388a66604b8?inc=artists+isrcs+releases+&RELS&', 
-     resource => 'recording' 
+   {
+     url => '/ws/2/recording/54b9d183-7dab-42ba-94a3-7388a66604b8?inc=artists+isrcs+releases+tags&RELS&',
+     resource => 'recording'
    },
-   { 
-     url => '/ws/2/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=aliases+&RELS&', 
-     resource => 'label' 
+   {
+     url => '/ws/2/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=aliases+tags&RELS&',
+     resource => 'label'
    },
-   { 
-     url => '/ws/2/work/745c079d-374e-4436-9448-da92dedef3ce?inc=artists+&RELS&', 
-     resource => 'work' 
+   {
+     url => '/ws/2/work/745c079d-374e-4436-9448-da92dedef3ce?inc=artists+tags&RELS&',
+     resource => 'work'
    },
-   { 
-     url => '/ws/2/puid/b9c8f51f-cc9a-48fa-a415-4c91fcca80f0?inc=artists+releases+release-groups', 
-     resource => 'puid' 
+   {
+     url => '/ws/2/puid/b9c8f51f-cc9a-48fa-a415-4c91fcca80f0?inc=artists+releases+release-groups',
+     resource => 'puid'
    },
-   { 
-     url => '/ws/2/isrc/DEE250800230?inc=artists+releases+release-groups', 
-     resource => 'isrc' 
+   {
+     url => '/ws/2/isrc/DEE250800230?inc=artists+releases+release-groups',
+     resource => 'isrc'
    },
-   { 
-     url => '/ws/2/disc/tLGBAiCflG8ZI6lFcOt87vXjEcI-?inc=artists+release-groups', 
-     resource => 'disc' 
+   {
+     url => '/ws/2/disc/tLGBAiCflG8ZI6lFcOt87vXjEcI-?inc=artists+release-groups',
+     resource => 'disc'
    },
 ];
 
@@ -84,9 +84,9 @@ foreach my $test (@{$test_data})
     if ($rngschema)
     {
         my $doc = XML::LibXML->new()->parse_string($mech->content);
-        eval 
-        { 
-            $rngschema->validate( $doc ); 
+        eval
+        {
+            $rngschema->validate( $doc );
         };
         is( $@, '');
     }
