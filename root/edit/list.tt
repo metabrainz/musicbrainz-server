@@ -16,6 +16,22 @@
     [% END %]
 [% END %]
 
+[% BLOCK edit_status %]
+    [% IF edit.status == 1 %]
+        [%- " open" -%]
+    [% ELSIF edit.status == 2 %]
+        [%- " applied" -%]
+    [% ELSIF edit.status == 3 %]
+        [%- " failed" -%]
+    [% ELSIF edit.status == 8 %]
+        [%- " cancelling" -%]
+    [% ELSIF edit.status == 9 %]
+        [%- " cancelled" -%]
+    [% ELSE %]
+        [%- " error" -%]
+    [% END %]
+[% END %]
+
 <div class="search-help">
     <dl class="properties">
         <dt>
@@ -71,8 +87,8 @@
                 <div class="edit-list">
                     [% INCLUDE 'edit/header.tt' summary=1 %]
 
-                    <div class="vote-actions c">
-                        [% INCLUDE 'edit/info.tt' summary=1 %]
+                    <div class="vote-actions c[%- PROCESS edit_status -%]">
+                        [%- INCLUDE 'edit/info.tt' summary=1 -%]
 
                         [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
                             <div class="cancel-edit">

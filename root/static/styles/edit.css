@@ -136,10 +136,12 @@ table.vote-tally .date {
     clear: both;
 }
 
-.edit-list .edit-header.open { border-right: solid 10px #007700; }
-.edit-list .edit-header.cancelling { border-right: solid 10px #999999; }
-.edit-list .edit-header.cancelled { border-right: solid 10px #000000; }
-.edit-list .edit-header.failed { border-right: solid 10px #CC0000; }
+.edit-list .applied { border-right: solid 10px #999999; }
+.edit-list .open { border-right: solid 10px gold; }
+.edit-list .cancelling { border-right: solid 10px #000000; }
+.edit-list .cancelled { border-right: solid 10px #000000; }
+.edit-list .failed { border-right: solid 10px #FF0000; }
+.edit-list .error { border-right: solid 10px #880000; }
 
 .edit-list .my-vote {
     float: left;
@@ -157,7 +159,6 @@ table.vote-tally .date {
     float: right;
     width: 220px;
     background-color: #E5E5E5;
-    border-right: 10px solid #007700;
     padding-left: 10px;
 }
 
