@@ -23,7 +23,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      artist => {
                          method   => 'GET',
-                         inc      => [ qw(aliases discs labels _relations _rel_status _rg_type tags) ],
+                         inc      => [ qw(aliases discs labels _relations _rel_status _rg_type tags usertags) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -102,6 +102,17 @@ sub bad_req : Private
                   "\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012"));
 }
 
+sub unauthorized : Private
+{
+    my ($self, $c) = @_;
+    $c->res->status(401);
+    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->body($c->stash->{serializer}->output_error("\nYour credentials ".
+        "could not be verified.\nEither you supplied the wrong credentials ".
+        "(e.g., bad password), or your client doesn't understand how to ".
+        "supply the credentials required."));
+}
+
 sub not_found : Private
 {
     my ($self, $c) = @_;
@@ -119,7 +130,10 @@ sub end : Private
 sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 {
     my ($self, $c) = @_;
+
     $self->validate($c, \%serializers) or $c->detach('bad_req');
+
+    $c->authenticate({}, 'webservice') if ($c->stash->{authorization_required});
 }
 
 sub artist : Chained('root') PathPart('artist') Args(1)

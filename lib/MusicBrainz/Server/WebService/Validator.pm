@@ -56,7 +56,8 @@ sub validate_inc
     for my $i (@inc)
     {
         next if (!$i);
-        $i =~ s/release-groups/releasegroups/;
+#         $i =~ s/release-groups/releasegroups/;
+        $i =~ s/-//;
         if ($allow_type && exists $types{$i})
         {
             if ($type_used)
@@ -151,6 +152,9 @@ role {
                 $inc = validate_inc($c, $resource, $c->req->params->{inc}, $def->[1]->{inc});
                 return 0 unless ($inc);
             }
+
+            # Check if authorization is required.
+            $c->stash->{authorization_required} = $inc->{usertags} || $inc->{userratings};
 
             # Check the type and prepare a serializer. For now, since we only support XML
             # we're going to default to XML. In the future if we want to add more serializations,
