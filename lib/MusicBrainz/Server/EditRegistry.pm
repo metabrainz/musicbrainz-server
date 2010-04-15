@@ -47,8 +47,11 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Tracklist::DeleteTrack
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
+    MusicBrainz::Server::Edit::Work::AddAlias
     MusicBrainz::Server::Edit::Work::AddAnnotation
+    MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
+    MusicBrainz::Server::Edit::Work::EditAlias
 );
 
 sub register_type

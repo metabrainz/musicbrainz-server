@@ -75,6 +75,9 @@ Readonly our $EDIT_RELEASE_EDITRELEASELABEL => 37;
 
 Readonly our $EDIT_WORK_EDIT => 42;
 Readonly our $EDIT_WORK_ADD_ANNOTATION => 45;
+Readonly our $EDIT_WORK_ADD_ALIAS => 46;
+Readonly our $EDIT_WORK_DELETE_ALIAS => 47;
+Readonly our $EDIT_WORK_EDIT_ALIAS => 48;
 
 Readonly our $EDIT_MEDIUM_CREATE => 51;
 Readonly our $EDIT_MEDIUM_EDIT => 52;

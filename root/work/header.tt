@@ -1,6 +1,7 @@
 [%- info_links = [
     ['index', link_work(work, 'show', l('Overview'))],
     ['relationships', link_work(work, 'relationships', l('Relationships'))],
+    ['aliases', link_work(work, 'aliases', l('Aliases'))],
     ['edit', link_work(work, 'edit', l('Edit'))],
 ] -%]
 

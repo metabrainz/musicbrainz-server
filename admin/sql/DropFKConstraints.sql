@@ -182,6 +182,8 @@ ALTER TABLE track DROP CONSTRAINT track_fk_artist_credit;
 ALTER TABLE work DROP CONSTRAINT work_fk_name;
 ALTER TABLE work DROP CONSTRAINT work_fk_artist_credit;
 ALTER TABLE work DROP CONSTRAINT work_fk_type;
+ALTER TABLE work_alias DROP CONSTRAINT work_alias_fk_work;
+ALTER TABLE work_alias DROP CONSTRAINT work_alias_fk_name;
 ALTER TABLE work_annotation DROP CONSTRAINT work_annotation_fk_work;
 ALTER TABLE work_annotation DROP CONSTRAINT work_annotation_fk_annotation;
 ALTER TABLE work_gid_redirect DROP CONSTRAINT work_gid_redirect_fk_newid;

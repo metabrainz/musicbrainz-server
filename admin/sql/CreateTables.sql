@@ -883,6 +883,15 @@ CREATE TABLE work (
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE work_alias
+(
+    id                  SERIAL,
+    work                INTEGER NOT NULL, -- references work.id
+    name                INTEGER NOT NULL, -- references work_name.id
+    locale              TEXT,
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE work_annotation
 (
     work                INTEGER NOT NULL, -- PK, references work.id
