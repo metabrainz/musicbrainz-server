@@ -375,9 +375,14 @@ sub _serialize_work
 {
     my ($self, $data, $gen, $work, $inc, $opts) = @_;
 
+    my $iswc = $work->iswc;
+    $iswc =~ s/^\s+//;
+    $iswc =~ s/\s+$//;
+    $iswc =~ s/\.//g;
+
     my @list;
     push @list, $gen->title($work->name);
-    push @list, $gen->iswc($work->iswc) if ($work->iswc ne '               ');
+    push @list, $gen->iswc($iswc) if $iswc;
 
     $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $opts)
         if ($work->artist_credit && $inc->{artists});
