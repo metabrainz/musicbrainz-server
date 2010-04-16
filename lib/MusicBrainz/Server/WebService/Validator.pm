@@ -56,8 +56,8 @@ sub validate_inc
     for my $i (@inc)
     {
         next if (!$i);
-#         $i =~ s/release-groups/releasegroups/;
-        $i =~ s/-//;
+        $i =~ s/release-groups/releasegroups/;
+        $i =~ s/user-/user/;
         if ($allow_type && exists $types{$i})
         {
             if ($type_used)
