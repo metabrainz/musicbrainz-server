@@ -158,7 +158,7 @@ sub _tags_and_ratings
     {
         $model->load_meta($entity);
         $opts->{ratings} = {
-            rating => $entity->rating,
+            rating => $entity->rating * 5 / 100,
             count => $entity->rating_count,
         };
     }
@@ -166,7 +166,7 @@ sub _tags_and_ratings
     if ($c->stash->{inc}->userratings)
     {
         $model->rating->load_user_ratings($c->user->id, $entity);
-        $opts->{userratings} = $entity->user_rating;
+        $opts->{userratings} = $entity->user_rating * 5 / 100;
     }
 }
 

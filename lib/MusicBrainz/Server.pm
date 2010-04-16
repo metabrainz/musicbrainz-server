@@ -85,11 +85,7 @@ if (DBDefs::EMAIL_BUGS) {
     push @args, "ErrorCatcher";
 }
 
-__PACKAGE__->config->{'Plugin::Cache'}{backend} = {
-    class => "Cache::Memory",
-#     class => "Cache::Memcached::Fast",
-#     servers => ['127.0.0.1:11211'],
-};
+__PACKAGE__->config->{'Plugin::Cache'}{backend} = &DBDefs::PLUGIN_CACHE_OPTIONS;
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
