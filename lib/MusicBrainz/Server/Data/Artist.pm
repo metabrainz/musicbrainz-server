@@ -86,7 +86,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY name.name, artist.id
+                 ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },

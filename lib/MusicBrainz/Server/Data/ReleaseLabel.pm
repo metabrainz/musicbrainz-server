@@ -64,7 +64,7 @@ sub find_by_label
                     JOIN release ON release.id=rl.release
                     JOIN release_name name ON release.name=name.id
                  WHERE rl.label = ?
-                 ORDER BY date_year, date_month, date_day, catno, name.name
+                 ORDER BY date_year, date_month, date_day, catno, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
