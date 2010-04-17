@@ -26,16 +26,21 @@ Installation
 
   $ make
   $ sudo make install
-  $ psql musicbrainz_db
+  $ cd ..
 
   musicbrainz_db=# set search_path=musicbrainz
-  musicbrainz_db=# \i install.sql
+  musicbrainz_db=# \i musicbrainz_collate.sql
   CREATE FUNCTION
   musicbrainz_db=# \q
+
+You can also use InitDb.pl to install extensions, e.g. like this:
+
+  $ ./admin/InitDb.pl --install-extension=musicbrainz_collate.sql  --extension-schema=musicbrainz
 
 Make sure your database user has sufficient permissions to create functions.
 See http://www.postgresql.org/docs/8.3/interactive/contrib.html for more
 information about using postgresql extensions.
+
 
 Usage
 =====
