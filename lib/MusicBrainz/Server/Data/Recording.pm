@@ -66,7 +66,7 @@ sub find_by_artist
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
                  WHERE acn.artist = ?
-                 ORDER BY name.name
+                 ORDER BY musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },

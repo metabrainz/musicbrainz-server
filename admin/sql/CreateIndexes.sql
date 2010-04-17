@@ -195,6 +195,15 @@ CREATE INDEX work_tag_idx_tag ON work_tag (tag);
 CREATE INDEX artist_name_idx_lower_name ON artist_name (lower(name));
 CREATE INDEX label_name_idx_lower_name ON label_name (lower(name));
 
+-- musicbrainz_collate indexes for unicode sorting
+CREATE INDEX release_name_idx_musicbrainz_collate ON release_name (musicbrainz_collate(name));
+CREATE INDEX artist_name_idx_musicbrainz_collate ON artist_name (musicbrainz_collate(name));
+CREATE INDEX label_name_idx_musicbrainz_collate ON label_name (musicbrainz_collate(name));
+CREATE INDEX track_name_idx_musicbrainz_collate ON track_name (musicbrainz_collate(name));
+CREATE INDEX work_name_idx_musicbrainz_collate ON work_name (musicbrainz_collate(name));
+
+
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :
