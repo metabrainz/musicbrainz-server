@@ -4,15 +4,7 @@ use strict;
 use warnings;
 use base 'MusicBrainz::Server::Controller';
 use MusicBrainz::Server::Form::TagLookup;
-
-sub _quote_for_lucene
-{
-    my $phrase = shift;
-
-    $phrase =~ s/"/\\"/g;
-
-    return '"'.$phrase.'"';
-}
+use MusicBrainz::Server::Data::Search qw( escape_query );
 
 sub _parse_filename
 {
@@ -113,11 +105,11 @@ sub external : Private
     {
         if ($form->field($field)->value())
         {
-            push @terms, "$term: "._quote_for_lucene($form->field($field)->value());
+            push @terms, "$term:".MusicBrainz::Server::Data::Search::escape_query($form->field($field)->value());
         }
         elsif ($parsed->{$field})
         {
-            push @terms, "$term: "._quote_for_lucene($parsed->{$field})
+            push @terms, "$term:".MusicBrainz::Server::Data::Search::escape_query($parsed->{$field})
         }
     }
 
@@ -128,11 +120,7 @@ sub external : Private
     my $adv = 1;
     my $ua;
 
-    if (&DBDefs::_RUNNING_TESTS)
-    {
-        $ua = MusicBrainz::Server::Test::mock_search_server($type);
-    }
-    my $ret = $c->model('Search')->external_search($c, $type, $query, $limit, $page, $adv, $ua);
+    my $ret = $c->model('Search')->external_search($c, $type, $query, $limit, $page, $adv);
     if (exists $ret->{error})
     {
         if ($ret->{code} == 400 || $ret->{code} == 404)
