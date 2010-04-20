@@ -1,8 +1,12 @@
 package MusicBrainz::Server::Entity::Editor;
 use Moose;
+use LWP;
+use URI::Escape;
 
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Types qw( :privileges );
+
+use constant LOOKUPS_PER_NAG => 5;
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -117,6 +121,65 @@ has 'preferences' => (
     lazy => 1,
     default => sub { MusicBrainz::Server::Entity::Preferences->new }
 );
+
+sub donation_check
+{
+    my ($self) = @_;
+
+    my $nag = 1;
+    $nag = 0 if ($self->is_nag_free || $self->is_auto_editor || $self->is_bot ||
+                 $self->is_relationship_editor || $self->is_wiki_transcluder);
+
+    my $days = 0.0;
+    if ($nag)
+    {
+        my $ua = LWP::UserAgent->new;
+        $ua->agent("MusicBrainz server");
+        $ua->timeout(5); # in seconds.
+
+        my $response = $ua->request(HTTP::Request->new (GET =>
+            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
+            uri_escape($self->name)));
+
+        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
+        {
+            $nag = $1;
+            $days = $2;
+        }
+        else
+        {
+            return undef;
+        }
+    }
+
+    return { nag => $nag, days => $days };
+}
+
+# returns 1 if the user should get a "please donate" screen, 0 otherwise.
+sub nag_check
+{
+    my ($self, $session) = @_;
+
+    $session->{nag} = 0 unless defined $session->{nag};
+
+    return 0 if ($session->{nag} == -1);
+
+    if (!defined $session->{nag_check_timeout} || $session->{nag_check_timeout} <= time())
+    {
+        my $result = $self->donation_check;
+        my $nag = $result ? $result->{nag} : 0; # don't nag if metabrainz is unreachable.
+
+        $session->{nag} = -1 unless $nag;
+        $session->{nag_check_timeout} = time() + (24 * 60 * 60); # check again tomorrow.
+    }
+
+    $session->{nag}++;
+
+    return 0 if ($session->{nag} < LOOKUPS_PER_NAG);
+
+    $session->{nag} = 0;
+    return 1; # nag this user.
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

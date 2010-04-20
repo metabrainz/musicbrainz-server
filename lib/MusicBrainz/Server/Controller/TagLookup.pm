@@ -145,6 +145,8 @@ sub index : Path('')
     my $form = $c->form( query_form => 'TagLookup' );
     $c->stash->{form} = $form;
 
+    $c->stash->{nag} = $c->user_exists ? $c->user->nag_check($c->session) : 1;
+
     return unless $form->submitted_and_valid( $c->req->query_params );
 
     $c->stash->{template} = 'taglookup/results-release.tt';
