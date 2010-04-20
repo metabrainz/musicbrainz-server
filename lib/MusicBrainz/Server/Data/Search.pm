@@ -416,7 +416,15 @@ sub external_search
                                  $limit,);
     $c->log->debug($search_url);
 
-    $ua = LWP::UserAgent->new if (!defined $ua);
+    if (&DBDefs::_RUNNING_TESTS)
+    {
+        $ua = MusicBrainz::Server::Test::mock_search_server($type);
+    }
+    else
+    {
+        $ua = LWP::UserAgent->new if (!defined $ua);
+    }
+
     $ua->timeout (5);
     $ua->env_proxy;
 

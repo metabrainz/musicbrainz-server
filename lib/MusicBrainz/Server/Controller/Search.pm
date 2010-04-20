@@ -151,12 +151,7 @@ sub external : Private
     my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
 
     my $search = $c->model('Search');
-    my $ua;
-    if (&DBDefs::_RUNNING_TESTS)
-    {
-        $ua = MusicBrainz::Server::Test::mock_search_server($type);
-    }
-    my $ret = $search->external_search($c, $type, $query, $limit, $page, $adv, $ua);
+    my $ret = $search->external_search($c, $type, $query, $limit, $page, $adv);
 
     if (exists $ret->{error})
     {
