@@ -1,30 +1,15 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::List;
+package MusicBrainz::Server::WebService::Serializer::XML::1::Alias;
 use Moose;
-
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
-has '_element' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-sub element { return $_[0]->_element . '-list'; }
+sub element { 'alias'; }
 
 before 'serialize' => sub 
 {
-    my $self = shift;
-    my $attributes = (ref $_[0] eq 'HASH') ? shift : 0;
-    my ($entities, $inc, $opts) = @_;
+    my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes( { %{$self->attributes}, %$attributes } ) if $attributes;
-
-    return unless $entities && @$entities;
-
-    $self->_element( serializer($entities->[0])->new->element );
-
-    map { $self->add( serialize_entity($_) ) } @$entities;
+    $self->add( $entity->name );
 };
 
 __PACKAGE__->meta->make_immutable;

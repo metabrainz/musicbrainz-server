@@ -3,6 +3,7 @@ package MusicBrainz::Server::WebService::XMLSerializerV1;
 use Moose;
 use Readonly;
 use MusicBrainz::XML::Generator;
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup';
 
 sub mime_type { 'application/xml' }
@@ -32,9 +33,7 @@ sub serialize
 
     my $xml = $xml_decl_begin;
 
-    my $serializer = ReleaseGroup->new;
-
-    $xml .= $serializer->serialize($entity, $inc, $opts);
+    $xml .= serialize_entity($entity, $inc, $opts);
 
     $xml .= $xml_decl_end;
     return $xml;

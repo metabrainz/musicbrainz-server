@@ -11,10 +11,9 @@ use MusicBrainz::Server::WebService::Validator;
 # rel_status and rg_type are special cases that allow for one release status and one release group
 # type per call to be specified.
 my $ws_defs = Data::OptList::mkopt([
-     "release-group" => {
+     label => {
                          method   => 'GET',
-                         required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         inc      => [ qw(aliases  _relations) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -59,6 +58,48 @@ sub root : Chained('/') PathPart("ws/1") CaptureArgs(0)
 {
     my ($self, $c) = @_;
     $self->validate($c, \%serializers) or $c->detach('bad_req');
+}
+
+sub label : Chained('root') PathPart('label') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    my $label = $c->model('Label')->get_by_gid($gid);
+    unless ($label) {
+        $c->detach('not_found');
+    }
+
+    my $opts = {};
+    $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id)
+        if ($c->stash->{inc}->aliases);
+
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $label);
+        $opts->{rels} = $label->relationships;
+
+        # load the artist type, as /ws/1 always included that for artists.
+        my @artists = grep { $_->target_type eq 'artist' } @{$opts->{rels}};
+        $c->model('ArtistType')->load(map { $_->target } @artists);
+
+        # load the label country and type, as /ws/1 always included that for labels.
+        my @labels = grep { $_->target_type eq 'label' } @{$opts->{rels}};
+        $c->model('Country')->load(map { $_->target } @labels);
+        $c->model('LabelType')->load(map { $_->target } @labels);
+    }
+
+    $c->model('Country')->load($label);
+    $c->model('LabelType')->load($label);
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $opts));
 }
 
 sub release_group : Chained('root') PathPart('release-group') Args(1)
@@ -106,6 +147,8 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts));
 }
+
+
 
 sub release_group_search : Chained('root') PathPart('release-group') Args(0)
 {

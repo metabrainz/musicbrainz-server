@@ -1,34 +1,29 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::List;
-use Moose;
+package MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships;
+use Moose::Role;
 
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
+use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
-extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-
-has '_element' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-sub element { return $_[0]->_element . '-list'; }
+requires 'serialize';
 
 before 'serialize' => sub 
 {
-    my $self = shift;
-    my $attributes = (ref $_[0] eq 'HASH') ? shift : 0;
-    my ($entities, $inc, $opts) = @_;
+    my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes( { %{$self->attributes}, %$attributes } ) if $attributes;
+    my %rels;
+    foreach (@{$opts->{rels}})
+    {
+        $rels{$_->target_type} = [] unless $rels{$_->target_type};
 
-    return unless $entities && @$entities;
+        push @{$rels{$_->target_type}}, $_;
+    }
 
-    $self->_element( serializer($entities->[0])->new->element );
-
-    map { $self->add( serialize_entity($_) ) } @$entities;
+    foreach my $key (keys %rels)
+    {
+        $self->add( List->new->serialize({ 'target-type' => ucfirst($key) }, $rels{$key}) );
+    }
 };
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT

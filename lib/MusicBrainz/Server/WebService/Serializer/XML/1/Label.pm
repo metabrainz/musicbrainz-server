@@ -1,30 +1,32 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::List;
-use Moose;
+package MusicBrainz::Server::WebService::Serializer::XML::1::Label;
 
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
+use Moose;
+use String::CamelCase qw(camelize);
+use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 
-has '_element' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-sub element { return $_[0]->_element . '-list'; }
+sub element { 'label'; }
 
 before 'serialize' => sub 
 {
-    my $self = shift;
-    my $attributes = (ref $_[0] eq 'HASH') ? shift : 0;
-    my ($entities, $inc, $opts) = @_;
+    my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes( { %{$self->attributes}, %$attributes } ) if $attributes;
+    if ($entity->type)
+    {
+        my $type = $entity->type->name;
+        $type =~ s/ /_/;
+        $self->attributes->{type} = camelize($type);
+    }
 
-    return unless $entities && @$entities;
-
-    $self->_element( serializer($entities->[0])->new->element );
-
-    map { $self->add( serialize_entity($_) ) } @$entities;
+    $self->add($self->gen->name($entity->name));
+    $self->add($self->gen->sort_name($entity->sort_name));
+    $self->add($self->gen->country($entity->country->iso_code)) if $entity->country;
+    
+    $self->add( List->new->serialize($opts->{aliases}) )
+        if ($inc && $inc->aliases);
 };
 
 __PACKAGE__->meta->make_immutable;

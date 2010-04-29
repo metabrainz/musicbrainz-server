@@ -10,6 +10,10 @@ our @EXPORT_OK = qw(
 
 Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit',
+    'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Artist',
+    'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Label',
+    'MusicBrainz::Server::Entity::LabelAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
+    'MusicBrainz::Server::Entity::Relationship' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Relation',
     'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Release',
     'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup',
 );
@@ -27,9 +31,7 @@ sub serializer
 
 sub serialize_entity
 {
-    my $entity = shift;
-
-    return serializer($entity)->new->serialize($entity);
+    return serializer($_[0])->new->serialize(@_);
 }
 
 1;

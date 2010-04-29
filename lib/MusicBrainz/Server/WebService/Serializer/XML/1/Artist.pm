@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup;
+package MusicBrainz::Server::WebService::Serializer::XML::1::Artist;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
@@ -10,8 +10,10 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    push @{$self->children}, $self->gen->name($entity->name);
-    push @{$self->children}, $self->gen->sort_name($entity->sort_name);
+    $self->attributes->{type} = $entity->type->name;
+
+    $self->add($self->gen->name($entity->name));
+    $self->add($self->gen->sort_name($entity->sort_name));
 };
 
 __PACKAGE__->meta->make_immutable;
