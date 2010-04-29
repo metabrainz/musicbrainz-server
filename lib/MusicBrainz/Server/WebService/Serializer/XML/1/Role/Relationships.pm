@@ -19,7 +19,10 @@ before 'serialize' => sub
 
     foreach my $key (keys %rels)
     {
-        $self->add( List->new->serialize({ 'target-type' => ucfirst($key) }, $rels{$key}) );
+        my $type = ucfirst($key);
+        $type =~ s/Recording/Track/;
+
+        $self->add( List->new->serialize({ 'target-type' => $type }, $rels{$key}) );
     }
 };
 

@@ -25,6 +25,7 @@ our %relation_types = (
     "release-rels" => 1,
     "release-group-rels" => 1,
     "recording-rels" => 1,
+    "track-rels" => 1,  # FIXME: only needed for /ws/1, this needs to be split off from /ws/2.
     "label-rels" => 1,
     "work-rels" => 1,
     "url-rels" => 1,

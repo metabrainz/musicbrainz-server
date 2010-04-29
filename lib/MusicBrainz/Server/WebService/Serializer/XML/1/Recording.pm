@@ -1,27 +1,17 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::Release;
+package MusicBrainz::Server::WebService::Serializer::XML::1::Recording;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 
-sub element { 'release'; }
+sub element { 'track'; }
 
 before 'serialize' => sub 
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes->{type} = join (" ", $entity->release_group->type->name, $entity->status->name);
-
     $self->add( $self->gen->title($entity->name) );
-
-    $self->add( $self->gen->text_representation({
-        language => uc($entity->language->iso_code_3b),
-        script => $entity->script->iso_code,
-    }));
-
-    $self->add( $self->gen->track({ 
-        offset => $entity->combined_track_count - 1,
-    })) if $entity->combined_track_count;
+    $self->add( $self->gen->duration($entity->length) ) if $entity->length;
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -93,6 +93,17 @@ sub label : Chained('root') PathPart('label') Args(1)
         my @labels = grep { $_->target_type eq 'label' } @{$opts->{rels}};
         $c->model('Country')->load(map { $_->target } @labels);
         $c->model('LabelType')->load(map { $_->target } @labels);
+
+        my @releases = grep { $_->target_type eq 'release' } @{$opts->{rels}};
+        for (@releases)
+        {
+            $_->target->release_group (
+                $c->model('ReleaseGroup')->get_by_id($_->target->release_group_id));
+        }
+        $c->model('ReleaseStatus')->load(map { $_->target } @releases);
+        $c->model('ReleaseGroupType')->load(map { $_->target->release_group } @releases);
+        $c->model('Script')->load(map { $_->target } @releases);
+        $c->model('Language')->load(map { $_->target } @releases);
     }
 
     $c->model('Country')->load($label);

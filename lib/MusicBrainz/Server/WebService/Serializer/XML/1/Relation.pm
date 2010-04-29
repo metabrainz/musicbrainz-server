@@ -25,17 +25,16 @@ before 'serialize' => sub
     {
         $self->attributes->{target} = $entity->target->name;
     }
-    elsif ($entity->target_type eq 'artist' || $entity->target_type eq 'label')
+    elsif ($entity->target_type eq 'artist' || 
+           $entity->target_type eq 'label' || 
+           $entity->target_type eq 'release' ||
+           $entity->target_type eq 'recording')
     {
         $self->attributes->{target} = $entity->target->gid;
         $self->add( serialize_entity($entity->target) );
     }
 
-#         $self->releaserels / release-rels
-#         $self->labelrels / label-rels
 #         $self->tracklevelrels / track-level-rels
-#         $self->recordingrels / track-rels
-
 
 };
 

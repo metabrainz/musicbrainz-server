@@ -34,6 +34,7 @@ sub get_rel_types
     push @rels, 'artist' if ($self->artist_rels);
     push @rels, 'label' if ($self->label_rels);
     push @rels, 'recording' if ($self->recording_rels);
+    push @rels, 'recording' if ($self->track_rels); # FIXME: only for /ws/1
     push @rels, 'release' if ($self->release_rels);
     push @rels, 'release_group' if ($self->release_group_rels);
     push @rels, 'url' if ($self->url_rels);
