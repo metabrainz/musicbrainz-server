@@ -36,6 +36,15 @@ sub find_tags
         $query, $entity_id, $offset);
 }
 
+sub find_tag_count
+{
+    my ($self, $entity_id) = @_;
+    my $query = "SELECT count(*) FROM " . $self->tag_table . " entity_tag " .
+                "WHERE " . $self->type . " = ? ";
+
+    return Sql->new($self->c->dbh)->select_single_value($query, $entity_id);
+}
+
 sub find_top_tags
 {
     my ($self, $entity_id, $limit, $offset) = @_;
