@@ -378,7 +378,6 @@ sub _serialize_work
     my $iswc = $work->iswc;
     $iswc =~ s/^\s+//;
     $iswc =~ s/\s+$//;
-    $iswc =~ s/\.//g;
 
     my @list;
     push @list, $gen->title($work->name);
