@@ -15,6 +15,8 @@ has $_ => (
           tags ratings user_tags user_ratings
 );
 
+# artist trackrels asin  were added only for /ws/1
+
 sub has_rels
 {
     my ($self) = @_;

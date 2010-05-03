@@ -24,7 +24,7 @@ before 'serialize' => sub
     $self->add($self->gen->name($entity->name));
     $self->add($self->gen->sort_name($entity->sort_name));
     $self->add($self->gen->country($entity->country->iso_code)) if $entity->country;
-    
+
     $self->add( List->new->serialize($opts->{aliases}) )
         if ($inc && $inc->aliases);
 };

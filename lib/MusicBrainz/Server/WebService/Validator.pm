@@ -94,6 +94,11 @@ sub validate_inc
 
         $i =~ s/mediums/media/;
 
+#     for my $i (@inc)
+#     {
+#         next if (!$i);
+#         $i =~ s/release-groups/releasegroups/;
+#         $i = lc($i); # for /ws/1
 #         if ($allow_type && exists $types{$i})
 #         {
 #             if ($type_used)

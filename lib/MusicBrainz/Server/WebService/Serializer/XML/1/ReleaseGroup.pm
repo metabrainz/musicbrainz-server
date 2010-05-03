@@ -10,9 +10,12 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 
 sub element { 'release-group'; }
 
-before 'serialize' => sub 
+before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
+
+    # a special case, used when the release group is included in an artist lookup.
+    return if $opts->{'gid-only'};
 
     $self->attributes->{type} = $entity->type->name;
 

@@ -24,7 +24,7 @@ before 'serialize' => sub
 
     $self->_element( serializer($entities->[0])->new->element );
 
-    map { $self->add( serialize_entity($_) ) } @$entities;
+    map { $self->add( serialize_entity($_, $inc, $opts) ) } @$entities;
 };
 
 __PACKAGE__->meta->make_immutable;

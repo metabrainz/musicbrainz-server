@@ -1,12 +1,13 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1::Release;
 use Moose;
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 
 sub element { 'release'; }
 
-before 'serialize' => sub 
+before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
@@ -19,7 +20,19 @@ before 'serialize' => sub
         script => $entity->script->iso_code,
     }));
 
-    $self->add( $self->gen->track({ 
+    my @asins = grep { $_->link->type->name eq 'amazon asin' } @{$entity->relationships};
+    foreach (@asins)
+    {
+        # FIXME: use aCiD2's coverart/amazon stuff to get the ASIN.
+        $self->add( $self->gen->asin("".$2) )
+            if ($_->target->url =~
+                m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i);
+    }
+
+    $self->add( serialize_entity($entity->release_group, undef, { 'gid-only' => 1 }) )
+        if ($inc && $inc->releasegroups);
+
+    $self->add( $self->gen->track({
         offset => $entity->combined_track_count - 1,
     })) if $entity->combined_track_count;
 };
