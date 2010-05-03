@@ -375,9 +375,13 @@ sub _serialize_work
 {
     my ($self, $data, $gen, $work, $inc, $opts) = @_;
 
+    my $iswc = $work->iswc;
+    $iswc =~ s/^\s+//;
+    $iswc =~ s/\s+$//;
+
     my @list;
     push @list, $gen->title($work->name);
-    push @list, $gen->iswc($work->iswc) if ($work->iswc ne '               ');
+    push @list, $gen->iswc($iswc) if $iswc;
 
     $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $opts)
         if ($work->artist_credit && $inc->{artists});
@@ -459,9 +463,14 @@ sub _serialize_isrc_list
 {
     my ($self, $data, $gen, $isrcs, $inc, $opts) = @_;
 
-    my @list;
     my %uniq_isrc;
-    map { $uniq_isrc{$_->isrc} = $_ } @$isrcs; 
+    foreach (@$isrcs)
+    {
+        $uniq_isrc{$_->isrc} = [] unless $uniq_isrc{$_->isrc};
+        push @{$uniq_isrc{$_->isrc}}, $_;
+    }
+
+    my @list;
     foreach my $k (keys %uniq_isrc)
     {
         $self->_serialize_isrc(\@list, $gen, $uniq_isrc{$k}, $inc, $opts);
@@ -471,12 +480,14 @@ sub _serialize_isrc_list
 
 sub _serialize_isrc
 {
-    my ($self, $data, $gen, $isrc, $inc, $opts) = @_;
+    my ($self, $data, $gen, $isrcs, $inc, $opts) = @_;
+
+    my @recordings = map { $_->recording } grep { $_->recording } @$isrcs;
 
     my @list;
-    $self->_serialize_recording(\@list, $gen, $isrc->recording, $inc, $opts)
-        if ($isrc->recording);
-    push @$data, $gen->isrc({ id => $isrc->isrc }, @list);
+    $self->_serialize_recording_list(\@list, $gen, \@recordings, $inc, $opts)
+        if @recordings;
+    push @$data, $gen->isrc({ id => $isrcs->[0]->isrc }, @list);
 }
 
 sub _serialize_tag_list

@@ -115,7 +115,7 @@ INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
 INSERT INTO work (id, gid, name, artist_credit, type, iswc) VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 'T-000.000.001-0');
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 'T-205.072.689-8');
 
 TRUNCATE release_status CASCADE;
 
