@@ -27,7 +27,11 @@ table.vote-tally {
 
 table.vote-tally tr {
     border-top: 1px dotted #999999;
-    border-bottom: 1px dotted #999999;
+    border-bottom: 1px dotted #DDDDDD;
+}
+
+table.vote-tally tr.first {
+    border-bottom: none;
 }
 
 table.vote-tally th {

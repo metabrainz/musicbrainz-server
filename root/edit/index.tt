@@ -76,7 +76,7 @@
                 </tr>
             [% END %]
             [% FOR vote=edit.votes %]
-                <tr[% ' class="superseded"' IF vote.superseded %]>
+                <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
                     <th>[% link_editor(vote.editor) %]</th>
                     <td class="vote">
                         [% vote.vote_name %]
