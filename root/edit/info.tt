@@ -1,3 +1,21 @@
+[% BLOCK approve %]
+    [% IF edit.auto_edit_for_editor(c.user) %]
+        <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Approve edit') %]" />
+        </form>
+    [% END %]
+[% END %]
+
+[% BLOCK cancel %]
+    [% IF edit.is_open && edit.editor_id == c.user.id %]
+        <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]">
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
+            <input type="submit" value="[% l('Cancel edit') %]" />
+        </form>
+    [% END %]
+[% END %]
+
 [% IF summary %]
     [% IF edit.status != 1 && edit.status != 2 && edit.status != 8 && edit.status != 9 %]
         [%- WRAPPER 'layout/sidebar/properties.tt' -%]
@@ -7,6 +25,13 @@
     [% END %]
 
     [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
+
+    [% IF edit.is_open && (edit.auto_edit_for_editor(c.user) || edit.editor_id == c.user.id) %]
+        <div class="cancel-edit">
+            [% PROCESS approve %]
+            [% PROCESS cancel %]
+        </div>
+    [% END %]
 [% ELSE %]
     <p><strong>[% edit_status_description(edit) %]</strong></p>
 
