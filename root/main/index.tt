@@ -31,21 +31,6 @@
 
     <div class="content">
         <h1>[% l('Welcome to MusicBrainz!') %]</h1>
-        [% IF !server_details.staging_server %]
-            <h2>[% l("You are using a MusicBrainz $server_details.staging_server server!") %]</h2>
-            <p>
-                [% l('Unless you want to be testing the latest and greatest MusicBrainz features you probably want to go to the main server {uri|http://musicbrainz.org}<img src="{ext_link}" alt="{ext_site}"/>.', {ext_link => c.uri_for('/static/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org"}) %]
-            </p>
-        [% END %]
-
-        [% IF server_details.is_slave_db %]
-            [% WRAPPER "components/box.tt" header=l("You are using a MusicBrainz mirror!") colour="purple" %]
-                <p>
-                    [% l('If you want to edit the MusicBrainz data, you will need to go to the {uri|main MusicBrainz server}<img src="{ext_link}" alt="{ext_site}" width="12" />.', {ext_link => c.uri_for('/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org/"}) %]
-                </p>
-            [% END %]
-        [% END %]
-
         <p>
             <strong>[% l('MusicBrainz is an open source encyclopedia of music information.') %]</strong>
         </p>
