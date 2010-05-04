@@ -35,8 +35,7 @@
 
             text.focus(function() {
                 text.css('color','#000000');
-                text.css('width','75%');
-                text.css('minWidth','480px');
+                text.css('width','98%');
                 text.attr('rows','5');
                 button.css('display','inline');
             })

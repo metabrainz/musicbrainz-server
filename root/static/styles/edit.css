@@ -1,9 +1,7 @@
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
-.edit-expiration {
-    clear: both;
-    font-weight: bold;
-    line-height: 200%;
+dl.edit-status {
+    margin: 0;
 }
 
 .cancel-edit {
@@ -41,7 +39,7 @@ table.vote-tally th {
 
 table.vote-tally .vote {
     width: 100%;
-    padding: 5px 5px 5px 10px;
+    padding: 5px 10px;
 }
 
 table.vote-tally tr.superseded,
@@ -66,7 +64,7 @@ table.vote-tally .date {
 
 .edit-notes .edit-note {
     margin: 5px 0;
-    padding: 5px;
+    padding: 5px 0 5px 5px;
 }
 
 .edit-notes .edit-note-text {
@@ -87,9 +85,6 @@ table.vote-tally .date {
 .edit-notes .edit-note h3.Yes {
     background-image: url('../images/user_add.png');
 }
-/*.edit-notes .edit-note h3.Yes {
-    background-image:url("../images/user.png"), url("http://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Ambox_emblem_plus.svg/48px-Ambox_emblem_plus.svg.png");
-}*/
 
 .edit-notes .edit-note h3.No {
     background-image: url('../images/user_delete.png');
@@ -103,6 +98,21 @@ table.vote-tally .date {
     color: #333333;
     float: right;
     font-weight: normal;
+}
+
+.add-edit-note {
+    padding: 5px 0 5px 5px;
+}
+
+.add-edit-note textarea {
+    width: 350px;
+    color: #999999;
+    display: block;
+}
+
+.add-edit-note input {
+    display: none;
+    margin-top: 5px;
 }
 
 /*

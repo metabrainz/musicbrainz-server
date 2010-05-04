@@ -22,6 +22,8 @@
         </div>
     [% END %]
 [% ELSE %]
-    <p><em>[% l('No edit notes have been added.') %]</em></p>
+    <div class="edit-note">
+        <em>[% l('No edit notes have been added.') %]</em>
+    </div>
 [% END %]
 
