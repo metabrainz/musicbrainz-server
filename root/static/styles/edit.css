@@ -169,6 +169,10 @@ table.vote-tally .date {
 .edit-list .vote-actions dl.properties {
     margin: 5px 0;
     clear: both;
+
+.edit-list .edit-actions .edit-status {
+    margin: 10px 0;
+    font-weight: bold;
 }
 
 .edit-list .edit-notes {

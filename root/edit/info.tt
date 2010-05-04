@@ -17,11 +17,10 @@
 [% END %]
 
 [% IF summary %]
-    [% IF edit.status != 1 && edit.status != 2 && edit.status != 8 && edit.status != 9 %]
-        [%- WRAPPER 'layout/sidebar/properties.tt' -%]
-            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-                content=edit.status_name -%]
-        [% END %]
+    [% IF edit.status != 1 && edit.status != 2 %]
+        <div class="edit-status">
+            [%- edit.status_name -%]
+        </div>
     [% END %]
 
     [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
