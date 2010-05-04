@@ -69,7 +69,7 @@
                 <div class="edit-list">
                     [% INCLUDE 'edit/header.tt' summary=1 %]
 
-                    <div class="vote-actions c[%- PROCESS edit_status -%]">
+                    <div class="edit-actions c[%- PROCESS edit_status -%]">
                         [%- INCLUDE 'edit/info.tt' summary=1 -%]
                     </div>
 

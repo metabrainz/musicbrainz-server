@@ -35,42 +35,44 @@
 <div class="edit-header[%- PROCESS edit_status -%]">
     [% IF summary %]
         <div class="edit-description">
-            [% IF edit.latest_vote_for_editor(c.user.id) %]
-                <div class="my-vote">
-                    <strong>[%- l('My vote: ') -%]</strong>
-                    [%- edit.latest_vote_for_editor(c.user.id).vote_name -%]
-                </div>
-            [% ELSIF c.user.id == edit.editor_id %]
-                <div class="my-vote">
-                    <strong>[%- l('My vote: ') -%]</strong>
-                    [%- l('N/A') -%]
-                </div>
-            [% ELSIF !edit.is_open && !edit.latest_vote_for_editor(c.user.id) %]
-                <div class="my-vote">
-                    <strong>[%- l('My vote: ') -%]</strong>
-                    [%- l('No vote') -%]
-                </div>
-            [% END %]
-
-            [% IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open %]
-                <div class="vote-count">[%- edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]</div>
-            [% END %]
-
-            [% IF edit.status == 1 %]
-                <div class="edit-expiration">
-                    [% expiration_time(edit.expires_time) %]
-                </div>
-            [% ELSIF !edit.is_open && edit.status == 8 %]
-                [%- WRAPPER 'layout/sidebar/properties.tt' -%]
-                    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-                        content=l('<em>Cancelling</em>') -%]
-                [% END %]
-            [% ELSIF !edit.is_open %]
-                [%- WRAPPER 'layout/sidebar/properties.tt' -%]
-                    [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
-                        content=html_escape(UserDate.format(edit.close_time)) -%]
-                [% END %]
-            [% END %]
+            <table>
+                <tr>
+                    <td>
+                        [% IF edit.latest_vote_for_editor(c.user.id) %]
+                            <div class="my-vote">
+                                <strong>[%- l('My vote: ') -%]</strong>
+                                [%- edit.latest_vote_for_editor(c.user.id).vote_name -%]
+                            </div>
+                        [% ELSIF c.user.id == edit.editor_id %]
+                            <div class="my-vote">
+                                <strong>[%- l('My vote: ') -%]</strong>
+                                [%- l('N/A') -%]
+                            </div>
+                        [% ELSIF !edit.is_open && !edit.latest_vote_for_editor(c.user.id) %]
+                            <div class="my-vote">
+                                <strong>[%- l('My vote: ') -%]</strong>
+                                [%- l('None') -%]
+                            </div>
+                        [% END %]
+                    </td>
+                    <td class="vote-count">
+                        [% IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open %]
+                            <div>[%- edit.yes_votes _ l(' yes') _ " : " _ edit.no_votes _ l(' no') -%]</div>
+                        [% END %]
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="edit-expiration">
+                        [% IF edit.status == 1 %]
+                            [% expiration_time(edit.expires_time) %]
+                        [% ELSIF !edit.is_open && edit.status == 8 %]
+                            [%- l('<strong>Closed:</strong> <em>Cancelling</em>') -%]
+                        [% ELSIF !edit.is_open %]
+                            [%- l('<strong>Closed:</strong> {date}', { date => html_escape(UserDate.format(edit.close_time)) }) -%]
+                        [% END %]
+                    </td>
+                </tr>
+            </table>
         </div>
         <h2>
             [%- link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ edit.edit_name)) -%]

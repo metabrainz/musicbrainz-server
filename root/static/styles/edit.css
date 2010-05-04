@@ -131,13 +131,15 @@ table.vote-tally .date {
 
 .edit-list .edit-description {
     float: right;
-    width: 210px;
     margin-top: 6px;
 }
 
-.edit-list .edit-description dl.properties {
-    margin: 0;
-    clear: both;
+.edit-list .edit-description .edit-expiration {
+    min-width: 210px;
+}
+
+.edit-list .open .edit-expiration {
+    font-weight: bold;
 }
 
 .edit-list .applied { border-right: solid 10px transparent; }
@@ -148,23 +150,22 @@ table.vote-tally .date {
 .edit-list .error { border-right: solid 10px #660000; }
 
 .edit-list .vote-count {
-    float: right;
+    text-align: right;
 }
 
 .edit-list .edit-details {
     margin-top: 10px;
 }
 
-.edit-list .vote-actions {
+.edit-list .edit-actions {
     float: right;
-    width: 220px;
     background-color: #E5E5E5;
-    padding-left: 10px;
+    padding: 0 10px;
 }
 
-.edit-list .vote-actions dl.properties {
-    margin: 5px 0;
-    clear: both;
+.edit-list .edit-actions .voteopts {
+    margin-bottom: 10px;
+}
 
 .edit-list .edit-actions .edit-status {
     margin: 10px 0;
