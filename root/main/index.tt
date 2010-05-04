@@ -2,7 +2,7 @@
     <div id="sidebar">
         <div id="taggers" class="triple-column">
             <h2 class="taggers">Tag Your Music »</h2>
-            <img src="http://wiki.xabbu.net/wiki/images/thumb/5/56/MusicBrainz_Picard.png/64px-MusicBrainz_Picard.png">
+            <img src="[% c.uri_for('/static/images/musicbrainz-picard.png') %]">
             <ul>
                 <li>[% l('{doc|MusicBrainz Picard}',
                     { doc => doc_link('MusicBrainz_Picard') }) %]</li>
@@ -13,9 +13,9 @@
             </ul>
         </div>
 
-        <div id="guide" class="triple-column">
+        <div id="quick-start" class="triple-column">
             <h2>[% l('Quick Start »') %]</h2>
-            <img src="http://wiki.xabbu.net/wiki/images/thumb/6/61/Crystal_Clear_app_kdict.png/64px-Crystal_Clear_app_kdict.png">
+            <img src="[% c.uri_for('/static/images/quick-start.png') %]">
             <ul>
                 <li>[% l('{doc|Beginners guide}',
                     { doc => doc_link('Beginners_Guide') }) %]</li>
@@ -51,7 +51,8 @@
         </p>
 
         <p>
-            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users. We want everyone — including you — to <a>participate and contribute</a>.') %]
+            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users. We want everyone — including you — to {doc|participate and contribute}.',
+                { doc => doc_link('How_To_Contribute') }) %]
         </p>
 
         <p>
@@ -76,43 +77,39 @@
         </p>
 
         <div class="linkbar">
-            [% l('{about|More Information} — {faq|FAQs} — {contract|Social Contract}',
+            [% l('{about|More Information} — {faq|FAQs} — {contact|Contact Us}',
                 { about => doc_link('About_MusicBrainz'),
                   contact => doc_link('Contact_Us'),
-                  contract => doc_link('Social_Contract'),
                   faq => doc_link('Frequently_Asked_Questions') }) %]
         </div>
-
-            <!--<p>
-                [% l('The MusicBrainz website is powered by the {server|MusicBrainz Server} which in turn uses the expansive {database|MusicBrainz Database}. Both these products (and others) are licensed using {license|commonly accepted open licenses} and are free to download for non-commercial use.',
-                    { server => doc_link('MusicBrainz_Server'), 
-                      database => doc_link('MusicBrainz_Database'),
-                      license => doc_link('MusicBrainz_License') }) %]
-            </p>
-
-            <p>
-                [% l('The MusicBrainz Server can also accessed from a client application like a {tagger|MusicBrainz-powered tagger} or CD ripper.',
-                    { tagger => doc_link('MusicBrainz_Tagger') }) %]
-            </p>-->
     </div>
 
     <div id="triple">
         <div id="community" class="triple-column first-column">
             <h2 class="community">Community »</h2>
-            <img src="http://wiki.xabbu.net/wiki/images/thumb/4/42/Userportal.png/64px-Userportal.png">
-            <p><a href="/404">Become a part of our <strong>global community</strong> and start <strong>contributing</strong> to the project!</a></p>
+            <img src="[% c.uri_for('/static/images/community.png') %]">
+            <p>
+                [% l('{doc|Become a part of our <strong>global community</strong> and start <strong>contributing</strong> to the project!}',
+                    { doc => doc_link('How_To_Contribute') }) %]
+            </p>
         </div>
 
         <div id="products" class="triple-column">
             <h2 class="products">MusicBrainz Database »</h2>
-            <img src="http://wiki.xabbu.net/wiki/images/thumb/2/2b/Crystal_Clear_app_download_manager.png/64px-Crystal_Clear_app_download_manager.png">
-            <p><a href="/404">The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded for <strong>free</strong>.</a></p>
+            <img src="[% c.uri_for('/static/images/download.png') %]">
+            <p>
+                [% l('{doc|The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded for <strong>free</strong>.}',
+                    { doc => doc_link('MusicBrainz_Database') }) %]
+            </p>
         </div>
 
         <div id="developers" class="triple-column last-column">
             <h2 class="developers">Developers »</h2>
-            <img src="http://wiki.xabbu.net/wiki/images/thumb/b/b1/Administrators.png/64px-Administrators.png">
-            <p><a href="/404">Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.</a></p>
+            <img src="[% c.uri_for('/static/images/developer.png') %]">
+            <p>
+                [% l('{doc|Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.}',
+                    { doc => doc_link('Developer_Resources') }) %]
+            </p>
         </div>
     </div>
 [% END %]
