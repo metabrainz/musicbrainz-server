@@ -33,7 +33,12 @@
         </div>
     [% END %]
 [% ELSE %]
-    <p><strong>[% edit_status_description(edit) %]</strong></p>
+    [%- WRAPPER 'layout/sidebar/properties.tt' class='edit-status'-%]
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
+            content=edit.status_name -%]
+    [% END %]
+
+    <p>[% edit_status_description(edit) %]</p>
 
     [%- WRAPPER 'layout/sidebar/properties.tt' -%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
