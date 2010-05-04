@@ -78,7 +78,7 @@ table.vote-tally .date {
     background-image: url('../images/user.png');
     background-repeat: no-repeat;
     background-position: 5px 50%;
-    background-color: #F0F0F0;
+    background-color: #EAEAEA;
     height: 16px;
     margin: 0 0 10px;
     padding: 5px 10px 5px 26px;
@@ -112,7 +112,7 @@ table.vote-tally .date {
 .edit-list {
     clear: both;
     margin: 20px 0;
-    background-color: #FAFAFA;
+    background-color: #F7F7F7;
 }
 
 .edit-list .edit-header {
@@ -140,16 +140,12 @@ table.vote-tally .date {
     clear: both;
 }
 
-.edit-list .applied { border-right: solid 10px #999999; }
+.edit-list .applied { border-right: solid 10px transparent; }
 .edit-list .open { border-right: solid 10px gold; }
-.edit-list .cancelling { border-right: solid 10px #000000; }
-.edit-list .cancelled { border-right: solid 10px #000000; }
+.edit-list .cancelling { border-right: solid 10px #999999; }
+.edit-list .cancelled { border-right: solid 10px #999999; }
 .edit-list .failed { border-right: solid 10px #FF0000; }
-.edit-list .error { border-right: solid 10px #880000; }
-
-.edit-list .my-vote {
-    float: left;
-}
+.edit-list .error { border-right: solid 10px #660000; }
 
 .edit-list .vote-count {
     float: right;
@@ -195,8 +191,8 @@ table.vote-tally .date {
 .search-refine {
     display: none;
     padding: 5px;
-    border-bottom: 1px solid;
-    background-color: #FAFAFA;
+    border-bottom: 2px solid #999999;
+    background-color: #F7F7F7;
 }
 
 .search-refine div.row {
