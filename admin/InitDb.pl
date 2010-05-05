@@ -220,6 +220,7 @@ sub CreateRelations
     die "\nFailed to create schema\n" if ($? >> 8);
 
     InstallExtension($SYSMB, "cube.sql", "musicbrainz");
+    InstallExtension($SYSMB, "musicbrainz_collate.sql", "musicbrainz");
 
     RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($RAWDATA, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");

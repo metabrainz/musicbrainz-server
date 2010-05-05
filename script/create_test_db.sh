@@ -10,6 +10,7 @@ echo 'CREATE SCHEMA musicbrainz_test;' | ./admin/psql --profile=test RAWDATA
 
 echo `date` : Installing cube extension
 ./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz_test
+./admin/InitDb.pl --install-extension=musicbrainz_collate.sql  --extension-schema=musicbrainz_test
 
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateTables.sql
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateFunctions.sql

@@ -82,7 +82,7 @@ sub find_by_artist
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
                  WHERE acn.artist = ?
-                 ORDER BY date_year, date_month, date_day, name.name
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -96,7 +96,7 @@ sub find_by_release_group
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE release_group IN (" . placeholders(@ids) . ")
-                 ORDER BY date_year, date_month, date_day, name.name
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -115,7 +115,7 @@ sub find_by_track_artist
                          JOIN artist_credit_name acn
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?)
-                 ORDER BY date_year, date_month, date_day, name.name
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -177,11 +177,11 @@ sub find_by_collection
 
     my $extra_join = "";
     my $order_by = order_by($order, "date", {
-        "date"   => "date_year, date_month, date_day, name.name",
-        "title"  => "name.name, date_year, date_month, date_day, name.name",
+        "date"   => "date_year, date_month, date_day, musicbrainz_collate(name.name)",
+        "title"  => "musicbrainz_collate(name.name), date_year, date_month, date_day",
         "artist" => sub {
             $extra_join = "JOIN artist_name ac_name ON ac_name.id=release.artist_credit";
-            return "ac_name.name, date_year, date_month, date_day, name.name";
+            return ", musicbrainz_collate(ac_name.name), date_year, date_month, date_day, musicbrainz_collate(name.name)";
         },
     });
 
