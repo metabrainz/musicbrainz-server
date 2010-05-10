@@ -198,6 +198,8 @@ sub mock_search_server
 {
     my ($type) = @_;
 
+    $type =~ s/-/_/;
+
     local $/;
     my $searchresults = "t/json/search_".lc($type).".json";
     open(JSON, $searchresults) or die ("Could not open $searchresults");
