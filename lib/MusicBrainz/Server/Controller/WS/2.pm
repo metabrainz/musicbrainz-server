@@ -23,7 +23,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      artist => {
                          method   => 'GET',
-                         inc      => [ qw(aliases discs labels _relations _rel_status _rg_type tags) ],
+                         inc      => [ qw(aliases discs labels _relations _rel_status _rg_type tags usertags ratings userratings) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -32,7 +32,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      "release-group" => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases _relations tags) ],
+                         inc      => [ qw(artists releases _relations tags usertags ratings userratings) ],
      },
      release => {
                          method   => 'GET',
@@ -50,7 +50,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      recording => {
                          method   => 'GET',
-                         inc      => [ qw(artists isrcs puids releases _relations tags) ]
+                         inc      => [ qw(artists isrcs puids releases _relations tags usertags ratings userratings) ]
      },
      label => {
                          method   => 'GET',
@@ -59,7 +59,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      label => {
                          method   => 'GET',
-                         inc      => [ qw(aliases  _relations tags) ],
+                         inc      => [ qw(aliases  _relations tags usertags ratings userratings) ],
      },
      work => {
                          method   => 'GET',
@@ -68,7 +68,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      work => {
                          method   => 'GET',
-                         inc      => [ qw(artists  _relations tags) ]
+                         inc      => [ qw(artists  _relations tags usertags ratings userratings) ]
      },
      puid => {
                          method   => 'GET',
@@ -102,6 +102,17 @@ sub bad_req : Private
                   "\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012"));
 }
 
+sub unauthorized : Private
+{
+    my ($self, $c) = @_;
+    $c->res->status(401);
+    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->body($c->stash->{serializer}->output_error("\nYour credentials ".
+        "could not be verified.\nEither you supplied the wrong credentials ".
+        "(e.g., bad password), or your client doesn't understand how to ".
+        "supply the credentials required."));
+}
+
 sub not_found : Private
 {
     my ($self, $c) = @_;
@@ -119,7 +130,44 @@ sub end : Private
 sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 {
     my ($self, $c) = @_;
+
     $self->validate($c, \%serializers) or $c->detach('bad_req');
+
+    $c->authenticate({}, 'webservice') if ($c->stash->{authorization_required});
+}
+
+sub _tags_and_ratings
+{
+    my ($self, $c, $modelname, $entity, $opts) = @_;
+
+    my $model = $c->model($modelname);
+
+    if ($c->stash->{inc}->tags)
+    {
+        my @tags = $model->tags->find_tags($entity->id);
+        $opts->{tags} = $tags[0];
+    }
+
+    if ($c->stash->{inc}->usertags)
+    {
+        my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
+        $opts->{usertags} = \@tags;
+    }
+
+    if ($c->stash->{inc}->ratings)
+    {
+        $model->load_meta($entity);
+        $opts->{ratings} = {
+            rating => $entity->rating * 5 / 100,
+            count => $entity->rating_count,
+        };
+    }
+
+    if ($c->stash->{inc}->userratings)
+    {
+        $model->rating->load_user_ratings($c->user->id, $entity);
+        $opts->{userratings} = $entity->user_rating * 5 / 100;
+    }
 }
 
 sub artist : Chained('root') PathPart('artist') Args(1)
@@ -147,11 +195,7 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id);
     }
 
-    if ($c->stash->{inc}->tags)
-    {
-        my @tags = $c->model('Artist')->tags->find_tags($artist->id);
-        $opts->{tags} = $tags[0];
-    }
+    $self->_tags_and_ratings($c, 'Artist', $artist, $opts);
 
     if ($c->stash->{inc}->rg_type)
     {
@@ -239,11 +283,7 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
         if ($c->stash->{inc}->artists);
 
     my $opts = {};
-    if ($c->stash->{inc}->tags)
-    {
-        my @tags = $c->model('ReleaseGroup')->tags->find_tags($rg->id);
-        $opts->{tags} = $tags[0];
-    }
+    $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
 
     if ($c->stash->{inc}->releases)
     {
@@ -386,12 +426,7 @@ sub recording: Chained('root') PathPart('recording') Args(1)
         if ($c->stash->{inc}->artists);
 
     my $opts = {};
-
-    if ($c->stash->{inc}->tags)
-    {
-        my @tags = $c->model('Recording')->tags->find_tags($recording->id);
-        $opts->{tags} = $tags[0];
-    }
+    $self->_tags_and_ratings($c, 'Recording', $recording, $opts);
 
     if ($c->stash->{inc}->releases)
     {
@@ -457,11 +492,7 @@ sub label : Chained('root') PathPart('label') Args(1)
     $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id)
         if ($c->stash->{inc}->aliases);
 
-    if ($c->stash->{inc}->tags)
-    {
-        my @tags = $c->model('Label')->tags->find_tags($label->id);
-        $opts->{tags} = $tags[0];
-    }
+    $self->_tags_and_ratings($c, 'Label', $label, $opts);
 
     if ($c->stash->{inc}->has_rels)
     {
@@ -510,11 +541,7 @@ sub work : Chained('root') PathPart('work') Args(1)
     }
 
     my $opts = {};
-    if ($c->stash->{inc}->tags)
-    {
-        my @tags = $c->model('Work')->tags->find_tags($work->id);
-        $opts->{tags} = $tags[0];
-    }
+    $self->_tags_and_ratings($c, 'Work', $work, $opts);
 
     if ($c->stash->{inc}->has_rels)
     {
@@ -661,6 +688,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 Copyright (C) 2009 Robert Kaye
 

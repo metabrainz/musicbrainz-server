@@ -24,7 +24,7 @@ sub _serialize_life_span
         my @span;
         push @span, $gen->begin($entity->begin_date->format) if $has_begin_date;
         push @span, $gen->end($entity->end_date->format) if $has_end_date;
-        push @$data, $gen->life_span(@span); 
+        push @$data, $gen->life_span(@span);
     }
 }
 
@@ -37,7 +37,7 @@ sub _serialize_text_representation
         my @tr;
         push @tr, $gen->language($entity->language->iso_code_3t) if $entity->language;
         push @tr, $gen->script($entity->script->iso_code) if $entity->script;
-        push @$data, $gen->text_representation(@tr); 
+        push @$data, $gen->text_representation(@tr);
     }
 }
 
@@ -77,7 +77,7 @@ sub _serialize_artist
     $self->_serialize_release_group_list(\@list, $gen, $opts->{release_groups}, $inc, $opts) if ($inc->rg_type);
     $self->_serialize_label_list(\@list, $gen, $opts->{labels}, $inc, $opts) if ($inc->labels);
     $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships) if ($inc->has_rels);
-    $self->_serialize_tag_list(\@list, $gen, $inc, $opts) if ($opts->{tags} && $inc->{tags});
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->artist(\%attrs, @list);
 }
@@ -87,7 +87,7 @@ sub _serialize_artist_credit
     my ($self, $data, $gen, $artist_credit, $inc, $opts) = @_;
 
     my @ac;
-    foreach my $name (@{$artist_credit->names}) 
+    foreach my $name (@{$artist_credit->names})
     {
         my %artist_attr = ( id => $name->artist->gid );
 
@@ -141,7 +141,7 @@ sub _serialize_release_group
         if ($opts->{releases} && $inc->{releases});
 
     $self->_serialize_relation_lists($release_group, \@list, $release_group->relationships) if $inc->has_rels;
-    $self->_serialize_tag_list(\@list, $gen, $inc, $opts) if ($opts->{tags} && $inc->{tags});
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->release_group(\%attr, @list);
 }
@@ -223,8 +223,7 @@ sub _serialize_recording
         if ($opts->{isrcs} && $inc->{isrcs});
     $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships)
         if ($inc->has_rels);
-    $self->_serialize_tag_list(\@list, $gen, $inc, $opts)
-        if ($opts->{tags} && $inc->{tags});
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->recording({ id => $recording->gid }, @list);
 
@@ -275,12 +274,12 @@ sub _serialize_track
     push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
     push @track, $gen->position($track->position);
 
-    # Save the current state of the releases inc setting, and don't pass it to the 
+    # Save the current state of the releases inc setting, and don't pass it to the
     # recording serializer to avoid it from outputing releases.
     my $saved = $inc->releases;
     $inc->releases(0);
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $opts);
-   
+
     # Now restore the inc setting
     $inc->releases($saved);
 
@@ -367,7 +366,7 @@ sub _serialize_label
     $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
-    $self->_serialize_tag_list(\@list, $gen, $inc, $opts) if ($opts->{tags} && $inc->{tags});
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
     push @$data, $gen->label(@list);
 }
 
@@ -388,8 +387,7 @@ sub _serialize_work
 
     push @list, $gen->disambiguation($work->comment) if $work->comment;
 
-    $self->_serialize_tag_list(\@list, $gen, $inc, $opts)
-        if ($opts->{tags} && $inc->{tags});
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->work({ id => $work->gid, type => $work->type->name }, @list);
 }
@@ -490,6 +488,20 @@ sub _serialize_isrc
     push @$data, $gen->isrc({ id => $isrcs->[0]->isrc }, @list);
 }
 
+sub _serialize_tags_and_ratings
+{
+    my ($self, $data, $gen, $inc, $opts) = @_;
+
+    $self->_serialize_tag_list($data, $gen, $inc, $opts)
+        if ($opts->{tags} && $inc->{tags});
+    $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
+        if ($opts->{usertags} && $inc->{usertags});
+    $self->_serialize_rating($data, $gen, $inc, $opts)
+        if ($opts->{ratings} && $inc->{ratings});
+    $self->_serialize_user_rating($data, $gen, $inc, $opts)
+        if ($opts->{userratings} && $inc->{userratings});
+}
+
 sub _serialize_tag_list
 {
     my ($self, $data, $gen, $inc, $opts) = @_;
@@ -507,6 +519,42 @@ sub _serialize_tag
     my ($self, $data, $gen, $tag, $inc, $opts) = @_;
 
     push @$data, $gen->tag({ count => $tag->count }, $tag->tag->name);
+}
+
+sub _serialize_user_tag_list
+{
+    my ($self, $data, $gen, $inc, $opts) = @_;
+
+    my @list;
+    foreach my $tag (@{$opts->{usertags}})
+    {
+        $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts);
+    }
+    push @$data, $gen->user_tag_list(@list);
+}
+
+sub _serialize_user_tag
+{
+    my ($self, $data, $gen, $tag, $inc, $opts) = @_;
+
+    push @$data, $gen->user_tag($tag->tag->name);
+}
+
+sub _serialize_rating
+{
+    my ($self, $data, $gen, $inc, $opts) = @_;
+
+    my $count = $opts->{ratings}->{count};
+    my $rating = $opts->{ratings}->{rating};
+
+    push @$data, $gen->rating({ 'votes-count' => $count }, $rating);
+}
+
+sub _serialize_user_rating
+{
+    my ($self, $data, $gen, $inc, $opts) = @_;
+
+    push @$data, $gen->user_rating($opts->{userratings});
 }
 
 sub output_error
@@ -559,7 +607,7 @@ sub label_resource
 sub release_group_resource
 {
     my ($self, $gen, $release_group, $inc, $opts) = @_;
-    
+
     my $data = [];
     $self->_serialize_release_group($data, $gen, $release_group, $inc, $opts);
     return $data->[0];
@@ -626,6 +674,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 Copyright (C) 2004, 2010 Robert Kaye
 

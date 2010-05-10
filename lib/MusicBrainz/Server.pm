@@ -25,6 +25,7 @@ I18N::Gettext
 Session
 Session::State::Cookie
 
+Cache
 Authentication
 
 Unicode::Encoding
@@ -84,6 +85,8 @@ if (DBDefs::EMAIL_BUGS) {
     push @args, "ErrorCatcher";
 }
 
+__PACKAGE__->config->{'Plugin::Cache'}{backend} = &DBDefs::PLUGIN_CACHE_OPTIONS;
+
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
     use_session => 0,
@@ -92,6 +95,18 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             use_session => 1,
             credential => {
                 class => 'Password',
+                password_field => 'password',
+                password_type => 'clear'
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Store'
+            }
+        },
+        webservice => {
+            use_session => 1,
+            credential => {
+                class => 'HTTP',
+                type => 'digest',
                 password_field => 'password',
                 password_type => 'clear'
             },

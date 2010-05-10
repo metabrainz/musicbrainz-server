@@ -14,6 +14,7 @@ requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
 requires 'Catalyst::Plugin::I18N'                     => '0.09';
+requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding';
 requires 'Catalyst::Runtime'                          => '5.80021';
 requires 'Catalyst::View::TT'                         => '0.29';
