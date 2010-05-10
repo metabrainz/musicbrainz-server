@@ -15,6 +15,9 @@ echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql RAWDATA
 echo `date` : Installing cube extension
 ./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz
 
+echo `date` : Installing musicbrainz-collate extension
+./admin/InitDb.pl --install-extension=musicbrainz_collate.sql --extension-schema=musicbrainz
+
 echo `date` : Creating schema
 ./admin/psql READWRITE <./admin/sql/CreateTables.sql
 ./admin/psql READWRITE <./admin/sql/CreateFunctions.sql
