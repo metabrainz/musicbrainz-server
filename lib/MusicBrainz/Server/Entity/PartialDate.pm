@@ -28,8 +28,8 @@ around BUILDARGS => sub {
     {
         $info = {};
         $info->{year} = $1 if ($1);
-        $info->{month} = $2 if ($2);
-        $info->{day} = $3 if ($3);
+        $info->{month} = $2 if ($2 > 0);
+        $info->{day} = $3 if ($3 > 0);
         return $class->$orig( $info );
     }
 

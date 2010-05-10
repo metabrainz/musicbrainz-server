@@ -2,10 +2,8 @@ package MusicBrainz::Server::Edit::WithDifferences;
 use Moose;
 use MooseX::ABC;
 
-use Data::Compare;
 use MusicBrainz::Server::Edit::Exceptions;
-use Scalar::Util qw( reftype );
-use Storable qw( freeze );
+use MusicBrainz::Server::Data::Utils qw( remove_equal );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -28,15 +26,8 @@ sub _change_data {
 
     my $old = $self->_change_hash($object, keys %opts);
     my $new = \%opts;
-    for my $key (keys %$old) {
-        my $n = $new->{$key};
-        my $o = $old->{$key};
 
-        if (Compare($n, $o)) {
-            delete $old->{$key};
-            delete $new->{$key};
-        }
-    }
+    remove_equal($old, $new);
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw unless keys %$new && keys %$old;
 

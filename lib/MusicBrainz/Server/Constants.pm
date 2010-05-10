@@ -18,10 +18,11 @@ sub _get
 }
 
 our %EXPORT_TAGS = (
-    edit_type => _get(qr/^EDIT_/),
+    edit_type     => _get(qr/^EDIT_/),
     expire_action => _get(qr/^EXPIRE_/),
-    quality => _get(qr/^QUALITY_/),
-    annotation => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
+    quality       => _get(qr/^QUALITY_/),
+    annotation    => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
+    historic      => _get(qr/^EDIT_HISTORIC/)
 );
 
 our @EXPORT_OK = (
@@ -102,6 +103,8 @@ Readonly our $EDIT_WIKIDOC_CHANGE => 93;
 Readonly our $EDIT_URL_EDIT => 101;
 
 Readonly our $EDIT_PUID_DELETE => 113;
+
+Readonly our $EDIT_HISTORIC_EDIT_RELEASE_NAME => 201;
 
 =head1 NAME
 

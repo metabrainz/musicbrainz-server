@@ -7,10 +7,13 @@ use URI::Escape qw( uri_escape uri_unescape );
 
 extends 'MusicBrainz::Server::Edit';
 
+sub historic_type { shift->edit_type }
+
 has 'migration' => (
     isa     => Object,
     is      => 'ro',
     handles => [qw(
+        album_release_ids
         find_release_group_id
         resolve_album_id
         resolve_release_id

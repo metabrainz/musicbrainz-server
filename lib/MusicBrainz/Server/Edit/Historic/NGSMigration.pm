@@ -6,6 +6,8 @@ use Class::MOP;
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
+sub edit_type { undef }
+
 sub _create_edit
 {
     my ($self, $data) = @_;

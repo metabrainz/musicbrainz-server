@@ -52,6 +52,8 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
+
+    MusicBrainz::Server::Edit::Historic::EditReleaseName
 );
 
 sub register_type
