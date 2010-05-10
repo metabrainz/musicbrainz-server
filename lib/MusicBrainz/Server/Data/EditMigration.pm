@@ -5,6 +5,7 @@ use Memoize;
 use Module::Pluggable::Object;
 
 memoize(qw(
+    album_release_ids
     artist_name
     find_release_group_id
     resolve_album_id
@@ -32,7 +33,9 @@ sub _build_edit_mapping
     );
 
     return {
-        map { $_->edit_type => $_ } grep { $_->can('edit_type') } $mpo->plugins
+        map { $_->historic_type => $_ }
+            grep { $_->can('historic_type') && $_->historic_type }
+                $mpo->plugins
     };
 }
 
@@ -115,6 +118,20 @@ sub resolve_album_id
         SELECT release FROM tmp_release_album
          WHERE album = ?
     }, $id);
+}
+
+sub album_release_ids
+{
+    my ($self, $album_id) = @_;
+    return $self->sql->select_single_column_array(q{
+        SELECT COALESCE(new_rel, rels.release) FROM tmp_release_merge
+    RIGHT JOIN (
+            SELECT release FROM tmp_release_album
+             WHERE album = ?
+         UNION
+            SELECT id FROM public.release
+             WHERE album = ?) rels ON rels.release = old_rel;
+    }, $album_id, $album_id);
 }
 
 sub artist_name
