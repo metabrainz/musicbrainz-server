@@ -71,7 +71,7 @@ sub search
                 MAX(rank) AS rank
             FROM
                 (
-                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 16) AS rank
+                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query
                     ORDER BY rank DESC
@@ -120,7 +120,7 @@ sub search
                 r.rank
             FROM
                 (
-                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 16) AS rank
+                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type2}_name, plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query
                     ORDER BY rank DESC
@@ -136,7 +136,7 @@ sub search
     }
     elsif ($type eq "tag") {
         $query = "
-            SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 16) AS rank
+            SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
             FROM tag, plainto_tsquery('mb_simple', ?) AS query
             WHERE to_tsvector('mb_simple', name) @@ query
             ORDER BY rank DESC, tag.name
@@ -414,7 +414,6 @@ sub external_search
                                  $query,
                                  $offset,
                                  $limit,);
-    $c->log->debug($search_url);
 
     if (&DBDefs::_RUNNING_TESTS)
     {

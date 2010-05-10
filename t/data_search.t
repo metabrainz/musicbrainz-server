@@ -7,12 +7,15 @@ use Test::Moose;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Test::Mock::Class ':all';
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 use_ok 'MusicBrainz::Server::Data::Search';
 
 sub load_data
 {
     my ($type) = @_;
+
+    ok (type_to_model($type), "$type has a model");
 
     return MusicBrainz::Server::Data::Search->new()->external_search(
             MusicBrainz::Server::Test->create_test_context(), 
@@ -40,9 +43,7 @@ is ( $artist->comment, 'folk-rock/psychedelic band' );
 is ( $artist->gid, '34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47' );
 is ( $artist->type->name, 'group' );
 
-
-
-$data = load_data('release-group');
+$data = load_data('release_group');
 
 is ( @{$data->{results} }, 25 );
 
@@ -147,6 +148,19 @@ is ( $freedb->title,  'Love');
 is ( $freedb->category, 'misc');
 is ( $freedb->year, '');
 is ( $freedb->track_count, '19');
+
+my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+my @direct = MusicBrainz::Server::Data::Search->new(c => $c)->search(
+    'release', 'Blonde on blonde', 25, 0, 0);
+
+my $results = $direct[0];
+
+is ($direct[1], 2, "two search results");
+is ($results->[0]->entity->name, 'Blonde on Blonde', 'exact phrase ranked first');
+is ($results->[1]->entity->name, 'Blues on Blonde on Blonde', 'longer phrase ranked second');
+
 done_testing;
 
 1;
