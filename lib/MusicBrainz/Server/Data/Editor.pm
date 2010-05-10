@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Data::Editor;
 use Moose;
+use LWP;
+use URI::Escape;
 
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
@@ -263,6 +265,40 @@ sub credit
     my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
     $sql->do($query, $editor_id);
 }
+
+sub donation_check
+{
+    my ($self, $obj) = @_;
+
+    my $nag = 1;
+    $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
+                 $obj->is_relationship_editor || $obj->is_wiki_transcluder);
+
+    my $days = 0.0;
+    if ($nag)
+    {
+        my $ua = LWP::UserAgent->new;
+        $ua->agent("MusicBrainz server");
+        $ua->timeout(5); # in seconds.
+
+        my $response = $ua->request(HTTP::Request->new (GET =>
+            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
+            uri_escape($obj->name)));
+
+        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
+        {
+            $nag = $1;
+            $days = $2;
+        }
+        else
+        {
+            return undef;
+        }
+    }
+
+    return { nag => $nag, days => $days };
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

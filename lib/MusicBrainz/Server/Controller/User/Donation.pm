@@ -12,7 +12,7 @@ sub view : Chained('/user/base') PathPart('donation') RequireAuth
     $c->detach('/error_403')
         unless $c->{stash}->{viewing_own_profile};
 
-    my $result = $user->donation_check;
+    my $result = $c->model('Editor')->donation_check ($user);
     $c->detach('/error_500') unless $result;
 
     $c->stash(

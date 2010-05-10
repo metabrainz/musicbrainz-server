@@ -1,7 +1,5 @@
 package MusicBrainz::Server::Entity::Editor;
 use Moose;
-use LWP;
-use URI::Escape;
 
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Types qw( :privileges );
@@ -119,39 +117,6 @@ has 'preferences' => (
     lazy => 1,
     default => sub { MusicBrainz::Server::Entity::Preferences->new }
 );
-
-sub donation_check
-{
-    my ($self) = @_;
-
-    my $nag = 1;
-    $nag = 0 if ($self->is_nag_free || $self->is_auto_editor || $self->is_bot ||
-                 $self->is_relationship_editor || $self->is_wiki_transcluder);
-
-    my $days = 0.0;
-    if ($nag)
-    {
-        my $ua = LWP::UserAgent->new;
-        $ua->agent("MusicBrainz server");
-        $ua->timeout(5); # in seconds.
-
-        my $response = $ua->request(HTTP::Request->new (GET =>
-            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
-            uri_escape($self->name)));
-
-        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
-        {
-            $nag = $1;
-            $days = $2;
-        }
-        else
-        {
-            return undef;
-        }
-    }
-
-    return { nag => $nag, days => $days };
-}
 
 
 no Moose;

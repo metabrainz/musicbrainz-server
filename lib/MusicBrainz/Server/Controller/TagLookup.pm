@@ -91,7 +91,7 @@ sub nag_check
 
     if (!defined $session->{nag_check_timeout} || $session->{nag_check_timeout} <= time())
     {
-        my $result = $c->user->donation_check;
+        my $result = $c->model('Editor')->donation_check ($c->user);
         my $nag = $result ? $result->{nag} : 0; # don't nag if metabrainz is unreachable.
 
         $session->{nag} = -1 unless $nag;
