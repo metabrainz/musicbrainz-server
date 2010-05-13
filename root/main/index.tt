@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - Open Source Encyclopedia of Music Information") homepage=1 %]
+[% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
     <div id="sidebar">
         <div id="taggers" class="triple-column">
             <h2 class="taggers">Tag Your Music »</h2>
@@ -32,33 +32,29 @@
     <div class="content">
         <h1>[% l('Welcome to MusicBrainz!') %]</h1>
         <p>
-            <strong>[% l('MusicBrainz is an open source encyclopedia of music information.') %]</strong>
+            [% l('MusicBrainz is an open music encyclopedia that collects, and makes available to the public, music metadata.',
+                { doc => doc_link('MusicBrainz_Database') }) %]
         </p>
 
         <p>
-            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users. We want everyone — including you — to {doc|participate and contribute}.',
-                { doc => doc_link('How_To_Contribute') }) %]
-        </p>
-
-        <p>
-            [% l('MusicBrainz has two primary purposes:') %]
+            [% l('MusicBrainz aims to be:') %]
         </p>
 
         <ol>
             <li>
-                [% l('<strong>To be the ultimate source of music information</strong> by collaboratively building and sharing the {doc|MusicBrainz Database} with the entire world — <em>for free</em>.',
-                    { doc => doc_link('MusicBrainz_Database') }) %]
+                [% l('<strong>The ultimate source of music information</strong> by allowing anyone to contribute and releasing the {doc|data} under {doc2|open licenses}.',
+                    { doc => doc_link('MusicBrainz_Database'),
+                      doc2 => doc_link('MusicBrainz_License') }) %]
             </li>
             <li>
-                [% l('<strong>To be the univeral lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification} so that both people and machines can have meaningful conversations about music.',
+                [% l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.',
                     { doc => doc_link('MusicBrainz_Identification') }) %]
             </li>
         </ol>
 
         <p>
-            [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
-                { uri => "http://metabrainz.org",
-                  free => doc_link('MusicBrainz_License') }) %]
+            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone — including you — to {doc|participate and contribute}.',
+                { doc => doc_link('How_To_Contribute') }) %]
         </p>
 
         <div class="linkbar">
@@ -67,6 +63,13 @@
                   contact => doc_link('Contact_Us'),
                   faq => doc_link('Frequently_Asked_Questions') }) %]
         </div>
+
+        <p>
+            [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
+                { uri => "http://metabrainz.org",
+                  free => doc_link('MusicBrainz_License') }) %]
+        </p>
+
     </div>
 
     <div id="triple">
@@ -74,7 +77,7 @@
             <h2 class="community">Community »</h2>
             <img src="[% c.uri_for('/static/images/community.png') %]">
             <p>
-                [% l('{doc|Become a part of our <strong>global community</strong> and start <strong>contributing</strong> to the project!}',
+                [% l('{doc|Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>}',
                     { doc => doc_link('How_To_Contribute') }) %]
             </p>
         </div>
@@ -83,7 +86,7 @@
             <h2 class="products">MusicBrainz Database »</h2>
             <img src="[% c.uri_for('/static/images/download.png') %]">
             <p>
-                [% l('{doc|The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded for <strong>free</strong>.}',
+                [% l('{doc|The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.}',
                     { doc => doc_link('MusicBrainz_Database') }) %]
             </p>
         </div>
