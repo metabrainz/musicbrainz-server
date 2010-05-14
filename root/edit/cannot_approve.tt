@@ -1,3 +1,4 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
-    <p>[% l('Sorry, but do you not have sufficient privileges to approve this edit') %]</p>
+[% WRAPPER 'layout.tt' full_width=1 title=l('Error Approving Edit') %]
+    <h1>[% l('Error Approving Edit') %]</h1>
+    <p>[% l('Sorry, but you do not have sufficient privileges to approve edits.') %]</p>
 [% END %]
