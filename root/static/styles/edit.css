@@ -1,5 +1,9 @@
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
+.edit-expiration {
+    font-weight: bold;
+}
+
 dl.edit-status {
     margin: 0;
 }
@@ -141,8 +145,9 @@ table.vote-tally .date {
     margin-top: 6px;
 }
 
-.edit-list .edit-description .edit-expiration {
+.edit-list .edit-expiration {
     min-width: 210px;
+    font-weight: normal;
 }
 
 .edit-list .open .edit-expiration {
