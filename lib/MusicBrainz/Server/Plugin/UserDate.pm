@@ -2,7 +2,6 @@ package MusicBrainz::Server::Plugin::UserDate;
 
 use strict;
 use warnings;
-use DateTime;
 
 use base 'Template::Plugin';
 
