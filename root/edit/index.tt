@@ -49,7 +49,7 @@
     [% END %]
     <div class="content">
 
-        [% INCLUDE 'edit/header.tt' %]
+        [% INCLUDE 'edit/edit_header.tt' %]
 
         <h2>[% l('Changes') %]</h2>
         [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;

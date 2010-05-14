@@ -44,7 +44,7 @@
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
             [%- FOREACH edit=edits -%]
                 <div class="edit-list">
-                    [% INCLUDE 'edit/header.tt' summary=1 %]
+                    [% INCLUDE 'edit/edit_header.tt' summary=1 %]
 
                     <div class="edit-actions c[%- PROCESS edit_status -%]">
                         [%- INCLUDE 'edit/info.tt' summary=1 -%]
