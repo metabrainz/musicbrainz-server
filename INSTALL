@@ -176,7 +176,7 @@ Creating the database
         your needs. Assuming the dumps have been downloaded to /tmp/dumps/ you
         can import them with:
 
-            /admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
         --echo just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
