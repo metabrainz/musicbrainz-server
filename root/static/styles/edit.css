@@ -6,16 +6,13 @@ dl.edit-status {
 
 .cancel-edit {
     float: right;
-}
-
-.cancel-edit form {
-    display: inline;
-    margin-right: 5px;
+    margin-right: -7px;
 }
 
 .edit-list .cancel-edit {
     float: none;
-    margin: 10px 0;
+    display: inline-block;
+    margin: 10px -7px 10px 0;
 }
 
 table.vote-tally {
