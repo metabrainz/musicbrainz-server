@@ -2,7 +2,7 @@
     <div class="content">
         <h1>[% l('Search for Edits') %]</h1>
 
-        [% INCLUDE 'edit/list_header.tt' %]
+        [% INCLUDE 'edit/list_header.tt' search=1 %]
 
         <form action="[% c.req.uri %]" method="post">
             [% USE r = FormRenderer(form) %]

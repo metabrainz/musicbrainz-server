@@ -4,6 +4,10 @@
             [%- l('Quick links:') -%]
         </dt>
         <dd>
+            [% IF !search %]
+                [%- l('{url|Search for edits}', { url => c.uri_for_action('/edit/search') }) -%]
+                | 
+            [% END %]
             [%- l('{url|Open edits}', { url => c.uri_for('/edit/open') }) -%]
             | 
             [%- l('{url|Voting suggestions}', { url => '/404' }) -%]
