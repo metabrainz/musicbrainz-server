@@ -404,7 +404,7 @@ p.nfo span {
     padding-bottom: 0.1em;
 }
 
-.c {
+.c, .page table.tbl .c {
     text-align: center;
 }
 
