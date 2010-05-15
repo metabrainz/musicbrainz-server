@@ -146,8 +146,8 @@ sub open : Local RequireAuth
     });
 
     $c->model('Edit')->load_all(@$edits);
-    $c->model('Editor')->load(@$edits, map { @{ $_->edit_notes } } @$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->edit_notes }) } @$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->form(add_edit_note => 'EditNote');
 
@@ -168,8 +168,8 @@ sub search : Path('/search/edits') RequireAuth
         });
 
         $c->model('Edit')->load_all(@$edits);
-        $c->model('Editor')->load(@$edits, map { @{ $_->edit_notes } } @$edits);
         $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->edit_notes }) } @$edits);
         $c->model('Vote')->load_for_edits(@$edits);
         $c->form(add_edit_note => 'EditNote');
 
