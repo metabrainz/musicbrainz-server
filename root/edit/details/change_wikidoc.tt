@@ -2,7 +2,7 @@
   [% IF edit.data.page %]
   <tr>
     <th>[% l('WikiDoc:') %]</th>
-    <td>[% l("{doc|$edit.data.page}", { doc => doc_link(edit.data.page) }) %]</td>
+    <td><a href="[% doc_link(edit.data.page) %]">[% edit.data.page %]</a></td>
   </tr>
   [% END %]
 

@@ -191,6 +191,7 @@ table.vote-tally .date {
 
 .seperator {
     clear: both;
+    height: 1px;
 }
 
 .search-toggle {

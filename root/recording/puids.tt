@@ -6,7 +6,7 @@
         <table class="tbl">
             <thead>
                 <tr>
-                    <th colspan="[% c.user_exists ? 2 : 1 %]">[% l('PUID') %]</th>
+                    <th>[% l('PUID') %]</th>
                     [% IF c.user_exists %]
                         <th style="width: 5em">
                             [% l('Actions') %]

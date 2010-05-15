@@ -1,12 +1,9 @@
 [% BLOCK votename %]
     [%- FOR vote=edit.votes -%]
-        [%- IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
-            [%- vote.vote_name -%]
-        [%- END -%]
+        [%- vote.vote_name IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
     [%- END -%]
-    [%- IF edit.editor_id == note.editor_id -%]
-        owner
-    [%- END -%]
+
+    [%- 'owner' IF edit.editor_id == note.editor_id -%]
 [% END %]
 
 [% IF edit.edit_notes.size %]

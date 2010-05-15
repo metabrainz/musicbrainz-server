@@ -1,9 +1,11 @@
 [%- WRAPPER 'forms/fieldset.tt' legend=l('Edit Note') -%]
     [%- UNLESS hide_help -%]
-    <p>
-        <strong>[% l('About edit notes:') %]</strong>
-        [% l('Please note that it is highly recommended to enter a edit note. If you do so, your edit is more likely to be voted on, and unanimously accepted by the other MusicBrainz editors. If your edit receives the required number of unanimous yes votes, it will be applied instantly, even before the voting period elapses in which edits usually are kept open. For detailed information on how long edits stay open and how many votes are required for it to pass unanimously, please see our edit conditions page.') %]
-    </p>
+        <p>
+            [% l('<strong>Edit notes</strong>: Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make the source of information clear, but it can also encourage other users to vote on your edit — thus reducing the time before your edit is applied.',
+                { note => doc_link('Edit_Note') }) %]
+        </p>
+
+        <p>[% l('Even just providing a URL or two is helpful!') %]</p>
     [%- END -%]
     [% WRAPPER form_row %]
         [% USE r = FormRenderer(form) %]

@@ -12,7 +12,7 @@
                 <tr>
                     <th>[%- l('Name') -%]</th>
                     [% IF c.user_exists && user.id == c.user.id %]
-                    <th>&nbsp;</th>
+                    <th>[%- l('Actions') -%]</th>
                     [% END %]
                 </tr>
             </thead>
