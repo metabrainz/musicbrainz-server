@@ -1,0 +1,32 @@
+<table class="details">
+  [% IF edit.data.page %]
+  <tr>
+    <th>[% l('WikiDoc:') %]</th>
+    <td>[% l("{doc|$edit.data.page}", { doc => doc_link(edit.data.page) }) %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.old_version %]
+  <tr>
+    <th>[% l('Old version:') %]</th>
+    <td class="old">[% edit.data.old_version %]</td>
+  </tr>
+  [% ELSE %]
+  <tr>
+    <th>[% l('Old version:') %]</th>
+    <td class="new">[% l('New page') %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.new_version %]
+  <tr>
+    <th>[% l('New version:') %]</th>
+    <td class="new">[% edit.data.new_version %]</td>
+  </tr>
+  [% ELSE %]
+  <tr>
+    <th>[% l('New version:') %]</th>
+    <td class="old">[% l('Page deleted') %]</td>
+  </tr>
+  [% END %]
+</table>
