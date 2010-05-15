@@ -1,47 +1,47 @@
 [% WRAPPER "layout.tt" title=l("WikiDoc Transclusion Table") full_width=1 %]
     <div class="content"
-<h1>[% l("WikiDoc Transclusion Table") %]</h1>
+        <h1>[% l("WikiDoc Transclusion Table") %]</h1>
 
-<p class="buttons">
-    <a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('New wiki page') %]</a>
-    <a href="[% c.uri_for_action('/admin/wikidoc/index', { showcur => 1 }) | html %]">[% l('Show current versions') %]</a>
-</p>
+        <p class="buttons">
+            <a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('New wiki page') %]</a>
+            <a href="[% c.uri_for_action('/admin/wikidoc/index', { showcur => 1 }) | html %]">[% l('Show current versions') %]</a>
+        </p>
 
-<table class="tbl">
-    <thead>
-        <tr>
-            <th>[% l('Documentation Page') %]</th>
-            <th>[% l('Transcluded version') %]</th>
-            [% IF show_current_version %]
-                <th>[% l('Current version') %]</th>
-            [% END %]
-            <th class="c">[% l('Wiki') %]</th>
-            <th class="c">[% l('Actions') %]</th>
-        </tr>
-    </thead>
-    <tbody>
-        [% FOR page IN pages %]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td><a href="[% c.uri_for_action('/doc/show', page.id) %]">[% page.id | html %]</a></td>
-            <td class="c">[% page.version %]</td>
-            [% IF show_current_version %]
-            <td class="c">
-                [% IF page.current_version != page.version %]<span style="color: red;">[% END %]
-                [% page.current_version %]
-                [% IF page.current_version != page.version %]</span>[% END %]
-            </td>
-            [% END %]
-            <td class="c">
-                <a href="http://wiki.musicbrainz.org/[% page.id | uri %]">[% l('Show') %]</a> |
-                <a href="http://wiki.musicbrainz.org/[% page.id | uri %]?action=history">[% l('History') %]</a>
-            </td>
-            <td class="c">
-                <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
-                <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a>
-            </td>
-        </tr>
-        [% END %]
-    </tbody>
-</table>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('Documentation Page') %]</th>
+                    <th>[% l('Transcluded version') %]</th>
+                    [% IF show_current_version %]
+                        <th>[% l('Current version') %]</th>
+                    [% END %]
+                    <th class="c">[% l('Wiki') %]</th>
+                    <th class="c">[% l('Actions') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% FOR page IN pages %]
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                        <td><a href="[% c.uri_for_action('/doc/show', page.id) %]">[% page.id | html %]</a></td>
+                        <td class="c">[% page.version %]</td>
+                        [% IF show_current_version %]
+                            <td class="c">
+                                [% IF page.current_version != page.version %]<span style="color: red;">[% END %]
+                                [% page.current_version %]
+                                [% IF page.current_version != page.version %]</span>[% END %]
+                            </td>
+                        [% END %]
+                        <td class="c">
+                            <a href="http://wiki.musicbrainz.org/[% page.id | uri %]">[% l('Show') %]</a> |
+                            <a href="http://wiki.musicbrainz.org/[% page.id | uri %]?action=history">[% l('History') %]</a>
+                        </td>
+                        <td class="c">
+                            <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
+                            <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a>
+                        </td>
+                    </tr>
+                [% END %]
+            </tbody>
+        </table>
     </div>
 [% END %]

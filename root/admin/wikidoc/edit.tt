@@ -2,19 +2,19 @@
     <div class="content">
         <h1>[% l("Update Page") %]</h1>
 
-[%- USE r = FormRenderer(form) -%]
+        [%- USE r = FormRenderer(form) -%]
 
-<form action="[% c.req.uri | html %]" method="post">
-    <div class="row">
-        <label>Page:</label>
-        <span>[% page | html %]</span>
-    </div>
+        <form action="[% c.req.uri | html %]" method="post">
+            <div class="row">
+                <label>Page:</label>
+                <span>[% page | html %]</span>
+            </div>
 
-    [% form_row_text(r, 'version', l('Version:')) %]
+            [% form_row_text(r, 'version', l('Version:')) %]
 
-    <div class="row no-label">
-        [% form_submit(l('Update')) %]
-    </div>
-</form>
+            <div class="row no-label">
+                [% form_submit(l('Update')) %]
+            </div>
+        </form>
     </div>
 [% END %]
