@@ -214,8 +214,8 @@ table.vote-tally .date {
 
 .search-help {
     background-color: #E5E5E5;
-    margin-top: 5px;
-    padding: 5px;
+    margin-top: 1em;
+    padding: 5px 10px;
 }
 
 .search-help dl.properties {

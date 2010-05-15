@@ -4,13 +4,15 @@
     ['edit', link_work(work, 'edit', l('Edit'))],
 ] -%]
 
-<h1>“[% link_work(work) %]” [% disambiguation(work) %]</h1>
-<p class="subheader">
-    <span class="prefix">~</span>
-        [% l('{type} by {artist}', {
-            type = html_escape(work.type_name) or l('Work'),
-            artist = artist_credit(work.artist_credit)
-        })%]
-</p>
+<div class="workheader">
+    <h1>“[% link_work(work) %]” [% disambiguation(work) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span>
+            [% l('{type} by {artist}', {
+                type = html_escape(work.type_name) or l('Work'),
+                artist = artist_credit(work.artist_credit)
+            })%]
+    </p>
+</div>
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]
