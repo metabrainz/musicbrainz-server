@@ -133,14 +133,6 @@ sub editor_may_vote
                    $editor->accepted_edits > 10;
 }
 
-sub auto_edit_for_editor
-{
-    my ($self, $editor) = @_;
-    return $editor
-        && $self->edit_conditions->{ $self->quality }->{auto_edit}
-        && $editor->is_auto_editor;
-}
-
 # Subclasses should reimplement this, if they want different edit conditions.
 #
 # Fields:
@@ -192,7 +184,16 @@ sub can_approve
     return
          $self->is_open
       && $conditions->{auto_edit}
-      && ($privs & $AUTO_EDITOR_FLAG);
+      && ($privs->privileges & $AUTO_EDITOR_FLAG);
+}
+
+sub can_cancel
+{
+    my ($self, $user) = @_;
+
+    return
+         $self->is_open
+      && $self->editor_id == $user->id;
 }
 
 =head2 related_entities
