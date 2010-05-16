@@ -251,7 +251,8 @@ h1 {
     color: #666;
 }
 
-.artistheader, .releaseheader, .rgheader, .recordingheader, .labelheader {
+.artistheader, .releaseheader, .rgheader,
+.recordingheader, .labelheader, .workheader {
     padding-left: 38px;
     background: 0 4px no-repeat;
 }
