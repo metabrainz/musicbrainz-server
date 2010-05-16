@@ -146,7 +146,7 @@ table.vote-tally .date {
 }
 
 .edit-list .edit-expiration {
-    min-width: 210px;
+    min-width: 170px;
     font-weight: normal;
 }
 
@@ -163,6 +163,7 @@ table.vote-tally .date {
 
 .edit-list .vote-count {
     text-align: right;
+    padding-left: 20px;
 }
 
 .edit-list .edit-details {

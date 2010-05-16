@@ -60,7 +60,9 @@
             <tr class="noborder">
                 <th>[% l('Vote tally') %]</th>
                 <td class="vote">
-                    [% l('{yes} yes : {no} no', { yes => edit.yes_votes, no => edit.no_votes }) %]
+                    [%- l('{yes} yes : {no} no',
+                         { yes => '<strong>' _ edit.yes_votes _ '</strong>',
+                           no => '<strong>' _ edit.no_votes _ '</strong>' }) -%]
                 </td>
             </tr>
             [% IF edit.editor_may_vote(c.user) %]
