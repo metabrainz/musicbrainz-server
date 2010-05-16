@@ -39,10 +39,10 @@ sub _list {
     my $entity = $c->stash->{ $self->{entity_name} };
     my $edits  = $self->_load_paged($c, $find->($type, $entity));
 
+    $c->model('Edit')->load_all(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->edit_notes }) } @$edits);
-    $c->model('Edit')->load_all(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
 
     $c->stash(
         edits => $edits,
