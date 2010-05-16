@@ -73,5 +73,10 @@
         </form>
     [% END %]
 [% ELSE %]
-    <p>No edits</p>
+    [% IF search %]
+        <p>[% l('No edits were found matching your query. Please {search|try again}.',
+               { search => c.uri_for_action('/edit/search') }) %]</p>
+    [% ELSE %]
+        <p>[% l('No edits found.') %]</p>
+    [% END %]
 [% END %]
