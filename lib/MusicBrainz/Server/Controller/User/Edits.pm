@@ -5,6 +5,10 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Types '$STATUS_OPEN';
 
+__PACKAGE__->config(
+    paging_limit => 25,
+);
+
 sub open : Chained('/user/base') PathPart('open-edits') RequireAuth {
     my ($self, $c) = @_;
 

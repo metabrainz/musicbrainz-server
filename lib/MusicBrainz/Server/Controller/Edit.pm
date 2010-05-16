@@ -10,6 +10,7 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 __PACKAGE__->config(
     entity_name => 'edit',
+    paging_limit => 25,
 );
 
 =head1 NAME
