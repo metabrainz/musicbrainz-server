@@ -31,7 +31,7 @@ has 'public_collection' => (
 
 has 'datetime_format' => (
     isa => 'Str',
-    default => '%Y-%m-%d %H:%M:%S %Z',
+    default => '%Y-%m-%d %H:%M %Z',
     is => 'rw',
     lazy => 1,
 );
