@@ -30,7 +30,7 @@
                                 <strong>[%- l('My vote: ') -%]</strong>
                                 [%- l('N/A') -%]
                             </div>
-                        [% ELSIF !edit.is_open && !edit.latest_vote_for_editor(c.user.id) %]
+                        [% ELSIF !edit.latest_vote_for_editor(c.user.id) %]
                             <div class="my-vote">
                                 <strong>[%- l('My vote: ') -%]</strong>
                                 [%- l('None') -%]
