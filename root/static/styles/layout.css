@@ -729,34 +729,6 @@ span.mp {
     border: 2px solid #FC6714;
 }
 
-
-
-dl.profileinfo {
-    display: block;
-}
-
-dl.profileinfo dt {
-    clear: left;
-    display: block;
-    font-weight: bold;
-    float: left;
-    width: 125px;
-    text-align: right;
-    padding: 5px;
-}
-
-dl.profileinfo dd {
-    clear: right;
-    display: block;
-    padding: 5px;
-    margin-left: 130px;
-}
-
-table.statistics {
-    float: left;
-    margin: 8px;
-}
-
 table.details td.new {
     background: #B1EBB0;
 }
