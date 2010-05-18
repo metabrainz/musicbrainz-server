@@ -80,6 +80,7 @@ echo `date`: Cleaning up and vacuuming
 # echo 'DROP TABLE tmp_recording_merge' | ./admin/psql READWRITE
 # echo 'DROP TABLE tmp_recording_merge' | ./admin/psql RAWDATA
 # echo 'DROP TABLE tmp_release_merge'   | ./admin/psql READWRITE
+# echo 'DROP TABLE tmp_release_album'   | ./admin/psql READWRITE
 echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
 echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
 

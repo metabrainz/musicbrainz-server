@@ -884,7 +884,6 @@ foreach my $orig_t0 (@entity_types) {
 #printf STDERR "release-asin disamguation: %d/%d clean\n", $amz_clean_total, $amz_clean_total + $amz_not_clean;
 #printf STDERR " %s: %d\n", $_, $amz_clean{$_} for keys %amz_clean;
 
-    $sql->do("DROP TABLE tmp_release_album");
     $sql->commit;
 };
 if ($@) {
