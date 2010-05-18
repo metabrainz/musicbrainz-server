@@ -279,6 +279,8 @@ h3 {
     font-size: 100%;
 }
 
+.clear { clear: both; }
+
 p.subheader {
     margin-top: 0;
     margin-bottom: 0;
@@ -591,26 +593,11 @@ pre code {
     word-wrap: break-word;
 }
 
-.browse-entities {
-    overflow: hidden;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.browse-entities table {
-    float: left;
-    width: 50%;
-    border-collapse: collapse;
-}
-
-.browse-entities table td {
-    vertical-align: top;
-}
-
-.browse-entities table td.index {
-    width: 0em;
-    text-align: right;
-    padding-right: 0.4em;
+/*
+** Browse Entity pages
+*/
+.browse-entities ol {
+    margin: 0;
 }
 
 .browse td {
@@ -740,4 +727,28 @@ table.details td.old {
 table.details td.new,
 table.details td.old {
     border: 1px solid #CCC;
+}
+
+/*
+** CSS columns instead of tables
+*/
+div.columns-2 div.column {
+    float: left;
+    width: 50%;
+    min-width: 300px;
+}
+div.columns-3 div.column {
+    float: left;
+    width: 33.3%;
+    min-width: 200px;
+}
+div.columns-4 div.column {
+    float: left;
+    width: 25%;
+    min-width: 150px;
+}
+div.columns-5 div.column {
+    float: left;
+    width: 20%;
+    min-width: 120px;
 }
