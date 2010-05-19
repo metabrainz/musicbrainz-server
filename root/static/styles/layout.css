@@ -19,6 +19,35 @@ a:visited { color:#3C5DCE; }
 a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
+a.external,
+/* a[href^="http://"], a[href^="https://"] */ {
+    background: url("/static/images/external.png") no-repeat right;
+    padding-right: 13px;
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 40px;
+    list-style-image: url('/static/images/bullet.gif');
+    list-style-type: square;
+}
+
+
+ol {
+    margin-left: 0;
+    padding-left: 40px;
+}
+
+ul ul, ul ol,
+ol ol, ol ul {
+    padding-left: 20px;
+}
+
+code {
+    background-color: #DDDDDD;
+    padding: 0 5px;
+}
+
 #header {
     width: 100%;
 }
@@ -108,11 +137,13 @@ a:active, a:focus { outline-style: none; }
     padding: 0;
     height: 100%;
     list-style-type: none;
+    list-style-image: none;
 }
 
 #header-menu li {
     float: left;
     list-style-type: none;
+    list-style-image: none;
 }
 
 #header-menu ul a {
@@ -277,6 +308,7 @@ h3 {
     margin-top: 1em;
     margin-bottom: 0;
     font-size: 100%;
+    font-weight: bold;
 }
 
 .clear { clear: both; }
@@ -316,6 +348,7 @@ div.tabs {
     padding: 0;
     margin: 0;
     list-style-type: none;
+    list-style-image: none;
     width: 100%;
     position: relative;
     top: 1px;
