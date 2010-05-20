@@ -1,5 +1,6 @@
 [% extra_css = "wikidocs.css" %]
 [% WRAPPER "layout.tt" full_width=1 title=page.title -%]
+    <div class="content">
 <h1>[%- page.title -%]</h1>
 [%- IF !page.version -%]
     <div class="wikidocs-header">
@@ -10,9 +11,9 @@
 [%- page.content -%]
 [%- IF page.version -%]
     <div class="wikidocs-footer">
-        [%- l("This {doclink1|WikiDocs page} is based on revision #{doclink2|version} of {doclink3|title}",
+        [%- l('This page is {doclink1|transcluded} from revision #{doclink2|version} of {doclink3|title}.',
             {
-                doclink1 => doc_link("WikiDocs"),
+                doclink1 => doc_link('WikiDocs'),
                 doclink2 => wiki_history_link(wiki_server, id, page.version),
                 version  => page.version,
                 doclink3 => wiki_link(wiki_server, id),
@@ -20,11 +21,13 @@
             }
         ) -%]
     </div>
-
 [%- ELSE -%]
     <div class="wikidocs-footer">
-    [%- l('This is a copy of wiki page {url|page}.', { url => 'http://' _ wiki_server _ '/' _ id,
-                                                     page => page.title }) -%]
+    [%- l('This page is {doc|transcluded} from {url|page}.',
+         { doc => doc_link('WikiDocs'),
+           url => 'http://' _ wiki_server _ '/' _ id,
+           page => page.title }) -%]
     </div>
 [%- END -%]
+    </div>
 [%- END -%]
