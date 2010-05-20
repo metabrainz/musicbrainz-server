@@ -85,6 +85,17 @@ sub delete_recordings
               WHERE recording IN ('.placeholders(@ids).')', @ids);
 }
 
+sub insert
+{
+    my ($self, @isrcs) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    $sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
+                 (join ",", (("(?, ?, ?)") x @isrcs)),
+             map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
+                 @isrcs);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
