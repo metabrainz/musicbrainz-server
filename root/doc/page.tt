@@ -1,33 +1,33 @@
 [% extra_css = "wikidocs.css" %]
 [% WRAPPER "layout.tt" full_width=1 title=page.title -%]
     <div class="content">
-<h1>[%- page.title -%]</h1>
-[%- IF !page.version -%]
-    <div class="wikidocs-header">
-    [%- l("This page has not been reviewed by our documentation team ({more_info|more info}).",
-          { more_info => doc_link('WikiDocs') }) -%]
-    </div>
-[%- END -%]
-[%- page.content -%]
-[%- IF page.version -%]
-    <div class="wikidocs-footer">
-        [%- l('This page is {doclink1|transcluded} from revision #{doclink2|version} of {doclink3|title}.',
-            {
-                doclink1 => doc_link('WikiDocs'),
-                doclink2 => wiki_history_link(wiki_server, id, page.version),
-                version  => page.version,
-                doclink3 => wiki_link(wiki_server, id),
-                title    => page.title
-            }
-        ) -%]
-    </div>
-[%- ELSE -%]
-    <div class="wikidocs-footer">
-    [%- l('This page is {doc|transcluded} from {url|page}.',
-         { doc => doc_link('WikiDocs'),
-           url => 'http://' _ wiki_server _ '/' _ id,
-           page => page.title }) -%]
-    </div>
-[%- END -%]
+        <h1>[%- page.title -%]</h1>
+        [%- IF !page.version -%]
+            <div class="wikidocs-header">
+            [%- l("This page has not been reviewed by our documentation team ({more_info|more info}).",
+                  { more_info => doc_link('WikiDocs') }) -%]
+            </div>
+        [%- END -%]
+        [%- page.content -%]
+        [%- IF page.version -%]
+            <div class="wikidocs-footer">
+                [%- l('This page is {doclink1|transcluded} from revision #{doclink2|version} of {doclink3|title}.',
+                    {
+                        doclink1 => doc_link('WikiDocs'),
+                        doclink2 => wiki_history_link(wiki_server, id, page.version),
+                        version  => page.version,
+                        doclink3 => wiki_link(wiki_server, id),
+                        title    => page.title
+                    }
+                ) -%]
+            </div>
+        [%- ELSE -%]
+            <div class="wikidocs-footer">
+            [%- l('This page is {doc|transcluded} from {url|page}.',
+                 { doc => doc_link('WikiDocs'),
+                   url => 'http://' _ wiki_server _ '/' _ id,
+                   page => page.title }) -%]
+            </div>
+        [%- END -%]
     </div>
 [%- END -%]
