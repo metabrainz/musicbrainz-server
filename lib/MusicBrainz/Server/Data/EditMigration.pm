@@ -11,6 +11,7 @@ memoize(qw(
     resolve_album_id
     resolve_recording_id
     resolve_release_id
+    label_id_from_alias
 ));
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -142,6 +143,15 @@ sub artist_name
           JOIN artist_name name ON artist.name=name.id
          WHERE artist.id = ?
     }, $id) || sprintf '[ Artist #%d ]', $id;
+}
+
+sub label_id_from_alias
+{
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(q{
+        SELECT ref FROM public.labelalias
+         WHERE id = ?
+    }, $id);
 }
 
 no Moose;
