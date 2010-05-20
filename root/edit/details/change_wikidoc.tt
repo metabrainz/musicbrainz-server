@@ -1,0 +1,15 @@
+<table class="details">
+  <tr>
+    <th>[% l('Page:') %]</th>
+    <td colspan="2">[% edit.data.page %]</td>
+  <tr>
+
+  <tr>
+    <th>[% l('Changes:') %]</th>
+    <td class="old">
+      <a href="[% wiki_history_link(wiki_server, edit.data.page, edit.data.old_version) %]">
+        [% l('Revision #{n}', { n = edit.data.old_version }) %]</a></td>
+    <td class="new">
+      <a href="[% wiki_history_link(wiki_server, edit.data.page, edit.data.new_version) %]">
+        [% l('Revision #{n}', { n = edit.data.new_version }) %]</a></td>
+</table>

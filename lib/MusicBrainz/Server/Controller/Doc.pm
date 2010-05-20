@@ -29,7 +29,6 @@ sub show : Path('')
     $c->stash(
         id => $id,
         page => $page,
-        wiki_server => &DBDefs::WIKITRANS_SERVER,
     );
 
     if ($bare) {
