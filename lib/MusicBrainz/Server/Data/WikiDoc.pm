@@ -107,7 +107,7 @@ sub _load_page
 {
     my ($self, $id, $version, $index) = @_;
 
-    return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "Main_Page" })
+    return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "MusicBrainz_Documentation" })
         if ($id eq "");
 
     my $doc_url = sprintf "http://%s/%s?action=render", &DBDefs::WIKITRANS_SERVER, $id;
