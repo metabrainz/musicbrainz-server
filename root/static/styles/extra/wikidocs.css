@@ -69,8 +69,8 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 
 /* header section (only shown for unofficial pages) */
 .wikidocs-header {
+    border-bottom: 2px dotted #CCCCCC;
     margin: 5px 0 10px;
-    text-align: left;
     padding-bottom: 5px;
     font-size: 10px;
 }

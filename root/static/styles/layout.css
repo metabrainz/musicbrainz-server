@@ -19,8 +19,10 @@ a:visited { color:#3C5DCE; }
 a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
-a.external,
-/* a[href^="http://"], a[href^="https://"] */ {
+/* TODO:
+** Use relative links on the site and then add:
+** a[href^="http://"], a[href^="https://"] */
+a.external {
     background: url("/static/images/external.png") no-repeat right;
     padding-right: 13px;
 }
