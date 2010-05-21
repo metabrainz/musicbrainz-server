@@ -89,6 +89,7 @@ Readonly our $EDIT_TRACK_EDIT => 62;
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_MERGE => 74;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
+Readonly our $EDIT_RECORDING_ADD_PUIDS => 76;
 
 Readonly our $EDIT_TRACKLIST_CREATE => 81;
 Readonly our $EDIT_TRACKLIST_ADDTRACK => 85;
