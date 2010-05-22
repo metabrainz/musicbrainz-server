@@ -289,18 +289,31 @@ p.subheader {
 p.subheader span { color: #999; }
 
 #footer {
-    padding: 1em 0;
-    margin: 0;
+    margin: 1em 0;
+    padding: 0 1em;
     font-size: 90%;
     color: #333;
-    text-align: center;
 }
 
-#footer a {
-    color: #333;
+#footer a { color: #002BBA; }
+#footer a:hover { color: #FC6714; }
+
+#footer ul.links {
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    list-style-image: none;
 }
-#footer a:hover {
-    color: #666;
+
+#footer ul.links li {
+    float: left;
+    margin-right: 1em;
+}
+
+#footer p.sponsors {
+    text-align: right;
+    margin: 0;
 }
 
 div.tabs {

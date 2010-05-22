@@ -65,7 +65,8 @@
         [%- l('{doc|About}', {doc => doc_link('About_MusicBrainz')}) -%]
         <ul>
             <li>
-                [%- l('{doc|Timeline}', {doc => doc_link('Timeline')}) -%]
+                [%- l('{doc|Sponsors}', {doc => doc_link('MusicBrainz_Sponsors')}) -%]
+
             </li>
             <li>
                 [%- l('{doc|People}', {doc => doc_link('MusicBrainz_Bio')}) -%]

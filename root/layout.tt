@@ -49,16 +49,24 @@
         <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
 
-        <p id="footer">
-            <a href="http://metabrainz.org/donate">Donate</a> |
-            <a href="http://cafepress.com/musicbrainz">Stuff to Buy</a> |
-            <a href="http://blog.musicbrainz.org">Blog</a> |
-            <a href="http://wiki.musicbrainz.org/">Wiki</a> |
-            <a href="http://forums.musicbrainz.org/">Forums</a> |
-            <a href="http://musicbrainz.org/bugs">Bug Tracker</a> |
-            <a href="http://musicbrainz.org/doc/License">License</a> |
-            <a href="http://musicbrainz.org/doc/Contact_Us">Contact Us</a>
-        </p>
+        <div id="footer">
+            <ul class="links">
+                <li><a href="http://metabrainz.org/donate">[% l('Donate') %]</a>
+                <li><a href="http://[% wiki_server %]/">[% l('Wiki') %]</a>
+                <li><a href="http://forums.musicbrainz.org/">[% l('Forums') %]</a>
+                <li><a href="http://jira.musicbrainz.org/">[% l('Bug Tracker') %]</a>
+                <li><a href="http://www.cafepress.com/musicbrainz">[% l('Schwag') %]</a>
+            </ul>
+
+            <p class="sponsors">
+                [% l('Hosted by {host|Digital West}. Sponsored by: {url1|Google},
+                      {url2|OSUOSL} and {more|others…}',
+                    { host => 'http://digitalwest.net/',
+                      url1 => 'http://www.google.com/',
+                      url2 => 'http://osuosl.org/',
+                      more => doc_link('MusicBrainz_Sponsors') }) %]
+            </p>
+        </div>
 
         [%- IF c.session.tport -%]
             <iframe name="tagger-iframe" height="0" width="0" frameborder="0"></iframe>
