@@ -75,24 +75,16 @@
                 [%- l('{doc|In the Press}', {doc => doc_link('MusicBrainz_Press')}) -%]
             </li>
             <li class="separator">
+                [%- l('{doc|Data Licenses}', {doc => doc_link('MusicBrainz_License')}) -%]
+            </li>
+            <li>
                 [%- l('{doc|Social Contract}', {doc => doc_link('Social_Contract')}) -%]
             </li>
             <li>
-                [%- l('{doc|Privacy}', {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Licenses}', {doc => doc_link('MusicBrainz_License')}) -%]
+                [%- l('{doc|Privacy Policy}', {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]
             </li>
             <li class="separator">
-                [%- l('{doc|Server Statistics}', {doc => doc_link('Server_Statistics')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Logo}', {doc => doc_link('MusicBrainz_Logo')}) -%]
-            </li>
-            <li class="separator">
-                <a href="[% c.uri_for('/elections') %]">
-                    [% l('Auto-editor Elections') %]
-                </a>
+                [% l('{url|Auto-editor Elections}', { url => c.uri_for('/elections') }) %]
             </li>
         </ul>
     </li>
@@ -125,9 +117,6 @@
             </li>
             <li>
                 [%- l('{doc|Live Data Feed}', {doc => doc_link('Live_Data_Feed')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Developer Resources}', {doc => doc_link('Developer_Resources')}) -%]
             </li>
             <li class="separator">
                 [%- l('{doc|freeDB Gateway}', {doc => doc_link('FreeDB_Gateway')}) -%]
@@ -207,7 +196,7 @@
             <li>
                 [%- l('{doc|FAQs}', {doc => doc_link('Frequently_Asked_Questions')}) -%]
             </li>
-            <li>
+            <li class="separator">
                 [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
             </li>
         </ul>
