@@ -26,7 +26,8 @@ mbz.TrackParser = function (disc) {
     var parseTimes = function () {
         $.each(self.inputlines, function (i) {
 
-            self.inputlines[i] = this.replace(/\(?\s?([0-9０-９]*[：，．':,.][0-9０-９]+)\s?\)?$/,
+            var tmp = this.replace (/\(\?:\?\?\)\s?$/, '');
+            self.inputlines[i] = tmp.replace(/\(?\s?([0-9０-９]*[：，．':,.][0-9０-９]+)\s?\)?$/,
                 function (str, p1) { self.inputdurations[i] = mbz.fullWidthConverter(p1); return ""; }
             );
 
