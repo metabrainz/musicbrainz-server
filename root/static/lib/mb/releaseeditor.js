@@ -85,7 +85,7 @@ mbz.ReleaseEditor.Preview = function () {
 
             $.each (disc.tracks, function (idx, item) {
                 str += item.position + ". " + item.track;
-                if (item.length)
+                if (item.length && item.length !== '?:??')
                 {
                     str += " (" + item.length + ")";
                 }
