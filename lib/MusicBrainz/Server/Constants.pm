@@ -97,6 +97,7 @@ Readonly our $EDIT_TRACKLIST_DELETETRACK => 86;
 Readonly our $EDIT_RELATIONSHIP_CREATE => 90;
 Readonly our $EDIT_RELATIONSHIP_EDIT => 91;
 Readonly our $EDIT_RELATIONSHIP_DELETE => 92;
+Readonly our $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE => 93;
 
 Readonly our $EDIT_WIKIDOC_CHANGE => 93;
 
@@ -105,6 +106,7 @@ Readonly our $EDIT_URL_EDIT => 101;
 Readonly our $EDIT_PUID_DELETE => 113;
 
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_NAME => 201;
+Readonly our $EDIT_HISTORIC_REMOVE_LINK_TYPE  => 238;
 
 =head1 NAME
 

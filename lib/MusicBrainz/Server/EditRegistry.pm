@@ -32,6 +32,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::Create
     MusicBrainz::Server::Edit::Relationship::Edit
     MusicBrainz::Server::Edit::Relationship::Delete
+    MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
