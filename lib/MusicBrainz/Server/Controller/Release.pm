@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
+use MusicBrainz::Server::Wizard::ReleaseEditor;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -17,6 +18,8 @@ use MusicBrainz::Server::Controller::Role::Tag;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT
+    $EDIT_RELEASE_DELETERELEASELABEL
+    $EDIT_RELEASE_EDITRELEASELABEL
     $EDIT_TRACK_EDIT
     $EDIT_TRACKLIST_DELETETRACK
     $EDIT_TRACKLIST_ADDTRACK
@@ -221,107 +224,182 @@ sub edit : Chained('load') RequireAuth Edit
 {
     my ($self, $c) = @_;
 
-    my $release = $c->stash->{release};
-    $c->model('ReleaseLabel')->load($release);
-    $c->model('Label')->load(@{ $release->labels });
-    $c->model('Medium')->load_for_releases($release);
+    my $release;
 
-    my @mediums = $release->all_mediums;
-    my @tracklists = grep { defined } map { $_->tracklist } @mediums;
+    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
 
-    $c->model('MediumFormat')->load(@mediums);
-    $c->model('Track')->load_for_tracklists(@tracklists);
+    $wizard->process;
 
-    my @tracks = map { $_->all_tracks } @tracklists;
+    if ($wizard->cancelled)
+    {
+        $c->detach ('show');
+    }
 
-    $c->model('ArtistCredit')->load(@tracks, $release);
+    if ($wizard->loading || $wizard->submitted)
+    {
+        # we're either just starting the wizard, or submitting it.  In
+        # both cases the release we're editting needs to be loaded
+        # from the database.
 
-    $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
+        $release = $c->stash->{release};
+        $c->model('ReleaseLabel')->load($release);
+        $c->model('Label')->load(@{ $release->labels });
+        $c->model('Medium')->load_for_releases($release);
+        $c->model('ReleaseGroup')->load($release);
+        $c->model('ReleaseGroupType')->load($release->release_group);
 
-    my $form = $c->form(form => 'Release', init_object => $release);
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $release_edit = $self->_create_edit($c, $EDIT_RELEASE_EDIT,
-            $form => [qw( name comment packaging_id status_id script_id language_id
-                         country_id barcode artist_credit date )],
-            to_edit => $release,
-        ),
+        my @mediums = $release->all_mediums;
+        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
 
-        my %track_id = map { $_->id => $_ } @tracks;
-        my %medium_id = map { $_->id => $_ } @mediums;
+        $c->model('MediumFormat')->load(@mediums);
+        $c->model('Track')->load_for_tracklists(@tracklists);
 
-        for my $medium_field ($form->field('mediums')->fields) {
-            # Editing mediums
-            # First check if we need to create a new tracklist
-            my $tracklist_id = $medium_field->field('tracklist')->field('id')->value;
+        my @tracks = map { $_->all_tracks } @tracklists;
 
-            # Editing tracks
-            for my $track_field ($medium_field->field('tracklist')->field('tracks')->fields) {
-                if ($track_field->field('id')->has_value) {
-                    my $track = $track_id{ $track_field->field('id')->value };
-                    if ($track_field->field('deleted')->value) {
-                        $c->model('Edit')->create(
-                            editor_id => $c->user->id,
-                            edit_type => $EDIT_TRACKLIST_DELETETRACK,
-                            track => $track
-                        );
+        $c->model('ArtistCredit')->load(@tracks, $release);
+
+        $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
+    }
+
+    if ($wizard->submitted)
+    {
+        # The user is done with the wizard and wants to submit the new data.
+        # So let's create an edit :)
+
+        my $data = $wizard->value;
+
+        # release edit
+        # ----------------------------------------
+
+        my @fields = qw( name comment packaging_id status_id script_id language_id
+                         country_id barcode artist_credit date );
+        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+        $args{'to_edit'} = $release;
+        my $editnote = $data->{'editnote'};
+
+        $self->_create_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
+
+
+        # release labels edit
+        # ----------------------------------------
+
+        for my $label (@{ $data->{'labels'} })
+        {
+            # FIXME: create an id map.
+            my $found = undef;
+            for (@{ $release->labels })
+            {
+                if ($_->label_id == $label->{'label_id'})
+                {
+                    $found = $_;
+                    last;
+                }
+            }
+
+            if ($found)
+            {
+                if ($label->{'deleted'})
+                {
+                    # Delete ReleaseLabel
+                    $self->_create_edit($c, $EDIT_RELEASE_DELETERELEASELABEL, $editnote,
+                        release_label => $found,
+                    );
+                }
+                else
+                {
+                    # Edit ReleaseLabel
+                    $self->_create_edit($c, $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
+                        release_label => $found,
+                        catalog_number => $label->{'catalog_number'},
+                    );
+                }
+            }
+            else
+            {
+                # FIXME: Delete ReleaseLabel
+            }
+        }
+
+        # medium / tracklist / track edits
+        # ----------------------------------------
+
+        for my $medium (@{ $data->{'mediums'} })
+        {
+            my $tracklist_id = $medium->{'tracklist'}->{'id'};
+
+            for my $track (@{ $medium->{'tracklist'}->{'tracks'} })
+            {
+                if ($track->{'id'})
+                {
+                    if ($track->{'deleted'})
+                    {
+                        # Delete a track
+                        $self->_create_edit ($c, $EDIT_TRACKLIST_DELETETRACK, $editnote,
+                             track => $c->model('Track')->get_by_id ($track->{'id'}));
                     }
-                    else {
+                    else
+                    {
                         # Editing an existing track
-                        $self->_create_edit($c, $EDIT_TRACK_EDIT,
-                            $track_field => [qw( position name artist_credit length )],
-                            to_edit => $track,
+                        $self->_create_edit($c, $EDIT_TRACK_EDIT, $editnote,
+                             position => $track->{'position'},
+                             name => $track->{'name'},
+                             artist_credit => $track->{'artist_credit'},
+                             length => $track->{'length'},
+                             to_edit => $c->model('Track')->get_by_id ($track->{'id'}),
                         );
                     }
                 }
-                elsif ($tracklist_id) {
+                elsif ($tracklist_id)
+                {
                     # We are creating a new track (and not a new tracklist)
-                    $self->_create_edit($c, $EDIT_TRACKLIST_ADDTRACK,
-                        $track_field => [qw( position name artist_credit )],
-                        tracklist_id => $tracklist_id,
+                    $self->_create_edit($c, $EDIT_TRACKLIST_ADDTRACK, $editnote,
+                         position => $track->{'position'},
+                         name => $track->{'name'},
+                         artist_credit => $track->{'artist_credit'},
+                         length => $track->{'length'},
+                         tracklist_id => $tracklist_id,
                     );
                 }
             }
 
-            my $has_tracks = $medium_field->field('tracklist')->field('tracks')->has_fields;
-            if(!$tracklist_id && $has_tracks) {
-                # We have some tracks but no tracklist ID - so create a new tracklist
-                my @tracks = map { +{
-                    name          => $_->field('name')->value,
-                    position      => $_->field('position')->value,
-                    artist_credit => $_->field('artist_credit')->value,
-                } } $medium_field->field('tracklist')->field('tracks')->fields;
 
-                my $create_tl = $c->model('Edit')->create(
-                    editor_id => $c->user->id,
-                    edit_type => $EDIT_TRACKLIST_CREATE,
-                    tracks    => \@tracks,
+            if (!$tracklist_id && scalar @{ $medium->{'tracklist'}->{'tracks'} })
+            {
+                # We have some tracks but no tracklist ID - so create a new tracklist
+                my $create_tl = $self->_create_edit($c, $EDIT_TRACKLIST_CREATE,
+                    $editnote, tracks => $medium->{'tracklist'}->{'tracks'}
                 );
 
                 $tracklist_id = $create_tl->tracklist_id;
             }
 
-            if($medium_field->field('id')->has_value) {
-                my $medium = $medium_id{ $medium_field->field('id')->value };
-                # Edit existing medium
-                if($medium_field->field('deleted')->value) {
-                    $c->model('Edit')->create(
-                        editor_id => $c->user->id,
-                        edit_type => $EDIT_MEDIUM_DELETE,
-                        medium => $medium
-                    );
+            if ($medium->{'id'})
+            {
+                if ($medium->{'deleted'})
+                {
+                    # Delete medium
+                    $self->_create_edit($c, $EDIT_MEDIUM_DELETE, $editnote,
+                        medium => $c->model('Medium')->get_by_id ($medium->{'id'}));
                 }
-                else {
-                    $self->_create_edit(
-                        $c, $EDIT_MEDIUM_EDIT,
-                        $medium_field => [qw( name format_id position )],
-                        to_edit => $medium
-                    );
+                else
+                {
+                    # Edit medium
+                    $self->_create_edit($c, $EDIT_MEDIUM_EDIT, $editnote,
+                        name => $medium->{'name'},
+                        format_id => $medium->{'format_id'},
+                        position => $medium->{'position'},
+                        to_edit => $c->model('Medium')->get_by_id ($medium->{'id'}));
                 }
             }
-            else {
-                # Create a new medium
-                $self->_create_edit($c, $EDIT_MEDIUM_CREATE,
-                    $medium_field => [qw( name format_id position )],
+            else
+            {
+              # Add medium
+
+                $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote,
+                    name => $medium->{'name'},
+                    format_id => $medium->{'format_id'},
+                    position => $medium->{'position'},
                     tracklist_id => $tracklist_id,
                     release_id => $release->id
                 );
@@ -331,24 +409,40 @@ sub edit : Chained('load') RequireAuth Edit
         $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
         $c->detach;
     }
+    elsif ($wizard->loading)
+    {
+        # There was no existing wizard, provide the wizard with
+        # the $release to initialize the forms.
+        $wizard->render ($release);
+    }
+    else
+    {
+        # wizard processed correctly, it's not loading, cancelled or submitted.
+        # so all data is in the session and the wizard just needs to be rendered.
+        $wizard->render;
+    }
 }
 
 sub _create_edit {
-    my ($self, $c, $type, $parent, $fields, %extra) = @_;
-
-    my %args = map { $_ => $parent->field($_)->value }
-        grep { $parent->field($_)->has_value }
-            @$fields;
+    my ($self, $c, $type, $editnote, %args) = @_;
 
     return unless %args;
 
-    $args{$_} = $extra{$_} for keys %extra;
-
-    $c->model('Edit')->create(
+    my $edit = $c->model('Edit')->create(
         edit_type => $type,
         editor_id => $c->user->id,
         %args,
     );
+
+    if (defined $edit && defined $editnote)
+    {
+        $c->model('EditNote')->add_note($edit->id, {
+            text      => $editnote,
+            editor_id => $c->user->id,
+        });
+    }
+
+    return $edit;
 }
 
 =head2 duplicate

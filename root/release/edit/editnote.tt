@@ -1,0 +1,27 @@
+[%- BLOCK layout_head -%]
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+[%- END -%]
+
+[%- WRAPPER 'release/edit/layout.tt' -%]
+   [% USE r = FormRenderer(form) %]
+
+   <div id="form">
+     <div class="form">
+       [% r.hidden ('wizard_session_id') %]
+       <fieldset>
+         <legend>Edit Note</legend>
+         [% form_row_textarea (r, 'editnote', 'Edit note') %]
+       </fieldset>
+
+       <div class="buttons ui-helper-clearfix">
+         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+         [% r.submit ('previous', l('« Previous')) %]
+         [% r.submit ('save', l('Enter edit'), class => 'positive') %]
+       </div>
+
+     </div>
+
+     <p>session id: [% form.field('wizard_session_id').value %]</p>
+   </div>
+
+[%- END -%]

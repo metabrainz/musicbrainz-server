@@ -1,0 +1,201 @@
+[%- BLOCK layout_head -%]
+  <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery/jquery-1.4.2.min.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/mb/mb.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/mb/utils.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/mb/trackparser.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/mb/releaseeditor.js') %]" type="text/javascript"></script>
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <script type="text/javascript">
+    $('document').ready (function () {
+
+      var liveupdate = mbz.ReleaseEditor.LiveUpdate ();
+
+      var moveMediumFields = function (from, to) {
+        var discs = $('.basic-medium-format-and-title').size ();
+
+        for (var i = 0; i < discs; i++)
+        {
+            $('.'+from+'-medium-format-and-title').eq(i).contents ().detach ().appendTo (
+              $('.'+to+'-medium-format-and-title').eq(i));
+        }
+      };
+
+      $("a[href=#advanced]").click(function () {
+        moveMediumFields ('basic', 'advanced');
+        $('.basic-tracklist').hide ();
+        $('.advanced-tracklist').show ();
+      });
+
+      $("a[href=#basic]").click(function () {
+        moveMediumFields ('advanced', 'basic');
+        $('.advanced-tracklist').hide ();
+        $('.basic-tracklist').show ();
+        liveupdate.update ();
+      });
+
+      liveupdate.update ();
+
+    });
+  </script>
+[%- END -%]
+
+[%- WRAPPER 'release/edit/layout.tt' -%]
+  [% USE r = FormRenderer(form) %]
+  <div class="form basic-tracklist">
+    [% r.hidden ('wizard_session_id') %]
+    <fieldset>
+      <legend>[% l('Tracklist') %]</legend>
+
+      [% multidisc = form.field('mediums').fields.size > 1 %]
+      [% FOR medium_field=form.field('mediums').fields %]
+
+      <table class="basic-format">
+        <tr>
+          <td class="disc" >
+          [% IF multidisc %]
+            <h3>[% l('Disc {num}', { num => loop.index + 1 }) %]</h3>
+          [% END %]
+          </td>
+          <td class="format">
+      <div class="basic-medium-format-and-title">
+        [% r.hidden(medium_field.field('id')) %]
+        [% r.hidden(medium_field.field('deleted')) %]
+        [% r.hidden(medium_field.field('position')) %]
+
+        <div class="row">
+          [% r.label(medium_field.field('format_id'), l('Format')) %]
+          [% r.select(medium_field.field('format_id')) %]
+        </div>
+        <div class="row advanced-tracklist" style="display: none;">
+          [% r.label(medium_field.field('name'), l('Title')) %]
+          [% r.text(medium_field.field('name'), placeholder => l('Title')) %]
+        </div>
+      </div>
+          </td>
+        </tr>
+      </table>
+
+      <textarea id="mediums.[% loop.index %].tracklist" class="tracklist">
+      </textarea>
+
+      [% END %]
+
+      <h3>Options</h3>
+      <!-- FIXME: move these to the MusicBrainz::Server::Form::ReleaseEditor::Tracklist. -->
+      <p id="tracklist-options">
+      <input type="checkbox" name="guesscase" id="guesscase" checked="checked">
+      <label for="guesscase">[% l('Guess case on artist names and track titles') %]</label>
+      <br />
+      <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
+      <label for="tracknumbers">[% l('Tracknames start with a number') %]</label>
+      <br />
+      <input type="checkbox" name="vinylnumbers" id="vinylnumbers">
+      <label for="vinylnumbers">[% l('Enable vinyl track numbers') %]</label>
+      <br />
+      <input type="checkbox" name="tracktimes" id="tracktimes" checked="checked">
+      <label for="tracktimes">[% l('Detect track durations') %]</label>
+      </p>
+
+    </fieldset>
+
+    <div class="buttons ui-helper-clearfix">
+      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+      [% r.submit ('previous', l('« Previous')) %]
+      [% r.submit ('next', l('Next »')) %]
+    </div>
+
+    <p>session id: [% form.field('wizard_session_id').value %]</p>
+  </div>
+
+  <div class="documentation basic-tracklist">
+    <h2>Preview</h2>
+
+    <h3>Stick me in the stash</h3>
+    <p>by Stashed artist credit</p>
+    <div id="preview">
+    </div>
+
+    <div style="float: right; margin: 10px;" class="buttons">
+      <a href="#advanced">[% l('Advanced') %]</a>
+    </div>
+    <p style="margin: 10px; width: 300px;">[% l('Please use the advanced tracklist editor if this preview seems incorrect.') %]</p>
+
+    <br style="clear: right;" />
+
+  </div>
+
+  <div class="advanced-tracklist" style="display: none;">
+
+    <fieldset class="tracklist" style="display: block;">
+      <legend>[% l('Tracklist') %]</legend>
+      <div style="float: right; margin: 10px;" class="buttons">
+        <a href="#basic">[% l('Basic') %]</a>
+      </div>
+      <p style="margin: 10px; width: 300px;">[% l('Click Basic to return to the basic tracklist editor.') %]</p>
+    </fieldset>
+
+    [% FOR medium_field=form.field('mediums').fields %]
+    <fieldset>
+      <legend>[% l('Disc {num}', { num => loop.index + 1 }) %]</legend>
+
+      <div class="advanced-medium-format-and-title">
+      </div>
+
+      <div class="tracklist-padding">
+      <table class="medium tbl" id="[% medium_field.html_name %]">
+        <thead>
+          <tr>
+            <th class="position">[% l('#') %]</th>
+            <th class="title">[% l('Title') %]</th>
+            <th class="artist">
+              <input type="checkbox" class="artistcolumn">
+              [% l('Artist') %]
+            </th>
+            <th class="length">[% l('Length') %]</th>
+            <th class="delete"></th>
+          </tr>
+        </thead>
+        <tfoot />
+        <tbody>
+          [% r.hidden(medium_field.field('tracklist').field('id')) %]
+          [% FOR track=medium_field.field('tracklist').field('tracks').fields %]
+          <tr class="track">
+            <td class="position">
+              [% r.text(track.field('position'), class => 'pos') %]
+            </td>
+            <td class="title">
+              [% r.hidden(track.field('id')); r.text(track.field('name'), class => 'track-name') %]
+            </td>
+            <td class="artist">
+               <input type="text" class="artist-credit-preview" value="[% track.field('artist_credit').fif.name %]" />
+
+               [% FOR ac=track.field('artist_credit').field('names').fields %]
+                 [% r.hidden(ac.field('artist_id')) %]
+                 [% r.hidden(ac.field('join_phrase')) %]
+                 [% r.hidden(ac.field('name')) %]
+               [% END %]
+            </td>
+            <td class="length">
+              [% r.text(track.field('length'), class => 'track-length', size => 5)  %]
+            </td>
+            <td class="delete"> </td>
+          </tr>
+          [%- END -%]
+        </tbody>
+      </table>
+      </div>
+    </fieldset>
+    [% END %]
+
+    <div class="buttons ui-helper-clearfix">
+      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+      [% r.submit ('previous', l('« Previous')) %]
+      [% r.submit ('next', l('Next »')) %]
+    </div>
+
+    <p>session id: [% form.field('wizard_session_id').value %]</p>
+
+  </div>
+[%- END -%]
+

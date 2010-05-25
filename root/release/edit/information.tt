@@ -1,0 +1,79 @@
+[%- BLOCK layout_head -%]
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+[%- END -%]
+
+[%- WRAPPER 'release/edit/layout.tt' -%]
+  [% USE r = FormRenderer(form) %]
+  <div class="form">
+    [% r.hidden ('wizard_session_id') %]
+    <fieldset>
+      <legend>Release information</legend>
+      [% form_row_text (r, 'name', 'Title') %]
+      [% form_row_checkbox (r, 'various_artists', 'VA release') %]
+
+      [% WRAPPER form_row %]
+        [%# FIXME: artist credit editor. %]
+         <label for="release-artist">Artist</label>
+         <input type="text" id="release-artist" value="[% release.artist_credit.name %]" />
+
+        [% FOR field=form.field('artist_credit.names').fields %]
+          [% r.hidden(field.field('artist_id')) %]
+          [% r.hidden(field.field('join_phrase')) %]
+          [% r.hidden(field.field('name')) %]
+        [% END %]
+      [% END %]
+
+      [%# FIXME: should only be editable on Add Release. %]
+      [% form_row_select (r, 'type_id', 'Type') %]
+      [% form_row_select (r, 'status_id', 'Status') %]
+      [% form_row_select (r, 'language_id', 'Language') %]
+      [% form_row_select (r, 'script_id', 'Script') %]
+    </fieldset>
+
+    <fieldset>
+      <legend>Release event</legend>
+
+      [% WRAPPER form_row %]
+         <label for="release-date">Date</label>
+         [% r.date('date') %]
+      [% END %]
+
+      [% form_row_select (r, 'country_id', 'Country') %]
+      [% form_row_select (r, 'package_id', 'Packaging') %]
+
+      [% FOR field=form.field('labels').fields %]
+        [%# FIXME: only show the first label, make the rest hidden fields. %]
+        [% r.hidden(field.field('deleted')) %]
+        [% r.hidden(field.field('label_id')) %]
+        [% WRAPPER form_row %]
+           [%# FIXME: shouldn't render a label this way. %]
+           <label for="label-[% loop.index %]">Label</label>
+           [% r.text(field.field('name')) %]
+        [% END %]
+        [% form_row_text (r, field.field('catalog_number'), 'Catalog number') %]
+      [% END %]
+
+      [% form_row_text (r, field.field('barcode'), 'Barcode') %]
+    </fieldset>
+
+    <fieldset>
+      <legend>Additional information</legend>
+      [% form_row_textarea (r, 'annotation', 'Notes') %]
+    </fieldset>
+
+    <div class="buttons ui-helper-clearfix">
+        [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+        [% r.submit ('next', l('Next »')) %]
+    </div>
+
+    <p>session id: [% form.field('wizard_session_id').value %]</p>
+  </div>
+
+  <div class="documentation" style="padding: 100px 0;">
+    <div style="border: 1px dashed #999; height: 100px;">
+      <p style="text-align: center; margin: 48px 1em 1em 1em;">[field-specific documentation will show up here]</p>
+    </div>
+  </div>
+
+[%- END -%]
+
