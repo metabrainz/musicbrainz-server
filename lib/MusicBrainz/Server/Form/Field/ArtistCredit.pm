@@ -44,26 +44,32 @@ sub validate
     $self->value(\@credits);
 }
 
-sub fif
-{
+around 'fif' => sub {
+    my $orig = shift;
     my $self = shift;
 
-    my $artist_data = $self->form->ctx->model('Artist');
-    my $preview = MusicBrainz::Server::Entity::ArtistCredit->new(
-        names => [
-            map {
-                my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
-                    name => $_->field('name')->value,
-                );
-                $acn->artist_id($_->field('artist_id')->value) if $_->field('artist_id')->value;
-                $acn->join_phrase($_->field('join_phrase')->value) if $_->field('join_phrase')->value;
+    my $fif = $self->$orig (@_);
 
-                $acn;
-            } $self->field('names')->fields
-        ]
-    );
-    $artist_data->load(@{ $preview->names });
-    return $preview;
-}
+    return MusicBrainz::Server::Entity::ArtistCredit->new unless $fif;
+
+    # FIXME: shouldn't happen.
+    return MusicBrainz::Server::Entity::ArtistCredit->new unless $fif->{'names'};
+
+    my @names;
+    for ( @{ $fif->{'names'} } )
+    {
+        my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
+            name => $_->{'name'},
+            );
+        $acn->artist_id($_->{'artist_id'}) if $_->{'artist_id'};
+        $acn->join_phrase($_->{'join_phrase'}) if $_->{'join_phrase'};
+        push @names, $acn;
+    }
+
+    my $ret = MusicBrainz::Server::Entity::ArtistCredit->new( names => \@names );
+    $self->form->ctx->model('Artist')->load(@{ $ret->names });
+
+    return $ret;
+};
 
 1;
