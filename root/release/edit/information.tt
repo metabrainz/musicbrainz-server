@@ -51,7 +51,7 @@
       [% END %]
 
       [% form_row_select (r, 'country_id', 'Country') %]
-      [% form_row_select (r, 'package_id', 'Packaging') %]
+      [% form_row_select (r, 'packaging_id', 'Packaging') %]
 
       [% FOR field=form.field('labels').fields %]
         [%# FIXME: only show the first label, make the rest hidden fields. %]
