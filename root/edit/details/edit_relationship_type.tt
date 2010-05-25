@@ -1,0 +1,73 @@
+<table class="details">
+  [% IF edit.data.new.name %]
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td class="old">[% edit.data.old.name | html %]</td>
+    <td class="new">[% edit.data.new.name | html %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.new.description %]
+  <tr>
+    <th>[% l('Description:') %]</th>
+    <td class="old">[% edit.data.old.description %]</td>
+    <td class="new">[% edit.data.new.description %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.new.link_phrase %]
+  <tr>
+    <th>[% l('Link phrase:') %]</th>
+    <td class="old">[% edit.data.old.link_phrase %]</td>
+    <td class="new">[% edit.data.new.link_phrase %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.new.reverse_link_phrase %]
+  <tr>
+    <th>[% l('Reverse link phrase:') %]</th>
+    <td class="old">[% edit.data.old.reverse_link_phrase %]</td>
+    <td class="new">[% edit.data.new.reverse_link_phrase %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.new.short_link_phrase %]
+  <tr>
+    <th>[% l('Short link phrase:') %]</th>
+    <td class="old">[% edit.data.old.short_link_phrase %]</td>
+    <td class="new">[% edit.data.new.short_link_phrase %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.new.attributes %]
+  <tr>
+    <th>[% l('Attributes:') %]</th>
+    <td class="old">
+      <ul>
+        [% FOR attribute=edit.data.old.attributes %]
+        <li>
+          [% attribute.name %]: [% attribute.min %]-[% attribute.max %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+    <td class="new">
+      <ul>
+        [% FOR attribute=edit.data.old.attributes %]
+        <li>
+          [% attribute.name %]: [% attribute.min %]-[% attribute.max %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+  [% END %]
+
+  [% IF edit.data.old.parent %]
+  <tr>
+    <th>[% l('Parent') %]</th>
+    <td class="old">[% edit.data.old.parent %]</td>
+    <td class="new">[% edit.data.new.parent %]</td>
+  </tr>
+  [% END %]
+</table>
