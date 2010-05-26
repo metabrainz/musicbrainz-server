@@ -36,6 +36,29 @@
 
       liveupdate.update ();
 
+
+      /* tracklist input */
+
+            $('.advanced-tracklist tbody input').focus(function() {
+                $(this).css('border','1px solid #FFBA58');
+            });
+            $('.advanced-tracklist tbody input').blur(function() {
+                $(this).css('border','1px solid transparent');
+            });
+
+            $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color','#AAAAAA');
+            $('.advanced-tracklist th.artist input').change(function() {
+                if ($('.advanced-tracklist th.artist input:checked').val() != undefined) {
+                    $('.advanced-tracklist tr.track td.artist input').removeAttr('disabled').css('color','inherit');
+                } else {
+                    $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color','#AAAAAA');
+                }
+            });
+
+            $('form').bind ('submit', function () {
+                $('.advanced-tracklist tr.track td.artist input').removeAttr('disabled');
+            });
+
     });
   </script>
 [%- END -%]
@@ -104,8 +127,6 @@
       [% r.submit ('previous', l('« Previous')) %]
       [% r.submit ('next', l('Next »')) %]
     </div>
-
-    <p>session id: [% form.field('wizard_session_id').value %]</p>
   </div>
 
   <div class="documentation basic-tracklist">
@@ -194,8 +215,6 @@
       [% r.submit ('previous', l('« Previous')) %]
       [% r.submit ('next', l('Next »')) %]
     </div>
-
-    <p>session id: [% form.field('wizard_session_id').value %]</p>
 
   </div>
 [%- END -%]

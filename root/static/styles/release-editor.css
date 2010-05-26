@@ -137,6 +137,8 @@ h1 span {
     display:block;
 }
 
+#release-editor #editnote  { height: 70px; }
+
 #release-editor div.tracklist-padding { padding: 0 1em 1em 1em; }
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
 table.medium.tbl th.position, .medium.tbl td.position  { width: 2em; }

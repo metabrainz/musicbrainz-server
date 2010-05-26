@@ -10,6 +10,10 @@
             $(this).val (barcode);
         });
 
+        var annotation = $('#annotation');
+        annotation.focus (function() { annotation.css('height','70px'); });
+        annotation.blur(function() { if (!annotation.attr('value')) { annotation.css('height','10px'); } });
+
     });
   </script>
 [%- END -%]
@@ -77,8 +81,6 @@
         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
         [% r.submit ('next', l('Next »')) %]
     </div>
-
-    <p>session id: [% form.field('wizard_session_id').value %]</p>
   </div>
 
   <div class="documentation" style="padding: 100px 0;">

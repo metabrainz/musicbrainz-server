@@ -21,7 +21,6 @@
 
      </div>
 
-     <p>session id: [% form.field('wizard_session_id').value %]</p>
    </div>
 
 [%- END -%]
