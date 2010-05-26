@@ -41,7 +41,8 @@ h1 span {
     font-weight: bold;
 }
 
-#release-editor fieldset input, select {
+#release-editor fieldset input,
+#release-editor fieldset select {
     font-size: 1em;
     width: 300px;
 }
