@@ -47,6 +47,7 @@ h1 span {
     width: 300px;
 }
 
+#release-editor fieldset input[type=checkbox],
 #release-editor fieldset span.partial-date input {
     width: auto;
 }
