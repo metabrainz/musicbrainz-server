@@ -9,55 +9,7 @@
   <script type="text/javascript">
     $('document').ready (function () {
 
-      var liveupdate = mbz.ReleaseEditor.LiveUpdate ();
-
-      var moveMediumFields = function (from, to) {
-        var discs = $('.basic-medium-format-and-title').size ();
-
-        for (var i = 0; i < discs; i++)
-        {
-            $('.'+from+'-medium-format-and-title').eq(i).contents ().detach ().appendTo (
-              $('.'+to+'-medium-format-and-title').eq(i));
-        }
-      };
-
-      $("a[href=#advanced]").click(function () {
-        moveMediumFields ('basic', 'advanced');
-        $('.basic-tracklist').hide ();
-        $('.advanced-tracklist').show ();
-      });
-
-      $("a[href=#basic]").click(function () {
-        moveMediumFields ('advanced', 'basic');
-        $('.advanced-tracklist').hide ();
-        $('.basic-tracklist').show ();
-        liveupdate.update ();
-      });
-
-      liveupdate.update ();
-
-
-      /* tracklist input */
-
-            $('.advanced-tracklist tbody input').focus(function() {
-                $(this).css('border','1px solid #FFBA58');
-            });
-            $('.advanced-tracklist tbody input').blur(function() {
-                $(this).css('border','1px solid transparent');
-            });
-
-            $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color','#AAAAAA');
-            $('.advanced-tracklist th.artist input').change(function() {
-                if ($('.advanced-tracklist th.artist input:checked').val() != undefined) {
-                    $('.advanced-tracklist tr.track td.artist input').removeAttr('disabled').css('color','inherit');
-                } else {
-                    $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color','#AAAAAA');
-                }
-            });
-
-            $('form').bind ('submit', function () {
-                $('.advanced-tracklist tr.track td.artist input').removeAttr('disabled');
-            });
+      mbz.ReleaseEditor.initialize ();
 
     });
   </script>
@@ -207,6 +159,13 @@
         </tbody>
       </table>
       </div>
+
+      <div style="float: right; margin: 0px 10px 10px 10px;">
+        <a id="mediums.[% loop.index %].add_track" class="disc-add-track" href="#add_track">
+           <img src="[% c.uri_for('/static/images/release_editor/add-track.png') %]" />
+        </a>
+      </div>
+
     </fieldset>
     [% END %]
 

@@ -154,3 +154,130 @@ mbz.ReleaseEditor.LiveUpdate = function () {
 
     return self;
 };
+
+
+/**
+ * mbz.ReleaseEditor.initialize sets up the following events:
+ *
+ *    - keep preview and basic/advanced tracklists synced
+ *    - add track / disc buttons.
+ *    - switching between basic/advanced tracklist view
+ *    - highlighting inputs on the advanced view
+ *    - removing the disabled="disabled" attribute before submit on track artists.
+ */
+mbz.ReleaseEditor.initialize = function () {
+
+    /* keep preview and basic/advanced tracklists synced. */
+
+    mbz.ReleaseEditor.LiveUpdate ().update ();
+
+    /* add track / disc buttons. */
+
+    var newTrackTemplate = (
+        '<tr class="track">' +
+            '<td class="position">' +
+            '  <input class="pos" id="id-#{tracklist}.#{trackno}.position"' +
+            '         name="#{tracklist}.#{trackno}.position" value="#{trackno}" type="text">' +
+            '</td>' +
+            '<td class="title">' +
+            '  <input id="id-#{tracklist}.#{trackno}.id" name="#{tracklist}.#{trackno}.id" value="" type="hidden">' +
+            '  <input id="id-#{tracklist}.#{trackno}.name" name="#{tracklist}.#{trackno}.name" value="" type="text" class="track-name" >' +
+            '</td>' +
+            '<td class="artist"></td>' +
+            '<td class="length">' +
+            '  <input class="track-length" id="id-#{tracklist}.#{trackno}.length" name="#{tracklist}.#{trackno}.length" size="5" value="?:??" type="text">' +
+            '</td>' +
+            '<td class="delete"> </td>' +
+         '</tr>'
+    );
+
+
+    $(".disc-add-track").live ('click', function () {
+        var disc = parseInt ($(this).attr('id').replace(/[^0-9]/g, ''));
+        var table = $('table.medium').eq(disc);
+        var tracks = table.find ('tr.track').size ();
+
+        if (tracks)
+        {
+            // Add to existing tracklist
+            var previous = table.find ('tr.track').last ();
+
+            previous.after (mbz.template (newTrackTemplate, {
+                tracklist: 'mediums.'+disc+'.tracklist.tracks',
+                trackno: tracks+1,
+            }));
+
+            var newartist = table.find ('tr.track').last ().find ('td.artist');
+            newartist.append (previous.find ('td.artist > *').clone ());
+
+            var trackid = new RegExp ("tracklist.tracks.[0-9]+");
+            newartist.find('*').each (function (idx, element) {
+                var item = $(element);
+                var id = item.attr('id').replace(trackid, "tracklist.tracks."+tracks);
+                var name = item.attr('name').replace(trackid, "tracklist.tracks."+tracks);
+                item.attr ('id', id);
+                item.attr ('name', name);
+            });
+        }
+        else
+        {
+            // new tracklist
+            alert ("Sorry, not supported yet."); // FIXME: add tracklist.
+        }
+
+    });
+
+    $('.basic-tracklist').hide ();
+    $('.advanced-tracklist').show ();
+
+    /* switch between basic / advanced view. */
+
+    var moveMediumFields = function (from, to) {
+        var discs = $('.basic-medium-format-and-title').size ();
+
+        for (var i = 0; i < discs; i++)
+        {
+            $('.'+from+'-medium-format-and-title').eq(i).contents ().detach ().appendTo (
+                $('.'+to+'-medium-format-and-title').eq(i));
+        }
+    };
+
+    $("a[href=#advanced]").click (function () {
+        moveMediumFields ('basic', 'advanced');
+        $('.basic-tracklist').hide ();
+        $('.advanced-tracklist').show ();
+    });
+
+    $("a[href=#basic]").click (function () {
+        moveMediumFields ('advanced', 'basic');
+        $('.advanced-tracklist').hide ();
+        $('.basic-tracklist').show ();
+        liveupdate.update ();
+    });
+
+    /* advanced view inputs */
+
+    $('.advanced-tracklist tbody input').focus(function() {
+        $(this).css('border','1px solid #FFBA58');
+    });
+    $('.advanced-tracklist tbody input').blur(function() {
+        $(this).css('border','1px solid transparent');
+    });
+
+    $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color', '#AAA');
+    $('.advanced-tracklist th.artist input').change(function() {
+        if ($('.advanced-tracklist th.artist input:checked').val() != undefined)
+        {
+            $('.advanced-tracklist tr.track td.artist input').removeAttr('disabled').css('color', 'inherit');
+        }
+        else
+        {
+            $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color','#AAAAAA');
+        }
+    });
+
+    $('form').bind ('submit', function () {
+        $('.advanced-tracklist tr.track td.artist input').removeAttr('disabled');
+    });
+
+};

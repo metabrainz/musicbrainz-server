@@ -18,4 +18,11 @@ mbz.fullWidthConverter = function (inputString) {
     return newString.reverse ().join("");
 };
 
+mbz.template = function (str, values) {
+    return str.replace(/#{([^{}]*)}/g, function (a, b) {
+        var r = values[b];
+        return typeof r === 'string' || typeof r === 'number' ? r : a;
+    });
+};
+
 

@@ -192,6 +192,23 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
                 BUTTONS
    __________________________________ */
 
+a.disc-add-track,
+a.disc-add-track img {
+    cursor: pointer;
+    border: 0;
+    padding: 1px;
+    margin: 0;
+    width: 16px;
+    height: 16px;
+}
+
+a.disc-add-track:focus img,
+a.disc-add-track:hover img {
+    background-color:#E6EFC2;
+    padding: 0px;
+    border:1px solid #C6D880;
+    color:#529214;
+}
 
 .buttons a, .buttons input[type=submit] {
     display:block;
@@ -226,6 +243,7 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
 
 /* STANDARD */
 
+input[type=submit]:focus, .buttons a:focus,
 input[type=submit]:hover, .buttons a:hover {
     background-color:#dff4ff;
     border:1px solid #c2e1ef;
@@ -242,7 +260,9 @@ input[type=submit]:hover, .buttons a:hover {
 
 .buttons input[type=submit].positive,
 .buttons a.positive { color: #529214; }
+.buttons input[type=submit].positive:focus,
 .buttons input[type=submit].positive:hover,
+.buttons a.positive:focus,
 .buttons a.positive:hover {
     background-color:#E6EFC2;
     border:1px solid #C6D880;
@@ -253,7 +273,9 @@ input[type=submit]:hover, .buttons a:hover {
 
 .buttons input[type=submit].negative,
 .buttons a.negative { color: #d12f19; }
+.buttons input[type=submit].negative:focus,
 .buttons input[type=submit].negative:hover,
+.buttons a.negative:focus,
 .buttons a.negative:hover {
     background:#fbe3e4;
     border:1px solid #fbc2c4;
