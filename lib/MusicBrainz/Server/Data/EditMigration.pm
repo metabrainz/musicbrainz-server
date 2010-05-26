@@ -120,6 +120,14 @@ sub resolve_album_id
     }, $id);
 }
 
+sub resolve_annotation_id
+{
+    my ($self, $edit_id) = @_;
+    return $self->sql->select_single_value(q{
+        SELECT id FROM public.annotation WHERE moderation = ?
+    }, $edit_id);
+}
+
 sub album_release_ids
 {
     my ($self, $album_id) = @_;
