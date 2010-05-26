@@ -42,6 +42,23 @@ has 'cancelled' => (
     default => 0,
 );
 
+has 'page_number' => (
+    is => 'ro',
+    isa => 'HashRef',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        my $max = scalar @{ $self->pages } - 1;
+        my %ret;
+        for (0..$max)
+        {
+            $ret{$self->pages->[$_]->{name}} = $_;
+        }
+
+        return \%ret;
+    },
+);
+
 sub pages { return []; }
 
 sub skip { return 0; }
@@ -106,6 +123,7 @@ sub render
 
     $self->c->stash->{template} = $self->pages->[$self->_current]->{template};
     $self->c->stash->{form} = $page;
+    $self->c->stash->{wizard} = $self;
     $self->c->stash->{steps} = \@steps;
 }
 

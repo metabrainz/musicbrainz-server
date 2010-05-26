@@ -111,8 +111,9 @@
   <div class="documentation basic-tracklist">
     <h2>Preview</h2>
 
-    <h3>Stick me in the stash</h3>
-    <p>by Stashed artist credit</p>
+    [% USE w = Wizard() %]
+    <h3>[% w.get_field ('information', 'name').value %]</h3>
+    <p>by [% w.get_field ('information', 'artist_credit').fif.name %]</p>
     <div id="preview">
     </div>
 
