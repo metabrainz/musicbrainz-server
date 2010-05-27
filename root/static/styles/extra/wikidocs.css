@@ -1,6 +1,6 @@
 /*
- * WikiDocs styles
- */
+** WikiDocs styles
+*/
 
 /* For those pesky few pages that use h1s in their content */
 * + h1 {
@@ -32,6 +32,31 @@ pre {
     border-left: 5px solid #FC6714;
 }
 
+/* 
+** Images 
+*/
+div.floatright, table.floatright {
+	clear: right;
+	float: right;
+	position: relative;
+	margin: 0 0 .5em .5em;
+	border: 0;
+}
+
+div.floatleft, table.floatleft {
+	float: left;
+	clear: left;
+	position: relative;
+	margin: 0 .5em .5em 0;
+	border: 0;
+}
+
+div.floatright p { font-style: italic; }
+div.floatleft p { font-style: italic; }
+
+/*
+** TOC
+*/
 #toc, .toc {
     background-color: #F9F9F9;
     border: 1px solid #AAAAAA;
@@ -88,7 +113,6 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 ** wikitable class for skinning tables,
 ** table[border^=1] added for backwards support
 */
-
 table[border^="1"],
 table.wikitable {
     border-collapse: collapse;
@@ -126,14 +150,4 @@ table[border^="1"] caption,
 .wikitable caption {
     margin-bottom: 5px;
     font-weight: bold;
-}
-
-table.noborder td { /* Flexibility to have tables in the wiki without borders */
-    border: none;
-    vertical-align: top;
-    padding-left: 20px;
-}
-
-table.noborder td:first-child {
-    padding-left: 0;
 }
