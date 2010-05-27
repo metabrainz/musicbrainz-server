@@ -64,7 +64,12 @@ mbz.TrackParser = function (disc) {
 
         $.each (self.inputtitles, function (idx, title) {
 
-            var prefix = '#id-mediums\\.'+self.disc+'\\.tracklist\\.tracks\\.'+idx+'\\.';
+            if (self.disc.tracks.length < idx + 1)
+            {
+                self.disc.addTrack ();
+            }
+
+            var prefix = '#id-mediums\\.'+self.disc.number+'\\.tracklist\\.tracks\\.'+idx+'\\.';
             $(prefix + 'name').val (title);
             $(prefix + 'length').val (self.inputdurations[idx]);
 
@@ -82,13 +87,14 @@ mbz.TrackParser = function (disc) {
         self.cleanSpaces ();
         self.cleanTitles ();
         self.inputtitles = self.inputlines;
+
         self.fillInData ();
     };
 
     /* public variables. */
     self.disc = disc;
     self.artistseparator = new RegExp ("\\s[/\\t]");
-    self.textarea = $('#mediums\\.'+disc+'\\.tracklist');
+    self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
     self.guesscase = $('#guesscase').attr ('checked');
     self.tracknumbers = $('#tracknumbers').attr ('checked');
     self.vinylnumbers = $('#vinylnumbers').attr ('checked');

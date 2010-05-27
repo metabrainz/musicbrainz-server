@@ -10,8 +10,8 @@ mbz.ReleaseEditor.Disc = function (disc) {
     var self = mbz.Object ();
 
     /**
-     * update parses the track fields as they appear on the advanced
-     * view of the tracklist tab.
+     * update() parses the track fields as they appear on the advanced
+     * view of the tracklist tab.  (it updates the .tracks attribute).
      */
     var update = function () {
 
@@ -37,12 +37,94 @@ mbz.ReleaseEditor.Disc = function (disc) {
         return 'Disc ' + (self.number + 1) + (self.title ? ': '+self.title : '');
     };
 
+    /**
+     * addTrack adds a track to the tracklist on the advanced tab.
+     *
+     */
+    var addTrack = function () {
+        var table = $('table.medium').eq(self.number);
+        var tracks = table.find ('tr.track').size ();
+        var newartist;
+
+        if (tracks)
+        {
+            // Add to existing tracklist
+            var previous = table.find ('tr.track').last ();
+
+            previous.after (mbz.template (self.tracktemplate, {
+                tracklist: 'mediums.'+self.number+'.tracklist.tracks',
+                trackno: tracks,
+                position: tracks + 1,
+            }));
+
+            newartist = table.find ('tr.track').last ().find ('td.artist');
+            newartist.append (previous.find ('td.artist > *').clone ());
+
+            var trackid = new RegExp ("tracklist.tracks.[0-9]+");
+            newartist.find('*').each (function (idx, element) {
+                var item = $(element);
+                var id = item.attr('id').replace(trackid, "tracklist.tracks."+tracks);
+                var name = item.attr('name').replace(trackid, "tracklist.tracks."+tracks);
+                item.attr ('id', id);
+                item.attr ('name', name);
+            });
+        }
+        else
+        {
+            // First track in tracklist
+            table.find ('tbody').append (mbz.template (self.tracktemplate, {
+                tracklist: 'mediums.'+self.number+'.tracklist.tracks',
+                trackno: 0,
+            }));
+
+            newartist = table.find ('tr.track').last ().find ('td.artist');
+            newartist.append ($('div#release-artist > *').clone ());
+
+            var trackprefix = 'mediums.'+self.number+'.tracklist.tracks.0.';
+            newartist.find('*').each (function (idx, element) {
+                var item = $(element);
+                var id = trackprefix + item.attr('id');
+                var name = trackprefix + item.attr('name');
+                item.attr ('id', id);
+                item.attr ('name', name);
+            });
+        }
+
+        /* keep self.tracks somewhat updated without re-parsing everything. */
+        self.tracks.push ({
+            'position': tracks + 1,
+            'track': '',
+            'artist': $(newartist).find('input.artist-credit-preview').val (),
+            'length': '?:??',
+        });
+    };
+
     self.title = '';
     self.tracks = [];
     self.number = disc; // zero-based disc-number.
+    self.tracktemplate = (
+        '<tr class="track">' +
+            '<td class="position">' +
+            '  <input class="pos" id="id-#{tracklist}.#{trackno}.position"' +
+            '         name="#{tracklist}.#{trackno}.position" value="#{position}" type="text">' +
+            '</td>' +
+            '<td class="title">' +
+            '  <input id="id-#{tracklist}.#{trackno}.id" name="#{tracklist}.#{trackno}.id" value="" type="hidden">' +
+            '  <input id="id-#{tracklist}.#{trackno}.name" name="#{tracklist}.#{trackno}.name" value="" type="text" class="track-name" >' +
+            '</td>' +
+            '<td class="artist"></td>' +
+            '<td class="length">' +
+            '  <input class="track-length" id="id-#{tracklist}.#{trackno}.length" name="#{tracklist}.#{trackno}.length" size="5" value="?:??" type="text">' +
+            '</td>' +
+            '<td class="delete"> </td>' +
+         '</tr>'
+    );
 
     self.update = update;
     self.fullTitle = fullTitle;
+    self.addTrack = addTrack;
+
+    $(".disc-add-track").live ('click', self.addTrack);
 
     return self;
 };
@@ -109,6 +191,9 @@ mbz.ReleaseEditor.Preview = function () {
     self.renderPreview = renderPreview;
     self.renderTextAreas = renderTextAreas;
 
+    /* make sure discs are initialized. */
+    self.update ();
+
     return self;
 };
 
@@ -120,8 +205,9 @@ mbz.ReleaseEditor.LiveUpdate = function () {
     var self = mbz.Object ();
 
     var previewUpdate = function () {
+
         $.each (self.preview.discs, function (idx, disc) {
-            mbz.TrackParser (idx).run ();
+            mbz.TrackParser (disc).run ();
         });
 
         self.preview.update ();
@@ -156,6 +242,8 @@ mbz.ReleaseEditor.LiveUpdate = function () {
 };
 
 
+
+
 /**
  * mbz.ReleaseEditor.initialize sets up the following events:
  *
@@ -167,68 +255,13 @@ mbz.ReleaseEditor.LiveUpdate = function () {
  */
 mbz.ReleaseEditor.initialize = function () {
 
-    /* keep preview and basic/advanced tracklists synced. */
+    /* keep preview and basic/advanced tracklists synced.
+     * (constructing LiveUpdate will also initialize Preview and
+     *  Disc objects, which take care of 'Add Track' buttons, etc..)
+     */
 
-    mbz.ReleaseEditor.LiveUpdate ().update ();
-
-    /* add track / disc buttons. */
-
-    var newTrackTemplate = (
-        '<tr class="track">' +
-            '<td class="position">' +
-            '  <input class="pos" id="id-#{tracklist}.#{trackno}.position"' +
-            '         name="#{tracklist}.#{trackno}.position" value="#{trackno}" type="text">' +
-            '</td>' +
-            '<td class="title">' +
-            '  <input id="id-#{tracklist}.#{trackno}.id" name="#{tracklist}.#{trackno}.id" value="" type="hidden">' +
-            '  <input id="id-#{tracklist}.#{trackno}.name" name="#{tracklist}.#{trackno}.name" value="" type="text" class="track-name" >' +
-            '</td>' +
-            '<td class="artist"></td>' +
-            '<td class="length">' +
-            '  <input class="track-length" id="id-#{tracklist}.#{trackno}.length" name="#{tracklist}.#{trackno}.length" size="5" value="?:??" type="text">' +
-            '</td>' +
-            '<td class="delete"> </td>' +
-         '</tr>'
-    );
-
-
-    $(".disc-add-track").live ('click', function () {
-        var disc = parseInt ($(this).attr('id').replace(/[^0-9]/g, ''));
-        var table = $('table.medium').eq(disc);
-        var tracks = table.find ('tr.track').size ();
-
-        if (tracks)
-        {
-            // Add to existing tracklist
-            var previous = table.find ('tr.track').last ();
-
-            previous.after (mbz.template (newTrackTemplate, {
-                tracklist: 'mediums.'+disc+'.tracklist.tracks',
-                trackno: tracks+1,
-            }));
-
-            var newartist = table.find ('tr.track').last ().find ('td.artist');
-            newartist.append (previous.find ('td.artist > *').clone ());
-
-            var trackid = new RegExp ("tracklist.tracks.[0-9]+");
-            newartist.find('*').each (function (idx, element) {
-                var item = $(element);
-                var id = item.attr('id').replace(trackid, "tracklist.tracks."+tracks);
-                var name = item.attr('name').replace(trackid, "tracklist.tracks."+tracks);
-                item.attr ('id', id);
-                item.attr ('name', name);
-            });
-        }
-        else
-        {
-            // new tracklist
-            alert ("Sorry, not supported yet."); // FIXME: add tracklist.
-        }
-
-    });
-
-    $('.basic-tracklist').hide ();
-    $('.advanced-tracklist').show ();
+    var liveupdate = mbz.ReleaseEditor.LiveUpdate ();
+    liveupdate.update ();
 
     /* switch between basic / advanced view. */
 

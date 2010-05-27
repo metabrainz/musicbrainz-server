@@ -85,8 +85,21 @@
     <h2>Preview</h2>
 
     [% USE w = Wizard() %]
+    [% release_artist = w.get_field ('information', 'artist_credit') %]
     <h3>[% w.get_field ('information', 'name').value %]</h3>
-    <p>by [% w.get_field ('information', 'artist_credit').fif.name %]</p>
+    <p>by [% release_artist.fif.name %]</p>
+
+    [%# The following is only included so the artist can be cloned when adding new tracks. --warp. %]
+    <div id="release-artist" style="display: none">
+      <input type="text" class="artist-credit-preview" value="[% release_artist.fif.name %]" />
+
+      [% FOR ac=release_artist.field('names').fields %]
+        [% r.hidden(ac.field('artist_id')) %]
+        [% r.hidden(ac.field('join_phrase')) %]
+        [% r.hidden(ac.field('name')) %]
+      [% END %]
+    </div>
+
     <div id="preview">
     </div>
 
