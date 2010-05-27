@@ -124,7 +124,7 @@ mbz.ReleaseEditor.Disc = function (disc) {
     self.fullTitle = fullTitle;
     self.addTrack = addTrack;
 
-    $(".disc-add-track").live ('click', self.addTrack);
+    $("#mediums\\."+self.number+"\\.add_track").click(self.addTrack);
 
     return self;
 };
