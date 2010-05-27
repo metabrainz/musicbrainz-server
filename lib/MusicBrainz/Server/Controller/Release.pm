@@ -366,10 +366,18 @@ sub edit : Chained('load') RequireAuth Edit
 
             if (!$tracklist_id && scalar @{ $medium->{'tracklist'}->{'tracks'} })
             {
+                my @tracks = map {
+                    {
+                        name => $_->{name},
+                        length => $_->{length},
+                        artist_credit => $_->{artist_credit},
+                        position => $_->{position},
+                    }
+                } @{ $medium->{'tracklist'}->{'tracks'} };
+
                 # We have some tracks but no tracklist ID - so create a new tracklist
                 my $create_tl = $self->_create_edit($c, $EDIT_TRACKLIST_CREATE,
-                    $editnote, tracks => $medium->{'tracklist'}->{'tracks'}
-                );
+                    $editnote, tracks => \@tracks);
 
                 $tracklist_id = $create_tl->tracklist_id;
             }
@@ -394,15 +402,17 @@ sub edit : Chained('load') RequireAuth Edit
             }
             else
             {
-              # Add medium
-
-                $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote,
-                    name => $medium->{'name'},
-                    format_id => $medium->{'format_id'},
+                my $opts = {
                     position => $medium->{'position'},
                     tracklist_id => $tracklist_id,
                     release_id => $release->id
-                );
+                };
+
+                $opts->{name} => $medium->{'name'} if $medium->{'name'};
+                $opts->{format_id} => $medium->{'format_id'} if $medium->{'format_id'};
+
+                # Add medium
+                $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
             }
         }
 

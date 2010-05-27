@@ -25,36 +25,42 @@
       [% multidisc = form.field('mediums').fields.size > 1 %]
       [% FOR medium_field=form.field('mediums').fields %]
 
-      <table class="basic-format">
-        <tr>
-          <td class="disc" >
-          [% IF multidisc %]
-            <h3>[% l('Disc {num}', { num => loop.index + 1 }) %]</h3>
-          [% END %]
-          </td>
-          <td class="format">
-      <div class="basic-medium-format-and-title">
-        [% r.hidden(medium_field.field('id')) %]
-        [% r.hidden(medium_field.field('deleted')) %]
-        [% r.hidden(medium_field.field('position')) %]
+      <div class="basic-disc">
+        <table class="basic-format">
+          <tr>
+            <td class="disc" >
+            [% IF multidisc %]
+              <h3>[% l('Disc {num}', { num => loop.index + 1 }) %]</h3>
+            [% END %]
+            </td>
+            <td class="format">
 
-        <div class="row">
-          [% r.label(medium_field.field('format_id'), l('Format')) %]
-          [% r.select(medium_field.field('format_id')) %]
-        </div>
-        <div class="row advanced-tracklist" style="display: none;">
-          [% r.label(medium_field.field('name'), l('Title')) %]
-          [% r.text(medium_field.field('name'), placeholder => l('Title')) %]
-        </div>
+              <div class="basic-medium-format-and-title">
+                [% r.hidden(medium_field.field('id')) %]
+                [% r.hidden(medium_field.field('deleted')) %]
+                [% r.hidden(medium_field.field('position')) %]
+
+                <div class="row">
+                  [% r.label(medium_field.field('format_id'), l('Format')) %]
+                  [% r.select(medium_field.field('format_id')) %]
+                </div>
+                <div class="row advanced-tracklist" style="display: none;">
+                  [% r.label(medium_field.field('name'), l('Title')) %]
+                  [% r.text(medium_field.field('name'), placeholder => l('Title')) %]
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <textarea id="mediums.[% loop.index %].tracklist" class="tracklist"></textarea>
       </div>
-          </td>
-        </tr>
-      </table>
-
-      <textarea id="mediums.[% loop.index %].tracklist" class="tracklist">
-      </textarea>
 
       [% END %]
+
+      <div style="float: right; margin: 10px;" class="buttons">
+        <a href="#add_disc">[% l('Add Disc') %]</a>
+      </div>
 
       <h3>Options</h3>
       <!-- FIXME: move these to the MusicBrainz::Server::Form::ReleaseEditor::Tracklist. -->
@@ -123,7 +129,7 @@
     </fieldset>
 
     [% FOR medium_field=form.field('mediums').fields %]
-    <fieldset>
+    <fieldset class="advanced-disc">
       <legend>[% l('Disc {num}', { num => loop.index + 1 }) %]</legend>
 
       <div class="advanced-medium-format-and-title">
@@ -175,7 +181,7 @@
 
       <div style="float: right; margin: 0px 10px 10px 10px;">
         <a id="mediums.[% loop.index %].add_track" class="disc-add-track" href="#add_track">
-           <img src="[% c.uri_for('/static/images/release_editor/add-track.png') %]" />
+           <img src="[% c.uri_for('/static/images/release_editor/add-track.png') %]" title="Add Track" />
         </a>
       </div>
 
@@ -184,6 +190,7 @@
 
     <div class="buttons ui-helper-clearfix">
       [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+      <a href="#add_disc">[% l('Add Disc') %]</a>
       [% r.submit ('previous', l('« Previous')) %]
       [% r.submit ('next', l('Next »')) %]
     </div>

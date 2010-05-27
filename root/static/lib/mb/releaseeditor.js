@@ -1,6 +1,7 @@
 
 mbz.ReleaseEditor = {};
 mbz.ReleaseEditor.live_update_timeout = 500;
+mbz.ReleaseEditor.disabled_colour = '#AAA';
 
 /**
  * mbz.ReleaseEditor.Disc provides the tools neccesary to work with discs
@@ -75,10 +76,14 @@ mbz.ReleaseEditor.Disc = function (disc) {
             table.find ('tbody').append (mbz.template (self.tracktemplate, {
                 tracklist: 'mediums.'+self.number+'.tracklist.tracks',
                 trackno: 0,
+                position: 1,
             }));
 
             newartist = table.find ('tr.track').last ().find ('td.artist');
             newartist.append ($('div#release-artist > *').clone ());
+            newartist.find ('.artist-credit-preview').
+                attr ('disabled', 'disabled').
+                css ('color', mbz.ReleaseEditor.disabled_colour);
 
             var trackprefix = 'mediums.'+self.number+'.tracklist.tracks.0.';
             newartist.find('*').each (function (idx, element) {
@@ -97,6 +102,10 @@ mbz.ReleaseEditor.Disc = function (disc) {
             'artist': $(newartist).find('input.artist-credit-preview').val (),
             'length': '?:??',
         });
+
+        /* and scroll down to the new position of the 'Add Track' button if possible. */
+        var newpos = $('html').scrollTop () + table.find ('tr.track').last ().height ();
+        $('html').animate({ scrollTop: newpos }, 100);
     };
 
     self.title = '';
@@ -131,6 +140,8 @@ mbz.ReleaseEditor.Disc = function (disc) {
 
 /**
  * mbz.ReleaseEditor.Preview is used to render the preview and textareas.
+ * (it is therefore not accurately named. FIXME. --warp).
+ *
  */
 mbz.ReleaseEditor.Preview = function () {
     var self = mbz.Object ();
@@ -179,20 +190,73 @@ mbz.ReleaseEditor.Preview = function () {
 
     };
 
+    var addDisc = function () {
+
+        var discs = $('.basic-disc').size ();
+        var lastdisc_bas = $('.basic-disc').last ();
+        var lastdisc_adv = $('.advanced-disc').last ();
+
+        var newdisc_bas = lastdisc_bas.clone ().insertAfter (lastdisc_bas);
+        var newdisc_adv = lastdisc_adv.clone ().insertAfter (lastdisc_adv);
+
+        newdisc_adv.find ('tbody').empty ();
+
+        var h3 = newdisc_bas.find ("h3");
+        h3.text (h3.text ().replace (/[0-9]+/, discs + 1));
+
+        var legend = newdisc_adv.find ("legend");
+        legend.text (legend.text ().replace (/[0-9]+/, discs + 1));
+
+        var mediumid = new RegExp ("mediums.[0-9]+");
+        var update_ids = function (idx, element) {
+            var item = $(element);
+            if (item.attr ('id'))
+            {
+                item.attr ('id', item.attr('id').replace(mediumid, "mediums."+discs));
+            }
+            if (item.attr ('name'))
+            {
+                item.attr ('name', item.attr('name').replace(mediumid, "mediums."+discs));
+            }
+        };
+
+        newdisc_bas.find ("*").each (update_ids);
+        newdisc_adv.find ("*").each (update_ids);
+
+        /* clear the cloned rowid for this medium, so a new medium will be created. */
+        $("#id-mediums\\."+discs+"\\.id").val('');
+
+        $("#id-mediums\\."+discs+"\\.position").val(discs + 1);
+
+        self.discs.push (mbz.ReleaseEditor.Disc (discs));
+
+        newdisc_bas.find ('textarea').empty ();
+
+        /* and scroll down to the new position of the 'Add Disc' button if possible. */
+        /* FIXME: this hardcodes the fieldset bottom margin, shouldn't do that. */
+        var newpos = lastdisc_adv.height () ? lastdisc_adv.height () + 12 : lastdisc_bas.height ();
+        $('html').animate({ scrollTop: $('html').scrollTop () + newpos }, 500);
+    };
+
+
     self.discs = [];
 
-    var discs = $('.basic-medium-format-and-title').size ();
+    var discs = $('.basic-disc').size ();
     for (var i = 0; i < discs; i++)
     {
         self.discs.push (mbz.ReleaseEditor.Disc (i));
     }
 
+
     self.update = update;
     self.renderPreview = renderPreview;
     self.renderTextAreas = renderTextAreas;
+    self.addDisc = addDisc;
 
     /* make sure discs are initialized. */
     self.update ();
+
+    $("a[href=#add_disc]").click (self.addDisc);
 
     return self;
 };
@@ -266,7 +330,7 @@ mbz.ReleaseEditor.initialize = function () {
     /* switch between basic / advanced view. */
 
     var moveMediumFields = function (from, to) {
-        var discs = $('.basic-medium-format-and-title').size ();
+        var discs = $('.basic-disc').size ();
 
         for (var i = 0; i < discs; i++)
         {
@@ -297,15 +361,16 @@ mbz.ReleaseEditor.initialize = function () {
         $(this).css('border','1px solid transparent');
     });
 
-    $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color', '#AAA');
-    $('.advanced-tracklist th.artist input').change(function() {
+    /* FIXME: should only toggle the artist column for the associated disc. */
+    $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color', mbz.ReleaseEditor.disabled_colour);
+    $('.advanced-tracklist th.artist input').live ('change', function() {
         if ($('.advanced-tracklist th.artist input:checked').val() != undefined)
         {
             $('.advanced-tracklist tr.track td.artist input').removeAttr('disabled').css('color', 'inherit');
         }
         else
         {
-            $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color','#AAAAAA');
+            $('.advanced-tracklist tr.track td.artist input').attr('disabled','disabled').css('color', mbz.ReleaseEditor.disabled_colour);
         }
     });
 
