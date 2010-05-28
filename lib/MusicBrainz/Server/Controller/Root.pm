@@ -38,11 +38,6 @@ sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
-    # Load the blog for the sidebar
-    #
-    $c->stash->{blog} = $c->model('Feeds')->get($c, 'musicbrainz',
-        'http://blog.musicbrainz.org/?feed=rss2');
-
     $c->stash->{template} = 'main/index.tt';
 }
 
@@ -162,7 +157,10 @@ sub begin : Private
         $c->session->{tport} = $c->req->query_params->{tport};
     }
 
-    $c->stash( staging_server => DBDefs::DB_STAGING_SERVER() );
+    $c->stash(
+        staging_server => DBDefs::DB_STAGING_SERVER(),
+        wiki_server    => DBDefs::WIKITRANS_SERVER(),
+    );
 }
 
 =head2 end
