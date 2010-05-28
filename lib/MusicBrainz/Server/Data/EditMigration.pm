@@ -8,6 +8,7 @@ memoize(qw(
     album_release_ids
     artist_name
     find_release_group_id
+    link_attribute_from_name
     resolve_album_id
     resolve_recording_id
     resolve_release_id
@@ -142,6 +143,16 @@ sub artist_name
           JOIN artist_name name ON artist.name=name.id
          WHERE artist.id = ?
     }, $id) || sprintf '[ Artist #%d ]', $id;
+}
+
+sub link_attribute_from_name
+{
+    my ($self, $name) = @_;
+    return $self->sql->select_single_value(q{
+        SELECT id FROM link_attribute_type
+         WHERE name = ?
+         LIMIT 1
+    }, $name);
 }
 
 no Moose;
