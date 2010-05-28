@@ -143,6 +143,15 @@ sub _hash_to_row
     });
 }
 
+sub get_by_gid
+{
+    my ($self, $gid) = @_;
+    my @result = values %{$self->_get_by_keys("gid", $gid)};
+    if (scalar(@result)) {
+        return $result[0];
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

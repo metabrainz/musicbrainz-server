@@ -1,0 +1,18 @@
+<table class="details">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.data.name | html %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Description:') %]</th>
+    <td>[% edit.data.description | html %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Child order:') %]</th>
+    <td>[% edit.data.child_order %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Parent:') %]</th>
+    <td>[% edit.display_data.parent.name %]</td>
+  </tr>
+</table>
