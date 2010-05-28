@@ -1,13 +1,19 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
-    <h1>[% l('Page could not be found') %]</h1>
+[% extra_css = "wikidocs.css" %]
+[% WRAPPER 'layout.tt' title=l('Error 404: Page Not Found') full_width=1 %]
+    <h1>[% l('Page Not Found') %]</h1>
+    <h2>
+        [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 404') -%]
+    </h2>
     <p>
-        [% l('The wiki page {id} does not exist.', { id => id }) %]
+        [% l('Sorry, “<strong>{id}</strong>” is not a valid documentation page.',
+            { id => replace(id,'_',' ') }) %]
     </p>
     <p>
-        [% l('It is possible that the page <strong>{id}</strong> does not exist
-              <em>yet</em>.  You might find a page which has a similar title by
-              using the page search function in the {uri|MusicBrainz Wiki}. If
-              this does not help either, and you know how to edit wiki pages, please
-              help us by completing our documentation.', { id => id, uri => wiki_server }) %]
+        [% l('If you need help, try going through our {doc|documentation} or {faq|FAQs}.
+              Alternatively, you may find the page you\'re looking for by {search|searching for it} directly on {wiki}.',
+            { faq => doc_link('Frequently_Asked_Questions'),
+              doc => doc_link('MusicBrainz_Documentation'),
+              wiki => '<a href="http://' _ wiki_server _ '">http://' _ wiki_server _ '</a>',
+              search => 'http://' _ wiki_server _ '/Special:Search?search=' _ replace(id, '_', '+') }) %]
     </p>
 [% END %]

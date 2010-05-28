@@ -75,11 +75,6 @@ sub _fix_html_markup
         $node->attr('src', $src) if ($src =~ s,/-/images,http://$wiki_server/-/images,);
     }
 
-    for my $node ($tree->findnodes ('//table')->get_nodelist)
-    {
-        $node->attr('border', undef);
-    }
-
     $content = $tree->as_HTML;
 
     # Obfuscate e-mail addresses
@@ -112,7 +107,7 @@ sub _load_page
 {
     my ($self, $id, $version, $index) = @_;
 
-    return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "Main_Page" })
+    return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "MusicBrainz_Documentation" })
         if ($id eq "");
 
     my $doc_url = sprintf "http://%s/%s?action=render", &DBDefs::WIKITRANS_SERVER, $id;

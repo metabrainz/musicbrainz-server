@@ -7,6 +7,7 @@
 [%- END -%]
 [%#- This next could use localization for alternating comma/period use per locale -%]
 [%- MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
+[%- MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%- MACRO url_escape(url) BLOCK; url | url; END -%]
 [%- MACRO html_escape(url) BLOCK; url | html; END -%]
 [%- MACRO display_url(url) BLOCK; url | uri_decode | html; END -%]
