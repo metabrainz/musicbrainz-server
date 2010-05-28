@@ -39,6 +39,35 @@ mbz.ReleaseEditor.Disc = function (disc) {
     };
 
     /**
+     * removeTrack toggles the .deleted hidden input and renders a pending delete
+     * in the release editor.
+     */
+    var removeTrack = function (trackno) {
+        var input = $('#id-mediums\\.'+self.number+'\\.tracklist\\.tracks\\.'+trackno+'\\.deleted');
+        var deleted = !parseInt (input.val ());
+        var row = input.closest ('tr');
+        if (deleted)
+        {
+            input.val('1');
+            row.addClass('deleted');
+            row.find ('input.pos').val ('');
+        }
+        else
+        {
+            input.val ('0');
+            row.removeClass('deleted');
+        }
+        var trackpos = row.find ('input.pos').val ();
+
+        row.closest ('tbody').find ('tr').not ('tr.deleted').each (
+            function (idx, elem) {
+                $(elem).find('input.pos').val (idx + 1);
+            }
+        );
+    };
+
+
+    /**
      * addTrack adds a track to the tracklist on the advanced tab.
      *
      */
@@ -111,6 +140,8 @@ mbz.ReleaseEditor.Disc = function (disc) {
     self.title = '';
     self.tracks = [];
     self.number = disc; // zero-based disc-number.
+
+    // FIXME: hardcoded static url in this template. --warp.
     self.tracktemplate = (
         '<tr class="track">' +
             '<td class="position">' +
@@ -125,16 +156,22 @@ mbz.ReleaseEditor.Disc = function (disc) {
             '<td class="length">' +
             '  <input class="track-length" id="id-#{tracklist}.#{trackno}.length" name="#{tracklist}.#{trackno}.length" size="5" value="?:??" type="text">' +
             '</td>' +
-            '<td class="delete"> </td>' +
+            '<td class="delete">'+
+            '  <input type="hidden" value="0" name="#{tracklist}.#{trackno}.deleted" id="id-#{tracklist}.#{trackno}.deleted" />' +
+            '  <a class="disc-remove-track" href="#remove_track">' +
+            '    <img src="/static/images/release_editor/remove-track.png" title="Remove Track" />' +
+            '  </a>' +
+            '</td>' +
          '</tr>'
     );
 
     self.update = update;
     self.fullTitle = fullTitle;
+    self.removeTrack = removeTrack;
     self.addTrack = addTrack;
 
     $("#mediums\\."+self.number+"\\.add_track").click(self.addTrack);
-
+    
     return self;
 };
 
@@ -238,6 +275,20 @@ mbz.ReleaseEditor.Preview = function () {
         $('html').animate({ scrollTop: $('html').scrollTop () + newpos }, 500);
     };
 
+    var removeTrack = function (event) {
+
+        /* figure out which track needs to be deleted, then call removeTrack
+           on the appropriate disc object with those details. */
+        var matches = $(this).prev ("input[type=hidden]").attr ('id').match (
+                /mediums\.([0-9]+)\.tracklist.tracks.([0-9]+)/)
+        var disc = matches[1];
+        var track = matches[2];
+
+        if (disc && track)
+        {
+            self.discs[disc].removeTrack (track);
+        }
+    };
 
     self.discs = [];
 
@@ -252,11 +303,13 @@ mbz.ReleaseEditor.Preview = function () {
     self.renderPreview = renderPreview;
     self.renderTextAreas = renderTextAreas;
     self.addDisc = addDisc;
+    self.removeTrack = removeTrack;
 
     /* make sure discs are initialized. */
     self.update ();
 
     $("a[href=#add_disc]").click (self.addDisc);
+    $("a[href=#remove_track]").live ('click', self.removeTrack);
 
     return self;
 };

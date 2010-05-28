@@ -172,7 +172,12 @@
             <td class="length">
               [% r.text(track.field('length'), class => 'track-length', size => 5)  %]
             </td>
-            <td class="delete"> </td>
+            <td class="delete">
+              [% r.hidden(track.field('deleted')) %]
+              <a class="disc-remove-track" href="#remove_track">
+                <img src="[% c.uri_for('/static/images/release_editor/remove-track.png') %]" title="Remove Track" />
+              </a>
+            </td>
           </tr>
           [%- END -%]
         </tbody>
