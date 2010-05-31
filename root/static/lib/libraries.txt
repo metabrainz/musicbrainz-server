@@ -4,7 +4,7 @@
 library: jQuery
 license: MIT/GPLv2
 author:  John Resig
-url:     http://jquery.com        
+url:     http://jquery.com
 
 -- jquery/jquery.ajaxQueue.js --
 
@@ -13,6 +13,20 @@ authors: John Resig, Mike Hostetler
 url:     http://jquery.com/plugins/project/ajaxqueue
 note:    the version included here was taken from jquery.autocomplete,
          it is different from the version distributed on jquery.com.
+
+-- jquery/jquery.json.js --
+
+library: jquery-json
+license: MIT
+author:  Brantley Harris
+url:     http://code.google.com/p/jquery-json/
+
+-- jquery/jquery.selso.js --
+
+library: SelSo
+license: MIT/GPLv3
+author:  Guillaume Andrieu
+url:     http://github.com/subtenante/SelSo/
 
 -- jquery.autocomplete/ --
 

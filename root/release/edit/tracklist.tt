@@ -1,6 +1,8 @@
 [%- BLOCK layout_head -%]
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/lib/jquery/jquery-1.4.2.min.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery/jquery.json.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery/jquery.selso.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/lib/mb/mb.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/lib/mb/utils.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/lib/mb/trackparser.js') %]" type="text/javascript"></script>
@@ -109,6 +111,9 @@
     <div id="preview">
     </div>
 
+    <pre id="serialized">
+    </pre>
+
     <div style="float: right; margin: 10px;" class="buttons">
       <a href="#advanced">[% l('Advanced') %]</a>
     </div>
@@ -130,6 +135,8 @@
 
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc">
+      [% r.hidden(medium_field.field('tracklist').field('id')) %]
+      [% r.hidden(medium_field.field('tracklist').field('serialized')) %]
       <legend>[% l('Disc {num}', { num => loop.index + 1 }) %]</legend>
 
       <div class="advanced-medium-format-and-title">
@@ -151,7 +158,6 @@
         </thead>
         <tfoot />
         <tbody>
-          [% r.hidden(medium_field.field('tracklist').field('id')) %]
           [% FOR track=medium_field.field('tracklist').field('tracks').fields %]
           <tr class="track">
             <td class="position">

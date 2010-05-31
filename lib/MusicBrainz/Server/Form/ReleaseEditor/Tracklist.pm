@@ -10,6 +10,7 @@ has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist' => ( type => 'Compound' );
+has_field 'mediums.tracklist.serialized' => ( type => 'Text' );
 has_field 'mediums.tracklist.id' => ( type => 'Integer' );
 has_field 'mediums.tracklist.tracks' => ( type => 'Repeatable',  num_when_empty => 0 );
 has_field 'mediums.tracklist.tracks.id' => ( type => 'Integer' );
