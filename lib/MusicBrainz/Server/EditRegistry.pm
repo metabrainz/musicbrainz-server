@@ -53,9 +53,10 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
 
+    MusicBrainz::Server::Edit::Historic::EditReleaseEventsOld
     MusicBrainz::Server::Edit::Historic::EditReleaseName
-    MusicBrainz::Server::Edit::Historic::SACToMAC
     MusicBrainz::Server::Edit::Historic::RemoveTrack
+    MusicBrainz::Server::Edit::Historic::SACToMAC
 );
 
 sub register_type
