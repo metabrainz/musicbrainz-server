@@ -105,6 +105,7 @@ Readonly our $EDIT_URL_EDIT => 101;
 Readonly our $EDIT_PUID_DELETE => 113;
 
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_NAME       => 201;
+Readonly our $EDIT_HISTORIC_MOVE_RELEASE            => 208;
 Readonly our $EDIT_HISTORIC_SAC_TO_MAC              => 209;
 Readonly our $EDIT_HISTORIC_REMOVE_TRACK            => 211;
 Readonly our $EDIT_HISTORIC_REMOVE_RELEASE          => 212;
