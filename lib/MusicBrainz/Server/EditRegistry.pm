@@ -31,6 +31,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Recording::Edit
     MusicBrainz::Server::Edit::Recording::AddISRCs
     MusicBrainz::Server::Edit::Recording::Merge
+    MusicBrainz::Server::Edit::Relationship::AddLinkType
     MusicBrainz::Server::Edit::Relationship::Create
     MusicBrainz::Server::Edit::Relationship::Delete
     MusicBrainz::Server::Edit::Relationship::Edit
