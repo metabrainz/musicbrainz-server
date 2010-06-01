@@ -20,6 +20,7 @@ has 'migration' => (
         resolve_recording_id
         artist_name
         label_id_from_alias
+        resolve_annotation_id
     )]
 );
 
