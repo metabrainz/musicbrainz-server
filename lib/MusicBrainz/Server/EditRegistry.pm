@@ -29,13 +29,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Edit
-    MusicBrainz::Server::Edit::Recording::Merge
     MusicBrainz::Server::Edit::Recording::AddISRCs
+    MusicBrainz::Server::Edit::Recording::Merge
     MusicBrainz::Server::Edit::Relationship::Create
-    MusicBrainz::Server::Edit::Relationship::Edit
     MusicBrainz::Server::Edit::Relationship::Delete
-    MusicBrainz::Server::Edit::Relationship::RemoveLinkType
+    MusicBrainz::Server::Edit::Relationship::Edit
+    MusicBrainz::Server::Edit::Relationship::EditLinkType
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
+    MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
