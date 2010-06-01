@@ -53,6 +53,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
 
+    MusicBrainz::Server::Edit::Historic::AddDiscID
     MusicBrainz::Server::Edit::Historic::AddRelease
     MusicBrainz::Server::Edit::Historic::AddTrack
     MusicBrainz::Server::Edit::Historic::ChangeTrackArtist

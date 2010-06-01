@@ -119,6 +119,7 @@ Readonly our $EDIT_HISTORIC_MERGE_RELEASE           => 223;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE   => 244;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_ATTRS      => 226;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD => 229;
+Readonly our $EDIT_HISTORIC_ADD_DISCID              => 232;
 
 =head1 NAME
 
