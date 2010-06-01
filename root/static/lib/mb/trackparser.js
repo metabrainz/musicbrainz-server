@@ -80,20 +80,24 @@ mbz.TrackParser = function (disc) {
 
         // Match up inputtitles with existing tracks.
         $.each (self.inputtitles, function (idx, title) {
-            var pos = idx + 1;
+            var data = { 'length': self.inputdurations[idx], 'position': idx + 1 };
 
             if (map[title] === undefined)
             {
-                inserted.push ({ 'row': ++lastused, 'position': pos, 'title': title});
+                data.row = ++lastused;
+                data.title = title;
+                inserted.push (data);
             }
             else if ($.inArray (idx, map[title]) !== -1)
             {
-                no_change.push (idx);
+                data.row = idx;
+                no_change.push (data);
                 map[title].splice ($.inArray (idx, map[title]), 1);
             }
             else
             {
-                moved.push ({ 'position': pos, 'row': map[title].pop () });
+                data.row = map[title].pop ();
+                moved.push (data);
             }
         });
 
@@ -102,18 +106,18 @@ mbz.TrackParser = function (disc) {
         });
 
         /* restore those which don't change from their serialized values. */
-        $.each (no_change, function (idx, row) {
-            var copy = self.disc.original (row);
-            copy.length = self.inputdurations[idx];
-            self.disc.renderTrack (row, copy);
+        $.each (no_change, function (idx, data) {
+            var copy = self.disc.original (data.row);
+            copy.length = data.length;
+            self.disc.renderTrack (data.row, copy);
         });
 
         /* re-arrange any tracks which have moved. */
-        $.each (moved, function (idx, move) {
-            var copy = self.disc.original (move.row);
-            copy.position = move.position;
-            copy.length = self.inputdurations[idx];
-            self.disc.renderTrack (move.row, copy);
+        $.each (moved, function (idx, data) {
+            var copy = self.disc.original (data.row);
+            copy.position = data.position;
+            copy.length = data.length;
+            self.disc.renderTrack (data.row, copy);
         });
 
         /* mark deleted tracks as such. */
@@ -129,7 +133,7 @@ mbz.TrackParser = function (disc) {
                 'position': data.position,
                 'title': data.title,
                 'deleted': 0,
-                'length': self.inputdurations[idx]
+                'length': data.length
             });
         });
 

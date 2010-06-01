@@ -408,8 +408,8 @@ sub edit : Chained('load') RequireAuth Edit
                     release_id => $release->id
                 };
 
-                $opts->{name} => $medium->{'name'} if $medium->{'name'};
-                $opts->{format_id} => $medium->{'format_id'} if $medium->{'format_id'};
+                $opts->{name} = $medium->{'name'} if $medium->{'name'};
+                $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
 
                 # Add medium
                 $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);

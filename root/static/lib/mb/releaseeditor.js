@@ -24,14 +24,15 @@ mbz.ReleaseEditor.Disc = function (disc) {
         self.tracks = [];
 
         $('table.medium').eq(self.number).find('tr.track').each (function (idx, item) {
-            self.tracks.push ({
+            var track = {
                 'position': $(item).find('td.position input').val (),
                 'id': $(item).find('td.title input[type=hidden]').val (),
                 'title': $(item).find('td.title input.track-name').val (),
                 'artist': $(item).find('td.artist input.artist-credit-preview').val (),
                 'length': $(item).find('td.length input').val (),
                 'deleted': parseInt ($(item).find('td.delete input').val ()) ? 1 : 0
-            });
+            };
+            self.tracks.push (track);
         });
 
         self.title = $('#id-mediums\\.'+self.number+'\\.name').val ();
@@ -164,7 +165,7 @@ mbz.ReleaseEditor.Disc = function (disc) {
     var removeTrackInputs = function (trackno)
     {
         var lastused = $('table.medium').eq (self.number).find ('tr.track').eq (trackno);
-        lastused.nextAll ('tr.track').empty ();
+        lastused.nextAll ('tr.track').remove ();
     }
 
     /**
@@ -370,6 +371,7 @@ mbz.ReleaseEditor.Preview = function () {
         /* clear the cloned rowid for this medium, so a new medium will be created. */
         $("#id-mediums\\."+discs+"\\.id").val('');
         $("#id-mediums\\."+discs+"\\.position").val(discs + 1);
+        $("#id-mediums\\."+discs+"\\.tracklist\\.id").val('');
         $('#id-mediums\\.'+discs+'\\.tracklist\\.serialized').val('[]');
 
         self.discs.push (mbz.ReleaseEditor.Disc (discs));
