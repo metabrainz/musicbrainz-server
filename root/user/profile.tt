@@ -99,17 +99,20 @@
 
     [% BLOCK statistics %]
         <tr>
-            <td>[% name %]</td>
-            <td style="text-align:right">[% content %]</td>
+            <th>[% name %]</td>
+            <td>[% content %]</td>
         </tr>
     [% END %]
 
     <h2>[% l('Statistics') %]</h2>
     <table class="statistics">
+        <thead>
         <tr>
             <th colspan="2">[% l('Edits ({view_url|view})', { view_url => '/404' }) %]</th>
         </tr>
+        </thead>
 
+        <tbody>
         [% WRAPPER statistics name=l("Accepted") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => '/404' }) %]
         [% END %]
@@ -125,6 +128,7 @@
         [% WRAPPER statistics name=l("Failed") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.failed_edits), view_url => '/404' }) %]
         [% END %]
+        </tbody>
     </table>
 
     <table class="statistics" summary="[% l('This table shows a summary of votes cast by this editor.') %]">

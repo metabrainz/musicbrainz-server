@@ -1,60 +1,48 @@
-h3 {
+dl.profileinfo {
+    display: block;
+}
+
+dl.profileinfo dt {
     clear: left;
-    margin: 0;
-    margin-bottom: 10pt;
-    border-bottom: 1px dotted #ccc;
-    padding-bottom: 2pt;
-    padding-left: 4pt;
-}
-
-dl, dd { 
-    line-height: 18pt; 
-}
-
-dl {
-    margin-bottom: 10pt;
-    overflow: auto;
-}
-
-dl .piped_list { 
-    clear: none;
-}
-
-dl dd { 
-    margin-left: 160pt;
-}
-
-dl dt {
-    float: left;
-    clear: both;
+    display: block;
     font-weight: bold;
-    width: 150pt;
-    margin-right: 10pt;
+    float: left;
+    width: 125px;
     text-align: right;
+    padding: 5px;
 }
 
-div.box { 
-    overflow: auto; 
+dl.profileinfo dd {
+    clear: right;
+    display: block;
+    padding: 5px;
+    margin-left: 130px;
 }
 
-/* This makes sure the <dd>s line up with the <dt>s properly */
-dl.profile_info .piped_list .list{ 
-    padding: 3pt 0; 
+table.statistics {
+    float: left;
+    border-collapse: collapse;
+    border: 1px solid #ADB9CC;
+    margin: 8px;
 }
 
-.statistics thead th { 
-    padding-right: 15pt;
-}
-
-.statistics tbody th { 
+table.statistics th {
+    border: 1px solid #ADB9CC;
+    background: #F1F1F1;
     text-align: right;
-    padding-right: 10pt;
+    padding: 3px 5px;
 }
 
-.statistics tbody td.votes { 
+table.statistics thead th {
+    text-align: center;
+}
+
+table.statistics td {
+    border: 1px solid #ADB9CC;
     text-align: right;
+    padding: 3px 5px;
 }
 
-.statistics tfoot th.votes { 
+table.statistics tfoot th.votes {
     text-align: center;
 }

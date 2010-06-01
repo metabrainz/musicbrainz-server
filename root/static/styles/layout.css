@@ -14,14 +14,45 @@ body {
     font-size: 12px;
 }*/
 
-a { color:#002BBA; text-decoration: none; }
+a, .homepage a:visited { color:#002BBA; text-decoration: none; }
 a:visited { color:#3C5DCE; }
-a:hover { color:#FC6714; text-decoration: underline; }
+a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
 dfn {
     font-style: normal;
     border-bottom: 1px dotted;
+}
+
+/* TODO:
+** Use relative links on the site and then add:
+** a[href^="http://"], a[href^="https://"] */
+a.external {
+    background: url("/static/images/external.png") no-repeat right;
+    padding-right: 13px;
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 40px;
+    list-style-image: url('/static/images/bullet.gif');
+    list-style-type: square;
+}
+
+
+ol {
+    margin-left: 0;
+    padding-left: 40px;
+}
+
+ul ul, ul ol,
+ol ol, ol ul {
+    padding-left: 20px;
+}
+
+code {
+    background-color: #DDDDDD;
+    padding: 0 5px;
 }
 
 #header {
@@ -113,11 +144,13 @@ dfn {
     padding: 0;
     height: 100%;
     list-style-type: none;
+    list-style-image: none;
 }
 
 #header-menu li {
     float: left;
     list-style-type: none;
+    list-style-image: none;
 }
 
 #header-menu ul a {
@@ -175,33 +208,36 @@ dfn {
     position: relative;
 }
 
-.fullwidth {
+.fullwidth,
+.homepage {
     background-image: none;
 }
 
-.page .bl, .page .br, .page .tl, .page .tr {
+.page .bl, .page .br, .page .tl, .page .tr,
+.server-details .bl, .server-details .br,
+.server-details .tl, .server-details .tr {
     position: absolute;
     display: block;
     width: 8px;
     height: 8px;
 }
 
-.page .tr {
+.page .tr, .server-details .tr {
     top: 0; right: 0;
     background: url(../images/sprites.png) -14px -58px;
 }
 
-.page .tl {
+.page .tl, .server-details .tl {
     top: 0; left: 0;
     background: url(../images/sprites.png) -23px -58px;
 }
 
-.page .br {
+.page .br, .server-details .br {
     bottom: 0; right: 0;
     background: url(../images/sprites.png) -32px -58px;
 }
 
-.page .bl {
+.page .bl, .server-details .bl {
     bottom: 0; left: 0;
     background: url(../images/sprites.png) -41px -58px;
 }
@@ -216,10 +252,21 @@ dfn {
     margin-right: 0px;
 }
 
+.homepage .linkbar {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
 #sidebar {
     float: right;
     width: 218px;
     font-size: 95%;
+}
+
+.homepage #sidebar {
+    margin-top: 34px;
+    width: 239px;
 }
 
 #sidebar p {
@@ -283,7 +330,10 @@ h3 {
     margin-top: 1em;
     margin-bottom: 0;
     font-size: 100%;
+    font-weight: bold;
 }
+
+.clear { clear: both; }
 
 p.subheader {
     margin-top: 0;
@@ -295,18 +345,31 @@ p.subheader {
 p.subheader span { color: #999; }
 
 #footer {
-    padding: 1em 0;
-    margin: 0;
+    margin: 1em 0;
+    padding: 0 1em;
     font-size: 90%;
     color: #333;
-    text-align: center;
 }
 
-#footer a {
-    color: #333;
+#footer a { color: #002BBA; }
+#footer a:hover { color: #FC6714; }
+
+#footer ul.links {
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    list-style-image: none;
 }
-#footer a:hover {
-    color: #666;
+
+#footer ul.links li {
+    float: left;
+    margin-right: 1em;
+}
+
+#footer p.sponsors {
+    text-align: right;
+    margin: 0;
 }
 
 div.tabs {
@@ -320,6 +383,7 @@ div.tabs {
     padding: 0;
     margin: 0;
     list-style-type: none;
+    list-style-image: none;
     width: 100%;
     position: relative;
     top: 1px;
@@ -692,26 +756,11 @@ pre code {
     word-wrap: break-word;
 }
 
-.browse-entities {
-    overflow: hidden;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.browse-entities table {
-    float: left;
-    width: 50%;
-    border-collapse: collapse;
-}
-
-.browse-entities table td {
-    vertical-align: top;
-}
-
-.browse-entities table td.index {
-    width: 0em;
-    text-align: right;
-    padding-right: 0.4em;
+/*
+** Browse Entity pages
+*/
+.browse-entities ol {
+    margin: 0;
 }
 
 .browse td {
@@ -759,36 +808,85 @@ span.mp {
     background: #FD9;
 }
 
-/* Extra CSS Styles for the landing page */
+/* Extra CSS for the homepage */
 
-#leftSide {
-    margin-right: 210pt;
+#triple {
+    clear: both;
+    margin-top: 20px;
 }
 
-#rightSide {
-    margin-top: 22px;
-    float: right;
-    width: 200pt;
+#triple .triple-column {
+    float: left;
+    margin: 0 1%;
+    width: 32%;
 }
 
-#rightSide ul#blog {
-    padding: 0;
+#triple .first-column {
+    margin-left: 0;
 }
 
-#rightSide ul#blog li {
-    list-style-type: none;
+#triple .last-column {
+    margin-right: 0;
 }
 
-#chrome-prompt {
-    margin: 6pt 0;
+.triple-column img {
+    float:left;
+    margin: 10px 0 0 2px;
+}
+
+.triple-column p {
+    margin-left: 70px;
+    margin-bottom: 0;
+}
+
+.triple-column ul {
+    margin-top: 10px;
+    margin-left: 60px;
+}
+
+.triple-column h2 {
+    color: #FFFFFF;
+    background-color: #736DAB;
+    padding: 5px 0 5px 7px;
+    margin: 0;
+    border-bottom: 4px solid #FFBA58;
+}
+
+#sidebar .triple-column {
+    height: 110px;
+    margin-bottom: 10px;
+}
+
+#sidebar .triple-column img {
+    margin: 10px 0 0 10px;
+}
+
+#sidebar .triple-column h2 {
+    color: #000000;
+    background-color: #FFBA58;
+    border-bottom: 4px solid #736DAB;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
+.server-details {
+    margin: 10px 0;
     text-align: center;
     font-weight: bold;
-    background: #FFBA58;
-    padding: 4pt;
-    border: 2px solid #FC6714;
+    background: #FFFFFF;
+    padding: 10px;
+    border: 0;
+    color: #FC6714;
+    position: relative;
 }
 
-
+.server-details p {
+    margin: 0;
+}
 
 dl.profileinfo {
     display: block;
@@ -827,4 +925,28 @@ table.details td.old {
 table.details td.new,
 table.details td.old {
     border: 1px solid #CCC;
+}
+
+/*
+** CSS columns instead of tables
+*/
+div.columns-2 div.column {
+    float: left;
+    width: 50%;
+    min-width: 300px;
+}
+div.columns-3 div.column {
+    float: left;
+    width: 33.3%;
+    min-width: 200px;
+}
+div.columns-4 div.column {
+    float: left;
+    width: 25%;
+    min-width: 150px;
+}
+div.columns-5 div.column {
+    float: left;
+    width: 20%;
+    min-width: 120px;
 }

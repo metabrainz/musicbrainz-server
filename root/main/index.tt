@@ -1,106 +1,103 @@
-[% WRAPPER "layout.tt" title=l("Welcome to MusicBrainz!") full_width=1 %]
-    <div id="rightSide">
-        [% WRAPPER "components/box.tt" color="purple" header=l("MetaBrainz Foundation") %]
-            <p>
-                [% l('The {uri|MetaBrainz Foundation}, a California 501.(c).3 non-profit corporation, operates the MusicBrainz project. All {donate|donations} to MusicBrainz are tax deductible!', {uri="http://metabrainz.org", donate="http://metabrainz.org/donate"}) %]
-            </p>
-        [% END %]
-        [% WRAPPER "components/box.tt" color="purple" header=l("MusicBrainz Blog") %]
-            <ul id="blog">
-                [% FOREACH post IN blog.entries %]
-                    [% LAST IF loop.count > 5 %]
-                    <li>
-                        <h3>
-                            [% post.title | html_entity  %]
-                        </h3>
-                        [% post.summary.body %]
-                        <p style="text-align: right;">
-                            [% l('Posted:') %] [% UserDate.format(post.issued) %]
-                            <br/>
-                            <a href="[% post.link %]">
-                                [% l('Read more&hellip;') %]
-                            </a>
-                        </p>
-                    </li>
-                [% END %]
-            </ul>
-        [% END %]
-    </div>
-    <div id="leftSide">
-        <h1>
-            [% l('Welcome to MusicBrainz!') %]
-        </h1>
-        [% IF server_details.staging_server %]
-            [% WRAPPER "components/box.tt"
-                 header = l("You are using a MusicBrainz $server_details.staging_server server!")
-                 color = "purple" %]
-                <p>
-                    [% l('Unless you want to be testing the latest and greatest MusicBrainz features you probably want to go to the main server {uri|http://musicbrainz.org}<img src="{ext_link}" alt="{ext_site}"/>.', {ext_link => c.uri_for('/static/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org"}) %]
-                </p>
-            [% END %]
-        [% END %]
-        [% IF server_details.is_slave_db %]
-            [% WRAPPER "components/box.tt" header=l("You are using a MusicBrainz mirror!") colour="purple" %]
-                <p>
-                    [% l('If you want to edit the MusicBrainz data, you will need to go to the {uri|main MusicBrainz server}<img src="{ext_link}" alt="{ext_site}" width="12" />.', {ext_link => c.uri_for('/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org/"}) %]
-                </p>
-            [% END %]
-        [% END %]
-        [% WRAPPER "components/box.tt" header=l("What is MusicBrainz?") %]
-            <p>
-                [% l('MusicBrainz is a community music meta-database that attempts to create a comprehensive music information site. You can use the MusicBrainz data either by browsing this web site, or you can access the data from a client program - for example, a CD player program can use MusicBrainz to identify CDs and provide information about the CD, about the Artist or about related information. You can also use the MusicBrainz Tagger to automatically identify and clean up the metadata tags in your digital music collections. Find out more in the {uri|introduction}.', {uri => c.uri_for('/doc/AboutMusicBrainz')}) %]
-            </p>
-        [% END %]
-        [% WRAPPER "components/box.tt" header=l("Use MusicBrainz") %]
-            <p>
-                [% l('You can use MusicBrainz right now to automatically identify and label your music files - all you have to do is download and run a MusicBrainz enabled tagger. {taggers|Read more about our taggers}.', { taggers => doc_link('MusicBrainz_Tagger')}) %]
-            </p>
-            <div>
-                <a href="[% c.uri_for('/doc/MusicBrainz_Picard') %]" title="[% l("Download Picard") %]">
-                    <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
-                    [% l('Download Picard') %]
-                </a>
-                [% l('[Windows/Linux]') %]
-            </div>
-            <div>
-                <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="[% l("Download Magic-Tagger") %]">
-                    <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
-                    [% l('Download Magic-Tagger') %]
-                </a>
-                [% l('[Windows -- {info|More info...}]', {info="http://www.magic-tagger.com"}) %]
-            </div>
-            <div>
-                <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="[% l('Download Jaikoz Tag Editor') %]">
-                    <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[% l("[download]") %]" />
-                    [% l('Download Jaikoz Tag Editor') %]
-                </a>
-                [% l('[Windows, Linux, Mac OS X -- {info|More info...}]', {info="http://www.jthink.net/jaikoz"}) %]
-            </div>
-            <p>
-                [% l('Alternatively, you might just want to {search_url|search} or {browse_url|browse} the MusicBrainz database. If you spot a mistake, or something that is missing, you can even {edit|edit or add more data}!', { search_url => c.uri_for('/search'), edit => doc_link('How_Editing_Works'), browse_url => c.uri_for('/browse/artist')}) %]
-            </p>
-            <p>
-                [% l('If you are new to MusicBrainz, please take a moment to read the {doc_begin|beginners\' guide} before editing the database.', {doc_begin => doc_link('Beginners_Guide')}) %]
-            </p>
-            <p>
-                [% l('If you are a software developer you might want to learn about the {doc_client|MusicBrainz client library/<abbr title="software development kit">SDK</abbr>}. You can use the library to enable your programs to access the MusicBrainz database, both for looking up data and also for submitting new data.', {doc_client => doc_link('libmusicbrainz')}) %]
-            </p>
-        [% END %]
-        [% WRAPPER "components/box.tt" header=l("Be a Part of MusicBrainz") %]
-            <p>
-                [% l('Many people are needed to make MusicBrainz work. Come and take part!') %]
-            </p>
+[% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
+    <div id="sidebar">
+        <div id="taggers" class="triple-column">
+            <h2 class="taggers">Tag Your Music »</h2>
+            <img src="[% c.uri_for('/static/images/musicbrainz-picard.png') %]">
             <ul>
-                <li>
-                    [% l('Please download and use Picard. By doing so, you will be using and adding to the MusicBrainz database.') %]
-                </li>
-                <li>
-                    [% l('{uri_search|Search} or {uri_browse|browse} the MusicBrainz data for your favourite Artists, or for your {uri_fav|favourite releases}.', {uri_search => c.uri_for('/search'), uri_browse => c.uri_for('/browse/artist'), uri_fav => c.uri_for('/browse/release')}) %]
-                </li>
-                <li>
-                    [% l('If you spot something that is wrong, poorly entered or just plain missing, please {uri_register|register} and {edit|edit the data}', {uri_register => c.uri_for('/user/register'), edit => doc_link('How_Editing_Works')}) %]
-                </li>
+                <li>[% l('{doc|MusicBrainz Picard}',
+                    { doc => doc_link('MusicBrainz_Picard') }) %]</li>
+                <li>[% l('{doc|Jaikoz}',
+                    { doc => doc_link('Jaikoz') }) %]</li>
+                <li>[% l('{doc|Magic MP3 Tagger}',
+                    { doc => doc_link('Magic_MP3_Tagger') }) %]</li>
             </ul>
-        [% END %]
+        </div>
+
+        <div id="quick-start" class="triple-column">
+            <h2>[% l('Quick Start »') %]</h2>
+            <img src="[% c.uri_for('/static/images/quick-start.png') %]">
+            <ul>
+                <li>[% l('{doc|Beginners guide}',
+                    { doc => doc_link('Beginners_Guide') }) %]</li>
+                <li>[% l('{doc|Editing introduction}',
+                    { doc => doc_link('How_Editing_Works') }) %]</li>
+                <li>[% l('{doc|Style guidelines}',
+                    { doc => doc_link('Official_Style_Guidelines') }) %]</li>
+                <li>[% l('{doc|FAQs}',
+                    { doc => doc_link('Frequently_Asked_Questions') }) %]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>[% l('Welcome to MusicBrainz!') %]</h1>
+        <p>
+            [% l('MusicBrainz is an open music encyclopedia that collects, and makes available to the public, music metadata.',
+                { doc => doc_link('MusicBrainz_Database') }) %]
+        </p>
+
+        <p>
+            [% l('MusicBrainz aims to be:') %]
+        </p>
+
+        <ol>
+            <li>
+                [% l('<strong>The ultimate source of music information</strong> by allowing anyone to contribute and releasing the {doc|data} under {doc2|open licenses}.',
+                    { doc => doc_link('MusicBrainz_Database'),
+                      doc2 => doc_link('MusicBrainz_License') }) %]
+            </li>
+            <li>
+                [% l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.',
+                    { doc => doc_link('MusicBrainz_Identification') }) %]
+            </li>
+        </ol>
+
+        <p>
+            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone — including you — to {doc|participate and contribute}.',
+                { doc => doc_link('How_To_Contribute') }) %]
+        </p>
+
+        <div class="linkbar">
+            [% l('{about|More Information} — {faq|FAQs} — {contact|Contact Us}',
+                { about => doc_link('About_MusicBrainz'),
+                  contact => doc_link('Contact_Us'),
+                  faq => doc_link('Frequently_Asked_Questions') }) %]
+        </div>
+
+        <p>
+            [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
+                { uri => "http://metabrainz.org",
+                  free => doc_link('MusicBrainz_License') }) %]
+        </p>
+
+    </div>
+
+    <div id="triple">
+        <div id="community" class="triple-column first-column">
+            <h2 class="community">Community »</h2>
+            <img src="[% c.uri_for('/static/images/community.png') %]">
+            <p>
+                [% l('{doc|Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>}',
+                    { doc => doc_link('How_To_Contribute') }) %]
+            </p>
+        </div>
+
+        <div id="products" class="triple-column">
+            <h2 class="products">MusicBrainz Database »</h2>
+            <img src="[% c.uri_for('/static/images/download.png') %]">
+            <p>
+                [% l('{doc|The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.}',
+                    { doc => doc_link('MusicBrainz_Database') }) %]
+            </p>
+        </div>
+
+        <div id="developers" class="triple-column last-column">
+            <h2 class="developers">Developers »</h2>
+            <img src="[% c.uri_for('/static/images/developer.png') %]">
+            <p>
+                [% l('{doc|Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.}',
+                    { doc => doc_link('Developer_Resources') }) %]
+            </p>
+        </div>
     </div>
 [% END %]

@@ -5,8 +5,11 @@
         [%- IF looks_like_ie -%]
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
         [%- END -%]
-        <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
+        <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
         <link rel="stylesheet" type="text/css" href="/static/main.css" />
+        [% IF extra_css %]
+            <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
+        [% END %]
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
@@ -37,28 +40,71 @@
             </div></div>
         </div>
 
+        [% IF server_details.staging_server %]
+            <div class="server-details">
+                <p>
+                    [% l("This is a MusicBrainz $server_details.staging_server server.
+                          The main server is located at {uri|http://musicbrainz.org}<img
+                          src=\"{ext_link}\" alt=\"{ext_site}\"/>.",
+                        { ext_link => c.uri_for('/static/images/icon/extlink.gif'),
+                          ext_site => l("External Website"),
+                          uri="http://musicbrainz.org"}) %]
+                </p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [% END %]
+
+        [% IF server_details.is_slave_db %]
+            <div class="server-details">
+                <p>
+                    [% l('This is a MusicBrainz {doc|mirror server}, editing the data is
+                          not possible.<br />To edit or make changes to any data please
+                          visit the main server at {uri|http://musicbrainz.org}<img
+                          src="{ext_link}" alt="{ext_site}" width="12" />.',
+                         { ext_link => c.uri_for('/static/images/icon/extlink.gif'),
+                           doc => doc_link('Mirror_Server'),
+                           ext_site => l("External Website"),
+                           uri="http://musicbrainz.org/"}) %]
+                </p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [% END %]
+
         [%- IF needs_chrome -%]
-        <div id="chrome-prompt">
-          It looks like you're using Internet Explorer.<br />
-          To get the most out of this website we highly recommend the use of Google Chrome Frame. <a href="/chrome_frame">More information&hellip;</a>
-        </div>
+            <div class="server-details">
+                <p>
+                    [% l('It looks like you\'re using Internet Explorer.<br/>To get the most
+                          out of this website we highly recommend the use of
+                          {uri|Google Chrome Frame}.',
+                        { uri => c.uri_for_action('/chrome_frame') }) %]
+                </p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
         [%- END -%]
 
-        <div class="page[% IF full_width %] fullwidth[% END %]">
+        <div class="page[% IF full_width %] fullwidth[% END %][% IF homepage %] homepage[% END %]">
         [%- content -%]
         <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
 
-        <p id="footer">
-            <a href="http://metabrainz.org/donate">Donate</a> |
-            <a href="http://cafepress.com/musicbrainz">Stuff to Buy</a> |
-            <a href="http://blog.musicbrainz.org">Blog</a> |
-            <a href="http://wiki.musicbrainz.org/">Wiki</a> |
-            <a href="http://forums.musicbrainz.org/">Forums</a> |
-            <a href="http://musicbrainz.org/bugs">Bug Tracker</a> |
-            <a href="http://musicbrainz.org/doc/License">License</a> |
-            <a href="http://musicbrainz.org/doc/Contact_Us">Contact Us</a>
-        </p>
+        <div id="footer">
+            <ul class="links">
+                <li><a href="http://metabrainz.org/donate">[% l('Donate') %]</a>
+                <li><a href="http://[% wiki_server %]/">[% l('Wiki') %]</a>
+                <li><a href="http://forums.musicbrainz.org/">[% l('Forums') %]</a>
+                <li><a href="http://jira.musicbrainz.org/">[% l('Bug Tracker') %]</a>
+                <li><a href="http://www.cafepress.com/musicbrainz">[% l('Schwag') %]</a>
+            </ul>
+
+            <p class="sponsors">
+                [% l('Hosted by {host|Digital West}. Sponsored by: {url1|Google},
+                      {url2|OSUOSL} and {more|others…}',
+                    { host => 'http://digitalwest.net/',
+                      url1 => 'http://www.google.com/',
+                      url2 => 'http://osuosl.org/',
+                      more => doc_link('MusicBrainz_Sponsors') }) %]
+            </p>
+        </div>
 
         [%- IF c.session.tport -%]
             <iframe name="tagger-iframe" height="0" width="0" frameborder="0"></iframe>
