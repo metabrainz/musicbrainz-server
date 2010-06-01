@@ -1,10 +1,12 @@
-[% WRAPPER "layout.tt" title=l("Error 403: Forbidden") full_width=1 %]
-    <h1>[%- l('Unauthorized') -%]</h1>
-    <h2>
-        [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 401') -%]
-    </h2>
-    <p>
-        [%- l('Sorry, you are unauthorized to view this page. If you are trying to edit or add some data, please note
-               that you must first confirm your email address to do this.') -%]
-    </p>
+[% WRAPPER "layout.tt" title=l('Error 401: Unauthorized') full_width=1 %]
+    <div class="content">
+        <h1>[%- l('Unauthorized') -%]</h1>
+        <h2>[%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 401') -%]</h2>
+
+        <p>
+            [%- l('Sorry, you are unauthorized to view this page. If you are trying to edit
+                   or add some data, please note that you must first confirm your email
+                   address to do this.') -%]
+        </p>
+    <div>
 [% END %]

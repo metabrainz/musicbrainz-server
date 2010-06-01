@@ -1,17 +1,27 @@
-[% WRAPPER "layout.tt" title=l("Error 500: Internal Server Error") full_width=1 %]
-    <h1>
-        [% l('Ooops!') %]
-    </h1>
-    <h2>
-        [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 500') -%]
-    </h2>
-    <p>
-        [% l('Sorry, it seems like something has gone wrong! Repeating your request may solve this problem, however if it persists, please file a bug report at {uri|our bug tracker}.', {uri="http://jira.musicbrainz.org"}) %]
-    </p>
-    <p>
-        [% l('The server returned the following error message:') %]
-    </p>
-    <blockquote>
-        [% message | html %]
-    </blockquote>
+[% WRAPPER "layout.tt" title=l('Error 500: Internal Server Error') full_width=1 %]
+    <div class="content">
+        <h1>[%- l('Ooops!') -%]</h1>
+        <h2>[%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 500') -%]</h2>
+
+        <p>[%- l('Sorry, it seems like something has gone wrong!') -%]</p>
+
+        <p>
+            [%- l('Waiting a few minutes and/or repeating your request may solve the
+                   problem, however if it persists, please {uri|file a bug report}. Alternatively
+                   you may also contact us at {email|support@musicbrainz.org}, or visit the
+                   {irc|#musicbrainz <acronym title="Internet Relay Chat">IRC</acronym> channel}
+                   on irc.freenode.net.',
+                 { uri="http://jira.musicbrainz.org",
+                   email="mailto&#x3a;support&#x0040;musicbrainz.org",
+                   irc="http://webchat.freenode.net/?channels=musicbrainz" }) -%]
+        </p>
+
+        <p>[%- l('Thank you, and sorry for the inconvenience!') -%]</p>
+
+        <h3>[%- l('Error Message:') -%]</h3>
+
+        <blockquote>
+            [%- message | html -%]
+        </blockquote>
+    </div>
 [%- END -%]

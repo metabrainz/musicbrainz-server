@@ -53,13 +53,13 @@ after 'load' => sub
     }
     my @isrcs = $c->model('ISRC')->find_by_recording($recording->id);
     $c->stash( isrcs => \@isrcs );
+    $c->model('ArtistCredit')->load($recording);
 };
 
 after 'tags' => sub
 {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
-    $c->model('ArtistCredit')->load($recording);
 };
 
 =head2 relations
@@ -85,7 +85,6 @@ after 'details' => sub
     my ($self, $c) = @_;
     # XXX Load PUID count?
     my $recording = $c->stash->{recording};
-    $c->model('ArtistCredit')->load($recording);
 };
 
 sub show : Chained('load') PathPart('')
@@ -112,7 +111,6 @@ sub puids : Chained('load') PathPart('puids')
 
     my $recording = $c->stash->{recording};
     my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-    $c->model('ArtistCredit')->load($recording);
     $c->stash(
         puids    => \@puids,
         template => 'recording/puids.tt',
@@ -143,7 +141,6 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 before 'edit' => sub {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
-    $c->model('ArtistCredit')->load($recording);
 };
 
 after 'merge' => sub {
@@ -175,7 +172,6 @@ sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
     }
     else
     {
-        $c->model('ArtistCredit')->load($recording);
         $c->stash( puid => $puid );
 
         $self->edit_action($c,

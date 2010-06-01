@@ -1,56 +1,81 @@
+[% BLOCK edit_status %]
+    [% IF edit.status == 1 %]
+        [%- " open" -%]
+    [% ELSIF edit.status == 2 %]
+        [%- " applied" -%]
+    [% ELSIF edit.status == 3 %]
+        [%- " failed" -%]
+    [% ELSIF edit.status == 8 %]
+        [%- " cancelling" -%]
+    [% ELSIF edit.status == 9 %]
+        [%- " cancelled" -%]
+    [% ELSE %]
+        [%- " error" -%]
+    [% END %]
+[% END %]
+
+[% INCLUDE 'edit/list_header.tt' %]
+
+[% IF search %]
+    <div class="search-refine">
+        <form action="[% c.req.uri %]" method="post">
+            [% USE r = FormRenderer(form) %]
+            [% form_row_select(r, 'type', l('Type:')) %]
+            [% form_row_select(r, 'status', l('Status:')) %]
+
+         <div class="row no-label">
+             [% form_submit(l("Search")) %]
+         </div>
+       </form>
+    </div>
+[% END %]
+
+<div class="search-toggle c">
+    <p>
+        <strong>[%- ln('Found {n} edit', 'Found {n} edits' , pager.total_entries, { n => pager.total_entries}) -%]</strong>
+        [% IF search %]
+            (<a href="[% c.uri_for_action('/edit/search') %]">[% l('search again') %]</a>)
+        [% END %]
+    </p>
+</div>
+
 [% IF edits.size %]
     [% WRAPPER 'components/with-pager.tt' %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
-            <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <table class="edit-list">
-                [%- FOREACH edit=edits -%]
-                    <tr class="seperator">
-                        <td colspan="3">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="edit-info">
-                            [% INCLUDE 'edit/info.tt' summary=1 %]
-                        </td>
-                        <td class="edit-details">
-                            [%- INCLUDE "edit/details/${edit.edit_template}.tt" %]
-                        </td>
-                        <td class="vote-actions">
-                            <p>[% edit.yes_votes %]
-                            [% l('yes') %] :
-                            [% edit.no_votes %]
-                            [% l('no') %]</p>
+            [%- FOREACH edit=edits -%]
+                <div class="edit-list">
+                    [% INCLUDE 'edit/edit_header.tt' summary=1 %]
 
-                            [% IF edit.is_open && c.user_exists %]
-                            <p>
-                                [% IF edit.can_approve(c.user.privileges) %]
-                                    <a href="[% c.uri_for_action('edit/approve', [ edit.id ], { url=c.req.uri }) %]">
-                                        [% l('Approve') %]</a>
-                                [% END %]
-                                [% IF c.user.id == edit.editor_id %]
-                                    <a href="[% c.uri_for_action('edit/cancel', [ edit.id ], { url=c.req.uri }) %]">
-                                        [% l('Cancel') %]</a>
-                                [% END %]
+                    <div class="edit-actions c[%- PROCESS edit_status -%]">
+                        [%- INCLUDE 'edit/info.tt' summary=1 -%]
+                    </div>
 
-                                [% INCLUDE 'edit/vote.tt' n=loop.index %]
-                            </p>
-                            [% END %]
-                        </td>
-                    </tr>
-                    [% IF edit.notes.size %]
-                        <tr>
-                            <td colspan="3">
-                                [% INCLUDE "edit/notes.tt" %]
-                            </td>
-                        </tr>
+                    <div class="edit-details">
+                        [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                    </div>
+
+                    [% IF edit.edit_notes.size %]
+                        <div class="edit-notes">
+                            [% INCLUDE "edit/notes.tt" %]
+                        </div>
                     [% END %]
-                [%- END -%]
-            </table>
+
+                    <div class="seperator">
+                    </div>
+                </div>
+            [%- END -%]
+
+            <input type="hidden" name="url" value="[% c.req.uri %]" />
             <div class="row no-label" style="text-align: right">
-              [% form_submit(l('Vote')) %]
+                [% form_submit(l('Vote on all edits')) %]
             </div>
         </form>
     [% END %]
 [% ELSE %]
-    <p>No edits</p>
+    [% IF search %]
+        <p>[% l('No edits were found matching your query. Please {search|try again}.',
+               { search => c.uri_for_action('/edit/search') }) %]</p>
+    [% ELSE %]
+        <p>[% l('No edits found.') %]</p>
+    [% END %]
 [% END %]

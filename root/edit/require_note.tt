@@ -1,3 +1,7 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
-    <p>[% l('As some editors have voted against this edit, you must leave an edit note before you can approve the edit') %]</p>
+[% WRAPPER 'layout.tt' full_width=1 title=l('Error Approving Edit') %]
+    <h1>[% l('Error Approving Edit') %]</h1>
+    <p>
+        [% l('{edit} has received one or more "no" votes, you must leave an edit note before you can approve it.',
+            { edit => link_edit(edit, show, html_escape('Edit #' _ edit.id)) }) %]
+    </p>
 [% END %]

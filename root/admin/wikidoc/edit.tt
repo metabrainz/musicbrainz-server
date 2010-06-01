@@ -1,31 +1,20 @@
 [% WRAPPER "layout.tt" title=l("Update Page") full_width=1 %]
+    <div class="content">
+        <h1>[% l("Update Page") %]</h1>
 
-<h1>[% l("Update Page") %]</h1>
+        [%- USE r = FormRenderer(form) -%]
 
-[%- USE r = FormRenderer(form) -%]
+        <form action="[% c.req.uri | html %]" method="post">
+            <div class="row">
+                <label>Page:</label>
+                <span>[% page | html %]</span>
+            </div>
 
-<form action="[% c.req.uri | html %]" method="post">
+            [% form_row_text(r, 'version', l('Version:')) %]
 
-<p>
-<table>
-    <tr>
-        <td><label>[% l('Page:') %]</label></td>
-        <td>[% page | html %]</td>
-    </tr>
-
-    <tr>
-        <td>[% r.label('version', l('Version:')) %]</td>
-        <td>[% r.text('version', { size => 5 }) %]</td>
-    </tr>
-
-    <tr>
-        <td></td>
-        <td><input type="submit" value="[% l('Save') %]" /></td>
-    </tr>
-
-</table>
-</p>
-
-</form>
-
+            <div class="row no-label">
+                [% form_submit(l('Update')) %]
+            </div>
+        </form>
+    </div>
 [% END %]

@@ -3,8 +3,8 @@
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">
         [% form_row_text(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
-        [% form_row_checkbox(search, 'advanced', l('Use advanced query syntax (indexed search only)')) %]
-        [% form_row_checkbox(search, 'direct', l('Direct database syntax')) %]
+        [% form_row_checkbox(search, 'advanced', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
+        [% form_row_checkbox(search, 'direct', l('Direct database search')) %]
 
         <div class="row no-label">
         [% form_submit(l('Search')) %]
@@ -17,7 +17,7 @@
         [% l('Please Note:') %]
     </strong>
     [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('Search indexes are currently updated every 6 hours.')) %]
-        [%- create_guideline(l('If you require up to the minute correct search, please use the direct database search')) %]
+        [%- create_guideline(l('Search indexes are updated every 6 hours, use the direct database search if you require up to the minute correct results.')) %]
+        [%- create_guideline(l('The {doc|advanced query syntax} requires the search indexes and will not return correct results when performing a direct database search.', { doc => doc_link('Text_Search_Syntax') })) %]
     [% END %]
 </div>

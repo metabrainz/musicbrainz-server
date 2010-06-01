@@ -1,22 +1,21 @@
-[% WRAPPER "layout.tt" title=l("Error 404: Page Not Found") full_width=1 %]
-    <h1>[%- l('Page Not Found') -%]</h1>
-    <h2>
-        [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 404') -%]
-    </h2>
-    <p>
-        [%- l('The page you requested does not exist.') -%]
-    </p>
-    <p>
-        [%- l('If you think this is our fault (for example, you found a broken link <i>and the link you found is
-               on our site</i>) please let us know! You can use our {jira|bug tracker}, contact us at
-               {email|support@musicbrainz.org}, or via <abbr title="Internet Relay Chat">IRC</abbr> in the
-               {irc|#musicbrainz channel} on FreeNode.',
-               { email="mailto&#x3a;support&#x0040;musicbrainz.org",
-                 irc="irc://irc.freenode.net/musicbrainz",
-                 jira="http://jira.musicbrainz.org"
-               }) -%]
-    </p>
-    <p>
-        [%- l('Thank you, and sorry for the inconvenience!') -%]
-    </p>
+[% WRAPPER "layout.tt" title=l('Error 404: Page Not Found') full_width=1 %]
+    <div class="content">
+        <h1>[%- l('Page Not Found') -%]</h1>
+        <h2>[%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 404') -%]</h2>
+
+        <p>[%- l('The page you requested does not exist.') -%]</p>
+
+        <p>
+            [%- l('If you think this is our fault (for example, you found a broken link
+                   on our site) please let us know! You can use our {jira|bug tracker},
+                   contact us at {email|support@musicbrainz.org}, or visit the
+                   {irc|#musicbrainz <acronym title="Internet Relay Chat">IRC</acronym> channel}
+                   on irc.freenode.net.',
+                 { email="mailto&#x3a;support&#x0040;musicbrainz.org",
+                   irc="http://webchat.freenode.net/?channels=musicbrainz",
+                   jira="http://jira.musicbrainz.org" }) -%]
+        </p>
+
+        <p>[%- l('Thank you, and sorry for the inconvenience!') -%]</p>
+    </div>
 [% END %]

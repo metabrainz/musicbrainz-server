@@ -10,6 +10,7 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 __PACKAGE__->config(
     entity_name => 'edit',
+    paging_limit => 25,
 );
 
 =head1 NAME
@@ -96,7 +97,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
     my ($self, $c) = @_;
 
     my $edit = $c->stash->{edit};
-    if (!$edit->can_approve($c->user->privileges)) {
+    if (!$edit->can_approve($c->user)) {
         $c->stash( template => 'edit/cannot_approve.tt' );
         $c->detach;
     }
@@ -125,7 +126,11 @@ sub cancel : Chained('load') RequireAuth
     my ($self, $c) = @_;
 
     my $edit = $c->stash->{edit};
-    $c->model('Edit')->cancel($edit) if $edit->editor_id == $c->user->id;
+    if (!$edit->can_cancel($c->user)) {
+        $c->stash( template => 'edit/cannot_cancel.tt' );
+        $c->detach;
+    }
+    $c->model('Edit')->cancel($edit);
 
     $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
     $c->detach;
@@ -146,7 +151,10 @@ sub open : Local RequireAuth
     });
 
     $c->model('Edit')->load_all(@$edits);
-    $c->model('Editor')->load(@$edits);
+    $c->model('Vote')->load_for_edits(@$edits);
+    $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+    $c->form(add_edit_note => 'EditNote');
 
     $c->stash( edits => $edits );
 }
@@ -165,7 +173,10 @@ sub search : Path('/search/edits') RequireAuth
         });
 
         $c->model('Edit')->load_all(@$edits);
-        $c->model('Editor')->load(@$edits);
+        $c->model('Vote')->load_for_edits(@$edits);
+        $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+        $c->form(add_edit_note => 'EditNote');
 
         $c->stash(
             edits    => $edits,

@@ -19,6 +19,11 @@ a:visited { color:#3C5DCE; }
 a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
+dfn {
+    font-style: normal;
+    border-bottom: 1px dotted;
+}
+
 #header {
     width: 100%;
 }
@@ -249,7 +254,8 @@ h1 {
     color: #666;
 }
 
-.artistheader, .releaseheader, .rgheader, .recordingheader, .labelheader {
+.artistheader, .releaseheader, .rgheader,
+.recordingheader, .labelheader, .workheader {
     padding-left: 38px;
     background: 0 4px no-repeat;
 }
@@ -394,13 +400,20 @@ div.tabs {
 .page table.tbl th.count { width: 2em; }
 .page table.tbl th.rating { width: 50px; }
 .page table.tbl th.treleases { width: 3em; }
-.page table.tbl .c { text-align: center; }
 .page table.tbl .t { text-align: right; }
 
 p.nfo span {
     display: block;
     padding-top: 0.1em;
     padding-bottom: 0.1em;
+}
+
+.c, .page table.tbl .c {
+    text-align: center;
+}
+
+.noborder {
+    border: none !important;
 }
 
 .credits {
@@ -457,6 +470,94 @@ p.nfo span {
 
 .annotation {
     margin-top: 1em;
+}
+
+/*
+** BUTTONS
+** From http://particletree.com/features/rediscovering-the-button-element/
+*/
+
+.buttons a, .buttons button{
+    display:block;
+    float:left;
+    margin:0 7px 0 0;
+    background-color:#f5f5f5;
+    border:1px solid #dedede;
+    border-top:1px solid #eee;
+    border-left:1px solid #eee;
+
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:100%;
+    line-height:130%;
+    text-decoration:none;
+    font-weight:bold;
+    color:#565656;
+    cursor:pointer;
+    padding:5px 10px 6px 7px; /* Links */
+}
+.buttons button{
+    width:auto;
+    overflow:visible;
+    padding:4px 10px 3px 7px; /* IE6 */
+}
+.buttons button[type]{
+    padding:5px 10px 5px 7px; /* Firefox */
+    line-height:17px; /* Safari */
+}
+*:first-child+html button[type]{
+    padding:4px 10px 3px 7px; /* IE7 */
+}
+.buttons button img, .buttons a img{
+    margin:0 3px -3px 0 !important;
+    padding:0;
+    border:none;
+    width:16px;
+    height:16px;
+}
+
+/* STANDARD */
+
+button:hover, .buttons a:hover{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+.buttons a:active{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
+}
+
+/* POSITIVE */
+
+button.positive, .buttons a.positive{
+    color:#529214;
+}
+.buttons a.positive:hover, button.positive:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+    color:#529214;
+}
+.buttons a.positive:active{
+    background-color:#529214;
+    border:1px solid #529214;
+    color:#fff;
+}
+
+/* NEGATIVE */
+
+.buttons a.negative, button.negative{
+    color:#d12f19;
+}
+.buttons a.negative:hover, button.negative:hover{
+    background:#fbe3e4;
+    border:1px solid #fbc2c4;
+    color:#d12f19;
+}
+.buttons a.negative:active{
+    background-color:#d12f19;
+    border:1px solid #d12f19;
+    color:#fff;
 }
 
 
@@ -619,48 +720,6 @@ pre code {
 
 .browse td.char {
     width: 0.7em;
-}
-
-table.edit-list {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid black;
-}
-
-table.edit-list tr {
-    border-bottom: 1px solid black;
-}
-
-table.edit-list td {
-    border-right: 1px solid black;
-    vertical-align: top;
-}
-
-table.edit-list td td {
-    border: none;
-}
-
-table.edit-list tr.seperator {
-    height: 5px;
-    background-color: #ffba58;
-}
-
-table.edit-list td.edit-info {
-    width: 25%;
-}
-
-table.edit-list td.vote-actions {
-    text-align: center;
-    vertical-align: middle;
-    width: 18%;
-}
-table.edit-list td.vote-actions table {
-    width: 100%;
-}
-
-table.edit-list td.edit-info,
-table.edit-list td.edit-details {
-    vertical-align: top;
 }
 
 table.details th {

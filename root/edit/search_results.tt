@@ -1,4 +1,20 @@
-[% WRAPPER 'layout.tt' full_width=1 title=l('Search For Edits') %]
-    <h1>[% l('Search For Edits') %]</h1>
-    [% INCLUDE 'edit/list.tt' %]
+[%- BLOCK layout_head -%]
+    <script type="text/javascript">
+        window.onload = function() {
+            $('.search-refine select').attr('size', '10');
+
+            $('.search-toggle a').click(function () {
+                $('.search-refine').slideToggle('500');
+                return false;
+            })
+        }
+    </script>
+[%- END -%]
+
+[% WRAPPER 'layout.tt' title=l('Search for Edits') full_width=1 %]
+    <div class="content">
+        <h1>[% l('Search for Edits') %]</h1>
+        [% INCLUDE 'edit/list.tt' search=1 %]
+    </div>
 [% END %]
+
