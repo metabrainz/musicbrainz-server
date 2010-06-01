@@ -23,11 +23,11 @@ sub change_fields
     return Dict[
         link_type_id     => Int,
         link_type_phrase => Str,
-        entity0_id       => Int,
+        entity0_ids      => ArrayRef[Int],
         entity0_name     => Str,
         entity0_type     => Str,
         entity1_name     => Str,
-        entity1_id       => Int,
+        entity1_ids      => ArrayRef[Int],
         entity1_type     => Str,
         begin_date       => PartialDateHash,
         end_date         => PartialDateHash,
@@ -54,10 +54,18 @@ sub related_entities
 
     my %rel;
 
-    $rel{ $old_type0 } ||= []; push @{ $rel{ $old_type0} }, $self->data->{old}{entity0_id};
-    $rel{ $old_type1 } ||= []; push @{ $rel{ $old_type1} }, $self->data->{old}{entity1_id};
-    $rel{ $new_type0 } ||= []; push @{ $rel{ $new_type0} }, $self->data->{new}{entity0_id};
-    $rel{ $new_type1 } ||= []; push @{ $rel{ $new_type1} }, $self->data->{new}{entity1_id};
+    $rel{ $old_type0 } ||= [];
+    push @{ $rel{ $old_type0} }, @{ $self->data->{old}{entity0_ids} }
+        unless $old_type0 eq 'url';
+
+    $rel{ $old_type1 } ||= []; push @{ $rel{ $old_type1} }, @{ $self->data->{old}{entity1_ids} }
+        unless $old_type1 eq 'url';
+
+    $rel{ $new_type0 } ||= []; push @{ $rel{ $new_type0} }, @{ $self->data->{new}{entity0_ids} }
+        unless $new_type0 eq 'url';
+
+    $rel{ $new_type1 } ||= []; push @{ $rel{ $new_type1} }, @{ $self->data->{new}{entity1_ids} }
+        unless $new_type1 eq 'url';
 
     return \%rel;
 }
@@ -65,15 +73,28 @@ sub related_entities
 sub _upgrade
 {
     my ($self, $hash, $prefix) = @_;
+
+    my $entity0_type = upgrade_type($hash->{$prefix . 'entity0type'});
+    my $entity0_ids  =
+        $entity0_type eq 'release'   ? $self->album_release_ids($hash->{$prefix . 'entity0id'})        :
+        $entity0_type eq 'recording' ? [ $self->resolve_recording_id($hash->{$prefix . 'entity0id'}) ] :
+                                       [ $hash->{$prefix . 'entity0id'} ];
+
+    my $entity1_type = upgrade_type($hash->{$prefix . 'entity1type'});
+    my $entity1_ids  =
+        $entity1_type eq 'release'   ? $self->album_release_ids($hash->{$prefix . 'entity1id'})        :
+        $entity1_type eq 'recording' ? [ $self->resolve_recording_id($hash->{$prefix . 'entity1id'}) ] :
+                                       [ $hash->{$prefix . 'entity1id'} ];
+
     return {
         link_type_id     => $hash->{$prefix . 'linktypeid'},
         link_type_phrase => $hash->{$prefix . 'linktypephrase'},
-        entity0_id       => $hash->{$prefix . 'entity0id'},
+        entity0_ids      => $entity0_ids,
         entity0_name     => $hash->{$prefix . 'entity0name'},
-        entity0_type     => upgrade_type($hash->{$prefix . 'entity0type'}),
-        entity1_id       => $hash->{$prefix . 'entity1id'},
+        entity0_type     => $entity0_type,
+        entity1_ids      => $entity1_ids,
         entity1_name     => $hash->{$prefix . 'entity1name'},
-        entity1_type     => upgrade_type($hash->{$prefix . 'entity1type'}),
+        entity1_type     => $entity1_type,
         begin_date       => upgrade_date($hash->{$prefix . 'begindate'}),
         end_date         => upgrade_date($hash->{$prefix . 'enddate'}),
         attributes       => [ split / /, ($hash->{$prefix . 'attrs'} || '') ]
@@ -93,53 +114,56 @@ sub foreign_keys
         LinkType => [ map { $self->data->{$_}{link_type_id} } qw( old new ) ],
     );
 
-    $fks{ $old_model0 } ||= []; push @{ $fks{ $old_model0} }, $self->data->{old}{entity0_id};
-    $fks{ $old_model1 } ||= []; push @{ $fks{ $old_model1} }, $self->data->{old}{entity1_id};
-    $fks{ $new_model0 } ||= []; push @{ $fks{ $new_model0} }, $self->data->{new}{entity0_id};
-    $fks{ $new_model1 } ||= []; push @{ $fks{ $new_model1} }, $self->data->{new}{entity1_id};
+    $fks{ $old_model0 } ||= []; push @{ $fks{ $old_model0} }, @{ $self->data->{old}{entity0_ids} };
+    $fks{ $old_model1 } ||= []; push @{ $fks{ $old_model1} }, @{ $self->data->{old}{entity1_ids} };
+    $fks{ $new_model0 } ||= []; push @{ $fks{ $new_model0} }, @{ $self->data->{new}{entity0_ids} };
+    $fks{ $new_model1 } ||= []; push @{ $fks{ $new_model1} }, @{ $self->data->{new}{entity1_ids} };
+
+    use Devel::Dwarn;
+    Dwarn \%fks;
 
     return \%fks;
+}
+
+sub relationship_cartesian_product
+{
+    my ($self, $relationship, $loaded) = @_;
+
+    my $model0 = type_to_model($relationship->{entity0_type});
+    my $model1 = type_to_model($relationship->{entity1_type});
+
+    return [
+        map {
+            my $entity0_id = $_;
+            map {
+                my $entity1_id = $_;
+
+                Relationship->new(
+                    entity0 => $loaded->{ $model0 }{ $entity0_id } ||
+                        $self->c->model($model0)->_entity_class->new( name => $relationship->{entity0_name}),
+                    entity1 => $loaded->{ $model1 }{ $entity1_id } ||
+                        $self->c->model($model0)->_entity_class->new( name => $relationship->{entity1_name}),
+                    link    => Link->new(
+                        begin_date => PartialDate->new($relationship->{begin_date}),
+                        end_date   => PartialDate->new($relationship->{end_date}),
+                        type       => LinkType->new(
+                            link_phrase => $relationship->{link_type_phrase},
+                        )
+                    ),
+                    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD
+                ),
+            } @{ $relationship->{entity1_ids} },
+        } @{ $relationship->{entity0_ids} }
+    ]
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-
-    my $old_model0  = type_to_model($self->data->{old}->{entity0_type});
-    my $old_model1  = type_to_model($self->data->{old}->{entity1_type});
-    my $new_model0  = type_to_model($self->data->{new}->{entity0_type});
-    my $new_model1  = type_to_model($self->data->{new}->{entity1_type});
-
     return {
         relationship => {
-            old => Relationship->new(
-                 entity0 => $loaded->{ $old_model0 }{ $self->data->{old}{entity0_id} } ||
-                    $self->c->model($old_model0)->_entity_class->new( name => $self->data->{old}{entity0_name}),
-                 entity1 => $loaded->{ $old_model1 }{ $self->data->{old}{entity1_id} } ||
-                    $self->c->model($old_model0)->_entity_class->new( name => $self->data->{old}{entity1_name}),
-                 link    => Link->new(
-                     begin_date => PartialDate->new($self->data->{old}{begin_date}),
-                     end_date   => PartialDate->new($self->data->{old}{end_date}),
-                     type       => LinkType->new(
-                         link_phrase => $self->data->{old}{link_type_phrase},
-                     )
-                 ),
-                 direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD
-            ),
-            new => Relationship->new(
-                 entity0 => $loaded->{ $new_model0 }{ $self->data->{new}{entity0_id} } ||
-                    $self->c->model($new_model0)->_entity_class->new( name => $self->data->{new}{entity0_name}),
-                 entity1 => $loaded->{ $new_model1 }{ $self->data->{new}{entity1_id} } ||
-                    $self->c->model($new_model0)->_entity_class->new( name => $self->data->{new}{entity1_name}),
-                 link    => Link->new(
-                     begin_date => PartialDate->new($self->data->{new}{begin_date}),
-                     end_date   => PartialDate->new($self->data->{new}{end_date}),
-                     type       => LinkType->new(
-                         link_phrase => $self->data->{new}{link_type_phrase},
-                     )
-                 ),
-                 direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD
-            ),
+            old => $self->relationship_cartesian_product($self->data->{old}, $loaded),
+            new => $self->relationship_cartesian_product($self->data->{new}, $loaded),
         }
     }
 }
