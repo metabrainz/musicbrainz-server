@@ -2,8 +2,7 @@
     <h1>[% l('Edit #{id}', {id = edit.id}) %]</h1>
 
     [%- INCLUDE "edit/info.tt" -%]
-    [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
-        INCLUDE "edit/details/${edit_template}.tt" %]
+    [%- INCLUDE "edit/details/${edit.edit_template}.tt" %]
 
     <table class="details">
         <tr>
