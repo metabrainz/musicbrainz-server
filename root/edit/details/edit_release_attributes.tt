@@ -1,0 +1,30 @@
+<table class="details">
+  [% FOR change=edit.display_data.changes %]
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=change.releases %]
+        <li>[% link_release(release) %]</li>
+        [% END %]
+      </ul>
+    </td>
+    <td>
+      [% l('Type: {type}, status: {status}',
+           { type => change.type.old || '?',
+             status => change.status.old || '?' })
+      %]
+    </td>
+  </tr>
+  [% END %]
+
+  <tr>
+    <th>[% l('New Type:') %]</th>
+    <td>[% edit.display_data.new_type.name || '?' %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('New Status:') %]</th>
+    <td>[% edit.display_data.new_status.name || '?' %]</td>
+  </tr>
+</table>
