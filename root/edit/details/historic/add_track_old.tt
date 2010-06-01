@@ -1,0 +1,31 @@
+<table class="details">
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases %]
+        <li>[% l('{release} by {artist}',
+                 { release => link_release(release),
+                   artist  => artist_credit(release.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.display_data.name | html %]</td>
+  </tr>
+
+  [% IF edit.display_data.artist_name %]
+  <tr>
+    <th>[% l('Artist name:') %]</th>
+    <td>[% edit.display_data.artist_name | html %]</td>
+  </tr>
+  [% END %]
+
+  <tr>
+    <th>[% l('Track number:') %]</th>
+    <td>[% edit.display_data.position | html %]</td>
+  </tr>
+</table>
