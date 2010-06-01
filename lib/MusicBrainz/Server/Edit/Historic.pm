@@ -19,6 +19,7 @@ has 'migration' => (
         resolve_release_id
         resolve_recording_id
         artist_name
+        label_id_from_alias
     )]
 );
 
