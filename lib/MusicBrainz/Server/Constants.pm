@@ -116,6 +116,7 @@ Readonly our $EDIT_HISTORIC_REMOVE_RELEASE          => 212;
 Readonly our $EDIT_HISTORIC_MAC_TO_SAC              => 213;
 Readonly our $EDIT_HISTORIC_ADD_RELEASE             => 216;
 Readonly our $EDIT_HISTORIC_REMOVE_DISCID           => 220;
+Readonly our $EDIT_HISTORIC_MOVE_DISCID             => 221;
 Readonly our $EDIT_HISTORIC_MERGE_RELEASE           => 223;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_ATTRS      => 226;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD => 229;
