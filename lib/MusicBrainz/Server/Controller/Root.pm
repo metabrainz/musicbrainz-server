@@ -210,6 +210,8 @@ sub end : ActionClass('RenderView')
     $c->stash->{release_format} = \&MusicBrainz::Server::ReleaseEvent::release_format_name;
 
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
+
+    $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
 }
 
 sub chrome_frame : Local
