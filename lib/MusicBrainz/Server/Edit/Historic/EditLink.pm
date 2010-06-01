@@ -43,6 +43,25 @@ has '+data' => (
     ]
 );
 
+sub related_entities
+{
+    my $self = shift;
+
+    my $old_type0 = $self->data->{old}->{entity0_type};
+    my $old_type1 = $self->data->{old}->{entity1_type};
+    my $new_type0 = $self->data->{new}->{entity0_type};
+    my $new_type1 = $self->data->{new}->{entity1_type};
+
+    my %rel;
+
+    $rel{ $old_type0 } ||= []; push @{ $rel{ $old_type0} }, $self->data->{old}{entity0_id};
+    $rel{ $old_type1 } ||= []; push @{ $rel{ $old_type1} }, $self->data->{old}{entity1_id};
+    $rel{ $new_type0 } ||= []; push @{ $rel{ $new_type0} }, $self->data->{new}{entity0_id};
+    $rel{ $new_type1 } ||= []; push @{ $rel{ $new_type1} }, $self->data->{new}{entity1_id};
+
+    return \%rel;
+}
+
 sub _upgrade
 {
     my ($self, $hash, $prefix) = @_;

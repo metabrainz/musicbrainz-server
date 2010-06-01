@@ -163,6 +163,7 @@ sub insert
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
         next unless @$ids;
+        $ids = [ uniq @$ids ];
         my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
         $query .= join ", ", ("(?, ?)") x @$ids;
         my @all_ids = ($edit->id) x @$ids;
@@ -243,6 +244,7 @@ sub create
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
+            $ids = [ uniq @$ids ];
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
             my @all_ids = ($edit_id) x @$ids;
