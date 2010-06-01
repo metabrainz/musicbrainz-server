@@ -15,6 +15,7 @@ has 'migration' => (
     handles => [qw(
         album_release_ids
         find_release_group_id
+        link_attribute_from_name
         resolve_album_id
         resolve_release_id
         resolve_recording_id

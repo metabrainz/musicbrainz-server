@@ -35,6 +35,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::Create
     MusicBrainz::Server::Edit::Relationship::Delete
     MusicBrainz::Server::Edit::Relationship::Edit
+    MusicBrainz::Server::Edit::Relationship::EditLinkAttribute
     MusicBrainz::Server::Edit::Relationship::EditLinkType
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
