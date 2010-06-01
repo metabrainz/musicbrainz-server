@@ -66,6 +66,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MACToSAC
     MusicBrainz::Server::Edit::Historic::MergeRelease
     MusicBrainz::Server::Edit::Historic::MoveRelease
+    MusicBrainz::Server::Edit::Historic::RemoveDiscID
     MusicBrainz::Server::Edit::Historic::RemoveRelease
     MusicBrainz::Server::Edit::Historic::RemoveTrack
     MusicBrainz::Server::Edit::Historic::SACToMAC
