@@ -17,4 +17,4 @@
     <td class="old">[% edit.display_data.name.old %]</td>
     <td class="new">[% edit.display_data.name.new %]</td>
   </tr>
-</table
+</table>
