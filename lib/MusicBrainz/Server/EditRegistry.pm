@@ -27,6 +27,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::Edit
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
+    MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Edit
     MusicBrainz::Server::Edit::Recording::Merge
     MusicBrainz::Server::Edit::Recording::AddISRCs
