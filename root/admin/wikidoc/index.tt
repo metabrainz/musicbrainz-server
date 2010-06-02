@@ -11,9 +11,9 @@
             <thead>
                 <tr>
                     <th>[% l('Documentation Page') %]</th>
-                    <th>[% l('Transcluded version') %]</th>
+                    <th class="c">[% l('Transcluded version') %]</th>
                     [% IF show_current_version %]
-                        <th>[% l('Current version') %]</th>
+                        <th class="c">[% l('Current version') %]</th>
                     [% END %]
                     <th class="c">[% l('Wiki') %]</th>
                     <th class="c">[% l('Actions') %]</th>

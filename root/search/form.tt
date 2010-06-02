@@ -18,6 +18,6 @@
     </strong>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('Search indexes are updated every 6 hours, use the direct database search if you require up to the minute correct results.')) %]
-        [%- create_guideline(l('The {doc|advanced query syntax} requires the search indexes and will not return correct results when performing a direct database search.', { doc => doc_link('Text_Search_Syntax') })) %]
+        [%- create_guideline(l('Using {doc|advanced query syntax} while performing a direct database search will result in inaccurate results.', { doc => doc_link('Text_Search_Syntax') })) %]
     [% END %]
 </div>
