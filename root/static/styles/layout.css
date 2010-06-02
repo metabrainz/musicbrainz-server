@@ -32,13 +32,38 @@ a.external {
     padding-right: 13px;
 }
 
+p {
+    margin: 1em 0;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 150%;
+}
+
+h2,
+fieldset legend {
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-size: 120%;
+    color: #FC6714;
+    font-weight: bold;
+}
+
+h3 {
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-size: 100%;
+    font-weight: bold;
+}
+
 ul {
     margin-left: 0;
     padding-left: 40px;
     list-style-image: url('/static/images/bullet.gif');
     list-style-type: square;
 }
-
 
 ol {
     margin-left: 0;
@@ -48,6 +73,17 @@ ol {
 ul ul, ul ol,
 ol ol, ol ul {
     padding-left: 20px;
+}
+
+/* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
+pre code {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap !important;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    /* width: 99%; */
+    word-wrap: break-word;
 }
 
 code {
@@ -242,6 +278,21 @@ code {
     background: url(../images/sprites.png) -41px -58px;
 }
 
+.server-details {
+    margin: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    background: #FFFFFF;
+    padding: 10px;
+    border: 0;
+    color: #FC6714;
+    position: relative;
+}
+
+.server-details p {
+    margin: 0;
+}
+
 .content {
     margin-right: 250px;
 }
@@ -252,124 +303,75 @@ code {
     margin-right: 0px;
 }
 
+/* Extra CSS for the homepage */
+
+#triple {
+    clear: both;
+    margin-top: 20px;
+}
+
+#triple .triple-column {
+    float: left;
+    margin: 0 1%;
+    width: 32%;
+}
+
+#triple .first-column {
+    margin-left: 0;
+}
+
+#triple .last-column {
+    margin-right: 0;
+}
+
+.triple-column img {
+    float:left;
+    margin: 10px 0 0 2px;
+}
+
+.triple-column p {
+    margin-left: 70px;
+    margin-bottom: 0;
+}
+
+.triple-column ul {
+    margin-top: 10px;
+    margin-left: 60px;
+}
+
+.triple-column h2 {
+    color: #FFFFFF;
+    background-color: #736DAB;
+    padding: 5px 0 5px 7px;
+    margin: 0;
+    border-bottom: 4px solid #FFBA58;
+}
+
+#sidebar .triple-column {
+    height: 110px;
+    margin-bottom: 10px;
+}
+
+#sidebar .triple-column img {
+    margin: 10px 0 0 10px;
+}
+
+#sidebar .triple-column h2 {
+    color: #000000;
+    background-color: #FFBA58;
+    border-bottom: 4px solid #736DAB;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
 .homepage .linkbar {
     text-align: center;
     font-weight: bold;
     margin-top: 15px;
-}
-
-#sidebar {
-    float: right;
-    width: 218px;
-    font-size: 95%;
-}
-
-.homepage #sidebar {
-    margin-top: 34px;
-    width: 239px;
-}
-
-#sidebar p {
-    margin-top: 0;
-}
-
-#sidebar ul.links {
-    margin-left: 0em;
-    padding-left: 2em;
-}
-
-p {
-    margin: 1em 0;
-}
-
-h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 150%;
-}
-
-.page h1 a {
-    color: #000;
-}
-
-.page .releaseheader .prefix,
-.page h1 span.prefix,
-.page h1 span.comment
-{
-    font-size: 12px;
-    font-weight: normal;
-    color: #666;
-}
-
-.artistheader, .releaseheader, .rgheader,
-.recordingheader, .labelheader, .workheader {
-    padding-left: 38px;
-    background: 0 4px no-repeat;
-}
-
-.artistheader { background-image: url('../images/aicon_lg.png') }
-.releaseheader { background-image: url('../images/licon_lg.png') }
-.rgheader { background-image: url('../images/gicon_lg.png') }
-.recordingheader { background-image: url('../images/ticon_lg.png') }
-.labelheader { background-image: url('../images/bicon_lg.png') }
-
-.tagger-icon img { border: 0; }
-.releaseheader .tagger-icon { margin-top: 1em; float: right; }
-
-
-h2,
-fieldset legend {
-    margin-top: 1em;
-    margin-bottom: 0;
-    font-size: 120%;
-    color: #FC6714;
-    font-weight: bold;
-}
-
-h3 {
-    margin-top: 1em;
-    margin-bottom: 0;
-    font-size: 100%;
-    font-weight: bold;
-}
-
-.clear { clear: both; }
-
-p.subheader {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0.0em;
-    font-size: 96%;
-}
-
-p.subheader span { color: #999; }
-
-#footer {
-    margin: 1em 0;
-    padding: 0 1em;
-    font-size: 90%;
-    color: #333;
-}
-
-#footer a { color: #002BBA; }
-#footer a:hover { color: #FC6714; }
-
-#footer ul.links {
-    float: left;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    list-style-image: none;
-}
-
-#footer ul.links li {
-    float: left;
-    margin-right: 1em;
-}
-
-#footer p.sponsors {
-    text-align: right;
-    margin: 0;
 }
 
 div.tabs {
@@ -414,6 +416,121 @@ div.tabs {
 .page div.tabs ul li a:hover {
     background: #fff;
     color: #000;
+}
+
+#sidebar {
+    float: right;
+    width: 218px;
+    font-size: 95%;
+}
+
+.homepage #sidebar {
+    margin-top: 34px;
+    width: 239px;
+}
+
+#sidebar p {
+    margin-top: 0;
+}
+
+#sidebar ul.links {
+    margin-left: 0em;
+    padding-left: 2em;
+}
+
+#footer {
+    margin: 1em 0;
+    padding: 0 1em;
+    font-size: 90%;
+    color: #333;
+}
+
+#footer a { color: #002BBA; }
+#footer a:hover { color: #FC6714; }
+
+#footer ul.links {
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    list-style-image: none;
+}
+
+#footer ul.links li {
+    float: left;
+    margin-right: 1em;
+}
+
+#footer p.sponsors {
+    text-align: right;
+    margin: 0;
+}
+
+.page h1 a {
+    color: #000;
+}
+
+.page .releaseheader .prefix,
+.page h1 span.prefix,
+.page h1 span.comment
+{
+    font-size: 12px;
+    font-weight: normal;
+    color: #666;
+}
+
+.artistheader, .releaseheader, .rgheader,
+.recordingheader, .labelheader, .workheader {
+    padding-left: 38px;
+    background: 0 4px no-repeat;
+}
+
+.artistheader { background-image: url('../images/aicon_lg.png') }
+.releaseheader { background-image: url('../images/licon_lg.png') }
+.rgheader { background-image: url('../images/gicon_lg.png') }
+.recordingheader { background-image: url('../images/ticon_lg.png') }
+.labelheader { background-image: url('../images/bicon_lg.png') }
+
+.tagger-icon img { border: 0; }
+.releaseheader .tagger-icon { margin-top: 1em; float: right; }
+
+.annotation {
+    margin-top: 1em;
+}
+
+.clear { clear: both; }
+
+.c, .page table.tbl .c {
+    text-align: center;
+}
+
+.noborder {
+    border: none !important;
+}
+
+/* Used to keep "action links" on one line, e.g. [ Update | Remove ] */
+.nowrap {
+    white-space: nowrap;
+}
+
+p.subheader {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0.0em;
+    font-size: 96%;
+}
+
+p.subheader span { color: #999; }
+
+.lastupdate {
+    font-size: 90%;
+    color: #999;
+    font-style: italic;
+}
+
+.page table.tbl tr.mp td,
+span.mp {
+    background: #FD9;
 }
 
 .page table.tbl {
@@ -472,19 +589,6 @@ p.nfo span {
     padding-bottom: 0.1em;
 }
 
-.c, .page table.tbl .c {
-    text-align: center;
-}
-
-.noborder {
-    border: none !important;
-}
-
-/* Used to keep "action links" on one line, e.g. [ Update | Remove ] */
-.nowrap {
-    white-space: nowrap;
-}
-
 .credits {
     margin-top: 1em;
 }
@@ -534,11 +638,6 @@ p.nfo span {
 
 .pageselector + .tbl {
     margin-top: 0px !important;
-}
-
-
-.annotation {
-    margin-top: 1em;
 }
 
 /*
@@ -628,7 +727,6 @@ button.positive, .buttons a.positive{
     border:1px solid #d12f19;
     color:#fff;
 }
-
 
 .star-rating,
 .star-rating a:hover,
@@ -744,23 +842,6 @@ button.positive, .buttons a.positive{
     background-position: 0px -10px;
 }
 
-.lastupdate {
-    font-size: 90%;
-    color: #999;
-    font-style: italic;
-}
-
-/* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
-pre code {
-    overflow-x: auto;
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap !important;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-    /* width: 99%; */
-    word-wrap: break-word;
-}
-
 /*
 ** Browse Entity pages
 */
@@ -805,92 +886,6 @@ dl.search-plugins dt {
 dl.search-plugins dt,
 dl.search-plugins dd {
     line-height: 200%;
-}
-
-
-.page table.tbl tr.mp td,
-span.mp {
-    background: #FD9;
-}
-
-/* Extra CSS for the homepage */
-
-#triple {
-    clear: both;
-    margin-top: 20px;
-}
-
-#triple .triple-column {
-    float: left;
-    margin: 0 1%;
-    width: 32%;
-}
-
-#triple .first-column {
-    margin-left: 0;
-}
-
-#triple .last-column {
-    margin-right: 0;
-}
-
-.triple-column img {
-    float:left;
-    margin: 10px 0 0 2px;
-}
-
-.triple-column p {
-    margin-left: 70px;
-    margin-bottom: 0;
-}
-
-.triple-column ul {
-    margin-top: 10px;
-    margin-left: 60px;
-}
-
-.triple-column h2 {
-    color: #FFFFFF;
-    background-color: #736DAB;
-    padding: 5px 0 5px 7px;
-    margin: 0;
-    border-bottom: 4px solid #FFBA58;
-}
-
-#sidebar .triple-column {
-    height: 110px;
-    margin-bottom: 10px;
-}
-
-#sidebar .triple-column img {
-    margin: 10px 0 0 10px;
-}
-
-#sidebar .triple-column h2 {
-    color: #000000;
-    background-color: #FFBA58;
-    border-bottom: 4px solid #736DAB;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-topright: 10px;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 10px;
-}
-
-.server-details {
-    margin: 10px 0;
-    text-align: center;
-    font-weight: bold;
-    background: #FFFFFF;
-    padding: 10px;
-    border: 0;
-    color: #FC6714;
-    position: relative;
-}
-
-.server-details p {
-    margin: 0;
 }
 
 dl.profileinfo {
