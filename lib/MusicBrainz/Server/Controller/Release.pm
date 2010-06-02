@@ -284,40 +284,37 @@ sub edit : Chained('load') RequireAuth Edit
         # release labels edit
         # ----------------------------------------
 
-        for my $label (@{ $data->{'labels'} })
-        {
-            # FIXME: create an id map.
-            my $found = undef;
-            for (@{ $release->labels })
-            {
-                if ($_->label_id == $label->{'label_id'})
-                {
-                    $found = $_;
-                    last;
-                }
-            }
+        my $max = scalar @{ $data->{'labels'} } - 1;
 
-            if ($found)
+        for (0..$max)
+        {
+            my $new_label = $data->{'labels'}->[$_];
+            my $old_label = $release->labels->[$_];
+
+            if ($old_label)
             {
-                if ($label->{'deleted'})
+                if ($new_label->{'deleted'})
                 {
                     # Delete ReleaseLabel
-                    $self->_create_edit($c, $EDIT_RELEASE_DELETERELEASELABEL, $editnote,
-                        release_label => $found,
+                    $self->_create_edit($c, $EDIT_RELEASE_DELETERELEASELABEL,
+                         $editnote, release_label => $old_label
                     );
                 }
                 else
                 {
                     # Edit ReleaseLabel
                     $self->_create_edit($c, $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
-                        release_label => $found,
-                        catalog_number => $label->{'catalog_number'},
+                        release_label => $old_label,
+                        label_id => $new_label->{'label_id'},
+                        catalog_number => $new_label->{'catalog_number'},
                     );
                 }
             }
             else
             {
-                # FIXME: Delete ReleaseLabel
+                # Add ReleaseLabel
+                # FIXME: There doesn't seem to be an add release label edit. --warp.
+                warn "FIXME: ADD RELEASE LABEL EDIT";
             }
         }
 
