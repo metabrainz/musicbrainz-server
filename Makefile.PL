@@ -42,6 +42,7 @@ requires 'HTML::TreeBuilder::XPath';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                            => '0.22';
+requires 'Method::Signatures::Simple';
 requires 'Module::Pluggable'                          => '3.9';
 requires 'Moose'                                      => '0.87';
 requires 'MooseX::ABC';
