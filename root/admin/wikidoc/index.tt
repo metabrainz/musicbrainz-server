@@ -31,13 +31,17 @@
                                 [% IF page.current_version != page.version %]</span>[% END %]
                             </td>
                         [% END %]
-                        <td class="c">
+                        <td class="c nowrap">
+                            [
                             <a href="http://wiki.musicbrainz.org/[% page.id | uri %]">[% l('Show') %]</a> |
                             <a href="http://wiki.musicbrainz.org/[% page.id | uri %]?action=history">[% l('History') %]</a>
+                            ]
                         </td>
-                        <td class="c">
+                        <td class="c nowrap">
+                            [
                             <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
                             <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a>
+                            ]
                         </td>
                     </tr>
                 [% END %]

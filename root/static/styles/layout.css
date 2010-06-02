@@ -480,6 +480,11 @@ p.nfo span {
     border: none !important;
 }
 
+/* Used to keep "action links" on one line, e.g. [ Update | Remove ] */
+.nowrap {
+    white-space: nowrap;
+}
+
 .credits {
     margin-top: 1em;
 }
