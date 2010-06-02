@@ -25,8 +25,8 @@ dfn {
 }
 
 /* TODO:
-** Use relative links on the site and then add:
-** a[href^="http://"], a[href^="https://"] */
+** When we start using relative links for internal links, add:
+** a[href^="http://"], a[href^="https://"], */
 a.external {
     background: url("/static/images/external.png") no-repeat right;
     padding-right: 13px;
@@ -41,6 +41,8 @@ h1 {
     margin-bottom: 0;
     font-size: 150%;
 }
+
+h1 a { color: #000 !important; }
 
 h2,
 fieldset legend {
@@ -88,9 +90,11 @@ pre code {
 
 code {
     background-color: #DDDDDD;
-    padding: 0 5px;
 }
 
+/*
+** Header
+*/
 #header {
     width: 100%;
 }
@@ -172,9 +176,6 @@ code {
     vertical-align: middle;
 }
 
-#header-menu form span {
-}
-
 #header-menu ul {
     margin: 0;
     padding: 0;
@@ -235,6 +236,9 @@ code {
     border-top: 1px dotted;
 }
 
+/*
+** Main content
+*/
 .page {
     margin-top: 1em;
     padding: 1em 1em 1em 1em;
@@ -244,8 +248,8 @@ code {
     position: relative;
 }
 
-.fullwidth,
-.homepage {
+.page.fullwidth,
+.page.homepage {
     background-image: none;
 }
 
@@ -297,9 +301,7 @@ code {
     margin-right: 250px;
 }
 
-.content table.tbl { margin-bottom: 1em; }
-
-.fullwidth .content {
+.page.fullwidth .content {
     margin-right: 0px;
 }
 
@@ -438,6 +440,9 @@ div.tabs {
     padding-left: 2em;
 }
 
+/*
+** Footer
+*/
 #footer {
     margin: 1em 0;
     padding: 0 1em;
@@ -464,10 +469,6 @@ div.tabs {
 #footer p.sponsors {
     text-align: right;
     margin: 0;
-}
-
-.page h1 a {
-    color: #000;
 }
 
 .page .releaseheader .prefix,
@@ -498,26 +499,25 @@ div.tabs {
     margin-top: 1em;
 }
 
+/*
+** Misc
+*/
 .clear { clear: both; }
 
-.c, .page table.tbl .c {
-    text-align: center;
-}
+.c, .page table.tbl .c { text-align: center; }
 
-.noborder {
-    border: none !important;
-}
+.noborder { border: none !important; }
 
-/* Used to keep "action links" on one line, e.g. [ Update | Remove ] */
-.nowrap {
-    white-space: nowrap;
-}
+.nowrap { white-space: nowrap; } /* Used to keep "action links" on one line, e.g. [ Update | Remove ] */
 
 p.subheader {
     margin-top: 0;
     margin-bottom: 0;
     padding-left: 0.0em;
     font-size: 96%;
+table.tbl tr.mp td,
+span.mp {
+    background: #FD9;
 }
 
 p.subheader span { color: #999; }
@@ -528,11 +528,7 @@ p.subheader span { color: #999; }
     font-style: italic;
 }
 
-.page table.tbl tr.mp td,
-span.mp {
-    background: #FD9;
-}
-
+/* The table! */
 .page table.tbl {
     margin-top: 1em;
     border-collapse: collapse;
@@ -583,28 +579,7 @@ span.mp {
 .page table.tbl th.treleases { width: 3em; }
 .page table.tbl .t { text-align: right; }
 
-p.nfo span {
-    display: block;
-    padding-top: 0.1em;
-    padding-bottom: 0.1em;
-}
-
-.credits {
-    margin-top: 1em;
-}
-
-.credits ul {
-    padding-left: 2em;
-    margin-top: 0;
-}
-
-.exp img {
-    border: none;
-}
-.exp {
-    float: left;
-}
-
+/* Paginator */
 .pageselector a, .pageselector span {
     font-size: 90%;
     padding: 0.05em 0.4em;
@@ -857,12 +832,27 @@ button.positive, .buttons a.positive{
     width: 0.7em;
 }
 
+/* Entity details & edit details */
 table.details th {
     text-align: right;
     padding-left: 10pt;
     width: 110px;
 }
 
+table.details td.new {
+    background: #B1EBB0;
+}
+
+table.details td.old {
+    background: #EBB1BA;
+}
+
+table.details td.new,
+table.details td.old {
+    border: 1px solid #CCC;
+}
+
+/* Sidebar properties */
 dl.properties {
     margin-bottom: 12pt;
 }
@@ -879,6 +869,7 @@ dl.properties dt {
     line-height: 200%;
 }
 
+/* Search Plugins */
 dl.search-plugins dt {
     font-weight: bold;
 }
@@ -888,48 +879,7 @@ dl.search-plugins dd {
     line-height: 200%;
 }
 
-dl.profileinfo {
-    display: block;
-}
-
-dl.profileinfo dt {
-    clear: left;
-    display: block;
-    font-weight: bold;
-    float: left;
-    width: 125px;
-    text-align: right;
-    padding: 5px;
-}
-
-dl.profileinfo dd {
-    clear: right;
-    display: block;
-    padding: 5px;
-    margin-left: 130px;
-}
-
-table.statistics {
-    float: left;
-    margin: 8px;
-}
-
-table.details td.new {
-    background: #B1EBB0;
-}
-
-table.details td.old {
-    background: #EBB1BA;
-}
-
-table.details td.new,
-table.details td.old {
-    border: 1px solid #CCC;
-}
-
-/*
-** CSS columns instead of tables
-*/
+/* CSS columns (instead of using tables) */
 div.columns-2 div.column {
     float: left;
     width: 50%;
