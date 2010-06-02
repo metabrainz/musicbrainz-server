@@ -1,3 +1,4 @@
+[% extra_css = "homepage.css" %]
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
     <div id="sidebar">
         <div id="taggers" class="triple-column">
