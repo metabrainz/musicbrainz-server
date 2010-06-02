@@ -1,0 +1,15 @@
+<table class="details">
+  [% FOR change=edit.display_data.changes %]
+  <tr>
+    <td>
+      <ul>
+        [% FOR release=change.releases %]
+        <li>[% link_release(release) %]</li>
+        [% END %]
+      </ul>
+    </td>
+    <td class="old">[% quality_name(change.quality.old) %]</td>
+    <td class="new">[% quality_name(change.quality.new) %]</td>
+  </tr>
+  [% END %]
+</table>

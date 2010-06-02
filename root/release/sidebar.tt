@@ -133,6 +133,7 @@
     <ul class="links">
       [% IF c.user_exists %]
         <li>[% link_release(release, 'edit', l('Edit this release')) %]</li>
+        <li>[% link_release(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
       [% ELSE %]
         <li>[% request_login(l('Please log in to edit this release')) %]</li>
