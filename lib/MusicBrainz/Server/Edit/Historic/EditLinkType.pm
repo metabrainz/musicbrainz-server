@@ -65,9 +65,6 @@ augment 'upgrade' => sub {
         new     => $new
     };
 
-    use Devel::Dwarn;
-    Dwarn $data;
-
     return $data;
 };
 

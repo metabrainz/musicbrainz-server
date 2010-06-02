@@ -142,8 +142,7 @@ sub upgrade_re
     my $self   = shift;
     my $event  = shift;
     my $prefix = shift || '';
-    use Devel::Dwarn;
-    Dwarn split /\s+/, $event;
+
     my %event  = map {
         # Some attributes are of the format "b=" which split would
         # return a single value for. This screws up the hash assignment

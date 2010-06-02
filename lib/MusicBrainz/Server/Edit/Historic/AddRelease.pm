@@ -205,9 +205,6 @@ sub upgrade
         }
     }
 
-    use Devel::Dwarn;
-    Dwarn $data;
-
     $self->data($data);
     return $self;
 }

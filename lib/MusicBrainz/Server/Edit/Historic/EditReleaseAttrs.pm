@@ -63,7 +63,6 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    use Devel::Dwarn;
     return {
         changes => [ map { +{
             releases => [ do {
