@@ -127,6 +127,14 @@ sub render
     $self->c->stash->{steps} = \@steps;
 }
 
+# returns the name of the current page.
+sub current_page
+{
+    my $self = shift;
+
+    return $self->pages->[$self->_current]->{name};
+}
+
 sub load_page
 {
     my ($self, $page, $init_object) = @_;

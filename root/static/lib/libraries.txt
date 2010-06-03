@@ -21,13 +21,6 @@ license: MIT
 author:  Brantley Harris
 url:     http://code.google.com/p/jquery-json/
 
--- jquery/jquery.selso.js --
-
-library: SelSo
-license: MIT/GPLv3
-author:  Guillaume Andrieu
-url:     http://github.com/subtenante/SelSo/
-
 -- jquery.autocomplete/ --
 
 library: jQuery Autocomplete plugin

@@ -25,9 +25,26 @@ MB.utility.displayedValue = function(element) {
     }
 };
 
-MB.utility.noOp = function(event) {
-    event.preventDefault();
+/* Convert fullwidth characters to standard halfwidth Latin. */
+MB.utility.fullWidthConverter = function (inputString) {
+    if (inputString === "") {
+        return "";
+    }
+
+    var convertMe = function (str, p1) {
+        return String.fromCharCode (p1.charCodeAt(0) - 65248);
+    };
+
+    i = inputString.length;
+    newString = [];
+
+    do {
+        newString.push (inputString[i-1].replace (/([\uFF01-\uFF5E])/g, convertMe));
+    } while (--i);
+
+    return newString.reverse ().join("");
 };
+
 
 MB.utility.template = function(str) {
     var self = MB.Object();

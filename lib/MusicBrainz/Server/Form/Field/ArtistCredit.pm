@@ -61,7 +61,7 @@ around 'fif' => sub {
         my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $_->{'name'},
             );
-        $acn->artist_id($_->{'artist_id'}) if $_->{'artist_id'};
+        $acn->artist_id($_->{'artist_id'});
         $acn->join_phrase($_->{'join_phrase'}) if $_->{'join_phrase'};
         push @names, $acn;
     }

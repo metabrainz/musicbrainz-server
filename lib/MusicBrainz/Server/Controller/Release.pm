@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
 use MusicBrainz::Server::Wizard::ReleaseEditor;
+use MusicBrainz::Server::Track;
+use JSON::Any;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -214,6 +216,62 @@ sub lookup : Local
     }
 }
 
+
+sub _serialize_artistcredit {
+    my $self = shift;
+    my $ac = shift;
+
+    my $credits = [];
+
+    for (@{ $ac->names })
+    {
+        push @$credits, {
+            name => $_->name,
+            join => $_->join_phrase,
+            id => $_->artist_id,
+        };
+    }
+
+    return {
+        preview => $ac->name,
+        names => $credits,
+    };
+}
+
+sub _serialize_track {
+    my $self = shift;
+    my $track = shift;
+
+    return {
+        length => MusicBrainz::Server::Track::FormatTrackLength($track->length),
+        title => $track->name,
+        id => $track->id,
+        artist => $self->_serialize_artistcredit ($track->artist_credit),
+    };
+}
+
+sub _serialize_tracklists
+{
+    my ($self, $release) = @_;
+
+    my $tracklists = [];
+
+    for ($release->all_mediums)
+    {
+        my $tracklist = $_->tracklist;
+
+        my $tracks = [];
+        for my $track (@{ $tracklist->tracks })
+        {
+            push @$tracks, $self->_serialize_track ($track);
+        }
+
+        push @$tracklists, $tracks;
+    }
+
+    return JSON::Any->objToJson ($tracklists);
+}
+
 =head2 WRITE METHODS
 
 Edit a release in release editor
@@ -225,6 +283,9 @@ sub edit : Chained('load') RequireAuth Edit
     my ($self, $c) = @_;
 
     my $release;
+    my @mediums;
+    my @tracklists;
+    my @tracks;
 
     my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
 
@@ -235,28 +296,40 @@ sub edit : Chained('load') RequireAuth Edit
         $c->detach ('show');
     }
 
+    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist')
+    {
+        # if we're on the tracklist page, load the tracklist so that the trackparser
+        # can compare the entered tracks against the original to figure out what edits
+        # have been made.
+
+        $release = $c->stash->{release};
+
+        $c->model('Medium')->load_for_releases($release);
+
+        @mediums = $release->all_mediums;
+        @tracklists = grep { defined } map { $_->tracklist } @mediums;
+
+        $c->model('Track')->load_for_tracklists(@tracklists);
+
+        @tracks = map { $_->all_tracks } @tracklists;
+
+        $c->model('ArtistCredit')->load(@tracks, $release);
+
+        $c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
+    }
+
+
     if ($wizard->loading || $wizard->submitted)
     {
         # we're either just starting the wizard, or submitting it.  In
         # both cases the release we're editting needs to be loaded
         # from the database.
-
-        $release = $c->stash->{release};
         $c->model('ReleaseLabel')->load($release);
         $c->model('Label')->load(@{ $release->labels });
-        $c->model('Medium')->load_for_releases($release);
         $c->model('ReleaseGroup')->load($release);
         $c->model('ReleaseGroupType')->load($release->release_group);
 
-        my @mediums = $release->all_mediums;
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-
         $c->model('MediumFormat')->load(@mediums);
-        $c->model('Track')->load_for_tracklists(@tracklists);
-
-        my @tracks = map { $_->all_tracks } @tracklists;
-
-        $c->model('ArtistCredit')->load(@tracks, $release);
 
         $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
     }

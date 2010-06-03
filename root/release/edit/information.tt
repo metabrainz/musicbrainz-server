@@ -40,14 +40,17 @@
 
       [% WRAPPER form_row %]
         [%# FIXME: artist credit editor. %]
-         <label for="release-artist">Artist</label>
-         <input type="text" id="release-artist" value="[% release.artist_credit.name %]" />
+        <label for="release-artist">Artist</label>
+        <input type="text" id="release-artist" value="[% release.artist_credit.name %]" />
 
+        <div class="artist-credit" style="display: none">
         [% FOR field=form.field('artist_credit.names').fields %]
-          [% r.hidden(field.field('artist_id')) %]
-          [% r.hidden(field.field('join_phrase')) %]
-          [% r.hidden(field.field('name')) %]
+          [% r.text(field.field('artist_id')) %]
+          [% r.text(field.field('join_phrase')) %]
+          [% r.text(field.field('name')) %]
+          [% r.text(field.field('artist_name')) %]
         [% END %]
+        </div>
       [% END %]
 
       [%# FIXME: should only be editable on Add Release. %]

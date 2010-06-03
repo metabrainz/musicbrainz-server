@@ -1,21 +1,38 @@
+/*
+   This file is part of MusicBrainz, the open internet music database.
+   Copyright (C) 2010 MetaBrainz Foundation
 
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
 
-mbz.TrackParser = function (disc) {
-    var self = mbz.Object ();
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+*/
+
+MB.TrackParser = function (disc, serialized) {
+    var self = MB.Object ();
 
     var getTrackInput = function () {
         self.inputlines = $.trim (self.textarea.val ()).split ("\n");
     };
 
     var removeTrackNumbers = function () {
-        if (self.vinylnumbers)
+        if (self.vinylnumbers.filter (':checked').val ())
         {
             $.each(self.inputlines, function (i) {
                 self.inputlines[i] = this.replace(/^[\s\(]*[-\.０-９0-9a-z]+[\.\)\s]+/i, "");
             });
         }
-        else if (self.tracknumbers)
+        else if (self.tracknumbers.filter (':checked').val ())
         {
             $.each(self.inputlines, function (i) {
                 self.inputlines[i] = this.replace(/^[\s\(]*([-\.０-９0-9\.]+(-[０-９0-9]+)?)[\.\)\s]+/, "");
@@ -28,7 +45,9 @@ mbz.TrackParser = function (disc) {
 
             var tmp = this.replace (/\(\?:\?\?\)\s?$/, '');
             self.inputlines[i] = tmp.replace(/\(?\s?([0-9０-９]*[：，．':,.][0-9０-９]+)\s?\)?$/,
-                function (str, p1) { self.inputdurations[i] = mbz.fullWidthConverter(p1); return ""; }
+                function (str, p1) { 
+                    self.inputdurations[i] = MB.utility.fullWidthConverter(p1); return ""; 
+                }
             );
 
         });
@@ -61,22 +80,31 @@ mbz.TrackParser = function (disc) {
     };
 
     var fillInData = function () {
-
         var map = {};
-        var originals = self.disc.originals ();
-        $.each (originals, function (idx, track) {
+
+        $.each (self.originals, function (idx, track) {
             if (map[track.title] === undefined) {
                 map[track.title] = [];
             }
             map[track.title].push (idx);
         });
 
+        var lastused = self.originals.length - 1;
+
+        var original = function (idx) {
+            if (idx < self.originals.length)
+            {
+                return $.extend ({}, self.originals[idx]);
+            }
+
+            return undefined;
+        };
+
         var moved = [];
         var inserted = [];
         var deleted = [];
         var no_change = [];
 
-        var lastused = originals.length - 1;
 
         // Match up inputtitles with existing tracks.
         $.each (self.inputtitles, function (idx, title) {
@@ -107,38 +135,44 @@ mbz.TrackParser = function (disc) {
 
         /* restore those which don't change from their serialized values. */
         $.each (no_change, function (idx, data) {
-            var copy = self.disc.original (data.row);
+            var copy = original (data.row);
             copy.length = data.length;
-            self.disc.renderTrack (data.row, copy);
+            self.disc.getTrack (data.row).render (copy);
         });
 
         /* re-arrange any tracks which have moved. */
         $.each (moved, function (idx, data) {
-            var copy = self.disc.original (data.row);
+            var copy = original (data.row);
             copy.position = data.position;
             copy.length = data.length;
-            self.disc.renderTrack (data.row, copy);
+            self.disc.getTrack (data.row).render (copy);
         });
 
         /* mark deleted tracks as such. */
         $.each (deleted, function (idx, row) {
-            var copy = self.disc.original (row);
+            var copy = original (row);
             copy.deleted = 1;
-            self.disc.renderTrack (row, copy);
+            self.disc.getTrack (row).render (copy);
         });
 
         /* insert newly added tracks. */
         $.each (inserted, function (idx, data) {
-            self.disc.renderTrack (data.row, {
-                'position': data.position,
-                'title': data.title,
-                'deleted': 0,
-                'length': data.length
-            });
+            var copy = original (data.position - 1);
+
+            if (copy)
+            {
+                data.artist = copy.artist;
+            }
+            data.deleted = 0;
+
+            self.disc.getTrack (data.row).render (data);
         });
 
         /* remove unused positions. */
-        self.disc.removeTrackInputs (lastused);
+        self.disc.removeTracks (lastused);
+
+        /* sort the table view after all these edits. */
+        self.disc.sort ();
     };
 
     var run = function () {
@@ -157,12 +191,13 @@ mbz.TrackParser = function (disc) {
 
     /* public variables. */
     self.disc = disc;
+    self.originals = $.isArray (serialized) ? serialized : [];
     self.artistseparator = new RegExp ("\\s[/\\t]");
     self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
-    self.guesscase = $('#guesscase').attr ('checked');
-    self.tracknumbers = $('#tracknumbers').attr ('checked');
-    self.vinylnumbers = $('#vinylnumbers').attr ('checked');
-    self.tracktimes = $('#tracktimes').attr ('checked');
+    self.guesscase = $('#guesscase');
+    self.tracknumbers = $('#tracknumbers');
+    self.vinylnumbers = $('#vinylnumbers');
+    self.tracktimes = $('#tracktimes');
 
     /* public methods. */
     self.getTrackInput = getTrackInput;
