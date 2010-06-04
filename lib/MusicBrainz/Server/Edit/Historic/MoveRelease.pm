@@ -47,10 +47,12 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     my @release_ids = @{ $self->data->{release_ids} };
-    my $new_artist = Artist->meta->clone_instance(
-        $loaded->{Artist}->{ $self->data->{artist_id} },
-        name => $self->data->{artist_name},
-    );
+    my $new_artist = defined $loaded->{Artist}->{ $self->data->{artist_id} }
+        ? Artist->meta->clone_instance(
+            $loaded->{Artist}->{ $self->data->{artist_id} },
+            name => $self->data->{artist_name},
+        )
+        : Artist->new( name => $self->data->{artist_name} );
 
     return {
         releases => [
