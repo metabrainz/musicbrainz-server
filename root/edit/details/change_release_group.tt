@@ -1,0 +1,17 @@
+<table class="details">
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td colspan="2">
+      <ul>
+        [% FOR release=edit.display_data.releases %]
+        <li>[% link_release(release) %]u</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Release group:') %]</th>
+    <td class="old">[% link_release_group(edit.display_data.release_group.old) %]</td>
+    <td class="new">[% link_release_group(edit.display_data.release_group.new) %]</td>
+  </tr>
+</table>
