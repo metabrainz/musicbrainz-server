@@ -181,7 +181,7 @@ sub find_by_collection
         "title"  => "musicbrainz_collate(name.name), date_year, date_month, date_day",
         "artist" => sub {
             $extra_join = "JOIN artist_name ac_name ON ac_name.id=release.artist_credit";
-            return ", musicbrainz_collate(ac_name.name), date_year, date_month, date_day, musicbrainz_collate(name.name)";
+            return "musicbrainz_collate(ac_name.name), date_year, date_month, date_day, musicbrainz_collate(name.name)";
         },
     });
 
