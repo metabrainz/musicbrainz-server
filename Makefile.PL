@@ -56,6 +56,7 @@ requires 'Readonly'                                   => '1.03';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'TryCatch';
+requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
 requires 'XML::Feed'                                  => '0.410';
 requires 'XML::Simple'                                => '2.14';
