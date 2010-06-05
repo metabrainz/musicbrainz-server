@@ -3,6 +3,7 @@ use Moose;
 use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK );
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
@@ -71,9 +72,16 @@ sub deserialize_new_value
 {
     my ($self, $new) = @_;
     my @lines = split /\n/, $new;
+
+    # Some edits (see #650 seem to have position and name swapped round...)
+    my ($name, $position) = @lines;
+    if (looks_like_number($name) && !looks_like_number($position)) {
+        ($name, $position) = ($position, $name);
+    }
+
     my %deserialized = (
-        name     => $lines[0],
-        position => $lines[1],
+        name     => $name,
+        position => $position
     );
 
     $deserialized{artist_name} = $lines[3] if $lines[3];
