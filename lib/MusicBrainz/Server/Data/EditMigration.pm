@@ -71,6 +71,7 @@ sub _new_from_row
         yes_votes      => $row->{yesvotes},
         no_votes       => $row->{novotes},
         auto_edit      => $row->{automod},
+        status         => $row->{status},
         c              => $self->c,
         migration      => $self
     );
