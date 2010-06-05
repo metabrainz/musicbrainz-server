@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Link Types") full_width=1 %]
-
+    <div id="content">
 <h1>[% l("Link Types") %]</h1>
 
 <p>
@@ -19,5 +19,5 @@
 </table>
 
 </p>
-
+    </div>
 [% END %]

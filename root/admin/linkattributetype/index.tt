@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Link Attribute Types") full_width=1 %]
-
+    <div id="content">
 <h1>[% l("Link Attribute Types") %]</h1>
 
 <p>
@@ -34,5 +34,5 @@
 [% PROCESS link_attribute_type obj=child %]
 [% END %]
 </ul>
-
+    </div>
 [% END %]

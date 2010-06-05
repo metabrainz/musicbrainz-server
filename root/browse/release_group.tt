@@ -1,5 +1,5 @@
 [% WRAPPER 'layout.tt' title=l("Browse Release Groups") full_width=1 %]
-    <div class="content">
+    <div id="content">
         <h1>[% l("Browse Release Groups") %]</h1>
 
         [% INCLUDE "browse/page_selector.tt" entity="release_group"%]

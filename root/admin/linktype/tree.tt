@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) full_width=1 %]
-
+    <div id="content">
 <h1>[% l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
 
 <p>
@@ -38,5 +38,5 @@
 [% PROCESS link_type obj=child %]
 [% END %]
 </ul>
-
+    </div>
 [% END %]

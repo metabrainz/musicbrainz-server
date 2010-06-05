@@ -1,7 +1,7 @@
 [% WRAPPER "layout.tt" title=l("New Link Attribute Type") full_width=1 %]
-
+    <div id="content">
 <h1>[% l("New Link Attribute Type") %]</h1>
 
 [% INCLUDE "admin/linkattributetype/form.tt" %]
-
+    </div>
 [% END %]

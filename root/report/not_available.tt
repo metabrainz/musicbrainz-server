@@ -1,5 +1,5 @@
 [%- WRAPPER 'layout.tt' title=l('Error') full_width=1 -%]
-    <div class="content">
+    <div id="content">
         <h1>[% l('Error') %]</h1>
 
         <p>

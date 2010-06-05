@@ -4,7 +4,7 @@
         : l('Tag “{tag}”', { tag => tag.name })
     -%]
 
-<div class="content">
+<div id="content">
     [%- INCLUDE "tag/header.tt" -%]
     [%- content -%]
 </div>

@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l('Error 401: Unauthorized') full_width=1 %]
-    <div class="content">
+    <div id="content">
         <h1>[%- l('Unauthorized') -%]</h1>
         <h2>[%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 401') -%]</h2>
 

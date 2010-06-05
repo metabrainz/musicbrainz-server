@@ -1,5 +1,5 @@
 [%- WRAPPER 'layout.tt' title=l('Remove Page') full_width=1 -%]
-    <div class="content">
+    <div id="content">
         <h1>[% l('Remove Page') %]</h1>
         <p>[%- l('Are you sure you wish to remove <strong>{page}</strong> from the transclusion table?',
                 { page => page }) -%]</p>

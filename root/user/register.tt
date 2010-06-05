@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Create an Account") full_width=1 %]
-<div class="content">
+<div id="content">
     <h1>[% l("Create an Account") %]</h1>
 
         <p>[%- l('<strong>Note that any contributions you make to MusicBrainz will be released

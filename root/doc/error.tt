@@ -1,5 +1,6 @@
 [% extra_css = "wikidocs.css" %]
 [% WRAPPER 'layout.tt' title=l('Error 404: Page Not Found') full_width=1 %]
+    <div id="content">
     <h1>[% l('Page Not Found') %]</h1>
     <h2>
         [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 404') -%]
@@ -16,4 +17,5 @@
               wiki => '<a href="http://' _ wiki_server _ '">http://' _ wiki_server _ '</a>',
               search => 'http://' _ wiki_server _ '/Special:Search?search=' _ replace(id, '_', '+') }) %]
     </p>
+    </div>
 [% END %]

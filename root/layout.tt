@@ -82,7 +82,7 @@
             </div>
         [%- END -%]
 
-        <div class="page[% IF full_width %] fullwidth[% END %][% IF homepage %] homepage[% END %]">
+        <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
         [%- content -%]
         <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>

@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l("WikiDoc Transclusion Table") full_width=1 %]
-    <div class="content"
+    <div id="content"
         <h1>[% l("WikiDoc Transclusion Table") %]</h1>
 
         <p class="buttons">

@@ -36,7 +36,7 @@
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
     [% END %]
 
-    <div class="content">
+    <div id="content">
         [%- INCLUDE 'recording/header.tt' %]
         [%- content -%]
     </div>

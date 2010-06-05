@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l('Error 500: Internal Server Error') full_width=1 %]
-    <div class="content">
+    <div id="content">
         <h1>[%- l('Ooops!') -%]</h1>
         <h2>[%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 500') -%]</h2>
 

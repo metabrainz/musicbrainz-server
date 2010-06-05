@@ -10,7 +10,7 @@
         </ul>
     [% END %]
 
-    <div class="content">
+    <div id="content">
     [% INCLUDE 'url/header.tt' %]
     [% content %]
     </div>

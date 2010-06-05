@@ -1,5 +1,5 @@
 [%- WRAPPER 'layout.tt' title=l('Reports') full_width=1 -%]
-    <div class="content">
+    <div id="content">
         <h1>[% l('Reports') %]</h1>
 
         <p>

@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Add Page") full_width=1 %]
-    <div class="content">
+    <div id="content">
         <h1>[% l("Add Page") %]</h1>
 
         [%- USE r = FormRenderer(form) -%]

@@ -8,7 +8,7 @@ div.tabs {
     font-size: 95%;
 }
 
-.page div.tabs ul {
+#page div.tabs ul {
     overflow: hidden;
     padding: 0;
     margin: 0;
@@ -19,11 +19,11 @@ div.tabs {
     top: 1px;
 }
 
-.page div.tabs ul li {
+#page div.tabs ul li {
     float: left;
 }
 
-.page div.tabs ul li a {
+#page div.tabs ul li a {
     display: block;
     padding: 0.1em 0.5em;
     margin-left: 4px;
@@ -34,14 +34,14 @@ div.tabs {
     border-bottom: solid 1px #a1a1a1;
 }
 
-.page div.tabs ul li.sel a {
+#page div.tabs ul li.sel a {
     background: #fff;
     color: #000;
     font-weight: bold;
     border-bottom: solid 1px #fff;
 }
 
-.page div.tabs ul li a:hover {
+#page div.tabs ul li a:hover {
     background: #fff;
     color: #000;
 }
@@ -59,9 +59,9 @@ div.tabs {
 .labelheader     { background-image: url('../images/bicon_lg.png') }
 .workheader      { } /* TODO: create work icon */
 
-.page .releaseheader .prefix,
-.page h1 span.prefix,
-.page h1 span.comment
+#page .releaseheader .prefix,
+#page h1 span.prefix,
+#page h1 span.comment
 {
     font-size: 12px;
     font-weight: normal;
