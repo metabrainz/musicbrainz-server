@@ -8,6 +8,7 @@ use lib "$Bin/../../../lib";
 use DBDefs;
 use Getopt::Long;
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use TryCatch;
 
 my $c = MusicBrainz::Server::Context->create_script_context;
@@ -58,5 +59,17 @@ $raw_sql->do("TRUNCATE edit_$_ CASCADE")
 for my $upgraded (@upgraded) {
     $c->model('Edit')->insert($upgraded);
 }
+
+my @ids = map { $_->id } @upgraded;
+
+my $votes = $sql->select_list_of_lists('
+    SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded
+      FROM public.vote_closed
+     WHERE moderation IN (' . placeholders(@ids) . ')', @ids);
+$raw_sql->do(
+    'INSERT INTO vote (id, editor, edit, vote, votetime, superseded)
+          VALUES ' . (join ", ", (("(?, ?, ?, ?, ?, ?)") x @$votes)),
+    map { @$_ } @$votes
+);
 
 $raw_sql->commit;
