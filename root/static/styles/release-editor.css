@@ -30,6 +30,7 @@ h1 span {
     margin: 0 10px;
 }
 
+#release-editor .documentation label,
 #release-editor fieldset label.row {
     float: left;
     margin-right: 1em;
@@ -140,6 +141,9 @@ h1 span {
 
 #release-editor #editnote  { height: 70px; }
 
+#release-editor fieldset.advanced-disc .medium.tbl td input { border: 1px solid transparent; }
+#release-editor fieldset.advanced-disc .medium.tbl td input:focus { border: 1px solid #FFBA58; }
+
 #release-editor div.tracklist-padding { padding: 0 1em 1em 1em; }
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
 table.medium.tbl th.position, .medium.tbl td.position  { width: 2em; }
@@ -204,6 +208,7 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 1em; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
+#release-editor div.artist-credit-vertical,
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 1em; border: 1px solid #999;
     background: #fff;
@@ -212,15 +217,44 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
     border-radius: 12px;
 }
 
+#release-editor .documentation div.artist-credit { width: 100%; margin-top: 5em; }
+#release-editor div.artist-credit-vertical { background: #f0f0f0; }
+#release-editor div.artist-credit-vertical div.row { clear: none; }
+
+
 /* little speech balloon "tail" to visibly associate the artist credit
    editor with the artist input field. */
 
-.ac-balloon0 { position: relative; margin-top: 4px; }
-.ac-balloon1 {
+div.artist-credit .ac-balloon0 { position: relative; }
+div.artist-credit .ac-balloon1 {
+    width: 14px; height: 42px; background: #eee;
+    padding: 0; margin: 0; position: absolute; left: -12px; top: 16px;
+}
+div.artist-credit .ac-balloon2 {
+    background: green;
+    width: 12px; height: 20px; float: left; background: #fff;
+    padding: 0; margin: 0;
+    border-style: solid; border-width: 0 1px 1px 0; border-color: #999;
+    -webkit-border-bottom-right-radius: 12px;
+    -moz-border-radius-bottomright: 12px;
+    border-bottom-right-radius: 12px;
+}
+div.artist-credit .ac-balloon3 {
+    background: blue;
+    width: 12px; height: 20px; float: left; background: #fff;
+    padding: 0; margin: 0;
+    border-style: solid; border-width: 1px 1px 0 0; border-color: #999;
+    -webkit-border-top-right-radius: 12px;
+    -moz-border-radius-topright: 12px;
+    border-top-right-radius: 12px;
+}
+
+tr.track-artist-credit .ac-balloon0 { position: relative; margin-top: 4px; }
+tr.track-artist-credit .ac-balloon1 {
     width: 42px; height: 14px; background: #fff;
     padding: 0; margin: 0; position: absolute; left: 550px; bottom: -2px;
 }
-.ac-balloon2 {
+tr.track-artist-credit .ac-balloon2 {
     width: 20px; height: 12px; float: left; background: #eee;
     padding: 0; margin: 0;
     border-style: solid; border-width: 0 1px 1px 0; border-color: #999;
@@ -228,7 +262,7 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
     -moz-border-radius-bottomright: 12px;
     border-bottom-right-radius: 12px;
 }
-.ac-balloon3 {
+tr.track-artist-credit .ac-balloon3 {
     width: 20px; height: 12px; float: left; background: #eee;
     padding: 0; margin: 0;
     border-style: solid; border-width: 0 0 1px 1px; border-color: #999;

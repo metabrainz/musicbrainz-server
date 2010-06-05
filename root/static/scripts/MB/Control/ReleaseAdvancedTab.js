@@ -369,13 +369,6 @@ MB.Control.ReleaseAdvancedTab = function () {
         self.discs.push (MB.Control.ReleaseDisc ($(item)));
     });
 
-    self.tab.find ('tbody input').focus(function() {
-        $(this).css('border','1px solid #FFBA58');
-    });
-    self.tab.find ('tbody input').blur(function() {
-        $(this).css('border','1px solid transparent');
-    });
-
     $('form').bind ('submit', function () {
         self.tab.find ('tr.track td.artist input').removeAttr('disabled');
     });

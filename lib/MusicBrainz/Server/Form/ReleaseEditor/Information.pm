@@ -42,7 +42,8 @@ after 'BUILD' => sub {
 
     if (defined $self->init_object)
     {
-        $self->field ('type_id')->value ($self->init_object->release_group->type->id);
+        $self->field ('type_id')->value ($self->init_object->release_group->type->id)
+            if $self->init_object->release_group->type;
         $self->field ('type_id')->disabled (1);
 
         my $max = @{ $self->init_object->labels } - 1;

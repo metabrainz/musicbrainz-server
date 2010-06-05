@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    clean_submitted_artist_credits
 );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
@@ -115,28 +116,9 @@ around 'initialize' => sub
         delete $opts{length} if $old_length eq $new_length;
     }
 
-    if ($opts{artist_credit})
+    if (exists $opts{artist_credit})
     {
-        # Remove empty artist credits.
-        my @delete;
-        my $max = scalar @{ $opts{artist_credit} } - 1;
-        for (0..$max)
-        {
-            my $part = $opts{artist_credit}->[$_];
-            if (ref $part eq 'HASH')
-            {
-                push @delete, $_ unless ($part->{artist} || $part->{name});
-            }
-            elsif ($part eq '')
-            {
-                push @delete, $_;
-            }
-        }
-
-        for (@delete)
-        {
-            delete $opts{artist_credit}->[$_];
-        }
+        $opts{artist_credit} = clean_submitted_artist_credits ($opts{artist_credit});
     }
 
     $self->$orig(%opts);

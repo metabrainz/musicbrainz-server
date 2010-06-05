@@ -18,42 +18,36 @@
 
 */
 
-MB.Control.ArtistCredit = function(obj, box, parent) {
+MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     var self = MB.Object();
 
-    self.template = MB.utility.template(
-        '<tr class="artist-credit-box">' +
-            '<td class="link">' +
-            '  <a href="/" tabindex="-1">&nbsp;</a>' +
-            '</td>' +
-            '<td class="artist">' +
-            '  <input type="text" class="name"></input>' +
-            '  <input type="hidden" class="gid"></input>' +
-            '  <input id="id-#{name}.artist_id" name="#{name}.artist_id" type="hidden" class="id" />' +
-            '</td>' +
-            '<td class="artistcredit">' +
-            '  <input id="id-#{name}.name" name="#{name}.name" type="text" class="credit" />' +
-            '</td>' +
-            '<td class="joinphrase">' +
-            '  <input id="id-#{name}.join_phrase" name="#{name}.join_phrase" type="text" class="join" />' +
-            '</td>' +
-        '</div>'
-    );
-
-    self.parent = parent;
+    self.container = container;
 
     if (obj === null)
     {
-        self.row = $(self.template.draw({
-            "name": self.parent.prefix + ".names." + box
-        }));
+        self.row = self.container.box[boxnumber - 1].row.clone ();
+
+        var nameid = new RegExp ("artist_credit.names.[0-9]+");
+        self.row.find ("*").each (function (idx, element) {
+            var item = $(element);
+            if (item.attr ('id'))
+            {
+                item.attr ('id', item.attr('id').
+                           replace(nameid, "artist_credit.names." + boxnumber));
+            }
+            if (item.attr ('name'))
+            {
+                item.attr ('name', item.attr('name').
+                           replace(nameid, "artist_credit.names." + boxnumber));
+            }
+        });
     }
     else
     {
         self.row = obj;
     }
 
-    self.box = box;
+    self.boxnumber = boxnumber;
     self.name = self.row.find ('input.name');
     self.credit = self.row.find ('input.credit');
     self.join = self.row.find ('input.join');
@@ -61,15 +55,25 @@ MB.Control.ArtistCredit = function(obj, box, parent) {
     self.id = self.row.find ('input.id');
     self.link = self.row.find ('a');
 
+    var clear = function () {
+        self.name.val ('');
+        self.credit.val ('');
+        self.join.val ('');
+        self.gid.val ('');
+        self.id.val ('');
+        self.link.val ('');
+        self.link.html ('');
+    };
+
     var joinChanged = function(event) {
         if (self.join.val() === "")
             return;
 
-        self.parent.addArtistBox(self.box + 1);
+        self.container.addArtistBox(self.boxnumber + 1);
     };
 
     var joinBlurred = function(event) {
-        self.parent.renderPreview();
+        self.container.renderPreview();
     };
 
     var nameBlurred = function(event) {
@@ -80,15 +84,15 @@ MB.Control.ArtistCredit = function(obj, box, parent) {
             self.name.addClass('error');
         }
 
-        self.parent.renderPreview();
+        self.container.renderPreview();
     };
 
     var creditBlurred = function(event) {
         if (self.credit.val() === "")
             return;
 
-        self.parent.addArtistBox(self.box + 1);
-        self.parent.renderPreview();
+        self.container.addArtistBox(self.boxnumber + 1);
+        self.container.renderPreview();
     };
 
     var update = function(event, data) {
@@ -104,12 +108,13 @@ MB.Control.ArtistCredit = function(obj, box, parent) {
             self.credit.val (data.name);
         }
 
-        self.parent.renderPreview();
+        self.container.renderPreview();
 
         event.preventDefault();
         return false;
     };
 
+    self.clear = clear;
     self.joinChanged = joinChanged;
     self.joinBlurred = joinBlurred;
     self.nameBlurred = nameBlurred;
@@ -124,21 +129,29 @@ MB.Control.ArtistCredit = function(obj, box, parent) {
     self.name.result(self.update);
     self.name.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
 
+    if (obj === null)
+    {
+        /* we need to empty some variables if we created a new artist
+         * credit by cloning the previous artist. */
+        self.clear ();
+    }
+
     return self;
 }
 
-/* an ArtistCreditRow is a container for all the artist credits on a track. */
-MB.Control.ArtistCreditRow = function(row, acrow) {
+/* an ArtistCreditContainer is the base container for all the artist credits 
+   on a track or the release. */
+MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     var self = MB.Object();
 
     self.box = [];
-    self.acrow = acrow;
-    self.track_input = row.find ("td.artist input");
+    self.artistcredits = artistcredits;
+    self.artist_input = input;
 
     var identify = function() {
-        var id = self.acrow.find ('input.credit').eq(0).attr ('id');
+        var id = self.artistcredits.find ('input.credit').eq(0).attr ('id');
 
-        if (id === "id-artist_credit.names.0.artist_id")
+        if (id === "id-artist_credit.names.0.name")
         {
             self.prefix = "artist_credit";
             self.medium = -1;
@@ -156,20 +169,16 @@ MB.Control.ArtistCreditRow = function(row, acrow) {
     var initialize = function() {
         self.identify ();
 
-        self.acrow.find('tr.artist-credit-box').each(function(i) {
+        self.artistcredits.find('.artist-credit-box').each(function(i) {
             self.box[i] = MB.Control.ArtistCredit($(this), i, self);
         });
 
-        self.track_input.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
-        self.track_input.result(self.update);
-        self.track_input.focus(function(event) {
-            $('tr.artist-credit-row').not(self.acrow).hide();
-            self.acrow.show();
-        });
+        self.artist_input.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
+        self.artist_input.result(self.update);
 
         /* always add an empty box when first initializing an artist credit row. */
         self.addArtistBox (self.box.length);
-        self.acrow.hide ();
+        self.artistcredits.hide ();
     };
 
     var update = function(event, data) {
@@ -182,44 +191,65 @@ MB.Control.ArtistCreditRow = function(row, acrow) {
         }
 
         self.box[i] = MB.Control.ArtistCredit(null, i, self);
-        self.box[i].row.appendTo(self.acrow.find ('table.artist-credit tbody'));
+        self.box[i].row.insertAfter (self.box[i-1].row);
 
         return self.box[i];
-    };
-
-    var copyArtist = function(artist) {
-        $.each (artist.box, function (index, src) {
-            dst = self.addArtistBox(index);
-            dst.name.val(src.name.val());
-            dst.join.val(src.join.val());
-            dst.gid.val(src.gid.val());
-            dst.id.val(src.id.val());
-            dst.link.html(src.link.html());
-            dst.link.attr('href', src.link.attr('href'));
-            dst.link.attr('title', src.link.attr('title'));
-        });
-
-        self.renderPreview();
     };
 
     var renderPreview = function() {
         var preview = "";
 
-        self.acrow.find ('tr.artist-credit-box').each(function(i, box) {
+        self.artistcredits.find ('.artist-credit-box').each(function(i, box) {
             preview += $(box).find('input.credit').val() + $(box).find('input.join').val();
         });
 
-        self.track_input.val(preview);
+        self.artist_input.val(preview);
     };
 
     self.identify = identify;
     self.initialize = initialize;
     self.update = update;
     self.addArtistBox = addArtistBox;
-    self.copyArtist = copyArtist;
     self.renderPreview = renderPreview;
 
-    self.initialize();
+    self.initialize ();
 
     return self;
 };
+
+/* an ArtistCreditRow is the container for all the artist credits on a track. */
+MB.Control.ArtistCreditRow = function (row, acrow) {
+    var self = MB.Control.ArtistCreditContainer (row.find ("td.artist input"), acrow);
+
+    var initialize = function () {
+        self.artist_input.focus(function(event) {
+            $('tr.artist-credit-row').not(self.artistcredits).hide();
+            self.artistcredits.show();
+        });
+    };
+
+    self.initialize = initialize;
+
+    self.initialize ();
+
+    return self;
+};
+
+/* ArtistCreditVertical is the container for all the artist credits on the
+   release (which appears on the information page). */
+MB.Control.ArtistCreditVertical = function (input, artistcredits) {
+    var self = MB.Control.ArtistCreditContainer (input, artistcredits);
+
+    var initialize = function () {
+        self.artist_input.focus(function(event) {
+            self.artistcredits.show();
+        });
+    };
+
+    self.initialize = initialize;
+
+    self.initialize ();
+
+    return self;
+};
+

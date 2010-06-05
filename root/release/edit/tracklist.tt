@@ -40,7 +40,7 @@
 <table class="artist-credit" style="width: 100%">
   <tr class="artist-credit-header">
     <th>[% l('Link') %]</th>
-    <th>[% l('Artist') %]</th>
+    <th>[% l('Artist in MusicBrainz') %]</th>
     <th>[% l('Artist as credited on this track') %]</th>
     <th>[% l('Join phrase') %]</th>
   </tr>
