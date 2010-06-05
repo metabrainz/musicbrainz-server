@@ -89,6 +89,58 @@ CREATE TABLE artist_type (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE collection
+(
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    name                VARCHAR NOT NULL,
+    public              BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE collection_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references collection.id
+);
+
+CREATE TABLE collection_release
+(
+    collection          INTEGER NOT NULL, -- PK, references collection.id
+    release             INTEGER NOT NULL -- PK, references release.id
+);
+
+CREATE TABLE cdtoc
+(
+    id                  SERIAL,
+    discid              CHAR(28) NOT NULL,
+    freedbid            CHAR(8) NOT NULL,
+    trackcount          INTEGER NOT NULL,
+    leadoutoffset       INTEGER NOT NULL,
+    trackoffset         INTEGER[] NOT NULL,
+    degraded            BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE clientversion
+(
+    id                  SERIAL,
+    version             VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE country (
+    id                  SERIAL,
+    isocode             VARCHAR(2) NOT NULL,
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE currentstat
+(
+    id                  SERIAL,
+    name                VARCHAR(100) NOT NULL,
+    value               INTEGER NOT NULL,
+    lastupdated         TIMESTAMP WITH TIME ZONE
+);
+
 CREATE TABLE dbmirror_Pending (
     SeqId               SERIAL,
     TableName           NAME NOT NULL,
@@ -154,49 +206,6 @@ CREATE TABLE editor_subscribe_editor
     editor              INTEGER NOT NULL, -- references editor.id (the one who has subscribed)
     subscribededitor    INTEGER NOT NULL, -- references editor.id (the one being subscribed)
     lasteditsent        INTEGER NOT NULL  -- weakly references edit
-);
-
-CREATE TABLE editor_collection
-(
-    id                  SERIAL,
-    editor              INTEGER NOT NULL -- references editor.id
-);
-
-CREATE TABLE editor_collection_release
-(
-    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
-    release             INTEGER NOT NULL -- PK, references release.id
-);
-
-CREATE TABLE cdtoc
-(
-    id                  SERIAL,
-    discid              CHAR(28) NOT NULL,
-    freedbid            CHAR(8) NOT NULL,
-    trackcount          INTEGER NOT NULL,
-    leadoutoffset       INTEGER NOT NULL,
-    trackoffset         INTEGER[] NOT NULL,
-    degraded            BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE clientversion
-(
-    id                  SERIAL,
-    version             VARCHAR(64) NOT NULL
-);
-
-CREATE TABLE country (
-    id                  SERIAL,
-    isocode             VARCHAR(2) NOT NULL,
-    name                VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE currentstat
-(
-    id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
-    value               INTEGER NOT NULL,
-    lastupdated         TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE gender (

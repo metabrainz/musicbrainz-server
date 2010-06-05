@@ -187,7 +187,7 @@ sub find_by_collection
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN editor_collection_release c
+                    JOIN collection_release c
                         ON release.id = c.release
                     $extra_join
                  WHERE c.collection = ?

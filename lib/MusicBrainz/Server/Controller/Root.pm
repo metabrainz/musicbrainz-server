@@ -105,17 +105,6 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
-    if ($c->user_exists) {
-        if (exists $c->session->{collection}) {
-            $c->stash->{user_collection} = $c->session->{collection};
-        }
-        else {
-            my $id = $c->model('Collection')->find_collection($c->user);
-            $c->stash->{user_collection} = $id;
-            $c->session->{collection} = $id;
-        }
-    }
-
     if ($c->req->user_agent && $c->req->user_agent =~ /MSIE/i) {
         $c->stash->{looks_like_ie} = 1;
         $c->stash->{needs_chrome} = !($c->req->user_agent =~ /chromeframe/i);

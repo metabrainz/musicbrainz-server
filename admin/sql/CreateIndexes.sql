@@ -16,6 +16,11 @@ CREATE INDEX artist_name_idx_page ON artist_name (page_index(name));
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
 
+CREATE UNIQUE INDEX collection_idx_gid ON collection (gid);
+CREATE INDEX collection_idx_name ON collection (name);
+
+CREATE INDEX collection_idx_editor ON collection (editor);
+
 CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
 
 CREATE INDEX currentstat_name ON currentstat (name);
@@ -23,7 +28,6 @@ CREATE INDEX currentstat_name ON currentstat (name);
 CREATE INDEX dbmirror_Pending_XID_Index ON dbmirror_Pending (XID);
 
 CREATE INDEX editor_idx_name ON editor (LOWER(name));
-CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);

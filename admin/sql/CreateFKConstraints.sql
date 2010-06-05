@@ -94,18 +94,23 @@ ALTER TABLE artist_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
-ALTER TABLE editor_collection
-   ADD CONSTRAINT editor_collection_fk_editor
+ALTER TABLE collection
+   ADD CONSTRAINT collection_fk_editor
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
-ALTER TABLE editor_collection_release
-   ADD CONSTRAINT editor_collection_release_fk_collection
-   FOREIGN KEY (collection)
-   REFERENCES editor_collection(id);
+ALTER TABLE collection_gid_redirect
+   ADD CONSTRAINT collection_gid_redirect_fk_newid
+   FOREIGN KEY (newid)
+   REFERENCES collection(id);
 
-ALTER TABLE editor_collection_release
-   ADD CONSTRAINT editor_collection_release_fk_release
+ALTER TABLE collection_release
+   ADD CONSTRAINT collection_release_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES collection(id);
+
+ALTER TABLE collection_release
+   ADD CONSTRAINT collection_release_fk_release
    FOREIGN KEY (release)
    REFERENCES release(id);
 
