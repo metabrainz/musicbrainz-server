@@ -163,10 +163,11 @@ sub insert
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
         next unless @$ids;
+        my @uniq_ids = uniq @$ids;
         my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-        $query .= join ", ", ("(?, ?)") x @$ids;
-        my @all_ids = ($edit->id) x @$ids;
-        $sql_raw->do($query, zip @all_ids, @$ids);
+        $query .= join ", ", ("(?, ?)") x @uniq_ids;
+        my @all_ids = ($edit->id) x @uniq_ids;
+        $sql_raw->do($query, zip @all_ids, @uniq_ids);
     }
 }
 
