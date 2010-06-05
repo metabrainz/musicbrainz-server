@@ -192,6 +192,54 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
 
 /* __________________________________
 
+          ARTIST CREDIT EDITOR
+   __________________________________ */
+
+#release-editor .medium.tbl tr.track-artist-credit,
+#release-editor .medium.tbl tr.track-artist-credit th,
+#release-editor .medium.tbl tr.track-artist-credit td { padding: 0; margin: 0; border: 0; }
+
+#release-editor .medium.tbl tr.track-artist-credit,
+#release-editor .medium.tbl tr.track-artist-credit > td { background-color: #f0f0f0; }
+#release-editor .medium.tbl tr.track-artist-credit > td { padding: 1em; }
+#release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
+
+#release-editor .medium.tbl tr.track-artist-credit td table {
+    margin: 0; padding: 1em; border: 1px solid #999;
+    background: #fff;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+
+/* little speech balloon "tail" to visibly associate the artist credit
+   editor with the artist input field. */
+
+.ac-balloon0 { position: relative; margin-top: 4px; }
+.ac-balloon1 {
+    width: 42px; height: 14px; background: #fff;
+    padding: 0; margin: 0; position: absolute; left: 550px; bottom: -2px;
+}
+.ac-balloon2 {
+    width: 20px; height: 12px; float: left; background: #eee;
+    padding: 0; margin: 0;
+    border-style: solid; border-width: 0 1px 1px 0; border-color: #999;
+    -webkit-border-bottom-right-radius: 12px;
+    -moz-border-radius-bottomright: 12px;
+    border-bottom-right-radius: 12px;
+}
+.ac-balloon3 {
+    width: 20px; height: 12px; float: left; background: #eee;
+    padding: 0; margin: 0;
+    border-style: solid; border-width: 0 0 1px 1px; border-color: #999;
+    -webkit-border-bottom-left-radius: 12px;
+    -moz-border-radius-bottomleft: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+
+/* __________________________________
+
                 BUTTONS
    __________________________________ */
 

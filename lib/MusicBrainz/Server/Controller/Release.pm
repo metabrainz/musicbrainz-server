@@ -353,7 +353,6 @@ sub edit : Chained('load') RequireAuth Edit
 
         $self->_create_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
 
-
         # release labels edit
         # ----------------------------------------
 

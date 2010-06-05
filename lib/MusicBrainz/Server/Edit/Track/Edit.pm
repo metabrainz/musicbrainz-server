@@ -115,6 +115,30 @@ around 'initialize' => sub
         delete $opts{length} if $old_length eq $new_length;
     }
 
+    if ($opts{artist_credit})
+    {
+        # Remove empty artist credits.
+        my @delete;
+        my $max = scalar @{ $opts{artist_credit} } - 1;
+        for (0..$max)
+        {
+            my $part = $opts{artist_credit}->[$_];
+            if (ref $part eq 'HASH')
+            {
+                push @delete, $_ unless ($part->{artist} || $part->{name});
+            }
+            elsif ($part eq '')
+            {
+                push @delete, $_;
+            }
+        }
+
+        for (@delete)
+        {
+            delete $opts{artist_credit}->[$_];
+        }
+    }
+
     $self->$orig(%opts);
 };
 

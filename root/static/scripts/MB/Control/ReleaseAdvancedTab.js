@@ -49,7 +49,7 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     var self = MB.Object ();
 
     self.row = track;
-    self.ac_row = artistcredit;
+    self.acrow = artistcredit;
 
     self.position = track.find ('td.position input');
     self.title = track.find ('td.title input.track-name');
@@ -127,7 +127,7 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
      */
     var remove = function () {
         self.row.remove ();
-        self.ac_row.remove ();
+        self.acrow.remove ();
     };
     
     self.render = render;
@@ -136,6 +136,7 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     self.remove = remove;
 
     self.row.find ("a[href=#remove_track]").click (function () { self.toggleDelete() });
+    self.artist_credit = MB.Control.ArtistCreditRow (self.row, self.acrow);
 
     return self;
 };
@@ -187,8 +188,10 @@ MB.Control.ReleaseDisc = function (disc) {
         }
 
         /* render tr.track-artist-credit. */
-        var acrow = $('<tr class="track-artist-credit">').append (
-            $('<td colspan="5">').append ($('div#release-artist table').clone ()));
+        var acrow = $('<tr class="track-artist-credit">').
+            append ($('<td colspan="5">').
+                    append ($('div#release-artist div.ac-balloon0').clone ()).
+                    append ($('div#release-artist table.artist-credit').clone ()));
 
         acrow.insertAfter (row);
 
@@ -196,13 +199,12 @@ MB.Control.ReleaseDisc = function (disc) {
         var trackprefix = 'mediums.'+self.number+'.tracklist.tracks.'+trackno+'.';
         var replace_ids = function (idx, element) {
             var item = $(element);
-            item.attr ('id', trackprefix + item.attr('id'));
+            item.attr ('id', 'id-' + trackprefix + item.attr('name'));
             item.attr ('name', trackprefix + item.attr('name'));
         };
 
         newartist.find('*').each (replace_ids);
         acrow.find ('*').each (replace_ids);
-        acrow.show ();
 
         self.tracks.push (MB.Control.ReleaseTrack (row, acrow));
 
@@ -249,8 +251,8 @@ MB.Control.ReleaseDisc = function (disc) {
         $.each (self.tracks, function (idx, track) {
             if (idx)
             {
-                track.row.insertAfter (self.tracks[idx-1].ac_row);
-                track.ac_row.insertAfter (track.row);
+                track.row.insertAfter (self.tracks[idx-1].acrow);
+                track.acrow.insertAfter (track.row);
             }
         });
     };
@@ -347,7 +349,7 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         newdisc_bas.find ('textarea').empty ();
 
-        var new_disc = MB.Control.ReleaseDisc (newdisc_adv);
+        var new_disc = MB.Control.ReleaseDisc (newdisc_adv, self);
 
         self.discs.push (new_disc);
 

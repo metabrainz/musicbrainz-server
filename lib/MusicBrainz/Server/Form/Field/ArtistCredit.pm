@@ -58,6 +58,8 @@ around 'fif' => sub {
     my @names;
     for ( @{ $fif->{'names'} } )
     {
+        next if ($_->{'artist_id'} eq '');
+
         my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $_->{'name'},
             );
