@@ -361,7 +361,7 @@ code {
 */
 .clear { clear: both; }
 
-.c, #page table.tbl .c { text-align: center; }
+.c, table.tbl .c { text-align: center; }
 
 .noborder { border: none !important; }
 
@@ -379,7 +379,7 @@ span.mp {
 }
 
 /* The table! */
-#page table.tbl {
+table.tbl {
     margin-top: 1em;
     border-collapse: collapse;
     width: 100%;
@@ -387,7 +387,7 @@ span.mp {
     border-bottom: solid 1px #999999;
 }
 
-#page table.tbl th {
+table.tbl th {
     font-size: 95%;
     background: url(../images/table-header.gif) repeat-x 0 50%;
     padding: 0.2em 0.4em;
@@ -396,8 +396,8 @@ span.mp {
     border-left: solid 1px #CCCCCC;
 }
 
-#page table.tbl tr.subh td,
-#page table.tbl tr.subh th {
+table.tbl tr.subh td,
+table.tbl tr.subh th {
     font-size: 95%;
     background: url(../images/table-header-2.gif) repeat-x 0 50%;
     font-weight: bold;
@@ -405,29 +405,29 @@ span.mp {
     border-bottom: solid 1px #999999;
 }
 
-#page table.tbl th a {
+table.tbl th a {
     color: #000;
 }
 
-#page table.tbl th:first-child {
+table.tbl th:first-child {
     border-left: none;
 }
 
-#page table.tbl td {
+table.tbl td {
     padding: 0.2em 0.4em;
 }
 
-#page table.tbl tr.ev td {
+table.tbl tr.ev td {
     padding: 0.2em 0.4em;
     background: #F2F2F2;
 }
 
-#page table.tbl th.pos { width: 1em; }
-#page table.tbl th.year { width: 4em; }
-#page table.tbl th.count { width: 2em; }
-#page table.tbl th.rating { width: 50px; }
-#page table.tbl th.treleases { width: 3em; }
-#page table.tbl .t { text-align: right; }
+table.tbl th.pos { width: 1em; }
+table.tbl th.year { width: 4em; }
+table.tbl th.count { width: 2em; }
+table.tbl th.rating { width: 50px; }
+table.tbl th.treleases { width: 3em; }
+table.tbl .t { text-align: right; }
 
 /* Paginator */
 .pageselector a, .pageselector span {
