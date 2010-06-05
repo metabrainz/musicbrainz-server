@@ -3,11 +3,11 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-sub view : Local Args(1)
+sub view : Chained('/user/base') PathPart('collections')
 {
-    my ($self, $c, $user_name) = @_;
+    my ($self, $c) = @_;
 
-    my $user = $c->model('Editor')->get_by_name($user_name);
+    my $user = $c->stash->{user};
 
     $c->detach('/error_404')
         if (!defined $user);

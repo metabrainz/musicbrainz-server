@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" full_width=1 title=l("Collection “{collection}”", { collection => html_escape(collection.name) }) page="collection" %]
+[% WRAPPER "layout.tt" full_width=1 title=l("Collection “{collection}”", { collection => html_escape(collection.name) }) %]
 
     <h1>[% l("Collection “{collection}”", { collection => html_escape(collection.name) }) %]</h1>
 
