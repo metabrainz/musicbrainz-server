@@ -22,7 +22,8 @@
             <a href="[% c.uri_for_action("/user/collection/remove", { id => release.id }) %]">
                 [%- l('Remove from collection') %]</a>
         [% ELSE %]
-            <a href="[% c.uri_for_action("/user/collection/add", { id => release.id }) %]">
+            <a href="[%# c.uri_for_action("/user/collection/add", { id => release.id }) 
+			%]">
                 [%- l('Add to collection') %]</a>
         [% END %]
     </p>

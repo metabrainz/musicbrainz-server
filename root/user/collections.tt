@@ -1,0 +1,23 @@
+[% WRAPPER "user/profile/layout.tt" title=l("Collections") page="collections" %]
+
+<h2>[% l("Collections") %]</h2>
+
+[%- IF collections.size -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('Collection') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+    [%- FOR collection=collections -%]
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <td>[% link_collection(collection) %]</td>
+        </tr>
+    [%- END -%]
+    </tbody>
+</table>
+[%- ELSE -%]
+<p>[% l('No collections found.') -%]</p>
+[%- END -%]
+[% END %]

@@ -134,6 +134,13 @@ END -%]
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_collection(collection, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/collection/$action", [ collection.gid ]);
+    text = text || html_escape(collection.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);

@@ -15,9 +15,9 @@
     ['subscribers', generic_link(c.uri_for_action("/user/subscribers/view", [ user.name ]), l('Subscribers'))],
 ] -%]
 
-[%- IF show_collection -%]
+[%- IF show_collections -%]
 [%- info_links.push (
-    ['collection', generic_link(c.uri_for_action("/user/collection/view", user.name), l('Collection'))],
+    ['collections', generic_link(c.uri_for_action("/user/collections/view", user.name), l('Collections'))],
 ) -%]
 [%- END -%]
 

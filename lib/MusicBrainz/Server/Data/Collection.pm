@@ -2,7 +2,10 @@ package MusicBrainz::Server::Data::Collection;
 
 use Moose;
 use Sql;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    placeholders
+    query_to_list_limited
+);
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 
@@ -115,6 +118,19 @@ sub delete_releases
     my $sql = Sql->new($self->c->dbh);
     $sql->do("DELETE FROM collection_release
               WHERE release IN (".placeholders(@ids).")", @ids);
+}
+
+sub find_by_editor
+{
+    my ($self, $id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE editor=?
+                 ORDER BY musicbrainz_collate(name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $id, $offset || 0);
 }
 
 __PACKAGE__->meta->make_immutable;
