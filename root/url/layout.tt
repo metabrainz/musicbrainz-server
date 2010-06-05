@@ -11,7 +11,7 @@
     [% END %]
 
     <div id="content">
-    [% INCLUDE 'url/header.tt' %]
-    [% content %]
+        [% INCLUDE 'url/header.tt' %]
+        [% content %]
     </div>
 [% END %]

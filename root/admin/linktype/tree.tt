@@ -1,42 +1,41 @@
+[% BLOCK link_type %]
+    <li style="margin-top:1em;">
+        <strong>[% obj.name | html %]</strong>
+        [
+            <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">Edit</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">Delete</a>[% END %]
+        ]
+        <br />
+        [% l('Child order:') %] <em>[% obj.child_order %]</em><br />
+        [% l('Forward link phrase:') %] <em>[% obj.link_phrase || "-" | html %]</em><br />
+        [% l('Reverse link phrase:') %] <em>[% obj.reverse_link_phrase || "-" | html %]</em><br />
+        [% l('Description:') %] <em>[% obj.description || "-" %]</em><br />
+
+        [% IF obj.children %]
+            <ul>
+                [% FOR child IN obj.children %]
+                [% PROCESS link_type obj=child %]
+                [% END %]
+            </ul>
+        [% END %]
+    </li>
+[% END %]
+
 [% WRAPPER "layout.tt" title=l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) full_width=1 %]
     <div id="content">
-<h1>[% l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
+        <h1>[% l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
 
-<p>
-[
-    <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Link Types') %]</a> |
-    <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Link Type') %]</a>
-]
-</p>
+        <p>
+        [
+            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Link Types') %]</a> |
+            <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Link Type') %]</a>
+        ]
+        </p>
 
-[% BLOCK link_type %]
-<li style="margin-top:1em;">
-
-    <strong>[% obj.name | html %]</strong>
-    [
-        <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">Edit</a>
-        [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">Delete</a>[% END %]
-    ]
-    <br />
-    [% l('Child order:') %] <em>[% obj.child_order %]</em><br />
-    [% l('Forward link phrase:') %] <em>[% obj.link_phrase || "-" | html %]</em><br />
-    [% l('Reverse link phrase:') %] <em>[% obj.reverse_link_phrase || "-" | html %]</em><br />
-    [% l('Description:') %] <em>[% obj.description || "-" %]</em><br />
-
-    [% IF obj.children %]
-    <ul>
-        [% FOR child IN obj.children %]
-        [% PROCESS link_type obj=child %]
-        [% END %]
-    </ul>
-    [% END %]
-</li>
-[% END %]
-
-<ul>
-[% FOR child IN root.children %]
-[% PROCESS link_type obj=child %]
-[% END %]
-</ul>
+        <ul>
+            [% FOR child IN root.children %]
+                [% PROCESS link_type obj=child %]
+            [% END %]
+        </ul>
     </div>
 [% END %]
