@@ -1,37 +1,24 @@
 package MusicBrainz::Server::Data::CDStub;
-
 use Moose;
+use Method::Signatures::Simple;
+
 use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 
-sub _build_table { schema->table('cdtoc') }
+method _build_table  { schema->table('cdtoc') }
+method _entity_class { 'MusicBrainz::Server::Entity::CDStub' }
 
-sub _table
-{
-    return 'cdtoc';
-}
-
-sub _columns
-{
-    return 'id, discid, freedbid, trackcount, leadoutoffset, trackoffset';
-}
-
-sub _column_mapping
+method _column_mapping
 {
     return {
-        id => 'id',
-        discid => 'discid',
-        freedbid => 'freedbid',
-        track_count => 'trackcount',
+        id             => 'id',
+        discid         => 'discid',
+        freedbid       => 'freedbid',
+        track_count    => 'trackcount',
         leadout_offset => 'leadoutoffset',
-        track_offset => 'trackoffset',
+        track_offset   => 'trackoffset',
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::CDStub';
 }
 
 __PACKAGE__->meta->make_immutable;
