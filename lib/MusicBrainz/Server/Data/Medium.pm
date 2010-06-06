@@ -1,21 +1,23 @@
 package MusicBrainz::Server::Data::Medium;
-
 use Moose;
-use MusicBrainz::Server::Data::Release;
+use Method::Signatures::Simple;
+
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw(
-    placeholders
     query_to_list
     query_to_list_limited
 );
 use MusicBrainz::Schema qw( schema );
 
+use aliased 'Fey::Literal::Function';
+
 extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::Editable';
 with 'MusicBrainz::Server::Data::Role::Subobject';
 
-sub _build_table { schema->table('medium') }
+method _build_table  { schema->table('medium') }
+method _entity_class { 'MusicBrainz::Server::Entity::Medium' }
 
 around _select => sub
 {
@@ -26,23 +28,7 @@ around _select => sub
         ->from($self->table, schema->table('tracklist'))
 };
 
-sub _table
-{
-    return 'medium JOIN tracklist ON medium.tracklist=tracklist.id';
-}
-
-sub _columns
-{
-    return 'medium.id, tracklist, release, position, format, name,
-            editpending, trackcount';
-}
-
-sub _id_column
-{
-    return 'medium.id';
-}
-
-sub _column_mapping
+method _column_mapping
 {
     return {
         id            => 'id',
@@ -65,51 +51,47 @@ sub _column_mapping
     };
 }
 
-sub _entity_class
+method load_for_releases (@releases)
 {
-    return 'MusicBrainz::Server::Entity::Medium';
-}
-
-sub load_for_releases
-{
-    my ($self, @releases) = @_;
     my %id_to_release = map { $_->id => $_ } @releases;
     my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, position";
+
+    my $query = $self->_select
+        ->where($self->table->column('release'), 'IN', @ids)
+        ->order_by($self->table->column('release'),
+                   $self->table->column('position'));
+
     my @mediums = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
-                                $query, @ids);
+                                $query->sql($self->c->dbh), $query->bind_params);
     foreach my $medium (@mediums) {
         $id_to_release{$medium->release_id}->add_medium($medium);
     }
 }
 
-sub find_by_tracklist
+method find_by_tracklist ($tracklist_id, $limit, $offset)
 {
-    my ($self, $tracklist_id, $limit, $offset) = @_;
-    my $query = "
-        SELECT
-            medium.id AS m_id, medium.format AS m_format,
-                medium.position AS m_position, medium.name AS m_name,
-                medium.tracklist AS m_tracklist,
-            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
-                release.artist_credit AS r_artist_credit,
-                release.date_year AS r_date_year,
-                release.date_month AS r_date_month,
-                release.date_day AS r_date_day,
-                release.country AS r_country, release.status AS r_status,
-                release.packaging AS r_packaging,
-                release.release_group AS r_release_group
-        FROM
-            medium
-            JOIN release ON release.id = medium.release
-            JOIN release_name ON release.name = release_name.id
-        WHERE medium.tracklist = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
-        OFFSET ?";
+    my $release = $self->c->model('Release');
+
+    my $query = Fey::SQL->new_select
+        ->select(
+            map { $_->alias('m_' . $_->name) }
+                $self->table->columns
+        )->from($self->table)
+        ->select(
+            map { $_->alias('r_' . $_->name) }
+                $release->table->columns
+        )->from($release->table, $self->table)
+        ->select(
+            $release->name_columns->{name}->alias('r_name')
+        )->from($release->table, $release->_name_table)
+        ->where($self->table->column('tracklist'), '=', $tracklist_id)
+        ->order_by(
+            (map { $release->table->column($_) } qw( date_year date_month date_day )),
+            Function->new('musicbrainz_collate', $release->name_columns->{name})
+        )
+        ->limit($limit, $offset);
+
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
             my $row = shift;
@@ -118,43 +100,11 @@ sub find_by_tracklist
             $medium->release($release);
             return $medium;
         },
-        $query, $tracklist_id, $offset || 0);
+        $query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub update
+method _hash_to_row ($medium_hash)
 {
-    my ($self, $medium_id, $medium_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $row = $self->_create_row($medium_hash);
-    $sql->update_row('medium', $row, { id => $medium_id });
-}
-
-sub insert
-{
-    my ($self, @medium_hashes) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $medium_hash (@medium_hashes) {
-        my $row = $self->_create_row($medium_hash);
-
-        push @created, $class->new(
-            id => $sql->insert_row('medium', $row, 'id')
-        );
-    }
-    return @medium_hashes > 1 ? @created : $created[0];
-}
-
-sub delete
-{
-    my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
-}
-
-sub _create_row
-{
-    my ($self, $medium_hash) = @_;
     my %row;
     my $mapping = $self->_column_mapping;
     for my $col (qw( name format_id position tracklist_id release_id ))
