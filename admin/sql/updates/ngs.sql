@@ -69,7 +69,11 @@ INSERT INTO medium_format (id, name, year) VALUES
     (13, 'Other', NULL),
     (14, 'Wax Cylinder', 1877),
     (15, 'Piano Roll', 1883),
-    (16, 'DCC', 1992);
+    (16, 'DCC', 1992),
+    (17, 'HD-DVD', NULL),
+    (18, 'DVD-Audio', NULL),
+    (19, 'DVD-Video', NULL),
+    (20, 'Blu-ray', NULL);
 
 INSERT INTO url (id, gid, url, description, refcount)
     SELECT id, gid::uuid, url, description, refcount FROM public.url;
