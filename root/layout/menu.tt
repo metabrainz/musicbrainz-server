@@ -9,6 +9,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="[% c.uri_for_action('/user/change_password') %]">
+                        [% l('Change Password') %]
+                    </a>
+                </li>
+                <li>
                     <a href="[% c.uri_for_action('/user/preferences') %]">
                         [% l('Preferences') %]
                     </a>
