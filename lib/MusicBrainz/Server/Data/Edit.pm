@@ -90,7 +90,7 @@ sub find
     my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
-    for my $type (qw( artist label release release_group recording work)) {
+    for my $type (qw( artist label release release_group recording work url)) {
         next unless exists $p->{$type};
         my $ids = delete $p->{$type};
 
