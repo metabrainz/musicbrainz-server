@@ -45,8 +45,14 @@ sub _load
 {
     my ($self, $c, $gid) = @_;
 
-    $c->detach('/error_404')
-        unless MusicBrainz::Server::Validation::IsGUID($gid);
+    if (!MusicBrainz::Server::Validation::IsGUID($gid)) {
+        $c->response->status(400);
+        $c->stash(
+            template => 'main/400.tt',
+            message  => "'$gid' is not a valid MBID"
+        );
+        $c->detach;
+    }
 
     return $c->model($self->{model})->get_by_gid($gid);
 }
