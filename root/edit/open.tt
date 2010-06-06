@@ -1,5 +1,5 @@
 [%- WRAPPER 'layout.tt' title=l('Open Edits') full_width=1 -%]
-    <div class="content">
+    <div id="content">
         <h1>[% l('Open Edits') %]</h1>
         [% INCLUDE 'edit/list.tt' %]
     </div>

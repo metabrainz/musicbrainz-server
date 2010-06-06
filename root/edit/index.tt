@@ -47,7 +47,7 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- INCLUDE "edit/info.tt" -%]
     [% END %]
-    <div class="content">
+    <div id="content">
 
         [% INCLUDE 'edit/edit_header.tt' %]
 

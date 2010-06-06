@@ -32,7 +32,7 @@
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
     [% END %]
 
-    <div class="content">
+    <div id="content">
         [%- INCLUDE "release_group/header.tt" -%]
         [%- content -%]
     </div>

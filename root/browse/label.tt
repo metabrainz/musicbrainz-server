@@ -1,5 +1,5 @@
 [% WRAPPER 'layout.tt' title=l("Browse Labels") full_width=1 %]
-    <div class="content">
+    <div id="content">
         <h1>[% l("Browse Labels") %]</h1>
 
         [% INCLUDE "browse/page_selector.tt" entity="label" %]

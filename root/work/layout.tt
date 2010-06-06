@@ -34,7 +34,7 @@
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
     [% END %]
 
-<div class="content">
+<div id="content">
     [%- INCLUDE 'work/header.tt' %]
     [%- content -%]
 </div>

@@ -12,7 +12,7 @@
 [%- END -%]
 
 [% WRAPPER 'layout.tt' title=l('Search for Edits') full_width=1 %]
-    <div class="content">
+    <div id="content">
         <h1>[% l('Search for Edits') %]</h1>
         [% INCLUDE 'edit/list.tt' search=1 %]
     </div>
