@@ -17,7 +17,10 @@ role
     {
         my $self = shift;
         my $query = $self->_select
-            ->order_by(map { $self->table->column($_) } @{ $p->order_by });
+            ->order_by(map {
+                ref $_ ? ($self->table->column($_->[0]), $_->[1])
+                       : $self->table->column($_)
+                } @{ $p->order_by });
 
         return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) },
                              $query->sql($self->c->dbh));

@@ -1,32 +1,18 @@
 package MusicBrainz::Server::Data::Country;
-
 use Moose;
-use MusicBrainz::Server::Entity::Country;
+use Method::Signatures::Simple;
+
 use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'c' };
-with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' ] };
+with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ ['name', 'ASC'] ] };
 with 'MusicBrainz::Server::Data::Role::Subobject';
 
-sub _build_table { schema->table('country') }
+method _build_table  { schema->table('country') }
+method _entity_class { 'MusicBrainz::Server::Entity::Country' }
 
-sub _table
-{
-    return 'country';
-}
-
-sub _columns
-{
-    return 'id, isocode, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Country';
-}
-
-sub _column_mapping
+method _column_mapping
 {
     return {
         id       => 'id',
