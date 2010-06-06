@@ -1,22 +1,20 @@
 package MusicBrainz::Server::Data::Annotation;
 use Moose;
+use Method::Signatures::Simple;
+use MusicBrainz::Schema qw( schema );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::FeyEntity';
 
-sub _table
+method _build_table  { schema->table('annotation') }
+method _entity_class { 'MusicBrainz::Server::Entity::Annotation' }
+
+method _column_mapping
 {
-    'annotation';
-}
-
-sub _columns
-{
-    return 'id, editor AS editor_id, text, changelog,
-            created AS creation_date';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Annotation';
+    return {
+        editor_id     => 'editor',
+        creation_date => 'created',
+        map { $_ => $_ } qw( id text changelog )
+    }
 }
 
 no Moose;
