@@ -1,31 +1,24 @@
 package MusicBrainz::Server::Data::ReleaseLabel;
-
 use Moose;
+use Method::Signatures::Simple;
+
 use MusicBrainz::Server::Entity::ReleaseLabel;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
-    placeholders
     query_to_list
     query_to_list_limited
 );
 use MusicBrainz::Schema qw( schema );
 
+use aliased 'Fey::Literal::Function';
+
 extends 'MusicBrainz::Server::Data::FeyEntity';
 
-sub _build_table { schema->table('release_label') }
+method _build_table  { schema->table('release_label') }
+method _entity_class { 'MusicBrainz::Server::Entity::ReleaseLabel' }
 
-sub _table
-{
-    return 'release_label rl';
-}
-
-sub _columns
-{
-    return 'rl.id, rl.release, rl.label, catno';
-}
-
-sub _column_mapping
+method _column_mapping
 {
     return {
         id             => 'id',
@@ -35,82 +28,73 @@ sub _column_mapping
     };
 }
 
-sub _entity_class
+method load (@releases)
 {
-    return 'MusicBrainz::Server::Entity::ReleaseLabel';
-}
-
-sub load
-{
-    my ($self, @releases) = @_;
     my %id_to_release = map { $_->id => $_ } @releases;
     my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, rl_catno";
+
+    my $query = $self->_select
+        ->where($self->table->column('release'), 'IN', @ids)
+        ->order_by($self->table->column('release'),
+                   $self->table->column('catno'));
+
     my @labels = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
-                               $query, @ids);
+                               $query->sql($self->c->dbh), $query->bind_params);
+
     foreach my $label (@labels) {
         $id_to_release{$label->release_id}->add_label($label);
     }
 }
 
-sub find_by_label
+method find_by_label ($label_id, $limit, $offset)
 {
-    my ($self, $label_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . ",
-                    " . MusicBrainz::Server::Data::Release->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN release ON release.id=rl.release
-                    JOIN release_name name ON release.name=name.id
-                 WHERE rl.label = ?
-                 ORDER BY date_year, date_month, date_day, catno, musicbrainz_collate(name.name)
-                 OFFSET ?";
+    my $release = $self->c->model('Release');
+    my $query = $release->_select
+        ->select(grep { $_->name ne 'id' } $self->table->columns)
+        ->from($self->table, $release->table)
+        ->where($self->table->column('label'), '=', $label_id)
+        ->order_by(
+            (map { $release->table->column($_) } qw( date_year date_month date_day )),
+            $self->table->column('catno'),
+            Function->new('musicbrainz_collate', $release->name_columns->{name}))
+        ->limit(undef, $offset || 0);
+
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
             my $rl = $self->_new_from_row(@_);
             $rl->release(MusicBrainz::Server::Data::Release->_new_from_row(@_));
             return $rl;
         },
-        $query, $label_id, $offset || 0);
+        $query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub merge_labels
+method merge_labels ($new_id, @old_ids)
 {
-    my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE release_label SET label = ?
-              WHERE label IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $query = Fey::SQL->new_update
+        ->update($self->table)
+        ->set($self->table->column('label'), $new_id)
+        ->where($self->table->column('label'), 'IN', @old_ids);
+
+    $self->sql->do($query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub merge_releases
+method merge_releases ($new_id, @old_ids)
 {
-    my ($self, $new_id, @old_ids) = @_;
-    # XXX avoid duplicates
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE release_label SET release = ?
-              WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $query = Fey::SQL->new_update
+        ->update($self->table)
+        ->set($self->table->column('release'), $new_id)
+        ->where($self->table->column('release'), 'IN', @old_ids);
+
+    $self->sql->do($query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub update
+method _hash_to_row ($hash)
 {
-    my ($self, $id, $edit_hash) = @_;
-    my $row = hash_to_row($edit_hash, {
+    return hash_to_row($hash, {
         catno => 'catalog_number',
         label => 'label_id',
     });
-    my $sql = Sql->new($self->c->dbh);
-    $sql->update_row('release_label', $row, { id => $id });
-}
-
-sub delete
-{
-    my ($self, @release_label_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $query = 'DELETE FROM release_label WHERE id IN (' . placeholders(@release_label_ids) . ')';
-    $sql->do($query, @release_label_ids);
 }
 
 __PACKAGE__->meta->make_immutable;
