@@ -129,6 +129,7 @@ Readonly our $EDIT_HISTORIC_MERGE_RELEASE           => 223;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_ATTRS      => 226;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD => 229;
 Readonly our $EDIT_HISTORIC_ADD_DISCID              => 232;
+Readonly our $EDIT_HISTORIC_EDIT_LINK               => 234;
 Readonly our $EDIT_HISTORIC_EDIT_LINK_TYPE          => 237;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_TYPE        => 238;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_ATTR        => 243;
