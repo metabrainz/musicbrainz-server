@@ -1,95 +1,119 @@
 package MusicBrainz::Server::Data::Collection;
-
 use Moose;
-use Sql;
+use Method::Signatures::Simple;
+
+use Fey::SQL::Pg;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Schema qw( schema );
 
-has 'c' => (
-    is => 'rw',
-    isa => 'Object'
-);
+with 'MusicBrainz::Server::Data::Role::Context';
 
-sub create_collection
+method create_collection ($user)
 {
-    my ($self, $user) = @_;
+    my $table = schema->table('editor_collection');
+    my $query = Fey::SQL::Pg->new_insert
+        ->into(schema->table('editor_collection'))
+        ->values( editor => $user->id )
+        ->returning($table->column('id'));
 
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("INSERT INTO editor_collection (editor)
-                                    VALUES (?) RETURNING id", $user->id);
+    return $self->sql->select_single_value($query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub find_collection
+method find_collection ($user)
 {
-    my ($self, $user) = @_;
+    my $table = schema->table('editor_collection');
+    my $query = Fey::SQL->new_select
+        ->select($table->column('id'))->from($table)
+        ->where($table->column('editor'), '=', $user->id);
 
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("SELECT id FROM editor_collection
-                                    WHERE editor = ?", $user->id);
+    return $self->sql->select_single_value(
+        $query->sql($self->c->dbh),
+        $query->bind_params);
 }
 
-sub add_release_to_collection
+method add_release_to_collection ($collection_id, $release_id)
 {
-    my ($self, $collection_id, $release_id) = @_;
+    my $table = schema->table('editor_collection_release');
+    my $query = Fey::SQL->new_select
+        ->select(1)->from($table)
+        ->where($table->column('collection'), '=', $collection_id)
+        ->where($table->column('release'), '=', $release_id);
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->auto_commit;
+    my $rows = $self->sql->select(
+        $query->sql($self->c->dbh), $query->bind_params);
 
-    my $rows = $sql->select ("SELECT * FROM editor_collection_release 
-       WHERE collection=? AND release=?", $collection_id, $release_id);
-    $sql->finish;
+    $self->sql->finish;
 
-    $sql->do("INSERT INTO editor_collection_release (collection, release)
-              VALUES (?, ?)", $collection_id, $release_id) unless $rows;
+    $query = Fey::SQL->new_insert
+        ->into($table)
+        ->values(
+            collection => $collection_id,
+            release    => $release_id
+        );
+
+    $self->sql->auto_commit;
+    $self->sql->do(
+        $query->sql($self->c->dbh), $query->bind_params) unless $rows;
 }
 
-sub remove_release_from_collection
+method remove_release_from_collection ($collection_id, $release_id)
 {
-    my ($self, $collection_id, $release_id) = @_;
+    my $table = schema->table('editor_collection_release');
+    my $query = Fey::SQL->new_delete
+        ->from($table)
+        ->where($table->column('collection'), '=', $collection_id)
+        ->where($table->column('release'), '=', $release_id);
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->auto_commit;
-    $sql->do("DELETE FROM editor_collection_release
-              WHERE collection = ? AND release = ?",
-              $collection_id, $release_id);
+    $self->sql->auto_commit;
+    $self->sql->do(
+        $query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub check_release
+method check_release ($collection_id, $release_id)
 {
-    my ($self, $collection_id, $release_id) = @_;
+    my $table = schema->table('editor_collection_release');
+    my $query = Fey::SQL->new_select
+        ->select(1)->from($table)
+        ->where($table->column('collection'), '=', $collection_id)
+        ->where($table->column('release'), '=', $release_id);
 
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("
-        SELECT 1 FROM editor_collection_release
-        WHERE collection = ? AND release = ?",
-        $collection_id, $release_id) ? 1 : 0;
+    return $self->sql->select_single_value(
+        $query->sql($self->c->dbh), $query->bind_params) ? 1 : 0;
 }
 
-sub merge_releases
+method merge_releases ($new_id, @old_ids)
 {
-    my ($self, $new_id, @old_ids) = @_;
-
-    my $sql = Sql->new($self->c->dbh);
+    my $table = schema->table('editor_collection_release');
 
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
     # a collection that already contain $new_id)
-    $sql->do("DELETE FROM editor_collection_release
-              WHERE release IN (".placeholders(@old_ids).") AND
-                  collection IN (SELECT collection FROM editor_collection_release WHERE release = ?)",
-              @old_ids, $new_id);
+    my $query = Fey::SQL->new_delete
+        ->from($table)
+        ->where($table->column('release'), 'IN', @old_ids)
+        ->where($table->column('collection'), 'IN',
+                Fey::SQL->new_select
+                      ->select($table->column('collection'))->from($table)
+                      ->where($table->column('release'), '=', $new_id));
+
+    $self->sql->do($query->sql($self->c->dbh), $query->bind_params);
 
     # Move all remaining joins to the new release
-    $sql->do("UPDATE editor_collection_release SET release = ?
-              WHERE release IN (".placeholders(@old_ids).")",
-              $new_id, @old_ids);
+    $query = Fey::SQL->new_update
+        ->update($table)
+        ->set($table->column('release'), $new_id)
+        ->where($table->column('release'), 'IN', @old_ids);
+
+    $self->sql->do($query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub delete_releases
+method delete_releases (@ids)
 {
-    my ($self, @ids) = @_;
+    my $table = schema->table('editor_collection_release');
+    my $query = Fey::SQL->new_delete
+        ->from($table)
+        ->where($table->column('release'), 'IN', @ids);
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM editor_collection_release
-              WHERE release IN (".placeholders(@ids).")", @ids);
+    $self->sql->do($query->sql($self->c->dbh), $query->bind_params);
 }
 
 __PACKAGE__->meta->make_immutable;
