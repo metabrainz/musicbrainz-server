@@ -21,6 +21,11 @@ has 'entity_id' => (
     required => 1
 );
 
+has_field 'preview' => (
+    type => 'Submit',
+    value => ''
+);
+
 sub edit_field_names { qw( text changelog ) }
 
 sub validate
