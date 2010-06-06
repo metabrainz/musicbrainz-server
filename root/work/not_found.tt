@@ -1,0 +1,7 @@
+[% WRAPPER 'layout.tt' title=l('Work not found') full_width=1 %]
+<h1>[% l('Work not found') %]</h1>
+
+<p>[% l('Sorry, we could not find an work with that MBID. You may
+         wish to try and {search_url|search} for this work.',
+         { search_url => c.uri_for_action('/search/search') }) %]</p>
+[% END %]

@@ -30,8 +30,12 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $gid) = @_;
 
-    my $entity = $self->_load($c, $gid)
-        or $c->detach('/error_404');
+    my $entity = $self->_load($c, $gid);
+    if (!defined $entity) {
+        $c->response->status(404);
+        $c->stash( template => $self->action_namespace . '/not_found.tt' );
+        $c->detach;
+    }
 
     $c->stash(
         # First stash is more convenient for the actual controller
