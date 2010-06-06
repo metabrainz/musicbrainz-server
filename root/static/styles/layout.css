@@ -54,6 +54,9 @@ code {
     background-color: #DDDDDD;
     padding: 0 5px;
 }
+.mp code {
+    background-color: inherit;
+}
 
 #header {
     width: 100%;
