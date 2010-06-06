@@ -1,31 +1,22 @@
 package MusicBrainz::Server::Data::ArtistType;
-
 use Moose;
-use MusicBrainz::Server::Entity::ArtistType;
+use Method::Signatures::Simple;
+
 use MusicBrainz::Schema qw( schema );
 
 extends 'MusicBrainz::Server::Data::FeyEntity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'at' };
-with 'MusicBrainz::Server::Data::Role::SelectAll';
-with 'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'type' };
+with
+    'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'at' },
+    'MusicBrainz::Server::Data::Role::SelectAll',
+    'MusicBrainz::Server::Data::Role::Subobject' => { prefix => 'type' };
 
-sub _build_table  { schema->table('artist_type') }
+method _build_table  { schema->table('artist_type') }
+method _entity_class { 'MusicBrainz::Server::Entity::ArtistType' }
 
-sub _table
+method _column_mapping
 {
-    return 'artist_type';
+    return { map { $_ => $_ } qw( id name ) }
 }
-
-sub _columns
-{
-    return 'id, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::ArtistType';
-}
-
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
