@@ -16,10 +16,11 @@ role
     method 'get_all' => sub
     {
         my $self = shift;
-        my $query = "SELECT " . $self->_columns . 
-                    " FROM " . $self->_table .
-                    " ORDER BY " . (join ", ", @{ $p->order_by });
-        return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query);
+        my $query = $self->_select
+            ->order_by(map { $self->table->column($_) } @{ $p->order_by });
+
+        return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) },
+                             $query->sql($self->c->dbh));
     };
 };
 
