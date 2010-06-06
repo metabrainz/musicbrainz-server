@@ -539,39 +539,11 @@ sub profile : Local Args(1)
     my $subscr_model = $c->model('Editor')->subscription;
     $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
+    $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user->id);
 
-#    my $vote = MusicBrainz::Server::Vote->new($c->model('MB')->dbh);
-#    my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
-#    my $recent_votes = $vote->RecentVotesForUser_as_hashref($user->id);
-
-#    for ($all_votes, $recent_votes)
-#    {
-#        my $t = 0;
-#        $t += $_ for values %$_;
-#        $_->{"TOTAL"} = $t;
-#    }
-
-#    $c->stash->{votes}= [];
-#    for my $v (
-#        [ "yes", &ModDefs::VOTE_YES ],
-#        [ "no", &ModDefs::VOTE_NO ],
-#        [ "abstain", &ModDefs::VOTE_ABS ],
-#        [ "total", "TOTAL" ]
-#    ) {
-#        my $recent = $recent_votes->{$v->[1]};
-#        my $all    = $all_votes->{$v->[1]};
-#
-#        push @{ $c->stash->{votes} }, {
-#            name    => $v->[0],
-#            recent  => $recent || 0,
-#            overall => $all    || 0,
-#
-#            recent_pc  => int(($recent / ($recent_votes->{TOTAL} || 1)) * 100 + 0.5),
-#            overall_pc => int(($all / ($all_votes->{TOTAL} || 1)) * 100 + 0.5),
-#        };
-#    }
-
-#    $c->stash->{preferences} = $c->model('Editor')->get_preferences_hash($user);
+    use Devel::Dwarn;
+    Dwarn $c->stash->{votes};
+    
 
     $c->stash(
         user     => $user,

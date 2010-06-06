@@ -152,16 +152,16 @@
                         [% v.name | ucfirst%]
                     </th>
                     <td class="votes" headers="table_vote_summary_recent">
-                        [% add_commas(v.recent) %]
+                        [% add_commas(v.recent.count) %]
                     </td>
                     <td headers="table_vote_summary_recent">
-                        [% l('({pc}%)', {pc=v.recent_pc}) %]
+                        [% l('({pc}%)', {pc=v.recent.percentage}) %]
                     </td>
                     <td class="votes" headers="table_vote_summary_overall">
-                        [% add_commas(v.overall) %]
+                        [% add_commas(v.all.count) %]
                     </td>
                     <td headers="table_vote_summary_overall">
-                        [% l('({pc}%)', {pc=v.overall_pc}) %]
+                        [% l('({pc}%)', {pc=v.all.percentage}) %]
                     </td>
                 </tr>
             [% END %]
@@ -173,10 +173,10 @@
                         [% totals.name | ucfirst%]
                     </th>
                     <th class="votes" colspan="2" headers="table_vote_summary_recent">
-                        [% add_commas(totals.recent) %]
+                        [% add_commas(totals.recent.count) %]
                     </th>
                     <th class="votes" colspan="2" headers="table_vote_summary_overall">
-                        [% add_commas(totals.overall) %]
+                        [% add_commas(totals.all.count) %]
                     </th>
                 </tr>
         </tfoot>

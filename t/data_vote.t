@@ -18,7 +18,7 @@ use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
+MusicBrainz::Server::Test->prepare_raw_test_database($c, '+vote_stats');
 
 {
     package MockEdit;
@@ -97,5 +97,54 @@ $c->model('Vote')->load_for_edits($edit);
 my $old_count = @{ $edit->votes };
 $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 123 });
 is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
+
+# Check the voting statistics
+my $stats = $c->model('Vote')->editor_statistics(1);
+is_deeply($stats, [
+    {
+        name   => 'Yes',
+        recent => {
+            count      => 2,
+            percentage => 50,
+        },
+        all    => {
+            count      => 3,
+            percentage => 60
+        }
+    },
+    {
+        name   => 'No',
+        recent => {
+            count      => 1,
+            percentage => 25,
+        },
+        all    => {
+            count      => 1,
+            percentage => 20
+        }
+    },
+        {
+        name   => 'Abstain',
+        recent => {
+            count      => 1,
+            percentage => 25,
+        },
+        all    => {
+            count      => 1,
+            percentage => 20
+        }
+    },
+    {
+        name   => 'Total',
+        recent => {
+            count      => 4,
+            percentage => 100,
+        },
+        all    => {
+            count      => 5,
+            percentage => 100
+        }
+    }
+]);
 
 done_testing;
