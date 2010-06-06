@@ -1,55 +1,38 @@
 package MusicBrainz::Server::Data::MediumCDTOC;
-
 use Moose;
-use MusicBrainz::Server::Data::Utils qw(
-    placeholders
-    query_to_list
-);
+use Method::Signatures::Simple;
 
-extends 'MusicBrainz::Server::Data::Entity';
+use MusicBrainz::Server::Data::Utils qw( query_to_list );
+use MusicBrainz::Schema qw( schema );
 
-sub _table
-{
-    return 'medium_cdtoc';
-}
+extends 'MusicBrainz::Server::Data::FeyEntity';
 
-sub _columns
-{
-    return 'id, medium, cdtoc, editpending';
-}
+method _build_table  { schema->table('medium_cdtoc') }
+method _entity_class { 'MusicBrainz::Server::Entity::MediumCDTOC' }
 
-sub _column_mapping
+method _column_mapping
 {
     return {
-        id => 'id',
-        medium_id => 'medium',
-        cdtoc_id => 'cdtoc',
+        id            => 'id',
+        medium_id     => 'medium',
+        cdtoc_id      => 'cdtoc',
         edits_pending => 'editpending',
     };
 }
 
-sub _entity_class
+method find_by_medium(@medium_ids)
 {
-    return 'MusicBrainz::Server::Entity::MediumCDTOC';
-}
+    my $query = $self->_select
+        ->where($self->table->column('medium'), 'IN', @medium_ids)
+        ->order_by($self->table->column('id'));
 
-sub find_by_medium
-{
-    my ($self, @medium_ids) = @_;
-
-    my $query = "
-        SELECT " . $self->_columns . " FROM " . $self->_table . "
-        WHERE medium IN (" . placeholders(@medium_ids) . ")
-        ORDER BY id";
     return query_to_list(
         $self->c->dbh, sub { $self->_new_from_row(@_) },
-        $query, @medium_ids);
+        $query->sql($self->c->dbh), $query->bind_params);
 }
 
-sub load_for_mediums
+method load_for_mediums (@mediums)
 {
-    my ($self, @mediums) = @_;
-
     my %id_to_medium = map { $_->id => $_ } @mediums;
     my @list = $self->find_by_medium(keys %id_to_medium);
     foreach my $o (@list) {
@@ -58,9 +41,8 @@ sub load_for_mediums
     return @list;
 }
 
-sub find_by_cdtoc
+method find_by_cdtoc ($cdtoc_id)
 {
-    my ($self, $cdtoc_id) = @_;
     return sort { $a->id <=> $b->id }
         values %{ $self->_get_by_keys("cdtoc", $cdtoc_id) };
 }
