@@ -12,8 +12,10 @@ sub view : Chained('/user/base') PathPart('collections')
     $c->detach('/error_404')
         if (!defined $user);
 
+    my $show_private = $c->stash->{viewing_own_profile};
+
     my $collections = $self->_load_paged($c, sub {
-        $c->model('Collection')->find_by_editor($user->id, shift, shift);
+        $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
     });
 
     $c->stash(

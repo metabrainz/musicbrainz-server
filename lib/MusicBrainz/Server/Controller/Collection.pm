@@ -9,6 +9,14 @@ __PACKAGE__->config(
 );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
+after 'load' => sub
+{
+    my ($self, $c) = @_;
+    my $collection = $c->stash->{collection};
+
+    # Load editor
+    $c->model('Editor')->load($collection);
+};
 
 sub add : Local Args(1)
 {
@@ -41,6 +49,10 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
+
+    my $user = $collection->editor;
+    $c->detach('/error_404')
+        if ((!$c->user_exists || $c->user->id != $user->id) && !$collection->public);
 
     my $order = $c->req->params->{order} || 'date';
 

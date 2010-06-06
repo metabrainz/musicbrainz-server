@@ -10,6 +10,11 @@ has 'editor' => (
     isa => 'Editor',
 );
 
+has 'editor_id' => (
+    is => 'ro',
+    isa => 'Int',
+);
+
 has 'public' => (
     is => 'rw',
     isa => 'Bool'

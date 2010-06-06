@@ -16,7 +16,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, gid, name, public';
+    return 'id, gid, editor, name, public';
 }
 
 sub _id_column
@@ -34,7 +34,7 @@ sub _column_mapping
     return {
         id => 'id',
         gid => 'gid',
-        editor => 'editor',
+        editor_id => 'editor',
         name => 'name',
         public => 'public',
     };
@@ -122,11 +122,16 @@ sub delete_releases
 
 sub find_by_editor
 {
-    my ($self, $id, $limit, $offset) = @_;
+    my ($self, $id, $show_private, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE editor=?
-                 ORDER BY musicbrainz_collate(name)
+                 WHERE editor=? ";
+
+    if (!$show_private) {
+        $query .= "AND public=true ";
+    }
+
+    $query .= "ORDER BY musicbrainz_collate(name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
