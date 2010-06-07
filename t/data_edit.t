@@ -17,7 +17,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Data::Edit' };
 use Sql;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES );
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("MockEdit");
@@ -129,10 +129,14 @@ $sql2->commit;
 # Test approving edits, successfully this time
 
 $edit = $edit_data->get_by_id(5);
-$edit_data->approve($edit);
+$edit_data->approve($edit, 1);
 
 $edit = $edit_data->get_by_id(5);
 is($edit->status, $STATUS_APPLIED);
+
+$c->model('Vote')->load_for_edits($edit);
+is($edit->votes->[0]->vote, $VOTE_YES);
+is($edit->votes->[0]->editor_id, 1);
 
 # Test canceling
 

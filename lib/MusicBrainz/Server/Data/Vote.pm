@@ -48,12 +48,12 @@ sub enter_votes
     Sql::run_in_transaction(sub {
         $sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
-        # Filter votes on edits that are open and were not created by the voter
+        # Filter votes on edits that are open
         my @edit_ids = map { $_->{edit_id} } @votes;
         my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
         @votes = grep {
             my $edit = $edits->{ $_->{edit_id} };
-            defined $edit && $edit->is_open && $edit->editor_id != $editor_id
+            defined $edit && $edit->is_open
         } @votes;
 
         return unless @votes;
