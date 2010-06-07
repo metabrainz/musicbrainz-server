@@ -2,7 +2,7 @@
     <div id="content">
         <h1>[% l("Browse Release Groups") %]</h1>
 
-        [% INCLUDE "browse/page_selector.tt" entity="release_group"%]
+        [% INCLUDE "browse/page_selector.tt" %]
 
         [% IF entities.size %]
             <h2>[% l('Release groups starting with “{index}”', { index => html_escape(index) }) %]</h2>

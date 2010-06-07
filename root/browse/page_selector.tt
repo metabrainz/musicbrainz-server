@@ -4,9 +4,12 @@
     <h2>[% l('Browse Further') %]</h2>
 [% END %]
 
-[% MACRO append_link(char) BLOCK;
-    c.uri_for_action('/browse/' _ entity, { index => "${c.req.query_params.index}${char}", page => 1 });
-END %]
+[% MACRO append_link(char)
+   IF browse_action.defined;
+     c.uri_for_action('/browse/' _ browse_action, { index => "${c.req.query_params.index}${char}", page => 1 });
+   ELSE;
+     c.req.uri_with( index => "${c.req.query_params.index}${char}", page => 1 );
+   END %]
 
 [% MACRO characters(chars) BLOCK %]
     [% FOR char IN chars %]

@@ -2,10 +2,10 @@
     <div id="content">
         <h1>[% l("Browse") %]</h1>
 
-        [% INCLUDE "browse/page_selector.tt" entity="artist" entity_title=l("Browse Artists") %]
-        [% INCLUDE "browse/page_selector.tt" entity="label" entity_title=l("Browse Labels") %]
-        [% INCLUDE "browse/page_selector.tt" entity="release" entity_title=l("Browse Releases") %]
-        [% INCLUDE "browse/page_selector.tt" entity="release_group" entity_title=l("Browse Release Groups") %]
-        [% INCLUDE "browse/page_selector.tt" entity="work" entity_title=l("Browse Works") %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="artist" entity_title=l("Browse Artists") %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="label" entity_title=l("Browse Labels") %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="release" entity_title=l("Browse Releases") %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="release_group" entity_title=l("Browse Release Groups") %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="work" entity_title=l("Browse Works") %]
     </div>
 [% END %]
