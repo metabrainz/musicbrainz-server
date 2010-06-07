@@ -226,6 +226,30 @@ sub media
     backup ($dbh, 'medium', $data);
 }
 
+sub label
+{
+    my ($dbh, $id) = @_;
+
+    my $data = get_rows ($dbh, 'label', 'id', $id);
+
+    generic ($dbh, 'label_type', 'id', $data->[0]->{type});
+    generic_verbose ($dbh, 'label_name', 'id', $data->[0]->{name});
+    backup ($dbh, 'label', $data);
+}
+
+
+sub release_label
+{
+    my ($dbh, $id) = @_;
+
+    my $data = get_rows ($dbh, 'release_label', 'release', $id);
+    for (@$data)
+    {
+        label ($dbh, $_->{label});
+    }
+    backup ($dbh, 'release_label', $data);
+}
+
 sub releases
 {
     my ($dbh, $id) = @_;
@@ -247,6 +271,7 @@ sub releases
     for (@$data)
     {
         media ($dbh, $_->{id});
+        release_label ($dbh, $_->{id});
     }
 
 }
