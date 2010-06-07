@@ -228,6 +228,12 @@ sub works : Chained('load')
                 $c->model('Work')->find_by_artist($artist->id, shift, shift);
             });
 
+        $c->model('Work')->load_meta(@$works);
+
+        if ($c->user_exists) {
+            $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
+        }
+
         $c->stash( template => 'artist/works.tt' );
     }
 
