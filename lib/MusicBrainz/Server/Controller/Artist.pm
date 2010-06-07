@@ -263,6 +263,11 @@ sub recordings : Chained('load')
         $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_by_artist($artist->id, shift, shift);
             });
+        $c->model('Recording')->load_meta(@$recordings);
+
+        if ($c->user_exists) {
+            $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
+        }
 
         $c->stash( template => 'artist/recordings.tt' );
     }
