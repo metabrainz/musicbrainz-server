@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Artist;
 
 use Moose;
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $VARTIST_GID );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -78,6 +79,19 @@ has 'comment' => (
     is => 'rw',
     isa => 'Str'
 );
+
+has 'is_special' => (
+    isa        => 'Bool',
+    is         => 'ro',
+    lazy_build => 1
+);
+
+sub _build_is_special {
+    my $self = shift;
+    return ($self->id && ($self->id == $DARTIST_ID ||
+                          $self->id == $VARTIST_ID))
+        || ($self->gid && $self->gid eq $VARTIST_GID);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
