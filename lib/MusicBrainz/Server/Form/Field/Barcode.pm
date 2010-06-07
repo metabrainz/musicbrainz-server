@@ -5,6 +5,10 @@ use MusicBrainz::Server::Validation;
 
 extends 'HTML::FormHandler::Field::Text';
 
+has '+maxlength' => (
+    default => 255
+)
+
 apply ([
    { check => sub { MusicBrainz::Server::Validation::IsValidEAN(shift) },
      message => 'This is not a valid barcode',
