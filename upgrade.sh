@@ -36,6 +36,8 @@ echo `date` : Merging releases
 ./admin/sql/updates/ngs-merge-releases.pl
 echo `date` : Merging recordings
 ./admin/sql/updates/ngs-merge-recordings.pl
+echo `date` : Merging works
+./admin/sql/updates/ngs-merge-works.pl
 echo `date` : Create tracklist index
 ./admin/psql READWRITE < ./admin/sql/updates/ngs-cdlookup.sql
 
