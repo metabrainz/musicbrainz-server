@@ -26,6 +26,7 @@ TRUNCATE label_type CASCADE;
 TRUNCATE label_name CASCADE;
 TRUNCATE label CASCADE;
 TRUNCATE release_label CASCADE;
+TRUNCATE label_alias CASCADE;
 
 INSERT INTO release_group_type (name, id) VALUES ('Single', 3);
 INSERT INTO release_name (name, id) VALUES ('サマーれげぇ!レインボー', 1134);
@@ -146,6 +147,9 @@ INSERT INTO release_label (catno, label, release, id) VALUES ('WARPCD121', 46, 1
 INSERT INTO medium (format, name, position, release, id, tracklist, editpending) VALUES (1, NULL, 1, 10172, 10172, 231448, 0);
 INSERT INTO label_name (name, id) VALUES ('Touch and Go Records', 40514);
 INSERT INTO label (country, sortname, labelcode, name, enddate_day, begindate_day, comment, begindate_year, begindate_month, enddate_year, type, id, editpending, enddate_month, gid) VALUES (222, 40514, NULL, 40514, NULL, NULL, NULL, 1981, NULL, NULL, 4, 1093, 0, NULL, '9a2cad26-48de-4e7c-97a5-354f52c6e027');
+INSERT INTO label_name (name, id) VALUES ('Tough and Go Records', 40527);
+INSERT INTO label_alias (name, locale, label, id, editpending) VALUES (40514, NULL, 1093, 501, 0);
+INSERT INTO label_alias (name, locale, label, id, editpending) VALUES (40527, NULL, 1093, 502, 0);
 INSERT INTO release_label (catno, label, release, id) VALUES ('TG234CD', 1093, 10172, 426915);
 INSERT INTO tracklist (trackcount, id) VALUES (4, 244610);
 INSERT INTO track_name (name, id) VALUES ('Sunday 5.17 AM', 3554314);
@@ -263,6 +267,8 @@ INSERT INTO track (length, recording, name, position, artist_credit, id, trackli
 INSERT INTO medium (format, name, position, release, id, tracklist, editpending) VALUES (1, NULL, 1, 246898, 246898, 597897, 0);
 INSERT INTO label_name (name, id) VALUES ('Planet Mu', 30096);
 INSERT INTO label (country, sortname, labelcode, name, enddate_day, begindate_day, comment, begindate_year, begindate_month, enddate_year, type, id, editpending, enddate_month, gid) VALUES (221, 30096, NULL, 30096, NULL, NULL, NULL, 1995, NULL, NULL, 4, 132, 0, NULL, 'b4edce40-090f-4956-b82a-5d9d285da40b');
+INSERT INTO label_name (name, id) VALUES ('Planet µ', 30072);
+INSERT INTO label_alias (name, locale, label, id, editpending) VALUES (30072, NULL, 132, 99, 0);
 INSERT INTO release_label (catno, label, release, id) VALUES ('ZIQ170CD', 132, 246898, 28776);
 INSERT INTO release_name (name, id) VALUES ('Repercussions', 463036);
 INSERT INTO release_group (comment, name, type, artist_credit, id, editpending, gid) VALUES (NULL, 463036, 2, 427385, 761939, 0, '56683a0b-45b8-3664-a231-5b68efe2e7e2');

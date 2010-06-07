@@ -226,6 +226,18 @@ sub media
     backup ($dbh, 'medium', $data);
 }
 
+sub label_alias
+{
+    my ($dbh, $id) = @_;
+
+    my $data = get_rows ($dbh, 'label_alias', 'label', $id);
+    for (@$data)
+    {
+        generic ($dbh, 'label_name', 'id', $_->{name});
+    }
+    backup ($dbh, 'label_alias', $data);
+}
+
 sub label
 {
     my ($dbh, $id) = @_;
@@ -235,6 +247,7 @@ sub label
     generic ($dbh, 'label_type', 'id', $data->[0]->{type});
     generic_verbose ($dbh, 'label_name', 'id', $data->[0]->{name});
     backup ($dbh, 'label', $data);
+    label_alias ($dbh, $data->[0]->{id});
 }
 
 
