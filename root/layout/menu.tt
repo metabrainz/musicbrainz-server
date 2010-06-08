@@ -60,8 +60,8 @@
         </li>
         <li><a href="[% c.uri_for_action('/user/logout') %]">Log out</a></li>
     [%- ELSE -%]
-        <li>[% request_login() %]</li>
-        <li><a href="[% c.uri_for_action('/user/register') %]">Create account</a></li>
+        <li>[% request_login(l('Log In')) %]</li>
+        <li><a href="[% c.uri_for_action('/user/register') %]">Create Account</a></li>
     [%- END -%]
 </ul>
 
@@ -211,7 +211,7 @@
         [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
         <ul>
             <li>
-                [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_List')}) -%]
+                [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_Lists')}) -%]
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org">
