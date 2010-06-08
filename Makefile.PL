@@ -35,6 +35,7 @@ requires 'Email::Address';
 requires 'Email::Sender';
 requires 'Email::MIME';
 requires 'Email::MIME::Creator';
+requires 'Email::Valid';
 requires 'Exception::Class'                           => '1.29';
 requires 'HTML::FormHandler'                          => '0.30001';
 requires 'HTML::Tiny'                                 => '1.05';
