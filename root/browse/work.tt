@@ -14,7 +14,7 @@
                             <ol start="[% loop.index + offset %]">
                                 [% FOR entity IN entities %]
                                 [% LAST IF loop.index >= 50 %]
-                                    <li>[% link_label(entity) %]</li>
+                                    <li>[% link_entity(entity) %]</li>
                                 [% END %]
                             </ol>
                         </div>
