@@ -7,7 +7,7 @@ extends 'HTML::FormHandler::Field::Text';
 
 has '+maxlength' => (
     default => 255
-)
+);
 
 apply ([
    { check => sub { MusicBrainz::Server::Validation::IsValidEAN(shift) },
