@@ -211,6 +211,18 @@ sub tracklists
     tracks ($dbh, $id);
 }
 
+sub medium_cdtocs
+{
+    my ($dbh, $id) = @_;
+
+    my $data = get_rows ($dbh, 'medium_cdtoc', 'medium', $id);
+    for (@$data)
+    {
+        generic ($dbh, 'cdtoc', 'id', $_->{cdtoc});
+    }
+    backup ($dbh, 'medium_cdtoc', $data);
+}
+
 sub media
 {
     my ($dbh, $id) = @_;
@@ -221,6 +233,7 @@ sub media
     {
         generic ($dbh, 'medium_format', 'id', $_->{format});
         tracklists ($dbh, $_->{tracklist});
+        medium_cdtocs ($dbh, $_->{id});
     }
 
     backup ($dbh, 'medium', $data);
