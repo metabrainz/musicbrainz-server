@@ -233,10 +233,14 @@ sub media
     {
         generic ($dbh, 'medium_format', 'id', $_->{format});
         tracklists ($dbh, $_->{tracklist});
-        medium_cdtocs ($dbh, $_->{id});
     }
 
     backup ($dbh, 'medium', $data);
+
+    for (@$data)
+    {
+        medium_cdtocs ($dbh, $_->{id});
+    }
 }
 
 sub label_alias
