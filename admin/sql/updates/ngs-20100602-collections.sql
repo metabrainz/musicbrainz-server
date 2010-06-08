@@ -12,17 +12,4 @@ ALTER TABLE collection ALTER COLUMN name SET NOT NULL, ALTER COLUMN gid SET NOT 
 CREATE UNIQUE INDEX collection_idx_gid ON collection (gid);
 CREATE INDEX collection_idx_name ON collection (name);
 
-CREATE TABLE collection_gid_redirect
-(
-    gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references collection.id
-);
-
-ALTER TABLE collection_gid_redirect
-   ADD CONSTRAINT collection_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
-   REFERENCES collection(id);
-
-ALTER TABLE collection_gid_redirect ADD CONSTRAINT collection_gid_redirect_pkey PRIMARY KEY (gid);
-
 COMMIT;

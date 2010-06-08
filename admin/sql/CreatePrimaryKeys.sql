@@ -15,7 +15,6 @@ ALTER TABLE artist_type ADD CONSTRAINT artist_type_pkey PRIMARY KEY (id);
 ALTER TABLE cdtoc ADD CONSTRAINT cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
 ALTER TABLE collection ADD CONSTRAINT collection_pkey PRIMARY KEY (id);
-ALTER TABLE collection_gid_redirect ADD CONSTRAINT collection_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE collection_release ADD CONSTRAINT collection_release_pkey PRIMARY KEY (collection, release);
 ALTER TABLE country ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (id);

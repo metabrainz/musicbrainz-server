@@ -98,12 +98,6 @@ CREATE TABLE collection
     public              BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE collection_gid_redirect
-(
-    gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references collection.id
-);
-
 CREATE TABLE collection_release
 (
     collection          INTEGER NOT NULL, -- PK, references collection.id

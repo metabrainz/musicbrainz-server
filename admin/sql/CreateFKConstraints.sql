@@ -99,11 +99,6 @@ ALTER TABLE collection
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
-ALTER TABLE collection_gid_redirect
-   ADD CONSTRAINT collection_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
-   REFERENCES collection(id);
-
 ALTER TABLE collection_release
    ADD CONSTRAINT collection_release_fk_collection
    FOREIGN KEY (collection)
