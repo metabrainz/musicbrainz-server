@@ -89,6 +89,21 @@ sub find_by_artist
         $query, $artist_id, $offset || 0);
 }
 
+sub find_by_label
+{
+    my ($self, $label_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN release_label
+                         ON release_label.release = release.id
+                 WHERE release_label.label = ?
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $label_id, $offset || 0);
+}
+
 sub find_by_release_group
 {
     my ($self, $ids, $limit, $offset) = @_;
@@ -124,18 +139,20 @@ sub find_by_track_artist
 
 sub find_by_recording
 {
-    my ($self, $ids) = @_;
+    my ($self, $ids, $limit, $offset) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
-    my $query = 'SELECT ' . $self->_columns .
-                ' FROM ' . $self->_table .
-                ' WHERE release.id IN (
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE release.id IN (
                     SELECT release FROM medium
-                      JOIN track ON track.tracklist = medium.tracklist
-                      JOIN recording ON recording.id = track.recording
-                     WHERE recording.id IN (' . placeholders(@ids) . ')
-                )';
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
-                         $query, @{ids});
+                        JOIN track ON track.tracklist = medium.tracklist
+                        JOIN recording ON recording.id = track.recording
+                     WHERE recording.id IN (" . placeholders(@ids) . "))
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, @ids, $offset || 0);
 }
 
 sub find_by_puid
