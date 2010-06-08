@@ -30,12 +30,14 @@ form ul.errors {
 
 form ul.errors {
     margin-top: 0.3em;
-    padding-left: 0.5em;
+    padding-left: 0;
+    list-style-type: none;
+    list-style-image: none;
 }
 
-form ul.errors li {
+form ul.errors li,
+span.error {
     color: #ff2222;
-    list-style-type: none;
 }
 
 input.error,
