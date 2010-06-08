@@ -5,8 +5,7 @@ ALTER TABLE editor_collection_release RENAME TO collection_release;
 
 ALTER TABLE collection ADD COLUMN gid UUID, ADD COLUMN name VARCHAR, ADD COLUMN public BOOLEAN NOT NULL DEFAULT false;
 
-UPDATE collection SET name='My Collection';
-UPDATE collection SET gid=generate_uuid_v4() WHERE gid IS NULL;
+UPDATE collection SET gid=generate_uuid_v4(), name='My Collection';
 
 ALTER TABLE collection ALTER COLUMN name SET NOT NULL, ALTER COLUMN gid SET NOT NULL;
 
