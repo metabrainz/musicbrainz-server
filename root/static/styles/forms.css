@@ -43,10 +43,9 @@ select.error {
     background: #ffaaaa;
 }
 
-form .register-username-note {
+form .input-note {
     font-style: italic;
-    font-size: 90%;
-    margin-left: 0.5em;
+    font-size: 85%;
 }
 
 div.enter-edit .auto-editor {
