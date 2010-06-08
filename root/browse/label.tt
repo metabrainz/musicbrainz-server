@@ -4,8 +4,11 @@
 
         [% INCLUDE "browse/page_selector.tt" %]
 
-        [% IF entities.size %]
+        [% IF index %]
             <h2>[% l('Labels starting with “{index}”', { index => html_escape(index) }) %]</h2>
+        [% END %]
+
+        [% IF entities.size %]
             [% WRAPPER 'components/with-pager.tt' %]
                 <div class="browse-entities columns-2">
                     [% offset = pager.first %]
@@ -27,8 +30,11 @@
             [% END %]
         [% ELSE %]
             [%- IF index && index.length > 0 -%]
-                <p>[% l('Sorry, we could not find any label starting with “{index}”.', { index => html_escape(index)} ) %]</p>
-                <p>[% l('To try again, please select a different letter above.') %]</p>
+                <p>
+                    [% l('Sorry, there are no labels starting with “{index}”. Please {try|try again}.',
+                        { index => html_escape(index),
+                          try => c.uri_for('/browse/label') }) %]
+                </p>
             [% ELSE %]
                 <p>[% l('To begin browsing, please select a letter above.') %]</p>
             [% END %]

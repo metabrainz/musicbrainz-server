@@ -172,7 +172,10 @@ sub show : PathPart('') Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various.tt' );
+        $c->stash(
+            template => 'artist/browse_various.tt',
+            index    => $index,
+        );
     }
     else
     {
@@ -220,7 +223,10 @@ sub works : Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various_works.tt' );
+        $c->stash(
+            template => 'artist/browse_various_works.tt',
+            index    => $index,
+        );
     }
     else
     {
@@ -309,7 +315,10 @@ sub releases : Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various_releases.tt' );
+        $c->stash(
+            template => 'artist/browse_various_releases.tt',
+            index    => $index,
+        );
     }
     else
     {

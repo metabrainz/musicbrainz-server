@@ -1,8 +1,24 @@
 [%- WRAPPER 'artist/layout.tt' -%]
-  [%- INCLUDE 'browse/page_selector.tt' -%]
-  [%- IF releases.size -%]
-    [%- WRAPPER 'components/with-pager.tt' -%]
-      [%- INCLUDE 'release_group/releases-list.tt' %]
+    <h2>[%- l('Browse releases') -%]</h2>
+    [%- INCLUDE 'browse/page_selector.tt' -%]
+
+    [% IF index %]
+        <h2>[% l('Releases starting with “{index}”', { index => html_escape(index) }) %]</h2>
+    [% END %]
+
+    [%- IF releases.size -%]
+        [%- WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'release_group/releases-list.tt' %]
+        [%- END -%]
+    [% ELSE %]
+        [%- IF index && index.length > 0 -%]
+            <p>
+                [% l('Sorry, there are no releases starting with “{index}”. Please {try}.',
+                    { index => html_escape(index),
+                      try => link_artist(artist, 'releases', l('try again')) }) %]
+            </p>
+        [% ELSE %]
+            <p>[% l('To begin browsing, please select a letter above.') %]</p>
+        [% END %]
     [%- END -%]
-  [%- END -%]
 [%- END -%]
