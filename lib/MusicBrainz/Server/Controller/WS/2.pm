@@ -26,24 +26,26 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases discids media mediums) ],
                          links    => [ qw(recordings releases release-groups works) ],
      },
-#      "release-group" => {
-#                          method   => 'GET',
-#                          required => [ qw(query) ],
-#                          optional => [ qw(limit offset) ]
-#      },
-#      "release-group" => {
-#                          method   => 'GET',
-#                          inc      => [ qw(artists releases _relations tags usertags ratings userratings) ],
-#      },
-#      release => {
-#                          method   => 'GET',
-#                          required => [ qw(query) ],
-#                          optional => [ qw(limit offset) ]
-#      },
-#      release => {
-#                          method   => 'GET',
-#                          inc      => [ qw(artists discs isrcs labels recordings releasegroups _relations)]
-#      },
+     "release-group" => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ]
+     },
+     "release-group" => {
+                         method   => 'GET',
+                         inc      => [ qw(aliases discids media mediums) ],
+                         links    => [ qw(artists releases) ]
+     },
+     release => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ]
+     },
+     release => {
+                         method   => 'GET',
+                         inc      => [ qw(aliases discids media mediums) ],
+                         links    => [ qw(artists) ]
+     },
      recording => {
                          method   => 'GET',
                          required => [ qw(query) ],
@@ -64,15 +66,16 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases discids media mediums) ],
                          links    => [ qw(releases) ],
      },
-#      work => {
-#                          method   => 'GET',
-#                          required => [ qw(query) ],
-#                          optional => [ qw(limit offset) ]
-#      },
-#      work => {
-#                          method   => 'GET',
-#                          inc      => [ qw(artists  _relations tags usertags ratings userratings) ]
-#      },
+     work => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ]
+     },
+     work => {
+                         method   => 'GET',
+                         inc      => [ qw(aliases) ],
+                         links    => [ qw(artists) ]
+     },
 #      puid => {
 #                          method   => 'GET',
 #                          inc      => [ qw(artists releases releasegroups) ],
@@ -203,6 +206,43 @@ sub linked_releases
     }
 }
 
+sub linked_artists
+{
+    my ($self, $c, $artists) = @_;
+
+    $c->model('ArtistType')->load(@$artists);
+    $c->model('Gender')->load(@$artists);
+    $c->model('Country')->load(@$artists);
+
+
+#     $c->model('ReleaseStatus')->load(@$releases);
+#     $c->model('ReleasePackaging')->load(@$releases);
+
+#     $c->model('Language')->load(@$releases);
+#     $c->model('Script')->load(@$releases);
+
+#     my @mediums;
+#     if ($c->stash->{inc}->media)
+#     {
+#         $c->model('Medium')->load_for_releases(@$releases);
+
+#         @mediums = map { $_->all_mediums } @$releases;
+
+#         $c->model('MediumFormat')->load(@mediums);
+
+#         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
+#     }
+
+#     if ($c->stash->{inc}->discids)
+#     {
+#         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
+#         $c->model('CDTOC')->load(@medium_cdtocs);
+#     }
+}
+
+
+
+
 sub artist : Chained('root') PathPart('artist')
 {
     my ($self, $c, $gid, $linked) = @_;
@@ -304,9 +344,9 @@ sub artist_search : Chained('root') PathPart('artist') Args(0)
     }
 }
 
-sub release_group : Chained('root') PathPart('release-group') Args(1)
+sub release_group : Chained('root') PathPart('release-group')
 {
-    my ($self, $c, $gid) = @_;
+    my ($self, $c, $gid, $linked) = @_;
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -319,27 +359,34 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
         $c->detach('not_found');
     }
     $c->model('ReleaseGroupType')->load($rg);
-    $c->model('ArtistCredit')->load($rg)
-        if ($c->stash->{inc}->artists);
 
     my $opts = {};
-    $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
+    if ($linked && $linked eq 'artists')
+    {
+        $c->model('ArtistCredit')->load($rg);
 
-    if ($c->stash->{inc}->releases)
-    {
-        $opts->{releases} = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_release_group($rg->id, shift, shift);
-        });
-        $c->model('ReleaseStatus')->load(@{$opts->{releases}});
+        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $rg->artist_credit->names };
+
+        $self->linked_artists ($c, \@artists);
     }
-    if ($c->stash->{inc}->has_rels)
+
+    if ($linked && $linked eq 'releases')
     {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $rg);
-        $opts->{rels} = $rg->relationships;
+        my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
+        $opts->{releases} = $results[0];
+
+        $self->linked_releases ($c, $opts->{releases});
     }
+
+#     $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
+#     if ($c->stash->{inc}->has_rels)
+#     {
+#         my $types = $c->stash->{inc}->get_rel_types();
+#         my @rels = $c->model('Relationship')->load_subset($types, $rg);
+#         $opts->{rels} = $rg->relationships;
+#     }
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts));
+    $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts, $linked));
 }
 
 sub release_group_search : Chained('root') PathPart('release-group') Args(0)
@@ -359,9 +406,9 @@ sub release_group_search : Chained('root') PathPart('release-group') Args(0)
     }
 }
 
-sub release: Chained('root') PathPart('release') Args(1)
+sub release: Chained('root') PathPart('release')
 {
-    my ($self, $c, $gid) = @_;
+    my ($self, $c, $gid, $linked) = @_;
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -373,62 +420,70 @@ sub release: Chained('root') PathPart('release') Args(1)
     unless ($release) {
         $c->detach('not_found');
     }
-    $c->model('ReleaseStatus')->load($release);
-    $c->model('Language')->load($release);
-    $c->model('Script')->load($release);
-    $c->model('Country')->load($release);
-    $c->model('ArtistCredit')->load($release)
-        if ($c->stash->{inc}->artists);
+
+    $self->linked_releases ($c, [ $release ]);
+
     $c->model('Release')->load_meta($release);
 
-    if ($c->stash->{inc}->releasegroups)
-    {
-         $c->model('ReleaseGroup')->load($release);
-         $c->model('ReleaseGroupType')->load($release->release_group);
-    }
-
-    if ($c->stash->{inc}->discs)
-    {
-        $c->model('Medium')->load_for_releases($release);
-        my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } $release);
-        $c->model('CDTOC')->load(@medium_cdtocs);
-    }
-
-    if ($c->stash->{inc}->labels)
-    {
-        $c->model('ReleaseLabel')->load($release);
-        $c->model('Label')->load($release->all_labels)
-    }
-
     my $opts = {};
-    if ($c->stash->{inc}->recordings)
+
+    if ($linked && $linked eq 'artists')
     {
-        $c->model('Medium')->load_for_releases($release);
-        my @mediums = $release->all_mediums;
-        $c->model('MediumFormat')->load(@mediums);
+        $c->model('ArtistCredit')->load($release);
 
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-        $c->model('Track')->load_for_tracklists(@tracklists);
+        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $release->artist_credit->names };
 
-        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
-        $c->model('Recording')->load_meta(@recordings);
-
-        if ($c->stash->{inc}->isrcs)
-        {
-            my @isrcs = $c->model('ISRC')->find_by_recording([ map { $_->id } @recordings ]);
-            $opts->{isrcs} = \@isrcs;
-        }
+        $self->linked_artists ($c, \@artists);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $release);
-        $opts->{rels} = $release->relationships;
-    }
+#     if ($c->stash->{inc}->releasegroups)
+#     {
+#          $c->model('ReleaseGroup')->load($release);
+#          $c->model('ReleaseGroupType')->load($release->release_group);
+#     }
+
+#     if ($c->stash->{inc}->discs)
+#     {
+#         $c->model('Medium')->load_for_releases($release);
+#         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } $release);
+#         $c->model('CDTOC')->load(@medium_cdtocs);
+#     }
+
+#     if ($c->stash->{inc}->labels)
+#     {
+#         $c->model('ReleaseLabel')->load($release);
+#         $c->model('Label')->load($release->all_labels)
+#     }
+
+#     my $opts = {};
+#     if ($c->stash->{inc}->recordings)
+#     {
+#         $c->model('Medium')->load_for_releases($release);
+#         my @mediums = $release->all_mediums;
+#         $c->model('MediumFormat')->load(@mediums);
+
+#         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
+#         $c->model('Track')->load_for_tracklists(@tracklists);
+
+#         my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+#         $c->model('Recording')->load_meta(@recordings);
+
+#         if ($c->stash->{inc}->isrcs)
+#         {
+#             my @isrcs = $c->model('ISRC')->find_by_recording([ map { $_->id } @recordings ]);
+#             $opts->{isrcs} = \@isrcs;
+#         }
+#     }
+
+#     if ($c->stash->{inc}->has_rels)
+#     {
+#         my $types = $c->stash->{inc}->get_rel_types();
+#         my @rels = $c->model('Relationship')->load_subset($types, $release);
+#         $opts->{rels} = $release->relationships;
+#     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts));
+    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts, $linked));
 }
 
 sub release_search : Chained('root') PathPart('release') Args(0)
@@ -473,6 +528,15 @@ sub recording: Chained('root') PathPart('recording')
         $opts->{releases} = $results[0];
 
         $self->linked_releases ($c, $opts->{releases});
+    }
+
+    if ($linked && $linked eq 'artists')
+    {
+        $c->model('ArtistCredit')->load($recording);
+
+        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $recording->artist_credit->names };
+
+        $self->linked_artists ($c, \@artists);
     }
 
 #     $self->_tags_and_ratings($c, 'Recording', $recording, $opts);
@@ -584,9 +648,9 @@ sub label_search : Chained('root') PathPart('label') Args(0)
 
 
 
-sub work : Chained('root') PathPart('work') Args(1)
+sub work : Chained('root') PathPart('work')
 {
-    my ($self, $c, $gid) = @_;
+    my ($self, $c, $gid, $linked) = @_;
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -600,18 +664,28 @@ sub work : Chained('root') PathPart('work') Args(1)
     }
 
     my $opts = {};
-    $self->_tags_and_ratings($c, 'Work', $work, $opts);
-
-    if ($c->stash->{inc}->has_rels)
+    if ($linked && $linked eq 'artists')
     {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $work);
-        $opts->{rels} = $work->relationships;
+        $c->model('ArtistCredit')->load($work);
+
+        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $work->artist_credit->names };
+
+        $self->linked_artists ($c, \@artists);
     }
+
+#     $self->_tags_and_ratings($c, 'Work', $work, $opts);
+
+#     if ($c->stash->{inc}->has_rels)
+#     {
+#         my $types = $c->stash->{inc}->get_rel_types();
+#         my @rels = $c->model('Relationship')->load_subset($types, $work);
+#         $opts->{rels} = $work->relationships;
+#     }
+
 
     $c->model('WorkType')->load($work);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $opts));
+    $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $opts, $linked));
 }
 
 sub work_search : Chained('root') PathPart('work') Args(0)

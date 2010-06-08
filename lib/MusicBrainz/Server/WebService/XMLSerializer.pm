@@ -99,9 +99,9 @@ sub _serialize_artist_credit
 
         my @nc;
         push @nc, $gen->name($name->name) if ($name->name ne $name->artist->name);
-        push @nc, $gen->artist(\%artist_attr, $gen->name($name->artist->name));
-
-        push @ac, $gen->name_credit(@nc);
+        
+        $self->_serialize_artist(\@nc, $gen, $name->artist, $inc, $opts);
+        push @ac, $gen->name_credit(\%nc_attr, @nc);
     }
 
     push @$data, $gen->artist_credit(@ac);
@@ -127,7 +127,7 @@ sub _serialize_release_group_list
 
 sub _serialize_release_group
 {
-    my ($self, $data, $gen, $release_group, $inc, $opts) = @_;
+    my ($self, $data, $gen, $release_group, $inc, $opts, $linked) = @_;
 
     my %attr;
     $attr{id} = $release_group->gid;
@@ -138,13 +138,13 @@ sub _serialize_release_group
     push @list, $gen->disambiguation($release_group->comment) if $release_group->comment;
 
     $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $opts)
-        if ($release_group->artist_credit && $inc->{artists});
+        if defined $linked && $linked eq 'artists';
 
-    $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, {})
-        if ($opts->{releases} && $inc->{releases});
+    $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts) 
+        if defined $linked && $linked eq 'releases';
 
-    $self->_serialize_relation_lists($release_group, \@list, $release_group->relationships) if $inc->has_rels;
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+#     $self->_serialize_relation_lists($release_group, \@list, $release_group->relationships) if $inc->has_rels;
+#     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->release_group(\%attr, @list);
 }
@@ -163,7 +163,7 @@ sub _serialize_release_list
 
 sub _serialize_release
 {
-    my ($self, $data, $gen, $release, $inc, $opts) = @_;
+    my ($self, $data, $gen, $release, $inc, $opts, $linked) = @_;
 
     my @list;
     push @list, $gen->title($release->name);
@@ -173,24 +173,27 @@ sub _serialize_release
 
     $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
 
-    $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $opts)
-        if ($release->artist_credit && $inc->{artists});
+#     $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $opts)
+#         if ($release->artist_credit && $inc->{artists});
 
-    $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, {})
-        if ($release->release_group && $inc->releasegroups);
+#     $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, {})
+#         if ($release->release_group && $inc->releasegroups);
+
+    $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $opts)
+        if defined $linked && $linked eq 'artists';
 
     push @list, $gen->date($release->date->format) if $release->date;
     push @list, $gen->country($release->country->iso_code) if $release->country;
     push @list, $gen->barcode($release->barcode) if $release->barcode;
-    push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
+#     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
 
-    $self->_serialize_label_info_list(\@list, $gen, $release->labels, $inc, $opts)
-        if ($release->labels && $inc->labels);
+#     $self->_serialize_label_info_list(\@list, $gen, $release->labels, $inc, $opts)
+#         if ($release->labels && $inc->labels);
 
     $self->_serialize_medium_list(\@list, $gen, $release->mediums, $inc, $opts)
-        if ($release->mediums && ($inc->media || $inc->discs));
+        if ($release->mediums && ($inc->media || $inc->discids));
 
-    $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships) if ($inc->has_rels);
+#     $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships) if ($inc->has_rels);
 
     push @$data, $gen->release({ id => $release->gid }, @list);
 }
@@ -216,8 +219,8 @@ sub _serialize_recording
     push @list, $gen->length($recording->length);
     push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
 
-    $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts)
-        if ($recording->artist_credit && $inc->{artists});
+#     $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts)
+#         if ($recording->artist_credit && $inc->{artists});
 #     $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts)
 #         if ($opts->{releases} && $inc->{releases});
 #     $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, {})
@@ -227,6 +230,9 @@ sub _serialize_recording
 #     $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships)
 #         if ($inc->has_rels);
 #     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+
+    $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts)
+        if defined $linked && $linked eq 'artists';
 
     $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts) 
         if defined $linked && $linked eq 'releases';
@@ -384,7 +390,7 @@ sub _serialize_label
 
 sub _serialize_work
 {
-    my ($self, $data, $gen, $work, $inc, $opts) = @_;
+    my ($self, $data, $gen, $work, $inc, $opts, $linked) = @_;
 
     my $iswc = $work->iswc;
     $iswc =~ s/^\s+//;
@@ -395,11 +401,11 @@ sub _serialize_work
     push @list, $gen->iswc($iswc) if $iswc;
 
     $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $opts)
-        if ($work->artist_credit && $inc->{artists});
+        if defined $linked && $linked eq 'artists';
 
     push @list, $gen->disambiguation($work->comment) if $work->comment;
 
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+#     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->work({ id => $work->gid, type => $work->type->name }, @list);
 }

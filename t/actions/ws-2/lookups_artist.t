@@ -10,17 +10,16 @@ use Test::WWW::Mechanize::Catalyst;
 my $c = MusicBrainz::Server::Test->create_test_context;
 my $v2 = v2_schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
-
-$mech->get_ok('/ws/2/artist/f26c72d3-e52c-467b-b651-679c73d8e1a7', 'basic artist lookup');
-&$v2 ($mech->content, "Validate basic artist lookup");
-
 my $diff = XML::SemanticDiff->new;
+
+$mech->get_ok('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a', 'basic artist lookup');
+&$v2 ($mech->content, "Validate basic artist lookup");
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="group" id="f26c72d3-e52c-467b-b651-679c73d8e1a7">
-        <name>!!!</name><sort-name>!!!</sort-name>
-        <life-span><begin>1996</begin></life-span>
+    <artist type="person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+        <name>Distance</name><sort-name>Distance</sort-name>
+        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
     </artist>
 </metadata>';
 
