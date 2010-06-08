@@ -8,8 +8,10 @@ has $_ => (
     default => 0
 ) for qw( gid artists counts limit recordings duration artistrels releaserels discs
           recordingrels urlrels releaseevents artistid releaseid trackid title tracknum
-          releases releasegroups releasegrouprels workrels puids isrcs aliases labels 
-          labelrels tracklevelrels tags ratings usertags userratings rg_type rel_status);
+          releases releasegroups releasegrouprels workrels puids isrcs labels 
+          labelrels tracklevelrels tags ratings usertags userratings rg_type rel_status
+
+          aliases discids isrcs media puids various_artists );
 
 sub has_rels
 {
@@ -63,12 +65,15 @@ sub BUILD
 
     foreach my $arg (@{$args->{inc}})
     {
-        $arg =~ s/-//;
         $arg = lc($arg);
+        $arg =~ s/-/_/;
+        $arg =~ s/mediums/media/;
 
         die "Unknown inc parameter $arg" if !exists($methods{$arg});
         $methods{$arg}->set_value($self, 1);
     }
+
+    $self->media (1) if ($self->discids);
 }
 
 __PACKAGE__->meta->make_immutable;
