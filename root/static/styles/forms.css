@@ -50,14 +50,8 @@ form .input-note {
     font-size: 85%;
 }
 
-div.enter-edit .auto-editor {
-    float: left;
-    padding-top: 5pt;
-}
-
 div.enter-edit input.submit {
     font-size: 18pt;
-    float: right;
 }
 
 ul.radio-list {

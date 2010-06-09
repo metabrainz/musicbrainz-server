@@ -16,15 +16,10 @@
   </div>
         </div>
   [% END %]
-<<<<<<< HEAD:root/components/forms.tt
-  <input type="submit" class="submit" value="[% l('Submit') %]" />
-  [% extra %]
-</div>
-=======
     <div class="row no-label buttons">
         <button type="submit" class="submit">[% l('Submit') %]</button>
+        [% extra %]
     </div>
->>>>>>> Turned inputs into fancy buttons:root/components/forms.tt
 [% END %]
 
 [%- MACRO field_errors(form, field_name) BLOCK -%]
