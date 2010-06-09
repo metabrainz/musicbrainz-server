@@ -3,6 +3,8 @@
 ** From http://particletree.com/features/rediscovering-the-button-element/
 */
 
+.buttons { display: inline-block; }
+
 .buttons a, .buttons button{
     display:block;
     float:left;
@@ -82,6 +84,17 @@ button.positive, .buttons a.positive{
     border:1px solid #d12f19;
     color:#fff;
 }
+
+/* SPECIAL */
+
+/* search button in header*/
+.buttons.header-search { display: inline; }
+.buttons.header-search button {
+    float: none;
+    display: inline;
+    padding: 2px 6px !important;
+}
+
 
 /*
 ** Ratings

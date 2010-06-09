@@ -1,5 +1,7 @@
-[%- MACRO form_submit(label) BLOCK %]
-<input type="submit" value="[% label %]" />
+[%- MACRO form_submit(label, class) BLOCK %]
+    <span class="buttons[% ' ' _ class IF class %]">
+        <button type="submit">[% label %]</button>
+    </span>
 [%- END -%]
 
 [%- MACRO enter_edit(extra) BLOCK %]
@@ -12,10 +14,17 @@
                l('Enable {autoed|auto-editor} privileges for this edit.', { autoed = doc_link('Auto-Editor') }),
                inline => 1) %]
   </div>
+        </div>
   [% END %]
+<<<<<<< HEAD:root/components/forms.tt
   <input type="submit" class="submit" value="[% l('Submit') %]" />
   [% extra %]
 </div>
+=======
+    <div class="row no-label buttons">
+        <button type="submit" class="submit">[% l('Submit') %]</button>
+    </div>
+>>>>>>> Turned inputs into fancy buttons:root/components/forms.tt
 [% END %]
 
 [%- MACRO field_errors(form, field_name) BLOCK -%]

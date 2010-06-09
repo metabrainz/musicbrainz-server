@@ -29,8 +29,8 @@
                 <div>
                     [%- USE sidebar = FormRenderer(sidebar_search) -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
-                        [% sidebar.text('query') -%] [%- sidebar.select('type') %] 
-                        <input type="submit" value="Search" />
+                        [% sidebar.text('query') -%] [%- sidebar.select('type') %]
+                        [% form_submit(l('Search'), "header-search") %]
                     </form>
                 </div>
             </div>

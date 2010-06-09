@@ -5,7 +5,9 @@
                 { page => page }) -%]</p>
 
         <form action="[% c.req.uri | html %]" method="post">
-            <input type="submit" name="confirm.submit" value="[% l('Yes, I\'m sure') %]" />
+            <span class="buttons">
+                <button type="submit" name="confirm.submit">[% l('Yes, I\'m sure') %]</button>
+            </span>
         </form>
     </div>
 [%- END -%]
