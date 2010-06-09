@@ -56,6 +56,14 @@ after 'load' => sub
     $c->model('ArtistCredit')->load($recording);
 };
 
+sub _row_id_to_gid
+{
+    my ($self, $c, $track_id) = @_;
+    my $track = $c->model('Track')->get_by_id($track_id) or return;
+    $c->model('Recording')->load($track);
+    return $track->recording->gid;
+}
+
 after 'tags' => sub
 {
     my ($self, $c) = @_;
