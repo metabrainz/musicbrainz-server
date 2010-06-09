@@ -62,6 +62,7 @@ div.enter-edit input.submit {
 
 ul.radio-list {
     list-style-type: none;
+    list-style-image: none;
     padding: 0;
 }
 
