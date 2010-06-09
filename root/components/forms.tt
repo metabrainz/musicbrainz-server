@@ -18,14 +18,6 @@
 </div>
 [% END %]
 
-[%- MACRO form_artist_credits(field) BLOCK %]
-    <div class="container" id="[% field.full_name %]">
-        <p class="preview"></p>
-        [% USE r = FormRenderer(field.form) %]
-        [% r.artist_credits(field.name) %]
-    </div>
-[%- END -%]
-
 [%- MACRO field_errors(form, field_name) BLOCK -%]
     [% field = form.field(field_name) %]
     [%- IF field.has_errors OR field.error_fields -%]
