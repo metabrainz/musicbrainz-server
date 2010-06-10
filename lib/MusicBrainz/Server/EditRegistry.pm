@@ -29,6 +29,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Edit
+    MusicBrainz::Server::Edit::Recording::RemoveISRC
     MusicBrainz::Server::Edit::Recording::AddISRCs
     MusicBrainz::Server::Edit::Recording::Merge
     MusicBrainz::Server::Edit::Relationship::AddLinkAttribute

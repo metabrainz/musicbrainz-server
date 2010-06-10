@@ -56,6 +56,16 @@ sub find_by_isrc
                          $query, $isrc);
 }
 
+sub delete
+{
+    my ($self, @isrc_ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    # Delete ISRCs from @old_ids that already exist for $new_id
+    $sql->do('DELETE FROM isrc
+              WHERE id IN ('.placeholders(@isrc_ids).')', @isrc_ids);
+}
+
 sub merge_recordings
 {
     my ($self, $new_id, @old_ids) = @_;
