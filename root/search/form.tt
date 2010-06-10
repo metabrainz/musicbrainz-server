@@ -26,7 +26,7 @@
     </script>
 
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">
-        [% form_row_text(search, 'query', l('Query:')) %]
+        [% form_row_text_long(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
         [% WRAPPER form_row %]
             [% search.label('limit', l('Results per page:')) %]

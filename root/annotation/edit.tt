@@ -11,7 +11,7 @@
 
     [% USE r = FormRenderer(form) %]
     [% r.textarea('text', { cols => 80, rows => 10 }) %]
-    [% form_row_text(r, 'changelog', l('Change log:')) %]
+    [% form_row_text_long(r, 'changelog', l('Change log:')) %]
 
     [% BLOCK preview_button %]
       <button type="submit" name="[% form.field('preview').html_name %]" value="preview" >[% l('Preview') %]</button>
