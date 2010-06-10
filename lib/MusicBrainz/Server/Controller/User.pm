@@ -70,8 +70,10 @@ sub do_login : Private
         template => 'user/login.tt',
         login_form => $form,
         redirect => $redirect,
-        required_login => 1
     );
+
+    $c->stash->{required_login} = 1
+        unless exists $c->stash->{required_login};
 
     $c->detach;
 }
@@ -86,8 +88,8 @@ sub login : Path('/login')
         $c->detach;
     }
 
-    $c->forward('/user/do_login');
     $c->stash( required_login => 0 );
+    $c->forward('/user/do_login');
 }
 
 sub logout : Path('/logout')
