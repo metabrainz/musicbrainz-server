@@ -10,10 +10,8 @@ sub edit_field_names { qw( isrc ) }
 has '+name' => ( default => 'add-isrc' );
 
 has_field 'isrc' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::ISRC',
     required  => 1,
-    minlength => 12,
-    maxlength => 12
 );
 
 no Moose;
