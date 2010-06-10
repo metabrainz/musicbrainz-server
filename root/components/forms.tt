@@ -5,22 +5,22 @@
 [%- END -%]
 
 [%- MACRO enter_edit(extra) BLOCK %]
-<div class="row enter-edit">
-  [% IF c.user.is_auto_editor %]
-  <div class="auto-editor">
-    [% USE r = FormRenderer(form) %]
-    [% r.checkbox('as_auto_editor') %]
-    [% r.label('as_auto_editor',
-               l('Enable {autoed|auto-editor} privileges for this edit.', { autoed = doc_link('Auto-Editor') }),
-               inline => 1) %]
-  </div>
+    [% IF c.user.is_auto_editor %]
+        <div class="row no-label">
+            <div class="auto-editor">
+                [% USE r = FormRenderer(form) %]
+                [% r.checkbox('as_auto_editor') %]
+                [% r.label('as_auto_editor',
+                           l('Enable {autoed|auto-editor} privileges for this edit.',
+                            { autoed = doc_link('Auto-Editor') }), inline => 1) %]
+            </div>
         </div>
-  [% END %]
+    [% END %]
     <div class="row no-label buttons">
         <button type="submit" class="submit">[% l('Submit') %]</button>
         [% extra %]
     </div>
-[% END %]
+[%- END -%]
 
 [%- MACRO field_errors(form, field_name) BLOCK -%]
     [% field = form.field(field_name) %]
