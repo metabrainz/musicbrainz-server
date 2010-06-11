@@ -39,7 +39,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b/releases?inc=media', 'label lookup with releases, inc=media');
+$mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media', 'label lookup with releases, inc=media');
 &$v2 ($mech->content, "Validate lookup with releases, inc=media");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>

@@ -24,7 +24,7 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 
-$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7/releases', 'recording lookup with releases');
+$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases', 'recording lookup with releases');
 &$v2 ($mech->content, "Validate basic recording lookup with releases");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -52,8 +52,8 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/recording/0cf3008f-e246-428f-abc1-35f87d584d60/artists', 'recording lookup with artist credit');
-&$v2 ($mech->content, "Validate basic recording lookup with artist credit");
+$mech->get_ok('/ws/2/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists', 'recording lookup with artists');
+&$v2 ($mech->content, "Validate basic recording lookup with artists");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -63,17 +63,11 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <name-credit joinphrase="♥">
                 <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
-                    <life-span>
-                        <begin>1998</begin>
-                    </life-span>
                 </artist>
             </name-credit>
             <name-credit>
                 <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>
-                    <life-span>
-                        <begin>1986-11-05</begin>
-                    </life-span>
                 </artist>
             </name-credit>
         </artist-credit>

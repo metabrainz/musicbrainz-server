@@ -49,7 +49,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f/releases', 'artist lookup with releases');
+$mech->get_ok('/ws/2/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases', 'artist lookup with releases');
 &$v2 ($mech->content, "Validate artist lookup with releases");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -85,7 +85,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f/releases', 'artist lookup with releases');
+$mech->get_ok('/ws/2/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases', 'artist lookup with releases');
 &$v2 ($mech->content, "Validate artist lookup with releases");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -121,50 +121,126 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-
-$mech->get_ok('/ws/2/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4/releases?inc=discids', 'artist lookup with discids');
-&$v2 ($mech->content, "Validate artist lookup with discids");
+$mech->get_ok('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids', 'artist lookup with releases and discids');
+&$v2 ($mech->content, "Validate artist lookup with releases and discids");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="group" id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
-        <name>Plone</name><sort-name>Plone</sort-name>
+    <artist type="person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+        <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <release-list count="2">
-            <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
-                <title>For Beginner Piano</title><status>official</status>
+            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+                <title>My Demons</title><status>official</status>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>1999-09-13</date><country>GB</country><barcode>5021603064126</barcode>
+                <date>2007-01-29</date><country>GB</country>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>CD</format>
-                        <disc-list count="2">
-                            <disc id="4Fzv46Cx17XbCG5hQ1xo6KmQojk-">
-                                <sectors>177766</sectors>
-                            </disc>
-                            <disc id="VkX.hmODEJMV9FhQnxkWzQSX8iE-">
-                                <sectors>176980</sectors>
+                        <disc-list count="1">
+                            <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
+                                <sectors>281289</sectors>
                             </disc>
                         </disc-list>
-                        <track-list count="20" />
+                        <track-list count="24" />
                     </medium>
                 </medium-list>
             </release>
-            <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c">
-                <title>For Beginner Piano</title><status>official</status>
+            <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
+                <title>Repercussions</title><status>official</status>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>1999-09-13</date><country>GB</country>
-                <medium-list count="1">
+                <date>2008-11-17</date><country>GB</country>
+                <medium-list count="2">
                     <medium>
-                        <position>1</position><format>Vinyl</format><disc-list count="0" />
-                        <track-list count="20" />
+                        <position>1</position><format>CD</format>
+                        <disc-list count="1">
+                            <disc id="93K4ogyxWlv522XF0BG8fZOuay4-">
+                                <sectors>215137</sectors>
+                            </disc>
+                        </disc-list>
+                        <track-list count="18" />
+                    </medium>
+                    <medium>
+                        <title>Chestplate Singles</title><position>2</position><format>CD</format>
+                        <disc-list count="1">
+                            <disc id="VnL0A7ksXznBxvZ94H3Z61EZY3k-">
+                                <sectors>208393</sectors>
+                            </disc>
+                        </disc-list>
+                        <track-list count="18" />
                     </medium>
                 </medium-list>
             </release>
         </release-list>
+    </artist>
+</metadata>';
+
+is ($diff->compare ($expected, $mech->content), 0, 'result ok');
+
+$mech->get_ok('/ws/2/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits', 'artist lookup with recordings and artist credits');
+&$v2 ($mech->content, "Validate artist lookup with recordings and artist credits");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+        <name>m-flo</name><sort-name>m-flo</sort-name>
+        <life-span>
+            <begin>1998</begin>
+        </life-span>
+        <recording-list count="2">
+            <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
+                <title>the Love Bug</title><length>242226</length>
+                <artist-credit>
+                    <name-credit joinphrase="♥">
+                        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                            <name>m-flo</name>
+                        </artist>
+                    </name-credit>
+                    <name-credit>
+                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                            <name>BoA</name>
+                        </artist>
+                    </name-credit>
+                </artist-credit>
+            </recording>
+            <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
+                <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
+                <artist-credit>
+                    <name-credit joinphrase="♥">
+                        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                            <name>m-flo</name>
+                        </artist>
+                    </name-credit>
+                    <name-credit>
+                        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                            <name>BoA</name>
+                        </artist>
+                    </name-credit>
+                </artist-credit>
+            </recording>
+        </recording-list>
+    </artist>
+</metadata>';
+
+
+$mech->get_ok('/ws/2/artist/f26c72d3-e52c-467b-b651-679c73d8e1a7?inc=release-groups', 'artist lookup with release groups');
+&$v2 ($mech->content, "Validate artist lookup with release groups");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="group" id="f26c72d3-e52c-467b-b651-679c73d8e1a7">
+        <name>!!!</name><sort-name>!!!</sort-name>
+        <life-span>
+            <begin>1996</begin>
+        </life-span>
+        <release-group-list count="1">
+            <release-group type="album" id="79e3ac21-8359-3761-ba35-251a1bd04d68">
+                <title>Louden Up Now</title>
+            </release-group>
+        </release-group-list>
     </artist>
 </metadata>';
 

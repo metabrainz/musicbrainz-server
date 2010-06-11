@@ -1,43 +1,49 @@
 package MusicBrainz::Server::WebService::WebServiceInc;
 
 use Moose;
+with qw(MooseX::Clone);
 
 has $_ => (
     is  => 'rw',
     isa => 'Int',
     default => 0
-) for qw( gid artists counts limit recordings duration artistrels releaserels discs
-          recordingrels urlrels releaseevents artistid releaseid trackid title tracknum
-          releases releasegroups releasegrouprels workrels puids isrcs labels 
-          labelrels tracklevelrels tags ratings usertags userratings rg_type rel_status
+) for qw(
+          aliases discids isrcs media puids various_artists artist_credits
+          artists labels recordings releases release_groups works
+);
 
-          aliases discids isrcs media puids various_artists );
+# gid artists counts limit recordings duration artistrels releaserels discs
+#           recordingrels urlrels releaseevents artistid releaseid trackid title tracknum
+#           releases releasegroups releasegrouprels workrels puids isrcs labels
+#           labelrels tracklevelrels tags ratings usertags userratings rg_type rel_status
 
-sub has_rels
-{
-    my ($self) = @_;
+# sub has_rels
+# {
+#     my ($self) = @_;
 
-    return 1 if ($self->artistrels || $self->releaserels || $self->workrels ||
-                 $self->urlrels || $self->labelrels || $self->tracklevelrels ||
-                 $self->releasegrouprels || $self->recordingrels); 
-    return 0;
-}
+#     return 1 if ($self->artistrels || $self->releaserels || $self->workrels ||
+#                  $self->urlrels || $self->labelrels || $self->tracklevelrels ||
+#                  $self->releasegrouprels || $self->recordingrels);
+#     return 0;
+# }
 
-sub get_rel_types
-{
-    my ($self) = @_;
+# sub get_rel_types
+# {
+#     my ($self) = @_;
 
-    my @rels;
-    push @rels, 'artist' if ($self->artistrels);
-    push @rels, 'release' if ($self->releaserels);
-    push @rels, 'release_group' if ($self->releasegrouprels);
-    push @rels, 'recording' if ($self->recordingrels);
-    push @rels, 'label' if ($self->labelrels);
-    push @rels, 'work' if ($self->workrels);
-    push @rels, 'url' if ($self->urlrels);
+#     my @rels;
+#     push @rels, 'artist' if ($self->artistrels);
+#     push @rels, 'release' if ($self->releaserels);
+#     push @rels, 'release_group' if ($self->releasegrouprels);
+#     push @rels, 'recording' if ($self->recordingrels);
+#     push @rels, 'label' if ($self->labelrels);
+#     push @rels, 'work' if ($self->workrels);
+#     push @rels, 'url' if ($self->urlrels);
 
-    return \@rels;
-}
+#     return \@rels;
+# }
+
+
 
 sub BUILD
 {
@@ -46,22 +52,22 @@ sub BUILD
     my $meta = __PACKAGE__->meta;
     my %methods = map { $_->name => $_ } $meta->get_all_attributes;
 
-    if (exists $args->{rel_status} && $args->{rel_status})
-    {
-        $methods{rel_status}->set_value($self, $args->{rel_status});
-    }
-    if (exists $args->{rg_type} && $args->{rg_type})
-    {
-        $methods{rg_type}->set_value($self, $args->{rg_type});
-    }
-    if (exists $args->{relations} && $args->{relations})
-    {
-        foreach my $rel (@{$args->{relations}})
-        {
-            $rel =~ s/-//g;
-            $methods{$rel}->set_value($self, 1);
-        }
-    }
+#     if (exists $args->{rel_status} && $args->{rel_status})
+#     {
+#         $methods{rel_status}->set_value($self, $args->{rel_status});
+#     }
+#     if (exists $args->{rg_type} && $args->{rg_type})
+#     {
+#         $methods{rg_type}->set_value($self, $args->{rg_type});
+#     }
+#     if (exists $args->{relations} && $args->{relations})
+#     {
+#         foreach my $rel (@{$args->{relations}})
+#         {
+#             $rel =~ s/-//g;
+#             $methods{$rel}->set_value($self, 1);
+#         }
+#     }
 
     foreach my $arg (@{$args->{inc}})
     {

@@ -23,7 +23,7 @@ my $expected  ='<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2/releases', 'release group lookup with releases');
+$mech->get_ok('/ws/2/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=releases', 'release group lookup with releases');
 &$v2 ($mech->content, "Validate release group with releases");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -42,7 +42,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-group>
 </metadata>';
 
-$mech->get_ok('/ws/2/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2/artists', 'release group lookup with artists');
+$mech->get_ok('/ws/2/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=artists', 'release group lookup with artists');
 &$v2 ($mech->content, "Validate release group with artists");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -59,6 +59,33 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-group>
 </metadata>';
 
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
+$mech->get_ok('/ws/2/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases', 'release group lookup with inc=artists+releases');
+&$v2 ($mech->content, "Validate release group with inc=artists+releases");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+        <title>the Love Bug</title>
+        <artist-credit>
+            <name-credit>
+                <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                </artist>
+            </name-credit>
+        </artist-credit>
+        <release-list count="1">
+            <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
+                <title>the Love Bug</title><status>official</status>
+                <text-representation>
+                    <language>eng</language><script>Latn</script>
+                </text-representation>
+                <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+            </release>
+        </release-list>
+    </release-group>
+</metadata>';
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 

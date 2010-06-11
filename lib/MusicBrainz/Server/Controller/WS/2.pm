@@ -10,7 +10,7 @@ use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_discid );
 use Readonly;
 use Data::OptList;
 
-Readonly our $MAX_ITEMS => 2;
+Readonly our $MAX_ITEMS => 25;
 
 # This defines what options are acceptable for WS calls
 # rel_status and rg_type are special cases that allow for one release status and one release group
@@ -23,8 +23,9 @@ my $ws_defs = Data::OptList::mkopt([
      },
      artist => {
                          method   => 'GET',
-                         inc      => [ qw(aliases discids media mediums) ],
-                         links    => [ qw(recordings releases release-groups works) ],
+                         inc      => [ qw(recordings releases release-groups works
+                                          aliases artist-credits discids media mediums
+                                          puids isrcs various-artists ) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -33,8 +34,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      "release-group" => {
                          method   => 'GET',
-                         inc      => [ qw(aliases discids media mediums) ],
-                         links    => [ qw(artists releases) ]
+                         inc      => [ qw(artists releases
+                                          aliases artist-credits discids media mediums) ]
      },
      release => {
                          method   => 'GET',
@@ -43,8 +44,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      release => {
                          method   => 'GET',
-                         inc      => [ qw(aliases discids media mediums) ],
-                         links    => [ qw(artists) ]
+                         inc      => [ qw(artists labels recordings release-groups
+                                          aliases artist-credits discids media mediums) ]
      },
      recording => {
                          method   => 'GET',
@@ -53,8 +54,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      recording => {
                          method   => 'GET',
-                         inc      => [ qw(aliases discids media mediums) ],
-                         links    => [ qw(artists releases) ]
+                         inc      => [ qw(artists releases
+                                          aliases artist-credits discids media mediums) ]
      },
      label => {
                          method   => 'GET',
@@ -63,8 +64,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      label => {
                          method   => 'GET',
-                         inc      => [ qw(aliases discids media mediums) ],
-                         links    => [ qw(releases) ],
+                         inc      => [ qw(releases
+                                          aliases artist-credits discids media mediums) ],
      },
      work => {
                          method   => 'GET',
@@ -73,8 +74,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      work => {
                          method   => 'GET',
-                         inc      => [ qw(aliases) ],
-                         links    => [ qw(artists) ]
+                         inc      => [ qw(artists
+                                          aliases) ]
      },
 #      puid => {
 #                          method   => 'GET',
@@ -176,6 +177,34 @@ sub _tags_and_ratings
     }
 }
 
+sub linked_recordings
+{
+    my ($self, $c, $recordings) = @_;
+
+#     if ($c->stash->{inc}->puids)
+#     {
+#         my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
+#         $opts->{puids} = \@puids;
+#     }
+
+    if ($c->stash->{inc}->artist_credits)
+    {
+        $c->model('ArtistCredit')->load(@$recordings);
+    }
+}
+
+sub linked_release_groups
+{
+    my ($self, $c, $release_groups) = @_;
+
+    $c->model('ReleaseGroupType')->load(@$release_groups);
+
+    if ($c->stash->{inc}->artist_credits)
+    {
+        $c->model('ArtistCredit')->load(@$release_groups);
+    }
+}
+
 sub linked_releases
 {
     my ($self, $c, $releases) = @_;
@@ -204,6 +233,11 @@ sub linked_releases
         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
         $c->model('CDTOC')->load(@medium_cdtocs);
     }
+
+    if ($c->stash->{inc}->artist_credits)
+    {
+        $c->model('ArtistCredit')->load(@$releases);
+    }
 }
 
 sub linked_artists
@@ -213,39 +247,22 @@ sub linked_artists
     $c->model('ArtistType')->load(@$artists);
     $c->model('Gender')->load(@$artists);
     $c->model('Country')->load(@$artists);
+}
 
+sub linked_works
+{
+    my ($self, $c, $works) = @_;
 
-#     $c->model('ReleaseStatus')->load(@$releases);
-#     $c->model('ReleasePackaging')->load(@$releases);
-
-#     $c->model('Language')->load(@$releases);
-#     $c->model('Script')->load(@$releases);
-
-#     my @mediums;
-#     if ($c->stash->{inc}->media)
-#     {
-#         $c->model('Medium')->load_for_releases(@$releases);
-
-#         @mediums = map { $_->all_mediums } @$releases;
-
-#         $c->model('MediumFormat')->load(@mediums);
-
-#         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-#     }
-
-#     if ($c->stash->{inc}->discids)
-#     {
-#         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
-#         $c->model('CDTOC')->load(@medium_cdtocs);
-#     }
+    if ($c->stash->{inc}->artist_credits)
+    {
+        $c->model('ArtistCredit')->load(@$works);
+    }
 }
 
 
-
-
-sub artist : Chained('root') PathPart('artist')
+sub artist : Chained('root') PathPart('artist') Args(1)
 {
-    my ($self, $c, $gid, $linked) = @_;
+    my ($self, $c, $gid) = @_;
 
     if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -268,12 +285,36 @@ sub artist : Chained('root') PathPart('artist')
         $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id);
     }
 
-    if ($linked && $linked eq 'releases')
+    if ($c->stash->{inc}->recordings)
+    {
+        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
+        $opts->{recordings} = $results[0];
+
+        $self->linked_recordings ($c, $opts->{recordings});
+    }
+
+    if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_artist($artist->id, $MAX_ITEMS);
         $opts->{releases} = $results[0];
 
         $self->linked_releases ($c, $opts->{releases});
+    }
+
+    if ($c->stash->{inc}->release_groups)
+    {
+        my @results = $c->model('ReleaseGroup')->find_by_artist($artist->id, $MAX_ITEMS);
+        $opts->{release_groups} = $results[0];
+
+        $self->linked_release_groups ($c, $opts->{release_groups});
+    }
+
+    if ($c->stash->{inc}->works)
+    {
+        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
+        $opts->{works} = $results[0];
+
+        $self->linked_works ($c, $opts->{works});
     }
 
 #     $self->_tags_and_ratings($c, 'Artist', $artist, $opts);
@@ -324,7 +365,7 @@ sub artist : Chained('root') PathPart('artist')
 #     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $opts, $linked));
+    $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $opts));
 }
 
 sub artist_search : Chained('root') PathPart('artist') Args(0)
@@ -344,9 +385,9 @@ sub artist_search : Chained('root') PathPart('artist') Args(0)
     }
 }
 
-sub release_group : Chained('root') PathPart('release-group')
+sub release_group : Chained('root') PathPart('release-group') Args(1)
 {
-    my ($self, $c, $gid, $linked) = @_;
+    my ($self, $c, $gid) = @_;
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -361,7 +402,15 @@ sub release_group : Chained('root') PathPart('release-group')
     $c->model('ReleaseGroupType')->load($rg);
 
     my $opts = {};
-    if ($linked && $linked eq 'artists')
+    if ($c->stash->{inc}->releases)
+    {
+        my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
+        $opts->{releases} = $results[0];
+
+        $self->linked_releases ($c, $opts->{releases});
+    }
+
+    if ($c->stash->{inc}->artists)
     {
         $c->model('ArtistCredit')->load($rg);
 
@@ -370,13 +419,6 @@ sub release_group : Chained('root') PathPart('release-group')
         $self->linked_artists ($c, \@artists);
     }
 
-    if ($linked && $linked eq 'releases')
-    {
-        my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
-        $opts->{releases} = $results[0];
-
-        $self->linked_releases ($c, $opts->{releases});
-    }
 
 #     $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
 #     if ($c->stash->{inc}->has_rels)
@@ -386,7 +428,7 @@ sub release_group : Chained('root') PathPart('release-group')
 #         $opts->{rels} = $rg->relationships;
 #     }
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts, $linked));
+    $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts));
 }
 
 sub release_group_search : Chained('root') PathPart('release-group') Args(0)
@@ -406,9 +448,9 @@ sub release_group_search : Chained('root') PathPart('release-group') Args(0)
     }
 }
 
-sub release: Chained('root') PathPart('release')
+sub release: Chained('root') PathPart('release') Args(1)
 {
-    my ($self, $c, $gid, $linked) = @_;
+    my ($self, $c, $gid) = @_;
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -427,7 +469,7 @@ sub release: Chained('root') PathPart('release')
 
     my $opts = {};
 
-    if ($linked && $linked eq 'artists')
+    if ($c->stash->{inc}->artists)
     {
         $c->model('ArtistCredit')->load($release);
 
@@ -435,6 +477,38 @@ sub release: Chained('root') PathPart('release')
 
         $self->linked_artists ($c, \@artists);
     }
+
+    if ($c->stash->{inc}->labels)
+    {
+        $c->model('ReleaseLabel')->load($release);
+        $c->model('Label')->load($release->all_labels)
+    }
+
+    if ($c->stash->{inc}->release_groups)
+    {
+         $c->model('ReleaseGroup')->load($release);
+         $c->model('ReleaseGroupType')->load($release->release_group);
+    }
+
+    if ($c->stash->{inc}->recordings)
+    {
+        $c->model('Medium')->load_for_releases($release);
+        my @mediums = $release->all_mediums;
+        $c->model('MediumFormat')->load(@mediums);
+
+        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
+        $c->model('Track')->load_for_tracklists(@tracklists);
+
+        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+        $c->model('Recording')->load_meta(@recordings);
+
+#         if ($c->stash->{inc}->isrcs)
+#         {
+#             my @isrcs = $c->model('ISRC')->find_by_recording([ map { $_->id } @recordings ]);
+#             $opts->{isrcs} = \@isrcs;
+#         }
+    }
+
 
 #     if ($c->stash->{inc}->releasegroups)
 #     {
@@ -483,7 +557,7 @@ sub release: Chained('root') PathPart('release')
 #     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts, $linked));
+    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts));
 }
 
 sub release_search : Chained('root') PathPart('release') Args(0)
@@ -503,9 +577,9 @@ sub release_search : Chained('root') PathPart('release') Args(0)
     }
 }
 
-sub recording: Chained('root') PathPart('recording')
+sub recording: Chained('root') PathPart('recording') Args(1)
 {
-    my ($self, $c, $gid, $linked) = @_;
+    my ($self, $c, $gid) = @_;
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -522,7 +596,7 @@ sub recording: Chained('root') PathPart('recording')
 
     my $opts = {};
 
-    if ($linked && $linked eq 'releases')
+    if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_recording($recording->id, $MAX_ITEMS);
         $opts->{releases} = $results[0];
@@ -530,7 +604,7 @@ sub recording: Chained('root') PathPart('recording')
         $self->linked_releases ($c, $opts->{releases});
     }
 
-    if ($linked && $linked eq 'artists')
+    if ($c->stash->{inc}->artists)
     {
         $c->model('ArtistCredit')->load($recording);
 
@@ -566,7 +640,7 @@ sub recording: Chained('root') PathPart('recording')
 #     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $opts, $linked));
+    $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $opts));
 }
 
 sub recording_search : Chained('root') PathPart('recording') Args(0)
@@ -586,9 +660,9 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
     }
 }
 
-sub label : Chained('root') PathPart('label')
+sub label : Chained('root') PathPart('label') Args(1)
 {
-    my ($self, $c, $gid, $linked) = @_;
+    my ($self, $c, $gid) = @_;
 
     if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -607,7 +681,7 @@ sub label : Chained('root') PathPart('label')
         $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id);
     }
 
-    if ($linked && $linked eq 'releases')
+    if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_label($label->id, $MAX_ITEMS);
         $opts->{releases} = $results[0];
@@ -626,7 +700,7 @@ sub label : Chained('root') PathPart('label')
 
 #     $c->model('LabelType')->load($label);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $opts, $linked));
+    $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $opts));
 }
 
 sub label_search : Chained('root') PathPart('label') Args(0)
@@ -648,9 +722,9 @@ sub label_search : Chained('root') PathPart('label') Args(0)
 
 
 
-sub work : Chained('root') PathPart('work')
+sub work : Chained('root') PathPart('work') Args(1)
 {
-    my ($self, $c, $gid, $linked) = @_;
+    my ($self, $c, $gid) = @_;
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -664,7 +738,7 @@ sub work : Chained('root') PathPart('work')
     }
 
     my $opts = {};
-    if ($linked && $linked eq 'artists')
+    if ($c->stash->{inc}->artists)
     {
         $c->model('ArtistCredit')->load($work);
 
@@ -685,7 +759,7 @@ sub work : Chained('root') PathPart('work')
 
     $c->model('WorkType')->load($work);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $opts, $linked));
+    $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $opts));
 }
 
 sub work_search : Chained('root') PathPart('work') Args(0)
