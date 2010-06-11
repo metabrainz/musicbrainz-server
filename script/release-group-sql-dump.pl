@@ -186,8 +186,30 @@ sub recording
     artist_credit ($dbh, $data->[0]->{artist_credit});
     backup ($dbh, 'recording', $data);
 
-    generic ($dbh, 'recording_puid', 'recording', $id);
+    recording_puid ($dbh, $id);
     generic ($dbh, 'isrc', 'recording', $id);
+}
+
+sub recording_puid
+{
+    my ($dbh, $id) = @_;
+
+    my $data = get_rows ($dbh, 'recording_puid', 'recording', $id);
+    for (@$data)
+    {
+        puid ($dbh, $_->{puid});
+    }
+    backup ($dbh, 'recording_puid', $data);
+}
+
+sub puid
+{
+    my ($dbh, $id) = @_;
+
+    my $data = get_rows ($dbh, 'puid', 'id', $id);
+
+    generic ($dbh, 'clientversion', 'id', $data->[0]->{version});
+    backup ($dbh, 'puid', $data);
 }
 
 sub tracks
