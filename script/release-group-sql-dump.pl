@@ -231,6 +231,11 @@ sub tracklists
     my ($dbh, $id) = @_;
 
     my $data = get_rows ($dbh, 'tracklist', 'id', $id);
+
+    for (@$data)
+    {
+        $_->{trackcount} = 0;
+    }
     backup ($dbh, 'tracklist', $data);
 
     tracks ($dbh, $id);
