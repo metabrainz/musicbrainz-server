@@ -73,7 +73,7 @@ sub _serialize_artist
     if ($toplevel)
     {
         push @list, $gen->gender(lc($artist->gender->name)) if ($artist->gender);
-        push @list, $gen->country(lc($artist->country->iso_code)) if ($artist->country);
+        push @list, $gen->country($artist->country->iso_code) if ($artist->country);
 
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
         $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
@@ -290,11 +290,6 @@ sub _serialize_recording
     push @list, $gen->length($recording->length);
     push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
 
-    $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, {})
-        if ($opts->{puids} && $inc->{puids});
-    $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, {})
-        if ($opts->{isrcs} && $inc->{isrcs});
-
     if ($toplevel)
     {
         $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts, $inc->artists)
@@ -308,6 +303,11 @@ sub _serialize_recording
         $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts)
             if $inc->artist_credits;
     }
+
+    $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, {})
+        if ($opts->{puids} && $inc->{puids});
+    $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, {})
+        if ($opts->{isrcs} && $inc->{isrcs});
 
 #     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
@@ -345,6 +345,10 @@ sub _serialize_track_list
 {
     my ($self, $data, $gen, $tracklist, $inc, $opts) = @_;
 
+#     use Data::Dumper;
+#     local $Data::Dumper::Maxdepth = 3;
+#     warn "tracklist: ".Dumper($tracklist)."\n";
+
     my @list;
     foreach my $track (@{$tracklist->tracks})
     {
@@ -359,17 +363,10 @@ sub _serialize_track
     my ($self, $data, $gen, $track, $inc, $opts) = @_;
 
     my @track;
-    push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
     push @track, $gen->position($track->position);
+    push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
 
-    # Save the current state of the releases inc setting, and don't pass it to the
-    # recording serializer to avoid it from outputing releases.
-    my $saved = $inc->releases;
-    $inc->releases(0);
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $opts);
-
-    # Now restore the inc setting
-    $inc->releases($saved);
 
     push @$data, $gen->track(@track);
 }
@@ -450,7 +447,7 @@ sub _serialize_label
     push @list, $gen->name($label->name);
     push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
-    push @list, $gen->country($label->country) if $label->country;
+    push @list, $gen->country($label->country->iso_code) if $label->country;
     $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
 #     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
@@ -514,16 +511,19 @@ sub _serialize_puid_list
     {
         $self->_serialize_puid(\@list, $gen, $puid->puid, $inc, $opts);
     }
-    push @$data, $gen->isrc_list({ count => scalar(@$puids) }, @list);
+    push @$data, $gen->puid_list({ count => scalar(@$puids) }, @list);
 }
 
 sub _serialize_puid
 {
-    my ($self, $data, $gen, $puid, $inc, $opts) = @_;
+    my ($self, $data, $gen, $puid, $inc, $opts, $toplevel) = @_;
 
     my @list;
-    $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $opts)
-         if (${opts}->{recordings});
+    if ($toplevel)
+    {
+        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $opts)
+            if (${opts}->{recordings});
+    }
     push @$data, $gen->puid({ id => $puid->puid }, @list);
 }
 

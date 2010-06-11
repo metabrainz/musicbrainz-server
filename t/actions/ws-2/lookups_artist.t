@@ -143,7 +143,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                                 <sectors>281289</sectors>
                             </disc>
                         </disc-list>
-                        <track-list count="24" />
+                        <track-list count="12" />
                     </medium>
                 </medium-list>
             </release>
@@ -161,7 +161,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                                 <sectors>215137</sectors>
                             </disc>
                         </disc-list>
-                        <track-list count="18" />
+                        <track-list count="9" />
                     </medium>
                     <medium>
                         <title>Chestplate Singles</title><position>2</position><format>CD</format>
@@ -170,7 +170,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                                 <sectors>208393</sectors>
                             </disc>
                         </disc-list>
-                        <track-list count="18" />
+                        <track-list count="9" />
                     </medium>
                 </medium-list>
             </release>

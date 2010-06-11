@@ -19,6 +19,7 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label>
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+        <country>GB</country>
         <life-span><begin>1995</begin></life-span>
     </label>
 </metadata>';
@@ -32,6 +33,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label>
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+        <country>GB</country>
         <life-span><begin>1995</begin></life-span>
         <alias-list count="1"><alias>Planet µ</alias></alias-list>
     </label>
@@ -46,6 +48,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label>
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+        <country>GB</country>
         <life-span><begin>1995</begin></life-span>
         <release-list count="2">
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
@@ -56,7 +59,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <date>2007-01-29</date><country>GB</country>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>CD</format><track-list count="24" />
+                        <position>1</position><format>CD</format><track-list count="12" />
                     </medium>
                 </medium-list>
             </release>
@@ -68,11 +71,11 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <date>2008-11-17</date><country>GB</country>
                 <medium-list count="2">
                     <medium>
-                        <position>1</position><format>CD</format><track-list count="18" />
+                        <position>1</position><format>CD</format><track-list count="9" />
                     </medium>
                     <medium>
-                        <title>Chestplate Singles</title><position>2</position>
-                        <format>CD</format><track-list count="18" />
+                        <title>Chestplate Singles</title>
+                        <position>2</position><format>CD</format><track-list count="9" />
                     </medium>
                 </medium-list>
             </release>

@@ -45,7 +45,8 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups
-                                          aliases artist-credits discids media mediums) ]
+                                          aliases artist-credits discids media mediums
+                                          puids isrcs) ]
      },
      recording => {
                          method   => 'GET',
@@ -55,7 +56,8 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          inc      => [ qw(artists releases
-                                          aliases artist-credits discids media mediums) ]
+                                          aliases artist-credits discids media mediums
+                                          puids isrcs) ]
      },
      label => {
                          method   => 'GET',
@@ -179,13 +181,21 @@ sub _tags_and_ratings
 
 sub linked_recordings
 {
-    my ($self, $c, $recordings) = @_;
+    my ($self, $c, $opts, $recordings) = @_;
 
-#     if ($c->stash->{inc}->puids)
-#     {
-#         my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-#         $opts->{puids} = \@puids;
-#     }
+    for my $recording (@$recordings)
+    {
+        if ($c->stash->{inc}->isrcs)
+        {
+            my @isrcs = $c->model('ISRC')->find_by_recording([ $recording->id ]);
+            $opts->{isrcs} = \@isrcs;
+        }
+        if ($c->stash->{inc}->puids)
+        {
+            my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
+            $opts->{puids} = \@puids;
+        }
+    }
 
     if ($c->stash->{inc}->artist_credits)
     {
@@ -195,7 +205,7 @@ sub linked_recordings
 
 sub linked_release_groups
 {
-    my ($self, $c, $release_groups) = @_;
+    my ($self, $c, $opts, $release_groups) = @_;
 
     $c->model('ReleaseGroupType')->load(@$release_groups);
 
@@ -207,7 +217,7 @@ sub linked_release_groups
 
 sub linked_releases
 {
-    my ($self, $c, $releases) = @_;
+    my ($self, $c, $opts, $releases) = @_;
 
     $c->model('ReleaseStatus')->load(@$releases);
     $c->model('ReleasePackaging')->load(@$releases);
@@ -224,8 +234,6 @@ sub linked_releases
         @mediums = map { $_->all_mediums } @$releases;
 
         $c->model('MediumFormat')->load(@mediums);
-
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
     }
 
     if ($c->stash->{inc}->discids)
@@ -242,16 +250,17 @@ sub linked_releases
 
 sub linked_artists
 {
-    my ($self, $c, $artists) = @_;
+    my ($self, $c, $opts, $artists) = @_;
+}
 
-    $c->model('ArtistType')->load(@$artists);
-    $c->model('Gender')->load(@$artists);
-    $c->model('Country')->load(@$artists);
+sub linked_labels
+{
+    my ($self, $c, $opts, $labels) = @_;
 }
 
 sub linked_works
 {
-    my ($self, $c, $works) = @_;
+    my ($self, $c, $opts, $works) = @_;
 
     if ($c->stash->{inc}->artist_credits)
     {
@@ -275,11 +284,13 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         $c->detach('not_found');
     }
 
+    my $opts = {};
+    $self->linked_artists ($c, $opts, [ $artist ]);
+
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
 
-    my $opts = {};
     if ($c->stash->{inc}->aliases)
     {
         $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id);
@@ -290,7 +301,7 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
         $opts->{recordings} = $results[0];
 
-        $self->linked_recordings ($c, $opts->{recordings});
+        $self->linked_recordings ($c, $opts, $opts->{recordings});
     }
 
     if ($c->stash->{inc}->releases)
@@ -298,7 +309,7 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         my @results = $c->model('Release')->find_by_artist($artist->id, $MAX_ITEMS);
         $opts->{releases} = $results[0];
 
-        $self->linked_releases ($c, $opts->{releases});
+        $self->linked_releases ($c, $opts, $opts->{releases});
     }
 
     if ($c->stash->{inc}->release_groups)
@@ -306,7 +317,7 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         my @results = $c->model('ReleaseGroup')->find_by_artist($artist->id, $MAX_ITEMS);
         $opts->{release_groups} = $results[0];
 
-        $self->linked_release_groups ($c, $opts->{release_groups});
+        $self->linked_release_groups ($c, $opts, $opts->{release_groups});
     }
 
     if ($c->stash->{inc}->works)
@@ -314,49 +325,9 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
         $opts->{works} = $results[0];
 
-        $self->linked_works ($c, $opts->{works});
+        $self->linked_works ($c, $opts, $opts->{works});
     }
 
-#     $self->_tags_and_ratings($c, 'Artist', $artist, $opts);
-
-#     if ($c->stash->{inc}->rg_type)
-#     {
-#         my @rg = $c->model('ReleaseGroup')->filter_by_artist($artist->id, $c->stash->{inc}->rg_type);
-#         $c->model('ArtistCredit')->load(@rg);
-#         $c->model('ReleaseGroupType')->load(@rg);
-#         $opts->{release_groups} = \@rg;
-
-#         if ($c->stash->{inc}->rel_status && @rg)
-#         {
-#             my @releases = $self->_load_paged($c, sub {
-#                 $c->model('Release')->find_by_release_group([ map { $_->id } @rg ], shift, shift)
-#             });
-
-#             @releases = grep { $_->status->id == $c->stash->{inc}->rel_status } @{$releases[0]};
-
-#             my %rg_to_rel_map;
-#             foreach my $rel (@releases)
-#             {
-#                 $rg_to_rel_map{$rel->release_group_id} = [] if (!exists $rg_to_rel_map{$rel->release_group_id});
-#                 push @{$rg_to_rel_map{$rel->release_group_id}}, $rel;
-#             }
-
-#             if ($c->stash->{inc}->discs)
-#             {
-#                 $c->model('Medium')->load_for_releases(@releases);
-#                 my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } @releases);
-#                 $c->model('CDTOC')->load(@medium_cdtocs);
-#             }
-#             $opts->{releases} = \%rg_to_rel_map;
-#             $c->stash->{inc}->releases(1);
-#         }
-#     }
-
-#     if ($c->stash->{inc}->labels)
-#     {
-#          my @labels = $c->model('Label')->find_by_artist($artist->id);
-#          $opts->{labels} = \@labels;
-#     }
 #     if ($c->stash->{inc}->has_rels)
 #     {
 #         my $types = $c->stash->{inc}->get_rel_types();
@@ -399,15 +370,16 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
     unless ($rg) {
         $c->detach('not_found');
     }
-    $c->model('ReleaseGroupType')->load($rg);
 
     my $opts = {};
+    $self->linked_release_groups ($c, $opts, [ $rg ]);
+
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
         $opts->{releases} = $results[0];
 
-        $self->linked_releases ($c, $opts->{releases});
+        $self->linked_releases ($c, $opts, $opts->{releases});
     }
 
     if ($c->stash->{inc}->artists)
@@ -416,7 +388,7 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
 
         my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $rg->artist_credit->names };
 
-        $self->linked_artists ($c, \@artists);
+        $self->linked_artists ($c, $opts, \@artists);
     }
 
 
@@ -463,11 +435,9 @@ sub release: Chained('root') PathPart('release') Args(1)
         $c->detach('not_found');
     }
 
-    $self->linked_releases ($c, [ $release ]);
-
-    $c->model('Release')->load_meta($release);
-
     my $opts = {};
+    $c->model('Release')->load_meta($release);
+    $self->linked_releases ($c, $opts, [ $release ]);
 
     if ($c->stash->{inc}->artists)
     {
@@ -475,13 +445,15 @@ sub release: Chained('root') PathPart('release') Args(1)
 
         my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $release->artist_credit->names };
 
-        $self->linked_artists ($c, \@artists);
+        $self->linked_artists ($c, $opts, \@artists);
     }
 
     if ($c->stash->{inc}->labels)
     {
         $c->model('ReleaseLabel')->load($release);
-        $c->model('Label')->load($release->all_labels)
+        $c->model('Label')->load($release->all_labels);
+
+        $self->linked_labels ($c, $opts, $release->all_labels);
     }
 
     if ($c->stash->{inc}->release_groups)
@@ -492,9 +464,13 @@ sub release: Chained('root') PathPart('release') Args(1)
 
     if ($c->stash->{inc}->recordings)
     {
-        $c->model('Medium')->load_for_releases($release);
-        my @mediums = $release->all_mediums;
-        $c->model('MediumFormat')->load(@mediums);
+        my @mediums;
+        if (!$c->stash->{inc}->media)
+        {
+            $c->model('Medium')->load_for_releases($release);
+        }
+        
+        @mediums = $release->all_mediums;
 
         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
         $c->model('Track')->load_for_tracklists(@tracklists);
@@ -502,13 +478,8 @@ sub release: Chained('root') PathPart('release') Args(1)
         my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
         $c->model('Recording')->load_meta(@recordings);
 
-#         if ($c->stash->{inc}->isrcs)
-#         {
-#             my @isrcs = $c->model('ISRC')->find_by_recording([ map { $_->id } @recordings ]);
-#             $opts->{isrcs} = \@isrcs;
-#         }
+        $self->linked_recordings ($c, $opts, \@recordings);
     }
-
 
 #     if ($c->stash->{inc}->releasegroups)
 #     {
@@ -591,17 +562,16 @@ sub recording: Chained('root') PathPart('recording') Args(1)
     unless ($recording) {
         $c->detach('not_found');
     }
-    $c->model('ArtistCredit')->load($recording)
-        if ($c->stash->{inc}->artists);
 
     my $opts = {};
+    $self->linked_recordings ($c, $opts, [ $recording ]);
 
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_recording($recording->id, $MAX_ITEMS);
         $opts->{releases} = $results[0];
 
-        $self->linked_releases ($c, $opts->{releases});
+        $self->linked_releases ($c, $opts, $opts->{releases});
     }
 
     if ($c->stash->{inc}->artists)
@@ -610,28 +580,11 @@ sub recording: Chained('root') PathPart('recording') Args(1)
 
         my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $recording->artist_credit->names };
 
-        $self->linked_artists ($c, \@artists);
+        $self->linked_artists ($c, $opts, \@artists);
     }
 
 #     $self->_tags_and_ratings($c, 'Recording', $recording, $opts);
 
-#     if ($c->stash->{inc}->releases)
-#     {
-#         my @releases = $self->_load_paged($c, sub {
-#             $c->model('Release')->find_by_recording($recording->id, shift, shift)
-#         });
-#         $opts->{releases} = \@releases;
-#     }
-#     if ($c->stash->{inc}->isrcs)
-#     {
-#         my @isrcs = $c->model('ISRC')->find_by_recording([ $recording->id ]);
-#         $opts->{isrcs} = \@isrcs;
-#     }
-#     if ($c->stash->{inc}->puids)
-#     {
-#         my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-#         $opts->{puids} = \@puids;
-#     }
 #     if ($c->stash->{inc}->has_rels)
 #     {
 #         my $types = $c->stash->{inc}->get_rel_types();
@@ -676,6 +629,11 @@ sub label : Chained('root') PathPart('label') Args(1)
     }
 
     my $opts = {};
+    $self->linked_labels ($c, $opts, [ $label ]);
+
+    $c->model('LabelType')->load($label);
+    $c->model('Country')->load($label);
+
     if ($c->stash->{inc}->aliases)
     {
         $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id);
@@ -686,7 +644,7 @@ sub label : Chained('root') PathPart('label') Args(1)
         my @results = $c->model('Release')->find_by_label($label->id, $MAX_ITEMS);
         $opts->{releases} = $results[0];
 
-        $self->linked_releases ($c, $opts->{releases});
+        $self->linked_releases ($c, $opts, $opts->{releases});
     }
 
 #     $self->_tags_and_ratings($c, 'Label', $label, $opts);
@@ -744,7 +702,7 @@ sub work : Chained('root') PathPart('work') Args(1)
 
         my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $work->artist_credit->names };
 
-        $self->linked_artists ($c, \@artists);
+        $self->linked_artists ($c, $opts, \@artists);
     }
 
 #     $self->_tags_and_ratings($c, 'Work', $work, $opts);

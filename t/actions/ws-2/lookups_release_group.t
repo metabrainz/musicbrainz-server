@@ -51,7 +51,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <title>Repercussions</title>
         <artist-credit>
             <name-credit>
-                <artist type="person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+                <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
                     <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                 </artist>
             </name-credit>
@@ -70,7 +70,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <title>the Love Bug</title>
         <artist-credit>
             <name-credit>
-                <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                 </artist>
             </name-credit>
