@@ -185,6 +185,9 @@ sub recording
     generic_verbose ($dbh, 'track_name', 'id', $data->[0]->{name});
     artist_credit ($dbh, $data->[0]->{artist_credit});
     backup ($dbh, 'recording', $data);
+
+    generic ($dbh, 'recording_puid', 'recording', $id);
+    generic ($dbh, 'isrc', 'recording', $id);
 }
 
 sub tracks
