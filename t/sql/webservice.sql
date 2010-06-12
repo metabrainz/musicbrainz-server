@@ -589,6 +589,32 @@ INSERT INTO label (country, sortname, labelcode, name, enddate_day, begindate_da
 INSERT INTO label_name (name, id) VALUES ('rythm zone', 34052);
 INSERT INTO label_alias (name, locale, label, id, editpending) VALUES (34052, NULL, 2882, 866, 0);
 INSERT INTO release_label (catno, label, release, id) VALUES ('RZCD-45118', 2882, 59662, 337698);
+INSERT INTO release_name (name, id) VALUES ('VALENTI', 643117);
+INSERT INTO artist_credit (artistcount, refcount, name, id) VALUES (1, 1774, 90342, 9496);
+INSERT INTO artist_credit_name (artist, name, position, artist_credit, joinphrase) VALUES (9496, 90342, 0, 9496, NULL);
+INSERT INTO release_group (comment, name, type, artist_credit, id, editpending, gid) VALUES (NULL, 643117, 3, 9496, 402511, 0, '3e933c75-572f-3818-aba6-cf82d6f113f0');
+INSERT INTO release (date_day, status, release_group, packaging, id, quality, country, script, language, name, artist_credit, barcode, comment, date_year, date_month, gid, editpending) VALUES (28, 1, 402511, NULL, 59339, -1, 107, 28, 198, 643117, 9496, NULL, NULL, 2002, 8, 'c9355105-de80-43dc-812c-541be305e8a3', 0);
+INSERT INTO tracklist (trackcount, id) VALUES (0, 402511);
+INSERT INTO track_name (name, id) VALUES ('VALENTI', 4092326);
+INSERT INTO recording (length, comment, name, artist_credit, id, editpending, gid) VALUES (0, NULL, 4092326, 9496, 4516735, 0, '4490b0b7-69e6-4cdd-9e86-f01dc38d6c01');
+INSERT INTO track_name (name, id) VALUES ('Realize (stay with me)', 3042252);
+INSERT INTO recording (length, comment, name, artist_credit, id, editpending, gid) VALUES (0, NULL, 3042252, 9496, 4516736, 0, '8566dbe2-fea9-4b02-b12a-d206b8aca8e8');
+INSERT INTO track_name (name, id) VALUES ('VALENTI (English version)', 4092333);
+INSERT INTO recording (length, comment, name, artist_credit, id, editpending, gid) VALUES (0, NULL, 4092333, 9496, 4516737, 0, '61a997ce-b5f9-44b2-89a2-406bbd124a13');
+INSERT INTO track_name (name, id) VALUES ('VALENTI (instrumental)', 4092335);
+INSERT INTO recording (length, comment, name, artist_credit, id, editpending, gid) VALUES (0, NULL, 4092335, 9496, 4516738, 0, '21b04c4a-32da-4647-9ce5-1b2953e84854');
+INSERT INTO track (length, recording, name, position, artist_credit, id, tracklist, editpending) VALUES (0, 4516735, 4092326, 1, 9496, 4516735, 402511, 0);
+INSERT INTO track (length, recording, name, position, artist_credit, id, tracklist, editpending) VALUES (0, 4516736, 3042252, 2, 9496, 4516736, 402511, 0);
+INSERT INTO track (length, recording, name, position, artist_credit, id, tracklist, editpending) VALUES (0, 4516737, 4092333, 3, 9496, 4516737, 402511, 0);
+INSERT INTO track (length, recording, name, position, artist_credit, id, tracklist, editpending) VALUES (0, 4516738, 4092335, 4, 9496, 4516738, 402511, 0);
+INSERT INTO medium (format, name, position, release, id, tracklist, editpending) VALUES (1, NULL, 1, 59339, 59339, 402511, 0);
+INSERT INTO label_name (name, id) VALUES ('avex trax', 3514);
+INSERT INTO label (country, sortname, labelcode, name, enddate_day, begindate_day, comment, begindate_year, begindate_month, enddate_year, type, id, editpending, enddate_month, gid) VALUES (107, 3514, NULL, 3514, NULL, NULL, NULL, NULL, NULL, NULL, 4, 28, 0, NULL, '168f48c8-057e-4974-9600-aa9956d21e1a');
+INSERT INTO label_name (name, id) VALUES ('エイベックス・トラックス', 201);
+INSERT INTO label_name (name, id) VALUES ('Avex Trax Japan', 3515);
+INSERT INTO label_alias (name, locale, label, id, editpending) VALUES (201, NULL, 28, 24, 0);
+INSERT INTO label_alias (name, locale, label, id, editpending) VALUES (3515, NULL, 28, 25, 0);
+INSERT INTO release_label (catno, label, release, id) VALUES ('AVCD-30358', 28, 59339, 253747);
 
 COMMIT;
 
