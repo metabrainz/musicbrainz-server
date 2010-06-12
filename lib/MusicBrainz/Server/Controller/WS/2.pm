@@ -306,7 +306,16 @@ sub artist : Chained('root') PathPart('artist') Args(1)
 
     if ($c->stash->{inc}->releases)
     {
-        my @results = $c->model('Release')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results;
+        if ($c->stash->{inc}->various_artists)
+        {
+            @results = $c->model('Release')->find_for_various_artists($artist->id, $MAX_ITEMS);
+        }
+        else
+        {
+            @results = $c->model('Release')->find_by_artist($artist->id, $MAX_ITEMS);
+        }
+
         $opts->{releases} = $results[0];
 
         $self->linked_releases ($c, $opts, $opts->{releases});

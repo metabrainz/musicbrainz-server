@@ -246,4 +246,52 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
+$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases', 'single artist release lookup');
+&$v2 ($mech->content, "Validate single artist release lookup");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <name>BoA</name><sort-name>BoA</sort-name>
+        <life-span>
+            <begin>1986-11-05</begin>
+        </life-span>
+        <release-list count="1">
+            <release id="c9355105-de80-43dc-812c-541be305e8a3">
+                <title>VALENTI</title><status>official</status>
+                <text-representation>
+                    <language>jpn</language><script>Latn</script>
+                </text-representation>
+                <date>2002-08-28</date><country>JP</country>
+            </release>
+        </release-list>
+    </artist>
+</metadata>';
+
+is ($diff->compare ($expected, $mech->content), 0, 'result ok');
+
+$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists', 'various artists release lookup');
+&$v2 ($mech->content, "Validate various artists release lookup");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <name>BoA</name><sort-name>BoA</sort-name>
+        <life-span>
+            <begin>1986-11-05</begin>
+        </life-span>
+        <release-list count="1">
+            <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
+                <title>the Love Bug</title><status>official</status>
+                <text-representation>
+                    <language>eng</language><script>Latn</script>
+                </text-representation>
+                <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+            </release>
+        </release-list>
+    </artist>
+</metadata>';
+
+is ($diff->compare ($expected, $mech->content), 0, 'result ok');
+
 done_testing;
