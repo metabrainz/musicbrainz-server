@@ -27,6 +27,7 @@
         <ul class="links">
           [% IF c.user_exists %]
           <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
+          <li>[% link_recording(recording, 'add_isrc', l('Add ISRC')) %]</li>
           [% IF recording.edits_pending %]
             <li>[% link_recording(recording, 'open_edits', l('Open edits')) %]</li>
           [% END %]

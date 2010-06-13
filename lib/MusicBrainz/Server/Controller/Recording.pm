@@ -18,6 +18,7 @@ __PACKAGE__->config(
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
     $EDIT_RECORDING_MERGE
+    $EDIT_RECORDING_ADD_ISRCS
     $EDIT_PUID_DELETE
 );
 
@@ -158,6 +159,28 @@ around '_merge_search' => sub {
     $c->model('ArtistCredit')->load(map { $_->entity } @$results);
     return $results;
 };
+
+sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $recording = $c->stash->{recording};
+    my $form = $c->form(form => 'AddISRC');
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $self->_insert_edit(
+            $c, $form,
+            edit_type => $EDIT_RECORDING_ADD_ISRCS,
+            isrcs => [ {
+                isrc         => $form->field('isrc')->value,
+                recording_id => $recording->id,
+                source       => 0
+            } ]
+        );
+
+        $c->response->redirect($c->uri_for_action('/recording/show', [ $recording->gid ]));
+        $c->detach;
+    }
+}
 
 sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
 {
