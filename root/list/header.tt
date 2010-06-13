@@ -1,0 +1,12 @@
+[%- info_links = [
+    ['index', link_list(list, 'show', l('Overview'))]
+] -%]
+
+<div class="listheader">
+    <h1>[% link_list(list) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> [% l('List')%]
+    </p>
+</div>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]

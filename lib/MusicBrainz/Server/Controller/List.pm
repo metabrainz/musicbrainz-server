@@ -69,7 +69,8 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         list => $list,
         order => $order,
-        releases => $releases
+        releases => $releases,
+        template => 'list/index.tt'
     );
 }
 

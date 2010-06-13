@@ -1,6 +1,4 @@
-[% WRAPPER "layout.tt" full_width=1 title=l("List “{list}”", { list => html_escape(list.name) }) %]
-
-    <h1>[% l("List “{list}”", { list => html_escape(list.name) }) %]</h1>
+[% WRAPPER "list/layout.tt" full_width=1 page='index' %]
 
     [%- IF releases.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
