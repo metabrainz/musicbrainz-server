@@ -56,4 +56,12 @@ $sql->commit;
 is(scalar @isrcs, 1);
 is($isrcs[0]->isrc, 'DEE250800232');
 
+$sql->begin;
+
+$c->model('ISRC')->delete(1);
+$isrc = $c->model('ISRC')->get_by_id(1);
+ok(!defined $isrc);
+
+$sql->commit;
+
 done_testing;
