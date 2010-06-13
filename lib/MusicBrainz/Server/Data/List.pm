@@ -1,8 +1,12 @@
 package MusicBrainz::Server::Data::List;
 
 use Moose;
+
+use Carp;
 use Sql;
+use MusicBrainz::Server::Entity::List;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     placeholders
     query_to_list_limited
 );
@@ -144,6 +148,27 @@ sub get_first_list
     my ($self, $editor_id) = @_;
     my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
     return $self->sql->select_single_value($query, $editor_id);
+}
+
+sub update
+{
+    my ($self, $list_id, $update) = @_;
+    croak '$list_id must be present and > 0' unless $list_id > 0;
+    my $row = $self->_hash_to_row($update);
+    $self->sql->auto_commit;
+    $self->sql->update_row('list', $row, { id => $list_id });
+}
+
+sub _hash_to_row
+{
+    my ($self, $values) = @_;
+
+    my %row = (
+        name => $values->{name},
+        public => $values->{public}
+    );
+
+    return \%row;
 }
 
 __PACKAGE__->meta->make_immutable;

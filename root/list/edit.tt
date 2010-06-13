@@ -1,0 +1,3 @@
+[% WRAPPER "list/layout.tt" title=l('Edit List') full_width=1 page='edit' %]
+    [% INCLUDE 'list/edit_form.tt' %]
+[% END %]

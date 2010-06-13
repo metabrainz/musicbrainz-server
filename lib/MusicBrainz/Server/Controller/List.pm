@@ -74,6 +74,27 @@ sub show : Chained('load') PathPart('')
     );
 }
 
+sub edit : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $list = $c->stash->{list};
+
+    my $user = $list->editor;
+    $c->detach('/error_404') if ($c->user->id != $user->id);
+
+    my $form = $c->form( form => 'List', init_object => $list );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my %update = map { $form->field($_)->name => $form->field($_)->value } $form->edit_field_names;
+
+        $c->model('List')->update($list->id, \%update);
+
+        $c->response->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+    }
+}
+
 1;
 
 =head1 COPYRIGHT
