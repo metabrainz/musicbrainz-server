@@ -9,7 +9,10 @@ has_field 'text' => (
     type     => 'Text',
 );
 
-has_field 'changelog' => (type => 'Text');
+has_field 'changelog' => (
+    type      => 'Text',
+    maxlength => 255
+);
 
 has 'annotation_model' => (
     is       => 'ro',

@@ -16,23 +16,27 @@ has_field 'child_order' => (
 );
 
 has_field 'name' => (
-    type => 'Text',
-    required => 1,
+    type      => 'Text',
+    required  => 1,
+    maxlength => 255
 );
 
 has_field 'link_phrase' => (
-    type => 'Text',
-    required => 1,
+    type      => 'Text',
+    required  => 1,
+    maxlength => 255
 );
 
 has_field 'reverse_link_phrase' => (
-    type => 'Text',
-    required => 1,
+    type      => 'Text',
+    required  => 1,
+    maxlength => 255
 );
 
 has_field 'short_link_phrase' => (
-    type => 'Text',
-    required => 1,
+    type      => 'Text',
+    required  => 1,
+    maxlength => 255
 );
 
 has_field 'description' => (
