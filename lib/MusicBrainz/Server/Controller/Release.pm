@@ -24,6 +24,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
+    $EDIT_RELEASE_CHANGE_QUALITY
 );
 
 # A duration lookup has to match within this many milliseconds
@@ -389,6 +390,24 @@ sub rating : Chained('load') Args(2)
     $c->forward('/rating/do_rating', ['artist', $entity, $new_vote]);
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
+
+sub change_quality : Chained('load') PathPart('change-quality') RequireAuthu
+{
+    my ($self, $c) = @_;
+    my $release = $c->stash->{release};
+    $self->edit_action(
+        $c,
+        item => $release,
+        form => 'ChangeReleaseQuality',
+        type => $EDIT_RELEASE_CHANGE_QUALITY,
+        edit_args => { to_edit => $release },
+        on_creation => sub {
+            my $uri = $c->uri_for_action('/release/show', [ $release->gid ]);
+            $c->response->redirect($uri);
+        }
+    );
+}
+
 
 =head1 LICENSE
 

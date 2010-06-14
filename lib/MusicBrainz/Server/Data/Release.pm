@@ -287,6 +287,7 @@ sub _hash_to_row
         country => $release->{country_id},
         script => $release->{script_id},
         language => $release->{language_id},
+        quality => $release->{quality}
     );
 
     if ($release->{name})
