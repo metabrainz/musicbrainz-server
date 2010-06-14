@@ -91,6 +91,9 @@ pre code {
 code {
     background-color: #DDDDDD;
 }
+.mp code {
+    background-color: inherit;
+}
 
 /*
 ** Header
