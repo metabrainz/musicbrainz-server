@@ -11,6 +11,18 @@ my $test_schema = 'musicbrainz_test';
 my %insert_dupe_check;
 my %artist_dupe_check;
 my @backup;
+my %core_entities = (
+    'artist' => {},
+    'label' => {},
+    'recording' => {},
+    'release' => {},
+    'release-group' => {},
+    'work' => {},
+);
+my %link_used = (
+    'link_type' => {},
+    'attribute_type' => {},
+);
 
 sub quote_column
 {
@@ -27,7 +39,7 @@ sub quote_column
         when (/^integer/) { $ret = $data; }
         when (/^smallint/) { $ret = $data; }
         default { 
-            $data =~ s/'/''/;
+            $data =~ s/'/''/g;
             $ret = "'$data'"; 
         }
     }
@@ -99,6 +111,28 @@ sub get_rows
     return query ($dbh, $table, "SELECT * FROM $table WHERE $key = $quoted");
 }
 
+sub get_rows_two_keys
+{
+    my ($dbh, $table, $key0, $value0, $key1, $values1) = @_;
+
+    return [] unless scalar @$values1;
+
+    my $col0 = $dbh->column_info (undef, $schema, $table, $key0)->fetchrow_hashref;
+    my $col1 = $dbh->column_info (undef, $schema, $table, $key1)->fetchrow_hashref;
+
+    return [] unless $col0 && $col1;
+
+    my $quoted0 = quote_column ($col0->{pg_type}, $value0);
+    my @quoted1;
+    for (@$values1)
+    {
+        push @quoted1, quote_column ($col1->{pg_type}, $_);
+    }
+    my $quoted1 = join (", ", @quoted1);
+
+    return query ($dbh, $table, "SELECT * FROM $table WHERE $key0 = $quoted0 AND $key1 IN ($quoted1)");
+}
+
 sub generic
 {
     my ($dbh, $table, $col, $key) = @_;
@@ -117,26 +151,129 @@ sub generic_verbose
     print "Exporting ".$data->[0]->{name}." ($table)\n";
 }
 
+sub link_attribute_type
+{
+    my ($dbh, $key) = @_;
+
+    my $data = get_rows ($dbh, 'link_attribute_type', 'id', $key);
+
+    $link_used{attribute_type}{$key} = 1;
+
+    if ($data->[0]->{parent})
+    {
+        link_attribute_type ($dbh, $data->[0]->{parent});
+    }
+
+    if ($data->[0]->{root} && $data->[0]->{root} != $key)
+    {
+        link_attribute_type ($dbh, $data->[0]->{root});
+    }
+
+    backup ($dbh, 'link_attribute_type', $data);
+}
+
+sub link_attribute
+{
+    my ($dbh, $key) = @_;
+
+    my $data = get_rows ($dbh, 'link_attribute', 'link', $key);
+    for (@$data)
+    {
+        link_attribute_type ($dbh, $data->[0]->{attribute_type});
+    }
+    backup ($dbh, 'link_attribute', $data);
+}
+
+sub link_type
+{
+    my ($dbh, $key) = @_;
+
+    my $data = get_rows ($dbh, 'link_type', 'id', $key);
+    
+    $link_used{link_type}{$key} = 1;
+
+    if ($data->[0]->{parent})
+    {
+        link_type ($dbh, $data->[0]->{parent});
+    }
+
+    backup ($dbh, 'link_type', $data);
+}
+
+sub l_entity_url
+{
+    my ($dbh, $type0, $key0) = @_;
+
+    $type0 =~ s/-/_/;
+
+    my $table = 'l_'.$type0.'_url';
+
+    my $data = get_rows ($dbh, $table, 'entity0', $key0);
+    return 0 unless $data;
+
+    for my $row (@$data)
+    {
+        generic ($dbh, 'url', 'id', $row->{entity1});
+
+        my $link = get_rows ($dbh, 'link', 'id', $row->{link});
+
+        link_type ($dbh, $link->[0]->{link_type});
+        backup ($dbh, 'link', $link);
+
+        link_attribute ($dbh, $row->{link});
+    }
+
+    backup ($dbh, $table, $data);
+    return scalar @$data;
+}
+
+sub l_
+{
+    my ($dbh, $type0, $type1, $key0, $key1) = @_;
+
+    $type0 =~ s/-/_/;
+    $type1 =~ s/-/_/;
+
+    my $table = 'l_'.$type0.'_'.$type1;
+
+    my $data = get_rows_two_keys ($dbh, $table, 'entity0', $key0, 'entity1', $key1);
+    return 0 unless $data;
+
+    for my $row (@$data)
+    {
+        my $link = get_rows ($dbh, 'link', 'id', $row->{link});
+
+        link_type ($dbh, $link->[0]->{link_type});
+        backup ($dbh, 'link', $link);
+
+        link_attribute ($dbh, $row->{link});
+    }
+
+    backup ($dbh, $table, $data);
+    return scalar @$data;
+}
+
 sub artist
 {
     my ($dbh, $id) = @_;
 
     return $artist_dupe_check{$id} if $artist_dupe_check{$id};
 
+    $core_entities{artist}{$id} = 1;
+
     my $data = get_rows ($dbh, 'artist', 'id', $id);
 
     generic_verbose ($dbh, 'artist_name', 'id', $data->[0]->{name});
     generic_verbose ($dbh, 'artist_name', 'id', $data->[0]->{sortname});
     generic ($dbh, 'artist_type', 'id', $data->[0]->{type});
+    generic ($dbh, 'gender', 'id', $data->[0]->{gender});
+    generic ($dbh, 'country', 'id', $data->[0]->{country});
 
     backup ($dbh, 'artist', $data);
 
     artist_alias ($dbh, $data->[0]->{id});
 
     $artist_dupe_check{$id} = $data;
-    # country
-    # type
-    # gender
 }
 
 sub artist_alias
@@ -180,6 +317,8 @@ sub artist_credit
 sub recording
 {
     my ($dbh, $id) = @_;
+
+    $core_entities{recording}{$id} = 1;
 
     my $data = get_rows ($dbh, 'recording', 'id', $id);
     generic_verbose ($dbh, 'track_name', 'id', $data->[0]->{name});
@@ -289,6 +428,8 @@ sub label
 {
     my ($dbh, $id) = @_;
 
+    $core_entities{label}{$id} = 1;
+
     my $data = get_rows ($dbh, 'label', 'id', $id);
 
     generic ($dbh, 'label_type', 'id', $data->[0]->{type});
@@ -318,6 +459,8 @@ sub releases
 
     for (@$data)
     {
+        $core_entities{release}{$_->{id}} = 1;
+
         generic ($dbh, 'release_status', 'id', $_->{status});
         generic ($dbh, 'country', 'id', $_->{country});
         generic ($dbh, 'language', 'id', $_->{language});
@@ -343,6 +486,8 @@ sub release_group
     my $tmp = get_rows ($dbh, 'release_group', 'gid', $gid);
     my $data = $tmp->[0];
 
+    $core_entities{'release-group'}{$data->{id}} = 1;
+
     generic ($dbh, 'release_group_type', 'id', $data->{type});
     generic_verbose ($dbh, 'release_name', 'id', $data->{name});
     artist_credit ($dbh, $data->{artist_credit});
@@ -352,6 +497,63 @@ sub release_group
     releases ($dbh, $data->{id});
 }
 
+
+sub rel_entity_entity
+{
+    my ($dbh, $type0, $type1) = @_;
+
+    my $count = 0;
+
+    for my $entity0 (keys %{ $core_entities{$type0} })
+    {
+        my @linked = keys %{ $core_entities{$type1} };
+        $count += l_ ($dbh, $type0, $type1, $entity0, \@linked)
+    }
+
+    warn "Exported $count $type0 -> $type1 relationships.\n" if $count;
+}
+
+sub rel_entity_url
+{
+    my ($dbh, $type0, $type1) = @_;
+
+    my $count = 0;
+
+    for my $entity0 (keys %{ $core_entities{$type0} })
+    {
+        $count += l_entity_url ($dbh, $type0, $entity0)
+    }
+
+    warn "Exported $count $type0 -> url relationships.\n" if $count;
+}
+
+sub relationships
+{
+    my $dbh = shift;
+
+    my @entities = keys %core_entities;
+    for my $type0 (@entities)
+    {
+        for my $type1 (@entities)
+        {
+            rel_entity_entity ($dbh, $type0, $type1);
+        }
+
+        rel_entity_url ($dbh, $type0);
+    }
+
+
+    for my $link (keys %{ $link_used{link_type} })
+    {
+        my @attr_types = keys %{ $link_used{attribute_type} };
+
+        my $data = get_rows_two_keys (
+            $dbh, 'link_type_attribute_type',
+            'link_type', $link, 'attribute_type', \@attr_types);
+        
+        backup ($dbh, 'link_type_attribute_type', $data);
+    }
+}
 
 sub main
 {
@@ -363,6 +565,8 @@ sub main
     foreach (@ARGV) {
         release_group ($dbh, $_);
     }
+
+    relationships ($dbh);
 
     print "Writing output to $outputfile ...\n";
     open (DUMP, ">$outputfile");
