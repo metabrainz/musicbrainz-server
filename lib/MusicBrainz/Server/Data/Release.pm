@@ -206,8 +206,8 @@ sub find_by_medium
                      WHERE medium.id IN (' . placeholders(@ids) . ')
                 )
                 OFFSET ?';
-    return query_to_list_limited($self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-                                 $query, @{ids}, $offset || 0);
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                         $query, @{ids}, $offset || 0);
 }
 
 sub find_by_collection

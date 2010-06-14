@@ -6,7 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
-use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_discid );
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use Readonly;
 use Data::OptList;
 
@@ -83,18 +83,31 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists aliases
                                           _relations tags user-tags ratings user-ratings) ]
      },
-#      puid => {
-#                          method   => 'GET',
-#                          inc      => [ qw(artists releases releasegroups) ],
-#      },
-#      isrc => {
-#                          method   => 'GET',
-#                          inc      => [ qw(artists releases releasegroups) ],
-#      },
-#      disc => {
-#                          method   => 'GET',
-#                          inc      => [ qw(artists releasegroups) ],
-#      },
+     discid => {
+                         method   => 'GET',
+                         inc      => [ qw(artists labels recordings release-groups
+                                          aliases artist-credits discids media mediums
+                                          puids isrcs _relations) ]
+     },
+     puid => {
+                         method   => 'GET',
+                         inc      => [ qw(artists releases
+                                          aliases artist-credits discids media mediums
+                                          puids isrcs
+                                          _relations tags user-tags ratings user-ratings) ]
+     },
+     isrc => {
+                         method   => 'GET',
+                         inc      => [ qw(artists releases
+                                          aliases artist-credits discids media mediums
+                                          puids isrcs
+                                          _relations tags user-tags ratings user-ratings) ]
+     },
+     iswc => {
+                         method   => 'GET',
+                         inc      => [ qw(artists aliases
+                                          _relations tags user-tags ratings user-ratings) ]
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -350,7 +363,6 @@ sub artist : Chained('root') PathPart('artist') Args(1)
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $artist);
-        $opts->{rels} = $artist->relationships;
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -415,7 +427,6 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $rg);
-        $opts->{rels} = $rg->relationships;
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -439,22 +450,10 @@ sub release_group_search : Chained('root') PathPart('release-group') Args(0)
     }
 }
 
-sub release: Chained('root') PathPart('release') Args(1)
+sub release_toplevel
 {
-    my ($self, $c, $gid) = @_;
+    my ($self, $c, $opts, $release) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $release = $c->model('Release')->get_by_gid($gid);
-    unless ($release) {
-        $c->detach('not_found');
-    }
-
-    my $opts = {};
     $c->model('Release')->load_meta($release);
     $self->linked_releases ($c, $opts, [ $release ]);
 
@@ -504,8 +503,26 @@ sub release: Chained('root') PathPart('release') Args(1)
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $release);
-        $opts->{rels} = $release->relationships;
     }
+}
+
+sub release: Chained('root') PathPart('release') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    my $release = $c->model('Release')->get_by_gid($gid);
+    unless ($release) {
+        $c->detach('not_found');
+    }
+
+    my $opts = {};
+    $self->release_toplevel ($c, $opts, $release);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts));
@@ -528,30 +545,17 @@ sub release_search : Chained('root') PathPart('release') Args(0)
     }
 }
 
-sub recording: Chained('root') PathPart('recording') Args(1)
+sub recording_toplevel
 {
-    my ($self, $c, $gid) = @_;
+    my ($self, $c, $opts, $recording) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $recording = $c->model('Recording')->get_by_gid($gid);
-    unless ($recording) {
-        $c->detach('not_found');
-    }
-
-    my $opts = {};
     $self->linked_recordings ($c, $opts, [ $recording ]);
 
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_recording($recording->id, $MAX_ITEMS);
-        $opts->{releases} = $results[0];
-
-        $self->linked_releases ($c, $opts, $opts->{releases});
+        $self->linked_releases ($c, $opts, $results[0]);
+        $opts->{releases}->{$recording->id} = $results[0];
     }
 
     if ($c->stash->{inc}->artists)
@@ -569,8 +573,26 @@ sub recording: Chained('root') PathPart('recording') Args(1)
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $recording);
-        $opts->{rels} = $recording->relationships;
     }
+}
+
+sub recording: Chained('root') PathPart('recording') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    my $recording = $c->model('Recording')->get_by_gid($gid);
+    unless ($recording) {
+        $c->detach('not_found');
+    }
+
+    my $opts = {};
+    $self->recording_toplevel ($c, $opts, $recording);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $opts));
@@ -633,7 +655,6 @@ sub label : Chained('root') PathPart('label') Args(1)
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $label);
-        $opts->{rels} = $label->relationships;
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -658,6 +679,29 @@ sub label_search : Chained('root') PathPart('label') Args(0)
 }
 
 
+sub work_toplevel
+{
+    my ($self, $c, $opts, $work) = @_;
+
+    if ($c->stash->{inc}->artists)
+    {
+        $c->model('ArtistCredit')->load($work);
+
+        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $work->artist_credit->names };
+
+        $self->linked_artists ($c, $opts, \@artists);
+    }
+
+    $self->_tags_and_ratings($c, 'Work', $work, $opts);
+
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $work);
+    }
+
+    $c->model('WorkType')->load($work);
+}
 
 sub work : Chained('root') PathPart('work') Args(1)
 {
@@ -675,25 +719,8 @@ sub work : Chained('root') PathPart('work') Args(1)
     }
 
     my $opts = {};
-    if ($c->stash->{inc}->artists)
-    {
-        $c->model('ArtistCredit')->load($work);
+    $self->work_toplevel ($c, $opts, $work);
 
-        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $work->artist_credit->names };
-
-        $self->linked_artists ($c, $opts, \@artists);
-    }
-
-    $self->_tags_and_ratings($c, 'Work', $work, $opts);
-
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $work);
-        $opts->{rels} = $work->relationships;
-    }
-
-    $c->model('WorkType')->load($work);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $opts));
 }
@@ -733,18 +760,11 @@ sub puid : Chained('root') PathPart('puid') Args(1)
     my $opts;
     my @recording_puids = $c->model('RecordingPUID')->find_by_puid($puid->id);
     my @recordings = map { $_->recording } @recording_puids;
-    $c->model('ArtistCredit')->load(@recordings) if ($c->stash->{inc}->artists);
     $opts->{recordings} = \@recordings;
-    if ($c->stash->{inc}->releases)
+
+    for (@recordings)
     {
-        my @releases = $c->model('Release')->find_by_recording(map { $_->id } @recordings);
-        $c->model('ReleaseStatus')->load(@releases);
-        if ($c->stash->{inc}->releasegroups)
-        {
-            $c->model('ReleaseGroup')->load(@releases);
-            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
-        }
-        $opts->{releases} = \@releases;
+        $self->recording_toplevel ($c, $opts, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -766,27 +786,20 @@ sub isrc : Chained('root') PathPart('isrc') Args(1)
         $c->detach('not_found');
     }
 
-    my @recordings = $c->model('Recording')->load(@isrcs);
-    $c->model('ArtistCredit')->load(@recordings) if ($c->stash->{inc}->artists);
-
     my $opts;
-    if ($c->stash->{inc}->releases)
+    my @recordings = $c->model('Recording')->load(@isrcs);
+    $opts->{recordings} = \@recordings;
+
+    for (@recordings)
     {
-        my @releases = $c->model('Release')->find_by_recording(map { $_->id } @recordings);
-        $c->model('ReleaseStatus')->load(@releases);
-        if ($c->stash->{inc}->releasegroups)
-        {
-            $c->model('ReleaseGroup')->load(@releases);
-            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
-        }
-        $opts->{releases} = \@releases;
+        $self->recording_toplevel ($c, $opts, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('isrc', \@isrcs, $c->stash->{inc}, $opts));
 }
 
-sub disc : Chained('root') PathPart('disc') Args(1)
+sub discid : Chained('root') PathPart('discid') Args(1)
 {
     my ($self, $c, $id) = @_;
 
@@ -804,17 +817,44 @@ sub disc : Chained('root') PathPart('disc') Args(1)
     my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
     $c->model('Medium')->load(@mediumcdtocs);
 
-    my $opts;
-    my @releases = $self->_load_paged($c, sub {
-        $c->model('Release')->find_by_medium([ map { $_->medium_id } @mediumcdtocs ], shift, shift)
-    });
-    $c->model('ReleaseStatus')->load(@{$releases[0]});
-    $c->model('ArtistCredit')->load(@{$releases[0]}) if ($c->stash->{inc}->artists);
-    $c->model('ReleaseGroup')->load(@{$releases[0]}) if ($c->stash->{inc}->releasegroups);
-    $opts->{releases} = $releases[0];
+    my $opts = {};
+    my @releases = $c->model('Release')->find_by_medium([ map { $_->medium_id } @mediumcdtocs ]);
+    $opts->{releases} = \@releases;
+
+    for (@releases)
+    {
+        $self->release_toplevel ($c, $opts, $_);
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('disc', $cdtoc, $c->stash->{inc}, $opts));
+    $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $opts));
+}
+
+sub iswc : Chained('root') PathPart('iswc') Args(1)
+{
+    my ($self, $c, $iswc) = @_;
+
+    if (!is_valid_iswc($iswc))
+    {
+        $c->stash->{error} = "Invalid iswc.";
+        $c->detach('bad_req');
+    }
+
+    my @works = $c->model('Work')->find_by_iswc($iswc);
+    unless (@works) {
+        $c->detach('not_found');
+    }
+
+    my $opts;
+    $opts->{works} = \@works;
+
+    for (@works)
+    {
+        $self->work_toplevel ($c, $opts, $_);
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('isrc', \@works, $c->stash->{inc}, $opts));
 }
 
 sub default : Path

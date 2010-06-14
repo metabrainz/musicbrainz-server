@@ -233,12 +233,12 @@ sub _serialize_release
 
 sub _serialize_work_list
 {
-    my ($self, $data, $gen, $works, $inc, $opts) = @_;
+    my ($self, $data, $gen, $works, $inc, $opts, $toplevel) = @_;
 
     my @list;
     foreach my $work (@$works)
     {
-        $self->_serialize_work(\@list, $gen, $work, $inc, $opts);
+        $self->_serialize_work(\@list, $gen, $work, $inc, $opts, $toplevel);
     }
     push @$data, $gen->work_list({ count => scalar (@$works) }, @list);
 }
@@ -276,12 +276,12 @@ sub _serialize_work
 
 sub _serialize_recording_list
 {
-    my ($self, $data, $gen, $recordings, $inc, $opts) = @_;
+    my ($self, $data, $gen, $recordings, $inc, $opts, $toplevel) = @_;
 
     my @list;
     foreach my $recording (@$recordings)
     {
-        $self->_serialize_recording(\@list, $gen, $recording, $inc, $opts);
+        $self->_serialize_recording(\@list, $gen, $recording, $inc, $opts, $toplevel);
     }
     push @$data, $gen->recording_list({ count => scalar (@$recordings) }, @list);
 }
@@ -300,7 +300,8 @@ sub _serialize_recording
         $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts)
+        my $releases = $opts->{releases}->{$recording->id};
+        $self->_serialize_release_list(\@list, $gen, $releases, $inc, $opts)
             if $inc->releases;
     }
     else
@@ -341,7 +342,7 @@ sub _serialize_medium
     push @med, $gen->title($medium->name) if $medium->name;
     push @med, $gen->position($medium->position);
     push @med, $gen->format($medium->format->name) if ($medium->format);
-    $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $opts, 1) if ($inc->discids);
+    $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $opts) if ($inc->discids);
     $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $opts);
 
     push @$data, $gen->medium(@med);
@@ -350,10 +351,6 @@ sub _serialize_medium
 sub _serialize_track_list
 {
     my ($self, $data, $gen, $tracklist, $inc, $opts) = @_;
-
-#     use Data::Dumper;
-#     local $Data::Dumper::Maxdepth = 3;
-#     warn "tracklist: ".Dumper($tracklist)."\n";
 
     my @list;
     foreach my $track (@{$tracklist->tracks})
@@ -379,26 +376,26 @@ sub _serialize_track
 
 sub _serialize_disc_list
 {
-    my ($self, $data, $gen, $cdtoclist, $inc, $opts, $digest) = @_;
+    my ($self, $data, $gen, $cdtoclist, $inc, $opts) = @_;
 
     my @list;
     foreach my $cdtoc (@$cdtoclist)
     {
-        $self->_serialize_disc(\@list, $gen, $cdtoc->cdtoc, $inc, $opts, $digest);
+        $self->_serialize_disc(\@list, $gen, $cdtoc->cdtoc, $inc, $opts);
     }
     push @$data, $gen->disc_list({ count => scalar(@$cdtoclist) }, @list);
 }
 
 sub _serialize_disc
 {
-    my ($self, $data, $gen, $cdtoc, $inc, $opts, $digest) = @_;
+    my ($self, $data, $gen, $cdtoc, $inc, $opts, $toplevel) = @_;
 
     my @list;
     push @list, $gen->sectors($cdtoc->leadout_offset);
 
-    if (!$digest)
+    if ($toplevel)
     {
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts);
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts, $toplevel);
     }
 
     push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
@@ -527,15 +524,15 @@ sub _serialize_puid
     my @list;
     if ($toplevel)
     {
-        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $opts)
-            if (${opts}->{recordings});
+        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $opts, $toplevel)
+            if ${opts}->{recordings};
     }
     push @$data, $gen->puid({ id => $puid->puid }, @list);
 }
 
 sub _serialize_isrc_list
 {
-    my ($self, $data, $gen, $isrcs, $inc, $opts) = @_;
+    my ($self, $data, $gen, $isrcs, $inc, $opts, $toplevel) = @_;
 
     my %uniq_isrc;
     foreach (@$isrcs)
@@ -547,20 +544,21 @@ sub _serialize_isrc_list
     my @list;
     foreach my $k (keys %uniq_isrc)
     {
-        $self->_serialize_isrc(\@list, $gen, $uniq_isrc{$k}, $inc, $opts);
+        $self->_serialize_isrc(\@list, $gen, $uniq_isrc{$k}, $inc, $opts, $toplevel);
     }
     push @$data, $gen->isrc_list({ count => scalar(keys %uniq_isrc) }, @list);
 }
 
 sub _serialize_isrc
 {
-    my ($self, $data, $gen, $isrcs, $inc, $opts) = @_;
+    my ($self, $data, $gen, $isrcs, $inc, $opts, $toplevel) = @_;
 
     my @recordings = map { $_->recording } grep { $_->recording } @$isrcs;
 
     my @list;
-    $self->_serialize_recording_list(\@list, $gen, \@recordings, $inc, $opts)
+    $self->_serialize_recording_list(\@list, $gen, \@recordings, $inc, $opts, $toplevel)
         if @recordings;
+
     push @$data, $gen->isrc({ id => $isrcs->[0]->isrc }, @list);
 }
 
@@ -726,6 +724,15 @@ sub isrc_resource
     return $data->[0];
 }
 
+sub iswc_resource
+{
+    my ($self, $gen, $work, $inc, $opts) = @_;
+
+    my $data = [];
+    $self->_serialize_work_list($data, $gen, $work, $inc, $opts, 1);
+    return $data->[0];
+}
+
 sub puid_resource
 {
     my ($self, $gen, $puid, $inc, $opts) = @_;
@@ -735,7 +742,7 @@ sub puid_resource
     return $data->[0];
 }
 
-sub disc_resource
+sub discid_resource
 {
     my ($self, $gen, $cdtoc, $inc, $opts) = @_;
 
