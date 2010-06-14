@@ -106,6 +106,8 @@ sub allow_auto_edit
     return 0 if $self->data->{old}{label_code} &&
         $old_label_code ne $new_label_code;
 
+    return 0 if defined $self->data->{old}{country_id};
+
     # Changing a resolution string is never automatic.
     return 0 if exists $self->data->{new}{comment};
 
