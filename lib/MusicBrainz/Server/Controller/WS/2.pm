@@ -26,7 +26,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(recordings releases release-groups works
                                           aliases artist-credits discids media mediums
                                           puids isrcs various-artists
-                                          _relations tags usertags ratings userratings) ],
+                                          _relations tags user-tags ratings user-ratings) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -37,7 +37,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists releases
                                           aliases artist-credits discids media mediums
-                                          _relations tags usertags ratings userratings) ]
+                                          _relations tags user-tags ratings user-ratings) ]
      },
      release => {
                          method   => 'GET',
@@ -60,7 +60,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists releases
                                           aliases artist-credits discids media mediums
                                           puids isrcs
-                                          _relations tags usertags ratings userratings) ]
+                                          _relations tags user-tags ratings user-ratings) ]
      },
      label => {
                          method   => 'GET',
@@ -71,7 +71,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(releases
                                           aliases artist-credits discids media mediums
-                                          _relations tags usertags ratings userratings) ],
+                                          _relations tags user-tags ratings user-ratings) ],
      },
      work => {
                          method   => 'GET',
@@ -81,7 +81,7 @@ my $ws_defs = Data::OptList::mkopt([
      work => {
                          method   => 'GET',
                          inc      => [ qw(artists aliases
-                                          _relations tags usertags ratings userratings) ]
+                                          _relations tags user-tags ratings user-ratings) ]
      },
 #      puid => {
 #                          method   => 'GET',
@@ -161,25 +161,28 @@ sub _tags_and_ratings
         $opts->{tags} = $tags[0];
     }
 
-    if ($c->stash->{inc}->usertags)
+    if ($c->stash->{inc}->user_tags)
     {
         my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
-        $opts->{usertags} = \@tags;
+        $opts->{user_tags} = \@tags;
     }
 
     if ($c->stash->{inc}->ratings)
     {
         $model->load_meta($entity);
-        $opts->{ratings} = {
-            rating => $entity->rating * 5 / 100,
-            count => $entity->rating_count,
-        };
+        if ($entity->rating_count)
+        {
+            $opts->{ratings} = {
+                rating => $entity->rating * 5 / 100,
+                count => $entity->rating_count,
+            };
+        }
     }
 
-    if ($c->stash->{inc}->userratings)
+    if ($c->stash->{inc}->user_ratings)
     {
         $model->rating->load_user_ratings($c->user->id, $entity);
-        $opts->{userratings} = $entity->user_rating * 5 / 100;
+        $opts->{user_ratings} = $entity->user_rating * 5 / 100;
     }
 }
 

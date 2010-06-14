@@ -594,7 +594,7 @@ sub _serialize_tag
 {
     my ($self, $data, $gen, $tag, $inc, $opts) = @_;
 
-    push @$data, $gen->tag({ count => $tag->count }, $tag->tag->name);
+    push @$data, $gen->tag({ count => $tag->count }, $gen->name ($tag->tag->name));
 }
 
 sub _serialize_user_tag_list
