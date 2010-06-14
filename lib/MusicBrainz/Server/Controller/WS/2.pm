@@ -25,7 +25,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
                                           aliases artist-credits discids media mediums
-                                          puids isrcs various-artists ) ],
+                                          puids isrcs various-artists _relations) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -35,7 +35,8 @@ my $ws_defs = Data::OptList::mkopt([
      "release-group" => {
                          method   => 'GET',
                          inc      => [ qw(artists releases
-                                          aliases artist-credits discids media mediums) ]
+                                          aliases artist-credits discids media mediums
+                                          _relations) ]
      },
      release => {
                          method   => 'GET',
@@ -46,7 +47,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups
                                           aliases artist-credits discids media mediums
-                                          puids isrcs) ]
+                                          puids isrcs _relations) ]
      },
      recording => {
                          method   => 'GET',
@@ -57,17 +58,18 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists releases
                                           aliases artist-credits discids media mediums
-                                          puids isrcs) ]
+                                          puids isrcs _relations) ]
      },
      label => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset _relations) ]
      },
      label => {
                          method   => 'GET',
                          inc      => [ qw(releases
-                                          aliases artist-credits discids media mediums) ],
+                                          aliases artist-credits discids media mediums
+                                          _relations) ],
      },
      work => {
                          method   => 'GET',
@@ -77,7 +79,7 @@ my $ws_defs = Data::OptList::mkopt([
      work => {
                          method   => 'GET',
                          inc      => [ qw(artists
-                                          aliases) ]
+                                          aliases _relations) ]
      },
 #      puid => {
 #                          method   => 'GET',
@@ -337,12 +339,12 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         $self->linked_works ($c, $opts, $opts->{works});
     }
 
-#     if ($c->stash->{inc}->has_rels)
-#     {
-#         my $types = $c->stash->{inc}->get_rel_types();
-#         my @rels = $c->model('Relationship')->load_subset($types, $artist);
-#         $opts->{rels} = $artist->relationships;
-#     }
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $artist);
+        $opts->{rels} = $artist->relationships;
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $opts));
@@ -402,12 +404,13 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
 
 
 #     $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
-#     if ($c->stash->{inc}->has_rels)
-#     {
-#         my $types = $c->stash->{inc}->get_rel_types();
-#         my @rels = $c->model('Relationship')->load_subset($types, $rg);
-#         $opts->{rels} = $rg->relationships;
-#     }
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $rg);
+        $opts->{rels} = $rg->relationships;
+    }
+
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts));
 }
@@ -490,51 +493,12 @@ sub release: Chained('root') PathPart('release') Args(1)
         $self->linked_recordings ($c, $opts, \@recordings);
     }
 
-#     if ($c->stash->{inc}->releasegroups)
-#     {
-#          $c->model('ReleaseGroup')->load($release);
-#          $c->model('ReleaseGroupType')->load($release->release_group);
-#     }
-
-#     if ($c->stash->{inc}->discs)
-#     {
-#         $c->model('Medium')->load_for_releases($release);
-#         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } $release);
-#         $c->model('CDTOC')->load(@medium_cdtocs);
-#     }
-
-#     if ($c->stash->{inc}->labels)
-#     {
-#         $c->model('ReleaseLabel')->load($release);
-#         $c->model('Label')->load($release->all_labels)
-#     }
-
-#     my $opts = {};
-#     if ($c->stash->{inc}->recordings)
-#     {
-#         $c->model('Medium')->load_for_releases($release);
-#         my @mediums = $release->all_mediums;
-#         $c->model('MediumFormat')->load(@mediums);
-
-#         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-#         $c->model('Track')->load_for_tracklists(@tracklists);
-
-#         my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
-#         $c->model('Recording')->load_meta(@recordings);
-
-#         if ($c->stash->{inc}->isrcs)
-#         {
-#             my @isrcs = $c->model('ISRC')->find_by_recording([ map { $_->id } @recordings ]);
-#             $opts->{isrcs} = \@isrcs;
-#         }
-#     }
-
-#     if ($c->stash->{inc}->has_rels)
-#     {
-#         my $types = $c->stash->{inc}->get_rel_types();
-#         my @rels = $c->model('Relationship')->load_subset($types, $release);
-#         $opts->{rels} = $release->relationships;
-#     }
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $release);
+        $opts->{rels} = $release->relationships;
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts));
@@ -594,12 +558,12 @@ sub recording: Chained('root') PathPart('recording') Args(1)
 
 #     $self->_tags_and_ratings($c, 'Recording', $recording, $opts);
 
-#     if ($c->stash->{inc}->has_rels)
-#     {
-#         my $types = $c->stash->{inc}->get_rel_types();
-#         my @rels = $c->model('Relationship')->load_subset($types, $recording);
-#         $opts->{rels} = $recording->relationships;
-#     }
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $recording);
+        $opts->{rels} = $recording->relationships;
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $opts));
@@ -658,14 +622,13 @@ sub label : Chained('root') PathPart('label') Args(1)
 
 #     $self->_tags_and_ratings($c, 'Label', $label, $opts);
 
-#     if ($c->stash->{inc}->has_rels)
-#     {
-#         my $types = $c->stash->{inc}->get_rel_types();
-#         my @rels = $c->model('Relationship')->load_subset($types, $label);
-#         $opts->{rels} = $label->relationships;
-#     }
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $label);
+        $opts->{rels} = $label->relationships;
+    }
 
-#     $c->model('LabelType')->load($label);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $opts));
 }
@@ -716,13 +679,12 @@ sub work : Chained('root') PathPart('work') Args(1)
 
 #     $self->_tags_and_ratings($c, 'Work', $work, $opts);
 
-#     if ($c->stash->{inc}->has_rels)
-#     {
-#         my $types = $c->stash->{inc}->get_rel_types();
-#         my @rels = $c->model('Relationship')->load_subset($types, $work);
-#         $opts->{rels} = $work->relationships;
-#     }
-
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, $work);
+        $opts->{rels} = $work->relationships;
+    }
 
     $c->model('WorkType')->load($work);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

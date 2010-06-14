@@ -25,24 +25,18 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/artist/f26c72d3-e52c-467b-b651-679c73d8e1a7?inc=aliases', 'artist lookup, inc=aliases');
+$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases', 'artist lookup, inc=aliases');
 &$v2 ($mech->content, "Validate artist lookup with aliases");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="group" id="f26c72d3-e52c-467b-b651-679c73d8e1a7">
-        <name>!!!</name><sort-name>!!!</sort-name>
-        <life-span><begin>1996</begin></life-span>
-        <alias-list count="9">
-            <alias>exclamation exclamation exclamation</alias>
-            <alias>Chik Chik Chik</alias>
-            <alias>ChkChk</alias>
-            <alias>Chkchkchk (!!!)</alias>
-            <alias>chk chk chk</alias>
-            <alias>pow pow pow</alias>
-            <alias>chick chick chick</alias>
-            <alias>Chkchkchk</alias>
-            <alias>chk-chk-chk</alias>
+    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <name>BoA</name><sort-name>BoA</sort-name>
+        <life-span>
+            <begin>1986-11-05</begin>
+        </life-span>
+        <alias-list count="5">
+            <alias>보아</alias><alias>ボア</alias><alias>Kwon BoA</alias><alias>BoA Kwon</alias><alias>Beat of Angel</alias>
         </alias-list>
     </artist>
 </metadata>';
@@ -226,19 +220,19 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 
-$mech->get_ok('/ws/2/artist/f26c72d3-e52c-467b-b651-679c73d8e1a7?inc=release-groups', 'artist lookup with release groups');
+$mech->get_ok('/ws/2/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups', 'artist lookup with release groups');
 &$v2 ($mech->content, "Validate artist lookup with release groups");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="group" id="f26c72d3-e52c-467b-b651-679c73d8e1a7">
-        <name>!!!</name><sort-name>!!!</sort-name>
+    <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+        <name>m-flo</name><sort-name>m-flo</sort-name>
         <life-span>
-            <begin>1996</begin>
+            <begin>1998</begin>
         </life-span>
         <release-group-list count="1">
-            <release-group type="album" id="79e3ac21-8359-3761-ba35-251a1bd04d68">
-                <title>Louden Up Now</title>
+            <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+                <title>the Love Bug</title>
             </release-group>
         </release-group-list>
     </artist>
@@ -246,23 +240,23 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases', 'single artist release lookup');
+$mech->get_ok('/ws/2/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases', 'single artist release lookup');
 &$v2 ($mech->content, "Validate single artist release lookup");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-        <name>BoA</name><sort-name>BoA</sort-name>
+    <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+        <name>m-flo</name><sort-name>m-flo</sort-name>
         <life-span>
-            <begin>1986-11-05</begin>
+            <begin>1998</begin>
         </life-span>
         <release-list count="1">
-            <release id="c9355105-de80-43dc-812c-541be305e8a3">
-                <title>VALENTI</title><status>official</status>
+            <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
+                <title>the Love Bug</title><status>official</status>
                 <text-representation>
-                    <language>jpn</language><script>Latn</script>
+                    <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2002-08-28</date><country>JP</country>
+                <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
             </release>
         </release-list>
     </artist>

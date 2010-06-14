@@ -7,7 +7,7 @@ use Switch;
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
-use MusicBrainz::XML::Generator;
+use MusicBrainz::XML::Generator escape => 'always';
 
 sub mime_type { 'application/xml' }
 
@@ -91,7 +91,7 @@ sub _serialize_artist
             if $inc->works;
     }
 
-#     $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships) if ($inc->has_rels);
 #     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->artist(\%attrs, @list);
@@ -163,7 +163,7 @@ sub _serialize_release_group
             if $inc->artist_credits;
     }
 
-#     $self->_serialize_relation_lists($release_group, \@list, $release_group->relationships) if $inc->has_rels;
+    $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships) if $inc->has_rels;
 #     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->release_group(\%attr, @list);
@@ -188,6 +188,7 @@ sub _serialize_release
     $inc = $inc->clone ( releases => 0 );
 
     my @list;
+    
     push @list, $gen->title($release->name);
     push @list, $gen->status(lc($release->status->name)) if $release->status;
     push @list, $gen->disambiguation($release->comment) if $release->comment;
@@ -224,7 +225,7 @@ sub _serialize_release
     $self->_serialize_medium_list(\@list, $gen, $release->mediums, $inc, $opts)
         if ($release->mediums && ($inc->media || $inc->discids || $inc->recordings));
 
-#     $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships) if ($inc->has_rels);
 
     push @$data, $gen->release({ id => $release->gid }, @list);
 }
@@ -310,6 +311,7 @@ sub _serialize_recording
         if ($opts->{isrcs} && $inc->{isrcs});
 
 #     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+    $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships) if ($inc->has_rels);
 
     push @$data, $gen->recording({ id => $recording->gid }, @list);
 
@@ -450,7 +452,7 @@ sub _serialize_label
     push @list, $gen->country($label->country->iso_code) if $label->country;
     $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
-#     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
 #     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts)
@@ -631,7 +633,7 @@ sub output_error
 {
     my ($self, $err) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new();
+    my $gen = MusicBrainz::XML::Generator->new(':std');
 
     my $xml = $xml_decl_begin;
     $xml .= $gen->error($gen->text(
@@ -645,7 +647,7 @@ sub serialize
     my ($self, $type, $entity, $inc, $opts) = @_;
     $inc ||= 0;
 
-    my $gen = MusicBrainz::XML::Generator->new();
+    my $gen = MusicBrainz::XML::Generator->new(':std');
 
     my $method = $type . "_resource";
     $method =~ s/release-group/release_group/;
