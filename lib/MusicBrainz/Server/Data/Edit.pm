@@ -156,6 +156,8 @@ sub insert
         expiretime => $edit->expires_time,
         autoedit   => $edit->auto_edit,
         closetime  => $edit->close_time,
+        yesvotes   => $edit->yes_votes,
+        novotes    => $edit->no_votes,
     };
 
     $sql_raw->insert_row('edit', $row);
