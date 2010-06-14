@@ -104,6 +104,7 @@ ALTER TABLE track_name ADD CONSTRAINT track_name_pkey PRIMARY KEY (id);
 ALTER TABLE tracklist ADD CONSTRAINT tracklist_pkey PRIMARY KEY (id);
 ALTER TABLE tracklist_index ADD CONSTRAINT tracklist_index_pkey PRIMARY KEY (tracklist);
 ALTER TABLE url ADD CONSTRAINT url_pkey PRIMARY KEY (id);
+ALTER TABLE url_gid_redirect ADD CONSTRAINT url_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE work ADD CONSTRAINT work_pkey PRIMARY KEY (id);
 ALTER TABLE work_alias ADD CONSTRAINT work_alias_pkey PRIMARY KEY (id);
 ALTER TABLE work_annotation ADD CONSTRAINT work_annotation_pkey PRIMARY KEY (work, annotation);

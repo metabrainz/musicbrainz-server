@@ -872,6 +872,12 @@ CREATE TABLE url
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE url_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references url.id
+);
+
 CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,

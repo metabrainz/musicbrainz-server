@@ -104,6 +104,7 @@ ALTER TABLE track_name DROP CONSTRAINT track_name_pkey;
 ALTER TABLE tracklist DROP CONSTRAINT tracklist_pkey;
 ALTER TABLE tracklist_index DROP CONSTRAINT tracklist_index_pkey;
 ALTER TABLE url DROP CONSTRAINT url_pkey;
+ALTER TABLE url_gid_redirect DROP CONSTRAINT url_gid_redirect_pkey;
 ALTER TABLE work DROP CONSTRAINT work_pkey;
 ALTER TABLE work_alias DROP CONSTRAINT work_alias_pkey;
 ALTER TABLE work_annotation DROP CONSTRAINT work_annotation_pkey;
