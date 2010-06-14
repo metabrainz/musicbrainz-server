@@ -49,7 +49,7 @@ sub quote_column
 
 sub insert
 {
-    my ($dbh, $table, $data, $commit) = @_;
+    my ($dbh, $table, $data) = @_;
 
     return 0 unless keys %$data;
 
@@ -73,6 +73,41 @@ sub insert
 
     return $cmd;
 }
+
+sub update
+{
+    my ($dbh, $table, $data, $primary) = @_;
+
+    return 0 unless keys %$data;
+
+    my $where;
+    my @columns;
+    while (my ($key, $val) = each (%$data))
+    {
+        my $col = $dbh->column_info (undef, $schema, $table, $key)->fetchrow_hashref;
+
+        if ($key eq $primary)
+        {
+            $where = "$key = ".quote_column ($col->{pg_type}, $val);
+        }
+        else
+        {
+            push @columns, "$key = ".quote_column ($col->{pg_type}, $val);
+        }
+    }
+
+    my $cmd = "UPDATE $table SET ".join (", ", @columns)." WHERE $where;";
+
+    $insert_dupe_check{$table} = {} unless $insert_dupe_check{$table};
+
+    return 0 if $insert_dupe_check{$table}->{$cmd};
+
+    $insert_dupe_check{$table}->{$cmd} = 1;
+    push @backup, $cmd;
+
+    return $cmd;
+}
+
 
 sub query
 {
@@ -149,6 +184,35 @@ sub generic_verbose
     backup ($dbh, $table, $data);
 
     print "Exporting ".$data->[0]->{name}." ($table)\n";
+}
+
+sub _meta
+{
+    my ($dbh, $table, $col, $key) = @_;
+
+    my $data = get_rows ($dbh, $table, $col, $key);
+
+    my @inserted;
+    for (@$data)
+    {
+        my $tmp = update ($dbh, $table, $_, 'id');
+        push @inserted, $tmp if $tmp;
+    }
+
+    return scalar @inserted ? $data : 0;
+}
+
+sub _tag
+{
+    my ($dbh, $table, $col, $key) = @_;
+
+    my $data = get_rows ($dbh, $table, $col, $key);
+    for (@$data)
+    {
+        generic_verbose ($dbh, 'tag', 'id', $_->{tag});
+    }
+
+    backup ($dbh, $table, $data);
 }
 
 sub link_attribute_type
@@ -273,6 +337,9 @@ sub artist
 
     artist_alias ($dbh, $data->[0]->{id});
 
+    _meta ($dbh, 'artist_meta', 'id', $id);
+    _tag ($dbh, 'artist_tag', 'artist', $id);
+
     $artist_dupe_check{$id} = $data;
 }
 
@@ -327,6 +394,9 @@ sub recording
 
     recording_puid ($dbh, $id);
     generic ($dbh, 'isrc', 'recording', $id);
+
+    _meta ($dbh, 'recording_meta', 'id', $id);
+    _tag ($dbh, 'recording_tag', 'recording', $id);
 }
 
 sub recording_puid
@@ -436,6 +506,9 @@ sub label
     generic_verbose ($dbh, 'label_name', 'id', $data->[0]->{name});
     backup ($dbh, 'label', $data);
     label_alias ($dbh, $data->[0]->{id});
+
+    _meta ($dbh, 'label_meta', 'id', $id);
+    _tag ($dbh, 'label_tag', 'label', $id);
 }
 
 
@@ -449,6 +522,8 @@ sub release_label
         label ($dbh, $_->{label});
     }
     backup ($dbh, 'release_label', $data);
+
+    _meta ($dbh, 'release_meta', 'id', $id);
 }
 
 sub releases
@@ -495,6 +570,9 @@ sub release_group
     backup ($dbh, 'release_group', $tmp);
 
     releases ($dbh, $data->{id});
+
+    _meta ($dbh, 'release_group_meta', 'id', $data->{id});
+    _tag ($dbh, 'release_group_tag', 'release_group', $data->{id});
 }
 
 
