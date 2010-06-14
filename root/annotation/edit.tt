@@ -1,3 +1,9 @@
+[% IF show_preview %]
+    <h3>[% l('Preview') %]</h3>
+    [% preview | format_wikitext %]
+[% END %]
+
+<h3>[% l('Annotation') %]</h3>
 <form action="[% c.uri.path %]" method="post">
     <p>[% l('Please do <strong>not</strong> post any copyrighted texts here! Please note that any content submitted
              to MusicBrainz will be made available to the public under {open|open licenses}.',
@@ -6,5 +12,12 @@
     [% USE r = FormRenderer(form) %]
     [% r.textarea('text', { cols => 80, rows => 10 }) %]
     [% form_row_text(r, 'changelog', l('Change log:')) %]
-    [% enter_edit() %]
+
+    [% BLOCK preview_button %]
+      <input type="submit" name="[% form.field('preview').html_name %]"
+          value="[% l('Preview') %]" class="submit" />
+    [% END %]
+
+    [% preview = PROCESS preview_button;
+       enter_edit(preview) %]
 </form>

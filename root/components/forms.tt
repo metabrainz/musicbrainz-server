@@ -2,7 +2,7 @@
 <input type="submit" value="[% label %]" />
 [%- END -%]
 
-[%- MACRO enter_edit(a) BLOCK %]
+[%- MACRO enter_edit(extra) BLOCK %]
 <div class="row enter-edit">
   [% IF c.user.is_auto_editor %]
   <div class="auto-editor">
@@ -14,6 +14,7 @@
   </div>
   [% END %]
   <input type="submit" class="submit" value="[% l('Submit') %]" />
+  [% extra %]
 </div>
 [% END %]
 

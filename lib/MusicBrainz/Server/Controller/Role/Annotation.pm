@@ -62,23 +62,36 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
     my $annotation_model = $c->model($model)->annotation;
     $annotation_model->load_latest($entity);
 
-    $self->edit_action($c,
-        form => 'Annotation',
-        form_args => {
-            annotation_model => $annotation_model,
-            entity_id        => $entity->id
-        },
-        item => $entity->latest_annotation,
-        type => $model_to_edit_type{$model},
-        edit_args => {
-            entity_id => $entity->id,
-        },
-        on_creation => sub {
+    my $form = $c->form(
+        form             => 'Annotation',
+        init_object      => $entity->latest_annotation,
+        annotation_model => $annotation_model,
+        entity_id        => $entity->id
+    );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
+    {
+        if ($form->field('preview')->input) {
+            $c->stash(
+                show_preview => 1,
+                preview      => $form->field('text')->value
+            );
+        }
+        else
+        {
+            $self->_insert_edit(
+                $c,
+                $form,
+                edit_type => $model_to_edit_type{$model},
+                (map { $_->name => $_->value } $form->edit_fields),
+                entity_id => $entity->id
+            );
+
             my $show = $self->action_for('show');
             $c->response->redirect($c->uri_for_action($show, [ $entity->gid ]));
             $c->detach;
         }
-    );
+    }
 }
 
 sub annotation_history : Chained('load') PathPart
