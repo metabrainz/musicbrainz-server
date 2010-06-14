@@ -367,7 +367,7 @@ sub normalise_strings
 {
     my @r = map {
         # Normalise to lower case
-        my $t = lc decode("utf-8", $_);
+        my $t = lc $_;
 
         # Remove leading and trailing space
         $t =~ s/\A\s+//;
@@ -381,9 +381,7 @@ sub normalise_strings
         $t =~ tr/\x{0060}\x{00B4}"\x{00AB}\x{00BB}/'/;
 
         # Unaccent what's left
-        $t = decode("utf-8", unaccent(encode("utf-8", $t)));
-
-        $t;
+        decode("utf-8", unaccent(encode("utf-8", $t)));
     } @_;
 
     wantarray ? @r : $r[-1];
