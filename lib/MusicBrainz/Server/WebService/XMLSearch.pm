@@ -4,6 +4,7 @@ use base 'Exporter';
 our @EXPORT_OK = qw( xml_search );
 
 use MusicBrainz::Server::Validation qw( is_positive_integer );
+use Encode qw( decode );
 
 # Escape special characters in a Lucene search query
 sub escape_query
@@ -198,7 +199,7 @@ sub xml_search
     $ua->timeout(2);
     if ( $response->is_success )
     {
-        return { xml => $response->content };
+        return { xml => decode('utf-8', $response->content) };
     }
     else
     {
