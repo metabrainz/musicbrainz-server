@@ -9,7 +9,7 @@ use List::MoreUtils qw( uniq zip );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( :edit_status $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
 use XML::Dumper;
 
@@ -315,6 +315,18 @@ sub approve
 
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
+
+    # Add the vote from the editor too
+    # This runs its own transaction, so we cannot currently run it in the below
+    # transaction
+    $self->c->model('Vote')->enter_votes(
+        $editor->id,
+        {
+            vote    => $VOTE_YES,
+            edit_id => $edit->id
+        }
+    );
+
     Sql::run_in_transaction(sub {
         # Load the edit again, but this time lock it for updates
         $edit = $self->get_by_id_and_lock($edit->id);
