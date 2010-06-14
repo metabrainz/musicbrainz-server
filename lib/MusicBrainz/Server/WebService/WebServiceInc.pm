@@ -12,12 +12,8 @@ has $_ => (
           artists labels recordings releases release_groups works
           artist_rels label_rels recording_rels release_rels
           release_group_rels url_rels work_rels
+          tags ratings user_tags user_ratings
 );
-
-# gid artists counts limit recordings duration artistrels releaserels discs
-#           recordingrels urlrels releaseevents artistid releaseid trackid title tracknum
-#           releases releasegroups releasegrouprels workrels puids isrcs labels
-#           labelrels tracklevelrels tags ratings usertags userratings rg_type rel_status
 
 sub has_rels
 {
@@ -46,8 +42,6 @@ sub get_rel_types
     return \@rels;
 }
 
-
-
 sub BUILD
 {
     my ($self, $args) = @_;
@@ -63,6 +57,7 @@ sub BUILD
 #     {
 #         $methods{rg_type}->set_value($self, $args->{rg_type});
 #     }
+
     if (exists $args->{relations} && $args->{relations})
     {
         foreach my $rel (@{$args->{relations}})

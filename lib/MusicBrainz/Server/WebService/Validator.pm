@@ -154,7 +154,7 @@ role {
             }
 
             # Check if authorization is required.
-            $c->stash->{authorization_required} = $inc->{usertags} || $inc->{userratings};
+            $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_ratings};
 
             # Check the type and prepare a serializer. For now, since we only support XML
             # we're going to default to XML. In the future if we want to add more serializations,

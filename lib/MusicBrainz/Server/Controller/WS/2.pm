@@ -25,7 +25,8 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
                                           aliases artist-credits discids media mediums
-                                          puids isrcs various-artists _relations) ],
+                                          puids isrcs various-artists
+                                          _relations tags usertags ratings userratings) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -36,7 +37,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists releases
                                           aliases artist-credits discids media mediums
-                                          _relations) ]
+                                          _relations tags usertags ratings userratings) ]
      },
      release => {
                          method   => 'GET',
@@ -58,18 +59,19 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists releases
                                           aliases artist-credits discids media mediums
-                                          puids isrcs _relations) ]
+                                          puids isrcs
+                                          _relations tags usertags ratings userratings) ]
      },
      label => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset _relations) ]
+                         optional => [ qw(limit offset) ]
      },
      label => {
                          method   => 'GET',
                          inc      => [ qw(releases
                                           aliases artist-credits discids media mediums
-                                          _relations) ],
+                                          _relations tags usertags ratings userratings) ],
      },
      work => {
                          method   => 'GET',
@@ -78,8 +80,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      work => {
                          method   => 'GET',
-                         inc      => [ qw(artists
-                                          aliases _relations) ]
+                         inc      => [ qw(artists aliases
+                                          _relations tags usertags ratings userratings) ]
      },
 #      puid => {
 #                          method   => 'GET',
@@ -339,6 +341,8 @@ sub artist : Chained('root') PathPart('artist') Args(1)
         $self->linked_works ($c, $opts, $opts->{works});
     }
 
+    $self->_tags_and_ratings($c, 'Artist', $artist, $opts);
+
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
@@ -403,7 +407,7 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
     }
 
 
-#     $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
+    $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
@@ -481,7 +485,7 @@ sub release: Chained('root') PathPart('release') Args(1)
         {
             $c->model('Medium')->load_for_releases($release);
         }
-        
+
         @mediums = $release->all_mediums;
 
         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
@@ -556,7 +560,7 @@ sub recording: Chained('root') PathPart('recording') Args(1)
         $self->linked_artists ($c, $opts, \@artists);
     }
 
-#     $self->_tags_and_ratings($c, 'Recording', $recording, $opts);
+    $self->_tags_and_ratings($c, 'Recording', $recording, $opts);
 
     if ($c->stash->{inc}->has_rels)
     {
@@ -620,7 +624,7 @@ sub label : Chained('root') PathPart('label') Args(1)
         $self->linked_releases ($c, $opts, $opts->{releases});
     }
 
-#     $self->_tags_and_ratings($c, 'Label', $label, $opts);
+    $self->_tags_and_ratings($c, 'Label', $label, $opts);
 
     if ($c->stash->{inc}->has_rels)
     {
@@ -677,7 +681,7 @@ sub work : Chained('root') PathPart('work') Args(1)
         $self->linked_artists ($c, $opts, \@artists);
     }
 
-#     $self->_tags_and_ratings($c, 'Work', $work, $opts);
+    $self->_tags_and_ratings($c, 'Work', $work, $opts);
 
     if ($c->stash->{inc}->has_rels)
     {
