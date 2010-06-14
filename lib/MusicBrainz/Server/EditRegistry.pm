@@ -65,6 +65,7 @@ my @CLASSES = qw(
 
     MusicBrainz::Server::Edit::Historic::AddDiscID
     MusicBrainz::Server::Edit::Historic::AddRelease
+    MusicBrainz::Server::Edit::Historic::AddReleaseEvents
     MusicBrainz::Server::Edit::Historic::AddTrack
     MusicBrainz::Server::Edit::Historic::ChangeArtistQuality
     MusicBrainz::Server::Edit::Historic::ChangeReleaseGroup
