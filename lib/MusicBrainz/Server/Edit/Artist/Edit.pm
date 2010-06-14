@@ -106,14 +106,15 @@ sub allow_auto_edit
     # small things like case etc.
     my ($old_name, $new_name) = normalise_strings(
         $self->data->{old}{name}, $self->data->{new}{name});
+    return 0 if $old_name ne $new_name;
+
     my ($old_sort_name, $new_sort_name) = normalise_strings(
         $self->data->{old}{sort_name}, $self->data->{new}{sort_name});
-
-    return 0 if $old_name ne $new_name;
     return 0 if $old_sort_name ne $new_sort_name;
 
-    # Changing a resolution string is never automatic.
-    return 0 if exists $self->data->{new}{comment};
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
 
     # Adding a date is automatic if there was no date yet.
     return 0 if exists $self->data->{old}{begin_date}

@@ -106,10 +106,11 @@ sub allow_auto_edit
     return 0 if $self->data->{old}{label_code} &&
         $old_label_code ne $new_label_code;
 
-    return 0 if defined $self->data->{old}{country_id};
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
 
-    # Changing a resolution string is never automatic.
-    return 0 if exists $self->data->{new}{comment};
+    return 0 if defined $self->data->{old}{country_id};
 
     # Adding a date is automatic if there was no date yet.
     return 0 if exists $self->data->{old}{begin_date}

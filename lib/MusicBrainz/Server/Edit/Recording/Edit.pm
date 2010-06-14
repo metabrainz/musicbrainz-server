@@ -117,8 +117,12 @@ sub allow_auto_edit
 
     my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
                                                   $self->data->{new}{name});
-
     return 0 if $old_name ne $new_name;
+
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
+
     return 0 if $self->data->{old}{length};
     return 0 if exists $self->data->{new}{comment};
     return 0 if exists $self->data->{new}{artist_credit};

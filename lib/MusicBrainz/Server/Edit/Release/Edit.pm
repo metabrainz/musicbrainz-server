@@ -146,6 +146,10 @@ sub allow_auto_edit
                                                   $self->data->{new}{name});
     return 0 if $old_name ne $new_name;
 
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
+
     return 0 if defined $self->data->{old}{packaging_id};
     return 0 if defined $self->data->{old}{status_id};
     return 0 if defined $self->data->{old}{barcode};
@@ -157,7 +161,6 @@ sub allow_auto_edit
         partial_date_from_row($self->data->{old}{date}) ne '';
 
     return 0 if exists $self->data->{old}{release_group_id};
-    return 0 if exists $self->data->{new}{comment};
     return 0 if exists $self->data->{new}{artist_credit};
 
     return 1;
