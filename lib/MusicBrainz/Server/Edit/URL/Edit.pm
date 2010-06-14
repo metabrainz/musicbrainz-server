@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
@@ -49,6 +50,16 @@ sub build_display_data
     $data->{url} = $loaded->{URL}->{ $self->url_id };
 
     return $data;
+}
+
+sub allow_auto_edit
+{
+    my $self = shift;
+
+    my ($old_url, $new_url) = normalise_strings($self->data->{old}{url},
+                                                $self->data->{new}{url});
+
+    return $old_url ne $new_url;
 }
 
 __PACKAGE__->meta->make_immutable;
