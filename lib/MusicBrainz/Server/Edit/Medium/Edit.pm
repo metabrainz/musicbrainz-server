@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Validation 'normalise_strings';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
@@ -68,6 +69,21 @@ sub build_display_data
     }
 
     return $data;
+}
+
+sub allow_auto_edit
+{
+    my $self = shift;
+
+    my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
+                                                  $self->data->{new}{name});
+
+    return 0 if $self->data->{old}{name} && $old_name ne $new_name;
+    return 0 if $self->data->{old}{format_id};
+    return 0 if exists $self->data->{old}{position};
+    return 0 if exists $self->data->{old}{tracklist_id};
+
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;
