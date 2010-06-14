@@ -31,6 +31,7 @@ our @EXPORT_OK = qw(
     model_to_type
     order_by
     check_in_use
+    map_query
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -271,6 +272,16 @@ sub remove_equal
             delete $old->{$key};
             delete $new->{$key};
         }
+    }
+}
+
+sub map_query
+{
+    my ($dbh, $key, $value, $query, @bind_params) = @_;
+    my $sql = Sql->new($dbh);
+    return {
+        map { $_->{$key} => $_->{$value} }
+            @{ $sql->select_list_of_hashes($query, @bind_params) }
     }
 }
 
