@@ -6,6 +6,8 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Owner:')
                content=link_editor(list.editor) %]
         [%- END -%]
+
+        [% link_collection(collection, 'delete', l('Delete this collection')) %]
     [% END %]
 
     <div id="content">
