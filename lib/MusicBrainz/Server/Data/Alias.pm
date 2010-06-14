@@ -138,6 +138,8 @@ sub update
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
+    my %names = $self->parent->find_or_insert_names($alias_hash->{name});
+    $alias_hash->{name} = $names{ $alias_hash->{name} };
     $sql->update_row($table, $alias_hash, { id => $alias_id });
 }
 
