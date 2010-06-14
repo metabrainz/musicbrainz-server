@@ -39,6 +39,7 @@ require Exporter;
         is_valid_url
         is_positive_integer
         is_valid_discid
+        normalise_strings
     )
 }
 
@@ -46,6 +47,13 @@ use strict;
 use Encode qw( decode encode );
 use Date::Calc qw( check_date Delta_YMD );
 use Carp qw( carp cluck croak );
+use Text::Unaccent qw( unac_string );
+
+sub unaccent ($)
+{
+    my $str = shift;
+    return ( defined $str ? unac_string('UTF-8', ''.$str) : '' );
+}
 
 #TODO: Do we still need this?
 #sub new
@@ -353,6 +361,32 @@ sub encode_entities
     my $t = $_[0];
     $t =~ s/([<>"'&])/$ent{$1}/go;
     $t;
+}
+
+sub normalise_strings
+{
+    my @r = map {
+        # Normalise to lower case
+        my $t = lc decode("utf-8", $_);
+
+        # Remove leading and trailing space
+        $t =~ s/\A\s+//;
+        $t =~ s/\s+\z//;
+
+        # Compress whitespace
+        $t =~ s/\s+/ /g;
+
+        # So-called smart quotes; in reality, a backtick and an acute accent.
+        # Also double-quotes and angled double quotes.
+        $t =~ tr/\x{0060}\x{00B4}"\x{00AB}\x{00BB}/'/;
+
+        # Unaccent what's left
+        $t = decode("utf-8", unaccent(encode("utf-8", $t)));
+
+        $t;
+    } @_;
+
+    wantarray ? @r : $r[-1];
 }
 
 1;

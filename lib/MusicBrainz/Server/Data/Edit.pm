@@ -204,6 +204,9 @@ sub create
     $edit->auto_edit(1)
         if ($conditions->{auto_edit} && $conditions->{votes} == 0);
 
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && $edit->allow_auto_edit);
+
     # Edit conditions allow auto edit and the user is autoeditor
     $edit->auto_edit(1)
         if ($conditions->{auto_edit} && ($privs & $AUTO_EDITOR_FLAG));
