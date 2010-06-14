@@ -44,7 +44,7 @@ sub related_entities
             $self->data->{type1} => [ $self->data->{entity1} ]
         };
     }
-    delete $result->{url} if exists $result->{url};
+
     return $result;
 }
 

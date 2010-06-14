@@ -6,7 +6,8 @@ use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
+    'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' };
 
 sub _table
 {
