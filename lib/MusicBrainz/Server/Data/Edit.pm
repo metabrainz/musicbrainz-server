@@ -145,6 +145,7 @@ sub escape
     my ($self, $str) = @_;
     $str =~ s/\n/\\n/g;
     $str =~ s/\t/\\t/g;
+    $str =~ s/\r/\\r/g;
     return $str;
 }
 
@@ -175,11 +176,8 @@ sub insert
             1
         );
 
-        use Devel::Dwarn;
-        Dwarn \@data;
-
         $sql_raw->dbh->pg_putcopydata(
-            join "\t", @data
+            join("\t", @data) . "\n"
         );
     }
 
