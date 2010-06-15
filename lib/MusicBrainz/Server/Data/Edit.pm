@@ -140,37 +140,50 @@ sub merge_entities
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
+sub escape
+{
+    my ($self, $str) = @_;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\t/\\t/g;
+    return $str;
+}
+
 sub insert
 {
-    my ($self, $edit) = @_;
+    my ($self, @edits) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
 
-    my $row = {
-        id         => $edit->id,
-        editor     => $edit->editor_id,
-        data       => pl2xml($edit->to_hash, NoAttr => 1),
-        status     => $edit->status,
-        type       => $edit->edit_type,
-        opentime   => $edit->created_time,
-        expiretime => $edit->expires_time,
-        autoedit   => $edit->auto_edit,
-        closetime  => $edit->close_time,
-        yesvotes   => $edit->yes_votes,
-        novotes    => $edit->no_votes,
-    };
+    $sql_raw->do('COPY edit FROM stdout');
 
-    $sql_raw->insert_row('edit', $row);
+    use DateTime::Format::Pg;
 
-    my $ents = $edit->related_entities;
-    while (my ($type, $ids) = each %$ents) {
-        next unless @$ids;
-        my @uniq_ids = uniq @$ids;
-        my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-        $query .= join ", ", ("(?, ?)") x @uniq_ids;
-        my @all_ids = ($edit->id) x @uniq_ids;
-        $sql_raw->do($query, zip @all_ids, @uniq_ids);
+    for my $edit (@edits) {
+        my @data = (
+            $edit->id,
+            $edit->editor_id,
+            $edit->edit_type,
+            $edit->status,
+            $self->escape(pl2xml($edit->to_hash, NoAttr => 1)),
+            $edit->yes_votes,
+            $edit->no_votes,
+            $edit->auto_edit,
+            DateTime::Format::Pg->format_datetime($edit->created_time),
+            DateTime::Format::Pg->format_datetime($edit->close_time),
+            DateTime::Format::Pg->format_datetime($edit->expires_time),
+            '\N',
+            1
+        );
+
+        use Devel::Dwarn;
+        Dwarn \@data;
+
+        $sql_raw->dbh->pg_putcopydata(
+            join "\t", @data
+        );
     }
+
+    $sql_raw->dbh->pg_putcopyend();
 }
 
 sub create
