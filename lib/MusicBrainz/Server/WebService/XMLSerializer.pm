@@ -14,6 +14,17 @@ sub mime_type { 'application/xml' }
 Readonly my $xml_decl_begin => '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">';
 Readonly my $xml_decl_end => '</metadata>';
 
+sub _list_attributes
+{
+    my ($self, $list) = @_;
+
+    my %attrs = ( count => $list->{total} );
+
+    $attrs{offset} = $list->{offset} if $list->{offset};
+
+    return \%attrs;
+}
+
 sub _serialize_life_span
 {
     my ($self, $data, $gen, $entity, $inc, $opts) = @_;
@@ -121,10 +132,10 @@ sub _serialize_artist_credit
 
 sub _serialize_release_group_list
 {
-    my ($self, $data, $gen, $release_groups, $inc, $opts) = @_;
+    my ($self, $data, $gen, $list, $inc, $opts) = @_;
 
     my @list;
-    foreach my $rg (@$release_groups)
+    foreach my $rg (@{ $list->{items} })
     {
         my $rel_opts = {};
         if ($opts->{releases}->{$rg->id})
@@ -133,8 +144,7 @@ sub _serialize_release_group_list
         }
         $self->_serialize_release_group(\@list, $gen, $rg, $inc, $rel_opts);
     }
-    push @$data, $gen->release_group_list(
-        { count => scalar @$release_groups }, @list);
+    push @$data, $gen->release_group_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_release_group
@@ -171,14 +181,14 @@ sub _serialize_release_group
 
 sub _serialize_release_list
 {
-    my ($self, $data, $gen, $releases, $inc, $opts) = @_;
+    my ($self, $data, $gen, $list, $inc, $opts) = @_;
 
     my @list;
-    foreach my $release (@$releases)
+    foreach my $release (@{ $list->{items} })
     {
         $self->_serialize_release(\@list, $gen, $release, $inc, $opts);
     }
-    push @$data, $gen->release_list({ count => scalar @$releases }, @list);
+    push @$data, $gen->release_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_release
@@ -233,14 +243,14 @@ sub _serialize_release
 
 sub _serialize_work_list
 {
-    my ($self, $data, $gen, $works, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $list, $inc, $opts, $toplevel) = @_;
 
     my @list;
-    foreach my $work (@$works)
+    foreach my $work (@{ $list->{items} })
     {
         $self->_serialize_work(\@list, $gen, $work, $inc, $opts, $toplevel);
     }
-    push @$data, $gen->work_list({ count => scalar (@$works) }, @list);
+    push @$data, $gen->work_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_work
@@ -276,14 +286,15 @@ sub _serialize_work
 
 sub _serialize_recording_list
 {
-    my ($self, $data, $gen, $recordings, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $list, $inc, $opts, $toplevel) = @_;
 
     my @list;
-    foreach my $recording (@$recordings)
+    foreach my $recording (@{ $list->{items} })
     {
         $self->_serialize_recording(\@list, $gen, $recording, $inc, $opts, $toplevel);
     }
-    push @$data, $gen->recording_list({ count => scalar (@$recordings) }, @list);
+
+    push @$data, $gen->recording_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_recording
@@ -426,16 +437,16 @@ sub _serialize_label_info
 
 sub _serialize_label_list
 {
-    my ($self, $data, $gen, $labels, $inc, $opts) = @_;
+    my ($self, $data, $gen, $list, $inc, $opts) = @_;
 
-    if (@$labels)
+    if (@{ $list->{items} })
     {
         my @list;
-        foreach my $label (@$labels)
+        foreach my $label (@{ $list->{items} })
         {
             $self->_serialize_label(\@list, $gen, $label, $inc, $opts);
         }
-        push @$data, $gen->label_list({ count => scalar(@$labels) }, @list);
+        push @$data, $gen->label_list($self->_list_attributes ($list), @list);
     }
 }
 
@@ -554,9 +565,13 @@ sub _serialize_isrc
     my ($self, $data, $gen, $isrcs, $inc, $opts, $toplevel) = @_;
 
     my @recordings = map { $_->recording } grep { $_->recording } @$isrcs;
+    my $recordings = {
+        items => \@recordings,
+        total => scalar @recordings,
+    };
 
     my @list;
-    $self->_serialize_recording_list(\@list, $gen, \@recordings, $inc, $opts, $toplevel)
+    $self->_serialize_recording_list(\@list, $gen, $recordings, $inc, $opts, $toplevel)
         if @recordings;
 
     push @$data, $gen->isrc({ id => $isrcs->[0]->isrc }, @list);
@@ -652,7 +667,7 @@ sub serialize
     my $gen = MusicBrainz::XML::Generator->new(':std');
 
     my $method = $type . "_resource";
-    $method =~ s/release-group/release_group/;
+    $method =~ s/-/_/;
     my $xml = $xml_decl_begin;
     $xml .= $self->$method($gen, $entity, $inc, $opts);
     $xml .= $xml_decl_end;
@@ -750,6 +765,17 @@ sub discid_resource
     $self->_serialize_disc($data, $gen, $cdtoc, $inc, $opts, 1);
     return $data->[0];
 }
+
+sub recording_list_resource
+{
+    my ($self, $gen, $recordings, $inc, $opts) = @_;
+
+    my $data = [];
+    $self->_serialize_recording_list($data, $gen, $recordings, $inc, $opts, 1);
+
+    return $data->[0];
+} 
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

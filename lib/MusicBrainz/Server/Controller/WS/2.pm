@@ -12,9 +12,9 @@ use Data::OptList;
 
 Readonly our $MAX_ITEMS => 25;
 
-# This defines what options are acceptable for WS calls
-# rel_status and rg_type are special cases that allow for one release status and one release group
-# type per call to be specified.
+# This defines what options are acceptable for WS calls.
+# Note that the validator will automatically add inc= arguments to the allowed list
+# based on other inc= arguments.  (puids are allowed if recordings are allowed, etc..)
 my $ws_defs = Data::OptList::mkopt([
      artist => {
                          method   => 'GET',
@@ -23,20 +23,39 @@ my $ws_defs = Data::OptList::mkopt([
      },
      artist => {
                          method   => 'GET',
+                         linked   => [ qw(recording release release-group work) ],
+                         inc      => [ qw(aliases) ],
+     },
+     artist => {
+                         method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
-                                          aliases artist-credits discids media mediums
-                                          puids isrcs various-artists
+                                          aliases various-artists
                                           _relations tags user-tags ratings user-ratings) ],
      },
-     "release-group" => {
+     label => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ]
      },
-     "release-group" => {
+     label => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases
-                                          aliases artist-credits discids media mediums
+                         inc      => [ qw(releases aliases
+                                          _relations tags user-tags ratings user-ratings) ],
+     },
+     recording => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ]
+     },
+     recording => {
+                         method   => 'GET',
+                         linked   => [ qw(artist release) ],
+                         inc      => [ qw(artist-credits puids isrcs) ],
+                         optional => [ qw(limit offset) ]
+     },
+     recording => {
+                         method   => 'GET',
+                         inc      => [ qw(artists releases artist-credits puids isrcs
                                           _relations tags user-tags ratings user-ratings) ]
      },
      release => {
@@ -47,32 +66,18 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups
-                                          aliases artist-credits discids media mediums
-                                          puids isrcs _relations) ]
+                                          artist-credits discids media _relations) ]
      },
-     recording => {
+     "release-group" => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ]
      },
-     recording => {
+     "release-group" => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases
-                                          aliases artist-credits discids media mediums
-                                          puids isrcs
+                         inc      => [ qw(artists releases artist-credits
                                           _relations tags user-tags ratings user-ratings) ]
      },
-     label => {
-                         method   => 'GET',
-                         required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
-     },
-     label => {
-                         method   => 'GET',
-                         inc      => [ qw(releases
-                                          aliases artist-credits discids media mediums
-                                          _relations tags user-tags ratings user-ratings) ],
-     },
      work => {
                          method   => 'GET',
                          required => [ qw(query) ],
@@ -80,32 +85,27 @@ my $ws_defs = Data::OptList::mkopt([
      },
      work => {
                          method   => 'GET',
-                         inc      => [ qw(artists aliases
+                         inc      => [ qw(artists aliases artist-credits
                                           _relations tags user-tags ratings user-ratings) ]
      },
      discid => {
                          method   => 'GET',
-                         inc      => [ qw(artists labels recordings release-groups
-                                          aliases artist-credits discids media mediums
+                         inc      => [ qw(artists labels recordings release-groups artist-credits
                                           puids isrcs _relations) ]
      },
      puid => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases
-                                          aliases artist-credits discids media mediums
-                                          puids isrcs
+                         inc      => [ qw(artists releases puids isrcs artist-credits
                                           _relations tags user-tags ratings user-ratings) ]
      },
      isrc => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases
-                                          aliases artist-credits discids media mediums
-                                          puids isrcs
+                         inc      => [ qw(artists releases puids isrcs artist-credits
                                           _relations tags user-tags ratings user-ratings) ]
      },
      iswc => {
                          method   => 'GET',
-                         inc      => [ qw(artists aliases
+                         inc      => [ qw(artists aliases artist-credits
                                           _relations tags user-tags ratings user-ratings) ]
      },
 ]);
@@ -197,6 +197,28 @@ sub _tags_and_ratings
         $model->rating->load_user_ratings($c->user->id, $entity);
         $opts->{user_ratings} = $entity->user_rating * 5 / 100;
     }
+}
+
+sub _limit_and_offset
+{
+    my ($self, $c) = @_;
+
+    my $args = $c->stash->{args};
+    my $limit = $args->{limit} ? $args->{limit} : 25;
+    my $offset = $args->{offset} ? $args->{offset} : 0;
+
+    return ($limit > 100 ? 100 : $limit, $offset);
+}
+
+sub make_list
+{
+    my ($self, $results, $total, $offset) = @_;
+
+    return {
+        items => $results,
+        total => defined $total ? $total : scalar @$results,
+        offset => defined $offset ? $offset : 0
+    };
 }
 
 sub linked_recordings
@@ -319,9 +341,9 @@ sub artist : Chained('root') PathPart('artist') Args(1)
     if ($c->stash->{inc}->recordings)
     {
         my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
-        $opts->{recordings} = $results[0];
+        $opts->{recordings} = $self->make_list (@results);
 
-        $self->linked_recordings ($c, $opts, $opts->{recordings});
+        $self->linked_recordings ($c, $opts, $opts->{recordings}->{items});
     }
 
     if ($c->stash->{inc}->releases)
@@ -336,25 +358,25 @@ sub artist : Chained('root') PathPart('artist') Args(1)
             @results = $c->model('Release')->find_by_artist($artist->id, $MAX_ITEMS);
         }
 
-        $opts->{releases} = $results[0];
+        $opts->{releases} = $self->make_list (@results);
 
-        $self->linked_releases ($c, $opts, $opts->{releases});
+        $self->linked_releases ($c, $opts, $opts->{releases}->{items});
     }
 
     if ($c->stash->{inc}->release_groups)
     {
         my @results = $c->model('ReleaseGroup')->find_by_artist($artist->id, $MAX_ITEMS);
-        $opts->{release_groups} = $results[0];
+        $opts->{release_groups} = $self->make_list (@results);
 
-        $self->linked_release_groups ($c, $opts, $opts->{release_groups});
+        $self->linked_release_groups ($c, $opts, $opts->{release_groups}->{items});
     }
 
     if ($c->stash->{inc}->works)
     {
         my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
-        $opts->{works} = $results[0];
+        $opts->{works} = $self->make_list (@results);
 
-        $self->linked_works ($c, $opts, $opts->{works});
+        $self->linked_works ($c, $opts, $opts->{works}->{items});
     }
 
     $self->_tags_and_ratings($c, 'Artist', $artist, $opts);
@@ -372,6 +394,13 @@ sub artist : Chained('root') PathPart('artist') Args(1)
 sub artist_search : Chained('root') PathPart('artist') Args(0)
 {
     my ($self, $c) = @_;
+
+    if ($c->stash->{linked})
+    {
+        warn "FIXME: YAY A BROWSE REQUEST. PLZ IMPLEMENT\n";
+        $c->stash->{error} = '';
+        $c->detach('bad_req');
+    }
 
     my $result = xml_search('artist', $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -407,9 +436,9 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
-        $opts->{releases} = $results[0];
+        $opts->{releases} = $self->make_list (@results);
 
-        $self->linked_releases ($c, $opts, $opts->{releases});
+        $self->linked_releases ($c, $opts, $opts->{releases}->{items});
     }
 
     if ($c->stash->{inc}->artists)
@@ -436,6 +465,13 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
 sub release_group_search : Chained('root') PathPart('release-group') Args(0)
 {
     my ($self, $c) = @_;
+
+    if ($c->stash->{linked})
+    {
+        warn "FIXME: YAY A BROWSE REQUEST. PLZ IMPLEMENT\n";
+        $c->stash->{error} = '';
+        $c->detach('bad_req');
+    }
 
     my $result = xml_search('release-group', $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -532,6 +568,13 @@ sub release_search : Chained('root') PathPart('release') Args(0)
 {
     my ($self, $c) = @_;
 
+    if ($c->stash->{linked})
+    {
+        warn "FIXME: YAY A BROWSE REQUEST. PLZ IMPLEMENT\n";
+        $c->stash->{error} = '';
+        $c->detach('bad_req');
+    }
+
     my $result = xml_search('release', $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     if (exists $result->{xml})
@@ -555,7 +598,7 @@ sub recording_toplevel
     {
         my @results = $c->model('Release')->find_by_recording($recording->id, $MAX_ITEMS);
         $self->linked_releases ($c, $opts, $results[0]);
-        $opts->{releases}->{$recording->id} = $results[0];
+        $opts->{releases}->{$recording->id} = $self->make_list (@results);
     }
 
     if ($c->stash->{inc}->artists)
@@ -598,9 +641,49 @@ sub recording: Chained('root') PathPart('recording') Args(1)
     $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $opts));
 }
 
+sub recording_browse : Private
+{
+    my ($self, $c) = @_;
+
+    my ($resource, $id) = @{ $c->stash->{linked} };
+    my ($limit, $offset) = $self->_limit_and_offset ($c);
+
+    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    my $recordings;
+    my $total;
+    if ($resource eq 'artist')
+    {
+        my $artist = $c->model('Artist')->get_by_gid($id);
+        unless ($artist) {
+            $c->detach('not_found');
+        }
+
+        my @tmp = $c->model('Recording')->find_by_artist ($artist->id, $limit, $offset);
+        $recordings = $self->make_list (@tmp, $offset);
+    }
+
+    my $opts;
+    for (@{ $recordings->{items} })
+    {
+        $self->recording_toplevel ($c, $opts, $_);
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('recording-list', $recordings, $c->stash->{inc}, $opts));
+}
+
+
+
 sub recording_search : Chained('root') PathPart('recording') Args(0)
 {
     my ($self, $c) = @_;
+
+    $c->detach('recording_browse') if ($c->stash->{linked});
 
     my $result = xml_search('recording', $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -644,9 +727,9 @@ sub label : Chained('root') PathPart('label') Args(1)
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_label($label->id, $MAX_ITEMS);
-        $opts->{releases} = $results[0];
+        $opts->{releases} = $self->make_list (@results);
 
-        $self->linked_releases ($c, $opts, $opts->{releases});
+        $self->linked_releases ($c, $opts, $opts->{releases}->{items});
     }
 
     $self->_tags_and_ratings($c, 'Label', $label, $opts);
@@ -664,6 +747,13 @@ sub label : Chained('root') PathPart('label') Args(1)
 sub label_search : Chained('root') PathPart('label') Args(0)
 {
     my ($self, $c) = @_;
+
+    if ($c->stash->{linked})
+    {
+        warn "FIXME: YAY A BROWSE REQUEST. PLZ IMPLEMENT\n";
+        $c->stash->{error} = '';
+        $c->detach('bad_req');
+    }
 
     my $result = xml_search('label', $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -729,6 +819,13 @@ sub work_search : Chained('root') PathPart('work') Args(0)
 {
     my ($self, $c) = @_;
 
+    if ($c->stash->{linked})
+    {
+        warn "FIXME: YAY A BROWSE REQUEST. PLZ IMPLEMENT\n";
+        $c->stash->{error} = '';
+        $c->detach('bad_req');
+    }
+
     my $result = xml_search('work', $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     if (exists $result->{xml})
@@ -760,7 +857,7 @@ sub puid : Chained('root') PathPart('puid') Args(1)
     my $opts;
     my @recording_puids = $c->model('RecordingPUID')->find_by_puid($puid->id);
     my @recordings = map { $_->recording } @recording_puids;
-    $opts->{recordings} = \@recordings;
+    $opts->{recordings} = $self->make_list (\@recordings);
 
     for (@recordings)
     {
@@ -788,7 +885,7 @@ sub isrc : Chained('root') PathPart('isrc') Args(1)
 
     my $opts;
     my @recordings = $c->model('Recording')->load(@isrcs);
-    $opts->{recordings} = \@recordings;
+    $opts->{recordings} = $self->make_list (\@recordings);
 
     for (@recordings)
     {
@@ -819,7 +916,7 @@ sub discid : Chained('root') PathPart('discid') Args(1)
 
     my $opts = {};
     my @releases = $c->model('Release')->find_by_medium([ map { $_->medium_id } @mediumcdtocs ]);
-    $opts->{releases} = \@releases;
+    $opts->{releases} = $self->make_list (\@releases);
 
     for (@releases)
     {
@@ -846,7 +943,7 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
     }
 
     my $opts;
-    $opts->{works} = \@works;
+    $opts->{works} = $self->make_list (\@works);
 
     for (@works)
     {
