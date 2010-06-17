@@ -12,6 +12,7 @@ memoize(qw(
     resolve_album_id
     resolve_recording_id
     resolve_release_id
+    resolve_url_id
     label_id_from_alias
 ));
 
@@ -111,6 +112,15 @@ sub resolve_release_id
     $self->sql->select_single_value(q{
         SELECT new_rel FROM tmp_release_merge
          WHERE old_rel = ?
+    }, $id) || $id;
+}
+
+sub resolve_url_id
+{
+    my ($self, $id) = @_;
+    $self->sql->select_single_value(q{
+        SELECT new_url FROM tmp_url_merge
+         WHERE old_url = ?
     }, $id) || $id;
 }
 
