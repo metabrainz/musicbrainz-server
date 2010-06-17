@@ -56,10 +56,12 @@ sub allow_auto_edit
 {
     my $self = shift;
 
-    my ($old_url, $new_url) = normalise_strings($self->data->{old}{url},
-                                                $self->data->{new}{url});
+    my ($old_desc, $new_desc) = normalise_strings($self->data->{old}{description},
+						  $self->data->{new}{description});
+    return 0 if $old_desc ne $new_desc;
+    return 0 if exists $self->data->{old}{url};
 
-    return $old_url ne $new_url;
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;
