@@ -54,12 +54,23 @@ $sql->do('INSERT INTO tmp_url_merge (old_url, new_url) VALUES ' .
 
 log_trace { 'Inserting the correct URLs' };
 $sql->do('TRUNCATE url CASCADE');
-$sql->do(q{ INSERT INTO url (id, gid, url, description, refcount) VALUES } .
-	 join(", ", ("(?, ?, ?, ?, ?)") x values %urls),
-	map {
-	  $_->{id}, $_->{gid}, $_->{url}, $_->{description},
-	  $_->{refcount}
-	} values %urls);
+$sql->do('COPY url FROM STDIN');
+sub escape {
+    my $str = shift;
+    $str =~ s/\t/\\t/g;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\r/\\r/g;
+    $str =~ s/\\/\\\\/g;
+    return $str;
+}
+for my $url (values %urls) {
+    my $put = join("\t", $url->{id}, $url->{gid}, escape($url->{url}),
+                   escape($url->{description}), $url->{refcount}, 0) . "\n";
+    log_trace { "Putting $put" };
+
+    $sql->dbh->pg_putcopydata($put);
+}
+$sql->dbh->pg_putcopyend();
 
 log_trace { 'Adding GID redirections' };
 if (%redirects) {

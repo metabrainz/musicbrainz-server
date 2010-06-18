@@ -866,7 +866,7 @@ CREATE TABLE url
 (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    url                 VARCHAR(255) NOT NULL,
+    url                 TEXT NOT NULL,
     description         TEXT,
     refcount            INTEGER NOT NULL DEFAULT 0,
     editpending         INTEGER NOT NULL DEFAULT 0
