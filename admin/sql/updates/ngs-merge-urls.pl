@@ -5,14 +5,6 @@ use warnings;
 use FindBin '$Bin';
 use lib "$Bin/../../../lib";
 
-use Log::Contextual::SimpleLogger;
-use Log::Contextual qw( :log :dlog ),
-  -default_logger => Log::Contextual::SimpleLogger->new({
-							 levels => [qw( info debug  trace)]
-							});
-
-log_info { 'Merging URLs with differing encodings' };
-
 use MusicBrainz::Server::Context;
 use Sql;
 use URI;
@@ -25,8 +17,9 @@ my %redirects;
 my %merge_map;
 
 my $sql = Sql->new( $c->dbh );
-log_trace { 'Selecting public URLS' };
+printf STDERR 'Selecting public URLS';
 $sql->select('SELECT * FROM public.url');
+my $i = 0;
 while(my $row = $sql->next_row_hash_ref) {
     my $correct_url = URI->new($row->{url})->canonical->as_string;
     if (my $official = $urls{$correct_url}) {
@@ -38,13 +31,14 @@ while(my $row = $sql->next_row_hash_ref) {
         $row->{url} = $correct_url;
         $urls{ $correct_url } = $row;
     }
+    printf "%d\r", $i++;
 }
 
 $sql->finish;
 
 $sql->begin;
 
-log_trace { 'Preparing merge tables' };
+printf STDERR 'Preparing merge tables';
 $sql->do("CREATE TABLE tmp_url_merge (
         old_url INTEGER NOT NULL,
         new_url INTEGER NOT NULL
@@ -52,7 +46,7 @@ $sql->do("CREATE TABLE tmp_url_merge (
 $sql->do('INSERT INTO tmp_url_merge (old_url, new_url) VALUES ' .
 	 join(', ', ('(?, ?)') x keys %merge_map), %merge_map);
 
-log_trace { 'Inserting the correct URLs' };
+printf STDERR 'Inserting the corrected canonical URLs';
 $sql->do('TRUNCATE url CASCADE');
 $sql->do('COPY url FROM STDIN');
 sub escape {
@@ -63,16 +57,17 @@ sub escape {
     $str =~ s/\\/\\\\/g;
     return $str;
 }
+$i = 0;
 for my $url (values %urls) {
     my $put = join("\t", $url->{id}, $url->{gid}, escape($url->{url}),
                    escape($url->{description}), $url->{refcount}, 0) . "\n";
-    log_trace { "Putting $put" };
 
     $sql->dbh->pg_putcopydata($put);
+    printf "%d\r", $i++;
 }
 $sql->dbh->pg_putcopyend();
 
-log_trace { 'Adding GID redirections' };
+printf STDERR 'Adding GID redirections';
 if (%redirects) {
   $sql->do('TRUNCATE url_gid_redirect');
   $sql->do(q{ INSERT INTO url_gid_redirect (gid, newid) VALUES } .
@@ -80,7 +75,7 @@ if (%redirects) {
 	   %redirects);
 }
 
-log_trace { 'Merging relationships' };
+printf STDERR 'Merging relationships';
 my @entity_types = qw(artist label recording release release_group work);
 foreach my $type (@entity_types) {
     my ($entity0, $entity1, $table);
@@ -95,7 +90,7 @@ foreach my $type (@entity_types) {
 	$table = "l_url_${type}";
     }
 
-    log_trace { "Merging $table" };
+    printf STDERR "Merging $table";
     $sql->do("
 SELECT
     DISTINCT ON (link, $entity0, COALESCE(new_url, $entity1))
@@ -110,7 +105,7 @@ DROP TABLE tmp_$table;
 ");
 }
 
-log_trace { 'Merging l_url_url' };
+printf STDERR 'Merging l_url_url';
 $sql->do("
 SELECT
     DISTINCT ON (link, COALESCE(rm0.new_url, entity0), COALESCE(rm1.new_url, entity1)) id, link, COALESCE(rm0.new_url, entity0) AS entity0, COALESCE(rm1.new_url, entity1) AS entity1, editpending
