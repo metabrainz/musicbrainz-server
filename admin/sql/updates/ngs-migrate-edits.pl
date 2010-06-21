@@ -19,9 +19,9 @@ my $offset = 0;
 my $chunk  = 100000;
 
 GetOptions(
-    "limit=i"  => \$limit,
+    "chunks=i"  => \$limit,
     "offset=i" => \$offset,
-    "chunk=i"  => \$chunk
+    "chunk-size=i"  => \$chunk
 );
 
 my @upgraded;
@@ -29,7 +29,7 @@ my $sql = Sql->new($c->dbh);
 
 printf "Upgrading edits!\n";
 $sql->select('SELECT * FROM public.moderation_closed LIMIT ? OFFSET ?',
-             $limit, $offset);
+             $limit * $chunk, $offset);
 
 printf "Here we go!\n";
 
@@ -58,6 +58,7 @@ while (my $row = $sql->next_row_hash_ref) {
     }
 
     if (@upgraded >= $chunk) {
+        printf "Flushing %d edits to the database\n", scalar(@upgraded);
         $c->model('Edit')->insert(@upgraded);
         push @migrated_ids, map { $_->id } @upgraded;
         @upgraded = ();
@@ -65,6 +66,11 @@ while (my $row = $sql->next_row_hash_ref) {
 
     printf "%d\r", $i++;
 }
+
+printf "Flushing %d edits to the database\n", scalar(@upgraded);
+$c->model('Edit')->insert(@upgraded);
+push @migrated_ids, map { $_->id } @upgraded;
+@upgraded = ();
 
 my $votes = $sql->select_list_of_lists('
     SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded
