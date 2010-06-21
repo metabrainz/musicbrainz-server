@@ -206,7 +206,7 @@
                 </a>
             </li>
             <li>
-                [%- l('{doc|Report a Copyright Issue}', {doc => doc_link('Copyright_Violation_Notice')}) -%]
+                [%- l('{doc|Report a Copyright Violation}', {doc => doc_link('Copyright_Violation_Notice')}) -%]
             </li>
         </ul>
     </li>
