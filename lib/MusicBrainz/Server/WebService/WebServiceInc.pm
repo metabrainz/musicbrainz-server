@@ -70,7 +70,7 @@ sub BUILD
     foreach my $arg (@{$args->{inc}})
     {
         $arg = lc($arg);
-        $arg =~ s/-/_/;
+        $arg =~ s/-/_/g;
         $arg =~ s/mediums/media/;
 
         die "Unknown inc parameter $arg" if !exists($methods{$arg});

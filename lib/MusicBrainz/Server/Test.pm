@@ -198,7 +198,7 @@ sub mock_search_server
 {
     my ($type) = @_;
 
-    $type =~ s/-/_/;
+    $type =~ s/-/_/g;
 
     local $/;
     my $searchresults = "t/json/search_".lc($type).".json";

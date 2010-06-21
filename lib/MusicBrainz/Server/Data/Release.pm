@@ -170,7 +170,7 @@ sub find_by_recording
                         JOIN track ON track.tracklist = medium.tracklist
                         JOIN recording ON recording.id = track.recording
                      WHERE recording.id IN (" . placeholders(@ids) . "))
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },

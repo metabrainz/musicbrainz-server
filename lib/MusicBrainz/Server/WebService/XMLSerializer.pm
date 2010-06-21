@@ -8,6 +8,8 @@ use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
 use MusicBrainz::XML::Generator escape => 'always';
+use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
+use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 sub mime_type { 'application/xml' }
 
@@ -68,9 +70,26 @@ sub _serialize_alias
     }
 }
 
+sub _serialize_artist_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash) = @_;
+
+    if (@{ $list->{items} })
+    {
+        my @list;
+        foreach my $label (@{ $list->{items} })
+        {
+            $self->_serialize_artist(\@list, $gen, $label, $inc, $stash, 1);
+        }
+        push @$data, $gen->artist_list($self->_list_attributes ($list), @list);
+    }
+}
+
 sub _serialize_artist
 {
-    my ($self, $data, $gen, $artist, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $artist, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($artist);
 
     my %attrs;
     $attrs{id} = $artist->gid;
@@ -89,16 +108,16 @@ sub _serialize_artist
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
         $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
 
-        $self->_serialize_recording_list(\@list, $gen, $opts->{recordings}, $inc, $opts)
+        $self->_serialize_recording_list(\@list, $gen, $opts->{recordings}, $inc, $stash)
             if $inc->recordings;
 
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts)
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
             if $inc->releases;
 
-        $self->_serialize_release_group_list(\@list, $gen, $opts->{release_groups}, $inc, $opts)
+        $self->_serialize_release_group_list(\@list, $gen, $opts->{release_groups}, $inc, $stash)
             if $inc->release_groups;
 
-        $self->_serialize_work_list(\@list, $gen, $opts->{works}, $inc, $opts)
+        $self->_serialize_work_list(\@list, $gen, $opts->{works}, $inc, $stash)
             if $inc->works;
     }
 
@@ -110,7 +129,7 @@ sub _serialize_artist
 
 sub _serialize_artist_credit
 {
-    my ($self, $data, $gen, $artist_credit, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $artist_credit, $inc, $stash, $toplevel) = @_;
 
     my @ac;
     foreach my $name (@{$artist_credit->names})
@@ -123,7 +142,7 @@ sub _serialize_artist_credit
         my @nc;
         push @nc, $gen->name($name->name) if ($name->name ne $name->artist->name);
 
-        $self->_serialize_artist(\@nc, $gen, $name->artist, $inc, $opts);
+        $self->_serialize_artist(\@nc, $gen, $name->artist, $inc, $stash);
         push @ac, $gen->name_credit(\%nc_attr, @nc);
     }
 
@@ -132,24 +151,27 @@ sub _serialize_artist_credit
 
 sub _serialize_release_group_list
 {
-    my ($self, $data, $gen, $list, $inc, $opts) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash) = @_;
 
     my @list;
     foreach my $rg (@{ $list->{items} })
     {
-        my $rel_opts = {};
-        if ($opts->{releases}->{$rg->id})
-        {
-            $rel_opts->{releases} = $opts->{releases}->{$rg->id};
-        }
-        $self->_serialize_release_group(\@list, $gen, $rg, $inc, $rel_opts);
+#         my $rel_opts = {};
+#         if ($opts->{releases}->{$rg->id})
+#         {
+#             $rel_opts->{releases} = $opts->{releases}->{$rg->id};
+#         }
+#         $self->_serialize_release_group(\@list, $gen, $rg, $inc, $rel_opts);
+        $self->_serialize_release_group(\@list, $gen, $rg, $inc, $stash);
     }
     push @$data, $gen->release_group_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_release_group
 {
-    my ($self, $data, $gen, $release_group, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $release_group, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($release_group);
 
     my %attr;
     $attr{id} = $release_group->gid;
@@ -161,15 +183,15 @@ sub _serialize_release_group
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $opts, $inc->artists)
+        $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts)
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
             if $inc->releases;
     }
     else
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $opts)
+        $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
 
@@ -181,24 +203,26 @@ sub _serialize_release_group
 
 sub _serialize_release_list
 {
-    my ($self, $data, $gen, $list, $inc, $opts) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
     foreach my $release (@{ $list->{items} })
     {
-        $self->_serialize_release(\@list, $gen, $release, $inc, $opts);
+        $self->_serialize_release(\@list, $gen, $release, $inc, $stash, $toplevel);
     }
     push @$data, $gen->release_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_release
 {
-    my ($self, $data, $gen, $release, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $release, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($release);
 
     $inc = $inc->clone ( releases => 0 );
 
     my @list;
-    
+
     push @list, $gen->title($release->name);
     push @list, $gen->status(lc($release->status->name)) if $release->status;
     push @list, $gen->disambiguation($release->comment) if $release->comment;
@@ -208,15 +232,15 @@ sub _serialize_release
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $opts, $inc->artists)
+        $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artist_credits || $inc->artists;
 
-        $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $opts)
+        $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
     }
     else
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $opts)
+        $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
 
@@ -227,12 +251,12 @@ sub _serialize_release
 
     if ($toplevel)
     {
-        $self->_serialize_label_info_list(\@list, $gen, $release->labels, $inc, $opts)
+        $self->_serialize_label_info_list(\@list, $gen, $release->labels, $inc, $stash)
             if ($release->labels && $inc->labels);
 
     }
 
-    $self->_serialize_medium_list(\@list, $gen, $release->mediums, $inc, $opts)
+    $self->_serialize_medium_list(\@list, $gen, $release->mediums, $inc, $stash)
         if ($release->mediums && ($inc->media || $inc->discids || $inc->recordings));
 
     $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships) if ($inc->has_rels);
@@ -243,19 +267,21 @@ sub _serialize_release
 
 sub _serialize_work_list
 {
-    my ($self, $data, $gen, $list, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
     foreach my $work (@{ $list->{items} })
     {
-        $self->_serialize_work(\@list, $gen, $work, $inc, $opts, $toplevel);
+        $self->_serialize_work(\@list, $gen, $work, $inc, $stash, $toplevel);
     }
     push @$data, $gen->work_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_work
 {
-    my ($self, $data, $gen, $work, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $work, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($work);
 
     my $iswc = $work->iswc;
     $iswc =~ s/^\s+//;
@@ -269,12 +295,12 @@ sub _serialize_work
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $opts, $inc->artists)
+        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
     }
     else
     {
-        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $opts)
+        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
 
@@ -286,12 +312,12 @@ sub _serialize_work
 
 sub _serialize_recording_list
 {
-    my ($self, $data, $gen, $list, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
     foreach my $recording (@{ $list->{items} })
     {
-        $self->_serialize_recording(\@list, $gen, $recording, $inc, $opts, $toplevel);
+        $self->_serialize_recording(\@list, $gen, $recording, $inc, $stash, $toplevel);
     }
 
     push @$data, $gen->recording_list($self->_list_attributes ($list), @list);
@@ -299,7 +325,9 @@ sub _serialize_recording_list
 
 sub _serialize_recording
 {
-    my ($self, $data, $gen, $recording, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $recording, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($recording);
 
     my @list;
     push @list, $gen->title($recording->name);
@@ -308,23 +336,22 @@ sub _serialize_recording
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts, $inc->artists)
+        $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
-        my $releases = $opts->{releases}->{$recording->id};
-        $self->_serialize_release_list(\@list, $gen, $releases, $inc, $opts)
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
             if $inc->releases;
     }
     else
     {
-        $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $opts)
+        $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
 
-    $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, {})
-        if ($opts->{puids} && $inc->{puids});
-    $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, {})
-        if ($opts->{isrcs} && $inc->{isrcs});
+    $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, $stash)
+        if ($opts->{puids} && $inc->puids);
+    $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
+        if ($opts->{isrcs} && $inc->isrcs);
 
     $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
@@ -335,38 +362,38 @@ sub _serialize_recording
 
 sub _serialize_medium_list
 {
-    my ($self, $data, $gen, $mediums, $inc, $opts) = @_;
+    my ($self, $data, $gen, $mediums, $inc, $stash) = @_;
 
     my @list;
     foreach my $medium (@$mediums)
     {
-        $self->_serialize_medium(\@list, $gen, $medium, $inc, $opts);
+        $self->_serialize_medium(\@list, $gen, $medium, $inc, $stash);
     }
     push @$data, $gen->medium_list({ count => scalar(@$mediums) }, @list);
 }
 
 sub _serialize_medium
 {
-    my ($self, $data, $gen, $medium, $inc, $opts) = @_;
+    my ($self, $data, $gen, $medium, $inc, $stash) = @_;
 
     my @med;
     push @med, $gen->title($medium->name) if $medium->name;
     push @med, $gen->position($medium->position);
     push @med, $gen->format($medium->format->name) if ($medium->format);
-    $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $opts) if ($inc->discids);
-    $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $opts);
+    $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
+    $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $stash);
 
     push @$data, $gen->medium(@med);
 }
 
 sub _serialize_track_list
 {
-    my ($self, $data, $gen, $tracklist, $inc, $opts) = @_;
+    my ($self, $data, $gen, $tracklist, $inc, $stash) = @_;
 
     my @list;
     foreach my $track (@{$tracklist->tracks})
     {
-        $self->_serialize_track(\@list, $gen, $track, $inc, $opts);
+        $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }
 
     push @$data, $gen->track_list({ count => $tracklist->track_count }, @list);
@@ -374,39 +401,41 @@ sub _serialize_track_list
 
 sub _serialize_track
 {
-    my ($self, $data, $gen, $track, $inc, $opts) = @_;
+    my ($self, $data, $gen, $track, $inc, $stash) = @_;
 
     my @track;
     push @track, $gen->position($track->position);
     push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
 
-    $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $opts);
+    $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash);
 
     push @$data, $gen->track(@track);
 }
 
 sub _serialize_disc_list
 {
-    my ($self, $data, $gen, $cdtoclist, $inc, $opts) = @_;
+    my ($self, $data, $gen, $cdtoclist, $inc, $stash) = @_;
 
     my @list;
     foreach my $cdtoc (@$cdtoclist)
     {
-        $self->_serialize_disc(\@list, $gen, $cdtoc->cdtoc, $inc, $opts);
+        $self->_serialize_disc(\@list, $gen, $cdtoc->cdtoc, $inc, $stash);
     }
     push @$data, $gen->disc_list({ count => scalar(@$cdtoclist) }, @list);
 }
 
 sub _serialize_disc
 {
-    my ($self, $data, $gen, $cdtoc, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $cdtoc, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($cdtoc);
 
     my @list;
     push @list, $gen->sectors($cdtoc->leadout_offset);
 
     if ($toplevel)
     {
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts, $toplevel);
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash, $toplevel);
     }
 
     push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
@@ -414,37 +443,37 @@ sub _serialize_disc
 
 sub _serialize_label_info_list
 {
-    my ($self, $data, $gen, $rel_labels, $inc, $opts) = @_;
+    my ($self, $data, $gen, $rel_labels, $inc, $stash) = @_;
 
     my @list;
     foreach my $rel_label (@$rel_labels)
     {
-        $self->_serialize_label_info(\@list, $gen, $rel_label, $inc, $opts);
+        $self->_serialize_label_info(\@list, $gen, $rel_label, $inc, $stash);
     }
     push @$data, $gen->label_info_list({ count => scalar(@$rel_labels) }, @list);
 }
 
 sub _serialize_label_info
 {
-    my ($self, $data, $gen, $rel_label, $inc, $opts) = @_;
+    my ($self, $data, $gen, $rel_label, $inc, $stash) = @_;
 
     my @list;
     push @list, $gen->catalog_number (lc($rel_label->catalog_number))
         if $rel_label->catalog_number;
-    $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $opts);
+    $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash);
     push @$data, $gen->label_info(@list);
 }
 
 sub _serialize_label_list
 {
-    my ($self, $data, $gen, $list, $inc, $opts) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash) = @_;
 
     if (@{ $list->{items} })
     {
         my @list;
         foreach my $label (@{ $list->{items} })
         {
-            $self->_serialize_label(\@list, $gen, $label, $inc, $opts);
+            $self->_serialize_label(\@list, $gen, $label, $inc, $stash);
         }
         push @$data, $gen->label_list($self->_list_attributes ($list), @list);
     }
@@ -452,7 +481,9 @@ sub _serialize_label_list
 
 sub _serialize_label
 {
-    my ($self, $data, $gen, $label, $inc, $opts) = @_;
+    my ($self, $data, $gen, $label, $inc, $stash) = @_;
+
+    my $opts = $stash->store ($label);
 
     my %attr;
     $attr{type} = lc($label->type->name) if $label->type;
@@ -467,7 +498,7 @@ sub _serialize_label
     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
-    $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $opts)
+    $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
         if $inc->releases;
 
     push @$data, $gen->label(@list);
@@ -510,7 +541,7 @@ sub _serialize_relation
     unless ($rel->target_type eq 'url')
     {
         my $method =  "_serialize_" . $rel->target_type;
-        $self->$method(\@list, $gen, $rel->target, MusicBrainz::Server::WebService::WebServiceInc->new(), {});
+        $self->$method(\@list, $gen, $rel->target, WebServiceInc->new, WebServiceStash->new);
     }
 
     push @$data, $gen->relation({ type => $type }, @list);
@@ -518,24 +549,26 @@ sub _serialize_relation
 
 sub _serialize_puid_list
 {
-    my ($self, $data, $gen, $puids, $inc, $opts) = @_;
+    my ($self, $data, $gen, $puids, $inc, $stash) = @_;
 
     my @list;
     foreach my $puid (@$puids)
     {
-        $self->_serialize_puid(\@list, $gen, $puid->puid, $inc, $opts);
+        $self->_serialize_puid(\@list, $gen, $puid->puid, $inc, $stash);
     }
     push @$data, $gen->puid_list({ count => scalar(@$puids) }, @list);
 }
 
 sub _serialize_puid
 {
-    my ($self, $data, $gen, $puid, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $puid, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($puid);
 
     my @list;
     if ($toplevel)
     {
-        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $opts, $toplevel)
+        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $stash, $toplevel)
             if ${opts}->{recordings};
     }
     push @$data, $gen->puid({ id => $puid->puid }, @list);
@@ -543,7 +576,7 @@ sub _serialize_puid
 
 sub _serialize_isrc_list
 {
-    my ($self, $data, $gen, $isrcs, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $isrcs, $inc, $stash, $toplevel) = @_;
 
     my %uniq_isrc;
     foreach (@$isrcs)
@@ -555,14 +588,14 @@ sub _serialize_isrc_list
     my @list;
     foreach my $k (keys %uniq_isrc)
     {
-        $self->_serialize_isrc(\@list, $gen, $uniq_isrc{$k}, $inc, $opts, $toplevel);
+        $self->_serialize_isrc(\@list, $gen, $uniq_isrc{$k}, $inc, $stash, $toplevel);
     }
     push @$data, $gen->isrc_list({ count => scalar(keys %uniq_isrc) }, @list);
 }
 
 sub _serialize_isrc
 {
-    my ($self, $data, $gen, $isrcs, $inc, $opts, $toplevel) = @_;
+    my ($self, $data, $gen, $isrcs, $inc, $stash, $toplevel) = @_;
 
     my @recordings = map { $_->recording } grep { $_->recording } @$isrcs;
     my $recordings = {
@@ -571,7 +604,7 @@ sub _serialize_isrc
     };
 
     my @list;
-    $self->_serialize_recording_list(\@list, $gen, $recordings, $inc, $opts, $toplevel)
+    $self->_serialize_recording_list(\@list, $gen, $recordings, $inc, $stash, $toplevel)
         if @recordings;
 
     push @$data, $gen->isrc({ id => $isrcs->[0]->isrc }, @list);
@@ -582,13 +615,13 @@ sub _serialize_tags_and_ratings
     my ($self, $data, $gen, $inc, $opts) = @_;
 
     $self->_serialize_tag_list($data, $gen, $inc, $opts)
-        if ($opts->{tags} && $inc->{tags});
+        if $opts->{tags} && $inc->{tags};
     $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
-        if ($opts->{usertags} && $inc->{usertags});
+        if $opts->{usertags} && $inc->{usertags};
     $self->_serialize_rating($data, $gen, $inc, $opts)
-        if ($opts->{ratings} && $inc->{ratings});
+        if $opts->{ratings} && $inc->{ratings};
     $self->_serialize_user_rating($data, $gen, $inc, $opts)
-        if ($opts->{userratings} && $inc->{userratings});
+        if $opts->{userratings} && $inc->{userratings};
 }
 
 sub _serialize_tag_list
@@ -605,26 +638,26 @@ sub _serialize_tag_list
 
 sub _serialize_tag
 {
-    my ($self, $data, $gen, $tag, $inc, $opts) = @_;
+    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
     push @$data, $gen->tag({ count => $tag->count }, $gen->name ($tag->tag->name));
 }
 
 sub _serialize_user_tag_list
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
 
     my @list;
     foreach my $tag (@{$opts->{usertags}})
     {
-        $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts);
+        $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
     }
     push @$data, $gen->user_tag_list(@list);
 }
 
 sub _serialize_user_tag
 {
-    my ($self, $data, $gen, $tag, $inc, $opts) = @_;
+    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
     push @$data, $gen->user_tag($tag->tag->name);
 }
@@ -661,120 +694,170 @@ sub output_error
 
 sub serialize
 {
-    my ($self, $type, $entity, $inc, $opts) = @_;
+    my ($self, $type, $entity, $inc, $stash) = @_;
     $inc ||= 0;
 
     my $gen = MusicBrainz::XML::Generator->new(':std');
 
     my $method = $type . "_resource";
-    $method =~ s/-/_/;
+    $method =~ s/-/_/g;
     my $xml = $xml_decl_begin;
-    $xml .= $self->$method($gen, $entity, $inc, $opts);
+    $xml .= $self->$method($gen, $entity, $inc, $stash);
     $xml .= $xml_decl_end;
     return $xml;
 }
 
 sub artist_resource
 {
-    my ($self, $gen, $artist, $inc, $opts) = @_;
+    my ($self, $gen, $artist, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_artist($data, $gen, $artist, $inc, $opts, 1);
+    $self->_serialize_artist($data, $gen, $artist, $inc, $stash, 1);
 
     return $data->[0];
 }
 
 sub label_resource
 {
-    my ($self, $gen, $label, $inc, $opts) = @_;
+    my ($self, $gen, $label, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_label($data, $gen, $label, $inc, $opts, 1);
+    $self->_serialize_label($data, $gen, $label, $inc, $stash, 1);
     return $data->[0];
 }
 
 sub release_group_resource
 {
-    my ($self, $gen, $release_group, $inc, $opts) = @_;
+    my ($self, $gen, $release_group, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_release_group($data, $gen, $release_group, $inc, $opts, 1);
+    $self->_serialize_release_group($data, $gen, $release_group, $inc, $stash, 1);
     return $data->[0];
 }
 
 sub release_resource
 {
-    my ($self, $gen, $release, $inc, $opts) = @_;
+    my ($self, $gen, $release, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_release($data, $gen, $release, $inc, $opts, 1);
+    $self->_serialize_release($data, $gen, $release, $inc, $stash, 1);
     return $data->[0];
 }
 
 sub recording_resource
 {
-    my ($self, $gen, $recording, $inc, $opts) = @_;
+    my ($self, $gen, $recording, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_recording($data, $gen, $recording, $inc, $opts, 1);
+    $self->_serialize_recording($data, $gen, $recording, $inc, $stash, 1);
 
     return $data->[0];
 }
 
 sub work_resource
 {
-    my ($self, $gen, $work, $inc, $opts) = @_;
+    my ($self, $gen, $work, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_work($data, $gen, $work, $inc, $opts, 1);
+    $self->_serialize_work($data, $gen, $work, $inc, $stash, 1);
     return $data->[0];
 }
 
 sub isrc_resource
 {
-    my ($self, $gen, $isrc, $inc, $opts) = @_;
+    my ($self, $gen, $isrc, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_isrc_list($data, $gen, $isrc, $inc, $opts, 1);
+    $self->_serialize_isrc_list($data, $gen, $isrc, $inc, $stash, 1);
     return $data->[0];
 }
 
 sub iswc_resource
 {
-    my ($self, $gen, $work, $inc, $opts) = @_;
+    my ($self, $gen, $work, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_work_list($data, $gen, $work, $inc, $opts, 1);
+    $self->_serialize_work_list($data, $gen, $work, $inc, $stash, 1);
     return $data->[0];
 }
 
 sub puid_resource
 {
-    my ($self, $gen, $puid, $inc, $opts) = @_;
+    my ($self, $gen, $puid, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_puid($data, $gen, $puid, $inc, $opts, 1);
+    $self->_serialize_puid($data, $gen, $puid, $inc, $stash, 1);
     return $data->[0];
 }
 
 sub discid_resource
 {
-    my ($self, $gen, $cdtoc, $inc, $opts) = @_;
+    my ($self, $gen, $cdtoc, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_disc($data, $gen, $cdtoc, $inc, $opts, 1);
+    $self->_serialize_disc($data, $gen, $cdtoc, $inc, $stash, 1);
+    return $data->[0];
+}
+
+sub artist_list_resource
+{
+    my ($self, $gen, $artists, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_artist_list($data, $gen, $artists, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub label_list_resource
+{
+    my ($self, $gen, $labels, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_label_list($data, $gen, $labels, $inc, $stash, 1);
+
     return $data->[0];
 }
 
 sub recording_list_resource
 {
-    my ($self, $gen, $recordings, $inc, $opts) = @_;
+    my ($self, $gen, $recordings, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_recording_list($data, $gen, $recordings, $inc, $opts, 1);
+    $self->_serialize_recording_list($data, $gen, $recordings, $inc, $stash, 1);
 
     return $data->[0];
-} 
+}
+
+sub release_list_resource
+{
+    my ($self, $gen, $releases, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_release_list($data, $gen, $releases, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub release_group_list_resource
+{
+    my ($self, $gen, $rgs, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_release_group_list($data, $gen, $rgs, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub work_list_resource
+{
+    my ($self, $gen, $works, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_work_list($data, $gen, $works, $inc, $stash, 1);
+
+    return $data->[0];
+}
 
 
 __PACKAGE__->meta->make_immutable;

@@ -268,7 +268,7 @@ sub l_entity_url
 {
     my ($dbh, $type0, $key0) = @_;
 
-    $type0 =~ s/-/_/;
+    $type0 =~ s/-/_/g;
 
     my $table = 'l_'.$type0.'_url';
 
@@ -295,8 +295,8 @@ sub l_
 {
     my ($dbh, $type0, $type1, $key0, $key1) = @_;
 
-    $type0 =~ s/-/_/;
-    $type1 =~ s/-/_/;
+    $type0 =~ s/-/_/g;
+    $type1 =~ s/-/_/g;
 
     my $table = 'l_'.$type0.'_'.$type1;
 

@@ -41,10 +41,10 @@ sub _table
 
 sub _columns
 {
-    return 'artist.id, gid, name.name, sortname.name AS sortname, ' .
-           'type, country, gender, editpending, ' .
+    return 'artist.id, artist.gid, name.name, sortname.name AS sortname, ' .
+           'artist.type, artist.country, gender, artist.editpending, ' .
            'begindate_year, begindate_month, begindate_day, ' .
-           'enddate_year, enddate_month, enddate_day, comment';
+           'enddate_year, enddate_month, enddate_day, artist.comment';
 }
 
 sub _id_column
@@ -91,6 +91,74 @@ sub find_by_subscribed_editor
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
+}
+
+sub find_by_recording
+{
+    my ($self, $recording_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN artist_credit_name acn ON acn.artist = artist.id
+                    JOIN recording ON recording.artist_credit = acn.artist_credit
+                 WHERE recording.id = ?
+                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $recording_id, $offset || 0);
+}
+
+sub find_by_release
+{
+    my ($self, $release_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE artist.id IN (SELECT artist.id
+                     FROM artist
+                     JOIN artist_credit_name acn ON acn.artist = artist.id
+                     JOIN track ON track.artist_credit = acn.artist_credit
+                     JOIN medium ON medium.tracklist = track.tracklist
+                     WHERE medium.release = ?)
+                 OR artist.id IN (SELECT artist.id
+                     FROM artist
+                     JOIN artist_credit_name acn ON acn.artist = artist.id
+                     JOIN release ON release.artist_credit = acn.artist_credit
+                     wHERE release.id = ?)
+                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $release_id, $release_id, $offset || 0);
+}
+
+sub find_by_release_group
+{
+    my ($self, $recording_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN artist_credit_name acn ON acn.artist = artist.id
+                    JOIN release_group ON release_group.artist_credit = acn.artist_credit
+                 WHERE release_group.id = ?
+                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $recording_id, $offset || 0);
+}
+
+sub find_by_work
+{
+    my ($self, $recording_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN artist_credit_name acn ON acn.artist = artist.id
+                    JOIN work ON work.artist_credit = acn.artist_credit
+                 WHERE work.id = ?
+                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $recording_id, $offset || 0);
 }
 
 sub load
