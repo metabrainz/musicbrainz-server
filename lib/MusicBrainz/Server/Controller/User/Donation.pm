@@ -1,7 +1,5 @@
 package MusicBrainz::Server::Controller::User::Donation;
 use Moose;
-use LWP;
-use URI::Escape;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -14,35 +12,12 @@ sub view : Chained('/user/base') PathPart('donation') RequireAuth
     $c->detach('/error_403')
         unless $c->{stash}->{viewing_own_profile};
 
-    my $nag = 1;
-    $nag = 0 if ($user->is_nag_free || $user->is_auto_editor || $user->is_bot ||
-                 $user->is_relationship_editor || $user->is_wiki_transcluder);
-
-    my $days = 0.0;
-    if ($nag)
-    {
-        my $ua = LWP::UserAgent->new;
-        $ua->agent("MusicBrainz server");
-        $ua->timeout(5); # in seconds.
-
-        my $response = $ua->request(HTTP::Request->new (GET => 
-            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='. 
-            uri_escape($user->name)));
-
-        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
-        {
-            $nag = $1;
-            $days = $2;
-        }
-        else
-        {
-            $c->detach('/error_500');
-        }
-    }
+    my $result = $c->model('Editor')->donation_check ($user);
+    $c->detach('/error_500') unless $result;
 
     $c->stash(
-        nag => $nag,
-        days => sprintf ("%.0f", $days),
+        nag => $result->{nag},
+        days => sprintf ("%.0f", $result->{days}),
         template => 'user/donation.tt',
     );
 }

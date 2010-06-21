@@ -549,3 +549,12 @@ div.columns-5 div.column {
     width: 20%;
     min-width: 120px;
 }
+
+.nagpanel {
+    border: 2px dashed red;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.nagpanel .naglinkpanel { text-align: center; }
+.nagpanel .naglink { font-size: 200%; }
