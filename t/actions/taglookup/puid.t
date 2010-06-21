@@ -12,5 +12,6 @@ $mech->get_ok('/taglookup?puid=b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', 'lookup pu
 xml_ok($mech->content);
 $mech->content_contains('ABBA', 'has correct artist result');
 $mech->content_contains('Arrival', 'has correct release result');
+$mech->content_contains('Make a donation now', 'has nag screen');
 
 done_testing;
