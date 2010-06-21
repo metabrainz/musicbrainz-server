@@ -1,0 +1,7 @@
+[% WRAPPER 'layout.tt' title=l('Release group not found') full_width=1 %]
+<h1>[% l('Release group not found') %]</h1>
+
+<p>[% l('Sorry, we could not find an release group with that MusicBrainz ID. You may
+         wish to try and {search_url|search} for this release group.',
+         { search_url => c.uri_for_action('/search/search') }) %]</p>
+[% END %]
