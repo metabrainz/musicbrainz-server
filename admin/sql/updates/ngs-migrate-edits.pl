@@ -56,9 +56,7 @@ $raw_sql->do('TRUNCATE edit CASCADE');
 $raw_sql->do("TRUNCATE edit_$_ CASCADE")
     for qw( artist label release release_group work recording );
 
-for my $upgraded (@upgraded) {
-    $c->model('Edit')->insert($upgraded);
-}
+$c->model('Edit')->insert(@upgraded);
 
 my @ids = map { $_->id } @upgraded;
 
