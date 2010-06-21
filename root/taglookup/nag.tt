@@ -4,7 +4,7 @@
   [% l('The users make MusicBrainz happen and we appreciate your help!') %]
   </p>
   <p>
-  [% l('However, we still have to pay the bills and hosting this site costs nearly
+  [% l('However, we still have to pay the bills and hosting this site costs well over
         $1000/month. We need our users to help us make ends meet and hopefully have
         money left over to sponsor more development. The {metabrainz_foundation},
         a California based 501(c)3 tax-exempt non-profit, operates the MusicBrainz
