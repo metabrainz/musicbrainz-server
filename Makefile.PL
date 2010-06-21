@@ -57,6 +57,7 @@ requires 'OSSP::uuid'                                 => '1.060200';
 requires 'Readonly'                                   => '1.03';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'Text::WikiFormat'                           => '0.790';
+requires 'Text::Unaccent';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';

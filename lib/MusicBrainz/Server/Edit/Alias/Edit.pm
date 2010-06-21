@@ -78,6 +78,14 @@ sub initialize
     });
 }
 
+sub allow_auto_edit
+{
+    my $self = shift;
+    my ($old, $new) = normalise_strings($self->data->{old}{name},
+                                        $self->data->{new}{name});
+
+    return $old eq $new;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

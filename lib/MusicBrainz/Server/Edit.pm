@@ -173,6 +173,11 @@ sub edit_conditions
     };
 }
 
+sub allow_auto_edit
+{
+    return 0;
+}
+
 sub conditions
 {
     my $self = shift;
