@@ -13,11 +13,17 @@
     [% END %]
 [% END %]
 
-[%- IF index && index.length > 5 -%]
+[%- IF index && index.length > 6 -%]
     <p>
-        [% l('<strong>Error:</strong> You have trying to browse the database using a query that is
-              longer than 5 characters. We do not index data at this level of granularity, you may
+        [% l('<strong>Error:</strong> You are trying to browse the database using a query that is
+              longer than 6 characters. We do not index data at this level of granularity, you may
               want to {uri|search the database} instead.', {uri => c.uri_for('/search')}) %]
+    </p>
+[%-ELSIF index && index.length == 6 -%]
+    <p>
+        [% l('You are browsing the database using a query that is 6 characters long. We do not
+              index data past this level of granularity, you may want to
+              {uri|search the database} instead.', {uri => c.uri_for('/search')}) %]
     </p>
 [% ELSE %]
     <table class="browse">
