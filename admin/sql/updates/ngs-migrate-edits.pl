@@ -16,10 +16,12 @@ my $migration = $c->model('EditMigration');
 
 my $limit  = 1000;
 my $offset = 0;
+my $chunk  = 100000;
 
 GetOptions(
     "limit=i"  => \$limit,
-    "offset=i" => \$offset
+    "offset=i" => \$offset,
+    "chunk=i"  => \$chunk
 );
 
 my @upgraded;
@@ -30,6 +32,14 @@ $sql->select('SELECT * FROM public.moderation_closed LIMIT ? OFFSET ?',
              $limit, $offset);
 
 printf "Here we go!\n";
+
+my $raw_sql = Sql->new($c->raw_dbh);
+$raw_sql->begin;
+$raw_sql->do('TRUNCATE edit CASCADE');
+$raw_sql->do("TRUNCATE edit_$_ CASCADE")
+    for qw( artist label release release_group work recording );
+
+my @migrated_ids = ();
 
 my $i = 0;
 while (my $row = $sql->next_row_hash_ref) {
@@ -47,23 +57,19 @@ while (my $row = $sql->next_row_hash_ref) {
         printf STDERR "$err\n";
     }
 
+    if (@upgraded >= $chunk) {
+        $c->model('Edit')->insert(@upgraded);
+        push @migrated_ids, map { $_->id } @upgraded;
+        @upgraded = ();
+    }
+
     printf "%d\r", $i++;
 }
-
-my $raw_sql = Sql->new($c->raw_dbh);
-$raw_sql->begin;
-$raw_sql->do('TRUNCATE edit CASCADE');
-$raw_sql->do("TRUNCATE edit_$_ CASCADE")
-    for qw( artist label release release_group work recording );
-
-$c->model('Edit')->insert(@upgraded);
-
-my @ids = map { $_->id } @upgraded;
 
 my $votes = $sql->select_list_of_lists('
     SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded
       FROM public.vote_closed
-     WHERE moderation IN (' . placeholders(@ids) . ')', @ids);
+     WHERE moderation IN (' . placeholders(@migrated_ids) . ')', @migrated_ids);
 $raw_sql->do(
     'INSERT INTO vote (id, editor, edit, vote, votetime, superseded)
           VALUES ' . (join ", ", (("(?, ?, ?, ?, ?, ?)") x @$votes)),
