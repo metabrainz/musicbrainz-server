@@ -543,10 +543,6 @@ sub profile : Local Args(1)
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user->id);
 
-    use Devel::Dwarn;
-    Dwarn $c->stash->{votes};
-    
-
     $c->stash(
         user     => $user,
         template => 'user/profile.tt',
