@@ -2,7 +2,7 @@
 
    <h2>[% l("Donation Check") %]</h2>
 
-   [% IF nag != 0 %]
+   [% IF nag %]
       <p>
         [%- l('We have not received a donation from you recently. If you have just made a PayPal donation, then we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.') -%]
       </p>
