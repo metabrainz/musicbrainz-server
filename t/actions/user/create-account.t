@@ -41,4 +41,12 @@ my ($verify_link) = $email->get_body =~ qr{http://localhost(/verify-email.*)};
 $mech->get_ok($verify_link, 'verify account');
 $mech->content_like(qr/Thank you, your email address has now been verified/);
 
+# remove the newly added users.
+use Sql;
+my $sql = Sql->new($c->dbh);
+$sql->begin;
+$sql->do ('DELETE FROM editor WHERE name=\'brand_new_editor\'');
+$sql->do ('DELETE FROM editor WHERE name=\'email_editor\'');
+$sql->commit;
+
 done_testing;
