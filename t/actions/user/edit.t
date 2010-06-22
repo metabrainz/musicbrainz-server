@@ -45,4 +45,11 @@ $mech->content_contains('http://example.com/~new_editor/');
 $mech->content_contains('hello world!');
 $mech->content_contains('new_email@example.com');
 
+# reset the changed email back to the original.
+use Sql;
+my $sql = Sql->new($c->dbh);
+$sql->begin;
+$sql->do ('UPDATE editor SET email=\'test@email.com\' WHERE name=\'new_editor\'');
+$sql->commit;
+
 done_testing;

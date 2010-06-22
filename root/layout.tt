@@ -89,16 +89,16 @@
 
         <div id="footer">
             <ul class="links">
-                <li><a href="http://metabrainz.org/donate">[% l('Donate') %]</a>
-                <li><a href="http://[% wiki_server %]/">[% l('Wiki') %]</a>
-                <li><a href="http://forums.musicbrainz.org/">[% l('Forums') %]</a>
-                <li><a href="http://jira.musicbrainz.org/">[% l('Bug Tracker') %]</a>
-                <li><a href="http://www.cafepress.com/musicbrainz">[% l('Schwag') %]</a>
+                <li><a href="http://metabrainz.org/donate">[% l('Donate') %]</a></li>
+                <li><a href="http://[% wiki_server %]/">[% l('Wiki') %]</a></li>
+                <li><a href="http://forums.musicbrainz.org/">[% l('Forums') %]</a></li>
+                <li><a href="http://jira.musicbrainz.org/">[% l('Bug Tracker') %]</a></li>
+                <li><a href="http://www.cafepress.com/musicbrainz">[% l('Schwag') %]</a></li>
             </ul>
 
             <p class="sponsors">
                 [% l('Hosted by {host|Digital West}. Sponsored by: {url1|Google},
-                      {url2|OSUOSL} and {more|others…}',
+                      {url2|OSUOSL} and {more|others&hellip;}',
                     { host => 'http://digitalwest.net/',
                       url1 => 'http://www.google.com/',
                       url2 => 'http://osuosl.org/',
