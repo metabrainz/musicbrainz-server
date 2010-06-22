@@ -283,7 +283,7 @@ sub donation_check
 
         my $response = $ua->request(HTTP::Request->new (GET =>
             'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
-            uri_escape($obj->name)));
+            uri_escape_utf8($obj->name)));
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
         {
