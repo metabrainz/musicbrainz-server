@@ -29,6 +29,7 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     type_to_model
     model_to_type
+    object_to_ids
     order_by
     check_in_use
     map_query
@@ -233,6 +234,18 @@ sub model_to_type
 {
     my %map = reverse %TYPE_TO_MODEL;
     return $map{$_[0]} || undef;
+}
+
+sub object_to_ids
+{
+    my %ret;
+    foreach (@_)
+    {
+        $ret{$_->id} = [] unless $ret{$_->id};
+        push @{ $ret{$_->id} }, $_;
+    }
+
+    return %ret;
 }
 
 sub order_by
