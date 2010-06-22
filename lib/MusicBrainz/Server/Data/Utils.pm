@@ -245,7 +245,7 @@ sub object_to_ids
         push @{ $ret{$_->id} }, $_;
     }
 
-    return \%ret;
+    return %ret;
 }
 
 sub order_by

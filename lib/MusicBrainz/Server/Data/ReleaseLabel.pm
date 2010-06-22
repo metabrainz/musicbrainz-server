@@ -42,8 +42,8 @@ sub _entity_class
 sub load
 {
     my ($self, @releases) = @_;
-    my $id_to_release = object_to_ids (@releases);
-    my @ids = keys %$id_to_release;
+    my %id_to_release = object_to_ids (@releases);
+    my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
@@ -52,7 +52,7 @@ sub load
     my @labels = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {
-        foreach (@{ $id_to_release->{$label->release_id} })
+        foreach (@{ $id_to_release{$label->release_id} })
         {
             $_->add_label($label);
         }
