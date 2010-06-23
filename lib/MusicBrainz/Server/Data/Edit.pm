@@ -122,11 +122,11 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC';
+    $query .= ' ORDER BY id DESC OFFSET ?';
 
     return query_to_list_limited($self->c->raw_dbh, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, @args);
+        }, $query, @args, $offset);
 }
 
 sub merge_entities
