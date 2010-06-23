@@ -5,10 +5,7 @@
       <ul>
         [% FOR release=edit.display_data.releases %]
         <li>
-           <span class="removed" 
-               title="[% l('This release has been removed, ReleaseId: {id}', { id => release.id }) %]">
-           [%- release.name -%]
-           </span>
+           [% link_release (release) %]
         </li>
         [% END %]
       </ul>

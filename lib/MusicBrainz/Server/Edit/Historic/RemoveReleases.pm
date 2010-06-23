@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Historic::RemoveReleases;
 use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
+use MusicBrainz::Server::Data::Release;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASES );
 
@@ -26,16 +27,19 @@ has '+data' => (
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    return {
-        releases => $self->data->{releases},
-    }
+
+    my @releases = map {
+        MusicBrainz::Server::Data::Release->new( id => $_->id, name => $_->name );
+    } @{ $self->data->{releases} }
+
+    return { releases => \@releases }
 }
 
 sub upgrade
 {
     my $self = shift;
 
-    my @albums = split (/\n/, $self->new_value);
+    my @albums = split( /\n/, $self->new_value );
     map { s/^Album.*=// } @albums;
 
     my @releases = map { { 
