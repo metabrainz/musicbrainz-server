@@ -20,8 +20,15 @@
             </tbody>
         </table>
         [%- END -%]
+    [%- END -%]
 
-    [%- ELSE -%]
+    [%- IF private_subscribers -%]
+        <p>
+           [%- ln('{count} private subscriptions not listed.', '{count} private subscriptions not listed.', private_subscribers, { count => private_subscribers }); -%]
+        </p>
+    [%- END -%]
+
+    [%- IF !editor.size && !private_subscribers -%]
         [% IF c.user_exists && user.id == c.user.id %]
         <p>[%- l('You have no subscribers.') -%]</p>
         [% ELSE %]
