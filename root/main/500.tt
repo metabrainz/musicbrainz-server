@@ -9,7 +9,7 @@
             [%- l('Waiting a few minutes and/or repeating your request may solve the
                    problem, however if it persists, please {uri|file a bug report}. Alternatively
                    you may also contact us at {email|support@musicbrainz.org}, or visit the
-                   {irc|#musicbrainz <acronym title="Internet Relay Chat">IRC</acronym> channel}
+                   {irc|#musicbrainz <abbr title="Internet Relay Chat">IRC</abbr> channel}
                    on irc.freenode.net.',
                  { uri="http://jira.musicbrainz.org",
                    email="mailto&#x3a;support&#x0040;musicbrainz.org",

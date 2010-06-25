@@ -10,7 +10,7 @@
             [%- l('If you think this is our fault (for example, you found a broken link
                    on our site) please let us know! You can use our {jira|bug tracker},
                    contact us at {email|support@musicbrainz.org}, or visit the
-                   {irc|#musicbrainz <acronym title="Internet Relay Chat">IRC</acronym> channel}
+                   {irc|#musicbrainz <abbr title="Internet Relay Chat">IRC</abbr> channel}
                    on irc.freenode.net. Please include the output of the error message below,
                    as this will help us fix the problem faster.',
                  { email="mailto&#x3a;support&#x0040;musicbrainz.org",
