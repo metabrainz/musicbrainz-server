@@ -25,7 +25,8 @@
     </head>
     <body>
         <div id="header">
-            <div id="header-logo"><a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
+            <div id="header-logo">
+                <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
                 <div>
                     [%- USE sidebar = FormRenderer(sidebar_search) -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
@@ -34,10 +35,12 @@
                     </form>
                 </div>
             </div>
-            <div id="header-menu"><div>
-                [%- INCLUDE "layout/menu.tt" -%]
-                <div class="r"></div><div class="l"></div>
-            </div></div>
+            <div id="header-menu">
+                <div>
+                    [%- INCLUDE "layout/menu.tt" -%]
+                    <div class="r"></div><div class="l"></div>
+                </div>
+            </div>
         </div>
 
         [% IF server_details.staging_server %]
@@ -83,8 +86,8 @@
         [%- END -%]
 
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
-        [%- content -%]
-        <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            [%- content -%]
+            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
 
         <div id="footer">
