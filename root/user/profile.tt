@@ -170,9 +170,11 @@
                     </th>
                     <th class="totals" headers="table_vote_summary_recent">
                         [% add_commas(totals.recent.count) %]
+                        (100%)
                     </th>
                     <th class="totals" headers="table_vote_summary_overall">
                         [% add_commas(totals.all.count) %]
+                        (100%)
                     </th>
                 </tr>
         </tfoot>
