@@ -1,14 +1,20 @@
 [%- WRAPPER 'layout.tt' title=l('Search') full_width=1 -%]
     <div id="content">
-        <h1>[% l("Search") %]</h1>
-        [%- INCLUDE 'search/form.tt' -%]
-        <h1>[% l("Tag lookup") %]</h1>
-        [%- INCLUDE 'taglookup/form.tt' -%]
-        <h1>[% l("Browse") %]</h1>
-        [% INCLUDE "browse/page_selector.tt" entity="artist" entity_title=l("Browse Artists") %]
-        [% INCLUDE "browse/page_selector.tt" entity="label" entity_title=l("Browse Labels") %]
-        [% INCLUDE "browse/page_selector.tt" entity="release" entity_title=l("Browse Releases") %]
-        [% INCLUDE "browse/page_selector.tt" entity="release_group" entity_title=l("Browse Release Groups") %]
-        [% INCLUDE "browse/page_selector.tt" entity="work" entity_title=l("Browse Works") %]
+        <div id="search-right" style="width: 24em; float: right;">
+            <h1>[% l("Browse") %]</h1>
+            [% INCLUDE "browse/page_selector.tt" entity="artist" entity_title=l("Browse Artists") %]
+            [% INCLUDE "browse/page_selector.tt" entity="label" entity_title=l("Browse Labels") %]
+            [% INCLUDE "browse/page_selector.tt" entity="release" entity_title=l("Browse Releases") %]
+            [% INCLUDE "browse/page_selector.tt" entity="release_group" entity_title=l("Browse Release Groups") %]
+            [% INCLUDE "browse/page_selector.tt" entity="work" entity_title=l("Browse Works") %]
+        </div>
+        <div id="search-left">
+            <h1>[% l("Search") %]</h1>
+            [%- INCLUDE 'search/form.tt' -%]
+            <h1>[% l("MBID lookup") %]</h1>
+            [%- INCLUDE 'mbidlookup/form.tt' -%]
+            <h1>[% l("Tag lookup") %]</h1>
+            [%- INCLUDE 'taglookup/form.tt' -%]
+        </div>
     </div>
 [%- END -%]
