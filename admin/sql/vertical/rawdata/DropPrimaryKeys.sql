@@ -11,6 +11,7 @@ ALTER TABLE edit_note DROP CONSTRAINT edit_note_pkey;
 ALTER TABLE edit_recording DROP CONSTRAINT edit_recording_pkey;
 ALTER TABLE edit_release DROP CONSTRAINT edit_release_pkey;
 ALTER TABLE edit_release_group DROP CONSTRAINT edit_release_group_pkey;
+ALTER TABLE edit_url DROP CONSTRAINT edit_url_pkey;
 ALTER TABLE edit_work DROP CONSTRAINT edit_work_pkey;
 ALTER TABLE label_rating_raw DROP CONSTRAINT label_rating_raw_pkey;
 ALTER TABLE label_tag_raw DROP CONSTRAINT label_tag_raw_pkey;
