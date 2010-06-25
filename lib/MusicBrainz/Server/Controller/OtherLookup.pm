@@ -155,7 +155,7 @@ sub index : Path('')
 
     $c->detach ('catno') if $c->req->params->{catno};
     $c->detach ('barcode') if $c->req->params->{barcode};
-    $c->detach ('otherlookup') if $c->req->params->{mbid};
+    $c->detach ('mbidlookup') if $c->req->params->{mbid};
     $c->detach ('isrc') if $c->req->params->{isrc};
     $c->detach ('iswc') if $c->req->params->{iswc};
 }
