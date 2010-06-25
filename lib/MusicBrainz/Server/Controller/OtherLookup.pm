@@ -1,9 +1,10 @@
-package MusicBrainz::Server::Controller::MBIDLookup;
+package MusicBrainz::Server::Controller::OtherLookup;
 
 use strict;
 use warnings;
 use base 'MusicBrainz::Server::Controller';
-use MusicBrainz::Server::Form::MBIDLookup;
+use MusicBrainz::Server::Form::OtherLookup;
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 
 sub _redirect
@@ -44,18 +45,57 @@ sub _redirect
     $c->detach;
 }
 
-sub index : Path('')
+# no results
+sub not_found : Private
+{ 
+}
+
+sub isrc : Private
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form( query_form => 'MBIDLookup' );
-    $c->stash->{mbidlookup} = $form;
+    my $isrc =  $c->req->params->{isrc};
 
-    return unless $form->submitted_and_valid( $c->req->query_params );
+    if (!is_valid_isrc($isrc))
+    {
+        $c->stash->{error} = "Invalid ISRC.";
+        return;
+    }
 
-    $c->stash->{template} = 'mbidlookup/results.tt';
+    my @isrcs = $c->model('ISRC')->find_by_isrc($isrc);
+    $c->detach('not_found') unless @isrcs;
 
-    my $gid = $c->req->params->{mbid};
+    my @recordings = $c->model('Recording')->load(@isrcs);
+    $c->detach('not_found') unless @recordings;
+
+    $c->model('ArtistCredit')->load (@recordings);
+    $c->stash->{results} = \@recordings;
+}
+
+sub iswc : Private
+{
+    my ($self, $c) = @_;
+
+    my $iswc =  $c->req->params->{iswc};
+
+    if (!is_valid_iswc($iswc))
+    {
+        $c->stash->{error} = "Invalid ISWC.";
+        return;
+    }
+
+    my @works = $c->model('Work')->find_by_iswc($iswc);
+    $c->detach('not_found') unless @works;
+
+    $c->model('ArtistCredit')->load (@works);
+    $c->stash->{results} = \@works;
+}
+
+sub mbidlookup : Private
+{
+    my ($self, $c) = @_;
+
+    my $gid =  $c->req->params->{mbid};
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
@@ -71,7 +111,53 @@ sub index : Path('')
         $self->_redirect ($c, $entity) if $entity;
     }
 
-    $c->stash->{entity} = $entity->meta;
+    $c->detach('not_found');
+}
+
+sub catno : Private
+{
+    my ($self, $c) = @_;
+
+    my $uri = $c->uri_for_action ('/search/search', {
+        query => 'catno:'.$c->req->params->{catno},
+        type => 'release',
+        advanced => '1',
+    });
+
+    $c->response->redirect( $uri );
+    $c->detach;
+}
+
+sub barcode : Private
+{
+    my ($self, $c) = @_;
+
+    my $uri = $c->uri_for_action ('/search/search', {
+        query => 'barcode:'.$c->req->params->{barcode},
+        type => 'release',
+        advanced => '1',
+    });
+
+    $c->response->redirect( $uri );
+    $c->detach;
+}
+
+sub index : Path('')
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form( query_form => 'OtherLookup' );
+    $c->stash->{otherlookup} = $form;
+
+    return unless $form->submitted_and_valid( $c->req->params );
+
+    $c->stash->{template} = 'otherlookup/results.tt';
+
+    $c->detach ('catno') if $c->req->params->{catno};
+    $c->detach ('barcode') if $c->req->params->{barcode};
+    $c->detach ('otherlookup') if $c->req->params->{mbid};
+    $c->detach ('isrc') if $c->req->params->{isrc};
+    $c->detach ('iswc') if $c->req->params->{iswc};
 }
 
 1;

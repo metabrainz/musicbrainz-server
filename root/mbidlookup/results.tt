@@ -1,8 +1,0 @@
-[% WRAPPER "layout.tt" title=l("Lookup Results") full_width=1 %]
-    <div class="content">
-        <h1>[% l("Lookup Results") %]</h1>
-        <p>[% l('No results found') %]</p>
-        <h1>[% l("MBID lookup") %]</h1>
-        [%- INCLUDE 'mbidlookup/form.tt' -%]
-    </div>
-[% END %]

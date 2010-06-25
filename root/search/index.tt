@@ -11,10 +11,10 @@
         <div id="search-left">
             <h1>[% l("Search") %]</h1>
             [%- INCLUDE 'search/form.tt' -%]
-            <h1>[% l("MBID lookup") %]</h1>
-            [%- INCLUDE 'mbidlookup/form.tt' -%]
             <h1>[% l("Tag lookup") %]</h1>
             [%- INCLUDE 'taglookup/form.tt' -%]
+            <h1>[% l("Other lookups") %]</h1>
+            [%- INCLUDE 'otherlookup/form.tt' -%]
         </div>
     </div>
 [%- END -%]

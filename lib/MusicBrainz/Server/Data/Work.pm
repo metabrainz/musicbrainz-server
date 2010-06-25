@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     load_subobjects
     placeholders
+    query_to_list
     query_to_list_limited
 );
 
@@ -60,6 +61,18 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub find_by_iswc
+{
+    my ($self, $iswc) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE iswc = ?
+                 ORDER BY musicbrainz_collate(name.name)";
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $iswc);
 }
 
 sub load
