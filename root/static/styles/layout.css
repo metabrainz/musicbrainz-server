@@ -27,6 +27,11 @@ a.external {
     padding-right: 13px;
 }
 
+a.internal {
+    background: none;
+    padding-right: 0;
+}
+
 p {
     margin: 1em 0;
 }

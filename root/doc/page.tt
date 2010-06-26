@@ -11,22 +11,19 @@
         [%- page.content -%]
         [%- IF page.version -%]
             <div class="wikidocs-footer">
-                [%- l('This page is {doclink1|transcluded} from revision #{doclink2|version} of {doclink3|title}.',
+                [%- l('This page is {doc|transcluded} from revision {version} of {title}.',
                     {
-                        doclink1 => doc_link('WikiDocs'),
-                        doclink2 => wiki_history_link(wiki_server, id, page.version),
-                        version  => page.version,
-                        doclink3 => wiki_link(wiki_server, id),
-                        title    => page.title
+                        doc => doc_link('WikiDocs'),
+                        version => '<a href="' _ wiki_history_link(wiki_server, id, page.version) _ '" class="internal">#' _ page.version _ '</a>',
+                        title => '<a href="' _ wiki_link(wiki_server, id) _ '" class="internal">' _ page.title _ '</a>',
                     }
                 ) -%]
             </div>
         [%- ELSE -%]
             <div class="wikidocs-footer">
-            [%- l('This page is {doc|transcluded} from {url|page}.',
+            [%- l('This page is {doc|transcluded} from {title}.',
                  { doc => doc_link('WikiDocs'),
-                   url => 'http://' _ wiki_server _ '/' _ id,
-                   page => page.title }) -%]
+                   title => '<a href="http://' _ wiki_server _ '/' _ id _ '" class="internal">' _ page.title _ '</a>' }) -%]
             </div>
         [%- END -%]
     </div>
