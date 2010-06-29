@@ -8,7 +8,7 @@
         [% ELSE %]
           <p>[% l('No results found') %]</p>
         [% END %]
-        <h1>[% l("MBID lookup") %]</h1>
+        <h1>[% l("Other lookups") %]</h1>
         [%- INCLUDE 'otherlookup/form.tt' -%]
     </div>
 [% END %]

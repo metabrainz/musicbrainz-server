@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use base 'MusicBrainz::Server::Controller';
 use MusicBrainz::Server::Form::OtherLookup;
-use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc );
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 
 sub _redirect
@@ -47,14 +47,65 @@ sub _redirect
 
 # no results
 sub not_found : Private
-{ 
+{
+}
+
+sub catno : Private
+{
+    my ($self, $c) = @_;
+
+    my $uri = $c->uri_for_action ('/search/search', {
+        query => 'catno:'.$c->req->query_params->{catno},
+        type => 'release',
+        advanced => '1',
+    });
+
+    $c->response->redirect( $uri );
+    $c->detach;
+}
+
+sub barcode : Private
+{
+    my ($self, $c) = @_;
+
+    my $uri = $c->uri_for_action ('/search/search', {
+        query => 'barcode:'.$c->req->query_params->{barcode},
+        type => 'release',
+        advanced => '1',
+    });
+
+    $c->response->redirect( $uri );
+    $c->detach;
+}
+
+sub mbid : Private
+{
+    my ($self, $c) = @_;
+
+    my $gid =  $c->req->query_params->{mbid};
+
+    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        return;
+    }
+
+    my $entity;
+    my @entities = qw(Artist Label Recording Release ReleaseGroup URL Work);
+    for (@entities)
+    {
+        $entity = $c->model($_)->get_by_gid($gid);
+        $self->_redirect ($c, $entity) if $entity;
+    }
+
+    $c->detach('not_found');
 }
 
 sub isrc : Private
 {
     my ($self, $c) = @_;
 
-    my $isrc =  $c->req->params->{isrc};
+    my $isrc =  $c->req->query_params->{isrc};
 
     if (!is_valid_isrc($isrc))
     {
@@ -76,7 +127,7 @@ sub iswc : Private
 {
     my ($self, $c) = @_;
 
-    my $iswc =  $c->req->params->{iswc};
+    my $iswc =  $c->req->query_params->{iswc};
 
     if (!is_valid_iswc($iswc))
     {
@@ -91,55 +142,42 @@ sub iswc : Private
     $c->stash->{results} = \@works;
 }
 
-sub mbidlookup : Private
+sub discid : Private
 {
     my ($self, $c) = @_;
 
-    my $gid =  $c->req->params->{mbid};
+    my $discid =  $c->req->query_params->{discid};
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!is_valid_discid($discid))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = "Invalid DiscID.";
         return;
     }
 
-    my $entity;
-    my @entities = qw(Artist Label Recording Release ReleaseGroup URL Work);
-    for (@entities)
+    my $uri = $c->uri_for_action('/cdtoc/show', [ $discid ]);
+    $c->response->redirect( $uri );
+    $c->detach;
+}
+
+sub freedbid : Private
+{
+    my ($self, $c) = @_;
+
+    my $freedbid =  $c->req->query_params->{freedbid};
+
+    my @cdtocs = $c->model ('CDTOC')->find_by_freedbid ($freedbid);
+
+    my @medium_cdtocs;
+    for (@cdtocs)
     {
-        $entity = $c->model($_)->get_by_gid($gid);
-        $self->_redirect ($c, $entity) if $entity;
+        push @medium_cdtocs, $c->model('MediumCDTOC')->find_by_cdtoc($_->id);
     }
 
-    $c->detach('not_found');
-}
+    my @mediums = $c->model('Medium')->load(@medium_cdtocs);
+    my @releases = $c->model('Release')->load(@mediums);
 
-sub catno : Private
-{
-    my ($self, $c) = @_;
-
-    my $uri = $c->uri_for_action ('/search/search', {
-        query => 'catno:'.$c->req->params->{catno},
-        type => 'release',
-        advanced => '1',
-    });
-
-    $c->response->redirect( $uri );
-    $c->detach;
-}
-
-sub barcode : Private
-{
-    my ($self, $c) = @_;
-
-    my $uri = $c->uri_for_action ('/search/search', {
-        query => 'barcode:'.$c->req->params->{barcode},
-        type => 'release',
-        advanced => '1',
-    });
-
-    $c->response->redirect( $uri );
-    $c->detach;
+    $c->model('ArtistCredit')->load (@releases);
+    $c->stash->{results} = \@releases;
 }
 
 sub index : Path('')
@@ -149,15 +187,17 @@ sub index : Path('')
     my $form = $c->form( query_form => 'OtherLookup' );
     $c->stash->{otherlookup} = $form;
 
-    return unless $form->submitted_and_valid( $c->req->params );
+    return unless $form->submitted_and_valid( $c->req->query_params );
 
     $c->stash->{template} = 'otherlookup/results.tt';
 
-    $c->detach ('catno') if $c->req->params->{catno};
-    $c->detach ('barcode') if $c->req->params->{barcode};
-    $c->detach ('mbidlookup') if $c->req->params->{mbid};
-    $c->detach ('isrc') if $c->req->params->{isrc};
-    $c->detach ('iswc') if $c->req->params->{iswc};
+    $c->detach ('catno') if $c->req->query_params->{catno};
+    $c->detach ('barcode') if $c->req->query_params->{barcode};
+    $c->detach ('mbid') if $c->req->query_params->{mbid};
+    $c->detach ('isrc') if $c->req->query_params->{isrc};
+    $c->detach ('iswc') if $c->req->query_params->{iswc};
+    $c->detach ('discid') if $c->req->query_params->{discid};
+    $c->detach ('freedbid') if $c->req->query_params->{freedbid};
 }
 
 1;

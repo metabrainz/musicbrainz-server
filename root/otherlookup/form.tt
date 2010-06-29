@@ -1,11 +1,13 @@
 [%- USE r = FormRenderer(otherlookup) -%]
 <div class="searchform">
-    <form action="[% c.uri_for_action('/otherlookup/index') %]" method="POST">
-        [% form_row_text(r, 'catno',   l('catalog number:')) %]
-        [% form_row_text(r, 'barcode', l('barcode:')) %]
-        [% form_row_text(r, 'mbid',    l('MBID:')) %]
-        [% form_row_text(r, 'isrc',    l('ISRC:')) %]
-        [% form_row_text(r, 'iswc',    l('ISWC:')) %]
+    <form action="[% c.uri_for_action('/otherlookup/index') %]">
+        [% form_row_text(r, 'catno',    l('catalog number:')) %]
+        [% form_row_text(r, 'barcode',  l('barcode:')) %]
+        [% form_row_text(r, 'mbid',     l('MBID:')) %]
+        [% form_row_text(r, 'isrc',     l('ISRC:')) %]
+        [% form_row_text(r, 'iswc',     l('ISWC:')) %]
+        [% form_row_text(r, 'discid',   l('disc id:')) %]
+        [% form_row_text(r, 'freedbid', l('freedb id:')) %]
 
         <div class="row no-label">
         [% form_submit(l('Search')) %]
