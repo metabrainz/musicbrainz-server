@@ -194,7 +194,7 @@ sub Create
     my $dbuser = $db->username;
     $system_sql->do(
         "CREATE DATABASE $dbname WITH OWNER = $dbuser ".
-        "TEMPLATE template0 ENCODING = 'UNICODE' LC_COLLATE = 'C'");
+        "TEMPLATE template0 ENCODING = 'UNICODE'");
 
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)

@@ -186,6 +186,8 @@ my @tables = qw(
     clientversion
     country
     editor
+    editor_collection
+    editor_collection_release
     editor_preference
     editor_sanitised
     editor_subscribe_artist
@@ -597,6 +599,7 @@ my @group_core = qw(
     release_name
     release_packaging
     release_status
+    replication_control
     script
     script_language
     track
@@ -664,6 +667,8 @@ my @group_private = qw(
     artist_tag_raw
     editor
     editor_preference
+    editor_collection
+    editor_collection_release
     editor_subscribe_artist
     editor_subscribe_editor
     editor_subscribe_label
