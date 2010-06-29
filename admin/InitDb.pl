@@ -298,7 +298,7 @@ sub GrantSelect
     while (my $row = $sth->fetchrow_arrayref)
     {
         my $tablename = $row->[2];
-        next if $tablename =~ /^(Pending|PendingData)$/;
+        next if $tablename =~ /^(dbmirror_pending|dbmirror_pendingdata)$/;
         $dbh->do("GRANT SELECT ON $tablename TO $username")
             or die;
     }
