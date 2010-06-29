@@ -30,7 +30,7 @@ sub _redirect
     }
     elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::ReleaseGroup')
     {
-        $uri = $c->uri_for_action('/release-group/show', [ $entity->gid ])
+        $uri = $c->uri_for_action('/release_group/show', [ $entity->gid ])
     }
     elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::URL')
     {
@@ -113,14 +113,9 @@ sub isrc : Private
         return;
     }
 
-    my @isrcs = $c->model('ISRC')->find_by_isrc($isrc);
-    $c->detach('not_found') unless @isrcs;
-
-    my @recordings = $c->model('Recording')->load(@isrcs);
-    $c->detach('not_found') unless @recordings;
-
-    $c->model('ArtistCredit')->load (@recordings);
-    $c->stash->{results} = \@recordings;
+    my $uri = $c->uri_for_action('/isrc/show', [ $isrc ]);
+    $c->response->redirect( $uri );
+    $c->detach;
 }
 
 sub iswc : Private
@@ -135,6 +130,7 @@ sub iswc : Private
         return;
     }
 
+    # FIXME: should be a redirect to /iswc/show ?
     my @works = $c->model('Work')->find_by_iswc($iswc);
     $c->detach('not_found') unless @works;
 
