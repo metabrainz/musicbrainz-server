@@ -47,11 +47,8 @@
             <div class="server-details">
                 <p>
                     [% l("This is a MusicBrainz $server_details.staging_server server.
-                          The main server is located at {uri|http://musicbrainz.org}<img
-                          src=\"{ext_link}\" alt=\"{ext_site}\"/>.",
-                        { ext_link => c.uri_for('/static/images/icon/extlink.gif'),
-                          ext_site => l("External Website"),
-                          uri="http://musicbrainz.org"}) %]
+                          The main server is located at {uri}.",
+                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) %]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
@@ -62,12 +59,9 @@
                 <p>
                     [% l('This is a MusicBrainz {doc|mirror server}, editing the data is
                           not possible.<br />To edit or make changes to any data please
-                          visit the main server at {uri|http://musicbrainz.org}<img
-                          src="{ext_link}" alt="{ext_site}" width="12" />.',
-                         { ext_link => c.uri_for('/static/images/icon/extlink.gif'),
-                           doc => doc_link('Mirror_Server'),
-                           ext_site => l("External Website"),
-                           uri="http://musicbrainz.org/"}) %]
+                          visit the main server at {uri}.',
+                         { doc => doc_link('Mirror_Server'),
+                           uri => '<a href="http://musicbrainz.org/" class="external">http://musicbrainz.org</a>' }) %]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
