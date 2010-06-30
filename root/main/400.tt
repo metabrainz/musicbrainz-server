@@ -1,29 +1,25 @@
-[% WRAPPER "layout.tt" title=l('Error 400: Bad Request') full_width=1 %]
-    <div class="content">
+[% WRAPPER "layout.tt" title=l('Bad Request') full_width=1 %]
+    <div id="content">
         <h1>[%- l('Bad Request') -%]</h1>
-        <h2>[%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 400') -%]</h2>
 
-        <p>[%- l("Sorry, it seems our server has been unable to correctly understand
-                  your request.") -%]</p>
+        <p><strong>[%- l("Sorry, there was a problem with your request.") -%]</strong></p>
+
+        [% IF message %]
+            <p>
+                <strong>[%- l('Error message: ') -%]</strong>
+                <code>[%- message | html -%]</code>
+            </p>
+        [% END %]
 
         <p>
-            [%- l('If you think this is our fault (for example, you found a broken link
-                   on our site) please let us know! You can use our {jira|bug tracker},
-                   contact us at {email|support@musicbrainz.org}, or visit the
-                   {irc|#musicbrainz <abbr title="Internet Relay Chat">IRC</abbr> channel}
-                   on irc.freenode.net. Please include the output of the error message below,
-                   as this will help us fix the problem faster.',
-                 { email="mailto&#x3a;support&#x0040;musicbrainz.org",
-                   irc="http://webchat.freenode.net/?channels=musicbrainz",
-                   jira="http://jira.musicbrainz.org" }) -%]
+            [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
+                 { doc => doc_link('MusicBrainz_Documentation'),
+                   faq => doc_link('FAQ') }) -%]
         </p>
 
-        <p>[%- l('Thank you, and sorry for the inconvenience!') -%]</p>
-
-        <h3>[%- l('Error Message:') -%]</h3>
-
-        <blockquote>
-            [%- message | html -%]
-        </blockquote>
+        <p>
+            [%- l('Found a broken link on our site? Please {con|contact us}.',
+                { con => doc_link('Contact_Us') }) -%]
+        </p>
     </div>
 [% END %]

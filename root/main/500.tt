@@ -1,27 +1,20 @@
-[% WRAPPER "layout.tt" title=l('Error 500: Internal Server Error') full_width=1 %]
+[% WRAPPER "layout.tt" title=l('Internal Server Error') full_width=1 %]
     <div id="content">
-        <h1>[%- l('Ooops!') -%]</h1>
-        <h2>[%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 500') -%]</h2>
+        <h1>[%- l('Internal Server Error') -%]</h1>
 
-        <p>[%- l('Sorry, it seems like something has gone wrong!') -%]</p>
+        <p><strong>[%- l('Oops! Something has gone wrong.') -%]</strong></p>
+
+        [% IF message %]
+            <p>
+                <strong>[%- l('Error message: ') -%]</strong>
+                <code>[%- message | html -%]</code>
+            </p>
+        [% END %]
 
         <p>
             [%- l('Waiting a few minutes and/or repeating your request may solve the
-                   problem, however if it persists, please {uri|file a bug report}. Alternatively
-                   you may also contact us at {email|support@musicbrainz.org}, or visit the
-                   {irc|#musicbrainz <abbr title="Internet Relay Chat">IRC</abbr> channel}
-                   on irc.freenode.net.',
-                 { uri="http://jira.musicbrainz.org",
-                   email="mailto&#x3a;support&#x0040;musicbrainz.org",
-                   irc="http://webchat.freenode.net/?channels=musicbrainz" }) -%]
+                   problem. If it persists, please {con|contact us}.',
+                 { con => doc_link('Contact_Us') }) -%]
         </p>
-
-        <p>[%- l('Thank you, and sorry for the inconvenience!') -%]</p>
-
-        <h3>[%- l('Error Message:') -%]</h3>
-
-        <blockquote>
-            [%- message | html -%]
-        </blockquote>
     </div>
 [%- END -%]
