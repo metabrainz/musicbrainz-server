@@ -89,19 +89,6 @@ CREATE TABLE artist_type (
     name                VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE dbmirror_Pending (
-    SeqId               SERIAL,
-    TableName           NAME NOT NULL,
-    Op                  CHARACTER,
-    XID                 INTEGER NOT NULL
-);
-
-CREATE TABLE dbmirror_PendingData (
-    SeqId               INTEGER NOT NULL, -- PK
-    IsKey               BOOLEAN NOT NULL, -- PK
-    Data                VARCHAR
-);
-
 CREATE TABLE editor
 (
     id                  SERIAL,
