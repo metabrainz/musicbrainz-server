@@ -84,6 +84,6 @@
         <span class="prefix">~</span>
         [% l('Edit by {editor}',
             { editor => link_editor(edit.editor) }) %]
-        [% '<span>(<dfn title="This edit was automatically applied.">auto-edit</dfn>)</span>' IF edit.auto_edit %]
+        [% '<span>(<span class="tooltip" title="This edit was automatically applied.">auto-edit</span>)</span>' IF edit.auto_edit %]
     </p>
 </div>
