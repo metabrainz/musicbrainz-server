@@ -77,7 +77,7 @@ sub find_by_artist
                     rgm.firstreleasedate_year,
                     rgm.firstreleasedate_month,
                     rgm.firstreleasedate_day,
-                    name.name
+                    musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
