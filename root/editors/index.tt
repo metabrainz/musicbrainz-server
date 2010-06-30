@@ -1,0 +1,19 @@
+[% WRAPPER "layout.tt" title=l("Editors") full_width=1 %]
+  <div id="content">
+    <h1>[% l("Auto Editors") %]</h1>
+    <p>[% l('The following editors have AutoEditor privileges:') %]</p>
+    [%- INCLUDE 'editors/results.tt' editors=auto_editors -%]
+
+    <h1>[% l("Relationship Editors") %]</h1>
+    <p>[% l('The following editors are Relationship editors:') %]</p>
+    [%- INCLUDE 'editors/results.tt' editors=relationship_editors -%]
+
+    <h1>[% l("Wiki Transclusion Editors") %]</h1>
+    <p>[% l('The following editors are Wiki Transclusion editors:') %]</p>
+    [%- INCLUDE 'editors/results.tt' editors=transclusion_editors -%]
+
+    <h1>[% l("Bots") %]</h1>
+    <p>[% l('The following editors are bots:') %]</p>
+    [%- INCLUDE 'editors/results.tt' editors=bots -%]
+  </div>
+[% END %]
