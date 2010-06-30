@@ -8,6 +8,7 @@ use MusicBrainz::Server::Track;
 use URI::Escape;
 use Encode;
 use Text::WikiFormat;
+use MusicBrainz::Server::Validation qw( encode_entities );
 
 sub release_date
 {
@@ -51,6 +52,61 @@ sub format_wikitext
         absolute_links => 1,
         implicit_links => 0
     });
+}
+
+sub format_editnote
+{
+    my ($text) = @_;
+
+    my $is_url = 1;
+    my $server = &DBDefs::WEB_SERVER;
+
+    my $html = join "", map {
+
+        # shorten url's that are longer 50 characters
+        my $encurl = encode_entities($_);
+        my $shorturl = $encurl;
+        if (length($_) > 50)
+        {
+            $shorturl = substr($_, 0, 48);
+            $shorturl = encode_entities($shorturl);
+            $shorturl .= "&#8230;";
+        }
+        ($is_url = not $is_url)
+            ? qq[<a href="$encurl" title="$encurl">$shorturl</a>]
+            : $encurl;
+    } split /
+        (
+         # Something that looks like the start of a URL
+         \b
+         (?:https?|ftp)
+         :\/\/
+         .*?
+         
+         # Stop at one of these sequences:
+         (?=
+          \z # end of string
+          | \s # any space
+          | [,\.!\?](?:\s|\z) # punctuation then space or end
+          | [\x29"'>] # any of these characters "
+          )
+         )
+         /six, $text, -1;
+
+    $html =~ s[\b(?:mod(?:eration)? #?|edit[#:\s]+|edit id[#:\s]+|change[#:\s]+)(\d+)\b]
+         [<a href="http://$server/edit/$1">edit #$1</a>]gi;
+
+    # links to wikidocs
+    $html =~ s/doc:(\w[\/\w]*)(``)*/<a href="\/doc\/$1">$1<\/a>/gi;
+    $html =~ s/\[(\p{IsUpper}[\/\w]*)\]/<a href="\/doc\/$1">$1<\/a>/g;
+
+    $html =~ s/<\/?p[^>]*>//g;
+    $html =~ s/<br[^>]*\/?>//g;
+    $html =~ s/&#39;&#39;&#39;(.*?)&#39;&#39;&#39;/<strong>$1<\/strong>$2/g;
+    $html =~ s/&#39;&#39;(.*?)&#39;&#39;/<em>$1<\/em>/g;
+    $html =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
+
+    return $html;
 }
 
 sub uri_decode
