@@ -8,6 +8,7 @@ use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
+use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
 use Data::OptList;
 
@@ -261,17 +262,37 @@ sub linked_recordings
 {
     my ($self, $c, $stash, $recordings) = @_;
 
-    for my $recording (@$recordings)
+    if ($c->stash->{inc}->isrcs)
     {
-        if ($c->stash->{inc}->isrcs)
+        my @isrcs = $c->model('ISRC')->find_by_recording(map { $_->id } @$recordings);
+
+        my %isrc_per_recording;
+        foreach (@isrcs)
         {
-            my @isrcs = $c->model('ISRC')->find_by_recording([ $recording->id ]);
-            $stash->store ($recording)->{isrcs} = \@isrcs;
+            $isrc_per_recording{$_->recording_id} = [] unless $isrc_per_recording{$_->recording_id};
+            push @{ $isrc_per_recording{$_->recording_id} }, $_;
+        };
+
+        foreach (@$recordings)
+        {
+            $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
         }
-        if ($c->stash->{inc}->puids)
+    }
+
+    if ($c->stash->{inc}->puids)
+    {
+        my @puids = $c->model('RecordingPUID')->find_by_recording(map { $_->id } @$recordings);
+
+        my %puid_per_recording;
+        foreach (@puids)
         {
-            my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-            $stash->store ($recording)->{puids} = \@puids;
+            $puid_per_recording{$_->recording_id} = [] unless $puid_per_recording{$_->recording_id};
+            push @{ $puid_per_recording{$_->recording_id} }, $_;
+        };
+
+        foreach (@$recordings)
+        {
+            $stash->store ($_)->{puids} = $puid_per_recording{$_->id};
         }
     }
 

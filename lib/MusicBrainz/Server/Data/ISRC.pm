@@ -41,7 +41,7 @@ sub find_by_recording
                   WHERE recording IN (" . placeholders(@ids) . ")
                   ORDER BY isrc";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
-                         $query, @{ids});
+                         $query, @ids);
 }
 
 sub find_by_isrc
