@@ -686,8 +686,8 @@ sub output_error
     my $gen = MusicBrainz::XML::Generator->new(':std');
 
     my $xml = $xml_decl_begin;
-    $xml .= $gen->error($gen->text(
-       $err . " For usage, please see: http://musicbrainz.org/development/mmd\015\012"));
+    $xml .= $gen->error($gen->text($err), $gen->text(
+           "For usage, please see: http://musicbrainz.org/development/mmd"));
     $xml .= $xml_decl_end;
     return $xml;
 }
