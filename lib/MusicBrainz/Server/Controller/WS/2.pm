@@ -660,7 +660,8 @@ sub release_toplevel
     if ($c->stash->{inc}->release_groups)
     {
          $c->model('ReleaseGroup')->load($release);
-         $c->model('ReleaseGroupType')->load($release->release_group);
+
+         $self->linked_release_groups ($c, $stash, [ $release->release_group ]);
     }
 
     if ($c->stash->{inc}->recordings)
