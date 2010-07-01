@@ -99,7 +99,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=release-groups', 'release lookup with release-groups');
+$mech->get_ok('/ws/2/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups', 'release lookup with release-groups');
 &$v2 ($mech->content, "Validate release lookup with release-groups");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -109,8 +109,22 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
+        <artist-credit>
+            <name-credit>
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name>
+                </artist>
+            </name-credit>
+        </artist-credit>
         <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
             <title>the Love Bug</title>
+            <artist-credit>
+                <name-credit>
+                    <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                        <name>m-flo</name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
         </release-group>
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
     </release>
