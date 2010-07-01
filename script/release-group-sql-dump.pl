@@ -1,13 +1,19 @@
 #!/usr/bin/perl
-
 use strict;
 use warnings;
 use feature "switch";
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
 use DBI;
 use Data::Dumper;
+use DBDefs;
+use MusicBrainz::Server::Test::Connector;
 
-my $schema = 'musicbrainz';
-my $test_schema = 'musicbrainz_test';
+my $readwrite = MusicBrainz::Server::DatabaseConnectionFactory->get ('READWRITE');
+my $schema = $readwrite->{schema};
+my $test_schema = MusicBrainz::Server::Test::Connector->_schema;
 my %insert_dupe_check;
 my %artist_dupe_check;
 my @backup;
@@ -38,9 +44,9 @@ sub quote_column
         when (/^integer\[\]/) { $ret = "'{" . join(",", @$data) . "}'"; }
         when (/^integer/) { $ret = $data; }
         when (/^smallint/) { $ret = $data; }
-        default { 
+        default {
             $data =~ s/'/''/g;
-            $ret = "'$data'"; 
+            $ret = "'$data'";
         }
     }
 
@@ -253,7 +259,7 @@ sub link_type
     my ($dbh, $key) = @_;
 
     my $data = get_rows ($dbh, 'link_type', 'id', $key);
-    
+
     $link_used{link_type}{$key} = 1;
 
     if ($data->[0]->{parent})
@@ -467,7 +473,7 @@ sub media
     my ($dbh, $id) = @_;
 
     my $data = get_rows ($dbh, 'medium', 'release', $id);
-    
+
     for (@$data)
     {
         generic ($dbh, 'medium_format', 'id', $_->{format});
@@ -628,7 +634,7 @@ sub relationships
         my $data = get_rows_two_keys (
             $dbh, 'link_type_attribute_type',
             'link_type', $link, 'attribute_type', \@attr_types);
-        
+
         backup ($dbh, 'link_type_attribute_type', $data);
     }
 }
@@ -636,7 +642,10 @@ sub relationships
 sub main
 {
     my $outputfile = shift;
-    my $dbh = DBI->connect("dbi:Pg:dbname=musicbrainz", "warp", "");
+    my $database = $readwrite->{database};
+
+    my $dbh = DBI->connect("dbi:Pg:dbname=$database",
+                           $readwrite->{username}, $readwrite->{password});
 
     $dbh->do ("SET search_path TO $schema");
 
