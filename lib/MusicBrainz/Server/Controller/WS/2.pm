@@ -150,8 +150,7 @@ sub bad_req : Private
     my ($self, $c) = @_;
     $c->res->status(400);
     $c->res->content_type("text/plain; charset=utf-8");
-    $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}.
-                  "\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012"));
+    $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
 }
 
 sub unauthorized : Private
@@ -159,7 +158,7 @@ sub unauthorized : Private
     my ($self, $c) = @_;
     $c->res->status(401);
     $c->res->content_type("text/plain; charset=utf-8");
-    $c->res->body($c->stash->{serializer}->output_error("\nYour credentials ".
+    $c->res->body($c->stash->{serializer}->output_error("Your credentials ".
         "could not be verified.\nEither you supplied the wrong credentials ".
         "(e.g., bad password), or your client doesn't understand how to ".
         "supply the credentials required."));
@@ -169,6 +168,8 @@ sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->res->status(404);
+    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->body($c->stash->{serializer}->output_error("Not Found"));
 }
 
 sub begin : Private
