@@ -309,6 +309,9 @@ sub _serialize_work
             if $inc->artist_credits;
     }
 
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
     $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 

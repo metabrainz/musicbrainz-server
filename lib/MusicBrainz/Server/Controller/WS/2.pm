@@ -364,6 +364,23 @@ sub linked_works
 {
     my ($self, $c, $stash, $works) = @_;
 
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Work')->alias->find_by_entity_id(map { $_->id } @$works) };
+
+        my %alias_per_work;
+        foreach (@aliases)
+        {
+            $alias_per_work{$_->work_id} = [] unless $alias_per_work{$_->work_id};
+            push @{ $alias_per_work{$_->work_id} }, $_;
+        }
+
+        foreach (@$works)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_work{$_->id};
+        }
+    }
+
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$works);
