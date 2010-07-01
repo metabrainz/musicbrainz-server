@@ -64,7 +64,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      recording => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits puids isrcs
+                         inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings) ]
      },
      release => {
@@ -79,7 +79,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      release => {
                          method   => 'GET',
-                         inc      => [ qw(artists labels recordings release-groups
+                         inc      => [ qw(artists labels recordings release-groups aliases
                                           artist-credits discids media _relations) ]
      },
      "release-group" => {
@@ -95,7 +95,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      "release-group" => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits
+                         inc      => [ qw(artists releases artist-credits aliases
                                           _relations tags user-tags ratings user-ratings) ]
      },
      work => {
@@ -117,16 +117,16 @@ my $ws_defs = Data::OptList::mkopt([
      discid => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups artist-credits
-                                          puids isrcs _relations) ]
+                                          aliases puids isrcs _relations) ]
      },
      puid => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases puids isrcs artist-credits
+                         inc      => [ qw(artists releases puids isrcs artist-credits aliases
                                           _relations tags user-tags ratings user-ratings) ]
      },
      isrc => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases puids isrcs artist-credits
+                         inc      => [ qw(artists releases puids isrcs artist-credits aliases
                                           _relations tags user-tags ratings user-ratings) ]
      },
      iswc => {
@@ -250,11 +250,45 @@ sub make_list
 sub linked_artists
 {
     my ($self, $c, $stash, $artists) = @_;
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Artist')->alias->find_by_entity_id(map { $_->id } @$artists) };
+
+        my %alias_per_artist;
+        foreach (@aliases)
+        {
+            $alias_per_artist{$_->artist_id} = [] unless $alias_per_artist{$_->artist_id};
+            push @{ $alias_per_artist{$_->artist_id} }, $_;
+        }
+
+        foreach (@$artists)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_artist{$_->id};
+        }
+    }
 }
 
 sub linked_labels
 {
     my ($self, $c, $stash, $labels) = @_;
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Label')->alias->find_by_entity_id(map { $_->id } @$labels) };
+
+        my %alias_per_label;
+        foreach (@aliases)
+        {
+            $alias_per_label{$_->label_id} = [] unless $alias_per_label{$_->label_id};
+            push @{ $alias_per_label{$_->label_id} }, $_;
+        }
+
+        foreach (@$labels)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_label{$_->id};
+        }
+    }
 }
 
 sub linked_recordings
@@ -372,11 +406,6 @@ sub artist_toplevel
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
-
-    if ($c->stash->{inc}->aliases)
-    {
-        $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id);
-    }
 
     if ($c->stash->{inc}->recordings)
     {

@@ -106,8 +106,13 @@ sub _serialize_artist
         push @list, $gen->country($artist->country->iso_code) if ($artist->country);
 
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
-        $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
+    }
 
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    if ($toplevel)
+    {
         $self->_serialize_recording_list(\@list, $gen, $opts->{recordings}, $inc, $stash)
             if $inc->recordings;
 
@@ -466,14 +471,14 @@ sub _serialize_label_info
 
 sub _serialize_label_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     if (@{ $list->{items} })
     {
         my @list;
         foreach my $label (@{ $list->{items} })
         {
-            $self->_serialize_label(\@list, $gen, $label, $inc, $stash);
+            $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
         }
         push @$data, $gen->label_list($self->_list_attributes ($list), @list);
     }
@@ -481,7 +486,7 @@ sub _serialize_label_list
 
 sub _serialize_label
 {
-    my ($self, $data, $gen, $label, $inc, $stash) = @_;
+    my ($self, $data, $gen, $label, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store ($label);
 
@@ -492,14 +497,24 @@ sub _serialize_label
     push @list, $gen->name($label->name);
     push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
-    push @list, $gen->country($label->country->iso_code) if $label->country;
-    $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
+
+    if ($toplevel)
+    {
+        push @list, $gen->country($label->country->iso_code) if $label->country;
+        $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) 
+        if ($inc->aliases && $opts->{aliases});
+
+    if ($toplevel)
+    {
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+            if $inc->releases;
+    }
+
     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
-        if $inc->releases;
 
     push @$data, $gen->label(@list);
 }
