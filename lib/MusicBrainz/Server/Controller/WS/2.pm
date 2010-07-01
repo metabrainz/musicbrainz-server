@@ -20,13 +20,14 @@ my $ws_defs = Data::OptList::mkopt([
      artist => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          linked   => [ qw(recording release release-group work) ],
                          inc      => [ qw(aliases
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(limit offset) ]
      },
      artist => {
                          method   => 'GET',
@@ -37,13 +38,14 @@ my $ws_defs = Data::OptList::mkopt([
      label => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset) ],
      },
      label => {
                          method   => 'GET',
                          linked   => [ qw(release) ],
                          inc      => [ qw(aliases
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(limit offset) ],
      },
      label => {
                          method   => 'GET',
@@ -53,14 +55,14 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
                          inc      => [ qw(artist-credits puids isrcs
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset) ],
      },
      recording => {
                          method   => 'GET',
@@ -70,12 +72,13 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset) ],
      },
      release => {
                          method   => 'GET',
                          linked   => [ qw(artist label recording release-group) ],
-                         inc      => [ qw(artist-credits labels discids media _relations) ]
+                         inc      => [ qw(artist-credits labels discids media _relations) ],
+                         optional => [ qw(limit offset) ],
      },
      release => {
                          method   => 'GET',
@@ -85,54 +88,56 @@ my $ws_defs = Data::OptList::mkopt([
      "release-group" => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset) ],
      },
      "release-group" => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
                          inc      => [ qw(artist-credits
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(limit offset) ],
      },
      "release-group" => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
      },
      work => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(limit offset) ],
      },
      work => {
                          method   => 'GET',
                          linked   => [ qw(artist) ],
                          inc      => [ qw(artists aliases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(limit offset) ],
      },
      work => {
                          method   => 'GET',
                          inc      => [ qw(artists aliases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
      },
      discid => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups artist-credits
-                                          puids isrcs _relations) ]
+                                          puids isrcs _relations) ],
      },
      puid => {
                          method   => 'GET',
                          inc      => [ qw(artists releases puids isrcs artist-credits
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
      },
      isrc => {
                          method   => 'GET',
                          inc      => [ qw(artists releases puids isrcs artist-credits
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
      },
      iswc => {
                          method   => 'GET',
                          inc      => [ qw(artists aliases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
      },
 ]);
 
