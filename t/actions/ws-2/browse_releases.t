@@ -43,6 +43,24 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
+$mech->get_ok('/ws/2/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2', 'browse releases via artist (paging)');
+&$v2 ($mech->content, "Validate browse releases via artist");
+
+my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-list count="3" offset="2">
+        <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
+            <title>For Beginner Piano</title><status>official</status>
+            <text-representation>
+                <language>eng</language><script>Latn</script>
+            </text-representation>
+            <date>1999-09-23</date><country>US</country>
+        </release>
+    </release-list>
+</metadata>';
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
 $mech->get_ok('/ws/2/release?inc=mediums&label=b4edce40-090f-4956-b82a-5d9d285da40b', 'browse releases via label');
 &$v2 ($mech->content, "Validate browse releases via label");
 
