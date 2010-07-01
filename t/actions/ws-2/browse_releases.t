@@ -111,7 +111,7 @@ is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 my $response = $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
 is ($response->code, 404, 'browse releases via non-existent recording');
 
-$mech->get_ok('/ws/2/release?recording=0c0245df-34f0-416b-8c3f-f20f66e116d0', 'browse releases via recording');
+$mech->get_ok('/ws/2/release?inc=labels&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0', 'browse releases via recording');
 &$v2 ($mech->content, "Validate browse releases via recording");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -123,6 +123,13 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <language>jpn</language><script>Latn</script>
             </text-representation>
             <date>2004-01-15</date><country>JP</country>
+            <label-info-list count="1">
+                <label-info>
+                    <label>
+                        <name>avex trax</name><sort-name>avex trax</sort-name>
+                    </label>
+                </label-info>
+            </label-info-list>
         </release>
         <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
             <title>LOVE &amp; HONESTY</title><status>official</status>
@@ -130,6 +137,14 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
             <date>2004-01-15</date><country>JP</country><barcode>4988064173907</barcode>
+            <label-info-list count="1">
+                <label-info>
+                    <catalog-number>avcd-17390</catalog-number>
+                    <label>
+                        <name>avex trax</name><sort-name>avex trax</sort-name>
+                    </label>
+                </label-info>
+            </label-info-list>
         </release>
         <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
             <title>LOVE &amp; HONESTY</title><status>official</status>
@@ -137,6 +152,14 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
             <date>2004-01-15</date><country>JP</country><barcode>4988064173891</barcode>
+            <label-info-list count="1">
+                <label-info>
+                    <catalog-number>avcd-17389</catalog-number>
+                    <label>
+                        <name>avex trax</name><sort-name>avex trax</sort-name>
+                    </label>
+                </label-info>
+            </label-info-list>
         </release>
     </release-list>
 </metadata>';
