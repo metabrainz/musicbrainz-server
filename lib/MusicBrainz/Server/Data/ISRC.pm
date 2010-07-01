@@ -33,9 +33,10 @@ sub _entity_class
 
 sub find_by_recording
 {
-    my ($self, $ids) = @_;
+    my $self = shift;
 
-    my @ids = ref $ids ? @$ids : ( $ids );
+    my @ids = ref $_[0] ? @{$_[0]} : @_;
+
     my $query = "SELECT ".$self->_columns."
                    FROM ".$self->_table."
                   WHERE recording IN (" . placeholders(@ids) . ")

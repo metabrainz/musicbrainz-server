@@ -8,7 +8,6 @@ use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
-use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
 use Data::OptList;
 
