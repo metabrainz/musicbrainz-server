@@ -151,18 +151,12 @@ sub _serialize_artist_credit
 
 sub _serialize_release_group_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
     foreach my $rg (@{ $list->{items} })
     {
-#         my $rel_opts = {};
-#         if ($opts->{releases}->{$rg->id})
-#         {
-#             $rel_opts->{releases} = $opts->{releases}->{$rg->id};
-#         }
-#         $self->_serialize_release_group(\@list, $gen, $rg, $inc, $rel_opts);
-        $self->_serialize_release_group(\@list, $gen, $rg, $inc, $stash);
+        $self->_serialize_release_group(\@list, $gen, $rg, $inc, $stash, $toplevel);
     }
     push @$data, $gen->release_group_list($self->_list_attributes ($list), @list);
 }

@@ -519,6 +519,24 @@ sub release_group_toplevel
     my $opts = $stash->store ($rg);
 
     $self->linked_release_groups ($c, $stash, [ $rg ]);
+
+    if ($c->stash->{inc}->releases)
+    {
+        my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
+        $opts->{releases} = $self->make_list (@results);
+
+        $self->linked_releases ($c, $stash, $opts->{releases}->{items});
+    }
+
+    if ($c->stash->{inc}->artists)
+    {
+        $c->model('ArtistCredit')->load($rg);
+
+        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $rg->artist_credit->names };
+
+        $self->linked_artists ($c, $stash, \@artists);
+    }
+
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
@@ -544,34 +562,8 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
     }
 
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($rg);
 
-    $self->linked_release_groups ($c, $stash, [ $rg ]);
-
-    if ($c->stash->{inc}->releases)
-    {
-        my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
-        $opts->{releases} = $self->make_list (@results);
-
-        $self->linked_releases ($c, $stash, $opts->{releases}->{items});
-    }
-
-    if ($c->stash->{inc}->artists)
-    {
-        $c->model('ArtistCredit')->load($rg);
-
-        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $rg->artist_credit->names };
-
-        $self->linked_artists ($c, $stash, \@artists);
-    }
-
-
-    $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $rg);
-    }
+    $self->release_group_toplevel ($c, $stash, $rg);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $stash));
