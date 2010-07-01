@@ -14,7 +14,7 @@ use XML::Parser;
 
 use base 'Exporter';
 
-our @EXPORT_OK = qw( accept_edit reject_edit xml_ok );
+our @EXPORT_OK = qw( accept_edit reject_edit xml_ok v2_schema_validator );
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
@@ -198,7 +198,7 @@ sub mock_search_server
 {
     my ($type) = @_;
 
-    $type =~ s/-/_/;
+    $type =~ s/-/_/g;
 
     local $/;
     my $searchresults = "t/json/search_".lc($type).".json";
@@ -232,6 +232,57 @@ sub old_edit_row
         tab        => 'artist',
         col        => 'name',
         %args
+    };
+}
+
+sub v2_schema_validator
+{
+    my $rng_file = $ENV{'MMDFILE'};
+
+    if (!$rng_file)
+    {
+        use File::Basename;
+        use Cwd;
+
+        my $base_dir = Cwd::realpath( File::Basename::dirname(__FILE__) );
+        $rng_file = "$base_dir/../../../../mmd-schema/schema/musicbrainz_mmd-2.0.rng";
+    }
+    my $rngschema;
+    eval
+    {
+        $rngschema = XML::LibXML::RelaxNG->new( location => $rng_file );
+    };
+
+    if ($@)
+    {
+        warn "Cannot find or parse RNG schema. Set evn var MMDFILE to point ".
+            "to the mmd-schema file or check out the mmd-schema in parallel to ".
+            "the mb_server source. No schema validation will happen.\n";
+        undef $rngschema;
+    }
+
+    return sub {
+        use Test::More import => [ 'is' ];
+
+        my ($xml, $message) = @_;
+
+        $message ||= "Validate against schema";
+
+        xml_ok ($xml, "$message (xml_ok)");
+
+        if ($rngschema)
+        {
+            my $doc = XML::LibXML->new()->parse_string($xml);
+            eval
+            {
+                $rngschema->validate( $doc );
+            };
+            is( $@, '', "$message (validate)");
+        }
+        else
+        {
+            warn "WAIT WOT?\n";
+        }
     };
 }
 

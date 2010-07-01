@@ -110,6 +110,22 @@ sub find_by_artist
         $query, $artist_id);
 }
 
+sub find_by_release
+{
+    my ($self, $release_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN release_label ON release_label.label = label.id
+                 WHERE release_label.release = ?
+                 ORDER BY musicbrainz_collate(name.name)
+                 OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $release_id, $offset || 0);
+}
+
 sub load
 {
     my ($self, @objs) = @_;

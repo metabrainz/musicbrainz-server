@@ -30,9 +30,9 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, gid, type AS type_id, name.name,
+    return 'rg.id, rg.gid, type AS type_id, name.name,
             rg.artist_credit AS artist_credit_id,
-            comment, editpending AS edits_pending';
+            rg.comment, rg.editpending AS edits_pending';
 }
 
 sub _id_column
@@ -122,7 +122,7 @@ sub find_by_track_artist
                     rgm.firstreleasedate_year,
                     rgm.firstreleasedate_month,
                     rgm.firstreleasedate_day,
-                    name.name
+                    musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
@@ -160,7 +160,7 @@ sub filter_by_artist
                     rgm.firstreleasedate_year,
                     rgm.firstreleasedate_month,
                     rgm.firstreleasedate_day,
-                    name.name";
+                    musicbrainz_collate(name.name)";
     return query_to_list(
         $self->c->dbh, sub {
             my $row = $_[0];
@@ -172,6 +172,34 @@ sub filter_by_artist
             return $rg;
         },
         $query, $artist_id, $type);
+}
+
+sub find_by_release
+{
+    my ($self, $release_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . ",
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day
+                 FROM " . $self->_table . "
+                    JOIN release ON release.release_group = rg.id
+                    JOIN release_group_meta rgm ON rgm.id = rg.id
+                 WHERE release.id = ?
+                 ORDER BY
+                    rg.type,
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day,
+                    musicbrainz_collate(name.name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub {
+            my $row = $_[0];
+            my $rg = $self->_new_from_row($row);
+            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
+            return $rg;
+        },
+        $query, $release_id, $offset || 0);
 }
 
 sub insert
