@@ -36,7 +36,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <begin>1986-11-05</begin>
         </life-span>
         <alias-list count="5">
-            <alias>보아</alias><alias>ボア</alias><alias>Kwon BoA</alias><alias>BoA Kwon</alias><alias>Beat of Angel</alias>
+            <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>보아</alias><alias>ボア</alias>
         </alias-list>
     </artist>
 </metadata>';
@@ -128,7 +128,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2007-01-29</date><country>GB</country>
+                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>cd</format>
@@ -146,7 +146,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2008-11-17</date><country>GB</country>
+                <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
                         <position>1</position><format>cd</format>

@@ -479,8 +479,9 @@ sub _serialize_label
 
     my $opts = $stash->store ($label);
 
-    my %attr;
-    $attr{type} = lc($label->type->name) if $label->type;
+    my %attrs;
+    $attrs{id} = $label->gid;
+    $attrs{type} = lc($label->type->name) if $label->type;
 
     my @list;
     push @list, $gen->name($label->name);
@@ -495,7 +496,7 @@ sub _serialize_label
     $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
         if $inc->releases;
 
-    push @$data, $gen->label(@list);
+    push @$data, $gen->label(\%attrs, @list);
 }
 
 sub _serialize_relation_lists
