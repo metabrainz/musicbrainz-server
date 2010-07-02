@@ -83,6 +83,7 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups
+                                          tags user-tags ratings user-ratings
                                           artist-credits discids media _relations) ]
      },
      "release-group" => {
@@ -659,7 +660,13 @@ sub release_toplevel
     {
          $c->model('ReleaseGroup')->load($release);
 
-         $self->linked_release_groups ($c, $stash, [ $release->release_group ]);
+         my $rg = $release->release_group;
+
+         $self->linked_release_groups ($c, $stash, [ $rg ]);
+
+         # as a special case, allow tags and ratings to be requested for the linked
+         # release group, because releases themselves no longer have tags or ratings.
+         $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $stash->store ($rg));
     }
 
     if ($c->stash->{inc}->recordings)
