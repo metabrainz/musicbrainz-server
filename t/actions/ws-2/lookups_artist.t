@@ -131,7 +131,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <date>2007-01-29</date><country>GB</country>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>CD</format>
+                        <position>1</position><format>cd</format>
                         <disc-list count="1">
                             <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
                                 <sectors>281289</sectors>
@@ -149,7 +149,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <date>2008-11-17</date><country>GB</country>
                 <medium-list count="2">
                     <medium>
-                        <position>1</position><format>CD</format>
+                        <position>1</position><format>cd</format>
                         <disc-list count="1">
                             <disc id="93K4ogyxWlv522XF0BG8fZOuay4-">
                                 <sectors>215137</sectors>
@@ -158,7 +158,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                         <track-list count="9" />
                     </medium>
                     <medium>
-                        <title>Chestplate Singles</title><position>2</position><format>CD</format>
+                        <title>Chestplate Singles</title><position>2</position><format>cd</format>
                         <disc-list count="1">
                             <disc id="VnL0A7ksXznBxvZ94H3Z61EZY3k-">
                                 <sectors>208393</sectors>

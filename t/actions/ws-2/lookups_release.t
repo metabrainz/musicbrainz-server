@@ -145,7 +145,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
         <medium-list count="1">
             <medium>
-                <position>1</position><format>CD</format>
+                <position>1</position><format>cd</format>
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
                         <sectors>60295</sectors>
