@@ -64,7 +64,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <label-info-list count="1">
             <label-info>
                 <catalog-number>rzcd-45118</catalog-number>
-                <label>
+                <label id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
                     <name>rhythm zone</name><sort-name>rhythm zone</sort-name>
                 </label>
             </label-info>

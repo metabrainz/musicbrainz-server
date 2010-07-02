@@ -72,7 +72,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>2007-01-29</date><country>GB</country>
+            <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
             <medium-list count="1">
                 <medium>
                     <position>1</position><format>cd</format><track-list count="12" />
@@ -84,7 +84,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>2008-11-17</date><country>GB</country>
+            <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
             <medium-list count="2">
                 <medium>
                     <position>1</position><format>cd</format><track-list count="9" />
@@ -143,7 +143,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <date>2004-01-15</date><country>JP</country>
             <label-info-list count="1">
                 <label-info>
-                    <label>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>
@@ -158,7 +158,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>avcd-17390</catalog-number>
-                    <label>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>
@@ -173,7 +173,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>avcd-17389</catalog-number>
-                    <label>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>

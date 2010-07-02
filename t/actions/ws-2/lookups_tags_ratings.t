@@ -59,21 +59,15 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+ratings
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name><country>GB</country>
         <life-span>
             <begin>1995</begin>
         </life-span>
         <tag-list>
-            <tag count="1">
-                <name>british</name>
-            </tag>
-            <tag count="1">
-                <name>english</name>
-            </tag>
-            <tag count="1">
-                <name>uk</name>
-            </tag>
+            <tag count="1"><name>british</name></tag>
+            <tag count="1"><name>english</name></tag>
+            <tag count="1"><name>uk</name></tag>
         </tag-list>
     </label>
 </metadata>';
