@@ -59,7 +59,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <date>2007-01-29</date><country>GB</country>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>CD</format><track-list count="12" />
+                        <position>1</position><format>cd</format><track-list count="12" />
                     </medium>
                 </medium-list>
             </release>
@@ -71,11 +71,11 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <date>2008-11-17</date><country>GB</country>
                 <medium-list count="2">
                     <medium>
-                        <position>1</position><format>CD</format><track-list count="9" />
+                        <position>1</position><format>cd</format><track-list count="9" />
                     </medium>
                     <medium>
                         <title>Chestplate Singles</title>
-                        <position>2</position><format>CD</format><track-list count="9" />
+                        <position>2</position><format>cd</format><track-list count="9" />
                     </medium>
                 </medium-list>
             </release>

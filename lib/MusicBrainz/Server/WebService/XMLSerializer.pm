@@ -373,7 +373,7 @@ sub _serialize_medium
     my @med;
     push @med, $gen->title($medium->name) if $medium->name;
     push @med, $gen->position($medium->position);
-    push @med, $gen->format($medium->format->name) if ($medium->format);
+    push @med, $gen->format(lc($medium->format->name)) if ($medium->format);
     $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
     $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $stash);
 
