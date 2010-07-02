@@ -24,11 +24,11 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </life-span>
         <tag-list>
             <tag count="1"><name>c-pop</name></tag>
-            <tag count="1"><name>j-pop</name></tag>
             <tag count="1"><name>japanese</name></tag>
             <tag count="1"><name>jpop</name></tag>
-            <tag count="1"><name>k-pop</name></tag>
+            <tag count="1"><name>j-pop</name></tag>
             <tag count="1"><name>kpop</name></tag>
+            <tag count="1"><name>k-pop</name></tag>
             <tag count="1"><name>pop</name></tag>
         </tag-list>
         <rating votes-count="3">4.35</rating>
