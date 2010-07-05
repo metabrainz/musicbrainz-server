@@ -13,6 +13,8 @@ has $_ => (
           artist_rels label_rels recording_rels release_rels
           release_group_rels url_rels work_rels
           tags ratings user_tags user_ratings
+
+          artist track_rels asin
 );
 
 # artist trackrels asin  were added only for /ws/1
