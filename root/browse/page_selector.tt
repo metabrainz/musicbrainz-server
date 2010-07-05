@@ -13,6 +13,12 @@
     [% END %]
 [% END %]
 
+[% IF index %]
+    <h2>[% l('Browse further') %]</h2>
+[% ELSIF browse_title %]
+    <h2>[% browse_title %]</h2>
+[% END %]
+
 [%- IF index && index.length > 6 -%]
     <p>
         [% l('<strong>Error:</strong> You are trying to browse the database using a query that is
@@ -40,4 +46,17 @@
                 'w', 'x', 'y', 'z' ]) %]
         </tr>
     </table>
+
+    [% IF index %]
+        <p>
+            [
+            [% IF index.length > 1 %]
+                [% l('{uri|Back}', { uri => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]
+                | 
+            [% END %]
+            [%- l('{uri|Start over}', { uri => c.req.uri_with( index => "", page => 1 ) }) -%]
+            ]
+        </p>
+    [% END %]
+
 [% END %]

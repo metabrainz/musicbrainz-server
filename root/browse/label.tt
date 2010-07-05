@@ -31,9 +31,9 @@
         [% ELSE %]
             [%- IF index && index.length > 0 -%]
                 <p>
-                    [% l('Sorry, there are no labels starting with “{index}”. Please {try|try again}.',
+                    [% l('Sorry, there are no labels starting with “{index}”. Please {pre|go back} and try again.',
                         { index => html_escape(index),
-                          try => c.uri_for('/browse/label') }) %]
+                          pre => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]
                 </p>
             [% ELSE %]
                 <p>[% l('To begin browsing, please select a letter above.') %]</p>

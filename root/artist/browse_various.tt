@@ -1,6 +1,5 @@
 [%- WRAPPER 'artist/layout.tt' -%]
-    <h2>[%- l('Browse release groups') -%]</h2>
-    [%- INCLUDE 'browse/page_selector.tt' -%]
+    [%- INCLUDE 'browse/page_selector.tt' browse_title=l('Browse release groups') -%]
 
     [% IF index %]
         <h2>[% l('Releases groups starting with “{index}”', { index => html_escape(index) }) %]</h2>
@@ -34,9 +33,9 @@
     [% ELSE %]
         [%- IF index && index.length > 0 -%]
             <p>
-                [% l('Sorry, there are no release groups starting with “{index}”. Please {try}.',
+                [% l('Sorry, there are no release groups starting with “{index}”. Please {pre|go back} and try again.',
                     { index => html_escape(index),
-                      try => link_artist(artist, 'show', l('try again')) }) %]
+                      pre => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]
             </p>
         [% ELSE %]
             <p>[% l('To begin browsing, please select a letter above.') %]</p>
