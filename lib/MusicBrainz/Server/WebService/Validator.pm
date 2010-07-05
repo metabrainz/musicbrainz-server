@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Validator;
 use MooseX::Role::Parameterized;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
+use aliased 'MusicBrainz::Server::WebService::WebServiceIncV1';
 use Readonly;
 
 parameter default_serialization_type => (
@@ -70,12 +71,12 @@ sub validate_linked
 
 sub validate_inc
 {
-    my ($c, $resource, $inc, $def) = @_;
+    my ($c, $version, $resource, $inc, $def) = @_;
 
     my @inc = split(/[+ ]/, $inc || '');
     my %acc = map { $_ => 1 } @{ $def };
-#     my $allow_type = exists $acc{"_rg_type"};
-#     my $allow_status = exists $acc{"_rel_status"};
+    my $allow_type = exists $acc{"_rg_type"};
+    my $allow_status = exists $acc{"_rel_status"};
     my $allow_relations = exists $acc{"_relations"};
     my $type_used = 0;
     my $status_used = 0;
@@ -93,32 +94,28 @@ sub validate_inc
         next if (!$i);
 
         $i =~ s/mediums/media/;
+        $i = lc($i) if ($version == 1);
 
-#     for my $i (@inc)
-#     {
-#         next if (!$i);
-#         $i =~ s/release-groups/releasegroups/;
-#         $i = lc($i); # for /ws/1
-#         if ($allow_type && exists $types{$i})
-#         {
-#             if ($type_used)
-#             {
-#                 $c->stash->{error} = "Only one type filter (e.g. $i) may be used per request.";
-#                 return;
-#             }
-#             $type_used = $types{$i};
-#             next;
-#         }
-#         if ($allow_status && exists $statuses{$i})
-#         {
-#             if ($status_used)
-#             {
-#                 $c->stash->{error} = "Only one status filter (e.g. $i) may be used per request.";
-#                 return;
-#             }
-#             $status_used = $statuses{$i};
-#             next;
-#         }
+        if ($allow_type && exists $types{$i})
+        {
+            if ($type_used)
+            {
+                $c->stash->{error} = "Only one type filter (e.g. $i) may be used per request.";
+                return;
+            }
+            $type_used = $types{$i};
+            next;
+        }
+        if ($allow_status && exists $statuses{$i})
+        {
+            if ($status_used)
+            {
+                $c->stash->{error} = "Only one status filter (e.g. $i) may be used per request.";
+                return;
+            }
+            $status_used = $statuses{$i};
+            next;
+        }
 
         if ($allow_relations && exists $relation_types{$i})
         {
@@ -132,7 +129,10 @@ sub validate_inc
         }
         push @filtered, $i;
     }
-    return WebServiceInc->new(inc => \@filtered, rg_type => $type_used,
+
+    my $wsinc = $version == 1 ? WebServiceIncV1 : WebServiceInc;
+
+    return $wsinc->new(inc => \@filtered, rg_type => $type_used,
                               rel_status => $status_used, relations => \@relations_used);
 }
 
@@ -196,7 +196,8 @@ role {
             my $inc;
             if ($def->[1]->{inc})
             {
-                $inc = validate_inc($c, $resource, $c->req->params->{inc}, $def->[1]->{inc});
+                $inc = validate_inc($c, $r->version, $resource, 
+                                    $c->req->params->{inc}, $def->[1]->{inc});
                 return 0 unless ($inc);
             }
 

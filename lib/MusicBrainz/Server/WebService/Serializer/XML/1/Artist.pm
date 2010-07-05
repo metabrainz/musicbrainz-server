@@ -4,6 +4,7 @@ use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::LifeSpan';
 
 sub element { 'artist'; }
 
@@ -15,6 +16,9 @@ before 'serialize' => sub
 
     $self->add($self->gen->name($entity->name));
     $self->add($self->gen->sort_name($entity->sort_name));
+    $self->add($self->gen->disambiguation($entity->comment)) if $entity->comment;
+
+    $self->add( $self->lifespan ($entity) ) if $self->has_lifespan ($entity);
 
     $self->add( List->new->serialize($opts->{aliases}) )
         if ($inc && $inc->aliases);
@@ -23,7 +27,7 @@ before 'serialize' => sub
         if ($inc && $inc->releases);
 
     $self->add( List->new->serialize($opts->{release_groups}) )
-        if ($inc && $inc->releasegroups);
+        if ($inc && $inc->release_groups);
 };
 
 __PACKAGE__->meta->make_immutable;
