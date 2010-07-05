@@ -9,9 +9,9 @@ has $_ => (
     isa => 'Int',
     default => 0
 ) for qw(
-          artist track_rels asin rg_type rel_status
+          artist track_rels asin rg_type rel_status discs release_events 
+          counts various_artists
 );
-
 
 override 'get_rel_types' => sub
 {
@@ -26,8 +26,6 @@ override 'get_rel_types' => sub
 sub BUILD
 {
     my ($self, $args) = @_;
-
-    warn "Building WebServiceIncV1...\n";
 }
 
 __PACKAGE__->meta->make_immutable;

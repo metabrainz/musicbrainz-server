@@ -12,7 +12,7 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes->{type} = $entity->type->name;
+    $self->attributes->{type} = $entity->type->name if $entity->type;
 
     $self->add($self->gen->name($entity->name));
     $self->add($self->gen->sort_name($entity->sort_name));

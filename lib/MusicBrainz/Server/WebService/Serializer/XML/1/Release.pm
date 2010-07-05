@@ -30,7 +30,7 @@ before 'serialize' => sub
     }
 
     $self->add( serialize_entity($entity->release_group, undef, { 'gid-only' => 1 }) )
-        if ($inc && $inc->releasegroups);
+        if ($inc && $inc->release_groups);
 
     $self->add( $self->gen->track({
         offset => $entity->combined_track_count - 1,
