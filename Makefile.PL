@@ -47,6 +47,7 @@ requires 'Method::Signatures::Simple';
 requires 'Module::Pluggable'                          => '3.9';
 requires 'Moose'                                      => '0.87';
 requires 'MooseX::ABC';
+requires 'MooseX::Clone';
 requires 'MooseX::MethodAttributes'                   => '0.14';
 requires 'MooseX::Role::Parameterized'                => '0.16';
 requires 'MooseX::Types'                              => '0.16';
