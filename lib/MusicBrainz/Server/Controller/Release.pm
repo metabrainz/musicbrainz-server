@@ -147,7 +147,21 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
+    my @lists;
+    my %containment;
+    if ($c->user_exists) {
+        # Make a list of lists and whether this release is contained in them
+        @lists = $c->model('List')->find_all_by_editor($c->user->id);
+
+        foreach my $list (@lists) {
+            $containment{$list->id} = 1
+                if ($c->model('List')->check_release($list->id, $release->id));
+        }
+    }
+
     $c->stash(
+        lists       => \@lists,
+        containment => \%containment,
         template     => 'release/index.tt',
         show_artists => $release->has_multiple_artists,
     );

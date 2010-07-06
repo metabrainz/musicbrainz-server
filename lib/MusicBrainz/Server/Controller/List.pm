@@ -18,29 +18,31 @@ after 'load' => sub
     $c->model('Editor')->load($list);
 };
 
-sub add : Local Args(1)
+sub add : Chained('load') RequireAuth
 {
-    my ($self, $c, $list_id) = @_;
+    my ($self, $c) = @_;
 
-    my $release_id = $c->request->params->{id};
+    my $list = $c->stash->{list};
+    my $release_id = $c->request->params->{release};
 
-    $c->model('List')->add_releases_to_list($list_id, $release_id);
+    $c->model('List')->add_releases_to_list($list->id, $release_id);
 
-    my $redirect = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($redirect);
+    $c->response->redirect(
+        $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
     $c->detach;
 }
 
-sub remove : Local Args(1)
+sub remove : Chained('load') RequireAuth
 {
-    my ($self, $c, $list_id) = @_;
+    my ($self, $c) = @_;
 
-    my $release_id = $c->request->params->{id};
+    my $list = $c->stash->{list};
+    my $release_id = $c->request->params->{release};
 
-    $c->model('List')->remove_releases_from_list($list_id, $release_id);
+    $c->model('List')->remove_releases_from_list($list->id, $release_id);
 
-    my $redirect = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($redirect);
+    $c->response->redirect(
+        $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
     $c->detach;
 }
 
