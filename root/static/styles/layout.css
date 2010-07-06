@@ -466,12 +466,21 @@ table.tbl .t { text-align: right; }
 }
 
 /* Browse Entity pages */
+.browse-entities {
+    margin-top: 1em;
+}
+
 .browse-entities ol {
     margin: 0;
 }
 
+.browse {
+    margin-top: 1em;
+}
+
 .browse td {
     text-align: center;
+    padding: 2px;
 }
 
 .browse td.char {

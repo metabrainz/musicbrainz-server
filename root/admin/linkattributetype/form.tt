@@ -1,39 +1,23 @@
 <form action="[% c.req.uri %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
 
-[%- USE r = FormRenderer(form) -%]
+    [% form_row_select(r, 'parent_id', l('Parent:')) %]
 
-<p>
-<table>
-    <tr>
-        <td>[% r.label('parent_id', l('Parent:')) %]</td>
-        <td colspan="2">[% r.select('parent_id') %]
-        [% form_field_errors(form, 'parent_id') %]</td>
-    </tr>
+    [% WRAPPER form_row %]
+        [% r.label('child_order', l('Child order:')) %]
+        [% r.text('child_order', { size => 5 }) %]
+        [% form_field_errors(form, 'child_order') %]
+    [% END %]
 
-    <tr>
-        <td>[% r.label('child_order', l('Child order:')) %]</td>
-        <td colspan="2">[% r.text('child_order', { size => 5 }) %]
-        [% form_field_errors(form, 'child_order') %]</td>
-    </tr>
+    [% form_row_text(r, 'name', l('Name:')) %]
 
-    <tr>
-        <td>[% r.label('name', l('Name:')) %]</td>
-        <td colspan="2">[% r.text('name') %]
-        [% form_field_errors(form, 'name') %]</td>
-    </tr>
+    [% WRAPPER form_row %]
+        [% r.label('description', l('Description:')) %]
+        [% r.textarea('description', { cols => 80, rows => 6 }) %]
+        [% form_field_errors(form, 'description') %]
+    [% END %]
 
-    <tr>
-        <td>[% r.label('description', l('Description:')) %]</td>
-        <td colspan="2">[% r.textarea('description', { cols => 80, rows => 6 }) %]
-        [% form_field_errors(form, 'description') %]</td>
-    </tr>
-
-    <tr>
-        <td></td>
-        <td colspan="2"><input type="submit" value="[% l('Save') %]" /></td>
-    </tr>
-
-</table>
-</p>
-
+    <div class="row no-label">
+        [% form_submit(l('Save')) %]
+    </div>
 </form>

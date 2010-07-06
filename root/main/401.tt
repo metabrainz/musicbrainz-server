@@ -8,5 +8,5 @@
                    or add some data, please note that you must first confirm your email
                    address to do this.') -%]
         </p>
-    <div>
+    </div>
 [% END %]

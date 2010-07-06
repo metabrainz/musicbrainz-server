@@ -1,6 +1,23 @@
 [%- WRAPPER 'artist/layout.tt' -%]
-  [%- INCLUDE 'browse/page_selector.tt' -%]
-  [%- IF works.size -%]
-    [%- INCLUDE 'artist/works-list.tt' WRAPPER 'components/with-pager.tt' -%]
-  [%- END -%]
+    [%- INCLUDE 'browse/page_selector.tt' browse_title=l('Browse works') -%]
+
+    [% IF index %]
+        <h2>[% l('Works starting with “{index}”', { index => html_escape(index) }) %]</h2>
+    [% END %]
+
+    [%- IF works.size -%]
+        [%- WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'artist/works-list.tt' -%]
+        [%- END -%]
+    [% ELSE %]
+        [%- IF index && index.length > 0 -%]
+            <p>
+                [% l('Sorry, there are no works starting with “{index}”. Please {pre|go back} and try again.',
+                    { index => html_escape(index),
+                      pre => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]
+            </p>
+        [% ELSE %]
+            <p>[% l('To begin browsing, please select a letter above.') %]</p>
+        [% END %]
+    [%- END -%]
 [%- END -%]
