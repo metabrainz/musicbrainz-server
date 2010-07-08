@@ -59,12 +59,8 @@ sub _load
         $c->detach;
     }
     else {
-        $c->response->status(400);
-        $c->stash(
-            template => 'main/400.tt',
-            message  => "'$id' is not a valid MusicBrainz ID"
-        );
-        $c->detach;
+        $c->stash( message  => "'$id' is not a valid MusicBrainz ID" );
+        $c->detach('/error_400');
     }
 }
 

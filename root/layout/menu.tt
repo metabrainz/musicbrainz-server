@@ -94,7 +94,7 @@
         </ul>
     </li>
     <li>
-        <a href="http://blog.musicbrainz.org">
+        <a href="http://blog.musicbrainz.org" class="internal">
             [% l('Blog') %]
         </a>
     </li>
@@ -194,17 +194,17 @@
                 [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_Lists')}) -%]
             </li>
             <li>
-                <a href="http://forums.musicbrainz.org">
+                <a href="http://forums.musicbrainz.org" class="internal">
                     [% l('Web Forums') %]
                 </a>
             </li>
             <li>
-                <a href="http://musicbrainz.uservoice.com">
+                <a href="http://musicbrainz.uservoice.com" class="internal">
                     [% l('Suggest a Feature') %]
                 </a>
             </li>
             <li>
-                <a href="http://bugs.musicbrainz.org">
+                <a href="http://bugs.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>
             </li>
