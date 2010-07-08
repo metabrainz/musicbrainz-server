@@ -216,8 +216,8 @@ END -%]
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
-    action = action || 'profile';
-    link = c.uri_for_action("/user/$action", editor.name);
+    action = action || 'profile/view';
+    link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text || html_escape(editor.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]

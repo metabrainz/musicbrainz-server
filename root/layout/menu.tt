@@ -41,7 +41,7 @@
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile', c.user.name)}) %]</a>
+            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile/view', [ c.user.name ])}) %]</a>
             <ul>
                 <li>
                     [% l('{col|My Collection}', {col => c.uri_for_action('/user/collection/view', c.user.name)}) %]
