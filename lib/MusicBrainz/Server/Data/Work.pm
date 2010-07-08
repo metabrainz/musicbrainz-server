@@ -70,7 +70,9 @@ sub find_by_iswc
                  FROM " . $self->_table . "
                  WHERE iswc = ?
                  ORDER BY musicbrainz_collate(name.name)";
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
         $query, $iswc);
 }
 
