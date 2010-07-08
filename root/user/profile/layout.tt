@@ -28,6 +28,7 @@
 [%- END -%]
 
 [%- info_links.push (
+    ['tags', generic_link(c.uri_for_action("/user/tags/view", [ user.name ]), l('Tags'))],
     ['ratings', generic_link(c.uri_for_action("/user/ratings/view", [ user.name ]), l('Ratings'))],
     ['open_edits', generic_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
     ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
