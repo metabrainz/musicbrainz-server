@@ -53,6 +53,7 @@ __PACKAGE__->config(
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
+            'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language
         },
