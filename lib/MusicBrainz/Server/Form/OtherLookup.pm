@@ -9,6 +9,7 @@ has_field 'barcode'  => ( type => 'Text'    );
 has_field 'mbid'     => ( type => 'Text'    );
 has_field 'isrc'     => ( type => 'Text'    );
 has_field 'iswc'     => ( type => 'Text'    );
+has_field 'puid'     => ( type => 'Text'    );
 has_field 'discid'   => ( type => 'Text'    );
 has_field 'freedbid' => ( type => 'Text'    );
 
