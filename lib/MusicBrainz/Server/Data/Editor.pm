@@ -8,6 +8,7 @@ use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
+    query_to_list
     query_to_list_limited
     type_to_model
 );
@@ -111,6 +112,18 @@ sub find_by_email
 {
     my ($self, $email) = @_;
     return values %{$self->_get_by_keys('email', $email)};
+}
+
+sub find_by_privileges
+{
+    my ($self, $privs) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE (privs & ?) > 0
+                 ORDER BY editor.name, editor.id";
+    return query_to_list (
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $privs);
 }
 
 sub find_by_subscribed_editor

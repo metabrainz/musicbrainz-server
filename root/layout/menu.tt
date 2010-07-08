@@ -88,6 +88,9 @@
             <li class="separator">
                 [% l('{url|Auto-editor Elections}', { url => c.uri_for('/elections') }) %]
             </li>
+            <li>
+                [% l('{url|Privileged user accounts}', { url => c.uri_for('/privileged') }) %]
+            </li>
         </ul>
     </li>
     <li>
