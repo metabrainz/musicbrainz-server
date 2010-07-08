@@ -213,3 +213,30 @@ button.positive, .buttons a.positive{
 .small-star .current-user-rating{
     background-position: 0px -10px;
 }
+
+/*
+** Tag cloud
+*/
+
+ul.tag-cloud {
+    list-style-image: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    line-height: 2em;
+}
+
+ul.tag-cloud li {
+    list-style-image: none;
+    list-style-type: none;
+    display: inline-block;
+    padding: 2px;
+}
+
+ul.tag-cloud li.tag1 { font-size: 0.75em; }
+ul.tag-cloud li.tag2 { font-size: 1em; }
+ul.tag-cloud li.tag3 { font-size: 1.3em; }
+ul.tag-cloud li.tag4 { font-size: 1.7em; }
+ul.tag-cloud li.tag5 { font-size: 1.7em; font-weight: bold; }
+ul.tag-cloud li.tag6 { font-size: 2em; font-weight: bold;}
+ul.tag-cloud li.tag7 { font-size: 2.5em; font-weight: bold; }
