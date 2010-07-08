@@ -138,6 +138,23 @@ sub iswc : Private
     $c->stash->{results} = \@works;
 }
 
+sub puid : Private
+{
+    my ($self, $c) = @_;
+
+    my $puid =  $c->req->query_params->{puid};
+
+    if (!MusicBrainz::Server::Validation::IsGUID($puid))
+    {
+        $c->stash->{error} = "Invalid puid.";
+        return;
+    }
+
+    my $uri = $c->uri_for_action('/puid/show', [ $puid ]);
+    $c->response->redirect( $uri );
+    $c->detach;
+}
+
 sub discid : Private
 {
     my ($self, $c) = @_;
@@ -192,6 +209,7 @@ sub index : Path('')
     $c->detach ('mbid') if $c->req->query_params->{mbid};
     $c->detach ('isrc') if $c->req->query_params->{isrc};
     $c->detach ('iswc') if $c->req->query_params->{iswc};
+    $c->detach ('puid') if $c->req->query_params->{puid};
     $c->detach ('discid') if $c->req->query_params->{discid};
     $c->detach ('freedbid') if $c->req->query_params->{freedbid};
 }
