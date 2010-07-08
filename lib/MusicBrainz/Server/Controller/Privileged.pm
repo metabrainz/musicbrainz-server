@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::Editors;
+package MusicBrainz::Server::Controller::Privileged;
 use Moose;
 use MusicBrainz::Server::Types qw(
     $BOT_FLAG
