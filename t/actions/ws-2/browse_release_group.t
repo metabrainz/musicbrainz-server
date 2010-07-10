@@ -67,7 +67,6 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                     </artist>
                 </name-credit>
             </artist-credit>
-            <tag-list />
         </release-group>
     </release-group-list>
 </metadata>';

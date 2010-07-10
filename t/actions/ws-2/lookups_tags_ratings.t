@@ -97,4 +97,64 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
+
+$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+ratings', 'artist lookup with release-groups, tags and ratings');
+&$v2 ($mech->content, "Validate artist lookup with release-groups, tags and ratings");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <name>BoA</name><sort-name>BoA</sort-name>
+        <life-span>
+            <begin>1986-11-05</begin>
+        </life-span>
+        <release-group-list count="1">
+            <release-group type="album" id="23f421e7-431e-3e1d-bcbf-b91f5f7c5e2c">
+            <title>LOVE &amp; HONESTY</title>
+                <tag-list>
+                    <tag count="1"><name>format-dvd-video</name></tag>
+                </tag-list>
+            </release-group>
+        </release-group-list>
+        <tag-list>
+            <tag count="1"><name>c-pop</name></tag>
+            <tag count="1"><name>japanese</name></tag>
+            <tag count="1"><name>jpop</name></tag>
+            <tag count="1"><name>j-pop</name></tag>
+            <tag count="1"><name>kpop</name></tag>
+            <tag count="1"><name>k-pop</name></tag>
+            <tag count="1"><name>pop</name></tag>
+        </tag-list>
+        <rating votes-count="3">4.35</rating>
+    </artist>
+</metadata>';
+
+is ($diff->compare ($expected, $mech->content), 0, 'result ok');
+
+
+$mech->get_ok('/ws/2/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=release-groups+tags+ratings', 'release lookup with release-groups, tags and ratings');
+&$v2 ($mech->content, "Validate release lookup with release-groups, tags and ratings");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+        <title>My Demons</title><status>official</status>
+        <text-representation>
+            <language>eng</language><script>Latn</script>
+        </text-representation>
+        <release-group type="album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
+            <title>My Demons</title>
+            <tag-list>
+                <tag count="2"><name>dubstep</name></tag>
+                <tag count="1"><name>electronic</name></tag>
+                <tag count="1"><name>grime</name></tag>
+            </tag-list>
+        </release-group>
+        <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+    </release>
+</metadata>';
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
+
 done_testing;

@@ -618,11 +618,11 @@ sub _serialize_tags_and_ratings
     $self->_serialize_tag_list($data, $gen, $inc, $opts)
         if $opts->{tags} && $inc->{tags};
     $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
-        if $opts->{usertags} && $inc->{usertags};
+        if $opts->{user_tags} && $inc->{user_tags};
     $self->_serialize_rating($data, $gen, $inc, $opts)
         if $opts->{ratings} && $inc->{ratings};
     $self->_serialize_user_rating($data, $gen, $inc, $opts)
-        if $opts->{userratings} && $inc->{userratings};
+        if $opts->{user_ratings} && $inc->{user_ratings};
 }
 
 sub _serialize_tag_list
@@ -649,7 +649,7 @@ sub _serialize_user_tag_list
     my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
 
     my @list;
-    foreach my $tag (@{$opts->{usertags}})
+    foreach my $tag (@{$opts->{user_tags}})
     {
         $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
     }
@@ -677,7 +677,7 @@ sub _serialize_user_rating
 {
     my ($self, $data, $gen, $inc, $opts) = @_;
 
-    push @$data, $gen->user_rating($opts->{userratings});
+    push @$data, $gen->user_rating($opts->{user_ratings});
 }
 
 sub output_error

@@ -79,42 +79,6 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases', 'artist lookup with releases');
-&$v2 ($mech->content, "Validate artist lookup with releases");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="group">
-        <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
-        <release-list count="2">
-            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                <title>Summer Reggae! Rainbow</title>
-                <status>pseudo-release</status>
-                <text-representation>
-                    <language>jpn</language>
-                    <script>Latn</script>
-                </text-representation>
-                <date>2001-07-04</date>
-                <country>JP</country>
-                <barcode>4942463511227</barcode>
-            </release>
-            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title>
-                <status>official</status>
-                <text-representation>
-                    <language>jpn</language>
-                    <script>Jpan</script>
-                </text-representation>
-                <date>2001-07-04</date>
-                <country>JP</country>
-                <barcode>4942463511227</barcode>
-            </release>
-        </release-list>
-    </artist>
-</metadata>';
-
-is ($diff->compare ($expected, $mech->content), 0, 'result ok');
-
 $mech->get_ok('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids', 'artist lookup with releases and discids');
 &$v2 ($mech->content, "Validate artist lookup with releases and discids");
 
