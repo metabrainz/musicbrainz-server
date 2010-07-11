@@ -17,6 +17,7 @@ has 'migration' => (
         find_release_group_id
         link_attribute_from_name
         resolve_album_id
+        resolve_url_id
         resolve_release_id
         resolve_recording_id
         artist_name
