@@ -112,15 +112,15 @@ sub update
 
 sub delete
 {
-    my ($self, $work) = @_;
-    $self->c->model('Relationship')->delete_entities('work', $work->id);
-    $self->annotation->delete($work->id);
-    $self->alias->delete_entities($work->id);
-    $self->tags->delete($work->id);
-    $self->rating->delete($work->id);
-    $self->remove_gid_redirects($work->id);
+    my ($self, $work_id) = @_;
+    $self->c->model('Relationship')->delete_entities('work', $work_id);
+    $self->annotation->delete($work_id);
+    $self->alias->delete_entities($work_id);
+    $self->tags->delete($work_id);
+    $self->rating->delete($work_id);
+    $self->remove_gid_redirects($work_id);
     my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM work WHERE id = ?', $work->id);
+    $sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }
 
