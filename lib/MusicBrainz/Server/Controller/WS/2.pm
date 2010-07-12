@@ -7,6 +7,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use Readonly;
 use Data::OptList;
@@ -144,6 +145,14 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ],
+     },
+     tag => {
+                         method   => 'GET',
+                         required => [ qw(id entity) ],
+     },
+     tag => {
+                         method   => 'POST',
+                         optional => [ qw(client) ],
      },
      cdstub => {
                          method   => 'GET',
@@ -1246,9 +1255,46 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
     $c->res->body($c->stash->{serializer}->serialize('isrc', \@works, $c->stash->{inc}, $stash));
 }
 
+sub tag_lookup : Private
+{
+    my ($self, $c) = @_;
+
+    my $gid = $c->stash->{args}->{id};
+    my $entity = $c->stash->{args}->{entity};
+    $entity =~ s/-/_/;
+
+    my $model = type_to_model ($entity);
+
+    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    if (!$model)
+    {
+        $c->stash->{error} = "Invalid entity type.";
+        $c->detach('bad_req');
+    }
+
+    $entity = $c->model($model)->get_by_gid($gid);
+    $c->detach('not_found') unless ($entity);
+
+    my @tags = $c->model($model)->tags->find_user_tags($c->user->id, $entity->id);
+
+    my $stash = WebServiceStash->new;
+    $stash->store ($entity)->{user_tags} = \@tags;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('tag-list', $entity, $c->stash->{inc}, $stash));
+}
+
+
 sub tag_search : Chained('root') PathPart('tag') Args(0)
 {
     my ($self, $c) = @_;
+
+    $c->detach('tag_lookup') if exists $c->stash->{args}->{id};
 
     $self->_search ($c, 'tag');
 }
