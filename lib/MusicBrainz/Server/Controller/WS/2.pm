@@ -1253,18 +1253,18 @@ sub tag_search : Chained('root') PathPart('tag') Args(0)
     $self->_search ($c, 'tag');
 }
 
-sub freedb_search : Chained('root') PathPart('tag') Args(0)
+sub freedb_search : Chained('root') PathPart('freedb') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_search ($c, 'tag');
+    $self->_search ($c, 'freedb');
 }
 
-sub cdstub_search : Chained('root') PathPart('tag') Args(0)
+sub cdstub_search : Chained('root') PathPart('cdstub') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_search ($c, 'tag');
+    $self->_search ($c, 'cdstub');
 }
 
 sub default : Path
