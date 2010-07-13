@@ -97,6 +97,14 @@ sub error_500 : Private
     $c->detach;
 }
 
+sub error_mirror : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'main/mirror.tt';
+    $c->detach;
+}
+
 sub js_text_strings : Path('/text.js') {
     my ($self, $c) = @_;
     $c->res->content_type('text/javascript');
@@ -143,6 +151,8 @@ sub begin : Private
 
     if (exists $c->action->attributes->{RequireAuth})
     {
+        $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
+
         $c->forward('/user/do_login');
         my $privs = $c->action->attributes->{RequireAuth};
         if ($privs && ref($privs) eq "ARRAY") {

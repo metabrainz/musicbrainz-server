@@ -82,6 +82,8 @@ sub login : Path('/login')
 {
     my ($self, $c) = @_;
 
+    $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
+
     if ($c->user_exists) {
         $c->response->redirect($c->uri_for_action('/user/profile/view',
                                                  [ $c->user->name ]));
@@ -115,6 +117,8 @@ new user.
 sub register : Path('/register')
 {
     my ($self, $c) = @_;
+
+    $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
 
     my $form = $c->form(register_form => 'User::Register');
 
