@@ -46,14 +46,9 @@
         [% IF server_details.staging_server %]
             <div class="server-details">
                 <p>
-                    [%- IF server_details.staging_server_description -%]
-                        [%- server_details.staging_server_description -%]
-                    [%- ELSE -%]
-                        [%- l('This is a MusicBrainz development server.') -%]
-                    [%- END -%]
-
+                    [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
                     [%= l('The main server is located at {uri}.',
-                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) -%]
+                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) ~%]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
