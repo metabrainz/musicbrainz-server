@@ -238,6 +238,10 @@ EOF
 # when not on the live server.
 sub DB_STAGING_SERVER { "development" }
 
+# Only change this if running a non-sanitized database on a dev server,
+# e.g. http://test.musicbrainz.org.
+sub DB_STAGING_SERVER_SANITIZED { 1 }
+
 # This defines the version of the server.  Only used by things which display
 # the server version, e.g. at the foot of each web page.  Basically it can be
 # whatever you want. If you leave it blank, the current subversion revision

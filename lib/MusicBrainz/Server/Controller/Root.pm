@@ -189,6 +189,7 @@ sub end : ActionClass('RenderView')
     $c->stash->{server_details} = {
         is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
         staging_server => &DBDefs::DB_STAGING_SERVER,
+        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED
     };
 
     # Determine which server version to display. If the DBDefs string is empty
