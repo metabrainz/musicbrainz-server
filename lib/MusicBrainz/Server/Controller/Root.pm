@@ -114,6 +114,14 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
+    $c->stash(
+        wiki_server => &DBDefs::WIKITRANS_SERVER,
+        server_details => {
+            staging_server => &DBDefs::DB_STAGING_SERVER,
+            is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
+        },
+    );
+
     if ($c->user_exists) {
         if (exists $c->session->{collection}) {
             $c->stash->{user_collection} = $c->session->{collection};
@@ -165,11 +173,6 @@ sub begin : Private
     {
         $c->session->{tport} = $c->req->query_params->{tport};
     }
-
-    $c->stash(
-        staging_server => DBDefs::DB_STAGING_SERVER(),
-        wiki_server    => DBDefs::WIKITRANS_SERVER(),
-    );
 }
 
 =head2 end
@@ -187,9 +190,9 @@ sub end : ActionClass('RenderView')
     return if exists $c->action->attributes->{Minimal};
 
     $c->stash->{server_details} = {
-        is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
-        staging_server => &DBDefs::DB_STAGING_SERVER,
+        staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
+        is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED
     };
 

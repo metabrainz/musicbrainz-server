@@ -78,12 +78,14 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 sub DB_SCHEMA_SEQUENCE { 12 }
 
 # What type of server is this?
-# * RT_MASTER - this is a master replication server.  Changes are allowed, and
+# * RT_MASTER - This is a master replication server.  Changes are allowed, and
 #               they result in replication packets being produced.
-# * RT_SLAVE  - this is a slave replication server.  After loading a snapshot
+# * RT_SLAVE  - This is a slave replication server.  After loading a snapshot
 #               produced by a master, the only changes allowed are those made
-#               by applying the next replication packet in turn.
-# * RT_STANDALONE - this server neither generates nor uses replication
+#               by applying the next replication packet in turn.  If the slave
+#               server is not going to be used for development work, change
+#               DB_STAGING_SERVER to 0.
+# * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
@@ -230,13 +232,11 @@ This server is temporarily in read-only mode
 for database maintainance.
 EOF
 
-# If this is the live MusicBrainz server, change this to 'undef'.
-# If it's not, set it to some word describing the type of server; e.g.
-# "development", "test", etc.
-# Mainly this option just affects the banner across the top of each page;
-# also there are a couple of "debug" type features which are only active
-# when not on the live server.
-sub DB_STAGING_SERVER { "development" }
+# Set this to 0 if this is the master MusicBrainz server or a slave mirror.
+# Keeping this defined enables the banner that is shown across the top of each
+# page, as well as some testing features that are only enabled when not on
+# the live server.
+sub DB_STAGING_SERVER { 1 }
 
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
