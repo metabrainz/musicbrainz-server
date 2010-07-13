@@ -36,8 +36,8 @@ our %relation_types = (
 # helps validate the second case (inc=recordings).
 our %extra_inc = (
     'recordings' => [ qw( artist-credits puids isrcs ) ],
-    'releases' => [ qw( artist-credits discids media ) ],
-    'release-groups' => [ qw( artist-credits ) ],
+    'releases' => [ qw( artist-credits discids media type status ) ],
+    'release-groups' => [ qw( artist-credits type ) ],
     'works' => [ qw( artist-credits ) ],
 );
 
@@ -47,9 +47,85 @@ sub load_type_and_status
     my ($c) = @_;
 
     my @types = $c->model('ReleaseGroupType')->get_all();
-    %types = map { my $n = $_->name; lc("sa-$n") => $_->id; } @types;
+    %types = map { lc($_->name) => $_->id; } @types;
     my @statuses = $c->model('ReleaseStatus')->get_all();
-    %statuses = map { my $n = $_->name; lc("sa-$n") => $_->id; } @statuses;
+    %statuses = map { lc($_->name) => $_->id; } @statuses;
+
+    $types{'nat'} = $types{'non-album tracks'};
+}
+
+sub validate_type
+{
+    my ($c, $resource, $type, $inc) = @_;
+
+    return unless $type;
+
+    load_type_and_status($c) if (!%types);
+
+    unless ($inc->releases || $inc->release_groups ||
+            $resource eq 'release' || $resource eq 'release-group')
+    {
+        $c->stash->{error} = "type is not a valid parameter unless releases or release-groups are requested.";
+        $c->detach('bad_req');
+    }
+
+    my @type = split(/\|/, $type || '');
+
+    my @ret;
+    for (@type)
+    {
+        next unless $_;
+
+        if (exists $types{$_})
+        {
+            push @ret, $types{$_};
+        }
+        else
+        {
+            use Data::Dumper;
+            warn Dumper (keys %types)."\n";
+
+            $c->stash->{error} = "$_ is not a recognized release-group type.";
+            $c->detach('bad_req');
+        }
+    }
+
+    return \@ret;
+}
+
+sub validate_status
+{
+    my ($c, $resource, $status, $inc) = @_;
+
+    return unless $status;
+
+    load_type_and_status($c) if (!%statuses);
+
+    unless ($inc->releases || $resource eq 'release')
+    {
+        $c->stash->{error} = "status is not a valid parameter unless releases are requested.";
+        $c->detach('bad_req');
+    }
+
+    my @status = split(/\|/, $status || '');
+
+    my @ret;
+    for (@status)
+    {
+        next unless $_;
+
+        if (exists $statuses{$_})
+        {
+            push @ret, $statuses{$_};
+        }
+        else
+        {
+            $c->stash->{error} = "$_ is not a recognized release status.";
+            $c->detach('bad_req');
+        }
+    }
+
+    return \@ret;
 }
 
 sub validate_linked
@@ -73,11 +149,7 @@ sub validate_inc
 
     my @inc = split(/[+ ]/, $inc || '');
     my %acc = map { $_ => 1 } @{ $def };
-#     my $allow_type = exists $acc{"_rg_type"};
-#     my $allow_status = exists $acc{"_rel_status"};
     my $allow_relations = exists $acc{"_relations"};
-    my $type_used = 0;
-    my $status_used = 0;
     my @relations_used;
     my @filtered;
 
@@ -93,27 +165,6 @@ sub validate_inc
 
         $i =~ s/mediums/media/;
 
-#         if ($allow_type && exists $types{$i})
-#         {
-#             if ($type_used)
-#             {
-#                 $c->stash->{error} = "Only one type filter (e.g. $i) may be used per request.";
-#                 return;
-#             }
-#             $type_used = $types{$i};
-#             next;
-#         }
-#         if ($allow_status && exists $statuses{$i})
-#         {
-#             if ($status_used)
-#             {
-#                 $c->stash->{error} = "Only one status filter (e.g. $i) may be used per request.";
-#                 return;
-#             }
-#             $status_used = $statuses{$i};
-#             next;
-#         }
-
         if ($allow_relations && exists $relation_types{$i})
         {
             push @relations_used, $i;
@@ -126,8 +177,8 @@ sub validate_inc
         }
         push @filtered, $i;
     }
-    return WebServiceInc->new(inc => \@filtered, rg_type => $type_used,
-                              rel_status => $status_used, relations => \@relations_used);
+
+    return WebServiceInc->new(inc => \@filtered, relations => \@relations_used);
 }
 
 role {
@@ -141,8 +192,6 @@ role {
     method 'validate' => sub
     {
         my ($self, $c, $serializers) = @_;
-
-        load_type_and_status($c) if (!%types);
 
         # Set up the serializers so we can report errors in the correct format
         $c->stash->{serializer} = $serializers->{$r->default_serialization_type}->new();
@@ -193,6 +242,9 @@ role {
                 $inc = validate_inc($c, $resource, $c->req->params->{inc}, $def->[1]->{inc});
                 return 0 unless ($inc);
             }
+
+            $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
+            $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
 
             # Check if authorization is required.
             $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_ratings};

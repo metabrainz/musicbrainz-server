@@ -49,15 +49,6 @@ sub BUILD
     my $meta = __PACKAGE__->meta;
     my %methods = map { $_->name => $_ } $meta->get_all_attributes;
 
-#     if (exists $args->{rel_status} && $args->{rel_status})
-#     {
-#         $methods{rel_status}->set_value($self, $args->{rel_status});
-#     }
-#     if (exists $args->{rg_type} && $args->{rg_type})
-#     {
-#         $methods{rg_type}->set_value($self, $args->{rg_type});
-#     }
-
     if (exists $args->{relations} && $args->{relations})
     {
         foreach my $rel (@{$args->{relations}})

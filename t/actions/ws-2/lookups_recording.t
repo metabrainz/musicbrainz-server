@@ -52,6 +52,27 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
+$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single', 'lookup recording with official singles');
+&$v2 ($mech->content, "Validate lookup recording with official singles");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+        <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <release-list count="1">
+            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+                <title>サマーれげぇ!レインボー</title><status>official</status>
+                <text-representation>
+                    <language>jpn</language><script>Jpan</script>
+                </text-representation>
+                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            </release>
+        </release-list>
+    </recording>
+</metadata>';
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
 $mech->get_ok('/ws/2/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists', 'recording lookup with artists');
 &$v2 ($mech->content, "Validate recording lookup with artists");
 

@@ -418,11 +418,13 @@ sub artist_toplevel
         my @results;
         if ($c->stash->{inc}->various_artists)
         {
-            @results = $c->model('Release')->find_for_various_artists($artist->id, $MAX_ITEMS);
+            @results = $c->model('Release')->find_for_various_artists(
+                $artist->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
         else
         {
-            @results = $c->model('Release')->find_by_artist($artist->id, $MAX_ITEMS);
+            @results = $c->model('Release')->find_by_artist(
+                $artist->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
 
         $opts->{releases} = $self->make_list (@results);
@@ -432,7 +434,8 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->release_groups)
     {
-        my @results = $c->model('ReleaseGroup')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('ReleaseGroup')->find_by_artist(
+            $artist->id, $MAX_ITEMS, 0, $c->stash->{type});
         $opts->{release_groups} = $self->make_list (@results);
 
         $self->linked_release_groups ($c, $stash, $opts->{release_groups}->{items});
@@ -543,7 +546,8 @@ sub release_group_toplevel
 
     if ($c->stash->{inc}->releases)
     {
-        my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
+        my @results = $c->model('Release')->find_by_release_group(
+            $rg->id, $MAX_ITEMS, 0, $c->stash->{status});
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
@@ -610,7 +614,8 @@ sub release_group_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my @tmp = $c->model('ReleaseGroup')->find_by_artist ($artist->id, $limit, $offset);
+        my @tmp = $c->model('ReleaseGroup')->find_by_artist (
+            $artist->id, $limit, $offset, $c->stash->{type});
         $rgs = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release')
@@ -758,7 +763,8 @@ sub release_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my @tmp = $c->model('Release')->find_by_artist ($artist->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_artist (
+            $artist->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'label')
@@ -766,7 +772,8 @@ sub release_browse : Private
         my $label = $c->model('Label')->get_by_gid($id);
         $c->detach('not_found') unless ($label);
 
-        my @tmp = $c->model('Release')->find_by_label ($label->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_label (
+            $label->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release-group')
@@ -774,7 +781,8 @@ sub release_browse : Private
         my $rg = $c->model('ReleaseGroup')->get_by_gid($id);
         $c->detach('not_found') unless ($rg);
 
-        my @tmp = $c->model('Release')->find_by_release_group ($rg->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_release_group (
+            $rg->id, $limit, $offset, $c->stash->{status});
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'recording')
@@ -782,7 +790,8 @@ sub release_browse : Private
         my $recording = $c->model('Recording')->get_by_gid($id);
         $c->detach('not_found') unless ($recording);
 
-        my @tmp = $c->model('Release')->find_by_recording ($recording->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_recording (
+            $recording->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
         $releases = $self->make_list (@tmp, $offset);
     }
 
@@ -826,7 +835,8 @@ sub recording_toplevel
 
     if ($c->stash->{inc}->releases)
     {
-        my @results = $c->model('Release')->find_by_recording($recording->id, $MAX_ITEMS);
+        my @results = $c->model('Release')->find_by_recording(
+            $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         $self->linked_releases ($c, $stash, $results[0]);
         $opts->{releases} = $self->make_list (@results);
     }
@@ -953,7 +963,8 @@ sub label_toplevel
 
     if ($c->stash->{inc}->releases)
     {
-        my @results = $c->model('Release')->find_by_label($label->id, $MAX_ITEMS);
+        my @results = $c->model('Release')->find_by_label(
+            $label->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
@@ -1237,7 +1248,8 @@ sub discid : Chained('root') PathPart('discid') Args(1)
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($cdtoc);
 
-    my @releases = $c->model('Release')->find_by_medium([ map { $_->medium_id } @mediumcdtocs ]);
+    my @releases = $c->model('Release')->find_by_medium(
+        [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type});
     $opts->{releases} = $self->make_list (\@releases);
 
     for (@releases)
