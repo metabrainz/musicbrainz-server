@@ -238,6 +238,11 @@ EOF
 # when not on the live server.
 sub DB_STAGING_SERVER { "development" }
 
+# This description is shown in the banner when DB_STAGING_SERVER is enabled.
+# If left undefined the default value will be shown.
+# Default: "This is a MusicBrainz development server."
+sub DB_STAGING_SERVER_DESCRIPTION { "" }
+
 # Only change this if running a non-sanitized database on a dev server,
 # e.g. http://test.musicbrainz.org.
 sub DB_STAGING_SERVER_SANITIZED { 1 }
