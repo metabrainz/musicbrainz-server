@@ -6,6 +6,9 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 sub index : Path Args(0) RequireAuth
 {
     my ($self, $c) = @_;
+
+    $c->detach('/error_403')
+        unless $c->user->is_relationship_editor || $c->user->is_wiki_transcluder;
 }
 
 1;
