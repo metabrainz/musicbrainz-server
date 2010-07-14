@@ -1,20 +1,27 @@
-[% WRAPPER "layout.tt" title=l("Privileged user accounts") full_width=1 %]
+[% WRAPPER "layout.tt" title=l("Privileged User Accounts") full_width=1 %]
   <div id="content">
-    <h1>[% l("Privileged user accounts") %]</h1>
+    <h1>[% l("Privileged User Accounts") %]</h1>
 
-    <h2>[% l("Auto Editors") %]</h2>
-    <p>[% l('Auto-editors are trusted users who have been given "{url|auto-editor}" privileges. These privileges allow them to make select edits that are automatically approved without going through the normal voting process, as well as the ability to instantly approve other users\' edits.', { url => doc_link('AutoEditor') }) %]</p>
-    <p>[% l('The following users have AutoEditor privileges:') %]</p>
+    <h2>[% l("Auto-editors") %]</h2>
+    <p>[% l('Auto-editors are trusted users who have been given "{url|auto-editor}" privileges.
+             These privileges allow them to make select edits that are automatically approved
+             without going through the normal voting process, as well as the ability to
+             instantly approve other users\' edits.', { url => doc_link('Auto-Editor') }) %]</p>
+    <p>[% l('The following users have auto-editor privileges:') %]</p>
     [%- INCLUDE 'privileged/results.tt' editors=auto_editors -%]
 
-    <h2>[% l("Relationship Editors") %]</h2>
-    <p>[% l('Relationship editors are users who can add new relationship types to the database.  If you would like to propose a new relationship, please do so through the {url|StyleCouncil}.  Relationship editors will only add relationships approved by the StyleCouncil.', { url => doc_link('StyleCouncil') }) %]</p>
-
-    <p>[% l('The following users are Relationship editors:') %]</p>
+    <h2>[% l("Relationship editors") %]</h2>
+    <p>[% l('Relationship editors are users who can add or modify relationship types in the
+             database. If you would like to propose a new relationship, please do so through
+             the {url|Style Council}. Relationship editors will only make changes that have
+             been approved by the Style Council.', { url => doc_link('Style_Council') }) %]</p>
+    <p>[% l('The following users are relationship editors:') %]</p>
     [%- INCLUDE 'privileged/results.tt' editors=relationship_editors -%]
 
-    <h2>[% l("Wiki Transclusion Editors") %]</h2>
-    <p>[% l('The following users are Wiki Transclusion editors:') %]</p>
+    <h2>[% l("Transclusion editors") %]</h2>
+    <p>[% l('Transclusion editors are users who add and maintain entries in the {uri|WikiDocs}
+             transclusion table.', { uri => doc_link('WikiDocs') }) %]</p>
+    <p>[% l('The following users are transclusion editors:') %]</p>
     [%- INCLUDE 'privileged/results.tt' editors=transclusion_editors -%]
 
     <h2>[% l("Bots") %]</h2>
