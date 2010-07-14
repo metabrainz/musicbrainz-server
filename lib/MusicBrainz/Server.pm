@@ -5,7 +5,6 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
-use MusicBrainz::Server::Context;
 
 # Set flags and add plugins for the application
 #
