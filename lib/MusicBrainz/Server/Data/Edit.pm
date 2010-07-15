@@ -201,7 +201,7 @@ sub create
         $edit->initialize(%opts);
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        return;
+        die $e;
     }
     catch ($err) {
         use Data::Dumper;
