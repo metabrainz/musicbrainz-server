@@ -36,7 +36,8 @@ sub foreign_keys
 {
     my ($self) = @_;
     my %load = (
-        LinkType => [ $self->data->{link_type_id} ],
+        LinkType                            => [ $self->data->{link_type_id} ],
+        LinkAttributeType                   => $self->data->{attributes},
         type_to_model($self->data->{type0}) => [ $self->data->{entity0} ]
     );
 
@@ -61,7 +62,10 @@ sub build_display_data
                 end_date   => partial_date_from_row( $self->data->{end_date} ),
                 attributes => [
                     map {
-                        $loaded->{LinkAttributeType}{ $_ }
+                        my $attr    = $loaded->{LinkAttributeType}{ $_ };
+                        my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
+                        $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
+                        $attr;
                     } @{ $self->data->{attributes} }
                 ]
             ),
