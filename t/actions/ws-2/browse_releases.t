@@ -11,50 +11,43 @@ my $v2 = v2_schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4', 'browse releases via artist');
+$mech->get_ok('/ws/2/release?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a', 'browse releases via artist');
 &$v2 ($mech->content, "Validate browse releases via artist");
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-list count="3">
-        <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
-            <title>For Beginner Piano</title><status>official</status>
+    <release-list count="2">
+        <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+            <title>My Demons</title><status>official</status>
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>1999-09-13</date><country>GB</country><barcode>5021603064126</barcode>
+            <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
         </release>
-        <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c">
-            <title>For Beginner Piano</title><status>official</status>
+        <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
+            <title>Repercussions</title><status>official</status>
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>1999-09-13</date><country>GB</country>
-        </release>
-        <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
-            <title>For Beginner Piano</title><status>official</status>
-            <text-representation>
-                <language>eng</language><script>Latn</script>
-            </text-representation>
-            <date>1999-09-23</date><country>US</country>
+            <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
         </release>
     </release-list>
 </metadata>';
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2', 'browse releases via artist (paging)');
+$mech->get_ok('/ws/2/release?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&offset=1', 'browse releases via artist (paging)');
 &$v2 ($mech->content, "Validate browse releases via artist");
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-list count="3" offset="2">
-        <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
-            <title>For Beginner Piano</title><status>official</status>
+    <release-list count="2" offset="1">
+        <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
+            <title>Repercussions</title><status>official</status>
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>1999-09-23</date><country>US</country>
+            <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
         </release>
     </release-list>
 </metadata>';
