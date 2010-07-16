@@ -510,6 +510,8 @@ sub base : Chained PathPart('user') CaptureArgs(1)
         $c->model('Editor')->load_preferences($user);
         $c->stash->{show_collection} = $user->preferences->public_collection;
     }
+
+    $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);
 }
 
 =head2 profile
@@ -537,6 +539,8 @@ sub profile : Local Args(1)
         $c->model('Editor')->load_preferences($user);
         $c->stash->{show_collection} = $user->preferences->public_collection;
     }
+
+    $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);
 
     my $subscr_model = $c->model('Editor')->subscription;
     $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
