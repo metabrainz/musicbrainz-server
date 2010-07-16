@@ -3,6 +3,9 @@ package MusicBrainz::Server::Data::WikiDocIndex;
 use Moose;
 use Readonly;
 use LWP::Simple qw();
+use LWP::UserAgent;
+use XML::Simple;
+use Encode qw( decode );
 use MusicBrainz::Server::Replication ':replication_type';
 
 has 'c' => (
@@ -122,12 +125,75 @@ sub set_page_version
     $self->_save_index($index);
 }
 
+sub get_wiki_versions
+{
+    my ($self, $index) = @_;
+
+    my @keys = keys %$index;
+    my @wiki_pages;
+
+    while (@keys) {
+        # The API can only process 50 pages at a time, lets be conservative.
+        my $query = join ('|', splice(@keys, 0, 40));
+
+        if (!defined &DBDefs::WIKITRANS_SERVER_API) {
+            warn 'WIKITRANS_SERVER_API must be defined within DBDefs.pm';
+            return undef;
+        }
+
+        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", &DBDefs::WIKITRANS_SERVER_API, $query;
+
+        my $ua = LWP::UserAgent->new(max_redirect => 0);
+        $ua->env_proxy;
+        my $response = $ua->get($doc_url);
+
+        if (!$response->is_success) {
+            return undef;
+        }
+
+        my $content = decode "utf-8", $response->content;
+
+        # Parse the XML and make it easier to use.
+        my $xml = XMLin(
+            $content,
+            KeyAttr => { page => 'title', r => 'from', n => 'to'},
+            GroupTags => { pages => 'page', redirects => 'r', normalized => 'n' }
+        );
+        my $pages = $xml->{query}->{pages};
+        my $normalized = $xml->{query}->{normalized};
+
+        foreach my $title (keys %$pages) {
+            my $info->{wiki_version} = $pages->{$title}->{lastrevid};
+
+            # Check if the page title was normalized and use it instead.
+            # All page titles with a space/underscore will end up here.
+            if (exists $normalized->{$title} ) {
+                $info->{id} = $normalized->{$title}->{from};
+            } else {
+                $info->{id} = $title;
+            }
+
+            # If the page doesn't have a lastrevid, it doesn't exist.
+            if (!$info->{wiki_version}) {
+                warn "'$info->{id}' doesn't exist in the wiki";
+                # Prevent "Use of uninitialized value" warnings
+                $info->{wiki_version} = 0;
+            }
+
+            push @wiki_pages, $info;
+        }
+    }
+
+    return sort { lc $a->{id} cmp lc $b->{id} } @wiki_pages;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 Pavan Chander
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify
