@@ -693,6 +693,20 @@ sub output_error
     return $xml;
 }
 
+sub output_success
+{
+    my ($self, $msg) = @_;
+
+    my $gen = MusicBrainz::XML::Generator->new(':std');
+
+    $msg ||= 'OK';
+
+    my $xml = $xml_decl_begin;
+    $xml .= $gen->message($gen->text($msg));
+    $xml .= $xml_decl_end;
+    return $xml;
+}
+
 sub serialize
 {
     my ($self, $type, $entity, $inc, $stash) = @_;

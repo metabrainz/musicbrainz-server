@@ -179,8 +179,15 @@ sub bad_req : Private
 {
     my ($self, $c) = @_;
     $c->res->status(400);
-    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->content_type("application/xml; charset=UTF-8");
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
+}
+
+sub success : Private
+{
+    my ($self, $c) = @_;
+    $c->res->content_type("application/xml; charset=UTF-8");
+    $c->res->body($c->stash->{serializer}->output_success);
 }
 
 sub unauthorized : Private
@@ -217,6 +224,14 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     $self->validate($c, \%serializers) or $c->detach('bad_req');
 
     $c->authenticate({}, 'webservice') if ($c->stash->{authorization_required});
+}
+
+sub _error
+{
+    my ($c, $error) = @_;
+
+    $c->stash->{error} = $error;
+    $c->detach('bad_req');
 }
 
 sub _search
@@ -1294,6 +1309,7 @@ sub tag_search : Chained('root') PathPart('tag') Args(0)
 {
     my ($self, $c) = @_;
 
+    $c->detach('tag_submit') if $c->request->method eq 'POST';
     $c->detach('tag_lookup') if exists $c->stash->{args}->{id};
 
     $self->_search ($c, 'tag');
@@ -1311,6 +1327,67 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0)
     my ($self, $c) = @_;
 
     $self->_search ($c, 'cdstub');
+}
+
+sub _validate_post
+{
+    my ($self, $c) = @_;
+
+    my $h = $c->request->headers;
+
+    if (!$h->content_type_charset && $h->content_type_charset ne 'UTF-8')
+    {
+        _error ($c, "Unsupported charset, please use UTF-8.")
+    }
+
+    if ($h->content_type ne 'application/xml')
+    {
+        _error ($c, "Unsupported content-type, please use application/xml");
+    }
+
+    _error ($c, "Please specify the name and version number of your client application.")
+        unless $c->req->params->{client};
+}
+
+sub tag_submit : Private
+{
+    my ($self, $c) = @_;
+
+    $self->_validate_post ($c);
+
+    use XML::XPath;
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @submit;
+    for my $node ($xp->find('/metadata/*')->get_nodelist)
+    {
+        my $type = $node->getName;
+        $type =~ s/-/_/;
+
+        my $model = type_to_model ($type);
+        _error ($c, "Unrecognized entity $type.") unless $model;
+
+        my $gid = $node->getAttribute ('id');
+        _error ($c, "Cannot parse MBID: $gid.") 
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+
+        my $entity = $c->model($model)->get_by_gid($gid);
+        _error ($c, "Cannot find $type $gid.") unless $entity;
+
+        # postpone any updates until we've made some effort to parse the whole
+        # body and report possible errors in it.
+        push @submit, { model => $model,  entity => $entity, tags => [ map {
+                $_->string_value
+            } $node->find ('user-tag-list/user-tag/name')->get_nodelist ], };
+    }
+
+    for (@submit)
+    {
+        $c->model($_->{model})->tags->update(
+            $c->user->id, $_->{entity}->id, join (", ", @{ $_->{tags} }));
+    }
+
+    $c->detach('success');
 }
 
 sub default : Path
