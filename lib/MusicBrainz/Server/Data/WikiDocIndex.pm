@@ -83,7 +83,7 @@ sub _save_index
         $self->c->log->error("Could not open wikitrans index file: $!.");
         return;
     }
-    foreach my $page (keys %$index) {
+    foreach my $page (sort { lc $a cmp lc $b } keys %$index) {
         my $version = $index->{$page};
         print FILE "$page=$version\n";
     }
