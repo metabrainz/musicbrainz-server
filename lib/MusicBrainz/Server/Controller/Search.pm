@@ -55,7 +55,7 @@ sub editor : Private
     my $query = $form->field('query')->value;
     my $editor = $c->model('Editor')->get_by_name($query);
     if (defined $editor) {
-        $c->res->redirect($c->uri_for_action('/user/profile', $editor->name));
+        $c->res->redirect($c->uri_for_action('/user/profile/view', [ $editor->name ]));
         $c->detach;
     }
 

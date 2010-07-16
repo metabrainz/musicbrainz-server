@@ -3,7 +3,7 @@
         <p>
         [% IF subscribers.size %]
         [%- FOREACH ed IN subscribers -%]
-            <a href="[% c.uri_for('/user/profile', ed.name) %]">
+            <a href="[% c.uri_for('/user/profile/view', [ ed.name ]) %]">
                 [% ed.name %]
             </a>
             [%- END -%]
