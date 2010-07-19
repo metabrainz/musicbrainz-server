@@ -58,9 +58,8 @@ sub _entity_class
 
 sub find_by_entity_id
 {
-    my ($self, $ids) = @_;
+    my ($self, @ids) = @_;
 
-    my @ids = ref $ids ? @$ids : ( $ids );
     my $key = $self->type;
 
     my $query = "SELECT " . $self->_columns . "
