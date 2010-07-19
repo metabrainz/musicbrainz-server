@@ -64,7 +64,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <title>Summer Reggae! Rainbow</title><status>pseudo-release</status><date>2001-07-04</date><country>JP</country>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>CD</format>
+                        <position>1</position><format>cd</format>
                         <track-list offset="1" count="3">
                             <track>
                                 <position>2</position>
@@ -78,7 +78,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <title>サマーれげぇ!レインボー</title><status>official</status><date>2001-07-04</date><country>JP</country>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>CD</format>
+                        <position>1</position><format>cd</format>
                         <track-list offset="1" count="3">
                             <track>
                                 <position>2</position>
@@ -91,6 +91,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </release-list>
     </recording>
 </metadata>';
+
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
