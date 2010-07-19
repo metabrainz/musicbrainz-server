@@ -874,6 +874,20 @@ sub work_list_resource
     return $data->[0];
 }
 
+sub rating_resource
+{
+    my ($self, $gen, $entity, $inc, $stash) = @_;
+
+    my $opts = $stash->store ($entity);
+
+    return '' unless $opts->{user_ratings};
+
+    my $data = [];
+    $self->_serialize_user_rating($data, $gen, $inc, $opts);
+
+    return $data->[0];
+}
+
 sub tag_list_resource
 {
     my ($self, $gen, $entity, $inc, $stash) = @_;
@@ -885,7 +899,6 @@ sub tag_list_resource
 
     return $data->[0];
 }
-
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
