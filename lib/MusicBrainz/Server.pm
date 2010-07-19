@@ -5,7 +5,6 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
-use MusicBrainz::Server::Context;
 
 # Set flags and add plugins for the application
 #
@@ -53,6 +52,7 @@ __PACKAGE__->config(
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
+            'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language
         },

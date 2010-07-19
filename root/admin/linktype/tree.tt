@@ -25,11 +25,9 @@
     <div id="content">
         <h1>[% l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
 
-        <p>
-        [
-            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Link Types') %]</a> |
+        <p class="buttons">
+            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Link Types') %]</a>
             <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Link Type') %]</a>
-        ]
         </p>
 
         <ul>

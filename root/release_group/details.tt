@@ -30,7 +30,7 @@
     <th>[% l('XML:') %]</th>
     <td>
       [% link = c.uri_for('/ws/2/release-group', rg.gid, {
-           'inc' => 'artists+releases' } ) %]
+           'inc' => 'artist-credits+releases' } ) %]
       <a href="[% link %]">[% display_url(link) %]</a>
     </td>
   </tr>

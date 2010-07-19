@@ -8,10 +8,11 @@ use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
+    query_to_list
     query_to_list_limited
     type_to_model
 );
-use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
+use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED :privileges );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -113,6 +114,18 @@ sub find_by_email
     return values %{$self->_get_by_keys('email', $email)};
 }
 
+sub find_by_privileges
+{
+    my ($self, $privs) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE (privs & ?) > 0
+                 ORDER BY editor.name, editor.id";
+    return query_to_list (
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $privs);
+}
+
 sub find_by_subscribed_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
@@ -200,6 +213,26 @@ sub update_profile
     Sql::run_in_transaction(sub {
         $sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
                  $website || undef, $bio || undef, $editor->id);
+    }, $sql);
+}
+
+sub update_privileges
+{
+    my ($self, $editor, $values) = @_;
+
+    my $privs =   $values->{auto_editor}      * $AUTO_EDITOR_FLAG
+                + $values->{bot}              * $BOT_FLAG
+                + $values->{untrusted}        * $UNTRUSTED_FLAG
+                + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
+                + $values->{no_nag}           * $DONT_NAG_FLAG
+                + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
+                + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
+                + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
+
+    my $sql = Sql->new($self->c->dbh);
+    Sql::run_in_transaction(sub {
+        $sql->do('UPDATE editor SET privs=? WHERE id=?',
+                 $privs, $editor->id);
     }, $sql);
 }
 

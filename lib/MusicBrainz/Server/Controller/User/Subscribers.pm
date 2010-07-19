@@ -18,9 +18,18 @@ sub view : Chained('/user/base') PathPart('subscribers') RequireAuth
         $c->model($self->{model})->find_subscribers ($user->id, shift, shift);
     });
 
+    $c->model('Editor')->load_preferences (@$entities) if (@$entities);
+
+    my $private = 0;
+    my @filtered = grep {
+        $private += 1 unless $_->preferences->public_subscriptions;
+        $_->preferences->public_subscriptions;
+    } @$entities;
+
     $c->stash(
         user => $user,
-        $self->{entities} => $entities,
+        private_subscribers => $private,
+        $self->{entities} => \@filtered,
         template => 'user/subscribers.tt',
     );
 }

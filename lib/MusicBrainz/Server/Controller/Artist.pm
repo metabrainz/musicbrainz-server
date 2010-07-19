@@ -172,7 +172,10 @@ sub show : PathPart('') Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various.tt' );
+        $c->stash(
+            template => 'artist/browse_various.tt',
+            index    => $index,
+        );
     }
     else
     {
@@ -185,11 +188,11 @@ sub show : PathPart('') Chained('load')
         $release_groups = $self->_load_paged($c, sub {
                 $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
             });
-        if ($c->user_exists) {
-            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
-        }
-
         $c->stash( template => 'artist/index.tt' );
+    }
+
+    if ($c->user_exists) {
+        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
     }
 
     $c->model('ArtistCredit')->load(@$release_groups);
@@ -220,7 +223,10 @@ sub works : Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various_works.tt' );
+        $c->stash(
+            template => 'artist/browse_various_works.tt',
+            index    => $index,
+        );
     }
     else
     {
@@ -309,7 +315,10 @@ sub releases : Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various_releases.tt' );
+        $c->stash(
+            template => 'artist/browse_various_releases.tt',
+            index    => $index,
+        );
     }
     else
     {

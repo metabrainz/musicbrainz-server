@@ -1,11 +1,35 @@
 [%- USE search = FormRenderer(form) -%]
 <div class="searchform">
+    <script type="text/javascript">
+      $(document).ready (function () {
+
+        var advanced = $('#id-advanced');
+        var direct = $('#id-direct');
+        var label = $('#label-direct');
+
+        advanced.bind ('change', function () {
+            if (advanced.is (':checked'))
+            {
+                direct.data ('checked', direct.attr ('checked'))
+                   .removeAttr ('checked').attr ('disabled', true);
+                label.data ('color', label.css ('color'))
+                   .css ('color', '#888');
+            }
+            else
+            {
+                direct.removeAttr ('disabled')
+                   .attr ('checked', direct.data ('checked'));
+                label.css ('color', label.data ('color'));
+            }
+        });
+      });
+    </script>
+
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">
         [% form_row_text(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
         [% form_row_checkbox(search, 'advanced', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
         [% form_row_checkbox(search, 'direct', l('Direct database search')) %]
-
         <div class="row no-label">
         [% form_submit(l('Search')) %]
         </div>
@@ -18,6 +42,8 @@
     </strong>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('Search indexes are updated every 6 hours, use the direct database search if you require up to the minute correct results.')) %]
-        [%- create_guideline(l('Using {doc|advanced query syntax} while performing a direct database search will result in inaccurate results.', { doc => doc_link('Text_Search_Syntax') })) %]
+        [%- IF no_javascript -%]
+          [%- create_guideline(l('Using {doc|advanced query syntax} while performing a direct database search will result in inaccurate results.', { doc => doc_link('Text_Search_Syntax') })) %]
+        [%- END -%]
     [% END %]
 </div>

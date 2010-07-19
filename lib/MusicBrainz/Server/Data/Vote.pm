@@ -143,11 +143,11 @@ sub editor_statistics
             name   => $names{$_},
             recent => {
                 count      => $recent_votes->{$_} || 0,
-                percentage => ($recent_votes->{$_} || 0) / (sum(values %$recent_votes) || 1) * 100
+                percentage => int(($recent_votes->{$_} || 0) / (sum(values %$recent_votes) || 1) * 100 + 0.5)
             },
             all   => {
                 count      => ($all_votes->{$_} || 0),
-                percentage => ($all_votes->{$_} || 0) / (sum(values %$all_votes) || 1) * 100
+                percentage => int(($all_votes->{$_} || 0) / (sum(values %$all_votes) || 1) * 100 + 0.5)
             }
         } } ( $VOTE_YES, $VOTE_NO, $VOTE_ABSTAIN )),
 
@@ -156,11 +156,9 @@ sub editor_statistics
             name => 'Total',
             recent => {
                 count      => sum(values %$recent_votes),
-                percentage => 100,
             },
             all => {
                 count      => sum(values %$all_votes),
-                percentage => 100
             }
         }
     ]

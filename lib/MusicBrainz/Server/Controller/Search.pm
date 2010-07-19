@@ -16,6 +16,8 @@ sub search : Path('')
 
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
+    $c->stash->{taglookup} = $c->form( query_form => 'TagLookup' );
+    $c->stash->{otherlookup} = $c->form( query_form => 'OtherLookup' );
 
     if ($form->process( params => $c->req->query_params ))
     {
@@ -53,7 +55,7 @@ sub editor : Private
     my $query = $form->field('query')->value;
     my $editor = $c->model('Editor')->get_by_name($query);
     if (defined $editor) {
-        $c->res->redirect($c->uri_for_action('/user/profile', $editor->name));
+        $c->res->redirect($c->uri_for_action('/user/profile/view', [ $editor->name ]));
         $c->detach;
     }
 
@@ -109,7 +111,7 @@ sub direct : Private
         case 'recording' {
             for my $result (@$results) {
                 my @releases = $c->model('Release')->find_by_recording($result->entity->id);
-                $result->extra(\@releases);
+                $result->extra($releases[0]);
             }
             my @releases = map { @{ $_->extra } } @$results;
             $c->model('ReleaseGroup')->load(@releases);

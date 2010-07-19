@@ -23,7 +23,8 @@ table.statistics {
     float: left;
     border-collapse: collapse;
     border: 1px solid #ADB9CC;
-    margin: 8px;
+    margin: 1em 1em 1em 0;
+    white-space: nowrap; /* Don't wrap large edit/vote counts */
 }
 
 table.statistics th {
@@ -40,9 +41,10 @@ table.statistics thead th {
 table.statistics td {
     border: 1px solid #ADB9CC;
     text-align: right;
-    padding: 3px 5px;
+    padding: 3px 5px 3px 10px;
+    width: 85px;
 }
 
-table.statistics tfoot th.votes {
-    text-align: center;
+table.statistics tfoot th.totals {
+    padding: 3px 5px 3px 10px;
 }

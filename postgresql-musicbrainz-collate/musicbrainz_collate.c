@@ -92,6 +92,11 @@ sortkey_from_unicode (UChar *input, uint8_t **output)
     if (icu_failure (status))
         return 0;
 
+    ucol_setAttribute (collator, UCOL_NUMERIC_COLLATION, UCOL_ON, &status);
+
+    if (icu_failure (status))
+        return 0;
+
     *output = (uint8_t *) palloc (sizeof (uint8_t) * PREALLOC_SIZE);
     size = ucol_getSortKey (collator, input, -1, *output, PREALLOC_SIZE);
 

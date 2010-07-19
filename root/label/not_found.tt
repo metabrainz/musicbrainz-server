@@ -1,7 +1,7 @@
-[% WRAPPER 'layout.tt' title=l('Label not found') full_width=1 %]
-<h1>[% l('Label not found') %]</h1>
+[% WRAPPER 'layout.tt' title=l('Label Not Found') full_width=1 %]
+<h1>[% l('Label Not Found') %]</h1>
 
-<p>[% l('Sorry, we could not find an label with that MusicBrainz ID. You may
-         wish to try and {search_url|search} for this label.',
+<p>[% l('Sorry, we could not find a label with that MusicBrainz ID. You may
+         wish to try and {search_url|search for it} instead.',
          { search_url => c.uri_for_action('/search/search') }) %]</p>
 [% END %]

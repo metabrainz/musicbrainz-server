@@ -30,7 +30,7 @@
                             </a>
                         </td>
                     [% END %]
-                    <td>[% alias.locale | language %]</td>
+                    <td>[% IF alias.locale %][% alias.locale | language %][% END %]</td>
                 </tr>
             [%- END -%]
             </tbody>

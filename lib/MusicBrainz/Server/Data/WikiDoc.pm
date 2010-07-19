@@ -127,6 +127,10 @@ sub _load_page
     }
 
     my $content = decode "utf-8", $response->content;
+    if ($content =~ /<title>Error/s) {
+        return undef;
+    }
+
     if ($content =~ /<div class="noarticletext">/s) {
         return undef;
     }

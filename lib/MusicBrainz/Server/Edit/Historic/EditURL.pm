@@ -25,7 +25,7 @@ augment 'upgrade' => sub
     remove_equal($old, $new);
 
     return {
-        entity_id => $self->row_id,
+        entity_id => $self->resolve_url_id($self->row_id),
         new => $new,
         old => $old
     }

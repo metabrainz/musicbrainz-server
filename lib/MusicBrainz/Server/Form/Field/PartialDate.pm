@@ -45,7 +45,8 @@ around '_set_value' => sub
 
     $self->$orig({
         map {
-            $_ => $value->{$_} eq '' ? undef : $value->{$_}
+            $_ => !defined $value->{$_} || $value->{$_} eq ''
+                ? undef : $value->{$_}
         } keys %$value
     });
 };

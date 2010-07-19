@@ -19,17 +19,17 @@ a:visited { color:#3C5DCE; }
 a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
-dfn {
-    font-style: normal;
-    border-bottom: 1px dotted;
-}
-
 /* TODO:
 ** When we start using relative links for internal links, add:
 ** a[href^="http://"], a[href^="https://"], */
 a.external {
     background: url("/static/images/external.png") no-repeat right;
     padding-right: 13px;
+}
+
+a.internal {
+    background: none;
+    padding-right: 0;
 }
 
 p {
@@ -108,12 +108,11 @@ code {
     color: #FFF;
 }
 
-#header-logo div { text-align: right; padding-right: 1em; }
-#header-logo form {
-    height: 58px;
-    line-height: 58px;
-    margin: 0;
-    padding: 0;
+#header-logo div {
+    position: relative;
+    top: 17px;
+    float: right;
+    padding-right: 1em;
 }
 
 #header-logo #id-type {
@@ -370,6 +369,8 @@ code {
 
 .nowrap { white-space: nowrap; } /* Used to keep "action links" on one line, e.g. [ Update | Remove ] */
 
+.tooltip { border-bottom: 1px dotted; } /* Useful when adding title attributes to elements */
+
 table.tbl tr.mp td,
 span.mp {
     background: #FD9;
@@ -469,12 +470,21 @@ table.tbl .t { text-align: right; }
 }
 
 /* Browse Entity pages */
+.browse-entities {
+    margin-top: 1em;
+}
+
 .browse-entities ol {
     margin: 0;
 }
 
+.browse {
+    margin-top: 0.5em;
+}
+
 .browse td {
     text-align: center;
+    padding: 2px;
 }
 
 .browse td.char {
@@ -527,6 +537,8 @@ dl.search-plugins dt,
 dl.search-plugins dd {
     line-height: 200%;
 }
+
+div.searchform input#id-query { width: 30em }
 
 /* CSS columns (instead of using tables) */
 div.columns-2 div.column {
