@@ -15,10 +15,10 @@ sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASES }
 
 has '+data' => (
     isa => Dict[
-        releases => ArrayRef[ 
-            Dict[ 
-                id => Int, 
-                name => Str 
+        releases => ArrayRef[
+            Dict[
+                id => Int,
+                name => Str
             ],
         ],
     ]
@@ -28,9 +28,18 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my @releases = map {
-        MusicBrainz::Server::Data::Release->new( id => $_->id, name => $_->name );
-    } @{ $self->data->{releases} }
+    my @releases;
+    for (@{ $self->data->{releases} })
+    {
+        my $rel = $self->c->model ('Release')->get_by_id ($_->id);
+        unless ($rel)
+        {
+            $rel = MusicBrainz::Server::Data::Release->new(
+                id => $_->id, name => $_->name );
+        }
+
+        push @releases, $rel;
+    }
 
     return { releases => \@releases }
 }
@@ -42,9 +51,9 @@ sub upgrade
     my @albums = split( /\n/, $self->new_value );
     map { s/^Album.*=// } @albums;
 
-    my @releases = map { { 
-            id => $albums[$_], 
-            name => $albums[$_+1] 
+    my @releases = map { {
+            id => $albums[$_],
+            name => $albums[$_+1]
         } } grep { ($_ + 1)  % 2 } (0..$#albums);
 
     $self->data({ releases => \@releases });
