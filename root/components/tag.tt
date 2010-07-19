@@ -6,5 +6,5 @@
              see the {tagsyn|tag syntax documentation} for more information',
              { tagsyn => doc_link('Folksonomy_Tagging_Syntax') }) %]</p>
     <p>[% r.textarea('tags', { cols => 50, rows => 5 }) %]</p>
-    <input type="submit" value="[% tag_this_text %]" />
+    [% form_submit(tag_this_text) %]
 </form>

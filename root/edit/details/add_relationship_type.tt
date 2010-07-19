@@ -1,0 +1,16 @@
+<table class="details">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.data.name | html %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Description:') %]</th>
+    <td>[% edit.data.description || l('(none)') %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Link phrase:') %]</th>
+    <td><em>[% edit.data.types.0 %]</em> [% edit.data.link_phrase | html %] <em>[% edit.data.types.1 %]</em></td>
+  </tr>
+</table>

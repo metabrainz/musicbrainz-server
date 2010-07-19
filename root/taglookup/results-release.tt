@@ -1,0 +1,13 @@
+[% WRAPPER "layout.tt" title=l("Lookup Results") full_width=1 %]
+    <div class="content">
+        [%- INCLUDE 'taglookup/nag.tt' -%]
+        <h1>[% l("Lookup Results") %]</h1>
+        [%- IF results.size -%]
+            [% INCLUDE 'components/results-release.tt' %]
+        [%- ELSE -%]
+            <p>[% l('No results found') %]</p>
+        [%- END -%]
+        <h1>[% l("Tag lookup") %]</h1>
+        [%- INCLUDE 'taglookup/form.tt' -%]
+    </div>
+[% END %]

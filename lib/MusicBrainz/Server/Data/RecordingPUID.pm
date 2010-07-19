@@ -34,7 +34,9 @@ sub _entity_class
 
 sub find_by_recording
 {
-    my ($self, $recording_id) = @_;
+    my $self = shift;
+
+    my @ids = ref $_[0] ? @{$_[0]} : @_;
 
     my $query = "
         SELECT
@@ -49,13 +51,13 @@ sub find_by_recording
             recording_puid
             JOIN puid ON puid.id = recording_puid.puid
             JOIN clientversion ON clientversion.id = puid.version
-        WHERE recording_puid.recording = ?
+        WHERE recording_puid.recording IN (" . placeholders(@ids) . ")
         ORDER BY recording_puid.id";
     return query_to_list(
         $self->c->dbh, sub {
             $self->_create_recording_puid(shift);
         },
-        $query, $recording_id);
+        $query, @ids);
 }
 
 sub get_by_recording_puid

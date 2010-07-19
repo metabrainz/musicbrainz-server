@@ -88,6 +88,10 @@
                     text => release.combined_format_name,
                 },
                 {
+                    label => l('Quality:'),
+                    text => quality_name(release.quality),
+                },
+                {
                     label => l('Type:'),
                     text => release.release_group.type.name,
                 },
@@ -129,6 +133,7 @@
     <ul class="links">
       [% IF c.user_exists %]
         <li>[% link_release(release, 'edit', l('Edit this release')) %]</li>
+        <li>[% link_release(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
       [% ELSE %]
         <li>[% request_login(l('Please log in to edit this release')) %]</li>
@@ -149,7 +154,7 @@ WRAPPER 'layout/sidebar.tt';
 
     UNLESS editing;
         INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group;
-        INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags entity=release.release_group
+        INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release.release_group
         tag_this_text=l('Tag release group');
         INCLUDE links;
         INCLUDE other_versions;

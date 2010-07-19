@@ -27,12 +27,22 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::Edit
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
+    MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Edit
+    MusicBrainz::Server::Edit::Recording::RemoveISRC
+    MusicBrainz::Server::Edit::Recording::AddISRCs
     MusicBrainz::Server::Edit::Recording::Merge
+    MusicBrainz::Server::Edit::Relationship::AddLinkAttribute
+    MusicBrainz::Server::Edit::Relationship::AddLinkType
     MusicBrainz::Server::Edit::Relationship::Create
-    MusicBrainz::Server::Edit::Relationship::Edit
     MusicBrainz::Server::Edit::Relationship::Delete
+    MusicBrainz::Server::Edit::Relationship::Edit
+    MusicBrainz::Server::Edit::Relationship::EditLinkAttribute
+    MusicBrainz::Server::Edit::Relationship::EditLinkType
+    MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
+    MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
+    MusicBrainz::Server::Edit::Release::ChangeQuality
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
@@ -47,8 +57,42 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Tracklist::DeleteTrack
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
+    MusicBrainz::Server::Edit::Work::AddAlias
     MusicBrainz::Server::Edit::Work::AddAnnotation
+    MusicBrainz::Server::Edit::Work::Create
+    MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
+    MusicBrainz::Server::Edit::Work::EditAlias
+
+    MusicBrainz::Server::Edit::Historic::AddDiscID
+    MusicBrainz::Server::Edit::Historic::AddRelease
+    MusicBrainz::Server::Edit::Historic::AddReleaseEvents
+    MusicBrainz::Server::Edit::Historic::AddTrack
+    MusicBrainz::Server::Edit::Historic::AddTrackKV
+    MusicBrainz::Server::Edit::Historic::ChangeArtistQuality
+    MusicBrainz::Server::Edit::Historic::ChangeReleaseGroup
+    MusicBrainz::Server::Edit::Historic::ChangeReleaseQuality
+    MusicBrainz::Server::Edit::Historic::ChangeTrackArtist
+    MusicBrainz::Server::Edit::Historic::EditLink
+    MusicBrainz::Server::Edit::Historic::EditReleaseAttrs
+    MusicBrainz::Server::Edit::Historic::EditReleaseEvents
+    MusicBrainz::Server::Edit::Historic::EditReleaseEventsOld
+    MusicBrainz::Server::Edit::Historic::EditReleaseLanguage
+    MusicBrainz::Server::Edit::Historic::EditReleaseName
+    MusicBrainz::Server::Edit::Historic::EditTrackLength
+    MusicBrainz::Server::Edit::Historic::EditTrackName
+    MusicBrainz::Server::Edit::Historic::EditTrackNum
+    MusicBrainz::Server::Edit::Historic::MACToSAC
+    MusicBrainz::Server::Edit::Historic::MergeRelease
+    MusicBrainz::Server::Edit::Historic::MergeReleaseMAC
+    MusicBrainz::Server::Edit::Historic::MoveDiscID
+    MusicBrainz::Server::Edit::Historic::MoveRelease
+    MusicBrainz::Server::Edit::Historic::RemoveDiscID
+    MusicBrainz::Server::Edit::Historic::RemoveRelease
+    MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents
+    MusicBrainz::Server::Edit::Historic::RemoveTrack
+    MusicBrainz::Server::Edit::Historic::SACToMAC
+    MusicBrainz::Server::Edit::Historic::SetTrackLengthsFromCDTOC
 );
 
 sub register_type

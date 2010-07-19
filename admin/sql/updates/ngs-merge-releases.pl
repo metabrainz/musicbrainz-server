@@ -91,11 +91,11 @@ eval {
 
         return @discs;
     }
-    
+
     sub score_rinfo_similarity
     {
         my ($release1, $release2) = @_;
-        
+
         my $m_sum = 0;
         my $m_cnt = 0;
         my @infos = qw(date_year date_month date_day barcode country label);
@@ -117,7 +117,7 @@ eval {
     }
 
     $sql->do("
-        CREATE TEMPORARY TABLE tmp_release_merge (
+        CREATE TABLE tmp_release_merge (
                 old_rel INTEGER NOT NULL,
                 new_rel INTEGER NOT NULL
         );
@@ -139,12 +139,12 @@ eval {
                 printf LOG "Merging %d/%d = %s\n", $j, scalar(@heads), join(',', @discs);
                 my $releases = $sql->select_list_of_hashes("
                         SELECT release.id, release_name.name, barcode, date_year, date_month, date_day, country, release_label.label, release.artist_credit
-                        FROM release 
+                        FROM release
                                 JOIN release_name ON release.name = release_name.id
                                 LEFT JOIN release_label ON release.id = release_label.release
                         WHERE release.id IN (".join(',', @discs).")");
                 my %releases = map { $_->{id} => $_ } @$releases;
-                
+
                 my @mediums;
                 my $last_discno = 0;
                 my %seen_position;
@@ -171,10 +171,10 @@ eval {
                                 last;
                         }
                         $seen_position{$discno} = 1;
-                        
+
                         # Check that all discs have the same name, artist and release info (excepted cat# and format),
                         # otherwise skip this discs group
-                        unless ($id eq $discs[0]) { 
+                        unless ($id eq $discs[0]) {
                                 if (lc($ref_name) ne lc($name) || $releases{$id}->{artist_credit} ne $ref_artist
                                         || score_rinfo_similarity($releases{$discs[0]}, $releases{$id}) < 1.0) {
                                         printf ERRLOG "Non matching discs group skipped: %s - %s | %s\n\n", join(',', @discs), $ref_name, $name;
@@ -182,15 +182,15 @@ eval {
                                         last;
                                 }
                         }
-                                        
+
                         printf LOG " * %s => %s | %s | %s\n", $origname, $name, $discno, $disctitle;
                         push @mediums, { position => $discno, title => $disctitle };
                         $last_discno = $discno;
                 }
 
-                # Check if the current discs group is still eligible for merge 
+                # Check if the current discs group is still eligible for merge
                 next if scalar(@discs) < 2;
-                
+
                 # Update mediums
                 my $i = 0;
                 foreach my $id (@discs) {
@@ -199,7 +199,7 @@ eval {
                         $sql->do("UPDATE medium SET release=?, position=?, name=? WHERE release=?",
                                          $discs[0], $medium->{position}, $medium->{title} || undef, $id);
                 }
-                
+
                 # Build the temporary merge mapping table
                 my $new_id = $discs[0];
                 shift @discs;
@@ -264,7 +264,7 @@ eval {
     INSERT INTO l_release_release SELECT * FROM tmp_l_release_release;
     DROP TABLE tmp_l_release_release;
     ");
-    
+
     printf STDERR "Merging release_annotation\n";
     $sql->do("
     SELECT
@@ -277,7 +277,7 @@ eval {
     INSERT INTO release_annotation SELECT * FROM tmp_release_annotation;
     DROP TABLE tmp_release_annotation;
     ");
-    
+
     printf STDERR "Merging release_gid_redirect\n";
     $sql->do("
     SELECT
@@ -308,7 +308,7 @@ eval {
     INSERT INTO editor_collection_release SELECT * FROM tmp_editor_collection_release;
     DROP TABLE tmp_editor_collection_release;
     ");
-    
+
     printf STDERR "Merging release_label\n";
     $sql->do("
     SELECT
@@ -321,10 +321,10 @@ eval {
     INSERT INTO release_label SELECT * FROM tmp_release_label;
     DROP TABLE tmp_release_label;
     ");
-    
+
     printf STDERR "Merging release_meta\n";
     $sql->do("
-    SELECT COALESCE(new_rel, id) AS id, 
+    SELECT COALESCE(new_rel, id) AS id,
         CASE
                 WHEN count(*) > 1 THEN now()
                 ELSE max(lastupdate)
@@ -339,18 +339,18 @@ eval {
     INSERT INTO release_meta (id, lastupdate, dateadded) SELECT id, lastupdate, dateadded FROM tmp_release_meta;
     DROP TABLE tmp_release_meta;
     ");
-    
+
     printf STDERR "Merging release\n";
     # Only remove disc information in release name for releases we are merging
     $sql->do("
     CREATE INDEX tmp_release_name_idx_name ON release_name (name);
     SELECT release.id, gid,
-        CASE 
+        CASE
                 WHEN rm1.new_rel IS NOT NULL THEN regexp_replace(n.name, E'\\\\s+[(](disc [0-9]+(: .*?)?|bonus disc(: .*?)?)[)]\$', '')
                 ELSE n.name
         END,
-        artist_credit, release_group, status, packaging, country, language, script, 
-        date_year, date_month, date_day, barcode, comment, editpending
+        artist_credit, release_group, status, packaging, country, language, script,
+        date_year, date_month, date_day, barcode, comment, editpending, quality
     INTO TEMPORARY tmp_release
     FROM release
         INNER JOIN release_name n ON release.name=n.id
@@ -359,15 +359,15 @@ eval {
     WHERE rm0.old_rel IS NULL;
 
     INSERT INTO release_name (name)
-        SELECT DISTINCT t.name 
+        SELECT DISTINCT t.name
         FROM tmp_release t
                 LEFT JOIN release_name n ON t.name=n.name
         WHERE n.id IS NULL;
 
     TRUNCATE release;
-    INSERT INTO release 
+    INSERT INTO release
         SELECT t.id, gid, n.id, artist_credit, release_group, status, packaging, country, language, script,
-                date_year, date_month, date_day, barcode, comment, editpending
+                date_year, date_month, date_day, barcode, comment, editpending, quality
          FROM tmp_release t
                 JOIN release_name n ON t.name = n.name;
     DROP TABLE tmp_release;
@@ -378,7 +378,7 @@ eval {
     $sql->do("
     SELECT id, lastupdate, COALESCE(t.releasecount, 0), firstreleasedate_year, firstreleasedate_month, firstreleasedate_day, rating, ratingcount
         INTO TEMPORARY tmp_release_group_meta
-        FROM release_group_meta rgm 
+        FROM release_group_meta rgm
                 LEFT JOIN ( SELECT release_group, count(*) AS releasecount FROM release GROUP BY release_group ) t ON t.release_group = rgm.id;
 
     TRUNCATE release_group_meta;

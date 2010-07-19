@@ -1,0 +1,95 @@
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>[% l('Release') %]</th>
+      <th>[% l('Date') %]</th>
+      <th>[% l('Country') %]</th>
+      <th>[% l('Label') %]</th>
+      <th>[% l('Catalog Number') %]</th>
+      <th>[% l('Barcode') %]</th>
+      <th>[% l('Format') %]</th>
+    </tr>
+  </thead>
+  [% IF edit.display_data.additions.size %]
+  <thead>
+    <tr>
+      <th colspan="7">[% l('Added') %]</th>
+    </tr>
+  </thead>
+  <tbody>
+  [% FOR re=edit.display_data.additions %]
+    <tr>
+      <td>[% link_release(re.release) %]</td>
+      <td>[% re.date.format %]</td>
+      <td>[% re.county.name %]</td>
+      <td>[% link_label(re.label) %]</td>
+      <td>[% re.catalog_number %]</td>
+      <td>[% re.barcode %]</td>
+      <td>[% re.format.name %]</td>
+    </tr>
+  [% END %]
+  </tbody>
+  [% END %]
+
+  [% IF edit.display_data.removals.size %]
+  <thead>
+    <tr>
+      <th colspan="7">[% l('Removed') %]</th>
+    </tr>
+  </thead>
+  <tbody>
+  [% FOR re=edit.display_data.removals %]
+    <tr>
+      <td>[% link_release(re.release) %]</td>
+      <td>[% re.date.format %]</td>
+      <td>[% re.county.name %]</td>
+      <td>[% link_label(re.label) %]</td>
+      <td>[% re.catalog_number %]</td>
+      <td>[% re.barcode %]</td>
+      <td>[% re.format.name %]</td>
+    </tr>
+  [% END %]
+  </tbody>
+  [% END %]
+
+  [% IF edit.display_data.edits.size %]
+  <thead>
+    <tr>
+      <th colspan="7">[% l('Edited') %]</th>
+    </tr>
+  </thead>
+  <tbody>
+  [% FOR re=edit.display_data.edits %]
+    <tr>
+      <td>
+        [% link_release(re.release) %]
+      </td>
+      <td>
+        [% re.date.old.format %]<br />
+        [% re.date.new.format %]
+      </td>
+      <td>
+        [% re.county.old.name %]<br />
+        [% re.county.new.name %]<br />
+      </td>
+      <td>
+        [% link_label(re.label.old) %]<br />
+        [% link_label(re.label.new) %]
+      </td>
+      <td>
+        [% re.catalog_number.old %]<br />
+        [% re.catalog_number.new %]
+      </td>
+      <td>
+        [% re.barcode.old %]<br />
+        [% re.barcode.new %]
+      </td>
+      <td>
+        [% re.format.old.name %]<br />
+        [% re.format.new.name %]<br />
+      </td>
+    </tr>
+  [% END %]
+  </tbody>
+  [% END %]
+</table>

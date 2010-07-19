@@ -118,6 +118,7 @@ has 'preferences' => (
     default => sub { MusicBrainz::Server::Entity::Preferences->new }
 );
 
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

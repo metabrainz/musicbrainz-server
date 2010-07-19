@@ -15,6 +15,9 @@ echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql RAWDATA
 echo `date` : Installing cube extension
 ./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz
 
+echo `date` : Installing musicbrainz-collate extension
+./admin/InitDb.pl --install-extension=musicbrainz_collate.sql --extension-schema=musicbrainz
+
 echo `date` : Creating schema
 ./admin/psql READWRITE <./admin/sql/CreateTables.sql
 ./admin/psql READWRITE <./admin/sql/CreateFunctions.sql
@@ -33,11 +36,19 @@ echo `date` : Merging releases
 ./admin/sql/updates/ngs-merge-releases.pl
 echo `date` : Merging recordings
 ./admin/sql/updates/ngs-merge-recordings.pl
+echo `date` : Merging works
+./admin/sql/updates/ngs-merge-works.pl
 echo `date` : Create tracklist index
 ./admin/psql READWRITE < ./admin/sql/updates/ngs-cdlookup.sql
+echo `date`: Merging urls
+./admin/sql/updates/ngs-merge-urls.pl
 
 echo `date` : Fixing refcounts
 ./admin/psql READWRITE <./admin/sql/updates/ngs-refcount.sql
+
+echo `date` : Migrating edits
+echo This step currently disabled
+# ./admin/sql/updates/ngs-migrate-edits.pl
 
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
@@ -69,6 +80,11 @@ echo `date` : Fixing sequences
 echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
 echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
+echo `date`: Cleaning up and vacuuming
+# echo 'DROP TABLE tmp_recording_merge' | ./admin/psql READWRITE
+# echo 'DROP TABLE tmp_recording_merge' | ./admin/psql RAWDATA
+# echo 'DROP TABLE tmp_release_merge'   | ./admin/psql READWRITE
+# echo 'DROP TABLE tmp_release_album'   | ./admin/psql READWRITE
 echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
 echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
 

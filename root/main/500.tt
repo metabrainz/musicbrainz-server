@@ -1,17 +1,20 @@
-[% WRAPPER "layout.tt" title=l("Error 500: Internal Server Error") full_width=1 %]
-    <h1>
-        [% l('Ooops!') %]
-    </h1>
-    <h2>
-        [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 500') -%]
-    </h2>
-    <p>
-        [% l('Sorry, it seems like something has gone wrong! Repeating your request may solve this problem, however if it persists, please file a bug report at {uri|our bug tracker}.', {uri="http://jira.musicbrainz.org"}) %]
-    </p>
-    <p>
-        [% l('The server returned the following error message:') %]
-    </p>
-    <blockquote>
-        [% message | html %]
-    </blockquote>
+[% WRAPPER "layout.tt" title=l('Internal Server Error') full_width=1 %]
+    <div id="content">
+        <h1>[%- l('Internal Server Error') -%]</h1>
+
+        <p><strong>[%- l('Oops! Something has gone wrong.') -%]</strong></p>
+
+        [% IF message %]
+            <p>
+                <strong>[%- l('Error message: ') -%]</strong>
+                <code>[%- message | html -%]</code>
+            </p>
+        [% END %]
+
+        <p>
+            [%- l('Waiting a few minutes and/or repeating your request may solve the
+                   problem. If it persists, please {con|contact us}.',
+                 { con => doc_link('Contact_Us') }) -%]
+        </p>
+    </div>
 [%- END -%]

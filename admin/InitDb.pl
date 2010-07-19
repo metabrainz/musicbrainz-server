@@ -192,7 +192,9 @@ sub Create
     print localtime() . " : Creating database '$dbname'\n";
     $system_sql->auto_commit;
     my $dbuser = $db->username;
-    $system_sql->do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
+    $system_sql->do(
+        "CREATE DATABASE $dbname WITH OWNER = $dbuser ".
+        "TEMPLATE template0 ENCODING = 'UNICODE'");
 
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)
@@ -218,6 +220,7 @@ sub CreateRelations
     die "\nFailed to create schema\n" if ($? >> 8);
 
     InstallExtension($SYSMB, "cube.sql", "musicbrainz");
+    InstallExtension($SYSMB, "musicbrainz_collate.sql", "musicbrainz");
 
     RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($RAWDATA, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
@@ -295,7 +298,7 @@ sub GrantSelect
     while (my $row = $sth->fetchrow_arrayref)
     {
         my $tablename = $row->[2];
-        next if $tablename =~ /^(Pending|PendingData)$/;
+        next if $tablename =~ /^(dbmirror_pending|dbmirror_pendingdata)$/;
         $dbh->do("GRANT SELECT ON $tablename TO $username")
             or die;
     }

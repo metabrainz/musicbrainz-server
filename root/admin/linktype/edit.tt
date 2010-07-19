@@ -1,7 +1,6 @@
 [% WRAPPER "layout.tt" title=l("Edit Link Type") full_width=1 %]
-
-<h1>[% l("Edit Link Type") %]</h1>
-
-[% INCLUDE "admin/linktype/form.tt" %]
-
+    <div id="content">
+        <h1>[% l("Edit Link Type") %]</h1>
+        [% INCLUDE "admin/linktype/form.tt" %]
+    </div>
 [% END %]

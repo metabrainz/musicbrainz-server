@@ -3,12 +3,14 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
     date_closure
 );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -94,6 +96,35 @@ sub _mapping
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
     );
+}
+
+sub allow_auto_edit
+{
+    my ($self) = @_;
+
+    # Changing name or sortname is allowed if the change only affects
+    # small things like case etc.
+    my ($old_name, $new_name) = normalise_strings(
+        $self->data->{old}{name}, $self->data->{new}{name});
+    return 0 if $old_name ne $new_name;
+
+    my ($old_sort_name, $new_sort_name) = normalise_strings(
+        $self->data->{old}{sort_name}, $self->data->{new}{sort_name});
+    return 0 if $old_sort_name ne $new_sort_name;
+
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
+
+    # Adding a date is automatic if there was no date yet.
+    return 0 if exists $self->data->{old}{begin_date}
+        and partial_date_from_row($self->data->{old}{begin_date})->format ne '';
+    return 0 if exists $self->data->{old}{end_date}
+        and partial_date_from_row($self->data->{old}{end_date})->format ne '';
+
+    return 0 if exists $self->data->{old}{type} and $self->data->{old}{type} != 0;
+
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;

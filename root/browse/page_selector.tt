@@ -1,8 +1,9 @@
-<h2>Browse</h2>
-
-[% MACRO append_link(char) BLOCK;
-    c.req.uri_with( index => "${c.req.query_params.index}${char}", page => 1 );
-END %]
+[% MACRO append_link(char)
+   IF browse_action.defined;
+     c.uri_for_action('/browse/' _ browse_action, { index => "${c.req.query_params.index}${char}", page => 1 });
+   ELSE;
+     c.req.uri_with( index => "${c.req.query_params.index}${char}", page => 1 );
+   END %]
 
 [% MACRO characters(chars) BLOCK %]
     [% FOR char IN chars %]
@@ -12,9 +13,23 @@ END %]
     [% END %]
 [% END %]
 
-[%- IF index && index.length > 5 -%]
+[% IF index %]
+    <h2>[% l('Browse further') %]</h2>
+[% ELSIF browse_title %]
+    <h2>[% browse_title %]</h2>
+[% END %]
+
+[%- IF index && index.length > 6 -%]
     <p>
-        [% l('<strong>Note:</strong> You have requested to browse listings using a query longer than 5 characters.  We do not index data at this level of granularity.  You may want to use the the various {uri|search pages} instead.', {uri => c.uri_for('/search')}) %]
+        [% l('<strong>Error:</strong> You are trying to browse the database using a query that is
+              longer than 6 characters. We do not index data at this level of granularity, you may
+              want to {uri|search the database} instead.', {uri => c.uri_for('/search')}) %]
+    </p>
+[%-ELSIF index && index.length == 6 -%]
+    <p>
+        [% l('You are browsing the database using a query that is 6 characters long. We do not
+              index data past this level of granularity, you may want to
+              {uri|search the database} instead.', {uri => c.uri_for('/search')}) %]
     </p>
 [% ELSE %]
     <table class="browse">
@@ -31,4 +46,17 @@ END %]
                 'w', 'x', 'y', 'z' ]) %]
         </tr>
     </table>
+
+    [% IF index %]
+        <p>
+            [
+            [% IF index.length > 1 %]
+                [% l('{uri|Back}', { uri => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]
+                | 
+            [% END %]
+            [%- l('{uri|Start over}', { uri => c.req.uri_with( index => "", page => 1 ) }) -%]
+            ]
+        </p>
+    [% END %]
+
 [% END %]

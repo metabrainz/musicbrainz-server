@@ -1,9 +1,14 @@
 <table class="details">
   <tr>
-    <th>[% l('Old release group:') %]</th>
-    <td>[% l('{release_group} by {artist}',
-               { release_group => link_release_group(edit.display_data.old),
-                 artist => artist_credit(edit.display_data.old.artist_credit)}) %]
+    <th>[% l('Old release groups:') %]</th>
+    <td>
+      <ul>
+        [% FOR release_group=edit.display_data.old %]
+          <li>[% l('{release_group} by {artist}',
+               { release_group => link_release_group(release_group),
+                 artist => artist_credit(release_group.artist_credit)}) %]</li>
+        [% END %]
+      </ul>
     </td>
   </tr>
 

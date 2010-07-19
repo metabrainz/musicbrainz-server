@@ -1,16 +1,18 @@
-[%- MACRO tag_list(tags, entity) BLOCK;
+[%- MACRO tag_list(tags, more, entity) BLOCK;
     tag_links = [];
     FOR tag=tags;
         tag_links.push(link_tag(tag.tag));
     END;
-    tag_links.push(link_entity(entity, 'tags', l('more&hellip;')));
+    IF more;
+        tag_links.push(link_entity(entity, 'tags', l('more&hellip;')));
+    END;
     tag_links.join(', ');
 END -%]
 
 [% IF tags.size || c.user_exists %]
 <p>
     [% IF tags.size %]
-        <strong>[% l('Tags:') %]</strong> [% tag_list(tags, entity) %]<br />
+        <strong>[% l('Tags:') %]</strong> [% tag_list(tags, more, entity) %]<br />
     [% END %]
     [% IF c.user_exists %]
         [% link_entity(entity, 'tag', tag_this_text) %]

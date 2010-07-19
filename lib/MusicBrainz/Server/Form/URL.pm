@@ -7,8 +7,8 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 has '+name' => ( default => 'edit-url' );
 
 has_field 'url' => (
-    type => '+MusicBrainz::Server::Form::Field::URL',
-    required => 1
+    type      => '+MusicBrainz::Server::Form::Field::URL',
+    required  => 1,
 );
 
 has_field 'description' => (

@@ -63,6 +63,12 @@ CREATE TABLE edit_work
     work                INTEGER NOT NULL -- PK
 );
 
+CREATE TABLE edit_url
+(
+    edit                INTEGER NOT NULL, -- PK
+    url                 INTEGER NOT NULL -- PK
+);
+
 CREATE TABLE vote
 (
     id                  SERIAL,

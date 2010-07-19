@@ -84,7 +84,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY name.name, label.id
+                 ORDER BY musicbrainz_collate(name.name), label.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -95,7 +95,7 @@ sub find_by_artist
 {
     my ($self, $artist_id) = @_;
     my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . " 
+                 FROM " . $self->_table . "
                  WHERE label.id IN (
                          SELECT rl.label
                          FROM release_label rl
@@ -108,6 +108,22 @@ sub find_by_artist
     return query_to_list(
         $self->c->dbh, sub { $self->_new_from_row(@_) },
         $query, $artist_id);
+}
+
+sub find_by_release
+{
+    my ($self, $release_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN release_label ON release_label.label = label.id
+                 WHERE release_label.release = ?
+                 ORDER BY musicbrainz_collate(name.name)
+                 OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $release_id, $offset || 0);
 }
 
 sub load

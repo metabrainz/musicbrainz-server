@@ -16,27 +16,28 @@ form div.row label,
 form div.row div.label {
     float: left;
     text-align: right;
-    width: 10em;
+    width: 11em;
     margin-right: 1em;
 }
 
 form div.row p { float: none; clear: none; }
 
-form div.row > div.no-label,
-form div.row > ul.radio-list,
+form div.no-label,
 form p.no-label,
 form ul.errors {
-    margin-left: 11em;
+    margin-left: 12em;
 }
 
 form ul.errors {
     margin-top: 0.3em;
-    padding-left: 1em;
+    padding-left: 0;
+    list-style-type: none;
+    list-style-image: none;
 }
 
-form ul.errors li {
+form ul.errors li,
+span.error {
     color: #ff2222;
-    list-style-type: none;
 }
 
 input.error,
@@ -44,18 +45,18 @@ select.error {
     background: #ffaaaa;
 }
 
-div.enter-edit .auto-editor {
-    float: left;
-    padding-top: 5pt;
+form .input-note {
+    font-style: italic;
+    font-size: 85%;
 }
 
 div.enter-edit input.submit {
     font-size: 18pt;
-    float: right;
 }
 
 ul.radio-list {
     list-style-type: none;
+    list-style-image: none;
     padding: 0;
 }
 
@@ -73,18 +74,6 @@ textarea {
 label.inline {
     float: none !important;
     width: auto !important;
-}
-
-.contact-form .no-label input {
-    margin-left:10em;
-}
-
-div.container { margin-left: 11em }
-
-span.formerrors {
-    color: #CD0D0D;
-    font-weight: bold;
-    font-size: 90%;
 }
 
 dl.properties label {
@@ -108,4 +97,8 @@ a.selectFilterNext {
 a.selectFilterPrev:hover,
 a.selectFilterNext:hover {
     color: #666;
+}
+
+table.tbl + div.searchform {
+    margin-top: 2em;
 }

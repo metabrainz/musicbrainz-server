@@ -1,0 +1,9 @@
+[% WRAPPER 'release/layout.tt' title=l('Change release quality') full_width=1 %]
+   <h2>[% l('Change quality') %]</h2>
+   <form method="post">
+     [% USE r = FormRenderer(form) %]
+     [% form_row_select(r, 'quality', l('Quality:')) %]
+     [% INCLUDE 'forms/edit-note.tt' %]
+     [% enter_edit() %]
+   </form>
+[% END %]

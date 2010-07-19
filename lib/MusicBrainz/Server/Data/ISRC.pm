@@ -33,15 +33,16 @@ sub _entity_class
 
 sub find_by_recording
 {
-    my ($self, $ids) = @_;
+    my $self = shift;
 
-    my @ids = ref $ids ? @$ids : ( $ids );
+    my @ids = ref $_[0] ? @{$_[0]} : @_;
+
     my $query = "SELECT ".$self->_columns."
                    FROM ".$self->_table."
                   WHERE recording IN (" . placeholders(@ids) . ")
                   ORDER BY isrc";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
-                         $query, @{ids});
+                         $query, @ids);
 }
 
 sub find_by_isrc
@@ -54,6 +55,16 @@ sub find_by_isrc
                ORDER BY id";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
                          $query, $isrc);
+}
+
+sub delete
+{
+    my ($self, @isrc_ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    # Delete ISRCs from @old_ids that already exist for $new_id
+    $sql->do('DELETE FROM isrc
+              WHERE id IN ('.placeholders(@isrc_ids).')', @isrc_ids);
 }
 
 sub merge_recordings
@@ -83,6 +94,17 @@ sub delete_recordings
     # Remove ISRCs
     $sql->do('DELETE FROM isrc
               WHERE recording IN ('.placeholders(@ids).')', @ids);
+}
+
+sub insert
+{
+    my ($self, @isrcs) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    $sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
+                 (join ",", (("(?, ?, ?)") x @isrcs)),
+             map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
+                 @isrcs);
 }
 
 __PACKAGE__->meta->make_immutable;

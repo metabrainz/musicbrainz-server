@@ -37,6 +37,18 @@ sub find_by_name
     return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
+sub autocomplete_name
+{
+    my ($self, $name, $limit) = @_;
+
+    $limit ||= 10;
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table .
+        " WHERE lower(name.name) LIKE ? LIMIT ?";
+
+    return query_to_list($self->c->dbh,
+        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), $limit);
+}
+
 sub remove_gid_redirects
 {
     my ($self, @ids) = @_;
@@ -100,6 +112,7 @@ Loads and returns a single CoreEntity instance for the specified $gid.
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

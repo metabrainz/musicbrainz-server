@@ -31,6 +31,7 @@ is( $release->date->day, 8 );
 is( $release->barcode, "731453398122" );
 is( $release->comment, "Comment" );
 is( $release->edits_pending, 2 );
+is( $release->quality, -1 );
 
 my $release_label_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $c);
 $release_label_data->load($release);
@@ -39,6 +40,9 @@ is( $release->labels->[0]->label_id, 1 );
 is( $release->labels->[0]->catalog_number, "ABC-123" );
 is( $release->labels->[1]->label_id, 1 );
 is( $release->labels->[1]->catalog_number, "ABC-123-X" );
+
+$release = $release_data->get_by_id(2);
+is( $release->quality, -1 );
 
 my ($releases, $hits) = $release_data->find_by_artist(1, 100);
 is( $hits, 2 );

@@ -1,0 +1,10 @@
+<p>
+  [% IF editors.size %]
+    [%- FOR editor=editors -%]
+      [%- link_editor(editor) -%]
+      [%- IF loop.count < editors.size -%], [%- END -%]
+    [%- END -%]
+  [% ELSE %]
+    [% l('No editors found') %]
+  [% END %]
+</p>

@@ -29,8 +29,8 @@ package DBDefs;
 # Directories
 ################################################################################
 
-# The Server Root, i.e. the parent directory of admin, cgi-bin and htdocs
-sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/mb_server" }
+# The server root, i.e. the parent directory of admin, bin, lib, root, etc.
+sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 # The data import directory (used by some reports)
 sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 
@@ -126,6 +126,21 @@ sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 ################################################################################
 # Cache Settings
 ################################################################################
+
+# PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
+# is provided by Plugin::Cache, and is required for HTTP Digest authentication
+# in the webservice (Catalyst::Authentication::Credential::HTTP).
+#
+# Using Cache::Memory is good for a development environment, but is likely not
+# suited for production.  Use something like memcached in a production setup.
+#
+sub PLUGIN_CACHE_OPTIONS {
+    return {
+        class => "Cache::Memory",
+#        class => "Cache::Memcached::Fast",
+#        servers => ['127.0.0.1:11211'],
+    };
+};
 
 # Show MISS, HIT, SET etc
 sub CACHE_DEBUG { 1 }

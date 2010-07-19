@@ -19,7 +19,7 @@
                    IF label.country -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags tag_this_text=l('Tag this label') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags more=more_tags tag_this_text=l('Tag this label') -%]
 
         <ul class="links">
         [% IF c.user_exists %]
@@ -45,7 +45,7 @@
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
     [% END %]
 
-    <div class="content">
+    <div id="content">
         [%- INCLUDE "label/header.tt" -%]
         [%- content -%]
     </div>

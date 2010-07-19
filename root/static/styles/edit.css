@@ -1,0 +1,229 @@
+/* Edit pages ('edit/index.tt' and 'edit/list.tt') */
+
+.edit-expiration {
+    font-weight: bold;
+}
+
+dl.edit-status {
+    margin: 0;
+}
+
+.cancel-edit {
+    float: right;
+    margin-right: -7px;
+}
+
+.edit-list .cancel-edit {
+    float: none;
+    display: inline-block;
+    margin: 10px -7px 10px 0;
+}
+
+table.vote-tally {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.vote-tally tr {
+    border-top: 1px dotted #999999;
+    border-bottom: 1px dotted #DDDDDD;
+}
+
+table.vote-tally tr.first {
+    border-bottom: none;
+}
+
+table.vote-tally th {
+    text-align: right;
+    white-space: nowrap;
+}
+
+table.vote-tally .vote {
+    width: 100%;
+    padding: 5px 10px;
+}
+
+table.vote-tally tr.superseded,
+table.vote-tally tr.superseded a {
+    color: #999999;
+}
+
+table.vote-tally .date {
+    text-align: right;
+    float: right;
+}
+
+.voteopts div {
+    text-align: center;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+/*
+** Edit notes
+*/
+
+.edit-notes .edit-note {
+    margin: 5px 0;
+    padding: 5px 0 5px 5px;
+}
+
+.edit-notes .edit-note-text {
+    padding-left: 1em;
+}
+
+.edit-notes .edit-note h3 {
+    font-weight: normal;
+    background-image: url('../images/user.png');
+    background-repeat: no-repeat;
+    background-position: 5px 50%;
+    background-color: #EAEAEA;
+    height: 16px;
+    margin: 0 0 10px;
+    padding: 5px 10px 5px 26px;
+}
+
+.edit-notes .edit-note h3.Yes {
+    background-image: url('../images/user_add.png');
+}
+
+.edit-notes .edit-note h3.No {
+    background-image: url('../images/user_delete.png');
+}
+
+.edit-notes .edit-note h3.owner {
+    font-weight: bold;
+}
+
+.edit-notes .edit-note .date {
+    color: #333333;
+    float: right;
+    font-weight: normal;
+}
+
+.add-edit-note {
+    padding: 5px 0 5px 5px;
+}
+
+.add-edit-note textarea {
+    width: 350px;
+    color: #999999;
+    display: block;
+}
+
+.add-edit-note input {
+    display: none;
+    margin-top: 5px;
+}
+
+/*
+** Edit list ('edit/list.tt')
+*/
+
+.edit-list {
+    clear: both;
+    margin: 20px 0;
+    background-color: #F7F7F7;
+}
+
+.edit-list .edit-header {
+    background-color: #E5E5E5;
+    border-right: 10px solid transparent;
+    padding: 0 10px 10px 10px;
+}
+
+.edit-list .edit-header > h2 {
+    margin-top: 0;
+}
+
+.edit-list .edit-header h2 {
+    padding-top: 10px;
+}
+
+.edit-list .edit-description {
+    float: right;
+    margin-top: 6px;
+}
+
+.edit-list .edit-expiration {
+    min-width: 170px;
+    font-weight: normal;
+}
+
+.edit-list .open .edit-expiration {
+    font-weight: bold;
+}
+
+.edit-list .applied { border-right: solid 10px transparent; }
+.edit-list .open { border-right: solid 10px gold; }
+.edit-list .cancelling { border-right: solid 10px #999999; }
+.edit-list .cancelled { border-right: solid 10px #999999; }
+.edit-list .failed { border-right: solid 10px #FF0000; }
+.edit-list .error { border-right: solid 10px #660000; }
+
+.edit-list .vote-count {
+    text-align: right;
+    padding-left: 20px;
+}
+
+.edit-list .edit-details {
+    margin-top: 10px;
+}
+
+.edit-list .edit-actions {
+    float: right;
+    background-color: #E5E5E5;
+    padding: 0 10px;
+}
+
+.edit-list .edit-actions .voteopts {
+    margin-bottom: 10px;
+}
+
+.edit-list .edit-actions .edit-status {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.edit-list .edit-notes {
+    margin: 20px 20px 0 40px;
+    clear: both;
+}
+
+.seperator {
+    clear: both;
+    height: 1px;
+}
+
+.search-toggle {
+    text-align: center;
+}
+
+.search-toggle p {
+    margin: 5px;
+}
+
+.search-refine {
+    display: none;
+    padding: 5px;
+    border-bottom: 2px solid #999999;
+    background-color: #F7F7F7;
+}
+
+.search-refine div.row {
+    display: inline-block;
+}
+
+.search-help {
+    background-color: #E5E5E5;
+    margin-top: 1em;
+    padding: 5px 10px;
+}
+
+.search-help dl.properties {
+    margin: 0;
+}
+
+.search-help dl.properties dt {
+    width: 90px
+}

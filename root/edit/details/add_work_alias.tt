@@ -1,0 +1,16 @@
+<table class="details">
+  <tr>
+    <th>[% l('Work:') %]</th>
+    <td>[% link_work(edit.display_data.work) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Alias:') %]</th>
+    <td>[% edit.display_data.alias | html %]</td>
+  </tr>
+  [% IF edit.display_data.locale %]
+  <tr>
+    <th>[% l('Locale:') %]</th>
+    <td>[% edit.display_data.locale | language %]</td>
+  </tr>
+  [% END %]
+</table>

@@ -38,22 +38,19 @@ sub models {
     );
 
     for my $model (sort $searcher->plugins) {
-        my $model_name = $model;
-        next if $model_name =~ /Data::Role/;
-        $model_name =~ s/.*::Data:://;
+        next if $model =~ /Data::Role/;
+        my ($model_name) = ($model =~ m/.*::Data::(.*)/);
 
-        push @models, [ $model_name, "MusicBrainz::Server::Model::$model_name" ];
+        push @models, [ $model => "MusicBrainz::Server::Model::$model_name" ];
     }
 
-    push @models, [ 'Email' => 'MusicBrainz::Server::Email' ];
+    push @models, [ 'MusicBrainz::Server::Email' => 'MusicBrainz::Server::Model::Email' ];
 
     return @models;
 }
 
 sub BUILD {
     my ($self, $args) = @_;
-    my $class = 'MusicBrainz::Server::Model';
-
     for my $model ($self->models) {
         Class::MOP::Class->create(
             $model->[1] =>
@@ -72,10 +69,8 @@ sub expand_modules {
 
 sub data_object {
     my ($self, $model) = @_;
-    my $class = "MusicBrainz::Server::Data::$model";
-    Class::MOP::load_class($class);
-
-    return $class->new( c => $self->context );
+    Class::MOP::load_class($model);
+    return $model->new( c => $self->context );
 }
 
 1;

@@ -4,22 +4,26 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 requires 'load';
 
 use MusicBrainz::Server::Constants qw(
-    $EDIT_ARTIST_ADD_ALIAS $EDIT_LABEL_ADD_ALIAS $EDIT_ARTIST_EDIT_ALIAS
-    $EDIT_ARTIST_DELETE_ALIAS $EDIT_LABEL_DELETE_ALIAS $EDIT_LABEL_EDIT_ALIAS
+    $EDIT_ARTIST_ADD_ALIAS $EDIT_ARTIST_DELETE_ALIAS $EDIT_ARTIST_EDIT_ALIAS
+    $EDIT_LABEL_ADD_ALIAS $EDIT_LABEL_DELETE_ALIAS $EDIT_LABEL_EDIT_ALIAS
+    $EDIT_WORK_ADD_ALIAS $EDIT_WORK_DELETE_ALIAS $EDIT_WORK_EDIT_ALIAS
 );
 
 my %model_to_edit_type = (
     add => {
         Artist => $EDIT_ARTIST_ADD_ALIAS,
         Label  => $EDIT_LABEL_ADD_ALIAS,
+        Work   => $EDIT_WORK_ADD_ALIAS,
     },
     delete => {
         Artist => $EDIT_ARTIST_DELETE_ALIAS,
         Label  => $EDIT_LABEL_DELETE_ALIAS,
+        Work   => $EDIT_WORK_DELETE_ALIAS,
     },
     edit => {
         Artist => $EDIT_ARTIST_EDIT_ALIAS,
         Label  => $EDIT_LABEL_EDIT_ALIAS,
+        Work   => $EDIT_WORK_EDIT_ALIAS,
     }
 );
 
@@ -42,7 +46,7 @@ sub alias : Chained('load') PathPart('alias') CaptureArgs(1)
     $c->stash( alias => $alias );
 }
 
-sub add_alias : Chained('load') PathPart('add-alias') RequireAuth
+sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $type = $self->{entity_name};
@@ -59,7 +63,7 @@ sub add_alias : Chained('load') PathPart('add-alias') RequireAuth
     );
 }
 
-sub delete_alias : Chained('alias') PathPart('delete') RequireAuth
+sub delete_alias : Chained('alias') PathPart('delete') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
@@ -74,7 +78,7 @@ sub delete_alias : Chained('alias') PathPart('delete') RequireAuth
     );
 }
 
-sub edit_alias : Chained('alias') PathPart('edit') RequireAuth
+sub edit_alias : Chained('alias') PathPart('edit') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};

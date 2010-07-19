@@ -9,7 +9,10 @@ has_field 'text' => (
     type     => 'Text',
 );
 
-has_field 'changelog' => (type => 'Text');
+has_field 'changelog' => (
+    type      => 'Text',
+    maxlength => 255
+);
 
 has 'annotation_model' => (
     is       => 'ro',
@@ -19,6 +22,11 @@ has 'annotation_model' => (
 has 'entity_id' => (
     is       => 'ro',
     required => 1
+);
+
+has_field 'preview' => (
+    type => 'Submit',
+    value => ''
 );
 
 sub edit_field_names { qw( text changelog ) }

@@ -1,88 +1,123 @@
-[%- WRAPPER 'layout.tt' full_width=1 -%]
-    <h1>[% l('Edit #{id}', {id = edit.id}) %]</h1>
+[%- BLOCK layout_head -%]
+    <script type="text/javascript">
+        window.onload = function() {
+            var i = document.createElement('input');
+            if ('placeholder' in i) {
+                resize();
+            } else {
+                placeholder();
+                resize();
+            }
+        }
 
-    [%- INCLUDE "edit/info.tt" -%]
-    [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
-        INCLUDE "edit/details/${edit_template}.tt" %]
+        function placeholder() {
+            var text = $('.add-edit-note textarea');
+            var textvalue = "Add an edit note";
+            text.attr('value',textvalue);
 
-    <table class="details">
-        <tr>
-            <th>[% l('Votes tally:') %]</th>
-            <td colspan="2">
-                [% l('{yes} yes : {no} no', { yes => edit.yes_votes, no => edit.no_votes }) %]
-            </td>
-        </tr>
-        [% FOR vote=edit.votes %]
-        <tr>
-            <th>[% link_editor(vote.editor) %]:</th>
-            <td>
-                [% IF vote.superseded %]
-                    <s>[% vote.vote_name %]</s>
-                [% ELSE %]
-                    [% vote.vote_name %]
-                [% END %]
-            </td>
-            <td>[% UserDate.format(vote.vote_time) %]</td>
-        </tr>
-        [% END %]
-    </table>
+            text.focus(function() {
+                if (text.attr('value') == textvalue) {
+                    text.removeAttr('value');
+                }
+            })
 
-    [% IF c.user_exists %]
-        [% IF edit.editor_may_vote(c.user) %]
-            <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
-                <input type="hidden" value="[% c.req.uri %]" name="url" />
-                <table class="details">
-                    <tr>
-                        <th>[% l('Vote:') %]</th>
-                        <td>
+            text.blur(function() {
+                if (!text.attr('value')) {
+                    text.css('color','#999999');
+                    text.attr('value',textvalue);
+                }
+            })
+        }
+
+        function resize() {
+            var text = $('.add-edit-note textarea');
+            var button = $('.add-edit-note input');
+
+            text.focus(function() {
+                text.css('color','#000000');
+                text.css('width','98%');
+                text.attr('rows','5');
+                button.css('display','inline');
+            })
+        }
+    </script>
+[%- END -%]
+
+[%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [%- INCLUDE "edit/info.tt" -%]
+    [% END %]
+    <div id="content">
+
+        [% INCLUDE 'edit/edit_header.tt' %]
+
+        <h2>[% l('Changes') %]</h2>
+        [%- INCLUDE "edit/details/${edit.edit_template}.tt" %]
+
+        <h2>[% l('Votes') %]</h2>
+        <table class="vote-tally">
+            <tr class="noborder">
+                <th>[% l('Vote tally') %]</th>
+                <td class="vote">
+                    [%- l('{yes} yes : {no} no',
+                         { yes => '<strong>' _ edit.yes_votes _ '</strong>',
+                           no => '<strong>' _ edit.no_votes _ '</strong>' }) -%]
+                </td>
+            </tr>
+            [% IF edit.editor_may_vote(c.user) %]
+                <tr class="noborder">
+                    <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
+                        <input type="hidden" value="[% c.req.uri %]" name="url" />
+                        <th>[% l('My vote') %]</th>
+                        <td class="vote">
                             [% INCLUDE 'edit/vote.tt' %]
                         </td>
-                    </tr>
-                </table>
+                    </form>
+                </tr>
+            [% END %]
+            [% FOR vote=edit.votes %]
+                <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
+                    <th>[% link_editor(vote.editor) %]</th>
+                    <td class="vote">
+                        [% vote.vote_name %]
+                        <span class="date">[% UserDate.format(vote.vote_time) %]</span>
+                    </td>
+                </tr>
+            [% END %]
+        </table>
 
-                [% form_submit(l('Vote')) %]
-            </form>
-        [% ELSE %]
+        [% IF edit.is_open && !edit.editor_may_vote(c.user) && (edit.editor_id != c.user.id) %]
+            [%# The current user check is necessary because !edit.editor_may_vote
+            comes back true when the current user is the edit.editor. %]
             <p>
                 [% l('You are not currently able to vote on this edit. ({url|Details})',
-                   {url=doc_link('Voting_FAQ')}) %]
+                    { url=doc_link('Voting_FAQ') }) %]
             </p>
         [% END %]
 
-        [% IF edit.is_open AND staging_server %]
-            <h2>[% l('Testing features') %]</h2>
-            <p>[% l('To aid in testing, the following features have been made available on testing servers.') %]</p>
-            <ul>
-              <li><a href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Approve edit') %]</a></li>
-              <li><a href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject edit') %]</a></li>
-            </ul>
+        [% IF c.user_exists %]
+            [% IF edit.is_open AND staging_server %]
+                <h2>[% l('Testing features') %]</h2>
+                <p>[%- l('To aid in testing, the following features have been made available on testing servers:') -%]</p>
+                <ul>
+                    <li><a href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Approve edit') %]</a></li>
+                    <li><a href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject edit') %]</a></li>
+                </ul>
+            [% END %]
+        [% ELSE %]
+            <p>
+                [%- l('You must be logged in to vote on edits') -%]
+                [%- request_login() -%]
+            </p>
         [% END %]
-    [% ELSE %]
-        <p>
-            [% l('You must be logged in to vote on edits') %]
-            [% request_login() %]
-        </p>
-    [% END %]
 
-    <h2>[% l('Edit notes') %]</h2>
-    [% IF edit.edit_notes.size %]
-        [% FOR note=edit.edit_notes %]
-        <div class="edit-note">
-          <h3>[% l('{editor} ({date}):', editor=link_editor(note.editor), date=UserDate.format(note.post_time)) %]</h3>
-          [% note.text %]
+        <div class="edit-notes">
+            <h2>[% l('Edit notes') %]</h2>
+            [% INCLUDE 'edit/notes.tt' %]
+            <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
+                [% INCLUDE 'edit/add_note.tt' %]
+            </form>
         </div>
-        [% END %]
-    [% ELSE %]
-        <p>[% l('No edit notes have been added') %]</p>
-    [% END %]
-    [% IF c.user_exists %]
-       <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
-           [% USE f = FormRenderer(add_edit_note) %]
-       <p>
-           [% f.label('text', l('Edit note:')) %]
-           [% f.textarea('text') %]
-       </p>
-       [% form_submit(l('Add edit note')) %]
-       </form>
-    [% END %]
+    </div>
 [%- END -%]
+
