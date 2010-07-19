@@ -17,7 +17,7 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b', 'basic label l
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
@@ -31,7 +31,7 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases', 'l
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
@@ -46,7 +46,7 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+med
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
@@ -56,10 +56,10 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2007-01-29</date><country>GB</country>
+                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>CD</format><track-list count="12" />
+                        <position>1</position><format>cd</format><track-list count="12" />
                     </medium>
                 </medium-list>
             </release>
@@ -68,14 +68,14 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2008-11-17</date><country>GB</country>
+                <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
-                        <position>1</position><format>CD</format><track-list count="9" />
+                        <position>1</position><format>cd</format><track-list count="9" />
                     </medium>
                     <medium>
                         <title>Chestplate Singles</title>
-                        <position>2</position><format>CD</format><track-list count="9" />
+                        <position>2</position><format>cd</format><track-list count="9" />
                     </medium>
                 </medium-list>
             </release>

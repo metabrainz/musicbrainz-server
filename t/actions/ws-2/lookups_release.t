@@ -64,7 +64,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <label-info-list count="1">
             <label-info>
                 <catalog-number>rzcd-45118</catalog-number>
-                <label>
+                <label id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
                     <name>rhythm zone</name><sort-name>rhythm zone</sort-name>
                 </label>
             </label-info>
@@ -145,7 +145,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
         <medium-list count="1">
             <medium>
-                <position>1</position><format>CD</format>
+                <position>1</position><format>cd</format>
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
                         <sectors>60295</sectors>

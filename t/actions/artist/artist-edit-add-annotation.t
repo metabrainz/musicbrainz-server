@@ -7,6 +7,7 @@ use Test::More;
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
+MusicBrainz::Server::Test->prepare_test_server();
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 # Test adding annotations
@@ -32,6 +33,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+
 $mech->content_contains('Changelog here', '..has changelog entry');
 $mech->content_contains('Test Artist', '..has artist name');
 $mech->content_like(qr{artist/745c079d-374e-4436-9448-da92dedef3ce/?"}, '..has a link to the artist');

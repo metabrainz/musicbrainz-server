@@ -10,28 +10,34 @@
 
         <p>[%- l('MusicBrainz believes strongly in the privacy of its users! Any personal
                   information you choose to provide will not be sold or shared with anyone else.
-                  For full details, please see the {doc|MusicBrainz Privacy Policy}.',
+                  For full details, please read our {doc|Privacy Policy}.',
                   {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]</p>
+
+
 
     [%- USE r = FormRenderer(register_form) -%]
     <form action="[% c.req.uri %]" method="post">
         [% form_row_text(r, 'username', l('Username:')) %]
         <div class="row no-label">
-            <span class="register-username-note">Your username will be publically visible.</span>
+            <span class="input-note">[% l('Your username will be publically visible.') %]</span>
         </div>
         [% form_row_password(r, 'password', l('Password:')) %]
         [% form_row_password(r, 'confirm_password', l('Confirm password:')) %]
         [% form_row_text(r, 'email', l('Email:')) %]
         <div class="row no-label">
-            <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_of_Conduct') }) %]<p>
-        [% form_submit(l('Create Account')) %]
+            <span class="input-note">[% l('You must provide a working email address if you wish to contribute to the database.') %]</span>
+        </div>
+        <div class="row no-label">
+            <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_of_Conduct') }) %]</p>
+            [% form_submit(l('Create Account')) %]
         </div>
     </form>
 
-        <p>[%- l('If you have any questions, please review the {faq|FAQs}, or post them to the
-                  appropriate {ml|mailing list}.',
+        <p>[%- l('If you have any questions, please review the {faq|FAQs} or {doc|documentation}
+                  before {con|contacting us}. ',
                   { faq => doc_link('Frequently_Asked_Questions'),
-                    ml => doc_link('Mailing_List') }) -%]</p>
+                    doc => doc_link('MusicBrainz_Documentation'),
+                    con => doc_link('Contact_Us') }) -%]</p>
 
         <p>[% l("If you're interested in receiving information from MusicBrainz staff or communicating
                  with other users, {ml|please subscribe to our mailing lists}.",

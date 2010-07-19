@@ -255,14 +255,14 @@ sub v2_schema_validator
 
     if ($@)
     {
-        warn "Cannot find or parse RNG schema. Set evn var MMDFILE to point ".
+        warn "Cannot find or parse RNG schema. Set environment var MMDFILE to point ".
             "to the mmd-schema file or check out the mmd-schema in parallel to ".
             "the mb_server source. No schema validation will happen.\n";
         undef $rngschema;
     }
 
     return sub {
-        use Test::More import => [ 'is' ];
+        use Test::More import => [ 'is', 'skip' ];
 
         my ($xml, $message) = @_;
 
@@ -270,18 +270,17 @@ sub v2_schema_validator
 
         xml_ok ($xml, "$message (xml_ok)");
 
-        if ($rngschema)
-        {
-            my $doc = XML::LibXML->new()->parse_string($xml);
-            eval
-            {
-                $rngschema->validate( $doc );
-            };
-            is( $@, '', "$message (validate)");
-        }
-        else
-        {
-            warn "WAIT WOT?\n";
+      SKIP: {
+
+          skip "schema not found", 1 unless $rngschema;
+
+          my $doc = XML::LibXML->new()->parse_string($xml);
+          eval
+          {
+              $rngschema->validate( $doc );
+          };
+          is( $@, '', "$message (validate)");
+
         }
     };
 }

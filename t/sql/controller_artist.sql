@@ -70,7 +70,14 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, date_year,
                      date_month, date_day) VALUES
     (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 3, 1, 1, 2009, 5, 8);
 
-INSERT INTO editor (id, name, password) VALUES (1, 'new_editor', 'password');
+-- A full editor
+INSERT INTO
+    editor ( id, name, password, privs, email, website, bio,
+             emailconfirmdate, membersince, lastlogindate, editsaccepted, editsrejected,
+             autoeditsaccepted, editsfailed)
+    VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
+             'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
+
 INSERT INTO editor (id, name, password) VALUES (2, 'alice', 'password');
 
 -- Alice has private ratings.

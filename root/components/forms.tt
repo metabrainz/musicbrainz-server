@@ -1,28 +1,24 @@
-[%- MACRO form_submit(label) BLOCK %]
-<input type="submit" value="[% label %]" />
+[%- MACRO form_submit(label, class) BLOCK %]
+    <span class="buttons[% ' ' _ class IF class %]">
+        <button type="submit">[% label %]</button>
+    </span>
 [%- END -%]
 
 [%- MACRO enter_edit(extra) BLOCK %]
-<div class="row enter-edit">
-  [% IF c.user.is_auto_editor %]
-  <div class="auto-editor">
-    [% USE r = FormRenderer(form) %]
-    [% r.checkbox('as_auto_editor') %]
-    [% r.label('as_auto_editor',
-               l('Enable {autoed|auto-editor} privileges for this edit.', { autoed = doc_link('Auto-Editor') }),
-               inline => 1) %]
-  </div>
-  [% END %]
-  <input type="submit" class="submit" value="[% l('Submit') %]" />
-  [% extra %]
-</div>
-[% END %]
-
-[%- MACRO form_artist_credits(field) BLOCK %]
-    <div class="container" id="[% field.full_name %]">
-        <p class="preview"></p>
-        [% USE r = FormRenderer(field.form) %]
-        [% r.artist_credits(field.name) %]
+    [% IF c.user.is_auto_editor %]
+        <div class="row no-label">
+            <div class="auto-editor">
+                [% USE r = FormRenderer(form) %]
+                [% r.checkbox('as_auto_editor') %]
+                [% r.label('as_auto_editor',
+                           l('Enable {autoed|auto-editor} privileges for this edit.',
+                            { autoed = doc_link('Auto-Editor') }), inline => 1) %]
+            </div>
+        </div>
+    [% END %]
+    <div class="row no-label buttons">
+        <button type="submit" class="submit">[% l('Submit') %]</button>
+        [% extra %]
     </div>
 [%- END -%]
 

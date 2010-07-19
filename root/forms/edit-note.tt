@@ -1,7 +1,8 @@
-[%- WRAPPER 'forms/fieldset.tt' legend=l('Edit Note') -%]
+<fieldset>
+    <legend>[%- l('Edit Note') -%]</legend>
     [%- UNLESS hide_help -%]
         <p>
-            [% l('<strong>Edit notes</strong>: Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make the source of information clear, but it can also encourage other users to vote on your edit — thus reducing the time before your edit is applied.',
+            [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit — thus making your edit get applied faster.',
                 { note => doc_link('Edit_Note') }) %]
         </p>
 
@@ -12,5 +13,4 @@
         [% r.label('edit_note', l('Edit note:')) %]
         [% r.textarea('edit_note', { class => 'edit-note', cols => 80, rows => 5 }) %]
     [% END %]
-[%- END -%]
-
+</fieldset>

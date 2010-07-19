@@ -83,6 +83,7 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups
+                                          tags user-tags ratings user-ratings
                                           artist-credits discids media _relations) ]
      },
      "release-group" => {
@@ -139,6 +140,21 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists aliases artist-credits
                                           _relations tags user-tags ratings user-ratings) ],
      },
+     tag => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ],
+     },
+     cdstub => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ],
+     },
+     freedb => {
+                         method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(limit offset) ],
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -192,6 +208,23 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     $self->validate($c, \%serializers) or $c->detach('bad_req');
 
     $c->authenticate({}, 'webservice') if ($c->stash->{authorization_required});
+}
+
+sub _search
+{
+    my ($self, $c, $entity) = @_;
+
+    my $result = xml_search($entity, $c->stash->{args});
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    if (exists $result->{xml})
+    {
+        $c->res->body($result->{xml});
+    }
+    else
+    {
+        $c->res->status($result->{code});
+        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
+    }
 }
 
 sub _tags_and_ratings
@@ -267,17 +300,37 @@ sub linked_recordings
 {
     my ($self, $c, $stash, $recordings) = @_;
 
-    for my $recording (@$recordings)
+    if ($c->stash->{inc}->isrcs)
     {
-        if ($c->stash->{inc}->isrcs)
+        my @isrcs = $c->model('ISRC')->find_by_recording(map { $_->id } @$recordings);
+
+        my %isrc_per_recording;
+        foreach (@isrcs)
         {
-            my @isrcs = $c->model('ISRC')->find_by_recording([ $recording->id ]);
-            $stash->store ($recording)->{isrcs} = \@isrcs;
+            $isrc_per_recording{$_->recording_id} = [] unless $isrc_per_recording{$_->recording_id};
+            push @{ $isrc_per_recording{$_->recording_id} }, $_;
+        };
+
+        foreach (@$recordings)
+        {
+            $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
         }
-        if ($c->stash->{inc}->puids)
+    }
+
+    if ($c->stash->{inc}->puids)
+    {
+        my @puids = $c->model('RecordingPUID')->find_by_recording(map { $_->id } @$recordings);
+
+        my %puid_per_recording;
+        foreach (@puids)
         {
-            my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-            $stash->store ($recording)->{puids} = \@puids;
+            $puid_per_recording{$_->recording_id} = [] unless $puid_per_recording{$_->recording_id};
+            push @{ $puid_per_recording{$_->recording_id} }, $_;
+        };
+
+        foreach (@$recordings)
+        {
+            $stash->store ($_)->{puids} = $puid_per_recording{$_->id};
         }
     }
 
@@ -502,18 +555,7 @@ sub artist_search : Chained('root') PathPart('artist') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('artist_browse') if ($c->stash->{linked});
-
-    my $result = xml_search('artist', $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
-    }
+    $self->_search ($c, 'artist');
 }
 
 sub release_group_toplevel
@@ -622,17 +664,7 @@ sub release_group_search : Chained('root') PathPart('release-group') Args(0)
 
     $c->detach('release_group_browse') if ($c->stash->{linked});
 
-    my $result = xml_search('release-group', $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
-    }
+    $self->_search ($c, 'release-group');
 }
 
 sub release_toplevel
@@ -663,7 +695,13 @@ sub release_toplevel
     {
          $c->model('ReleaseGroup')->load($release);
 
-         $self->linked_release_groups ($c, $stash, [ $release->release_group ]);
+         my $rg = $release->release_group;
+
+         $self->linked_release_groups ($c, $stash, [ $rg ]);
+
+         # as a special case, allow tags and ratings to be requested for the linked
+         # release group, because releases themselves no longer have tags or ratings.
+         $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $stash->store ($rg));
     }
 
     if ($c->stash->{inc}->recordings)
@@ -779,18 +817,7 @@ sub release_search : Chained('root') PathPart('release') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('release_browse') if ($c->stash->{linked});
-
-    my $result = xml_search('release', $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
-    }
+    $self->_search ($c, 'release');
 }
 
 sub recording_toplevel
@@ -911,16 +938,7 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
     $c->detach('recording_browse') if ($c->stash->{linked});
 
     my $result = xml_search('recording', $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
-    }
+    $self->_search ($c, 'recording');
 }
 
 sub label_toplevel
@@ -1021,18 +1039,7 @@ sub label_search : Chained('root') PathPart('label') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('label_browse') if ($c->stash->{linked});
-
-    my $result = xml_search('label', $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
-    }
+    $self->_search ($c, 'label');
 }
 
 
@@ -1126,18 +1133,7 @@ sub work_search : Chained('root') PathPart('work') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('work_browse') if ($c->stash->{linked});
-
-    my $result = xml_search('work', $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
-    }
+    $self->_search ($c, 'work');
 }
 
 sub puid : Chained('root') PathPart('puid') Args(1)
@@ -1264,6 +1260,27 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('isrc', \@works, $c->stash->{inc}, $stash));
+}
+
+sub tag_search : Chained('root') PathPart('tag') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_search ($c, 'tag');
+}
+
+sub freedb_search : Chained('root') PathPart('freedb') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_search ($c, 'freedb');
+}
+
+sub cdstub_search : Chained('root') PathPart('cdstub') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_search ($c, 'cdstub');
 }
 
 sub default : Path

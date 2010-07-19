@@ -4,29 +4,19 @@
             [% link_editor(c.user) %]
             <ul>
                 <li>
-                    <a href="[% c.uri_for('/account/edit') %]">
-                        [% l('Edit Profile') %]
-                    </a>
+                    [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/user/change_password') %]">
-                        [% l('Change Password') %]
-                    </a>
+                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/user/change_password') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/user/preferences') %]">
-                        [% l('Preferences') %]
-                    </a>
+                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/user/preferences') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/user/subscribers') %]">
-                        [% l('Subscribers') %]
-                    </a>
+                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers/view', [ c.user.name ]) }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/user/logout') %]">
-                        [% l('Log Out') %]
-                    </a>
+                    [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
                 </li>
             </ul>
         </li>
@@ -35,17 +25,23 @@
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
                     [% IF c.user.is_relationship_editor %]
-                        <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Link Types') %]</a></li>
-                        <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Link Attribute Types') %]</a></li>
+                        <li>
+                            [% l('{uri|Edit Link Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
+                        </li>
+                        <li>
+                            [% l('{uri|Edit Link Attribute Types}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
+                        </li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]
-                        <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a></li>
+                        <li>
+                            [% l('{uri|Transclude WikiDocs}', { uri => c.uri_for_action('/admin/wikidoc/index') }) %]
+                        </li>
                     [% END %]
                 </ul>
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/collection/view', c.user.name)}) %]
+            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile/view', [ c.user.name ])}) %]
             <ul>
                 <li>
                     [% l('{col|My Collection}', {col => c.uri_for_action('/user/collection/view', c.user.name)}) %]
@@ -54,14 +50,16 @@
                     [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings/view', [ c.user.name ])}) %]
                 </li>
                 <li>
-                    [% l('{col|My Tags}', {col => c.uri_for_action('/user/collection/view', c.user.name)}) %]
+                    [% l('{col|My Tags}', {col => '/404'}) %]
                 </li>
             </ul>
         </li>
-        <li><a href="[% c.uri_for_action('/user/logout') %]">Log out</a></li>
+        <li>
+            [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
+        </li>
     [%- ELSE -%]
-        <li>[% request_login() %]</li>
-        <li><a href="[% c.uri_for_action('/user/register') %]">Create account</a></li>
+        <li>[% request_login(l('Log In')) %]</li>
+        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/user/register') }) %]</li>
     [%- END -%]
 </ul>
 
@@ -71,7 +69,6 @@
         <ul>
             <li>
                 [%- l('{doc|Sponsors}', {doc => doc_link('MusicBrainz_Sponsors')}) -%]
-
             </li>
             <li>
                 [%- l('{doc|People}', {doc => doc_link('MusicBrainz_Bio')}) -%]
@@ -91,10 +88,13 @@
             <li class="separator">
                 [% l('{url|Auto-editor Elections}', { url => c.uri_for('/elections') }) %]
             </li>
+            <li>
+                [% l('{url|Privileged user accounts}', { url => c.uri_for('/privileged') }) %]
+            </li>
         </ul>
     </li>
     <li>
-        <a href="http://blog.musicbrainz.org">
+        <a href="http://blog.musicbrainz.org" class="internal">
             [% l('Blog') %]
         </a>
     </li>
@@ -124,27 +124,21 @@
                 [%- l('{doc|Live Data Feed}', {doc => doc_link('Live_Data_Feed')}) -%]
             </li>
             <li class="separator">
-                [%- l('{doc|freeDB Gateway}', {doc => doc_link('FreeDB_Gateway')}) -%]
+                [%- l('{doc|Freedb Gateway}', {doc => doc_link('FreeDB_Gateway')}) -%]
             </li>
         </ul>
     </li>
     <li>
-        <a href="[% c.uri_for('/search') %]">
-            [% l('Search') %]
-        </a>
+        [% l('{uri|Search}', { uri => c.uri_for('/search') }) %]
         <ul>
             <li>
-                <a href="[% c.uri_for_action('/edit/search') %]">
-                    [% l('Search Edits') %]
-                </a>
+                [% l('{uri|Search Edits}', { uri => c.uri_for_action('/edit/search') }) %]
             </li>
             <li>
-                <a href="[% c.uri_for('/browse') %]">[% l('Browse') %]</a>
+                [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
             </li>
             <li class="separator">
-                <a href="[% c.uri_for('/search/plugins') %]">
-                    [% l('Browser Search Plugins') %]
-                </a>
+                 [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]
             </li>
         </ul>
     </li>
@@ -153,39 +147,25 @@
             [%- l('{doc|Editing}', {doc => doc_link('How_Editing_Works')}) -%]
             <ul>
                 <li>
-                    <a href="[% c.uri_for('/artist/create') %]">
-                        [% l('Add Artist') %]
-                    </a>
+                    [% l('{uri|Add Artist}', { uri => c.uri_for('/artist/create') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/label/create') %]">
-                        [% l('Add Label') %]
-                    </a>
+                     [% l('{uri|Add Label}', { uri => c.uri_for('/label/create') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/artist', various_artist_mbid, 'add_release') %]">
-                        [% l('Add Various Artists Release') %]
-                    </a>
+                    [% l('{uri|Add Various Artists Release}', { uri => c.uri_for('/artist', various_artist_mbid, 'add_release') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/release/freedb_import') %]">
-                        [% l('Import From freeDB') %]
-                    </a>
+                    [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
                 </li>
                 <li class="separator">
-                    <a href="[% c.uri_for('/edit/open') %]">
-                        [% l('Vote on Edits') %]
-                    </a>
+                    [% l('{uri|Vote on Edits}', { uri => c.uri_for('/edit/open') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/report/index') %]">
-                        [% l('Editing Suggestions') %]
-                    </a>
+                    [% l('{uri|Editing Suggestions}', { uri => c.uri_for_action('/report/index') }) %]
                 </li>
                 <li class="separator">
-                    <a href="[% c.uri_for('/edit/conditions') %]">
-                        [% l('Edit Conditions') %]
-                    </a>
+                    [% l('{uri|Edit Conditions}', { uri => c.uri_for('/edit/conditions') }) %]
                 </li>
             </ul>
         </li>
@@ -211,27 +191,26 @@
         [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
         <ul>
             <li>
-                [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_List')}) -%]
+                [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_Lists')}) -%]
             </li>
             <li>
-                <a href="http://forums.musicbrainz.org">
+                <a href="http://forums.musicbrainz.org" class="internal">
                     [% l('Web Forums') %]
                 </a>
             </li>
             <li>
-                <a href="http://musicbrainz.uservoice.com">
+                <a href="http://musicbrainz.uservoice.com" class="internal">
                     [% l('Suggest a Feature') %]
                 </a>
             </li>
             <li>
-                <a href="http://bugs.musicbrainz.org">
+                <a href="http://bugs.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>
             </li>
             <li>
-                [%- l('{doc|Report a Copyright Issue}', {doc => doc_link('Copyright_Violation_Notice')}) -%]
+                [%- l('{doc|Report a Copyright Violation}', {doc => doc_link('Copyright_Violation_Notice')}) -%]
             </li>
-
         </ul>
     </li>
 </ul>
