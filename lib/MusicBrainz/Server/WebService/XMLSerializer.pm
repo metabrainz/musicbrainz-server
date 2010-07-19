@@ -660,7 +660,7 @@ sub _serialize_user_tag
 {
     my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->user_tag($tag->tag->name);
+    push @$data, $gen->user_tag($gen->name($tag->tag->name));
 }
 
 sub _serialize_rating

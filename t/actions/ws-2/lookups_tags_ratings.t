@@ -2,7 +2,6 @@ use utf8;
 use strict;
 use Test::More;
 use XML::SemanticDiff;
-use XML::SemanticCompare;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
 use Test::WWW::Mechanize::Catalyst;

@@ -2,13 +2,16 @@ use utf8;
 use strict;
 use Test::More;
 use XML::XPath;
+use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
 use MusicBrainz::WWW::Mechanize;
 use HTTP::Request;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
+my $v2 = v2_schema_validator;
 my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+my $diff = XML::SemanticDiff->new;
 
 sub _raw_post
 {
@@ -76,5 +79,19 @@ _compare_tags ('Artist', 'a16d1433-ba89-4f72-a47b-a370add0bb55',
                [ 'female', 'kpop', 'korean', 'jpop' ]);
 _compare_tags ('Recording', 'eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e',
                [ 'country schlager thrash gabber' ]);
+
+
+$mech->get_ok ('/ws/2/tag?id=a16d1433-ba89-4f72-a47b-a370add0bb55&entity=artist');
+&$v2 ($mech->content, "Validate user tag lookup for artist");
+
+my $expected = '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <user-tag-list>
+        <user-tag><name>female</name></user-tag><user-tag><name>jpop</name></user-tag>
+        <user-tag><name>korean</name></user-tag><user-tag><name>kpop</name></user-tag>
+    </user-tag-list>
+</metadata>';
+
+is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
 done_testing;
