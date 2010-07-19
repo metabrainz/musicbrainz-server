@@ -303,7 +303,7 @@ sub linked_releases
     {
         @mediums = map { $_->all_mediums } @$releases;
 
-        if (@mediums == 0)
+        unless (@mediums)
         {
             $c->model('Medium')->load_for_releases(@$releases);
             @mediums = map { $_->all_mediums } @$releases;
