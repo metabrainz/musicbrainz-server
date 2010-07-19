@@ -278,13 +278,19 @@ sub _serialize_work
     my $opts = $stash->store ($work);
 
     my $iswc = $work->iswc;
-    $iswc =~ s/^\s+//;
-    $iswc =~ s/\s+$//;
+    if ($iswc)
+    {
+        $iswc =~ s/^\s+//;
+        $iswc =~ s/\s+$//;
+    }
+
+    my %attrs;
+    $attrs{id} = $work->gid;
+    $attrs{type} = lc($work->type->name) if ($work->type);
 
     my @list;
     push @list, $gen->iswc($iswc) if $iswc;
     push @list, $gen->title($work->name);
-    push @list, $gen->length($work->length);
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     if ($toplevel)
@@ -301,7 +307,7 @@ sub _serialize_work
     $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
-    push @$data, $gen->work({ id => $work->gid, type => $work->type->name }, @list);
+    push @$data, $gen->work(\%attrs, @list);
 }
 
 sub _serialize_recording_list
@@ -479,8 +485,9 @@ sub _serialize_label
 
     my $opts = $stash->store ($label);
 
-    my %attr;
-    $attr{type} = lc($label->type->name) if $label->type;
+    my %attrs;
+    $attrs{id} = $label->gid;
+    $attrs{type} = lc($label->type->name) if $label->type;
 
     my @list;
     push @list, $gen->name($label->name);
@@ -495,7 +502,7 @@ sub _serialize_label
     $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
         if $inc->releases;
 
-    push @$data, $gen->label(@list);
+    push @$data, $gen->label(\%attrs, @list);
 }
 
 sub _serialize_relation_lists
