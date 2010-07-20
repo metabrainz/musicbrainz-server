@@ -1283,26 +1283,7 @@ sub tag_lookup : Private
 {
     my ($self, $c) = @_;
 
-    my $gid = $c->stash->{args}->{id};
-    my $entity = $c->stash->{args}->{entity};
-    $entity =~ s/-/_/;
-
-    my $model = type_to_model ($entity);
-
-    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    if (!$model)
-    {
-        $c->stash->{error} = "Invalid entity type.";
-        $c->detach('bad_req');
-    }
-
-    $entity = $c->model($model)->get_by_gid($gid);
-    $c->detach('not_found') unless ($entity);
+    my ($entity, $model) = $self->_validate_entity ($c);
 
     my @tags = $c->model($model)->tags->find_user_tags($c->user->id, $entity->id);
 
@@ -1373,26 +1354,7 @@ sub rating_lookup : Chained('root') PathPart('rating') Args(0)
 
     $c->detach('rating_submit') if $c->request->method eq 'POST';
 
-    my $gid = $c->stash->{args}->{id};
-    my $entity = $c->stash->{args}->{entity};
-    $entity =~ s/-/_/;
-
-    my $model = type_to_model ($entity);
-
-    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    if (!$model)
-    {
-        $c->stash->{error} = "Invalid entity type.";
-        $c->detach('bad_req');
-    }
-
-    $entity = $c->model($model)->get_by_gid($gid);
-    $c->detach('not_found') unless ($entity);
+    my ($entity, $model) = $self->_validate_entity ($c);
 
     $c->model($model)->rating->load_user_ratings ($c->user->id, $entity);
 
@@ -1436,6 +1398,34 @@ sub _validate_post
 
     _error ($c, "Please specify the name and version number of your client application.")
         unless $c->req->params->{client};
+}
+
+sub _validate_entity
+{
+    my ($self, $c) = @_;
+
+    my $gid = $c->stash->{args}->{id};
+    my $entity = $c->stash->{args}->{entity};
+    $entity =~ s/-/_/;
+
+    my $model = type_to_model ($entity);
+
+    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    if (!$model)
+    {
+        $c->stash->{error} = "Invalid entity type.";
+        $c->detach('bad_req');
+    }
+
+    $entity = $c->model($model)->get_by_gid($gid);
+    $c->detach('not_found') unless ($entity);
+
+    return ($entity, $model);
 }
 
 sub tag_submit : Private
