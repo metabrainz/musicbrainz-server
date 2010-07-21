@@ -11,38 +11,6 @@ my $v2 = v2_schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4', 'browse releases via artist');
-&$v2 ($mech->content, "Validate browse releases via artist");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-list count="3">
-        <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
-            <title>For Beginner Piano</title><status>official</status>
-            <text-representation>
-                <language>eng</language><script>Latn</script>
-            </text-representation>
-            <date>1999-09-13</date><country>GB</country><barcode>5021603064126</barcode>
-        </release>
-        <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c">
-            <title>For Beginner Piano</title><status>official</status>
-            <text-representation>
-                <language>eng</language><script>Latn</script>
-            </text-representation>
-            <date>1999-09-13</date><country>GB</country>
-        </release>
-        <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
-            <title>For Beginner Piano</title><status>official</status>
-            <text-representation>
-                <language>eng</language><script>Latn</script>
-            </text-representation>
-            <date>1999-09-23</date><country>US</country>
-        </release>
-    </release-list>
-</metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
 $mech->get_ok('/ws/2/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2', 'browse releases via artist (paging)');
 &$v2 ($mech->content, "Validate browse releases via artist");
 
@@ -72,7 +40,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>2007-01-29</date><country>GB</country>
+            <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
             <medium-list count="1">
                 <medium>
                     <position>1</position><format>cd</format><track-list count="12" />
@@ -84,7 +52,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>2008-11-17</date><country>GB</country>
+            <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
             <medium-list count="2">
                 <medium>
                     <position>1</position><format>cd</format><track-list count="9" />
@@ -98,7 +66,6 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
 
 $mech->get_ok('/ws/2/release?release-group=b84625af-6229-305f-9f1b-59c0185df016', 'browse releases via release group');
 &$v2 ($mech->content, "Validate browse releases via release-group");
@@ -143,7 +110,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <date>2004-01-15</date><country>JP</country>
             <label-info-list count="1">
                 <label-info>
-                    <label>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>
@@ -158,7 +125,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>avcd-17390</catalog-number>
-                    <label>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>
@@ -173,7 +140,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>avcd-17389</catalog-number>
-                    <label>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
                 </label-info>

@@ -49,12 +49,6 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <begin>1986-11-05</begin>
         </life-span>
         <relation-list target-type="recording">
-            <relation type="lyricist">
-                <target>150621f0-3e08-43a3-9882-6a68322fcc04</target>
-                <recording id="150621f0-3e08-43a3-9882-6a68322fcc04">
-                    <title>LOVE &amp; HONESTY</title><length>282000</length>
-                </recording>
-            </relation>
             <relation type="vocal">
                 <target>0cf3008f-e246-428f-abc1-35f87d584d60</target>
                 <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
@@ -91,14 +85,19 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/recording/150621f0-3e08-43a3-9882-6a68322fcc04?inc=artist-rels+artist-credits', 'recording lookup with artist relationships and credits');
+$mech->get_ok('/ws/2/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artist-rels+artist-credits', 'recording lookup with artist relationships and credits');
 &$v2 ($mech->content, "Validate recording lookup with artist relationships and credits");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <recording id="150621f0-3e08-43a3-9882-6a68322fcc04">
-    <title>LOVE &amp; HONESTY</title><length>282000</length>
+    <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
+        <title>the Love Bug</title><length>242226</length>
         <artist-credit>
+            <name-credit joinphrase="♥">
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name>
+                </artist>
+            </name-credit>
             <name-credit>
                 <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name>
@@ -106,7 +105,19 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             </name-credit>
         </artist-credit>
         <relation-list target-type="artist">
-            <relation type="lyricist">
+            <relation type="programming">
+                <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                </artist>
+            </relation>
+            <relation type="producer">
+                <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                </artist>
+            </relation>
+            <relation type="vocal">
                 <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target><direction>backward</direction>
                 <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>
@@ -124,7 +135,7 @@ $mech->get_ok('/ws/2/label/72a46579-e9a0-405a-8ee1-e6e6b63b8212?inc=label-rels+u
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
         <name>rhythm zone</name><sort-name>rhythm zone</sort-name><country>JP</country>
         <relation-list target-type="url">
             <relation type="official_site">
@@ -134,18 +145,10 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <target>http://ja.wikipedia.org/wiki/Rhythmzone</target>
             </relation>
             <relation type="discogs">
-                <target>http://www.discogs.com/label/Rhythm+Zone+(Asia)</target>
+                <target>http://www.discogs.com/label/Rhythm+Zone</target>
             </relation>
             <relation type="wikipedia">
                 <target>http://en.wikipedia.org/wiki/Rhythm_Zone</target>
-            </relation>
-        </relation-list>
-        <relation-list target-type="label">
-            <relation type="label_ownership">
-                <target>168f48c8-057e-4974-9600-aa9956d21e1a</target><direction>backward</direction>
-                <label>
-                    <name>avex trax</name><sort-name>avex trax</sort-name>
-                </label>
             </relation>
         </relation-list>
     </label>
@@ -162,10 +165,10 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <title>the Love Bug</title>
         <relation-list target-type="url">
             <relation type="wikipedia">
-                <target>http://en.wikipedia.org/wiki/The_Love_Bug_%28song%29</target>
+                <target>http://ja.wikipedia.org/wiki/The_Love_Bug</target>
             </relation>
             <relation type="wikipedia">
-                <target>http://ja.wikipedia.org/wiki/The_Love_Bug</target>
+                <target>http://en.wikipedia.org/wiki/The_Love_Bug_%28song%29</target>
             </relation>
         </relation-list>
     </release-group>

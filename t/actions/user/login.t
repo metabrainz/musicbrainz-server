@@ -17,6 +17,6 @@ $mech->content_contains('Incorrect username or password');
 $mech->submit_form( with_fields => { username => '', password => 'password' } );
 $mech->content_contains('Incorrect username or password');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-is($mech->uri->path, '/user/profile/new_editor');
+is($mech->uri->path, '/user/new_editor');
 
 done_testing;

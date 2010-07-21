@@ -514,46 +514,6 @@ sub base : Chained PathPart('user') CaptureArgs(1)
     $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);
 }
 
-
-=head2 profile
-
-Display a users profile page.
-
-=cut
-
-sub profile : Local Args(1)
-{
-    my ($self, $c, $user_name) = @_;
-
-    my $user = $c->model('Editor')->get_by_name($user_name);
-
-    $c->detach('/error_404')
-        if (!defined $user);
-
-    if ($c->user_exists && $c->user->id == $user->id)
-    {
-        $c->stash->{viewing_own_profile} = 1;
-        $c->stash->{show_collection} = 1;
-    }
-    else
-    {
-        $c->model('Editor')->load_preferences($user);
-        $c->stash->{show_collection} = $user->preferences->public_collection;
-    }
-
-    $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);
-
-    my $subscr_model = $c->model('Editor')->subscription;
-    $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
-    $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
-    $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user->id);
-
-    $c->stash(
-        user     => $user,
-        template => 'user/profile.tt',
-    );
-}
-
 =head2 contact
 
 Allows users to contact other users via email

@@ -52,6 +52,49 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
+$mech->get_ok('/ws/2/recording/487cac92-eed5-4efa-8563-c9a818079b9a?inc=releases+media', 'recording lookup with releases and media');
+&$v2 ($mech->content, "Validate recording lookup with releases and media");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
+        <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
+        <release-list count="2">
+            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+                <title>Summer Reggae! Rainbow</title><status>pseudo-release</status><date>2001-07-04</date><country>JP</country>
+                <medium-list count="1">
+                    <medium>
+                        <position>1</position><format>cd</format>
+                        <track-list offset="1" count="3">
+                            <track>
+                                <position>2</position>
+                                <title>Hello! Mata Aou Ne (7nin Matsuri version)</title>
+                            </track>
+                        </track-list>
+                    </medium>
+                </medium-list>
+            </release>
+            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+                <title>サマーれげぇ!レインボー</title><status>official</status><date>2001-07-04</date><country>JP</country>
+                <medium-list count="1">
+                    <medium>
+                        <position>1</position><format>cd</format>
+                        <track-list offset="1" count="3">
+                            <track>
+                                <position>2</position>
+                                <title>HELLO! また会おうね (7人祭 version)</title>
+                            </track>
+                        </track-list>
+                    </medium>
+                </medium-list>
+            </release>
+        </release-list>
+    </recording>
+</metadata>';
+
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
 $mech->get_ok('/ws/2/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists', 'recording lookup with artists');
 &$v2 ($mech->content, "Validate recording lookup with artists");
 

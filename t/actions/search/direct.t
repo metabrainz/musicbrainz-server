@@ -57,7 +57,7 @@ $mech->get_ok('/search?query=random_editor&type=editor', 'perform editor search'
 xml_ok($mech->content);
 $mech->content_contains('There is no editor with this name');
 $mech->get_ok('/search?query=new_editor&type=editor', 'perform editor search');
-is($mech->uri->path, '/user/profile/new_editor');
+is($mech->uri->path, '/user/new_editor');
 
 $mech->get_ok('/search?query=musical&type=tag&direct=on', 'perform tag search');
 xml_ok($mech->content);
