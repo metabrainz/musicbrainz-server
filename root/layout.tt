@@ -46,22 +46,18 @@
         [% IF server_details.staging_server %]
             <div class="server-details">
                 <p>
-                    [% l("This is a MusicBrainz $server_details.staging_server server.
-                          The main server is located at {uri}.",
-                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) %]
+                    [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
+                    [%= l('The main server is located at {uri}.',
+                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) ~%]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
-        [% END %]
-
-        [% IF server_details.is_slave_db %]
+        [% ELSIF server_details.is_slave_db %]
             <div class="server-details">
                 <p>
-                    [% l('This is a MusicBrainz {doc|mirror server}, editing the data is
-                          not possible.<br />To edit or make changes to any data please
+                    [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
                           visit the main server at {uri}.',
-                         { doc => doc_link('Mirror_Server'),
-                           uri => '<a href="http://musicbrainz.org/" class="external">http://musicbrainz.org</a>' }) %]
+                         { uri => '<a href="http://musicbrainz.org/" class="external">http://musicbrainz.org</a>' }) %]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>

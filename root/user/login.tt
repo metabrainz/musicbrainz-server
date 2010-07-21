@@ -13,13 +13,6 @@
             { uri => c.uri_for_action('/user/register') }) %]
     </p>
 
-    [% IF server_details.staging_server %]
-        <p>
-            [% l('<strong>Note:</strong> This is a {server} server; passwords may have been reset to "mb".',
-                { server => server_details.staging_server }) %]
-        </p>
-    [% END %]
-
     [%- USE r = FormRenderer(login_form) -%]
     <form action="[% c.req.uri_with({ uri => redirect }) %]" method="post">
         [% IF login_form.has_errors || bad_login -%]
@@ -29,6 +22,11 @@
         [%- END %]
         [% form_row_text(r, 'username', l('Username:')) %]
         [% form_row_password(r, 'password', l('Password:')) %]
+        [% IF server_details.staging_server && server_details.is_sanitized %]
+            <div class="row no-label">
+                <span class="input-note">[% l('This is a development server; all passwords have been reset to "mb".') %]</span>
+            </div>
+        [% END %]
 
         <div class="row no-label">
             [% form_submit(l('Log In')) %]

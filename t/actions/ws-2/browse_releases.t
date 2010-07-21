@@ -34,9 +34,7 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&offset=1', 'browse releases via artist (paging)');
+$mech->get_ok('/ws/2/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2', 'browse releases via artist (paging)');
 &$v2 ($mech->content, "Validate browse releases via artist");
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -91,7 +89,6 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
 
 $mech->get_ok('/ws/2/release?release-group=b84625af-6229-305f-9f1b-59c0185df016', 'browse releases via release group');
 &$v2 ($mech->content, "Validate browse releases via release-group");

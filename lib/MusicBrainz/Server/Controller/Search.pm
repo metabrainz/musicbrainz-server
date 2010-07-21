@@ -110,7 +110,7 @@ sub direct : Private
         }
         case 'recording' {
             for my $result (@$results) {
-                my @releases = $c->model('Release')->find_by_recording($result->entity->id);
+                my @releases = $c->model('Release')->find_by_recording($result->entity->id, 4096);
                 $result->extra($releases[0]);
             }
             my @releases = map { @{ $_->extra } } @$results;
