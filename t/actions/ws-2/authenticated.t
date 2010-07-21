@@ -48,19 +48,29 @@ sub _compare_tags
 
 my $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-        <user-tag-list>
-            <user-tag><name>kpop</name></user-tag>
-            <user-tag><name>female</name></user-tag>
-            <user-tag><name>korean</name></user-tag>
-            <user-tag><name>jpop</name></user-tag>
-        </user-tag-list>
-    </artist>
-    <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
-        <user-tag-list>
-            <user-tag><name>country schlager thrash gabber</name></user-tag>
-        </user-tag-list>
-    </recording>
+    <artist-list>
+        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+            <user-tag-list>
+                <user-tag><name>kpop</name></user-tag>
+                <user-tag><name>female</name></user-tag>
+                <user-tag><name>korean</name></user-tag>
+                <user-tag><name>jpop</name></user-tag>
+            </user-tag-list>
+        </artist>
+        <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+            <user-tag-list>
+                <user-tag><name>dubstep</name></user-tag>
+                <user-tag><name>uk</name></user-tag>
+            </user-tag-list>
+        </artist>
+    </artist-list>
+    <recording-list>
+        <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+            <user-tag-list>
+                <user-tag><name>country schlager thrash gabber</name></user-tag>
+            </user-tag-list>
+        </recording>
+    </recording-list>
 </metadata>';
 
 $mech->request (_raw_post ('/ws/2/tag?client=post.t-0.0.2', $content));
@@ -77,6 +87,8 @@ is ($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" resp
 
 _compare_tags ('Artist', 'a16d1433-ba89-4f72-a47b-a370add0bb55',
                [ 'female', 'kpop', 'korean', 'jpop' ]);
+_compare_tags ('Artist', '472bc127-8861-45e8-bc9e-31e8dd32de7a',
+               [ 'dubstep', 'uk' ]);
 _compare_tags ('Recording', 'eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e',
                [ 'country schlager thrash gabber' ]);
 
@@ -92,12 +104,16 @@ $mech->content_contains ('korean');
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-        <user-rating>80</user-rating>
-    </artist>
-    <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
-        <user-rating>40</user-rating>
-    </recording>
+    <artist-list>
+        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+            <user-rating>80</user-rating>
+        </artist>
+    </artist-list>
+    <recording-list>
+        <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+            <user-rating>40</user-rating>
+        </recording>
+    </recording-list>
 </metadata>';
 
 $mech->request (_raw_post ('/ws/2/rating?client=post.t-0.0.2', $content));

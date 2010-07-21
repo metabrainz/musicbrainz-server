@@ -1331,7 +1331,7 @@ sub rating_submit : Private
     my $xp = XML::XPath->new( xml => $c->request->body );
 
     my @submit;
-    for my $node ($xp->find('/metadata/*')->get_nodelist)
+    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
     {
         my $type = $node->getName;
         $type =~ s/-/_/;
@@ -1454,7 +1454,7 @@ sub tag_submit : Private
     my $xp = XML::XPath->new( xml => $c->request->body );
 
     my @submit;
-    for my $node ($xp->find('/metadata/*')->get_nodelist)
+    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
     {
         my $type = $node->getName;
         $type =~ s/-/_/;
