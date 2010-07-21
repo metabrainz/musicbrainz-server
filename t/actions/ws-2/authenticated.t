@@ -49,11 +49,9 @@ sub _compare_tags
 my $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list>
-        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
             <user-tag-list>
-                <user-tag><name>kpop</name></user-tag>
-                <user-tag><name>female</name></user-tag>
-                <user-tag><name>korean</name></user-tag>
+                <user-tag><name>hello project</name></user-tag>
                 <user-tag><name>jpop</name></user-tag>
             </user-tag-list>
         </artist>
@@ -65,7 +63,7 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
         </artist>
     </artist-list>
     <recording-list>
-        <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+        <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
             <user-tag-list>
                 <user-tag><name>country schlager thrash gabber</name></user-tag>
             </user-tag-list>
@@ -85,32 +83,29 @@ xml_ok ($mech->content);
 my $xp = XML::XPath->new( xml => $mech->content );
 is ($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" response');
 
-_compare_tags ('Artist', 'a16d1433-ba89-4f72-a47b-a370add0bb55',
-               [ 'female', 'kpop', 'korean', 'jpop' ]);
+_compare_tags ('Artist', '802673f0-9b88-4e8a-bb5c-dd01d68b086f',
+               [ 'jpop', 'hello project' ]);
 _compare_tags ('Artist', '472bc127-8861-45e8-bc9e-31e8dd32de7a',
                [ 'dubstep', 'uk' ]);
-_compare_tags ('Recording', 'eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e',
+_compare_tags ('Recording', '162630d9-36d2-4a8d-ade1-1c77440b34e7',
                [ 'country schlager thrash gabber' ]);
 
-
-$mech->get_ok ('/ws/2/tag?id=a16d1433-ba89-4f72-a47b-a370add0bb55&entity=artist');
+$mech->get_ok ('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
 &$v2 ($mech->content, "Validate user tag lookup for artist");
 
-$mech->content_contains ('female');
+$mech->content_contains ('hello project');
 $mech->content_contains ('jpop');
-$mech->content_contains ('kpop');
-$mech->content_contains ('korean');
 
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list>
-        <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
             <user-rating>80</user-rating>
         </artist>
     </artist-list>
     <recording-list>
-        <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+        <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
             <user-rating>40</user-rating>
         </recording>
     </recording-list>
@@ -122,7 +117,7 @@ xml_ok ($mech->content);
 my $xp = XML::XPath->new( xml => $mech->content );
 is ($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" response');
 
-$mech->get_ok ('/ws/2/rating?id=a16d1433-ba89-4f72-a47b-a370add0bb55&entity=artist');
+$mech->get_ok ('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
 &$v2 ($mech->content, "Validate user rating lookup for artist");
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
