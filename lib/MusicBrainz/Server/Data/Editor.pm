@@ -246,6 +246,8 @@ sub load_preferences
 {
     my ($self, @editors) = @_;
 
+    return unless @editors;
+
     my %editors = map { $_->id => $_ } @editors;
 
     my $query = sprintf "SELECT editor, name, value ".

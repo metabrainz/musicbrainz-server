@@ -354,9 +354,13 @@ sub linked_releases
     my @mediums;
     if ($c->stash->{inc}->media)
     {
-        $c->model('Medium')->load_for_releases(@$releases);
-
         @mediums = map { $_->all_mediums } @$releases;
+
+        unless (@mediums)
+        {
+            $c->model('Medium')->load_for_releases(@$releases);
+            @mediums = map { $_->all_mediums } @$releases;
+        }
 
         $c->model('MediumFormat')->load(@mediums);
     }
@@ -826,8 +830,20 @@ sub recording_toplevel
 
     if ($c->stash->{inc}->releases)
     {
-        my @results = $c->model('Release')->find_by_recording($recording->id, $MAX_ITEMS);
+        my @results;
+        if ($c->stash->{inc}->media)
+        {
+            @results = $c->model('Release')->load_with_tracklist_for_recording(
+                $recording->id, $MAX_ITEMS);
+        }
+        else
+        {
+            @results = $c->model('Release')->find_by_recording(
+                $recording->id, $MAX_ITEMS);
+        }
+
         $self->linked_releases ($c, $stash, $results[0]);
+
         $opts->{releases} = $self->make_list (@results);
     }
 

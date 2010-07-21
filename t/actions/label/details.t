@@ -12,7 +12,8 @@ my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Ser
 $mech->get_ok("/label/46f0f4cd-8aab-4b33-b698-f459faf64190/details",
               'fetch label details page');
 xml_ok($mech->content);
-$mech->content_contains('http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190.html',
+
+$mech->content_contains('http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
                         '..has permanent link');
 $mech->content_contains('<td>46f0f4cd-8aab-4b33-b698-f459faf64190</td>',
                         '..has mbid in plain text');
