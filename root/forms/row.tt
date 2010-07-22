@@ -1,6 +1,0 @@
-<div class="row"
-    [% IF id -%]
-        id="[%- id -%]"
-    [%- END -%]>
-    [%- content -%]
-</div>

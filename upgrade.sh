@@ -40,6 +40,8 @@ echo `date` : Merging works
 ./admin/sql/updates/ngs-merge-works.pl
 echo `date` : Create tracklist index
 ./admin/psql READWRITE < ./admin/sql/updates/ngs-cdlookup.sql
+echo `date`: Merging urls
+./admin/sql/updates/ngs-merge-urls.pl
 
 echo `date` : Fixing refcounts
 ./admin/psql READWRITE <./admin/sql/updates/ngs-refcount.sql

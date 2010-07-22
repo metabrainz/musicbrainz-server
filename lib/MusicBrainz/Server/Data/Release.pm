@@ -232,6 +232,52 @@ sub find_by_recording
         $query, @ids, @$statuses, @$types, $offset || 0);
 }
 
+sub load_with_tracklist_for_recording
+{
+    my ($self, $recording_id, $limit, $offset) = @_;
+    my $query = "
+        SELECT
+            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+                release.artist_credit AS r_artist_credit_id,
+                release.date_year AS r_date_year,
+                release.date_month AS r_date_month,
+                release.date_day AS r_date_day,
+                release.country AS r_country, release.status AS r_status,
+                release.packaging AS r_packaging,
+            medium.id AS m_id, medium.format AS m_format,
+                medium.position AS m_position, medium.name AS m_name,
+                medium.tracklist AS m_tracklist,
+                tracklist.trackcount AS m_trackcount,
+            track.id AS t_id, track_name.name AS t_name,
+                track.tracklist AS t_tracklist, track.position AS t_position,
+                track.length AS t_length, track.artist_credit AS t_artist_credit
+        FROM
+            track
+            JOIN tracklist ON tracklist.id = track.tracklist
+            JOIN medium ON medium.tracklist = tracklist.id
+            JOIN release ON release.id = medium.release
+            JOIN release_name ON release.name = release_name.id
+            JOIN track_name ON track.name = track_name.id
+        WHERE track.recording = ?
+        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+        OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub {
+            my $row = shift;
+            my $track = MusicBrainz::Server::Data::Track->_new_from_row($row, 't_');
+            my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
+            my $tracklist = $medium->tracklist;
+            my $release = $self->_new_from_row($row, 'r_');
+
+            push @{ $release->mediums }, $medium;
+            push @{ $tracklist->tracks }, $track;
+
+            return $release;
+        },
+        $query, $recording_id, $offset || 0);
+}
+
+
 sub find_by_puid
 {
     my ($self, $ids) = @_;

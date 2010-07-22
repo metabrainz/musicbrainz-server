@@ -38,4 +38,9 @@ is(format_iswc('T-000000001-0'), 'T-000.000.001-0');
 is(format_iswc('T-000000001.0'), 'T-000.000.001-0');
 is(format_iswc('T0000000010'), 'T-000.000.001-0');
 
+
+my ($a, $b) = MusicBrainz::Server::Validation::normalise_strings ('alice', 'bob');
+is ($a, 'alice');
+is ($b, 'bob');
+
 done_testing;

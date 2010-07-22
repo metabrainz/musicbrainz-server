@@ -96,7 +96,7 @@
         [% END %]
 
         [% IF c.user_exists %]
-            [% IF edit.is_open AND staging_server %]
+            [% IF edit.is_open AND server_details.staging_server %]
                 <h2>[% l('Testing features') %]</h2>
                 <p>[%- l('To aid in testing, the following features have been made available on testing servers:') -%]</p>
                 <ul>

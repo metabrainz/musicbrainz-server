@@ -23,6 +23,7 @@ use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("MockEdit");
 
 my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c);
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 MusicBrainz::Server::Test->prepare_raw_test_database($c, '+edit');
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
