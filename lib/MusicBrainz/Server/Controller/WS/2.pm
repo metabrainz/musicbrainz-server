@@ -842,9 +842,8 @@ sub recording_toplevel
         my @results;
         if ($c->stash->{inc}->media)
         {
-            # FIXME for type / status.
             @results = $c->model('Release')->load_with_tracklist_for_recording(
-                $recording->id, $MAX_ITEMS);
+                $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
         else
         {

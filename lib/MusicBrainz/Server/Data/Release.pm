@@ -234,7 +234,11 @@ sub find_by_recording
 
 sub load_with_tracklist_for_recording
 {
-    my ($self, $recording_id, $limit, $offset) = @_;
+    my ($self, $recording_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "
         SELECT
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
@@ -258,9 +262,12 @@ sub load_with_tracklist_for_recording
             JOIN release ON release.id = medium.release
             JOIN release_name ON release.name = release_name.id
             JOIN track_name ON track.name = track_name.id
+            $join_types
         WHERE track.recording = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
-        OFFSET ?";
+            $where_statuses
+            $where_types
+       ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+       OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
             my $row = shift;
@@ -274,7 +281,7 @@ sub load_with_tracklist_for_recording
 
             return $release;
         },
-        $query, $recording_id, $offset || 0);
+        $query, $recording_id, @$statuses, @$types, $offset || 0);
 }
 
 
