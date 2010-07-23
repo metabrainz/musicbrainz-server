@@ -25,6 +25,7 @@ has [qw( tag_table type )] => (
 sub find_tags
 {
     my ($self, $entity_id, $limit, $offset) = @_;
+    $limit ||= -1;
     $offset ||= 0;
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .
@@ -33,6 +34,15 @@ sub find_tags
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row($_[0]) },
         $query, $entity_id, $offset);
+}
+
+sub find_tag_count
+{
+    my ($self, $entity_id) = @_;
+    my $query = "SELECT count(*) FROM " . $self->tag_table . " entity_tag " .
+                "WHERE " . $self->type . " = ? ";
+
+    return Sql->new($self->c->dbh)->select_single_value($query, $entity_id);
 }
 
 sub find_top_tags
@@ -204,7 +214,7 @@ sub parse_tags
         $_ =~ s/\s+/ /sg;
         # remove leading and trailing whitespace
         $_ =~ s/^\s*(.*?)\s*$/$1/;
-        $_;
+        $_ = lc($_);
     } split ',', $input;
 
     # make sure the list contains only unique tags
@@ -360,7 +370,7 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, name.name, " . $self->parent->_id_column . "
+                 ORDER BY tt.count DESC, musicbrainz_collate(name.name), " . $self->parent->_id_column . "
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {

@@ -35,7 +35,7 @@ sub index : Private
     my ($self, $c) = @_;
 
     $c->forward('login');
-    $c->detach('profile', [ $c->user->name ]);
+    $c->detach('/user/profile/view', [ $c->user->name ]);
 }
 
 sub do_login : Private
@@ -70,8 +70,10 @@ sub do_login : Private
         template => 'user/login.tt',
         login_form => $form,
         redirect => $redirect,
-        required_login => 1
     );
+
+    $c->stash->{required_login} = 1
+        unless exists $c->stash->{required_login};
 
     $c->detach;
 }
@@ -81,13 +83,13 @@ sub login : Path('/login')
     my ($self, $c) = @_;
 
     if ($c->user_exists) {
-        $c->response->redirect($c->uri_for_action('/user/profile',
-                                                  $c->user->name));
+        $c->response->redirect($c->uri_for_action('/user/profile/view',
+                                                 [ $c->user->name ]));
         $c->detach;
     }
 
-    $c->forward('/user/do_login');
     $c->stash( required_login => 0 );
+    $c->forward('/user/do_login');
 }
 
 sub logout : Path('/logout')
@@ -131,7 +133,7 @@ sub register : Path('/register')
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
         $c->set_authenticated($user);
 
-        $c->response->redirect($c->uri_for_action('/user/profile', $user->name));
+        $c->response->redirect($c->uri_for_action('/user/profile/view', [ $user->name ]));
         $c->detach;
     }
 
@@ -508,75 +510,8 @@ sub base : Chained PathPart('user') CaptureArgs(1)
         $c->model('Editor')->load_preferences($user);
         $c->stash->{show_collection} = $user->preferences->public_collection;
     }
-}
 
-=head2 profile
-
-Display a users profile page.
-
-=cut
-
-sub profile : Local Args(1)
-{
-    my ($self, $c, $user_name) = @_;
-
-    my $user = $c->model('Editor')->get_by_name($user_name);
-
-    $c->detach('/error_404')
-        if (!defined $user);
-
-    if ($c->user_exists && $c->user->id == $user->id)
-    {
-        $c->stash->{viewing_own_profile} = 1;
-        $c->stash->{show_collection} = 1;
-    }
-    else
-    {
-        $c->model('Editor')->load_preferences($user);
-        $c->stash->{show_collection} = $user->preferences->public_collection;
-    }
-
-    my $subscr_model = $c->model('Editor')->subscription;
-    $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
-    $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
-
-#    my $vote = MusicBrainz::Server::Vote->new($c->model('MB')->dbh);
-#    my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
-#    my $recent_votes = $vote->RecentVotesForUser_as_hashref($user->id);
-
-#    for ($all_votes, $recent_votes)
-#    {
-#        my $t = 0;
-#        $t += $_ for values %$_;
-#        $_->{"TOTAL"} = $t;
-#    }
-
-#    $c->stash->{votes}= [];
-#    for my $v (
-#        [ "yes", &ModDefs::VOTE_YES ],
-#        [ "no", &ModDefs::VOTE_NO ],
-#        [ "abstain", &ModDefs::VOTE_ABS ],
-#        [ "total", "TOTAL" ]
-#    ) {
-#        my $recent = $recent_votes->{$v->[1]};
-#        my $all    = $all_votes->{$v->[1]};
-#
-#        push @{ $c->stash->{votes} }, {
-#            name    => $v->[0],
-#            recent  => $recent || 0,
-#            overall => $all    || 0,
-#
-#            recent_pc  => int(($recent / ($recent_votes->{TOTAL} || 1)) * 100 + 0.5),
-#            overall_pc => int(($all / ($all_votes->{TOTAL} || 1)) * 100 + 0.5),
-#        };
-#    }
-
-#    $c->stash->{preferences} = $c->model('Editor')->get_preferences_hash($user);
-
-    $c->stash(
-        user     => $user,
-        template => 'user/profile.tt',
-    );
+    $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);
 }
 
 =head2 contact

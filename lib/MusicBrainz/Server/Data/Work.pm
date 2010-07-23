@@ -7,11 +7,13 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     load_subobjects
     placeholders
+    query_to_list
     query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
@@ -54,11 +56,24 @@ sub find_by_artist
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = work.artist_credit
                  WHERE acn.artist = ?
-                 ORDER BY name.name
+                 ORDER BY musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub find_by_iswc
+{
+    my ($self, $iswc) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE iswc = ?
+                 ORDER BY musicbrainz_collate(name.name)";
+
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $iswc);
 }
 
 sub load
@@ -97,14 +112,15 @@ sub update
 
 sub delete
 {
-    my ($self, $work) = @_;
-    $self->c->model('Relationship')->delete_entities('work', $work->id);
-    $self->annotation->delete($work->id);
-    $self->tags->delete($work->id);
-    $self->rating->delete($work->id);
-    $self->remove_gid_redirects($work->id);
+    my ($self, $work_id) = @_;
+    $self->c->model('Relationship')->delete_entities('work', $work_id);
+    $self->annotation->delete($work_id);
+    $self->alias->delete_entities($work_id);
+    $self->tags->delete($work_id);
+    $self->rating->delete($work_id);
+    $self->remove_gid_redirects($work_id);
     my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM work WHERE id = ?', $work->id);
+    $sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }
 
@@ -112,6 +128,7 @@ sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);

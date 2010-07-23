@@ -12,6 +12,14 @@ use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
 requires 'edit_type', 'edit_name';
 
+sub edit_template
+{
+    my $self = shift;
+    my $name = lc($self->edit_name);
+    $name =~ s/\s+/_/g;
+    return $name;
+}
+
 has 'c' => (
     isa => 'Object',
     is => 'rw'
@@ -127,18 +135,10 @@ sub is_open
 sub editor_may_vote
 {
     my ($self, $editor) = @_;
-    return defined $self->is_open &&
-                   $editor && $editor->id != $self->editor_id &&
+    return $self->is_open &&
+                   defined $editor && $editor->id != $self->editor_id &&
                    $editor->email_confirmation_date &&
                    $editor->accepted_edits > 10;
-}
-
-sub auto_edit_for_editor
-{
-    my ($self, $editor) = @_;
-    return $editor
-        && $self->edit_conditions->{ $self->quality }->{auto_edit}
-        && $editor->is_auto_editor;
 }
 
 # Subclasses should reimplement this, if they want different edit conditions.
@@ -173,6 +173,11 @@ sub edit_conditions
     };
 }
 
+sub allow_auto_edit
+{
+    return 0;
+}
+
 sub conditions
 {
     my $self = shift;
@@ -192,7 +197,16 @@ sub can_approve
     return
          $self->is_open
       && $conditions->{auto_edit}
-      && ($privs & $AUTO_EDITOR_FLAG);
+      && ($privs->privileges & $AUTO_EDITOR_FLAG);
+}
+
+sub can_cancel
+{
+    my ($self, $user) = @_;
+
+    return
+         $self->is_open
+      && $self->editor_id == $user->id;
 }
 
 =head2 related_entities

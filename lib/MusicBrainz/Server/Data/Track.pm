@@ -100,7 +100,7 @@ sub find_by_recording
             JOIN release_name ON release.name = release_name.id
             JOIN track_name ON track.name = track_name.id
         WHERE track.recording = ?
-        ORDER BY date_year, date_month, date_day, release_name.name
+        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
         OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {

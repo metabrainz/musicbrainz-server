@@ -41,7 +41,8 @@ has_field 'script_id' => (
 );
 
 has_field 'comment' => (
-    type => 'Text'
+    type      => 'Text',
+    maxlength => 255
 );
 
 has_field 'name' => (
@@ -59,7 +60,7 @@ has_field 'mediums' => (
     type => 'Repeatable'
 );
 has_field 'mediums.id' => ( type => 'Integer' );
-has_field 'mediums.name' => ( type => 'Text' );
+has_field 'mediums.name' => ( type => 'Text', maxlength => 255 );
 has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => 'Integer' );

@@ -34,6 +34,13 @@ sub view : Local Args(1) RequireAuth
     $c->detach('/error_404')
         if (!defined $user);
 
+    if (!defined $c->user || $c->user->id != $user->id)
+    {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach('/error_403')
+            unless $user->preferences->public_subscriptions;
+    }
+
     my $entities = $self->_load_paged($c, sub {
         $c->model($self->{model})->find_by_subscribed_editor($user->id, shift, shift);
     });

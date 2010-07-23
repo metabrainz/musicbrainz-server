@@ -78,7 +78,8 @@ override 'to_hash' => sub
 before 'restore' => sub
 {
     my ($self, $hash) = @_;
-    $self->alias_id(delete $hash->{alias_id});
+    my $alias_id = delete $hash->{alias_id} or return;
+    $self->alias_id($alias_id);
 };
 
 __PACKAGE__->meta->make_immutable;

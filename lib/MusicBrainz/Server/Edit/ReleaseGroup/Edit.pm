@@ -13,6 +13,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
 );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -107,6 +108,25 @@ sub _edit_hash
 }
 
 sub _xml_arguments { ForceArray => ['artist_credit'] }
+
+sub allow_auto_edit
+{
+    my $self = shift;
+
+    my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
+                                                  $self->data->{new}{name});
+    return 0 if $old_name ne $new_name;
+
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
+
+    return 0 if defined $self->data->{old}{type_id};
+
+    return 0 if exists $self->data->{new}{artist_credit};
+
+    return 1;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

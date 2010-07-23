@@ -102,17 +102,32 @@ Installing Perl dependencies
 
         sudo cpan -f <Module::Name>
 
+
 Creating the database
 ---------------------
 
-1)  Install PostgreSQL Unaccent Extension
+1)  Install PostgreSQL Extensions
 
-    Before you start, you need to install the PostgreSQL Unaccent Extension on
-    your database server. To build the extension run these commands:
+    Before you start, you need to install the PostgreSQL Extensions on your database
+    server. To build the unaccent extension run these commands:
 
         cd postgresql-unaccent
         make
         sudo make install
+        cd ..
+
+    To build our collate extension you will need libicu and it's development files,
+    to install these run:
+
+        sudo apt-get install libicu-dev
+
+    With libicu installed, you can build and install the collate extension by running:
+
+        cd postgresql-musicbrainz-collate
+        make
+        sudo make install
+        cd ..
+
 
 2)  Setup PostgreSQL authentication
 
@@ -161,7 +176,7 @@ Creating the database
         your needs. Assuming the dumps have been downloaded to /tmp/dumps/ you
         can import them with:
 
-            /admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
         --echo just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2

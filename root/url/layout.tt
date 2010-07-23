@@ -4,14 +4,15 @@
         <ul class="links">
             [% IF c.user_exists %]
                 <li>[% use_in_relationship(url) %]</li>
+                <li>[% link_url(url, 'edits', l('View editing history')) %]</li>
             [% ELSE %]
                 <li>[% request_login(l('Please login to edit this URL')) %]</li>
             [% END %]
         </ul>
     [% END %]
 
-    <div class="content">
-    [% INCLUDE 'url/header.tt' %]
-    [% content %]
+    <div id="content">
+        [% INCLUDE 'url/header.tt' %]
+        [% content %]
     </div>
 [% END %]

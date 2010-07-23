@@ -60,9 +60,9 @@ subtest 'Check edit conditions for default settings' => sub {
     $mech->get_ok('/edit/' . $easy->id, 'fetch edit page');
     xml_ok($mech->content);
 
-    $mech->content_contains('default quality level', 'mentions quality level');
-    $mech->content_contains('accept on expiration', 'mentions expire action');
-    $mech->content_contains('3 unanimous votes to accept/reject', 'mentions vote period');
+    $mech->content_lacks('quality level', 'mentions quality level');
+    $mech->content_contains('on expiration', 'mentions expire action');
+    $mech->content_contains('3 unanimous votes', 'mentions vote period');
 
     done_testing;
 };
@@ -72,8 +72,8 @@ subtest 'Check edit conditions for alternative settings' => sub {
     xml_ok($mech->content);
 
     $mech->content_contains('high quality level', 'mentions quality level');
-    $mech->content_contains('reject on expiration', 'mentions expire action');
-    $mech->content_contains('50 unanimous votes to accept/reject', 'mentions vote period');
+    $mech->content_contains('50 unanimous votes', 'mentions vote period');
+    $mech->content_contains('Reject upon expiration', 'mentions expire action');
 
     done_testing;
 };

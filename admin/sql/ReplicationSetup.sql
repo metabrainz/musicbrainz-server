@@ -8,22 +8,22 @@ BEGIN;
 --CREATE FUNCTION "recordchange" () RETURNS trigger AS
 --'$libdir/pending', 'recordchange' LANGUAGE 'C';
 
-CREATE TABLE "Pending" (
-    "SeqId" serial,
-    "TableName" varchar NOT NULL,
-    "Op" character,
-    "XID" int4 NOT NULL,
-    PRIMARY KEY ("SeqId")
+CREATE TABLE dbmirror_Pending (
+    SeqId serial,
+    TableName varchar NOT NULL,
+    Op character,
+    XID int4 NOT NULL,
+    PRIMARY KEY (SeqId)
 );
 
-CREATE INDEX "Pending_XID_Index" ON "Pending" ("XID");
+CREATE INDEX dbmirror_Pending_XID_Index ON dbmirror_Pending (XID);
 
-CREATE TABLE "PendingData" (
-    "SeqId" int4 NOT NULL,
-    "IsKey" bool NOT NULL,
-    "Data" varchar,
-    PRIMARY KEY ("SeqId", "IsKey") ,
-    FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE dbmirror_PendingData (
+    SeqId int4 NOT NULL,
+    IsKey bool NOT NULL,
+    Data varchar,
+    PRIMARY KEY (SeqId, IsKey) ,
+    FOREIGN KEY (SeqId) REFERENCES dbmirror_Pending (SeqId) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 COMMIT;

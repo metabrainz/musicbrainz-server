@@ -1,23 +1,20 @@
 [% WRAPPER "layout.tt" title=l("Link Types") full_width=1 %]
-
-<h1>[% l("Link Types") %]</h1>
-
-<p>
-
-<table border="1">
-[% FOR row IN table %]
-    <tr>
-    [% FOR column IN row %]
-        <td>
-        [% IF column %]
-            <a href="[% c.uri_for_action("/admin/linktype/tree", [ column ]) %]">[% column %]</a>
-        [% END %]
-        </td>
-    [% END %]
-    </tr>
-[% END %]
-</table>
-
-</p>
-
+    <div id="content">
+        <h1>[% l("Link Types") %]</h1>
+        <p>
+            <table border="1">
+            [% FOR row IN table %]
+                <tr>
+                [% FOR column IN row %]
+                    <td>
+                    [% IF column %]
+                        <a href="[% c.uri_for_action("/admin/linktype/tree", [ column ]) %]">[% column %]</a>
+                    [% END %]
+                    </td>
+                [% END %]
+                </tr>
+            [% END %]
+            </table>
+        </p>
+    </div>
 [% END %]

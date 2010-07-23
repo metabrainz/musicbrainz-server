@@ -129,7 +129,7 @@ unless (defined $iReplicationSequence)
 
 check_foreign_keys();
 
-if ($sql->select_single_value('SELECT COUNT(*) FROM "Pending"'))
+if ($sql->select_single_value('SELECT COUNT(*) FROM dbmirror_pending'))
 {
     print localtime() . " : Continuing a previously aborted load\n";
     goto APPLY_CHANGES;
@@ -244,8 +244,8 @@ unless (defined($TIMESTAMP) and $TIMESTAMP =~ /\A(.*)\n\z/)
     print localtime() . " : This packet was produced at $TIMESTAMP\n";
 }
 
-# Check existence of the Pending and PendingData data files
-for my $f (('"Pending"', '"PendingData"'))
+# Check existence of the dbmirror_pending and dbmirror_pendingdata data files
+for my $f (('dbmirror_pending', 'dbmirror_pendingdata'))
 {
     next if -f "$mydir/mbdump/$f";
     print localtime() . " : There is no mbdump/$f file in this archive!\n";
@@ -254,12 +254,12 @@ for my $f (('"Pending"', '"PendingData"'))
 }
 
 # Load them
-print localtime() . " : Importing Pending and PendingData files\n";
+print localtime() . " : Importing dbmirror_pending and dbmirror_pendingdata files\n";
 system "$FindBin::Bin/ImportReplicationChanges",
     "--tmp-dir", $tmpdir,
     "--",
-    "$mydir/mbdump/\"Pending\"",
-    "$mydir/mbdump/\"PendingData\"",
+    "$mydir/mbdump/dbmirror_pending",
+    "$mydir/mbdump/dbmirror_pendingdata",
     ;
 exit $? if $?;
 

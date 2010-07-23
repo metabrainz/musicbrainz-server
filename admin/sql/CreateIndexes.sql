@@ -20,8 +20,6 @@ CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
 
 CREATE INDEX currentstat_name ON currentstat (name);
 
-CREATE INDEX dbmirror_Pending_XID_Index ON dbmirror_Pending (XID);
-
 CREATE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
@@ -136,6 +134,7 @@ CREATE INDEX recording_idx_name ON recording (name);
 CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
 
 CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid);
+CREATE INDEX recording_puid_idx_puid ON recording_puid (puid);
 
 CREATE INDEX recording_tag_idx_tag ON recording_tag (tag);
 CREATE INDEX recording_tag_idx_recording ON recording_tag (recording);
@@ -183,6 +182,9 @@ CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
 CREATE INDEX work_idx_artist_credit ON work (artist_credit);
 
+CREATE INDEX work_alias_idx_work ON work_alias (work);
+CREATE UNIQUE INDEX work_alias_idx_name_work ON work_alias (name, work, locale);
+
 CREATE UNIQUE INDEX work_name_idx_name ON work_name (name);
 CREATE INDEX work_name_idx_page ON work_name (page_index(name));
 
@@ -191,6 +193,15 @@ CREATE INDEX work_tag_idx_tag ON work_tag (tag);
 -- lowercase indexes for javascript autocomplete
 CREATE INDEX artist_name_idx_lower_name ON artist_name (lower(name));
 CREATE INDEX label_name_idx_lower_name ON label_name (lower(name));
+
+-- musicbrainz_collate indexes for unicode sorting
+CREATE INDEX release_name_idx_musicbrainz_collate ON release_name (musicbrainz_collate(name));
+CREATE INDEX artist_name_idx_musicbrainz_collate ON artist_name (musicbrainz_collate(name));
+CREATE INDEX label_name_idx_musicbrainz_collate ON label_name (musicbrainz_collate(name));
+CREATE INDEX track_name_idx_musicbrainz_collate ON track_name (musicbrainz_collate(name));
+CREATE INDEX work_name_idx_musicbrainz_collate ON work_name (musicbrainz_collate(name));
+
+
 
 COMMIT;
 

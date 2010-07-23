@@ -1,4 +1,13 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
-    <h1>[% l('Edits for {artist}', {artist=html_escape(artist.name)}) %]</h1>
+[% WRAPPER 'layout.tt' title=l('Edits for “{name}”', { name => html_escape(work.name) }) full_width=1 %]
+    <div class="workheader">
+        <h1>[% l('Edits for “{link}”', { link => link_work(work) }) %] [% disambiguation(work) %]</h1>
+        <p class="subheader">
+            <span class="prefix">~</span>
+                [% l('{type} by {artist}', {
+                    type = html_escape(work.type_name) or l('Work'),
+                    artist = artist_credit(work.artist_credit)
+                })%]
+        </p>
+    </div>
     [% INCLUDE 'edit/list.tt' %]
 [% END %]

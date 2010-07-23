@@ -12,16 +12,15 @@ sub show : Path('')
     my $id = join '/', @args;
     $id =~ s/ /_/g;
 
-    $c->detach('/error_404')
-        if $id =~ /^(Special|User):/i;
-
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
-    $c->detach('/error_404') unless $page;
+    if ($page && $page->canonical)
+    {
+        my ($path, $fragment) = split /\#/, $page->{canonical}, 2;
+        $fragment = $fragment ? '#'.$fragment : '';
 
-    if ($page->canonical) {
-        $c->response->redirect($c->uri_for('/doc', $page->{canonical}), 301);
+        $c->response->redirect($c->uri_for('/doc', $path).$fragment, 301);
         return;
     }
 
@@ -29,14 +28,20 @@ sub show : Path('')
     $c->stash(
         id => $id,
         page => $page,
-        wiki_server => &DBDefs::WIKITRANS_SERVER,
     );
 
-    if ($bare) {
-        $c->stash->{template} = $page ? 'doc/bare.tt' : 'doc/bare_error.tt';
+    if ($id =~ /^(Special|User):/i) {
+        $c->response->status(404);
+        $c->stash->{template} = 'doc/error.tt';
+        return;
+    }
+
+    if ($page) {
+        $c->stash->{template} = $bare ? 'doc/bare.tt' : 'doc/page.tt';
     }
     else {
-        $c->stash->{template} = $page ? 'doc/page.tt' : 'doc/error.tt';
+        $c->response->status(404);
+        $c->stash->{template} = $bare ? 'doc/bare_error.tt' : 'doc/error.tt';
     }
 }
 

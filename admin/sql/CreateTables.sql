@@ -89,19 +89,6 @@ CREATE TABLE artist_type (
     name                VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE dbmirror_Pending (
-    SeqId               SERIAL,
-    TableName           NAME NOT NULL,
-    Op                  CHARACTER,
-    XID                 INTEGER NOT NULL
-);
-
-CREATE TABLE dbmirror_PendingData (
-    SeqId               INTEGER NOT NULL, -- PK
-    IsKey               BOOLEAN NOT NULL, -- PK
-    Data                VARCHAR
-);
-
 CREATE TABLE editor
 (
     id                  SERIAL,
@@ -866,10 +853,16 @@ CREATE TABLE url
 (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    url                 VARCHAR(255) NOT NULL,
+    url                 TEXT NOT NULL,
     description         TEXT,
     refcount            INTEGER NOT NULL DEFAULT 0,
     editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE url_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references url.id
 );
 
 CREATE TABLE work (
@@ -880,6 +873,15 @@ CREATE TABLE work (
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE work_alias
+(
+    id                  SERIAL,
+    work                INTEGER NOT NULL, -- references work.id
+    name                INTEGER NOT NULL, -- references work_name.id
+    locale              TEXT,
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 

@@ -76,7 +76,7 @@ sub track_details
         $info{length_time} = sectors_to_ms($info{length_sectors});
         push @track_info, \%info;
     }
-    return @track_info;
+    return \@track_info;
 }
 
 __PACKAGE__->meta->make_immutable;

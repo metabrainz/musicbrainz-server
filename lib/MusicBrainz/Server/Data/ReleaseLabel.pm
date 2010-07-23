@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     placeholders
+    object_to_ids
     query_to_list
     query_to_list_limited
 );
@@ -41,7 +42,7 @@ sub _entity_class
 sub load
 {
     my ($self, @releases) = @_;
-    my %id_to_release = map { $_->id => $_ } @releases;
+    my %id_to_release = object_to_ids (@releases);
     my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
@@ -51,7 +52,10 @@ sub load
     my @labels = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {
-        $id_to_release{$label->release_id}->add_label($label);
+        foreach (@{ $id_to_release{$label->release_id} })
+        {
+            $_->add_label($label);
+        }
     }
 }
 
@@ -64,7 +68,7 @@ sub find_by_label
                     JOIN release ON release.id=rl.release
                     JOIN release_name name ON release.name=name.id
                  WHERE rl.label = ?
-                 ORDER BY date_year, date_month, date_day, catno, name.name
+                 ORDER BY date_year, date_month, date_day, catno, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {

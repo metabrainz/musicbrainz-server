@@ -33,8 +33,8 @@ SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));
 
 INSERT INTO artist_credit_name (artist_credit, artist, name, position) SELECT id, id, name, 0 FROM artist;
 
-INSERT INTO artist_alias (artist, name)
-    SELECT DISTINCT a.ref, n.id
+INSERT INTO artist_alias (id, artist, name)
+    SELECT DISTINCT a.id, a.ref, n.id
     FROM public.artistalias a JOIN artist_name n ON a.name = n.name;
 
 INSERT INTO artist_meta (id, lastupdate, rating, ratingcount)

@@ -16,7 +16,8 @@ has_field 'length' => (
 );
 
 has_field 'comment' => (
-    type => 'Text',
+    type      => 'Text',
+    maxlength => 255
 );
 
 has_field 'artist_credit' => (

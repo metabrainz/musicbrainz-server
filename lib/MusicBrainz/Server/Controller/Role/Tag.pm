@@ -12,8 +12,10 @@ after 'load' => sub
 
     my $entity = $c->stash->{$self->{entity_name}};
     my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
+    my $count = $c->model($self->{model})->tags->find_tag_count($entity->id);
 
     $c->stash( top_tags => \@tags );
+    $c->stash( more_tags => $count > @tags );
 };
 
 sub tags : Chained('load') PathPart('tags')

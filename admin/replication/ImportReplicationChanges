@@ -197,13 +197,13 @@ sub empty
 sub ImportReplicationTables
 {
     $sql->auto_commit;
-    eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId" CASCADE') };
+    eval { $sql->do('ALTER TABLE dbmirror_pendingdata DROP CONSTRAINT "dbmirror_pendingdata_SeqId" CASCADE') };
     $sql->auto_commit;
-    eval { $sql->do('ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey" CASCADE') };
+    eval { $sql->do('ALTER TABLE dbmirror_pending DROP CONSTRAINT "dbmirror_pending_pkey" CASCADE') };
     $sql->auto_commit;
-    eval { $sql->do('ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey" CASCADE') };
+    eval { $sql->do('ALTER TABLE dbmirror_pendingdata DROP CONSTRAINT "dbmirror_pendingdata_pkey" CASCADE') };
 
-    for my $table (('"Pending"', '"PendingData"'))
+    for my $table (('dbmirror_pending', 'dbmirror_pendingdata'))
     {
         my $file = find_file($table);
         $file or print("No data file found for '$table', skipping\n"), die;
@@ -218,9 +218,9 @@ sub ImportReplicationTables
     }
 
     $sql->begin;
-    $sql->do('ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId")');
-    $sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey")');
-    $sql->do('ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_SeqId" FOREIGN KEY ("SeqId") REFERENCES "Pending" ("SeqId") ON UPDATE CASCADE ON DELETE CASCADE');
+    $sql->do('ALTER TABLE dbmirror_pending ADD CONSTRAINT dbmirror_pending_pkey PRIMARY KEY (SeqId)');
+    $sql->do('ALTER TABLE dbmirror_pendingdata ADD CONSTRAINT dbmirror_pendingdata_pkey PRIMARY KEY (SeqId, IsKey)');
+    $sql->do('ALTER TABLE dbmirror_pendingdata ADD CONSTRAINT dbmirror_pendingdata_SeqId FOREIGN KEY (SeqId) REFERENCES dbmirror_pending (SeqId) ON UPDATE CASCADE ON DELETE CASCADE');
     $sql->commit;
 
     return 1;

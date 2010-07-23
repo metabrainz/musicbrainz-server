@@ -16,6 +16,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 $mech->get_ok('/account/change-password');
 xml_ok($mech->content);
+
 $mech->submit_form( with_fields => {
     'changepassword.old_password' => 'wrong password',
     'changepassword.password' => 'password',
@@ -31,6 +32,18 @@ $mech->content_contains('Your password has been changed');
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'new_password' } );
-is($mech->uri->path, '/user/profile/new_editor');
+is($mech->uri->path, '/user/new_editor');
+
+$mech->get_ok('/account/change-password');
+xml_ok($mech->content);
+
+# Reset the password so the other tests in action/user/*.t still run, without resetting
+# the whole database.
+$mech->submit_form( with_fields => {
+    'changepassword.old_password' => 'new_password',
+    'changepassword.password' => 'password',
+    'changepassword.confirm_password' => 'password'
+} );
+$mech->content_contains('Your password has been changed', 'Reset password');
 
 done_testing;

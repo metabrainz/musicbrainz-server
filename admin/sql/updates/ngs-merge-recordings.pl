@@ -370,12 +370,12 @@ Sql::run_in_transaction(sub {
     undef %link_map;
     undef %link_map_update;
 
-    $sql->do("CREATE TEMPORARY TABLE tmp_recording_merge (
+    $sql->do("CREATE TABLE tmp_recording_merge (
         old_rec INTEGER NOT NULL,
         new_rec INTEGER NOT NULL
     )");
 
-    $raw_sql->do("CREATE TEMPORARY TABLE tmp_recording_merge (
+    $raw_sql->do("CREATE TABLE tmp_recording_merge (
         old_rec INTEGER NOT NULL,
         new_rec INTEGER NOT NULL
     )");
@@ -438,7 +438,7 @@ INSERT INTO isrc SELECT * FROM tmp_isrc;
 DROP TABLE tmp_isrc;
 ");
 
-    my @entity_types = qw(artist label release release_group url );
+    my @entity_types = qw(artist label release release_group url work);
     foreach my $type (@entity_types) {
         my ($entity0, $entity1, $table);
         if ($type lt "recording") {

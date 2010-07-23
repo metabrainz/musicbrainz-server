@@ -9,7 +9,7 @@
 [%- END -%]
 
 [%- WRAPPER 'layout.tt' title='Search Plugins' full_width=1 -%]
-    <div class="content">
+    <div id="content">
         <h1>[%- l('Search Plugins') -%]</h1>
         <p>
             [%- l('The links below can be used to install search plugins in compatible

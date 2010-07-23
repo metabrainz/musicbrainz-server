@@ -1,71 +1,58 @@
-[% BLOCK approve %]
-  [% IF !summary && edit.auto_edit_for_editor(c.user) %]
-  <form action="[% c.uri_for_action('/edit/approve', [ edit.id ]) %]"
-        style="display: inline">
-    <input type="hidden" name="url" value="[% c.req.uri %]" />
-    <input type="submit" value="[% l('Approve') %]" />
-  </form>
-  [% END %]
-[% END %]
-
-[% BLOCK cancel %]
-  [% IF !summary && edit.is_open && edit.editor_id == c.user.id %]
-  <form action="[% c.uri_for_action('/edit/cancel', [ edit.id ]) %]"
-        style="display: inline">
-    <input type="hidden" name="url" value="[% c.req.uri %]" />
-    <input type="submit" value="[% l('Cancel') %]" />
-  </form>
-  [% END %]
-[% END %]
-
-<table class="details">
-    <tr>
-        <th>[% l('Edit ID:') %]</th>
-        <td>[% link_edit(edit) %]</td>
-    </tr>
-    <tr>
-        <th>[% l('Editor:') %]</th>
-        <td>[%- link_editor(edit.editor) -%]</td>
-    </tr>
-    <tr>
-        <th>[% l('Edit Type:') %]</th>
-        <td>[% edit.edit_name %]</td>
-    </tr>
-    <tr>
-        <th>[% l('Status:') %]</th>
-        <td>
-          [% edit.status_name %]
-          [% IF edit.is_open;
-             PROCESS approve;
-             PROCESS cancel;
-             END %]
-        </td>
-    </tr>
-    <tr>
-      <th>[% l('Opened:') %]</th>
-      <td>[% UserDate.format(edit.created_time) %]</td>
-    </tr>
-    <tr>
-      [% IF edit.is_open %]
-      <th>[% l('Expires:') %]</th>
-      <td>[% UserDate.format(edit.expires_time) %]</td>
-      [% ELSE %]
-      <th>[% l('Closed:') %]</th>
-      <td>[% UserDate.format(edit.close_time) %]</td>
-      [% END %]
-    </tr>
-    [% IF edit.is_open %]
-    <tr>
-      <th>[% l('Conditions:') %]</th>
-      <td>
-        [% quality_name(edit.quality) %],
-        [% SWITCH edit.conditions.expire_action;
-           CASE 1; l('accept on expiration');
-           CASE 2; l('reject on expiration');
-           END %],
-        [% ln('1 vote to accept/reject', '{n} unanimous votes to accept/reject',
-              edit.conditions.votes, { n => edit.conditions.votes }) %]
-      </td>
-    </tr>
+[% IF summary %]
+    [% IF edit.status != 1 && edit.status != 2 %]
+        <div class="edit-status">
+            [%- edit.status_name -%]
+        </div>
     [% END %]
-</table>
+
+    [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
+
+    [% IF edit.can_approve(c.user) || edit.can_cancel(c.user) %]
+        <div class="cancel-edit buttons">
+            [% IF edit.can_approve(c.user) %]
+                <a class="positive" href="[% c.uri_for_action('/edit/approve', [ edit.id ], { url=c.req.uri }) %]">[% l('Approve edit') %]</a>
+            [% END %]
+
+            [% IF edit.can_cancel(c.user) %]
+                <a class="negative" href="[% c.uri_for_action('/edit/cancel', [ edit.id ], { url=c.req.uri }) %]">[% l('Cancel edit') %]</a>
+            [% END %]
+        </div>
+    [% END %]
+[% ELSE %]
+    [%- WRAPPER 'layout/sidebar/properties.tt' class='edit-status'-%]
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
+            content=edit.status_name -%]
+    [% END %]
+
+    <p>[% edit_status_description(edit) %]</p>
+
+    [%- WRAPPER 'layout/sidebar/properties.tt' -%]
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Opened:')
+            content=html_escape(UserDate.format(edit.created_time)) -%]
+
+        [%- IF edit.is_open -%]
+            <div class="edit-expiration">
+                [% expiration_time(edit.expires_time) %]
+            </div>
+        [% ELSE %]
+            [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
+                content=(edit.status == 8) ? l('<em>Cancelling</em>') : html_escape(UserDate.format(edit.close_time)) %]
+        [% END %]
+
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Affects:')
+                content=quality_name(edit.quality) -%]
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Requires:')
+                content=ln('1 vote', '{n} unanimous votes', edit.conditions.votes,
+                          { n => edit.conditions.votes }) -%]
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Conditions:')
+                content=edit_conditions(edit.conditions.expire_action) -%]
+    [% END %]
+
+    <p>[%- l('For more information:') -%]</p>
+    <ul class="links">
+        <li>[%- l('{doc|Voting FAQ}', { doc => doc_link('Voting_FAQ') }) -%]</li>
+        <li>[%- l('{doc|Editing FAQ}', { doc => doc_link('Editing_FAQ') }) -%]</li>
+        <li>[%- l('{uri|Edit Conditions}', { uri => c.uri_for('/edit/conditions') }) %]</li>
+    </ul>
+[% END %]
+

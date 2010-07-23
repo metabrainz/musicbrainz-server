@@ -6,7 +6,7 @@
         <table class="tbl">
             <thead>
                 <tr>
-                    <th colspan="[% c.user_exists ? 2 : 1 %]">[% l('PUID') %]</th>
+                    <th>[% l('PUID') %]</th>
                     [% IF c.user_exists %]
                         <th style="width: 5em">
                             [% l('Actions') %]
@@ -16,7 +16,11 @@
             </thead>
             [% FOR puid IN puids %]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    <td>[% link_puid(puid.puid) %]</td>
+                    <td>
+                      [% '<span class="mp">' IF puid.edits_pending %]
+                      [% link_puid(puid.puid) %]
+                      [% '</span>' IF puid.edits_pending %]
+                    </td>
                     [% IF c.user_exists %]
                         <td>
                           <a href="[% c.uri_for_action('/recording/delete_puid', [ recording.gid ], { puid => puid.puid.puid }) %]">

@@ -6,7 +6,7 @@
 #
 # Formerly DBMirror.pl
 # Contains the Database mirroring script.
-# This script queries the pending table off the database specified
+# This script queries the dbmirror_pending table off the database specified
 # (along with the associated schema) for updates that are pending on a
 # specific host.  The database on that host is then updated with the changes.
 #
@@ -97,10 +97,10 @@ $sql->do("SET CONSTRAINTS ALL DEFERRED");
 #Obtain a list of pending transactions using ordering by our approximation
 #to the commit time.  The commit time approximation is taken to be the
 #SeqId of the last row edit in the transaction.
-my $query = 'SELECT pd."XID",MAX("SeqId") FROM "Pending" pd GROUP BY pd."XID" ORDER BY MAX(pd."SeqId")';
+my $query = 'SELECT pd.XID,MAX(SeqId) FROM dbmirror_pending pd GROUP BY pd.XID ORDER BY MAX(pd.SeqId)';
 
 my $total_statements = $sql->select_single_value(
-    'SELECT COUNT(*) FROM "Pending"',
+    'SELECT COUNT(*) FROM dbmirror_pending',
 );
 
 # This loop loops through each pending transaction in the proper order.
@@ -149,11 +149,11 @@ if (my $totalrows = $sql->select($query))
         }
 
         my $query = qq|
-                SELECT  pnd."SeqId", pnd."TableName", pnd."Op", pnddata."IsKey", pnddata."Data" AS "Data"
-                FROM    "Pending" pnd, "PendingData" pnddata
-                WHERE   pnd."SeqId" = pnddata."SeqId"
-                AND             pnd."XID" = ?
-                ORDER BY "SeqId", "IsKey" DESC
+                SELECT  pnd.SeqId, pnd.TableName, pnd.Op, pnddata.IsKey, pnddata.Data AS Data
+                FROM    dbmirror_pending pnd, dbmirror_pendingdata pnddata
+                WHERE   pnd.SeqId = pnddata.SeqId
+                AND             pnd.XID = ?
+                ORDER BY SeqId, IsKey DESC
         |;
 
         if ($sql2->select($query, $XID))
@@ -171,7 +171,7 @@ if (my $totalrows = $sql->select($query))
                         }
                         ++$strows;
                 }
-                $slave->do(qq[DELETE FROM "Pending" WHERE "XID" = ?], $XID);
+                $slave->do(qq[DELETE FROM dbmirror_pending WHERE XID = ?], $XID);
                 print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
                 $slave->commit;
         }
@@ -203,7 +203,7 @@ printf "%7d  %7d  %7d  %s\n", $ins, $upd, $del, "(total)";
 print localtime() . " : Replication changes applied\n";
 
 {
-    for my $table (qw( PendingData Pending ))
+    for my $table (qw( dbmirror_pendingdata dbmirror_pending ))
     {
         print localtime() . " : Checking that $table is empty\n";
 

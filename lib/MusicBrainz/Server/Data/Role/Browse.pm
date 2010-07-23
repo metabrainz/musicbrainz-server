@@ -14,7 +14,7 @@ sub find_by_name_prefix
                                                      page_index_max(?)";
 
     $query .= " AND ($conditions)" if $conditions;
-    $query .= ' ORDER BY name.name OFFSET ?';
+    $query .= ' ORDER BY musicbrainz_collate(name.name) OFFSET ?';
 
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },

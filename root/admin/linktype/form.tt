@@ -1,77 +1,60 @@
 <form action="[% c.req.uri %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
 
-[%- USE r = FormRenderer(form) -%]
+    [% form_row_select(r, 'parent_id', l('Parent:')) %]
 
-<p>
-<table>
-    <tr>
-        <td>[% r.label('parent_id', l('Parent:')) %]</td>
-        <td colspan="2">[% r.select('parent_id') %]
-        [% form_field_errors(form, 'parent_id') %]</td>
-    </tr>
+    [% WRAPPER form_row %]
+        [% r.label('child_order', l('Child order:')) %]
+        [% r.text('child_order', { size => 5 }) %]
+        [% form_field_errors(form, 'child_order') %]
+    [% END %]
 
-    <tr>
-        <td>[% r.label('child_order', l('Child order:')) %]</td>
-        <td colspan="2">[% r.text('child_order', { size => 5 }) %]
-        [% form_field_errors(form, 'child_order') %]</td>
-    </tr>
+    [% form_row_text(r, 'name', l('Name:')) %]
 
-    <tr>
-        <td>[% r.label('name', l('Name:')) %]</td>
-        <td colspan="2">[% r.text('name') %]
-        [% form_field_errors(form, 'name') %]</td>
-    </tr>
-
-    <tr>
-        <td>[% r.label('link_phrase', l('Forward link phrase:')) %]</td>
-        <td colspan="2">[% r.text('link_phrase', { size => 70 }) %]
+    [% WRAPPER form_row %]
+        [% r.label('link_phrase', l('Forward link phrase:')) %]
+        [% r.text('link_phrase', { size => 70 }) %]
         [% form_field_errors(form, 'link_phrase') %]</td>
-    </tr>
+    [% END %]
 
-    <tr>
-        <td>[% r.label('reverse_link_phrase', l('Reverse link phrase:')) %]</td>
-        <td colspan="2">[% r.text('reverse_link_phrase', { size => 70 }) %]
-        [% form_field_errors(form, 'reverse_link_phrase') %]</td>
-    </tr>
+    [% WRAPPER form_row %]
+        [% r.label('reverse_link_phrase', l('Reverse link phrase:')) %]
+        [% r.text('reverse_link_phrase', { size => 70 }) %]
+        [% form_field_errors(form, 'reverse_link_phrase') %]
+    [% END %]
 
-    <tr>
-        <td>[% r.label('short_link_phrase', l('Short link phrase:')) %]</td>
-        <td colspan="2">[% r.text('short_link_phrase', { size => 70 }) %]
-        [% form_field_errors(form, 'short_link_phrase') %]</td>
-    </tr>
+    [% WRAPPER form_row %]
+        [% r.label('short_link_phrase', l('Short link phrase:')) %]
+        [% r.text('short_link_phrase', { size => 70 }) %]
+        [% form_field_errors(form, 'short_link_phrase') %]
+    [% END %]
 
-    <tr>
-        <td>[% r.label('description', l('Description:')) %]</td>
-        <td colspan="2">[% r.textarea('description', { cols => 80, rows => 6 }) %]
-        [% form_field_errors(form, 'description') %]</td>
-    </tr>
+    [% WRAPPER form_row %]
+        [% r.label('description', l('Description:')) %]
+        [% r.textarea('description', { cols => 80, rows => 6 }) %]
+        [% form_field_errors(form, 'description') %]
+    [% END %]
 
-    <tr>
-        <td>[% r.label('priority', l('Priority:')) %]</td>
-        <td colspan="2">[% r.text('priority', { size => 5 }) %]
-        [% form_field_errors(form, 'priority') %]</td>
-    </tr>
+    [% WRAPPER form_row %]
+        [% r.label('priority', l('Priority:')) %]
+        [% r.text('priority', { size => 5 }) %]
+        [% form_field_errors(form, 'priority') %]
+    [% END %]
 
-    <tr>
-        <td rowspan="[% form.field('attributes').fields.size %]">[% r.label('attributes', l('Attributes:')) %]</td>
+    [% WRAPPER form_row %]
+        [% r.label('attributes', l('Attributes:')) %]
         [% FOR field IN form.field('attributes').fields %]
-            [% UNLESS loop.first %]<tr>[% END %]
-                <td>
+            <div class="no-label">
                     [% r.hidden(field.field('type')) %]
                     [% r.checkbox(field.field('active')) %]
                     [% attrib_names.item(field.field('type').value) %]
-                </td>
-                <td>[% r.text(field.field('min'), { size => 3 }) %] - [% r.text(field.field('max'), { size => 3 }) %]</td>
-            [% UNLESS loop.last %]</tr>[% END %]
+
+                    [% r.text(field.field('min'), { size => 3 }) %] - [% r.text(field.field('max'), { size => 3 }) %]
+            </div>
         [% END %]
-    </tr>
+    [% END %]
 
-    <tr>
-        <td></td>
-        <td colspan="2"><input type="submit" value="[% l('Save') %]"></td>
-    </td>
-
-</table>
-</p>
-
+    <div class="row no-label">
+        [% form_submit(l('Save')) %]
+    </div>
 </form>

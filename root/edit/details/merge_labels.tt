@@ -1,7 +1,13 @@
 <table class="details">
   <tr>
-    <th>[%- l('Old label:') %]</th>
-    <td>[% link_label(edit.display_data.old) %]</td>
+    <th>[%- l('Old labels:') %]</th>
+    <td>
+      <ul>
+        [% FOR label=edit.display_data.old %]
+        <li>[% link_label(label) %]</li>
+        [% END %]
+      </ul>
+    </td>
   </tr>
 
   <tr>

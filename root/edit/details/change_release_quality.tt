@@ -1,5 +1,13 @@
-[% changes = [ ] -%]
-
-[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
-    { label=l('Quality'), new=data_quality(moderation.new_quality) }
-    ] no_prev=1 -%]
+<table class="details">
+  <tr>
+    <th>[% l('Release:') %]</th>
+    <td colspan="2">[% l('{release} by {artist}',
+             { release => link_release(edit.display_data.release),
+               artist  => artist_credit(edit.display_data.release.artist_credit) }) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Quality:') %]</th>
+    <td class="old">[% quality_name(edit.display_data.quality.old) %]</td>
+    <td class="new">[% quality_name(edit.display_data.quality.new) %]</td>
+  </tr>
+</table>

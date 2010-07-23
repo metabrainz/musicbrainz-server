@@ -20,7 +20,8 @@ has_field 'iswc' => (
 );
 
 has_field 'comment' => (
-    type => 'Text',
+    type      => 'Text',
+    maxlength => 255
 );
 
 has_field 'artist_credit' => (
