@@ -4,7 +4,6 @@
              ac => artist_credit(recording.artist_credit) }) %]</p>
    <form action="[% c.req.uri %]" method="post">
      [%- INCLUDE 'forms/edit-note.tt' -%]
-     [%- INCLUDE 'forms/auto-editor.tt' -%]
-     [%- form_submit(l('Delete PUID')) -%]
+     [% enter_edit() %]
    </form>
 [% END %]

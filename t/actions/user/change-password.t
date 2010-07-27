@@ -32,7 +32,7 @@ $mech->content_contains('Your password has been changed');
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'new_password' } );
-is($mech->uri->path, '/user/profile/new_editor');
+is($mech->uri->path, '/user/new_editor');
 
 $mech->get_ok('/account/change-password');
 xml_ok($mech->content);

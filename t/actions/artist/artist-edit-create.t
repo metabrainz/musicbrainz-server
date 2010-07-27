@@ -3,11 +3,20 @@ use warnings;
 
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok );
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Test::More;
 use Test::WWW::Mechanize::Catalyst;
 
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $c = MusicBrainz::Server::Test->create_test_context;
+MusicBrainz::Server::Test->prepare_test_server();
+my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+
+sub _delete_artist
+{
+    my $sql = Sql->new ($c->conn->dbh);
+    $sql->auto_commit(1);
+    $sql->do('DELETE FROM artist WHERE id IN (?)', @_);
+}
 
 # Test creating new artists via the create artist form
 $mech->get_ok('/login');
@@ -70,6 +79,9 @@ subtest 'Create artists with all fields' => sub {
     $mech->content_contains ('1990-01-02', '.. contains begin date');
     $mech->content_contains ('2003-04-15', '.. contains end date');
 
+    # Cleaning up.
+    _delete_artist ($edit->entity_id);
+
     done_testing;
 };
 
@@ -97,23 +109,25 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Create');
-    is_deeply($edit->data, {
-        name => 'Alice Artist',
-        sort_name => 'Artist, Alice',
-        type_id => undef,
-        country_id => undef,
-        gender_id => undef,
-        comment => undef,
-        begin_date => undef,
-        end_date => undef,
-    });
 
+    is($edit->data->{name}, 'Alice Artist');
+    is($edit->data->{sort_name}, 'Artist, Alice');
+    is($edit->data->{type_id}, undef);
+    is($edit->data->{country_id}, undef);
+    is($edit->data->{gender_id}, undef);
+    is($edit->data->{comment}, undef);
+
+    ok( PartialDate->new($edit->data->{begin_date})->is_empty );
+    ok( PartialDate->new($edit->data->{end_date})->is_empty );
 
     # Test display of edit data
     $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
     xml_ok ($mech->content, '..xml is valid');
     $mech->content_contains ('Alice Artist', '.. contains artist name');
     $mech->content_contains ('Artist, Alice', '.. contains sort name');
+
+    # Cleaning up.
+    _delete_artist ($edit->entity_id);
 
     done_testing;
 };

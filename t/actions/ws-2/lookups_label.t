@@ -4,11 +4,11 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok );
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -17,7 +17,7 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b', 'basic label l
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
@@ -31,7 +31,7 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases', 'l
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
@@ -46,7 +46,7 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+med
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
@@ -56,7 +56,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2007-01-29</date><country>GB</country>
+                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>cd</format><track-list count="12" />
@@ -68,7 +68,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2008-11-17</date><country>GB</country>
+                <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
                         <position>1</position><format>cd</format><track-list count="9" />

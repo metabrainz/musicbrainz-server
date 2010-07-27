@@ -14,7 +14,7 @@ use XML::Parser;
 
 use base 'Exporter';
 
-our @EXPORT_OK = qw( accept_edit reject_edit xml_ok v2_schema_validator );
+our @EXPORT_OK = qw( accept_edit reject_edit xml_ok schema_validator );
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
@@ -235,8 +235,13 @@ sub old_edit_row
     };
 }
 
-sub v2_schema_validator
+sub schema_validator
 {
+    my $version = shift;
+
+    $version = '1.4' if $version == 1;
+    $version = '2.0' if $version == 2 or !$version;
+
     my $rng_file = $ENV{'MMDFILE'};
 
     if (!$rng_file)
@@ -245,7 +250,8 @@ sub v2_schema_validator
         use Cwd;
 
         my $base_dir = Cwd::realpath( File::Basename::dirname(__FILE__) );
-        $rng_file = "$base_dir/../../../../mmd-schema/schema/musicbrainz_mmd-2.0.rng";
+
+        $rng_file = "$base_dir/../../../../mmd-schema/schema/musicbrainz_mmd-$version.rng";
     }
     my $rngschema;
     eval

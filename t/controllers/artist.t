@@ -24,7 +24,7 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (3, 1, 20);
 INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (3, 2, 100);
 ');
     },
-    teardown => sub { get('/logout') }
+    teardown => sub { get('/logout'); },
 } );
 
 $tests->run;

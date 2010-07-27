@@ -22,6 +22,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAlias');
 is_deeply($edit->data, {
     entity_id => 2,
     name => 'An alias',
+    locale => undef,
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

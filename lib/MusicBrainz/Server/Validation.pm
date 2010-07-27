@@ -47,12 +47,12 @@ use strict;
 use Encode qw( decode encode );
 use Date::Calc qw( check_date Delta_YMD );
 use Carp qw( carp cluck croak );
-use Text::Unaccent qw( unac_string );
+use Text::Unaccent qw( unac_string_utf16 );
 
-sub unaccent ($)
+sub unaccent_utf16 ($)
 {
     my $str = shift;
-    return ( defined $str ? unac_string('UTF-8', ''.$str) : '' );
+    return ( defined $str ? unac_string_utf16(''.$str) : '' );
 }
 
 #TODO: Do we still need this?
@@ -381,7 +381,7 @@ sub normalise_strings
         $t =~ tr/\x{0060}\x{00B4}"\x{00AB}\x{00BB}/'/;
 
         # Unaccent what's left
-        decode("utf-8", unaccent(encode("utf-8", $t)));
+        decode("utf-16", unaccent_utf16(encode("utf-16", $t)));
     } @_;
 
     wantarray ? @r : $r[-1];

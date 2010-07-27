@@ -32,6 +32,7 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
     my ($self, $c, $gid) = @_;
 
     my $entity = $self->_load($c, $gid);
+
     if (!defined $entity) {
         $c->response->status(404);
         $c->stash( template => $self->action_namespace . '/not_found.tt' );

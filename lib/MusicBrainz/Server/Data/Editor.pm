@@ -12,7 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
     type_to_model
 );
-use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
+use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED :privileges );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -216,6 +216,26 @@ sub update_profile
     }, $sql);
 }
 
+sub update_privileges
+{
+    my ($self, $editor, $values) = @_;
+
+    my $privs =   $values->{auto_editor}      * $AUTO_EDITOR_FLAG
+                + $values->{bot}              * $BOT_FLAG
+                + $values->{untrusted}        * $UNTRUSTED_FLAG
+                + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
+                + $values->{no_nag}           * $DONT_NAG_FLAG
+                + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
+                + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
+                + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
+
+    my $sql = Sql->new($self->c->dbh);
+    Sql::run_in_transaction(sub {
+        $sql->do('UPDATE editor SET privs=? WHERE id=?',
+                 $privs, $editor->id);
+    }, $sql);
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -225,6 +245,8 @@ sub load
 sub load_preferences
 {
     my ($self, @editors) = @_;
+
+    return unless @editors;
 
     my %editors = map { $_->id => $_ } @editors;
 

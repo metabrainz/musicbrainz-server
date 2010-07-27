@@ -4,11 +4,11 @@ use Test::More;
 use XML::SemanticDiff;
 use XML::SemanticCompare;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -40,7 +40,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <begin>1986-11-05</begin>
             </life-span>
             <alias-list count="5">
-                <alias>보아</alias><alias>ボア</alias><alias>Kwon BoA</alias><alias>BoA Kwon</alias><alias>Beat of Angel</alias>
+                <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>보아</alias><alias>ボア</alias>
             </alias-list>
         </artist>
         <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
@@ -49,7 +49,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <begin>1998</begin>
             </life-span>
             <alias-list count="6">
-                <alias>エムフロウ</alias><alias>m-flow</alias><alias>mflo</alias><alias>meteorite-flow crew</alias><alias>mediarite-flow crew</alias><alias>えむふろう</alias>
+                <alias>m-flow</alias><alias>mediarite-flow crew</alias><alias>meteorite-flow crew</alias><alias>mflo</alias><alias>えむふろう</alias><alias>エムフロウ</alias>
             </alias-list>
         </artist>
     </artist-list>
