@@ -278,13 +278,19 @@ sub _serialize_work
     my $opts = $stash->store ($work);
 
     my $iswc = $work->iswc;
-    $iswc =~ s/^\s+//;
-    $iswc =~ s/\s+$//;
+    if ($iswc)
+    {
+        $iswc =~ s/^\s+//;
+        $iswc =~ s/\s+$//;
+    }
+
+    my %attrs;
+    $attrs{id} = $work->gid;
+    $attrs{type} = lc($work->type->name) if ($work->type);
 
     my @list;
     push @list, $gen->iswc($iswc) if $iswc;
     push @list, $gen->title($work->name);
-    push @list, $gen->length($work->length);
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     if ($toplevel)
@@ -301,7 +307,7 @@ sub _serialize_work
     $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
-    push @$data, $gen->work({ id => $work->gid, type => $work->type->name }, @list);
+    push @$data, $gen->work(\%attrs, @list);
 }
 
 sub _serialize_recording_list
@@ -375,6 +381,7 @@ sub _serialize_medium
     push @med, $gen->position($medium->position);
     push @med, $gen->format(lc($medium->format->name)) if ($medium->format);
     $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
+
     $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $stash);
 
     push @$data, $gen->medium(@med);
@@ -384,13 +391,23 @@ sub _serialize_track_list
 {
     my ($self, $data, $gen, $tracklist, $inc, $stash) = @_;
 
+    # Not all tracks in the tracklists may have been loaded.  If not all
+    # tracks have been loaded, only one them will have been loaded which
+    # therefore can be represented as if a query had been performed with
+    # limit = 1 and offset = track->position.
+
+    my $min = @{$tracklist->tracks} ? $tracklist->tracks->[0]->position : 0;
     my @list;
     foreach my $track (@{$tracklist->tracks})
     {
+        $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }
 
-    push @$data, $gen->track_list({ count => $tracklist->track_count }, @list);
+    my %attr = ( count => $tracklist->track_count );
+    $attr{offset} = $min - 1 if $min > 1;
+
+    push @$data, $gen->track_list(\%attr, @list);
 }
 
 sub _serialize_track
@@ -399,9 +416,16 @@ sub _serialize_track
 
     my @track;
     push @track, $gen->position($track->position);
-    push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
 
-    $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash);
+    if ($track->recording)
+    {
+        push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
+        $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash);
+    }
+    else
+    {
+        push @track, $gen->title($track->name);
+    }
 
     push @$data, $gen->track(@track);
 }

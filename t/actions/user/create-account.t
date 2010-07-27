@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => {
     'register.confirm_password' => 'magic_password',
 });
 
-like($mech->uri, qr{/user/profile/brand_new_editor}, 'should redirect to profile page after registering');
+like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
 
 $mech->get_ok('/register', 'Fetch registration page');
 $mech->submit_form( with_fields => {
@@ -30,7 +30,7 @@ $mech->submit_form( with_fields => {
     'register.email' => 'foo@bar.com',
 });
 
-like($mech->uri, qr{/user/profile/email_editor}, 'should redirect to profile page after registering');
+like($mech->uri, qr{/user/email_editor}, 'should redirect to profile page after registering');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->deliveries->[-1]->{email};

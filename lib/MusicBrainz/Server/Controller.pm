@@ -32,6 +32,7 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
     my ($self, $c, $gid) = @_;
 
     my $entity = $self->_load($c, $gid);
+
     if (!defined $entity) {
         $c->response->status(404);
         $c->stash( template => $self->action_namespace . '/not_found.tt' );
@@ -59,12 +60,8 @@ sub _load
         $c->detach;
     }
     else {
-        $c->response->status(400);
-        $c->stash(
-            template => 'main/400.tt',
-            message  => "'$id' is not a valid MusicBrainz ID"
-        );
-        $c->detach;
+        $c->stash( message  => "'$id' is not a valid MusicBrainz ID" );
+        $c->detach('/error_400');
     }
 }
 

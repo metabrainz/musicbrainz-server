@@ -95,7 +95,7 @@ $work = $work_data->get_by_id($work->id);
 is($work->name, 'Traits (remix)');
 is($work->iswc, 'T-100.000.001-0');
 
-$work_data->delete($work);
+$work_data->delete($work->id);
 $work = $work_data->get_by_id($work->id);
 ok(!defined $work);
 

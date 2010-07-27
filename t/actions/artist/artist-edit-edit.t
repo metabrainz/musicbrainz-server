@@ -50,7 +50,11 @@ is_deeply($edit->data, {
                 month => 01,
                 day => 02
             },
-            end_date => undef,
+            end_date => {
+                year => undef,
+                month => undef,
+                day => undef,
+            },
         },
         old => {
             name => 'Test Artist',

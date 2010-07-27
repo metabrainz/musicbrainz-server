@@ -25,46 +25,39 @@
     </head>
     <body>
         <div id="header">
-            <div id="header-logo"><a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
+            <div id="header-logo">
+                <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
                 <div>
                     [%- USE sidebar = FormRenderer(sidebar_search) -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
-                        [% sidebar.text('query') -%] [%- sidebar.select('type') %] 
-                        <input type="submit" value="Search" />
+                        [% sidebar.text('query') -%] [%- sidebar.select('type') %]
+                        [% form_submit(l('Search'), "header-search") %]
                     </form>
                 </div>
             </div>
-            <div id="header-menu"><div>
-                [%- INCLUDE "layout/menu.tt" -%]
-                <div class="r"></div><div class="l"></div>
-            </div></div>
+            <div id="header-menu">
+                <div>
+                    [%- INCLUDE "layout/menu.tt" -%]
+                    <div class="r"></div><div class="l"></div>
+                </div>
+            </div>
         </div>
 
         [% IF server_details.staging_server %]
             <div class="server-details">
                 <p>
-                    [% l("This is a MusicBrainz $server_details.staging_server server.
-                          The main server is located at {uri|http://musicbrainz.org}<img
-                          src=\"{ext_link}\" alt=\"{ext_site}\"/>.",
-                        { ext_link => c.uri_for('/static/images/icon/extlink.gif'),
-                          ext_site => l("External Website"),
-                          uri="http://musicbrainz.org"}) %]
+                    [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
+                    [%= l('The main server is located at {uri}.',
+                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) ~%]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
-        [% END %]
-
-        [% IF server_details.is_slave_db %]
+        [% ELSIF server_details.is_slave_db %]
             <div class="server-details">
                 <p>
-                    [% l('This is a MusicBrainz {doc|mirror server}, editing the data is
-                          not possible.<br />To edit or make changes to any data please
-                          visit the main server at {uri|http://musicbrainz.org}<img
-                          src="{ext_link}" alt="{ext_site}" width="12" />.',
-                         { ext_link => c.uri_for('/static/images/icon/extlink.gif'),
-                           doc => doc_link('Mirror_Server'),
-                           ext_site => l("External Website"),
-                           uri="http://musicbrainz.org/"}) %]
+                    [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
+                          visit the main server at {uri}.',
+                         { uri => '<a href="http://musicbrainz.org/" class="external">http://musicbrainz.org</a>' }) %]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
@@ -83,17 +76,17 @@
         [%- END -%]
 
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
-        [%- content -%]
-        <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            [%- content -%]
+            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
 
         <div id="footer">
             <ul class="links">
-                <li><a href="http://metabrainz.org/donate">[% l('Donate') %]</a></li>
-                <li><a href="http://[% wiki_server %]/">[% l('Wiki') %]</a></li>
-                <li><a href="http://forums.musicbrainz.org/">[% l('Forums') %]</a></li>
-                <li><a href="http://jira.musicbrainz.org/">[% l('Bug Tracker') %]</a></li>
-                <li><a href="http://www.cafepress.com/musicbrainz">[% l('Schwag') %]</a></li>
+                <li><a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a></li>
+                <li><a href="http://[% wiki_server %]/" class="internal">[% l('Wiki') %]</a></li>
+                <li><a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a></li>
+                <li><a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a></li>
+                <li><a href="http://www.cafepress.com/musicbrainz" class="internal">[% l('Schwag') %]</a></li>
             </ul>
 
             <p class="sponsors">

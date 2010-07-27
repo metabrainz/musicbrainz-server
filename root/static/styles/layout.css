@@ -27,6 +27,11 @@ a.external {
     padding-right: 13px;
 }
 
+a.internal {
+    background: none;
+    padding-right: 0;
+}
+
 p {
     margin: 1em 0;
 }
@@ -103,12 +108,11 @@ code {
     color: #FFF;
 }
 
-#header-logo div { text-align: right; padding-right: 1em; }
-#header-logo form {
-    height: 58px;
-    line-height: 58px;
-    margin: 0;
-    padding: 0;
+#header-logo div {
+    position: relative;
+    top: 17px;
+    float: right;
+    padding-right: 1em;
 }
 
 #header-logo #id-type {
@@ -466,12 +470,21 @@ table.tbl .t { text-align: right; }
 }
 
 /* Browse Entity pages */
+.browse-entities {
+    margin-top: 1em;
+}
+
 .browse-entities ol {
     margin: 0;
 }
 
+.browse {
+    margin-top: 0.5em;
+}
+
 .browse td {
     text-align: center;
+    padding: 2px;
 }
 
 .browse td.char {

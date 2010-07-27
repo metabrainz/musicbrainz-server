@@ -11,6 +11,7 @@ sub _load
 {
     my ($self, $c, $name) = @_;
 
+    $c->stash( tag => $name );
     return $c->model('Tag')->get_by_name($name);
 }
 
