@@ -104,19 +104,20 @@ sub artist : Chained('root') PathPart('artist') Args(1)
 
         if (@rg)
         {
-            my @releases = $self->_load_paged($c, sub {
+            my ($results, $hits) = $self->_load_paged($c, sub {
                 $c->model('Release')->find_by_release_group([ map { $_->id } @rg ], shift, shift)
             });
 
-            $c->model('ReleaseStatus')->load(@{$releases[0]});
+            $c->model('ReleaseStatus')->load(@$results);
 
+            my @releases;
             if ($c->stash->{inc}->rel_status && @rg)
             {
-                @releases = grep { $_->status->id == $c->stash->{inc}->rel_status } @{$releases[0]};
+                @releases = grep { $_->status->id == $c->stash->{inc}->rel_status } @$results;
             }
             else
             {
-                @releases = @{$releases[0]};
+                @releases = @$results;
             }
 
             # make sure the release groups are hooked up to the releases, so
