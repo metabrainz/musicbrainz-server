@@ -94,10 +94,28 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
     }
 }
 
-sub annotation_history : Chained('load') PathPart
+sub annotation_history : Chained('load') PathPart('annotations')
 {
     my ($self, $c) = @_;
-    $c->detach('/error_404');
+
+    my $model            = $self->{model};
+    my $entity           = $c->stash->{entity};
+    my $annotation_model = $c->model($model)->annotation;
+
+    my ($annotations, $hits) =
+
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        });
+
+    $c->model('Editor')->load(@$annotations);
+    $c->stash( annotations => $annotations );
+}
+
+sub annotation_diff : Chained('load') PathPart('annotations-differences')
+{
+    my ($self, $c) = @_;
 }
 
 no Moose::Role;

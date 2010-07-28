@@ -1,0 +1,43 @@
+[% USE UserDate %]
+
+[% WRAPPER 'artist/layout.tt' full_width=1 title=l('Annotations') %]
+  <h2>[% l('Annotation history') %]</h2>
+  <form action="[% c.uri_for_action(c.namespace _ '/annotation_diff', [ entity.gid ]) %]">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>[% l('New') %]</th>
+          <th>[% l('Old') %]</th>
+          <th>[% l('Editor') %]</th>
+          <th>[% l('Date') %]</th>
+          <th>[% l('Changelog') %]</th>
+        </tr>
+      </thead>
+      <tbody>
+        [% FOR annotation=annotations %]
+        <tr>
+          <td>
+            <input type="radio" name="new" value="[% annotation.id %]"
+                     [% IF loop.first %]checked="checked"[% END %]/>
+          </td>
+          <td>
+            <input type="radio" name="old" value="[% annotation.id %]"
+                   [% IF loop.index == 1 %]checked="checked"[% END %]/>
+          </td>
+          <td>[% link_editor(annotation.editor) %]</td>
+          <td>[% UserDate.format(annotation.creation_date) %]</td>
+          <td>
+            <a href="[% c.uri_for_action(c.controller.action_for('annotation_revision'),
+                     [ entity.gid ], annotation.id) %]">
+              [% annotation.changelog || l('(no changelog)') %]
+            </a>
+          </td>
+        </tr>
+      </tbody>
+      [% END %]
+    </table>
+    <p>
+      [% form_submit(l('Compare versions')) %]
+    </p>
+  </form>
+[% END %]
