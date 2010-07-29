@@ -67,6 +67,21 @@ sub hidden
     return $self->_render_input($field, 'hidden', %$attrs);
 }
 
+sub submit
+{
+    my ($self, $field_name, $value, $attrs) = @_;
+
+    $attrs ||= {};
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->h->input({
+            type => 'submit',
+            id => "id-" . $field->html_name,
+            value => $value,
+            name => $field->html_name,
+            %$attrs
+        });
+}
+
 sub password
 {
     my ($self, $field_name, $attrs) = @_;
@@ -148,6 +163,7 @@ sub select
         id => "id-" . $field->html_name,
         name => $field->html_name,
         multiple => $field->multiple ? "multiple" : undef,
+        disabled => $field->disabled ? "disabled" : undef,
         %{ $attrs || {} }
     }, \@options);
 }
@@ -181,7 +197,7 @@ sub artist_credit_editor
 
     # Artist credit editor
     my $preview = $field->fif;
-    my %gid_id_map = map { $_->artist->id => $_->artist->gid } grep { defined $_->artist } @{ $preview->names };
+    my %gid_id_map = map { $_->artist->id => $_->artist->gid } grep { defined $_->artist } @{ $preview->{names} };
 
     my @credits = map { [
         $self->h->input({
