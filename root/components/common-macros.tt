@@ -233,7 +233,7 @@ END -%]
 END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => redirect || c.req.uri });
+    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
 
 [%- MACRO request_login(text) BLOCK -%]
