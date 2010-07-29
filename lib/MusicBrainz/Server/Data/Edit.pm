@@ -54,7 +54,12 @@ sub _new_from_row
         c => $self->c,
     );
     $edit->language_id($row->{language}) if $row->{language};
-    $edit->restore($data);
+    try {
+        $edit->restore($data);
+    }
+    catch {
+        $edit->clear_data;
+    }
     $edit->close_time($row->{closetime}) if defined $row->{closetime};
     return $edit;
 }
@@ -278,6 +283,8 @@ sub create
 sub load_all
 {
     my ($self, @edits) = @_;
+
+    @edits = grep { $_->has_data } @edits;
 
     my $objects_to_load  = {}; # Objects loaded with get_by_id
     my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
