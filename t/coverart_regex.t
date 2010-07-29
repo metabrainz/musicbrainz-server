@@ -6,6 +6,7 @@ use aliased 'MusicBrainz::Server::CoverArt::Provider::RegularExpression' => 'Pro
 
 my $provider = Provider::RegularExpression->new(
     name               => 'Discogs',
+    domain             => 'discogs.com',
     uri_expression     => 'http://www.discogs.com/image/R-(\d+)-(\d+).jpeg',
     image_uri_template => 'http://www.discogs.com/image/R-$1-$2.jpeg',
     info_uri_template  => 'http://www.discogs.com/release/$1',

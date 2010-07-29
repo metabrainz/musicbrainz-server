@@ -40,7 +40,7 @@ my $verify_email_path = $1;
 $mech->get_ok($verify_email_path);
 $mech->content_contains("Thank you, your email address has now been verified!");
 
-$mech->get('/user/profile/new_editor');
+$mech->get('/user/new_editor');
 $mech->content_contains('http://example.com/~new_editor/');
 $mech->content_contains('hello world!');
 $mech->content_contains('new_email@example.com');

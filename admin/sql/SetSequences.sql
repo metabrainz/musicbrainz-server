@@ -7,7 +7,6 @@ SELECT setval('artist_alias_id_seq', (SELECT MAX(id) FROM artist_alias));
 SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));
 SELECT setval('artist_name_id_seq', (SELECT MAX(id) FROM artist_name));
 SELECT setval('artist_type_id_seq', (SELECT MAX(id) FROM artist_type));
-SELECT setval('dbmirror_Pending_SeqId_seq', (SELECT MAX(SeqId) FROM dbmirror_Pending));
 SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
 SELECT setval('editor_preference_id_seq', (SELECT MAX(id) FROM editor_preference));
 SELECT setval('editor_subscribe_artist_id_seq', (SELECT MAX(id) FROM editor_subscribe_artist));

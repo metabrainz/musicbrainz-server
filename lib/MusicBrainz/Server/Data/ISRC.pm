@@ -33,15 +33,16 @@ sub _entity_class
 
 sub find_by_recording
 {
-    my ($self, $ids) = @_;
+    my $self = shift;
 
-    my @ids = ref $ids ? @$ids : ( $ids );
+    my @ids = ref $_[0] ? @{$_[0]} : @_;
+
     my $query = "SELECT ".$self->_columns."
                    FROM ".$self->_table."
                   WHERE recording IN (" . placeholders(@ids) . ")
                   ORDER BY isrc";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
-                         $query, @{ids});
+                         $query, @ids);
 }
 
 sub find_by_isrc

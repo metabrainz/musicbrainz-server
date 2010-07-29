@@ -22,10 +22,8 @@
     <div id="content">
         <h1>[% l("Link Attribute Types") %]</h1>
 
-        <p>
-        [
+        <p class="buttons">
             <a href="[% c.uri_for_action('/admin/linkattributetype/create') %]">[% l('New Link Attribute Type') %]</a>
-        ]
         </p>
 
         <ul>

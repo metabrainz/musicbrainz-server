@@ -6,8 +6,9 @@ use MusicBrainz::Server::Track;
 extends 'HTML::FormHandler::Field::Text';
 
 sub deflate {
-    my $self = shift;
-    return MusicBrainz::Server::Track::FormatTrackLength($self->value);
+    my ($self, $value) = @_;
+    $value ||= $self->value;
+    return MusicBrainz::Server::Track::FormatTrackLength($value);
 }
 
 sub validate

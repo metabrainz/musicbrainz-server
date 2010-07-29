@@ -29,7 +29,7 @@ sub _columns
 {
     return 'release.id, gid, name.name, release.artist_credit AS artist_credit_id,
             release_group, status, packaging, date_year, date_month, date_day,
-            country, comment, editpending, barcode, script, language, quality';
+            country, comment, release.editpending, barcode, script, language, quality';
 }
 
 sub _id_column
@@ -89,6 +89,21 @@ sub find_by_artist
         $query, $artist_id, $offset || 0);
 }
 
+sub find_by_label
+{
+    my ($self, $label_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN release_label
+                         ON release_label.release = release.id
+                 WHERE release_label.label = ?
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $label_id, $offset || 0);
+}
+
 sub find_by_release_group
 {
     my ($self, $ids, $limit, $offset) = @_;
@@ -122,21 +137,91 @@ sub find_by_track_artist
         $query, $artist_id, $offset || 0);
 }
 
+sub find_for_various_artists
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN artist_credit_name acn
+                         ON acn.artist_credit = release.artist_credit
+                 WHERE acn.artist != ?
+                 AND release.id IN (
+                     SELECT release FROM medium
+                         JOIN track tr
+                         ON tr.tracklist = medium.tracklist
+                         JOIN artist_credit_name acn
+                         ON acn.artist_credit = tr.artist_credit
+                     WHERE acn.artist = ?)
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $artist_id, $offset || 0);
+}
+
 sub find_by_recording
 {
-    my ($self, $ids) = @_;
+    my ($self, $ids, $limit, $offset) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
-    my $query = 'SELECT ' . $self->_columns .
-                ' FROM ' . $self->_table .
-                ' WHERE release.id IN (
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE release.id IN (
                     SELECT release FROM medium
-                      JOIN track ON track.tracklist = medium.tracklist
-                      JOIN recording ON recording.id = track.recording
-                     WHERE recording.id IN (' . placeholders(@ids) . ')
-                )';
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
-                         $query, @{ids});
+                        JOIN track ON track.tracklist = medium.tracklist
+                        JOIN recording ON recording.id = track.recording
+                     WHERE recording.id IN (" . placeholders(@ids) . "))
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, @ids, $offset || 0);
 }
+
+sub load_with_tracklist_for_recording
+{
+    my ($self, $recording_id, $limit, $offset) = @_;
+    my $query = "
+        SELECT
+            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+                release.artist_credit AS r_artist_credit_id,
+                release.date_year AS r_date_year,
+                release.date_month AS r_date_month,
+                release.date_day AS r_date_day,
+                release.country AS r_country, release.status AS r_status,
+                release.packaging AS r_packaging,
+            medium.id AS m_id, medium.format AS m_format,
+                medium.position AS m_position, medium.name AS m_name,
+                medium.tracklist AS m_tracklist,
+                tracklist.trackcount AS m_trackcount,
+            track.id AS t_id, track_name.name AS t_name,
+                track.tracklist AS t_tracklist, track.position AS t_position,
+                track.length AS t_length, track.artist_credit AS t_artist_credit
+        FROM
+            track
+            JOIN tracklist ON tracklist.id = track.tracklist
+            JOIN medium ON medium.tracklist = tracklist.id
+            JOIN release ON release.id = medium.release
+            JOIN release_name ON release.name = release_name.id
+            JOIN track_name ON track.name = track_name.id
+        WHERE track.recording = ?
+        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+        OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub {
+            my $row = shift;
+            my $track = MusicBrainz::Server::Data::Track->_new_from_row($row, 't_');
+            my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
+            my $tracklist = $medium->tracklist;
+            my $release = $self->_new_from_row($row, 'r_');
+
+            push @{ $release->mediums }, $medium;
+            push @{ $tracklist->tracks }, $track;
+
+            return $release;
+        },
+        $query, $recording_id, $offset || 0);
+}
+
 
 sub find_by_puid
 {
@@ -167,8 +252,8 @@ sub find_by_medium
                      WHERE medium.id IN (' . placeholders(@ids) . ')
                 )
                 OFFSET ?';
-    return query_to_list_limited($self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-                                 $query, @{ids}, $offset || 0);
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                         $query, @{ids}, $offset || 0);
 }
 
 sub find_by_collection

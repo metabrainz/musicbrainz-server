@@ -15,8 +15,12 @@ sub show : Path('')
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
-    if ($page && $page->canonical) {
-        $c->response->redirect($c->uri_for('/doc', $page->{canonical}), 301);
+    if ($page && $page->canonical)
+    {
+        my ($path, $fragment) = split /\#/, $page->{canonical}, 2;
+        $fragment = $fragment ? '#'.$fragment : '';
+
+        $c->response->redirect($c->uri_for('/doc', $path).$fragment, 301);
         return;
     }
 

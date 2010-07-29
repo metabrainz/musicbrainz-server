@@ -32,6 +32,6 @@ ALTER SEQUENCE editor_id_seq RESTART 4;
 
 INSERT INTO editor_collection (id, editor) VALUES (1, 2), (2, 1);
 INSERT INTO editor_collection_release (collection, release)
-    VALUES (1, 1), (1, 2);
+    VALUES (1, 1);
 
 COMMIT;

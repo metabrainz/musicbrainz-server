@@ -16,8 +16,6 @@ ALTER TABLE cdtoc ADD CONSTRAINT cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
 ALTER TABLE country ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (id);
-ALTER TABLE dbmirror_Pending ADD CONSTRAINT dbmirror_Pending_pkey PRIMARY KEY (SeqId);
-ALTER TABLE dbmirror_PendingData ADD CONSTRAINT dbmirror_PendingData_pkey PRIMARY KEY (SeqId, IsKey);
 ALTER TABLE editor ADD CONSTRAINT editor_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection ADD CONSTRAINT editor_collection_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection_release ADD CONSTRAINT editor_collection_release_pkey PRIMARY KEY (collection, release);

@@ -20,8 +20,6 @@ CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
 
 CREATE INDEX currentstat_name ON currentstat (name);
 
-CREATE INDEX dbmirror_Pending_XID_Index ON dbmirror_Pending (XID);
-
 CREATE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 

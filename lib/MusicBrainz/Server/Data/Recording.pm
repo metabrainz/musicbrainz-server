@@ -25,9 +25,10 @@ sub _table
 
 sub _columns
 {
-    return 'recording.id, gid, name.name,
-            recording.artist_credit AS artist_credit_id, length,
-            comment, editpending AS edits_pending';
+    return 'recording.id, recording.gid, name.name,
+            recording.artist_credit AS artist_credit_id,
+            recording.length, recording.comment,
+            recording.editpending AS edits_pending';
 }
 sub _column_mapping
 {
@@ -71,6 +72,24 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub find_by_release
+{
+    my ($self, $release_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN track ON track.recording = recording.id
+                     JOIN medium ON medium.tracklist = track.tracklist
+                     JOIN release ON release.id = medium.release
+                 WHERE release.id = ?
+                 ORDER BY musicbrainz_collate(name.name)
+                 OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $release_id, $offset || 0);
 }
 
 sub load

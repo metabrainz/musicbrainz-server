@@ -2,6 +2,8 @@
     ['index', link_work(work, 'show', l('Overview'))],
     ['relationships', link_work(work, 'relationships', l('Relationships'))],
     ['aliases', link_work(work, 'aliases', l('Aliases'))],
+    ['tags', link_work(work, 'tags', l('Tags'))],
+    ['details', link_work(work, 'details', l('Details'))],
     ['edit', link_work(work, 'edit', l('Edit'))],
 ] -%]
 

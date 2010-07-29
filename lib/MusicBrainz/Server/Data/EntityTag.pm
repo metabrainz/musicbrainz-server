@@ -214,7 +214,7 @@ sub parse_tags
         $_ =~ s/\s+/ /sg;
         # remove leading and trailing whitespace
         $_ =~ s/^\s*(.*?)\s*$/$1/;
-        $_;
+        $_ = lc($_);
     } split ',', $input;
 
     # make sure the list contains only unique tags
