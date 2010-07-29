@@ -176,6 +176,15 @@ sub form
     return $form;
 }
 
+sub relative_uri
+{
+    my ($self) = @_;
+    my $uri = URI->new($self->req->uri->path);
+    $uri->path_query($self->req->uri->path_query);
+
+    return $uri;
+}
+
 =head1 NAME
 
 MusicBrainz::Server - Catalyst-based MusicBrainz server
