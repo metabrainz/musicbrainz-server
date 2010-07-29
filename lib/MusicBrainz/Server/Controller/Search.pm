@@ -148,7 +148,7 @@ sub external : Private
 
     $c->detach('/search/editor') if $type eq 'editor';
 
-    my $limit  = $form->field('limit');
+    my $limit  = $form->field('limit')->value;
     my $page   = $c->request->query_params->{page} || 1;
     my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
 
