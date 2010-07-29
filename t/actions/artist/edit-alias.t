@@ -7,6 +7,7 @@ use Test::More;
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
+MusicBrainz::Server::Test->prepare_test_server();
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 
 $mech->get_ok('/login');

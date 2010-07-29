@@ -4,11 +4,11 @@ use Test::More;
 use XML::SemanticDiff;
 use XML::SemanticCompare;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -59,21 +59,15 @@ $mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+ratings
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label>
+    <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name><country>GB</country>
         <life-span>
             <begin>1995</begin>
         </life-span>
         <tag-list>
-            <tag count="1">
-                <name>british</name>
-            </tag>
-            <tag count="1">
-                <name>english</name>
-            </tag>
-            <tag count="1">
-                <name>uk</name>
-            </tag>
+            <tag count="1"><name>british</name></tag>
+            <tag count="1"><name>english</name></tag>
+            <tag count="1"><name>uk</name></tag>
         </tag-list>
     </label>
 </metadata>';

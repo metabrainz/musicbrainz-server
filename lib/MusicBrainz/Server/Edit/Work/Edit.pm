@@ -3,7 +3,7 @@ use Moose;
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-
+use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );

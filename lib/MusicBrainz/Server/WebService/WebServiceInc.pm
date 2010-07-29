@@ -46,7 +46,7 @@ sub BUILD
 {
     my ($self, $args) = @_;
 
-    my $meta = __PACKAGE__->meta;
+    my $meta = $self->meta;
     my %methods = map { $_->name => $_ } $meta->get_all_attributes;
 
 #     if (exists $args->{rel_status} && $args->{rel_status})

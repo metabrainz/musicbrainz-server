@@ -51,10 +51,10 @@
         <p>
             [
             [% IF index.length > 1 %]
-                [% l('{uri|Back}', { uri => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]
+                <a href="[% c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) | html %]">[% l('Back') %]</a>
                 | 
             [% END %]
-            [%- l('{uri|Start over}', { uri => c.req.uri_with( index => "", page => 1 ) }) -%]
+            <a href="[% c.req.uri_with( index => "", page => 1 ) | html %]">[% l('Start over') %]</a>
             ]
         </p>
     [% END %]

@@ -3,11 +3,11 @@ use strict;
 use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -64,7 +64,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <label-info-list count="1">
             <label-info>
                 <catalog-number>rzcd-45118</catalog-number>
-                <label>
+                <label id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
                     <name>rhythm zone</name><sort-name>rhythm zone</sort-name>
                 </label>
             </label-info>

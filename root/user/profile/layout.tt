@@ -10,7 +10,7 @@
 [% MACRO generic_link(url, text) BLOCK %]<a href="[% url %]">[% text %]</a>[% END %]
 
 [%- info_links = [
-    ['index', generic_link(c.uri_for_action("/user/profile", user.name), l('Profile'))],
+    ['index', generic_link(c.uri_for_action("/user/profile/view", [ user.name ]), l('Profile'))],
     ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist/view", user.name), l('Subscriptions'))],
     ['subscribers', generic_link(c.uri_for_action("/user/subscribers/view", [ user.name ]), l('Subscribers'))],
 ] -%]
@@ -33,6 +33,12 @@
     ['open_edits', generic_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
     ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ) -%]
+
+[%- IF show_flags -%]
+[%- info_links.push (
+    ['flags', generic_link(c.uri_for_action("/user/adjustflags/view", [ user.name ]), l('Adjust Flags'))],
+) -%]
+[%- END -%]
 
     [% INCLUDE 'components/tabs.tt' list=info_links %]
 
