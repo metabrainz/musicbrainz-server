@@ -6,6 +6,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::WebService::XMLSerializerV1;
 
+has 'model' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
 sub serializers {
     return {
         xml => 'MusicBrainz::Server::WebService::XMLSerializerV1',
@@ -19,6 +24,22 @@ sub begin : Private {
 
 # Don't render with TT
 sub end : Private { }
+
+sub load : Chained('root') PathPart('') CaptureArgs(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    my $entity = $c->model($self->model)->get_by_gid($gid)
+        or $c->detach('not_found');
+
+    $c->stash->{entity} = $entity;
+}
 
 sub bad_req : Private
 {

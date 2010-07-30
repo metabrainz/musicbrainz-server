@@ -3,7 +3,8 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller::WS::1' }
 
 __PACKAGE__->config(
-    namespace => 'ws/1/release-group'
+    namespace => 'ws/1/release-group',
+    model     => 'ReleaseGroup',
 );
 
 my $ws_defs = Data::OptList::mkopt([
@@ -18,20 +19,13 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      version => 1,
 };
 
-sub lookup : Path('') Args(1)
+sub root : Chained('/') PathPart('ws/1/release-group') CaptureArgs(0) { }
+
+sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
+    my $rg = $c->stash->{entity};
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $rg = $c->model('ReleaseGroup')->get_by_gid($gid);
-    unless ($rg) {
-        $c->detach('not_found');
-    }
     $c->model('ReleaseGroupType')->load($rg);
 
     my $opts = {};

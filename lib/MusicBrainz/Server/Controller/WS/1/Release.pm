@@ -2,6 +2,10 @@ package MusicBrainz::Server::Controller::WS::1::Release;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller::WS::1' }
 
+__PACKAGE__->config(
+    model => 'Release',
+);
+
 my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
@@ -14,20 +18,11 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      version => 1,
 };
 
-sub lookup : Path('') Args(1)
+sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $release = $c->model('Release')->get_by_gid($gid);
-    unless ($release) {
-        $c->detach('not_found');
-    }
+    my $release = $c->stash->{entity};
 
     # This is always displayed, regardless of inc parameters
     $c->model('ReleaseGroup')->load($release);
