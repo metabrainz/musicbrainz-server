@@ -35,4 +35,14 @@ ws_test 'label lookup with artist-relationships',
   </label>
 </metadata>';
 
+ws_test 'label lookup with label-relationships',
+        '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=label-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <label id="b4edce40-090f-4956-b82a-5d9d285da40b" type="OriginalProduction">
+    <name>Planet Mu</name><sort-name>Planet Mu</sort-name><country>GB</country>
+    <relation-list target-type="label" />
+  </label>
+</metadata>';
+
 done_testing;
