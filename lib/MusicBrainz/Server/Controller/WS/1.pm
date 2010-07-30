@@ -13,7 +13,8 @@ use MusicBrainz::Server::WebService::Validator;
 my $ws_defs = Data::OptList::mkopt([
     artist => {
         method   => 'GET',
-        inc      => [ qw(aliases release-groups _rel_status _rg_type counts release-events discs labels  _relations) ],
+        inc      => [ qw(aliases release-groups _rel_status _rg_type counts release-events discs labels _relations
+                         tags ) ],
     },
     label => {
         method   => 'GET',
@@ -88,6 +89,12 @@ sub artist : Chained('root') PathPart('artist') Args(1)
     my $opts = {};
     $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id)
         if ($c->stash->{inc}->aliases);
+
+    if ($c->stash->{inc}->tags) {
+        my ($tags, $hits) = $c->model('Artist')->tags->find_tags($artist->id);
+        $opts->{tags} = $tags;
+    }
+
 
     if ($c->stash->{inc}->rg_type)
     {

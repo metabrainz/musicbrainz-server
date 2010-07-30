@@ -57,6 +57,10 @@ ws_test 'artist lookup with URL relationships',
     </artist>
 </metadata>';
 
+ws_test 'artist lookup with tags',
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?type=xml&inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group"><name>7人祭</name><sort-name>7nin Matsuri</sort-name><tag-list><tag count="1">country-jp</tag><tag count="1">hello project</tag><tag count="1">hello project groups</tag><tag count="1">hello project shuffle units</tag></tag-list></artist></metadata>';
+
 sub todo {
 
 ws_test 'artist lookup with artist-relationships',
@@ -86,11 +90,6 @@ ws_test 'artist lookup with ratings',
 
 ws_test 'artist lookup with user-ratings',
     '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=user-ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
-
-ws_test 'artist lookup with tags',
-    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata />';
 

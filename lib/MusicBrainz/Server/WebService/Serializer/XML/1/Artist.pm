@@ -45,6 +45,10 @@ before 'serialize' => sub
             )
         }
     }
+
+    if ($inc && $inc->tags) {
+        $self->add( List->new->serialize($opts->{tags}) );
+    }
 };
 
 __PACKAGE__->meta->make_immutable;
