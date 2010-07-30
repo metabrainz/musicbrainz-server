@@ -19,17 +19,14 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 };
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Alias';
+with 'MusicBrainz::Server::Controller::WS::1::Role::Tags';
+
 sub root : Chained('/') PathPart('ws/1/label') CaptureArgs(0) { }
 
 sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
     my $label = $c->stash->{entity};
-
-    if ($c->stash->{inc}->tags) {
-        my ($tags, $hits) = $c->model('Label')->tags->find_tags($label->id);
-        $c->stash->{data}->{tags} = $tags;
-    }
 
     if ($c->stash->{inc}->has_rels)
     {

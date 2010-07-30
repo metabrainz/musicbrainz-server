@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 };
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Alias';
+with 'MusicBrainz::Server::Controller::WS::1::Role::Tags';
 
 sub root : Chained('/') PathPart('ws/1/artist') CaptureArgs(0) { }
 
@@ -30,11 +31,6 @@ sub lookup : Chained('load') PathPart('')
     my $artist = $c->stash->{entity};
 
     $c->model('ArtistType')->load($artist);
-
-    if ($c->stash->{inc}->tags) {
-        my ($tags, $hits) = $c->model('Artist')->tags->find_tags($artist->id);
-        $c->stash->{data}->{tags} = $tags;
-    }
 
     if ($c->stash->{inc}->rg_type)
     {
