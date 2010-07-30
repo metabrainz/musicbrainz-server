@@ -150,12 +150,11 @@ sub artist : Chained('root') PathPart('artist') Args(1)
          $opts->{labels} = \@labels;
     }
 
-#     if ($c->stash->{inc}->has_rels)
-#     {
-#         my $types = $c->stash->{inc}->get_rel_types();
-#         my @rels = $c->model('Relationship')->load_subset($types, $artist);
-#         $opts->{rels} = $artist->relationships;
-#     }
+     if ($c->stash->{inc}->has_rels)
+     {
+         my $types = $c->stash->{inc}->get_rel_types;
+         my @rels = $c->model('Relationship')->load_subset($types, $artist);
+     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $opts));

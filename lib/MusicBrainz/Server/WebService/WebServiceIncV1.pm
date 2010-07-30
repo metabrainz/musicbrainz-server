@@ -9,17 +9,17 @@ has $_ => (
     isa => 'Int',
     default => 0
 ) for qw(
-          artist track_rels asin rg_type rel_status discs release_events 
+          artist track_rels asin rg_type rel_status discs release_events
           counts various_artists
 );
 
 override 'get_rel_types' => sub
 {
-    my @rels = super;
+    my $rels = super;
 
-    push @rels, 'recording' if shift->track_rels;
+    push @$rels, 'recording' if shift->track_rels;
 
-    return \@rels;
+    return $rels;
 };
 
 
