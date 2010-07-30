@@ -23,31 +23,27 @@ sub lookup : Chained('load') PathPart('')
     my ($self, $c, $gid) = @_;
     my $label = $c->stash->{entity};
 
-    my $opts = {};
-    $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id)
-        if ($c->stash->{inc}->aliases);
-
     if ($c->stash->{inc}->tags) {
         my ($tags, $hits) = $c->model('Label')->tags->find_tags($label->id);
-        $opts->{tags} = $tags;
+        $c->stash->{data}->{tags} = $tags;
     }
 
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $label);
-        $opts->{rels} = $label->relationships;
+        $c->stash->{data}->{rels} = $label->relationships;
 
         # load the artist type, as /ws/1 always included that for artists.
-        my @artists = grep { $_->target_type eq 'artist' } @{$opts->{rels}};
+        my @artists = grep { $_->target_type eq 'artist' } @{$c->stash->{data}->{rels}};
         $c->model('ArtistType')->load(map { $_->target } @artists);
 
         # load the label country and type, as /ws/1 always included that for labels.
-        my @labels = grep { $_->target_type eq 'label' } @{$opts->{rels}};
+        my @labels = grep { $_->target_type eq 'label' } @{$c->stash->{data}->{rels}};
         $c->model('Country')->load(map { $_->target } @labels);
         $c->model('LabelType')->load(map { $_->target } @labels);
 
-        my @releases = grep { $_->target_type eq 'release' } @{$opts->{rels}};
+        my @releases = grep { $_->target_type eq 'release' } @{$c->stash->{data}->{rels}};
         for (@releases)
         {
             $_->target->release_group (
@@ -63,7 +59,7 @@ sub lookup : Chained('load') PathPart('')
     $c->model('LabelType')->load($label);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $opts));
+    $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $c->stash->{data}));
 }
 
 no Moose;

@@ -19,6 +19,7 @@ sub serializers {
 
 sub begin : Private {
     my ($self, $c) = @_;
+    $c->stash->{data} = {};
     $self->validate($c, $self->serializers) or $c->detach('bad_req');
 }
 

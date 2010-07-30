@@ -20,6 +20,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      version => 1,
 };
 
+with 'MusicBrainz::Server::Controller::WS::1::Role::Alias';
+
 sub root : Chained('/') PathPart('ws/1/artist') CaptureArgs(0) { }
 
 sub lookup : Chained('load') PathPart('')
@@ -29,15 +31,10 @@ sub lookup : Chained('load') PathPart('')
 
     $c->model('ArtistType')->load($artist);
 
-    my $opts = {};
-    $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id)
-        if ($c->stash->{inc}->aliases);
-
     if ($c->stash->{inc}->tags) {
         my ($tags, $hits) = $c->model('Artist')->tags->find_tags($artist->id);
-        $opts->{tags} = $tags;
+        $c->stash->{data}->{tags} = $tags;
     }
-
 
     if ($c->stash->{inc}->rg_type)
     {
@@ -54,7 +51,7 @@ sub lookup : Chained('load') PathPart('')
 
         $c->model('ArtistCredit')->load(@rg);
         $c->model('ReleaseGroupType')->load(@rg);
-        $opts->{release_groups} = \@rg;
+        $c->stash->{data}->{release_groups} = \@rg;
 
         if (@rg)
         {
@@ -94,14 +91,14 @@ sub lookup : Chained('load') PathPart('')
             $c->stash->{inc}->asin(1);
 
             $c->stash->{inc}->releases(1);
-            $opts->{releases} = \@releases;
+            $c->stash->{data}->{releases} = \@releases;
         }
     }
 
     if ($c->stash->{inc}->labels)
     {
          my @labels = $c->model('Label')->find_by_artist($artist->id);
-         $opts->{labels} = \@labels;
+         $c->stash->{data}->{labels} = \@labels;
     }
 
      if ($c->stash->{inc}->has_rels)
@@ -111,7 +108,7 @@ sub lookup : Chained('load') PathPart('')
      }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $opts));
+    $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $c->stash->{data}));
 }
 
 no Moose;
