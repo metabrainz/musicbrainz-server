@@ -1,33 +1,16 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::Label;
-
+package MusicBrainz::Server::WebService::Serializer::XML::1::AggregatedTag;
 use Moose;
-use String::CamelCase qw(camelize);
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
-sub element { 'label'; }
+sub element { 'tag'; }
 
 before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    if ($entity->type)
-    {
-        my $type = $entity->type->name;
-        $type =~ s/ /_/;
-        $self->attributes->{type} = camelize($type);
-    }
-
-    $self->add($self->gen->name($entity->name));
-    $self->add($self->gen->sort_name($entity->sort_name));
-    $self->add($self->gen->country($entity->country->iso_code)) if $entity->country;
-
-    $self->add( List->new->serialize($opts->{aliases}) )
-        if ($inc && $inc->aliases);
+    $self->attributes({ count => $entity->count });
+    $self->add($entity->tag->name);
 };
 
 __PACKAGE__->meta->make_immutable;
@@ -53,4 +36,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

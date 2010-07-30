@@ -7,6 +7,7 @@ use MusicBrainz::Server::WebService::Mapping::1 qw( map_type );
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::LifeSpan';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
 sub element { 'artist'; }
 
@@ -44,10 +45,6 @@ before 'serialize' => sub
                 List->new->serialize({ 'target-type' => map_type($type) }, $relationships)
             )
         }
-    }
-
-    if ($inc && $inc->tags) {
-        $self->add( List->new->serialize($opts->{tags}) );
     }
 };
 

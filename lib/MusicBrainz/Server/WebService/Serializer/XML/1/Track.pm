@@ -1,33 +1,14 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::Label;
-
+package MusicBrainz::Server::WebService::Serializer::XML::1::Track;
 use Moose;
-use String::CamelCase qw(camelize);
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
-sub element { 'label'; }
+sub element { 'track'; }
 
 before 'serialize' => sub
 {
-    my ($self, $entity, $inc, $opts) = @_;
-
-    if ($entity->type)
-    {
-        my $type = $entity->type->name;
-        $type =~ s/ /_/;
-        $self->attributes->{type} = camelize($type);
-    }
-
-    $self->add($self->gen->name($entity->name));
-    $self->add($self->gen->sort_name($entity->sort_name));
-    $self->add($self->gen->country($entity->country->iso_code)) if $entity->country;
-
-    $self->add( List->new->serialize($opts->{aliases}) )
-        if ($inc && $inc->aliases);
 };
 
 __PACKAGE__->meta->make_immutable;
