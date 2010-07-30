@@ -23,6 +23,10 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         inc      => [ qw(artist releases) ],
     },
+    release => {
+        method => 'GET',
+        inc    => [ qw() ]
+    }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -260,8 +264,6 @@ sub release_group : Chained('root') PathPart('release-group') Args(1)
     $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts));
 }
 
-
-
 sub release_group_search : Chained('root') PathPart('release-group') Args(0)
 {
     my ($self, $c) = @_;
@@ -277,6 +279,34 @@ sub release_group_search : Chained('root') PathPart('release-group') Args(0)
         $c->res->status($result->{code});
         $c->res->body($c->stash->{serializer}->output_error($result->{error}));
     }
+}
+
+sub release : Chained('root') PathPart('release') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    my $release = $c->model('Release')->get_by_gid($gid);
+    unless ($release) {
+        $c->detach('not_found');
+    }
+
+    # This is always displayed, regardless of inc parameters
+    $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroupType')->load($release->release_group);
+    $c->model('ReleaseStatus')->load($release);
+    $c->model('Language')->load($release);
+    $c->model('Script')->load($release);
+    $c->model('Relationship')->load_subset([ 'url' ], $release);
+
+    my $opts = {};
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts));
 }
 
 sub default : Path
