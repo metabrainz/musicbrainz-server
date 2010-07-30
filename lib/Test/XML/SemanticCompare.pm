@@ -19,8 +19,8 @@ sub is_xml_same {
     my ($got, $expected, $msg) = @_;
 
     my @differences = $differ->compare($expected, $got);
-    $tb->ok(@differences == 0, 'XML fragments are not identical:');
-    $tb->diag(join "\n", map { $_->{message} } @differences);
+    $tb->ok(@differences == 0, 'XML fragments are identical:');
+    $tb->diag(join "\n", map { $_->{message} } @differences) if @differences;
 }
 
 1;

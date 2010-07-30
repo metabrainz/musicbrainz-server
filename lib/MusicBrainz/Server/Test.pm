@@ -7,14 +7,19 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
 use Sql;
+use Template;
 use Test::Builder;
 use Test::Mock::Class ':all';
-use Template;
+use Test::WWW::Mechanize::Catalyst;
+use Test::XML::SemanticCompare;
 use XML::Parser;
 
-use base 'Exporter';
-
-our @EXPORT_OK = qw( accept_edit reject_edit xml_ok schema_validator );
+use Sub::Exporter -setup => {
+    exports => [
+        qw( accept_edit reject_edit xml_ok schema_validator ),
+        ws_test => \&_build_ws_test,
+    ],
+};
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
@@ -289,6 +294,27 @@ sub schema_validator
 
         }
     };
+}
+
+sub _build_ws_test {
+    my ($class, $name, $args) = @_;
+    my $end_point = '/ws/' . $args->{version};
+
+    my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+    my $validator = schema_validator($args->{version});
+
+    return sub {
+        my ($msg, $url, $expected) = @_;
+
+        $Test->subtest($msg => sub {
+            $Test->plan(tests => 4);
+
+            $mech->get_ok($end_point . $url, 'fetching');
+            $validator->($mech->content, 'validating');
+
+            is_xml_same($mech->content, $expected);
+        });
+    }
 }
 
 1;
