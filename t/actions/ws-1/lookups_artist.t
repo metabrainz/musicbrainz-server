@@ -45,6 +45,66 @@ ws_test 'artist lookup with release groups',
     </artist>
 </metadata>';
 
+ws_test 'artist lookup with artist-relationships',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=artist-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with label-relationships',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=label-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with release-relationships',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=release-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with track-relationships',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=track-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with ratings',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with user-ratings',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=user-ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with tags',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with user-tags',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=user-tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with counts',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=counts' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with release-events',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=release-events' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with discs',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=discs' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
+ws_test 'artist lookup with labels',
+    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=labels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata />';
+
 ws_test 'artist lookup with URL relationships',
     '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
