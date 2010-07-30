@@ -25,6 +25,10 @@ ws_test 'label lookup with aliases',
   </label>
 </metadata>';
 
+ws_test 'label lookup with tags',
+        '/label/6bb73458-6c5f-4c26-8367-66fcef562955?type=xml&inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="6bb73458-6c5f-4c26-8367-66fcef562955" type="OriginalProduction"><name>zetima</name><sort-name>zetima</sort-name><country>JP</country><tag-list><tag count="1">hello project</tag></tag-list></label></metadata>';
+
 sub todo {
 
 ws_test 'label lookup with artist-relationships',
@@ -44,11 +48,6 @@ ws_test 'label lookup with release-relationships',
 
 ws_test 'label lookup with url-relationships',
         '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=url-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
-
-ws_test 'label lookup with tags',
-        '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata />';
 

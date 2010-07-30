@@ -18,7 +18,7 @@ my $ws_defs = Data::OptList::mkopt([
     },
     label => {
         method   => 'GET',
-        inc      => [ qw(aliases  _relations) ],
+        inc      => [ qw( aliases _relations tags ) ],
     },
     "release-group" => {
         method   => 'GET',
@@ -190,6 +190,11 @@ sub label : Chained('root') PathPart('label') Args(1)
     my $opts = {};
     $opts->{aliases} = $c->model('Label')->alias->find_by_entity_id($label->id)
         if ($c->stash->{inc}->aliases);
+
+    if ($c->stash->{inc}->tags) {
+        my ($tags, $hits) = $c->model('Label')->tags->find_tags($label->id);
+        $opts->{tags} = $tags;
+    }
 
     if ($c->stash->{inc}->has_rels)
     {

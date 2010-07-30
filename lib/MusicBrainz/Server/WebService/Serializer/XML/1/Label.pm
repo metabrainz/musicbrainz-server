@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 
 sub element { 'label'; }
 
-before 'serialize' => sub 
+before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
@@ -27,6 +27,10 @@ before 'serialize' => sub
 
     $self->add( List->new->serialize($opts->{aliases}) )
         if ($inc && $inc->aliases);
+
+    if ($inc && $inc->tags) {
+        $self->add( List->new->serialize($opts->{tags}) );
+    }
 };
 
 __PACKAGE__->meta->make_immutable;
