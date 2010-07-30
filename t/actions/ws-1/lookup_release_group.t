@@ -15,4 +15,16 @@ ws_test 'release group lookup',
   </release-group>
 </metadata>';
 
+ws_test 'release group lookup with artists',
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?type=xml&inc=artist' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release-group id="22b54315-6e51-350b-bb34-e6e16f7688bd" type="Album">
+    <title>My Demons</title>
+    <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+      <sort-name>Distance</sort-name><name>Distance</name>
+    </artist>
+  </release-group>
+</metadata>';
+
 done_testing;
