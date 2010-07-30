@@ -18,6 +18,9 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      version => 1,
 };
 
+with 'MusicBrainz::Server::Controller::WS::1::Role::Alias';
+sub root : Chained('/') PathPart('ws/1/label') CaptureArgs(0) { }
+
 sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;

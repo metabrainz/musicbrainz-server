@@ -18,6 +18,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      version => 1,
 };
 
+sub root : Chained('/') PathPart('ws/1/release') CaptureArgs(0) { }
+
 sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
