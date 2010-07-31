@@ -6,8 +6,10 @@ MB.tests.ReleaseEditor.AdvancedTab = function () {
     QUnit.module ("ReleaseEditor");
     QUnit.test ("AdvancedTab", function () {
 
+        var tracks_html = MB.tests.ReleaseEditor.data['ReleaseEditor/tracklist.html'];
+
         $('#placeholder').empty ();
-        $('#placeholder').html (MB.tests.ReleaseEditor.html.tracklist);
+        $('#placeholder').html (tracks_html);
 
         /* useful when debugging these tests. */
         $('.basic-tracklist').hide ();

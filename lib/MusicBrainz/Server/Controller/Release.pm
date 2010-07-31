@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Release;
 use Moose;
 use MusicBrainz::Server::Wizard::ReleaseEditor;
 use MusicBrainz::Server::Track;
+use Encode;
 use JSON::Any;
 use TryCatch;
 
@@ -270,7 +271,11 @@ sub _serialize_tracklists
         push @$tracklists, $tracks;
     }
 
-    return JSON::Any->objToJson ($tracklists);
+    # It seems JSON libraries encode things to UTF-8, but the json
+    # string will be included in a page which will again be encoded
+    # to UTF-8.  So this string has to be decoded back to the internal
+    # perl unicode :(.  --warp.
+    return decode ("UTF-8", JSON::Any->objToJson ($tracklists));
 }
 
 =head2 WRITE METHODS

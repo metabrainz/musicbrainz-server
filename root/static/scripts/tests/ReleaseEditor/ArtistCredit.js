@@ -8,7 +8,7 @@ MB.tests.ReleaseEditor.ArtistCredit = function () {
     QUnit.test ("ArtistCredit", function () {
 
         $('#placeholder').empty ();
-        $('#placeholder').html (MB.tests.ReleaseEditor.html.information);
+        $('#placeholder').html (MB.tests.ReleaseEditor.data['ReleaseEditor/information.html']);
 
         var acv = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit')

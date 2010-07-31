@@ -6,11 +6,14 @@ MB.tests.ReleaseEditor.BasicTab = function () {
     QUnit.module ("ReleaseEditor");
     QUnit.test ("BasicTab", function () {
 
+        var tracks_html = MB.tests.ReleaseEditor.data['ReleaseEditor/tracklist.html'];
+        var tracks_json = MB.tests.ReleaseEditor.data['ReleaseEditor/tracklist.json'];
+
         $('#placeholder').empty ();
-        $('#placeholder').html (MB.tests.ReleaseEditor.html.tracklist);
+        $('#placeholder').html (tracks_html);
 
         var a = MB.Control.ReleaseAdvancedTab ();
-        var b = MB.Control.ReleaseBasicTab (a, MB.tests.ReleaseEditor.json.tracklist);
+        var b = MB.Control.ReleaseBasicTab (a, tracks_json);
 
         /* let's add a new disc for the following tests.. */
         b.tracklist.newDisc (a.addDisc ());
