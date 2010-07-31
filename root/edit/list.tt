@@ -51,7 +51,11 @@
                     </div>
 
                     <div class="edit-details">
-                        [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                        [% IF edit.data.defined %]
+                           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                        [% ELSE %]
+                           <p>[% l('An error occured while loading this edit') %]</p>
+                        [% END %]
                     </div>
 
                     [% IF edit.edit_notes.size %]

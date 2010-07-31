@@ -77,8 +77,10 @@ sub status_name
 }
 
 has 'data' => (
-    isa => 'HashRef',
-    is => 'rw',
+    isa       => 'HashRef',
+    is        => 'rw',
+    clearer   => 'clear_data',
+    predicate => 'has_data',
 );
 
 has 'display_data' => (
