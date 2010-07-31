@@ -19,13 +19,6 @@
 
       MB.Control.ReleaseBasicTab (advanced_tab, serialized_tracklists);
 
-      $('input.artist-credit-preview').live ('focus', function (event) {
-          $('tr.track-artist-credit').hide ();
-          var ac_row = $(this).closest ('tr.track').next('tr');
-          ac_row.show ().find ('table').show ();
-      });
-
-
     });
   </script>
 [%- END -%]
@@ -191,7 +184,7 @@
             <th class="position">[% l('#') %]</th>
             <th class="title">[% l('Title') %]</th>
             <th class="artist">
-              <input type="checkbox" class="artistcolumn">
+              <input type="checkbox" class="artistcolumn" />
               [% l('Artist') %]
             </th>
             <th class="length">[% l('Length') %]</th>

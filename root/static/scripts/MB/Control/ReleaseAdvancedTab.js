@@ -81,8 +81,6 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
         {
             self.row.removeClass ('deleted');
         }
-        
-//         console.log ("FIXME: Need to render artist... ", data.artist);
     };
 
     /**
@@ -265,11 +263,12 @@ MB.Control.ReleaseDisc = function (disc) {
         var artists = self.table.find ('tr.track td.artist input');
         if (self.artist_column_checkbox.filter(':checked').val ())
         {
-            artists.attr('disabled','disabled').css('color', MB.Control._disabled_colour);
+            artists.removeAttr('disabled').css('color', 'inherit');
         }
         else
         {
-            artists.removeAttr('disabled').css('color', 'inherit');
+            artists.attr('disabled','disabled').css('color', MB.Control._disabled_colour);
+            MB.Control.artist_credit_hide_rows (self.table);
         }
     };
 
@@ -301,6 +300,8 @@ MB.Control.ReleaseDisc = function (disc) {
 
     $("#mediums\\."+self.number+"\\.add_track").click(self.addTrack);
     self.artist_column_checkbox.bind ('change', self.updateArtistColumn);
+
+    self.updateArtistColumn ();
 
     return self;
 };

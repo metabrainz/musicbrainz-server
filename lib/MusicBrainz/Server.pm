@@ -67,6 +67,9 @@ __PACKAGE__->config(
     },
     'Plugin::Session' => {
         expires => 36000 # 10 hours
+    },
+    static => {
+        dirs => [ 'static' ],
     }
 );
 
