@@ -1,30 +1,30 @@
-package MusicBrainz::Server::Controller::Collection;
+package MusicBrainz::Server::Controller::List;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 __PACKAGE__->config(
-    entity_name => 'collection',
-    model       => 'Collection',
+    entity_name => 'list',
+    model       => 'List',
 );
 
-sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
+sub base : Chained('/') PathPart('list') CaptureArgs(0) { }
 after 'load' => sub
 {
     my ($self, $c) = @_;
-    my $collection = $c->stash->{collection};
+    my $list = $c->stash->{list};
 
     # Load editor
-    $c->model('Editor')->load($collection);
+    $c->model('Editor')->load($list);
 };
 
 sub add : Local Args(1)
 {
-    my ($self, $c, $collection_id) = @_;
+    my ($self, $c, $list_id) = @_;
 
     my $release_id = $c->request->params->{id};
 
-    $c->model('Collection')->add_release_to_collection($collection_id, $release_id);
+    $c->model('List')->add_release_to_list($list_id, $release_id);
 
     my $redirect = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($redirect);
@@ -33,11 +33,11 @@ sub add : Local Args(1)
 
 sub remove : Local Args(1)
 {
-    my ($self, $c, $collection_id) = @_;
+    my ($self, $c, $list_id) = @_;
 
     my $release_id = $c->request->params->{id};
 
-    $c->model('Collection')->remove_release_from_collection($collection_id, $release_id);
+    $c->model('List')->remove_release_from_list($list_id, $release_id);
 
     my $redirect = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($redirect);
@@ -48,16 +48,16 @@ sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my $collection = $c->stash->{collection};
+    my $list = $c->stash->{list};
 
-    my $user = $collection->editor;
+    my $user = $list->editor;
     $c->detach('/error_404')
-        if ((!$c->user_exists || $c->user->id != $user->id) && !$collection->public);
+        if ((!$c->user_exists || $c->user->id != $user->id) && !$list->public);
 
     my $order = $c->req->params->{order} || 'date';
 
     my $releases = $self->_load_paged($c, sub {
-        $c->model('Release')->find_by_collection($collection->id, shift, shift, $order);
+        $c->model('Release')->find_by_list($list->id, shift, shift, $order);
     });
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
@@ -67,7 +67,7 @@ sub show : Chained('load') PathPart('')
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 
     $c->stash(
-        collection => $collection,
+        list => $list,
         order => $order,
         releases => $releases
     );
@@ -78,7 +78,7 @@ sub show : Chained('load') PathPart('')
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2010 Sean Burke
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,32 +1,35 @@
-package MusicBrainz::Server::Entity::Collection;
+package MusicBrainz::Server::Controller::User::Lists;
 use Moose;
 
-use MusicBrainz::Server::Entity::Types;
+BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+sub view : Chained('/user/base') PathPart('lists')
+{
+    my ($self, $c) = @_;
 
-has 'editor' => (
-    is => 'ro',
-    isa => 'Editor',
-);
+    my $user = $c->stash->{user};
 
-has 'editor_id' => (
-    is => 'ro',
-    isa => 'Int',
-);
+    $c->detach('/error_404')
+        if (!defined $user);
 
-has 'public' => (
-    is => 'rw',
-    isa => 'Bool'
-);
+    my $show_private = $c->stash->{viewing_own_profile};
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+    my $lists = $self->_load_paged($c, sub {
+        $c->model('List')->find_by_editor($user->id, $show_private, shift, shift);
+    });
+
+    $c->stash(
+        user => $user,
+        lists => $lists,
+        template => 'user/lists.tt',
+    );
+}
+
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2010 Sean Burke
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

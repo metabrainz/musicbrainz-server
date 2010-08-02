@@ -52,7 +52,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 -- not replicated:
 -- editor editor_preference editor_subscribe_artist editor_subscribe_label 
--- editor_subscribe_editor collection collection_release
+-- editor_subscribe_editor list list_release
 
 CREATE TRIGGER "reptg_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "cdtoc"

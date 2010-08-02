@@ -171,9 +171,9 @@ sub find_by_medium
                                  $query, @{ids}, $offset || 0);
 }
 
-sub find_by_collection
+sub find_by_list
 {
-    my ($self, $collection_id, $limit, $offset, $order) = @_;
+    my ($self, $list_id, $limit, $offset, $order) = @_;
 
     my $extra_join = "";
     my $order_by = order_by($order, "date", {
@@ -187,16 +187,16 @@ sub find_by_collection
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN collection_release c
-                        ON release.id = c.release
+                    JOIN list_release l
+                        ON release.id = l.release
                     $extra_join
-                 WHERE c.collection = ?
+                 WHERE l.list = ?
                  ORDER BY $order_by
                  OFFSET ?";
 
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
+        $query, $list_id, $offset || 0);
 }
 
 sub insert
@@ -231,7 +231,7 @@ sub delete
 {
     my ($self, @releases) = @_;
     my @release_ids = map { $_->id } @releases;
-    $self->c->model('Collection')->delete_releases(@release_ids);
+    $self->c->model('List')->delete_releases(@release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
@@ -246,7 +246,7 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
 
     $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('Collection')->merge_releases($new_id, @old_ids);
+    $self->c->model('List')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);

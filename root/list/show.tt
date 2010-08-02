@@ -1,6 +1,6 @@
-[% WRAPPER "layout.tt" full_width=1 title=l("Collection “{collection}”", { collection => html_escape(collection.name) }) %]
+[% WRAPPER "layout.tt" full_width=1 title=l("List “{list}”", { list => html_escape(list.name) }) %]
 
-    <h1>[% l("Collection “{collection}”", { collection => html_escape(collection.name) }) %]</h1>
+    <h1>[% l("List “{list}”", { list => html_escape(list.name) }) %]</h1>
 
     [%- IF releases.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
@@ -40,7 +40,7 @@
 </table>
         [%- END -%]
     [%- ELSE -%]
-        <p>[%- l('No releases found in collection.') -%]</p>
+        <p>[%- l('No releases found in list.') -%]</p>
     [%- END -%]
 
 [% END %]

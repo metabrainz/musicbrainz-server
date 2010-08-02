@@ -11,7 +11,6 @@ has '+name' => ( default => 'prefs' );
 has_field 'public_ratings' => ( type => 'Boolean' );
 has_field 'public_subscriptions' => ( type => 'Boolean' );
 has_field 'public_tags' => ( type => 'Boolean' );
-has_field 'public_collection' => ( type => 'Boolean' );
 
 has_field 'datetime_format' => (
     type => 'Select',

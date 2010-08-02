@@ -13,7 +13,7 @@
     ['index', generic_link(c.uri_for_action("/user/profile", user.name), l('Profile'))],
     ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist/view", user.name), l('Subscriptions'))],
     ['subscribers', generic_link(c.uri_for_action("/user/subscribers/view", [ user.name ]), l('Subscribers'))],
-    ['collections', generic_link(c.uri_for_action("/user/collections/view", [ user.name ]), l('Collections'))],
+    ['lists', generic_link(c.uri_for_action("/user/lists/view", [ user.name ]), l('Lists'))],
 ] -%]
 
 [%- IF viewing_own_profile -%]

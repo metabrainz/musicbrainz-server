@@ -14,8 +14,6 @@ ALTER TABLE artist_tag ADD CONSTRAINT artist_tag_pkey PRIMARY KEY (artist, tag);
 ALTER TABLE artist_type ADD CONSTRAINT artist_type_pkey PRIMARY KEY (id);
 ALTER TABLE cdtoc ADD CONSTRAINT cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
-ALTER TABLE collection ADD CONSTRAINT collection_pkey PRIMARY KEY (id);
-ALTER TABLE collection_release ADD CONSTRAINT collection_release_pkey PRIMARY KEY (collection, release);
 ALTER TABLE country ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (id);
 ALTER TABLE dbmirror_Pending ADD CONSTRAINT dbmirror_Pending_pkey PRIMARY KEY (SeqId);
@@ -70,6 +68,8 @@ ALTER TABLE link_attribute ADD CONSTRAINT link_attribute_pkey PRIMARY KEY (link,
 ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE link_type ADD CONSTRAINT link_type_pkey PRIMARY KEY (id);
 ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_pkey PRIMARY KEY (link_type, attribute_type);
+ALTER TABLE list ADD CONSTRAINT list_pkey PRIMARY KEY (id);
+ALTER TABLE list_release ADD CONSTRAINT list_release_pkey PRIMARY KEY (list, release);
 ALTER TABLE medium ADD CONSTRAINT medium_pkey PRIMARY KEY (id);
 ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);

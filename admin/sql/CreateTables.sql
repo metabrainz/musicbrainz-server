@@ -89,21 +89,6 @@ CREATE TABLE artist_type (
     name                VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE collection
-(
-    id                  SERIAL,
-    gid                 UUID NOT NULL,
-    editor              INTEGER NOT NULL, -- references editor.id
-    name                VARCHAR NOT NULL,
-    public              BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE collection_release
-(
-    collection          INTEGER NOT NULL, -- PK, references collection.id
-    release             INTEGER NOT NULL -- PK, references release.id
-);
-
 CREATE TABLE cdtoc
 (
     id                  SERIAL,
@@ -602,6 +587,21 @@ CREATE TABLE link_type_attribute_type
     attribute_type      INTEGER NOT NULL, -- PK, references link_attribute_type.id
     min                 SMALLINT,
     max                 SMALLINT
+);
+
+CREATE TABLE list
+(
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    name                VARCHAR NOT NULL,
+    public              BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE list_release
+(
+    list          INTEGER NOT NULL, -- PK, references list.id
+    release             INTEGER NOT NULL -- PK, references release.id
 );
 
 CREATE TABLE medium

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::Collection;
+package MusicBrainz::Server::Data::List;
 
 use Moose;
 use Sql;
@@ -11,7 +11,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 
 sub _table
 {
-    return 'collection';
+    return 'list';
 }
 
 sub _columns
@@ -22,11 +22,6 @@ sub _columns
 sub _id_column
 {
     return 'id';
-}
-
-sub _gid_redirect_table
-{
-    return 'collection_gid_redirect';
 }
 
 sub _column_mapping
@@ -42,10 +37,10 @@ sub _column_mapping
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::Collection';
+    return 'MusicBrainz::Server::Entity::List';
 }
 
-sub create_collection
+sub create_list
 {
     my ($self, $user) = @_;
 
@@ -55,41 +50,41 @@ sub create_collection
                                     VALUES (?) RETURNING id", $user->id);
 }
 
-sub add_release_to_collection
+sub add_release_to_list
 {
-    my ($self, $collection_id, $release_id) = @_;
+    my ($self, $list_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     $sql->auto_commit;
 
-    my $rows = $sql->select ("SELECT * FROM collection_release 
-       WHERE collection=? AND release=?", $collection_id, $release_id);
+    my $rows = $sql->select ("SELECT * FROM list_release 
+       WHERE list=? AND release=?", $list_id, $release_id);
     $sql->finish;
 
-    $sql->do("INSERT INTO collection_release (collection, release)
-              VALUES (?, ?)", $collection_id, $release_id) unless $rows;
+    $sql->do("INSERT INTO list_release (list, release)
+              VALUES (?, ?)", $list_id, $release_id) unless $rows;
 }
 
-sub remove_release_from_collection
+sub remove_release_from_list
 {
-    my ($self, $collection_id, $release_id) = @_;
+    my ($self, $list_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     $sql->auto_commit;
-    $sql->do("DELETE FROM collection_release
-              WHERE collection = ? AND release = ?",
-              $collection_id, $release_id);
+    $sql->do("DELETE FROM list_release
+              WHERE list = ? AND release = ?",
+              $list_id, $release_id);
 }
 
 sub check_release
 {
-    my ($self, $collection_id, $release_id) = @_;
+    my ($self, $list_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     return $sql->select_single_value("
-        SELECT 1 FROM collection_release
-        WHERE collection = ? AND release = ?",
-        $collection_id, $release_id) ? 1 : 0;
+        SELECT 1 FROM list_release
+        WHERE list = ? AND release = ?",
+        $list_id, $release_id) ? 1 : 0;
 }
 
 sub merge_releases
@@ -99,14 +94,14 @@ sub merge_releases
     my $sql = Sql->new($self->c->dbh);
 
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
-    # a collection that already contain $new_id)
-    $sql->do("DELETE FROM collection_release
+    # a list that already contains $new_id)
+    $sql->do("DELETE FROM list_release
               WHERE release IN (".placeholders(@old_ids).") AND
-                  collection IN (SELECT collection FROM collection_release WHERE release = ?)",
+                  list IN (SELECT list FROM list_release WHERE release = ?)",
               @old_ids, $new_id);
 
     # Move all remaining joins to the new release
-    $sql->do("UPDATE collection_release SET release = ?
+    $sql->do("UPDATE list_release SET release = ?
               WHERE release IN (".placeholders(@old_ids).")",
               $new_id, @old_ids);
 }
@@ -116,7 +111,7 @@ sub delete_releases
     my ($self, @ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM collection_release
+    $sql->do("DELETE FROM list_release
               WHERE release IN (".placeholders(@ids).")", @ids);
 }
 
@@ -145,7 +140,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2010 Sean Burke
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

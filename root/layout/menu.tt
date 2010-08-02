@@ -40,16 +40,16 @@
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/collections/view', [ c.user.name ])}) %]</a>
+            [% l('{data|My Data}', {data => c.uri_for_action('/user/lists/view', [ c.user.name ])}) %]</a>
             <ul>
                 <li>
-                    [% l('{col|My Collections}', {col => c.uri_for_action('/user/collections/view', [ c.user.name ])}) %]
+                    [% l('{col|My Lists}', {col => c.uri_for_action('/user/lists/view', [ c.user.name ])}) %]
                 </li>
                 <li>
                     [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings/view', c.user.name)}) %]
                 </li>
                 <li>
-                    [% l('{col|My Tags}', {col => c.uri_for_action('/user/collections/view', [ c.user.name ])}) %]
+                    [% l('{col|My Tags}', {col => c.uri_for_action('/user/lists/view', [ c.user.name ])}) %]
                 </li>
             </ul>
         </li>
