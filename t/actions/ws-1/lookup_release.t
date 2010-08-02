@@ -103,18 +103,21 @@ ws_test 'release with tracks & artists (single medium, VA release)',
     <track-list>
       <track id="0cf3008f-e246-428f-abc1-35f87d584d60">
         <title>the Love Bug</title>
+        <duration>242226</duration>
         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
           <sort-name>m-flo♥BoA</sort-name><name>m-flo♥BoA</name>
         </artist>
       </track>
       <track id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
         <title>the Love Bug (Big Bug NYC remix)</title>
+        <duration>222000</duration>
         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
           <sort-name>m-flo♥BoA</sort-name><name>m-flo♥BoA</name>
         </artist>
       </track>
       <track id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
         <title>the Love Bug (cover)</title>
+        <duration>333000</duration>
         <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
           <sort-name></sort-name><name>BAGDAD CAFE THE trench town</name>
         </artist>
@@ -153,6 +156,28 @@ ws_test 'release with release events & labels',
     </release-event-list>
   </release>
 </metadata>';
+
+ws_test 'release with isrcs',
+    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=tracks+isrcs' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+<release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+  <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
+  <track-list>
+    <track id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+      <title>サマーれげぇ!レインボー</title><duration>296026</duration>
+      <isrc-list><isrc id="JPA600102450" /></isrc-list>
+    </track>
+    <track id="487cac92-eed5-4efa-8563-c9a818079b9a">
+      <title>HELLO! また会おうね (7人祭 version)</title><duration>213106</duration>
+      <isrc-list><isrc id="JPA600102460" /></isrc-list>
+    </track>
+    <track id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+      <title>サマーれげぇ!レインボー (instrumental)</title><duration>292800</duration>
+      <isrc-list><isrc id="JPA600102459" /></isrc-list>
+    </track>
+  </track-list>
+</release></metadata>';
 
 sub todo {
 
@@ -208,11 +233,6 @@ ws_test 'release with ratings',
 
 ws_test 'release with user-ratings',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=user-ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with isrcs',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=isrcs' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 

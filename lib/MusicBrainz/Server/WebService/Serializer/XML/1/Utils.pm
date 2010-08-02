@@ -13,6 +13,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Artist',
     'MusicBrainz::Server::Entity::ArtistAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit',
+    'MusicBrainz::Server::Entity::ISRC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ISRC',
     'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Label',
     'MusicBrainz::Server::Entity::LabelAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
     'MusicBrainz::Server::Entity::Recording' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Recording',

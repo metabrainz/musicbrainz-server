@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
-        inc    => [ qw( artist tags release-groups tracks release-events label ) ]
+        inc    => [ qw( artist tags release-groups tracks release-events label isrcs) ]
     }
 ]);
 
@@ -50,6 +50,9 @@ sub lookup : Chained('load') PathPart('')
         $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
         $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
             if $c->stash->{inc}->artist;
+
+        $c->model('ISRC')->load_for_recordings(map { $_->recording } map { $_->all_tracks } @tracklists)
+            if $c->stash->{inc}->isrcs;
     }
 
     if ($c->stash->{inc}->release_events) {

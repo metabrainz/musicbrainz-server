@@ -41,23 +41,20 @@ before 'serialize' => sub
     $self->add( List->new->serialize(
         [
             map {
-                Recording->new(
-                    duration => $_->recording,
-                    name     => $_->name,
-                    gid      => $_->recording->gid,
+                # Display a recording with the track's name (not the recording's)
+                Recording->meta->clone_object(
+                    $_->recording,
+                    name => $_->name,
 
                     # We only show track artists if inc=artist, and if this is a
                     # various artist release
-                    ($inc && $inc->artist &&
-                     $_->artist_credit->name ne $entity->artist_credit->name ?
+                    ($inc && $inc->artist && $_->artist_credit->name ne $entity->artist_credit->name ?
                          (artist_credit => $_->artist_credit) : ())
-                )
+                );
             }
                 map { $_->all_tracks }
                 map { $_->tracklist } $entity->all_mediums
-        ]
-    ))
-        if $inc && $inc->tracks;
+        ], $inc)) if $inc && $inc->tracks;
 
     if ($inc && $inc->release_events) {
         # FIXME - try and find other possible release events

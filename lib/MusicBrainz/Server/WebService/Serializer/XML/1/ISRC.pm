@@ -1,24 +1,14 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::Recording;
+package MusicBrainz::Server::WebService::Serializer::XML::1::ISRC;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
-
-sub element { 'track'; }
+sub element { 'isrc' }
 
 before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
-
-    $self->add( $self->gen->title($entity->name) );
-    $self->add( $self->gen->duration($entity->length) ) if $entity->length;
-
-    $self->add( List->new->serialize($entity->isrcs) )
-        if $inc && $inc->isrcs;
+    $self->attributes->{id} = $entity->isrc;
 };
 
 __PACKAGE__->meta->make_immutable;
@@ -44,4 +34,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-
