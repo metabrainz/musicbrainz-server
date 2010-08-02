@@ -53,6 +53,18 @@ ws_test 'release with tags',
   </release>
 </metadata>';
 
+ws_test 'release with release-groups',
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-groups' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+    <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+    <release-group id="22b54315-6e51-350b-bb34-e6e16f7688bd" type="Album">
+      <title>My Demons</title>
+    </release-group>
+  </release>
+</metadata>';
+
 sub todo {
 
 ws_test 'release with counts',
@@ -72,11 +84,6 @@ ws_test 'release with discs',
 
 ws_test 'release with tracks',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=tracks' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with release-groups',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-groups' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 

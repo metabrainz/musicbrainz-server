@@ -31,7 +31,7 @@ before 'serialize' => sub
                 m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i);
     }
 
-    $self->add( serialize_entity($entity->release_group, undef, { 'gid-only' => 1 }) )
+    $self->add( serialize_entity($entity->release_group, undef) )
         if ($inc && $inc->release_groups);
 
     $self->add( $self->gen->track({
