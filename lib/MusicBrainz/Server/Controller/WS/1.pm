@@ -49,12 +49,14 @@ sub bad_req : Private
     $c->res->content_type("text/plain; charset=utf-8");
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}.
                   "\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012"));
+    $c->detach;
 }
 
 sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->res->status(404);
+    $c->detach;
 }
 
 sub default : Path
