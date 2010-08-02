@@ -12,15 +12,21 @@ our @EXPORT = qw( is_xml_same );
 
 use XML::SemanticDiff;
 
-my $differ = XML::SemanticDiff->new;
+my $differ = XML::SemanticDiff->new(keepdata => 1);
 
 sub is_xml_same {
     my $tb = __PACKAGE__->builder;
     my ($got, $expected, $msg) = @_;
 
-    my @differences = $differ->compare($expected, $got);
+    my @differences = $differ->compare($got, $expected);
     $tb->ok(@differences == 0, 'XML fragments are identical:');
-    $tb->diag(join "\n", map { $_->{message} } @differences) if @differences;
+    for my $difference (@differences) {
+        $tb->diag($difference->{message});
+        $tb->diag("Old value: " . $difference->{old_value} )
+            if $difference->{old_value};
+        $tb->diag("New value: " . $difference->{new_value} )
+            if $difference->{new_value};
+    }
 }
 
 1;
