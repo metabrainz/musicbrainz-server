@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     track => {
         method   => 'GET',
-        inc      => [ qw( artist tags ) ],
+        inc      => [ qw( artist tags isrcs ) ],
     },
 ]);
 
@@ -27,6 +27,10 @@ sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
     my $track = $c->stash->{entity};
+
+    if ($c->stash->{inc}->isrcs) {
+        $c->model('ISRC')->load_for_recordings($track);
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('track', $track, $c->stash->{inc}, $c->stash->{data}));

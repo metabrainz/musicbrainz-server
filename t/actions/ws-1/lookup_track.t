@@ -52,6 +52,16 @@ ws_test 'lookup track with tags',
   </track>
 </metadata>';
 
+ws_test 'lookup track with isrcs',
+    '/track/162630d9-36d2-4a8d-ade1-1c77440b34e7?type=xml&inc=isrcs' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+    <title>サマーれげぇ!レインボー</title><duration>296026</duration>
+    <isrc-list><isrc id="JPA600102450" /></isrc-list>
+  </track>
+</metadata>';
+
 sub todo {
 
 ws_test 'lookup track with releases',
@@ -101,11 +111,6 @@ ws_test 'lookup track with ratings',
 
 ws_test 'lookup track with user-ratings',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=user-ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'lookup track with isrcs',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=isrcs' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
