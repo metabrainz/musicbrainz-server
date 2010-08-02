@@ -142,7 +142,7 @@ ws_test 'release with release events',
 </metadata>';
 
 ws_test 'release with release events & labels',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-events+label' =>
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-events+labels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">

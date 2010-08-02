@@ -20,7 +20,7 @@ before 'serialize' => sub
     if ($entity->labels->[0]) {
         $self->attributes->{'catalog-number'} = $entity->labels->[0]->catalog_number;
         $self->add( serialize_entity( $entity->labels->[0]->label) )
-            if $inc && $inc->label;
+            if $inc && $inc->labels;
     }
 };
 
