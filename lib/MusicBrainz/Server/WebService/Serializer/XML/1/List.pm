@@ -26,6 +26,9 @@ around 'serialize' => sub {
     $self->_element( serializer($entities->[0])->new->element )
         unless $self->_element;
 
+    $opts ||= {};
+    $opts->{in_list} = 1;
+
     map { $self->add( serialize_entity($_, $inc, $opts) ) } @$entities;
 
     $self->$orig($attributes, @_);

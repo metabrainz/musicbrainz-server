@@ -7,7 +7,6 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup';
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent';
@@ -36,10 +35,15 @@ before 'serialize' => sub
                 m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i);
     }
 
-    my $rg_node_type = ReleaseGroup->element;
-
-    $self->add( $self->gen->$rg_node_type({id => $entity->release_group->gid}))
+    # If the release appears in a list, then we only want at most the release group gid.
+    # If the release is top level however, then we do want release group information
+    $self->add( serialize_entity($entity->release_group, undef, { 'gid-only' => $opts->{in_list} } ) )
         if ($inc && $inc->release_groups);
+
+    # If the release is in a list then we display the track offset
+    $self->add( $self->gen->track({
+        offset => $entity->combined_track_count - 1,
+    })) if $entity->combined_track_count && $opts->{in_list};
 
     $self->add( List->new->serialize(
         [
