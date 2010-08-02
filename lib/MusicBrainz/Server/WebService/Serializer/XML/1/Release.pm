@@ -7,6 +7,9 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
 
+use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 sub element { 'release'; }
 
 before 'serialize' => sub
@@ -34,9 +37,26 @@ before 'serialize' => sub
     $self->add( serialize_entity($entity->release_group, undef) )
         if ($inc && $inc->release_groups);
 
-    $self->add( $self->gen->track({
-        offset => $entity->combined_track_count - 1,
-    })) if $entity->combined_track_count;
+    $self->add( List->new->serialize(
+        [
+            map {
+                Recording->new(
+                    duration => $_->recording,
+                    name     => $_->name,
+                    gid      => $_->recording->gid,
+
+                    # We only show track artists if inc=artist, and if this is a
+                    # various artist release
+                    ($inc && $inc->artist &&
+                     $_->artist_credit->name ne $entity->artist_credit->name ?
+                         (artist_credit => $_->artist_credit) : ())
+                )
+            }
+                map { $_->all_tracks }
+                map { $_->tracklist } $entity->all_mediums
+        ]
+    ))
+        if $inc && $inc->tracks;
 };
 
 __PACKAGE__->meta->make_immutable;

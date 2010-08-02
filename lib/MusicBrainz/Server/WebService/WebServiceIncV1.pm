@@ -10,7 +10,7 @@ has $_ => (
     default => 0
 ) for qw(
           artist track_rels asin rg_type rel_status discs release_events
-          counts various_artists
+          counts various_artists tracks
 );
 
 override 'get_rel_types' => sub

@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
-        inc    => [ qw( artist tags release-groups ) ]
+        inc    => [ qw( artist tags release-groups tracks ) ]
     }
 ]);
 
@@ -39,6 +39,17 @@ sub lookup : Chained('load') PathPart('')
     if ($c->stash->{inc}->tags) {
         my ($tags, $hits) = $c->model('ReleaseGroup')->tags->find_tags($release->release_group->id);
         $c->stash->{data}{tags} = $tags;
+    }
+
+    if ($c->stash->{inc}->tracks) {
+        $c->model('Medium')->load_for_releases($release);
+
+        my @mediums = $release->all_mediums;
+        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
+        $c->model('Track')->load_for_tracklists(@tracklists);
+        $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
+            if $c->stash->{inc}->artist;
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
