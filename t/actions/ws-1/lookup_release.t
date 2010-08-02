@@ -126,15 +126,38 @@ ws_test 'release with tracks & artists (single medium, VA release)',
   </release>
 </metadata>';
 
+ws_test 'release with release events',
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-events' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+    <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+    <release-event-list>
+      <event date="2007-01-29" format="CD" barcode="600116817020" catalog-number="ZIQ170CD" country="GB" />
+    </release-event-list>
+  </release>
+</metadata>';
+
+ws_test 'release with release events & labels',
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-events+label' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+    <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+    <release-event-list>
+      <event date="2007-01-29" format="CD" barcode="600116817020" catalog-number="ZIQ170CD" country="GB">
+        <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
+          <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+        </label>
+      </event>
+    </release-event-list>
+  </release>
+</metadata>';
+
 sub todo {
 
 ws_test 'release with counts',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=counts' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with release-events',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-events' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
@@ -170,11 +193,6 @@ ws_test 'release with url-relationships',
 
 ws_test 'release with track-level-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-level-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with labels',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=labels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 

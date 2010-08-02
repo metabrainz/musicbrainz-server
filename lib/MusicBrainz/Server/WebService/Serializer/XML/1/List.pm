@@ -23,7 +23,8 @@ around 'serialize' => sub {
 
     return unless $entities && @$entities;
 
-    $self->_element( serializer($entities->[0])->new->element );
+    $self->_element( serializer($entities->[0])->new->element )
+        unless $self->_element;
 
     map { $self->add( serialize_entity($_, $inc, $opts) ) } @$entities;
 

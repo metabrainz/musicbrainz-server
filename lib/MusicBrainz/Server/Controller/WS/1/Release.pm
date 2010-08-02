@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
-        inc    => [ qw( artist tags release-groups tracks ) ]
+        inc    => [ qw( artist tags release-groups tracks release-events label ) ]
     }
 ]);
 
@@ -50,6 +50,21 @@ sub lookup : Chained('load') PathPart('')
         $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
         $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
             if $c->stash->{inc}->artist;
+    }
+
+    if ($c->stash->{inc}->release_events) {
+        # If we ask for tracks we already have medium stuff loaded
+        unless ($release->all_mediums) {
+            $c->model('Medium')->load_for_releases($release)
+        }
+
+        my @mediums = $release->all_mediums;
+        $c->model('MediumFormat')->load(@mediums);
+        $c->model('ReleaseLabel')->load($release);
+        $c->model('Country')->load($release);
+
+        $c->model('Label')->load($release->all_labels)
+            if $c->stash->{inc}->label;
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

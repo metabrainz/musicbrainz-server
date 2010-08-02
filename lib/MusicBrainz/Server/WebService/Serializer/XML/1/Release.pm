@@ -9,6 +9,7 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
 
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use aliased 'MusicBrainz::Server::Entity::Recording';
+use aliased 'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent';
 
 sub element { 'release'; }
 
@@ -57,6 +58,17 @@ before 'serialize' => sub
         ]
     ))
         if $inc && $inc->tracks;
+
+    if ($inc && $inc->release_events) {
+        # FIXME - try and find other possible release events
+        $self->add(
+            List->new( _element => 'release-event' )->serialize([
+                map {
+                    ReleaseEvent->meta->rebless_instance($_)
+                } $entity
+            ], $inc)
+        )
+    }
 };
 
 __PACKAGE__->meta->make_immutable;
