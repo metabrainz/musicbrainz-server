@@ -3,9 +3,12 @@ package MusicBrainz::Server::WebService::Serializer::XML::1::Utils;
 use base 'Exporter';
 use Readonly;
 
+use String::CamelCase qw(camelize);
+
 our @EXPORT_OK = qw(
     serializer
     serialize_entity
+    map_type
 );
 
 Readonly my %ENTITY_TO_SERIALIZER => (
@@ -37,6 +40,15 @@ sub serializer
 sub serialize_entity
 {
     return serializer($_[0])->new->serialize(@_);
+}
+
+my %type_map = (
+    recording => 'Track',
+);
+
+sub map_type {
+    my $type = lc shift;
+    return $type_map{$type} || camelize($type);
 }
 
 1;

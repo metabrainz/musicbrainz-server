@@ -22,6 +22,10 @@ override 'get_rel_types' => sub
     return $rels;
 };
 
+override 'has_rels' => sub {
+    my $self = shift;
+    return $self->track_rels || $self->url_rels || $self->artist_rels || $self->release_rels;
+};
 
 sub BUILD
 {

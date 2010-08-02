@@ -2,7 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::XML::1::Artist;
 use Moose;
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
-use MusicBrainz::Server::WebService::Mapping::1 qw( map_type );
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( map_type );
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
