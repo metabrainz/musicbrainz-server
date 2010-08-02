@@ -3,10 +3,11 @@ use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
 
 sub element { 'track'; }
 
-before 'serialize' => sub 
+before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 

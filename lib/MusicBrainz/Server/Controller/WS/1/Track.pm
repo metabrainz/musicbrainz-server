@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     track => {
         method   => 'GET',
-        inc      => [ qw( ) ],
+        inc      => [ qw( artist ) ],
     },
 ]);
 
@@ -17,6 +17,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      defs    => $ws_defs,
      version => 1,
 };
+
+with 'MusicBrainz::Server::Controller::WS::1::Role::ArtistCredit';
 
 sub root : Chained('/') PathPart('ws/1/track') CaptureArgs(0) { }
 

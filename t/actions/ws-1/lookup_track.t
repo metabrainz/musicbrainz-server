@@ -15,12 +15,31 @@ ws_test 'lookup track',
   </track>
 </metadata>';
 
-sub todo {
-
-ws_test 'lookup track with artist',
+ws_test 'lookup track with a single artist',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=artist' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="c869cc03-cb88-462b-974e-8e46c1538ad4">
+    <title>Rock With You</title><duration>255146</duration>
+    <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+      <sort-name>BoA</sort-name><name>BoA</name>
+    </artist>
+  </track>
+</metadata>';
+
+ws_test 'lookup track with multiple artists',
+    '/track/84c98ebf-5d40-4a29-b7b2-0e9c26d9061d?type=xml&inc=artist' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
+    <title>the Love Bug (Big Bug NYC remix)</title><duration>222000</duration>
+    <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+      <sort-name>m-flo♥BoA</sort-name><name>m-flo♥BoA</name>
+    </artist>
+  </track>
+</metadata>';
+
+sub todo {
 
 ws_test 'lookup track with releases',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=releases' =>
