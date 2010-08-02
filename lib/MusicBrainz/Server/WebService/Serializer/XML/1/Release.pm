@@ -3,9 +3,10 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use aliased 'MusicBrainz::Server::Entity::Recording';

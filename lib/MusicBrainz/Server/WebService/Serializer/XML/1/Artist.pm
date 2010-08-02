@@ -2,11 +2,10 @@ package MusicBrainz::Server::WebService::Serializer::XML::1::Artist;
 use Moose;
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( map_type );
-
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::LifeSpan';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
@@ -32,21 +31,6 @@ before 'serialize' => sub
 
     $self->add( List->new->serialize($opts->{release_groups}) )
         if ($inc && $inc->release_groups);
-
-    if ($inc && $inc->has_rels) {
-        my %by_type;
-        for my $relationship (@{ $entity->relationships }) {
-            $by_type{ $relationship->target_type } ||= [];
-            push @{ $by_type{ $relationship->target_type } },
-                $relationship;
-        }
-
-        while (my ($type, $relationships) = each %by_type) {
-            $self->add(
-                List->new->serialize({ 'target-type' => map_type($type) }, $relationships)
-            )
-        }
-    }
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -9,8 +9,8 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
-        inc    => [ qw( artist  tags release-groups tracks release-events labels isrcs
-                        ratings puids ) ]
+        inc    => [ qw( artist  tags  release-groups tracks release-events labels isrcs
+                        ratings puids _relations ) ]
     }
 ]);
 
@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 };
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::ArtistCredit';
+with 'MusicBrainz::Server::Controller::WS::1::Role::Relationships';
 
 sub root : Chained('/') PathPart('ws/1/release') CaptureArgs(0) { }
 

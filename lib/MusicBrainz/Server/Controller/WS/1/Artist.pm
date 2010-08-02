@@ -22,6 +22,7 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Alias';
 with 'MusicBrainz::Server::Controller::WS::1::Role::Rating';
+with 'MusicBrainz::Server::Controller::WS::1::Role::Relationships';
 with 'MusicBrainz::Server::Controller::WS::1::Role::Tags';
 
 sub root : Chained('/') PathPart('ws/1/artist') CaptureArgs(0) { }
@@ -97,25 +98,6 @@ sub lookup : Chained('load') PathPart('')
          my @labels = $c->model('Label')->find_by_artist($artist->id);
          $c->stash->{data}->{labels} = \@labels;
     }
-
-     if ($c->stash->{inc}->has_rels)
-     {
-         my $types = $c->stash->{inc}->get_rel_types;
-         my @rels = $c->model('Relationship')->load_subset($types, $artist);
-         my @releases;
-         for my $relationship (@{$artist->relationships}) {
-             if ($relationship->target->isa('MusicBrainz::Server::Entity::Release')) {
-                 push @releases, $relationship->target;
-             }
-         }
-
-         # We need to be able to display the release type
-         $c->model('ReleaseGroup')->load(@releases);
-         $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
-         $c->model('ReleaseStatus')->load(@releases);
-         $c->model('Language')->load(@releases);
-         $c->model('Script')->load(@releases);
-     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $c->stash->{data}));

@@ -187,6 +187,18 @@ ws_test 'release with ratings',
     '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official"><title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin><rating rating-count="2">90</rating></release></metadata>';
 
+ws_test 'release with artist-relationships',
+    '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?type=xml&inc=artist-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin><relation-list target-type="Artist"><relation direction="backward" target="3088b672-fba9-4b4b-8ae0-dce13babfbb4" begin="" type="Design/Illustration" end=""><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4"><name>Plone</name><sort-name>Plone</sort-name></artist></relation></relation-list></release></metadata>';
+
+ws_test 'release with url-relationships',
+    '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?type=xml&inc=url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin><asin>B00001IVAI</asin><relation-list target-type="Url"><relation target="http://www.amazon.com/gp/product/B00001IVAI" begin="" type="AmazonAsin" end="" /><relation target="http://www.discogs.com/release/30895" begin="" type="Discogs" end="" /><relation target="http://www.discogs.com/release/30896" begin="" type="Discogs" end="" /><relation target="http://www.amazon.com/gp/product/B00001IVAI" begin="" type="AmazonAsin" end="" /><relation target="http://www.discogs.com/release/30895" begin="" type="Discogs" end="" /><relation target="http://www.discogs.com/release/30896" begin="" type="Discogs" end="" /></relation-list></release></metadata>';
+
+ws_test 'release with release-relationships',
+    '/release/757a1723-3769-4298-89cd-48d31177852a?type=xml&inc=release-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="757a1723-3769-4298-89cd-48d31177852a" type="Album Pseudo-Release"><title>LOVE &amp; HONESTY</title><text-representation script="Latn" language="JPN" /><asin>B0000YGBSG</asin><relation-list target-type="Release"><relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" begin="" type="Transl-Tracklisting" end=""><release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation><relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" begin="" type="Transl-Tracklisting" end=""><release id="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation></relation-list></release></metadata>';
+
 sub todo {
 
 ws_test 'release with counts',
@@ -199,28 +211,13 @@ ws_test 'release with discs',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
-ws_test 'release with artist-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=artist-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
 ws_test 'release with label-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=label-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
-ws_test 'release with release-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=release-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
 ws_test 'release with track-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with url-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
