@@ -479,7 +479,7 @@ table.tbl .t { text-align: right; }
 }
 
 .browse {
-    margin-top: 1em;
+    margin-top: 0.5em;
 }
 
 .browse td {
@@ -498,11 +498,13 @@ table.details th {
     width: 110px;
 }
 
-table.details td.new {
+table.details td.new,
+div.diff .diff-only-b {
     background: #B1EBB0;
 }
 
-table.details td.old {
+table.details td.old,
+div.diff .diff-only-a {
     background: #EBB1BA;
 }
 

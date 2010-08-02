@@ -4,7 +4,6 @@ use Moose;
 use Memoize;
 use Module::Pluggable::Object;
 
-
 extends 'MusicBrainz::Server::Data::Entity';
 
 has 'edit_mapping' => (
@@ -126,6 +125,17 @@ sub resolve_release_id
                              'old_rel' => 'new_rel');
 
     return $tmp_release_merge->{$id} || $id;
+}
+
+my $tmp_url_merge;
+sub resolve_url_id
+{
+    my ($self, $id) = @_;
+    $tmp_url_merge ||=
+        $self->construct_map('tmp_url_merge',
+                             'old_url' => 'new_url');
+
+    return $tmp_url_merge->{$id} || $id;
 }
 
 my $tmp_release_album;

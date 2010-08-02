@@ -21,17 +21,6 @@ sub store
     return $self->_data->{$entity->meta->{'package'}}->{$entity->id};
 }
 
-sub kuno
-{
-    my ($self) = @_;
-
-    use Data::Dumper;
-    local $Data::Dumper::Maxdepth = 5;
-    warn "-----[ _data ]-------------------------------------------\n";
-    warn Dumper ($self->_data)."\n";
-    warn "---------------------------------------------------------\n";
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

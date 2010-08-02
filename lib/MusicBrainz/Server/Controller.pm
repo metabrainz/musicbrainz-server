@@ -2,10 +2,13 @@ package MusicBrainz::Server::Controller;
 use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
+use Carp;
 use Data::Page;
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation;
 use Scalar::Util qw( looks_like_number );
+use TryCatch;
 
 __PACKAGE__->config(
     form_namespace => 'MusicBrainz::Server::Form',
@@ -32,6 +35,7 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
     my ($self, $c, $gid) = @_;
 
     my $entity = $self->_load($c, $gid);
+
     if (!defined $entity) {
         $c->response->status(404);
         $c->stash( template => $self->action_namespace . '/not_found.tt' );
@@ -104,15 +108,22 @@ sub _insert_edit {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
-    my $edit = $c->model('Edit')->create(
-        editor_id => $c->user->id,
-        privileges => $privs,
-        %opts
-    );
-
-    if (!$edit) {
+    my $edit;
+    try {
+        $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            privileges => $privs,
+            %opts
+        );
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
+        # XXX Display a message about having made no changes
+    }
+    catch ($e) {
         use Data::Dumper;
-        die "Could not create edit\n" . Dumper(\%opts);
+        croak "The edit could not be created.\n" .
+          "POST: " . Dumper($c->req->params) . "\n" .
+          "Exception:" . Dumper($e);
     }
 
     if (defined $edit &&

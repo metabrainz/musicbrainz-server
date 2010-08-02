@@ -14,6 +14,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 $mech->get_ok('/admin/linkattributetype');
 xml_ok($mech->content);
+
 $mech->content_contains('New Link Attribute Type');
 $mech->content_contains('String Instruments');
 

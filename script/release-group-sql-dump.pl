@@ -2,10 +2,10 @@
 use strict;
 use warnings;
 use feature "switch";
-
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+use Carp qw( croak );
 use DBI;
 use Data::Dumper;
 use DBDefs;
@@ -36,7 +36,7 @@ sub quote_column
 
     return "NULL" unless defined $data;
 
-    die "no type" unless defined $type;
+    croak "no type" unless defined $type;
 
     my $ret;
 
@@ -284,6 +284,33 @@ sub l_entity_url
     for my $row (@$data)
     {
         generic ($dbh, 'url', 'id', $row->{entity1});
+
+        my $link = get_rows ($dbh, 'link', 'id', $row->{link});
+
+        link_type ($dbh, $link->[0]->{link_type});
+        backup ($dbh, 'link', $link);
+
+        link_attribute ($dbh, $row->{link});
+    }
+
+    backup ($dbh, $table, $data);
+    return scalar @$data;
+}
+
+sub l_entity_work
+{
+    my ($dbh, $type0, $key0) = @_;
+
+    $type0 =~ s/-/_/g;
+
+    my $table = 'l_'.$type0.'_work';
+
+    my $data = get_rows ($dbh, $table, 'entity0', $key0);
+    return 0 unless $data;
+
+    for my $row (@$data)
+    {
+        work ($dbh, $row->{entity1});
 
         my $link = get_rows ($dbh, 'link', 'id', $row->{link});
 
@@ -582,6 +609,22 @@ sub release_group
 }
 
 
+sub work
+{
+    my ($dbh, $id) = @_;
+
+    $core_entities{work}{$id} = 1;
+
+    my $data = get_rows ($dbh, 'work', 'id', $id);
+    generic_verbose ($dbh, 'work_name', 'id', $data->[0]->{name});
+    artist_credit ($dbh, $data->[0]->{artist_credit});
+    backup ($dbh, 'work', $data);
+
+    _meta ($dbh, 'work_meta', 'id', $id);
+    _tag ($dbh, 'work_tag', 'work', $id);
+}
+
+
 sub rel_entity_entity
 {
     my ($dbh, $type0, $type1) = @_;
@@ -599,7 +642,9 @@ sub rel_entity_entity
 
 sub rel_entity_url
 {
-    my ($dbh, $type0, $type1) = @_;
+    my ($dbh, $type0) = @_;
+
+    return if $type0 eq 'work';
 
     my $count = 0;
 
@@ -609,6 +654,22 @@ sub rel_entity_url
     }
 
     warn "Exported $count $type0 -> url relationships.\n" if $count;
+}
+
+sub rel_entity_work
+{
+    my ($dbh, $type0) = @_;
+
+    return unless $type0 eq 'recording' || $type0 eq 'release';
+
+    my $count = 0;
+
+    for my $entity0 (keys %{ $core_entities{$type0} })
+    {
+        $count += l_entity_work ($dbh, $type0, $entity0)
+    }
+
+    warn "Exported $count $type0 -> work relationships.\n" if $count;
 }
 
 sub relationships
@@ -624,6 +685,7 @@ sub relationships
         }
 
         rel_entity_url ($dbh, $type0);
+        rel_entity_work ($dbh, $type0);
     }
 
 

@@ -57,6 +57,7 @@ requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                 => '1.060200';
 requires 'Readonly'                                   => '1.03';
 requires 'String::ShellQuote'                         => '1.030';
+requires 'Template::Plugin::Math';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'Text::Unaccent';
 requires 'TryCatch';
