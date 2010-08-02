@@ -4,6 +4,7 @@ use Moose;
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
 sub element { 'track'; }
 

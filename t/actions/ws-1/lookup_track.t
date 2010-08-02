@@ -39,6 +39,19 @@ ws_test 'lookup track with multiple artists',
   </track>
 </metadata>';
 
+ws_test 'lookup track with tags',
+    '/track/eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e?type=xml&inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+    <title>サマーれげぇ!レインボー (instrumental)</title><duration>292800</duration>
+    <tag-list>
+      <tag count="1">instrumental version</tag><tag count="1">jpop</tag><tag count="1">korean</tag>
+      <tag count="1">metal</tag><tag count="1">thrash metal</tag>
+    </tag-list>
+  </track>
+</metadata>';
+
 sub todo {
 
 ws_test 'lookup track with releases',
@@ -73,11 +86,6 @@ ws_test 'lookup track with track-relationships',
 
 ws_test 'lookup track with url-relationships',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=url-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'lookup track with tags',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
