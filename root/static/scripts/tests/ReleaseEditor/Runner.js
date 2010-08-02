@@ -33,6 +33,7 @@ MB.tests.ReleaseEditor.Run = function () {
         MB.tests.ReleaseEditor.AdvancedTab ();
         MB.tests.ReleaseEditor.BasicTab ();
         MB.tests.ReleaseEditor.Encoding ();
+        MB.tests.ReleaseEditor.TrackParser ();
 
     });
 };

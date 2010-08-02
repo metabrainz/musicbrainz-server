@@ -81,6 +81,8 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
         {
             self.row.removeClass ('deleted');
         }
+
+        return self;
     };
 
     /**
