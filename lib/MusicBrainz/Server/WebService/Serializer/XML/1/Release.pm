@@ -73,6 +73,13 @@ before 'serialize' => sub
             ], $inc)
         )
     }
+
+    $self->add(
+        $self->gen->rating(
+            { 'rating-count' => $entity->release_group->rating_count },
+            $entity->release_group->rating
+        )
+    ) if $inc && $inc->ratings;
 };
 
 __PACKAGE__->meta->make_immutable;

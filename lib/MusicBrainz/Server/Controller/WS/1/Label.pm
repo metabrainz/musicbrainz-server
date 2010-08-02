@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     label => {
         method   => 'GET',
-        inc      => [ qw( aliases _relations tags ) ],
+        inc      => [ qw( aliases _relations tags ratings ) ],
     },
 ]);
 
@@ -19,6 +19,7 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 };
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Alias';
+with 'MusicBrainz::Server::Controller::WS::1::Role::Rating';
 with 'MusicBrainz::Server::Controller::WS::1::Role::Tags';
 
 sub root : Chained('/') PathPart('ws/1/label') CaptureArgs(0) { }

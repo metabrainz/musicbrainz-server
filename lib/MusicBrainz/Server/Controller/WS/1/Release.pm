@@ -9,7 +9,8 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
-        inc    => [ qw( artist tags release-groups tracks release-events label isrcs) ]
+        inc    => [ qw( artist tags release-groups tracks release-events label isrcs
+                        ratings ) ]
     }
 ]);
 
@@ -68,6 +69,12 @@ sub lookup : Chained('load') PathPart('')
 
         $c->model('Label')->load($release->all_labels)
             if $c->stash->{inc}->label;
+    }
+
+    if ($c->stash->{inc}->ratings) {
+        # Releases don't have ratings now, so we need to use release groups
+        $c->model('ReleaseGroup')->load($release) unless $release->release_group;
+        $c->model('ReleaseGroup')->load_meta($release->release_group);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

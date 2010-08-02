@@ -11,7 +11,7 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         inc      => [
             qw( aliases release-groups _rel_status _rg_type counts
-                release-events discs labels _relations tags ) ],
+                release-events discs labels _relations tags ratings ) ],
     },
 ]);
 
@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 };
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Alias';
+with 'MusicBrainz::Server::Controller::WS::1::Role::Rating';
 with 'MusicBrainz::Server::Controller::WS::1::Role::Tags';
 
 sub root : Chained('/') PathPart('ws/1/artist') CaptureArgs(0) { }

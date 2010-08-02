@@ -29,6 +29,10 @@ ws_test 'label lookup with tags',
         '/label/6bb73458-6c5f-4c26-8367-66fcef562955?type=xml&inc=tags' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="6bb73458-6c5f-4c26-8367-66fcef562955" type="OriginalProduction"><name>zetima</name><sort-name>zetima</sort-name><country>JP</country><tag-list><tag count="1">hello project</tag></tag-list></label></metadata>';
 
+ws_test 'label lookup with ratings',
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?type=xml&inc=ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="46f0f4cd-8aab-4b33-b698-f459faf64190" type="OriginalProduction"><name>Warp Records</name><sort-name>Warp Records</sort-name><country>GB</country><rating votes-count="1">100</rating></label></metadata>';
+
 sub todo {
 
 ws_test 'label lookup with artist-relationships',
@@ -53,11 +57,6 @@ ws_test 'label lookup with url-relationships',
 
 ws_test 'label lookup with user-tags',
         '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=user-tags' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
-
-ws_test 'label lookup with ratings',
-        '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata />';
 
