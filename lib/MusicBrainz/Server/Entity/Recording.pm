@@ -51,6 +51,16 @@ has 'isrcs' => (
     }
 );
 
+has 'puids' => (
+    isa     => 'ArrayRef',
+    is      => 'ro',
+    traits  => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        add_puid => 'push',
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

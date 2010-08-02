@@ -19,6 +19,9 @@ before 'serialize' => sub
 
     $self->add( List->new->serialize($entity->isrcs) )
         if $inc && $inc->isrcs;
+
+    $self->add( List->new->serialize($entity->puids) )
+        if $inc && $inc->puids;
 };
 
 __PACKAGE__->meta->make_immutable;
