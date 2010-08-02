@@ -5,6 +5,7 @@ use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_enti
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
 
 sub element { 'release'; }
 

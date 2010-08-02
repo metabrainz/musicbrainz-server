@@ -12,6 +12,7 @@ my $releasegroups = [
     '56683a0b-45b8-3664-a231-5b68efe2e7e2', # dj distance, multiple releases test.
     '153f0a09-fead-3370-9b17-379ebd09446b', # m-flo, artist credit test.
     '23f421e7-431e-3e1d-bcbf-b91f5f7c5e2c', # boa, various-artists and relationships test.
+    '86b4a630-4dd8-36f0-8bc9-e52fe7634320', # chris.su & skc, multiple artist rg and release
     ];
 
 my $cmd = "$root/release-group-sql-dump.pl $root/../t/sql/webservice.sql";
