@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
-        inc    => [ qw( artist ) ]
+        inc    => [ qw( artist tags ) ]
     }
 ]);
 
@@ -36,9 +36,13 @@ sub lookup : Chained('load') PathPart('')
     $c->model('Script')->load($release);
     $c->model('Relationship')->load_subset([ 'url' ], $release);
 
-    my $opts = {};
+    if ($c->stash->{inc}->tags) {
+        my ($tags, $hits) = $c->model('ReleaseGroup')->tags->find_tags($release->release_group->id);
+        $c->stash->{data}{tags} = $tags;
+    }
+
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $opts));
+    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $c->stash->{data}));
 }
 
 no Moose;

@@ -41,6 +41,18 @@ ws_test 'release with artist (multiple artists)',
   </release>
 </metadata>';
 
+ws_test 'release with tags',
+    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+    <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
+    <tag-list>
+      <tag count="1">hello project</tag><tag count="1">jpop</tag><tag count="1">sexy</tag>
+    </tag-list>
+  </release>
+</metadata>';
+
 sub todo {
 
 ws_test 'release with counts',
@@ -100,11 +112,6 @@ ws_test 'release with track-level-relationships',
 
 ws_test 'release with labels',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=labels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with tags',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
