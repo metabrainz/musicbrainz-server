@@ -83,6 +83,8 @@ sub serialize
         my $field = $full_name;
         $field =~ s/^\Q$name.\E//;
 
+        warn "looping.. field: [$field].\n";
+
         $attributes->{$full_name} = { map {
             $_ => $self->field($field)->$_
         } @attribute_names };
@@ -135,16 +137,19 @@ sub _fix_fif
     my %repeatables;
     for my $key (keys %$fif)
     {
-        my @segments = split(/\.([0-9]+)\./, $key);
+        my @segments = split(/\./, $key);
         next if scalar @segments == 1;
 
-        my $pop = 1;
-        while (defined $pop)
+        my $fieldname = '';
+        my $sep = '';
+        while (scalar @segments)
         {
-            $pop = pop @segments;
-            next unless (defined $pop && $pop =~ m/^[0-9]$/);
+            $fieldname .= $sep . shift @segments;
 
-            $repeatables{join (".", @segments)} = 1;
+            my $f = $self->field ($fieldname);
+            $repeatables{$fieldname} = 1 if ($f && $f->is_repeatable);
+
+            $sep = '.';
         }
     }
 
