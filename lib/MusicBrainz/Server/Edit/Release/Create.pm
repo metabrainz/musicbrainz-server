@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CREATE );
-use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition );
+use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
@@ -19,11 +19,12 @@ sub release_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
-        status_id       => Nullable[Int],
+        artist_credit    => ArtistCreditDefinition,
+        comment          => Nullable[Str],
+        date             => Nullable[PartialDateHash],
+        name             => Str,
         release_group_id => Int,
-        name          => Str,
-        artist_credit => ArtistCreditDefinition,
-        comment       => Nullable[Str]
+        status_id        => Nullable[Int],
     ]
 );
 

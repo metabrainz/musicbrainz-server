@@ -21,6 +21,8 @@ __PACKAGE__->config(
 use MusicBrainz::Server::Controller::Role::Tag;
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_CREATE
+    $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
@@ -287,7 +289,7 @@ sub add : Chained('base') RequireAuth Args(0)
     my ($self, $c) = @_;
 
     my $release = MusicBrainz::Server::Entity::Release->new;
-    $release->add_medium (MusicBrainz::Server::Entity::Medium->new);
+    $release->add_medium (MusicBrainz::Server::Entity::Medium->new ( position => 1 ));
     $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
     $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
     $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
@@ -310,6 +312,94 @@ sub add : Chained('base') RequireAuth Args(0)
 
     if ($wizard->submitted)
     {
+        # The user is done with the wizard and wants to submit the new data.
+        # So let's create some edits :)
+
+        my $data = $wizard->value;
+
+        # FIXME: a lot of this is duplicated from 'edit', should be refactored.
+
+        # add release group
+        # ----------------------------------------
+
+        my @fields = qw( name artist_credit type_id );
+        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+        my $editnote = $data->{'editnote'};
+        my $edit = $self->_create_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+
+        warn "got release group\n";
+
+        # add release
+        # ----------------------------------------
+
+        @fields = qw( name comment packaging_id status_id script_id language_id
+                         country_id barcode artist_credit date );
+        %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+        $args{release_group_id} = $edit->entity->id;
+
+        $edit = $self->_create_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
+
+        my $release_id = $edit->entity->id;
+        my $gid = $edit->entity->gid;
+
+        warn "got release\n";
+
+        # release labels edit
+        # ----------------------------------------
+
+        my $max = scalar @{ $data->{'labels'} } - 1;
+
+        for (0..$max)
+        {
+            my $new_label = $data->{'labels'}->[$_];
+
+            # Add ReleaseLabel
+            # FIXME: There doesn't seem to be an add release label edit. --warp.
+            warn "FIXME: ADD RELEASE LABEL EDIT";
+        }
+
+        warn "added labels (if any)\n";
+
+        # medium / tracklist / track edits
+        # ----------------------------------------
+
+        for my $medium (@{ $data->{'mediums'} })
+        {
+            my @tracks = map {
+                {
+                    name => $_->{name},
+                    length => $_->{length},
+                    artist_credit => $_->{artist_credit},
+                    position => $_->{position},
+                }
+            } @{ $medium->{'tracklist'}->{'tracks'} };
+
+            # We have some tracks but no tracklist ID - so create a new tracklist
+            my $create_tl = $self->_create_edit(
+                $c, $EDIT_TRACKLIST_CREATE, $editnote, tracks => \@tracks);
+
+            my $tracklist_id = $create_tl->tracklist_id;
+        
+            warn "added tracklist\n";
+
+            my $opts = {
+                position => $medium->{'position'},
+                tracklist_id => $tracklist_id,
+                release_id => $release_id
+            };
+
+            $opts->{name} = $medium->{'name'} if $medium->{'name'};
+            $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
+
+            # Add medium
+            $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
+        }
+
+        warn "added media\n";
+
+        $c->response->redirect($c->uri_for_action('/release/show', [ $gid ]));
+        $c->detach;
     }    
     elsif ($wizard->loading)
     {
@@ -390,7 +480,7 @@ sub edit : Chained('load') RequireAuth Edit
     if ($wizard->submitted)
     {
         # The user is done with the wizard and wants to submit the new data.
-        # So let's create an edit :)
+        # So let's create some edits :)
 
         my $data = $wizard->value;
 
