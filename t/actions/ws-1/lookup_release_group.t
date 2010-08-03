@@ -35,7 +35,7 @@ ws_test 'release group lookup with releases',
     <title>My Demons</title>
     <release-list>
       <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
-        <title>My Demons</title><text-representation script="Latn" language="ENG" /><track offset="11" />
+        <title>My Demons</title><text-representation script="Latn" language="ENG" /><track-list offset="11" />
       </release>
     </release-list>
   </release-group>

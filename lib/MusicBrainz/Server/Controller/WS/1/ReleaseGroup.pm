@@ -40,6 +40,8 @@ sub lookup : Chained('load') PathPart('')
 
     if ($c->stash->{inc}->releases)
     {
+        $c->stash->{inc}->tracklist(1);
+
         $opts->{releases} = $self->_load_paged($c, sub {
             $c->model('Release')->find_by_release_group($rg->id, shift, shift);
         });

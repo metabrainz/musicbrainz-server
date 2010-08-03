@@ -90,6 +90,15 @@ sub lookup : Chained('load') PathPart('')
 
             $c->stash->{inc}->releases(1);
             $c->stash->{data}->{releases} = \@releases;
+
+            if ($c->stash->{inc}->release_events) {
+                $c->model('Medium')->load_for_releases(@releases)
+                    unless $c->stash->{inc}->discs;
+
+                $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+                $c->model('ReleaseLabel')->load(@releases);
+                $c->model('Country')->load(@releases);
+            }
         }
     }
 

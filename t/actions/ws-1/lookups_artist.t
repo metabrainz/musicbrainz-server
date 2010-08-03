@@ -73,6 +73,30 @@ ws_test 'artist lookup with ratings',
     '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group"><name>Plone</name><sort-name>Plone</sort-name><rating votes-count="2">70</rating></artist></metadata>';
 
+ws_test 'artist lookup with release-events',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?type=xml&inc=release-events+sa-Album' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person">
+    <name>Distance</name><sort-name>Distance</sort-name>
+    <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+    <release-list>
+      <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+        <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+        <release-event-list>
+          <event country="GB" format="CD" date="2007-01-29" barcode="600116817020" catalog-number="ZIQ170CD" />
+        </release-event-list>
+      </release>
+      <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134" type="Album Official">
+        <title>Repercussions</title><text-representation script="Latn" language="ENG" /><asin>B001IKWNCE</asin>
+        <release-event-list>
+          <event country="GB" format="2xCD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD" />
+        </release-event-list>
+      </release>
+    </release-list>
+  </artist>
+</metadata>';
+
 sub todo {
 
 ws_test 'artist lookup with artist-relationships',
@@ -97,11 +121,6 @@ ws_test 'artist lookup with user-tags',
 
 ws_test 'artist lookup with counts',
     '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=counts' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
-
-ws_test 'artist lookup with release-events',
-    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=release-events' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata />';
 

@@ -9,8 +9,8 @@ has $_ => (
     isa => 'Int',
     default => 0
 ) for qw(
-          artist track_rels asin rg_type rel_status discs release_events
-          counts various_artists tracks labels
+          artist track_rels      asin rg_type   rel_status discs release_events
+          counts various_artists tracks  labels tracklist
 );
 
 override 'get_rel_types' => sub

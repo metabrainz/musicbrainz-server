@@ -41,10 +41,10 @@ before 'serialize' => sub
     $self->add( serialize_entity($entity->release_group, undef, { 'gid-only' => $opts->{in_list} } ) )
         if ($inc && $inc->release_groups);
 
-    # If the release is in a list then we display the track offset
-    $self->add( $self->gen->track({
+    my $tracklist = 'track-list';
+    $self->add( $self->gen->$tracklist({
         offset => $entity->combined_track_count - 1,
-    })) if $entity->combined_track_count && $opts->{in_list};
+    })) if $inc && $inc->tracklist;
 
     $self->add( List->new->serialize(
         [
