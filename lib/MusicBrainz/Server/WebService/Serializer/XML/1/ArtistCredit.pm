@@ -9,6 +9,8 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
+    $self->add( $self->gen->name($entity->name) );
+
     if (@{$entity->names} > 1)
     {
         # This artist credit has multiple artists, which cannot be represented
@@ -25,8 +27,6 @@ before 'serialize' => sub
         $self->attributes->{id} = $artist->gid;
         $self->add( $self->gen->sort_name($artist->sort_name) );
     }
-
-    $self->add( $self->gen->name($entity->name) );
 };
 
 __PACKAGE__->meta->make_immutable;

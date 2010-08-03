@@ -24,7 +24,7 @@ before 'serialize' => sub
     $self->add( serialize_entity($entity->artist_credit) )
         if ($inc && $inc->artist);
 
-    $self->add( List->new->serialize($opts->{releases}) )
+    $self->add( List->new->serialize($opts->{releases}, $inc) )
         if ($inc && $inc->releases);
 };
 
