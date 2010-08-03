@@ -10,8 +10,8 @@ my $ws_defs = Data::OptList::mkopt([
     artist => {
         method   => 'GET',
         inc      => [
-            qw( aliases release-groups _rel_status _rg_type counts
-                release-events discs labels _relations tags ratings ) ],
+            qw( aliases        release-groups _rel_status _rg_type   counts
+                release-events discs          labels      _relations tags ratings ) ],
     },
 ]);
 
@@ -98,6 +98,9 @@ sub lookup : Chained('load') PathPart('')
                 $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
                 $c->model('ReleaseLabel')->load(@releases);
                 $c->model('Country')->load(@releases);
+
+                $c->model('Label')->load(map { $_->labels->[0] } @releases)
+                    if $c->stash->{inc}->labels;
             }
         }
     }
