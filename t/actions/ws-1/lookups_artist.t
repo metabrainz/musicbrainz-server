@@ -129,6 +129,31 @@ ws_test 'artist lookup with release-events',
   </artist>
 </metadata>';
 
+ws_test 'artist lookup with discs',
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?type=xml&inc=discs+sa-Single' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
+    <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+    <release-list>
+      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
+        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
+        <asin>B00005LA6G</asin>
+        <disc-list>
+          <disc sectors="60295" id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-"/>
+        </disc-list>
+      </release>
+      <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+        <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
+        <asin>B00005LA6G</asin>
+        <disc-list>
+          <disc sectors="60295" id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-"/>
+        </disc-list>
+      </release>
+    </release-list>
+  </artist>
+</metadata>';
+
 sub todo {
 
 ws_test 'artist lookup with artist-relationships',
@@ -153,11 +178,6 @@ ws_test 'artist lookup with user-tags',
 
 ws_test 'artist lookup with counts',
     '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=counts' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
-
-ws_test 'artist lookup with discs',
-    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=discs' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata />';
 

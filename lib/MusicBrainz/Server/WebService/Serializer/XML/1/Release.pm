@@ -81,6 +81,12 @@ before 'serialize' => sub
             $entity->release_group->rating
         )
     ) if $inc && $inc->ratings;
+
+    if ($inc && $inc->discs) {
+        $self->add( List->new->serialize([
+            map { $_->all_cdtocs } map { $_->all_mediums } $entity
+        ]) );
+    }
 };
 
 __PACKAGE__->meta->make_immutable;
