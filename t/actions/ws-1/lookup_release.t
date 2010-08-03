@@ -199,12 +199,17 @@ ws_test 'release with release-relationships',
     '/release/757a1723-3769-4298-89cd-48d31177852a?type=xml&inc=release-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="757a1723-3769-4298-89cd-48d31177852a" type="Album Pseudo-Release"><title>LOVE &amp; HONESTY</title><text-representation script="Latn" language="JPN" /><asin>B0000YGBSG</asin><relation-list target-type="Release"><relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" begin="" type="Transl-Tracklisting" end=""><release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation><relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" begin="" type="Transl-Tracklisting" end=""><release id="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation></relation-list></release></metadata>';
 
-sub todo {
-
 ws_test 'release with counts',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=counts' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+    <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+    <release-event-list count="1" /><track-list count="12" /><disc-list count="1" />
+  </release>
+</metadata>';
+
+sub todo {
 
 ws_test 'release with discs',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=discs' =>

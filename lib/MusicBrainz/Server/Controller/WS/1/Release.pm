@@ -10,7 +10,7 @@ my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
         inc    => [ qw( artist  tags  release-groups tracks release-events labels isrcs
-                        ratings puids _relations ) ]
+                        ratings puids _relations     counts ) ]
     }
 ]);
 
@@ -81,6 +81,15 @@ sub lookup : Chained('load') PathPart('')
         # Releases don't have ratings now, so we need to use release groups
         $c->model('ReleaseGroup')->load($release) unless $release->release_group;
         $c->model('ReleaseGroup')->load_meta($release->release_group);
+    }
+
+    if ($c->stash->{inc}->counts) {
+        $c->model('Medium')->load_for_releases($release)
+            unless $c->stash->{inc}->discs ||
+                $c->stash->{inc}->release_events;
+
+        $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums)
+            unless $c->stash->{inc}->discs;
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
