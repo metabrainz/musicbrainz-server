@@ -87,6 +87,23 @@ before 'serialize' => sub
             map { $_->all_cdtocs } map { $_->all_mediums } $entity
         ]) );
     }
+
+    if ($inc && $inc->counts) {
+        my $tracklist = 'track-list';
+        my $relist    = 'release-event-list';
+        my $disclist  = 'disc-list';
+
+        $self->add( $self->gen->$relist({ count => 1 }) )
+            unless $inc->release_events;
+
+        $self->add( $self->gen->$tracklist({
+            count => $entity->combined_track_count,
+        }));
+
+        $self->add( $self->gen->$disclist({
+            count => scalar map { $_->all_cdtocs } map { $_->all_mediums } $entity
+        })) unless $inc->discs;
+    }
 };
 
 __PACKAGE__->meta->make_immutable;

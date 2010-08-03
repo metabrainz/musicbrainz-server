@@ -102,6 +102,15 @@ sub lookup : Chained('load') PathPart('')
                 $c->model('Label')->load(map { $_->labels->[0] } @releases)
                     if $c->stash->{inc}->labels;
             }
+
+            if ($c->stash->{inc}->counts) {
+                $c->model('Medium')->load_for_releases(@releases)
+                    unless $c->stash->{inc}->discs ||
+                           $c->stash->{inc}->release_events;
+
+                $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } @releases)
+                    unless $c->stash->{inc}->discs;
+            }
         }
     }
 
