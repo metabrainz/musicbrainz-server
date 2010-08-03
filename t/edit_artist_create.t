@@ -7,6 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Create' }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
+use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -37,7 +38,6 @@ ok(defined $artist);
 is($artist->name, 'Junior Boys');
 is($artist->gender_id, 1);
 is($artist->comment, 'Canadian electronica duo');
-is($artist->edits_pending, 1);
 is($artist->begin_date->format, "1981-05" );
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
@@ -47,5 +47,8 @@ is($edit->display_data->{name}, 'Junior Boys');
 is($edit->display_data->{gender}->{name}, 'Male');
 is($edit->display_data->{comment}, 'Canadian electronica duo');
 is($edit->display_data->{begin_date}->format, "1981-05" );
+
+is($edit->status, $STATUS_APPLIED, 'add artist edits should be autoedits');
+is($artist->edits_pending, 0, 'add artist edits should be autoedits');
 
 done_testing;

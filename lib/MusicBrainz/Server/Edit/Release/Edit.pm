@@ -16,6 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    clean_submitted_artist_credits
 );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -121,6 +122,12 @@ before 'initialize' => sub
 {
     my ($self, %opts) = @_;
     my $release = $opts{to_edit} or return;
+
+    if (exists $opts{artist_credit})
+    {
+        $opts{artist_credit} = clean_submitted_artist_credits ($opts{artist_credit});
+    }
+
     if (exists $opts{artist_credit} && !$release->artist_credit) {
         $self->c->model('ArtistCredit')->load($release);
     }

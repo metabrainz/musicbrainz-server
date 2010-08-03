@@ -8,12 +8,15 @@
                     <th>[% l('DiscID') %]</th>
                     <th>[% l('Tracks') %]</th>
                     <th>[% l('Length') %]</th>
+                    [% IF c.user_exists %]
+                    <th>[% l('Edit') %]</th>
+                    [% END %]
                 </tr>
             </thead>
             <tbody>
             [% FOR medium IN release.mediums %]
                 <tr class="subh">
-                    <td colspan="3">
+                    <td colspan="[% c.user_exists ? 4 : 3 %]">
                         <a href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
                             [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
                             [% medium.name | html %][% END %]
@@ -25,6 +28,15 @@
                     <td>[% link_cdtoc(medium_cdtoc.cdtoc) %]</td>
                     <td>[% medium_cdtoc.cdtoc.track_count %]</td>
                     <td>[% medium_cdtoc.cdtoc.length | format_length %]</td>
+                    [% IF c.user_exists %]
+                    <td>
+                      <a href="[% c.uri_for_action('cdtoc/remove',
+                                                   { cdtoc_id  => medium_cdtoc.cdtoc.id,
+                                                     medium_id => medium.id }) %]">
+                       [% l('Remove') %]
+                      </a>
+                    </td>
+                    [% END %]
                 </tr>
                 [% END %]
             [%- END -%]
@@ -32,6 +44,12 @@
         </table>
     [% ELSE %]
         <p>[% l('There are no DiscIDs attached to this release.') %]</p>
+    [% END %]
+
+    [% IF c.user_exists %]
+    [% ELSE %]
+        <p>[% l('Please {login} to edit the disc IDs for this release.',
+                { login => request_login('log in') }) %]</p>
     [% END %]
 
 [%- END -%]

@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium_cdtoc' };
 
 sub _table
 {
@@ -63,6 +64,16 @@ sub find_by_cdtoc
     my ($self, $cdtoc_id) = @_;
     return sort { $a->id <=> $b->id }
         values %{ $self->_get_by_keys("cdtoc", $cdtoc_id) };
+}
+
+sub get_by_medium_cdtoc
+{
+    my ($self, $medium_id, $cdtoc_id) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                 ' FROM ' . $self->_table .
+                 ' WHERE medium = ? AND cdtoc = ?';
+    my $medium_cdtoc = $self->sql->select_single_row_hash($query, $medium_id, $cdtoc_id);
+    return $self->_new_from_row($medium_cdtoc);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -159,7 +159,7 @@ my $ws_defs = Data::OptList::mkopt([
 
 with 'MusicBrainz::Server::WebService::Validator' =>
 {
-     defs => $ws_defs
+     defs => $ws_defs,
 };
 
 Readonly my %serializers => (
