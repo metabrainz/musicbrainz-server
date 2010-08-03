@@ -209,12 +209,19 @@ ws_test 'release with counts',
   </release>
 </metadata>';
 
-sub todo {
-
-ws_test 'release with discs',
+ws_test 'release with counts',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=discs' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+    <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+    <disc-list>
+      <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-" sectors="281289" />
+    </disc-list>
+  </release>
+</metadata>';
+
+sub todo {
 
 ws_test 'release with label-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=label-rels' =>
