@@ -74,12 +74,27 @@ ws_test 'lookup track with puids',
   </track>
 </metadata>';
 
-sub todo {
-
 ws_test 'lookup track with releases',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=releases' =>
+    '/track/162630d9-36d2-4a8d-ade1-1c77440b34e7?type=xml&inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+    <title>サマーれげぇ!レインボー</title><duration>296026</duration>
+    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+      <sort-name>7nin Matsuri</sort-name><name>7人祭</name>
+    </artist>
+    <release-list>
+      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
+        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
+      </release>
+      <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+        <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
+      </release>
+    </release-list>
+  </track>
+</metadata>';
+
+sub todo {
 
 ws_test 'lookup track with artist-relationships',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=artist-rels' =>

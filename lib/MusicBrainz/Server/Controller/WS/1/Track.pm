@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     track => {
         method   => 'GET',
-        inc      => [ qw( artist tags isrcs puids ) ],
+        inc      => [ qw( artist tags isrcs puids releases ) ],
     },
 ]);
 
@@ -34,6 +34,25 @@ sub lookup : Chained('load') PathPart('')
 
     if ($c->stash->{inc}->puids) {
         $c->model('RecordingPUID')->load_for_recordings($track);
+    }
+
+    if ($c->stash->{inc}->releases) {
+        my ($releases) = $c->model('Release')->find_by_recording($track->id);
+
+        $c->model('ReleaseStatus')->load(@$releases);
+        $c->model('ReleaseGroup')->load(@$releases);
+        $c->model('ReleaseGroupType')->load(map { $_->release_group } @$releases);
+        $c->model('Script')->load(@$releases);
+        $c->model('Language')->load(@$releases);
+
+        $c->stash->{data}{releases} = $releases;
+        $c->stash->{inc}->tracklist(1);
+
+        unless ($c->stash->{inc}->artist) {
+            $c->model('ArtistCredit')->load($track);
+            $c->model('Artist')->load($track->artist_credit->names->[0])
+                if (@{ $track->artist_credit->names } == 1);
+        }
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

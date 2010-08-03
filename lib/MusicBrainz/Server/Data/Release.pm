@@ -173,7 +173,7 @@ sub find_by_recording
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
         $query, @ids, $offset || 0);
 }
 

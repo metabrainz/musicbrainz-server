@@ -17,11 +17,16 @@ before 'serialize' => sub
     $self->add( $self->gen->title($entity->name) );
     $self->add( $self->gen->duration($entity->length) ) if $entity->length;
 
+    $inc && $inc->artist(0);
+
     $self->add( List->new->serialize($entity->isrcs) )
         if $inc && $inc->isrcs;
 
     $self->add( List->new->serialize($entity->puids) )
         if $inc && $inc->puids;
+
+    $self->add( List->new->serialize($opts->{releases}) )
+        if $inc && $inc->releases;
 };
 
 __PACKAGE__->meta->make_immutable;
