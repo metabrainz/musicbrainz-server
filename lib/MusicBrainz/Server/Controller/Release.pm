@@ -258,17 +258,20 @@ sub _serialize_tracklists
 
     my $tracklists = [];
 
-    for ($release->all_mediums)
+    if ($release)
     {
-        my $tracklist = $_->tracklist;
-
-        my $tracks = [];
-        for my $track (@{ $tracklist->tracks })
+        for ($release->all_mediums)
         {
-            push @$tracks, $self->_serialize_track ($track);
-        }
+            my $tracklist = $_->tracklist;
 
-        push @$tracklists, $tracks;
+            my $tracks = [];
+            for my $track (@{ $tracklist->tracks })
+            {
+                push @$tracks, $self->_serialize_track ($track);
+            }
+
+            push @$tracklists, $tracks;
+        }
     }
 
     # It seems JSON libraries encode things to UTF-8, but the json
@@ -276,6 +279,50 @@ sub _serialize_tracklists
     # to UTF-8.  So this string has to be decoded back to the internal
     # perl unicode :(.  --warp.
     return decode ("UTF-8", JSON::Any->objToJson ($tracklists));
+}
+
+
+sub add : Chained('base') RequireAuth Args(0)
+{
+    my ($self, $c) = @_;
+
+    my $release = MusicBrainz::Server::Entity::Release->new;
+    $release->add_medium (MusicBrainz::Server::Entity::Medium->new);
+    $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
+    $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
+    $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
+
+    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
+
+    $wizard->process;
+
+    if ($wizard->cancelled)
+    {
+        # FIXME: detach to artist, label or release group page if started from there.
+        $c->detach ();
+    }
+
+    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist')
+    {
+        # FIXME: empty serialized tracklist
+        $c->stash( serialized_tracklists => $self->_serialize_tracklists () );
+    }
+
+    if ($wizard->submitted)
+    {
+    }    
+    elsif ($wizard->loading)
+    {
+        # There was no existing wizard, provide the wizard with
+        # the $release to initialize the forms.
+        $wizard->render ($release);
+    }
+    else
+    {
+        # wizard processed correctly, it's not loading, cancelled or submitted.
+        # so all data is in the session and the wizard just needs to be rendered.
+        $wizard->render;
+    }
 }
 
 =head2 WRITE METHODS

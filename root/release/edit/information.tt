@@ -54,7 +54,9 @@
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </span>
       <span class="link">
-        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">link</a>
+        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">
+          [%- IF artist.gid -%]link[%- END -%]
+        </a>
       </span>
     </div>
     <div class="row">
