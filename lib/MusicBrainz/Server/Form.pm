@@ -83,8 +83,6 @@ sub serialize
         my $field = $full_name;
         $field =~ s/^\Q$name.\E//;
 
-        warn "looping.. field: [$field].\n";
-
         $attributes->{$full_name} = { map {
             $_ => $self->field($field)->$_
         } @attribute_names };
