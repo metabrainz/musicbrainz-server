@@ -96,13 +96,13 @@ before 'serialize' => sub
         $self->add( $self->gen->$relist({ count => 1 }) )
             unless $inc->release_events;
 
-        $self->add( $self->gen->$tracklist({
-            count => $entity->combined_track_count,
-        }));
-
         $self->add( $self->gen->$disclist({
             count => scalar map { $_->all_cdtocs } map { $_->all_mediums } $entity
         })) unless $inc->discs;
+
+        $self->add( $self->gen->$tracklist({
+            count => $entity->combined_track_count,
+        }));
     }
 };
 
