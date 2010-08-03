@@ -62,15 +62,22 @@ ws_test 'lookup track with isrcs',
   </track>
 </metadata>';
 
+ws_test 'lookup track with puids',
+    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=puids' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="c869cc03-cb88-462b-974e-8e46c1538ad4">
+    <title>Rock With You</title><duration>255146</duration>
+    <puid-list><puid id="242d65cb-3cd2-517c-f0a7-5d05413cf4c9" />
+      <puid id="acaef019-b6dd-ba4f-75ab-31a055b68859" />
+    </puid-list>
+  </track>
+</metadata>';
+
 sub todo {
 
 ws_test 'lookup track with releases',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=releases' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'lookup track with puids',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=puids' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 
