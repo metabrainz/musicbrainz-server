@@ -288,12 +288,6 @@ sub add : Chained('base') RequireAuth Args(0)
 {
     my ($self, $c) = @_;
 
-    my $release = MusicBrainz::Server::Entity::Release->new;
-    $release->add_medium (MusicBrainz::Server::Entity::Medium->new ( position => 1 ));
-    $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
-    $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
-    $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
-
     my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
 
     $wizard->process;
@@ -317,18 +311,24 @@ sub add : Chained('base') RequireAuth Args(0)
 
         my $data = $wizard->value;
 
-        # FIXME: a lot of this is duplicated from 'edit', should be refactored.
+        # FIXME: some of this is duplicated from 'edit', should be refactored.
+
+        my @fields;
+        my %args;
+        my $editnote;
+        my $edit;
 
         # add release group
         # ----------------------------------------
 
-        my @fields = qw( name artist_credit type_id );
-        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+        unless ($data->{release_group_id})
+        {
+            @fields = qw( name artist_credit type_id );
+            %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-        my $editnote = $data->{'editnote'};
-        my $edit = $self->_create_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
-
-        warn "got release group\n";
+            $editnote = $data->{'editnote'};
+            $edit = $self->_create_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+        }
 
         # add release
         # ----------------------------------------
@@ -336,14 +336,13 @@ sub add : Chained('base') RequireAuth Args(0)
         @fields = qw( name comment packaging_id status_id script_id language_id
                          country_id barcode artist_credit date );
         %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-        $args{release_group_id} = $edit->entity->id;
+
+        $args{release_group_id} = $edit ? $edit->entity->id : $data->{release_group_id};
 
         $edit = $self->_create_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
 
         my $release_id = $edit->entity->id;
         my $gid = $edit->entity->gid;
-
-        warn "got release\n";
 
         # release labels edit
         # ----------------------------------------
@@ -358,8 +357,6 @@ sub add : Chained('base') RequireAuth Args(0)
             # FIXME: There doesn't seem to be an add release label edit. --warp.
             warn "FIXME: ADD RELEASE LABEL EDIT";
         }
-
-        warn "added labels (if any)\n";
 
         # medium / tracklist / track edits
         # ----------------------------------------
@@ -381,8 +378,6 @@ sub add : Chained('base') RequireAuth Args(0)
 
             my $tracklist_id = $create_tl->tracklist_id;
         
-            warn "added tracklist\n";
-
             my $opts = {
                 position => $medium->{'position'},
                 tracklist_id => $tracklist_id,
@@ -396,8 +391,6 @@ sub add : Chained('base') RequireAuth Args(0)
             $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
         }
 
-        warn "added media\n";
-
         $c->response->redirect($c->uri_for_action('/release/show', [ $gid ]));
         $c->detach;
     }    
@@ -405,6 +398,53 @@ sub add : Chained('base') RequireAuth Args(0)
     {
         # There was no existing wizard, provide the wizard with
         # the $release to initialize the forms.
+
+        my $rg_gid = $c->req->query_params->{'release-group'};
+        my $label_gid = $c->req->query_params->{'label'};
+        my $artist_gid = $c->req->query_params->{'artist'};
+
+        my $release = MusicBrainz::Server::Entity::Release->new;
+        $release->add_medium (MusicBrainz::Server::Entity::Medium->new ( position => 1 ));
+
+        if ($rg_gid)
+        {
+            $c->detach () unless MusicBrainz::Server::Validation::IsGUID($rg_gid);
+            my $rg = $c->model('ReleaseGroup')->get_by_gid($rg_gid);
+            $c->detach () unless $rg;
+
+            $release->release_group_id ($rg->id);
+            $release->release_group ($rg);
+            $release->name ($rg->name);
+
+            $c->model('ArtistCredit')->load ($rg);
+
+            $release->artist_credit ($rg->artist_credit);
+        }
+        elsif ($label_gid)
+        {
+            # FIXME: label
+
+            $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
+            $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
+            $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
+        }
+        elsif ($artist_gid)
+        {
+            $c->detach () unless MusicBrainz::Server::Validation::IsGUID($artist_gid);
+            my $artist = $c->model('Artist')->get_by_gid($artist_gid);
+            $c->detach () unless $artist;
+
+            $release->artist_credit (
+                MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
+        }
+        else
+        {
+            $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
+            $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
+            $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
+        }
+
+
         $wizard->render ($release);
     }
     else

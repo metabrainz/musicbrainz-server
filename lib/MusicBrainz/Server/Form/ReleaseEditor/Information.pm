@@ -6,6 +6,7 @@ extends 'MusicBrainz::Server::Form::Step';
 # Release information
 has_field 'name'             => ( type => 'Text'      );
 has_field 'various_artists'  => ( type => 'Checkbox'  );
+has_field 'release_group_id' => ( type => 'Hidden'    );
 
 has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
 has_field 'type_id'          => ( type => 'Select'    );
