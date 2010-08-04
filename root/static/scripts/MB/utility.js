@@ -88,3 +88,20 @@ MB.utility.autocomplete.options = {
     }
 };
 
+MB.utility.load_data = function (files, loaded, callback) {
+    var uri = files.pop ();
+
+    if (uri)
+    {
+        jQuery.get (uri, function (data) {
+            loaded[uri] = data;
+
+            MB.utility.load_data (files, loaded, callback);
+        });
+    }
+    else
+    {
+        callback (loaded);
+    }
+};
+
