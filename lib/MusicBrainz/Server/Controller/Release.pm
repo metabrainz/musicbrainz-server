@@ -377,7 +377,7 @@ sub add : Chained('base') RequireAuth Args(0)
                 $c, $EDIT_TRACKLIST_CREATE, $editnote, tracks => \@tracks);
 
             my $tracklist_id = $create_tl->tracklist_id;
-        
+
             my $opts = {
                 position => $medium->{'position'},
                 tracklist_id => $tracklist_id,
@@ -393,7 +393,7 @@ sub add : Chained('base') RequireAuth Args(0)
 
         $c->response->redirect($c->uri_for_action('/release/show', [ $gid ]));
         $c->detach;
-    }    
+    }
     elsif ($wizard->loading)
     {
         # There was no existing wizard, provide the wizard with
