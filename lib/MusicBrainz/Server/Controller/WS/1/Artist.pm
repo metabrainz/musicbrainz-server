@@ -27,6 +27,28 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::Tags';
 
 sub root : Chained('/') PathPart('ws/1/artist') CaptureArgs(0) { }
 
+sub search : Path('')
+{
+    my ($self, $c) = @_;
+
+    my $limit = 0 + ($c->req->query_params->{limit} || 25);
+    $limit = 25 if $limit < 1 || $limit > 100;
+
+    my $offset = 0 + ($c->req->query_params->{offset} || 0);
+    $offset = 0 if $offset < 0;
+
+    my $query = $c->req->query_params->{name}
+        or $c->detach('bad_req');
+
+    my $results = $c->model('Search')->external_search(
+        $c, 'artist', $query, $limit, ($offset / $limit) + 1
+    );
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->stash->{serializer}->add_namespace('ext', 'http://musicbrainz.org/ns/ext-1.0#');
+    $c->res->body($c->stash->{serializer}->serialize_list('artist-list', $results));
+}
+
 sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
