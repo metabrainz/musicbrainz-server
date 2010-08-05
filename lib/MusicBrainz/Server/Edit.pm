@@ -138,7 +138,7 @@ sub editor_may_vote
     return $self->is_open &&
                    defined $editor && $editor->id != $self->editor_id &&
                    $editor->email_confirmation_date &&
-                   $editor->accepted_edits > 10;
+                   $editor->accepted_edits >= 10;
 }
 
 # Subclasses should reimplement this, if they want different edit conditions.
