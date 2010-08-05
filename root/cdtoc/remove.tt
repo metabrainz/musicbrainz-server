@@ -1,0 +1,21 @@
+[% WRAPPER 'release/layout.tt' title=l('Remove Disc ID') full_width=1 %]
+    <h2>[% l('Remove Disc ID') %]</h2>
+    <ul>
+      <li>
+        [% l('Are you sure you want to remove the Disc ID <code>{discid}</code> from the release
+              {release} by {artist}?',
+             { discid => medium_cdtoc.cdtoc.discid, release => link_release(release),
+               artist => artist_credit(release.artist_credit) }) %]
+      </li>
+      <li>
+        [% l('You need to be certain that this Disc ID was added to this release erraneously, since a release
+              can have multiple valid Disc IDs, and each Disc ID can belong to more than one release. For more
+              in-depth information about this topic, please see our {doc|CD Submission document}.',
+              { doc => doc_link('DiscSubmission') }) %]
+      </li>
+    </ul>
+    <form action="[% c.req.uri %]" method="post">
+        [% INCLUDE "forms/edit-note.tt" %]
+        [% enter_edit() %]
+    </form>
+[% END %]

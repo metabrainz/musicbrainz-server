@@ -52,7 +52,11 @@
         [% INCLUDE 'edit/edit_header.tt' %]
 
         <h2>[% l('Changes') %]</h2>
-        [%- INCLUDE "edit/details/${edit.edit_template}.tt" %]
+        [% IF edit.data.defined %]
+          [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+        [% ELSE %]
+          <p>[% l('An error occured while loading this edit') %]</p>
+        [% END %]
 
         <h2>[% l('Votes') %]</h2>
         <table class="vote-tally">

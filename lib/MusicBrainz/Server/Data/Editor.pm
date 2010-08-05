@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
     query_to_list_limited
+    query_to_list
     type_to_model
 );
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED :privileges );
@@ -106,6 +107,58 @@ sub get_ratings
     }
 
     return $ratings;
+}
+
+sub _get_tags_for_type
+{
+    my ($self, $id, $type) = @_;
+
+    my $query = "SELECT tag, count(tag)
+        FROM ${type}_tag_raw
+        WHERE editor = ?
+        GROUP BY tag";
+
+    my $sql = Sql->new($self->c->raw_dbh);
+    my $results = $sql->select_list_of_hashes ($query, $id);
+
+    return { map { $_->{tag} => $_ } @$results };
+}
+
+sub get_tags
+{
+    my ($self, $user) = @_;
+
+
+    my $tags = {};
+    my $max = 0;
+    foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
+    {
+        my $data = $self->_get_tags_for_type ($user->id, $entity);
+
+        foreach (keys %$data)
+        {
+            if ($tags->{$_})
+            {
+                $tags->{$_}->{count} += $data->{$_}->{count};
+            }
+            else
+            {
+                $tags->{$_} = $data->{$_};
+            }
+
+            $max = $tags->{$_}->{count} if $tags->{$_}->{count} > $max;
+        }
+    }
+
+    my $entities = $self->c->model('Tag')->get_by_ids(keys %$tags);
+    foreach (keys %$entities)
+    {
+        $tags->{$_}->{tag} = $entities->{$_};
+    }
+
+    my @tags = sort { $a->{tag}->name cmp $b->{tag}->name } values %$tags;
+
+    return { max => $max, tags => \@tags };
 }
 
 sub find_by_email

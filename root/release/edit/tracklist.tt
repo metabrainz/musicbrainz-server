@@ -1,0 +1,245 @@
+[%- BLOCK layout_head -%]
+  <script src="[% c.uri_for('/static/lib/jquery/jquery-1.4.2.min.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery/jquery.json.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery.autocomplete/jquery.autocomplete.min.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/TrackParser.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseBasicTab.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseAdvancedTab.js') %]" type="text/javascript"></script>
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.autocomplete/jquery.autocomplete.css') %]" />
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <script type="text/javascript">
+    $('document').ready (function () {
+
+      var serialized_tracklists = [% serialized_tracklists %];
+
+      var advanced_tab = MB.Control.ReleaseAdvancedTab ();
+
+      MB.Control.ReleaseBasicTab (advanced_tab, serialized_tracklists);
+
+    });
+  </script>
+[%- END -%]
+
+[%- MACRO artist_credit_table(acfield) BLOCK -%]
+<div class="ac-balloon0">
+  <div class="ac-balloon1">
+    <div class="ac-balloon2"></div>
+    <div class="ac-balloon3"></div>
+  </div>
+</div>
+<table class="artist-credit" style="width: 100%">
+  <tr class="artist-credit-header">
+    <th>[% l('Link') %]</th>
+    <th>[% l('Artist in MusicBrainz') %]</th>
+    <th>[% l('Artist as credited on this track') %]</th>
+    <th>[% l('Join phrase') %]</th>
+  </tr>
+  [% FOR ac=acfield.field('names').fields %]
+    [% artistnum = loop.index %]
+    [% artist = acfield.fif.names.$artistnum.artist %]
+    <tr class="artist-credit-box">
+      <td class="link">
+        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">link</a>
+      </td>
+      <td class="artist">
+        <input type="text" class="name" value="[% artist.name %]" />
+        <input type="hidden" class="gid" value="[% artist.gid %]" />
+        [% r.hidden (ac.field('artist_id'), class => 'id') %]
+      </td>
+      <td class="artistcredit">
+        [% r.text (ac.field('name'), class => 'credit') %]
+      </td>
+      <td class="joinphrase">
+        [% r.text (ac.field('join_phrase'), class => 'join') %]
+      </td>
+    </tr>
+  [% END %]
+</table>
+[%- END -%]
+
+[%- WRAPPER 'release/edit/layout.tt' -%]
+  [% USE r = FormRenderer(form) %]
+  <div class="form basic-tracklist">
+    [% r.hidden ('wizard_session_id') %]
+    <fieldset>
+      <legend>[% l('Tracklist') %]</legend>
+
+      [% multidisc = form.field('mediums').fields.size > 1 %]
+      [% FOR medium_field=form.field('mediums').fields %]
+
+      <div class="basic-disc">
+        <table class="basic-format">
+          <tr>
+            <td class="disc" >
+            [% IF multidisc %]
+              <h3>[% l('Disc {num}', { num => loop.index + 1 }) %]</h3>
+            [% END %]
+            </td>
+            <td class="format">
+
+              <div class="basic-medium-format-and-title">
+                [% r.hidden(medium_field.field('id')) %]
+                [% r.hidden(medium_field.field('deleted')) %]
+                [% r.hidden(medium_field.field('position')) %]
+
+                <div class="row">
+                  [% r.label(medium_field.field('format_id'), l('Format')) %]
+                  [% r.select(medium_field.field('format_id')) %]
+                </div>
+                <div class="row advanced-tracklist" style="display: none;">
+                  [% r.label(medium_field.field('name'), l('Title')) %]
+                  [% r.text(medium_field.field('name'), placeholder => l('Title')) %]
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <textarea id="mediums.[% loop.index %].tracklist" class="tracklist"></textarea>
+      </div>
+
+      [% END %]
+
+      <div style="float: right; margin: 10px;" class="buttons">
+        <a href="#add_disc">[% l('Add Disc') %]</a>
+      </div>
+
+      <h3>Options</h3>
+      <!-- FIXME: move these to the MusicBrainz::Server::Form::ReleaseEditor::Tracklist. -->
+      <p id="tracklist-options">
+      <input type="checkbox" name="guesscase" id="guesscase" checked="checked">
+      <label for="guesscase">[% l('Guess case on artist names and track titles') %]</label>
+      <br />
+      <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
+      <label for="tracknumbers">[% l('Tracknames start with a number') %]</label>
+      <br />
+      <input type="checkbox" name="vinylnumbers" id="vinylnumbers">
+      <label for="vinylnumbers">[% l('Enable vinyl track numbers') %]</label>
+      <br />
+      <input type="checkbox" name="tracktimes" id="tracktimes" checked="checked">
+      <label for="tracktimes">[% l('Detect track durations') %]</label>
+      </p>
+
+    </fieldset>
+
+    <div class="buttons ui-helper-clearfix">
+      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+      [% r.submit ('previous', l('« Previous')) %]
+      [% r.submit ('next', l('Next »')) %]
+    </div>
+  </div>
+
+  <div class="documentation basic-tracklist">
+    <h2>Preview</h2>
+
+    [% USE w = Wizard() %]
+    [% release_artist = w.get_field ('information', 'artist_credit') %]
+    <h3>[% w.get_field ('information', 'name').value %]</h3>
+    <p>by [% release_artist.fif.name %]</p>
+
+    [%# The following is only included so the artist can be cloned when adding new tracks. --warp. %]
+    <div id="release-artist" style="display: none">
+      <input type="text" class="artist-credit-preview" value="[% release_artist.fif.name %]" />
+
+      [% artist_credit_table(release_artist) %]
+    </div>
+
+    <div id="preview"> </div>
+
+    <div style="float: right; margin: 10px;" class="buttons">
+      <a href="#advanced">[% l('Advanced') %]</a>
+    </div>
+    <p style="margin: 10px; width: 300px;">[% l('Please use the advanced tracklist editor if this preview seems incorrect.') %]</p>
+
+    <br style="clear: right;" />
+
+  </div>
+
+  <div class="advanced-tracklist" style="display: none;">
+
+    <fieldset class="tracklist" style="display: block;">
+      <legend>[% l('Tracklist') %]</legend>
+      <div style="float: right; margin: 10px;" class="buttons">
+        <a href="#basic">[% l('Basic') %]</a>
+      </div>
+      <p style="margin: 10px; width: 300px;">[% l('Click Basic to return to the basic tracklist editor.') %]</p>
+    </fieldset>
+
+    [% FOR medium_field=form.field('mediums').fields %]
+    <fieldset class="advanced-disc">
+      [% r.hidden(medium_field.field('tracklist').field('id'), class => 'tracklist-id') %]
+      [% r.hidden(medium_field.field('tracklist').field('serialized')) %]
+      <legend>[% l('Disc {num}', { num => loop.index + 1 }) %]</legend>
+
+      <div class="advanced-medium-format-and-title">
+      </div>
+
+      <div class="tracklist-padding">
+      <table class="medium tbl" id="[% medium_field.html_name %]">
+        <thead>
+          <tr>
+            <th class="position">[% l('#') %]</th>
+            <th class="title">[% l('Title') %]</th>
+            <th class="artist">
+              <input type="checkbox" class="artistcolumn" />
+              [% l('Artist') %]
+            </th>
+            <th class="length">[% l('Length') %]</th>
+            <th class="delete"></th>
+          </tr>
+        </thead>
+        <tfoot />
+        <tbody>
+          [% FOR track=medium_field.field('tracklist').field('tracks').fields %]
+          <tr class="track">
+            <td class="position">
+              [% r.text(track.field('position'), class => 'pos') %]
+            </td>
+            <td class="title">
+              [% r.hidden(track.field('id')); r.text(track.field('name'), class => 'track-name') %]
+            </td>
+            <td class="artist">
+               <input type="text" class="artist-credit-preview" value="[% track.field('artist_credit').fif.name %]" />
+            </td>
+            <td class="length">
+              [% r.text(track.field('length'), class => 'track-length', size => 5)  %]
+            </td>
+            <td class="delete">
+              [% r.hidden(track.field('deleted')) %]
+              <a class="disc-remove-track" href="#remove_track">
+                <img src="[% c.uri_for('/static/images/release_editor/remove-track.png') %]" title="Remove Track" />
+              </a>
+            </td>
+          </tr>
+          <tr class="track-artist-credit" style="display: none">
+            <td colspan="5">
+            [% artist_credit_table(track.field('artist_credit')) %]
+            </td>
+          </tr>
+
+          [%- END -%]
+        </tbody>
+      </table>
+      </div>
+
+      <div style="float: right; margin: 0px 10px 10px 10px;">
+        <a id="mediums.[% loop.index %].add_track" class="disc-add-track" href="#add_track">
+           <img src="[% c.uri_for('/static/images/release_editor/add-track.png') %]" title="Add Track" />
+        </a>
+      </div>
+
+    </fieldset>
+    [% END %]
+
+    <div class="buttons ui-helper-clearfix">
+      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+      <a href="#add_disc">[% l('Add Disc') %]</a>
+      [% r.submit ('previous', l('« Previous')) %]
+      [% r.submit ('next', l('Next »')) %]
+    </div>
+
+  </div>
+[%- END -%]
