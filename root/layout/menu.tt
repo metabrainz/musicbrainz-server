@@ -20,7 +20,7 @@
                 </li>
             </ul>
         </li>
-        [% IF c.user_exists && (c.user.is_relationship_editor || c.user.is_wiki_transcluder) %]
+        [% IF c.user_exists && c.user.is_admin %]
             <li>
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
