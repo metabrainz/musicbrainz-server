@@ -204,7 +204,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://bugs.musicbrainz.org" class="internal">
+                <a href="http://jira.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>
             </li>
