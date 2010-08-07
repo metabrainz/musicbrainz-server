@@ -36,6 +36,7 @@
     [% mediums = w.page('tracklist').field('mediums') %]
     [% FOR medium=mediums.fields %]
     [% medium_associations = form.field ('mediums').field (loop.index).field ('associations') %]
+    [% disc_prefix = 'mediums.' + loop.index %]
     <div class="medium">
       [% IF mediums.fields.size > 1%]
       <h3>[% l('Disc {num}', { num => loop.index + 1 }) %]</h3>
@@ -58,9 +59,20 @@
             <td class="track-artist">[% track.field ('artist_credit').fif.name %]</td>
             <td class="recording">
               [% association = medium_associations.field (loop.index) %]
-              [% r.checkbox(association.field ('addnew')) %]
-              [% r.select(association.field ('matches')) %]
-              [% r.text(association.field ('id')) %]
+
+              [% r.radio (association.field('addnew'), 1) %]
+              <label for="id-[% association.field('addnew').html_name %]-0">
+                [%- l('Add a new recording') %]
+              </label>
+
+              <br />
+
+              [% r.radio (association.field('addnew'), 1) %]
+              <label for="id-[% association.field('addnew').html_name %]-0">
+                [%- l('Use: ') %]
+                [% r.select(association.field ('matches')) %]
+                [% r.hidden(association.field ('id')) %]
+              </label>
             </td>
           </tr>
           [% END %]

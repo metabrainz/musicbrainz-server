@@ -5,9 +5,15 @@ extends 'MusicBrainz::Server::Form::Step';
 
 has_field 'mediums' => ( type => 'Repeatable', num_when_empty => 0 );
 has_field 'mediums.associations' => ( type => 'Repeatable',  num_when_empty => 0 );
-has_field 'mediums.associations.addnew' => ( type => 'Boolean');
 has_field 'mediums.associations.matches' => ( type => 'Select' );
 has_field 'mediums.associations.id' => ( type => 'Integer' );
+has_field 'mediums.associations.addnew' => (
+    type => 'Select',
+    options => [  # FIXME: i18n.
+        { value => 1, label => 'Add new recording', },
+        { value => 2, label => 'Use recording: ', },
+    ],
+);
 
 sub options_mediums_associations_matches
 {

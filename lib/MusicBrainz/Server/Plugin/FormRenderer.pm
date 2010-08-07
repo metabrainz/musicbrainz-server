@@ -168,6 +168,24 @@ sub select
     }, \@options);
 }
 
+sub radio
+{
+    my ($self, $field_name, $option, $attrs) = @_;
+
+    my $field = $self->_lookup_field($field_name) or return;
+    my $value = $field->options->[$option]->{value};
+
+    return $self->h->input({
+        type => 'radio',
+        id => "id-" . $field->html_name . "-$option" ,
+        name => $field->html_name,
+        value => $value,
+        selected => $value eq $field->value ? 'selected' : undef,
+        disabled => $field->disabled ? "disabled" : undef,
+        %{ $attrs || {} }
+    });
+}
+
 sub checkbox
 {
     my ($self, $field_name, $attrs) = @_;
