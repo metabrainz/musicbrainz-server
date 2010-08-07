@@ -22,6 +22,12 @@ sub pages
             form => 'ReleaseEditor::Tracklist'
         },
         {
+            name => 'preview',
+            title => 'Preview',
+            template => 'release/edit/preview.tt',
+            form => 'ReleaseEditor::Preview'
+        },
+        {
             name => 'editnote',
             title => 'Edit Note',
             template => 'release/edit/editnote.tt',

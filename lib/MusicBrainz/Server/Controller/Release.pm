@@ -241,8 +241,7 @@ sub _serialize_artistcredit {
 }
 
 sub _serialize_track {
-    my $self = shift;
-    my $track = shift;
+    my ($self, $track) = @_;
 
     return {
         length => MusicBrainz::Server::Track::FormatTrackLength($track->length),
@@ -278,6 +277,74 @@ sub _serialize_tracklists
     return decode ("UTF-8", JSON::Any->objToJson ($tracklists));
 }
 
+sub _analyze_field
+{
+    my ($self, $changes, $field, $old, $new) = @_;
+
+    return if $old->$field eq $new->field($field)->value;
+
+    $changes->{$field} = {
+        old => $old->$field,
+        new => $new->field($field)->value,
+    };
+}
+
+sub _analyze_track
+{
+    my ($self, $c, $old, $new) = @_;
+
+    my %changes;
+
+    $self->_analyze_field (\%changes, 'position', $old, $new);
+    $self->_analyze_field (\%changes, 'name', $old, $new);
+
+    # FIXME: allow about one second of rounding error if a discid is present.  
+#     $self->_analyze_field (\%changes, 'length', $old, $new);
+
+    $changes{deleted} = 1 if $new->field('deleted')->value;
+
+    if (%changes)
+    {
+        # FIXME: look for matching recordings
+        $changes{has_changes} = 1;
+        $changes{recording} = $c->model ('Recording')->get_by_gid ('22b45960-c78a-409a-a844-0627f9ec0d26');
+    }
+    else
+    {
+        $changes{has_changes} = 0;
+        $changes{recording} = $old->recording;
+    }
+
+    return \%changes;
+}
+
+sub _analyze_track_edits
+{
+    my ($self, $c, $wizard, $release) = @_;
+
+    my $mediums = $wizard->load_page ('tracklist')->field ('mediums');
+
+    my $m = 0;
+    my $ret = [];
+    for my $medium ($mediums->fields)
+    {
+        my $t = 0;
+        my $changes = [];
+        for my $new ($medium->field ('tracklist')->field ('tracks')->fields)
+        {
+            my $old = $release->mediums->[$m]->tracklist->tracks->[$t];
+            push @$changes, $self->_analyze_track ($c, $old, $new);
+
+            $t++;
+        }
+        push @$ret, $changes;
+
+        $m++;
+    }
+
+    return $ret;
+}
+
 =head2 WRITE METHODS
 
 Edit a release in release editor
@@ -302,7 +369,8 @@ sub edit : Chained('load') RequireAuth Edit
         $c->detach ('show');
     }
 
-    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist')
+    if ($wizard->loading || $wizard->submitted ||
+        $wizard->current_page eq 'tracklist' || $wizard->current_page eq 'preview')
     {
         # if we're on the tracklist page, load the tracklist so that the trackparser
         # can compare the entered tracks against the original to figure out what edits
@@ -324,6 +392,32 @@ sub edit : Chained('load') RequireAuth Edit
         $c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
     }
 
+    if ($wizard->current_page eq 'preview')
+    {
+        # we're on the changes preview page, load recordings so that the user can
+        # confirm track <-> recording associations.
+        $c->model('Recording')->load (@tracks);
+
+        my $changes = $self->_analyze_track_edits ($c, $wizard, $release);
+
+        my $associations = [];
+        for my $medium_changes (@$changes)
+        {
+            my $medium_assoc = [];
+            for my $track_changes (@$medium_changes)
+            {
+                push @$medium_assoc, {
+                    addnew => 0,
+                    id => $track_changes->{recording}->id,
+                    matches => [ $track_changes->{recording} ],
+                }
+            }
+
+            push @$associations, { associations => $medium_assoc };
+        }
+
+        $wizard->load_page('preview', { mediums => $associations });
+    }
 
     if ($wizard->loading || $wizard->submitted)
     {

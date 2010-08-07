@@ -173,6 +173,7 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
 
+#release-editor .changes p { margin-top: 0; }
 #release-editor .documentation p { margin-top: 0; }
 #release-editor table.preview { width: 100%; margin: 0 0 10px 0 }
 #release-editor table.preview .duration { padding-left: 10px; }
