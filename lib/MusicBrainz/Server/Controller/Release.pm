@@ -315,6 +315,8 @@ sub _analyze_track
         $changes{recording} = $old->recording;
     }
 
+    $changes{field} = $new->full_name;
+
     return \%changes;
 }
 
@@ -400,24 +402,27 @@ sub edit : Chained('load') RequireAuth Edit
 
         my $changes = $self->_analyze_track_edits ($c, $wizard, $release);
 
+        my %matches;
         my $associations = [];
         for my $medium_changes (@$changes)
         {
             my $medium_assoc = [];
             for my $track_changes (@$medium_changes)
             {
-                push @$medium_assoc, {
-                    addnew => 0,
-                    id => $track_changes->{recording}->id,
-                    matches => [ $track_changes->{recording} ],
-                }
+                push @$medium_assoc, { addnew => 2,
+                    id => $track_changes->{recording}->id, };
+
+                $matches{$track_changes->{field}} = [ {
+                    score => 100, recording => $track_changes->{recording} } ];
             }
 
             push @$associations, { associations => $medium_assoc };
         }
 
+        $c->stash->{matches} = \%matches;
         $wizard->load_page('preview', { mediums => $associations });
     }
+
 
     if ($wizard->loading || $wizard->submitted)
     {

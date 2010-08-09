@@ -272,6 +272,13 @@ tr.track-artist-credit .ac-balloon3 {
     border-bottom-left-radius: 12px;
 }
 
+span.add-recording { color: #aaa; }
+table.preview-changes td.position { width: 2em; text-align: right; }
+table.preview-changes td.position-from { width: 3em; text-align: right; }
+table.preview-changes td.track { width: 30%; }
+table.preview-changes td.track-artist { width: 30%; }
+table.preview-changes td.recording { width: 30%; }
+
 
 /* __________________________________
 

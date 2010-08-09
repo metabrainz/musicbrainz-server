@@ -179,8 +179,7 @@ sub radio
         type => 'radio',
         id => "id-" . $field->html_name . "-$option" ,
         name => $field->html_name,
-        value => $value,
-        selected => $value eq $field->value ? 'selected' : undef,
+        checked => $value eq $field->value ? 'checked' : undef,
         disabled => $field->disabled ? "disabled" : undef,
         %{ $attrs || {} }
     });
