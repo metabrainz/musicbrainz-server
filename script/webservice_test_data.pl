@@ -13,8 +13,8 @@ my $releasegroups = [
     '153f0a09-fead-3370-9b17-379ebd09446b', # m-flo, artist credit test.
     '23f421e7-431e-3e1d-bcbf-b91f5f7c5e2c', # boa, various-artists and relationships test.
     '86b4a630-4dd8-36f0-8bc9-e52fe7634320', # chris.su & skc, multiple artist rg and release
-    'acc775e4-9b67-3828-a4a0-92df54273190', # FIXME: what are these two for mr. aCiD2?  --warp.
-    '7aec6fd9-25a6-3dce-b8fd-f93b3039bca6', # FIXME: what are these two for mr. aCiD2?  --warp.
+    'acc775e4-9b67-3828-a4a0-92df54273190', # An Andy C release on RAM records (artist-label ar)
+    '7aec6fd9-25a6-3dce-b8fd-f93b3039bca6', # A release on frequency, label-label AR to RAM
     ];
 
 my $cmd = "$root/release-group-sql-dump.pl $root/../t/sql/webservice.sql";

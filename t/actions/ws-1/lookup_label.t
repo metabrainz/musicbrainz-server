@@ -33,25 +33,57 @@ ws_test 'label lookup with ratings',
         '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?type=xml&inc=ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="46f0f4cd-8aab-4b33-b698-f459faf64190" type="OriginalProduction"><name>Warp Records</name><sort-name>Warp Records</sort-name><country>GB</country><rating votes-count="1">100</rating></label></metadata>';
 
-sub todo {
-
 ws_test 'label lookup with artist-relationships',
-        '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=artist-rels' =>
+        '/label/fe03671d-df66-4984-abbc-bd022f5c6c3f?type=xml&inc=artist-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="OriginalProduction">
+    <name>RAM Records</name><sort-name>RAM Records</sort-name><country>GB</country>
+    <relation-list target-type="Artist">
+      <relation direction="backward" target="ec853694-30a1-4c7e-84e6-4ca87ee3c314" type="LabelFounder">
+        <artist id="ec853694-30a1-4c7e-84e6-4ca87ee3c314" type="Person">
+          <name>Andy C</name><sort-name>Andy C</sort-name><disambiguation>UK drum &amp; bass DJ/producer</disambiguation>
+        </artist>
+      </relation>
+    </relation-list>
+  </label>
+</metadata>';
 
 ws_test 'label lookup with label-relationships',
-        '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=label-rels' =>
+        '/label/fe03671d-df66-4984-abbc-bd022f5c6c3f?type=xml&inc=label-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="OriginalProduction">
+    <name>RAM Records</name><sort-name>RAM Records</sort-name><country>GB</country>
+    <relation-list target-type="Label">
+      <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelOwnership">
+        <label id="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="OriginalProduction">
+          <name>Frequency Recordings</name><sort-name>Frequency Recordings</sort-name><country>GB</country>
+        </label>
+      </relation>
+    </relation-list>
+  </label>
+</metadata>';
+
+ws_test 'label lookup with url-relationships',
+        '/label/fe03671d-df66-4984-abbc-bd022f5c6c3f?type=xml&inc=url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="OriginalProduction">
+    <name>RAM Records</name><sort-name>RAM Records</sort-name><country>GB</country>
+    <relation-list target-type="Url">
+      <relation target="http://www.myspace.com/ramrecordsltd" type="Myspace" />
+      <relation target="http://www.discogs.com/label/RAM+Records" type="Discogs" />
+      <relation target="http://www.ramrecords.co.uk" type="OfficialSite" />
+      <relation target="http://en.wikipedia.org/wiki/Ram_Records_(UK)" type="Wikipedia" />
+    </relation-list>
+  </label>
+</metadata>';
+
+sub todo {
 
 ws_test 'label lookup with release-relationships',
         '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=release-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
-
-ws_test 'label lookup with url-relationships',
-        '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata />';
 
