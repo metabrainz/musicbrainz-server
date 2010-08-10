@@ -1,41 +1,38 @@
-package MusicBrainz::Server::Data::CDStub;
+package MusicBrainz::Server::Data::CDStubTrack;
 
 use Moose;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
+    placeholders
+    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
 sub _table
 {
-    return 'release_raw';
+    return 'track_raw';
 }
 
 sub _columns
 {
-    return 'id, title, artist, added, lastmodified, lookupcount, modifycount, source, barcode, comment';
+    return 'id, release, title, artist, sequence';
 }
 
 sub _column_mapping
 {
     return {
         id => 'id',
-        title => 'title',  
+        release_id  => 'release',
+        title => 'title',
         artist => 'artist',
-        date_added=> 'added',
-        last_modified => 'lastmodified',
-        lookup_count => 'lookupcount',
-        modify_count => 'modifycount',
-        source => 'source',
-        barcode => 'barcode',
-        comment => 'comment'
+        sequence => 'sequence',
     };
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::CDStub';
+    return 'MusicBrainz::Server::Entity::CDStubTrack';
 }
 
 sub _dbh
@@ -49,6 +46,22 @@ sub load
     load_subobjects($self, 'release', @objs);
 }
 
+sub load_for_cdstub
+{
+    my ($self, @cdstubs) = @_;
+    my %id_to_cdstub = map { $_->id => $_ } @cdstubs;
+    my @ids = keys %id_to_cdstub;
+    return unless @ids; # nothing to do
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE release IN (" . placeholders(@ids) . ")
+                 ORDER BY release, sequence";
+    my @tracks = query_to_list($self->c->raw_dbh, sub { $self->_new_from_row(@_) },
+                               $query, @ids);
+    foreach my $track (@tracks) {
+        $id_to_cdstub{$track->release_id}->add_track($track);
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

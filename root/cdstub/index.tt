@@ -1,5 +1,29 @@
-[%- WRAPPER 'layout.tt' title=l('DiscID “{discid}”', { discid => discid }) full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('CD Stub {discid}', { discid => cdstubtoc.discid }) full_width=1 -%]
 
-<p> Stub for [% discid %]</p>
+    <h1>CD Stub [% cdstubtoc.discid %]</h1>
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th class="pos t">#</th>
+                <th>[% l('Title') %]</th>
+                [%- IF show_artists -%]
+                    <th>[% l('Artist') %]</th>
+                [%- END -%]
+                <th class="treleases">[% l('Length') %]</th>
+            </tr>
+        </thead>
+        <tbody>
+            [%- FOR track=cdstubtoc.release.tracks; %]
+            <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
+                <td>[% track.sequence %]</td>
+                <td>[% track.title %]</td>
+                [%- IF show_artists -%]
+                    <td>[% artist_credit(track.artist_credit) %]</td>
+                [%- END -%]
+                <td>[% track.length | format_length %]</td>
+            </tr>
+            [%- END -%]
+        </tbody>
+    </table>
 
 [%- END -%]

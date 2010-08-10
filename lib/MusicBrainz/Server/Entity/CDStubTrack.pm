@@ -1,13 +1,18 @@
-package MusicBrainz::Server::Entity::CDStub;
+package MusicBrainz::Server::Entity::CDStubTrack;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
 
-has 'discid' => (
+has 'release_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
+);
+
+has 'release' => (
+    is => 'rw',
+    isa => 'CDStub'
 );
 
 has 'title' => (
@@ -20,32 +25,14 @@ has 'artist' => (
     isa => 'Str'
 );
 
-has 'track_count' => (
+has 'sequence' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'barcode' => (
+has 'length' => (
     is => 'rw',
-    isa => 'Str'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'tracks' => (
-    is => 'rw',
-    isa => 'ArrayRef[MusicBrainz::Server::Entity::CDStubTrack]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_tracks => 'elements',
-        add_track => 'push',
-        clear_tracks => 'clear'
-    }
+    isa => 'Int'
 );
 
 __PACKAGE__->meta->make_immutable;

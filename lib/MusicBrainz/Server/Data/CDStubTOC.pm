@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::CDStub;
+package MusicBrainz::Server::Data::CDStubTOC;
 
 use Moose;
 use MusicBrainz::Server::Data::Utils qw(
@@ -9,33 +9,29 @@ extends 'MusicBrainz::Server::Data::Entity';
 
 sub _table
 {
-    return 'release_raw';
+    return 'cdtoc_raw';
 }
 
 sub _columns
 {
-    return 'id, title, artist, added, lastmodified, lookupcount, modifycount, source, barcode, comment';
+    return 'id, release, discid, trackcount, leadoutoffset, trackoffset';
 }
 
 sub _column_mapping
 {
     return {
         id => 'id',
-        title => 'title',  
-        artist => 'artist',
-        date_added=> 'added',
-        last_modified => 'lastmodified',
-        lookup_count => 'lookupcount',
-        modify_count => 'modifycount',
-        source => 'source',
-        barcode => 'barcode',
-        comment => 'comment'
+        release_id  => 'release',
+        discid => 'discid',
+        track_count => 'trackcount',
+        leadout_offset => 'leadoutoffset',
+        track_offset => 'trackoffset',
     };
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::CDStub';
+    return 'MusicBrainz::Server::Entity::CDStubTOC';
 }
 
 sub _dbh
@@ -49,6 +45,12 @@ sub load
     load_subobjects($self, 'release', @objs);
 }
 
+sub get_by_discid
+{
+    my ($self, $discid) = @_;
+    my @result = values %{$self->_get_by_keys("discid", $discid)};
+    return $result[0];
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
