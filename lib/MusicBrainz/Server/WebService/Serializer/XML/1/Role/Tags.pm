@@ -10,6 +10,9 @@ before 'serialize' => sub
 
     $self->add( List->new->serialize($data->{tags}) )
         if $inc && $inc->tags;
+
+    $self->add( List->new->serialize($data->{user_tags}) )
+        if $inc && $inc->user_tags;
 };
 
 1;

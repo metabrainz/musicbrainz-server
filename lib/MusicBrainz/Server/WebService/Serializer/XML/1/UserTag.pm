@@ -1,47 +1,23 @@
-package MusicBrainz::Server::WebService::WebServiceIncV1;
-
+package MusicBrainz::Server::WebService::Serializer::XML::1::UserTag;
 use Moose;
 
-extends 'MusicBrainz::Server::WebService::WebServiceInc';
+extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
-has $_ => (
-    is  => 'rw',
-    isa => 'Int',
-    default => 0
-) for qw(
-          artist track_rels      asin    rg_type rel_status discs     release_events
-          counts various_artists tracks  labels  tracklist  user_tags
-);
+sub element { 'user-tag'; }
 
-override 'get_rel_types' => sub
+before 'serialize' => sub
 {
-    my $rels = super;
-
-    push @$rels, 'recording' if shift->track_rels;
-
-    return $rels;
+    my ($self, $entity, $inc, $opts) = @_;
+    $self->add($entity->tag->name);
 };
-
-override 'has_rels' => sub {
-    my $self = shift;
-    return $self->track_rels  || $self->url_rels ||
-           $self->artist_rels || $self->release_rels ||
-           $self->label_rels;
-};
-
-sub BUILD
-{
-    my ($self, $args) = @_;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
-
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Robert Kaye
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
