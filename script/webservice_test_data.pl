@@ -15,7 +15,11 @@ my $releasegroups = [
     '86b4a630-4dd8-36f0-8bc9-e52fe7634320', # chris.su & skc, multiple artist rg and release
     'acc775e4-9b67-3828-a4a0-92df54273190', # FIXME: what are these two for mr. aCiD2?  --warp.
     '7aec6fd9-25a6-3dce-b8fd-f93b3039bca6', # FIXME: what are these two for mr. aCiD2?  --warp.
-    ];
+    '22ca85ec-ee39-3895-aef9-dee5d5c2f4d6', # Surrender, chemical brothers - lots of ARs
+    '961c672c-7a3f-30c1-9e44-4e3ab02affd5', # Make it hot, sampled on Music:Response - Surrender
+    '9b5006e5-b276-3a05-bcdd-8d986842320b', # House of the Holy on Atlantic
+    '3e38adc0-bb7d-39d1-a811-7ce6db5d869d', # Recipe for hate, published by Atlantic
+];
 
 my $cmd = "$root/release-group-sql-dump.pl $root/../t/sql/webservice.sql";
 
