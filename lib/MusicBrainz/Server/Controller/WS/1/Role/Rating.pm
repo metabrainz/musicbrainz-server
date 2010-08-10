@@ -4,12 +4,19 @@ use Moose::Role;
 before 'lookup' => sub {
     my ($self, $c) = @_;
 
-    return unless $c->stash->{inc}->ratings;
+    return unless $c->stash->{inc}->ratings || $c->stash->{inc}->user_ratings;
+    $c->authenticate({}, 'webservice') if $c->stash->{inc}->user_ratings;
 
     my $entity = $c->stash->{entity};
     my $model = $self->model;
 
-    $c->model($model)->load_meta($entity);
+    if ($c->stash->{inc}->ratings) {
+        $c->model($model)->load_meta($entity);
+    }
+
+    if ($c->stash->{inc}->user_ratings) {
+        $c->model($model)->rating->load_user_ratings($c->user->id, $entity);
+    }
 };
 
 1;

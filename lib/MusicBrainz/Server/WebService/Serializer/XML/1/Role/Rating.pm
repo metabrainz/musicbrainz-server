@@ -10,6 +10,9 @@ before 'serialize' => sub
 
     $self->add( $self->gen->rating({ 'votes-count' => $entity->rating_count }, $entity->rating ) )
         if $inc && $inc->ratings;
+
+    $self->add( $self->gen->user_rating(int($entity->user_rating / 20)) )
+        if $entity->user_rating && $inc && $inc->user_ratings;
 };
 
 1;

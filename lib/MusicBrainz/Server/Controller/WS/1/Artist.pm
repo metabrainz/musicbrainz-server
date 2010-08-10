@@ -12,7 +12,7 @@ my $ws_defs = Data::OptList::mkopt([
         inc      => [
             qw( aliases        release-groups _rel_status _rg_type   counts
                 release-events discs          labels      _relations tags ratings
-                user-tags      ) ],
+                user-tags      user-ratings ) ],
     },
 ]);
 
