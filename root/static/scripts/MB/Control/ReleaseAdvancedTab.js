@@ -138,6 +138,11 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     self.row.find ("a[href=#remove_track]").click (function () { self.toggleDelete() });
     self.artist_credit = MB.Control.ArtistCreditRow (self.row, self.acrow);
 
+    if (self.isDeleted ())
+    {
+        self.row.addClass('deleted');
+    }
+
     return self;
 };
 
