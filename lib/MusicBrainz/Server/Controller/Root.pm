@@ -150,7 +150,7 @@ sub begin : Private
                 last unless $priv;
                 my $accessor = "is_$priv";
                 if (!$c->user->$accessor) {
-                    $c->detach('/error_404'); # XXX use 403
+                    $c->detach('/error_403');
                 }
             }
         }
