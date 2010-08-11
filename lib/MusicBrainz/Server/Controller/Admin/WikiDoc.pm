@@ -22,7 +22,7 @@ sub index : Path Args(0) RequireAuth(wiki_transcluder)
 
     # Merge the data retreived from the wiki with the transclusion table
     for (my $i = 0; $i < @pages; $i++) {
-        if ($pages[$i]->{id}          eq $wiki_pages[$i]->{id}) {
+        if ($pages[$i]->{id} eq $wiki_pages[$i]->{id}) {
             $pages[$i]->{wiki_version} = $wiki_pages[$i]->{wiki_version};
 
             # We want to know if updates are required so
@@ -41,7 +41,10 @@ sub index : Path Args(0) RequireAuth(wiki_transcluder)
         }
     }
 
-    $c->stash( pages => \@pages, updates_required => $updates_required );
+    $c->stash(
+        pages            => \@pages,
+        updates_required => $updates_required
+    );
 }
 
 sub create : Local Args(0) RequireAuth(wiki_transcluder)
