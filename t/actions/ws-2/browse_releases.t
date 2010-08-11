@@ -96,26 +96,12 @@ is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 my $response = $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
 is ($response->code, 404, 'browse releases via non-existent recording');
 
-$mech->get_ok('/ws/2/release?inc=labels&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0', 'browse releases via recording');
+$mech->get_ok('/ws/2/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0', 'browse releases via recording');
 &$v2 ($mech->content, "Validate browse releases via recording");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-list count="3">
-        <release id="757a1723-3769-4298-89cd-48d31177852a">
-            <title>LOVE &amp; HONESTY</title><status>pseudo-release</status>
-            <text-representation>
-                <language>jpn</language><script>Latn</script>
-            </text-representation>
-            <date>2004-01-15</date><country>JP</country>
-            <label-info-list count="1">
-                <label-info>
-                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
-                        <name>avex trax</name><sort-name>avex trax</sort-name>
-                    </label>
-                </label-info>
-            </label-info-list>
-        </release>
+    <release-list count="2">
         <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
             <title>LOVE &amp; HONESTY</title><status>official</status>
             <text-representation>
