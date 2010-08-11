@@ -132,8 +132,9 @@ sub validate_status
 
 sub validate_linked
 {
-    my ($c, $resource, $params, $def) = @_;
+    my ($c, $resource, $def) = @_;
 
+    my $params = $c->req->params;
     my %acc = map { $_ => 1 } @{ $def };
 
     my $linked;
@@ -143,6 +144,20 @@ sub validate_linked
     }
 
     return undef;
+}
+
+sub validate_required
+{
+    my ($c, $required) = @_;
+
+    foreach (@$required)
+    {
+        return 0 if (!exists $c->req->params->{$_} || $c->req->params->{$_} eq '');
+
+        $c->stash->{args}->{$_} = $c->req->params->{$_};
+    }
+
+    return 1;
 }
 
 sub validate_inc
@@ -254,22 +269,12 @@ role {
             next if ($c->req->method ne $def->[1]->{method});
 
             # Check to make sure that required arguments are present
-            my $params_ok = 1;
-            foreach my $arg (@{ $def->[1]->{required} })
-            {
-                if (!exists $c->req->params->{$arg} || $c->req->params->{$arg} eq '')
-                {
-                    $params_ok = 0;
-                    last;
-                }
-                $c->stash->{args}->{$arg} = $c->req->params->{$arg};
-            }
-            next unless $params_ok;
+            next unless validate_required ($c, $def->[1]->{required});
 
             my $linked;
             if ($def->[1]->{linked})
             {
-                $linked = validate_linked ($c, $resource, $c->req->params, $def->[1]->{linked});
+                $linked = validate_linked ($c, $resource, $def->[1]->{linked});
                 next unless ($linked);
             }
 
@@ -295,7 +300,8 @@ role {
             $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
 
             # Check if authorization is required.
-            $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_ratings};
+            $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_ratings} ||
+                $resource eq 'tag' || $resource eq 'rating';
 
             # Check the type and prepare a serializer. For now, since we only support XML
             # we're going to default to XML. In the future if we want to add more serializations,

@@ -7,9 +7,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use Readonly;
 use Data::OptList;
+use Scalar::Util qw( looks_like_number );
 
 Readonly our $MAX_ITEMS => 25;
 
@@ -145,6 +147,22 @@ my $ws_defs = Data::OptList::mkopt([
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ],
      },
+     tag => {
+                         method   => 'GET',
+                         required => [ qw(id entity) ],
+     },
+     tag => {
+                         method   => 'POST',
+                         optional => [ qw(client) ],
+     },
+     rating => {
+                         method   => 'GET',
+                         required => [ qw(id entity) ],
+     },
+     rating => {
+                         method   => 'POST',
+                         optional => [ qw(client) ],
+     },
      cdstub => {
                          method   => 'GET',
                          required => [ qw(query) ],
@@ -170,8 +188,15 @@ sub bad_req : Private
 {
     my ($self, $c) = @_;
     $c->res->status(400);
-    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->content_type("application/xml; charset=UTF-8");
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
+}
+
+sub success : Private
+{
+    my ($self, $c) = @_;
+    $c->res->content_type("application/xml; charset=UTF-8");
+    $c->res->body($c->stash->{serializer}->output_success);
 }
 
 sub unauthorized : Private
@@ -208,6 +233,14 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     $self->validate($c, \%serializers) or $c->detach('bad_req');
 
     $c->authenticate({}, 'webservice') if ($c->stash->{authorization_required});
+}
+
+sub _error
+{
+    my ($c, $error) = @_;
+
+    $c->stash->{error} = $error;
+    $c->detach('bad_req');
 }
 
 sub _search
@@ -1319,12 +1352,92 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
     $c->res->body($c->stash->{serializer}->serialize('isrc', \@works, $c->stash->{inc}, $stash));
 }
 
+sub tag_lookup : Private
+{
+    my ($self, $c) = @_;
+
+    my ($entity, $model) = $self->_validate_entity ($c);
+
+    my @tags = $c->model($model)->tags->find_user_tags($c->user->id, $entity->id);
+
+    my $stash = WebServiceStash->new;
+    $stash->store ($entity)->{user_tags} = \@tags;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('tag-list', $entity, $c->stash->{inc}, $stash));
+}
+
+
 sub tag_search : Chained('root') PathPart('tag') Args(0)
 {
     my ($self, $c) = @_;
 
+    $c->detach('tag_submit') if $c->request->method eq 'POST';
+    $c->detach('tag_lookup') if exists $c->stash->{args}->{id};
+
     $self->_search ($c, 'tag');
 }
+
+sub rating_submit : Private
+{
+    my ($self, $c) = @_;
+
+    $self->_validate_post ($c);
+
+    use XML::XPath;
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @submit;
+    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
+    {
+        my $type = $node->getName;
+        $type =~ s/-/_/;
+
+        my $model = type_to_model ($type);
+        _error ($c, "Unrecognized entity $type.") unless $model;
+
+        my $gid = $node->getAttribute ('id');
+        _error ($c, "Cannot parse MBID: $gid.")
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+
+        my $entity = $c->model($model)->get_by_gid($gid);
+        _error ($c, "Cannot find $type $gid.") unless $entity;
+
+        my $rating = $node->find ('user-rating')->string_value;
+        _error ($c, "Rating should be an integer between 0 and 100")
+            unless looks_like_number ($rating) && $rating >= 0 && $rating <= 100;
+
+        # postpone any updates until we've made some effort to parse the whole
+        # body and report possible errors in it.
+        push @submit, { model => $model,  entity => $entity,  rating => $rating }
+    }
+
+    for (@submit)
+    {
+        $c->model($_->{model})->rating->update(
+            $c->user->id, $_->{entity}->id, $_->{rating});
+    }
+
+    $c->detach('success');
+}
+
+sub rating_lookup : Chained('root') PathPart('rating') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $c->detach('rating_submit') if $c->request->method eq 'POST';
+
+    my ($entity, $model) = $self->_validate_entity ($c);
+
+    $c->model($model)->rating->load_user_ratings ($c->user->id, $entity);
+
+    my $stash = WebServiceStash->new;
+    $stash->store ($entity)->{user_ratings} = $entity->user_rating;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('rating', $entity, $c->stash->{inc}, $stash));
+}
+
 
 sub freedb_search : Chained('root') PathPart('freedb') Args(0)
 {
@@ -1338,6 +1451,95 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0)
     my ($self, $c) = @_;
 
     $self->_search ($c, 'cdstub');
+}
+
+sub _validate_post
+{
+    my ($self, $c) = @_;
+
+    my $h = $c->request->headers;
+
+    if (!$h->content_type_charset && $h->content_type_charset ne 'UTF-8')
+    {
+        _error ($c, "Unsupported charset, please use UTF-8.")
+    }
+
+    if ($h->content_type ne 'application/xml')
+    {
+        _error ($c, "Unsupported content-type, please use application/xml");
+    }
+
+    _error ($c, "Please specify the name and version number of your client application.")
+        unless $c->req->params->{client};
+}
+
+sub _validate_entity
+{
+    my ($self, $c) = @_;
+
+    my $gid = $c->stash->{args}->{id};
+    my $entity = $c->stash->{args}->{entity};
+    $entity =~ s/-/_/;
+
+    my $model = type_to_model ($entity);
+
+    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    if (!$model)
+    {
+        $c->stash->{error} = "Invalid entity type.";
+        $c->detach('bad_req');
+    }
+
+    $entity = $c->model($model)->get_by_gid($gid);
+    $c->detach('not_found') unless ($entity);
+
+    return ($entity, $model);
+}
+
+sub tag_submit : Private
+{
+    my ($self, $c) = @_;
+
+    $self->_validate_post ($c);
+
+    use XML::XPath;
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @submit;
+    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
+    {
+        my $type = $node->getName;
+        $type =~ s/-/_/;
+
+        my $model = type_to_model ($type);
+        _error ($c, "Unrecognized entity $type.") unless $model;
+
+        my $gid = $node->getAttribute ('id');
+        _error ($c, "Cannot parse MBID: $gid.")
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+
+        my $entity = $c->model($model)->get_by_gid($gid);
+        _error ($c, "Cannot find $type $gid.") unless $entity;
+
+        # postpone any updates until we've made some effort to parse the whole
+        # body and report possible errors in it.
+        push @submit, { model => $model,  entity => $entity, tags => [ map {
+                $_->string_value
+            } $node->find ('user-tag-list/user-tag/name')->get_nodelist ], };
+    }
+
+    for (@submit)
+    {
+        $c->model($_->{model})->tags->update(
+            $c->user->id, $_->{entity}->id, join (", ", @{ $_->{tags} }));
+    }
+
+    $c->detach('success');
 }
 
 sub default : Path

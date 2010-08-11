@@ -657,11 +657,11 @@ sub _serialize_tags_and_ratings
     $self->_serialize_tag_list($data, $gen, $inc, $opts)
         if $opts->{tags} && $inc->{tags};
     $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
-        if $opts->{usertags} && $inc->{usertags};
+        if $opts->{user_tags} && $inc->{user_tags};
     $self->_serialize_rating($data, $gen, $inc, $opts)
         if $opts->{ratings} && $inc->{ratings};
     $self->_serialize_user_rating($data, $gen, $inc, $opts)
-        if $opts->{userratings} && $inc->{userratings};
+        if $opts->{user_ratings} && $inc->{user_ratings};
 }
 
 sub _serialize_tag_list
@@ -688,7 +688,7 @@ sub _serialize_user_tag_list
     my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
 
     my @list;
-    foreach my $tag (@{$opts->{usertags}})
+    foreach my $tag (@{$opts->{user_tags}})
     {
         $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
     }
@@ -699,7 +699,7 @@ sub _serialize_user_tag
 {
     my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->user_tag($tag->tag->name);
+    push @$data, $gen->user_tag($gen->name($tag->tag->name));
 }
 
 sub _serialize_rating
@@ -716,7 +716,7 @@ sub _serialize_user_rating
 {
     my ($self, $data, $gen, $inc, $opts) = @_;
 
-    push @$data, $gen->user_rating($opts->{userratings});
+    push @$data, $gen->user_rating($opts->{user_ratings});
 }
 
 sub output_error
@@ -728,6 +728,20 @@ sub output_error
     my $xml = $xml_decl_begin;
     $xml .= $gen->error($gen->text($err), $gen->text(
            "For usage, please see: http://musicbrainz.org/development/mmd"));
+    $xml .= $xml_decl_end;
+    return $xml;
+}
+
+sub output_success
+{
+    my ($self, $msg) = @_;
+
+    my $gen = MusicBrainz::XML::Generator->new(':std');
+
+    $msg ||= 'OK';
+
+    my $xml = $xml_decl_begin;
+    $xml .= $gen->message($gen->text($msg));
     $xml .= $xml_decl_end;
     return $xml;
 }
@@ -899,6 +913,31 @@ sub work_list_resource
     return $data->[0];
 }
 
+sub rating_resource
+{
+    my ($self, $gen, $entity, $inc, $stash) = @_;
+
+    my $opts = $stash->store ($entity);
+
+    return '' unless $opts->{user_ratings};
+
+    my $data = [];
+    $self->_serialize_user_rating($data, $gen, $inc, $opts);
+
+    return $data->[0];
+}
+
+sub tag_list_resource
+{
+    my ($self, $gen, $entity, $inc, $stash) = @_;
+
+    my $opts = $stash->store ($entity);
+
+    my $data = [];
+    $self->_serialize_user_tag_list($data, $gen, $inc, $opts);
+
+    return $data->[0];
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
