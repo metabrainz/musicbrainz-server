@@ -2,7 +2,9 @@ package MusicBrainz::Server::Controller::Release;
 use Moose;
 use MusicBrainz::Server::Wizard::ReleaseEditor;
 use MusicBrainz::Server::Track;
+use Encode;
 use JSON::Any;
+use TryCatch;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -269,7 +271,11 @@ sub _serialize_tracklists
         push @$tracklists, $tracks;
     }
 
-    return JSON::Any->objToJson ($tracklists);
+    # It seems JSON libraries encode things to UTF-8, but the json
+    # string will be included in a page which will again be encoded
+    # to UTF-8.  So this string has to be decoded back to the internal
+    # perl unicode :(.  --warp.
+    return decode ("UTF-8", JSON::Any->objToJson ($tracklists));
 }
 
 =head2 WRITE METHODS
@@ -350,6 +356,7 @@ sub edit : Chained('load') RequireAuth Edit
 
         $args{'to_edit'} = $release;
         my $editnote = $data->{'editnote'};
+        $c->stash->{changes} = 0;
 
         $self->_create_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
 
@@ -507,19 +514,28 @@ sub _create_edit {
 
     return unless %args;
 
-    my $edit = $c->model('Edit')->create(
-        edit_type => $type,
-        editor_id => $c->user->id,
-        %args,
-    );
+    my $edit;
+    try {
+        $edit = $c->model('Edit')->create(
+            edit_type => $type,
+            editor_id => $c->user->id,
+            %args,
+       );
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
+    }
 
-    if (defined $edit && defined $editnote)
+    return unless defined $edit;
+
+    if (defined $editnote)
     {
         $c->model('EditNote')->add_note($edit->id, {
             text      => $editnote,
             editor_id => $c->user->id,
         });
     }
+
+    $c->stash->{changes} = 1;
 
     return $edit;
 }

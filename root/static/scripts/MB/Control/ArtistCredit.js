@@ -217,14 +217,18 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     return self;
 };
 
+MB.Control.artist_credit_hide_rows = function (parent) {
+    parent.find ('tr.track-artist-credit').hide();
+}
+
 /* an ArtistCreditRow is the container for all the artist credits on a track. */
 MB.Control.ArtistCreditRow = function (row, acrow) {
     var self = MB.Control.ArtistCreditContainer (row.find ("td.artist input"), acrow);
 
     var initialize = function () {
         self.artist_input.focus(function(event) {
-            $('tr.artist-credit-row').not(self.artistcredits).hide();
-            self.artistcredits.show();
+            $('tr.track-artist-credit').not(self.artistcredits).hide();
+            self.artistcredits.show ();
         });
     };
 

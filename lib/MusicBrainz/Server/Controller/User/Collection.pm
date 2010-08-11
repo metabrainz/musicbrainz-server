@@ -17,7 +17,7 @@ sub _ensure_collection
     return $collection_id;
 }
 
-sub add : Local
+sub add : Local HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -31,7 +31,7 @@ sub add : Local
     $c->detach;
 }
 
-sub remove : Local
+sub remove : Local HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -45,7 +45,7 @@ sub remove : Local
     $c->detach;
 }
 
-sub view : Local Args(1)
+sub view : Local Args(1) HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
 

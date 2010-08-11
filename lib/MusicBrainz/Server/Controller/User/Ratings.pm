@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-sub view : Chained('/user/base') PathPart('ratings')
+sub view : Chained('/user/base') PathPart('ratings') HiddenOnSlaves
 {
     my ($self, $c) = @_;
 

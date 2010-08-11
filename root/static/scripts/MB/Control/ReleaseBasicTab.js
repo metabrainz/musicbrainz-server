@@ -43,7 +43,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 
                 $('<tr>').appendTo (table).
                     append ($('<td class="trackno">').text (item.position.val ())).
-                    append ($('<td>').text (item.title.val ())).
+                    append ($('<td class="title">').text (item.title.val ())).
                     append ($('<td class="duration">').text (item.length.val ()));
             });
 
