@@ -97,6 +97,24 @@ sub error_500 : Private
     $c->detach;
 }
 
+sub error_mirror : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(403);
+    $c->stash->{template} = 'main/mirror.tt';
+    $c->detach;
+}
+
+sub error_mirror_404 : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(404);
+    $c->stash->{template} = 'main/mirror_404.tt';
+    $c->detach;
+}
+
 sub js_text_strings : Path('/text.js') {
     my ($self, $c) = @_;
     $c->res->content_type('text/javascript');
@@ -140,6 +158,16 @@ sub begin : Private
 
     # Setup the searchs on the sidebar
     $c->form( sidebar_search => 'Search::Search' );
+
+    # Returns a special 404 for areas of the site that shouldn't exist on a slave (e.g. /user pages)
+    if (exists $c->action->attributes->{HiddenOnSlaves}) {
+        $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
+    }
+
+    # Anything that requires authentication isn't allowed on a mirror server (e.g. editing, registering)
+    if (exists $c->action->attributes->{RequireAuth} || $c->action->attributes->{ForbiddenOnSlaves}) {
+        $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
+    }
 
     if (exists $c->action->attributes->{RequireAuth})
     {
