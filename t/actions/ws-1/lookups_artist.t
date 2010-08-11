@@ -178,15 +178,34 @@ ws_test 'artist lookup with counts',
   </artist>
 </metadata>';
 
+ws_test 'artist lookup with label-relationships',
+    '/artist/ec853694-30a1-4c7e-84e6-4ca87ee3c314?type=xml&inc=label-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <artist id="ec853694-30a1-4c7e-84e6-4ca87ee3c314" type="Person">
+   <name>Andy C</name><sort-name>Andy C</sort-name>
+   <disambiguation>UK drum &amp; bass DJ/producer</disambiguation>
+   <relation-list target-type="Label">
+     <relation target="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="LabelFounder">
+       <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f">
+         <name>RAM Records</name>
+         <sort-name>RAM Records</sort-name>
+       </label>
+     </relation>
+     <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelFounder">
+       <label id="60a71ab7-a21b-4f25-94e0-1f51a84a9add">
+         <name>Frequency Recordings</name>
+         <sort-name>Frequency Recordings</sort-name>
+       </label>
+     </relation>
+    </relation-list>
+  </artist>
+</metadata>';
+
 sub todo {
 
 ws_test 'artist lookup with artist-relationships',
     '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=artist-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
-
-ws_test 'artist lookup with label-relationships',
-    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=label-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata />';
 
