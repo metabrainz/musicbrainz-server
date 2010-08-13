@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use feature "switch";
+use Switch;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -40,11 +40,11 @@ sub quote_column
 
     my $ret;
 
-    given ($type) {
-        when (/^integer\[\]/) { $ret = "'{" . join(",", @$data) . "}'"; }
-        when (/^integer/) { $ret = $data; }
-        when (/^smallint/) { $ret = $data; }
-        default {
+   switch ($type) {
+        case (/^integer\[\]/) { $ret = "'{" . join(",", @$data) . "}'"; }
+        case (/^integer/) { $ret = $data; }
+        case (/^smallint/) { $ret = $data; }
+        else {
             $data =~ s/'/''/g;
             $ret = "'$data'";
         }
