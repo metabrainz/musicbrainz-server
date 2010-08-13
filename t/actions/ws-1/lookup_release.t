@@ -48,7 +48,7 @@ ws_test 'release with tags',
   <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
     <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
     <tag-list>
-      <tag count="1">hello project</tag><tag count="1">jpop</tag><tag count="1">sexy</tag>
+      <tag count="1">hello project</tag>
     </tag-list>
   </release>
 </metadata>';
@@ -185,19 +185,19 @@ ws_test 'release with puids',
 
 ws_test 'release with ratings',
     '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official"><title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin><rating rating-count="2">90</rating></release></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official"><title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin><rating votes-count="2">90</rating></release></metadata>';
 
 ws_test 'release with artist-relationships',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?type=xml&inc=artist-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin><relation-list target-type="Artist"><relation direction="backward" target="3088b672-fba9-4b4b-8ae0-dce13babfbb4" begin="" type="Design/Illustration" end=""><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4"><name>Plone</name><sort-name>Plone</sort-name></artist></relation></relation-list></release></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin><relation-list target-type="Artist"><relation direction="backward" target="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Design/Illustration"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4"><name>Plone</name><sort-name>Plone</sort-name></artist></relation></relation-list></release></metadata>';
 
 ws_test 'release with url-relationships',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?type=xml&inc=url-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin><asin>B00001IVAI</asin><relation-list target-type="Url"><relation target="http://www.amazon.com/gp/product/B00001IVAI" begin="" type="AmazonAsin" end="" /><relation target="http://www.discogs.com/release/30895" begin="" type="Discogs" end="" /><relation target="http://www.discogs.com/release/30896" begin="" type="Discogs" end="" /><relation target="http://www.amazon.com/gp/product/B00001IVAI" begin="" type="AmazonAsin" end="" /><relation target="http://www.discogs.com/release/30895" begin="" type="Discogs" end="" /><relation target="http://www.discogs.com/release/30896" begin="" type="Discogs" end="" /></relation-list></release></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin><relation-list target-type="Url"><relation target="http://www.amazon.com/gp/product/B00001IVAI" type="AmazonAsin" /><relation target="http://www.discogs.com/release/30895" type="Discogs" /><relation target="http://www.discogs.com/release/30896" type="Discogs" /></relation-list></release></metadata>';
 
 ws_test 'release with release-relationships',
     '/release/757a1723-3769-4298-89cd-48d31177852a?type=xml&inc=release-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="757a1723-3769-4298-89cd-48d31177852a" type="Album Pseudo-Release"><title>LOVE &amp; HONESTY</title><text-representation script="Latn" language="JPN" /><asin>B0000YGBSG</asin><relation-list target-type="Release"><relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" begin="" type="Transl-Tracklisting" end=""><release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation><relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" begin="" type="Transl-Tracklisting" end=""><release id="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation></relation-list></release></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="757a1723-3769-4298-89cd-48d31177852a" type="Album Pseudo-Release"><title>LOVE &amp; HONESTY</title><text-representation script="Latn" language="JPN" /><asin>B0000YGBSG</asin><relation-list target-type="Release"><relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Transl-Tracklisting"><release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation><relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Transl-Tracklisting"><release id="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation></relation-list></release></metadata>';
 
 ws_test 'release with counts',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=counts' =>
@@ -209,7 +209,7 @@ ws_test 'release with counts',
   </release>
 </metadata>';
 
-ws_test 'release with counts',
+ws_test 'release with discs',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=discs' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
@@ -221,17 +221,56 @@ ws_test 'release with counts',
   </release>
 </metadata>';
 
-sub todo {
-
 ws_test 'release with label-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=label-rels' =>
+    '/release/f07d489d-a06e-4f39-b95e-5692e2a4f465?type=xml&inc=label-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+ <release id="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Album Official">
+ <title>Recipe for Hate</title>
+ <text-representation script="Latn" language="ENG" />
+ <asin>B000002IX5</asin>
+ <relation-list target-type="Label">
+  <relation direction="backward"
+            target="1bfd06be-a6ed-4ced-8159-7d4d2923a40c"
+            type="Publishing">
+   <label id="1bfd06be-a6ed-4ced-8159-7d4d2923a40c">
+    <name>Epitaph</name>
+    <sort-name>Epitaph</sort-name>
+   </label>
+  </relation>
+  <relation direction="backward"
+            target="50c384a2-0b44-401b-b893-8181173339c7"
+            type="Publishing">
+   <label id="50c384a2-0b44-401b-b893-8181173339c7">
+    <name>Atlantic</name>
+    <sort-name>Atlantic</sort-name>
+   </label>
+  </relation>
+ </relation-list>
+</release></metadata>';
 
 ws_test 'release with track-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-rels' =>
+    '/release/4ccb3e54-caab-4ad4-94a6-a598e0e52eec?type=xml&inc=track-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+<release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Spokenword Official">
+ <title>An Inextricable Tale Audiobook</title>
+ <text-representation script="Latn" language="ENG" />
+ <asin>B000XULO2A</asin>
+ <relation-list target-type="Track">
+  <relation direction="backward"
+            target="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9"
+            begin="2008"
+            type="SamplesMaterial">
+   <track id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
+    <title>Dear Diary</title>
+    <duration>86666</duration>
+   </track>
+  </relation>
+ </relation-list>
+</release></metadata>';
+
+sub todo {
 
 ws_test 'release with track-level-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-level-rels' =>

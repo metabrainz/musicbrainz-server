@@ -94,40 +94,112 @@ ws_test 'lookup track with releases',
   </track>
 </metadata>';
 
-sub todo {
-
 ws_test 'lookup track with artist-relationships',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=artist-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+    '/track/0cf3008f-e246-428f-abc1-35f87d584d60?type=xml&inc=artist-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="0cf3008f-e246-428f-abc1-35f87d584d60">
+ <title>the Love Bug</title>
+ <duration>242226</duration>
+ <relation-list target-type="Artist">
+  <relation direction="backward"
+            target="22dd2db3-88ea-4428-a7a8-5cd3acf23175"
+            type="Programming">
+   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+    <name>m-flo</name>
+    <sort-name>m-flo</sort-name>
+    <life-span begin="1998" />
+   </artist>
+  </relation>
+  <relation direction="backward"
+            target="22dd2db3-88ea-4428-a7a8-5cd3acf23175"
+            type="Producer">
+   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+    <name>m-flo</name>
+    <sort-name>m-flo</sort-name>
+    <life-span begin="1998" />
+   </artist>
+  </relation>
+  <relation direction="backward"
+            target="a16d1433-ba89-4f72-a47b-a370add0bb55"
+            type="Vocal">
+   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+    <name>BoA</name>
+    <sort-name>BoA</sort-name>
+    <life-span begin="1986-11-05" />
+   </artist>
+  </relation>
+ </relation-list>
+</track></metadata>';
 
 ws_test 'lookup track with label-relationships',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=label-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+    '/track/bf7845cc-eac3-48a3-8b06-543b4b7ba117?type=xml&inc=label-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="bf7845cc-eac3-48a3-8b06-543b4b7ba117">
+ <title>Hey Boy Hey Girl</title>
+ <duration>290853</duration>
+ <relation-list target-type="Label">
+  <relation direction="backward"
+            target="49375f06-59e2-4c94-93ac-ac0c6df52151"
+            type="Publishing">
+   <label id="49375f06-59e2-4c94-93ac-ac0c6df52151">
+    <name>MCA Music</name>
+    <sort-name>MCA Music</sort-name>
+   </label>
+  </relation>
+ </relation-list>
+</track></metadata>';
 
 ws_test 'lookup track with release-relationships',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=release-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+    '/track/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?type=xml&inc=release-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
+ <title>Dear Diary</title>
+ <duration>86666</duration>
+ <relation-list target-type="Release">
+  <relation target="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" begin="2008" type="SamplesMaterial">
+   <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Spokenword Official">
+    <title>An Inextricable Tale Audiobook</title>
+    <text-representation script="Latn" language="ENG" />
+   </release>
+  </relation>
+ </relation-list>
+</track></metadata>';
 
 ws_test 'lookup track with track-relationships',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=track-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+    '/track/eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e?type=xml&inc=track-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+ <title>サマーれげぇ!レインボー (instrumental)</title>
+ <duration>292800</duration>
+ <relation-list target-type="Track">
+  <relation direction="backward"
+            target="162630d9-36d2-4a8d-ade1-1c77440b34e7"
+            type="OtherVersion">
+   <track id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+    <title>サマーれげぇ!レインボー</title>
+    <duration>296026</duration>
+   </track>
+  </relation>
+ </relation-list>
+</track></metadata>';
 
 ws_test 'lookup track with url-relationships',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=url-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+    '/track/050e2f1b-ce1a-49b7-8b0b-15b1e7c5ec02?type=xml&inc=url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="050e2f1b-ce1a-49b7-8b0b-15b1e7c5ec02">
+ <title>Jailbait (demo)</title>
+ <relation-list target-type="Url">
+  <relation target="http://www.corporationblend.com/mp3s/Jailbait.mp3" type="DownloadFor Free" />
+ </relation-list>
+</track></metadata>';
+
+ws_test 'lookup track with ratings',
+    '/track/0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d?type=xml&inc=ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d">
+ <title>The Song Remains the Same</title>
+ <duration>329600</duration>
+ <rating votes-count="2">60</rating>
+</track></metadata>';
+
+sub todo {
 
 ws_test 'lookup track with user-tags',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=user-tags' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'lookup track with ratings',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 

@@ -358,7 +358,7 @@ sub find_user_tags
 
     $self->c->model('Tag')->load(@tags);
 
-    return @tags;
+    return sort { $a->tag->name cmp $b->tag->name } grep { $_->tag } @tags;
 }
 
 sub find_entities

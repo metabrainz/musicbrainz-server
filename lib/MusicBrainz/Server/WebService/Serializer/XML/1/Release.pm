@@ -3,14 +3,14 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent';
+use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit';
+use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 sub element { 'release'; }
 
@@ -34,7 +34,12 @@ before 'serialize' => sub
         $self->add( $self->gen->asin("".$2) )
             if ($_->target->url =~
                 m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i);
+        last;
     }
+
+    $self->add( ArtistCredit->new->serialize($entity->artist_credit) )
+        if $entity->artist_credit;
+
 
     # If the release appears in a list, then we only want at most the release group gid.
     # If the release is top level however, then we do want release group information
@@ -77,7 +82,7 @@ before 'serialize' => sub
 
     $self->add(
         $self->gen->rating(
-            { 'rating-count' => $entity->release_group->rating_count },
+            { 'votes-count' => $entity->release_group->rating_count },
             $entity->release_group->rating
         )
     ) if $inc && $inc->ratings;

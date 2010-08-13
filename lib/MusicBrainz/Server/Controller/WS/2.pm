@@ -7,9 +7,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use Readonly;
 use Data::OptList;
+use Scalar::Util qw( looks_like_number );
 
 Readonly our $MAX_ITEMS => 25;
 
@@ -66,7 +68,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      recording => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits puids isrcs
+                         inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings) ]
      },
      release => {
@@ -82,7 +84,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      release => {
                          method   => 'GET',
-                         inc      => [ qw(artists labels recordings release-groups
+                         inc      => [ qw(artists labels recordings release-groups aliases
                                           tags user-tags ratings user-ratings
                                           artist-credits discids media _relations) ]
      },
@@ -100,8 +102,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      "release-group" => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ],
+                         inc      => [ qw(artists releases artist-credits aliases
+                                          _relations tags user-tags ratings user-ratings) ]
      },
      work => {
                          method   => 'GET',
@@ -123,17 +125,17 @@ my $ws_defs = Data::OptList::mkopt([
      discid => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups artist-credits
-                                          puids isrcs _relations) ],
+                                          aliases puids isrcs _relations) ]
      },
      puid => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases puids isrcs artist-credits
-                                          _relations tags user-tags ratings user-ratings) ],
+                         inc      => [ qw(artists releases puids isrcs artist-credits aliases
+                                          _relations tags user-tags ratings user-ratings) ]
      },
      isrc => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases puids isrcs artist-credits
-                                          _relations tags user-tags ratings user-ratings) ],
+                         inc      => [ qw(artists releases puids isrcs artist-credits aliases
+                                          _relations tags user-tags ratings user-ratings) ]
      },
      iswc => {
                          method   => 'GET',
@@ -144,6 +146,22 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(limit offset) ],
+     },
+     tag => {
+                         method   => 'GET',
+                         required => [ qw(id entity) ],
+     },
+     tag => {
+                         method   => 'POST',
+                         optional => [ qw(client) ],
+     },
+     rating => {
+                         method   => 'GET',
+                         required => [ qw(id entity) ],
+     },
+     rating => {
+                         method   => 'POST',
+                         optional => [ qw(client) ],
      },
      cdstub => {
                          method   => 'GET',
@@ -170,8 +188,15 @@ sub bad_req : Private
 {
     my ($self, $c) = @_;
     $c->res->status(400);
-    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->content_type("application/xml; charset=UTF-8");
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
+}
+
+sub success : Private
+{
+    my ($self, $c) = @_;
+    $c->res->content_type("application/xml; charset=UTF-8");
+    $c->res->body($c->stash->{serializer}->output_success);
 }
 
 sub unauthorized : Private
@@ -208,6 +233,14 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     $self->validate($c, \%serializers) or $c->detach('bad_req');
 
     $c->authenticate({}, 'webservice') if ($c->stash->{authorization_required});
+}
+
+sub _error
+{
+    my ($c, $error) = @_;
+
+    $c->stash->{error} = $error;
+    $c->detach('bad_req');
 }
 
 sub _search
@@ -289,11 +322,45 @@ sub make_list
 sub linked_artists
 {
     my ($self, $c, $stash, $artists) = @_;
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Artist')->alias->find_by_entity_id(map { $_->id } @$artists) };
+
+        my %alias_per_artist;
+        foreach (@aliases)
+        {
+            $alias_per_artist{$_->artist_id} = [] unless $alias_per_artist{$_->artist_id};
+            push @{ $alias_per_artist{$_->artist_id} }, $_;
+        }
+
+        foreach (@$artists)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_artist{$_->id};
+        }
+    }
 }
 
 sub linked_labels
 {
     my ($self, $c, $stash, $labels) = @_;
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Label')->alias->find_by_entity_id(map { $_->id } @$labels) };
+
+        my %alias_per_label;
+        foreach (@aliases)
+        {
+            $alias_per_label{$_->label_id} = [] unless $alias_per_label{$_->label_id};
+            push @{ $alias_per_label{$_->label_id} }, $_;
+        }
+
+        foreach (@$labels)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_label{$_->id};
+        }
+    }
 }
 
 sub linked_recordings
@@ -393,6 +460,23 @@ sub linked_works
 {
     my ($self, $c, $stash, $works) = @_;
 
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Work')->alias->find_by_entity_id(map { $_->id } @$works) };
+
+        my %alias_per_work;
+        foreach (@aliases)
+        {
+            $alias_per_work{$_->work_id} = [] unless $alias_per_work{$_->work_id};
+            push @{ $alias_per_work{$_->work_id} }, $_;
+        }
+
+        foreach (@$works)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_work{$_->id};
+        }
+    }
+
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$works);
@@ -436,11 +520,6 @@ sub artist_toplevel
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
 
-    if ($c->stash->{inc}->aliases)
-    {
-        $opts->{aliases} = $c->model('Artist')->alias->find_by_entity_id($artist->id);
-    }
-
     if ($c->stash->{inc}->recordings)
     {
         my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
@@ -454,11 +533,13 @@ sub artist_toplevel
         my @results;
         if ($c->stash->{inc}->various_artists)
         {
-            @results = $c->model('Release')->find_for_various_artists($artist->id, $MAX_ITEMS);
+            @results = $c->model('Release')->find_for_various_artists(
+                $artist->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
         else
         {
-            @results = $c->model('Release')->find_by_artist($artist->id, $MAX_ITEMS);
+            @results = $c->model('Release')->find_by_artist(
+                $artist->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
 
         $opts->{releases} = $self->make_list (@results);
@@ -468,7 +549,8 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->release_groups)
     {
-        my @results = $c->model('ReleaseGroup')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('ReleaseGroup')->find_by_artist(
+            $artist->id, $MAX_ITEMS, 0, $c->stash->{type});
         $opts->{release_groups} = $self->make_list (@results);
 
         $self->linked_release_groups ($c, $stash, $opts->{release_groups}->{items});
@@ -568,7 +650,8 @@ sub release_group_toplevel
 
     if ($c->stash->{inc}->releases)
     {
-        my @results = $c->model('Release')->find_by_release_group($rg->id, $MAX_ITEMS);
+        my @results = $c->model('Release')->find_by_release_group(
+            $rg->id, $MAX_ITEMS, 0, $c->stash->{status});
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
@@ -635,7 +718,8 @@ sub release_group_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my @tmp = $c->model('ReleaseGroup')->find_by_artist ($artist->id, $limit, $offset);
+        my @tmp = $c->model('ReleaseGroup')->find_by_artist (
+            $artist->id, $limit, $offset, $c->stash->{type});
         $rgs = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release')
@@ -773,7 +857,8 @@ sub release_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my @tmp = $c->model('Release')->find_by_artist ($artist->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_artist (
+            $artist->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'label')
@@ -781,7 +866,8 @@ sub release_browse : Private
         my $label = $c->model('Label')->get_by_gid($id);
         $c->detach('not_found') unless ($label);
 
-        my @tmp = $c->model('Release')->find_by_label ($label->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_label (
+            $label->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release-group')
@@ -789,7 +875,8 @@ sub release_browse : Private
         my $rg = $c->model('ReleaseGroup')->get_by_gid($id);
         $c->detach('not_found') unless ($rg);
 
-        my @tmp = $c->model('Release')->find_by_release_group ($rg->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_release_group (
+            $rg->id, $limit, $offset, $c->stash->{status});
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'recording')
@@ -797,7 +884,8 @@ sub release_browse : Private
         my $recording = $c->model('Recording')->get_by_gid($id);
         $c->detach('not_found') unless ($recording);
 
-        my @tmp = $c->model('Release')->find_by_recording ($recording->id, $limit, $offset);
+        my @tmp = $c->model('Release')->find_by_recording (
+            $recording->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
         $releases = $self->make_list (@tmp, $offset);
     }
 
@@ -834,12 +922,12 @@ sub recording_toplevel
         if ($c->stash->{inc}->media)
         {
             @results = $c->model('Release')->load_with_tracklist_for_recording(
-                $recording->id, $MAX_ITEMS);
+                $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
         else
         {
             @results = $c->model('Release')->find_by_recording(
-                $recording->id, $MAX_ITEMS);
+                $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
 
         $self->linked_releases ($c, $stash, $results[0]);
@@ -960,7 +1048,8 @@ sub label_toplevel
 
     if ($c->stash->{inc}->releases)
     {
-        my @results = $c->model('Release')->find_by_label($label->id, $MAX_ITEMS);
+        my @results = $c->model('Release')->find_by_label(
+            $label->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
@@ -1222,7 +1311,8 @@ sub discid : Chained('root') PathPart('discid') Args(1)
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($cdtoc);
 
-    my @releases = $c->model('Release')->find_by_medium([ map { $_->medium_id } @mediumcdtocs ]);
+    my @releases = $c->model('Release')->find_by_medium(
+        [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type});
     $opts->{releases} = $self->make_list (\@releases);
 
     for (@releases)
@@ -1262,12 +1352,92 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
     $c->res->body($c->stash->{serializer}->serialize('isrc', \@works, $c->stash->{inc}, $stash));
 }
 
+sub tag_lookup : Private
+{
+    my ($self, $c) = @_;
+
+    my ($entity, $model) = $self->_validate_entity ($c);
+
+    my @tags = $c->model($model)->tags->find_user_tags($c->user->id, $entity->id);
+
+    my $stash = WebServiceStash->new;
+    $stash->store ($entity)->{user_tags} = \@tags;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('tag-list', $entity, $c->stash->{inc}, $stash));
+}
+
+
 sub tag_search : Chained('root') PathPart('tag') Args(0)
 {
     my ($self, $c) = @_;
 
+    $c->detach('tag_submit') if $c->request->method eq 'POST';
+    $c->detach('tag_lookup') if exists $c->stash->{args}->{id};
+
     $self->_search ($c, 'tag');
 }
+
+sub rating_submit : Private
+{
+    my ($self, $c) = @_;
+
+    $self->_validate_post ($c);
+
+    use XML::XPath;
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @submit;
+    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
+    {
+        my $type = $node->getName;
+        $type =~ s/-/_/;
+
+        my $model = type_to_model ($type);
+        _error ($c, "Unrecognized entity $type.") unless $model;
+
+        my $gid = $node->getAttribute ('id');
+        _error ($c, "Cannot parse MBID: $gid.")
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+
+        my $entity = $c->model($model)->get_by_gid($gid);
+        _error ($c, "Cannot find $type $gid.") unless $entity;
+
+        my $rating = $node->find ('user-rating')->string_value;
+        _error ($c, "Rating should be an integer between 0 and 100")
+            unless looks_like_number ($rating) && $rating >= 0 && $rating <= 100;
+
+        # postpone any updates until we've made some effort to parse the whole
+        # body and report possible errors in it.
+        push @submit, { model => $model,  entity => $entity,  rating => $rating }
+    }
+
+    for (@submit)
+    {
+        $c->model($_->{model})->rating->update(
+            $c->user->id, $_->{entity}->id, $_->{rating});
+    }
+
+    $c->detach('success');
+}
+
+sub rating_lookup : Chained('root') PathPart('rating') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $c->detach('rating_submit') if $c->request->method eq 'POST';
+
+    my ($entity, $model) = $self->_validate_entity ($c);
+
+    $c->model($model)->rating->load_user_ratings ($c->user->id, $entity);
+
+    my $stash = WebServiceStash->new;
+    $stash->store ($entity)->{user_ratings} = $entity->user_rating;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('rating', $entity, $c->stash->{inc}, $stash));
+}
+
 
 sub freedb_search : Chained('root') PathPart('freedb') Args(0)
 {
@@ -1281,6 +1451,95 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0)
     my ($self, $c) = @_;
 
     $self->_search ($c, 'cdstub');
+}
+
+sub _validate_post
+{
+    my ($self, $c) = @_;
+
+    my $h = $c->request->headers;
+
+    if (!$h->content_type_charset && $h->content_type_charset ne 'UTF-8')
+    {
+        _error ($c, "Unsupported charset, please use UTF-8.")
+    }
+
+    if ($h->content_type ne 'application/xml')
+    {
+        _error ($c, "Unsupported content-type, please use application/xml");
+    }
+
+    _error ($c, "Please specify the name and version number of your client application.")
+        unless $c->req->params->{client};
+}
+
+sub _validate_entity
+{
+    my ($self, $c) = @_;
+
+    my $gid = $c->stash->{args}->{id};
+    my $entity = $c->stash->{args}->{entity};
+    $entity =~ s/-/_/;
+
+    my $model = type_to_model ($entity);
+
+    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
+    {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    if (!$model)
+    {
+        $c->stash->{error} = "Invalid entity type.";
+        $c->detach('bad_req');
+    }
+
+    $entity = $c->model($model)->get_by_gid($gid);
+    $c->detach('not_found') unless ($entity);
+
+    return ($entity, $model);
+}
+
+sub tag_submit : Private
+{
+    my ($self, $c) = @_;
+
+    $self->_validate_post ($c);
+
+    use XML::XPath;
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @submit;
+    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
+    {
+        my $type = $node->getName;
+        $type =~ s/-/_/;
+
+        my $model = type_to_model ($type);
+        _error ($c, "Unrecognized entity $type.") unless $model;
+
+        my $gid = $node->getAttribute ('id');
+        _error ($c, "Cannot parse MBID: $gid.")
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+
+        my $entity = $c->model($model)->get_by_gid($gid);
+        _error ($c, "Cannot find $type $gid.") unless $entity;
+
+        # postpone any updates until we've made some effort to parse the whole
+        # body and report possible errors in it.
+        push @submit, { model => $model,  entity => $entity, tags => [ map {
+                $_->string_value
+            } $node->find ('user-tag-list/user-tag/name')->get_nodelist ], };
+    }
+
+    for (@submit)
+    {
+        $c->model($_->{model})->tags->update(
+            $c->user->id, $_->{entity}->id, join (", ", @{ $_->{tags} }));
+    }
+
+    $c->detach('success');
 }
 
 sub default : Path

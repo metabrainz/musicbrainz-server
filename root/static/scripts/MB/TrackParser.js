@@ -41,6 +41,8 @@ MB.TrackParser = function (disc, serialized) {
     };
 
     var parseTimes = function () {
+        self.inputdurations = [];
+
         $.each(self.inputlines, function (i) {
 
             var tmp = this.replace (/\(\?:\?\?\)\s?$/, '');
@@ -67,12 +69,15 @@ MB.TrackParser = function (disc, serialized) {
     };
 
     var parseArtists = function () {
+        self.inputartists = [];
+
         $.each(self.inputlines, function (i) {
             if (self.inputlines[i].match (self.artistseparator))
             {
-                self.inputartists[i] = inputlines[i].split (self.artistseparator, 2)[1]
-                    .replace(/(.*),\sThe$/i, "The $1")
-                    .replace(/\s*,/g, ",");
+                self.inputartists[i] = $.trim (
+                    self.inputlines[i].split (self.artistseparator, 2)[1]
+                        .replace(/(.*),\sThe$/i, "The $1")
+                        .replace(/\s*,/g, ","));
 
                 self.inputlines[i] = self.inputlines[i].split (self.artistseparator,1)[0];
             }
@@ -94,7 +99,7 @@ MB.TrackParser = function (disc, serialized) {
         var original = function (idx) {
             if (idx < self.originals.length)
             {
-                return $.extend ({}, self.originals[idx]);
+                return $.extend ({ 'position': idx+1 }, self.originals[idx]);
             }
 
             return undefined;
@@ -145,7 +150,7 @@ MB.TrackParser = function (disc, serialized) {
             var copy = original (data.row);
             copy.position = data.position;
             copy.length = data.length;
-            self.disc.getTrack (data.row).render (copy);
+            var t = self.disc.getTrack (data.row).render (copy);
         });
 
         /* mark deleted tracks as such. */
@@ -205,7 +210,12 @@ MB.TrackParser = function (disc, serialized) {
     self.parseTimes = parseTimes;
     self.cleanSpaces = cleanSpaces;
     self.cleanTitles = cleanTitles;
-    self.parseArtists = parseArtists;
+    /* 
+       Various Artist releases are not currently supported, so parseArtists
+       is commented out for now. --warp.
+
+       self.parseArtists = parseArtists;
+    */
     self.fillInData = fillInData;
     self.run = run;
 

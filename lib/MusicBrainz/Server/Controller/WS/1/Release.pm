@@ -36,7 +36,11 @@ sub lookup : Chained('load') PathPart('')
     $c->model('ReleaseStatus')->load($release);
     $c->model('Language')->load($release);
     $c->model('Script')->load($release);
-    $c->model('Relationship')->load_subset([ 'url' ], $release);
+
+    # Don't load URL relationships twice
+    my %rels = map { $_ => 1 } @{ $c->stash->{inc}->get_rel_types };
+    $c->model('Relationship')->load_subset([ 'url' ], $release)
+        unless $rels{url};
 
     if ($c->stash->{inc}->tags) {
         my ($tags, $hits) = $c->model('ReleaseGroup')->tags->find_tags($release->release_group->id);

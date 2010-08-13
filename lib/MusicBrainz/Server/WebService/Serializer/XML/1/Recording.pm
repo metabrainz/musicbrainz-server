@@ -3,10 +3,12 @@ use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::ArtistCredit';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Rating';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit';
 
 sub element { 'track'; }
 
@@ -16,6 +18,9 @@ before 'serialize' => sub
 
     $self->add( $self->gen->title($entity->name) );
     $self->add( $self->gen->duration($entity->length) ) if $entity->length;
+
+    $self->add( ArtistCredit->new->serialize($entity->artist_credit) )
+        if $entity->artist_credit;
 
     $inc && $inc->artist(0);
 

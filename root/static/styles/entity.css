@@ -57,7 +57,7 @@ div.tabs ul li a:hover {
 .rgheader        { background-image: url('../images/gicon_lg.png') }
 .recordingheader { background-image: url('../images/ticon_lg.png') }
 .labelheader     { background-image: url('../images/bicon_lg.png') }
-.workheader      { } /* TODO: create work icon */
+.workheader      { background-image: url('../images/entity/blank_lg.png')} /* TODO: create work icon */
 
 .releaseheader .prefix,
 h1 span.prefix,
