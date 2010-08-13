@@ -60,23 +60,6 @@ sub lookup : Chained('load') PathPart('')
     $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $opts));
 }
 
-sub search : Path('') Args(0)
-{
-    my ($self, $c) = @_;
-
-    my $result = xml_search('release-group', $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
-    }
-}
-
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

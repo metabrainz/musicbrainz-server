@@ -4,6 +4,8 @@ use Moose;
 use Readonly;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
+
 use MusicBrainz::Server::WebService::XMLSerializerV1;
 
 has 'model' => (
@@ -21,6 +23,31 @@ sub begin : Private {
     my ($self, $c) = @_;
     $c->stash->{data} = {};
     $self->validate($c, $self->serializers) or $c->detach('bad_req');
+}
+
+sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }
+
+sub search : Chained('root') PathPart('')
+{
+    my ($self, $c) = @_;
+
+    my $limit = 0 + ($c->req->query_params->{limit} || 25);
+    $limit = 25 if $limit < 1 || $limit > 100;
+
+    my $offset = 0 + ($c->req->query_params->{offset} || 0);
+    $offset = 0 if $offset < 0;
+
+    $c->res->body(
+        $c->model('Search')->xml_search(
+            %{ $c->req->query_params },
+
+            limit   => $limit,
+            offset  => $offset,
+            type    => model_to_type($self->model),
+            version => 1,
+        ));
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
 }
 
 # Don't render with TT
@@ -57,15 +84,6 @@ sub not_found : Private
     my ($self, $c) = @_;
     $c->res->status(404);
     $c->detach;
-}
-
-sub default : Path
-{
-    my ($self, $c, $resource) = @_;
-
-    $c->stash->{serializer} = $self->serializers->{$self->get_default_serialization_type}->new();
-    $c->stash->{error} = "Invalid resource: $resource. ";
-    $c->detach('bad_req');
 }
 
 no Moose;

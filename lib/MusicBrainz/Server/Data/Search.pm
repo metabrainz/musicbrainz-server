@@ -25,6 +25,7 @@ use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use Switch;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -505,11 +506,36 @@ sub external_search
     }
 }
 
+sub combine_rules
+{
+    my ($inputs, %rules) = @_;
+
+    my @parts;
+    for my $key (keys %rules) {
+        my $spec = $rules{$key};
+        my $parameter = $spec->{parameter} || $key;
+        next unless exists $inputs->{$parameter};
+
+        my $input = $inputs->{$parameter};
+        next if exists $spec->{check} && !$spec->{check}->($input);
+
+        $input = escape_query($input) if $spec->{escape};
+        my $process = $spec->{process} || sub { shift };
+        $input = $process->($input);
+        $input = join(' AND ', split /\s+/, $input) if $spec->{split};
+
+        my $predicate = $spec->{predicate} || sub { "$key:($input)" };
+        push @parts, $predicate->($input);
+    }
+
+    return join(' AND ', map { "($_)" } @parts);
+}
+
 sub xml_search
 {
     my ($self, %options) = @_;
 
-    my $query   = $options{query} or die 'query is a required parameter';
+    my $query   = $options{query};
     my $limit   = $options{limit} || 25;
     my $offset  = $options{offset} || 0;
     my $type    = $options{type} or die 'type is a required parameter';
@@ -517,6 +543,155 @@ sub xml_search
 
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
+
+    unless ($query) {
+        switch ($type) {
+            case 'artist' {
+                my $name = escape_query($options{name}) or die 'name is a required parameter';
+                $name =~ tr/A-Z/a-z/;
+                $name =~ s/\s*(.*?)\s*$/$1/;
+                $query = "artist:($name)(sortname:($name) alias:($name) !artist:($name))";
+            }
+
+            case 'label' {
+                my $term = escape_query($options{label}) or die 'label is a required parameter';
+                $term =~ tr/A-Z/a-z/;
+                $term =~ s/\s*(.*?)\s*$/$1/;
+                $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
+            }
+
+            case 'release' {
+                $query = combine_rules(
+                    \%options,
+                    DEFAULT => {
+                        parameter => 'title',
+                        escape    => 1,
+                        process => sub {
+                            my $term = shift;
+                            $term =~ s/\s*(.*?)\s*$/$1/;
+                            $term =~ tr/A-Z/a-z/;
+                            $term;
+                        },
+                        split     => 1,
+                        predicate => sub { shift }
+                    },
+                    arid => {
+                        parameter => 'artistid',
+                        escape    => 1
+                    },
+                    artist => {
+                        parameter => 'artist',
+                        escape    => 1,
+                        split     => 1,
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                    },
+                    type => {
+                        parameter => 'releasetype',
+                    },
+                    status => {
+                        parameter => 'releasestatus',
+                        check     => sub { shift() =~ /^\d+$/ },
+                        process   => sub { shift() . '^0.0001' }
+                    },
+                    tracks => {
+                        parameter => 'count',
+                        check     => sub { shift > 0 },
+                    },
+                    discids => {
+                        check     => sub { shift > 0 },
+                    },
+                    date   => {},
+                    asin   => {},
+                    lang   => {},
+                    script => {}
+                );
+            }
+
+            case 'release-group' {
+                $query = combine_rules(
+                    \%options,
+                    DEFAULT => {
+                        parameter => 'title',
+                        escape    => 1,
+                        process => sub {
+                            my $term = shift;
+                            $term =~ s/\s*(.*?)\s*$/$1/;
+                            $term =~ tr/A-Z/a-z/;
+                            $term;
+                        },
+                        split     => 1,
+                        predicate => sub { shift }
+                    },
+                    arid => {
+                        parameter => 'artistid',
+                        escape    => 1
+                    },
+                    artist => {
+                        parameter => 'artist',
+                        escape    => 1,
+                        split     => 1,
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                    },
+                    type => {
+                        parameter => 'releasetype',
+                        check     => sub { shift =~ /^\d+$/ },
+                        process   => sub { my $type = shift; return $type . '^.0001' }
+                    },
+                );
+            }
+
+            case 'track' {
+                $query = combine_rules(
+                    \%options,
+                    DEFAULT => {
+                        parameter => 'track',
+                        escape    => 1,
+                        process => sub {
+                            my $term = shift;
+                            $term =~ s/\s*(.*?)\s*$/$1/;
+                            $term =~ tr/A-Z/a-z/;
+                            $term;
+                        },
+                        predicate => sub { shift },
+                        split     => 1,
+                    },
+                    arid => {
+                        parameter => 'artistid',
+                        escape    => 1
+                    },
+                    artist => {
+                        parameter => 'artist',
+                        escape    => 1,
+                        split     => 1,
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                    },
+                    reid => {
+                        parameter => 'releaseid',
+                        escape    => 1
+                    },
+                    release => {
+                        parameter => 'release',
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term; },
+                        split     => 1,
+                        escape    => 1
+                    },
+                    duration => {
+                        predicate => sub {
+                            my $dur = int(shift() / 2000);
+                            return "qdur:$dur OR qdur:(" . ($dur - 1) . ") OR qdur:(" . ($dur + 1) . ")";
+                        }
+                    },
+                    tnum => {
+                        parameter => 'tracknumber',
+                        check => sub { shift() >= 0 },
+                    },
+                    type   => { parameter => 'releasetype' },
+                    tracks => { parameter => 'count' },
+                );
+            }
+        }
+    }
+    
     my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
                                  DBDefs::LUCENE_SERVER,
                                  $version,
