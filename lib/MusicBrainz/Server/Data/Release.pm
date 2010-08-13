@@ -314,8 +314,8 @@ sub update
 
 sub delete
 {
-    my ($self, @releases) = @_;
-    my @release_ids = map { $_->id } @releases;
+    my ($self, @release_ids) = @_;
+
     $self->c->model('Collection')->delete_releases(@release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
