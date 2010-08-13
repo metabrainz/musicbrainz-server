@@ -41,13 +41,16 @@ sub search : Path('')
     my $query = $c->req->query_params->{name}
         or $c->detach('bad_req');
 
-    my $results = $c->model('Search')->external_search(
-        $c, 'artist', $query, $limit, ($offset / $limit) + 1
-    );
+    $c->res->body(
+        $c->model('Search')->xml_search(
+            query   => $query,
+            limit   => $limit,
+            offset  => $offset,
+            type    => 'artist',
+            version => 1
+        ));
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->stash->{serializer}->add_namespace('ext', 'http://musicbrainz.org/ns/ext-1.0#');
-    $c->res->body($c->stash->{serializer}->serialize_list('artist-list', $results));
 }
 
 sub lookup : Chained('load') PathPart('')

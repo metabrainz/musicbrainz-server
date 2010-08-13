@@ -504,6 +504,43 @@ sub external_search
         return { pager => $pager, offset => $offset, results => \@results };
     }
 }
+
+sub xml_search
+{
+    my ($self, %options) = @_;
+
+    my $query   = $options{query} or die 'query is a required parameter';
+    my $limit   = $options{limit} || 25;
+    my $offset  = $options{offset} || 0;
+    my $type    = $options{type} or die 'type is a required parameter';
+    my $version = $options{version} || 2;
+
+    $query = uri_escape_utf8($query);
+    $type =~ s/release_group/release-group/;
+    my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
+                                 DBDefs::LUCENE_SERVER,
+                                 $version,
+                                 $type,
+                                 $query,
+                                 $offset,
+                                 $limit,);
+
+    my $ua = LWP::UserAgent->new;
+    $ua->timeout (5);
+    $ua->env_proxy;
+
+    # Dispatch the search request.
+    my $response = $ua->get($search_url);
+    unless ($response->is_success)
+    {
+        return;
+    }
+    else
+    {
+        return $response->content;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
