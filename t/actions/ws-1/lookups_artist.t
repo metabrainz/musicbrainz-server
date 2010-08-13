@@ -202,12 +202,28 @@ ws_test 'artist lookup with label-relationships',
   </artist>
 </metadata>';
 
-sub todo {
-
 ws_test 'artist lookup with artist-relationships',
-    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=artist-rels' =>
+    '/artist/6fe9f838-112e-44f1-af83-97464f08285b?type=xml&inc=artist-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+<artist id="6fe9f838-112e-44f1-af83-97464f08285b" type="Group">
+ <name>Wedlock</name>
+ <sort-name>Wedlock</sort-name>
+ <disambiguation>USA electro pop</disambiguation>
+ <life-span begin="2004" />
+ <relation-list target-type="Artist">
+  <relation direction="backward"
+            target="05d83760-08b5-42bb-a8d7-00d80b3bf47c"
+            type="MemberOf Band">
+   <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
+    <name>Paul Allgood</name>
+    <sort-name>Allgood, Paul</sort-name>
+   </artist>
+  </relation>
+ </relation-list>
+</artist></metadata>';
+
+sub todo {
 
 ws_test 'artist lookup with user-ratings',
     '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=user-ratings' =>

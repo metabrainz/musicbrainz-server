@@ -48,7 +48,7 @@ ws_test 'release with tags',
   <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
     <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
     <tag-list>
-      <tag count="1">hello project</tag><tag count="1">jpop</tag><tag count="1">sexy</tag>
+      <tag count="1">hello project</tag>
     </tag-list>
   </release>
 </metadata>';
@@ -221,17 +221,56 @@ ws_test 'release with discs',
   </release>
 </metadata>';
 
-sub todo {
-
 ws_test 'release with label-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=label-rels' =>
+    '/release/f07d489d-a06e-4f39-b95e-5692e2a4f465?type=xml&inc=label-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+ <release id="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Album Official">
+ <title>Recipe for Hate</title>
+ <text-representation script="Latn" language="ENG" />
+ <asin>B000002IX5</asin>
+ <relation-list target-type="Label">
+  <relation direction="backward"
+            target="1bfd06be-a6ed-4ced-8159-7d4d2923a40c"
+            type="Publishing">
+   <label id="1bfd06be-a6ed-4ced-8159-7d4d2923a40c">
+    <name>Epitaph</name>
+    <sort-name>Epitaph</sort-name>
+   </label>
+  </relation>
+  <relation direction="backward"
+            target="50c384a2-0b44-401b-b893-8181173339c7"
+            type="Publishing">
+   <label id="50c384a2-0b44-401b-b893-8181173339c7">
+    <name>Atlantic</name>
+    <sort-name>Atlantic</sort-name>
+   </label>
+  </relation>
+ </relation-list>
+</release></metadata>';
 
 ws_test 'release with track-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-rels' =>
+    '/release/4ccb3e54-caab-4ad4-94a6-a598e0e52eec?type=xml&inc=track-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+<release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Spokenword Official">
+ <title>An Inextricable Tale Audiobook</title>
+ <text-representation script="Latn" language="ENG" />
+ <asin>B000XULO2A</asin>
+ <relation-list target-type="Track">
+  <relation direction="backward"
+            target="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9"
+            begin="2008"
+            type="SamplesMaterial">
+   <track id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
+    <title>Dear Diary</title>
+    <duration>86666</duration>
+   </track>
+  </relation>
+ </relation-list>
+</release></metadata>';
+
+sub todo {
 
 ws_test 'release with track-level-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-level-rels' =>

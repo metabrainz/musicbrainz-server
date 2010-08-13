@@ -34,6 +34,7 @@ before 'serialize' => sub
         $self->add( $self->gen->asin("".$2) )
             if ($_->target->url =~
                 m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i);
+        last;
     }
 
     $self->add( ArtistCredit->new->serialize($entity->artist_credit) )

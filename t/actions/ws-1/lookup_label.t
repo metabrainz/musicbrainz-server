@@ -80,12 +80,29 @@ ws_test 'label lookup with url-relationships',
   </label>
 </metadata>';
 
-sub todo {
-
 ws_test 'label lookup with release-relationships',
-        '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=release-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
+        '/label/50c384a2-0b44-401b-b893-8181173339c7?type=xml&inc=release-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="50c384a2-0b44-401b-b893-8181173339c7" type="OriginalProduction">
+ <name>Atlantic</name>
+ <sort-name>Atlantic</sort-name>
+ <country>US</country>
+ <relation-list target-type="Release">
+  <relation target="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Publishing">
+   <release id="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Album Official">
+    <title>Recipe for Hate</title>
+    <text-representation script="Latn" language="ENG" />
+   </release>
+  </relation>
+  <relation target="99303476-675d-3c88-a4ee-8c40ea91b1e2" type="Publishing">
+   <release id="99303476-675d-3c88-a4ee-8c40ea91b1e2" type="Album Official">
+    <title>Recipe for Hate</title>
+    <text-representation script="Latn" language="ENG" />
+   </release>
+  </relation>
+ </relation-list>
+</label></metadata>';
+
+sub todo {
 
 ws_test 'label lookup with user-tags',
         '/label/b4edce40-090f-4956-b82a-5d9d285da40b?type=xml&inc=user-tags' =>
