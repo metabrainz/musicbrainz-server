@@ -111,13 +111,14 @@ sub edit : Local RequireAuth Edit
         my $values = $form->values;
         my $edit = $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_EDIT,
-            type0        => $type0,
-            type1        => $type1,
-            relationship => $rel,
-            link_type_id => $values->{link_type_id},
-            begin_date   => $values->{begin_date},
-            end_date     => $values->{end_date},
-            attributes   => \@attributes
+            type0             => $type0,
+            type1             => $type1,
+            relationship      => $rel,
+            link_type_id      => $values->{link_type_id},
+            begin_date        => $values->{begin_date},
+            end_date          => $values->{end_date},
+            change_direction  => $values->{direction},
+            attributes        => \@attributes
         );
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');

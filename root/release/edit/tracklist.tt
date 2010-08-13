@@ -1,6 +1,4 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery/jquery-1.4.2.min.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/lib/jquery/jquery.json.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/lib/jquery.autocomplete/jquery.autocomplete.min.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>

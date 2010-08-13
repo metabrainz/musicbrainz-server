@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::User::SubscriptionsRole;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-sub add : Local RequireAuth
+sub add : Local RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -13,7 +13,7 @@ sub add : Local RequireAuth
     $c->detach;
 }
 
-sub remove : Local RequireAuth
+sub remove : Local RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -25,7 +25,7 @@ sub remove : Local RequireAuth
     $c->detach;
 }
 
-sub view : Local Args(1) RequireAuth
+sub view : Local Args(1) RequireAuth HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
 

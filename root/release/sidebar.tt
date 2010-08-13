@@ -16,18 +16,6 @@
     </p>
 [% END -%]
 
-[% BLOCK collection %]
-    <p>
-        [% IF in_collection %]
-            <a href="[% c.uri_for_action("/user/collection/remove", { id => release.id }) %]">
-                [%- l('Remove from collection') %]</a>
-        [% ELSE %]
-            <a href="[% c.uri_for_action("/user/collection/add", { id => release.id }) %]">
-                [%- l('Add to collection') %]</a>
-        [% END %]
-    </p>
-[% END %]
-
 [%- MACRO editable_property(label, text, field, field_name, class)
         IF field && editing;
             IF class.defined;
@@ -158,7 +146,6 @@ WRAPPER 'layout/sidebar.tt';
         tag_this_text=l('Tag release group');
         INCLUDE links;
         INCLUDE other_versions;
-        INCLUDE collection IF c.user_exists;
     END;
 END;
 

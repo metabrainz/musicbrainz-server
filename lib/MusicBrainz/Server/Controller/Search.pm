@@ -73,7 +73,7 @@ sub direct : Private
 
     my $results = $self->_load_paged($c, sub {
        $c->model('Search')->search($type, $query, shift, shift);
-    });
+    }, $form->field('limit')->value);
 
     if (@$results == 1) {
         if ($type eq 'artist' || $type eq 'release' ||
@@ -148,7 +148,7 @@ sub external : Private
 
     $c->detach('/search/editor') if $type eq 'editor';
 
-    my $limit  = $form->field('limit') ? $form->field('limit')->value : 25;
+    my $limit  = $form->field('limit')->value;
     my $page   = $c->request->query_params->{page} || 1;
     my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
 

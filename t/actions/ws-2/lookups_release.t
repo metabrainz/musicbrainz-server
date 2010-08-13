@@ -27,7 +27,7 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists', 'release lookup with artists');
+$mech->get_ok('/ws/2/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases', 'release lookup with artists + aliases');
 &$v2 ($mech->content, "Validate release lookup with artists");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -41,6 +41,11 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
+                    <alias-list count="6">
+                        <alias>エムフロウ</alias><alias>m-flow</alias>
+                        <alias>mflo</alias><alias>meteorite-flow crew</alias>
+                        <alias>mediarite-flow crew</alias><alias>えむふろう</alias>
+                    </alias-list>
                 </artist>
             </name-credit>
         </artist-credit>

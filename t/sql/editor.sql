@@ -4,8 +4,8 @@ SET client_min_messages TO 'warning';
 TRUNCATE editor CASCADE;
 TRUNCATE editor_preference;
 TRUNCATE editor_subscribe_editor;
-TRUNCATE editor_collection CASCADE;
-TRUNCATE editor_collection_release CASCADE;
+TRUNCATE list CASCADE;
+TRUNCATE list_release CASCADE;
 
 INSERT INTO editor (id, name, password, privs, email, website, bio, membersince,
         emailconfirmdate, lastlogindate, editsaccepted, editsrejected,
@@ -22,16 +22,15 @@ INSERT INTO editor_preference (editor, name, value)
            (1, 'timezone', 'UTC'),
            (2, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
            (2, 'timezone', 'UTC'),
-           (2, 'public_ratings', '0'),
-           (2, 'public_collection', '0');
+           (2, 'public_ratings', '0');
 
 INSERT INTO editor_subscribe_editor (editor, subscribededitor, lasteditsent)
    VALUES (2, 1, 3);
 
 ALTER SEQUENCE editor_id_seq RESTART 4;
 
-INSERT INTO editor_collection (id, editor) VALUES (1, 2), (2, 1);
-INSERT INTO editor_collection_release (collection, release)
-    VALUES (1, 1);
+INSERT INTO list (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 2, E('kuno\'s collection'), 0), (2, 'd34c079d-374e-4436-9448-da92dedef3ce', 1, 'new_collection', 1);
+INSERT INTO list_release (list, release)
+    VALUES (1, 1), (1, 2);
 
 COMMIT;
