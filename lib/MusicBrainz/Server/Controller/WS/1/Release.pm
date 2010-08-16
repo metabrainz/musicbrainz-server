@@ -10,7 +10,8 @@ my $ws_defs = Data::OptList::mkopt([
     release => {
         method => 'GET',
         inc    => [ qw( artist  tags  release-groups tracks release-events labels isrcs
-                        ratings puids _relations     counts discs ) ]
+                        ratings puids _relations     counts discs          user-tags
+                        user-ratings ) ]
     }
 ]);
 
@@ -30,6 +31,9 @@ sub lookup : Chained('load') PathPart('')
 
     my $release = $c->stash->{entity};
 
+    $c->authenticate({}, 'webservice')
+        if $c->stash->{inc}->user_ratings || $c->stash->{inc}->user_tags;
+
     # This is always displayed, regardless of inc parameters
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroupType')->load($release->release_group);
@@ -45,6 +49,12 @@ sub lookup : Chained('load') PathPart('')
     if ($c->stash->{inc}->tags) {
         my ($tags, $hits) = $c->model('ReleaseGroup')->tags->find_tags($release->release_group->id);
         $c->stash->{data}{tags} = $tags;
+    }
+
+    if ($c->stash->{inc}->user_tags) {
+        $c->stash->{data}{user_tags} = [
+            $c->model('ReleaseGroup')->tags->find_user_tags($c->user->id, $release->release_group->id)
+        ];
     }
 
     if ($c->stash->{inc}->tracks) {
@@ -89,8 +99,11 @@ sub lookup : Chained('load') PathPart('')
 
     if ($c->stash->{inc}->ratings) {
         # Releases don't have ratings now, so we need to use release groups
-        $c->model('ReleaseGroup')->load($release) unless $release->release_group;
         $c->model('ReleaseGroup')->load_meta($release->release_group);
+    }
+
+    if ($c->stash->{inc}->user_ratings) {
+        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
 
     if ($c->stash->{inc}->counts) {

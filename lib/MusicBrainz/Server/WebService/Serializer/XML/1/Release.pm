@@ -90,6 +90,9 @@ before 'serialize' => sub
         )
     ) if $inc && $inc->ratings;
 
+    $self->add( $self->gen->user_rating(int($entity->release_group->user_rating / 20)) )
+        if $entity->release_group->user_rating && $inc && $inc->user_ratings;
+
     if ($inc && $inc->discs) {
         $self->add( List->new->serialize([
             map { $_->all_cdtocs } map { $_->all_mediums } $entity

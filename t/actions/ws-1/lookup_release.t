@@ -283,26 +283,26 @@ ws_test 'release with track-relationships',
  </relation-list>
 </release></metadata>';
 
-ws_test 'release with tags',
-    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=tags' =>
+ws_test 'release with user tags',
+    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=user-tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
     <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
     <user-tag-list>
-      <user-tag>hello project</tag>
+      <user-tag>hello project</user-tag>
     </user-tag-list>
   </release>
 </metadata>',
     { username => 'editor', password => 'password' };
 
-ws_test 'release with ratings',
-    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=ratings' =>
+ws_test 'release with user ratings',
+    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=user-ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
  <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
   <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
-  <user-rating>100</user-rating>
+  <user-rating>5</user-rating>
  </release>
 </metadata>',
     { username => 'editor', password => 'password' };
