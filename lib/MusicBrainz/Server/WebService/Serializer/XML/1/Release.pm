@@ -18,7 +18,10 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes->{type} = join (" ", $entity->release_group->type->name, $entity->status->name);
+    $self->attributes->{type} = join (" ",
+        $entity->release_group->type->name,
+        ($entity->status ? ($entity->status->name) : ())
+    );
 
     $self->add( $self->gen->title($entity->name) );
 
