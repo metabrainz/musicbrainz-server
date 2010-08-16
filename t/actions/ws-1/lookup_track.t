@@ -6,6 +6,19 @@ use MusicBrainz::Server::Test
     qw( xml_ok schema_validator ),
     ws_test => { version => 1 };
 
+my $c = MusicBrainz::Server::Test->create_test_context;
+MusicBrainz::Server::Test->prepare_raw_test_database(
+    $c, <<'EOSQL');
+TRUNCATE recording_tag_raw CASCADE;
+TRUNCATE recording_rating_raw CASCADE;
+
+INSERT INTO recording_tag_raw (recording, editor, tag)
+    VALUES (4223061, 1, 114);
+
+INSERT INTO recording_rating_raw (recording, editor, rating)
+    VALUES (160074, 1, 100);
+EOSQL
+
 ws_test 'lookup track',
     '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml' =>
     '<?xml version="1.0" encoding="UTF-8"?>
@@ -196,18 +209,26 @@ ws_test 'lookup track with ratings',
  <rating votes-count="2">60</rating>
 </track></metadata>';
 
-sub todo {
-
 ws_test 'lookup track with user-tags',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=user-tags' =>
+    '/track/eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e?type=xml&inc=user-tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
+    <title>サマーれげぇ!レインボー (instrumental)</title><duration>292800</duration>
+    <user-tag-list>
+      <user-tag>hello project</user-tag>
+    </user-tag-list>
+  </track>
+</metadata>',
+    { username => 'editor', password => 'password' };
 
-ws_test 'lookup track with user-ratings',
-    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=user-ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-}
+ws_test 'lookup track with ratings',
+    '/track/0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d?type=xml&inc=user-ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d">
+ <title>The Song Remains the Same</title>
+ <duration>329600</duration>
+ <user-rating>5</user-rating>
+</track></metadata>',
+    { username => 'editor', password => 'password' };
 
 done_testing;

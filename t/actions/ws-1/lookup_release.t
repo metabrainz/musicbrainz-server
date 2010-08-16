@@ -6,6 +6,19 @@ use MusicBrainz::Server::Test
     qw( xml_ok schema_validator ),
     ws_test => { version => 1 };
 
+my $c = MusicBrainz::Server::Test->create_test_context;
+MusicBrainz::Server::Test->prepare_raw_test_database(
+    $c, <<'EOSQL');
+TRUNCATE release_group_tag_raw CASCADE;
+TRUNCATE release_group_rating_raw CASCADE;
+
+INSERT INTO release_group_tag_raw (release_group, editor, tag)
+    VALUES (377462, 1, 114);
+
+INSERT INTO release_group_rating_raw (release_group, editor, rating)
+    VALUES (377462, 1, 100);
+EOSQL
+
 ws_test 'release',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml' =>
     '<?xml version="1.0" encoding="UTF-8"?>
@@ -270,20 +283,34 @@ ws_test 'release with track-relationships',
  </relation-list>
 </release></metadata>';
 
+ws_test 'release with tags',
+    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+    <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
+    <user-tag-list>
+      <user-tag>hello project</tag>
+    </user-tag-list>
+  </release>
+</metadata>',
+    { username => 'editor', password => 'password' };
+
+ws_test 'release with ratings',
+    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+ <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+  <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin>
+  <user-rating>100</user-rating>
+ </release>
+</metadata>',
+    { username => 'editor', password => 'password' };
+
 sub todo {
 
 ws_test 'release with track-level-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-level-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with user-tags',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=user-tags' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-
-ws_test 'release with user-ratings',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=user-ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
 

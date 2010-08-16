@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     track => {
         method   => 'GET',
-        inc      => [ qw( artist tags isrcs puids releases _relations ratings ) ],
+        inc      => [ qw( artist tags isrcs puids releases _relations ratings user-ratings user-tags  ) ],
     },
 ]);
 
