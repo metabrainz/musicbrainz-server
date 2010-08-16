@@ -74,12 +74,18 @@ before 'serialize' => sub
 
     if ($inc && $inc->release_events) {
         # FIXME - try and find other possible release events
+        my @events = grep {
+            # Don't do ANYTHING if this is a totally empty release event
+            !$_->date->is_empty || $_->country || $_->barcode ||
+            $_->combined_format_name ||
+            ($inc && $inc->labels && @{ $_->labels });
+        }
+        map {
+            ReleaseEvent->meta->rebless_instance($_)
+        } $entity;
+
         $self->add(
-            List->new( _element => 'release-event' )->serialize([
-                map {
-                    ReleaseEvent->meta->rebless_instance($_)
-                } $entity
-            ], $inc)
+            List->new( _element => 'release-event' )->serialize(\@events, $inc)
         )
     }
 
