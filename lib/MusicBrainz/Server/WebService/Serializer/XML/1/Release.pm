@@ -23,8 +23,8 @@ before 'serialize' => sub
     $self->add( $self->gen->title($entity->name) );
 
     $self->add( $self->gen->text_representation({
-        language => uc($entity->language->iso_code_3b),
-        script => $entity->script->iso_code,
+        ( $entity->language ? (language => uc($entity->language->iso_code_3b)) : () ),
+        ( $entity->script   ? (script   => $entity->script->iso_code         ) : () ),
     }));
 
     my @asins = grep { $_->link->type->name eq 'amazon asin' } @{$entity->relationships};
