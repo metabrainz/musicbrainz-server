@@ -110,7 +110,6 @@ MB.TrackParser = function (disc, serialized) {
         var deleted = [];
         var no_change = [];
 
-
         // Match up inputtitles with existing tracks.
         $.each (self.inputtitles, function (idx, title) {
             var data = { 'length': self.inputdurations[idx], 'position': idx + 1 };
@@ -162,12 +161,6 @@ MB.TrackParser = function (disc, serialized) {
 
         /* insert newly added tracks. */
         $.each (inserted, function (idx, data) {
-            var copy = original (data.position - 1);
-
-            if (copy)
-            {
-                data.artist = copy.artist;
-            }
             data.deleted = 0;
 
             self.disc.getTrack (data.row).render (data);
