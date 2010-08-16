@@ -1,48 +1,32 @@
-package MusicBrainz::Server::Entity::Preferences;
+package MusicBrainz::Server::Entity::List;
 use Moose;
 
-has 'public_ratings' => (
-    isa => 'Bool',
-    default => 1,
-    is => 'rw',
-    lazy => 1,
+use MusicBrainz::Server::Entity::Types;
+
+extends 'MusicBrainz::Server::Entity::CoreEntity';
+
+has 'editor' => (
+    is => 'ro',
+    isa => 'Editor',
 );
 
-has 'public_subscriptions' => (
-    isa => 'Bool',
-    default => 1,
-    is => 'rw',
-    lazy => 1,
+has 'editor_id' => (
+    is => 'ro',
+    isa => 'Int',
 );
 
-has 'public_tags' => (
-    isa => 'Bool',
-    default => 1,
+has 'public' => (
     is => 'rw',
-    lazy => 1,
+    isa => 'Bool'
 );
 
-has 'datetime_format' => (
-    isa => 'Str',
-    default => '%Y-%m-%d %H:%M %Z',
-    is => 'rw',
-    lazy => 1,
-);
-
-has 'timezone' => (
-    isa => 'Str',
-    default => 'UTC',
-    is => 'rw',
-    lazy => 1,
-);
-
-no Moose;
 __PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Oliver Charles
+Copyright (C) 2010 Sean Burke
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

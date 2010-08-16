@@ -1,48 +1,35 @@
-package MusicBrainz::Server::Entity::Preferences;
+package MusicBrainz::Server::Controller::User::Lists;
 use Moose;
 
-has 'public_ratings' => (
-    isa => 'Bool',
-    default => 1,
-    is => 'rw',
-    lazy => 1,
-);
+BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-has 'public_subscriptions' => (
-    isa => 'Bool',
-    default => 1,
-    is => 'rw',
-    lazy => 1,
-);
+sub view : Chained('/user/base') PathPart('lists')
+{
+    my ($self, $c) = @_;
 
-has 'public_tags' => (
-    isa => 'Bool',
-    default => 1,
-    is => 'rw',
-    lazy => 1,
-);
+    my $user = $c->stash->{user};
 
-has 'datetime_format' => (
-    isa => 'Str',
-    default => '%Y-%m-%d %H:%M %Z',
-    is => 'rw',
-    lazy => 1,
-);
+    $c->detach('/error_404')
+        if (!defined $user);
 
-has 'timezone' => (
-    isa => 'Str',
-    default => 'UTC',
-    is => 'rw',
-    lazy => 1,
-);
+    my $show_private = $c->stash->{viewing_own_profile};
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+    my $lists = $self->_load_paged($c, sub {
+        $c->model('List')->find_by_editor($user->id, $show_private, shift, shift);
+    });
+
+    $c->stash(
+        user => $user,
+        lists => $lists,
+        template => 'user/lists.tt',
+    );
+}
+
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Oliver Charles
+Copyright (C) 2010 Sean Burke
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
