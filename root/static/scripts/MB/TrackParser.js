@@ -114,6 +114,11 @@ MB.TrackParser = function (disc, serialized) {
         $.each (self.inputtitles, function (idx, title) {
             var data = { 'length': self.inputdurations[idx], 'position': idx + 1 };
 
+            if (title === '')
+            {
+                return;
+            }
+
             if (map[title] === undefined)
             {
                 data.row = ++lastused;
@@ -151,7 +156,7 @@ MB.TrackParser = function (disc, serialized) {
             copy.deleted = 0;
             copy.position = data.position;
             copy.length = data.length;
-            var t = self.disc.getTrack (data.row).render (copy);
+            self.disc.getTrack (data.row).render (copy);
         });
 
         /* mark deleted tracks as such. */
