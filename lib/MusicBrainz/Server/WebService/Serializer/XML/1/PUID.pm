@@ -8,7 +8,7 @@ sub element { 'puid' }
 before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
-    $self->attributes->{id} = $entity->puid->puid;
+    $self->attributes->{id} = $entity->puid;
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -57,14 +57,11 @@ sub serialize
 
 sub serialize_list
 {
-    my ($self, $type, $search_results) = @_;
+    my ($self, $type, $entities, $inc, $data) = @_;
 
     return $self->xml_decl_begin .
-        List->new( _element => $type )->serialize({
-            offset => $search_results->{pager}->first,
-            count  => $search_results->{pager}->total_entries
-        }, , $search_results->{results}) .
-            $xml_decl_end;
+        List->new( _element => $type )->serialize($entities, $inc, $data) .
+        $xml_decl_end;
 }
 
 

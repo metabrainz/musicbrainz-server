@@ -25,6 +25,37 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::Relationships';
 
 sub root : Chained('/') PathPart('ws/1/track') CaptureArgs(0) { }
 
+around 'search' => sub
+{
+    my $orig = shift;
+    my ($self, $c) = @_;
+
+    if (exists $c->req->query_params->{puid}) {
+        my $puid = $c->model('PUID')->get_by_puid($c->req->query_params->{puid});
+        my @recording_puids = $c->model('RecordingPUID')->find_by_puid($puid->id);
+        $c->model('ArtistCredit')->load(map { $_->recording} @recording_puids);
+        my %recording_release_map;
+
+        for (@recording_puids) {
+            $c->model('Artist')->load($_->recording->artist_credit->names->[0])
+                if @{ $_->recording->artist_credit->names } == 1;
+
+            my ($releases) = $c->model('Release')->find_by_recording($_->recording->id);
+            $recording_release_map{$_->recording->id} = $releases;
+        }
+
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body(
+            $c->stash->{serializer}->serialize_list('track', \@recording_puids, undef, {
+                recording_release_map => \%recording_release_map
+            })
+        );
+    }
+    else {
+        $self->$orig($c);
+    }
+};
+
 sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
