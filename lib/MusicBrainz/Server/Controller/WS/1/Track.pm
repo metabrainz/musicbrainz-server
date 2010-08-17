@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Controller::WS::1::Track;
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller::WS::1' }
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 __PACKAGE__->config(
     model => 'Recording',

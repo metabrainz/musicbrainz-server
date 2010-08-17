@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::WS::1;
+package MusicBrainz::Server::ControllerBase::WS::1;
 
 use Moose;
 use Readonly;

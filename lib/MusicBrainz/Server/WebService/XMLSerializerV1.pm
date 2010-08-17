@@ -55,6 +55,12 @@ sub serialize
     return $xml;
 }
 
+sub xml
+{
+    my ($self, $xml) = @_;
+    return $self->xml_decl_begin . $xml . $xml_decl_end;
+}
+
 sub serialize_list
 {
     my ($self, $type, $entities, $inc, $data) = @_;

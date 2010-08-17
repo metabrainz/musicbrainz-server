@@ -27,6 +27,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Release',
     'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup',
     'MusicBrainz::Server::Entity::SearchResult' => 'MusicBrainz::Server::WebService::Serializer::XML::1::SearchResult',
+    'MusicBrainz::Server::Entity::Tag' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Tag',
     'MusicBrainz::Server::Entity::UserTag' => 'MusicBrainz::Server::WebService::Serializer::XML::1::UserTag',
     'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseEvent'
 );
