@@ -5,6 +5,20 @@ use Test::More;
 use MusicBrainz::Server::Test
     qw( xml_ok schema_validator ),
     ws_test => { version => 1 };
+
+my $c = MusicBrainz::Server::Test->create_test_context;
+MusicBrainz::Server::Test->prepare_raw_test_database(
+    $c, <<'EOSQL');
+TRUNCATE artist_tag_raw CASCADE;
+TRUNCATE artist_rating_raw CASCADE;
+
+INSERT INTO artist_tag_raw (artist, editor, tag)
+    VALUES (265420, 1, 114), (265420, 1, 1998), (265420, 1, 1997), (265420, 2, 27737);
+
+INSERT INTO artist_rating_raw (artist, editor, rating)
+    VALUES (11545, 1, 60), (11545, 2, 100);
+EOSQL
+
 ws_test 'artist lookup with aliases',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
@@ -223,18 +237,54 @@ ws_test 'artist lookup with artist-relationships',
  </relation-list>
 </artist></metadata>';
 
-sub todo {
-
-ws_test 'artist lookup with user-ratings',
-    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=user-ratings' =>
+ws_test 'artist lookup with user-tags',
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?type=xml&inc=user-tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+ <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
+  <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+  <user-tag-list>
+   <user-tag>hello project</user-tag>
+   <user-tag>hello project groups</user-tag>
+   <user-tag>hello project shuffle units</user-tag>
+  </user-tag-list>
+ </artist>
+</metadata>',
+    { username => 'editor', password => 'password' };
 
 ws_test 'artist lookup with user-tags',
-    '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=user-tags' =>
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?type=xml&inc=user-tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
-<metadata />';
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+ <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
+  <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+  <user-tag-list>
+   <user-tag>country-jp</user-tag>
+  </user-tag-list>
+ </artist>
+</metadata>',
+    { username => 'other editor', password => 'password' };
 
-}
+ws_test 'artist lookup with ratings',
+    '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=user-ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+ <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group">
+  <name>Plone</name><sort-name>Plone</sort-name>
+  <user-rating>3</user-rating>
+ </artist>
+</metadata>',
+  { username => 'editor', password => 'password' };
+
+ws_test 'artist lookup with ratings',
+    '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=user-ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+ <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group">
+  <name>Plone</name><sort-name>Plone</sort-name>
+  <user-rating>5</user-rating>
+ </artist>
+</metadata>',
+  { username => 'other editor', password => 'password' };
 
 done_testing;

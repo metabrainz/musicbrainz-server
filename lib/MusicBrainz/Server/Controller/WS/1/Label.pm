@@ -9,7 +9,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     label => {
         method   => 'GET',
-        inc      => [ qw( aliases _relations tags ratings ) ],
+        inc      => [ qw( aliases _relations tags ratings user-tags user-ratings ) ],
     },
 ]);
 

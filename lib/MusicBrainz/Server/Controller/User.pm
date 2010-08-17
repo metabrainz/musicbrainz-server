@@ -506,12 +506,6 @@ sub base : Chained PathPart('user') CaptureArgs(1) HiddenOnSlaves
     if ($c->user_exists && $c->user->id == $user->id)
     {
         $c->stash->{viewing_own_profile} = 1;
-        $c->stash->{show_collection} = 1;
-    }
-    else
-    {
-        $c->model('Editor')->load_preferences($user);
-        $c->stash->{show_collection} = $user->preferences->public_collection;
     }
 
     $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);

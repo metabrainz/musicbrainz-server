@@ -6,6 +6,7 @@ use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::WWW::Mechanize;
 use Sql;
 use Template;
 use Test::Builder;
@@ -300,13 +301,22 @@ sub _build_ws_test {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
-    my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     my $validator = schema_validator($args->{version});
 
     return sub {
-        my ($msg, $url, $expected) = @_;
+        my ($msg, $url, $expected, $opts) = @_;
+        $opts ||= {};
 
         $Test->subtest($msg => sub {
+            if (exists $opts->{username} && exists $opts->{password}) {
+                $mech->credentials('localhost:80', 'webservice', $opts->{username}, $opts->{password});
+            }
+            else {
+                $mech->clear_credentials;
+            }
+
+
             $Test->plan(tests => 4);
 
             $mech->get_ok($end_point . $url, 'fetching');

@@ -18,13 +18,16 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes->{type} = join (" ", $entity->release_group->type->name, $entity->status->name);
+    $self->attributes->{type} = join (" ",
+        $entity->release_group->type->name,
+        ($entity->status ? ($entity->status->name) : ())
+    );
 
     $self->add( $self->gen->title($entity->name) );
 
     $self->add( $self->gen->text_representation({
-        language => uc($entity->language->iso_code_3b),
-        script => $entity->script->iso_code,
+        ( $entity->language ? (language => uc($entity->language->iso_code_3b)) : () ),
+        ( $entity->script   ? (script   => $entity->script->iso_code         ) : () ),
     }));
 
     my @asins = grep { $_->link->type->name eq 'amazon asin' } @{$entity->relationships};
@@ -71,12 +74,18 @@ before 'serialize' => sub
 
     if ($inc && $inc->release_events) {
         # FIXME - try and find other possible release events
+        my @events = grep {
+            # Don't do ANYTHING if this is a totally empty release event
+            !$_->date->is_empty || $_->country || $_->barcode ||
+            $_->combined_format_name ||
+            ($inc && $inc->labels && @{ $_->labels });
+        }
+        map {
+            ReleaseEvent->meta->rebless_instance($_)
+        } $entity;
+
         $self->add(
-            List->new( _element => 'release-event' )->serialize([
-                map {
-                    ReleaseEvent->meta->rebless_instance($_)
-                } $entity
-            ], $inc)
+            List->new( _element => 'release-event' )->serialize(\@events, $inc)
         )
     }
 
@@ -86,6 +95,9 @@ before 'serialize' => sub
             $entity->release_group->rating
         )
     ) if $inc && $inc->ratings;
+
+    $self->add( $self->gen->user_rating(int($entity->release_group->user_rating / 20)) )
+        if $entity->release_group->user_rating && $inc && $inc->user_ratings;
 
     if ($inc && $inc->discs) {
         $self->add( List->new->serialize([
