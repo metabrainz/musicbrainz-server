@@ -30,10 +30,29 @@ sub tag : Path('/ws/1/tag')
             my $entity = $model->get_by_gid($id);
 
             $model->tags->update($c->user->id, $entity->id, $tags);
-
-            $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
-            $c->res->body($self->serializer->xml( '' ));
         }
+        else {
+            my @batch;
+
+            for(my $count = 0;; $count++) {
+		my $entity = $c->req->params->{"entity.$count"};
+		my $id = $c->req->params->{"id.$count"};
+		my $tags = $c->req->params->{"tags.$count"};
+
+		last if (!$entity || !$id || !$tags) || @batch >= 20;
+
+		push @batch, { entity => $entity, id => $id, tags => $tags };
+            }
+
+            for my $submission (@batch) {
+                my $model = $c->model(type_to_model($submission->{entity}));
+                my $entity = $model->get_by_gid($submission->{id});
+                $model->tags->update($c->user->id, $entity->id, $submission->{tags});
+            }
+        }
+
+        $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
+        $c->res->body($self->serializer->xml( '' ));
     }
     else {
         my ($id, $type) = ($c->req->query_params->{id}, $c->req->query_params->{entity});
