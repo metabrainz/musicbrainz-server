@@ -640,7 +640,7 @@ sub xml_search
                 );
             }
 
-            case 'track' {
+            case 'recording' {
                 $query = combine_rules(
                     \%options,
                     DEFAULT => {
