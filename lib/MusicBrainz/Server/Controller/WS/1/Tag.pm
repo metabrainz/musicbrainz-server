@@ -12,19 +12,39 @@ has 'serializer' => (
     default => sub { XMLSerializerV1->new }
 );
 
-sub lookup : Path('/ws/1/tag')
+sub tag : Path('/ws/1/tag')
 {
     my ($self, $c) = @_;
     $c->authenticate({}, 'webservice');
 
-    my ($id, $type) = ($c->req->query_params->{id}, $c->req->query_params->{entity});
-    my $model = $c->model( type_to_model($type) );
+    if ($c->req->method eq 'POST') {
+        if (exists $c->req->params->{entity}) {
+            # Looks like a single entity tag submission
+            my ($id, $type, $tags) = (
+                map {
+                    $c->req->params->{$_}
+                } qw( id entity tags )
+            );
 
-    my $entity = $model->get_by_gid($id);
-    my @tags = $model->tags->find_user_tags_for_entities($c->user->id, $entity->id);
+            my $model = $c->model( type_to_model($type) );
+            my $entity = $model->get_by_gid($id);
 
-    $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
-    $c->res->body($self->serializer->xml( List->new->serialize([ map { $_->tag } @tags ]) ));
+            $model->tags->update($c->user->id, $entity->id, $tags);
+
+            $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
+            $c->res->body($self->serializer->xml( '' ));
+        }
+    }
+    else {
+        my ($id, $type) = ($c->req->query_params->{id}, $c->req->query_params->{entity});
+
+        my $model = $c->model( type_to_model($type) );
+        my $entity = $model->get_by_gid($id);
+        my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
+
+        $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
+        $c->res->body($self->serializer->xml( List->new->serialize([ map { $_->tag } @tags ]) ));
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
