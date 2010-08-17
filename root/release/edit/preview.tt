@@ -30,17 +30,17 @@
   <div class="changes">
     [% r.hidden ('wizard_session_id') %]
 
-    [% multidisc = form.field('mediums').fields.size > 1 %]
-
     [% USE w = Wizard() %]
     [% information = w.page('information') %]
     <h3>[% information.field('name').value %]</h3>
     <p>by [% information.field('artist_credit').fif.name %]</p>
-    [% mediums = w.page('tracklist').field('mediums') %]
 
-    [% FOR medium=mediums.fields %]
-    [% medium_associations = form.field ('mediums').field (loop.index).field ('associations') %]
-    [% disc_prefix = 'mediums.' _ loop.index %]
+    [% preview_mediums = form.field('preview_mediums') %]
+    [% multidisc = preview_mediums.fields.size > 1 %]
+
+    [% FOR preview_medium=preview_mediums.fields %]
+    [% medium_idx = loop.index %]
+    [% medium = mediums.fields.$medium_idx %]
 
     <fieldset class="preview-changes-disc">
       <legend>
@@ -59,46 +59,56 @@
         [%- END -%]
       </legend>
 
-
       <div class="tracklist-padding">
       <table class="medium tbl preview-changes">
         <thead>
           <tr>
-            <th colspan="2" class="position">position</th>
+            <th class="position">position</th>
             <th class="track">track</th>
             <th class="track-artist">artist</th>
             <th colspan="2" class="recording">recording</th>
           </tr>
         </thead>
         <tbody>
-          [% FOR track = medium.field ('tracklist').field('tracks').fields %]
-          <tr>
-            <td class="position-from"> </td>
-            <td class="position">[% track.field ('position').value %]</td>
-            <td class="track">[% track.field ('name').value %]</td>
-            <td class="track-artist">[% track.field ('artist_credit').fif.name %]</td>
-            <td class="recording">
-              [%- association = medium_associations.field (loop.index) -%]
-              [%- track_full_name = track.full_name -%]
-              [%- recordingmatches = matches.$track_full_name -%]
-              [%- r.hidden(association.field ('id')) -%]
+          [% FOR assoc=preview_medium.field('associations').fields %]
+          [% track_idx = loop.index %]
+          [% track_preview = changes.$medium_idx.$track_idx %]
+          [% new = track_preview.track %]
+          [% old = track_preview.old %]
 
-              [%- IF association.field('addnew').value == 2 %]
-                <span class="recording">[% link_entity (recordingmatches.0.recording) %]</span>
+          <tr>
+            <td class="position">
+              [%- new.position -%]
+              [%- IF track_preview.moved -%]
+                  <span class="old">(from [% old.position %])</span>
+              [%- END -%]
+            </td>
+            <td class="track">
+              [% new.name %]
+              [%- IF track_preview.renamed -%]
+                  <span class="old">(from [% old.name %])</span>
+              [%- END -%]
+            </td>
+            <td class="track-artist">[% new.artist_credit.name %]</td>
+            <td class="recording">
+              [%- r.hidden(assoc.field ('id')) -%]
+
+              [%- IF assoc.field('addnew').value == 2 %]
+                <span class="recording">[% link_entity (track_preview.suggestions.0) %]</span>
               [% ELSE %]
                 <span class="add-recording">[%- l('(add a new recording)') %]</span>
               [% END %]
               <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
               <div style="display: none; position: absolute; left: 40%; top: 45%; padding: 1em; background: #faa; border: 2px dashed #f00;" class="select-recording">
-                  [% r.radio (association.field('addnew'), 0) %]
-                  <label for="id-[% association.field('addnew').html_name %]-0">[%- l('Add a new recording') %]</label>
+                  [% r.radio (assoc.field('addnew'), 0) %]
+                  <label for="id-[% assoc.field('addnew').html_name %]-0">[%- l('Add a new recording') %]</label>
                   <br />
-                  [% r.radio (association.field('addnew'), 1) %]
-                  <label for="id-[% association.field('addnew').html_name %]-1">[%- l('Use existing recording:') %]</label>
+                  [% r.radio (assoc.field('addnew'), 1) %]
+                  <label for="id-[% assoc.field('addnew').html_name %]-1">[%- l('Use existing recording:') %]</label>
                   <br />
                   <ul>
-                  [% FOR m=recordingmatches %]
-                      <li>[% m.score %], [% link_entity (m.recording) %]</li>
+                  [% FOR rec=track_preview.suggestions %]
+                      <li>[% link_entity (rec) %]</li>
                   [% END %]
                   </ul>
               </div>
@@ -107,16 +117,15 @@
           [% END %]
         </tbody>
       </table>
-      </div>
     </div>
-  [% END %]
-  </fieldset>
+    </fieldset>
+    [% END %]
 
-  <div class="buttons ui-helper-clearfix">
-    [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-    [% r.submit ('previous', l('« Previous')) %]
-    [% r.submit ('next', l('Next »')) %]
-  </div>
+    <div class="buttons ui-helper-clearfix">
+      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+      [% r.submit ('previous', l('« Previous')) %]
+      [% r.submit ('next', l('Next »')) %]
+    </div>
 
   </div>
 [%- END -%]

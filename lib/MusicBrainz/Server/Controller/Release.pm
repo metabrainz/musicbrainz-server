@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
-use MusicBrainz::Server::Wizard::ReleaseEditor;
-use MusicBrainz::Server::Track;
 use Encode;
 use JSON::Any;
 use TryCatch;
+use MusicBrainz::Server::Wizard::ReleaseEditor;
+use MusicBrainz::Server::Track;
+use MusicBrainz::Server::Controller::ReleaseEditor;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -22,10 +23,11 @@ use MusicBrainz::Server::Controller::Role::Tag;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
-    $EDIT_RELEASEGROUP_CREATE
+    $EDIT_RELEASE_CHANGE_QUALITY
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
+    $EDIT_RELEASEGROUP_CREATE
     $EDIT_TRACK_EDIT
     $EDIT_TRACKLIST_DELETETRACK
     $EDIT_TRACKLIST_ADDTRACK
@@ -33,7 +35,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
-    $EDIT_RELEASE_CHANGE_QUALITY
 );
 
 # A duration lookup has to match within this many milliseconds
@@ -60,6 +61,7 @@ namespace
 =cut
 
 sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
+
 after 'load' => sub
 {
     my ($self, $c) = @_;
@@ -272,74 +274,65 @@ sub _serialize_tracklists
     return decode ("UTF-8", JSON::Any->objToJson ($tracklists));
 }
 
-sub _analyze_field
-{
-    my ($self, $changes, $field, $old, $new) = @_;
 
-    return if $old->$field eq $new->field($field)->value;
+sub _create_edit {
+    my ($self, $c, $type, $editnote, %args) = @_;
 
-    $changes->{$field} = {
-        old => $old->$field,
-        new => $new->field($field)->value,
-    };
+    return unless %args;
+
+    my $edit;
+    try {
+        $edit = $c->model('Edit')->create(
+            edit_type => $type,
+            editor_id => $c->user->id,
+            %args,
+       );
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
+    }
+
+    return unless defined $edit;
+
+    if (defined $editnote)
+    {
+        $c->model('EditNote')->add_note($edit->id, {
+            text      => $editnote,
+            editor_id => $c->user->id,
+        });
+    }
+
+    $c->stash->{changes} = 1;
+
+    return $edit;
 }
 
-sub _analyze_track
+sub _load_tracklist
 {
-    my ($self, $c, $old, $new) = @_;
+    my ($c, $release) = @_;
 
-    my %changes;
+    $c->model('Medium')->load_for_releases($release);
 
-    $self->_analyze_field (\%changes, 'position', $old, $new);
-    $self->_analyze_field (\%changes, 'name', $old, $new);
+    my @mediums = $release->all_mediums;
+    my @tracklists = grep { defined } map { $_->tracklist } @mediums;
 
-    # FIXME: allow about one second of rounding error if a discid is present.  
-#     $self->_analyze_field (\%changes, 'length', $old, $new);
+    $c->model('Track')->load_for_tracklists(@tracklists);
 
-    $changes{deleted} = 1 if $new->field('deleted')->value;
+    my @tracks = map { $_->all_tracks } @tracklists;
 
-    if (%changes)
-    {
-        # FIXME: look for matching recordings
-        $changes{has_changes} = 1;
-        $changes{recording} = $c->model ('Recording')->get_by_gid ('22b45960-c78a-409a-a844-0627f9ec0d26');
-    }
-    else
-    {
-        $changes{has_changes} = 0;
-        $changes{recording} = $old->recording;
-    }
-
-    $changes{field} = $new->full_name;
-
-    return \%changes;
+    $c->model('ArtistCredit')->load(@tracks, $release);
 }
 
-sub _analyze_track_edits
+# this just loads the remaining bits of a release, not yet loaded by
+# 'load' and '_load_tracklist'.
+sub _load_release
 {
-    my ($self, $c, $wizard, $release) = @_;
+    my ($c, $release) = @_;
 
-    my $mediums = $wizard->load_page ('tracklist')->field ('mediums');
+    $c->model('ReleaseLabel')->load($release);
+    $c->model('Label')->load(@{ $release->labels });
+    $c->model('ReleaseGroupType')->load($release->release_group);
 
-    my $m = 0;
-    my $ret = [];
-    for my $medium ($mediums->fields)
-    {
-        my $t = 0;
-        my $changes = [];
-        for my $new ($medium->field ('tracklist')->field ('tracks')->fields)
-        {
-            my $old = $release->mediums->[$m]->tracklist->tracks->[$t];
-            push @$changes, $self->_analyze_track ($c, $old, $new);
-
-            $t++;
-        }
-        push @$ret, $changes;
-
-        $m++;
-    }
-
-    return $ret;
+    $c->model('MediumFormat')->load($release->all_mediums);
 }
 
 sub add : Chained('base') RequireAuth Args(0)
@@ -513,21 +506,11 @@ sub add : Chained('base') RequireAuth Args(0)
     }
 }
 
-=head2 WRITE METHODS
-
-Edit a release in release editor
-
-=cut
-
 sub edit : Chained('load') RequireAuth Edit
 {
     my ($self, $c) = @_;
 
-    my $release;
-    my @mediums;
-    my @tracklists;
-    my @tracks;
-
+    my $release = $c->stash->{release};
     my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
 
     $wizard->process;
@@ -544,18 +527,7 @@ sub edit : Chained('load') RequireAuth Edit
         # can compare the entered tracks against the original to figure out what edits
         # have been made.
 
-        $release = $c->stash->{release};
-
-        $c->model('Medium')->load_for_releases($release);
-
-        @mediums = $release->all_mediums;
-        @tracklists = grep { defined } map { $_->tracklist } @mediums;
-
-        $c->model('Track')->load_for_tracklists(@tracklists);
-
-        @tracks = map { $_->all_tracks } @tracklists;
-
-        $c->model('ArtistCredit')->load(@tracks, $release);
+        _load_tracklist ($c, $release);
 
         $c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
     }
@@ -564,43 +536,39 @@ sub edit : Chained('load') RequireAuth Edit
     {
         # we're on the changes preview page, load recordings so that the user can
         # confirm track <-> recording associations.
+        my @tracks = map { $_->all_tracks } map { $_->tracklist } $release->all_mediums;
         $c->model('Recording')->load (@tracks);
 
-        my $changes = $self->_analyze_track_edits ($c, $wizard, $release);
+        my $changes = MusicBrainz::Server::Controller::ReleaseEditor::release_compare
+            ($c, $release, $wizard->value);
 
-        my %matches;
         my $associations = [];
         for my $medium_changes (@$changes)
         {
             my $medium_assoc = [];
             for my $track_changes (@$medium_changes)
             {
-                push @$medium_assoc, { addnew => 2,
-                    id => $track_changes->{recording}->id, };
+                my $rec = $track_changes->suggestions->[0]->id
+                    if (@{ $track_changes->suggestions });
 
-                $matches{$track_changes->{field}} = [ {
-                    score => 100, recording => $track_changes->{recording} } ];
+                push @$medium_assoc, $rec ? { addnew => 2, id => $rec } : { addnew => 1 };
             }
-
+            
             push @$associations, { associations => $medium_assoc };
         }
 
-        $c->stash->{matches} = \%matches;
-        $wizard->load_page('preview', { mediums => $associations });
-    }
+        $c->stash->{changes} = $changes;
 
+        $wizard->load_page('preview', { 'preview_mediums' => $associations });
+    }
 
     if ($wizard->loading || $wizard->submitted)
     {
         # we're either just starting the wizard, or submitting it.  In
         # both cases the release we're editting needs to be loaded
         # from the database.
-        $c->model('ReleaseLabel')->load($release);
-        $c->model('Label')->load(@{ $release->labels });
-        $c->model('ReleaseGroup')->load($release);
-        $c->model('ReleaseGroupType')->load($release->release_group);
 
-        $c->model('MediumFormat')->load(@mediums);
+        _load_release ($c, $release);
 
         $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
     }
@@ -611,6 +579,7 @@ sub edit : Chained('load') RequireAuth Edit
         # So let's create some edits :)
 
         my $data = $wizard->value;
+
 
         # release edit
         # ----------------------------------------
@@ -774,36 +743,8 @@ sub edit : Chained('load') RequireAuth Edit
     }
 }
 
-sub _create_edit {
-    my ($self, $c, $type, $editnote, %args) = @_;
 
-    return unless %args;
 
-    my $edit;
-    try {
-        $edit = $c->model('Edit')->create(
-            edit_type => $type,
-            editor_id => $c->user->id,
-            %args,
-       );
-    }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-    }
-
-    return unless defined $edit;
-
-    if (defined $editnote)
-    {
-        $c->model('EditNote')->add_note($edit->id, {
-            text      => $editnote,
-            editor_id => $c->user->id,
-        });
-    }
-
-    $c->stash->{changes} = 1;
-
-    return $edit;
-}
 
 =head2 duplicate
 
@@ -862,24 +803,26 @@ sub change_quality : Chained('load') PathPart('change-quality') RequireAuthu
     );
 }
 
+__PACKAGE__->meta->make_immutable;
+no Moose;
+1;
 
-=head1 LICENSE
+=head1 COPYRIGHT
 
-This software is provided "as is", without warranty of any kind, express or
-implied, including  but not limited  to the warranties of  merchantability,
-fitness for a particular purpose and noninfringement. In no event shall the
-authors or  copyright  holders be  liable for any claim,  damages or  other
-liability, whether  in an  action of  contract, tort  or otherwise, arising
-from,  out of  or in  connection with  the software or  the  use  or  other
-dealings in the software.
+Copyright (C) 2010 MetaBrainz Foundation
 
-GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
-Permits anyone the right to use and modify the software without limitations
-as long as proper  credits are given  and the original  and modified source
-code are included. Requires  that the final product, software derivate from
-the original  source or any  software  utilizing a GPL  component, such  as
-this, is also licensed under the GPL license.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-
-1;

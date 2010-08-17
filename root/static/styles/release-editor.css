@@ -195,6 +195,15 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.deleted td,
 #release-editor .medium.tbl tr.deleted td input { color: #aaa; text-decoration: line-through; }
 
+span.add-recording { color: #aaa; }
+#release-editor .medium.tbl.preview-changes tr td span.old { color: #aaa; }
+#release-editor .medium.tbl.preview-changes tr td { padding: 0.2em; }
+#release-editor .medium.tbl.preview-changes tr td.position { width: 2em; text-align: right; }
+#release-editor .medium.tbl.preview-changes tr td.position-from { width: 3em; text-align: right; }
+#release-editor .medium.tbl.preview-changes tr td.track { width: 30%; }
+#release-editor .medium.tbl.preview-changes tr td.track-artist { width: 30%; }
+#release-editor .medium.tbl.preview-changes tr td.recording { width: 30%; }
+
 /* __________________________________
 
           ARTIST CREDIT EDITOR
@@ -278,7 +287,6 @@ table.preview-changes td.position-from { width: 3em; text-align: right; }
 table.preview-changes td.track { width: 30%; }
 table.preview-changes td.track-artist { width: 30%; }
 table.preview-changes td.recording { width: 30%; }
-
 
 /* __________________________________
 
