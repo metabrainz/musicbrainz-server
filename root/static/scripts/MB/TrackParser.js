@@ -140,7 +140,7 @@ MB.TrackParser = function (disc, serialized) {
         /* restore those which don't change from their serialized values. */
         $.each (no_change, function (idx, data) {
             var copy = original (data.row);
-            copy.deleted = false;
+            copy.deleted = 0;
             copy.length = data.length;
             self.disc.getTrack (data.row).render (copy);
         });
@@ -148,7 +148,7 @@ MB.TrackParser = function (disc, serialized) {
         /* re-arrange any tracks which have moved. */
         $.each (moved, function (idx, data) {
             var copy = original (data.row);
-            copy.deleted = false;
+            copy.deleted = 0;
             copy.position = data.position;
             copy.length = data.length;
             var t = self.disc.getTrack (data.row).render (copy);
@@ -157,13 +157,13 @@ MB.TrackParser = function (disc, serialized) {
         /* mark deleted tracks as such. */
         $.each (deleted, function (idx, row) {
             var copy = original (row);
-            copy.deleted = true;
+            copy.deleted = 1;
             self.disc.getTrack (row).render (copy);
         });
 
         /* insert newly added tracks. */
         $.each (inserted, function (idx, data) {
-            data.deleted = false;
+            data.deleted = 0;
 
             self.disc.getTrack (data.row).render (data);
         });

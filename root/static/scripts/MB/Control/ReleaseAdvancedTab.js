@@ -212,6 +212,7 @@ MB.Control.ReleaseDisc = function (disc) {
         acrow.find ('*').each (replace_ids);
 
         self.tracks.push (MB.Control.ReleaseTrack (row, acrow));
+        self.sorted_tracks.push (self.tracks[self.tracks.length - 1]);
 
         if (event !== undefined)
         {
@@ -249,14 +250,17 @@ MB.Control.ReleaseDisc = function (disc) {
      * sort sorts all the table rows by the 'position' input.
      */
     var sort = function () {
-        self.tracks.sort (function (a, b) {
+        self.sorted_tracks = [];
+        $.each (self.tracks, function (idx, item) { self.sorted_tracks.push (item); });
+
+        self.sorted_tracks.sort (function (a, b) {
             return parseInt (a.position.val ()) - parseInt (b.position.val ());
         });
 
-        $.each (self.tracks, function (idx, track) {
+        $.each (self.sorted_tracks, function (idx, track) {
             if (idx)
             {
-                track.row.insertAfter (self.tracks[idx-1].acrow);
+                track.row.insertAfter (self.sorted_tracks[idx-1].acrow);
                 track.acrow.insertAfter (track.row);
             }
         });
@@ -285,7 +289,10 @@ MB.Control.ReleaseDisc = function (disc) {
 
     self.number = parseInt (self.fieldset.find ('input.tracklist-id').attr ('id').
                             match ('id-mediums\.([0-9])\.tracklist')[1]);
+
     self.tracks = [];
+    self.sorted_tracks = [];
+
     /* the title and format inputs move between the fieldset and the textareas
      * of the basic view.  Therefore we cannot rely on them being children of
      * self.fieldset, and we need to find them based on their id attribute. */
@@ -309,6 +316,7 @@ MB.Control.ReleaseDisc = function (disc) {
     self.artist_column_checkbox.bind ('change', self.updateArtistColumn);
 
     self.updateArtistColumn ();
+    self.sort ();
 
     return self;
 };
