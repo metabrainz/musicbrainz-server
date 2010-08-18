@@ -14,7 +14,7 @@
 
       var serialized_tracklists = [% serialized_tracklists %];
 
-//      MB.Control.ReleasePreview (serialized_tracklists);
+      MB.Control.ReleasePreview (serialized_tracklists);
 
       $('a.change-recording').live ('click', function (event) {
         $(this).closest('td').find('div.select-recording').toggle ();
@@ -78,7 +78,7 @@
 
           <tr>
             <td class="position">
-              [%- new.position -%]
+              <span class="new">[%- new.position -%]</span>
               [%- IF track_preview.moved -%]
                   <span class="old">(from [% old.position %])</span>
               [%- END -%]
