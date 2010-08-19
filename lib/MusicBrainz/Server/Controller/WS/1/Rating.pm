@@ -36,7 +36,7 @@ sub rating : Path('/ws/1/rating')
             my $model = $c->model( type_to_model($type) );
             my $entity = $model->get_by_gid($id);
 
-            $model->ratings->update($c->user->id, $entity->id, $rating * 20);
+            $model->rating->update($c->user->id, $entity->id, $rating * 20);
         }
         else {
             my @batch;
