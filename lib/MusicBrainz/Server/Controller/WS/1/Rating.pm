@@ -2,17 +2,13 @@ package MusicBrainz::Server::Controller::WS::1::Rating;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use aliased 'MusicBrainz::Server::WebService::XMLSerializerV1';
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
-use MusicBrainz::XML::Generator;
+with 'MusicBrainz::Server::Controller::WS::1::Role::LoadEntity';
 
-has 'serializer' => (
-    is => 'ro',
-    default => sub { XMLSerializerV1->new }
-);
+use MusicBrainz::XML::Generator;
 
 has 'gen' => (
     is => 'ro',
@@ -33,8 +29,8 @@ sub rating : Path('/ws/1/rating')
                 } qw( id entity rating )
             );
 
-            my $model = $c->model( type_to_model($type) );
-            my $entity = $model->get_by_gid($id);
+            my $model  = $self->model($c, $type);
+            my $entity = $self->load($c, $model, $id);
 
             $model->rating->update($c->user->id, $entity->id, $rating * 20);
         }
@@ -52,8 +48,9 @@ sub rating : Path('/ws/1/rating')
             }
 
             for my $submission (@batch) {
-                my $model = $c->model(type_to_model($submission->{entity}));
-                my $entity = $model->get_by_gid($submission->{id});
+                my $model  = $self->model($c, $submission->{entity});
+                my $entity = $self->load($c, $model, $submission->{id});
+
                 $model->rating->update($c->user->id, $entity->id, $submission->{rating});
             }
         }
@@ -64,8 +61,9 @@ sub rating : Path('/ws/1/rating')
     else {
         my ($id, $type) = ($c->req->query_params->{id}, $c->req->query_params->{entity});
 
-        my $model = $c->model( type_to_model($type) );
-        my $entity = $model->get_by_gid($id);
+        my $model  = $self->model($c, $type);
+        my $entity = $self->load($c, $model, $id);
+
         $model->rating->load_user_ratings($c->user->id, $entity);
 
         $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
