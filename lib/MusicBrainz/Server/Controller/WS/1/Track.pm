@@ -3,6 +3,8 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
+use Function::Parameters 'f';
+use aliased 'MusicBrainz::Server::Buffer';
 
 __PACKAGE__->config(
     model => 'Recording',
@@ -132,32 +134,27 @@ sub submit_puid : Private
         { ($_->gid => $_) }
             values %{ $c->model('Recording')->get_by_gids(keys %submit) };
 
-    my $submitted = 0;
-    my @buffer;
+    my $buffer = Buffer->new(
+        limit   => 100,
+        on_full => f($contents) {
+            $c->model('Edit')->create(
+                edit_type      => $EDIT_RECORDING_ADD_PUIDS,
+                client_version => $client,
+                editor_id      => $c->user->id,
+                puids          => $contents
+            );
+        }
+    );
 
-    my $flush = sub {
-        $c->model('Edit')->create(
-            edit_type      => $EDIT_RECORDING_ADD_PUIDS,
-            client_version => $client,
-            editor_id      => $c->user->id,
-            puids          => \@buffer
-        );
-
-        @buffer = ();
-    };
-
-    while(my ($recording_gid, $puids) = each %submit) {
-        next unless exists $recordings{ $recording_gid };
-
-        $flush->() if ($submitted + @$puids > 100);
-
-        push @buffer, map +{
-            recording_id => $recordings{ $recording_gid }->id,
-            puid         => $_
-        }, @$puids;
-    }
-
-    $flush->();
+    $buffer->flush_on_complete(sub {
+        while(my ($recording_gid, $puids) = each %submit) {
+            next unless exists $recordings{ $recording_gid };
+            $buffer->add_items(map +{
+                recording_id => $recordings{ $recording_gid }->id,
+                puid         => $_
+            }, @$puids);
+        }
+    });
 
     $c->detach;
 }
