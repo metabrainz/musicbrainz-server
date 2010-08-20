@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::WS::1::Track;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
+
 __PACKAGE__->config(
     model => 'Recording',
 );
@@ -11,6 +13,9 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         inc      => [ qw( artist tags isrcs puids releases _relations ratings user-ratings user-tags  ) ],
     },
+    track => {
+        method => 'POST',
+    }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' => {
@@ -29,6 +34,8 @@ around 'search' => sub
 {
     my $orig = shift;
     my ($self, $c) = @_;
+
+    $c->detach('submit') if $c->req->method eq 'POST';
 
     if (exists $c->req->query_params->{puid}) {
         my $puid = $c->model('PUID')->get_by_puid($c->req->query_params->{puid});
@@ -55,6 +62,112 @@ around 'search' => sub
         $self->$orig($c);
     }
 };
+
+sub submit : Private
+{
+    my ($self, $c) = @_;
+
+    $c->authenticate({}, 'webservice');
+
+    my $client = $c->req->params->{client};
+    my (@puids, @isrcs);
+
+    if (my $submitted = $c->req->params->{puid}) {
+        @puids = ref($submitted) ? @$submitted : ($submitted);
+    }
+
+    if (my $submitted = $c->req->params->{isrc}) {
+        @isrcs = ref($submitted) ? @$submitted : ($submitted);
+    }
+
+    if (@isrcs && @puids) {
+        $c->stash->{error} = 'You cannot submit PUIDs and ISRCs in one call';
+        $c->detach('bad_req');
+    }
+
+    $self->submit_puid($c, $client, @puids) if @puids;
+    $self->submit_isrc($c, $client, @isrcs) if @isrcs;
+
+    $c->stash->{error} = 'You must specify a PUID or ISRC to submit';
+    $c->detach('bad_req');
+}
+
+sub submit_puid : Private
+{
+    my ($self, $c, $client, @pairs) = @_;
+
+    my %submit;
+    for my $pair (@pairs) {
+        my ($recording_id, $puid) = split(' ', $pair);
+        unless (MusicBrainz::Server::Validation::IsGUID($puid) &&
+              MusicBrainz::Server::Validation::IsGUID($recording_id)) {
+            $c->stash->{error} = 'Invalid trackid or PUID. Both must be valid MBIDs';
+            $c->detach('bad_req');
+        }
+
+        $submit{$recording_id} ||= [];
+        push @{ $submit{$recording_id} }, $puid;
+    }
+
+    # We have to have a limit, I think.  It's only sensible.
+    # So far I've not seen anyone submit more that about 4,500 PUIDs at once,
+    # so this limit won't affect anyone in a hurry.
+    if (scalar(map { @$_ } values %submit) > 5000) {
+        $c->detach('declined');
+    }
+
+    # Ensure that we're not a replicated server and that we were given a client version
+    if ($client eq '') {
+        $c->stash->{error} = 'Client parameter must be given';
+        $c->detach('bad_req');
+    }
+
+    if (DBDefs::REPLICATION_TYPE == DBDefs::RT_SLAVE) {
+        $c->stash->{error} = 'Cannot submit PUIDs to a slave server.';
+        $c->detach('bad_req');
+    }
+
+    # Create a mapping of GID to ID
+    my %recordings = map
+        { ($_->gid => $_) }
+            values %{ $c->model('Recording')->get_by_gids(keys %submit) };
+
+    my $submitted = 0;
+    my @buffer;
+
+    my $flush = sub {
+        $c->model('Edit')->create(
+            edit_type      => $EDIT_RECORDING_ADD_PUIDS,
+            client_version => $client,
+            editor_id      => $c->user->id,
+            puids          => \@buffer
+        );
+
+        @buffer = ();
+    };
+
+    while(my ($recording_gid, $puids) = each %submit) {
+        next unless exists $recordings{ $recording_gid };
+
+        $flush->() if ($submitted + @$puids > 100);
+
+        push @buffer, map +{
+            recording_id => $recordings{ $recording_gid }->id,
+            puid         => $_
+        }, @$puids;
+    }
+
+    $flush->();
+
+    $c->detach;
+}
+
+sub submit_isrc : Private
+{
+    my ($self, $c, $client, @isrcs) = @_;
+
+    $c->detach;
+}
 
 sub lookup : Chained('load') PathPart('')
 {
