@@ -195,15 +195,6 @@ table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.deleted td,
 #release-editor .medium.tbl tr.deleted td input { color: #aaa; text-decoration: line-through; }
 
-span.add-recording { color: #aaa; }
-#release-editor .medium.tbl.preview-changes tr td span.old { color: #aaa; }
-#release-editor .medium.tbl.preview-changes tr td { padding: 0.2em; }
-#release-editor .medium.tbl.preview-changes tr td.position { width: 2em; text-align: right; }
-#release-editor .medium.tbl.preview-changes tr td.position-from { width: 3em; text-align: right; }
-#release-editor .medium.tbl.preview-changes tr td.track { width: 30%; }
-#release-editor .medium.tbl.preview-changes tr td.track-artist { width: 30%; }
-#release-editor .medium.tbl.preview-changes tr td.recording { width: 30%; }
-
 /* __________________________________
 
           ARTIST CREDIT EDITOR
@@ -281,12 +272,79 @@ tr.track-artist-credit .ac-balloon3 {
     border-bottom-left-radius: 12px;
 }
 
+/* __________________________________
+
+            PREVIEW CHANGES
+   __________________________________ */
+
 span.add-recording { color: #aaa; }
+#release-editor .medium.tbl.preview-changes tr td span.old { color: #aaa; }
+#release-editor .medium.tbl.preview-changes tr td { padding: 0.2em; }
+#release-editor .medium.tbl.preview-changes tr td.position { width: 2em; text-align: right; }
+#release-editor .medium.tbl.preview-changes tr td.position-from { width: 3em; text-align: right; }
+#release-editor .medium.tbl.preview-changes tr td.track { width: 30%; }
+#release-editor .medium.tbl.preview-changes tr td.track-artist { width: 30%; }
+#release-editor .medium.tbl.preview-changes tr td.recording { width: 30%; }
+
 table.preview-changes td.position { width: 2em; text-align: right; }
 table.preview-changes td.position-from { width: 3em; text-align: right; }
 table.preview-changes td.track { width: 30%; }
 table.preview-changes td.track-artist { width: 30%; }
 table.preview-changes td.recording { width: 30%; }
+
+#release-editor .preview-changes tr.select-recording,
+#release-editor .preview-changes tr.select-recording th,
+#release-editor .preview-changes tr.select-recording td { padding: 0; margin: 0; border: 0; }
+
+#release-editor .preview-changes tr.select-recording,
+#release-editor .preview-changes tr.select-recording > td { background-color: #f0f0f0; }
+#release-editor .preview-changes tr.select-recording > td { padding: 1em; }
+#release-editor .preview-changes tr.select-recording th { background: inherit; }
+
+#release-editor .preview-changes div.select-recording input { border: 1px solid #999; }
+
+#release-editor div.artist-credit-vertical,
+#release-editor .preview-changes tr.select-recording td div.select-recording  {
+    margin: 0 0 1em auto; padding: 1em 2em 1em 1em; border: 1px solid #999;
+    background: #fff;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+
+tr.recordingmatch td.select { width: 5em; }
+tr.recordingmatch td.name { width: 30%; }
+tr.recordingmatch td.artist { width: 20%; }
+tr.recordingmatch td.release { width: 30%; }
+tr.recordingmatch td.pos { width: 6em; text-align: right; }
+tr.recordingmatch td.length { width: 4em; text-align: right; }
+
+
+/* little speech balloon "tail" to visibly associate the artist credit
+   editor with the artist input field. */
+
+tr.select-recording .ac-balloon0 { position: relative; margin-top: 14px; }
+tr.select-recording .ac-balloon1 {
+    width: 42px; height: 14px; background: #fff;
+    padding: 0; margin: 0; position: absolute; left: 760px; bottom: -2px;
+}
+tr.select-recording .ac-balloon2 {
+    width: 20px; height: 12px; float: left; background: #eee;
+    padding: 0; margin: 0;
+    border-style: solid; border-width: 0 1px 1px 0; border-color: #999;
+    -webkit-border-bottom-right-radius: 12px;
+    -moz-border-radius-bottomright: 12px;
+    border-bottom-right-radius: 12px;
+}
+tr.select-recording .ac-balloon3 {
+    width: 20px; height: 12px; float: left; background: #eee;
+    padding: 0; margin: 0;
+    border-style: solid; border-width: 0 0 1px 1px; border-color: #999;
+    -webkit-border-bottom-left-radius: 12px;
+    -moz-border-radius-bottomleft: 12px;
+    border-bottom-left-radius: 12px;
+}
+
 
 /* __________________________________
 

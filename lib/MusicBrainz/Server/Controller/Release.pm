@@ -548,10 +548,10 @@ sub edit : Chained('load') RequireAuth Edit
             my $medium_assoc = [];
             for my $track_changes (@$medium_changes)
             {
-                my $rec = $track_changes->suggestions->[0]->id
+                my $rec = $track_changes->suggestions->[0]->entity->gid
                     if (@{ $track_changes->suggestions });
 
-                push @$medium_assoc, $rec ? { addnew => 2, id => $rec } : { addnew => 1 };
+                push @$medium_assoc, $rec ? { addnew => 2, gid => $rec } : { addnew => 1 };
             }
             
             push @$associations, { associations => $medium_assoc };

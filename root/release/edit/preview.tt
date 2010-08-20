@@ -16,14 +16,68 @@
 
       MB.Control.ReleasePreview (serialized_tracklists);
 
-      $('a.change-recording').live ('click', function (event) {
-        $(this).closest('td').find('div.select-recording').toggle ();
-        event.preventDefault ();
-      });
+      /* FIXME: remove the following debug code. --warp. */
+      $('a.change-recording:first').click ();
 
     });
   </script>
 [%- END -%]
+
+[%- MACRO select_recording(assoc) BLOCK -%]
+<div class="ac-balloon0">
+  <div class="ac-balloon1">
+    <div class="ac-balloon2"></div>
+    <div class="ac-balloon3"></div>
+  </div>
+</div>
+<div class="select-recording">
+  [% r.radio (assoc.field('addnew'), 0) %]
+  <label for="id-[% assoc.field('addnew').html_name %]-0">[%- l('Add a new recording') %]</label>
+  <br />
+  [% r.radio (assoc.field('addnew'), 1) %]
+  <label for="id-[% assoc.field('addnew').html_name %]-1">[%- l('Use existing recording:') %]</label><br />
+  <div style="margin-left: 2em">
+      <br />
+      <input type="text" class="recording" value="" placeholder="recording lookup" />
+      <table class="matches">
+        <tbody>
+          [% FOR rec=track_preview.suggestions %]
+            [% FOR release=rec.extra %]
+              [%# A single recording will have multiple lines here if it appears on more than %]
+              [%# one release.  Skip everything but the release info on subsequent lines. %]
+              [% releaseline = loop.index %]
+              [% FOR disc=release.mediums %]
+          <tr class="servermatch recordingmatch">
+              <td class="select">
+                  [% IF releaseline == 0 %]
+                  <a href="#select" class="selectrecording">select</a>
+                  <input type="hidden" class="gid" value="[% rec.entity.gid %]" />
+                  [% END %]
+              </td>
+              <td class="name">
+                  [% IF releaseline == 0 %][% link_entity (rec.entity) %][% END %]
+              </td>
+              <td class="artist">
+                  [% IF releaseline == 0 %][% rec.entity.artist_credit.name %][% END %]
+              </td>
+              <td class="release">[% release.name %]</td>
+              <td class="pos">
+                [% disc.tracklist.tracks.0.position %]
+                / [% disc.tracklist.track_count %]
+              </td>
+              <td class="length">
+                  [% IF releaseline == 0 %][% rec.entity.length | format_length %][% END %]
+              </td>
+          </tr>
+              [% END %]
+            [% END %]
+          [% END %]
+        </tbody>
+      </table>
+  </div>
+</div>
+[%- END -%]
+
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
@@ -66,7 +120,7 @@
             <th class="position">position</th>
             <th class="track">track</th>
             <th class="track-artist">artist</th>
-            <th colspan="2" class="recording">recording</th>
+            <th class="recording">recording</th>
           </tr>
         </thead>
         <tbody>
@@ -76,7 +130,7 @@
           [% new = track_preview.track %]
           [% old = track_preview.old %]
 
-          <tr>
+          <tr class="track-changes">
             <td class="position">
               <span class="new">[%- new.position -%]</span>
               [%- IF track_preview.moved -%]
@@ -91,27 +145,20 @@
             </td>
             <td class="track-artist">[% new.artist_credit.name %]</td>
             <td class="recording">
-              [%- r.hidden(assoc.field ('id')) -%]
+              [%- r.hidden(assoc.field ('gid')) -%]
 
               [%- IF assoc.field('addnew').value == 2 %]
-                <span class="recording">[% link_entity (track_preview.suggestions.0) %]</span>
+                <span class="recording">[% link_entity (track_preview.suggestions.0.entity) %]</span>
               [% ELSE %]
                 <span class="add-recording">[%- l('(add a new recording)') %]</span>
               [% END %]
+  
               <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
-              <div style="display: none; position: absolute; left: 40%; top: 45%; padding: 1em; background: #faa; border: 2px dashed #f00;" class="select-recording">
-                  [% r.radio (assoc.field('addnew'), 0) %]
-                  <label for="id-[% assoc.field('addnew').html_name %]-0">[%- l('Add a new recording') %]</label>
-                  <br />
-                  [% r.radio (assoc.field('addnew'), 1) %]
-                  <label for="id-[% assoc.field('addnew').html_name %]-1">[%- l('Use existing recording:') %]</label>
-                  <br />
-                  <ul>
-                  [% FOR rec=track_preview.suggestions %]
-                      <li>[% link_entity (rec) %]</li>
-                  [% END %]
-                  </ul>
-              </div>
+            </td>
+          </tr>
+          <tr class="select-recording" style="display: none">
+            <td colspan="4">
+               [% select_recording(assoc) %]
             </td>
           </tr>
           [% END %]

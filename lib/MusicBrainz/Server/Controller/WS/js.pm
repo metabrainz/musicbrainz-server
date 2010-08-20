@@ -6,6 +6,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
+use MusicBrainz::Server::Filters;
+use MusicBrainz::Server::Data::Search;
 use Readonly;
 use Data::OptList;
 
@@ -20,6 +22,11 @@ my $ws_defs = Data::OptList::mkopt([
          method   => 'GET',
          required => [ qw(q) ],
          optional => [ qw(limit timestamp) ]
+     },
+     recording => {
+         method   => 'GET',
+         required => [ qw(q) ],
+         optional => [ qw(a r limit timestamp) ]
      },
 ]);
 
@@ -90,6 +97,64 @@ sub label : Chained('root') PathPart('label') Args(0)
     my ($self, $c) = @_;
 
     $self->_autocomplete_entity($c, 'Label', $DLABEL_ID);
+}
+
+sub _flatten_releases
+{
+    my ($result) = @_;
+
+    my @ret;
+    for my $rel (@{ $result->{extra} })
+    {
+        for my $disc (@{ $rel->mediums })
+        {
+            for my $track (@{ $disc->tracklist->tracks })
+            {
+                # FIXME: search server results don't seem to include the disc title,
+                # perhaps that should be included. --warp.
+                # FIXME: from the search results I cannot know if a release has multiple
+                # discs, I would prefer to show (disc 1) on multidisc releases. --warp.
+                my $discname = ($disc->position == 1) ? '' : " (disc ".$disc->position.")";
+
+                push @ret, {
+                    release => $rel->name . $discname, 
+                    trackpos => $track->position." / ".$disc->tracklist->track_count
+                };
+            }
+        }
+    }
+
+    return \@ret;
+}
+
+sub recording : Chained('root') PathPart('recording') Args(0)
+{
+    my ($self, $c) = @_;
+
+    my $query = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{q});
+    my $artist = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{a});
+    my $limit = $c->stash->{args}->{limit} || 10;
+
+    my $response = $c->model ('Search')->external_search (
+        $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
+
+    my $pager = $response->{pager};
+
+    my @entities;
+    for my $result (@{ $response->{results} })
+    {
+        push @entities, {
+            gid => $result->{entity}->gid,
+            id => $result->{entity}->id,
+            length => MusicBrainz::Server::Filters::format_length ($result->{entity}->length),
+            name => $result->{entity}->name,
+            artist => $result->{entity}->artist_credit->name,
+            releases => _flatten_releases ($result)
+        };
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@entities));
 }
 
 sub default : Path

@@ -21,7 +21,7 @@ has 'old' => (
 
 has 'suggestions' => (
     is => 'rw',
-    isa => 'ArrayRef[Recording]',
+    isa => 'ArrayRef[MusicBrainz::Server::Entity::SearchResult]',
     lazy => 1,
     default => sub { [] },
 );

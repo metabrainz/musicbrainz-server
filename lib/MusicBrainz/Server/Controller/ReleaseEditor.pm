@@ -3,6 +3,8 @@ use Moose;
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::TrackChangesPreview';
+use aliased 'MusicBrainz::Server::Entity::SearchResult';
+use MusicBrainz::Server::Data::Search;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -11,22 +13,56 @@ sub artist_compare
     return 0;
 }
 
+sub search_result
+{
+    my ($c, $recording) = @_;
+
+    my @extra;
+
+    my ($tracks, $hits) = $c->model('Track')->find_by_recording ($recording->id, 10, 0);
+
+    for (@{ $tracks })
+    {
+        my $release = $_->tracklist->medium->release;
+        $release->mediums ([ $_->tracklist->medium ]);
+        $release->mediums->[0]->tracklist ($_->tracklist);
+        $release->mediums->[0]->tracklist->tracks ([ $_ ]);
+
+        push @extra, $release;
+    }
+
+    $c->model('ArtistCredit')->load ($recording);
+
+    return SearchResult->new ({ 
+        entity => $recording,
+        position => 1,
+        score => 100,
+        extra => \@extra,
+    });
+}
+
 sub recording_suggestions
 {
     my ($c, $changes, @prepend) = @_;
 
-    # FIXME: should probably use the search server here, it allows easier ranking
-    # of results where both recording name and artist name are taken into account.
+    my $query = MusicBrainz::Server::Data::Search::escape_query ($changes->track->name);
+    my $artist = MusicBrainz::Server::Data::Search::escape_query ($changes->track->artist_credit->name);
+    my $limit = 10;
 
-    my ($results, $hits) = 
-        $c->model('Search')->search ('recording', $changes->track->name, 10);
+    my $response = $c->model ('Search')->external_search (
+        $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
 
-    $changes->suggestions ([ @prepend, map { $_->entity } @$results ]);
+    my @results;
+    @results = @{ $response->{results} } if $response->{results};
+
+    $changes->suggestions ([ @prepend, @results ]);
 }
 
 sub track_add
 {
     my ($c, $newdata) = @_;
+
+    delete $newdata->{id};
 
     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
     my $new = Track->new($newdata);
@@ -68,7 +104,7 @@ sub track_compare
     {
         # if this track is already linked to a recording, add that recording as
         # the first suggestion.
-        @suggest = ( $old->recording );
+        @suggest = ( search_result ($c, $old->recording) );
     }
 
     if ($preview->renamed)
