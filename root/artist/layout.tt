@@ -16,24 +16,15 @@
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
-		    [% IF artist.begin_date.format %]
-		       <span rel="bio:event"><span typeof="bio:Birth" property="bio:date">
-		       [% artist.begin_date.format %]  </span></span>
-		    [% ELSE %]
-                      [% l("present") %]
-		    [% END %] &mdash
-                    [% IF artist.end_date.format %] 
-		       <span rel="bio:event"><span typeof="bio:Death" property="bio:date">
-		       [% artist.end_date.format %] </span></span>
-		    [% ELSE %]
-		       [% l("present") %]
-	            [% END %]
+                    [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &mdash;
+		    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
+		    [%# FIXME - why is age broken? %]
                     [% IF artist.has_age %]
-		    [% # where's the age?? FIXME %]
-                       <span property="foaf:age">([% display_age (artist.age) %])</span>
+                       ([% rdfa_artist_age(display_age (artist.age)) %])
                     [% END %]
                 [% END %]
             [%- END -%]
+	    [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(artist.country.name)
                    IF artist.country -%]
