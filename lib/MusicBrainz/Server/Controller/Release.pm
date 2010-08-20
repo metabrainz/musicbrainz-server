@@ -289,6 +289,9 @@ sub _create_edit {
        );
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
+        warn "No changes for edit:\n";
+        use Data::Dumper;
+        warn Dumper (\%args)."\n";
     }
 
     return unless defined $edit;
@@ -561,7 +564,7 @@ sub edit : Chained('load') RequireAuth Edit
 
                 push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
             }
-            
+
             push @$associations, { associations => $medium_assoc };
         }
 
@@ -642,12 +645,28 @@ sub edit : Chained('load') RequireAuth Edit
         # medium / tracklist / track edits
         # ----------------------------------------
 
+        my $medium_idx = 0;
         for my $medium (@{ $data->{'mediums'} })
         {
             my $tracklist_id = $medium->{'tracklist'}->{'id'};
 
+            my $track_idx = 0;
             for my $track (@{ $medium->{'tracklist'}->{'tracks'} })
             {
+                my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
+
+                warn "Associated recording: $rec_gid\n";
+
+                my $recording;
+                $recording = $c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
+
+                unless ($recording)
+                {
+                    # no recording associated with track, add a recording to the database.
+
+                    warn "FIXME: adding a recording is not yet supported. --warp.\n";
+                }
+
                 if ($track->{'id'})
                 {
                     if ($track->{'deleted'})
@@ -659,26 +678,32 @@ sub edit : Chained('load') RequireAuth Edit
                     else
                     {
                         # Editing an existing track
-                        $self->_create_edit($c, $EDIT_TRACK_EDIT, $editnote,
-                             position => $track->{'position'},
-                             name => $track->{'name'},
-                             artist_credit => $track->{'artist_credit'},
-                             length => $track->{'length'},
-                             to_edit => $c->model('Track')->get_by_id ($track->{'id'}),
+                        $self->_create_edit(
+                            $c, $EDIT_TRACK_EDIT, $editnote,
+                            position => $track->{'position'},
+                            name => $track->{'name'},
+                            recording_id => $recording->id,
+                            artist_credit => $track->{'artist_credit'},
+                            length => $track->{'length'},
+                            to_edit => $c->model('Track')->get_by_id ($track->{'id'}),
                         );
                     }
                 }
                 elsif ($tracklist_id)
                 {
                     # We are creating a new track (and not a new tracklist)
-                    $self->_create_edit($c, $EDIT_TRACKLIST_ADDTRACK, $editnote,
-                         position => $track->{'position'},
-                         name => $track->{'name'},
-                         artist_credit => $track->{'artist_credit'},
-                         length => $track->{'length'},
-                         tracklist_id => $tracklist_id,
+                    $self->_create_edit(
+                        $c, $EDIT_TRACKLIST_ADDTRACK, $editnote,
+                        position => $track->{'position'},
+                        name => $track->{'name'},
+                        recording_id => $recording->id,
+                        artist_credit => $track->{'artist_credit'},
+                        length => $track->{'length'},
+                        tracklist_id => $tracklist_id,
                     );
                 }
+
+                $track_idx++;
             }
 
 
@@ -732,6 +757,8 @@ sub edit : Chained('load') RequireAuth Edit
                 # Add medium
                 $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
             }
+
+            $medium_idx++;
         }
 
         $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));

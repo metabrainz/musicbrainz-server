@@ -46,6 +46,7 @@ MB.Control.ChangeRecording = function(trackchanges, selectrecording) {
 
         if (gid)
         {
+            self.trackchanges.find ('input.gid').val (gid);
             self.trackchanges.find ('span.recording').empty ().append (
                 $(this).closest('tr').find('td.name').contents ().clone ());
 
@@ -54,6 +55,7 @@ MB.Control.ChangeRecording = function(trackchanges, selectrecording) {
         }
         else
         {
+            self.trackchanges.find ('input.gid').val ('');
             self.trackchanges.find ('span.recording').hide ();
             self.trackchanges.find ('span.add-recording').show ();
         }

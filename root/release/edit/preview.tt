@@ -16,9 +16,6 @@
 
       MB.Control.ReleasePreview (serialized_tracklists);
 
-      /* FIXME: remove the following debug code. --warp. */
-//      $('a.change-recording:first').click ();
-
     });
   </script>
 [%- END -%]
@@ -169,7 +166,7 @@
             </td>
             <td class="recording">
               [% UNLESS track_preview.deleted %]
-              [%- r.hidden(assoc.field ('gid')) -%]
+              [%- r.hidden(assoc.field ('gid'), { class => 'gid' }) -%]
 
                 <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
                 &nbsp;
@@ -197,7 +194,7 @@
           </tr>
             [% UNLESS track_preview.deleted %]
             <tr class="select-recording" style="display: none">
-              <td colspan="4">
+              <td colspan="6">
                  [% select_recording(assoc, new) %]
               </td>
             </tr>
