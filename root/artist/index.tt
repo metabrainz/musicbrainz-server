@@ -24,12 +24,12 @@
                                 <th class="count c">[% l('Releases') %]</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody about="[%- artist_curi(artist) -%]">
                     [% rg_type = rg.type %]
                 [% END %]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <tr xmlns:thing="[% release_group_curi(rg) %]" [% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
-                    <td>[% link_release_group(rg) %]</td>
+                    <td>[% made_release_group(rg) %]</td>
                     [% IF show_va %]
                     <td>[% artist_credit(rg.artist_credit) %]</td>
                     [% END %]

@@ -10,8 +10,8 @@
     ['edit', link_artist(artist, 'edit', l('Edit'))],
 ] -%]
 
-<div class="artistheader">
-    <h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>
+<div class="artistheader" about="[% artist_curi(artist) %]" typeof="[% concept_curi(artist.type_name) %]">
+    <h1>[% topic_is_artist(artist) %] [% disambiguation(artist) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [% html_escape(artist.type_name) or l('Artist') %]
     </p>

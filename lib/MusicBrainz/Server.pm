@@ -62,6 +62,7 @@ __PACKAGE__->config(
         PRE_PROCESS => [
             'components/common-macros.tt',
             'components/forms.tt',
+	    'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
     },
