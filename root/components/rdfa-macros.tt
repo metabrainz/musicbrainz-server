@@ -17,9 +17,18 @@ END -%]
     
 END -%]
 
-[% # compact uri %]
+[% ################ %]
+[% # compact uris # %]
+[% ################ %]
 [%- MACRO rdfa_artist_curi(artist) BLOCK;
     '[mbz:artist/' _ artist.gid _ '#id]';
+END -%]
+
+[% # wtf workaround :/ %]
+[%- MACRO rdfa_recording_curi(rec) BLOCK;
+    action = 'show';
+    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
+    '' _ link _ '';
 END -%]
 
 [%- MACRO rdfa_release_curi(release) BLOCK;
@@ -29,6 +38,11 @@ END -%]
 [%- MACRO rdfa_release_group_curi(release) BLOCK;
     '[mbz:release-group/' _ release.gid _ '#id]';
 END -%]
+
+[% ############### %]
+[% #generic stuff  %]
+[% ############### %]
+[% SET rdfa_duration = 'xsd:duration'; %]
 
 [%################### 
    Artist pages RDFa 
@@ -46,13 +60,21 @@ END -%]
  '<span property="foaf:age">' _ age _ '</span>';
 END -%]
 
-[% # generic foaf:made link %]
-[%- MACRO rdfa_made_link(rg, type, action, text) BLOCK;
+[% MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
+    text = text || html_escape(rec.name);
+    '<span class="mp">' IF rg.edits_pending AND action == 'show';
+    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi('recording') _ '" property="dct:title">' _ text _ '</span></a>';
+    '</span>' IF rg.edits_pending AND action == 'show';
+END %]
+
+[%- MACRO rdfa_made_rg_link(rg, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
     text = text || html_escape(rg.name);
     '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi(type) _ '" property="dct:title">' _ text _ '</span></a>';
+    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi('release_group') _ '" property="dct:title">' _ text _ '</span></a>';
     '</span>' IF rg.edits_pending AND action == 'show';
 END -%]
 

@@ -29,7 +29,7 @@
                 [% END %]
                 <tr xmlns:thing="[% rdfa_release_group_curi(rg) %]" [% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
-                    <td>[% rdfa_made_link(rg, 'release_group') %]</td>
+                    <td>[% rdfa_made_rg_link(rg) %]</td>
                     [% IF show_va %]
                     <td>[% artist_credit(rg.artist_credit) %]</td>
                     [% END %]
