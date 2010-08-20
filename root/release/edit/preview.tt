@@ -130,7 +130,7 @@
       <table class="medium tbl preview-changes">
         <thead>
           <tr>
-            <th class="position">position</th>
+            <th colspan="2" class="position">position</th>
             <th class="track">track</th>
             <th class="track-artist">artist</th>
             <th class="recording">recording</th>
@@ -147,14 +147,18 @@
           <tr class="track-changes [% IF track_preview.deleted %]deleted[% END %]">
             <td class="position">
               <span class="new">[%- new.position -%]</span>
+            </td>
+            <td class="position-from">
+              [%# FIXME: star to indicate a new track. (not very clear.  need something better.) --warp. %]
+              [%- IF track_preview.added -%]<span class="old">&#x2605;</span>[%- END -%]
               [%- IF track_preview.moved -%]
-                  <span class="old">(from [% old.position %])</span>
+                 <span class="old">(from [% old.position %])</span>
               [%- END -%]
             </td>
             <td class="track">
               [% new.name %]
               [%- IF track_preview.renamed -%]
-                  <span class="old">(from [% old.name %])</span>
+                  <br /><span class="old">[% old.name %]</span>
               [%- END -%]
             </td>
             <td class="track-artist">[% new.artist_credit.name %]</td>
@@ -162,6 +166,8 @@
               [% UNLESS track_preview.deleted %]
               [%- r.hidden(assoc.field ('gid')) -%]
 
+                <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
+                &nbsp;
                 <span class="recording"
                     [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
 
@@ -175,11 +181,13 @@
                     [%- l('(add a new recording)') -%]
                 </span>
   
-              <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
               [% END %]
             </td>
             <td class="length">
               [% new.length | format_length %]
+              [%- IF track_preview.length -%]
+                  <br /><span class="old">[% old.length | format_length %]</span>
+              [% END %]
             </td>
           </tr>
             [% UNLESS track_preview.deleted %]

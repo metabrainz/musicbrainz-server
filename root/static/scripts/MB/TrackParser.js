@@ -110,14 +110,18 @@ MB.TrackParser = function (disc, serialized) {
         var deleted = [];
         var no_change = [];
 
+        var position = 1;
+
         // Match up inputtitles with existing tracks.
         $.each (self.inputtitles, function (idx, title) {
-            var data = { 'length': self.inputdurations[idx], 'position': idx + 1 };
+            var data = { 'length': self.inputdurations[idx], 'position': position };
 
             if (title === '')
             {
                 return;
             }
+            
+            console.log ('title: [' + title + ']');
 
             if (map[title] === undefined)
             {
@@ -136,6 +140,8 @@ MB.TrackParser = function (disc, serialized) {
                 data.row = map[title].pop ();
                 moved.push (data);
             }
+
+            position++;
         });
 
         $.each (map, function (key, value) {

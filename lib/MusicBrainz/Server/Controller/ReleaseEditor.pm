@@ -49,6 +49,7 @@ sub recording_suggestions
     my $artist = MusicBrainz::Server::Data::Search::escape_query ($changes->track->artist_credit->name);
     my $limit = 10;
 
+    # FIXME: can we include track length too?  Might be useful in some searches... --warp.
     my $response = $c->model ('Search')->external_search (
         $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
 

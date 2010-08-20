@@ -35,7 +35,7 @@ MB.Control.ChangeRecording = function(trackchanges, selectrecording) {
             event.preventDefault ();
         });
 
-        self.matches.find ('a.selectrecording').click (self.selectClick);
+        self.selectrecording.find ('a.selectrecording').click (self.selectClick);
 
         self.autocomplete = MB.utility.AutoComplete (
             self.recordinglookup, self.query, self.renderMatches);
@@ -44,7 +44,6 @@ MB.Control.ChangeRecording = function(trackchanges, selectrecording) {
     var selectClick = function (event) {
         var gid = $(this).next('.gid').val ();
 
-        console.log ('selectClick', this, ', gid: ', $(this).next('.gid').val ());
         if (gid)
         {
             self.trackchanges.find ('span.recording').empty ().append (
@@ -52,7 +51,6 @@ MB.Control.ChangeRecording = function(trackchanges, selectrecording) {
 
             self.trackchanges.find ('span.recording').show ();
             self.trackchanges.find ('span.add-recording').hide ();
-            self.selectrecording.hide ();
         }
         else
         {
@@ -60,6 +58,7 @@ MB.Control.ChangeRecording = function(trackchanges, selectrecording) {
             self.trackchanges.find ('span.add-recording').show ();
         }
 
+        self.selectrecording.hide ();
         event.preventDefault ();
     };
 

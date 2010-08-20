@@ -278,9 +278,12 @@ tr.track-artist-credit .ac-balloon3 {
    __________________________________ */
 
 span.add-recording { color: #aaa; }
+#release-editor table.medium.tbl.preview-changes tr td { vertical-align: top; }
 #release-editor table.medium.tbl.preview-changes tr td span.old { color: #aaa; }
+#release-editor table.medium.tbl.preview-changes tr td span.change-recording { color: #aaa; }
 #release-editor table.medium.tbl.preview-changes tr td { padding: 0.2em; }
-#release-editor table.medium.tbl.preview-changes tr td.position { width: 4em; text-align: right; }
+#release-editor table.medium.tbl.preview-changes tr td.position { width: 2em; text-align: right; }
+#release-editor table.medium.tbl.preview-changes tr td.position-from { width: 3em; }
 #release-editor table.medium.tbl.preview-changes tr td.track { width: 30%; }
 #release-editor table.medium.tbl.preview-changes tr td.track-artist { width: 24%; }
 #release-editor table.medium.tbl.preview-changes tr td.recording { width: 30%; }

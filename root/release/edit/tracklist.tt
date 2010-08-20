@@ -24,17 +24,26 @@
 
       window.kuno = tp;
 
-      var lines = tp.textarea.val ();
-      tp.textarea.val (lines.replace ('cover', 'live set in rotterdam 2010'));
-      rt.updatePreview ();
+//       var lines = tp.textarea.val ();
+//       tp.textarea.val (lines.replace ('cover', 'live set in rotterdam 2010'));
+//       rt.updatePreview ();
 
-      var lines = tp.textarea.val ().split ('\n');
-      var deleted = lines.splice (2, 1);
-      lines.splice (1, 0, deleted[0]);
-      tp.textarea.val (lines.join ('\n'));
-      rt.updatePreview ();
+//       var lines = tp.textarea.val ();
+//       tp.textarea.val (lines.replace ('4:03', '7:23').replace ('3:42', '4:03'));
+//       rt.updatePreview ();
 
-      $('input[name=step_preview]').click ();
+       var lines = tp.textarea.val ();
+       tp.textarea.val (lines + "\n7. Dr. Sleepgood 2 (3:05)");
+       rt.updatePreview ();
+
+//       var lines = tp.textarea.val ().split ('\n');
+//       var deleted = lines.splice (1, 1);
+//       lines.splice (0, 0, deleted[0]);
+//       tp.textarea.val (lines.join ('\n'));
+//       rt.updatePreview ();
+
+
+       $('input[name=step_preview]').click ();
 
     });
   </script>
