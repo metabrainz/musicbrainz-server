@@ -8,40 +8,60 @@
     '</span>' IF artist.edits_pending AND action == 'show'; 
 END -%]
 
+[% # map MB types to RDF concepts %]
+[%- MACRO rdfa_concept_curi(type) BLOCK;
+    'mo:MusicArtist' IF type == 'Person';
+    'mo:MusicGroup' IF type == 'Group';
+    'mo:SignalGroup' IF type == 'release_group';
+    'mo:Signal' IF type == 'recording';
+    
+END -%]
 
-[% #artist compact uri %]
-[%- MACRO artist_curi(artist) BLOCK;
+[% # compact uri %]
+[%- MACRO rdfa_artist_curi(artist) BLOCK;
     '[mbz:artist/' _ artist.gid _ '#id]';
 END -%]
 
-[%- MACRO release_curi(release) BLOCK;
+[%- MACRO rdfa_release_curi(release) BLOCK;
     '[mbz:release/' _ release.gid _ '#id]';
 END -%]
 
-[%- MACRO release_group_curi(release) BLOCK;
+[%- MACRO rdfa_release_group_curi(release) BLOCK;
     '[mbz:release-group/' _ release.gid _ '#id]';
 END -%]
 
-[%- MACRO made_release_group(rg, action, text) BLOCK;
+[%################### 
+   Artist pages RDFa 
+  ################### %]
+
+[%- MACRO rdfa_begin_date_artist(date) BLOCK;
+ '<span rel="bio:event"><span typeof="bio:Birth" property="bio:date">' _ date _ '</span></span>' IF date;
+END -%]
+
+[%- MACRO rdfa_end_date_artist(date) BLOCK;
+ '<span rel="bio:event"><span typeof="bio:Death" property="bio:date">' _ date _ '</span></span>' IF date;
+END -%]
+
+[%- MACRO rdfa_artist_age(age) BLOCK;
+ '<span property="foaf:age">' _ age _ '</span>';
+END -%]
+
+[% # generic foaf:made link %]
+[%- MACRO rdfa_made_link(rg, type, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
     text = text || html_escape(rg.name);
     '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="mo:SignalGroup" property="dct:title">' _ text _ '</span></a>';
+    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi(type) _ '" property="dct:title">' _ text _ '</span></a>';
     '</span>' IF rg.edits_pending AND action == 'show';
 END -%]
 
-[% MACRO topic_is_artist(artist, action, text) BLOCK;
+[%- MACRO rdfa_topic_is_artist(artist, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text || html_escape(artist.name);
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="foaf:name">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';      
-END %]
-
-[% # map MB types to RDF concepts %]
-[%- MACRO concept_curi(type) BLOCK;
-    'mo:MusicArtist' IF type == 'Person';
-    'mo:MusicGroup' IF type == 'Group';
 END -%]
+
