@@ -161,7 +161,12 @@
                   <br /><span class="old">[% old.name %]</span>
               [%- END -%]
             </td>
-            <td class="track-artist">[% new.artist_credit.name %]</td>
+            <td class="track-artist">
+              [% new.artist_credit.name %]
+              [%- IF track_preview.artist -%]
+                  <br /><span class="old">[% old.artist_credit.name %]</span>
+              [%- END -%]
+            </td>
             <td class="recording">
               [% UNLESS track_preview.deleted %]
               [%- r.hidden(assoc.field ('gid')) -%]

@@ -10,6 +10,21 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub artist_compare
 {
+    my ($c, $old, $new) = @_;
+
+    my $i = 0;
+    for (@{ $old->names })
+    {
+        return 1 unless $new->names->[$i];
+        return 1 if $_->name ne $new->names->[$i]->name ||
+            $_->join_phrase  != $new->names->[$i]->join_phrase ||
+            $_->artist_id    != $new->names->[$i]->artist_id;
+
+        $i++;
+    }
+
+    return 1 if $new->names->[$i];
+
     return 0;
 }
 
@@ -75,24 +90,14 @@ sub track_add
     return $t;
 }
 
-sub _warn_track
-{
-    my ($which, $track) = @_;
-
-    warn "$which: ".$track->position.". ".$track->name." / ".$track->artist_credit->name."\n";
-}
-
-
 sub track_compare
 {
     my ($c, $old, $newdata) = @_;
 
     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
+
     my $new = Track->new($newdata);
     my $preview = TrackChangesPreview->new (track => $new, old => $old);
-
-    _warn_track ("OLD", $old);
-    _warn_track ("NEW", $new);
 
     $preview->deleted(1) if $newdata->{deleted};
     $preview->renamed(1) if $old->name ne $new->name;

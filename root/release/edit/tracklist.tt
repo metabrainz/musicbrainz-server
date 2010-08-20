@@ -32,9 +32,9 @@
 //       tp.textarea.val (lines.replace ('4:03', '7:23').replace ('3:42', '4:03'));
 //       rt.updatePreview ();
 
-       var lines = tp.textarea.val ();
-       tp.textarea.val (lines + "\n7. Dr. Sleepgood 2 (3:05)");
-       rt.updatePreview ();
+//       var lines = tp.textarea.val ();
+//       tp.textarea.val (lines + "\n7. Dr. Sleepgood 2 (3:05)");
+//       rt.updatePreview ();
 
 //       var lines = tp.textarea.val ().split ('\n');
 //       var deleted = lines.splice (1, 1);
@@ -42,6 +42,16 @@
 //       tp.textarea.val (lines.join ('\n'));
 //       rt.updatePreview ();
 
+       $('a[href=#advanced]').click ();
+       $('input.artistcolumn').click ();
+
+       $('#id-mediums\\.0\\.tracklist\\.tracks\\.1\\.artist_credit\\.names\\.0\\.artist_id').val ('592771');
+       $('#id-mediums\\.0\\.tracklist\\.tracks\\.1\\.artist_credit\\.names\\.0\\.name').val ('Cycles');
+       $('#id-mediums\\.0\\.tracklist\\.tracks\\.1\\.artist_credit\\.names\\.0\\.join_phrase').val ('');
+       $('#id-mediums\\.0\\.tracklist\\.tracks\\.1\\.artist_credit\\.names\\.1\\.artist_id').val ('');
+       $('#id-mediums\\.0\\.tracklist\\.tracks\\.1\\.artist_credit\\.names\\.1\\.name').val ('');
+
+       advanced_tab.discs[0].tracks[1].artist_credit.renderPreview ();
 
        $('input[name=step_preview]').click ();
 
