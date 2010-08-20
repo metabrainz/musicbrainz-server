@@ -146,9 +146,9 @@ h1 span {
 
 #release-editor div.tracklist-padding { padding: 0 1em 1em 1em; }
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
-table.medium.tbl th.position, .medium.tbl td.position  { width: 2em; }
-table.medium.tbl th.length,   .medium.tbl td.length    { width: 5em; }
-table.medium.tbl th.delete,   .medium.tbl td.delete    { width: 2em; }
+table.medium.tbl td.position  { width: 2em; }
+table.medium.tbl td.length    { width: 5em; }
+table.medium.tbl td.delete    { width: 2em; }
 #release-editor table.medium.tbl th {
     background:url("../images/table-header-2.gif") repeat-x scroll 0 50% transparent;
     border-bottom:1px solid #999;
@@ -278,19 +278,13 @@ tr.track-artist-credit .ac-balloon3 {
    __________________________________ */
 
 span.add-recording { color: #aaa; }
-#release-editor .medium.tbl.preview-changes tr td span.old { color: #aaa; }
-#release-editor .medium.tbl.preview-changes tr td { padding: 0.2em; }
-#release-editor .medium.tbl.preview-changes tr td.position { width: 2em; text-align: right; }
-#release-editor .medium.tbl.preview-changes tr td.position-from { width: 3em; text-align: right; }
-#release-editor .medium.tbl.preview-changes tr td.track { width: 30%; }
-#release-editor .medium.tbl.preview-changes tr td.track-artist { width: 30%; }
-#release-editor .medium.tbl.preview-changes tr td.recording { width: 30%; }
-
-table.preview-changes td.position { width: 2em; text-align: right; }
-table.preview-changes td.position-from { width: 3em; text-align: right; }
-table.preview-changes td.track { width: 30%; }
-table.preview-changes td.track-artist { width: 30%; }
-table.preview-changes td.recording { width: 30%; }
+#release-editor table.medium.tbl.preview-changes tr td span.old { color: #aaa; }
+#release-editor table.medium.tbl.preview-changes tr td { padding: 0.2em; }
+#release-editor table.medium.tbl.preview-changes tr td.position { width: 4em; text-align: right; }
+#release-editor table.medium.tbl.preview-changes tr td.track { width: 30%; }
+#release-editor table.medium.tbl.preview-changes tr td.track-artist { width: 24%; }
+#release-editor table.medium.tbl.preview-changes tr td.recording { width: 30%; }
+#release-editor table.medium.tbl.preview-changes tr td.length { width: 3em; text-align: right; padding-right: 1em; }
 
 #release-editor .preview-changes tr.select-recording,
 #release-editor .preview-changes tr.select-recording th,

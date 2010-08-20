@@ -17,7 +17,7 @@
       MB.Control.ReleasePreview (serialized_tracklists);
 
       /* FIXME: remove the following debug code. --warp. */
-      $('a.change-recording:first').click ();
+//      $('a.change-recording:first').click ();
 
     });
   </script>
@@ -134,6 +134,7 @@
             <th class="track">track</th>
             <th class="track-artist">artist</th>
             <th class="recording">recording</th>
+            <th class="length">length</th>
           </tr>
         </thead>
         <tbody>
@@ -143,7 +144,7 @@
           [% new = track_preview.track %]
           [% old = track_preview.old %]
 
-          <tr class="track-changes">
+          <tr class="track-changes [% IF track_preview.deleted %]deleted[% END %]">
             <td class="position">
               <span class="new">[%- new.position -%]</span>
               [%- IF track_preview.moved -%]
@@ -158,6 +159,7 @@
             </td>
             <td class="track-artist">[% new.artist_credit.name %]</td>
             <td class="recording">
+              [% UNLESS track_preview.deleted %]
               [%- r.hidden(assoc.field ('gid')) -%]
 
                 <span class="recording"
@@ -174,13 +176,19 @@
                 </span>
   
               <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
+              [% END %]
+            </td>
+            <td class="length">
+              [% new.length | format_length %]
             </td>
           </tr>
-          <tr class="select-recording" style="display: none">
-            <td colspan="4">
-               [% select_recording(assoc, new) %]
-            </td>
-          </tr>
+            [% UNLESS track_preview.deleted %]
+            <tr class="select-recording" style="display: none">
+              <td colspan="4">
+                 [% select_recording(assoc, new) %]
+              </td>
+            </tr>
+            [% END %]
           [% END %]
         </tbody>
       </table>

@@ -28,12 +28,11 @@
       tp.textarea.val (lines.replace ('cover', 'live set in rotterdam 2010'));
       rt.updatePreview ();
 
-
-//       var lines = tp.textarea.val ().split ('\n');
-//       var deleted = lines.splice (2, 1);
-//       lines.splice (1, 0, deleted[0]);
-//       tp.textarea.val (lines.join ('\n'));
-//       rt.updatePreview ();
+      var lines = tp.textarea.val ().split ('\n');
+      var deleted = lines.splice (2, 1);
+      lines.splice (1, 0, deleted[0]);
+      tp.textarea.val (lines.join ('\n'));
+      rt.updatePreview ();
 
       $('input[name=step_preview]').click ();
 
