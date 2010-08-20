@@ -33,6 +33,26 @@ subtest 'Submit a set of PUIDs' => sub {
     done_testing;
 };
 
+subtest 'Submit a set of ISRCs' => sub {
+    my $request = POST '/ws/1/track/?type=xml', [
+        client => 'test-1.0',
+        isrc   => '162630d9-36d2-4a8d-ade1-1c77440b34e7 GBAAA9400365'
+    ];
+
+    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+
+    my $response = $mech->request($request);
+    ok($mech->success);
+
+    my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddISRCs');
+    is_deeply($edit->data->{isrcs}, [
+        { isrc => 'GBAAA9400365',
+          recording_id => $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7')->id }
+    ]);
+
+    done_testing;
+};
 
 done_testing;
 
