@@ -548,10 +548,12 @@ sub edit : Chained('load') RequireAuth Edit
             my $medium_assoc = [];
             for my $track_changes (@$medium_changes)
             {
+                # If there is only one suggestion, use that as the default.  In other
+                # situations default to 'add new recording'.
                 my $rec = $track_changes->suggestions->[0]->entity->gid
-                    if (@{ $track_changes->suggestions });
+                    if (scalar @{ $track_changes->suggestions } == 1);
 
-                push @$medium_assoc, $rec ? { addnew => 2, gid => $rec } : { addnew => 1 };
+                push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
             }
             
             push @$associations, { associations => $medium_assoc };

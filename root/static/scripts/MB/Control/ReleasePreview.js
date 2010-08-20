@@ -42,7 +42,23 @@ MB.Control.ChangeRecording = function(trackchanges, selectrecording) {
     };
 
     var selectClick = function (event) {
+        var gid = $(this).next('.gid').val ();
+
         console.log ('selectClick', this, ', gid: ', $(this).next('.gid').val ());
+        if (gid)
+        {
+            self.trackchanges.find ('span.recording').empty ().append (
+                $(this).closest('tr').find('td.name').contents ().clone ());
+
+            self.trackchanges.find ('span.recording').show ();
+            self.trackchanges.find ('span.add-recording').hide ();
+            self.selectrecording.hide ();
+        }
+        else
+        {
+            self.trackchanges.find ('span.recording').hide ();
+            self.trackchanges.find ('span.add-recording').show ();
+        }
 
         event.preventDefault ();
     };

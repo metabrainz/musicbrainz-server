@@ -23,7 +23,7 @@
   </script>
 [%- END -%]
 
-[%- MACRO select_recording(assoc) BLOCK -%]
+[%- MACRO select_recording(assoc, new) BLOCK -%]
 <div class="ac-balloon0">
   <div class="ac-balloon1">
     <div class="ac-balloon2"></div>
@@ -31,13 +31,26 @@
   </div>
 </div>
 <div class="select-recording">
-  [% r.radio (assoc.field('addnew'), 0) %]
-  <label for="id-[% assoc.field('addnew').html_name %]-0">[%- l('Add a new recording') %]</label>
-  <br />
-  [% r.radio (assoc.field('addnew'), 1) %]
-  <label for="id-[% assoc.field('addnew').html_name %]-1">[%- l('Use existing recording:') %]</label><br />
-  <div style="margin-left: 2em">
-      <br />
+  <h4>[%- l('Add a new recording') %]</h4>
+  <div>
+      <table>
+        <tbody>
+          <tr class="servermatch recordingmatch">
+              <td class="select">
+                  <a href="#select" class="selectrecording">select</a>
+                  <input type="hidden" class="gid" value="" />
+              </td>
+              <td class="name">[% new.name %]</td>
+              <td class="artist">[% new.artist_credit.name %]</td>
+              <td class="release"></td>
+              <td class="pos"></td>
+              <td class="length">[% new.length | format_length %]</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <h4>[%- l('Use existing recording') %]</h4>
+  <div>
       <input type="text" class="recording" value="" placeholder="recording lookup" />
       <table class="matches">
         <tbody>
@@ -147,18 +160,25 @@
             <td class="recording">
               [%- r.hidden(assoc.field ('gid')) -%]
 
-              [%- IF assoc.field('addnew').value == 2 %]
-                <span class="recording">[% link_entity (track_preview.suggestions.0.entity) %]</span>
-              [% ELSE %]
-                <span class="add-recording">[%- l('(add a new recording)') %]</span>
-              [% END %]
+                <span class="recording"
+                    [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
+
+                    [%- IF assoc.field('gid').value -%]
+                        [% link_entity (track_preview.suggestions.0.entity) %]
+                    [% END %]
+                </span>
+    
+                <span class="add-recording"
+                    [% IF assoc.field('gid').value %]style="display: none"[% END %]>
+                    [%- l('(add a new recording)') -%]
+                </span>
   
               <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
             </td>
           </tr>
           <tr class="select-recording" style="display: none">
             <td colspan="4">
-               [% select_recording(assoc) %]
+               [% select_recording(assoc, new) %]
             </td>
           </tr>
           [% END %]

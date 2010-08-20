@@ -305,7 +305,7 @@ table.preview-changes td.recording { width: 30%; }
 
 #release-editor div.artist-credit-vertical,
 #release-editor .preview-changes tr.select-recording td div.select-recording  {
-    margin: 0 0 1em auto; padding: 1em 2em 1em 1em; border: 1px solid #999;
+    margin: 0 0 1em auto; padding: 0em 2em 1em; border: 1px solid #999;
     background: #fff;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
