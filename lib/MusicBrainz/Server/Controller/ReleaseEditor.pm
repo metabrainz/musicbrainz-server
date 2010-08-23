@@ -40,8 +40,12 @@ sub artist_compare
     {
         return 1 unless $new->names->[$i];
         return 1 if $_->name ne $new->names->[$i]->name ||
-            $_->join_phrase  ne $new->names->[$i]->join_phrase ||
             $_->artist_id    != $new->names->[$i]->artist_id;
+
+        if ($_->join_phrase || $new->names->[$i]->join_phrase)
+        {
+            return 1 if $_->join_phrase ne $new->names->[$i]->join_phrase;
+        }
 
         $i++;
     }
