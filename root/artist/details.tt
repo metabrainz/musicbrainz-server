@@ -9,7 +9,7 @@
     <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
                {mbid => doc_link("MusicBrainz_Identifier")}) -%]
     </th>
-    <td>[% artist.gid %]</td>
+    <td>[% rdfa_mbid(artist.gid) %]</td>
   </tr>
   <tr>
     <th>[% l('Last updated:') %]</th>
