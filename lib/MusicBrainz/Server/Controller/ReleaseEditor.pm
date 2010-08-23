@@ -92,7 +92,7 @@ sub track_add
 
 sub track_compare
 {
-    my ($c, $old, $newdata) = @_;
+    my ($c, $newdata, $old) = @_;
 
     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
 
@@ -131,11 +131,14 @@ sub track_compare
 
 sub tracklist_compare
 {
-    my ($c, $old_medium, $new_medium) = @_;
+    my ($c, $new_medium, $old_medium) = @_;
+
+    my @new;
+    my @old;
 
     # first, only check moves/deletes.
-    my @new = @{ $new_medium->{tracklist}->{tracks} };
-    my @old = @{ $old_medium->tracklist->tracks };
+    @new = @{ $new_medium->{tracklist}->{tracks} };
+    @old = @{ $old_medium->tracklist->tracks } if $old_medium;
 
     my $maxnew = scalar @new;
     my $maxold = scalar @old;
@@ -166,7 +169,7 @@ sub tracklist_compare
     my @ret;
     while (@old)
     {
-        push @ret, track_compare ($c, shift @old, shift @new);
+        push @ret, track_compare ($c, shift @new, shift @old);
     }
 
     # any tracks left over after removing new tracks which replace existing
@@ -181,20 +184,25 @@ sub tracklist_compare
 
 sub release_compare
 {
-    my ($c, $release, $data) = @_;
+    my ($c, $data, $release) = @_;
 
     my @old_media = @{ $release->mediums };
     my @new_media = @{ $data->{mediums} };
 
-    if (scalar @old_media != scalar @new_media)
+    if (scalar @old_media > scalar @new_media)
     {
-        die ("adding/removing discs is not yet supported.\n");
+        die ("removing discs is not yet supported.\n");
     }
 
     my @ret;
     while (@old_media)
     {
-        push @ret, tracklist_compare ($c, shift @old_media, shift @new_media);
+        push @ret, tracklist_compare ($c, shift @new_media, shift @old_media);
+    }
+
+    while (@new_media)
+    {
+        push @ret, tracklist_compare ($c, shift @new_media);
     }
 
     return \@ret;

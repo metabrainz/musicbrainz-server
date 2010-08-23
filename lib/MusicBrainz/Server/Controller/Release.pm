@@ -358,6 +358,36 @@ sub add : Chained('base') RequireAuth Args(0)
         $c->stash( serialized_tracklists => $self->_serialize_tracklists () );
     }
 
+    if ($wizard->current_page eq 'preview')
+    {
+#         my $changes = MusicBrainz::Server::Controller::ReleaseEditor::release_compare
+#             ($c, $wizard->value);
+
+#         my $associations = [];
+#         for my $medium_changes (@$changes)
+#         {
+#             my $medium_assoc = [];
+#             for my $track_changes (@$medium_changes)
+#             {
+#                 my $rec;
+
+#                 if (scalar @{ $track_changes->suggestions } == 1 ||
+#                     $track_changes->renamed)
+#                 {
+#                     $rec = $track_changes->suggestions->[0]->entity->gid;
+#                 }
+
+#                 push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
+#             }
+
+#             push @$associations, { associations => $medium_assoc };
+#         }
+
+#         $c->stash->{changes} = $changes;
+
+#         $wizard->load_page('preview', { 'preview_mediums' => $associations });
+    }
+
     if ($wizard->submitted)
     {
         # The user is done with the wizard and wants to submit the new data.
@@ -543,7 +573,7 @@ sub edit : Chained('load') RequireAuth Edit
         $c->model('Recording')->load (@tracks);
 
         my $changes = MusicBrainz::Server::Controller::ReleaseEditor::release_compare
-            ($c, $release, $wizard->value);
+            ($c, $wizard->value, $release);
 
         my $associations = [];
         for my $medium_changes (@$changes)

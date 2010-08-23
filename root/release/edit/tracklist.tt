@@ -22,8 +22,6 @@
       var rt = basic_tab.tracklist.textareas[0];
       var tp = rt.trackparser;        
 
-      window.kuno = tp;
-
 //       var lines = tp.textarea.val ();
 //       tp.textarea.val (lines.replace ('cover', 'live set in rotterdam 2010'));
 //       rt.updatePreview ();
@@ -53,7 +51,15 @@
 
 //       advanced_tab.discs[0].tracks[1].artist_credit.renderPreview ();
 
-//       $('input[name=step_preview]').click ();
+      $('a[href=#add_disc]:first').click ();
+
+      rt = basic_tab.tracklist.textareas[1];
+      tp = rt.trackparser;        
+
+      tp.textarea.val ("1. Mashed Up (karaoke version)\n2. Pogo (karaoke version)");
+      rt.updatePreview ();
+
+      $('input[name=step_preview]').click ();
 
     });
   </script>
