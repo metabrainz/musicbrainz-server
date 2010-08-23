@@ -34,8 +34,11 @@ sub index : Private
 {
     my ($self, $c) = @_;
 
+    # Can't set an attribute on a private action; manually inserting detatch code.
+    $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
+
     $c->forward('login');
-    $c->detach('profile', [ $c->user->name ]);
+    $c->detach('/user/profile/view', [ $c->user->name ]);
 }
 
 sub do_login : Private
@@ -78,13 +81,13 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login')
+sub login : Path('/login') ForbiddenOnSlaves
 {
     my ($self, $c) = @_;
 
     if ($c->user_exists) {
-        $c->response->redirect($c->uri_for_action('/user/profile',
-                                                  $c->user->name));
+        $c->response->redirect($c->uri_for_action('/user/profile/view',
+                                                 [ $c->user->name ]));
         $c->detach;
     }
 
@@ -112,7 +115,7 @@ new user.
 
 =cut
 
-sub register : Path('/register')
+sub register : Path('/register') ForbiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -133,7 +136,7 @@ sub register : Path('/register')
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
         $c->set_authenticated($user);
 
-        $c->response->redirect($c->uri_for_action('/user/profile', $user->name));
+        $c->response->redirect($c->uri_for_action('/user/profile/view', [ $user->name ]));
         $c->detach;
     }
 
@@ -180,7 +183,7 @@ address" emails)
 
 =cut
 
-sub verify_email : Path('/verify-email')
+sub verify_email : Path('/verify-email') ForbiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -279,7 +282,7 @@ sub _send_password_reset_email
     );
 }
 
-sub lost_password : Path('/lost-password')
+sub lost_password : Path('/lost-password') ForbiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -316,7 +319,7 @@ sub lost_password : Path('/lost-password')
     $c->stash->{form} = $form;
 }
 
-sub reset_password : Path('/reset-password')
+sub reset_password : Path('/reset-password') ForbiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -381,7 +384,7 @@ sub reset_password : Path('/reset-password')
     $c->stash->{form} = $form;
 }
 
-sub lost_username : Path('/lost-username')
+sub lost_username : Path('/lost-username') ForbiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -490,7 +493,7 @@ sub change_password : Path('/account/change-password') RequireAuth
     }
 }
 
-sub base : Chained PathPart('user') CaptureArgs(1)
+sub base : Chained PathPart('user') CaptureArgs(1) HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
 
@@ -503,50 +506,9 @@ sub base : Chained PathPart('user') CaptureArgs(1)
     if ($c->user_exists && $c->user->id == $user->id)
     {
         $c->stash->{viewing_own_profile} = 1;
-        $c->stash->{show_collection} = 1;
-    }
-    else
-    {
-        $c->model('Editor')->load_preferences($user);
-        $c->stash->{show_collection} = $user->preferences->public_collection;
-    }
-}
-
-=head2 profile
-
-Display a users profile page.
-
-=cut
-
-sub profile : Local Args(1)
-{
-    my ($self, $c, $user_name) = @_;
-
-    my $user = $c->model('Editor')->get_by_name($user_name);
-
-    $c->detach('/error_404')
-        if (!defined $user);
-
-    if ($c->user_exists && $c->user->id == $user->id)
-    {
-        $c->stash->{viewing_own_profile} = 1;
-        $c->stash->{show_collection} = 1;
-    }
-    else
-    {
-        $c->model('Editor')->load_preferences($user);
-        $c->stash->{show_collection} = $user->preferences->public_collection;
     }
 
-    my $subscr_model = $c->model('Editor')->subscription;
-    $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
-    $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
-    $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user->id);
-
-    $c->stash(
-        user     => $user,
-        template => 'user/profile.tt',
-    );
+    $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);
 }
 
 =head2 contact
@@ -555,7 +517,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('base') RequireAuth
+sub contact : Chained('base') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 

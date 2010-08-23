@@ -28,6 +28,7 @@
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">
         [% form_row_text(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
+        [% form_row_select(search, 'limit', l('Show:')) %]
         [% form_row_checkbox(search, 'advanced', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
         [% form_row_checkbox(search, 'direct', l('Direct database search')) %]
         <div class="row no-label">

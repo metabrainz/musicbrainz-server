@@ -266,7 +266,7 @@ sub parse_tags
         $_ =~ s/\s+/ /sg;
         # remove leading and trailing whitespace
         $_ =~ s/^\s*(.*?)\s*$/$1/;
-        $_;
+        $_ = lc($_);
     } split ',', $input;
 
     # make sure the list contains only unique tags
@@ -410,7 +410,7 @@ sub find_user_tags
 
     $self->c->model('Tag')->load(@tags);
 
-    return @tags;
+    return sort { $a->tag->name cmp $b->tag->name } grep { $_->tag } @tags;
 }
 
 sub find_entities

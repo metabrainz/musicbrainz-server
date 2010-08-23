@@ -55,7 +55,7 @@ sub editor : Private
     my $query = $form->field('query')->value;
     my $editor = $c->model('Editor')->get_by_name($query);
     if (defined $editor) {
-        $c->res->redirect($c->uri_for_action('/user/profile', $editor->name));
+        $c->res->redirect($c->uri_for_action('/user/profile/view', [ $editor->name ]));
         $c->detach;
     }
 
@@ -73,7 +73,7 @@ sub direct : Private
 
     my $results = $self->_load_paged($c, sub {
        $c->model('Search')->search($type, $query, shift, shift);
-    });
+    }, $form->field('limit')->value);
 
     if (@$results == 1) {
         if ($type eq 'artist' || $type eq 'release' ||
@@ -110,7 +110,7 @@ sub direct : Private
         }
         case 'recording' {
             for my $result (@$results) {
-                my @releases = $c->model('Release')->find_by_recording($result->entity->id);
+                my @releases = $c->model('Release')->find_by_recording($result->entity->id, 4096);
                 $result->extra($releases[0]);
             }
             my @releases = map { @{ $_->extra } } @$results;
@@ -148,7 +148,7 @@ sub external : Private
 
     $c->detach('/search/editor') if $type eq 'editor';
 
-    my $limit  = $form->field('limit') ? $form->field('limit')->value : 25;
+    my $limit  = $form->field('limit')->value;
     my $page   = $c->request->query_params->{page} || 1;
     my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
 

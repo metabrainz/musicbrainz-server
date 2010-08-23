@@ -106,8 +106,13 @@ sub _serialize_artist
         push @list, $gen->country($artist->country->iso_code) if ($artist->country);
 
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
-        $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
+    }
 
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    if ($toplevel)
+    {
         $self->_serialize_recording_list(\@list, $gen, $opts->{recordings}, $inc, $stash)
             if $inc->recordings;
 
@@ -304,6 +309,9 @@ sub _serialize_work
             if $inc->artist_credits;
     }
 
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
     $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
@@ -381,6 +389,7 @@ sub _serialize_medium
     push @med, $gen->position($medium->position);
     push @med, $gen->format(lc($medium->format->name)) if ($medium->format);
     $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
+
     $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $stash);
 
     push @$data, $gen->medium(@med);
@@ -390,13 +399,23 @@ sub _serialize_track_list
 {
     my ($self, $data, $gen, $tracklist, $inc, $stash) = @_;
 
+    # Not all tracks in the tracklists may have been loaded.  If not all
+    # tracks have been loaded, only one them will have been loaded which
+    # therefore can be represented as if a query had been performed with
+    # limit = 1 and offset = track->position.
+
+    my $min = @{$tracklist->tracks} ? $tracklist->tracks->[0]->position : 0;
     my @list;
     foreach my $track (@{$tracklist->tracks})
     {
+        $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }
 
-    push @$data, $gen->track_list({ count => $tracklist->track_count }, @list);
+    my %attr = ( count => $tracklist->track_count );
+    $attr{offset} = $min - 1 if $min > 1;
+
+    push @$data, $gen->track_list(\%attr, @list);
 }
 
 sub _serialize_track
@@ -405,9 +424,16 @@ sub _serialize_track
 
     my @track;
     push @track, $gen->position($track->position);
-    push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
 
-    $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash);
+    if ($track->recording)
+    {
+        push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
+        $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash);
+    }
+    else
+    {
+        push @track, $gen->title($track->name);
+    }
 
     push @$data, $gen->track(@track);
 }
@@ -466,14 +492,14 @@ sub _serialize_label_info
 
 sub _serialize_label_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     if (@{ $list->{items} })
     {
         my @list;
         foreach my $label (@{ $list->{items} })
         {
-            $self->_serialize_label(\@list, $gen, $label, $inc, $stash);
+            $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
         }
         push @$data, $gen->label_list($self->_list_attributes ($list), @list);
     }
@@ -481,7 +507,7 @@ sub _serialize_label_list
 
 sub _serialize_label
 {
-    my ($self, $data, $gen, $label, $inc, $stash) = @_;
+    my ($self, $data, $gen, $label, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store ($label);
 
@@ -493,9 +519,22 @@ sub _serialize_label
     push @list, $gen->name($label->name);
     push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
-    push @list, $gen->country($label->country->iso_code) if $label->country;
-    $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts) if ($inc->aliases);
+
+    if ($toplevel)
+    {
+        push @list, $gen->country($label->country->iso_code) if $label->country;
+        $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    if ($toplevel)
+    {
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+            if $inc->releases;
+    }
+
     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
@@ -660,7 +699,7 @@ sub _serialize_user_tag
 {
     my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->user_tag($tag->tag->name);
+    push @$data, $gen->user_tag($gen->name($tag->tag->name));
 }
 
 sub _serialize_rating
@@ -689,6 +728,20 @@ sub output_error
     my $xml = $xml_decl_begin;
     $xml .= $gen->error($gen->text($err), $gen->text(
            "For usage, please see: http://musicbrainz.org/development/mmd"));
+    $xml .= $xml_decl_end;
+    return $xml;
+}
+
+sub output_success
+{
+    my ($self, $msg) = @_;
+
+    my $gen = MusicBrainz::XML::Generator->new(':std');
+
+    $msg ||= 'OK';
+
+    my $xml = $xml_decl_begin;
+    $xml .= $gen->message($gen->text($msg));
     $xml .= $xml_decl_end;
     return $xml;
 }
@@ -860,6 +913,31 @@ sub work_list_resource
     return $data->[0];
 }
 
+sub rating_resource
+{
+    my ($self, $gen, $entity, $inc, $stash) = @_;
+
+    my $opts = $stash->store ($entity);
+
+    return '' unless $opts->{user_ratings};
+
+    my $data = [];
+    $self->_serialize_user_rating($data, $gen, $inc, $opts);
+
+    return $data->[0];
+}
+
+sub tag_list_resource
+{
+    my ($self, $gen, $entity, $inc, $stash) = @_;
+
+    my $opts = $stash->store ($entity);
+
+    my $data = [];
+    $self->_serialize_user_tag_list($data, $gen, $inc, $opts);
+
+    return $data->[0];
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

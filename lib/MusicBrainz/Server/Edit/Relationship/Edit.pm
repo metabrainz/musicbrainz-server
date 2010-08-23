@@ -1,11 +1,11 @@
 package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
-
+use Carp;
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
-use MusicBrainz::Server::Edit::Utils qw( date_closure );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -18,10 +18,20 @@ sub _xml_arguments { ForceArray => ['attributes'] }
 
 subtype 'LinkHash'
     => as Dict[
+        link_type_id => Int,
+        attributes => Nullable[ArrayRef[Int]],
+        begin_date => Nullable[PartialDateHash],
+        end_date => Nullable[PartialDateHash],
+    ];
+
+subtype 'RelationshipHash'
+    => as Dict[
         link_type_id => Nullable[Int],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
+        entity0_id => Nullable[Int],
+        entity1_id => Nullable[Int],
     ];
 
 has '+data' => (
@@ -29,8 +39,9 @@ has '+data' => (
         relationship_id => Int,
         type0 => Str,
         type1 => Str,
-        new => find_type_constraint('LinkHash'),
-        old => find_type_constraint('LinkHash'),
+        link => find_type_constraint('LinkHash'),
+        new => find_type_constraint('RelationshipHash'),
+        old => find_type_constraint('RelationshipHash'),
     ]
 );
 
@@ -72,13 +83,10 @@ sub adjust_edit_pending
 sub _mapping
 {
     return (
-        begin_date => date_closure('begin_date'),
-        end_date => date_closure('end_date'),
-        attributes => sub {
-            my $link = shift;
-            return [ map { $_->id } $link->all_attributes ];
-        },
-        link_type_id => 'type_id',
+        begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
+        end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
+        attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
+        link_type_id => sub { return shift->link->type_id; },
     );
 }
 
@@ -89,13 +97,31 @@ sub initialize
     my $relationship = delete $opts{relationship};
     my $type0 = delete $opts{type0};
     my $type1 = delete $opts{type1};
+    my $change_direction = delete $opts{change_direction};
+
+    if ($change_direction)
+    {
+        croak ("Cannot change direction unless both endpoints are the same type")
+            if ($type0 ne $type1);
+
+        $opts{entity0_id} = $relationship->entity1_id;
+        $opts{entity1_id} = $relationship->entity0_id;
+    }
+
+    my $link = $relationship->link;
 
     $self->relationship($relationship);
     $self->data({
         type0 => $type0,
         type1 => $type1,
         relationship_id => $relationship->id,
-        $self->_change_data($relationship->link, %opts)
+        link => {
+            begin_date => partial_date_to_hash ($link->begin_date),
+            end_date =>   partial_date_to_hash ($link->end_date),
+            attributes => [ map { $_->id } $link->all_attributes ],
+            link_type_id => $link->type_id,
+        },
+        $self->_change_data($relationship, %opts)
     });
 }
 
@@ -104,9 +130,12 @@ sub accept
     my $self = shift;
 
     $self->c->model('Relationship')->update(
-        $self->data->{type0}, $self->data->{type1},
+        $self->data->{type0},
+        $self->data->{type1},
         $self->data->{relationship_id},
-        $self->data->{new});
+        $self->data->{new},
+        $self->data->{link},
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

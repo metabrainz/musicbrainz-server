@@ -3,6 +3,7 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 requires 'load', 'show';
 
@@ -94,10 +95,50 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
     }
 }
 
-sub annotation_history : Chained('load') PathPart
+sub annotation_history : Chained('load') PathPart('annotations')
 {
     my ($self, $c) = @_;
-    $c->detach('/error_404');
+
+    my $model            = $self->{model};
+    my $entity           = $c->stash->{entity};
+    my $annotation_model = $c->model($model)->annotation;
+
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        });
+
+    $c->model('Editor')->load(@$annotations);
+    $c->stash( annotations => $annotations );
+}
+
+sub annotation_diff : Chained('load') PathPart('annotations-differences')
+{
+    my ($self, $c) = @_;
+
+    my $model            = $self->{model};
+    my $entity           = $c->stash->{entity};
+    my $annotation_model = $c->model($model)->annotation;
+
+    my $old = $c->req->query_params->{old};
+    my $new = $c->req->query_params->{new};
+
+    unless (is_positive_integer($old) &&
+            is_positive_integer($new) &&
+            $old != $new) {
+        $c->stash(
+            message => 'The old and new annotation ids must be unique, positive integers'
+        );
+        $c->detach('/error_400')
+    }
+
+    my $old_annotation = $annotation_model->get_by_id($old);
+    my $new_annotation = $annotation_model->get_by_id($new);
+
+    $c->stash(
+        old => $old_annotation,
+        new => $new_annotation
+    );
 }
 
 no Moose::Role;

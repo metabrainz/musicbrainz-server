@@ -3,6 +3,6 @@
     <h1>[% l("Preferences") %]</h1>
 
     <p>[% l('Your preferences have been saved. Click {link|here} to continue to your user page.',
-            { link => c.uri_for_action('/user/profile', c.user.name) }) %]</p>
+            { link => c.uri_for_action('/user/profile/view', [ c.user.name ]) }) %]</p>
 
 [% END %]

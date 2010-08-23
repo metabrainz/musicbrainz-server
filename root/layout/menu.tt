@@ -20,7 +20,7 @@
                 </li>
             </ul>
         </li>
-        [% IF c.user_exists && (c.user.is_relationship_editor || c.user.is_wiki_transcluder) %]
+        [% IF c.user_exists && c.user.is_admin %]
             <li>
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
@@ -41,10 +41,10 @@
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile', c.user.name)}) %]</a>
+            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile/view', [ c.user.name ])}) %]
             <ul>
                 <li>
-                    [% l('{col|My Collection}', {col => c.uri_for_action('/user/collection/view', c.user.name)}) %]
+                    [% l('{col|My Lists}', {col => c.uri_for_action('/user/lists/view', [ c.user.name ])}) %]
                 </li>
                 <li>
                     [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings/view', [ c.user.name ])}) %]
@@ -131,9 +131,11 @@
     <li>
         [% l('{uri|Search}', { uri => c.uri_for('/search') }) %]
         <ul>
-            <li>
-                [% l('{uri|Search Edits}', { uri => c.uri_for_action('/edit/search') }) %]
-            </li>
+            [%- IF c.user_exists -%]
+                <li>
+                    [% l('{uri|Search Edits}', { uri => c.uri_for_action('/edit/search') }) %]
+                </li>
+            [% END %]
             <li>
                 [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
             </li>
@@ -204,7 +206,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://bugs.musicbrainz.org" class="internal">
+                <a href="http://jira.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>
             </li>

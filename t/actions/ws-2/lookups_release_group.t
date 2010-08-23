@@ -3,11 +3,11 @@ use strict;
 use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -89,5 +89,27 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
+$mech->get_ok('/ws/2/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases&status=pseudo-release', 'release group lookup with pseudo-releases');
+&$v2 ($mech->content, "Validate release group lookup with pseudo-releases");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+        <title>the Love Bug</title>
+        <artist-credit>
+            <name-credit>
+                <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                </artist>
+            </name-credit>
+        </artist-credit>
+        <release-list count="0" />
+    </release-group>
+</metadata>';
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
+
 
 done_testing;

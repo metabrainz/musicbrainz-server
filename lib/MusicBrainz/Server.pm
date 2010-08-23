@@ -5,7 +5,6 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
-use MusicBrainz::Server::Context;
 
 # Set flags and add plugins for the application
 #
@@ -68,6 +67,12 @@ __PACKAGE__->config(
     },
     'Plugin::Session' => {
         expires => 36000 # 10 hours
+    },
+    static => {
+        mime_types => {
+            json => 'application/json; charset=UTF-8',
+        },
+        dirs => [ 'static' ],
     }
 );
 
