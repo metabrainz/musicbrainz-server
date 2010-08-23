@@ -17,26 +17,32 @@
             [%- END -%]
         </tr>
     </thead>
+    [% IF rdfa_made %]
+    <tbody about="[%- rdfa_artist_curi(artist) -%]">
+    [% ELSE %]
     <tbody>
+    [% END %]
         [%- FOR release=releases -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td>[% link_release(release) %]</td>
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_names(release) %]>
+            [% IF rdfa_made %]
+	       <td>[% rdfa_made_release_link(release) %]</td>
+	    [% ELSE %]
+	       <td>[% link_release(release) %]</td>
+	    [% END %]
             [% IF show_va %]
             <td>[% artist_credit(release.artist_credit) %]</td>
             [% END %]
-            <td>[% release.combined_format_name or "-" %]</td>
+            <td>[% rdfa_release_format(release.combined_format_name) or "-" %]</td>
             <td>[% release.combined_track_count or "-" %]</td>
-            <td>[% release.date.format %]</td>
+            <td>[% rdfa_release_event_date(release) %]</td>
             <td>
                 [%- IF release.country -%]
-                <abbr title="[% release.country.name | html %]">
-                    [% release.country.iso_code | html %]
-                </abbr>
+		    [% rdfa_release_country_abbr(release) %]
                 [%- END -%]
             </td>
             <td>[% release_label_list(release.labels) %]</td>
             <td>[% release_catno_list(release.labels) %]</td>
-            <td>[% release.barcode %]</td>
+            <td>[% rdfa_release_barcode(release.barcode) IF release.barcode %]</td>
             [%- IF c.session.tport -%]
                 <td>[% tagger_icon(release) %]</td>
             [%- END -%]

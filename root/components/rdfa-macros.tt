@@ -1,20 +1,40 @@
 [%- USE u = Utils -%]
-[%- MACRO rdfa_link_artist(artist, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/artist/$action", [ artist.gid ]);
-    text = text || html_escape(artist.name);
-    '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF artist.edits_pending AND action == 'show'; 
-END -%]
 
+[% ############################## %]
 [% # map MB types to RDF concepts %]
+[% ############################## %]
 [%- MACRO rdfa_concept_curi(type) BLOCK;
     'mo:MusicArtist' IF type == 'Person';
     'mo:MusicGroup' IF type == 'Group';
     'mo:SignalGroup' IF type == 'release_group';
     'mo:Signal' IF type == 'recording';
-    
+END -%]
+
+[%- MACRO rdfa_country_to_curi(country) BLOCK;
+ 'http://ontologi.es/place/' _ country.iso_code;
+END -%]
+
+[% MACRO rdfa_format_curi(name) BLOCK;
+ 'mo:CD' IF name == 'CD';
+ 'mo:DVD' IF name == 'DVD';
+ 'mo:SACD' IF name == 'SACD';
+ 'mo:DualDisc' IF name == 'DualDisc';
+ 'mo:LaserDisc' IF name == 'LaserDisc';
+ 'mo:MiniDisc' IF name == 'MiniDisc';
+ 'mo:Vinyl' IF name == 'Vinyl';
+ 'mo:Cassette' IF name == 'Cassette';
+ 'mo:Cartridge' IF name == 'Cartridge';
+ 'mo:Reel_to_reel' IF name == 'Reel-to-reel';
+ 'mo:DAT' IF name == 'DAT';
+ 'mo:DigitalMedia' IF name == 'Digital Media';
+ 'mo:Other' IF name == 'Other';
+ 'mo:WaxCylinder' IF name == 'Wax Cylinder'; 
+ 'mo:PianoRoll' IF name == 'Piano Roll';
+ 'mo:DCC' IF name == 'DCC';
+ 'mo:HD-DVD' IF name == 'HD-DVD';
+ 'mo:DVD-Audio' IF name == 'DVD-Audio';
+ 'mo:DVD-Video' IF name == 'DVD-Video';
+ 'mo:Blu-ray' IF name == 'Blu-ray';
 END -%]
 
 [% ################ %]
@@ -24,25 +44,35 @@ END -%]
     '[mbz:artist/' _ artist.gid _ '#id]';
 END -%]
 
-[% # wtf workaround :/ %]
+[% # wtf workaround :/  %]
 [%- MACRO rdfa_recording_curi(rec) BLOCK;
     action = 'show';
     link = c.uri_for_action("/recording/$action", [ rec.gid ]);
-    '' _ link _ '';
+    '' _ link _ '#signal';
 END -%]
 
 [%- MACRO rdfa_release_curi(release) BLOCK;
-    '[mbz:release/' _ release.gid _ '#id]';
+    '[mbz:release/' _ release.gid _ '#release]';
+END -%]
+
+[%- MACRO rdfa_release_event_curi(release) BLOCK;
+    '[mbz:release/' _ release.gid _ '#event]';
 END -%]
 
 [%- MACRO rdfa_release_group_curi(release) BLOCK;
-    '[mbz:release-group/' _ release.gid _ '#id]';
+    '[mbz:release-group/' _ release.gid _ '#signal_group]';
 END -%]
 
-[% ############### %]
-[% #generic stuff  %]
-[% ############### %]
+[%- MACRO rdfa_label_curi(label) BLOCK;
+ '[mbz:label/' _ label.gid _ '#label]';
+END -%]
+
+[% ################### %]
+[% # Recording/Signal  %]
+[% ################### %]
+
 [% SET rdfa_duration = 'xsd:duration'; %]
+
 
 [%################### 
    Artist pages RDFa 
@@ -87,3 +117,47 @@ END -%]
     '</span>' IF artist.edits_pending AND action == 'show';      
 END -%]
 
+[% # note 'release' and 'event' are used as namespaces in following macro %]
+[%- MACRO rdfa_release_names(release) BLOCK;
+    'xmlns:release="' _ rdfa_release_curi(release) _ '" xmlns:event="' _ rdfa_release_event_curi(release) _ '"';
+END -%]
+
+[% # note 'release' and 'event' are used as namespace in following macro %]
+[%- MACRO rdfa_made_release_link(release, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/release/$action", [ release.gid ]);
+    text = text || html_escape(release.name);
+    '<span class="mp">' IF release.edits_pending AND action == 'show';
+    '<a rel="foaf:made" resource="[release:]" href="' _ link _ '"><span about="[release:]" typeof="' _ rdfa_concept_curi('release') _ '" property="dct:title">' _ text _ '</span></a>';
+    '</span>' IF release.edits_pending AND action == 'show';
+END -%]
+
+[%- MACRO rdfa_relase_format(format_name) BLOCK;
+    '<span about="[release:]" typeof="' _ rdfa_format_curi(format_name) _ '">' _ format_name _ '</span>';
+END -%]
+
+[%- MACRO rdfa_release_event_date(release) BLOCK;
+ '<span about="[event:]" typeof="mo:ReleaseEvent" property="dct:date">' _ release.date.format _ '</span>';
+END -%]
+
+[%- MACRO rdfa_release_country_abbr(release) BLOCK;
+ '<span about="[release:]" rel="mo:release_location" resource="' _ rdfa_country_to_curi(release.country) _ '">';
+ '<abbr title="' _ release.country.name _ '">' _ release.country.iso_code _ '</abbr></span>';
+END -%]
+
+[%- MACRO rdfa_link_label(label, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/label/$action", [ label.gid ]);
+    text = text || html_escape(label.name);
+    '<span class="mp">' IF label.edits_pending AND action == 'show';
+    '<span about="[release:]"><a rel="mo:label" resource="' _ rdfa_labe_curi(label) _ '" href="' _ link _ '">' _ text _ '</a></span>';
+    '</span>' IF label.edits_pending AND action == 'show';
+END -%]
+
+[% MACRO rdfa_release_catno(catno) BLOCK;
+ '<span about="[release:]" property="mo:catalogue_number">' _ catno _ '</span>';
+END -%]
+
+[% MACRO rdfa_release_barcode(barcode) BLOCK;
+ '<span about="[release:]" property="mo:ean">' _ barcode _ '</span>';
+END -%]

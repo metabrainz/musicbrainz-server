@@ -38,16 +38,9 @@ sub artist_type_ok{
 	$uri = $row->{ a };
 	$cnt += 1;
     }
-    #foreach (@rows) {
-	#$row += 1;
-	#$Test->diag(sprintf "%03d %s", $row, $_);
-	#$Test->( Dumper $_ );
-#	my $uri = $_->{ a };
-#        }
-    $Test->diag(sprintf "uri:%s uri_frage:%s", $uri, $uri_frag);
+    $Test->diag(sprintf "artist uri:%s uri_frag:%s", $uri, $uri_frag);
     $Test->ok($cnt eq 1, "Only one artist resource in RDF model");
-    $Test->ok(index($uri,$uri_frag) != -1, "should have the uri fragment");
-    @rows[0];
+    $Test->ok(index($uri,$uri_frag) != -1, "Artist URI should contain same MBID");
 }
 
 
