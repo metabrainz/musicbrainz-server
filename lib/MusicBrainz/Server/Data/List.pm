@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list_limited
 );
+use List::MoreUtils qw( zip );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 
@@ -50,22 +51,27 @@ sub create_list
                                     VALUES (?) RETURNING id", $user->id);
 }
 
-sub add_release_to_list
+sub add_releases_to_list
 {
-    my ($self, $list_id, $release_id) = @_;
+    my ($self, $list_id, @release_ids) = @_;
+    $self->sql->auto_commit;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->auto_commit;
+    my $added = $self->sql->select_single_column_array("SELECT release FROM list_release
+       WHERE list = ? AND release IN (" . placeholders(@release_ids) . ")",
+                             $list_id, @release_ids);
 
-    my $rows = $sql->select ("SELECT * FROM list_release 
-       WHERE list=? AND release=?", $list_id, $release_id);
-    $sql->finish;
+    my %added = map { $_ => 1 } @$added;
 
-    $sql->do("INSERT INTO list_release (list, release)
-              VALUES (?, ?)", $list_id, $release_id) unless $rows;
+    @release_ids = grep { !exists $added{$_} } @release_ids;
+
+    return unless @release_ids;
+
+    my @list_ids = ($list_id) x @release_ids;
+    $self->sql->do("INSERT INTO list_release (list, release) VALUES " . join(', ', ("(?, ?)") x @release_ids),
+             zip @list_ids, @release_ids);
 }
 
-sub remove_release_from_list
+sub remove_releases_from_list
 {
     my ($self, $list_id, $release_id) = @_;
 
