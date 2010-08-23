@@ -192,6 +192,14 @@ sub delete
     $self->c->model('PUID')->delete_unused_puids($puid_id);
 }
 
+sub insert
+{
+    my ($self, @insert) = @_;
+    my $query = 'INSERT INTO recording_puid (puid, recording) VALUES ' .
+        join(', ', ('(?, ?)') x @insert);
+    $self->sql->do($query, map { $_->{puid_id}, $_->{recording_id} } @insert);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
