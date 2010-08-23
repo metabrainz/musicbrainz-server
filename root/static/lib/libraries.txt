@@ -3,6 +3,7 @@
 
 library: jQuery
 license: MIT/GPLv2
+version: 1.4.2
 author:  John Resig
 url:     http://jquery.com
 
@@ -14,24 +15,27 @@ url:     http://jquery.com/plugins/project/ajaxqueue
 note:    the version included here was taken from jquery.autocomplete,
          it is different from the version distributed on jquery.com.
 
--- jquery/jquery.json.js --
-
-library: jquery-json
-license: MIT
-author:  Brantley Harris
-url:     http://code.google.com/p/jquery-json/
-
 -- jquery.autocomplete/ --
 
 library: jQuery Autocomplete plugin
 license: MIT/GPLv2
+version: 1.1
 author:  Jörn Zaefferer
 url:     http://bassistance.de/jquery-plugins/jquery-plugin-autocomplete/
+
+-- jquery.placeholder/ --
+
+library: jQuery Placeholder plugin
+license: MIT
+version: (commit 18d6b3376f0cf845c3584f8a7017f4864bdd459e)
+author:  Paul Mucur
+url:     http://github.com/mudge/jquery_placeholder
 
 -- qunit/ --
 
 library: QUnit
 license: MIT/GPLv2
+version: (commit ba03becf377e01bd9a464857369fefd13e4b337b)
 authors: Jörn Zaefferer, John Resig
 url:     http://docs.jquery.com/QUnit, http://github.com/jquery/qunit
 

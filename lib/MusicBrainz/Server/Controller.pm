@@ -163,12 +163,12 @@ sub edit_action
 
 sub _load_paged
 {
-    my ($self, $c, $loader) = @_;
+    my ($self, $c, $loader, $limit) = @_;
 
     my $page = $c->request->query_params->{page} || 1;
     $page = 1 if $page < 1;
 
-    my $LIMIT = $self->{paging_limit};
+    my $LIMIT = $limit || $self->{paging_limit};
 
     my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
     my $pager = Data::Page->new;

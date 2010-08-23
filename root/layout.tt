@@ -19,6 +19,7 @@
             <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB.js') %]"></script>
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
             <script type="text/javascript" src="[% c.uri_for('/static/scripts/global.js') %]"></script>
+            <script type="text/javascript" src="[% c.uri_for('/static/lib/jquery.placeholder/jquery.placeholder.min.js') %]"></script>
         [%- END -%]
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
@@ -30,7 +31,8 @@
                 <div>
                     [%- USE sidebar = FormRenderer(sidebar_search) -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
-                        [% sidebar.text('query') -%] [%- sidebar.select('type') %]
+                        [% sidebar.text('query', { placeholder => 'search' }) -%]
+                        [%- sidebar.select('type') %]
                         [% form_submit(l('Search'), "header-search") %]
                     </form>
                 </div>

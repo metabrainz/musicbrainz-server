@@ -8,7 +8,7 @@ __PACKAGE__->config(
     entities => 'editors',
 );
 
-sub view : Chained('/user/base') PathPart('subscribers') RequireAuth
+sub view : Chained('/user/base') PathPart('subscribers') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 

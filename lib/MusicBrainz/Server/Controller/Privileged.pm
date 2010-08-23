@@ -9,7 +9,7 @@ use MusicBrainz::Server::Types qw(
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-sub index : Path Args(0) RequireAuth
+sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 

@@ -20,6 +20,21 @@ has_field 'advanced' => (
     type => 'Boolean',
 );
 
+has_field 'limit' => (
+    type                => 'Select',
+    input_without_param => 25
+);
+
+sub options_limit
+{
+    return [
+        25  => 'Up to 25 per page',
+        50  => 'Up to 50 per page',
+        100 => 'Up to 100 per page'
+    ]
+}
+
+
 sub options_type
 {
     return [
