@@ -51,12 +51,12 @@
 
 //       advanced_tab.discs[0].tracks[1].artist_credit.renderPreview ();
 
-      $('a[href=#add_disc]:first').click ();
+//      $('a[href=#add_disc]:first').click ();
 
-      rt = basic_tab.tracklist.textareas[1];
-      tp = rt.trackparser;        
+//      rt = basic_tab.tracklist.textareas[1];
+//      tp = rt.trackparser;        
 
-      tp.textarea.val ("1. Mashed Up (karaoke version)\n2. Pogo (karaoke version)");
+      tp.textarea.val ("1. Mashed Up (add release remix)\n2. Pogo (add release remix)");
       rt.updatePreview ();
 
       $('input[name=step_preview]').click ();

@@ -25,6 +25,7 @@ has '+data' => (
                 name => Str,
                 length => Nullable[Int],
                 artist_credit => ArtistCreditDefinition,
+                recording_id => Int,
                 position => Int,
             ]
         ]

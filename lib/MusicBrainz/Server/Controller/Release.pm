@@ -352,40 +352,40 @@ sub add : Chained('base') RequireAuth Args(0)
         $c->detach ();
     }
 
-    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist')
+    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist' ||
+        $wizard->current_page eq 'preview')
     {
-        # FIXME: empty serialized tracklist
         $c->stash( serialized_tracklists => $self->_serialize_tracklists () );
     }
 
     if ($wizard->current_page eq 'preview')
     {
-#         my $changes = MusicBrainz::Server::Controller::ReleaseEditor::release_compare
-#             ($c, $wizard->value);
+        my $changes = MusicBrainz::Server::Controller::ReleaseEditor::release_compare
+            ($c, $wizard->value);
 
-#         my $associations = [];
-#         for my $medium_changes (@$changes)
-#         {
-#             my $medium_assoc = [];
-#             for my $track_changes (@$medium_changes)
-#             {
-#                 my $rec;
+        my $associations = [];
+        for my $medium_changes (@$changes)
+        {
+            my $medium_assoc = [];
+            for my $track_changes (@$medium_changes)
+            {
+                my $rec;
 
-#                 if (scalar @{ $track_changes->suggestions } == 1 ||
-#                     $track_changes->renamed)
-#                 {
-#                     $rec = $track_changes->suggestions->[0]->entity->gid;
-#                 }
+                if (scalar @{ $track_changes->suggestions } == 1 ||
+                    $track_changes->renamed)
+                {
+                    $rec = $track_changes->suggestions->[0]->entity->gid;
+                }
 
-#                 push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
-#             }
+                push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
+            }
 
-#             push @$associations, { associations => $medium_assoc };
-#         }
+            push @$associations, { associations => $medium_assoc };
+        }
 
-#         $c->stash->{changes} = $changes;
+        $c->stash->{changes} = $changes;
 
-#         $wizard->load_page('preview', { 'preview_mediums' => $associations });
+        $wizard->load_page('preview', { 'preview_mediums' => $associations });
     }
 
     if ($wizard->submitted)
@@ -445,16 +445,32 @@ sub add : Chained('base') RequireAuth Args(0)
         # medium / tracklist / track edits
         # ----------------------------------------
 
+        my $medium_idx = 0;
         for my $medium (@{ $data->{'mediums'} })
         {
-            my @tracks = map {
-                {
+
+            my @tracks;
+            my $track_idx = 0;
+            for (@{ $medium->{'tracklist'}->{'tracks'} })
+            {
+                my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
+
+                my $recording;
+                $recording = $c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
+
+                my $trk = {
                     name => $_->{name},
                     length => $_->{length},
                     artist_credit => $_->{artist_credit},
                     position => $_->{position},
-                }
-            } @{ $medium->{'tracklist'}->{'tracks'} };
+                };
+
+                $trk->{recording_id} = $recording->id if $recording;
+
+                push @tracks, $trk;
+
+                $track_idx++;
+            }
 
             # We have some tracks but no tracklist ID - so create a new tracklist
             my $create_tl = $self->_create_edit(
@@ -473,6 +489,8 @@ sub add : Chained('base') RequireAuth Args(0)
 
             # Add medium
             $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
+
+            $medium_idx++;
         }
 
         $c->response->redirect($c->uri_for_action('/release/show', [ $gid ]));
@@ -684,8 +702,6 @@ sub edit : Chained('load') RequireAuth Edit
             for my $track (@{ $medium->{'tracklist'}->{'tracks'} })
             {
                 my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
-
-                warn "Associated recording: $rec_gid\n";
 
                 my $recording;
                 $recording = $c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;

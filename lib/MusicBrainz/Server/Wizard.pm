@@ -10,7 +10,7 @@ has 'name' => (
 has '_current' => (
     is => 'rw',
     isa => 'Int',
-    default => 1,
+    default => 0,
     trigger => \&_set_current,
 );
 

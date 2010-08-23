@@ -186,8 +186,11 @@ sub release_compare
 {
     my ($c, $data, $release) = @_;
 
-    my @old_media = @{ $release->mediums };
-    my @new_media = @{ $data->{mediums} };
+    my @old_media;
+    my @new_media;
+
+    @old_media = @{ $release->mediums } if $release;
+    @new_media = @{ $data->{mediums} };
 
     if (scalar @old_media > scalar @new_media)
     {

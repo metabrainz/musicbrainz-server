@@ -24,6 +24,9 @@
             $('input#release-artist'), $('div.artist-credit')
         );
 
+        $('#id-name').val ('Add Release test');
+        $('input[name=step_tracklist]').click ();
+
     });
   </script>
 [%- END -%]
