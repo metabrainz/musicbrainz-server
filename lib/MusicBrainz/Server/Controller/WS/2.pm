@@ -9,6 +9,7 @@ use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
+use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
 use Data::OptList;
 use Scalar::Util qw( looks_like_number );
@@ -262,38 +263,62 @@ sub _search
 
 sub _tags_and_ratings
 {
-    my ($self, $c, $modelname, $entity, $opts) = @_;
+    my ($self, $c, $modelname, $entities, $stash) = @_;
 
+    my %map = object_to_ids (@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->tags)
     {
-        my @tags = $model->tags->find_tags($entity->id);
-        $opts->{tags} = $tags[0];
+        my @tags = $model->tags->find_tags_for_entities (map { $_->id } @$entities);
+
+        for (@tags)
+        {
+            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+
+            $opts->{tags} = [] unless $opts->{tags};
+            push @{ $opts->{tags} }, $_;
+        }
     }
 
     if ($c->stash->{inc}->user_tags)
     {
-        my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
-        $opts->{user_tags} = \@tags;
+        my @tags = $model->tags->find_user_tags_for_entities (
+            $c->user->id, map { $_->id } @$entities);
+
+        for (@tags)
+        {
+            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+
+            $opts->{user_tags} = [] unless $opts->{user_tags};
+            push @{ $opts->{user_tags} }, $_;
+        }
     }
 
     if ($c->stash->{inc}->ratings)
     {
-        $model->load_meta($entity);
-        if ($entity->rating_count)
+        $model->load_meta(@$entities);
+
+        for (@$entities)
         {
-            $opts->{ratings} = {
-                rating => $entity->rating * 5 / 100,
-                count => $entity->rating_count,
-            };
+            if ($_->rating_count)
+            {
+                $stash->store ($_)->{ratings} = {
+                    rating => $_->rating * 5 / 100,
+                    count => $_->rating_count,
+                };
+            }
         }
     }
 
     if ($c->stash->{inc}->user_ratings)
     {
-        $model->rating->load_user_ratings($c->user->id, $entity);
-        $opts->{user_ratings} = $entity->user_rating * 5 / 100;
+        $model->rating->load_user_ratings($c->user->id, @$entities);
+        for (@$entities)
+        {
+            $stash->store ($_)->{user_ratings} = $_->user_rating * 5 / 100
+                if $_->user_rating;
+        }
     }
 }
 
@@ -323,6 +348,8 @@ sub linked_artists
 {
     my ($self, $c, $stash, $artists) = @_;
 
+    $self->_tags_and_ratings($c, 'Artist', $artists, $stash);
+
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Artist')->alias->find_by_entity_id(map { $_->id } @$artists) };
@@ -344,6 +371,8 @@ sub linked_artists
 sub linked_labels
 {
     my ($self, $c, $stash, $labels) = @_;
+
+    $self->_tags_and_ratings($c, 'Label', $labels, $stash);
 
     if ($c->stash->{inc}->aliases)
     {
@@ -372,13 +401,13 @@ sub linked_recordings
         my @isrcs = $c->model('ISRC')->find_by_recording(map { $_->id } @$recordings);
 
         my %isrc_per_recording;
-        foreach (@isrcs)
+        for (@isrcs)
         {
             $isrc_per_recording{$_->recording_id} = [] unless $isrc_per_recording{$_->recording_id};
             push @{ $isrc_per_recording{$_->recording_id} }, $_;
         };
 
-        foreach (@$recordings)
+        for (@$recordings)
         {
             $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
         }
@@ -389,13 +418,13 @@ sub linked_recordings
         my @puids = $c->model('RecordingPUID')->find_by_recording(map { $_->id } @$recordings);
 
         my %puid_per_recording;
-        foreach (@puids)
+        for (@puids)
         {
             $puid_per_recording{$_->recording_id} = [] unless $puid_per_recording{$_->recording_id};
             push @{ $puid_per_recording{$_->recording_id} }, $_;
         };
 
-        foreach (@$recordings)
+        for (@$recordings)
         {
             $stash->store ($_)->{puids} = $puid_per_recording{$_->id};
         }
@@ -405,6 +434,8 @@ sub linked_recordings
     {
         $c->model('ArtistCredit')->load(@$recordings);
     }
+
+    $self->_tags_and_ratings($c, 'Recording', $recordings, $stash);
 }
 
 sub linked_releases
@@ -454,6 +485,8 @@ sub linked_release_groups
     {
         $c->model('ArtistCredit')->load(@$release_groups);
     }
+
+    $self->_tags_and_ratings($c, 'ReleaseGroup', $release_groups, $stash);
 }
 
 sub linked_works
@@ -481,6 +514,8 @@ sub linked_works
     {
         $c->model('ArtistCredit')->load(@$works);
     }
+
+    $self->_tags_and_ratings($c, 'Work', $works, $stash);
 }
 
 
@@ -563,8 +598,6 @@ sub artist_toplevel
 
         $self->linked_works ($c, $stash, $opts->{works}->{items});
     }
-
-    $self->_tags_and_ratings($c, 'Artist', $artist, $opts);
 
     if ($c->stash->{inc}->has_rels)
     {
@@ -671,8 +704,6 @@ sub release_group_toplevel
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $rg);
     }
-
-    $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $opts);
 }
 
 sub release_group : Chained('root') PathPart('release-group') Args(1)
@@ -772,7 +803,9 @@ sub release_toplevel
         $c->model('ReleaseLabel')->load($release);
         $c->model('Label')->load($release->all_labels);
 
-        $self->linked_labels ($c, $stash, $release->all_labels);
+        my @labels = map { $_->label } $release->all_labels;
+
+        $self->linked_labels ($c, $stash, \@labels);
     }
 
     if ($c->stash->{inc}->release_groups)
@@ -782,10 +815,6 @@ sub release_toplevel
          my $rg = $release->release_group;
 
          $self->linked_release_groups ($c, $stash, [ $rg ]);
-
-         # as a special case, allow tags and ratings to be requested for the linked
-         # release group, because releases themselves no longer have tags or ratings.
-         $self->_tags_and_ratings($c, 'ReleaseGroup', $rg, $stash->store ($rg));
     }
 
     if ($c->stash->{inc}->recordings)
@@ -944,8 +973,6 @@ sub recording_toplevel
         $self->linked_artists ($c, $opts, \@artists);
     }
 
-    $self->_tags_and_ratings($c, 'Recording', $recording, $opts);
-
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
@@ -1055,8 +1082,6 @@ sub label_toplevel
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
     }
 
-    $self->_tags_and_ratings($c, 'Label', $label, $opts);
-
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
@@ -1146,8 +1171,6 @@ sub work_toplevel
 
         $self->linked_artists ($c, $stash, \@artists);
     }
-
-    $self->_tags_and_ratings($c, 'Work', $work, $opts);
 
     if ($c->stash->{inc}->has_rels)
     {
