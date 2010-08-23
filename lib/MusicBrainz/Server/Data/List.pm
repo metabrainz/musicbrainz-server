@@ -133,6 +133,13 @@ sub find_by_editor
         $query, $id, $offset || 0);
 }
 
+sub get_first_list
+{
+    my ($self, $editor_id) = @_;
+    my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
+    return $self->sql->select_single_value($query, $editor_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

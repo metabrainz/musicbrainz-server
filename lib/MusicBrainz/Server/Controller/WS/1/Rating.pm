@@ -7,6 +7,7 @@ use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::LoadEntity';
+with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
 
 use MusicBrainz::XML::Generator;
 
