@@ -120,10 +120,8 @@ MB.TrackParser = function (disc, serialized) {
             {
                 return;
             }
-            
-            console.log ('title: [' + title + ']');
 
-            if (map[title] === undefined)
+            if (map[title] === undefined || map[title].length === 0)
             {
                 data.row = ++lastused;
                 data.title = title;

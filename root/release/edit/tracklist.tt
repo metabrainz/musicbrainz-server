@@ -30,9 +30,9 @@
 //       tp.textarea.val (lines.replace ('4:03', '7:23').replace ('3:42', '4:03'));
 //       rt.updatePreview ();
 
-//       var lines = tp.textarea.val ();
-//       tp.textarea.val (lines + "\n7. Dr. Sleepgood 2 (3:05)");
-//       rt.updatePreview ();
+       var lines = tp.textarea.val ();
+       tp.textarea.val (lines + "\n7. Dr. Sleepgood 2 (3:05)");
+       rt.updatePreview ();
 
 //       var lines = tp.textarea.val ().split ('\n');
 //       var deleted = lines.splice (1, 1);
@@ -56,8 +56,8 @@
 //      rt = basic_tab.tracklist.textareas[1];
 //      tp = rt.trackparser;        
 
-      tp.textarea.val ("1. Mashed Up (add release remix)\n2. Pogo (add release remix)");
-      rt.updatePreview ();
+//      tp.textarea.val ("1. Mashed Up (add release remix)\n2. Pogo (add release remix)");
+//      rt.updatePreview ();
 
       $('input[name=step_preview]').click ();
 

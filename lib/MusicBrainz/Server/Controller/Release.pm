@@ -737,16 +737,18 @@ sub edit : Chained('load') RequireAuth Edit
                 }
                 elsif ($tracklist_id)
                 {
-                    # We are creating a new track (and not a new tracklist)
-                    $self->_create_edit(
-                        $c, $EDIT_TRACKLIST_ADDTRACK, $editnote,
+                    my %edit = (
                         position => $track->{'position'},
                         name => $track->{'name'},
-                        recording_id => $recording->id,
                         artist_credit => $track->{'artist_credit'},
                         length => $track->{'length'},
                         tracklist_id => $tracklist_id,
                     );
+
+                    $edit{recording_id} = $recording->id if $recording;
+
+                    # We are creating a new track (and not a new tracklist)
+                    $self->_create_edit($c, $EDIT_TRACKLIST_ADDTRACK, $editnote, %edit);
                 }
 
                 $track_idx++;
