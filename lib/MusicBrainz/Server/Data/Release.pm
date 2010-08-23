@@ -379,7 +379,6 @@ sub delete
     my ($self, @release_ids) = @_;
 
     $self->c->model('List')->delete_releases(@release_ids);
-
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
