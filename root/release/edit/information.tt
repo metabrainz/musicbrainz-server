@@ -24,8 +24,6 @@
             $('input#release-artist'), $('div.artist-credit')
         );
 
-        $('input[name=step_tracklist]').click ();
-
     });
   </script>
 [%- END -%]
