@@ -27,7 +27,7 @@ before 'serialize' => sub
     $self->add( List->new->serialize($entity->isrcs) )
         if $inc && $inc->isrcs;
 
-    $self->add( List->new->serialize($entity->puids) )
+    $self->add( List->new->serialize([ map { $_->puid } @{ $entity->puids} ]) )
         if $inc && $inc->puids;
 
     $self->add( List->new->serialize($opts->{releases}) )

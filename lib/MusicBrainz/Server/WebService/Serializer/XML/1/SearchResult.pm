@@ -1,14 +1,16 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::PUID;
+package MusicBrainz::Server::WebService::Serializer::XML::1::SearchResult;
 use Moose;
 
-extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( serializer );
 
-sub element { 'puid' }
-
-before 'serialize' => sub
+sub serialize
 {
-    my ($self, $entity, $inc, $opts) = @_;
-    $self->attributes->{id} = $entity->puid;
+    my ($self, $result) = @_;
+
+    my $serializer = serializer($result->entity)->new;
+    $serializer->attributes->{'ext:score'} = $result->score;
+
+    return $serializer->serialize($result->entity);
 };
 
 __PACKAGE__->meta->make_immutable;

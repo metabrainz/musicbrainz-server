@@ -18,17 +18,25 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes->{type} = join (" ",
-        $entity->release_group->type->name,
-        ($entity->status ? ($entity->status->name) : ())
-    );
+    my @type_status;
+    push @type_status, $entity->release_group->type->name
+        if $entity->release_group && $entity->release_group->type;
+    push @type_status, $entity->status->name
+        if $entity->status;
+
+    $self->attributes->{type} = join (" ", @type_status)
+        if @type_status;
 
     $self->add( $self->gen->title($entity->name) );
 
-    $self->add( $self->gen->text_representation({
-        ( $entity->language ? (language => uc($entity->language->iso_code_3b)) : () ),
-        ( $entity->script   ? (script   => $entity->script->iso_code         ) : () ),
-    }));
+    my %lang_script;
+    $lang_script{language} = uc($entity->language->iso_code_3b)
+        if $entity->language;
+    $lang_script{script} = $entity->script->iso_code
+        if $entity->script;
+
+    $self->add( $self->gen->text_representation( \%lang_script ))
+        if %lang_script;
 
     my @asins = grep { $_->link->type->name eq 'amazon asin' } @{$entity->relationships};
     foreach (@asins)
@@ -97,7 +105,7 @@ before 'serialize' => sub
     ) if $inc && $inc->ratings;
 
     $self->add( $self->gen->user_rating(int($entity->release_group->user_rating / 20)) )
-        if $entity->release_group->user_rating && $inc && $inc->user_ratings;
+        if $entity->release_group && $entity->release_group->user_rating && $inc && $inc->user_ratings;
 
     if ($inc && $inc->discs) {
         $self->add( List->new->serialize([

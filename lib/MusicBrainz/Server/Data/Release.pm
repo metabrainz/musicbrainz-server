@@ -284,7 +284,6 @@ sub load_with_tracklist_for_recording
         $query, $recording_id, @$statuses, @$types, $offset || 0);
 }
 
-
 sub find_by_puid
 {
     my ($self, $ids) = @_;
