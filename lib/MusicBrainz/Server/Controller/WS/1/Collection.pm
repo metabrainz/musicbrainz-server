@@ -12,7 +12,7 @@ sub collection : Path('/ws/1/collection')
 {
     my ($self, $c) = @_;
 
-    $c->authenticate({}, 'webservice');
+    $c->authenticate({}, 'musicbrainz.org');
 
     if ($c->req->method eq 'POST') {
         $c->detach('add_remove');
