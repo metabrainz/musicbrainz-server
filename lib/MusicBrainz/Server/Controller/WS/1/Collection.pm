@@ -57,7 +57,7 @@ sub add_remove : Private
 
     if (@can_remove) {
         my @remove = map { $_->id } values %{ $c->model('Release')->get_by_gids(@can_remove) };
-        $c->model('List')->remove_releases_to_list($list_id, @remove);
+        $c->model('List')->remove_releases_from_list($list_id, @remove);
     }
 
     $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');

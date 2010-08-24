@@ -73,13 +73,13 @@ sub add_releases_to_list
 
 sub remove_releases_from_list
 {
-    my ($self, $list_id, $release_id) = @_;
+    my ($self, $list_id, @release_ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     $sql->auto_commit;
     $sql->do("DELETE FROM list_release
-              WHERE list = ? AND release = ?",
-              $list_id, $release_id);
+              WHERE list = ? AND release IN (" . placeholders(@release_ids) . ")",
+              $list_id, @release_ids);
 }
 
 sub check_release
