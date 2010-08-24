@@ -8,13 +8,7 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::LoadEntity';
 with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
-
-use MusicBrainz::XML::Generator;
-
-has 'gen' => (
-    is => 'ro',
-    default => sub { MusicBrainz::XML::Generator->new }
-);
+with 'MusicBrainz::Server::Controller::WS::1::Role::XMLGeneration';
 
 sub rating : Path('/ws/1/rating')
 {

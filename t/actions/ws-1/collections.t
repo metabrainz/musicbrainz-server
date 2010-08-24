@@ -24,6 +24,15 @@ subtest 'Add a release to a collection' => sub {
 
     ws_test 'collection has 2 releases' =>
         '/collection',
+        '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" >
+          <release-list count="2">
+           <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" />
+           <release id="980e0f65-930e-4743-95d3-602665c25c15" />
+        </release-list></metadata>',
+        { username => 'editor', password => 'password' };
+
+    done_testing;
+};
 
 subtest 'Remove releases from collections' => sub {
     my $request = POST '/ws/1/collection/?type=xml', [
@@ -37,10 +46,9 @@ subtest 'Remove releases from collections' => sub {
 
     ws_test 'collection has 2 releases' =>
         '/collection',
-        '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" ><release-list>
-          <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec">
-           <title>An Inextricable Tale Audiobook</title>
-          </release>
+        '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" >
+         <release-list count="1">
+          <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" />
         </release-list></metadata>',
         { username => 'editor', password => 'password' };
 

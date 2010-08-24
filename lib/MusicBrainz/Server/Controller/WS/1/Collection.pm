@@ -6,6 +6,7 @@ use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use MusicBrainz::Server::Validation;
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
+with 'MusicBrainz::Server::Controller::WS::1::Role::XMLGeneration';
 
 sub collection : Path('/ws/1/collection')
 {
@@ -34,7 +35,15 @@ sub list : Private
     my ($releases) = $c->model('Release')->find_by_list($list_id, $limit, $offset);
 
     $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
-    $c->res->body($self->serializer->xml( List->new->serialize($releases) ));
+    $c->res->body(
+        $self->serializer->xml(
+            $self->gen->release_list({ count => scalar @$releases },
+                map {
+                    $self->gen->release({ id => $_->gid })
+                } @$releases
+            )
+        )
+    );
 }
 
 sub add_remove : Private
