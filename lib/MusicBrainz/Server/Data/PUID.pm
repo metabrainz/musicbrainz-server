@@ -42,6 +42,12 @@ sub get_by_puid
     return $result[0];
 }
 
+sub get_by_puids
+{
+    my ($self, @puids) = @_;
+    return $self->_get_by_keys("puid.puid", @puids);
+}
+
 sub delete_unused_puids
 {
     my ($self, @puid_ids) = @_;

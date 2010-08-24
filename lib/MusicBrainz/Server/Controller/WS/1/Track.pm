@@ -147,11 +147,15 @@ sub submit_puid : Private
     my $buffer = Buffer->new(
         limit   => 100,
         on_full => f($contents) {
+            my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
+
+            return unless @$new_rows;
+
             $c->model('Edit')->create(
                 edit_type      => $EDIT_RECORDING_ADD_PUIDS,
                 client_version => $client,
                 editor_id      => $c->user->id,
-                puids          => $contents
+                puids          => $new_rows
             );
         }
     );
