@@ -69,7 +69,7 @@ sub submit : Private
 {
     my ($self, $c) = @_;
 
-    $c->authenticate({}, 'webservice');
+    $c->authenticate({}, 'musicbrainz.org');
 
     my (@puids, @isrcs);
     if (my $submitted = $c->req->params->{puid}) {
