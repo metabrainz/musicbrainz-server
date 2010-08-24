@@ -20,30 +20,38 @@ sub bad_req
     $c->detach;
 }
 
-sub model {
-    my ($self, $c, $type) = @_;
+sub load
+{
+    my ($self, $c, $type, $id) = @_;
 
-    if($type eq 'artist' || $type eq 'release' || $type eq 'label' || $type eq 'track') {
-        $type = 'release_group' if $type eq 'release';
-        my $model  = $c->model( type_to_model($type) );
-        return $model;
+    unless (MusicBrainz::Server::Validation::IsGUID($id)) {
+        $self->bad_req("$id is not a valid MBID");
+    }
+
+    my ($model, $entity);
+
+    if ($type eq 'artist' || $type eq 'label') {
+        $model  = $c->model( type_to_model($type) );
+        $entity = $model->get_by_gid($id);
+    }
+    elsif ($type eq 'release') {
+        $model      = $c->model('ReleaseGroup');
+        my $release = $c->model('Release')->get_by_gid($id);
+        $entity     = $model->get_by_id($release->release_group_id);
+    }
+    elsif ($type eq 'track') {
+        $model  = $c->model('Recording');
+        $entity = $model->get_by_gid($id);
     }
     else {
         $self->bad_req($c, "$type is not a valid type");
     }
-}
 
-sub load
-{
-    my ($self, $c, $model, $id) = @_;
+    unless (defined $entity) {
+        $self->bad_req($c, "Could not load MBID $id");
+    }
 
-    if(MusicBrainz::Server::Validation::IsGUID($id) &&
-          (my $entity = $model->get_by_gid($id))) {
-        return $entity;
-    }
-    else {
-        $self->bad_req($c, "Could not load $id");
-    }
+    return ($model, $entity);
 }
 
 1;

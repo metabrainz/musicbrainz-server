@@ -22,9 +22,7 @@ sub tag : Path('/ws/1/tag')
                 } qw( id entity tags )
             );
 
-            my $model  = $self->model($c, $type);
-            my $entity = $self->load($c, $model, $id);
-
+            my ($model, $entity) = $self->load($c, $type, $id);
             $model->tags->update($c->user->id, $entity->id, $tags);
         }
         else {
@@ -41,8 +39,7 @@ sub tag : Path('/ws/1/tag')
             }
 
             for my $submission (@batch) {
-                my $model  = $self->model($c, $submission->{entity});
-                my $entity = $self->load($c, $model, $submission->{id});
+                my ($model, $entity) = $self->load($c, $submission->{entity}, $submission->{id});
                 $model->tags->update($c->user->id, $entity->id, $submission->{tags});
             }
         }
@@ -51,10 +48,8 @@ sub tag : Path('/ws/1/tag')
         $c->res->body($self->serializer->xml( '' ));
     }
     else {
-        my ($id, $type) = ($c->req->query_params->{id}, $c->req->query_params->{entity});
-
-        my $model  = $self->model($c, $type);
-        my $entity = $self->load($c, $model, $id);
+        my ($id, $type)      = ($c->req->query_params->{id}, $c->req->query_params->{entity});
+        my ($model, $entity) = $self->load($c, $type, $id);
 
         my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
 
