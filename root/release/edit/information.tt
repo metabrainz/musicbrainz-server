@@ -106,8 +106,8 @@
           [%- r.hidden(field.field('deleted')) -%]
           [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
 
-          [%- r.label(field.field('name'), l('Label'), class => 'label') -%]
-          [%- r.text(field.field('name'), class => 'label') -%]
+          [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
+          [%- r.text(field.field('name'), class => 'label-name') -%]
           [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno') -%]
         </div>

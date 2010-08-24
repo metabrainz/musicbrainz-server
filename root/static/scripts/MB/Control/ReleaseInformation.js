@@ -31,8 +31,8 @@ MB.Control.ReleaseLabel = function(row, parent) {
         '<div class="release-label">' +
             '<input type="hidden" value="0" name="labels.#{labelno}.deleted" id="id-labels.#{labelno}.deleted">' +
             '<input type="hidden" value="" name="labels.#{labelno}.label_id" id="id-labels.#{labelno}.label_id" class="label-id">' +
-            '<label id="label-labels.#{labelno}.name" for="id-labels.#{labelno}.name" class="label">Label</label>' +
-            '<input type="text" value="" name="labels.#{labelno}.name" id="id-labels.#{labelno}.name" class="label">' +
+            '<label id="label-labels.#{labelno}.name" for="id-labels.#{labelno}.name" class="label-name">Label</label>' +
+            '<input type="text" value="" name="labels.#{labelno}.name" id="id-labels.#{labelno}.name" class="label-name">' +
             '<label id="label-labels.#{labelno}.catalog_number" for="id-labels.#{labelno}.catalog_number" class="catno">Cat.No</label>' +
             '<input type="text" value="" name="labels.#{labelno}.catalog_number" id="id-labels.#{labelno}.catalog_number" class="catno">' +
         '</div>'
@@ -58,8 +58,8 @@ MB.Control.ReleaseLabel = function(row, parent) {
 
                                          self.parent = parent;
     self.template = template;
-    self.name = row.find('input.label-name');
-    self.id = row.find('input.label-id');
+    self.name = self.row.find('input.label-name');
+    self.id = self.row.find('input.label-id');
     self.autocompleted = autocompleted;
     self.blurred = blurred;
 

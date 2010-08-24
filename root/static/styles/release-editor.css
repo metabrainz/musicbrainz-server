@@ -31,7 +31,7 @@ h1 span {
 }
 
 #release-editor .documentation label,
-#release-editor div.release-label label.label,
+#release-editor div.release-label label.label-name,
 #release-editor fieldset label.row {
     float: left;
     margin-right: 1em;
@@ -41,7 +41,7 @@ h1 span {
 
 #release-editor div.release-label { margin: 0.5em 0; }
 
-#release-editor div.release-label input.label { width: 150px; }
+#release-editor div.release-label input.label-name { width: 150px; }
 #release-editor div.release-label label.catno {
     text-align: right;
     display: inline-block;
@@ -50,7 +50,7 @@ h1 span {
 }
 #release-editor div.release-label input.catno { width: 86px; }
 
-#release-editor div.release-label input.label,
+#release-editor div.release-label input.label-name,
 #release-editor div.release-label label.catno,
 #release-editor div.release-label input.catno { margin: 0; }
 
