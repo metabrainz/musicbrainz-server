@@ -1,48 +1,12 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1;
-
+package MusicBrainz::Server::WebService::Entity::1::ReleaseEvent;
 use Moose;
-use MusicBrainz::XML::Generator;
 
-has 'attributes' => (
-    is => 'rw',
-    isa => 'HashRef[Str]',
-    default => sub { { } },
-);
+# This class is used to for the serializer to serialize a release as
+# a release event (the serializer dispatches on the type of the object).
 
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[Str]',
-    default => sub { [ ] },
-);
-
-has 'gen' => (
-    is => 'rw',
-    isa => 'MusicBrainz::XML::Generator',
-    default => sub {
-        MusicBrainz::XML::Generator->new(
-            escape => 'always,even-entities'
-        )
-    },
-);
-
-sub add
-{
-    my $self = shift;
-
-    push @{$self->children}, @_;
-}
-
-sub serialize
-{
-    my ($self, $entity, $inc, $opts) = @_;
-
-    my $element = $self->element;
-
-    return $self->gen->$element($self->attributes, @{$self->children});
-}
+extends 'MusicBrainz::Server::Entity::Release';
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
@@ -64,4 +28,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

@@ -1,31 +1,27 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup;
+package MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseEvent;
 use Moose;
-
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
-
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 
-sub element { 'release-group'; }
+sub element { 'event' }
 
 before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    # a special case, used when the release group is included in an artist lookup.
-    return if $opts->{'gid-only'};
+    $self->attributes->{date} = $entity->date->format unless $entity->date->is_empty;
+    $self->attributes->{country} = $entity->country->iso_code if $entity->country;
+    $self->attributes->{barcode} = $entity->barcode if $entity->barcode;
+    $self->attributes->{format} = $entity->combined_format_name
+        if $entity->combined_format_name;
 
-    $self->attributes->{type} = $entity->type->name;
-
-    $self->add( $self->gen->title($entity->name) );
-
-    $self->add( serialize_entity($entity->artist_credit) )
-        if ($inc && $inc->artist);
-
-    $self->add( List->new->serialize($opts->{releases}, $inc) )
-        if ($inc && $inc->releases);
+    # FIXME - multiple release labels = multiple release events?
+    if ($entity->labels->[0]) {
+        $self->attributes->{'catalog-number'} = $entity->labels->[0]->catalog_number;
+        $self->add( serialize_entity( $entity->labels->[0]->label) )
+            if $inc && $inc->labels;
+    }
 };
 
 __PACKAGE__->meta->make_immutable;
@@ -51,4 +47,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

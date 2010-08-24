@@ -1,31 +1,14 @@
-package MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup;
+package MusicBrainz::Server::WebService::Serializer::XML::1::ISRC;
 use Moose;
 
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
-
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
-
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
-with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 
-sub element { 'release-group'; }
+sub element { 'isrc' }
 
 before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
-
-    # a special case, used when the release group is included in an artist lookup.
-    return if $opts->{'gid-only'};
-
-    $self->attributes->{type} = $entity->type->name;
-
-    $self->add( $self->gen->title($entity->name) );
-
-    $self->add( serialize_entity($entity->artist_credit) )
-        if ($inc && $inc->artist);
-
-    $self->add( List->new->serialize($opts->{releases}, $inc) )
-        if ($inc && $inc->releases);
+    $self->attributes->{id} = $entity->isrc;
 };
 
 __PACKAGE__->meta->make_immutable;
@@ -51,4 +34,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

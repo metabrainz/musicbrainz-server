@@ -9,19 +9,25 @@ has $_ => (
     isa => 'Int',
     default => 0
 ) for qw(
-          artist track_rels asin rg_type rel_status discs release_events 
-          counts various_artists
+          artist track_rels      asin    rg_type rel_status discs     release_events
+          counts various_artists tracks  labels  tracklist  user_tags user_ratings
 );
 
 override 'get_rel_types' => sub
 {
-    my @rels = super;
+    my $rels = super;
 
-    push @rels, 'recording' if shift->track_rels;
+    push @$rels, 'recording' if shift->track_rels;
 
-    return \@rels;
+    return $rels;
 };
 
+override 'has_rels' => sub {
+    my $self = shift;
+    return $self->track_rels  || $self->url_rels ||
+           $self->artist_rels || $self->release_rels ||
+           $self->label_rels;
+};
 
 sub BUILD
 {
