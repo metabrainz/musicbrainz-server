@@ -9,8 +9,6 @@ use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 sub mime_type { 'application/xml' }
 
-Readonly my $xml_decl_end => '</metadata>';
-
 has 'namespaces' => (
     is      => 'ro',
     isa     => 'HashRef',
@@ -29,6 +27,8 @@ sub xml_decl_begin {
         '>';
 }
 
+sub xml_decl_end { '</metadata>' }
+
 sub output_error
 {
     my ($self, $err) = @_;
@@ -38,7 +38,7 @@ sub output_error
     my $xml = $self->xml_decl_begin;
     $xml .= $gen->error($gen->text(
        $err . " For usage, please see: http://musicbrainz.org/development/mmd\015\012"));
-    $xml .= $xml_decl_end;
+    $xml .= $self->xml_decl_end;
     return $xml;
 }
 
@@ -51,7 +51,7 @@ sub serialize
 
     $xml .= serialize_entity($entity, $inc, $opts);
 
-    $xml .= $xml_decl_end;
+    $xml .= $self->xml_decl_end;
     return $xml;
 }
 
@@ -61,7 +61,7 @@ sub serialize_list
 
     return $self->xml_decl_begin .
         List->new( _element => $type )->serialize($entities, $inc, $data) .
-        $xml_decl_end;
+        $self->xml_decl_end;
 }
 
 
