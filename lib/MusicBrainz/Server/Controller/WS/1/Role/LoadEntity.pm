@@ -24,6 +24,7 @@ sub model {
     my ($self, $c, $type) = @_;
 
     if($type eq 'artist' || $type eq 'release' || $type eq 'label' || $type eq 'track') {
+        $type = 'release_group' if $type eq 'release';
         my $model  = $c->model( type_to_model($type) );
         return $model;
     }
