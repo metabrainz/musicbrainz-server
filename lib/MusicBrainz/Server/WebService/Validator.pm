@@ -49,7 +49,11 @@ sub load_type_and_status
     my ($c) = @_;
 
     my @types = $c->model('ReleaseGroupType')->get_all();
-    %types = map { lc($_->name) => $_->id; } @types;
+    %types = map { (
+        lc($_->name) => $_->id,
+        lc('sa-' . $_->name)=> $_->id,
+        lc('va-' . $_->name)=> $_->id,
+    ) } @types;
     my @statuses = $c->model('ReleaseStatus')->get_all();
     %statuses = map { lc($_->name) => $_->id; } @statuses;
 
@@ -193,6 +197,8 @@ sub validate_inc
         {
             $i = lc($i);
 
+            load_type_and_status($c) unless %types;
+
             if ($allow_type && exists $types{$i})
             {
                 if ($type_used)
@@ -289,6 +295,7 @@ role {
 
             # Check to make sure that only appropriate inc values have been requested
             my $inc;
+
             if ($def->[1]->{inc})
             {
                 $inc = validate_inc($c, $r->version, $resource,
@@ -296,8 +303,10 @@ role {
                 return 0 unless ($inc);
             }
 
-            $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
-            $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
+            if ($version > 1) {
+                $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
+                $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
+            }
 
             # Check if authorization is required.
             $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_ratings} ||
