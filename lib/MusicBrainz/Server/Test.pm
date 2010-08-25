@@ -310,7 +310,7 @@ sub _build_ws_test {
 
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
-                $mech->credentials('localhost:80', 'webservice', $opts->{username}, $opts->{password});
+                $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
             }
             else {
                 $mech->clear_credentials;

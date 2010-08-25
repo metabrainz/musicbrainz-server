@@ -29,8 +29,7 @@ sub rating : Path('/ws/1/rating')
                 } qw( id entity rating )
             );
 
-            my $model  = $self->model($c, $type);
-            my $entity = $self->load($c, $model, $id);
+            my ($model, $entity) = $self->load($c, $type, $id);
 
             $model->rating->update($c->user->id, $entity->id, $rating * 20);
         }
@@ -48,8 +47,7 @@ sub rating : Path('/ws/1/rating')
             }
 
             for my $submission (@batch) {
-                my $model  = $self->model($c, $submission->{entity});
-                my $entity = $self->load($c, $model, $submission->{id});
+                my ($model, $entity) = $self->load($c, $submission->{entity}, $submission->{id});
 
                 $model->rating->update($c->user->id, $entity->id, $submission->{rating});
             }
@@ -59,10 +57,8 @@ sub rating : Path('/ws/1/rating')
         $c->res->body($self->serializer->xml( '' ));
     }
     else {
-        my ($id, $type) = ($c->req->query_params->{id}, $c->req->query_params->{entity});
-
-        my $model  = $self->model($c, $type);
-        my $entity = $self->load($c, $model, $id);
+        my ($id, $type)      = ($c->req->query_params->{id}, $c->req->query_params->{entity});
+        my ($model, $entity) = $self->load($c, $type, $id);
 
         $model->rating->load_user_ratings($c->user->id, $entity);
 

@@ -28,9 +28,9 @@ has_field 'limit' => (
 sub options_limit
 {
     return [
-        25  => 'Up to 25',
-        50  => 'Up to 50',
-        100 => 'Up to 100'
+        25  => 'Up to 25 per page',
+        50  => 'Up to 50 per page',
+        100 => 'Up to 100 per page'
     ]
 }
 

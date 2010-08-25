@@ -18,7 +18,7 @@ subtest 'Submit a set of PUIDs' => sub {
         puid   => '162630d9-36d2-4a8d-ade1-1c77440b34e7 7b8a868f-1e67-852b-5141-ad1edfb1e492'
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -39,7 +39,7 @@ subtest 'Submit a set of ISRCs' => sub {
         isrc   => '162630d9-36d2-4a8d-ade1-1c77440b34e7 GBAAA9400365'
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);

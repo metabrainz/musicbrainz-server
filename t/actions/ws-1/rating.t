@@ -18,7 +18,7 @@ subtest 'Submit a single rating' => sub {
         'rating' => '3',
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -42,7 +42,7 @@ subtest 'Submit a multiple ratings' => sub {
         'rating.1' => '2',
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);

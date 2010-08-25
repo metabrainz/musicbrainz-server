@@ -25,6 +25,16 @@ has 'editor' => (
     isa => 'Editor'
 );
 
+has 'entity_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'entity' => (
+    is => 'rw',
+    isa => 'Object'
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

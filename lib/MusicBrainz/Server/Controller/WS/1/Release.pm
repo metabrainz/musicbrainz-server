@@ -31,7 +31,7 @@ sub lookup : Chained('load') PathPart('')
 
     my $release = $c->stash->{entity};
 
-    $c->authenticate({}, 'webservice')
+    $c->authenticate({}, 'musicbrainz.org')
         if $c->stash->{inc}->user_ratings || $c->stash->{inc}->user_tags;
 
     # This is always displayed, regardless of inc parameters

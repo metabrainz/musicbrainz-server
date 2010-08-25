@@ -18,7 +18,7 @@ subtest 'Submit a single tag' => sub {
         'tags'   => 'musician',
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -44,7 +44,7 @@ subtest 'Submit a multiple tags' => sub {
         'tags.1'   => 'production',
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
