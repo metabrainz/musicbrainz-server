@@ -51,7 +51,7 @@ sub serialize
 sub xml
 {
     my ($self, $xml) = @_;
-    return $self->xml_decl_begin . $xml . $xml_decl_end;
+    return $self->xml_decl_begin . $xml . $self->xml_decl_end;
 }
 
 sub serialize_list
