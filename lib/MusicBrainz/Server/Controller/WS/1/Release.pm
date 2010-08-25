@@ -92,7 +92,9 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->discs) {
-        $c->model('Medium')->load_for_releases($release);
+        $c->model('Medium')->load_for_releases($release)
+            unless $release->all_mediums;
+
         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
         $c->model('CDTOC')->load(@medium_cdtocs);
     }
@@ -108,8 +110,7 @@ sub lookup : Chained('load') PathPart('')
 
     if ($c->stash->{inc}->counts) {
         $c->model('Medium')->load_for_releases($release)
-            unless $c->stash->{inc}->discs ||
-                $c->stash->{inc}->release_events;
+            unless $release->all_mediums;
 
         $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums)
             unless $c->stash->{inc}->discs;
