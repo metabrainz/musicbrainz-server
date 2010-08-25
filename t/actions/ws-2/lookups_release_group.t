@@ -61,8 +61,8 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases', 'release group lookup with inc=artists+releases');
-&$v2 ($mech->content, "Validate release group with inc=artists+releases");
+$mech->get_ok('/ws/2/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings', 'release group lookup with inc=artists+releases+tags+ratings');
+&$v2 ($mech->content, "Validate release group with inc=artists+releases+tags+ratings");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -72,6 +72,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
+                    <rating votes-count="3">3</rating>
                 </artist>
             </name-credit>
         </artist-credit>
