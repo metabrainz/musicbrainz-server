@@ -3,6 +3,9 @@
 [% ############################## %]
 [% # map MB types to RDF concepts %]
 [% ############################## %]
+
+[% SET hash_suffix = '_'; %]
+
 [%- MACRO rdfa_concept_curi(type) BLOCK;
     'mo:MusicArtist' IF type == 'Person';
     'mo:MusicGroup' IF type == 'Group';
@@ -55,34 +58,58 @@ END -%]
 [% # compact uris # %]
 [% ################ %]
 [%- MACRO rdfa_artist_curi(artist) BLOCK;
-    '[mbz:artist/' _ artist.gid _ '#_]';
+    '[mbz:artist/' _ artist.gid _ '#' _ hash_suffix _']';
+END -%]
+
+[%- MACRO rdfa_artist_uri(artist) BLOCK;
+    action = 'show';
+    link = c.uri_for_action("/artist/$action", [ artist.gid ]);    
+    '' _ link _ '#' _ hash_suffix;
 END -%]
 
 [% # wtf workaround :/  %]
 [%- MACRO rdfa_recording_curi(rec) BLOCK;
     action = 'show';
     link = c.uri_for_action("/recording/$action", [ rec.gid ]);
+    '' _ link _ '#' _ hash_suffix;
+END -%]
+
+[%- MACRO rdfa_recording_uri(rec) BLOCK;
+    action = 'show';
+    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
     '' _ link _ '#_';
 END -%]
 
 [%- MACRO rdfa_release_curi(release) BLOCK;
-    '[mbz:release/' _ release.gid _ '#_]';
+    '[mbz:release/' _ release.gid _ '#' _ hash_suffix _']';
+END -%]
+
+[%- MACRO rdfa_release_uri(release) BLOCK;
+    action = 'show';
+    link = c.uri_for_action("/release/$action", [ release.gid ]);
+    '' _ link _ '#_';
 END -%]
 
 [%- MACRO rdfa_release_event_curi(release) BLOCK;
     '[mbz:release/' _ release.gid _ '#event]';
 END -%]
 
+[%- MACRO rdfa_release_event_uri(release) BLOCK;
+    action = 'show';
+    link = c.uri_for_action("/release/$action", [ release.gid ]);
+    '' _ link _ '#event';
+END -%]
+
 [%- MACRO rdfa_release_group_curi(release) BLOCK;
-    '[mbz:release-group/' _ release.gid _ '#_]';
+    '[mbz:release-group/' _ release.gid _ '#' _ hash_suffix _']';
 END -%]
 
 [%- MACRO rdfa_label_curi(label) BLOCK;
- '[mbz:label/' _ label.gid _ '#_]';
+ '[mbz:label/' _ label.gid _ '#' _ hash_suffix _']';
 END -%]
 
 [%- MACRO rdfa_work_curi(work) BLOCK;
- '[mbz:work/' _ work.gid _ '#_]';
+ '[mbz:work/' _ work.gid _ '#' _ hash_suffix _']';
 END -%]
 
 [% ################### %]
@@ -108,24 +135,6 @@ END -%]
  '<span property="foaf:age">' _ age _ '</span>';
 END -%]
 
-[% MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
-    text = text || html_escape(rec.name);
-    '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi('recording') _ '" property="dct:title">' _ text _ '</span></a>';
-    '</span>' IF rg.edits_pending AND action == 'show';
-END %]
-
-[%- MACRO rdfa_made_rg_link(rg, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
-    text = text || html_escape(rg.name);
-    '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi('release_group') _ '" property="dct:title">' _ text _ '</span></a>';
-    '</span>' IF rg.edits_pending AND action == 'show';
-END -%]
-
 [%- MACRO rdfa_disambiguation(entity) BLOCK;
     '<span class="comment">(<span property="rdfs:comment">' _ html_escape(entity.comment) _ '</span>)</span>' IF entity.comment;
 END -%]
@@ -138,6 +147,34 @@ END -%]
     '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="foaf:name rdfs:label">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';      
 END -%]
+
+
+[%# Artist index page - release groups%]
+
+[% MACRO rdfa_release_group_ns(rg) BLOCK;
+   link = c.uri_for_action("/release_group/show", [ rg.gid ]);
+   'xmlns:rg="' _ link _ '#"';
+END -%]
+
+[%- MACRO rdfa_made_rg_link(rg, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
+    text = text || html_escape(rg.name);
+    '<span class="mp">' IF rg.edits_pending AND action == 'show';
+    '<a rel="foaf:made" resource="[rg:' _ hash_suffix _ ']"href="' _ link _ '"><span about="[rg:' _ hash_suffix _ ']" typeof="' _ rdfa_concept_curi('release_group') _  '" property="dct:title">' _ text _ '</span></a>';
+    '</span>' IF rg.edits_pending AND action == 'show';
+END -%]
+
+
+[%# Artist recordings tab %]
+[% MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
+    text = text || html_escape(rec.name);
+    '<span class="mp">' IF rg.edits_pending AND action == 'show';
+    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi('recording') _ '" property="dct:title">' _ text _ '</span></a>';
+    '</span>' IF rg.edits_pending AND action == 'show';
+END %]
 
 [% # note 'release' and 'event' are used as namespaces in following macro %]
 [%- MACRO rdfa_release_names(release) BLOCK;
