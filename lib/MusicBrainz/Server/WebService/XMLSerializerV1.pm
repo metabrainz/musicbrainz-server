@@ -32,14 +32,7 @@ sub xml_decl_end { '</metadata>' }
 sub output_error
 {
     my ($self, $err) = @_;
-
-    my $gen = MusicBrainz::XML::Generator->new();
-
-    my $xml = $self->xml_decl_begin;
-    $xml .= $gen->error($gen->text(
-       $err . " For usage, please see: http://musicbrainz.org/development/mmd\015\012"));
-    $xml .= $self->xml_decl_end;
-    return $xml;
+    return "$err\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012";
 }
 
 sub serialize
@@ -53,6 +46,12 @@ sub serialize
 
     $xml .= $self->xml_decl_end;
     return $xml;
+}
+
+sub xml
+{
+    my ($self, $xml) = @_;
+    return $self->xml_decl_begin . $xml . $xml_decl_end;
 }
 
 sub serialize_list
