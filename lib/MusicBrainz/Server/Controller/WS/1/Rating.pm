@@ -18,7 +18,7 @@ has 'gen' => (
 sub rating : Path('/ws/1/rating')
 {
     my ($self, $c) = @_;
-    $c->authenticate({}, 'webservice');
+    $c->authenticate({}, 'musicbrainz.org');
 
     if ($c->req->method eq 'POST') {
         if (exists $c->req->params->{entity}) {
