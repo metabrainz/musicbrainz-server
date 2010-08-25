@@ -1,7 +1,7 @@
 <table class="details">
     <tr>
         <th>[% l('Release:') %]</th>
-        <td>[% link_artist(edit.display_data.release) %]</td>
+        <td>[% link_release(edit.display_data.release) %]</td>
     </tr>
     <tr>
         <th>[% l('Label:') %]</th>
