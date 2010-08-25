@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::LoadEntity';
 sub tag : Path('/ws/1/tag')
 {
     my ($self, $c) = @_;
-    $c->authenticate({}, 'webservice');
+    $c->authenticate({}, 'musicbrainz.org');
 
     if ($c->req->method eq 'POST') {
         if (exists $c->req->params->{entity}) {
