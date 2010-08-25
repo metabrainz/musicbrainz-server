@@ -87,7 +87,7 @@ END -%]
 [%- MACRO rdfa_release_uri(release) BLOCK;
     action = 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
-    '' _ link _ '#_';
+    '' _ link _ '#' _ hash_suffix;
 END -%]
 
 [%- MACRO rdfa_release_event_curi(release) BLOCK;
@@ -102,6 +102,12 @@ END -%]
 
 [%- MACRO rdfa_release_group_curi(release) BLOCK;
     '[mbz:release-group/' _ release.gid _ '#' _ hash_suffix _']';
+END -%]
+
+[%- MACRO rdfa_release_group_uri(rg) BLOCK;
+    action = 'show';
+    link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
+    '' _ link _ '#' _ hash_suffix ;
 END -%]
 
 [%- MACRO rdfa_label_curi(label) BLOCK;
@@ -152,8 +158,7 @@ END -%]
 [%# Artist index page - Artist release groups%]
 
 [% MACRO rdfa_release_group_ns(rg) BLOCK;
-   link = c.uri_for_action("/release_group/show", [ rg.gid ]);
-   'xmlns:rg="' _ link _ '#"';
+   'xmlns:rg="' _ rdfa_release_group_uri(rg) _ '"';
 END -%]
 
 [%- MACRO rdfa_made_rg_link(rg, action, text) BLOCK;
@@ -161,7 +166,7 @@ END -%]
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
     text = text || html_escape(rg.name);
     '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="[rg:' _ hash_suffix _ ']"href="' _ link _ '"><span about="[rg:' _ hash_suffix _ ']" typeof="' _ rdfa_concept_curi('release_group') _  '" property="dct:title">' _ text _ '</span></a>';
+    '<a rel="foaf:made" resource="[rg:]" href="' _ link _ '"><span about="[rg:]" typeof="' _ rdfa_concept_curi('release_group') _  '" property="dct:title">' _ text _ '</span></a>';
     '</span>' IF rg.edits_pending AND action == 'show';
 END -%]
 
