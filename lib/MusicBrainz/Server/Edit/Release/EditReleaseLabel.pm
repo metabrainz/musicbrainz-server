@@ -62,8 +62,6 @@ sub build_display_data
     };
 }
 
-
-
 sub initialize
 {
     my ($self, %opts) = @_;

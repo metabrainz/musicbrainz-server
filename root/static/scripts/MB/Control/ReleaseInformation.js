@@ -27,14 +27,20 @@ MB.Control.ReleaseLabel = function(row, parent) {
     self.row = row;
     self.parent = parent;
 
+    // FIXME: hardcoded static url in this template. --warp.
     var template = MB.utility.template (
         '<div class="release-label">' +
-            '<input type="hidden" value="0" name="labels.#{labelno}.deleted" id="id-labels.#{labelno}.deleted">' +
             '<input type="hidden" value="" name="labels.#{labelno}.label_id" id="id-labels.#{labelno}.label_id" class="label-id">' +
             '<label id="label-labels.#{labelno}.name" for="id-labels.#{labelno}.name" class="label-name">Label</label>' +
             '<input type="text" value="" name="labels.#{labelno}.name" id="id-labels.#{labelno}.name" class="label-name">' +
             '<label id="label-labels.#{labelno}.catalog_number" for="id-labels.#{labelno}.catalog_number" class="catno">Cat.No</label>' +
             '<input type="text" value="" name="labels.#{labelno}.catalog_number" id="id-labels.#{labelno}.catalog_number" class="catno">' +
+            '<span class="remove-label">' +
+            '  <input type="hidden" value="0" name="labels.#{labelno}.deleted" id="id-labels.#{labelno}.deleted">' +
+            '  <a class="remove-label" href="#remove_label">' +
+            '    <img src="/static/images/release_editor/remove-label.png" title="Remove Label" />' +
+            '  </a>' +
+            '</span>' +
         '</div>'
     );
 
@@ -44,6 +50,39 @@ MB.Control.ReleaseLabel = function(row, parent) {
         self.row = $(template.draw ({ 'labelno': self.parent.labels.length }));
         self.row.appendTo ($('div.label-container').append ());
     }
+
+    /**
+     * toggleDelete (un)marks the track for deletion. Provide a boolean to delete
+     * or undelete a track, or leave it empty to toggle.
+     */
+    var toggleDelete = function (value) {
+        var deleted = (value === undefined) ? !parseInt (self.deleted.val ()) : value;
+        if (deleted)
+        {
+            self.deleted.val('1');
+            self.row.addClass('deleted');
+            self.name.attr ('disabled', 'disabled');
+            self.catno.attr ('disabled', 'disabled');
+        }
+        else
+        {
+            self.deleted.val ('0');
+            self.row.removeClass('deleted');
+            self.name.removeAttr ('disabled');
+            self.catno.removeAttr ('disabled');
+        }
+
+        console.log ("toggled: ", self);
+        window.toggled = self;
+    };
+
+    /**
+     * isDeleted returns true if this track is marked for deletion.
+     */
+    var isDeleted = function () {
+        return self.deleted.val () === '1';
+    };
+
 
     var autocompleted = function (event, data) {
         self.id.val(data.id);
@@ -56,16 +95,22 @@ MB.Control.ReleaseLabel = function(row, parent) {
     var blurred = function (event) {
     };
 
-                                         self.parent = parent;
-    self.template = template;
-    self.name = self.row.find('input.label-name');
     self.id = self.row.find('input.label-id');
+    self.name = self.row.find('input.label-name');
+    self.catno = self.row.find('input.catno');
+    self.deleted = self.row.find ('span.remove-label input');
+
+    self.parent = parent;
+    self.template = template;
     self.autocompleted = autocompleted;
+    self.toggleDelete = toggleDelete;
     self.blurred = blurred;
 
     self.name.bind('blur', self.blurred);
     self.name.result(self.autocompleted);
     self.name.autocomplete("/ws/js/label", MB.utility.autocomplete.options);
+
+    self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
 
     return self;
 };

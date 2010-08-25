@@ -45,6 +45,29 @@ has 'release_label' => (
     is => 'rw',
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+
+    return {
+        Release => { $self->release_id => [] },
+        ReleaseLabel => { $self->release_label_id => ['Label'] },
+    };
+};
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    my $rl = $loaded->{ReleaseLabel}->{ $self->data->{release_label_id} };
+
+    return {
+        release => $loaded->{Release}->{ $self->data->{release_id} },
+        catalog_number => $rl->catalog_number,
+        label => $rl->label,
+    };
+}
+
 sub accept
 {
     my $self = shift;

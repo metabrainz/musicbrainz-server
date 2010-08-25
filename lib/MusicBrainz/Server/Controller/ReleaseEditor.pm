@@ -382,8 +382,9 @@ sub _edit_release_labels
             {
                 # Delete ReleaseLabel
                 $self->_create_edit(
-                    $c, $EDIT_RELEASE_DELETERELEASELABEL,
-                    $editnote, release_label => $old_label
+                    $c, $EDIT_RELEASE_DELETERELEASELABEL, $editnote,
+                    release_label_id => $old_label->id,
+                    release_id => $release->id,
                 );
             }
             else

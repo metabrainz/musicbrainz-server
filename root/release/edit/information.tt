@@ -103,13 +103,20 @@
       <div class="label-container">
         [% FOR field=form.field('labels').fields %]
         <div class="release-label">
-          [%- r.hidden(field.field('deleted')) -%]
           [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
 
           [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
           [%- r.text(field.field('name'), class => 'label-name') -%]
           [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
-          [%- r.text (field.field('catalog_number'), class => 'catno') -%]
+          [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
+
+          <span class="remove-label">
+            [%- r.hidden(field.field('deleted')) -%]
+            <a class="remove-label" href="#remove_label">
+              <img src="[% c.uri_for('/static/images/release_editor/remove-label.png') %]" title="Remove Label" />
+            </a>
+          </span>
+
         </div>
         [% END %]
       </div>
