@@ -228,7 +228,7 @@ sub find_by_recording
                  OFFSET ?";
 
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
         $query, @ids, @$statuses, @$types, $offset || 0);
 }
 
@@ -283,7 +283,6 @@ sub load_with_tracklist_for_recording
         },
         $query, $recording_id, @$statuses, @$types, $offset || 0);
 }
-
 
 sub find_by_puid
 {

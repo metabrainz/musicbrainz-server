@@ -1,7 +1,11 @@
 package MusicBrainz::Server::Data::RecordingPUID;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    object_to_ids
+    placeholders
+    query_to_list
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -58,6 +62,22 @@ sub find_by_recording
             $self->_create_recording_puid(shift);
         },
         $query, @ids);
+}
+
+sub load_for_recordings
+{
+    my ($self, @recordings) = @_;
+    my %id_to_recordings = object_to_ids (@recordings);
+    my @ids = keys %id_to_recordings;
+    return unless @ids; # nothing to do
+    my @puids = $self->find_by_recording(@ids);
+
+    foreach my $puid (@puids) {
+        foreach my $recording (@{ $id_to_recordings{$puid->recording_id} }) {
+            $recording->add_puid($puid);
+            $puid->recording($recording);
+        }
+    }
 }
 
 sub get_by_recording_puid
