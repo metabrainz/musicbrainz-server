@@ -148,7 +148,6 @@ sub submit_puid : Private
         limit   => 100,
         on_full => f($contents) {
             my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
-
             return unless @$new_rows;
 
             $c->model('Edit')->create(
