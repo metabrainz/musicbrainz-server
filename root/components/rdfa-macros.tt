@@ -149,7 +149,7 @@ END -%]
 END -%]
 
 
-[%# Artist index page - release groups%]
+[%# Artist index page - Artist release groups%]
 
 [% MACRO rdfa_release_group_ns(rg) BLOCK;
    link = c.uri_for_action("/release_group/show", [ rg.gid ]);
@@ -166,19 +166,11 @@ END -%]
 END -%]
 
 
-[%# Artist recordings tab %]
-[% MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
-    text = text || html_escape(rec.name);
-    '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="[thing:]" href="' _ link _ '"><span about="[thing:]" typeof="' _ rdfa_concept_curi('recording') _ '" property="dct:title">' _ text _ '</span></a>';
-    '</span>' IF rg.edits_pending AND action == 'show';
-END %]
+[%# Artist releases tab %]
 
 [% # note 'release' and 'event' are used as namespaces in following macro %]
-[%- MACRO rdfa_release_names(release) BLOCK;
-    'xmlns:rel="' _ rdfa_release_curi(release) _ '" xmlns:evn="' _ rdfa_release_event_curi(release) _ '"';
+[%- MACRO rdfa_release_ns(release) BLOCK;
+    'xmlns:rel="' _ rdfa_release_uri(release) _ '" xmlns:evn="' _ rdfa_release_event_uri(release) _ '"';
 END -%]
 
 [% # note 'release' and 'event' are used as namespace in following macro %]
@@ -221,7 +213,7 @@ END -%]
  '<span about="[rel:]" property="mo:ean">' _ barcode _ '</span>';
 END -%]
 
-
+[%# Artist works tab %]
 [% MACRO rdfa_made_work_link(work, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/work/$action", [ work.gid ]);
@@ -231,10 +223,29 @@ END -%]
     '</span>' IF work.edits_pending AND action == 'show';
 END -%]
 
+
+[%# Artist recordings tab %]
+[% MACRO rdfa_recording_ns(rec) BLOCK;
+   'xmlns:rec="' _ rdfa_release_uri(rec) _ '"';
+END %]
+[% MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
+    text = text || html_escape(rec.name);
+    '<span class="mp">' IF rg.edits_pending AND action == 'show';
+    '<a rel="foaf:made" resource="[rec:]" href="' _ link _ '"><span about="[rec:]" typeof="' _ rdfa_concept_curi('recording') _ '" property="dct:title">' _ text _ '</span></a>';
+    '</span>' IF rg.edits_pending AND action == 'show';
+END %]
+
+[%# TODO FIXME - duration modeling not quite right %]
+[% SET rdfa_recording_duration_attrib = 'about="[rec:]" property="mo:duration" datatype="xsd:duration"'; %]
+
+[%# Artist details tab %]
 [%- MACRO rdfa_mbid(mbid) BLOCK;
  '<span property="mo:musicbrainz_gid">' _ mbid _ '</span>';
 END -%]
 
+[%# Artist alias tab %]
 [%- MACRO rdfa_alias(alias, entity) BLOCK;
     type = "$entity";
     IF    type.search('Entity::Artist='); 

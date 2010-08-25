@@ -23,7 +23,7 @@
     <tbody>
     [% END %]
         [%- FOR release=releases -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_names(release) %]>
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %]>
             [% IF rdfa_made %]
 	       <td>[% rdfa_made_release_link(release) %]</td>
 	    [% ELSE %]

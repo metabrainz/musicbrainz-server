@@ -11,13 +11,13 @@
     </thead>
     <tbody about="[%- rdfa_artist_curi(artist) -%]">
         [%- FOR recording=recordings -%]
-        <tr [% ' class="ev"' IF loop.count % 2 == 0 %] xmlns:thing="[% rdfa_recording_curi(recording) %]">
+        <tr [% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_recording_ns(recording) %]>
             <td>[% rdfa_made_recording_link(recording) %] [% disambiguation(recording) %]</td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(recording.artist_credit) %]</td>
             [%- END -%]
             <td>[% rating_stars(recording) %]</td>
-            <td about="[thing:]" property="[% rdfa_duration %]">[% recording.length | format_length %]</td>
+            <td [% rdfa_recording_duration_attrib %]>[% recording.length | format_length %]</td>
         </tr>
         [%- END -%]
     </tbody>
