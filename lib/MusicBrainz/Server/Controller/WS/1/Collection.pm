@@ -52,8 +52,11 @@ sub add_remove : Private
 
     my $list_id = $c->model('List')->get_first_list($c->user->id);
 
-    my @can_add    = $self->_clean_mbid_list(split ',', $c->req->params->{add} || '');
-    my @can_remove = $self->_clean_mbid_list(split ',', $c->req->params->{remove} || '');
+    my $add    = $c->req->params->{add}    || $c->req->params->{addAlbums}    || '';
+    my $remove = $c->req->params->{remove} || $c->req->params->{removeAlbums} || '';
+
+    my @can_add    = $self->_clean_mbid_list(split /\s*,\s*/, $add);
+    my @can_remove = $self->_clean_mbid_list(split /\s*,\s*/, $remove);
 
     if (@can_add && @can_remove) {
         $self->bad_req('You cannot add and releases from a collection in the same call');

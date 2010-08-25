@@ -17,7 +17,7 @@ subtest 'Add a release to a collection' => sub {
         add => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec,980e0f65-930e-4743-95d3-602665c25c15',
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -39,7 +39,7 @@ subtest 'Remove releases from collections' => sub {
         remove => '980e0f65-930e-4743-95d3-602665c25c15',
     ];
 
-    $mech->credentials('localhost:80', 'webservice', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
