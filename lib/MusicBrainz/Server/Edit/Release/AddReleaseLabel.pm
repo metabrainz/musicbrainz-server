@@ -1,19 +1,14 @@
 package MusicBrainz::Server::Edit::Release::AddReleaseLabel;
 use Moose;
-
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
-
-# use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_name { 'Add release label' }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
-sub _create_model { 'ReleaseLabel' }
-
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 sub related_entities { { release => [ shift->release_id ] } }
 
@@ -26,7 +21,28 @@ has '+data' => (
 );
 
 sub release_id { shift->data->{release_id} }
-# sub release_label_id { shift->data->{release_label_id} }
+sub label_id { shift->data->{label_id} }
+
+sub foreign_keys
+{
+    my $self = shift;
+
+    return {
+        Release => { $self->release_id => [] },
+        Label => { $self->label_id => [] },
+    };
+};
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        release => $loaded->{Release}->{ $self->release_id },
+        label => $loaded->{Label}->{ $self->label_id },
+        catalog_number => $self->data->{catalog_number},
+    };
+}
 
 sub initialize
 {
