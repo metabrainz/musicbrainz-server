@@ -233,7 +233,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 
     $self->validate($c, \%serializers) or $c->detach('bad_req');
 
-    $c->authenticate({}, 'webservice') if ($c->stash->{authorization_required});
+    $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
 }
 
 sub _error

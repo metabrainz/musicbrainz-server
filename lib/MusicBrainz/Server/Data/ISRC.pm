@@ -1,7 +1,11 @@
 package MusicBrainz::Server::Data::ISRC;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    object_to_ids
+    placeholders
+    query_to_list
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -43,6 +47,22 @@ sub find_by_recording
                   ORDER BY isrc";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
                          $query, @ids);
+}
+
+sub load_for_recordings
+{
+    my ($self, @recordings) = @_;
+    my %id_to_recordings = object_to_ids (@recordings);
+    my @ids = keys %id_to_recordings;
+    return unless @ids; # nothing to do
+    my @isrcs = $self->find_by_recording(@ids);
+
+    foreach my $isrc (@isrcs) {
+        foreach my $recording (@{ $id_to_recordings{$isrc->recording_id} }) {
+            $recording->add_isrc($isrc);
+            $isrc->recording($recording);
+        }
+    }
 }
 
 sub find_by_isrc

@@ -18,7 +18,11 @@ has 'children' => (
 has 'gen' => (
     is => 'rw',
     isa => 'MusicBrainz::XML::Generator',
-    default => sub { MusicBrainz::XML::Generator->new(); },
+    default => sub {
+        MusicBrainz::XML::Generator->new(
+            escape => 'always,even-entities'
+        )
+    },
 );
 
 sub add
