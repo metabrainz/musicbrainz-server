@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'relation'; }
 
-before 'serialize' => sub 
+before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
@@ -16,8 +16,12 @@ before 'serialize' => sub
     $type =~ s/ /_/;
 
     $self->attributes->{type}   = camelize($type);
-    $self->attributes->{begin}  = $entity->link->begin_date->format;
-    $self->attributes->{end}    = $entity->link->end_date->format;
+    $self->attributes->{begin}  = $entity->link->begin_date->format
+        unless $entity->link->begin_date->is_empty;
+
+    $self->attributes->{end}    = $entity->link->end_date->format
+        unless $entity->link->end_date->is_empty;
+
     $self->attributes->{direction} = 'backward' if $entity->direction == 2;
 
 
@@ -25,8 +29,8 @@ before 'serialize' => sub
     {
         $self->attributes->{target} = $entity->target->name;
     }
-    elsif ($entity->target_type eq 'artist' || 
-           $entity->target_type eq 'label' || 
+    elsif ($entity->target_type eq 'artist' ||
+           $entity->target_type eq 'label' ||
            $entity->target_type eq 'release' ||
            $entity->target_type eq 'recording')
     {

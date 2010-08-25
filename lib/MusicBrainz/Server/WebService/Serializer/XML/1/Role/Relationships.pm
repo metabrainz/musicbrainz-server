@@ -3,26 +3,28 @@ use Moose::Role;
 
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( map_type );
+
 requires 'serialize';
 
-before 'serialize' => sub 
+before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    my %rels;
-    foreach (@{$opts->{rels}})
-    {
-        $rels{$_->target_type} = [] unless $rels{$_->target_type};
+    if ($inc && $inc->has_rels) {
+        my %by_type = map { $_ => [] } @{$inc->get_rel_types};
+        for my $relationship (@{ $entity->relationships }) {
+            $by_type{ $relationship->target_type } or next;
 
-        push @{$rels{$_->target_type}}, $_;
-    }
+            push @{ $by_type{ $relationship->target_type } },
+                $relationship;
+        }
 
-    foreach my $key (keys %rels)
-    {
-        my $type = ucfirst($key);
-        $type =~ s/Recording/Track/;
-
-        $self->add( List->new->serialize({ 'target-type' => $type }, $rels{$key}) );
+        while (my ($type, $relationships) = each %by_type) {
+            $self->add(
+                List->new->serialize({ 'target-type' => map_type($type) }, $relationships)
+            )
+        }
     }
 };
 
