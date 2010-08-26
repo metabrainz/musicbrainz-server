@@ -22,6 +22,7 @@
                 <tbody>
                     [%- FOREACH track=tracks %]
                     [%- release=track.tracklist.medium.release -%]
+		    [%# TODO FIXME model track/signal on release %]
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                         <td>[% track.position %]/[% track.tracklist.track_count %]</td>
                         <td>[% track.name | html %]</td>

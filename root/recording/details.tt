@@ -1,6 +1,6 @@
 [% WRAPPER "recording/layout.tt" title=l('Details') page='details' %]
 <h2>[%- l('Details') -%]</h2>
-<table class="details">
+<table class="details" about="[% rdfa_recording_curi(recording) %]">
   <tr>
     <th>[%- l('Name:') -%]</th>
     <td>[% link_recording(recording) %]</td>
@@ -9,7 +9,7 @@
     <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
                {mbid => doc_link("MusicBrainz_Identifier")}) -%]
     </th>
-    <td>[% recording.gid %]</td>
+    <td>[% rdfa_mbid(recording.gid) %]</td>
   </tr>
   <tr>
     <th>[% l('Last updated:') %]</th>

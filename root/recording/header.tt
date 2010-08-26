@@ -7,11 +7,11 @@
     ['edit', link_recording(recording, 'edit', l('Edit'))],
 ] -%]
 
-<div class="recordingheader">
-    <h1>“[% link_recording(recording) %]” [% disambiguation(recording) %]</h1>
+<div class="recordingheader" about="[% rdfa_recording_curi(recording) %]" typeof="[% rdfa_concept_curi('recording') %]">
+    <h1>“[% rdfa_link_recording_header(recording) %]” [% disambiguation(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-            [% l('Recording by {artist}', {artist = artist_credit(recording.artist_credit)})%]
+            [% l('Recording by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
     </p>
 </div>
 

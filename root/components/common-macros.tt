@@ -266,13 +266,13 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
-    out.push(rdfa_link_label(label.label)) FOR label=labels;
+    out.push(link_label(label.label)) FOR label=labels;
     out.join(', ');
 END -%]
 
 [%- MACRO release_catno_list(labels) BLOCK;
     out = [];
-    out.push(rdfa_release_catno(label.catalog_number)) FOR label=labels;
+    out.push(label.catalog_number) FOR label=labels;
     out.join(', ');
 END -%]
 

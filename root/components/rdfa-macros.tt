@@ -118,16 +118,13 @@ END -%]
  '[mbz:work/' _ work.gid _ '#' _ hash_suffix _']';
 END -%]
 
-[% ################### %]
-[% # Recording/Signal  %]
-[% ################### %]
 
-[% SET rdfa_duration = 'xsd:duration'; %]
+
+[%################### %]
+[%# Artist pages RDFa %]
+[%################### %]
+
 [% SET rdfa_sort_name_property = 'ov:sortLabel'; %]
-
-[%################### 
-   Artist pages RDFa 
-  ################### %]
 
 [%- MACRO rdfa_begin_date_artist(date) BLOCK;
  '<span rel="bio:event"><span typeof="bio:Birth" property="bio:date">' _ date _ '</span></span>' IF date;
@@ -231,7 +228,7 @@ END -%]
 
 [%# Artist recordings tab %]
 [% MACRO rdfa_recording_ns(rec) BLOCK;
-   'xmlns:rec="' _ rdfa_release_uri(rec) _ '"';
+   'xmlns:rec="' _ rdfa_recording_uri(rec) _ '"';
 END %]
 [% MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
     action = action || 'show';
@@ -260,4 +257,71 @@ END -%]
     ELSIF type.search('Entity::Label=');
     '<span property="foaf:name">' _ alias _ '</span>';
     END;
+END -%]
+
+[% ################### %]
+[% # Recording/Signal  %]
+[% ################### %]
+
+[%- MACRO rdfa_link_recording_header(recording) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/recording/$action", [ recording.gid ]);
+    text = text || html_escape(recording.name);
+    '<span class="mp">' IF recording.edits_pending AND action == 'show';
+    '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="dct:title rdfs:label">' _ text _ '</a>';
+    '</span>' IF recording.edits_pending AND action == 'show';      
+END -%]
+
+[%- MACRO rdfa_artist_credit(ac, opts) BLOCK -%]
+    [%- FOREACH name IN ac.names -%]
+        [%- opts.plain ? html_escape(name.name) : rdfa_link_maker_artist(name.artist, 'show', name.name) -%]
+        [%- name.join_phrase | html -%]
+    [%- END -%]
+[%- END -%]
+
+[% # FIXME - turns name grey cuz css?  <span about="[' _ rdfa_artist_curi(artist)  _ ']" typeof="' _ rdfa_concept_curi(artist.type_name) _ '" property="foaf:name rdfs:label">' _ text _ '</span>%]
+[%- MACRO rdfa_link_maker_artist(artist, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/artist/$action", [ artist.gid ]);
+    text = text || html_escape(artist.name);
+    '<span class="mp">' IF artist.edits_pending AND action == 'show';
+    '<a rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF artist.edits_pending AND action == 'show';
+END -%]
+
+[% MACRO rdfa_recording_relase_ns(recording) BLOCK;
+END %]
+
+[%- MACRO rdfa_release_label_list(labels) BLOCK;
+    out = [];
+    out.push(rdfa_link_label(label.label)) FOR label=labels;
+    out.join(', ');
+END -%]
+
+[%- MACRO rdfa_release_catno_list(labels) BLOCK;
+    out = [];
+    out.push(rdfa_release_catno(label.catalog_number)) FOR label=labels;
+    out.join(', ');
+END -%]
+
+[%# asssumes rdfa_recording_ns creates rec ns%]
+[%- MACRO rdfa_link_puid(puid, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/puid/$action", [ puid.name ]);
+    text = text || '<code about="[rec:]" property="mo:puid">' _ html_escape(puid.name) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
+
+[%############%]
+[%#  Work    #%]
+[%############%]
+
+[%- MACRO rdfa_link_work_header(work) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/work/$action", [ work.gid ]);
+    text = text || html_escape(work.name);
+    '<span class="mp">' IF work.edits_pending AND action == 'show';
+    '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="dct:title rdfs:label">' _ text _ '</a>';
+    '</span>' IF work.edits_pending AND action == 'show';      
 END -%]
