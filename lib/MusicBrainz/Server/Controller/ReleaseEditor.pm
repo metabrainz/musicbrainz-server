@@ -546,12 +546,12 @@ sub release_add
     }
 
     if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist' ||
-        $wizard->current_page eq 'preview')
+        $wizard->current_page eq 'recordings')
     {
         $self->c->stash( serialized_tracklists => $self->_serialize_tracklists () );
     }
 
-    if ($wizard->current_page eq 'preview')
+    if ($wizard->current_page eq 'recordings')
     {
         my $changes = $self->release_compare ($wizard->value);
 
@@ -577,7 +577,7 @@ sub release_add
 
         $self->c->stash->{changes} = $changes;
 
-        $wizard->load_page('preview', { 'preview_mediums' => $associations });
+        $wizard->load_page('recordings', { 'preview_mediums' => $associations });
     }
 
     if ($wizard->submitted)
@@ -704,7 +704,7 @@ sub release_edit
     }
 
     if ($wizard->loading || $wizard->submitted ||
-        $wizard->current_page eq 'tracklist' || $wizard->current_page eq 'preview')
+        $wizard->current_page eq 'tracklist' || $wizard->current_page eq 'recordings')
     {
         # if we're on the tracklist page, load the tracklist so that the trackparser
         # can compare the entered tracks against the original to figure out what edits
@@ -715,7 +715,7 @@ sub release_edit
         $self->c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
     }
 
-    if ($wizard->current_page eq 'preview')
+    if ($wizard->current_page eq 'recordings')
     {
         # we're on the changes preview page, load recordings so that the user can
         # confirm track <-> recording associations.
@@ -749,7 +749,7 @@ sub release_edit
 
         $self->c->stash->{changes} = $changes;
 
-        $wizard->load_page('preview', { 'preview_mediums' => $associations });
+        $wizard->load_page('recordings', { 'preview_mediums' => $associations });
     }
 
     if ($wizard->loading || $wizard->submitted)
