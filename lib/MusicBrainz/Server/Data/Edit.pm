@@ -189,6 +189,72 @@ sub insert
     $sql_raw->dbh->pg_putcopyend();
 }
 
+# same as create, but without touching the database.
+sub preview
+{
+    my ($self, %opts) = @_;
+    
+    my $type = delete $opts{edit_type} or croak "edit_type required";
+    my $editor_id = delete $opts{editor_id} or croak "editor_id required";
+    my $privs = delete $opts{privileges} || 0;
+    my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
+        or die "Could not lookup edit type for $type";
+
+    my $edit = $class->new( editor_id => $editor_id, c => $self->c );
+    try {
+        $edit->initialize(%opts);
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
+        die $e;
+    }
+    catch ($err) {
+        use Data::Dumper;
+        croak join "\n\n", "Could not create error", Dumper(\%opts), $err;
+    }
+
+    my $quality = $edit->determine_quality;
+    my $conditions = $edit->edit_conditions->{$quality};
+
+    # Edit conditions allow auto edit and the edit requires no votes
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && $conditions->{votes} == 0);
+
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && $edit->allow_auto_edit);
+
+    # Edit conditions allow auto edit and the user is autoeditor
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && ($privs & $AUTO_EDITOR_FLAG));
+
+    # Unstrusted user, always go through the edit queue
+    $edit->auto_edit(0)
+        if ($privs & $UNTRUSTED_FLAG);
+
+    # Save quality level
+    $edit->quality($quality);
+
+
+#     my $model;
+#     for (qw( _create_model _edit_model _delete_model _merge_model ))
+#     {
+#         if ($edit->meta->has_method ($_))
+#         {
+#             $model = $edit->$_;
+#             last;
+#         }
+#     }
+
+#     my $entity = $self->c->model ($model)->new (\%opts);
+#     $edit->entity ($entity);
+#     $edit->entity->id (-1);
+
+    # use to_edit?
+
+
+    return $edit;
+}
+
+
 sub create
 {
     my ($self, %opts) = @_;

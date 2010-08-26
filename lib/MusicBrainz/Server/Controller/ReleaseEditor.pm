@@ -333,15 +333,17 @@ sub _serialize_tracklists
 
 sub _create_edit
 {
-    my ($self, $c, $type, $editnote, %args) = @_;
+    my ($self, $preview, $type, $editnote, %args) = @_;
 
     return unless %args;
 
+    my $method = $preview ? 'preview' : 'create';
+
     my $edit;
     try {
-        $edit = $c->model('Edit')->create(
+        $edit = $self->c->model('Edit')->$method(
             edit_type => $type,
-            editor_id => $c->user->id,
+            editor_id => $self->c->user->id,
             %args,
        );
     }
@@ -350,23 +352,22 @@ sub _create_edit
 
     return unless defined $edit;
 
-    if (defined $editnote)
+    if (!$preview && defined $editnote)
     {
-        $c->model('EditNote')->add_note($edit->id, {
+        $self->c->model('EditNote')->add_note($edit->id, {
             text      => $editnote,
-            editor_id => $c->user->id,
+            editor_id => $self->c->user->id,
         });
     }
 
-    $c->stash->{changes} = 1;
+    $self->c->stash->{changes} = 1;
 
     return $edit;
 }
 
 sub _edit_release_labels
 {
-    my ($self, $c, $editnote, $data, $release) = @_;
-
+    my ($self, $preview, $editnote, $data, $release) = @_;
 
     my $max = scalar @{ $data->{'labels'} } - 1;
 
@@ -380,18 +381,20 @@ sub _edit_release_labels
             if ($new_label->{'deleted'})
             {
                 # Delete ReleaseLabel
-                $self->_create_edit($c, $EDIT_RELEASE_DELETERELEASELABEL,
-                                    $editnote, release_label => $old_label
-                    );
+                $self->_create_edit(
+                    $preview, $EDIT_RELEASE_DELETERELEASELABEL,
+                    $editnote, release_label => $old_label
+                );
             }
             else
             {
                 # Edit ReleaseLabel
-                $self->_create_edit($c, $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
-                                    release_label => $old_label,
-                                    label_id => $new_label->{'label_id'},
-                                    catalog_number => $new_label->{'catalog_number'},
-                    );
+                $self->_create_edit(
+                    $preview, $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
+                    release_label => $old_label,
+                    label_id => $new_label->{'label_id'},
+                    catalog_number => $new_label->{'catalog_number'},
+                );
             }
         }
         else
@@ -405,7 +408,7 @@ sub _edit_release_labels
 
 sub _edit_release_track_edits
 {
-    my ($self, $c, $editnote, $data, $release) = @_;
+    my ($self, $preview, $editnote, $data, $release) = @_;
 
     my $medium_idx = 0;
     for my $medium (@{ $data->{'mediums'} })
@@ -418,7 +421,7 @@ sub _edit_release_track_edits
             my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
 
             my $recording;
-            $recording = $c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
+            $recording = $self->c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
 
             if ($track->{'id'})
             {
@@ -426,20 +429,20 @@ sub _edit_release_track_edits
                 {
                     # Delete a track
                     $self->_create_edit (
-                        $c, $EDIT_TRACKLIST_DELETETRACK, $editnote,
-                        track => $c->model('Track')->get_by_id ($track->{'id'}));
+                        $preview, $EDIT_TRACKLIST_DELETETRACK, $editnote,
+                        track => $self->c->model('Track')->get_by_id ($track->{'id'}));
                 }
                 else
                 {
                     # Editing an existing track
                     $self->_create_edit(
-                        $c, $EDIT_TRACK_EDIT, $editnote,
+                        $preview, $EDIT_TRACK_EDIT, $editnote,
                         position => $track->{'position'},
                         name => $track->{'name'},
                         recording_id => $recording->id,
                         artist_credit => $track->{'artist_credit'},
                         length => $track->{'length'},
-                        to_edit => $c->model('Track')->get_by_id ($track->{'id'}),
+                        to_edit => $self->c->model('Track')->get_by_id ($track->{'id'}),
                         );
                 }
             }
@@ -456,7 +459,7 @@ sub _edit_release_track_edits
                 $edit{recording_id} = $recording->id if $recording;
 
                 # We are creating a new track (and not a new tracklist)
-                $self->_create_edit($c, $EDIT_TRACKLIST_ADDTRACK, $editnote, %edit);
+                $self->_create_edit($preview, $EDIT_TRACKLIST_ADDTRACK, $editnote, %edit);
             }
 
             $track_idx++;
@@ -471,7 +474,7 @@ sub _edit_release_track_edits
                 my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
 
                 my $recording;
-                $recording = $c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
+                $recording = $self->c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
 
                 my $trk = {
                     name => $_->{name},
@@ -488,8 +491,8 @@ sub _edit_release_track_edits
             }
 
             # We have some tracks but no tracklist ID - so create a new tracklist
-            my $create_tl = $self->_create_edit($c, $EDIT_TRACKLIST_CREATE,
-                                                $editnote, tracks => \@tracks);
+            my $create_tl = $self->_create_edit(
+                $preview, $EDIT_TRACKLIST_CREATE, $editnote, tracks => \@tracks);
 
             $tracklist_id = $create_tl->tracklist_id;
         }
@@ -499,18 +502,19 @@ sub _edit_release_track_edits
             if ($medium->{'deleted'})
             {
                 # Delete medium
-                $self->_create_edit($c, $EDIT_MEDIUM_DELETE, $editnote,
-                                    medium => $c->model('Medium')->get_by_id ($medium->{'id'}));
+                $self->_create_edit(
+                    $preview, $EDIT_MEDIUM_DELETE, $editnote,
+                    medium => $self->c->model('Medium')->get_by_id ($medium->{'id'}));
             }
             else
             {
                 # Edit medium
                 $self->_create_edit(
-                    $c, $EDIT_MEDIUM_EDIT, $editnote,
+                    $preview, $EDIT_MEDIUM_EDIT, $editnote,
                     name => $medium->{'name'},
                     format_id => $medium->{'format_id'},
                     position => $medium->{'position'},
-                    to_edit => $c->model('Medium')->get_by_id ($medium->{'id'})
+                    to_edit => $self->c->model('Medium')->get_by_id ($medium->{'id'})
                 );
             }
         }
@@ -526,7 +530,7 @@ sub _edit_release_track_edits
             $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
 
             # Add medium
-            $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
+            $self->_create_edit($preview, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
         }
 
         $medium_idx++;
@@ -580,10 +584,14 @@ sub release_add
         $wizard->load_page('recordings', { 'preview_mediums' => $associations });
     }
 
-    if ($wizard->submitted)
+    if ($wizard->submitted || $wizard->current_page eq 'editnote')
     {
         # The user is done with the wizard and wants to submit the new data.
         # So let's create some edits :)
+
+        # If this is the tab where we just preview the edits, create the edits
+        # in memory but not in the database yet.
+        my $preview = $wizard->current_page eq 'editnote';
 
         my $data = $wizard->value;
 
@@ -601,7 +609,8 @@ sub release_add
             %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
             $editnote = $data->{'editnote'};
-            $edit = $self->_create_edit($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+            $edit = $self->_create_edit(
+                $preview, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
         }
 
         # add release
@@ -613,7 +622,8 @@ sub release_add
 
         $args{release_group_id} = $edit ? $edit->entity->id : $data->{release_group_id};
 
-        $edit = $self->_create_edit($EDIT_RELEASE_CREATE, $editnote, %args);
+        $edit = $self->_create_edit(
+            $preview, $EDIT_RELEASE_CREATE, $editnote, %args);
 
         my $release_id = $edit->entity->id;
         my $gid = $edit->entity->gid;
@@ -621,15 +631,22 @@ sub release_add
         # release labels edit
         # ----------------------------------------
 
-        $self->_edit_release_labels ($editnote, $data);
+        $self->_edit_release_labels ($preview, $editnote, $data);
 
         # medium / tracklist / track edits
         # ----------------------------------------
 
-        $self->_edit_release_track_edits ($editnote, $data, $edit->entity);
+        $self->_edit_release_track_edits ($preview, $editnote, $data, $edit->entity);
 
-        $self->c->response->redirect($self->c->uri_for_action('/release/show', [ $gid ]));
-        $self->c->detach;
+        if ($wizard->submitted)
+        {
+            $self->c->response->redirect($self->c->uri_for_action('/release/show', [ $gid ]));
+            $self->c->detach;
+        }
+        else
+        {
+            $wizard->render;
+        }
     }
     elsif ($wizard->loading)
     {
@@ -768,8 +785,11 @@ sub release_edit
         # The user is done with the wizard and wants to submit the new data.
         # So let's create some edits :)
 
-        my $data = $wizard->value;
+        # If this is the tab where we just preview the edits, create the edits
+        # in memory but not in the database yet.
+        my $preview = $wizard->current_page eq 'editnote';
 
+        my $data = $wizard->value;
 
         # release edit
         # ----------------------------------------
@@ -782,17 +802,17 @@ sub release_edit
         my $editnote = $data->{'editnote'};
         $self->c->stash->{changes} = 0;
 
-        $self->_create_edit($self->c, $EDIT_RELEASE_EDIT, $editnote, %args);
+        $self->_create_edit($preview, $EDIT_RELEASE_EDIT, $editnote, %args);
 
         # release labels edit
         # ----------------------------------------
 
-        $self->_edit_release_labels ($self->c, $editnote, $data, $release);
+        $self->_edit_release_labels ($preview, $editnote, $data, $release);
 
         # medium / tracklist / track edits
         # ----------------------------------------
 
-        $self->_edit_release_track_edits ($self->c, $editnote, $data, $release);
+        $self->_edit_release_track_edits ($preview, $editnote, $data, $release);
 
         $self->c->response->redirect($self->c->uri_for_action('/release/show', [ $release->gid ]));
         $self->c->detach;
