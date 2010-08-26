@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::ReleaseEditor::Preview;
+package MusicBrainz::Server::Form::ReleaseEditor::Recordings;
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form::Step';
