@@ -29,17 +29,18 @@ sub _edit_model { 'Release' }
 sub change_fields
 {
     return Dict[
-        name => Optional[Str],
-        packaging_id => Nullable[Int],
-        status_id => Nullable[Int],
+        name             => Optional[Str],
+        artist_credit    => Optional[ArtistCreditDefinition],
         release_group_id => Optional[Int],
-        barcode => Nullable[Str],
-        country_id => Nullable[Int],
-        date => Nullable[PartialDateHash],
-        language_id => Nullable[Int],
-        script_id => Nullable[Int],
-        comment => Optional[Maybe[Str]],
-        artist_credit => Optional[ArtistCreditDefinition]
+        comment          => Optional[Maybe[Str]],
+        date             => Nullable[PartialDateHash],
+
+        barcode          => Nullable[Str],
+        country_id       => Nullable[Int],
+        language_id      => Nullable[Int],
+        packaging_id     => Nullable[Int],
+        script_id        => Nullable[Int],
+        status_id        => Nullable[Int],
     ];
 }
 

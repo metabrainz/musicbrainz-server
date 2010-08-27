@@ -7,6 +7,23 @@
 
    <div id="form">
      <div class="form">
+
+       [%- FOREACH edit=edits -%]
+       <div class="edit-list">
+         <h2>[% edit.edit_name | html %]</h2>
+
+         <div class="edit-details">
+         [% IF edit.data.defined %]
+           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+         [% ELSE %]
+           <p>[% l('An error occured while loading this edit') %]</p>
+         [% END %]
+         </div>
+
+       </div>
+       [%- END -%]
+
+
        [% r.hidden ('wizard_session_id') %]
        <fieldset>
          <legend>Edit Note</legend>

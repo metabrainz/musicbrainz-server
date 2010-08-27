@@ -1,4 +1,4 @@
-<table>
+<table class="details">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td>
@@ -91,3 +91,9 @@
     </td>
   </tr>
 </table>
+
+[% USE Dumper %]
+<pre>
+[% Dumper.dump_html (edit.display_data) %]
+</pre>
+
