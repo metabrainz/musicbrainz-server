@@ -1,49 +1,27 @@
-package MusicBrainz::Server::Edit::Release::DeleteReleaseLabel;
+package MusicBrainz::Server::Edit::Release::AddReleaseLabel;
 use Moose;
-
-use MooseX::Types::Moose qw( Int );
+use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Remove release label' }
-sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
-
+sub edit_name { 'Add release label' }
+sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 sub related_entities { { release => [ shift->release_id ] } }
-sub models { [qw( Release ReleaseLabel )] }
 
 has '+data' => (
     isa => Dict[
-        release_label_id => Int,
-        release_id => Int
+        release_id => Int,
+        label_id => Nullable[Int],
+        catalog_number => Nullable[Str]
     ]
 );
 
-has 'release_id' => (
-    isa => Int,
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{release_id} }
-);
-
-has 'release' => (
-    isa => 'Release',
-    is => 'rw',
-);
-
-has 'release_label_id' => (
-    isa => 'Int',
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{release_label_id} }
-);
-
-has 'release_label' => (
-    isa => 'ReleaseLabel',
-    is => 'rw',
-);
+sub release_id { shift->data->{release_id} }
+sub label_id { shift->data->{label_id} }
 
 sub foreign_keys
 {
@@ -51,7 +29,7 @@ sub foreign_keys
 
     return {
         Release => { $self->release_id => [] },
-        ReleaseLabel => { $self->release_label_id => ['Label'] },
+        Label => { $self->label_id => [] },
     };
 };
 
@@ -59,19 +37,28 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $rl = $loaded->{ReleaseLabel}->{ $self->data->{release_label_id} };
-
     return {
-        release => $loaded->{Release}->{ $self->data->{release_id} },
-        catalog_number => $rl->catalog_number,
-        label => $rl->label,
+        release => $loaded->{Release}->{ $self->release_id },
+        label => $loaded->{Label}->{ $self->label_id },
+        catalog_number => $self->data->{catalog_number},
     };
 }
+
+sub initialize
+{
+    my ($self, %opts) = @_;
+
+    $self->data({
+        release_id => $opts{release_id},
+        label_id => $opts{label_id},
+        catalog_number => $opts{catalog_number},
+    });
+};
 
 sub accept
 {
     my $self = shift;
-    $self->c->model('ReleaseLabel')->delete($self->release_label_id);
+    $self->c->model('ReleaseLabel')->insert($self->data);
 }
 
 __PACKAGE__->meta->make_immutable;

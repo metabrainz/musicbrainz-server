@@ -33,6 +33,35 @@ has '+data' => (
 sub release_id { shift->data->{release_id} }
 sub release_label_id { shift->data->{release_label_id} }
 
+sub foreign_keys
+{
+    my $self = shift;
+
+    my $keys = { Release => { $self->release_id => [] } };
+
+    $keys->{Label}->{ $self->data->{old}{label_id} } = [];
+    $keys->{Label}->{ $self->data->{new}{label_id} } = [];
+
+    return $keys;
+};
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        release => $loaded->{Release}->{ $self->release_id },
+        label => {
+            new => $loaded->{Label}->{ $self->data->{new}{label_id} },
+            old => $loaded->{Label}->{ $self->data->{old}{label_id} },
+        },
+        catalog_number => {
+            new => $self->data->{new}{catalog_number},
+            old => $self->data->{old}{catalog_number},
+        },
+    };
+}
+
 sub initialize
 {
     my ($self, %opts) = @_;

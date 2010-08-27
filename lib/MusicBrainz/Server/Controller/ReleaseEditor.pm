@@ -14,6 +14,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
+    $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
     $EDIT_RELEASEGROUP_CREATE
@@ -380,25 +381,32 @@ sub _edit_release_labels
             if ($new_label->{'deleted'})
             {
                 # Delete ReleaseLabel
-                $self->_create_edit($c, $EDIT_RELEASE_DELETERELEASELABEL,
-                                    $editnote, release_label => $old_label
-                    );
+                $self->_create_edit(
+                    $c, $EDIT_RELEASE_DELETERELEASELABEL, $editnote,
+                    release_label_id => $old_label->id,
+                    release_id => $release->id,
+                );
             }
             else
             {
                 # Edit ReleaseLabel
-                $self->_create_edit($c, $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
-                                    release_label => $old_label,
-                                    label_id => $new_label->{'label_id'},
-                                    catalog_number => $new_label->{'catalog_number'},
-                    );
+                $self->_create_edit(
+                    $c, $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
+                    release_label => $old_label,
+                    label_id => $new_label->{'label_id'},
+                    catalog_number => $new_label->{'catalog_number'},
+                );
             }
         }
         else
         {
             # Add ReleaseLabel
-            # FIXME: There doesn't seem to be an add release label edit. --warp.
-            warn "FIXME: ADD RELEASE LABEL EDIT";
+            $self->_create_edit(
+                $c, $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
+                release_id => $release->id,
+                label_id => $new_label->{'label_id'},
+                catalog_number => $new_label->{'catalog_number'},
+            );
         }
     }
 }

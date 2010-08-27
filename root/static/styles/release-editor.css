@@ -31,12 +31,33 @@ h1 span {
 }
 
 #release-editor .documentation label,
+#release-editor div.release-label label.label-name,
 #release-editor fieldset label.row {
     float: left;
     margin-right: 1em;
     text-align: right;
     width: 11em;
 }
+
+#release-editor div.release-label input[disabled] {
+    text-decoration: line-through;
+    color: #aaa;
+    background: #fff;
+}
+
+#release-editor div.release-label { margin: 0.5em 0; }
+#release-editor div.release-label input.label-name { width: 134px; }
+#release-editor div.release-label label.catno {
+    text-align: right;
+    display: inline-block;
+    width: 40px;
+    padding: 0 4px 0 10px;
+}
+#release-editor div.release-label input.catno { width: 86px; }
+
+#release-editor div.release-label input.label-name,
+#release-editor div.release-label label.catno,
+#release-editor div.release-label input.catno { margin: 0; }
 
 #release-editor fieldset label.required {
     font-weight: bold;
@@ -348,6 +369,8 @@ tr.select-recording .ac-balloon3 {
                 BUTTONS
    __________________________________ */
 
+a.remove-label,
+a.remove-label img,
 a.disc-remove-track,
 a.disc-remove-track img,
 a.disc-add-track,
@@ -357,9 +380,12 @@ a.disc-add-track img {
     margin: 0;
 }
 
+a.remove-label img,
 a.disc-remove-track img { opacity: 0.2; }
 a.disc-add-track img { opacity: 0.4; }
 
+a.remove-label:focus img,
+a.remove-label:hover img,
 a.disc-add-track:focus img,
 a.disc-add-track:hover img,
 a.disc-remove-track:focus img,
