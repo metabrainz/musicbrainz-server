@@ -11,7 +11,7 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         inc    => [ qw( artist  tags  release-groups tracks release-events labels isrcs
                         ratings puids _relations     counts discs          user-tags
-                        user-ratings ) ]
+                        user-ratings  track-level-rels ) ]
     }
 ]);
 
@@ -74,6 +74,10 @@ sub lookup : Chained('load') PathPart('')
 
         $c->model('RecordingPUID')->load_for_recordings(@recordings)
             if ($c->stash->{inc}->puids);
+
+        if ($c->stash->{inc}->track_level_rels) {
+            $self->load_relationships($c, $_) for @recordings;
+        }
     }
 
     if ($c->stash->{inc}->release_events) {
