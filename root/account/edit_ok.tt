@@ -10,6 +10,6 @@
                   to verify the new email address.', { email => email }) %]
         [% END %]
         [% l('Click {link|here} to continue to your user page.',
-            { link => c.uri_for_action('/user/profile/view', [ c.user.name ]) }) %]</p>
+            { link => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]</p>
 
 [% END %]

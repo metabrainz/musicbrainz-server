@@ -13,7 +13,7 @@
                     [% l('{uri|Preferences}', { uri => c.uri_for_action('/account/preferences') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers/view', [ c.user.name ]) }) %]
+                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers', [ c.user.name ]) }) %]
                 </li>
                 <li>
                     [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
@@ -41,13 +41,13 @@
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile/view', [ c.user.name ])}) %]
+            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile', [ c.user.name ])}) %]
             <ul>
                 <li>
-                    [% l('{col|My Lists}', {col => c.uri_for_action('/user/lists/view', [ c.user.name ])}) %]
+                    [% l('{col|My Lists}', {col => c.uri_for_action('/user/lists', [ c.user.name ])}) %]
                 </li>
                 <li>
-                    [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings/view', [ c.user.name ])}) %]
+                    [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings', [ c.user.name ])}) %]
                 </li>
                 <li>
                     [% l('{col|My Tags}', {col => '/404'}) %]

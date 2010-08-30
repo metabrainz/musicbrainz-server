@@ -9,7 +9,7 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 sub index : Path('/account') RequireAuth
 {
     my ($self, $c) = @_;
-    $c->response->redirect($c->uri_for_action('/user/profile/view', [ $c->user->name ]));
+    $c->response->redirect($c->uri_for_action('/user/profile', [ $c->user->name ]));
     $c->detach;
 }
 
@@ -390,7 +390,7 @@ sub register : Path('/register') ForbiddenOnSlaves
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
         $c->set_authenticated($user);
 
-        $c->response->redirect($c->uri_for_action('/user/profile/view', [ $user->name ]));
+        $c->response->redirect($c->uri_for_action('/user/profile', [ $user->name ]));
         $c->detach;
     }
 

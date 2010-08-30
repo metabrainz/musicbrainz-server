@@ -34,7 +34,7 @@ sub index : Private
     $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
 
     $c->forward('login');
-    $c->detach('/user/profile/view', [ $c->user->name ]);
+    $c->detach('/user/profile', [ $c->user->name ]);
 }
 
 sub do_login : Private
@@ -82,7 +82,7 @@ sub login : Path('/login') ForbiddenOnSlaves
     my ($self, $c) = @_;
 
     if ($c->user_exists) {
-        $c->response->redirect($c->uri_for_action('/user/profile/view',
+        $c->response->redirect($c->uri_for_action('/user/profile',
                                                  [ $c->user->name ]));
         $c->detach;
     }
@@ -183,6 +183,92 @@ sub lists : Chained('/user/base') PathPart('lists')
     );
 }
 
+sub profile : Chained('/user/base') PathPart('') HiddenOnSlaves
+{
+    my ($self, $c) = @_;
+
+    my $user = $c->stash->{user};
+
+    my $subscr_model = $c->model('Editor')->subscription;
+    $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
+    $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
+    $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user->id);
+
+    $c->stash(
+        user     => $user,
+        template => 'user/profile.tt',
+    );
+}
+
+sub ratings : Chained('/user/base') PathPart('ratings') HiddenOnSlaves
+{
+    my ($self, $c) = @_;
+
+    my $user = $c->stash->{user};
+
+    if (!defined $c->user || $c->user->id != $user->id)
+    {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach('/error_403')
+            unless $user->preferences->public_ratings;
+    }
+
+    my $ratings = $c->model('Editor')->get_ratings ($user);
+
+    $c->stash(
+        user => $user,
+        ratings => $ratings,
+        template => 'user/ratings.tt',
+    );
+}
+
+sub subscribers : Chained('/user/base') PathPart('subscribers') RequireAuth HiddenOnSlaves
+{
+    my ($self, $c) = @_;
+
+    my $user = $c->stash->{user};
+
+    my $entities = $self->_load_paged($c, sub {
+        $c->model($self->{model})->find_subscribers ($user->id, shift, shift);
+    });
+
+    $c->model('Editor')->load_preferences (@$entities) if (@$entities);
+
+    my $private = 0;
+    my @filtered = grep {
+        $private += 1 unless $_->preferences->public_subscriptions;
+        $_->preferences->public_subscriptions;
+    } @$entities;
+
+    $c->stash(
+        user => $user,
+        private_subscribers => $private,
+        $self->{entities} => \@filtered,
+        template => 'user/subscribers.tt',
+    );
+}
+
+sub tags : Chained('/user/base') PathPart('tags')
+{
+    my ($self, $c) = @_;
+
+    my $user = $c->stash->{user};
+
+    if (!defined $c->user || $c->user->id != $user->id)
+    {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach('/error_403')
+            unless $user->preferences->public_tags;
+    }
+
+    my $tags = $c->model('Editor')->get_tags ($user);
+
+    $c->stash(
+        user => $user,
+        tags => $tags,
+        template => 'user/tags.tt',
+    );
+}
 
 1;
 
