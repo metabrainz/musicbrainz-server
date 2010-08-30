@@ -18,7 +18,7 @@
 
 [%- IF viewing_own_profile -%]
 [%- info_links.push (
-    ['donation', generic_link(c.uri_for_action("/user/donation/view", [ user.name ]), l('Donation'))],
+    ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation'))],
 ) -%]
 [%- END -%]
 

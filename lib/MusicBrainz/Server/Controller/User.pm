@@ -165,6 +165,25 @@ sub contact : Chained('base') RequireAuth HiddenOnSlaves
     }
 }
 
+sub lists : Chained('/user/base') PathPart('lists')
+{
+    my ($self, $c) = @_;
+
+    my $user = $c->stash->{user};
+
+    my $show_private = $c->stash->{viewing_own_profile};
+
+    my $lists = $self->_load_paged($c, sub {
+        $c->model('List')->find_by_editor($user->id, $show_private, shift, shift);
+    });
+
+    $c->stash(
+        user => $user,
+        lists => $lists,
+    );
+}
+
+
 1;
 
 =head1 COPYRIGHT
