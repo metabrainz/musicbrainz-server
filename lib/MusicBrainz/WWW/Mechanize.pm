@@ -21,19 +21,17 @@ around '_make_request' => sub
     {
         my $challenge = $response->headers->{'www-authenticate'};
         $challenge =~ tr/,/;/;
-        ($challenge) = HTTP::Headers::Util::split_header_words($challenge);  
-        my $scheme = shift(@$challenge); 
-        shift(@$challenge); # no value 
-        $challenge = { @$challenge };  # make rest into a hash   
+        ($challenge) = HTTP::Headers::Util::split_header_words($challenge);
+        my $scheme = shift(@$challenge);
+        shift(@$challenge); # no value
+        $challenge = { @$challenge };  # make rest into a hash
 
         my ($username, $password) = $self->credentials (
             $request->uri->host.":".$request->uri->port, $challenge->{realm});
 
         my $size = length ($request->content);
-        my $r = LWP::Authen::Digest->authenticate (
+        $response = LWP::Authen::Digest->authenticate (
             $self, undef, $challenge, $response, $request, undef, $size);
-
-        $response = $self->$orig ($request, @_);
     }
 
     return $response;
