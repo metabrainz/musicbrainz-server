@@ -41,6 +41,15 @@ around 'search' => sub
 
     if (exists $c->req->query_params->{puid}) {
         my $puid = $c->model('PUID')->get_by_puid($c->req->query_params->{puid});
+
+        unless ($puid) {
+            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+            $c->res->body(
+                $c->stash->{serializer}->xml('')
+            );
+            $c->detach;
+        }
+
         my @recording_puids = $c->model('RecordingPUID')->find_by_puid($puid->id);
         $c->model('ArtistCredit')->load(map { $_->recording} @recording_puids);
         my %recording_release_map;
