@@ -1,20 +1,18 @@
-package MusicBrainz::Server::Controller::User::Subscriptions::Label;
+package MusicBrainz::Server::Controller::Account::Subscriptions::Label;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-with 'MusicBrainz::Server::Controller::User::SubscriptionsRole';
+with 'MusicBrainz::Server::Controller::Account::SubscriptionsRole';
 
-__PACKAGE__->config(
-    model => 'Label',
-    entities => 'labels',
-    template => 'user/subscriptions/label.tt',
-);
+__PACKAGE__->config( model => 'Label' );
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify

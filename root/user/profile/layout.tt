@@ -11,7 +11,7 @@
 
 [%- info_links = [
     ['index', generic_link(c.uri_for_action("/user/profile", [ user.name ]), l('Profile'))],
-    ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist/view", user.name), l('Subscriptions'))],
+    ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist", [ user.name ]), l('Subscriptions'))],
     ['subscribers', generic_link(c.uri_for_action("/user/subscribers", [ user.name ]), l('Subscribers'))],
     ['lists', generic_link(c.uri_for_action("/user/lists", [ user.name ]), l('Lists'))],
 ] -%]

@@ -1,62 +1,53 @@
 package MusicBrainz::Server::Controller::User::SubscriptionsRole;
-use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 
-sub add : Local RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
-    my $entity_id = $c->request->params->{id};
-    $c->model($self->{model})->subscription->subscribe($c->user->id, $entity_id);
+parameter 'type' => (
+    required => 1
+);
 
-    my $url = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($url);
-    $c->detach;
-}
+role {
+    my $params = shift;
+    my $type   = $params->type;
 
-sub remove : Local RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
+    my %extra = @_;
 
-    my $entity_id = $c->request->params->{id};
-    $c->model($self->{model})->subscription->unsubscribe($c->user->id, $entity_id);
-
-    my $url = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($url);
-    $c->detach;
-}
-
-sub view : Local Args(1) RequireAuth HiddenOnSlaves
-{
-    my ($self, $c, $user_name) = @_;
-
-    my $user = $c->model('Editor')->get_by_name($user_name);
-
-    $c->detach('/error_404')
-        if (!defined $user);
-
-    if (!defined $c->user || $c->user->id != $user->id)
-    {
-        $c->model('Editor')->load_preferences($user);
-        $c->detach('/error_403')
-            unless $user->preferences->public_subscriptions;
-    }
-
-    my $entities = $self->_load_paged($c, sub {
-        $c->model($self->{model})->find_by_subscribed_editor($user->id, shift, shift);
-    });
-
-    $c->stash(
-        user => $user,
-        $self->{entities} => $entities,
-        template => $self->{template},
+    $extra{consumer}->name->config(
+        action => {
+            $type => { Chained => '/user/base', PathPart => "subscriptions/$type",
+                      RequireAuth => undef, HiddenOnSlaves => undef }
+        }
     );
-}
 
-no Moose::Role;
+    method $type => sub {
+        my ($self, $c) = @_;
+
+        my $user = $c->stash->{user};
+
+        if (!defined $c->user || $c->user->id != $user->id) {
+            $c->model('Editor')->load_preferences($user);
+            $c->detach('/error_403')
+                unless $user->preferences->public_subscriptions;
+        }
+
+        my $entities = $self->_load_paged($c, sub {
+            $c->model(type_to_model($type))->find_by_subscribed_editor($user->id, shift, shift);
+        });
+
+        $c->stash(
+            user      => $user,
+            entities  => $entities,
+            template  => "user/subscriptions/$type.tt",
+        );
+    };
+};
+
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify

@@ -88,12 +88,13 @@
 
             [% IF !viewing_own_profile && c.user_exists %]
                 [% IF subscribed %]
-                    (<a href="[% c.uri_for_action('/user/subscriptions/editor/remove', { id => user.id }) %]">[% l('unsubscribe') %]</a>)
+                    (<a href="[% c.uri_for_action('/account/subscriptions/editor/remove', { id => user.id }) %]">[% l('unsubscribe') %]</a>)
                 [% ELSE %]
-                    (<a href="[% c.uri_for_action('/user/subscriptions/editor/add', { id => user.id }) %]">[% l('subscribe') %]</a>)
+                    (<a href="[% c.uri_for_action('/account/subscriptions/editor/add', { id => user.id }) %]">[% l('subscribe') %]</a>)
                 [% END %]
             [% END %]
 
+            
         [% END %]
     </dl>
 
