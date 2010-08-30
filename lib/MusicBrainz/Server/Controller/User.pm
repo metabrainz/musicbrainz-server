@@ -6,6 +6,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Authentication::User;
 
+__PACKAGE__->config(
+    entity_name => 'user',
+    paging_limit => 25,
+);
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::User - Catalyst Controller to handle
@@ -103,22 +108,17 @@ sub logout : Path('/logout')
     $self->redirect_back($c, '/logout', '/');
 }
 
-sub base : Chained PathPart('user') CaptureArgs(1) HiddenOnSlaves
+sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnSlaves { }
+
+sub _load
 {
     my ($self, $c, $user_name) = @_;
 
-    my $user = $c->model('Editor')->get_by_name($user_name);
-    $c->detach('/error_404')
-        unless defined $user;
+    my $user = $c->model('Editor')->get_by_name($user_name) or return;
+    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
+    $c->stash->{show_flags}          = $c->user_exists && $c->user->is_account_admin;
 
-    $c->stash( user => $user );
-
-    if ($c->user_exists && $c->user->id == $user->id)
-    {
-        $c->stash->{viewing_own_profile} = 1;
-    }
-
-    $c->stash->{show_flags} = 1 if ($c->user_exists && $c->user->is_account_admin);
+    return $user;
 }
 
 =head2 contact
@@ -165,7 +165,7 @@ sub contact : Chained('base') RequireAuth HiddenOnSlaves
     }
 }
 
-sub lists : Chained('/user/base') PathPart('lists')
+sub lists : Chained('load') PathPart('lists')
 {
     my ($self, $c) = @_;
 
@@ -183,7 +183,7 @@ sub lists : Chained('/user/base') PathPart('lists')
     );
 }
 
-sub profile : Chained('/user/base') PathPart('') HiddenOnSlaves
+sub profile : Chained('load') PathPart('') HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -200,7 +200,7 @@ sub profile : Chained('/user/base') PathPart('') HiddenOnSlaves
     );
 }
 
-sub ratings : Chained('/user/base') PathPart('ratings') HiddenOnSlaves
+sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -222,7 +222,7 @@ sub ratings : Chained('/user/base') PathPart('ratings') HiddenOnSlaves
     );
 }
 
-sub subscribers : Chained('/user/base') PathPart('subscribers') RequireAuth HiddenOnSlaves
+sub subscribers : Chained('load') PathPart('subscribers') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -248,7 +248,7 @@ sub subscribers : Chained('/user/base') PathPart('subscribers') RequireAuth Hidd
     );
 }
 
-sub tags : Chained('/user/base') PathPart('tags')
+sub tags : Chained('load') PathPart('tags')
 {
     my ($self, $c) = @_;
 

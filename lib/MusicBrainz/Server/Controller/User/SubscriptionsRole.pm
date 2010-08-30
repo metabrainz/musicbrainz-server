@@ -15,7 +15,7 @@ role {
 
     $extra{consumer}->name->config(
         action => {
-            $type => { Chained => '/user/base', PathPart => "subscriptions/$type",
+            $type => { Chained => '/user/load', PathPart => "subscriptions/$type",
                       RequireAuth => undef, HiddenOnSlaves => undef }
         }
     );
