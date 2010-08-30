@@ -94,7 +94,7 @@
                 [% END %]
             [% END %]
 
-            
+
         [% END %]
     </dl>
 
@@ -109,7 +109,7 @@
     <table class="statistics">
         <thead>
         <tr>
-            <th colspan="2">[% l('Edits ({view_url|view})', { view_url => '/404' }) %]</th>
+            <th colspan="2">[% l('Edits ({view_url|view})', { view_url => c.uri_for_action('/user/edits/all', [ user.name ]) }) %]</th>
         </tr>
         </thead>
 
