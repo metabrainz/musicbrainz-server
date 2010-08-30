@@ -13,6 +13,13 @@ sub index : Path('/account') RequireAuth
     $c->detach;
 }
 
+sub begin : Private
+{
+    my ($self, $c) = @_;
+    $c->stash->{viewing_own_profile} = 1;
+    $c->stash->{user}                = $c->user;
+}
+
 =head2 verify
 
 Verify the email address (this is the URL handed out in "verify your email
