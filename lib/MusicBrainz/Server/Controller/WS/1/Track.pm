@@ -36,18 +36,26 @@ around 'search' => sub
         $c->model('ArtistCredit')->load(map { $_->recording} @recording_puids);
         my %recording_release_map;
 
+        my @tracks;
         for (@recording_puids) {
             $c->model('Artist')->load($_->recording->artist_credit->names->[0])
                 if @{ $_->recording->artist_credit->names } == 1;
 
             my ($releases) = $c->model('Release')->find_by_recording($_->recording->id);
             $recording_release_map{$_->recording->id} = $releases;
+
+            my ($tracks) = $c->model('Track')->find_by_recording($_->recording->id, 1000);
+            push @tracks, @$tracks;
         }
+
+        my @releases  = map { @$_ } values %recording_release_map;
+        my %track_map = map { $_->tracklist->medium->release_id => $_ } @tracks;
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->serialize_list('track', \@recording_puids, undef, {
-                recording_release_map => \%recording_release_map
+                recording_release_map => \%recording_release_map,
+                track_map             => \%track_map
             })
         );
     }
