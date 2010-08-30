@@ -31,7 +31,7 @@
 
 [%- IF show_flags -%]
 [%- info_links.push (
-    ['flags', generic_link(c.uri_for_action("/user/adjustflags/view", [ user.name ]), l('Adjust Flags'))],
+    ['flags', generic_link(c.uri_for_action("/admin/adjust_flags", user.name), l('Adjust Flags'))],
 ) -%]
 [%- END -%]
 
