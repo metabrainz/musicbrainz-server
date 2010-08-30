@@ -29,7 +29,7 @@ INSERT INTO editor_subscribe_editor (editor, subscribededitor, lasteditsent)
 
 ALTER SEQUENCE editor_id_seq RESTART 4;
 
-INSERT INTO list (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 2, E('kuno\'s collection'), 0), (2, 'd34c079d-374e-4436-9448-da92dedef3ce', 1, 'new_collection', 1);
+INSERT INTO list (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 2, 'kunos collection', FALSE), (2, 'd34c079d-374e-4436-9448-da92dedef3ce', 1, 'new_collection', TRUE);
 INSERT INTO list_release (list, release)
     VALUES (1, 1), (1, 2);
 
