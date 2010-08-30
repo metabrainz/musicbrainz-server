@@ -229,7 +229,7 @@ sub subscribers : Chained('load') PathPart('subscribers') RequireAuth HiddenOnSl
     my $user = $c->stash->{user};
 
     my $entities = $self->_load_paged($c, sub {
-        $c->model($self->{model})->find_subscribers ($user->id, shift, shift);
+        $c->model('Editor')->find_subscribers ($user->id, shift, shift);
     });
 
     $c->model('Editor')->load_preferences (@$entities) if (@$entities);
