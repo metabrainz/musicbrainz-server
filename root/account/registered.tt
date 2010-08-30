@@ -6,7 +6,7 @@
         <p>
             [% l('Please <a href="{uri}">update your profile</a> when you get time,
                   to let other editors know a bit more about you.',
-                  { uri => c.uri_for('/user/edit') }) %]
+                  { uri => c.uri_for('/account/edit') }) %]
         </p>
         [% IF emailed %]
             <p>

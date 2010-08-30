@@ -7,10 +7,10 @@
                     [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/user/change_password') }) %]
+                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/account/change_password') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/user/preferences') }) %]
+                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/account/preferences') }) %]
                 </li>
                 <li>
                     [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers/view', [ c.user.name ]) }) %]
@@ -59,7 +59,7 @@
         </li>
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
-        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/user/register') }) %]</li>
+        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>
     [%- END -%]
 </ul>
 
