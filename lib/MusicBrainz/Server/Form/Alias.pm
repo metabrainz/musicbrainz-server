@@ -18,6 +18,11 @@ has_field 'locale' => (
     required => 0
 );
 
+has 'id' => (
+    isa => 'Int',
+    is  => 'rw',
+);
+
 has 'parent_id' => (
     isa => 'Int',
     is  => 'ro',
@@ -35,7 +40,7 @@ sub edit_field_names { qw(name locale) }
 sub validate_name {
     my ($self, $field) = @_;
     $field->add_error('This alias has already been added')
-        if $self->alias_model->has_alias( $self->parent_id, $field->value );
+        if $self->alias_model->has_alias( $self->parent_id, $field->value, $self->id );
 }
 
 sub options_locale {
