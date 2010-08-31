@@ -10,6 +10,9 @@
       xmlns:mo="http://purl.org/ontology/mo/"
       xmlns:bio="http://vocab.org/bio/0.1/"
       xmlns:ov="http://open.vocab.org/terms/"
+      xmlns:mfo="http://purl.org/ontology/mfo/"
+      xmlns:event="http://purl.org/NET/c4dm/event.owl#"
+      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
       xml:lang="en">
 
     <head>

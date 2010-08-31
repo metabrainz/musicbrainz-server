@@ -1,3 +1,9 @@
+[%- BLOCK about; %]
+<span about="[% rdfa_release_curi(release) %]">
+  [% content %]
+</span>
+[% END %]
+
 [%- BLOCK cover_art; %]
     <p>
         [% IF release.cover_art_url; %]
@@ -8,7 +14,7 @@
     </p>
 [% END %]
 
-[%- BLOCK other_versions %]
+[%- BLOCK other_versions; %]
     <p>
         <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
             [% l('See other versions of this release') %]
@@ -16,7 +22,7 @@
     </p>
 [% END -%]
 
-[%- MACRO editable_property(label, text, field, field_name, class)
+[%- MACRO editable_property(label, text, field, field_name, class, property)
         IF field && editing;
             IF class.defined;
                 class = class _ ' hidden';
@@ -24,11 +30,12 @@
                 class = 'hidden';
             END;
             INCLUDE 'layout/sidebar/property.tt' content=field class=class
-                label=r.label(field_name, label);
+                label=r.label(field_name, label) property=property;
         ELSE;
             INCLUDE 'layout/sidebar/property.tt' content=text IF text;
         END %]
 
+[%# TODO rdfa for these properties (which are mostly relations) %]
 [%- BLOCK release_properties;
         WRAPPER 'layout/sidebar/properties.tt';
             USE r = FormRenderer(form);
@@ -85,7 +92,7 @@
                 },
             ];
 
-            editable_property(prop.label, prop.text, prop.field, prop.field_name, prop.class)
+            editable_property(prop.label, prop.text, prop.field, prop.field_name, prop.class, prop.rdfa_property)
                 FOR prop=release_properties;
         END;
     END %]
@@ -109,7 +116,7 @@
                        [% r.text(form.field('labels').field(loop.index).field('catalog_number'),
                                  size => 8, class => 'catalog-number') %]
                      [% ELSE %]
-                       [% link_label(label.label) %] &ndash; [% label.catalog_number %]
+                       [% rdfa_link_label(label.label) %] &ndash; [% rdfa_release_catno(label.catalog_number) %]
                      [% END %]
                    </li>
                [% END %]
@@ -135,8 +142,9 @@
 
 [%
 WRAPPER 'layout/sidebar.tt';
+  WRAPPER about;
     INCLUDE cover_art;
-
+    
     INCLUDE release_properties;
     INCLUDE release_label_properties;
 
@@ -145,8 +153,9 @@ WRAPPER 'layout/sidebar.tt';
         INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release.release_group
         tag_this_text=l('Tag release group');
         INCLUDE links;
-        INCLUDE other_versions;
+    	INCLUDE other_versions;    
     END;
+  END;
 END;
 
 -%]

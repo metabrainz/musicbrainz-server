@@ -23,16 +23,16 @@
     <tbody>
     [% END %]
         [%- FOR release=releases -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %]>
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
             [% IF rdfa_made %]
 	       <td>[% rdfa_made_release_link(release) %]</td>
 	    [% ELSE %]
-	       <td>[% link_release(release) %]</td>
+	       <td>[% rdfa_event_product_release_link(release) %]</td>
 	    [% END %]
             [% IF show_va %]
             <td>[% artist_credit(release.artist_credit) %]</td>
             [% END %]
-            <td>[% rdfa_release_format(release.combined_format_name) or "-" %]</td>
+            <td>[% rdfa_release_format(release) or "-" %]</td>
             <td>[% release.combined_track_count or "-" %]</td>
             <td>[% rdfa_release_event_date(release) %]</td>
             <td>

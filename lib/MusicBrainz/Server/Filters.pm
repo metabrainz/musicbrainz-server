@@ -31,6 +31,12 @@ sub format_length
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
 }
 
+sub format_xsd_length
+{
+    my $ms = shift;
+    return MusicBrainz::Server::Track::FormatXSDTrackLength($ms);
+}
+
 sub format_distance
 {
     my $ms = shift;
