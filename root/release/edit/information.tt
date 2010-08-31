@@ -28,6 +28,14 @@
   </script>
 [%- END -%]
 
+[%- MACRO validate_barcode(field) BLOCK -%]
+<div class="validate-barcode">
+     <p>
+        Hello there sir!
+     </p>
+</div>
+[%- END -%]
+
 [%- MACRO artist_credit_table(acfield) BLOCK -%]
 <div class="ac-balloon0">
   <div class="ac-balloon1">
@@ -140,6 +148,10 @@
 
     <div class="artist-credit" style="display: none">
     [% artist_credit_table(form.field('artist_credit')) %]
+    </div>
+
+    <div class="barcode" style="display: none">
+    [% validate_barcode(form.field('barcode')) %]
     </div>
 
     <div style="border: 1px dashed #999; height: 100px; margin: 100px 0 0 0;">
