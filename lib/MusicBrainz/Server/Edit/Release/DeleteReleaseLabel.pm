@@ -11,7 +11,6 @@ sub edit_name { 'Remove release label' }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
-sub related_entities { { release => [ shift->release_id ] } }
 sub models { [qw( Release ReleaseLabel )] }
 
 has '+data' => (
@@ -27,6 +26,19 @@ has 'release_id' => (
     lazy => 1,
     default => sub { shift->data->{release_id} }
 );
+
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+
+around 'related_entities' => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $related = $self->$orig;
+
+    my $release_label = $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
+    $related->{label} = [ $release_label->label_id ],
+
+    return $related;
+};
 
 has 'release' => (
     isa => 'Release',

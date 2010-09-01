@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 
 sub edit_name { 'Add release group' }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }

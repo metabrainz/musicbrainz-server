@@ -6,6 +6,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
 sub edit_name { "Add medium" }
