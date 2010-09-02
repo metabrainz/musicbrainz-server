@@ -1,14 +1,15 @@
 [%- info_links = [
-    ['index', link_artist(artist, 'show', l('Overview'))],
-    ['releases', link_artist(artist, 'releases', l('Releases'))],
-    ['works', link_artist(artist, 'works', l('Works'))],
-    ['recordings', link_artist(artist, 'recordings', l('Recordings'))],
-    ['relationships', link_artist(artist, 'relationships', l('Relationships'))],
-    ['aliases', link_artist(artist, 'aliases', l('Aliases'))],
+    ['index', rdfa_seeAlso_link_artist(artist, 'show', l('Overview'))],
+    ['releases', rdfa_seeAlso_link_artist(artist, 'releases', l('Releases'))],
+    ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
+    ['recordings', rdfa_seeAlso_link_artist(artist, 'recordings', l('Recordings'))],
+    ['relationships', rdfa_seeAlso_link_artist(artist, 'relationships', l('Relationships'))],
+    ['aliases', rdfa_seeAlso_link_artist(artist, 'aliases', l('Aliases'))],
     ['tags', link_artist(artist, 'tags', l('Tags'))],
-    ['details', link_artist(artist, 'details', l('Details'))],
+    ['details', rdfa_seeAlso_link_artist(artist, 'details', l('Details'))],
     ['edit', link_artist(artist, 'edit', l('Edit'))],
 ] -%]
+[%# note no RDFa for tags, edit.  relationships @@TODO %]
 
 <div class="artistheader" about="[% rdfa_artist_curi(artist) %]" typeof="[% rdfa_concept_curi(artist.type_name) %]">
     <h1>[% rdfa_topic_is_artist(artist) %] [% rdfa_disambiguation(artist) %]</h1>

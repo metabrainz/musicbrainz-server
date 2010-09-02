@@ -1,14 +1,14 @@
 [%- info_links = [
-    ['index', link_recording(recording, 'show', l('Releases'))],
-    ['relationships', link_recording(recording, 'relationships', l('Relationships'))],
+    ['index', rdfa_seeAlso_link_recording(recording, 'show', l('Releases'))],
+    ['relationships', rdfa_seeAlso_link_recording(recording, 'relationships', l('Relationships'))],
     ['tags', link_recording(recording, 'tags', l('Tags'))],
-    ['puids', link_recording(recording, 'puids', l('PUIDs'))],
-    ['details', link_recording(recording, 'details', l('Details'))],
+    ['puids', rdfa_seeAlso_link_recording(recording, 'puids', l('PUIDs'))],
+    ['details', rdfa_seeAlso_link_recording(recording, 'details', l('Details'))],
     ['edit', link_recording(recording, 'edit', l('Edit'))],
 ] -%]
 
 <div class="recordingheader" about="[% rdfa_recording_curi(recording) %]" typeof="[% rdfa_concept_curi('recording') %]">
-    <h1>“[% rdfa_link_recording_header(recording) %]” [% disambiguation(recording) %]</h1>
+    <h1>“[% rdfa_link_recording_header(recording) %]” [% rdfa_disambiguation(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
             [% l('Recording by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
