@@ -56,15 +56,67 @@ sub find_top_tags
                          $query, $entity_id, $limit);
 }
 
+sub find_tags_for_entities
+{
+    my ($self, $ids) = @_;
+
+    my @ids = ref $ids ? @$ids : $ids;
+
+    return unless @ids;
+
+    my $query = "SELECT tag.name, entity_tag.count,
+                        entity_tag.".$self->type." AS entity
+                 FROM " . $self->tag_table . " entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
+                 ORDER BY entity_tag.count DESC, tag.name";
+    return query_to_list(
+        $self->c->dbh, sub {
+            $self->_new_from_row($_[0])
+        }, $query, @ids);
+}
+
+sub find_user_tags_for_entities
+{
+    my ($self, $user_id, $ids) = @_;
+
+    my @ids = ref $ids ? @$ids : $ids;
+
+    return unless @ids;
+
+    my $type = $self->type;
+    my $table = $self->tag_table . '_raw';
+    my $query = "SELECT tag, $type AS entity
+                 FROM $table
+                 WHERE editor = ?
+                 AND $type IN (" . placeholders(@ids) . ")";
+
+    my @tags = query_to_list($self->c->raw_dbh, sub {
+        my $row = shift;
+        return MusicBrainz::Server::Entity::UserTag->new(
+            tag_id => $row->{tag},
+            editor_id => $user_id,
+            entity_id => $row->{entity},
+        );
+    }, $query, $user_id, @ids);
+
+    $self->c->model ('Tag')->load (@tags);
+
+    return sort { $a->tag->name cmp $b->tag->name } @tags;
+}
+
 sub _new_from_row
 {
     my ($self, $row) = @_;
-    MusicBrainz::Server::Entity::AggregatedTag->new(
+
+    my %init = (
         count => $row->{count},
-        tag => MusicBrainz::Server::Entity::Tag->new(
-            name => $row->{name},
-        ),
+        tag => MusicBrainz::Server::Entity::Tag->new( name => $row->{name} ),
     );
+
+    $init{entity_id} = $row->{entity} if $row->{entity};
+
+    MusicBrainz::Server::Entity::AggregatedTag->new(\%init);
 }
 
 sub delete
@@ -358,7 +410,7 @@ sub find_user_tags
 
     $self->c->model('Tag')->load(@tags);
 
-    return @tags;
+    return sort { $a->tag->name cmp $b->tag->name } grep { $_->tag } @tags;
 }
 
 sub find_entities

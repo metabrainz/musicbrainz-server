@@ -64,6 +64,7 @@ sub artist_credit_to_ref
 sub load_subobjects
 {
     my ($data_access, $attr_obj, @objs) = @_;
+
     @objs = grep { defined } @objs;
     return unless @objs;
 

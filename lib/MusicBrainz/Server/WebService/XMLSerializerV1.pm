@@ -5,23 +5,34 @@ use Readonly;
 use MusicBrainz::XML::Generator;
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
 
+use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+
 sub mime_type { 'application/xml' }
 
-Readonly my $xml_decl_begin => '<?xml version="1.0" encoding="UTF-8"?>'.
-    '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-Readonly my $xml_decl_end => '</metadata>';
+has 'namespaces' => (
+    is      => 'ro',
+    isa     => 'HashRef',
+    traits  => [ 'Hash' ],
+    default => sub { +{} },
+    handles => {
+        add_namespace => 'set'
+    }
+);
+
+sub xml_decl_begin {
+    my ($self) = @_;
+    return '<?xml version="1.0" encoding="UTF-8"?>'.
+        '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" ' .
+        join(' ', map { 'xmlns:' . $_ . '="' . $self->namespaces->{$_} . '"' } keys %{ $self->namespaces }) .
+        '>';
+}
+
+sub xml_decl_end { '</metadata>' }
 
 sub output_error
 {
     my ($self, $err) = @_;
-
-    my $gen = MusicBrainz::XML::Generator->new();
-
-    my $xml = $xml_decl_begin;
-    $xml .= $gen->error($gen->text(
-       $err . " For usage, please see: http://musicbrainz.org/development/mmd\015\012"));
-    $xml .= $xml_decl_end;
-    return $xml;
+    return "$err\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012";
 }
 
 sub serialize
@@ -29,12 +40,27 @@ sub serialize
     my ($self, $type, $entity, $inc, $opts) = @_;
     $inc ||= 0;
 
-    my $xml = $xml_decl_begin;
+    my $xml = $self->xml_decl_begin;
 
     $xml .= serialize_entity($entity, $inc, $opts);
 
-    $xml .= $xml_decl_end;
+    $xml .= $self->xml_decl_end;
     return $xml;
+}
+
+sub xml
+{
+    my ($self, $xml) = @_;
+    return $self->xml_decl_begin . $xml . $self->xml_decl_end;
+}
+
+sub serialize_list
+{
+    my ($self, $type, $entities, $inc, $data) = @_;
+
+    return $self->xml_decl_begin .
+        List->new( _element => $type )->serialize($entities, $inc, $data) .
+        $self->xml_decl_end;
 }
 
 
