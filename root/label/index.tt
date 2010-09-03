@@ -22,7 +22,6 @@
                     [%- FOREACH release=releases %]
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release.release) %]  about="[% rdfa_release_curi(release.release) %]">
                         <td>[% rdfa_label_release_link(release.release) %]</td>
-			[%# FIXME this breaks rapper??? %]
                         <td>[% rdfa_artist_credit(release.release.artist_credit) %]</td>
                         <td>[% rdfa_release_catno(release.catalog_number) %]</td>
                         <td>[% rdfa_release_event_date(release.release) %]</td>

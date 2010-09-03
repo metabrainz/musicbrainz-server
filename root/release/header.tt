@@ -8,6 +8,7 @@
 <p class="subheader">
     <span class="prefix">~</span>
         [% l('Release by {artist}', {artist = rdfa_artist_credit(release.artist_credit)})%]
+	[% rdfa_release_invisible_header(release) %]
 </p>
 </div>
 

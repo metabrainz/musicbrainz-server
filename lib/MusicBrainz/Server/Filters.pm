@@ -23,6 +23,20 @@ sub release_date
     $str .= "-".$d if ($d && 0 + $d);
 
     return $str;
+
+}
+
+# get the xsd type for a date (rdfa stuff)
+sub date_xsd_type
+{
+    my $date = shift;
+
+    my ($y, $m, $d) = split /-/, $date;
+
+    return 'xsd:date' if ($y && 0 + $y && $m && 0 + $m && $d && 0 + $d);
+    return 'xsd:gYearMonth' if ($y && 0 + $y && $m && 0 + $m);
+    return 'xsd:gYear' if ($y);
+
 }
 
 sub format_length
@@ -31,7 +45,8 @@ sub format_length
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
 }
 
-sub format_xsd_length
+# format duration as xsd:duration (rdfa stuff)
+sub format_length_xsd
 {
     my $ms = shift;
     return MusicBrainz::Server::Track::FormatXSDTrackLength($ms);
