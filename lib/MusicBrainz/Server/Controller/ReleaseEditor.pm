@@ -32,55 +32,30 @@ has 'c' => (
     isa => 'Object'
 );
 
-sub artist_compare
-{
-    my ($self, $old, $new) = @_;
-
-    my $i = 0;
-    for (@{ $old->names })
-    {
-        return 1 unless $new->names->[$i];
-        return 1 if $_->name ne $new->names->[$i]->name ||
-            $_->artist_id    != $new->names->[$i]->artist_id;
-
-        if ($_->join_phrase || $new->names->[$i]->join_phrase)
-        {
-            return 1 if $_->join_phrase ne $new->names->[$i]->join_phrase;
-        }
-
-        $i++;
-    }
-
-    return 1 if $new->names->[$i];
-
-    return 0;
-}
-
 sub search_result
 {
     my ($self, $recording) = @_;
 
     my @extra;
 
-    my ($tracks, $hits) = $self->c->model('Track')->find_by_recording ($recording->id, 10, 0);
+    my ($tracks, $hits) = $self->c->model('Track')->find_by_recording ($recording->id, 6, 0);
 
-    for (@{ $tracks })
-    {
-        my $release = $_->tracklist->medium->release;
-        $release->mediums ([ $_->tracklist->medium ]);
-        $release->mediums->[0]->tracklist ($_->tracklist);
-        $release->mediums->[0]->tracklist->tracks ([ $_ ]);
+    $self->c->model('ReleaseGroup')->load(map { $_->tracklist->medium->release } @{ $tracks });
 
-        push @extra, $release;
-    }
+    my %rgs = map {
+        $_->tracklist->medium->release->release_group_id =>
+            $_->tracklist->medium->release->release_group
+    } @{ $tracks };
+
+    my @rgs = sort { $a->name cmp $b->name } values %rgs;
 
     $self->c->model('ArtistCredit')->load ($recording);
 
-    return SearchResult->new ({ 
+    return SearchResult->new ({
         entity => $recording,
         position => 1,
         score => 100,
-        extra => \@extra,
+        extra => \@rgs,
     });
 }
 
@@ -110,8 +85,8 @@ sub track_add
 
     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
     my $new = Track->new($newdata);
-    
-    my $t = TrackChangesPreview->new (added => 1, track => $new);
+
+    my $t = TrackChangesPreview->new (track => $new);
 
     $self->recording_suggestions ($t);
 
@@ -125,13 +100,10 @@ sub track_compare
     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
 
     my $new = Track->new($newdata);
-    my $preview = TrackChangesPreview->new (track => $new, old => $old);
+    my $preview = TrackChangesPreview->new (track => $new);
 
     $preview->deleted(1) if $newdata->{deleted};
     $preview->renamed(1) if $old->name ne $new->name;
-    $preview->moved(1)   if $old->position ne $new->position;
-    $preview->length(1)  if $old->length ne $new->length;
-    $preview->artist(1)  if $self->artist_compare ($old->artist_credit, $new->artist_credit);
 
     my @suggest;
     if ($old->id == $new->id)
@@ -180,7 +152,7 @@ sub tracklist_compare
 
         if ($new[$trackpos]->{deleted})
         {
-            my $recording_backup = $new[$trackpos]->{id}; 
+            my $recording_backup = $new[$trackpos]->{id};
             $new[$trackpos] = $new[$i];
             $new[$trackpos]->{id} = $recording_backup;
 
@@ -206,11 +178,11 @@ sub tracklist_compare
     {
         push @ret, $self->track_add (shift @new);
     }
-    
+
     return \@ret;
 }
 
-sub release_compare
+sub suggest_recordings
 {
     my ($self, $data, $release) = @_;
 
@@ -588,20 +560,19 @@ sub release_add
 
     if ($wizard->current_page eq 'recordings')
     {
-        my $changes = $self->release_compare ($wizard->value);
+        my $suggestions = $self->suggest_recordings ($wizard->value);
 
         my $associations = [];
-        for my $medium_changes (@$changes)
+        for my $medium (@$suggestions)
         {
             my $medium_assoc = [];
-            for my $track_changes (@$medium_changes)
+            for my $track (@$medium)
             {
                 my $rec;
 
-                if (scalar @{ $track_changes->suggestions } == 1 ||
-                    $track_changes->renamed)
+                if (scalar @{ $track->suggestions } == 1 || $track->renamed)
                 {
-                    $rec = $track_changes->suggestions->[0]->entity->gid;
+                    $rec = $track->suggestions->[0]->entity->gid;
                 }
 
                 push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
@@ -610,7 +581,7 @@ sub release_add
             push @$associations, { associations => $medium_assoc };
         }
 
-        $self->c->stash->{changes} = $changes;
+        $self->c->stash->{suggestions} = $suggestions;
 
         $wizard->load_page('recordings', { 'preview_mediums' => $associations });
     }
@@ -803,23 +774,22 @@ sub release_edit
         my @tracks = map { $_->all_tracks } map { $_->tracklist } $release->all_mediums;
         $self->c->model('Recording')->load (@tracks);
 
-        my $changes = $self->release_compare ($wizard->value, $release);
+        my $suggestions = $self->suggest_recordings ($wizard->value, $release);
 
         my $associations = [];
-        for my $medium_changes (@$changes)
+        for my $medium (@$suggestions)
         {
             my $medium_assoc = [];
-            for my $track_changes (@$medium_changes)
+            for my $track (@$medium)
             {
                 my $rec;
 
                 # If there is only one suggestion, use that as the default.
                 # Use the first suggestion (which is the current association) as a
                 # default if the track is renamed.
-                if (scalar @{ $track_changes->suggestions } == 1 ||
-                    $track_changes->renamed)
+                if (scalar @{ $track->suggestions } == 1 || $track->renamed)
                 {
-                    $rec = $track_changes->suggestions->[0]->entity->gid;
+                    $rec = $track->suggestions->[0]->entity->gid;
                 }
 
                 push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
@@ -828,7 +798,7 @@ sub release_edit
             push @$associations, { associations => $medium_assoc };
         }
 
-        $self->c->stash->{changes} = $changes;
+        $self->c->stash->{suggestions} = $suggestions;
 
         $wizard->load_page('recordings', { 'preview_mediums' => $associations });
     }

@@ -7,14 +7,9 @@ has $_ => (
     is  => 'rw',
     isa => 'Int',
     default => 0
-) for qw( added deleted renamed moved length artist );
+) for qw( deleted renamed );
 
 has 'track' => (
-    is => 'rw',
-    isa => 'Track',
-);
-
-has 'old' => (
     is => 'rw',
     isa => 'Track',
 );

@@ -99,29 +99,15 @@ sub label : Chained('root') PathPart('label') Args(0)
     $self->_autocomplete_entity($c, 'Label', $DLABEL_ID);
 }
 
-sub _flatten_releases
+sub _serialize_release_groups
 {
-    my ($result) = @_;
+    my (@rgs) = @_;
 
     my @ret;
-    for my $rel (@{ $result->{extra} })
-    {
-        for my $disc (@{ $rel->mediums })
-        {
-            for my $track (@{ $disc->tracklist->tracks })
-            {
-                # FIXME: search server results don't seem to include the disc title,
-                # perhaps that should be included. --warp.
-                # FIXME: from the search results I cannot know if a release has multiple
-                # discs, I would prefer to show (disc 1) on multidisc releases. --warp.
-                my $discname = ($disc->position == 1) ? '' : " (disc ".$disc->position.")";
 
-                push @ret, {
-                    release => $rel->name . $discname, 
-                    trackpos => $track->position." / ".$disc->tracklist->track_count
-                };
-            }
-        }
+    for (@rgs)
+    {
+        push @ret, { 'name' => $_->name, 'gid' => $_->gid, };
     }
 
     return \@ret;
@@ -132,7 +118,7 @@ sub recording : Chained('root') PathPart('recording') Args(0)
     my ($self, $c) = @_;
 
     my $query = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{q});
-    my $artist = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{a});
+    my $artist = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{a} || '');
     my $limit = $c->stash->{args}->{limit} || 10;
 
     my $response = $c->model ('Search')->external_search (
@@ -143,13 +129,16 @@ sub recording : Chained('root') PathPart('recording') Args(0)
     my @entities;
     for my $result (@{ $response->{results} })
     {
+        my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
+            map { $_->gid } @{ $result->{extra} });
+
         push @entities, {
             gid => $result->{entity}->gid,
             id => $result->{entity}->id,
             length => MusicBrainz::Server::Filters::format_length ($result->{entity}->length),
             name => $result->{entity}->name,
             artist => $result->{entity}->artist_credit->name,
-            releases => _flatten_releases ($result)
+            releasegroups => _serialize_release_groups (@rgs),
         };
     }
 

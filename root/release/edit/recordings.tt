@@ -1,93 +1,21 @@
 [%- BLOCK layout_head -%]
   <script src="[% c.uri_for('/static/lib/jquery/jquery-1.4.2.min.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/lib/jquery/jquery.json.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/lib/jquery.autocomplete/jquery.autocomplete.min.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/TrackParser.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleasePreview.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/Bubble.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseRecordings.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.autocomplete/jquery.autocomplete.css') %]" />
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
   <script type="text/javascript">
     $('document').ready (function () {
 
-      var serialized_tracklists = [% serialized_tracklists %];
-
-      MB.Control.ReleasePreview (serialized_tracklists);
+        MB.Control.ReleaseRecordings ();
 
     });
   </script>
 [%- END -%]
-
-[%- MACRO select_recording(assoc, new) BLOCK -%]
-<div class="ac-balloon0">
-  <div class="ac-balloon1">
-    <div class="ac-balloon2"></div>
-    <div class="ac-balloon3"></div>
-  </div>
-</div>
-<div class="select-recording">
-  <h4>[%- l('Add a new recording') %]</h4>
-  <div>
-      <table>
-        <tbody>
-          <tr class="servermatch recordingmatch">
-              <td class="select">
-                  <a href="#select" class="selectrecording">select</a>
-                  <input type="hidden" class="gid" value="" />
-              </td>
-              <td class="name">[% new.name %]</td>
-              <td class="artist">[% new.artist_credit.name %]</td>
-              <td class="release"></td>
-              <td class="pos"></td>
-              <td class="length">[% new.length | format_length %]</td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
-  <h4>[%- l('Use existing recording') %]</h4>
-  <div>
-      <input type="text" class="recording" value="" placeholder="recording lookup" />
-      <table class="matches">
-        <tbody>
-          [% FOR rec=track_preview.suggestions %]
-            [% FOR release=rec.extra %]
-              [%# A single recording will have multiple lines here if it appears on more than %]
-              [%# one release.  Skip everything but the release info on subsequent lines. %]
-              [% releaseline = loop.index %]
-              [% FOR disc=release.mediums %]
-          <tr class="servermatch recordingmatch">
-              <td class="select">
-                  [% IF releaseline == 0 %]
-                  <a href="#select" class="selectrecording">select</a>
-                  <input type="hidden" class="gid" value="[% rec.entity.gid %]" />
-                  [% END %]
-              </td>
-              <td class="name">
-                  [% IF releaseline == 0 %][% link_entity (rec.entity) %][% END %]
-              </td>
-              <td class="artist">
-                  [% IF releaseline == 0 %][% rec.entity.artist_credit.name %][% END %]
-              </td>
-              <td class="release">[% release.name %]</td>
-              <td class="pos">
-                [% disc.tracklist.tracks.0.position %]
-                / [% disc.tracklist.track_count %]
-              </td>
-              <td class="length">
-                  [% IF releaseline == 0 %][% rec.entity.length | format_length %][% END %]
-              </td>
-          </tr>
-              [% END %]
-            [% END %]
-          [% END %]
-        </tbody>
-      </table>
-  </div>
-</div>
-[%- END -%]
-
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
@@ -106,110 +34,155 @@
     [% medium_idx = loop.index %]
     [% medium = mediums.fields.$medium_idx %]
 
-    <fieldset class="preview-changes-disc">
-      <legend>
-        [%- IF medium.field('name').value -%]
+    <div class="form recording-assoc">
+      <fieldset class="recording-assoc-disc">
+        <legend>
+          [%- IF medium.field('name').value -%]
             [%- IF multidisc -%]
-                [%- l('Disc {num}: {title}', { num => loop.index + 1, title => medium.field('name').value }) -%]
+              [%- l('Disc {num}: {title}', { num => loop.index + 1, title => medium.field('name').value }) -%]
             [%- ELSE -%]
-                [%- medium.field('name').value -%]
+              [%- medium.field('name').value -%]
             [%- END -%]
-        [%- ELSE -%]
+          [%- ELSE -%]
             [%- IF multidisc -%]
-                [%- l('Disc {num}', { num => loop.index + 1 }) -%]
+              [%- l('Disc {num}', { num => loop.index + 1 }) -%]
             [%- ELSE -%]
-                [%- l('Tracklist') -%]
+              [%- l('Tracklist') -%]
             [%- END -%]
-        [%- END -%]
-      </legend>
+          [%- END -%]
+        </legend>
 
-      <div class="tracklist-padding">
-      <table class="medium tbl preview-changes">
-        <thead>
+        <table>
+          <thead>
           <tr>
-            <th colspan="2" class="position">position</th>
-            <th class="track">track</th>
-            <th class="track-artist">artist</th>
-            <th class="recording">recording</th>
-            <th class="length">length</th>
+            <th></th><th style="text-align: left">track</th><th style="text-align: left">recording</th><th> </th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           [% FOR assoc=preview_medium.field('associations').fields %]
-          [% track_idx = loop.index %]
-          [% track_preview = changes.$medium_idx.$track_idx %]
-          [% new = track_preview.track %]
-          [% old = track_preview.old %]
+            [% track_idx = loop.index %]
+            [% track_preview = suggestions.$medium_idx.$track_idx %]
+            [% track = track_preview.track %]
+            [% UNLESS track_preview.deleted %]
+              <tr class="track">
+                <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position %]</td>
+                <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">[% track.name %]</td>
 
-          <tr class="track-changes [% IF track_preview.deleted %]deleted[% END %]">
-            <td class="position">
-              <span class="new">[%- new.position -%]</span>
-            </td>
-            <td class="position-from">
-              [%# FIXME: star to indicate a new track. (not very clear.  need something better.) --warp. %]
-              [%- IF track_preview.added -%]<span class="old">&#x2605;</span>[%- END -%]
-              [%- IF track_preview.moved -%]
-                 <span class="old">(from [% old.position %])</span>
-              [%- END -%]
-            </td>
-            <td class="track">
-              [% new.name %]
-              [%- IF track_preview.renamed -%]
-                  <br /><span class="old">[% old.name %]</span>
-              [%- END -%]
-            </td>
-            <td class="track-artist">
-              [% new.artist_credit.name %]
-              [%- IF track_preview.artist -%]
-                  <br /><span class="old">[% old.artist_credit.name %]</span>
-              [%- END -%]
-            </td>
-            <td class="recording">
-              [% UNLESS track_preview.deleted %]
-              [%- r.hidden(assoc.field ('gid'), { class => 'gid' }) -%]
-
-                <span class="change-recording">[ <a class="change-recording" href="#change-recording">change</a> ]</span>
-                &nbsp;
-                <span class="recording"
+                <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
+                  [%- r.hidden (assoc.field('gid'), class => 'gid') -%]
+                  <span class="recording"
                     [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
 
                     [%- IF assoc.field('gid').value -%]
-                        [% link_entity (track_preview.suggestions.0.entity) %]
+                      [% link_entity (track_preview.suggestions.0.entity) %]
                     [% END %]
-                </span>
+                  </span>
     
-                <span class="add-recording"
+                  <span class="add-recording"
                     [% IF assoc.field('gid').value %]style="display: none"[% END %]>
                     [%- l('(add a new recording)') -%]
-                </span>
-  
-              [% END %]
-            </td>
-            <td class="length">
-              [% new.length | format_length %]
-              [%- IF track_preview.length -%]
-                  <br /><span class="old">[% old.length | format_length %]</span>
-              [% END %]
-            </td>
-          </tr>
-            [% UNLESS track_preview.deleted %]
-            <tr class="select-recording" style="display: none">
-              <td colspan="6">
-                 [% select_recording(assoc, new) %]
-              </td>
-            </tr>
+                  </span>
+                </td>
+
+                <td rowspan="2" class="buttons" style="vertical-align: middle; width: 10%;">
+                  <a class="change-recording" href="#change-recording">Change</a>
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding: 0 0.5em 0.5em 0;" class="artist">
+                    [% l('by') %] <span class="track-artist">
+                      [%- track.artist_credit.name -%]
+                    </span>
+                </td>
+                <td style="padding: 0 0 0.5em 0;" >
+                  <span class="recording"
+                    [% UNLESS assoc.field('gid').value %]style="display: none"[% END %]>
+                    [% l('by') %] <span class="recording-artist">
+                      [%- track_preview.suggestions.0.entity.artist_credit.name -%]
+                    </span>
+                  </span>
+                </td>
+              </tr>
             [% END %]
           [% END %]
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+
+      </fieldset>
+
+      <div class="buttons ui-helper-clearfix">
+        [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+        [% r.submit ('previous', l('« Previous')) %]
+        [% r.submit ('next', l('Next »')) %]
+      </div>
     </div>
-    </fieldset>
     [% END %]
 
-    <div class="buttons ui-helper-clearfix">
-      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-      [% r.submit ('previous', l('« Previous')) %]
-      [% r.submit ('next', l('Next »')) %]
+
+    <div class="documentation">
+    [% FOR assoc=preview_medium.field('associations').fields %]
+      [% track_idx = loop.index %]
+      [% track_preview = suggestions.$medium_idx.$track_idx %]
+      [% track = track_preview.track %]
+      [% UNLESS track_preview.deleted %]
+
+      <div class="select-recording-container" style="display: none"
+        id='[% "select-recording-$medium_idx-$track_idx" %]'>
+      <div class="select-recording">
+        <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
+        <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
+
+        <p>
+          Search: <input type="text" class="recording" value="" />
+          <a href="#cancel-search">
+            <img src="[% c.uri_for('/static/images/release_editor/cancel-search.png') %]" title="Cancel search" />
+          </a>
+        </p>
+        <table class="matches">
+          <tbody>
+              [% FOR rec=track_preview.suggestions %]
+                <tr class="servermatch recordingmatch">
+                  <td class="select">
+                     <input type="radio" class="recordingmatch"
+                         name='[% "select-recording-$medium_idx-$track_idx" %]' />
+                  </td>
+                  <td class="recording">
+                    <input type="hidden" class="gid" value="[% rec.entity.gid %]" />
+                    [% link_entity (rec.entity) %]
+                  </td>
+                  <td class="artist">[% rec.entity.artist_credit.name %]</td>
+                  <td class="length">[% rec.entity.length | format_length %]</td>
+                </tr>
+                <tr class="servermatch releaselist">
+                  <td> </td>
+                  <td colspan="3">
+                    [%- l('appears on:') %]
+                    [% FOR rg=rec.extra %]
+                      [% link_entity(rg) -%][%- UNLESS loop.last %], [% END %]
+                    [% END %]
+                  </td>
+                </tr>
+              [% END %]
+              <tr class="separator"><td colspan="4"><hr /></td></tr>
+              <tr class="addnew">
+                <td class="select">
+                   <input type="radio" class="newrecording"
+                       name='[% "select-recording-$medium_idx-$track_idx" %]' />
+                </td>
+                <td class="recording" colspan="3">
+                  <input type="hidden" class="gid" value="" />
+                  [% l('Add a new recording') %]
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+
+      [% END %]
+    [% END %]
+
     </div>
 
   </div>
