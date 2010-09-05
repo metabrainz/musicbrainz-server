@@ -16,10 +16,10 @@ sub index : Path('/account') RequireAuth
 sub begin : Private
 {
     my ($self, $c) = @_;
+    $c->forward('/begin');
     $c->forward('/user/do_login');
     $c->stash->{viewing_own_profile} = 1;
     $c->stash->{user}                = $c->user;
-    $c->forward('/begin');
 }
 
 =head2 verify
