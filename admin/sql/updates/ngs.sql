@@ -342,12 +342,27 @@ INSERT INTO work_name (name)
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
-                             'orchestrator', 'librettist')
+                             'orchestrator', 'librettist', 'misc')
+        UNION
+        SELECT link1 
+            FROM public.l_label_track l
+                JOIN public.lt_label_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('publishing')
+        UNION
+        SELECT link0 
+            FROM public.l_track_track l
+                JOIN public.lt_track_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
+        UNION
+        SELECT link1 
+            FROM public.l_track_track l
+                JOIN public.lt_track_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
         UNION
         SELECT link0 
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
-            WHERE lt.name IN ('lyrics', 'score')
+            WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
     );
 
 CREATE UNIQUE INDEX tmp_work_name_name ON work_name (name);
@@ -362,12 +377,27 @@ INSERT INTO work (id, gid, name, artist_credit)
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
-                             'orchestrator', 'librettist')
+                             'orchestrator', 'librettist', 'misc')
+        UNION
+        SELECT link1 
+            FROM public.l_label_track l
+                JOIN public.lt_label_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('publishing')
+        UNION
+        SELECT link0 
+            FROM public.l_track_track l
+                JOIN public.lt_track_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
+        UNION
+        SELECT link1 
+            FROM public.l_track_track l
+                JOIN public.lt_track_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
         UNION
         SELECT link0 
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
-            WHERE lt.name IN ('lyrics', 'score')
+            WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
     );
 
 DROP INDEX tmp_work_name_name;
