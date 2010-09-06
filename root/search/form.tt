@@ -29,7 +29,7 @@
         [% form_row_text(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
         [% WRAPPER form_row %]
-            [% search.label('limit', l('Show:')) %]
+            [% search.label('limit', l('Results per page:')) %]
             [% field = search.form.field('limit') %]
             <select id="id-[% field.html_name %]" name="[% field.html_name %]">
                 [% FOR i=[25,50,100] %]
