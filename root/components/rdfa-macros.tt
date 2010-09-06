@@ -540,7 +540,7 @@ END %]
     link = c.uri_for_action("/url/show", [ url.gid ]);
     '<span class="mp">' IF url.edits_pending;
     text = display_url(url.url);
-    resource = url.url.replace("http://en.wikipedia.org/wiki/", "http://dbpedia.org/resource/");
+    resource = url.url.replace('http://en.wikipedia.org/wiki/', 'http://dbpedia.org/resource/');
     '<a rel="owl:sameAs" resource="' _ resource _ '" href="' _ url.url _ '">' _ text _ '</a >';
     '</span>' IF url.edits_pending;
     ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
