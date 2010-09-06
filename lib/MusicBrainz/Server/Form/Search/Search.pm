@@ -21,19 +21,11 @@ has_field 'advanced' => (
 );
 
 has_field 'limit' => (
-    type                => 'Select',
-    input_without_param => 25
+    type                => 'Integer',
+    input_without_param => 25,
+    range_start         => 1,
+    range_end           => 100,
 );
-
-sub options_limit
-{
-    return [
-        25  => 'Up to 25 per page',
-        50  => 'Up to 50 per page',
-        100 => 'Up to 100 per page'
-    ]
-}
-
 
 sub options_type
 {
