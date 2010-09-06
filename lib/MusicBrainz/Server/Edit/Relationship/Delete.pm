@@ -2,9 +2,18 @@ package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
+use MusicBrainz::Server::Data::Utils qw(
+    partial_date_to_hash
+    partial_date_from_row
+    type_to_model
+);
+use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+
+use MusicBrainz::Server::Entity::Relationship;
+use MusicBrainz::Server::Entity::Link;
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -13,9 +22,20 @@ sub edit_name { "Remove relationship" }
 
 has '+data' => (
     isa => Dict[
-        relationship_id => Int,
-        type0 => Str,
-        type1 => Str
+        relationship => Dict[
+            id => Int,
+            entity0_id => Int,
+            entity1_id => Int,
+            phrase     => Str,
+            link => Dict[
+                begin_date => PartialDateHash,
+                end_date => PartialDateHash,
+                type => Dict[
+                    entity0_type => Str,
+                    entity1_type => Str
+                ]
+            ]
+        ]
     ]
 );
 
@@ -24,21 +44,62 @@ has 'relationship' => (
     is => 'rw'
 );
 
+sub model0 { type_to_model(shift->data->{relationship}{link}{type}{entity0_type}) }
+sub model1 { type_to_model(shift->data->{relationship}{link}{type}{entity1_type}) }
+
+sub foreign_keys
+{
+    my $self = shift;
+
+    my %ids;
+    $ids{ $self->model0 } ||= [];
+    $ids{ $self->model1 } ||= [];
+
+    push @{ $ids{$self->model0} }, $self->data->{relationship}{entity0_id};
+    push @{ $ids{$self->model1} }, $self->data->{relationship}{entity1_id};
+
+    return \%ids;
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        relationship => MusicBrainz::Server::Entity::Relationship->new(
+            entity0 => $loaded->{ $self->model0 }->{ $self->data->{relationship}{entity0_id} },
+            entity1 => $loaded->{ $self->model1 }->{ $self->data->{relationship}{entity1_id} },
+            phrase => $self->data->{relationship}{phrase},
+            link => MusicBrainz::Server::Entity::Link->new(
+                begin_date => partial_date_from_row($self->data->{relationship}{link}{begin_date}),
+                end_date => partial_date_from_row($self->data->{relationship}{link}{end_date}), 
+            )
+        )
+    }
+}
+
 sub related_entities
 {
     my ($self) = @_;
 
     my $result;
-    if ($self->data->{type0} eq $self->data->{type1}) {
+    if ($self->data->{relationship}{link}{type}{entity0_type} eq
+        $self->data->{relationship}{link}{type}{entity1_type}) {
         $result = {
-            $self->data->{type0} => [ $self->relationship->entity0_id,
-                                      $self->relationship->entity1_id ]
+            $self->data->{relationship}{link}{type}{entity0_type} => [
+                $self->relationship->entity0_id,
+                $self->relationship->entity1_id
+            ]
         };
     }
     else {
         $result = {
-            $self->data->{type0} => [ $self->relationship->entity0_id ],
-            $self->data->{type1} => [ $self->relationship->entity1_id ]
+            $self->data->{relationship}{link}{type}{entity0_type} => [
+                $self->relationship->entity0_id
+            ],
+            $self->data->{relationship}{link}{type}{entity1_type} => [
+                $self->relationship->entity1_id
+            ]
         };
     }
 
@@ -50,8 +111,9 @@ sub adjust_edit_pending
     my ($self, $adjust) = @_;
 
     $self->c->model('Relationship')->adjust_edit_pending(
-        $self->data->{type0}, $self->data->{type1},
-        $adjust, $self->data->{relationship_id});
+        $self->data->{relationship}{link}{type}{entity0_type},
+        $self->data->{relationship}{link}{type}{entity1_type},
+        $adjust, $self->data->{relationship}{id});
 }
 
 sub initialize
@@ -63,9 +125,20 @@ sub initialize
 
     $self->relationship($relationship);
     $self->data({
-        type0 => $opts{type0},
-        type1 => $opts{type1},
-        relationship_id => $relationship->id
+        relationship => {
+            id => $relationship->id,
+            entity0_id => $relationship->entity0_id,
+            entity1_id => $relationship->entity1_id,
+            phrase => $relationship->phrase,
+            link => {
+                begin_date => partial_date_to_hash($relationship->link->begin_date),
+                end_date => partial_date_to_hash($relationship->link->end_date),
+                type => {
+                    entity0_type => $relationship->link->type->entity0_type,
+                    entity1_type => $relationship->link->type->entity1_type,
+                }
+            }
+        }
     });
 }
 
@@ -74,8 +147,9 @@ sub accept
     my $self = shift;
 
     $self->c->model('Relationship')->delete(
-        $self->data->{type0}, $self->data->{type1},
-        $self->data->{relationship_id});
+        $self->data->{relationship}{link}{type}{entity0_type},
+        $self->data->{relationship}{link}{type}{entity1_type},
+        $self->data->{relationship}{id});
 }
 
 __PACKAGE__->meta->make_immutable;
