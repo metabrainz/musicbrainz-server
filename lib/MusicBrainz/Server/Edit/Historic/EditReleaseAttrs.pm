@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_ATTRS
 );
+use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -64,7 +65,7 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        changes => [ map { +{
+        changes => [ map {
             releases => [ do {
                 if (my @ids = @{ $_->{release_ids} }) {
                     map { $loaded->{Release}->{$_} } @ids
@@ -73,9 +74,9 @@ sub build_display_data
                     Release->new(name => $_->{release_name}),
                 }
             } ],
-            status => $loaded->{ReleaseStatus}{ $_->{old}{status_id} },
-            type   => $loaded->{ReleaseGroupType}{ $_->{old}{type_id} },
-        } } $self->_changes ],
+            status => $loaded->{ReleaseStatus}{ $_->{old_status_id} },
+            type   => $loaded->{ReleaseGroupType}{ $_->{old_type_id} },
+        }, $self->_changes ],
         new_status => $loaded->{ReleaseStatus}{ $self->data->{new_status_id} },
         new_type   => $loaded->{ReleaseGroupType}{ $self->data->{new_type_id} },
     };
@@ -91,10 +92,7 @@ sub upgrade
             or last;
 
         my $prev = $self->new_value->{"Prev$i"};
-        my ($type_id, $status_id) = split /,/, $prev;
-        if ($type_id && $type_id >= 100) {
-            ($type_id, $status_id) = (undef, $type_id);
-        }
+        my ($type_id, $status_id) = upgrade_type_and_status($prev);
 
         push @changes, {
             release_ids   => $self->album_release_ids($album_id),
@@ -105,7 +103,7 @@ sub upgrade
     }
 
     my $attrs = $self->new_value->{Attributes};
-    my ($new_type, $new_status) = split /,/, $attrs;
+    my ($new_type, $new_status) = upgrade_type_and_status($attrs);
 
     $self->data({
         changes       => [@changes],
