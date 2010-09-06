@@ -4,8 +4,8 @@ use Moose;
 use Readonly;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
-
 use MusicBrainz::Server::WebService::XMLSerializerV1;
 
 has 'model' => (
@@ -19,10 +19,43 @@ sub serializers {
     };
 }
 
+sub apply_rate_limit
+{
+    my ($self, $c, $key) = @_;
+    $key ||= "ws ip=" . $c->request->address;
+
+    if (my $r = $c->model('RateLimiter')->check_rate_limit($key)) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->response->body(
+            "Your requests are exceeding the allowable rate limit (" . $r->msg . ")\015\012" .
+            "Please see http://wiki.musicbrainz.org/XMLWebService for more information.\015\012"
+        );
+        $c->detach;
+    }
+
+    if (my $r = $c->model('RateLimiter')->check_rate_limit('ws_global')) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->response->body(
+            "The MusicBrainz web server is currently busy.\015\012" .
+            "Please try again later.\015\012"
+        );
+        $c->detach;
+    }
+}
+
 sub begin : Private {
     my ($self, $c) = @_;
     $c->stash->{data} = {};
     $self->validate($c, $self->serializers) or $c->detach('bad_req');
+    $self->apply_rate_limit($c);
 }
 
 sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }
@@ -72,7 +105,7 @@ sub load : Chained('root') PathPart('') CaptureArgs(1)
 sub bad_req : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(400);
+    $c->res->status(HTTP_BAD_REQUEST);
     $c->res->content_type("text/plain; charset=utf-8");
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}.
                   "\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012"));
