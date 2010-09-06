@@ -189,7 +189,6 @@ sub insert
     $sql_raw->dbh->pg_putcopyend();
 }
 
-# same as create, but without touching the database.
 sub preview
 {
     my ($self, %opts) = @_;
@@ -233,27 +232,8 @@ sub preview
     # Save quality level
     $edit->quality($quality);
 
-
-#     my $model;
-#     for (qw( _create_model _edit_model _delete_model _merge_model ))
-#     {
-#         if ($edit->meta->has_method ($_))
-#         {
-#             $model = $edit->$_;
-#             last;
-#         }
-#     }
-
-#     my $entity = $self->c->model ($model)->new (\%opts);
-#     $edit->entity ($entity);
-#     $edit->entity->id (-1);
-
-    # use to_edit?
-
-
     return $edit;
 }
-
 
 sub create
 {

@@ -34,4 +34,6 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 INSERT INTO release_label (id, release, label, catno)
     VALUES (1, 1, 1, 'ABC-123');
 
+ALTER SEQUENCE release_label_id_seq RESTART 2;
+
 COMMIT;

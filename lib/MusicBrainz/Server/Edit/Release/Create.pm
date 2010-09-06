@@ -19,11 +19,17 @@ sub release_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
+        name             => Str,
         artist_credit    => ArtistCreditDefinition,
+        release_group_id => Int,
         comment          => Nullable[Str],
         date             => Nullable[PartialDateHash],
-        name             => Str,
-        release_group_id => Int,
+
+        barcode          => Nullable[Str],
+        country_id       => Nullable[Int],
+        language_id      => Nullable[Int],
+        packaging_id     => Nullable[Int],
+        script_id        => Nullable[Int],
         status_id        => Nullable[Int],
     ]
 );
