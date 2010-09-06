@@ -13,6 +13,7 @@
       xmlns:event="http://purl.org/NET/c4dm/event.owl#"
       xmlns:skos="http://www.w3.org/2004/02/skos/core#"
       xmlns:xhv="http://www.w3.org/1999/xhtml/vocab#"
+      xmlns:owl="http://www.w3.org/2002/07/owl#"
       xml:lang="en">
 
     <head>

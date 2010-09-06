@@ -356,7 +356,7 @@ END -%]
 [% END %]
 
 [% MACRO display_relationship(relationship) BLOCK; %]
-            [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
+
             [%- relationship.phrase | html %] [% link_entity(relationship.target) -%]
             [%- IF !relationship.link.begin_date.is_empty -%]
                 [%- IF !relationship.link.end_date.is_empty -%]
@@ -378,8 +378,8 @@ END -%]
             [%- ELSIF !relationship.link.end_date.is_empty -%]
                 [% l('until {date}', { date => relationship.link.end_date.format }) %]
             [%- END -%]
-            [%- IF relationship.edits_pending %]</span>[% END -%]
 [% END %]
+
 [%- MACRO wiki_link(server, id) BLOCK -%]
 http://[%- server -%]/[%- id -%]"
 [%- END -%]
