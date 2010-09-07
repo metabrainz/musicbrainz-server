@@ -20,10 +20,7 @@ CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
 
 CREATE INDEX currentstat_name ON currentstat (name);
 
-CREATE INDEX dbmirror_Pending_XID_Index ON dbmirror_Pending (XID);
-
 CREATE INDEX editor_idx_name ON editor (LOWER(name));
-CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
@@ -126,6 +123,11 @@ CREATE UNIQUE INDEX language_idx_isocode_3b ON language (isocode_3b);
 CREATE UNIQUE INDEX language_idx_isocode_3t ON language (isocode_3t);
 CREATE UNIQUE INDEX language_idx_isocode_2 ON language (isocode_2);
 
+CREATE UNIQUE INDEX list_idx_gid ON list (gid);
+CREATE INDEX list_idx_name ON list (name);
+
+CREATE INDEX list_idx_editor ON list (editor);
+
 CREATE UNIQUE INDEX medium_idx_release ON medium (release, position);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
 
@@ -136,6 +138,7 @@ CREATE INDEX recording_idx_name ON recording (name);
 CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
 
 CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid);
+CREATE INDEX recording_puid_idx_puid ON recording_puid (puid);
 
 CREATE INDEX recording_tag_idx_tag ON recording_tag (tag);
 CREATE INDEX recording_tag_idx_recording ON recording_tag (recording);

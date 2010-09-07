@@ -51,7 +51,11 @@
                     </div>
 
                     <div class="edit-details">
-                        [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                        [% IF edit.data.defined %]
+                           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                        [% ELSE %]
+                           <p>[% l('An error occured while loading this edit') %]</p>
+                        [% END %]
                     </div>
 
                     [% IF edit.edit_notes.size %]
@@ -75,7 +79,5 @@
     [% IF search %]
         <p>[% l('No edits were found matching your query. Please {search|try again}.',
                { search => c.uri_for_action('/edit/search') }) %]</p>
-    [% ELSE %]
-        <p>[% l('No edits found.') %]</p>
     [% END %]
 [% END %]

@@ -14,6 +14,7 @@ our @EXPORT_OK = qw(
     date_closure
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    clean_submitted_artist_credits
     changed_relations
     changed_display_data
     edit_status_name
@@ -70,6 +71,35 @@ sub artist_credit_from_loaded_definition
         names => \@names
     );
 }
+
+sub clean_submitted_artist_credits
+{
+    my $ac = shift;
+
+    # Remove empty artist credits.
+    my @delete;
+    my $max = scalar @{ $ac } - 1;
+    for (0..$max)
+    {
+        my $part = $ac->[$_];
+        if (ref $part eq 'HASH')
+        {
+            push @delete, $_ unless ($part->{artist} || $part->{name});
+        }
+        elsif (! $part)
+        {
+            push @delete, $_;
+        }
+    }
+
+    for (@delete)
+    {
+        delete $ac->[$_];
+    }
+
+    return $ac;
+}
+
 
 sub changed_relations
 {

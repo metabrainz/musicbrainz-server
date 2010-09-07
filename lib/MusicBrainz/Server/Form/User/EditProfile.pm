@@ -12,8 +12,9 @@ has_field 'biography' => (
 );
 
 has_field 'website' => (
-    type => 'Text',
-    apply => [ {
+    type      => 'Text',
+    maxlength => 255,
+    apply     => [ {
         check => sub { MusicBrainz::Server::Validation->IsValidURL($_[0]) },
         message => 'Invalid URL format',
     } ],

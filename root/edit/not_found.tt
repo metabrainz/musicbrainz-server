@@ -1,0 +1,7 @@
+[% WRAPPER 'layout.tt' title=l('Edit Not Found') full_width=1 %]
+<h1>[% l('Edit Not Found') %]</h1>
+
+<p>[% l('Sorry, we could not find an edit with that edit ID. You may
+         wish to try and perform an {search_url|edit search} instead.',
+         { search_url => c.uri_for_action('/edit/search') }) %]</p>
+[% END %]

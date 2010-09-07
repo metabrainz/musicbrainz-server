@@ -2,10 +2,13 @@
     <div id="content">
         <h1>[% l("Browse Artists") %]</h1>
 
-        [% INCLUDE "browse/page_selector.tt" entity="artist"%]
+        [% INCLUDE "browse/page_selector.tt" %]
+
+        [% IF index %]
+            <h2>[% l('Artists starting with “{index}”', { index => html_escape(index) }) %]</h2>
+        [% END %]
 
         [% IF entities.size %]
-            <h2>[% l('Artists starting with “{index}”', { index => html_escape(index) }) %]</h2>
             [% WRAPPER 'components/with-pager.tt' %]
                 <div class="browse-entities columns-2">
                     [% offset = pager.first %]
@@ -14,7 +17,7 @@
                             <ol start="[% loop.index + offset %]">
                                 [% FOR entity IN entities %]
                                 [% LAST IF loop.index >= 50 %]
-                                    <li>[% link_label(entity) %]</li>
+                                    <li>[% link_entity(entity) %]</li>
                                 [% END %]
                             </ol>
                         </div>
@@ -27,8 +30,9 @@
             [% END %]
         [% ELSE %]
             [%- IF index && index.length > 0 -%]
-                <p>[% l('Sorry, we could not find any artist starting with “{index}”.', { index => html_escape(index)} ) %]</p>
-                <p>[% l('To try again, please select a different letter above.') %]</p>
+                <p>[% l('Sorry, there are no artists starting with “{index}”. Please {pre|go back} and try again.',
+                       { index => html_escape(index),
+                         pre => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]</p>
             [% ELSE %]
                 <p>[% l('To begin browsing, please select a letter above.') %]</p>
             [% END %]

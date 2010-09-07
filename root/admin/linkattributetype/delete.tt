@@ -7,7 +7,9 @@
         </p>
 
         <form action="[% c.req.uri %]" method="post">
-            <input type="submit" name="confirm.submit" value="[% l('Delete') %]" />
+            <span class="buttons">
+                <button type="submit" name="confirm.submit">[% l('Delete') %]</button>
+            </span>
         </form>
     </div>
 [%- END -%]

@@ -127,6 +127,10 @@ sub _load_page
     }
 
     my $content = decode "utf-8", $response->content;
+    if ($content =~ /<title>Error/s) {
+        return undef;
+    }
+
     if ($content =~ /<div class="noarticletext">/s) {
         return undef;
     }
@@ -155,21 +159,6 @@ sub get_page
     $cache->set($cache_key, $page, $timeout);
 
     return $page;
-}
-
-sub get_current_page_version
-{
-    my ($self, $id) = @_;
-
-    my $doc_url = sprintf "http://%s/%s?action=history", &DBDefs::WIKITRANS_SERVER, $id;
-    my $ua = LWP::UserAgent->new(max_redirect => 0);
-    $ua->env_proxy;
-    my $response = $ua->get($doc_url);
-
-    if ($response->content =~ /amp;diff=(\d+)\&amp;oldid=/) {
-        return $1;
-    }
-    return undef;
 }
 
 __PACKAGE__->meta->make_immutable;

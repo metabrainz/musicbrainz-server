@@ -1,10 +1,11 @@
-<table>
+<table class="tbl">
     <thead>
         <tr>
             <th>[%- l('Name') -%]</th>
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
             [%- END -%]
+            <th class="rating c">[% l('Rating') %]</th>
         </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
             [%- IF show_artists -%]
                 <td>[% artist_credit(work.artist_credit) %]</td>
             [%- END -%]
+            <td>[% rating_stars(work) %]</td>
         </tr>
         [%- END -%]
     </tbody>

@@ -12,7 +12,6 @@
 [%- MACRO html_escape(url) BLOCK; url | html; END -%]
 [%- MACRO display_url(url) BLOCK; url | uri_decode | html; END -%]
 [%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
-[%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
 [%- USE UserDate(c.user.preferences) -%]
 [%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
@@ -135,6 +134,13 @@ END -%]
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_list(list, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/list/$action", [ list.gid ]);
+    text = text || html_escape(list.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
@@ -172,11 +178,15 @@ END -%]
 [%- MACRO link_url(url, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/url/$action", [ url.gid ]);
+    '<span class="mp">' IF url.edits_pending AND action == 'show';
     IF text;
       '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
+      '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
       text = display_url(url.url);
-      '<a href="' _ url.url _ '">' _ text _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
+      '<a href="' _ url.url _ '">' _ text _ '</a >';
+      '</span>' IF url.edits_pending AND action == 'show';
+      ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]
 
@@ -190,7 +200,14 @@ END -%]
 [%- MACRO link_puid(puid, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/puid/$action", [ puid.name ]);
-    text = text || html_escape(puid.name);
+    text = text || '<code>' _ html_escape(puid.name) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
+[%- MACRO link_isrc(isrc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    text = text || '<code>' _ html_escape(isrc) _ '</code>';
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -216,8 +233,8 @@ END -%]
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
-    action = action || 'profile';
-    link = c.uri_for_action("/user/$action", editor.name);
+    action = action || 'profile/view';
+    link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text || html_escape(editor.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
@@ -322,19 +339,19 @@ END %]
 [% MACRO expiration_time(datetime) BLOCK %]
     [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
         [% IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days %]
-            [% l('Expires in <dfn title="{exactdate}">{days}</dfn>',
+            [% l('Expires in <span class="tooltip" title="{exactdate}">{days}</span>',
                 { days => ln('{num} day', '{num} days', Countdown.total_days(datetime),
                             { num => Countdown.total_days(datetime) })
                   exactdate => UserDate.format(datetime) }) %]
         [% ELSIF Countdown.hours(datetime) > 0 # Show hours and minutes %]
-            [% l('Expires in <dfn title="{exactdate}">{hours}, {minutes}</dfn>',
+            [% l('Expires in <span class="tooltip" title="{exactdate}">{hours}, {minutes}</span>',
                 { hours   => ln('{num} hour', '{num} hours', Countdown.hours(datetime),
                                { num => Countdown.hours(datetime) }),
                   minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
                                { num => Countdown.minutes(datetime) })
                   exactdate => UserDate.format(datetime) }) %]
         [% ELSE # Only show minutes %]
-            [% l('Expires in <dfn title="{exactdate}">{minutes}</dfn>',
+            [% l('Expires in <span class="tooltip" title="{exactdate}">{minutes}</span>',
                 { minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
                                { num => Countdown.minutes(datetime) })
                   exactdate => UserDate.format(datetime) }) %]

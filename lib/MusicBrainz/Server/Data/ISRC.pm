@@ -1,7 +1,11 @@
 package MusicBrainz::Server::Data::ISRC;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    object_to_ids
+    placeholders
+    query_to_list
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -33,15 +37,32 @@ sub _entity_class
 
 sub find_by_recording
 {
-    my ($self, $ids) = @_;
+    my $self = shift;
 
-    my @ids = ref $ids ? @$ids : ( $ids );
+    my @ids = ref $_[0] ? @{$_[0]} : @_;
+
     my $query = "SELECT ".$self->_columns."
                    FROM ".$self->_table."
                   WHERE recording IN (" . placeholders(@ids) . ")
                   ORDER BY isrc";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
-                         $query, @{ids});
+                         $query, @ids);
+}
+
+sub load_for_recordings
+{
+    my ($self, @recordings) = @_;
+    my %id_to_recordings = object_to_ids (@recordings);
+    my @ids = keys %id_to_recordings;
+    return unless @ids; # nothing to do
+    my @isrcs = $self->find_by_recording(@ids);
+
+    foreach my $isrc (@isrcs) {
+        foreach my $recording (@{ $id_to_recordings{$isrc->recording_id} }) {
+            $recording->add_isrc($isrc);
+            $isrc->recording($recording);
+        }
+    }
 }
 
 sub find_by_isrc
@@ -54,6 +75,16 @@ sub find_by_isrc
                ORDER BY id";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
                          $query, $isrc);
+}
+
+sub delete
+{
+    my ($self, @isrc_ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+
+    # Delete ISRCs from @old_ids that already exist for $new_id
+    $sql->do('DELETE FROM isrc
+              WHERE id IN ('.placeholders(@isrc_ids).')', @isrc_ids);
 }
 
 sub merge_recordings

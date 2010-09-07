@@ -29,10 +29,11 @@ ok($mech->uri =~ qr{/label/4b4ccf60-658e-11de-8a39-0800200c9a66});
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Merge');
+
 is_deeply($edit->data, {
-        old_entity_id => 2,
-        new_entity_id => 3,
-    });
+    old_entities => [ { name => 'Warp Records', id => '2' } ],
+    new_entity => { name => 'Another Label', id => '3' }, 
+});
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 xml_ok($mech->content, '..valid xml');

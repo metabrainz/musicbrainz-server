@@ -6,6 +6,10 @@ use MusicBrainz::Server::Validation qw( is_valid_url );
 
 extends 'HTML::FormHandler::Field::Text';
 
+has '+maxlength' => (
+    default => 255
+);
+
 sub validate
 {
     my $self = shift;

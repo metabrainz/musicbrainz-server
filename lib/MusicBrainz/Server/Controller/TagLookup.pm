@@ -6,6 +6,8 @@ use base 'MusicBrainz::Server::Controller';
 use MusicBrainz::Server::Form::TagLookup;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 
+use constant LOOKUPS_PER_NAG => 5;
+
 sub _parse_filename
 {
    my ($filename) = @_;
@@ -74,11 +76,42 @@ sub _parse_filename
    return $data;
 }
 
+# returns 1 if the user should get a "please donate" screen, 0 otherwise.
+sub nag_check
+{
+    my ($self, $c) = @_;
+
+    return 1 unless $c->user_exists;
+
+    my $session = $c->session;
+
+    $session->{nag} = 0 unless defined $session->{nag};
+
+    return 0 if ($session->{nag} == -1);
+
+    if (!defined $session->{nag_check_timeout} || $session->{nag_check_timeout} <= time())
+    {
+        my $result = $c->model('Editor')->donation_check ($c->user);
+        my $nag = $result ? $result->{nag} : 0; # don't nag if metabrainz is unreachable.
+
+        $session->{nag} = -1 unless $nag;
+        $session->{nag_check_timeout} = time() + (24 * 60 * 60); # check again tomorrow.
+    }
+
+    $session->{nag}++;
+
+    return 0 if ($session->{nag} < LOOKUPS_PER_NAG);
+
+    $session->{nag} = 0;
+    return 1; # nag this user.
+}
+
+
 sub puid : Private
 {
     my ($self, $c) = @_;
 
-    my $puid = $c->stash->{form}->field('puid')->value();
+    my $puid = $c->stash->{taglookup}->field('puid')->value();
     my @releases = $c->model('Release')->find_by_puid($puid);
 
     $c->model('ArtistCredit')->load(@releases);
@@ -95,7 +128,7 @@ sub external : Private
 {
     my ($self, $c) = @_;
 
-    my $form = $c->stash->{form};
+    my $form = $c->stash->{taglookup};
     my @terms;
     my $parsed = _parse_filename($form->field('filename')->value());
     my $mapping = { artist => 'artist', track => 'track', release => 'release',
@@ -143,7 +176,9 @@ sub index : Path('')
     my ($self, $c) = @_;
 
     my $form = $c->form( query_form => 'TagLookup' );
-    $c->stash->{form} = $form;
+    $c->stash->{taglookup} = $form;
+
+    $c->stash->{nag} = $self->nag_check($c);
 
     return unless $form->submitted_and_valid( $c->req->query_params );
 

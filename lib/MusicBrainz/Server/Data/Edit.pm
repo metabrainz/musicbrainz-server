@@ -9,7 +9,7 @@ use List::MoreUtils qw( uniq zip );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( :edit_status $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
 use XML::Dumper;
 
@@ -37,7 +37,7 @@ sub _new_from_row
 
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
-        or die "Could not look up class for type";
+        or die "Could not look up class for type ".$row->{type};
     my $data = xml2pl($row->{data});
 
     my $edit = $class->new(
@@ -54,7 +54,12 @@ sub _new_from_row
         c => $self->c,
     );
     $edit->language_id($row->{language}) if $row->{language};
-    $edit->restore($data);
+    try {
+        $edit->restore($data);
+    }
+    catch {
+        $edit->clear_data;
+    }
     $edit->close_time($row->{closetime}) if defined $row->{closetime};
     return $edit;
 }
@@ -90,7 +95,7 @@ sub find
     my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
-    for my $type (qw( artist label release release_group recording work)) {
+    for my $type (qw( artist label release release_group recording work url)) {
         next unless exists $p->{$type};
         my $ids = delete $p->{$type};
 
@@ -122,11 +127,11 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC';
+    $query .= ' ORDER BY id DESC OFFSET ?';
 
     return query_to_list_limited($self->c->raw_dbh, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, @args);
+        }, $query, @args, $offset);
 }
 
 sub merge_entities
@@ -140,35 +145,48 @@ sub merge_entities
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
+sub escape
+{
+    my ($self, $str) = @_;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\t/\\t/g;
+    $str =~ s/\r/\\r/g;
+    return $str;
+}
+
 sub insert
 {
-    my ($self, $edit) = @_;
+    my ($self, @edits) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
 
-    my $row = {
-        id         => $edit->id,
-        editor     => $edit->editor_id,
-        data       => pl2xml($edit->to_hash, NoAttr => 1),
-        status     => $edit->status,
-        type       => $edit->edit_type,
-        opentime   => $edit->created_time,
-        expiretime => $edit->expires_time,
-        autoedit   => $edit->auto_edit,
-        closetime  => $edit->close_time,
-    };
+    $sql_raw->do('COPY edit FROM stdout');
 
-    $sql_raw->insert_row('edit', $row);
+    use DateTime::Format::Pg;
 
-    my $ents = $edit->related_entities;
-    while (my ($type, $ids) = each %$ents) {
-        next unless @$ids;
-        my @uniq_ids = uniq @$ids;
-        my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-        $query .= join ", ", ("(?, ?)") x @uniq_ids;
-        my @all_ids = ($edit->id) x @uniq_ids;
-        $sql_raw->do($query, zip @all_ids, @uniq_ids);
+    for my $edit (@edits) {
+        my @data = (
+            $edit->id,
+            $edit->editor_id,
+            $edit->edit_type,
+            $edit->status,
+            $self->escape(pl2xml($edit->to_hash, NoAttr => 1)),
+            $edit->yes_votes,
+            $edit->no_votes,
+            $edit->auto_edit,
+            DateTime::Format::Pg->format_datetime($edit->created_time),
+            DateTime::Format::Pg->format_datetime($edit->close_time),
+            DateTime::Format::Pg->format_datetime($edit->expires_time),
+            '\N',
+            1
+        );
+
+        $sql_raw->dbh->pg_putcopydata(
+            join("\t", @data) . "\n"
+        );
     }
+
+    $sql_raw->dbh->pg_putcopyend();
 }
 
 sub create
@@ -188,7 +206,7 @@ sub create
         $edit->initialize(%opts);
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        return;
+        die $e;
     }
     catch ($err) {
         use Data::Dumper;
@@ -201,6 +219,9 @@ sub create
     # Edit conditions allow auto edit and the edit requires no votes
     $edit->auto_edit(1)
         if ($conditions->{auto_edit} && $conditions->{votes} == 0);
+
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && $edit->allow_auto_edit);
 
     # Edit conditions allow auto edit and the user is autoeditor
     $edit->auto_edit(1)
@@ -263,6 +284,8 @@ sub load_all
 {
     my ($self, @edits) = @_;
 
+    @edits = grep { $_->has_data } @edits;
+
     my $objects_to_load  = {}; # Objects loaded with get_by_id
     my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
 
@@ -313,6 +336,18 @@ sub approve
 
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
+
+    # Add the vote from the editor too
+    # This runs its own transaction, so we cannot currently run it in the below
+    # transaction
+    $self->c->model('Vote')->enter_votes(
+        $editor->id,
+        {
+            vote    => $VOTE_YES,
+            edit_id => $edit->id
+        }
+    );
+
     Sql::run_in_transaction(sub {
         # Load the edit again, but this time lock it for updates
         $edit = $self->get_by_id_and_lock($edit->id);

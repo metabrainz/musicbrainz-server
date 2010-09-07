@@ -2,9 +2,13 @@ package MusicBrainz::Server::Controller;
 use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
+use Carp;
 use Data::Page;
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation;
+use Scalar::Util qw( looks_like_number );
+use TryCatch;
 
 __PACKAGE__->config(
     form_namespace => 'MusicBrainz::Server::Form',
@@ -30,8 +34,13 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $gid) = @_;
 
-    my $entity = $self->_load($c, $gid)
-        or $c->detach('/error_404');
+    my $entity = $self->_load($c, $gid);
+
+    if (!defined $entity) {
+        $c->response->status(404);
+        $c->stash( template => $self->action_namespace . '/not_found.tt' );
+        $c->detach;
+    }
 
     $c->stash(
         # First stash is more convenient for the actual controller
@@ -43,12 +52,27 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
 
 sub _load
 {
-    my ($self, $c, $gid) = @_;
+    my ($self, $c, $id) = @_;
 
-    $c->detach('/error_404')
-        unless MusicBrainz::Server::Validation::IsGUID($gid);
+    if (MusicBrainz::Server::Validation::IsGUID($id)) {
+        return $c->model($self->{model})->get_by_gid($id);
+    }
+    elsif (looks_like_number($id)) {
+        my $gid = $self->_row_id_to_gid($c, $id) or $c->detach('/error_404');
+        $c->response->redirect($c->uri_for_action($c->action, [ $gid ]));
+        $c->detach;
+    }
+    else {
+        $c->stash( message  => "'$id' is not a valid MusicBrainz ID" );
+        $c->detach('/error_400');
+    }
+}
 
-    return $c->model($self->{model})->get_by_gid($gid);
+sub _row_id_to_gid {
+    my ($self, $c, $row_id) = @_;
+
+    my $entity = $c->model($self->{model})->get_by_id($row_id) or return;
+    return $entity->gid;
 }
 
 =head2 submit_and_validate
@@ -84,15 +108,22 @@ sub _insert_edit {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
-    my $edit = $c->model('Edit')->create(
-        editor_id => $c->user->id,
-        privileges => $privs,
-        %opts
-    );
-
-    if (!$edit) {
+    my $edit;
+    try {
+        $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            privileges => $privs,
+            %opts
+        );
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
+        # XXX Display a message about having made no changes
+    }
+    catch ($e) {
         use Data::Dumper;
-        die "Could not create edit\n" . Dumper(\%opts);
+        croak "The edit could not be created.\n" .
+          "POST: " . Dumper($c->req->params) . "\n" .
+          "Exception:" . Dumper($e);
     }
 
     if (defined $edit &&
@@ -132,12 +163,12 @@ sub edit_action
 
 sub _load_paged
 {
-    my ($self, $c, $loader) = @_;
+    my ($self, $c, $loader, $limit) = @_;
 
     my $page = $c->request->query_params->{page} || 1;
     $page = 1 if $page < 1;
 
-    my $LIMIT = $self->{paging_limit};
+    my $LIMIT = $limit || $self->{paging_limit};
 
     my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
     my $pager = Data::Page->new;

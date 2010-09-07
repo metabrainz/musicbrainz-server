@@ -179,6 +179,7 @@ ALTER TABLE track DROP CONSTRAINT track_fk_recording;
 ALTER TABLE track DROP CONSTRAINT track_fk_tracklist;
 ALTER TABLE track DROP CONSTRAINT track_fk_name;
 ALTER TABLE track DROP CONSTRAINT track_fk_artist_credit;
+ALTER TABLE url_gid_redirect DROP CONSTRAINT url_gid_redirect_fk_newid;
 ALTER TABLE work DROP CONSTRAINT work_fk_name;
 ALTER TABLE work DROP CONSTRAINT work_fk_artist_credit;
 ALTER TABLE work DROP CONSTRAINT work_fk_type;

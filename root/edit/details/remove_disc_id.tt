@@ -1,20 +1,12 @@
-<table>
+<table class="details">
   <tr>
-    <th>[% l('Releases:') %]</th>
-    <td>
-      <ul>
-        [% FOR release=edit.display_data.releases %]
-        <li>
-          [% l('{release} by {artist}', {
-                 release => link_release(release),
-                 artist  => artist_credit(release.artist_credit) }) %]
-          </li>
-        [% END %]
-      </ul>
-    </td>
-    <tr>
-      <th>[% l('Disc ID:') %]</th>
-      <td>[% link_cdtoc(edit.display_data.cdtoc) %]</td>
-    </tr>
+    <th>[% l('Release:') %]</th>
+    <td>[% l('{release} by {artist}',
+             { artist  => artist_credit(edit.display_data.release.artist_credit),
+               release => link_release(edit.display_data.release) }) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Disc ID:') %]</th>
+    <td>[% link_cdtoc(edit.display_data.cdtoc) %]</td>
   </tr>
 </table>
