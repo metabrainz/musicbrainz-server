@@ -80,13 +80,7 @@ has 'comment' => (
     isa => 'Str'
 );
 
-has 'is_special' => (
-    isa        => 'Bool',
-    is         => 'ro',
-    lazy_build => 1
-);
-
-sub _build_is_special {
+sub is_special_purpose {
     my $self = shift;
     return ($self->id && ($self->id == $DARTIST_ID ||
                           $self->id == $VARTIST_ID))

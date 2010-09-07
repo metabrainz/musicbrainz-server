@@ -17,8 +17,8 @@ __PACKAGE__->config(
 );
 
 use Data::Page;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
-
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
@@ -418,6 +418,21 @@ sub import : Local
     my ($self, $c) = @_;
     die "This is a stub method";
 }
+
+around $_ => sub {
+    my $orig = shift;
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    if ($artist->is_special_purpose) {
+        $c->stash( template => 'artist/special_purpose.tt' );
+        $c->response->status(HTTP_FORBIDDEN);
+        $c->detach;
+    }
+    else {
+        $self->$orig(@_);
+    }
+} for qw( edit merge );
 
 =head1 LICENSE
 

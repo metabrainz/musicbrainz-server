@@ -87,8 +87,8 @@ $artist->end_date->month (4);
 $artist->end_date->day   (11);
 ok( !$artist->has_age, "Do not calculate age for artists with negative years");
 
-ok(MusicBrainz::Server::Entity::Artist->new( id => $DARTIST_ID )->is_special);
-ok(MusicBrainz::Server::Entity::Artist->new( id => $VARTIST_ID )->is_special);
-ok(MusicBrainz::Server::Entity::Artist->new( gid => $VARTIST_GID )->is_special);
+ok(MusicBrainz::Server::Entity::Artist->new( id => $DARTIST_ID )->is_special_purpose);
+ok(MusicBrainz::Server::Entity::Artist->new( id => $VARTIST_ID )->is_special_purpose);
+ok(MusicBrainz::Server::Entity::Artist->new( gid => $VARTIST_GID )->is_special_purpose);
 
 done_testing;
