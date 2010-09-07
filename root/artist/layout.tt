@@ -48,6 +48,11 @@
                     [% l('Create a new release group') %]
                   </a>
                 </li>
+                <li>
+                  <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
+                    [% l('Create a work') %]
+                  </a>
+                </li>
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this artist')) %]</li>
             [% END %]
@@ -56,7 +61,7 @@
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
     [% END %]
 
-    <div class="content">
+    <div id="content">
         [%- INCLUDE "artist/header.tt" -%]
         [%- content -%]
     </div>

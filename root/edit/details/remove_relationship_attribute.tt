@@ -1,0 +1,10 @@
+<table class="details">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.data.name | html %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Description:') %]</th>
+    <td>[% edit.data.description | html %]</td>
+  </tr>
+</table>

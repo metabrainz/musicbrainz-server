@@ -14,6 +14,10 @@
             [%- FOR isrc IN isrcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]
                 <a href="[% c.uri_for_action('/isrc/show', [ isrc.isrc ]) %]">[% isrc.isrc %]</a>
+                [% IF c.user_exists %]
+                [% l('({delete_uri|delete})', {
+                       delete_uri => c.uri_for_action('/isrc/delete', { isrc_id => isrc.id }) }) %]
+                [% END %]
                 [% END %]
             [%- END -%]
         [% END %]
@@ -23,6 +27,7 @@
         <ul class="links">
           [% IF c.user_exists %]
           <li>[% link_recording(recording, 'edits', l('View editing history')) %]</li>
+          <li>[% link_recording(recording, 'add_isrc', l('Add ISRC')) %]</li>
           [% IF recording.edits_pending %]
             <li>[% link_recording(recording, 'open_edits', l('Open edits')) %]</li>
           [% END %]
@@ -36,7 +41,7 @@
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
     [% END %]
 
-    <div class="content">
+    <div id="content">
         [%- INCLUDE 'recording/header.tt' %]
         [%- content -%]
     </div>

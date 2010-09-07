@@ -12,6 +12,10 @@ has_field 'link_type_id' => (
     type => 'Select',
 );
 
+has_field 'direction' => (
+    type => 'Checkbox',
+);
+
 sub trim
 {
     my $s = $_[0];

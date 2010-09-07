@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::CDTOC;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
+    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -39,6 +40,17 @@ sub get_by_discid
     my ($self, $discid) = @_;
     my @result = values %{$self->_get_by_keys("discid", $discid)};
     return $result[0];
+}
+
+sub find_by_freedbid
+{
+    my ($self, $freedbid) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE freedbid = ?";
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $freedbid);
 }
 
 sub load

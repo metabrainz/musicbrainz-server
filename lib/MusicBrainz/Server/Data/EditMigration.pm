@@ -4,15 +4,6 @@ use Moose;
 use Memoize;
 use Module::Pluggable::Object;
 
-memoize(qw(
-    album_release_ids
-    artist_name
-    find_release_group_id
-    resolve_album_id
-    resolve_recording_id
-    resolve_release_id
-));
-
 extends 'MusicBrainz::Server::Data::Entity';
 
 has 'edit_mapping' => (
@@ -69,6 +60,7 @@ sub _new_from_row
         yes_votes      => $row->{yesvotes},
         no_votes       => $row->{novotes},
         auto_edit      => $row->{automod},
+        status         => $row->{status},
         c              => $self->c,
         migration      => $self
     );
@@ -84,64 +76,150 @@ sub _new_from_row
     return $edit;
 }
 
+sub _list_to_map {
+    my ($self, $list, $old, $new) = @_;
+    return { map {
+        $_->{$old} => $_->{$new}
+    } @$list };
+}
+
+sub construct_map
+{
+    my ($self, $table, $old, $new) = @_;
+
+    $self->_list_to_map(
+        $self->sql->select_list_of_hashes("
+           SELECT $old, $new FROM $table
+        "), $old, $new
+    );
+}
+
 # Maps release to release groups
+my $release_groups;
 sub find_release_group_id
 {
     my ($self, $id) = @_;
-    return $self->sql->select_single_value(q{
-        SELECT release_group FROM release WHERE id = ?
-    }, $id);
+    $release_groups ||=
+        $self->construct_map('release', 'id' => 'release_group');
+
+    return $release_groups->{id};
 }
 
+my $tmp_recording_merge;
 sub resolve_recording_id
 {
     my ($self, $id) = @_;
-    $self->sql->select_single_value(q{
-        SELECT new_rec FROM tmp_recording_merge
-         WHERE old_rec = ?
-    }, $id) || $id;
+    $tmp_recording_merge ||=
+        $self->construct_map('tmp_recording_merge',
+                             'old_rec' => 'new_rec');
+
+    return $tmp_recording_merge->{$id} || $id;
 }
 
+my $tmp_release_merge;
 sub resolve_release_id
 {
     my ($self, $id) = @_;
-    $self->sql->select_single_value(q{
-        SELECT new_rel FROM tmp_release_merge
-         WHERE old_rel = ?
-    }, $id) || $id;
+    $tmp_release_merge ||=
+        $self->construct_map('tmp_release_merge',
+                             'old_rel' => 'new_rel');
+
+    return $tmp_release_merge->{$id} || $id;
 }
 
+my $tmp_url_merge;
+sub resolve_url_id
+{
+    my ($self, $id) = @_;
+    $tmp_url_merge ||=
+        $self->construct_map('tmp_url_merge',
+                             'old_url' => 'new_url');
+
+    return $tmp_url_merge->{$id} || $id;
+}
+
+my $tmp_release_album;
 sub resolve_album_id
 {
     my ($self, $id) = @_;
-    return $self->sql->select_single_value(q{
-        SELECT release FROM tmp_release_album
-         WHERE album = ?
-    }, $id);
+    $tmp_release_album ||=
+        $self->construct_map('tmp_release_album',
+                             'album' => 'release');
+
+    return $tmp_release_album->{$id} || $id;
 }
 
-sub album_release_ids
+my $public_annotations;
+sub resolve_annotation_id
 {
-    my ($self, $album_id) = @_;
-    return $self->sql->select_single_column_array(q{
-        SELECT COALESCE(new_rel, rels.release) FROM tmp_release_merge
-    RIGHT JOIN (
-            SELECT release FROM tmp_release_album
-             WHERE album = ?
-         UNION
-            SELECT id FROM public.release
-             WHERE album = ?) rels ON rels.release = old_rel;
-    }, $album_id, $album_id);
+    my ($self, $id) = @_;
+    $public_annotations ||=
+        $self->construct_map('public.annotation',
+                             'moderation' => 'id');
+    return $public_annotations->{$id};
 }
 
+my $artist_name;
 sub artist_name
 {
     my ($self, $id) = @_;
+    $artist_name ||= $self->_list_to_map(
+        $self->sql->select_list_of_hashes(q{
+            SELECT artist.id, name.name FROM artist
+              JOIN artist_name name ON artist.name=name.id
+        }));
+
+    return $artist_name->{$id} || sprintf '[ Artist #%d ]', $id;
+}
+
+my $label_alias;
+sub label_id_from_alias
+{
+    my ($self, $id) = @_;
+    $label_alias ||=
+        $self->construct_map('public.labelalias', 'id' => 'ref');
+
+    return $label_alias->{id};
+}
+
+my $album_release_ids;
+sub album_release_ids
+{
+    my ($self, $album_id) = @_;
+
+    $album_release_ids ||= do {
+
+        my $query = q{
+        SELECT rels.album, COALESCE(new_rel, rels.release) AS release
+          FROM tmp_release_merge
+    RIGHT JOIN (
+            SELECT release,album FROM tmp_release_album
+         UNION
+            SELECT id,album FROM public.release) rels ON rels.release = old_rel
+        };
+
+        my $maps = $self->sql->select_list_of_hashes($query);
+        my $mapping = {};
+        for my $assoc (@$maps) {
+            my ($album, $release) = ( $assoc->{album}, $assoc->{release} );
+            $mapping->{$album} ||= [];
+            push @{ $mapping->{$album} }, $release;
+        }
+
+        $mapping;
+    };
+
+    return $album_release_ids->{$album_id} || [];
+}
+
+sub link_attribute_from_name
+{
+    my ($self, $name) = @_;
     return $self->sql->select_single_value(q{
-        SELECT name.name FROM artist
-          JOIN artist_name name ON artist.name=name.id
-         WHERE artist.id = ?
-    }, $id) || sprintf '[ Artist #%d ]', $id;
+        SELECT id FROM link_attribute_type
+         WHERE name = ?
+         LIMIT 1
+    }, $name);
 }
 
 no Moose;

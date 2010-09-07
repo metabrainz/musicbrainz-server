@@ -1,24 +1,26 @@
-[%- USE UserDate(c.user) -%]
-[% IF moderation.Notes %]
-    <table class="edit_notes">
-        [% FOR note=moderation.Notes %]
-            <tr>
-                <td class="author">
-                    <a href="[% c.uri_for('/user/profile', note.user.name) %]">
-                        [% note.user.name %]
-                    </a>:
-                </td>
-                <td>
-                    <div class="note_date">
-                        [% UserDate.format(note.GetNoteTime) %]
-                    </div>
-                    [% note.text_as_html %]
-                </td>
-            </tr>
-        [% END %]
-    </table>
-[% ELSE %]
-    <em>
-        [% l('(None)') %]
-    </em>
+[% BLOCK votename %]
+    [%- FOR vote=edit.votes -%]
+        [%- vote.vote_name IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
+    [%- END -%]
+
+    [%- 'owner' IF edit.editor_id == note.editor_id -%]
 [% END %]
+
+[% IF edit.edit_notes.size %]
+    [% FOR note=edit.edit_notes %]
+        <div class="edit-note">
+            <h3 class="[%- PROCESS votename -%]">
+                [%- l('{editor}', { editor => link_editor(note.editor) }) -%]
+                <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
+            </h3>
+            <div class="edit-note-text">
+                [%- note.text | format_editnote -%]
+            </div>
+        </div>
+    [% END %]
+[% ELSE %]
+    <div class="edit-note">
+        <em>[% l('No edit notes have been added.') %]</em>
+    </div>
+[% END %]
+

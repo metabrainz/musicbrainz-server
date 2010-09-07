@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::PUID::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
@@ -15,8 +15,11 @@ sub related_entities    { { recording     => [ shift->recording_id ] } }
 
 has '+data' => (
     isa => Dict[
-        recording_puid_id => Int,
-        puid_id           => Int,
+        # Edit migration might not be able to find out what these
+        # were
+        recording_puid_id => Maybe[Int],
+        puid_id           => Maybe[Int],
+
         recording_id      => Int,
         puid              => Str
     ]

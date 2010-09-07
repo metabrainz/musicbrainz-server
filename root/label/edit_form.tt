@@ -6,7 +6,8 @@
 <form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
     [%- IF form.field('confirmed').required -%]
-        [%- WRAPPER 'forms/fieldset.tt' legend=l('Are you sure?') -%]
+        <fieldset>
+            <legend>[%- l('Are you sure?') -%]</legend>
             <p>
                 <strong class='warning'>[% l('Warning:') %]</strong>
                 [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
@@ -20,9 +21,8 @@
                 [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
                 [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish duplicate labels, and that you know what you are doing.', {doc_artistcomment => doc_link('Label_Comment')})) -%]
             [%- END -%]
-            [%- INCLUDE "forms/generic/row.tt" field=form.field("confirmed")
-                label=l('Yes, I am sure this label is not a duplicate, and I know what I am doing.') -%]
-        [%- END -%]
+            [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not a duplicate, and I know what I am doing.')) %]
+        </fieldset>
     [%- END -%]
     <fieldset>
         <legend>[% l('Label Details') %]</legend>

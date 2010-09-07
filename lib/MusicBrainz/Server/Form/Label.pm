@@ -31,7 +31,8 @@ has_field 'country_id' => (
 );
 
 has_field 'comment' => (
-    type => 'Text',
+    type      => 'Text',
+    maxlength => 255
 );
 
 sub edit_field_names

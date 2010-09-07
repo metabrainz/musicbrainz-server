@@ -6,7 +6,7 @@
 
     [% INCLUDE 'release/sidebar.tt' editing=0 %]
 
-    <div class="content">
+    <div id="content">
         [%- INCLUDE "release/header.tt" -%]
         [%- content -%]
     </div>

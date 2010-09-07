@@ -1,0 +1,18 @@
+<table class="details">
+  [% IF edit.display_data.recording %]
+  <tr>
+    <th>[% l('Recording:') %]</th>
+    <td colspan="2">
+      [% l('{recording} by {artist}',
+           { recording => link_recording(edit.display_data.recording),
+             artist    => artist_credit(edit.display_data.recording.artist_credit) }) %]
+    </td>
+  </tr>
+  [% END %]
+
+  <tr>
+    <th>[% l('Track Number:') %]</th>
+    <td class="old">[% edit.display_data.position.old | html %]</td>
+    <td class="new">[% edit.display_data.position.new | html %]</td>
+  </tr>
+</table>

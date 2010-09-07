@@ -7,12 +7,13 @@
 [%- END -%]
 [%#- This next could use localization for alternating comma/period use per locale -%]
 [%- MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
+[%- MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%- MACRO url_escape(url) BLOCK; url | url; END -%]
 [%- MACRO html_escape(url) BLOCK; url | html; END -%]
 [%- MACRO display_url(url) BLOCK; url | uri_decode | html; END -%]
 [%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
-[%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
 [%- USE UserDate(c.user.preferences) -%]
+[%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
@@ -133,6 +134,13 @@ END -%]
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_list(list, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/list/$action", [ list.gid ]);
+    text = text || html_escape(list.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
@@ -170,11 +178,15 @@ END -%]
 [%- MACRO link_url(url, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/url/$action", [ url.gid ]);
+    '<span class="mp">' IF url.edits_pending AND action == 'show';
     IF text;
       '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
+      '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
       text = display_url(url.url);
-      '<a href="' _ url.url _ '">' _ text _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
+      '<a href="' _ url.url _ '">' _ text _ '</a >';
+      '</span>' IF url.edits_pending AND action == 'show';
+      ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]
 
@@ -188,7 +200,14 @@ END -%]
 [%- MACRO link_puid(puid, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/puid/$action", [ puid.name ]);
-    text = text || html_escape(puid.name);
+    text = text || '<code>' _ html_escape(puid.name) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
+[%- MACRO link_isrc(isrc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    text = text || '<code>' _ html_escape(isrc) _ '</code>';
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -214,8 +233,8 @@ END -%]
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
-    action = action || 'profile';
-    link = c.uri_for_action("/user/$action", editor.name);
+    action = action || 'profile/view';
+    link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text || html_escape(editor.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
@@ -293,3 +312,77 @@ END %]
     CASE -1; l('default quality level');
     CASE 2;  l('high quality level');
 END %]
+
+[%- MACRO edit_conditions(expire_action) SWITCH expire_action;
+    CASE 1; l('Accept upon expiration');
+    CASE 2; l('Reject upon expiration');
+END -%]
+
+[%#- See /lib/MusicBrainz/Server/Edit/Utils.pm for status names -%]
+[% MACRO edit_status_description(edit) SWITCH edit.status;
+        CASE 1; l('This edit is open and awaiting votes before it can be applied.');
+        CASE 2; l('This edit has been successfully applied.');
+        CASE 3; l('This edit failed because there were more "no" votes than "yes" votes.');
+        CASE 4; l('This edit failed either because an entity it was modifying no longer
+                   exists, or the entity can not be modified in this manner anymore.');
+        CASE 5; l('This edit failed due to an internal error and may need to be
+                   entered again.');
+        CASE 6; l('This edit failed because the data it was changing was modified
+                   after this edit was created. This may happen when the same edit
+                   is entered in twice; one will pass but the other will fail.');
+        CASE 7; l('This edit failed because it affected high quality data and
+                   did not receive any votes.');
+        CASE 8; l('This edit was recently cancelled.');
+        CASE 9; l('This edit was cancelled.');
+END %]
+
+[% MACRO expiration_time(datetime) BLOCK %]
+    [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
+        [% IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days %]
+            [% l('Expires in <span class="tooltip" title="{exactdate}">{days}</span>',
+                { days => ln('{num} day', '{num} days', Countdown.total_days(datetime),
+                            { num => Countdown.total_days(datetime) })
+                  exactdate => UserDate.format(datetime) }) %]
+        [% ELSIF Countdown.hours(datetime) > 0 # Show hours and minutes %]
+            [% l('Expires in <span class="tooltip" title="{exactdate}">{hours}, {minutes}</span>',
+                { hours   => ln('{num} hour', '{num} hours', Countdown.hours(datetime),
+                               { num => Countdown.hours(datetime) }),
+                  minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
+                               { num => Countdown.minutes(datetime) })
+                  exactdate => UserDate.format(datetime) }) %]
+        [% ELSE # Only show minutes %]
+            [% l('Expires in <span class="tooltip" title="{exactdate}">{minutes}</span>',
+                { minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
+                               { num => Countdown.minutes(datetime) })
+                  exactdate => UserDate.format(datetime) }) %]
+        [% END %]
+    [% ELSE %]
+        [% l('Already expired') %]
+    [% END %]
+[% END %]
+
+[% MACRO display_relationship(relationship) BLOCK; %]
+            [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
+            [%- relationship.phrase | html %] [% link_entity(relationship.target) -%]
+            [%- IF !relationship.link.begin_date.is_empty -%]
+                [%- IF !relationship.link.end_date.is_empty -%]
+                    [%- IF relationship.link.begin_date.format == relationship.link.end_date.format -%]
+                        [%- IF relationship.link.begin_date.day -%]
+                            [% l('on {date}', { date => relationship.link.begin_date.format }) %]
+                        [%- ELSE -%]
+                            [% l('in {date}', { date => relationship.link.begin_date.format }) %]
+                        [%- END -%]
+                    [%- ELSE -%]
+                        [% l('from {begin_date} until {end_date}', {
+                            begin_date => relationship.link.begin_date.format,
+                            end_date => relationship.link.end_date.format
+                        }) %]
+                    [%- END -%]
+                [%- ELSE -%]
+                    [% l('from {date} to present', { date => relationship.link.begin_date.format }) %]
+                [%- END -%]
+            [%- ELSIF !relationship.link.end_date.is_empty -%]
+                [% l('until {date}', { date => relationship.link.end_date.format }) %]
+            [%- END -%]
+            [%- IF relationship.edits_pending %]</span>[% END -%]
+[% END %]

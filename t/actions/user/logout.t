@@ -17,11 +17,11 @@ xml_ok($mech->content);
 is($mech->uri->path, '/', 'Redirected to the previous URL');
 $mech->get_ok('/artist/create');
 xml_ok($mech->content);
-$mech->content_contains('Please log in using the form below');
+$mech->content_contains('You need to be logged in to view this page');
 $mech->get('/login');
 $mech->get_ok('/logout');
 xml_ok($mech->content);
 is($mech->uri->path, '/login', 'Redirected to the previous URL');
-$mech->content_contains('Please log in using the form below');
+$mech->content_contains('Log In');
 
 done_testing;

@@ -112,11 +112,18 @@ sub is_newbie
     return $self->registration_date > $date;
 }
 
+sub is_admin
+{
+    my $self = shift;
+    return $self->is_relationship_editor || $self->is_wiki_transcluder;
+}
+
 has 'preferences' => (
     is => 'rw',
     lazy => 1,
     default => sub { MusicBrainz::Server::Entity::Preferences->new }
 );
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

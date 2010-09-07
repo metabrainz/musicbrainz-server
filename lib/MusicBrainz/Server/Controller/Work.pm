@@ -3,7 +3,10 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_WORK_CREATE
+    $EDIT_WORK_EDIT
+);
 
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
@@ -12,6 +15,8 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+
+use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
 __PACKAGE__->config(
     model       => 'Work',
@@ -42,13 +47,14 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-after 'relationships' => sub
-{
-    my ($self, $c) = @_;
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
-};
+for my $action (qw( relationships aliases )) {
+    after $action => sub {
+        my ($self, $c) = @_;
+        my $work = $c->stash->{work};
+        $c->model('WorkType')->load($work);
+        $c->model('ArtistCredit')->load($work);
+    };
+}
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Work',
@@ -61,6 +67,22 @@ before 'edit' => sub
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('ArtistCredit')->load($work);
+};
+
+with 'MusicBrainz::Server::Controller::Role::Create' => {
+    form      => 'Work',
+    edit_type => $EDIT_WORK_CREATE,
+    edit_arguments => sub {
+        my ($self, $c) = @_;
+        my $artist_gid = $c->req->query_params->{artist};
+        if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
+            my $rg = MusicBrainz::Server::Entity::Work->new(
+                artist_credit => ArtistCredit->from_artist($artist)
+            );
+            $c->stash( initial_artist => $artist );
+            return ( item => $rg );
+        }
+    }
 };
 
 1;

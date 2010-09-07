@@ -18,7 +18,7 @@ use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
+MusicBrainz::Server::Test->prepare_raw_test_database($c, '+vote_stats');
 
 {
     package MockEdit;
@@ -73,19 +73,19 @@ $c->model('Vote')->load_for_edits($edit);
 is(scalar @{ $email_transport->deliveries }, 1);
 is($email_transport->deliveries->[-1]->{email}, $email);
 
-is(scalar @{ $edit->votes }, 4);
+is(scalar @{ $edit->votes }, 5);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
 
 # Check the vote counts
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Vote')->load_for_edits($edit);
 is($edit->yes_votes, 1);
-is($edit->no_votes, 0);
+is($edit->no_votes, 1);
 
 $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
 $edit = $c->model('Edit')->get_by_id($edit->id);
 is($edit->yes_votes, 0);
-is($edit->no_votes, 0);
+is($edit->no_votes, 1);
 
 # Make sure future no votes do not cause another email to be sent out
 $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
@@ -97,5 +97,52 @@ $c->model('Vote')->load_for_edits($edit);
 my $old_count = @{ $edit->votes };
 $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 123 });
 is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
+
+# Check the voting statistics
+my $stats = $c->model('Vote')->editor_statistics(1);
+is_deeply($stats, [
+    {
+        name   => 'Yes',
+        recent => {
+            count      => 2,
+            percentage => 40,
+        },
+        all    => {
+            count      => 3,
+            percentage => 50
+        }
+    },
+    {
+        name   => 'No',
+        recent => {
+            count      => 2,
+            percentage => 40,
+        },
+        all    => {
+            count      => 2,
+            percentage => 33
+        }
+    },
+    {
+        name   => 'Abstain',
+        recent => {
+            count      => 1,
+            percentage => 20,
+        },
+        all    => {
+            count      => 1,
+            percentage => 17
+        }
+    },
+    {
+        name   => 'Total',
+        recent => {
+            count      => 5,
+        },
+        all    => {
+            count      => 6,
+        }
+    }
+]);
 
 done_testing;

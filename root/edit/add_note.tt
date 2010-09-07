@@ -1,8 +1,5 @@
-[% WRAPPER 'layout.tt' title=l('Add Edit Note') %]
-    [% WRAPPER 'components/box.tt' header=l('Add Edit Note') %]
-        [% WRAPPER 'forms/form.tt' moderation=undef quiet=1 %]
-            [% INCLUDE 'forms/edit-note.tt' %]
-            [% INCLUDE 'forms/submit.tt' label=l('Add Edit Note') %]
-        [% END %]
-    [% END %]
-[% END %]
+<div class="add-edit-note">
+    [% USE f = FormRenderer(add_edit_note) %]
+    [% f.textarea('text', { placeholder => 'Add an edit note', rows => 1 }) %]
+    [% form_submit(l('Add edit note')) %]
+</div>

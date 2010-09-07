@@ -194,7 +194,7 @@ sub Create
     my $dbuser = $db->username;
     $system_sql->do(
         "CREATE DATABASE $dbname WITH OWNER = $dbuser ".
-        "TEMPLATE template0 ENCODING = 'UNICODE' LC_COLLATE = 'C'");
+        "TEMPLATE template0 ENCODING = 'UNICODE'");
 
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)
@@ -298,7 +298,7 @@ sub GrantSelect
     while (my $row = $sth->fetchrow_arrayref)
     {
         my $tablename = $row->[2];
-        next if $tablename =~ /^(Pending|PendingData)$/;
+        next if $tablename =~ /^(dbmirror_pending|dbmirror_pendingdata)$/;
         $dbh->do("GRANT SELECT ON $tablename TO $username")
             or die;
     }

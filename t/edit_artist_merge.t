@@ -48,7 +48,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_MERGE,
         editor_id => 1,
-        old_entity_id => 1,
-        new_entity_id => 2,
+        old_entities => [ { id => 1, name => 'Old Artist' } ],
+        new_entity => { id => 2, name => 'New Artist' },
     );
 }

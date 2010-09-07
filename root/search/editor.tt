@@ -7,7 +7,7 @@
             <ul>
                 [% FOR user IN users %]
                     <li>
-                        <a href="[% c.uri_for('/user/profile', user.name) %]">
+                        <a href="[% c.uri_for('/user/profile/view', [ user.name ]) %]">
                             [% user.name %]
                         </a>
                     </li>

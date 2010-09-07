@@ -6,15 +6,21 @@ use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::WWW::Mechanize;
 use Sql;
+use Template;
 use Test::Builder;
 use Test::Mock::Class ':all';
-use Template;
+use Test::WWW::Mechanize::Catalyst;
+use Test::XML::SemanticCompare;
 use XML::Parser;
 
-use base 'Exporter';
-
-our @EXPORT_OK = qw( accept_edit reject_edit xml_ok );
+use Sub::Exporter -setup => {
+    exports => [
+        qw( accept_edit reject_edit xml_ok schema_validator ),
+        ws_test => \&_build_ws_test,
+    ],
+};
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
@@ -198,7 +204,7 @@ sub mock_search_server
 {
     my ($type) = @_;
 
-    $type =~ s/-/_/;
+    $type =~ s/-/_/g;
 
     local $/;
     my $searchresults = "t/json/search_".lc($type).".json";
@@ -233,6 +239,92 @@ sub old_edit_row
         col        => 'name',
         %args
     };
+}
+
+sub schema_validator
+{
+    my $version = shift;
+
+    $version = '1.4' if $version == 1;
+    $version = '2.0' if $version == 2 or !$version;
+
+    my $rng_file = $ENV{'MMDFILE'};
+
+    if (!$rng_file)
+    {
+        use File::Basename;
+        use Cwd;
+
+        my $base_dir = Cwd::realpath( File::Basename::dirname(__FILE__) );
+
+        $rng_file = "$base_dir/../../../../mmd-schema/schema/musicbrainz_mmd-$version.rng";
+    }
+    my $rngschema;
+    eval
+    {
+        $rngschema = XML::LibXML::RelaxNG->new( location => $rng_file );
+    };
+
+    if ($@)
+    {
+        warn "Cannot find or parse RNG schema. Set environment var MMDFILE to point ".
+            "to the mmd-schema file or check out the mmd-schema in parallel to ".
+            "the mb_server source. No schema validation will happen.\n";
+        undef $rngschema;
+    }
+
+    return sub {
+        use Test::More import => [ 'is', 'skip' ];
+
+        my ($xml, $message) = @_;
+
+        $message ||= "Validate against schema";
+
+        xml_ok ($xml, "$message (xml_ok)");
+
+      SKIP: {
+
+          skip "schema not found", 1 unless $rngschema;
+
+          my $doc = XML::LibXML->new()->parse_string($xml);
+          eval
+          {
+              $rngschema->validate( $doc );
+          };
+          is( $@, '', "$message (validate)");
+
+        }
+    };
+}
+
+sub _build_ws_test {
+    my ($class, $name, $args) = @_;
+    my $end_point = '/ws/' . $args->{version};
+
+    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+    my $validator = schema_validator($args->{version});
+
+    return sub {
+        my ($msg, $url, $expected, $opts) = @_;
+        $opts ||= {};
+
+        $Test->subtest($msg => sub {
+            if (exists $opts->{username} && exists $opts->{password}) {
+                $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
+            }
+            else {
+                $mech->clear_credentials;
+            }
+
+
+            $Test->plan(tests => 4);
+
+            $mech->get_ok($end_point . $url, 'fetching');
+            $validator->($mech->content, 'validating');
+
+            is_xml_same($mech->content, $expected);
+        });
+    }
 }
 
 1;

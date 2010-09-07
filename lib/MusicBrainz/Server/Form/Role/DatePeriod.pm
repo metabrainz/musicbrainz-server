@@ -5,10 +5,12 @@ use Date::Calc;
 
 has_field 'begin_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate',
+    not_nullable => 1
 );
 
 has_field 'end_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate',
+    not_nullable => 1
 );
 
 after 'validate' => sub {

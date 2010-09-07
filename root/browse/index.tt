@@ -1,11 +1,11 @@
 [% WRAPPER 'layout.tt' title=l("Browse") full_width=1 %]
-    <div class="content">
+    <div id="content">
         <h1>[% l("Browse") %]</h1>
 
-        [% INCLUDE "browse/page_selector.tt" entity="artist" entity_title=l("Browse Artists") %]
-        [% INCLUDE "browse/page_selector.tt" entity="label" entity_title=l("Browse Labels") %]
-        [% INCLUDE "browse/page_selector.tt" entity="release" entity_title=l("Browse Releases") %]
-        [% INCLUDE "browse/page_selector.tt" entity="release_group" entity_title=l("Browse Release Groups") %]
-        [% INCLUDE "browse/page_selector.tt" entity="work" entity_title=l("Browse Works") %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="artist" browse_title=l('Browse artists') %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="label" browse_title=l('Browse labels') %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="release" browse_title=l('Browse releases') %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="release_group" browse_title=l('Browse release groups') %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="work" browse_title=l('Browse works') %]
     </div>
 [% END %]

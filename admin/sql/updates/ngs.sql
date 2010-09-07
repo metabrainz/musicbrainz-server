@@ -69,7 +69,19 @@ INSERT INTO medium_format (id, name, year) VALUES
     (13, 'Other', NULL),
     (14, 'Wax Cylinder', 1877),
     (15, 'Piano Roll', 1883),
-    (16, 'DCC', 1992);
+    (16, 'DCC', 1992),
+    (17, 'HD-DVD', NULL),
+    (18, 'DVD-Audio', NULL),
+    (19, 'DVD-Video', NULL),
+    (20, 'Blu-ray', NULL),
+    (21, 'VHS', NULL),
+    (22, 'VCD', NULL),
+    (23, 'SVCD', NULL),
+    (24, 'Betamax', NULL),
+    (25, 'HDCD', NULL),
+    (26, 'USB Flash Drive', NULL),
+    (27, 'slotMusic', NULL),
+    (28, 'UMD', NULL);
 
 INSERT INTO url (id, gid, url, description, refcount)
     SELECT id, gid::uuid, url, description, refcount FROM public.url;
@@ -317,6 +329,48 @@ INSERT INTO recording_meta (id, rating, ratingcount)
     FROM public.track_meta;
 
 DROP INDEX tmp_track_name_name;
+
+------------------------
+-- Works
+------------------------
+
+INSERT INTO work_name (name)
+    SELECT DISTINCT track.name 
+    FROM public.track
+    WHERE id IN (
+        SELECT link1 
+            FROM public.l_artist_track l
+                JOIN public.lt_artist_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
+                             'orchestrator', 'librettist')
+        UNION
+        SELECT link0 
+            FROM public.l_track_url l
+                JOIN public.lt_track_url lt ON lt.id = l.link_type
+            WHERE lt.name IN ('lyrics', 'score')
+    );
+
+CREATE UNIQUE INDEX tmp_work_name_name ON work_name (name);
+
+INSERT INTO work (id, gid, name, artist_credit)
+    SELECT DISTINCT track.id, gid::uuid, n.id, COALESCE(new_ac, track.artist)
+    FROM public.track 
+        JOIN work_name n ON n.name = track.name
+        LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac
+    WHERE track.id IN (
+        SELECT link1 
+            FROM public.l_artist_track l
+                JOIN public.lt_artist_track lt ON lt.id = l.link_type
+            WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
+                             'orchestrator', 'librettist')
+        UNION
+        SELECT link0 
+            FROM public.l_track_url l
+                JOIN public.lt_track_url lt ON lt.id = l.link_type
+            WHERE lt.name IN ('lyrics', 'score')
+    );
+
+DROP INDEX tmp_work_name_name;
 
 ------------------------
 -- Redirects

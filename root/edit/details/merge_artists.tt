@@ -1,7 +1,13 @@
 <table class="details">
   <tr>
-    <th>[%- l('Old artist:') %]</th>
-    <td>[% link_artist(edit.display_data.old) %]</td>
+    <th>[%- l('Old artists:') %]</th>
+    <td>
+      <ul>
+        [% FOR artist=edit.display_data.old %]
+        <li>[% link_artist(artist) %]</li>
+        [% END %]
+      </ul>
+    </td>
   </tr>
 
   <tr>

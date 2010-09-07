@@ -29,8 +29,10 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     type_to_model
     model_to_type
+    object_to_ids
     order_by
     check_in_use
+    map_query
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -62,6 +64,7 @@ sub artist_credit_to_ref
 sub load_subobjects
 {
     my ($data_access, $attr_obj, @objs) = @_;
+
     @objs = grep { defined } @objs;
     return unless @objs;
 
@@ -234,6 +237,18 @@ sub model_to_type
     return $map{$_[0]} || undef;
 }
 
+sub object_to_ids
+{
+    my %ret;
+    foreach (@_)
+    {
+        $ret{$_->id} = [] unless $ret{$_->id};
+        push @{ $ret{$_->id} }, $_;
+    }
+
+    return %ret;
+}
+
 sub order_by
 {
     my ($order, $default, $map) = @_;
@@ -271,6 +286,16 @@ sub remove_equal
             delete $old->{$key};
             delete $new->{$key};
         }
+    }
+}
+
+sub map_query
+{
+    my ($dbh, $key, $value, $query, @bind_params) = @_;
+    my $sql = Sql->new($dbh);
+    return {
+        map { $_->{$key} => $_->{$value} }
+            @{ $sql->select_list_of_hashes($query, @bind_params) }
     }
 }
 

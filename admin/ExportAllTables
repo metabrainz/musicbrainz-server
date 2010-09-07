@@ -186,6 +186,8 @@ my @tables = qw(
     clientversion
     country
     editor
+    editor_collection
+    editor_collection_release
     editor_preference
     editor_sanitised
     editor_subscribe_artist
@@ -278,8 +280,8 @@ my @tables = qw(
 );
 
 my @replication_tables = qw(
-    "Pending"
-    "PendingData"
+    dbmirror_pending
+    dbmirror_pendingdata
 );
 
 @tables = @tablelist if @tablelist;
@@ -597,6 +599,7 @@ my @group_core = qw(
     release_name
     release_packaging
     release_status
+    replication_control
     script
     script_language
     track
@@ -664,6 +667,8 @@ my @group_private = qw(
     artist_tag_raw
     editor
     editor_preference
+    editor_collection
+    editor_collection_release
     editor_subscribe_artist
     editor_subscribe_editor
     editor_subscribe_label
@@ -762,8 +767,8 @@ sub writefile
 
 sub empty_replication_tables
 {
-    $sql->do("DELETE FROM \"PendingData\"");
-    $sql->do("DELETE FROM \"Pending\"");
+    $sql->do("DELETE FROM dbmirror_pendingdata");
+    $sql->do("DELETE FROM dbmirror_pending");
     # As soon as we commit, the replication data is gone from the DB, so we must
     # be sure that we have a safe copy.
     $erase_tmpdir_on_exit = 0;
@@ -773,27 +778,17 @@ sub optimise_replication_tables
 {
     print localtime() . " : Optimising replication tables\n";
     $sql->auto_commit;
-    $sql->do("VACUUM FULL ANALYZE \"PendingData\"");
+    $sql->do("VACUUM FULL ANALYZE dbmirror_pendingdata");
     $sql->auto_commit;
-    $sql->do("VACUUM FULL ANALYZE \"Pending\"");
+    $sql->do("VACUUM FULL ANALYZE dbmirror_pending");
 }
 
 sub copy_readme
 {
-    my $svn_url = `svn info | grep "URL:" | colrm 1 5`;
-    chomp($svn_url);
-
     my $text = <<END;
 The files in this directory are snapshots of the MusicBrainz database,
 in a format suitable for import into a PostgreSQL database. To import
 them, you need a compatible version of the MusicBrainz server software.
-
-Use the following command for checking out the mb_server revision
-which created the snapshots:
-
-svn co $svn_url mb_server
-
-After that, follow the instructions given in mb_server/INSTALL.
 END
     writefile("README", $text);
 }

@@ -22,16 +22,9 @@ has 'public_tags' => (
     lazy => 1,
 );
 
-has 'public_collection' => (
-    isa => 'Bool',
-    default => 1,
-    is => 'rw',
-    lazy => 1,
-);
-
 has 'datetime_format' => (
     isa => 'Str',
-    default => '%Y-%m-%d %H:%M:%S %Z',
+    default => '%Y-%m-%d %H:%M %Z',
     is => 'rw',
     lazy => 1,
 );

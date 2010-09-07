@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases %]
+        <li>[% l('{release} by {artist}',
+                 { release => link_release(release),
+                   artist  => artist_credit(release.artist_credit) }) %] </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Track:') %]</th>
+    <td>[% link_recording(edit.display_data.recording, 'show',
+                          edit.display_data.name) %]</td>
+  </tr>
+</table>

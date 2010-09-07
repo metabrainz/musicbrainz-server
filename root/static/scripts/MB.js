@@ -34,3 +34,21 @@ var MB = {
     // Hold any URLs that controls might use
     url: {}
 };
+
+MB.Object = function () {
+    var self = {};
+
+    var parent = function (name) {
+        var that = this;
+        var method = this[name];
+
+        return function () {
+            return method.apply (that, arguments);
+        };
+    };
+
+    self.parent = parent;
+
+    return self;
+};
+

@@ -184,30 +184,25 @@ while (1) {
 }
 $sql->finish;
 
-print " * Converting collections\n";
+print " * Converting collections to lists\n";
 
 $raw_sql->select("SELECT id, moderator FROM public.collection_info");
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($id, $editor_id) = @$row;
-    $sql->do("INSERT INTO editor_collection (id, editor) VALUES (?, ?)",
-             $id, $editor_id);
+    # List should be private by default, and called "My Collection"
+    $sql->do("INSERT INTO list (id, editor, name, public) VALUES (?, ?, ?, ?)",
+             $id, $editor_id, "My Collection", 0);
 }
 $raw_sql->finish;
-
-# Collection should be private by default, since we had no preference before
-$sql->do("SELECT SETVAL('editor_preference_id_seq', (SELECT MAX(id) FROM editor_preference))");
-$sql->do("INSERT INTO editor_preference (editor, name, value)
-            SELECT editor, 'public_collection', 0
-            FROM editor_collection");
 
 $raw_sql->select("SELECT collection_info, album
                   FROM public.collection_has_release_join");
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
-    my ($collection_id, $album_id) = @$row;
-    $sql->do("INSERT INTO editor_collection_release (collection, release)
-              VALUES (?, ?)", $collection_id, $release_map{$album_id});
+    my ($list_id, $album_id) = @$row;
+    $sql->do("INSERT INTO list_release (list, release)
+              VALUES (?, ?)", $list_id, $release_map{$album_id});
 }
 $raw_sql->finish;
 

@@ -11,10 +11,10 @@
 ] -%]
 
 <div class="artistheader">
-<h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>
-<p class="subheader">
-    <span class="prefix">~</span> [% html_escape(artist.type_name) or l("Artist") %]
-</p>
+    <h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> [% html_escape(artist.type_name) or l('Artist') %]
+    </p>
 </div>
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]

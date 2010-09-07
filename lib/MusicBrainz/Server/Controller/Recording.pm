@@ -18,6 +18,7 @@ __PACKAGE__->config(
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
     $EDIT_RECORDING_MERGE
+    $EDIT_RECORDING_ADD_ISRCS
     $EDIT_PUID_DELETE
 );
 
@@ -53,13 +54,21 @@ after 'load' => sub
     }
     my @isrcs = $c->model('ISRC')->find_by_recording($recording->id);
     $c->stash( isrcs => \@isrcs );
+    $c->model('ArtistCredit')->load($recording);
 };
+
+sub _row_id_to_gid
+{
+    my ($self, $c, $track_id) = @_;
+    my $track = $c->model('Track')->get_by_id($track_id) or return;
+    $c->model('Recording')->load($track);
+    return $track->recording->gid;
+}
 
 after 'tags' => sub
 {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
-    $c->model('ArtistCredit')->load($recording);
 };
 
 =head2 relations
@@ -85,7 +94,6 @@ after 'details' => sub
     my ($self, $c) = @_;
     # XXX Load PUID count?
     my $recording = $c->stash->{recording};
-    $c->model('ArtistCredit')->load($recording);
 };
 
 sub show : Chained('load') PathPart('')
@@ -112,7 +120,6 @@ sub puids : Chained('load') PathPart('puids')
 
     my $recording = $c->stash->{recording};
     my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-    $c->model('ArtistCredit')->load($recording);
     $c->stash(
         puids    => \@puids,
         template => 'recording/puids.tt',
@@ -143,7 +150,6 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 before 'edit' => sub {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
-    $c->model('ArtistCredit')->load($recording);
 };
 
 after 'merge' => sub {
@@ -162,6 +168,28 @@ around '_merge_search' => sub {
     return $results;
 };
 
+sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $recording = $c->stash->{recording};
+    my $form = $c->form(form => 'AddISRC');
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $self->_insert_edit(
+            $c, $form,
+            edit_type => $EDIT_RECORDING_ADD_ISRCS,
+            isrcs => [ {
+                isrc         => $form->field('isrc')->value,
+                recording_id => $recording->id,
+                source       => 0
+            } ]
+        );
+
+        $c->response->redirect($c->uri_for_action('/recording/show', [ $recording->gid ]));
+        $c->detach;
+    }
+}
+
 sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
 {
     my ($self, $c) = @_;
@@ -175,7 +203,6 @@ sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
     }
     else
     {
-        $c->model('ArtistCredit')->load($recording);
         $c->stash( puid => $puid );
 
         $self->edit_action($c,

@@ -1,0 +1,18 @@
+<table class="details">
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases %]
+        <li>[% link_release(release) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td class="old">[% link_artist(edit.display_data.artist.old) %]</td>
+    <td class="new">[% link_artist(edit.display_data.artist.new) %]</td>
+  </tr>
+</table>
