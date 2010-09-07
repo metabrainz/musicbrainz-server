@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASES );
 
 extends 'MusicBrainz::Server::Edit::Historic';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
 sub edit_name     { 'Remove releases' }
 sub historic_type { 24 }
@@ -24,37 +23,52 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys
+{
+    my $self = shift;
+
+    return {
+        Release => { map { $_->{id} => [ 'ArtistCredit' ] } @{ $self->data->{releases} } },
+    }
+}
+
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-
-    my @releases;
-    for (@{ $self->data->{releases} })
-    {
-        my $rel = $self->c->model ('Release')->get_by_id ($_->id);
-        unless ($rel)
-        {
-            $rel = MusicBrainz::Server::Data::Release->new(
-                id => $_->id, name => $_->name );
-        }
-
-        push @releases, $rel;
-    }
-
-    return { releases => \@releases }
+    return {
+        releases => [ 
+            map {
+                $loaded->{Release}{$_->{id}} ||
+                    MusicBrainz::Server::Data::Release->new(
+                        id => $_->{id}, name => $_->{name}
+                    );
+            } @{ $self->data->{releases} }
+        ]
+    };
 }
 
 sub upgrade
 {
     my $self = shift;
 
-    my @albums = split( /\n/, $self->new_value );
-    map { s/^Album.*=// } @albums;
+    my @releases;
+    for (my $i = 0; ; $i++) {
+        my $id = $self->new_value->{"AlbumId$i"} or last;
+        my $name = $self->new_value->{"AlbumName$i"} or last;
+ 
+        if (my @ids = @{ $self->album_release_ids($id) }) {
+            push @releases, map +{
+                id => $_, name => $name
+            }, @ids;
+        }
+        else {
+            # If the release has been removed, we won't be able to resolve the IDs
+            push @releases, {
+                id => 0, name => $name
+            }
+        }
+    }
 
-    my @releases = map { {
-            id => $albums[$_],
-            name => $albums[$_+1]
-        } } grep { ($_ + 1)  % 2 } (0..$#albums);
 
     $self->data({ releases => \@releases });
 
