@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    clean_submitted_artist_credits
 );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
@@ -113,6 +114,11 @@ around 'initialize' => sub
         my $new_length = MusicBrainz::Server::Track::FormatTrackLength($opts{length});
 
         delete $opts{length} if $old_length eq $new_length;
+    }
+
+    if (exists $opts{artist_credit})
+    {
+        $opts{artist_credit} = clean_submitted_artist_credits ($opts{artist_credit});
     }
 
     $self->$orig(%opts);

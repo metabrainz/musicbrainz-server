@@ -3,11 +3,11 @@ use strict;
 use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -52,37 +52,43 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
-$mech->get_ok('/ws/2/recording/487cac92-eed5-4efa-8563-c9a818079b9a?inc=releases+media', 'recording lookup with releases and media');
-&$v2 ($mech->content, "Validate recording lookup with releases and media");
+$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single', 'lookup recording with official singles');
+&$v2 ($mech->content, "Validate lookup recording with official singles");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
-        <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
-        <release-list count="2">
-            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                <title>Summer Reggae! Rainbow</title><status>pseudo-release</status><date>2001-07-04</date><country>JP</country>
-                <medium-list count="1">
-                    <medium>
-                        <position>1</position><format>cd</format>
-                        <track-list offset="1" count="3">
-                            <track>
-                                <position>2</position>
-                                <title>Hello! Mata Aou Ne (7nin Matsuri version)</title>
-                            </track>
-                        </track-list>
-                    </medium>
-                </medium-list>
+    <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+        <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <release-list count="1">
+            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+                <title>サマーれげぇ!レインボー</title><status>official</status>
+                <text-representation>
+                    <language>jpn</language><script>Jpan</script>
+                </text-representation>
+                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
             </release>
+        </release-list>
+    </recording>
+</metadata>';
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
+$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single', 'lookup recording with official singles (+media)');
+&$v2 ($mech->content, "Validate lookup recording with official singles (+media)");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+        <title>サマーれげぇ!レインボー</title><length>296026</length>
+        <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                 <title>サマーれげぇ!レインボー</title><status>official</status><date>2001-07-04</date><country>JP</country>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>cd</format>
-                        <track-list offset="1" count="3">
+                        <track-list count="3">
                             <track>
-                                <position>2</position>
-                                <title>HELLO! また会おうね (7人祭 version)</title>
+                                <position>1</position><title>サマーれげぇ!レインボー</title>
                             </track>
                         </track-list>
                     </medium>
@@ -91,7 +97,6 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </release-list>
     </recording>
 </metadata>';
-
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 

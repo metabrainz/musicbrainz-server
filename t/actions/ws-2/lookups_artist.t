@@ -2,13 +2,12 @@ use utf8;
 use strict;
 use Test::More;
 use XML::SemanticDiff;
-use XML::SemanticCompare;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -79,31 +78,20 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases', 'artist lookup with releases');
-&$v2 ($mech->content, "Validate artist lookup with releases");
+$mech->get_ok('/ws/2/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release', 'artist lookup with pseudo-releases');
+&$v2 ($mech->content, "Validate artist lookup with pseudo-releases");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="group">
         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
-        <release-list count="2">
+        <release-list count="1">
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
                 <status>pseudo-release</status>
                 <text-representation>
                     <language>jpn</language>
                     <script>Latn</script>
-                </text-representation>
-                <date>2001-07-04</date>
-                <country>JP</country>
-                <barcode>4942463511227</barcode>
-            </release>
-            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title>
-                <status>official</status>
-                <text-representation>
-                    <language>jpn</language>
-                    <script>Jpan</script>
                 </text-representation>
                 <date>2001-07-04</date>
                 <country>JP</country>
@@ -220,7 +208,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 
-$mech->get_ok('/ws/2/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups', 'artist lookup with release groups');
+$mech->get_ok('/ws/2/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single', 'artist lookup with release groups');
 &$v2 ($mech->content, "Validate artist lookup with release groups");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -264,7 +252,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
 
 is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
-$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists', 'various artists release lookup');
+$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official', 'various artists release lookup');
 &$v2 ($mech->content, "Validate various artists release lookup");
 
 $expected = '<?xml version="1.0" encoding="UTF-8"?>

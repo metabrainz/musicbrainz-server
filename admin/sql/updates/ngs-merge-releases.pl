@@ -296,17 +296,17 @@ eval {
                 JOIN tmp_release_merge rm ON release.id=rm.old_rel;
     ");
 
-    printf STDERR "Merging editor_collection_release\n";
+    printf STDERR "Merging list_release\n";
     $sql->do("
     SELECT
         DISTINCT collection, COALESCE(new_rel, release)
-    INTO TEMPORARY tmp_editor_collection_release
-    FROM editor_collection_release
-        LEFT JOIN tmp_release_merge rm ON editor_collection_release.release=rm.old_rel;
+    INTO TEMPORARY tmp_list_release
+    FROM list_release
+        LEFT JOIN tmp_release_merge rm ON list_release.release=rm.old_rel;
 
-    TRUNCATE editor_collection_release;
-    INSERT INTO editor_collection_release SELECT * FROM tmp_editor_collection_release;
-    DROP TABLE tmp_editor_collection_release;
+    TRUNCATE list_release;
+    INSERT INTO list_release SELECT * FROM tmp_list_release;
+    DROP TABLE tmp_list_release;
     ");
 
     printf STDERR "Merging release_label\n";

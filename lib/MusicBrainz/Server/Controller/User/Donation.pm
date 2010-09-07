@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-sub view : Chained('/user/base') PathPart('donation') RequireAuth
+sub view : Chained('/user/base') PathPart('donation') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::PUID;
 use Moose;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
+use List::MoreUtils qw( part zip );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -41,6 +42,12 @@ sub get_by_puid
     return $result[0];
 }
 
+sub get_by_puids
+{
+    my ($self, @puids) = @_;
+    return $self->_get_by_keys("puid.puid", @puids);
+}
+
 sub delete_unused_puids
 {
     my ($self, @puid_ids) = @_;
@@ -56,6 +63,38 @@ sub delete_unused_puids
                     GROUP BY puid HAVING count(*) > 0)
             ', @puid_ids, @puid_ids);
     }
+}
+
+sub find_or_insert
+{
+    my ($self, $client, @puids) = @_;
+    my $query    = 'SELECT puid,id FROM puid WHERE puid IN (' . placeholders(@puids) . ')';
+    my $rows     = $self->sql->select_list_of_hashes($query, @puids);
+    my %puid_map = map {
+        $_->{puid} => $_->{id}
+    } @$rows;
+
+    my @insert;
+    for my $puid (@puids) {
+        next if exists $puid_map{$puid};
+        push @insert, $puid;
+    }
+
+    if (@insert) {
+        my $client_id = $self->sql->select_single_value('SELECT id FROM clientversion WHERE version = ?', $client) ||
+            $self->sql->insert_row('clientversion', { version => $client }, 'id');
+
+        my @clients = ($client_id) x @insert;
+        $rows = $self->sql->select_list_of_hashes(
+            'INSERT INTO puid (client, puid) VALUES ' . join(', ', ("(?, ?)") x @insert) .
+                ' RETURNING puid,id',
+            zip(@clients, @insert));
+
+        $puid_map{ $_->{puid} } = $_->{id}
+            for @$rows;
+    }
+
+    return %puid_map;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -67,6 +67,12 @@ __PACKAGE__->config(
     },
     'Plugin::Session' => {
         expires => 36000 # 10 hours
+    },
+    static => {
+        mime_types => {
+            json => 'application/json; charset=UTF-8',
+        },
+        dirs => [ 'static' ],
     }
 );
 
@@ -102,7 +108,7 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
                 class => '+MusicBrainz::Server::Authentication::Store'
             }
         },
-        webservice => {
+        'musicbrainz.org' => {
             use_session => 1,
             credential => {
                 class => 'HTTP',

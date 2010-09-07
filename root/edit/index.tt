@@ -52,7 +52,11 @@
         [% INCLUDE 'edit/edit_header.tt' %]
 
         <h2>[% l('Changes') %]</h2>
-        [%- INCLUDE "edit/details/${edit.edit_template}.tt" %]
+        [% IF edit.data.defined %]
+          [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+        [% ELSE %]
+          <p>[% l('An error occured while loading this edit') %]</p>
+        [% END %]
 
         <h2>[% l('Votes') %]</h2>
         <table class="vote-tally">
@@ -96,7 +100,7 @@
         [% END %]
 
         [% IF c.user_exists %]
-            [% IF edit.is_open AND staging_server %]
+            [% IF edit.is_open AND server_details.staging_server %]
                 <h2>[% l('Testing features') %]</h2>
                 <p>[%- l('To aid in testing, the following features have been made available on testing servers:') -%]</p>
                 <ul>

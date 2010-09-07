@@ -35,6 +35,7 @@ my $tests = Test::Aggregate::Nested->new( {
     verbose  => 1,
     startup  => sub {
         MusicBrainz::Server::Test->prepare_test_server();
+        MusicBrainz::Server::Test->prepare_test_database($c);
         MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
         MusicBrainz::Server::Test->prepare_raw_test_database($c);
     },

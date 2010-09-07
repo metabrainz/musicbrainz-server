@@ -134,6 +134,13 @@ END -%]
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_list(list, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/list/$action", [ list.gid ]);
+    text = text || html_escape(list.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
@@ -171,11 +178,15 @@ END -%]
 [%- MACRO link_url(url, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/url/$action", [ url.gid ]);
+    '<span class="mp">' IF url.edits_pending AND action == 'show';
     IF text;
       '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
+      '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
       text = display_url(url.url);
-      '<a href="' _ url.url _ '">' _ text _ '</a > [<a href="' _ link _ '">' _ l('info') _ '</a>]';
+      '<a href="' _ url.url _ '">' _ text _ '</a >';
+      '</span>' IF url.edits_pending AND action == 'show';
+      ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
 END -%]
 

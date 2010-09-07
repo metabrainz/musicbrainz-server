@@ -1,0 +1,11 @@
+[% WRAPPER "user/profile/layout.tt" title=l("Tags") page="tags" %]
+
+   <p>
+       [% IF tags.tags.size %]
+           [% INCLUDE 'components/tag-cloud.tt' %]
+       [% ELSE %]
+           [%- l('{user} has not tagged anything.', { user => user.name }) %]
+       [% END %]
+   </p>
+
+[% END %]

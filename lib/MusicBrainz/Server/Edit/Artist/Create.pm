@@ -60,6 +60,8 @@ sub _insert_hash
     return $data;
 };
 
+sub allow_auto_edit { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

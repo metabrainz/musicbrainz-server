@@ -63,4 +63,123 @@ sub _init_from_object
    $self->did_init_obj(1);
 }
 
+
+sub serialize
+{
+    my ($self, $previous) = @_;
+
+    # to serialize a form we save both the values and attributes of each field.
+    # ->fif provides convenient access to all values.
+    my $fif = $self->_fix_fif ($self->fif);
+
+    my @attribute_names = qw/ label title style css_class id disabled readonly javascript order /;
+    my $name = $self->name;
+    my $attributes = {};
+
+    # ->fif should have dumped all field names, so we can use that to simply
+    # iterate over all fields instead of walking the tree.
+    for my $full_name (keys %$fif)
+    {
+        my $field = $full_name;
+        $field =~ s/^\Q$name.\E//;
+
+        $attributes->{$full_name} = { map {
+            $_ => $self->field($field)->$_
+        } @attribute_names };
+    }
+
+    return {
+         'values' => $fif,
+         'attributes' => $attributes,
+    };
+}
+
+sub unserialize
+{
+    my ($self, $data, $params) = @_;
+
+    $params ||= $data->{'values'};
+
+    my $name = $self->name;
+
+    $self->process( params => $params );
+
+    for my $full_name (keys %{ $data->{'attributes'} })
+    {
+        my $field = $full_name;
+        $field =~ s/^\Q$name.\E//;
+
+        next unless $self->field($field);
+
+        my $value = $data->{'attributes'}->{$full_name};
+        for (keys %$value)
+        {
+            $self->field($field)->$_( $value->{$_} ) if $value->{$_};
+        }
+
+        # disabled inputs are never submitted with the form, so we have to
+        # copy the values previously rendered.
+        if ($self->field($field)->disabled)
+        {
+            $self->field($field)->value ($data->{'values'}->{$full_name});
+        }
+    }
+}
+
+# FIXME: remove this. just temporary, until gshank's fixes are available on CPAN.
+sub _fix_fif
+{
+    my ($self, $fif) = @_;
+
+    # getting a list of prefixes which are used for repeatables.
+    my %repeatables;
+    for my $key (keys %$fif)
+    {
+        my @segments = split(/\.([0-9]+)\./, $key);
+        next if scalar @segments == 1;
+
+        my $pop = 1;
+        while (defined $pop)
+        {
+            $pop = pop @segments;
+            next unless (defined $pop && $pop =~ m/^[0-9]$/);
+
+            $repeatables{join (".", @segments)} = 1;
+        }
+    }
+
+    # comparing all keys against the list of repeatables, and removing
+    # any values which shouldn't be in the ->fif.
+    for (keys %$fif)
+    {
+        for my $prefix (keys %repeatables)
+        {
+            delete ($fif->{$_}) if (m/^\Q$prefix\E\.[^0-9]+/);
+        }
+    }
+
+    return $fif;
+}
+
+
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

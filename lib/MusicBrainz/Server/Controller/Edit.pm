@@ -118,7 +118,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
     }
 
     $c->model('Edit')->approve($edit, $c->user);
-    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
+    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
 }
 
 sub cancel : Chained('load') RequireAuth
@@ -132,7 +132,7 @@ sub cancel : Chained('load') RequireAuth
     }
     $c->model('Edit')->cancel($edit);
 
-    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
+    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
     $c->detach;
 }
 
