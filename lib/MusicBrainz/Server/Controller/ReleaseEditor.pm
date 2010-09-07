@@ -458,7 +458,6 @@ sub _edit_release_track_edits
                     );
 
                 $edit{recording_id} = $recording->id if $recording;
-                $edit{recording_id} = 0 if !$edit{recording_id} && $preview;
 
                 # We are creating a new track (and not a new tracklist)
                 $self->$edit($EDIT_TRACKLIST_ADDTRACK, $editnote, %edit);
@@ -486,8 +485,6 @@ sub _edit_release_track_edits
                 };
 
                 $trk->{recording_id} = $recording->id if $recording;
-
-                $trk->{recording_id} = 0 if !$trk->{recording_id} && $preview;
 
                 push @tracks, $trk;
 
@@ -616,7 +613,7 @@ sub release_add
                          country_id barcode artist_credit date );
         %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-        $args{release_group_id} = $data->{release_group_id} || 0;
+        $args{release_group_id} = $data->{release_group_id};
 
         $edit = $self->_preview_edit($EDIT_RELEASE_CREATE, $editnote, %args);
 
@@ -658,8 +655,7 @@ sub release_add
             %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
             $editnote = $data->{'editnote'};
-            $edit = $self->_create_edit(
-                $preview, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+            $edit = $self->_create_edit($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
         }
 
         # add release
@@ -671,8 +667,7 @@ sub release_add
 
         $args{release_group_id} = $edit ? $edit->entity->id : $data->{release_group_id};
 
-        $edit = $self->_create_edit(
-            $preview, $EDIT_RELEASE_CREATE, $editnote, %args);
+        $edit = $self->_create_edit($EDIT_RELEASE_CREATE, $editnote, %args);
 
         my $release_id = $edit->entity->id;
         my $gid = $edit->entity->gid;
@@ -725,7 +720,12 @@ sub release_add
         }
         elsif ($label_gid)
         {
-            # FIXME: label
+            $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($label_gid);
+            my $label = $self->c->model('Label')->get_by_gid($label_gid);
+
+            $release->add_label (MusicBrainz::Server::Entity::ReleaseLabel->new);
+            $release->labels->[0]->label ($label);
+            $release->labels->[0]->label_id ($label->id);
 
             $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
             $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
@@ -781,6 +781,17 @@ sub release_edit
         $self->c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
     }
 
+    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'editnote')
+    {
+        # we're either just starting the wizard, or submitting it.  In
+        # both cases the release we're editting needs to be loaded
+        # from the database.
+
+        $self->_load_release ($release);
+
+        $self->c->stash( medium_formats => [ $self->c->model('MediumFormat')->get_all ] );
+    }
+
     if ($wizard->current_page eq 'recordings')
     {
         # we're on the changes preview page, load recordings so that the user can
@@ -817,15 +828,37 @@ sub release_edit
         $wizard->load_page('recordings', { 'preview_mediums' => $associations });
     }
 
-    if ($wizard->loading || $wizard->submitted)
+    if ($wizard->current_page eq 'editnote')
     {
-        # we're either just starting the wizard, or submitting it.  In
-        # both cases the release we're editting needs to be loaded
-        # from the database.
+        # The user is done with the wizard and wants to submit the new data.
+        # So let's create some edits :)
 
-        $self->_load_release ($release);
+        my $data = $wizard->value;
 
-        $self->c->stash( medium_formats => [ $self->c->model('MediumFormat')->get_all ] );
+        # release edit
+        # ----------------------------------------
+
+        my @fields = qw( name comment packaging_id status_id script_id language_id
+                         country_id barcode artist_credit date );
+        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+        $args{'to_edit'} = $release;
+        my $editnote = $data->{'editnote'};
+        $self->c->stash->{changes} = 0;
+
+        $self->_preview_edit($EDIT_RELEASE_EDIT, $editnote, %args);
+
+        # release labels edit
+        # ----------------------------------------
+
+        $self->_edit_release_labels (1, $editnote, $data, $release);
+
+        # medium / tracklist / track edits
+        # ----------------------------------------
+
+        $self->_edit_release_track_edits (1, $editnote, $data, $release);
+        
+        $self->c->model ('Edit')->load_all (@{ $self->c->stash->{edits} });
     }
 
     if ($wizard->submitted)

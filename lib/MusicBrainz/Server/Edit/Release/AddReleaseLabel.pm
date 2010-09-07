@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Edit::Release::AddReleaseLabel;
+use Carp;
 use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { 'Add release label' }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
@@ -14,7 +16,7 @@ sub related_entities { { release => [ shift->release_id ] } }
 
 has '+data' => (
     isa => Dict[
-        release_id => Int,
+        release_id => NullableOnPreview[Int],
         label_id => Nullable[Int],
         catalog_number => Nullable[Str]
     ]
@@ -22,6 +24,14 @@ has '+data' => (
 
 sub release_id { shift->data->{release_id} }
 sub label_id { shift->data->{label_id} }
+
+after 'initialize' => sub {
+    my $self = shift;
+
+    return if $self->preview;
+
+    croak "No release_id specified" unless $self->data->{release_id};
+};
 
 sub foreign_keys
 {

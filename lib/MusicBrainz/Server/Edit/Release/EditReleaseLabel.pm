@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { 'Edit release label' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }

@@ -1,16 +1,21 @@
 package MusicBrainz::Server::Edit::Release::Create;
+use Carp;
 use Moose;
-
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CREATE );
-use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition PartialDateHash );
+use MusicBrainz::Server::Edit::Types qw( 
+    ArtistCreditDefinition
+    Nullable
+    NullableOnPreview
+    PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
 );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { 'Add release' }
 sub edit_type { $EDIT_RELEASE_CREATE }
@@ -21,7 +26,7 @@ has '+data' => (
     isa => Dict[
         name             => Str,
         artist_credit    => ArtistCreditDefinition,
-        release_group_id => Int,
+        release_group_id => NullableOnPreview[Int],
         comment          => Nullable[Str],
         date             => Nullable[PartialDateHash],
 
@@ -33,6 +38,14 @@ has '+data' => (
         status_id        => Nullable[Int],
     ]
 );
+
+after 'initialize' => sub {
+    my $self = shift;
+
+    return if $self->preview;
+
+    croak "No release_group_id specified" unless $self->data->{release_group_id};
+};
 
 sub foreign_keys
 {
@@ -47,11 +60,14 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+
+    my $status = $self->data->{status_id};
+
     return {
         artist_credit => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name},
         comment       => $self->data->{comment},
-        status        => $loaded->{ReleaseStatus}->{ $self->data->{status_id} }
+        status        => $status ? $loaded->{ReleaseStatus}->{ $status } : '',
     };
 }
 

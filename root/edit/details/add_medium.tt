@@ -13,6 +13,7 @@
    </tr>
    [% END %]
 
+   [% UNLESS edit.preview %]
    <tr>
      <th>[% l('Release:') %]</th>
      <td>
@@ -25,6 +26,7 @@
      <th>[% l('Tracklist:') %]</th>
      <td><a href="[% c.uri_for_action('/tracklist/show', [ edit.display_data.tracklist_id ]) %]">Show</a></td>
    </tr>
+   [% END %]
 
    <tr>
      <th>[% l('Position:') %]</th>

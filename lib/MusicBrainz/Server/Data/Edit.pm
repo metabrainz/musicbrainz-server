@@ -199,7 +199,13 @@ sub preview
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or die "Could not lookup edit type for $type";
 
-    my $edit = $class->new( editor_id => $editor_id, c => $self->c );
+    unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
+    {
+        warn "FIXME: $class does not support previewing.\n";
+        return undef;
+    }
+
+    my $edit = $class->new( editor_id => $editor_id, c => $self->c, preview => 1 );
     try {
         $edit->initialize(%opts);
     }

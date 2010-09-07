@@ -1,8 +1,12 @@
 package MusicBrainz::Server::Edit::Tracklist::Create;
+use Carp;
 use Moose;
-
 use MusicBrainz::Server::Constants qw( $EDIT_TRACKLIST_CREATE );
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Types qw(
+    ArtistCreditDefinition
+    Nullable
+    NullableOnPreview
+);
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
@@ -12,6 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_TRACKLIST_CREATE }
 sub edit_name { "Add tracklist" }
@@ -25,12 +30,23 @@ has '+data' => (
                 name => Str,
                 length => Nullable[Int],
                 artist_credit => ArtistCreditDefinition,
-                recording_id => Int,
+                recording_id => NullableOnPreview[Int],
                 position => Int,
             ]
         ]
     ]
 );
+
+after 'initialize' => sub {
+    my $self = shift;
+
+    return if $self->preview;
+
+    for my $track (@{ $self->data->{tracks} })
+    {
+        croak "No recording_id specified" unless $track->{recording_id};
+    }
+};
 
 sub foreign_keys
 {
