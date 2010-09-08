@@ -7,18 +7,13 @@ use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::LoadEntity';
-
-use MusicBrainz::XML::Generator;
-
-has 'gen' => (
-    is => 'ro',
-    default => sub { MusicBrainz::XML::Generator->new }
-);
+with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
+with 'MusicBrainz::Server::Controller::WS::1::Role::XMLGeneration';
 
 sub rating : Path('/ws/1/rating')
 {
     my ($self, $c) = @_;
-    $c->authenticate({}, 'webservice');
+    $c->authenticate({}, 'musicbrainz.org');
 
     if ($c->req->method eq 'POST') {
         if (exists $c->req->params->{entity}) {
@@ -37,13 +32,13 @@ sub rating : Path('/ws/1/rating')
             my @batch;
 
             for(my $count = 0;; $count++) {
-		my $entity = $c->req->params->{"entity.$count"};
-		my $id = $c->req->params->{"id.$count"};
-		my $rating = $c->req->params->{"rating.$count"};
+                my $entity = $c->req->params->{"entity.$count"};
+                my $id = $c->req->params->{"id.$count"};
+                my $rating = $c->req->params->{"rating.$count"};
 
-		last if (!$entity || !$id || !$rating) || @batch >= 20;
+                last if (!$entity || !$id || !$rating) || @batch >= 20;
 
-		push @batch, { entity => $entity, id => $id, rating => $rating * 20 };
+                push @batch, { entity => $entity, id => $id, rating => $rating * 20 };
             }
 
             for my $submission (@batch) {
