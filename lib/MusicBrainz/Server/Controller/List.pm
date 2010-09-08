@@ -24,7 +24,7 @@ sub add : Local Args(1)
 
     my $release_id = $c->request->params->{id};
 
-    $c->model('List')->add_release_to_list($list_id, $release_id);
+    $c->model('List')->add_releases_to_list($list_id, $release_id);
 
     my $redirect = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($redirect);
@@ -37,7 +37,7 @@ sub remove : Local Args(1)
 
     my $release_id = $c->request->params->{id};
 
-    $c->model('List')->remove_release_from_list($list_id, $release_id);
+    $c->model('List')->remove_releases_from_list($list_id, $release_id);
 
     my $redirect = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($redirect);
