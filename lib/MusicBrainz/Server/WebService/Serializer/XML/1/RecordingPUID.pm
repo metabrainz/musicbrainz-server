@@ -22,7 +22,8 @@ before 'serialize' => sub
 
     $self->add(
         List->new->serialize(
-            $opts->{recording_release_map}{ $entity->recording->id }
+            $opts->{recording_release_map}{ $entity->recording->id },
+            undef, { track_map => $opts->{track_map} }
         )
     );
 };

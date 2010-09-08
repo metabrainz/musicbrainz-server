@@ -10,6 +10,11 @@
   </tr>
 
   <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name %]</td>
+  </tr>
+
+  <tr>
     <th>[% l('Status:') %]</th>
     <td>[% edit.display_data.status.name %]</td>
   </tr>
