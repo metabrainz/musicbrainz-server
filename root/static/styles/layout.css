@@ -373,7 +373,7 @@ code {
 
 table.tbl tr.mp td,
 span.mp {
-    background: #FD9;
+    background: #FD9 !important;
 }
 
 .lastupdate {
