@@ -78,6 +78,11 @@ sub delete : Local Args(1) RequireAuth(relationship_editor)
     my $link_attr_type = $self->_load_link_attr_type($c, $id);
     my $form = $c->form( form => 'Confirm' );
 
+    if ($c->model('LinkAttributeType')->in_use($id)) {
+        $c->stash( template => $c->namespace . '/in_use.tt');
+        $c->detach;
+    }
+
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $sql = Sql->new($c->model('MB')->dbh);
         Sql::run_in_transaction(sub { $c->model('LinkAttributeType')->delete($id) }, $sql);

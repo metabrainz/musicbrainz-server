@@ -11,8 +11,8 @@
     </td>
     <td>
       [% l('Type: {type}, status: {status}',
-           { type => change.type.old || '?',
-             status => change.status.old || '?' })
+           { type => change.type.name || '?',
+             status => change.status.name || '?' })
       %]
     </td>
   </tr>

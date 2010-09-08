@@ -4,7 +4,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
-use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id );
+use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 
 extends 'MusicBrainz::Server::Edit::Historic';
@@ -22,6 +22,7 @@ has '+data' => (
         disc_id     => Optional[Str],
         toc         => Optional[Str],
         status_id   => Nullable[Int],
+        type_id     => Nullable[Int],
         artist_id   => Int,
         script_id   => Nullable[Int],
         language_id => Nullable[Int],
@@ -94,6 +95,7 @@ sub foreign_keys
         Recording     => [ $self->_recording_ids ],
         Release       => [ $self->_release_ids ],
         ReleaseStatus => [ $self->data->{status_id} ],
+        ReleaseGroupType => [ $self->data->{type_id} ],
         Script        => [ $self->data->{script_id} ],
     };
 }
@@ -106,6 +108,7 @@ sub build_display_data
         artist         => $loaded->{Artist}->{ $self->data->{artist_id} },
         releases       => [ map { $loaded->{Release}->{ $_ } } $self->_release_ids ],
         status         => $loaded->{ReleaseStatus}->{ $self->data->{status_id} },
+        type           => $loaded->{ReleaseGroupType}->{ $self->data->{type_id} },
         language       => $loaded->{Language}->{ $self->data->{language_id} },
         script         => $loaded->{Script}->{ $self->data->{script_id} },
         release_events => [
@@ -152,8 +155,9 @@ sub upgrade
     };
 
     if (my $attributes = $self->new_value->{Attributes}) {
-        my ($type_id, $status_id) = split /,/, $attributes;
-        $data->{status_id} = upgrade_id($status_map{$status_id});
+        my ($type_id, $status_id) = upgrade_type_and_status($attributes);
+        $data->{status_id} = $status_id;
+        $data->{type_id} = $type_id;
     }
 
     if (my $language = $self->new_value->{Language}) {

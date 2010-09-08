@@ -3,10 +3,14 @@ use Moose::Role;
 
 before 'lookup' => sub {
     my ($self, $c) = @_;
-
-    return unless ($c->stash->{inc}->has_rels);
-
     my $entity = $c->stash->{entity};
+    $self->load_relationships($c, $entity);
+};
+
+sub load_relationships
+{
+    my ($self, $c, $entity) = @_;
+    return unless ($c->stash->{inc}->has_rels);
 
     my $types = $c->stash->{inc}->get_rel_types;
 
@@ -24,6 +28,6 @@ before 'lookup' => sub {
     $c->model('ReleaseStatus')->load(@releases);
     $c->model('Language')->load(@releases);
     $c->model('Script')->load(@releases);
-};
+}
 
 1;

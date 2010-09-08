@@ -117,6 +117,11 @@ sub direct : Private
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Medium')->load_for_releases(@releases);
+            $c->model('Tracklist')->load(map { $_->all_mediums } @releases);
+            $c->model('Track')->load_for_tracklists(map { $_->tracklist }
+                                                    map { $_->all_mediums } @releases);
+            $c->model('Recording')->load(map { $_->tracklist->all_tracks }
+                                         map { $_->all_mediums } @releases);
         }
     }
 

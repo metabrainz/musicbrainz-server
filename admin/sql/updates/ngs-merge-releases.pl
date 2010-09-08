@@ -299,7 +299,7 @@ eval {
     printf STDERR "Merging list_release\n";
     $sql->do("
     SELECT
-        DISTINCT collection, COALESCE(new_rel, release)
+        DISTINCT list, COALESCE(new_rel, release)
     INTO TEMPORARY tmp_list_release
     FROM list_release
         LEFT JOIN tmp_release_merge rm ON list_release.release=rm.old_rel;
