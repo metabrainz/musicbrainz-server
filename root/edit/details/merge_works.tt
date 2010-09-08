@@ -1,0 +1,21 @@
+<table class="details">
+  <tr>
+    <th>[%- l('Old works:') %]</th>
+    <td>
+      <ul>
+        [% FOR work=edit.display_data.old %]
+        <li>[% l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[%- l('New work:') %]</th>
+    <td>
+      [% work = edit.display_data.new;
+         l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) })
+      %]
+    </td>
+  </tr>
+</table>
