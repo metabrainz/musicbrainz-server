@@ -1,15 +1,8 @@
 package MusicBrainz::Server::Controller::WS::1::Role::LoadEntity;
 use Moose::Role;
 
-use aliased 'MusicBrainz::Server::WebService::XMLSerializerV1';
-
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Validation;
-
-has 'serializer' => (
-    is => 'ro',
-    default => sub { XMLSerializerV1->new }
-);
 
 sub bad_req
 {

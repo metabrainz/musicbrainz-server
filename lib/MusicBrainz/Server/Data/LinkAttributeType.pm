@@ -152,6 +152,14 @@ sub get_by_gid
     }
 }
 
+sub in_use
+{
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM link_attribute WHERE link_attribute.attribute_type = ?',
+        $id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

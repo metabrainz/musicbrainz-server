@@ -11,6 +11,7 @@ has $_ => (
 ) for qw(
           artist track_rels      asin    rg_type rel_status discs     release_events
           counts various_artists tracks  labels  tracklist  user_tags user_ratings
+          track_level_rels
 );
 
 override 'get_rel_types' => sub
