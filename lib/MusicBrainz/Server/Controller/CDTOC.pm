@@ -103,6 +103,7 @@ sub attach : Local RequireAuth
     my ($self, $c) = @_;
 
     my $toc = $c->req->query_params->{toc};
+    $c->stash( toc => $toc );
     my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc);
         # FIXME or BAD REQUEST
 
@@ -113,7 +114,17 @@ sub attach : Local RequireAuth
         $c->model('ArtistCredit')->load($release);
         $c->stash( release => $release );
 
-        if (my $medium_id = $c->req->query_params->{medium}) {
+        # Load the release, list mediums
+        $c->model('Medium')->load_for_releases($release);
+        $c->model('Tracklist')->load($release->all_mediums);
+        my @possible_mediums = grep { $_->tracklist->track_count == $cdtoc->track_count } $release->all_mediums;
+
+        my $medium_id = $c->req->query_params->{medium};
+        $medium_id = $possible_mediums[0]->id if @possible_mediums == 1 && !defined $medium_id;
+
+        # FIXME $medium_id IN @possible_mediums or bad request
+
+        if ($medium_id) {
             $c->stash(template => 'cdtoc/attach_confirm.tt');
             $self->edit_action($c,
                 form        => 'Confirm',
@@ -130,8 +141,10 @@ sub attach : Local RequireAuth
             )
         }
         else {
-            # Load the release, list mediums
-            $c->stash(template => 'cdtoc/attach_medium.tt');
+            $c->stash(
+                mediums => \@possible_mediums,
+                template => 'cdtoc/attach_medium.tt'
+            );
         }
     }
     elsif (my $artist_id = $c->req->query_params->{artist_id}) {
@@ -148,6 +161,10 @@ sub attach : Local RequireAuth
         }
         elsif ($search_release->submitted_and_valid($c->req->query_params)) {
             $c->stash(template => 'cdtoc/attach_filter_release.tt');
+        }
+        else {
+            $c->stash( template => 'cdtoc/lookup.tt' );
+            $c->forward('/cdtoc/lookup');
         }
     }
 }
