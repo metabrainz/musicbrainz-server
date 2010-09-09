@@ -19,4 +19,15 @@
              search for the disc you are looking for using the forms below, or you may add a new release to
              MusicBrainz') %]</p>
   [% END %]
+
+  <h2>[% l('Search by artist') %]</h2>
+  <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
+    [% USE r = FormRenderer(query_artist) %]
+    <input type="hidden" name="toc" value="[% toc %]" />
+    [% WRAPPER form_row %]
+      [% r.label('query', l('Artist:')) %]
+      [% r.text('query') %]
+      [% form_submit(l('Search')) %]
+    [% END %]
+  </form>
 [% END %]

@@ -147,17 +147,32 @@ sub attach : Local RequireAuth
             );
         }
     }
-    elsif (my $artist_id = $c->req->query_params->{artist_id}) {
+    elsif (my $artist_id = $c->req->query_params->{artist}) {
         # List releases
-        $c->stash(template => 'cdtoc/attach_artist_releases.tt');
+        my $artist = $c->model('Artist')->get_by_id($artist_id);
+        my $releases = $self->_load_paged($c, sub {
+            $c->model('Release')->find_by_artist_track_count($artist_id, $cdtoc->track_count,shift, shift)
+        });
+
+        $c->stash(
+            artist => $artist,
+            releases => $releases,
+            template => 'cdtoc/attach_artist_releases.tt'
+        );
     }
     else {
-        my $search_artist = $c->form( query_release => 'Search::Query', name => 'filter-release' );
-        my $search_release = $c->form( query_artist => 'Search::Query', name => 'filter-artist' );
+        my $search_artist = $c->form( query_artist => 'Search::Query', name => 'filter-artist' );
+        my $search_release = $c->form( query_release => 'Search::Query', name => 'filter-release' );
 
         # One of these must have been submitted to get here
         if ($search_artist->submitted_and_valid($c->req->query_params)) {
-            $c->stash(template => 'cdtoc/attach_filter_artist.tt');
+            my $artists = $self->_load_paged($c, sub {
+                $c->model('Search')->search('artist', $search_artist->field('query')->value, shift, shift)
+            });
+            $c->stash(
+                template => 'cdtoc/attach_filter_artist.tt',
+                artists => $artists
+            );
         }
         elsif ($search_release->submitted_and_valid($c->req->query_params)) {
             $c->stash(template => 'cdtoc/attach_filter_release.tt');
