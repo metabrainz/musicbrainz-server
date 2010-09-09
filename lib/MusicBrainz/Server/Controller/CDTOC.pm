@@ -3,7 +3,11 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_MEDIUM_ADD_DISCID
+    $EDIT_MEDIUM_REMOVE_DISCID
+);
+use MusicBrainz::Server::Entity::CDTOC;
 
 __PACKAGE__->config( entity_name => 'cdtoc' );
 
@@ -88,6 +92,63 @@ sub lookup : Local
     my $cdtoc = $c->model('CDTOC')->get_by_discid($discid);
     if ($cdtoc) {
         $c->stash( medium_cdtocs => $self->_load_releases($c, $cdtoc) );
+    }
+
+    $c->form( query_release => 'Search::Query', name => 'filter-release' );
+    $c->form( query_artist => 'Search::Query', name => 'filter-artist' );
+}
+
+sub attach : Local RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $toc = $c->req->query_params->{toc};
+    my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc);
+        # FIXME or BAD REQUEST
+
+    $c->stash( cdtoc => $cdtoc );
+
+    if (my $release_id = $c->req->query_params->{release}) {
+        my $release = $c->model('Release')->get_by_id($release_id); # FIXME or 404
+        $c->model('ArtistCredit')->load($release);
+        $c->stash( release => $release );
+
+        if (my $medium_id = $c->req->query_params->{medium}) {
+            $c->stash(template => 'cdtoc/attach_confirm.tt');
+            $self->edit_action($c,
+                form        => 'Confirm',
+                type        => $EDIT_MEDIUM_ADD_DISCID,
+                edit_args   => {
+                    cdtoc      => $toc,
+                    medium_id  => $medium_id,
+                    release_id => $release_id
+                },
+                on_creation => sub {
+                    $c->response->redirect($c->uri_for_action('/release/discids', [ $release->gid ]));
+                    $c->detach;
+                }
+            )
+        }
+        else {
+            # Load the release, list mediums
+            $c->stash(template => 'cdtoc/attach_medium.tt');
+        }
+    }
+    elsif (my $artist_id = $c->req->query_params->{artist_id}) {
+        # List releases
+        $c->stash(template => 'cdtoc/attach_artist_releases.tt');
+    }
+    else {
+        my $search_artist = $c->form( query_release => 'Search::Query', name => 'filter-release' );
+        my $search_release = $c->form( query_artist => 'Search::Query', name => 'filter-artist' );
+
+        # One of these must have been submitted to get here
+        if ($search_artist->submitted_and_valid($c->req->query_params)) {
+            $c->stash(template => 'cdtoc/attach_filter_artist.tt');
+        }
+        elsif ($search_release->submitted_and_valid($c->req->query_params)) {
+            $c->stash(template => 'cdtoc/attach_filter_release.tt');
+        }
     }
 }
 

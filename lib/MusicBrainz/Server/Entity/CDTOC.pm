@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::CDTOC;
 
 use Moose;
+use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
@@ -77,6 +78,66 @@ sub track_details
         push @track_info, \%info;
     }
     return \@track_info;
+}
+
+sub new_from_toc
+{
+    my ($class, $toc) = @_;
+    return unless defined($toc);
+
+    $toc =~ s/\A\s+//;
+    $toc =~ s/\s+\z//;
+    $toc =~ /\A\d+(?: \d+)*\z/ or return;
+    
+    my ($first_track, $last_track, $leadout_offset, @track_offsets) = split ' ', $toc;
+
+    return unless $first_track == 1;
+    return unless $last_track >= 1 && $last_track <= 99;
+    return unless @track_offsets == $last_track;
+
+    for (($first_track + 1) .. $last_track) {
+      return unless $track_offsets[$_-1] > $track_offsets[$_-1-1];
+    }
+
+    return unless $leadout_offset > $track_offsets[-1];
+
+    my $message = "";
+    $message .= sprintf("%02X", $first_track);
+    $message .= sprintf("%02X", $last_track);
+    $message .= sprintf("%08X", $leadout_offset);
+    $message .= sprintf("%08X", ($track_offsets[$_-1] || 0)) for 1 .. 99;
+
+    my $discid = sha1_base64($message);
+    $discid .= "="; # bring up to 28 characters, like the client
+    $discid =~ tr[+/=][._-];
+
+    my @lengths = map {
+        ($track_offsets[$_+1-1] || $leadout_offset) - $track_offsets[$_-1]
+    } $first_track .. $last_track;
+
+    return $class->new(
+        discid => $discid,
+        track_count => scalar @track_offsets,
+        leadout_offset => $leadout_offset,
+        track_offset => \@track_offsets,
+        freedbid => _compute_freedb_id(@track_offsets, $leadout_offset),
+    );
+}
+
+sub _compute_freedb_id
+{
+    my @frames = @_;
+    my $tracks = @frames-1;
+
+    my $n = 0;
+    for my $i (0..$tracks-1) {
+        $n = $n + $_
+        for split //, int($frames[$i]/75);
+    }
+
+    my $t = int($frames[-1]/75) - int($frames[0]/75);
+
+    sprintf "%08x", ((($n % 0xFF) << 24) | ($t << 8) | $tracks);
 }
 
 __PACKAGE__->meta->make_immutable;

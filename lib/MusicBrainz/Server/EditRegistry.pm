@@ -22,6 +22,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Label::Edit
     MusicBrainz::Server::Edit::Label::EditAlias
     MusicBrainz::Server::Edit::Label::Merge
+    MusicBrainz::Server::Edit::Medium::AddDiscID
     MusicBrainz::Server::Edit::Medium::Create
     MusicBrainz::Server::Edit::Medium::Delete
     MusicBrainz::Server::Edit::Medium::Edit
