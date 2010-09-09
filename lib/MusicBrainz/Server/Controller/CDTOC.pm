@@ -16,11 +16,9 @@ sub _load
     return $c->model('CDTOC')->get_by_discid($discid);
 }
 
-sub show : Chained('load') PathPart('')
+sub _load_releases
 {
-    my ($self, $c) = @_;
-
-    my $cdtoc = $c->stash->{cdtoc};
+    my ($self, $c, $cdtoc) = @_;
     my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
     my @releases = $c->model('Release')->load(@mediums);
@@ -30,9 +28,17 @@ sub show : Chained('load') PathPart('')
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
+    return \@medium_cdtocs;
+}
+
+sub show : Chained('load') PathPart('')
+{
+    my ($self, $c) = @_;
+
+    my $cdtoc = $c->stash->{cdtoc};
 
     $c->stash(
-        medium_cdtocs => \@medium_cdtocs,
+        medium_cdtocs => $self->_load_releases($c, $cdtoc),
         template      => 'cdtoc/index.tt',
     );
 }
@@ -69,6 +75,20 @@ sub remove : Local RequireAuth
             $c->detach;
         }
     )
+}
+
+sub lookup : Local
+{
+    my ($self, $c) = @_;
+
+    my $discid = $c->req->query_params->{id};
+    my $track_count = $c->req->query_params->{tracks};
+    my $toc = $c->req->query_params->{toc};
+
+    my $cdtoc = $c->model('CDTOC')->get_by_discid($discid);
+    if ($cdtoc) {
+        $c->stash( medium_cdtocs => $self->_load_releases($c, $cdtoc) );
+    }
 }
 
 no Moose;
