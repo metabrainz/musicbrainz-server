@@ -14,7 +14,7 @@
     [% form_row_text(r, 'changelog', l('Change log:')) %]
 
     [% BLOCK preview_button %]
-      <button type="submit" name="[% form.field('preview').html_name %]">[% l('Preview') %]</button>
+      <button type="submit" name="[% form.field('preview').html_name %]" value="[% l('Preview') %]" >[% l('Preview') %]</button>
     [% END %]
 
     [% preview = PROCESS preview_button;
