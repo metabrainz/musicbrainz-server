@@ -38,7 +38,9 @@ for my $action (qw( open all )) {
         my $edits = $c->stash->{edits};
 
         $c->model('Edit')->load_all(@$edits);
-        $c->model('Editor')->load(@$edits);
+        $c->model('Vote')->load_for_edits(@$edits);
+        $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
     };
 }
 
