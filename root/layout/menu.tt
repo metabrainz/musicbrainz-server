@@ -54,9 +54,6 @@
                 </li>
             </ul>
         </li>
-        <li>
-            [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
-        </li>
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
         <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/user/register') }) %]</li>
