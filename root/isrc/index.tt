@@ -2,7 +2,7 @@
 
     <h1>[% l('ISRC “{isrc}”', { isrc => link_isrc(isrc) }) %]</h1>
 
-    <h2>[% l('Associated with recordings') %]</h2>
+    <h2>[% ln('Associated with {num} recording', 'Associated with {num} recordings', recordings.size, { num => recordings.size }) %]</h2>
 
     <table class="tbl">
         <thead>
