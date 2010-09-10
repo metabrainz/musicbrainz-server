@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('ISRC “{isrc}”', { isrc => isrc }) full_width=1 -%]
 
-    <h1>[% l('ISRC “{isrc}”', { isrc => isrc }) %]</h1>
+    <h1>[% l('ISRC “{isrc}”', { isrc => link_isrc(isrc) }) %]</h1>
 
     <h2>[% l('Associated with recordings') %]</h2>
 
