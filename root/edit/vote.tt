@@ -29,6 +29,5 @@
                 [% form_submit(l('Enter vote')) %]
             [% END %]
         [% END %]
-        <input type="hidden" value="[% edit.id %]" name="[% name %].edit_id" />
     </div>
 [% END %]

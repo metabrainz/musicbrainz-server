@@ -72,6 +72,7 @@
                 <tr class="noborder">
                     <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
                         <input type="hidden" value="[% c.req.uri %]" name="url" />
+                        <input type="hidden" value="[% edit.id %]" name="enter-votes.vote.0.edit_id" />
                         <th>[% l('My vote') %]</th>
                         <td class="vote">
                             [% INCLUDE 'edit/vote.tt' %]

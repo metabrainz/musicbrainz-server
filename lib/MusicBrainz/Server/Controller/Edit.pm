@@ -87,8 +87,19 @@ sub enter_votes : Local RequireAuth
 
     my $form = $c->form(vote_form => 'Vote');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my @votes = @{ $form->field('vote')->value };
+        my @submissions = @{ $form->field('vote')->value };
+        my @votes = grep { $_->{vote} } @submissions;
         $c->model('Vote')->enter_votes($c->user->id, @votes);
+        
+        my @notes = grep { $_->{edit_note} } @submissions;
+        for my $note (@notes) {
+            $c->model('EditNote')->add_note(
+                $note->{edit_id},
+                {
+                    editor_id => $c->user->id,
+                    text => $note->{edit_note},
+                });
+        }
     }
 
     my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open_edits');
