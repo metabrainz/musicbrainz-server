@@ -370,7 +370,59 @@ Sql::run_in_transaction(sub {
     undef %link_map;
     undef %link_map_update;
 
-    $sql->do("CREATE TABLE tmp_recording_merge (
+	printf STDERR "Breaking up track groups with different ISRCs\n";
+
+	# Generate a track_id -> [ pseudo_isrc_id ] map
+
+	my %isrc_map;
+	$i = 1;
+	$last_isrc = '';
+	my $isrc_group = 1;
+	$sql->select("SELECT isrc, track AS id FROM public.isrc ORDER BY isrc");
+	while (1) {
+		my $row = $sql->next_row_hash_ref or last;
+		if ($row->{isrc} ne $last_isrc) {
+			$isrc_group++;
+			$last_isrc = $row->{isrc};
+			printf STDERR "%d/%d\r", $i, $sql->row_count;
+		}
+		if (exists $isrc_map{$row->{id}}) {
+			push @{$isrc_map{$row->{id}}}, $isrc_group;
+		}
+		else {
+			$isrc_map{$row->{id}} = [$isrc_group];
+		}
+		$i += 1;
+	}
+	$sql->finish;
+
+	foreach my $group (keys %merge_map) {
+		my @ids = @{$merge_map{$group}};
+		my %counts;
+		my %contains;
+		foreach my $id (@ids) {
+			if (exists $isrc_map{$id}) {
+				foreach my $isrc_id (@{$isrc_map{$id}}) {
+					$counts{$isrc_id}++;
+				}
+				$contains{$id} = { map { $_ => 1 } @{$isrc_map{$id}} };
+			}
+		}
+		my @isrc_ids = sort { $counts{$a} <=> $counts{$b} } keys %counts;
+		my $isrc_id = pop @isrc_ids;
+		next unless defined $isrc_id;
+		$merge_map{$group} = [ grep { !exists $contains{$_} || $contains{$_}->{$isrc_id} } @ids ];
+		if (@{$merge_map{$group}} != @ids) {
+			printf LOG "Multiple different ISRCs in a group " . join(', ', @ids) . "\n";
+		}
+		if (@{$merge_map{$group}} < 2) {
+			delete $merge_map{$group};
+		}
+	}
+
+	undef %isrc_map;
+
+	$sql->do("CREATE TABLE tmp_recording_merge (
         old_rec INTEGER NOT NULL,
         new_rec INTEGER NOT NULL
     )");
