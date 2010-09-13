@@ -9,6 +9,8 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Entity::CDTOC;
 
+use HTTP::Status qw( :constants );
+
 __PACKAGE__->config( entity_name => 'cdtoc' );
 
 sub base : Chained('/') PathPart('cdtoc') CaptureArgs(0) {}
@@ -104,13 +106,15 @@ sub attach : Local RequireAuth
 
     my $toc = $c->req->query_params->{toc};
     $c->stash( toc => $toc );
-    my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc);
-        # FIXME or BAD REQUEST
+    my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc)
+        or $self->error($c, status => HTTP_BAD_REQUEST,
+                        message => "The provided CD TOC is not valid");
 
     $c->stash( cdtoc => $cdtoc );
 
     if (my $release_id = $c->req->query_params->{release}) {
-        my $release = $c->model('Release')->get_by_id($release_id); # FIXME or 404
+        my $release = $c->model('Release')->get_by_id($release_id)
+            or $self->error($c, status => HTTP_NOT_FOUND, message => 'The requested release could not be found');
         $c->model('ArtistCredit')->load($release);
         $c->stash( release => $release );
 
@@ -119,10 +123,18 @@ sub attach : Local RequireAuth
         $c->model('Tracklist')->load($release->all_mediums);
         my @possible_mediums = grep { $_->tracklist->track_count == $cdtoc->track_count } $release->all_mediums;
 
+        $self->error($c, status => HTTP_BAD_REQUEST,
+                     message => 'This release has no mediums with the specified track count')
+            unless @possible_mediums;
+
         my $medium_id = $c->req->query_params->{medium};
         $medium_id = $possible_mediums[0]->id if @possible_mediums == 1 && !defined $medium_id;
 
-        # FIXME $medium_id IN @possible_mediums or bad request
+        my @valid = grep { $medium_id == $_->id } @possible_mediums;
+        $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => 'The medium you are trying to attach a disc ID to belongs to a different release'
+        ) unless @valid;
 
         if ($medium_id) {
             $c->stash(template => 'cdtoc/attach_confirm.tt');
