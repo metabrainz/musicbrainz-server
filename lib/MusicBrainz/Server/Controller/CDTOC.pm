@@ -175,7 +175,15 @@ sub attach : Local RequireAuth
             );
         }
         elsif ($search_release->submitted_and_valid($c->req->query_params)) {
-            $c->stash(template => 'cdtoc/attach_filter_release.tt');
+            my $releases = $self->_load_paged($c, sub {
+                $c->model('Search')->search('release', $search_release->field('query')->value, shift, shift,
+                                            { track_count => $cdtoc->track_count });
+            });
+            $c->model('ArtistCredit')->load(map { $_->entity } @$releases);
+            $c->stash(
+                template => 'cdtoc/attach_filter_release.tt',
+                releases => $releases
+            );
         }
         else {
             $c->stash( template => 'cdtoc/lookup.tt' );

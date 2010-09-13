@@ -30,4 +30,15 @@
       [% form_submit(l('Search')) %]
     [% END %]
   </form>
+
+  <h2>[% l('Search by release') %]</h2>
+  <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
+    [% USE r = FormRenderer(query_release) %]
+    <input type="hidden" name="toc" value="[% toc %]" />
+    [% WRAPPER form_row %]
+      [% r.label('query', l('Release title:')) %]
+      [% r.text('query') %]
+      [% form_submit(l('Search')) %]
+    [% END %]
+  </form>
 [% END %]
