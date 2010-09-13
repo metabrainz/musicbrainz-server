@@ -155,10 +155,10 @@ sub editor_statistics
         {
             name => 'Total',
             recent => {
-                count      => sum(values %$recent_votes),
+                count      => sum(values %$recent_votes) || 0,
             },
             all => {
-                count      => sum(values %$all_votes),
+                count      => sum(values %$all_votes) || 0,
             }
         }
     ]
