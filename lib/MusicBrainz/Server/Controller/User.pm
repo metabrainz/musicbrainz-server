@@ -49,7 +49,7 @@ sub do_login : Private
     my $form = $c->form(form => 'User::Login');
     my $redirect = defined $c->req->query_params->{uri}
         ? $c->req->query_params->{uri}
-        : $c->req->uri;
+        : $c->relative_uri;
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
