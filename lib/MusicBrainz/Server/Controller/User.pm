@@ -63,7 +63,7 @@ sub do_login : Private
         else
         {
             # Logged in OK
-            $c->response->redirect($redirect);
+            $c->response->redirect($c->uri_for($redirect));
             $c->detach;
         }
     }
