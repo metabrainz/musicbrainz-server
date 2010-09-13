@@ -1,0 +1,5 @@
+[% WRAPPER 'layout.tt' title=l('Link attribute type in use') full_width=1 %]
+  <h2>[% l('Link attribute type still in use') %]</h2>
+  <p>[% l('You cannot delete the link attribute type "{type}" as it is still in use by other
+           link attributes.' { type => link_attr_type.name }) %]</p>
+[% END %]

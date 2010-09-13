@@ -70,6 +70,14 @@ sub find_or_insert
     my @artists = map { $_->{artist} } @$credits;
     my @names = map { $_->{name} } @$credits;
 
+    # remove unused trailing artistcredit slots.
+    while (!defined $artists[$positions[-1]] || !defined $names[$positions[-1]])
+    {
+        pop @positions;
+        pop @artists;
+        pop @names;
+    }
+
     my $name = "";
     my (@joins, @conditions);
     for my $i (@positions) {

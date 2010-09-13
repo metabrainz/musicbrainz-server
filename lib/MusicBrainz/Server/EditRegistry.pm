@@ -43,8 +43,10 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
+    MusicBrainz::Server::Edit::Release::AddReleaseLabel
     MusicBrainz::Server::Edit::Release::ChangeQuality
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
+    MusicBrainz::Server::Edit::Release::Create
     MusicBrainz::Server::Edit::Release::Edit
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
@@ -90,6 +92,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MoveRelease
     MusicBrainz::Server::Edit::Historic::RemoveDiscID
     MusicBrainz::Server::Edit::Historic::RemoveRelease
+    MusicBrainz::Server::Edit::Historic::RemoveReleases
     MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents
     MusicBrainz::Server::Edit::Historic::RemoveTrack
     MusicBrainz::Server::Edit::Historic::SACToMAC

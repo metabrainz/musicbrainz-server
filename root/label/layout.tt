@@ -37,6 +37,11 @@
                 [% IF label.edits_pending %]
                   <li>[% link_label(label, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
+                <li>
+                  <a href="[% c.uri_for_action('/release/add', { label = label.gid }) %]">
+                    [% l('Add a new release') %]
+                  </a>
+                </li>
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this label')) %]</li>
             [% END %]

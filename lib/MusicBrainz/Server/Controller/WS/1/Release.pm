@@ -11,7 +11,7 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         inc    => [ qw( artist  tags  release-groups tracks release-events labels isrcs
                         ratings puids _relations     counts discs          user-tags
-                        user-ratings ) ]
+                        user-ratings  track-level-rels ) ]
     }
 ]);
 
@@ -74,6 +74,10 @@ sub lookup : Chained('load') PathPart('')
 
         $c->model('RecordingPUID')->load_for_recordings(@recordings)
             if ($c->stash->{inc}->puids);
+
+        if ($c->stash->{inc}->track_level_rels) {
+            $self->load_relationships($c, $_) for @recordings;
+        }
     }
 
     if ($c->stash->{inc}->release_events) {
@@ -92,7 +96,9 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->discs) {
-        $c->model('Medium')->load_for_releases($release);
+        $c->model('Medium')->load_for_releases($release)
+            unless $release->all_mediums;
+
         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
         $c->model('CDTOC')->load(@medium_cdtocs);
     }
@@ -108,8 +114,7 @@ sub lookup : Chained('load') PathPart('')
 
     if ($c->stash->{inc}->counts) {
         $c->model('Medium')->load_for_releases($release)
-            unless $c->stash->{inc}->discs ||
-                $c->stash->{inc}->release_events;
+            unless $release->all_mediums;
 
         $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums)
             unless $c->stash->{inc}->discs;

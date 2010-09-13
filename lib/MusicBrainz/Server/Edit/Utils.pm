@@ -40,6 +40,8 @@ sub load_artist_credit_definitions
         my $artist = shift @ac;
         my $join   = shift @ac;
 
+        next unless $artist->{name} && $artist->{artist};
+
         $load{ $artist->{artist} } = [];
     }
 
@@ -57,6 +59,8 @@ sub artist_credit_from_loaded_definition
     {
         my $artist = shift @def;
         my $join = shift @def;
+
+        next unless $artist->{name} && $artist->{artist};
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $artist->{name},

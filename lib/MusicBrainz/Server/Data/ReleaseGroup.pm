@@ -295,6 +295,33 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub find_by_release_gids
+{
+    my ($self, @release_gids) = @_;
+    my $query = "SELECT " . $self->_columns . ",
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day
+                 FROM " . $self->_table . "
+                    JOIN release ON release.release_group = rg.id
+                    JOIN release_group_meta rgm ON rgm.id = rg.id
+                 WHERE release.gid IN (" . placeholders (@release_gids) . ")
+                 ORDER BY
+                    rg.type,
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day,
+                    musicbrainz_collate(name.name)";
+    return query_to_list(
+        $self->c->dbh, sub {
+            my $row = $_[0];
+            my $rg = $self->_new_from_row($row);
+            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
+            return $rg;
+        },
+        $query, @release_gids);
+}
+
 sub insert
 {
     my ($self, @groups) = @_;

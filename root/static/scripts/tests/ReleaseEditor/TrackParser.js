@@ -23,15 +23,24 @@ MB.tests.ReleaseEditor.TrackParser = function () {
            Delete track test
            =================
         */
+        var backup = tp.textarea.val ();
         var deleted = lines.splice (3, 1);
         tp.textarea.val (lines.join ('\n'));
         rt.updatePreview ();
 
-        var tracks = a.discs[0].tracks;
+        var tracks = a.discs[0].sorted_tracks;
 
         QUnit.equals (tracks.length, 14, "Release has 14 tracks");
         QUnit.equals (tracks[3].title.val (), 'Kick the P.A.', '4th track is');
         QUnit.equals (tracks[3].deleted.val (), '1', "4th track will be deleted");
+        QUnit.equals (tracks[3].isDeleted (), '1', "4th track will be deleted");
+
+        tp.textarea.val (backup);
+        rt.updatePreview ();
+
+        var tracks = a.discs[0].sorted_tracks;
+        QUnit.equals (tracks[3].deleted.val (), '0', "4th track restored");
+        QUnit.equals (tracks[3].isDeleted (), '0', "4th track restored");
 
         /* 
            Move track test
@@ -40,6 +49,8 @@ MB.tests.ReleaseEditor.TrackParser = function () {
         lines.splice (7, 0, deleted[0]);
         tp.textarea.val (lines.join ('\n'));
         rt.updatePreview ();
+
+        tracks = a.discs[0].sorted_tracks;
 
         QUnit.equals (tracks[3].title.val (), 'Tiny Rubberband', '4th track is');
         QUnit.equals (tracks[7].title.val (), 'Kick the P.A.', '8th track is');
@@ -54,6 +65,8 @@ MB.tests.ReleaseEditor.TrackParser = function () {
         tp.textarea.val (lines.join ('\n'));
         rt.updatePreview ();
 
+        tracks = a.discs[0].sorted_tracks;
+
         QUnit.equals (tracks[2].position.val (), '3', '2nd track has position');
         QUnit.equals (tracks[2].title.val (), 'Insert track test', '2nd track has title');
         QUnit.equals (tracks[3].position.val (), '4', '3rd track has position');
@@ -66,6 +79,8 @@ MB.tests.ReleaseEditor.TrackParser = function () {
         lines.splice (9, 1, '10. Two Men Army');
         tp.textarea.val (lines.join ('\n'));
         rt.updatePreview ();
+
+        tracks = a.discs[0].sorted_tracks;
 
         QUnit.equals (tracks[9].title.val (), 'One Man Army', 'Old name still exists:');
         QUnit.equals (tracks[9].position.val (), '9', 'Old name still at position:');

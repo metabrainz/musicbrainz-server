@@ -105,3 +105,70 @@ MB.utility.load_data = function (files, loaded, callback) {
     }
 };
 
+MB.utility.exception = function (name, message) {
+    var e = function () { this.name = name,  this.message = message };
+    e.prototype = new Error ();
+
+    return new e ();
+};
+
+/* A simpler autocomplete, this autocompleter just returns the json 
+   results to the callback instead of displaying an autocomplete box itself. 
+
+   - input      the <input> element to watch.  
+                NOTE: the input element should have a unique 'id' or 'name' attribute.
+   - query      callback which should transform the input value to a hash which will
+                be used as a query_string.
+   - results    callback which will be called when results come in.
+   - options    optional hash with settings, currently only 'delay' is recognized.
+
+*/
+MB.utility.AutoComplete = function (input, query, results, options) {
+    var self = MB.Object();
+
+    var defaults = { 'delay': 10 };
+
+    self.input = input;
+    self.query = query;
+    self.results = results;
+    self.timeout = null;
+    self.options = $.extend({}, defaults, options);
+    self.port_name = self.input.attr('name') || self.input.attr('id');
+
+    var onChange = function () {
+
+        var q = self.query (self.input.val ());
+
+        if (q)
+        {
+            self.request (q.url, q.data, self.results);
+        }
+        else
+        {
+            self.results ([]);
+        }
+    };
+
+    var request = function (url, query_string, results) {
+ 	$.ajax({
+ 	    // try to leverage ajaxQueue plugin to abort previous requests
+ 	    mode: "abort",
+ 	    // limit abortion to this input
+ 	    port: "MB.utility.AutoComplete." + self.port_name,
+            url: url,
+            data: query_string,
+            success: results
+        });
+    };
+
+    self.onChange = onChange;
+    self.request = request;
+
+    self.input.bind (($.browser.opera ? "keypress" : "keydown"), function (event) {
+	clearTimeout(self.timeout);
+	self.timeout = setTimeout(self.onChange, self.options.delay);
+    });
+
+    return self;
+};
+

@@ -30,9 +30,9 @@
                                         <td colspan="4">&nbsp;</td>
                                     [%- END -%]
                                     <td>[%- link_release(release) -%]</td>
-                                    <td style="text-align:right;">[%- release.mediums.0.tracklist.tracks.0.position + 1 -%]&nbsp;/&nbsp;</td>
+                                    <td style="text-align:right;">[%- release.find_track_for_recording(result.entity).position -%]&nbsp;/&nbsp;</td>
                                     <td style="text-align:left;">[%- release.combined_track_count -%]</td>
-                                    <td>[%- release.mediums.0.position -%]</td>
+                                    <td>[%- release.find_medium_for_recording(result.entity).position -%]</td>
                                     <td>[%- release.release_group.type.name -%]</td>
                                     [%- linenum = linenum + 1 -%]
                                 </tr>

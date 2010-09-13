@@ -45,12 +45,17 @@
                 <li>[% use_in_relationship(artist) %]</li>
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
-                    [% l('Create a new release group') %]
+                    [% l('Add a new release group') %]
+                  </a>
+                </li>
+                <li>
+                  <a href="[% c.uri_for_action('/release/add', { artist = artist.gid }) %]">
+                    [% l('Add a new release') %]
                   </a>
                 </li>
                 <li>
                   <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
-                    [% l('Create a work') %]
+                    [% l('Add a work') %]
                   </a>
                 </li>
             [% ELSE %]

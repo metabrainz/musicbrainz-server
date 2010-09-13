@@ -3,26 +3,13 @@
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseLabel.js') %]?q=1" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseInformation.js') %]" type="text/javascript"></script>
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.autocomplete/jquery.autocomplete.css') %]" />
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
   <script type="text/javascript">
     $('document').ready (function () {
 
-        MB.Control.ReleaseLabelContainer ();
-
-        $("#id-barcode").live ('change', function () {
-            var barcode = $(this).val ().replace (/[^0-9]/g, '');
-            $(this).val (barcode);
-        });
-
-        var annotation = $('#annotation');
-        annotation.focus (function() { annotation.css('height','70px'); });
-        annotation.blur(function() { if (!annotation.attr('value')) { annotation.css('height','10px'); } });
-
-        MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit')
-        );
+        MB.Control.ReleaseInformation ();
 
     });
   </script>
@@ -61,7 +48,9 @@
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </span>
       <span class="link">
-        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">link</a>
+        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">
+          [%- IF artist.gid -%]link[%- END -%]
+        </a>
       </span>
     </div>
     <div class="row">
@@ -89,6 +78,7 @@
     <fieldset>
       <legend>Release information</legend>
       [% form_row_text (r, 'name', 'Title') %]
+      [% r.hidden ('release_group_id') %]
       <div class="row">
         [% r.label('various_artists', 'VA release') %]
         [% r.checkbox('various_artists') %]
@@ -118,17 +108,26 @@
       [% form_row_select (r, 'country_id', 'Country') %]
       [% form_row_select (r, 'packaging_id', 'Packaging') %]
 
-      [% FOR field=form.field('labels').fields %]
-      <div class="release-label">
-        [% r.hidden(field.field('deleted')) %]
-        [% r.hidden(field.field('label_id'), class => 'label-id') %]
-        [% WRAPPER form_row %]
-           [% r.label(field.field('name'), l('Label')) %]
-           [% r.text(field.field('name'), class => 'label-name') %]
+      <div class="label-container">
+        [% FOR field=form.field('labels').fields %]
+        <div class="release-label">
+          [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
+
+          [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
+          [%- r.text(field.field('name'), class => 'label-name') -%]
+          [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
+          [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
+
+          <span class="remove-label">
+            [%- r.hidden(field.field('deleted')) -%]
+            <a class="remove-label" href="#remove_label">
+              <img src="[% c.uri_for('/static/images/release_editor/remove-label.png') %]" title="Remove Label" />
+            </a>
+          </span>
+
+        </div>
         [% END %]
-        [% form_row_text (r, field.field('catalog_number'), 'Catalog number') %]
       </div>
-      [% END %]
 
       [% form_row_text (r, 'barcode', 'Barcode') %]
     </fieldset>
@@ -140,6 +139,7 @@
 
     <div class="buttons ui-helper-clearfix">
         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+        <a href="#add_label">[% l('Add Label') %]</a>
         [% r.submit ('next', l('Next »')) %]
     </div>
   </div>

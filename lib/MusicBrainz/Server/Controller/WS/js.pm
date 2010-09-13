@@ -6,6 +6,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
+use MusicBrainz::Server::Filters;
+use MusicBrainz::Server::Data::Search;
 use Readonly;
 use Data::OptList;
 
@@ -20,6 +22,11 @@ my $ws_defs = Data::OptList::mkopt([
          method   => 'GET',
          required => [ qw(q) ],
          optional => [ qw(limit timestamp) ]
+     },
+     recording => {
+         method   => 'GET',
+         required => [ qw(q) ],
+         optional => [ qw(a r limit timestamp) ]
      },
 ]);
 
@@ -90,6 +97,53 @@ sub label : Chained('root') PathPart('label') Args(0)
     my ($self, $c) = @_;
 
     $self->_autocomplete_entity($c, 'Label', $DLABEL_ID);
+}
+
+sub _serialize_release_groups
+{
+    my (@rgs) = @_;
+
+    my @ret;
+
+    for (@rgs)
+    {
+        push @ret, { 'name' => $_->name, 'gid' => $_->gid, };
+    }
+
+    return \@ret;
+}
+
+sub recording : Chained('root') PathPart('recording') Args(0)
+{
+    my ($self, $c) = @_;
+
+    my $query = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{q});
+    my $artist = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{a} || '');
+    my $limit = $c->stash->{args}->{limit} || 10;
+
+    my $response = $c->model ('Search')->external_search (
+        $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
+
+    my $pager = $response->{pager};
+
+    my @entities;
+    for my $result (@{ $response->{results} })
+    {
+        my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
+            map { $_->gid } @{ $result->{extra} });
+
+        push @entities, {
+            gid => $result->{entity}->gid,
+            id => $result->{entity}->id,
+            length => MusicBrainz::Server::Filters::format_length ($result->{entity}->length),
+            name => $result->{entity}->name,
+            artist => $result->{entity}->artist_credit->name,
+            releasegroups => _serialize_release_groups (@rgs),
+        };
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@entities));
 }
 
 sub default : Path

@@ -1,15 +1,4 @@
-<table>
-  <tr>
-    <th>[% l('Releases:') %]</th>
-    <td>
-      <ul>
-        [% FOR release=edit.display_data.releases %]
-        <li>[% link_release(release) %]</li>
-        [% END %]
-      </ul>
-    </td>
-  </tr>
-
+<table class="details">
   <tr>
     <th>[% l('Name:') %]</th>
     <td>[% edit.display_data.name | html %]</td>
@@ -17,7 +6,12 @@
 
   <tr>
     <th>[% l('Artist:') %]</th>
-    <td>[% link_artist(edit.display_data.artist) %]</td>
+    <td>[% artist_credit(edit.display_data.artist_credit) %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name %]</td>
   </tr>
 
   <tr>
@@ -35,6 +29,7 @@
     <td>[% edit.display_data.language.name %]</td>
   </tr>
 
+  [% UNLESS edit.preview %]
   <tr>
     <th>[% l('Tracks:') %]</th>
     <td>
@@ -60,7 +55,9 @@
       </table>
     </td>
   </tr>
+  [% END %]
 
+  [% UNLESS edit.preview %]
   <tr>
     <th>[% l('Release Events:') %]</th>
     <td>
@@ -90,4 +87,5 @@
       </table>
     </td>
   </tr>
+  [% END %]
 </table>
