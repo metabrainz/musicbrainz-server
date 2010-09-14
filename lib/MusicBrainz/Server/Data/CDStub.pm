@@ -3,9 +3,14 @@ package MusicBrainz::Server::Data::CDStub;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+
+use Readonly;
+Readonly my $LIMIT_TOP_CDSTUBS => 1000;
+
 
 sub _table
 {
@@ -29,7 +34,8 @@ sub _column_mapping
         modify_count => 'modifycount',
         source => 'source',
         barcode => 'barcode',
-        comment => 'comment'
+        comment => 'comment',
+        discid => 'discid'
     };
 }
 
@@ -49,6 +55,19 @@ sub load
     load_subobjects($self, 'release', @objs);
 }
 
+sub load_top_cdstubs
+{
+    my ($self, $limit, $offset) = @_;
+    my $query = "SELECT release_raw." . $self->_columns . ", discid
+                 FROM " . $self->_table . ", cdtoc_raw 
+                 WHERE release_raw.id = cdtoc_raw.release
+                 ORDER BY lookupcount desc, modifycount DESC 
+                 OFFSET ?
+                 LIMIT  ?";
+    return query_to_list_limited(
+        $self->c->raw_dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $offset || 0, $LIMIT_TOP_CDSTUBS - $offset);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

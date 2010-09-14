@@ -20,6 +20,33 @@ has 'artist' => (
     isa => 'Str'
 );
 
+has 'date_added' => (
+    is => 'rw',
+    isa => 'DateTime',
+    coerce => 1
+);
+
+has 'last_modified' => (
+    is => 'rw',
+    isa => 'DateTime',
+    coerce => 1
+);
+
+has 'lookup_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'modify_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'source' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 has 'track_count' => (
     is => 'rw',
     isa => 'Int'

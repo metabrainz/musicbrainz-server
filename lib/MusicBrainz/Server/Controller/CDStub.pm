@@ -5,8 +5,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub base : Chained('/') PathPart('cdstub') CaptureArgs(0) { }
 
-use Data::Dumper;
-
 __PACKAGE__->config(
     model       => 'CDStubTOC',
     entity_name => 'cdstubtoc',
@@ -20,12 +18,10 @@ sub _load
     $c->model('CDStub')->load($cdstubtoc);
     $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->release);
 
-    $c->log->debug(Dumper($cdstubtoc));
     my $index = 0;
     my @offsets = @{$cdstubtoc->track_offset};
     push @offsets, $cdstubtoc->leadout_offset;
-    foreach my $track (@{$cdstubtoc->release->tracks})
-    {
+    foreach my $track (@{$cdstubtoc->release->tracks}) {
         $track->length(int((($offsets[$index + 1] - $offsets[$index]) / 75) * 1000));
         $index++;
     }
@@ -38,6 +34,21 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     $c->stash( template => 'cdstub/index.tt' );
+}
+
+sub browse : Path('browse')
+{
+    my ($self, $c) = @_;
+
+    my $stubs = $self->_load_paged($c, sub {
+                    my $offset = shift;
+                    my $limit = shift;
+                    $c->model('CDStub')->load_top_cdstubs($offset, $limit);
+                });
+    $c->stash( 
+              template => 'cdstub/browse.tt',
+              cdstubs  => $stubs
+             );
 }
 
 =head1 LICENSE
