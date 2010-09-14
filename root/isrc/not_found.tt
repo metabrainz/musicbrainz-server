@@ -1,0 +1,7 @@
+[% WRAPPER 'layout.tt' title=l('ISRC Not Currently Used') full_width=1 %]
+<h1>[% l('ISRC Not Currently Used') %]</h1>
+
+<p>[% l('This ISRC is not associated with any recordings. If you wish to associate it with a recording,
+         please {search_url|search for the recording} and add it.',
+         { search_url => c.uri_for_action('/search/search') }) %]</p>
+[% END %]
