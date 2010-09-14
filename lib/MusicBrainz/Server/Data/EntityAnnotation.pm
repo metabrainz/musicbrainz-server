@@ -2,7 +2,10 @@ package MusicBrainz::Server::Data::EntityAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Entity::Annotation;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    placeholders
+    query_to_list_limited
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -28,6 +31,19 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Annotation';
+}
+
+sub get_history
+{
+    my ($self, $id, $limit, $offset) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE ' . $self->type . ' = ?' .
+                ' ORDER BY created DESC OFFSET ?';
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $id, $offset || 0
+    );
 }
 
 sub get_latest

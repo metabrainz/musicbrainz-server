@@ -5,7 +5,6 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
-use MusicBrainz::Server::Context;
 
 # Set flags and add plugins for the application
 #
@@ -68,6 +67,12 @@ __PACKAGE__->config(
     },
     'Plugin::Session' => {
         expires => 36000 # 10 hours
+    },
+    static => {
+        mime_types => {
+            json => 'application/json; charset=UTF-8',
+        },
+        dirs => [ 'static' ],
     }
 );
 
@@ -103,7 +108,7 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
                 class => '+MusicBrainz::Server::Authentication::Store'
             }
         },
-        webservice => {
+        'musicbrainz.org' => {
             use_session => 1,
             credential => {
                 class => 'HTTP',
@@ -175,6 +180,15 @@ sub form
     my $form = $form_name->new(%args, ctx => $c);
     $c->stash( $stash => $form );
     return $form;
+}
+
+sub relative_uri
+{
+    my ($self) = @_;
+    my $uri = URI->new($self->req->uri->path);
+    $uri->path_query($self->req->uri->path_query);
+
+    return $uri;
 }
 
 =head1 NAME

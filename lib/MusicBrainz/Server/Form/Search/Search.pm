@@ -20,6 +20,13 @@ has_field 'advanced' => (
     type => 'Boolean',
 );
 
+has_field 'limit' => (
+    type                => 'Integer',
+    input_without_param => 25,
+    range_start         => 1,
+    range_end           => 100,
+);
+
 sub options_type
 {
     return [

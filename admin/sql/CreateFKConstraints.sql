@@ -94,21 +94,6 @@ ALTER TABLE artist_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
-ALTER TABLE editor_collection
-   ADD CONSTRAINT editor_collection_fk_editor
-   FOREIGN KEY (editor)
-   REFERENCES editor(id);
-
-ALTER TABLE editor_collection_release
-   ADD CONSTRAINT editor_collection_release_fk_collection
-   FOREIGN KEY (collection)
-   REFERENCES editor_collection(id);
-
-ALTER TABLE editor_collection_release
-   ADD CONSTRAINT editor_collection_release_fk_release
-   FOREIGN KEY (release)
-   REFERENCES release(id);
-
 ALTER TABLE editor_preference
    ADD CONSTRAINT editor_preference_fk_editor
    FOREIGN KEY (editor)
@@ -659,6 +644,21 @@ ALTER TABLE link_type_attribute_type
    ADD CONSTRAINT link_type_attribute_type_fk_attribute_type
    FOREIGN KEY (attribute_type)
    REFERENCES link_attribute_type(id);
+
+ALTER TABLE list
+   ADD CONSTRAINT list_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE list_release
+   ADD CONSTRAINT list_release_fk_list
+   FOREIGN KEY (list)
+   REFERENCES list(id);
+
+ALTER TABLE list_release
+   ADD CONSTRAINT list_release_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
 
 ALTER TABLE medium
    ADD CONSTRAINT medium_fk_tracklist

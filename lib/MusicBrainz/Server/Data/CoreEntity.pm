@@ -11,6 +11,12 @@ sub _gid_redirect_table
     return undef;
 }
 
+sub get_by_gids
+{
+    my ($self, @gids) = @_;
+    return $self->_get_by_keys('gid', @gids);
+}
+
 sub get_by_gid
 {
     my ($self, $gid) = @_;
@@ -69,7 +75,7 @@ sub add_gid_redirects
 
 sub update_gid_redirects
 {
-    my ($self, $new_id, @old_ids) = @_; 
+    my ($self, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
     $sql->do("

@@ -39,6 +39,7 @@ Readonly my %TYPE_TO_MODEL => (
     'annotation'    => 'Annotation',
     'artist'        => 'Artist',
     'cdstub'        => 'CDStub',
+    'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
     'label'         => 'Label',
     'recording'     => 'Recording',
@@ -64,6 +65,7 @@ sub artist_credit_to_ref
 sub load_subobjects
 {
     my ($data_access, $attr_obj, @objs) = @_;
+
     @objs = grep { defined } @objs;
     return unless @objs;
 

@@ -5,9 +5,10 @@ use MooseX::ABC;
 use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
@@ -15,7 +16,7 @@ sub _alias_model { die 'Not implemented' }
 
 subtype 'AliasHash'
     => as Dict[
-        name   => Str,
+        name   => Optional[Str],
         locale => Nullable[Str]
     ];
 

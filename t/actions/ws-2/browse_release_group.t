@@ -3,11 +3,11 @@ use strict;
 use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -67,9 +67,18 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                     </artist>
                 </name-credit>
             </artist-credit>
-            <tag-list />
         </release-group>
     </release-group-list>
+</metadata>';
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
+$mech->get_ok('/ws/2/release-group?artist=a16d1433-ba89-4f72-a47b-a370add0bb55&type=single', 'browse singles via artist');
+&$v2 ($mech->content, "Validate browse singles via artist");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-group-list count="0" />
 </metadata>';
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');

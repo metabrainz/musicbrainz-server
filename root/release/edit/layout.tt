@@ -1,0 +1,18 @@
+[%- WRAPPER 'layout.tt' full_width=1 edit=1 title='Release Editor (FIXME: change title)' -%]
+  <form action="[% c.req.uri %]" method="post">
+
+    <div id="release-editor">
+      <ul class="tabs ui-helper-clearfix">
+        [% FOREACH step IN steps %]
+        <li [% IF step.current %] class="current" [% END %]>
+        <input type="submit" name="[% step.name %]" value="[% step.title %]" />
+        </li>
+        [% END %]
+      </ul>
+
+    [% content %]
+
+    </div>
+  </form>
+
+[%- END -%]

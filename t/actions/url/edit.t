@@ -25,7 +25,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::URL::Edit');
 is_deeply($edit->data, {
     entity_id => 1,
     new => {
-        url => 'http://google.com',
+        url => 'http://google.com/',
         description => 'Google',
     },
     old => {

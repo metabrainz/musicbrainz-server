@@ -88,13 +88,6 @@ pre code {
     word-wrap: break-word;
 }
 
-code {
-    background-color: #DDDDDD;
-}
-.mp code {
-    background-color: inherit;
-}
-
 /*
 ** Header
 */
@@ -373,7 +366,7 @@ code {
 
 table.tbl tr.mp td,
 span.mp {
-    background: #FD9;
+    background: #FD9 !important;
 }
 
 .lastupdate {
@@ -382,7 +375,7 @@ span.mp {
     font-style: italic;
 }
 
-/* The table! */
+/* The release information table */
 table.tbl {
     margin-top: 1em;
     border-collapse: collapse;
@@ -398,6 +391,14 @@ table.tbl th {
     text-align: left;
     border-bottom: solid 1px #999999;
     border-left: solid 1px #CCCCCC;
+}
+
+table.details table.tbl th {
+    /* Override the table.details declarations
+    /* inside an edit details template */
+    padding: 0.2em 0.4em;
+    text-align: left;
+    width: auto;
 }
 
 table.tbl tr.subh td,
@@ -479,7 +480,7 @@ table.tbl .t { text-align: right; }
 }
 
 .browse {
-    margin-top: 1em;
+    margin-top: 0.5em;
 }
 
 .browse td {
@@ -498,11 +499,13 @@ table.details th {
     width: 110px;
 }
 
-table.details td.new {
+table.details td.new,
+div.diff .diff-only-b {
     background: #B1EBB0;
 }
 
-table.details td.old {
+table.details td.old,
+div.diff .diff-only-a {
     background: #EBB1BA;
 }
 
