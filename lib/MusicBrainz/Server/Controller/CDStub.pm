@@ -41,9 +41,7 @@ sub browse : Path('browse')
     my ($self, $c) = @_;
 
     my $stubs = $self->_load_paged($c, sub {
-                    my $offset = shift;
-                    my $limit = shift;
-                    $c->model('CDStub')->load_top_cdstubs($offset, $limit);
+                    $c->model('CDStub')->load_top_cdstubs(shift, shift);
                 });
     $c->stash( 
               template => 'cdstub/browse.tt',

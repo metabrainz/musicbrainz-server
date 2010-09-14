@@ -15,7 +15,7 @@
             <tbody>
                 [%- FOR cdstub=cdstubs; %]
                 <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
-                    <td>[% cdstub.title %]</td>
+                    <td>[% link_cdstub(cdstub, "show", cdstub.title) %]</td>
                     <td>[% cdstub.artist %]</td>
                     <td>[% cdstub.lookup_count %]</td>
                     <td>[% cdstub.modify_count %]</td>
