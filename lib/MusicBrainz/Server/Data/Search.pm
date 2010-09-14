@@ -484,7 +484,7 @@ sub external_search
         {
             my $redirect;
 
-            $type =~ s/release-group/ReleaseGroup/;
+            $type =~ s/release-group/release_group/;
             if ($type eq 'cdstub')
             {
                 $redirect = $results[0]->{entity}->{discid};
