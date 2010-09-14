@@ -1,35 +1,19 @@
-package MusicBrainz::Server::Controller::User::Lists;
+package MusicBrainz::Server::Controller::Account::Subscriptions::Label;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-sub view : Chained('/user/base') PathPart('lists')
-{
-    my ($self, $c) = @_;
+with 'MusicBrainz::Server::Controller::Account::SubscriptionsRole';
 
-    my $user = $c->stash->{user};
+__PACKAGE__->config( model => 'Label' );
 
-    $c->detach('/error_404')
-        if (!defined $user);
-
-    my $show_private = $c->stash->{viewing_own_profile};
-
-    my $lists = $self->_load_paged($c, sub {
-        $c->model('List')->find_by_editor($user->id, $show_private, shift, shift);
-    });
-
-    $c->stash(
-        user => $user,
-        lists => $lists,
-        template => 'user/lists.tt',
-    );
-}
-
+__PACKAGE__->meta->make_immutable;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 Sean Burke
+Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

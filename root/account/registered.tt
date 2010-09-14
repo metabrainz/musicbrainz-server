@@ -6,7 +6,7 @@
         <p>
             [% l('Please <a href="{uri}">update your profile</a> when you get time,
                   to let other editors know a bit more about you.',
-                  { uri => c.uri_for('/user/edit') }) %]
+                  { uri => c.uri_for('/account/edit') }) %]
         </p>
         [% IF emailed %]
             <p>
@@ -20,7 +20,7 @@
         <p>
             [% l('You may proceed to <a href="{uri}">your user profile</a>, or
                   maybe you want to {edit|start editing}!',
-                  { uri => c.uri_for_action('/user/profile/view', [ c.user.name ]),
+                  { uri => c.uri_for_action('/user/profile', [ c.user.name ]),
                     edit => doc_link("How_Editing_Works") }) %]
         </p>
     [% END %]

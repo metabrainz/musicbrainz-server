@@ -9,7 +9,7 @@ __PACKAGE__->config(
     paging_limit => 25,
 );
 
-sub open : Chained('/user/base') PathPart('open-edits') RequireAuth HiddenOnSlaves {
+sub open : Chained('/user/load') PathPart('open-edits') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
 
     my $edits = $self->_load_paged($c, sub {
@@ -20,7 +20,7 @@ sub open : Chained('/user/base') PathPart('open-edits') RequireAuth HiddenOnSlav
     $c->stash( edits => $edits );
 }
 
-sub all : Chained('/user/base') PathPart('all-edits') RequireAuth HiddenOnSlaves {
+sub all : Chained('/user/load') PathPart('all-edits') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
 
     my $edits = $self->_load_paged($c, sub {

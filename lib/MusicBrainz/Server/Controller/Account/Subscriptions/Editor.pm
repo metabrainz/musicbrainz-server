@@ -1,20 +1,18 @@
-package MusicBrainz::Server::Controller::User::Subscriptions::Editor;
+package MusicBrainz::Server::Controller::Account::Subscriptions::Editor;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-with 'MusicBrainz::Server::Controller::User::SubscriptionsRole';
+with 'MusicBrainz::Server::Controller::Account::SubscriptionsRole';
 
-__PACKAGE__->config(
-    model => 'Editor',
-    entities => 'editors',
-    template => 'user/subscriptions/editor.tt',
-);
+__PACKAGE__->config( model => 'Editor' );
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify

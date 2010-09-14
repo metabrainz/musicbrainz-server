@@ -3,7 +3,7 @@
     <h1>[% l("Edit Profile") %]</h1>
 
     [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/user/preferences')})) %]
+        [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')})) %]
         [%- create_guideline(l('If you change your email address, you will be required to verify it. ')) %]
         [%- create_guideline(l('If you would like to delete your account, please see the <abbr title="Frequently Asked Questions">FAQ</abbr> entry: {faq|How do I delete my account?}', {faq => doc_link('Account_FAQ')})) %]
     [% END %]

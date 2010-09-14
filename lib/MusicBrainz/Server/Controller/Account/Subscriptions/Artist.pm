@@ -1,32 +1,19 @@
-package MusicBrainz::Server::Controller::User::Donation;
+package MusicBrainz::Server::Controller::Account::Subscriptions::Artist;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-sub view : Chained('/user/base') PathPart('donation') RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
+with 'MusicBrainz::Server::Controller::Account::SubscriptionsRole';
 
-    my $user = $c->stash->{user};
+__PACKAGE__->config( model => 'Artist' );
 
-    $c->detach('/error_403')
-        unless $c->{stash}->{viewing_own_profile};
-
-    my $result = $c->model('Editor')->donation_check ($user);
-    $c->detach('/error_500') unless $result;
-
-    $c->stash(
-        nag => $result->{nag},
-        days => sprintf ("%.0f", $result->{days}),
-        template => 'user/donation.tt',
-    );
-}
-
+__PACKAGE__->meta->make_immutable;
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

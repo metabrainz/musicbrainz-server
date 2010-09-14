@@ -1,20 +1,25 @@
-package MusicBrainz::Server::Controller::User::Subscriptions::Artist;
+package MusicBrainz::Server::Controller::User::Subscriptions;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-with 'MusicBrainz::Server::Controller::User::SubscriptionsRole';
+with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
+    type => 'artist',
+};
 
-__PACKAGE__->config(
-    model => 'Artist',
-    entities => 'artists',
-    template => 'user/subscriptions/artist.tt',
-);
+with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
+    type => 'editor',
+};
+
+with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
+    type => 'label',
+};
 
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2010 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify
