@@ -3,15 +3,18 @@
     <th>[% l('Artist:') %]</th>
     <td colspan="2">[% link_artist(edit.display_data.artist) %]</td>
   </tr>
+  [% IF edit.display_data.alias.new %]
   <tr>
     <th>[% l('Alias:') %]</th>
     <td class="old">[% edit.display_data.alias.old | html %]</td>
     <td class="new">[% edit.display_data.alias.new | html %]</td>
   </tr>
-  [% IF edit.display_data.locale %]
+  [% END %]
+  [% IF edit.display_data.locale.new %]
   <tr>
     <th>[% l('Locale:') %]</th>
-    <td>[% edit.display_data.locale | language %]</td>
+    <td class="old">[% edit.display_data.locale.old | language %]</td>
+    <td class="new">[% edit.display_data.locale.new | language %]</td>
   </tr>
   [% END %]
 </table>

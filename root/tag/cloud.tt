@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title=l('Tags') full_width=1 -%]
+
+<div id="content">
+  <h1>[% l('Tags') %]</h1>
+  <p>
+    [% IF tags.tags.size %]
+      [% INCLUDE 'components/tag-cloud.tt' %]
+    [% ELSE %]
+      [% l('The database has no tags.') %]
+    [% END %]
+  </p>
+</div>
+
+[%- END -%]

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Generic::Edit;
 use Moose;
 use MooseX::ABC;
 
+use Clone qw( clone );
 use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
 
@@ -51,7 +52,7 @@ sub initialize
 override 'accept' => sub
 {
     my $self = shift;
-    my $data = $self->_edit_hash($self->data->{new});
+    my $data = $self->_edit_hash(clone($self->data->{new}));
     $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
 };
 

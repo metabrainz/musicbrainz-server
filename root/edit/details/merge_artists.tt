@@ -1,6 +1,6 @@
 <table class="details">
   <tr>
-    <th>[%- l('Old artists:') %]</th>
+    <th>[%- ln('Old artist:', 'Old artists:', edit.display_data.old.size) %]</th>
     <td>
       <ul>
         [% FOR artist=edit.display_data.old %]
