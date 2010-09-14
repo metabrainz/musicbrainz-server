@@ -324,31 +324,28 @@ pre code {
 ** Footer
 */
 #footer {
+    height: 1em;
     margin: 1em 0;
     padding: 0 1em;
     font-size: 90%;
-    color: #333;
+    color: #444444;
 }
 
 #footer a { color: #002BBA; }
 #footer a:hover { color: #FC6714; }
 
-#footer ul.links {
-    float: left;
+#footer p {
+    display: inline-block;
     margin: 0;
-    padding: 0;
-    list-style-type: none;
-    list-style-image: none;
 }
 
-#footer ul.links li {
+#footer p.links {
     float: left;
-    margin-right: 1em;
+    margin: 0;
 }
 
 #footer p.sponsors {
-    text-align: right;
-    margin: 0;
+    float: right;
 }
 
 /*
