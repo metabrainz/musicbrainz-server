@@ -43,7 +43,7 @@
     height:16px;
 }
 
-/* STANDARD */
+/* Standard */
 button:hover, .buttons a:hover{
     background-color:#dff4ff;
     border:1px solid #c2e1ef;
@@ -55,7 +55,7 @@ button:hover, .buttons a:hover{
     color:#fff;
 }
 
-/* POSITIVE */
+/* Positive */
 button.positive, .buttons a.positive{
     color:#529214;
 }
@@ -70,7 +70,7 @@ button.positive, .buttons a.positive{
     color:#fff;
 }
 
-/* NEGATIVE */
+/* Negative */
 .buttons a.negative, button.negative{
     color:#d12f19;
 }
@@ -85,7 +85,7 @@ button.positive, .buttons a.positive{
     color:#fff;
 }
 
-/* SPECIAL */
+/* Special */
 
 /* search button in header*/
 .buttons.header-search { display: inline; }
@@ -97,7 +97,7 @@ button.positive, .buttons a.positive{
 
 
 /*
-** Ratings
+** RATINGS
 */
 
 .star-rating,
@@ -106,7 +106,7 @@ button.positive, .buttons a.positive{
 .star-rating a:focus,
 .star-rating .current-user-rating,
 .star-rating .current-rating{
-    background: url('../images/rating_star.gif') left -1000px repeat-x;
+    background: url('/static/images/icons/rating_star.gif') left -1000px repeat-x;
 }
 
 .star-rating{
@@ -197,7 +197,7 @@ button.positive, .buttons a.positive{
 .small-star a:focus,
 .small-star .current-user-rating,
 .small-star .current-rating{
-    background-image: url('../images/rating_star_small.gif');
+    background-image: url('/static/images/icons/rating_star_small.gif');
     line-height: 10px;
     height: 10px;
 }
