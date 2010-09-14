@@ -1,4 +1,4 @@
-[%- WRAPPER 'artist/layout.tt' title='Recordings' page='recordings' -%]
+[%- WRAPPER 'artist/layout.tt' title=l('Recordings') page='recordings' -%]
     <h2>[% l('Recordings') %]</h2>
     [%- IF recordings.size -%]
         [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]

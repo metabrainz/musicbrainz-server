@@ -69,7 +69,7 @@ Server configuration
 
     If you would like to have the /doc pages load properly, run:
 
-       wget -O root/static/wikidocs/index.txt http://musicbrainz.org/generated/wikitrans-index
+       mkdir root/static/wikidocs; wget -O root/static/wikidocs/index.txt http://musicbrainz.org/generated/wikitrans-index
 
 Installing Perl dependencies
 ----------------------------

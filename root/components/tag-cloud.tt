@@ -1,5 +1,9 @@
 [% USE Math %]
-[% multiplier = 150.0 / (tags.max - 1) %]
+[% IF tags.max - 1 %]
+    [% multiplier = 150.0 / (tags.max - 1) %]
+[% ELSE %]
+    [% multiplier = 150.0 %]
+[% END %]
 [% FOR tag=tags.tags %]
     <span class="tag" style="padding: 0 0.5em; font-size: [% Math.int (multiplier * (tag.count - 1) + 100) %]%" >
         [%- link_tag(tag.tag) -%]
