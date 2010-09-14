@@ -566,9 +566,10 @@ div.columns-5 div.column {
 }
 
 .nagpanel {
-    border: 2px dashed red;
-    padding: 1em;
-    margin-bottom: 1em;
+    background-color: #FAFAFA;
+    border: 2px dashed #736DAB;
+    padding: 0 1em;
+    margin: 1em 0;
 }
 
 .nagpanel .naglinkpanel { text-align: center; }
