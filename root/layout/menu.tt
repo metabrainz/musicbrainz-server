@@ -136,6 +136,9 @@
             <li>
                 [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
             </li>
+            <li>
+                [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
+            </li>
             <li class="separator">
                  [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]
             </li>
