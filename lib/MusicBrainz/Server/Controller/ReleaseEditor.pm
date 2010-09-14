@@ -435,15 +435,17 @@ sub _edit_release_track_edits
                 }
                 else
                 {
+                    my $to_edit = $self->c->model('Track')->get_by_id ($track->{'id'});
+
                     # Editing an existing track
                     $self->$edit(
                         $EDIT_TRACK_EDIT, $editnote,
                         position => $track->{'position'},
                         name => $track->{'name'},
-                        recording_id => $recording->id,
+                        recording_id => $recording ? $recording->id : $to_edit->recording_id,
                         artist_credit => $track->{'artist_credit'},
                         length => $track->{'length'},
-                        to_edit => $self->c->model('Track')->get_by_id ($track->{'id'}),
+                        to_edit => $to_edit,
                         );
                 }
             }
