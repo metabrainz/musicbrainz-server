@@ -10,33 +10,28 @@
 [% MACRO generic_link(url, text) BLOCK %]<a href="[% url %]">[% text %]</a>[% END %]
 
 [%- info_links = [
-    ['index', generic_link(c.uri_for_action("/user/profile/view", [ user.name ]), l('Profile'))],
-    ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist/view", user.name), l('Subscriptions'))],
-    ['subscribers', generic_link(c.uri_for_action("/user/subscribers/view", [ user.name ]), l('Subscribers'))],
+    ['index', generic_link(c.uri_for_action("/user/profile", [ user.name ]), l('Profile'))],
+    ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist", [ user.name ]), l('Subscriptions'))],
+    ['subscribers', generic_link(c.uri_for_action("/user/subscribers", [ user.name ]), l('Subscribers'))],
+    ['lists', generic_link(c.uri_for_action("/user/lists", [ user.name ]), l('Lists'))],
 ] -%]
-
-[%- IF show_collection -%]
-[%- info_links.push (
-    ['collection', generic_link(c.uri_for_action("/user/collection/view", user.name), l('Collection'))],
-) -%]
-[%- END -%]
 
 [%- IF viewing_own_profile -%]
 [%- info_links.push (
-    ['donation', generic_link(c.uri_for_action("/user/donation/view", [ user.name ]), l('Donation'))],
+    ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation'))],
 ) -%]
 [%- END -%]
 
 [%- info_links.push (
-    ['tags', generic_link(c.uri_for_action("/user/tags/view", [ user.name ]), l('Tags'))],
-    ['ratings', generic_link(c.uri_for_action("/user/ratings/view", [ user.name ]), l('Ratings'))],
+    ['tags', generic_link(c.uri_for_action("/user/tags", [ user.name ]), l('Tags'))],
+    ['ratings', generic_link(c.uri_for_action("/user/ratings", [ user.name ]), l('Ratings'))],
     ['open_edits', generic_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
     ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ) -%]
 
 [%- IF show_flags -%]
 [%- info_links.push (
-    ['flags', generic_link(c.uri_for_action("/user/adjustflags/view", [ user.name ]), l('Adjust Flags'))],
+    ['flags', generic_link(c.uri_for_action("/admin/adjust_flags", user.name), l('Adjust Flags'))],
 ) -%]
 [%- END -%]
 

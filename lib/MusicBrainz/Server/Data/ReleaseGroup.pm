@@ -102,7 +102,10 @@ sub find_by_name_prefix_va
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, $types) = @_;
+
+    my $where_types = $types ? 'AND type IN ('.placeholders(@$types).')' : '';
+
     my $query = "SELECT " . $self->_columns . ",
                     rgm.firstreleasedate_year,
                     rgm.firstreleasedate_month,
@@ -116,6 +119,7 @@ sub find_by_artist
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                  WHERE acn.artist = ?
+                    $where_types
                  ORDER BY
                     rg.type,
                     rgm.firstreleasedate_year,
@@ -133,7 +137,7 @@ sub find_by_artist
             $rg->release_count($row->{releasecount} || 0);
             return $rg;
         },
-        $query, $artist_id, $offset || 0);
+        $query, $artist_id, @$types, $offset || 0);
 }
 
 sub find_by_track_artist

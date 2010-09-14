@@ -27,9 +27,10 @@ sub _table
 
 sub _columns
 {
-    return 'release.id, gid, name.name, release.artist_credit AS artist_credit_id,
-            release_group, status, packaging, date_year, date_month, date_day,
-            country, comment, release.editpending, barcode, script, language, quality';
+    return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
+            release_group, release.status, release.packaging, date_year, date_month, date_day,
+            release.country, release.comment, release.editpending, release.barcode,
+            release.script, release.language, release.quality';
 }
 
 sub _id_column
@@ -68,6 +69,27 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Release';
 }
 
+sub _where_status_in
+{
+    my @statuses = @_;
+
+    return '' unless @statuses;
+
+    return 'AND status IN ('.placeholders(@statuses).')';
+}
+
+sub _where_type_in
+{
+    my @types = @_;
+
+    return ('', '') unless @types;
+
+    return (
+        'JOIN release_group ON release.release_group = release_group.id',
+        'AND release_group.type in ('.placeholders(@types).')'
+        );
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -76,27 +98,41 @@ sub load
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
+                     $join_types
                  WHERE acn.artist = ?
+                 $where_statuses
+                 $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
+        $query, $artist_id, @$statuses, @$types, $offset || 0);
 }
 
 sub find_by_label
 {
-    my ($self, $label_id, $limit, $offset) = @_;
+    my ($self, $label_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN release_label
                          ON release_label.release = release.id
+                     $join_types
                  WHERE release_label.label = ?
+                 $where_statuses
+                 $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
@@ -104,18 +140,38 @@ sub find_by_label
         $query, $label_id, $offset || 0);
 }
 
+sub find_by_disc_id
+{
+    my ($self, $disc_id) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN medium ON medium.release = release.id
+                     JOIN medium_cdtoc ON medium_cdtoc.medium = medium.id
+                     JOIN cdtoc ON medium_cdtoc.cdtoc = cdtoc.id
+                 WHERE cdtoc.discid = ?
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)";
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $disc_id);
+}
+
 sub find_by_release_group
 {
-    my ($self, $ids, $limit, $offset) = @_;
+    my ($self, $ids, $limit, $offset, $statuses) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
+
+    my $where_statuses = _where_status_in (@$statuses);
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE release_group IN (" . placeholders(@ids) . ")
+                 $where_statuses
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @ids, $offset || 0);
+        $query, @ids, @$statuses, $offset || 0);
 }
 
 sub find_by_track_artist
@@ -139,11 +195,16 @@ sub find_by_track_artist
 
 sub find_for_various_artists
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
+                     $join_types
                  WHERE acn.artist != ?
                  AND release.id IN (
                      SELECT release FROM medium
@@ -152,34 +213,48 @@ sub find_for_various_artists
                          JOIN artist_credit_name acn
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?)
+                 $where_statuses
+                 $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $artist_id, $offset || 0);
+        $query, $artist_id, $artist_id, @$statuses, @$types, $offset || 0);
 }
 
 sub find_by_recording
 {
-    my ($self, $ids, $limit, $offset) = @_;
+    my ($self, $ids, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my @ids = ref $ids ? @$ids : ( $ids );
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
+                     $join_types
                  WHERE release.id IN (
                     SELECT release FROM medium
                         JOIN track ON track.tracklist = medium.tracklist
                         JOIN recording ON recording.id = track.recording
                      WHERE recording.id IN (" . placeholders(@ids) . "))
+                 $where_statuses
+                 $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
                  OFFSET ?";
+
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @ids, $offset || 0);
+        $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
+        $query, @ids, @$statuses, @$types, $offset || 0);
 }
 
 sub load_with_tracklist_for_recording
 {
-    my ($self, $recording_id, $limit, $offset) = @_;
+    my ($self, $recording_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "
         SELECT
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
@@ -203,9 +278,12 @@ sub load_with_tracklist_for_recording
             JOIN release ON release.id = medium.release
             JOIN release_name ON release.name = release_name.id
             JOIN track_name ON track.name = track_name.id
+            $join_types
         WHERE track.recording = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
-        OFFSET ?";
+            $where_statuses
+            $where_types
+       ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+       OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
             my $row = shift;
@@ -219,9 +297,8 @@ sub load_with_tracklist_for_recording
 
             return $release;
         },
-        $query, $recording_id, $offset || 0);
+        $query, $recording_id, @$statuses, @$types, $offset || 0);
 }
-
 
 sub find_by_puid
 {
@@ -256,9 +333,9 @@ sub find_by_medium
                          $query, @{ids}, $offset || 0);
 }
 
-sub find_by_collection
+sub find_by_list
 {
-    my ($self, $collection_id, $limit, $offset, $order) = @_;
+    my ($self, $list_id, $limit, $offset, $order) = @_;
 
     my $extra_join = "";
     my $order_by = order_by($order, "date", {
@@ -272,16 +349,16 @@ sub find_by_collection
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN editor_collection_release c
-                        ON release.id = c.release
+                    JOIN list_release l
+                        ON release.id = l.release
                     $extra_join
-                 WHERE c.collection = ?
+                 WHERE l.list = ?
                  ORDER BY $order_by
                  OFFSET ?";
 
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
+        $query, $list_id, $offset || 0);
 }
 
 sub insert
@@ -316,7 +393,7 @@ sub delete
 {
     my ($self, @releases) = @_;
     my @release_ids = map { $_->id } @releases;
-    $self->c->model('Collection')->delete_releases(@release_ids);
+    $self->c->model('List')->delete_releases(@release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
@@ -331,7 +408,7 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
 
     $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('Collection')->merge_releases($new_id, @old_ids);
+    $self->c->model('List')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);

@@ -134,6 +134,13 @@ END -%]
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_list(list, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/list/$action", [ list.gid ]);
+    text = text || html_escape(list.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
@@ -197,6 +204,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_isrc(isrc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    text = text || '<code>' _ html_escape(isrc) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
@@ -219,7 +233,7 @@ END -%]
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
-    action = action || 'profile/view';
+    action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text || html_escape(editor.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
@@ -233,7 +247,7 @@ END -%]
 END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => redirect || c.req.uri });
+    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
 
 [%- MACRO request_login(text) BLOCK -%]

@@ -7,20 +7,20 @@
                     [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/user/change_password') }) %]
+                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/account/change_password') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/user/preferences') }) %]
+                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/account/preferences') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers/view', [ c.user.name ]) }) %]
+                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers', [ c.user.name ]) }) %]
                 </li>
                 <li>
                     [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
                 </li>
             </ul>
         </li>
-        [% IF c.user_exists && (c.user.is_relationship_editor || c.user.is_wiki_transcluder) %]
+        [% IF c.user_exists && c.user.is_admin %]
             <li>
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
@@ -41,25 +41,22 @@
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile/view', [ c.user.name ])}) %]
+            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile', [ c.user.name ])}) %]
             <ul>
                 <li>
-                    [% l('{col|My Collection}', {col => c.uri_for_action('/user/collection/view', c.user.name)}) %]
+                    [% l('{col|My Lists}', {col => c.uri_for_action('/user/lists', [ c.user.name ])}) %]
                 </li>
                 <li>
-                    [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings/view', [ c.user.name ])}) %]
+                    [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings', [ c.user.name ])}) %]
                 </li>
                 <li>
                     [% l('{col|My Tags}', {col => '/404'}) %]
                 </li>
             </ul>
         </li>
-        <li>
-            [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
-        </li>
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
-        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/user/register') }) %]</li>
+        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>
     [%- END -%]
 </ul>
 
@@ -89,7 +86,7 @@
                 [% l('{url|Auto-editor Elections}', { url => c.uri_for('/elections') }) %]
             </li>
             <li>
-                [% l('{url|Privileged user accounts}', { url => c.uri_for('/privileged') }) %]
+                [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
             </li>
         </ul>
     </li>
@@ -131,11 +128,16 @@
     <li>
         [% l('{uri|Search}', { uri => c.uri_for('/search') }) %]
         <ul>
-            <li>
-                [% l('{uri|Search Edits}', { uri => c.uri_for_action('/edit/search') }) %]
-            </li>
+            [%- IF c.user_exists -%]
+                <li>
+                    [% l('{uri|Search Edits}', { uri => c.uri_for_action('/edit/search') }) %]
+                </li>
+            [% END %]
             <li>
                 [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
+            </li>
+            <li>
+                [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
             </li>
             <li class="separator">
                  [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]
@@ -204,7 +206,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://bugs.musicbrainz.org" class="internal">
+                <a href="http://jira.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>
             </li>

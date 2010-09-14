@@ -67,9 +67,18 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                     </artist>
                 </name-credit>
             </artist-credit>
-            <tag-list />
         </release-group>
     </release-group-list>
+</metadata>';
+
+is ($diff->compare ($mech->content, $expected), 0, 'result ok');
+
+$mech->get_ok('/ws/2/release-group?artist=a16d1433-ba89-4f72-a47b-a370add0bb55&type=single', 'browse singles via artist');
+&$v2 ($mech->content, "Validate browse singles via artist");
+
+$expected = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-group-list count="0" />
 </metadata>';
 
 is ($diff->compare ($mech->content, $expected), 0, 'result ok');

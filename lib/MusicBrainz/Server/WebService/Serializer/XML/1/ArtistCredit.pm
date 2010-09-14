@@ -5,20 +5,19 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'artist'; }
 
-before 'serialize' => sub 
+before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
+
+    $self->add( $self->gen->name($entity->name) );
 
     if (@{$entity->names} > 1)
     {
         # This artist credit has multiple artists, which cannot be represented
-        # properly in /ws/1.  Let's just make the sortname identical to the name
-        # for now and omit the ID.
+        # properly in /ws/1.  The name is the combined artist name, and the ID
+        # is the ID of the *first* artist.
 
-        # FIXME: figure out what was decided at the summit about this.
-        # the notes aren't very clear:
-        # http://wiki.musicbrainz.org/MusicBrainz_Summit_10/Session_Notes
-        
+        $self->attributes->{id} = $entity->names->[0]->artist->gid;
         $self->add( $self->gen->sort_name($entity->name) );
     }
     else
@@ -28,8 +27,6 @@ before 'serialize' => sub
         $self->attributes->{id} = $artist->gid;
         $self->add( $self->gen->sort_name($artist->sort_name) );
     }
-
-    $self->add( $self->gen->name($entity->name) );
 };
 
 __PACKAGE__->meta->make_immutable;

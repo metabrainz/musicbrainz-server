@@ -1,7 +1,7 @@
 <table class="details">
   <tr>
     <th>[% l('ISRC:') %]</th>
-    <td><code>[% edit.display_data.isrc.isrc %]</code></td>
+    <td>[% link_isrc(edit.display_data.isrc.isrc) %]</td>
   </tr>
   <tr>
     <th>[% l('Recording:') %]</th>

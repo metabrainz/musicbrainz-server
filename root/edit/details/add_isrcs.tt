@@ -6,7 +6,7 @@
         [% FOR addition=edit.display_data.additions %]
         <li>
           [% l('ISRC {isrc} to {recording} by {artist}',
-               { isrc => addition.isrc,
+               { isrc => link_isrc(addition.isrc),
                  recording => link_recording(addition.recording),
                  artist => artist_credit(addition.recording.artist_credit) }) %]
         </li>

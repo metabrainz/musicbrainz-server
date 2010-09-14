@@ -7,6 +7,9 @@ use Sub::Exporter -setup => {
         upgrade_date
         upgrade_id
         upgrade_type
+        upgrade_release_type
+        upgrade_release_status
+        upgrade_type_and_status
     )]
 };
 
@@ -36,6 +39,44 @@ sub upgrade_type
 {
     my $type = shift;
     return $type_map{$type} || $type;
+}
+
+sub upgrade_release_type
+{
+    my $type_id = shift;
+
+    # Type constants used to be 0 indexed, but as they are now in the database
+    # they are indexed from 1.
+    $type_id++ if defined $type_id;
+    
+    return $type_id;
+}
+
+sub upgrade_release_status
+{
+    my $status_id = shift;
+
+
+    # Status' have their own table, so they don't have the 100 offset as before.
+    # They are also indexed from 1, not 0
+    $status_id -= 99 if defined $status_id;
+
+    return $status_id;
+}
+
+sub upgrade_type_and_status
+{
+    my $type_and_status = shift;
+
+    my ($type_id, $status_id) = split /,/, $type_and_status;
+    if ($type_id && $type_id >= 100) {
+        ($type_id, $status_id) = (undef, $type_id);
+    }
+
+    $type_id = upgrade_release_type($type_id);
+    $status_id = upgrade_release_status($status_id);
+
+    return ($type_id, $status_id);
 }
 
 1;

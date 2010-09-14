@@ -31,18 +31,24 @@ around 'get_by_ids' => sub
 after 'update' => sub
 {
     my ($self, $id) = @_;
-    my $key =  $self->_id_cache_prefix . ':' . $id;
-    my $cache = $self->c->cache($self->_id_cache_prefix);
-    $cache->delete($key);
+    $self->_delete_from_cache($id);
 };
 
 after 'delete' => sub
 {
     my ($self, @ids) = @_;
+    $self->_delete_from_cache(@ids);
+};
+
+sub _delete_from_cache
+{
+    my ($self, @ids) = @_;
+
     my @keys = map { $self->_id_cache_prefix . ':' . $_ } uniq(@ids);
     my $cache = $self->c->cache($self->_id_cache_prefix);
-    $cache->delete_multi(@keys);
-};
+    my $method = @keys > 1 ? 'delete_multi' : 'delete';
+    $cache->$method(@keys);
+}
 
 1;
 

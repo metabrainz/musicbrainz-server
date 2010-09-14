@@ -20,7 +20,7 @@
   </p>
   <div class="naglinkpanel">
      <a href="http://metabrainz.org/donate" class="naglink">[% l('Make a donation now!') %]</a><br />
-     <a href="[% c.uri_for_action("/user/donation/view", [ user.name ]) %]">[% l('I just donated! Why am I seeing this?') %]</a>
+     <a href="[% c.uri_for_action("/account/donation") %]">[% l('I just donated! Why am I seeing this?') %]</a>
   </div>
 </div>
 [% END %]

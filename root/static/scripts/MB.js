@@ -35,16 +35,14 @@ var MB = {
     url: {}
 };
 
-MB.Object = function ()
-{
+MB.Object = function () {
     var self = {};
 
-    var parent = function (name)
-    {
+    var parent = function (name) {
         var that = this;
         var method = this[name];
-        return function ()
-        {
+
+        return function () {
             return method.apply (that, arguments);
         };
     };

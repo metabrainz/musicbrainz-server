@@ -111,13 +111,14 @@ sub edit : Local RequireAuth Edit
         my $values = $form->values;
         my $edit = $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_EDIT,
-            type0        => $type0,
-            type1        => $type1,
-            relationship => $rel,
-            link_type_id => $values->{link_type_id},
-            begin_date   => $values->{begin_date},
-            end_date     => $values->{end_date},
-            attributes   => \@attributes
+            type0             => $type0,
+            type1             => $type1,
+            relationship      => $rel,
+            link_type_id      => $values->{link_type_id},
+            begin_date        => $values->{begin_date},
+            end_date          => $values->{end_date},
+            change_direction  => $values->{direction},
+            attributes        => \@attributes
         );
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
@@ -136,6 +137,13 @@ sub create : Local RequireAuth Edit
     if (!$type0 || !$type1 || !$source_gid || !$dest_gid) {
         $c->stash( message => 'Invalid arguments' );
         $c->detach('/error_500');
+    }
+
+    if ($type0 gt $type1) {
+        # FIXME We should really support entering relationships backwards
+        # (ie work -> recording, not just recording -> work)
+        ($type0, $type1) = ($type1, $type0);
+        ($source_gid, $dest_gid) = ($dest_gid, $source_gid);
     }
 
     my $source_model = $c->model(type_to_model($type0));

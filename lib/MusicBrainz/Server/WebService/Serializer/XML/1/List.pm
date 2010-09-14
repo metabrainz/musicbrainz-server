@@ -12,19 +12,26 @@ has '_element' => (
 
 sub element { return $_[0]->_element . '-list'; }
 
-before 'serialize' => sub 
-{
+around 'serialize' => sub {
+    my $orig = shift;
+
     my $self = shift;
-    my $attributes = (ref $_[0] eq 'HASH') ? shift : 0;
+    my $attributes = (ref $_[0] eq 'HASH') ? shift : {};
     my ($entities, $inc, $opts) = @_;
 
     $self->attributes( { %{$self->attributes}, %$attributes } ) if $attributes;
 
     return unless $entities && @$entities;
 
-    $self->_element( serializer($entities->[0])->new->element );
+    $self->_element( serializer($entities->[0])->new->element )
+        unless $self->_element;
+
+    $opts ||= {};
+    $opts->{in_list} = 1;
 
     map { $self->add( serialize_entity($_, $inc, $opts) ) } @$entities;
+
+    $self->$orig($attributes, @_);
 };
 
 __PACKAGE__->meta->make_immutable;
