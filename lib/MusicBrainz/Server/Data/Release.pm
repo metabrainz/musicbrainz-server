@@ -140,6 +140,22 @@ sub find_by_label
         $query, $label_id, $offset || 0);
 }
 
+sub find_by_disc_id
+{
+    my ($self, $disc_id) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN medium ON medium.release = release.id
+                     JOIN medium_cdtoc ON medium_cdtoc.medium = medium.id
+                     JOIN cdtoc ON medium_cdtoc.cdtoc = cdtoc.id
+                 WHERE cdtoc.discid = ?
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)";
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $disc_id);
+}
+
 sub find_by_release_group
 {
     my ($self, $ids, $limit, $offset, $statuses) = @_;

@@ -6,27 +6,25 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 
-sub load : Chained('/') PathPart('isrc') CaptureArgs(1)
+sub base : Chained('/') PathPart('isrc') CaptureArgs(0) { }
+
+sub _load : Chained('/') PathPart('isrc') CaptureArgs(1)
 {
     my ($self, $c, $isrc) = @_;
+    return unless (is_valid_isrc($isrc));
 
-    unless (is_valid_isrc($isrc)) {
-        $c->detach('/error_404');
-    }
+    my @isrcs = $c->model('ISRC')->find_by_isrc($isrc)
+      or return;
 
-    $c->stash( isrc => $isrc );
+    $c->stash( isrcs => \@isrcs );
 }
 
-sub show : PathPart('') Chained('load')
+sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my @isrcs = $c->model('ISRC')->find_by_isrc($c->stash->{isrc});
-    unless (@isrcs) {
-        $c->detach('/error_404');
-    }
-
-    my @recordings = $c->model('Recording')->load(@isrcs);
+    my $isrcs = $c->stash->{isrcs};
+    my @recordings = $c->model('Recording')->load(@$isrcs);
     $c->model('ArtistCredit')->load(@recordings);
     $c->stash(
         recordings => \@recordings,

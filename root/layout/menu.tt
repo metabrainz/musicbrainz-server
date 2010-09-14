@@ -54,9 +54,6 @@
                 </li>
             </ul>
         </li>
-        <li>
-            [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
-        </li>
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
         <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/user/register') }) %]</li>
@@ -89,7 +86,7 @@
                 [% l('{url|Auto-editor Elections}', { url => c.uri_for('/elections') }) %]
             </li>
             <li>
-                [% l('{url|Privileged user accounts}', { url => c.uri_for('/privileged') }) %]
+                [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
             </li>
         </ul>
     </li>
@@ -138,6 +135,9 @@
             [% END %]
             <li>
                 [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
+            </li>
+            <li>
+                [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
             </li>
             <li class="separator">
                  [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]

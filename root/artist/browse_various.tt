@@ -1,4 +1,4 @@
-[%- WRAPPER 'artist/layout.tt' -%]
+[%- WRAPPER 'artist/layout.tt' page='index' -%]
     [%- INCLUDE 'browse/page_selector.tt' browse_title=l('Browse release groups') -%]
 
     [% IF index %]
