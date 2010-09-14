@@ -79,7 +79,7 @@ sub recording_suggestions
 
 sub track_add
 {
-    my ($self, $newdata) = @_;
+    my ($self, $suggest_recordings, $newdata) = @_;
 
     delete $newdata->{id};
 
@@ -88,14 +88,14 @@ sub track_add
 
     my $t = TrackChangesPreview->new (track => $new);
 
-    $self->recording_suggestions ($t);
+    $self->recording_suggestions ($t) if $suggest_recordings;
 
     return $t;
 }
 
 sub track_compare
 {
-    my ($self, $newdata, $old) = @_;
+    my ($self, $suggest_recordings, $newdata, $old) = @_;
 
     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
 
@@ -104,6 +104,8 @@ sub track_compare
 
     $preview->deleted(1) if $newdata->{deleted};
     $preview->renamed(1) if $old->name ne $new->name;
+
+    return $preview unless $suggest_recordings;
 
     my @suggest;
     if ($old->id == $new->id)
@@ -131,7 +133,7 @@ sub track_compare
 
 sub tracklist_compare
 {
-    my ($self, $new_medium, $old_medium) = @_;
+    my ($self, $suggest_recordings, $new_medium, $old_medium) = @_;
 
     my @new;
     my @old;
@@ -169,22 +171,30 @@ sub tracklist_compare
     my @ret;
     while (@old)
     {
-        push @ret, $self->track_compare (shift @new, shift @old);
+        push @ret, $self->track_compare ($suggest_recordings, shift @new, shift @old);
     }
 
     # any tracks left over after removing new tracks which replace existing
     # tracks are added tracks.
     while (@new)
     {
-        push @ret, $self->track_add (shift @new);
+        push @ret, $self->track_add ($suggest_recordings, shift @new);
     }
 
-    return \@ret;
+    $new_medium->{tracklist}->{changes} = \@ret;
+    return $new_medium;
 }
 
 sub suggest_recordings
 {
     my ($self, $data, $release) = @_;
+
+    return $self->release_compare ($data, $release, 1);
+}
+
+sub release_compare
+{
+    my ($self, $data, $release, $suggest_recordings) = @_;
 
     my @old_media;
     my @new_media;
@@ -200,12 +210,12 @@ sub suggest_recordings
     my @ret;
     while (@old_media)
     {
-        push @ret, $self->tracklist_compare (shift @new_media, shift @old_media);
+        push @ret, $self->tracklist_compare ($suggest_recordings, shift @new_media, shift @old_media);
     }
 
     while (@new_media)
     {
-        push @ret, $self->tracklist_compare (shift @new_media);
+        push @ret, $self->tracklist_compare ($suggest_recordings, shift @new_media);
     }
 
     return \@ret;
@@ -411,14 +421,17 @@ sub _edit_release_track_edits
 
     my $edit = $preview ? '_preview_edit' : '_create_edit';
 
+    my $changes = $self->release_compare ($data, $release);
+
     my $medium_idx = 0;
-    for my $medium (@{ $data->{'mediums'} })
+    for my $medium (@$changes)
     {
-        my $tracklist_id = $medium->{'tracklist'}->{'id'};
+        my $tracklist_id = $medium->{tracklist}->{id};
 
         my $track_idx = 0;
-        for my $track (@{ $medium->{'tracklist'}->{'tracks'} })
+        for my $trackchanges (@{ $medium->{tracklist}->{changes} })
         {
+            my $track = $trackchanges->track;
             my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
 
             my $recording;
@@ -552,11 +565,7 @@ sub release_add
         $self->c->detach ();
     }
 
-    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist' ||
-        $wizard->current_page eq 'recordings')
-    {
-        $self->c->stash( serialized_tracklists => $self->_serialize_tracklists () );
-    }
+    $self->c->stash( serialized_tracklists => $self->_serialize_tracklists () );
 
     if ($wizard->current_page eq 'recordings')
     {
@@ -566,7 +575,7 @@ sub release_add
         for my $medium (@$suggestions)
         {
             my $medium_assoc = [];
-            for my $track (@$medium)
+            for my $track (@{ $medium->{tracklist}->{changes} })
             {
                 my $rec;
 
@@ -636,11 +645,6 @@ sub release_add
     {
         # The user is done with the wizard and wants to submit the new data.
         # So let's create some edits :)
-
-        # If this is the tab where we just preview the edits, create the edits
-        # in memory but not in the database yet.
-        my $preview = $wizard->current_page eq 'editnote';
-
         my $data = $wizard->value;
 
         my @fields;
@@ -771,17 +775,10 @@ sub release_edit
         $self->c->detach ('show');
     }
 
-    if ($wizard->loading || $wizard->submitted ||
-        $wizard->current_page eq 'tracklist' || $wizard->current_page eq 'recordings')
-    {
-        # if we're on the tracklist page, load the tracklist so that the trackparser
-        # can compare the entered tracks against the original to figure out what edits
-        # have been made.
-
-        $self->_load_tracklist ($release);
-
-        $self->c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
-    }
+    # This data is needed on most pages.  It is only not needed when the user navigates
+    # back to the 'Release Information' tab.
+    $self->_load_tracklist ($release);
+    $self->c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
 
     if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'editnote')
     {
@@ -807,7 +804,7 @@ sub release_edit
         for my $medium (@$suggestions)
         {
             my $medium_assoc = [];
-            for my $track (@$medium)
+            for my $track (@{ $medium->{tracklist}->{changes} })
             {
                 my $rec;
 
@@ -832,6 +829,11 @@ sub release_edit
 
     if ($wizard->current_page eq 'editnote')
     {
+        # we're on the changes preview page, load recordings so that the user can
+        # confirm track <-> recording associations.
+        my @tracks = map { $_->all_tracks } map { $_->tracklist } $release->all_mediums;
+        $self->c->model('Recording')->load (@tracks);
+
         # The user is done with the wizard and wants to submit the new data.
         # So let's create some edits :)
 

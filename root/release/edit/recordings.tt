@@ -61,7 +61,7 @@
           <tbody>
           [% FOR assoc=preview_medium.field('associations').fields %]
             [% track_idx = loop.index %]
-            [% track_preview = suggestions.$medium_idx.$track_idx %]
+            [% track_preview = suggestions.$medium_idx.tracklist.changes.$track_idx %]
             [% track = track_preview.track %]
             [% UNLESS track_preview.deleted %]
               <tr class="track">
@@ -77,7 +77,7 @@
                       [% link_entity (track_preview.suggestions.0.entity) %]
                     [% END %]
                   </span>
-    
+
                   <span class="add-recording"
                     [% IF assoc.field('gid').value %]style="display: none"[% END %]>
                     [%- l('(add a new recording)') -%]
@@ -123,7 +123,7 @@
     <div class="documentation">
     [% FOR assoc=preview_medium.field('associations').fields %]
       [% track_idx = loop.index %]
-      [% track_preview = suggestions.$medium_idx.$track_idx %]
+      [% track_preview = suggestions.$medium_idx.tracklist.changes.$track_idx %]
       [% track = track_preview.track %]
       [% UNLESS track_preview.deleted %]
 
