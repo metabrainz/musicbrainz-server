@@ -37,7 +37,7 @@ is ($release->last_modified->day, 1);
 is ($release->lookup_count, 10);
 is ($release->modify_count, 1);
 is ($release->barcode, '837101029192');
-is ($release->comment, 'comment');
+is ($release->comment, 'this is a comment');
 
 my $track = $release->tracks->[0];
 is ($track->title, 'Track title 1');
