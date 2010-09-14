@@ -24,7 +24,8 @@ sub apply_rate_limit
     my ($self, $c, $key) = @_;
     $key ||= "ws ip=" . $c->request->address;
 
-    if (my $r = $c->model('RateLimiter')->check_rate_limit($key)) {
+    my $r = $c->model('RateLimiter')->check_rate_limit($key);
+    if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->content_type("text/plain; charset=utf-8");
         $c->res->headers->header(
@@ -37,7 +38,8 @@ sub apply_rate_limit
         $c->detach;
     }
 
-    if (my $r = $c->model('RateLimiter')->check_rate_limit('ws_global')) {
+    $r = $c->model('RateLimiter')->check_rate_limit('ws_global');
+    if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->content_type("text/plain; charset=utf-8");
         $c->res->headers->header(
