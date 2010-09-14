@@ -1,0 +1,32 @@
+[%- WRAPPER 'layout.tt' title=l('Top CD Stubs') full_width=1 -%]
+[%- USE Age -%]
+
+    <h1>Top CD Stubs</h1>
+    [% WRAPPER 'components/with-pager.tt' total=1 %]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('Title') %]</th>
+                    <th>[% l('Artist') %]</th>
+                    <th>[% l('Added') %]</th>
+                    <th>[% l('Modified') %]</th>
+                    <th>[% l('Lookup count') %]</th>
+                    <th>[% l('Modify count') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [%- FOR cdstub=cdstubs; %]
+                <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
+                    <td>[% link_cdsub(cdstub, "show", cdstub.title) %]</td>
+                    <td>[% cdstub.artist %]</td>
+                    <td>[% age(cdstub.date_added) %]</td>
+                    <td>[% age(cdstub.last_modified) %]</td>
+                    <td>[% cdstub.lookup_count %]</td>
+                    <td>[% cdstub.modify_count %]</td>
+                </tr>
+                [%- END -%]
+            </tbody>
+        </table>
+    [% END %]
+
+[%- END -%]
