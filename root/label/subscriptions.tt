@@ -1,5 +1,5 @@
 [%- WRAPPER 'label/layout.tt' title=l('Subscribed Editors') -%]
-    [%- WRAPPER 'components/box.tt' header=l('Editors subscribed to this Label') -%]
+        <h2>[%- l('Editors subscribed to this Label') -%]</h2>
         <p>
             [% IF subscribers.size %]
                 [%- FOREACH ed IN subscribers -%]
@@ -25,5 +25,4 @@
                 [%- l('Subscribe to this Label.') %]
             </a>
         [% END %]
-    [%- END -%]
 [%- END -%]
