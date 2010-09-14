@@ -8,8 +8,6 @@
                 <tr>
                     <th>[% l('Title') %]</th>
                     <th>[% l('Artist') %]</th>
-                    <th>[% l('Added') %]</th>
-                    <th>[% l('Modified') %]</th>
                     <th>[% l('Lookup count') %]</th>
                     <th>[% l('Modify count') %]</th>
                 </tr>
@@ -17,12 +15,14 @@
             <tbody>
                 [%- FOR cdstub=cdstubs; %]
                 <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
-                    <td>[% link_cdsub(cdstub, "show", cdstub.title) %]</td>
+                    <td>[% cdstub.title %]</td>
                     <td>[% cdstub.artist %]</td>
-                    <td>[% age(cdstub.date_added) %]</td>
-                    <td>[% age(cdstub.last_modified) %]</td>
                     <td>[% cdstub.lookup_count %]</td>
                     <td>[% cdstub.modify_count %]</td>
+                </tr>
+                <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
+                    <td colspan="4" class="lastupdate">Added [%- age(cdstub.date_added) -%], 
+                    last modified [%- age(cdstub.last_modified) -%]</td>
                 </tr>
                 [%- END -%]
             </tbody>
