@@ -41,11 +41,6 @@ after 'initialize' => sub {
     my $self = shift;
 
     return if $self->preview;
-
-    for my $track (@{ $self->data->{tracks} })
-    {
-        croak "No recording_id specified" unless $track->{recording_id};
-    }
 };
 
 sub foreign_keys
