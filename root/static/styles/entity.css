@@ -47,10 +47,11 @@ div.tabs ul li a:hover {
 }
 
 .artistheader, .releaseheader, .rgheader,
-.recordingheader, .labelheader, .workheader {
+.recordingheader, .labelheader, .workheader, .blankheader {
     padding-left: 38px;
     background: 0 4px no-repeat;
 }
+.blankheader     { background-image: url('../images/entity/blank_lg.png') }
 
 .artistheader    { background-image: url('../images/aicon_lg.png') }
 .releaseheader   { background-image: url('../images/licon_lg.png') }
