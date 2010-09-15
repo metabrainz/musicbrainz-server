@@ -86,7 +86,7 @@ sub find_or_insert
 
         my @clients = ($client_id) x @insert;
         $rows = $self->sql->select_list_of_hashes(
-            'INSERT INTO puid (client, puid) VALUES ' . join(', ', ("(?, ?)") x @insert) .
+            'INSERT INTO puid (version, puid) VALUES ' . join(', ', ("(?, ?)") x @insert) .
                 ' RETURNING puid,id',
             zip(@clients, @insert));
 

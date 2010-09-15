@@ -310,7 +310,7 @@ role {
 
             # Check if authorization is required.
             $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_ratings} ||
-                $resource eq 'tag' || $resource eq 'rating';
+                $resource eq 'tag' || $resource eq 'rating' || $resource eq 'recording' && $c->req->method eq 'POST';
 
             # Check the type and prepare a serializer. For now, since we only support XML
             # we're going to default to XML. In the future if we want to add more serializations,
