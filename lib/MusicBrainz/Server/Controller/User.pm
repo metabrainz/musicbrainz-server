@@ -6,6 +6,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Authentication::User;
 
+use MusicBrainz::Server::Types qw(
+    $BOT_FLAG
+    $AUTO_EDITOR_FLAG
+    $WIKI_TRANSCLUSION_FLAG
+    $RELATIONSHIP_EDITOR_FLAG
+);
+
 __PACKAGE__->config(
     entity_name => 'user',
     paging_limit => 25,
@@ -269,6 +276,28 @@ sub tags : Chained('load') PathPart('tags')
         template => 'user/tags.tt',
     );
 }
+
+sub privileged : Path('/privileged')
+{
+    my ($self, $c) = @_;
+
+    $c->stash(
+        bots => [
+            $c->model ('Editor')->find_by_privileges ($BOT_FLAG)
+        ],
+        auto_editors => [
+            $c->model ('Editor')->find_by_privileges ($AUTO_EDITOR_FLAG)
+        ],
+        transclusion_editors => [
+            $c->model ('Editor')->find_by_privileges ($WIKI_TRANSCLUSION_FLAG)
+        ],
+        relationship_editors => [
+            $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG)
+        ]
+    );
+}
+
+1;
 
 1;
 
