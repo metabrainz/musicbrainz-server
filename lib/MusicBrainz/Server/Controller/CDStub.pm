@@ -16,12 +16,12 @@ sub _load
 
     my $cdstubtoc = $c->model('CDStubTOC')->get_by_discid($id);
     $c->model('CDStub')->load($cdstubtoc);
-    $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->release);
+    $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->cdstub);
 
     my $index = 0;
     my @offsets = @{$cdstubtoc->track_offset};
     push @offsets, $cdstubtoc->leadout_offset;
-    foreach my $track (@{$cdstubtoc->release->tracks}) {
+    foreach my $track (@{$cdstubtoc->cdstub->tracks}) {
         $track->length(int((($offsets[$index + 1] - $offsets[$index]) / 75) * 1000));
         $index++;
     }

@@ -21,7 +21,7 @@ sub _column_mapping
 {
     return {
         id => 'id',
-        release_id  => 'release',
+        cdstub_id  => 'release',
         discid => 'discid',
         track_count => 'trackcount',
         leadout_offset => 'leadoutoffset',
@@ -42,7 +42,7 @@ sub _dbh
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'release', @objs);
+    load_subobjects($self, 'cdstub', @objs);
 }
 
 sub get_by_discid

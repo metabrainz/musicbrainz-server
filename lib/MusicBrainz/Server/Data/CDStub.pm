@@ -52,7 +52,7 @@ sub _dbh
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'release', @objs);
+    load_subobjects($self, 'cdstub', @objs);
 }
 
 sub load_top_cdstubs
