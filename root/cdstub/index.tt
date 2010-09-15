@@ -1,25 +1,25 @@
-[%- WRAPPER 'layout.tt' title=l('CD Stub: {title}', { title => cdstubtoc.release.title }) -%]
+[%- WRAPPER 'layout.tt' title=l('CD Stub: {title}', { title => cdstubtoc.cdstub.title }) -%]
 [%- USE Age -%]
 
     <div id="sidebar">
         <dl class="properties">
             <dt>[%- l('Date added:') -%]</dt>
-            <dd>[%- age(cdstubtoc.release.date_added) -%]</dd>
+            <dd>[%- age(cdstubtoc.cdstub.date_added) -%]</dd>
             <dt>[%- l('Date modified:') -%]</dt>
-            <dd>[%- age(cdstubtoc.release.last_modified) -%]</dd>
-            [%- IF cdstubtoc.release.barcode -%]
+            <dd>[%- age(cdstubtoc.cdstub.last_modified) -%]</dd>
+            [%- IF cdstubtoc.cdstub.barcode -%]
                 <dt>[%- l('Barcode:') -%] </dt>
-                <dd>[%- cdstubtoc.release.barcode -%]</dd>
+                <dd>[%- cdstubtoc.cdstub.barcode -%]</dd>
             [%- END -%]
-            [%- IF cdstubtoc.release.comment -%]
+            [%- IF cdstubtoc.cdstub.comment -%]
                 <dt>[%- l('Comment:') -%]</dt>
-                <dd>[%- cdstubtoc.release.comment -%]</dd>
+                <dd>[%- cdstubtoc.cdstub.comment -%]</dd>
             [%- END -%]
         </dl>
     </div>
     <div id="content">
         <div class="blankheader">
-            <h1>“[% cdstubtoc.release.title %]” by [%- cdstubtoc.release.artist -%]</h1>
+            <h1>“[% cdstubtoc.cdstub.title %]” by [%- cdstubtoc.cdstub.artist || l('Various Artists') -%]</h1>
             <p class="subheader">
                 <span class="prefix">~</span>[%- l('CD Stub with disc id: ') -%]
                 <code> [%- cdstubtoc.discid -%]</code>
@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-                [%- FOR track=cdstubtoc.release.tracks; %]
+                [%- FOR track=cdstubtoc.cdstub.tracks; %]
                 <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
                     <td>[% track.sequence %]</td>
                     <td>[% track.title %]</td>

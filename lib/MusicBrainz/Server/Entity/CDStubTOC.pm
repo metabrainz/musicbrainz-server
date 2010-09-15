@@ -5,12 +5,12 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
 
-has 'release_id' => (
+has 'cdstub_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'release' => (
+has 'cdstub' => (
     is => 'rw',
     isa => 'CDStub'
 );

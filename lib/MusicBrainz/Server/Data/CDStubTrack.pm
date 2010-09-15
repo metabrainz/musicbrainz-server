@@ -23,7 +23,7 @@ sub _column_mapping
 {
     return {
         id => 'id',
-        release_id  => 'release',
+        cdstub_id  => 'release',
         title => 'title',
         artist => 'artist',
         sequence => 'sequence',
@@ -59,7 +59,7 @@ sub load_for_cdstub
     my @tracks = query_to_list($self->c->raw_dbh, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $track (@tracks) {
-        $id_to_cdstub{$track->release_id}->add_track($track);
+        $id_to_cdstub{$track->cdstub_id}->add_track($track);
     }
 }
 
