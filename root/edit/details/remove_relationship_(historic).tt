@@ -1,0 +1,15 @@
+<table class="details">
+  <tr>
+    <th>[% l('Relationships:') %]</th>
+    <td>
+      <ul>
+        [% FOR relationship=edit.display_data.relationships %]
+        <li>
+          [% link_entity(relationship.source) %]
+          [% display_relationship(relationship) %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table>
