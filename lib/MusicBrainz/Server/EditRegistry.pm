@@ -43,6 +43,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
+    MusicBrainz::Server::Edit::Release::AddBarcodes
     MusicBrainz::Server::Edit::Release::ChangeQuality
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
