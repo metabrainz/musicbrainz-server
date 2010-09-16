@@ -114,12 +114,19 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         return false;
     };
 
+    var isEmpty = function () {
+        return (self.name.val () === '' &&
+                self.credit.val () === '' &&
+                self.join.val () === '');
+    };
+
     self.clear = clear;
     self.joinChanged = joinChanged;
     self.joinBlurred = joinBlurred;
     self.nameBlurred = nameBlurred;
     self.creditBlurred = creditBlurred;
     self.update = update;
+    self.isEmpty = isEmpty;
 
 //     self.join.bind('change keyup', self.joinChanged);
     self.join.bind('blur', self.joinBlurred);
@@ -149,9 +156,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     self.artist_input = input;
 
     var identify = function() {
-        var id = self.artistcredits.find ('input.credit').eq(0).attr ('id');
-
-        if (id === "id-artist_credit.names.0.name")
+        if (input.attr ('id') === 'release-artist')
         {
             self.prefix = "artist_credit";
             self.medium = -1;
@@ -159,6 +164,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         }
         else
         {
+            var id = self.artistcredits.find ('input.credit').eq(0).attr ('id');
             var matches = id.match(/mediums\.(\d+)\.tracklist\.tracks\.(\d+)\.artist_credit/);
             self.prefix = matches[0];
             self.medium = matches[1];
@@ -173,15 +179,27 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
             self.box[i] = MB.Control.ArtistCredit($(this), i, self);
         });
 
+        if (self.box.length == 0)
+        {
+            throw MB.utility.exception (
+                'ArtistCreditBoxNotFound',
+                'Atleast one div.artist-credit-box is required, none were found.');
+        }
+
         self.artist_input.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
         self.artist_input.result(self.update);
 
-        /* always add an empty box when first initializing an artist credit row. */
-        self.addArtistBox (self.box.length);
+        if (! self.box[self.box.length - 1].isEmpty ())
+        {
+            /* always add an empty box when there isn't one. */
+            self.addArtistBox (self.box.length);
+        }
+
         self.artistcredits.hide ();
     };
 
     var update = function(event, data) {
+        event.preventDefault();
         self.box[0].update(event, data);
     };
 
