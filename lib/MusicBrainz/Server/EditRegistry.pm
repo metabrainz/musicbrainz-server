@@ -90,6 +90,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MoveDiscID
     MusicBrainz::Server::Edit::Historic::MoveRelease
     MusicBrainz::Server::Edit::Historic::RemoveDiscID
+    MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
     MusicBrainz::Server::Edit::Historic::RemoveLink
     MusicBrainz::Server::Edit::Historic::RemoveRelease
     MusicBrainz::Server::Edit::Historic::RemoveReleases
