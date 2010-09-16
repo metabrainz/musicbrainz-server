@@ -7,8 +7,11 @@
     ['aliases', link_artist(artist, 'aliases', l('Aliases'))],
     ['tags', link_artist(artist, 'tags', l('Tags'))],
     ['details', link_artist(artist, 'details', l('Details'))],
-    ['edit', link_artist(artist, 'edit', l('Edit'))],
 ] -%]
+
+[% info_links.push(
+    ['edit', link_artist(artist, 'edit', l('Edit'))]
+   ) UNLESS artist.is_special_purpose %]
 
 <div class="artistheader">
     <h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>

@@ -1,0 +1,5 @@
+[% WRAPPER 'layout.tt' title=l('Cannot edit') full_width=1 %]
+    <h2>[% l('You may not edit special purpose artists') %]</h2>
+    <p>[% l('The artist you are trying to edit is a special purpose artist, and you may not make direct
+             changes to this data.') %]</p>
+[% END %]
