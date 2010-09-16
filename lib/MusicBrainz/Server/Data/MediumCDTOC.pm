@@ -76,6 +76,12 @@ sub get_by_medium_cdtoc
     return $self->_new_from_row($medium_cdtoc);
 }
 
+sub insert
+{
+    my ($self, $hash) = @_;
+    $self->sql->insert_row('medium_cdtoc', $hash);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

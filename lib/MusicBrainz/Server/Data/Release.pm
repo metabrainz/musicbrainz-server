@@ -248,6 +248,26 @@ sub find_by_recording
         $query, @ids, @$statuses, @$types, $offset || 0);
 }
 
+sub find_by_artist_track_count
+{
+    my ($self, $artist_id, $track_count, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN artist_credit_name acn
+                         ON acn.artist_credit = release.artist_credit
+                     JOIN medium
+                        ON medium.release = release.id
+                     JOIN tracklist
+                        ON medium.tracklist = tracklist.id
+                 WHERE tracklist.trackcount = ? AND acn.artist = ?
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $track_count, $artist_id, $offset || 0);
+}
+
 sub load_with_tracklist_for_recording
 {
     my ($self, $recording_id, $limit, $offset, $statuses, $types) = @_;
