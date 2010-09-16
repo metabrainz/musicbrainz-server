@@ -57,7 +57,7 @@ $(function() {
         loadGuideline($("#es-sg-capitalization").val())
     });
     $("#es-sg").bind("ajaxSend", function(){
-        $("#es-sg-explain").html('<img src="/static/images/throbber.gif" /> ' + text.Loading + '&hellip;').fadeIn("1000");
+        $("#es-sg-explain").html('<img src="/static/images/icons/throbber.gif" /> ' + text.Loading + '&hellip;').fadeIn("1000");
     }).bind("ajaxStop", function(){
         fixLinks();
         $("#es-sg-explain").html(text.Loaded);

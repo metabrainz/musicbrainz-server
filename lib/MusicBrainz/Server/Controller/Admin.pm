@@ -11,6 +11,47 @@ sub index : Path Args(0) RequireAuth
         unless $c->user->is_admin;
 }
 
+sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth HiddenOnSlaves
+{
+    my ($self, $c, $user_name) = @_;
+
+    my $user = $c->model('Editor')->get_by_name($user_name);
+    my $form = $c->form(
+        form => 'User::AdjustFlags',
+        item => {
+            auto_editor     => $user->is_auto_editor,
+            bot             => $user->is_bot,
+            untrusted       => $user->is_untrusted,
+            link_editor     => $user->is_relationship_editor,
+            no_nag          => $user->is_nag_free,
+            wiki_transcluder=> $user->is_wiki_transcluder,
+            mbid_submitter  => $user->is_mbid_submitter,
+            account_admin   => $user->is_account_admin,
+        },
+    );
+
+    if (!$c->user->is_account_admin)
+    {
+        $c->detach('/error_401');
+    }
+
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
+        # When an admin views their own flags page the account admin checkbox will be disabled,
+        # thus we need to manually insert a value here to keep the admin's privileges intact.
+        $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
+
+        $c->model('Editor')->update_privileges($user, $form->values);
+
+        $c->response->redirect($c->uri_for_action('/user/adjustflags/view', [ $user->name ]));
+        $c->detach;
+    }
+
+    $c->stash(
+        user => $user,
+        form => $form,
+    );
+}
+
 1;
 
 =head1 COPYRIGHT

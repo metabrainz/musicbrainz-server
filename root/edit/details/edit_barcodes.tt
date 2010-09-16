@@ -1,0 +1,13 @@
+<table class="details">
+    [% FOR submission=edit.display_data.submissions %]
+    <tr>
+        <th>[% l('Release:') %]</th>
+        <td>[% l('{release} by {artist}', { release => link_release(submission.release),
+                                            artist => artist_credit(submission.release.artist_credit) }) %]</td>
+    </tr>
+    <tr>
+        <th>[% l('Barcode:') %]</th>
+        <td>[% submission.barcode | html %]</td>
+    </tr>
+    [% END %]
+</table>
