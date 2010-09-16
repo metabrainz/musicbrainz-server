@@ -19,7 +19,7 @@ sub cloud : Chained('base') PathPart('') Args(0)
 {
     my ($self, $c, $name) = @_;
 
-    my ($cloud, $hits) = $c->model('Tag')->get_cloud(100);
+    my ($cloud, $hits) = $c->model('Tag')->get_cloud(200);
 
     if ($hits)
     {

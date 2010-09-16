@@ -16,7 +16,10 @@ sub _load : Chained('/') PathPart('isrc') CaptureArgs(1)
     my @isrcs = $c->model('ISRC')->find_by_isrc($isrc)
       or return;
 
-    $c->stash( isrcs => \@isrcs );
+    $c->stash(
+        isrcs => \@isrcs,
+        isrc => $isrc,
+    );
 }
 
 sub show : Chained('load') PathPart('')

@@ -7,13 +7,13 @@
                     [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/user/change_password') }) %]
+                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/account/change_password') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/user/preferences') }) %]
+                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/account/preferences') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers/view', [ c.user.name ]) }) %]
+                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers', [ c.user.name ]) }) %]
                 </li>
                 <li>
                     [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
@@ -41,22 +41,22 @@
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile/view', [ c.user.name ])}) %]
+            [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
             <ul>
                 <li>
-                    [% l('{col|My Lists}', {col => c.uri_for_action('/user/lists/view', [ c.user.name ])}) %]
+                    [% l('{col|My Lists}', { col => c.uri_for_action('/user/lists', [ c.user.name ]) }) %]
                 </li>
                 <li>
-                    [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings/view', [ c.user.name ])}) %]
+                    [% l('{col|My Ratings}', { col => c.uri_for_action('/user/ratings', [ c.user.name ]) }) %]
                 </li>
                 <li>
-                    [% l('{col|My Tags}', {col => '/404'}) %]
+                    [% l('{col|My Tags}', { col => c.uri_for_action('/user/tags', [ c.user.name ]) }) %]
                 </li>
             </ul>
         </li>
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
-        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/user/register') }) %]</li>
+        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>
     [%- END -%]
 </ul>
 
@@ -138,6 +138,9 @@
             </li>
             <li>
                 [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
+            </li>
+            <li>
+                [% l('{uri|Top CD Stubs}', { uri => c.uri_for('/cdstub/browse') }) %]
             </li>
             <li class="separator">
                  [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]

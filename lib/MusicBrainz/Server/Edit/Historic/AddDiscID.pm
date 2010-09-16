@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Edit::Historic';
 sub edit_name     { 'Add disc ID' }
 sub historic_type { 32 }
 sub edit_type     { $EDIT_HISTORIC_ADD_DISCID }
+sub edit_template { 'historic/add_disc_id' }
 
 sub related_entities
 {
