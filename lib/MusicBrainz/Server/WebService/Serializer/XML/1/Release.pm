@@ -18,6 +18,8 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
+    $self->attributes->{'ext:score'} = $opts->{score} if $opts && exists $opts->{score};
+
     my @type_status;
     push @type_status, $entity->release_group->type->name
         if $entity->release_group && $entity->release_group->type;
@@ -58,9 +60,17 @@ before 'serialize' => sub
         if ($inc && $inc->release_groups);
 
     my $tracklist = 'track-list';
-    $self->add( $self->gen->$tracklist({
-        offset => $entity->combined_track_count - 1,
-    })) if $inc && $inc->tracklist;
+    if ($inc && $inc->tracklist) {
+        $self->add( $self->gen->$tracklist({
+            offset => $entity->combined_track_count - 1,
+        }));
+    }
+    elsif ($opts && $opts->{track_map}) {
+        my $track = $opts->{track_map}->{$entity->id};
+        $self->add( $self->gen->$tracklist({
+            offset => $track->position - 1
+        })) if $track;
+    }
 
     $self->add( List->new->serialize(
         [
@@ -124,10 +134,6 @@ before 'serialize' => sub
         $self->add( $self->gen->$disclist({
             count => scalar map { $_->all_cdtocs } map { $_->all_mediums } $entity
         })) unless $inc->discs;
-
-        $self->add( $self->gen->$tracklist({
-            count => $entity->combined_track_count,
-        }));
     }
 };
 

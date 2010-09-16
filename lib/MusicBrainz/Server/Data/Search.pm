@@ -318,7 +318,10 @@ sub schema_fixup
             my $tracklist = MusicBrainz::Server::Entity::Tracklist->new(  
                 track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{count},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
-                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} 
+                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} + 1,
+                    recording => MusicBrainz::Server::Entity::Recording->new(
+                        gid => $data->{gid}
+                    )
                 ) ]
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new( 
@@ -481,7 +484,7 @@ sub external_search
         {
             my $redirect;
 
-            $type =~ s/release-group/ReleaseGroup/;
+            $type =~ s/release-group/release_group/;
             if ($type eq 'cdstub')
             {
                 $redirect = $results[0]->{entity}->{discid};

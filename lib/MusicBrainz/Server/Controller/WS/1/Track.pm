@@ -2,6 +2,10 @@ package MusicBrainz::Server::Controller::WS::1::Track;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
+use Function::Parameters 'f';
+use aliased 'MusicBrainz::Server::Buffer';
+
 __PACKAGE__->config(
     model => 'Recording',
 );
@@ -11,6 +15,9 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         inc      => [ qw( artist tags isrcs puids releases _relations ratings user-ratings user-tags  ) ],
     },
+    track => {
+        method => 'POST',
+    }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' => {
@@ -30,24 +37,43 @@ around 'search' => sub
     my $orig = shift;
     my ($self, $c) = @_;
 
+    $c->detach('submit') if $c->req->method eq 'POST';
+
     if (exists $c->req->query_params->{puid}) {
         my $puid = $c->model('PUID')->get_by_puid($c->req->query_params->{puid});
+
+        unless ($puid) {
+            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+            $c->res->body(
+                $c->stash->{serializer}->xml('')
+            );
+            $c->detach;
+        }
+
         my @recording_puids = $c->model('RecordingPUID')->find_by_puid($puid->id);
         $c->model('ArtistCredit')->load(map { $_->recording} @recording_puids);
         my %recording_release_map;
 
+        my @tracks;
         for (@recording_puids) {
             $c->model('Artist')->load($_->recording->artist_credit->names->[0])
                 if @{ $_->recording->artist_credit->names } == 1;
 
             my ($releases) = $c->model('Release')->find_by_recording($_->recording->id);
             $recording_release_map{$_->recording->id} = $releases;
+
+            my ($tracks) = $c->model('Track')->find_by_recording($_->recording->id, 1000);
+            push @tracks, @$tracks;
         }
+
+        my @releases  = map { @$_ } values %recording_release_map;
+        my %track_map = map { $_->tracklist->medium->release_id => $_ } @tracks;
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->serialize_list('track', \@recording_puids, undef, {
-                recording_release_map => \%recording_release_map
+                recording_release_map => \%recording_release_map,
+                track_map             => \%track_map
             })
         );
     }
@@ -55,6 +81,141 @@ around 'search' => sub
         $self->$orig($c);
     }
 };
+
+sub submit : Private
+{
+    my ($self, $c) = @_;
+
+    $c->authenticate({}, 'musicbrainz.org');
+
+    my (@puids, @isrcs);
+    if (my $submitted = $c->req->params->{puid}) {
+        @puids = ref($submitted) ? @$submitted : ($submitted);
+    }
+
+    if (my $submitted = $c->req->params->{isrc}) {
+        @isrcs = ref($submitted) ? @$submitted : ($submitted);
+    }
+
+    if (@isrcs && @puids) {
+        $c->stash->{error} = 'You cannot submit PUIDs and ISRCs in one call';
+        $c->detach('bad_req');
+    }
+
+    if (DBDefs::REPLICATION_TYPE == DBDefs::RT_SLAVE) {
+        $c->stash->{error} = 'Cannot submit PUIDs or ISRCs to a slave server.';
+        $c->detach('bad_req');
+    }
+
+    my @pairs = @puids ? @puids : @isrcs;
+
+    my %submit;
+    for my $pair (@pairs) {
+        my ($recording_id, $gid) = split(' ', $pair);
+
+        unless (MusicBrainz::Server::Validation::IsGUID($recording_id)) {
+            $c->stash->{error} = 'Recording IDs be valid MBIDs';
+            $c->detach('bad_req');
+        }
+
+        $submit{$recording_id} ||= [];
+        push @{ $submit{$recording_id} }, $gid;
+    }
+
+    # We have to have a limit, I think.  It's only sensible.
+    # So far I've not seen anyone submit more that about 4,500 PUIDs at once,
+    # so this limit won't affect anyone in a hurry.
+    if (scalar(map { @$_ } values %submit) > 5000) {
+        $c->detach('declined');
+    }
+
+    # Create a mapping of GID to ID
+    my %recordings = map
+        { ($_->gid => $_) }
+            values %{ $c->model('Recording')->get_by_gids(keys %submit) };
+
+    $self->submit_puid($c, \%submit, \%recordings) if @puids;
+    $self->submit_isrc($c, \%submit, \%recordings) if @isrcs;
+
+    $c->stash->{error} = 'You must specify a PUID or ISRC to submit';
+    $c->detach('bad_req');
+}
+
+sub submit_puid : Private
+{
+    my ($self, $c, $submit, $recordings) = @_;
+
+    # Ensure that we're not a replicated server and that we were given a client version
+    my $client = $c->req->params->{client};
+    if ($client eq '') {
+        $c->stash->{error} = 'Client parameter must be given';
+        $c->detach('bad_req');
+    }
+
+    for my $puids (values %$submit) {
+        for my $puid (@$puids) {
+            unless (MusicBrainz::Server::Validation::IsGUID($puid)) {
+                $c->stash->{error} = 'PUIDs must be specified in MBID format';
+                $c->detach('bad_req');
+            }
+        }
+    }
+
+    my $buffer = Buffer->new(
+        limit   => 100,
+        on_full => f($contents) {
+            my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
+            return unless @$new_rows;
+
+            $c->model('Edit')->create(
+                edit_type      => $EDIT_RECORDING_ADD_PUIDS,
+                client_version => $client,
+                editor_id      => $c->user->id,
+                puids          => $new_rows
+            );
+        }
+    );
+
+    $buffer->flush_on_complete(sub {
+        while(my ($recording_gid, $puids) = each %$submit) {
+            next unless exists $recordings->{ $recording_gid };
+            $buffer->add_items(map +{
+                recording_id => $recordings->{ $recording_gid }->id,
+                puid         => $_
+            }, @$puids);
+        }
+    });
+
+    $c->detach;
+}
+
+sub submit_isrc : Private
+{
+    my ($self, $c, $submit, $recordings) = @_;
+
+    my $buffer = Buffer->new(
+        limit   => 100,
+        on_full => f($contents) {
+            $c->model('Edit')->create(
+                edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                editor_id      => $c->user->id,
+                isrcs          => $contents
+            );
+        }
+    );
+
+    $buffer->flush_on_complete(sub {
+        while(my ($recording_gid, $isrcs) = each %$submit) {
+            next unless exists $recordings->{ $recording_gid };
+            $buffer->add_items(map +{
+                recording_id => $recordings->{ $recording_gid }->id,
+                isrc         => $_
+            }, @$isrcs);
+        }
+    });
+
+    $c->detach;
+}
 
 sub lookup : Chained('load') PathPart('')
 {

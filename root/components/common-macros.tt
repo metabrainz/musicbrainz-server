@@ -205,6 +205,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_isrc(isrc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    text = text || '<code>' _ html_escape(isrc) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
@@ -227,7 +234,7 @@ END -%]
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
-    action = action || 'profile/view';
+    action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text || html_escape(editor.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
@@ -241,7 +248,7 @@ END -%]
 END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => redirect || c.req.uri });
+    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
 
 [%- MACRO request_login(text) BLOCK -%]
@@ -252,7 +259,7 @@ END-%]
     [% USE date %]
     <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% release.gid %]&t=[% date.now %]"
         target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
-        <img src="[% c.uri_for('/static/images/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
+        <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
     </a>
 [%- END -%]
 
@@ -354,6 +361,10 @@ END -%]
         [% l('Already expired') %]
     [% END %]
 [% END %]
+
+[%- MACRO age(datetime) BLOCK -%] 
+    [%- Age.format(datetime, "{age} ago") -%]
+[%- END -%]
 
 [% MACRO display_relationship(relationship) BLOCK; %]
 

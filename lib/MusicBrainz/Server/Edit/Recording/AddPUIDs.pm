@@ -51,5 +51,27 @@ sub build_display_data
     }
 }
 
+sub allow_auto_edit { 1 }
+
+sub accept
+{
+    my $self = shift;
+
+    my @insert = @{ $self->data->{puids} };
+    my %puid_id = $self->c->model('PUID')->find_or_insert(
+        $self->data->{client_version},
+        map { $_->{puid} } @insert
+    );
+
+    my @submit = map +{
+        recording_id => $_->{recording_id},
+        puid_id      => $puid_id{ $_->{puid} }
+    }, @insert;
+
+    $self->c->model('RecordingPUID')->insert(
+        @submit
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;

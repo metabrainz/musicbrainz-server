@@ -131,11 +131,13 @@ Readonly our $EDIT_HISTORIC_ADD_TRACK_KV            => 218;
 Readonly our $EDIT_HISTORIC_REMOVE_DISCID           => 220;
 Readonly our $EDIT_HISTORIC_MOVE_DISCID             => 221;
 Readonly our $EDIT_HISTORIC_MERGE_RELEASE           => 223;
+Readonly our $EDIT_HISTORIC_REMOVE_RELEASES         => 224;
 Readonly our $EDIT_HISTORIC_MERGE_RELEASE_MAC       => 225;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_ATTRS      => 226;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD => 229;
 Readonly our $EDIT_HISTORIC_ADD_DISCID              => 232;
 Readonly our $EDIT_HISTORIC_EDIT_LINK               => 234;
+Readonly our $EDIT_HISTORIC_REMOVE_LINK             => 235;
 Readonly our $EDIT_HISTORIC_EDIT_LINK_TYPE          => 237;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_TYPE        => 238;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_ATTR        => 243;
@@ -149,7 +151,6 @@ Readonly our $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY   => 252;
 Readonly our $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC => 253;
 Readonly our $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY  => 263;
 Readonly our $EDIT_HISTORIC_CHANGE_RELEASE_GROUP    => 273;
-
 
 =head1 NAME
 

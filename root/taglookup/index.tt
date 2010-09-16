@@ -1,7 +1,7 @@
-[%- WRAPPER 'layout.tt' title=l('Tag lookup') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Tag Lookup') full_width=1 -%]
     <div class="content">
+        <h1>[% l("Tag Lookup") %]</h1>
         [%- INCLUDE 'taglookup/nag.tt' -%]
-        <h1>[% l("Tag lookup") %]</h1>
         [%- INCLUDE 'taglookup/form.tt' -%]
     </div>
 [%- END -%]

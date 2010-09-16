@@ -23,7 +23,7 @@ a:active, a:focus { outline-style: none; }
 ** When we start using relative links for internal links, add:
 ** a[href^="http://"], a[href^="https://"], */
 a.external {
-    background: url("/static/images/external.png") no-repeat right;
+    background: url('/static/images/icons/external.png') no-repeat right;
     padding-right: 13px;
 }
 
@@ -63,7 +63,7 @@ h3 {
 ul {
     margin-left: 0;
     padding-left: 40px;
-    list-style-image: url('/static/images/bullet.gif');
+    list-style-image: url('/static/images/icons/bullet.gif');
     list-style-type: square;
 }
 
@@ -88,13 +88,6 @@ pre code {
     word-wrap: break-word;
 }
 
-code {
-    background-color: #DDDDDD;
-}
-.mp code {
-    background-color: inherit;
-}
-
 /*
 ** Header
 */
@@ -103,7 +96,7 @@ code {
 }
 
 #header-logo {
-    background: #736DAB url(../images/sprites.png) no-repeat top left;
+    background: #736DAB url('/static/images/layout/sprites.png') no-repeat top left;
     height: 58px;
     color: #FFF;
 }
@@ -160,12 +153,12 @@ code {
 
 #header-menu div.r {
     bottom: 0; right: 0;
-    background: url(../images/sprites.png) -7px -58px;
+    background: url('/static/images/layout/sprites.png') -7px -58px;
 }
 
 #header-menu div.l {
     bottom: 0; left: 0;
-    background: url(../images/sprites.png) -0px -58px;
+    background: url('/static/images/layout/sprites.png') -0px -58px;
 }
 
 #header-menu ul.r {
@@ -245,7 +238,7 @@ code {
     margin-top: 1em;
     padding: 1em 1em 1em 1em;
     padding: 16px;
-    background: #FFF url(../images/page-bg.gif) repeat-y top right;
+    background: #FFF url('/static/images/layout/page-bg.gif') repeat-y top right;
     overflow: hidden;
     position: relative;
 }
@@ -266,22 +259,22 @@ code {
 
 #page .tr, .server-details .tr {
     top: 0; right: 0;
-    background: url(../images/sprites.png) -14px -58px;
+    background: url('/static/images/layout/sprites.png') -14px -58px;
 }
 
 #page .tl, .server-details .tl {
     top: 0; left: 0;
-    background: url(../images/sprites.png) -23px -58px;
+    background: url('/static/images/layout/sprites.png') -23px -58px;
 }
 
 #page .br, .server-details .br {
     bottom: 0; right: 0;
-    background: url(../images/sprites.png) -32px -58px;
+    background: url('/static/images/layout/sprites.png') -32px -58px;
 }
 
 #page .bl, .server-details .bl {
     bottom: 0; left: 0;
-    background: url(../images/sprites.png) -41px -58px;
+    background: url('/static/images/layout/sprites.png') -41px -58px;
 }
 
 .server-details {
@@ -331,31 +324,28 @@ code {
 ** Footer
 */
 #footer {
+    height: 1em;
     margin: 1em 0;
     padding: 0 1em;
     font-size: 90%;
-    color: #333;
+    color: #444444;
 }
 
 #footer a { color: #002BBA; }
 #footer a:hover { color: #FC6714; }
 
-#footer ul.links {
-    float: left;
+#footer p {
+    display: inline-block;
     margin: 0;
-    padding: 0;
-    list-style-type: none;
-    list-style-image: none;
 }
 
-#footer ul.links li {
+#footer p.links {
     float: left;
-    margin-right: 1em;
+    margin: 0;
 }
 
 #footer p.sponsors {
-    text-align: right;
-    margin: 0;
+    float: right;
 }
 
 /*
@@ -373,16 +363,16 @@ code {
 
 table.tbl tr.mp td,
 span.mp {
-    background: #FD9;
+    background: #FD9 !important;
 }
 
 .lastupdate {
     font-size: 90%;
-    color: #999;
+    color: #777;
     font-style: italic;
 }
 
-/* The table! */
+/* The release information table */
 table.tbl {
     margin-top: 1em;
     border-collapse: collapse;
@@ -393,17 +383,25 @@ table.tbl {
 
 table.tbl th {
     font-size: 95%;
-    background: url(../images/table-header.gif) repeat-x 0 50%;
+    background: url('/static/images/layout/table-header.gif') repeat-x 0 50%;
     padding: 0.2em 0.4em;
     text-align: left;
     border-bottom: solid 1px #999999;
     border-left: solid 1px #CCCCCC;
 }
 
+table.details table.tbl th {
+    /* Override the table.details declarations
+    /* inside an edit details template */
+    padding: 0.2em 0.4em;
+    text-align: left;
+    width: auto;
+}
+
 table.tbl tr.subh td,
 table.tbl tr.subh th {
     font-size: 95%;
-    background: url(../images/table-header-2.gif) repeat-x 0 50%;
+    background: url('/static/images/layout/table-header-2.gif') repeat-x 0 50%;
     font-weight: bold;
     border-top: solid 1px #999999;
     border-bottom: solid 1px #999999;
@@ -565,9 +563,10 @@ div.columns-5 div.column {
 }
 
 .nagpanel {
-    border: 2px dashed red;
-    padding: 1em;
-    margin-bottom: 1em;
+    background-color: #FAFAFA;
+    border: 2px dashed #736DAB;
+    padding: 0 1em;
+    margin: 1em 0;
 }
 
 .nagpanel .naglinkpanel { text-align: center; }

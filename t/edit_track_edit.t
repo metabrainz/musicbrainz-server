@@ -65,6 +65,32 @@ is($tracklist->tracks->[2]->position, 3);
 is($tracklist->tracks->[3]->id, 4);
 is($tracklist->tracks->[3]->position, 4);
 
+$track = $c->model('Track')->get_by_id(1);
+$edit = $c->model('Edit')->create(
+    editor_id => 1,
+    edit_type => $EDIT_TRACK_EDIT,
+    to_edit => $track,
+    length => 12345
+);
+
+$track = $c->model('Track')->get_by_id(1);
+is($track->length, 12345);
+
+$track = $c->model('Track')->get_by_id(1);
+$edit = $c->model('Edit')->create(
+    editor_id => 1,
+    edit_type => $EDIT_TRACK_EDIT,
+    privileges => 1,
+    to_edit => $track,
+    name => 'Foo',
+    length => 52354
+);
+
+
+$track = $c->model('Track')->get_by_id(1);
+is($track->name, 'Foo');
+is($track->length, 52354);
+
 done_testing;
 
 sub is_unchanged {

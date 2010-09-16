@@ -68,7 +68,7 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
            (15, 'd328d709-609c-4b88-90be-95815f041524', 15, 1, 514679),
            (16, '1539ac10-5081-4469-b8f2-c5896132724e', 16, 1, 472880);
 
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (1, 1, 1, 1, 1, 1, 293720);
+INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (1, 1, 1, 1, 1, 1, NULL);
 INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (2, 1, 2, 2, 2, 1, 369680);
 INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (3, 1, 3, 3, 3, 1, 258839);
 INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (4, 1, 4, 4, 4, 1, 358960);

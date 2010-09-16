@@ -1,0 +1,15 @@
+[% WRAPPER "layout.tt" title=l("Edit Profile") full_width=1 %]
+
+    <h1>[% l("Edit Profile") %]</h1>
+
+    <p>
+        [% l('Your profile has been updated.') %]
+        [% IF email_sent %]
+            [% l('We have sent you a verification email to <code>{email}</code>.
+                  Please check your mailbox and click on the link in the email
+                  to verify the new email address.', { email => email }) %]
+        [% END %]
+        [% l('Click {link|here} to continue to your user page.',
+            { link => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]</p>
+
+[% END %]

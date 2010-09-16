@@ -48,7 +48,7 @@
     [% WRAPPER form_row %]
       [% r.label(field_name, label) %]
       [% r.text(field_name) %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     [% END %]
 [% END %]
 
@@ -56,7 +56,7 @@
     [% WRAPPER form_row %]
       [% r.label(field_name, label) %]
       [% r.textarea(field_name) %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     [% END %]
 [% END %]
 
@@ -64,7 +64,7 @@
     [% WRAPPER form_row %]
       [% r.label(field_name, label) %]
       [% r.password(field_name) %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     [% END %]
 [% END %]
 
@@ -72,7 +72,7 @@
     <div class="row no-label">
       [% r.checkbox(field_name) %]
       [% r.label(field_name, label, inline => 1) %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     </div>
 [% END %]
 
@@ -80,7 +80,7 @@
     [% WRAPPER form_row %]
       [% r.label(field_name, label) %]
       [% r.select(field_name) %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     [% END %]
 [% END %]
 
@@ -88,7 +88,7 @@
     [% WRAPPER form_row %]
       [% r.label(field_name, label, fake => 1) %]
       [% r.date(field_name) %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     [% END %]
 [% END %]
 
@@ -96,6 +96,6 @@
     [% WRAPPER form_row row_id='artist' %]
       [% r.label(field_name, label, fake => 1) %]
       [% r.artist_credit_editor(field_name) %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     [% END %]
 [% END %]
