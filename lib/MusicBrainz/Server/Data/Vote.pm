@@ -13,6 +13,8 @@ use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
+sub _dbh { shift->c->raw_dbh }
+
 sub _columns
 {
     return 'id, editor, edit, votetime, vote, superseded';
@@ -60,6 +62,21 @@ sub enter_votes
             my $edit = $edits->{ $_->{edit_id} };
             defined $edit && $edit->is_open
         } @votes;
+
+        return unless @votes;
+
+        # Also filter duplicate votes
+        my $current_votes = $self->sql->select_list_of_hashes(
+            'SELECT vote, edit FROM vote ' .
+            'WHERE superseded = FALSE AND editor = ? AND edit IN (' .
+              placeholders(@edit_ids) . ')',
+            $editor_id, @edit_ids);
+        my %current_votes = map { $_->{edit} => $_->{vote} } @$current_votes;
+
+        # Filter votes where the user has either not voted before, or previously casted a different vote
+        @votes = grep {
+            !exists $current_votes{$_->{edit_id}} || $current_votes{$_->{edit_id}} != $_->{vote}
+        } @votes; 
 
         return unless @votes;
 
