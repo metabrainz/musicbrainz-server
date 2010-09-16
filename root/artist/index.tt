@@ -24,12 +24,13 @@
                                 <th class="count c">[% l('Releases') %]</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody about="[%- rdfa_artist_curi(artist) -%]">
                     [% rg_type = rg.type %]
                 [% END %]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
+		    [% rdfa_release_group_ns(rg) %]>
                     <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
-                    <td>[% link_release_group(rg) %]</td>
+                    <td>[% rdfa_made_rg_link(rg) %]</td>
                     [% IF show_va %]
                     <td>[% artist_credit(rg.artist_credit) %]</td>
                     [% END %]

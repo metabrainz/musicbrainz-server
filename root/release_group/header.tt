@@ -1,16 +1,16 @@
 [%- info_links = [
-    ['index', link_release_group(rg, 'show', l('Overview'))],
+    ['index', rdfa_seeAlso_link_release_group(rg, 'show', l('Overview'))],
     ['relationships', link_release_group(rg, 'relationships', l('Relationships'))],
     ['tags', link_release_group(rg, 'tags', l('Tags'))],
-    ['details', link_release_group(rg, 'details', l('Details'))],
+    ['details', rdfa_seeAlso_link_release_group(rg, 'details', l('Details'))],
     ['edit', link_release_group(rg, 'edit', l('Edit'))],
 ] -%]
 
-<div class="rgheader">
-    <h1>“[% link_release_group(rg) %]” [% disambiguation(rg) %]</h1>
+<div class="rgheader" about="[% rdfa_release_group_curi(rg) %]" typeof="[% rdfa_concept_curi('release_group') %]">
+    <h1>“[% rdfa_link_release_group_header(rg) %]” [% disambiguation(rg) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-            [% l('Release group by {artist}', {artist = artist_credit(rg.artist_credit)})%]
+            [% l('Release group by {artist}', {artist = rdfa_artist_credit(rg.artist_credit)})%]
     </p>
 </div>
 

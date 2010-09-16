@@ -5,11 +5,11 @@
   <ShortName>MusicBrainz: Label (indexed)</ShortName>
   <Description>Indexed search for a label on MusicBrainz.org</Description>
   <Url type="text/html" method="get" template="http://musicbrainz.org/search/textsearch.html?type=label&amp;limit=25&amp;handlearguments=1&amp;query={searchTerms}"/>
-  <Image width="16" height="16">http://musicbrainz.org/images/bicon.png</Image>
   <Developer>http://musicbrainz.org/doc/ContactUs</Developer>
+  <Image width="16" height="16">http://musicbrainz.org/static/images/entity/label.png</Image>
   <InputEncoding>UTF-8</InputEncoding>
   <moz:SearchForm>http://musicbrainz.org/search.html</moz:SearchForm>
   <moz:UpdateUrl>http://musicbrainz.org/search/plugins/opensearch/musicbrainzlabel.xml</moz:UpdateUrl>
-  <moz:IconUpdateUrl>http://musicbrainz.org/images/bicon.png</moz:IconUpdateUrl>
+  <moz:IconUpdateUrl>http://musicbrainz.org/static/images/entity/label.png</moz:IconUpdateUrl>
   <moz:UpdateInterval>14</moz:UpdateInterval>
 </OpenSearchDescription>

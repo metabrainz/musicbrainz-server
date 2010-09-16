@@ -1,17 +1,21 @@
 [%- info_links = [
-    ['index', link_artist(artist, 'show', l('Overview'))],
-    ['releases', link_artist(artist, 'releases', l('Releases'))],
-    ['works', link_artist(artist, 'works', l('Works'))],
-    ['recordings', link_artist(artist, 'recordings', l('Recordings'))],
-    ['relationships', link_artist(artist, 'relationships', l('Relationships'))],
-    ['aliases', link_artist(artist, 'aliases', l('Aliases'))],
+    ['index', rdfa_seeAlso_link_artist(artist, 'show', l('Overview'))],
+    ['releases', rdfa_seeAlso_link_artist(artist, 'releases', l('Releases'))],
+    ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
+    ['recordings', rdfa_seeAlso_link_artist(artist, 'recordings', l('Recordings'))],
+    ['relationships', rdfa_seeAlso_link_artist(artist, 'relationships', l('Relationships'))],
+    ['aliases', rdfa_seeAlso_link_artist(artist, 'aliases', l('Aliases'))],
     ['tags', link_artist(artist, 'tags', l('Tags'))],
-    ['details', link_artist(artist, 'details', l('Details'))],
-    ['edit', link_artist(artist, 'edit', l('Edit'))],
+    ['details', rdfa_seeAlso_link_artist(artist, 'details', l('Details'))],
 ] -%]
+[%# note no RDFa for tags, edit.  relationships @@TODO %]
 
-<div class="artistheader">
-    <h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>
+[% info_links.push(
+    ['edit', link_artist(artist, 'edit', l('Edit'))]
+   ) UNLESS artist.is_special_purpose %]
+
+<div class="artistheader" about="[% rdfa_artist_curi(artist) %]" typeof="[% rdfa_concept_curi(artist.type_name) %]">
+    <h1>[% rdfa_topic_is_artist(artist) %] [% rdfa_disambiguation(artist) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [% html_escape(artist.type_name) or l('Artist') %]
     </p>

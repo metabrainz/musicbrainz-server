@@ -1,0 +1,35 @@
+[% WRAPPER "user/profile/layout.tt" page="subscriptions" %]
+   <h2>[% title %]</h2>
+   [% INCLUDE "user/subscriptions/menu.tt" %]
+
+   [% IF entities.size %]
+      [%- WRAPPER 'components/with-pager.tt' -%]
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>[%- l('Name') -%]</th>
+            [% IF c.user_exists && user.id == c.user.id %]
+              <th>[%- l('Actions') -%]</th>
+            [% END %]
+          </tr>
+        </thead>
+        <tbody>
+        [%- FOR entity IN entities -%]
+          <tr>
+            <td>[% link_entity(entity) %]</td>
+            [% IF c.user_exists && user.id == c.user.id %]
+              <td>
+                [ <a href="[% c.uri_for_action('/account/subscriptions/' _ type _ '/remove', { id => entity.id }) %]">
+                  [% l('Remove') %]
+                </a> ]
+              </td>
+            [% END %]
+          </tr>
+        [%- END -%]
+        </tbody>
+      </table>
+      [%- END -%]
+   [% ELSE %]
+     <p>[% l('No subscriptions.') %]</p>
+   [% END %]
+[% END %]

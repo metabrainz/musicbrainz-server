@@ -4,7 +4,7 @@
     <ul>
     [%- FOREACH relationship IN relationships -%]
         <li>
-            [% display_relationship(relationship) %]
+            [% rdfa_display_relationship(relationship) %]
             [%- IF c.user_exists -%]
             [
                 <a href="[% c.uri_for_action('/edit/relationship/edit', {

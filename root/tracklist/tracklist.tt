@@ -1,13 +1,16 @@
 [%- FOR track=tracklist.tracks; recording = track.recording %]
-<tr class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]">
-    <td>[% track.position %]</td>
-    <td>[% link_recording(recording, 'show', track.name) %]</td>
+[%# model tracks as blank nodes %]
+<span rel="mo:track">
+<tr class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]" typeof="[% rdfa_concept_curi('track') %]">
+    <td>[% rdfa_track_number(track.position) %]</td>
+    <td>[% rdfa_link_recording_as_track(recording, 'show', track.name) %]</td>
     [%- IF show_artists -%]
-        <td>[% artist_credit(track.artist_credit) %]</td>
+        <td>[% rdfa_artist_credit(track.artist_credit) %]</td>
     [%- END -%]
     [% UNLESS hide_rating %]
     <td class="c">[% rating_stars(recording) %]</td>
     [% END %]
-    <td>[% track.length | format_length %]</td>
+    <td>[% rdfa_recording_duration(track) %]</td>
 </tr>
+</span>
 [%- END -%]
