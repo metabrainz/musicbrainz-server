@@ -21,6 +21,11 @@
 
         <ul class="links">
             [% IF c.user_exists %]
+              <li>
+                <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ work.gid ]) %]">
+                  [% work.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                </a>
+              </li>
                <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
                [% IF work.edits_pending %]

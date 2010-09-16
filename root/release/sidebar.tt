@@ -127,6 +127,11 @@
     <ul class="links">
       [% IF c.user_exists %]
         <li>[% link_release(release, 'edit', l('Edit this release')) %]</li>
+        <li>
+          <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ release.gid ]) %]">
+            [% release.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+          </a>
+        </li>
         <li>[% link_release(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
       [% ELSE %]

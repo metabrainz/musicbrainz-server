@@ -1,9 +1,3 @@
-[% BLOCK add_annotation_link %]
-<a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
-    [% annotation.text ? l('Edit annotation') : l('Add an annotation') %]
-</a>
-[% END %]
-
 <div class="annotation" id="annotation_box">
     [%- IF annotation.text -%]
         <div class="body" id="annotation_box_body">
@@ -30,14 +24,6 @@
                     [%~ l('View annotation history') ~%]
                   </a>.
                 [% END %]
-            </div>
-
-            <div class="options">
-                [%- IF c.user_exists -%]
-                    [% PROCESS add_annotation_link %]
-                [%- ELSE -%]
-                    [% l('Please {uri|log in} to edit this annotation.', {uri => login_url()}) %]
-                [%- END -%]
             </div>
         </div>
     [%- ELSE -%]
