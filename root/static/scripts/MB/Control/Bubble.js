@@ -169,7 +169,18 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
         self.container.css ('width', width);
         self.container.css ('min-height', height);
         self.content.css ('min-height', height);
+        self.content.css ('width', '100%');
         self.container.offset ({ 'top': top, 'left': left });
+
+        var pageBottom = self.page.offset ().top + self.page.outerHeight ();
+        var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
+
+         if (pageBottom < bubbleBottom)
+         {
+             var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
+
+             self.page.css ('min-height', newHeight);
+         }
     };
 
     var tail = function () {
@@ -215,6 +226,8 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
         {
             self.target.text (MB.text.Change);
         }
+
+        self.page.css ('min-height', '');
     };
 
     var initialize = function () {
@@ -250,6 +263,8 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
             });
         }
     };
+
+    self.page = $('#page');
 
     self.initialize = initialize;
     self.move = move;
