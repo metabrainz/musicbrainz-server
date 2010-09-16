@@ -102,6 +102,6 @@ a.selectFilterNext:hover {
     color: #666;
 }
 
-table.tbl + div.searchform {
+div.searchform {
     margin-top: 2em;
 }
