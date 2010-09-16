@@ -1,16 +1,16 @@
-package MusicBrainz::Server::Edit::Release::AddBarcodes;
+package MusicBrainz::Server::Edit::Release::EditBarcodes;
 use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_BARCODES );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Add barcodes' }
-sub edit_type { $EDIT_RELEASE_ADD_BARCODES }
+sub edit_name { 'Edit barcodes' }
+sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }
 
 has '+data' => (
     isa => Dict[

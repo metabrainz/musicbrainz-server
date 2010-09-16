@@ -4,7 +4,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_BARCODES );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
@@ -981,7 +981,7 @@ sub release_submit : Private
         $c->model('Edit')->create(
             editor_id => $c->user->id,
             privileges => $c->user->privileges,
-            edit_type => $EDIT_RELEASE_ADD_BARCODES,
+            edit_type => $EDIT_RELEASE_EDIT_BARCODES,
             submissions => [ map +{
                 release_id => $gid_map{ $_->{release} },
                 barcode => $_->{barcode}
