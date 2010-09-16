@@ -1,5 +1,3 @@
-[% USE UserDate %]
-
 [% WRAPPER 'components/with-pager.tt' %]
 <form action="[% c.uri_for_action(c.namespace _ '/annotation_diff', [ entity.gid ]) %]">
   <table class="tbl">
