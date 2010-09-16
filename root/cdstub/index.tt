@@ -70,7 +70,7 @@
                     <td>[% track.sequence %]</td>
                     <td>[% track.title %]</td>
                     [%- IF show_artists -%]
-                        <td>[% artist_credit(track.artist_credit) %]</td>
+                        <td>[% track.artist %]</td>
                     [%- END -%]
                     <td>[% track.length | format_length %]</td>
                 </tr>
@@ -99,7 +99,10 @@
           </tr>
           <tr>
             <th>[%- l('Full TOC:') -%]</th>
-            <td>1 [% cdstubtoc.track_count %] [% FOREACH i IN cdstubtoc.track_offset; i _ ' '; END %]</td>
+            <td>
+                1 [% cdstubtoc.track_count %] [% cdstubtoc.leadout_offset %]
+                [% FOREACH i IN cdstubtoc.track_offset; i _ ' '; END %]
+            </td>
           </tr>
         </table>
 
