@@ -9,6 +9,5 @@
 /Makefile
 /META.yml
 /po/*.mo
-/root/static/wikidocs/index.txt
 *~
 .#*

@@ -18,9 +18,9 @@
         Or even better, sign up for a recurring donation every three months to not
         have to think about or see this nag again.') %]
   </p>
-  <div class="naglinkpanel">
+  <p class="naglinkpanel">
      <a href="http://metabrainz.org/donate" class="naglink">[% l('Make a donation now!') %]</a><br />
      <a href="[% c.uri_for_action("/account/donation") %]">[% l('I just donated! Why am I seeing this?') %]</a>
-  </div>
+  </p>
 </div>
 [% END %]

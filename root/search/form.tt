@@ -51,7 +51,7 @@
 
 <div class="searchinfo">
     <strong>
-        [% l('Please Note:') %]
+        [% l('Please note:') %]
     </strong>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('Search indexes are updated every 6 hours, use the direct database search if you require up to the minute correct results.')) %]

@@ -137,7 +137,7 @@
         });
         mediumImporter.addDropTarget('table#mediums');
 
-        var loading = $(MB.html.img({ src: '/static/images/loading-small.gif' })).hide();
+        var loading = $(MB.html.img({ src: '/static/images/icons/loading-small.gif' })).hide();
         $('#lookup-release')
             .click(function(ev) {
                 ev.preventDefault();
