@@ -1,17 +1,28 @@
 [% IF show_preview %]
     <h3>[% l('Preview') %]</h3>
     [% preview | format_wikitext %]
+    <h3>[% l('Edit annotation') %]</h3>
 [% END %]
 
-<h3>[% l('Annotation') %]</h3>
 <form action="[% c.uri.path %]" method="post">
-    <p>[% l('Please do <strong>not</strong> post any copyrighted texts here! Please note that any content submitted
-             to MusicBrainz will be made available to the public under {open|open licenses}.',
+    <p>[% l('Please note that any content submitted to MusicBrainz will be made available
+             to the public under {open|open licenses}, do not submit
+             any copyrighted text here! ',
              { open => doc_link('MusicBrainz_License') }) %]</p>
 
     [% USE r = FormRenderer(form) %]
-    [% r.textarea('text', { cols => 80, rows => 10 }) %]
-    [% form_row_text(r, 'changelog', l('Change log:')) %]
+
+    [% WRAPPER form_row %]
+      [% r.label('text', l('Annotation:')) %]
+      [% r.textarea('text', { cols => 80, rows => 10 }) %]
+      [% field_errors(r.form, 'text') %]
+    [% END %]
+
+    [% WRAPPER form_row %]
+      [% r.label('changelog', l('Change log:')) %]
+      [% r.text('changelog', { size => 50 }) %]
+      [% field_errors(r.form, 'changelog') %]
+    [% END %]
 
     [% BLOCK preview_button %]
       <button type="submit" name="[% form.field('preview').html_name %]" value="preview" >[% l('Preview') %]</button>
