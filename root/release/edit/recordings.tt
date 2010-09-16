@@ -120,6 +120,9 @@
     [% END %]
 
 
+    [% FOR preview_medium=preview_mediums.fields %]
+    [% medium_idx = loop.index %]
+
     <div class="documentation">
     [% FOR assoc=preview_medium.field('associations').fields %]
       [% track_idx = loop.index %]
@@ -184,6 +187,7 @@
     [% END %]
 
     </div>
+    [% END %]
 
   </div>
 [%- END -%]
