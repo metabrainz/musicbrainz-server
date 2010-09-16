@@ -18,9 +18,7 @@
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
-[%- MACRO wiki_link(server, id) BLOCK -%]
-http://[%- server -%]/[%- id -%]"
-[%- END -%]
+
 [%- MACRO l(text, args) BLOCK;
     c.gettext(text, args);
 END; -%]
@@ -83,6 +81,7 @@ END -%]
     [%- END -%]
 [%- END -%]
 
+
 [%- MACRO link_entity(entity, action, text) BLOCK;
     type = "$entity";
     IF    type.search('Entity::Artist='); link_artist(entity, action, text);
@@ -124,6 +123,8 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF label.edits_pending AND action == 'show';
 END -%]
+
+
 
 [%- MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
@@ -319,7 +320,7 @@ END %]
 END -%]
 
 [%#- See /lib/MusicBrainz/Server/Edit/Utils.pm for status names -%]
-[% MACRO edit_status_description(edit) SWITCH edit.status;
+[%- MACRO edit_status_description(edit) SWITCH edit.status;
         CASE 1; l('This edit is open and awaiting votes before it can be applied.');
         CASE 2; l('This edit has been successfully applied.');
         CASE 3; l('This edit failed because there were more "no" votes than "yes" votes.');
@@ -334,7 +335,7 @@ END -%]
                    did not receive any votes.');
         CASE 8; l('This edit was recently cancelled.');
         CASE 9; l('This edit was cancelled.');
-END %]
+END -%]
 
 [% MACRO expiration_time(datetime) BLOCK %]
     [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
@@ -394,5 +395,8 @@ END %]
             [%- ELSIF !relationship.link.end_date.is_empty -%]
                 [% l('until {date}', { date => relationship.link.end_date.format }) %]
             [%- END -%]
-            [%- IF relationship.edits_pending %]</span>[% END -%]
 [% END %]
+
+[%- MACRO wiki_link(server, id) BLOCK -%]
+http://[%- server -%]/[%- id -%]"
+[%- END -%]
