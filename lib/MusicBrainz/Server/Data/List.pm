@@ -8,6 +8,7 @@ use MusicBrainz::Server::Entity::List;
 use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     placeholders
+    query_to_list
     query_to_list_limited
 );
 use List::MoreUtils qw( zip );
@@ -138,6 +139,19 @@ sub get_first_list
     my ($self, $editor_id) = @_;
     my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
     return $self->sql->select_single_value($query, $editor_id);
+}
+
+sub find_all_by_editor
+{
+    my ($self, $id) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE editor=? ";
+
+    $query .= "ORDER BY musicbrainz_collate(name)";
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $id);
 }
 
 sub insert
