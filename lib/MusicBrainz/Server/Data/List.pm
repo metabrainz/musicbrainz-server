@@ -1,8 +1,12 @@
 package MusicBrainz::Server::Data::List;
 
 use Moose;
+
+use Carp;
 use Sql;
+use MusicBrainz::Server::Entity::List;
 use MusicBrainz::Server::Data::Utils qw(
+    generate_gid
     placeholders
     query_to_list_limited
 );
@@ -39,16 +43,6 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::List';
-}
-
-sub create_list
-{
-    my ($self, $user) = @_;
-
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("INSERT INTO " . $self->_table . "
-                                    (editor)
-                                    VALUES (?) RETURNING id", $user->id);
 }
 
 sub add_releases_to_list
@@ -144,6 +138,58 @@ sub get_first_list
     my ($self, $editor_id) = @_;
     my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
     return $self->sql->select_single_value($query, $editor_id);
+}
+
+sub insert
+{
+    my ($self, $editor_id, @lists) = @_;
+    my $class = $self->_entity_class;
+    my @created;
+    for my $list (@lists) {
+        my $row = $self->_hash_to_row($list);
+        $row->{editor} = $editor_id;
+        $row->{gid} = $list->{gid} || generate_gid();
+
+        push @created, $class->new(
+            id => $self->sql->insert_row('list', $row, 'id'),
+            gid => $row->{gid}
+        );
+    }
+    return @created > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $list_id, $update) = @_;
+    croak '$list_id must be present and > 0' unless $list_id > 0;
+    my $row = $self->_hash_to_row($update);
+    $self->sql->auto_commit;
+    $self->sql->update_row('list', $row, { id => $list_id });
+}
+
+sub delete
+{
+    my ($self, @list_ids) = @_;
+
+    $self->sql->auto_commit;
+    $self->sql->do('DELETE FROM list_release
+                    WHERE list IN (' . placeholders(@list_ids) . ')', @list_ids);
+    $self->sql->auto_commit;
+    $self->sql->do('DELETE FROM list
+                    WHERE id IN (' . placeholders(@list_ids) . ')', @list_ids);
+    return;
+}
+
+sub _hash_to_row
+{
+    my ($self, $values) = @_;
+
+    my %row = (
+        name => $values->{name},
+        public => $values->{public}
+    );
+
+    return \%row;
 }
 
 __PACKAGE__->meta->make_immutable;

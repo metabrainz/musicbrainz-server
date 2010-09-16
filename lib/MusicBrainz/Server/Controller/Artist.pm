@@ -459,7 +459,7 @@ around $_ => sub {
         $c->detach;
     }
     else {
-        $self->$orig(@_);
+        $self->$orig($c);
     }
 } for qw( edit merge );
 

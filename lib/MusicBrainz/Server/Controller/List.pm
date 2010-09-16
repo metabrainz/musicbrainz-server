@@ -69,8 +69,70 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         list => $list,
         order => $order,
-        releases => $releases
+        releases => $releases,
+        template => 'list/index.tt'
     );
+}
+
+sub _form_to_hash
+{
+    my ($self, $form) = @_;
+
+    return map { $form->field($_)->name => $form->field($_)->value } $form->edit_field_names;
+}
+
+sub create : Local RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form( form => 'List' );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my %insert = $self->_form_to_hash($form);
+
+        my $list = $c->model('List')->insert($c->user->id, \%insert);
+
+        $c->response->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+    }
+}
+
+sub edit : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $list = $c->stash->{list};
+
+    my $user = $list->editor;
+    $c->detach('/error_404') if ($c->user->id != $user->id);
+
+    my $form = $c->form( form => 'List', init_object => $list );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my %update = $self->_form_to_hash($form);
+
+        $c->model('List')->update($list->id, \%update);
+
+        $c->response->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+    }
+}
+
+sub delete : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $list = $c->stash->{list};
+
+    my $user = $list->editor;
+    $c->detach('/error_404') if ($c->user->id != $user->id);
+
+    if ($c->form_posted) {
+        $c->model('List')->delete($list->id);
+
+        $c->response->redirect(
+            $c->uri_for_action('/user/lists', [ $c->user->name ]));
+    }
 }
 
 1;

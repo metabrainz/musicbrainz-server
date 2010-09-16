@@ -1,0 +1,16 @@
+[%- info_links = [
+    ['index', link_list(list, 'show', l('Overview'))]
+] -%]
+
+[%- IF c.user_exists && list.editor.id == c.user.id -%]
+    [%- info_links.push(['edit', link_list(list, 'edit', l('Edit'))]) -%]
+[%- END -%]
+
+<div class="listheader">
+    <h1>[% link_list(list) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> [% l('List')%]
+    </p>
+</div>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]
