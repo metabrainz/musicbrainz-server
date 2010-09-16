@@ -4,6 +4,13 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use aliased 'MusicBrainz::Server::Buffer';
+
+use Function::Parameters 'f';
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_EDIT_BARCODES
+    $EDIT_RECORDING_ADD_PUIDS
+);
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::Validator;
@@ -13,6 +20,8 @@ use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
 use Data::OptList;
 use Scalar::Util qw( looks_like_number );
+use TryCatch;
+use XML::XPath;
 
 Readonly our $MAX_ITEMS => 25;
 
@@ -72,6 +81,9 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings) ]
      },
+     recording => {
+                         method => 'POST'
+     },
      release => {
                          method   => 'GET',
                          required => [ qw(query) ],
@@ -88,6 +100,10 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists labels recordings release-groups aliases
                                           tags user-tags ratings user-ratings
                                           artist-credits discids media _relations) ]
+     },
+     release => {
+                         method   => 'POST',
+                         optional => [ qw( client ) ],
      },
      "release-group" => {
                          method   => 'GET',
@@ -933,8 +949,58 @@ sub release_search : Chained('root') PathPart('release') Args(0)
 {
     my ($self, $c) = @_;
 
+    $c->detach('release_submit') if $c->request->method eq 'POST';
     $c->detach('release_browse') if ($c->stash->{linked});
     $self->_search ($c, 'release');
+}
+
+sub release_submit : Private
+{
+    my ($self, $c) = @_;
+
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @submit;
+    for my $node ($xp->find('/metadata/release-list/release')->get_nodelist) {
+        my $id = $node->getAttribute('id') or
+            _error ($c, "All releases must have an MBID present");
+
+        _error($c, "$id is not a valid MBID")
+            unless MusicBrainz::Server::Validation::IsGUID($id);
+
+        my $barcode = $node->find('barcode')->string_value;
+
+        _error($c, "$barcode is not a valid barcode")
+            unless MusicBrainz::Server::Validation::IsValidEAN($barcode);
+
+        push @submit, { release => $id, barcode => $barcode };
+    }
+
+    my %releases = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
+    my %gid_map = map { $_->gid => $_->id } values %releases;
+
+    for my $submission (@submit) {
+        my $gid = $submission->{release};
+        _error($c, "$gid does not match any existing releases")
+            unless exists $gid_map{$gid};
+    }
+
+    try {
+        $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            privileges => $c->user->privileges,
+            edit_type => $EDIT_RELEASE_EDIT_BARCODES,
+            submissions => [ map +{
+                release_id => $gid_map{ $_->{release} },
+                barcode => $_->{barcode}
+            }, @submit ]
+        );
+    }
+    catch ($e) {
+        _error($c, "This edit could not be successfully created: $e");
+    }
+
+    $c->detach('success');
 }
 
 sub recording_toplevel
@@ -1050,10 +1116,76 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
 {
     my ($self, $c) = @_;
 
+    $c->detach('recording_submit') if $c->req->method eq 'POST';
     $c->detach('recording_browse') if ($c->stash->{linked});
 
     my $result = xml_search('recording', $c->stash->{args});
     $self->_search ($c, 'recording');
+}
+
+sub recording_submit : Private
+{
+    my ($self, $c) = @_;
+
+    my $client = $c->req->query_params->{client}
+        or _error($c, 'You must provide information about your client, by the client query parameter');
+
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my %submit;
+    for my $node ($xp->find('/metadata/recording-list/recording')->get_nodelist)
+    {
+        my $id = $node->getAttribute('id') or
+            _error ($c, "All releases must have an MBID present");
+
+        _error($c, "$id is not a valid MBID")
+            unless MusicBrainz::Server::Validation::IsGUID($id);
+
+        my @puids = $node->find('puid-list/puid')->get_nodelist;
+        for my $puid_node (@puids) {
+            my $puid = $puid_node->getAttribute('id');
+            _error($c, "$puid is not a valid PUID")
+                unless MusicBrainz::Server::Validation::IsGUID($puid);
+
+            $submit{ $id } ||= [];
+            push @{ $submit{$id} }, $puid;
+        }
+    }
+
+    my %recordings_by_id = %{ $c->model('Recording')->get_by_gids(keys %submit) };
+    my %recordings_by_gid = map { $_->gid => $_->id } values %recordings_by_id;
+
+    my @submissions;
+    for my $recording_gid (keys %submit) {
+        _error($c, "$recording_gid does not match any known recordings")
+            unless exists $recordings_by_gid{$recording_gid};
+    }
+
+    my $buffer = Buffer->new(
+        limit => 100,
+        on_full => f($contents) {
+            my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
+            return unless @$new_rows;
+
+            $c->model('Edit')->create(
+                edit_type      => $EDIT_RECORDING_ADD_PUIDS,
+                editor_id      => $c->user->id,
+                client_version => $client,
+                puids          => $new_rows
+            );
+        }
+    );
+
+    $buffer->flush_on_complete(sub {
+        for my $recording_gid (keys %submit) {
+            $buffer->add_items(map +{
+                recording_id => $recordings_by_gid{$recording_gid},
+                puid         => $_
+            }, @{ $submit{$recording_gid} });
+        }
+    });
+
+    $c->detach('success');
 }
 
 sub label_toplevel
@@ -1407,7 +1539,6 @@ sub rating_submit : Private
 
     $self->_validate_post ($c);
 
-    use XML::XPath;
     my $xp = XML::XPath->new( xml => $c->request->body );
 
     my @submit;

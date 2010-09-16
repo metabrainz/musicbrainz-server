@@ -1,12 +1,26 @@
-[% USE Math %]
-[% IF tags.max - 1 %]
-    [% multiplier = 150.0 / (tags.max - 1) %]
-[% ELSE %]
-    [% multiplier = 150.0 %]
+[% BLOCK tag_size %]
+    [%- percent = tag.count / tags.max * 100 -%]
+    [%- IF percent < 1 -%]
+        [%- 'tag1' -%]
+    [%- ELSIF percent < 3 -%]
+        [%- 'tag2' -%]
+    [%- ELSIF percent < 6 -%]
+        [%- 'tag3' -%]
+    [%- ELSIF percent < 15 -%]
+        [%- 'tag4' -%]
+    [%- ELSIF percent < 25 -%]
+        [%- 'tag5' -%]
+    [%- ELSIF percent < 50 -%]
+        [%- 'tag6' -%]
+    [%- ELSE -%]
+        [%- 'tag7' -%]
+    [%- END -%]
 [% END %]
-[% FOR tag=tags.tags %]
-    <span class="tag" style="padding: 0 0.5em; font-size: [% Math.int (multiplier * (tag.count - 1) + 100) %]%" >
-        [%- link_tag(tag.tag) -%]
-    </span>
-[% END %]
-  
+
+<ul class="tag-cloud">
+    [% FOR tag=tags.tags %]
+        <li class="[%- PROCESS tag_size -%]">
+            [%- link_tag(tag.tag) -%]
+        </li>
+    [% END %]
+</ul>

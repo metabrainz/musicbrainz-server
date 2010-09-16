@@ -10,7 +10,7 @@
 
     <p>
         [% l('Don\'t have an account? {uri|Create one now}!',
-            { uri => c.uri_for_action('/user/register') }) %]
+            { uri => c.uri_for_action('/account/register') }) %]
     </p>
 
     [%- USE r = FormRenderer(login_form) -%]
@@ -35,7 +35,7 @@
 
     <p>
         [% l('Forgot your {link1|username} or {link2|password}?',
-            { link1 => c.uri_for_action('/user/lost_username'),
-              link2 => c.uri_for_action('/user/lost_password') }) %]
+            { link1 => c.uri_for_action('/account/lost_username'),
+              link2 => c.uri_for_action('/account/lost_password') }) %]
     </p>
 [% END %]

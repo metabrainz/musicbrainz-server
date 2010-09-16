@@ -182,6 +182,9 @@ sub load_entities
             $rel->entity1($obj) if defined($obj);
         }
     }
+
+    my @load_ac = grep { $_->meta->find_method_by_name('artist_credit') } map { values %$_ } values %data_by_type;
+    $self->c->model('ArtistCredit')->load(@load_ac);
 }
 
 sub load_subset

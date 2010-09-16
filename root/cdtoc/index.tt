@@ -58,50 +58,6 @@
     </table>
 
     <h2>[% l('Attached to releases') %]</h2>
-
-<table class="tbl">
-    <thead>
-        <tr>
-            <th>[% l('Position') %]</th>
-            <th>[% l('Format') %]</th>
-            <th>[% l('Title') %]</th>
-            <th>[% l('Artist') %]</th>
-            <th>[% l('Date') %]</th>
-            <th>[% l('Country') %]</th>
-            <th>[% l('Label') %]</th>
-            <th>[% l('Catalog#') %]</th>
-        </tr>
-    </thead>
-    <tbody>
-        [%- FOR medium_cdtoc IN medium_cdtocs -%]
-        [%- medium=medium_cdtoc.medium -%]
-        [%- release=medium.release -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td>[% medium.position %]/[% release.medium_count %]</td>
-            <td>[% medium.format_name or "-" %]</td>
-            <td>[% link_release(release) %]</td>
-            <td>[% artist_credit(release.artist_credit) %]</td>
-            <td>[% release.date.format %]</td>
-            <td>
-                [%- IF release.country -%]
-                <abbr title="[% release.country.name | html %]">
-                    [% release.country.iso_code | html %]
-                </abbr>
-                [%- END -%]
-            </td>
-            <td>[%-
-                labels = [];
-                labels.push(link_label(label.label)) FOR label=release.labels;
-                labels.join(', ')
-            -%]</td>
-            <td>[%-
-                catnos = [];
-                catnos.push(label.catalog_number) FOR label=release.labels;
-                catnos.join(', ')
-            -%]</td>
-        </tr>
-        [%- END -%]
-    </tbody>
-</table>
+    [% INCLUDE 'cdtoc/list.tt' %]
 
 [%- END -%]
