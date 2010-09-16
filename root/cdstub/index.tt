@@ -99,7 +99,7 @@
           </tr>
           <tr>
             <th>[%- l('Full TOC:') -%]</th>
-            <td>[% FOREACH i IN cdstubtoc.track_offset; i _ ' '; END %]</td>
+            <td>1 [% cdstubtoc.track_count %] [% FOREACH i IN cdstubtoc.track_offset; i _ ' '; END %]</td>
           </tr>
         </table>
 
