@@ -111,14 +111,8 @@
 
       </fieldset>
 
-      <div class="buttons ui-helper-clearfix">
-        [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-        [% r.submit ('previous', l('« Previous')) %]
-        [% r.submit ('next', l('Next »')) %]
-      </div>
     </div>
     [% END %]
-
 
     [% FOR preview_medium=preview_mediums.fields %]
     [% medium_idx = loop.index %]
@@ -188,6 +182,14 @@
 
     </div>
     [% END %]
+
+    <div style="clear: both;">
+      <div class="buttons ui-helper-clearfix">
+        [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+        [% r.submit ('previous', l('« Previous')) %]
+        [% r.submit ('next', l('Next »')) %]
+      </div>
+    </div>
 
   </div>
 [%- END -%]
