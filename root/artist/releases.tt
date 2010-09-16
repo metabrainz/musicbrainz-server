@@ -1,6 +1,6 @@
-[%- WRAPPER 'artist/layout.tt' title='Releases' page='releases' -%]
+[%- WRAPPER 'artist/layout.tt' title=l('Releases') page='releases' -%]
     [%- IF releases.size -%]
-        [%- INCLUDE 'release_group/releases-list.tt' WRAPPER 'components/with-pager.tt' -%]
+        [%- INCLUDE 'release_group/releases-list.tt' rdfa_made=1 WRAPPER 'components/with-pager.tt' -%]
     [%- ELSE -%]
         <p>[%- l('No releases found') -%]</p>
     [%- END -%]

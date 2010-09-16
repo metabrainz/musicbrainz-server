@@ -18,6 +18,8 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $opts) = @_;
 
+    $self->attributes->{'ext:score'} = $opts->{score} if $opts && exists $opts->{score};
+
     my @type_status;
     push @type_status, $entity->release_group->type->name
         if $entity->release_group && $entity->release_group->type;

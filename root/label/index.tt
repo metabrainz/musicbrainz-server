@@ -18,17 +18,17 @@
                         [%- END -%]
                     </tr>
                 </thead>
-                <tbody>
+                <tbody [% rdfa_label_ns(label) %]>
                     [%- FOREACH release=releases %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                        <td>[% link_release(release.release) %]</td>
-                        <td>[% artist_credit(release.release.artist_credit) %]</td>
-                        <td>[% release.catalog_number | html %]</td>
-                        <td>[% release.release.date.format %]</td>
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release.release) %]  about="[% rdfa_release_curi(release.release) %]">
+                        <td>[% rdfa_label_release_link(release.release) %]</td>
+                        <td>[% rdfa_artist_credit(release.release.artist_credit) %]</td>
+                        <td>[% rdfa_release_catno(release.catalog_number) %]</td>
+                        <td>[% rdfa_release_event_date(release.release) %]</td>
                         <td>
                             [%- IF release.release.country -%]
                             <abbr title="[% release.release.country.name | html %]">
-                                [% release.release.country.iso_code | html %]
+                                [% rdfa_release_country_abbr(release.release) %]
                             </abbr>
                             [%- END -%]
                         </td>
