@@ -1,5 +1,6 @@
-<div class="annotation" id="annotation_box">
-    [%- IF annotation.text -%]
+[%- IF annotation.text -%]
+    <h2>[% l('Annotation') %]</h2>
+    <div class="annotation" id="annotation_box">
         <div class="body" id="annotation_box_body">
             [% IF full_annotation %]
                 [% annotation.text | format_wikitext  %]
@@ -16,28 +17,13 @@
                 [% l('Summary:') %] [% annotation.change_log || l('(no change log)') %]
             </div>
         [%- END -%]
-        <div class="bar">
-            <div class="details">
-                [% l('Annotation last modified on {last_modified}.', { last_modified => UserDate.format(annotation.creation_date) }) %]
-                [% IF number_of_revisions != 1 %]
-                  <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
-                    [%~ l('View annotation history') ~%]
-                  </a>.
-                [% END %]
-            </div>
-        </div>
-    [%- ELSE -%]
-    <div class="bar" style="border-top: none">
-        <div class="details">
-            [% no_annotation %]
-        </div>
-        <div class="options">
-            [%- IF c.user_exists -%]
-                [% PROCESS add_annotation_link %]
-            [%- ELSE -%]
-                [% l('Please {uri|log in} to add an annotation.', {uri => login_url() }) %]
-            [%- END -%]
+        <div class="annotation-details">
+            [% l('Annotation last modified on {last_modified}.', { last_modified => UserDate.format(annotation.creation_date) }) %]
+            [% IF number_of_revisions != 1 %]
+              <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
+                [%~ l('View annotation history') ~%]
+              </a>.
+            [% END %]
         </div>
     </div>
-    [%- END -%]
-</div>
+[%- END -%]

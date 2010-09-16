@@ -2,5 +2,4 @@
     annotation = recording.latest_annotation
     gid = recording.gid
     type = 'recording'
-    no_annotation = l('This recording does not have an annotation.')
 -%]

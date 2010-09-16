@@ -1,5 +1,4 @@
 [%- WRAPPER 'release/layout.tt' page='index' -%]
-    <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
     <h2>Track listing</h2>

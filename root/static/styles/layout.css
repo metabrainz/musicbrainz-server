@@ -366,7 +366,8 @@ span.mp {
     background: #FD9 !important;
 }
 
-.lastupdate {
+.lastupdate,
+.annotation-details {
     font-size: 90%;
     color: #777;
     font-style: italic;
