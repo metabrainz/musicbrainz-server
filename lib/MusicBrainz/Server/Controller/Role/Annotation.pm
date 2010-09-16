@@ -49,10 +49,20 @@ after 'show' => sub
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
-    my $type = $self->{model};
+    my $model = $self->{model};
 
-    $c->stash->{type} = model_to_type($type);
-    $c->model($type)->annotation->load_latest($entity);
+    my $annotation_model = $c->model($model)->annotation;
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
+
+    $c->stash(
+        type => model_to_type($model),
+        number_of_revisions => scalar @$annotations,
+    );
+    $c->model($model)->annotation->load_latest($entity);
 };
 
 sub edit_annotation : Chained('load') PathPart RequireAuth Edit
@@ -106,7 +116,8 @@ sub annotation_history : Chained('load') PathPart('annotations')
     my $annotations = $self->_load_paged(
         $c, sub {
             $annotation_model->get_history($entity->id, @_);
-        });
+        }
+    );
 
     $c->model('Editor')->load(@$annotations);
     $c->stash( annotations => $annotations );

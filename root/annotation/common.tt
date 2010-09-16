@@ -24,10 +24,12 @@
         [%- END -%]
         <div class="bar">
             <div class="details">
-                [% l('Annotation last modified at {last_modified}.', { last_modified => UserDate.format(annotation.creation_date) }) %]
-                <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
-                  [% l('View annotation history') %]
-                </a>
+                [% l('Annotation last modified on {last_modified}.', { last_modified => UserDate.format(annotation.creation_date) }) %]
+                [% IF number_of_revisions != 1 %]
+                  <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
+                    [%~ l('View annotation history') ~%]
+                  </a>.
+                [% END %]
             </div>
 
             <div class="options">
