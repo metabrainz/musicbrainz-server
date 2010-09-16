@@ -21,6 +21,8 @@ __PACKAGE__->config(
 use MusicBrainz::Server::Controller::Role::Tag;
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_CREATE
+    $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
@@ -262,17 +264,20 @@ sub _serialize_tracklists
 
     my $tracklists = [];
 
-    for ($release->all_mediums)
+    if ($release)
     {
-        my $tracklist = $_->tracklist;
-
-        my $tracks = [];
-        for my $track (@{ $tracklist->tracks })
+        for ($release->all_mediums)
         {
-            push @$tracks, $self->_serialize_track ($track);
-        }
+            my $tracklist = $_->tracklist;
 
-        push @$tracklists, $tracks;
+            my $tracks = [];
+            for my $track (@{ $tracklist->tracks })
+            {
+                push @$tracks, $self->_serialize_track ($track);
+            }
+
+            push @$tracklists, $tracks;
+        }
     }
 
     # It seems JSON libraries encode things to UTF-8, but the json
@@ -280,6 +285,178 @@ sub _serialize_tracklists
     # to UTF-8.  So this string has to be decoded back to the internal
     # perl unicode :(.  --warp.
     return decode ("UTF-8", JSON::Any->objToJson ($tracklists));
+}
+
+
+sub add : Chained('base') RequireAuth Args(0)
+{
+    my ($self, $c) = @_;
+
+    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
+
+    $wizard->process;
+
+    if ($wizard->cancelled)
+    {
+        # FIXME: detach to artist, label or release group page if started from there.
+        $c->detach ();
+    }
+
+    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'tracklist')
+    {
+        # FIXME: empty serialized tracklist
+        $c->stash( serialized_tracklists => $self->_serialize_tracklists () );
+    }
+
+    if ($wizard->submitted)
+    {
+        # The user is done with the wizard and wants to submit the new data.
+        # So let's create some edits :)
+
+        my $data = $wizard->value;
+
+        # FIXME: some of this is duplicated from 'edit', should be refactored.
+
+        my @fields;
+        my %args;
+        my $editnote;
+        my $edit;
+
+        # add release group
+        # ----------------------------------------
+
+        unless ($data->{release_group_id})
+        {
+            @fields = qw( name artist_credit type_id );
+            %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+            $editnote = $data->{'editnote'};
+            $edit = $self->_create_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+        }
+
+        # add release
+        # ----------------------------------------
+
+        @fields = qw( name comment packaging_id status_id script_id language_id
+                         country_id barcode artist_credit date );
+        %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+        $args{release_group_id} = $edit ? $edit->entity->id : $data->{release_group_id};
+
+        $edit = $self->_create_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
+
+        my $release_id = $edit->entity->id;
+        my $gid = $edit->entity->gid;
+
+        # release labels edit
+        # ----------------------------------------
+
+        my $max = scalar @{ $data->{'labels'} } - 1;
+
+        for (0..$max)
+        {
+            my $new_label = $data->{'labels'}->[$_];
+
+            # Add ReleaseLabel
+            # FIXME: There doesn't seem to be an add release label edit. --warp.
+            warn "FIXME: ADD RELEASE LABEL EDIT";
+        }
+
+        # medium / tracklist / track edits
+        # ----------------------------------------
+
+        for my $medium (@{ $data->{'mediums'} })
+        {
+            my @tracks = map {
+                {
+                    name => $_->{name},
+                    length => $_->{length},
+                    artist_credit => $_->{artist_credit},
+                    position => $_->{position},
+                }
+            } @{ $medium->{'tracklist'}->{'tracks'} };
+
+            # We have some tracks but no tracklist ID - so create a new tracklist
+            my $create_tl = $self->_create_edit(
+                $c, $EDIT_TRACKLIST_CREATE, $editnote, tracks => \@tracks);
+
+            my $tracklist_id = $create_tl->tracklist_id;
+
+            my $opts = {
+                position => $medium->{'position'},
+                tracklist_id => $tracklist_id,
+                release_id => $release_id
+            };
+
+            $opts->{name} = $medium->{'name'} if $medium->{'name'};
+            $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
+
+            # Add medium
+            $self->_create_edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
+        }
+
+        $c->response->redirect($c->uri_for_action('/release/show', [ $gid ]));
+        $c->detach;
+    }
+    elsif ($wizard->loading)
+    {
+        # There was no existing wizard, provide the wizard with
+        # the $release to initialize the forms.
+
+        my $rg_gid = $c->req->query_params->{'release-group'};
+        my $label_gid = $c->req->query_params->{'label'};
+        my $artist_gid = $c->req->query_params->{'artist'};
+
+        my $release = MusicBrainz::Server::Entity::Release->new;
+        $release->add_medium (MusicBrainz::Server::Entity::Medium->new ( position => 1 ));
+
+        if ($rg_gid)
+        {
+            $c->detach () unless MusicBrainz::Server::Validation::IsGUID($rg_gid);
+            my $rg = $c->model('ReleaseGroup')->get_by_gid($rg_gid);
+            $c->detach () unless $rg;
+
+            $release->release_group_id ($rg->id);
+            $release->release_group ($rg);
+            $release->name ($rg->name);
+
+            $c->model('ArtistCredit')->load ($rg);
+
+            $release->artist_credit ($rg->artist_credit);
+        }
+        elsif ($label_gid)
+        {
+            # FIXME: label
+
+            $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
+            $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
+            $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
+        }
+        elsif ($artist_gid)
+        {
+            $c->detach () unless MusicBrainz::Server::Validation::IsGUID($artist_gid);
+            my $artist = $c->model('Artist')->get_by_gid($artist_gid);
+            $c->detach () unless $artist;
+
+            $release->artist_credit (
+                MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
+        }
+        else
+        {
+            $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
+            $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
+            $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
+        }
+
+
+        $wizard->render ($release);
+    }
+    else
+    {
+        # wizard processed correctly, it's not loading, cancelled or submitted.
+        # so all data is in the session and the wizard just needs to be rendered.
+        $wizard->render;
+    }
 }
 
 =head2 WRITE METHODS
@@ -347,7 +524,7 @@ sub edit : Chained('load') RequireAuth Edit
     if ($wizard->submitted)
     {
         # The user is done with the wizard and wants to submit the new data.
-        # So let's create an edit :)
+        # So let's create some edits :)
 
         my $data = $wizard->value;
 

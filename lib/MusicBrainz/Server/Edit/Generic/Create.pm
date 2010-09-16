@@ -56,6 +56,7 @@ sub insert
 sub reject
 {
     my $self = shift;
+
     $self->c->model($self->_create_model)->delete($self->entity_id);
 }
 
