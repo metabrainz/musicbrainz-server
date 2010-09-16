@@ -57,8 +57,6 @@ sub reject
 {
     my $self = shift;
 
-    warn "Edit::Generic::Create->reject ".$self->entity_id."\n";
-
     $self->c->model($self->_create_model)->delete($self->entity_id);
 }
 
