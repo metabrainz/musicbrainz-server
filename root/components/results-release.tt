@@ -1,4 +1,4 @@
-[% WRAPPER 'components/with-pager.tt' total=1 %]
+[% WRAPPER 'components/with-pager.tt' search=1 %]
 <table class="tbl">
     <thead>
         <tr>

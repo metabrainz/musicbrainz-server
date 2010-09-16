@@ -1,4 +1,9 @@
 [% INCLUDE "components/paginator.tt" %]
-[%- ln('Found {n} result', 'Found {n} results' , pager.total_entries, {n=pager.total_entries}) IF total -%]
+[% IF search || total %]
+    <p class="pageselector-results">
+        [%- ln('Found {n} result', 'Found {n} results' , pager.total_entries, { n=add_commas(pager.total_entries) } ) IF total -%]
+        [%- ln('Found {n} result for "{q}"', 'Found {n} results for "{q}"' , pager.total_entries, { n=add_commas(pager.total_entries), q => query }) IF search -%]
+    </p>
+[% END %]
 [% content %]
 [% INCLUDE "components/paginator.tt" %]

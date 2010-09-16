@@ -59,7 +59,10 @@ sub editor : Private
         $c->detach;
     }
 
-    $c->stash( template => 'search/editor-not-found.tt' );
+    $c->stash(
+        template => 'search/editor-not-found.tt',
+        query    => $query,
+    );
 }
 
 sub direct : Private
@@ -132,6 +135,7 @@ sub direct : Private
 
     $c->stash(
         template => sprintf ('search/results-%s.tt', $type),
+        query    => $query,
         results  => $results,
         type     => $type,
     );
