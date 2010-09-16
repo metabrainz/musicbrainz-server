@@ -49,17 +49,18 @@ method build_display_data ($loaded)
 {
     return {
         release => $loaded->{Release}{ $self->release_id },
-        medium_cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc_id} },
+        medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id },
     }
 }
 
 override 'insert' => sub {
     my ($self) = @_;
     my $cdtoc_id = $self->c->model('CDTOC')->find_or_insert($self->data->{cdtoc});
-    $self->c->model('MediumCDTOC')->insert({
+    my $medium_cdtoc = $self->c->model('MediumCDTOC')->insert({
         medium => $self->data->{medium_id},
         cdtoc => $cdtoc_id
     });
+    $self->entity_id($medium_cdtoc);
 };
 
 no Moose;
