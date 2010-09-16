@@ -90,5 +90,7 @@ ok( !$artist->has_age, "Do not calculate age for artists with negative years");
 ok(MusicBrainz::Server::Entity::Artist->new( id => $DARTIST_ID )->is_special_purpose);
 ok(MusicBrainz::Server::Entity::Artist->new( id => $VARTIST_ID )->is_special_purpose);
 ok(MusicBrainz::Server::Entity::Artist->new( gid => $VARTIST_GID )->is_special_purpose);
+ok(!MusicBrainz::Server::Entity::Artist->new( id => 5 )->is_special_purpose);
+ok(!MusicBrainz::Server::Entity::Artist->new( gid => '7527f6c2-d762-4b88-b5e2-9244f1e34c46' )->is_special_purpose);
 
 done_testing;
