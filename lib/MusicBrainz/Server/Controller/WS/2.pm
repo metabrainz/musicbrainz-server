@@ -1069,6 +1069,9 @@ sub recording_submit : Private
 {
     my ($self, $c) = @_;
 
+    my $client = $c->req->query_params->{client}
+        or _error($c, 'You must provide information about your client, by the client query parameter');
+
     my $xp = XML::XPath->new( xml => $c->request->body );
 
     my %submit;
@@ -1109,7 +1112,7 @@ sub recording_submit : Private
             $c->model('Edit')->create(
                 edit_type      => $EDIT_RECORDING_ADD_PUIDS,
                 editor_id      => $c->user->id,
-                client_version => "DUNNO",
+                client_version => $client,
                 puids          => $new_rows
             );
         }
