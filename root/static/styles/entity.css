@@ -84,3 +84,7 @@ p.subheader span { color: #999; }
 .annotation {
     margin-top: 1em;
 }
+
+.annotation-diff {
+    margin: 1em 0;
+}

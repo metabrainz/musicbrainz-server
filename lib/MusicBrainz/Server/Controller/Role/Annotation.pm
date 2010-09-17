@@ -138,13 +138,15 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences')
             is_positive_integer($new) &&
             $old != $new) {
         $c->stash(
-            message => 'The old and new annotation ids must be unique, positive integers'
+            message => 'The annotation IDs must be unique and positive integers.'
         );
         $c->detach('/error_400')
     }
 
     my $old_annotation = $annotation_model->get_by_id($old);
     my $new_annotation = $annotation_model->get_by_id($new);
+
+    $c->model('Editor')->load($new_annotation);
 
     $c->stash(
         old => $old_annotation,
