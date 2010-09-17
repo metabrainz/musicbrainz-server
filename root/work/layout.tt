@@ -1,4 +1,4 @@
-[% main_title = l('{type} {work} by {artist}', {
+[% main_title = l('{type} “{work}” by {artist}', {
     type => work.type_name or l('Work'),
     work => work.name,
     artist => artist_credit(work.artist_credit, plain => 1)
