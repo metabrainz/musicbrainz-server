@@ -38,6 +38,15 @@ after 'load' => sub
     }
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
+
+    $c->model('Relationship')->load_subset([ 'url' ], $rg);
+    my @favicons =
+        sort {
+            ($a->phrase cmp $b->phrase)
+            or
+            ($a->target->name cmp $b->target->name)
+        } $rg->all_relationships;
+    $c->stash->{favicons} = \@favicons;
 };
 
 sub show : Chained('load') PathPart('')

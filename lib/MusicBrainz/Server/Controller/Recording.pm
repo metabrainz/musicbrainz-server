@@ -55,6 +55,15 @@ after 'load' => sub
     my @isrcs = $c->model('ISRC')->find_by_recording($recording->id);
     $c->stash( isrcs => \@isrcs );
     $c->model('ArtistCredit')->load($recording);
+
+    $c->model('Relationship')->load_subset([ 'url' ], $recording);
+    my @favicons =
+        sort {
+            ($a->phrase cmp $b->phrase)
+            or
+            ($a->target->name cmp $b->target->name)
+        } $recording->all_relationships;
+    $c->stash->{favicons} = \@favicons;
 };
 
 sub _row_id_to_gid

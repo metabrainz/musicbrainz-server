@@ -84,6 +84,15 @@ after 'load' => sub
     if ($c->action->name ne 'show') {
         $c->model('ArtistCredit')->load($release);
     }
+
+    $c->model('Relationship')->load_subset([ 'url' ], $release);
+    my @favicons =
+        sort {
+            ($a->phrase cmp $b->phrase)
+            or
+            ($a->target->name cmp $b->target->name)
+        } $release->all_relationships;
+    $c->stash->{favicons} = \@favicons;
 };
 
 sub discids : Chained('load')

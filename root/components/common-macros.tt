@@ -397,6 +397,15 @@ END -%]
             [%- END -%]
 [% END %]
 
+[% MACRO display_favicon(relationship) BLOCK;
+# Regex taken from http://www.willmaster.com/blog/perl/extracting-domain-name-from-url.php
+    uri = relationship.entity1.url;
+    uri = uri.replace('^https?://(?:www\.)?','');
+    uri = uri.replace('/.*','');
+    uri = uri.replace('[\?\#\:].*','') %]
+<a href="[% relationship.entity1.url %]"><img src="http://[% uri %]/favicon.ico" width="24" height="24" /></a>
+[% END %]
+
 [%- MACRO wiki_link(server, id) BLOCK -%]
 http://[%- server -%]/[%- id -%]"
 [%- END -%]

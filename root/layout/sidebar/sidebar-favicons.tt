@@ -1,0 +1,11 @@
+[%- IF favicons.size -%]
+    <ul class="favicons">
+    [%- FOREACH favicon IN favicons -%]
+        <li>
+            [% display_favicon(favicon) %]
+        </li>
+    [%- END -%]
+    </ul>
+[%- ELSE -%]
+    <p>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</p>
+[%- END -%]
