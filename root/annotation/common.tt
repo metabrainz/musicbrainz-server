@@ -1,7 +1,7 @@
 [%- IF annotation.text -%]
     <h2>[% l('Annotation') %]</h2>
-    <div class="annotation" id="annotation_box">
-        <div class="body" id="annotation_box_body">
+    <div class="annotation">
+        <div class="annotation-body">
             [% IF full_annotation %]
                 [% annotation.text | format_wikitext  %]
             [% ELSE %]
@@ -12,17 +12,21 @@
                 [% END %]
             [% END %]
         </div>
-        [%- IF show_change_log -%]
-            <div class="bar">
-                [% l('Summary:') %] [% annotation.change_log || l('(no change log)') %]
-            </div>
+
+        [%- IF revision -%]
+            <strong>[% l('Changelog:') %]</strong> [% annotation.changelog || l('(no changelog)') %]
         [%- END -%]
+
         <div class="annotation-details">
-            [% l('Annotation last modified on {last_modified}.', { last_modified => UserDate.format(annotation.creation_date) }) %]
+            [% l('Annotation last modified by {user} on {date}.', {
+                  user => link_editor(annotation.editor),
+                  date => UserDate.format(annotation.creation_date),
+                }) %]
             [% IF number_of_revisions != 1 %]
+              <br />
               <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
                 [%~ l('View annotation history') ~%]
-              </a>.
+              </a>
             [% END %]
         </div>
     </div>

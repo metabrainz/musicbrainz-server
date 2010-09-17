@@ -23,6 +23,8 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     my $entity = $c->stash->{entity};
     my $annotation = $c->model($self->{model})->annotation->get_latest($entity->id);
 
+    $c->model('Editor')->load($annotation);
+
     $c->stash(
         annotation => $annotation,
         type       => model_to_type($self->{model}),
@@ -37,6 +39,8 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     my $entity = $c->stash->{entity};
     my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
         or $c->detach('/error_404');
+
+    $c->model('Editor')->load($annotation);
 
     $c->stash(
         annotation => $annotation,
