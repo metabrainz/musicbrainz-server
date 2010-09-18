@@ -397,13 +397,72 @@ END -%]
             [%- END -%]
 [% END %]
 
-[% MACRO display_favicon(relationship) BLOCK;
+[% MACRO favicon_site(relationship) BLOCK;
 # Regex taken from http://www.willmaster.com/blog/perl/extracting-domain-name-from-url.php
     uri = relationship.entity1.url;
     uri = uri.replace('^https?://(?:www\.)?','');
     uri = uri.replace('/.*','');
-    uri = uri.replace('[\?\#\:].*','') %]
-<a href="[% relationship.entity1.url %]"><img src="http://[% uri %]/favicon.ico" width="24" height="24" /></a>
+    uri = uri.replace('[\?\#\:].*','');
+
+    SWITCH relationship.link.type_id;
+        CASE  83; '/static/images/favicons/amazon-32.jpg';
+        CASE  99; '/static/images/favicons/imdb.png';
+        CASE 212; '/static/images/favicons/imdb.png';
+        CASE  89; '/static/images/favicons/wikipedia-32.png';
+        CASE 213; '/static/images/favicons/wikipedia-32.png';
+        CASE 245; '/static/images/favicons/wikipedia-32.png';
+        CASE 227; '/static/images/favicons/myspace-32.png';
+        CASE 244; '/static/images/favicons/myspace-32.png';
+        CASE 206; '/static/images/favicons/youtube-32.png';
+        CASE 240; '/static/images/favicons/youtube-32.png';
+        CASE 205; '/static/images/favicons/bbc-32.gif';
+        CASE  73; '/static/images/favicons/discogs-32.png';
+        CASE  90; '/static/images/favicons/discogs-32.png';
+        CASE 214; '/static/images/favicons/discogs-32.png';
+        CASE 252; '/static/images/favicons/discogs-32.png';
+        CASE  88; 'http://' _ uri _ '/favicon.ico'; # IOBDB
+        CASE 219; 'http://' _ uri _ '/favicon.ico'; # IOBDB
+        CASE 298; 'http://' _ uri _ '/favicon.ico'; # IOBDB
+        CASE 323; 'http://' _ uri _ '/favicon.ico'; # IOBDB
+        CASE  97; 'http://' _ uri _ '/favicon.ico'; # IBDB
+        CASE 218; 'http://' _ uri _ '/favicon.ico'; # IBDB
+        CASE 296; 'http://' _ uri _ '/favicon.ico'; # IBDB
+        CASE 321; 'http://' _ uri _ '/favicon.ico'; # IBDB
+    END;
+END %]
+
+[% MACRO favicon_ico(relationship) BLOCK;
+# Regex taken from http://www.willmaster.com/blog/perl/extracting-domain-name-from-url.php
+    uri = relationship.entity1.url;
+    uri = uri.replace('^https?://(?:www\.)?','');
+    uri = uri.replace('/.*','');
+    uri = uri.replace('[\?\#\:].*','');
+    'http://' _ uri _ '/favicon.ico';
+END %]
+
+[% MACRO favicon_overlay(relationship) BLOCK;
+    IF relationship.link.type_id ==  89 ||
+        relationship.link.type_id == 213 ||
+        relationship.link.type_id == 89245;
+        # Regex taken from http://www.willmaster.com/blog/perl/extracting-domain-name-from-url.php
+        uri = relationship.entity1.url;
+        uri = uri.replace('^https?://(?:www\.)?','');
+        uri.replace('\..+','');
+    END;
+END %]
+
+[% MACRO favicon_border(relationship) BLOCK;
+    SWITCH relationship.link.type_id;
+        CASE  89; 1;
+        CASE 213; 1;
+        CASE 245; 1;
+        CASE 205; 1;
+        CASE 214; 1;
+    END;
+END %]
+
+[% MACRO display_favicon(relationship) BLOCK %]
+    [% favicon_site(relationship) %]
 [% END %]
 
 [%- MACRO wiki_link(server, id) BLOCK -%]

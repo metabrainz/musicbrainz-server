@@ -1,9 +1,35 @@
 [%- IF favicons.size -%]
+    <p><strong>[% l('External resources:') %]</strong></p>
     <ul class="favicons">
     [%- FOREACH favicon IN favicons -%]
+    [%- IF favicon_site(favicon) -%]
         <li>
-            [% display_favicon(favicon) %]
+            <div title="[% favicon.link.type.name _ ': ' _ favicon.link.type_id %]" style="background-image: url('[% favicon_site(favicon) %]');"[% 'class="border"' IF favicon_border(favicon) %]>
+                <a href="[% favicon.entity1.url %]">
+                    [% IF favicon_overlay(favicon) %]
+                        <span>[% favicon_overlay(favicon) %]</span>
+                    [% END %]
+                </a>
+            </div>
         </li>
+    [%- END -%]
+    [%- END -%]
+    </ul>
+
+    <p style="clear:both;"><strong>Unapproved URLs:</strong></p>
+    <ul class="favicons">
+    [%- FOREACH favicon IN favicons -%]
+    [%- IF !favicon_site(favicon) -%]
+        <li>
+            <div title="[% favicon.link.type.name _ ': ' _ favicon.link.type_id %]" style="background-image: url('[% favicon_ico(favicon) %]');" class="border">
+                <a href="[% favicon.entity1.url %]">
+                    [% IF favicon_overlay(favicon) %]
+                        <span>[% favicon_overlay(favicon) %]</span>
+                    [% END %]
+                </a>
+            </div>
+        </li>
+    [%- END -%]
     [%- END -%]
     </ul>
 [%- ELSE -%]
