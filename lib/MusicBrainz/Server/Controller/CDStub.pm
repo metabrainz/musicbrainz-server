@@ -26,6 +26,7 @@ sub _load
         $index++;
     }
 
+    $c->stash->{show_artists} = $cdstubtoc->cdstub->artist eq '';
     $c->stash->{cdstub} = $cdstubtoc;
 }
 
