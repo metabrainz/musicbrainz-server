@@ -69,6 +69,13 @@ sub load_top_cdstubs
         $query, $offset || 0, $LIMIT_TOP_CDSTUBS - $offset);
 }
 
+sub increment_lookup_count
+{
+    my ($self, $cdstub_id) = @_;
+    $self->sql->auto_commit(1);
+    $self->sql->do('UPDATE release_raw SET lookupcount = lookupcount + 1 WHERE id = ?', $cdstub_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

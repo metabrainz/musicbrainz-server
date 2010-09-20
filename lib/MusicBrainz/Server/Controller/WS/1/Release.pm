@@ -32,39 +32,52 @@ around 'search' => sub
     my ($self, $c) = @_;
 
     if (my $disc_id = $c->req->query_params->{discid}) {
-        my @releases = $c->model('Release')->find_by_disc_id($disc_id);
-
         my $inc = MusicBrainz::Server::WebService::WebServiceIncV1->new(
             artist => 1,
             counts => 1,
             release_events => 1,
             tracks => 1
         );
-
-        $c->model('ReleaseGroup')->load(@releases);
-        $c->model('ReleaseStatus')->load(@releases);
-        $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
-        $c->model('Language')->load(@releases);
-        $c->model('Script')->load(@releases);
-        $c->model('Country')->load(@releases);
-        $c->model('Relationship')->load_subset([ 'url '], @releases);
-
-        $c->model('Medium')->load_for_releases(@releases);
-
-        my @mediums = map { $_->all_mediums } @releases;
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-        $c->model('Track')->load_for_tracklists(@tracklists);
-        $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
-
-        my @need_artists = (@releases, map { $_->all_tracks } @tracklists);
-        $c->model('ArtistCredit')->load(@need_artists);
-        $c->model('Artist')->load(map { $_->artist_credit->names->[0] }
-                                  grep { @{ $_->artist_credit->names } == 1 } @need_artists);
-
-        my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
-
+        
         $c->stash->{serializer}->add_namespace('ext', 'http://musicbrainz.org/ns/ext-1.0#');
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+
+        my @releases;
+
+        if (@releases = $c->model('Release')->find_by_disc_id($disc_id)) {
+            $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseStatus')->load(@releases);
+            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+            $c->model('Language')->load(@releases);
+            $c->model('Script')->load(@releases);
+            $c->model('Country')->load(@releases);
+            $c->model('Relationship')->load_subset([ 'url '], @releases);
+
+            $c->model('Medium')->load_for_releases(@releases);
+
+            my @mediums = map { $_->all_mediums } @releases;
+            my @tracklists = grep { defined } map { $_->tracklist } @mediums;
+            $c->model('Track')->load_for_tracklists(@tracklists);
+            $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+
+            my @need_artists = (@releases, map { $_->all_tracks } @tracklists);
+            $c->model('ArtistCredit')->load(@need_artists);
+            $c->model('Artist')->load(map { $_->artist_credit->names->[0] }
+                                      grep { @{ $_->artist_credit->names } == 1 } @need_artists);
+
+            my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
+        }
+        elsif (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
+            my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($disc_id);
+            if ($cd_stub_toc) {
+                $c->model('CDStub')->load($cd_stub_toc);
+                $c->model('CDStub')->increment_lookup_count($cd_stub_toc->cdstub->id);
+                $c->model('CDStubTrack')->load_for_cdstub($cd_stub_toc->cdstub);
+
+                push @releases, $cd_stub_toc->cdstub;
+            }
+        }
+
         $c->res->body($c->stash->{serializer}->serialize_list('release', \@releases, $inc, { score => 100 }));
   	}
     else {
