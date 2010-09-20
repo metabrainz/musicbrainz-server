@@ -164,7 +164,7 @@ sub search : Path('/search/edits') RequireAuth
     my ($self, $c) = @_;
 
     my $form = $c->form( form => 'Search::Edits' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($form->submitted_and_valid($c->req->query_params)) {
         my $edits = $self->_load_paged($c, sub {
             return $c->model('Edit')->find({
                 type   => $form->field('type')->value,
