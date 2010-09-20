@@ -63,6 +63,7 @@ requires 'Template::Plugin::Math';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'Text::Unaccent';
 requires 'Time::Duration';
+requires 'Throwable';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
