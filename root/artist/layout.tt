@@ -41,6 +41,7 @@
                 [% ELSE %]
                     <li><a href="[% c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
                 [% END %]
+                <li>[% link_artist(artist, 'subscribers', l('Subscribers')) %]</li>
             [% END %]
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
