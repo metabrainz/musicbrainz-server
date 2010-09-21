@@ -197,29 +197,6 @@ sub lookup : Local
     }
 }
 
-
-sub add : Chained('base') RequireAuth Args(0)
-{
-    my ($self, $c) = @_;
-
-    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
-    my $release_editor = MusicBrainz::Server::Controller::ReleaseEditor->new (c => $c);
-
-    $release_editor->release_add ($wizard);
-}
-
-sub edit : Chained('load') RequireAuth Edit
-{
-    my ($self, $c) = @_;
-
-    my $release = $c->stash->{release};
-    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
-
-    my $release_editor = MusicBrainz::Server::Controller::ReleaseEditor->new (c => $c);
-
-    $release_editor->release_edit ($wizard, $release);
-}
-
 =head2 duplicate
 
 Duplicate a release into the add release editor
