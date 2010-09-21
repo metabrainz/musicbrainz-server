@@ -21,8 +21,6 @@ Static::Simple
 
 StackTrace
 
-I18N::Gettext
-
 Session
 Session::State::Cookie
 
@@ -203,6 +201,9 @@ around 'dispatch' => sub {
     Translation->instance->build_languages_from_header($c->req->headers);
     $c->$orig(@_);
 };
+
+sub gettext  { shift; Translation->instance->gettext(@_) }
+sub ngettext { shift; Translation->instance->ngettext(@_) }
 
 =head1 NAME
 
