@@ -29,8 +29,6 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     type_to_model
     model_to_type
-    linktype_to_model
-    model_to_linktype
     object_to_ids
     order_by
     check_in_use
@@ -49,10 +47,6 @@ Readonly my %TYPE_TO_MODEL => (
     'release_group' => 'ReleaseGroup',
     'url'           => 'URL',
     'work'          => 'Work',
-);
-
-Readonly my %LINKTYPE_TO_MODEL => (
-    'wikipedia'     => 'URL::Wikipedia',
 );
 
 sub artist_credit_to_ref
@@ -241,17 +235,6 @@ sub type_to_model
 sub model_to_type
 {
     my %map = reverse %TYPE_TO_MODEL;
-    return $map{$_[0]} || undef;
-}
-
-sub linktype_to_model
-{
-    return $LINKTYPE_TO_MODEL{$_[0]} || 'URL';
-}
-
-sub model_to_linktype
-{
-    my %map = reverse %LINKTYPE_TO_MODEL;
     return $map{$_[0]} || undef;
 }
 

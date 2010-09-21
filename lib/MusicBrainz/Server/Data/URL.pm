@@ -9,6 +9,10 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' };
 
+my %URL_SPECIALIZATIONS = (
+    'Wikipedia' => qr{https?://(.*)\.?wikipedia\.}
+);
+
 sub _gid_redirect_table
 {
     return 'url_gid_redirect';
@@ -28,6 +32,11 @@ sub _columns
 
 sub _entity_class
 {
+    my ($self, $row) = @_;
+    while (my ($class, $regex) = each %URL_SPECIALIZATIONS) {
+        return "MusicBrainz::Server::Entity::URL::$class"
+            if ($row->{url} =~ $regex);
+    }
     return 'MusicBrainz::Server::Entity::URL';
 }
 

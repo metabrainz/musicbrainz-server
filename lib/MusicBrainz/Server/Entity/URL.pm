@@ -1,13 +1,15 @@
 package MusicBrainz::Server::Entity::URL;
 
 use Moose;
+use MooseX::Types::URI qw( Uri );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 
 has 'url' => (
     is => 'rw',
-    isa => 'Str'
+    isa => Uri,
+    coerce => 1
 );
 
 has 'description' => (

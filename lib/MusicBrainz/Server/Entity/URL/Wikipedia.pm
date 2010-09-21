@@ -4,11 +4,17 @@ use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
 
-sub pretty_name {
-    my $name = shift->url;
+sub pretty_name
+{
+    my $self = shift;
 
-    $name =~ s{^http://([\w-]{2,})\.wikipedia\.org/wiki/(.*)$}{$1: $2}o;
-    $name =~ s/_/ /g;
+    my $name = $self->url->path;
+    $name =~ s{^/wiki/}{};
+    $name =~ s{_}{ };
+
+    if (my ($language) = $self->url->url =~ /([\w-]{2,})\.wikipedia/) {
+        $name = "$language: $name";
+    }
 
     return $name;
 }
