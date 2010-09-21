@@ -56,7 +56,7 @@
         </li>
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
-        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>
+        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/user/register') }) %]</li>
     [%- END -%]
 </ul>
 

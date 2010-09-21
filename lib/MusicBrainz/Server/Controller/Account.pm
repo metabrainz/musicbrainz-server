@@ -369,45 +369,6 @@ sub preferences : Path('/account/preferences') RequireAuth
     }
 }
 
-=head2 register
-
-Display a form allowing new users to register on the site. When a POST
-request is received, we validate the data and attempt to create the
-new user.
-
-=cut
-
-sub register : Path('/register') ForbiddenOnSlaves
-{
-    my ($self, $c) = @_;
-
-    my $form = $c->form(register_form => 'User::Register');
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
-        my $editor = $c->model('Editor')->insert({
-            name => $form->field('username')->value,
-            password => $form->field('password')->value,
-        });
-
-        my $email = $form->field('email')->value;
-        if ($email) {
-            $self->_send_confirmation_email($c, $editor, $email);
-        }
-
-        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
-        $c->set_authenticated($user);
-
-        $c->response->redirect($c->uri_for_action('/user/profile', [ $user->name ]));
-        $c->detach;
-    }
-
-    $c->stash(
-        register_form => $form,
-        template      => 'account/register.tt',
-    );
-}
-
 =head2 _send_confirmation_email
 
 Send out an email allowing users to confirm their email address
