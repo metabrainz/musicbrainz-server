@@ -6,6 +6,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Authentication::User;
 
+with 'MusicBrainz::Server::Controller::Role::Subscribe';
+
 use MusicBrainz::Server::Types qw(
     $BOT_FLAG
     $AUTO_EDITOR_FLAG

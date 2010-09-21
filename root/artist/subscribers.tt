@@ -1,0 +1,23 @@
+[% WRAPPER 'artist/layout.tt' title=l('Subscribers') %]
+    <h2>[% l('Subscribers') %]</h2>
+    [% IF public_editors.size || private_editors > 0 %]
+        <p>[% l('The following editors are subscribed to edits to {artist}:', { artist => link_artist(artist) }) %]</p>
+        <ul>
+        [% FOR editor=public_editors %]
+            <li>[% link_editor(editor) %]</li>
+        [% END %]
+            [% IF private_editors %]
+            <li>[% ln(private_editors, '{n} other editor', '{n} other editors', { n => private_editors }) %]</li>
+            [% END %]
+        </ul>
+    [% ELSE %]
+        <p>[% l('There are currently no editor\'s subscribed to edits to {artist}',
+                { artist => link_artist(artist) }) %]</p>
+    [% END %]
+
+    [% IF subscribed %]
+        <p>[% l('You are currently subscribed.') %]</p>
+    [% ELSE %]
+        <p>[% l('You are not currently subscribed.') %]</p>
+    [% END %]
+[% END %]
