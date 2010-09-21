@@ -802,7 +802,7 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
             type => $EDIT_RELEASE_MOVE,
             edit_args => {
                 release => $release,
-                new_release_group_id => $release_group->id
+                new_release_group => $release_group
             },
             on_creation => sub {
                 $c->response->redirect(
