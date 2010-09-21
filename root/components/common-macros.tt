@@ -91,6 +91,7 @@ END -%]
     ELSIF type.search('Entity::ReleaseGroup='); link_release_group(entity, action, text);
     ELSIF type.search('Entity::Recording='); link_recording(entity, action, text);
     ELSIF type.search('Entity::URL='); link_url(entity, action, text);
+    ELSIF type.search('Entity::Editor='); link_editor(entity, action, text);
     END;
 END -%]
 

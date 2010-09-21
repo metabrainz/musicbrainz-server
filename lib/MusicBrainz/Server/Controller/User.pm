@@ -17,6 +17,7 @@ use MusicBrainz::Server::Types qw(
 
 __PACKAGE__->config(
     entity_name => 'user',
+    model => 'Editor',
     paging_limit => 25,
 );
 
@@ -228,32 +229,6 @@ sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
         user => $user,
         ratings => $ratings,
         template => 'user/ratings.tt',
-    );
-}
-
-sub subscribers : Chained('load') PathPart('subscribers') RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
-
-    my $user = $c->stash->{user};
-
-    my $entities = $self->_load_paged($c, sub {
-        $c->model('Editor')->find_subscribers ($user->id, shift, shift);
-    });
-
-    $c->model('Editor')->load_preferences (@$entities) if (@$entities);
-
-    my $private = 0;
-    my @filtered = grep {
-        $private += 1 unless $_->preferences->public_subscriptions;
-        $_->preferences->public_subscriptions;
-    } @$entities;
-
-    $c->stash(
-        user => $user,
-        private_subscribers => $private,
-        $self->{entities} => \@filtered,
-        template => 'user/subscribers.tt',
     );
 }
 

@@ -1,13 +1,13 @@
 [% WRAPPER 'user/profile/layout.tt' title=l('Subscribers') page='subscribers' %]
     <h2>[% l('Subscribers') %]</h2>
-    [% IF public_users.size || private_users > 0 %]
+    [% IF public_editors.size || private_editors > 0 %]
         <p>[% l('The following editors are subscribed to edits that {editor} makes:', { editor => link_editor(user) }) %]</p>
         <ul>
-        [% FOR user=public_users %]
-            <li>[% link_user(user) %]</li>
+        [% FOR editor=public_editors %]
+            <li>[% link_editor(user) %]</li>
         [% END %]
-            [% IF private_users %]
-            <li>[% ln(private_users, '{n} other user', '{n} other users', { n => private_users }) %]</li>
+            [% IF private_editors %]
+            <li>[% ln(private_editors, '{n} other editor', '{n} other editors', { n => private_editors }) %]</li>
             [% END %]
         </ul>
     [% ELSE %]
