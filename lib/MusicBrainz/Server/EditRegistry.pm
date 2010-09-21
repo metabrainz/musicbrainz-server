@@ -47,8 +47,9 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::ChangeQuality
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
-    MusicBrainz::Server::Edit::Release::Create
     MusicBrainz::Server::Edit::Release::Edit
+    MusicBrainz::Server::Edit::Release::Move
+    MusicBrainz::Server::Edit::Release::Create
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
