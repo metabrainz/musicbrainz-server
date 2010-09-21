@@ -1,13 +1,12 @@
 package MusicBrainz::Server::Translation;
-use Moose;
+use MooseX::Singleton;
 
 use Encode;
 use I18N::LangTags ();
 use I18N::LangTags::Detect;
 use Locale::TextDomain q/mb_server/;
 
-sub l  { shift->gettext(@_) }
-sub ln { shift->ngettext(@_) }
+use Sub::Exporter -setup => { exports => [qw( l ln )] };
 
 has 'languages' => (
     isa => 'ArrayRef',
@@ -78,5 +77,8 @@ sub _expand
 
     return $string;
 }
+
+sub l  { __PACKAGE__->instance->gettext(@_) }
+sub ln { __PACKAGE__->instance->ngettext(@_) }
 
 1;

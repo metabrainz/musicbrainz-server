@@ -16,12 +16,6 @@ use aliased 'MusicBrainz::Server::Translation';
 # Static::Simple: will serve static files from the application's root
 #                 directory
 
-has 'translator' => (
-    is => 'ro',
-    default => sub { Translation->new },
-    handles => [ qw( l ln ) ],
-);
-
 my @args = qw/
 Static::Simple
 
@@ -206,7 +200,7 @@ around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
-    $c->translator->build_languages_from_header($c->req->headers);
+    Translation->instance->build_languages_from_header($c->req->headers);
     $c->$orig(@_);
 };
 
