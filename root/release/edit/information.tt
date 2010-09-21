@@ -11,12 +11,12 @@
   <script type="text/javascript">
     $('document').ready (function () {
 
-       MB.Control.ReleaseInformation ();
+       b = MB.Control.BubbleCollection ();
 
-       MB.Control.BubbleCollection (
-           $('#release-artist').add ('#id-barcode'),
-           $('div.artist-credit').add ('div.barcode')
-       );
+       MB.Control.ReleaseInformation (b);
+
+       b.add ($('#release-artist'), $('div.artist-credit'));
+       b.add ($('#id-barcode'), $('div.barcode'));
 
     });
   </script>
@@ -156,6 +156,19 @@
     <div class="barcode-container" style="display: none">
     [% validate_barcode(form.field('barcode')) %]
     </div>
+
+   [% FOR field=form.field('labels').fields %]
+    <div class="catno-container" style="display: none">
+      <div class="catno">
+	<p>
+          [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
+	</p>
+	<p>
+          [% l('If this is an Amazon ASIN, please do not enter it in the catalog number field, but add it as a URL relationship later.') %]
+	</p>
+      </div>
+    </div>
+   [% END %]
 
   </div>
 

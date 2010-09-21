@@ -230,6 +230,7 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 1em; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
+#release-editor div.catno,
 #release-editor div.barcode,
 #release-editor div.select-recording,
 #release-editor div.artist-credit,
