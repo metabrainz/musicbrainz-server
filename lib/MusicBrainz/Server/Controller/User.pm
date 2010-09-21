@@ -18,6 +18,8 @@ __PACKAGE__->config(
     paging_limit => 25,
 );
 
+use Try::Tiny;
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::User - Catalyst Controller to handle
@@ -70,6 +72,19 @@ sub do_login : Private
         }
         else
         {
+            if ($form->field('remember_me')->value) {
+                my $expiry_time = time + 86400 * 635;
+                my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
+                my $ip_mask = $form->field('single_ip')->value ? $c->req->address : '';
+                my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
+                                                         $expiry_time, $ip_mask);
+                $c->res->cookies->{remember_login} = {
+                    expires => '+1y',
+                    name => 'remember_me',
+                    value => $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM)
+                };
+            }
+
             # Logged in OK
             $c->response->redirect($c->uri_for($redirect));
             $c->detach;
@@ -103,6 +118,60 @@ sub login : Path('/login') ForbiddenOnSlaves
     $c->forward('/user/do_login');
 }
 
+sub cookie_login : Private
+{
+    my ($self, $c) = @_;
+    my $cookie = $c->req->cookie('remember_login') or return;
+    return if $c->user_exists;
+
+    my ($user_name, $password, $delete_cookie);
+
+    # Format 1: plaintext user + password
+    try {
+        if ($cookie->value =~ /^1\t(.*?)\t(.*)$/) {
+            ($user_name, $password) = ($1, $2);
+        }
+        # Format 2: username, sha1(password + secret), expiry time,
+        # IP address mask, sha1(previous fields + secret)
+        elsif ($cookie->value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
+        {
+            $c->log->info('Found version 2 format cookie');
+            ($user_name, my $pass_sha1, my $expiry, my $ipmask, my $sha1)
+                = ($1, $2, $3, $4, $5);
+
+            my $correct_sha1 = sha1_base64("2\t$1\t$2\t$3\t$4" . DBDefs::SMTP_SECRET_CHECKSUM);
+            die "Invalid cookie sha1"
+                unless $sha1 eq $correct_sha1;
+
+            die "Expired"
+                if time() > $expiry;
+
+            if ($ipmask) {
+                my $my_ip = $c->req->address;
+                die "Does not match IP mask"
+                    unless $my_ip eq $ipmask;
+            }
+
+            my $user = $c->model('Editor')->get_by_name($user_name) or last;
+
+            my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
+            die "Password sha1 do not match"
+                unless $pass_sha1 eq $correct_pass_sha1;
+
+            $password = $user->password;
+        }
+        else {
+            # TODO add other formats: e.g. sha1(password), tied to IP, etc
+            die "Didn't recognise permanent cookie format";
+        }
+
+        $c->authenticate({ username => $user_name, password => $password });
+    }
+    catch {
+        $c->log->error($_);
+    };
+}
+
 sub logout : Path('/logout')
 {
     my ($self, $c) = @_;
@@ -110,6 +179,10 @@ sub logout : Path('/logout')
     if ($c->user_exists) {
         $c->logout;
         $c->delete_session;
+        $c->res->cookies->{remember_login} = {
+            value => '',
+            expires => '+1y',
+        };
     }
 
     $self->redirect_back($c, '/logout', '/');

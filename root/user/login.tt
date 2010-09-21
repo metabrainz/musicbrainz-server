@@ -28,6 +28,9 @@
             </div>
         [% END %]
 
+        [% form_row_checkbox(r, 'remember_me', l('Login permanently')) %]
+        [% form_row_checkbox(r, 'single_ip', l('Only from this IP address')) %]
+
         <div class="row no-label">
             [% form_submit(l('Log In')) %]
         </div>
