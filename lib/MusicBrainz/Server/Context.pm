@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
+use aliased 'MusicBrainz::Server::Translation';
 use Class::MOP;
 
 has 'cache_manager' => (
@@ -35,6 +36,12 @@ has 'models' => (
     isa     => 'HashRef',
     is      => 'ro',
     default => sub { {} }
+);
+
+has 'translator' => (
+    is => 'ro',
+    default => sub { Translation->new },
+    handles => [ qw( l ln ) ],
 );
 
 sub model

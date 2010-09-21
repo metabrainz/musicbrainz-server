@@ -6,6 +6,8 @@ BEGIN { extends 'Catalyst' }
 use Class::MOP;
 use DBDefs;
 
+use aliased 'MusicBrainz::Server::Translation';
+
 # Set flags and add plugins for the application
 #
 #         -Debug: activates the debug mode for very useful log messages
@@ -13,6 +15,12 @@ use DBDefs;
 #                 application's home directory
 # Static::Simple: will serve static files from the application's root
 #                 directory
+
+has 'translator' => (
+    is => 'ro',
+    default => sub { Translation->new },
+    handles => [ qw( l ln ) ],
+);
 
 my @args = qw/
 Static::Simple
@@ -193,6 +201,14 @@ sub relative_uri
 
     return $uri;
 }
+
+around 'dispatch' => sub {
+    my $orig = shift;
+    my $c = shift;
+
+    $c->translator->build_languages_from_header($c->req->headers);
+    $c->$orig(@_);
+};
 
 =head1 NAME
 
