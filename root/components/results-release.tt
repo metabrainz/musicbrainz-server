@@ -32,10 +32,6 @@
                 <td>[% tagger_icon(result.entity) %]</td>
             [%- END -%]
         </tr>
-            [% IF loop.count == 1 %]
-                [% USE Dumper %]
-                <!--<pre>[% Dumper.dump(result) %]</pre>-->
-            [% END %]
         [%- END -%]
     </tbody>
 </table>
