@@ -73,16 +73,7 @@ sub do_login : Private
         else
         {
             if ($form->field('remember_me')->value) {
-                my $expiry_time = time + 86400 * 635;
-                my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
-                my $ip_mask = $form->field('single_ip')->value ? $c->req->address : '';
-                my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
-                                                         $expiry_time, $ip_mask);
-                $c->res->cookies->{remember_login} = {
-                    expires => '+1y',
-                    name => 'remember_me',
-                    value => $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM)
-                };
+                $self->_set_login_cookie($c, single_ip => $form->field('single_ip')->value);
             }
 
             # Logged in OK
@@ -172,6 +163,30 @@ sub cookie_login : Private
     };
 }
 
+sub _clear_login_cookie
+{
+    my ($self, $c) = @_;
+    $c->res->cookies->{remember_login} = {
+        value => '',
+        expires => '+1y',
+    };
+}
+
+sub _set_login_cookie
+{
+    my ($self, $c, %opts) = @_;
+    my $expiry_time = time + 86400 * 635;
+    my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
+    my $ip_mask = $opts{single_ip} ? $c->req->address : '';
+    my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
+                                             $expiry_time, $ip_mask);
+    $c->res->cookies->{remember_login} = {
+        expires => '+1y',
+        name => 'remember_me',
+        value => $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM)
+    };
+}
+
 sub logout : Path('/logout')
 {
     my ($self, $c) = @_;
@@ -179,10 +194,7 @@ sub logout : Path('/logout')
     if ($c->user_exists) {
         $c->logout;
         $c->delete_session;
-        $c->res->cookies->{remember_login} = {
-            value => '',
-            expires => '+1y',
-        };
+        $self->_clear_login_cookie($c);
     }
 
     $self->redirect_back($c, '/logout', '/');
