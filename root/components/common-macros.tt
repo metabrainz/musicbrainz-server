@@ -205,6 +205,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_isrc(isrc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    text = text || '<code>' _ html_escape(isrc) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
@@ -227,7 +234,7 @@ END -%]
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
-    action = action || 'profile/view';
+    action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text || html_escape(editor.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
@@ -241,7 +248,7 @@ END -%]
 END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => redirect || c.req.uri });
+    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
 
 [%- MACRO request_login(text) BLOCK -%]
@@ -252,7 +259,7 @@ END-%]
     [% USE date %]
     <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% release.gid %]&t=[% date.now %]"
         target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
-        <img src="[% c.uri_for('/static/images/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
+        <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
     </a>
 [%- END -%]
 
@@ -355,9 +362,19 @@ END -%]
     [% END %]
 [% END %]
 
-[% MACRO display_relationship(relationship) BLOCK; %]
+[%- MACRO age(datetime) BLOCK -%] 
+    [%- Age.format(datetime, "{age} ago") -%]
+[%- END -%]
 
-            [%- relationship.phrase | html %] [% link_entity(relationship.target) -%]
+[% MACRO display_relationship(relationship) BLOCK; %]
+            [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
+            [%- relationship.phrase | html %]
+            [% IF relationship.target.artist_credit %]
+                [% l('{what} by {artist}', { what => link_entity(relationship.target),
+                                             artist => artist_credit(relationship.target.artist_credit) }) -%]
+            [% ELSE %]
+                [% link_entity(relationship.target) -%]
+            [% END %]
             [%- IF !relationship.link.begin_date.is_empty -%]
                 [%- IF !relationship.link.end_date.is_empty -%]
                     [%- IF relationship.link.begin_date.format == relationship.link.end_date.format -%]

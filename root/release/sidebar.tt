@@ -22,6 +22,21 @@
     </p>
 [% END -%]
 
+[% BLOCK lists %]
+    <p><ul>
+        [% FOREACH list IN lists %]
+            [% IF containment.${list.id} %]
+                <li><a href="[% c.uri_for_action("/list/remove", [list.gid], { release => release.id }) %]">
+                    [%- l('Remove from list “{list}”', { list => list.name }) %]</a></li>
+            [% ELSE %]
+                <li><a href="[% c.uri_for_action("/list/add", [list.gid], { release => release.id }) 
+		    %]">
+                    [%- l('Add to list “{list}”', {list => list.name }) %]</a></li>
+            [% END %]
+        [% END %]
+    </ul></p>
+[% END %]
+
 [%- MACRO editable_property(label, text, field, field_name, class, property, datatype)
         IF field && editing;
             IF class.defined;
@@ -153,6 +168,7 @@ WRAPPER 'layout/sidebar.tt';
         tag_this_text=l('Tag release group');
         INCLUDE links;
     	INCLUDE other_versions;    
+        INCLUDE lists IF c.user_exists;
     END;
   END;
 END;

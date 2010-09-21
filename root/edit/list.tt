@@ -32,7 +32,7 @@
 
 <div class="search-toggle c">
     <p>
-        <strong>[%- ln('Found {n} edit', 'Found {n} edits' , pager.total_entries, { n => pager.total_entries}) -%]</strong>
+        <strong>[%- ln('Found {n} edit', 'Found {n} edits' , pager.total_entries, { n => add_commas(pager.total_entries) }) -%]</strong>
         [% IF search %]
             (<a href="[% c.uri_for_action('/edit/search') %]">[% l('search again') %]</a>)
         [% END %]

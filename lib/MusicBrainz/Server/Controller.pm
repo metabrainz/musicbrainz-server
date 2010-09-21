@@ -192,4 +192,15 @@ sub redirect_back
     $c->response->redirect($url);
 }
 
+sub error {
+    my ($self, $c, %args) = @_;
+    my $status = $args{status} || 500;
+    $c->response->status($status);
+    $c->stash(
+        template => "main/$status.tt",
+        message => $args{message}
+    );
+    $c->detach;
+}
+
 1;

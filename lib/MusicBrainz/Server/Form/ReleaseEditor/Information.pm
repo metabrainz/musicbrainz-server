@@ -6,6 +6,7 @@ extends 'MusicBrainz::Server::Form::Step';
 # Release information
 has_field 'name'             => ( type => 'Text'      );
 has_field 'various_artists'  => ( type => 'Checkbox'  );
+has_field 'release_group_id' => ( type => 'Hidden'    );
 
 has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
 has_field 'type_id'          => ( type => 'Select'    );
@@ -42,9 +43,12 @@ after 'BUILD' => sub {
 
     if (defined $self->init_object)
     {
-        $self->field ('type_id')->value ($self->init_object->release_group->type->id)
-            if $self->init_object->release_group->type;
-        $self->field ('type_id')->disabled (1);
+        if (defined $self->init_object->release_group)
+        {
+            $self->field ('type_id')->value ($self->init_object->release_group->type->id)
+                if $self->init_object->release_group->type;
+            $self->field ('type_id')->disabled (1);
+        }
 
         my $max = @{ $self->init_object->labels } - 1;
         for (0..$max)

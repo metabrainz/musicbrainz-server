@@ -6,6 +6,7 @@ has '+name' => ( default => 'add-edit-note' );
 
 has_field 'text' => (
     type => 'Text',
+    required => 1
 );
 
 __PACKAGE__->meta->make_immutable;

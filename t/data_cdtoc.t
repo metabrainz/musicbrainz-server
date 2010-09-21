@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 19;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::CDTOC';
 use_ok 'MusicBrainz::Server::Data::MediumCDTOC';
 
@@ -41,3 +41,9 @@ $c->model('CDTOC')->load(@medium_cdtoc);
 is(scalar($medium->all_cdtocs), 1);
 is($medium->cdtocs->[0]->cdtoc_id, 1);
 is($medium->cdtocs->[0]->cdtoc->discid, 'tLGBAiCflG8ZI6lFcOt87vXjEcI-');
+
+my $id = $c->model('CDTOC')->find_or_insert('1 9 253125 150 38550 69970 83577 100540 118842 168737 194517 228310');
+my $id2 = $c->model('CDTOC')->find_or_insert('1 9 253125 150 38550 69970 83577 100540 118842 168737 194517 228310');
+is($id, $id2);
+
+done_testing;

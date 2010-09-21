@@ -140,6 +140,22 @@ sub find_by_label
         $query, $label_id, $offset || 0);
 }
 
+sub find_by_disc_id
+{
+    my ($self, $disc_id) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN medium ON medium.release = release.id
+                     JOIN medium_cdtoc ON medium_cdtoc.medium = medium.id
+                     JOIN cdtoc ON medium_cdtoc.cdtoc = cdtoc.id
+                 WHERE cdtoc.discid = ?
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)";
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $disc_id);
+}
+
 sub find_by_release_group
 {
     my ($self, $ids, $limit, $offset, $statuses) = @_;
@@ -230,6 +246,26 @@ sub find_by_recording
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
         $query, @ids, @$statuses, @$types, $offset || 0);
+}
+
+sub find_by_artist_track_count
+{
+    my ($self, $artist_id, $track_count, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN artist_credit_name acn
+                         ON acn.artist_credit = release.artist_credit
+                     JOIN medium
+                        ON medium.release = release.id
+                     JOIN tracklist
+                        ON medium.tracklist = tracklist.id
+                 WHERE tracklist.trackcount = ? AND acn.artist = ?
+                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $track_count, $artist_id, $offset || 0);
 }
 
 sub load_with_tracklist_for_recording
@@ -375,8 +411,8 @@ sub update
 
 sub delete
 {
-    my ($self, @releases) = @_;
-    my @release_ids = map { $_->id } @releases;
+    my ($self, @release_ids) = @_;
+
     $self->c->model('List')->delete_releases(@release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);

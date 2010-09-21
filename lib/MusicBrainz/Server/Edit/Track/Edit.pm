@@ -14,6 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     clean_submitted_artist_credits
 );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
@@ -143,6 +144,28 @@ sub _edit_hash
 }
 
 sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+
+sub allow_auto_edit
+{
+    my ($self) = @_;
+
+    # Changing name is allowed if the change only affects
+    # small things like case etc.
+    my ($old_name, $new_name) = normalise_strings(
+        $self->data->{old}{name}, $self->data->{new}{name});
+    return 0 if $old_name ne $new_name;
+
+    # Adding a track length is an auto-edit if there was no length before
+    return 0 if $self->data->{old}{length};
+
+    # Definitely not an auto-edit if these are being changed
+    return 0 if exists $self->data->{old}{recording_id};
+    return 0 if exists $self->data->{old}{tracklist_id};
+    return 0 if exists $self->data->{old}{artist_credit};
+    return 0 if exists $self->data->{old}{position};
+
+    return 1;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

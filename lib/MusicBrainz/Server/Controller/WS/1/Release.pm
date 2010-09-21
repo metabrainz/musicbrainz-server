@@ -11,7 +11,7 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         inc    => [ qw( artist  tags  release-groups tracks release-events labels isrcs
                         ratings puids _relations     counts discs          user-tags
-                        user-ratings ) ]
+                        user-ratings  track-level-rels ) ]
     }
 ]);
 
@@ -24,6 +24,53 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::ArtistCredit';
 with 'MusicBrainz::Server::Controller::WS::1::Role::Relationships';
 
 sub root : Chained('/') PathPart('ws/1/release') CaptureArgs(0) { }
+
+# We don't use the search server for disc ID lookups
+around 'search' => sub
+{
+    my $orig = shift;
+    my ($self, $c) = @_;
+
+    if (my $disc_id = $c->req->query_params->{discid}) {
+        my @releases = $c->model('Release')->find_by_disc_id($disc_id);
+
+        my $inc = MusicBrainz::Server::WebService::WebServiceIncV1->new(
+            artist => 1,
+            counts => 1,
+            release_events => 1,
+            tracks => 1
+        );
+
+        $c->model('ReleaseGroup')->load(@releases);
+        $c->model('ReleaseStatus')->load(@releases);
+        $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+        $c->model('Language')->load(@releases);
+        $c->model('Script')->load(@releases);
+        $c->model('Country')->load(@releases);
+        $c->model('Relationship')->load_subset([ 'url '], @releases);
+
+        $c->model('Medium')->load_for_releases(@releases);
+
+        my @mediums = map { $_->all_mediums } @releases;
+        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
+        $c->model('Track')->load_for_tracklists(@tracklists);
+        $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+
+        my @need_artists = (@releases, map { $_->all_tracks } @tracklists);
+        $c->model('ArtistCredit')->load(@need_artists);
+        $c->model('Artist')->load(map { $_->artist_credit->names->[0] }
+                                  grep { @{ $_->artist_credit->names } == 1 } @need_artists);
+
+        my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
+
+        $c->stash->{serializer}->add_namespace('ext', 'http://musicbrainz.org/ns/ext-1.0#');
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->serialize_list('release', \@releases, $inc, { score => 100 }));
+  	}
+    else {
+        $self->$orig($c);
+    } 
+};
 
 sub lookup : Chained('load') PathPart('')
 {
@@ -74,6 +121,10 @@ sub lookup : Chained('load') PathPart('')
 
         $c->model('RecordingPUID')->load_for_recordings(@recordings)
             if ($c->stash->{inc}->puids);
+
+        if ($c->stash->{inc}->track_level_rels) {
+            $self->load_relationships($c, $_) for @recordings;
+        }
     }
 
     if ($c->stash->{inc}->release_events) {
@@ -92,7 +143,9 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->discs) {
-        $c->model('Medium')->load_for_releases($release);
+        $c->model('Medium')->load_for_releases($release)
+            unless $release->all_mediums;
+
         my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
         $c->model('CDTOC')->load(@medium_cdtocs);
     }
@@ -108,8 +161,7 @@ sub lookup : Chained('load') PathPart('')
 
     if ($c->stash->{inc}->counts) {
         $c->model('Medium')->load_for_releases($release)
-            unless $c->stash->{inc}->discs ||
-                $c->stash->{inc}->release_events;
+            unless $release->all_mediums;
 
         $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums)
             unless $c->stash->{inc}->discs;

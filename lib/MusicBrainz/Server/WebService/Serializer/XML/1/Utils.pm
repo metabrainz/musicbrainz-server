@@ -45,6 +45,7 @@ sub serializer
 
 sub serialize_entity
 {
+    return unless defined $_[0];
     return serializer($_[0])->new->serialize(@_);
 }
 

@@ -57,10 +57,12 @@ requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                 => '1.060200';
 requires 'Readonly'                                   => '1.03';
+requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'Template::Plugin::Math';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'Text::Unaccent';
+requires 'Time::Duration';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
@@ -100,9 +102,13 @@ requires 'Locale::TextDomain' => '1.16';
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
 
+test_requires 'HTML::HTML5::Parser'
+test_requires 'HTML::HTML5::Sanity';
 test_requires 'LWP::UserAgent::Mockable';
-test_requires 'Test::Differences';
+test_requires 'RDF::Query'
+test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
+test_requires 'Test::Differences';
 test_requires 'Test::JSON';
 test_requires 'XML::Parser';
 

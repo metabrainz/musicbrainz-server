@@ -69,9 +69,9 @@ sub add_note : Chained('load') PathPart('add-note') RequireAuth
     my $form = $c->form(form => 'EditNote');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('EditNote')->add_note($edit->id, {
-        editor_id => $c->user->id,
-        text => $form->field('text')->value
-    });
+            editor_id => $c->user->id,
+            text => $form->field('text')->value
+        });
     }
 
     $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
@@ -118,7 +118,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
     }
 
     $c->model('Edit')->approve($edit, $c->user);
-    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
+    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
 }
 
 sub cancel : Chained('load') RequireAuth
@@ -132,7 +132,7 @@ sub cancel : Chained('load') RequireAuth
     }
     $c->model('Edit')->cancel($edit);
 
-    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
+    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
     $c->detach;
 }
 
@@ -164,7 +164,7 @@ sub search : Path('/search/edits') RequireAuth
     my ($self, $c) = @_;
 
     my $form = $c->form( form => 'Search::Edits' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($form->submitted_and_valid($c->req->query_params)) {
         my $edits = $self->_load_paged($c, sub {
             return $c->model('Edit')->find({
                 type   => $form->field('type')->value,

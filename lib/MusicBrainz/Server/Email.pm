@@ -2,6 +2,7 @@ package MusicBrainz::Server::Email;
 
 use Moose;
 use Readonly;
+use Encode qw( decode encode );
 use Email::Address;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
@@ -38,7 +39,7 @@ sub _create_email
 
     return Email::MIME->create(
         header => $headers,
-        body => $body,
+        body => encode('utf-8', $body),
         attributes => {
             content_type => "text/plain",
             charset      => "UTF-8",

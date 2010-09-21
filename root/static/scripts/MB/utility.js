@@ -105,3 +105,9 @@ MB.utility.load_data = function (files, loaded, callback) {
     }
 };
 
+MB.utility.exception = function (name, message) {
+    var e = function () { this.name = name,  this.message = message };
+    e.prototype = new Error ();
+
+    return new e ();
+};

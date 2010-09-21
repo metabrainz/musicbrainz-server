@@ -81,9 +81,6 @@ sub _fix_html_markup
     $content =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
     $content =~ s/mailto:/mailto&#x3a;/g;
 
-    # expand placeholders which point to the current webserver [@WEB_SERVER@/someurl title]
-    $content =~ s/\[\@WEB_SERVER\@([^ ]*) ([^\]]*)\]/<img src="\/images\/edit.gif" alt="" \/><a href="$1">$2<\/a>/g;
-
     return $content;
 }
 

@@ -1,0 +1,3 @@
+[% WRAPPER 'layout.tt' title=l('Attach CDTOC to release') %]
+    [% INCLUDE 'components/search.tt' %]
+[% END %]

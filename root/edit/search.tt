@@ -4,7 +4,7 @@
 
         [% INCLUDE 'edit/list_header.tt' search=1 %]
 
-        <form action="[% c.req.uri %]" method="post">
+        <form action="[% c.req.uri %]" method="get">
             [% USE r = FormRenderer(form) %]
             [% form_row_select(r, 'type', l('Type:')) %]
             [% form_row_select(r, 'status', l('Status:')) %]

@@ -53,7 +53,9 @@
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </span>
       <span class="link">
-        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">link</a>
+        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">
+          [%- IF artist.gid -%]link[%- END -%]
+        </a>
       </span>
     </div>
     <div class="row">
@@ -81,6 +83,7 @@
     <fieldset>
       <legend>Release information</legend>
       [% form_row_text (r, 'name', 'Title') %]
+      [% r.hidden ('release_group_id') %]
       <div class="row">
         [% r.label('various_artists', 'VA release') %]
         [% r.checkbox('various_artists') %]
