@@ -1,30 +1,30 @@
 [% extra_css = "wikidocs.css" %]
 [% WRAPPER "layout.tt" full_width=1 title=page.title -%]
-<h1>[%- page.title -%]</h1>
-[%- IF !page.version -%]
-    <div class="wikidocs-header">
-    [%- l("This page has not been reviewed by our documentation team ({more_info|more info}).",
-          { more_info => doc_link('WikiDocs') }) -%]
+    <div id="content">
+        <h1>[%- page.title -%]</h1>
+        [%- IF !page.version -%]
+            <div class="wikidocs-header">
+            [%- l("This page has not been reviewed by our documentation team ({more_info|more info}).",
+                  { more_info => doc_link('WikiDocs') }) -%]
+            </div>
+        [%- END -%]
+        [%- page.content -%]
+        [%- IF page.version -%]
+            <div class="wikidocs-footer">
+                [%- l('This page is {doc|transcluded} from revision {version} of {title}.',
+                    {
+                        doc => doc_link('WikiDocs'),
+                        version => '<a href="' _ wiki_history_link(wiki_server, id, page.version) _ '" class="internal">#' _ page.version _ '</a>',
+                        title => '<a href="' _ wiki_link(wiki_server, id) _ '" class="internal">' _ page.title _ '</a>',
+                    }
+                ) -%]
+            </div>
+        [%- ELSE -%]
+            <div class="wikidocs-footer">
+            [%- l('This page is {doc|transcluded} from {title}.',
+                 { doc => doc_link('WikiDocs'),
+                   title => '<a href="http://' _ wiki_server _ '/' _ id _ '" class="internal">' _ page.title _ '</a>' }) -%]
+            </div>
+        [%- END -%]
     </div>
-[%- END -%]
-[%- page.content -%]
-[%- IF page.version -%]
-    <div class="wikidocs-footer">
-        [%- l("This {doclink1|WikiDocs page} is based on revision #{doclink2|version} of {doclink3|title}",
-            {
-                doclink1 => doc_link("WikiDocs"),
-                doclink2 => wiki_history_link(wiki_server, id, page.version),
-                version  => page.version,
-                doclink3 => wiki_link(wiki_server, id),
-                title    => page.title
-            }
-        ) -%]
-    </div>
-
-[%- ELSE -%]
-    <div class="wikidocs-footer">
-    [%- l('This is a copy of wiki page {url|page}.', { url => 'http://' _ wiki_server _ '/' _ id,
-                                                     page => page.title }) -%]
-    </div>
-[%- END -%]
 [%- END -%]

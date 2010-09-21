@@ -89,6 +89,37 @@ CREATE TABLE artist_type (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE cdtoc
+(
+    id                  SERIAL,
+    discid              CHAR(28) NOT NULL,
+    freedbid            CHAR(8) NOT NULL,
+    trackcount          INTEGER NOT NULL,
+    leadoutoffset       INTEGER NOT NULL,
+    trackoffset         INTEGER[] NOT NULL,
+    degraded            BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE clientversion
+(
+    id                  SERIAL,
+    version             VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE country (
+    id                  SERIAL,
+    isocode             VARCHAR(2) NOT NULL,
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE currentstat
+(
+    id                  SERIAL,
+    name                VARCHAR(100) NOT NULL,
+    value               INTEGER NOT NULL,
+    lastupdated         TIMESTAMP WITH TIME ZONE
+);
+
 CREATE TABLE dbmirror_Pending (
     SeqId               SERIAL,
     TableName           NAME NOT NULL,
@@ -154,49 +185,6 @@ CREATE TABLE editor_subscribe_editor
     editor              INTEGER NOT NULL, -- references editor.id (the one who has subscribed)
     subscribededitor    INTEGER NOT NULL, -- references editor.id (the one being subscribed)
     lasteditsent        INTEGER NOT NULL  -- weakly references edit
-);
-
-CREATE TABLE editor_collection
-(
-    id                  SERIAL,
-    editor              INTEGER NOT NULL -- references editor.id
-);
-
-CREATE TABLE editor_collection_release
-(
-    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
-    release             INTEGER NOT NULL -- PK, references release.id
-);
-
-CREATE TABLE cdtoc
-(
-    id                  SERIAL,
-    discid              CHAR(28) NOT NULL,
-    freedbid            CHAR(8) NOT NULL,
-    trackcount          INTEGER NOT NULL,
-    leadoutoffset       INTEGER NOT NULL,
-    trackoffset         INTEGER[] NOT NULL,
-    degraded            BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE clientversion
-(
-    id                  SERIAL,
-    version             VARCHAR(64) NOT NULL
-);
-
-CREATE TABLE country (
-    id                  SERIAL,
-    isocode             VARCHAR(2) NOT NULL,
-    name                VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE currentstat
-(
-    id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
-    value               INTEGER NOT NULL,
-    lastupdated         TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE gender (
@@ -601,6 +589,21 @@ CREATE TABLE link_type_attribute_type
     max                 SMALLINT
 );
 
+CREATE TABLE list
+(
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    name                VARCHAR NOT NULL,
+    public              BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE list_release
+(
+    list          INTEGER NOT NULL, -- PK, references list.id
+    release             INTEGER NOT NULL -- PK, references release.id
+);
+
 CREATE TABLE medium
 (
     id                  SERIAL,
@@ -703,7 +706,8 @@ CREATE TABLE release (
     date_day            SMALLINT,
     barcode             VARCHAR(255),
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0,
+    quality             SMALLINT NOT NULL DEFAULT -1
 );
 
 CREATE TABLE release_annotation
@@ -857,7 +861,7 @@ CREATE TABLE tracklist
 CREATE TABLE tracklist_index
 (
     tracklist           INTEGER, -- PK
-    tracks              INTEGER, 
+    tracks              INTEGER,
     toc                 CUBE
 );
 
@@ -865,10 +869,16 @@ CREATE TABLE url
 (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    url                 VARCHAR(255) NOT NULL,
+    url                 TEXT NOT NULL,
     description         TEXT,
     refcount            INTEGER NOT NULL DEFAULT 0,
     editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE url_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references url.id
 );
 
 CREATE TABLE work (
@@ -879,6 +889,15 @@ CREATE TABLE work (
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE work_alias
+(
+    id                  SERIAL,
+    work                INTEGER NOT NULL, -- references work.id
+    name                INTEGER NOT NULL, -- references work_name.id
+    locale              TEXT,
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 

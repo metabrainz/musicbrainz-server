@@ -1,15 +1,19 @@
 package MusicBrainz::Server::Data::Editor;
 use Moose;
+use LWP;
+use URI::Escape;
 
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
+    query_to_list
     query_to_list_limited
+    query_to_list
     type_to_model
 );
-use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
+use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED :privileges );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -105,10 +109,74 @@ sub get_ratings
     return $ratings;
 }
 
+sub _get_tags_for_type
+{
+    my ($self, $id, $type) = @_;
+
+    my $query = "SELECT tag, count(tag)
+        FROM ${type}_tag_raw
+        WHERE editor = ?
+        GROUP BY tag";
+
+    my $sql = Sql->new($self->c->raw_dbh);
+    my $results = $sql->select_list_of_hashes ($query, $id);
+
+    return { map { $_->{tag} => $_ } @$results };
+}
+
+sub get_tags
+{
+    my ($self, $user) = @_;
+
+
+    my $tags = {};
+    my $max = 0;
+    foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
+    {
+        my $data = $self->_get_tags_for_type ($user->id, $entity);
+
+        foreach (keys %$data)
+        {
+            if ($tags->{$_})
+            {
+                $tags->{$_}->{count} += $data->{$_}->{count};
+            }
+            else
+            {
+                $tags->{$_} = $data->{$_};
+            }
+
+            $max = $tags->{$_}->{count} if $tags->{$_}->{count} > $max;
+        }
+    }
+
+    my $entities = $self->c->model('Tag')->get_by_ids(keys %$tags);
+    foreach (keys %$entities)
+    {
+        $tags->{$_}->{tag} = $entities->{$_};
+    }
+
+    my @tags = sort { $a->{tag}->name cmp $b->{tag}->name } values %$tags;
+
+    return { max => $max, tags => \@tags };
+}
+
 sub find_by_email
 {
     my ($self, $email) = @_;
     return values %{$self->_get_by_keys('email', $email)};
+}
+
+sub find_by_privileges
+{
+    my ($self, $privs) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE (privs & ?) > 0
+                 ORDER BY editor.name, editor.id";
+    return query_to_list (
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $privs);
 }
 
 sub find_by_subscribed_editor
@@ -201,6 +269,26 @@ sub update_profile
     }, $sql);
 }
 
+sub update_privileges
+{
+    my ($self, $editor, $values) = @_;
+
+    my $privs =   $values->{auto_editor}      * $AUTO_EDITOR_FLAG
+                + $values->{bot}              * $BOT_FLAG
+                + $values->{untrusted}        * $UNTRUSTED_FLAG
+                + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
+                + $values->{no_nag}           * $DONT_NAG_FLAG
+                + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
+                + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
+                + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
+
+    my $sql = Sql->new($self->c->dbh);
+    Sql::run_in_transaction(sub {
+        $sql->do('UPDATE editor SET privs=? WHERE id=?',
+                 $privs, $editor->id);
+    }, $sql);
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -210,6 +298,8 @@ sub load
 sub load_preferences
 {
     my ($self, @editors) = @_;
+
+    return unless @editors;
 
     my %editors = map { $_->id => $_ } @editors;
 
@@ -263,6 +353,40 @@ sub credit
     my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
     $sql->do($query, $editor_id);
 }
+
+sub donation_check
+{
+    my ($self, $obj) = @_;
+
+    my $nag = 1;
+    $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
+                 $obj->is_relationship_editor || $obj->is_wiki_transcluder);
+
+    my $days = 0.0;
+    if ($nag)
+    {
+        my $ua = LWP::UserAgent->new;
+        $ua->agent("MusicBrainz server");
+        $ua->timeout(5); # in seconds.
+
+        my $response = $ua->request(HTTP::Request->new (GET =>
+            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
+            uri_escape_utf8($obj->name)));
+
+        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
+        {
+            $nag = $1;
+            $days = $2;
+        }
+        else
+        {
+            return undef;
+        }
+    }
+
+    return { nag => $nag, days => $days };
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

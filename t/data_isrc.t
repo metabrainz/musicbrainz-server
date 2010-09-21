@@ -46,4 +46,22 @@ $sql->commit;
 @isrcs = $c->model('ISRC')->find_by_recording(1);
 is(scalar @isrcs, 0);
 
+$sql->begin;
+$c->model('ISRC')->insert(
+    { isrc => 'DEE250800232', recording_id => 2 }
+);
+$sql->commit;
+
+@isrcs = $c->model('ISRC')->find_by_recording(2);
+is(scalar @isrcs, 1);
+is($isrcs[0]->isrc, 'DEE250800232');
+
+$sql->begin;
+
+$c->model('ISRC')->delete(1);
+$isrc = $c->model('ISRC')->get_by_id(1);
+ok(!defined $isrc);
+
+$sql->commit;
+
 done_testing;

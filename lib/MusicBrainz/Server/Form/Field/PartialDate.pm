@@ -21,6 +21,36 @@ has_field 'day' => (
     range_end => 31,
 );
 
+=begin comment
+
+This is kind of hacky. If the user doesn't enter any data, the form will
+submit with:
+
+    year => ''
+    month => ''
+    day => ''
+
+However, in this case we really need:
+
+    year => undef,
+    month => undef,
+    day => undef
+
+=cut
+
+around '_set_value' => sub
+{
+    my $orig = shift;
+    my ($self, $value) = @_;
+
+    $self->$orig({
+        map {
+            $_ => !defined $value->{$_} || $value->{$_} eq ''
+                ? undef : $value->{$_}
+        } keys %$value
+    });
+};
+
 sub validate {
     my $self = shift;
 

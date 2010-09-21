@@ -21,10 +21,11 @@ use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
-use MusicBrainz::Server::Data::Work;
+use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use Switch;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -40,7 +41,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
 
 sub search
 {
-    my ($self, $type, $query_str, $limit, $offset) = @_;
+    my ($self, $type, $query_str, $limit, $offset, $where) = @_;
     return ([], 0) unless $query_str && $type;
 
     $offset ||= 0;
@@ -49,6 +50,8 @@ sub search
     my $use_hard_search_limit = 1;
     my $hard_search_limit;
     my $deleted_entity = undef;
+
+    my @where_args;
 
     if ($type eq "artist" || $type eq "label") {
 
@@ -71,7 +74,7 @@ sub search
                 MAX(rank) AS rank
             FROM
                 (
-                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 16) AS rank
+                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query
                     ORDER BY rank DESC
@@ -109,6 +112,15 @@ sub search
         $extra_columns .= 'entity.language, entity.script,'
             if ($type eq 'release');
 
+        my ($join_sql, $where_sql);
+        if ($where && exists $where->{track_count}) {
+            $join_sql = '
+                JOIN medium ON medium.release = entity.id
+                JOIN tracklist ON medium.tracklist = tracklist.id';
+            $where_sql = 'WHERE tracklist.trackcount = ?';
+            push @where_args, $where->{track_count};
+        }
+
         $query = "
             SELECT
                 entity.id,
@@ -120,13 +132,15 @@ sub search
                 r.rank
             FROM
                 (
-                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 16) AS rank
+                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type2}_name, plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
                 JOIN ${type} entity ON r.id = entity.name
+                $join_sql
+                $where_sql
             ORDER BY
                 r.rank DESC, r.name, artist_credit
             OFFSET
@@ -136,7 +150,7 @@ sub search
     }
     elsif ($type eq "tag") {
         $query = "
-            SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 16) AS rank
+            SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
             FROM tag, plainto_tsquery('mb_simple', ?) AS query
             WHERE to_tsvector('mb_simple', name) @@ query
             ORDER BY rank DESC, tag.name
@@ -161,6 +175,7 @@ sub search
     my @query_args = ();
     push @query_args, $hard_search_limit if $use_hard_search_limit;
     push @query_args, $deleted_entity if $deleted_entity;
+    push @query_args, @where_args;
     push @query_args, $offset;
 
     $sql->select($query, $query_str, @query_args);
@@ -317,7 +332,10 @@ sub schema_fixup
             my $tracklist = MusicBrainz::Server::Entity::Tracklist->new(  
                 track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{count},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
-                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} 
+                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} + 1,
+                    recording => MusicBrainz::Server::Entity::Recording->new(
+                        gid => $data->{gid}
+                    )
                 ) ]
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new( 
@@ -414,9 +432,16 @@ sub external_search
                                  $query,
                                  $offset,
                                  $limit,);
-    $c->log->debug($search_url);
 
-    $ua = LWP::UserAgent->new if (!defined $ua);
+    if (&DBDefs::_RUNNING_TESTS)
+    {
+        $ua = MusicBrainz::Server::Test::mock_search_server($type);
+    }
+    else
+    {
+        $ua = LWP::UserAgent->new if (!defined $ua);
+    }
+
     $ua->timeout (5);
     $ua->env_proxy;
 
@@ -473,7 +498,7 @@ sub external_search
         {
             my $redirect;
 
-            $type =~ s/release-group/ReleaseGroup/;
+            $type =~ s/release-group/release_group/;
             if ($type eq 'cdstub')
             {
                 $redirect = $results[0]->{entity}->{discid};
@@ -497,6 +522,217 @@ sub external_search
         return { pager => $pager, offset => $offset, results => \@results };
     }
 }
+
+sub combine_rules
+{
+    my ($inputs, %rules) = @_;
+
+    my @parts;
+    for my $key (keys %rules) {
+        my $spec = $rules{$key};
+        my $parameter = $spec->{parameter} || $key;
+        next unless exists $inputs->{$parameter};
+
+        my $input = $inputs->{$parameter};
+        next if exists $spec->{check} && !$spec->{check}->($input);
+
+        $input = escape_query($input) if $spec->{escape};
+        my $process = $spec->{process} || sub { shift };
+        $input = $process->($input);
+        $input = join(' AND ', split /\s+/, $input) if $spec->{split};
+
+        my $predicate = $spec->{predicate} || sub { "$key:($input)" };
+        push @parts, $predicate->($input);
+    }
+
+    return join(' AND ', map { "($_)" } @parts);
+}
+
+sub xml_search
+{
+    my ($self, %options) = @_;
+
+    my $query   = $options{query};
+    my $limit   = $options{limit} || 25;
+    my $offset  = $options{offset} || 0;
+    my $type    = $options{type} or die 'type is a required parameter';
+    my $version = $options{version} || 2;
+
+    $query = uri_escape_utf8($query);
+    $type =~ s/release_group/release-group/;
+
+    unless ($query) {
+        switch ($type) {
+            case 'artist' {
+                my $name = escape_query($options{name}) or die 'name is a required parameter';
+                $name =~ tr/A-Z/a-z/;
+                $name =~ s/\s*(.*?)\s*$/$1/;
+                $query = "artist:($name)(sortname:($name) alias:($name) !artist:($name))";
+            }
+
+            case 'label' {
+                my $term = escape_query($options{label}) or die 'label is a required parameter';
+                $term =~ tr/A-Z/a-z/;
+                $term =~ s/\s*(.*?)\s*$/$1/;
+                $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
+            }
+
+            case 'release' {
+                $query = combine_rules(
+                    \%options,
+                    DEFAULT => {
+                        parameter => 'title',
+                        escape    => 1,
+                        process => sub {
+                            my $term = shift;
+                            $term =~ s/\s*(.*?)\s*$/$1/;
+                            $term =~ tr/A-Z/a-z/;
+                            $term;
+                        },
+                        split     => 1,
+                        predicate => sub { shift }
+                    },
+                    arid => {
+                        parameter => 'artistid',
+                        escape    => 1
+                    },
+                    artist => {
+                        parameter => 'artist',
+                        escape    => 1,
+                        split     => 1,
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                    },
+                    type => {
+                        parameter => 'releasetype',
+                    },
+                    status => {
+                        parameter => 'releasestatus',
+                        check     => sub { shift() =~ /^\d+$/ },
+                        process   => sub { shift() . '^0.0001' }
+                    },
+                    tracks => {
+                        parameter => 'count',
+                        check     => sub { shift > 0 },
+                    },
+                    discids => {
+                        check     => sub { shift > 0 },
+                    },
+                    date   => {},
+                    asin   => {},
+                    lang   => {},
+                    script => {}
+                );
+            }
+
+            case 'release-group' {
+                $query = combine_rules(
+                    \%options,
+                    DEFAULT => {
+                        parameter => 'title',
+                        escape    => 1,
+                        process => sub {
+                            my $term = shift;
+                            $term =~ s/\s*(.*?)\s*$/$1/;
+                            $term =~ tr/A-Z/a-z/;
+                            $term;
+                        },
+                        split     => 1,
+                        predicate => sub { shift }
+                    },
+                    arid => {
+                        parameter => 'artistid',
+                        escape    => 1
+                    },
+                    artist => {
+                        parameter => 'artist',
+                        escape    => 1,
+                        split     => 1,
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                    },
+                    type => {
+                        parameter => 'releasetype',
+                        check     => sub { shift =~ /^\d+$/ },
+                        process   => sub { my $type = shift; return $type . '^.0001' }
+                    },
+                );
+            }
+
+            case 'recording' {
+                $query = combine_rules(
+                    \%options,
+                    DEFAULT => {
+                        parameter => 'track',
+                        escape    => 1,
+                        process => sub {
+                            my $term = shift;
+                            $term =~ s/\s*(.*?)\s*$/$1/;
+                            $term =~ tr/A-Z/a-z/;
+                            $term;
+                        },
+                        predicate => sub { shift },
+                        split     => 1,
+                    },
+                    arid => {
+                        parameter => 'artistid',
+                        escape    => 1
+                    },
+                    artist => {
+                        parameter => 'artist',
+                        escape    => 1,
+                        split     => 1,
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                    },
+                    reid => {
+                        parameter => 'releaseid',
+                        escape    => 1
+                    },
+                    release => {
+                        parameter => 'release',
+                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term; },
+                        split     => 1,
+                        escape    => 1
+                    },
+                    duration => {
+                        predicate => sub {
+                            my $dur = int(shift() / 2000);
+                            return "qdur:$dur OR qdur:(" . ($dur - 1) . ") OR qdur:(" . ($dur + 1) . ")";
+                        }
+                    },
+                    tnum => {
+                        parameter => 'tracknumber',
+                        check => sub { shift() >= 0 },
+                    },
+                    type   => { parameter => 'releasetype' },
+                    tracks => { parameter => 'count' },
+                );
+            }
+        }
+    }
+    
+    my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
+                                 DBDefs::LUCENE_SERVER,
+                                 $version,
+                                 $type,
+                                 $query,
+                                 $offset,
+                                 $limit,);
+
+    my $ua = LWP::UserAgent->new;
+    $ua->timeout (5);
+    $ua->env_proxy;
+
+    # Dispatch the search request.
+    my $response = $ua->get($search_url);
+    unless ($response->is_success)
+    {
+        return;
+    }
+    else
+    {
+        return $response->content;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -19,14 +19,14 @@
                    IF label.country -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags tag_this_text=l('Tag this label') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags more=more_tags tag_this_text=l('Tag this label') -%]
 
         <ul class="links">
         [% IF c.user_exists %]
             [% IF subscribed %]
-                <li><a href="[% c.uri_for_action('/user/subscriptions/label/remove', { id => label.id }) %]">[% l('Unsubscribe') %]</a></li>
+                <li><a href="[% c.uri_for_action('/account/subscriptions/label/remove', { id => label.id }) %]">[% l('Unsubscribe') %]</a></li>
             [% ELSE %]
-                <li><a href="[% c.uri_for_action('/user/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
+                <li><a href="[% c.uri_for_action('/account/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
             [% END %]
         [% END %]
             [% IF c.user_exists %]
@@ -37,6 +37,11 @@
                 [% IF label.edits_pending %]
                   <li>[% link_label(label, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
+                <li>
+                  <a href="[% c.uri_for_action('/release/add', { label = label.gid }) %]">
+                    [% l('Add a new release') %]
+                  </a>
+                </li>
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this label')) %]</li>
             [% END %]
@@ -45,7 +50,7 @@
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
     [% END %]
 
-    <div class="content">
+    <div id="content">
         [%- INCLUDE "label/header.tt" -%]
         [%- content -%]
     </div>

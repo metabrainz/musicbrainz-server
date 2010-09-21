@@ -1,5 +1,111 @@
-[%- WRAPPER 'layout.tt' title=l('DiscID “{discid}”', { discid => discid }) full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('CD stub "{title}" by {artist}',
+                               { title => cdstubtoc.cdstub.title,
+                                 artist => cdstubtoc.cdstub.artist || l('Various Artists') }) -%]
+[%- USE Age -%]
 
-<p> Stub for [% discid %]</p>
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Date added:')
+               content=age(cdstubtoc.cdstub.date_added) -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Date modified:')
+               content=age(cdstubtoc.cdstub.last_modified) -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Lookup count:')
+               content=cdstubtoc.cdstub.lookup_count -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Modify count:')
+               content=cdstubtoc.cdstub.modify_count -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:')
+               content=cdstubtoc.cdstub.barcode
+                   IF cdstubtoc.cdstub.barcode -%]
+        [% END %]
+
+        <ul class="links">
+          <li>[% l('{uri|Edit this CD stub}', { uri => '/404' } ) %]</li>
+          <li>[% l('{uri|Import this CD stub}', { uri => '/404' } ) %]</li>
+          <li>[% l('{uri|Import this disc ID}', { uri => '/404' } ) %]</li>
+          <li>
+            [% artist = 'artist:(' _ (cdstubtoc.cdstub.artist || l('Various Artists')) _ ')' %]
+            [% release = 'release:(' _ cdstubtoc.cdstub.title _ ')' %]
+            [% tracks = 'tracks:(' _ cdstubtoc.track_count _ ')' %]
+            [% barcode = 'barcode:(' _ cdstubtoc.cdstub.barcode _ ')' IF cdstubtoc.cdstub.barcode %]
+            [% l('{uri|Search the database for this CD}', {
+                    uri => c.uri_for_action('/search/search', {
+                        query => artist _ ' ' _ release _ ' ' _ tracks _ ' ' _ barcode,
+                        type => 'release',
+                        advanced => 1
+                    })
+            }) %]
+          </li>
+        </ul>
+    [% END %]
+
+    <div id="content">
+        <div class="blankheader">
+            <h1>“[% cdstubtoc.cdstub.title %]”</h1>
+            <p class="subheader">
+                <span class="prefix">~</span>
+                [%= l('CD stub by {artist}', { artist => cdstubtoc.cdstub.artist || l('Various Artists') }) -%]
+            </p>
+        </div>
+
+        [% IF cdstubtoc.cdstub.comment %]
+            <h2>[% l('Comment') %]</h2>
+            <p>[% cdstubtoc.cdstub.comment %]</p>
+        [% END %]
+
+        <h2>[% l('Track listing') %]</h2>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th class="pos t">#</th>
+                    <th>[% l('Title') %]</th>
+                    [%- IF show_artists -%]
+                        <th>[% l('Artist') %]</th>
+                    [%- END -%]
+                    <th class="treleases">[% l('Length') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [%- FOR track=cdstubtoc.cdstub.tracks; %]
+                <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
+                    <td>[% track.sequence %]</td>
+                    <td>[% track.title %]</td>
+                    [%- IF show_artists -%]
+                        <td>[% track.artist %]</td>
+                    [%- END -%]
+                    <td>[% track.length | format_length %]</td>
+                </tr>
+                [%- END -%]
+            </tbody>
+        </table>
+
+        <h2>[% l('Disc ID information') %]</h2>
+        <table class="details">
+          <tr>
+            <th>[%- l('{doc|Disc ID}:', { doc => doc_link('Disc_ID') }) -%]</th>
+            <td><code>[% cdstubtoc.discid %]</code></td>
+          </tr>
+          <tr>
+            <th>[%- l('Total tracks:') -%]</th>
+            <td>[% cdstubtoc.track_count %]</td>
+          </tr>
+          <tr>
+            <th>[%- l('Total length:') -%]</th>
+            <td>
+              [% total = 0 %]
+              [% FOREACH i IN cdstubtoc.cdstub.tracks;
+                  total = total + i.length;
+              END %]
+              [% total | format_length %]</td>
+          </tr>
+          <tr>
+            <th>[%- l('Full TOC:') -%]</th>
+            <td>
+                1 [% cdstubtoc.track_count %] [% cdstubtoc.leadout_offset %]
+                [% FOREACH i IN cdstubtoc.track_offset; i _ ' '; END %]
+            </td>
+          </tr>
+        </table>
+
+    </div>
 
 [%- END -%]

@@ -64,4 +64,6 @@ else {
     $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz";
 }
 
+$ENV{"PGPASSWORD"} = $db->password;
+
 exec "psql", $db->shell_args;

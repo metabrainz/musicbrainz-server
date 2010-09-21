@@ -1,0 +1,26 @@
+[% WRAPPER "layout.tt" title=l("Edit Profile") full_width=1 %]
+
+    <h1>[% l("Edit Profile") %]</h1>
+
+    [%- WRAPPER 'layout/guidelines.tt' -%]
+        [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')})) %]
+        [%- create_guideline(l('If you change your email address, you will be required to verify it. ')) %]
+        [%- create_guideline(l('If you would like to delete your account, please see the <abbr title="Frequently Asked Questions">FAQ</abbr> entry: {faq|How do I delete my account?}', {faq => doc_link('Account_FAQ')})) %]
+    [% END %]
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <form action="[% c.req.uri %]" method="post">
+      [% form_row_text(r, 'email', l('Email:')) %]
+      [% form_row_text(r, 'website', l('Website:')) %]
+      [% WRAPPER form_row %]
+        [% r.label('biography', l('Bio:')) %]
+        [% r.textarea('biography', { cols => 80, rows => 5 }) %]
+        [% field_errors(form, 'biography') %]
+      [% END %]
+      <div class="row no-label">
+      [% form_submit(l('Save')) %]
+      </div>
+    </form>
+
+[% END %]

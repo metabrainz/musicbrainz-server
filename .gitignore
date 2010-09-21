@@ -1,6 +1,13 @@
+/admin/vh_httpd.conf
+/admin/startup.pl
+/admin/apache/vh_mb_backend.conf
+/admin/apache/vh_mb_frontend.conf
+/admin/apache/startup.pl
 /blib
 /inc
+/lib/DBDefs.pm
 /Makefile
 /META.yml
+/po/*.mo
 *~
 .#*

@@ -1,22 +1,22 @@
-[% WRAPPER "layout.tt" title=l("Error 404: Page Not Found") full_width=1 %]
-    <h1>[%- l('Page Not Found') -%]</h1>
-    <h2>
-        [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 404') -%]
-    </h2>
-    <p>
-        [%- l('The page you requested does not exist.') -%]
-    </p>
-    <p>
-        [%- l('If you think this is our fault (for example, you found a broken link <i>and the link you found is
-               on our site</i>) please let us know! You can use our {jira|bug tracker}, contact us at
-               {email|support@musicbrainz.org}, or via <abbr title="Internet Relay Chat">IRC</abbr> in the
-               {irc|#musicbrainz channel} on FreeNode.',
-               { email="mailto&#x3a;support&#x0040;musicbrainz.org",
-                 irc="irc://irc.freenode.net/musicbrainz",
-                 jira="http://jira.musicbrainz.org"
-               }) -%]
-    </p>
-    <p>
-        [%- l('Thank you, and sorry for the inconvenience!') -%]
-    </p>
+[% WRAPPER "layout.tt" title=l('Page Not Found') full_width=1 %]
+    <div id="content">
+        <h1>[%- l('Page Not Found') -%]</h1>
+
+        <p><strong>[%- l('Sorry, the page you\'re looking for does not exist.') -%]</strong></p>
+
+        [% IF message %]
+        <p><code>[% message | html %]</code></p>
+        [% END %]
+
+        <p>
+            [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
+                 { doc => doc_link('MusicBrainz_Documentation'),
+                   faq => doc_link('FAQ') }) -%]
+        </p>
+
+        <p>
+            [%- l('Found a broken link on our site? Please {con|contact us}.',
+                 { con => doc_link('Contact_Us') }) -%]
+        </p>
+    </div>
 [% END %]

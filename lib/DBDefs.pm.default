@@ -29,8 +29,8 @@ package DBDefs;
 # Directories
 ################################################################################
 
-# The Server Root, i.e. the parent directory of admin, cgi-bin and htdocs
-sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/mb_server" }
+# The server root, i.e. the parent directory of admin, bin, lib, root, etc.
+sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 # The data import directory (used by some reports)
 sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 
@@ -45,7 +45,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         database    => "musicbrainz_db",
         schema          => "musicbrainz",
         username    => "musicbrainz",
-#       password        => "",
+        password        => "musicbrainz",
 #       host            => "",
 #       port            => "",
     },
@@ -65,7 +65,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         database    => "musicbrainz_db_raw",
         schema          => "musicbrainz",
         username    => "musicbrainz",
-#       password        => "",
+        password        => "musicbrainz",
 #       host            => "",
 #       port            => "",
     },
@@ -78,12 +78,14 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 sub DB_SCHEMA_SEQUENCE { 12 }
 
 # What type of server is this?
-# * RT_MASTER - this is a master replication server.  Changes are allowed, and
+# * RT_MASTER - This is a master replication server.  Changes are allowed, and
 #               they result in replication packets being produced.
-# * RT_SLAVE  - this is a slave replication server.  After loading a snapshot
+# * RT_SLAVE  - This is a slave replication server.  After loading a snapshot
 #               produced by a master, the only changes allowed are those made
-#               by applying the next replication packet in turn.
-# * RT_STANDALONE - this server neither generates nor uses replication
+#               by applying the next replication packet in turn.  If the slave
+#               server is not going to be used for development work, change
+#               DB_STAGING_SERVER to 0.
+# * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
@@ -120,12 +122,33 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 # Documentation Server Settings
 ################################################################################
 sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
+
+# The path to MediaWiki's api.php file. This is required to automatically
+# determine which documentation pages need to be updated in the
+# transclusion table.
+sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/-/api.php" }
+
 sub WIKITRANS_INDEX_FILE { MB_SERVER_ROOT() . "/root/static/wikidocs/index.txt" }
 sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 
 ################################################################################
 # Cache Settings
 ################################################################################
+
+# PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
+# is provided by Plugin::Cache, and is required for HTTP Digest authentication
+# in the webservice (Catalyst::Authentication::Credential::HTTP).
+#
+# Using Cache::Memory is good for a development environment, but is likely not
+# suited for production.  Use something like memcached in a production setup.
+#
+sub PLUGIN_CACHE_OPTIONS {
+    return {
+        class => "Cache::Memory",
+#        class => "Cache::Memcached::Fast",
+#        servers => ['127.0.0.1:11211'],
+    };
+};
 
 # Show MISS, HIT, SET etc
 sub CACHE_DEBUG { 1 }
@@ -215,13 +238,20 @@ This server is temporarily in read-only mode
 for database maintainance.
 EOF
 
-# If this is the live MusicBrainz server, change this to 'undef'.
-# If it's not, set it to some word describing the type of server; e.g.
-# "development", "test", etc.
-# Mainly this option just affects the banner across the top of each page;
-# also there are a couple of "debug" type features which are only active
-# when not on the live server.
-sub DB_STAGING_SERVER { "development" }
+# Set this to 0 if this is the master MusicBrainz server or a slave mirror.
+# Keeping this defined enables the banner that is shown across the top of each
+# page, as well as some testing features that are only enabled when not on
+# the live server.
+sub DB_STAGING_SERVER { 1 }
+
+# This description is shown in the banner when DB_STAGING_SERVER is enabled.
+# If left undefined the default value will be shown.
+# Default: "This is a MusicBrainz development server."
+sub DB_STAGING_SERVER_DESCRIPTION { "" }
+
+# Only change this if running a non-sanitized database on a dev server,
+# e.g. http://test.musicbrainz.org.
+sub DB_STAGING_SERVER_SANITIZED { 1 }
 
 # This defines the version of the server.  Only used by things which display
 # the server version, e.g. at the foot of each web page.  Basically it can be

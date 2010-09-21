@@ -1,0 +1,12 @@
+[% WRAPPER "layout.tt" title=l('Unauthorized Request') full_width=1 %]
+    <div id="content">
+        <h1>[%- l('Unauthorized Request') -%]</h1>
+
+        <p><strong>[%- l('Sorry, you are not authorized to view this page.') -%]</strong></p>
+
+        <p>
+            [%- l('If you are trying to edit or add some data, please note that you must
+                   first confirm your email address to do this.') -%]
+        </p>
+    </div>
+[% END %]

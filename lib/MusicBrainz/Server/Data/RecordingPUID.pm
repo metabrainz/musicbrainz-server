@@ -1,7 +1,11 @@
 package MusicBrainz::Server::Data::RecordingPUID;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    object_to_ids
+    placeholders
+    query_to_list
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -34,7 +38,9 @@ sub _entity_class
 
 sub find_by_recording
 {
-    my ($self, $recording_id) = @_;
+    my $self = shift;
+
+    my @ids = ref $_[0] ? @{$_[0]} : @_;
 
     my $query = "
         SELECT
@@ -49,13 +55,29 @@ sub find_by_recording
             recording_puid
             JOIN puid ON puid.id = recording_puid.puid
             JOIN clientversion ON clientversion.id = puid.version
-        WHERE recording_puid.recording = ?
+        WHERE recording_puid.recording IN (" . placeholders(@ids) . ")
         ORDER BY recording_puid.id";
     return query_to_list(
         $self->c->dbh, sub {
             $self->_create_recording_puid(shift);
         },
-        $query, $recording_id);
+        $query, @ids);
+}
+
+sub load_for_recordings
+{
+    my ($self, @recordings) = @_;
+    my %id_to_recordings = object_to_ids (@recordings);
+    my @ids = keys %id_to_recordings;
+    return unless @ids; # nothing to do
+    my @puids = $self->find_by_recording(@ids);
+
+    foreach my $puid (@puids) {
+        foreach my $recording (@{ $id_to_recordings{$puid->recording_id} }) {
+            $recording->add_puid($puid);
+            $puid->recording($recording);
+        }
+    }
 }
 
 sub get_by_recording_puid
@@ -168,6 +190,44 @@ sub delete
     my $query = 'DELETE FROM recording_puid WHERE id = ?';
     $sql->do($query, $recording_puid_id);
     $self->c->model('PUID')->delete_unused_puids($puid_id);
+}
+
+sub filter_additions
+{
+    my ($self, @tuples) = @_;
+
+    # We want to return a list of everything where either the PUID doesn't exist,
+    # or the recording_puid tuple does not exist
+
+    my @present_puids = values %{ $self->c->model('PUID')->get_by_puids(map { $_->{puid} } @tuples) };
+    my %puids         = map { $_->puid => $_->id } @present_puids;
+    my %puid_ids      = reverse %puids;
+
+    my @additions = grep { !exists $puids{$_->{puid}}  } @tuples;
+    @tuples = grep { exists $puids{$_->{puid}}  } @tuples;
+
+    return \@additions unless @tuples;
+
+    my $query = 'SELECT v.* FROM ' .
+        '(VALUES ' . join(', ', ('(?::integer, ?::integer)') x @tuples) . ') AS v(puid, recording) '.
+        'LEFT JOIN recording_puid rp ON (v.recording = rp.recording AND v.puid = rp.puid) '.
+        'WHERE rp.recording IS NULL AND rp.puid IS NULL';
+
+    my $rows = $self->sql->select_list_of_hashes($query, map { $puids{ $_->{puid} }, $_->{recording_id} } @tuples);
+    push @additions, map +{
+        puid         => $puid_ids{ $_->{puid} },
+        recording_id => $_->{recording}
+    }, @$rows;
+
+    return \@additions;
+}
+
+sub insert
+{
+    my ($self, @insert) = @_;
+    my $query = 'INSERT INTO recording_puid (puid, recording) VALUES ' .
+        join(', ', ('(?, ?)') x @insert);
+    $self->sql->do($query, map { $_->{puid_id}, $_->{recording_id} } @insert);
 }
 
 __PACKAGE__->meta->make_immutable;

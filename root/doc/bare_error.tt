@@ -1,12 +1,21 @@
-[% WRAPPER "components/box.tt" header=l('Page could not be found') %]
-    <p>
-        [% l('The wiki page {id} does not exist.', { id => id }) %]
-    </p>
-    <p>
-        [% l('It is possible that the page <strong>{id}</strong> does not exist
-              <em>yet</em>.  You might find a page which has a similar title by
-              using the page search function in the {uri|MusicBrainz Wiki}. If
-              this does not help either, and you know how to edit wiki pages, please
-              help us by completing our documentation.', { id => id, uri => wiki_server }) %]
-    </p>
-[% END %]
+<h1>[%- l('Page Not Found') -%]</h1>
+
+<p>
+    <strong>
+        [%- l('Sorry, “{id}” is not a valid documentation page.',
+             { id => replace(id,'_',' ') }) -%]
+    </strong>
+</p>
+
+<p>
+    [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.
+           Alternatively, you may find the page you\'re looking for by <a href="{wiki}" class="external">searching for it</a> on our wiki.',
+         { doc => doc_link('MusicBrainz_Documentation'),
+           faq => doc_link('FAQ'),
+           wiki => 'http://' _ wiki_server _ '/Special:Search?search=' _ replace(id, '_', '+') }) -%]
+</p>
+
+<p>
+    [%- l('Found a broken link on our site? Please {con|contact us}.',
+         { con => doc_link('Contact_Us') }) -%]
+</p>

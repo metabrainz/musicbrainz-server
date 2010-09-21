@@ -10,6 +10,7 @@ use Sql;
 BEGIN {
     use_ok 'MusicBrainz::Server::Data::Artist';
     use_ok 'MusicBrainz::Server::Data::Label';
+    use_ok 'MusicBrainz::Server::Data::Work';
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -94,5 +95,8 @@ $sql->commit;
 # Make sure other data types support aliases
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 does_ok($label_data, 'MusicBrainz::Server::Data::Role::Alias');
+
+my $work_data = MusicBrainz::Server::Data::Work->new(c => $c);
+does_ok($work_data, 'MusicBrainz::Server::Data::Role::Alias');
 
 done_testing;

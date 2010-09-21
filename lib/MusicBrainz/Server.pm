@@ -5,7 +5,6 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
-use MusicBrainz::Server::Context;
 
 # Set flags and add plugins for the application
 #
@@ -25,6 +24,7 @@ I18N::Gettext
 Session
 Session::State::Cookie
 
+Cache
 Authentication
 
 Unicode::Encoding
@@ -49,9 +49,12 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
+	    'date_xsd_type' => \&MusicBrainz::Server::Filters::date_xsd_type,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
+	    'format_length_xsd' => \&MusicBrainz::Server::Filters::format_length_xsd,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
+            'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language
         },
@@ -61,11 +64,18 @@ __PACKAGE__->config(
         PRE_PROCESS => [
             'components/common-macros.tt',
             'components/forms.tt',
+	    'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
     },
     'Plugin::Session' => {
         expires => 36000 # 10 hours
+    },
+    static => {
+        mime_types => {
+            json => 'application/json; charset=UTF-8',
+        },
+        dirs => [ 'static' ],
     }
 );
 
@@ -84,6 +94,8 @@ if (DBDefs::EMAIL_BUGS) {
     push @args, "ErrorCatcher";
 }
 
+__PACKAGE__->config->{'Plugin::Cache'}{backend} = &DBDefs::PLUGIN_CACHE_OPTIONS;
+
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
     use_session => 0,
@@ -92,6 +104,18 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             use_session => 1,
             credential => {
                 class => 'Password',
+                password_field => 'password',
+                password_type => 'clear'
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Store'
+            }
+        },
+        'musicbrainz.org' => {
+            use_session => 1,
+            credential => {
+                class => 'HTTP',
+                type => 'digest',
                 password_field => 'password',
                 password_type => 'clear'
             },
@@ -159,6 +183,15 @@ sub form
     my $form = $form_name->new(%args, ctx => $c);
     $c->stash( $stash => $form );
     return $form;
+}
+
+sub relative_uri
+{
+    my ($self) = @_;
+    my $uri = URI->new($self->req->uri->path);
+    $uri->path_query($self->req->uri->path_query);
+
+    return $uri;
 }
 
 =head1 NAME

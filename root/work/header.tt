@@ -1,16 +1,21 @@
 [%- info_links = [
     ['index', link_work(work, 'show', l('Overview'))],
-    ['relationships', link_work(work, 'relationships', l('Relationships'))],
+    ['relationships', rdfa_seeAlso_link_work(work, 'relationships', l('Relationships'))],
+    ['aliases', rdfa_seeAlso_link_work(work, 'aliases', l('Aliases'))],
+    ['tags', link_work(work, 'tags', l('Tags'))],
+    ['details', rdfa_seeAlso_link_work(work, 'details', l('Details'))],
     ['edit', link_work(work, 'edit', l('Edit'))],
 ] -%]
 
-<h1>“[% link_work(work) %]” [% disambiguation(work) %]</h1>
-<p class="subheader">
-    <span class="prefix">~</span>
-        [% l('{type} by {artist}', {
-            type = html_escape(work.type_name) or l('Work'),
-            artist = artist_credit(work.artist_credit)
-        })%]
-</p>
+<div class="workheader" about="[% rdfa_work_curi(work) %]" typeof="[% rdfa_concept_curi('work') %]">
+    <h1>“[% rdfa_link_work_header(work) %]” [% disambiguation(work) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span>
+            [% l('{type} by {artist}', {
+                type = html_escape(work.type_name) or l('Work'),
+                artist = rdfa_artist_credit(work.artist_credit)
+            })%]
+    </p>
+</div>
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]

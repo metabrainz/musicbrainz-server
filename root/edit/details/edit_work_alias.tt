@@ -1,0 +1,20 @@
+<table class="details">
+  <tr>
+    <th>[% l('Work:') %]</th>
+    <td colspan="2">[% link_work(edit.display_data.work) %]</td>
+  </tr>
+  [% IF edit.display_data.alias.new %]
+  <tr>
+    <th>[% l('Alias:') %]</th>
+    <td class="old">[% edit.display_data.alias.old | html %]</td>
+    <td class="new">[% edit.display_data.alias.new | html %]</td>
+  </tr>
+  [% END %]
+  [% IF edit.display_data.locale.new %]
+  <tr>
+    <th>[% l('Locale:') %]</th>
+    <td class="old">[% edit.display_data.locale.old | language %]</td>
+    <td class="new">[% edit.display_data.locale.new | language %]</td>
+  </tr>
+  [% END %]
+</table>

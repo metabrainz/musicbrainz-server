@@ -15,9 +15,9 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+release');
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $c);
 
 my $release = $release_data->get_by_id(1);
-is( $release->id, 1 );
+is( $release->id, 1, 'get release 1 by id');
 is( $release->gid, "f34c079d-374e-4436-9448-da92dedef3ce" );
-is( $release->name, "Arrival" );
+is( $release->name, "Arrival", 'release is called "Arrival"');
 is( $release->artist_credit_id, 1 );
 is( $release->release_group_id, 1 );
 is( $release->status_id, 1 );
@@ -31,46 +31,49 @@ is( $release->date->day, 8 );
 is( $release->barcode, "731453398122" );
 is( $release->comment, "Comment" );
 is( $release->edits_pending, 2 );
+is( $release->quality, -1 );
 
 my $release_label_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $c);
 $release_label_data->load($release);
 ok( @{$release->labels} >= 2 );
 is( $release->labels->[0]->label_id, 1 );
-is( $release->labels->[0]->catalog_number, "ABC-123" );
+is( $release->labels->[0]->catalog_number, "ABC-123", 'release has catalog number ABC-123');
 is( $release->labels->[1]->label_id, 1 );
-is( $release->labels->[1]->catalog_number, "ABC-123-X" );
+is( $release->labels->[1]->catalog_number, "ABC-123-X", 'release also has catalog number ABC-123-X' );
+
+$release = $release_data->get_by_id(2);
+is( $release->quality, -1 );
 
 my ($releases, $hits) = $release_data->find_by_artist(1, 100);
 is( $hits, 2 );
 is( scalar(@$releases), 2 );
-is( $releases->[0]->id, 1 );
-is( $releases->[1]->id, 2 );
+is( $releases->[0]->id, 1, 'found release by artist');
+is( $releases->[1]->id, 2, 'found release by artist');
 
 ($releases, $hits) = $release_data->find_by_track_artist(1, 100);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
-is( $releases->[0]->id, 3 );
+is( $releases->[0]->id, 3, 'found release by track artist');
 
-my @release_list = $release_data->find_by_recording(1);
-is( scalar(@release_list), 1 );
-is( $release_list[0]->id, 3 );
+($releases, $hits) = $release_data->find_by_recording(1, 100);
+is( $hits, 1 );
+is( scalar(@$releases), 1 );
+is( $releases->[0]->id, 3, 'found release by recording' );
 
 ($releases, $hits) = $release_data->find_by_release_group(1, 100);
 is( $hits, 2 );
 is( scalar(@$releases), 2 );
-is( $releases->[0]->id, 1 );
-is( $releases->[1]->id, 2 );
+is( $releases->[0]->id, 1, 'found release by release group' );
+is( $releases->[1]->id, 2, 'found release by release group' );
 
-($releases, $hits) = $release_data->find_by_medium(1, 100);
-is( $hits, 1 );
-is( scalar(@$releases), 1 );
-is( $releases->[0]->id, 3 );
+my @releases = $release_data->find_by_medium(1, 100);
+is( $releases[0]->id, 3 );
 
 my $annotation = $release_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );
 
 $release = $release_data->get_by_gid('71dc55d8-0fc6-41c1-94e0-85ff2404997d');
-is ( $release->id, 1 );
+is ( $release->id, 1, 'get release by gid' );
 
 my %names = $release_data->find_or_insert_names('Arrival', 'Release #2', 'Protection');
 is(keys %names, 3);
@@ -95,8 +98,8 @@ $release = $release_data->insert({
         comment => 'A comment',
     });
 $release = $release_data->get_by_id($release->id);
-ok(defined $release);
-is($release->name, 'Protection');
+ok(defined $release, 'get release by id');
+is($release->name, 'Protection', 'release is called "Protection"');
 is($release->artist_credit_id, 1);
 is($release->release_group_id, 1);
 is($release->packaging_id, 1);
@@ -117,7 +120,7 @@ $release_data->update($release->id, {
     });
 $release = $release_data->get_by_id($release->id);
 ok(defined $release);
-is($release->name, 'Blue Lines');
+is($release->name, 'Blue Lines', 'release is called "Blue Lines"');
 is($release->artist_credit_id, 1);
 is($release->release_group_id, 1);
 is($release->packaging_id, 1);

@@ -8,7 +8,12 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
+use MusicBrainz::Server::Data::Utils qw( partial_date_from_row type_to_model );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+
+use aliased 'MusicBrainz::Server::Entity::Link';
+use aliased 'MusicBrainz::Server::Entity::LinkType';
+use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
 sub edit_name { 'Add relationship' }
@@ -27,6 +32,49 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys
+{
+    my ($self) = @_;
+    my %load = (
+        LinkType                            => [ $self->data->{link_type_id} ],
+        LinkAttributeType                   => $self->data->{attributes},
+        type_to_model($self->data->{type0}) => [ $self->data->{entity0} ]
+    );
+
+    # Type 1 my be equal to type 0, so we need to be careful
+    $load{ type_to_model($self->data->{type1}) } ||= [];
+    push @{ $load{ type_to_model($self->data->{type1}) } }, $self->data->{entity1};
+
+    return \%load;
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+    my $model0 = type_to_model($self->data->{type0});
+    my $model1 = type_to_model($self->data->{type1});
+
+    return {
+        relationship => Relationship->new(
+            link => Link->new(
+                type       => $loaded->{LinkType}{ $self->data->{link_type_id} },
+                begin_date => partial_date_from_row( $self->data->{begin_date} ),
+                end_date   => partial_date_from_row( $self->data->{end_date} ),
+                attributes => [
+                    map {
+                        my $attr    = $loaded->{LinkAttributeType}{ $_ };
+                        my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
+                        $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
+                        $attr;
+                    } @{ $self->data->{attributes} }
+                ]
+            ),
+            entity0 => $loaded->{$model0}{ $self->data->{entity0} },
+            entity1 => $loaded->{$model1}{ $self->data->{entity1} },
+        )
+    }
+}
+
 sub related_entities
 {
     my ($self) = @_;
@@ -44,7 +92,7 @@ sub related_entities
             $self->data->{type1} => [ $self->data->{entity1} ]
         };
     }
-    delete $result->{url} if exists $result->{url};
+
     return $result;
 }
 

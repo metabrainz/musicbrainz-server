@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 59;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::EntityTag';
 
 use Sql;
@@ -26,6 +26,9 @@ is( $tags[0]->tag->name, 'musical' );
 is( $tags[0]->count, 5 );
 is( $tags[1]->tag->name, 'rock' );
 is( $tags[1]->count, 3 );
+
+my $count = $tag_data->find_tag_count (4);
+is ($count, 4, "tag count is four");
 
 my ($tags, $hits) = $tag_data->find_tags(4, 100, 0);
 is( scalar(@$tags), 4 );
@@ -147,3 +150,7 @@ is( $tags[4]->count, 1 );
 
 $tags = $raw_sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
 is_deeply([5], $tags);
+
+done_testing;
+
+1;

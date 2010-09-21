@@ -79,6 +79,7 @@ sub RunSQLScript
     my $stdout = ($fQuiet ? ">/dev/null" : "");
 
     $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz";
+    $ENV{"PGPASSWORD"} = $db->password;
     print "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |\n";
     open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |")
         or die "exec '$psql': $!";
@@ -192,7 +193,9 @@ sub Create
     print localtime() . " : Creating database '$dbname'\n";
     $system_sql->auto_commit;
     my $dbuser = $db->username;
-    $system_sql->do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
+    $system_sql->do(
+        "CREATE DATABASE $dbname WITH OWNER = $dbuser ".
+        "TEMPLATE template0 ENCODING = 'UNICODE'");
 
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)
@@ -201,6 +204,7 @@ sub Create
     my @opts = $sys_in_thisdb->shell_args;
     splice(@opts, -1, 0, "-d");
     push @opts, "plpgsql";
+    $ENV{"PGPASSWORD"} = $sys_db->password;
     system "createlang", @opts;
     die "\nFailed to create language\n" if ($? >> 8);
 }
@@ -210,14 +214,17 @@ sub CreateRelations
     my $import = shift;
 
     my $opts = $READWRITE->shell_args;
+    $ENV{"PGPASSWORD"} = $READWRITE->password;
     system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
     die "\nFailed to create schema\n" if ($? >> 8);
 
     $opts = $RAWDATA->shell_args;
+    $ENV{"PGPASSWORD"} = $RAWDATA->password;
     system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
     die "\nFailed to create schema\n" if ($? >> 8);
 
     InstallExtension($SYSMB, "cube.sql", "musicbrainz");
+    InstallExtension($SYSMB, "musicbrainz_collate.sql", "musicbrainz");
 
     RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($RAWDATA, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
@@ -267,11 +274,13 @@ sub CreateRelations
 
     print localtime() . " : Optimizing database ...\n";
     $opts = $READWRITE->shell_args;
+    $ENV{"PGPASSWORD"} = $READWRITE->password;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 
     print localtime() . " : Optimizing rawdata database ...\n";
     $opts = $RAWDATA->shell_args;
+    $ENV{"PGPASSWORD"} = $RAWDATA->password;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize rawdata database\n" if ($? >> 8);
 
@@ -295,7 +304,7 @@ sub GrantSelect
     while (my $row = $sth->fetchrow_arrayref)
     {
         my $tablename = $row->[2];
-        next if $tablename =~ /^(Pending|PendingData)$/;
+        next if $tablename =~ /^(dbmirror_pending|dbmirror_pendingdata)$/;
         $dbh->do("GRANT SELECT ON $tablename TO $username")
             or die;
     }

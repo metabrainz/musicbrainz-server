@@ -11,6 +11,17 @@ has 'c' => (
     isa => 'Object'
 );
 
+has 'sql' => (
+    isa => 'Sql',
+    is  => 'ro',
+    lazy_build => 1
+);
+
+sub _build_sql {
+    my $self = shift;
+    return Sql->new($self->_dbh);
+}
+
 sub _columns
 {
     die("Not implemented");
@@ -61,7 +72,7 @@ sub _new_from_row
         }
         $info{$attrib} = $val if defined $val;
     }
-    my $entity_class = $self->_entity_class;
+    my $entity_class = $self->_entity_class($row);
     Class::MOP::load_class($entity_class);
     return $entity_class->new(%info);
 }
@@ -71,10 +82,10 @@ sub _get_by_keys
     my ($self, $key, @ids) = @_;
     @ids = grep { defined && $_ } @ids;
     return unless @ids;
-    my $query = "SELECT " . $self->_columns . 
+    my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ")";
-    my $sql = Sql->new($self->_dbh);
+    my $sql = $self->sql;
     $sql->select($query, @ids);
     my %result;
     while (1) {

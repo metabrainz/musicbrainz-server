@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Utils;
 use base 'Exporter';
 
 use Class::MOP;
+use Data::Compare;
 use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
@@ -15,6 +16,7 @@ our @EXPORT_OK = qw(
     defined_hash
     hash_to_row
     add_partial_date_to_row
+    remove_equal
     generate_gid
     insert_and_create
     generate_gid
@@ -29,14 +31,17 @@ our @EXPORT_OK = qw(
     model_to_type
     linktype_to_model
     model_to_linktype
+    object_to_ids
     order_by
     check_in_use
+    map_query
 );
 
 Readonly my %TYPE_TO_MODEL => (
     'annotation'    => 'Annotation',
     'artist'        => 'Artist',
     'cdstub'        => 'CDStub',
+    'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
     'label'         => 'Label',
     'recording'     => 'Recording',
@@ -66,6 +71,7 @@ sub artist_credit_to_ref
 sub load_subobjects
 {
     my ($data_access, $attr_obj, @objs) = @_;
+
     @objs = grep { defined } @objs;
     return unless @objs;
 
@@ -249,6 +255,18 @@ sub model_to_linktype
     return $map{$_[0]} || undef;
 }
 
+sub object_to_ids
+{
+    my %ret;
+    foreach (@_)
+    {
+        $ret{$_->id} = [] unless $ret{$_->id};
+        push @{ $ret{$_->id} }, $_;
+    }
+
+    return %ret;
+}
+
 sub order_by
 {
     my ($order, $default, $map) = @_;
@@ -272,6 +290,31 @@ sub order_by
         }
     }
     return $order_by;
+}
+
+sub remove_equal
+{
+    my ($old, $new) = @_;
+
+    for my $key (keys %$old) {
+        my $n = $new->{$key};
+        my $o = $old->{$key};
+
+        if (Compare($n, $o)) {
+            delete $old->{$key};
+            delete $new->{$key};
+        }
+    }
+}
+
+sub map_query
+{
+    my ($dbh, $key, $value, $query, @bind_params) = @_;
+    my $sql = Sql->new($dbh);
+    return {
+        map { $_->{$key} => $_->{$value} }
+            @{ $sql->select_list_of_hashes($query, @bind_params) }
+    }
 }
 
 1;

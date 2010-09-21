@@ -1,323 +1,220 @@
+<ul class="r">
+    [%- IF c.user_exists -%]
+        <li>
+            [% link_editor(c.user) %]
+            <ul>
+                <li>
+                    [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
+                </li>
+                <li>
+                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/account/change_password') }) %]
+                </li>
+                <li>
+                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/account/preferences') }) %]
+                </li>
+                <li>
+                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
+                </li>
+            </ul>
+        </li>
+        [% IF c.user_exists && c.user.is_admin %]
+            <li>
+                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
+                <ul>
+                    [% IF c.user.is_relationship_editor %]
+                        <li>
+                            [% l('{uri|Edit Link Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
+                        </li>
+                        <li>
+                            [% l('{uri|Edit Link Attribute Types}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_wiki_transcluder %]
+                        <li>
+                            [% l('{uri|Transclude WikiDocs}', { uri => c.uri_for_action('/admin/wikidoc/index') }) %]
+                        </li>
+                    [% END %]
+                </ul>
+            </li>
+        [% END %]
+        <li>
+            [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
+            <ul>
+                <li>
+                    [% l('{col|My Lists}', { col => c.uri_for_action('/user/lists', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{col|My Ratings}', { col => c.uri_for_action('/user/ratings', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{col|My Tags}', { col => c.uri_for_action('/user/tags', [ c.user.name ]) }) %]
+                </li>
+            </ul>
+        </li>
+    [%- ELSE -%]
+        <li>[% request_login(l('Log In')) %]</li>
+        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>
+    [%- END -%]
+</ul>
+
 <ul>
     <li>
         [%- l('{doc|About}', {doc => doc_link('About_MusicBrainz')}) -%]
         <ul>
             <li>
-                [%- l('{doc|About MusicBrainz}', {doc => doc_link('About_MusicBrainz')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Mirrors}', {doc => doc_link('Mirror_Server')}) -%]
+                [%- l('{doc|Sponsors}', {doc => doc_link('MusicBrainz_Sponsors')}) -%]
             </li>
             <li>
                 [%- l('{doc|People}', {doc => doc_link('MusicBrainz_Bio')}) -%]
             </li>
             <li>
-                [%- l('{doc|Privacy}', {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]
+                [%- l('{doc|In the Press}', {doc => doc_link('MusicBrainz_Press')}) -%]
             </li>
-            <li>
-                [%- l('{doc|History}', {doc => doc_link('MusicBrainz_History')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Licenses}', {doc => doc_link('MusicBrainz_License')}) -%]
+            <li class="separator">
+                [%- l('{doc|Data Licenses}', {doc => doc_link('MusicBrainz_License')}) -%]
             </li>
             <li>
                 [%- l('{doc|Social Contract}', {doc => doc_link('Social_Contract')}) -%]
             </li>
             <li>
-                [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
+                [%- l('{doc|Privacy Policy}', {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]
+            </li>
+            <li class="separator">
+                [% l('{url|Auto-editor Elections}', { url => c.uri_for('/elections') }) %]
             </li>
             <li>
-                [%- l('{doc|Server Statistics}', {doc => doc_link('Server_Statistics')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Logo}', {doc => doc_link('MusicBrainz_Logo')}) -%]
-            </li>
-            <li>
-                <a href="[% c.uri_for('/elections') %]">
-                    [% l('Autoeditor Elections') %]
-                </a>
+                [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
             </li>
         </ul>
     </li>
     <li>
-        <a href="http://blog.musicbrainz.org">
-            [% l('News') %]
+        <a href="http://blog.musicbrainz.org" class="internal">
+            [% l('Blog') %]
         </a>
-        <ul>
-            <li>
-                <a href="http://blog.musicbrainz.org">
-                    [% l('General News') %]
-                </a>
-            </li>
-            <li>
-                <a href="http://blog.musicbrainz.org?cat=3">
-                    [% l('Server') %]
-                </a>
-            </li>
-            <li>
-                <a href="http://blog.musicbrainz.org?cat=9">
-                    [% l('Picard') %]
-                </a>
-            </li>
-            <li>
-                [%- l('{doc|In the Press}', {doc => doc_link('MusicBrainz_Press')}) -%]
-            </li>
-        </ul>
     </li>
 
     <li>
         [%- l('{doc|Products}', {doc => doc_link('Products')}) -%]
         <ul>
             <li>
-                [%- l('{doc|libmusicbrainz}', {doc => doc_link('libmusicbrainz')}) -%]
+                [%- l('{doc|MusicBrainz Picard}', {doc => doc_link('MusicBrainz_Picard')}) -%]
             </li>
             <li>
-                [%- l('{doc|libtunepimp}', {doc => doc_link('libtunepimp')}) -%]
+                [%- l('{doc|Jaikoz}', {doc => doc_link('Jaikoz')}) -%]
             </li>
             <li>
+                [%- l('{doc|Magic MP3 Tagger}', {doc => doc_link('Magic_MP3_Tagger')}) -%]
+            </li>
+            <li class="separator">
                 [%- l('{doc|MusicBrainz Server}', {doc => doc_link('MusicBrainz_Server')}) -%]
             </li>
             <li>
                 [%- l('{doc|MusicBrainz Database}', {doc => doc_link('MusicBrainz_Database')}) -%]
             </li>
             <li>
+                [%- l('{doc|XML Web Service}', {doc => doc_link('XML_Web_Service')}) -%]
+            </li>
+            <li>
                 [%- l('{doc|Live Data Feed}', {doc => doc_link('Live_Data_Feed')}) -%]
             </li>
-            <li>
-                [%- l('{doc|Web Service}', {doc => doc_link('Web_Service')}) -%]
-            </li>
-            <li class="seperator">
-                [%- l('{doc|FreeDB Gateway}', {doc => doc_link('FreeDB_Gateway')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|3<sup>rd</sup> Party}', {doc => doc_link('MusicBrainz_Enabled_Applications')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|MusicBrainz Picard}', {doc => doc_link('MusicBrainz_Picard')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Magic Tagger}', {doc => doc_link('Magic_Tagger')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Jaikoz Tag Editor}', {doc => doc_link('Jaikoz_MP3_Tag_Editor')}) -%]
+            <li class="separator">
+                [%- l('{doc|Freedb Gateway}', {doc => doc_link('FreeDB_Gateway')}) -%]
             </li>
         </ul>
     </li>
     <li>
-        <a href="[% c.uri_for('/search') %]">
-            [% l('Search') %]
-        </a>
+        [% l('{uri|Search}', { uri => c.uri_for('/search') }) %]
         <ul>
-        <li>
-                <a href="[% c.uri_for_action('/edit/search') %]">
-                    [% l('Edits') %]
-                </a>
-            </li>
-        <li><a href="[% c.uri_for('/browse/artist') %]">[% l('Browse Artists') %]</a></li>
-        <li><a href="[% c.uri_for('/browse/label') %]">[% l('Browse Labels') %]</a></li>
-        <li><a href="[% c.uri_for('/browse/release') %]">[% l('Browse Releases') %]</a></li>
-        <li><a href="[% c.uri_for('/browse/release-group') %]">[% l('Browse Release Groups') %]</a></li>
-        <li><a href="[% c.uri_for('/browse/work') %]">[% l('Browse Works') %]</a></li>
-        <li>
-                <a href="[% c.uri_for('/search/plugins') %]">
-                    [% l('Browser Search Plugins') %]
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        [%- l('{doc|Editing}', {doc => doc_link('How_Editing_Works')}) -%]
-        <ul>
-            <li>
-                [%- l('{doc|About Editing}', {doc => doc_link('How_Editing_Works')}) -%]
-            </li>
-                [%- IF c.user_exists -%]
-            <li>
-                <a href="[% c.uri_for_action('/report/index') %]">
-                    [% l('Editing Suggestions') %]
-                </a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/edit/open') %]">
-                    [% l('Review / Vote on Edits') %]
-                </a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/edit/conditions') %]">
-                    [% l('Edit Conditions') %]
-                </a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/artist/create') %]">
-                    [% l('Add Artist') %]
-                </a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/label/create') %]">
-                    [% l('Add Label') %]
-                </a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/artist', various_artist_mbid, 'add_release') %]">
-                    [% l('Add Various Artists Release') %]
-                </a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/release/freedb_import') %]">
-                    [% l('FreeDB Import') %]
-                </a>
-            </li>
-            [%- ELSE -%]
+            [%- IF c.user_exists -%]
                 <li>
-                    [% request_login(l('You must be logged-in to edit')) %]
+                    [% l('{uri|Search Edits}', { uri => c.uri_for_action('/edit/search') }) %]
                 </li>
-            [%- END -%]
+            [% END %]
+            <li>
+                [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
+            </li>
+            <li>
+                [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
+            </li>
+            <li>
+                [% l('{uri|Top CD Stubs}', { uri => c.uri_for('/cdstub/browse') }) %]
+            </li>
+            <li class="separator">
+                 [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]
+            </li>
         </ul>
     </li>
     [%- IF c.user_exists -%]
         <li>
-            <a href="[% c.uri_for_action('/user/profile', c.user.name) %]">
-                [% l('Account') %]
-            </a>
+            [%- l('{doc|Editing}', {doc => doc_link('How_Editing_Works')}) -%]
             <ul>
                 <li>
-                    <a href="[% c.uri_for('/account/edit') %]">
-                        [% l('Edit Account') %]
-                    </a>
+                    [% l('{uri|Add Artist}', { uri => c.uri_for('/artist/create') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/user/change_password') %]">
-                        [% l('Change Password') %]
-                    </a>
+                     [% l('{uri|Add Label}', { uri => c.uri_for('/label/create') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/user/preferences') %]">
-                        [% l('Preferences') %]
-                    </a>
+                    [% l('{uri|Add Various Artists Release}', { uri => c.uri_for('/artist', various_artist_mbid, 'add_release') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/user/subscriptions') %]">
-                        [% l('Subscriptions') %]
-                    </a>
+                    [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
+                </li>
+                <li class="separator">
+                    [% l('{uri|Vote on Edits}', { uri => c.uri_for('/edit/open') }) %]
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/user/subscribers') %]">
-                        [% l('Subscribers') %]
-                    </a>
+                    [% l('{uri|Editing Suggestions}', { uri => c.uri_for_action('/report/index') }) %]
                 </li>
-                <li>
-                    <a href="[% c.uri_for('/rating') %]">
-                        [% l('Your Ratings') %]
-                    </a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for('/user/donate') %]">
-                        [% l('Check Donation Status') %]
-                    </a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/user/logout') %]">
-                        [% l('Log Out') %]
-                    </a>
-                </li>
-            </ul>
-        </li>
-    [%- ELSE -%]
-        <li>
-            [% request_login(l('Account')) %]
-            <ul>
-            <li>
-                    <a href="[% c.uri_for_action('/user/register') %]">
-                        [% l('Create an Account') %]
-                    </a>
-                </li>
-            <li>
-                    [% request_login(l('Log In')) %]
-                </li>
-            <li>
-                    <a href="[% c.uri_for_action('/user/lost_password') %]">
-                        [% l('Forgot Password') %]
-                    </a>
+                <li class="separator">
+                    [% l('{uri|Edit Conditions}', { uri => c.uri_for('/edit/conditions') }) %]
                 </li>
             </ul>
         </li>
     [%- END -%]
     <li>
-        [%- l('{doc|Contribute}', {doc => doc_link('How_To_Contribute')}) -%]
+        [%- l('{doc|Documentation}', {doc => doc_link('MusicBrainz_Documentation')}) -%]
         <ul>
             <li>
-                [%- l('{doc|How to Contribute}', {doc => doc_link('How_To_Contribute')}) -%]
-            </li>
-            <li>
-                <a href="http://metabrainz.org/about/supporters.html">
-                    [% l('Sponsors') %]
-                </a>
-            </li>
-            <li>
-                [%- l('{doc|Help Wanted}', {doc => doc_link('Help_Wanted')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|Subversion Access}', {doc => doc_link('Subversion')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|<abbr title="Subversion">SVN</abbr> Modules}', {doc => doc_link('Projects')}) -%]
-            </li>
-            <li>
-                <a href="http://bugs.musicbrainz.org/browser">
-                    [% l('<abbr title="Subversion">SVN</abbr> Viewer') %]
-                </a>
-            </li>
-        </ul>
-    </li>
-    [% IF c.user_exists && (c.user.is_relationship_editor || c.user.is_wiki_transcluder) %]
-    <li>
-        <a href="[% c.uri_for_action('/admin/index') %]">[% l('Administration') %]</a>
-        <ul>
-            [% IF c.user.is_relationship_editor %]
-            <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Link Types') %]</a></li>
-            <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Link Attribute Types') %]</a></li>
-            [% END %]
-            [% IF c.user.is_wiki_transcluder %]
-            <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude Docs') %]</a></li>
-            [% END %]
-        </ul>
-    </li>
-    [% END %]
-    <li>
-        [%- l('{doc|Help}', {doc => doc_link('Contact_Us')}) -%]
-        <ul>
-            <li>
-                [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
-            </li>
-            <li>
-                [%- l('{doc|<abbr title="Frequently Asked Questions">FAQs</abbr>}', {doc => doc_link('Frequently_Asked_Questions')}) -%]
+                [%- l('{doc|Beginners Guide}', {doc => doc_link('Beginners_Guide')}) -%]
             </li>
             <li>
                 [%- l('{doc|Style Guidelines}', {doc => doc_link('Official_Style_Guideline')}) -%]
             </li>
             <li>
-                [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_List')}) -%]
+                [%- l('{doc|FAQs}', {doc => doc_link('Frequently_Asked_Questions')}) -%]
+            </li>
+            <li class="separator">
+                [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
+            </li>
+        </ul>
+    </li>
+    <li>
+        [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
+        <ul>
+            <li>
+                [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_Lists')}) -%]
             </li>
             <li>
-                <a href="http://forums.musicbrainz.org">
+                <a href="http://forums.musicbrainz.org" class="internal">
                     [% l('Web Forums') %]
                 </a>
             </li>
             <li>
-                <a href="http://musicbrainz.uservoice.com">
-                    [% l('UserVoice Feedback') %]
+                <a href="http://musicbrainz.uservoice.com" class="internal">
+                    [% l('Suggest a Feature') %]
                 </a>
             </li>
             <li>
-                <a href="http://bugs.musicbrainz.org">
-                    [% l('Bugs/<abbr title="Requests for Enhancement">RFEs</abbr>') %]
+                <a href="http://jira.musicbrainz.org" class="internal">
+                    [% l('Report a Bug') %]
                 </a>
             </li>
             <li>
-                [%- l('{doc|Copyright Issues}', {doc => doc_link('Copyright_Violation_Notice')}) -%]
+                [%- l('{doc|Report a Copyright Violation}', {doc => doc_link('Copyright_Violation_Notice')}) -%]
             </li>
         </ul>
     </li>

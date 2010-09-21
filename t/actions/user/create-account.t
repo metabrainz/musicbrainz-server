@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => {
     'register.confirm_password' => 'magic_password',
 });
 
-like($mech->uri, qr{/user/profile/brand_new_editor}, 'should redirect to profile page after registering');
+like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
 
 $mech->get_ok('/register', 'Fetch registration page');
 $mech->submit_form( with_fields => {
@@ -30,7 +30,7 @@ $mech->submit_form( with_fields => {
     'register.email' => 'foo@bar.com',
 });
 
-like($mech->uri, qr{/user/profile/email_editor}, 'should redirect to profile page after registering');
+like($mech->uri, qr{/user/email_editor}, 'should redirect to profile page after registering');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->deliveries->[-1]->{email};
@@ -40,5 +40,13 @@ like($email->get_body, qr{/verify-email}, 'has a link to verify email address');
 my ($verify_link) = $email->get_body =~ qr{http://localhost(/verify-email.*)};
 $mech->get_ok($verify_link, 'verify account');
 $mech->content_like(qr/Thank you, your email address has now been verified/);
+
+# remove the newly added users.
+use Sql;
+my $sql = Sql->new($c->dbh);
+$sql->begin;
+$sql->do ('DELETE FROM editor WHERE name=\'brand_new_editor\'');
+$sql->do ('DELETE FROM editor WHERE name=\'email_editor\'');
+$sql->commit;
 
 done_testing;

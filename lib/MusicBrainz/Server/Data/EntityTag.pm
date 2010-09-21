@@ -25,6 +25,7 @@ has [qw( tag_table type )] => (
 sub find_tags
 {
     my ($self, $entity_id, $limit, $offset) = @_;
+    $limit ||= -1;
     $offset ||= 0;
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .
@@ -33,6 +34,15 @@ sub find_tags
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row($_[0]) },
         $query, $entity_id, $offset);
+}
+
+sub find_tag_count
+{
+    my ($self, $entity_id) = @_;
+    my $query = "SELECT count(*) FROM " . $self->tag_table . " entity_tag " .
+                "WHERE " . $self->type . " = ? ";
+
+    return Sql->new($self->c->dbh)->select_single_value($query, $entity_id);
 }
 
 sub find_top_tags
@@ -46,15 +56,67 @@ sub find_top_tags
                          $query, $entity_id, $limit);
 }
 
+sub find_tags_for_entities
+{
+    my ($self, $ids) = @_;
+
+    my @ids = ref $ids ? @$ids : $ids;
+
+    return unless @ids;
+
+    my $query = "SELECT tag.name, entity_tag.count,
+                        entity_tag.".$self->type." AS entity
+                 FROM " . $self->tag_table . " entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
+                 ORDER BY entity_tag.count DESC, tag.name";
+    return query_to_list(
+        $self->c->dbh, sub {
+            $self->_new_from_row($_[0])
+        }, $query, @ids);
+}
+
+sub find_user_tags_for_entities
+{
+    my ($self, $user_id, $ids) = @_;
+
+    my @ids = ref $ids ? @$ids : $ids;
+
+    return unless @ids;
+
+    my $type = $self->type;
+    my $table = $self->tag_table . '_raw';
+    my $query = "SELECT tag, $type AS entity
+                 FROM $table
+                 WHERE editor = ?
+                 AND $type IN (" . placeholders(@ids) . ")";
+
+    my @tags = query_to_list($self->c->raw_dbh, sub {
+        my $row = shift;
+        return MusicBrainz::Server::Entity::UserTag->new(
+            tag_id => $row->{tag},
+            editor_id => $user_id,
+            entity_id => $row->{entity},
+        );
+    }, $query, $user_id, @ids);
+
+    $self->c->model ('Tag')->load (@tags);
+
+    return sort { $a->tag->name cmp $b->tag->name } @tags;
+}
+
 sub _new_from_row
 {
     my ($self, $row) = @_;
-    MusicBrainz::Server::Entity::AggregatedTag->new(
+
+    my %init = (
         count => $row->{count},
-        tag => MusicBrainz::Server::Entity::Tag->new(
-            name => $row->{name},
-        ),
+        tag => MusicBrainz::Server::Entity::Tag->new( name => $row->{name} ),
     );
+
+    $init{entity_id} = $row->{entity} if $row->{entity};
+
+    MusicBrainz::Server::Entity::AggregatedTag->new(\%init);
 }
 
 sub delete
@@ -204,7 +266,7 @@ sub parse_tags
         $_ =~ s/\s+/ /sg;
         # remove leading and trailing whitespace
         $_ =~ s/^\s*(.*?)\s*$/$1/;
-        $_;
+        $_ = lc($_);
     } split ',', $input;
 
     # make sure the list contains only unique tags
@@ -348,7 +410,7 @@ sub find_user_tags
 
     $self->c->model('Tag')->load(@tags);
 
-    return @tags;
+    return sort { $a->tag->name cmp $b->tag->name } grep { $_->tag } @tags;
 }
 
 sub find_entities
@@ -360,7 +422,7 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, name.name, " . $self->parent->_id_column . "
+                 ORDER BY tt.count DESC, musicbrainz_collate(name.name), " . $self->parent->_id_column . "
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {

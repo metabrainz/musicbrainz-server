@@ -20,7 +20,7 @@
         [% USE r = FormRenderer(form) %]
         [% INCLUDE 'release/sidebar.tt' editing=1 %]
 
-        <div class="content">
+        <div id="content">
             <div class="releaseheader">
                 <h1>
                     “[% r.text('name', id => 'release-name') %]”

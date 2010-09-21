@@ -4,6 +4,7 @@ use Moose;
 use Carp;
 use Readonly;
 use LWP::UserAgent;
+use HTML::TreeBuilder::XPath;
 use MusicBrainz::Server::Entity::WikiDocPage;
 use URI::Escape qw( uri_unescape );
 use Encode qw( decode );
@@ -15,73 +16,70 @@ has 'c' => (
 
 Readonly my $WIKI_CACHE_TIMEOUT => 60 * 60;
 
-sub _fix_html_markup
+sub _fix_html_links
 {
-    my ($self, $content, $index) = @_;
+    my ($self, $node, $index) = @_;
 
     my $server      = DBDefs::WEB_SERVER;
     my $wiki_server = DBDefs::WIKITRANS_SERVER;
 
-    # remove edit links
-    $content =~ s[<span class="editsection">(.*?)</span>\s*][]g;
+    my $class = $node->attr('class') || "";
 
-    my $temp = "";
-    while(1) {
-        if ($content =~ s[(.*?)<a(\s+?)href\="(.*?)"(.*?)>(.*?)</a>(.*)][]s) {
-            my ($text, $pre, $url, $post, $linktext, $etc) = ($1, $2, $3, $4, $5, $6);
+    # if this is not a link to _our_ wikidocs server, don't mess with it.
+    return if ($class =~ m/external/);
 
-            # if this is not a link to the wikidocs server, don't mess with it.
-            if (!($url =~ /^http:\/\/$wiki_server/)) {
-                $temp .= "$text<a".$pre."href=\"$url\"$post>$linktext</a>";
-                next;
-            }
-            $url =~ s[http://$wiki_server/][];
-            if ($url =~ /^\?title=(.*?)&amp;action=edit/) {
-                $temp .= "$text $linktext ";
-                next;
-            }
-
-            my $isWD = exists($index->{$url});
-            my $css = $isWD ? "official" : "unofficial";
-            my $title = $isWD ? "WikiDocs" : "Wiki";
-
-            my $newpost = "";
-            while (1) {
-                if ($post =~ s/(\w+?)="(.*?)"//s) {
-                    my ($attr, $value) = ($1, $2);
-                    if ($attr eq 'title') {
-                        $newpost .= " title=\"$title: $2\"";
-                    }
-                }
-                else {
-                    last;
-                }
-            }
-            $newpost .= " class=\"$css\""; 
-            $temp .= "$text<a".$pre."href=\"http://$server/doc/$url\"$newpost>$linktext</a>$etc";
-        }
-        else {
-            last;
-        }
-    }
-    $temp .= $content;
-    $content = $temp;
-
-    # this fixes image links to point to the wiki
-    $content =~ s[src="/-/images][src="http://$wiki_server/-/images]g;
+    my $href = $node->attr('href') || "";
 
     # Remove links to images in the wiki
-    $content =~ s/<a href=".*?\/doc\/Image:.*?".*?>(.*?)<\/a>/$1/g;
+    if ($href =~ m,^http://$wiki_server/Image:,)
+    {
+        $node->replace_with ($node->content_list);
+    }
+    # if this is not a link to the wikidocs server, don't mess with it.
+    elsif ($href =~ m,^http://$wiki_server,)
+    {
+        $href =~ s,^http://$wiki_server/?,http://$server/doc/,;
+        my $isWD = exists($index->{$href});
+        my $title = $isWD ? "WikiDocs" : "Wiki";
+        my $class .= $isWD ? " official" : " unofficial";
+        $class =~ s/^\s//;
 
-    # remove ugly ass border=1 from tables
-    $content =~ s/table border="1"/table/g;
+        $node->attr('href', $href);
+        $node->attr('class', $class);
+        $node->attr('title', "$title: ".$node->attr('title'));
+    }
+}
+
+sub _fix_html_markup
+{
+    my ($self, $content, $index) = @_;
+
+    my $wiki_server = DBDefs::WIKITRANS_SERVER;
+    my $tree = HTML::TreeBuilder::XPath->new;
+
+    $tree->parse_content ("<html><body>".$content."</body></html>");
+    for my $node ($tree->findnodes (
+                      '//span[contains(@class, "editsection")]')->get_nodelist)
+    {
+        $node->delete();
+    }
+
+    for my $node ($tree->findnodes ('//a')->get_nodelist)
+    {
+        $self->_fix_html_links ($node, $index);
+    }
+
+    for my $node ($tree->findnodes ('//img')->get_nodelist)
+    {
+        my $src = $node->attr('src') || "";
+        $node->attr('src', $src) if ($src =~ s,/-/images,http://$wiki_server/-/images,);
+    }
+
+    $content = $tree->as_HTML;
 
     # Obfuscate e-mail addresses
     $content =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
     $content =~ s/mailto:/mailto&#x3a;/g;
-
-    # expand placeholders which point to the current webserver [@WEB_SERVER@/someurl title]
-    $content =~ s/\[\@WEB_SERVER\@([^ ]*) ([^\]]*)\]/<img src="\/images\/edit.gif" alt="" \/><a href="$1">$2<\/a>/g;
 
     return $content;
 }
@@ -106,6 +104,9 @@ sub _load_page
 {
     my ($self, $id, $version, $index) = @_;
 
+    return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "MusicBrainz_Documentation" })
+        if ($id eq "");
+
     my $doc_url = sprintf "http://%s/%s?action=render", &DBDefs::WIKITRANS_SERVER, $id;
     if (defined $version) {
         $doc_url .= "&oldid=$version";
@@ -123,6 +124,10 @@ sub _load_page
     }
 
     my $content = decode "utf-8", $response->content;
+    if ($content =~ /<title>Error/s) {
+        return undef;
+    }
+
     if ($content =~ /<div class="noarticletext">/s) {
         return undef;
     }
@@ -151,21 +156,6 @@ sub get_page
     $cache->set($cache_key, $page, $timeout);
 
     return $page;
-}
-
-sub get_current_page_version
-{
-    my ($self, $id) = @_;
-
-    my $doc_url = sprintf "http://%s/%s?action=history", &DBDefs::WIKITRANS_SERVER, $id;
-    my $ua = LWP::UserAgent->new(max_redirect => 0);
-    $ua->env_proxy;
-    my $response = $ua->get($doc_url);
-
-    if ($response->content =~ /amp;diff=(\d+)\&amp;oldid=/) {
-        return $1;
-    }
-    return undef;
 }
 
 __PACKAGE__->meta->make_immutable;

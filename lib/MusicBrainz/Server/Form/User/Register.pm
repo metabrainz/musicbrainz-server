@@ -7,25 +7,28 @@ extends 'MusicBrainz::Server::Form';
 has '+name' => ( default => 'register' );
 
 has_field 'username' => (
-    type => 'Text',
-    required => 1,
+    type      => 'Text',
+    required  => 1,
+    maxlength => 64
 );
 
 has_field 'password' => (
-    type => 'Password',
-    required => 1,
-    min_length => 1,
+    type      => 'Password',
+    required  => 1,
+    minlength => 1,
+    maxlength => 64
 );
 
 has_field 'confirm_password' => (
-    type => 'PasswordConf',
+    type           => 'PasswordConf',
     password_field => 'password',
-    required => 1,
-    min_length => 1,
+    required       => 1,
+    minlength      => 1,
 );
 
 has_field 'email' => (
-    type => 'Email',
+    type      => 'Email',
+    maxlength => 64
 );
 
 sub validate_username

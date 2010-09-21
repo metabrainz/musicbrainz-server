@@ -17,8 +17,8 @@ __PACKAGE__->config(
 );
 
 use Data::Page;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
-
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
@@ -172,7 +172,10 @@ sub show : PathPart('') Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various.tt' );
+        $c->stash(
+            template => 'artist/browse_various.tt',
+            index    => $index,
+        );
     }
     else
     {
@@ -185,11 +188,11 @@ sub show : PathPart('') Chained('load')
         $release_groups = $self->_load_paged($c, sub {
                 $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
             });
-        if ($c->user_exists) {
-            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
-        }
-
         $c->stash( template => 'artist/index.tt' );
+    }
+
+    if ($c->user_exists) {
+        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
     }
 
     $c->model('ArtistCredit')->load(@$release_groups);
@@ -220,13 +223,22 @@ sub works : Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various_works.tt' );
+        $c->stash(
+            template => 'artist/browse_various_works.tt',
+            index    => $index,
+        );
     }
     else
     {
         $works = $self->_load_paged($c, sub {
                 $c->model('Work')->find_by_artist($artist->id, shift, shift);
             });
+
+        $c->model('Work')->load_meta(@$works);
+
+        if ($c->user_exists) {
+            $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
+        }
 
         $c->stash( template => 'artist/works.tt' );
     }
@@ -256,13 +268,27 @@ sub recordings : Chained('load')
 
     if ($artist->id == $VARTIST_ID)
     {
-        # TBD
+        my $index = $c->req->query_params->{index};
+        if ($index) {
+            $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_by_name_prefix_va($index, shift, shift);
+            });
+        }
+        $c->stash(
+            template => 'artist/browse_various_recordings.tt',
+            index    => $index,
+        );
     }
     else
     {
         $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_by_artist($artist->id, shift, shift);
             });
+        $c->model('Recording')->load_meta(@$recordings);
+
+        if ($c->user_exists) {
+            $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
+        }
 
         $c->stash( template => 'artist/recordings.tt' );
     }
@@ -298,7 +324,10 @@ sub releases : Chained('load')
                                                                   shift);
             });
         }
-        $c->stash( template => 'artist/browse_various_releases.tt' );
+        $c->stash(
+            template => 'artist/browse_various_releases.tt',
+            index    => $index,
+        );
     }
     else
     {
@@ -418,6 +447,21 @@ sub import : Local
     my ($self, $c) = @_;
     die "This is a stub method";
 }
+
+around $_ => sub {
+    my $orig = shift;
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    if ($artist->is_special_purpose) {
+        $c->stash( template => 'artist/special_purpose.tt' );
+        $c->response->status(HTTP_FORBIDDEN);
+        $c->detach;
+    }
+    else {
+        $self->$orig($c);
+    }
+} for qw( edit merge );
 
 =head1 LICENSE
 

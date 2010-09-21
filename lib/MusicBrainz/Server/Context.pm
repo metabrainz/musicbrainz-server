@@ -31,12 +31,24 @@ sub _build_raw_conn {
     return DatabaseConnectionFactory->get_connection('RAWDATA');
 }
 
+has 'models' => (
+    isa     => 'HashRef',
+    is      => 'ro',
+    default => sub { {} }
+);
+
 sub model
 {
     my ($self, $name) = @_;
-    my $class_name = "MusicBrainz::Server::Data::$name";
-    Class::MOP::load_class($class_name);
-    return $class_name->new(c => $self);
+    my $model = $self->models->{$name};
+    if (!$model) {
+        my $class_name = "MusicBrainz::Server::Data::$name";
+        Class::MOP::load_class($class_name);
+        $model = $class_name->new(c => $self);
+        $self->models->{$name} = $model;
+    }
+
+    return $model;
 }
 
 sub create_script_context

@@ -2,11 +2,18 @@ package MusicBrainz::Server::Data::Vote;
 use Moose;
 
 use Moose::Util::TypeConstraints qw( find_type_constraint );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use List::Util qw( sum );
+use MusicBrainz::Server::Data::Utils qw(
+    map_query
+    placeholders
+    query_to_list
+);
 use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO );
+use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
 
 extends 'MusicBrainz::Server::Data::Entity';
+
+sub _dbh { shift->c->raw_dbh }
 
 sub _columns
 {
@@ -48,13 +55,28 @@ sub enter_votes
     Sql::run_in_transaction(sub {
         $sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
-        # Filter votes on edits that are open and were not created by the voter
+        # Filter votes on edits that are open
         my @edit_ids = map { $_->{edit_id} } @votes;
         my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
         @votes = grep {
             my $edit = $edits->{ $_->{edit_id} };
-            defined $edit && $edit->is_open && $edit->editor_id != $editor_id
+            defined $edit && $edit->is_open
         } @votes;
+
+        return unless @votes;
+
+        # Also filter duplicate votes
+        my $current_votes = $self->sql->select_list_of_hashes(
+            'SELECT vote, edit FROM vote ' .
+            'WHERE superseded = FALSE AND editor = ? AND edit IN (' .
+              placeholders(@edit_ids) . ')',
+            $editor_id, @edit_ids);
+        my %current_votes = map { $_->{edit} => $_->{vote} } @$current_votes;
+
+        # Filter votes where the user has either not voted before, or previously casted a different vote
+        @votes = grep {
+            !exists $current_votes{$_->{edit_id}} || $current_votes{$_->{edit_id}} != $_->{vote}
+        } @votes; 
 
         return unless @votes;
 
@@ -108,6 +130,55 @@ sub enter_votes
             $email->send_first_no_vote(edit_id => $edit_id, voter => $voter, editor => $editor );
         }
     }, $sql);
+}
+
+sub editor_statistics
+{
+    my ($self, $editor_id) = @_;
+
+    my $base_query = "SELECT vote, count(vote) AS count " .
+        "FROM vote " .
+        "WHERE editor = ? ";
+
+    my $q_all_votes    = $base_query . "GROUP BY vote";
+    my $q_recent_votes = $base_query .
+        " AND votetime > NOW() - INTERVAL '28 day' " .
+        " GROUP BY vote";
+
+    my $all_votes = map_query($self->c->raw_dbh, 'vote' => 'count', $q_all_votes, $editor_id);
+    my $recent_votes = map_query($self->c->raw_dbh, 'vote' => 'count', $q_recent_votes, $editor_id);
+
+    my %names = (
+        $VOTE_ABSTAIN => 'Abstain',
+        $VOTE_NO => 'No',
+        $VOTE_YES => 'Yes',
+    );
+
+    return [
+        # Summarise for each vote type
+        (map { +{
+            name   => $names{$_},
+            recent => {
+                count      => $recent_votes->{$_} || 0,
+                percentage => int(($recent_votes->{$_} || 0) / (sum(values %$recent_votes) || 1) * 100 + 0.5)
+            },
+            all   => {
+                count      => ($all_votes->{$_} || 0),
+                percentage => int(($all_votes->{$_} || 0) / (sum(values %$all_votes) || 1) * 100 + 0.5)
+            }
+        } } ( $VOTE_YES, $VOTE_NO, $VOTE_ABSTAIN )),
+
+        # Add totals
+        {
+            name => 'Total',
+            recent => {
+                count      => sum(values %$recent_votes) || 0,
+            },
+            all => {
+                count      => sum(values %$all_votes) || 0,
+            }
+        }
+    ]
 }
 
 sub load_for_edits

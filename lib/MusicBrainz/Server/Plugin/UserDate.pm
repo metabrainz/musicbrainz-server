@@ -26,7 +26,7 @@ sub format {
         $format = $self->preferences->datetime_format;
     }
     else {
-        $format = '%F %H:%M:%S %Z';
+        $format = '%Y-%m-%d %H:%M %Z';
     }
 
     return $dt->strftime($format);

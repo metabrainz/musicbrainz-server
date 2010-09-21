@@ -74,6 +74,7 @@ sub _new_from_row
             carp "Neither relationship end-point matched the object.";
         }
     }
+
     return MusicBrainz::Server::Entity::Relationship->new(%info);
 }
 
@@ -204,6 +205,9 @@ sub load_entities
             $rel->entity1($obj) if defined($obj);
         }
     }
+
+    my @load_ac = grep { $_->meta->find_method_by_name('artist_credit') } map { values %$_ } values %data_by_type;
+    $self->c->model('ArtistCredit')->load(@load_ac);
 }
 
 sub load_subset
@@ -310,20 +314,25 @@ sub insert
 
 sub update
 {
-    my ($self, $type0, $type1, $id, $values) = @_;
+    my ($self, $type0, $type1, $id, $values, $link) = @_;
     $self->_check_types($type0, $type1);
 
+    my %link;
+    for (qw( link_type_id begin_date end_date attributes ))
+    {
+        # Because we're using a "find_or_insert" instead of an update, this link
+        # dict should be complete.  If a value isn't defined in $values in doesn't
+        # change, so take the original value as it was stored in $link.
+        $link{$_} = defined $values->{$_} ? $values->{$_} : $link->{$_};
+    }
+
     my $sql = Sql->new($self->c->dbh);
-    my $row = {
-        link => $self->c->model('Link')->find_or_insert({
-            link_type_id => $values->{link_type_id},
-            begin_date => $values->{begin_date},
-            end_date => $values->{end_date},
-            attributes => $values->{attributes},
-        }),
-    };
+    my $row = {};
+
+    $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
     $row->{entity0} = $values->{entity0_id} if exists $values->{entity0_id};
     $row->{entity1} = $values->{entity1_id} if exists $values->{entity1_id};
+
     $sql->update_row("l_${type0}_${type1}", $row, { id => $id });
 }
 

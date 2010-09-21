@@ -1,53 +1,64 @@
-[% WRAPPER "layout.tt" title=l("Wiki Transclusions") full_width=1 %]
+[% WRAPPER "layout.tt" title=l('Transclusion Table') full_width=1 %]
+    <div id="content">
+        <h1>[% l('Transclusion Table') %]</h1>
+        <p>
+            [% l('This page lets you add, update, and remove entries from the transclusion table.
+                  Read the {doc|WikiDocs} documentation for an overview of how transclusion works.',
+                  { doc => doc_link('WikiDocs') }) %]
+        </p>
 
-<h1>[% l("Wiki Transclusions") %]</h1>
+        <ul>
+            <li><a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('Add a new entry') %]</a></li>
+            <li><a href="/404">[% l('View transclusion history') %]</a></li>
+        </ul>
 
-<p>
-[
-    <a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('New wiki page') %]</a> |
-    <a href="[% c.uri_for_action('/admin/wikidoc/index', { showcur => 1 }) | html %]">[% l('Show current versions') %]</a>
-]
-</p>
+        <p>
+            [% l('<strong>Note:</strong> MediaWiki does not check to see if the version
+                  number matches the page name, it will take the version number and provide
+                  whatever page is associated with it. Make sure to double check your work
+                  when updating a page!') %]
+        </p>
 
-<table class="tbl">
-    <thead>
-        <tr>
-            <th>[% l('Page') %]</th>
-            <th>[% l('Version') %]</th>
-            [% IF show_current_version %]
-            <th>[% l('Current version') %]</th>
-            [% END %]
-            <th class="c">[% l('Wiki') %]</th>
-            <th class="c">[% l('Actions') %]</th>
-        </tr>
-    </thead>
-    <tbody>
-        [% FOR page IN pages %]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td><a href="[% c.uri_for_action('/doc/show', page.id) %]">[% page.id | html %]</a></td>
-            <td>[% page.version %]</td>
-            [% IF show_current_version %]
-            <td>
-                [% IF page.current_version != page.version %]<span style="color: red;">[% END %]
-                [% page.current_version %]
-                [% IF page.current_version != page.version %]</span>[% END %]
-            </td>
-            [% END %]
-            <td class="c">
-                [
-                    <a href="http://wiki.musicbrainz.org/[% page.id | uri %]">[% l('Show') %]</a> |
-                    <a href="http://wiki.musicbrainz.org/[% page.id | uri %]?action=history">[% l('History') %]</a>
-                ]
-            </td>
-            <td class="c">
-                [
-                    <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
-                    <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Delete') %]</a>
-                ]
-            </td>
-        </tr>
-        [% END %]
-    </tbody>
-</table>
-
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('Page name') %]</th>
+                    <th class="c">[% l('Transcluded version') %]</th>
+                    [% IF updates_required %]
+                        <th class="c">[% l('Wiki version') %]</th>
+                    [% END %]
+                    <th class="c">[% l('Actions') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% FOR page IN pages %]
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                        <td><a href="[% c.uri_for_action('/doc/show', page.id) %]">[% page.id | html %]</a></td>
+                        <td class="c"[% ' style="text-align:right"' IF updates_required %]>
+                            [% page.version %]
+                        </td>
+                        [% IF updates_required %]
+                            <td>
+                                [% IF page.wiki_version != page.version %]
+                                    <span style="color: red;">
+                                        [%~ page.wiki_version || l('ERROR!') ~%]
+                                    </span>
+                                    [% IF page.wiki_version && (page.wiki_version != page.version) %]
+                                        (<a href="http://[% wiki_server %]/[% page.id | uri %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
+                                    [% END %]
+                                [% END %]
+                            </td>
+                        [% END %]
+                        <td class="c nowrap">
+                            [
+                            <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
+                            <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
+                            <a href="http://[% wiki_server %]/[% page.id | uri %]">[% l('View on wiki') %]</a>
+                            ]
+                        </td>
+                    </tr>
+                [% END %]
+            </tbody>
+        </table>
+    </div>
 [% END %]

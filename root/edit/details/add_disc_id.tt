@@ -1,0 +1,14 @@
+<table class="details">
+  <tr>
+    <th>[% l('Release:') %]</th>
+    <td>
+      [% l('{release} by {artist}', {
+               release = link_release(edit.display_data.release),
+               artist = artist_credit(edit.display_data.release.artist_credit) }) %]
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Disc ID:') %]</th>
+    <td><code>[% edit.display_data.medium_cdtoc.cdtoc.discid | html %]</code></td>
+  </tr>
+</table>

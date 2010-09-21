@@ -1,7 +1,0 @@
-[%- IF field.errors.size -%]
-    <ul class="no_label errors">
-        [% FOREACH error=field.errors %]
-            <li class="error">[% error %]</li>
-        [% END %]
-    </ul>
-[%- END -%]

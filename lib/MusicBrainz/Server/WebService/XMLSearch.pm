@@ -4,6 +4,9 @@ use base 'Exporter';
 our @EXPORT_OK = qw( xml_search );
 
 use MusicBrainz::Server::Validation qw( is_positive_integer );
+use Encode qw( decode );
+use URI::Escape qw( uri_escape_utf8 );
+use HTTP::Status ':constants';
 
 # Escape special characters in a Lucene search query
 sub escape_query
@@ -173,7 +176,7 @@ sub xml_search
     {
         return { 
             error => "Invalid resource $resource.", 
-            code  => RC_BAD_REQUEST
+            code  => HTTP_BAD_REQUEST
         };
     }
 
@@ -183,13 +186,12 @@ sub xml_search
     {
         return { 
             error => "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.", 
-            code  => 400
+            code  => HTTP_BAD_REQUEST
         };
     }
 
-    use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/2/$resource/?" .
-              "max=$limit&type=$resource&fmt=xml&offset=$offset&query=". uri_escape($query);
+              "max=$limit&type=$resource&fmt=xml&offset=$offset&query=". uri_escape_utf8($query);
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new;
@@ -198,22 +200,22 @@ sub xml_search
     $ua->timeout(2);
     if ( $response->is_success )
     {
-        return { xml => $response->content };
+        return { xml => decode('utf-8', $response->content) };
     }
     else
     {
-        if ($response->code == RC_BAD_REQUEST)
+        if ($response->code == HTTP_BAD_REQUEST)
         {
             return {
                 error => "Search server could not complete query: Bad request",
-                code  => RC_BAD_REQUEST
+                code  => HTTP_BAD_REQUEST
             }
         }
         else
         {
             return {
                 error => "Could not retrieve sub-document page from search server. Error: $url  -> " . $response->status_line,
-                code  => RC_BAD_REQUEST
+                code  => HTTP_BAD_REQUEST
             }
         }
     }

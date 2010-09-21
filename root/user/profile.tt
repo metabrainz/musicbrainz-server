@@ -81,35 +81,39 @@
 
         [% WRAPPER property name="Subscribers:" %]
             [% IF subscriber_count %]
-                [% l('{count} ({url|view})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers/view', [ user.name ]) }) %]
+                [% l('{count} ({url|view})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
             [% ELSE %]
                 [% l('0') %]
             [% END %]
 
             [% IF !viewing_own_profile && c.user_exists %]
                 [% IF subscribed %]
-                    (<a href="[% c.uri_for_action('/user/subscriptions/editor/remove', { id => user.id }) %]">[% l('unsubscribe') %]</a>)
+                    (<a href="[% c.uri_for_action('/account/subscriptions/editor/remove', { id => user.id }) %]">[% l('unsubscribe') %]</a>)
                 [% ELSE %]
-                    (<a href="[% c.uri_for_action('/user/subscriptions/editor/add', { id => user.id }) %]">[% l('subscribe') %]</a>)
+                    (<a href="[% c.uri_for_action('/account/subscriptions/editor/add', { id => user.id }) %]">[% l('subscribe') %]</a>)
                 [% END %]
             [% END %]
+
 
         [% END %]
     </dl>
 
     [% BLOCK statistics %]
         <tr>
-            <td>[% name %]</td>
-            <td style="text-align:right">[% content %]</td>
+            <th>[% name %]</td>
+            <td>[% content %]</td>
         </tr>
     [% END %]
 
     <h2>[% l('Statistics') %]</h2>
     <table class="statistics">
+        <thead>
         <tr>
-            <th colspan="2">[% l('Edits ({view_url|view})', { view_url => '/404' }) %]</th>
+            <th colspan="2">[% l('Edits ({view_url|view})', { view_url => c.uri_for_action('/user/edits/all', [ user.name ]) }) %]</th>
         </tr>
+        </thead>
 
+        <tbody>
         [% WRAPPER statistics name=l("Accepted") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => '/404' }) %]
         [% END %]
@@ -125,17 +129,18 @@
         [% WRAPPER statistics name=l("Failed") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.failed_edits), view_url => '/404' }) %]
         [% END %]
+        </tbody>
     </table>
 
     <table class="statistics" summary="[% l('This table shows a summary of votes cast by this editor.') %]">
         <thead>
-        <tr><th colspan="5">[% l('Votes ({view_url|view})', { view_url => '/404' }) %]</th></tr>
+        <tr><th colspan="3">[% l('Votes ({view_url|view})', { view_url => '/404' }) %]</th></tr>
             <tr>
                 <th id="table_vote_summary_vote"></th>
-                <th id="table_vote_summary_recent" colspan="2">
+                <th id="table_vote_summary_recent">
                     [% l('Last 28 days') %]
                 </th>
-                <th id="table_vote_summary_overall" colspan="2">
+                <th id="table_vote_summary_overall">
                     [% l('Overall') %]
                 </th>
             </tr>
@@ -147,17 +152,13 @@
                     <th headers="table_vote_summary_vote">
                         [% v.name | ucfirst%]
                     </th>
-                    <td class="votes" headers="table_vote_summary_recent">
-                        [% add_commas(v.recent) %]
-                    </td>
                     <td headers="table_vote_summary_recent">
-                        [% l('({pc}%)', {pc=v.recent_pc}) %]
-                    </td>
-                    <td class="votes" headers="table_vote_summary_overall">
-                        [% add_commas(v.overall) %]
+                        [% add_commas(v.recent.count) %]
+                        ([% v.recent.percentage %]%)
                     </td>
                     <td headers="table_vote_summary_overall">
-                        [% l('({pc}%)', {pc=v.overall_pc}) %]
+                        [% add_commas(v.all.count) %]
+                        ([% v.all.percentage %]%)
                     </td>
                 </tr>
             [% END %]
@@ -168,11 +169,13 @@
                     <th headers="table_vote_summary_vote">
                         [% totals.name | ucfirst%]
                     </th>
-                    <th class="votes" colspan="2" headers="table_vote_summary_recent">
-                        [% add_commas(totals.recent) %]
+                    <th class="totals" headers="table_vote_summary_recent">
+                        [% add_commas(totals.recent.count) %]
+                        (100%)
                     </th>
-                    <th class="votes" colspan="2" headers="table_vote_summary_overall">
-                        [% add_commas(totals.overall) %]
+                    <th class="totals" headers="table_vote_summary_overall">
+                        [% add_commas(totals.all.count) %]
+                        (100%)
                     </th>
                 </tr>
         </tfoot>

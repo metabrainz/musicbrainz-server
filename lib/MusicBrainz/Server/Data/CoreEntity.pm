@@ -11,6 +11,12 @@ sub _gid_redirect_table
     return undef;
 }
 
+sub get_by_gids
+{
+    my ($self, @gids) = @_;
+    return $self->_get_by_keys('gid', @gids);
+}
+
 sub get_by_gid
 {
     my ($self, $gid) = @_;
@@ -37,6 +43,18 @@ sub find_by_name
     return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
+sub autocomplete_name
+{
+    my ($self, $name, $limit) = @_;
+
+    $limit ||= 10;
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table .
+        " WHERE lower(name.name) LIKE ? LIMIT ?";
+
+    return query_to_list($self->c->dbh,
+        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), $limit);
+}
+
 sub remove_gid_redirects
 {
     my ($self, @ids) = @_;
@@ -57,7 +75,7 @@ sub add_gid_redirects
 
 sub update_gid_redirects
 {
-    my ($self, $new_id, @old_ids) = @_; 
+    my ($self, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
     $sql->do("
@@ -100,6 +118,7 @@ Loads and returns a single CoreEntity instance for the specified $gid.
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

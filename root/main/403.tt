@@ -1,9 +1,7 @@
-[% WRAPPER "layout.tt" title=l("Error 403: Forbidden") full_width=1 %]
-    <h1>[%- l('Forbidden') -%]</h1>
-    <h2>
-        [%- l('<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 403') -%]
-    </h2>
-    <p>
-        [%- l('The page you requested is private.') -%]
-    </p>
+[% WRAPPER "layout.tt" title=l('Forbidden Request') full_width=1 %]
+    <div id="content">
+        <h1>[%- l('Forbidden Request') -%]</h1>
+
+        <p><strong>[%- l('The page you requested is private.') -%]</strong></p>
+    </div>
 [% END %]

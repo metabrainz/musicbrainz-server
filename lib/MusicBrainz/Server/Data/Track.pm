@@ -81,9 +81,10 @@ sub find_by_recording
         SELECT
             track.id, track_name.name, track.tracklist, track.position,
                 track.length, track.artist_credit, track.editpending,
-            medium.id AS m_id, medium.format AS m_format,
+                medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
+                medium.release AS m_release,
                 tracklist.trackcount AS m_trackcount,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
                 release.artist_credit AS r_artist_credit_id,
@@ -100,15 +101,15 @@ sub find_by_recording
             JOIN release_name ON release.name = release_name.id
             JOIN track_name ON track.name = track_name.id
         WHERE track.recording = ?
-        ORDER BY date_year, date_month, date_day, release_name.name
+        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
         OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
-            my $row = shift;
-            my $track = $self->_new_from_row($row);
-            my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
+            my $row       = shift;
+            my $track     = $self->_new_from_row($row);
+            my $medium    = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
             my $tracklist = $medium->tracklist;
-            my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
+            my $release   = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
             $medium->release($release);
             $tracklist->medium($medium);
             $track->tracklist($tracklist);

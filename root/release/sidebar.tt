@@ -1,3 +1,9 @@
+[%- BLOCK about; %]
+<span about="[% rdfa_release_curi(release) %]">
+  [% content %]
+</span>
+[% END %]
+
 [%- BLOCK cover_art; %]
     <p>
         [% IF release.cover_art_url; %]
@@ -8,7 +14,7 @@
     </p>
 [% END %]
 
-[%- BLOCK other_versions %]
+[%- BLOCK other_versions; %]
     <p>
         <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
             [% l('See other versions of this release') %]
@@ -16,19 +22,22 @@
     </p>
 [% END -%]
 
-[% BLOCK collection %]
-    <p>
-        [% IF in_collection %]
-            <a href="[% c.uri_for_action("/user/collection/remove", { id => release.id }) %]">
-                [%- l('Remove from collection') %]</a>
-        [% ELSE %]
-            <a href="[% c.uri_for_action("/user/collection/add", { id => release.id }) %]">
-                [%- l('Add to collection') %]</a>
+[% BLOCK lists %]
+    <p><ul>
+        [% FOREACH list IN lists %]
+            [% IF containment.${list.id} %]
+                <li><a href="[% c.uri_for_action("/list/remove", [list.gid], { release => release.id }) %]">
+                    [%- l('Remove from list “{list}”', { list => list.name }) %]</a></li>
+            [% ELSE %]
+                <li><a href="[% c.uri_for_action("/list/add", [list.gid], { release => release.id }) 
+		    %]">
+                    [%- l('Add to list “{list}”', {list => list.name }) %]</a></li>
+            [% END %]
         [% END %]
-    </p>
+    </ul></p>
 [% END %]
 
-[%- MACRO editable_property(label, text, field, field_name, class)
+[%- MACRO editable_property(label, text, field, field_name, class, property, datatype)
         IF field && editing;
             IF class.defined;
                 class = class _ ' hidden';
@@ -36,7 +45,7 @@
                 class = 'hidden';
             END;
             INCLUDE 'layout/sidebar/property.tt' content=field class=class
-                label=r.label(field_name, label);
+                label=r.label(field_name, label) property=property datatype=datatype;
         ELSE;
             INCLUDE 'layout/sidebar/property.tt' content=text IF text;
         END %]
@@ -88,12 +97,16 @@
                     text => release.combined_format_name,
                 },
                 {
+                    label => l('Quality:'),
+                    text => quality_name(release.quality),
+                },
+                {
                     label => l('Type:'),
                     text => release.release_group.type.name,
                 },
             ];
 
-            editable_property(prop.label, prop.text, prop.field, prop.field_name, prop.class)
+            editable_property(prop.label, prop.text, prop.field, prop.field_name, prop.class, prop.rdfa_property)
                 FOR prop=release_properties;
         END;
     END %]
@@ -101,7 +114,7 @@
 [%- BLOCK release_label_properties;
         WRAPPER 'layout/sidebar/properties.tt';
             USE r = FormRenderer(form);
-            editable_property(l('Barcode:'), release.barcode, r.text('barcode'), 'barcode', '');
+            editable_property(l('Barcode:'), release.barcode, r.text('barcode'), 'barcode', '', 'mo:gtin', 'xsd:string');
         END;
         IF release.labels.size OR editing %]
            <h3>[% l('Released on:') %]</h3>
@@ -117,7 +130,7 @@
                        [% r.text(form.field('labels').field(loop.index).field('catalog_number'),
                                  size => 8, class => 'catalog-number') %]
                      [% ELSE %]
-                       [% link_label(label.label) %] &ndash; [% label.catalog_number %]
+                       [% rdfa_link_label(label.label) %] &ndash; [% rdfa_release_catno(label.catalog_number) %]
                      [% END %]
                    </li>
                [% END %]
@@ -129,6 +142,7 @@
     <ul class="links">
       [% IF c.user_exists %]
         <li>[% link_release(release, 'edit', l('Edit this release')) %]</li>
+        <li>[% link_release(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
       [% ELSE %]
         <li>[% request_login(l('Please log in to edit this release')) %]</li>
@@ -142,19 +156,21 @@
 
 [%
 WRAPPER 'layout/sidebar.tt';
+  WRAPPER about;
     INCLUDE cover_art;
-
+    
     INCLUDE release_properties;
     INCLUDE release_label_properties;
 
     UNLESS editing;
         INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group;
-        INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags entity=release.release_group
+        INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release.release_group
         tag_this_text=l('Tag release group');
         INCLUDE links;
-        INCLUDE other_versions;
-        INCLUDE collection IF c.user_exists;
+    	INCLUDE other_versions;    
+        INCLUDE lists IF c.user_exists;
     END;
+  END;
 END;
 
 -%]

@@ -9,6 +9,17 @@ sub edit_name { "Merge release groups" }
 sub edit_type { $EDIT_RELEASEGROUP_MERGE }
 sub _merge_model { 'ReleaseGroup' }
 
+override 'foreign_keys' => sub {
+    my $self = shift;
+    my $data = super();
+
+    $data->{ReleaseGroup} = {
+        map { $_ => [ 'ArtistCredit' ] }
+            @{ $self->_entity_ids }
+    };
+    return $data;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

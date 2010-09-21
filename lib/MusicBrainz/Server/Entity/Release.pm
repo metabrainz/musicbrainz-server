@@ -8,6 +8,7 @@ extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
+with 'MusicBrainz::Server::Entity::Role::Quality';
 
 has 'status_id' => (
     is => 'rw',
@@ -201,6 +202,25 @@ has 'cover_art' => (
     is        => 'rw',
     predicate => 'has_cover_art',
 );
+
+sub find_medium_for_recording {
+    my ($self, $recording) = @_;
+    for my $medium ($self->all_mediums) {
+        for my $track ($medium->tracklist->all_tracks) {
+            next unless defined $track->recording;
+            return $medium if $track->recording->gid eq $recording->gid;
+        }
+    }
+}
+
+sub find_track_for_recording {
+    my ($self, $recording) = @_;
+    my $medium = $self->find_medium_for_recording($recording) or return;
+    for my $track ($medium->tracklist->all_tracks) {
+        next unless defined $track->recording;
+        return $track if $track->recording->gid eq $recording->gid;
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

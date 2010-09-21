@@ -5,7 +5,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Types '$STATUS_OPEN';
 
-sub open : Chained('/user/base') PathPart('open-edits') RequireAuth {
+__PACKAGE__->config(
+    paging_limit => 25,
+);
+
+sub open : Chained('/user/load') PathPart('open-edits') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
 
     my $edits = $self->_load_paged($c, sub {
@@ -16,7 +20,7 @@ sub open : Chained('/user/base') PathPart('open-edits') RequireAuth {
     $c->stash( edits => $edits );
 }
 
-sub all : Chained('/user/base') PathPart('all-edits') RequireAuth {
+sub all : Chained('/user/load') PathPart('all-edits') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
 
     my $edits = $self->_load_paged($c, sub {
@@ -34,7 +38,9 @@ for my $action (qw( open all )) {
         my $edits = $c->stash->{edits};
 
         $c->model('Edit')->load_all(@$edits);
-        $c->model('Editor')->load(@$edits);
+        $c->model('Vote')->load_for_edits(@$edits);
+        $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
     };
 }
 

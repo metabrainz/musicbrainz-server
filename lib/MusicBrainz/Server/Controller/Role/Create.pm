@@ -24,7 +24,10 @@ role {
     my $params = shift;
     my %extra = @_;
 
-    my %attrs = ( RequireAuth => undef );
+    my %attrs = (
+        RequireAuth => undef,
+        Edit        => undef
+    );
     if ($params->path) {
         $attrs{Path}  = $params->path;
     }

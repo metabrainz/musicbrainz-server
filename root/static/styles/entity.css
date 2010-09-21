@@ -2,122 +2,87 @@
  * Stuff common to most entity types
  */
 
-/*
- * Header (ie, artist header, label header)
- */
-.entity_header {
-    border: 1px solid #000;
-    background-color: #F0EFFF;
-    color: #000;
+div.tabs {
+    border-bottom: solid 1px #a1a1a1;
+    padding-top: 1em;
+    font-size: 95%;
+}
+
+div.tabs ul {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    list-style-image: none;
     width: 100%;
-    margin-bottom: 1em;
-    margin-top: 8px;
-    padding-top: 5px;
+    position: relative;
+    top: 1px;
 }
 
-.entity_header .title,
-.entity_header .info {
-    padding-left: 45px;
-}
-
-.entity_header .infoline {
-    padding-top: .25em;
-}
-
-.entity_header div.title a {
-    color: #000;
-    font-size: 20pt;
-}
-
-.entity_header .track   { background: url(/static/images/ticon_lg.png) no-repeat 5px top; }
-.entity_header .artist  { background: url(/static/images/aicon_lg.png) no-repeat 5px top; }
-.entity_header .label   { background: url(/static/images/bicon_lg.png) no-repeat 5px top; }
-.entity_header .release   { background: url(/static/images/licon_lg.png) no-repeat 5px top; }
-
-.entity_header div.title {
-    font-size: 15pt;
-    color: #555;
-    min-height: 32px;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    padding-top: 3px;
-}
-
-span.average_rating {
-    font-size: 8pt
-}
-
-.entity_header div.info {
-    font-size: 10pt;
-    line-height: 10pt;
-}
-
-.infoLinks,
-.editLinks,
-.TagsBox {
-    padding: 2pt 5pt;
-}
-
-.editLinks {
-    border-top: 1px solid #000;
-    background-color: #FFECD6;
-}
-
-div.TagsBox {
-    background-color: #F0F6FF;
-    color: #000;
-    border: 1px solid #000;
-    margin-bottom: 1em;
-    padding: 1pt 5pt;
-}
-
-div.RelationshipBox {
-    padding: 5px;
-    background-color: #EFE8E2;
-    color: #000;
-    border: 1px solid;
-    margin-bottom: 1em;
-}
-
-div.annotation {
-    border: 1px solid #000;
-    margin-bottom: 1em;
-}
-
-div.annotation div.body,
-div.annotation div.bar {
-    padding: 1pt 5pt;
-}
-
-div.annotation div.bar {
-    border-top: 1px solid #000;
-    background: #F0EFFF;
-    overflow: auto;
-}
-
-.annotation .details {
+div.tabs ul li {
     float: left;
 }
-.annotation .options {
-    float: right;
+
+div.tabs ul li a {
+    display: block;
+    padding: 0.1em 0.5em;
+    margin-left: 4px;
+    text-decoration: none;
+    background: #f1f1f1;
+    color: #000;
+    border: solid 1px #a1a1a1;
+    border-bottom: solid 1px #a1a1a1;
 }
 
-span.artist_icon,
-span.release_icon,
-span.label_icon,
-span.track_icon {
-    padding-left: 16px;
-    background-position: 0px 65%;
-    background-repeat: no-repeat;
+div.tabs ul li.sel a {
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    border-bottom: solid 1px #fff;
 }
 
-span.artist_icon { background-image: url("/static/images/entity/artist_small.gif"); }
-span.release_icon { background-image: url("/static/images/entity/release_small.gif"); }
-span.label_icon { background-image: url("/static/images/entity/label_small.gif"); }
-span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }
-
-.lastupdated {
-    color: gray;
-    font-size: x-small;
+div.tabs ul li a:hover {
+    background: #fff;
+    color: #000;
 }
 
+.artistheader, .releaseheader, .rgheader,
+.recordingheader, .labelheader, .workheader, .blankheader,
+.listheader {
+    padding-left: 38px;
+    background: 0 4px no-repeat;
+}
+.blankheader     { background-image: url('../images/entity/blank_lg.png') }
+
+.artistheader    { background-image: url('../images/entity/artist_lg.png') }
+.releaseheader   { background-image: url('../images/entity/release_lg.png') }
+.rgheader        { background-image: url('../images/entity/release_group_lg.png') }
+.recordingheader { background-image: url('../images/entity/recording_lg.png') }
+.labelheader     { background-image: url('../images/entity/label_lg.png') }
+.workheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create work icon */
+.listeahedr      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create list icon */
+
+.releaseheader .prefix,
+h1 span.prefix,
+h1 span.comment
+{
+    font-size: 12px;
+    font-weight: normal;
+    color: #666;
+}
+
+p.subheader {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0.0em;
+    font-size: 96%;
+}
+
+p.subheader span { color: #999; }
+
+.tagger-icon img { border: 0; }
+.releaseheader .tagger-icon { margin-top: 1em; float: right; }
+
+.annotation {
+    margin-top: 1em;
+}

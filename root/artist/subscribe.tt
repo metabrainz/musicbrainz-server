@@ -1,9 +1,9 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Subscribed Editors') -%]
-    [%- WRAPPER 'components/box.tt' header=l('Editors Subscribed to this Artist') -%]
+        <h2>[%- l('Editors Subscribed to this Artist') -%]</h2>
         <p>
         [% IF subscribers.size %]
         [%- FOREACH ed IN subscribers -%]
-            <a href="[% c.uri_for('/user/profile', ed.name) %]">
+            <a href="[% c.uri_for('/user/profile', [ ed.name ]) %]">
                 [% ed.name %]
             </a>
             [%- END -%]
@@ -19,5 +19,4 @@
         [% ELSE %]
             <a href="[% c.entity_url(artist, 'subscribe') %]">[% l('Subscribe to this artist.') %]</a>
         [% END %]
-    [%- END -%]
 [%- END -%]

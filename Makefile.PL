@@ -14,6 +14,7 @@ requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
 requires 'Catalyst::Plugin::I18N'                     => '0.09';
+requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding';
 requires 'Catalyst::Runtime'                          => '5.80021';
 requires 'Catalyst::View::TT'                         => '0.29';
@@ -34,14 +35,20 @@ requires 'Email::Address';
 requires 'Email::Sender';
 requires 'Email::MIME';
 requires 'Email::MIME::Creator';
+requires 'Email::Valid';
 requires 'Exception::Class'                           => '1.29';
+requires 'Function::Parameters';
 requires 'HTML::FormHandler'                          => '0.30001';
 requires 'HTML::Tiny'                                 => '1.05';
+requires 'HTML::TreeBuilder::XPath';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                            => '0.22';
+requires 'Method::Signatures::Simple';
+requires 'Module::Pluggable'                          => '3.9';
 requires 'Moose'                                      => '0.87';
 requires 'MooseX::ABC';
+requires 'MooseX::Clone';
 requires 'MooseX::MethodAttributes'                   => '0.14';
 requires 'MooseX::Role::Parameterized'                => '0.16';
 requires 'MooseX::Types'                              => '0.16';
@@ -50,11 +57,18 @@ requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                 => '1.060200';
 requires 'Readonly'                                   => '1.03';
+requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
+requires 'Template::Plugin::Math';
 requires 'Text::WikiFormat'                           => '0.790';
+requires 'Text::Unaccent';
+requires 'Time::Duration';
 requires 'TryCatch';
+requires 'URI'                                        => '1.50';
+requires 'XML::Generator';
 requires 'XML::Feed'                                  => '0.410';
 requires 'XML::Simple'                                => '2.14';
+requires 'XML::Dumper'                                => '0.81';
 requires 'YAML'                                       => '0.680';
 
 feature 'ETag Caching' =>
@@ -88,9 +102,14 @@ requires 'Locale::TextDomain' => '1.16';
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
 
+test_requires 'HTML::HTML5::Parser'
+test_requires 'HTML::HTML5::Sanity';
 test_requires 'LWP::UserAgent::Mockable';
-test_requires 'Test::Differences';
+test_requires 'RDF::Query'
+test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
+test_requires 'Test::Differences';
+test_requires 'Test::JSON';
 test_requires 'XML::Parser';
 
 catalyst;

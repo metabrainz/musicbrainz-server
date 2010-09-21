@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Alias;
 use Moose;
 
 use Class::MOP;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders query_to_list );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -59,19 +59,32 @@ sub _entity_class
 sub find_by_entity_id
 {
     my ($self, @ids) = @_;
-    return [ values %{ $self->_get_by_keys($self->type, @ids) } ];
+
+    my $key = $self->type;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE $key IN (" . placeholders(@ids) . ")
+                 ORDER BY musicbrainz_collate(name.name)";
+
+    return [ query_to_list($self->c->dbh, sub {
+        $self->_new_from_row(@_)
+    }, $query, @ids) ];
 }
 
 sub has_alias
 {
-    my ($self, $entity_id, $alias_name) = @_;
+    my ($self, $entity_id, $alias_name, $filter) = @_;
     my $sql  = Sql->new($self->c->dbh);
     my $type = $self->type;
-    return defined $sql->select_single_value(
-        'SELECT 1 FROM ' . $self->_table .
-        " WHERE $type = ? AND name.name = ?",
-        $entity_id, $alias_name
-    );
+    my $query = 'SELECT 1 FROM ' . $self->_table .
+        " WHERE $type = ? AND name.name = ?";
+    my @args = ($entity_id, $alias_name);
+    if (defined $filter) {
+        $query .= ' AND ' . $type . '_alias.id != ?';
+        push @args, $filter;
+    }
+    return defined $sql->select_single_value($query, @args);
 }
 
 sub load
@@ -138,6 +151,10 @@ sub update
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
+    if (exists $alias_hash->{name}) {
+        my %names = $self->parent->find_or_insert_names($alias_hash->{name});
+        $alias_hash->{name} = $names{ $alias_hash->{name} };
+    }
     $sql->update_row($table, $alias_hash, { id => $alias_id });
 }
 
