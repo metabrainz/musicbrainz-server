@@ -32,7 +32,7 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     );
 }
 
-sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
+sub annotation_revision : Chained('load') PathPart('annotation') Args(1) RequireAuth
 {
     my ($self, $c, $id) = @_;
 
@@ -109,7 +109,7 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
     }
 }
 
-sub annotation_history : Chained('load') PathPart('annotations')
+sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -127,7 +127,7 @@ sub annotation_history : Chained('load') PathPart('annotations')
     $c->stash( annotations => $annotations );
 }
 
-sub annotation_diff : Chained('load') PathPart('annotations-differences')
+sub annotation_diff : Chained('load') PathPart('annotations-differences') RequireAuth
 {
     my ($self, $c) = @_;
 
