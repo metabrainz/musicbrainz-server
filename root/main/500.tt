@@ -2,7 +2,7 @@
     <div id="content">
         <h1>[%- l('Internal Server Error') -%]</h1>
 
-        <p><strong>[%- l('Oops! Something has gone wrong.') -%]</strong></p>
+        <p><strong>[%- l('Oops, something went wrong!') -%]</strong></p>
 
         [% IF message %]
             <p>
@@ -12,9 +12,11 @@
         [% END %]
 
         <p>
-            [%- l('Waiting a few minutes and/or repeating your request may solve the
-                   problem. If it persists, please {con|contact us}.',
-                 { con => doc_link('Contact_Us') }) -%]
+            [%- l('Waiting a few minutes and repeating your request may solve the problem.') %]
+        </p>
+
+        <p class="small">
+            [% l('Problem not going away? Please {con|contact us}.', { con => doc_link('Contact_Us') }) -%]
         </p>
     </div>
 [%- END -%]
