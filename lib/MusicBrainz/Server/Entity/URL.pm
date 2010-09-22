@@ -22,9 +22,9 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
-sub pretty_name { shift->url }
+sub pretty_name { shift->url->as_string }
 
-sub name { shift->url }
+sub name { shift->url->as_string }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

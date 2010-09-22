@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' };
 
 my %URL_SPECIALIZATIONS = (
-    'Wikipedia' => qr{https?://(.*)\.?wikipedia\.}
+    'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia\.}
 );
 
 sub _gid_redirect_table

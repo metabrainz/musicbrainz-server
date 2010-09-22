@@ -12,8 +12,8 @@ sub pretty_name
     $name =~ s{^/wiki/}{};
     $name =~ s{_}{ };
 
-    if (my ($language) = $self->url->url =~ /([\w-]{2,})\.wikipedia/) {
-        $name = "$language: $name";
+    if (my ($language) = $self->url->host =~ /([\w-]{2,})\.wikipedia/) {
+        $name = "$language:$name";
     }
 
     return $name;
