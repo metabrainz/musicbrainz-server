@@ -223,12 +223,55 @@ MB.Control.ReleaseBarcode = function() {
 };
 
 
-MB.Control.ReleaseInformation = function(bubble_collection) {
-    var self = MB.Object();
+MB.Control.ReleaseDate = function (bubble_collection) {
+    var self = MB.Object ();
 
     self.bubbles = bubble_collection;
 
+    self.inputs = [ $('#id-date\\.year'),
+        $('#id-date\\.month'), $('#id-date\\.day') ] 
+    self.message = $('div.date');
+
+    var amazonEpoch = function () {
+	return (self.inputs[0].val () == '1995' &&
+	  self.inputs[1].val () == '10' &&
+          self.inputs[2].val () == '25');
+    };
+
+    var update = function (event) {
+	if (self.amazonEpoch ())
+        {
+            $(this).data ('bubble').show ();
+	}
+	else
+	{
+            $(this).data ('bubble').hide ();
+	}
+    };
+
+    self.amazonEpoch = amazonEpoch;
+    self.update = update;
+
+    $.each (self.inputs, function (idx, item) {
+        item.data ('bubble', 
+            MB.Control.BubbleDocBase (self.bubbles, item, self.message));
+
+        item.bind ('change keyup focus', self.update);
+    });
+
+    return self;
+};
+
+MB.Control.ReleaseInformation = function() {
+    var self = MB.Object();
+
+    self.bubbles = MB.Control.BubbleCollection ();
+    self.release_date = MB.Control.ReleaseDate (self.bubbles);
+
     var initialize = function () {
+
+        self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
+        self.bubbles.add ($('#id-barcode'), $('div.barcode'));
 
         $('div.release-label').each (function () {
             self.addLabel ($(this));
@@ -265,7 +308,7 @@ MB.Control.ReleaseInformation = function(bubble_collection) {
 
         self.labels.push (l);
 
-        MB.Control.BubbleCatNo (self.bubbles, l.catno, l.catno_message);
+        MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
     };
 
     self.barcode = MB.Control.ReleaseBarcode ();

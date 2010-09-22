@@ -292,13 +292,6 @@ MB.Control.BubbleDoc = function (parent, target, content) {
 };
 
 
-MB.Control.BubbleCatNo = function (parent, target, content) {
-    var self = MB.Control.BubbleDocBase (parent, target, content);
-
-    return self;
-};
-
-
 /* BubbleRow turns the div inside a table row into a bubble pointing
    at one of the inputs in the preceding row. */
 MB.Control.BubbleRow = function (parent, target, content, offset) {
