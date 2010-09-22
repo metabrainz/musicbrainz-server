@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::URL;
 
 use Moose;
 use MooseX::Types::URI qw( Uri );
+use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -22,7 +23,7 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
-sub pretty_name { shift->url->as_string }
+sub pretty_name { MusicBrainz::Server::Filters::uri_decode(shift->url->as_string) }
 
 sub name { shift->url->as_string }
 

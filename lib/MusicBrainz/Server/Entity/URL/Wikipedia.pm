@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::URL::Wikipedia;
 
 use Moose;
+use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
 
@@ -12,11 +13,11 @@ sub pretty_name
     $name =~ s{^/wiki/}{};
     $name =~ s{_}{ };
 
-    if (my ($language) = $self->url->host =~ /([\w-]{2,})\.wikipedia/) {
-        $name = "$language:$name";
+    if (my ($language) = $self->url->host =~ /(.*)\.wikipedia/) {
+        $name = "$language: $name";
     }
 
-    return $name;
+    return MusicBrainz::Server::Filters::uri_decode($name);
 }
 
 __PACKAGE__->meta->make_immutable;
