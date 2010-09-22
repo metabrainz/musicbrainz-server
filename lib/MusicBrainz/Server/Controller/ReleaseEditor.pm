@@ -27,6 +27,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_EDIT
 );
 
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+
 has 'c' => (
     is => 'rw',
     isa => 'Object'
@@ -495,7 +497,7 @@ sub _edit_release_track_edits
                 my $trk = {
                     name => $_->{name},
                     length => $_->{length},
-                    artist_credit => $_->{artist_credit},
+                    artist_credit => artist_credit_to_ref($_->{artist_credit}),
                     position => $_->{position},
                 };
 
