@@ -90,8 +90,8 @@
                 [% END %]
             [% END %]
 
-        [% variable = 'biography' IF user.biography %]
-        [% WRAPPER property name=l("Bio:") class=variable %]
+        [% bio_class = 'biography' IF user.biography %]
+        [% WRAPPER property name=l("Bio:") class=bio_class %]
             [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
         [% END %]
 
