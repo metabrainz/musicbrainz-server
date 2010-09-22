@@ -89,6 +89,7 @@ Readonly our $EDIT_MEDIUM_EDIT => 52;
 Readonly our $EDIT_MEDIUM_DELETE => 53;
 Readonly our $EDIT_MEDIUM_REMOVE_DISCID => 54;
 Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
+Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 
 Readonly our $EDIT_TRACK_EDIT => 62;
 
