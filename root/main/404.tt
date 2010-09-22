@@ -4,6 +4,10 @@
 
         <p><strong>[%- l('Sorry, the page you\'re looking for does not exist.') -%]</strong></p>
 
+        [% IF message %]
+        <p><code>[% message | html %]</code></p>
+        [% END %]
+
         <p>
             [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
                  { doc => doc_link('MusicBrainz_Documentation'),

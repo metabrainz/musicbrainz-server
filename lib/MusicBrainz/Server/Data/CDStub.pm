@@ -3,35 +3,70 @@ package MusicBrainz::Server::Data::CDStub;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
+use Readonly;
+Readonly my $LIMIT_TOP_CDSTUBS => 1000;
+
+
 sub _table
 {
-    return 'cdtoc';
+    return 'release_raw';
 }
 
 sub _columns
 {
-    return 'id, discid, freedbid, trackcount, leadoutoffset, trackoffset';
+    return 'id, title, artist, added, lastmodified, lookupcount, modifycount, source, barcode, comment';
 }
 
 sub _column_mapping
 {
     return {
         id => 'id',
-        discid => 'discid',
-        freedbid => 'freedbid',
-        track_count => 'trackcount',
-        leadout_offset => 'leadoutoffset',
-        track_offset => 'trackoffset',
+        title => 'title',  
+        artist => 'artist',
+        date_added=> 'added',
+        last_modified => 'lastmodified',
+        lookup_count => 'lookupcount',
+        modify_count => 'modifycount',
+        source => 'source',
+        barcode => 'barcode',
+        comment => 'comment',
+        discid => 'discid'
     };
 }
 
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::CDStub';
+}
+
+sub _dbh
+{
+    return shift->c->raw_dbh;
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'cdstub', @objs);
+}
+
+sub load_top_cdstubs
+{
+    my ($self, $limit, $offset) = @_;
+    my $query = "SELECT release_raw." . $self->_columns . ", discid
+                 FROM " . $self->_table . ", cdtoc_raw 
+                 WHERE release_raw.id = cdtoc_raw.release
+                 ORDER BY lookupcount desc, modifycount DESC 
+                 OFFSET ?
+                 LIMIT  ?";
+    return query_to_list_limited(
+        $self->c->raw_dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $offset || 0, $LIMIT_TOP_CDSTUBS - $offset);
 }
 
 __PACKAGE__->meta->make_immutable;

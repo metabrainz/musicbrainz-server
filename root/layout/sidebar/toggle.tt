@@ -1,7 +1,0 @@
-[%#- This adds a totally empty section at the top of the sidebar
-     to be used for attaching a show/hide toggle in javascript
-     enabled browsers.
--%]
-
-<div id="id_toggle_target" class="sidebar-toggle">
-</div>

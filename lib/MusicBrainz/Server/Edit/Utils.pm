@@ -3,7 +3,7 @@ package MusicBrainz::Server::Edit::Utils;
 use strict;
 use warnings;
 
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
@@ -79,6 +79,9 @@ sub artist_credit_from_loaded_definition
 sub clean_submitted_artist_credits
 {
     my $ac = shift;
+
+    return artist_credit_to_ref ($ac)
+        if ref $ac eq 'MusicBrainz::Server::Entity::ArtistCredit';
 
     # Remove empty artist credits.
     my @delete;
