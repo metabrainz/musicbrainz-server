@@ -539,7 +539,7 @@ sub _edit_release_track_edits
         else
         {
             my $opts = {
-                position => $medium->{'position'},
+                position => $medium_idx + 1,
                 tracklist_id => $tracklist_id,
                 release_id => $release ? $release->id : 0,
             };
@@ -548,7 +548,18 @@ sub _edit_release_track_edits
             $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
 
             # Add medium
-            $self->$edit($EDIT_MEDIUM_CREATE, $editnote, %$opts);
+            my $add_medium = $self->$edit($EDIT_MEDIUM_CREATE, $editnote, %$opts);
+
+            warn "Medium pos: ".$medium->{'position'}.", idx: ".$medium_idx."\n";
+            if ($medium->{'position'} != $medium_idx + 1)
+            {
+                # Disc was inserted at the wrong position, enter an edit to re-order it.
+                $self->$edit(
+                    $EDIT_MEDIUM_EDIT, $editnote,
+                    position => $medium->{'position'},
+                    to_edit => $add_medium->entity,
+                );
+            }
         }
 
         $medium_idx++;
