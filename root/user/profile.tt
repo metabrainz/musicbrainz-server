@@ -1,10 +1,10 @@
 [% extra_css = "user.css" %]
 [% WRAPPER "user/profile/layout.tt" page="index" %]
     [% BLOCK property %]
-        <dt>
+        <dt class="[% class %]">
             [% name %]
         </dt>
-        <dd>
+        <dd class="[% class %]">
             [% content %]
         </dd>
     [% END %]
@@ -75,10 +75,6 @@
             [% END %]
         [% END %]
 
-        [% WRAPPER property name=l("Bio:") %]
-            [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
-        [% END %]
-
         [% WRAPPER property name="Subscribers:" %]
             [% IF subscriber_count %]
                 [% l('{count} ({url|view})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
@@ -94,6 +90,10 @@
                 [% END %]
             [% END %]
 
+        [% variable = 'biography' IF user.biography %]
+        [% WRAPPER property name=l("Bio:") class=variable %]
+            [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
+        [% END %]
 
         [% END %]
     </dl>
