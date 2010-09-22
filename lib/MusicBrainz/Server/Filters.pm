@@ -133,7 +133,7 @@ sub format_editnote
 sub uri_decode
 {
     my ($uri) = @_;
-    my $dec = decode('utf-8', uri_unescape($uri);
+    my $dec = decode('utf-8', uri_unescape($uri));
     Encode::_utf8_on($dec);
     return $dec;
 }
