@@ -40,14 +40,14 @@
 
         [% WRAPPER property name=l("User type:") %]
             [% types = [] %]
-            [% types.push(l('{doc|AutoEditor}', {doc => doc_link('Auto-Editor')})) IF user.is_auto_editor %]
+            [% types.push(l('{doc|Auto-Editor}', {doc => doc_link('Auto-Editor')})) IF user.is_auto_editor %]
             [% types.push(l("Internal/Bot")) IF user.is_bot %]
             [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('Relationship_Editor')})) IF user.is_relationship_editor %]
             [% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('Transclusion_Editor')})) IF user.is_wiki_transcluder %]
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
             [% IF c.user.is_auto_editor && !user.is_auto_editor %]
-                (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("nominate for autoeditor") %]</a>)
+                (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("nominate for auto-editor") %]</a>)
             [% END %]
 
 
