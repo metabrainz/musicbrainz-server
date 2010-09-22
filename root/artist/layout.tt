@@ -15,7 +15,8 @@
                content=html_escape(artist.gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
-                [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
+                [% date_period_label = artist.type_id == 1 ? l('Born:') : l('Active:') %]
+                [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
                     [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &mdash;
 		    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
 		    [%# FIXME - why is age broken? %]
