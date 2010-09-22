@@ -83,6 +83,15 @@ after 'merge' => sub {
     );
 };
 
+around '_merge_search' => sub {
+    my $orig = shift;
+    my ($self, $c, $query) = @_;
+
+    my $results = $self->$orig($c, $query);
+    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
+    return $results;
+};
+
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',
     edit_type => $EDIT_WORK_CREATE,
