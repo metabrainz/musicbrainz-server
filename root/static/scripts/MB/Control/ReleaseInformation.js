@@ -95,9 +95,6 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
         return false;
     };
 
-    var blurred = function (event) {
-    };
-
     var catnoUpdate = function () {
 
 	if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
@@ -119,13 +116,11 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     self.parent = parent;
     self.autocompleted = autocompleted;
     self.toggleDelete = toggleDelete;
-    self.blurred = blurred;
     self.catnoUpdate = catnoUpdate;
 
-    self.name.bind('blur', self.blurred);
     self.name.result(self.autocompleted);
     self.name.autocomplete("/ws/js/label", MB.utility.autocomplete.options);
-    self.catno.bind ('change keyup', self.catnoUpdate);
+    self.catno.bind ('change keyup focus', self.catnoUpdate);
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
 
@@ -246,6 +241,7 @@ MB.Control.ReleaseInformation = function(bubble_collection) {
 
         $('a[href=#add_label]').click (function (event) {
             self.addLabel ();
+	    self.bubbles.hideAll ();
             event.preventDefault ();
         });
 

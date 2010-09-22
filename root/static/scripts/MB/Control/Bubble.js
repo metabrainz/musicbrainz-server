@@ -362,26 +362,36 @@ MB.Control.BubbleCollection = function (targets, contents) {
         self.active = bubble;
     };
 
-    self.hideOthers = hideOthers;
-    self.active = false;
-
-    var tmp = [];
-
-    if (targets && contents)
-    {
-	targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
-	contents.each (function (idx, data) { tmp[idx].doc = data; });
-
-	$.each (tmp, function (idx, data) {
-	    MB.Control.BubbleDoc (self, data.button, data.doc).initialize ();
-        });
-    }
+    var hideAll = function () {
+	self.hideOthers (null);
+    };
 
     var add = function (target, contents) {
 	MB.Control.BubbleDoc (self, target, contents).initialize ();
     };
 
+    var initialize = function ()
+    {
+	var tmp = [];
+
+	if (targets && contents)
+	{
+	    targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
+	    contents.each (function (idx, data) { tmp[idx].doc = data; });
+
+	    $.each (tmp, function (idx, data) {
+	        MB.Control.BubbleDoc (self, data.button, data.doc).initialize ();
+	    });
+	}
+    }
+
+    self.hideOthers = hideOthers;
+    self.hideAll = hideAll;
     self.add = add;
+    self.initialize = initialize;
+    self.active = false;
+
+    self.initialize ();
 
     return self;
 };
