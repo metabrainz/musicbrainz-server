@@ -224,11 +224,25 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         self.artist_input.val(preview);
     };
 
+    var isVariousArtists = function () {
+        return self.box[0].gid.val () === MB.constants.VARTIST_GID;
+    };
+
+    var clear = function () {
+        $.each (self.box, function (idx, item) {
+            item.clear ();
+        });
+
+        self.renderPreview ();
+    };
+
     self.identify = identify;
     self.initialize = initialize;
     self.update = update;
     self.addArtistBox = addArtistBox;
     self.renderPreview = renderPreview;
+    self.isVariousArtists = isVariousArtists;
+    self.clear = clear;
 
     self.initialize ();
 
