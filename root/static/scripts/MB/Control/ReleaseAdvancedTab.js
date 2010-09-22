@@ -247,7 +247,7 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
 
     /**
      * removeTracks removes all table rows for unused track positions.  It expects
-     * the position of the lastused track as input.
+     * the position of the last used track as input.
      */
     var removeTracks = function (lastused) {
         while (lastused + 1 < self.tracks.length)
@@ -379,11 +379,11 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         newdisc_adv.find ('tbody').empty ();
 
-        var h3 = newdisc_bas.find ("h3");
-        h3.text (h3.text ().replace (/[0-9]+/, discs + 1));
+        var discnum = newdisc_bas.find ("h3").find ('span.discnum');
+        discnum.text (discs + 1);
 
-        var legend = newdisc_adv.find ("legend");
-        legend.text (legend.text ().replace (/[0-9]+/, discs + 1));
+        discnum = newdisc_adv.find ("legend").find ('span.discnum');
+        discnum.text (discs + 1);
 
         var mediumid = new RegExp ("mediums.[0-9]+");
         var update_ids = function (idx, element) {
