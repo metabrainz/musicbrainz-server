@@ -11,12 +11,9 @@ sub index : Path Args(0) RequireAuth
         unless $c->user->is_admin;
 }
 
-sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth HiddenOnSlaves
+sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth(account_admin) HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
-
-    $c->detach('/error_401')
-        unless $c->user->is_account_admin;
 
     my $user = $c->model('Editor')->get_by_name($user_name);
     my $form = $c->form(
