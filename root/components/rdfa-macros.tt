@@ -378,11 +378,11 @@ END -%]
     <a rel="mo:record" 
        resource="[% rdfa_tracklist_curi(medium) %]"
        href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
-    [% medium.format_name or l("Medium") | html %]
-    [% medium.position %]
-    [% IF medium.name %]
-       [% medium.name | html %]
-    [% END %]
+    [%~ medium.format_name or l("Medium") | html =%]
+    [%= medium.position ~%]
+    [%~ IF medium.name ~%]:
+       [%= medium.name | html ~%]
+    [%~ END ~%]
     </a>
 [%- END -%]
 
