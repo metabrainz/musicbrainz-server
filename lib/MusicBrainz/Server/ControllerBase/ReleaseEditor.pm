@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::ReleaseEditor;
+package MusicBrainz::Server::ControllerBase::ReleaseEditor;
 use Moose;
 use TryCatch;
 use Encode;
@@ -8,16 +8,14 @@ use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::TrackChangesPreview';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Wizard;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_CREATE
-    $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
-    $EDIT_RELEASEGROUP_CREATE
     $EDIT_TRACK_EDIT
     $EDIT_TRACKLIST_DELETETRACK
     $EDIT_TRACKLIST_ADDTRACK
@@ -554,237 +552,84 @@ sub _edit_release_track_edits
     }
 }
 
-sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
+sub run
 {
-    my ($self, $c) = @_;
-
-    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
-    $wizard->process;
-
-    if ($wizard->cancelled)
-    {
-        # FIXME: detach to artist, label or release group page if started from there.
-        $c->detach ();
-    }
+    my ($self, $c, $release) = @_;
 
     $c->stash( serialized_tracklists => $self->_serialize_tracklists () );
 
-    if ($wizard->current_page eq 'recordings') {
-        $self->associate_recordings($c, $wizard);
-    }
-
-    # We're at a point where the edits are ready to be either previewed
-    # or submitted
-
-    if ($wizard->current_page eq 'editnote' || $wizard->submitted)
-    {
-        my $previewing = !$wizard->submitted;
-        my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
-
-        my $data = $wizard->value;
-        my $editnote;
-
-        $c->stash->{edits} = [];
-
-        # add release (and release group if necessary)
-        # ----------------------------------------
-
-        my @fields = qw( name comment packaging_id status_id script_id language_id
-                         country_id barcode artist_credit date );
-        my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-        if ($data->{release_group_id}){
-            $add_release_args{release_group_id} = $data->{release_group_id};
-        }
-        else {
-            my @fields = qw( name artist_credit type_id );
-            my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-            my $edit = $self->$edit_action($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
-
-            # Previewing a release doesn't care about having the release group id
-            $add_release_args{release_group_id} = $edit->entity->id
-                unless $previewing;
-        }
-
-        # Add the release edit
-        my $add_release_edit = $self->$edit_action($c,
-            $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
-        my $release = $add_release_edit->entity;
-
-        # Add any other extra edits (adding mediums, etc)
-        $self->create_common_edits($c,
-            data => $data,
-            edit_note => $editnote,
-            release => $release,
-            as_previews => $previewing
-        );
-
-        if ($previewing) {
-            $wizard->render; 
-        }
-        else {
-            # Not previewing, we've added a release.
-            $c->response->redirect(
-                $c->uri_for_action('/release/show', [ $release->gid ])
-            );
-            $c->detach;
-        }
-    }
-    elsif ($wizard->loading)
-    {
-        # There was no existing wizard, provide the wizard with
-        # the $release to initialize the forms.
-
-        my $rg_gid = $c->req->query_params->{'release-group'};
-        my $label_gid = $c->req->query_params->{'label'};
-        my $artist_gid = $c->req->query_params->{'artist'};
-
-        my $release = MusicBrainz::Server::Entity::Release->new(
-            mediums => [
-                MusicBrainz::Server::Entity::Medium->new( position => 1 )
-            ]
-        );
-
-        if ($rg_gid)
-        {
-            $c->detach () unless MusicBrainz::Server::Validation::IsGUID($rg_gid);
-            my $rg = $c->model('ReleaseGroup')->get_by_gid($rg_gid);
-            $c->detach () unless $rg;
-
-            $release->release_group_id ($rg->id);
-            $release->release_group ($rg);
-            $release->name ($rg->name);
-
-            $c->model('ArtistCredit')->load ($rg);
-
-            $release->artist_credit ($rg->artist_credit);
-        }
-        elsif ($label_gid)
-        {
-            $c->detach () unless MusicBrainz::Server::Validation::IsGUID($label_gid);
-            my $label = $c->model('Label')->get_by_gid($label_gid);
-
-            $release->add_label(
-                MusicBrainz::Server::Entity::ReleaseLabel->new(
-                    label => $label,
-                    label_id => $label->id
-               ));
-        }
-        elsif ($artist_gid)
-        {
-            $c->detach () unless MusicBrainz::Server::Validation::IsGUID($artist_gid);
-            my $artist = $c->model('Artist')->get_by_gid($artist_gid);
-            $c->detach () unless $artist;
-
-            $release->artist_credit (
-                MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
-        }
-
-        unless(defined $release->artist_credit) {
-            $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
-            $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
-            $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
-        }
-
-        $wizard->render ($release);
-    }
-    else
-    {
-        # wizard processed correctly, it's not loading, cancelled or submitted.
-        # so all data is in the session and the wizard just needs to be rendered.
-        $wizard->render;
-    }
-}
-
-sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my $release = $c->stash->{release};
-
-    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
+    my $wizard = MusicBrainz::Server::Wizard->new(
+        c => $c,
+        name => 'release_editor',
+        pages => [
+            {
+                name => 'information',
+                title => 'Release Information',
+                template => 'release/edit/information.tt',
+                form => 'ReleaseEditor::Information'
+            },
+            {
+                name => 'tracklist',
+                title => 'Tracklist',
+                template => 'release/edit/tracklist.tt',
+                form => 'ReleaseEditor::Tracklist'
+            },
+            {
+                name => 'recordings',
+                title => 'Recordings',
+                template => 'release/edit/recordings.tt',
+                form => 'ReleaseEditor::Recordings'
+            },
+            {
+                name => 'editnote',
+                title => 'Edit Note',
+                template => 'release/edit/editnote.tt',
+                form => 'ReleaseEditor::EditNote'
+            },
+        ]
+    );
     $wizard->process;
 
-    if ($wizard->cancelled)
-    {
-        $c->detach ('show');
+    if ($wizard->cancelled) {
+        $self->cancelled($c);
     }
-
-    # This data is needed on most pages.  It is only not needed when the user navigates
-    # back to the 'Release Information' tab.
-    $self->_load_tracklist ($c, $release);
-    $c->stash( serialized_tracklists => $self->_serialize_tracklists ($release) );
-
-    if ($wizard->loading || $wizard->submitted || $wizard->current_page eq 'editnote')
-    {
-        # we're either just starting the wizard, or submitting it.  In
-        # both cases the release we're editting needs to be loaded
-        # from the database.
-
-        $self->_load_release ($c, $release);
-
-        $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
-    }
-
-    if ($wizard->current_page eq 'recordings') {
+    elsif ($wizard->current_page eq 'recordings') {
         $self->associate_recordings($c, $wizard, $release);
     }
-
-    if ($wizard->current_page eq 'editnote' || $wizard->submitted)
-    {
-        # FIXME Do we need this? -- acid
-        # we're on the changes preview page, load recordings so that the user can
-        # confirm track <-> recording associations.
-        my @tracks = $release->all_tracks;
-        $c->model('Recording')->load (@tracks);
-    
-        my $previewing = !$wizard->submitted;
-        my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
+    elsif ($wizard->current_page eq 'editnote' || $wizard->submitted) {
+        my $previewing = !$wizard->submitted; 
         my $data = $wizard->value;
-        my $editnote = $data->{'editnote'};
+        my $editnote = $data->{editnote};
+        $release = $self->create_edits($c, $data, $previewing, $editnote, $release);
 
-        # release edit
-        # ----------------------------------------
-
-        my @fields = qw( name comment packaging_id status_id script_id language_id
-                         country_id barcode artist_credit date );
-        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-        $args{'to_edit'} = $release;
-        $c->stash->{changes} = 0;
-
-        $self->$edit_action($c, $EDIT_RELEASE_EDIT, $editnote, %args);
-
-        $self->create_common_edits($c,
-            data => $data,
-            edit_note => $editnote,
-            release => $release,
-            as_previews => $previewing
-        );
-   
-        if ($previewing) {
-            $wizard->render;
-        }
-        else {
-            $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
-            $c->detach;
+        if (!$previewing) {
+            $self->submitted($c, $release);
         }
     }
-    elsif ($wizard->loading)
-    {
-        # There was no existing wizard, provide the wizard with
-        # the $release to initialize the forms.
-        $wizard->render ($release);
+    elsif ($wizard->loading) {
+        $self->load($c, $wizard, $release);
     }
-    else
-    {
-        # wizard processed correctly, it's not loading, cancelled or submitted.
-        # so all data is in the session and the wizard just needs to be rendered.
-        $wizard->render;
-    }
+
+    $wizard->render;
 }
 
+sub create_edits
+{
+    my ($self, $c, $data, $previewing, $editnote, $release) = @_;
+
+    $c->stash->{edits} = [];
+    $release = inner();
+
+    # Add any other extra edits (adding mediums, etc)
+    $self->create_common_edits($c,
+        data => $data,
+        edit_note => $editnote,
+        release => $release,
+        as_previews => $previewing
+    );
+
+    return $release;
+}
 
 sub associate_recordings
 {

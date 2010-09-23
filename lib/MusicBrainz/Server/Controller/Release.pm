@@ -1,8 +1,6 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
-use MusicBrainz::Server::Wizard::ReleaseEditor;
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Controller::ReleaseEditor;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
