@@ -603,7 +603,12 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
         my $edit = $self->_preview_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
 
         # Load the other edits (mediums, release labels, etc)
-        $self->load_previews($c, $data, $editnote, $edit->entity);
+        $self->create_common_edits($c,
+            data => $data,
+            edit_note => $editnote,
+            release => $edit->entity,
+            as_previews => 1
+        );
     }
  
     if ($wizard->submitted)
@@ -611,57 +616,41 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
         # The user is done with the wizard and wants to submit the new data.
         # So let's create some edits :)
         my $data = $wizard->value;
+        my $editnote = $data->{'editnote'};
 
-        my @fields;
-        my %args;
-        my $editnote;
-        my $edit;
-
-        # add release group
+        # add release (and release group if necessary)
         # ----------------------------------------
 
-        unless ($data->{release_group_id})
-        {
-            @fields = qw( name artist_credit type_id );
-            %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-            $editnote = $data->{'editnote'};
-            $edit = $self->_create_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
-        }
-
-        # add release
-        # ----------------------------------------
-
-        @fields = qw( name comment packaging_id status_id script_id language_id
+        my @fields = qw( name comment packaging_id status_id script_id language_id
                          country_id barcode artist_credit date );
-        %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+        my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-        $args{release_group_id} = $edit ? $edit->entity->id : $data->{release_group_id};
-
-        $edit = $self->_create_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
-
-        my $release_id = $edit->entity->id;
-        my $gid = $edit->entity->gid;
-
-        # release labels edit
-        # ----------------------------------------
-
-        $self->_edit_release_labels ($c, 0, $editnote, $data);
-
-        # medium / tracklist / track edits
-        # ----------------------------------------
-
-        $self->_edit_release_track_edits ($c, 0, $editnote, $data, $edit->entity);
-
-        if ($wizard->submitted)
-        {
-            $c->response->redirect($c->uri_for_action('/release/show', [ $gid ]));
-            $c->detach;
+        if ($data->{release_group_id}){
+            $add_release_args{release_group_id} = $data->{release_group_id};
         }
-        else
-        {
-            $wizard->render;
+        else {
+            my @fields = qw( name artist_credit type_id );
+            my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+            my $edit = $self->_create_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+            $add_release_args{release_group_id} = $edit->entity->id;
         }
+
+        # Add the release edit
+        my $add_release_edit = $self->_create_edit($c,
+            $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
+        my $release = $add_release_edit->entity;
+
+        # Add any other extra edits (adding mediums, etc)
+        $self->create_common_edits($c,
+            data => $data,
+            edit_note => $editnote,
+            release => $release,
+            as_previews => 0
+        );
+
+        $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
+        $c->detach;
     }
     elsif ($wizard->loading)
     {
@@ -790,7 +779,12 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
         $self->_preview_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
 
         # Load the other edits (mediums, release labels, etc)
-        $self->load_previews($c, $data, $editnote, $release);
+        $self->create_common_edits($c,
+            data => $data,
+            edit_note => $editnote,
+            release => $release,
+            as_previews => 1
+        );
     }
 
     if ($wizard->submitted)
@@ -799,6 +793,7 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
         # So let's create some edits :)
 
         my $data = $wizard->value;
+        my $editnote = $data->{'editnote'};
 
         # release edit
         # ----------------------------------------
@@ -808,21 +803,17 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
         $args{'to_edit'} = $release;
-        my $editnote = $data->{'editnote'};
         $c->stash->{changes} = 0;
 
         $self->_create_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
 
-        # release labels edit
-        # ----------------------------------------
-
-        $self->_edit_release_labels ($c, 0, $editnote, $data, $release);
-
-        # medium / tracklist / track edits
-        # ----------------------------------------
-
-        $self->_edit_release_track_edits ($c, 0, $editnote, $data, $release);
-
+        $self->create_common_edits($c,
+            data => $data,
+            edit_note => $editnote,
+            release => $release,
+            as_previews => 0
+        );
+    
         $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
         $c->detach;
     }
@@ -872,21 +863,28 @@ sub associate_recordings
 
 }
 
-sub load_previews
+sub create_common_edits
 {
-    my ($self, $c, $data, $editnote, $release) = @_;
+    my ($self, $c, %opts) = @_;
+
+    my $as_previews = $opts{as_previews};
+    my $data = $opts{data};
+    my $edit_note = $opts{edit_note};
+    my $release = $opts{release};
 
     # release labels edit
     # ----------------------------------------
 
-    $self->_edit_release_labels ($c, 1, $editnote, $data);
+    $self->_edit_release_labels ($c, $as_previews, $edit_note, $data);
 
     # medium / tracklist / track edits
     # ----------------------------------------
 
-    $self->_edit_release_track_edits ($c, 1, $editnote, $data, $release);
+    $self->_edit_release_track_edits ($c, $as_previews, $edit_note, $data, $release);
 
-    $c->model ('Edit')->load_all (@{ $c->stash->{edits} });
+    if ($as_previews) {
+        $c->model ('Edit')->load_all (@{ $c->stash->{edits} });
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
