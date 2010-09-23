@@ -73,7 +73,7 @@ sub do_login : Private
         else
         {
             if ($form->field('remember_me')->value) {
-                $self->_set_login_cookie($c, single_ip => $form->field('single_ip')->value);
+                $self->_set_login_cookie($c);
             }
 
             # Logged in OK
@@ -137,12 +137,6 @@ sub cookie_login : Private
             die "Expired"
                 if time() > $expiry;
 
-            if ($ipmask) {
-                my $my_ip = $c->req->address;
-                die "Does not match IP mask"
-                    unless $my_ip eq $ipmask;
-            }
-
             my $user = $c->model('Editor')->get_by_name($user_name) or last;
 
             my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
@@ -174,10 +168,10 @@ sub _clear_login_cookie
 
 sub _set_login_cookie
 {
-    my ($self, $c, %opts) = @_;
+    my ($self, $c) = @_;
     my $expiry_time = time + 86400 * 635;
     my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
-    my $ip_mask = $opts{single_ip} ? $c->req->address : '';
+    my $ip_mask = '';
     my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
                                              $expiry_time, $ip_mask);
     $c->res->cookies->{remember_login} = {
