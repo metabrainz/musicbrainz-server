@@ -640,8 +640,11 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
         my $label_gid = $c->req->query_params->{'label'};
         my $artist_gid = $c->req->query_params->{'artist'};
 
-        my $release = MusicBrainz::Server::Entity::Release->new;
-        $release->add_medium (MusicBrainz::Server::Entity::Medium->new ( position => 1 ));
+        my $release = MusicBrainz::Server::Entity::Release->new(
+            mediums => [
+                MusicBrainz::Server::Entity::Medium->new( position => 1 )
+            ]
+        );
 
         if ($rg_gid)
         {
@@ -662,13 +665,11 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
             $c->detach () unless MusicBrainz::Server::Validation::IsGUID($label_gid);
             my $label = $c->model('Label')->get_by_gid($label_gid);
 
-            $release->add_label (MusicBrainz::Server::Entity::ReleaseLabel->new);
-            $release->labels->[0]->label ($label);
-            $release->labels->[0]->label_id ($label->id);
-
-            $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
-            $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
-            $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
+            $release->add_label(
+                MusicBrainz::Server::Entity::ReleaseLabel->new(
+                    label => $label,
+                    label_id => $label->id
+               ));
         }
         elsif ($artist_gid)
         {
@@ -679,13 +680,12 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
             $release->artist_credit (
                 MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
         }
-        else
-        {
+
+        unless(defined $release->artist_credit) {
             $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
             $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
             $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
         }
-
 
         $wizard->render ($release);
     }
