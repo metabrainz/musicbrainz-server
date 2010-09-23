@@ -576,11 +576,7 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
     if ($wizard->current_page eq 'editnote')
     {
         my $data = $wizard->value;
-
-        my @fields;
-        my %args;
         my $editnote;
-        my $edit;
 
         $c->stash->{edits} = [];
 
@@ -589,34 +585,25 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
 
         unless ($data->{release_group_id})
         {
-            @fields = qw( name artist_credit type_id );
-            %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+            my @fields = qw( name artist_credit type_id );
+            my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-            $edit = $self->_preview_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+            $self->_preview_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
         }
 
         # add release
         # ----------------------------------------
 
-        @fields = qw( name comment packaging_id status_id script_id language_id
+        my @fields = qw( name comment packaging_id status_id script_id language_id
                          country_id barcode artist_credit date );
-        %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
         $args{release_group_id} = $data->{release_group_id};
 
-        $edit = $self->_preview_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
+        my $edit = $self->_preview_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
 
-        # release labels edit
-        # ----------------------------------------
-
-        $self->_edit_release_labels ($c, 1, $editnote, $data);
-
-        # medium / tracklist / track edits
-        # ----------------------------------------
-
-        $self->_edit_release_track_edits ($c, 1, $editnote, $data, $edit->entity);
-
-        $c->model ('Edit')->load_all (@{ $c->stash->{edits} });
+        # Load the other edits (mediums, release labels, etc)
+        $self->load_previews($c, $data, $editnote, $edit->entity);
     }
  
     if ($wizard->submitted)
@@ -778,9 +765,10 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
 
     if ($wizard->current_page eq 'editnote')
     {
+        # FIXME Do we need this? -- acid
         # we're on the changes preview page, load recordings so that the user can
         # confirm track <-> recording associations.
-        my @tracks = map { $_->all_tracks } map { $_->tracklist } $release->all_mediums;
+        my @tracks = $release->all_tracks;
         $c->model('Recording')->load (@tracks);
 
         # The user is done with the wizard and wants to submit the new data.
@@ -801,17 +789,8 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
 
         $self->_preview_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
 
-        # release labels edit
-        # ----------------------------------------
-
-        $self->_edit_release_labels ($c, 1, $editnote, $data, $release);
-
-        # medium / tracklist / track edits
-        # ----------------------------------------
-
-        $self->_edit_release_track_edits ($c, 1, $editnote, $data, $release);
-        
-        $c->model ('Edit')->load_all (@{ $c->stash->{edits} });
+        # Load the other edits (mediums, release labels, etc)
+        $self->load_previews($c, $data, $editnote, $release);
     }
 
     if ($wizard->submitted)
@@ -891,6 +870,23 @@ sub associate_recordings
 
     $wizard->load_page('recordings', { 'preview_mediums' => $associations });
 
+}
+
+sub load_previews
+{
+    my ($self, $c, $data, $editnote, $release) = @_;
+
+    # release labels edit
+    # ----------------------------------------
+
+    $self->_edit_release_labels ($c, 1, $editnote, $data);
+
+    # medium / tracklist / track edits
+    # ----------------------------------------
+
+    $self->_edit_release_track_edits ($c, 1, $editnote, $data, $release);
+
+    $c->model ('Edit')->load_all (@{ $c->stash->{edits} });
 }
 
 __PACKAGE__->meta->make_immutable;
