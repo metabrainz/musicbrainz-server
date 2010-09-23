@@ -21,23 +21,12 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Tracklist';
 }
 
-sub offset_track_positions
-{
-    my ($self, $tracklist_id, $start_position, $offset) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $query = 'UPDATE track SET position = position + ?' .
-                ' WHERE position >= ? AND tracklist = ?';
-    $sql->do($query, $offset, $start_position, $tracklist_id);
-}
-
 sub insert
 {
     my ($self, $tracks) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $id = $sql->insert_row('tracklist', { trackcount => 0 }, 'id');
-    my @tracks = @$tracks;
-    $_->{tracklist} = $id for @tracks;
-    $self->c->model('Track')->insert(@tracks);
+    $self->_add_tracks($id, $tracks);
     my $class = $self->_entity_class;
     return $class->new( id => $id );
 }
@@ -50,6 +39,26 @@ sub delete
     $sql->do($query, @tracklist_ids);
     $query = 'DELETE FROM tracklist WHERE id IN ('. placeholders(@tracklist_ids) . ')';
     $sql->do($query, @tracklist_ids);
+}
+
+sub replace
+{
+    my ($self, $tracklist_id, $tracks) = @_;
+    $self->sql->do('DELETE FROM track WHERE tracklist = ?', $tracklist_id);
+    $self->_add_tracks($tracklist_id, $tracks);
+}
+
+sub _add_tracks {
+    my ($self, $id, $tracks) = @_;
+    my $i = 1;
+    for (@$tracks) {
+        $_->{tracklist} = $id;
+        $_->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(
+            @{ $_->{artist_credit} }
+        );
+        $_->{position} = $i++;
+    }
+    $self->c->model('Track')->insert(@$tracks);
 }
 
 sub load
