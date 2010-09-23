@@ -78,7 +78,7 @@ sub _cmp
     return  0 unless defined($a) && defined($b);
     return  0 unless (defined($a->year) && defined($b->year));
     return -1 if defined($a->year) && !defined($b->year);
-    return  1 if defined($a->year) && !defined($b->year);
+    return  1 if !defined($a->year) && defined($b->year);
 
     my ($days) = Date::Calc::Delta_Days(
         $a->year, $a->month || 1, $a->day || 1,
