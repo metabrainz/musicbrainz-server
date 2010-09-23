@@ -569,32 +569,8 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
 
     $c->stash( serialized_tracklists => $self->_serialize_tracklists () );
 
-    if ($wizard->current_page eq 'recordings')
-    {
-        my $suggestions = $self->suggest_recordings ($c, $wizard->value);
-
-        my $associations = [];
-        for my $medium (@$suggestions)
-        {
-            my $medium_assoc = [];
-            for my $track (@{ $medium->{tracklist}->{changes} })
-            {
-                my $rec;
-
-                if (scalar @{ $track->suggestions } == 1 || $track->renamed)
-                {
-                    $rec = $track->suggestions->[0]->entity->gid;
-                }
-
-                push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
-            }
-
-            push @$associations, { associations => $medium_assoc };
-        }
-
-        $c->stash->{suggestions} = $suggestions;
-
-        $wizard->load_page('recordings', { 'preview_mediums' => $associations });
+    if ($wizard->current_page eq 'recordings') {
+        $self->associate_recordings($c, $wizard);
     }
 
     if ($wizard->current_page eq 'editnote')
@@ -796,40 +772,8 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
         $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
     }
 
-    if ($wizard->current_page eq 'recordings')
-    {
-        # we're on the changes preview page, load recordings so that the user can
-        # confirm track <-> recording associations.
-        my @tracks = map { $_->all_tracks } map { $_->tracklist } $release->all_mediums;
-        $c->model('Recording')->load (@tracks);
-
-        my $suggestions = $self->suggest_recordings ($c, $wizard->value, $release);
-
-        my $associations = [];
-        for my $medium (@$suggestions)
-        {
-            my $medium_assoc = [];
-            for my $track (@{ $medium->{tracklist}->{changes} })
-            {
-                my $rec;
-
-                # If there is only one suggestion, use that as the default.
-                # Use the first suggestion (which is the current association) as a
-                # default if the track is renamed.
-                if (scalar @{ $track->suggestions } == 1 || $track->renamed)
-                {
-                    $rec = $track->suggestions->[0]->entity->gid;
-                }
-
-                push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
-            }
-
-            push @$associations, { associations => $medium_assoc };
-        }
-
-        $c->stash->{suggestions} = $suggestions;
-
-        $wizard->load_page('recordings', { 'preview_mediums' => $associations });
+    if ($wizard->current_page eq 'recordings') {
+        $self->associate_recordings($c, $wizard, $release);
     }
 
     if ($wizard->current_page eq 'editnote')
@@ -917,6 +861,37 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
     }
 }
 
+
+sub associate_recordings
+{
+    my ($self, $c, $wizard, $release) = @_;
+    $c->model('Recording')->load($release->all_tracks) if $release;
+    my $suggestions = $self->suggest_recordings($c, $wizard->value, $release);
+
+    my $associations = [];
+    for my $medium (@$suggestions)
+    {
+        my $medium_assoc = [];
+        for my $track (@{ $medium->{tracklist}->{changes} })
+        {
+            my $rec;
+
+            if (scalar @{ $track->suggestions } == 1 || $track->renamed)
+            {
+                $rec = $track->suggestions->[0]->entity->gid;
+            }
+
+            push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
+        }
+
+        push @$associations, { associations => $medium_assoc };
+    }
+
+    $c->stash->{suggestions} = $suggestions;
+
+    $wizard->load_page('recordings', { 'preview_mediums' => $associations });
+
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
