@@ -573,50 +573,18 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
         $self->associate_recordings($c, $wizard);
     }
 
-    if ($wizard->current_page eq 'editnote')
+    # We're at a point where the edits are ready to be either previewed
+    # or submitted
+
+    if ($wizard->current_page eq 'editnote' || $wizard->submitted)
     {
+        my $previewing = !$wizard->submitted;
+        my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
+
         my $data = $wizard->value;
         my $editnote;
 
         $c->stash->{edits} = [];
-
-        # add release group
-        # ----------------------------------------
-
-        unless ($data->{release_group_id})
-        {
-            my @fields = qw( name artist_credit type_id );
-            my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-            $self->_preview_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
-        }
-
-        # add release
-        # ----------------------------------------
-
-        my @fields = qw( name comment packaging_id status_id script_id language_id
-                         country_id barcode artist_credit date );
-        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-        $args{release_group_id} = $data->{release_group_id};
-
-        my $edit = $self->_preview_edit($c, $EDIT_RELEASE_CREATE, $editnote, %args);
-
-        # Load the other edits (mediums, release labels, etc)
-        $self->create_common_edits($c,
-            data => $data,
-            edit_note => $editnote,
-            release => $edit->entity,
-            as_previews => 1
-        );
-    }
- 
-    if ($wizard->submitted)
-    {
-        # The user is done with the wizard and wants to submit the new data.
-        # So let's create some edits :)
-        my $data = $wizard->value;
-        my $editnote = $data->{'editnote'};
 
         # add release (and release group if necessary)
         # ----------------------------------------
@@ -632,12 +600,15 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
             my @fields = qw( name artist_credit type_id );
             my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-            my $edit = $self->_create_edit($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
-            $add_release_args{release_group_id} = $edit->entity->id;
+            my $edit = $self->$edit_action($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+
+            # Previewing a release doesn't care about having the release group id
+            $add_release_args{release_group_id} = $edit->entity->id
+                unless $previewing;
         }
 
         # Add the release edit
-        my $add_release_edit = $self->_create_edit($c,
+        my $add_release_edit = $self->$edit_action($c,
             $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
         my $release = $add_release_edit->entity;
 
@@ -646,11 +617,19 @@ sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
             data => $data,
             edit_note => $editnote,
             release => $release,
-            as_previews => 0
+            as_previews => $previewing
         );
 
-        $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
-        $c->detach;
+        if ($previewing) {
+            $wizard->render; 
+        }
+        else {
+            # Not previewing, we've added a release.
+            $c->response->redirect(
+                $c->uri_for_action('/release/show', [ $release->gid ])
+            );
+            $c->detach;
+        }
     }
     elsif ($wizard->loading)
     {
@@ -752,70 +731,45 @@ sub edit : Chained('/release/load') Edit ForbiddenOnSlaves RequireAuth
         $self->associate_recordings($c, $wizard, $release);
     }
 
-    if ($wizard->current_page eq 'editnote')
+    if ($wizard->current_page eq 'editnote' || $wizard->submitted)
     {
         # FIXME Do we need this? -- acid
         # we're on the changes preview page, load recordings so that the user can
         # confirm track <-> recording associations.
         my @tracks = $release->all_tracks;
         $c->model('Recording')->load (@tracks);
-
-        # The user is done with the wizard and wants to submit the new data.
-        # So let's create some edits :)
-
-        my $data = $wizard->value;
-
-        # release edit
-        # ----------------------------------------
-
-        my @fields = qw( name comment packaging_id status_id script_id language_id
-                         country_id barcode artist_credit date );
-        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-        $args{'to_edit'} = $release;
-        my $editnote = $data->{'editnote'};
-        $c->stash->{changes} = 0;
-
-        $self->_preview_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
-
-        # Load the other edits (mediums, release labels, etc)
-        $self->create_common_edits($c,
-            data => $data,
-            edit_note => $editnote,
-            release => $release,
-            as_previews => 1
-        );
-    }
-
-    if ($wizard->submitted)
-    {
-        # The user is done with the wizard and wants to submit the new data.
-        # So let's create some edits :)
-
-        my $data = $wizard->value;
-        my $editnote = $data->{'editnote'};
-
-        # release edit
-        # ----------------------------------------
-
-        my @fields = qw( name comment packaging_id status_id script_id language_id
-                         country_id barcode artist_credit date );
-        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-
-        $args{'to_edit'} = $release;
-        $c->stash->{changes} = 0;
-
-        $self->_create_edit($c, $EDIT_RELEASE_EDIT, $editnote, %args);
-
-        $self->create_common_edits($c,
-            data => $data,
-            edit_note => $editnote,
-            release => $release,
-            as_previews => 0
-        );
     
-        $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
-        $c->detach;
+        my $previewing = !$wizard->submitted;
+        my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
+        my $data = $wizard->value;
+        my $editnote = $data->{'editnote'};
+
+        # release edit
+        # ----------------------------------------
+
+        my @fields = qw( name comment packaging_id status_id script_id language_id
+                         country_id barcode artist_credit date );
+        my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+        $args{'to_edit'} = $release;
+        $c->stash->{changes} = 0;
+
+        $self->$edit_action($c, $EDIT_RELEASE_EDIT, $editnote, %args);
+
+        $self->create_common_edits($c,
+            data => $data,
+            edit_note => $editnote,
+            release => $release,
+            as_previews => $previewing
+        );
+   
+        if ($previewing) {
+            $wizard->render;
+        }
+        else {
+            $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
+            $c->detach;
+        }
     }
     elsif ($wizard->loading)
     {
