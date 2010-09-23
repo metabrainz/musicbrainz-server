@@ -13,6 +13,8 @@
 
         MB.Control.ReleaseRecordings ();
 
+       $('input[name=step_editnote]').click ();
+
     });
   </script>
 [%- END -%]

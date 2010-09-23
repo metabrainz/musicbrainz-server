@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Search;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
@@ -248,8 +249,8 @@ sub _load_release
     $self->c->model('ReleaseLabel')->load($release);
     $self->c->model('Label')->load(@{ $release->labels });
     $self->c->model('ReleaseGroupType')->load($release->release_group);
-
     $self->c->model('MediumFormat')->load($release->all_mediums);
+    $self->c->model('Release')->annotation->load_latest ($release);
 }
 
 
@@ -555,6 +556,22 @@ sub _edit_release_track_edits
     }
 }
 
+sub _edit_release_annotation
+{
+    my ($self, $preview, $editnote, $data, $release) = @_;
+
+    my $edit = $preview ? '_preview_edit' : '_create_edit';
+
+    my $annotation = $release->latest_annotation ? $release->latest_annotation->text : '';
+    if ($annotation ne $data->{annotation})
+    {
+        my $edit = $self->$edit(
+            $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
+            entity_id => $release->id,
+            text => $data->{annotation});
+    }
+}
+
 sub release_add
 {
     my ($self, $wizard, $release) = @_;
@@ -640,6 +657,11 @@ sub release_add
 
         $self->_edit_release_track_edits (1, $editnote, $data, $edit->entity);
 
+        # annotation
+        # ----------------------------------------
+
+        $self->_edit_release_annotation (1, $editnote, $data, $edit->entity);
+
         $self->c->model ('Edit')->load_all (@{ $self->c->stash->{edits} });
     }
  
@@ -689,6 +711,11 @@ sub release_add
         # ----------------------------------------
 
         $self->_edit_release_track_edits (0, $editnote, $data, $edit->entity);
+
+        # annotation
+        # ----------------------------------------
+
+        $self->_edit_release_annotation (1, $editnote, $data, $edit->entity);
 
         if ($wizard->submitted)
         {
@@ -864,6 +891,11 @@ sub release_edit
 
         $self->_edit_release_track_edits (1, $editnote, $data, $release);
         
+        # annotation
+        # ----------------------------------------
+
+        $self->_edit_release_annotation (1, $editnote, $data, $release);
+
         $self->c->model ('Edit')->load_all (@{ $self->c->stash->{edits} });
     }
 
@@ -896,6 +928,11 @@ sub release_edit
         # ----------------------------------------
 
         $self->_edit_release_track_edits (0, $editnote, $data, $release);
+
+        # annotation
+        # ----------------------------------------
+
+        $self->_edit_release_annotation (0, $editnote, $data, $release);
 
         $self->c->response->redirect($self->c->uri_for_action('/release/show', [ $release->gid ]));
         $self->c->detach;
