@@ -554,7 +554,7 @@ sub _edit_release_track_edits
     }
 }
 
-sub add : Chained('/release/load') PathPart('add') Edit RequireAuth ForbiddenOnSlaves
+sub add : Path('/release/add') Edit RequireAuth ForbiddenOnSlaves
 {
     my ($self, $c) = @_;
 
