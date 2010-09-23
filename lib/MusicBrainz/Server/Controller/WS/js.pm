@@ -64,39 +64,48 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 }
 
 sub _autocomplete_entity {
-    my ($self, $c, $type, $filter) = @_;
+    my ($self, $c, $type) = @_;
 
-    my $query = $c->stash->{args}->{q};
+    my $query = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{q});
     my $limit = $c->stash->{args}->{limit} || 10;
+    my $page = $c->stash->{args}->{page} || 1;
 
     unless ($query) {
         $c->detach('bad_req');
     }
 
-    my @entities = $c->model($type)->autocomplete_name($query, $limit);
-    @entities = grep { $_->id != $filter } @entities;
+    my $response = $c->model ('Search')->external_search (
+        $c, $type, $query.'*', $limit, $page, 1);
 
-    # FIXME: I think results should be post-processed to sort the entries
-    # which match the case of the query above other results.  The sortname
-    # should also be taken into account for those entities which have them.
-    # -- warp.
+    my $pager = $response->{pager};
+
+    my @entities;
+    for my $result (@{ $response->{results} })
+    {
+        push @entities, {
+            name => $result->{entity}->name,
+            id => $result->{entity}->id,
+            gid => $result->{entity}->gid,
+            comment => $result->{entity}->comment,
+        };
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('autocomplete_name', \@entities));
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@entities));
 }
 
 sub artist : Chained('root') PathPart('artist') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_autocomplete_entity($c, 'Artist', $DARTIST_ID);
+    $self->_autocomplete_entity($c, 'artist');
 }
 
 sub label : Chained('root') PathPart('label') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_autocomplete_entity($c, 'Label', $DLABEL_ID);
+    $self->_autocomplete_entity($c, 'label');
 }
 
 sub _serialize_release_groups
