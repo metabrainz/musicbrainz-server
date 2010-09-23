@@ -7,7 +7,7 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::TrackChangesPreview';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
-use MusicBrainz::Server::Data::Search;
+use MusicBrainz::Server::Data::Search qw( escape_query );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -64,8 +64,8 @@ sub recording_suggestions
 {
     my ($self, $c, $changes, @prepend) = @_;
 
-    my $query = MusicBrainz::Server::Data::Search::escape_query ($changes->track->name);
-    my $artist = MusicBrainz::Server::Data::Search::escape_query ($changes->track->artist_credit->name);
+    my $query = escape_query($changes->track->name);
+    my $artist = escape_query($changes->track->artist_credit->name);
     my $limit = 10;
 
     # FIXME: can we include track length too?  Might be useful in some searches... --warp.
