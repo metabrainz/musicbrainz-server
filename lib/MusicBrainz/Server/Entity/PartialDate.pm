@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Entity::PartialDate;
 
 use Moose;
+use Date::Calc;
+
+use overload '<=>' => \&_cmp, fallback => 1;
 
 has 'year' => (
     is => 'rw',
@@ -66,6 +69,23 @@ sub format
         }
     }
     return sprintf $fmt, @args;
+}
+
+sub _cmp
+{
+    my ($a, $b) = @_;
+
+    return  0 unless defined($a) && defined($b);
+    return  0 unless (defined($a->year) && defined($b->year));
+    return -1 if defined($a->year) && !defined($b->year);
+    return  1 if !defined($a->year) && defined($b->year);
+
+    my ($days) = Date::Calc::Delta_Days(
+        $a->year, $a->month || 1, $a->day || 1,
+        $b->year, $b->month || 1, $b->day || 1,
+    );
+
+    return $days < 0 ? -1 : $days > 0 ? 1 : 0;
 }
 
 __PACKAGE__->meta->make_immutable;
