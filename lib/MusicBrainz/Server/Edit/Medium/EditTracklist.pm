@@ -8,11 +8,12 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT_TRACKLIST );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( artist_credit_from_loaded_definition );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 use aliased 'MusicBrainz::Server::Entity::Tracklist';
 use aliased 'MusicBrainz::Server::Entity::Track';
@@ -96,7 +97,7 @@ sub track {
         name => Str,
         artist_credit => ArtistCreditDefinition,
         length => Nullable[Int],
-        recording_id => Int,
+        recording_id => NullableOnPreview[Int],
     ];
 }
 
