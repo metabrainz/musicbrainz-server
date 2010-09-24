@@ -20,6 +20,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
+    $EDIT_TRACKLIST_CREATE
 );
 
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
