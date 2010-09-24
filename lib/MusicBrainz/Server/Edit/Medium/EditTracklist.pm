@@ -9,9 +9,13 @@ use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT_TRACKLIST );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Utils qw( artist_credit_from_loaded_definition );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 
 extends 'MusicBrainz::Server::Edit';
+
+use aliased 'MusicBrainz::Server::Entity::Tracklist';
+use aliased 'MusicBrainz::Server::Entity::Track';
 
 sub edit_name { 'Edit tracklist' }
 sub edit_type { $EDIT_MEDIUM_EDIT_TRACKLIST }
@@ -59,20 +63,32 @@ sub related_entities
     return {
         release => [ map { $_->release_id } $self->mediums ],
         recording =>  [
-            map { $_->{recording_id} }
-                @{ $self->data->{new_tracklist} },
-                @{ $self->data->{old_tracklist} }
+            $self->recording_ids
         ],
         artist => [
-            map { $_->{artist} }
-                grep { ref($_) } map { @{ $_->{artist_credit} } }
-                @{ $self->data->{new_tracklist} },
-                @{ $self->data->{old_tracklist} }
+            $self->artist_ids
         ],
         release_group => [
             map { $_->release->release_group_id } $self->mediums
         ]
     };
+}
+
+sub artist_ids
+{
+    my $self = shift;
+    map { $_->{artist} }
+        grep { ref($_) } map { @{ $_->{artist_credit} } }
+        @{ $self->data->{new_tracklist} },
+        @{ $self->data->{old_tracklist} }
+}
+
+sub recording_ids
+{
+    my $self = shift;
+    map { $_->{recording_id} }
+        @{ $self->data->{new_tracklist} },
+        @{ $self->data->{old_tracklist} }
 }
 
 sub track {
@@ -159,6 +175,53 @@ sub accept
         $self->c->model('Tracklist')->replace($medium->tracklist_id, 
             $self->data->{new_tracklist});
     }
+}
+
+sub foreign_keys
+{
+    my ($self) = @_;
+    return {
+        Artist => [ $self->artist_ids ],
+        Medium => {
+            map {
+                $_->id => [ 'Release' ]
+            } $self->mediums
+        },
+        Recording => [ $self->recording_ids ],
+    }
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+    return {
+        mediums => [
+            map { $loaded->{Medium}{ $_->id } } $self->mediums
+        ],
+        old_tracklist => $self->create_tracklist(
+            $self->data->{old_tracklist}, $loaded),
+        new_tracklist => $self->create_tracklist(
+            $self->data->{new_tracklist}, $loaded),
+    }
+}
+
+sub create_tracklist
+{
+    my ($self, $tracklist, $loaded) = @_;
+    my $i = 1;
+    return Tracklist->new(
+        tracks => [
+            map {
+                Track->new(
+                    name => $_->{name},
+                    artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
+                    length => $_->{length},
+                    recording => $loaded->{Recording}{$_->{recording_id}},
+                    position => $i++,
+                )
+            } @$tracklist
+        ]
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
