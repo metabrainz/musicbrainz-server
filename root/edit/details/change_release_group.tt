@@ -4,7 +4,7 @@
     <td colspan="2">
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% link_release(release) %]u</li>
+        <li>[% link_release(release) %]</li>
         [% END %]
       </ul>
     </td>

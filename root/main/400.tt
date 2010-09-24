@@ -17,9 +17,9 @@
                    faq => doc_link('FAQ') }) -%]
         </p>
 
-        <p>
+        <p class="small">
             [%- l('Found a broken link on our site? Please {con|contact us}.',
-                { con => doc_link('Contact_Us') }) -%]
+                 { con => doc_link('Contact_Us') }) -%]
         </p>
     </div>
 [% END %]

@@ -154,7 +154,13 @@ MB.Control.ReleaseDisc = function (disc) {
      * 'Disc #' if the disc doesn't have a title.
      */
     var fullTitle = function () {
-        return 'Disc ' + (self.number + 1) + (self.title.val () ? ': '+self.title.val () : '');
+        var title = '';
+        if (!self.title.hasClass ('jquery_placeholder'))
+        {
+            title = self.title.val ();
+        }
+
+        return 'Disc ' + (self.number + 1) + (title ? ': '+title : '');
     };
 
     /**

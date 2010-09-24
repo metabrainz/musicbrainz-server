@@ -23,10 +23,7 @@ my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Ser
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-$mech->get('/user/kuno/donation');
-is ($mech->status(), 403, "Donations are private");
-
-$mech->get('/user/new_editor/donation');
+$mech->get('/account/donation');
 $mech->content_contains ("You will never be nagged");
 
 
@@ -34,7 +31,7 @@ $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'kuno', password => 'byld' } );
 
-$mech->get('/user/kuno/donation');
+$mech->get('/account/donation');
 $mech->content_contains ("We have not received a donation from you recently");
 
 LWP::UserAgent::Mockable->finished;

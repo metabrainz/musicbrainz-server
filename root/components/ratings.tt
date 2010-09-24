@@ -17,5 +17,5 @@
     </p>
     [%- END -%]
 [%- ELSE -%]
-    [% l('{link} has no ratings.', { link => link_entity(source) }) -%]
+    <p>[% l('{link} has no ratings.', { link => link_entity(source) }) -%]</p>
 [%- END -%]
