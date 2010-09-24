@@ -163,12 +163,12 @@ sub accept
 
     # See if we need a new tracklist
     if ($self->data->{separate_tracklists} &&
-        $self->c->model('Tracklist')->usage_count($medium->tracklist_id > 1)) {
-         my $new_tracklist_id = $self->c->model('Tracklist')->insert(
+        $self->c->model('Tracklist')->usage_count($medium->tracklist_id) > 1) {
+         my $new_tracklist = $self->c->model('Tracklist')->insert(
             $self->data->{new_tracklist}
          );
          $self->c->model('Medium')->update($medium->id, {
-            tracklist_id => $new_tracklist_id
+            tracklist_id => $new_tracklist->id
          });
     }
     else {
@@ -184,7 +184,7 @@ sub foreign_keys
         Artist => [ $self->artist_ids ],
         Medium => {
             map {
-                $_->id => [ 'Release' ]
+                $_->id => [ 'Release', 'MediumFormat' ]
             } $self->mediums
         },
         Recording => [ $self->recording_ids ],
