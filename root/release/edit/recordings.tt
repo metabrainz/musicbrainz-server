@@ -24,28 +24,29 @@
 
     [% USE w = Wizard() %]
     [% information = w.page('information') %]
+    [% mediums = w.page('tracklist').field('mediums') %]
     <h3>[% information.field('name').value %]</h3>
     <p>by [% information.field('artist_credit').fif.name %]</p>
 
     [% preview_mediums = form.field('preview_mediums') %]
     [% multidisc = preview_mediums.fields.size > 1 %]
 
+    <div class="form recording-assoc">
+
     [% FOR preview_medium=preview_mediums.fields %]
     [% medium_idx = loop.index %]
     [% medium = mediums.fields.$medium_idx %]
-
-    <div class="form recording-assoc">
       <fieldset class="recording-assoc-disc">
         <legend>
           [%- IF medium.field('name').value -%]
             [%- IF multidisc -%]
-              [%- l('Disc {num}: {title}', { num => loop.index + 1, title => medium.field('name').value }) -%]
+              [%- l('Disc {num}: {title}', { num => medium.field('position').value, title => medium.field('name').value }) -%]
             [%- ELSE -%]
               [%- medium.field('name').value -%]
             [%- END -%]
           [%- ELSE -%]
             [%- IF multidisc -%]
-              [%- l('Disc {num}', { num => loop.index + 1 }) -%]
+              [%- l('Disc {num}', { num => medium.field('position').value }) -%]
             [%- ELSE -%]
               [%- l('Tracklist') -%]
             [%- END -%]
@@ -110,9 +111,9 @@
         </table>
 
       </fieldset>
+    [% END %]
 
     </div>
-    [% END %]
 
     [% FOR preview_medium=preview_mediums.fields %]
     [% medium_idx = loop.index %]
