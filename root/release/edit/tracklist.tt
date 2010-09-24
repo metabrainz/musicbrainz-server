@@ -15,7 +15,7 @@
 
       var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
-      MB.Control.ReleaseBasicTab (advanced_tab, serialized_tracklists);
+      var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab, serialized_tracklists);
 
     });
   </script>
@@ -134,8 +134,9 @@
     <h2>Preview</h2>
 
     [% USE w = Wizard() %]
-    [% release_artist = w.get_field ('information', 'artist_credit') %]
-    <h3>[% w.get_field ('information', 'name').value %]</h3>
+    [% information = w.page ('information') %]
+    [% release_artist = information.field('artist_credit') %]
+    <h3>[% information.field('name').value %]</h3>
     <p>by [% release_artist.fif.name %]</p>
 
     [%# The following is only included so the artist can be cloned when adding new tracks. --warp. %]

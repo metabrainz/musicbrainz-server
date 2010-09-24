@@ -22,7 +22,9 @@
         Name: '[% l('Name') %]',
         JoinPhrase: '[% l('Join Phrase') %]',
         Cancel: '[% l('Cancel') %]',
+        Change: '[% l('Change') %]',
         Done: '[% l('Done') %]',
+        AppearsOn: '[% l('appears on:') %]',
         UseAltNames: '[% l('Some artists credited with alternative names') %]',
         Preview: '[% l('Preview: ') %]',
         UnknownPlaceholder: '[% l('[ Unknown ]') %]',
@@ -47,6 +49,6 @@
               "[% rating_tooltip(3) %]",
               "[% rating_tooltip(4) %]",
               "[% rating_tooltip(5) %]",
-        ]
+        ],
     });
 })(MB);

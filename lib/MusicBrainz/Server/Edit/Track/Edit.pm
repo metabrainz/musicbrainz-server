@@ -17,6 +17,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }

@@ -1,0 +1,14 @@
+<table class="details">
+    <tr>
+        <th>[% l('Release:') %]</th>
+        <td>[% link_release(edit.display_data.release) %]</td>
+    </tr>
+    <tr>
+      <th>[% l('Label:') %]</th>
+      <td>[% link_artist(edit.display_data.label) %]</td>
+    </tr>
+    <tr>
+      <th>[% l('Catalog number:') %]</th>
+      <td>[% edit.display_data.catalog_number | html %]</td>
+    </tr>
+</table>

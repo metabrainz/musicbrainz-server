@@ -3,7 +3,7 @@ package MusicBrainz::Server::Edit::Utils;
 use strict;
 use warnings;
 
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
@@ -40,6 +40,8 @@ sub load_artist_credit_definitions
         my $artist = shift @ac;
         my $join   = shift @ac;
 
+        next unless $artist->{name} && $artist->{artist};
+
         $load{ $artist->{artist} } = [];
     }
 
@@ -58,6 +60,8 @@ sub artist_credit_from_loaded_definition
         my $artist = shift @def;
         my $join = shift @def;
 
+        next unless $artist->{name} && $artist->{artist};
+
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $artist->{name},
             artist => $loaded->{Artist}->{ $artist->{artist} }
@@ -75,6 +79,9 @@ sub artist_credit_from_loaded_definition
 sub clean_submitted_artist_credits
 {
     my $ac = shift;
+
+    return artist_credit_to_ref ($ac)
+        if ref $ac eq 'MusicBrainz::Server::Entity::ArtistCredit';
 
     # Remove empty artist credits.
     my @delete;

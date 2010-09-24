@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw( load_artist_credit_definitions artist_credit_from_loaded_definition );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { 'Add track' }
 sub edit_type { $EDIT_TRACKLIST_ADDTRACK }
@@ -33,22 +34,27 @@ has '+data' => (
 sub foreign_keys
 {
     my $self = shift;
-    return {
-        Recording => { $self->data->{recording_id} => [] },
-        Artist => { load_artist_credit_definitions($self->data->{artist_credit}) }
-    };
+
+    my %fk;
+
+    $fk{Recording} = { $self->data->{recording_id} => [] } if $self->data->{recording_id};
+    $fk{Artist} = { load_artist_credit_definitions($self->data->{artist_credit}) };
+
+    return \%fk;
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
 
+    my $rec = $self->data->{recording_id};
+
     return {
         name => $self->data->{name},
         length => $self->data->{length},
         tracklist_id => $self->data->{tracklist_id},
         artist => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} }
+        recording => $rec ? $loaded->{Recording}->{ $rec } : '',
     };
 }
 

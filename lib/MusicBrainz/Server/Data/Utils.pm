@@ -52,7 +52,7 @@ Readonly my %TYPE_TO_MODEL => (
 sub artist_credit_to_ref
 {
     my ($artist_credit) = @_;
-    use Data::Dumper;
+
     my $ac = [ map {
         my @credit = ( { name => $_->name, artist => $_->artist_id } );
         push @credit, $_->join_phrase if $_->join_phrase;

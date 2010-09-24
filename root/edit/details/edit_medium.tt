@@ -1,9 +1,4 @@
 <table class="details">
-  <tr>
-    <th>[% l('Medium:') %]</th>
-    <td colspan="2"></td>
-  </tr>
-
   [% IF edit.display_data.format %]
   <tr>
     <th>[% l('Format:') %]</th>

@@ -303,7 +303,7 @@ role {
                 return 0 unless ($inc);
             }
 
-            if ($inc && $version > 1) {
+            if ($inc && $version eq '2') {
                 $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
                 $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
             }
