@@ -6,12 +6,12 @@ use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
 sub edit_type { $EDIT_PUID_DELETE }
 sub edit_name { 'Remove PUID' }
 
 sub alter_edit_pending  { { RecordingPUID => [ shift->recording_puid_id ] } }
-sub related_entities    { { recording     => [ shift->recording_id ] } }
 
 has '+data' => (
     isa => Dict[

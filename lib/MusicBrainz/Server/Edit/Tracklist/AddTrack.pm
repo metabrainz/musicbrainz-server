@@ -15,6 +15,28 @@ sub edit_type { $EDIT_TRACKLIST_ADDTRACK }
 
 sub alter_edit_pending { { Track => [ shift->track_id ] } }
 
+sub related_entities
+{
+    my ($self) = @_;
+    my $recording = $c->model('Recording')->get_by_id($self->data->{recording_id});
+    my @releases = $c->model('Release')->find_by_tracklist($self->data->{tracklist_id});
+    push @releases, $c->model('Release')->find_by_recording($recording->id);
+
+    $self->c->model('ReleaseGroup')->load(@releases);
+    $self->c->model('ArtistCredit')->load(@releases, $recording,
+        map { $_->release_group } @releases);
+ 
+    return {
+        artist => [
+            map { $_->artist_id } map { @{ $_->artist_credit->names } }
+                $release, $release->release_group
+        ],
+        release => [ map { $_->id } @releases ],
+        release_group => [ map { $_->release_group->id } @releases ]
+        recording => [ $recording->id ],
+    }
+}
+
 has 'track_id' => (
     isa => 'Int',
     is => 'rw'
