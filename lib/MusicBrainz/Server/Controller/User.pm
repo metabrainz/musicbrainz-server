@@ -293,7 +293,8 @@ sub privileged : Path('/privileged')
         ],
         relationship_editors => [
             $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG)
-        ]
+        ],
+        template => 'user/privileged.tt',
     );
 }
 

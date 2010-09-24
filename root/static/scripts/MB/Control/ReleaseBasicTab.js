@@ -35,7 +35,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 
             var table = $('<table class="preview">').appendTo(preview);
 
-            $.each (disc.tracks, function (idx, item) {
+            $.each (disc.sorted_tracks, function (idx, item) {
                 if (item.isDeleted ())
                 {
                     return;
@@ -68,7 +68,7 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
     var render = function () {
         var str = "";
 
-        $.each (disc.tracks, function (idx, item) {
+        $.each (disc.sorted_tracks, function (idx, item) {
             if (item.isDeleted ())
             {
                 return;

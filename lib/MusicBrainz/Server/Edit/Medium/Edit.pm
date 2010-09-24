@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Validation 'normalise_strings';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { 'Edit medium' }

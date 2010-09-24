@@ -57,7 +57,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="[% c.uri_for_action('/release/add', { artist = artist.gid }) %]">
+                  <a href="[% c.uri_for_action('/release_editor/add', { artist = artist.gid }) %]">
                     [% l('Add a new release') %]
                   </a>
                 </li>

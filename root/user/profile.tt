@@ -1,10 +1,10 @@
 [% extra_css = "user.css" %]
 [% WRAPPER "user/profile/layout.tt" page="index" %]
     [% BLOCK property %]
-        <dt>
+        <dt class="[% class %]">
             [% name %]
         </dt>
-        <dd>
+        <dd class="[% class %]">
             [% content %]
         </dd>
     [% END %]
@@ -40,14 +40,14 @@
 
         [% WRAPPER property name=l("User type:") %]
             [% types = [] %]
-            [% types.push(l('{doc|AutoEditor}', {doc => doc_link('Auto-Editor')})) IF user.is_auto_editor %]
+            [% types.push(l('{doc|Auto-Editor}', {doc => doc_link('Auto-Editor')})) IF user.is_auto_editor %]
             [% types.push(l("Internal/Bot")) IF user.is_bot %]
             [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('Relationship_Editor')})) IF user.is_relationship_editor %]
             [% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('Transclusion_Editor')})) IF user.is_wiki_transcluder %]
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
             [% IF c.user.is_auto_editor && !user.is_auto_editor %]
-                (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("nominate for autoeditor") %]</a>)
+                (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("nominate for auto-editor") %]</a>)
             [% END %]
 
 
@@ -75,10 +75,6 @@
             [% END %]
         [% END %]
 
-        [% WRAPPER property name=l("Bio:") %]
-            [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
-        [% END %]
-
         [% WRAPPER property name="Subscribers:" %]
             [% IF subscriber_count %]
                 [% l('{count} ({url|view})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
@@ -94,6 +90,10 @@
                 [% END %]
             [% END %]
 
+        [% bio_class = 'biography' IF user.biography %]
+        [% WRAPPER property name=l("Bio:") class=bio_class %]
+            [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
+        [% END %]
 
         [% END %]
     </dl>

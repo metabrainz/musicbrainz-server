@@ -96,6 +96,25 @@ sub merge_releases
               WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
+sub insert
+{
+    my ($self, $edit_hash) = @_;
+
+    my $row = hash_to_row($edit_hash, {
+        release => 'release_id',
+        label => 'label_id',
+        catno => 'catalog_number',
+    });
+
+    my @created;
+    my $class = $self->_entity_class;
+
+    my $sql = Sql->new($self->c->dbh);
+    push @created, $class->new(id => $sql->insert_row('release_label', $row, 'id'));
+
+    return wantarray ? @created : $created[0];
+}
+
 sub update
 {
     my ($self, $id, $edit_hash) = @_;

@@ -222,6 +222,16 @@ sub find_track_for_recording {
     }
 }
 
+sub all_tracks
+{
+    my $self = shift;
+    my @mediums = $self->all_mediums
+        or return ();
+    my @tracklists = grep { defined } map { $_->tracklist } @mediums
+        or return ();
+    return map { $_->all_tracks } @tracklists;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
