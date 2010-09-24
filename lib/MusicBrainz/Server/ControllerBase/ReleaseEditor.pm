@@ -654,7 +654,7 @@ sub create_common_edits
     # release labels edit
     # ----------------------------------------
 
-    $self->_edit_release_labels ($c, $as_previews, $edit_note, $data);
+    $self->_edit_release_labels ($c, $as_previews, $edit_note, $data, $release);
 
     # medium / tracklist / track edits
     # ----------------------------------------

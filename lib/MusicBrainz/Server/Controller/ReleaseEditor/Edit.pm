@@ -57,7 +57,7 @@ sub load {
     $wizard->initialize($release);
 }
 
-sub created {
+sub submitted {
     my ($self, $c, $release) = @_;
     $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
     $c->detach;
