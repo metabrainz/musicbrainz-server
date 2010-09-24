@@ -67,6 +67,15 @@ sub load
     load_subobjects($self, 'tracklist', @objs);
 }
 
+sub usage_count
+{
+    my ($self, $tracklist_id) = @_;
+    $self->sql->select_single_value(
+        'SELECT count(*) FROM medium
+           JOIN tracklist ON medium.tracklist = tracklist.id
+          WHERE tracklist.id = ?', $tracklist_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

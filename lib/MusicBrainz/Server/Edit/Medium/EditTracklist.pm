@@ -35,23 +35,28 @@ has '+data' => (
 
 sub medium_id { shift->data->{medium_id} }
 
+sub _tracks_to_hash
+{
+    my $tracks = shift;
+    return [ map +{
+        artist_credit => artist_credit_to_ref($_->artist_credit),
+        name => $_->name,
+        length => $_->length,
+        recording_id => $_->recording_id,
+    }, @$tracks ];
+}
+
 sub initialize
 {
     my ($self, %opts) = @_;
-    $self->data({
+    my $data = {
         tracklist_id => $opts{tracklist_id},
         medium_id => $opts{medium_id},
         separate_tracklists => $opts{separate_tracklists},
-        old_tracklist => [
-            map +{
-                artist_credit => artist_credit_to_ref($_->artist_credit),
-                name => $_->name,
-                length => $_->length,
-                recording_id => $_->recording_id,
-            }, $opts{old_tracklist}->all_tracks
-        ],
-        new_tracklist => $opts{new_tracklist}
-    });
+        old_tracklist => _tracks_to_hash($opts{old_tracklist}->tracks),
+        new_tracklist => _tracks_to_hash($opts{new_tracklist})
+    };
+    $self->data($data);
 }
 
 sub accept
