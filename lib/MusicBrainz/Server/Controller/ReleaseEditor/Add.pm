@@ -21,11 +21,9 @@ sub cancelled {
 
 augment 'create_edits' => sub
 { 
-    my ($self, $c, $wizard, $release, $previewing) = @_;
+    my ($self, $c, $data, $previewing, $editnote, $release) = @_;
 
     my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
-    my $data = $wizard->value;
-    my $editnote = $data->{editnote};
 
     # add release (and release group if necessary)
     # ----------------------------------------
