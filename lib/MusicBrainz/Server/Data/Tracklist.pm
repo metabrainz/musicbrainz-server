@@ -53,9 +53,6 @@ sub _add_tracks {
     my $i = 1;
     for (@$tracks) {
         $_->{tracklist} = $id;
-        $_->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(
-            @{ $_->{artist_credit} }
-        );
         $_->{position} = $i++;
     }
     $self->c->model('Track')->insert(@$tracks);

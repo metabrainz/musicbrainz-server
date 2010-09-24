@@ -1,6 +1,17 @@
 package MusicBrainz::Server::Track;
 use strict;
 
+use Sub::Exporter -setup => {
+    exports => [
+        format_track_length => sub {
+            my $n = shift; sub { FormatTrackLength($n) }
+        },
+        unformat_track_length => sub {
+            my $n = shift; sub { UnformatTrackLength($n) }
+        }
+    ]
+};
+
 sub FormatTrackLength
 {
     my $ms = shift;

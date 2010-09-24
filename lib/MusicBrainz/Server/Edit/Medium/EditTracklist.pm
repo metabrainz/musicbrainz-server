@@ -2,12 +2,14 @@ package MusicBrainz::Server::Edit::Medium::EditTracklist;
 use Moose;
 use namespace::autoclean;
 
+use Data::Compare;
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT_TRACKLIST );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -41,7 +43,8 @@ sub _tracks_to_hash
     return [ map +{
         artist_credit => artist_credit_to_ref($_->artist_credit),
         name => $_->name,
-        length => $_->length,
+        # Filter out sub-second differences
+        length => unformat_track_length(format_track_length($_->length)),
         recording_id => $_->recording_id,
     }, @$tracks ];
 }
@@ -56,6 +59,10 @@ sub initialize
         old_tracklist => _tracks_to_hash($opts{old_tracklist}->tracks),
         new_tracklist => _tracks_to_hash($opts{new_tracklist})
     };
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if Compare($data->{old_tracklist}, $data->{new_tracklist});
+
     $self->data($data);
 }
 
@@ -74,6 +81,10 @@ sub accept
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         "The medium's tracklist has been modified since the edit was created"
     ) if $medium->tracklist->track_count != @{ $self->data->{old_tracklist} };
+
+    for my $track (@{ $self->data->{new_tracklist} }) {
+        $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
+    }
 
     # See if we need a new tracklist
     if ($self->data->{separate_tracklists} &&
