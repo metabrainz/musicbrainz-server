@@ -16,6 +16,21 @@ has 'relationships' => (
     }
 );
 
+sub grouped_relationships
+{
+    my ($self) = @_;
+
+    my %groups;
+    for my $relationship ($self->all_relationships) {
+        $groups{ $relationship->target_type } ||= {};
+        $groups{ $relationship->target_type }{ $relationship->phrase } ||= [];
+        push @{ $groups{ $relationship->target_type }{ $relationship->phrase} },
+            $relationship;
+    }
+
+    return \%groups;
+}
+
 1;
 
 =head1 NAME

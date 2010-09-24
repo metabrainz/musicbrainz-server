@@ -494,7 +494,8 @@ table.tbl .t { text-align: right; }
 table.details th {
     text-align: right;
     padding-left: 10pt;
-    width: 110px;
+    width: 160px;
+    vertical-align: top;
 }
 
 table.details td.new,
