@@ -16,6 +16,65 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { 'Edit tracklist' }
 sub edit_type { $EDIT_MEDIUM_EDIT_TRACKLIST }
 
+has 'mediums' => (
+    isa => 'ArrayRef',
+    lazy_build => 1,
+    traits => [ 'Array' ],
+    handles => {
+        mediums => 'elements',
+    }
+);
+
+sub _build_mediums {
+    my $self = shift;
+
+    my @mediums;
+    if ($self->data->{separate_tracklists}) {
+        @mediums = (
+            $self->c->model('Medium')->get_by_id($self->data->{medium_id})
+        );
+    }
+    else {
+        @mediums = $self->c->model('Medium')->find_by_tracklist(
+            $self->data->{tracklist_id}, 100, 0);
+    }
+    $self->c->model('Release')->load(@mediums);
+
+    return \@mediums;
+}
+
+sub alter_edit_pending
+{
+    my $self = shift;
+
+    return {
+        Medium => [ map { $_->id } $self->mediums ],
+        Release => [ map { $_->release_id } $self->mediums ]
+    }
+}
+
+sub related_entities
+{
+    my $self = shift;
+    return {
+        release => [ map { $_->release_id } $self->mediums ],
+        recording =>  [
+            map { $_->{recording_id} }
+                @{ $self->data->{new_tracklist} },
+                @{ $self->data->{old_tracklist} }
+        ],
+        artist => [
+            map { $_->{artist} }
+                grep { ref($_) } map { @{ $_->{artist_credit} } }
+                @{ $self->data->{new_tracklist} },
+                @{ $self->data->{old_tracklist} }
+        ],
+        release_group => [
+            map { $_->release->release_group_id } $self->mediums
+        ]
+    };
+}
+
 sub track {
     return Dict[
         name => Str,
