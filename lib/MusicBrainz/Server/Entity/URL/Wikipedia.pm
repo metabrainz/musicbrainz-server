@@ -1,31 +1,24 @@
-package MusicBrainz::Server::Entity::URL;
+package MusicBrainz::Server::Entity::URL::Wikipedia;
 
 use Moose;
-use MooseX::Types::URI qw( Uri );
 use MusicBrainz::Server::Filters;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Role::Linkable';
+extends 'MusicBrainz::Server::Entity::URL';
 
-has 'url' => (
-    is => 'rw',
-    isa => Uri,
-    coerce => 1
-);
+sub pretty_name
+{
+    my $self = shift;
 
-has 'description' => (
-    is => 'rw',
-    isa => 'Str'
-);
+    my $name = $self->url->path;
+    $name =~ s{^/wiki/}{};
+    $name =~ s{_}{ }g;
 
-has 'reference_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
+    if (my ($language) = $self->url->host =~ /(.*)\.wikipedia/) {
+        $name = "$language: $name";
+    }
 
-sub pretty_name { MusicBrainz::Server::Filters::uri_decode(shift->url->as_string) }
-
-sub name { shift->url->as_string }
+    return MusicBrainz::Server::Filters::uri_decode($name);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -33,7 +26,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

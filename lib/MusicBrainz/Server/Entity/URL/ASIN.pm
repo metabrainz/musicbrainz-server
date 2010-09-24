@@ -1,31 +1,19 @@
-package MusicBrainz::Server::Entity::URL;
+package MusicBrainz::Server::Entity::URL::ASIN;
 
 use Moose;
-use MooseX::Types::URI qw( Uri );
-use MusicBrainz::Server::Filters;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Role::Linkable';
+extends 'MusicBrainz::Server::Entity::URL';
 
-has 'url' => (
-    is => 'rw',
-    isa => Uri,
-    coerce => 1
-);
+sub pretty_name
+{
+    my $self = shift;
 
-has 'description' => (
-    is => 'rw',
-    isa => 'Str'
-);
+    if ($self->url =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
+        return $2;
+    }
 
-has 'reference_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-sub pretty_name { MusicBrainz::Server::Filters::uri_decode(shift->url->as_string) }
-
-sub name { shift->url->as_string }
+    return $self->url->as_string;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -33,7 +21,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
