@@ -54,6 +54,7 @@ requires 'MooseX::Role::Parameterized'                => '0.16';
 requires 'MooseX::Singleton';
 requires 'MooseX::Types'                              => '0.16';
 requires 'MooseX::Types::Structured'                  => '0.16';
+requires 'MooseX::Types::URI';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                 => '1.060200';
