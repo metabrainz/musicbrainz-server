@@ -18,7 +18,7 @@ around 'related_entities' => sub
             map { $_->artist_id } map { @{ $_->artist_credit->names } }
                 $release, $release->release_group
         ],
-        release => [ $release ],
+        release => [ $release->id ],
         release_group => [ $release->release_group_id ],
     }
 };
