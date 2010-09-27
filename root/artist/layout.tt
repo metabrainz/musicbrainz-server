@@ -50,7 +50,11 @@
                       [% artist.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
                     </a>
                   </li>
-                  <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
+                  <li>
+                    <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
+                      [% l('Merge this artist with another') %]
+                    </a>
+                  </li>
                   <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
                   [% IF artist.edits_pending %]
                     <li>[% link_artist(artist, 'open_edits', l('Open edits')) %]</li>

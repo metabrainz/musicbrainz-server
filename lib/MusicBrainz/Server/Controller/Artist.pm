@@ -488,7 +488,7 @@ around $_ => sub {
     else {
         $self->$orig($c);
     }
-} for qw( edit merge );
+} for qw( edit );
 
 =head1 LICENSE
 

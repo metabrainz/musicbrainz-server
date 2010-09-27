@@ -26,21 +26,26 @@ role {
     method 'merge_queue' => sub {
         my ($self, $c) = @_;
         my $model = $c->model( $self->{model} );
-        if ($c->form_posted) {
-            my $add = $c->req->params->{'add-to-merge'};
-            my @add = ref($add) ? @$add : ($add);
 
-            $c->session->{merger} ||= MusicBrainz::Server::MergeQueue->new(
-                type => $self->{model},
-            );
-            $c->session->{merger}->add_entities(@add);
-        }
+        my $add = $c->req->params->{'add-to-merge'};
+        my @add = ref($add) ? @$add : ($add);
 
-        if ($c->session->{merger} && $c->session->{merger}->ready_to_merge) {
-            $c->response->redirect($c->uri_for($self->action_for('merge')));
+        $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
+            type => $self->{model},
+        );
+
+        my $merger = $c->session->{merger};
+        $merger->add_entities(@add);
+
+        if ($merger->ready_to_merge) {
+            $c->response->redirect(
+                $c->uri_for_action(
+                    $self->action_for('merge')));
         }
         else {
-            $c->response->redirect($self->action_for('merge'));
+            $c->response->redirect(
+                $c->uri_for_action(
+                    $self->action_for('show'), [ $add[0] ]));
         }
     };
 
@@ -74,7 +79,7 @@ role {
                 }, @$old ]
             );
 
-            undef $c->session->{merger};
+            $c->session->{merger} = undef;
 
             $c->response->redirect(
                 $c->uri_for_action($self->action_for('show'), [ $new->[0]->gid ])

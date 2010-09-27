@@ -1,0 +1,18 @@
+[% WRAPPER 'layout.tt' title=l('Merge Labels') full_width=1 %]
+    <h2>[% l('Merge Labels') %]</h2>
+    <p>[% l('You are about to merge the following labels into a single label. Please
+             select the label which you would like other labels to be merged into:') %]</p>
+    <form action="[% c.req.uri %]" method="post">
+        <ul>
+            [% FOR entity=to_merge %]
+            <li>
+                <input type="radio" name="merge.target" value="[% entity.id %]" />
+                [% descriptive_link(entity) %]
+            </li>
+            [% END %]
+        </ul>
+
+        [% INCLUDE "forms/edit-note.tt" %]
+        [% enter_edit() %]
+    </form>
+[% END %]
