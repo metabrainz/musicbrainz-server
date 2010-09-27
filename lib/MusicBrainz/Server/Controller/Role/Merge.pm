@@ -42,6 +42,9 @@ role {
         my $merger = $c->session->{merger}
             or die 'No merge in process';
 
+        die 'Not yet ready to merge'
+            unless $merger->ready_to_merge;
+
         my @entities = values %{
             $c->model($merger->type)->get_by_ids($merger->all_entities)
         };
