@@ -37,10 +37,10 @@ role {
         }
 
         if ($c->session->{merger} && $c->session->{merger}->ready_to_merge) {
-            $c->forward('merge');
+            $c->response->redirect($c->uri_for($self->action_for('merge')));
         }
         else {
-
+            $c->response->redirect($self->action_for('merge'));
         }
     };
 

@@ -106,9 +106,11 @@
                         You may still add more to this merge queue by simply browsing to
                         the entities page and following the merge link.') %]
                 </p>
+                [% IF merger.ready_to_merge %]
                 <form action="[% merge_link %]" method="get">
                   [% form_submit(l('Merge')) %]
                 </form>
+                [% END %]
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% END %]

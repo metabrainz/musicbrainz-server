@@ -258,6 +258,7 @@ sub end : ActionClass('RenderView')
 
         $c->stash(
             to_merge => [ @merge ],
+            merger => $merger,
             merge_link => $c->uri_for_action(
                 model_to_type($merger->type) . '/merge',
             )
