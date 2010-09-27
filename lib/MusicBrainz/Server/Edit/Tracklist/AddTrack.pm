@@ -18,6 +18,7 @@ sub alter_edit_pending { { Track => [ shift->track_id ] } }
 sub related_entities
 {
     my ($self) = @_;
+    my $c = $self;
     my $recording = $c->model('Recording')->get_by_id($self->data->{recording_id});
     my @releases = $c->model('Release')->find_by_tracklist($self->data->{tracklist_id});
     push @releases, $c->model('Release')->find_by_recording($recording->id);
@@ -29,10 +30,10 @@ sub related_entities
     return {
         artist => [
             map { $_->artist_id } map { @{ $_->artist_credit->names } }
-                $release, $release->release_group
+                @releases, map { $_->release_group } @releases
         ],
         release => [ map { $_->id } @releases ],
-        release_group => [ map { $_->release_group->id } @releases ]
+        release_group => [ map { $_->release_group->id } @releases ],
         recording => [ $recording->id ],
     }
 }
