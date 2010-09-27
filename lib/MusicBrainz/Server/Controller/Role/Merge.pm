@@ -8,6 +8,11 @@ parameter 'edit_type' => (
     required => 1
 );
 
+parameter 'form' => (
+    isa => 'Str',
+    default => 'Merge',
+);
+
 role {
     my $params = shift;
     my %extra = @_;
@@ -63,7 +68,7 @@ role {
             $c->model($merger->type)->get_by_ids($merger->all_entities)
         };
 
-        my $form = $c->form(form => 'Merge');
+        my $form = $c->form(form => $params->form);
         if ($form->submitted_and_valid($c->req->params)) {
             my $new_id = $form->field('target')->value;
             my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;
@@ -76,7 +81,8 @@ role {
                 old_entities => [ map +{
                     id => $_->id,
                     name => $_->name
-                }, @$old ]
+                }, @$old ],
+                map { $_->name => $_->value } $form->edit_fields
             );
 
             $c->session->{merger} = undef;
@@ -95,6 +101,4 @@ sub _merge_search {
                                     $query, shift, shift)
     });
 }
-
-
 1;
