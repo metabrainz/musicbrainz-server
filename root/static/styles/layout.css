@@ -234,7 +234,8 @@ pre code {
 /*
 ** Main content
 */
-#page {
+#page,
+#current-editing {
     margin-top: 1em;
     padding: 1em 1em 1em 1em;
     padding: 16px;
@@ -244,35 +245,34 @@ pre code {
 }
 
 #page.fullwidth,
-#page.homepage {
+#page.homepage,
+#current-editing {
     background-image: none;
 }
 
-#page .bl, #page .br, #page .tl, #page .tr,
-.server-details .bl, .server-details .br,
-.server-details .tl, .server-details .tr {
+.bl, .br, .tl, .tr {
     position: absolute;
     display: block;
     width: 8px;
     height: 8px;
 }
 
-#page .tr, .server-details .tr {
+.tr {
     top: 0; right: 0;
     background: url('/static/images/layout/sprites.png') -14px -58px;
 }
 
-#page .tl, .server-details .tl {
+.tl {
     top: 0; left: 0;
     background: url('/static/images/layout/sprites.png') -23px -58px;
 }
 
-#page .br, .server-details .br {
+.br {
     bottom: 0; right: 0;
     background: url('/static/images/layout/sprites.png') -32px -58px;
 }
 
-#page .bl, .server-details .bl {
+.bl {
     bottom: 0; left: 0;
     background: url('/static/images/layout/sprites.png') -41px -58px;
 }

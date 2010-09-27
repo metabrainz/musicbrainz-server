@@ -91,6 +91,28 @@
             <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
 
+        [% IF c.session.merger %]
+            <div id="current-editing">
+                <h2>[% l('Merge Process') %]</h2>
+                <p>[% l('You currently have the following entities selected
+                         for merging:') %]</p>
+                <ul>
+                  [% FOR entity=to_merge %]
+                    <li>[% descriptive_link(entity) %]</li>
+                  [% END %]
+                </ul>
+                <p>
+                  [% l('When you are ready to merge these, just click the Merge button.
+                        You may still add more to this merge queue by simply browsing to
+                        the entities page and following the merge link.') %]
+                </p>
+                <form action="[% merge_link %]" method="get">
+                  [% form_submit(l('Merge')) %]
+                </form>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [% END %]
+
         <div id="footer">
             <p class="links">
                 <a href="http://metabrainz.org/donate" class="internal">Donate</a> | 

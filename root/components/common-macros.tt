@@ -97,6 +97,14 @@ END -%]
     END;
 END -%]
 
+[% MACRO descriptive_link(entity)
+    IF entity.artist_credit.defined;
+        l('{entity} by {artist}', { entity => link_entity(entity),
+                                    artist => artist_credit(entity.artist_credit) });
+    ELSE;
+        l('{entity}', { entity => link_entity(entity) });
+    END; %]
+
 [%- MACRO entity_type(entity) BLOCK;
     type = "$entity";
     IF    type.search('Entity::Artist='); "artist";

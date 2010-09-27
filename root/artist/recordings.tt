@@ -1,7 +1,11 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Recordings') page='recordings' -%]
     <h2>[% l('Recordings') %]</h2>
     [%- IF recordings.size -%]
-        [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+        <form action="[% c.uri_for_action('/recording/merge_queue') %]"
+            method="post">
+            [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+            [% form_submit(l('Add selected recordings for merging')) %]
+        </form>
     [%- ELSE -%]
         <p>[%- l('No recordings found.') -%]</p>
     [%- END -%]

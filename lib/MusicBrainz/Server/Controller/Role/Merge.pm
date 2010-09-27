@@ -8,68 +8,59 @@ parameter 'edit_type' => (
     required => 1
 );
 
-parameter 'confirmation_template' => (
-    isa => 'Str',
-    required => 1
-);
-
-parameter 'search_template' => (
-    isa => 'Str',
-    required => 1
-);
-
 role {
     my $params = shift;
     my %extra = @_;
 
     $extra{consumer}->name->config(
         action => {
-            merge => { Chained => 'load', RequireAuth => undef, Edit => undef }
+            merge => { Local => undef, RequireAuth => undef, Edit => undef },
+            merge_queue => { Local => undef, RequireAuth => undef, Edit => undef }
         }
     );
 
+    use List::MoreUtils qw( part );
     use MusicBrainz::Server::Data::Utils qw( model_to_type );
+    use MusicBrainz::Server::MergeQueue;
+
+    method 'merge_queue' => sub {
+        my ($self, $c) = @_;
+        my $model = $c->model( $self->{model} );
+        if ($c->form_posted) {
+            my $add = $c->req->params->{'add-to-merge'};
+            my @add = ref($add) ? @$add : ($add);
+
+            $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
+                type => $self->{model},
+            );
+            $c->session->{merger}->add_entities(@add);
+        }
+    };
 
     method 'merge' => sub {
         my ($self, $c) = @_;
-        my $entity_name = $self->{entity_name};
-        my $old         = $c->stash->{ $entity_name };
+        my $merger = $c->session->{merger}
+            or die 'No merge in process';
 
-        if ($c->req->query_params->{dest}) {
-            my $new = $c->model($self->{model})->get_by_gid($c->req->query_params->{dest});
-            if ($new->id eq $old->id) {
-                $c->stash( message => l('You cannot merge an entity into itself.') );
-                $c->detach('/error_500');
-            }
+        my @entities = values %{
+            $c->model($merger->type)->get_by_ids($merger->all_entities)
+        };
 
-            $c->stash(
-                template => $params->confirmation_template,
-                old => $old,
-                new => $new
-            );
-
-            $self->edit_action($c,
-                form => 'Confirm',
-                type => $params->edit_type,
-                edit_args => {
-                    old_entities  => [ { id => $old->id, name => $old->name } ],
-                    new_entity    => { id => $new->id, name => $new->name },
+        my $form = $c->form(form => 'Merge');
+        if ($form->submitted_and_valid($c->req->params)) {
+            my $new_id = $form->field('target')->value;
+            my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;
+            $self->_insert_edit($c, $form,
+                edit_type => $params->edit_type,
+                new_entity => {
+                    id => $new->[0]->id,
+                    name => $new->[0]->name,
                 },
-                on_creation => sub {
-                    $c->response->redirect(
-                        $c->uri_for_action($self->action_for('show'), [ $new->gid ]));
-                }
+                old_entities => [ map +{
+                    id => $_->id,
+                    name => $_->name
+                }, @$old ]
             );
-        }
-        else {
-            my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-            $query->field('query')->input($old->name);
-            if ($query->submitted_and_valid($c->req->params)) {
-                my $results = $self->_merge_search($c, $query->field('query')->value);
-                $results = [ grep { $_->entity->id != $old->id } @$results ];
-                $c->stash( search_results => $results );
-            }
-            $c->stash( template => $params->search_template );
         }
     };
 };
