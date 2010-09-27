@@ -30,15 +30,24 @@ role {
             my $add = $c->req->params->{'add-to-merge'};
             my @add = ref($add) ? @$add : ($add);
 
-            $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
+            $c->session->{merger} ||= MusicBrainz::Server::MergeQueue->new(
                 type => $self->{model},
             );
             $c->session->{merger}->add_entities(@add);
+        }
+
+        if ($c->session->{merger} && $c->session->{merger}->ready_to_merge) {
+            $c->forward('merge');
+        }
+        else {
+
         }
     };
 
     method 'merge' => sub {
         my ($self, $c) = @_;
+        $c->stash( template => $c->namespace . '/merge.tt' );
+
         my $merger = $c->session->{merger}
             or die 'No merge in process';
 
@@ -66,6 +75,10 @@ role {
             );
 
             undef $c->session->{merger};
+
+            $c->response->redirect(
+                $c->uri_for_action($self->action_for('show'), [ $new->[0]->gid ])
+            );
         }
     };
 };
