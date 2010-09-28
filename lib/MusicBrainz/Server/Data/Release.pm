@@ -243,9 +243,15 @@ sub find_by_recording
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
                  OFFSET ?";
 
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
-        $query, @ids, @$statuses, @$types, $offset || 0);
+    if (!defined $limit) {
+        return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                             $query, @ids, @$statuses, @$types, $offset || 0);
+    }
+    else {
+        return query_to_list_limited(
+            $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
+            $query, @ids, @$statuses, @$types, $offset || 0);
+    }
 }
 
 sub find_by_artist_track_count
@@ -336,6 +342,17 @@ sub find_by_puid
                 )';
     return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                          $query, @{ids});
+}
+
+sub find_by_tracklist
+{
+    my ($self, $tracklist_id) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' JOIN medium ON medium.release = release.id ' .
+                ' WHERE medium.tracklist = ?';
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                         $query, $tracklist_id);
 }
 
 sub find_by_medium

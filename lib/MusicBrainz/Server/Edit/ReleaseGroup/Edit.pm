@@ -19,10 +19,12 @@ use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { "Edit release group" }
 sub _edit_model { 'ReleaseGroup' }
+sub release_group_id { shift->data->{entity_id} }
 
 sub change_fields
 {

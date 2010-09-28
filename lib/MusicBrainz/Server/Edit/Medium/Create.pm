@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
 sub edit_name { "Add medium" }

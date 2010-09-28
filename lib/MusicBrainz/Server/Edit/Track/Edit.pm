@@ -23,12 +23,29 @@ sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }
 sub _edit_model { 'Track' }
 sub track_id { shift->entity_id }
+sub recording_ids
+{
+    my $self = shift;
+    return ($self->data->{new}{recording_id}, $self->data->{old}{recording_id})
+}
 
 sub related_entities
 {
     my $self = shift;
+
+    my @recordings = values %{ $self->c->model('Recording')->get_by_ids($self->recording_ids) };
+    my @releases = @{ $self->c->model('Release')->find_ids_by_track_ids($self->track_id) };
+    $self->c->model('ReleaseGroup')->load(@releases);
+    $self->c->model('ArtistCredit')->load(@releases, map { $_->release_group } @releases);
+
     return {
-        release => $self->c->model('Release')->find_ids_by_track_ids($self->track_id)
+        release => [ map { $_->id } @releases ],
+        release_group => [ map { $_->release_group_id } @releases ],
+        artist => [
+            map { $_->artist_id } map { @{ $_->artist_credit->names } }
+                @releases, map { $_->release_group } @releases
+        ],
+        recordings => [ map { $_->id } @recordings ]
     }
 }
 

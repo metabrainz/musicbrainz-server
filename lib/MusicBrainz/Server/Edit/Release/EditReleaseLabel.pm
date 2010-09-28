@@ -63,6 +63,21 @@ sub build_display_data
     };
 }
 
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+
+around 'related_entities' => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $related = $self->$orig;
+
+    $related->{label} = [
+        $self->data->{new}{label_id},
+        $self->data->{old}{label_id},
+    ],
+
+    return $related;
+};
+
 sub initialize
 {
     my ($self, %opts) = @_;
