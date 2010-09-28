@@ -334,35 +334,40 @@ DROP INDEX tmp_track_name_name;
 -- Works
 ------------------------
 
-INSERT INTO work_name (name)
-    SELECT DISTINCT track.name 
-    FROM public.track
-    WHERE id IN (
-        SELECT link1 
+SELECT id INTO TEMPORARY tmp_work 
+FROM ( 
+        SELECT link1 AS id
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
                              'orchestrator', 'librettist', 'misc')
         UNION
-        SELECT link1 
+        SELECT link1 AS id
             FROM public.l_label_track l
                 JOIN public.lt_label_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('publishing')
         UNION
-        SELECT link0 
+        SELECT link0 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
         UNION
-        SELECT link1 
+        SELECT link1 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
         UNION
-        SELECT link0 
+        SELECT link0 AS id
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
             WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
+);
+CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
+
+INSERT INTO work_name (name)
+    SELECT DISTINCT track.name 
+    FROM public.track
+        JOIN tmp_work t ON track.id = t.id  
     );
 
 CREATE UNIQUE INDEX tmp_work_name_name ON work_name (name);
@@ -371,34 +376,9 @@ INSERT INTO work (id, gid, name, artist_credit)
     SELECT DISTINCT track.id, generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/work/?id=' || track.id), 
         n.id, COALESCE(new_ac, track.artist)
     FROM public.track 
+        JOIN tmp_work t ON track.id = t.id  
         JOIN work_name n ON n.name = track.name
         LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac
-    WHERE track.id IN (
-        SELECT link1 
-            FROM public.l_artist_track l
-                JOIN public.lt_artist_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
-                             'orchestrator', 'librettist', 'misc')
-        UNION
-        SELECT link1 
-            FROM public.l_label_track l
-                JOIN public.lt_label_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('publishing')
-        UNION
-        SELECT link0 
-            FROM public.l_track_track l
-                JOIN public.lt_track_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
-        UNION
-        SELECT link1 
-            FROM public.l_track_track l
-                JOIN public.lt_track_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
-        UNION
-        SELECT link0 
-            FROM public.l_track_url l
-                JOIN public.lt_track_url lt ON lt.id = l.link_type
-            WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
     );
 
 DROP INDEX tmp_work_name_name;
