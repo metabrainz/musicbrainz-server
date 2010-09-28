@@ -217,8 +217,15 @@ MB.Control.ReleaseDisc = function (disc) {
         newartist.find('*').each (replace_ids);
         acrow.find ('*').each (replace_ids);
 
-        self.tracks.push (MB.Control.ReleaseTrack (row, acrow));
-        self.sorted_tracks.push (self.tracks[self.tracks.length - 1]);
+        var trk = MB.Control.ReleaseTrack (row, acrow);
+        self.tracks.push (trk);
+        self.sorted_tracks.push (trk);
+
+        /* if the release artist is VA, clear out the track artist. */
+        if (trk.artist_credit.isVariousArtists ())
+        {
+            trk.artist_credit.clear ();
+        }
 
         if (event !== undefined)
         {
