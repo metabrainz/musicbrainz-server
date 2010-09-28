@@ -1,31 +1,28 @@
-package MusicBrainz::Server::Entity::URL;
-
+package MusicBrainz::Server::WebService::Serializer::XML::1::CDStub;
 use Moose;
-use MooseX::Types::URI qw( Uri );
-use MusicBrainz::Server::Filters;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Role::Linkable';
+extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
-has 'url' => (
-    is => 'rw',
-    isa => Uri,
-    coerce => 1
-);
+sub element { 'release'; }
 
-has 'description' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'reference_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-sub pretty_name { MusicBrainz::Server::Filters::uri_decode(shift->url->as_string) }
-
-sub name { shift->url->as_string }
+before 'serialize' => sub
+{
+    my ($self, $entity, $inc, $opts) = @_;
+    $self->add(
+        $self->gen->title($entity->title),
+        $self->gen->artist(
+            $self->gen->name($entity->artist)
+        ),
+        $self->gen->track_list(
+            map {
+                $self->gen->track(
+                    $self->gen->title($_->title),
+                    $self->gen->duration($_->length)
+                )
+            } $entity->all_tracks 
+        )
+    );
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -33,7 +30,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -50,3 +47,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+
