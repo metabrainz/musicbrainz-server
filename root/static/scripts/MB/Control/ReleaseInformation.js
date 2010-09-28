@@ -188,7 +188,7 @@ MB.Control.ReleaseBarcode = function() {
                 self.message.html (MB.text.Barcode.InvalidUPC);
                 self.suggestion.html (MB.text.Barcode.DoubleCheck + ' ' +
                     MB.text.Barcode.CheckDigit.replace (
-                        '#checkdigit#', self.checkDigit ('0' + barcode)));
+                        '#checkdigit#', self.checkDigit (barcode)));
             }
         }
         else if (barcode.length === 13)
