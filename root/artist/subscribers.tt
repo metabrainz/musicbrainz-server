@@ -11,7 +11,7 @@
             [% END %]
         </ul>
     [% ELSE %]
-        <p>[% l('There are currently no editor\'s subscribed to edits to {artist}',
+        <p>[% l('There are currently no editors subscribed to edits to {artist}',
                 { artist => link_artist(artist) }) %]</p>
     [% END %]
 
