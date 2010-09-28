@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Tag;
 
 use Moose;
 use MusicBrainz::Server::Entity::Tag;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects query_to_list_limited );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'tag' };
@@ -43,6 +43,25 @@ sub load
     load_subobjects($self, 'tag', @objs);
 }
 
+sub get_cloud
+{
+    my ($self, $limit) = @_;
+
+    $limit ||= 100;
+
+    my $query = "SELECT " . $self->_columns . ", refcount
+                 FROM " . $self->_table . "
+                 ORDER BY refcount DESC";
+    return query_to_list_limited (
+        $self->c->dbh, 0, $limit, sub {
+            my $row = shift;
+            return {
+                count => $row->{refcount},
+                tag => $self->_new_from_row ($row),
+            };
+        }, $query);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
@@ -50,6 +69,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

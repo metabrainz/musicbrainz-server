@@ -46,6 +46,31 @@ sub from_artist
     );
 }
 
+sub from_array
+{
+    my ($class, @ac) = @_;
+
+    my $ret = $class->new;
+
+    @ac = @{ $ac[0] } if ref $ac[0];
+
+    while (@ac)
+    {
+        my $artist = shift @ac;
+        my $join = shift @ac;
+
+        next unless $artist && $artist->{name};
+
+        my %initname = ( name => $artist->{name}, artist_id => $artist->{artist} );
+
+        $initname{join_phrase} = $join if $join;
+
+        $ret->add_name( ArtistCreditName->new(%initname) );
+    }
+
+    return $ret;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -6,15 +6,12 @@ use Clone qw( clone );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Insert';
+
 requires '_create_model';
 
 has 'entity' => (
     isa => 'Entity',
-    is  => 'rw'
-);
-
-has 'entity_id' => (
-    isa => 'Int',
     is  => 'rw'
 );
 
@@ -59,6 +56,7 @@ sub insert
 sub reject
 {
     my $self = shift;
+
     $self->c->model($self->_create_model)->delete($self->entity_id);
 }
 
@@ -67,20 +65,6 @@ sub _insert_hash
     my ($self, $data) = @_;
     return $data;
 }
-
-override 'to_hash' => sub
-{
-    my $self = shift;
-    my $hash = super(@_);
-    $hash->{entity_id} = $self->entity_id;
-    return $hash;
-};
-
-before 'restore' => sub
-{
-    my ($self, $hash) = @_;
-    $self->entity_id(delete $hash->{entity_id});
-};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

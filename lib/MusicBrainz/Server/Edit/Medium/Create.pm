@@ -1,11 +1,14 @@
 package MusicBrainz::Server::Edit::Medium::Create;
+use Carp;
 use Moose;
-
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
+use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
 sub edit_name { "Add medium" }
@@ -17,18 +20,31 @@ has '+data' => (
         name         => Optional[Str],
         format_id    => Optional[Int],
         position     => Int,
-        release_id   => Int,
-        tracklist_id => Int,
+        release_id   => NullableOnPreview[Int],
+        tracklist_id => NullableOnPreview[Int],
     ]
 );
+
+after 'initialize' => sub {
+    my $self = shift;
+
+    return if $self->preview;
+
+    croak "No release_id specified" unless $self->data->{release_id};
+    croak "No tracklist_id specified" unless $self->data->{tracklist_id};
+};
 
 sub foreign_keys
 {
     my $self = shift;
-    return {
-        Release      => { $self->data->{release_id} => [ 'ArtistCredit' ] },
-        MediumFormat => { $self->data->{format_id} => [] }
-    };
+
+    my %fk;
+
+    $fk{MediumFormat} = { $self->data->{format_id} => [] } if $self->data->{format_id};
+    $fk{Release} = { $self->data->{release_id} => [ 'ArtistCredit' ] }
+        if $self->data->{release_id};
+
+    return \%fk;
 }
 
 sub build_display_data

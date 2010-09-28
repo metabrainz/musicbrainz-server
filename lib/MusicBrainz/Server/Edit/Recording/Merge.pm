@@ -4,18 +4,25 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
+    -excludes => 'recording_ids'
+};
 
 sub edit_name { 'Merge recordings' }
 sub edit_type { $EDIT_RECORDING_MERGE }
 sub _merge_model { 'Recording' }
+
+sub recording_ids { @{ shift->_entity_ids } }
 
 sub foreign_keys
 {
     my $self = shift;
     return {
         Recording => {
-            $self->data->{new_entity_id} => [ 'ArtistCredit' ],
-            $self->data->{old_entity_id} => [ 'ArtistCredit' ],
+            $self->data->{new_entity}{id} => [ 'ArtistCredit' ],
+            map {
+                $_->{id} => [ 'ArtistCredit' ]
+            } @{ $self->data->{old_entities} }
         }
     }
 }

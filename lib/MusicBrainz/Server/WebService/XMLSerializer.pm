@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::XMLSerializer;
+	package MusicBrainz::Server::WebService::XMLSerializer;
 
 use Moose;
 use Scalar::Util 'reftype';
@@ -152,6 +152,28 @@ sub _serialize_artist_credit
     }
 
     push @$data, $gen->artist_credit(@ac);
+}
+
+sub _serialize_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($list);
+
+    my %attrs;
+    $attrs{id} = $list->gid;
+
+    my @list;
+    push @list, $gen->name($list->name);
+    push @list, $gen->editor($list->editor->name);
+
+    if ($toplevel)
+    {
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+            if $inc->releases;
+    }
+
+    push @$data, $gen->list(\%attrs, @list);
 }
 
 sub _serialize_release_group_list
@@ -767,6 +789,16 @@ sub artist_resource
 
     my $data = [];
     $self->_serialize_artist($data, $gen, $artist, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub list_resource
+{
+    my ($self, $gen, $list, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_list($data, $gen, $list, $inc, $stash, 1);
 
     return $data->[0];
 }

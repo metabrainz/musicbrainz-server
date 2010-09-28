@@ -4,7 +4,7 @@ use base 'Exporter';
 
 use Class::MOP;
 use Data::Compare;
-use List::MoreUtils qw( zip );
+use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
 use Sql;
@@ -13,6 +13,7 @@ use Storable;
 
 our @EXPORT_OK = qw(
     artist_credit_to_ref
+    check_data
     defined_hash
     hash_to_row
     add_partial_date_to_row
@@ -39,6 +40,7 @@ Readonly my %TYPE_TO_MODEL => (
     'annotation'    => 'Annotation',
     'artist'        => 'Artist',
     'cdstub'        => 'CDStub',
+    'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
     'label'         => 'Label',
     'recording'     => 'Recording',
@@ -51,7 +53,7 @@ Readonly my %TYPE_TO_MODEL => (
 sub artist_credit_to_ref
 {
     my ($artist_credit) = @_;
-    use Data::Dumper;
+
     my $ac = [ map {
         my @credit = ( { name => $_->name, artist => $_->artist_id } );
         push @credit, $_->join_phrase if $_->join_phrase;
@@ -296,6 +298,17 @@ sub map_query
     return {
         map { $_->{$key} => $_->{$value} }
             @{ $sql->select_list_of_hashes($query, @bind_params) }
+    }
+}
+
+sub check_data
+{
+    my ($data, @checks) = @_;
+
+    my $it = natatime 2, @checks;
+    while (my ($error, $check) = $it->()) {
+        MusicBrainz::Server::Exceptions::BadData->throw($error)
+            unless $check->($data);
     }
 }
 

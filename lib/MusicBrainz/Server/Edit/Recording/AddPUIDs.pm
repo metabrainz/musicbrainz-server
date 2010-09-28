@@ -5,6 +5,9 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
+    -excludes => 'recording_ids'
+};
 
 sub edit_name { 'Add PUIDs' }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }
@@ -19,15 +22,7 @@ has '+data' => (
     ]
 );
 
-sub related_entities
-{
-    my $self = shift;
-    return {
-        release => [ map {
-            $_->{recording_id}
-        } @{ $self->data->{puids} } ]
-    }
-}
+sub recording_ids { map { $_->{recording_id} } @{ shift->data->{puids} } }
 
 sub foreign_keys
 {
@@ -49,6 +44,28 @@ sub build_display_data
             recording => $loaded->{Recording}{ $_->{recording_id} }
         } } @{ $self->data->{puids} } ]
     }
+}
+
+sub allow_auto_edit { 1 }
+
+sub accept
+{
+    my $self = shift;
+
+    my @insert = @{ $self->data->{puids} };
+    my %puid_id = $self->c->model('PUID')->find_or_insert(
+        $self->data->{client_version},
+        map { $_->{puid} } @insert
+    );
+
+    my @submit = map +{
+        recording_id => $_->{recording_id},
+        puid_id      => $puid_id{ $_->{puid} }
+    }, @insert;
+
+    $self->c->model('RecordingPUID')->insert(
+        @submit
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

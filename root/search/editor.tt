@@ -1,5 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Search for an Editor") %]
-    [% WRAPPER "components/box.tt" header=("Search Results") %]
+        <h2>[%- l('Search Results') -%]</h2>
         [% IF users.size %]
             <p>
                 [% l('We found the following users that matched your query for <code>{query}</code>.', {query => html_escape(query)}) %]
@@ -7,7 +7,7 @@
             <ul>
                 [% FOR user IN users %]
                     <li>
-                        <a href="[% c.uri_for('/user/profile/view', [ user.name ]) %]">
+                        <a href="[% c.uri_for('/user/profile', [ user.name ]) %]">
                             [% user.name %]
                         </a>
                     </li>
@@ -18,5 +18,4 @@
                 [% l('Sorry, we could not find any users matching the query for <code>{query}</code>', {query => html_escape(query)}) %]
             </p>
         [% END %]
-    [% END %]
 [% END %]

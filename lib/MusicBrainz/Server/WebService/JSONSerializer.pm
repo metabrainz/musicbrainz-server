@@ -27,6 +27,13 @@ sub autocomplete_name
     return encode_json (\@response);
 }
 
+sub generic
+{
+    my ($self, $response) = @_;
+
+    return encode_json ($response);
+}
+
 sub output_error
 {
     my ($self, $err) = @_;

@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw( load_artist_credit_definitions artist_credit_from_loaded_definition );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { 'Remove track' }
 sub edit_type { $EDIT_TRACKLIST_DELETETRACK }

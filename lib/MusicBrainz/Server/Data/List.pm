@@ -1,11 +1,17 @@
 package MusicBrainz::Server::Data::List;
 
 use Moose;
+
+use Carp;
 use Sql;
+use MusicBrainz::Server::Entity::List;
 use MusicBrainz::Server::Data::Utils qw(
+    generate_gid
     placeholders
+    query_to_list
     query_to_list_limited
 );
+use List::MoreUtils qw( zip );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 
@@ -40,40 +46,35 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::List';
 }
 
-sub create_list
+sub add_releases_to_list
 {
-    my ($self, $user) = @_;
+    my ($self, $list_id, @release_ids) = @_;
+    $self->sql->auto_commit;
 
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("INSERT INTO " . $self->_table . "
-                                    (editor)
-                                    VALUES (?) RETURNING id", $user->id);
+    my $added = $self->sql->select_single_column_array("SELECT release FROM list_release
+       WHERE list = ? AND release IN (" . placeholders(@release_ids) . ")",
+                             $list_id, @release_ids);
+
+    my %added = map { $_ => 1 } @$added;
+
+    @release_ids = grep { !exists $added{$_} } @release_ids;
+
+    return unless @release_ids;
+
+    my @list_ids = ($list_id) x @release_ids;
+    $self->sql->do("INSERT INTO list_release (list, release) VALUES " . join(', ', ("(?, ?)") x @release_ids),
+             zip @list_ids, @release_ids);
 }
 
-sub add_release_to_list
+sub remove_releases_from_list
 {
-    my ($self, $list_id, $release_id) = @_;
-
-    my $sql = Sql->new($self->c->dbh);
-    $sql->auto_commit;
-
-    my $rows = $sql->select ("SELECT * FROM list_release 
-       WHERE list=? AND release=?", $list_id, $release_id);
-    $sql->finish;
-
-    $sql->do("INSERT INTO list_release (list, release)
-              VALUES (?, ?)", $list_id, $release_id) unless $rows;
-}
-
-sub remove_release_from_list
-{
-    my ($self, $list_id, $release_id) = @_;
+    my ($self, $list_id, @release_ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     $sql->auto_commit;
     $sql->do("DELETE FROM list_release
-              WHERE list = ? AND release = ?",
-              $list_id, $release_id);
+              WHERE list = ? AND release IN (" . placeholders(@release_ids) . ")",
+              $list_id, @release_ids);
 }
 
 sub check_release
@@ -131,6 +132,78 @@ sub find_by_editor
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $id, $offset || 0);
+}
+
+sub get_first_list
+{
+    my ($self, $editor_id) = @_;
+    my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
+    return $self->sql->select_single_value($query, $editor_id);
+}
+
+sub find_all_by_editor
+{
+    my ($self, $id) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE editor=? ";
+
+    $query .= "ORDER BY musicbrainz_collate(name)";
+    return query_to_list(
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $id);
+}
+
+sub insert
+{
+    my ($self, $editor_id, @lists) = @_;
+    my $class = $self->_entity_class;
+    my @created;
+    for my $list (@lists) {
+        my $row = $self->_hash_to_row($list);
+        $row->{editor} = $editor_id;
+        $row->{gid} = $list->{gid} || generate_gid();
+
+        push @created, $class->new(
+            id => $self->sql->insert_row('list', $row, 'id'),
+            gid => $row->{gid}
+        );
+    }
+    return @created > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $list_id, $update) = @_;
+    croak '$list_id must be present and > 0' unless $list_id > 0;
+    my $row = $self->_hash_to_row($update);
+    $self->sql->auto_commit;
+    $self->sql->update_row('list', $row, { id => $list_id });
+}
+
+sub delete
+{
+    my ($self, @list_ids) = @_;
+
+    $self->sql->auto_commit;
+    $self->sql->do('DELETE FROM list_release
+                    WHERE list IN (' . placeholders(@list_ids) . ')', @list_ids);
+    $self->sql->auto_commit;
+    $self->sql->do('DELETE FROM list
+                    WHERE id IN (' . placeholders(@list_ids) . ')', @list_ids);
+    return;
+}
+
+sub _hash_to_row
+{
+    my ($self, $values) = @_;
+
+    my %row = (
+        name => $values->{name},
+        public => $values->{public}
+    );
+
+    return \%row;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -10,7 +10,10 @@
 [%- MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%- MACRO url_escape(url) BLOCK; url | url; END -%]
 [%- MACRO html_escape(url) BLOCK; url | html; END -%]
-[%- MACRO display_url(url) BLOCK; url | uri_decode | html; END -%]
+[%- MACRO display_url(url)
+    IF url.pretty_name; url.pretty_name | html;
+    ELSE; url | uri_decode | html;
+END -%]
 [%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
 [%- USE UserDate(c.user.preferences) -%]
 [%- USE Countdown -%]
@@ -18,9 +21,7 @@
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
-[%- MACRO wiki_link(server, id) BLOCK -%]
-http://[%- server -%]/[%- id -%]"
-[%- END -%]
+
 [%- MACRO l(text, args) BLOCK;
     c.gettext(text, args);
 END; -%]
@@ -83,15 +84,15 @@ END -%]
     [%- END -%]
 [%- END -%]
 
+
 [%- MACRO link_entity(entity, action, text) BLOCK;
-    type = "$entity";
-    IF    type.search('Entity::Artist='); link_artist(entity, action, text);
-    ELSIF type.search('Entity::Work='); link_work(entity, action, text);
-    ELSIF type.search('Entity::Label='); link_label(entity, action, text);
-    ELSIF type.search('Entity::Release='); link_release(entity, action, text);
-    ELSIF type.search('Entity::ReleaseGroup='); link_release_group(entity, action, text);
-    ELSIF type.search('Entity::Recording='); link_recording(entity, action, text);
-    ELSIF type.search('Entity::URL='); link_url(entity, action, text);
+    IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
     END;
 END -%]
 
@@ -124,6 +125,8 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF label.edits_pending AND action == 'show';
 END -%]
+
+
 
 [%- MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
@@ -183,7 +186,7 @@ END -%]
       '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
       '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
-      text = display_url(url.url);
+      text = display_url(url);
       '<a href="' _ url.url _ '">' _ text _ '</a >';
       '</span>' IF url.edits_pending AND action == 'show';
       ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
@@ -201,6 +204,13 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/puid/$action", [ puid.name ]);
     text = text || '<code>' _ html_escape(puid.name) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
+[%- MACRO link_isrc(isrc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    text = text || '<code>' _ html_escape(isrc) _ '</code>';
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -226,7 +236,7 @@ END -%]
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
-    action = action || 'profile/view';
+    action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text || html_escape(editor.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
@@ -240,8 +250,12 @@ END -%]
 END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
-    c.uri_for_action('/user/login', { uri => redirect || c.req.uri });
+    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
+
+[%- MACRO simple_link(url, text) BLOCK %]
+    <a href="[% url %]">[% text %]</a>
+[% END %]
 
 [%- MACRO request_login(text) BLOCK -%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>
@@ -251,7 +265,7 @@ END-%]
     [% USE date %]
     <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% release.gid %]&t=[% date.now %]"
         target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
-        <img src="[% c.uri_for('/static/images/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
+        <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
     </a>
 [%- END -%]
 
@@ -312,7 +326,7 @@ END %]
 END -%]
 
 [%#- See /lib/MusicBrainz/Server/Edit/Utils.pm for status names -%]
-[% MACRO edit_status_description(edit) SWITCH edit.status;
+[%- MACRO edit_status_description(edit) SWITCH edit.status;
         CASE 1; l('This edit is open and awaiting votes before it can be applied.');
         CASE 2; l('This edit has been successfully applied.');
         CASE 3; l('This edit failed because there were more "no" votes than "yes" votes.');
@@ -327,7 +341,7 @@ END -%]
                    did not receive any votes.');
         CASE 8; l('This edit was recently cancelled.');
         CASE 9; l('This edit was cancelled.');
-END %]
+END -%]
 
 [% MACRO expiration_time(datetime) BLOCK %]
     [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
@@ -354,9 +368,19 @@ END %]
     [% END %]
 [% END %]
 
+[%- MACRO age(datetime) BLOCK -%] 
+    [%- Age.format(datetime, "{age} ago") -%]
+[%- END -%]
+
 [% MACRO display_relationship(relationship) BLOCK; %]
             [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
-            [%- relationship.phrase | html %] [% link_entity(relationship.target) -%]
+            [%- relationship.phrase | html %]
+            [% IF relationship.target.artist_credit %]
+                [% l('{what} by {artist}', { what => link_entity(relationship.target),
+                                             artist => artist_credit(relationship.target.artist_credit) }) -%]
+            [% ELSE %]
+                [% link_entity(relationship.target) -%]
+            [% END %]
             [%- IF !relationship.link.begin_date.is_empty -%]
                 [%- IF !relationship.link.end_date.is_empty -%]
                     [%- IF relationship.link.begin_date.format == relationship.link.end_date.format -%]
@@ -377,5 +401,8 @@ END %]
             [%- ELSIF !relationship.link.end_date.is_empty -%]
                 [% l('until {date}', { date => relationship.link.end_date.format }) %]
             [%- END -%]
-            [%- IF relationship.edits_pending %]</span>[% END -%]
 [% END %]
+
+[%- MACRO wiki_link(server, id) BLOCK -%]
+http://[%- server -%]/[%- id -%]"
+[%- END -%]

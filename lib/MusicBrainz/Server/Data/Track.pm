@@ -81,11 +81,13 @@ sub find_by_recording
         SELECT
             track.id, track_name.name, track.tracklist, track.position,
                 track.length, track.artist_credit, track.editpending,
-            medium.id AS m_id, medium.format AS m_format,
+                medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
+                medium.release AS m_release,
                 tracklist.trackcount AS m_trackcount,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+                release.release_group AS r_release_group,
                 release.artist_credit AS r_artist_credit_id,
                 release.date_year AS r_date_year,
                 release.date_month AS r_date_month,
@@ -104,11 +106,11 @@ sub find_by_recording
         OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
-            my $row = shift;
-            my $track = $self->_new_from_row($row);
-            my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
+            my $row       = shift;
+            my $track     = $self->_new_from_row($row);
+            my $medium    = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
             my $tracklist = $medium->tracklist;
-            my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
+            my $release   = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
             $medium->release($release);
             $tracklist->medium($medium);
             $track->tracklist($tracklist);

@@ -1,56 +1,68 @@
 [%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+	<div about="[% rdfa_artist_curi(artist) %]">
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
                content=html_escape(artist.sort_name)
+	       property=rdfa_sort_name_property
                    IF artist.name != artist.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(artist.type_name)
                    IF artist.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
+	       property='foaf:gender'
                content=html_escape(artist.gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
-                    [% artist.begin_date.format or l("present") %] &mdash;
-                    [% artist.end_date.format or l("present") %]
-                    [% IF artist.has_age %]
-                       ([% display_age (artist.age) %])
-                    [% END %]
+                    [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &mdash;
+		    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
+                [% IF artist.has_age %]
+                   ([% rdfa_artist_age(display_age (artist.age)) %])
                 [% END %]
+            [% END %]
             [%- END -%]
+	    [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(artist.country.name)
                    IF artist.country -%]
         [% END %]
+	</div>
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags more=more_tags tag_this_text=l('Tag this artist') -%]
 
         <ul class="links">
-            [% IF c.user_exists %]
+            [% IF c.user_exists && !artist.is_special_purpose %]
                 [% IF subscribed %]
-                    <li><a href="[% c.uri_for_action('/user/subscriptions/artist/remove', { id => artist.id }) %]">[% l('Unsubscribe') %]</a></li>
+                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/remove', { id => artist.id }) %]">[% l('Unsubscribe') %]</a></li>
                 [% ELSE %]
-                    <li><a href="[% c.uri_for_action('/user/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
+                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
                 [% END %]
             [% END %]
             [% IF c.user_exists %]
-                <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
-                <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
-                [% IF artist.edits_pending %]
-                  <li>[% link_artist(artist, 'open_edits', l('Open edits')) %]</li>
+                [% UNLESS artist.is_special_purpose %]
+                  <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
+                  <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
+                  [% IF artist.edits_pending %]
+                    <li>[% link_artist(artist, 'open_edits', l('Open edits')) %]</li>
+                  [% END %]
+                  <li>[% use_in_relationship(artist) %]</li>
                 [% END %]
-                <li>[% use_in_relationship(artist) %]</li>
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
-                    [% l('Create a new release group') %]
+                    [% l('Add a new release group') %]
+                  </a>
+                </li>
+                <li>
+                  <a href="[% c.uri_for_action('/release_editor/add', { artist = artist.gid }) %]">
+                    [% l('Add a new release') %]
                   </a>
                 </li>
                 <li>
                   <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
-                    [% l('Create a work') %]
+                    [% l('Add a work') %]
                   </a>
                 </li>
             [% ELSE %]

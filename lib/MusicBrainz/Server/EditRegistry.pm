@@ -22,6 +22,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Label::Edit
     MusicBrainz::Server::Edit::Label::EditAlias
     MusicBrainz::Server::Edit::Label::Merge
+    MusicBrainz::Server::Edit::Medium::AddDiscID
     MusicBrainz::Server::Edit::Medium::Create
     MusicBrainz::Server::Edit::Medium::Delete
     MusicBrainz::Server::Edit::Medium::Edit
@@ -43,9 +44,12 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
+    MusicBrainz::Server::Edit::Release::AddReleaseLabel
     MusicBrainz::Server::Edit::Release::ChangeQuality
+    MusicBrainz::Server::Edit::Release::Create
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
+    MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
@@ -64,8 +68,10 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
+    MusicBrainz::Server::Edit::Work::Merge
 
     MusicBrainz::Server::Edit::Historic::AddDiscID
+    MusicBrainz::Server::Edit::Historic::AddLink
     MusicBrainz::Server::Edit::Historic::AddRelease
     MusicBrainz::Server::Edit::Historic::AddReleaseEvents
     MusicBrainz::Server::Edit::Historic::AddTrack
@@ -89,7 +95,10 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MoveDiscID
     MusicBrainz::Server::Edit::Historic::MoveRelease
     MusicBrainz::Server::Edit::Historic::RemoveDiscID
+    MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
+    MusicBrainz::Server::Edit::Historic::RemoveLink
     MusicBrainz::Server::Edit::Historic::RemoveRelease
+    MusicBrainz::Server::Edit::Historic::RemoveReleases
     MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents
     MusicBrainz::Server::Edit::Historic::RemoveTrack
     MusicBrainz::Server::Edit::Historic::SACToMAC

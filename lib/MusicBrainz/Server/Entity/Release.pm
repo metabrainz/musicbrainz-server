@@ -203,6 +203,35 @@ has 'cover_art' => (
     predicate => 'has_cover_art',
 );
 
+sub find_medium_for_recording {
+    my ($self, $recording) = @_;
+    for my $medium ($self->all_mediums) {
+        for my $track ($medium->tracklist->all_tracks) {
+            next unless defined $track->recording;
+            return $medium if $track->recording->gid eq $recording->gid;
+        }
+    }
+}
+
+sub find_track_for_recording {
+    my ($self, $recording) = @_;
+    my $medium = $self->find_medium_for_recording($recording) or return;
+    for my $track ($medium->tracklist->all_tracks) {
+        next unless defined $track->recording;
+        return $track if $track->recording->gid eq $recording->gid;
+    }
+}
+
+sub all_tracks
+{
+    my $self = shift;
+    my @mediums = $self->all_mediums
+        or return ();
+    my @tracklists = grep { defined } map { $_->tracklist } @mediums
+        or return ();
+    return map { $_->all_tracks } @tracklists;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
