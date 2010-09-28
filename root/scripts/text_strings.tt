@@ -54,7 +54,7 @@
         Barcode: {
             NoCheckdigitUPC: '[% l('The barcode you entered looks like a UPC code with the check digit missing.') %]',
             ValidUPC: '[% l('The barcode you entered is a valid UPC code.') %]',
-            InvalidUPC: '[% l('The barcode you entered looks is either an invalid UPC code, or an EAN code with the check digit missing.') %]',
+            InvalidUPC: '[% l('The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.') %]',
             ValidEAN: '[% l('The barcode you entered is a valid EAN code.') %]',
             InvalidEAN: '[% l('The barcode you entered is not a valid EAN code.') %]',
             Invalid: '[% l('The barcode you entered is not a valid UPC or EAN code.') %]',
