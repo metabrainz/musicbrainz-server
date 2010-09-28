@@ -20,16 +20,9 @@ sub _wizard
     return $self->{context}->{STASH}->{wizard};
 }
 
-sub get_field
+sub page
 {
-    my ($self, $step, $field) = @_;
-
-    my $page = $self->_wizard->page_number->{$step};
-    $page = $step unless defined $page;
-
-    my $form = $self->_wizard->load_page ($page);
-
-    return $form->field($field);
+    return shift->_wizard->load_page (shift);
 }
 
 1;

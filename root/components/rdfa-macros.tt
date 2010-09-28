@@ -361,11 +361,11 @@ END -%]
     <a rel="mo:record" 
        resource="[% rdfa_tracklist_curi(medium) %]"
        href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
-    [% medium.format_name or l("Medium") | html %]
-    [% medium.position %]
-    [% IF medium.name %]
-       [% medium.name | html %]
-    [% END %]
+    [%~ medium.format_name or l("Medium") | html =%]
+    [%= medium.position ~%]
+    [%~ IF medium.name ~%]:
+       [%= medium.name | html ~%]
+    [%~ END ~%]
     </a>
 [%- END -%]
 
@@ -513,7 +513,7 @@ END %]
 [% MACRO rdfa_bbc_music_sameAs(url) BLOCK;
     link = c.uri_for_action("/url/show", [ url.gid ]);
     '<span class="mp">' IF url.edits_pending;
-    text = display_url(url.url);
+    text = display_url(url);
     '<a rel="owl:sameAs" resource="' _ url.url _ '#artist" href="' _ url.url _ '">' _ text _ '</a >';
     '</span>' IF url.edits_pending;
     ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
@@ -522,7 +522,7 @@ END %]
 [% MACRO rdfa_dbpedia_sameAs(url) BLOCK;
     link = c.uri_for_action("/url/show", [ url.gid ]);
     '<span class="mp">' IF url.edits_pending;
-    text = display_url(url.url);
+    text = display_url(url);
     resource = url.url.replace('http://en.wikipedia.org/wiki/', 'http://dbpedia.org/resource/');
     '<a rel="owl:sameAs" resource="' _ resource _ '" href="' _ url.url _ '">' _ text _ '</a >';
     '</span>' IF url.edits_pending;

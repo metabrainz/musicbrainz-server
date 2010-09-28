@@ -194,8 +194,6 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
             /* always add an empty box when there isn't one. */
             self.addArtistBox (self.box.length);
         }
-
-        self.artistcredits.hide ();
     };
 
     var update = function(event, data) {
@@ -246,7 +244,6 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
     var initialize = function () {
         self.artist_input.focus(function(event) {
             $('tr.track-artist-credit').not(self.artistcredits).hide();
-            self.artistcredits.show ();
         });
     };
 
@@ -258,20 +255,7 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
 };
 
 /* ArtistCreditVertical is the container for all the artist credits on the
-   release (which appears on the information page). */
-MB.Control.ArtistCreditVertical = function (input, artistcredits) {
-    var self = MB.Control.ArtistCreditContainer (input, artistcredits);
-
-    var initialize = function () {
-        self.artist_input.focus(function(event) {
-            self.artistcredits.show();
-        });
-    };
-
-    self.initialize = initialize;
-
-    self.initialize ();
-
-    return self;
-};
+   release (which appears on the information page).  It is currently identical
+   to a plain container. */
+MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
 

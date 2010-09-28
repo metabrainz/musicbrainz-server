@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { 'Edit release label' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
@@ -32,6 +33,50 @@ has '+data' => (
 
 sub release_id { shift->data->{release_id} }
 sub release_label_id { shift->data->{release_label_id} }
+
+sub foreign_keys
+{
+    my $self = shift;
+
+    my $keys = { Release => { $self->release_id => [] } };
+
+    $keys->{Label}->{ $self->data->{old}{label_id} } = [];
+    $keys->{Label}->{ $self->data->{new}{label_id} } = [];
+
+    return $keys;
+};
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    return {
+        release => $loaded->{Release}->{ $self->release_id },
+        label => {
+            new => $loaded->{Label}->{ $self->data->{new}{label_id} },
+            old => $loaded->{Label}->{ $self->data->{old}{label_id} },
+        },
+        catalog_number => {
+            new => $self->data->{new}{catalog_number},
+            old => $self->data->{old}{catalog_number},
+        },
+    };
+}
+
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+
+around 'related_entities' => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $related = $self->$orig;
+
+    $related->{label} = [
+        $self->data->{new}{label_id},
+        $self->data->{old}{label_id},
+    ],
+
+    return $related;
+};
 
 sub initialize
 {

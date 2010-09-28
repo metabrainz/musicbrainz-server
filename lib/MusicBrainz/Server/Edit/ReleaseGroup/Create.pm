@@ -11,6 +11,8 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 
 sub edit_name { 'Add release group' }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }
@@ -38,11 +40,14 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+
+    my $type = $self->data->{type_id};
+
     return {
         artist_credit => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name},
         comment       => $self->data->{comment},
-        type          => $loaded->{ReleaseGroupType}->{ $self->data->{type_id} }
+        type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',
     };
 }
 

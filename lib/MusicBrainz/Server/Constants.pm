@@ -71,6 +71,7 @@ Readonly our $EDIT_RELEASEGROUP_ADD_ANNOTATION => 25;
 
 Readonly our $EDIT_RELEASE_CREATE => 31;
 Readonly our $EDIT_RELEASE_EDIT => 32;
+Readonly our $EDIT_RELEASE_ADDRELEASELABEL => 34;
 Readonly our $EDIT_RELEASE_ADD_ANNOTATION => 35;
 Readonly our $EDIT_RELEASE_DELETERELEASELABEL => 36;
 Readonly our $EDIT_RELEASE_EDITRELEASELABEL => 37;
@@ -79,6 +80,7 @@ Readonly our $EDIT_RELEASE_EDIT_BARCODES => 39;
 
 Readonly our $EDIT_WORK_CREATE => 41;
 Readonly our $EDIT_WORK_EDIT => 42;
+Readonly our $EDIT_WORK_MERGE => 44;
 Readonly our $EDIT_WORK_ADD_ANNOTATION => 45;
 Readonly our $EDIT_WORK_ADD_ALIAS => 46;
 Readonly our $EDIT_WORK_DELETE_ALIAS => 47;
