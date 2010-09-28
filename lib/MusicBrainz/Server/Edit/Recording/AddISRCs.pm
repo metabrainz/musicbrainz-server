@@ -8,10 +8,14 @@ use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
+    -excludes => 'recording_ids'
+};
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
-
 sub edit_name { 'Add ISRCs' }
+
+sub recording_ids { map { $_->{recording_id} } @{ shift->data->{isrcs} } }
 
 has '+data' => (
     isa => Dict[

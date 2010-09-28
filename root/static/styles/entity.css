@@ -47,7 +47,8 @@ div.tabs ul li a:hover {
 }
 
 .artistheader, .releaseheader, .rgheader,
-.recordingheader, .labelheader, .workheader, .blankheader {
+.recordingheader, .labelheader, .workheader, .blankheader,
+.listheader {
     padding-left: 38px;
     background: 0 4px no-repeat;
 }
@@ -59,6 +60,7 @@ div.tabs ul li a:hover {
 .recordingheader { background-image: url('../images/entity/recording_lg.png') }
 .labelheader     { background-image: url('../images/entity/label_lg.png') }
 .workheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create work icon */
+.listeahedr      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create list icon */
 
 .releaseheader .prefix,
 h1 span.prefix,

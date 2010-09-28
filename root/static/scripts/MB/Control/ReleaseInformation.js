@@ -72,7 +72,6 @@ MB.Control.ReleaseLabel = function(row, parent) {
             self.catno.removeAttr ('disabled');
         }
 
-        console.log ("toggled: ", self);
         window.toggled = self;
     };
 
@@ -111,6 +110,101 @@ MB.Control.ReleaseLabel = function(row, parent) {
     self.name.autocomplete("/ws/js/label", MB.utility.autocomplete.options);
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
+
+    return self;
+};
+
+
+MB.Control.ReleaseBarcode = function() {
+    var self = MB.Object();
+
+    self.input = $('#id-barcode');
+    self.message = $('p.barcode-message');
+    self.suggestion = $('p.barcode-suggestion');
+    self.count = 0;
+
+    var checkDigit = function (barcode) {
+        var weights = [ 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3 ];
+
+        if (barcode.length !== 12)
+        {
+            return false;
+        }
+
+        var calc = 0;
+        for (i = 0; i < 12; i++)
+        {
+            calc += parseInt (barcode[i]) * weights[i];
+        }
+
+        var checkdigit = 10 - (calc % 10);
+
+        return checkdigit === 10 ? '0' : '' + checkdigit;
+    };
+
+    var validate = function (barcode) {
+        return self.checkDigit (barcode.slice (0, 12)) === barcode[12];
+    };
+
+    var clean = function () {
+        var barcode = self.input.val ().replace (/[^0-9]/g, '');
+
+        self.input.val (barcode);
+
+        return barcode;
+    };
+
+    var update = function () {
+        var barcode = self.clean ();
+
+        if (barcode.length === 11)
+        {
+            self.message.html (MB.text.Barcode.NoCheckdigitUPC);
+            self.suggestion.html (MB.text.Barcode.CheckDigit.replace (
+                '#checkdigit#', self.checkDigit ('0' + barcode)));
+        }
+        else if (barcode.length === 12)
+        {
+            if (self.validate ('0' + barcode))
+            {
+                self.message.html (MB.text.Barcode.ValidUPC);
+                self.suggestion.html ("");
+            }
+            else
+            {
+                self.message.html (MB.text.Barcode.InvalidUPC);
+                self.suggestion.html (MB.text.Barcode.DoubleCheck + ' ' +
+                    MB.text.Barcode.CheckDigit.replace (
+                        '#checkdigit#', self.checkDigit (barcode)));
+            }
+        }
+        else if (barcode.length === 13)
+        {
+            if (self.validate (barcode))
+            {
+                self.message.html (MB.text.Barcode.ValidEAN);
+                self.suggestion.html ('');
+            }
+            else
+            {
+                self.message.html (MB.text.Barcode.InvalidEAN);
+                self.suggestion.html (MB.text.DoubleCheck);
+            }
+        }
+        else
+        {
+            self.message.html (MB.text.Barcode.Invalid);
+            self.suggestion.html (MB.text.DoubleCheck);
+        }
+    };
+
+    self.checkDigit = checkDigit;
+    self.validate = validate;
+    self.clean = clean;
+    self.update = update;
+
+    self.input.bind ('change keyup', self.update);
+    self.update ();
 
     return self;
 };
@@ -155,6 +249,7 @@ MB.Control.ReleaseInformation = function() {
         self.labels.push (MB.Control.ReleaseLabel (null, self));
     };
 
+    self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
     self.initialize = initialize;
     self.addLabel = addLabel;
@@ -163,3 +258,4 @@ MB.Control.ReleaseInformation = function() {
 
     return self;
 }
+

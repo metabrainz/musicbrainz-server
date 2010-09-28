@@ -11,7 +11,7 @@ sub index : Path Args(0) RequireAuth
         unless $c->user->is_admin;
 }
 
-sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth HiddenOnSlaves
+sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth(account_admin) HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
 
@@ -30,11 +30,6 @@ sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth HiddenOn
         },
     );
 
-    if (!$c->user->is_account_admin)
-    {
-        $c->detach('/error_401');
-    }
-
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         # When an admin views their own flags page the account admin checkbox will be disabled,
         # thus we need to manually insert a value here to keep the admin's privileges intact.
@@ -49,6 +44,7 @@ sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth HiddenOn
     $c->stash(
         user => $user,
         form => $form,
+        show_flags => 1,
     );
 }
 
