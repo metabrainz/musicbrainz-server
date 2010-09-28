@@ -4,7 +4,7 @@
         <p>[% l('The following editors are subscribed to edits that {editor} makes:', { editor => link_editor(user) }) %]</p>
         <ul>
         [% FOR editor=public_editors %]
-            <li>[% link_editor(user) %]</li>
+            <li>[% link_editor(editor) %]</li>
         [% END %]
             [% IF private_editors %]
             <li>[% ln(private_editors, '{n} other editor', '{n} other editors', { n => private_editors }) %]</li>
