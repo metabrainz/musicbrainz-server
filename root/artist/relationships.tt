@@ -1,3 +1,5 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Relationships') page='relationships' -%]
+    <span about="[% rdfa_artist_curi(artist) %]">
     [%- INCLUDE "components/relationships.tt" source=artist -%]
+    </span>
 [%- END -%]

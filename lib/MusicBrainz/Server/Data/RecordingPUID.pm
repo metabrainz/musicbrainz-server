@@ -206,7 +206,7 @@ sub filter_additions
     my @additions = grep { !exists $puids{$_->{puid}}  } @tuples;
     @tuples = grep { exists $puids{$_->{puid}}  } @tuples;
 
-    return @additions unless @tuples;
+    return \@additions unless @tuples;
 
     my $query = 'SELECT v.* FROM ' .
         '(VALUES ' . join(', ', ('(?::integer, ?::integer)') x @tuples) . ') AS v(puid, recording) '.

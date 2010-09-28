@@ -15,6 +15,21 @@ sub _load
     return $c->model('Tag')->get_by_name($name);
 }
 
+sub cloud : Chained('base') PathPart('') Args(0)
+{
+    my ($self, $c, $name) = @_;
+
+    my ($cloud, $hits) = $c->model('Tag')->get_cloud(200);
+
+    if ($hits)
+    {
+        $c->stash->{tags} = {
+            max => $cloud->[0]->{count},
+            tags => [ sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud ],
+        };
+    }
+}
+
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;

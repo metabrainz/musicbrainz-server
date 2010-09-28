@@ -11,7 +11,8 @@ INSERT INTO script_language SELECT * FROM public.script_language;
 
 INSERT INTO gender (id, name) VALUES
     (1, 'Male'),
-    (2, 'Female');
+    (2, 'Female'),
+    (3, 'Other');
 
 INSERT INTO artist_type (id, name) VALUES
     (1, 'Person'),
@@ -438,7 +439,9 @@ INSERT INTO editor_preference (id, editor, name, value)
             WHEN name = 'timezone' AND value = 'AEST-10AEDT'    THEN 'Australia/Melbourne'
             WHEN name = 'timezone' AND value = 'IDLE-12'        THEN 'Pacific/Auckland'
             WHEN name = 'timezone' AND value = 'NZST-12NZDT'    THEN 'Pacific/Auckland'
-            WHEN name = 'timezone' AND value LIKE 'posix/%'   THEN substr(value, 7)
+            WHEN name = 'timezone' AND value = 'WET0WEST'       THEN 'WET'
+            WHEN name = 'timezone' AND value LIKE 'Etc/GMT%'    THEN 'Etc/GMT'
+            WHEN name = 'timezone' AND value LIKE 'posix/%'     THEN substr(value, 7)
             ELSE value
         END AS value
         FROM public.moderator_preference

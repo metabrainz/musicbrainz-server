@@ -24,7 +24,7 @@ sub has_age
     return 0 unless ( $self->end_date->is_empty || $self->end_date->year () > 0 );
 
     return (!$self->begin_date->is_empty) && 
-        ($self->begin_date->year () > 0) &&
+        ($self->begin_date->year > 0) &&
         ($self->begin_date <= $self->end_date);
 }
 

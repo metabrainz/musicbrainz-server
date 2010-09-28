@@ -39,9 +39,11 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     tag           => 'MusicBrainz::Server::Data::Tag',
 );
 
+use Sub::Exporter -setup => { exports => [qw( escape_query )] };
+
 sub search
 {
-    my ($self, $type, $query_str, $limit, $offset) = @_;
+    my ($self, $type, $query_str, $limit, $offset, $where) = @_;
     return ([], 0) unless $query_str && $type;
 
     $offset ||= 0;
@@ -50,6 +52,8 @@ sub search
     my $use_hard_search_limit = 1;
     my $hard_search_limit;
     my $deleted_entity = undef;
+
+    my @where_args;
 
     if ($type eq "artist" || $type eq "label") {
 
@@ -110,6 +114,15 @@ sub search
         $extra_columns .= 'entity.language, entity.script,'
             if ($type eq 'release');
 
+        my ($join_sql, $where_sql);
+        if ($where && exists $where->{track_count}) {
+            $join_sql = '
+                JOIN medium ON medium.release = entity.id
+                JOIN tracklist ON medium.tracklist = tracklist.id';
+            $where_sql = 'WHERE tracklist.trackcount = ?';
+            push @where_args, $where->{track_count};
+        }
+
         $query = "
             SELECT
                 entity.id,
@@ -128,6 +141,8 @@ sub search
                     LIMIT ?
                 ) AS r
                 JOIN ${type} entity ON r.id = entity.name
+                $join_sql
+                $where_sql
             ORDER BY
                 r.rank DESC, r.name, artist_credit
             OFFSET
@@ -162,6 +177,7 @@ sub search
     my @query_args = ();
     push @query_args, $hard_search_limit if $use_hard_search_limit;
     push @query_args, $deleted_entity if $deleted_entity;
+    push @query_args, @where_args;
     push @query_args, $offset;
 
     $sql->select($query, $query_str, @query_args);
@@ -484,7 +500,7 @@ sub external_search
         {
             my $redirect;
 
-            $type =~ s/release-group/ReleaseGroup/;
+            $type =~ s/release-group/release_group/;
             if ($type eq 'cdstub')
             {
                 $redirect = $results[0]->{entity}->{discid};

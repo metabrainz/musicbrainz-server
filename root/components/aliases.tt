@@ -14,11 +14,11 @@
                     <th style="width: 5em">[% l('Language') %]</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody about="[% rdfa_entity_curi(entity) %]">
             [%- FOREACH alias IN aliases -%]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>
-                        [% alias.name | html %]
+                        [% rdfa_alias(alias.name, entity) %]
                     </td>
                     [% IF c.user_exists %]
                         <td>

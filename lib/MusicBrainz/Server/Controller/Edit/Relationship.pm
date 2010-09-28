@@ -139,6 +139,13 @@ sub create : Local RequireAuth Edit
         $c->detach('/error_500');
     }
 
+    if ($type0 gt $type1) {
+        # FIXME We should really support entering relationships backwards
+        # (ie work -> recording, not just recording -> work)
+        ($type0, $type1) = ($type1, $type0);
+        ($source_gid, $dest_gid) = ($dest_gid, $source_gid);
+    }
+
     my $source_model = $c->model(type_to_model($type0));
     my $dest_model   = $c->model(type_to_model($type1));
     if (!$source_model || !$dest_model) {

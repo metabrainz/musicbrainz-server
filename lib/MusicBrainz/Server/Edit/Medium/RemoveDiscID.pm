@@ -9,6 +9,9 @@ sub edit_name { 'Remove disc ID' }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
+
+sub medium_id { shift->data->{medium_id} }
 
 has '+data' => (
     isa => Dict[
@@ -25,7 +28,7 @@ has 'release_id' => (
 
 method _build_release_id {
     return $self->c->model('Medium')
-        ->get_by_id($self->data->{medium_id})
+        ->get_by_id($self->medium_id)
             ->release_id;
 }
 
@@ -33,13 +36,6 @@ method alter_edit_pending
 {
     return {
         MediumCDTOC => [ $self->data->{medium_cdtoc} ],
-    }
-}
-
-method related_entities
-{
-    return {
-        release => [ $self->release_id ]
     }
 }
 

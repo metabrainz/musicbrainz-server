@@ -15,6 +15,29 @@ sub edit_type { $EDIT_TRACKLIST_ADDTRACK }
 
 sub alter_edit_pending { { Track => [ shift->track_id ] } }
 
+sub related_entities
+{
+    my ($self) = @_;
+    my $c = $self;
+    my $recording = $c->model('Recording')->get_by_id($self->data->{recording_id});
+    my @releases = $c->model('Release')->find_by_tracklist($self->data->{tracklist_id});
+    push @releases, $c->model('Release')->find_by_recording($recording->id);
+
+    $self->c->model('ReleaseGroup')->load(@releases);
+    $self->c->model('ArtistCredit')->load(@releases, $recording,
+        map { $_->release_group } @releases);
+ 
+    return {
+        artist => [
+            map { $_->artist_id } map { @{ $_->artist_credit->names } }
+                @releases, map { $_->release_group } @releases
+        ],
+        release => [ map { $_->id } @releases ],
+        release_group => [ map { $_->release_group->id } @releases ],
+        recording => [ $recording->id ],
+    }
+}
+
 has 'track_id' => (
     isa => 'Int',
     is => 'rw'
@@ -34,22 +57,27 @@ has '+data' => (
 sub foreign_keys
 {
     my $self = shift;
-    return {
-        Recording => { $self->data->{recording_id} => [] },
-        Artist => { load_artist_credit_definitions($self->data->{artist_credit}) }
-    };
+
+    my %fk;
+
+    $fk{Recording} = { $self->data->{recording_id} => [] } if $self->data->{recording_id};
+    $fk{Artist} = { load_artist_credit_definitions($self->data->{artist_credit}) };
+
+    return \%fk;
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
 
+    my $rec = $self->data->{recording_id};
+
     return {
         name => $self->data->{name},
         length => $self->data->{length},
         tracklist_id => $self->data->{tracklist_id},
         artist => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
-        recording => $loaded->{Recording}->{ $self->data->{recording_id} }
+        recording => $rec ? $loaded->{Recording}->{ $rec } : '',
     };
 }
 

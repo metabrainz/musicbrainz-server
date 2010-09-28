@@ -8,7 +8,6 @@ extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 sub edit_name { 'Add release group annotation' }
 sub edit_type { $EDIT_RELEASEGROUP_ADD_ANNOTATION }
 
-sub related_entities { { release_group => [ shift->release_group_id ] } }
 sub models { [qw( ReleaseGroup )] }
 
 sub _annotation_model { shift->c->model('ReleaseGroup')->annotation }
@@ -19,6 +18,8 @@ has 'release_group_id' => (
     lazy => 1,
     default => sub { shift->data->{entity_id} }
 );
+
+with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 
 has 'release_group' => (
     isa => 'ReleaseGroup',

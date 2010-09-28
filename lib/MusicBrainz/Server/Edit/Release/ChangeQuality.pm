@@ -6,21 +6,16 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 sub edit_name { 'Change release quality' }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
+sub release_id { shift->data->{release_id} }
 
 method alter_edit_pending
 {
     return {
-        Release => [ $self->_release_id ],
-    }
-}
-
-method related_entities
-{
-    return {
-        release => [ $self->_release_id ]
+        Release => [ $self->release_id ],
     }
 }
 
@@ -42,22 +37,20 @@ has '+data' => (
 method foreign_keys
 {
     return {
-        Release => { $self->_release_id => ['ArtistCredit'] },
+        Release => { $self->release_id => ['ArtistCredit'] },
     }
 }
 
 method build_display_data ($loaded)
 {
     return {
-        release => $loaded->{Release}{ $self->_release_id },
+        release => $loaded->{Release}{ $self->release_id },
         quality => {
             old => $self->data->{old}{quality},
             new => $self->data->{new}{quality},
         }
     }
 }
-
-method _release_id { return $self->data->{release_id} }
 
 method initialize (%opts)
 {
@@ -73,7 +66,7 @@ method initialize (%opts)
 method accept
 {
     $self->c->model('Release')->update(
-        $self->_release_id,
+        $self->release_id,
         { quality => $self->data->{new}{quality} }
     );
 }

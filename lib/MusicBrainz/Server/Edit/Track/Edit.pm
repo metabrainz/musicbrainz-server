@@ -14,6 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     clean_submitted_artist_credits
 );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -22,12 +23,29 @@ sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }
 sub _edit_model { 'Track' }
 sub track_id { shift->entity_id }
+sub recording_ids
+{
+    my $self = shift;
+    return ($self->data->{new}{recording_id}, $self->data->{old}{recording_id})
+}
 
 sub related_entities
 {
     my $self = shift;
+
+    my @recordings = values %{ $self->c->model('Recording')->get_by_ids($self->recording_ids) };
+    my @releases = @{ $self->c->model('Release')->find_ids_by_track_ids($self->track_id) };
+    $self->c->model('ReleaseGroup')->load(@releases);
+    $self->c->model('ArtistCredit')->load(@releases, map { $_->release_group } @releases);
+
     return {
-        release => $self->c->model('Release')->find_ids_by_track_ids($self->track_id)
+        release => [ map { $_->id } @releases ],
+        release_group => [ map { $_->release_group_id } @releases ],
+        artist => [
+            map { $_->artist_id } map { @{ $_->artist_credit->names } }
+                @releases, map { $_->release_group } @releases
+        ],
+        recordings => [ map { $_->id } @recordings ]
     }
 }
 
@@ -144,6 +162,28 @@ sub _edit_hash
 }
 
 sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+
+sub allow_auto_edit
+{
+    my ($self) = @_;
+
+    # Changing name is allowed if the change only affects
+    # small things like case etc.
+    my ($old_name, $new_name) = normalise_strings(
+        $self->data->{old}{name}, $self->data->{new}{name});
+    return 0 if $old_name ne $new_name;
+
+    # Adding a track length is an auto-edit if there was no length before
+    return 0 if $self->data->{old}{length};
+
+    # Definitely not an auto-edit if these are being changed
+    return 0 if exists $self->data->{old}{recording_id};
+    return 0 if exists $self->data->{old}{tracklist_id};
+    return 0 if exists $self->data->{old}{artist_credit};
+    return 0 if exists $self->data->{old}{position};
+
+    return 1;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

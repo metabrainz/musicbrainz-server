@@ -1,0 +1,48 @@
+[% WRAPPER 'layout.tt' title=l('Lookup CD') full_width=1 %]
+  <h2>[% l('Matching CDs') %]</h2>
+  [% IF medium_cdtocs.size %]
+    [% IF medium_cdtocs.size == 1 %]
+      [% medium = medium_cdtocs.0.medium %]
+      <p>[% l('We found a single disc in MusicBrainz matching the information you provided. This is disc {n}
+               of {release} by {artist}. If this is not the release you are looking for, you may search using
+               the form below in order to attach this disc to another MusicBrainz release.',
+               { n => medium.position, release => link_release(medium.release),
+                 artist => artist_credit(medium.release.artist_credit) }) %]</p>
+    [% ELSE %]
+      <p>[% l('We found multiple discs matching the information you requested, as listed below. If none of these
+               are the release you are looking for, you may search using the form below in order to attach this
+               disc to another MusicBrainz release.') %]</p>
+      [% INCLUDE 'cdtoc/list.tt' %]
+    [% END %]
+  [% ELSE %]
+    <p>[% l('There are currently no discs in MusicBrainz associated with the information you provided. You can
+             search for the disc you are looking for using the forms below, or you may add a new release to
+             MusicBrainz') %]</p>
+  [% END %]
+
+  <h2>[% l('Search by artist') %]</h2>
+  <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
+    [% USE r = FormRenderer(query_artist) %]
+    <input type="hidden" name="toc" value="[% toc %]" />
+    [% WRAPPER form_row %]
+      [% r.label('query', l('Artist:')) %]
+      [% r.text('query') %]
+    [% END %]
+    <div class="row no-label">
+      [% form_submit(l('Search')) %]
+    </div>
+  </form>
+
+  <h2>[% l('Search by release') %]</h2>
+  <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
+    [% USE r = FormRenderer(query_release) %]
+    <input type="hidden" name="toc" value="[% toc %]" />
+    [% WRAPPER form_row %]
+      [% r.label('query', l('Release title:')) %]
+      [% r.text('query') %]
+    [% END %]
+    <div class="row no-label">
+      [% form_submit(l('Search')) %]
+    </div>
+  </form>
+[% END %]

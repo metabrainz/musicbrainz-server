@@ -61,7 +61,7 @@
           <tbody>
           [% FOR assoc=preview_medium.field('associations').fields %]
             [% track_idx = loop.index %]
-            [% track_preview = suggestions.$medium_idx.$track_idx %]
+            [% track_preview = suggestions.$medium_idx.tracklist.changes.$track_idx %]
             [% track = track_preview.track %]
             [% UNLESS track_preview.deleted %]
               <tr class="track">
@@ -77,7 +77,7 @@
                       [% link_entity (track_preview.suggestions.0.entity) %]
                     [% END %]
                   </span>
-    
+
                   <span class="add-recording"
                     [% IF assoc.field('gid').value %]style="display: none"[% END %]>
                     [%- l('(add a new recording)') -%]
@@ -111,19 +111,16 @@
 
       </fieldset>
 
-      <div class="buttons ui-helper-clearfix">
-        [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-        [% r.submit ('previous', l('« Previous')) %]
-        [% r.submit ('next', l('Next »')) %]
-      </div>
     </div>
     [% END %]
 
+    [% FOR preview_medium=preview_mediums.fields %]
+    [% medium_idx = loop.index %]
 
     <div class="documentation">
     [% FOR assoc=preview_medium.field('associations').fields %]
       [% track_idx = loop.index %]
-      [% track_preview = suggestions.$medium_idx.$track_idx %]
+      [% track_preview = suggestions.$medium_idx.tracklist.changes.$track_idx %]
       [% track = track_preview.track %]
       [% UNLESS track_preview.deleted %]
 
@@ -183,6 +180,15 @@
       [% END %]
     [% END %]
 
+    </div>
+    [% END %]
+
+    <div style="clear: both;">
+      <div class="buttons ui-helper-clearfix">
+        [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+        [% r.submit ('previous', l('« Previous')) %]
+        [% r.submit ('next', l('Next »')) %]
+      </div>
     </div>
 
   </div>

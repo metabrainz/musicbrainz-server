@@ -20,6 +20,33 @@ has 'artist' => (
     isa => 'Str'
 );
 
+has 'date_added' => (
+    is => 'rw',
+    isa => 'DateTime',
+    coerce => 1
+);
+
+has 'last_modified' => (
+    is => 'rw',
+    isa => 'DateTime',
+    coerce => 1
+);
+
+has 'lookup_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'modify_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'source' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 has 'track_count' => (
     is => 'rw',
     isa => 'Int'
@@ -33,6 +60,19 @@ has 'barcode' => (
 has 'comment' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'tracks' => (
+    is => 'rw',
+    isa => 'ArrayRef[MusicBrainz::Server::Entity::CDStubTrack]',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_tracks => 'elements',
+        add_track => 'push',
+        clear_tracks => 'clear'
+    }
 );
 
 __PACKAGE__->meta->make_immutable;

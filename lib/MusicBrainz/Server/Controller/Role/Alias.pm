@@ -87,7 +87,7 @@ sub edit_alias : Chained('alias') PathPart('edit') RequireAuth Edit
     my $alias_model = $c->model( $self->{model} )->alias;
     $self->edit_action($c,
         form => 'Alias',
-        form_args => { parent_id => $entity->id, alias_model => $alias_model },
+        form_args => { parent_id => $entity->id, alias_model => $alias_model, id => $alias->id },
         item => $alias,
         type => $model_to_edit_type{edit}->{ $self->{model} },
         edit_args => {
