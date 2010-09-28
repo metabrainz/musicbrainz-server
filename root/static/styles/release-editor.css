@@ -30,7 +30,7 @@ h1 span {
     margin: 0 10px;
 }
 
-#release-editor div.artist-credit-vertical label,
+#release-editor div.artist-credit label,
 #release-editor div.release-label label.label-name,
 #release-editor fieldset label.row {
     float: left;
@@ -230,8 +230,9 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 1em; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
+#release-editor div.barcode,
 #release-editor div.select-recording,
-#release-editor div.artist-credit-vertical,
+#release-editor div.artist-credit,
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 1em; border: 1px solid #999;
     background: #fff;
@@ -240,37 +241,15 @@ table.medium.tbl td.delete    { width: 2em; }
     border-radius: 12px;
 }
 
-#release-editor .documentation div.artist-credit { width: 100%; margin-top: 5em; }
+#release-editor .documentation div.barcode-container,
+#release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 5em; }
+#release-editor div.barcode,
 #release-editor div.select-recording,
-#release-editor div.artist-credit-vertical { background: #f0f0f0; }
-#release-editor div.artist-credit-vertical div.row { clear: none; }
+#release-editor div.artist-credit { background: #f0f0f0; }
+#release-editor div.artist-credit div.row { clear: none; }
 
 /* little speech balloon "tail" to visibly associate the artist credit
    editor with the artist input field. */
-
-div.artist-credit .ac-balloon0 { position: relative; }
-div.artist-credit .ac-balloon1 {
-    width: 14px; height: 42px; background: #eee;
-    padding: 0; margin: 0; position: absolute; left: -12px; top: 16px;
-}
-div.artist-credit .ac-balloon2 {
-    background: green;
-    width: 12px; height: 20px; float: left; background: #fff;
-    padding: 0; margin: 0;
-    border-style: solid; border-width: 0 1px 1px 0; border-color: #999;
-    -webkit-border-bottom-right-radius: 12px;
-    -moz-border-radius-bottomright: 12px;
-    border-bottom-right-radius: 12px;
-}
-div.artist-credit .ac-balloon3 {
-    background: blue;
-    width: 12px; height: 20px; float: left; background: #fff;
-    padding: 0; margin: 0;
-    border-style: solid; border-width: 1px 1px 0 0; border-color: #999;
-    -webkit-border-top-right-radius: 12px;
-    -moz-border-radius-topright: 12px;
-    border-top-right-radius: 12px;
-}
 
 tr.track-artist-credit .ac-balloon0 { position: relative; margin-top: 4px; }
 tr.track-artist-credit .ac-balloon1 {
@@ -308,15 +287,6 @@ span.add-recording { color: #999; }
 
                 BUTTONS
    __________________________________ */
-
-/*
-a.remove-label,
-a.remove-label img,
-a.disc-remove-track,
-a.disc-remove-track img,
-a.disc-add-track,
-a.disc-add-track img {
-*/
 
 a img {
     cursor: pointer;

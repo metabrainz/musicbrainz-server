@@ -18,11 +18,10 @@
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
                     [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &mdash;
 		    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
-		    [%# FIXME - why is age broken? %]
-                    [% IF artist.has_age %]
-                       ([% rdfa_artist_age(display_age (artist.age)) %])
-                    [% END %]
+                [% IF artist.has_age %]
+                   ([% rdfa_artist_age(display_age (artist.age)) %])
                 [% END %]
+            [% END %]
             [%- END -%]
 	    [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
@@ -57,7 +56,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="[% c.uri_for_action('/release/add', { artist = artist.gid }) %]">
+                  <a href="[% c.uri_for_action('/release_editor/add', { artist = artist.gid }) %]">
                     [% l('Add a new release') %]
                   </a>
                 </li>

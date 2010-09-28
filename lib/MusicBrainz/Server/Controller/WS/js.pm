@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
-use MusicBrainz::Server::Data::Search;
+use MusicBrainz::Server::Data::Search qw( escape_query );
 use Readonly;
 use Data::OptList;
 
@@ -117,8 +117,8 @@ sub recording : Chained('root') PathPart('recording') Args(0)
 {
     my ($self, $c) = @_;
 
-    my $query = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{q});
-    my $artist = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{a} || '');
+    my $query = escape_query ($c->stash->{args}->{q});
+    my $artist = escape_query ($c->stash->{args}->{a} || '');
     my $limit = $c->stash->{args}->{limit} || 10;
 
     my $response = $c->model ('Search')->external_search (

@@ -9,11 +9,12 @@ use MusicBrainz::Server::Validation 'normalise_strings';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { 'Edit medium' }
 sub _edit_model { 'Medium' }
-sub medium_id { shift->medium_id }
+sub medium_id { shift->data->{entity_id} }
 
 sub change_fields
 {

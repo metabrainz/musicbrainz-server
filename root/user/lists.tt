@@ -20,4 +20,10 @@
 [%- ELSE -%]
 <p>[% l('No lists found.') -%]</p>
 [%- END -%]
+
+
+<p><a href="[% c.uri_for_action('/list/create') %]">
+    [% l('Create a new list') %]
+</a></p>
+
 [% END %]
