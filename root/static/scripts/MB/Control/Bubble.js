@@ -155,18 +155,32 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
 
         self.container.show ();
 
-        var margin = 42;
+        var top = self.target.offset ().top - 23;
+        var left = self.content.offset ().left;
         var height = self.content.height ();
+        var width = self.content.width ();
 
-        var discTop = self.target.closest ('fieldset').offset ().top;
-        var buttonTop = self.target.offset ().top;
-        
-        if (buttonTop - discTop > height - margin)
+        if (height < 42)
         {
-            /* the suggestion box isn't high enough to reach the tail,
-               move it down a bit. */
-            self.container.css ('padding-top', buttonTop - discTop - height + margin);
+            height = 42;
         }
+
+        self.container.css ('position', 'absolute');
+        self.container.css ('width', width);
+        self.container.css ('min-height', height);
+        self.content.css ('min-height', height);
+        self.content.css ('width', '100%');
+        self.container.offset ({ 'top': top, 'left': left });
+
+        var pageBottom = self.page.offset ().top + self.page.outerHeight ();
+        var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
+
+         if (pageBottom < bubbleBottom)
+         {
+             var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
+
+             self.page.css ('min-height', newHeight);
+         }
     };
 
     var tail = function () {
@@ -198,19 +212,41 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
 
     var show = function () {
         parent_show ();
-        self.target.text (MB.text.Done);
+
+        if (self.button)
+        {
+            self.target.text (MB.text.Done);
+        }
     };
 
     var hide = function () {
         parent_hide ();
-        self.target.text (MB.text.Change);
+
+        if (self.button)
+        {
+            self.target.text (MB.text.Change);
+        }
+
+        self.page.css ('min-height', '');
     };
 
     var initialize = function () {
 
+        self.button = false;
+        self.textinput = false;
+
         if (self.target.filter ('a').length ||
             self.target.filter ('input[type=submit]').length ||
             self.target.filter ('input[type=button]').length)
+        {
+            self.button = true;
+        }
+        else if (self.target.filter ('input[type=text]').length)
+        {
+            self.textinput = true;
+        }
+
+        if (self.button)
         {
             /* show content when a button is pressed. */
             self.target.click (function (event) {
@@ -218,7 +254,8 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
                 event.preventDefault ();
             });
         }
-        else if (self.target.filter ('input[type=text]').length)
+
+        if (self.textinput)
         {
             /* show content when an input field is focused. */
             self.target.focus (function (event) {
@@ -226,6 +263,8 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
             });
         }
     };
+
+    self.page = $('#page');
 
     self.initialize = initialize;
     self.move = move;
