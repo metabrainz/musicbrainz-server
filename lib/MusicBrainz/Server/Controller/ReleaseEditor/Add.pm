@@ -49,7 +49,7 @@ augment 'create_edits' => sub
     # Add the release edit
     my $add_release_edit = $self->$edit_action($c,
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
-    my $release = $add_release_edit->entity;
+    $release = $add_release_edit->entity;
 
     return $release;;
 };
