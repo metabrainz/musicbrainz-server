@@ -220,7 +220,8 @@ sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
             unless $user->preferences->public_ratings;
     }
 
-    my $ratings = $c->model('Editor')->get_ratings ($user);
+    my $ratings = $c->model('Editor')->get_ratings($user,
+                        $c->stash->{viewing_own_profile});
 
     $c->stash(
         user => $user,
