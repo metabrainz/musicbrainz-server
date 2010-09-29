@@ -12,6 +12,7 @@ extends 'MusicBrainz::Server::Edit::Historic';
 sub edit_name     { 'Add release' }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
+sub edit_template { 'historic/add_release' }
 
 has '+data' => (
     isa => Dict[

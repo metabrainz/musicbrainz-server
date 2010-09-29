@@ -54,6 +54,8 @@ sub foreign_keys
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
         ReleaseStatus    => [ $self->data->{status_id} ],
         ReleaseGroup     => [ $self->data->{release_group_id} ],
+        Script           => [ $self->data->{script_id} ],
+        Language         => [ $self->data->{language_id} ],
     };
 }
 
@@ -68,6 +70,9 @@ sub build_display_data
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         status        => $status ? $loaded->{ReleaseStatus}->{ $status } : '',
+        script        => $loaded->{Script}{ $self->data->{script_id} },
+        language      => $loaded->{Language}{ $self->data->{language_id} },
+        barcode       => $self->data->{barcode},
     };
 }
 
