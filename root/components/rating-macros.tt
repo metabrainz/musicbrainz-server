@@ -14,7 +14,7 @@ END -%]
     });
 END -%]
 
-[%- MACRO rating_stars(entity) BLOCK -%]
+[%- MACRO rating_stars(entity, prevent_rating) BLOCK -%]
 <span class="inline-rating">
     <span class="star-rating small-star">
         [%- current_star_rating = entity.user_rating ? 5 * entity.user_rating / 100 : 0 -%]
@@ -23,7 +23,7 @@ END -%]
         [%- ELSIF entity.rating_count -%]
         <span class="current-rating" style="width:[% entity.rating %]%;">[% 5 * entity.rating / 100 %]</span>
         [%- END -%]
-        [%- IF c.user_exists -%]
+        [%- IF c.user_exists && !prevent_rating-%]
             [%- FOR rating IN [ 1 .. 5 ] -%]
                 [%- IF rating == current_star_rating -%]
                 <a href="[% rating_rate_url(entity, 0) | html %]" class="stars-[% rating %] remove-rating"

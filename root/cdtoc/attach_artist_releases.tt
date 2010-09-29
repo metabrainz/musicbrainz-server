@@ -7,7 +7,7 @@
         [% FOR release=releases %]
         <li>
           <input type="radio" name="release" value="[% release.id %]" />
-          [% link_release(release) %]
+          [% link_release(release) %] [% disambiguation(release) %]
         </li>
         [% END %]
       </ul>

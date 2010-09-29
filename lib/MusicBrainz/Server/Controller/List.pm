@@ -27,8 +27,7 @@ sub add : Chained('load') RequireAuth
 
     $c->model('List')->add_releases_to_list($list->id, $release_id);
 
-    $c->response->redirect(
-        $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+    $c->response->redirect($c->req->referer);
     $c->detach;
 }
 
@@ -41,8 +40,7 @@ sub remove : Chained('load') RequireAuth
 
     $c->model('List')->remove_releases_from_list($list->id, $release_id);
 
-    $c->response->redirect(
-        $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+    $c->response->redirect($c->req->referer);
     $c->detach;
 }
 
