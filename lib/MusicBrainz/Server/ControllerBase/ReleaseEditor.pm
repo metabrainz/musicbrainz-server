@@ -201,15 +201,15 @@ sub release_compare
     @old_media = @{ $release->mediums } if $release;
     @new_media = @{ $data->{mediums} };
 
-    if (scalar @old_media > scalar @new_media)
-    {
-        die ("removing discs is not yet supported.\n");
-    }
-
     while (!defined $new_media[-1]->{tracklist})
     {
         # remove trailing empty discs.
         pop @new_media;
+    }
+
+    if (scalar @old_media > scalar @new_media)
+    {
+        die ("removing discs is not yet supported.\n");
     }
 
     my @ret;
