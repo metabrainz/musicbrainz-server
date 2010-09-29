@@ -21,7 +21,7 @@
               [%- artist = artist.entity -%]
               <li>
                 <input type="radio" name="artist" value="[% artist.id %]" />
-                [% link_artist(artist) %]
+                [% link_artist(artist) %] [% disambiguation(artist) %]
               </li>
               [%- END -%]
             </ul>
