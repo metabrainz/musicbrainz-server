@@ -555,14 +555,15 @@ sub _edit_release_track_edits
 
 sub _edit_release_annotation
 {
-    my ($self, $preview, $editnote, $data, $release) = @_;
+    my ($self, $c, $preview, $editnote, $data, $release) = @_;
 
     my $edit = $preview ? '_preview_edit' : '_create_edit';
 
     my $annotation = $release->latest_annotation ? $release->latest_annotation->text : '';
+
     if ($annotation ne $data->{annotation})
     {
-        my $edit = $self->$edit(
+        my $edit = $self->$edit($c,
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
             entity_id => $release->id,
             text => $data->{annotation});
@@ -701,7 +702,7 @@ sub create_common_edits
     # annotation
     # ----------------------------------------
 
-    $self->_edit_release_annotation ($as_previews, $edit_note, $data, $release);
+    $self->_edit_release_annotation ($c, $as_previews, $edit_note, $data, $release);
 
     if ($as_previews) {
         $c->model ('Edit')->load_all (@{ $c->stash->{edits} });
