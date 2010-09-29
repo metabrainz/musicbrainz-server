@@ -13,10 +13,6 @@
 
        MB.Control.ReleaseInformation ();
 
-       $('#annotation').val ('warp edit annotation test');
-       $('#id-comment').val ('warp edit comment test');
-       $('input[name=step_recordings]').click ();
-
     });
   </script>
 [%- END -%]
