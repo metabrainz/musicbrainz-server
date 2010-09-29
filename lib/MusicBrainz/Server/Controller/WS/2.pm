@@ -3,6 +3,7 @@ use Moose;
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
+with 'MusicBrainz::Server::Controller::Role::Profile';
 
 use aliased 'MusicBrainz::Server::Buffer';
 

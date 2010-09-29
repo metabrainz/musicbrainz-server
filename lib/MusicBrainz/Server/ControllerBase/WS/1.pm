@@ -4,6 +4,8 @@ use Moose;
 use Readonly;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+with 'MusicBrainz::Server::Controller::Role::Profile';
+
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::WebService::XMLSerializerV1;
@@ -58,8 +60,6 @@ sub begin : Private {
     $c->stash->{data} = {};
     $self->validate($c, $self->serializers) or $c->detach('bad_req');
     $self->apply_rate_limit($c);
-
-    $c->stats->profile(begin => 'request');
 }
 
 sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }
@@ -88,18 +88,7 @@ sub search : Chained('root') PathPart('')
 }
 
 # Don't render with TT
-sub end : Private {
-    my ($self, $c) = @_;
-    my $uid = $c->stats->profile(end => 'request');
-
-    for my $stat ($c->stats->report) {
-        my ($depth, $name, $duration) = @$stat;
-        if ($name eq 'request' && $duration > 0.01) {
-            $c->log->warn('DANGER WILL ROBINSON. SLOW REQUESTS!');
-            $c->log->warn("Requesting: " . $c->req->uri);
-        }
-    }
-}
+sub end : Private { }
 
 sub load : Chained('root') PathPart('') CaptureArgs(1)
 {
