@@ -34,9 +34,7 @@
                         <td>[% rdfa_release_event_date(release) %]</td>
                         <td>
                             [%- IF release.country -%]
-                            <abbr title="[% release.country.name | html %]">
                                 [% rdfa_release_country_abbr(release) %]
-                            </abbr>
                             [%- END -%]
                         </td>
                         <td>[% rdfa_release_label_list(release.labels) %]</td>
