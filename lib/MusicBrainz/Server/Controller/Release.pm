@@ -1,8 +1,6 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
-use MusicBrainz::Server::Wizard::ReleaseEditor;
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Controller::ReleaseEditor;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -136,7 +134,21 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
+    my @lists;
+    my %containment;
+    if ($c->user_exists) {
+        # Make a list of lists and whether this release is contained in them
+        @lists = $c->model('List')->find_all_by_editor($c->user->id);
+
+        foreach my $list (@lists) {
+            $containment{$list->id} = 1
+                if ($c->model('List')->check_release($list->id, $release->id));
+        }
+    }
+
     $c->stash(
+        lists       => \@lists,
+        containment => \%containment,
         template     => 'release/index.tt',
         show_artists => $release->has_multiple_artists,
     );
@@ -195,29 +207,6 @@ sub lookup : Local
     {
         $c->stash->{results} = [];
     }
-}
-
-
-sub add : Chained('base') RequireAuth Args(0)
-{
-    my ($self, $c) = @_;
-
-    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
-    my $release_editor = MusicBrainz::Server::Controller::ReleaseEditor->new (c => $c);
-
-    $release_editor->release_add ($wizard);
-}
-
-sub edit : Chained('load') RequireAuth Edit
-{
-    my ($self, $c) = @_;
-
-    my $release = $c->stash->{release};
-    my $wizard = MusicBrainz::Server::Wizard::ReleaseEditor->new (c => $c);
-
-    my $release_editor = MusicBrainz::Server::Controller::ReleaseEditor->new (c => $c);
-
-    $release_editor->release_edit ($wizard, $release);
 }
 
 =head2 duplicate

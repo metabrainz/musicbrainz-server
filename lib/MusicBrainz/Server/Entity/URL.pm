@@ -1,13 +1,16 @@
 package MusicBrainz::Server::Entity::URL;
 
 use Moose;
+use MooseX::Types::URI qw( Uri );
+use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 
 has 'url' => (
     is => 'rw',
-    isa => 'Str'
+    isa => Uri,
+    coerce => 1
 );
 
 has 'description' => (
@@ -20,7 +23,9 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
-sub name { shift->url }
+sub pretty_name { MusicBrainz::Server::Filters::uri_decode(shift->url->as_string) }
+
+sub name { shift->url->as_string }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

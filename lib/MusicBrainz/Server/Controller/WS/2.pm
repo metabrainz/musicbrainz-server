@@ -47,6 +47,11 @@ my $ws_defs = Data::OptList::mkopt([
                                           aliases various-artists
                                           _relations tags user-tags ratings user-ratings) ],
      },
+     list => {
+                         method   => 'GET',
+                         inc      => [ qw(releases tags) ],
+                         optional => [ qw(limit offset) ],
+     },
      label => {
                          method   => 'GET',
                          required => [ qw(query) ],
@@ -384,6 +389,11 @@ sub linked_artists
     }
 }
 
+sub linked_lists
+{
+    my ($self, $c, $stash, $lists) = @_;
+}
+
 sub linked_labels
 {
     my ($self, $c, $stash, $labels) = @_;
@@ -687,6 +697,48 @@ sub artist_search : Chained('root') PathPart('artist') Args(0)
 
     $c->detach('artist_browse') if ($c->stash->{linked});
     $self->_search ($c, 'artist');
+}
+
+sub list_toplevel
+{
+    my ($self, $c, $stash, $list) = @_;
+
+    my $opts = $stash->store ($list);
+
+    $self->linked_lists ($c, $stash, [ $list ]);
+
+    $c->model('Editor')->load($list);
+
+    if ($c->stash->{inc}->releases)
+    {
+        my @results = $c->model('Release')->find_by_list($list->id, $MAX_ITEMS);
+
+        $opts->{releases} = $self->make_list(@results);
+
+        $self->linked_releases($c, $stash, $opts->{releases}->{items});
+    }
+}
+
+sub list: Chained('root') PathPart('list') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    if (!MusicBrainz::Server::Validation::IsGUID($gid)) {
+        $c->stash->{error} = "Invalid mbid.";
+        $c->detach('bad_req');
+    }
+
+    my $list = $c->model('List')->get_by_gid($gid);
+    unless ($list) {
+        $c->detach('not_found');
+    }
+
+    my $stash = WebServiceStash->new;
+
+    $self->list_toplevel ($c, $stash, $list);
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('list', $list, $c->stash->{inc}, $stash));
 }
 
 sub release_group_toplevel

@@ -1,0 +1,18 @@
+[% main_title = l("List “{list}”", { list => list.name }) %]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Owner:')
+               content=link_editor(list.editor) %]
+        [%- END -%]
+
+        [% link_collection(collection, 'delete', l('Delete this collection')) %]
+    [% END %]
+
+    <div id="content">
+        [%- INCLUDE "list/header.tt" -%]
+        [%- content -%]
+    </div>
+
+[%- END -%]

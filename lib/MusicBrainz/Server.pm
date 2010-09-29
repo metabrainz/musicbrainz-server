@@ -6,6 +6,8 @@ BEGIN { extends 'Catalyst' }
 use Class::MOP;
 use DBDefs;
 
+use aliased 'MusicBrainz::Server::Translation';
+
 # Set flags and add plugins for the application
 #
 #         -Debug: activates the debug mode for very useful log messages
@@ -18,8 +20,6 @@ my @args = qw/
 Static::Simple
 
 StackTrace
-
-I18N::Gettext
 
 Session
 Session::State::Cookie
@@ -193,6 +193,17 @@ sub relative_uri
 
     return $uri;
 }
+
+around 'dispatch' => sub {
+    my $orig = shift;
+    my $c = shift;
+
+    Translation->instance->build_languages_from_header($c->req->headers);
+    $c->$orig(@_);
+};
+
+sub gettext  { shift; Translation->instance->gettext(@_) }
+sub ngettext { shift; Translation->instance->ngettext(@_) }
 
 =head1 NAME
 

@@ -39,6 +39,8 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     tag           => 'MusicBrainz::Server::Data::Tag',
 );
 
+use Sub::Exporter -setup => { exports => [qw( escape_query )] };
+
 sub search
 {
     my ($self, $type, $query_str, $limit, $offset, $where) = @_;

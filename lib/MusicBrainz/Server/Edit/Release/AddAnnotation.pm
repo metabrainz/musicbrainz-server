@@ -20,6 +20,8 @@ has 'release_id' => (
     default => sub { shift->data->{entity_id} }
 );
 
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+
 has 'release' => (
     isa => 'Release',
     is => 'rw',

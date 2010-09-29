@@ -3,6 +3,7 @@
     ['relationships', link_release(release, 'relationships', l('Relationships'))],
     ['discids', link_release(release, 'discids', l('DiscIDs'))],
     ['details', rdfa_seeAlso_link_release(release, 'details', l('Details'))],
-    ['edit', link_release(release, 'edit', l('Edit'))],
+    ['edit', simple_link(c.uri_for_action('/release_editor/edit', [ release.gid ]), l('Edit')) ],
 ] -%]
+
 [% INCLUDE 'components/tabs.tt' list=info_links %]

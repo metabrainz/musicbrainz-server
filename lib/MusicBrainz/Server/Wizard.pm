@@ -59,7 +59,11 @@ has 'page_number' => (
     },
 );
 
-sub pages { return []; }
+has 'pages' => (
+    isa => 'ArrayRef',
+    is => 'ro',
+    required => 1
+);
 
 sub skip { return 0; }
 
@@ -95,7 +99,7 @@ sub process
     return;
 }
 
-sub render
+sub initialize
 {
     my ($self, $init_object) = @_;
 
@@ -110,6 +114,11 @@ sub render
             $self->_load_page ($_, $init_object);
         }
     }
+}
+
+sub render
+{
+    my ($self) = @_;
 
     my $page = $self->_load_page ($self->_current);
 

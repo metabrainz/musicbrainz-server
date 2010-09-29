@@ -57,14 +57,24 @@ sub related_entities
     my $result;
     if ($self->data->{type0} eq $self->data->{type1}) {
         $result = {
-            $self->data->{type0} => [ $self->relationship->entity0_id,
-                                      $self->relationship->entity1_id ]
+            $self->data->{type0} => [
+                $self->data->{new}{entity0_id},
+                $self->data->{new}{entity1_id},
+                $self->data->{old}{entity0_id},
+                $self->data->{old}{entity1_id},
+            ]
         };
     }
     else {
         $result = {
-            $self->data->{type0} => [ $self->relationship->entity0_id ],
-            $self->data->{type1} => [ $self->relationship->entity1_id ]
+            $self->data->{type0} => [ 
+                $self->data->{new}{entity0_id},
+                $self->data->{old}{entity0_id},
+            ],
+            $self->data->{type1} => [ 
+                $self->data->{new}{entity1_id},
+                $self->data->{old}{entity1_id},
+            ]
         };
     }
 

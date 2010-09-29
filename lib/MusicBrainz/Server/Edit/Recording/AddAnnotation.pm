@@ -8,7 +8,6 @@ extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 sub edit_name { 'Add recording annotation' }
 sub edit_type { $EDIT_RECORDING_ADD_ANNOTATION }
 
-sub related_entities { { recording => [ shift->recording_id ] } }
 sub models { [qw( Recording )] }
 
 sub _annotation_model { shift->c->model('Recording')->annotation }
@@ -19,6 +18,8 @@ has 'recording_id' => (
     lazy => 1,
     default => sub { shift->data->{entity_id} }
 );
+
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
 has 'recording' => (
     isa => 'Recording',
