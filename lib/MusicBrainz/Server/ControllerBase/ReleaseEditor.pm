@@ -402,7 +402,7 @@ sub _edit_release_labels
                     );
             }
         }
-        else
+        elsif ($new_label->{label_id} && $new_label->{catalog_number})
         {
             # Add ReleaseLabel
             $self->$edit($c,
@@ -647,6 +647,24 @@ sub create_edits
     );
 
     return $release;
+}
+
+sub load
+{
+    my ($self, $c, $wizard, $release) = @_;
+
+    $release = inner();
+
+    if (!$release->label_count)
+    {
+        $release->add_label(
+            MusicBrainz::Server::Entity::ReleaseLabel->new(
+                label => MusicBrainz::Server::Entity::Label->new
+            )
+        );
+    }
+
+    $wizard->initialize($release);
 }
 
 sub associate_recordings
