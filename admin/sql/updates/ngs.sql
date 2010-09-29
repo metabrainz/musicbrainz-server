@@ -362,14 +362,13 @@ FROM (
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
             WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
-);
+) t;
 CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
 
 INSERT INTO work_name (name)
     SELECT DISTINCT track.name 
     FROM public.track
-        JOIN tmp_work t ON track.id = t.id  
-    );
+        JOIN tmp_work t ON track.id = t.id;
 
 CREATE UNIQUE INDEX tmp_work_name_name ON work_name (name);
 
@@ -379,8 +378,7 @@ INSERT INTO work (id, gid, name, artist_credit)
     FROM public.track 
         JOIN tmp_work t ON track.id = t.id  
         JOIN work_name n ON n.name = track.name
-        LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac
-    );
+        LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac;
 
 DROP INDEX tmp_work_name_name;
 
