@@ -1,5 +1,5 @@
 [% IF !full_width %]
-    <div id="sidebar">
+    <div id="sidebar" [% IF about %]about="[% about %]"[% END %]>
         [% content %]
     </div>
 [% END %]
