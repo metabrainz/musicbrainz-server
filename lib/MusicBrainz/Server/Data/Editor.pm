@@ -91,7 +91,13 @@ sub _get_ratings_for_type
         }
     }
 
-    return $ratings;
+    # Sort by rating DESC, name ASC
+    # Sadly we can't do this in SQL, as the name is in a different schema
+    return [ sort {
+        ($b->{rating} <=> $a->{rating})
+            or
+        ($a->{$type}->name cmp $b->{$type}->name)
+    } @$ratings ];
 }
 
 sub get_ratings
