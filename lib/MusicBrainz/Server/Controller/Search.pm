@@ -75,7 +75,8 @@ sub direct : Private
        $c->model('Search')->search($type, $query, shift, shift);
     }, $form->field('limit')->value);
 
-    if (@$results == 1) {
+    my $pager = $c->stash->{pager};
+    if (@$results == 1 && $pager->current_page == 1) {
         if ($type eq 'artist' || $type eq 'release' ||
                 $type eq 'label' || $type eq 'release-group')
         {
