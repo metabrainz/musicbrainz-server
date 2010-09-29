@@ -30,10 +30,10 @@ sub release_date
 sub date_xsd_type
 {
     my $date = shift;
+    if($date =~ /^[\d-]+$/){
+	
+	my ($y, $m, $d) = split /-/, $date;
 
-    my ($y, $m, $d) = split /-/, $date;
-
-    if($y =~ /^\d+$/ && $m =~ /^\d+$/ && $d =~ /^\d+$/){
 	return 'xsd:date' if ($y && 0 + $y && $m && 0 + $m && $d && 0 + $d);
 	return 'xsd:gYearMonth' if ($y && 0 + $y && $m && 0 + $m);
 	return 'xsd:gYear' if ($y);
