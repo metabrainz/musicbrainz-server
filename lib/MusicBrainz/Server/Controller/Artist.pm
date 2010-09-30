@@ -293,7 +293,9 @@ sub recordings : Chained('load')
         $c->stash( template => 'artist/recordings.tt' );
     }
 
+    $c->model('ISRC')->load_for_recordings(@$recordings);
     $c->model('ArtistCredit')->load(@$recordings);
+
     $c->stash(
         recordings => $recordings,
         show_artists => scalar grep {
@@ -459,7 +461,7 @@ around $_ => sub {
         $c->detach;
     }
     else {
-        $self->$orig(@_);
+        $self->$orig($c);
     }
 } for qw( edit merge );
 

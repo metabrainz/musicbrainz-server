@@ -10,7 +10,8 @@
       <td class="new">[% link_artist(edit.display_data.label.new) %]</td>
     </tr>
     [% END %]
-    [% IF edit.display_data.catalog_number.new %]
+    [% IF edit.display_data.catalog_number.new ||
+          edit.display_data.catalag_number.old %]
     <tr>
       <th>[% l('Catalog number:') %]</th>
       <td class="old">[% edit.display_data.catalog_number.old | html %]</td>

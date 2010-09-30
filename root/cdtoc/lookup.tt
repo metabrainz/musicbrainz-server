@@ -27,8 +27,10 @@
     [% WRAPPER form_row %]
       [% r.label('query', l('Artist:')) %]
       [% r.text('query') %]
-      [% form_submit(l('Search')) %]
     [% END %]
+    <div class="row no-label">
+      [% form_submit(l('Search')) %]
+    </div>
   </form>
 
   <h2>[% l('Search by release') %]</h2>
@@ -38,7 +40,9 @@
     [% WRAPPER form_row %]
       [% r.label('query', l('Release title:')) %]
       [% r.text('query') %]
-      [% form_submit(l('Search')) %]
     [% END %]
+    <div class="row no-label">
+      [% form_submit(l('Search')) %]
+    </div>
   </form>
 [% END %]

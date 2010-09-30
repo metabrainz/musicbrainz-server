@@ -194,8 +194,6 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
             /* always add an empty box when there isn't one. */
             self.addArtistBox (self.box.length);
         }
-
-        self.artistcredits.hide ();
     };
 
     var update = function(event, data) {
@@ -224,11 +222,25 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         self.artist_input.val(preview);
     };
 
+    var isVariousArtists = function () {
+        return self.box[0].gid.val () === MB.constants.VARTIST_GID;
+    };
+
+    var clear = function () {
+        $.each (self.box, function (idx, item) {
+            item.clear ();
+        });
+
+        self.renderPreview ();
+    };
+
     self.identify = identify;
     self.initialize = initialize;
     self.update = update;
     self.addArtistBox = addArtistBox;
     self.renderPreview = renderPreview;
+    self.isVariousArtists = isVariousArtists;
+    self.clear = clear;
 
     self.initialize ();
 
@@ -246,7 +258,6 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
     var initialize = function () {
         self.artist_input.focus(function(event) {
             $('tr.track-artist-credit').not(self.artistcredits).hide();
-            self.artistcredits.show ();
         });
     };
 
@@ -258,20 +269,7 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
 };
 
 /* ArtistCreditVertical is the container for all the artist credits on the
-   release (which appears on the information page). */
-MB.Control.ArtistCreditVertical = function (input, artistcredits) {
-    var self = MB.Control.ArtistCreditContainer (input, artistcredits);
-
-    var initialize = function () {
-        self.artist_input.focus(function(event) {
-            self.artistcredits.show();
-        });
-    };
-
-    self.initialize = initialize;
-
-    self.initialize ();
-
-    return self;
-};
+   release (which appears on the information page).  It is currently identical
+   to a plain container. */
+MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
 

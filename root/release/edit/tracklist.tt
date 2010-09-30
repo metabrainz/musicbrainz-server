@@ -89,7 +89,7 @@
                 </div>
                 <div class="row advanced-tracklist" style="display: none;">
                   [% r.label(medium_field.field('name'), l('Title')) %]
-                  [% r.text(medium_field.field('name'), placeholder => l('Title')) %]
+                  [% r.text(medium_field.field('name')) %]
                 </div>
               </div>
             </td>
