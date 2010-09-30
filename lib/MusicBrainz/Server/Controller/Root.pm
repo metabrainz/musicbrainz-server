@@ -9,7 +9,6 @@ use base 'Catalyst::Controller';
 use DBDefs;
 use ModDefs;
 use MusicBrainz::Server::Replication ':replication_type';
-use UserPreference;
 
 #
 # Sets the actions in this controller to be registered with no prefix
