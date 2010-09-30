@@ -20,7 +20,6 @@ sub cache_data
 {
     my $self = shift;
     return {
-        coverarturl => $self->image_uri,
         infourl     => $self->information_uri
     }
 }

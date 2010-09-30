@@ -53,7 +53,8 @@ sub lookup_cover_art
 
     # Respect Amazon SLA
     if ($last_request_time) {
-        sleep(1 - tv_interval($last_request_time));
+        my $i = 1 - tv_interval($last_request_time); 
+        sleep($i) if $i > 0;
     }
     $last_request_time = [ gettimeofday ];
 

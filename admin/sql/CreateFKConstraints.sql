@@ -791,6 +791,11 @@ ALTER TABLE release_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
+ALTER TABLE release_coverart
+   ADD CONSTRAINT release_coverart_fk_id
+   FOREIGN KEY (id)
+   REFERENCES release(id);
+
 ALTER TABLE release_gid_redirect
    ADD CONSTRAINT release_gid_redirect_fk_newid
    FOREIGN KEY (newid)
