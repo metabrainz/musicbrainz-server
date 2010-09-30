@@ -71,6 +71,7 @@ Readonly our $EDIT_RELEASEGROUP_ADD_ANNOTATION => 25;
 
 Readonly our $EDIT_RELEASE_CREATE => 31;
 Readonly our $EDIT_RELEASE_EDIT => 32;
+Readonly our $EDIT_RELEASE_MOVE => 33;
 Readonly our $EDIT_RELEASE_ADDRELEASELABEL => 34;
 Readonly our $EDIT_RELEASE_ADD_ANNOTATION => 35;
 Readonly our $EDIT_RELEASE_DELETERELEASELABEL => 36;
@@ -91,6 +92,7 @@ Readonly our $EDIT_MEDIUM_EDIT => 52;
 Readonly our $EDIT_MEDIUM_DELETE => 53;
 Readonly our $EDIT_MEDIUM_REMOVE_DISCID => 54;
 Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
+Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 
 Readonly our $EDIT_TRACK_EDIT => 62;
 

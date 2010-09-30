@@ -71,7 +71,7 @@ sub get_by_name
 
 sub _get_ratings_for_type
 {
-    my ($self, $id, $type) = @_;
+    my ($self, $id, $type, $me) = @_;
 
     my $query = "
         SELECT $type AS id, rating FROM ${type}_rating_raw
@@ -85,6 +85,13 @@ sub _get_ratings_for_type
     my $ratings = [];
 
     for my $row (@$results) {
+        if ($me) {
+            $entities->{$row->{id}}->user_rating($row->{rating});
+        }
+        else {
+            $entities->{$row->{id}}->rating($row->{rating});
+            $entities->{$row->{id}}->rating_count(1);
+        }
         push @$ratings, {
             $type => $entities->{$row->{id}},
             rating => $row->{rating},
@@ -102,13 +109,13 @@ sub _get_ratings_for_type
 
 sub get_ratings
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $me) = @_;
 
 
     my $ratings = {};
     foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
     {
-        my $data = $self->_get_ratings_for_type ($user->id, $entity);
+        my $data = $self->_get_ratings_for_type ($user->id, $entity, $me);
         $ratings->{$entity} = $data if @$data;
     }
 

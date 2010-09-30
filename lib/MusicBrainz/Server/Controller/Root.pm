@@ -158,6 +158,11 @@ sub begin : Private
         $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
     }
 
+    # Can we automatically login?
+    if (my $cookie = $c->req->cookie('remember_login') && !$c->user_exists) {
+        $c->forward('/user/cookie_login');
+    }
+
     if (exists $c->action->attributes->{RequireAuth})
     {
         $c->forward('/user/do_login');
