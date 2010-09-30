@@ -83,17 +83,6 @@ MB.Control.ReleaseLabel = function(row, parent) {
     };
 
 
-    var autocompleted = function (event, data) {
-        self.id.val(data.id);
-        self.name.val(data.name).removeClass('error');
-
-        event.preventDefault();
-        return false;
-    };
-
-    var blurred = function (event) {
-    };
-
     self.id = self.row.find('input.label-id');
     self.name = self.row.find('input.label-name');
     self.catno = self.row.find('input.catno');
@@ -103,11 +92,32 @@ MB.Control.ReleaseLabel = function(row, parent) {
     self.template = template;
     self.autocompleted = autocompleted;
     self.toggleDelete = toggleDelete;
-    self.blurred = blurred;
 
-    self.name.bind('blur', self.blurred);
-    self.name.result(self.autocompleted);
-    self.name.autocomplete("/ws/js/label", MB.utility.autocomplete.options);
+    var autocompleted = function (event, data) {
+        self.id.val(data.item.id);
+        self.name.removeClass('error');
+        self.name.val(data.item.name);
+    };
+
+    var labelLookup = function (request, response) {
+        $.ajax({
+            url: "/ws/js/label",
+            data: { q: request.term },
+            success: response,
+        });
+    };
+
+    self.name.autocomplete ({ source: labelLookup, minLength: 2, select: self.autocompleted });
+    self.name.data ('autocomplete')._renderItem = function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        if (item.comment)
+        {
+            a.append (' <span class="autocomplete-comment">(' + item.comment + ')</span>');
+        }
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+    };
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
 

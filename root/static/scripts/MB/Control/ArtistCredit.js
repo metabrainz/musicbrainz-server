@@ -133,8 +133,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.name.bind('blur', self.nameBlurred);
     self.credit.bind('blur', self.creditBlurred);
 
-    self.name.result(self.update);
-    self.name.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
+//    self.name.result(self.update);
+//    self.name.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
 
     if (obj === null)
     {
@@ -186,8 +186,8 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
                 'Atleast one div.artist-credit-box is required, none were found.');
         }
 
-        self.artist_input.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
-        self.artist_input.result(self.update);
+//        self.artist_input.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
+//        self.artist_input.result(self.update);
 
         if (! self.box[self.box.length - 1].isEmpty ())
         {

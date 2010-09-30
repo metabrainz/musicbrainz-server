@@ -2,6 +2,8 @@ input { background: #fff; color: #000; }
 input.jquery_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
+span.autocomplete-comment { font-size: smaller; color: #666; }
+
 fieldset {
     margin-top: 1em;
     margin-bottom: 1em;
