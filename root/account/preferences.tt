@@ -19,6 +19,12 @@
         [% form_row_checkbox(r, 'public_ratings', l('Allow other users to see my ratings')) %]
     </fieldset>
 
+    <fieldset>
+        <legend>[% l('Email') %]</legend>
+        [% form_row_checkbox(r, 'email_on_no_vote', l('Mail me when one of my edits gets a "no" vote.
+                    (Note: the email is only sent for the first "no" vote, not each one)')) %]
+    </fieldset>
+
     <div class="no-label row">
     [% form_submit(l('Save')) %]
     </div>
