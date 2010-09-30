@@ -36,7 +36,7 @@ has 'timezone' => (
     lazy => 1,
 );
 
-has 'email_on_no_vote' => (
+has [qw(email_on_no_vote email_on_notes)] => (
     isa => 'Bool',
     default => 1,
     is =>'rw',

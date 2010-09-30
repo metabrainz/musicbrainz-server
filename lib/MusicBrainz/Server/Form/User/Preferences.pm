@@ -13,6 +13,7 @@ has_field 'public_subscriptions' => ( type => 'Boolean' );
 has_field 'public_tags' => ( type => 'Boolean' );
 
 has_field 'email_on_no_vote' => ( type => 'Boolean' );
+has_field 'email_on_notes' => ( type => 'Boolean' );
 
 has_field 'datetime_format' => (
     type => 'Select',

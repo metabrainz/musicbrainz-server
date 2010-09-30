@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::EditNote;
 use Moose;
 
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::EditNote;
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Data::Utils qw(
@@ -82,11 +83,18 @@ sub add_note
         $note_hash->{editor_id},
         (map { $_->editor_id } @{ $edit->votes }),
         (map { $_->editor_id } @{ $edit->edit_notes }));
+    $self->c->model('Editor')->load_preferences(values %$editors);
 
-    my @to_email = grep { $_ != $note_hash->{editor_id} } keys %$editors;
+    my @to_email = map { $_->editor_id } @{ $edit->votes };
+    push @to_email,
+        map { $_->id }
+        grep { $_->preferences->email_on_notes }
+        map { $editors->{$_->editor_id} } @{ $edit->edit_notes };
+
+    @to_email = grep { $_ != $note_hash->{editor_id} } @to_email;
 
     my $from = $editors->{ $note_hash->{editor_id} };
-    for my $editor_id (@to_email) {
+    for my $editor_id (uniq @to_email) {
         my $editor = $editors->{ $editor_id };
         $email_data->send_edit_note(
             from_editor => $from,

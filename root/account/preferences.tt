@@ -23,6 +23,8 @@
         <legend>[% l('Email') %]</legend>
         [% form_row_checkbox(r, 'email_on_no_vote', l('Mail me when one of my edits gets a "no" vote.
                     (Note: the email is only sent for the first "no" vote, not each one)')) %]
+        [% form_row_checkbox(r, 'email_on_notes', l('When I add a note to an edit , mail me all
+                                                       future notes for that edit.')) %]
     </fieldset>
 
     <div class="no-label row">
