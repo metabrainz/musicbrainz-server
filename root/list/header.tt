@@ -9,7 +9,8 @@
 <div class="listheader">
     <h1>[% link_list(list) %]</h1>
     <p class="subheader">
-        <span class="prefix">~</span> [% l('List')%]
+        <span class="prefix">~</span>
+        [% list.public ? l('Public list') : l('Private list') %]
     </p>
 </div>
 
