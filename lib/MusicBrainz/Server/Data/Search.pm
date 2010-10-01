@@ -400,7 +400,7 @@ sub escape_query
 
 sub external_search
 {
-    my ($self, $c, $type, $query, $limit, $page, $adv, $ua) = @_;
+    my ($self, $c, $type, $query, $limit, $page, $adv, $ua, $no_redirect) = @_;
 
     my $entity_model = $c->model( type_to_model($type) )->_entity_class;
     Class::MOP::load_class($entity_model);
@@ -495,7 +495,10 @@ sub external_search
             } 
         }
 
-        if ($total_hits == 1 && ($type eq 'artist' || $type eq 'release' || 
+        # FIXME: this whole redirect stuff needs to be moved to a controller. --warp.
+        my $allow_redirect = !$no_redirect;
+
+        if ($allow_redirect && $total_hits == 1 && ($type eq 'artist' || $type eq 'release' || 
             $type eq 'label' || $type eq 'release-group' || $type eq 'cdstub'))
         {
             my $redirect;

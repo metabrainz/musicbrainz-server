@@ -9,6 +9,7 @@ use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use Readonly;
+use Text::Trim;
 use Data::OptList;
 
 # This defines what options are acceptable for WS calls
@@ -16,17 +17,17 @@ my $ws_defs = Data::OptList::mkopt([
      artist => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(limit timestamp) ]
+         optional => [ qw(limit page timestamp) ]
      },
      label => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(limit timestamp) ]
+         optional => [ qw(limit page timestamp) ]
      },
      recording => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(a r limit timestamp) ]
+         optional => [ qw(a r limit page timestamp) ]
      },
 ]);
 
@@ -66,7 +67,7 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 sub _autocomplete_entity {
     my ($self, $c, $type) = @_;
 
-    my $query = MusicBrainz::Server::Data::Search::escape_query ($c->stash->{args}->{q});
+    my $query = MusicBrainz::Server::Data::Search::escape_query (trim $c->stash->{args}->{q});
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
@@ -74,15 +75,17 @@ sub _autocomplete_entity {
         $c->detach('bad_req');
     }
 
+    my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, $type, $query.'*', $limit, $page, 1);
+        $c, $type, $query.'*', $limit, $page, 1, undef, $no_redirect);
 
     my $pager = $response->{pager};
 
-    my @entities;
+    my @output;
+
     for my $result (@{ $response->{results} })
     {
-        push @entities, {
+        push @output, {
             name => $result->{entity}->name,
             id => $result->{entity}->id,
             gid => $result->{entity}->gid,
@@ -90,8 +93,13 @@ sub _autocomplete_entity {
         };
     }
 
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    };
+
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@entities));
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 }
 
 sub artist : Chained('root') PathPart('artist') Args(0)
@@ -129,9 +137,10 @@ sub recording : Chained('root') PathPart('recording') Args(0)
     my $query = escape_query ($c->stash->{args}->{q});
     my $artist = escape_query ($c->stash->{args}->{a} || '');
     my $limit = $c->stash->{args}->{limit} || 10;
+    my $page = $c->stash->{args}->{page} || 1;
 
     my $response = $c->model ('Search')->external_search (
-        $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
+        $c, 'recording', "$query artist:\"$artist\"", $limit, $page, 1, undef, 1);
 
     my $pager = $response->{pager};
 
