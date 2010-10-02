@@ -2,8 +2,6 @@ input { background: #fff; color: #000; }
 input.jquery_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
-span.autocomplete-comment { font-size: smaller; color: #666; }
-
 fieldset {
     margin-top: 1em;
     margin-bottom: 1em;
@@ -107,4 +105,22 @@ a.selectFilterNext:hover {
 
 table.tbl + div.searchform {
     margin-top: 2em;
+}
+
+/* __________________________________
+
+          MB.Control.Autocomplete
+   __________________________________ */
+
+.ui-autocomplete-loading {
+    background: white url(../lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif) right center no-repeat;
+}
+.autocomplete-comment { font-size: smaller; color: #666; }
+button.autocomplete-pager {
+    position: absolute;
+    display: block;
+    border: 0;
+    width: 18px;
+    height: 18px;
+    background-color: transparent;
 }

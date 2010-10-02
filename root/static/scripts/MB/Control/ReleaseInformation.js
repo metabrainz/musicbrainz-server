@@ -82,6 +82,14 @@ MB.Control.ReleaseLabel = function(row, parent) {
         return self.deleted.val () === '1';
     };
 
+    /**
+     * selected is a callback called by autocomplete when a selection is made.
+     */
+    var selected = function (event, data) {
+        self.id.val(data.id);
+        self.name.removeClass('error');
+        self.name.val(data.name);
+    };
 
     self.id = self.row.find('input.label-id');
     self.name = self.row.find('input.label-name');
@@ -90,34 +98,15 @@ MB.Control.ReleaseLabel = function(row, parent) {
 
     self.parent = parent;
     self.template = template;
-    self.autocompleted = autocompleted;
     self.toggleDelete = toggleDelete;
+    self.isDeleted = isDeleted;
+    self.selected = selected;
 
-    var autocompleted = function (event, data) {
-        self.id.val(data.item.id);
-        self.name.removeClass('error');
-        self.name.val(data.item.name);
-    };
-
-    var labelLookup = function (request, response) {
-        $.ajax({
-            url: "/ws/js/label",
-            data: { q: request.term },
-            success: response,
-        });
-    };
-
-    self.name.autocomplete ({ source: labelLookup, minLength: 2, select: self.autocompleted });
-    self.name.data ('autocomplete')._renderItem = function (ul, item) {
-        var a = $("<a>").text (item.name);
-
-        if (item.comment)
-        {
-            a.append (' <span class="autocomplete-comment">(' + item.comment + ')</span>');
-        }
-
-        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
-    };
+    MB.Control.Autocomplete ({
+        'input': self.name,
+        'entity': 'label',
+        'select': self.selected,
+    });
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
 

@@ -65,13 +65,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.link.html ('');
     };
 
-    var joinChanged = function(event) {
-        if (self.join.val() === "")
-            return;
-
-        self.container.addArtistBox(self.boxnumber + 1);
-    };
-
     var joinBlurred = function(event) {
         self.container.renderPreview();
     };
@@ -96,19 +89,22 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     var update = function(event, data) {
-        self.name.val(data.name).removeClass('error');
-        self.gid.val(data.gid);
-        self.id.val(data.id);
-        self.link.html ('link').
-            attr('href', '/artist/'+data.gid).
-            attr('title', data.comment);
-
-        if (self.credit.val () === '')
+        if (data.name)
         {
-            self.credit.val (data.name);
-        }
+            self.name.val(data.name).removeClass('error');
+            self.gid.val(data.gid);
+            self.id.val(data.id);
+            self.link.html ('link').
+                attr('href', '/artist/'+data.gid).
+                attr('title', data.comment);
 
-        self.container.renderPreview();
+            if (self.credit.val () === '')
+            {
+                self.credit.val (data.name);
+            }
+
+            self.container.renderPreview();
+        }
 
         event.preventDefault();
         return false;
@@ -121,20 +117,21 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.clear = clear;
-    self.joinChanged = joinChanged;
     self.joinBlurred = joinBlurred;
     self.nameBlurred = nameBlurred;
     self.creditBlurred = creditBlurred;
     self.update = update;
     self.isEmpty = isEmpty;
 
-//     self.join.bind('change keyup', self.joinChanged);
     self.join.bind('blur', self.joinBlurred);
     self.name.bind('blur', self.nameBlurred);
     self.credit.bind('blur', self.creditBlurred);
 
-//    self.name.result(self.update);
-//    self.name.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
+    MB.Control.Autocomplete ({
+        'input': self.name,
+        'entity': 'artist',
+        'select': self.update,
+    });
 
     if (obj === null)
     {
@@ -186,8 +183,11 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
                 'Atleast one div.artist-credit-box is required, none were found.');
         }
 
-//        self.artist_input.autocomplete("/ws/js/artist", MB.utility.autocomplete.options);
-//        self.artist_input.result(self.update);
+        MB.Control.Autocomplete ({
+            'input': self.artist_input,
+            'entity': 'artist',
+            'select': self.update,
+        });
 
         if (! self.box[self.box.length - 1].isEmpty ())
         {
