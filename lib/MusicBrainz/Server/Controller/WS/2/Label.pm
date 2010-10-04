@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::2::Label;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
