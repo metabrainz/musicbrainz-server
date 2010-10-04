@@ -10,7 +10,9 @@
       <ul>
         [% FOR puid=edit.display_data.puids %]
         <li>
-          <code>[% puid.puid %]</code> - [% link_recording(puid.recording) %]
+          <code>[% link_puid(puid) %]</code> -
+          [% l('{recording} by {artist}', { recording => link_recording(puid.recording),
+                                           artist => artist_credit(puid.recording.artist_credit) }) %]
         </li>
         [% END %]
       </ul>

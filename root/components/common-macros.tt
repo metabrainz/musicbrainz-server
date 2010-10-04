@@ -202,8 +202,8 @@ END -%]
 
 [%- MACRO link_puid(puid, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/puid/$action", [ puid.name ]);
-    text = text || '<code>' _ html_escape(puid.name) _ '</code>';
+    link = c.uri_for_action("/puid/$action", [ puid.puid ]);
+    text = text || '<code>' _ html_escape(puid.puid) _ '</code>';
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
