@@ -1,0 +1,23 @@
+[% WRAPPER 'cdstub/layout.tt' full_width=1 page='edit' %]
+    <h2>[% l('Edit CD Stub') %]</h2>
+    <form action="[% c.req.uri %]" method="post">
+        [% USE r = FormRenderer(form) %]
+        <fieldset>
+            <legend>[% l('CD Stub Details') %]</legend>
+            [% form_row_text(r, 'title', l('Title:')) %]
+            [% form_row_text(r, 'comment', l('Comment:')) %]
+            [% form_row_text(r, 'artist', l('Artist:')) %]
+            [% form_row_text(r, 'barcode', l('Barcode:')) %]
+            [% form_row_checkbox(r, 'single_artist', l('All tracks on this release are by the same artist')) %]
+        </fieldset>
+        <fieldset>
+            <legend>[% l('Tracks') %]</legend>
+            [% FOR track=form.field('tracks').fields %]
+                [% prefix = 'tracks.' _ loop.index _ '.' %]
+                [% form_row_text(r, prefix _ 'title', l('Title:')) %]
+                [% form_row_text(r, prefix _ 'artist', l('Artist:')) %]
+            [% END %]
+        </fieldset>
+        [% form_submit(l('Submit')) %]
+    </form>
+[% END %]

@@ -50,6 +50,15 @@ sub browse : Path('browse')
              );
 }
 
+sub edit : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $stub = $c->stash->{cdstub};
+    my $form = $c->form(form => 'CDStub', item => $stub->cdstub);
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    }
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
