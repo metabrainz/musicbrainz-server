@@ -79,24 +79,34 @@ sub _autocomplete_entity {
     my $response = $c->model ('Search')->external_search (
         $c, $type, $query.'*', $limit, $page, 1, undef, $no_redirect);
 
-    my $pager = $response->{pager};
-
     my @output;
 
-    for my $result (@{ $response->{results} })
+    if ($response->{pager})
     {
+        my $pager = $response->{pager};
+
+        for my $result (@{ $response->{results} })
+        {
+            push @output, {
+                name => $result->{entity}->name,
+                id => $result->{entity}->id,
+                gid => $result->{entity}->gid,
+                comment => $result->{entity}->comment,
+            };
+        }
+
         push @output, {
-            name => $result->{entity}->name,
-            id => $result->{entity}->id,
-            gid => $result->{entity}->gid,
-            comment => $result->{entity}->comment,
+            pages => $pager->last_page,
+            current => $pager->current_page
         };
     }
-
-    push @output, {
-        pages => $pager->last_page,
-        current => $pager->current_page
-    };
+    else
+    {
+        # If an error occurred just ignore it for now and return an
+        # empty list.  The javascript code for autocomplete doesn't
+        # have any way to gracefully report or deal with
+        # errors. --warp.
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@output));

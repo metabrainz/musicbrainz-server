@@ -3,6 +3,7 @@
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Bubble.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseInformation.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
