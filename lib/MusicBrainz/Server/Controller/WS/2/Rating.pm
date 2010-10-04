@@ -1,0 +1,88 @@
+package MusicBrainz::Server::Controller::WS::2::Rating;
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
+
+use Readonly;
+
+my $ws_defs = Data::OptList::mkopt([
+     rating => {
+                         method   => 'GET',
+                         required => [ qw(id entity) ],
+     },
+     rating => {
+                         method   => 'POST',
+                         optional => [ qw(client) ],
+     },
+]);
+
+with 'MusicBrainz::Server::WebService::Validator' =>
+{
+     defs => $ws_defs,
+};
+
+Readonly my %serializers => (
+    xml => 'MusicBrainz::Server::WebService::XMLSerializer',
+);
+
+sub rating_submit : Private
+{
+    my ($self, $c) = @_;
+
+    $self->_validate_post ($c);
+
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @submit;
+    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
+    {
+        my $type = $node->getName;
+        $type =~ s/-/_/;
+
+        my $model = type_to_model ($type);
+        _error ($c, "Unrecognized entity $type.") unless $model;
+
+        my $gid = $node->getAttribute ('id');
+        _error ($c, "Cannot parse MBID: $gid.")
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+
+        my $entity = $c->model($model)->get_by_gid($gid);
+        _error ($c, "Cannot find $type $gid.") unless $entity;
+
+        my $rating = $node->find ('user-rating')->string_value;
+        _error ($c, "Rating should be an integer between 0 and 100")
+            unless looks_like_number ($rating) && $rating >= 0 && $rating <= 100;
+
+        # postpone any updates until we've made some effort to parse the whole
+        # body and report possible errors in it.
+        push @submit, { model => $model,  entity => $entity,  rating => $rating }
+    }
+
+    for (@submit)
+    {
+        $c->model($_->{model})->rating->update(
+            $c->user->id, $_->{entity}->id, $_->{rating});
+    }
+
+    $c->detach('success');
+}
+
+sub rating_lookup : Chained('root') PathPart('rating') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $c->detach('rating_submit') if $c->request->method eq 'POST';
+
+    my ($entity, $model) = $self->_validate_entity ($c);
+
+    $c->model($model)->rating->load_user_ratings ($c->user->id, $entity);
+
+    my $stash = WebServiceStash->new;
+    $stash->store ($entity)->{user_ratings} = $entity->user_rating;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('rating', $entity, $c->stash->{inc}, $stash));
+}
+
+__PACKAGE__->meta->make_immutable;
+1;
+
