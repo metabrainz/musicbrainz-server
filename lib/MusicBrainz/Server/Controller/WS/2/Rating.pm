@@ -2,7 +2,10 @@ package MusicBrainz::Server::Controller::WS::2::Rating;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Readonly;
+use Scalar::Util qw( looks_like_number );
 
 my $ws_defs = Data::OptList::mkopt([
      rating => {

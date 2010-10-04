@@ -4,12 +4,12 @@ use Test::More;
 use XML::XPath;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok v2_schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use MusicBrainz::WWW::Mechanize;
 use HTTP::Request;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
-my $v2 = v2_schema_validator;
+my $v2 = schema_validator;
 my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
@@ -75,7 +75,7 @@ $mech->request (_raw_post ('/ws/2/tag?client=post.t-0.0.2', $content));
 is ($mech->status, 401, 'Tags rejected without authentication');
 $mech->content_contains ('Authorization required');
 
-$mech->credentials ('localhost:80', 'webservice', 'new_editor', 'password');
+$mech->credentials ('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
 $mech->request (_raw_post ('/ws/2/tag?client=post.t-0.0.2', $content));
 xml_ok ($mech->content);
