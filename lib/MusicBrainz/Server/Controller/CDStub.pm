@@ -53,9 +53,16 @@ sub browse : Path('browse')
 sub edit : Chained('load')
 {
     my ($self, $c) = @_;
-    my $stub = $c->stash->{cdstub};
-    my $form = $c->form(form => 'CDStub', item => $stub->cdstub);
+    my $cdstub_toc = $c->stash->{cdstub};
+    my $stub = $cdstub_toc->cdstub;
+
+    my $form = $c->form(form => 'CDStub', init_object => $stub);
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('CDStub')->update($stub->id, $form->value);
+
+        $c->res->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $cdstub_toc->discid ])
+        );
     }
 }
 

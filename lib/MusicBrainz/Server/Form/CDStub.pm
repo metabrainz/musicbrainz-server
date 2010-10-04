@@ -3,6 +3,8 @@ use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 
+has '+name' => ( default => 'CDStub' );
+
 has_field 'title' => (
     required => 1,
     type => 'Text',

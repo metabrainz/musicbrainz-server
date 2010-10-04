@@ -182,6 +182,16 @@ sub insert
     }, $self->sql);
 }
 
+sub update
+{
+    my ($self, $cdstub, $hash) = @_;
+    $self->sql->begin;
+    $self->sql->update_row('release_raw', {
+        map { $_ => $hash->{$_} } qw( title artist comment barcode )
+    }, { id => $cdstub->id });
+    $self->sql->commit;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
