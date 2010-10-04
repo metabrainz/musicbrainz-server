@@ -26,6 +26,10 @@ has_field 'tracks' => (
     type => 'Repeatable'
 );
 
+has_field 'single_artist' => (
+    type => 'Checkbox'
+);
+
 has_field 'tracks.title' => (
     type => 'Text',
     required => 1
@@ -33,10 +37,6 @@ has_field 'tracks.title' => (
 
 has_field 'tracks.artist' => (
     type => 'Text',
-);
-
-has_field 'single_artist' => (
-    type => 'Checkbox'
 );
 
 1;

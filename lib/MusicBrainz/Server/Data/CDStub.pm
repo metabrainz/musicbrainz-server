@@ -189,6 +189,13 @@ sub update
     $self->sql->update_row('release_raw', {
         map { $_ => $hash->{$_} } qw( title artist comment barcode )
     }, { id => $cdstub->id });
+
+    for my $track ($cdstub->all_tracks) {
+        my $update = $hash->{tracks}->[ $track->sequence - 1 ];
+        next unless $update && keys %$update;
+        $self->c->model('CDStubTrack')->update($track->id, $update);
+    }
+
     $self->sql->commit;
 }
 

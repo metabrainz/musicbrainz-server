@@ -16,6 +16,7 @@
                 [% prefix = 'tracks.' _ loop.index _ '.' %]
                 [% form_row_text(r, prefix _ 'title', l('Title:')) %]
                 [% form_row_text(r, prefix _ 'artist', l('Artist:')) %]
+                <br />
             [% END %]
         </fieldset>
         [% form_submit(l('Submit')) %]
