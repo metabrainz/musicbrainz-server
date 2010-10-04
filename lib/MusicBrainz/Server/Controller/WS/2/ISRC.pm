@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::WS::2::ISRC;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -43,7 +45,7 @@ sub isrc : Chained('root') PathPart('isrc') Args(1)
 
     for (@recordings)
     {
-        $c->controller('Recording')->recording_toplevel ($c, $stash, $_);
+        $c->controller('WS::2::Recording')->recording_toplevel ($c, $stash, $_);
     }
 
     for (@isrcs)

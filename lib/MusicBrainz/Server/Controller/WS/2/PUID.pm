@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::2::PUID;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -45,7 +46,7 @@ sub puid : Chained('root') PathPart('puid') Args(1)
 
     for (@recordings)
     {
-        $c->controller('Recording')->recording_toplevel ($c, $stash, $_);
+        $c->controller('WS::2::Recording')->recording_toplevel ($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
