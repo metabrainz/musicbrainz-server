@@ -30,6 +30,10 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'Work'
+};
+
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
 );
@@ -58,20 +62,12 @@ sub work_toplevel
     $c->model('WorkType')->load($work);
 }
 
-sub work : Chained('root') PathPart('work') Args(1)
+sub base : Chained('root') PathPart('work') CaptureArgs(0) { }
+
+sub work : Chained('load') PathPart('')
 {
-    my ($self, $c, $gid) = @_;
-
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $work = $c->model('Work')->get_by_gid($gid);
-    unless ($work) {
-        $c->detach('not_found');
-    }
+    my ($self, $c) = @_;
+    my $work = $c->stash->{entity};
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($work);

@@ -78,6 +78,7 @@ $mech->content_contains ('Authorization required');
 $mech->credentials ('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
 $mech->request (_raw_post ('/ws/2/tag?client=post.t-0.0.2', $content));
+warn($mech->content);
 xml_ok ($mech->content);
 
 my $xp = XML::XPath->new( xml => $mech->content );

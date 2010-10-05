@@ -17,11 +17,17 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'List',
+};
+
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
 );
 
 Readonly our $MAX_ITEMS => 25;
+
+sub base : Chained('/') PathPart('ws/2/list') CaptureArgs(0) { }
 
 sub list_toplevel
 {
@@ -43,19 +49,10 @@ sub list_toplevel
     }
 }
 
-sub list: Chained('root') PathPart('list') Args(1)
+sub list: Chained('load') PathPart('')
 {
-    my ($self, $c, $gid) = @_;
-
-    if (!MusicBrainz::Server::Validation::IsGUID($gid)) {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $list = $c->model('List')->get_by_gid($gid);
-    unless ($list) {
-        $c->detach('not_found');
-    }
+    my ($self, $c) = @_;
+    my $list = $c->stash->{entity};
 
     my $stash = WebServiceStash->new;
 

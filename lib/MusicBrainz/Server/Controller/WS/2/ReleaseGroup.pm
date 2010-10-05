@@ -30,6 +30,10 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'ReleaseGroup'
+};
+
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
 );
@@ -69,20 +73,12 @@ sub release_group_toplevel
     }
 }
 
-sub release_group : Chained('root') PathPart('release-group') Args(1)
+sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }
+
+sub release_group : Chained('load') PathPart('')
 {
-    my ($self, $c, $gid) = @_;
-
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $rg = $c->model('ReleaseGroup')->get_by_gid($gid);
-    unless ($rg) {
-        $c->detach('not_found');
-    }
+    my ($self, $c) = @_;
+    my $rg = $c->stash->{entity};
 
     my $stash = WebServiceStash->new;
 

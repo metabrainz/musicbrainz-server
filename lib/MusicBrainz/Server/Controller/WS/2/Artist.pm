@@ -31,26 +31,22 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'Artist'
+};
+
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
 );
 
 Readonly our $MAX_ITEMS => 25;
 
-sub artist : Chained('root') PathPart('artist') Args(1)
+sub base : Chained('root') PathPart('artist') CaptureArgs(0) { }
+
+sub artist : Chained('load') PathPart('')
 {
-    my ($self, $c, $gid) = @_;
-
-    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $artist = $c->model('Artist')->get_by_gid($gid);
-    unless ($artist) {
-        $c->detach('not_found');
-    }
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{entity};
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($artist);
