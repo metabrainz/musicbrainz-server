@@ -1,29 +1,11 @@
 package MusicBrainz::Server::ControllerBase::WS::2;
 use Moose;
-use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+BEGIN { extends 'Catalyst::Controller'; }
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
-
-use aliased 'MusicBrainz::Server::Buffer';
-
-use Function::Parameters 'f';
-use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_EDIT_BARCODES
-    $EDIT_RECORDING_ADD_PUIDS
-);
-use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
-use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
-use Data::OptList;
-use Scalar::Util qw( looks_like_number );
-use TryCatch;
-use XML::XPath;
-
-Readonly our $MAX_ITEMS => 25;
 
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
@@ -67,13 +49,15 @@ sub not_found : Private
     $c->res->body($c->stash->{serializer}->output_error("Not Found"));
 }
 
-sub begin : Private
+sub invalid_mbid : Private
 {
+    my ($self, $c, $id) = @_;
+    $c->stash->{error} = "Invalid mbid.";
+    $c->detach('bad_req');
 }
 
-sub end : Private
-{
-}
+sub begin : Private { }
+sub end : Private { }
 
 sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 {
