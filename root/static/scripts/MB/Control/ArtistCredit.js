@@ -258,6 +258,8 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
     var initialize = function () {
         self.artist_input.focus(function(event) {
             $('tr.track-artist-credit').not(self.artistcredits).hide();
+
+            self.artistcredits.show ();
         });
     };
 

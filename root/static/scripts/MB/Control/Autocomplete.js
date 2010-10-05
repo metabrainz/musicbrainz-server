@@ -37,6 +37,7 @@ MB.Control.Autocomplete = function (options) {
 
         if (item.pages === 1)
         {
+            self.pager_menu_item = null;
             return;
         }
 
@@ -52,9 +53,15 @@ MB.Control.Autocomplete = function (options) {
     };
 
     var pagerButtons = function () {
+        var li = self.pager_menu_item;
+
+        if (!li)
+        {
+            return;
+        }
+
         var prev = $('<button title="prev">prev</button>');
         var next = $('<button title="next">next</button>');
-        var li = self.pager_menu_item;
 
         li.append (prev).append (next);
 
@@ -86,11 +93,11 @@ MB.Control.Autocomplete = function (options) {
 
         if (menu.last ())
         {
-            self.selectedItem = -1;
+            self.selected_item = -1;
         }
         else
         {
-            self.selectedItem = menu.active.prevAll (".ui-menu-item").length;
+            self.selected_item = menu.active.prevAll (".ui-menu-item").length;
         }
 
         self.autocomplete.search (null, event);
@@ -122,13 +129,13 @@ MB.Control.Autocomplete = function (options) {
         var menu = self.autocomplete.menu;
 
         var newItem;
-        if (self.selectedItem === -1)
+        if (self.selected_item === -1)
         {
             newItem = menu.element.children (".ui-menu-item:last");
         }
         else
         {
-            newItem = menu.element.children (".ui-menu-item").eq(self.selectedItem);
+            newItem = menu.element.children (".ui-menu-item").eq(self.selected_item);
         }
         
         if (!newItem.length)
@@ -180,7 +187,7 @@ MB.Control.Autocomplete = function (options) {
     self.page_term = '';
     self.current_page = 1;
     self.number_of_pages = 1;
-    self.selected = 1;
+    self.selected_item = 0;
 
     self.switchPage = switchPage;
     self.pagerButtons = pagerButtons;
