@@ -79,7 +79,7 @@ sub recording_toplevel
 
         my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $recording->artist_credit->names };
 
-        $self->linked_artists ($c, $opts, \@artists);
+        $self->linked_artists ($c, $stash, \@artists);
     }
 
     if ($c->stash->{inc}->has_rels)
