@@ -4,15 +4,15 @@ use MusicBrainz::Server::Track;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    entity_name => 'release',
+    model       => 'Release',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-
-__PACKAGE__->config(
-    entity_name => 'release',
-    model       => 'Release',
-);
 
 use MusicBrainz::Server::Controller::Role::Tag;
 

@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,10 +12,9 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2', 'browse releases via artist (paging)');
-&$v2 ($mech->content, "Validate browse releases via artist");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse releases via artist (paging)',
+    '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="3" offset="2">
         <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
@@ -27,12 +27,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release?inc=mediums&label=b4edce40-090f-4956-b82a-5d9d285da40b', 'browse releases via label');
-&$v2 ($mech->content, "Validate browse releases via label");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse releases via label',
+    '/release?inc=mediums&label=b4edce40-090f-4956-b82a-5d9d285da40b' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
         <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
@@ -65,12 +62,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release?release-group=b84625af-6229-305f-9f1b-59c0185df016', 'browse releases via release group');
-&$v2 ($mech->content, "Validate browse releases via release-group");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse releases via release group',
+    '/release?release-group=b84625af-6229-305f-9f1b-59c0185df016' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
@@ -90,16 +84,12 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-
 my $response = $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
 is ($response->code, 404, 'browse releases via non-existent recording');
 
-$mech->get_ok('/ws/2/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0', 'browse releases via recording');
-&$v2 ($mech->content, "Validate browse releases via recording");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse releases via recording',
+    '/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
         <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
@@ -134,7 +124,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </release>
     </release-list>
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;

@@ -3,6 +3,10 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Artist',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
@@ -10,11 +14,6 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-
-__PACKAGE__->config(
-    model       => 'Artist',
-    entity_name => 'artist',
-);
 
 use Data::Page;
 use HTTP::Status qw( :constants );

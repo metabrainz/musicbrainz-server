@@ -10,6 +10,11 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Form::Confirm;
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'ReleaseGroup',
+    entity_name => 'rg',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
@@ -20,8 +25,6 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
 __PACKAGE__->config(
-    model       => 'ReleaseGroup',
-    entity_name => 'rg',
     namespace   => 'release_group',
 );
 

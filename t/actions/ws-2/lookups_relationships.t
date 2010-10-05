@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,10 +12,9 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=url-rels', 'artist lookup with url relationships');
-&$v2 ($mech->content, "Validate artist lookup with url relationships");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'artist lookup with url relationships',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
@@ -35,12 +35,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </artist>
 </metadata>';
 
-is ($diff->compare ($expected, $mech->content), 0, 'result ok');
-
-$mech->get_ok('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=artist-rels+label-rels+recording-rels+release-rels+release-group-rels+work-rels', 'artist lookup with non-url relationships');
-&$v2 ($mech->content, "Validate artist lookup with non-url relationships");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'artist lookup with non-url relationships',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=artist-rels+label-rels+recording-rels+release-rels+release-group-rels+work-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
         <name>BoA</name><sort-name>BoA</sort-name>
@@ -58,12 +55,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </artist>
 </metadata>';
 
-is ($diff->compare ($expected, $mech->content), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?inc=release-rels', 'release lookup with release relationships');
-&$v2 ($mech->content, "Validate release lookup with release relationships");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'release lookup with release relationships',
+    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?inc=release-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
         <title>サマーれげぇ!レインボー</title><status>official</status>
@@ -82,12 +76,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release>
 </metadata>';
 
-is ($diff->compare ($expected, $mech->content), 0, 'result ok');
-
-$mech->get_ok('/ws/2/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artist-rels+artist-credits', 'recording lookup with artist relationships and credits');
-&$v2 ($mech->content, "Validate recording lookup with artist relationships and credits");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'recording lookup with artist relationships and credits',
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artist-rels+artist-credits' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
         <title>the Love Bug</title><length>242226</length>
@@ -126,13 +117,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </recording>
 </metadata>';
 
-is ($diff->compare ($expected, $mech->content), 0, 'result ok');
-
-
-$mech->get_ok('/ws/2/label/72a46579-e9a0-405a-8ee1-e6e6b63b8212?inc=label-rels+url-rels', 'label lookup with label and url relationships');
-&$v2 ($mech->content, "Validate label lookup with label and url relationships");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'label lookup with label and url relationships',
+    '/label/72a46579-e9a0-405a-8ee1-e6e6b63b8212?inc=label-rels+url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="original production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
         <name>rhythm zone</name><sort-name>rhythm zone</sort-name><country>JP</country>
@@ -153,12 +140,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </label>
 </metadata>';
 
-is ($diff->compare ($expected, $mech->content), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=url-rels', 'release group lookup with url relationships');
-&$v2 ($mech->content, "Validate release group lookup with url relationships");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'release group lookup with url relationships',
+    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
@@ -172,7 +156,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </relation-list>
     </release-group>
 </metadata>';
-
-is ($diff->compare ($expected, $mech->content), 0, 'result ok');
 
 done_testing;

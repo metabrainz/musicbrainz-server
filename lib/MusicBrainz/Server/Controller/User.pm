@@ -13,8 +13,12 @@ use MusicBrainz::Server::Types qw(
     $RELATIONSHIP_EDITOR_FLAG
 );
 
-__PACKAGE__->config(
+with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'user',
+    model => 'Editor'
+};
+
+__PACKAGE__->config(
     paging_limit => 25,
 );
 
