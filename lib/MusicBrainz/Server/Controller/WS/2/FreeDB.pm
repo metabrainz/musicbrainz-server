@@ -17,10 +17,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-Readonly my %serializers => (
-    xml => 'MusicBrainz::Server::WebService::XMLSerializer',
-);
-
 sub freedb_search : Chained('root') PathPart('freedb') Args(0)
 {
     my ($self, $c) = @_;

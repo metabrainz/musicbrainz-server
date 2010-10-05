@@ -21,10 +21,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'List',
 };
 
-Readonly my %serializers => (
-    xml => 'MusicBrainz::Server::WebService::XMLSerializer',
-);
-
 Readonly our $MAX_ITEMS => 25;
 
 sub base : Chained('/') PathPart('ws/2/list') CaptureArgs(0) { }

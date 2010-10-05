@@ -18,10 +18,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-Readonly my %serializers => (
-    xml => 'MusicBrainz::Server::WebService::XMLSerializer',
-);
-
 sub puid : Chained('root') PathPart('puid') Args(1)
 {
     my ($self, $c, $id) = @_;

@@ -34,10 +34,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Work'
 };
 
-Readonly my %serializers => (
-    xml => 'MusicBrainz::Server::WebService::XMLSerializer',
-);
-
 sub work_toplevel
 {
     my ($self, $c, $stash, $work) = @_;
