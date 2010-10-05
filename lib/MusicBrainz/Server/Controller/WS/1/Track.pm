@@ -231,15 +231,15 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->releases) {
-        my ($releases) = $c->model('Release')->find_by_recording($track->id);
+        my @releases = $c->model('Release')->find_by_recording($track->id);
 
-        $c->model('ReleaseStatus')->load(@$releases);
-        $c->model('ReleaseGroup')->load(@$releases);
-        $c->model('ReleaseGroupType')->load(map { $_->release_group } @$releases);
-        $c->model('Script')->load(@$releases);
-        $c->model('Language')->load(@$releases);
+        $c->model('ReleaseStatus')->load(@releases);
+        $c->model('ReleaseGroup')->load(@releases);
+        $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+        $c->model('Script')->load(@releases);
+        $c->model('Language')->load(@releases);
 
-        $c->stash->{data}{releases} = $releases;
+        $c->stash->{data}{releases} = \@releases;
         $c->stash->{inc}->tracklist(1);
 
         unless ($c->stash->{inc}->artist) {
