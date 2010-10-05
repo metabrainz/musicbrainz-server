@@ -5,7 +5,10 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
-__PACKAGE__->config( entity_name => 'tag' );
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Tag',
+    entity_name => 'rg',
+};
 
 sub base : Chained('/') PathPart('tag') CaptureArgs(0) { }
 

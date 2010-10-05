@@ -13,7 +13,10 @@ use MusicBrainz::Server::Entity::CDTOC;
 
 use HTTP::Status qw( :constants );
 
-__PACKAGE__->config( entity_name => 'cdtoc' );
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'CDTOC',
+    entity_name => 'cdtoc'
+};
 
 sub base : Chained('/') PathPart('cdtoc') CaptureArgs(0) {}
 

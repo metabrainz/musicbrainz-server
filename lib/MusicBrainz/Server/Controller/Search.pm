@@ -1,9 +1,6 @@
 package MusicBrainz::Server::Controller::Search;
-
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use LWP::UserAgent;
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
