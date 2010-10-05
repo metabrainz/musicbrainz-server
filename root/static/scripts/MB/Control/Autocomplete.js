@@ -175,7 +175,10 @@ MB.Control.Autocomplete = function (options) {
         });
 
         self.autocomplete = self.input.data ('autocomplete');
-        self.input.bind ('keydown', self.pagerKeyEvent);
+        self.input.bind ('keydown.mb', self.pagerKeyEvent);
+        self.input.bind ('propertychange.mb input.mb',
+                         function (event) { self.input.trigger ("keydown"); }
+        );
 
         self.autocomplete._renderItem = function (ul, item) {
             return item['pages'] ? formatPager (ul, item) : formatItem (ul, item);
