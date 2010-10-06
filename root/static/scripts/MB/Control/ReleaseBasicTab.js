@@ -87,10 +87,23 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
         self.preview.render ();
     };
 
+    var lines = function (data) {
+        if (data)
+        {
+            self.textarea.val (data.join ("\n"));
+        }
+        else
+        {
+            return self.textarea.val ().split ("\n");
+        }
+    };
+
     self.disc = disc;
     self.preview = preview;
     self.render = render;
     self.updatePreview = updatePreview;
+    self.lines = lines;
+
     self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
     self.trackparser = MB.TrackParser (self.disc, serialized);
 
@@ -125,11 +138,25 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview, serialized) {
         self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview));
     };
 
+    var guessCase = function () {
+        var gc = GuessCase ();
+        var mode = gc.getModes ().getDefaultMode ();
+
+        $.each (self.textareas, function (i, textarea) {
+            var tracks = [];
+            $.each (textarea.lines (), function (j, line) {
+                tracks.push (gc.guessTrack (line, mode));
+            });
+            textarea.lines (tracks);
+        });
+    };
+
     self.adv = advancedtab;
     self.preview = preview;
 
     self.render = render;
     self.newDisc = newDisc;
+    self.guessCase = guessCase;
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
@@ -170,6 +197,10 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
 
     $("a[href=#add_disc]").click (function () {
         self.tracklist.newDisc (self.adv.addDisc ());
+    });
+
+    $("a[href=#guesscase]").click (function () {
+        self.tracklist.guessCase ();
     });
 
     self.adv = advancedtab;

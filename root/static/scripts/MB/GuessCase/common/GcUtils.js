@@ -24,8 +24,6 @@
  * Utility functions, definitions
  **/
 function GcUtils() {
-	mb.log.enter("GcUtils", "__constructor");
-
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ---------------------------------------------------------------------------
@@ -56,10 +54,9 @@ function GcUtils() {
 	 * of the array (e.g. join,pop etc.)
 	 **/
 	this.inArray = function(a,k) {
-		mb.log.enter(this.GID, "inArray");
 		if (a == null || k == null) {
 			mb.log.error('One of key/array is null. k: $, a: $', k, a);
-			return mb.log.exit(false);
+			return false;
 		}
 		k = k.toLowerCase();
 		var v = (a[k] || null);
@@ -68,8 +65,8 @@ function GcUtils() {
 				 v != null &&
 				 v == k &&
 				 typeof(v) == 'string');
-		// mb.log.debug("$=$", k, f);
-		return mb.log.exit(f);
+
+		return f;
 	};
 
 	/**
@@ -101,13 +98,13 @@ function GcUtils() {
 				"rework", "reworked", "remixed", "dirty", "airplay"];
 	};
 	this.isPrepBracketSingleWord = function(w) {
-		mb.log.enter(this.GID, "isPrepBracketSingleWord");
+		
 		if (!this.preBracketSingleWords) {
 			this.preBracketSingleWords = this.toAssocArray(this.getPrepBracketSingleWords());
 		}
 		var f = this.inArray(this.preBracketSingleWords,w);
-		mb.log.debug("$=$", w, f);
-		return mb.log.exit(f);
+
+		return f;
 	}; // preprocessor_bracket_singlewords
 
 	/**
@@ -136,13 +133,13 @@ function GcUtils() {
 				"orchestral"];
 	};
 	this.isLowerCaseBracketWord = function(w) {
-		mb.log.enter(this.GID, "isLowerCaseBracketWord");
+
 		if (!this.lowerCaseBracketWords) {
 			this.lowerCaseBracketWords = this.toAssocArray(this.getLowerCaseBracketWords());
 		}
 		var f = this.inArray(this.lowerCaseBracketWords,w);
-		mb.log.debug("$=$", w, f);
-		return mb.log.exit(f);
+
+		return f;
 	}; // lowercase_bracket_words
 
 	/**
@@ -152,15 +149,15 @@ function GcUtils() {
 	 * keschte		2005-05-25		first version
 	 **/
 	this.isPrepBracketWord = function(w) {
-		mb.log.enter(this.GID, "isPrepBracketWord");
+
 		if (!this.prepBracketWords) {
 			this.prepBracketWords = this.toAssocArray(
 				["cd","disk",'12"','7"', "a_cappella", "re_edit"]
 				.concat(this.getLowerCaseBracketWords()));
 		}
 		var f = this.inArray(this.prepBracketWords,w);
-		mb.log.debug("$=$", w, f);
-		return mb.log.exit(f);
+
+		return f;
 	}; // preprocessor_bracket_words
 
 
@@ -170,15 +167,15 @@ function GcUtils() {
 	 * keschte		2005-05-24		first version
 	 **/
 	this.isSentenceStopChar = function(w) {
-		mb.log.enter(this.GID, "isSentenceStopChar");
+
 		if (!this.sentenceStopChars) {
 			this.sentenceStopChars = this.toAssocArray([
 				":",".",";","?","!","/"
 			]);
 		}
 		var f = this.inArray(this.sentenceStopChars,w);
-		mb.log.debug("$=$", w, f);
-		return mb.log.exit(f);
+
+		return f;
 	}; // sentencestop_chars
 
 	/**
@@ -211,7 +208,7 @@ function GcUtils() {
 	 * keschte		2005-05-31		first version
 	 **/
 	this.isMacTitledWord = function(w) {
-		mb.log.enter(this.GID, "isMacTitledWord");
+
 		if (!this.macTitledWords) {
 			this.macTitledWords = this.toAssocArray(this.getMacTitledWords());
 		}
