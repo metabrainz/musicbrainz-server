@@ -87,7 +87,8 @@ sub artist_ids
 sub recording_ids
 {
     my $self = shift;
-    map { $_->{recording_id} }
+    grep { defined }
+        map { $_->{recording_id} }
         @{ $self->data->{new_tracklist} },
         @{ $self->data->{old_tracklist} }
 }
@@ -158,8 +159,10 @@ sub accept
         "The medium's tracklist has been modified since the edit was created"
     ) if $medium->tracklist->track_count != @{ $self->data->{old_tracklist} };
 
+    # Create related data (artist credits and recordings)
     for my $track (@{ $self->data->{new_tracklist} }) {
         $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
+        $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
     }
 
     # See if we need a new tracklist
@@ -213,11 +216,12 @@ sub create_tracklist
     return Tracklist->new(
         tracks => [
             map {
+                my $recording = $loaded->{Recording}{$_->{recording_id}};
                 Track->new(
                     name => $_->{name},
                     artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
                     length => $_->{length},
-                    recording => $loaded->{Recording}{$_->{recording_id}},
+                    $recording ? ( recording => $recording ) : (),
                     position => $i++,
                 )
             } @$tracklist

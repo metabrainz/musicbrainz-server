@@ -436,7 +436,8 @@ sub _edit_release_track_edits
 
                 my $track = $trackchanges->track;
                 my $recording = $c->model('Recording')->get_by_gid($rec_gid);
-                $track->recording_id($recording->id);
+                $track->recording_id($recording->id)
+                    if $recording;
 
                 push @tracks, $track
             }
