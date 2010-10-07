@@ -1,8 +1,8 @@
 [%- info_links = [
     ['index', rdfa_seeAlso_link_artist(artist, 'show', l('Overview'))],
     ['releases', rdfa_seeAlso_link_artist(artist, 'releases', l('Releases'))],
-    ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
     ['recordings', rdfa_seeAlso_link_artist(artist, 'recordings', l('Recordings'))],
+    ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
     ['relationships', rdfa_seeAlso_link_artist(artist, 'relationships', l('Relationships'))],
     ['aliases', rdfa_seeAlso_link_artist(artist, 'aliases', l('Aliases'))],
     ['tags', link_artist(artist, 'tags', l('Tags'))],

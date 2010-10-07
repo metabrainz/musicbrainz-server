@@ -1,10 +1,10 @@
 [%- info_links = [
     ['index', link_tag(tag, 'show', l('Overview'))],
     ['artist', link_tag(tag, 'artist', l('Artists'))],
-    ['label', link_tag(tag, 'label', l('Labels'))],
-    ['recording', link_tag(tag, 'recording', l('Recordings'))],
     ['release_group', link_tag(tag, 'release_group', l('Release groups'))],
+    ['recording', link_tag(tag, 'recording', l('Recordings'))],
     ['work', link_tag(tag, 'work', l('Works'))],
+    ['label', link_tag(tag, 'label', l('Labels'))],
 ] -%]
 
 <h1>[%- l('Tag “{tag}”', { tag => link_tag(tag, 'show') }) -%]</h1>
