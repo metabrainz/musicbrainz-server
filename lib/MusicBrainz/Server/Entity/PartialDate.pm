@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::PartialDate;
 use Moose;
 use Date::Calc;
 
-use overload '<=>' => \&_cmp;
+use overload '<=>' => \&_cmp, fallback => 1;
 
 has 'year' => (
     is => 'rw',
