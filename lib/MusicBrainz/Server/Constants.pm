@@ -93,8 +93,7 @@ Readonly our $EDIT_MEDIUM_DELETE => 53;
 Readonly our $EDIT_MEDIUM_REMOVE_DISCID => 54;
 Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
 Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
-
-Readonly our $EDIT_TRACK_EDIT => 62;
+Readonly our $EDIT_MEDIUM_EDIT_TRACKLIST => 57;
 
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_MERGE => 74;
@@ -104,8 +103,6 @@ Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
 
 Readonly our $EDIT_TRACKLIST_CREATE => 81;
-Readonly our $EDIT_TRACKLIST_ADDTRACK => 85;
-Readonly our $EDIT_TRACKLIST_DELETETRACK => 86;
 
 Readonly our $EDIT_RELATIONSHIP_CREATE => 90;
 Readonly our $EDIT_RELATIONSHIP_EDIT => 91;
