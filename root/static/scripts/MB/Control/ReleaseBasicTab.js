@@ -73,7 +73,7 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
             {
                 return;
             }
-            
+
             str += item.position.val () + ". " + item.title.val ();
             str += " (" + item.length.val () + ")";
             str += "\n";
@@ -82,8 +82,8 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
         self.textarea.val (str);
     };
 
-    var updatePreview = function () {
-        self.trackparser.run ();
+    var updatePreview = function (filter) {
+        self.trackparser.run (filter);
         self.preview.render ();
     };
 
@@ -139,17 +139,13 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview, serialized) {
     };
 
     var guessCase = function () {
-        var gc = GuessCase ();
-        var mode = gc.getModes ().getDefaultMode ();
-
         $.each (self.textareas, function (i, textarea) {
-            var tracks = [];
-            $.each (textarea.lines (), function (j, line) {
-                tracks.push (gc.guessTrack (line, mode));
-            });
-            textarea.lines (tracks);
+            textarea.updatePreview (self.guess_track.guess);
+            textarea.render ();
         });
     };
+
+    self.guess_track = MB.GuessCase.Track ();
 
     self.adv = advancedtab;
     self.preview = preview;

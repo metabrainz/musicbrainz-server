@@ -10,6 +10,7 @@ mb.log.error = function (msg) { MB.utility.exception ('GuessCaseError', msg); };
 mb.log.exit = function (ret) { return ret; };
 mb.log.info = function () {};
 mb.log.isDebugMode = function () { return false; }
+mb.log.trace = function () {};
 
 mb.utils = {};
 

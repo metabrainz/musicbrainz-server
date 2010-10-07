@@ -24,10 +24,11 @@
   <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeDefault.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeFrench.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeSentence.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModes.js') %]" type="text/javascript"></script>
 
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/GcMain.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Modes.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Main.js') %]" type="text/javascript"></script>
 
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Track.js') %]" type="text/javascript"></script>
 
   <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseBasicTab.js') %]" type="text/javascript"></script>
@@ -143,6 +144,18 @@
       <br />
       <input type="checkbox" name="tracktimes" id="tracktimes" checked="checked">
       <label for="tracktimes">[% l('Detect track durations') %]</label>
+      </p>
+
+      <h3>Guess case options</h3>
+      <p id="guesscase-options">
+      <select name="gc-mode" id="gc-mode"> </select>
+      <br />
+      <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+      <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+      <br />
+      <input type="checkbox" name="gc-roman" id="gc-roman">
+      <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+      <br />
       </p>
 
     </fieldset>

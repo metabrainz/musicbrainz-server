@@ -24,8 +24,6 @@
  * Models the "SentenceMode" GuessCase mode.
  **/
 function GcModeSentence(modes) {
-	mb.log.enter("GcModeSentence", "__constructor");
-
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ---------------------------------------------------------------------------
@@ -36,19 +34,6 @@ function GcModeSentence(modes) {
 		  'First word titled, lowercase for <i>most</i> of the other '
 		+ 'words. Read the [url]description[/url] for more details.',
 		  '/doc/GuessCaseMode/SentenceMode');
-
-	// ----------------------------------------------------------------------------
-	// member variables
-	// ---------------------------------------------------------------------------
-
-
-	// ----------------------------------------------------------------------------
-	// member functions
-	// ---------------------------------------------------------------------------
-
-
-	// exit constructor
-	mb.log.exit();
 }
 
 try {

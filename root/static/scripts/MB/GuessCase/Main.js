@@ -19,29 +19,24 @@
 
 */
 
+MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
+
 /**
  * Main class of the GC functionality
  **/
-function GuessCase() {
+MB.GuessCase.Main = function () {
     var self = MB.Object ();
 
     // ----------------------------------------------------------------------------
     // placeholders for stuff which used to be inherited from the edit suite.
     // ---------------------------------------------------------------------------
-    self.isConfigTrue = function () { return false; };
+    self.isConfigTrue = function (cfg) { return cfg (); };
     window.gc = self; /* FIXME: ugly hack. --warp. */
 
-    // ----------------------------------------------------------------------------
-    // register class/global id
-    // ---------------------------------------------------------------------------
-    self.CN = "GuessCase";
-    self.GID = "gc";
-
-    // ----------------------------------------------------------------------------
-    // register module
-    // ---------------------------------------------------------------------------
-    self.getModID = function() { return "es.gc"; };
-    self.getModName = function() { return "Guess case"; };
+    /* config. */
+    self.CFG_AUTOFIX = function () { return false; };
+    self.CFG_UC_ROMANNUMERALS = function () { return $('#gc-roman').is(':checked'); };
+    self.CFG_UC_UPPERCASED = function () { return $('#gc-keepuppercase').is(':checked'); };
 
     // ----------------------------------------------------------------------------
     // member variables
@@ -60,96 +55,14 @@ function GuessCase() {
 	SERIES_NUMBER 	: /^(\d+|[ivx]+)$/i
     }; // holder for the regular expressions
 
-    // list of possible modes, mode is initialised to English.
-    self.modes = new GcModes();
-    self.mode = self.modes.getDefaultMode(); // setup default mode.
-    self.artistmode = self.modes.getArtistMode(); // setup artist mode.
+    self.modes = MB.GuessCase.Modes ();
 
-    // cookie keys
-    self.COOKIE_MODE = self.getModID()+".mode";
-    
-    // configuration keys
-    self.CFG_AUTOFIX = self.getModID()+".autofix";
-    self.CFG_UC_ROMANNUMERALS = self.getModID()+".uc_romannumerals";
-    self.CFG_UC_UPPERCASED = self.getModID()+".uc_uppercased";
-
-    self.CONFIG_LIST = [];
-/*
-		new EsModuleConfig(self.CFG_AUTOFIX, false,
-			 			 "Apply guess case after page loads",
-			 			 "The guess case function is automatically applied for all the fields "
-			 			 + "in the form. You can use Undo All if you want to reverse the changes.")
-
-		, new EsModuleConfig(self.CFG_UC_ROMANNUMERALS, true,
-			 			 "Uppercase roman numerals",
-		 				 "Convert roman numerals i, ii, iii, iv etc. to uppercase.")
-
-		, new EsModuleConfig(self.CFG_UC_UPPERCASED, true,
-			 			 "Keep uppercase words uppercased",
-		 				 "If a word is all uppercase characters, it is kept that way "
-		 				 +"(Overrides normal behaviour).")
-                                                 */
+    /* FIXME: inconsistent. */
+    self.artistmode = self.modes.artist_mode;
 
     // ----------------------------------------------------------------------------
     // member functions
     // ---------------------------------------------------------------------------
-
-    /**
-     * Override self method for initial configuration (register buttons etc.)
-     **/
-    self.setupModuleDelegate =  function() {
-	self.DEFAULT_EXPANDED = true;
-	self.DEFAULT_VISIBLE = true;
-    };
-
-    /**
-     * Resets the modules configuration
-     **/
-    self.resetModuleDelegate = function() {
-	mb.cookie.remove(self.COOKIE_MODE);
-    };
-
-    /**
-     * Prepare code for self module.
-     *
-     * @returns raw html code
-     **/
-    self.getModuleHtml = function() {
-	var cv = mb.cookie.get(self.COOKIE_MODE); // get editsuite mode from cookie.
-	if (cv) {
-	    self.setMode(cv);
-	}
-	var s = [];
-	s.push(self.getModuleStartHtml({x: true, log: true}));
-	s.push('<table cellspacing="0" cellpadding="0" border="0" class="moduletable">');
-	s.push('<tr valign="top">');
-	s.push('<td width="10">');
-	s.push(self.modes.getDropdownHtml());
-	s.push('</td>');
-	s.push('<td width="10">&nbsp;</td>');
-	s.push('<td width="100%">');
-	s.push('<span id="'+self.getModID()+'-text-expanded"></span>');
-	s.push('</td></tr>');
-	s.push('<tr valign="top">');
-	s.push('<td colspan="3">');
-	s.push(self.getConfigHtml());
-	s.push('</td></tr>');
-	s.push('</table>');
-	s.push(self.getModuleEndHtml({x: true}));
-	s.push(self.getModuleStartHtml({x: false}));
-	s.push(self.getModuleEndHtml({x: false}));
-	return s.join("");
-    };
-
-    /**
-     * get settings from cookie
-     **/
-    self.onModuleHtmlWrittenDelegate = function() {
-	if (self.isConfigTrue(self.CFG_AUTOFIX)) {
-	    mb.registerDOMReadyAction(new MbEventAction("es", "guessAllFields", "Autoguess all input fields"));
-	}
-	self.modes.updateUI();
-    };
 
     /**
      * Initialise the GuessCase object for another run
@@ -308,63 +221,14 @@ function GuessCase() {
     };
 
     /**
-     * Set a new GuessCase mode
+     * Selects the current value from the DropDown.
      **/
-    self.setMode = function(mode) {
-
-	var o;
-	if (mode instanceof GcMode) {
-	    self.mode = mode;
-
-	    return true;
-	} else if ((o = gc.modes.getModeFromID(mode, true)) != null) {
-	    self.mode = o;
-
-	    return true;
-	} else {
-
-	    return false;
-	}
+    self.useSelectedMode = function () {
+        gc.mode = self.modes.getMode ();
     };
 
-    /**
-     * Handles the given parameter, or selects
-     // the current value from the DropDown.
-     **/
-    self.useSelectedMode = function(mode) {
-	if (mode && self.setMode(mode)) {
-	} else {
-	    if (self.isUIAvailable()) {
-		gc.modes.useModeFromUI(); // Get mode from dropdown
-	    }
-	}
-    };
-
-    /**
-     * Restores the saved mode from the member variable
-     **/
-    self.restoreMode = function() {
-
-	if (self.oldmode && self.oldmode instanceof GcMode) {
-	    self.mode = self.oldmode;
-	    self.oldmode = null;
-
-	}
-
-    };
-
-    /**
-     * Returns the current modes object.
-     **/
-    self.getModes = function() {
-	return self.modes;
-    };
-
-    /**
-     * Returns the current mode object.
-     **/
-    self.getMode = function() {
-	return self.mode;
+    self.getMode = function () {
+        return self.modes.getMode ();
     };
 
     /**
@@ -405,4 +269,4 @@ function GuessCase() {
     };
 
     return self;
-}
+};
