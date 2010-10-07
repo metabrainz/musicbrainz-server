@@ -1,0 +1,131 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use strict;
+use warnings;
+use utf8;
+
+package NoUpperCase;
+use base qw( MusicBrainz::Server::ReportScript );
+
+sub GatherData
+{
+    my $self = shift;
+
+    $self->GatherDataFromQuery(<<'EOF', [], \&filter);
+        SELECT
+                tr.id AS track_id,
+                tr.name AS track_name,
+                aj.sequence AS seq,
+                aj.album AS album_id,
+                ar.id AS artist_id,
+                ar.name AS artist_name,
+                ar.sortname AS artist_sortname,
+                ar.resolution AS artist_resolution
+        FROM
+                track tr, albumjoin aj, album al, artist ar
+        WHERE
+                aj.track = tr.id
+                AND aj.album = al.id
+                AND al.language not in (198)
+                AND al.script not in (83,84,85)
+                AND tr.artist = ar.id
+                AND tr.name !~ '[[:upper:]]'
+                AND tr.name ~ '[[:lower:]]'
+        ORDER BY
+                ar.sortname, aj.album, tr.name
+EOF
+}
+
+sub filter
+{
+    my $row = shift;
+
+    my $seq = $row->{seq};
+
+    # we really need to force decoding as UTF-8 because character class
+    # recognition does not work with plain strings coming from the db
+    # Note: This might change in the future, if DBI is fixed?
+    if ($] > 5.007)
+    {
+        require Encode;
+        #$row->{track_name} = Encode::decode_utf8($row->{track_name});
+        Encode::_utf8_on($row->{track_name});
+        Encode::_utf8_on($row->{artist_name});
+    }
+
+    # filter out any trackname that starts with a number as those often
+    # have no "other" capital letters
+    # also remove every title starting with ' or an ellipsis '...'
+    return undef if $row->{track_name} =~ m/^(?:[0-9'\x{2026}]|\.{3}).*/x;
+
+    # filter out any upper case caracters left
+    # postgres' regex only catches those cases where a character is an
+    # ASCII uppercase character with the default system encoding C,
+    # we need to take care of accented, Greek, Cyrillic etc. characters
+    # as well
+    # Note: \p{Uppercase} is the most complete upper case class.
+    return undef if $row->{track_name} =~ m/\p{Uppercase}/;
+
+    # filter out any trackname that is in brackets, either '[', '(' or '<'
+    # we catch "official" names like "[untitled]" etc. as well as some strange
+    # constructs like "(intro)" or "[speech]"
+    # Note: the old version that didn't match enough possibilities is below
+    return undef if $row->{track_name} =~ m/^[[<(].*[]>)]$/;
+
+    # finally filter out scripts that doen't have upper case characters and
+    # other stuff we don't force to have upper case chars in titles
+    return undef if $row->{track_name} =~ m/\p{InCaseFilter}/;
+
+    # also remove tracks with artists that have "strange" names
+    return undef if $row->{artist_name} =~ m/\p{InCaseFilter}/;
+
+    delete $row->{seq};
+
+    $row;
+}
+
+# helper method that defines the regex filter
+sub InCaseFilter {
+        return <<'END';
++007E                           # TILDE (only seen in japanese entries)
++2606                           # WHITE STAR
++301C                           # wide tile
++FF5E                           # FULLWIDTH TILDE
++0621    06E6           # some arabic chars that are not in the other ranges
++utf8::Katakana
++utf8::Hangul
++utf8::Hiragana
++utf8::Thai
++utf8::Ideographic
+END
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof NoUpperCase

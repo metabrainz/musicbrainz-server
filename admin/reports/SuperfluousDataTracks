@@ -1,0 +1,78 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use strict;
+use warnings;
+
+package SuperfluousDataTracks;
+use base qw( MusicBrainz::Server::ReportScript );
+
+use MusicBrainz::Server::Release;
+
+sub GatherData
+{
+    my $self = shift;
+
+    $self->GatherDataFromQuery(<<'EOF', [ &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME ]);
+        SELECT
+                ar.id AS artist_id,
+                ar.name AS artist_name,
+                ar.sortname AS artist_sortname,
+                ar.resolution AS artist_resolution,
+                ar.modpending AS artist_modpending,
+                al.id AS album_id,
+                al.name AS album_name,
+                al.modpending AS album_modpending
+        FROM
+                album al, artist ar, albummeta m
+        WHERE
+                al.artist = ar.id
+                AND al.name <> ?
+                AND     m.id = al.id
+                AND     al.id IN (
+                (
+                        SELECT
+                                album
+                        FROM
+                                albummeta, albumjoin, track
+                        WHERE
+                                track.id = albumjoin.track
+                                AND albumjoin.album = albummeta.id
+                                AND albumjoin.sequence = albummeta.tracks
+                                AND track.name ~* '([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)' )
+                )
+                AND m.discids = 0
+        ORDER BY
+                al.id DESC
+EOF
+
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof SuperfluousDataTracks

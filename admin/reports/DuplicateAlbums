@@ -1,0 +1,151 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Artist;
+
+use strict;
+use warnings;
+
+package DuplicateAlbums;
+use base qw(MusicBrainz::Server::ReportScript);
+
+sub GatherData
+{
+    my $self = shift;
+
+    $self->Log("Opening file");
+    my $file = &DBDefs::DATA_IMPORT_DIR . '/DuplicateAlbums.txt';
+    open(FILE, $file)
+        or warn("open $file: $!"), return;
+    $self->{DATA_TIMESTAMP} = (stat FILE)[9];
+
+    $self->Log("Reading file");
+
+    my @input;
+    while (<FILE>)
+    {
+        chomp;
+        my @mb_ids = split(' ', $_);
+
+        push @input, [ map { +{ album_mbid => $_ } } @mb_ids ];
+    }
+
+    close FILE;
+
+    $self->Log("Querying database");
+    my $sql = $self->SqlObj;
+
+    my %albums;
+    my %artists;
+
+    my @dupes;
+    foreach my $albums (@input)
+    {
+        my @entry;
+        foreach my $album (@$albums)
+        {
+
+                # Load the album.  Cache them all as we go; also cache negative
+                # responses.
+                my $al;
+                if (not exists $albums{ $album->{album_mbid} })
+                {
+                        $al = MusicBrainz::Server::Release->new($self->DBH);
+                        $al->SetMBId($album->{album_mbid});
+                        unless ($al->LoadFromId(0))
+                        {
+                                $albums{ $album->{album_mbid} } = undef;
+                                next;
+                        }
+                        $albums{ $album->{album_mbid} } = $al;
+                }
+                else
+                {
+                        $al = $albums{ $album->{album_mbid} }
+                                or next;
+                }
+
+                $album->{name} = MusicBrainz::Server::Validation::NormaliseSortText($al->GetName);
+
+
+                # Now load the artist the album belongs to. Do caching as above.
+                my $ar;
+                if (not exists $artists{ $al->GetArtist })
+                {
+                        $ar = MusicBrainz::Server::Artist->new($self->DBH);
+                        $ar->SetId($al->GetArtist);
+                        unless ($ar->LoadFromId)
+                        {
+                                $artists{ $al->GetArtist } = undef;
+                                next;
+                        }
+                        $artists{ $al->GetArtist } = $ar;
+                }
+                else
+                {
+                        $ar = $artists{ $al->GetArtist }
+                                or next;
+                }
+
+                $album->{artist_sortname} =
+                                        MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
+
+                push @entry, $album;
+        }
+
+        # Inside an entry, we sort by artist's sortname and album name.
+        @entry = sort { $a->{artist_sortname} cmp $b->{artist_sortname}
+                                                                || $a->{name} cmp $b->{name} } @entry;
+        push @dupes, \@entry if @entry >= 2;
+    }
+
+    $self->Log("Saving results");
+    my $report = $self->PagedReport;
+
+    foreach my $album (sort { $a->[0]->{artist_sortname}
+                                                                cmp $b->[0]{artist_sortname} } @dupes)
+    {
+        $report->Print([ map { +{ album_mbid => $_->{album_mbid} } } @$album ]);
+    }
+
+}
+
+sub CreateIndexFile
+{
+    my $self = shift;
+
+    open(my $fh, ">", $self->ReportDir . "/TIMESTAMP") or die $!;
+    print $fh "% return $self->{DATA_TIMESTAMP};\n";
+    close $fh;
+
+    $self->SUPER::CreateIndexFile(@_);
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof DuplicateAlbums

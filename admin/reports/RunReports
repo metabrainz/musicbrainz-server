@@ -1,0 +1,156 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use strict;
+use File::Basename qw( basename );
+use File::Temp qw( tempdir );
+use File::Path qw( rmtree );
+use DBDefs;
+$| = 1;
+
+@ARGV = "^" if not @ARGV;
+
+my $outputdir = &DBDefs::MB_SERVER_ROOT . "/htdocs/reports/generated";
+
+mkdir $outputdir
+    or $!{'EEXIST'}
+    or die "mkdir: $!\n";
+
+my @all = qw(
+    admin/reports/AlbumsToConvert.pl
+    admin/reports/ArtistsThatMayBeGroups
+    admin/reports/ArtistsThatMayBePersons
+    admin/reports/BadWin32CDTOCs
+    admin/reports/BadAmazonURLs
+    admin/reports/BrokenDiscIDs
+    admin/reports/DiscIDsWithManyReleases
+    admin/reports/DuplicateAlbums
+    admin/reports/DuplicateArtists.pl
+    admin/reports/DuplicateArtists2
+    admin/reports/DuplicatePUIDsPerAlbum
+    admin/reports/FeaturingArtists
+    admin/reports/NoLanguage
+    admin/reports/NoScript
+    admin/reports/NoUpperCase
+    admin/reports/PUIDsWithManyTracks
+    admin/reports/SuperfluousDataTracks
+    admin/reports/SuspectTrackCharacters
+    admin/reports/TooManyCapitals
+    admin/reports/TracksCalledUnknown
+    admin/reports/TracksNamedWithSequence.pl
+    admin/reports/TracksWithManyPUIDs
+    admin/reports/TracksWithoutTimes
+    admin/reports/TracksWithSequenceIssues
+    admin/reports/WrongCharset
+);
+
+
+# The primary purpose of this script is to be able to run the reports, saving
+# the output to a temporary file, then instantaneously switching the new
+# report into the place of the old one.  Thus there is no window during which
+# the report is unavailable or corrupted.
+
+my $errors = 0;
+
+for my $script (@all)
+{
+    my $scriptname = basename($script);
+
+    my $output = basename($script);
+    $output =~ s/\.pl$//;
+    $output = "$outputdir/$output";
+
+    unless (grep { $scriptname =~ /$_/i } @ARGV)
+    {
+        print localtime() . " : Not running $script\n";
+        next;
+    }
+
+    my $tempdir = tempdir(DIR => $outputdir, CLEANUP => 1);
+    if (not $tempdir)
+    {
+        warn "tempdir: $!\n";
+        ++$errors;
+        next;
+    }
+    if (not -w "$tempdir") {
+        warn "Can't write to $tempdir!\n";
+        ++$errors;
+        next;
+    }
+
+    $script = &DBDefs::MB_SERVER_ROOT . "/" . $script;
+
+    print localtime() . " : Running $scriptname (in $tempdir)\n";
+    my $t0 = time;
+    system "$script --output-dir=$tempdir";
+    my $t = time() - $t0;
+
+    my $size = 0;
+    $size += -s($_) for glob("$tempdir/*");
+    $size ||= "unknown";
+    print localtime() . " : $scriptname finished; status=$? time=$t size=$size\n";
+
+    if ($? != 0)
+    {
+        warn "$scriptname exited with $?\n";
+        ++$errors;
+        rmtree($tempdir);
+        next;
+    }
+
+    unless (chmod 0755, $tempdir)
+    {
+        warn "chmod $tempdir: $!\n";
+        ++$errors;
+    }
+
+    if (-d $output and not rmtree($output))
+    {
+        warn "Failed to remove existing directory $output: $!\n";
+        ++$errors;
+        next;
+    }
+
+    unless (rename $tempdir, $output)
+    {
+        warn "Failed to rename $tempdir to $output: $!\n";
+        ++$errors;
+        rmtree($tempdir);
+        next;
+    }
+
+    # Hooray!
+    print localtime() . " : $scriptname successfully swapped in\n";
+}
+
+print localtime() . " : Completed with 1 error\n" if $errors == 1;
+print localtime() . " : Completed with $errors errors\n" if $errors != 1;
+exit($errors ? 1 : 0);
+
+# eof RunReports

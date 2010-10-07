@@ -1,0 +1,127 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use strict;
+use warnings;
+
+package DuplicateArtists2;
+use base qw(MusicBrainz::Server::ReportScript);
+
+use MusicBrainz::Server::Artist;
+
+
+sub GatherData
+{
+    my $self = shift;
+
+    $self->Log("Opening file");
+    my $file = &DBDefs::DATA_IMPORT_DIR . '/DuplicateArtists2.txt';
+    open(FILE, $file)
+        or warn("open $file: $!"), return;
+    $self->{DATA_TIMESTAMP} = (stat FILE)[9];
+
+    $self->Log("Reading file");
+
+    my @input;
+    while (<FILE>)
+    {
+        chomp;
+        my @mb_ids = split(' ', $_);
+
+        push @input, [ map { +{ artist_mbid => $_ } } @mb_ids ];
+    }
+
+    close FILE;
+
+    $self->Log("Querying database");
+    my $sql = $self->SqlObj;
+
+    my @dupes;
+    foreach my $artists (@input)
+    {
+        my @entry;
+        foreach my $artist (@$artists)
+        {
+                my $ar = MusicBrainz::Server::Artist->new($self->DBH);
+                $ar->SetMBId($artist->{artist_mbid});
+
+                next unless $ar->LoadFromId;
+
+                my $num_albums = $sql->SelectSingleValue("
+                        SELECT
+                                COUNT(*)
+                        FROM
+                                album
+                        WHERE
+                                artist = ?", $ar->GetId);
+
+                my $num_tracks = $sql->SelectSingleValue("
+                        SELECT
+                                COUNT(*)
+                        FROM
+                                track
+                        WHERE
+                                artist = ?", $ar->GetId);
+
+                $artist->{id} = $ar->GetId;
+                $artist->{num_albums} = $num_albums;
+                $artist->{num_tracks} = $num_tracks;
+                $artist->{sort_name} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
+
+                push @entry, $artist;
+        }
+
+        push @dupes, \@entry if @entry >= 2;
+    }
+
+    $self->Log("Saving results");
+    my $report = $self->PagedReport;
+
+    foreach my $artists (sort { $a->[0]->{sort_name}
+                                                                cmp $b->[0]->{sort_name} } @dupes)
+    {
+        delete $_->{sort_name} foreach @$artists;
+        $report->Print($artists);
+    }
+
+}
+
+sub CreateIndexFile
+{
+    my $self = shift;
+
+    open(my $fh, ">", $self->ReportDir . "/TIMESTAMP") or die $!;
+    print $fh "% return $self->{DATA_TIMESTAMP};\n";
+    close $fh;
+
+    $self->SUPER::CreateIndexFile(@_);
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof DuplicateArtists2

@@ -1,0 +1,84 @@
+#!/usr/bin/perl -w
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 2006 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id: TracksWithoutTimes 10307 2008-09-10 16:07:46Z murdos $
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use strict;
+use warnings;
+
+package TracksWithSequenceIssues;
+use base qw( MusicBrainz::Server::ReportScript );
+
+use MusicBrainz::Server::Release;
+
+sub GatherData
+{
+    my $self = shift;
+
+    my $sql = $self->SqlObj;
+    my $nonalbum_name = MusicBrainz::Server::Release::NONALBUMTRACKS_NAME;
+
+    $self->GatherDataFromQuery(<<'EOF', [ &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME ]);
+        SELECT
+                ar.id AS artist_id,
+                ar.name AS artist_name,
+                ar.sortname AS artist_sortname,
+                ar.resolution AS artist_resolution,
+                ar.modpending AS artist_modpending,
+                al.id AS album_id,
+                al.name AS album_name,
+                al.modpending AS album_modpending
+        FROM
+                artist ar
+                INNER join album al ON (ar.id = al.artist)
+                INNER JOIN albummeta am ON (am.id = al.id)
+                INNER JOIN (SELECT
+                        max(sequence) AS lasttrack, album
+                FROM
+                        albumjoin aj
+                GROUP BY
+                        album
+                ) AS q1 ON (al.id = q1.album)
+                LEFT JOIN (SELECT
+                        1 as dupes_seq, album
+                FROM
+                        albumjoin
+                GROUP BY
+                        album, sequence
+                HAVING count(id) > 1
+                ) AS q2 ON (al.id = q2.album)
+        WHERE
+                (q1.lasttrack <> am.tracks 
+                        OR q2.dupes_seq = 1)
+                AND al.name <> ?
+        ORDER BY
+                LOWER(ar.sortname), LOWER(al.name)
+EOF
+
+}
+
+__PACKAGE__->new->RunReport;
+
+# vi: set ts=4 sw=4 :

@@ -1,0 +1,62 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use strict;
+use warnings;
+
+package SuspectTrackCharacters;
+use base qw( MusicBrainz::Server::ReportScript );
+
+sub GatherData
+{
+    my $self = shift;
+
+    $self->GatherDataFromQuery(<<'EOF');
+        SELECT
+                t.id AS track_id,
+                t.name AS track_name,
+                aj.album AS album_id,
+                ar.id AS artist_id,
+                ar.name AS artist_name,
+                ar.sortname AS artist_sortname,
+                ar.resolution AS artist_resolution
+        FROM
+                track t, albumjoin aj, artist ar
+        WHERE
+                aj.track = t.id
+                AND t.artist = ar.id
+                AND t.name ~ '[][*%$@{};"><]'
+                AND t.name !~ '^\\[(untitled|unknown|silence|data track)\\]$'
+        ORDER BY
+                ar.sortname, aj.album, t.name
+EOF
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof SuspectTrackCharacters

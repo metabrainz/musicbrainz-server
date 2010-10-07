@@ -1,0 +1,184 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use strict;
+use warnings;
+
+package FeaturingArtists;
+use base qw( MusicBrainz::Server::ReportScript );
+
+use ModDefs qw( :modstatus :modtype );
+
+#
+# Try to fix the track name. Returns the track name that was passed in if
+# none of the heuristics worked.
+#
+sub rewrite_name($)
+{
+    my $oldname = shift;
+    my $newname = $oldname;
+
+    #
+    # Check the most simple cases:
+    #   "track name (featuring artist)",
+    #   "track name [ft artist]" and the like
+    #
+    $newname =~ s/^
+                (.*?)                           # track name
+                \s+                             # space
+                [[(]\s*
+                (?:featuring|feat|ft|with)\.?\s+
+                (.*?)                           # artist name
+                [])]
+                (.*)$                           # mix info etc.
+        /
+                "$1 (feat. $2)$3"
+        /xoie;
+
+    return $newname if $newname ne $oldname;            # change done
+
+
+    #
+    # So far for the trivial case. There is more we can change
+    # using a simple heuristic. But first we have to get rid of
+    # track names that are too complicated or broken.
+    #
+
+    # If the track name contains a slash, colon or hyphen that is
+    # not followed by a featuring artist, we probably found
+    # something that needs to be converted to VA.
+    # Believe me, it's a lot.
+    #
+    return $newname if $oldname =~ m@ [-:/] (?!(featuring|feat|ft)\.?\s+)@i;
+
+
+    # The next ugly thing:
+    #   track name (remix info feat. artist)
+    #   track name (main artist feat. artist)
+    #
+    # We can't handle this automatically.
+    #
+    return $newname if $oldname =~ m@\([^)]+?(featuring|feat|ft)\.?\s+@i;
+
+    # If there's remix or version information in the track, our
+    # simple heuristic below won't work. We have to leave these
+    # tracks for manual conversion. Few entries are caught by
+    # this one.
+    #
+    return $newname if $oldname =~ m/\W(remix|mix|rmx|version)\W/i;
+
+    #
+    # The heuristic catches the following
+    #   Track name featuring
+    #   Track name - featuring ...
+    #
+    $newname =~ s/^
+                (.*?)                           # track name
+                (?:\s+-)?
+                \s+
+                (?:featuring|feat|ft)
+                (?:\.\s*|\s+)
+                (.*)                            # artist
+        $
+        /
+                 "$1 (feat. $2)"
+        /xoie;
+
+    return $newname if $newname ne $oldname;            # change done
+
+    #
+    # Add more ...
+    #
+
+    return $newname;
+}
+
+
+sub GatherData
+{
+    my $self = shift;
+
+    $self->GatherDataFromQuery(
+        <<'EOF',
+        SELECT
+                t.id AS track_id,
+                t.name AS track_name,
+                aj.album AS album_id,
+                ar.id AS artist_id,
+                ar.name AS artist_name,
+                ar.sortname AS artist_sortname,
+                ar.resolution AS artist_resolution
+        FROM
+                track t, artist ar, albumjoin aj
+        WHERE
+                t.artist = ar.id
+                AND aj.track = t.id
+                AND NOT EXISTS (
+                        SELECT
+                                id
+                        FROM
+                                moderation_open m
+                        WHERE
+                                m.rowid = t.id
+                                AND m.status = ?
+                                AND m.type = ?
+                )
+                AND (
+                        t.name ~* '[[(]feat[^.]'
+                        OR t.name ~* ' feat'
+                        OR t.name ~* '[[( ]ft'
+                        OR t.name ~* '[[(]with '
+                        OR t.name ~* '\Sw/\S'
+                )
+        ORDER BY
+                ar.sortname, t.name
+EOF
+        [ STATUS_OPEN, MOD_EDIT_TRACKNAME ],
+        \&filter,
+    );
+}
+
+sub filter
+{
+    my $row = shift;
+    my $track_name = $row->{track_name};
+
+    # Remove false positives.
+    #
+    return undef if $track_name !~ m/\b(ft|feat|featuring|with|w\/)\b/i;
+
+    my $newname = rewrite_name $track_name;
+    $newname = undef if $newname eq $track_name;
+    $row->{new_name} = $newname;
+
+    $row;
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof FeaturingArtists
