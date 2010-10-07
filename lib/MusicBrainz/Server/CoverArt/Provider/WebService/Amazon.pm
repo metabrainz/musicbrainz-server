@@ -1,22 +1,25 @@
 package MusicBrainz::Server::CoverArt::Provider::WebService::Amazon;
 use Moose;
 
+use Time::HiRes qw (sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
 use LWP::UserAgent;
 use XML::Simple;
 
-use aliased 'MusicBrainz::Server::CoverArt';
+use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 
 extends 'MusicBrainz::Server::CoverArt::Provider';
 
 has '+link_type_name' => (
-    default => 'asin',
+    default => 'amazon asin',
 );
 
 has '_aws_signature' => (
     is => 'ro',
     lazy_build => 1,
 );
+
+my $last_request_time;
 
 sub _build__aws_signature
 {
@@ -48,6 +51,13 @@ sub lookup_cover_art
 
     $url = $self->_aws_signature->addRESTSecret($url);
 
+    # Respect Amazon SLA
+    if ($last_request_time) {
+        my $i = 1 - tv_interval($last_request_time); 
+        sleep($i) if $i > 0;
+    }
+    $last_request_time = [ gettimeofday ];
+
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     my $response = $lwp->get($url) or return;
@@ -65,7 +75,8 @@ sub lookup_cover_art
     my $cover_art = CoverArt->new(
         provider        => $self,
         image_uri       => $image_url,
-        information_uri => $uri
+        information_uri => $uri,
+        asin            => $asin
     );
 
     return $cover_art;

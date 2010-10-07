@@ -233,6 +233,7 @@ BEGIN
     UPDATE release_group_meta SET releasecount = releasecount + 1 WHERE id = NEW.release_group;
     -- add new release_meta
     INSERT INTO release_meta (id) VALUES (NEW.id);
+    INSERT INTO release_coverart (id) VALUES (NEW.id);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
