@@ -129,7 +129,6 @@ sub iswc : Private
         return;
     }
 
-    # FIXME: should be a redirect to /iswc/show ?
     my @works = $c->model('Work')->find_by_iswc($iswc);
     $c->detach('not_found') unless @works;
 
