@@ -4,6 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use Switch;
+use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
@@ -234,6 +235,19 @@ sub _serialize_release_list
     push @$data, $gen->release_list($self->_list_attributes ($list), @list);
 }
 
+sub _serialize_quality
+{
+    my ($self, $data, $gen, $release, $inc) = @_;
+    my %quality_names = (
+        $QUALITY_LOW => 'low',
+        $QUALITY_NORMAL => 'normal',
+        $QUALITY_HIGH => 'high'
+    );
+    push @$data, $gen->quality(
+        $quality_names{$release->quality} || 'unknown'
+    );
+}
+
 sub _serialize_release
 {
     my ($self, $data, $gen, $release, $inc, $stash, $toplevel) = @_;
@@ -249,6 +263,7 @@ sub _serialize_release
     push @list, $gen->disambiguation($release->comment) if $release->comment;
     push @list, $gen->packaging($release->packaging) if $release->packaging;
 
+    $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
     $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
 
     if ($toplevel)

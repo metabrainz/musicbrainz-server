@@ -123,6 +123,7 @@ ws_test 'release lookup with release-groups, tags and ratings',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
         <title>My Demons</title><status>official</status>
+        <quality>unknown</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>

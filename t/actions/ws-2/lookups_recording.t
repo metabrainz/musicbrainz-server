@@ -30,6 +30,7 @@ ws_test 'recording lookup with releases',
         <release-list count="2">
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+                <quality>unknown</quality>
                 <text-representation>
                     <language>jpn</language><script>Latn</script>
                 </text-representation>
@@ -37,6 +38,7 @@ ws_test 'recording lookup with releases',
             </release>
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                 <title>サマーれげぇ!レインボー</title><status>official</status>
+                <quality>unknown</quality>
                 <text-representation>
                     <language>jpn</language><script>Jpan</script>
                 </text-representation>
@@ -55,6 +57,7 @@ ws_test 'lookup recording with official singles',
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                 <title>サマーれげぇ!レインボー</title><status>official</status>
+                <quality>unknown</quality>
                 <text-representation>
                     <language>jpn</language><script>Jpan</script>
                 </text-representation>
@@ -73,6 +76,7 @@ ws_test 'lookup recording with official singles (+media)',
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                 <title>サマーれげぇ!レインボー</title><status>official</status><date>2001-07-04</date><country>JP</country>
+                <quality>unknown</quality>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>cd</format>

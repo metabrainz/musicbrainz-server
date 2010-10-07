@@ -18,6 +18,7 @@ ws_test 'basic release lookup',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+        <quality>unknown</quality>
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
@@ -31,6 +32,7 @@ ws_test 'release lookup with artists + aliases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title><status>official</status>
+        <quality>unknown</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
@@ -59,6 +61,7 @@ ws_test 'release lookup with labels and recordings',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title><status>official</status>
+        <quality>unknown</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
@@ -105,6 +108,7 @@ ws_test 'release lookup with release-groups',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title><status>official</status>
+        <quality>unknown</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
@@ -135,6 +139,7 @@ ws_test 'release lookup with discids and puids',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+        <quality>unknown</quality>
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
