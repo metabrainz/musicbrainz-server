@@ -93,6 +93,7 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
     ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
     END;
 END -%]
 
