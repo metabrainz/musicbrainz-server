@@ -37,6 +37,7 @@ role
 
         if (!defined $entity) {
             $self->not_found($c);
+            $c->detach;
             return;
         }
 
@@ -57,6 +58,7 @@ role
         }
         else {
             $self->invalid_mbid($c, $id);
+            $c->detach;
         }
     };
 };
