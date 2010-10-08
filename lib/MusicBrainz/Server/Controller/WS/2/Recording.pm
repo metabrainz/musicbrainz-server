@@ -188,7 +188,7 @@ sub recording_submit : Private
 
         my @isrcs = $node->find('isrc-list/isrc')->get_nodelist;
         for my $isrc_node (@isrcs) {
-            my $isrc = $isrc_node->string_value;
+            my $isrc = $isrc_node->getAttribute('id');
             _error($c, "$isrc is not a valid ISRC")
                 unless is_valid_isrc($isrc);
 
