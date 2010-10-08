@@ -8,8 +8,12 @@ use DBDefs;
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
-__PACKAGE__->config(
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'Edit',
     entity_name => 'edit',
+};
+
+__PACKAGE__->config(
     paging_limit => 25,
 );
 

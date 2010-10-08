@@ -24,7 +24,7 @@ has 'info_uri_template' => (
 );
 
 has '+link_type_name' => (
-    default  => 'coverart'
+    default  => 'cover art link'
 );
 
 has 'domain' => (
@@ -69,7 +69,6 @@ sub _rewrite {
     $template =~ s/\$$_/$captures[$_]/g for @capture_indexes;
     return $template;
 }
-
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

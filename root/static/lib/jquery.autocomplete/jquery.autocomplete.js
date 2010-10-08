@@ -88,7 +88,7 @@ $.Autocompleter = function(input, options) {
 	});
 	
 	// only opera doesn't trigger keydown multiple times while pressed, others don't work with keypress at all
-	$input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
+	$input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete paste.autocomplete", function(event) {
 		// a keypress means the input has focus
 		// avoids issue where input had focus before the autocomplete was applied
 		hasFocus = 1;

@@ -16,13 +16,11 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
-    $EDIT_TRACK_EDIT
-    $EDIT_TRACKLIST_DELETETRACK
-    $EDIT_TRACKLIST_ADDTRACK
-    $EDIT_TRACKLIST_CREATE
+    $EDIT_MEDIUM_EDIT_TRACKLIST
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
+    $EDIT_TRACKLIST_CREATE
 );
 
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -427,57 +425,40 @@ sub _edit_release_track_edits
     {
         my $tracklist_id = $medium->{tracklist}->{id};
 
-        my $track_idx = 0;
-        for my $trackchanges (@{ $medium->{tracklist}->{changes} })
+        if ($tracklist_id)
         {
-            my $track = $trackchanges->track;
-            my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
+            # We already have a tracklist, so lets create a tracklist edit
+            my @tracks;
+            my $track_idx = 0;
+            for my $trackchanges (@{ $medium->{tracklist}->{changes} }) {
+                my $rec_gid = $data->{preview_mediums}[$medium_idx]{associations}[$track_idx++]{gid};
+                next if $trackchanges->deleted; 
 
-            my $recording;
-            $recording = $c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
+                my $track = $trackchanges->track;
+                my $recording = $c->model('Recording')->get_by_gid($rec_gid);
+                $track->recording_id($recording->id)
+                    if $recording;
 
-            if ($track->{'id'})
-            {
-                if ($track->{'deleted'})
-                {
-                    # Delete a track
-                    $self->$edit($c,
-                        $EDIT_TRACKLIST_DELETETRACK, $editnote,
-                        track => $c->model('Track')->get_by_id ($track->{'id'}));
-                }
-                else
-                {
-                    my $to_edit = $c->model('Track')->get_by_id ($track->{'id'});
-
-                    # Editing an existing track
-                    $self->$edit($c,
-                        $EDIT_TRACK_EDIT, $editnote,
-                        position => $track->{'position'},
-                        name => $track->{'name'},
-                        recording_id => $recording ? $recording->id : $to_edit->recording_id,
-                        artist_credit => $track->{'artist_credit'},
-                        length => $track->{'length'},
-                        to_edit => $to_edit,
-                        );
-                }
-            }
-            elsif ($tracklist_id)
-            {
-                my %edit = (
-                    position => $track->{'position'},
-                    name => $track->{'name'},
-                    artist_credit => $track->{'artist_credit'},
-                    length => $track->{'length'},
-                    tracklist_id => $tracklist_id,
-                    );
-
-                $edit{recording_id} = $recording->id if $recording;
-
-                # We are creating a new track (and not a new tracklist)
-                $self->$edit($c, $EDIT_TRACKLIST_ADDTRACK, $editnote, %edit);
+                push @tracks, $track
             }
 
-            $track_idx++;
+            @tracks = sort { $a->position <=> $b->position } @tracks;
+
+
+            my $medium_entity = $c->model('Medium')->get_by_id($medium->{id});
+            $c->model('Tracklist')->load($medium_entity);
+            $c->model('Track')->load_for_tracklists($medium_entity->tracklist);
+            $c->model('ArtistCredit')->load($medium_entity->tracklist->all_tracks);
+
+            $self->$edit($c,
+                $EDIT_MEDIUM_EDIT_TRACKLIST,
+                $editnote,
+                separate_tracklists => 1,
+                medium_id => $medium->{id},
+                tracklist_id => $tracklist_id,
+                old_tracklist => $medium_entity->tracklist,
+                new_tracklist => \@tracks
+            );
         }
 
         if (!$tracklist_id && scalar @{ $medium->{'tracklist'}->{'tracks'} })

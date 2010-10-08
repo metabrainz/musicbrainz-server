@@ -164,7 +164,7 @@ MB.utility.AutoComplete = function (input, query, results, options) {
     self.onChange = onChange;
     self.request = request;
 
-    self.input.bind (($.browser.opera ? "keypress" : "keydown"), function (event) {
+    self.input.bind (($.browser.opera ? "keypress" : "keydown") + " paste", function (event) {
 	clearTimeout(self.timeout);
 	self.timeout = setTimeout(self.onChange, self.options.delay);
     });

@@ -3,15 +3,20 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use List::Util qw( first );
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_REMOVE_DISCID
+    $EDIT_MEDIUM_MOVE_DISCID
 );
 use MusicBrainz::Server::Entity::CDTOC;
 
 use HTTP::Status qw( :constants );
 
-__PACKAGE__->config( entity_name => 'cdtoc' );
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'CDTOC',
+    entity_name => 'cdtoc'
+};
 
 sub base : Chained('/') PathPart('cdtoc') CaptureArgs(0) {}
 
@@ -200,6 +205,98 @@ sub attach : Local RequireAuth
         else {
             $c->stash( template => 'cdtoc/lookup.tt' );
             $c->forward('/cdtoc/lookup');
+        }
+    }
+}
+
+sub move : Local RequireAuth Edit
+{
+    my ($self, $c) = @_;
+
+    my $medium_cdtoc_id = $c->req->query_params->{toc};
+    my $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id($medium_cdtoc_id)
+        or $self->error($c, status => HTTP_BAD_REQUEST,
+                        message => "The provided CD TOC is not valid");
+
+    $c->model('CDTOC')->load($medium_cdtoc);
+    my $cdtoc = $medium_cdtoc->cdtoc;
+
+    $c->stash(
+        cdtoc => $cdtoc,
+        medium_cdtoc => $medium_cdtoc
+    );
+
+    if (my $release_id = $c->req->query_params->{release}) {
+        my $release = $c->model('Release')->get_by_id($release_id)
+            or $self->error($c, status => HTTP_NOT_FOUND,
+                    message => 'The requested release could not be found');
+
+        $c->model('ArtistCredit')->load($release);
+        $c->stash( release => $release );
+
+        # Load the release, list mediums
+        $c->model('Medium')->load_for_releases($release);
+        $c->model('Tracklist')->load($release->all_mediums);
+        my @possible_mediums = grep {
+            $_->tracklist->track_count == $cdtoc->track_count
+            } $release->all_mediums;
+
+        $self->error($c, status => HTTP_BAD_REQUEST,
+                message => 'This release has no mediums with the specified track count')
+            unless @possible_mediums;
+
+        my $medium_id = $c->req->query_params->{medium};
+        $medium_id = $possible_mediums[0]->id
+            if @possible_mediums == 1 && !defined $medium_id;
+
+        my $medium = first { $medium_id == $_->id } @possible_mediums;
+        $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => 'The medium you are trying to attach a disc ID to belongs to a different release'
+        ) unless $medium;
+
+        $medium->release($release);
+
+        if ($medium) {
+            $c->stash(template => 'cdtoc/attach_confirm.tt');
+            $c->model('Medium')->load($medium_cdtoc);
+            $c->model('Release')->load($medium_cdtoc->medium);
+
+            $self->edit_action($c,
+                form        => 'Confirm',
+                type        => $EDIT_MEDIUM_MOVE_DISCID,
+                edit_args   => {
+                    medium_cdtoc => $medium_cdtoc,
+                    new_medium   => $medium,
+                },
+                on_creation => sub {
+                    $c->response->redirect(
+                        $c->uri_for_action('/release/discids',
+                                           [ $release->gid ]));
+                    $c->detach;
+                }
+            )
+        }
+        else {
+            $c->stash(
+                mediums => \@possible_mediums,
+                template => 'cdtoc/attach_medium.tt'
+            );
+        }
+    }
+    else {
+        my $search_release = $c->form( query_release => 'Search::Query',
+                                       name => 'filter-release' );
+        $c->stash( template => 'cdtoc/move_search.tt' );
+
+        if ($search_release->submitted_and_valid($c->req->query_params)) {
+            my $releases = $self->_load_paged($c, sub {
+                $c->model('Search')->search(
+                    'release', $search_release->field('query')->value,
+                    shift, shift, { track_count => $cdtoc->track_count });
+            });
+            $c->model('ArtistCredit')->load(map { $_->entity } @$releases);
+            $c->stash( releases => $releases );
         }
     }
 }

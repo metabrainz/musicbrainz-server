@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Controller::OtherLookup;
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use strict;
-use warnings;
-use base 'MusicBrainz::Server::Controller';
 use MusicBrainz::Server::Form::OtherLookup;
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use MusicBrainz::Server::Data::Search qw( escape_query );

@@ -1,9 +1,6 @@
 package MusicBrainz::Server::Controller::Search;
-
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use LWP::UserAgent;
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
@@ -59,7 +56,10 @@ sub editor : Private
         $c->detach;
     }
 
-    $c->stash( template => 'search/editor-not-found.tt' );
+    $c->stash(
+        template => 'search/editor-not-found.tt',
+        query    => $query,
+    );
 }
 
 sub direct : Private
@@ -133,6 +133,7 @@ sub direct : Private
 
     $c->stash(
         template => sprintf ('search/results-%s.tt', $type),
+        query    => $query,
         results  => $results,
         type     => $type,
     );

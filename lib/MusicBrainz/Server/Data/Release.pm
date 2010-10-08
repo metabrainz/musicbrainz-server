@@ -500,14 +500,29 @@ sub _hash_to_row
 sub load_meta
 {
     my $self = shift;
+    my (@objs) = @_;
+
+    my %id_to_obj = map { $_->id => $_ } @objs;
+
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
         my ($obj, $row) = @_;
         $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-        $obj->cover_art_url($row->{coverarturl}) if defined $row->{coverarturl};
         $obj->info_url($row->{infourl}) if defined $row->{infourl};
         $obj->amazon_asin($row->{amazonasin}) if defined $row->{amazonasin};
         $obj->amazon_store($row->{amazonstore}) if defined $row->{amazonstore};
-    }, @_);
+    }, @objs);
+
+    my @ids = keys %id_to_obj;
+    $self->sql->select(
+        'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
+        @ids
+    );
+    while (1) {
+        my $row = $self->sql->next_row_hash_ref or last;
+        $id_to_obj{ $row->{id} }->cover_art_url( $row->{coverarturl} )
+            if defined $row->{coverarturl};
+    }
+    $self->sql->finish;
 }
 
 sub find_ids_by_track_ids

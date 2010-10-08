@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Controller::FreeDB;
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'CDStub',
+};
 
 sub base : Chained('/') PathPart('freedb') CaptureArgs(0) { }
 

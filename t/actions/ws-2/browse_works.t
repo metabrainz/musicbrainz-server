@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,10 +12,9 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5', 'browse works via artist (first page)');
-&$v2 ($mech->content, "Validate browse works via artist (first page)");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse works via artist (first page)',
+    '/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <work-list count="10">
         <work id="7e379a1d-f2bc-47b8-964e-00723df34c8a">
@@ -35,12 +35,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </work-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5&offset=5', 'browse works via artist (second page)');
-&$v2 ($mech->content, "Validate browse works via artist (second page)");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse works via artist (second page)',
+    '/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5&offset=5' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <work-list count="10" offset="5">
         <work id="6e89c516-b0b6-4735-a758-38e31855dcb6">
@@ -60,7 +57,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </work>
     </work-list>
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;

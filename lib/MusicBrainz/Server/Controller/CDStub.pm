@@ -1,14 +1,13 @@
 package MusicBrainz::Server::Controller::CDStub;
 use Moose;
-
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-sub base : Chained('/') PathPart('cdstub') CaptureArgs(0) { }
-
-__PACKAGE__->config(
+with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'CDStubTOC',
     entity_name => 'cdstubtoc',
-);
+};
+
+sub base : Chained('/') PathPart('cdstub') CaptureArgs(0) { }
 
 sub _load 
 {

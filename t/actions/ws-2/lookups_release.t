@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,10 +12,9 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/release/b3b7e934-445b-4c68-a097-730c6a6d47e6', 'basic release lookup');
-&$v2 ($mech->content, "Validate basic release lookup");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'basic release lookup',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
@@ -25,12 +25,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases', 'release lookup with artists + aliases');
-&$v2 ($mech->content, "Validate release lookup with artists");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'release lookup with artists + aliases',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title><status>official</status>
@@ -42,9 +39,12 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                     <alias-list count="6">
-                        <alias>エムフロウ</alias><alias>m-flow</alias>
-                        <alias>mflo</alias><alias>meteorite-flow crew</alias>
-                        <alias>mediarite-flow crew</alias><alias>えむふろう</alias>
+                        <alias>m-flow</alias>
+                        <alias>mediarite-flow crew</alias>
+                        <alias>meteorite-flow crew</alias>
+                        <alias>mflo</alias>
+                        <alias>えむふろう</alias>
+                        <alias>エムフロウ</alias>
                     </alias-list>
                 </artist>
             </name-credit>
@@ -53,12 +53,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings', 'release lookup with labels and recordings');
-&$v2 ($mech->content, "Validate release lookup with labels and recordings");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'release lookup with labels and recordings',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title><status>official</status>
@@ -102,12 +99,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups', 'release lookup with release-groups');
-&$v2 ($mech->content, "Validate release lookup with release-groups");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'release lookup with release-groups',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title><status>official</status>
@@ -135,12 +129,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings', 'release lookup with discids and puids');
-&$v2 ($mech->content, "Validate release lookup with discids and puids");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'release lookup with discids and puids',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
@@ -189,7 +180,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </medium-list>
     </release>
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;
