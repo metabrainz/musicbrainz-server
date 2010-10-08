@@ -729,7 +729,7 @@ CREATE TABLE release_meta
     dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     infourl             VARCHAR(255),
     amazonasin          VARCHAR(10),
-    amazonstore         VARCHAR(20),
+    amazonstore         VARCHAR(20)
 );
 
 CREATE TABLE release_coverart
