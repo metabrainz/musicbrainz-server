@@ -1,9 +1,3 @@
-[%- BLOCK about; %]
-<div about="[% rdfa_release_curi(release) %]">
-  [% content %]
-</div>
-[% END %]
-
 [%- BLOCK cover_art; %]
     <p>
         [% IF release.cover_art_url; %]

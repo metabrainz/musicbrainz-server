@@ -35,10 +35,10 @@ END -%]
  'http://ontologi.es/place/' _ country.iso_code;
 END -%]
 
-[% MACRO rdfa_format_curi(name) BLOCK;
- '[mfo:' _ url_escape(name.replace(' ','')) _ ']';
+[% MACRO rdfa_format_curi(medium) BLOCK;
+  '[mfo:' _ url_escape(medium.format_name.replace(' ','_')) _ ']';
 END -%]
-
+[%# '[mfo:' _ url_escape(name.replace(' ','')) _ ']';%]
 [% ################ %]
 [% # compact uris # %]
 [% ################ %]
@@ -181,10 +181,7 @@ END -%]
     '</span>' IF release.edits_pending AND action == 'show';
 END -%]
 
-[% # note assumes rdfa_release_ns() is active %]
-[%- MACRO rdfa_relase_format(format_name) BLOCK;
-    '<span about="[rel:]" typeof="' _ rdfa_format_curi(format_name) _ '">' _ format_name _ '</span>';
-END -%]
+
 
 [% # note assumes rdfa_release_ns() is active %]
 [%- MACRO rdfa_release_event_date(release) BLOCK %]
@@ -394,7 +391,7 @@ END -%]
 [%# TODO change to set? %]
 [%- MACRO rdfa_format_list(mediums) BLOCK;
     list = [];
-    list.push(rdfa_format_curi(medium.format_name)) FOR medium=mediums;
+    list.push(rdfa_format_curi(medium)) FOR medium=mediums;
     list.join(' ');
 END -%]
 
