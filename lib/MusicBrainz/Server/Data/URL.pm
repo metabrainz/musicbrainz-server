@@ -12,7 +12,8 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
 my %URL_SPECIALIZATIONS = (
     'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia.*/wiki/}i,
     'ASIN' => qr{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
-    'CDBaby' => qr{^https?://(?:www.)?cdbaby.com}i
+    'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/cd}i,
+    'Ozon' => qr{^https?://(?:www.)?ozon.ru/context/}i
 );
 
 sub _gid_redirect_table
