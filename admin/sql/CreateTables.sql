@@ -736,7 +736,7 @@ CREATE TABLE release_coverart
 (
     id                  INTEGER NOT NULL, -- PK, references release.id
     coverfetched        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    coverarturl         VARCHAR(255),
+    coverarturl         VARCHAR(255)
 );
 
 CREATE TABLE release_label (
