@@ -8,6 +8,7 @@ use Function::Parameters 'f';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_PUIDS
 );
+use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
