@@ -7,7 +7,7 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Tag',
-    entity_name => 'rg',
+    entity_name => 'tag'
 };
 
 sub base : Chained('/') PathPart('tag') CaptureArgs(0) { }
@@ -15,8 +15,6 @@ sub base : Chained('/') PathPart('tag') CaptureArgs(0) { }
 sub _load
 {
     my ($self, $c, $name) = @_;
-
-    $c->stash( tag => $name );
     return $c->model('Tag')->get_by_name($name);
 }
 
