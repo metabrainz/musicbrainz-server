@@ -1,8 +1,18 @@
+[%# Please try and keep the WikiDoc templates (doc/error.tt & doc/bare_error.tt)
+    looking similar to how this template looks %]
+
 [% WRAPPER "layout.tt" title=l('Page Not Found') full_width=1 %]
     <div id="content">
         <h1>[%- l('Page Not Found') -%]</h1>
 
         <p><strong>[%- l('Sorry, the page you\'re looking for does not exist.') -%]</strong></p>
+
+        [% IF message %]
+            <p>
+                <strong>[%- l('Error message: ') -%]</strong>
+                <code>[% message | html %]</code>
+            </p>
+        [% END %]
 
         <p>
             [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
@@ -10,7 +20,7 @@
                    faq => doc_link('FAQ') }) -%]
         </p>
 
-        <p>
+        <p class="small">
             [%- l('Found a broken link on our site? Please {con|contact us}.',
                  { con => doc_link('Contact_Us') }) -%]
         </p>

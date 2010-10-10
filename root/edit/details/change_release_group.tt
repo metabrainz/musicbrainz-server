@@ -1,17 +1,14 @@
 <table class="details">
-  <tr>
-    <th>[% l('Releases:') %]</th>
-    <td colspan="2">
-      <ul>
-        [% FOR release=edit.display_data.releases %]
-        <li>[% link_release(release) %]u</li>
-        [% END %]
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <th>[% l('Release group:') %]</th>
-    <td class="old">[% link_release_group(edit.display_data.release_group.old) %]</td>
-    <td class="new">[% link_release_group(edit.display_data.release_group.new) %]</td>
-  </tr>
+    <tr>
+        <th>[% l('Release:') %]</th>
+        <td colspan="2">[% l('{release} by {artist}', { release => link_release(edit.display_data.release),
+                                            artist => artist_credit(edit.display_data.release.artist_credit) }) %]</td>
+    </tr>
+    <tr>
+        <th>[% l('Release group:') %]</th>
+        <td class="old">[% l('{group} by {artist}', { group => link_release_group(edit.display_data.old_group),
+                                                      artist => artist_credit(edit.display_data.old_group.artist_credit) }) %]</td>
+        <td class="new">[% l('{group} by {artist}', { group => link_release_group(edit.display_data.new_group),
+                                                      artist => artist_credit(edit.display_data.new_group.artist_credit) }) %]</td>
+    </tr>
 </table>

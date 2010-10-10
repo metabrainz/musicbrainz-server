@@ -3,10 +3,10 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-__PACKAGE__->config(
+with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'list',
     model       => 'List',
-);
+};
 
 sub base : Chained('/') PathPart('list') CaptureArgs(0) { }
 after 'load' => sub
@@ -18,29 +18,29 @@ after 'load' => sub
     $c->model('Editor')->load($list);
 };
 
-sub add : Local Args(1)
+sub add : Chained('load') RequireAuth
 {
-    my ($self, $c, $list_id) = @_;
+    my ($self, $c) = @_;
 
-    my $release_id = $c->request->params->{id};
+    my $list = $c->stash->{list};
+    my $release_id = $c->request->params->{release};
 
-    $c->model('List')->add_releases_to_list($list_id, $release_id);
+    $c->model('List')->add_releases_to_list($list->id, $release_id);
 
-    my $redirect = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($redirect);
+    $c->response->redirect($c->req->referer);
     $c->detach;
 }
 
-sub remove : Local Args(1)
+sub remove : Chained('load') RequireAuth
 {
-    my ($self, $c, $list_id) = @_;
+    my ($self, $c) = @_;
 
-    my $release_id = $c->request->params->{id};
+    my $list = $c->stash->{list};
+    my $release_id = $c->request->params->{release};
 
-    $c->model('List')->remove_releases_from_list($list_id, $release_id);
+    $c->model('List')->remove_releases_from_list($list->id, $release_id);
 
-    my $redirect = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($redirect);
+    $c->response->redirect($c->req->referer);
     $c->detach;
 }
 
@@ -69,8 +69,70 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         list => $list,
         order => $order,
-        releases => $releases
+        releases => $releases,
+        template => 'list/index.tt'
     );
+}
+
+sub _form_to_hash
+{
+    my ($self, $form) = @_;
+
+    return map { $form->field($_)->name => $form->field($_)->value } $form->edit_field_names;
+}
+
+sub create : Local RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form( form => 'List' );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my %insert = $self->_form_to_hash($form);
+
+        my $list = $c->model('List')->insert($c->user->id, \%insert);
+
+        $c->response->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+    }
+}
+
+sub edit : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $list = $c->stash->{list};
+
+    my $user = $list->editor;
+    $c->detach('/error_404') if ($c->user->id != $user->id);
+
+    my $form = $c->form( form => 'List', init_object => $list );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my %update = $self->_form_to_hash($form);
+
+        $c->model('List')->update($list->id, \%update);
+
+        $c->response->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+    }
+}
+
+sub delete : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $list = $c->stash->{list};
+
+    my $user = $list->editor;
+    $c->detach('/error_404') if ($c->user->id != $user->id);
+
+    if ($c->form_posted) {
+        $c->model('List')->delete($list->id);
+
+        $c->response->redirect(
+            $c->uri_for_action('/user/lists', [ $c->user->name ]));
+    }
 }
 
 1;

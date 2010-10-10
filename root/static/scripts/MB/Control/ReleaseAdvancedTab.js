@@ -154,7 +154,13 @@ MB.Control.ReleaseDisc = function (disc) {
      * 'Disc #' if the disc doesn't have a title.
      */
     var fullTitle = function () {
-        return 'Disc ' + (self.number + 1) + (self.title.val () ? ': '+self.title.val () : '');
+        var title = '';
+        if (!self.title.hasClass ('jquery_placeholder'))
+        {
+            title = self.title.val ();
+        }
+
+        return 'Disc ' + (self.number + 1) + (title ? ': '+title : '');
     };
 
     /**
@@ -211,7 +217,15 @@ MB.Control.ReleaseDisc = function (disc) {
         newartist.find('*').each (replace_ids);
         acrow.find ('*').each (replace_ids);
 
-        self.tracks.push (MB.Control.ReleaseTrack (row, acrow));
+        var trk = MB.Control.ReleaseTrack (row, acrow);
+        self.tracks.push (trk);
+        self.sorted_tracks.push (trk);
+
+        /* if the release artist is VA, clear out the track artist. */
+        if (trk.artist_credit.isVariousArtists ())
+        {
+            trk.artist_credit.clear ();
+        }
 
         if (event !== undefined)
         {
@@ -249,14 +263,17 @@ MB.Control.ReleaseDisc = function (disc) {
      * sort sorts all the table rows by the 'position' input.
      */
     var sort = function () {
-        self.tracks.sort (function (a, b) {
+        self.sorted_tracks = [];
+        $.each (self.tracks, function (idx, item) { self.sorted_tracks.push (item); });
+
+        self.sorted_tracks.sort (function (a, b) {
             return parseInt (a.position.val ()) - parseInt (b.position.val ());
         });
 
-        $.each (self.tracks, function (idx, track) {
+        $.each (self.sorted_tracks, function (idx, track) {
             if (idx)
             {
-                track.row.insertAfter (self.tracks[idx-1].acrow);
+                track.row.insertAfter (self.sorted_tracks[idx-1].acrow);
                 track.acrow.insertAfter (track.row);
             }
         });
@@ -285,7 +302,10 @@ MB.Control.ReleaseDisc = function (disc) {
 
     self.number = parseInt (self.fieldset.find ('input.tracklist-id').attr ('id').
                             match ('id-mediums\.([0-9])\.tracklist')[1]);
+
     self.tracks = [];
+    self.sorted_tracks = [];
+
     /* the title and format inputs move between the fieldset and the textareas
      * of the basic view.  Therefore we cannot rely on them being children of
      * self.fieldset, and we need to find them based on their id attribute. */
@@ -309,6 +329,7 @@ MB.Control.ReleaseDisc = function (disc) {
     self.artist_column_checkbox.bind ('change', self.updateArtistColumn);
 
     self.updateArtistColumn ();
+    self.sort ();
 
     return self;
 };

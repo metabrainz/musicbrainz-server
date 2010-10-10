@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,10 +12,9 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3', 'browse recordings via artist (first page)');
-&$v2 ($mech->content, "Validate browse recordings via artist (first page)");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse recordings via artist (first page)',
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3' => 
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording-list count="10">
         <recording id="7e379a1d-f2bc-47b8-964e-00723df34c8a">
@@ -39,12 +39,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3&offset=3', 'browse recordings via artist (second page)');
-&$v2 ($mech->content, "Validate browse recordings via artist (second page)");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse recordings via artist (second page)',
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3&offset=3' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording-list count="10" offset="3">
         <recording id="791d9b27-ae1a-4295-8943-ded4284f2122">
@@ -68,12 +65,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/recording?release=adcf7b48-086e-48ee-b420-1001f88d672f&limit=4', 'browse recordings via release');
-&$v2 ($mech->content, "Validate browse recordings via release");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse recordings via release',
+    '/recording?release=adcf7b48-086e-48ee-b420-1001f88d672f&limit=4' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording-list count="12">
         <recording id="7a356856-9483-42c2-bed9-dc07cb555952">
@@ -90,7 +84,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </recording>
     </recording-list>
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;

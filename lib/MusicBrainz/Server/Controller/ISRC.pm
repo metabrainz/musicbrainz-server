@@ -6,6 +6,10 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'ISRC',
+};
+
 sub base : Chained('/') PathPart('isrc') CaptureArgs(0) { }
 
 sub _load : Chained('/') PathPart('isrc') CaptureArgs(1)
@@ -16,7 +20,10 @@ sub _load : Chained('/') PathPart('isrc') CaptureArgs(1)
     my @isrcs = $c->model('ISRC')->find_by_isrc($isrc)
       or return;
 
-    $c->stash( isrcs => \@isrcs );
+    $c->stash(
+        isrcs => \@isrcs,
+        isrc => $isrc,
+    );
 }
 
 sub show : Chained('load') PathPart('')

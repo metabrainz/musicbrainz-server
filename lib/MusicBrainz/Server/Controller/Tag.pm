@@ -3,15 +3,18 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-__PACKAGE__->config( entity_name => 'tag' );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
+
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Tag',
+    entity_name => 'tag'
+};
 
 sub base : Chained('/') PathPart('tag') CaptureArgs(0) { }
 
 sub _load
 {
     my ($self, $c, $name) = @_;
-
-    $c->stash( tag => $name );
     return $c->model('Tag')->get_by_name($name);
 }
 
@@ -19,7 +22,7 @@ sub cloud : Chained('base') PathPart('') Args(0)
 {
     my ($self, $c, $name) = @_;
 
-    my ($cloud, $hits) = $c->model('Tag')->get_cloud(100);
+    my ($cloud, $hits) = $c->model('Tag')->get_cloud(200);
 
     if ($hits)
     {
@@ -33,8 +36,16 @@ sub cloud : Chained('base') PathPart('') Args(0)
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
+    my $tag = $c->stash->{tag};
+    $c->stash(
+        template => 'tag/index.tt',
+        map {
+            my ($entities) = $c->model(type_to_model($_))->tags->find_entities(
+                $tag->id, 10);
 
-    $c->stash->{template} = 'tag/index.tt';
+            $_ . '_tags' => $entities
+        } qw( artist label recording release_group work )
+    );
 }
 
 sub artist : Chained('load')

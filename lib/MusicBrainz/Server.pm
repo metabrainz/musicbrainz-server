@@ -6,6 +6,8 @@ BEGIN { extends 'Catalyst' }
 use Class::MOP;
 use DBDefs;
 
+use aliased 'MusicBrainz::Server::Translation';
+
 # Set flags and add plugins for the application
 #
 #         -Debug: activates the debug mode for very useful log messages
@@ -18,8 +20,6 @@ my @args = qw/
 Static::Simple
 
 StackTrace
-
-I18N::Gettext
 
 Session
 Session::State::Cookie
@@ -49,7 +49,9 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
+	    'date_xsd_type' => \&MusicBrainz::Server::Filters::date_xsd_type,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
+	    'format_length_xsd' => \&MusicBrainz::Server::Filters::format_length_xsd,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
@@ -62,6 +64,7 @@ __PACKAGE__->config(
         PRE_PROCESS => [
             'components/common-macros.tt',
             'components/forms.tt',
+	    'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
     },
@@ -190,6 +193,17 @@ sub relative_uri
 
     return $uri;
 }
+
+around 'dispatch' => sub {
+    my $orig = shift;
+    my $c = shift;
+
+    Translation->instance->build_languages_from_header($c->req->headers);
+    $c->$orig(@_);
+};
+
+sub gettext  { shift; Translation->instance->gettext(@_) }
+sub ngettext { shift; Translation->instance->ngettext(@_) }
 
 =head1 NAME
 

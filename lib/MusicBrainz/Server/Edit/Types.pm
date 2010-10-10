@@ -7,10 +7,17 @@ use Sub::Exporter -setup => { exports => [qw(
     ArtistCreditDefinition
     Changeset
     Nullable
+    NullableOnPreview
     PartialDateHash
 )] };
 
 sub Nullable { (Optional[Maybe shift], @_) }
+
+# This isn't (currently) any different from Nullable.  It only serves to document
+# the intent.  For now, these still need to be validated elsewhere when setting the
+# attribute.
+sub NullableOnPreview { (Optional[Maybe shift], @_) }
+
 sub Changeset
 {
     my %fields = @_;

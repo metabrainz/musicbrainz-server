@@ -6,8 +6,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $EDIT_WORK_EDIT
+    $EDIT_WORK_MERGE
 );
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Work',
+    entity_name => 'work',
+};
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
@@ -17,11 +22,6 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
-
-__PACKAGE__->config(
-    model       => 'Work',
-    entity_name => 'work',
-);
 
 sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
 
@@ -36,13 +36,17 @@ after 'load' => sub
     }
 };
 
-sub show : PathPart('') Chained('load')
+sub show : PathPart('') Chained('load') 
 {
     my ($self, $c) = @_;
 
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('ArtistCredit')->load($work);
+
+    # need to call relationships for overview page
+    $self->relationships($c);
+
 
     $c->stash->{template} = 'work/index.tt';
 }
@@ -56,9 +60,17 @@ for my $action (qw( relationships aliases )) {
     };
 }
 
+
+
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Work',
     edit_type      => $EDIT_WORK_EDIT,
+};
+
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_WORK_MERGE,
+    confirmation_template => 'work/merge_confirm.tt',
+    search_template       => 'work/merge_search.tt',
 };
 
 before 'edit' => sub
@@ -67,6 +79,22 @@ before 'edit' => sub
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('ArtistCredit')->load($work);
+};
+
+after 'merge' => sub {
+    my ($self, $c) = @_;
+    $c->model('ArtistCredit')->load(
+        $c->stash->{work}, $c->stash->{old}, $c->stash->{new}
+    );
+};
+
+around '_merge_search' => sub {
+    my $orig = shift;
+    my ($self, $c, $query) = @_;
+
+    my $results = $self->$orig($c, $query);
+    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
+    return $results;
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {

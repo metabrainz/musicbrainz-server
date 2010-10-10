@@ -1,19 +1,20 @@
 [% main_title = l('Recording “{name}” by {artist}', {
     artist => artist_credit(recording.artist_credit, plain => 1),
-    name => recording.name
+    name => html_escape(recording.name)
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+       <span about="[% rdfa_recording_curi(recording) %]">
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(recording.artist_credit) %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-               content=u.filter(recording.length, 'format_length')
+               content=rdfa_recording_duration(recording)
                    IF recording.length -%]
             [%- FOR isrc IN isrcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]
-                <a href="[% c.uri_for_action('/isrc/show', [ isrc.isrc ]) %]">[% isrc.isrc %]</a>
+                [% rdfa_recording_isrc(recording, isrc) %]
                 [% IF c.user_exists %]
                 [% l('({delete_uri|delete})', {
                        delete_uri => c.uri_for_action('/isrc/delete', { isrc_id => isrc.id }) }) %]
@@ -21,6 +22,7 @@
                 [% END %]
             [%- END -%]
         [% END %]
+	</span>
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags more=more_tags tag_this_text=l('Tag this recording') -%]
 

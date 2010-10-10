@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::Validator;
 use MooseX::Role::Parameterized;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceIncV1';
+use Class::MOP;
 use Readonly;
 
 parameter default_serialization_type => (
@@ -262,7 +263,9 @@ role {
         my ($self, $c, $serializers) = @_;
 
         # Set up the serializers so we can report errors in the correct format
-        $c->stash->{serializer} = $serializers->{$r->default_serialization_type}->new();
+        my $class = $serializers->{$r->default_serialization_type};
+        Class::MOP::load_class($class);
+        $c->stash->{serializer} = $class->new();
 
         my $resource = $c->req->path;
         my $version = quotemeta ($r->version);
@@ -303,14 +306,16 @@ role {
                 return 0 unless ($inc);
             }
 
-            if ($inc && $version > 1) {
+            if ($inc && $version eq '2') {
                 $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
                 $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
             }
 
             # Check if authorization is required.
             $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_ratings} ||
-                $resource eq 'tag' || $resource eq 'rating';
+                $resource eq 'tag' || $resource eq 'rating' ||
+                ($resource eq 'release' && $c->req->method eq 'POST') ||
+                ($resource eq 'recording' && $c->req->method eq 'POST');
 
             # Check the type and prepare a serializer. For now, since we only support XML
             # we're going to default to XML. In the future if we want to add more serializations,

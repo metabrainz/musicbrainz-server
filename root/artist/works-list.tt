@@ -5,16 +5,18 @@
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
             [%- END -%]
+            <th>[% l('ISWC') %]</th>
             <th class="rating c">[% l('Rating') %]</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody about="[% rdfa_artist_curi(artist) %]">
         [%- FOR work=works -%]
         <tr>
-            <td>[% link_work(work) %]</td>
+            <td>[% rdfa_made_work_link(work) %]</td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(work.artist_credit) %]</td>
             [%- END -%]
+            <td>[% work.iswc %]</td>
             <td>[% rating_stars(work) %]</td>
         </tr>
         [%- END -%]

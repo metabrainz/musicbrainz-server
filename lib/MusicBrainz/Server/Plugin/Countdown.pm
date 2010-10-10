@@ -35,7 +35,7 @@ sub format {
 
 sub in_the_future {
     my ($self, $dt) = @_;
-    return unless $dt > DateTime->now;
+    return unless $dt && $dt > DateTime->now;
 }
 
 sub weeks {

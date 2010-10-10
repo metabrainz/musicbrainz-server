@@ -11,7 +11,9 @@ MB.tests.ReleaseEditor.Setup = function (callback) {
         'ReleaseEditor/tracklist.html',
         'ReleaseEditor/tracklist.json',
         'ReleaseEditor/tracklist.encoding-test.html',
-        'ReleaseEditor/tracklist.encoding-test.json'
+        'ReleaseEditor/tracklist.encoding-test.json',
+        'ReleaseEditor/information.addrelease.html',
+        'ReleaseEditor/tracklist.addrelease.html'
     ];
 
     MB.utility.load_data (load_files, {}, function (loaded) {

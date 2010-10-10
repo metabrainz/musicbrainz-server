@@ -1,9 +1,6 @@
 package MusicBrainz::Server::Controller::Partners;
-
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub amazon : Local Args(2)
 {

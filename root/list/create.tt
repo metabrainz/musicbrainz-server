@@ -1,0 +1,6 @@
+[%- WRAPPER "layout.tt" title=l('Add a New List') full_width=1 -%]
+    <div id="content">
+        <h1>[%- l('Add a New List') -%]</h1>
+        [%- INCLUDE 'list/edit_form.tt' new=1 -%]
+    </div>
+[%- END -%]

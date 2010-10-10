@@ -1,21 +1,52 @@
 package MusicBrainz::Server::Controller::CDStub;
 use Moose;
-
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
+
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'CDStubTOC',
+    entity_name => 'cdstubtoc',
+};
 
 sub base : Chained('/') PathPart('cdstub') CaptureArgs(0) { }
 
-# THIS CODE IS INCOMPLETE. IT'S ONLY HERE TO ALLOW THE OUTPUT OF CDSTUB LINKS
 sub _load 
 {
     my ($self, $c, $id) = @_;
-    return $id; #$c->model('CDStub')->get_by_id($id);
+
+    my $cdstubtoc = $c->model('CDStubTOC')->get_by_discid($id);
+    $c->model('CDStub')->load($cdstubtoc);
+    $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->cdstub);
+
+    my $index = 0;
+    my @offsets = @{$cdstubtoc->track_offset};
+    push @offsets, $cdstubtoc->leadout_offset;
+    foreach my $track (@{$cdstubtoc->cdstub->tracks}) {
+        $track->length(int((($offsets[$index + 1] - $offsets[$index]) / 75) * 1000));
+        $index++;
+    }
+
+    $c->stash->{show_artists} = $cdstubtoc->cdstub->artist eq '';
+    $c->stash->{cdstub} = $cdstubtoc;
 }
 
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
+
     $c->stash( template => 'cdstub/index.tt' );
+}
+
+sub browse : Path('browse')
+{
+    my ($self, $c) = @_;
+
+    my $stubs = $self->_load_paged($c, sub {
+                    $c->model('CDStub')->load_top_cdstubs(shift, shift);
+                });
+    $c->stash( 
+              template => 'cdstub/browse.tt',
+              cdstubs  => $stubs
+             );
 }
 
 =head1 LICENSE

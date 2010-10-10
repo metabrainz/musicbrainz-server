@@ -1,0 +1,6 @@
+<table class="details">
+  <tr>
+    <th>[% l('Alias:') %]</th>
+    <td>[% edit.display_data.alias | html %]</td>
+  </tr>
+</table>

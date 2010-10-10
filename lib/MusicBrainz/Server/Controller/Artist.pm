@@ -3,22 +3,22 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Artist',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-
-__PACKAGE__->config(
-    model       => 'Artist',
-    entity_name => 'artist',
-);
+with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use Data::Page;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
-
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
@@ -268,7 +268,16 @@ sub recordings : Chained('load')
 
     if ($artist->id == $VARTIST_ID)
     {
-        # TBD
+        my $index = $c->req->query_params->{index};
+        if ($index) {
+            $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_by_name_prefix_va($index, shift, shift);
+            });
+        }
+        $c->stash(
+            template => 'artist/browse_various_recordings.tt',
+            index    => $index,
+        );
     }
     else
     {
@@ -284,7 +293,9 @@ sub recordings : Chained('load')
         $c->stash( template => 'artist/recordings.tt' );
     }
 
+    $c->model('ISRC')->load_for_recordings(@$recordings);
     $c->model('ArtistCredit')->load(@$recordings);
+
     $c->stash(
         recordings => $recordings,
         show_artists => scalar grep {
@@ -438,6 +449,21 @@ sub import : Local
     my ($self, $c) = @_;
     die "This is a stub method";
 }
+
+around $_ => sub {
+    my $orig = shift;
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    if ($artist->is_special_purpose) {
+        $c->stash( template => 'artist/special_purpose.tt' );
+        $c->response->status(HTTP_FORBIDDEN);
+        $c->detach;
+    }
+    else {
+        $self->$orig($c);
+    }
+} for qw( edit merge );
 
 =head1 LICENSE
 

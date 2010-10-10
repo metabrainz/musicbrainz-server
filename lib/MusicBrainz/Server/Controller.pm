@@ -7,13 +7,27 @@ use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation;
-use Scalar::Util qw( looks_like_number );
 use TryCatch;
 
 __PACKAGE__->config(
     form_namespace => 'MusicBrainz::Server::Form',
     paging_limit => 50,
 );
+
+sub not_found
+{
+    my ($self, $c) = @_;
+    $c->response->status(404);
+    $c->stash( template => $self->action_namespace . '/not_found.tt' );
+    $c->detach;
+}
+
+sub invalid_mbid
+{
+    my ($self, $c, $id) = @_;
+    $c->stash( message  => "'$id' is not a valid MusicBrainz ID" );
+    $c->detach('/error_400');
+}
 
 sub create_action
 {
@@ -28,51 +42,6 @@ sub create_action
     }
 
     $self->SUPER::create_action(%args);
-}
-
-sub load : Chained('base') PathPart('') CaptureArgs(1)
-{
-    my ($self, $c, $gid) = @_;
-
-    my $entity = $self->_load($c, $gid);
-
-    if (!defined $entity) {
-        $c->response->status(404);
-        $c->stash( template => $self->action_namespace . '/not_found.tt' );
-        $c->detach;
-    }
-
-    $c->stash(
-        # First stash is more convenient for the actual controller
-        # Second is useful to roles or other places that need introspection
-        $self->{entity_name} => $entity,
-        entity               => $entity
-    );
-}
-
-sub _load
-{
-    my ($self, $c, $id) = @_;
-
-    if (MusicBrainz::Server::Validation::IsGUID($id)) {
-        return $c->model($self->{model})->get_by_gid($id);
-    }
-    elsif (looks_like_number($id)) {
-        my $gid = $self->_row_id_to_gid($c, $id) or $c->detach('/error_404');
-        $c->response->redirect($c->uri_for_action($c->action, [ $gid ]));
-        $c->detach;
-    }
-    else {
-        $c->stash( message  => "'$id' is not a valid MusicBrainz ID" );
-        $c->detach('/error_400');
-    }
-}
-
-sub _row_id_to_gid {
-    my ($self, $c, $row_id) = @_;
-
-    my $entity = $c->model($self->{model})->get_by_id($row_id) or return;
-    return $entity->gid;
 }
 
 =head2 submit_and_validate
@@ -190,6 +159,17 @@ sub redirect_back
         if !$url || $url =~ qr{$ignore};
 
     $c->response->redirect($url);
+}
+
+sub error {
+    my ($self, $c, %args) = @_;
+    my $status = $args{status} || 500;
+    $c->response->status($status);
+    $c->stash(
+        template => "main/$status.tt",
+        message => $args{message}
+    );
+    $c->detach;
 }
 
 1;

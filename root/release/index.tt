@@ -2,7 +2,7 @@
     <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
-    <h2>Track listing</h2>
+    <h2>[% l('Track listing') %]</h2>
     <table class="tbl">
         <thead>
             <tr>
@@ -15,17 +15,16 @@
                 <th class="treleases">[% l('Length') %]</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody about="[% rdfa_release_curi(release) %]">
         [%- FOR medium=release.mediums -%]
             <tr class="subh[% ' mp' IF medium.edits_pending %]">
                 <td>&nbsp;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
-                    <a href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
-                        [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
-                        [% medium.name | html %][% END %]
-                    </a>
+                    [% rdfa_medium_in_release(medium) %]
                 </td>
             </tr>
+	    <span about="[% rdfa_tracklist_curi(medium) %]" typeof="[% rdfa_concept_curi('medium') %]">
             [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
+	    </span>
         [%- END -%]
         </tbody>
     </table>

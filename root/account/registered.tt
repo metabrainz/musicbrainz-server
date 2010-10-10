@@ -1,5 +1,5 @@
 [% WRAPPER 'layout.tt' title=l("Account Created") %]
-    [% WRAPPER 'components/box.tt' header=l("Account Created") %]
+        <h2>[%- l('Account Created') -%]</h2>
         <p>
             [% l('Congratulations, your new account has been created and you are now logged into MusicBrainz!') %]
         </p>
@@ -23,5 +23,4 @@
                   { uri => c.uri_for_action('/user/profile', [ c.user.name ]),
                     edit => doc_link("How_Editing_Works") }) %]
         </p>
-    [% END %]
 [% END %]

@@ -1,5 +1,6 @@
 /* Copyright (C) 2009 Oliver Charles
    Copyright (C) 2009 Lukas Lalinsky
+   Copyright (C) 2010 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,7 +23,9 @@
         Name: '[% l('Name') %]',
         JoinPhrase: '[% l('Join Phrase') %]',
         Cancel: '[% l('Cancel') %]',
+        Change: '[% l('Change') %]',
         Done: '[% l('Done') %]',
+        AppearsOn: '[% l('appears on:') %]',
         UseAltNames: '[% l('Some artists credited with alternative names') %]',
         Preview: '[% l('Preview: ') %]',
         UnknownPlaceholder: '[% l('[ Unknown ]') %]',
@@ -46,7 +49,17 @@
               "[% rating_tooltip(2) %]",
               "[% rating_tooltip(3) %]",
               "[% rating_tooltip(4) %]",
-              "[% rating_tooltip(5) %]",
-        ]
+              "[% rating_tooltip(5) %]"
+        ],
+        Barcode: {
+            NoCheckdigitUPC: '[% l('The barcode you entered looks like a UPC code with the check digit missing.') %]',
+            ValidUPC: '[% l('The barcode you entered is a valid UPC code.') %]',
+            InvalidUPC: '[% l('The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.') %]',
+            ValidEAN: '[% l('The barcode you entered is a valid EAN code.') %]',
+            InvalidEAN: '[% l('The barcode you entered is not a valid EAN code.') %]',
+            Invalid: '[% l('The barcode you entered is not a valid UPC or EAN code.') %]',
+            DoubleCheck: '[% l('Please double-check the barcode on the release.') %]',
+            CheckDigit: '[% l('The checkdigit is #checkdigit#.') %]'
+        },
     });
 })(MB);

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Artist;
 
 use Moose;
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $VARTIST_GID );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -10,6 +11,7 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
+with 'MusicBrainz::Server::Entity::Role::Age';
 
 has 'sort_name' => (
     is => 'rw',
@@ -48,22 +50,6 @@ sub gender_name
     return $self->gender ? $self->gender->name : undef;
 }
 
-has 'begin_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-has 'end_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-with 'MusicBrainz::Server::Entity::Role::Age';
-
 has 'country_id' => (
     is => 'rw',
     isa => 'Int'
@@ -78,6 +64,13 @@ has 'comment' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub is_special_purpose {
+    my $self = shift;
+    return ($self->id && ($self->id == $DARTIST_ID ||
+                          $self->id == $VARTIST_ID))
+        || ($self->gid && $self->gid eq $VARTIST_GID);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -1,0 +1,37 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+  <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
+    [% USE r = FormRenderer(query_release) %]
+    <input type="hidden" name="toc" value="[% toc %]" />
+    [% WRAPPER form_row %]
+      [% r.label('query', l('Release title:')) %]
+      [% r.text('query') %]
+      [% form_submit(l('Search')) %]
+    [% END %]
+  </form>
+
+  <form action="[% c.req.uri %]" method="GET">
+    <input type="hidden" name="toc" value="[% toc %]" />
+    [%- IF releases.size -%]
+        <div class="row">
+          <div class="label required">[% l('Results:') %]</div>
+          <div class="no-label">
+            [% WRAPPER 'components/with-pager.tt' %]
+             <ul class="radio-list">
+              [%- FOREACH release=releases -%]
+              [%- release = release.entity -%]
+              <li>
+                <input type="radio" name="release" value="[% release.id %]" />
+                [% l('{release} by {artist}', { release => link_release(release) _ ' ' _ disambiguation(release),
+                                                artist => artist_credit(release.artist_credit) }) %]
+              </li>
+              [%- END -%]
+            </ul>
+            [% END %]
+          </div>
+        </div>
+        <div class="row no-label">
+          [% form_submit(l('Select')) %]
+        </div>
+    [%- END -%]
+  </form>
+[% END %]

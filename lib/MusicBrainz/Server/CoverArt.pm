@@ -16,4 +16,12 @@ has 'information_uri' => (
     is  => 'rw',
 );
 
+sub cache_data
+{
+    my $self = shift;
+    return {
+        infourl     => $self->information_uri
+    }
+}
+
 1;

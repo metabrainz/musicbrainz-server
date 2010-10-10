@@ -153,6 +153,7 @@ sub load_entities
     my ($self, @rels) = @_;
     my %ids_by_type;
     foreach my $rel (@rels) {
+        my $linktype = $rel->link->type->name;
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
@@ -164,12 +165,14 @@ sub load_entities
             push @{$ids_by_type{$type}}, $rel->entity1_id;
         }
     }
+
     my %data_by_type;
     foreach my $type (keys %ids_by_type) {
         my @ids = @{$ids_by_type{$type}};
         $data_by_type{$type} =
             $self->c->model(type_to_model($type))->get_by_ids(@ids);
     }
+
     foreach my $rel (@rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
@@ -182,6 +185,9 @@ sub load_entities
             $rel->entity1($obj) if defined($obj);
         }
     }
+
+    my @load_ac = grep { $_->meta->find_method_by_name('artist_credit') } map { values %$_ } values %data_by_type;
+    $self->c->model('ArtistCredit')->load(@load_ac);
 }
 
 sub load_subset

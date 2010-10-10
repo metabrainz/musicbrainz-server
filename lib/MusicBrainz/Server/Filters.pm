@@ -23,12 +23,35 @@ sub release_date
     $str .= "-".$d if ($d && 0 + $d);
 
     return $str;
+
+}
+
+# get the xsd type for a date (rdfa stuff)
+sub date_xsd_type
+{
+    my $date = shift;
+    if($date =~ /^[\d-]+$/){
+	
+	my ($y, $m, $d) = split /-/, $date;
+
+	return 'xsd:date' if ($y && 0 + $y && $m && 0 + $m && $d && 0 + $d);
+	return 'xsd:gYearMonth' if ($y && 0 + $y && $m && 0 + $m);
+	return 'xsd:gYear' if ($y);
+    }
+
 }
 
 sub format_length
 {
     my $ms = shift;
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
+}
+
+# format duration as xsd:duration (rdfa stuff)
+sub format_length_xsd
+{
+    my $ms = shift;
+    return MusicBrainz::Server::Track::FormatXSDTrackLength($ms);
 }
 
 sub format_distance
@@ -112,7 +135,7 @@ sub format_editnote
 sub uri_decode
 {
     my ($uri) = @_;
-    my $dec = uri_unescape($uri);
+    my $dec = decode('utf-8', uri_unescape($uri));
     Encode::_utf8_on($dec);
     return $dec;
 }

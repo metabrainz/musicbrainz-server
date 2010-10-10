@@ -41,16 +41,16 @@
             </li>
         [% END %]
         <li>
-            [% l('{data|My Data}', {data => c.uri_for_action('/user/profile', [ c.user.name ])}) %]
+            [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
             <ul>
                 <li>
-                    [% l('{col|My Lists}', {col => c.uri_for_action('/user/lists', [ c.user.name ])}) %]
+                    [% l('{col|My Lists}', { col => c.uri_for_action('/user/lists', [ c.user.name ]) }) %]
                 </li>
                 <li>
-                    [% l('{col|My Ratings}', {col => c.uri_for_action('/user/ratings', [ c.user.name ])}) %]
+                    [% l('{col|My Ratings}', { col => c.uri_for_action('/user/ratings', [ c.user.name ]) }) %]
                 </li>
                 <li>
-                    [% l('{col|My Tags}', {col => '/404'}) %]
+                    [% l('{col|My Tags}', { col => c.uri_for_action('/user/tags', [ c.user.name ]) }) %]
                 </li>
             </ul>
         </li>
@@ -139,6 +139,9 @@
             <li>
                 [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
             </li>
+            <li>
+                [% l('{uri|Top CD Stubs}', { uri => c.uri_for('/cdstub/browse') }) %]
+            </li>
             <li class="separator">
                  [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]
             </li>
@@ -155,7 +158,7 @@
                      [% l('{uri|Add Label}', { uri => c.uri_for('/label/create') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Add Various Artists Release}', { uri => c.uri_for('/artist', various_artist_mbid, 'add_release') }) %]
+                    [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
                 </li>
                 <li>
                     [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]

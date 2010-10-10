@@ -22,9 +22,12 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Label::Edit
     MusicBrainz::Server::Edit::Label::EditAlias
     MusicBrainz::Server::Edit::Label::Merge
+    MusicBrainz::Server::Edit::Medium::AddDiscID
     MusicBrainz::Server::Edit::Medium::Create
     MusicBrainz::Server::Edit::Medium::Delete
     MusicBrainz::Server::Edit::Medium::Edit
+    MusicBrainz::Server::Edit::Medium::MoveDiscID
+    MusicBrainz::Server::Edit::Medium::EditTracklist
     MusicBrainz::Server::Edit::Medium::RemoveDiscID
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
@@ -43,19 +46,20 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
+    MusicBrainz::Server::Edit::Release::AddReleaseLabel
     MusicBrainz::Server::Edit::Release::ChangeQuality
+    MusicBrainz::Server::Edit::Release::Create
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
+    MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
+    MusicBrainz::Server::Edit::Release::Move
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
     MusicBrainz::Server::Edit::ReleaseGroup::Delete
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
-    MusicBrainz::Server::Edit::Track::Edit
-    MusicBrainz::Server::Edit::Tracklist::AddTrack
     MusicBrainz::Server::Edit::Tracklist::Create
-    MusicBrainz::Server::Edit::Tracklist::DeleteTrack
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
@@ -64,8 +68,10 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
+    MusicBrainz::Server::Edit::Work::Merge
 
     MusicBrainz::Server::Edit::Historic::AddDiscID
+    MusicBrainz::Server::Edit::Historic::AddLink
     MusicBrainz::Server::Edit::Historic::AddRelease
     MusicBrainz::Server::Edit::Historic::AddReleaseEvents
     MusicBrainz::Server::Edit::Historic::AddTrack
@@ -89,6 +95,8 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MoveDiscID
     MusicBrainz::Server::Edit::Historic::MoveRelease
     MusicBrainz::Server::Edit::Historic::RemoveDiscID
+    MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
+    MusicBrainz::Server::Edit::Historic::RemoveLink
     MusicBrainz::Server::Edit::Historic::RemoveRelease
     MusicBrainz::Server::Edit::Historic::RemoveReleases
     MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents

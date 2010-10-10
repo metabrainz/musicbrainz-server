@@ -5,6 +5,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list
 );
+use TryCatch;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -57,6 +58,33 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'cdtoc', @objs);
+}
+
+sub find_or_insert
+{
+    my ($self, $toc) = @_;
+
+    my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc) or return;
+
+    my $id =
+        $self->sql->select_single_value(
+            'SELECT id FROM cdtoc 
+              WHERE discid = ?
+              AND   trackcount = ?
+              AND   leadoutoffset = ?
+              AND   trackoffset = ?',
+            $cdtoc->discid, $cdtoc->track_count, $cdtoc->leadout_offset,
+            $cdtoc->track_offset)
+      ||
+        $self->sql->insert_row('cdtoc', {
+            discid => $cdtoc->discid,
+            freedbid => $cdtoc->freedbid,
+            trackcount => $cdtoc->track_count,
+            leadoutoffset => $cdtoc->leadout_offset,
+            trackoffset => $cdtoc->track_offset
+        }, 'id');
+
+    return $id;
 }
 
 __PACKAGE__->meta->make_immutable;

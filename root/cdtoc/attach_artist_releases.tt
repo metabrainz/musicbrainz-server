@@ -1,0 +1,20 @@
+[% WRAPPER 'layout.tt' l('Attach CDTOC') full_width=1 %]
+  <h2>[% l('Releases by {artist}', { artist => link_artist(artist) }) %]</h2>
+  [% IF releases.size %]
+    <form action="[% c.req.uri.path %]" method="get">
+      <input type="hidden" name="toc" value="[% toc %]" />
+      <ul>
+        [% FOR release=releases %]
+        <li>
+          <input type="radio" name="release" value="[% release.id %]" />
+          [% link_release(release) %] [% disambiguation(release) %]
+        </li>
+        [% END %]
+      </ul>
+      [% form_submit(l('Attach CDTOC')) %]
+    </form>
+  [% ELSE %]
+    <p>[% l('{artist} has no releases which have {n} tracks.', { artist => link_artist(artist),
+              n => cdtoc.track_count }) %]</p>
+  [% END %]
+[% END %]
