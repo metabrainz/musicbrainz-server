@@ -2,11 +2,16 @@
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">
+      [% IF edit.display_data.releases.size %]
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% link_release(release) %]</li>
+        <li>[% release.defined ? link_release(release) :
+                                 l('(unknown)') %]</li>
         [% END %]
       </ul>
+      [% ELSE %]
+        [% l('(unknown)') %]
+      [% END %]
     </td>
   </tr>
 
