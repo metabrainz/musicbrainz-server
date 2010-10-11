@@ -1,7 +1,7 @@
 <table class="details">
   <tr>
     <th>[% l('Releases:') %]</th>
-    <td>
+    <td colspan="2">
       <ul>
         [% FOR release=edit.display_data.releases %]
         <li>[% link_release(release) %]</li>
