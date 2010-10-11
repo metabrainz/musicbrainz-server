@@ -241,7 +241,7 @@ table.medium.tbl td.delete    { width: 2em; }
 
 #release-editor .documentation div.barcode-container,
 #release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 5em; }
-#release-editor div.barcode,
+#release-editor div.bubble,
 #release-editor div.select-recording,
 #release-editor div.artist-credit { background: #f0f0f0; }
 #release-editor div.artist-credit div.row { clear: none; }
