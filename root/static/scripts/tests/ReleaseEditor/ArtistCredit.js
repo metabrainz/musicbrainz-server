@@ -14,22 +14,23 @@ MB.tests.ReleaseEditor.ArtistCredit = function () {
             $('input#release-artist'), $('div.artist-credit')
         );
 
-        QUnit.equals ($('.artist-credit-vertical:visible').size (), 0, 'Artist Credit form not visible');
+        var bc = MB.Control.BubbleCollection (
+            $('input#release-artist'), $('div.artist-credit')
+        );
+
+        QUnit.equals ($('.artist-credit-container:visible').size (), 0, 'Artist Credit form not visible');
         $('#release-artist').focus ();
-        QUnit.equals ($('.artist-credit-vertical:visible').size (), 1, 'Artist Credit form visible after focus');
+        QUnit.equals ($('.artist-credit-container:visible').size (), 1, 'Artist Credit form visible after focus');
 
         var box0 = $('.artist-credit-box').eq(0);
+        box0.find ('input.name').focus ().val ('Metallica').blur ();
+        box0.find ('input.credit').focus ().val ('Metallica').blur ();
+        box0.find ('input.join').focus ().val (' (feat. ').blur ();
+
         var box1 = $('.artist-credit-box').eq(1);
-
-        box0.find ('input.name').val ('Metallica');
-        box0.find ('input.credit').val ('Metallica');
-        box0.find ('input.join').val (' (feat. ');
-        box1.find ('input.name').val ('Britney Spears');
-        box1.find ('input.credit').val ('Britney');
-        box1.find ('input.join').val (')');
-
-        /* triggering a blur event doesn't seem to work, so let's just call this directly... */
-        acv.renderPreview ();
+        box1.find ('input.name').focus ().val ('Britney Spears').blur ();
+        box1.find ('input.credit').focus ().val ('Britney').blur ();
+        box1.find ('input.join').focus ().val (')').blur ();
 
         QUnit.equals ($('#release-artist').val (), 'Metallica (feat. Britney)', 'Preview updated with correct artist name');
 
@@ -46,22 +47,23 @@ MB.tests.ReleaseEditor.ArtistCredit = function () {
             $('input#release-artist'), $('div.artist-credit')
         );
 
-        QUnit.equals ($('.artist-credit-vertical:visible').size (), 0, 'Artist Credit form not visible');
+        var bc = MB.Control.BubbleCollection (
+            $('input#release-artist'), $('div.artist-credit')
+        );
+
+        QUnit.equals ($('.artist-credit-container:visible').size (), 0, 'Artist Credit form not visible');
         $('#release-artist').focus ();
-        QUnit.equals ($('.artist-credit-vertical:visible').size (), 1, 'Artist Credit form visible after focus');
+        QUnit.equals ($('.artist-credit-container:visible').size (), 1, 'Artist Credit form visible after focus');
 
         var box0 = $('.artist-credit-box').eq(0);
+        box0.find ('input.name').focus ().val ('Metallica').blur ();
+        box0.find ('input.credit').focus ().val ('Metallica').blur ();
+        box0.find ('input.join').focus ().val (' (feat. ').blur ();
+
         var box1 = $('.artist-credit-box').eq(1);
-
-        box0.find ('input.name').val ('Metallica');
-        box0.find ('input.credit').val ('Metallica');
-        box0.find ('input.join').val (' (feat. ');
-        box1.find ('input.name').val ('Britney Spears');
-        box1.find ('input.credit').val ('Britney');
-        box1.find ('input.join').val (')');
-
-        /* triggering a blur event doesn't seem to work, so let's just call this directly... */
-        acv.renderPreview ();
+        box1.find ('input.name').focus ().val ('Britney Spears').blur ();
+        box1.find ('input.credit').focus ().val ('Britney').blur ();
+        box1.find ('input.join').focus ().val (')').blur ();
 
         QUnit.equals ($('#release-artist').val (), 'Metallica (feat. Britney)', 'Preview updated with correct artist name');
 

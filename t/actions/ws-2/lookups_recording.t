@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,23 +12,18 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7', 'basic recording lookup');
-&$v2 ($mech->content, "Validate basic recording lookup");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'basic recording lookup',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
     </recording>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-
-$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases', 'recording lookup with releases');
-&$v2 ($mech->content, "Validate recording lookup with releases");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'recording lookup with releases',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
@@ -50,12 +46,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </recording>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single', 'lookup recording with official singles');
-&$v2 ($mech->content, "Validate lookup recording with official singles");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'lookup recording with official singles',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
@@ -71,12 +64,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </recording>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single', 'lookup recording with official singles (+media)');
-&$v2 ($mech->content, "Validate lookup recording with official singles (+media)");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'lookup recording with official singles (+media)',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
@@ -98,12 +88,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </recording>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists', 'recording lookup with artists');
-&$v2 ($mech->content, "Validate recording lookup with artists");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'recording lookup with artists',
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
         <title>the Love Bug</title><length>242226</length>
@@ -122,12 +109,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </recording>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs', 'recording lookup with puids and isrcs');
-&$v2 ($mech->content, "Validate recording lookup with puids and isrcs");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'recording lookup with puids and isrcs',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
@@ -139,7 +123,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </isrc-list>
     </recording>
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;

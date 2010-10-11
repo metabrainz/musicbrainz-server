@@ -3,18 +3,18 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Artist',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-
-__PACKAGE__->config(
-    model       => 'Artist',
-    entity_name => 'artist',
-);
+with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -293,7 +293,9 @@ sub recordings : Chained('load')
         $c->stash( template => 'artist/recordings.tt' );
     }
 
+    $c->model('ISRC')->load_for_recordings(@$recordings);
     $c->model('ArtistCredit')->load(@$recordings);
+
     $c->stash(
         recordings => $recordings,
         show_artists => scalar grep {

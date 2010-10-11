@@ -13,10 +13,6 @@ has_field 'password' => (
     min_length => 1
 );
 
-has_field 'single_ip' => (
-    type => 'Boolean',
-);
-
 has_field 'remember_me' => (
     type => 'Boolean'
 );

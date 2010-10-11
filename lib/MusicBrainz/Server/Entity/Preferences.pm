@@ -36,6 +36,13 @@ has 'timezone' => (
     lazy => 1,
 );
 
+has [qw(email_on_no_vote email_on_notes email_on_vote)] => (
+    isa => 'Bool',
+    default => 1,
+    is =>'rw',
+    lazy => 1
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

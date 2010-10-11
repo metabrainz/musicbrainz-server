@@ -18,7 +18,8 @@ sub remove : Local RequireAuth HiddenOnSlaves
     my ($self, $c) = @_;
 
     my $entity_id = $c->request->params->{id};
-    $c->model($self->{model})->subscription->unsubscribe($c->user->id, $entity_id);
+    my @entities = ref($entity_id) ? @$entity_id : ($entity_id);
+    $c->model($self->{model})->subscription->unsubscribe($c->user->id, @entities);
 
     my $url = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($url);

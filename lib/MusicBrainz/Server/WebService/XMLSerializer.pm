@@ -560,9 +560,6 @@ sub _serialize_label
     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
-    $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
-        if $inc->releases;
-
     push @$data, $gen->label(\%attrs, @list);
 }
 

@@ -240,12 +240,13 @@ ul.tag-cloud {
     margin: 0;
     padding: 0;
     line-height: 2em;
+    text-align: justify;
 }
 
 ul.tag-cloud li {
     list-style-image: none;
     list-style-type: none;
-    display: inline-block;
+    display: inline;
     padding: 2px;
 }
 

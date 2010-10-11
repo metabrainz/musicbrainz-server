@@ -1,4 +1,20 @@
-[%- WRAPPER 'tag/layout.tt' page='index' -%]
+[%- WRAPPER 'tag/layout.tt' page='index' full_width=1 -%]
 
+[% FOR section=[
+    [l('Artists'), artist_tags],
+    [l('Labels'), label_tags],
+    [l('Recordings'), recording_tags],
+    [l('Release Groups'), release_group_tags],
+    [l('Works'), work_tags],
+] %]
+    [% IF section.1.size %]
+        <h2>[% section.0 %]</h2>
+        <ul>
+            [% FOR entity=section.1 %]
+            <li>[% link_entity(entity.entity) %]</li>
+            [% END %]
+        </ul>
+    [% END %]
+[% END %]
 
 [%- END -%]

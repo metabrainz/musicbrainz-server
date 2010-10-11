@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,10 +12,9 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+ratings', 'browse release group via release');
-&$v2 ($mech->content, "Validate browse release-group via release");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse release group via release',
+    '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group-list count="1">
         <release-group type="album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
@@ -35,12 +35,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-group-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+ratings', 'browse release group via artist');
-&$v2 ($mech->content, "Validate browse release-group via artist");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse release group via artist',
+    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group-list count="2">
         <release-group type="album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
@@ -71,16 +68,11 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </release-group-list>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/release-group?artist=a16d1433-ba89-4f72-a47b-a370add0bb55&type=single', 'browse singles via artist');
-&$v2 ($mech->content, "Validate browse singles via artist");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'browse singles via artist',
+    '/release-group?artist=a16d1433-ba89-4f72-a47b-a370add0bb55&type=single' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group-list count="0" />
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;
