@@ -126,7 +126,7 @@
 
       <div class="select-recording-container" style="display: none"
         id='[% "select-recording-$medium_idx-$track_idx" %]'>
-      <div class="select-recording">
+      <div class="select-recording bubble">
         <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
         <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 
