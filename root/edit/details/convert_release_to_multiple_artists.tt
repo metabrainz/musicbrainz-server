@@ -2,13 +2,19 @@
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">
+      [% IF edit.display_data.releases.size %]
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% l('{release} by {artist}',
+        <li>[% release.defined ?
+                l('{release} by {artist}',
                  { release => link_release(release),
-                   artist  => artist_credit(release.artist_credit) }) %]</li>
+                   artist  => artist_credit(release.artist_credit) }) :
+                l('(unknown)') %]</li>
         [% END %]
       </ul>
+      [% ELSE;
+           l('(unknown)');
+         END %]
     </td>
   </tr>
 
