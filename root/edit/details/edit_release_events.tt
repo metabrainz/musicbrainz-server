@@ -21,7 +21,7 @@
     <tr>
       <td>[% link_release(re.release) %]</td>
       <td>[% re.date.format %]</td>
-      <td>[% re.county.name %]</td>
+      <td>[% re.country.name %]</td>
       <td>[% link_label(re.label) %]</td>
       <td>[% re.catalog_number %]</td>
       <td>[% re.barcode %]</td>
@@ -42,7 +42,7 @@
     <tr>
       <td>[% link_release(re.release) %]</td>
       <td>[% re.date.format %]</td>
-      <td>[% re.county.name %]</td>
+      <td>[% re.country.name %]</td>
       <td>[% link_label(re.label) %]</td>
       <td>[% re.catalog_number %]</td>
       <td>[% re.barcode %]</td>
@@ -69,8 +69,8 @@
         [% re.date.new.format %]
       </td>
       <td>
-        [% re.county.old.name %]<br />
-        [% re.county.new.name %]<br />
+        [% re.country.old.name %]<br />
+        [% re.country.new.name %]<br />
       </td>
       <td>
         [% link_label(re.label.old) %]<br />
