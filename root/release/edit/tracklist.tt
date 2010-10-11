@@ -4,27 +4,19 @@
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/TrackParser.js') %]" type="text/javascript"></script>
 
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mb.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Handler/Base.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Handler/Track.js') %]" type="text/javascript"></script>
 
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/common/GcFix.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/common/GcFlags.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/common/GcInput.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/common/GcOutput.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/common/GcUtils.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Base.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Classical.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/English.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/French.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Sentence.js') %]" type="text/javascript"></script>
 
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/handler/GcHandler.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/handler/GcAlbumHandler.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/handler/GcArtistHandler.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/handler/GcLabelHandler.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/handler/GcTrackHandler.js') %]" type="text/javascript"></script>
-
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcMode.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeArtist.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeClassical.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeDefault.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeFrench.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/mode/GcModeSentence.js') %]" type="text/javascript"></script>
-
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Input.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Output.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Flags.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Utils.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Modes.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Main.js') %]" type="text/javascript"></script>
 
@@ -46,6 +38,7 @@
       var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab, serialized_tracklists);
 
     });
+
   </script>
 [%- END -%]
 

@@ -28,17 +28,6 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase.Modes = function (language) {
     var self = MB.Object ();
 
-
-    // language constants
-    self.EN = "en"; // English=Default
-    self.FR = "fr"; // French
-    self.IT = "it"; // Italian
-    
-    // special modes language constants
-    self.XX = "xx"; // Sentence
-    self.XC = "XC"; // Classical
-
-
     /**
      * Gets the currently selected element from the mode dropdown.
      **/
@@ -80,13 +69,15 @@ MB.GuessCase.Modes = function (language) {
     self.getMode = getMode;
     self.updateMode = updateMode;
 
-    self.artist_mode = new GcModeArtist(self);
+    self.artist_mode = (typeof MB.GuessCase.Mode.Artist === "undefined") ? 
+        null : MB.GuessCase.Mode.Artist (self);
     self.dropdown = $('#gc-mode');
+
     self.modes = [
-	new GcModeDefault(self),
-	new GcModeSentence(self),
-	new GcModeFrench(self),
-	new GcModeClassical(self)
+        MB.GuessCase.Mode.English (self),
+        MB.GuessCase.Mode.Sentence (self),
+        MB.GuessCase.Mode.French (self),
+        MB.GuessCase.Mode.Classical (self)
     ];
 
     initialize ();

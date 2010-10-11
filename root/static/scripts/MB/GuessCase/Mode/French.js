@@ -19,35 +19,28 @@
 
 */
 
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
+MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
+MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
-MB.GuessCase.Track = function () {
-    var self = MB.Object ();
+/**
+ * Models the "French" GuessCase mode.
+ **/
+MB.GuessCase.Mode.French = function () {
+    var self = MB.GuessCase.Mode.Base ();
 
-    var guess = function (data) {
+    self.setConfig(
+	'French',
+	'First word titled, lowercase for <i>most</i> of the other '
+	    + 'words. Read the [url]description[/url] for more details.',
+	'/doc/GuessCaseMode/FrenchMode');
 
-        if (MB.utility.isString (data))
-        {
-            data = [ data ];
-        }
+    self.runFinalChecks = function(is) {
+	os = is.replace(/([!\?;:]+)/gi, " $1");
+	os = os.replace(/([«]+)/gi, "$1 ");
+	os = os.replace(/([»]+)/gi, " $1");
 
-        var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
-        }); 
-
-        return ret;
+	return os;
     };
-
-    var initMode = function () {
-        window.gc = self.gc;
-    };
-
-    self.gc = MB.GuessCase.Main ();
-
-    self.guess = guess;
-
-    initMode ();
 
     return self;
 };

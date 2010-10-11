@@ -19,35 +19,16 @@
 
 */
 
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
+MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
+MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
-MB.GuessCase.Track = function () {
-    var self = MB.Object ();
+/**
+ * Models the "Artist" GuessCase mode.
+ **/
+MB.GuessCase.Mode.Artist = function () {
+    var self = MB.GuessCase.Mode.Base ();
 
-    var guess = function (data) {
-
-        if (MB.utility.isString (data))
-        {
-            data = [ data ];
-        }
-
-        var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
-        }); 
-
-        return ret;
-    };
-
-    var initMode = function () {
-        window.gc = self.gc;
-    };
-
-    self.gc = MB.GuessCase.Main ();
-
-    self.guess = guess;
-
-    initMode ();
+    self.setConfig('Artist mode', '', '');
 
     return self;
 };

@@ -19,7 +19,7 @@
 
 */
 
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
+MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 
 /**
  * Main class of the GC functionality
@@ -31,7 +31,6 @@ MB.GuessCase.Main = function () {
     // placeholders for stuff which used to be inherited from the edit suite.
     // ---------------------------------------------------------------------------
     self.isConfigTrue = function (cfg) { return cfg (); };
-    window.gc = self; /* FIXME: ugly hack. --warp. */
 
     /* config. */
     self.CFG_AUTOFIX = function () { return false; };
@@ -41,10 +40,10 @@ MB.GuessCase.Main = function () {
     // ----------------------------------------------------------------------------
     // member variables
     // ---------------------------------------------------------------------------
-    self.u = new GcUtils();
-    self.f = new GcFlags();
-    self.i = new GcInput();
-    self.o = new GcOutput();
+    self.u = MB.GuessCase.Utils ();
+    self.f = MB.GuessCase.Flags ();
+    self.i = MB.GuessCase.Input ();
+    self.o = MB.GuessCase.Output ();
     self.artistHandler = null;
     self.labelHandler = null;
     self.releaseHandler = null;
@@ -199,7 +198,7 @@ MB.GuessCase.Main = function () {
 	self.init();
 
 	if (!self.trackHandler) {
-	    self.trackHandler = new GcTrackHandler();
+	    self.trackHandler = MB.GuessCase.Handler.Track ();
 	}
 	handler = self.trackHandler;
 
