@@ -73,7 +73,9 @@
           <tr>
             <td class="disc" >
             [% IF multidisc %]
-              <h3>[% l('Disc {num}', { num => loop.index + 1 }) %]</h3>
+              <h3>
+                [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+              </h3>
             [% END %]
             </td>
             <td class="format">
@@ -171,7 +173,15 @@
     <fieldset class="advanced-disc">
       [% r.hidden(medium_field.field('tracklist').field('id'), class => 'tracklist-id') %]
       [% r.hidden(medium_field.field('tracklist').field('serialized')) %]
-      <legend>[% l('Disc {num}', { num => loop.index + 1 }) %]</legend>
+      <legend>
+        [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+      </legend>
+
+      <div id="mediums.[% loop.index %].updown"
+           style="float: right; margin: 20px 20px 0 0; font-weight: bolder; font-size: 150%;" >
+          <a href="#discdown">&darr;</a>
+          <a href="#discup">&uarr;</a>
+      </div>
 
       <div class="advanced-medium-format-and-title">
       </div>

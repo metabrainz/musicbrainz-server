@@ -199,6 +199,12 @@ sub release_compare
     @old_media = @{ $release->mediums } if $release;
     @new_media = @{ $data->{mediums} };
 
+    while (!defined $new_media[-1]->{tracklist})
+    {
+        # remove trailing empty discs.
+        pop @new_media;
+    }
+
     if (scalar @old_media > scalar @new_media)
     {
         die ("removing discs is not yet supported.\n");
@@ -516,7 +522,7 @@ sub _edit_release_track_edits
         else
         {
             my $opts = {
-                position => $medium->{'position'},
+                position => $medium_idx + 1,
                 tracklist_id => $tracklist_id,
                 release_id => $release ? $release->id : 0,
             };
@@ -525,7 +531,17 @@ sub _edit_release_track_edits
             $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
 
             # Add medium
-            $self->$edit($c,$EDIT_MEDIUM_CREATE, $editnote, %$opts);
+            my $add_medium = $self->$edit($c,$EDIT_MEDIUM_CREATE, $editnote, %$opts);
+
+            if ($medium->{position} != $medium_idx + 1)
+            {
+                # Disc was inserted at the wrong position, enter an edit to re-order it.
+                $self->$edit($c,
+                    $EDIT_MEDIUM_EDIT, $editnote,
+                    position => $medium->{position},
+                    to_edit => $add_medium->entity,
+                );
+            }
         }
 
         $medium_idx++;
@@ -648,7 +664,9 @@ sub associate_recordings
                 $rec = $track->suggestions->[0]->entity->gid;
             }
 
-            push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
+            # the space in gid is a hack, the form doesn't create the required
+            # inputs with just an empty string. --warp.
+            push @$medium_assoc, $rec ? { gid => $rec } : { gid => ' ' };
         }
 
         push @$associations, { associations => $medium_assoc };
