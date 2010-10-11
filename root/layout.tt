@@ -23,7 +23,7 @@
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
         [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        <link rel="stylesheet" type="text/css" href="/static/main.css" />
+        <link rel="stylesheet" type="text/css" href="/static/main.css?mtime=[% c.model('FileCache').modified('main.css') %]" />
         [% IF extra_css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
         [% END %]
