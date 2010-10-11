@@ -46,7 +46,7 @@ ws_test 'label lookup with releases, inc=media',
         <release-list count="2">
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
                 <title>My Demons</title><status>official</status>
-                <quality>unknown</quality>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
@@ -59,7 +59,7 @@ ws_test 'label lookup with releases, inc=media',
             </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>official</status>
-                <quality>unknown</quality>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>

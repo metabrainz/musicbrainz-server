@@ -243,8 +243,13 @@ sub _serialize_quality
         $QUALITY_NORMAL => 'normal',
         $QUALITY_HIGH => 'high'
     );
+
+    my $quality =
+        $release->quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED
+                                              : $release->quality;
+
     push @$data, $gen->quality(
-        $quality_names{$release->quality} || 'unknown'
+        $quality_names{$quality}
     );
 }
 
