@@ -180,7 +180,8 @@ sub show : PathPart('') Chained('load')
     else
     {
         my $method = 'find_by_artist';
-        if ($c->req->query_params->{va}) {
+        my $show_va = $c->req->query_params->{va};
+        if ($show_va) {
             $method = 'find_by_track_artist';
             $c->stash( show_va => 1 );
         }
@@ -188,6 +189,17 @@ sub show : PathPart('') Chained('load')
         $release_groups = $self->_load_paged($c, sub {
                 $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
             });
+
+        if (!$show_va && @$release_groups == 0) {
+            $release_groups = $self->_load_paged($c, sub {
+                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                });
+            $c->stash(
+                va_only => 1,
+                show_va => 1
+            );
+        }
+
         $c->stash( template => 'artist/index.tt' );
     }
 
@@ -334,7 +346,8 @@ sub releases : Chained('load')
     else
     {
         my $method = 'find_by_artist';
-        if ($c->req->query_params->{va}) {
+        my $show_va = $c->req->query_params->{va};
+        if ($show_va) {
             $method = 'find_by_track_artist';
             $c->stash( show_va => 1 );
         }
@@ -342,6 +355,16 @@ sub releases : Chained('load')
         $releases = $self->_load_paged($c, sub {
                 $c->model('Release')->$method($artist->id, shift, shift);
             });
+
+        if (!$show_va && @$releases == 0) {
+            $releases = $self->_load_paged($c, sub {
+                    $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                });
+            $c->stash(
+                va_only => 1,
+                show_va => 1
+            );
+        }
 
         $c->stash( template => 'artist/releases.tt' );
     }
