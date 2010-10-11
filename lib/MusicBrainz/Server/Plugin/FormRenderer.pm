@@ -116,6 +116,7 @@ sub label
     {
         return $self->h->div({
             class => "$class label",
+            id => 'label-' . $field->id,
             %$attrs
         }, $label);
     }
