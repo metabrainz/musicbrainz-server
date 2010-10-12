@@ -72,14 +72,15 @@ sub find_by_entity_id
     }, $query, @ids) ];
 }
 
-sub has_alias
+sub has_locale
 {
-    my ($self, $entity_id, $alias_name, $filter) = @_;
+    my ($self, $entity_id, $locale_name, $filter) = @_;
+    return unless defined $locale_name;
     my $sql  = Sql->new($self->c->dbh);
     my $type = $self->type;
     my $query = 'SELECT 1 FROM ' . $self->_table .
-        " WHERE $type = ? AND name.name = ?";
-    my @args = ($entity_id, $alias_name);
+        " WHERE $type = ? AND locale = ?";
+    my @args = ($entity_id, $locale_name);
     if (defined $filter) {
         $query .= ' AND ' . $type . '_alias.id != ?';
         push @args, $filter;

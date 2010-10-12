@@ -3,7 +3,6 @@
 
 DROP INDEX artist_alias_idx_artist;
 DROP INDEX artist_alias_idx_locale_artist;
-DROP INDEX artist_alias_idx_name;
 DROP INDEX artist_credit_name_idx_artist;
 DROP INDEX artist_idx_gid;
 DROP INDEX artist_idx_name;
@@ -81,7 +80,6 @@ DROP INDEX l_work_work_idx_entity1;
 DROP INDEX l_work_work_idx_uniq;
 DROP INDEX label_alias_idx_label;
 DROP INDEX label_alias_idx_locale_label;
-DROP INDEX label_alias_idx_name;
 DROP INDEX label_idx_gid;
 DROP INDEX label_idx_name;
 DROP INDEX label_idx_sortname;
@@ -138,7 +136,6 @@ DROP INDEX tracklist_index_idx;
 DROP INDEX url_idx_gid;
 DROP INDEX url_idx_url;
 DROP INDEX work_alias_idx_locale_work;
-DROP INDEX work_alias_idx_name;
 DROP INDEX work_alias_idx_work;
 DROP INDEX work_idx_artist_credit;
 DROP INDEX work_idx_gid;
