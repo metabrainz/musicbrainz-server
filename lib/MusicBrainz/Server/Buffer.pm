@@ -30,6 +30,12 @@ has 'limit' => (
     is       => 'ro'
 );
 
+has 'skip_empty' => (
+    isa => 'Bool',
+    is => 'ro',
+    default => 1
+);
+
 sub flush_on_complete
 {
     my ($self, $code) = @_;
@@ -51,6 +57,7 @@ sub add_items
 sub flush
 {
     my ($self) = @_;
+    return if $self->skip_empty && $self->count == 0;
     $self->callback($self->contents);
     $self->empty;
 }
