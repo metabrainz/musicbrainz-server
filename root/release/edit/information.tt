@@ -132,7 +132,7 @@
 
     <fieldset>
       <legend>Additional information</legend>
-      [% form_row_textarea(r, 'annotation', l('Notes')) %]
+      [% form_row_textarea(r, 'annotation', l('Annotation')) %]
       [% form_row_text(r, 'comment', l('Comment')) %]
     </fieldset>
 
@@ -191,7 +191,7 @@
           [% l('The comment field is used to help users distinguish between identically named releases.') %]
         </p>
         <p>
-          [% l('This field is not a place to store general background information about the release: that kind of information should go in the Notes field.') %]
+          [% l('This field is not a place to store general background information about the release: that kind of information should go in the annotation field.') %]
         </p>
       </div>
     </div>
