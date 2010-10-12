@@ -62,13 +62,30 @@ Server configuration
         cp lib/DBDefs.pm.default lib/DBDefs.pm
 
     Fill in the appropriate values for MB_SERVER_ROOT and WEB_SERVER.
-    The rest of the default values in DBDefs.pm should be fine to use as is.
 
-3)  WikiDoc page support (optional)
+    Determine what type of server this will be using REPLICATION_TYPE:
+    a) RT_SLAVE (mirror server)
+       A mirror server will always be in sync with the master database at
+       http://musicbrainz.org by way of an hourly replication packet. Mirror servers
+       do not allow any local editing, after the initial data import the only changes
+       allowed will be to load the next replication packet in turn.
 
-    If you would like to have the /doc pages load properly, run:
+       Mirror servers will have their WikiDocs automatically kept up to date.
 
-       wget -O root/static/wikidocs/index.txt http://musicbrainz.org/generated/wikitrans-index
+       If you are not setting up a mirror server for development purposes, make sure
+       to set DB_STAGING_SERVER to 0.
+
+    b) RT_STANDALONE
+       A stand alone server is recommended if you are setting up a server for development
+       purposes. They do not accept the replication packets and will require manually
+       importing a new database dump in order to bring it up to date with the master database.
+       Local editing is available, but keep in mind that none of your changes will be pushed
+       up to http://musicbrainz.org.
+
+       Stand alone servers will need to manually download and update their WikiDoc
+       transclusion table:
+
+            wget -O root/static/wikidocs/index.txt http://musicbrainz.org/generated/wikitrans-index
 
 Installing Perl dependencies
 ----------------------------
