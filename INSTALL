@@ -61,9 +61,8 @@ Server configuration
 
         cp lib/DBDefs.pm.default lib/DBDefs.pm
 
-    Edit the value of MB_SERVER_ROOT to point to where your musicbrainz-server
-    directory is. The rest of the default values in DBDefs.pm should be fine to
-    use as is.
+    Fill in the appropriate values for MB_SERVER_ROOT and WEB_SERVER.
+    The rest of the default values in DBDefs.pm should be fine to use as is.
 
 3)  WikiDoc page support (optional)
 
@@ -100,7 +99,7 @@ Installing Perl dependencies
     If you have trouble installing any of the dependencies you may have to
     force their installation by running:
 
-        sudo cpan -f <Module::Name>
+        sudo cpan -f Module::Name
 
 
 Creating the database
@@ -146,7 +145,8 @@ Creating the database
 
     Alternatively, if you are running a server for development purposes and
     don't require any special access permissions, the following configuration
-    in pg_hba.conf will suffice:
+    in pg_hba.conf will suffice (make sure to insert this line before any other
+    permissions):
 
         local   all    all    trust
 
@@ -222,7 +222,7 @@ Starting the server
 
     If you have any difficulties, please feel free to contact aCiD2 or warp in
     #musicbrainz-devel on irc.freenode.net, or email the developer mailing list
-    at musicbrainz-devel [at] lists musicbrainz.org.
+    at musicbrainz-devel [at] lists.musicbrainz.org.
 
     If you find any bugs, please report them on http://jira.musicbrainz.org.
 
