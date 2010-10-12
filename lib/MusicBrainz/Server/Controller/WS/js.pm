@@ -67,7 +67,7 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 sub _autocomplete_entity {
     my ($self, $c, $type) = @_;
 
-    my $query = MusicBrainz::Server::Data::Search::escape_query (trim $c->stash->{args}->{q});
+    my $query = escape_query (trim $c->stash->{args}->{q});
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
