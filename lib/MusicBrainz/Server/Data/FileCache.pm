@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
-use JavaScript::Minifier::XS qw( minify );
+use Javascript::Closure qw( minify );
 use IO::All;
 
 with 'MusicBrainz::Server::Data::Role::Context';
@@ -27,23 +27,13 @@ sub modified {
 sub squash_scripts {
     my ($self, @files) = @_;
     my $hash = md5_hex(join ",", sort @files);
-    my $cache = $self->c->cache('file-cache');
-    my $key = "squash:$hash";
-
-    my $path = $cache->get($key);
-    unless (defined $path) {
-        my $js;
-        for my $file (@files) {
-            io(DBDefs::STATIC_FILES_DIR . "/$file") >> $js;
-        }
-
-        $js = minify($js);
-        io(DBDefs::STATIC_FILES_DIR . "/$hash.js") < $js;
-
-        $cache->set($key, $hash);
+    my $path = DBDefs::STATIC_PREFIX . "/$hash.js";
+    my $file = DBDefs::STATIC_FILES_DIR . "/$hash.js";
+    unless (-e$file) {
+        minify( input => join("\n", map { io($_)->all } @files) ) > io($file);
     }
 
-    return DBDefs::STATIC_PREFIX . "/$hash.js";
+    return $path;
 }
 
 __PACKAGE__->meta->make_immutable;

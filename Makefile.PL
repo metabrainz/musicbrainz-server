@@ -42,7 +42,7 @@ requires 'HTML::FormHandler'                          => '0.30002';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath';
 requires 'IO::All';
-requires 'JavaScript::Minifier::XS';
+requires 'Javascript::Closure';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
 requires 'List::MoreUtils'                            => '0.22';
