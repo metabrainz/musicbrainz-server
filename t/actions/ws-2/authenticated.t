@@ -4,32 +4,13 @@ use Test::More;
 use XML::XPath;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post );
 use MusicBrainz::WWW::Mechanize;
-use HTTP::Request;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
 my $v2 = schema_validator;
 my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
-
-sub _raw_post
-{
-    my ($url, $content) = @_;
-
-    # $mech->post_ok seems intent on destroying the POST body by trying to
-    # encode it as "application/x-www-form-urlencoded".  So create a request
-    # by hand, to make sure the body is submitted verbatim.
-    my $request = HTTP::Request->new (
-        POST => $url,
-        HTTP::Headers->new ('Content-Type' => 'application/xml; charset=UTF-8',
-                            'Content-Length', length ($content)),
-        );
-
-    $request->content ($content);
-
-    return $request;
-}
 
 sub _compare_tags
 {
@@ -71,13 +52,13 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-$mech->request (_raw_post ('/ws/2/tag?client=post.t-0.0.2', $content));
+$mech->request (xml_post ('/ws/2/tag?client=post.t-0.0.2', $content));
 is ($mech->status, 401, 'Tags rejected without authentication');
 $mech->content_contains ('Authorization required');
 
 $mech->credentials ('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
-$mech->request (_raw_post ('/ws/2/tag?client=post.t-0.0.2', $content));
+$mech->request (xml_post ('/ws/2/tag?client=post.t-0.0.2', $content));
 warn($mech->content);
 xml_ok ($mech->content);
 
@@ -112,7 +93,7 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-$mech->request (_raw_post ('/ws/2/rating?client=post.t-0.0.2', $content));
+$mech->request (xml_post ('/ws/2/rating?client=post.t-0.0.2', $content));
 xml_ok ($mech->content);
 
 my $xp = XML::XPath->new( xml => $mech->content );

@@ -61,6 +61,7 @@ ws_test 'release lookup with release relationships',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
         <title>サマーれげぇ!レインボー</title><status>official</status>
+        <quality>normal</quality>
         <text-representation>
             <language>jpn</language><script>Jpan</script>
         </text-representation>
@@ -70,6 +71,7 @@ ws_test 'release lookup with release relationships',
                 <target>b3b7e934-445b-4c68-a097-730c6a6d47e6</target>
                 <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                     <title>Summer Reggae! Rainbow</title><date>2001-07-04</date><barcode>4942463511227</barcode>
+                    <quality>normal</quality>
                 </release>
             </relation>
         </relation-list>

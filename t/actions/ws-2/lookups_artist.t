@@ -47,6 +47,7 @@ ws_test 'artist lookup with releases',
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
                 <status>pseudo-release</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
                     <script>Latn</script>
@@ -58,6 +59,7 @@ ws_test 'artist lookup with releases',
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                 <title>サマーれげぇ!レインボー</title>
                 <status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
                     <script>Jpan</script>
@@ -80,6 +82,7 @@ ws_test 'artist lookup with pseudo-releases',
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
                 <status>pseudo-release</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
                     <script>Latn</script>
@@ -101,6 +104,7 @@ ws_test 'artist lookup with releases and discids',
         <release-list count="2">
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
                 <title>My Demons</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
@@ -119,6 +123,7 @@ ws_test 'artist lookup with releases and discids',
             </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
@@ -221,6 +226,7 @@ ws_test 'single artist release lookup',
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
                 <title>the Love Bug</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
@@ -242,6 +248,7 @@ ws_test 'various artists release lookup',
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
                 <title>the Love Bug</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>

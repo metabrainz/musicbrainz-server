@@ -81,8 +81,8 @@ sub find_or_insert
     }
 
     if (@insert) {
-        my $client_id = $self->sql->select_single_value('SELECT id FROM clientversion WHERE version = ?', $client) ||
-            $self->sql->insert_row('clientversion', { version => $client }, 'id');
+        my $client_id = $self->sql->select_single_value('SELECT id FROM clientversion WHERE version = ?', $client)
+            || $self->sql->insert_row('clientversion', { version => $client }, 'id');
 
         my @clients = ($client_id) x @insert;
         $rows = $self->sql->select_list_of_hashes(
