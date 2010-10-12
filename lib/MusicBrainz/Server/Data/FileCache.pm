@@ -30,7 +30,10 @@ sub squash_scripts {
     my $path = DBDefs::STATIC_PREFIX . "/$hash.js";
     my $file = DBDefs::STATIC_FILES_DIR . "/$hash.js";
     unless (-e$file) {
-        minify( input => join("\n", map { io($_)->all } @files) ) > io($file);
+        minify(
+            input => join("\n", map {
+                io(DBDefs::STATIC_FILES_DIR . '/' . $_)->all
+            } @files) ) > io($file);
     }
 
     return $path;
