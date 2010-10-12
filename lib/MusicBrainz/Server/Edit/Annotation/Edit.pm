@@ -1,21 +1,22 @@
 package MusicBrainz::Server::Edit::Annotation::Edit;
+use Carp;
 use Moose;
 use MooseX::ABC;
-
 use Moose::Util::TypeConstraints qw( enum );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 has '+data' => (
     isa => Dict[
         editor_id => Int,
         text      => Nullable[Str],
         changelog => Nullable[Str],
-        entity_id => Int,
+        entity_id => NullableOnPreview[Int],
     ],
 );
 
@@ -29,7 +30,8 @@ sub build_display_data
     my $self = shift;
     return {
         changelog     => $self->data->{changelog},
-        annotation_id => $self->annotation_id
+        annotation_id => $self->annotation_id,
+        text          => $self->data->{text},
     };
 }
 
@@ -65,6 +67,10 @@ sub initialize
         %opts,
         editor_id => $self->editor_id,
     });
+
+    return if $self->preview;
+
+    croak "No entity_id specified" unless $self->data->{entity_id};
 }
 
 override 'to_hash' => sub

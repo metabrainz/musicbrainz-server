@@ -13,6 +13,7 @@ use MusicBrainz::Server::Wizard;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
@@ -250,6 +251,7 @@ sub _load_release
     $c->model('Label')->load(@{ $release->labels });
     $c->model('ReleaseGroupType')->load($release->release_group);
     $c->model('MediumFormat')->load($release->all_mediums);
+    $c->model('Release')->annotation->load_latest ($release);
 }
 
 
@@ -548,6 +550,23 @@ sub _edit_release_track_edits
     }
 }
 
+sub _edit_release_annotation
+{
+    my ($self, $c, $preview, $editnote, $data, $release) = @_;
+
+    my $edit = $preview ? '_preview_edit' : '_create_edit';
+
+    my $annotation = $release->latest_annotation ? $release->latest_annotation->text : '';
+
+    if ($annotation ne $data->{annotation})
+    {
+        my $edit = $self->$edit($c,
+            $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
+            entity_id => $release->id,
+            text => $data->{annotation});
+    }
+}
+
 sub run
 {
     my ($self, $c, $release) = @_;
@@ -696,6 +715,11 @@ sub create_common_edits
     # ----------------------------------------
 
     $self->_edit_release_track_edits ($c, $as_previews, $edit_note, $data, $release);
+
+    # annotation
+    # ----------------------------------------
+
+    $self->_edit_release_annotation ($c, $as_previews, $edit_note, $data, $release);
 
     if ($as_previews) {
         $c->model ('Edit')->load_all (@{ $c->stash->{edits} });

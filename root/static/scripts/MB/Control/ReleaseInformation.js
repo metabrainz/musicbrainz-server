@@ -280,6 +280,8 @@ MB.Control.ReleaseInformation = function() {
 
         self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
+        self.bubbles.add ($('#annotation'), $('div.annotation'));
+        self.bubbles.add ($('#id-comment'), $('div.comment'));
 
         $('div.release-label').each (function () {
             self.addLabel ($(this));

@@ -263,7 +263,8 @@ MB.Control.BubbleDoc = function (parent, target, content) {
         {
             self.button = true;
         }
-        else if (self.target.filter ('input[type=text]').length)
+        else if (self.target.filter ('input[type=text]').length ||
+                 self.target.filter ('textarea').length)
         {
             self.textinput = true;
         }

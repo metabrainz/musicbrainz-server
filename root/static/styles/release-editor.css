@@ -76,13 +76,13 @@ h1 span {
 
 #release-editor fieldset textarea {
     height: 10px;
-    width: 290px;
+    width: 300px;
 }
 
 #release-editor fieldset textarea.tracklist {
     height: 250px;
     margin: 0 10px;
-    width: 423px;
+    width: 430px;
 }
 
 #release-editor fieldset h3 {
