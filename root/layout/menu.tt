@@ -137,7 +137,7 @@
                 [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
             </li>
             <li>
-                [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
+                [% l('{uri|Tags}', { uri => c.uri_for('/tags') }) %]
             </li>
             <li>
                 [% l('{uri|Top CD Stubs}', { uri => c.uri_for('/cdstub/browse') }) %]

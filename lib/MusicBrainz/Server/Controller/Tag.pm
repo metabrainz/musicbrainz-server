@@ -18,7 +18,7 @@ sub _load
     return $c->model('Tag')->get_by_name($name);
 }
 
-sub cloud : Chained('base') PathPart('') Args(0)
+sub cloud : Chained('base') Path('/tags') Args(0)
 {
     my ($self, $c, $name) = @_;
 
