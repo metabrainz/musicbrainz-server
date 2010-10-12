@@ -1,15 +1,14 @@
+<p>[% l('Please note that any content submitted to MusicBrainz will be made available
+         to the public under {open|open licenses}, do not submit
+         any copyrighted text here! ',
+         { open => doc_link('MusicBrainz_License') }) %]</p>
+
 [% IF show_preview %]
-    <h3>[% l('Preview') %]</h3>
+    <h3>[% l('Preview:') %]</h3>
     [% preview | format_wikitext %]
-    <h3>[% l('Edit annotation') %]</h3>
 [% END %]
 
 <form action="[% c.uri.path %]" method="post">
-    <p>[% l('Please note that any content submitted to MusicBrainz will be made available
-             to the public under {open|open licenses}, do not submit
-             any copyrighted text here! ',
-             { open => doc_link('MusicBrainz_License') }) %]</p>
-
     [% USE r = FormRenderer(form) %]
 
     [% WRAPPER form_row %]
