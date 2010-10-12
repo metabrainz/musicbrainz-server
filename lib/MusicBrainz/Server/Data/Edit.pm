@@ -189,6 +189,58 @@ sub insert
     $sql_raw->dbh->pg_putcopyend();
 }
 
+sub preview
+{
+    my ($self, %opts) = @_;
+    
+    my $type = delete $opts{edit_type} or croak "edit_type required";
+    my $editor_id = delete $opts{editor_id} or croak "editor_id required";
+    my $privs = delete $opts{privileges} || 0;
+    my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
+        or die "Could not lookup edit type for $type";
+
+    unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
+    {
+        warn "FIXME: $class does not support previewing.\n";
+        return undef;
+    }
+
+    my $edit = $class->new( editor_id => $editor_id, c => $self->c, preview => 1 );
+    try {
+        $edit->initialize(%opts);
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
+        die $e;
+    }
+    catch ($err) {
+        use Data::Dumper;
+        croak join "\n\n", "Could not create error", Dumper(\%opts), $err;
+    }
+
+    my $quality = $edit->determine_quality;
+    my $conditions = $edit->edit_conditions->{$quality};
+
+    # Edit conditions allow auto edit and the edit requires no votes
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && $conditions->{votes} == 0);
+
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && $edit->allow_auto_edit);
+
+    # Edit conditions allow auto edit and the user is autoeditor
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && ($privs & $AUTO_EDITOR_FLAG));
+
+    # Unstrusted user, always go through the edit queue
+    $edit->auto_edit(0)
+        if ($privs & $UNTRUSTED_FLAG);
+
+    # Save quality level
+    $edit->quality($quality);
+
+    return $edit;
+}
+
 sub create
 {
     my ($self, %opts) = @_;
@@ -266,6 +318,7 @@ sub create
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
             $ids = [ uniq @$ids ];
+            @$ids or next;
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
             my @all_ids = ($edit_id) x @$ids;

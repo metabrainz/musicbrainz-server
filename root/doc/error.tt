@@ -18,7 +18,7 @@
                    wiki => 'http://' _ wiki_server _ '/Special:Search?search=' _ replace(id, '_', '+') }) -%]
         </p>
 
-        <p>
+        <p class="small">
             [%- l('Found a broken link on our site? Please {con|contact us}.',
                  { con => doc_link('Contact_Us') }) -%]
         </p>

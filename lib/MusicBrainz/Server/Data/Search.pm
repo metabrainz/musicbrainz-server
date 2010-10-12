@@ -39,6 +39,8 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     tag           => 'MusicBrainz::Server::Data::Tag',
 );
 
+use Sub::Exporter -setup => { exports => [qw( escape_query )] };
+
 sub search
 {
     my ($self, $type, $query_str, $limit, $offset, $where) = @_;
@@ -112,13 +114,19 @@ sub search
         $extra_columns .= 'entity.language, entity.script,'
             if ($type eq 'release');
 
-        my ($join_sql, $where_sql);
-        if ($where && exists $where->{track_count}) {
-            $join_sql = '
+        my ($join_sql, $where_sql) 
+            = ("JOIN ${type} entity ON r.id = entity.name", '');
+
+        if ($type eq 'release' && $where && exists $where->{track_count}) {
+            $join_sql .= '
                 JOIN medium ON medium.release = entity.id
                 JOIN tracklist ON medium.tracklist = tracklist.id';
             $where_sql = 'WHERE tracklist.trackcount = ?';
             push @where_args, $where->{track_count};
+        }
+        elsif ($type eq 'recording') {
+            $join_sql = "JOIN track ON r.id = track.name
+                         JOIN ${type} entity ON track.recording = entity.id";
         }
 
         $query = "
@@ -138,11 +146,10 @@ sub search
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
-                JOIN ${type} entity ON r.id = entity.name
                 $join_sql
                 $where_sql
             ORDER BY
-                r.rank DESC, r.name, artist_credit
+                r.rank DESC, r.name, entity.artist_credit
             OFFSET
                 ?
         ";

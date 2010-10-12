@@ -80,6 +80,6 @@ $raw_sql->do(
     'INSERT INTO vote (id, editor, edit, vote, votetime, superseded)
           VALUES ' . (join ", ", (("(?, ?, ?, ?, ?, ?)") x @$votes)),
     map { @$_ } @$votes
-);
+) if @$votes;
 
 $raw_sql->commit;

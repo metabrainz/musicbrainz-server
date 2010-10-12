@@ -1,4 +1,5 @@
 [%- USE u = Utils -%]
+[%- MACRO url_escape(url) BLOCK; url | url; END -%]
 
 [% ############################## %]
 [% # map MB types to RDF concepts %]
@@ -35,26 +36,7 @@ END -%]
 END -%]
 
 [% MACRO rdfa_format_curi(name) BLOCK;
- 'mfo:CD' IF name == 'CD';
- 'mfo:DVD' IF name == 'DVD';
- 'mfo:SACD' IF name == 'SACD';
- 'mfo:DualDisc' IF name == 'DualDisc';
- 'mfo:LaserDisc' IF name == 'LaserDisc';
- 'mfo:MiniDisc' IF name == 'MiniDisc';
- 'mfo:Vinyl' IF name == 'Vinyl';
- 'mfo:Cassette' IF name == 'Cassette';
- 'mfo:Cartridge' IF name == 'Cartridge';
- 'mfo:Reel_to_reel' IF name == 'Reel-to-reel';
- 'mfo:DAT' IF name == 'DAT';
- 'mfo:DigitalMedia' IF name == 'Digital Media';
- 'mfo:Other' IF name == 'Other';
- 'mfo:WaxCylinder' IF name == 'Wax Cylinder'; 
- 'mfo:PianoRoll' IF name == 'Piano Roll';
- 'mfo:DCC' IF name == 'DCC';
- 'mfo:HD-DVD' IF name == 'HD-DVD';
- 'mfo:DVD-Audio' IF name == 'DVD-Audio';
- 'mfo:DVD-Video' IF name == 'DVD-Video';
- 'mfo:Blu-ray' IF name == 'Blu-ray';
+ '[mfo:' _ url_escape(name.replace(' ','')) _ ']';
 END -%]
 
 [% ################ %]
@@ -371,6 +353,7 @@ END -%]
 
 [% MACRO rdfa_release_invisible_header(release) BLOCK %]
 <span rel="mo:publishing_location" resource="[% rdfa_country_to_curi(release.country) %]"></span>
+<span rel="rdf:type" resource="[% rdfa_format_list(release.mediums) %]"></span>
 <span rel="mo:release_event"><span about="[% rdfa_release_event_curi(release) %]" typeof="mo:ReleaseEvent" property="dct:date" datatype="[% release.date.format | date_xsd_type %]" content="[% release.date.format %]"></span></span>
 [% END %]
 
@@ -378,11 +361,11 @@ END -%]
     <a rel="mo:record" 
        resource="[% rdfa_tracklist_curi(medium) %]"
        href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
-    [% medium.format_name or l("Medium") | html %]
-    [% medium.position %]
-    [% IF medium.name %]
-       [% medium.name | html %]
-    [% END %]
+    [%~ medium.format_name or l("Medium") | html =%]
+    [%= medium.position ~%]
+    [%~ IF medium.name ~%]:
+       [%= medium.name | html ~%]
+    [%~ END ~%]
     </a>
 [%- END -%]
 
@@ -391,9 +374,9 @@ END -%]
 [% END %]
 
 
-[%##################%]
+[%#################%]
 [%# Release Group #%]
-[%##################%]
+[%#################%]
 [%- MACRO rdfa_link_release_group_header(rg) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
@@ -530,7 +513,7 @@ END %]
 [% MACRO rdfa_bbc_music_sameAs(url) BLOCK;
     link = c.uri_for_action("/url/show", [ url.gid ]);
     '<span class="mp">' IF url.edits_pending;
-    text = display_url(url.url);
+    text = display_url(url);
     '<a rel="owl:sameAs" resource="' _ url.url _ '#artist" href="' _ url.url _ '">' _ text _ '</a >';
     '</span>' IF url.edits_pending;
     ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
@@ -539,7 +522,7 @@ END %]
 [% MACRO rdfa_dbpedia_sameAs(url) BLOCK;
     link = c.uri_for_action("/url/show", [ url.gid ]);
     '<span class="mp">' IF url.edits_pending;
-    text = display_url(url.url);
+    text = display_url(url);
     resource = url.url.replace('http://en.wikipedia.org/wiki/', 'http://dbpedia.org/resource/');
     '<a rel="owl:sameAs" resource="' _ resource _ '" href="' _ url.url _ '">' _ text _ '</a >';
     '</span>' IF url.edits_pending;

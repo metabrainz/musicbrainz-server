@@ -146,15 +146,25 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     return self;
 };
 
-MB.Control.ReleaseDisc = function (disc) {
+MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
     var self = MB.Object ();
+
+    self.fieldset = disc;
+    self.basic = basic_disc;
+    self.parent = parent;
 
     /**
      * fullTitle returns the disc title prefixed with 'Disc #: '.  Or just
      * 'Disc #' if the disc doesn't have a title.
      */
     var fullTitle = function () {
-        return 'Disc ' + (self.number + 1) + (self.title.val () ? ': '+self.title.val () : '');
+        var title = '';
+        if (!self.title.hasClass ('jquery_placeholder'))
+        {
+            title = self.title.val ();
+        }
+
+        return 'Disc ' + self.position () + (title ? ': '+title : '');
     };
 
     /**
@@ -211,7 +221,15 @@ MB.Control.ReleaseDisc = function (disc) {
         newartist.find('*').each (replace_ids);
         acrow.find ('*').each (replace_ids);
 
-        self.tracks.push (MB.Control.ReleaseTrack (row, acrow));
+        var trk = MB.Control.ReleaseTrack (row, acrow);
+        self.tracks.push (trk);
+        self.sorted_tracks.push (trk);
+
+        /* if the release artist is VA, clear out the track artist. */
+        if (trk.artist_credit.isVariousArtists ())
+        {
+            trk.artist_credit.clear ();
+        }
 
         if (event !== undefined)
         {
@@ -236,7 +254,7 @@ MB.Control.ReleaseDisc = function (disc) {
 
     /**
      * removeTracks removes all table rows for unused track positions.  It expects
-     * the position of the lastused track as input.
+     * the position of the last used track as input.
      */
     var removeTracks = function (lastused) {
         while (lastused + 1 < self.tracks.length)
@@ -249,14 +267,17 @@ MB.Control.ReleaseDisc = function (disc) {
      * sort sorts all the table rows by the 'position' input.
      */
     var sort = function () {
-        self.tracks.sort (function (a, b) {
+        self.sorted_tracks = [];
+        $.each (self.tracks, function (idx, item) { self.sorted_tracks.push (item); });
+
+        self.sorted_tracks.sort (function (a, b) {
             return parseInt (a.position.val ()) - parseInt (b.position.val ());
         });
 
-        $.each (self.tracks, function (idx, track) {
+        $.each (self.sorted_tracks, function (idx, track) {
             if (idx)
             {
-                track.row.insertAfter (self.tracks[idx-1].acrow);
+                track.row.insertAfter (self.sorted_tracks[idx-1].acrow);
                 track.acrow.insertAfter (track.row);
             }
         });
@@ -279,18 +300,50 @@ MB.Control.ReleaseDisc = function (disc) {
         }
     };
 
-    self.fieldset = disc;
+    /* 'up' is visual, so the disc position decreases. */
+    var moveUp = function (event) {
+        self.parent.moveDisc (self, -1);
+
+        event.preventDefault ();
+    };
+
+    /* 'down' is visual, so the disc position increases. */
+    var moveDown = function (event) {
+        self.parent.moveDisc (self, +1);
+
+        event.preventDefault ();
+    };
+
+    var position = function (val) {
+        if (val)
+        {
+            self.position_input.val (val);
+            self.fieldset.find ('span.discnum').text (val);
+            self.basic.find ('span.discnum').text (val);
+            return val;
+        }
+
+        return parseInt (self.position_input.val ());
+    };
+
     self.table = self.fieldset.find ('table.medium');
     self.artist_column_checkbox = self.table.find ('th.artist input');
 
     self.number = parseInt (self.fieldset.find ('input.tracklist-id').attr ('id').
                             match ('id-mediums\.([0-9])\.tracklist')[1]);
+
     self.tracks = [];
-    /* the title and format inputs move between the fieldset and the textareas
-     * of the basic view.  Therefore we cannot rely on them being children of
-     * self.fieldset, and we need to find them based on their id attribute. */
+    self.sorted_tracks = [];
+
+    /* the following inputs move between the fieldset and the
+     * textareas of the basic view.  Therefore we cannot rely on them
+     * being children of self.fieldset, and we need to find them based
+     * on their id attribute. */
     self.title = $('#id-mediums\\.'+self.number+'\\.name');
+    self.position_input = $('#id-mediums\\.'+self.number+'\\.position');
     self.format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
+
+    self.updown = $('#mediums\\.'+self.number+'\\.updown');
 
     self.fieldset.find ('table.medium tbody tr.track').each (function (idx, item) {
         self.tracks.push (
@@ -304,11 +357,18 @@ MB.Control.ReleaseDisc = function (disc) {
     self.removeTracks = removeTracks;
     self.sort = sort;
     self.updateArtistColumn = updateArtistColumn;
+    self.moveDown = moveDown;
+    self.moveUp = moveUp;
+    self.position = position;
+
+    self.updown.find ('a[href=#discdown]').click (self.moveDown);
+    self.updown.find ('a[href=#discup]').click (self.moveUp);
 
     $("#mediums\\."+self.number+"\\.add_track").click(self.addTrack);
     self.artist_column_checkbox.bind ('change', self.updateArtistColumn);
 
     self.updateArtistColumn ();
+    self.sort ();
 
     return self;
 };
@@ -326,11 +386,11 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         newdisc_adv.find ('tbody').empty ();
 
-        var h3 = newdisc_bas.find ("h3");
-        h3.text (h3.text ().replace (/[0-9]+/, discs + 1));
+        var discnum = newdisc_bas.find ("h3").find ('span.discnum');
+        discnum.text (discs + 1);
 
-        var legend = newdisc_adv.find ("legend");
-        legend.text (legend.text ().replace (/[0-9]+/, discs + 1));
+        discnum = newdisc_adv.find ("legend").find ('span.discnum');
+        discnum.text (discs + 1);
 
         var mediumid = new RegExp ("mediums.[0-9]+");
         var update_ids = function (idx, element) {
@@ -357,7 +417,7 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         newdisc_bas.find ('textarea').empty ();
 
-        var new_disc = MB.Control.ReleaseDisc (newdisc_adv, self);
+        var new_disc = MB.Control.ReleaseDisc (newdisc_adv, newdisc_bas, self);
 
         self.discs.push (new_disc);
 
@@ -369,12 +429,44 @@ MB.Control.ReleaseAdvancedTab = function () {
         return new_disc;
     };
 
+    var moveDisc = function (disc, direction) {
+        var position = disc.position ();
+        var idx = position - 1;
+
+        if (direction < 0 && idx === 0)
+            return;
+
+        if (direction > 0 && idx === self.discs.length - 1)
+            return;
+
+        var other = self.discs[idx + direction];
+
+        other.position (position)
+        disc.position (position + direction)
+
+        self.discs[idx + direction] = disc;
+        self.discs[idx] = other;
+
+        if (direction < 0)
+        {
+            disc.fieldset.insertBefore (other.fieldset);
+            disc.basic.insertBefore (other.basic);
+        }
+        else
+        {
+            other.fieldset.insertBefore (disc.fieldset);
+            other.basic.insertBefore (disc.basic);
+        }
+    };
+
     self.tab = $('div.advanced-tracklist');
     self.discs = [];
     self.addDisc = addDisc;
+    self.moveDisc = moveDisc;
 
     self.tab.find ('fieldset.advanced-disc').each (function (idx, item) {
-        self.discs.push (MB.Control.ReleaseDisc ($(item)));
+        var basic_disc = $('div.basic-disc').eq(idx);
+        self.discs.push (MB.Control.ReleaseDisc ($(item), basic_disc, self));
     });
 
     $('form').bind ('submit', function () {

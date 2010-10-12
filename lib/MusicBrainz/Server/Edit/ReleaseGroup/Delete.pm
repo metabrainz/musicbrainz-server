@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
+with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 
 sub edit_type { $EDIT_RELEASEGROUP_DELETE }
 sub edit_name { "Remove release group" }

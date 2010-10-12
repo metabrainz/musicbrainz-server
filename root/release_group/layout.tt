@@ -30,7 +30,7 @@
                 <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
                 <li>[% use_in_relationship(rg) %]</li>
                 <li>
-                  <a href="[% c.uri_for_action('/release/add', { 'release-group' = rg.gid }) %]">
+                  <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">
                     [% l('Add a new release') %]
                   </a>
                 </li>

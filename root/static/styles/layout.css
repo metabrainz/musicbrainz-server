@@ -367,7 +367,8 @@ span.mp {
 }
 
 .lastupdate,
-.annotation-details {
+.annotation-details,
+.small {
     font-size: 90%;
     color: #777;
     font-style: italic;
@@ -462,10 +463,15 @@ table.tbl .t { text-align: right; }
 
 .pageselector em {
     font-style: normal;
+    margin-left: 0.5em;
 }
 
 .pageselector + .tbl {
     margin-top: 0px !important;
+}
+
+.pageselector-results {
+    margin-bottom: 0;
 }
 
 /* Browse Entity pages */

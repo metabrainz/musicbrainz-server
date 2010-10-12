@@ -5,6 +5,7 @@
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
             [%- END -%]
+            <th>[% l('ISWC') %]</th>
             <th class="rating c">[% l('Rating') %]</th>
         </tr>
     </thead>
@@ -15,6 +16,7 @@
             [%- IF show_artists -%]
                 <td>[% artist_credit(work.artist_credit) %]</td>
             [%- END -%]
+            <td>[% work.iswc %]</td>
             <td>[% rating_stars(work) %]</td>
         </tr>
         [%- END -%]

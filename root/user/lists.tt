@@ -7,12 +7,23 @@
     <thead>
         <tr>
             <th>[% l('List') %]</th>
+            [% IF viewing_own_profile %]
+            <th style="width: 10em">[% l('Privacy') %]</th>
+            <th style="width: 10em">[% l('Edit') %]</th>
+            [% END %]
         </tr>
     </thead>
     <tbody>
     [%- FOR list=lists -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% link_list(list) %]</td>
+            [% IF viewing_own_profile %]
+            <td>[% list.public ? l('Public') : l('Private') %]</td>
+            <td>
+                [% link_list(list, 'delete', l('Delete')) %] |
+                [% link_list(list, 'edit', l('Edit')) %]
+            </td>
+            [% END %]
         </tr>
     [%- END -%]
     </tbody>
@@ -20,4 +31,10 @@
 [%- ELSE -%]
 <p>[% l('No lists found.') -%]</p>
 [%- END -%]
+
+
+<p><a href="[% c.uri_for_action('/list/create') %]">
+    [% l('Create a new list') %]
+</a></p>
+
 [% END %]

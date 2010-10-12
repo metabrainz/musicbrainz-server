@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::Validator;
 use MooseX::Role::Parameterized;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceIncV1';
+use Class::MOP;
 use Readonly;
 
 parameter default_serialization_type => (
@@ -262,7 +263,9 @@ role {
         my ($self, $c, $serializers) = @_;
 
         # Set up the serializers so we can report errors in the correct format
-        $c->stash->{serializer} = $serializers->{$r->default_serialization_type}->new();
+        my $class = $serializers->{$r->default_serialization_type};
+        Class::MOP::load_class($class);
+        $c->stash->{serializer} = $class->new();
 
         my $resource = $c->req->path;
         my $version = quotemeta ($r->version);
@@ -303,7 +306,7 @@ role {
                 return 0 unless ($inc);
             }
 
-            if ($inc && $version > 1) {
+            if ($inc && $version eq '2') {
                 $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
                 $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
             }

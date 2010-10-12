@@ -243,9 +243,15 @@ sub find_by_recording
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
                  OFFSET ?";
 
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
-        $query, @ids, @$statuses, @$types, $offset || 0);
+    if (!defined $limit) {
+        return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                             $query, @ids, @$statuses, @$types, $offset || 0);
+    }
+    else {
+        return query_to_list_limited(
+            $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
+            $query, @ids, @$statuses, @$types, $offset || 0);
+    }
 }
 
 sub find_by_artist_track_count
@@ -336,6 +342,17 @@ sub find_by_puid
                 )';
     return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                          $query, @{ids});
+}
+
+sub find_by_tracklist
+{
+    my ($self, $tracklist_id) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' JOIN medium ON medium.release = release.id ' .
+                ' WHERE medium.tracklist = ?';
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                         $query, $tracklist_id);
 }
 
 sub find_by_medium
@@ -483,14 +500,29 @@ sub _hash_to_row
 sub load_meta
 {
     my $self = shift;
+    my (@objs) = @_;
+
+    my %id_to_obj = map { $_->id => $_ } @objs;
+
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
         my ($obj, $row) = @_;
         $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-        $obj->cover_art_url($row->{coverarturl}) if defined $row->{coverarturl};
         $obj->info_url($row->{infourl}) if defined $row->{infourl};
         $obj->amazon_asin($row->{amazonasin}) if defined $row->{amazonasin};
         $obj->amazon_store($row->{amazonstore}) if defined $row->{amazonstore};
-    }, @_);
+    }, @objs);
+
+    my @ids = keys %id_to_obj;
+    $self->sql->select(
+        'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
+        @ids
+    );
+    while (1) {
+        my $row = $self->sql->next_row_hash_ref or last;
+        $id_to_obj{ $row->{id} }->cover_art_url( $row->{coverarturl} )
+            if defined $row->{coverarturl};
+    }
+    $self->sql->finish;
 }
 
 sub find_ids_by_track_ids

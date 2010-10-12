@@ -9,6 +9,7 @@ with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
 sub edit_name     { 'Change release group' }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }
+sub edit_template { 'historic/change_release_group' }
 sub historic_type { 73 }
 
 sub change_fields

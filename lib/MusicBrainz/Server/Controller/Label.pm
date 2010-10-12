@@ -3,13 +3,19 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Label',
+    entity_name => 'label',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use Data::Page;
@@ -17,11 +23,6 @@ use Data::Page;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Form::Label;
 use Sql;
-
-__PACKAGE__->config(
-    model       => 'Label',
-    entity_name => 'label',
-);
 
 =head1 NAME
 
