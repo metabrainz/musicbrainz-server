@@ -16,7 +16,6 @@ my %model_to_edit_type = (
     Work => $EDIT_WORK_ADD_ANNOTATION,
 );
 
-sub latest_annotation : Chained('load') PathPart('annotation')
 after 'load' => sub
 {
     my ($self, $c) = @_;
@@ -26,14 +25,27 @@ after 'load' => sub
     $c->model($model)->annotation->load_latest($entity);
 };
 
+sub latest_annotation : Chained('load') PathPart('annotation')
+{
+    my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
+    my $model = $self->{model};
+
     my $annotation = $c->model($self->{model})->annotation->get_latest($entity->id);
 
     $c->model('Editor')->load($annotation);
 
+    my $annotation_model = $c->model($model)->annotation;
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
+
     $c->stash(
         annotation => $annotation,
         type       => model_to_type($self->{model}),
+        number_of_revisions => scalar @$annotations,
         template   => $self->action_namespace . '/annotation_revision.tt'
     );
 }
@@ -41,17 +53,26 @@ after 'load' => sub
 sub annotation_revision : Chained('load') PathPart('annotation') Args(1) RequireAuth
 {
     my ($self, $c, $id) = @_;
-
     my $entity = $c->stash->{entity};
+    my $model = $self->{model};
+
     my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
         or $c->detach('/error_404');
 
     $c->model('Editor')->load($annotation);
 
+    my $annotation_model = $c->model($model)->annotation;
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
+
     $c->stash(
         annotation => $annotation,
         gid        => $entity->gid,
         type       => model_to_type($self->{model}),
+        number_of_revisions => scalar @$annotations,
     );
 }
 
