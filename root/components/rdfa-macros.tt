@@ -527,8 +527,8 @@ END %]
 END %]
 
 [% MACRO rdfa_work_performance_signal(recording) BLOCK;
-    link = c.uri_for_action("/recording/show", [ entity.gid ]);
-    text = html_escape(text) || html_escape(entity.name);
+    link = c.uri_for_action("/recording/show", [ recording.gid ]);
+    text = html_escape(text) || html_escape(recording.name);
     '<span rel="mo:performed_in"><span typeof="mo:Performance">';
     '<a rel="mo:recorded_as" resource="' _ rdfa_recording_curi(recording) _ '" href="' _ link _ '">' _ text _ '</a>';
     '</span></span>';

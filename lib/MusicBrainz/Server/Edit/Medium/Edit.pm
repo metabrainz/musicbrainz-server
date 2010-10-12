@@ -1,10 +1,10 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
+use Carp;
 use Moose;
-
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Validation 'normalise_strings';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
@@ -28,11 +28,19 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity_id => NullableOnPreview[Int],
         old => change_fields(),
         new => change_fields()
     ]
 );
+
+after 'initialize' => sub {
+    my $self = shift;
+
+    return if $self->preview;
+
+    croak "No entity_id specified" unless $self->data->{entity_id};
+};
 
 sub foreign_keys {
     my $self = shift;

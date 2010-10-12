@@ -19,12 +19,12 @@ has_field 'status' => (
 sub options_type
 {
     my $self = shift;
-    my @types = MusicBrainz::Server::EditRegistry->get_all_classes;
+    my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_name;
     return [
         _sort_hash_value(map {
-            Class::MOP::load_class($_);
-            $_->edit_type => $_->edit_name;
-        } @types)
+            # edit types => edit name
+            join(',', map { $_->edit_type } @{ $grouped{$_} }) => $_
+        } keys %grouped)
     ];
 }
 

@@ -129,9 +129,15 @@ sub iswc : Private
         return;
     }
 
-    # FIXME: should be a redirect to /iswc/show ?
     my @works = $c->model('Work')->find_by_iswc($iswc);
     $c->detach('not_found') unless @works;
+
+    if (@works == 1) {
+        my $work = $works[0];
+        $c->response->redirect(
+            $c->uri_for_action('/work/show', [ $work->gid ])
+        );
+    }
 
     $c->model('ArtistCredit')->load (@works);
     $c->stash->{results} = \@works;

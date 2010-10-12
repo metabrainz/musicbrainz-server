@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
 use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
+use MusicBrainz::Server::Entity::Medium;
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -28,7 +29,11 @@ has '+data' => (
 after 'initialize' => sub {
     my $self = shift;
 
-    return if $self->preview;
+    if ($self->preview)
+    {
+       $self->entity ( MusicBrainz::Server::Entity::Medium->new( $self->data ));
+       return;
+    }
 
     croak "No release_id specified" unless $self->data->{release_id};
     croak "No tracklist_id specified" unless $self->data->{tracklist_id};

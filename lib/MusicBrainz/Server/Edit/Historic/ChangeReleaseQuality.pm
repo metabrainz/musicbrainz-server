@@ -4,11 +4,14 @@ use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY );
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 extends 'MusicBrainz::Server::Edit::Historic';
 
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
 sub historic_type { 63 }
 sub edit_name     { 'Change release quality' }
+sub edit_template { 'historic/change_release_quality' }
 
 sub related_entities
 {
@@ -46,10 +49,12 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         changes => [ map {
+            my $change = $_;
             +{
                 releases => [
                     map {
-                        $loaded->{Release}{ $_ }
+                        $loaded->{Release}{ $_ } ||
+                        Release->new( name => $change->{release_name} )
                     } @{ $_->{release_ids} }
                 ],
                 quality => {

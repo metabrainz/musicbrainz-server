@@ -9,6 +9,7 @@ use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use Readonly;
+use Text::Trim;
 use Data::OptList;
 
 # This defines what options are acceptable for WS calls
@@ -16,17 +17,17 @@ my $ws_defs = Data::OptList::mkopt([
      artist => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(limit timestamp) ]
+         optional => [ qw(limit page timestamp) ]
      },
      label => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(limit timestamp) ]
+         optional => [ qw(limit page timestamp) ]
      },
      recording => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(a r limit timestamp) ]
+         optional => [ qw(a r limit page timestamp) ]
      },
 ]);
 
@@ -64,39 +65,65 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 }
 
 sub _autocomplete_entity {
-    my ($self, $c, $type, $filter) = @_;
+    my ($self, $c, $type) = @_;
 
-    my $query = $c->stash->{args}->{q};
+    my $query = escape_query (trim $c->stash->{args}->{q});
     my $limit = $c->stash->{args}->{limit} || 10;
+    my $page = $c->stash->{args}->{page} || 1;
 
     unless ($query) {
         $c->detach('bad_req');
     }
 
-    my @entities = $c->model($type)->autocomplete_name($query, $limit);
-    @entities = grep { $_->id != $filter } @entities;
+    my $no_redirect = 1;
+    my $response = $c->model ('Search')->external_search (
+        $c, $type, $query.'*', $limit, $page, 1, undef, $no_redirect);
 
-    # FIXME: I think results should be post-processed to sort the entries
-    # which match the case of the query above other results.  The sortname
-    # should also be taken into account for those entities which have them.
-    # -- warp.
+    my @output;
+
+    if ($response->{pager})
+    {
+        my $pager = $response->{pager};
+
+        for my $result (@{ $response->{results} })
+        {
+            push @output, {
+                name => $result->{entity}->name,
+                id => $result->{entity}->id,
+                gid => $result->{entity}->gid,
+                comment => $result->{entity}->comment,
+            };
+        }
+
+        push @output, {
+            pages => $pager->last_page,
+            current => $pager->current_page
+        };
+    }
+    else
+    {
+        # If an error occurred just ignore it for now and return an
+        # empty list.  The javascript code for autocomplete doesn't
+        # have any way to gracefully report or deal with
+        # errors. --warp.
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('autocomplete_name', \@entities));
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 }
 
 sub artist : Chained('root') PathPart('artist') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_autocomplete_entity($c, 'Artist', $DARTIST_ID);
+    $self->_autocomplete_entity($c, 'artist');
 }
 
 sub label : Chained('root') PathPart('label') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_autocomplete_entity($c, 'Label', $DLABEL_ID);
+    $self->_autocomplete_entity($c, 'label');
 }
 
 sub _serialize_release_groups
@@ -120,9 +147,10 @@ sub recording : Chained('root') PathPart('recording') Args(0)
     my $query = escape_query ($c->stash->{args}->{q});
     my $artist = escape_query ($c->stash->{args}->{a} || '');
     my $limit = $c->stash->{args}->{limit} || 10;
+    my $page = $c->stash->{args}->{page} || 1;
 
     my $response = $c->model ('Search')->external_search (
-        $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
+        $c, 'recording', "$query artist:\"$artist\"", $limit, $page, 1, undef, 1);
 
     my $pager = $response->{pager};
 
