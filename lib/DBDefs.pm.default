@@ -33,6 +33,10 @@ package DBDefs;
 sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 # The data import directory (used by some reports)
 sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
+# Where static files are located
+sub STATIC_FILES_DIR { MB_SERVER_ROOT . '/root/static' }
+# HTTP Path where static files reside
+sub STATIC_PREFIX { '/static' }
 
 ################################################################################
 # The Database
