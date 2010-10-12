@@ -119,9 +119,6 @@ sub foreign_keys
     $fks{ $new_model0 } ||= []; push @{ $fks{ $new_model0} }, @{ $self->data->{new}{entity0_ids} };
     $fks{ $new_model1 } ||= []; push @{ $fks{ $new_model1} }, @{ $self->data->{new}{entity1_ids} };
 
-    use Devel::Dwarn;
-    Dwarn \%fks;
-
     return \%fks;
 }
 
