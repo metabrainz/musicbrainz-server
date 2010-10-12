@@ -123,7 +123,6 @@
       [% END %]
 
       <div style="float: right; margin: 10px;" class="buttons">
-        <a href="#guesscase">[% l('Guess case') %]</a>
         <a href="#add_disc">[% l('Add Disc') %]</a>
       </div>
 
@@ -139,18 +138,22 @@
       <label for="tracktimes">[% l('Detect track durations') %]</label>
       </p>
 
-      <h3>Guess case options</h3>
-      <p id="guesscase-options">
-      <select name="gc-mode" id="gc-mode"> </select>
-      <br />
-      <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
-      <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
-      <br />
-      <input type="checkbox" name="gc-roman" id="gc-roman">
-      <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
-      <br />
-      </p>
+    </fieldset>
 
+    <fieldset>
+      <legend>Guess case</legend>
+      <div style="float: right; margin: 10px;" class="buttons">
+        <a href="#guesscase">[% l('Guess case') %]</a>
+      </div>
+      <p class="guesscase-options">
+        <select name="gc-mode" id="gc-mode"> </select>
+        <br />
+        <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+        <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+        <br />
+        <input type="checkbox" name="gc-roman" id="gc-roman">
+        <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+      </p>
     </fieldset>
 
     <div class="buttons ui-helper-clearfix">
