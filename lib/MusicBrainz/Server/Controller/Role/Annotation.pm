@@ -177,6 +177,7 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     my $new_annotation = $annotation_model->get_by_id($new);
 
     $c->model('Editor')->load($new_annotation);
+    $c->model('Editor')->load($old_annotation);
 
     $c->stash(
         old => $old_annotation,

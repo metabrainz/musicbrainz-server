@@ -1,25 +1,22 @@
 [% USE Diff %]
-<h2>[% l('Annotation differences') %]</h2>
+<h2>[% l('Annotation comparison') %]</h2>
 
 <div class="annotation">
     <div class="annotation-diff">
         [% Diff.diff(old.text, new.text) %]
     </div>
 
-    [% IF new.changelog %]
-        <strong>[% l('Changelog:') %]</strong> [% new.changelog %]
-    [% END %]
-
     <div class="annotation-details">
-        [% l('Annotation last modified by {user} on {date}.', {
-                user => link_editor(new.editor),
-                date => UserDate.format(new.creation_date),
+        [% l('Comparing revision by {user_old} on {date_old} with revision by {user_new} on {date_new}.', {
+                user_new => link_editor(new.editor),
+                date_new => UserDate.format(new.creation_date),
+                user_old => link_editor(old.editor),
+                date_old => UserDate.format(old.creation_date),
         }) %]
 
         [% IF number_of_revisions != 1 %]
-          <br />
           <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
-            [%~ l('View annotation history') ~%]
+            [%~ l('View annotation history.') ~%]
           </a>
         [% END %]
     </div>
