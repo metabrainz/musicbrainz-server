@@ -117,7 +117,6 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     self.deleted = self.row.find ('span.remove-label input');
 
     self.parent = parent;
-    self.template = template;
     self.catnoUpdate = catnoUpdate;
     self.toggleDelete = toggleDelete;
     self.isDeleted = isDeleted;
