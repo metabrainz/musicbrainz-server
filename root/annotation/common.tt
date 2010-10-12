@@ -13,8 +13,8 @@
             [% END %]
         </div>
 
-        [%- IF revision -%]
-            <strong>[% l('Changelog:') %]</strong> [% annotation.changelog || l('(no changelog)') %]
+        [%- IF show_change_log -%]
+            <p><strong>[% l('Changelog:') %]</strong> [% annotation.changelog || l('(no changelog)') %]</p>
         [%- END -%]
 
         <div class="annotation-details">
