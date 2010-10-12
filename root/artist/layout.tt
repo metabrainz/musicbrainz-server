@@ -51,6 +51,7 @@
                     <li>[% link_artist(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
                   <li>[% use_in_relationship(artist) %]</li>
+                  <li>[% relate_to_url(artist) %]</li>
                 [% END %]
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
