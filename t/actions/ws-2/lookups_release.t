@@ -1,3 +1,4 @@
+# FIXME There are no tests for quality, when quality is low or high
 use utf8;
 use strict;
 use Test::More;
