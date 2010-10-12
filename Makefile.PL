@@ -66,6 +66,7 @@ requires 'String::ShellQuote'                         => '1.030';
 requires 'Template::Plugin::Math';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'Text::Unaccent';
+requires 'Text::Trim'                                 => '1.02';
 requires 'Time::Duration';
 requires 'Throwable';
 requires 'TryCatch';

@@ -11,11 +11,11 @@ MB.tests.ReleaseEditor.ArtistCredit = function () {
         $('#placeholder').html (MB.tests.ReleaseEditor.data['ReleaseEditor/information.html']);
 
         var acv = MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit')
+            $('#release-artist'), $('div.artist-credit')
         );
 
         var bc = MB.Control.BubbleCollection (
-            $('input#release-artist'), $('div.artist-credit')
+            $('#release-artist'), $('div.artist-credit')
         );
 
         QUnit.equals ($('.artist-credit-container:visible').size (), 0, 'Artist Credit form not visible');
@@ -44,14 +44,14 @@ MB.tests.ReleaseEditor.ArtistCredit = function () {
         $('#placeholder').html (MB.tests.ReleaseEditor.data['ReleaseEditor/information.addrelease.html']);
 
         var acv = MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit')
+            $('#release-artist'), $('div.artist-credit')
         );
 
         var bc = MB.Control.BubbleCollection (
-            $('input#release-artist'), $('div.artist-credit')
+            $('#release-artist'), $('div.artist-credit')
         );
 
-        QUnit.equals ($('.artist-credit-container:visible').size (), 0, 'Artist Credit form not visible');
+        QUnit.equals ($('.artist-credit-vertical:visible').size (), 0, 'Artist Credit form not visible');
         $('#release-artist').focus ();
         QUnit.equals ($('.artist-credit-container:visible').size (), 1, 'Artist Credit form visible after focus');
 

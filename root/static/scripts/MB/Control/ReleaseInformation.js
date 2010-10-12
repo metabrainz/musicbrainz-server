@@ -86,10 +86,13 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
         return self.deleted.val () === '1';
     };
 
-
-    var autocompleted = function (event, data) {
+    /**
+     * selected is a callback called by autocomplete when a selection is made.
+     */
+    var selected = function (event, data) {
         self.id.val(data.id);
-        self.name.val(data.name).removeClass('error');
+        self.name.removeClass('error');
+        self.name.val(data.name);
 
         event.preventDefault();
         return false;
@@ -114,13 +117,18 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     self.deleted = self.row.find ('span.remove-label input');
 
     self.parent = parent;
-    self.autocompleted = autocompleted;
-    self.toggleDelete = toggleDelete;
+    self.template = template;
     self.catnoUpdate = catnoUpdate;
+    self.toggleDelete = toggleDelete;
+    self.isDeleted = isDeleted;
+    self.selected = selected;
 
-    self.name.result(self.autocompleted);
-    self.name.autocomplete("/ws/js/label", MB.utility.autocomplete.options);
     self.catno.bind ('change keyup focus', self.catnoUpdate);
+    MB.Control.Autocomplete ({
+        'input': self.name,
+        'entity': 'label',
+        'select': self.selected,
+    });
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
 

@@ -106,3 +106,21 @@ a.selectFilterNext:hover {
 div.searchform {
     margin-top: 2em;
 }
+
+/* __________________________________
+
+          MB.Control.Autocomplete
+   __________________________________ */
+
+.ui-autocomplete-loading {
+    background: white url(../lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif) right center no-repeat;
+}
+.autocomplete-comment { font-size: smaller; color: #666; }
+button.autocomplete-pager {
+    position: absolute;
+    display: block;
+    border: 0;
+    width: 18px;
+    height: 18px;
+    background-color: transparent;
+}
