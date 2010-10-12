@@ -119,8 +119,8 @@ sub find
 
     my @params = keys %$p;
     while (my ($param, $value) = each %$p) {
-        next unless defined $value;
         my @values = ref($value) ? @$value : ($value);
+        next unless @values;
         push @pred, (join " OR ", (("$param = ?") x @values));
         push @args, @values;
     }

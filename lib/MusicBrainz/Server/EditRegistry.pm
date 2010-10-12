@@ -149,6 +149,19 @@ sub _register_default_types
     $_registered = 1;
 }
 
+sub grouped_by_name
+{
+    my $class = shift;
+    my %grouped;
+    foreach my $class ($class->get_all_classes) {
+        my $name = $class->edit_name;
+        $grouped{ $name } ||= [];
+        push @{ $grouped{ $name } }, $class;
+    }
+
+    return %grouped;
+}
+
 no Moose;
 1;
 
