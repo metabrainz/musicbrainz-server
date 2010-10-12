@@ -1,9 +1,0 @@
-<table class="details">
-  <tr>
-    <th>[% l('Track:') %]</th>
-    <td>
-      [% link_recording(edit.display_data.recording, 'show', edit.display_data.name) %] by
-      [% artist_credit(edit.display_data.artist_credit) %]
-    </td>
-  </tr>
-</table>

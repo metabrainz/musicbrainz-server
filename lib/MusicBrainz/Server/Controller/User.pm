@@ -6,6 +6,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Authentication::User;
 
+with 'MusicBrainz::Server::Controller::Role::Subscribe';
+
 use MusicBrainz::Server::Types qw(
     $BOT_FLAG
     $AUTO_EDITOR_FLAG
@@ -81,7 +83,7 @@ sub do_login : Private
             }
 
             # Logged in OK
-            $c->response->redirect($c->uri_for($redirect));
+            $c->response->redirect($redirect);
             $c->detach;
         }
     }
@@ -310,32 +312,6 @@ sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
         user => $user,
         ratings => $ratings,
         template => 'user/ratings.tt',
-    );
-}
-
-sub subscribers : Chained('load') PathPart('subscribers') RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
-
-    my $user = $c->stash->{user};
-
-    my $entities = $self->_load_paged($c, sub {
-        $c->model('Editor')->find_subscribers ($user->id, shift, shift);
-    });
-
-    $c->model('Editor')->load_preferences (@$entities) if (@$entities);
-
-    my $private = 0;
-    my @filtered = grep {
-        $private += 1 unless $_->preferences->public_subscriptions;
-        $_->preferences->public_subscriptions;
-    } @$entities;
-
-    $c->stash(
-        user => $user,
-        private_subscribers => $private,
-        $self->{entities} => \@filtered,
-        template => 'user/subscribers.tt',
     );
 }
 

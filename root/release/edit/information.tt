@@ -13,17 +13,12 @@
 
        MB.Control.ReleaseInformation ();
 
-       MB.Control.BubbleCollection (
-           $('#release-artist').add ('#id-barcode'),
-           $('div.artist-credit').add ('div.barcode')
-       );
-
     });
   </script>
 [%- END -%]
 
 [%- MACRO validate_barcode(field) BLOCK -%]
-<div class="barcode">
+<div class="barcode bubble">
      <p>
         [% l('Please enter the barcode of the release you are entering, see <a href="{url}">Barcode</a> for more information.', { url => c.uri_for('/doc/Barcode') }) %]
      </p>
@@ -33,7 +28,7 @@
 [%- END -%]
 
 [%- MACRO artist_credit_table(acfield) BLOCK -%]
-<div class="artist-credit">
+<div class="artist-credit bubble">
 
   <p>
     [% l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) %]
@@ -153,9 +148,31 @@
     [% artist_credit_table(form.field('artist_credit')) %]
     </div>
 
+    <div class="date-container" style="display: none">
+      <div class="date bubble">
+ 	<p class="amazon">
+	  [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %] 
+	</p>
+     </div>
+    </div>
+
+    [% FOR field=form.field('labels').fields %]
+    <div class="catno-container" style="display: none">
+      <div class="catno bubble">
+	<p>
+          [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
+	</p>
+	<p>
+          [% l('If this is an Amazon ASIN, please do not enter it in the catalog number field, but add it as a URL relationship later.') %]
+	</p>
+      </div>
+    </div>
+    [% END %]
+
     <div class="barcode-container" style="display: none">
     [% validate_barcode(form.field('barcode')) %]
     </div>
+
 
   </div>
 

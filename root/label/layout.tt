@@ -28,6 +28,7 @@
             [% ELSE %]
                 <li><a href="[% c.uri_for_action('/account/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
             [% END %]
+            <li>[% link_label(label, 'subscribers', l('Subscribers')) %]</li>
         [% END %]
             [% IF c.user_exists %]
                 <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
