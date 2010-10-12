@@ -17,8 +17,14 @@ my %model_to_edit_type = (
 );
 
 sub latest_annotation : Chained('load') PathPart('annotation')
+after 'load' => sub
 {
     my ($self, $c) = @_;
+    my $entity = $c->stash->{entity};
+    my $model = $self->{model};
+
+    $c->model($model)->annotation->load_latest($entity);
+};
 
     my $entity = $c->stash->{entity};
     my $annotation = $c->model($self->{model})->annotation->get_latest($entity->id);
@@ -66,7 +72,6 @@ after 'show' => sub
         type => model_to_type($model),
         number_of_revisions => scalar @$annotations,
     );
-    $c->model($model)->annotation->load_latest($entity);
 };
 
 sub edit_annotation : Chained('load') PathPart RequireAuth Edit
