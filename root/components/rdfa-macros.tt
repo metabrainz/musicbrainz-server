@@ -38,7 +38,7 @@ END -%]
 [% MACRO rdfa_format_curi(medium) BLOCK;
   '[mfo:' _ url_escape(medium.format_name.replace(' ','_')) _ ']';
 END -%]
-[%# '[mfo:' _ url_escape(name.replace(' ','')) _ ']';%]
+
 [% ################ %]
 [% # compact uris # %]
 [% ################ %]
@@ -56,7 +56,7 @@ END -%]
   [_:[% track.id %]]
 [% END %]
 
-[% # FIXME wtf workaround :/  %]
+[% # FIXME making this a CURI seems to not work  %]
 [%- MACRO rdfa_recording_curi(rec) BLOCK;
     action = 'show';
     link = c.uri_for_action("/recording/$action", [ rec.gid ]);
