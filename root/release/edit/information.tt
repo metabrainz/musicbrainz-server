@@ -79,7 +79,7 @@
       [% form_row_text (r, 'name', 'Title') %]
       [% r.hidden ('release_group_id') %]
       <div class="row">
-        [% r.label('various_artists', 'VA release') %]
+        [% r.label('various_artists', 'Various Artists release') %]
         [% r.checkbox('various_artists') %]
         [% field_errors(form, 'various_artists') %]
       </div>
