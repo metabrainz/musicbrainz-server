@@ -39,10 +39,12 @@ sub grouped_relationships
 
 sub relationships_by_type
 {
-    my ($self, $type) = @_;
+    my ($self, @types) = @_;
+    my %types = map { $_ => 1 } @types;
 
     return grep {
-        defined $_->link && defined $_->link->type && $_->target_type eq $type;
+        defined $_->link && defined $_->link->type &&
+        exists $types{ $_->target_type };
     } $self->all_relationships;
 }
 

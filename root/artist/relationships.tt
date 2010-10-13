@@ -48,11 +48,7 @@
                     <th>[% l('Artist') %]</th>
                 </tr>
             </thead>
-        [% FOR group=relationships.pairs %]
-            [% NEXT IF group.key == 'artist' ||
-                       group.key == 'label' ||
-                       group.key == 'url' %]
-            [%- FOREACH relationship IN group.value.pairs -%]
+            [%- FOREACH relationship IN artist.appearences.pairs -%]
                 <thead>
                     <tr class="subh">
                         <th></th>
@@ -73,7 +69,6 @@
                     [% END %]
                 </tbody>
             [%- END -%]
-        [% END %]
         </table>
     [%- ELSE -%]
         <p>[% l('{link} has no relationships.', { link => link_entity(artist) }) -%]</p>
