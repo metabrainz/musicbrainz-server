@@ -82,6 +82,10 @@ after 'show' => sub
     my $entity = $c->stash->{entity};
     my $model = $self->{model};
 
+    my $annotation = $c->stash->{entity}->{latest_annotation};
+
+    $c->model('Editor')->load($annotation);
+
     my $annotation_model = $c->model($model)->annotation;
     my $annotations = $self->_load_paged(
         $c, sub {
