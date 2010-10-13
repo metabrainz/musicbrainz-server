@@ -20,9 +20,9 @@ sub relationships_by_type
 {
     my ($self, $type) = @_;
 
-    return [ grep {
-        $_->target_type eq $type;
-    } $self->all_relationships ];
+    return grep {
+        defined $_->link && defined $_->link->type && $_->target_type eq $type;
+    } $self->all_relationships;
 }
 
 1;
