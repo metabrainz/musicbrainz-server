@@ -16,6 +16,15 @@ has 'relationships' => (
     }
 );
 
+sub relationships_by_type
+{
+    my ($self, $type) = @_;
+
+    return [ grep {
+        $_->target_type eq $type;
+    } $self->all_relationships ];
+}
+
 1;
 
 =head1 NAME

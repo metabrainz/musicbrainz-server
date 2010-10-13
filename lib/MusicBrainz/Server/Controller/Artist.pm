@@ -78,15 +78,6 @@ after 'load' => sub
             $c->user->id, $artist->id);
     }
 
-    $c->model('Relationship')->load_subset([ 'url' ], $artist);
-    my @favicons =
-        sort {
-            ($a->phrase cmp $b->phrase)
-            or
-            ($a->target->name cmp $b->target->name)
-        } $artist->all_relationships;
-    $c->stash->{favicons} = \@favicons;
-
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);

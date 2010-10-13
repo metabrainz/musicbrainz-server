@@ -34,15 +34,6 @@ after 'load' => sub
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
     }
-
-    $c->model('Relationship')->load_subset([ 'url' ], $work);
-    my @favicons =
-        sort {
-            ($a->phrase cmp $b->phrase)
-            or
-            ($a->target->name cmp $b->target->name)
-        } $work->all_relationships;
-    $c->stash->{favicons} = \@favicons;
 };
 
 sub show : PathPart('') Chained('load') 

@@ -61,15 +61,6 @@ after 'load' => sub
             $c->user->id, $label->id);
     }
     $c->model('LabelType')->load($label);
-
-    $c->model('Relationship')->load_subset([ 'url' ], $label);
-    my @favicons =
-        sort {
-            ($a->phrase cmp $b->phrase)
-            or
-            ($a->target->name cmp $b->target->name)
-        } $label->all_relationships;
-    $c->stash->{favicons} = \@favicons;
 };
 
 =head2 relations
