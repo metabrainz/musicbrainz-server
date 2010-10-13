@@ -9,10 +9,7 @@
                 <th>[% relationship.key %]:</th>
                 <td>
                     [% FOR rel IN relationship.value %]
-                        [% IF relationship.value.size > 6 && loop.index % ((relationship.value.size + 1) / 2) == 0 %]
-                        </td><td>
-                        [% END %]
-                        [% link_entity(rel.target) %]
+                        [% link_entity(rel.target) %] [% disambiguation(rel.target) %]
                         [% IF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
                         ([% rel.link.begin_date.format %]&mdash;[% rel.link.end_date.format %])
                         [% END %]
