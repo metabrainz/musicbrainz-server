@@ -7,7 +7,7 @@
             [% ELSE %]
                 [% annotation.summary | format_wikitext  %]
                 [% IF annotation.summary_is_short %]
-                    <p><a href="[% c.uri_for(c.controller.action_for('latest_annotation'), [ gid ]) %]">
+                    <p><a href="[% c.uri_for(c.controller.action_for('latest_annotation'), [ entity.gid ]) %]">
                         Read more&hellip;</a></p>
                 [% END %]
             [% END %]
@@ -35,7 +35,7 @@
                             history => c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]),
                             user => link_editor(annotation.editor),
                             date => UserDate.format(annotation.creation_date),
-                            current => c.uri_for(c.controller.action_for('latest_annotation'), [ gid ]),
+                            current => c.uri_for(c.controller.action_for('latest_annotation'), [ entity.gid ]),
                         }) %]
                 [% END %]
             [% ELSE %]

@@ -1,5 +1,1 @@
-[%- INCLUDE 'annotation/common.tt'
-    annotation = label.latest_annotation
-    gid = label.gid
-    type = 'label'
--%]
+[%- INCLUDE 'annotation/common.tt' annotation = label.latest_annotation -%]

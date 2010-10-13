@@ -1,5 +1,1 @@
-[%- INCLUDE 'annotation/common.tt'
-    annotation = artist.latest_annotation
-    gid = artist.gid
-    type = 'artist'
--%]
+[%- INCLUDE 'annotation/common.tt' annotation = artist.latest_annotation -%]

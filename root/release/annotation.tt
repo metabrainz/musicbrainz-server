@@ -1,5 +1,1 @@
-[%- INCLUDE 'annotation/common.tt'
-    annotation = release.latest_annotation
-    gid = release.gid
-    type = 'release'
--%]
+[%- INCLUDE 'annotation/common.tt' annotation = release.latest_annotation -%]

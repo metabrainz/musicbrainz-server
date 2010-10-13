@@ -2,7 +2,6 @@ package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation );
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 requires 'load', 'show';
@@ -44,7 +43,6 @@ sub latest_annotation : Chained('load') PathPart('annotation')
 
     $c->stash(
         annotation => $annotation,
-        type       => model_to_type($self->{model}),
         number_of_revisions => scalar @$annotations,
         template   => $self->action_namespace . '/annotation_revision.tt'
     );
@@ -70,8 +68,6 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1) Require
 
     $c->stash(
         annotation => $annotation,
-        gid        => $entity->gid,
-        type       => model_to_type($self->{model}),
         number_of_revisions => scalar @$annotations,
     );
 }
@@ -94,7 +90,6 @@ after 'show' => sub
     );
 
     $c->stash(
-        type => model_to_type($model),
         number_of_revisions => scalar @$annotations,
     );
 };

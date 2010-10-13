@@ -1,5 +1,1 @@
-[%- INCLUDE 'annotation/common.tt'
-    annotation = rg.latest_annotation
-    gid = rg.gid
-    type = 'release_group'
--%]
+[%- INCLUDE 'annotation/common.tt' annotation = rg.latest_annotation -%]

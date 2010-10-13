@@ -1,5 +1,1 @@
-[%- INCLUDE 'annotation/common.tt'
-    annotation = recording.latest_annotation
-    gid = recording.gid
-    type = 'recording'
--%]
+[%- INCLUDE 'annotation/common.tt' annotation = recording.latest_annotation -%]
