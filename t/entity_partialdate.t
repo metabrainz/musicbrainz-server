@@ -68,6 +68,11 @@ $b = Date->new( year => 2000, month => 1, day => 1 );
 ok($a < $b);
 ok($b > $a);
 
+$a = Date->new( month => 1, day => 1 );
+$b = Date->new( month => 1, day => 1 );
+ok(!($a < $b));
+ok(!($b < $a));
+
 done_testing;
 
 1;

@@ -77,7 +77,7 @@ sub _cmp
     my ($a, $b) = @_;
 
     # Stuff without a year sorts first too
-    return -1 if (!defined($a->year) && !defined($b->year));
+    return  0 if (!defined($a->year) && !defined($b->year));
     return  1 if ( defined($a->year) && !defined($b->year));
     return -1 if (!defined($a->year) &&  defined($b->year));
 

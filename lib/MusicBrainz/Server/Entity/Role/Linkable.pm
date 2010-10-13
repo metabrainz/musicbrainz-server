@@ -23,7 +23,8 @@ sub grouped_relationships
     my %groups;
     my @relationships = sort {
         $a->link->begin_date <=> $b->link->begin_date ||
-        $a->link->end_date   <=> $b->link->end_date
+        $a->link->end_date   <=> $b->link->end_date   ||
+        $a->target->name     cmp $b->target->name
     } $self->all_relationships;
 
     for my $relationship (@relationships) {
