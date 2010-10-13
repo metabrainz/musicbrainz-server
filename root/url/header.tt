@@ -5,7 +5,7 @@
 ] -%]
 
 <div class="urlheader">
-<h1>[% link_url(url, 'show', display_url(url.url)) %]</h1>
+<h1>[% link_url(url, 'show', display_url(url.url)) %] - [% url.pretty_name %]</h1>
 [% IF url.description %]
 <p class="subheader">
     <span class="prefix">~</span> [% html_escape(url.description) %]

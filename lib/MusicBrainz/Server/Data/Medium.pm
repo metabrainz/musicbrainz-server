@@ -139,7 +139,8 @@ sub insert
         my $row = $self->_create_row($medium_hash);
 
         push @created, $class->new(
-            id => $sql->insert_row('medium', $row, 'id')
+            id => $sql->insert_row('medium', $row, 'id'),
+            %{ $medium_hash }
         );
     }
     return @medium_hashes > 1 ? @created : $created[0];

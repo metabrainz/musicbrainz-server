@@ -27,9 +27,7 @@
                         <td>[% rdfa_release_event_date(release.release) %]</td>
                         <td>
                             [%- IF release.release.country -%]
-                            <abbr title="[% release.release.country.name | html %]">
                                 [% rdfa_release_country_abbr(release.release) %]
-                            </abbr>
                             [%- END -%]
                         </td>
                         [%- IF c.session.tport -%]

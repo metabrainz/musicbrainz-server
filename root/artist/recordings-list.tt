@@ -5,6 +5,7 @@
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
             [%- END -%]
+            <th>[% l('ISRCs') %]</th>
             <th class="rating c">[% l('Rating') %]</th>
             <th>[%- l('Length') -%]</th>
         </tr>
@@ -16,6 +17,12 @@
             [%- IF show_artists -%]
                 <td>[% artist_credit(recording.artist_credit) %]</td>
             [%- END -%]
+            <td>
+                [% FOR isrc=recording.isrcs %]
+                    [% '<br />' IF loop.index > 0 %]
+                    [% isrc.isrc %]
+                [% END %]
+            </td>
             <td>[% rating_stars(recording) %]</td>
             <td>[% rdfa_recording_duration(recording, '[rec:]') %]</td>
         </tr>

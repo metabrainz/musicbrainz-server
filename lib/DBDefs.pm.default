@@ -33,6 +33,10 @@ package DBDefs;
 sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 # The data import directory (used by some reports)
 sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
+# Where static files are located
+sub STATIC_FILES_DIR { MB_SERVER_ROOT . '/root/static' }
+# HTTP Path where static files reside
+sub STATIC_PREFIX { '/static' }
 
 ################################################################################
 # The Database
@@ -117,6 +121,25 @@ sub DEBUG_MAIL_SPOOL { undef }
 # see the default secret value, and then use it to attack your server.
 sub SMTP_SECRET_CHECKSUM { "" }
 sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
+
+################################################################################
+# Server Settings
+################################################################################
+
+# Set this to 0 if this is the master MusicBrainz server or a slave mirror.
+# Keeping this defined enables the banner that is shown across the top of each
+# page, as well as some testing features that are only enabled when not on
+# the live server.
+sub DB_STAGING_SERVER { 1 }
+
+# This description is shown in the banner when DB_STAGING_SERVER is enabled.
+# If left undefined the default value will be shown.
+# Default: "This is a MusicBrainz development server."
+sub DB_STAGING_SERVER_DESCRIPTION { "" }
+
+# Only change this if running a non-sanitized database on a dev server,
+# e.g. http://test.musicbrainz.org.
+sub DB_STAGING_SERVER_SANITIZED { 1 }
 
 ################################################################################
 # Documentation Server Settings
@@ -237,21 +260,6 @@ sub DB_READ_ONLY_MESSAGE { <<EOF }
 This server is temporarily in read-only mode
 for database maintainance.
 EOF
-
-# Set this to 0 if this is the master MusicBrainz server or a slave mirror.
-# Keeping this defined enables the banner that is shown across the top of each
-# page, as well as some testing features that are only enabled when not on
-# the live server.
-sub DB_STAGING_SERVER { 1 }
-
-# This description is shown in the banner when DB_STAGING_SERVER is enabled.
-# If left undefined the default value will be shown.
-# Default: "This is a MusicBrainz development server."
-sub DB_STAGING_SERVER_DESCRIPTION { "" }
-
-# Only change this if running a non-sanitized database on a dev server,
-# e.g. http://test.musicbrainz.org.
-sub DB_STAGING_SERVER_SANITIZED { 1 }
 
 # This defines the version of the server.  Only used by things which display
 # the server version, e.g. at the foot of each web page.  Basically it can be

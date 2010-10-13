@@ -4,6 +4,7 @@ use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use Test::WWW::Mechanize::Catalyst;
 
 my $c = MusicBrainz::Server::Test->create_test_context;
@@ -11,16 +12,16 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/discid/T.epJ9O5SoDjPqAJuOJfAI9O8Nk-?inc=artist-credits', 'discid lookup with artist-credits');
-&$v2 ($mech->content, "Validate discid lookup with artist-credits");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'discid lookup with artist-credits',
+    '/discid/T.epJ9O5SoDjPqAJuOJfAI9O8Nk-?inc=artist-credits' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <disc id="T.epJ9O5SoDjPqAJuOJfAI9O8Nk-">
         <sectors>256486</sectors>
         <release-list count="1">
             <release id="757a1723-3769-4298-89cd-48d31177852a">
                 <title>LOVE &amp; HONESTY</title><status>pseudo-release</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language><script>Latn</script>
                 </text-representation>
@@ -37,12 +38,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </disc>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/puid/138f0487-85eb-5fe9-355d-9b94a60ff1dc', 'basic puid lookup');
-&$v2 ($mech->content, "Validate basic puid lookup");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'basic puid lookup',
+    '/puid/138f0487-85eb-5fe9-355d-9b94a60ff1dc' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <puid id="138f0487-85eb-5fe9-355d-9b94a60ff1dc">
         <recording-list count="2">
@@ -56,12 +54,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </puid>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/isrc/JPA600102460?inc=releases', 'isrc lookup with releases');
-&$v2 ($mech->content, "Validate isrc lookup with releases");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'isrc lookup with releases',
+    '/isrc/JPA600102460?inc=releases' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <isrc-list count="1">
         <isrc id="JPA600102460">
@@ -71,6 +66,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                     <release-list count="2">
                         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                             <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+                            <quality>normal</quality>
                             <text-representation>
                                 <language>jpn</language><script>Latn</script>
                             </text-representation>
@@ -78,6 +74,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
                         </release>
                         <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                             <title>サマーれげぇ!レインボー</title><status>official</status>
+                            <quality>normal</quality>
                             <text-representation>
                                 <language>jpn</language><script>Jpan</script>
                             </text-representation>
@@ -89,7 +86,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </isrc>
     </isrc-list>
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;

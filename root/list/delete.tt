@@ -1,0 +1,9 @@
+[%- WRAPPER 'list/layout.tt' title=l('Delete') page='delete' full_width=1 -%]
+    <h2>[% l('Delete List') %]</h2>
+    <p>
+            [%- l('Are you sure you wish to remove the list {list}?', { list => link_list(list) }) -%]
+    </p>
+    <form action="[% c.req.uri %]" method="post">
+        [% enter_edit() %]
+    </form>
+[%- END -%]

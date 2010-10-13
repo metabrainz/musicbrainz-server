@@ -1,0 +1,21 @@
+<table class="details">
+    <tr>
+        <th>[% l('Release:') %]</th>
+        <td colspan="2">[% link_release(edit.display_data.release) %]</td>
+    </tr>
+    [% IF edit.display_data.label.new %]
+    <tr>
+      <th>[% l('Label:') %]</th>
+      <td class="old">[% link_artist(edit.display_data.label.old) %]</td>
+      <td class="new">[% link_artist(edit.display_data.label.new) %]</td>
+    </tr>
+    [% END %]
+    [% IF edit.display_data.catalog_number.new ||
+          edit.display_data.catalag_number.old %]
+    <tr>
+      <th>[% l('Catalog number:') %]</th>
+      <td class="old">[% edit.display_data.catalog_number.old | html %]</td>
+      <td class="new">[% edit.display_data.catalog_number.new | html %]</td>
+    </tr>
+    [% END %]
+</table>

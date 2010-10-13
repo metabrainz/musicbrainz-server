@@ -22,11 +22,10 @@ MB.tests.ReleaseEditor.BasicTab = function () {
         rt.textarea.val ('1. Goof (1:23)\n2. Sandjorda (4:56)\n');
         rt.updatePreview ();
 
-        QUnit.equals (typeof a.discs[1].tracks[0], 'object', 'Track created on advanced tab');
-        QUnit.equals (a.discs[1].tracks[0].title.val (), 'Goof', '... with correct title');
-        QUnit.equals (a.discs[1].tracks[0].length.val (), '1:23', '... with correct length');
-        QUnit.equals (a.discs[1].tracks[0].position.val (), '1', '... with correct position');
-        QUnit.equals (a.discs[1].tracks[0].preview.val (), 'Various Artists', '... with correct artist');
+        QUnit.equals (a.discs[1].getTrack(0).title.val (), 'Goof', '... with correct title');
+        QUnit.equals (a.discs[1].getTrack(0).length.val (), '1:23', '... with correct length');
+        QUnit.equals (a.discs[1].getTrack(0).position.val (), '1', '... with correct position');
+        QUnit.equals (a.discs[1].getTrack(0).preview.val (), '', '... with correct artist');
 
         /* add a track on the advanced tab and get it to render in the textarea. */
         var track_data = {

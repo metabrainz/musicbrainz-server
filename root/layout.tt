@@ -6,6 +6,7 @@
       xmlns:mbz="[% c.uri_for('/')%]"
       xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
       xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       xmlns:mo="http://purl.org/ontology/mo/"
       xmlns:bio="http://vocab.org/bio/0.1/"
       xmlns:ov="http://open.vocab.org/terms/"
@@ -22,7 +23,7 @@
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
         [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        <link rel="stylesheet" type="text/css" href="/static/main.css" />
+        <link rel="stylesheet" type="text/css" href="/static/main.css?mtime=[% c.model('FileCache').modified('main.css') %]" />
         [% IF extra_css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
         [% END %]
@@ -31,11 +32,15 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
         [%- UNLESS no_javascript -%]
-            <script type="text/javascript" src="[% c.uri_for('/static/lib/jquery/jquery-1.4.2.min.js') %]"></script>
-            <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB.js') %]"></script>
+            <script type="text/javascript" src="[%-
+                c.model('FileCache').squash_scripts(
+                    "lib/jquery/jquery-1.4.2.min.js",
+                    "lib/jquery.placeholder/jquery.placeholder.min.js",
+                    "scripts/MB.js",
+                    "scripts/global.js"
+                )
+            -%]"></script>
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
-            <script type="text/javascript" src="[% c.uri_for('/static/scripts/global.js') %]"></script>
-            <script type="text/javascript" src="[% c.uri_for('/static/lib/jquery.placeholder/jquery.placeholder.min.js') %]"></script>
         [%- END -%]
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]

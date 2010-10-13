@@ -165,6 +165,7 @@ sub find_by_track_artist
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?
                  )
+                   AND acn.artist != ?
                  ORDER BY
                     rg.type,
                     rgm.firstreleasedate_year,
@@ -182,7 +183,7 @@ sub find_by_track_artist
             $rg->release_count($row->{releasecount} || 0);
             return $rg;
         },
-        $query, $artist_id, $offset || 0);
+        $query, $artist_id, $artist_id, $offset || 0);
 }
 
 # This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases
@@ -293,6 +294,33 @@ sub find_by_release
             return $rg;
         },
         $query, $release_id, $offset || 0);
+}
+
+sub find_by_release_gids
+{
+    my ($self, @release_gids) = @_;
+    my $query = "SELECT " . $self->_columns . ",
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day
+                 FROM " . $self->_table . "
+                    JOIN release ON release.release_group = rg.id
+                    JOIN release_group_meta rgm ON rgm.id = rg.id
+                 WHERE release.gid IN (" . placeholders (@release_gids) . ")
+                 ORDER BY
+                    rg.type,
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day,
+                    musicbrainz_collate(name.name)";
+    return query_to_list(
+        $self->c->dbh, sub {
+            my $row = $_[0];
+            my $rg = $self->_new_from_row($row);
+            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
+            return $rg;
+        },
+        $query, @release_gids);
 }
 
 sub insert

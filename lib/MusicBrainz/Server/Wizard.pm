@@ -59,7 +59,11 @@ has 'page_number' => (
     },
 );
 
-sub pages { return []; }
+has 'pages' => (
+    isa => 'ArrayRef',
+    is => 'ro',
+    required => 1
+);
 
 sub skip { return 0; }
 
@@ -95,7 +99,7 @@ sub process
     return;
 }
 
-sub render
+sub initialize
 {
     my ($self, $init_object) = @_;
 
@@ -107,14 +111,16 @@ sub render
         my $max = scalar @{ $self->pages } - 1;
         for (0..$max)
         {
-            my $page = $self->load_page ($_, $init_object);
-
-            $page->field('wizard_session_id')->value ($self->_session_id);
-            $self->_store->{"step ".$_} = $page->serialize;
+            $self->_load_page ($_, $init_object);
         }
     }
+}
 
-    my $page = $self->load_page ($self->_current);
+sub render
+{
+    my ($self) = @_;
+
+    my $page = $self->_load_page ($self->_current);
 
     my @steps = map {
         { title => $_->{title}, name => 'step_'.$_->{name} }
@@ -137,11 +143,24 @@ sub current_page
 
 sub load_page
 {
+    my ($self, $step, $init_object) = @_;
+
+    my $page = $self->page_number->{$step};
+    $page = $step unless defined $page;
+
+    return $self->_load_page ($page, $init_object);
+}
+
+sub _load_page
+{
     my ($self, $page, $init_object) = @_;
 
     if ($init_object)
     {
-        return $self->_load_form ($page, init_object => $init_object);
+        my $form = $self->_load_form ($page, init_object => $init_object);
+
+        $form->field('wizard_session_id')->value ($self->_session_id);
+        $self->_store->{"step ".$page} = $form->serialize;
     }
 
     my $serialized = $self->_store->{"step ".$page} || {};
@@ -157,7 +176,7 @@ sub value
     my $max = scalar @{ $self->pages } - 1;
     for (0..$max)
     {
-        my $value = $self->load_page ($_)->value;
+        my $value = $self->_load_page ($_)->value;
 
         @ret{keys %$value} = values %$value;
     }
@@ -336,6 +355,5 @@ sub _load_form
 
     return $form;
 }
-
 
 1;

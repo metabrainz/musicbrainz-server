@@ -27,7 +27,7 @@ MB.tests.ReleaseEditor.Encoding = function () {
         rt.updatePreview ();
 
         QUnit.equals (a.discs[0].tracks.length, 6, 'Tracklist has a new track');
-        QUnit.equals (a.discs[0].tracks[3].title.val (), 'Anöther B0RK', 'New track has metal umlaut');
-        QUnit.equals (a.discs[0].tracks[5].title.val (), 'بالسكوت (ريمكس)', 'Track still has the same name');
+        QUnit.equals (a.discs[0].getTrack(5).title.val (), 'Anöther B0RK', 'New track has metal umlaut');
+        QUnit.equals (a.discs[0].getTrack(4).title.val (), 'بالسكوت (ريمكس)', 'Track still has the same name');
     });
 };

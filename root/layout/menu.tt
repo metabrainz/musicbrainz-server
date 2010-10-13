@@ -137,7 +137,7 @@
                 [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
             </li>
             <li>
-                [% l('{uri|Tags}', { uri => c.uri_for('/tag') }) %]
+                [% l('{uri|Tags}', { uri => c.uri_for('/tags') }) %]
             </li>
             <li>
                 [% l('{uri|Top CD Stubs}', { uri => c.uri_for('/cdstub/browse') }) %]
@@ -158,7 +158,7 @@
                      [% l('{uri|Add Label}', { uri => c.uri_for('/label/create') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Add Various Artists Release}', { uri => c.uri_for('/artist', various_artist_mbid, 'add_release') }) %]
+                    [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
                 </li>
                 <li>
                     [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
@@ -203,7 +203,7 @@
                     [% l('Web Forums') %]
                 </a>
             </li>
-            <li>
+            <li class="separator">
                 <a href="http://musicbrainz.uservoice.com" class="internal">
                     [% l('Suggest a Feature') %]
                 </a>

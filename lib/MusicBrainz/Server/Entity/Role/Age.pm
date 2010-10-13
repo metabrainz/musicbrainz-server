@@ -1,9 +1,22 @@
 package MusicBrainz::Server::Entity::Role::Age;
 use Moose::Role;
-use MusicBrainz::Server::Types;
+use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::PartialDate;
 use Date::Calc qw(N_Delta_YMD Today);
 
-requires qw( begin_date end_date );
+has 'begin_date' => (
+    is => 'rw',
+    isa => 'PartialDate',
+    lazy => 1,
+    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
+);
+
+has 'end_date' => (
+    is => 'rw',
+    isa => 'PartialDate',
+    lazy => 1,
+    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
+);
 
 sub _YMD
 {
@@ -19,13 +32,14 @@ sub has_age
 {
     my ($self) = @_;
 
-    # seperately check if end_date has a positive year if it isn't empty.
-    # (N_Delta_YMD doesn't like negative years).
-    return 0 unless ( $self->end_date->is_empty || $self->end_date->year () > 0 );
+    return if $self->begin_date->is_empty;
+    return unless $self->begin_date->has_year &&
+                  $self->begin_date->year > 0;
 
-    return (!$self->begin_date->is_empty) && 
-        ($self->begin_date->year () > 0) &&
-        ($self->begin_date <= $self->end_date);
+    return 1 if $self->end_date->is_empty;
+    return $self->end_date->has_year &&
+           $self->end_date->year > 0 &&
+           $self->begin_date < $self->end_date;
 }
 
 sub age

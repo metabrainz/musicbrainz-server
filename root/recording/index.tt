@@ -8,9 +8,9 @@
             <table class="tbl">
                 <thead>
                     <tr>
-                        <th>[% l('#') %]</th>
+                        <th class="t pos" [% 'colspan="2"' IF clock %]>[% l('#') %]</th>
                         <th>[% l('Title') %]</th>
-                        <th>[% l('Length') %]</th>
+                        <th class="treleases">[% l('Length') %]</th>
                         <th>[% l('Release Title') %]</th>
                         <th>[% l('Release Artist') %]</th>
                         <th>[% l('Release Date') %]</th>
@@ -34,9 +34,7 @@
                         <td>[% rdfa_release_event_date(release) %]</td>
                         <td>
                             [%- IF release.country -%]
-                            <abbr title="[% release.country.name | html %]">
                                 [% rdfa_release_country_abbr(release) %]
-                            </abbr>
                             [%- END -%]
                         </td>
                         <td>[% rdfa_release_label_list(release.labels) %]</td>

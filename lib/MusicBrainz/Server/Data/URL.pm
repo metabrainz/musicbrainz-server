@@ -2,12 +2,17 @@ package MusicBrainz::Server::Data::URL;
 use Moose;
 
 use Carp;
-use MusicBrainz::Server::Data::Utils qw( hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' };
+
+my %URL_SPECIALIZATIONS = (
+    'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia.*/wiki/}i,
+    'ASIN' => qr{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i
+);
 
 sub _gid_redirect_table
 {
@@ -28,6 +33,12 @@ sub _columns
 
 sub _entity_class
 {
+    my ($self, $row) = @_;
+    for my $class (keys %URL_SPECIALIZATIONS) {
+        my $regex = $URL_SPECIALIZATIONS{$class};
+        return "MusicBrainz::Server::Entity::URL::$class"
+            if ($row->{url} =~ $regex);
+    }
     return 'MusicBrainz::Server::Entity::URL';
 }
 
@@ -63,6 +74,22 @@ sub _hash_to_row
         url => 'url',
         description => 'description'
     });
+}
+
+sub find_or_insert
+{
+    my ($self, $url) = @_;
+    my $id = $self->sql->select_single_value('SELECT id FROM url WHERE url = ?',
+                                             $url);
+    unless ($id) {
+        $self->sql->auto_commit(1);
+        $id = $self->sql->insert_row('url', {
+            url => $url,
+            gid => generate_gid()
+        }, 'id');
+    }
+
+    return $self->_new_from_row({ id => $id });
 }
 
 __PACKAGE__->meta->make_immutable;

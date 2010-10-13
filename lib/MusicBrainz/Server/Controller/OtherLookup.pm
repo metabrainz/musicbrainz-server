@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Controller::OtherLookup;
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use strict;
-use warnings;
-use base 'MusicBrainz::Server::Controller';
 use MusicBrainz::Server::Form::OtherLookup;
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use MusicBrainz::Server::Data::Search qw( escape_query );
@@ -130,9 +129,15 @@ sub iswc : Private
         return;
     }
 
-    # FIXME: should be a redirect to /iswc/show ?
     my @works = $c->model('Work')->find_by_iswc($iswc);
     $c->detach('not_found') unless @works;
+
+    if (@works == 1) {
+        my $work = $works[0];
+        $c->response->redirect(
+            $c->uri_for_action('/work/show', [ $work->gid ])
+        );
+    }
 
     $c->model('ArtistCredit')->load (@works);
     $c->stash->{results} = \@works;

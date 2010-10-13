@@ -1,9 +1,10 @@
-package MusicBrainz::Server::WebService::XMLSerializer;
+	package MusicBrainz::Server::WebService::XMLSerializer;
 
 use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use Switch;
+use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
@@ -154,6 +155,28 @@ sub _serialize_artist_credit
     push @$data, $gen->artist_credit(@ac);
 }
 
+sub _serialize_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($list);
+
+    my %attrs;
+    $attrs{id} = $list->gid;
+
+    my @list;
+    push @list, $gen->name($list->name);
+    push @list, $gen->editor($list->editor->name);
+
+    if ($toplevel)
+    {
+        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+            if $inc->releases;
+    }
+
+    push @$data, $gen->list(\%attrs, @list);
+}
+
 sub _serialize_release_group_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
@@ -212,6 +235,24 @@ sub _serialize_release_list
     push @$data, $gen->release_list($self->_list_attributes ($list), @list);
 }
 
+sub _serialize_quality
+{
+    my ($self, $data, $gen, $release, $inc) = @_;
+    my %quality_names = (
+        $QUALITY_LOW => 'low',
+        $QUALITY_NORMAL => 'normal',
+        $QUALITY_HIGH => 'high'
+    );
+
+    my $quality =
+        $release->quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED
+                                              : $release->quality;
+
+    push @$data, $gen->quality(
+        $quality_names{$quality}
+    );
+}
+
 sub _serialize_release
 {
     my ($self, $data, $gen, $release, $inc, $stash, $toplevel) = @_;
@@ -227,6 +268,7 @@ sub _serialize_release
     push @list, $gen->disambiguation($release->comment) if $release->comment;
     push @list, $gen->packaging($release->packaging) if $release->packaging;
 
+    $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
     $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
 
     if ($toplevel)
@@ -538,9 +580,6 @@ sub _serialize_label
     $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
-    $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
-        if $inc->releases;
-
     push @$data, $gen->label(\%attrs, @list);
 }
 
@@ -767,6 +806,16 @@ sub artist_resource
 
     my $data = [];
     $self->_serialize_artist($data, $gen, $artist, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub list_resource
+{
+    my ($self, $gen, $list, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_list($data, $gen, $list, $inc, $stash, 1);
 
     return $data->[0];
 }

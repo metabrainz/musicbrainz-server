@@ -5,6 +5,9 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
+    -excludes => 'recording_ids'
+};
 
 sub edit_name { 'Add PUIDs' }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }
@@ -19,15 +22,7 @@ has '+data' => (
     ]
 );
 
-sub related_entities
-{
-    my $self = shift;
-    return {
-        release => [ map {
-            $_->{recording_id}
-        } @{ $self->data->{puids} } ]
-    }
-}
+sub recording_ids { map { $_->{recording_id} } @{ shift->data->{puids} } }
 
 sub foreign_keys
 {

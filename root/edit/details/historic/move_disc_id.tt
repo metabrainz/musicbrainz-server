@@ -1,0 +1,33 @@
+<table>
+  <tr>
+    <th>[% l('Disc ID:') %]</th>
+    <td>[% edit.display_data %][% link_cdtoc(edit.display_data.medium_cdtoc.cdtoc) %]</td>
+
+  </tr>
+
+  <tr>
+    <th>[% l('From:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.old_releases %]
+          <li>[% l('{release} by {artist}', {
+                 release => link_release(release),
+                 artist  => artist_credit(release.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('To:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.new_releases %]
+          <li>[% l('{release} by {artist}', {
+                 release => link_release(release),
+                 artist  => artist_credit(release.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table>

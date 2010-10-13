@@ -28,17 +28,19 @@
             [% ELSE %]
                 <li><a href="[% c.uri_for_action('/account/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
             [% END %]
+            <li>[% link_label(label, 'subscribers', l('Subscribers')) %]</li>
         [% END %]
             [% IF c.user_exists %]
                 <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
                 <li>[% link_label(label, 'merge', l('Merge this label into another')) %]</li>
                 <li>[% use_in_relationship(label) %]</li>
+                <li>[% relate_to_url(label) %]</li>
                 <li>[% link_label(label, 'edits', l('View editing history')) %]</li>
                 [% IF label.edits_pending %]
                   <li>[% link_label(label, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
                 <li>
-                  <a href="[% c.uri_for_action('/release/add', { label = label.gid }) %]">
+                  <a href="[% c.uri_for_action('/release_editor/add', { label = label.gid }) %]">
                     [% l('Add a new release') %]
                   </a>
                 </li>

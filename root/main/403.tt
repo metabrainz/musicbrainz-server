@@ -3,5 +3,10 @@
         <h1>[%- l('Forbidden Request') -%]</h1>
 
         <p><strong>[%- l('The page you requested is private.') -%]</strong></p>
+
+        <p class="small">
+            [%- l('Followed a link on our site to get here? Please {con|contact us}.',
+                 { con => doc_link('Contact_Us') }) -%]
+        </p>
     </div>
 [% END %]

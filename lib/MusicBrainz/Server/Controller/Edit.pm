@@ -8,8 +8,12 @@ use DBDefs;
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
-__PACKAGE__->config(
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'Edit',
     entity_name => 'edit',
+};
+
+__PACKAGE__->config(
     paging_limit => 25,
 );
 
@@ -69,9 +73,9 @@ sub add_note : Chained('load') PathPart('add-note') RequireAuth
     my $form = $c->form(form => 'EditNote');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('EditNote')->add_note($edit->id, {
-        editor_id => $c->user->id,
-        text => $form->field('text')->value
-    });
+            editor_id => $c->user->id,
+            text => $form->field('text')->value
+        });
     }
 
     $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
@@ -164,10 +168,12 @@ sub search : Path('/search/edits') RequireAuth
     my ($self, $c) = @_;
 
     my $form = $c->form( form => 'Search::Edits' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($form->submitted_and_valid($c->req->query_params)) {
+        my @types = @{ $form->field('type')->value };
+
         my $edits = $self->_load_paged($c, sub {
             return $c->model('Edit')->find({
-                type   => $form->field('type')->value,
+                type   => [ map { split /,/ } @types ],
                 status => $form->field('status')->value,
             }, shift, shift);
         });
