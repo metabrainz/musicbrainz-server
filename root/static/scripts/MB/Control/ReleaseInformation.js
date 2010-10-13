@@ -250,8 +250,16 @@ MB.Control.ReleaseDate = function (bubble_collection) {
           self.inputs[2].val () == '25');
     };
 
+    var januaryFirst = function () {
+        return (parseInt (self.inputs[1].val (), 10) === 1 &&
+                parseInt (self.inputs[2].val (), 10) === 1);
+    };
+
     var update = function (event) {
-	if (self.amazonEpoch ())
+        var amazon = self.amazonEpoch ();
+        var january = self.januaryFirst ();
+
+	if (amazon || january)
         {
             $(this).data ('bubble').show ();
 	}
@@ -259,8 +267,27 @@ MB.Control.ReleaseDate = function (bubble_collection) {
 	{
             $(this).data ('bubble').hide ();
 	}
+
+        if (amazon)
+        {
+            $('p.amazon').show ();
+        }
+        else
+        {
+            $('p.amazon').hide ();
+        }
+
+        if (january)
+        {
+            $('p.january-first').show ();
+        }
+        else
+        {
+            $('p.january-first').hide ();
+        }
     };
 
+    self.januaryFirst = januaryFirst;
     self.amazonEpoch = amazonEpoch;
     self.update = update;
 
