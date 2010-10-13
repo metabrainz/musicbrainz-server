@@ -67,6 +67,12 @@ has 'pages' => (
 
 sub skip { return 0; }
 
+sub valid {
+    my ($self, $page) = @_;
+
+    return $page->validated;
+}
+
 # The steps a request goes through to render a single page in the wizard:
 #
 #     [ sub process ]
@@ -92,8 +98,8 @@ sub process
     }
 
     $self->_retrieve_wizard_settings;
-    $self->_store_page_in_session;
-    $self->_route;
+    my $page = $self->_store_page_in_session;
+    $self->_route ($page);
     $self->_store_wizard_settings;
 
     return;
@@ -194,14 +200,18 @@ sub _store_page_in_session
                          $self->c->request->parameters );
 
     $self->_store->{"step ".$self->_current} = $page->serialize;
+
+    return $page;
 }
 
 sub _route
 {
-    my ($self) = @_;
+    my ($self, $page) = @_;
+
+    my $valid = $self->valid ($page);
 
     my $p = $self->c->request->parameters;
-    if (defined $p->{next})
+    if (defined $p->{next} && $valid)
     {
         return $self->find_next_page;
     }
@@ -218,7 +228,9 @@ sub _route
         return $self->submitted (1);
     }
 
-    my $max = scalar @{ $self->pages } - 1;
+    # Don't allow forward movement unless the current page is valid.
+    my $max = $valid ? scalar @{ $self->pages } - 1 : $self->_current;
+
     for (0..$max)
     {
         my $name = 'step_'.$self->pages->[$_]->{name};
@@ -234,8 +246,9 @@ sub find_next_page
 {
     my ($self) = @_;
 
-    my $max = scalar @{ $self->pages } - 1;
     my $page = $self->_current;
+
+    my $max = scalar @{ $self->pages } - 1;
 
     while ($page < $max)
     {
