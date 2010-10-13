@@ -21,7 +21,12 @@ sub grouped_relationships
     my ($self) = @_;
 
     my %groups;
-    for my $relationship ($self->all_relationships) {
+    my @relationships = sort {
+        $a->link->begin_date <=> $b->link->begin_date ||
+        $a->link->end_date   <=> $b->link->end_date
+    } $self->all_relationships;
+
+    for my $relationship (@relationships) {
         $groups{ $relationship->target_type } ||= {};
         $groups{ $relationship->target_type }{ $relationship->phrase } ||= [];
         push @{ $groups{ $relationship->target_type }{ $relationship->phrase} },
