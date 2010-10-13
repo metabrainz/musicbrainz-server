@@ -49,23 +49,12 @@ augment 'create_edits' => sub
     # Add the release edit
     my $add_release_edit = $self->$edit_action($c,
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
-    my $release = $add_release_edit->entity;
+    $release = $add_release_edit->entity;
 
-    return $release;;
+    return $release;
 };
 
-sub submitted
-{
-    my ($self, $c, $release) = @_;
-
-    # Not previewing, we've added a release.
-    $c->response->redirect(
-        $c->uri_for_action('/release/show', [ $release->gid ])
-    );
-    $c->detach;
-}
-
-sub load
+augment 'load' => sub
 {
     my ($self, $c, $wizard) = @_;
 
@@ -123,7 +112,18 @@ sub load
         $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
     }
 
-    $wizard->initialize($release);
+    return $release;
+};
+
+sub submitted
+{
+    my ($self, $c, $release) = @_;
+
+    # Not previewing, we've added a release.
+    $c->response->redirect(
+        $c->uri_for_action('/release/show', [ $release->gid ])
+    );
+    $c->detach;
 }
 
 1;

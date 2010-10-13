@@ -70,6 +70,8 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
     self.content = $(content);
     self.container = self.content.parent ();
 
+    self.target.data ('bubble', self);
+
     var tail = function () {
         self.balloon0.css ('position', 'absolute').css ('z-index', '1');
 
@@ -136,7 +138,7 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
     return self;
 };
 
-/* BubbleDoc turns a documentation div into a bubble pointing at an
+/* BubbleDocBase turns a documentation div into a bubble pointing at an
    input to the left of it on the Release Editor information tab.
 
    It also positions the bubble vertically when 'move ()' is called.
@@ -144,29 +146,42 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
    inserted above it) make sure to call move() again whenever that
    input is focused and the documentation div displayed.
 */
-MB.Control.BubbleDoc = function (parent, target, content, offset) {
-    var self = MB.Control.BubbleBase (parent, target, content, offset);
+MB.Control.BubbleDocBase = function (parent, target, content) {
+    var self = MB.Control.BubbleBase (parent, target, content);
 
     var parent_tail = self.tail;
-    var parent_show = self.show;
     var parent_hide = self.hide;
 
     var move = function () {
 
         self.container.show ();
 
-        var margin = 42;
+        var top = self.target.offset ().top - 23;
+        var left = self.content.offset ().left;
         var height = self.content.height ();
+        var width = self.content.width ();
 
-        var discTop = self.target.closest ('fieldset').offset ().top;
-        var buttonTop = self.target.offset ().top;
-        
-        if (buttonTop - discTop > height - margin)
+        if (height < 42)
         {
-            /* the suggestion box isn't high enough to reach the tail,
-               move it down a bit. */
-            self.container.css ('padding-top', buttonTop - discTop - height + margin);
+            height = 42;
         }
+
+        self.container.css ('position', 'absolute');
+        self.container.css ('width', width);
+        self.container.css ('min-height', height);
+        self.content.css ('min-height', height);
+        self.content.css ('width', '100%');
+        self.container.offset ({ 'top': top, 'left': left });
+
+        var pageBottom = self.page.offset ().top + self.page.outerHeight ();
+        var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
+
+         if (pageBottom < bubbleBottom)
+         {
+             var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
+
+             self.page.css ('min-height', newHeight);
+         }
     };
 
     var tail = function () {
@@ -196,21 +211,64 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
         
     };
 
+    var hide = function () {
+        parent_hide ();
+
+        self.page.css ('min-height', '');
+    };
+
+
+    self.page = $('#page');
+
+    self.move = move;
+    self.tail = tail;
+    self.hide = hide;
+
+    return self;
+};
+
+
+MB.Control.BubbleDoc = function (parent, target, content) {
+    var self = MB.Control.BubbleDocBase (parent, target, content);
+
+    var parent_show = self.show;
+    var parent_hide = self.hide;
+
     var show = function () {
         parent_show ();
-        self.target.text (MB.text.Done);
+
+        if (self.button)
+        {
+            self.target.text (MB.text.Done);
+        }
     };
 
     var hide = function () {
         parent_hide ();
-        self.target.text (MB.text.Change);
+
+        if (self.button)
+        {
+            self.target.text (MB.text.Change);
+        }
     };
 
     var initialize = function () {
 
+        self.button = false;
+        self.textinput = false;
+
         if (self.target.filter ('a').length ||
             self.target.filter ('input[type=submit]').length ||
             self.target.filter ('input[type=button]').length)
+        {
+            self.button = true;
+        }
+        else if (self.target.filter ('input[type=text]').length)
+        {
+            self.textinput = true;
+        }
+
+        if (self.button)
         {
             /* show content when a button is pressed. */
             self.target.click (function (event) {
@@ -218,7 +276,8 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
                 event.preventDefault ();
             });
         }
-        else if (self.target.filter ('input[type=text]').length)
+
+        if (self.textinput)
         {
             /* show content when an input field is focused. */
             self.target.focus (function (event) {
@@ -228,13 +287,10 @@ MB.Control.BubbleDoc = function (parent, target, content, offset) {
     };
 
     self.initialize = initialize;
-    self.move = move;
-    self.tail = tail;
-    self.show = show;
-    self.hide = hide;
 
     return self;
 };
+
 
 /* BubbleRow turns the div inside a table row into a bubble pointing
    at one of the inputs in the preceding row. */
@@ -299,16 +355,36 @@ MB.Control.BubbleCollection = function (targets, contents) {
         self.active = bubble;
     };
 
+    var hideAll = function () {
+	self.hideOthers (null);
+    };
+
+    var add = function (target, contents) {
+	MB.Control.BubbleDoc (self, target, contents).initialize ();
+    };
+
+    var initialize = function ()
+    {
+	var tmp = [];
+
+	if (targets && contents)
+	{
+	    targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
+	    contents.each (function (idx, data) { tmp[idx].doc = data; });
+
+	    $.each (tmp, function (idx, data) {
+	        MB.Control.BubbleDoc (self, data.button, data.doc).initialize ();
+	    });
+	}
+    }
+
     self.hideOthers = hideOthers;
+    self.hideAll = hideAll;
+    self.add = add;
+    self.initialize = initialize;
     self.active = false;
 
-    var tmp = [];
+    self.initialize ();
 
-    targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
-    contents.each (function (idx, data) { tmp[idx].doc = data; });
-
-    $.each (tmp, function (idx, data) {
-        MB.Control.BubbleDoc (self, data.button, data.doc).initialize ();
-    });
-
+    return self;
 };

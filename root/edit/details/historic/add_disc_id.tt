@@ -12,7 +12,11 @@
     </td>
   </tr>
   <tr>
-    <th>[% l('Disc ID:') %]</th>
+    <th>[% l('CD TOC:') %]</th>
     <td>[% edit.data.full_toc %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Disc ID:') %]</th>
+    <td>[% link_cdtoc(edit.display_data.cdtoc) %]</td>
   </tr>
 </table>

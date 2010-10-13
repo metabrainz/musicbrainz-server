@@ -1,3 +1,36 @@
+[% BLOCK layout_head %]
+<script>
+$(document).ready(function() {
+    var $begin = $('#label-edit-artist\\.begin_date'),
+        $end   = $('#label-edit-artist\\.end_date'),
+        $type  = $('#id-edit-artist\\.type_id');
+
+    var artistChangeDateText = function (start, stop) {
+        $begin.text(start);
+        $end.text(stop);
+    };
+
+    /*****************************************************************
+     *  Sets the label descriptions depending upon the artist type:
+     *      Unknown: 0
+     *      Person: 1
+     *      Group: 2
+     *****************************************************************/
+    var artistTypeChanged = function() {
+        switch ($type.val()) {
+            default:
+            case '0': artistChangeDateText('Began:', 'Ended:');       break;
+            case '1': artistChangeDateText('Born:', 'Deceased:');     break;
+            case '2': artistChangeDateText('Founded:', 'Dissolved:'); break;
+        }
+    };
+
+    artistTypeChanged();
+    $type.change(artistTypeChanged);
+});
+</script>
+[% END %]
+
 [% WRAPPER 'artist/layout.tt' title=l('Edit Artist') full_width=1 page='edit' %]
     [% INCLUDE 'artist/edit_form.tt' %]
 [% END %]

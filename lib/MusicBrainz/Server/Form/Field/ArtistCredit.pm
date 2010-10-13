@@ -7,7 +7,7 @@ use MusicBrainz::Server::Entity::ArtistCreditName;
 
 has_field 'names'=> (
     type => 'Repeatable',
-    num_when_empty => 0
+    num_when_empty => 1
 );
 
 has_field 'names.name' => (

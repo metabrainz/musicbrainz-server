@@ -12,7 +12,8 @@
             <h2>[% entity.0 %]</h2>
             <ul>
             [% FOREACH rating IN ratings.${ entity.1 } %]
-                <li>[% rating.rating %] - [% link_entity (rating.${ entity.1 }) %]</li>
+                [% e = rating.${ entity.1 } %]
+                <li>[% rating_stars(e, !viewing_own_profile) %] - [% link_entity (e) %]</li>
             [% END %]
             </ul>
         [% END %]

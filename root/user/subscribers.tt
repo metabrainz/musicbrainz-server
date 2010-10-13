@@ -1,40 +1,25 @@
-[% WRAPPER "user/profile/layout.tt" title=l("Subscribers") page="subscribers" %]
-
-    <h2>[% l("Subscribers") %]</h2>
-
-    [%- IF editors.size -%]
-
-        [%- WRAPPER 'components/with-pager.tt' -%]
-        <table class="tbl">
-            <thead>
-                <tr>
-                    <th>[%- l('Name') -%]</th>
-                </tr>
-            </thead>
-            <tbody>
-                [%- FOR editor IN editors -%]
-                <tr>
-                    <td>[% link_editor(editor) %]</td>
-                </tr>
-                [%- END -%]
-            </tbody>
-        </table>
-        [%- END -%]
-    [%- END -%]
-
-    [%- IF private_subscribers -%]
-        <p>
-           [%- ln('{count} private subscriptions not listed.', '{count} private subscriptions not listed.', private_subscribers, { count => private_subscribers }); -%]
-        </p>
-    [%- END -%]
-
-    [%- IF !editor.size && !private_subscribers -%]
-        [% IF c.user_exists && user.id == c.user.id %]
-        <p>[%- l('You have no subscribers.') -%]</p>
-        [% ELSE %]
-        <p>[%- l('{editor} has no subscribers.', { editor => html_escape(user.name) }) -%]</p>
+[% WRAPPER 'user/profile/layout.tt' title=l('Subscribers') page='subscribers' %]
+    <h2>[% l('Subscribers') %]</h2>
+    [% IF public_editors.size || private_editors > 0 %]
+        <p>[% l('The following editors are subscribed to edits that {editor} makes:', { editor => link_editor(user) }) %]</p>
+        <ul>
+        [% FOR editor=public_editors %]
+            <li>[% link_editor(editor) %]</li>
         [% END %]
-    [%- END -%]
+            [% IF private_editors %]
+            <li>[% ln('{n} other editor', '{n} other editors', private_editors, { n => private_editors }) %]</li>
+            [% END %]
+        </ul>
+    [% ELSE %]
+        <p>[% l('There are currently no editors subscribed to edits that {editor} makes.',
+                { editor => link_editor(user) }) %]</p>
+    [% END %]
 
-
+    [% IF !viewing_own_profile %]
+        [% IF subscribed %]
+            <p>[% l('You are currently subscribed.') %]</p>
+        [% ELSE %]
+            <p>[% l('You are not currently subscribed.') %]</p>
+        [% END %]
+    [% END %]
 [% END %]

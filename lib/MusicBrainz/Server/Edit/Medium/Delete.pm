@@ -8,11 +8,13 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { 'Remove medium' }
+sub medium_id { shift->data->{medium_id} }
 
-sub alter_edit_pending { { Medium => [ shift->data->{medium_id} ] } }
+sub alter_edit_pending { { Medium => [ shift->medium_id ] } }
 
 has '+data' => (
     isa => Dict[
@@ -62,7 +64,7 @@ sub initialize
 sub accept
 {
     my $self = shift;
-    $self->c->model('Medium')->delete($self->data->{medium_id});
+    $self->c->model('Medium')->delete($self->medium_id);
 }
 
 __PACKAGE__->meta->make_immutable;

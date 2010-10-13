@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::URL;
 use Moose;
 
 use Carp;
-use MusicBrainz::Server::Data::Utils qw( hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -74,6 +74,22 @@ sub _hash_to_row
         url => 'url',
         description => 'description'
     });
+}
+
+sub find_or_insert
+{
+    my ($self, $url) = @_;
+    my $id = $self->sql->select_single_value('SELECT id FROM url WHERE url = ?',
+                                             $url);
+    unless ($id) {
+        $self->sql->auto_commit(1);
+        $id = $self->sql->insert_row('url', {
+            url => $url,
+            gid => generate_gid()
+        }, 'id');
+    }
+
+    return $self->_new_from_row({ id => $id });
 }
 
 __PACKAGE__->meta->make_immutable;

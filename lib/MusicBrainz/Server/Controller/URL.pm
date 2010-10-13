@@ -3,13 +3,13 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-__PACKAGE__->config(
-    model => 'URL',
-    entity_name => 'url'
-);
-
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'URL',
+    entity_name => 'url'
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 

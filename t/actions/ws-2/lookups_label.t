@@ -3,7 +3,7 @@ use strict;
 use Test::More;
 use XML::SemanticDiff;
 use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+use MusicBrainz::Server::Test ws_test => { version => 2 };
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use Test::WWW::Mechanize::Catalyst;
 
@@ -12,10 +12,9 @@ my $v2 = schema_validator;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
 
-$mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b', 'basic label lookup');
-&$v2 ($mech->content, "Validate basic label lookup");
-
-my $expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'basic label lookup',
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
@@ -24,12 +23,9 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </label>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases', 'label lookup, inc=aliases');
-&$v2 ($mech->content, "Validate lookup, inc=aliases");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'label lookup, inc=aliases',
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
@@ -39,12 +35,9 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
     </label>
 </metadata>';
 
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
-
-$mech->get_ok('/ws/2/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media', 'label lookup with releases, inc=media');
-&$v2 ($mech->content, "Validate lookup with releases, inc=media");
-
-$expected = '<?xml version="1.0" encoding="UTF-8"?>
+ws_test 'label lookup with releases, inc=media',
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="original production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
@@ -53,6 +46,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         <release-list count="2">
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
                 <title>My Demons</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
@@ -65,6 +59,7 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
             </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
@@ -82,7 +77,5 @@ $expected = '<?xml version="1.0" encoding="UTF-8"?>
         </release-list>
     </label>
 </metadata>';
-
-is ($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 done_testing;

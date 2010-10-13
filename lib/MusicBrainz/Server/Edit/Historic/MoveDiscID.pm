@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit::Historic';
 sub edit_name     { 'Move disc ID' }
 sub historic_type { 21 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_DISCID }
+sub edit_template { 'historic/move_disc_id' }
 
 sub related_entities
 {

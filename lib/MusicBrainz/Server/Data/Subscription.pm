@@ -42,7 +42,7 @@ sub subscribe
 
 sub unsubscribe
 {
-    my ($self, $user_id, $id) = @_;
+    my ($self, $user_id, @ids) = @_;
 
     my $table = $self->table;
     my $column = $self->column;
@@ -51,8 +51,9 @@ sub unsubscribe
     Sql::run_in_transaction(sub {
 
         $sql->do("
-            DELETE FROM $table WHERE editor = ? AND $column = ?",
-            $user_id, $id);
+            DELETE FROM $table WHERE editor = ? AND $column IN (".
+            placeholders(@ids) . ")",
+            $user_id, @ids);
 
     }, $sql);
 }

@@ -10,11 +10,6 @@
   </tr>
 
   <tr>
-    <th>[% l('Type:') %]</th>
-    <td>[% edit.display_data.type.name %]</td>
-  </tr>
-
-  <tr>
     <th>[% l('Status:') %]</th>
     <td>[% edit.display_data.status.name %]</td>
   </tr>
@@ -28,64 +23,4 @@
     <th>[% l('Language:') %]</th>
     <td>[% edit.display_data.language.name %]</td>
   </tr>
-
-  [% UNLESS edit.preview %]
-  <tr>
-    <th>[% l('Tracks:') %]</th>
-    <td>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th class="pos t">[% l('#') %]</th>
-            <th>[% l('Name') %]</th>
-            <th>[% l('Artist') %]</th>
-            <th class="treleases">[% l('Length') %]</th>
-          </tr>
-        </thead>
-        <tbody>
-          [% FOR track=edit.display_data.tracks %]
-          <tr>
-            <td>[% track.position %]</td>
-            <td>[% link_recording(track.recording, 'show', track.name) %]</td>
-            <td>[% link_artist(track.artist) %]</td>
-            <td>[% track.length | format_length %]</td>
-          </tr>
-          [% END %]
-        </tbody>
-      </table>
-    </td>
-  </tr>
-  [% END %]
-
-  [% UNLESS edit.preview %]
-  <tr>
-    <th>[% l('Release Events:') %]</th>
-    <td>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>[% l('Date') %]</th>
-            <th>[% l('Country') %]</th>
-            <th>[% l('Label') %]</th>
-            <th>[% l('Catalog Number') %]</th>
-            <th>[% l('Barcode') %]</th>
-            <th>[% l('Format') %]</th>
-          </tr>
-        </thead>
-        <tbody>
-          [% FOR release_event=edit.display_data.release_events %]
-          <tr>
-            <td>[% release_event.date.format %]</td>
-            <td>[% release_event.country.name %]</td>
-            <td>[% link_label(release_event.label) %]</td>
-            <td>[% release_event.catalog_number %]</td>
-            <td>[% release_event.barcode %]</td>
-            <td>[% release_event.format.name %]</td>
-          </tr>
-          [% END %]
-        </tbody>
-      </table>
-    </td>
-  </tr>
-  [% END %]
 </table>

@@ -21,33 +21,37 @@
 /**
  * MB.Control.ReleaseLabel keeps track of the label/catno inputs.
  */
-MB.Control.ReleaseLabel = function(row, parent) {
+MB.Control.ReleaseLabel = function(row, parent, labelno) {
     var self = MB.Object();
 
     self.row = row;
     self.parent = parent;
-
-    // FIXME: hardcoded static url in this template. --warp.
-    var template = MB.utility.template (
-        '<div class="release-label">' +
-            '<input type="hidden" value="" name="labels.#{labelno}.label_id" id="id-labels.#{labelno}.label_id" class="label-id">' +
-            '<label id="label-labels.#{labelno}.name" for="id-labels.#{labelno}.name" class="label-name">Label</label>' +
-            '<input type="text" value="" name="labels.#{labelno}.name" id="id-labels.#{labelno}.name" class="label-name">' +
-            '<label id="label-labels.#{labelno}.catalog_number" for="id-labels.#{labelno}.catalog_number" class="catno">Cat.No</label>' +
-            '<input type="text" value="" name="labels.#{labelno}.catalog_number" id="id-labels.#{labelno}.catalog_number" class="catno">' +
-            '<span class="remove-label">' +
-            '  <input type="hidden" value="0" name="labels.#{labelno}.deleted" id="id-labels.#{labelno}.deleted">' +
-            '  <a class="remove-label" href="#remove_label">' +
-            '    <img src="/static/images/release_editor/remove-label.png" title="Remove Label" />' +
-            '  </a>' +
-            '</span>' +
-        '</div>'
-    );
+    self.labelno = labelno;
 
     if (!self.row)
     {
-        /* New release label, render the associated inputs. */
-        self.row = $(template.draw ({ 'labelno': self.parent.labels.length }));
+        self.catno_message = $('div.catno-container:first').clone ();
+	self.catno_message.insertAfter ($('div.catno-container:last'));
+	self.catno_message.hide ();
+
+	self.row = $('div.release-label:first').clone ();
+	self.row.find ('input.label-id').val ('');
+	self.row.find ('input.label-name').val ('');
+	self.row.find ('input.catno').val ('');
+	self.row.find ('*').each (function (idx, element) {
+            var item = $(element);
+            if (item.attr ('id'))
+            {
+                item.attr ('id', item.attr('id').
+                           replace('labels.0', "labels." + self.labelno));
+            }
+            if (item.attr ('name'))
+            {
+                item.attr ('name', item.attr('name').
+                           replace('labels.0', "labels." + self.labelno));
+            }
+        });
+
         self.row.appendTo ($('div.label-container').append ());
     }
 
@@ -72,7 +76,6 @@ MB.Control.ReleaseLabel = function(row, parent) {
             self.catno.removeAttr ('disabled');
         }
 
-        console.log ("toggled: ", self);
         window.toggled = self;
     };
 
@@ -83,32 +86,49 @@ MB.Control.ReleaseLabel = function(row, parent) {
         return self.deleted.val () === '1';
     };
 
-
-    var autocompleted = function (event, data) {
+    /**
+     * selected is a callback called by autocomplete when a selection is made.
+     */
+    var selected = function (event, data) {
         self.id.val(data.id);
-        self.name.val(data.name).removeClass('error');
+        self.name.removeClass('error');
+        self.name.val(data.name);
 
         event.preventDefault();
         return false;
     };
 
-    var blurred = function (event) {
+    var catnoUpdate = function () {
+
+	if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
+        {
+  	    self.catno.data ('bubble').show ();
+        }
+	else
+        {
+  	    self.catno.data ('bubble').hide ();
+        }
     };
 
     self.id = self.row.find('input.label-id');
     self.name = self.row.find('input.label-name');
     self.catno = self.row.find('input.catno');
+    self.catno_message = $('div.catno').eq(self.labelno);
     self.deleted = self.row.find ('span.remove-label input');
 
     self.parent = parent;
     self.template = template;
-    self.autocompleted = autocompleted;
+    self.catnoUpdate = catnoUpdate;
     self.toggleDelete = toggleDelete;
-    self.blurred = blurred;
+    self.isDeleted = isDeleted;
+    self.selected = selected;
 
-    self.name.bind('blur', self.blurred);
-    self.name.result(self.autocompleted);
-    self.name.autocomplete("/ws/js/label", MB.utility.autocomplete.options);
+    self.catno.bind ('change keyup focus', self.catnoUpdate);
+    MB.Control.Autocomplete ({
+        'input': self.name,
+        'entity': 'label',
+        'select': self.selected,
+    });
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
 
@@ -116,13 +136,153 @@ MB.Control.ReleaseLabel = function(row, parent) {
 };
 
 
+MB.Control.ReleaseBarcode = function() {
+    var self = MB.Object();
+
+    self.input = $('#id-barcode');
+    self.message = $('p.barcode-message');
+    self.suggestion = $('p.barcode-suggestion');
+    self.count = 0;
+
+    var checkDigit = function (barcode) {
+        var weights = [ 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3 ];
+
+        if (barcode.length !== 12)
+        {
+            return false;
+        }
+
+        var calc = 0;
+        for (i = 0; i < 12; i++)
+        {
+            calc += parseInt (barcode[i]) * weights[i];
+        }
+
+        var checkdigit = 10 - (calc % 10);
+
+        return checkdigit === 10 ? '0' : '' + checkdigit;
+    };
+
+    var validate = function (barcode) {
+        return self.checkDigit (barcode.slice (0, 12)) === barcode[12];
+    };
+
+    var clean = function () {
+        var barcode = self.input.val ().replace (/[^0-9]/g, '');
+
+        self.input.val (barcode);
+
+        return barcode;
+    };
+
+    var update = function () {
+        var barcode = self.clean ();
+
+        if (barcode.length === 11)
+        {
+            self.message.html (MB.text.Barcode.NoCheckdigitUPC);
+            self.suggestion.html (MB.text.Barcode.CheckDigit.replace (
+                '#checkdigit#', self.checkDigit ('0' + barcode)));
+        }
+        else if (barcode.length === 12)
+        {
+            if (self.validate ('0' + barcode))
+            {
+                self.message.html (MB.text.Barcode.ValidUPC);
+                self.suggestion.html ("");
+            }
+            else
+            {
+                self.message.html (MB.text.Barcode.InvalidUPC);
+                self.suggestion.html (MB.text.Barcode.DoubleCheck + ' ' +
+                    MB.text.Barcode.CheckDigit.replace (
+                        '#checkdigit#', self.checkDigit (barcode)));
+            }
+        }
+        else if (barcode.length === 13)
+        {
+            if (self.validate (barcode))
+            {
+                self.message.html (MB.text.Barcode.ValidEAN);
+                self.suggestion.html ('');
+            }
+            else
+            {
+                self.message.html (MB.text.Barcode.InvalidEAN);
+                self.suggestion.html (MB.text.DoubleCheck);
+            }
+        }
+        else
+        {
+            self.message.html (MB.text.Barcode.Invalid);
+            self.suggestion.html (MB.text.DoubleCheck);
+        }
+    };
+
+    self.checkDigit = checkDigit;
+    self.validate = validate;
+    self.clean = clean;
+    self.update = update;
+
+    self.input.bind ('change keyup', self.update);
+    self.update ();
+
+    return self;
+};
+
+
+MB.Control.ReleaseDate = function (bubble_collection) {
+    var self = MB.Object ();
+
+    self.bubbles = bubble_collection;
+
+    self.inputs = [ $('#id-date\\.year'),
+        $('#id-date\\.month'), $('#id-date\\.day') ] 
+    self.message = $('div.date');
+
+    var amazonEpoch = function () {
+	return (self.inputs[0].val () == '1995' &&
+	  self.inputs[1].val () == '10' &&
+          self.inputs[2].val () == '25');
+    };
+
+    var update = function (event) {
+	if (self.amazonEpoch ())
+        {
+            $(this).data ('bubble').show ();
+	}
+	else
+	{
+            $(this).data ('bubble').hide ();
+	}
+    };
+
+    self.amazonEpoch = amazonEpoch;
+    self.update = update;
+
+    $.each (self.inputs, function (idx, item) {
+        item.data ('bubble', 
+            MB.Control.BubbleDocBase (self.bubbles, item, self.message));
+
+        item.bind ('change keyup focus', self.update);
+    });
+
+    return self;
+};
+
 MB.Control.ReleaseInformation = function() {
     var self = MB.Object();
 
+    self.bubbles = MB.Control.BubbleCollection ();
+    self.release_date = MB.Control.ReleaseDate (self.bubbles);
+
     var initialize = function () {
 
-        $('div.release-label').each (function (i) {
-            self.labels.push (MB.Control.ReleaseLabel($(this), self));
+        self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
+        self.bubbles.add ($('#id-barcode'), $('div.barcode'));
+
+        $('div.release-label').each (function () {
+            self.addLabel ($(this));
         });
 
         $('#id-barcode').live ('change', function () {
@@ -132,6 +292,7 @@ MB.Control.ReleaseInformation = function() {
 
         $('a[href=#add_label]').click (function (event) {
             self.addLabel ();
+	    self.bubbles.hideAll ();
             event.preventDefault ();
         });
 
@@ -149,12 +310,16 @@ MB.Control.ReleaseInformation = function() {
         );
     };
 
-    var addLabel = function () {
-        var labels = self.labels.length;
+    var addLabel = function (row) {
+        var labelno = self.labels.length;
+        var l = MB.Control.ReleaseLabel(row, self, labelno);
 
-        self.labels.push (MB.Control.ReleaseLabel (null, self));
+        self.labels.push (l);
+
+        MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
     };
 
+    self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
     self.initialize = initialize;
     self.addLabel = addLabel;

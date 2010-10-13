@@ -2,6 +2,8 @@ package MusicBrainz::Server::Form::Search::Search;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
+use MusicBrainz::Server::Translation qw( l );
+
 has_field 'query' => (
     type => 'Text',
     required => 1,
@@ -30,17 +32,17 @@ has_field 'limit' => (
 sub options_type
 {
     return [
-        'artist'        => 'Artist',
-        'release_group' => 'Release Group',
-        'release'       => 'Release',
-        'recording'     => 'Recording',
-        'work'          => 'Work',
-        'label'         => 'Label',
-        'annotation'    => 'Annotation',
-        'cdstub'        => 'CD Stub',
-        'editor'        => 'Editor',
-        'freedb'        => 'FreeDB',
-        'tag'           => 'Tag',
+        'artist'        => l('Artist'),
+        'release_group' => l('Release Group'),
+        'release'       => l('Release'),
+        'recording'     => l('Recording'),
+        'work'          => l('Work'),
+        'label'         => l('Label'),
+        'annotation'    => l('Annotation'),
+        'cdstub'        => l('CD Stub'),
+        'editor'        => l('Editor'),
+        'freedb'        => l('FreeDB'),
+        'tag'           => l('Tag'),
     ];
 }
 

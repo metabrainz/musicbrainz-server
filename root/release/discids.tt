@@ -34,6 +34,9 @@
                                                    { cdtoc_id  => medium_cdtoc.cdtoc.id,
                                                      medium_id => medium.id }) %]">
                        [% l('Remove') %]
+                      </a> |
+                      <a href="[% c.uri_for_action('cdtoc/move', { toc => medium_cdtoc.id }) %]">
+                        [% l('Move') %]
                       </a>
                     </td>
                     [% END %]
