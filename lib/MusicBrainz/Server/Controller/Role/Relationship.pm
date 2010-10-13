@@ -8,20 +8,8 @@ requires 'load';
 sub relationships : Chained('load') PathPart('relationships')
 {
     my ($self, $c) = @_;
-
     my $entity = $c->stash->{$self->{entity_name}};
-
     $c->model('Relationship')->load($entity);
-    my @relationships =
-        sort {
-            ($a->phrase cmp $b->phrase)
-            or
-            ($a->target->name cmp $b->target->name)
-        } $entity->all_relationships;
-
-    $c->stash(
-        relationships => \@relationships,
-    );
 }
 
 sub relate : Chained('load')
