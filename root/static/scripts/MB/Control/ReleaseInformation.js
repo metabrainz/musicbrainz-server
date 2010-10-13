@@ -177,7 +177,12 @@ MB.Control.ReleaseBarcode = function() {
     var update = function () {
         var barcode = self.clean ();
 
-        if (barcode.length === 11)
+        if (barcode.length === 0)
+        {
+            self.message.html ("");
+            self.suggestion.html ("");
+        }
+        else if (barcode.length === 11)
         {
             self.message.html (MB.text.Barcode.NoCheckdigitUPC);
             self.suggestion.html (MB.text.Barcode.CheckDigit.replace (
