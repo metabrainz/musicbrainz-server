@@ -168,8 +168,9 @@ WRAPPER 'layout/sidebar.tt';
         INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release.release_group
         tag_this_text=l('Tag release group');
         INCLUDE links;
-    	INCLUDE other_versions;    
+        INCLUDE other_versions;
         INCLUDE lists IF c.user_exists;
+        INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release;
     END;
   END;
 END;

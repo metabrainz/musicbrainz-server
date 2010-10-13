@@ -126,5 +126,11 @@
             <iframe name="tagger-iframe" height="0" width="0" frameborder="0"></iframe>
         [%- END -%]
 
+        [% USE Dumper %]
+        <h2>favicions</h2>
+        <pre>[%# Dumper.dump_html(favicons) %]</pre>
+        <h2>relationships</h2>
+        <pre>[%# Dumper.dump_html(artist) %]</pre>
+
     </body>
 </html>

@@ -50,6 +50,8 @@
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=label -%]
     [% END %]
 
     <div id="content">

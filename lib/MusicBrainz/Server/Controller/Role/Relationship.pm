@@ -40,6 +40,12 @@ sub relate : Chained('load')
     }
 }
 
+after 'load' => sub {
+    my ($self, $c) = @_;
+    my $entity = $c->stash->{entity};
+    $c->model('Relationship')->load_subset([ 'url' ], $entity);
+};
+
 no Moose::Role;
 1;
 
