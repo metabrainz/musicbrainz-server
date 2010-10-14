@@ -1,7 +1,6 @@
 [%- WRAPPER 'recording/layout.tt' page='index' %]
     <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'recording/annotation.tt' summary=1 -%]
-
     <h2>[%- l('Appears on releases') -%]</h2>
     [%- WRAPPER "components/with-pager.tt" %]
         [%- IF tracks.size -%]
@@ -19,19 +18,17 @@
                         <th>[% l('Catalog#') %]</th>
                     </tr>
                 </thead>
-                <tbody about="[% rdfa_recording_curi(recording) %]">
+                <tbody [%- rdfa_recording_index_tbody(recording) -%]>
                     [%- FOREACH track=tracks %]
                     [%- release=track.tracklist.medium.release -%]
-		    [%# rdfa peppered in here - kurtjx %]
-		    <span rel="mo:published_as">
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %] about="[% rdfa_track_blank_node(track) %]" typeof="[% rdfa_concept_curi('track') %]" [% rdfa_release_ns(release) %]>
-		    
-                        <td>[% rdfa_track_number(track.position) %]/[% track.tracklist.track_count %]</td>
-                        <td property="dct:title rdfs:label">[% track.name | html %]</td>
-                        <td>[% rdfa_recording_duration(track) %]</td>
-                        <td>[% rdfa_link_release_track(release, track) %]</td>
-                        <td>[% artist_credit(release.artist_credit) %]</td>
-                        <td>[% rdfa_release_event_date(release) %]</td>
+                    [% rdfa_recording_hidden_published_as(track) %]
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [%= rdfa_recording_tr_about(track) =%]>
+		        <td>[%- rdfa_track_number(track.position) -%]/[%- track.tracklist.track_count -%]</td>
+                        <td>[%- rdfa_label_title(track.name) -%]</td>
+                        <td>[%- rdfa_recording_duration(track) -%]</td>
+                        <td>[%- rdfa_link_release_track(release, track) -%]</td>
+                        <td>[%- artist_credit(release.artist_credit) -%]</td>
+                        <td>[%- rdfa_release_event_date(release) -%]</td>
                         <td>
                             [%- IF release.country -%]
                                 [% rdfa_release_country_abbr(release) %]
@@ -40,7 +37,6 @@
                         <td>[% rdfa_release_label_list(release.labels) %]</td>
                         <td>[% rdfa_release_catno_list(release.labels) %]</td>
                     </tr>
-		    </span>
                     [%- END -%]
                 </tbody>
             </table>

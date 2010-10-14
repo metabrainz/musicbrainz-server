@@ -7,7 +7,7 @@
     ['edit', link_recording(recording, 'edit', l('Edit'))],
 ] -%]
 
-<div class="recordingheader" about="[% rdfa_recording_curi(recording) %]" typeof="[% rdfa_concept_curi('recording') %]">
+<div class="recordingheader" [%- rdfa_recording_header_div(recording) -%]>
     <h1>“[% rdfa_link_recording_header(recording) %]” [% rdfa_disambiguation(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>

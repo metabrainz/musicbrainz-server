@@ -1,5 +1,5 @@
 [% IF !full_width %]
-    <div id="sidebar" [% IF about %]about="[% about %]"[% END %]>
+    <div id="sidebar" [%- rdfa_sidebar_about(about) -%] >
         [% content %]
     </div>
 [% END %]
