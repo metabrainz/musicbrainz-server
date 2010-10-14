@@ -330,7 +330,7 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
     self.artist_column_checkbox = self.table.find ('th.artist input');
 
     self.number = parseInt (self.fieldset.find ('input.tracklist-id').attr ('id').
-                            match ('id-mediums\.([0-9])\.tracklist')[1]);
+                            match ('id-mediums\.([0-9]+)\.tracklist')[1]);
 
     self.tracks = [];
     self.sorted_tracks = [];

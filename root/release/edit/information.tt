@@ -79,7 +79,7 @@
       [% form_row_text (r, 'name', 'Title') %]
       [% r.hidden ('release_group_id') %]
       <div class="row">
-        [% r.label('various_artists', 'VA release') %]
+        [% r.label('various_artists', 'Various Artists release') %]
         [% r.checkbox('various_artists') %]
         [% field_errors(form, 'various_artists') %]
       </div>
@@ -152,9 +152,12 @@
 
     <div class="date-container" style="display: none">
       <div class="date bubble">
- 	<p class="amazon">
+ 	<p class="amazon" style="display: none">
 	  [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %] 
 	</p>
+        <p class="january-first" style="display: none">
+	  [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %] 
+        </p>
      </div>
     </div>
 
