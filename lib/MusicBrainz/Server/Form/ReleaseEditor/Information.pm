@@ -55,7 +55,9 @@ after 'BUILD' => sub {
         my $max = @{ $self->init_object->labels } - 1;
         for (0..$max)
         {
-            my $name = $self->init_object->labels->[$_]->label->name;
+            my $label = $self->init_object->labels->[$_]->label;
+
+            my $name = $label ? $label->name : '';
             $self->field ('labels')->fields->[$_]->field ('name')->value ($name);
         }
 
