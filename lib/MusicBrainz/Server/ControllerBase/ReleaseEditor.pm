@@ -401,19 +401,19 @@ sub _edit_release_labels
                 $self->$edit($c,
                     $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
                     release_label => $old_label,
-                    label_id => $new_label->{'label_id'},
-                    catalog_number => $new_label->{'catalog_number'},
+                    label_id => $new_label->{label_id},
+                    catalog_number => $new_label->{catalog_number},
                     );
             }
         }
-        elsif ($new_label->{label_id} && $new_label->{catalog_number})
+        elsif ($new_label->{label_id} || $new_label->{catalog_number})
         {
             # Add ReleaseLabel
             $self->$edit($c,
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
                 release_id => $release ? $release->id : 0,
-                label_id => $new_label->{'label_id'},
-                catalog_number => $new_label->{'catalog_number'},
+                label_id => $new_label->{label_id},
+                catalog_number => $new_label->{catalog_number},
             );
         }
     }
@@ -556,14 +556,18 @@ sub _edit_release_annotation
 
     my $edit = $preview ? '_preview_edit' : '_create_edit';
 
-    my $annotation = $release->latest_annotation ? $release->latest_annotation->text : '';
+    my $annotation = ($release && $release->latest_annotation) ?
+        $release->latest_annotation->text : '';
+    my $data_annotation = $data->{annotation} ? $data->{annotation} : '';
 
-    if ($annotation ne $data->{annotation})
+    if ($annotation ne $data_annotation)
     {
         my $edit = $self->$edit($c,
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
-            entity_id => $release->id,
-            text => $data->{annotation});
+            entity_id => $release ? $release->id : 0,
+            text => $data_annotation,
+        );
+
     }
 }
 
