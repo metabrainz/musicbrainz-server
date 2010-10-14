@@ -4,6 +4,7 @@ extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::DatePeriod';
+with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 
 has '+name' => ( default => 'edit-label' );
 
@@ -43,5 +44,7 @@ sub edit_field_names
 
 sub options_type_id    { shift->_select_all('LabelType') }
 sub options_country_id { shift->_select_all('Country') }
+
+sub dupe_model { shift->ctx->model('Label') }
 
 1;
