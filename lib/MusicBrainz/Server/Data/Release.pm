@@ -109,15 +109,11 @@ sub find_by_artist
                          ON acn.artist_credit = release.artist_credit
                      $join_types
                      LEFT JOIN country ON release.country = country.id
-                     LEFT JOIN release_label ON release_label.release = release.id
-                     LEFT JOIN label ON release_label.label = label.id
-                     LEFT JOIN label_name ln ON label.name = ln.id
                  WHERE acn.artist = ?
                  $where_statuses
                  $where_types
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name),
-                          country.name, musicbrainz_collate(ln.name),
-                          release_label.catno, barcode
+                 ORDER BY date_year, date_month, date_day,
+                          country.name, barcode
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -137,15 +133,11 @@ sub find_by_label
                          ON release_label.release = release.id
                      $join_types
                      LEFT JOIN country ON release.country = country.id
-                     LEFT JOIN release_label ON release_label.release = release.id
-                     LEFT JOIN label ON release_label.label = label.id
-                     LEFT JOIN label_name ln ON label.name = ln.id
                  WHERE release_label.label = ?
                  $where_statuses
                  $where_types
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name),
-                          country.name, musicbrainz_collate(ln.name),
-                          release_label.catno, barcode
+                 ORDER BY date_year, date_month, date_day,
+                          country.name, barcode
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -178,14 +170,10 @@ sub find_by_release_group
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  LEFT JOIN country ON release.country = country.id
-                 LEFT JOIN release_label ON release_label.release = release.id
-                 LEFT JOIN label ON release_label.label = label.id
-                 LEFT JOIN label_name ln ON label.name = ln.id
                  WHERE release_group IN (" . placeholders(@ids) . ")
                  $where_statuses
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name),
-                          country.name, musicbrainz_collate(ln.name),
-                          release_label.catno, barcode
+                 ORDER BY date_year, date_month, date_day,
+                          country.name, barcode
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
