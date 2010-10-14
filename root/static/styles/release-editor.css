@@ -286,7 +286,7 @@ span.add-recording { color: #999; }
             BUTTONS / ICONS
    __________________________________ */
 
-[td.buttons { display: table-cell; }
+td.buttons { display: table-cell; }
 
 #release-editor div.documentation a.icon,
 #release-editor fieldset a.icon { text-decoration: none; }
