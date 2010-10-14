@@ -8,6 +8,7 @@ use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::TrackChangesPreview';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Wizard;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
@@ -324,6 +325,8 @@ sub _preview_edit
 
     return unless %args;
 
+    delete $args{as_auto_editor};
+
     my $edit;
     try {
         $edit = $c->model('Edit')->preview(
@@ -346,11 +349,19 @@ sub _create_edit
 
     return unless %args;
 
+    my $privs = $c->user->privileges;
+    if ($c->user->is_auto_editor && !$args{as_auto_editor}) {
+        $privs &= ~$AUTO_EDITOR_FLAG;
+    }
+
+    delete $args{as_auto_editor};
+
     my $edit;
     try {
         $edit = $c->model('Edit')->create(
             edit_type => $type,
             editor_id => $c->user->id,
+            privileges => $privs,
             %args,
        );
     }
@@ -392,8 +403,9 @@ sub _edit_release_labels
                 # Delete ReleaseLabel
                 $self->$edit($c,
                     $EDIT_RELEASE_DELETERELEASELABEL,
-                    $editnote, release_label => $old_label
-                    );
+                    $editnote, release_label => $old_label,
+                    as_auto_editor => $data->{as_auto_editor},
+                );
             }
             else
             {
@@ -403,6 +415,7 @@ sub _edit_release_labels
                     release_label => $old_label,
                     label_id => $new_label->{'label_id'},
                     catalog_number => $new_label->{'catalog_number'},
+                    as_auto_editor => $data->{as_auto_editor},
                     );
             }
         }
@@ -414,6 +427,7 @@ sub _edit_release_labels
                 release_id => $release ? $release->id : 0,
                 label_id => $new_label->{'label_id'},
                 catalog_number => $new_label->{'catalog_number'},
+                as_auto_editor => $data->{as_auto_editor},
             );
         }
     }
@@ -464,7 +478,8 @@ sub _edit_release_track_edits
                 medium_id => $medium->{id},
                 tracklist_id => $tracklist_id,
                 old_tracklist => $medium_entity->tracklist,
-                new_tracklist => \@tracks
+                new_tracklist => \@tracks,
+                as_auto_editor => $data->{as_auto_editor},
             );
         }
 
@@ -507,7 +522,9 @@ sub _edit_release_track_edits
                 # Delete medium
                 $self->$edit($c,
                     $EDIT_MEDIUM_DELETE, $editnote,
-                    medium => $c->model('Medium')->get_by_id ($medium->{'id'}));
+                    medium => $c->model('Medium')->get_by_id ($medium->{'id'}),
+                    as_auto_editor => $data->{as_auto_editor},
+                );
             }
             else
             {
@@ -517,7 +534,8 @@ sub _edit_release_track_edits
                     name => $medium->{'name'},
                     format_id => $medium->{'format_id'},
                     position => $medium->{'position'},
-                    to_edit => $c->model('Medium')->get_by_id ($medium->{'id'})
+                    to_edit => $c->model('Medium')->get_by_id ($medium->{'id'}),
+                    as_auto_editor => $data->{as_auto_editor},
                 );
             }
         }
@@ -542,6 +560,7 @@ sub _edit_release_track_edits
                     $EDIT_MEDIUM_EDIT, $editnote,
                     position => $medium->{position},
                     to_edit => $add_medium->entity,
+                    as_auto_editor => $data->{as_auto_editor},
                 );
             }
         }
@@ -557,13 +576,16 @@ sub _edit_release_annotation
     my $edit = $preview ? '_preview_edit' : '_create_edit';
 
     my $annotation = $release->latest_annotation ? $release->latest_annotation->text : '';
+    my $data_annotation = $data->{annotation} ? $data->{annotation} : '';
 
-    if ($annotation ne $data->{annotation})
+    if ($annotation ne $data_annotation)
     {
         my $edit = $self->$edit($c,
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
             entity_id => $release->id,
-            text => $data->{annotation});
+            text => $data->{annotation},
+            as_auto_editor => $data->{as_auto_editor},
+        );
     }
 }
 
