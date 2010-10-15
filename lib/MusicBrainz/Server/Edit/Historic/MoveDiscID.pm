@@ -58,8 +58,8 @@ sub upgrade
     $self->data({
         release_ids     => $self->album_release_ids($self->row_id),
         new_release_ids => $self->album_release_ids($self->new_value->{NewAlbumId}),
-        full_toc        => $self->new_value->{FullTOC},
-        disc_id         => $self->new_value->{DiscId}
+        full_toc        => $self->new_value->{FullTOC} || '',
+        disc_id         => $self->new_value->{DiscId} || $self->new_value->{DiskId}
     });
 
     return $self;
