@@ -295,7 +295,8 @@ sub GrantSelect
 
     my $mb = Databases->get_connection($name);
     my $dbh = $mb->dbh;
-    $dbh->auto_commit;
+    my $sql = Sql->new( $dbh );
+    $sql->auto_commit;
 
     my $username = $READONLY->username;
     return if $username eq $READWRITE->username;
