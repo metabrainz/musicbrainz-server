@@ -5,7 +5,9 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Context;
 use Sql;
 open LOG, ">:utf8", "release-merge.log";
@@ -267,81 +269,126 @@ eval {
 
     printf STDERR "Merging release_annotation\n";
 
-    # This will give us the merge release, and all releases merged into it, but
-    # as a single row.
-    my @disc_sets = @{ $sql->select_list_of_lists(
-        'SELECT COALESCE(rm.new_rel, ra.release) AS main,
-                array_accum(COALESCE(rm.old_rel, ra.release)) AS other
-           FROM release_annotation ra
-      LEFT JOIN tmp_release_merge rm ON rm.old_rel = ra.release
-       GROUP BY main') };
+    $sql->do(q!
+        CREATE AGGREGATE array_accum (anyelement)
+        (
+            sfunc = array_append,
+            stype = anyarray,
+            initcond = '{}'
+        );
 
-    $sql->do('CREATE TEMPORARY TABLE tmp_release_annotation (
-        id INT,
-        release INT,
-        text TEXT,
-        editor INT,
-        changelog TEXT,
-        created TIMESTAMP WITH TIME ZONE
-    )');
-        
+        CREATE FUNCTION annotation_concat (text, text) RETURNS text AS $$
+        BEGIN
+            RETURN $1 || $2 || E'\n\n';
+        END;
+        $$ LANGUAGE plpgsql;
+
+        CREATE AGGREGATE annotation_append (text)
+        (
+            sfunc = annotation_concat,
+            stype = text,
+            initcond = ''
+        );
+    !);
+
+    # Give us all annotations with releases joined, save a tiny bit of time
+    $sql->do(q{
+        SELECT a.*, ra.release
+        INTO TEMPORARY tmp_annotation
+        FROM annotation a
+        JOIN release_annotation ra ON ra.annotation = a.id;
+        CREATE INDEX tmp_annotation_idx ON tmp_annotation (id);
+    });
+
+    # All annotations that span multiple discs
+    $sql->do(q!
+        SELECT an.*, ra.release
+        INTO TEMPORARY multi_disc_annotations
+        FROM annotation an
+        JOIN release_annotation ra ON ra.annotation = an.id
+        WHERE ra.release IN (
+            SELECT old_rel FROM tmp_release_merge
+            UNION ALL
+            SELECT new_rel FROM tmp_release_merge
+        );
+    !);
+
+    # Now that we have the annotations we want to work with we remove the existing
+    # annotations, which allows us to restart the annotation_id_seq
+    $sql->do(q!
+        DELETE FROM annotation an USING multi_disc_annotations ta
+            WHERE an.id = ta.id;
+        DELETE FROM release_annotation ra USING multi_disc_annotations ta
+            WHERE ra.release = ta.release;
+        SELECT SETVAL('annotation_id_seq', (SELECT MAX(id) FROM annotation))
+    !);
+
+    # We will store our work in progress merging into here
+    $sql->do(q!
+        CREATE TEMPORARY TABLE tmp_merged_annotation (
+            id INT,
+            release INT,
+            editor INT,
+            text TEXT,
+            changelog TEXT,
+            created TIMESTAMP WITH TIME ZONE
+        );
+    !);
+
+    # Gives us a set of <{array}> rows, where the array is all release ids for all
+    # discs in the set
+    my @disc_sets = @{ $sql->select_single_column_array(
+        'SELECT array_prepend(new_rel, array_accum(old_rel)) AS discs
+           FROM tmp_release_merge
+          WHERE new_rel IN (SELECT release FROM tmp_annotation)
+       GROUP BY new_rel') };
+
     my $i = 0;
+    # Loop over all disc sets and do the merging
     for my $disc_set (@disc_sets) {
-        $i++;
-        my @discs = uniq( $disc_set->[0], @{ $disc_set->[1] });
+        printf STDERR "%d/%d\r", $i++, scalar @disc_sets;
 
-        my @dates = @{ $sql->select_single_column_array(
-            'SELECT created FROM annotation an
-               JOIN release_annotation ra ON an.id = ra.annotation
-              WHERE ra.release IN (' . placeholders(@discs) . ')
-           ORDER BY created',
-           @discs
-        ) };
-
-        for my $date (@dates) {
-            my @annotations = sort { $a->{created} cmp $b->{created} }
-                @{ $sql->select_list_of_hashes(
-                    'SELECT DISTINCT ON (ra.release) text, medium.position,
-                                                     created, ra.release,
-                                                     editor, changelog
-                       FROM annotation an
-                       JOIN release_annotation ra ON an.id = ra.annotation
-                       JOIN medium ON medium.release = ra.release
-                      WHERE created <= ?
-                        AND ra.release IN (' . placeholders(@discs) . ')
-                   ORDER BY ra.release ASC, created DESC',
-
-                    $date, @discs
-                ) };
-
-            my $text = join("\n\n", map { $_->{text} }
-                sort { $a->{release} <=> $b->{release} }
-                    @annotations);
-
-            # This is the very latest annotation, so we pretend this was
-            # the edit
-            my $annotation = $annotations[0];
-            $sql->do(
-                "INSERT INTO tmp_release_annotation
-                    (release, text, created, changelog, editor, id)
-                      VALUES (?, ?, ?, ?, ?, nextval('annotation_id_seq'))",
-                $disc_set->[0], $text, $annotation->{created},
-                $annotation->{changelog}, $annotation->{editor}
-            );
-        }
+        # FIXME merge in medium order
+        $sql->do("
+            INSERT INTO tmp_merged_annotation (text, id, changelog, editor, created, release)
+            WITH merge_ann AS (
+                 SELECT *
+                   FROM multi_disc_annotations an
+                  WHERE release IN (" . placeholders(@$disc_set) . ")
+            )
+            SELECT annotation_append(annotations.text) AS text,
+                   nextval('annotation_id_seq') AS id, changelog, editor,
+                   created, ?::int
+              FROM (
+                     SELECT DISTINCT ON (created.created, annotation.release)
+                            created.id, annotation.text, created.created,
+                            created.editor, created.changelog
+                       FROM merge_ann annotation, merge_ann created
+                      WHERE annotation.created <= created.created
+                   ORDER BY created.created, annotation.release, annotation.created DESC
+                   ) annotations
+            GROUP BY id, created, changelog, editor
+            ORDER BY created;
+        ", @$disc_set, $disc_set->[0]);
     }
 
+    # FIXME Also seems to insert twice?
+    # Insert the new merged annotations for multiple disc sets
     $sql->do("
-        DELETE FROM annotation WHERE id IN (SELECT id FROM release_annotation);
-        SELECT setval('annotation_id_seq', (SELECT MAX(id) FROM annotation));
-        SELECT
-            release, id
-        INTO release_annotation
-        FROM tmp_release_annotation;
-        SELECT
-            id, text, editor, changelog, created
-        INTO annotation
-        FROM tmp_release_annotation;
+        INSERT INTO release_annotation (release, annotation)
+            SELECT release, id
+            FROM tmp_merged_annotation;
+
+        INSERT INTO annotation (id, text, editor, changelog, created)
+            SELECT id, text, editor, changelog, created
+            FROM tmp_merged_annotation;
+    ");
+
+    # Cleanup
+    $sql->do("
+        DROP AGGREGATE array_accum (anyelement);
+        DROP AGGREGATE annotation_append (text);
+        DROP FUNCTION annotation_concat (text, text);
     ");
 
     printf STDERR "Merging release_gid_redirect\n";
