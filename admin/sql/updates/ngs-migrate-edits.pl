@@ -7,7 +7,6 @@ use lib "$Bin/../../../lib";
 
 use DBDefs;
 use Getopt::Long;
-use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use TryCatch;
@@ -52,13 +51,15 @@ while (my $row = $sql->next_row_hash_ref) {
         push @upgraded, $upgraded
             if $upgraded;
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::HistoricDataCorrupt $err) {
-        printf STDERR "Edit %d has data that cannot be migrated and must be skipped\n",
-            $historic->id;
-    }
     catch ($err) {
-        printf STDERR "Could not upgrade %d\n", $historic->id;
-        printf STDERR "$err\n";
+        if ($err =~ /This data is corrupt and cannot be upgraded/) {
+            printf "Cannot upgrade #%d: %s", $historic->id, $err;
+        }
+        else {
+            printf STDERR "Could not upgrade %d\n", $historic->id;
+            printf STDERR "$err\n";
+            die;
+        }
     }
 
     if (@upgraded >= $chunk) {
