@@ -618,6 +618,7 @@ my @group_derived = qw(
     recording_meta
     recording_tag
     release_annotation
+    release_meta
     release_group_annotation
     release_group_meta
     release_group_tag
