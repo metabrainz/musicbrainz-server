@@ -114,7 +114,7 @@ sub group_tracks_by_name
         foreach my $track (@$tracks) {
             my $name = lc $track->{name};
             $name =~ s/\s+\(feat\. .*?\)//g;
-            $name =~ s/[ .()-:!?]+//g;
+            $name =~ s/[ .()-:!?'"]+//g;
             unless (exists $groups{$name}) {
                 $groups{$name} = [];
             }
