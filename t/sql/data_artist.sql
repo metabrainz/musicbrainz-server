@@ -25,10 +25,10 @@ TRUNCATE artist CASCADE;
 INSERT INTO artist
     (id, gid, name, sortname, type, gender, country,
      begindate_year, begindate_month, begindate_day,
-     enddate_year, enddate_month, enddate_day, comment)
+     enddate_year, enddate_month, enddate_day, comment, ipicode)
     VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1,
-     2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
+     2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist', '00014107338');
 
 INSERT INTO artist (id, gid, name, sortname)
        VALUES (2, '945c079d-374e-4436-9448-da92dedef3cf', 3, 3);

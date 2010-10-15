@@ -36,6 +36,7 @@
             LC-[% r.text('label_code', size => 5) %]
             [% field_errors(form, 'label_code') %]
         [% END %]
+        [% form_row_text(r, 'ipi_code', l('IPI code:')) %]
     </fieldset>
     <fieldset>
         <legend>[% l('Date Period') %]</legend>

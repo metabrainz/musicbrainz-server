@@ -57,6 +57,11 @@ has 'country' => (
     isa => 'Country'
 );
 
+has 'ipi_code' => (
+    isa => 'Str',
+    is  => 'rw',
+);
+
 has 'comment' => (
     is => 'rw',
     isa => 'Str'

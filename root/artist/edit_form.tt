@@ -40,6 +40,7 @@
         [% form_row_select(r, 'type_id', l('Type:')) %]
         [% form_row_select(r, 'gender_id', l('Gender:')) %]
         [% form_row_select(r, 'country_id', l('Country:')) %]
+        [% form_row_text(r, 'ipi_code', l('IPI code:')) %]
     </fieldset>
     <fieldset>
         <legend>[% l('Date Period') %]</legend>

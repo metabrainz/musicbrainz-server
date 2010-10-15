@@ -27,6 +27,7 @@ sub change_fields
         label_code => Nullable[Int],
         country_id => Nullable[Int],
         comment    => Nullable[Str],
+        ipi_code   => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
     ];
@@ -62,6 +63,7 @@ sub build_display_data
         type       => [ qw( type_id LabelType ) ],
         label_code => 'label_code',
         comment    => 'comment',
+        ipi_code   => 'ipi_code',
         country    => [ qw( country_id Country ) ],
     );
 
