@@ -7,6 +7,7 @@ use lib "$Bin/../../../lib";
 
 use DBDefs;
 use Getopt::Long;
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use TryCatch;
@@ -48,9 +49,12 @@ while (my $row = $sql->next_row_hash_ref) {
 
     try {
         my $upgraded = $historic->upgrade;
-        push @upgraded, $upgraded;
-
-        printf "Upgraded #%d\n", $upgraded->id;
+        push @upgraded, $upgraded
+            if $upgraded;
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::HistoricDataCorrupt $err) {
+        printf STDERR "Edit %d has data that cannot be migrated and must be skipped\n",
+            $historic->id;
     }
     catch ($err) {
         printf STDERR "Could not upgrade %d\n", $historic->id;
@@ -58,7 +62,7 @@ while (my $row = $sql->next_row_hash_ref) {
     }
 
     if (@upgraded >= $chunk) {
-        printf "Flushing %d edits to the database\n", scalar(@upgraded);
+        printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
         $c->model('Edit')->insert(@upgraded);
         push @migrated_ids, map { $_->id } @upgraded;
         @upgraded = ();

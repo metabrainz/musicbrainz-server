@@ -3,6 +3,8 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNUM );
+use MusicBrainz::Server::Edit::Exceptions;
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
@@ -51,6 +53,11 @@ sub build_display_data
 sub upgrade
 {
     my $self = shift;
+    unless (looks_like_number($self->new_value) &&
+            looks_like_number($self->previous_value)) {
+        MusicBrainz::Server::Edit::Exceptions::HistoricDataCorrupt->throw;
+    }
+
     $self->data({
         track_id     => $self->row_id,
         recording_id => $self->resolve_recording_id( $self->row_id ),
