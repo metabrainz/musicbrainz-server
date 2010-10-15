@@ -860,20 +860,6 @@ foreach my $orig_t0 (@entity_types) {
                             last;
                         }
                     }
-                    # And if we still have some matches, generate links for
-                    # unused entities. We will lose some links here if
-                    # @entity0 or @entity1 is empty, but it doesn't matter,
-                    # because we already have more correct matches anyway.
-                    if (@new_links) {
-                        foreach $entity0 (@entity0) {
-                            next if exists $used{$entity0};
-                            foreach $entity1 (@entity1) {
-                                next if exists $used{$entity1};
-                                next if $entity0 == $entity1;
-                                push @new_links, [$entity0, $entity1];
-                            }
-                        }
-                    }
 
                 }
                 if (@new_links) {
