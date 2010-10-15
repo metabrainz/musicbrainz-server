@@ -27,9 +27,17 @@ GetOptions(
 my @upgraded;
 my $sql = Sql->new($c->dbh);
 
+my @known_corrupt = (
+    2951,
+    8052,
+    21556
+);
+
 printf "Upgrading edits!\n";
-$sql->select('SELECT * FROM public.moderation_closed LIMIT ? OFFSET ?',
-             $limit * $chunk, $offset);
+-$sql->select('SELECT * FROM public.moderation_closed
+                 WHERE id NOT IN (' . placeholders(@known_corrupt) . ')
+                 LIMIT ? OFFSET ?',
+              @known_corrupt, $limit * $chunk, $offset);
 
 printf "Here we go!\n";
 
