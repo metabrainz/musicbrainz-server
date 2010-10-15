@@ -120,7 +120,7 @@ my $tmp_release_merge;
 sub resolve_release_id
 {
     my ($self, $id) = @_;
-    return unless $id;
+    return 0 unless $id;
     $tmp_release_merge ||=
         $self->construct_map('tmp_release_merge',
                              'old_rel' => 'new_rel');
