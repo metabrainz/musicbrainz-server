@@ -186,6 +186,7 @@ my $album_release_ids;
 sub album_release_ids
 {
     my ($self, $album_id) = @_;
+    return [] unless $album_id;
 
     $album_release_ids ||= do {
 
