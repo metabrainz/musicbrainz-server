@@ -18,7 +18,7 @@
                         <th>[% l('Catalog#') %]</th>
                     </tr>
                 </thead>
-                <tbody [%- rdfa_recording_index_tbody(recording) -%]>
+                <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
                     [%- FOREACH track=tracks %]
                     [%- release=track.tracklist.medium.release -%]
                     [% rdfa_recording_hidden_published_as(track) %]

@@ -8,7 +8,7 @@ use RDF::Query;
 
 use base 'Exporter';
 
-our @EXPORT_OK = qw( artist_type_ok foaf_mades_ok );
+our @EXPORT_OK = qw( foaf_mades_ok rdfa_type_ok rdfa_predicate_literal_ok rdfa_predicate_ok print_triples );
 
 my $Test = Test::Builder->new();
 
@@ -23,24 +23,70 @@ sub _parse_rdfa_graph {
     return $parser->graph() ;
 }
 
+sub print_triples{
+    my ($content) = @_;
+    my $sparql = "select ?s ?p ?o where { ?s ?p ?o }";
 
-sub artist_type_ok{
-    my ($content, $uri_frag) = @_;
-
-    my $sparql = 
-	"select ?a where {?a a <http://purl.org/ontology/mo/MusicArtist> . }";
-    
     my $query = RDF::Query->new( $sparql );
     my $iter = $query->execute( _parse_rdfa_graph($content) );
+    while( my $row = $iter->next){
+        $Test->diag(sprintf "%s", $row-> { s });
+        $Test->diag(sprintf "  %s", $row-> { p });
+        $Test->diag(sprintf "     %s", $row-> { o });
+    }
+
+}
+
+sub rdfa_type_ok{
+    my ($content, $uri_frag, $type) = @_;
+    my $sparql = "select ?a where {?a a <$type> . }";
+
+    my $query = RDF::Query->new( $sparql );
+    my $iter = $query->execute( _parse_rdfa_graph($content) );
+    my $idx = 0;
+    my $uri = '';
+    while( my $row = $iter->next){
+        $uri = $row-> { a };
+        $idx += 1;
+    }
+    $Test->diag(sprintf "release uri: %s uri_frag: %s", $uri, $uri_frag);
+    $Test->ok($idx ge 1, "We should have at least one rdf:type predicate");
+    $Test->ok(index($uri,$uri_frag) != -1, "rdf:type predicate for MBID $uri_frag seems to be missing");
+}
+
+sub rdfa_predicate_ok{
+    my ($content, $uri_frag, $predicate, $object) = @_;
+    my $sparql = 'select ?s ?o where { ?s <' . $predicate . '> <' . $object . '> . }';
+
+    my $query = RDF::Query->new( $sparql );
+    my $iter = $query->execute( _parse_rdfa_graph($content) );
+    my $qsub = '';
+    while( my $row = $iter->next){
+        $qsub = $row-> { s };
+    }
+    $Test->ok(index($qsub,$uri_frag) != -1, "The mbid $uri_frag does not have $predicate $object");
+}
+
+sub rdfa_predicate_literal_ok{
+    my ($content, $uri_frag, $predicate, $literal, $datatype) = @_;
+    my $sparql = 'select ?s where {?s <' . $predicate . '> "' . $literal . '"' . $datatype . ' . } ';
+    #my $sparql = 'select ?s where { ?s ?p ?o . }';
+
+    $Test->diag(sprintf $sparql);
+    
+    my $query = RDF::Query->new( $sparql );
+    my $graph = _parse_rdfa_graph($content);
+    #$Test->diag(sprintf $graph->count_statements());
+    my $iter = $query->execute( $graph );
     my $idx = 0; 
     my $uri = '';
     while(my $row = $iter->next){
-	$uri = $row->{ a };
+	$uri = $row->{ s };
 	$idx += 1;
     }
-    $Test->diag(sprintf "artist uri:%s uri_frag:%s", $uri, $uri_frag);
-    $Test->ok($idx eq 1, "Should be exactly one artist resource in RDF model");
-    $Test->ok(index($uri,$uri_frag) != -1, "Artist URI should contain same MBID");
+    $Test->diag(sprintf "uri found: %s idx: %s", $uri, $idx);
+    $Test->ok($idx ge 1, "Should get one or more result for $predicate");
+    $Test->ok(index($uri,$uri_frag) != -1, "for MBID $uri_frag, $predicate $literal is not present");
 }
 
 sub foaf_mades_ok{
