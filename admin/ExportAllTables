@@ -186,8 +186,6 @@ my @tables = qw(
     clientversion
     country
     editor
-    editor_collection
-    editor_collection_release
     editor_preference
     editor_sanitised
     editor_subscribe_artist
@@ -237,6 +235,8 @@ my @tables = qw(
     link_attribute_type
     link_type
     link_type_attribute_type
+    list
+    list_release
     medium
     medium_cdtoc
     medium_format
@@ -258,7 +258,7 @@ my @tables = qw(
     release_group_type
     release_label
     release_meta
-        release_meta_sanitised
+    release_coverart
     release_name
     release_packaging
     release_status
@@ -344,12 +344,6 @@ if (grep { $_ eq "editor_sanitised" } @tables)
 {
     $sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
     $sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
-}
-
-if (grep { $_ eq 'release_meta_sanitised' } @tables)
-{
-        $sql->do("SELECT * INTO TEMPORARY TABLE release_meta_sanitised FROM release_meta");
-        $sql->do("UPDATE release_meta_sanitised SET coverarturl = '' WHERE amazonasin IS NOT NULL");
 }
 
 $| = 1;
@@ -627,7 +621,6 @@ my @group_derived = qw(
     release_group_annotation
     release_group_meta
     release_group_tag
-    release_meta_sanitised
     tag
     tag_relation
     work_annotation
@@ -667,15 +660,16 @@ my @group_private = qw(
     artist_tag_raw
     editor
     editor_preference
-    editor_collection
-    editor_collection_release
     editor_subscribe_artist
     editor_subscribe_editor
     editor_subscribe_label
     label_rating_raw
     label_tag_raw
+    list
+    list_release
     recording_rating_raw
     recording_tag_raw
+    release_coverart
     release_group_rating_raw
     release_group_tag_raw
     work_rating_raw
