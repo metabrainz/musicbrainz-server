@@ -11,9 +11,7 @@ augment 'upgrade' => sub
 {
     my ($self) = @_;
 
-    my ($junk, @attributes) = split /=/, $self->new_value->{attribute};
-    my $all_attrs = join '=', @attributes;
-    @attributes = split / /, $all_attrs;
+    my @attributes = split / /, $self->new_value->{attribute};
 
     my %types = (
         track => 'recording',
@@ -31,11 +29,11 @@ augment 'upgrade' => sub
         attributes => [
             map {
                 my ($name, $min_max) = split /=/, $_;
-                my ($min, $max) = split /-/, $_;
+                my ($min, $max) = split /-/, $min_max;
                 +{
                     name => $name,
-                    min  => $min,
-                    max  => $max
+                    min  => $min || 0,
+                    max  => $max || 0
                 }
             } @attributes
         ]
