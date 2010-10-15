@@ -65,6 +65,7 @@ sub upgrade_release_status
 sub upgrade_type_and_status
 {
     my $type_and_status = shift;
+    return (undef, undef) unless $type_and_status;
 
     my ($type_id, $status_id) = split /,/, $type_and_status;
     if ($type_id && $type_id >= 100) {
