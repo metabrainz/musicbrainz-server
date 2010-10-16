@@ -15,7 +15,7 @@ augment 'upgrade' => sub
     return {
         name        => $self->new_value->{name},
         description => $self->new_value->{desc},
-        child_order => $self->new_value->{childorder},
+        child_order => $self->new_value->{childorder} || 0,
         parent_id   => $parent ? $parent->id : 0
     };
 };
