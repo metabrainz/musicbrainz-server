@@ -10,10 +10,16 @@ sub ngs_class { 'MusicBrainz::Server::Edit::WikiDoc::Change' }
 augment 'upgrade' => sub
 {
     my $self = shift;
+    my $old = $self->previous_value->{Rev};
+    $old = $old ? 0 + $old : undef;
+
+    my $new = $self->new_value->{Rev};
+    $new = $new ? 0 + $new : undef;
+
     return {
         page        => $self->previous_value->{Page},
-        old_version => $self->previous_value->{Rev},
-        new_version => $self->new_value->{Rev}
+        old_version => $old,
+        new_version => $new
     }
 };
 
