@@ -52,9 +52,9 @@
         <fieldset>
             <legend>[% l('CD stub details') %]</legend>
             [% form_row_text_long(r, 'title', l('Title:')) %]
-            [% form_row_text_long(r, 'comment', l('Comment:')) %]
             [% form_row_text_long(r, 'artist', l('Artist:')) %]
             [% form_row_text(r, 'barcode', l('Barcode:')) %]
+            [% form_row_text_long(r, 'comment', l('Comment:')) %]
             [% form_row_checkbox(r, 'multiple_artists', l('This CD has tracks from more than one artist (e.g. a compiliation CD)')) %]
         </fieldset>
         <fieldset>
@@ -66,10 +66,6 @@
                 <div id="artist_field_[% loop.count %]">
                     [% form_row_text_long(r, prefix _ 'artist', l('Artist ' _ loop.count _ ':')) %]
                 </div>
-
-                [% IF !loop.last %]
-                    <br />
-                [% END %]
             [% END %]
         </fieldset>
         <div class="row no-label">
