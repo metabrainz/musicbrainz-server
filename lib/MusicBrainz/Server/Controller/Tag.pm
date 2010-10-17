@@ -26,10 +26,10 @@ sub cloud : Path('/tags')
 
     if ($hits)
     {
-        $c->stash->{tags} = {
-            max => $cloud->[0]->{count},
+        $c->stash(
+            tag_max_count => $cloud->[0]->{count},
             tags => [ sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud ],
-        };
+        );
     }
 }
 

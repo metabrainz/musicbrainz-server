@@ -1,5 +1,5 @@
 [% BLOCK tag_size %]
-    [%- percent = tag.count / tags.max * 100 -%]
+    [%- percent = tag.count / tag_max_count * 100 -%]
     [%- IF percent < 1 -%]
         [%- 'tag1' -%]
     [%- ELSIF percent < 3 -%]
@@ -18,8 +18,8 @@
 [% END %]
 
 <ul class="tag-cloud">
-    [% FOR tag=tags.tags %]
         <li class="[%- PROCESS tag_size -%]">
+    [% FOR tag=tags %]
             [%- link_tag(tag.tag) -%]
         </li>
     [% END %]
