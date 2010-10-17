@@ -2,18 +2,18 @@
     <script type="text/javascript">
         function vaswitch(artist_value)
         {
-            var va_checkbox = document.getElementById("id-CDStub.single_artist");
+            var va_checkbox = document.getElementById("id-CDStub.multiple_artists");
             var artist_field = document.getElementById("id-CDStub.artist");
 
             if (va_checkbox.checked) {
-                artist_field.value = artist_value;
-                track_artists(false);
-                artist_field.disabled = false;
-            } else {
                 artist_value = artist_field.value;
                 artist_field.value = "Various Artists";
                 track_artists(true);
                 artist_field.disabled = true;
+            } else {
+                artist_field.value = artist_value;
+                track_artists(false);
+                artist_field.disabled = false;
             }
         };
 
@@ -35,7 +35,7 @@
         {
             var artist_field = document.getElementById("id-CDStub.artist");
             var artist_value = artist_field.value;
-            var va_checkbox = document.getElementById("id-CDStub.single_artist");
+            var va_checkbox = document.getElementById("id-CDStub.multiple_artists");
 
             vaswitch(artist_value);
 
@@ -55,7 +55,7 @@
             [% form_row_text_long(r, 'comment', l('Comment:')) %]
             [% form_row_text_long(r, 'artist', l('Artist:')) %]
             [% form_row_text(r, 'barcode', l('Barcode:')) %]
-            [% form_row_checkbox(r, 'single_artist', l('All tracks on this release are by the same artist')) %]
+            [% form_row_checkbox(r, 'multiple_artists', l('This CD has tracks from more than one artist (e.g. a compiliation CD)')) %]
         </fieldset>
         <fieldset>
             <legend>[% l('Track listing') %]</legend>
