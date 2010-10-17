@@ -1,3 +1,51 @@
+[% BLOCK layout_head %]
+    <script type="text/javascript">
+        function vaswitch(artist_value)
+        {
+            var va_checkbox = document.getElementById("id-CDStub.single_artist");
+            var artist_field = document.getElementById("id-CDStub.artist");
+
+            if (va_checkbox.checked) {
+                artist_field.value = artist_value;
+                track_artists(false);
+                artist_field.disabled = false;
+            } else {
+                artist_value = artist_field.value;
+                artist_field.value = "Various Artists";
+                track_artists(true);
+                artist_field.disabled = true;
+            }
+        };
+
+        function track_artists(mode)
+        {
+            for(i = 1;; i++)
+            {
+                obj = document.getElementById("artist_field_" + i);
+                if (obj) {
+                    obj.style.display = mode ? "inline" : "none";
+                } else {
+                    break;
+                }
+            }
+        }
+
+
+        window.onload = function()
+        {
+            var artist_field = document.getElementById("id-CDStub.artist");
+            var artist_value = artist_field.value;
+            var va_checkbox = document.getElementById("id-CDStub.single_artist");
+
+            vaswitch(artist_value);
+
+            $(va_checkbox).change(function() {
+                vaswitch(artist_value);
+            });
+        }
+    </script>
+[% END %]
+
 [% WRAPPER 'cdstub/layout.tt' full_width=1 page='edit' %]
     <form action="[% c.req.uri %]" method="post">
         [% USE r = FormRenderer(form) %]
