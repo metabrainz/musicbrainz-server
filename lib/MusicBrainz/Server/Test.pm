@@ -2,6 +2,8 @@ package MusicBrainz::Server::Test;
 
 use DBDefs;
 use FindBin '$Bin';
+use HTTP::Headers;
+use HTTP::Request;
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
@@ -17,7 +19,7 @@ use XML::Parser;
 
 use Sub::Exporter -setup => {
     exports => [
-        qw( accept_edit reject_edit xml_ok schema_validator ),
+        qw( accept_edit reject_edit xml_ok schema_validator xml_post ),
         ws_test => \&_build_ws_test,
     ],
 };
@@ -325,6 +327,24 @@ sub _build_ws_test {
             is_xml_same($mech->content, $expected);
         });
     }
+}
+
+sub xml_post
+{
+    my ($url, $content) = @_;
+
+    # $mech->post_ok seems intent on destroying the POST body by trying to
+    # encode it as "application/x-www-form-urlencoded".  So create a request
+    # by hand, to make sure the body is submitted verbatim.
+    my $request = HTTP::Request->new (
+        POST => $url,
+        HTTP::Headers->new ('Content-Type' => 'application/xml; charset=UTF-8',
+                            'Content-Length', length ($content)),
+    );
+
+    $request->content ($content);
+
+    return $request;
 }
 
 1;

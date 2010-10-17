@@ -36,7 +36,7 @@ sub _load_index_from_disk
     my ($self) = @_;
 
     if (!open(FILE, "<" . $self->_index_file)) {
-        $self->c->log->error("Could not open wikitrans index file: $!.");
+        warn "Could not open wikitrans index file: $!.";
         return {};
     }
     my $data = do { local $/; <FILE> };
@@ -51,7 +51,7 @@ sub _load_index_from_master
 
     my $data = LWP::Simple::get($self->_master_index_url);
     unless (defined $data) {
-        $self->c->log->error("Could not fetch wikitrans index file.");
+        warn "Could not fetch wikitrans index file.";
         return {};
     }
 
@@ -83,7 +83,7 @@ sub _save_index
     my ($self, $index) = @_;
 
     if (!open(FILE, ">" . $self->_index_file)) {
-        $self->c->log->error("Could not open wikitrans index file: $!.");
+        warn "Could not open wikitrans index file: $!.";
         return;
     }
     foreach my $page (sort { lc $a cmp lc $b } keys %$index) {

@@ -25,10 +25,12 @@ has_field 'labels.deleted'   => ( type => 'Checkbox' );
 has_field 'labels.label_id'  => ( type => 'Text' );
 has_field 'labels.name'      => ( type => 'Text' );
 
-has_field 'barcode'           => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
+has_field 'barcode'          => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
 
 # Additional information
 has_field 'annotation'       => ( type => 'TextArea'  );
+has_field 'comment'          => ( type => 'Text', maxlength => 255 );
+
 
 sub options_type_id           { shift->_select_all('ReleaseGroupType') }
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
@@ -53,8 +55,15 @@ after 'BUILD' => sub {
         my $max = @{ $self->init_object->labels } - 1;
         for (0..$max)
         {
-            my $name = $self->init_object->labels->[$_]->label->name;
+            my $label = $self->init_object->labels->[$_]->label;
+
+            my $name = $label ? $label->name : '';
             $self->field ('labels')->fields->[$_]->field ('name')->value ($name);
+        }
+
+        if (defined $self->init_object->latest_annotation)
+        {
+            $self->field ('annotation')->value ($self->init_object->latest_annotation->text);
         }
     }
 };

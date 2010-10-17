@@ -24,6 +24,7 @@
                <li>[% link_work(work, 'merge', l('Merge this work into another')) %]</li>
                <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
+               <li>[% relate_to_url(work) %]</li>
                [% IF work.edits_pending %]
                  <li>[% link_work(work, 'open_edits', l('Open edits')) %]</li>
                [% END %]

@@ -231,7 +231,14 @@ sub validate_inc
         }
         if (!exists $acc{$i} && !exists $extra{$i})
         {
-            $c->stash->{error} = "$i is not a valid option for the inc parameter for the $resource resource.";
+            my @possible = grep {
+                my %all = map { $_ => 1 } @{ $extra_inc{$_} };
+                exists $all{$i}
+            } keys %extra_inc;
+
+            $c->stash->{error} = "$i is not a valid option for the inc parameter for the $resource resource " .
+                                 "unless you specify one of the following other inc parameters: " .
+                                 join(', ', @possible);
             return;
         }
         push @filtered, $i;

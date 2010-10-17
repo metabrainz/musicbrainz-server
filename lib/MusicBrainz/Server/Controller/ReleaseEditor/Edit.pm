@@ -50,12 +50,15 @@ augment 'create_edits' => sub
     return $release;
 };
 
-sub load {
+augment 'load' => sub
+{
     my ($self, $c, $wizard, $release) = @_;
+
     $self->_load_release ($c, $release);
     $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
-    $wizard->initialize($release);
-}
+
+    return $release;
+};
 
 sub submitted {
     my ($self, $c, $release) = @_;

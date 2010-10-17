@@ -165,6 +165,7 @@ sub find_by_track_artist
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?
                  )
+                   AND acn.artist != ?
                  ORDER BY
                     rg.type,
                     rgm.firstreleasedate_year,
@@ -182,7 +183,7 @@ sub find_by_track_artist
             $rg->release_count($row->{releasecount} || 0);
             return $rg;
         },
-        $query, $artist_id, $offset || 0);
+        $query, $artist_id, $artist_id, $offset || 0);
 }
 
 # This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases

@@ -8,7 +8,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_name     { 'Convert multiple artist release to single artist' }
+sub edit_name     { 'Convert release to single artist' }
 sub edit_template { 'historic/mac_to_sac' }
 sub edit_type     { $EDIT_HISTORIC_MAC_TO_SAC }
 sub historic_type { 13 }

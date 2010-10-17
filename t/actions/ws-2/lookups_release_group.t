@@ -30,6 +30,7 @@ ws_test 'release group lookup with releases',
         <release-list count="1">
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
@@ -73,6 +74,7 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
                 <title>the Love Bug</title><status>official</status>
+                <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>

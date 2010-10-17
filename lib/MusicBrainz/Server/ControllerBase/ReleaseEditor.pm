@@ -13,6 +13,7 @@ use MusicBrainz::Server::Wizard;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
@@ -199,6 +200,12 @@ sub release_compare
     @old_media = @{ $release->mediums } if $release;
     @new_media = @{ $data->{mediums} };
 
+    while (!defined $new_media[-1]->{tracklist})
+    {
+        # remove trailing empty discs.
+        pop @new_media;
+    }
+
     if (scalar @old_media > scalar @new_media)
     {
         die ("removing discs is not yet supported.\n");
@@ -243,8 +250,8 @@ sub _load_release
     $c->model('ReleaseLabel')->load($release);
     $c->model('Label')->load(@{ $release->labels });
     $c->model('ReleaseGroupType')->load($release->release_group);
-
     $c->model('MediumFormat')->load($release->all_mediums);
+    $c->model('Release')->annotation->load_latest ($release);
 }
 
 
@@ -394,19 +401,19 @@ sub _edit_release_labels
                 $self->$edit($c,
                     $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
                     release_label => $old_label,
-                    label_id => $new_label->{'label_id'},
-                    catalog_number => $new_label->{'catalog_number'},
+                    label_id => $new_label->{label_id},
+                    catalog_number => $new_label->{catalog_number},
                     );
             }
         }
-        else
+        elsif ($new_label->{label_id} || $new_label->{catalog_number})
         {
             # Add ReleaseLabel
             $self->$edit($c,
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
                 release_id => $release ? $release->id : 0,
-                label_id => $new_label->{'label_id'},
-                catalog_number => $new_label->{'catalog_number'},
+                label_id => $new_label->{label_id},
+                catalog_number => $new_label->{catalog_number},
             );
         }
     }
@@ -517,7 +524,7 @@ sub _edit_release_track_edits
         else
         {
             my $opts = {
-                position => $medium->{'position'},
+                position => $medium_idx + 1,
                 tracklist_id => $tracklist_id,
                 release_id => $release ? $release->id : 0,
             };
@@ -526,10 +533,41 @@ sub _edit_release_track_edits
             $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
 
             # Add medium
-            $self->$edit($c,$EDIT_MEDIUM_CREATE, $editnote, %$opts);
+            my $add_medium = $self->$edit($c,$EDIT_MEDIUM_CREATE, $editnote, %$opts);
+
+            if ($medium->{position} != $medium_idx + 1)
+            {
+                # Disc was inserted at the wrong position, enter an edit to re-order it.
+                $self->$edit($c,
+                    $EDIT_MEDIUM_EDIT, $editnote,
+                    position => $medium->{position},
+                    to_edit => $add_medium->entity,
+                );
+            }
         }
 
         $medium_idx++;
+    }
+}
+
+sub _edit_release_annotation
+{
+    my ($self, $c, $preview, $editnote, $data, $release) = @_;
+
+    my $edit = $preview ? '_preview_edit' : '_create_edit';
+
+    my $annotation = ($release && $release->latest_annotation) ?
+        $release->latest_annotation->text : '';
+    my $data_annotation = $data->{annotation} ? $data->{annotation} : '';
+
+    if ($annotation ne $data_annotation)
+    {
+        my $edit = $self->$edit($c,
+            $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
+            entity_id => $release ? $release->id : 0,
+            text => $data_annotation,
+        );
+
     }
 }
 
@@ -612,6 +650,24 @@ sub create_edits
     return $release;
 }
 
+sub load
+{
+    my ($self, $c, $wizard, $release) = @_;
+
+    $release = inner();
+
+    if (!$release->label_count)
+    {
+        $release->add_label(
+            MusicBrainz::Server::Entity::ReleaseLabel->new(
+                label => MusicBrainz::Server::Entity::Label->new
+            )
+        );
+    }
+
+    $wizard->initialize($release);
+}
+
 sub associate_recordings
 {
     my ($self, $c, $wizard, $release) = @_;
@@ -631,7 +687,9 @@ sub associate_recordings
                 $rec = $track->suggestions->[0]->entity->gid;
             }
 
-            push @$medium_assoc, $rec ? { gid => $rec } : { gid => '' };
+            # the space in gid is a hack, the form doesn't create the required
+            # inputs with just an empty string. --warp.
+            push @$medium_assoc, $rec ? { gid => $rec } : { gid => ' ' };
         }
 
         push @$associations, { associations => $medium_assoc };
@@ -661,6 +719,11 @@ sub create_common_edits
     # ----------------------------------------
 
     $self->_edit_release_track_edits ($c, $as_previews, $edit_note, $data, $release);
+
+    # annotation
+    # ----------------------------------------
+
+    $self->_edit_release_annotation ($c, $as_previews, $edit_note, $data, $release);
 
     if ($as_previews) {
         $c->model ('Edit')->load_all (@{ $c->stash->{edits} });
