@@ -22,7 +22,7 @@ sub extra_parameters
 {
     my $self = shift;
     return (
-        annotation_id => $self->resolve_annotation_id($self->id)
+        annotation_id => $self->resolve_annotation_id($self->id) || 0
     );
 }
 
