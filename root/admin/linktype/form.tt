@@ -47,8 +47,7 @@
             <div class="no-label">
                     [% r.hidden(field.field('type')) %]
                     [% r.checkbox(field.field('active')) %]
-                    [% attrib_names.item(field.field('type').value) %]
-
+                    <span style="width:100px; display: inline-block;">[% attrib_names.item(field.field('type').value) %]</span>
                     [% r.text(field.field('min'), { size => 3 }) %] - [% r.text(field.field('max'), { size => 3 }) %]
             </div>
         [% END %]
