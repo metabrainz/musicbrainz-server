@@ -19,6 +19,8 @@
                 <br />
             [% END %]
         </fieldset>
-        [% form_submit(l('Submit')) %]
+        <div class="row no-label">
+            [% form_submit(l('Submit')) %]
+        </div>
     </form>
 [% END %]
