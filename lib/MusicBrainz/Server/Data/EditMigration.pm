@@ -168,7 +168,7 @@ sub artist_name
         $self->sql->select_list_of_hashes(q{
             SELECT artist.id, name.name FROM artist
               JOIN artist_name name ON artist.name=name.id
-        }));
+        }), 'id' => 'name');
 
     return $artist_name->{$id} || sprintf '[ Artist #%d ]', $id;
 }
