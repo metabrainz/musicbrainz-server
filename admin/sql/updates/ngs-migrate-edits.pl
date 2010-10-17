@@ -28,9 +28,8 @@ my @upgraded;
 my $sql = Sql->new($c->dbh);
 
 my @known_corrupt = (
-    2951,
-    8052,
-    21556
+    2951, 8052, 21556, 
+    21014,
 );
 
 printf "Upgrading edits!\n";
