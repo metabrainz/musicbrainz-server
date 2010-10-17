@@ -24,19 +24,23 @@ GetOptions(
     "chunk-size=i"  => \$chunk
 );
 
+my @known_corrupt = (
+    2951, 8052, 21556, 
+    21014, 21644,
+    33512, 40573, 505233,
+    1001582, 1025431, 1062521, 1062536
+);
+
 my @upgraded;
 my $sql = Sql->new($c->dbh);
 
-my @known_corrupt = (
-    2951, 8052, 21556, 
-    21014,
-);
-
 printf "Upgrading edits!\n";
--$sql->select('SELECT * FROM public.moderation_closed
-                 WHERE id NOT IN (' . placeholders(@known_corrupt) . ')
-                 LIMIT ? OFFSET ?',
-              @known_corrupt, $limit * $chunk, $offset);
+#my $count = $sql->select_single_value(
+#    'SELECT count(id) FROM public.moderation_closed');
+my $count = 10105225;
+
+$limit *= $chunk;
+fetch_batch($limit, $offset);
 
 printf "Here we go!\n";
 
@@ -48,41 +52,46 @@ $raw_sql->do("TRUNCATE edit_$_ CASCADE")
 
 my @migrated_ids = ();
 
-my $i = 0;
-while (my $row = $sql->next_row_hash_ref) {
-    my $historic = $migration->_new_from_row($row)
-        or next;
+my $i = $offset;
+while (1) {
+    $sql->select('SELECT * FROM public.moderation_closed
+                  WHERE id NOT IN (' . placeholders(@known_corrupt) . ')
+                  ORDER BY id ASC
+                  LIMIT ? OFFSET ?',
+                  @known_corrupt, $limit, $offset);
 
-    try {
-        my $upgraded = $historic->upgrade;
-        push @upgraded, $upgraded
-            if $upgraded;
-    }
-    catch ($err) {
-        if ($err =~ /This data is corrupt and cannot be upgraded/) {
-            printf "Cannot upgrade #%d: %s", $historic->id, $err;
+    last if $sql->row_count == 0;
+
+    while (my $row = $sql->next_row_hash_ref) {
+        my $historic = $migration->_new_from_row($row)
+            or next;
+
+        try {
+            my $upgraded = $historic->upgrade;
+            push @upgraded, $upgraded
+                if $upgraded;
         }
-        else {
-            printf STDERR "Could not upgrade %d\n", $historic->id;
-            printf STDERR "$err\n";
-            die;
+        catch ($err) {
+            if ($err =~ /This data is corrupt and cannot be upgraded/) {
+                printf "Cannot upgrade #%d: %s", $historic->id, $err;
+            }
+            else {
+                printf STDERR "Could not upgrade %d\n", $historic->id;
+                printf STDERR "$err\n";
+            }
         }
+
+        printf "%d/%d\r", $i++, $count;
     }
 
-    if (@upgraded >= $chunk) {
-        printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
-        $c->model('Edit')->insert(@upgraded);
-        push @migrated_ids, map { $_->id } @upgraded;
-        @upgraded = ();
-    }
 
-    printf "%d\r", $i++;
+    printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
+    $c->model('Edit')->insert(@upgraded);
+    push @migrated_ids, map { $_->id } @upgraded;
+    @upgraded = ();
+
+    $offset += $limit;
 }
-
-printf "Flushing %d edits to the database\n", scalar(@upgraded);
-$c->model('Edit')->insert(@upgraded);
-push @migrated_ids, map { $_->id } @upgraded;
-@upgraded = ();
 
 my $votes = $sql->select_list_of_lists('
     SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded

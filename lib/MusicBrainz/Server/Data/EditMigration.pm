@@ -109,6 +109,7 @@ my $tmp_recording_merge;
 sub resolve_recording_id
 {
     my ($self, $id) = @_;
+    return 0 unless $id;
     $tmp_recording_merge ||=
         $self->construct_map('tmp_recording_merge',
                              'old_rec' => 'new_rec');
