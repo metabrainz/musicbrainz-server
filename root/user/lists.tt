@@ -9,7 +9,7 @@
             <th>[% l('List') %]</th>
             [% IF viewing_own_profile %]
             <th style="width: 10em">[% l('Privacy') %]</th>
-            <th style="width: 10em">[% l('Edit') %]</th>
+            <th style="width: 10em">[% l('Actions') %]</th>
             [% END %]
         </tr>
     </thead>
@@ -20,8 +20,8 @@
             [% IF viewing_own_profile %]
             <td>[% list.public ? l('Public') : l('Private') %]</td>
             <td>
-                [% link_list(list, 'delete', l('Delete')) %] |
                 [% link_list(list, 'edit', l('Edit')) %]
+                [% link_list(list, 'delete', l('Delete')) %] |
             </td>
             [% END %]
         </tr>
