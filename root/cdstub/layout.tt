@@ -18,8 +18,8 @@
         [% END %]
 
         <ul class="links">
-          <li>[% l('{uri|Import this CD stub}', { uri => '/404' } ) %]</li>
-          <li>[% l('{uri|Import this disc ID}', { uri => '/404' } ) %]</li>
+          <li>[% l('{uri|Import CD stub as a release}', { uri => '/404' } ) %]</li>
+          <li>[% l('{uri|Add disc ID to an existing release}', { uri => '/404' } ) %]</li>
           <li>
             [% artist = 'artist:(' _ (cdstubtoc.cdstub.artist || l('Various Artists')) _ ')' %]
             [% release = 'release:(' _ cdstubtoc.cdstub.title _ ')' %]
