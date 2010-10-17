@@ -1,22 +1,27 @@
 [% WRAPPER 'cdstub/layout.tt' full_width=1 page='edit' %]
-    <h2>[% l('Edit CD Stub') %]</h2>
     <form action="[% c.req.uri %]" method="post">
         [% USE r = FormRenderer(form) %]
         <fieldset>
-            <legend>[% l('CD Stub Details') %]</legend>
-            [% form_row_text(r, 'title', l('Title:')) %]
-            [% form_row_text(r, 'comment', l('Comment:')) %]
-            [% form_row_text(r, 'artist', l('Artist:')) %]
+            <legend>[% l('CD stub details') %]</legend>
+            [% form_row_text_long(r, 'title', l('Title:')) %]
+            [% form_row_text_long(r, 'comment', l('Comment:')) %]
+            [% form_row_text_long(r, 'artist', l('Artist:')) %]
             [% form_row_text(r, 'barcode', l('Barcode:')) %]
             [% form_row_checkbox(r, 'single_artist', l('All tracks on this release are by the same artist')) %]
         </fieldset>
         <fieldset>
-            <legend>[% l('Tracks') %]</legend>
+            <legend>[% l('Track listing') %]</legend>
             [% FOR track=form.field('tracks').fields %]
                 [% prefix = 'tracks.' _ loop.index _ '.' %]
-                [% form_row_text(r, prefix _ 'title', l('Title:')) %]
-                [% form_row_text(r, prefix _ 'artist', l('Artist:')) %]
-                <br />
+                [% form_row_text_long(r, prefix _ 'title', l('Track ' _ loop.count _ ':')) %]
+
+                <div id="artist_field_[% loop.count %]">
+                    [% form_row_text_long(r, prefix _ 'artist', l('Artist ' _ loop.count _ ':')) %]
+                </div>
+
+                [% IF !loop.last %]
+                    <br />
+                [% END %]
             [% END %]
         </fieldset>
         <div class="row no-label">

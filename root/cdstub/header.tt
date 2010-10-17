@@ -6,11 +6,6 @@
     </p>
 </div>
 
-[% IF cdstubtoc.cdstub.comment %]
-    <h2>[% l('Comment') %]</h2>
-    <p>[% cdstubtoc.cdstub.comment %]</p>
-[% END %]
-
 [%- info_links = [
     ['index', link_cdstub(cdstub, 'show', l('Overview')) ]
     ['edit', link_cdstub(cdstub, 'edit', l('Edit')) ]
