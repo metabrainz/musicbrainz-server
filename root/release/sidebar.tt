@@ -14,6 +14,14 @@
     </p>
 [% END %]
 
+[%- BLOCK other_versions; %]
+    <p>
+        <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
+            [% l('See other versions of this release') %]
+        </a>
+    </p>
+[% END -%]
+
 [% BLOCK lists %]
     <p><ul>
         [% FOREACH list IN lists %]
@@ -160,6 +168,7 @@ WRAPPER 'layout/sidebar.tt';
         INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release.release_group
         tag_this_text=l('Tag release group');
         INCLUDE links;
+    	INCLUDE other_versions;    
         INCLUDE lists IF c.user_exists;
     END;
   END;
