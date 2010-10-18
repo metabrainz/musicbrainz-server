@@ -14,7 +14,7 @@ use MusicBrainz::Server::Replication ':replication_type';
 __PACKAGE__->config->{namespace} = '';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => 1.00
+    threshold => DBDefs::PROFILE_SITE()
 };
 
 =head1 NAME

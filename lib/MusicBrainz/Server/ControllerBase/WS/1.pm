@@ -4,13 +4,14 @@ use Moose;
 use Readonly;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => 0.3
-};
-
+use DBDefs;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::WebService::XMLSerializerV1;
+
+with 'MusicBrainz::Server::Controller::Role::Profile' => {
+    threshold => DBDefs::PROFILE_WEB_SERVICE()
+};
 
 has 'model' => (
     isa => 'Str',

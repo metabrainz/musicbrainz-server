@@ -2,6 +2,7 @@ package MusicBrainz::Server::ControllerBase::WS::2;
 use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
+use DBDefs;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
@@ -12,7 +13,7 @@ Readonly my %serializers => (
 );
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => 0.01
+    threshold => DBDefs::PROFILE_WEB_SERVICE()
 };
 
 # This defines what options are acceptable for WS calls.
