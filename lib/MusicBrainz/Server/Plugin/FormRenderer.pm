@@ -147,9 +147,9 @@ sub select
     my @options = map {
         my $option = $_;
         my $selected = @selected > 0  && first { $_ && $option->{value} && $option->{value} eq $_ } @selected;
+
         $self->h->option({
-            value => $_->{value},
-            selected => $selected ? "selected" : undef,
+            %$_, selected => $selected ? "selected" : undef,
         }, $_->{label})
     } @{ $field->options };
 
