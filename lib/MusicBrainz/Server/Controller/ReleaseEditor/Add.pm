@@ -29,14 +29,14 @@ augment 'create_edits' => sub
     # ----------------------------------------
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode artist_credit date );
+                     country_id barcode artist_credit date as_auto_editor );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     if ($data->{release_group_id}){
         $add_release_args{release_group_id} = $data->{release_group_id};
     }
     else {
-        my @fields = qw( name artist_credit type_id );
+        my @fields = qw( name artist_credit type_id as_auto_editor );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
         my $edit = $self->$edit_action($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
