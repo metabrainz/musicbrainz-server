@@ -1,9 +1,6 @@
 package MusicBrainz::Server::Controller::Root;
-
-use strict;
-use warnings;
-
-use base 'Catalyst::Controller';
+use Moose;
+BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
@@ -16,6 +13,10 @@ use UserPreference;
 # so they function identically to actions created in MyApp.pm
 #
 __PACKAGE__->config->{namespace} = '';
+
+with 'MusicBrainz::Server::Controller::Role::Profile' => {
+    threshold => 1.00
+};
 
 =head1 NAME
 
