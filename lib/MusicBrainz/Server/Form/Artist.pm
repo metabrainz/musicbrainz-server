@@ -35,8 +35,7 @@ has_field 'comment' => (
 );
 
 has_field 'ipi_code' => (
-    type      => 'Text',
-    maxlength => 11
+    type => '+MusicBrainz::Server::Form::Field::IPI',
 );
 
 has_field 'not_dupe' => (

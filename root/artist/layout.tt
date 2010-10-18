@@ -23,6 +23,9 @@
                    ([% rdfa_artist_age(display_age (artist.age)) %])
                 [% END %]
             [% END %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+               content=html_escape(artist.ipi_code)
+                   IF artist.ipi_code -%]
             [%- END -%]
 	    [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
