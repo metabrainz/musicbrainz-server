@@ -40,7 +40,7 @@ sub _table
 sub _columns
 {
     return 'label.id, gid, name.name, sortname.name AS sortname, ' .
-           'type, country, editpending, labelcode, ' .
+           'type, country, editpending, labelcode, label.ipicode, ' .
            'begindate_year, begindate_month, begindate_day, ' .
            'enddate_year, enddate_month, enddate_day, comment';
 }
@@ -69,6 +69,7 @@ sub _column_mapping
         end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
         edits_pending => 'editpending',
         comment => 'comment',
+        ipi_code => 'ipicode',
     };
 }
 
@@ -234,6 +235,7 @@ sub _hash_to_row
         country => $label->{country_id},
         type => $label->{type_id},
         labelcode => $label->{label_code},
+        ipicode => $label->{ipi_code},
     );
 
     if ($label->{name}) {
