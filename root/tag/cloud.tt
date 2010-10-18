@@ -3,7 +3,7 @@
 <div id="content">
   <h1>[% l('Tags') %]</h1>
   <p>
-    [% IF tags.tags.size %]
+    [% IF tags.size %]
       [% INCLUDE 'components/tag-cloud.tt' %]
     [% ELSE %]
       [% l('The database has no tags.') %]

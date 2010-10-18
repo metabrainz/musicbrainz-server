@@ -36,8 +36,34 @@ sub options_type_id           { shift->_select_all('ReleaseGroupType') }
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
 sub options_country_id        { shift->_select_all('Country') }
-sub options_language_id       { shift->_select_all('Language') }
-sub options_script_id         { shift->_select_all('Script') }
+
+sub options_language_id {
+    my ($self) = @_;
+
+    my @sorted = sort { $a->{label} cmp $b->{label} } map {
+        {
+            'value' => $_->id,
+            'label' => $_->{name},
+            'class' => 'language',
+            'data-frequency' => $_->{frequency},
+        }
+    } $self->ctx->model('Language')->get_all;
+
+    return \@sorted;
+}
+
+sub options_script_id {
+    my ($self) = @_;
+
+    return [ map {
+        {
+            'value' => $_->id,
+            'label' => $_->{name},
+            'class' => 'script',
+            'data-frequency' => $_->{frequency},
+        }
+    } $self->ctx->model('Script')->get_all ];
+}
 
 
 after 'BUILD' => sub {

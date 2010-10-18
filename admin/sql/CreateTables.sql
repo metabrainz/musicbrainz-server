@@ -734,8 +734,8 @@ CREATE TABLE release_meta
 
 CREATE TABLE release_coverart
 (
-    id                  INTEGER NOT NULL, -- PK, references release.id
-    coverfetched        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
+    coverfetched        TIMESTAMP WITH TIME ZONE,
     coverarturl         VARCHAR(255)
 );
 

@@ -69,6 +69,11 @@ h1 span {
     width: 300px;
 }
 
+#release-editor fieldset select#id-language_id,
+#release-editor fieldset select#id-script_id {
+    width: 180px;
+}
+
 #release-editor fieldset input[type=checkbox],
 #release-editor fieldset span.partial-date input {
     width: auto;

@@ -52,6 +52,14 @@
     [% END %]
 [% END %]
 
+[% MACRO form_row_text_long(r, field_name, label) BLOCK %]
+    [% WRAPPER form_row %]
+      [% r.label(field_name, label) %]
+      [% r.text(field_name, { size => 47 })  %]
+      [% field_errors(form, field_name) %]
+    [% END %]
+[% END %]
+
 [% MACRO form_row_textarea(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label) %]

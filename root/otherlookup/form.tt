@@ -3,12 +3,12 @@
     <form action="[% c.uri_for_action('/otherlookup/index') %]">
         [% form_row_text(r, 'catno',    l('Catalog Number:')) %]
         [% form_row_text(r, 'barcode',  l('Barcode:')) %]
-        [% form_row_text(r, 'mbid',     l('MBID:')) %]
         [% form_row_text(r, 'isrc',     l('ISRC:')) %]
         [% form_row_text(r, 'iswc',     l('ISWC:')) %]
-        [% form_row_text(r, 'puid',     l('PUID:')) %]
-        [% form_row_text(r, 'discid',   l('Disc ID:')) %]
         [% form_row_text(r, 'freedbid', l('Freedb ID:')) %]
+        [% form_row_text_long(r, 'mbid',     l('MBID:')) %]
+        [% form_row_text_long(r, 'puid',     l('PUID:')) %]
+        [% form_row_text_long(r, 'discid',   l('Disc ID:')) %]
 
         <div class="row no-label">
         [% form_submit(l('Search')) %]

@@ -40,7 +40,8 @@
 </div>
 
 [% IF edits.size %]
-    [% WRAPPER 'components/with-pager.tt' %]
+    [% WRAPPER 'components/with-pager.tt' search=0;
+    # We always want search != 1 when calling the paginator from this template %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
             [%- FOREACH edit=edits -%]
                 <div class="edit-list">

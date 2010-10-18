@@ -11,8 +11,8 @@
     [%- USE r = FormRenderer(form) -%]
 
     <form action="[% c.req.uri %]" method="post">
-      [% form_row_text(r, 'email', l('Email:')) %]
-      [% form_row_text(r, 'website', l('Website:')) %]
+      [% form_row_text_long(r, 'email', l('Email:')) %]
+      [% form_row_text_long(r, 'website', l('Website:')) %]
       [% WRAPPER form_row %]
         [% r.label('biography', l('Bio:')) %]
         [% r.textarea('biography', { cols => 80, rows => 5 }) %]
