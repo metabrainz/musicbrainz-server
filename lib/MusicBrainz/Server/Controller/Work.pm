@@ -9,6 +9,10 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_MERGE
 );
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Work',
+    entity_name => 'work',
+};
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
@@ -18,11 +22,6 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
-
-__PACKAGE__->config(
-    model       => 'Work',
-    entity_name => 'work',
-);
 
 sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
 

@@ -76,13 +76,13 @@ h1 span {
 
 #release-editor fieldset textarea {
     height: 10px;
-    width: 290px;
+    width: 300px;
 }
 
 #release-editor fieldset textarea.tracklist {
     height: 250px;
     margin: 0 10px;
-    width: 423px;
+    width: 430px;
 }
 
 #release-editor fieldset h3 {
@@ -230,9 +230,7 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 1em; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
-#release-editor div.barcode,
-#release-editor div.select-recording,
-#release-editor div.artist-credit,
+#release-editor div.bubble,
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 1em; border: 1px solid #999;
     background: #fff;
@@ -243,7 +241,7 @@ table.medium.tbl td.delete    { width: 2em; }
 
 #release-editor .documentation div.barcode-container,
 #release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 5em; }
-#release-editor div.barcode,
+#release-editor div.bubble,
 #release-editor div.select-recording,
 #release-editor div.artist-credit { background: #f0f0f0; }
 #release-editor div.artist-credit div.row { clear: none; }

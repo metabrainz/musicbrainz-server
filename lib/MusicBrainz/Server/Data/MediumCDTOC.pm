@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
+    hash_to_row
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -80,6 +81,13 @@ sub insert
 {
     my ($self, $hash) = @_;
     $self->sql->insert_row('medium_cdtoc', $hash);
+}
+
+sub update
+{
+    my ($self, $medium_cdtoc_id, $update) = @_;
+    $self->sql->update_row('medium_cdtoc', hash_to_row($update, { reverse %{ $self->_column_mapping } }),
+        { id => $medium_cdtoc_id });
 }
 
 __PACKAGE__->meta->make_immutable;

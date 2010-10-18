@@ -10,6 +10,7 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
+with 'MusicBrainz::Server::Entity::Role::Age';
 
 has 'sort_name' => (
     is => 'rw',
@@ -45,22 +46,6 @@ sub format_label_code
     }
     return "";
 }
-
-has 'begin_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-has 'end_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-with 'MusicBrainz::Server::Entity::Role::Age';
 
 has 'country_id' => (
     is => 'rw',

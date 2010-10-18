@@ -44,8 +44,6 @@ around 'search' => sub
         $c->forward('submit_cdstub');
     }
     elsif (my $disc_id = $c->req->query_params->{discid}) {
-        my @releases = $c->model('Release')->find_by_disc_id($disc_id);
-
         my $inc = MusicBrainz::Server::WebService::WebServiceIncV1->new(
             artist => 1,
             counts => 1,
@@ -57,7 +55,6 @@ around 'search' => sub
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
 
         my @releases;
-
         if (@releases = $c->model('Release')->find_by_disc_id($disc_id)) {
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseStatus')->load(@releases);

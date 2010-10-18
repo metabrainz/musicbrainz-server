@@ -1,6 +1,17 @@
 package MusicBrainz::Server::Track;
 use strict;
 
+use Sub::Exporter -setup => {
+    exports => [
+        format_track_length => sub {
+            sub { FormatTrackLength(shift) }
+        },
+        unformat_track_length => sub {
+            sub { UnformatTrackLength(shift) }
+        }
+    ]
+};
+
 sub FormatTrackLength
 {
     my $ms = shift;
@@ -19,9 +30,9 @@ sub FormatXSDTrackLength
 {
     my $ms = shift;
     $ms or return undef;
-    $ms >= 1000 or return "$ms ms";
-    my $length_in_secs = int($ms / 1000.0 + 0.5);
-    sprintf "P%dM%dS", 
+    #$ms >= 1000 or return "$ms ms";
+    my $length_in_secs = ($ms / 1000.0);
+    sprintf "PT%dM%dS", 
         int($length_in_secs / 60),
         ($length_in_secs % 60),
     ;

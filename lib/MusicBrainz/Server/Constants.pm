@@ -71,6 +71,7 @@ Readonly our $EDIT_RELEASEGROUP_ADD_ANNOTATION => 25;
 
 Readonly our $EDIT_RELEASE_CREATE => 31;
 Readonly our $EDIT_RELEASE_EDIT => 32;
+Readonly our $EDIT_RELEASE_MOVE => 33;
 Readonly our $EDIT_RELEASE_ADDRELEASELABEL => 34;
 Readonly our $EDIT_RELEASE_ADD_ANNOTATION => 35;
 Readonly our $EDIT_RELEASE_DELETERELEASELABEL => 36;
@@ -91,8 +92,8 @@ Readonly our $EDIT_MEDIUM_EDIT => 52;
 Readonly our $EDIT_MEDIUM_DELETE => 53;
 Readonly our $EDIT_MEDIUM_REMOVE_DISCID => 54;
 Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
-
-Readonly our $EDIT_TRACK_EDIT => 62;
+Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
+Readonly our $EDIT_MEDIUM_EDIT_TRACKLIST => 57;
 
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_MERGE => 74;
@@ -102,8 +103,6 @@ Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
 
 Readonly our $EDIT_TRACKLIST_CREATE => 81;
-Readonly our $EDIT_TRACKLIST_ADDTRACK => 85;
-Readonly our $EDIT_TRACKLIST_DELETETRACK => 86;
 
 Readonly our $EDIT_RELATIONSHIP_CREATE => 90;
 Readonly our $EDIT_RELATIONSHIP_EDIT => 91;
@@ -140,6 +139,7 @@ Readonly our $EDIT_HISTORIC_REMOVE_RELEASES         => 224;
 Readonly our $EDIT_HISTORIC_MERGE_RELEASE_MAC       => 225;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_ATTRS      => 226;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD => 229;
+Readonly our $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION  => 231;
 Readonly our $EDIT_HISTORIC_ADD_DISCID              => 232;
 Readonly our $EDIT_HISTORIC_ADD_LINK                => 233;
 Readonly our $EDIT_HISTORIC_EDIT_LINK               => 234;

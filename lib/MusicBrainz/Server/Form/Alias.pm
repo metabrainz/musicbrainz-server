@@ -37,10 +37,10 @@ has 'alias_model' => (
 
 sub edit_field_names { qw(name locale) }
 
-sub validate_name {
+sub validate_locale {
     my ($self, $field) = @_;
-    $field->add_error('This alias has already been added')
-        if $self->alias_model->has_alias( $self->parent_id, $field->value, $self->id );
+    $field->add_error('An alias for this locale has already been added')
+        if $self->alias_model->has_locale( $self->parent_id, $field->value, $self->id );
 }
 
 sub options_locale {

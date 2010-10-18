@@ -52,9 +52,8 @@ is($alias_set->[1]->locale, 'en_GB');
 $alias_set = $artist_data->alias->find_by_entity_id(2);
 is(scalar @$alias_set, 0);
 
-# Make sure we can check if an entity has a given alias
-ok($artist_data->alias->has_alias(1, 'Alias 1'), 'artist 1 has Alias 1 alias');
-ok(!$artist_data->alias->has_alias(1, 'Alias Foo'), 'artist 1 does not have Alias Foo alias');
+# Make sure we can check if an entity has aliases for a given locale
+ok($artist_data->alias->has_locale(1, 'en_GB'), 'artist 1 has en_GB locale');
 
 # Test merging aliases together
 $artist_data->alias->merge(1, 2);

@@ -25,7 +25,7 @@ MB.tests.ReleaseEditor.BasicTab = function () {
         QUnit.equals (a.discs[1].getTrack(0).title.val (), 'Goof', '... with correct title');
         QUnit.equals (a.discs[1].getTrack(0).length.val (), '1:23', '... with correct length');
         QUnit.equals (a.discs[1].getTrack(0).position.val (), '1', '... with correct position');
-        QUnit.equals (a.discs[1].getTrack(0).preview.val (), 'Various Artists', '... with correct artist');
+        QUnit.equals (a.discs[1].getTrack(0).preview.val (), '', '... with correct artist');
 
         /* add a track on the advanced tab and get it to render in the textarea. */
         var track_data = {

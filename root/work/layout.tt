@@ -1,4 +1,4 @@
-[% main_title = l('{type} {work} by {artist}', {
+[% main_title = l('{type} “{work}” by {artist}', {
     type => work.type_name or l('Work'),
     work => work.name,
     artist => artist_credit(work.artist_credit, plain => 1)
@@ -24,6 +24,7 @@
                <li>[% link_work(work, 'merge', l('Merge this work into another')) %]</li>
                <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
+               <li>[% relate_to_url(work) %]</li>
                [% IF work.edits_pending %]
                  <li>[% link_work(work, 'open_edits', l('Open edits')) %]</li>
                [% END %]

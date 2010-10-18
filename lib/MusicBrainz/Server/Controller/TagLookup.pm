@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Controller::TagLookup;
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use strict;
-use warnings;
-use base 'MusicBrainz::Server::Controller';
 use MusicBrainz::Server::Form::TagLookup;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 

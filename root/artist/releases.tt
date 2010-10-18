@@ -4,11 +4,16 @@
     [%- ELSE -%]
         <p>[%- l('No releases found') -%]</p>
     [%- END -%]
-    [% IF !show_va %]
-        <p>[% l('This artist may also appear on releases by other artists. {show_all|Show all releases}.',
-                { show_all = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 1 }) }) %]</p>
+ 
+    [% IF va_only %]
+        <p>[% l('This artist only has releases by various artists.') %]</p>
     [% ELSE %]
-        <p>[% l('Showing all releases. {show_subset|Show only releases by this artist}.',
-                { show_subset = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 0 }) }) %]</p>
+        [% IF !show_va %]
+            <p>[% l('Showing releases by this artist. {show_all|Show various artist releases}.',
+                    { show_all = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 1 }) }) %]</p>
+        [% ELSE %]
+            <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
+                    { show_subset = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 0 }) }) %]</p>
+        [% END %]
     [% END %]
 [%- END -%]

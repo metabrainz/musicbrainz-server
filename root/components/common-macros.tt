@@ -93,6 +93,7 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
     ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
     END;
 END -%]
 
@@ -202,8 +203,8 @@ END -%]
 
 [%- MACRO link_puid(puid, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/puid/$action", [ puid.name ]);
-    text = text || '<code>' _ html_escape(puid.name) _ '</code>';
+    link = c.uri_for_action("/puid/$action", [ puid.puid ]);
+    text = text || '<code>' _ html_escape(puid.puid) _ '</code>';
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -311,6 +312,15 @@ END %]
     text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                   : l('Use in a relationship');
     link_entity(entity, 'relate', text);
+END %]
+
+[% MACRO relate_to_url(entity) BLOCK;
+    l('{uri|Relate to URL}', {
+            uri => c.uri_for_action('/edit/relationship/create_url', {
+                        type => entity_type(entity),
+                        entity => entity.gid
+                   })
+    });
 END %]
 
 [% MACRO quality_name(quality) SWITCH quality;

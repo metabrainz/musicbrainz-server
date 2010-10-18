@@ -154,7 +154,7 @@ sub upgrade_re
     return {
         release_id     => $self->resolve_release_id($event{"${prefix}id"}),
         date           => upgrade_date($event{"${prefix}d"}),
-        country_id     => upgrade_id($event{"${prefix}id"}),
+        country_id     => upgrade_id($event{"${prefix}c"}),
         label_id       => upgrade_id($event{"${prefix}l"}),
         catalog_number => _decode($event{"${prefix}n"}),
         barcode        => _decode($event{"${prefix}b"}),

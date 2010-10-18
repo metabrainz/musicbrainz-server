@@ -3,18 +3,18 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model       => 'Artist',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-
-__PACKAGE__->config(
-    model       => 'Artist',
-    entity_name => 'artist',
-);
+with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -180,7 +180,8 @@ sub show : PathPart('') Chained('load')
     else
     {
         my $method = 'find_by_artist';
-        if ($c->req->query_params->{va}) {
+        my $show_va = $c->req->query_params->{va};
+        if ($show_va) {
             $method = 'find_by_track_artist';
             $c->stash( show_va => 1 );
         }
@@ -188,6 +189,18 @@ sub show : PathPart('') Chained('load')
         $release_groups = $self->_load_paged($c, sub {
                 $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
             });
+
+        my $pager = $c->stash->{pager};
+        if (!$show_va && $pager->total_entries == 0) {
+            $release_groups = $self->_load_paged($c, sub {
+                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                });
+            $c->stash(
+                va_only => 1,
+                show_va => 1
+            );
+        }
+
         $c->stash( template => 'artist/index.tt' );
     }
 
@@ -334,7 +347,8 @@ sub releases : Chained('load')
     else
     {
         my $method = 'find_by_artist';
-        if ($c->req->query_params->{va}) {
+        my $show_va = $c->req->query_params->{va};
+        if ($show_va) {
             $method = 'find_by_track_artist';
             $c->stash( show_va => 1 );
         }
@@ -342,6 +356,17 @@ sub releases : Chained('load')
         $releases = $self->_load_paged($c, sub {
                 $c->model('Release')->$method($artist->id, shift, shift);
             });
+
+        my $pager = $c->stash->{pager};
+        if (!$show_va && $pager->total_entries == 0) {
+            $releases = $self->_load_paged($c, sub {
+                    $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                });
+            $c->stash(
+                va_only => 1,
+                show_va => 1
+            );
+        }
 
         $c->stash( template => 'artist/releases.tt' );
     }

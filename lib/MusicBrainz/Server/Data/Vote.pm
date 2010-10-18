@@ -123,11 +123,13 @@ sub enter_votes
         my $email = MusicBrainz::Server::Email->new( c => $self->c );
         my $editors = $self->c->model('Editor')->get_by_ids((map { $edits->{$_}->editor_id } @email_edit_ids),
                                                             $editor_id);
+        $self->c->model('Editor')->load_preferences(values %$editors);
         for my $edit_id (@email_edit_ids) {
             my $edit = $edits->{ $edit_id };
             my $voter = $editors->{ $editor_id  };
             my $editor = $editors->{ $edit->editor_id };
-            $email->send_first_no_vote(edit_id => $edit_id, voter => $voter, editor => $editor );
+            $email->send_first_no_vote(edit_id => $edit_id, voter => $voter, editor => $editor )
+                if $editor->preferences->email_on_no_vote;
         }
     }, $sql);
 }

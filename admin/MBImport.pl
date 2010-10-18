@@ -436,6 +436,8 @@ sub ImportAllTables
         link_attribute_type
         link_type
         link_type_attribute_type
+        list
+        list_release
         medium
         medium_cdtoc
         medium_format
@@ -460,6 +462,7 @@ sub ImportAllTables
         release_name
         release_packaging
         release_status
+        replication_control
         script
         script_language
         tag

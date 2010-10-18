@@ -6,7 +6,6 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use ModDefs;
 use MusicBrainz::Server::Replication ':replication_type';
-use UserPreference;
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -157,6 +156,11 @@ sub begin : Private
     # Anything that requires authentication isn't allowed on a mirror server (e.g. editing, registering)
     if (exists $c->action->attributes->{RequireAuth} || $c->action->attributes->{ForbiddenOnSlaves}) {
         $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
+    }
+
+    # Can we automatically login?
+    if (my $cookie = $c->req->cookie('remember_login') && !$c->user_exists) {
+        $c->forward('/user/cookie_login');
     }
 
     if (exists $c->action->attributes->{RequireAuth})

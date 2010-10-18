@@ -1,9 +1,6 @@
 package MusicBrainz::Server::Controller::Rating;
-
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+use Moose;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 

@@ -210,6 +210,68 @@ sub create : Local RequireAuth Edit
     }
 }
 
+sub create_url : Local RequireAuth Edit
+{
+    my ($self, $c) = @_;
+    my $qp = $c->req->query_params;
+    my $type = $qp->{type};
+    my $gid = $qp->{entity};
+
+    if ($type eq 'url') {
+        $c->stash( message => 'Invalid type' );
+        $c->detach('/error_500');
+    }
+
+    my @types = sort ($type, 'url');
+
+    my $model = $c->model(type_to_model($type));
+    unless (defined $model) {
+        $c->stash( message => 'Invalid type' );
+        $c->detach('/error_500');
+    }
+    
+    my $entity = $model->get_by_gid($gid);
+    unless (defined $entity) {
+        $c->stash( message => 'Entity not found' );
+        $c->detach('/error_404');
+    }
+
+    my $tree = $c->model('LinkType')->get_tree(@types);
+    my %type_info = build_type_info($tree);
+
+    $c->stash(
+        root      => $tree,
+        type_info => JSON->new->latin1->encode(\%type_info),
+    );
+
+    my $form = $c->form( form => 'Relationship::URL', reverse => $types[0] eq 'url' );
+
+    $c->stash(
+        entity => $entity,
+        type => $type,
+    );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $url = $c->model('URL')->find_or_insert($form->field('url')->value);
+
+        my $e0 = $types[0] eq 'url' ? $url->id : $entity->id;
+        my $e1 = $types[1] eq 'url' ? $url->id : $entity->id;
+
+        $self->_insert_edit($c, $form,
+            edit_type    => $EDIT_RELATIONSHIP_CREATE,
+            type0        => $types[0],
+            type1        => $types[1],
+            entity0      => $e0,
+            entity1      => $e1,
+            link_type_id => $form->field('link_type_id')->value,
+            attributes   => [],
+        );
+        my $redirect = $c->controller(type_to_model($type))->action_for('show');
+        $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));
+        $c->detach;
+    }
+}
+
 sub delete : Local RequireAuth Edit
 {
     my ($self, $c) = @_;

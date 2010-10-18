@@ -3,10 +3,10 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-__PACKAGE__->config(
+with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'list',
     model       => 'List',
-);
+};
 
 sub base : Chained('/') PathPart('list') CaptureArgs(0) { }
 after 'load' => sub

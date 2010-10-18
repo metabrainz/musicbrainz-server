@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Release::AddAnnotation;
-use Moose;
 
+use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_ANNOTATION );
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
