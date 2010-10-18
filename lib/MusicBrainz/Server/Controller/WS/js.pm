@@ -8,6 +8,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
 use Data::OptList;
@@ -29,6 +30,9 @@ my $ws_defs = Data::OptList::mkopt([
          required => [ qw(q) ],
          optional => [ qw(a r limit page timestamp) ]
      },
+     tracklist => {
+        method => 'GET',
+     }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -172,6 +176,33 @@ sub recording : Chained('root') PathPart('recording') Args(0)
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@entities));
+}
+
+sub tracklist : Chained('root') PathPart Args(1) {
+    my ($self, $c, $id) = @_;
+    my $tracklist = $c->model('Tracklist')->get_by_id($id);
+    $c->model('Track')->load_for_tracklists($tracklist);
+    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
+        $tracklist->all_tracks);
+
+    my $structure = [ map {
+        length => format_track_length($_->length),
+        name => $_->name,
+        artist_credit => {
+            names => [ map {
+                name => $_->name,
+                gid => $_->artist->gid,
+                artist_name => $_->artist->name,
+                join => $_->join_phrase
+            }, @{ $_->artist_credit->names } ],
+            preview => $_->artist_credit->name
+        }
+    }, sort { $a->position <=> $b->position }
+    $tracklist->all_tracks ];
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', $structure));
 }
 
 sub default : Path
