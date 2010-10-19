@@ -80,7 +80,7 @@ sub _create_message_to_editor_email
                         uri_escape($from->name);
 
     my $body = <<EOS;
-Hello. MusicBrainz editor '$from_name' has sent you the following message:
+MusicBrainz user '$from_name' has sent you the following message:
 ------------------------------------------------------------------------
 $message
 ------------------------------------------------------------------------
@@ -120,7 +120,7 @@ sub _create_email_verification_email
     my $verification_link = $opts{verification_link};
 
     my $body = <<EOS;
-Hello. This is a verification email for your MusicBrainz account. Please click
+This is a verification email for your MusicBrainz account. Please click
 on the link below to verify your email address:
 
 $verification_link
@@ -151,7 +151,7 @@ sub _create_lost_username_email
     my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER;
 
     my $body = <<EOS;
-Hello. Someone, probably you, asked to look up the username of the
+Someone, probably you, asked to look up the username of the
 MusicBrainz account associated with this email address.
 
 Your MusicBrainz username is: $user_name
@@ -189,7 +189,7 @@ sub _create_no_vote_email
     my $prefs_url = sprintf 'http://%s/account/preferences', &DBDefs::WEB_SERVER;
 
     my $body = <<EOS;
-MusicBrainz editor '${\ $voter->name }' has voted against your edit #$edit_id.
+'${\ $voter->name }' has voted against your edit #$edit_id.
 -------------------------------------------------------------------------
 To respond, please add your note at:
 
@@ -223,7 +223,7 @@ sub _create_password_reset_request_email
     my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER;
 
     my $body = <<EOS;
-Hello. Someone, probably you, asked that your MusicBrainz password be reset.
+Someone, probably you, asked that your MusicBrainz password be reset.
 
 To reset your password, click the link below:
 
@@ -269,7 +269,7 @@ sub _create_edit_note_email
         push @headers, ('Subject'  => "Note added to your edit #$edit_id");
 
         $body = <<EOS;
-Editor '$from' has added the following note to your edit #$edit_id:
+'$from' has added the following note to your edit #$edit_id:
 ------------------------------------------------------------------------
 $note_text
 ------------------------------------------------------------------------
@@ -284,7 +284,7 @@ EOS
         push @headers, ('Subject'  => "Note added to edit #$edit_id");
 
         $body = <<EOS;
-Editor '$from' has added the following note to edit #$edit_id:
+'$from' has added the following note to edit #$edit_id:
 ------------------------------------------------------------------------
 $note_text
 ------------------------------------------------------------------------

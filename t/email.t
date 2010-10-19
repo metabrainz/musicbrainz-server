@@ -41,7 +41,7 @@ is($e->get_header('To'), '"Editor 2" <bar@example.com>');
 is($e->get_header('BCC'), undef);
 is($e->get_header('Subject'), 'Hey');
 compare_body($e->get_body, <<EOS);
-Hello. MusicBrainz editor 'Editor 1' has sent you the following message:
+MusicBrainz editor 'Editor 1' has sent you the following message:
 ------------------------------------------------------------------------
 Hello!
 ------------------------------------------------------------------------
@@ -69,7 +69,7 @@ is($e->get_header('To'), '"Editor 2" <bar@example.com>');
 is($e->get_header('BCC'), '"Editor 1" <foo@example.com>');
 is($e->get_header('Subject'), 'Hey');
 compare_body($e->get_body, <<EOS);
-Hello. MusicBrainz editor 'Editor 1' has sent you the following message:
+MusicBrainz editor 'Editor 1' has sent you the following message:
 ------------------------------------------------------------------------
 Hello!
 ------------------------------------------------------------------------
@@ -92,7 +92,7 @@ is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
 is($e->get_header('To'), 'user@example.com');
 is($e->get_header('Subject'), 'Please verify your email address');
 compare_body($e->get_body, <<EOS);
-Hello. This is a verification email for your MusicBrainz account. Please click
+This is a verification email for your MusicBrainz account. Please click
 on the link below to verify your email address:
 
 http://musicbrainz.org/verify-email
@@ -117,7 +117,7 @@ is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
 is($e->get_header('To'), '"Editor 1" <foo@example.com>');
 is($e->get_header('Subject'), 'Lost username');
 compare_body($e->get_body, <<EOS);
-Hello. Someone, probably you, asked to look up the username of the
+Someone, probably you, asked to look up the username of the
 MusicBrainz account associated with this email address.
 
 Your MusicBrainz username is: Editor 1
@@ -141,7 +141,7 @@ is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
 is($e->get_header('To'), '"Editor 1" <foo@example.com>');
 is($e->get_header('Subject'), 'Password reset request');
 compare_body($e->get_body, <<EOS);
-Hello. Someone, probably you, asked that your MusicBrainz password be reset.
+Someone, probably you, asked that your MusicBrainz password be reset.
 
 To reset your password, click the link below:
 
@@ -175,7 +175,7 @@ is($e->get_header('References'), '<edit-1234@musicbrainz.org>');
 is($e->get_header('Subject'), 'Someone has voted against your edit #1234');
 is($e->get_header('Reply-To'), 'MusicBrainz <support@musicbrainz.org>');
 compare_body($e->get_body, <<EOS);
-MusicBrainz editor 'Editor 2' has voted against your edit #1234.
+'Editor 2' has voted against your edit #1234.
 -------------------------------------------------------------------------
 To respond, please add your note at:
 
@@ -207,7 +207,7 @@ is($e->get_header('To'), '"Editor 1" <foo@example.com>');
 is($e->get_header('Subject'), 'Note added to edit #1234');
 is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>');
 compare_body($e->get_body, <<EOS);
-Editor 'Editor 2' has added the following note to edit #1234:
+'Editor 2' has added the following note to edit #1234:
 ------------------------------------------------------------------------
 Please remember to use guess case!
 ------------------------------------------------------------------------
@@ -235,7 +235,7 @@ is($e->get_header('To'), '"Editor 2" <bar@example.com>');
 is($e->get_header('Subject'), 'Note added to your edit #9000');
 is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>');
 compare_body($e->get_body, <<EOS);
-Editor 'Editor 1' has added the following note to your edit #9000:
+'Editor 1' has added the following note to your edit #9000:
 ------------------------------------------------------------------------
 This edit is totally wrong!
 ------------------------------------------------------------------------
