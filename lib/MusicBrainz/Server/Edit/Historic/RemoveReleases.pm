@@ -5,10 +5,11 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Data::Release;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASES );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_name     { 'Remove releases' }
+sub edit_name     { l('Remove releases') }
 sub historic_type { 24 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASES }
 

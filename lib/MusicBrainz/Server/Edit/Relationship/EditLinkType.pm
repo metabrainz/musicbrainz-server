@@ -4,10 +4,11 @@ use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Tuple Dict Optional );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT_LINK_TYPE );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Edit relationship type' }
+sub edit_name { l('Edit relationship type') }
 sub edit_type { $EDIT_RELATIONSHIP_EDIT_LINK_TYPE }
 
 sub change_fields

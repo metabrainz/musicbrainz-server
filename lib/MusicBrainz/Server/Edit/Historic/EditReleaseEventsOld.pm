@@ -15,12 +15,13 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_date
     upgrade_id
 );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_name     { 'Edit release events' }
-sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
+sub edit_name     { l('Edit release events') }
 sub historic_type { 29 }
+sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
 
 sub ReleaseEventFields {
     return (

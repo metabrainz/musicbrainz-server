@@ -3,6 +3,7 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 requires 'load', 'show';
@@ -127,7 +128,7 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences')
             is_positive_integer($new) &&
             $old != $new) {
         $c->stash(
-            message => 'The old and new annotation ids must be unique, positive integers'
+            message => l('The old and new annotation ids must be unique, positive integers.')
         );
         $c->detach('/error_400')
     }

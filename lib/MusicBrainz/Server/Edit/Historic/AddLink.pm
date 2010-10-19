@@ -6,6 +6,7 @@ use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_LINK );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -14,7 +15,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_name     { 'Add relationship' }
+sub edit_name     { l('Add relationship') }
 sub edit_type     { $EDIT_HISTORIC_ADD_LINK }
 sub edit_template { 'historic/add_relationship' }
 sub historic_type { 33 }

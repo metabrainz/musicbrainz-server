@@ -5,10 +5,11 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_DISCID );
 use MusicBrainz::Server::Entity::CDTOC;
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_name     { 'Add disc ID' }
+sub edit_name     { l('Add disc ID') }
 sub historic_type { 32 }
 sub edit_type     { $EDIT_HISTORIC_ADD_DISCID }
 sub edit_template { 'historic/add_disc_id' }

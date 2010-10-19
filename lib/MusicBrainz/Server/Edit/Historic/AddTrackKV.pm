@@ -4,10 +4,11 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK_KV );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_name     { 'Add track' }
+sub edit_name     { l('Add track') }
 sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
 sub edit_template { 'historic/add_track_kv' }

@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
+use MusicBrainz::Server::Translation qw( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::ISRC';
@@ -12,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::ISRC';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
-sub edit_name { 'Remove ISRC' }
+sub edit_name { l('Remove ISRC') }
 sub edit_type { $EDIT_RECORDING_REMOVE_ISRC }
 
 sub edit_conditions

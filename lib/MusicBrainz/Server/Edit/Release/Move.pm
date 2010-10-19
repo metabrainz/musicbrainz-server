@@ -5,12 +5,13 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );
+use MusicBrainz::Server::Translation qw( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Change release group' }
+sub edit_name { l('Change release group') }
 sub edit_type { $EDIT_RELEASE_MOVE }
 
 has '+data' => (

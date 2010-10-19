@@ -3,13 +3,14 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
-sub edit_name { "Change WikiDoc" }
+sub edit_name { l("Change WikiDoc") }
 
 sub edit_conditions
 {

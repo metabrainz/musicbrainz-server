@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Edit::Historic::AddLabel;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::Label';
 
+sub edit_name { l('Add label') }
 sub edit_type { 54 }
-sub edit_name { 'Add label' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Create' }
 
 augment 'upgrade' => sub

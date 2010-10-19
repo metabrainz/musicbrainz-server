@@ -1,12 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::RemoveArtist;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Delete' }
 sub edit_type { 19 }
-sub edit_name { 'Remove artist' }
+sub edit_name { l('Remove artist') }
 
 augment 'upgrade' => sub {
     my $self = shift;

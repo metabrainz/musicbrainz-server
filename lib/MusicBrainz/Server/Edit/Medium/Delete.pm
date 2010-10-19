@@ -6,12 +6,13 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
-sub edit_name { 'Remove medium' }
+sub edit_name { l('Remove medium') }
 sub medium_id { shift->data->{medium_id} }
 
 sub alter_edit_pending { { Medium => [ shift->medium_id ] } }

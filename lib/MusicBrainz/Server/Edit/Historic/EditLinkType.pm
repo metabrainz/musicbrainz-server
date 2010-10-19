@@ -3,10 +3,11 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_LINK_TYPE );
 
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name     { 'Edit relationship type' }
+sub edit_name     { l('Edit relationship type') }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK_TYPE  }
 sub historic_type { 37 }
 sub ngs_class     { 'MusicBrainz::Server::Edit::Relationship::EditLinkType' }

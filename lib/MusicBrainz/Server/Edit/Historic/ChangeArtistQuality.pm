@@ -4,11 +4,12 @@ use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
-sub edit_name     { 'Change artist quality' }
+sub edit_name     { l('Change artist quality') }
 sub historic_type { 52 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY }
 

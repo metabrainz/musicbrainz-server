@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
+use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -53,7 +54,7 @@ sub delete : Local RequireAuth
 
     if (!$isrc) {
         $c->detach('/error_500');
-        $c->stash( message => 'This ISRC does not exist' );
+        $c->stash( message => l('This ISRC does not exist' ));
     }
 
     $self->edit_action($c,
