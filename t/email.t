@@ -186,7 +186,9 @@ Please do not respond to this email.
 If clicking the link above doesn't work, please copy and paste the URL in a
 new browser window instead.
 
-Please note, this email will only be sent for the first vote against your edit, not for each one.
+Please note, this email will only be sent for the first vote against your edit,
+not for each one, and that you can disable this notification by modifying your
+preferences at http://localhost/account/preferences.
 
 -- The MusicBrainz Team
 EOS
