@@ -25,7 +25,7 @@ sub _user_address
     my ($user, $hidden) = @_;
 
     if ($hidden) {
-        # Hide the deal address
+        # Hide the real address
         my $email = sprintf '%s@users.musicbrainz.org', $user->name;
         return Email::Address->new($user->name, $email)->format;
     }
@@ -80,7 +80,7 @@ sub _create_message_to_editor_email
                         uri_escape($from->name);
 
     my $body = <<EOS;
-MusicBrainz editor '$from_name' has sent you the following message:
+Hello. MusicBrainz editor '$from_name' has sent you the following message:
 ------------------------------------------------------------------------
 $message
 ------------------------------------------------------------------------
@@ -89,15 +89,17 @@ EOS
     if ($opts{reveal_address}) {
         $body .= <<EOS;
 If you would like to respond, please reply to this message or visit
-$contact_url to send editor
-'$from_name' an e-mail.
+$contact_url to send '$from_name' an email.
+
+-- The MusicBrainz Team
 EOS
     }
     else {
         $body .= <<EOS;
 If you would like to respond, please visit
-$contact_url to send editor
-'$from_name' an e-mail.
+$contact_url to send '$from_name' an email.
+
+-- The MusicBrainz Team
 EOS
     }
 
@@ -118,13 +120,13 @@ sub _create_email_verification_email
     my $verification_link = $opts{verification_link};
 
     my $body = <<EOS;
-This is the a verification email for your MusicBrainz account. Please click
+Hello. This is a verification email for your MusicBrainz account. Please click
 on the link below to verify your email address:
 
 $verification_link
 
-If clicking the link directly does not work, you may need to manually cut
-and paste the link into the address bar of your preferred web browser.
+If clicking the link above doesn't work, please copy and paste the URL in a
+new browser window instead.
 
 Thanks for using MusicBrainz!
 
@@ -149,13 +151,17 @@ sub _create_lost_username_email
     my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER;
 
     my $body = <<EOS;
-Hello. Someone asked to look up the MusicBrainz account associated with the
-email address.
+Hello. Someone, probably you, asked to look up the username of the
+MusicBrainz account associated with this email address.
 
 Your MusicBrainz username is: $user_name
 
-If you have also forgotten your password, use the username and email address
+If you have also forgotten your password, use this username and your email address
 to reset your password here - $lost_password_url
+
+If you didn't initiate this request and feel that you've received this email in
+error, don't worry, you don't need to take any further action and can safely
+disregard this email.
 
 -- The MusicBrainz Team
 EOS
@@ -176,7 +182,7 @@ sub _create_no_vote_email
         'From' => $NOREPLY_ADDRESS,
         'Reply-To' => $SUPPORT_ADDRESS,
         'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
-        'Subject' => 'Someone has voted against your edit',
+        'Subject' => "Someone has voted against your edit #$edit_id",
     );
 
     my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER, $edit_id;
@@ -184,16 +190,19 @@ sub _create_no_vote_email
 
     my $body = <<EOS;
 MusicBrainz editor '${\ $voter->name }' has voted against your edit #$edit_id.
-------------------------------------------------------------------------
-If you would like to respond to this vote, please add your note at:
+-------------------------------------------------------------------------
+To respond, please add your note at:
 
     $url
 
-Please do not respond to this e-mail.
+Please do not respond to this email.
 
-This e-mail is only sent for the first vote against your edit, not for each
-one. If you would prefer not to receive these e-mails, please adjust your
-preferences accordingly at $prefs_url
+If clicking the link above doesn't work, please copy and paste the URL in a
+new browser window instead.
+
+Please note, this email will only be sent for the first vote against your edit, not for each one.
+
+-- The MusicBrainz Team
 EOS
 
     return $self->_create_email(\@headers, $body);
@@ -214,12 +223,18 @@ sub _create_password_reset_request_email
     my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER;
 
     my $body = <<EOS;
-Hello. Someone asked that your MusicBrainz password be reset.
+Hello. Someone, probably you, asked that your MusicBrainz password be reset.
 
-If you did ask to reset the password on your MusicBrainz account, please use
-this link:
+To reset your password, click the link below:
 
 $reset_password_link
+
+If clicking the link above doesn't work, please copy and paste the URL in a
+new browser window instead.
+
+If you didn't initiate this request and feel that you've received this email in
+error, don't worry, you don't need to take any further action and can safely
+disregard this email.
 
 If you still have problems logging in, please drop us a line - see
 $contact_url for details.
