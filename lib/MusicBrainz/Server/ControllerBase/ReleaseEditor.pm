@@ -226,22 +226,6 @@ sub release_compare
     return \@ret;
 }
 
-sub _load_tracklist
-{
-    my ($self, $c, $release) = @_;
-
-    $c->model('Medium')->load_for_releases($release);
-
-    my @mediums = $release->all_mediums;
-    my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-
-    $c->model('Track')->load_for_tracklists(@tracklists);
-
-    my @tracks = map { $_->all_tracks } @tracklists;
-
-    $c->model('ArtistCredit')->load(@tracks, $release);
-}
-
 # this just loads the remaining bits of a release, not yet loaded by
 # 'load' and '_load_tracklist'.
 sub _load_release
@@ -251,73 +235,9 @@ sub _load_release
     $c->model('ReleaseLabel')->load($release);
     $c->model('Label')->load(@{ $release->labels });
     $c->model('ReleaseGroupType')->load($release->release_group);
-    $c->model('MediumFormat')->load($release->all_mediums);
     $c->model('Release')->annotation->load_latest ($release);
 }
 
-
-sub _serialize_artistcredit
-{
-    my $self = shift;
-    my $ac = shift;
-
-    my $credits = [];
-
-    for (@{ $ac->names })
-    {
-        push @$credits, {
-            name => $_->name,
-            join => $_->join_phrase,
-            id => $_->artist_id,
-        };
-    }
-
-    return {
-        preview => $ac->name,
-        names => $credits,
-    };
-}
-
-sub _serialize_track
-{
-    my ($self, $track) = @_;
-
-    return {
-        length => MusicBrainz::Server::Track::FormatTrackLength($track->length),
-        title => $track->name,
-        id => $track->id,
-        artist => $self->_serialize_artistcredit ($track->artist_credit),
-    };
-}
-
-sub _serialize_tracklists
-{
-    my ($self, $release) = @_;
-
-    my $tracklists = [];
-
-    if ($release)
-    {
-        for ($release->all_mediums)
-        {
-            my $tracklist = $_->tracklist;
-
-            my $tracks = [];
-            for my $track (@{ $tracklist->tracks })
-            {
-                push @$tracks, $self->_serialize_track ($track);
-            }
-
-            push @$tracklists, $tracks;
-        }
-    }
-
-    # It seems JSON libraries encode things to UTF-8, but the json
-    # string will be included in a page which will again be encoded
-    # to UTF-8.  So this string has to be decoded back to the internal
-    # perl unicode :(.  --warp.
-    return decode ("UTF-8", JSON::Any->objToJson ($tracklists));
-}
 
 sub _preview_edit
 {
@@ -594,8 +514,6 @@ sub _edit_release_annotation
 sub run
 {
     my ($self, $c, $release) = @_;
-
-    $c->stash( serialized_tracklists => $self->_serialize_tracklists () );
 
     my $wizard = MusicBrainz::Server::Wizard->new(
         c => $c,

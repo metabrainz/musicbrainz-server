@@ -21,30 +21,6 @@
 // FIXME: move the following to constants?
 MB.Control._disabled_colour = '#AAA';
 
-// FIXME: hardcoded static url in this template. --warp.
-MB.Control.track_template = MB.utility.template (
-    '<tr class="track">' +
-        '<td class="position">' +
-        '  <input class="pos" id="id-#{tracklist}.#{trackno}.position"' +
-        '         name="#{tracklist}.#{trackno}.position" value="#{position}" type="text">' +
-        '</td>' +
-        '<td class="title">' +
-        '  <input id="id-#{tracklist}.#{trackno}.id" name="#{tracklist}.#{trackno}.id" value="" type="hidden">' +
-        '  <input id="id-#{tracklist}.#{trackno}.name" name="#{tracklist}.#{trackno}.name" value="" type="text" class="track-name" >' +
-        '</td>' +
-        '<td class="artist"></td>' +
-        '<td class="length">' +
-        '  <input class="track-length" id="id-#{tracklist}.#{trackno}.length" name="#{tracklist}.#{trackno}.length" size="5" value="?:??" type="text">' +
-        '</td>' +
-        '<td class="delete">'+
-        '  <input type="hidden" value="0" name="#{tracklist}.#{trackno}.deleted" id="id-#{tracklist}.#{trackno}.deleted" />' +
-        '  <a class="icon disc-remove-track" href="#remove_track">' +
-        '    <span class="ui-icon ui-icon-closethick">Remove Track</span>' +
-        '  </a>' +
-        '</td>' +
-    '</tr>');
-
-
 MB.Control.ReleaseTrack = function (track, artistcredit) {
     var self = MB.Object ();
 
@@ -70,7 +46,7 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
         self.deleted.val (data.deleted);
         if (data.artist)
         {
-            self.preview.val (data.artist.preview);
+            self.artist_credit.render (data.artist);
         }
 
         if (data.deleted)
@@ -174,54 +150,43 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
     var addTrack = function (event) {
         var trackno = self.tracks.length;
 
-        var previous = self.table.find ('tr.track').last ();
-
-        /* render tr.track. */
-        self.table.append (MB.Control.track_template.draw ({
-                tracklist: 'mediums.'+self.number+'.tracklist.tracks',
-                trackno: trackno,
-                position: trackno + 1,
-        }));
-
-        var row = self.table.find ('tr.track').last ();
-
-        /* set artist credit preview in tr.track. */
-        newartist = row.find ('td.artist');
-        newartist.append ($('div#release-artist > input').clone ());
-
-        var preview = newartist.find ('.artist-credit-preview');
-        if (previous)
+        var previous = null;
+        if (self.table.find ('tr.track').length)
         {
-            var prev_preview = previous.find ('.artist-credit-preview');
-            preview.attr ('disabled', prev_preview.attr ('disabled'));
-            preview.css ('color', prev_preview.css ('color'));
-        }
-        else
-        {
-            preview.attr ('disabled', 'disabled');
-            preview.css ('color', MB.Control._disabled_colour);
+            previous = self.table.find ('tr.track').last ();
         }
 
-        /* render tr.track-artist-credit. */
-        var acrow = $('<tr class="track-artist-credit">').
-            append ($('<td colspan="5">').
-                    append ($('div#release-artist div.ac-balloon0').clone ()).
-                    append ($('div#release-artist table.artist-credit').clone ()));
+        var row = self.template.find ('tr.track').clone ();
+        var acrow = self.template.find ('tr.track-artist-credit').clone ();
 
-        acrow.insertAfter (row);
-
-        /* update the ids for both artist credit and artist credit preview. */
-        var trackprefix = 'mediums.'+self.number+'.tracklist.tracks.'+trackno+'.';
-        var replace_ids = function (idx, element) {
-            var item = $(element);
-            item.attr ('id', 'id-' + trackprefix + item.attr('name'));
-            item.attr ('name', trackprefix + item.attr('name'));
-        };
-
-        newartist.find('*').each (replace_ids);
-        acrow.find ('*').each (replace_ids);
+        self.table.append (row).append (acrow);
 
         var trk = MB.Control.ReleaseTrack (row, acrow);
+        trk.position.val (trackno + 1);
+
+        /* this doesn't look correct... commenting for now.  should be handled
+           by ReleaseTrack. --warp. */
+//         if (previous)
+//         {
+//             var prev_preview = previous.find ('.artist-credit-preview');
+//             trk.preview.attr ('disabled', prev_preview.attr ('disabled'));
+//             trk.preview.css ('color', prev_preview.css ('color'));
+//         }
+//         else
+//         {
+//             preview.attr ('disabled', 'disabled');
+//             preview.css ('color', MB.Control._disabled_colour);
+//         }
+
+
+        /* render tr.track-artist-credit. */
+//         var acrow = $('<tr class="track-artist-credit">').
+//             append ($('<td colspan="5">').
+//                     append ($('div#release-artist div.ac-balloon0').clone ()).
+//                     append ($('div#release-artist table.artist-credit').clone ()));
+
+//         acrow.insertAfter (row);
+
         self.tracks.push (trk);
         self.sorted_tracks.push (trk);
 
@@ -344,6 +309,7 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
     self.format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
 
     self.updown = $('#mediums\\.'+self.number+'\\.updown');
+    self.template = $('table.tracklist-template');
 
     self.fieldset.find ('table.medium tbody tr.track').each (function (idx, item) {
         self.tracks.push (

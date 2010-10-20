@@ -10,7 +10,7 @@ sub edit : Chained('/release/load') Edit RequireAuth
 {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
-    $self->_load_tracklist ($c, $release);
+
     $self->run($c, $release);
 }
 
@@ -55,6 +55,8 @@ augment 'load' => sub
     my ($self, $c, $wizard, $release) = @_;
 
     $self->_load_release ($c, $release);
+    $c->model('Medium')->load_for_releases($release);
+
     $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
 
     return $release;

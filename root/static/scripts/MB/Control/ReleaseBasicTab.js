@@ -62,7 +62,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 /**
  * MB.Control.ReleaseTextarea is used to render and parse a tracklist textarea.
  */
-MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
+MB.Control.ReleaseTextarea = function (disc, preview) {
     var self = MB.Object ();
 
     var render = function () {
@@ -87,12 +87,77 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
         self.preview.render ();
     };
 
+    var collapse = function () {
+        /* Free up memory used by trackparser.
+           FIXME: shouldn't do this immediatly, but only after N other discs
+           have been opened. */
+        self.trackparser = null;
+        
+        self.textarea.hide ();
+        self.basicdisc.removeClass ('expanded');
+        self.expand_icon.find ('span.ui-icon')
+            .removeClass ('ui-icon-triangle-1-s')
+            .addClass ('ui-icon-triangle-1-e');
+    };
+
+    var expand = function () {
+
+        if (!self.trackparser)
+        {
+            $.getJSON (
+                '/static/scripts/MB/tracklist.js',
+                { 'id': self.tracklist_id }, 
+                self.loadTracklist
+            );
+        }
+
+        self.textarea.show ();
+        self.basicdisc.addClass ('expanded');
+        self.expand_icon.find ('span.ui-icon')
+            .removeClass ('ui-icon-triangle-1-e')
+            .addClass ('ui-icon-triangle-1-s');
+    };
+
+    var loadTracklist = function (data) {
+
+        self.disc.removeTracks (data.length);
+
+        $.each (data, function (idx, trk) {
+            self.disc.getTrack (idx).render (trk);
+        });
+
+        // FIXME: enable this again?.
+//        self.trackparser = MB.TrackParser (self.disc, data);
+//         self.updatePreview ();
+
+    };
+
     self.disc = disc;
     self.preview = preview;
     self.render = render;
     self.updatePreview = updatePreview;
-    self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
-    self.trackparser = MB.TrackParser (self.disc, serialized);
+    self.collapse = collapse;
+    self.expand = expand;
+    self.loadTracklist = loadTracklist;
+
+    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc'); 
+    self.textarea = self.basicdisc.find ('textarea.tracklist');
+    self.expand_icon = self.basicdisc.find ('td.expand a.icon');
+        self.tracklist_id = 1;
+
+    self.expand_icon.click (function (event) {
+        if (self.textarea.is (':visible'))
+        {
+            self.collapse ();
+        }
+        else
+        {
+            self.expand ();
+        }
+
+        event.preventDefault ();
+        return false;
+    });
 
     self.textarea.bind ('keyup', function () {
         if (typeof self.timeout == "number")
@@ -112,7 +177,7 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
 /**
  * MB.Control.ReleaseTracklist is used to render and parse the tracklist textareas.
  */
-MB.Control.ReleaseTracklist = function (advancedtab, preview, serialized) {
+MB.Control.ReleaseTracklist = function (advancedtab, preview) {
     var self = MB.Object ();
 
     var render = function () {
@@ -133,7 +198,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview, serialized) {
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
-        self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview, serialized[idx]));
+        self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview));
     });
 
     return self;
@@ -174,7 +239,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
 
     self.adv = advancedtab;
     self.preview = MB.Control.ReleasePreview (self.adv);
-    self.tracklist = MB.Control.ReleaseTracklist (self.adv, self.preview, serialized);
+    self.tracklist = MB.Control.ReleaseTracklist (self.adv, self.preview);
 
     self.preview.render ();
     self.tracklist.render ();

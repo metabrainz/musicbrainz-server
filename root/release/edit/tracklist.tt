@@ -41,7 +41,9 @@
     [% artist = acfield.fif.names.$artistnum.artist %]
     <tr class="artist-credit-box">
       <td class="link">
-        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">link</a>
+        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">
+          [%- IF artist.gid -%][% l('link') %][%- END -%]
+        </a>
       </td>
       <td class="artist">
         <input type="text" class="name" value="[% artist.name %]" />
@@ -49,10 +51,10 @@
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </td>
       <td class="artistcredit">
-        [% r.text (ac.field('name'), class => 'credit') %]
+        <input type="text" class="credit" value="[% ac.field('name').value %]" />
       </td>
       <td class="joinphrase">
-        [% r.text (ac.field('join_phrase'), class => 'join') %]
+        <input type="text" class="join" value="[% ac.field('join_phrase').value %]" />
       </td>
     </tr>
   [% END %]
@@ -69,9 +71,14 @@
       [% multidisc = form.field('mediums').fields.size > 1 %]
       [% FOR medium_field=form.field('mediums').fields %]
 
-      <div class="basic-disc">
+      <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         <table class="basic-format">
           <tr>
+            <td class="expand" >
+              <a class="icon" href="#expand_disc">
+                <span class="ui-icon ui-icon-triangle-1-e">[% l("Expand") %]</span>
+              </a>
+            </td>
             <td class="disc" >
             [% IF multidisc %]
               <h3>
@@ -99,7 +106,7 @@
           </tr>
         </table>
 
-        <textarea id="mediums.[% loop.index %].tracklist" class="tracklist"></textarea>
+        <textarea style="display: none" class="tracklist"></textarea>
       </div>
 
       [% END %]
@@ -142,13 +149,6 @@
     <h3>[% information.field('name').value %]</h3>
     <p>by [% release_artist.fif.name %]</p>
 
-    [%# The following is only included so the artist can be cloned when adding new tracks. --warp. %]
-    <div id="release-artist" style="display: none">
-      <input type="text" class="artist-credit-preview" value="[% release_artist.fif.name %]" />
-
-      [% artist_credit_table(release_artist) %]
-    </div>
-
     <div id="preview"> </div>
 
     <div style="float: right; margin: 10px;" class="buttons">
@@ -162,13 +162,43 @@
 
   <div class="advanced-tracklist" style="display: none;">
 
-    <fieldset class="tracklist" style="display: block;">
+    <fieldset class="tracklist">
       <legend>[% l('Tracklist') %]</legend>
       <div style="float: right; margin: 10px;" class="buttons">
         <a href="#basic">[% l('Basic') %]</a>
       </div>
       <p style="margin: 10px; width: 300px;">[% l('Click Basic to return to the basic tracklist editor.') %]</p>
     </fieldset>
+
+    [%# The following is only included so it can be cloned when adding new tracks. --warp. %]
+    <table class="tracklist-template" style="display: none">
+      <tr class="track">
+        <td class="position">
+          <input class="pos" type="text">
+        </td>
+        <td class="title">
+          <input type="hidden" class="id" />
+          <input type="text" class="track-name" />
+        </td>
+        <td class="artist">
+          <input type="text" class="artist-credit-preview" value="[% release_artist.fif.name %]" />
+        </td>
+        <td class="length">
+          <input type="text" class="track-length" size="5" value="?:??" />
+        </td>
+        <td class="delete">
+          <input type="hidden" class="deleted" value="0" />
+          <a class="icon disc-remove-track" href="#remove_track">
+            <span class="ui-icon ui-icon-closethick">[% l('Remove Track') %]</span>
+          </a>
+        </td>
+      </tr>
+      <tr class="track-artist-credit">
+        <td colspan="5">
+          [% artist_credit_table(release_artist) %]
+        </td>
+      </tr>
+    </table>
 
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc">
@@ -202,36 +232,7 @@
           </tr>
         </thead>
         <tfoot />
-        <tbody>
-          [% FOR track=medium_field.field('tracklist').field('tracks').fields %]
-          <tr class="track">
-            <td class="position">
-              [% r.text(track.field('position'), class => 'pos') %]
-            </td>
-            <td class="title">
-              [% r.hidden(track.field('id')); r.text(track.field('name'), class => 'track-name') %]
-            </td>
-            <td class="artist">
-               <input type="text" class="artist-credit-preview" value="[% track.field('artist_credit').fif.name %]" />
-            </td>
-            <td class="length">
-              [% r.text(track.field('length'), class => 'track-length', size => 5)  %]
-            </td>
-            <td class="delete">
-              [% r.hidden(track.field('deleted')) %]
-              <a class="icon disc-remove-track" href="#remove_track">
-                <span class="ui-icon ui-icon-closethick">[% l('Remove Track') %]</span>
-              </a>
-            </td>
-          </tr>
-          <tr class="track-artist-credit" style="display: none">
-            <td colspan="5">
-            [% artist_credit_table(track.field('artist_credit')) %]
-            </td>
-          </tr>
-
-          [%- END -%]
-        </tbody>
+        <tbody> </tbody>
       </table>
       </div>
 
