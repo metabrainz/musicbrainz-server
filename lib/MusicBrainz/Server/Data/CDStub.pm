@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
-use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
 use MusicBrainz::Server::Validation;
 
 extends 'MusicBrainz::Server::Data::Entity';
