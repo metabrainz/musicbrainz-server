@@ -21,8 +21,8 @@ sub _table
 
 sub _columns
 {
-    return 'id, link_type, begindate_year, begindate_month, begindate_day,
-            enddate_year, enddate_month, enddate_day';
+    return 'id, link_type, begin_date_year, begin_date_month, begin_date_day,
+            end_date_year, end_date_month, end_date_day';
 }
 
 sub _column_mapping
@@ -127,7 +127,7 @@ sub find_or_insert
 
     my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
 
-    push @conditions, "attributecount = ?";
+    push @conditions, "attribute_count = ?";
     push @args, scalar(@attrs);
 
     my $i = 1;
@@ -147,7 +147,7 @@ sub find_or_insert
 
     my $row = {
         link_type      => $values->{link_type_id},
-        attributecount => scalar(@attrs),
+        attribute_count => scalar(@attrs),
     };
     add_partial_date_to_row($row, $values->{begin_date}, "begindate");
     add_partial_date_to_row($row, $values->{end_date}, "enddate");

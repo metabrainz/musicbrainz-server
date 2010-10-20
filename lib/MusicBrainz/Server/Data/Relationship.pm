@@ -57,7 +57,7 @@ sub _new_from_row
     my %info = (
         id => $row->{id},
         link_id => $row->{link},
-        edits_pending => $row->{editpending},
+        edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
     );
@@ -333,7 +333,7 @@ sub adjust_edit_pending
 
     my $sql = Sql->new($self->c->dbh);
     my $query = "UPDATE l_${type0}_${type1}
-                 SET editpending = editpending + ?
+                 SET edits_pending = edits_pending + ?
                  WHERE id IN (" . placeholders(@ids) . ")";
     $sql->do($query, $adjust, @ids);
 }

@@ -28,8 +28,8 @@ CREATE INDEX release_group_rating_raw_idx_release_group ON release_group_rating_
 CREATE INDEX release_group_rating_raw_idx_editor ON release_group_rating_raw (editor);
 
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
-CREATE INDEX cdtoc_raw_trackoffset ON cdtoc_raw (trackoffset);
-CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (trackcount, leadoutoffset, trackoffset);
+CREATE INDEX cdtoc_raw_track_offset ON cdtoc_raw (track_offset);
+CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
 
 CREATE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
 CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);

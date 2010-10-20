@@ -163,9 +163,9 @@ sub insert
         my $cdtoc_id = $self->sql->insert_row('cdtoc_raw', {
             release => $release_id,
             discid => $cdtoc->discid,
-            trackcount => $cdtoc->track_count,
-            leadoutoffset => $cdtoc->leadout_offset,
-            trackoffset => $cdtoc->track_offset
+            track_count => $cdtoc->track_count,
+            leadout_offset => $cdtoc->leadout_offset,
+            track_offset => $cdtoc->track_offset
         }, 'id');
 
         # FIXME Batch insert

@@ -21,7 +21,7 @@ sub _table
 sub _columns
 {
     return 'rl.id AS rl_id, rl.release AS rl_release, rl.label AS rl_label,
-            rl.catno AS rl_catno';
+            rl.catalog_number AS rl_catalog_number';
 }
 
 sub _column_mapping
@@ -30,7 +30,7 @@ sub _column_mapping
         id             => 'rl_id',
         release_id     => 'rl_release',
         label_id       => 'rl_label',
-        catalog_number => 'rl_catno',
+        catalog_number => 'rl_catalog_number',
     };
 }
 
@@ -48,7 +48,7 @@ sub load
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, rl_catno";
+                 ORDER BY release, rl_catalog_number";
     my @labels = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {
@@ -68,7 +68,7 @@ sub find_by_label
                     JOIN release ON release.id=rl.release
                     JOIN release_name name ON release.name=name.id
                  WHERE rl.label = ?
-                 ORDER BY date_year, date_month, date_day, catno, musicbrainz_collate(name.name)
+                 ORDER BY date_year, date_month, date_day, catalog_number, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
@@ -103,7 +103,7 @@ sub insert
     my $row = hash_to_row($edit_hash, {
         release => 'release_id',
         label => 'label_id',
-        catno => 'catalog_number',
+        catalog_number => 'catalog_number',
     });
 
     my @created;
@@ -119,7 +119,7 @@ sub update
 {
     my ($self, $id, $edit_hash) = @_;
     my $row = hash_to_row($edit_hash, {
-        catno => 'catalog_number',
+        catalog_number => 'catalog_number',
         label => 'label_id',
     });
     my $sql = Sql->new($self->c->dbh);

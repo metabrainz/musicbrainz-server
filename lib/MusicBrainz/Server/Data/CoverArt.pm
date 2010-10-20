@@ -152,8 +152,8 @@ sub find_outdated_releases
           JOIN url       ON l.entity1 = url.id
          WHERE l.entity0 IN (
                  SELECT id FROM release_coverart
-                  WHERE coverfetched IS NULL
-                     OR NOW() - coverfetched > ?
+                  WHERE last_update IS NULL
+                     OR NOW() - last_update > ?
              ) AND
                link_type.name IN ('  . placeholders(@url_types) . ')';
 
@@ -171,8 +171,8 @@ sub cache_cover_art
 
     my $meta_update  = $cover_art->cache_data;
     my $cover_update = {
-        coverfetched => DateTime->now,
-        coverarturl  => $cover_art->image_uri
+        last_update => DateTime->now,
+        cover_art_url  => $cover_art->image_uri
     };
 
     my $sql = Sql->new($self->c->dbh);

@@ -3,8 +3,8 @@ BEGIN;
 
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
-CREATE INDEX artist_idx_sortname ON artist (sortname);
-CREATE INDEX artist_idx_ipicode ON artist (ipicode);
+CREATE INDEX artist_idx_sort_name ON artist (sort_name);
+CREATE INDEX artist_idx_ipi_code ON artist (ipi_code);
 
 CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
 CREATE UNIQUE INDEX artist_alias_idx_locale_artist ON artist_alias (artist, locale);
@@ -17,7 +17,7 @@ CREATE INDEX artist_name_idx_page ON artist_name (page_index(name));
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
 
-CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
+CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
 CREATE INDEX currentstat_name ON currentstat (name);
 
@@ -25,10 +25,10 @@ CREATE INDEX editor_idx_name ON editor (LOWER(name));
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
-CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribededitor);
+CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
-CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
-CREATE INDEX historicalstat_name_snapshotdate ON historicalstat (name, snapshotdate);
+CREATE INDEX historicalstat_date ON historicalstat (snapshot_date);
+CREATE INDEX historicalstat_name_snapshot_date ON historicalstat (name, snapshot_date);
 
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
 
@@ -105,12 +105,12 @@ CREATE INDEX l_work_work_idx_entity1 ON l_work_work (entity1);
 CREATE UNIQUE INDEX link_type_idx_gid ON link_type (gid);
 CREATE UNIQUE INDEX link_attribute_type_idx_gid ON link_attribute_type (gid);
 
-CREATE INDEX link_idx_type_attr ON link (link_type, attributecount);
+CREATE INDEX link_idx_type_attr ON link (link_type, attribute_count);
 
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);
-CREATE INDEX label_idx_sortname ON label (sortname);
-CREATE INDEX label_idx_ipicode ON label (ipicode);
+CREATE INDEX label_idx_sort_name ON label (sort_name);
+CREATE INDEX label_idx_ipi_code ON label (ipi_code);
 
 CREATE INDEX label_alias_idx_label ON label_alias (label);
 CREATE UNIQUE INDEX label_alias_idx_locale_label ON label_alias (label, locale);
@@ -121,9 +121,9 @@ CREATE INDEX label_name_idx_page ON label_name (page_index(name));
 CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 CREATE INDEX label_tag_idx_label ON label_tag (label);
 
-CREATE UNIQUE INDEX language_idx_isocode_3b ON language (isocode_3b);
-CREATE UNIQUE INDEX language_idx_isocode_3t ON language (isocode_3t);
-CREATE UNIQUE INDEX language_idx_isocode_2 ON language (isocode_2);
+CREATE UNIQUE INDEX language_idx_iso_code_3b ON language (iso_code_3b);
+CREATE UNIQUE INDEX language_idx_iso_code_3t ON language (iso_code_3t);
+CREATE UNIQUE INDEX language_idx_iso_code_2 ON language (iso_code_2);
 
 CREATE UNIQUE INDEX list_idx_gid ON list (gid);
 CREATE INDEX list_idx_name ON list (name);
@@ -166,7 +166,7 @@ CREATE INDEX release_group_tag_idx_release_group ON release_group_tag (release_g
 CREATE UNIQUE INDEX release_name_idx_name ON release_name (name);
 CREATE INDEX release_name_idx_page ON release_name (page_index(name));
 
-CREATE UNIQUE INDEX script_idx_isocode ON script (isocode);
+CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
 
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 
@@ -177,7 +177,7 @@ CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 
 CREATE UNIQUE INDEX track_name_idx_name ON track_name (name);
 
-CREATE INDEX tracklist_idx_trackcount ON tracklist (trackcount);
+CREATE INDEX tracklist_idx_track_count ON tracklist (track_count);
 
 CREATE INDEX tracklist_index_idx ON tracklist_index USING gist (toc);
 

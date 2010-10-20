@@ -8,7 +8,7 @@ DROP INDEX artist_tag_raw_idx_editor;
 DROP INDEX artist_tag_raw_idx_tag;
 DROP INDEX cdtoc_raw_discid;
 DROP INDEX cdtoc_raw_toc;
-DROP INDEX cdtoc_raw_trackoffset;
+DROP INDEX cdtoc_raw_track_offset;
 DROP INDEX edit_idx_editor;
 DROP INDEX edit_idx_status;
 DROP INDEX edit_idx_type;

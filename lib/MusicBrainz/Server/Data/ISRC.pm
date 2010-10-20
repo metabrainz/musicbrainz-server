@@ -16,7 +16,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, isrc, recording, source, editpending';
+    return 'id, isrc, recording, source, edits_pending';
 }
 
 sub _column_mapping
@@ -26,7 +26,7 @@ sub _column_mapping
         isrc          => 'isrc',
         recording_id  => 'recording',
         source_id     => 'source',
-        edits_pending => 'editpending',
+        edits_pending => 'edits_pending',
     };
 }
 

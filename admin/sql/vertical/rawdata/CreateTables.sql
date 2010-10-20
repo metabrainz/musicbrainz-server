@@ -98,9 +98,9 @@ CREATE TABLE cdtoc_raw
     id                  SERIAL,
     release             INTEGER NOT NULL, -- references release_raw.id
     discid              CHAR(28) NOT NULL,
-    trackcount          INTEGER NOT NULL,
-    leadoutoffset       INTEGER NOT NULL,
-    trackoffset         INTEGER[] NOT NULL
+    track_count          INTEGER NOT NULL,
+    leadout_offset       INTEGER NOT NULL,
+    track_offset         INTEGER[] NOT NULL
 );
 
 CREATE TABLE label_rating_raw

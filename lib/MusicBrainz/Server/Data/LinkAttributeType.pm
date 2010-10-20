@@ -20,7 +20,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, parent, childorder, gid, name, description';
+    return 'id, parent, child_order, gid, name, description';
 }
 
 sub _column_mapping
@@ -29,7 +29,7 @@ sub _column_mapping
         id          => 'id',
         gid         => 'gid',
         parent_id   => 'parent',
-        child_order => 'childorder',
+        child_order => 'child_order',
         name        => 'name',
         description => 'description',
     };
@@ -52,7 +52,7 @@ sub get_tree
 
     my $sql = Sql->new($self->c->dbh);
     $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
-                  ORDER BY childorder, id');
+                  ORDER BY child_order, id');
     my %id_to_obj;
     my @objs;
     while (1) {
@@ -137,7 +137,7 @@ sub _hash_to_row
 
     return hash_to_row($values, {
         parent          => 'parent_id',
-        childorder      => 'child_order',
+        child_order      => 'child_order',
         name            => 'name',
         description     => 'description',
     });

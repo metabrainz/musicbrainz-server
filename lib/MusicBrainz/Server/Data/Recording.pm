@@ -29,7 +29,7 @@ sub _columns
     return 'recording.id, recording.gid, name.name,
             recording.artist_credit AS artist_credit_id,
             recording.length, recording.comment,
-            recording.editpending AS edits_pending';
+            recording.edits_pending';
 }
 sub _column_mapping
 {
@@ -176,8 +176,8 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "recording_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->last_update_date($row->{last_update}) if defined $row->{last_update};
     }, @_);
 }
 

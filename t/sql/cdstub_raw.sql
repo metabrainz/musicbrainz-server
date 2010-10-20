@@ -13,7 +13,7 @@ INSERT INTO track_raw (release, title, artist, sequence)
 INSERT INTO track_raw (release, title, artist, sequence) 
             VALUES (1, 'Track title 2', '', 1);
 
-INSERT INTO cdtoc_raw (release, discid, trackcount, leadoutoffset, trackoffset) 
+INSERT INTO cdtoc_raw (release, discid, track_count, leadout_offset, track_offset) 
             VALUES (1, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-', 2, 20000, '{150,10000}');
 
 COMMIT;
