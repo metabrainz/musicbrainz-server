@@ -158,7 +158,7 @@ $raw_sql->select("
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($id, $rating, $count) = @$row;
-    $sql->do("UPDATE release_group_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+    $sql->do("UPDATE release_group_meta SET rating=?, rating_count=? WHERE id=?", $rating, $count, $id);
 }
 $raw_sql->finish;
 $sql->do("DROP INDEX tmp_release_group_meta_idx");

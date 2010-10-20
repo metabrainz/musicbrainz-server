@@ -4,9 +4,20 @@ BEGIN;
 -- Misc
 ------------------------
 
-INSERT INTO country SELECT * FROM public.country WHERE id!=239; -- Exclude [Unknown Country]
-INSERT INTO language SELECT * FROM public.language;
-INSERT INTO script SELECT * FROM public.script;
+INSERT INTO country
+    SELECT id, isocode AS iso_code, name
+    FROM public.country WHERE id!=239; -- Exclude [Unknown Country]
+
+INSERT INTO language
+    SELECT id, isocode_3t AS iso_code_3t, isocode_3b AS iso_code_3b,
+           isocode_2 AS iso_code_2, name, frequency
+    FROM public.language;
+
+INSERT INTO script
+    SELECT id, isocode AS iso_code, isonumber AS iso_number,
+           name, frequency
+    FROM public.script;
+
 INSERT INTO script_language SELECT * FROM public.script_language;
 
 INSERT INTO gender (id, name) VALUES
@@ -84,18 +95,24 @@ INSERT INTO medium_format (id, name, year) VALUES
     (27, 'slotMusic', NULL),
     (28, 'UMD', NULL);
 
-INSERT INTO url (id, gid, url, description, refcount)
-    SELECT id, gid::uuid, url, description, refcount FROM public.url;
+INSERT INTO url
+    SELECT id, gid::uuid, url, description, refcount AS ref_count
+    FROM public.url;
 
 INSERT INTO replication_control SELECT * FROM public.replication_control;
-INSERT INTO currentstat SELECT * FROM public.currentstat;
+INSERT INTO currentstat
+    SELECT id, name, value, lastupdated AS last_update
+    FROM public.currentstat;
 INSERT INTO historicalstat SELECT * FROM public.historicalstat;
 
 ------------------------
 -- Tags
 ------------------------
 
-INSERT INTO tag SELECT * FROM public.tag;
+INSERT INTO tag
+    SELECT id, name, refcount AS ref_count
+    FROM public.tag;
+
 INSERT INTO tag_relation SELECT * FROM public.tag_relation;
 
 INSERT INTO artist_tag SELECT * FROM public.artist_tag;
@@ -222,12 +239,12 @@ INSERT INTO release
 DROP INDEX tmp_release_name_name_idx;
 
 -- release_meta for releases converted from release events
-INSERT INTO release_meta (id, lastupdate, dateadded)
-    SELECT r.id, lastupdate, dateadded FROM
+INSERT INTO release_meta
+    SELECT r.id, lastupdate AS last_update, dateadded FROM
         public.release r JOIN public.albummeta am ON r.album=am.id;
 
 -- release_meta for new releases
-INSERT INTO release_meta (id, lastupdate, dateadded)
+INSERT INTO release_meta (id, last_update, date_added)
     SELECT r.id, lastupdate, dateadded FROM
         tmp_new_release r JOIN public.albummeta am ON r.album=am.id;
 
@@ -235,12 +252,12 @@ INSERT INTO release_meta (id, lastupdate, dateadded)
 INSERT INTO release_coverart (id)
     SELECT id FROM release;
 
--- convert release events with non-empty label or catno to release_label
-INSERT INTO release_label (release, label, catno)
+-- convert release events with non-empty label or catalog_number to release_label
+INSERT INTO release_label (release, label, catalog_number)
     SELECT id, label, catno FROM public.release
     WHERE label IS NOT NULL OR catno IS NOT NULL OR catno != '';
 
-INSERT INTO tracklist (id, trackcount)
+INSERT INTO tracklist (id, track_count)
     SELECT a.id, am.tracks
     FROM public.album a JOIN public.albummeta am ON a.id = am.id;
 
@@ -258,8 +275,8 @@ INSERT INTO medium (tracklist, release, position)
 ------------------------
 
 INSERT INTO release_group_meta
-    (id, lastupdate, releasecount, firstreleasedate_year,
-     firstreleasedate_month, firstreleasedate_day)
+    (id, last_update, release_count, first_release_date_year,
+     first_release_date_month, first_release_date_day)
     SELECT m.id, lastupdate, count(*),
         NULLIF(substr(firstreleasedate, 1, 4)::int, 0),
         NULLIF(substr(firstreleasedate, 6, 2)::int, 0),
@@ -279,10 +296,10 @@ INSERT INTO label_name (name)
 
 CREATE UNIQUE INDEX tmp_label_name_name_idx ON label_name (name);
 
-INSERT INTO label (id, gid, name, sortname, type,
-                   begindate_year, begindate_month, begindate_day,
-                   enddate_year, enddate_month, enddate_day,
-                   comment, country, labelcode)
+INSERT INTO label (id, gid, name, sort_name, type,
+                   begin_date_year, begin_date_month, begin_date_day,
+                   end_date_year, end_date_month, end_date_day,
+                   comment, country, label_code)
     SELECT
         a.id, gid::uuid, n1.id, n2.id,
         NULLIF(type, 0),
@@ -301,7 +318,7 @@ INSERT INTO label_alias (label, name)
     SELECT DISTINCT a.ref, n.id
     FROM public.labelalias a JOIN label_name n ON a.name = n.name;
 
-INSERT INTO label_meta (id, lastupdate, rating, ratingcount)
+INSERT INTO label_meta (id, last_update, rating, rating_count)
     SELECT id, lastupdate, round(rating * 20), rating_count
     FROM public.label_meta;
 
@@ -329,7 +346,7 @@ INSERT INTO track (id, tracklist, name, recording, artist_credit, length, positi
         JOIN track_name n ON n.name = t.name
         LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac;
 
-INSERT INTO recording_meta (id, rating, ratingcount)
+INSERT INTO recording_meta (id, rating, rating_count)
     SELECT id, round(rating * 20), rating_count
     FROM public.track_meta;
 
@@ -381,9 +398,9 @@ DROP INDEX tmp_work_name_name;
 -- Redirects
 ------------------------
 
-INSERT INTO artist_gid_redirect SELECT gid::uuid, newid FROM public.gid_redirect WHERE tbl=2;
-INSERT INTO label_gid_redirect SELECT gid::uuid, newid FROM public.gid_redirect WHERE tbl=4;
-INSERT INTO recording_gid_redirect SELECT gid::uuid, newid FROM public.gid_redirect WHERE tbl=3;
+INSERT INTO artist_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=2;
+INSERT INTO label_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=4;
+INSERT INTO recording_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=3;
 -- Redirects for releases converted from albums
 INSERT INTO release_gid_redirect
     SELECT gid_redirect.gid::uuid, tmp_release_gid.id
@@ -396,15 +413,15 @@ INSERT INTO release_gid_redirect
     FROM public.gid_redirect
         JOIN tmp_new_release ON gid_redirect.newid=tmp_new_release.album
     WHERE tbl=1;
-INSERT INTO release_group_gid_redirect SELECT gid::uuid, newid FROM public.gid_redirect WHERE tbl=5;
+INSERT INTO release_group_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=5;
 
 ------------------------
 -- Editors
 ------------------------
 
 INSERT INTO editor (id, name, password, privs, email, website, bio,
-    emailconfirmdate, lastlogindate, editsaccepted,
-    editsrejected, autoeditsaccepted, editsfailed, membersince)
+    email_confirm_date, last_login_date, edits_accepted,
+    edits_rejected, auto_edits_accepted, edits_failed, member_since)
     SELECT id, name, password, privs, email, weburl, bio,
         emailconfirmdate, lastlogindate, modsaccepted, modsrejected,
         automodsaccepted, modsfailed,
@@ -519,7 +536,7 @@ INSERT INTO recording_puid (id, puid, recording)
 -- ISRCs
 ------------------------
 
-INSERT INTO isrc (id, recording, isrc, source, editpending)
+INSERT INTO isrc (id, recording, isrc, source, edits_pending)
     SELECT id, track, isrc, source, modpending FROM public.isrc;
 
 ------------------------

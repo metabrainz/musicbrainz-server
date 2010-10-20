@@ -21,8 +21,8 @@ eval {
 
     my $link_type = $sql->select_single_value("
         SELECT id FROM link_type WHERE
-                entitytype0='release' AND
-                entitytype1='release' AND
+                entity_type0='release' AND
+                entity_type1='release' AND
                 name='part of set'");
 
     # Load all part-of-set ARs into a graph represented as id=>[id,id,id,..]
@@ -239,13 +239,13 @@ eval {
         $sql->do("
         SELECT
             DISTINCT ON (link, $entity0, COALESCE(new_rel, $entity1))
-                id, link, $entity0, COALESCE(new_rel, $entity1) AS $entity1, editpending
+                id, link, $entity0, COALESCE(new_rel, $entity1) AS $entity1, edits_pending
         INTO TEMPORARY tmp_$table
         FROM $table
             LEFT JOIN tmp_release_merge rm ON $table.$entity1=rm.old_rel;
 
         TRUNCATE $table;
-        INSERT INTO $table SELECT id, link, entity0, entity1, editpending FROM tmp_$table;
+        INSERT INTO $table SELECT id, link, entity0, entity1, edits_pending FROM tmp_$table;
         DROP TABLE tmp_$table;
         ");
     }
@@ -253,7 +253,7 @@ eval {
     printf STDERR "Merging l_release_release\n";
     $sql->do("
     SELECT
-        DISTINCT ON (link, COALESCE(rm0.new_rel, entity0), COALESCE(rm1.new_rel, entity1)) id, link, COALESCE(rm0.new_rel, entity0) AS entity0, COALESCE(rm1.new_rel, entity1) AS entity1, editpending
+        DISTINCT ON (link, COALESCE(rm0.new_rel, entity0), COALESCE(rm1.new_rel, entity1)) id, link, COALESCE(rm0.new_rel, entity0) AS entity0, COALESCE(rm1.new_rel, entity1) AS entity1, edits_pending
     INTO TEMPORARY tmp_l_release_release
     FROM l_release_release
         LEFT JOIN tmp_release_merge rm0 ON l_release_release.entity0=rm0.old_rel
@@ -281,10 +281,10 @@ eval {
     printf STDERR "Merging release_gid_redirect\n";
     $sql->do("
     SELECT
-        gid, COALESCE(new_rel, newid)
+        gid, COALESCE(new_rel, new_id)
     INTO TEMPORARY tmp_release_gid_redirect
     FROM release_gid_redirect
-        LEFT JOIN tmp_release_merge rm ON release_gid_redirect.newid=rm.old_rel;
+        LEFT JOIN tmp_release_merge rm ON release_gid_redirect.new_id=rm.old_rel;
 
     TRUNCATE release_gid_redirect;
     INSERT INTO release_gid_redirect SELECT * FROM tmp_release_gid_redirect;
@@ -312,7 +312,7 @@ eval {
     printf STDERR "Merging release_label\n";
     $sql->do("
     SELECT
-        DISTINCT ON (COALESCE(new_rel, release), label, catno) id, COALESCE(new_rel, release), label, catno
+        DISTINCT ON (COALESCE(new_rel, release), label, catalog_number) id, COALESCE(new_rel, release), label, catalog_number
     INTO TEMPORARY tmp_release_label
     FROM release_label
         LEFT JOIN tmp_release_merge rm ON release_label.release=rm.old_rel;
@@ -327,16 +327,16 @@ eval {
     SELECT COALESCE(new_rel, id) AS id,
         CASE
                 WHEN count(*) > 1 THEN now()
-                ELSE max(lastupdate)
-        END AS lastupdate,
-        min(dateadded) AS dateadded
+                ELSE max(last_update)
+        END AS last_update,
+        min(date_added) AS date_added
     INTO TEMPORARY tmp_release_meta
     FROM release_meta
         LEFT JOIN tmp_release_merge rm ON release_meta.id=rm.old_rel
     GROUP BY COALESCE(new_rel, id);
 
     TRUNCATE release_meta;
-    INSERT INTO release_meta (id, lastupdate, dateadded) SELECT id, lastupdate, dateadded FROM tmp_release_meta;
+    INSERT INTO release_meta (id, last_update, date_added) SELECT id, last_update, date_added FROM tmp_release_meta;
     DROP TABLE tmp_release_meta;
     ");
 
@@ -350,7 +350,7 @@ eval {
                 ELSE n.name
         END,
         artist_credit, release_group, status, packaging, country, language, script,
-        date_year, date_month, date_day, barcode, comment, editpending, quality
+        date_year, date_month, date_day, barcode, comment, edits_pending, quality
     INTO TEMPORARY tmp_release
     FROM release
         INNER JOIN release_name n ON release.name=n.id
@@ -367,7 +367,7 @@ eval {
     TRUNCATE release;
     INSERT INTO release
         SELECT t.id, gid, n.id, artist_credit, release_group, status, packaging, country, language, script,
-                date_year, date_month, date_day, barcode, comment, editpending, quality
+                date_year, date_month, date_day, barcode, comment, edits_pending, quality
          FROM tmp_release t
                 JOIN release_name n ON t.name = n.name;
     DROP TABLE tmp_release;
@@ -376,10 +376,10 @@ eval {
 
     printf STDERR "Updating release_group_meta\n";
     $sql->do("
-    SELECT id, lastupdate, COALESCE(t.releasecount, 0), firstreleasedate_year, firstreleasedate_month, firstreleasedate_day, rating, ratingcount
+    SELECT id, last_update, COALESCE(t.release_count, 0), first_release_date_year, first_release_date_month, first_release_date_day, rating, rating_count
         INTO TEMPORARY tmp_release_group_meta
         FROM release_group_meta rgm
-                LEFT JOIN ( SELECT release_group, count(*) AS releasecount FROM release GROUP BY release_group ) t ON t.release_group = rgm.id;
+                LEFT JOIN ( SELECT release_group, count(*) AS release_count FROM release GROUP BY release_group ) t ON t.release_group = rgm.id;
 
     TRUNCATE release_group_meta;
     INSERT INTO release_group_meta SELECT * FROM tmp_release_group_meta;

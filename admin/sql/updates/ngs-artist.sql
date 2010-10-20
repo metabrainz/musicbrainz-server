@@ -12,9 +12,9 @@ SELECT setval('artist_name_id_seq', (SELECT MAX(id) FROM artist_name));
 
 CREATE UNIQUE INDEX tmp_artist_name_name ON artist_name (name);
 
-INSERT INTO artist (id, gid, name, sortname, type,
-                    begindate_year, begindate_month, begindate_day,
-                    enddate_year, enddate_month, enddate_day,
+INSERT INTO artist (id, gid, name, sort_name, type,
+                    begin_date_year, begin_date_month, begin_date_day,
+                    end_date_year, end_date_month, end_date_day,
                     comment)
     SELECT
         a.id, gid::uuid, n1.id, n2.id,
@@ -28,7 +28,7 @@ INSERT INTO artist (id, gid, name, sortname, type,
         resolution
     FROM public.artist a JOIN artist_name n1 ON a.name = n1.name JOIN artist_name n2 ON a.sortname = n2.name;
 
-INSERT INTO artist_credit (id, name, artistcount) SELECT id, name, 1 FROM artist;
+INSERT INTO artist_credit (id, name, artist_count) SELECT id, name, 1 FROM artist;
 SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));
 
 INSERT INTO artist_credit_name (artist_credit, artist, name, position) SELECT id, id, name, 0 FROM artist;
@@ -37,7 +37,7 @@ INSERT INTO artist_alias (id, artist, name)
     SELECT DISTINCT a.id, a.ref, n.id
     FROM public.artistalias a JOIN artist_name n ON a.name = n.name;
 
-INSERT INTO artist_meta (id, lastupdate, rating, ratingcount)
+INSERT INTO artist_meta (id, last_update, rating, rating_count)
     SELECT id, lastupdate, round(rating * 20), rating_count
     FROM public.artist_meta;
 
