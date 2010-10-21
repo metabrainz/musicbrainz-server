@@ -18,7 +18,7 @@
 
 */
 
-MB.TrackParser = function (disc, serialized) {
+MB.TrackParser = function (disc, textarea, serialized) {
     var self = MB.Object ();
 
     var getTrackInput = function () {
@@ -88,10 +88,10 @@ MB.TrackParser = function (disc, serialized) {
         var map = {};
 
         $.each (self.originals, function (idx, track) {
-            if (map[track.title] === undefined) {
-                map[track.title] = [];
+            if (map[track.name] === undefined) {
+                map[track.name] = [];
             }
-            map[track.title].push (idx);
+            map[track.name].push (idx);
         });
 
         var lastused = self.originals.length - 1;
@@ -124,7 +124,7 @@ MB.TrackParser = function (disc, serialized) {
             if (map[title] === undefined || map[title].length === 0)
             {
                 data.row = ++lastused;
-                data.title = title;
+                data.name = title;
                 inserted.push (data);
             }
             else if ($.inArray (idx, map[title]) !== -1)
@@ -200,9 +200,9 @@ MB.TrackParser = function (disc, serialized) {
 
     /* public variables. */
     self.disc = disc;
+    self.textarea = textarea;
     self.originals = $.isArray (serialized) ? serialized : [];
     self.artistseparator = new RegExp ("\\s[/\\t]");
-    self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
     self.guesscase = $('#guesscase');
     self.tracknumbers = $('#tracknumbers');
     self.vinylnumbers = $('#vinylnumbers');

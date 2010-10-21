@@ -260,6 +260,8 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
 
             self.artistcredits.show ();
         });
+
+        self.artistcredits.hide ();
     };
 
     self.initialize = initialize;

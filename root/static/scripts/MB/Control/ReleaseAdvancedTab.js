@@ -39,14 +39,14 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
      */
     var render = function (data) {
         self.position.val (data.position);
-        self.title.val (data.title);
-        self.id.val (data.id);
-        self.preview.val (data.preview);
+        self.title.val (data.name);
+//        self.id.val (data.id);
+//        self.preview.val (data.preview);
         self.length.val (data.length);
         self.deleted.val (data.deleted);
-        if (data.artist)
+        if (data.artist_credit)
         {
-            self.artist_credit.render (data.artist);
+            self.artist_credit.render (data.artist_credit);
         }
 
         if (data.deleted)
@@ -122,11 +122,10 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     return self;
 };
 
-MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
+MB.Control.ReleaseDisc = function (disc, parent) {
     var self = MB.Object ();
 
     self.fieldset = disc;
-    self.basic = basic_disc;
     self.parent = parent;
 
     /**
@@ -164,28 +163,7 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
         var trk = MB.Control.ReleaseTrack (row, acrow);
         trk.position.val (trackno + 1);
 
-        /* this doesn't look correct... commenting for now.  should be handled
-           by ReleaseTrack. --warp. */
-//         if (previous)
-//         {
-//             var prev_preview = previous.find ('.artist-credit-preview');
-//             trk.preview.attr ('disabled', prev_preview.attr ('disabled'));
-//             trk.preview.css ('color', prev_preview.css ('color'));
-//         }
-//         else
-//         {
-//             preview.attr ('disabled', 'disabled');
-//             preview.css ('color', MB.Control._disabled_colour);
-//         }
-
-
-        /* render tr.track-artist-credit. */
-//         var acrow = $('<tr class="track-artist-credit">').
-//             append ($('<td colspan="5">').
-//                     append ($('div#release-artist div.ac-balloon0').clone ()).
-//                     append ($('div#release-artist table.artist-credit').clone ()));
-
-//         acrow.insertAfter (row);
+        self.updateArtistColumn ();
 
         self.tracks.push (trk);
         self.sorted_tracks.push (trk);
@@ -194,12 +172,6 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
         if (trk.artist_credit.isVariousArtists ())
         {
             trk.artist_credit.clear ();
-        }
-
-        if (event !== undefined)
-        {
-            /* and scroll down to the new position of the 'Add Track' button if possible. */
-            $('html').animate({'scrollTop': $('html').scrollTop () + row.height ()}, 100);
         }
     };
 
@@ -225,6 +197,11 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
         while (lastused + 1 < self.tracks.length)
         {
             self.tracks.pop ().remove ();
+        }
+
+        if (lastused === 0)
+        {
+            self.sorted_tracks = [];
         }
     };
 
@@ -265,6 +242,10 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
         }
     };
 
+    var registerBasic = function (basic) {
+        self.basic = basic;
+    };
+
     /* 'up' is visual, so the disc position decreases. */
     var moveUp = function (event) {
         self.parent.moveDisc (self, -1);
@@ -284,19 +265,78 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
         {
             self.position_input.val (val);
             self.fieldset.find ('span.discnum').text (val);
-            self.basic.find ('span.discnum').text (val);
+            self.basic.basicdisc.find ('span.discnum').text (val);
             return val;
         }
 
         return parseInt (self.position_input.val ());
     };
 
+    var collapse = function (chained) {
+        /* Free up memory used for the tracklist.
+           FIXME: shouldn't do this immediatly, but only after N other discs
+           have been opened. */
+        self.tracklist = null;
+
+        self.table.hide ();
+        self.removeTracks (0);
+        self.fieldset.removeClass ('expanded');
+        self.expand_icon.find ('span.ui-icon')
+            .removeClass ('ui-icon-triangle-1-s')
+            .addClass ('ui-icon-triangle-1-w');
+
+        if (!chained)
+        {
+            self.basic.collapse (true);
+        }
+    };
+
+    var expand = function (chained) {
+        if (!self.tracklist)
+        {
+            $.getJSON (
+                '/ws/js/tracklist/' + self.basic.tracklist_id.val (),
+                {}, function (data) {
+                    /* FIXME: ignore result if the disc has been
+                    collapsed in the meantime.  --warp. */
+                    self.loadTracklist (data); 
+                    if (chained) { 
+                        self.basic.loadTracklist (data);
+                    } 
+                }
+            );
+        }
+
+        self.table.show ();
+        self.fieldset.addClass ('expanded');
+        self.expand_icon.find ('span.ui-icon')
+            .removeClass ('ui-icon-triangle-1-w')
+            .addClass ('ui-icon-triangle-1-s');
+
+        if (!chained)
+        {
+            self.basic.expand (true);
+        }
+    };
+
+    var loadTracklist = function (data) {
+
+        self.removeTracks (data.length);
+
+        $.each (data, function (idx, trk) {
+            trk.position = idx + 1;
+            self.getTrack (idx).render (trk);
+        });
+
+        self.sort ();
+    };
+
     self.table = self.fieldset.find ('table.medium');
     self.artist_column_checkbox = self.table.find ('th.artist input');
 
-    self.number = parseInt (self.fieldset.find ('input.tracklist-id').attr ('id').
-                            match ('id-mediums\.([0-9]+)\.tracklist')[1]);
+    self.number = parseInt (self.fieldset.attr ('id').match ('advanced-disc\.([0-9]+)')[1]);
 
+    self.tracklist = null;
     self.tracks = [];
     self.sorted_tracks = [];
 
@@ -308,7 +348,8 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
     self.position_input = $('#id-mediums\\.'+self.number+'\\.position');
     self.format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
 
-    self.updown = $('#mediums\\.'+self.number+'\\.updown');
+    self.buttons = $('#mediums\\.'+self.number+'\\.buttons');
+    self.expand_icon = self.buttons.find ('a.expand.icon');
     self.template = $('table.tracklist-template');
 
     self.fieldset.find ('table.medium tbody tr.track').each (function (idx, item) {
@@ -323,12 +364,30 @@ MB.Control.ReleaseDisc = function (disc, basic_disc, parent) {
     self.removeTracks = removeTracks;
     self.sort = sort;
     self.updateArtistColumn = updateArtistColumn;
+    self.registerBasic = registerBasic;
     self.moveDown = moveDown;
     self.moveUp = moveUp;
     self.position = position;
+    self.collapse = collapse;
+    self.expand = expand;
+    self.loadTracklist = loadTracklist;
 
-    self.updown.find ('a[href=#discdown]').click (self.moveDown);
-    self.updown.find ('a[href=#discup]').click (self.moveUp);
+    self.buttons.find ('a[href=#discdown]').click (self.moveDown);
+    self.buttons.find ('a[href=#discup]').click (self.moveUp);
+
+    self.expand_icon.click (function (event) {
+        if (self.table.is (':visible'))
+        {
+            self.collapse ();
+        }
+        else
+        {
+            self.expand ();
+        }
+
+        event.preventDefault ();
+        return false;
+    });
 
     $("#mediums\\."+self.number+"\\.add_track").click(self.addTrack);
     self.artist_column_checkbox.bind ('change', self.updateArtistColumn);
@@ -383,7 +442,7 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         newdisc_bas.find ('textarea').empty ();
 
-        var new_disc = MB.Control.ReleaseDisc (newdisc_adv, newdisc_bas, self);
+        var new_disc = MB.Control.ReleaseDisc (newdisc_adv, self);
 
         self.discs.push (new_disc);
 
@@ -416,12 +475,15 @@ MB.Control.ReleaseAdvancedTab = function () {
         if (direction < 0)
         {
             disc.fieldset.insertBefore (other.fieldset);
-            disc.basic.insertBefore (other.basic);
+
+            /* FIXME: yes, I am aware that the variable names I've chosen 
+               here could use a little improvement. --warp. */
+            disc.basic.basicdisc.insertBefore (other.basic.basicdisc);
         }
         else
         {
             other.fieldset.insertBefore (disc.fieldset);
-            other.basic.insertBefore (disc.basic);
+            other.basic.basicdisc.insertBefore (disc.basic.basicdisc);
         }
     };
 
@@ -431,8 +493,7 @@ MB.Control.ReleaseAdvancedTab = function () {
     self.moveDisc = moveDisc;
 
     self.tab.find ('fieldset.advanced-disc').each (function (idx, item) {
-        var basic_disc = $('div.basic-disc').eq(idx);
-        self.discs.push (MB.Control.ReleaseDisc ($(item), basic_disc, self));
+        self.discs.push (MB.Control.ReleaseDisc ($(item), self));
     });
 
     $('form').bind ('submit', function () {

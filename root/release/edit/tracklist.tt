@@ -92,6 +92,7 @@
                 [% r.hidden(medium_field.field('id')) %]
                 [% r.hidden(medium_field.field('deleted')) %]
                 [% r.hidden(medium_field.field('position')) %]
+                [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]
 
                 <div class="row">
                   [% r.label(medium_field.field('format_id'), l('Format')) %]
@@ -201,24 +202,32 @@
     </table>
 
     [% FOR medium_field=form.field('mediums').fields %]
-    <fieldset class="advanced-disc">
-      [% r.hidden(medium_field.field('tracklist').field('id'), class => 'tracklist-id') %]
-      [% r.hidden(medium_field.field('tracklist').field('serialized')) %]
+    <fieldset class="advanced-disc" id="advanced-disc.[% loop.index %]">
       <legend>
         [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
       </legend>
 
-      <div id="mediums.[% loop.index %].updown"
-           style="float: right; margin: 20px 20px 0 0; font-weight: bolder; font-size: 150%;" >
-          <a class="icon" href="#discdown"><span class="ui-icon ui-icon-arrowthick-1-s">[% l('down') %]</span></a>
-          <a class="icon" href="#discup"><span class="ui-icon ui-icon-arrowthick-1-n">[% l('up') %]</span></a>
+      <div id="mediums.[% loop.index %].buttons" style="float: right; margin: 20px 20px 0 0;" >
+          <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track" title="[% l('Add Track') %]">
+            <span class="ui-icon ui-icon-plusthick">[% l('Add Track') %]</span>
+          </a>
+          &nbsp;
+          <a class="icon" href="#discdown" title="[% l('Move disc down') %]">
+            <span class="ui-icon ui-icon-arrowthick-1-s">[% l('down') %]</span>
+          </a>
+          <a class="icon" href="#discup" title="[% l('Move disc up') %]">
+            <span class="ui-icon ui-icon-arrowthick-1-n">[% l('up') %]</span>
+          </a>
+          <a class="expand icon" href="#expand_disc" title="[% l("Expand") %]">
+            <span class="ui-icon ui-icon-triangle-1-w">[% l("Expand") %]</span>
+          </a>
       </div>
 
       <div class="advanced-medium-format-and-title">
       </div>
 
       <div class="tracklist-padding">
-      <table class="medium tbl" id="[% medium_field.html_name %]">
+      <table class="medium tbl" id="[% medium_field.html_name %]" style="display: none">
         <thead>
           <tr>
             <th class="position">[% l('#') %]</th>
@@ -234,12 +243,6 @@
         <tfoot />
         <tbody> </tbody>
       </table>
-      </div>
-
-      <div style="float: right; margin: 0px 10px 10px 10px;">
-        <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track">
-          <span class="ui-icon ui-icon-plusthick">[% l('Add Track') %]</span>
-        </a>
       </div>
 
     </fieldset>

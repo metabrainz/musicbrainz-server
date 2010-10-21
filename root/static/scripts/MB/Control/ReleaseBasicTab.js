@@ -87,49 +87,41 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.preview.render ();
     };
 
-    var collapse = function () {
-        /* Free up memory used by trackparser.
-           FIXME: shouldn't do this immediatly, but only after N other discs
-           have been opened. */
+    var collapse = function (chained) {
         self.trackparser = null;
+        self.textarea.val ('');
         
         self.textarea.hide ();
         self.basicdisc.removeClass ('expanded');
         self.expand_icon.find ('span.ui-icon')
             .removeClass ('ui-icon-triangle-1-s')
             .addClass ('ui-icon-triangle-1-e');
-    };
-
-    var expand = function () {
-
-        if (!self.trackparser)
+ 
+        if (!chained)
         {
-            $.getJSON (
-                '/static/scripts/MB/tracklist.js',
-                { 'id': self.tracklist_id }, 
-                self.loadTracklist
-            );
+            self.disc.collapse (true);
         }
 
+        self.preview.render ();
+   };
+
+    var expand = function (chained) {
         self.textarea.show ();
         self.basicdisc.addClass ('expanded');
         self.expand_icon.find ('span.ui-icon')
             .removeClass ('ui-icon-triangle-1-e')
             .addClass ('ui-icon-triangle-1-s');
+
+        if (!chained)
+        {
+            self.disc.expand (true);
+        }
     };
 
     var loadTracklist = function (data) {
-
-        self.disc.removeTracks (data.length);
-
-        $.each (data, function (idx, trk) {
-            self.disc.getTrack (idx).render (trk);
-        });
-
-        // FIXME: enable this again?.
-//        self.trackparser = MB.TrackParser (self.disc, data);
-//         self.updatePreview ();
-
+        self.render ();
+        self.trackparser = MB.TrackParser (self.disc, self.textarea, data);
+        self.updatePreview ();
     };
 
     self.disc = disc;
@@ -142,8 +134,8 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc'); 
     self.textarea = self.basicdisc.find ('textarea.tracklist');
-    self.expand_icon = self.basicdisc.find ('td.expand a.icon');
-        self.tracklist_id = 1;
+    self.expand_icon = self.basicdisc.find ('.expand a.icon');
+    self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
 
     self.expand_icon.click (function (event) {
         if (self.textarea.is (':visible'))
@@ -170,6 +162,8 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
             self.updatePreview ();
         }, MB.Control._preview_update_timeout);
     });
+
+    self.disc.registerBasic (self);
 
     return self;
 }
@@ -198,7 +192,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
-        self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview));
+        self.newDisc (disc);
     });
 
     return self;
