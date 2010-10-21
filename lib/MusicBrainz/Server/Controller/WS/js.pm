@@ -193,6 +193,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
             names => [ map {
                 name => $_->name,
                 gid => $_->artist->gid,
+                id => $_->artist->id,
                 artist_name => $_->artist->name,
                 join => $_->join_phrase
             }, @{ $_->artist_credit->names } ],
