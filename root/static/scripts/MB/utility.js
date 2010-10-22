@@ -62,6 +62,10 @@ MB.utility.template = function(str) {
     return self;
 };
 
+MB.utility.isArray  = function(o) { return (o instanceof Array    || typeof o == "array"); };
+MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
+MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
+
 MB.utility.autocomplete = {};
 MB.utility.autocomplete.options = {
     "minChars": 1,
