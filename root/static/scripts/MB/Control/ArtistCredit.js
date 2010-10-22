@@ -67,10 +67,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     var render = function (data) {
 
-        self.name.val(data.name).removeClass('error');
+        self.name.val(data.artist_name).removeClass('error');
         self.join.val(data.join);
-        self.credit.val (data.credit);
+        self.credit.val (data.name);
         self.gid.val(data.gid);
+        self.id.val(data.id);
         self.link.html ('link').
             attr('href', '/artist/'+data.gid).
             attr('title', data.comment);
@@ -233,6 +234,27 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         self.renderPreview ();
     };
 
+    var toData = function () {
+        var ret = [];
+
+        $.each (self.box, function (idx, item) {
+            var ac = {
+                'artist_name': item.name.val (),
+                'name': item.credit.val (),
+                'id': item.id.val (),
+                'gid': item.gid.val (),
+                'join': item.join.val (),
+            };
+
+            if (ac.id)
+            {
+                ret.push (ac);
+            }
+        });
+
+        return { 'names': ret, 'preview': self.artist_input.val() };
+    };
+
     self.initialize = initialize;
     self.update = update;
     self.addArtistBox = addArtistBox;
@@ -240,6 +262,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     self.render = render;
     self.isVariousArtists = isVariousArtists;
     self.clear = clear;
+    self.toData = toData;
 
     self.initialize ();
 

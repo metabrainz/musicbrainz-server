@@ -273,6 +273,8 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     };
 
     var collapse = function (chained) {
+        self.edits.saveEdits (self.tracklist, self.tracks);
+
         /* Free up memory used for the tracklist.
            FIXME: shouldn't do this immediatly, but only after N other discs
            have been opened. */
@@ -321,6 +323,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
 
     var loadTracklist = function (data) {
 
+        self.tracklist = data;
         self.removeTracks (data.length);
 
         $.each (data, function (idx, trk) {
@@ -347,6 +350,8 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.title = $('#id-mediums\\.'+self.number+'\\.name');
     self.position_input = $('#id-mediums\\.'+self.number+'\\.position');
     self.format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
+
+    self.edits = MB.Control.ReleaseEdits ($('#mediums\\.'+self.number+'\\.edits'));
 
     self.buttons = $('#mediums\\.'+self.number+'\\.buttons');
     self.expand_icon = self.buttons.find ('a.expand.icon');

@@ -1,5 +1,6 @@
 [%- BLOCK layout_head -%]
   <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.5.custom.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/json/json2.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/TrackParser.js') %]" type="text/javascript"></script>
@@ -70,6 +71,10 @@
 
       [% multidisc = form.field('mediums').fields.size > 1 %]
       [% FOR medium_field=form.field('mediums').fields %]
+
+      <h1>textarea</h1>
+      [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: block' }) %]
+      <hr />
 
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         <table class="basic-format">

@@ -83,8 +83,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     };
 
     var updatePreview = function () {
-        self.trackparser.run ();
-        self.preview.render ();
+        if (self.trackparser)
+        {
+            self.trackparser.run ();
+            self.preview.render ();
+        }
     };
 
     var collapse = function (chained) {
