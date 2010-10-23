@@ -72,9 +72,7 @@
       [% multidisc = form.field('mediums').fields.size > 1 %]
       [% FOR medium_field=form.field('mediums').fields %]
 
-      <h1>textarea</h1>
-      [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: block' }) %]
-      <hr />
+      [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
 
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         <table class="basic-format">

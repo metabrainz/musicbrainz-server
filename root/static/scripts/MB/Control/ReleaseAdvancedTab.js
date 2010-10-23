@@ -40,8 +40,6 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     var render = function (data) {
         self.position.val (data.position);
         self.title.val (data.name);
-//        self.id.val (data.id);
-//        self.preview.val (data.preview);
         self.length.val (data.length);
         self.deleted.val (data.deleted);
         if (data.artist_credit)
@@ -272,7 +270,15 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         return parseInt (self.position_input.val ());
     };
 
+    var submit = function () {
+        if (self.expanded)
+        {
+            self.edits.saveEdits (self.tracklist, self.tracks);
+        }
+    };
+
     var collapse = function (chained) {
+        self.expanded = false;
         self.edits.saveEdits (self.tracklist, self.tracks);
 
         /* Free up memory used for the tracklist.
@@ -294,19 +300,26 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     };
 
     var expand = function (chained) {
-        if (!self.tracklist)
+        self.expanded = true;
+        var data = self.edits.loadEdits ();
+
+        var use_data = function (data) {
+            self.loadTracklist (data); 
+            if (chained) { 
+                self.basic.loadTracklist (data);
+            }
+        };
+
+        if (data)
         {
-            $.getJSON (
-                '/ws/js/tracklist/' + self.basic.tracklist_id.val (),
-                {}, function (data) {
-                    /* FIXME: ignore result if the disc has been
-                    collapsed in the meantime.  --warp. */
-                    self.loadTracklist (data); 
-                    if (chained) { 
-                        self.basic.loadTracklist (data);
-                    } 
-                }
-            );
+            use_data (data);
+        }
+        else if (!self.tracklist)
+        {
+            /* FIXME: ignore result if the disc has been collapsed in 
+               the meantime.  --warp. */
+            var tracklist_id = self.basic.tracklist_id.val ();
+            $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, use_data);
         }
 
         self.table.show ();
@@ -324,10 +337,19 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     var loadTracklist = function (data) {
 
         self.tracklist = data;
+
         self.removeTracks (data.length);
 
         $.each (data, function (idx, trk) {
-            trk.position = idx + 1;
+            if (!trk.hasOwnProperty ('position'))
+            {
+                trk.position = idx + 1;
+            }
+
+            if (!trk.hasOwnProperty ('deleted'))
+            {
+                trk.deleted = 0;
+            }
             self.getTrack (idx).render (trk);
         });
 
@@ -339,6 +361,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
 
     self.number = parseInt (self.fieldset.attr ('id').match ('advanced-disc\.([0-9]+)')[1]);
 
+    self.expanded = false;
     self.tracklist = null;
     self.tracks = [];
     self.sorted_tracks = [];
@@ -373,6 +396,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.moveDown = moveDown;
     self.moveUp = moveUp;
     self.position = position;
+    self.submit = submit;
     self.collapse = collapse;
     self.expand = expand;
     self.loadTracklist = loadTracklist;
@@ -501,8 +525,10 @@ MB.Control.ReleaseAdvancedTab = function () {
         self.discs.push (MB.Control.ReleaseDisc ($(item), self));
     });
 
-    $('form').bind ('submit', function () {
-        self.tab.find ('tr.track td.artist input').removeAttr('disabled');
+    $('form.release-editor').bind ('submit', function () {
+        $.each (self.discs, function (idx, disc) {
+            disc.submit ();
+        });
     });
 
     return self;

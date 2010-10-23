@@ -86,7 +86,12 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     var update = function(event, data) {
         if (data.name)
         {
-            self.render (data);
+            self.render ({
+                'artist_name': data.name,
+                'name': data.name,
+                'gid': data.gid,
+                'id': data.id
+            });
             self.container.renderPreview();
         }
 

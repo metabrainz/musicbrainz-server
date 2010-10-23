@@ -118,9 +118,21 @@ MB.Control.ReleaseEdits = function ($edits) {
         }
     };
 
+    var loadEdits = function () {
+        var data = self.$edits.val ();
+
+        if (data)
+        {
+            data = JSON.parse (data);
+        }
+
+        return data;
+    };
+
     self.artistChanges = artistChanges;
     self.trackChanges = trackChanges;
     self.saveEdits = saveEdits;
+    self.loadEdits = loadEdits;
 
     self.$edits = $edits;
 
