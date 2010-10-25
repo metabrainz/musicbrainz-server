@@ -18,7 +18,7 @@ sub _parse_rdfa_graph {
     my $html_parser = HTML::HTML5::Parser->new;
     my $document    = $html_parser->parse_string($html);
     my $parser = RDF::RDFa::Parser->new(fix_document($document), 
-					"http://ex.com",
+					"http://example.com",
 					RDF::RDFa::Parser::OPTS_HTML5)->consume;
     return $parser->graph() ;
 }
