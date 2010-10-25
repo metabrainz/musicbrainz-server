@@ -469,14 +469,6 @@ END -%]
 [%# Release #%]
 [%###########%]
 
-[%- MACRO rdfa_release_index_tbody(relase) BLOCK; -%]
-[%- IF doRDFa -%] about="[%- rdfa_release_curi(release) -%]" [%- END -%]
-[%- END -%]
-
-[%- MACRO rdfa_release_index_span_tracklist(medium) BLOCK; -%]
-  [%- IF doRDFa -%] about="[%- rdfa_tracklist_curi(medium) -%]" typeof="[%- rdfa_concept_curi('medium') -%]" [%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_link_release_header(release) BLOCK;
   IF doRDFa;
     action = action || 'show';
