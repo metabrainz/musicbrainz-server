@@ -113,8 +113,8 @@ sub group_tracks_by_name
         my %groups;
         foreach my $track (@$tracks) {
             my $name = lc $track->{name};
-            $name =~ s/[ .()-:]+//g;
             $name =~ s/\s+\(feat\. .*?\)//g;
+            $name =~ s/[ .()-:!?'"]+//g;
             unless (exists $groups{$name}) {
                 $groups{$name} = [];
             }
@@ -296,7 +296,7 @@ Sql::run_in_transaction(sub {
 
     printf STDERR " - Loading PUIDs with multiple tracks\n";
     $sql->select("
-        SELECT p.puid, t.id, t.name, t.artist, t.length, a.album
+        SELECT p.puid, t.id, unaccent(t.name) as name, t.artist, t.length, a.album
         FROM public.track t
             JOIN public.albumjoin a ON a.track=t.id
             JOIN public.puidjoin ON t.id=puidjoin.track
@@ -325,7 +325,7 @@ Sql::run_in_transaction(sub {
 
     printf STDERR "Processing ISRCs with multiple tracks\n";
     $sql->select("
-        SELECT p.isrc, t.id, t.name, t.artist, t.length, a.album
+        SELECT p.isrc, t.id, unaccent(t.name) as name, t.artist, t.length, a.album
         FROM public.track t
             JOIN public.albumjoin a ON a.track=t.id
             JOIN public.isrc i ON i.track=t.id

@@ -1,13 +1,13 @@
 [%- USE r = FormRenderer(taglookup) -%]
 <div class="searchform">
     <form action="[% c.uri_for_action('/taglookup/index') %]" method="get">
-        [% form_row_text(r, 'artist', l('Artist:')) %]
-        [% form_row_text(r, 'release', l('Release:')) %]
+        [% form_row_text_long(r, 'artist', l('Artist:')) %]
+        [% form_row_text_long(r, 'release', l('Release:')) %]
         [% form_row_text(r, 'tracknum', l('Track #:')) %]
-        [% form_row_text(r, 'track', l('Track:')) %]
+        [% form_row_text_long(r, 'track', l('Track:')) %]
         [% form_row_text(r, 'duration', l('Duration:')) %]
-        [% form_row_text(r, 'filename', l('Filename:')) %]
-        [% form_row_text(r, 'puid', l('PUID:')) %]
+        [% form_row_text_long(r, 'filename', l('Filename:')) %]
+        [% form_row_text_long(r, 'puid', l('PUID:')) %]
 
         <div class="row no-label">
         [% form_submit(l('Search')) %]

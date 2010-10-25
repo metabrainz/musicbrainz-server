@@ -32,6 +32,17 @@
          [% form_row_textarea (r, 'editnote', 'Edit note') %]
        </fieldset>
 
+       [% IF c.user.is_auto_editor %]
+       <div class="row no-label">
+         <div class="auto-editor">
+             [% r.checkbox('as_auto_editor') %]
+             [% r.label('as_auto_editor',
+                 l('Enable {autoed|auto-editor} privileges for this edit.',
+                    { autoed = doc_link('Auto-Editor') }), inline => 1) %]
+         </div>
+       </div>
+       [% END %]
+
        <div class="buttons ui-helper-clearfix">
          [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
          [% r.submit ('previous', l('« Previous')) %]

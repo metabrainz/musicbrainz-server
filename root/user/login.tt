@@ -28,7 +28,7 @@
             </div>
         [% END %]
 
-        [% form_row_checkbox(r, 'remember_me', l('Login permanently')) %]
+        [% form_row_checkbox(r, 'remember_me', l('Keep me logged in')) %]
 
         <div class="row no-label">
             [% form_submit(l('Log In')) %]

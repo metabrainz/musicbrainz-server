@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::CDStub;
 use Moose;
+use MusicBrainz::Server::Validation qw( is_valid_discid );
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -13,7 +14,25 @@ sub _load
 {
     my ($self, $c, $id) = @_;
 
+    if (!is_valid_discid($id)) {
+        $c->stash(
+                template  => 'cdstub/error.tt',
+                not_valid => 1,
+                discid    => $id
+                );
+        $c->detach;
+        return;
+    }
     my $cdstubtoc = $c->model('CDStubTOC')->get_by_discid($id);
+    if (!$cdstubtoc) {
+        $c->stash(
+                template  => 'cdstub/error.tt',
+                not_found => 1,
+                discid    => $id
+                );
+        $c->detach;
+        return;
+    }
     $c->model('CDStub')->load($cdstubtoc);
     $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->cdstub);
 

@@ -69,6 +69,11 @@ h1 span {
     width: 300px;
 }
 
+#release-editor fieldset select#id-language_id,
+#release-editor fieldset select#id-script_id {
+    width: 180px;
+}
+
 #release-editor fieldset input[type=checkbox],
 #release-editor fieldset span.partial-date input {
     width: auto;
@@ -283,26 +288,17 @@ span.add-recording { color: #999; }
 
 /* __________________________________
 
-                BUTTONS
+            BUTTONS / ICONS
    __________________________________ */
 
-a img {
-    cursor: pointer;
-    border: 0;
-    margin: 0;
-}
-
-a.remove-label img,
-a.disc-remove-track img { opacity: 0.2; }
-a.disc-add-track img { opacity: 0.4; }
-
-a.remove-label:focus img,
-a.remove-label:hover img,
-a.disc-add-track:focus img,
-a.disc-add-track:hover img,
-a.disc-remove-track:focus img,
-a.disc-remove-track:hover img {
-    opacity: 1;
-}
-
 td.buttons { display: table-cell; }
+
+#release-editor div.documentation a.icon,
+#release-editor fieldset a.icon { text-decoration: none; }
+
+#release-editor div.documentation .ui-icon,
+#release-editor fieldset .ui-icon { display: inline-block; opacity: 0.4 }
+#release-editor fieldset a.disc-remove-track .ui-icon { opacity: 0.2 }
+#release-editor div.documentation .ui-icon:hover,
+#release-editor fieldset .ui-icon:hover { opacity: 1 }
+

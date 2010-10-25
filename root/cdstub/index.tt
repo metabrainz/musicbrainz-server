@@ -91,11 +91,7 @@
           <tr>
             <th>[%- l('Total length:') -%]</th>
             <td>
-              [% total = 0 %]
-              [% FOREACH i IN cdstubtoc.cdstub.tracks;
-                  total = total + i.length;
-              END %]
-              [% total | format_length %]</td>
+              [% cdstubtoc.length | format_length %]</td>
           </tr>
           <tr>
             <th>[%- l('Full TOC:') -%]</th>

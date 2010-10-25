@@ -180,8 +180,8 @@
 
       <div id="mediums.[% loop.index %].updown"
            style="float: right; margin: 20px 20px 0 0; font-weight: bolder; font-size: 150%;" >
-          <a href="#discdown">&darr;</a>
-          <a href="#discup">&uarr;</a>
+          <a class="icon" href="#discdown"><span class="ui-icon ui-icon-arrowthick-1-s">[% l('down') %]</span></a>
+          <a class="icon" href="#discup"><span class="ui-icon ui-icon-arrowthick-1-n">[% l('up') %]</span></a>
       </div>
 
       <div class="advanced-medium-format-and-title">
@@ -219,8 +219,8 @@
             </td>
             <td class="delete">
               [% r.hidden(track.field('deleted')) %]
-              <a class="disc-remove-track" href="#remove_track">
-                <img src="[% c.uri_for('/static/images/release_editor/remove-track.png') %]" title="Remove Track" />
+              <a class="icon disc-remove-track" href="#remove_track">
+                <span class="ui-icon ui-icon-closethick">[% l('Remove Track') %]</span>
               </a>
             </td>
           </tr>
@@ -236,8 +236,8 @@
       </div>
 
       <div style="float: right; margin: 0px 10px 10px 10px;">
-        <a id="mediums.[% loop.index %].add_track" class="disc-add-track" href="#add_track">
-           <img src="[% c.uri_for('/static/images/release_editor/add-track.png') %]" title="Add Track" />
+        <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track">
+          <span class="ui-icon ui-icon-plusthick">[% l('Add Track') %]</span>
         </a>
       </div>
 

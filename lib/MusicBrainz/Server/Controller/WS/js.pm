@@ -8,6 +8,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Readonly;
 use Text::Trim;
 use Data::OptList;
@@ -75,6 +76,8 @@ sub _autocomplete_entity {
         $c->detach('bad_req');
     }
 
+    my $model = type_to_model ($type);
+
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
         $c, $type, $query.'*', $limit, $page, 1, undef, $no_redirect);
@@ -87,12 +90,14 @@ sub _autocomplete_entity {
 
         for my $result (@{ $response->{results} })
         {
+            my $entity = $c->model($model)->get_by_gid ($result->{entity}->gid);
+
             push @output, {
                 name => $result->{entity}->name,
-                id => $result->{entity}->id,
+                id => $entity->id,
                 gid => $result->{entity}->gid,
                 comment => $result->{entity}->comment,
-            };
+            } if $entity;
         }
 
         push @output, {

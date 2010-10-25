@@ -34,6 +34,11 @@ has_field 'comment' => (
     maxlength => 255
 );
 
+has_field 'ipi_code' => (
+    type      => 'Text',
+    maxlength => 11
+);
+
 has_field 'not_dupe' => (
     type => 'Boolean',
 );
@@ -41,7 +46,7 @@ has_field 'not_dupe' => (
 sub edit_field_names
 {
     return qw( name sort_name type_id gender_id country_id
-               begin_date end_date comment );
+               begin_date end_date comment ipi_code );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }

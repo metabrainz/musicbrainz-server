@@ -92,8 +92,14 @@
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]
       [% form_row_select (r, 'status_id', 'Status') %]
+
+      <div style="float: right; margin: 10px;" class="buttons">
+        <a href="#language_script_full">[% l('Show full lists') %]</a>
+      </div>
+
       [% form_row_select (r, 'language_id', 'Language') %]
       [% form_row_select (r, 'script_id', 'Script') %]
+
     </fieldset>
 
     <fieldset>
@@ -119,8 +125,8 @@
 
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
-            <a class="remove-label" href="#remove_label">
-              <img src="[% c.uri_for('/static/images/release_editor/remove-label.png') %]" title="Remove Label" />
+            <a class="icon remove-label" href="#remove_label">
+              <span class="ui-icon ui-icon-closethick" title="[% l('Remove Label') %]">[% l('Remove Label') %]</span>
             </a>
           </span>
 

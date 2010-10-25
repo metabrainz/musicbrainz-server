@@ -25,6 +25,7 @@ CREATE TABLE artist (
     country             INTEGER, -- references country.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255),
+    ipicode             VARCHAR(11),
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 
@@ -476,6 +477,7 @@ CREATE TABLE label (
     type                INTEGER, -- references label_type.id
     country             INTEGER, -- references country.id
     comment             VARCHAR(255),
+    ipicode             VARCHAR(11),
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 
@@ -734,8 +736,8 @@ CREATE TABLE release_meta
 
 CREATE TABLE release_coverart
 (
-    id                  INTEGER NOT NULL, -- PK, references release.id
-    coverfetched        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
+    coverfetched        TIMESTAMP WITH TIME ZONE,
     coverarturl         VARCHAR(255)
 );
 
