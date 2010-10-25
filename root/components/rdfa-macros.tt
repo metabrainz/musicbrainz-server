@@ -330,14 +330,14 @@ END -%]
 END -%]
 
 
-[%# Artist details tab -%]
+[%# Artist details tab %]
 [%- MACRO rdfa_mbid(mbid) BLOCK;
  '<span property="mo:musicbrainz_guid" datatype="xsd:string">' IF doRDFa;
  '' _ mbid _ '';
  '</span>' IF doRDFa;
 END -%]
 
-[%# Artist alias tab -%]
+[%# Artist alias tab %]
 [%- MACRO rdfa_alias(alias, entity) BLOCK;
   IF doRDFa;
     type = "$entity";
@@ -565,24 +565,14 @@ END -%]
 [%# TrackList %]
 [%############%]
 
-[%- MACRO rdfa_medium_ns(medium) BLOCK -%]
-   [%- IF doRDFa -%] xmlns:medium="[%- rdfa_tracklist_curi(medium) -%]" [%- END -%]
-[%- END -%]
-
-[%- MACRO rdfa_tracklist_track_ns(recording) BLOCK -%]
-   [%- IF doRDFa -%] xmlns:rec="[%- rdfa_recording_uri(recording) -%]" [%- END -%]
-[%- END -%]
-
-[%# assumes rdfa_medium_ns -%]
 [%- MACRO rdfa_link_recording_as_track(recording, action, text) BLOCK;
   IF doRDFa;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
     text = html_escape(text) || html_escape(recording.name);
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
-    '<span about="[medium:]" rel="mo:track" resource="[track:]"></span>';
     '<span property="dct:title rdfs:label" xml:lang="" content="' _ text _ '"></span>';
-    '<a rel="mo:publication_of" resource="[rec:]" href="' _ link _ '"><span about="[track:]" property="dct:title rdfs:label">' _ text _ '</span></a>';
+    '<a rel="mo:publication_of" resource="' _ rdfa_recording_curi(recording) _ '" href="' _ link _ '"><span property="dct:title rdfs:label" xml:lang="">' _ text _ '</span></a>';
     '</span>' IF recording.edits_pending AND action == 'show';
   ELSE;
     link_recording(recording, action, text);
