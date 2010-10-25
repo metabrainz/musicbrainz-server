@@ -516,20 +516,23 @@ MB.Control.ReleaseAdvancedTab = function () {
         }
     };
 
+    var submit = function (event) {
+        $.each (self.discs, function (idx, disc) {
+            disc.submit (event);
+        });
+    };
+
     self.tab = $('div.advanced-tracklist');
     self.discs = [];
     self.addDisc = addDisc;
     self.moveDisc = moveDisc;
+    self.submit = submit;
 
     self.tab.find ('fieldset.advanced-disc').each (function (idx, item) {
         self.discs.push (MB.Control.ReleaseDisc ($(item), self));
     });
 
-    $('form.release-editor').bind ('submit', function () {
-        $.each (self.discs, function (idx, disc) {
-            disc.submit ();
-        });
-    });
+    $('form.release-editor').bind ('submit', self.submit);
 
     return self;
 };

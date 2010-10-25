@@ -31,200 +31,200 @@ __PACKAGE__->config(
     namespace => 'release_editor'
 );
 
-sub search_result
-{
-    my ($self, $c, $recording) = @_;
+# sub search_result
+# {
+#     my ($self, $c, $recording) = @_;
 
-    my @extra;
+#     my @extra;
 
-    my ($tracks, $hits) = $c->model('Track')->find_by_recording ($recording->id, 6, 0);
+#     my ($tracks, $hits) = $c->model('Track')->find_by_recording ($recording->id, 6, 0);
 
-    $c->model('ReleaseGroup')->load(map { $_->tracklist->medium->release } @{ $tracks });
+#     $c->model('ReleaseGroup')->load(map { $_->tracklist->medium->release } @{ $tracks });
 
-    my %rgs = map {
-        $_->tracklist->medium->release->release_group_id =>
-            $_->tracklist->medium->release->release_group
-    } @{ $tracks };
+#     my %rgs = map {
+#         $_->tracklist->medium->release->release_group_id =>
+#             $_->tracklist->medium->release->release_group
+#     } @{ $tracks };
 
-    my @rgs = sort { $a->name cmp $b->name } values %rgs;
+#     my @rgs = sort { $a->name cmp $b->name } values %rgs;
 
-    $c->model('ArtistCredit')->load ($recording);
+#     $c->model('ArtistCredit')->load ($recording);
 
-    return SearchResult->new ({
-        entity => $recording,
-        position => 1,
-        score => 100,
-        extra => \@rgs,
-    });
-}
+#     return SearchResult->new ({
+#         entity => $recording,
+#         position => 1,
+#         score => 100,
+#         extra => \@rgs,
+#     });
+# }
 
-sub recording_suggestions
-{
-    my ($self, $c, $changes, @prepend) = @_;
+# sub recording_suggestions
+# {
+#     my ($self, $c, $changes, @prepend) = @_;
 
-    my $query = escape_query($changes->track->name);
-    my $artist = escape_query($changes->track->artist_credit->name);
-    my $limit = 10;
+#     my $query = escape_query($changes->track->name);
+#     my $artist = escape_query($changes->track->artist_credit->name);
+#     my $limit = 10;
 
-    # FIXME: can we include track length too?  Might be useful in some searches... --warp.
-    my $response = $c->model ('Search')->external_search (
-        $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
+#     # FIXME: can we include track length too?  Might be useful in some searches... --warp.
+#     my $response = $c->model ('Search')->external_search (
+#         $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
 
-    my @results;
-    @results = @{ $response->{results} } if $response->{results};
+#     my @results;
+#     @results = @{ $response->{results} } if $response->{results};
 
-    $changes->suggestions ([ @prepend, @results ]);
-}
+#     $changes->suggestions ([ @prepend, @results ]);
+# }
 
-sub track_add
-{
-    my ($self, $c, $suggest_recordings, $newdata) = @_;
+# sub track_add
+# {
+#     my ($self, $c, $suggest_recordings, $newdata) = @_;
 
-    delete $newdata->{id};
+#     delete $newdata->{id};
 
-    $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
-    my $new = Track->new($newdata);
+#     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
+#     my $new = Track->new($newdata);
 
-    my $t = TrackChangesPreview->new (track => $new);
+#     my $t = TrackChangesPreview->new (track => $new);
 
-    $self->recording_suggestions ($c, $t) if $suggest_recordings;
+#     $self->recording_suggestions ($c, $t) if $suggest_recordings;
 
-    return $t;
-}
+#     return $t;
+# }
 
-sub track_compare
-{
-    my ($self, $c, $suggest_recordings, $newdata, $old) = @_;
+# sub track_compare
+# {
+#     my ($self, $c, $suggest_recordings, $newdata, $old) = @_;
 
-    $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
+#     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
 
-    my $new = Track->new($newdata);
-    my $preview = TrackChangesPreview->new (track => $new);
+#     my $new = Track->new($newdata);
+#     my $preview = TrackChangesPreview->new (track => $new);
 
-    $preview->deleted(1) if $newdata->{deleted};
-    $preview->renamed(1) if $old->name ne $new->name;
+#     $preview->deleted(1) if $newdata->{deleted};
+#     $preview->renamed(1) if $old->name ne $new->name;
 
-    return $preview unless $suggest_recordings;
+#     return $preview unless $suggest_recordings;
 
-    my @suggest;
-    if ($old->id == $new->id)
-    {
-        # if this track is already linked to a recording, add that recording as
-        # the first suggestion.
-        @suggest = ( $self->search_result ($c, $old->recording) );
-    }
+#     my @suggest;
+#     if ($old->id == $new->id)
+#     {
+#         # if this track is already linked to a recording, add that recording as
+#         # the first suggestion.
+#         @suggest = ( $self->search_result ($c, $old->recording) );
+#     }
 
-    if ($preview->renamed)
-    {
-        # the track was renamed, tying it to the old recording (which probably still
-        # has the old track name) may be a mistake.  Search for similar recordings to
-        # offer the user a choice.
+#     if ($preview->renamed)
+#     {
+#         # the track was renamed, tying it to the old recording (which probably still
+#         # has the old track name) may be a mistake.  Search for similar recordings to
+#         # offer the user a choice.
 
-        $self->recording_suggestions ($c, $preview, @suggest);
-    }
-    else
-    {
-        $preview->suggestions (\@suggest);
-    }
+#         $self->recording_suggestions ($c, $preview, @suggest);
+#     }
+#     else
+#     {
+#         $preview->suggestions (\@suggest);
+#     }
 
-    return $preview;
-}
+#     return $preview;
+# }
 
-sub tracklist_compare
-{
-    my ($self, $c, $suggest_recordings, $new_medium, $old_medium) = @_;
+# sub tracklist_compare
+# {
+#     my ($self, $c, $suggest_recordings, $new_medium, $old_medium) = @_;
 
-    my @new;
-    my @old;
+#     my @new;
+#     my @old;
 
-    # first, only check moves/deletes.
-    @new = @{ $new_medium->{tracklist}->{tracks} };
-    @old = @{ $old_medium->tracklist->tracks } if $old_medium;
+#     # first, only check moves/deletes.
+#     @new = @{ $new_medium->{tracklist}->{tracks} };
+#     @old = @{ $old_medium->tracklist->tracks } if $old_medium;
 
-    my $maxnew = scalar @new;
-    my $maxold = scalar @old;
+#     my $maxnew = scalar @new;
+#     my $maxold = scalar @old;
 
-    my @to_delete;
-    for (my $i = $maxold; $i < $maxnew; $i++)
-    {
-        my $trackpos = $new[$i]->{position} - 1;
+#     my @to_delete;
+#     for (my $i = $maxold; $i < $maxnew; $i++)
+#     {
+#         my $trackpos = $new[$i]->{position} - 1;
 
-        next if ($i == $trackpos);
+#         next if ($i == $trackpos);
 
-        if ($new[$trackpos]->{deleted})
-        {
-            my $recording_backup = $new[$trackpos]->{id};
-            $new[$trackpos] = $new[$i];
-            $new[$trackpos]->{id} = $recording_backup;
+#         if ($new[$trackpos]->{deleted})
+#         {
+#             my $recording_backup = $new[$trackpos]->{id};
+#             $new[$trackpos] = $new[$i];
+#             $new[$trackpos]->{id} = $recording_backup;
 
-            push @to_delete, $i;
-        }
-    }
+#             push @to_delete, $i;
+#         }
+#     }
 
-    # delete new tracks which replace existing tracks (moves/renames).
-    while (@to_delete)
-    {
-        delete($new[pop @to_delete]);
-    }
+#     # delete new tracks which replace existing tracks (moves/renames).
+#     while (@to_delete)
+#     {
+#         delete($new[pop @to_delete]);
+#     }
 
-    my @ret;
-    while (@old)
-    {
-        push @ret, $self->track_compare ($c, $suggest_recordings, shift @new, shift @old);
-    }
+#     my @ret;
+#     while (@old)
+#     {
+#         push @ret, $self->track_compare ($c, $suggest_recordings, shift @new, shift @old);
+#     }
 
-    # any tracks left over after removing new tracks which replace existing
-    # tracks are added tracks.
-    while (@new)
-    {
-        push @ret, $self->track_add ($c, $suggest_recordings, shift @new);
-    }
+#     # any tracks left over after removing new tracks which replace existing
+#     # tracks are added tracks.
+#     while (@new)
+#     {
+#         push @ret, $self->track_add ($c, $suggest_recordings, shift @new);
+#     }
 
-    $new_medium->{tracklist}->{changes} = \@ret;
-    return $new_medium;
-}
+#     $new_medium->{tracklist}->{changes} = \@ret;
+#     return $new_medium;
+# }
 
-sub suggest_recordings
-{
-    my ($self, $c, $data, $release) = @_;
+# sub suggest_recordings
+# {
+#     my ($self, $c, $data, $release) = @_;
 
-    return $self->release_compare ($c, $data, $release, 1);
-}
+#     return $self->release_compare ($c, $data, $release, 1);
+# }
 
-sub release_compare
-{
-    my ($self, $c, $data, $release, $suggest_recordings) = @_;
+# sub release_compare
+# {
+#     my ($self, $c, $data, $release, $suggest_recordings) = @_;
 
-    my @old_media;
-    my @new_media;
+#     my @old_media;
+#     my @new_media;
 
-    @old_media = @{ $release->mediums } if $release;
-    @new_media = @{ $data->{mediums} };
+#     @old_media = @{ $release->mediums } if $release;
+#     @new_media = @{ $data->{mediums} };
 
-    while (!defined $new_media[-1]->{tracklist})
-    {
-        # remove trailing empty discs.
-        pop @new_media;
-    }
+#     while (!defined $new_media[-1]->{tracklist})
+#     {
+#         # remove trailing empty discs.
+#         pop @new_media;
+#     }
 
-    if (scalar @old_media > scalar @new_media)
-    {
-        die ("removing discs is not yet supported.\n");
-    }
+#     if (scalar @old_media > scalar @new_media)
+#     {
+#         die ("removing discs is not yet supported.\n");
+#     }
 
-    my @ret;
-    while (@old_media)
-    {
-        push @ret, $self->tracklist_compare ($c, $suggest_recordings, shift @new_media, shift @old_media);
-    }
+#     my @ret;
+#     while (@old_media)
+#     {
+#         push @ret, $self->tracklist_compare ($c, $suggest_recordings, shift @new_media, shift @old_media);
+#     }
 
-    while (@new_media)
-    {
-        push @ret, $self->tracklist_compare ($c, $suggest_recordings, shift @new_media);
-    }
+#     while (@new_media)
+#     {
+#         push @ret, $self->tracklist_compare ($c, $suggest_recordings, shift @new_media);
+#     }
 
-    return \@ret;
-}
+#     return \@ret;
+# }
 
 # this just loads the remaining bits of a release, not yet loaded by
 # 'load' and '_load_tracklist'.
@@ -551,7 +551,7 @@ sub run
         $self->cancelled($c);
     }
     elsif ($wizard->current_page eq 'recordings') {
-        $self->associate_recordings($c, $wizard, $release);
+        $self->prepare_recordings($c, $wizard, $release);
     }
     elsif ($wizard->current_page eq 'editnote' || $wizard->submitted) {
         my $previewing = !$wizard->submitted; 
@@ -608,35 +608,94 @@ sub load
 
 sub associate_recordings
 {
-    my ($self, $c, $wizard, $release) = @_;
-    $c->model('Recording')->load($release->all_tracks) if $release;
-    my $suggestions = $self->suggest_recordings($c, $wizard->value, $release);
+    my ($self, $c, $edits, $tracklists) = @_;
 
-    my $associations = [];
-    for my $medium (@$suggestions)
+    my @ret;
+    my @recordings;
+    
+    my $count = 0;
+    for (@$edits)
     {
-        my $medium_assoc = [];
-        for my $track (@{ $medium->{tracklist}->{changes} })
+        warn "name: ".$_->{name}." eq ".$tracklists->tracks->[$count]->name."\n";
+        if ($_->{name} eq $tracklists->tracks->[$count]->name)
         {
-            my $rec;
-
-            if (scalar @{ $track->suggestions } == 1 || $track->renamed)
-            {
-                $rec = $track->suggestions->[0]->entity->gid;
-            }
-
-            # the space in gid is a hack, the form doesn't create the required
-            # inputs with just an empty string. --warp.
-            push @$medium_assoc, $rec ? { gid => $rec } : { gid => ' ' };
+            push @recordings, $tracklists->tracks->[$count]->recording_id;
+            push @ret, $tracklists->tracks->[$count]->recording_id;
+        }
+        else
+        {
+            push @ret, undef;
         }
 
-        push @$associations, { associations => $medium_assoc };
+        $count += 1;
     }
 
-    $c->stash->{suggestions} = $suggestions;
+    my $recordings = $c->model('Recording')->get_by_ids (@recordings);
+    $c->model('ArtistCredit')->load(values %$recordings);
 
-    $wizard->load_page('recordings', { 'preview_mediums' => $associations });
+    return map { $_ ? $recordings->{$_} : undef } @ret;
+}
 
+sub edited_tracklist
+{
+    my ($self, $tracks) = @_;
+
+    return [ sort { $a->{position} > $b->{position} } grep { ! $_->{deleted} } @$tracks ];
+}
+
+
+sub prepare_recordings
+{
+    my ($self, $c, $wizard, $release) = @_;
+
+    my $json = JSON::Any->new;
+
+    my @recording_gids  = @{ $wizard->value->{rec_mediums} };
+    my @tracklist_edits = @{ $wizard->value->{mediums} };
+
+    my $tracklists = $c->model('Tracklist')->get_by_ids(map {
+        $_->{tracklist_id} } grep { defined $_->{edits} } @tracklist_edits);
+
+    $c->model('Track')->load_for_tracklists (values %$tracklists);
+
+    my @suggestions;
+
+    my $count = -1;
+    for (@tracklist_edits)
+    {
+        $count += 1;
+
+        $_->{edits} = $self->edited_tracklist ($json->decode ($_->{edits}))
+            if $_->{edits};
+
+        # FIXME: we don't want to loose previously created associations 
+        # here, however... if the tracklist has been edited since making
+        # these choices those associations could be wrong.  Perhaps a
+        # javascript warning when going back?  For now, just wipe the
+        # slate clean on loading this page. 
+
+        $recording_gids[$count]->{tracklist_id} = $_->{tracklist_id};
+
+        if (defined $_->{edits}) {
+            my @recordings = $self->associate_recordings (
+                $c, $_->{edits}, $tracklists->{$_->{tracklist_id}});
+
+            $suggestions[$count] = \@recordings;
+
+            $recording_gids[$count]->{associations} = [ 
+                map { { 'gid' => $_ ? $_->gid : undef } } @recordings
+            ];
+        }
+        else
+        {
+            $recording_gids[$count]->{associations} = [ ];
+        }
+    }
+
+    $c->stash->{suggestions} = \@suggestions;
+    $c->stash->{tracklist_edits} = \@tracklist_edits;
+
+    $wizard->load_page('recordings', { 'rec_mediums' => \@recording_gids });
 }
 
 sub create_common_edits
