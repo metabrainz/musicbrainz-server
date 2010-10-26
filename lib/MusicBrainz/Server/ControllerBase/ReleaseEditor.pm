@@ -606,6 +606,22 @@ sub load
     $wizard->initialize($release);
 }
 
+sub _load_release_groups
+{
+    my ($self, $c, $recording) = @_;
+
+    my ($tracks, $hits) = $c->model('Track')->find_by_recording ($recording->id, 6, 0);
+
+    $c->model('ReleaseGroup')->load(map { $_->tracklist->medium->release } @{ $tracks });
+
+    my @rgs = sort { $a->name cmp $b->name } map {
+            $_->tracklist->medium->release->release_group
+    } @{ $tracks };
+
+    return \@rgs;
+}
+
+
 sub associate_recordings
 {
     my ($self, $c, $edits, $tracklists) = @_;
@@ -616,7 +632,6 @@ sub associate_recordings
     my $count = 0;
     for (@$edits)
     {
-        warn "name: ".$_->{name}." eq ".$tracklists->tracks->[$count]->name."\n";
         if ($_->{name} eq $tracklists->tracks->[$count]->name)
         {
             push @recordings, $tracklists->tracks->[$count]->recording_id;
@@ -632,6 +647,15 @@ sub associate_recordings
 
     my $recordings = $c->model('Recording')->get_by_ids (@recordings);
     $c->model('ArtistCredit')->load(values %$recordings);
+
+    $c->stash->{appears_on} = {} unless $c->stash->{appears_on};
+
+    for (values %$recordings)
+    {
+        next unless $_;
+
+        $c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($c, $_);
+    }
 
     return map { $_ ? $recordings->{$_} : undef } @ret;
 }
