@@ -231,10 +231,6 @@ INSERT INTO release_meta (id, lastupdate, dateadded)
     SELECT r.id, lastupdate, dateadded FROM
         tmp_new_release r JOIN public.albummeta am ON r.album=am.id;
 
--- release_coverart for all releases
-INSERT INTO release_coverart (id)
-    SELECT id FROM release;
-
 -- convert release events with non-empty label or catno to release_label
 INSERT INTO release_label (release, label, catno)
     SELECT id, label, catno FROM public.release
