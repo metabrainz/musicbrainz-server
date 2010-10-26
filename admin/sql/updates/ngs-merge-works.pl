@@ -134,6 +134,25 @@ Sql::run_in_transaction(sub {
 
     open LOG, ">upgrade-merge-works.log";
 
+	# Use remastered recordings
+    printf STDERR "Processing remastered and karaoke recordings\n";
+	
+    $sql->select("
+        SELECT link0, link1
+        FROM public.l_track_track l
+            JOIN public.track r0 ON r0.id = l.link0
+            JOIN public.track r1 ON r1.id = l.link1
+        WHERE l.link_type in (3, 16) 
+            AND r0.artist = r1.artist
+        ");
+    while (1) {
+        my $link = $sql->next_row_ref or last;
+        add_merge($link->[0], $link->[1]);
+        $targets{$link->[0]} = 1;
+        printf LOG "Same work: $link->[0] => $link->[1]\n";
+    }
+    $sql->finish;
+
 	# Use recordings linked to multiple works with the default AR
     printf STDERR "Processing recordings linked to multiple works\n";
 
@@ -169,7 +188,7 @@ Sql::run_in_transaction(sub {
     $sql->finish;
 
 	# Use URL: lyrics.wikia, score, ...
-    printf STDERR "Processing lyrics and score URLs\n";
+    printf STDERR "Processing work URLs (lyrics, score, ...)\n";
 
     $sql->select("
         SELECT lrw.entity0 AS url, w.id, n.name, w.artist_credit as artist
@@ -182,7 +201,7 @@ Sql::run_in_transaction(sub {
                 SELECT entity0 FROM l_url_work
                 GROUP BY entity0 HAVING count(*)>1
             ) u ON u.entity0=lrw.entity0
-		WHERE lt.name in ('score', 'lyrics')
+		WHERE lt.name in ('score', 'lyrics', 'ibdb', 'iobdb')
         ORDER BY u.entity0, w.id
     ");
     $i = 1;
@@ -200,11 +219,6 @@ Sql::run_in_transaction(sub {
     }
     process_works([ @works ]) if @works;
     $sql->finish;
-	
-	# Use remastered recordings
-    #printf STDERR "Processing remastered recordings\n";
-	
-	#TODO
 	
     # Generate a "new_id -> [ old_id ]" map from "old_id -> new_id"
 

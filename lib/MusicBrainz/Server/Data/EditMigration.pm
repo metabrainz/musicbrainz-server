@@ -109,6 +109,7 @@ my $tmp_recording_merge;
 sub resolve_recording_id
 {
     my ($self, $id) = @_;
+    return 0 unless $id;
     $tmp_recording_merge ||=
         $self->construct_map('tmp_recording_merge',
                              'old_rec' => 'new_rec');
@@ -120,6 +121,7 @@ my $tmp_release_merge;
 sub resolve_release_id
 {
     my ($self, $id) = @_;
+    return 0 unless $id;
     $tmp_release_merge ||=
         $self->construct_map('tmp_release_merge',
                              'old_rel' => 'new_rel');
@@ -167,7 +169,7 @@ sub artist_name
         $self->sql->select_list_of_hashes(q{
             SELECT artist.id, name.name FROM artist
               JOIN artist_name name ON artist.name=name.id
-        }));
+        }), 'id' => 'name');
 
     return $artist_name->{$id} || sprintf '[ Artist #%d ]', $id;
 }
@@ -186,6 +188,7 @@ my $album_release_ids;
 sub album_release_ids
 {
     my ($self, $album_id) = @_;
+    return [] unless $album_id;
 
     $album_release_ids ||= do {
 

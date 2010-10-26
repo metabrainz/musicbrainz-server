@@ -61,6 +61,15 @@ sub upgrade
 }
 
 sub deserialize_previous_value { my $self = shift; return shift; }
+sub deserialize_new_value {
+    my ($self, $value) = @_;
+    if ($value eq 'DELETE') {
+        return { FullToc => '', CDTOCId => 0, AlbumId => 0 }
+    }
+    else {
+        $self->deserialize($value);
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

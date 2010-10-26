@@ -13,9 +13,7 @@ augment 'upgrade' => sub
 {
     my $self = shift;
 
-    my ($junk, @attributes) = split /=/, $self->new_value->{old_attribute};
-    my $all_attrs = join "=", @attributes;
-    @attributes = split / /, $all_attrs;
+    my @attributes = split / /, $self->new_value->{attribute} || '';
 
     my %types = (
         album => 'release',
@@ -32,11 +30,12 @@ augment 'upgrade' => sub
             map {
                 my ($name, $min_max) = split /=/, $_;
                 my ($min, $max) = split /-/, $min_max;
-                (
+
+                +{
                     name => $name,
-                    min  => $min,
-                    max  => $max
-                )
+                    min  => $min || 0,
+                    max  => $max || 0
+                }
             } @attributes
         ]
     };

@@ -56,17 +56,16 @@ sub upgrade_release_status
 {
     my $status_id = shift;
 
-
     # Status' have their own table, so they don't have the 100 offset as before.
     # They are also indexed from 1, not 0
-    $status_id -= 99 if defined $status_id;
-
-    return $status_id;
+    return unless defined $status_id && $status_id ne "";
+    return $status_id - 99;
 }
 
 sub upgrade_type_and_status
 {
     my $type_and_status = shift;
+    return (undef, undef) unless $type_and_status;
 
     my ($type_id, $status_id) = split /,/, $type_and_status;
     if ($type_id && $type_id >= 100) {

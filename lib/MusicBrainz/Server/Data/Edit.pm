@@ -151,6 +151,7 @@ sub escape
     $str =~ s/\n/\\n/g;
     $str =~ s/\t/\\t/g;
     $str =~ s/\r/\\r/g;
+    $str =~ s/\\/\\\\/g;
     return $str;
 }
 

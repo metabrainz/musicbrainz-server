@@ -17,7 +17,8 @@ has '+data' => (
         recording_id    => Int,
         old_artist_id   => Int,
         old_artist_name => Str,
-        new_artist_id   => Int
+        new_artist_id   => Int,
+        new_artist_name => Str
     ]
 );
 
@@ -54,6 +55,7 @@ sub upgrade
         old_artist_id   => $self->artist_id,
         old_artist_name => $self->previous_value,
         new_artist_id   => $self->new_value->{artist_id},
+        new_artist_name => $self->new_value->{name},
     });
 
     return $self;
@@ -69,7 +71,7 @@ sub deserialize_new_value
     return {
         name      => $name,
         sort_name => $sort_name,
-        artist_id => $id
+        artist_id => $id || 0  # Some edits appear to lack this - 1792375
     }
 }
 

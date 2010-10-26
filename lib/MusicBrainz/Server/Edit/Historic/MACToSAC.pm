@@ -61,11 +61,14 @@ sub upgrade
 {
     my ($self) = @_;
 
+    my $target = $self->artist_id == 1 ? $self->new_value->{artist_id} :
+                                         $self->artist_id;
+
     $self->data({
         release_ids   => $self->album_release_ids($self->row_id),
         artist_name   => $self->new_value->{name},
-        new_artist_id => $self->new_value->{artist_id},
-        old_artist_id => $self->artist_id
+        new_artist_id => $target || 0,
+        old_artist_id => 1
     });
 
     return $self;
@@ -76,17 +79,23 @@ sub deserialize_new_value
     my ($self, $value) = @_;
 
     my %deserialized;
+    if ($value =~ /\n/) {
+        @deserialized{qw( sort_name name artist_id move_tracks)} =
+            split /\n/, $value;
 
-    @deserialized{qw( sort_name name artist_id move_tracks)} =
-        split /\n/, $value;
+        if ($deserialized{'name'} =~ /\A\d+\z/ && !defined $deserialized{'artist_id'})
+        {
+            $deserialized{'move_tracks'} = $deserialized{'artist_id'};
+            $deserialized{'artist_id'}   = $deserialized{'name'};
+        }
 
-    if ($deserialized{'name'} =~ /\A\d+\z/ && !defined $deserialized{'artist_id'})
-    {
-        $deserialized{'move_tracks'} = $deserialized{'artist_id'};
-        $deserialized{'artist_id'}   = $deserialized{'name'};
+        $deserialized{'name'} = delete $deserialized{sort_name};
     }
-
-    $deserialized{'name'} = delete $deserialized{sort_name};
+    else {
+        $deserialized{move_tracks} = 0;
+        $deserialized{artist_id} = 0;
+        $deserialized{name} = $value;
+    }
 
     return \%deserialized;
 }

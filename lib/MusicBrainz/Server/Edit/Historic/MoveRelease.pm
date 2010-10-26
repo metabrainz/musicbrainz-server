@@ -91,8 +91,13 @@ sub deserialize_new_value
 
     my %deserialized;
 
-    # new.name might be undef (in which case, name==sortname)
-    @deserialized{qw( sort_name artist_name artist_id move_tracks)} = split /\n/, $new;
+    if ($new =~ /\n/) {
+        # new.name might be undef (in which case, name==sortname)
+        @deserialized{qw( sort_name artist_name artist_id move_tracks)} = split /\n/, $new;
+    }
+    else {
+        %deserialized = ( artist_name => $new );
+    }
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
     if ($deserialized{artist_name} =~ /^\d+$/ && !defined $deserialized{artist_id}) {
@@ -100,7 +105,10 @@ sub deserialize_new_value
         $deserialized{artist_id}   = $deserialized{artist_name};
     }
 
-    $deserialized{artist_name} = delete $deserialized{sort_name};
+    $deserialized{move_tracks} ||= 0;
+    $deserialized{artist_id} ||= 0;
+    $deserialized{artist_name} = delete $deserialized{sort_name}
+        if $deserialized{sort_name};
 
     return \%deserialized;
 }

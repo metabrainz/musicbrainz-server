@@ -19,9 +19,7 @@ sub upgrade_values
             grep { /^$prefix/ } keys %$values
     };
 
-    my ($junk, @attributes) = split /=/, $values->{attribute};
-    my $all_attrs = join '=', @attributes;
-    @attributes = split / /, $all_attrs;
+    my @attributes = split / /, $self->new_value->{attribute};
 
     my $mapped = {
         parent              => $values->{parent},
@@ -37,8 +35,8 @@ sub upgrade_values
 
                 +{
                     name => $name,
-                    min  => $min,
-                    max  => $max
+                    min  => $min || 0,
+                    max  => $max || 0
                 }
             } @attributes
         ]
