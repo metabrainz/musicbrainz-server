@@ -62,7 +62,7 @@ my @t = localtime(time());
 my $timestamp = sprintf "%d-%d-%d %d:%02d:%02d" , $t[5] + 1900, $t[4] + 1, $t[3], $t[2], $t[1], $t[0];
 for my $url (values %urls) {
     my $put = join("\t", $url->{id}, $url->{gid}, escape($url->{url}),
-                   escape($url->{description}), $url->{ref_count}, 0, $timestamp) . "\n";
+                   escape($url->{description}), $url->{refcount}, 0, $timestamp) . "\n";
 
     $sql->dbh->pg_putcopydata($put);
     printf "%d\r", $i++;
