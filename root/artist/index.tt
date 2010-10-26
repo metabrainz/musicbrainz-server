@@ -43,11 +43,15 @@
             </table>
             [% END %]
         [%- END -%]
-    [%- ELSE -%]
-        <p>[% l('No release groups found') %]</p>
     [%- END -%]
 
     [% IF va_only && pager.total_entries == 0 %]
+        <p>[% l('This artist does not have any release groups') %]</p>
+    [% ELSE %]
+        [% IF release_groups.size == 0 %]
+            <p>[% l('No release groups found') %]</p>
+        [% END %]
+
         [% IF va_only %]
             <p>[% l('This artist only has release groups by various artists.') %]</p>
         [% ELSE %]
