@@ -350,12 +350,10 @@ eval {
 
         # FIXME merge in medium order
         $sql->do("
+             SELECT * INTO TEMPORARY merge_ann
+               FROM multi_disc_annotations an
+              WHERE release IN (" . placeholders(@$disc_set) . ");
             INSERT INTO tmp_merged_annotation (text, id, changelog, editor, created, release)
-            WITH merge_ann AS (
-                 SELECT *
-                   FROM multi_disc_annotations an
-                  WHERE release IN (" . placeholders(@$disc_set) . ")
-            )
             SELECT annotation_append(annotations.text) AS text,
                    nextval('annotation_id_seq') AS id, changelog, editor,
                    created, ?::int
@@ -369,6 +367,7 @@ eval {
                    ) annotations
             GROUP BY id, created, changelog, editor
             ORDER BY created;
+            DROP TABLE merge_ann;
         ", @$disc_set, $disc_set->[0]);
     }
 
