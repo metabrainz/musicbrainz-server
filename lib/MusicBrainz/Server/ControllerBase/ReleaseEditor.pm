@@ -5,9 +5,9 @@ use Encode;
 use JSON::Any;
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
-use aliased 'MusicBrainz::Server::Entity::TrackChangesPreview';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Wizard;
 
@@ -31,165 +31,64 @@ __PACKAGE__->config(
     namespace => 'release_editor'
 );
 
-# sub search_result
-# {
-#     my ($self, $c, $recording) = @_;
+sub _tracks_from_edits
+{
+    my ($self, $edits, $recording_gids, $recording_hash) = @_;
 
-#     my @extra;
+    my $json = JSON::Any->new;
 
-#     my ($tracks, $hits) = $c->model('Track')->find_by_recording ($recording->id, 6, 0);
+    my @ret;
+    my $edited = $self->edited_tracklist ($json->decode ($edits));
 
-#     $c->model('ReleaseGroup')->load(map { $_->tracklist->medium->release } @{ $tracks });
+    for (@$edited)
+    {
+        my $ac = ArtistCredit->from_array ([
+            map {
+                { artist => $_->{id}, name => $_->{name} },
+                $_->{join}
+            } @{ $_->{artist_credit}->{names} }
+        ]);
 
-#     my %rgs = map {
-#         $_->tracklist->medium->release->release_group_id =>
-#             $_->tracklist->medium->release->release_group
-#     } @{ $tracks };
+        push @ret, Track->new ({
+            length => unformat_track_length ($_->{length}),
+            name => $_->{name},
+            position => $_->{position},
+            artist_credit => $ac,
+        });
+    }
 
-#     my @rgs = sort { $a->name cmp $b->name } values %rgs;
+    return \@ret;
+}
 
-#     $c->model('ArtistCredit')->load ($recording);
+sub release_compare
+{
+    my ($self, $c, $data, $release) = @_;
 
-#     return SearchResult->new ({
-#         entity => $recording,
-#         position => 1,
-#         score => 100,
-#         extra => \@rgs,
-#     });
-# }
+    my %recordings;
 
-# sub recording_suggestions
-# {
-#     my ($self, $c, $changes, @prepend) = @_;
+    my @recording_gids = map {
+        map { $_->{gid} } @{ $_->{associations} } 
+    } @{ $data->{rec_mediums} };
 
-#     my $query = escape_query($changes->track->name);
-#     my $artist = escape_query($changes->track->artist_credit->name);
-#     my $limit = 10;
+    my $recording_hash = { map {
+        $_->gid => $_
+    } values %{ $c->model('Recording')->get_by_gids (@recording_gids) } };
 
-#     # FIXME: can we include track length too?  Might be useful in some searches... --warp.
-#     my $response = $c->model ('Search')->external_search (
-#         $c, 'recording', "$query artist:\"$artist\"", $limit, 1, 1);
+    my $count = 0;
+    for (@{ $data->{mediums} })
+    {
+        next unless $_->{edits};
 
-#     my @results;
-#     @results = @{ $response->{results} } if $response->{results};
+        my $recording_gids = $data->{rec_mediums}->[$count]->{assocations};
+        $_->{tracks} = $self->_tracks_from_edits (
+            $_->{edits}, $recording_gids, $recording_hash);
 
-#     $changes->suggestions ([ @prepend, @results ]);
-# }
+        $count += 1;
+    }
+    
+    return $data->{mediums};
+}
 
-# sub track_add
-# {
-#     my ($self, $c, $suggest_recordings, $newdata) = @_;
-
-#     delete $newdata->{id};
-
-#     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
-#     my $new = Track->new($newdata);
-
-#     my $t = TrackChangesPreview->new (track => $new);
-
-#     $self->recording_suggestions ($c, $t) if $suggest_recordings;
-
-#     return $t;
-# }
-
-# sub track_compare
-# {
-#     my ($self, $c, $suggest_recordings, $newdata, $old) = @_;
-
-#     $newdata->{artist_credit} = ArtistCredit->from_array ($newdata->{artist_credit});
-
-#     my $new = Track->new($newdata);
-#     my $preview = TrackChangesPreview->new (track => $new);
-
-#     $preview->deleted(1) if $newdata->{deleted};
-#     $preview->renamed(1) if $old->name ne $new->name;
-
-#     return $preview unless $suggest_recordings;
-
-#     my @suggest;
-#     if ($old->id == $new->id)
-#     {
-#         # if this track is already linked to a recording, add that recording as
-#         # the first suggestion.
-#         @suggest = ( $self->search_result ($c, $old->recording) );
-#     }
-
-#     if ($preview->renamed)
-#     {
-#         # the track was renamed, tying it to the old recording (which probably still
-#         # has the old track name) may be a mistake.  Search for similar recordings to
-#         # offer the user a choice.
-
-#         $self->recording_suggestions ($c, $preview, @suggest);
-#     }
-#     else
-#     {
-#         $preview->suggestions (\@suggest);
-#     }
-
-#     return $preview;
-# }
-
-# sub tracklist_compare
-# {
-#     my ($self, $c, $suggest_recordings, $new_medium, $old_medium) = @_;
-
-#     my @new;
-#     my @old;
-
-#     # first, only check moves/deletes.
-#     @new = @{ $new_medium->{tracklist}->{tracks} };
-#     @old = @{ $old_medium->tracklist->tracks } if $old_medium;
-
-#     my $maxnew = scalar @new;
-#     my $maxold = scalar @old;
-
-#     my @to_delete;
-#     for (my $i = $maxold; $i < $maxnew; $i++)
-#     {
-#         my $trackpos = $new[$i]->{position} - 1;
-
-#         next if ($i == $trackpos);
-
-#         if ($new[$trackpos]->{deleted})
-#         {
-#             my $recording_backup = $new[$trackpos]->{id};
-#             $new[$trackpos] = $new[$i];
-#             $new[$trackpos]->{id} = $recording_backup;
-
-#             push @to_delete, $i;
-#         }
-#     }
-
-#     # delete new tracks which replace existing tracks (moves/renames).
-#     while (@to_delete)
-#     {
-#         delete($new[pop @to_delete]);
-#     }
-
-#     my @ret;
-#     while (@old)
-#     {
-#         push @ret, $self->track_compare ($c, $suggest_recordings, shift @new, shift @old);
-#     }
-
-#     # any tracks left over after removing new tracks which replace existing
-#     # tracks are added tracks.
-#     while (@new)
-#     {
-#         push @ret, $self->track_add ($c, $suggest_recordings, shift @new);
-#     }
-
-#     $new_medium->{tracklist}->{changes} = \@ret;
-#     return $new_medium;
-# }
-
-# sub suggest_recordings
-# {
-#     my ($self, $c, $data, $release) = @_;
-
-#     return $self->release_compare ($c, $data, $release, 1);
-# }
 
 # sub release_compare
 # {
@@ -359,90 +258,54 @@ sub _edit_release_track_edits
 
     my $edit = $preview ? '_preview_edit' : '_create_edit';
 
-    my $changes = $self->release_compare ($c, $data, $release);
+    my $mediums = $self->release_compare ($c, $data, $release);
 
-    my $medium_idx = 0;
-    for my $medium (@$changes)
+    my $medium_idx = -1;
+    for my $new (@$mediums)
     {
-        my $tracklist_id = $medium->{tracklist}->{id};
+        $medium_idx++;
+
+        next unless $new->{edits};
+
+        my $tracklist_id = $new->{tracklist_id};
 
         if ($tracklist_id)
         {
             # We already have a tracklist, so lets create a tracklist edit
-            my @tracks;
-            my $track_idx = 0;
-            for my $trackchanges (@{ $medium->{tracklist}->{changes} }) {
-                my $rec_gid = $data->{preview_mediums}[$medium_idx]{associations}[$track_idx++]{gid};
-                next if $trackchanges->deleted; 
 
-                my $track = $trackchanges->track;
-                my $recording = $c->model('Recording')->get_by_gid($rec_gid);
-                $track->recording_id($recording->id)
-                    if $recording;
-
-                push @tracks, $track
-            }
-
-            @tracks = sort { $a->position <=> $b->position } @tracks;
-
-
-            my $medium_entity = $c->model('Medium')->get_by_id($medium->{id});
-            $c->model('Tracklist')->load($medium_entity);
-            $c->model('Track')->load_for_tracklists($medium_entity->tracklist);
-            $c->model('ArtistCredit')->load($medium_entity->tracklist->all_tracks);
+            my $old = $c->model('Medium')->get_by_id ($new->{id});
+            $c->model('Tracklist')->load ($old);
+            $c->model('Track')->load_for_tracklists ($old->tracklist);
+            $c->model('ArtistCredit')->load ($old->tracklist->all_tracks);
 
             $self->$edit($c,
                 $EDIT_MEDIUM_EDIT_TRACKLIST,
                 $editnote,
                 separate_tracklists => 1,
-                medium_id => $medium->{id},
-                tracklist_id => $tracklist_id,
-                old_tracklist => $medium_entity->tracklist,
-                new_tracklist => \@tracks,
+                medium_id => $new->{id},
+                tracklist_id => $new->{tracklist_id},
+                old_tracklist => $old->tracklist,
+                new_tracklist => $new->{tracks},
                 as_auto_editor => $data->{as_auto_editor},
             );
         }
-
-        if (!$tracklist_id && scalar @{ $medium->{'tracklist'}->{'tracks'} })
+        else
         {
-            my @tracks;
-            my $track_idx = 0;
-            for (@{ $medium->{'tracklist'}->{'tracks'} })
-            {
-                my $rec_gid = $data->{'preview_mediums'}->[$medium_idx]->{'associations'}->[$track_idx]->{'gid'};
-
-                my $recording;
-                $recording = $c->model ('Recording')->get_by_gid ($rec_gid) if $rec_gid;
-
-                my $trk = {
-                    name => $_->{name},
-                    length => $_->{length},
-                    artist_credit => artist_credit_to_ref($_->{artist_credit}),
-                    position => $_->{position},
-                };
-
-                $trk->{recording_id} = $recording->id if $recording;
-
-                push @tracks, $trk;
-
-                $track_idx++;
-            }
-
-            # We have some tracks but no tracklist ID - so create a new tracklist
             my $create_tl = $self->$edit($c,
-                $EDIT_TRACKLIST_CREATE, $editnote, tracks => \@tracks);
+                $EDIT_TRACKLIST_CREATE, $editnote, tracks => $new->{tracks});
 
             $tracklist_id = $create_tl->tracklist_id || 0;
         }
 
-        if ($medium->{'id'})
+
+        if ($new->{id})
         {
-            if ($medium->{'deleted'})
+            if ($new->{deleted})
             {
                 # Delete medium
                 $self->$edit($c,
                     $EDIT_MEDIUM_DELETE, $editnote,
-                    medium => $c->model('Medium')->get_by_id ($medium->{'id'}),
+                    medium => $c->model('Medium')->get_by_id ($new->{id}),
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
@@ -451,10 +314,10 @@ sub _edit_release_track_edits
                 # Edit medium
                 $self->$edit($c,
                     $EDIT_MEDIUM_EDIT, $editnote,
-                    name => $medium->{'name'},
-                    format_id => $medium->{'format_id'},
-                    position => $medium->{'position'},
-                    to_edit => $c->model('Medium')->get_by_id ($medium->{'id'}),
+                    name => $new->{name},
+                    format_id => $new->{format_id},
+                    position => $new->{position},
+                    to_edit => $c->model('Medium')->get_by_id ($new->{id}),
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
@@ -467,25 +330,23 @@ sub _edit_release_track_edits
                 release_id => $release ? $release->id : 0,
             };
 
-            $opts->{name} = $medium->{'name'} if $medium->{'name'};
-            $opts->{format_id} = $medium->{'format_id'} if $medium->{'format_id'};
+            $opts->{name} = $new->{name} if $new->{name};
+            $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
             # Add medium
-            my $add_medium = $self->$edit($c,$EDIT_MEDIUM_CREATE, $editnote, %$opts);
+            my $add_medium = $self->$edit($c, $EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
-            if ($medium->{position} != $medium_idx + 1)
+            if ($new->{position} != $medium_idx + 1)
             {
                 # Disc was inserted at the wrong position, enter an edit to re-order it.
                 $self->$edit($c,
                     $EDIT_MEDIUM_EDIT, $editnote,
-                    position => $medium->{position},
+                    position => $new->{position},
                     to_edit => $add_medium->entity,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
         }
-
-        $medium_idx++;
     }
 }
 

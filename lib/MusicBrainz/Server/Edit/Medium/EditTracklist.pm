@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::EditTracklist;
 use Moose;
 use namespace::autoclean;
-
+use Clone qw( clone );
 use Data::Compare;
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -61,6 +61,7 @@ sub alter_edit_pending
 sub related_entities
 {
     my $self = shift;
+
     return {
         release => [ map { $_->release_id } $self->mediums ],
         recording =>  [
@@ -78,7 +79,8 @@ sub related_entities
 sub artist_ids
 {
     my $self = shift;
-    map { $_->{artist} }
+
+    return map { $_->{artist} }
         grep { ref($_) } map { @{ $_->{artist_credit} } }
         @{ $self->data->{new_tracklist} },
         @{ $self->data->{old_tracklist} }
@@ -147,6 +149,8 @@ sub accept
 {
     my $self = shift;
 
+    my $data_new_tracklist = clone ($self->data->{new_tracklist});
+
     # Make sure the medium still has the same tracklist
     my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
@@ -160,7 +164,7 @@ sub accept
     ) if $medium->tracklist->track_count != @{ $self->data->{old_tracklist} };
 
     # Create related data (artist credits and recordings)
-    for my $track (@{ $self->data->{new_tracklist} }) {
+    for my $track (@{ $data_new_tracklist }) {
         $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
         $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
     }
@@ -177,13 +181,14 @@ sub accept
     }
     else {
         $self->c->model('Tracklist')->replace($medium->tracklist_id, 
-            $self->data->{new_tracklist});
+            $data_new_tracklist);
     }
 }
 
 sub foreign_keys
 {
     my ($self) = @_;
+
     return {
         Artist => [ $self->artist_ids ],
         Medium => {

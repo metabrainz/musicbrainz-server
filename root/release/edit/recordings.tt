@@ -37,6 +37,8 @@
       [%- edits = tracklist_edits.$medium_idx.edits -%]
       [%- NEXT UNLESS edits -%]
 
+      [%- r.hidden (rec_medium.field('tracklist_id')) -%]
+
       [%- medium = mediums.fields.$medium_idx -%]
 
       <fieldset class="recording-assoc-disc">
