@@ -47,7 +47,7 @@
         <p>[% l('No release groups found') %]</p>
     [%- END -%]
  
-    [% IF va_only %]
+    [% IF va_only && release_groups.size %]
         <p>[% l('This artist only has release groups by various artists.') %]</p>
     [% ELSE %]
         [% IF !show_va %]

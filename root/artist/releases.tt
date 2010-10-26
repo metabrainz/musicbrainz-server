@@ -5,7 +5,7 @@
         <p>[%- l('No releases found') -%]</p>
     [%- END -%]
  
-    [% IF va_only %]
+    [% IF va_only && releases.size %]
         <p>[% l('This artist only has releases by various artists.') %]</p>
     [% ELSE %]
         [% IF !show_va %]
