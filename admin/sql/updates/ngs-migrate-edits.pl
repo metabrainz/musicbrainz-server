@@ -40,7 +40,6 @@ printf "Upgrading edits!\n";
 my $count = 10105225;
 
 $limit *= $chunk;
-fetch_batch($limit, $offset);
 
 printf "Here we go!\n";
 
