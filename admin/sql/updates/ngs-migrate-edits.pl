@@ -7,6 +7,7 @@ use lib "$Bin/../../../lib";
 
 use DBDefs;
 use Getopt::Long;
+use IO::All;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use TryCatch;
@@ -14,14 +15,14 @@ use TryCatch;
 my $c = MusicBrainz::Server::Context->create_script_context;
 my $migration = $c->model('EditMigration');
 
-my $limit  = 1000;
+my $per_select = 1000000;
+my $per_copy = 100000;
 my $offset = 0;
-my $chunk  = 100000;
 
 GetOptions(
-    "chunks=i"  => \$limit,
+    "chunk=i"  => \$per_copy,
+    "select=i" => \$per_select,
     "offset=i" => \$offset,
-    "chunk-size=i"  => \$chunk
 );
 
 my @known_corrupt = (
@@ -31,15 +32,12 @@ my @known_corrupt = (
     1001582, 1025431, 1062521, 1062536
 );
 
-my @upgraded;
 my $sql = Sql->new($c->dbh);
 
 printf "Upgrading edits!\n";
 #my $count = $sql->select_single_value(
 #    'SELECT count(id) FROM public.moderation_closed');
 my $count = 10105225;
-
-$limit *= $chunk;
 
 printf "Here we go!\n";
 
@@ -57,15 +55,17 @@ $sql->do('
 ');
 $sql->commit;
 
-my @migrated_ids = ();
+my $file = io('edit-migration');
+$file < '';
 
 my $i = $offset;
+my @upgraded;
 while (1) {
     $sql->select('SELECT * FROM public.moderation_closed
                   WHERE id NOT IN (' . placeholders(@known_corrupt) . ')
                   ORDER BY id ASC
                   LIMIT ? OFFSET ?',
-                  @known_corrupt, $limit, $offset);
+                  @known_corrupt, $per_select, $offset);
 
     last if $sql->row_count == 0;
 
@@ -75,8 +75,7 @@ while (1) {
 
         try {
             my $upgraded = $historic->upgrade;
-            push @upgraded, $upgraded
-                if $upgraded;
+            push @upgraded, $upgraded;
         }
         catch ($err) {
             if ($err =~ /This data is corrupt and cannot be upgraded/) {
@@ -88,17 +87,22 @@ while (1) {
             }
         }
 
-        printf "%d/%d\r", $i++, $count;
+        printf "%d/%d\r", $i, $count
+            if $i++ % 100 == 0;
+
+        if (@upgraded == $per_copy) {
+            printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
+            $c->model('Edit')->insert(@upgraded, $file);
+            @upgraded = ();
+        }
     }
 
-
-    printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
-    $c->model('Edit')->insert(@upgraded);
-    push @migrated_ids, map { $_->id } @upgraded;
-    @upgraded = ();
-
-    $offset += $limit;
+    $offset += $per_select;
 }
+
+my @migrated_ids = @{ $raw_sql->select_single_column_list(
+    'SELECT id FROM edit'
+) };
 
 my $votes = $sql->select_list_of_lists('
     SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded

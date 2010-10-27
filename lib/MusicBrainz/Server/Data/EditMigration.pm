@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Data::EditMigration;
 use Moose;
 
+use DateTime::Format::Pg;
+use IO::All;
 use Memoize;
 use Module::Pluggable::Object;
 
@@ -223,6 +225,44 @@ sub link_attribute_from_name
          WHERE name = ?
          LIMIT 1
     }, $name);
+}
+
+sub escape
+{
+    my ($self, $str) = @_;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\t/\\t/g;
+    $str =~ s/\r/\\r/g;
+    $str =~ s/\\/\\\\/g;
+    return $str;
+}
+
+sub insert
+{
+    my ($self, $file, @edits) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $sql_raw = Sql->new($self->c->raw_dbh);
+
+    my @lines = map {
+        my $edit = $_;
+        join("\t",
+            $edit->id,
+            $edit->editor_id,
+            $edit->edit_type,
+            $edit->status,
+            $self->escape(pl2xml($edit->to_hash, NoAttr => 1)),
+            $edit->yes_votes,
+            $edit->no_votes,
+            $edit->auto_edit,
+            DateTime::Format::Pg->format_datetime($edit->created_time),
+            DateTime::Format::Pg->format_datetime($edit->close_time),
+            DateTime::Format::Pg->format_datetime($edit->expires_time),
+            '\N',
+            1
+        );
+    } @edits;
+
+    $file << join("\n", @lines);
 }
 
 no Moose;
