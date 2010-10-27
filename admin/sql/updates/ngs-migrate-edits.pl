@@ -49,11 +49,13 @@ $raw_sql->do('TRUNCATE edit CASCADE');
 $raw_sql->do("TRUNCATE edit_$_ CASCADE")
     for qw( artist label release release_group work recording );
 
+$sql->begin;
 $sql->do('CREATE UNIQUE INDEX puid_idx_puid ON puid (puid)');
 $sql->do('
     CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid);
     CREATE INDEX recording_puid_idx_puid ON recording_puid (puid);
 ');
+$sql->commit;
 
 my @migrated_ids = ();
 
