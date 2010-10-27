@@ -100,6 +100,10 @@ while (1) {
     $offset += $per_select;
 }
 
+printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
+$c->model('Edit')->insert(@upgraded, $file);
+@upgraded = ();
+
 my @migrated_ids = @{ $raw_sql->select_single_column_list(
     'SELECT id FROM edit'
 ) };
