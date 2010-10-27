@@ -23,7 +23,8 @@ INSERT INTO link_type (id, gid, entitytype0, entitytype1, name, linkphrase, rlin
     VALUES
         (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'artist', 'member', 'foo', 'oof', 'f'),
         (2, '254815bb-390a-4eed-bc50-1f25ba66fa68', 'artist', 'artist', 'support', 'foo', 'oof', 'f'),
-        (84, '2476be45-3090-43b3-a948-a8f972b4065c', 'release', 'url', 'cover art link', '-', '-', '-');
+        (84, '2476be45-3090-43b3-a948-a8f972b4065c', 'release', 'url', 'cover art link', '-', '-', '-'),
+        (83, '4f2e710d-166c-480c-a293-2e2c8d658d87', 'release', 'url', 'amazon asin', '', '', '');
 
 INSERT INTO link (id, link_type, attributecount) VALUES (1, 1, 0);
 
@@ -35,7 +36,8 @@ INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1);
 
 INSERT INTO release (id, gid, name, artist_credit, release_group)
-    VALUES (1, '7a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1);
+    VALUES (1, '7a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
+           (2, '7a906020-72db-11de-8a39-0800200c9a67', 1, 1, 1);
 
 ALTER SEQUENCE l_artist_artist_id_seq RESTART 2;
 

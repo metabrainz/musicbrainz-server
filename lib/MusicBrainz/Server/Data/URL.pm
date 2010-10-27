@@ -34,10 +34,12 @@ sub _columns
 sub _entity_class
 {
     my ($self, $row) = @_;
-    for my $class (keys %URL_SPECIALIZATIONS) {
-        my $regex = $URL_SPECIALIZATIONS{$class};
-        return "MusicBrainz::Server::Entity::URL::$class"
-            if ($row->{url} =~ $regex);
+    if ($row->{url}) {
+        for my $class (keys %URL_SPECIALIZATIONS) {
+            my $regex = $URL_SPECIALIZATIONS{$class};
+            return "MusicBrainz::Server::Entity::URL::$class"
+                if ($row->{url} =~ $regex);
+        }
     }
     return 'MusicBrainz::Server::Entity::URL';
 }

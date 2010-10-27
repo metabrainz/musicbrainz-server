@@ -43,7 +43,9 @@ sub lookup_cover_art
     my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
     return unless $asin;
 
-    my $url = "http://ecs.amazonaws.com/onca/xml?" .
+    my @parts = split /\./, $store;
+    my $locale = $parts[-1];
+    my $url = "http://ecs.amazonaws.$locale/onca/xml?" .
                   "Service=AWSECommerceService&" .
                   "Operation=ItemLookup&" .
                   "ItemId=$asin&" .
@@ -75,7 +77,7 @@ sub lookup_cover_art
     my $cover_art = CoverArt->new(
         provider        => $self,
         image_uri       => $image_url,
-        information_uri => $uri,
+        information_uri => $uri->as_string,
         asin            => $asin
     );
 
