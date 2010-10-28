@@ -8,28 +8,21 @@ use Module::Pluggable::Object;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-has 'edit_mapping' => (
-    isa        => 'HashRef',
-    is         => 'ro',
-    traits     => [ 'Hash' ],
-    lazy_build => 1,
-    handles    => {
-        class_for_type => 'get',
-    }
-);
+my %edit_mapping;
 
-sub _build_edit_mapping
+sub BUILD
 {
+    my $class = shift;
     my $mpo = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Edit::Historic',
         require     => 1
     );
 
-    return {
+    %edit_mapping = (
         map { $_->historic_type => $_ }
             grep { $_->can('historic_type') && $_->historic_type }
                 $mpo->plugins
-    };
+    );
 }
 
 sub _table { 'public.edit_all' }
@@ -43,7 +36,7 @@ sub _new_from_row
 {
     my ($self, $row) = @_;
 
-    my $class = $self->class_for_type($row->{type});
+    my $class = $edit_mapping{$row->{type}};
 
     if (!$class) {
         warn 'No handler for ' . $row->{type};
@@ -70,7 +63,7 @@ sub _new_from_row
     # Some edits do not set an artist ID
     $args{artist_id} = $row->{artist} if $row->{artist};
 
-    my $edit = $class->new(%args);
+    my $edit = $class->new(\%args);
 
     $edit->previous_value($edit->deserialize_previous_value($row->{prevvalue}));
     $edit->new_value($edit->deserialize_new_value($row->{newvalue}));
@@ -225,44 +218,6 @@ sub link_attribute_from_name
          WHERE name = ?
          LIMIT 1
     }, $name);
-}
-
-sub escape
-{
-    my ($self, $str) = @_;
-    $str =~ s/\n/\\n/g;
-    $str =~ s/\t/\\t/g;
-    $str =~ s/\r/\\r/g;
-    $str =~ s/\\/\\\\/g;
-    return $str;
-}
-
-sub insert
-{
-    my ($self, $file, @edits) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $sql_raw = Sql->new($self->c->raw_dbh);
-
-    my @lines = map {
-        my $edit = $_;
-        join("\t",
-            $edit->id,
-            $edit->editor_id,
-            $edit->edit_type,
-            $edit->status,
-            $self->escape(pl2xml($edit->to_hash, NoAttr => 1)),
-            $edit->yes_votes,
-            $edit->no_votes,
-            $edit->auto_edit,
-            DateTime::Format::Pg->format_datetime($edit->created_time),
-            DateTime::Format::Pg->format_datetime($edit->close_time),
-            DateTime::Format::Pg->format_datetime($edit->expires_time),
-            '\N',
-            1
-        );
-    } @edits;
-
-    $file << join("\n", @lines);
 }
 
 no Moose;

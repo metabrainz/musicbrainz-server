@@ -19,9 +19,12 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 sub upgrade_date
 {
     my $date = shift;
-    $date =~ s/^\s+//;
-    $date =~ s/\s+$//;
-    return partial_date_to_hash($date ? PartialDate->new($date) : PartialDate->new());
+    $date =~ /\s*(\d{4})?-?(\d{1,2})?-?(\d{1,2})?\s*/;
+    my $info = {};
+    $info->{year} = $1 if ($1 && $1 > 0);
+    $info->{month} = $2 if ($2 && $2 > 0);
+    $info->{day} = $3 if ($3 && $3 > 0);
+    return $info;
 }
 
 sub upgrade_id

@@ -1,12 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::ChangeReleaseQuality;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
 sub historic_type { 63 }
@@ -22,17 +22,6 @@ sub related_entities
         } @{ $self->data->{changes} } ]
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        changes => ArrayRef[Dict[
-            release_ids  => ArrayRef[Int],
-            release_name => Str,
-            old          => Dict[ quality => Int ],
-            new          => Dict[ quality => Int ],
-        ]]
-    ]
-);
 
 sub foreign_keys
 {
@@ -90,5 +79,4 @@ sub upgrade
     return $self;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;

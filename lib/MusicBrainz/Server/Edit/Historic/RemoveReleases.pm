@@ -1,27 +1,15 @@
 package MusicBrainz::Server::Edit::Historic::RemoveReleases;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MusicBrainz::Server::Data::Release;
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASES );
+use MusicBrainz::Server::Data::Release;
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { 'Remove releases' }
 sub historic_type { 24 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASES }
-
-has '+data' => (
-    isa => Dict[
-        releases => ArrayRef[
-            Dict[
-                id => Int,
-                name => Str
-            ],
-        ],
-    ]
-);
 
 sub foreign_keys
 {
@@ -75,6 +63,4 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

@@ -1,11 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::AddTrack;
-use Moose;
-use MooseX::Types::Structured qw( Dict Optional );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK );
 use Scalar::Util qw( looks_like_number );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { 'Add track' }
 sub historic_type { 7 }
@@ -19,15 +19,6 @@ sub related_entities
         release => $self->data->{release_ids}
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids => ArrayRef[Int],
-        name        => Str,
-        position    => Int,
-        artist_name => Optional[Str],
-    ]
-);
 
 sub release_ids { @{ shift->data->{release_ids} } }
 
@@ -89,7 +80,4 @@ sub deserialize_new_value
     return \%deserialized;
 }
 
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

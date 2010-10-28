@@ -1,12 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::MoveRelease;
-use Moose;
-use MooseX::Types::Structured qw( Dict Optional );
-use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_RELEASE );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { 'Move release' }
 sub historic_type { 8 }
@@ -19,16 +19,6 @@ sub related_entities
         release => $self->data->{release_ids},
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids     => ArrayRef[Int],
-        move_tracks     => Bool,
-        artist_name     => Str,
-        artist_id       => Int,
-        old_artist_name => Str
-    ]
-);
 
 sub release_ids { @{ shift->data->{release_ids} } }
 
@@ -113,6 +103,4 @@ sub deserialize_new_value
     return \%deserialized;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
