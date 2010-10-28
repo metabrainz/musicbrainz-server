@@ -3,7 +3,6 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Delete' }
 sub edit_type { 19 }
