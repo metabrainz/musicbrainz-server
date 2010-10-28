@@ -4,6 +4,9 @@ use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
+use MusicBrainz::Server::Edit::Historic::Utils
+    'upgrade_date', 'upgrade_id';
+
 my $value_mapping = {
     type_id    => \&upgrade_id,
     begin_date => \&upgrade_date,

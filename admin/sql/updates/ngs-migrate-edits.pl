@@ -28,7 +28,9 @@ my $raw_dbh = $c->raw_dbh;
 $raw_dbh->do('COPY edit FROM STDIN');
 
 my $dbh = $conn->dbh;
-$dbh->do('COPY interesting TO STDOUT WITH CSV');
+$dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
+
+printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
 my ($line, $i) = ('', 0);
 while ($dbh->pg_getcopydata($line)) {

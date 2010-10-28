@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::RemoveReleaseGroup;
 use strict;
-use warnings
+use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 

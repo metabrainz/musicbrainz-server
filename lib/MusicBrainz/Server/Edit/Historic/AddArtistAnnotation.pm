@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::AddArtistAnnotation;
 use strict;
-use warninsg;
+use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
@@ -25,16 +25,6 @@ sub extra_parameters
     return (
         annotation_id => $self->resolve_annotation_id($self->id) || 0
     );
-}
-
-sub deserialize_previous_value {
-    my ($self, $previous) = @_;
-    return $previous;
-}
-
-sub deserialize_new_value {
-    my ($self, $previous) = @_;
-    return $previous;
 }
 
 1;

@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::AddReleaseEvents;
 use strict;
-use warninsg;
+use warnings;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_ADD_RELEASE_EVENTS
