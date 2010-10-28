@@ -1,13 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::AddPUIDs;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { 'Add PUIDs' }
 sub edit_type { 47 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddPUIDs' }
 
-augment 'upgrade' => sub {
+sub do_upgrade {
     my ($self) = @_;
 
     my @puids;
@@ -24,7 +25,6 @@ return {
         client_version => $self->new_value->{ClientVersion},
         puids          => \@puids
     }
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;

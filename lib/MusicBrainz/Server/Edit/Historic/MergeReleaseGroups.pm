@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Edit::Historic::MergeReleaseGroups;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_type { 67 }
 sub edit_name { 'Merge artists' }
@@ -22,7 +23,7 @@ sub old_entities
     return [ @ents ];
 }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
     return {
@@ -32,8 +33,6 @@ augment 'upgrade' => sub
         },
         old_entities => $self->old_entities,
     };
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
 1;

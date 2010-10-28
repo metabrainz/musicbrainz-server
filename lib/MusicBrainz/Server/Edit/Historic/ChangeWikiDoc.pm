@@ -1,13 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::ChangeWikiDoc;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_type { 48 }
 sub edit_name { 'Change wikidoc' }
 sub ngs_class { 'MusicBrainz::Server::Edit::WikiDoc::Change' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
     my $old = $self->previous_value->{Rev};
@@ -23,6 +24,4 @@ augment 'upgrade' => sub
     }
 };
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
 1;

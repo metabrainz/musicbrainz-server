@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::EditLinkType;
-use Moose;
-use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_LINK_TYPE );
+use strict;
+use warnings;
 
+use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_LINK_TYPE );
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name     { 'Edit relationship type' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK_TYPE  }
@@ -48,7 +49,7 @@ sub upgrade_values
     return $mapped;
 }
 
-augment 'upgrade' => sub {
+sub do_upgrade {
     my $self = shift;
 
     my $old = $self->upgrade_values($self->new_value, 'old_');
@@ -64,7 +65,6 @@ augment 'upgrade' => sub {
     };
 
     return $data;
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;

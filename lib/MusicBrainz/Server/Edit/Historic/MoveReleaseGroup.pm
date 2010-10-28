@@ -1,14 +1,17 @@
 package MusicBrainz::Server::Edit::Historic::MoveReleaseGroup;
-use Moose;
+use strict;
+use warnings;
+
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { 'Move release group' }
 sub edit_type { 69 }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
-augment 'upgrade' => sub {
+sub do_upgrade
+{
     my $self = shift;
     return {
         entity_id => $self->row_id,
@@ -25,7 +28,7 @@ augment 'upgrade' => sub {
             ]
         }
     };
-};
+}
 
 sub deserialize_new_value
 {
