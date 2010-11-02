@@ -535,7 +535,7 @@ sub prepare_recordings
         $_->{edits} = $self->edited_tracklist ($json->decode ($_->{edits}))
             if $_->{edits};
 
-        # FIXME: we don't want to loose previously created associations
+        # FIXME: we don't want to lose previously created associations
         # here, however... if the tracklist has been edited since making
         # these choices those associations could be wrong.  Perhaps a
         # javascript warning when going back?  For now, just wipe the
