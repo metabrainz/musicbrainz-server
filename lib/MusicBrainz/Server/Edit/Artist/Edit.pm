@@ -32,6 +32,7 @@ sub change_fields
         gender_id  => Nullable[Int],
         country_id => Nullable[Int],
         comment    => Nullable[Str],
+        ipi_code   => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
     ];
@@ -68,6 +69,7 @@ sub build_display_data
         country    => [ qw( country_id Country )],
         name       => 'name',
         sort_name  => 'sort_name',
+        ipi_code   => 'ipi_code',
         comment    => 'comment',
     );
 

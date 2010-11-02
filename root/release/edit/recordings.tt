@@ -6,6 +6,7 @@
   <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseRecordings.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
 
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
   <script type="text/javascript">
     $('document').ready (function () {
@@ -132,8 +133,8 @@
 
         <p>
           Search: <input type="text" class="recording" value="" />
-          <a href="#cancel-search">
-            <img src="[% c.uri_for('/static/images/release_editor/cancel-search.png') %]" title="Cancel search" />
+          <a href="#cancel-search" class="icon">
+            <span class="ui-icon ui-icon-closethick">[% l('Cancel search') %]</span>
           </a>
         </p>
         <table class="matches">

@@ -16,9 +16,9 @@ INSERT INTO label_type (id, name) VALUES (1, 'Production');
 
 INSERT INTO label (id, gid, name, sortname, type, country, labelcode,
                    begindate_year, begindate_month, begindate_day,
-                   enddate_year, enddate_month, enddate_day, comment)
+                   enddate_year, enddate_month, enddate_day, comment, ipicode)
      VALUES (3, '46f0f4cd-8aab-4b33-b698-f459faf64190', 1, 1, 1, 1, 2070,
-             1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label');
+             1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label', '00407982339');
 
 INSERT INTO label (id, gid, name, sortname)
     VALUES (2, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 2, 2);
