@@ -6,6 +6,7 @@
   <script src="[% c.uri_for('/static/scripts/MB/TrackParser.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseEdits.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseBasicTab.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseAdvancedTab.js') %]" type="text/javascript"></script>
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
@@ -16,8 +17,6 @@
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
-
-      var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab, serialized_tracklists);
 
     });
   </script>
@@ -72,9 +71,9 @@
       [% multidisc = form.field('mediums').fields.size > 1 %]
       [% FOR medium_field=form.field('mediums').fields %]
 
-      [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
-
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
+        [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
+
         <table class="basic-format">
           <tr>
             <td class="expand" >
@@ -205,7 +204,7 @@
     </table>
 
     [% FOR medium_field=form.field('mediums').fields %]
-    <fieldset class="advanced-disc" id="advanced-disc.[% loop.index %]">
+    <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
       <legend>
         [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
       </legend>
@@ -230,7 +229,7 @@
       </div>
 
       <div class="tracklist-padding">
-      <table class="medium tbl" id="[% medium_field.html_name %]" style="display: none">
+      <table class="medium tbl" style="display: none">
         <thead>
           <tr>
             <th class="position">[% l('#') %]</th>

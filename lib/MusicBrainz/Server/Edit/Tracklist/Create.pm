@@ -1,19 +1,13 @@
 package MusicBrainz::Server::Edit::Tracklist::Create;
 use Carp;
 use Moose;
-use MusicBrainz::Server::Constants qw( $EDIT_TRACKLIST_CREATE );
-use MusicBrainz::Server::Edit::Types qw(
-    ArtistCreditDefinition
-    Nullable
-    NullableOnPreview
-);
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
-
-use MusicBrainz::Server::Edit::Utils qw(
-    load_artist_credit_definitions
-    artist_credit_from_loaded_definition
-);
+use MusicBrainz::Server::Constants qw( $EDIT_TRACKLIST_CREATE );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Utils qw( load_artist_credit_definitions artist_credit_from_loaded_definition );
+use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -36,12 +30,6 @@ has '+data' => (
         ]
     ]
 );
-
-after 'initialize' => sub {
-    my $self = shift;
-
-    return if $self->preview;
-};
 
 sub foreign_keys
 {

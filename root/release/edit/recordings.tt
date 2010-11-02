@@ -65,9 +65,15 @@
           </tr>
           </thead>
           <tbody>
-          [%- FOR assoc=rec_medium.field('associations').fields -%]
+          
+          [%#- FOR assoc=rec_medium.field('associations').fields -%]
+            [%#- track_idx = loop.index -%]
+            [%#- track = edits.$track_idx -%]
+            [%#- recording = suggestions.$medium_idx.$track_idx -%]
+
+          [%- FOR track=edits -%]
             [%- track_idx = loop.index -%]
-            [%- track = edits.$track_idx -%]
+            [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
             [%- recording = suggestions.$medium_idx.$track_idx -%]
             <tr class="track">
               <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position %]</td>

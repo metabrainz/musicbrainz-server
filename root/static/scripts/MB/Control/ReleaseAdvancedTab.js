@@ -319,7 +319,14 @@ MB.Control.ReleaseDisc = function (disc, parent) {
             /* FIXME: ignore result if the disc has been collapsed in 
                the meantime.  --warp. */
             var tracklist_id = self.basic.tracklist_id.val ();
-            $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, use_data);
+            if (tracklist_id)
+            {
+                $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, use_data);
+            }
+            else
+            {
+                use_data ([]);
+            }
         }
 
         self.table.show ();
@@ -335,6 +342,11 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     };
 
     var loadTracklist = function (data) {
+
+        if (!data)
+        {
+            data = [];
+        }
 
         self.tracklist = data;
 
@@ -359,7 +371,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.table = self.fieldset.find ('table.medium');
     self.artist_column_checkbox = self.table.find ('th.artist input');
 
-    self.number = parseInt (self.fieldset.attr ('id').match ('advanced-disc\.([0-9]+)')[1]);
+    self.number = parseInt (self.fieldset.attr ('id').match ('mediums\.([0-9]+)\.advanced-disc')[1]);
 
     self.expanded = false;
     self.tracklist = null;
@@ -405,6 +417,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.buttons.find ('a[href=#discup]').click (self.moveUp);
 
     self.expand_icon.click (function (event) {
+
         if (self.table.is (':visible'))
         {
             self.collapse ();
@@ -459,15 +472,17 @@ MB.Control.ReleaseAdvancedTab = function () {
             }
         };
 
-        newdisc_bas.find ("*").each (update_ids);
-        newdisc_adv.find ("*").each (update_ids);
+        newdisc_bas.find ("*").andSelf ().each (update_ids);
+        newdisc_adv.find ("*").andSelf ().each (update_ids);
 
         /* clear the cloned rowid for this medium and tracklist, so a
          * new medium and tracklist will be created. */
         $("#id-mediums\\."+discs+"\\.id").val('');
+        $("#id-mediums\\."+discs+"\\.name").val('');
         $("#id-mediums\\."+discs+"\\.position").val(discs + 1);
-        $("#id-mediums\\."+discs+"\\.tracklist\\.id").val('');
-        $('#id-mediums\\.'+discs+'\\.tracklist\\.serialized').val('[]');
+        $("#id-mediums\\."+discs+"\\.tracklist_id").val('');
+        $('#id-mediums\\.'+discs+'\\.deleted').val('0');
+        $('#id-mediums\\.'+discs+'\\.edits').val('');
 
         newdisc_bas.find ('textarea').empty ();
 

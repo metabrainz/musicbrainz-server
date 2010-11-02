@@ -184,7 +184,10 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
     };
 
     var newDisc = function (disc) {
-        self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview));
+        var ta = MB.Control.ReleaseTextarea (disc, self.preview);
+        self.textareas.push (ta);
+
+        ta.expand ();
     };
 
     self.adv = advancedtab;

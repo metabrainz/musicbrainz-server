@@ -67,7 +67,7 @@ sub release_compare
     my %recordings;
 
     my @recording_gids = map {
-        map { $_->{gid} } @{ $_->{associations} } 
+        map { $_->{gid} } @{ $_->{associations} }
     } @{ $data->{rec_mediums} };
 
     my $recording_hash = { map {
@@ -85,48 +85,11 @@ sub release_compare
 
         $count += 1;
     }
-    
+
     return $data->{mediums};
 }
 
-
-# sub release_compare
-# {
-#     my ($self, $c, $data, $release, $suggest_recordings) = @_;
-
-#     my @old_media;
-#     my @new_media;
-
-#     @old_media = @{ $release->mediums } if $release;
-#     @new_media = @{ $data->{mediums} };
-
-#     while (!defined $new_media[-1]->{tracklist})
-#     {
-#         # remove trailing empty discs.
-#         pop @new_media;
-#     }
-
-#     if (scalar @old_media > scalar @new_media)
-#     {
-#         die ("removing discs is not yet supported.\n");
-#     }
-
-#     my @ret;
-#     while (@old_media)
-#     {
-#         push @ret, $self->tracklist_compare ($c, $suggest_recordings, shift @new_media, shift @old_media);
-#     }
-
-#     while (@new_media)
-#     {
-#         push @ret, $self->tracklist_compare ($c, $suggest_recordings, shift @new_media);
-#     }
-
-#     return \@ret;
-# }
-
-# this just loads the remaining bits of a release, not yet loaded by
-# 'load' and '_load_tracklist'.
+# this just loads the remaining bits of a release, not yet loaded by 'load'
 sub _load_release
 {
     my ($self, $c, $release) = @_;
@@ -136,7 +99,6 @@ sub _load_release
     $c->model('ReleaseGroupType')->load($release->release_group);
     $c->model('Release')->annotation->load_latest ($release);
 }
-
 
 sub _preview_edit
 {
@@ -252,6 +214,23 @@ sub _edit_release_labels
     }
 }
 
+sub _tracks_to_ref
+{
+    my ($self, $tracklist) = @_;
+
+    my @ret = map {
+        {
+            name => $_->name,
+            length => $_->length,
+            artist_credit => artist_credit_to_ref ($_->artist_credit),
+            recording_id => $_->recording_id,
+            position => $_->position,
+        }
+    } @$tracklist;
+
+    return \@ret;
+}
+
 sub _edit_release_track_edits
 {
     my ($self, $c, $preview, $editnote, $data, $release) = @_;
@@ -284,15 +263,16 @@ sub _edit_release_track_edits
                 separate_tracklists => 1,
                 medium_id => $new->{id},
                 tracklist_id => $new->{tracklist_id},
-                old_tracklist => $old->tracklist,
-                new_tracklist => $new->{tracks},
+                old_tracklist => $self->_tracks_to_ref ($old->tracklist),
+                new_tracklist => $self->_tracks_to_ref ($new->{tracks}),
                 as_auto_editor => $data->{as_auto_editor},
             );
         }
         else
         {
-            my $create_tl = $self->$edit($c,
-                $EDIT_TRACKLIST_CREATE, $editnote, tracks => $new->{tracks});
+            my $create_tl = $self->$edit(
+                $c, $EDIT_TRACKLIST_CREATE, $editnote,
+                tracks => $self->_tracks_to_ref ($new->{tracks}));
 
             $tracklist_id = $create_tl->tracklist_id || 0;
         }
@@ -415,7 +395,7 @@ sub run
         $self->prepare_recordings($c, $wizard, $release);
     }
     elsif ($wizard->current_page eq 'editnote' || $wizard->submitted) {
-        my $previewing = !$wizard->submitted; 
+        my $previewing = !$wizard->submitted;
         my $data = $wizard->value;
         my $editnote = $data->{editnote};
         $release = $self->create_edits($c, $data, $previewing, $editnote, $release);
@@ -489,7 +469,7 @@ sub associate_recordings
 
     my @ret;
     my @recordings;
-    
+
     my $count = 0;
     for (@$edits)
     {
@@ -538,8 +518,10 @@ sub prepare_recordings
     my @recording_gids  = @{ $wizard->value->{rec_mediums} };
     my @tracklist_edits = @{ $wizard->value->{mediums} };
 
-    my $tracklists = $c->model('Tracklist')->get_by_ids(map {
-        $_->{tracklist_id} } grep { defined $_->{edits} } @tracklist_edits);
+    my $tracklists = $c->model('Tracklist')->get_by_ids(
+        map { $_->{tracklist_id} }
+        grep { defined $_->{edits} && defined $_->{tracklist_id} }
+        @tracklist_edits);
 
     $c->model('Track')->load_for_tracklists (values %$tracklists);
 
@@ -553,21 +535,21 @@ sub prepare_recordings
         $_->{edits} = $self->edited_tracklist ($json->decode ($_->{edits}))
             if $_->{edits};
 
-        # FIXME: we don't want to loose previously created associations 
+        # FIXME: we don't want to loose previously created associations
         # here, however... if the tracklist has been edited since making
         # these choices those associations could be wrong.  Perhaps a
         # javascript warning when going back?  For now, just wipe the
-        # slate clean on loading this page. 
+        # slate clean on loading this page.  --warp.
 
         $recording_gids[$count]->{tracklist_id} = $_->{tracklist_id};
 
-        if (defined $_->{edits}) {
+        if (defined $_->{edits} && defined $_->{tracklist_id}) {
             my @recordings = $self->associate_recordings (
                 $c, $_->{edits}, $tracklists->{$_->{tracklist_id}});
 
             $suggestions[$count] = \@recordings;
 
-            $recording_gids[$count]->{associations} = [ 
+            $recording_gids[$count]->{associations} = [
                 map { { 'gid' => $_ ? $_->gid : undef } } @recordings
             ];
         }
