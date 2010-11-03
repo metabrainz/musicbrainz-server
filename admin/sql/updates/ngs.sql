@@ -336,12 +336,19 @@ DROP INDEX tmp_track_name_name;
 ------------------------
 
 CREATE OR REPLACE FUNCTION clean_work_name(name TEXT) RETURNS TEXT AS $$
+DECLARE
+    trimmed TEXT;
 BEGIN
-    RETURN btrim(
-        regexp_replace(
-            regexp_replace(name, E'\\(feat. .*?\\)', ''),
-            E'\\(live(,.*?| at.*?)\\)', '')
-    );
+    trimmed := btrim(name);
+    IF substr(trimmed, 0, 1) = '(' THEN
+        RETURN trimmed;
+    ELSE
+        RETURN btrim(
+            regexp_replace(
+                regexp_replace(name, E'\\(feat. .*?\\)', ''),
+                    E'\\(live(,.*?| at.*?)\\)', '')
+        );
+    END IF;
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -382,6 +389,7 @@ INSERT INTO work (id, gid, name, artist_credit)
     );
 
 DROP INDEX tmp_work_name_name;
+DROP FUNCTION clean_work_name (TEXT);
 
 ------------------------
 -- Redirects
