@@ -23,7 +23,7 @@ after 'validate' => sub
     my $self = shift;
 
     # Don't check for dupes if the not_dupe checkbox is ticked, or the
-    # user hasn't changed the artist's name
+    # user hasn't changed the entity's name
     return if $self->field('not_dupe')->value;
     return if $self->init_object && $self->init_object->name eq $self->field('name')->value;
 

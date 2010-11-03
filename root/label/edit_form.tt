@@ -11,7 +11,7 @@
         <legend>[% l('Possible Duplicate Labels') %]</legend>
         <p>
             <strong class='warning'>[% l('Warning:') %]</strong>
-            [% l('You are attempting to add an label which appears to be very similar, if not exactly the same, as these existing labels:') %]
+            [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
             <ul>
                 [% FOREACH dupe=form.duplicates %]
                 <li>[% link_label(dupe) %] [% disambiguation(dupe) %]</li>
