@@ -55,7 +55,8 @@ echo `date` : Creating primary keys
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql
 
 #echo `date` : Collecting cover art URLs
-#./admin/RebuildCoverArtUrls.pl
+./admin/psql READWRITE < ./admin/sql/updates/ngs-fast-rebuild-coverart.sql
+./admin/RebuildCoverArtUrls.pl
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then

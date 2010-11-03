@@ -38,8 +38,8 @@ MB.Control.track_template = MB.utility.template (
         '</td>' +
         '<td class="delete">'+
         '  <input type="hidden" value="0" name="#{tracklist}.#{trackno}.deleted" id="id-#{tracklist}.#{trackno}.deleted" />' +
-        '  <a class="disc-remove-track" href="#remove_track">' +
-        '    <img src="/static/images/release_editor/remove-track.png" title="Remove Track" />' +
+        '  <a class="icon disc-remove-track" href="#remove_track">' +
+        '    <span class="ui-icon ui-icon-closethick">Remove Track</span>' +
         '  </a>' +
         '</td>' +
     '</tr>');

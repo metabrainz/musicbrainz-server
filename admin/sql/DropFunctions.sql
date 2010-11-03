@@ -29,3 +29,4 @@ DROP FUNCTION generate_uuid_v4();
 DROP FUNCTION inc_refcount(tbl varchar, row_id integer, val integer);
 DROP FUNCTION page_index(txt varchar);
 DROP FUNCTION page_index_max(txt varchar);
+DROP FUNCTION set_release_group_firstreleasedate(release_group_id INTEGER);

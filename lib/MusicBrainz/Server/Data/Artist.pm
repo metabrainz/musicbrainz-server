@@ -42,7 +42,7 @@ sub _table
 sub _columns
 {
     return 'artist.id, artist.gid, name.name, sortname.name AS sortname, ' .
-           'artist.type, artist.country, gender, artist.editpending, ' .
+           'artist.type, artist.country, gender, artist.editpending, artist.ipicode, ' .
            'begindate_year, begindate_month, begindate_day, ' .
            'enddate_year, enddate_month, enddate_day, artist.comment';
 }
@@ -71,6 +71,7 @@ sub _column_mapping
         end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
         edits_pending => 'editpending',
         comment => 'comment',
+        ipi_code => 'ipicode',
     };
 }
 
@@ -253,6 +254,7 @@ sub _hash_to_row
         type    => 'type_id',
         gender  => 'gender_id',
         comment => 'comment',
+        ipicode => 'ipi_code',
     });
 
     if (exists $values->{begin_date}) {

@@ -35,10 +35,15 @@ has_field 'comment' => (
     maxlength => 255
 );
 
+has_field 'ipi_code' => (
+    type      => 'Text',
+    maxlength => 11
+);
+
 sub edit_field_names
 {
     return qw( name sort_name comment type_id country_id
-               begin_date end_date label_code );
+               begin_date end_date label_code ipi_code );
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }

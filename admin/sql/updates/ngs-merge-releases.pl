@@ -336,7 +336,14 @@ eval {
     GROUP BY COALESCE(new_rel, id);
 
     TRUNCATE release_meta;
-    INSERT INTO release_meta (id, lastupdate, dateadded) SELECT id, lastupdate, dateadded FROM tmp_release_meta;
+    TRUNCATE release_coverart;
+
+    INSERT INTO release_coverart (id)
+        SELECT id FROM tmp_release_meta;
+
+    INSERT INTO release_meta (id, lastupdate, dateadded)
+        SELECT id, lastupdate, dateadded FROM tmp_release_meta;
+
     DROP TABLE tmp_release_meta;
     ");
 
