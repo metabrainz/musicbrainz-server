@@ -80,7 +80,7 @@ CREATE TABLE artist_credit_name (
 CREATE TABLE artist_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    new_id              INTEGER NOT NULL -- references artist.id,
+    new_id              INTEGER NOT NULL, -- references artist.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
