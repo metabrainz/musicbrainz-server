@@ -148,9 +148,10 @@ sub select
         my $option = $_;
         my $selected = @selected > 0  && first { $_ && $option->{value} && $option->{value} eq $_ } @selected;
 
+        my $label = delete $_->{label};
         $self->h->option({
             %$_, selected => $selected ? "selected" : undef,
-        }, $_->{label})
+        }, $label)
     } @{ $field->options };
 
     if (!$field->required)

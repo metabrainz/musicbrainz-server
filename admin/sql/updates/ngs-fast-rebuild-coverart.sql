@@ -1,4 +1,6 @@
 
+CREATE UNIQUE INDEX l_release_url_idx_uniq ON l_release_url (entity0, entity1, link);
+
 -- Add coverart for ASINs using the old way
 UPDATE release_coverart
     SET last_update = NOW() - '1 minute'::INTERVAL * ROUND(RANDOM() * 20160), -- 20160 minutes = 2 weeks
@@ -60,3 +62,5 @@ UPDATE release_meta
             AND url ~ E'^http://www\\.amazon\\.(com|ca|de|fr|co\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
             AND l.entity0 = release_meta.id
     ) AND amazon_asin IS NULL;
+
+DROP INDEX l_release_url_idx_uniq;

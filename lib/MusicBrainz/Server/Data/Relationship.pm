@@ -271,6 +271,23 @@ sub delete_entities
     }
 }
 
+sub exists
+{
+    my ($self, $type0, $type1, $values) = @_;
+    $self->_check_types($type0, $type1);
+    return $self->sql->select_single_value(
+        "SELECT 1 FROM l_${type0}_${type1}
+          WHERE entity0 = ? AND entity1 = ? AND link = ?",
+        $values->{entity0}, $values->{entity1},
+        $self->c->model('Link')->find({
+            link_type_id => $values->{link_type_id},
+            begin_date => $values->{begin_date},
+            end_date => $values->{end_date},
+            attributes => $values->{attributes},
+        })
+    );
+}
+
 sub insert
 {
     my ($self, $type0, $type1, $values) = @_;

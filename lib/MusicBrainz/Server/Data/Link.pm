@@ -102,10 +102,9 @@ sub load
     load_subobjects($self, 'link', @objs);
 }
 
-sub find_or_insert
+sub find
 {
     my ($self, $values) = @_;
-
     my (@joins, @conditions, @args);
 
     push @conditions, "link_type = ?";
@@ -139,11 +138,17 @@ sub find_or_insert
     }
 
     my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
+    return $self->sql->select_single_value($query, @args);
+}
 
-    my $sql = Sql->new($self->c->dbh);
-    my $id = $sql->select_single_value($query, @args);
+sub find_or_insert
+{
+    my ($self, $values) = @_;
 
+    my $id = $self->find($values);
     return $id if defined $id;
+
+    my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
 
     my $row = {
         link_type      => $values->{link_type_id},
@@ -151,10 +156,10 @@ sub find_or_insert
     };
     add_partial_date_to_row($row, $values->{begin_date}, "begindate");
     add_partial_date_to_row($row, $values->{end_date}, "enddate");
-    $id = $sql->insert_row("link", $row, "id");
+    $id = $self->sql->insert_row("link", $row, "id");
 
     foreach my $attr (@attrs) {
-        $sql->insert_row("link_attribute", {
+        $self->sql->insert_row("link_attribute", {
             link           => $id,
             attribute_type => $attr,
         });
