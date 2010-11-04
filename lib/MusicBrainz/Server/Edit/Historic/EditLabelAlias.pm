@@ -1,14 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::EditLabelAlias;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_type { 61 }
 sub edit_name { 'Edit label alias' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::EditAlias' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
     return {
@@ -17,8 +17,16 @@ augment 'upgrade' => sub
         old       => { name => $self->previous_value },
         new       => { name => $self->new_value }
     }
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+sub deserialize_previous_value {
+    my ($self, $previous) = @_;
+    return $previous;
+}
+
+sub deserialize_new_value {
+    my ($self, $previous) = @_;
+    return $previous;
+}
+
 1;

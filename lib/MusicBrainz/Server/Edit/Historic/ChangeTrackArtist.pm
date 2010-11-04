@@ -1,26 +1,16 @@
 package MusicBrainz::Server::Edit::Historic::ChangeTrackArtist;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_TRACK_ARTIST );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 sub edit_name     { 'Change track artist' }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_TRACK_ARTIST }
 sub historic_type { 10 }
-
-has '+data' => (
-    isa => Dict[
-        recording_id    => Int,
-        old_artist_id   => Int,
-        old_artist_name => Str,
-        new_artist_id   => Int,
-        new_artist_name => Str
-    ]
-);
 
 sub foreign_keys
 {
@@ -75,6 +65,4 @@ sub deserialize_new_value
     }
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

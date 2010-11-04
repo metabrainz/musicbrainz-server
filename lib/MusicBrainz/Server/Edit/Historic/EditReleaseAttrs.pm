@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseAttrs;
-use Moose;
+use strict;
+use warnings;
+
 use List::MoreUtils qw( uniq );
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_ATTRS
 );
@@ -11,24 +11,11 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { 'Edit release attributes'         }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_ATTRS }
 sub historic_type { 26 }
-
-has '+data' => (
-    isa => Dict[
-        changes => ArrayRef[Dict[
-            release_ids   => ArrayRef[Int],
-            release_name  => Str,
-            old_type_id   => Nullable[Int],
-            old_status_id => Nullable[Int]
-        ]],
-        new_type_id   => Nullable[Int],
-        new_status_id => Nullable[Int]
-    ],
-);
 
 sub _changes     { return @{ shift->data->{changes} } }
 sub _release_ids
@@ -114,7 +101,5 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 

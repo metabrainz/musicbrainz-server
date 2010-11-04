@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Edit::Historic::SetTrackLengthsFromCDTOC;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC );
 
-extends 'MusicBrainz::Server::Edit::Historic';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { 'Set track lengths from discid' }
 sub historic_type { 53 }
@@ -18,15 +17,6 @@ sub related_entities
         release => $self->data->{release_ids},
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids => ArrayRef[Int],
-        cdtoc       => Int,
-        old         => Dict[lengths => Str],
-        new         => Dict[lengths => Str],
-    ]
-);
 
 sub foreign_keys
 {
@@ -69,6 +59,14 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+sub deserialize_new_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
+sub deserialize_previous_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
 1;

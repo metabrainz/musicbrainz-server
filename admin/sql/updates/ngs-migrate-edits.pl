@@ -5,79 +5,53 @@ use warnings;
 use FindBin '$Bin';
 use lib "$Bin/../../../lib";
 
-use DBDefs;
-use Getopt::Long;
-use IO::All;
+use aliased 'MusicBrainz::Server::Connector';
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
-use TryCatch;
+use Text::CSV_XS;
+use Try::Tiny;
 
 my $c = MusicBrainz::Server::Context->create_script_context;
-my $migration = $c->model('EditMigration');
 
-my $per_select = 1000000;
-my $per_copy = 100000;
-my $offset = 0;
-
-GetOptions(
-    "chunk=i"  => \$per_copy,
-    "select=i" => \$per_select,
-    "offset=i" => \$offset,
-);
-
-my @known_corrupt = (
+my %skip = map { $_ => 1 } (
     2951, 8052, 21556, 
     21014, 21644,
     33512, 40573, 505233,
     1001582, 1025431, 1062521, 1062536
 );
 
-my $sql = Sql->new($c->dbh);
+my $conn = Connector->new( database => Databases->get('READWRITE') );
+my $csv = Text::CSV_XS->new({ binary => 1 });
 
-printf "Upgrading edits!\n";
-#my $count = $sql->select_single_value(
-#    'SELECT count(id) FROM public.moderation_closed');
-my $count = 10105225;
+my $raw_dbh = $c->raw_dbh;
+$raw_dbh->do('COPY edit FROM STDIN');
 
-printf "Here we go!\n";
+my $dbh = $conn->dbh;
+$dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
 
-my $raw_sql = Sql->new($c->raw_dbh);
-$raw_sql->begin;
-$raw_sql->do('TRUNCATE edit CASCADE');
-$raw_sql->do("TRUNCATE edit_$_ CASCADE")
-    for qw( artist label release release_group work recording );
+printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
-$sql->begin;
-$sql->do('CREATE UNIQUE INDEX puid_idx_puid ON puid (puid)');
-$sql->do('
-    CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid);
-    CREATE INDEX recording_puid_idx_puid ON recording_puid (puid);
-');
-$sql->commit;
+my ($line, $i) = ('', 0);
+while ($dbh->pg_getcopydata($line)) {
+    if(my $fields = $csv->parse($line)) {
+        my %row;
+        @row{qw(
+            id artist moderator tab col type status rowid prevvalue newvalue
+            yesvotes novotes depmod automod opentime closetime expiretime language
+        )} = $csv->fields;
+        
+        next if exists $skip{ $row{id} };
 
-my $file = io('edit-migration');
-$file < '';
-
-my $i = $offset;
-my @upgraded;
-while (1) {
-    $sql->select('SELECT * FROM public.moderation_closed
-                  WHERE id NOT IN (' . placeholders(@known_corrupt) . ')
-                  ORDER BY id ASC
-                  LIMIT ? OFFSET ?',
-                  @known_corrupt, $per_select, $offset);
-
-    last if $sql->row_count == 0;
-
-    while (my $row = $sql->next_row_hash_ref) {
-        my $historic = $migration->_new_from_row($row)
+        my $historic = $c->model('EditMigration')->_new_from_row(\%row)
             or next;
-
+            
         try {
-            my $upgraded = $historic->upgrade;
-            push @upgraded, $upgraded;
+            $raw_dbh->pg_putcopydata($historic->upgrade->for_copy . "\n");
         }
-        catch ($err) {
+        catch {
+            my $err = $_;
+            printf "$line\n";
             if ($err =~ /This data is corrupt and cannot be upgraded/) {
                 printf "Cannot upgrade #%d: %s", $historic->id, $err;
             }
@@ -86,36 +60,10 @@ while (1) {
                 printf STDERR "$err\n";
             }
         }
-
-        printf "%d/%d\r", $i, $count
-            if $i++ % 100 == 0;
-
-        if (@upgraded == $per_copy) {
-            printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
-            $c->model('Edit')->insert(@upgraded, $file);
-            @upgraded = ();
-        }
     }
 
-    $offset += $per_select;
+    printf STDERR "%d\r", $i if $i % 1000 == 0;
+    $i++;
 }
 
-printf "%s: Flushing %d edits to the database\n", time, scalar(@upgraded);
-$c->model('Edit')->insert(@upgraded, $file);
-@upgraded = ();
-
-my @migrated_ids = @{ $raw_sql->select_single_column_list(
-    'SELECT id FROM edit'
-) };
-
-my $votes = $sql->select_list_of_lists('
-    SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded
-      FROM public.vote_closed
-     WHERE moderation IN (' . placeholders(@migrated_ids) . ')', @migrated_ids);
-$raw_sql->do(
-    'INSERT INTO vote (id, editor, edit, vote, votetime, superseded)
-          VALUES ' . (join ", ", (("(?, ?, ?, ?, ?, ?)") x @$votes)),
-    map { @$_ } @$votes
-) if @$votes;
-
-$raw_sql->commit;
+$raw_dbh->pg_putcopyend;

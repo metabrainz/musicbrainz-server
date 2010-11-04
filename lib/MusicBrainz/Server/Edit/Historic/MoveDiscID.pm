@@ -1,12 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::MoveDiscID;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
+use strict;
+use warnings;
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_DISCID );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { 'Move disc ID' }
 sub historic_type { 21 }
@@ -20,15 +19,6 @@ sub related_entities
         release => $self->data->{release_ids}
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids     => ArrayRef[Int],
-        disc_id         => Str,
-        new_release_ids => ArrayRef[Int],
-        full_toc        => Maybe[Str],
-    ]
-);
 
 sub foreign_keys
 {
@@ -65,6 +55,4 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

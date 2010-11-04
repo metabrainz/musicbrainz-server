@@ -1,29 +1,15 @@
 package MusicBrainz::Server::Edit::Historic::ChangeReleaseGroup;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_GROUP );
 
-extends 'MusicBrainz::Server::Edit::Historic';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { 'Change release group' }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }
 sub edit_template { 'historic/change_release_group' }
 sub historic_type { 73 }
-
-sub change_fields
-{
-    return Dict[release_group_id => Int];
-}
-
-has '+data' => (
-    isa => Dict[
-        release_ids => ArrayRef[Int],
-        old => change_fields(),
-        new => change_fields(),
-    ]
-);
 
 sub _release_group_ids
 {
@@ -81,5 +67,14 @@ sub upgrade
     return $self;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+sub deserialize_new_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
+sub deserialize_previous_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
+1;

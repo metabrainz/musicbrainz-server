@@ -1,14 +1,15 @@
 package MusicBrainz::Server::Edit::Historic::RemoveISRC;
-use Moose;
+use strict;
+use warnings;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { 'Remove ISRC' }
 sub edit_type { 72 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::RemoveISRC' }
 
-augment 'upgrade' => sub {
+sub do_upgrade {
     my $self = shift;
 
     return {
@@ -21,7 +22,6 @@ augment 'upgrade' => sub {
             name => '[ deleted ]',
         }
     };
-};
+}
 
-__PACKAGE__->meta->make_immutable;
 1;

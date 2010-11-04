@@ -1,15 +1,17 @@
 package MusicBrainz::Server::Edit::Historic::RemoveLinkType;
-use Moose;
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK_TYPE );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name     { 'Remove link type' }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK_TYPE }
 sub historic_type { 38 }
 sub ngs_class     { 'MusicBrainz::Server::Edit::Relationship::RemoveLinkType' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
 
@@ -39,7 +41,6 @@ augment 'upgrade' => sub
             } @attributes
         ]
     };
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;

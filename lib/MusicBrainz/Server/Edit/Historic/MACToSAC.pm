@@ -1,26 +1,17 @@
 package MusicBrainz::Server::Edit::Historic::MACToSAC;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
+
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MAC_TO_SAC );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
-
-extends 'MusicBrainz::Server::Edit::Historic';
 
 sub edit_name     { 'Convert release to single artist' }
 sub edit_template { 'historic/mac_to_sac' }
 sub edit_type     { $EDIT_HISTORIC_MAC_TO_SAC }
 sub historic_type { 13 }
-
-has '+data' => (
-    isa => Dict[
-        artist_name   => Str,
-        old_artist_id => Int,
-        new_artist_id => Int,
-        release_ids   => ArrayRef[Int],
-    ]
-);
 
 sub _release_ids
 {
@@ -100,6 +91,4 @@ sub deserialize_new_value
     return \%deserialized;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

@@ -1,14 +1,16 @@
 package MusicBrainz::Server::Edit::Historic::EditLinkAttr;
-use Moose;
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { 'Edit relationship attribute' }
 sub edit_type { 42 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Relationship::EditLinkAttribute' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
 
@@ -32,7 +34,7 @@ augment 'upgrade' => sub
         old => $old,
         new => $new
     };
-};
+}
 
 sub deserialize_previous_value
 {
@@ -52,5 +54,4 @@ sub deserialize_previous_value
     }
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;
