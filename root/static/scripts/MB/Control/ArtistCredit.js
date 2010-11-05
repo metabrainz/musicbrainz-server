@@ -143,7 +143,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     MB.Control.Autocomplete ({
         'input': self.name,
         'entity': 'artist',
-        'select': self.update,
+        'select': self.update
     });
 
     if (obj === null)

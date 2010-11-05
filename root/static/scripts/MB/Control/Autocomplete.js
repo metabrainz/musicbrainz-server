@@ -160,7 +160,7 @@ MB.Control.Autocomplete = function (options) {
         $.ajax({
             url: self.url,
             data: { q: request.term, page: self.current_page },
-            success: response,
+            success: response
         });
     };
 

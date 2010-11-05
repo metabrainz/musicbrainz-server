@@ -473,7 +473,8 @@ sub associate_recordings
     my $count = 0;
     for (@$edits)
     {
-        if ($_->{name} eq $tracklists->tracks->[$count]->name)
+        if ($tracklists->tracks->[$count]
+            && $_->{name} eq $tracklists->tracks->[$count]->name)
         {
             push @recordings, $tracklists->tracks->[$count]->recording_id;
             push @ret, $tracklists->tracks->[$count]->recording_id;
