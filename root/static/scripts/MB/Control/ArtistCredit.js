@@ -68,7 +68,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     var render = function (data) {
 
         self.name.val(data.artist_name).removeClass('error');
-        self.join.val(data.join);
+        self.join.val(data.join || '');
         self.credit.val (data.name);
         self.gid.val(data.gid);
         self.id.val(data.id);
@@ -211,7 +211,10 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         var preview = "";
 
         self.artistcredits.find ('.artist-credit-box').each(function(i, box) {
-            preview += $(box).find('input.credit').val() + $(box).find('input.join').val();
+            var name = $(box).find('input.credit').val();
+            var join = $(box).find('input.join').val() || '';
+
+            preview += name + join;
         });
 
         self.artist_input.val(preview);
@@ -248,9 +251,9 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
                 'name': item.credit.val (),
                 'id': item.id.val (),
                 'gid': item.gid.val (),
-                'join': item.join.val (),
+                'join': item.join.val () || '',
             };
-
+            
             if (ac.id)
             {
                 ret.push (ac);

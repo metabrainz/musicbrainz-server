@@ -164,7 +164,7 @@ sub recording : Chained('root') PathPart('recording') Args(0)
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, 'recording', "$query* artist:\"$artist\"", 
+        $c, 'recording', "recording:($query*) AND artist:($artist)",
         $limit, $page, 1, undef, $no_redirect);
 
     my @output;
