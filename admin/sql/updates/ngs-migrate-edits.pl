@@ -30,9 +30,6 @@ my $raw_dbh = $c->raw_dbh;
 $raw_dbh->do('COPY edit FROM STDIN');
 
 my $dbh = $conn->dbh;
-printf STDERR "Final clear up\n";
-$dbh->do('DROP INDEX puid_idx_puid');
-$dbh->do('DROP INDEX recording_puid_idx_uniq');
 $dbh->do('CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid)');
 $dbh->do('CREATE UNIQUE INDEX puid_idx_puid ON puid (puid)');
 $dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
