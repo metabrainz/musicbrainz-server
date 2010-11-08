@@ -9,6 +9,8 @@ use aliased 'MusicBrainz::Server::Connector';
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
+use Sql;
 use Text::CSV_XS;
 use Try::Tiny;
 
@@ -28,13 +30,22 @@ my $raw_dbh = $c->raw_dbh;
 $raw_dbh->do('COPY edit FROM STDIN');
 
 my $dbh = $conn->dbh;
+printf STDERR "Final clear up\n";
+$dbh->do('DROP INDEX puid_idx_puid');
+$dbh->do('DROP INDEX recording_puid_idx_uniq');
+$dbh->do('CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid)');
+$dbh->do('CREATE UNIQUE INDEX puid_idx_puid ON puid (puid)');
 $dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
+
+my $sql = Sql->new($dbh);
+my $raw_sql = Sql->new($raw_dbh);
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
 my ($line, $i) = ('', 0);
 while ($dbh->pg_getcopydata($line)) {
     if(my $fields = $csv->parse($line)) {
+        next unless $csv->fields;
         my %row;
         @row{qw(
             id artist moderator tab col type status rowid prevvalue newvalue
@@ -52,6 +63,7 @@ while ($dbh->pg_getcopydata($line)) {
         catch {
             my $err = $_;
             printf "$line\n";
+            $skip{ $historic->id } = 1;
             if ($err =~ /This data is corrupt and cannot be upgraded/) {
                 printf "Cannot upgrade #%d: %s", $historic->id, $err;
             }
@@ -67,3 +79,35 @@ while ($dbh->pg_getcopydata($line)) {
 }
 
 $raw_dbh->pg_putcopyend;
+
+$sql = Sql->new($c->dbh);
+
+printf STDERR "Inserting votes\n";
+$sql->select('SELECT id, moderator AS editor, moderation AS edit, vote,
+                     votetime, superseded FROM public.vote_closed
+               WHERE id NOT IN (' . placeholders(values %skip) .')',
+             values %skip);
+
+$raw_sql->begin;
+while(my $row = $sql->next_row_hash_ref) {
+    $raw_sql->insert_row('vote', $row);    
+}
+$raw_sql->commit;
+$sql->finish;
+
+printf STDERR "Inserting edit notes\n";
+$sql->select('SELECT id, moderation AS edit, moderator AS editor, text, notetime
+                FROM public.moderation_note_closed
+               WHERE id NOT IN (' . placeholders(values %skip) .')',
+             values %skip);
+
+$raw_sql->begin;
+while(my $row = $sql->next_row_hash_ref) {
+    $raw_sql->insert_row('edit_note', $row);
+}
+$raw_sql->commit;
+$sql->finish;
+
+printf STDERR "Final clear up\n";
+$dbh->do('DROP INDEX puid_idx_puid');
+$dbh->do('DROP INDEX recording_puid_idx_uniq');
