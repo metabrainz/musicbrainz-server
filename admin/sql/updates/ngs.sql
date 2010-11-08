@@ -101,7 +101,7 @@ INSERT INTO url
 
 INSERT INTO replication_control SELECT * FROM public.replication_control;
 INSERT INTO currentstat
-    SELECT id, name, value, lastupdated AS last_update
+    SELECT id, name, value, lastupdated AS last_updated
     FROM public.currentstat;
 INSERT INTO historicalstat SELECT * FROM public.historicalstat;
 
@@ -240,11 +240,11 @@ DROP INDEX tmp_release_name_name_idx;
 
 -- release_meta for releases converted from release events
 INSERT INTO release_meta
-    SELECT r.id, lastupdate AS last_update, dateadded FROM
+    SELECT r.id, lastupdate AS last_updated, dateadded FROM
         public.release r JOIN public.albummeta am ON r.album=am.id;
 
 -- release_meta for new releases
-INSERT INTO release_meta (id, last_update, date_added)
+INSERT INTO release_meta (id, last_updated, date_added)
     SELECT r.id, lastupdate, dateadded FROM
         tmp_new_release r JOIN public.albummeta am ON r.album=am.id;
 
@@ -275,7 +275,7 @@ INSERT INTO medium (tracklist, release, position)
 ------------------------
 
 INSERT INTO release_group_meta
-    (id, last_update, release_count, first_release_date_year,
+    (id, last_updated, release_count, first_release_date_year,
      first_release_date_month, first_release_date_day)
     SELECT m.id, lastupdate, count(*),
         NULLIF(substr(firstreleasedate, 1, 4)::int, 0),
@@ -318,7 +318,7 @@ INSERT INTO label_alias (label, name)
     SELECT DISTINCT a.ref, n.id
     FROM public.labelalias a JOIN label_name n ON a.name = n.name;
 
-INSERT INTO label_meta (id, last_update, rating, rating_count)
+INSERT INTO label_meta (id, last_updated, rating, rating_count)
     SELECT id, lastupdate, round(rating * 20), rating_count
     FROM public.label_meta;
 

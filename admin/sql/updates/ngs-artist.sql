@@ -37,7 +37,7 @@ INSERT INTO artist_alias (id, artist, name)
     SELECT DISTINCT a.id, a.ref, n.id
     FROM public.artistalias a JOIN artist_name n ON a.name = n.name;
 
-INSERT INTO artist_meta (id, last_update, rating, rating_count)
+INSERT INTO artist_meta (id, last_updated, rating, rating_count)
     SELECT id, lastupdate, round(rating * 20), rating_count
     FROM public.artist_meta;
 

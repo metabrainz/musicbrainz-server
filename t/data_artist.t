@@ -46,7 +46,7 @@ is ( $artist->ipi_code, '00014107338' );
 $artist_data->load_meta($artist);
 is ( $artist->rating, 70 );
 is ( $artist->rating_count, 4 );
-is_deeply ( $artist->last_update_date,
+is_deeply ( $artist->last_updated,
      DateTime->new(year => 2009, month => 7, day => 9,
                    hour => 20, minute => 40, second => 30) );
 

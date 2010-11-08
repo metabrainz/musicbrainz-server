@@ -20,7 +20,7 @@ DROP FUNCTION a_upd_release();
 DROP FUNCTION a_upd_release_group();
 DROP FUNCTION a_upd_track();
 DROP FUNCTION a_upd_work();
-DROP FUNCTION b_upd_last_update_table();
+DROP FUNCTION b_upd_last_updated_table();
 DROP FUNCTION create_bounding_cube(durations INTEGER[], fuzzy INTEGER);
 DROP FUNCTION create_cube_from_durations(durations INTEGER[]);
 DROP FUNCTION dec_ref_count(tbl varchar, row_id integer, val integer);

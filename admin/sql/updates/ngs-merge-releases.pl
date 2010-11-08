@@ -327,8 +327,8 @@ eval {
     SELECT COALESCE(new_rel, id) AS id,
         CASE
                 WHEN count(*) > 1 THEN now()
-                ELSE max(last_update)
-        END AS last_update,
+                ELSE max(last_updated)
+        END AS last_updated,
         min(date_added) AS date_added
     INTO TEMPORARY tmp_release_meta
     FROM release_meta
@@ -336,7 +336,7 @@ eval {
     GROUP BY COALESCE(new_rel, id);
 
     TRUNCATE release_meta;
-    INSERT INTO release_meta (id, last_update, date_added) SELECT id, last_update, date_added FROM tmp_release_meta;
+    INSERT INTO release_meta (id, last_updated, date_added) SELECT id, last_updated, date_added FROM tmp_release_meta;
     DROP TABLE tmp_release_meta;
     ");
 
@@ -376,7 +376,7 @@ eval {
 
     printf STDERR "Updating release_group_meta\n";
     $sql->do("
-    SELECT id, last_update, COALESCE(t.release_count, 0), first_release_date_year, first_release_date_month, first_release_date_day, rating, rating_count
+    SELECT id, last_updated, COALESCE(t.release_count, 0), first_release_date_year, first_release_date_month, first_release_date_day, rating, rating_count
         INTO TEMPORARY tmp_release_group_meta
         FROM release_group_meta rgm
                 LEFT JOIN ( SELECT release_group, count(*) AS release_count FROM release GROUP BY release_group ) t ON t.release_group = rgm.id;
