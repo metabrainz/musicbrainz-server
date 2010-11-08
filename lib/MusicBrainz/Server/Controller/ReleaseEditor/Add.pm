@@ -15,8 +15,27 @@ sub add : Path('/release/add') Edit RequireAuth
 
 sub cancelled {
     my ($self, $c) = @_;
-    # FIXME: detach to artist, label or release group page if started from there
-    $c->detach ();
+
+    my $rg_gid = $c->req->query_params->{'release-group'};
+    my $label_gid = $c->req->query_params->{'label'};
+    my $artist_gid = $c->req->query_params->{'artist'};
+
+    if ($rg_gid)
+    {
+        $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg_gid ]));
+    }
+    elsif ($label_gid)
+    {
+        $c->response->redirect($c->uri_for_action('/label/show', [ $label_gid ]));
+    }
+    elsif ($artist_gid)
+    {
+        $c->response->redirect($c->uri_for_action('/artist/show', [ $artist_gid ]));
+    }
+    else
+    {
+        $c->response->redirect($c->uri_for_action('/index'));
+    }
 }
 
 augment 'create_edits' => sub

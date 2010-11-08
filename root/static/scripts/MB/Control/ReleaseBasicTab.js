@@ -73,7 +73,7 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
             {
                 return;
             }
-            
+
             str += item.position.val () + ". " + item.title.val ();
             str += " (" + item.length.val () + ")";
             str += "\n";
@@ -82,15 +82,28 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
         self.textarea.val (str);
     };
 
-    var updatePreview = function () {
-        self.trackparser.run ();
+    var updatePreview = function (filter) {
+        self.trackparser.run (filter);
         self.preview.render ();
+    };
+
+    var lines = function (data) {
+        if (data)
+        {
+            self.textarea.val (data.join ("\n"));
+        }
+        else
+        {
+            return self.textarea.val ().split ("\n");
+        }
     };
 
     self.disc = disc;
     self.preview = preview;
     self.render = render;
     self.updatePreview = updatePreview;
+    self.lines = lines;
+
     self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
     self.trackparser = MB.TrackParser (self.disc, serialized);
 
@@ -125,11 +138,21 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview, serialized) {
         self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview));
     };
 
+    var guessCase = function () {
+        $.each (self.textareas, function (i, textarea) {
+            textarea.updatePreview (self.guess_track.guess);
+            textarea.render ();
+        });
+    };
+
+    self.guess_track = MB.GuessCase.Track ();
+
     self.adv = advancedtab;
     self.preview = preview;
 
     self.render = render;
     self.newDisc = newDisc;
+    self.guessCase = guessCase;
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
@@ -170,6 +193,10 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
 
     $("a[href=#add_disc]").click (function () {
         self.tracklist.newDisc (self.adv.addDisc ());
+    });
+
+    $("a[href=#guesscase]").click (function () {
+        self.tracklist.guessCase ();
     });
 
     self.adv = advancedtab;
