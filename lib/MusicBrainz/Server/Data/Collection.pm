@@ -1,10 +1,10 @@
-package MusicBrainz::Server::Data::List;
+package MusicBrainz::Server::Data::Collection;
 
 use Moose;
 
 use Carp;
 use Sql;
-use MusicBrainz::Server::Entity::List;
+use MusicBrainz::Server::Entity::Collection;
 use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     placeholders
@@ -17,7 +17,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 
 sub _table
 {
-    return 'list';
+    return 'editor_collection';
 }
 
 sub _columns
@@ -43,17 +43,17 @@ sub _column_mapping
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::List';
+    return 'MusicBrainz::Server::Entity::Collection';
 }
 
-sub add_releases_to_list
+sub add_releases_to_collection
 {
-    my ($self, $list_id, @release_ids) = @_;
+    my ($self, $collection_id, @release_ids) = @_;
     $self->sql->auto_commit;
 
-    my $added = $self->sql->select_single_column_array("SELECT release FROM list_release
-       WHERE list = ? AND release IN (" . placeholders(@release_ids) . ")",
-                             $list_id, @release_ids);
+    my $added = $self->sql->select_single_column_array("SELECT release FROM editor_collection_release
+       WHERE collection = ? AND release IN (" . placeholders(@release_ids) . ")",
+                             $collection_id, @release_ids);
 
     my %added = map { $_ => 1 } @$added;
 
@@ -61,31 +61,31 @@ sub add_releases_to_list
 
     return unless @release_ids;
 
-    my @list_ids = ($list_id) x @release_ids;
-    $self->sql->do("INSERT INTO list_release (list, release) VALUES " . join(', ', ("(?, ?)") x @release_ids),
-             zip @list_ids, @release_ids);
+    my @collection_ids = ($collection_id) x @release_ids;
+    $self->sql->do("INSERT INTO editor_collection_release (collection, release) VALUES " . join(', ', ("(?, ?)") x @release_ids),
+             zip @collection_ids, @release_ids);
 }
 
-sub remove_releases_from_list
+sub remove_releases_from_collection
 {
-    my ($self, $list_id, @release_ids) = @_;
+    my ($self, $collection_id, @release_ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     $sql->auto_commit;
-    $sql->do("DELETE FROM list_release
-              WHERE list = ? AND release IN (" . placeholders(@release_ids) . ")",
-              $list_id, @release_ids);
+    $sql->do("DELETE FROM editor_collection_release
+              WHERE collection = ? AND release IN (" . placeholders(@release_ids) . ")",
+              $collection_id, @release_ids);
 }
 
 sub check_release
 {
-    my ($self, $list_id, $release_id) = @_;
+    my ($self, $collection_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     return $sql->select_single_value("
-        SELECT 1 FROM list_release
-        WHERE list = ? AND release = ?",
-        $list_id, $release_id) ? 1 : 0;
+        SELECT 1 FROM editor_collection_release
+        WHERE collection = ? AND release = ?",
+        $collection_id, $release_id) ? 1 : 0;
 }
 
 sub merge_releases
@@ -95,14 +95,14 @@ sub merge_releases
     my $sql = Sql->new($self->c->dbh);
 
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
-    # a list that already contains $new_id)
-    $sql->do("DELETE FROM list_release
+    # a collection that already contains $new_id)
+    $sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@old_ids).") AND
-                  list IN (SELECT list FROM list_release WHERE release = ?)",
+                  collection IN (SELECT collection FROM editor_collection_release WHERE release = ?)",
               @old_ids, $new_id);
 
     # Move all remaining joins to the new release
-    $sql->do("UPDATE list_release SET release = ?
+    $sql->do("UPDATE editor_collection_release SET release = ?
               WHERE release IN (".placeholders(@old_ids).")",
               $new_id, @old_ids);
 }
@@ -112,7 +112,7 @@ sub delete_releases
     my ($self, @ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM list_release
+    $sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@ids).")", @ids);
 }
 
@@ -134,7 +134,7 @@ sub find_by_editor
         $query, $id, $offset || 0);
 }
 
-sub get_first_list
+sub get_first_collection
 {
     my ($self, $editor_id) = @_;
     my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
@@ -156,16 +156,16 @@ sub find_all_by_editor
 
 sub insert
 {
-    my ($self, $editor_id, @lists) = @_;
+    my ($self, $editor_id, @collections) = @_;
     my $class = $self->_entity_class;
     my @created;
-    for my $list (@lists) {
-        my $row = $self->_hash_to_row($list);
+    for my $collection (@collections) {
+        my $row = $self->_hash_to_row($collection);
         $row->{editor} = $editor_id;
-        $row->{gid} = $list->{gid} || generate_gid();
+        $row->{gid} = $collection->{gid} || generate_gid();
 
         push @created, $class->new(
-            id => $self->sql->insert_row('list', $row, 'id'),
+            id => $self->sql->insert_row('editor_collection', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -174,23 +174,23 @@ sub insert
 
 sub update
 {
-    my ($self, $list_id, $update) = @_;
-    croak '$list_id must be present and > 0' unless $list_id > 0;
+    my ($self, $collection_id, $update) = @_;
+    croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
     $self->sql->auto_commit;
-    $self->sql->update_row('list', $row, { id => $list_id });
+    $self->sql->update_row('editor_collection', $row, { id => $collection_id });
 }
 
 sub delete
 {
-    my ($self, @list_ids) = @_;
+    my ($self, @collection_ids) = @_;
 
     $self->sql->auto_commit;
-    $self->sql->do('DELETE FROM list_release
-                    WHERE list IN (' . placeholders(@list_ids) . ')', @list_ids);
+    $self->sql->do('DELETE FROM editor_collection_release
+                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
     $self->sql->auto_commit;
-    $self->sql->do('DELETE FROM list
-                    WHERE id IN (' . placeholders(@list_ids) . ')', @list_ids);
+    $self->sql->do('DELETE FROM editor_collection
+                    WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
     return;
 }
 

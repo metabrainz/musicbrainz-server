@@ -184,14 +184,14 @@ while (1) {
 }
 $sql->finish;
 
-print " * Converting collections to lists\n";
+print " * Converting collections\n";
 
 $raw_sql->select("SELECT id, moderator FROM public.collection_info");
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($id, $editor_id) = @$row;
     # List should be private by default, and called "My Collection"
-    $sql->do("INSERT INTO list (id, editor, name, public, gid) VALUES (?, ?, ?, ?, generate_uuid_v4())",
+    $sql->do("INSERT INTO editor_collection (id, editor, name, public, gid) VALUES (?, ?, ?, ?, generate_uuid_v4())",
              $id, $editor_id, "My Collection", 0);
 }
 $raw_sql->finish;
@@ -202,7 +202,7 @@ while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($list_id, $album_id) = @$row;
     next unless $release_map{$album_id};
-    $sql->do("INSERT INTO list_release (list, release)
+    $sql->do("INSERT INTO editor_collection_release (collection, release)
               VALUES (?, ?)", $list_id, $release_map{$album_id});
 }
 $raw_sql->finish;

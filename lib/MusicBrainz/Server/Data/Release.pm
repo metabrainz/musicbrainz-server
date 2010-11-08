@@ -380,9 +380,9 @@ sub find_by_medium
                          $query, @{ids}, $offset || 0);
 }
 
-sub find_by_list
+sub find_by_collection
 {
-    my ($self, $list_id, $limit, $offset, $order) = @_;
+    my ($self, $collection_id, $limit, $offset, $order) = @_;
 
     my $extra_join = "";
     my $order_by = order_by($order, "date", {
@@ -396,16 +396,16 @@ sub find_by_list
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN list_release l
-                        ON release.id = l.release
+                    JOIN editor_collection_release cr
+                        ON release.id = cr.release
                     $extra_join
-                 WHERE l.list = ?
+                 WHERE cr.collection = ?
                  ORDER BY $order_by
                  OFFSET ?";
 
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $list_id, $offset || 0);
+        $query, $collection_id, $offset || 0);
 }
 
 sub insert

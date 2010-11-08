@@ -257,7 +257,7 @@ sub contact : Chained('base') RequireAuth HiddenOnSlaves
     }
 }
 
-sub lists : Chained('load') PathPart('lists')
+sub collections : Chained('load') PathPart('collections')
 {
     my ($self, $c) = @_;
 
@@ -265,13 +265,13 @@ sub lists : Chained('load') PathPart('lists')
 
     my $show_private = $c->stash->{viewing_own_profile};
 
-    my $lists = $self->_load_paged($c, sub {
-        $c->model('List')->find_by_editor($user->id, $show_private, shift, shift);
+    my $collections = $self->_load_paged($c, sub {
+        $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
     });
 
     $c->stash(
         user => $user,
-        lists => $lists,
+        collections => $collections,
     );
 }
 
