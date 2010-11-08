@@ -374,6 +374,17 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+-----------------------------------------------------------------------
+-- lastupdate triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION b_upd_last_update_table() RETURNS trigger AS $$
+BEGIN
+    NEW.last_update = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 ------------------------
 -- CD Lookup
 ------------------------
