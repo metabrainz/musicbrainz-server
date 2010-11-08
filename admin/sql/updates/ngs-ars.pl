@@ -247,6 +247,100 @@ sub load_release_info
     return map { $_->{id} => $_ } @$data;
 }
 
+sub match_release_events
+{
+    my ($rinfo, $entities0, $entities1, $strict) = @_;
+
+    my %used;
+    my @new_links;
+
+    foreach $entity0 (@$entities0) {
+        foreach $entity1 (@$entities1) {
+            next if $entity0 == $entity1;
+            #printf STDERR "   ** Comparing %s and %s\n", $entity0, $entity1;
+            next unless exists $rinfo->{$entity0};
+            next unless exists $rinfo->{$entity1};
+            my $m_sum = 0;
+            my $m_cnt = 0;
+
+            $m_cnt += 1
+                if (defined $rinfo->{$entity0}->{releasedate} ||
+                    defined $rinfo->{$entity1}->{releasedate});
+            $m_sum += 1
+                if (defined $rinfo->{$entity0}->{releasedate} &&
+                    defined $rinfo->{$entity1}->{releasedate} &&
+                    $rinfo->{$entity0}->{releasedate} eq $rinfo->{$entity1}->{releasedate});
+
+            $m_cnt += 1
+                if (defined $rinfo->{$entity0}->{country} ||
+                    defined $rinfo->{$entity1}->{country});
+            $m_sum += 1
+                if (defined $rinfo->{$entity0}->{country} &&
+                    defined $rinfo->{$entity1}->{country} &&
+                    $rinfo->{$entity0}->{country} == $rinfo->{$entity1}->{country});
+
+            $m_cnt += 1
+                if (defined $rinfo->{$entity0}->{barcode} ||
+                    defined $rinfo->{$entity1}->{barcode});
+            $m_sum += 1
+                if (defined $rinfo->{$entity0}->{barcode} &&
+                    defined $rinfo->{$entity1}->{barcode} &&
+                    $rinfo->{$entity0}->{barcode} eq $rinfo->{$entity1}->{barcode});
+
+            my $catno0 = $rinfo->{$entity0}->{catno};
+            my $catno1 = $rinfo->{$entity1}->{catno};
+            $m_cnt += 1
+                if (defined $catno0 || defined $catno1);
+            if ($strict) {
+                # lower-cased cat#
+                $catno0 = lc($catno0);
+                $catno1 = lc($catno1);
+            }
+            else {
+                # lower-cased cat# without the last character (multi-disc cat#s)
+                $catno0 = substr(lc($catno0), 0, -1);
+                $catno1 = substr(lc($catno1), 0, -1);
+            }
+            $m_sum += 1
+                if (defined $catno0 && defined $catno1 && $catno0 eq $catno1);
+
+            $m_cnt += 1
+                if (defined $rinfo->{$entity0}->{label} ||
+                    defined $rinfo->{$entity1}->{label});
+            $m_sum += 1
+                if (defined $rinfo->{$entity0}->{label} &&
+                    defined $rinfo->{$entity1}->{label} &&
+                    $rinfo->{$entity0}->{label} == $rinfo->{$entity1}->{label});
+
+            my $score = $m_cnt > 0 ? 1.0 * $m_sum / $m_cnt : 0;
+            #printf STDERR "      - %s vs %s, ", $rinfo{$entity0}->{releasedate} || "-", $rinfo{$entity1}->{releasedate} || "-";
+            #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{country} || "-", $rinfo{$entity1}->{country} || "-";
+            #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{barcode} || "-", $rinfo{$entity1}->{barcode} || "-";
+            #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{catno} || "-", $rinfo{$entity1}->{catno} || "-";
+            #printf STDERR "%s vs %s\n", $rinfo{$entity0}->{label} || "-", $rinfo{$entity1}->{label} || "-";
+            #printf STDERR "      Score: %f\n", $score;
+            if ($score >= 1.0) {
+                $used{$entity0} += 1;
+                $used{$entity1} += 1;
+                push @new_links, [$entity0, $entity1];
+            }
+        }
+    }
+
+    # If we have some matches, ...
+    if (%used) {
+        foreach my $used (values %used) {
+            if ($used > 1) {
+                # Ambiguous match, forget everything
+                @new_links = ();
+                last;
+            }
+        }
+    }
+
+    return @new_links;
+}
+
 $sql->begin;
 eval {
 
@@ -784,84 +878,9 @@ foreach my $orig_t0 (@entity_types) {
                     FROM public.release r
                     WHERE r.id IN ('.placeholders(@ids).')', @ids);
                 my %rinfo = map { $_->{id} => $_ } @$rinfo;
-                my %used;
-                foreach $entity0 (@entity0) {
-                    foreach $entity1 (@entity1) {
-                        next if $entity0 == $entity1;
-                        #printf STDERR "   ** Comparing %s and %s\n", $entity0, $entity1;
-                        next unless exists $rinfo{$entity0};
-                        next unless exists $rinfo{$entity1};
-                        my $m_sum = 0;
-                        my $m_cnt = 0;
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{releasedate} ||
-                                defined $rinfo{$entity1}->{releasedate});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{releasedate} &&
-                                defined $rinfo{$entity1}->{releasedate} &&
-                                $rinfo{$entity0}->{releasedate} eq $rinfo{$entity1}->{releasedate});
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{country} ||
-                                defined $rinfo{$entity1}->{country});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{country} &&
-                                defined $rinfo{$entity1}->{country} &&
-                                $rinfo{$entity0}->{country} == $rinfo{$entity1}->{country});
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{barcode} ||
-                                defined $rinfo{$entity1}->{barcode});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{barcode} &&
-                                defined $rinfo{$entity1}->{barcode} &&
-                                $rinfo{$entity0}->{barcode} eq $rinfo{$entity1}->{barcode});
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{catno} ||
-                                defined $rinfo{$entity1}->{catno});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{catno} &&
-                                defined $rinfo{$entity1}->{catno} &&
-                                 # lower-cased cat#
-                                (lc($rinfo{$entity0}->{catno}) eq lc($rinfo{$entity1}->{catno}) ||
-                                 # lower-cased cat# without the last character (multi-disc cat#s)
-                                 substr(lc($rinfo{$entity0}->{catno}), 0, -1) eq substr(lc($rinfo{$entity1}->{catno}), 0, -1)));
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{label} ||
-                                defined $rinfo{$entity1}->{label});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{label} &&
-                                defined $rinfo{$entity1}->{label} &&
-                                $rinfo{$entity0}->{label} == $rinfo{$entity1}->{label});
-
-                        my $score = $m_cnt > 0 ? 1.0 * $m_sum / $m_cnt : 0;
-                        #printf STDERR "      - %s vs %s, ", $rinfo{$entity0}->{releasedate} || "-", $rinfo{$entity1}->{releasedate} || "-";
-                        #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{country} || "-", $rinfo{$entity1}->{country} || "-";
-                        #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{barcode} || "-", $rinfo{$entity1}->{barcode} || "-";
-                        #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{catno} || "-", $rinfo{$entity1}->{catno} || "-";
-                        #printf STDERR "%s vs %s\n", $rinfo{$entity0}->{label} || "-", $rinfo{$entity1}->{label} || "-";
-                        #printf STDERR "      Score: %f\n", $score;
-                        if ($score >= 1.0) {
-                            $used{$entity0} += 1;
-                            $used{$entity1} += 1;
-                            push @new_links, [$entity0, $entity1];
-                        }
-                    }
-                }
-                # If we have some matches, ...
-                if (%used) {
-                    foreach my $used (values %used) {
-                        if ($used > 1) {
-                            # Ambiguous match, forget everything
-                            @new_links = ();
-                            last;
-                        }
-                    }
-
-                }
+                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1, 0);
+                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1, 1);
+                    unless @new_links;
                 if (@new_links) {
                     #foreach my $r (@new_links) {
                         #printf STDERR "      %d -> %d\n", $r->[0], $r->[1];
