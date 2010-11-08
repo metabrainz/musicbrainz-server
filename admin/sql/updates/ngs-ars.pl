@@ -11,6 +11,8 @@ use Sql;
 use LWP::Simple qw();
 use OSSP::uuid;
 
+open LOG, ">:utf8", "release-ars.log";
+
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $UUID_NS_URL = OSSP::uuid->new;
@@ -254,10 +256,10 @@ sub match_release_events
     my %used;
     my @new_links;
 
-    foreach $entity0 (@$entities0) {
-        foreach $entity1 (@$entities1) {
+    foreach my $entity0 (@$entities0) {
+        foreach my $entity1 (@$entities1) {
             next if $entity0 == $entity1;
-            #printf STDERR "   ** Comparing %s and %s\n", $entity0, $entity1;
+            printf LOG "   ** Comparing %s and %s\n", $entity0, $entity1;
             next unless exists $rinfo->{$entity0};
             next unless exists $rinfo->{$entity1};
             my $m_sum = 0;
@@ -293,13 +295,13 @@ sub match_release_events
                 if (defined $catno0 || defined $catno1);
             if ($strict) {
                 # lower-cased cat#
-                $catno0 = lc($catno0);
-                $catno1 = lc($catno1);
+                $catno0 = lc($catno0) if defined $catno0;
+                $catno1 = lc($catno1) if defined $catno1;
             }
             else {
                 # lower-cased cat# without the last character (multi-disc cat#s)
-                $catno0 = substr(lc($catno0), 0, -1);
-                $catno1 = substr(lc($catno1), 0, -1);
+                $catno0 = substr(lc($catno0), 0, -1) if defined $catno0;
+                $catno1 = substr(lc($catno1), 0, -1) if defined $catno1;
             }
             $m_sum += 1
                 if (defined $catno0 && defined $catno1 && $catno0 eq $catno1);
@@ -313,12 +315,12 @@ sub match_release_events
                     $rinfo->{$entity0}->{label} == $rinfo->{$entity1}->{label});
 
             my $score = $m_cnt > 0 ? 1.0 * $m_sum / $m_cnt : 0;
-            #printf STDERR "      - %s vs %s, ", $rinfo{$entity0}->{releasedate} || "-", $rinfo{$entity1}->{releasedate} || "-";
-            #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{country} || "-", $rinfo{$entity1}->{country} || "-";
-            #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{barcode} || "-", $rinfo{$entity1}->{barcode} || "-";
-            #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{catno} || "-", $rinfo{$entity1}->{catno} || "-";
-            #printf STDERR "%s vs %s\n", $rinfo{$entity0}->{label} || "-", $rinfo{$entity1}->{label} || "-";
-            #printf STDERR "      Score: %f\n", $score;
+            printf LOG "      - %s vs %s, ", $rinfo->{$entity0}->{releasedate} || "-", $rinfo->{$entity1}->{releasedate} || "-";
+            printf LOG "%s vs %s, ", $rinfo->{$entity0}->{country} || "-", $rinfo->{$entity1}->{country} || "-";
+            printf LOG "%s vs %s, ", $rinfo->{$entity0}->{barcode} || "-", $rinfo->{$entity1}->{barcode} || "-";
+            printf LOG "%s vs %s, ", $rinfo->{$entity0}->{catno} || "-", $rinfo->{$entity1}->{catno} || "-";
+            printf LOG "%s vs %s\n", $rinfo->{$entity0}->{label} || "-", $rinfo->{$entity1}->{label} || "-";
+            printf LOG "      Score: %f\n", $score;
             if ($score >= 1.0) {
                 $used{$entity0} += 1;
                 $used{$entity1} += 1;
@@ -879,7 +881,7 @@ foreach my $orig_t0 (@entity_types) {
                     WHERE r.id IN ('.placeholders(@ids).')', @ids);
                 my %rinfo = map { $_->{id} => $_ } @$rinfo;
                 @new_links = match_release_events(\%rinfo, \@entity0, \@entity1, 0);
-                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1, 1);
+                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1, 1)
                     unless @new_links;
                 if (@new_links) {
                     #foreach my $r (@new_links) {
@@ -902,6 +904,12 @@ foreach my $orig_t0 (@entity_types) {
                     }
                 }
             }
+
+            if ($new_t0 eq "release" && $new_t1 eq "release") {
+				foreach my $pair (@new_links) {
+					printf LOG "%d -> %s\n", $pair->[0], $pair->[1];
+				}
+			}
 
             my $link_type_key = join("_", $new_t0, $new_t1, $row->{link_type});
             my $link_type_id = $link_type_map{$link_type_key};
