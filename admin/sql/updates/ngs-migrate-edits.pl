@@ -73,11 +73,11 @@ push @migrated_ids, map { $_->id } @upgraded;
 @upgraded = ();
 
 my $votes = $sql->select_list_of_lists('
-    SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded
+    SELECT id, moderator AS editor, moderation AS edit, vote, votetime AS vote_time, superseded
       FROM public.vote_closed
      WHERE moderation IN (' . placeholders(@migrated_ids) . ')', @migrated_ids);
 $raw_sql->do(
-    'INSERT INTO vote (id, editor, edit, vote, votetime, superseded)
+    'INSERT INTO vote (id, editor, edit, vote, vote_time, superseded)
           VALUES ' . (join ", ", (("(?, ?, ?, ?, ?, ?)") x @$votes)),
     map { @$_ } @$votes
 ) if @$votes;
