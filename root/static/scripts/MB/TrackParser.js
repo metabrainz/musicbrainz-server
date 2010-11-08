@@ -184,7 +184,7 @@ MB.TrackParser = function (disc, serialized) {
         self.disc.sort ();
     };
 
-    var run = function () {
+    var run = function (filter) {
         self.inputartists = [];
         self.inputdurations = [];
 
@@ -194,6 +194,12 @@ MB.TrackParser = function (disc, serialized) {
         self.cleanSpaces ();
         self.cleanTitles ();
         self.inputtitles = self.inputlines;
+
+        if (filter) {
+            $.each (self.inputtitles, function (idx, line) {
+                self.inputtitles[idx] = filter (line);
+            });
+        }
 
         self.fillInData ();
     };

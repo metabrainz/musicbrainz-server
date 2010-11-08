@@ -3,6 +3,25 @@
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/TrackParser.js') %]" type="text/javascript"></script>
+
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Handler/Base.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Handler/Track.js') %]" type="text/javascript"></script>
+
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Base.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Classical.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/English.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/French.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Sentence.js') %]" type="text/javascript"></script>
+
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Input.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Output.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Flags.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Utils.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Modes.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Main.js') %]" type="text/javascript"></script>
+
+  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Track.js') %]" type="text/javascript"></script>
+
   <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseBasicTab.js') %]" type="text/javascript"></script>
@@ -10,6 +29,7 @@
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
   <script type="text/javascript">
+
     $('document').ready (function () {
 
       var serialized_tracklists = [% serialized_tracklists %];
@@ -19,6 +39,7 @@
       var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab, serialized_tracklists);
 
     });
+
   </script>
 [%- END -%]
 
@@ -109,11 +130,7 @@
       </div>
 
       <h3>Options</h3>
-      <!-- FIXME: move these to the MusicBrainz::Server::Form::ReleaseEditor::Tracklist. -->
       <p id="tracklist-options">
-      <input type="checkbox" name="guesscase" id="guesscase" checked="checked">
-      <label for="guesscase">[% l('Guess case on artist names and track titles') %]</label>
-      <br />
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
       <label for="tracknumbers">[% l('Tracknames start with a number') %]</label>
       <br />
@@ -124,6 +141,22 @@
       <label for="tracktimes">[% l('Detect track durations') %]</label>
       </p>
 
+    </fieldset>
+
+    <fieldset>
+      <legend>Guess case</legend>
+      <div style="float: right; margin: 10px;" class="buttons">
+        <a href="#guesscase">[% l('Guess case') %]</a>
+      </div>
+      <p class="guesscase-options">
+        <select name="gc-mode" id="gc-mode"> </select>
+        <br />
+        <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+        <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+        <br />
+        <input type="checkbox" name="gc-roman" id="gc-roman">
+        <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+      </p>
     </fieldset>
 
     <div class="buttons ui-helper-clearfix">
