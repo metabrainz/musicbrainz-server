@@ -133,11 +133,10 @@
 
       [%- medium = mediums.fields.$medium_idx -%]
 
-      [%- FOR assoc=rec_medium.field('associations').fields -%]
+      [%- FOR track=edits -%]
         [%- track_idx = loop.index -%]
-        [%- track = edits.$track_idx -%]
+        [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
         [%- recording = suggestions.$medium_idx.$track_idx -%]
-
         <div class="select-recording-container" style="display: none"
           id='[% "select-recording-$medium_idx-$track_idx" %]'>
           <div class="select-recording bubble">
