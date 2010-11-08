@@ -21,6 +21,15 @@
 MB.Control.Autocomplete = function (options) {
     var self = MB.Object();
 
+    var focusEvent = function (event) {
+        if (self.input.val () != '')
+        {
+            /* open the search dropdown and start searching when the input
+               is focused when data is already present. */
+            self.input.trigger ("keydown");
+        }
+    };
+
     var formatItem = function (ul, item) {
         var a = $("<a>").text (item.name);
 
@@ -182,6 +191,7 @@ MB.Control.Autocomplete = function (options) {
         });
 
         self.autocomplete = self.input.data ('autocomplete');
+        self.input.bind ('focus.mb', self.focusEvent);
         self.input.bind ('keydown.mb', self.pagerKeyEvent);
         self.input.bind ('propertychange.mb input.mb',
                          function (event) { self.input.trigger ("keydown"); }
@@ -200,6 +210,7 @@ MB.Control.Autocomplete = function (options) {
     self.number_of_pages = 1;
     self.selected_item = 0;
 
+    self.focusEvent = focusEvent;
     self.formatPager = options.formatPager || formatPager;
     self.formatItem = options.formatItem || formatItem;
     self.pagerButtons = pagerButtons;

@@ -86,13 +86,14 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
 
         if (item.releasegroups)
         {
-            var rgs = [];
+            var rgs = {};
+            /* don't display the same name multiple times. */
             $.each (item.releasegroups, function (idx, item) {
-                rgs.push (item.name);
+                rgs[item.name] = item.name;
             });
 
             a.append ('<br /><span class="autocomplete-appears">appears on: ' 
-                      + rgs.join (", ") + '</span>');
+                      + MB.utility.keys (rgs).join (", ") + '</span>');
         }
 
         if (item.comment)
