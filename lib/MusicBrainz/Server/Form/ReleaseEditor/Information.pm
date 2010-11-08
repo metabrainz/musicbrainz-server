@@ -42,10 +42,12 @@ sub options_language_id {
 
     # group list of languages in <optgroups>.
     # most frequently used languages have hardcoded value 2.
+    # languages which shouldn't be shown have hardcoded value 0.
 
     # FIXME: optgroups need to go through gettext. --warp.
 
     my $frequent = 2;
+    my $skip = 0;
 
     my @sorted = sort { $a->{label} cmp $b->{label} } map {
         {
@@ -55,7 +57,7 @@ sub options_language_id {
             'optgroup' => $_->{frequency} eq $frequent ? 'Frequently used' : 'Other',
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
-    } $self->ctx->model('Language')->get_all;
+    } grep { $_->{frequency} ne $skip } $self->ctx->model('Language')->get_all;
 
     return \@sorted;
 }
@@ -65,10 +67,12 @@ sub options_script_id {
 
     # group list of scripts in <optgroups>.
     # most frequently used scripts have hardcoded value 4.
+    # scripts which shouldn't be shown have hardcoded value 1.
 
     # FIXME: optgroups need to go through gettext. --warp.
 
     my $frequent = 4;
+    my $skip = 1;
 
     return [ map {
         {
@@ -78,7 +82,7 @@ sub options_script_id {
             'optgroup' => $_->{frequency} eq $frequent ? 'Frequently used' : 'Other',
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
-    } $self->ctx->model('Script')->get_all ];
+    } grep { $_->{frequency} ne $skip } $self->ctx->model('Script')->get_all ];
 }
 
 
