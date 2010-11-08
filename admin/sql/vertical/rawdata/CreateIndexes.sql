@@ -35,9 +35,9 @@ CREATE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
 CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
 CREATE INDEX label_tag_raw_idx_editor ON label_tag_raw (editor);
 
-CREATE INDEX release_raw_idx_lastmodified ON release_raw (lastmodified);
-CREATE INDEX release_raw_idx_lookupcount ON release_raw (lookupcount);
-CREATE INDEX release_raw_idx_modifycount ON release_raw (modifycount);
+CREATE INDEX release_raw_idx_last_modified ON release_raw (last_modified);
+CREATE INDEX release_raw_idx_lookup_count ON release_raw (lookup_count);
+CREATE INDEX release_raw_idx_modify_count ON release_raw (modify_count);
 
 CREATE INDEX release_group_tag_raw_idx_release ON release_group_tag_raw (release_group);
 CREATE INDEX release_group_tag_raw_idx_tag ON release_group_tag_raw (tag);

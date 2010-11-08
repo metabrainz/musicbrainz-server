@@ -22,8 +22,8 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, opentime, expiretime, closetime, data, language, type,
-            yesvotes, novotes, autoedit, status, quality';
+    return 'id, editor, open_time, expire_time, close_time, data, language, type,
+            yes_votes, no_votes, autoedit, status, quality';
 }
 
 sub _dbh
@@ -43,11 +43,11 @@ sub _new_from_row
     my $edit = $class->new(
         c => $self->c,
         id => $row->{id},
-        yes_votes => $row->{yesvotes},
-        no_votes => $row->{novotes},
+        yes_votes => $row->{yes_votes},
+        no_votes => $row->{no_votes},
         editor_id => $row->{editor},
-        created_time => $row->{opentime},
-        expires_time => $row->{expiretime},
+        created_time => $row->{open_time},
+        expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
         quality => $row->{quality},
@@ -60,7 +60,7 @@ sub _new_from_row
     catch {
         $edit->clear_data;
     }
-    $edit->close_time($row->{closetime}) if defined $row->{closetime};
+    $edit->close_time($row->{close_time}) if defined $row->{close_time};
     return $edit;
 }
 
@@ -261,11 +261,11 @@ sub create
             data => pl2xml($edit->to_hash),
             status => $edit->status,
             type => $edit->edit_type,
-            opentime => $now,
-            expiretime => $now + $duration,
+            open_time => $now,
+            expire_time => $now + $duration,
             autoedit => $edit->auto_edit,
             quality => $edit->quality,
-            closetime => $edit->close_time
+            close_time => $edit->close_time
         };
 
         my $edit_id = $sql_raw->insert_row('edit', $row, 'id');
@@ -437,7 +437,7 @@ sub _close
     my ($self, $edit, $close_sub) = @_;
     my $sql_raw = Sql->new($self->c->raw_dbh);
     my $status = &$close_sub($edit);
-    my $query = "UPDATE edit SET status = ?, closetime = NOW() WHERE id = ?";
+    my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $sql_raw->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1);
     $edit->status($status);

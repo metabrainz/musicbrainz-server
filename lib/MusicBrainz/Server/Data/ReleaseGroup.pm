@@ -438,7 +438,7 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->release_count($row->{release_count});
-        $obj->last_update_date($row->{last_update}) if defined $row->{last_update};
+        $obj->last_updated_date($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

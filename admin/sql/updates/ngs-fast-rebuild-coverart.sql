@@ -3,7 +3,7 @@ CREATE UNIQUE INDEX l_release_url_idx_uniq ON l_release_url (entity0, entity1, l
 
 -- Add coverart for ASINs using the old way
 UPDATE release_coverart
-    SET last_update = NOW() - '1 minute'::INTERVAL * ROUND(RANDOM() * 20160), -- 20160 minutes = 2 weeks
+    SET last_updated = NOW() - '1 minute'::INTERVAL * ROUND(RANDOM() * 20160), -- 20160 minutes = 2 weeks
         cover_art_url = (SELECT 'http://' 
         || (CASE WHEN substring(url.url from E'^http://www\\.amazon\\.(com|ca|de|fr|co\\.(jp|uk))/') = 'de' THEN 'ec2.images-amazon.com' ELSE 'ec1.images-amazon.com' END)
         || '/images/P/'

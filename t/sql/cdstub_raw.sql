@@ -5,7 +5,7 @@ TRUNCATE release_raw CASCADE;
 TRUNCATE cdtoc_raw CASCADE;
 TRUNCATE track_raw CASCADE;
 
-INSERT INTO release_raw (id, title, artist, added, lastmodified, lookupcount, modifycount, source, barcode, comment) 
+INSERT INTO release_raw (id, title, artist, added, last_modified, lookup_count, modify_count, source, barcode, comment) 
             VALUES (1, 'Test Stub', 'Test Artist', '2000-01-01 0:00', '2001-01-01 0:00', 10, 1, 0, '837101029192', 'this is a comment');
 
 INSERT INTO track_raw (release, title, artist, sequence) 
