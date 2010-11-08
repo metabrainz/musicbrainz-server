@@ -10,21 +10,6 @@ CREATE TRIGGER a_upd_artist AFTER UPDATE ON artist
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
 
-CREATE TRIGGER b_upd_artist_credit BEFORE UPDATE ON artist_credit
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_artist_gid_redirect BEFORE UPDATE ON artist_gid_redirect
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_artist_tag BEFORE UPDATE ON artist_tag
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_cdtoc BEFORE UPDATE ON cdtoc
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_clientversion BEFORE UPDATE ON clientversion
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
 CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
 
@@ -124,18 +109,6 @@ CREATE TRIGGER a_upd_label AFTER UPDATE ON label
 CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
 
-CREATE TRIGGER b_upd_label_gid_redirect BEFORE UPDATE ON label_gid_redirect
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_link BEFORE UPDATE ON link
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE ON link_attribute
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
 CREATE TRIGGER b_upd_link_attribute_type BEFORE UPDATE ON link_attribute_type 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
 
@@ -157,15 +130,6 @@ CREATE TRIGGER a_upd_recording AFTER UPDATE ON recording
 CREATE TRIGGER a_del_recording AFTER DELETE ON recording
     FOR EACH ROW EXECUTE PROCEDURE a_del_recording();
 
-CREATE TRIGGER b_upd_recording_gid_redirect BEFORE UPDATE ON recording_gid_redirect
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_recording_puid BEFORE UPDATE ON recording_puid
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_recording_tag BEFORE UPDATE ON recording_tag
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
 CREATE TRIGGER a_ins_release AFTER INSERT ON release
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release();
 
@@ -178,9 +142,6 @@ CREATE TRIGGER a_del_release AFTER DELETE ON release
 CREATE TRIGGER b_upd_release_label BEFORE UPDATE ON release_label 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
 
-CREATE TRIGGER b_upd_release_gid_redirect BEFORE UPDATE ON release_gid_redirect
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
 CREATE TRIGGER a_ins_release_group AFTER INSERT ON release_group
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release_group();
 
@@ -189,12 +150,6 @@ CREATE TRIGGER a_upd_release_group AFTER UPDATE ON release_group
 
 CREATE TRIGGER a_del_release_group AFTER DELETE ON release_group
     FOR EACH ROW EXECUTE PROCEDURE a_del_release_group();
-
-CREATE TRIGGER b_upd_release_group_gid_redirect BEFORE UPDATE ON release_group_gid_redirect
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_release_group_tag BEFORE UPDATE ON release_group_tag
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
 
 CREATE TRIGGER b_upd_tag_relation BEFORE UPDATE ON tag_relation 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
@@ -217,9 +172,6 @@ CREATE TRIGGER b_upd_tracklist BEFORE UPDATE ON tracklist
 CREATE TRIGGER b_upd_url BEFORE UPDATE ON url 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
 
-CREATE TRIGGER b_upd_url_gid_redirect BEFORE UPDATE ON url_gid_redirect
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
 CREATE TRIGGER a_ins_work AFTER INSERT ON work
     FOR EACH ROW EXECUTE PROCEDURE a_ins_work();
 
@@ -231,12 +183,6 @@ CREATE TRIGGER a_del_work AFTER DELETE ON work
 
 CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_update_table();
-
-CREATE TRIGGER b_upd_work_gid_redirect BEFORE UPDATE ON work_gid_redirect
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
-
-CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_created_table();
 
 COMMIT;
 
