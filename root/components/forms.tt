@@ -102,7 +102,7 @@
 
 [%- MACRO form_row_artist_credit(form) BLOCK -%]
     [%- WRAPPER form_row -%]
-        <label for="entity-artist required">[% l('Artist:') %]</label>
+        <label for="entity-artist" class="required">[% l('Artist:') %]</label>
         <input type="text" id="entity-artist"
             value="[% form.field('artist_credit').fif.name %]" />
     [%- END -%]

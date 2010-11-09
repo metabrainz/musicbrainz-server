@@ -314,7 +314,7 @@ MB.Control.BubbleRow = function (parent, target, content, offset) {
 
         self.balloon0.offset ({
             left: self.target.offset ().left + pos,
-            top: self.content.offset ().top - 14,
+            top: self.content.offset ().top - 14
         });
 
         self.balloon1.css ('width', '42px')

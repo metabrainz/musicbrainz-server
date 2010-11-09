@@ -130,7 +130,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     MB.Control.Autocomplete ({
         'input': self.name,
         'entity': 'artist',
-        'select': self.update,
+        'select': self.update
     });
 
     if (obj === null)
@@ -143,7 +143,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     return self;
 }
 
-/* an ArtistCreditContainer is the base container for all the artist credits 
+/* an ArtistCreditContainer is the base container for all the artist credits
    on a track or the release. */
 MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     var self = MB.Object();
@@ -187,7 +187,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         MB.Control.Autocomplete ({
             'input': self.artist_input,
             'entity': 'artist',
-            'select': self.update,
+            'select': self.update
         });
 
         if (! self.box[self.box.length - 1].isEmpty ())
