@@ -163,7 +163,7 @@ sub load_meta
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
-        $obj->last_updated_date($row->{last_updated}) if defined $row->{last_updated};
+        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

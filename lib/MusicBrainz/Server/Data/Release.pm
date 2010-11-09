@@ -516,7 +516,7 @@ sub load_meta
 
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
         my ($obj, $row) = @_;
-        $obj->last_updated_date($row->{last_updated}) if defined $row->{last_updated};
+        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
         $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};
