@@ -315,12 +315,11 @@ END %]
 END %]
 
 [% MACRO relate_to_url(entity) BLOCK;
-    l('{uri|Relate to URL}', {
-            uri => c.uri_for_action('/edit/relationship/create_url', {
+    uri = c.uri_for_action('/edit/relationship/create_url', {
                         type => entity_type(entity),
                         entity => entity.gid
-                   })
-    });
+                   }) | uri;
+    l('{uri|Relate to URL}', { uri => uri });
 END %]
 
 [% MACRO quality_name(quality) SWITCH quality;
