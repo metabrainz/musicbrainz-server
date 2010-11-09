@@ -40,7 +40,7 @@ my $raw_sql = Sql->new($raw_dbh);
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
 my ($line, $i) = ('', 0);
-while ($dbh->pg_getcopydata($line)) {
+while ($dbh->pg_getcopydata($line) >= 0) {
     if(my $fields = $csv->parse($line)) {
         next unless $csv->fields;
         my %row;
