@@ -33,6 +33,6 @@ is ( $mfs->{2}->name, "Vinyl" );
 
 does_ok($mf_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @formats = $mf_data->get_all;
-is(@formats, 2);
+is(@formats, 4);
 is($formats[0]->id, 1);
 is($formats[1]->id, 2);

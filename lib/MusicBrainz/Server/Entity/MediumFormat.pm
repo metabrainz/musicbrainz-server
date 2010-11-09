@@ -14,6 +14,34 @@ has 'year' => (
     isa => 'Int'
 );
 
+has 'child_order' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has 'parent_id' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has 'parent' => (
+    is => 'rw',
+    isa => 'MediumFormat',
+);
+
+has 'children' => (
+    is => 'rw',
+    isa => 'ArrayRef[MediumFormat]',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_children => 'elements',
+        add_child => 'push',
+        clear_children => 'clear'
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

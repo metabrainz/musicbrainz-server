@@ -83,6 +83,9 @@ INSERT INTO medium_format (id, name, year) VALUES
     (26, 'USB Flash Drive', NULL),
     (27, 'slotMusic', NULL),
     (28, 'UMD', NULL);
+INSERT INTO medium_format (id, name, year, child_order, parent) VALUES
+    (29, '7"', NULL, 0, 7),
+    (30, '12"', NULL, 1, 7);
 
 INSERT INTO url (id, gid, url, description, refcount)
     SELECT id, gid::uuid, url, description, refcount FROM public.url;
