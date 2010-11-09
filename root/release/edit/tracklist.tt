@@ -82,7 +82,7 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
-  <div class="form basic-tracklist">
+  <div class="half-width basic-tracklist">
     [% r.hidden ('wizard_session_id') %]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>

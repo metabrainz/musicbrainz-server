@@ -153,7 +153,8 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     self.artist_input = input;
 
     var identify = function() {
-        if (input.attr ('id') === 'release-artist')
+        if (input.attr ('id') === 'release-artist' ||
+            input.attr ('id') === 'entity-artist')
         {
             self.prefix = "artist_credit";
             self.medium = -1;
@@ -275,3 +276,14 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
    to a plain container. */
 MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
 
+
+/* A generic artist credit initialize function for use outside the
+   release editor. */
+MB.Control.initialize_artist_credit = function () {
+
+    var target = $('input#entity-artist');
+    var container = $('div.artist-credit');
+
+    MB.Control.BubbleCollection (target, container);
+    MB.Control.ArtistCreditVertical (target, container);
+};

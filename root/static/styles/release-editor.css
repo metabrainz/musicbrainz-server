@@ -5,34 +5,10 @@ h1 span {
     color: inherit;
 }
 
-#release-editor .form {
-    clear: both;
-    float: left;
-    width: 465px;
-    margin: 0;
-}
-
-#release-editor .documentation {
-    margin-left: 485px;
-}
-
-#release-editor fieldset {
-    background-color: #f0f0f0;
-    border: 1px solid #aaa;
-    margin-top: 0;
-}
-
-/* h2? */
-#release-editor fieldset legend {
-    color: #fc6714;
-    font-size: 120%;
-    font-weight: bold;
-    margin: 0 10px;
-}
+#release-editor div.half-width { margin: 0; }
 
 #release-editor div.artist-credit label,
-#release-editor div.release-label label.label-name,
-#release-editor fieldset label.row {
+#release-editor div.release-label label.label-name {
     float: left;
     margin-right: 1em;
     text-align: right;
@@ -59,39 +35,19 @@ h1 span {
 #release-editor div.release-label label.catno,
 #release-editor div.release-label input.catno { margin: 0; }
 
-#release-editor fieldset label.required {
-    font-weight: bold;
-}
-
-#release-editor fieldset input,
-#release-editor fieldset select {
-    font-size: 1em;
-    width: 300px;
-}
-
 #release-editor fieldset select#id-language_id,
 #release-editor fieldset select#id-script_id {
     width: 180px;
 }
 
-#release-editor fieldset input[type=checkbox],
-#release-editor fieldset span.partial-date input {
-    width: auto;
-}
-
 #release-editor fieldset textarea {
     height: 10px;
-    width: 300px;
 }
 
 #release-editor fieldset textarea.tracklist {
     height: 250px;
     margin: 0 10px;
     width: 430px;
-}
-
-#release-editor fieldset h3 {
-    margin: 24px 10px 0;
 }
 
 p.guesscase-options,
@@ -240,7 +196,6 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 1em; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
-#release-editor div.bubble,
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 1em; border: 1px solid #999;
     background: #fff;
@@ -251,13 +206,10 @@ table.medium.tbl td.delete    { width: 2em; }
 
 #release-editor .documentation div.barcode-container,
 #release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 5em; }
-#release-editor div.bubble,
-#release-editor div.select-recording,
-#release-editor div.artist-credit { background: #f0f0f0; }
-#release-editor div.artist-credit div.row { clear: none; }
+#release-editor div.select-recording { background: #f0f0f0; }
 
 /* little speech balloon "tail" to visibly associate the artist credit
-   editor with the artist input field. */
+   editor with the artist input field. (FIXME: move this to Bubble.js --warp). */
 
 tr.track-artist-credit .ac-balloon0 { position: relative; margin-top: 4px; }
 tr.track-artist-credit .ac-balloon1 {

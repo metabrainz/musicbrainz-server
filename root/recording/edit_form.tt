@@ -1,12 +1,24 @@
 <form action="[% c.req.uri %]" method="post">
   [% USE r = FormRenderer(form) %]
-  <fieldset>
-    <legend>[% l('Recording Details') %]</legend>
-    [% form_row_artist_credit(r, 'artist_credit', l('Artist:')) %]
-    [% form_row_text_long(r, 'name', l('Name:')) %]
-    [% form_row_text_long(r, 'comment', l('Comment:')) %]
-    [% form_row_text_long(r, 'length', l('Length:')) %]
-  </fieldset>
-  [%- INCLUDE 'forms/edit-note.tt' -%]
-  [% enter_edit() %]
+
+  <div class="half-width">
+    <fieldset>
+      <legend>[% l('Recording Details') %]</legend>
+      [%- form_row_artist_credit(form) -%]
+      [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_text_long(r, 'comment', l('Comment:')) -%]
+      [%- form_row_text_long(r, 'length', l('Length:')) -%]
+    </fieldset>
+
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [% enter_edit() %]
+
+  </div>
+
+  <div class="documentation">
+
+    [% artist_credit_table(form) %]
+
+  </div>
+
 </form>

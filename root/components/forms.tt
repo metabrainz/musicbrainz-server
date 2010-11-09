@@ -17,7 +17,7 @@
         </div>
     [% END %]
     <div class="row no-label buttons">
-        <button type="submit" class="submit">[% l('Submit') %]</button>
+        <button type="submit" class="submit positive">[% l('Enter edit') %]</button>
         [% extra %]
     </div>
 [%- END -%]
@@ -100,10 +100,58 @@
     [% END %]
 [% END %]
 
-[% MACRO form_row_artist_credit(r, field_name, label) BLOCK %]
-    [% WRAPPER form_row row_id='artist' %]
-      [% r.label(field_name, label, fake => 1) %]
-      [% r.artist_credit_editor(field_name) %]
-      [% field_errors(r.form, field_name) %]
-    [% END %]
-[% END %]
+[%- MACRO form_row_artist_credit(form) BLOCK -%]
+    [%- WRAPPER form_row -%]
+        <label for="entity-artist required">[% l('Artist:') %]</label>
+        <input type="text" id="entity-artist"
+            value="[% form.field('artist_credit').fif.name %]" />
+    [%- END -%]
+[%- END -%]
+
+[%- MACRO artist_credit_table(form) BLOCK -%]
+  <div class="artist-credit-container" style="display: none">
+    <div class="artist-credit bubble">
+      [%- acfield = form.field('artist_credit') -%]
+
+      <p>
+        [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) -%]
+      </p>
+
+      [%- FOR ac=acfield.field('names').fields -%]
+        [%- artistnum = loop.index -%]
+        [%- artist = acfield.fif.names.$artistnum.artist -%]
+        <div class="artist-credit-box">
+
+          <div class="row">
+            <label>[% l('Artist in MusicBrainz') %]</label>
+            <span class="artist">
+              <input type="text" class="name" value="[% artist.name %]" />
+              <input type="hidden" class="gid" value="[% artist.gid %]" />
+              [%- r.hidden (ac.field('artist_id'), class => 'id') -%]
+            </span>
+            <span class="link">
+              <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">
+                [%- IF artist.gid -%]link[%- END -%]
+              </a>
+            </span>
+          </div>
+
+          <div class="row">
+            <label>[% l('Artist as credited') %]</label>
+            <span class="artistcredit">
+              [%- r.text (ac.field('name'), class => 'credit') -%]
+            </span>
+          </div>
+
+          <div class="row">
+            <label>[% l('Join phrase') %]</label>
+            <span class="joinphrase">
+              [%- r.text (ac.field('join_phrase'), class => 'join') -%]
+            </span>
+          </div>
+
+        </div>
+      [%- END -%]
+    </div>
+  </div>
+[%- END -%]
