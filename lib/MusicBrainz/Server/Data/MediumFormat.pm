@@ -55,18 +55,6 @@ sub get_tree
     return $root;
 }
 
-sub _hash_to_row
-{
-    my ($self, $values) = @_;
-
-    return hash_to_row($values, {
-        name            => 'name',
-        parent          => 'parent_id',
-        child_order     => 'child_order',
-        year            => 'year',
-    });
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
