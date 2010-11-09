@@ -94,8 +94,13 @@ h1 span {
     margin: 24px 10px 0;
 }
 
+p.guesscase-options,
 #tracklist-options {
     margin: 10px 0 10px 10px;
+}
+
+#release-editor fieldset p.guesscase-options select {
+    width: 100px;
 }
 
 #release-editor ul.tabs {

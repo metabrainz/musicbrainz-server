@@ -17,7 +17,10 @@ sub edit : Chained('/release/load') Edit RequireAuth
 sub cancelled
 {
     my ($self, $c) = @_;
-    $c->detach('/release/show');
+
+    my $release = $c->stash->{release};
+
+    $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]))
 }
 
 augment 'create_edits' => sub
