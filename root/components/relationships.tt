@@ -25,6 +25,27 @@
                         [% IF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
                         ([% rel.link.begin_date.format %]&mdash;[% rel.link.end_date.format %])
                         [% END %]
+
+                        [%- IF c.user_exists -%]
+                            <span>
+                            [
+                                <a href="[% c.uri_for_action('/edit/relationship/delete', {
+                                    type0 => rel.link.type.entity0_type,
+                                    type1 => rel.link.type.entity1_type,
+                                    id => rel.id,
+                                    returnto => c.req.uri
+                                }) %]">[% l('Remove') %]</a>
+                                |
+                                <a href="[% c.uri_for_action('/edit/relationship/edit', {
+                                    type0 => rel.link.type.entity0_type,
+                                    type1 => rel.link.type.entity1_type,
+                                    id => rel.id,
+                                    returnto => c.req.uri
+                                }) %]">[% l('Edit') %]</a>
+                            ]
+                            </span>
+                        [%- END -%]
+
                         <br />
                     [% END %]
                 </td>
