@@ -30,8 +30,8 @@ sub _column_mapping
     return {
         id         => 'id',
         type_id    => 'link_type',
-        begin_date => sub { partial_date_from_row(shift, 'begindate_') },
-        end_date   => sub { partial_date_from_row(shift, 'enddate_') },
+        begin_date => sub { partial_date_from_row(shift, 'begin_date_') },
+        end_date   => sub { partial_date_from_row(shift, 'end_date_') },
     };
 }
 
@@ -112,7 +112,6 @@ sub find
 
     foreach my $date_key (qw( begin_date end_date )) {
         my $column_prefix = $date_key;
-        $column_prefix =~ s/_//g;
         foreach my $key (qw( year month day )) {
             if (defined $values->{$date_key}->{$key}) {
                 push @conditions, "${column_prefix}_${key} = ?";
@@ -154,8 +153,8 @@ sub find_or_insert
         link_type      => $values->{link_type_id},
         attribute_count => scalar(@attrs),
     };
-    add_partial_date_to_row($row, $values->{begin_date}, "begindate");
-    add_partial_date_to_row($row, $values->{end_date}, "enddate");
+    add_partial_date_to_row($row, $values->{begin_date}, "begin_date");
+    add_partial_date_to_row($row, $values->{end_date}, "end_date");
     $id = $self->sql->insert_row("link", $row, "id");
 
     foreach my $attr (@attrs) {

@@ -67,8 +67,8 @@ sub _column_mapping
         type_id => 'type',
         country_id => 'country',
         gender_id => 'gender',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begindate_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
+        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
         edits_pending => 'edits_pending',
         comment => 'comment',
         ipi_code => 'ipi_code',
@@ -258,11 +258,11 @@ sub _hash_to_row
     });
 
     if (exists $values->{begin_date}) {
-        add_partial_date_to_row($row, $values->{begin_date}, 'begindate');
+        add_partial_date_to_row($row, $values->{begin_date}, 'begin_date');
     }
 
     if (exists $values->{end_date}) {
-        add_partial_date_to_row($row, $values->{end_date}, 'enddate');
+        add_partial_date_to_row($row, $values->{end_date}, 'end_date');
     }
 
     if (exists $values->{name}) {
@@ -283,7 +283,7 @@ sub load_meta
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
-        $obj->last_updated_date($row->{last_updated}) if defined $row->{last_updated};
+        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 
