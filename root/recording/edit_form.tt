@@ -1,5 +1,5 @@
 <form action="[% c.req.uri %]" method="post">
-  [% USE r = FormRenderer(form) %]
+  [%- USE r = FormRenderer(form) -%]
 
   <div class="half-width">
     <fieldset>
@@ -11,14 +11,12 @@
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
-    [% enter_edit() %]
+    [%- enter_edit() -%]
 
   </div>
 
   <div class="documentation">
-
-    [% artist_credit_table(form) %]
-
+    [%- artist_credit_table(form) -%]
   </div>
 
 </form>
