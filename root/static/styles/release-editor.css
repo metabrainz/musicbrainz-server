@@ -182,10 +182,19 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.deleted td,
 #release-editor .medium.tbl tr.deleted td input { color: #aaa; text-decoration: line-through; }
 
-/* __________________________________
+#release-editor fieldset legend {
+    color: #fc6714;
+    font-size: 120%;
+    font-weight: bold;
+    margin: 0 10px;
+}
 
-          ARTIST CREDIT EDITOR
-   __________________________________ */
+#release-editor fieldset {
+    border: 1px solid #aaa;
+    background: #f0f0f0;
+    margin-top: 0;
+}
+
 
 #release-editor .medium.tbl tr.track-artist-credit,
 #release-editor .medium.tbl tr.track-artist-credit th,
