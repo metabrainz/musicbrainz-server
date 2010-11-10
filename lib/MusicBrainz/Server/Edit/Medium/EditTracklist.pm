@@ -120,11 +120,11 @@ sub _tracks_to_hash
 {
     my $tracks = shift;
     return [ map +{
-        artist_credit => artist_credit_to_ref($_->artist_credit),
-        name => $_->name,
+        artist_credit => $_->{artist_credit},
+        name => $_->{name},
         # Filter out sub-second differences
-        length => unformat_track_length(format_track_length($_->length)),
-        recording_id => $_->recording_id,
+        length => unformat_track_length(format_track_length($_->{length})),
+        recording_id => $_->{recording_id},
     }, @$tracks ];
 }
 
@@ -135,7 +135,7 @@ sub initialize
         tracklist_id => $opts{tracklist_id},
         medium_id => $opts{medium_id},
         separate_tracklists => $opts{separate_tracklists},
-        old_tracklist => _tracks_to_hash($opts{old_tracklist}->tracks),
+        old_tracklist => _tracks_to_hash($opts{old_tracklist}),
         new_tracklist => _tracks_to_hash($opts{new_tracklist})
     };
 

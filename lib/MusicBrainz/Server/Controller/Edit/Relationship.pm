@@ -192,6 +192,18 @@ sub create : Local RequireAuth Edit
             }
         }
 
+        if ($c->model('Relationship')->exists($type0, $type1, {
+            link_type_id => $form->field('link_type_id')->value,
+            begin_date => $form->field('begin_date')->value,
+            end_date => $form->field('end_date')->value,
+            attributes => \@attributes,
+            entity0 => $source->id,
+            entity1 => $dest->id
+        })) {
+            $c->stash( exists => 1 );
+            $c->detach;
+        }
+
         $self->_insert_edit($c, $form,
             edit_type    => $EDIT_RELATIONSHIP_CREATE,
             type0        => $type0,
