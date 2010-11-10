@@ -340,7 +340,7 @@ DECLARE
     trimmed TEXT;
 BEGIN
     trimmed := btrim(name);
-    IF substr(trimmed, 0, 1) = '(' THEN
+    IF substr(trimmed, 1, 1) = '(' THEN
         RETURN trimmed;
     ELSE
         RETURN btrim(
