@@ -4,6 +4,8 @@ use Moose;
 use Sql;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
+with 'MusicBrainz::Server::Data::Role::NewFromRow';
+
 has 'c' => (
     is => 'rw',
     isa => 'Object'
@@ -18,6 +20,27 @@ has 'column' => (
     is => 'ro',
     isa => 'Str'
 );
+
+has 'class' => (
+    is => 'ro',
+    isa => 'Str',
+);
+
+sub _entity_class {
+    my $self = shift;
+    return $self->class;
+}
+
+sub _column_mapping {
+    my $self = shift;
+    return {
+        id => 'id',
+        $self->column . '_id' => $self->column,
+        'last_edit_sent' => 'lasteditsent',
+        'deleted_by_edit' => 'deletedbyedit',
+        'merged_by_edit' => 'mergedbyedit',
+    };
+}
 
 sub subscribe
 {
@@ -101,6 +124,14 @@ sub get_subscribed_editor_count
 
     return $sql->select_single_value("SELECT count(*) FROM $table
                                     WHERE $column = ?", $entity_id);
+}
+
+sub get_subscriptions
+{
+    my ($self, $editor_id) = @_;
+    my $query = 'SELECT * FROM ' . $self->table . ' WHERE editor = ?';
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $editor_id);
 }
 
 sub merge

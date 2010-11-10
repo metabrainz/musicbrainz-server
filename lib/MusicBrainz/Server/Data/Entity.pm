@@ -6,6 +6,8 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Carp qw( confess );
 
+with 'MusicBrainz::Server::Data::Role::NewFromRow';
+
 has 'c' => (
     is => 'rw',
     isa => 'Object'
@@ -32,17 +34,6 @@ sub _table
     die("Not implemented");
 }
 
-sub _entity_class
-{
-    die("Not implemented");
-}
-
-sub _column_mapping
-{
-    return {};
-}
-
-
 sub _attribute_mapping
 {
     return {};
@@ -51,30 +42,6 @@ sub _attribute_mapping
 sub _dbh
 {
     shift->c->dbh;
-}
-
-sub _new_from_row
-{
-    my ($self, $row, $prefix) = @_;
-    return unless $row;
-    my %info;
-    my %mapping = %{$self->_column_mapping};
-    my @attribs = %mapping ? keys %mapping : keys %{$row};
-    $prefix ||= '';
-    foreach my $attrib (@attribs) {
-        my $column = $mapping{$attrib} || $attrib;
-        my $val;
-        if (ref($column) eq 'CODE') {
-            $val = $column->($row, $prefix);
-        }
-        elsif (defined $row->{$prefix.$column}) {
-            $val = $row->{$prefix.$column};
-        }
-        $info{$attrib} = $val if defined $val;
-    }
-    my $entity_class = $self->_entity_class($row);
-    Class::MOP::load_class($entity_class);
-    return $entity_class->new(%info);
 }
 
 sub _get_by_keys

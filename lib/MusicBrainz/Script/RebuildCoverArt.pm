@@ -6,30 +6,7 @@ use MusicBrainz::Server::Context;
 
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
-
-has 'c' => (
-    isa        => 'MusicBrainz::Server::Context',
-    is         => 'ro',
-    traits     => [ 'NoGetopt' ],
-    lazy_build => 1,
-);
-
-sub _build_c
-{
-    return MusicBrainz::Server::Context->create_script_context;
-}
-
-has 'sql' => (
-    isa        => 'Sql',
-    is         => 'ro',
-    traits     => [ 'NoGetopt' ],
-    lazy_build => 1,
-);
-
-sub _build_sql
-{
-    return Sql->new(shift->c->dbh);
-}
+with 'MusicBrainz::Script::Role::Context';
 
 has 'since' => (
     isa      => 'DateTime::Duration',
