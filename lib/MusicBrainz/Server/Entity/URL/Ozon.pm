@@ -6,7 +6,12 @@ extends 'MusicBrainz::Server::Entity::URL';
 
 sub pretty_name { 'www.ozon.ru' }
 
-override url => sub { super() . '?partner=musicbrainz' };
+override url => sub {
+    my $self = shift;
+    my $url = super();
+    $url->query_form(partner => 'musicbrainz');
+    return $url;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
