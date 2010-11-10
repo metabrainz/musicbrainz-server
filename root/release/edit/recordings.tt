@@ -65,7 +65,7 @@
           </tr>
           </thead>
           <tbody>
-          
+
           [%- FOR track=edits -%]
             [%- track_idx = loop.index -%]
             [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
@@ -114,7 +114,7 @@
         </table>
 
       </fieldset>
-    
+
     [%- END -%]
     </div>
 
@@ -160,14 +160,14 @@
                   <td> </td>
                   <td colspan="3">
                     [%- l('appears on:') %]
-                    <span class="appears"> 
+                    <span class="appears">
                   </td>
                 </tr>
                 <tr class="clientmatch comment" style="display: none">
                   <td> </td>
                   <td colspan="3">
                     [%- l('comment:') %]
-                    <span class="comment"> 
+                    <span class="comment">
                   </td>
                 </tr>
 
@@ -203,7 +203,7 @@
                   <td> </td>
                   <td colspan="3">
                     [%- l('comment on:') %]
-                    <span class="comment"> 
+                    <span class="comment">
                   </td>
                 </tr>
                 [%- END -%]
