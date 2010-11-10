@@ -187,7 +187,9 @@ MB.Control.ReleaseRecordings = function () {
     self.discs = [];
 
     $('fieldset.recording-assoc-disc').each (function (idx, disc) {
-        self.discs.push (MB.Control.ReleaseRecordingsDisc (idx, disc));
+        var discno = $(disc).attr ('id').replace ('recording-assoc-disc-', '');
+
+        self.discs.push (MB.Control.ReleaseRecordingsDisc (discno, disc));
     });
 
     MB.Control.BubbleCollection ($('a.change-recording'), $('div.select-recording'));

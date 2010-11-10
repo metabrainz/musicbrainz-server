@@ -42,7 +42,7 @@
 
       [%- medium = mediums.fields.$medium_idx -%]
 
-      <fieldset class="recording-assoc-disc">
+      <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]">
         <legend>
           [%- IF medium.field('name').value -%]
             [%- IF multidisc -%]
