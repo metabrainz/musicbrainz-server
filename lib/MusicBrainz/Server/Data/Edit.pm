@@ -10,8 +10,10 @@ use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
+
+use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -132,6 +134,32 @@ sub find
     return query_to_list_limited($self->c->raw_dbh, $offset, $limit, sub {
             return $self->_new_from_row(shift);
         }, $query, @args, $offset);
+}
+
+sub find_for_subscription
+{
+    my ($self, $subscription) = @_;
+    if($subscription->isa(EditorSubscription)) {
+        my $query = 'SELECT ' . $self->_columns . ' FROM edit 
+                      WHERE id > ? AND editor = ?';
+
+        return query_to_list(
+            $self->c->raw_dbh,
+            sub { $self->_new_from_row(shift) },
+            $query, $subscription->last_edit_sent,
+            $subscription->subscribededitor_id
+        );
+    }
+    else {
+        my $type = $subscription->type;
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+            " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
+            "   AND id > ?";
+        return query_to_list(
+            $self->c->raw_dbh,
+            sub { $self->_new_from_row(shift) },
+            $query, $subscription->target_id, $subscription->last_edit_sent);
+    }
 }
 
 sub merge_entities

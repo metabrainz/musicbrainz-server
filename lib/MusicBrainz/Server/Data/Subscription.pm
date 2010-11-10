@@ -166,6 +166,20 @@ sub delete
               WHERE $column IN (".placeholders(@ids).")", @ids);
 }
 
+sub update_last_edit_sent
+{
+    my ($self, $editor_id, $entity_id, $edit_id) = @_;
+    
+    my $table = $self->table;
+    my $column = $self->column;
+
+    my $sql = Sql->new($self->c->dbh);
+    $sql->auto_commit(1);
+    $sql->do("UPDATE $table SET lasteditsent = ?
+               WHERE $column = ? AND editor = ?",
+        $edit_id, $entity_id, $editor_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
