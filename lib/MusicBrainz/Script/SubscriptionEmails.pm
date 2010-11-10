@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use List::Util qw( max );
 use Moose::Util qw( does_role );
+use MusicBrainz::Server::Types qw( :edit_status );
 
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Delete' => 'DeleteRole';
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Merge' => 'MergeRole';
@@ -39,9 +40,13 @@ sub run {
         my @editor_subscriptions = $self->c->model('Editor')->subscription
             ->get_subscriptions($editor->id);
 
-        next if !(@artist_subscriptions &&
-                  @label_subscriptions &&
-                  @editor_subscriptions);
+        my @subscriptions = (
+            @artist_subscriptions,
+            @label_subscriptions,
+            @editor_subscriptions
+        );
+
+        next unless @subscriptions;
 
         unless ($editor->has_confirmed_email_address) {
             # Instead of returning here, we just empty the list of subscriptions.
@@ -54,22 +59,32 @@ sub run {
             @editor_subscriptions = ();
         }
 
-        my (@deletions, @merges);
-
-        for my $sub (@artist_subscriptions, @label_subscriptions, @editor_subscriptions) {
+        my (%deletions, %merges, %edits);
+        for my $sub (@subscriptions) {
             if (deleted($sub)) {
-
+                $deletions{ $sub->type } ||= [];
+                push @{ $deletions{ $sub->type } }, $sub;
             }
             elsif (merged($sub)) {
-
+                $merges{ $sub->type } ||= [];
+                push @{ $merges{ $sub->type } }, $sub;
             }
             else {
                 my @edits = $self->c->model('Edit')->find_for_subscription($sub);
                 next unless @edits;
 
+                my $open_count = grep { $_->is_open } @edits;
+                my $applied_count = grep { $_->status == $STATUS_APPLIED } @edits;
+
                 my $latest_edit = max map { $_->id } @edits;
                 $self->c->model('Artist')->subscription->update_last_edit_sent(
                     $editor->id, $sub->artist_id, $latest_edit);
+
+                $edits{ $sub->type } ||= [];
+                push @{ $edits{ $sub->type } }, {
+                    open => $open_count,
+                    applied => $applied_count
+                };
             }
         }
     }
