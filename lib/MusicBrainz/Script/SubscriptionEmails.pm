@@ -64,10 +64,12 @@ sub run {
             if (deleted($sub)) {
                 $deletions{ $sub->type } ||= [];
                 push @{ $deletions{ $sub->type } }, $sub;
+                $self->c->model('Artist')->subscriptions->delete($sub->id);
             }
             elsif (merged($sub)) {
                 $merges{ $sub->type } ||= [];
                 push @{ $merges{ $sub->type } }, $sub;
+                $self->c->model('Artist')->subscriptions->delete($sub->id);
             }
             else {
                 my @edits = $self->c->model('Edit')->find_for_subscription($sub);
