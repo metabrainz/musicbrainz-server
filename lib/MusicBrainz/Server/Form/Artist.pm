@@ -4,6 +4,7 @@ use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::DatePeriod';
+with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 
 has '+name' => ( default => 'edit-artist' );
 
@@ -39,10 +40,6 @@ has_field 'ipi_code' => (
     maxlength => 11
 );
 
-has_field 'not_dupe' => (
-    type => 'Boolean',
-);
-
 sub edit_field_names
 {
     return qw( name sort_name type_id gender_id country_id
@@ -53,29 +50,6 @@ sub options_gender_id   { shift->_select_all('Gender') }
 sub options_type_id     { shift->_select_all('ArtistType') }
 sub options_country_id  { shift->_select_all('Country') }
 
-has 'duplicates' => (
-    traits => [ 'Array' ],
-    isa => 'ArrayRef',
-    is => 'rw',
-    default => sub { [] },
-    handles => {
-        has_duplicates => 'count'
-    }
-);
-
-sub validate
-{
-    my $self = shift;
-
-    # Don't check for dupes if the not_dupe checkbox is ticked, or the
-    # user hasn't changed the artist's name
-    return if $self->field('not_dupe')->value;
-    return if $self->init_object && $self->init_object->name eq $self->field('name')->value;
-
-    $self->duplicates([ $self->ctx->model('Artist')->find_by_name($self->field('name')->value) ]);
-
-    $self->field('not_dupe')->required($self->has_duplicates ? 1 : 0);
-    $self->field('not_dupe')->validate_field;
-}
+sub dupe_model { shift->ctx->model('Artist') }
 
 1;
