@@ -263,7 +263,7 @@ sub _edit_release_track_edits
                 separate_tracklists => 1,
                 medium_id => $new->{id},
                 tracklist_id => $new->{tracklist_id},
-                old_tracklist => $self->_tracks_to_ref ($old->tracklist),
+                old_tracklist => $self->_tracks_to_ref ($old->tracklist->tracks),
                 new_tracklist => $self->_tracks_to_ref ($new->{tracks}),
                 as_auto_editor => $data->{as_auto_editor},
             );
@@ -473,7 +473,8 @@ sub associate_recordings
     my $count = 0;
     for (@$edits)
     {
-        if ($_->{name} eq $tracklists->tracks->[$count]->name)
+        if ($tracklists->tracks->[$count] &&
+            $_->{name} eq $tracklists->tracks->[$count]->name)
         {
             push @recordings, $tracklists->tracks->[$count]->recording_id;
             push @ret, $tracklists->tracks->[$count]->recording_id;
