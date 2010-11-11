@@ -2,12 +2,13 @@ package MusicBrainz::Server::Edit::Work::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT_ALIAS );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 
 sub _alias_model { shift->c->model('Work')->alias }
 
-sub edit_name { 'Edit work alias' }
+sub edit_name { l('Edit work alias') }
 sub edit_type { $EDIT_WORK_EDIT_ALIAS }
 
 sub related_entities { { work => [ shift->work_id ] } }

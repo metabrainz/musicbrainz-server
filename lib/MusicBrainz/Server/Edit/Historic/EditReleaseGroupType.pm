@@ -3,12 +3,13 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_id );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
-sub edit_name { 'Edit release group type' }
+sub edit_name { l('Edit release group type') }
 sub edit_type { 70 }
+sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
 sub do_upgrade
 {

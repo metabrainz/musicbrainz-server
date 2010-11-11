@@ -1,5 +1,4 @@
 [%- WRAPPER "artist/layout.tt" page='index' -%]
-    <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
 
     [%- IF release_groups.size -%]

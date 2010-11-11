@@ -3,10 +3,11 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_TRACK );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
-sub edit_name     { 'Remove track'}
+sub edit_name     { l('Remove track)'}
 sub edit_type     { $EDIT_HISTORIC_REMOVE_TRACK }
 sub historic_type { 11 }
 sub edit_template { 'historic/remove_track' }

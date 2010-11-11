@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+sub edit_name { l('Change wikidoc') }
 sub edit_type { 48 }
-sub edit_name { 'Change wikidoc' }
 sub ngs_class { 'MusicBrainz::Server::Edit::WikiDoc::Change' }
 
 sub do_upgrade

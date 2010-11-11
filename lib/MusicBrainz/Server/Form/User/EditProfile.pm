@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::User::EditProfile;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 
 extends 'MusicBrainz::Server::Form';
@@ -16,7 +17,7 @@ has_field 'website' => (
     maxlength => 255,
     apply     => [ {
         check => sub { MusicBrainz::Server::Validation->IsValidURL($_[0]) },
-        message => 'Invalid URL format',
+        message => l('Invalid URL format'),
     } ],
 );
 

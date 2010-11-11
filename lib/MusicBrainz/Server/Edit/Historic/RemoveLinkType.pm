@@ -3,10 +3,11 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK_TYPE );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name     { 'Remove link type' }
+sub edit_name     { l('Remove link type') }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK_TYPE }
 sub historic_type { 38 }
 sub ngs_class     { 'MusicBrainz::Server::Edit::Relationship::RemoveLinkType' }

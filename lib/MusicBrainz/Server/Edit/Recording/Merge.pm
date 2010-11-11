@@ -2,13 +2,14 @@ package MusicBrainz::Server::Edit::Recording::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
     -excludes => 'recording_ids'
 };
 
-sub edit_name { 'Merge recordings' }
+sub edit_name { l('Merge recordings') }
 sub edit_type { $EDIT_RECORDING_MERGE }
 sub _merge_model { 'Recording' }
 

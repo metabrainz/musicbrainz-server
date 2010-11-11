@@ -3,10 +3,11 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
-sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAlias' }
+sub edit_name { l('Add artist alias') }
 sub edit_type { 15 }
-sub edit_name { 'Add artist alias' }
+sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAlias' }
 
 sub do_upgrade {
     my $self = shift;

@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+sub edit_name { l('Edit label alias') }
 sub edit_type { 61 }
-sub edit_name { 'Edit label alias' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::EditAlias' }
 
 sub do_upgrade

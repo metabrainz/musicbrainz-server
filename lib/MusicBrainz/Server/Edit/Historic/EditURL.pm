@@ -3,10 +3,11 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name { 'Edit url' }
+sub edit_name { l('Edit url') }
 sub edit_type { 59 }
 sub ngs_class { 'MusicBrainz::Server::Edit::URL::Edit' }
 

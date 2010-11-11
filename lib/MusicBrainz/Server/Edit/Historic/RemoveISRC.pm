@@ -2,10 +2,11 @@ package MusicBrainz::Server::Edit::Historic::RemoveISRC;
 use strict;
 use warnings;
 use namespace::autoclean;
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name { 'Remove ISRC' }
+sub edit_name { l('Remove ISRC') }
 sub edit_type { 72 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::RemoveISRC' }
 

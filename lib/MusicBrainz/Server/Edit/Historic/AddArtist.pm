@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::Artist';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+sub edit_name { l('Add artist') }
 sub edit_type { 17 }
-sub edit_name { 'Add artist' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Create' }
 
 sub do_upgrade

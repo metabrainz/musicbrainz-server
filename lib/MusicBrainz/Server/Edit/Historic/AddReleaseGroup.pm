@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Utils 'upgrade_id';
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
@@ -15,8 +16,8 @@ my $key_mapping = {
     Type       => 'type_id',
 };
 
+sub edit_name { l('Add release group') }
 sub edit_type { 66 }
-sub edit_name { 'Add release group' }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Create' }
 
 sub do_upgrade

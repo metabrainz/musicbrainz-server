@@ -2,12 +2,13 @@ package MusicBrainz::Server::Edit::Work::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE_ALIAS );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 
 sub _alias_model { shift->c->model('Work')->alias }
 
-sub edit_name { 'Remove work alias' }
+sub edit_name { l('Remove work alias') }
 sub edit_type { $EDIT_WORK_DELETE_ALIAS }
 
 sub related_entities { { work => [ shift->work_id ] } }

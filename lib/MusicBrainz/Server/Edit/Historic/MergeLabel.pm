@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
 sub edit_type { 58 }
-sub edit_name { 'Merge labels' }
+sub edit_name { l('Merge labels') }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Merge' }
 
 sub do_upgrade

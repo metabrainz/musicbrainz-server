@@ -3,10 +3,11 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Delete' }
 sub edit_type { 56 }
-sub edit_name { 'Remove label' }
+sub edit_name { l('Remove label') }
 
 sub do_upgrade {
     my $self = shift;

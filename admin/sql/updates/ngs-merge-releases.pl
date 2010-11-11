@@ -464,18 +464,27 @@ eval {
     # Only remove disc information in release name for releases we are merging
     $sql->do("
     CREATE INDEX tmp_release_name_idx_name ON release_name (name);
+    
+    SELECT COALESCE(new_rel, id) AS id,
+        min(quality) AS quality
+    INTO TEMPORARY tmp_release_quality
+    FROM release
+        LEFT JOIN tmp_release_merge rm ON release.id=rm.old_rel
+    GROUP BY COALESCE(new_rel, id);
+
     SELECT release.id, gid,
         CASE
                 WHEN rm1.new_rel IS NOT NULL THEN regexp_replace(n.name, E'\\\\s+[(](disc [0-9]+(: .*?)?|bonus disc(: .*?)?)[)]\$', '')
                 ELSE n.name
         END,
         artist_credit, release_group, status, packaging, country, language, script,
-        date_year, date_month, date_day, barcode, comment, edits_pending, quality
+        date_year, date_month, date_day, barcode, comment, edits_pending, q.quality
     INTO TEMPORARY tmp_release
     FROM release
         INNER JOIN release_name n ON release.name=n.id
         LEFT JOIN tmp_release_merge rm0 ON release.id=rm0.old_rel
         LEFT JOIN (select distinct new_rel from tmp_release_merge) rm1 ON release.id=rm1.new_rel
+        JOIN tmp_release_quality q ON q.id = release.id
     WHERE rm0.old_rel IS NULL;
 
     INSERT INTO release_name (name)

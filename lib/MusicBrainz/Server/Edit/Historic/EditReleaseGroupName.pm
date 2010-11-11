@@ -3,8 +3,9 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
-sub edit_name { 'Edit release group name' }
+sub edit_name { l('Edit release group name') }
 sub edit_type { 65 }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 

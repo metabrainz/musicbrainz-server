@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Relationship::Delete;
 use MusicBrainz::Server::Edit::Relationship::Edit;
+use MusicBrainz::Server::Translation qw( l ln );
 use JSON;
 
 sub build_type_info
@@ -135,7 +136,7 @@ sub create : Local RequireAuth Edit
     my ($type0, $type1)         = ($qp->{type0},  $qp->{type1});
     my ($source_gid, $dest_gid) = ($qp->{entity0}, $qp->{entity1});
     if (!$type0 || !$type1 || !$source_gid || !$dest_gid) {
-        $c->stash( message => 'Invalid arguments' );
+        $c->stash( message => l('Invalid arguments') );
         $c->detach('/error_500');
     }
 
@@ -149,7 +150,7 @@ sub create : Local RequireAuth Edit
     my $source_model = $c->model(type_to_model($type0));
     my $dest_model   = $c->model(type_to_model($type1));
     if (!$source_model || !$dest_model) {
-        $c->stash( message => 'Invalid entities' );
+        $c->stash( message => l('Invalid entities') );
         $c->detach('/error_500');
     }
 
@@ -157,7 +158,7 @@ sub create : Local RequireAuth Edit
     my $dest   = $dest_model->get_by_gid($dest_gid);
 
     if ($source->id == $dest->id) {
-        $c->stash( message => 'A relationship requires 2 different entities' );
+        $c->stash( message => l('A relationship requires 2 different entities') );
         $c->detach('/error_500');
     }
 
@@ -230,7 +231,7 @@ sub create_url : Local RequireAuth Edit
     my $gid = $qp->{entity};
 
     if ($type eq 'url') {
-        $c->stash( message => 'Invalid type' );
+        $c->stash( message => l('Invalid type') );
         $c->detach('/error_500');
     }
 
@@ -238,13 +239,13 @@ sub create_url : Local RequireAuth Edit
 
     my $model = $c->model(type_to_model($type));
     unless (defined $model) {
-        $c->stash( message => 'Invalid type' );
+        $c->stash( message => l('Invalid type') );
         $c->detach('/error_500');
     }
     
     my $entity = $model->get_by_gid($gid);
     unless (defined $entity) {
-        $c->stash( message => 'Entity not found' );
+        $c->stash( message => l('Entity not found') );
         $c->detach('/error_404');
     }
 

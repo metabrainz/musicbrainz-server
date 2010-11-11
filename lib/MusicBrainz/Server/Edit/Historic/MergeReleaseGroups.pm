@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+sub edit_name { l('Merge artists') }
 sub edit_type { 67 }
-sub edit_name { 'Merge artists' }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Merge' }
 
 sub old_entities

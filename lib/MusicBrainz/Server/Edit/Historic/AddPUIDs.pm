@@ -3,8 +3,9 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
-sub edit_name { 'Add PUIDs' }
+sub edit_name { l('Add PUIDs') }
 sub edit_type { 47 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddPUIDs' }
 

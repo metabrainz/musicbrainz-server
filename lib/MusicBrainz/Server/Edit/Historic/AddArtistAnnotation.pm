@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+sub edit_name { l('Add artist annotation') }
 sub edit_type { 30 }
-sub edit_name { 'Add artist annotation' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAnnotation' }
 
 sub do_upgrade

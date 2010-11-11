@@ -3,10 +3,11 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Str Int );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Remove relationship attribute' }
+sub edit_name { l('Remove relationship attribute') }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE }
 
 has '+data' => (

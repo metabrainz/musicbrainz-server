@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use MusicBrainz::Server::Controller::Role::Tag;
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
@@ -276,7 +277,7 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
         my $release_group = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
         $c->model('ArtistCredit')->load($release_group);
         if ($release->release_group_id == $release_group->id) {
-            $c->stash( message => 'This release is already in the selected release group' );
+            $c->stash( message => l('This release is already in the selected release group') );
             $c->detach('/error_400');
         }
 

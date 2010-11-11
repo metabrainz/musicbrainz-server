@@ -3,10 +3,11 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Delete' }
 sub edit_type { 68 }
-sub edit_name { 'Remove release group' }
+sub edit_name { l('Remove release group') }
 
 sub do_upgrade {
     my $self = shift;

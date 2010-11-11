@@ -3,12 +3,13 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_TRACK_ARTIST );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
-sub edit_name     { 'Change track artist' }
+sub edit_name     { l('Change track artist') }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_TRACK_ARTIST }
 sub historic_type { 10 }
 

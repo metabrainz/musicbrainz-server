@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::Label';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+sub edit_name { l('Add label') }
 sub edit_type { 54 }
-sub edit_name { 'Add label' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Create' }
 
 sub do_upgrade

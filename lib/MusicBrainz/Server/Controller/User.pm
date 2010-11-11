@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Translation qw ( l ln );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
@@ -227,9 +228,8 @@ sub contact : Chained('base') RequireAuth HiddenOnSlaves
     unless ($editor->email) {
         $c->stash(
             title    => $c->gettext('Send Email'),
-            message  => $c->gettext(
-                'The editor {name} has no email address attached to their account.',
-                { name => $editor->name }),
+            message  => l('The editor {name} has no email address attached to their account.',
+                         { name => $editor->name }),
             template => 'user/message.tt',
         );
         $c->detach;

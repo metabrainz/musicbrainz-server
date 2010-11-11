@@ -674,6 +674,8 @@ CREATE TABLE medium_format
 (
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
+    parent              INTEGER, -- references medium_format.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
     year                SMALLINT
 );
 

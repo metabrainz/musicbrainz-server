@@ -3,8 +3,9 @@ use strict;
 use warnings;
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
-sub edit_name { 'Add ISRCs' }
+sub edit_name { l('Add ISRCs') }
 sub edit_type { 71 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddISRCs' }
 

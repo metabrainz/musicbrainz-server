@@ -1,5 +1,3 @@
-[% USE Diff %]
-[% WRAPPER 'label/layout.tt' title=l('Annotation Differences') full_width=1 %]
-  <h2>[% l('Annotation Differences') %]</h2>
-  [% Diff.diff(old.text, new.text) %]
+[% WRAPPER 'label/layout.tt' title=l('Annotation comparison') full_width=1 %]
+    [% INCLUDE 'annotation/diff.tt' %]
 [% END %]

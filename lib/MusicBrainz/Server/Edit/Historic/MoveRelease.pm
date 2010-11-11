@@ -3,12 +3,13 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_RELEASE );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
-sub edit_name     { 'Move release' }
+sub edit_name     { l('Move release') }
 sub historic_type { 8 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_RELEASE }
 

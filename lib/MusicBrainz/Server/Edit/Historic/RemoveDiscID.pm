@@ -4,10 +4,11 @@ use warnings;
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_DISCID );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
-sub edit_name     { 'Remove disc ID' }
+sub edit_name     { l('Remove disc ID') }
 sub historic_type { 20 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_DISCID }
 sub edit_template { 'historic/remove_disc_id' }

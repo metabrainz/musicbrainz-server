@@ -8,10 +8,11 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
-sub edit_name { "Add label" }
+sub edit_name { l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub _create_model { 'Label' }
 sub label_id { shift->entity_id }

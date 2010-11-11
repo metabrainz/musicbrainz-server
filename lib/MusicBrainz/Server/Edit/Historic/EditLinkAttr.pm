@@ -3,10 +3,11 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name { 'Edit relationship attribute' }
+sub edit_name { l('Edit relationship attribute') }
 sub edit_type { 42 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Relationship::EditLinkAttribute' }
 
