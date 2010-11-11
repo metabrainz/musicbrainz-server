@@ -129,12 +129,13 @@ while (1) {
             # Map albums to RGs and calculate sums/counts
             foreach $row (@user_data) {
                 my ($rating, $editor, $album) = @$row;
-                my $rg = $rg_map{$album};
+                my $rg = $rg_map{$album} or next;
                 $rg_rating_sum{$rg} += $rating;
                 $rg_rating_cnt{$rg} += 1;
             }
             # Iterate over unique RGs and add average raw ratings
             foreach my $rg (keys %rg_rating_sum) {
+                next unless defined $rg;
                 my $rating = int(0.5 + $rg_rating_sum{$rg} / $rg_rating_cnt{$rg});
                 $raw_sql->do("
                     INSERT INTO release_group_rating_raw (release_group, editor, rating)
