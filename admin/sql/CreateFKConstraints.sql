@@ -685,6 +685,11 @@ ALTER TABLE medium_cdtoc
    FOREIGN KEY (cdtoc)
    REFERENCES cdtoc(id);
 
+ALTER TABLE medium_format
+   ADD CONSTRAINT medium_format_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES medium_format(id);
+
 ALTER TABLE puid
    ADD CONSTRAINT puid_fk_version
    FOREIGN KEY (version)
