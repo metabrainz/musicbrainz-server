@@ -72,8 +72,6 @@ INSERT INTO medium_format (id, name, year) VALUES
     (15, 'Piano Roll', 1883),
     (16, 'DCC', 1992),
     (17, 'HD-DVD', NULL),
-    (18, 'DVD-Audio', NULL),
-    (19, 'DVD-Video', NULL),
     (20, 'Blu-ray', NULL),
     (21, 'VHS', NULL),
     (22, 'VCD', NULL),
@@ -87,8 +85,8 @@ INSERT INTO medium_format (id, name, year, child_order, parent) VALUES
     (29, '7"', NULL, 0, 7),
     (30, '10"', NULL, 1, 7),
     (31, '12"', NULL, 2, 7),
-    (32, 'DVD-Audio', NULL, 0, 2),
-    (33, 'DVD-Video', NULL, 1, 2);
+    (18, 'DVD-Audio', NULL, 0, 2),
+    (19, 'DVD-Video', NULL, 1, 2);
 
 INSERT INTO url (id, gid, url, description, refcount)
     SELECT id, gid::uuid, url, description, refcount FROM public.url;
