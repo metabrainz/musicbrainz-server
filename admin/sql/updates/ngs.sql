@@ -153,7 +153,8 @@ CREATE UNIQUE INDEX tmp_release_gid_album ON tmp_release_gid(album);
 
 INSERT INTO release
     (id, gid, release_group, name, artist_credit, barcode, status,
-     date_year, date_month, date_day, country, language, script)
+     date_year, date_month, date_day, country, language, script,
+     quality)
     SELECT
         r.id,
         CASE WHEN g.gid IS NULL THEN
@@ -175,7 +176,8 @@ INSERT INTO release
         NULLIF(substr(releasedate, 9, 2)::int, 0),
         NULLIF(country, 239), -- Use NULL instead of [Unknown Country]
         language,
-        script
+        script,
+        quality
     FROM public.release r
         JOIN public.album a ON r.album = a.id
         JOIN release_name n ON a.name = n.name
@@ -202,7 +204,8 @@ INSERT INTO tmp_release_album
     SELECT album, id FROM tmp_new_release;
 
 INSERT INTO release
-    (id, gid, release_group, name, artist_credit, status, language, script)
+    (id, gid, release_group, name, artist_credit, status, language, script,
+    quality)
     SELECT
         r.id,
         a.gid::uuid,
@@ -217,7 +220,8 @@ INSERT INTO release
             ELSE NULL
         END,
         language,
-        script
+        script,
+        quality
     FROM tmp_new_release r
         JOIN public.album a ON r.album = a.id
         JOIN release_name n ON a.name = n.name
