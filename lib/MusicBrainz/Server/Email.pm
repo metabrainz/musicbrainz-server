@@ -9,6 +9,9 @@ use Email::MIME;
 use Email::MIME::Creator;
 use URI::Escape qw( uri_escape );
 use DBDefs;
+use Template;
+
+use MusicBrainz::Server::Types qw( :edit_status );
 
 has 'c' => (
     is => 'rw',
@@ -247,6 +250,30 @@ EOS
     return $self->_create_email(\@headers, $body);
 }
 
+sub _create_subscriptions_email
+{
+    my ($self, %opts) = @_;
+
+    my @headers = (
+        'To'       => _user_address($opts{to}),
+        'From'     => $NOREPLY_ADDRESS,
+        'Reply-To' => $SUPPORT_ADDRESS,
+        'Subject'  => 'Edits for your subscriptions',
+    );
+
+    my $template = Template->new;
+    my $body = '';
+    $template->process('template.html', {
+        %opts,
+        subscriptions => 'http://musicbrainz.org/user/subscriptions.html',
+        view_subscriptions => 'http://musicbrainz.org/mod/search/pre/subscriptions.html',
+        open_type => $STATUS_OPEN,
+        applied_type => $STATUS_APPLIED
+    }, \$body);
+
+    return $self->_create_email(\@headers, $body);
+}
+
 sub _create_edit_note_email
 {
     my ($self, %opts) = @_;
@@ -337,6 +364,14 @@ sub send_password_reset_request
     my ($self, %opts) = @_;
 
     my $email = $self->_create_password_reset_request_email(%opts);
+    return $self->_send_email($email);
+}
+
+sub send_subscriptions_digest
+{
+    my ($self, %opts) = @_;
+
+    my $email = $self->_create_subscriptions_email(%opts);
     return $self->_send_email($email);
 }
 

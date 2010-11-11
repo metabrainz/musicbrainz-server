@@ -1,0 +1,62 @@
+[%- MACRO edit_link(id) BLOCK; -%]
+http://test.musicbrainz.org/edit/[% id %]
+[% END -%]
+This is a notification that edits have been added for artists, labels and
+editors to whom you subscribed on the MusicBrainz web site.
+
+To view or edit your subscription list, please use the following link:
+[% subscriptions %]
+
+To see all open edits for your subscribed artists, see this link:
+[% view_subscriptions %]
+
+[% IF merges -%]
+Some of your subscribed artists or labels have been merged:
+
+[% FOR type_merges=merges.pairs -%]
+Merged [% type_merges.key %]s
+------------------------------------------------------------------------
+[% FOR merge=type_merges.value -%]
+#[%- merge.artist_id %]
+[% edit_link(merge.merged_by_edit) %]
+[% END %]
+
+[% END %]
+[%- END -%]
+
+[%- IF deletes -%]
+Some of your subscribed artists or labels have been deleted:
+
+[% FOR type_deletes=deletes.pairs -%]
+Deleted [% type_deletes.key %]s
+------------------------------------------------------------------------
+[% FOR delete=type_deletes.value -%]
+#[% delete.artist_id %]
+[% edit_link(delete.deleted_by_edit) %]
+[% END %]
+[% END %]
+[% END -%]
+
+[%- FOR type_edits=edits.pairs -%]
+The changes to your subscribed [% type_edits.key %]s are as follows:
+------------------------------------------------------------------------
+[% FOR edit=type_edits.value %]
+[% edit.sub.target.name %] ([% edit.open %] open edits, [% edit.applied %] applied edits)
+http://127.0.0.1:3000/edit/search/?artist=[% edit.sub.target.id %]
+[% END %]
+
+[% END -%]
+
+[% IF editors %]
+Changes made by your subscribed editors:
+------------------------------------------------------------------------
+[%- FOR sub=editors %]
+[% sub.sub.subscribededitor.name %] ([% sub.open %] open edits, [% sub.applied %] applied edits)
+All edits: http://127.0.0.1:3000/edit/search/?editor=[%sub.sub.subscribededitor.id %]&status=[% open_type %]
+Open edits: http://127.0.0.1:3000/edit/search/?editor=[%sub.sub.subscribededitor.id %]&status=[% applied_type %]
+[% END %]
+[% END %]
+
+------------------------------------------------------------------------
+Please do not reply to this message.  If you need help, please see
+http://musicbrainz.org/doc/ContactUs

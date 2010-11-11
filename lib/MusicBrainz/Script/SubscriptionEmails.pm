@@ -6,6 +6,7 @@ use List::Util qw( max );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Types qw( :edit_status );
 
+use aliased 'MusicBrainz::Server::Email';
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Delete' => 'DeleteRole';
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Merge' => 'MergeRole';
 
@@ -30,6 +31,7 @@ sub run {
     die "Usage error ($0 takes no arguments)" if @args;
 
     my $max = $self->c->model('Edit')->get_max_id;
+    my $email = Email->new(c => $self->c);
 
     my @editors = $self->c->model('Editor')->editors_with_subscriptions;
     for my $editor (@editors) {
@@ -39,10 +41,13 @@ sub run {
         my @subscriptions = $self->c->model('EditorSubscriptions')
             ->get_all_subscriptions($editor->id) or next;
 
-        unless ($editor->has_confirmed_email_address) {
+        if ($editor->has_confirmed_email_address) {
             printf "... sending email\n";
-            my $data = $self->extract_subscription_data(@subscriptions);
-
+            my %data = $self->extract_subscription_data(@subscriptions);
+            $email->send_subscriptions_digest(
+                to => $editor,
+                %data
+            );
         }
 
         unless ($self->dry_run) {
@@ -94,11 +99,11 @@ sub extract_subscription_data
 
     $self->c->model('EditorSubscriptions')->update_subscriptions;
 
-    return {
+    return (
         deletions => \%deletions,
         merges => \%merges,
         edits => \%edits
-    }
+    );
 }
 
 sub deleted
