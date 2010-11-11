@@ -77,34 +77,36 @@ while ($dbh->pg_getcopydata($line) >= 0) {
 
 $raw_dbh->pg_putcopyend;
 
-$sql = Sql->new($c->dbh);
-
 printf STDERR "Inserting votes\n";
-$sql->select('SELECT id, moderator AS editor, moderation AS edit, vote,
-                     votetime AS vote_time, superseded FROM public.vote_closed
-               WHERE id NOT IN (' . placeholders(values %skip) .')',
-             values %skip);
-
-$raw_sql->begin;
-while(my $row = $sql->next_row_hash_ref) {
-    $raw_sql->insert_row('vote', $row);    
+$raw_dbh->do('COPY vote FROM STDIN');
+$dbh->do('COPY public.vote_closed TO STDOUT');
+$line = '';
+while ($dbh->pg_getcopydata($line) >= 0) {
+    $raw_dbh->pg_putcopydata($line);
 }
-$raw_sql->commit;
-$sql->finish;
+$raw_dbh->pg_putcopyend;
 
-printf STDERR "Inserting edit notes\n";
-$sql->select('SELECT id, moderation AS edit, moderator AS editor, text, notetime AS note_time
-                FROM public.moderation_note_closed
-               WHERE id NOT IN (' . placeholders(values %skip) .')',
-             values %skip);
-
-$raw_sql->begin;
-while(my $row = $sql->next_row_hash_ref) {
-    $raw_sql->insert_row('edit_note', $row);
+printf STDERR "Insert edit notes\n";
+$raw_dbh->do('COPY edit_note FROM STDIN');
+$dbh->do('COPY public.moderation_note_closed TO STDOUT');
+$line = '';
+while ($dbh->pg_getcopydata($line) >= 0) {
+    $raw_dbh->pg_putcopydata($line);
 }
-$raw_sql->commit;
-$sql->finish;
+$raw_dbh->pg_putcopyend;
 
-printf STDERR "Final clear up\n";
+printf STDERR "Removing invalid votes and edit notes\n";
+$raw_sql->begin;
+$raw_sql->do(
+    'DELETE FROM vote WHERE edit IN (' . placeholders(keys %skip) . ')',
+    keys %skip
+);
+$raw_sql->do(
+    'DELETE FROM edit_note WHERE edit IN (' . placeholders(keys %skip) . ')',
+    keys %skip
+);
+$raw_sql->commit;
+
+printf STDERR "Cleaning up\n";
 $dbh->do('DROP INDEX puid_idx_puid');
 $dbh->do('DROP INDEX recording_puid_idx_uniq');
