@@ -249,9 +249,20 @@ sub load_release_info
     return map { $_->{id} => $_ } @$data;
 }
 
+
+sub longest_common_prefix {
+   	my $prefix = shift;
+   	for (@_) {
+		chop $prefix while (! /^\Q$prefix\E/);
+	}
+	return $prefix;
+}
+
 sub match_release_events
 {
     my ($rinfo, $entities0, $entities1, $strict) = @_;
+
+	$strict = 1 unless defined $strict;
 
     my %used;
     my @new_links;
@@ -259,7 +270,7 @@ sub match_release_events
     foreach my $entity0 (@$entities0) {
         foreach my $entity1 (@$entities1) {
             next if $entity0 == $entity1;
-            printf LOG "   ** Comparing %s and %s\n", $entity0, $entity1;
+            printf LOG "   ** Comparing %s and %s (%d)\n", $entity0, $entity1, $strict;
             next unless exists $rinfo->{$entity0};
             next unless exists $rinfo->{$entity1};
             my $m_sum = 0;
@@ -281,30 +292,30 @@ sub match_release_events
                     defined $rinfo->{$entity1}->{country} &&
                     $rinfo->{$entity0}->{country} == $rinfo->{$entity1}->{country});
 
-            $m_cnt += 1
-                if (defined $rinfo->{$entity0}->{barcode} ||
-                    defined $rinfo->{$entity1}->{barcode});
-            $m_sum += 1
-                if (defined $rinfo->{$entity0}->{barcode} &&
-                    defined $rinfo->{$entity1}->{barcode} &&
-                    $rinfo->{$entity0}->{barcode} eq $rinfo->{$entity1}->{barcode});
+            my $barcode0 = $rinfo->{$entity0}->{barcode};
+            my $barcode1 = $rinfo->{$entity1}->{barcode};
+			my $barcodes_match = (defined $barcode0 && defined $barcode1 && $barcode0 eq $barcode1);
+            $m_cnt += 1 if (defined $barcode0 || defined $barcode1);
+            $m_sum += 1 if $barcodes_match;
 
             my $catno0 = $rinfo->{$entity0}->{catno};
             my $catno1 = $rinfo->{$entity1}->{catno};
-            $m_cnt += 1
-                if (defined $catno0 || defined $catno1);
-            if ($strict) {
-                # lower-cased cat#
-                $catno0 = lc($catno0) if defined $catno0;
-                $catno1 = lc($catno1) if defined $catno1;
-            }
-            else {
-                # lower-cased cat# without the last character (multi-disc cat#s)
-                $catno0 = substr(lc($catno0), 0, -1) if defined $catno0;
-                $catno1 = substr(lc($catno1), 0, -1) if defined $catno1;
-            }
-            $m_sum += 1
-                if (defined $catno0 && defined $catno1 && $catno0 eq $catno1);
+            $m_cnt += 1 if (defined $catno0 || defined $catno1);
+			if (defined $catno0 && defined $catno1) {
+				$catno0 = lc($catno0);
+				$catno1 = lc($catno1);
+				if (!$strict) { 
+					# barcodes match exactly, we can be less strict about the catalog numbers
+					$catno0 = mangle_catno($catno0);
+					$catno1 = mangle_catno($catno1);
+					my $prefix = longest_common_prefix($catno0, $catno1);
+					$m_sum += 1 if (length($prefix) >= length($catno0) - 2 && length($prefix) >= length($catno1) - 2);
+				}
+				else {
+					# require exact catalog number match
+					$m_sum += 1	if $catno0 eq $catno1;
+				}
+			}
 
             $m_cnt += 1
                 if (defined $rinfo->{$entity0}->{label} ||
@@ -329,8 +340,20 @@ sub match_release_events
         }
     }
 
-    # If we have some matches, ...
-    if (%used) {
+	if ($strict) {
+		my @unused_entities0 = grep { !$used{$_} } @$entities0;
+		my @unused_entities1 = grep { !$used{$_} } @$entities1;
+		if (@unused_entities0 && @unused_entities1) {
+			my @non_strict_links = match_release_events($rinfo, \@unused_entities0, \@unused_entities1, 0);
+			foreach my $pair (@non_strict_links) {
+				$used{$pair->[0]} = 1;
+				$used{$pair->[1]} = 1;
+				push @new_links, $pair;
+			}
+		}
+	}
+
+    if ($strict && %used) {
         foreach my $used (values %used) {
             if ($used > 1) {
                 # Ambiguous match, forget everything
@@ -959,9 +982,7 @@ foreach my $orig_t0 (@entity_types) {
                     FROM public.release r
                     WHERE r.id IN ('.placeholders(@ids).')', @ids);
                 my %rinfo = map { $_->{id} => $_ } @$rinfo;
-                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1, 0);
-                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1, 1)
-                    unless @new_links;
+                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1);
                 if (@new_links) {
                     #foreach my $r (@new_links) {
                         #printf STDERR "      %d -> %d\n", $r->[0], $r->[1];
@@ -986,7 +1007,7 @@ foreach my $orig_t0 (@entity_types) {
 
             if ($new_t0 eq "release" && $new_t1 eq "release") {
 				foreach my $pair (@new_links) {
-					printf LOG "%d -> %s\n", $pair->[0], $pair->[1];
+					printf LOG "%d - %s\n", $pair->[0], $pair->[1];
 				}
 			}
 
