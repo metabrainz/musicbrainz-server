@@ -378,21 +378,100 @@ my %album_ar_types = (
 );
 
 my %track_ar_types = (
+    # Commented on purpose, recording is the default target anyway
+    #'album' => {
+    #    2 => 'recording',   # samples material
+    #},
     'artist' => {
-        13 => 'work',  # composition
-        14 => 'work',  # composer
-        15 => 'work',  # arranger
-        16 => 'work',  # lyricist
-        43 => 'work',  # instrumentator
-        44 => 'work',  # orchestrator
+        1  => 'recording',   # performance
+        2  => 'recording',   # performer
+        3  => 'recording',   # instrument performer
+        4  => 'recording',   # vocal performer
+        5  => 'recording',   # performing orchestra
+        9  => 'recording',   # conductor
+        10 => 'recording',   # remixes
+        11 => 'recording',   # remixer
+        12 => 'recording',   # samples from artist
+        13 => 'work',        # composition
+        14 => 'work',        # composer
+        15 => 'work',        # arranger
+        16 => 'work',        # lyricist
+        17 => 'recording',   # production
+        18 => 'recording',   # producer
+        19 => 'recording',   # engineer
+        20 => 'recording',   # audio
+        21 => 'recording',   # sound
+        22 => 'recording',   # live sound
+        23 => 'recording',   # mix
+        24 => 'recording',   # recording
+#       25 => # misc => both
+        26 => 'recording',   # legal representation
+        27 => 'recording',   # booking
+        28 => 'recording',   # artists and repertoire
+        29 => 'recording',   # creative direction
+        30 => 'recording',   # art direction
+        31 => 'recording',   # design/illustration
+        32 => 'recording',   # graphic design
+        33 => 'recording',   # photography
+        34 => 'recording',   # travel
+#       35 => # publishing => both
+        36 => 'recording',   # merchandise
+        38 => 'recording',   # compilations
+        39 => 'recording',   # compiler
+        40 => 'recording',   # mix-DJ
+        41 => 'recording',   # mastering
+        43 => 'work',        # instrumentator
+        44 => 'work',        # orchestrator
+        46 => 'recording',   # chorus master
+        47 => 'recording',   # liner notes
+        49 => 'recording',   # programming
+        50 => 'recording',   # editor
         51 => 'work',  # librettist
     },
+    'label' => {
+#        2 => # publishing => both
+    },
+    'track' => {
+        #1  => # covers and versions => both
+        2  => 'recording', # first track release
+        3  => 'recording', # remaster
+        4  => 'work',      # other version
+        5  => 'recording', # cover
+        6  => 'recording', # remixes
+        7  => 'recording', # samples material
+        8  => 'recording', # mashes up
+        #10 => # compilations => both
+        11 => 'recording', # remix
+        12 => 'recording', # compilation
+        13 => 'recording', # DJ-mix
+        14 => 'work',      # medley
+        16 => 'recording', # karaoke
+    },
     'url' => {
-        #18 => 'work',  # other databases
-        #23 => 'work',  # ibdb
-        #24 => 'work',  # iobdb
-        25 => 'work',  # lyrics
-        26 => 'work',  # score
+        1  => 'recording',   # production
+        2  => 'recording',   # recording studio
+#       3  => # misc => both
+        4  => 'recording',   # legal representation
+        5  => 'recording',   # booking
+        6  => 'recording',   # artists and repertoire
+        7  => 'recording',   # creative direction
+        8  => 'recording',   # art direction
+        9  => 'recording',   # design/illustration
+        10 => 'recording',   # graphic design
+        11 => 'recording',   # photography
+        12 => 'recording',   # travel
+#       13 => # publishing => both
+        14 => 'recording',   # merchandise
+        15 => 'recording',   # get the music
+        16 => 'recording',   # purchase for download
+        17 => 'recording',   # download for free
+        18 => 'work',        # other databases
+        21 => 'recording',   # creative commons licensed download
+        23 => 'work',        # ibdb
+        24 => 'work',        # iobdb
+        25 => 'work',        # lyrics
+        26 => 'work',        # score
+        27 => 'recording',   # IMDB samples
     }
 );
 

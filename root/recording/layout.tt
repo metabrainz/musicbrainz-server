@@ -2,10 +2,9 @@
     artist => artist_credit(recording.artist_credit, plain => 1),
     name => html_escape(recording.name)
 }) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
-    [% WRAPPER 'layout/sidebar.tt' %]
-       <span about="[% rdfa_recording_curi(recording) %]">
+    [% WRAPPER 'layout/sidebar.tt' about=rdfa_recording_curi(recording)%]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(recording.artist_credit) %]
@@ -22,7 +21,6 @@
                 [% END %]
             [%- END -%]
         [% END %]
-	</span>
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags more=more_tags tag_this_text=l('Tag this recording') -%]
 

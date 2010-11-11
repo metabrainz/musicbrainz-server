@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? label.name _ " - ${title}" : label.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -14,6 +14,9 @@
                     [% END %]
                 [% END %]
             [%- END -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+               content=html_escape(label.ipi_code)
+                   IF label.ipi_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(label.country.name)
                    IF label.country -%]

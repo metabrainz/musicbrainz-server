@@ -1,15 +1,13 @@
-<div class="releaseheader" about="[% rdfa_release_curi(release) %]" typeof="[% rdfa_concept_curi('release') %]">
-
+<div class="releaseheader" [%- rdfa_about_attr(rdfa_release_curi(release)) %] [% rdfa_typeof(rdfa_concept_curi('release')) -%]>
 [%- IF c.session.tport -%]
-    [% tagger_icon(release) %]
+    [%- tagger_icon(release) -%]
 [%- END -%]
-
-<h1>“[% rdfa_link_release_header(release) %]” [% disambiguation(release) %]</h1>
+<h1>“[%- rdfa_link_release_header(release) -%]” [%- disambiguation(release) -%]</h1>
 <p class="subheader">
     <span class="prefix">~</span>
-        [% l('Release by {artist}', {artist = rdfa_artist_credit(release.artist_credit)})%]
-	[% rdfa_release_invisible_header(release) %]
+        [%- l('Release by {artist}', {artist = rdfa_artist_credit(release.artist_credit)})%]
+	[%- rdfa_release_invisible_header(release) -%]
 </p>
 </div>
 
-[% INCLUDE 'release/tabs.tt' %]
+[%- INCLUDE 'release/tabs.tt' -%]

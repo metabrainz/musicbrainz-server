@@ -51,11 +51,6 @@
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]
       [% form_row_select (r, 'status_id', 'Status') %]
-
-      <div style="float: right; margin: 10px;" class="buttons">
-        <a href="#language_script_full">[% l('Show full lists') %]</a>
-      </div>
-
       [% form_row_select (r, 'language_id', 'Language') %]
       [% form_row_select (r, 'script_id', 'Script') %]
 

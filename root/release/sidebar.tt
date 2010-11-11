@@ -1,9 +1,3 @@
-[%- BLOCK about; %]
-<span about="[% rdfa_release_curi(release) %]">
-  [% content %]
-</span>
-[% END %]
-
 [%- BLOCK cover_art; %]
     <p>
         [% IF release.cover_art_url; %]
@@ -156,8 +150,7 @@
 [% END %]
 
 [%
-WRAPPER 'layout/sidebar.tt';
-  WRAPPER about;
+WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
     INCLUDE cover_art;
     
     INCLUDE release_properties;
@@ -171,7 +164,6 @@ WRAPPER 'layout/sidebar.tt';
     	INCLUDE other_versions;    
         INCLUDE lists IF c.user_exists;
     END;
-  END;
 END;
 
 -%]

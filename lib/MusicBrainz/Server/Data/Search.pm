@@ -39,7 +39,9 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     tag           => 'MusicBrainz::Server::Data::Tag',
 );
 
-use Sub::Exporter -setup => { exports => [qw( escape_query )] };
+use Sub::Exporter -setup => {
+    exports => [qw( escape_query alias_query )]
+};
 
 sub search
 {
@@ -403,6 +405,19 @@ sub escape_query
     return $str;
 }
 
+# add alias/sortname queries for entity
+sub alias_query
+{
+    my ($type, $query) = @_;
+
+    return "$type:\"$query\"^1.6 " .
+        "(+sortname:\"$query\"^1.6 -$type:\"$query\") " .
+        "(+alias:\"$query\" -$type:\"$query\" -sortname:\"$query\") " .
+        "(+($type:($query)^0.8) -$type:\"$query\" -sortname:\"$query\" -alias:\"$query\") " .
+        "(+(sortname:($query)^0.8) -$type:($query) -sortname:\"$query\" -alias:\"$query\") " .
+        "(+(alias:($query)^0.4) -$type:($query) -sortname:($query) -alias:\"$query\")";
+}
+
 sub external_search
 {
     my ($self, $c, $type, $query, $limit, $page, $adv, $ua, $no_redirect) = @_;
@@ -420,14 +435,9 @@ sub external_search
     {
         $query = escape_query($query);
 
-        if ($type eq 'artist')
+        if (grep ($type eq $_, 'artist', 'label', 'work'))
         {
-            $query = "artist:\"$query\"^1.6 " .
-                     "(+sortname:\"$query\"^1.6 -artist:\"$query\") " .
-                     "(+alias:\"$query\" -artist:\"$query\" -sortname:\"$query\") " .
-                     "(+(artist:($query)^0.8) -artist:\"$query\" -sortname:\"$query\" -alias:\"$query\") " .
-                     "(+(sortname:($query)^0.8) -artist:($query) -sortname:\"$query\" -alias:\"$query\") " .
-                     "(+(alias:($query)^0.4) -artist:($query) -sortname:($query) -alias:\"$query\")";
+            $query = alias_query ($type, $query);
         }
     }
 

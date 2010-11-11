@@ -9,7 +9,7 @@
             <th class="rating c">[% l('Rating') %]</th>
         </tr>
     </thead>
-    <tbody about="[% rdfa_artist_curi(artist) %]">
+    <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
         [%- FOR work=works -%]
         <tr>
             <td>[% rdfa_made_work_link(work) %]</td>
