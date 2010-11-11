@@ -353,19 +353,12 @@ DROP INDEX tmp_track_name_name;
 ------------------------
 
 CREATE OR REPLACE FUNCTION clean_work_name(name TEXT) RETURNS TEXT AS $$
-DECLARE
-    trimmed TEXT;
 BEGIN
-    trimmed := btrim(name);
-    IF substr(trimmed, 1, 1) = '(' THEN
-        RETURN trimmed;
-    ELSE
-        RETURN btrim(
-            regexp_replace(
-                regexp_replace(name, E'\\(feat. .*?\\)', ''),
-                    E'\\(live(,.*?| at.*?)\\)', '')
-        );
-    END IF;
+    RETURN btrim(
+        regexp_replace(
+            regexp_replace(name, E'\\(feat. .*?\\)', ''),
+                E'\\(live(,.*?| at.*?)\\)', '')
+    );
 END;
 $$ LANGUAGE 'plpgsql';
 
