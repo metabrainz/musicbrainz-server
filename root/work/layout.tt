@@ -3,7 +3,7 @@
     work => work.name,
     artist => artist_credit(work.artist_credit, plain => 1)
 }) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]

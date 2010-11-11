@@ -352,6 +352,23 @@ DROP INDEX tmp_track_name_name;
 -- Works
 ------------------------
 
+CREATE OR REPLACE FUNCTION clean_work_name(name TEXT) RETURNS TEXT AS $$
+DECLARE
+    trimmed TEXT;
+BEGIN
+    trimmed := btrim(name);
+    IF substr(trimmed, 1, 1) = '(' THEN
+        RETURN trimmed;
+    ELSE
+        RETURN btrim(
+            regexp_replace(
+                regexp_replace(name, E'\\(feat. .*?\\)', ''),
+                    E'\\(live(,.*?| at.*?)\\)', '')
+        );
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
 SELECT id INTO TEMPORARY tmp_work 
 FROM ( 
         SELECT link1 AS id
@@ -383,7 +400,7 @@ FROM (
 CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
 
 INSERT INTO work_name (name)
-    SELECT DISTINCT regexp_replace(track.name, E' \\(feat. .*?\\)', '')
+    SELECT DISTINCT clean_work_name(track.name)
     FROM public.track
         JOIN tmp_work t ON track.id = t.id;
 
@@ -394,10 +411,12 @@ INSERT INTO work (id, gid, name, artist_credit)
         n.id, COALESCE(new_ac, track.artist)
     FROM public.track 
         JOIN tmp_work t ON track.id = t.id  
-        JOIN work_name n ON n.name = track.name
+        JOIN work_name n ON n.name = clean_work_name(track.name)
         LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac;
 
 DROP INDEX tmp_work_name_name;
+DROP INDEX tmp_work_id;
+DROP FUNCTION clean_work_name (TEXT);
 
 ------------------------
 -- Redirects

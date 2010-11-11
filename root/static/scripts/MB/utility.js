@@ -31,15 +31,15 @@ MB.utility.fullWidthConverter = function (inputString) {
         return "";
     }
 
-    var convertMe = function (str, p1) {
-        return String.fromCharCode (p1.charCodeAt(0) - 65248);
-    };
-
     i = inputString.length;
     newString = [];
 
     do {
-        newString.push (inputString[i-1].replace (/([\uFF01-\uFF5E])/g, convertMe));
+        newString.push (
+            inputString[i-1].replace (/([\uFF01-\uFF5E])/g, function (str, p1) {
+                return String.fromCharCode (p1.charCodeAt(0) - 65248);
+            })
+        );
     } while (--i);
 
     return newString.reverse ().join("");
@@ -61,6 +61,10 @@ MB.utility.template = function(str) {
 
     return self;
 };
+
+MB.utility.isArray  = function(o) { return (o instanceof Array    || typeof o == "array"); };
+MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
+MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
 
 MB.utility.autocomplete = {};
 MB.utility.autocomplete.options = {
