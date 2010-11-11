@@ -10,11 +10,12 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Edit::Utils qw( date_closure changed_relations changed_display_data );
 use MusicBrainz::Server::Validation qw( normalise_strings );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { "Edit label" }
+sub edit_name { l('Edit label' }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
 

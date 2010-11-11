@@ -3,12 +3,14 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE );
+use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name     { 'Merge releases' }
+sub edit_name     { l('Merge releases') }
 sub historic_type { 23 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE }
 

@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( artist_credit_from_loaded_definition );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -18,7 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 use aliased 'MusicBrainz::Server::Entity::Tracklist';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
-sub edit_name { 'Edit tracklist' }
+sub edit_name { l('Edit tracklist) }
 sub edit_type { $EDIT_MEDIUM_EDIT_TRACKLIST }
 
 has 'mediums' => (

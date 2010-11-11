@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Edit::Historic::RemoveArtistAlias;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::DeleteAlias' }
 sub edit_type { 14 }
-sub edit_name { 'Remove artist alias' }
+sub edit_name { l('Remove artist alias') }
 
 augment 'upgrade' => sub {
     my $self = shift;

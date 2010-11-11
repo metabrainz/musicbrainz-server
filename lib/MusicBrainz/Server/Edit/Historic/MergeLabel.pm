@@ -1,10 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::MergeLabel;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_type { 58 }
-sub edit_name { 'Merge labels' }
+sub edit_name { l('Merge labels') }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Merge' }
 
 augment 'upgrade' => sub

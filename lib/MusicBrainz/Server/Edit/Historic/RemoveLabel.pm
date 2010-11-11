@@ -1,12 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::RemoveLabel;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Delete' }
 sub edit_type { 56 }
-sub edit_name { 'Remove label' }
+sub edit_name { l('Remove label') }
 
 augment 'upgrade' => sub {
     my $self = shift;

@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Edit::Historic::AddArtist;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::Artist';
 
+sub edit_name { l('Add artist') }
 sub edit_type { 17 }
-sub edit_name { 'Add artist' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Create' }
 
 augment 'upgrade' => sub

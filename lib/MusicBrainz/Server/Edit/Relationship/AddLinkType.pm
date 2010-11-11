@@ -3,10 +3,11 @@ use Moose;
 use MooseX::Types::Structured qw( Dict Tuple Optional );
 use MooseX::Types::Moose qw( Int Str ArrayRef );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_TYPE );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Add relationship type' }
+sub edit_name { l('Add relationship type') }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_TYPE }
 
 has '+data' => (

@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::AddLinkType;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name { 'Add relationship type' }
+sub edit_name { l('Add relationship type') }
 sub edit_type { 36 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Relationship::AddLinkType' }
 

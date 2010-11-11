@@ -8,6 +8,7 @@ use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::TrackChangesPreview';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Wizard;
 
@@ -603,25 +604,25 @@ sub run
         pages => [
             {
                 name => 'information',
-                title => 'Release Information',
+                title => l('Release Information'),
                 template => 'release/edit/information.tt',
                 form => 'ReleaseEditor::Information'
             },
             {
                 name => 'tracklist',
-                title => 'Tracklist',
+                title => l('Tracklist'),
                 template => 'release/edit/tracklist.tt',
                 form => 'ReleaseEditor::Tracklist'
             },
             {
                 name => 'recordings',
-                title => 'Recordings',
+                title => l('Recordings'),
                 template => 'release/edit/recordings.tt',
                 form => 'ReleaseEditor::Recordings'
             },
             {
                 name => 'editnote',
-                title => 'Edit Note',
+                title => l('Edit Note'),
                 template => 'release/edit/editnote.tt',
                 form => 'ReleaseEditor::EditNote'
             },

@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 parameter 'edit_type' => (
     isa => 'Int',
     required => 1
@@ -36,7 +38,7 @@ role {
         if ($c->req->query_params->{dest}) {
             my $new = $c->model($self->{model})->get_by_gid($c->req->query_params->{dest});
             if ($new->id eq $old->id) {
-                $c->stash( message => 'You cannot merge an entity into itself' );
+                $c->stash( message => l('You cannot merge an entity into itself.') );
                 $c->detach('/error_500');
             }
 

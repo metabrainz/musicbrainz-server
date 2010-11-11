@@ -1,10 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::MergeReleaseGroups;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
+sub edit_name { l('Merge artists') }
 sub edit_type { 67 }
-sub edit_name { 'Merge artists' }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Merge' }
 
 sub old_entities
