@@ -68,6 +68,22 @@ sub browse : Path('browse')
              );
 }
 
+sub edit : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $cdstub_toc = $c->stash->{cdstub};
+    my $stub = $cdstub_toc->cdstub;
+
+    my $form = $c->form(form => 'CDStub', init_object => $stub);
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('CDStub')->update($stub, $form->value);
+
+        $c->res->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $cdstub_toc->discid ])
+        );
+    }
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
