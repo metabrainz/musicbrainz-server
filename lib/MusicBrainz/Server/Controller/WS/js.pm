@@ -12,7 +12,9 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
+use Text::Unaccent qw( unac_string_utf16 );
 use Data::OptList;
+use Encode qw( decode encode );
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
@@ -72,7 +74,10 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 sub _autocomplete_entity {
     my ($self, $c, $type) = @_;
 
-    my $query = escape_query (trim $c->stash->{args}->{q});
+    my $query = trim $c->stash->{args}->{q};
+    $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
+    $query = escape_query ($query);
+
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
