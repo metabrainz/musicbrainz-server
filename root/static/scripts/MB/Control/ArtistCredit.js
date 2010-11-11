@@ -248,7 +248,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
                 'name': item.credit.val (),
                 'id': item.id.val (),
                 'gid': item.gid.val (),
-                'join': item.join.val (),
+                'join': item.join.val ()
             };
 
             if (ac.id)
