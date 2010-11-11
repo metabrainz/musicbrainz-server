@@ -15,7 +15,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, name, year';
+    return 'id, name, year, parent AS parent_id, child_order';
 }
 
 sub _entity_class
@@ -27,6 +27,32 @@ sub load
 {
     my ($self, @media) = @_;
     load_subobjects($self, 'format', @media);
+}
+
+sub get_tree
+{
+    my ($self) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+                  ORDER BY child_order, id');
+    my %id_to_obj;
+    my @objs;
+    while (1) {
+        my $row = $sql->next_row_hash_ref or last;
+        my $obj = $self->_new_from_row($row);
+        $id_to_obj{$obj->id} = $obj;
+        push @objs, $obj;
+    }
+    $sql->finish;
+
+    my $root = MusicBrainz::Server::Entity::MediumFormat->new;
+    foreach my $obj (@objs) {
+        my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
+        $parent->add_child($obj);
+    }
+
+    return $root;
 }
 
 __PACKAGE__->meta->make_immutable;
