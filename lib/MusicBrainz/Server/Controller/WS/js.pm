@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
-use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
@@ -80,11 +80,18 @@ sub _autocomplete_entity {
         $c->detach('bad_req');
     }
 
+    $query = $query.'*';
+
+    if (grep ($type eq $_, 'artist', 'label', 'work'))
+    {
+        $query = alias_query ($type, $query);
+    }
+
     my $model = type_to_model ($type);
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, $type, $query.'*', $limit, $page, 1, undef, $no_redirect);
+        $c, $type, $query, $limit, $page, 1, undef, $no_redirect);
 
     my @output;
 
