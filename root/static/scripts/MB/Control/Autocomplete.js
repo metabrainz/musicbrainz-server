@@ -21,6 +21,15 @@
 MB.Control.Autocomplete = function (options) {
     var self = MB.Object();
 
+    var focusEvent = function (event) {
+        if (self.input.val () != '')
+        {
+            /* open the search dropdown and start searching when the input
+               is focused when data is already present. */
+            self.input.trigger ("keydown");
+        }
+    };
+
     var formatItem = function (ul, item) {
         var a = $("<a>").text (item.name);
 
@@ -75,6 +84,27 @@ MB.Control.Autocomplete = function (options) {
         next.click (function (event) { self.switchPage (event,  1); });
     };
 
+    var pagerKeyEvent = function (event) {
+        var menu = self.autocomplete.menu;
+
+	if (!menu.element.is (":visible")) {
+            return;
+        }
+
+        var keyCode = $.ui.keyCode;
+
+        switch (event.keyCode) {
+        case keyCode.LEFT:
+            self.switchPage (event, -1);
+            event.preventDefault ();
+            break;
+        case keyCode.RIGHT:
+            self.switchPage (event, 1);
+            event.preventDefault ();
+            break;
+        };
+    };
+
     var switchPage = function (event, direction) {
         self.current_page = self.current_page + direction;
 
@@ -103,27 +133,6 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.search (null, event);
     };
 
-    var pagerKeyEvent = function (event) {
-        var menu = self.autocomplete.menu;
-
-	if (!menu.element.is (":visible")) {
-            return;
-        }
-
-        var keyCode = $.ui.keyCode;
-
-        switch (event.keyCode) {
-        case keyCode.LEFT:
-            self.switchPage (event, -1);
-            event.preventDefault ();
-            break;
-        case keyCode.RIGHT:
-            self.switchPage (event, 1);
-            event.preventDefault ();
-            break;
-        };
-    };
-
     var close = function (event) { self.input.focus (); };
     var open = function (event) {
         var menu = self.autocomplete.menu;
@@ -137,7 +146,7 @@ MB.Control.Autocomplete = function (options) {
         {
             newItem = menu.element.children (".ui-menu-item").eq(self.selected_item);
         }
-        
+
         if (!newItem.length)
         {
             newItem = menu.element.children (".ui-menu-item:last");
@@ -157,11 +166,18 @@ MB.Control.Autocomplete = function (options) {
             self.page_term = request.term;
         }
 
-        $.ajax({
+        $.ajax(self.lookupHook ({
             url: self.url,
             data: { q: request.term, page: self.current_page },
-            success: response,
-        });
+            success: response
+        }));
+    };
+
+    var select = function (event, data) {
+
+        event.preventDefault ();
+
+        return options.select (event, data.item);
     };
 
     var initialize = function () {
@@ -169,32 +185,37 @@ MB.Control.Autocomplete = function (options) {
         self.input.autocomplete ({
             'source': lookup,
             'minLength': options.minLength ? options.minLength : 2,
-            'select': function (event, data) { return options.select (event, data.item); },
+            'select': select,
             'close': self.close,
-            'open': self.open,
+            'open': self.open
         });
 
         self.autocomplete = self.input.data ('autocomplete');
+        self.input.bind ('focus.mb', self.focusEvent);
         self.input.bind ('keydown.mb', self.pagerKeyEvent);
         self.input.bind ('propertychange.mb input.mb',
                          function (event) { self.input.trigger ("keydown"); }
         );
 
         self.autocomplete._renderItem = function (ul, item) {
-            return item['pages'] ? formatPager (ul, item) : formatItem (ul, item);
+            return item['pages'] ? self.formatPager (ul, item) : self.formatItem (ul, item);
         };
     };
 
     self.input = options.input;
     self.url = options.entity ? "/ws/js/" + options.entity : options.url;
+    self.lookupHook = options.lookupHook || function (r) { return r; };
     self.page_term = '';
     self.current_page = 1;
     self.number_of_pages = 1;
     self.selected_item = 0;
 
-    self.switchPage = switchPage;
+    self.focusEvent = focusEvent;
+    self.formatPager = options.formatPager || formatPager;
+    self.formatItem = options.formatItem || formatItem;
     self.pagerButtons = pagerButtons;
     self.pagerKeyEvent = pagerKeyEvent;
+    self.switchPage = switchPage;
     self.close = close;
     self.open = open;
     self.lookup = lookup;
