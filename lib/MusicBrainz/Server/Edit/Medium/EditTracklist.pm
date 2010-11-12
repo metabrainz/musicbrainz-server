@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 use aliased 'MusicBrainz::Server::Entity::Tracklist';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
-sub edit_name { l('Edit tracklist) }
+sub edit_name { l('Edit tracklist') }
 sub edit_type { $EDIT_MEDIUM_EDIT_TRACKLIST }
 
 has 'mediums' => (
