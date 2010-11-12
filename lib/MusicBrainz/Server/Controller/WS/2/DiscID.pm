@@ -10,7 +10,7 @@ my $ws_defs = Data::OptList::mkopt([
      discid => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups artist-credits
-                                          aliases puids isrcs _relations) ]
+                                          aliases puids isrcs _relations cdstubs ) ]
      }
 ]);
 
@@ -29,28 +29,43 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         $c->detach('bad_req');
     }
 
-    my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
-    unless ($cdtoc) {
-        $c->detach('not_found');
-    }
-
-    my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
-    $c->model('Medium')->load(@mediumcdtocs);
-
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($cdtoc);
+    my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
+    if ($cdtoc) {
+        my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
+        $c->model('Medium')->load(@mediumcdtocs);
 
-    my @releases = $c->model('Release')->find_by_medium(
-        [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type});
-    $opts->{releases} = $self->make_list (\@releases);
+        my $opts = $stash->store ($cdtoc);
 
-    for (@releases)
-    {
-        $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
+        my @releases = $c->model('Release')->find_by_medium(
+            [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type});
+        $opts->{releases} = $self->make_list (\@releases);
+
+        for (@releases)
+        {
+            $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
+        }
+
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
+        return;
     }
 
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
+    if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
+        my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($id);
+        if ($cd_stub_toc) {
+            $c->model('CDStub')->load($cd_stub_toc);
+            $c->model('CDStub')->increment_lookup_count($cd_stub_toc->cdstub->id);
+            $c->model('CDStubTrack')->load_for_cdstub($cd_stub_toc->cdstub);
+            $cd_stub_toc->update_track_lengths;
+
+            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+            $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
+            return;
+        }
+    }
+
+    $c->detach('not_found');
 }
 
 __PACKAGE__->meta->make_immutable;
