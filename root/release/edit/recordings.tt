@@ -31,7 +31,7 @@
     [% preview_mediums = form.field('preview_mediums') %]
     [% multidisc = preview_mediums.fields.size > 1 %]
 
-    <div class="form recording-assoc">
+    <div class="half-width recording-assoc">
 
     [% FOR preview_medium=preview_mediums.fields %]
     [% medium_idx = loop.index %]

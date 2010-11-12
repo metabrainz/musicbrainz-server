@@ -137,7 +137,7 @@ MB.Control.Autocomplete = function (options) {
         {
             newItem = menu.element.children (".ui-menu-item").eq(self.selected_item);
         }
-        
+
         if (!newItem.length)
         {
             newItem = menu.element.children (".ui-menu-item:last");
@@ -160,7 +160,7 @@ MB.Control.Autocomplete = function (options) {
         $.ajax({
             url: self.url,
             data: { q: request.term, page: self.current_page },
-            success: response,
+            success: response
         });
     };
 
@@ -171,7 +171,7 @@ MB.Control.Autocomplete = function (options) {
             'minLength': options.minLength ? options.minLength : 2,
             'select': function (event, data) { return options.select (event, data.item); },
             'close': self.close,
-            'open': self.open,
+            'open': self.open
         });
 
         self.autocomplete = self.input.data ('autocomplete');

@@ -130,7 +130,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     MB.Control.Autocomplete ({
         'input': self.name,
         'entity': 'artist',
-        'select': self.update,
+        'select': self.update
     });
 
     if (obj === null)
@@ -143,7 +143,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     return self;
 }
 
-/* an ArtistCreditContainer is the base container for all the artist credits 
+/* an ArtistCreditContainer is the base container for all the artist credits
    on a track or the release. */
 MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     var self = MB.Object();
@@ -153,7 +153,8 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     self.artist_input = input;
 
     var identify = function() {
-        if (input.attr ('id') === 'release-artist')
+        if (input.attr ('id') === 'release-artist' ||
+            input.attr ('id') === 'entity-artist')
         {
             self.prefix = "artist_credit";
             self.medium = -1;
@@ -186,7 +187,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         MB.Control.Autocomplete ({
             'input': self.artist_input,
             'entity': 'artist',
-            'select': self.update,
+            'select': self.update
         });
 
         if (! self.box[self.box.length - 1].isEmpty ())
@@ -275,3 +276,14 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
    to a plain container. */
 MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
 
+
+/* A generic artist credit initialize function for use outside the
+   release editor. */
+MB.Control.initialize_artist_credit = function () {
+
+    var target = $('input#entity-artist');
+    var container = $('div.artist-credit');
+
+    MB.Control.BubbleCollection (target, container);
+    MB.Control.ArtistCreditVertical (target, container);
+};
