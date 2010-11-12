@@ -18,4 +18,6 @@ CREATE TRIGGER b_ins_artist BEFORE INSERT ON artist
 CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE artist_groups_have_no_gender();
 
+UPDATE artist SET gender = NULL WHERE type = 2;
+
 COMMIT;
