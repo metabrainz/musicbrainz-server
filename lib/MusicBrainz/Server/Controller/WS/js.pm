@@ -165,34 +165,60 @@ sub recording : Chained('root') PathPart('recording') Args(0)
 {
     my ($self, $c) = @_;
 
-    my $query = escape_query ($c->stash->{args}->{q});
+    my $query = escape_query (trim $c->stash->{args}->{q});
     my $artist = escape_query ($c->stash->{args}->{a} || '');
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
+    unless ($query) {
+        $c->detach('bad_req');
+    }
+
+    my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, 'recording', "$query artist:\"$artist\"", $limit, $page, 1, undef, 1);
+        $c, 'recording', "recording:($query*) AND artist:($artist)",
+        $limit, $page, 1, undef, $no_redirect);
 
-    my $pager = $response->{pager};
+    my @output;
 
-    my @entities;
-    for my $result (@{ $response->{results} })
+    if ($response->{pager})
     {
-        my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
-            map { $_->gid } @{ $result->{extra} });
+        my $pager = $response->{pager};
 
-        push @entities, {
-            gid => $result->{entity}->gid,
-            id => $result->{entity}->id,
-            length => MusicBrainz::Server::Filters::format_length ($result->{entity}->length),
-            name => $result->{entity}->name,
-            artist => $result->{entity}->artist_credit->name,
-            releasegroups => _serialize_release_groups (@rgs),
+        for my $result (@{ $response->{results} })
+        {
+            my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
+
+            my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
+                map { $_->gid } @{ $result->{extra} });
+
+            push @output, {
+                name => $result->{entity}->name,
+                id => $entity->id,
+                gid => $result->{entity}->gid,
+                comment => $result->{entity}->comment,
+                length => format_track_length ($result->{entity}->length),
+                artist => $result->{entity}->artist_credit->name,
+                releasegroups => _serialize_release_groups (@rgs),
+            } if $entity;
+
+        }
+
+        push @output, {
+            pages => $pager->last_page,
+            current => $pager->current_page
         };
+    }
+    else
+    {
+        # If an error occurred just ignore it for now and return an
+        # empty list.  The javascript code for autocomplete doesn't
+        # have any way to gracefully report or deal with
+        # errors. --warp.
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@entities));
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 }
 
 sub tracklist : Chained('root') PathPart Args(1) {

@@ -1,7 +1,8 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery/jquery-1.4.2.min.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.5.custom.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Bubble.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseRecordings.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
@@ -40,7 +41,7 @@
 
       [%- medium = mediums.fields.$medium_idx -%]
 
-      <fieldset class="recording-assoc-disc">
+      <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]">
         <legend>
           [%- IF medium.field('name').value -%]
             [%- IF multidisc -%]
@@ -64,7 +65,7 @@
           </tr>
           </thead>
           <tbody>
-          
+
           [%- FOR track=edits -%]
             [%- track_idx = loop.index -%]
             [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
@@ -113,7 +114,7 @@
         </table>
 
       </fieldset>
-    
+
     [%- END -%]
     </div>
 
@@ -138,19 +139,44 @@
             <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 
             <p>
-              Search: <input type="text" class="recording" value="" />
-              <a href="#cancel-search" class="icon">
-                <span class="ui-icon ui-icon-closethick">[% l('Cancel search') %]</span>
-              </a>
+              Search: <input type="text" class="recording" value="[% track.name %]" />
             </p>
 
             <table class="matches">
               <tbody>
+                <tr class="clientmatch recordingmatch" style="display: none">
+                  <td class="select">
+                     <input type="radio" class="clientmatch recordingmatch"
+                         name='[% "select-recording-$medium_idx-$track_idx" %]' />
+                  </td>
+                  <td class="recording">
+                    <input type="hidden" class="gid" value="" />
+                    <a class="name" href="/recording"> </a>
+                  </td>
+                  <td class="artist"></td>
+                  <td class="length"></td>
+                </tr>
+                <tr class="clientmatch releaselist" style="display: none">
+                  <td> </td>
+                  <td colspan="3">
+                    [%- l('appears on:') %]
+                    <span class="appears">
+                  </td>
+                </tr>
+                <tr class="clientmatch comment" style="display: none">
+                  <td> </td>
+                  <td colspan="3">
+                    [%- l('comment:') %]
+                    <span class="comment">
+                  </td>
+                </tr>
+
                 <tr class="servermatch recordingmatch"
                   [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
                   <td class="select">
-                     <input type="radio" class="recordingmatch"
-                         name='[% "select-recording-$medium_idx-$track_idx" %]' />
+                     <input type="radio" class="servermatch recordingmatch"
+                         name='[% "select-recording-$medium_idx-$track_idx" %]'
+                         [%- IF assoc.field('gid').value -%]checked="checked"[%- END -%] />
                   </td>
                   <td class="recording">
                     <input type="hidden" class="gid" value="[% recording.gid %]" />
@@ -159,6 +185,7 @@
                   <td class="artist">[% recording.artist_credit.name %]</td>
                   <td class="length">[% recording.length | format_length %]</td>
                 </tr>
+
                 <tr class="servermatch releaselist"
                   [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
                   <td> </td>
@@ -170,11 +197,23 @@
                     [% END %]
                   </td>
                 </tr>
-                <tr class="separator"><td colspan="4"><hr /></td></tr>
+
+                [%- IF recording.comment -%]
+                <tr class="servermatch comment">
+                  <td> </td>
+                  <td colspan="3">
+                    [%- l('comment on:') %]
+                    <span class="comment">
+                  </td>
+                </tr>
+                [%- END -%]
+
+
                 <tr class="addnew">
                   <td class="select">
-                     <input type="radio" class="newrecording"
-                         name='[% "select-recording-$medium_idx-$track_idx" %]' />
+                     <input type="radio" class="newrecording recordingmatch"
+                         name='[% "select-recording-$medium_idx-$track_idx" %]'
+                         [%- UNLESS assoc.field('gid').value -%]checked="checked"[%- END -%] />
                   </td>
                   <td class="recording" colspan="3">
                     <input type="hidden" class="gid" value="" />

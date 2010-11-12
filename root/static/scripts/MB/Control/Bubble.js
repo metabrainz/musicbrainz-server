@@ -156,22 +156,34 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
 
         self.container.show ();
 
-        var top = self.target.offset ().top - 23;
-        var left = self.content.offset ().left;
+        self.container.position({
+            my: "left top",
+            at: "right top",
+            of: self.target,
+            offset: "37 -23"
+        });
+
+        /* FIXME: figure out why opera doesn't position this correctly on the
+           first call and fix that issue or submit a bug report to opera. */
+        if (window.opera)
+        {
+            self.container.position({
+                my: "left top",
+                at: "right top",
+                of: self.target,
+                offset: "37 -23"
+            });
+        }
+
         var height = self.content.height ();
-        var width = self.content.width ();
 
         if (height < 42)
         {
             height = 42;
         }
 
-        self.container.css ('position', 'absolute');
-        self.container.css ('width', width);
         self.container.css ('min-height', height);
         self.content.css ('min-height', height);
-        self.content.css ('width', '100%');
-        self.container.offset ({ 'top': top, 'left': left });
 
         var pageBottom = self.page.offset ().top + self.page.outerHeight ();
         var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
@@ -188,10 +200,15 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
 
         parent_tail ();
 
-        var left = self.content.offset ().left;
-        var top = self.target.offset ().top - 23 + self.target.height () / 2;
+        var targetY = self.target.offset ().top - 24 + self.target.height () / 2;
+        var offsetY = targetY - self.content.offset ().top;
 
-        self.balloon0.offset ({ 'top': top, 'left': left });
+        self.balloon0.position({
+            my: "right top",
+            at: "left top",
+            of: self.content,
+            offset: "0 " + Math.floor (offsetY)
+        });
 
         self.balloon1.css ('background', '#eee')
             .css ('width', '14px')
@@ -208,7 +225,6 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
             .css ('width', '12px')
             .css ('height', '20px')
             .css ('border-width', '1px 1px 0 0');
-
     };
 
     var hide = function () {
@@ -288,6 +304,8 @@ MB.Control.BubbleDoc = function (parent, target, content) {
         }
     };
 
+    self.show = show;
+    self.hide = hide;
     self.initialize = initialize;
 
     return self;
@@ -303,35 +321,8 @@ MB.Control.BubbleRow = function (parent, target, content, offset) {
 
     var tail = function () {
 
-        var pos = self.offset;
-
         parent_tail ();
 
-        if (self.target.css ('text-align') === 'right')
-        {
-            pos = self.target.width () - self.offset;
-        }
-
-        self.balloon0.offset ({
-            left: self.target.offset ().left + pos,
-            top: self.content.offset ().top - 14
-        });
-
-        self.balloon1.css ('width', '42px')
-            .css ('height', '15px')
-            .css ('background', '#fff');
-
-        self.balloon2.borderRadius ({ 'bottom-right': '12px' })
-            .css ('background', '#eee')
-            .css ('width', '20px')
-            .css ('height', '14px')
-            .css ('border-width', '0 1px 1px 0');
-
-        self.balloon3.borderRadius ({ 'bottom-left': '12px' })
-            .css ('background', '#eee')
-            .css ('width', '20px')
-            .css ('height', '14px')
-            .css ('border-width', '0 0 1px 1px');
     };
 
     self.tail = tail;
