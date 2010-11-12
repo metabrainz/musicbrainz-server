@@ -3,11 +3,12 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACK_LENGTH );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
-sub edit_name { 'Edit track length' }
+sub edit_name { l('Edit track length') }
 sub edit_type { $EDIT_HISTORIC_EDIT_TRACK_LENGTH }
 sub historic_type { 45 }
 

@@ -3,11 +3,12 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
-sub edit_name     { 'Set track lengths from discid' }
+sub edit_name     { l('Set track lengths from discid') }
 sub historic_type { 53 }
 sub edit_type     { $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC }
 

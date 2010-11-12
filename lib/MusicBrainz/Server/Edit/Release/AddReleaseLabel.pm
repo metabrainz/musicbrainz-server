@@ -5,11 +5,12 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 
-sub edit_name { 'Add release label' }
+sub edit_name { l('Add release label') }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 sub related_entities { { release => [ shift->release_id ] } }

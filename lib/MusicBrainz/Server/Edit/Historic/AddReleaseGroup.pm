@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Historic::AddReleaseGroup;
 use Moose;
 
 use MusicBrainz::Server::Edit::Historic::Utils 'upgrade_id';
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::HashUpgrade' => {
@@ -14,8 +15,8 @@ with 'MusicBrainz::Server::Edit::Historic::HashUpgrade' => {
     }
 };
 
+sub edit_name { l('Add release group') }
 sub edit_type { 66 }
-sub edit_name { 'Add release group' }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Create' }
 
 augment 'upgrade' => sub

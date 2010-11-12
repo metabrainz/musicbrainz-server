@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::AddISRCs;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name { 'Add ISRCs' }
+sub edit_name { l('Add ISRCs') }
 sub edit_type { 71 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddISRCs' }
 

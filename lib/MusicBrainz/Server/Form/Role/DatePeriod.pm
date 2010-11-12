@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::Role::DatePeriod;
 use HTML::FormHandler::Moose::Role;
 
 use Date::Calc;
+use MusicBrainz::Server::Translation qw( l ln );
 
 has_field 'begin_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate',
@@ -29,7 +30,7 @@ after 'validate' => sub {
     );
 
     if ($days < 0) {
-        return $self->field('end_date')->add_error('The end date must occur on or after the begin date');
+        return $self->field('end_date')->add_error(l('The end date must occur on or after the begin date'));
     }
 
     return 1;

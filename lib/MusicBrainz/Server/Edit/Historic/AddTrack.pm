@@ -3,11 +3,12 @@ use Moose;
 use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK );
+use MusicBrainz::Server::Translation qw ( l ln );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_name     { 'Add track' }
+sub edit_name     { l('Add track') }
 sub historic_type { 7 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK }
 sub edit_template { 'historic/add_track_old' }

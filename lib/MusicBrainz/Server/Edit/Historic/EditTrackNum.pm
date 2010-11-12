@@ -3,13 +3,14 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNUM );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
-sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
+sub edit_name     { l('Edit track number') }
 sub historic_type { 5 }
-sub edit_name     { 'Edit track number' }
+sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
 
 sub related_entities
 {
