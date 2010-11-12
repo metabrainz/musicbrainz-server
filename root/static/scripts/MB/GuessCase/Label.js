@@ -21,13 +21,13 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase.Artist = function () {
+MB.GuessCase.Label = function () {
     var self = MB.Object ();
 
     self.gc = MB.GuessCase.Main ();
 
-    self.guess = self.gc.guessArtist;
-    self.sortname = self.gc.guessArtistSortname;
+    self.guess = self.gc.guessLabel;
+    self.sortname = self.gc.guessLabelSortname;
 
     return self;
 };

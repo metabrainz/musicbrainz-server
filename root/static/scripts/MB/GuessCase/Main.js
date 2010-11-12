@@ -127,6 +127,34 @@ MB.GuessCase.Main = function () {
     };
 
     /**
+     * Guess the capitalization of a label name
+     * @param	 is		the un-processed input string
+     * @returns			the processed string
+     **/
+    self.guessLabel = function(is) {
+	var os, handler;
+	gc.init();
+
+	if (!self.labelHandler) {
+	    self.labelHandler = MB.GuessCase.Handler.Label ();
+	}
+	handler = self.labelHandler;
+
+	// we need to query the handler if the input string is
+	// a special case, fetch the correct format, if the
+	// returned case is indeed a special case.
+	var num = handler.checkSpecialCase(is);
+	if (handler.isSpecialCase(num)) {
+	    os = handler.getSpecialCaseFormatted(is, num);
+	} else {
+	    // if it was not a special case, start Guessing
+	    os = handler.process(is);
+	}
+
+	return os;
+    };
+
+    /**
      * Guess the sortname of a given label name
      * @param	 is		the un-processed input string
      * @returns			the processed string
@@ -135,10 +163,10 @@ MB.GuessCase.Main = function () {
 	var os, handler;
 	gc.init();
 
-	if (!gc.labelHandler) {
-	    gc.labelHandler = new GcLabelHandler();
+	if (!self.labelHandler) {
+	    self.labelHandler = MB.GuessCase.Handler.Label ();
 	}
-	handler = gc.labelHandler;
+	handler = self.labelHandler;
 
 	// we need to query the handler if the input string is
 	// a special case, fetch the correct format, if the
