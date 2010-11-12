@@ -117,6 +117,7 @@ test_requires 'RDF::Query';
 test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
 test_requires 'Test::Differences';
+test_requires 'Test::Mock::Class';
 test_requires 'Test::JSON';
 test_requires 'XML::Parser';
 
