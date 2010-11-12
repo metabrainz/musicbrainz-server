@@ -167,6 +167,16 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION artist_groups_have_no_gender() RETURNS trigger AS $$
+BEGIN
+    -- Group artists cannot have a gender
+    IF NEW.type = 2 THEN
+        NEW.gender = NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 -----------------------------------------------------------------------
 -- label triggers
 -----------------------------------------------------------------------
