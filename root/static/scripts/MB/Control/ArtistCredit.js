@@ -65,6 +65,40 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.link.html ('');
     };
 
+    var render = function (data) {
+
+        self.name.val(data.artist_name).removeClass('error');
+        self.join.val(data.join);
+        self.credit.val (data.name);
+        self.gid.val(data.gid);
+        self.id.val(data.id);
+        self.link.html ('link').
+            attr('href', '/artist/'+data.gid).
+            attr('title', data.comment);
+
+        if (self.credit.val () === '')
+        {
+            self.credit.val (data.name);
+        }
+
+    };
+
+    var update = function(event, data) {
+        if (data.name)
+        {
+            self.render ({
+                'artist_name': data.name,
+                'name': data.name,
+                'gid': data.gid,
+                'id': data.id
+            });
+            self.container.renderPreview();
+        }
+
+        event.preventDefault();
+        return false;
+    };
+
     var joinBlurred = function(event) {
         self.container.renderPreview();
     };
@@ -88,28 +122,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.container.renderPreview();
     };
 
-    var update = function(event, data) {
-        if (data.name)
-        {
-            self.name.val(data.name).removeClass('error');
-            self.gid.val(data.gid);
-            self.id.val(data.id);
-            self.link.html ('link').
-                attr('href', '/artist/'+data.gid).
-                attr('title', data.comment);
-
-            if (self.credit.val () === '')
-            {
-                self.credit.val (data.name);
-            }
-
-            self.container.renderPreview();
-        }
-
-        event.preventDefault();
-        return false;
-    };
-
     var isEmpty = function () {
         return (self.name.val () === '' &&
                 self.credit.val () === '' &&
@@ -117,10 +129,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.clear = clear;
+    self.render = render;
+    self.update = update;
     self.joinBlurred = joinBlurred;
     self.nameBlurred = nameBlurred;
     self.creditBlurred = creditBlurred;
-    self.update = update;
     self.isEmpty = isEmpty;
 
     self.join.bind('blur', self.joinBlurred);
@@ -152,26 +165,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     self.artistcredits = artistcredits;
     self.artist_input = input;
 
-    var identify = function() {
-        if (input.attr ('id') === 'release-artist' ||
-            input.attr ('id') === 'entity-artist')
-        {
-            self.prefix = "artist_credit";
-            self.medium = -1;
-            self.track = -1;
-        }
-        else
-        {
-            var id = self.artistcredits.find ('input.credit').eq(0).attr ('id');
-            var matches = id.match(/mediums\.(\d+)\.tracklist\.tracks\.(\d+)\.artist_credit/);
-            self.prefix = matches[0];
-            self.medium = matches[1];
-            self.track = matches[2];
-        }
-    };
-
     var initialize = function() {
-        self.identify ();
 
         self.artistcredits.find('.artist-credit-box').each(function(i) {
             self.box[i] = MB.Control.ArtistCredit($(this), i, self);
@@ -204,7 +198,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
 
     var addArtistBox = function(i) {
         if (self.box[i]) {
-            return;
+            return self.box[i];
         }
 
         self.box[i] = MB.Control.ArtistCredit(null, i, self);
@@ -223,6 +217,16 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         self.artist_input.val(preview);
     };
 
+    var render = function (data) {
+        $.each (data.names, function (idx, item) {
+
+            var box = self.addArtistBox (idx);
+            box.render (item);
+        });
+
+        self.renderPreview ();
+    };
+
     var isVariousArtists = function () {
         return self.box[0].gid.val () === MB.constants.VARTIST_GID;
     };
@@ -235,13 +239,35 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         self.renderPreview ();
     };
 
-    self.identify = identify;
+    var toData = function () {
+        var ret = [];
+
+        $.each (self.box, function (idx, item) {
+            var ac = {
+                'artist_name': item.name.val (),
+                'name': item.credit.val (),
+                'id': item.id.val (),
+                'gid': item.gid.val (),
+                'join': item.join.val ()
+            };
+
+            if (ac.id)
+            {
+                ret.push (ac);
+            }
+        });
+
+        return { 'names': ret, 'preview': self.artist_input.val() };
+    };
+
     self.initialize = initialize;
     self.update = update;
     self.addArtistBox = addArtistBox;
     self.renderPreview = renderPreview;
+    self.render = render;
     self.isVariousArtists = isVariousArtists;
     self.clear = clear;
+    self.toData = toData;
 
     self.initialize ();
 
@@ -262,6 +288,8 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
 
             self.artistcredits.show ();
         });
+
+        self.artistcredits.hide ();
     };
 
     self.initialize = initialize;

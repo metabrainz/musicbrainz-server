@@ -173,7 +173,7 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
 
-#release-editor .changes p { margin-top: 0; }
+#release-editor .recordings p { margin-top: 0; }
 #release-editor .documentation p { margin-top: 0; }
 #release-editor table.preview { width: 100%; margin: 0 0 10px 0 }
 #release-editor table.preview .duration { padding-left: 10px; }
@@ -182,7 +182,8 @@ table.medium.tbl td.delete    { width: 2em; }
     text-align: right;
 }
 
-#release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 10px 0 0 0; }
+#release-editor div.basic-disc.expanded { margin: 0 0 10px 0; }
+#release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 0; }
 #release-editor table.basic-format h3 { margin: 0; }
 #release-editor table.basic-format td.format { text-align: right; }
 
