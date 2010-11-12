@@ -1,13 +1,26 @@
 [% BLOCK layout_head %]
 <script>
 $(document).ready(function() {
-    var $begin = $('#label-edit-artist\\.begin_date'),
-        $end   = $('#label-edit-artist\\.end_date'),
-        $type  = $('#id-edit-artist\\.type_id');
+    var $begin  = $('#label-edit-artist\\.begin_date'),
+        $end    = $('#label-edit-artist\\.end_date'),
+        $type   = $('#id-edit-artist\\.type_id'),
+        $gender = $('#id-edit-artist\\.gender_id'),
+        $old_gender = $gender.val();
 
     var artistChangeDateText = function (start, stop) {
         $begin.text(start);
         $end.text(stop);
+    };
+
+    var enableGender = function() {
+        $gender.attr("disabled", null);
+        $gender.val($old_gender);
+    };
+
+    var disableGender = function() {
+        $gender.attr("disabled", "disabled");
+        $old_gender = $gender.val();
+        $gender.val('');
     };
 
     /*****************************************************************
@@ -19,9 +32,20 @@ $(document).ready(function() {
     var artistTypeChanged = function() {
         switch ($type.val()) {
             default:
-            case '0': artistChangeDateText('Began:', 'Ended:');       break;
-            case '1': artistChangeDateText('Born:', 'Deceased:');     break;
-            case '2': artistChangeDateText('Founded:', 'Dissolved:'); break;
+            case '0':
+                artistChangeDateText('Began:', 'Ended:');
+                enableGender();
+                break;
+
+            case '1':
+                artistChangeDateText('Born:', 'Deceased:');
+                enableGender();
+                break;
+
+            case '2':
+                artistChangeDateText('Founded:', 'Dissolved:');
+                disableGender();
+                break;
         }
     };
 
