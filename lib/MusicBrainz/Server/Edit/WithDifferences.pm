@@ -15,7 +15,7 @@ sub _change_hash
     my %mapping = $self->_mapping;
     my %old = map {
         my $mapped = exists $mapping{$_} ? $mapping{$_} : $_;
-        $_ => ref $mapped eq 'CODE' ? $mapped->($instance) : $instance->$mapped;
+        $_ => ref $mapped eq 'CODE' ? $mapped->($instance) : '' . $instance->$mapped;
     } @keys;
     return \%old;
 }
