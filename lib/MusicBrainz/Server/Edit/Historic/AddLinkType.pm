@@ -1,21 +1,19 @@
 package MusicBrainz::Server::Edit::Historic::AddLinkType;
-use Moose;
+use strict;
+use warnings;
 
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 use MusicBrainz::Server::Translation qw ( l ln );
-
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { l('Add relationship type') }
 sub edit_type { 36 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Relationship::AddLinkType' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my ($self) = @_;
 
-    my ($junk, @attributes) = split /=/, $self->new_value->{attribute};
-    my $all_attrs = join '=', @attributes;
-    @attributes = split / /, $all_attrs;
+    my @attributes = split / /, $self->new_value->{attribute};
 
     my %types = (
         track => 'recording',
@@ -33,11 +31,11 @@ augment 'upgrade' => sub
         attributes => [
             map {
                 my ($name, $min_max) = split /=/, $_;
-                my ($min, $max) = split /-/, $_;
+                my ($min, $max) = split /-/, $min_max;
                 +{
                     name => $name,
-                    min  => $min,
-                    max  => $max
+                    min  => $min || 0,
+                    max  => $max || 0
                 }
             } @attributes
         ]
@@ -55,5 +53,4 @@ augment 'upgrade' => sub
     return $data;
 };
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;

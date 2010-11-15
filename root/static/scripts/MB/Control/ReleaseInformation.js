@@ -126,7 +126,7 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     MB.Control.Autocomplete ({
         'input': self.name,
         'entity': 'label',
-        'select': self.selected,
+        'select': self.selected
     });
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });

@@ -30,6 +30,13 @@ version:     (commit 18d6b3376f0cf845c3584f8a7017f4864bdd459e)
 author:      Paul Mucur
 url:         http://github.com/mudge/jquery_placeholder
 
+-- json/json2.js --
+
+library:     json2
+license:     Public Domain
+author:      Douglas Crockford
+url:         http://www.json.org/json2.js
+
 -- qunit/ --
 
 library:     QUnit

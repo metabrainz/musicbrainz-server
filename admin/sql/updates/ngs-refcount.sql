@@ -1,11 +1,11 @@
 BEGIN;
 
 
-SELECT n.id, n.name, n.artistcount, t.refcount
+SELECT n.id, n.name, n.artist_count, t.ref_count
     INTO TEMPORARY tmp_artist_credit
     FROM artist_credit n JOIN
         (
-            SELECT artist_credit, count(*) AS refcount
+            SELECT artist_credit, count(*) AS ref_count
             FROM (
                 (SELECT artist_credit FROM recording) UNION ALL
                 (SELECT artist_credit FROM release) UNION ALL

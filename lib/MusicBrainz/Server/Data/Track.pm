@@ -24,7 +24,7 @@ sub _table
 sub _columns
 {
     return 'track.id, name.name, recording, tracklist, position, length,
-            artist_credit, editpending';
+            artist_credit, edits_pending';
 }
 
 sub _column_mapping
@@ -37,7 +37,7 @@ sub _column_mapping
         position         => 'position',
         length           => 'length',
         artist_credit_id => 'artist_credit',
-        edits_pending    => 'editpending',
+        edits_pending    => 'edits_pending',
     };
 }
 
@@ -80,12 +80,12 @@ sub find_by_recording
     my $query = "
         SELECT
             track.id, track_name.name, track.tracklist, track.position,
-                track.length, track.artist_credit, track.editpending,
+                track.length, track.artist_credit, track.edits_pending,
                 medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
                 medium.release AS m_release,
-                tracklist.trackcount AS m_trackcount,
+                tracklist.track_count AS m_track_count,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
                 release.release_group AS r_release_group,
                 release.artist_credit AS r_artist_credit_id,

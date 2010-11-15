@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Edit::Historic::RemoveLink;
-use Moose;
+use strict;
+use warnings;
+
 use Switch;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
 
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -15,27 +15,11 @@ use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { l('Remove relationship (historic)') }
 sub historic_type { 35 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK }
-
-has '+data' => (
-    isa => Dict[
-        entity0_ids  => ArrayRef[Int],
-        entity1_ids  => ArrayRef[Int],
-        entity0_name => Str,
-        entity1_name => Str,
-        entity0_type => Str,
-        entity1_type => Str,
-        begin_date   => PartialDateHash,
-        end_date     => PartialDateHash,
-        link_type_id => Int,
-        link_id      => Int,
-        link_type_phrase => Str,
-    ]
-);
 
 sub related_entities
 {
@@ -154,5 +138,4 @@ sub upgrade
     return $self;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;

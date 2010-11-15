@@ -3,19 +3,19 @@ SET client_min_messages TO 'warning';
 TRUNCATE edit CASCADE;
 TRUNCATE edit_artist CASCADE;
 
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (1, 1, 123, 1, '<d><key>value</key></d>', NOW());
 
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (2, 2, 123, 2, '<d><key>value</key></d>', NOW());
 
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (3, 1, 123, 1, '<d><key>value</key></d>', NOW());
 
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (4, 2, 123, 2, '<d><key>value</key></d>', NOW());
 
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (5, 3, 123, 1, '<d><key>value</key></d>', NOW());
 
 INSERT INTO edit_artist (edit, artist) VALUES (1, 1);

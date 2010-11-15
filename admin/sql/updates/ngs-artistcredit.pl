@@ -209,7 +209,7 @@ while (1) {
     print LOG "Collaboration: ($collab_id) $collab_name\n";
 
     my $ac_id = $sql2->select_single_value("
-        INSERT INTO artist_credit (name, artistcount) VALUES (?, ?)
+        INSERT INTO artist_credit (name, artist_count) VALUES (?, ?)
         RETURNING id", $collab_name_id, scalar(@artists));
     foreach my $artist (@artists) {
         print LOG "  * Artist ", $artist->{position}, ". '", $artist->{artist_name}, "'=>'", $artist->{name}, "' '", $artist->{joinphrase}, "' \n";
@@ -227,7 +227,7 @@ while (1) {
             }
         }
         $sql2->do("INSERT INTO artist_credit_name (artist_credit, position,
-                   artist, name, joinphrase) VALUES (?, ?, ?, ?, ?)",
+                   artist, name, join_phrase) VALUES (?, ?, ?, ?, ?)",
                    $ac_id, $artist->{position}, $artist->{artist},
                    $name_id, $artist->{joinphrase} || undef);
     }

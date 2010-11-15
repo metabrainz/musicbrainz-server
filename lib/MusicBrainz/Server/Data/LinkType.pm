@@ -21,10 +21,10 @@ sub _table
 
 sub _columns
 {
-    return 'id, parent AS parent_id, gid, name, linkphrase AS link_phrase,
-            entitytype0 AS entity0_type, entitytype1 AS entity1_type,
-            rlinkphrase AS reverse_link_phrase, description, priority,
-            childorder AS child_order, shortlinkphrase AS short_link_phrase';
+    return 'id, parent AS parent_id, gid, name, link_phrase,
+            entity_type0 AS entity0_type, entity_type1 AS entity1_type,
+            reverse_link_phrase, description, priority,
+            child_order, short_link_phrase';
 }
 
 sub _entity_class
@@ -89,8 +89,8 @@ sub get_tree
 
     my $sql = Sql->new($self->c->dbh);
     $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
-                  WHERE entitytype0=? AND entitytype1=?
-                  ORDER BY childorder, id', $type0, $type1);
+                  WHERE entity_type0=? AND entity_type1=?
+                  ORDER BY child_order, id', $type0, $type1);
     my %id_to_obj;
     my @objs;
     while (1) {
@@ -122,11 +122,11 @@ sub get_attribute_type_list
                           FROM link_attribute_type t
                           LEFT JOIN link_type_attribute_type at
                               ON t.id = at.attribute_type AND at.link_type = ?
-                      WHERE t.parent IS NULL ORDER BY t.childorder, t.id', $id);
+                      WHERE t.parent IS NULL ORDER BY t.child_order, t.id', $id);
     }
     else {
         $sql->select('SELECT t.id, t.name FROM link_attribute_type t
-                      WHERE t.parent IS NULL ORDER BY t.childorder, t.id');
+                      WHERE t.parent IS NULL ORDER BY t.child_order, t.id');
     }
     my @result;
     while (1) {
@@ -202,14 +202,14 @@ sub _hash_to_row
 
     return hash_to_row($values, {
         parent          => 'parent_id',
-        entitytype0     => 'entity0_type',
-        entitytype1     => 'entity1_type',
-        childorder      => 'child_order',
+        entity_type0     => 'entity0_type',
+        entity_type1     => 'entity1_type',
+        child_order      => 'child_order',
         name            => 'name',
         description     => 'description',
-        linkphrase      => 'link_phrase',
-        rlinkphrase     => 'reverse_link_phrase',
-        shortlinkphrase => 'short_link_phrase',
+        link_phrase      => 'link_phrase',
+        reverse_link_phrase     => 'reverse_link_phrase',
+        short_link_phrase => 'short_link_phrase',
         priority        => 'priority',
     });
 }

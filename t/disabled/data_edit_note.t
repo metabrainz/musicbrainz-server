@@ -34,15 +34,15 @@ TRUNCATE edit CASCADE;
 TRUNCATE edit_note CASCADE;
 
 -- Test multiple edit_notes
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (1, 1, 111, 1, '<data><foo>5</foo></data>', NOW());
 
 -- Test a single note
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (2, 1, 111, 1, '<data><foo>5</foo></data>', NOW());
 
 -- Test no edit_notes
-INSERT INTO edit (id, editor, type, status, data, expiretime)
+INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (3, 1, 111, 1, '<data><foo>5</foo></data>', NOW());
 
 INSERT INTO edit_note (id, editor, edit, text)

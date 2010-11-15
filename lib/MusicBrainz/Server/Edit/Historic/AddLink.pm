@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::AddLink;
-use Moose;
-use MooseX::Types::Moose qw( ArrayRef Str Int );
-use MooseX::Types::Structured qw( Dict Optional );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_LINK );
@@ -13,30 +13,12 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { l('Add relationship') }
 sub edit_type     { $EDIT_HISTORIC_ADD_LINK }
 sub edit_template { 'historic/add_relationship' }
 sub historic_type { 33 }
-
-has '+data' => (
-  isa => Dict[
-        link_id                  => Int,
-        link_type_name           => Str,
-        link_type_id             => Int,
-        link_type_phrase         => Str,
-        reverse_link_type_phrase => Str,
-        entity0_ids              => ArrayRef[Int],
-        entity0_name             => Str,
-        entity0_type             => Str,
-        entity1_name             => Str,
-        entity1_ids              => ArrayRef[Int],
-        entity1_type             => Str,
-        begin_date               => PartialDateHash,
-        end_date                 => PartialDateHash,
-    ]
-);
 
 sub type0 { shift->data->{entity0_type} }
 sub type1 { shift->data->{entity1_type} }
@@ -153,7 +135,4 @@ sub upgrade
     return $self;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
-
-
+1;

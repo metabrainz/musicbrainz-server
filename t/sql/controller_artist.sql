@@ -23,7 +23,7 @@ TRUNCATE work CASCADE;
 TRUNCATE work_type CASCADE;
 TRUNCATE work_name CASCADE;
 
-INSERT INTO country (id, isocode, name) VALUES
+INSERT INTO country (id, iso_code, name) VALUES
     (1, 'GB', 'United Kingdom'),
     (2, 'US', 'United States');
 
@@ -37,23 +37,23 @@ INSERT INTO artist_name (id, name) VALUES
 
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist
-    (id, gid, name, sortname, type, gender, country,
-     begindate_year, begindate_month, begindate_day,
-     enddate_year, enddate_month, enddate_day, comment)
+    (id, gid, name, sort_name, type, gender, country,
+     begin_date_year, begin_date_month, begin_date_day,
+     end_date_year, end_date_month, end_date_day, comment)
     VALUES
     (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1,
      2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
 
-UPDATE artist_meta SET rating=70, ratingcount=4, lastupdate='2009-07-09 20:40:30' WHERE id = 3;
+UPDATE artist_meta SET rating=70, rating_count=4, last_updated='2009-07-09 20:40:30' WHERE id = 3;
 
-INSERT INTO artist (id, gid, name, sortname) VALUES
+INSERT INTO artist (id, gid, name, sort_name) VALUES
     (4, '60e5d080-c964-11de-8a39-0800200c9a66', 3, 3);
 
-INSERT INTO artist_alias (id, name, artist, editpending)
+INSERT INTO artist_alias (id, name, artist, edits_pending)
     VALUES (1, 4, 3, 2);
 
-INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 3, 1, NULL);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 1, NULL);
 
 INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
 
@@ -73,8 +73,8 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, date_year,
 -- A full editor
 INSERT INTO
     editor ( id, name, password, privs, email, website, bio,
-             emailconfirmdate, membersince, lastlogindate, editsaccepted, editsrejected,
-             autoeditsaccepted, editsfailed)
+             email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
+             auto_edits_accepted, edits_failed)
     VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
              'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
 
@@ -115,7 +115,7 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 
 TRUNCATE TABLE link_type CASCADE;
 
-INSERT INTO link_type (id, gid, entitytype0, entitytype1, name, linkphrase, rlinkphrase, shortlinkphrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
@@ -130,8 +130,8 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
 
 TRUNCATE TABLE link CASCADE;
 
-INSERT INTO link (id, link_type, attributecount) VALUES (1, 1, 1);
-INSERT INTO link (id, link_type, attributecount) VALUES (2, 1, 2);
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 1);
+INSERT INTO link (id, link_type, attribute_count) VALUES (2, 1, 2);
 
 TRUNCATE TABLE link_attribute CASCADE;
 

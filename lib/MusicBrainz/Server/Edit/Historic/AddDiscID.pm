@@ -1,13 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::AddDiscID;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_DISCID );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { l('Add disc ID') }
 sub historic_type { 32 }
@@ -21,15 +20,6 @@ sub related_entities
         release => $self->data->{release_ids}
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_name => Str,
-        release_ids  => ArrayRef[Int],
-        full_toc     => Str,
-        cdtoc_id     => Int
-    ]
-);
 
 sub foreign_keys
 {
@@ -63,6 +53,4 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

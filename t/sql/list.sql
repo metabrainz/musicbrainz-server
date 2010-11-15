@@ -15,11 +15,11 @@ TRUNCATE list CASCADE;
 TRUNCATE list_release CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
-INSERT INTO artist (id, gid, name, sortname)
+INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, joinphrase)
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
     VALUES (1, 1, 1, 0, NULL);
 
 INSERT INTO release_name (id, name) VALUES (1, 'Arrival');
