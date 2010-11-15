@@ -18,6 +18,11 @@ parameter 'search_template' => (
     required => 1
 );
 
+parameter 'merge_form' => (
+    isa => 'Str',
+    default => 'Confirm'
+);
+
 role {
     my $params = shift;
     my %extra = @_;
@@ -49,7 +54,7 @@ role {
             );
 
             $self->edit_action($c,
-                form => 'Confirm',
+                form => $params->merge_form,
                 type => $params->edit_type,
                 edit_args => {
                     old_entities  => [ { id => $old->id, name => $old->name } ],
