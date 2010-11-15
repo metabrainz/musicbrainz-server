@@ -73,7 +73,7 @@ p.guesscase-options,
 }
 
 #release-editor ul.tabs {
-    background: url(../images/release_editor/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828;
+    background: url(../lib/jquery.ui/themes/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
