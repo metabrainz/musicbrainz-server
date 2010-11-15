@@ -45,8 +45,8 @@ $release = $release_data->get_by_id(2);
 is( $release->quality, -1 );
 
 my ($releases, $hits) = $release_data->find_by_artist(1, 100);
-is( $hits, 2 );
-is( scalar(@$releases), 2 );
+is( $hits, 6 );
+is( scalar(@$releases), 6 );
 is( $releases->[0]->id, 1, 'found release by artist');
 is( $releases->[1]->id, 2, 'found release by artist');
 
@@ -61,8 +61,8 @@ is( scalar(@$releases), 1 );
 is( $releases->[0]->id, 3, 'found release by recording' );
 
 ($releases, $hits) = $release_data->find_by_release_group(1, 100);
-is( $hits, 2 );
-is( scalar(@$releases), 2 );
+is( $hits, 6 );
+is( scalar(@$releases), 6 );
 is( $releases->[0]->id, 1, 'found release by release group' );
 is( $releases->[1]->id, 2, 'found release by release group' );
 
@@ -131,7 +131,7 @@ is($release->date->month, 2);
 is($release->date->day, 15);
 is($release->country_id, 1);
 
-$release_data->delete($release);
+$release_data->delete($release->id);
 $release = $release_data->get_by_id($release->id);
 ok(!defined $release);
 $sql->commit;
@@ -142,17 +142,25 @@ ok(defined $release);
 $release = $release_data->get_by_id(2);
 ok(defined $release);
 
-# Merge #2 into #1
+# Merge #7 into #6 with append stategy
 $raw_sql->begin;
 $sql->begin;
-$release_data->merge(1, 2);
+$release_data->merge(new_id => 6, old_ids => [ 7 ]);
+$release = $release_data->get_by_id(6);
+$c->model('Medium')->load_for_releases($release);
+is($release->all_mediums, 2);
+is($release->mediums->[0]->id, 2);
+is($release->mediums->[0]->position, 1);
+is($release->mediums->[1]->id, 3);
+is($release->mediums->[1]->position, 2);
+
+# Only #6 is now in the DB
+$release = $release_data->get_by_id(6);
+ok(defined $release);
+$release = $release_data->get_by_id(7);
+ok(!defined $release);
+
 $raw_sql->commit;
 $sql->commit;
-
-# Only #1 is now in the DB
-$release = $release_data->get_by_id(1);
-ok(defined $release);
-$release = $release_data->get_by_id(2);
-ok(!defined $release);
 
 done_testing;
