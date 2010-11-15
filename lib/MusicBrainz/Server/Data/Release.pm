@@ -495,11 +495,11 @@ sub merge
     elsif ($merge_strategy == $MERGE_MERGE) {
         my @tracklist_merges = @{ 
             $sql->select_list_of_lists(
-                'SELECT new.tracklist AS new, old.tracklist AS old
-                   FROM tracklist old
-                   JOIN tracklist new ON new.pos = old.position
-                  WHERE new.release = ?
-                    AND old.release IN (' . placeholders(@old_ids) . ')',
+                'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
+                   FROM medium newmed, medium oldmed
+                  WHERE newmed.release = ?
+                    AND oldmed.release IN (' . placeholders(@old_ids) . ')
+                    AND newmed.position = oldmed.position',
                 $new_id, @old_ids
             )
         };

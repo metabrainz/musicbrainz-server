@@ -119,10 +119,10 @@ INSERT INTO recording (id, gid, name, artist_credit)
            (5, '691ee030-f0cc-11df-98cf-0800200c9a66', 1, 1);
 INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
     VALUES (2, 1, 1, 2, 1, 2), (3, 1, 1, 3, 1, 3),
-           (4, 1, 1, 5, 1, 4), (5, 1, 1, 5, 1, 5);
+           (4, 1, 1, 4, 1, 4), (5, 1, 1, 5, 1, 5);
 INSERT INTO medium (id, release, tracklist, position)
     VALUES (2, 6, 2, 1), (3, 7, 3, 1),
-           (4, 8, 4, 1), (5, 8, 5, 1);
+           (4, 8, 4, 1), (5, 9, 5, 1);
 
 ALTER SEQUENCE release_name_id_seq RESTART 10;
 ALTER SEQUENCE release_group_id_seq RESTART 5;

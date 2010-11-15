@@ -163,4 +163,29 @@ ok(!defined $release);
 $raw_sql->commit;
 $sql->commit;
 
+# Merge #9 into #8 with merge stategy
+$raw_sql->begin;
+$sql->begin;
+$release_data->merge(new_id => 8, old_ids => [ 9 ], merge_strategy => 2);
+$release = $release_data->get_by_id(8);
+$c->model('Medium')->load_for_releases($release);
+is($release->all_mediums, 1);
+is($release->mediums->[0]->id, 4);
+is($release->mediums->[0]->position, 1);
+
+# Make sure it merged the recordings
+is(
+    $c->model('Recording')->get_by_gid('64cac850-f0cc-11df-98cf-0800200c9a66')->id,
+    $c->model('Recording')->get_by_gid('691ee030-f0cc-11df-98cf-0800200c9a66')->id
+);
+
+# Only #6 is now in the DB
+$release = $release_data->get_by_id(8);
+ok(defined $release);
+$release = $release_data->get_by_id(9);
+ok(!defined $release);
+
+$raw_sql->commit;
+$sql->commit;
+
 done_testing;
