@@ -11,7 +11,7 @@ use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
-use XML::Dumper;
+use JSON::Any;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -38,7 +38,7 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or die "Could not look up class for type ".$row->{type};
-    my $data = xml2pl($row->{data});
+    my $data = JSON::Any->jsonToObj($row->{data});
 
     my $edit = $class->new(
         c => $self->c,
@@ -258,7 +258,7 @@ sub create
 
         my $row = {
             editor => $edit->editor_id,
-            data => pl2xml($edit->to_hash),
+            data => JSON::Any->objToJson($edit->to_hash),
             status => $edit->status,
             type => $edit->edit_type,
             open_time => $now,

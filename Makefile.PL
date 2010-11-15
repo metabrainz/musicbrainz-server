@@ -76,7 +76,6 @@ requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
 requires 'XML::Feed'                                  => '0.410';
 requires 'XML::Simple'                                => '2.14';
-requires 'XML::Dumper'                                => '0.81';
 requires 'YAML'                                       => '0.680';
 
 feature 'ETag Caching' =>
