@@ -2,8 +2,13 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        [%- IF looks_like_ie -%]
-        <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+         [%- IF looks_like_ie -%]
+          [%- IF needs_chrome -%]
+            [%# choose the best available standards mode in internet explorer if chromeframe is not installed. %]
+            <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+          [%- ELSE -%]
+            <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+          [%- END -%]
         [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
         <link rel="stylesheet" type="text/css" href="/static/main.css?mtime=[% c.model('FileCache').modified('main.css') %]" />

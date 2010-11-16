@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Form::OtherLookup;
+use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 
@@ -85,7 +86,7 @@ sub mbid : Private
 
     if (!MusicBrainz::Server::Validation::IsGUID($gid))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = l('Invalid MBID');
         return;
     }
 
@@ -108,7 +109,7 @@ sub isrc : Private
 
     if (!is_valid_isrc($isrc))
     {
-        $c->stash->{error} = "Invalid ISRC.";
+        $c->stash->{error} = l('Invalid ISRC.');
         return;
     }
 
@@ -125,7 +126,7 @@ sub iswc : Private
 
     if (!is_valid_iswc($iswc))
     {
-        $c->stash->{error} = "Invalid ISWC.";
+        $c->stash->{error} = l('Invalid ISWC.');
         return;
     }
 
@@ -151,7 +152,7 @@ sub puid : Private
 
     if (!MusicBrainz::Server::Validation::IsGUID($puid))
     {
-        $c->stash->{error} = "Invalid puid.";
+        $c->stash->{error} = l('Invalid PUID.');
         return;
     }
 
@@ -168,7 +169,7 @@ sub discid : Private
 
     if (!is_valid_discid($discid))
     {
-        $c->stash->{error} = "Invalid DiscID.";
+        $c->stash->{error} = l('Invalid disc ID.');
         return;
     }
 

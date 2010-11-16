@@ -2,12 +2,13 @@ package MusicBrainz::Server::Edit::Historic::EditLabel;
 use Moose;
 
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::Label';
 
+sub edit_name { l('Edit label') }
 sub edit_type { 55 }
-sub edit_name { 'Edit label' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Edit' }
 
 augment 'upgrade' => sub

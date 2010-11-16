@@ -6,7 +6,7 @@
    [% USE r = FormRenderer(form) %]
 
    <div id="form">
-     <div class="form">
+     <div class="half-width">
 
        [%- FOREACH edit=edits -%]
 

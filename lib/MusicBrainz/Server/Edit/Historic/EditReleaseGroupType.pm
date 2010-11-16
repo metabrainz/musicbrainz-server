@@ -2,13 +2,14 @@ package MusicBrainz::Server::Edit::Historic::EditReleaseGroupType;
 use Moose;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_id );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
-sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
-sub edit_name { 'Edit release group type' }
+sub edit_name { l('Edit release group type') }
 sub edit_type { 70 }
+sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
 augment 'upgrade' => sub
 {

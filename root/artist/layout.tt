@@ -45,6 +45,11 @@
             [% END %]
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
+                  <li>
+                    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
+                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                    </a>
+                  </li>
                   <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
                   <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
                   [% IF artist.edits_pending %]

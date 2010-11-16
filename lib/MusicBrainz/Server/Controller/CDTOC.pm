@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_MOVE_DISCID
 );
 use MusicBrainz::Server::Entity::CDTOC;
+use MusicBrainz::Server::Translation qw( l ln );
 
 use HTTP::Status qw( :constants );
 
@@ -112,14 +113,19 @@ sub attach : Local RequireAuth
     my $toc = $c->req->query_params->{toc};
     $c->stash( toc => $toc );
     my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc)
-        or $self->error($c, status => HTTP_BAD_REQUEST,
-                        message => "The provided CD TOC is not valid");
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('The provided CD TOC is not valid')
+        );
 
     $c->stash( cdtoc => $cdtoc );
 
     if (my $release_id = $c->req->query_params->{release}) {
         my $release = $c->model('Release')->get_by_id($release_id)
-            or $self->error($c, status => HTTP_NOT_FOUND, message => 'The requested release could not be found');
+            or $self->error(
+                $c, status => HTTP_NOT_FOUND,
+                message => l('The requested release could not be found')
+            );
         $c->model('ArtistCredit')->load($release);
         $c->stash( release => $release );
 
@@ -128,9 +134,10 @@ sub attach : Local RequireAuth
         $c->model('Tracklist')->load($release->all_mediums);
         my @possible_mediums = grep { $_->tracklist->track_count == $cdtoc->track_count } $release->all_mediums;
 
-        $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => 'This release has no mediums with the specified track count')
-            unless @possible_mediums;
+        $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('This release has no mediums with the specified track count')
+        ) unless @possible_mediums;
 
         my $medium_id = $c->req->query_params->{medium};
         $medium_id = $possible_mediums[0]->id if @possible_mediums == 1 && !defined $medium_id;
@@ -138,7 +145,7 @@ sub attach : Local RequireAuth
         my @valid = grep { $medium_id == $_->id } @possible_mediums;
         $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => 'The medium you are trying to attach a disc ID to belongs to a different release'
+            message => l('The medium you are trying to attach a disc ID to belongs to a different release')
         ) unless @valid;
 
         if ($medium_id) {
@@ -215,8 +222,10 @@ sub move : Local RequireAuth Edit
 
     my $medium_cdtoc_id = $c->req->query_params->{toc};
     my $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id($medium_cdtoc_id)
-        or $self->error($c, status => HTTP_BAD_REQUEST,
-                        message => "The provided CD TOC is not valid");
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('The provided CD TOC is not valid')
+        );
 
     $c->model('CDTOC')->load($medium_cdtoc);
     my $cdtoc = $medium_cdtoc->cdtoc;
@@ -228,8 +237,10 @@ sub move : Local RequireAuth Edit
 
     if (my $release_id = $c->req->query_params->{release}) {
         my $release = $c->model('Release')->get_by_id($release_id)
-            or $self->error($c, status => HTTP_NOT_FOUND,
-                    message => 'The requested release could not be found');
+            or $self->error(
+                $c, status => HTTP_NOT_FOUND,
+                message => l('The requested release could not be found')
+            );
 
         $c->model('ArtistCredit')->load($release);
         $c->stash( release => $release );
@@ -241,9 +252,10 @@ sub move : Local RequireAuth Edit
             $_->tracklist->track_count == $cdtoc->track_count
             } $release->all_mediums;
 
-        $self->error($c, status => HTTP_BAD_REQUEST,
-                message => 'This release has no mediums with the specified track count')
-            unless @possible_mediums;
+        $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('This release has no mediums with the specified track count')
+        ) unless @possible_mediums;
 
         my $medium_id = $c->req->query_params->{medium};
         $medium_id = $possible_mediums[0]->id
@@ -252,7 +264,7 @@ sub move : Local RequireAuth Edit
         my $medium = first { $medium_id == $_->id } @possible_mediums;
         $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => 'The medium you are trying to attach a disc ID to belongs to a different release'
+            message => l('The medium you are trying to attach a disc ID to belongs to a different release')
         ) unless $medium;
 
         $medium->release($release);

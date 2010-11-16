@@ -40,6 +40,7 @@ use ModDefs qw( VARTIST_ID );
 use MusicBrainz::Server::Language;
 use MusicBrainz::Server::PUID;
 use MusicBrainz::Server::Script;
+use MusicBrainz::Server::Translation qw( l ln );
 use POSIX qw(:locale_h);
 
 
@@ -72,23 +73,23 @@ use constant RELEASE_ATTR_SECTION_STATUS_END   => RELEASE_ATTR_PSEUDO_RELEASE;
 sub entity_type { "release" }
 
 my %AlbumAttributeNames = (
-    0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
-    1 => [ "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],
-    2 => [ "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
-    3 => [ "EP", "EPs", "An EP is an Extended Play release and often contains the letters EP in the title."],
-    4 => [ "Compilation", "Compilations", "A compilation is a collection of previously released tracks by one or more artists."],
-    5 => [ "Soundtrack", "Soundtracks", "A soundtrack is the musical score to a movie, TV series, stage show, computer game etc."],
-    6 => [ "Spokenword", "Spokenword", "Non-music spoken word releases."],
-    7 => [ "Interview", "Interviews", "An interview release contains an interview with the Artist."],
-    8 => [ "Audiobook", "Audiobooks", "An audiobook is a book read by a narrator without music."],
-    9 => [ "Live", "Live Releases", "A release that was recorded live."],
-    10 => [ "Remix", "Remixes", "A release that was (re)mixed from previously released material."],
-    11 => [ "Other", "Other Releases", "Any release that does not fit any of the categories above."],
+    0 => [ "Non-Album Track", "Non-Album Tracks", l("(Special case)")],
+    1 => [ "Album", "Albums", l("An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks.")],
+    2 => [ "Single", "Singles", l("A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song.")],
+    3 => [ "EP", "EPs", l("An EP is an Extended Play release and often contains the letters EP in the title.")],
+    4 => [ "Compilation", "Compilations", l("A compilation is a collection of previously released tracks by one or more artists.")],
+    5 => [ "Soundtrack", "Soundtracks", l("A soundtrack is the musical score to a movie, TV series, stage show, computer game etc.")],
+    6 => [ "Spokenword", "Spokenword", l("Non-music spoken word releases.")],
+    7 => [ "Interview", "Interviews", l("An interview release contains an interview with the Artist.")],
+    8 => [ "Audiobook", "Audiobooks", l("An audiobook is a book read by a narrator without music.")],
+    9 => [ "Live", "Live Releases", l("A release that was recorded live.")],
+    10 => [ "Remix", "Remixes", l("A release that was (re)mixed from previously released material.")],
+    11 => [ "Other", "Other Releases", l("Any release that does not fit any of the categories above.")],
 
-    100 => [ "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
-    101 => [ "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
-    102 => [ "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."],
-    103 => [ "Pseudo-Release", "PseudoReleases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
+    100 => [ "Official", "Official", l("Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"_],
+    101 => [ "Promotion", "Promotions", l("A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)")],
+    102 => [ "Bootleg", "Bootlegs", l("An unofficial/underground release that was not sanctioned by the artist and/or the record company.")],
+    103 => [ "Pseudo-Release", "PseudoReleases", l("A pseudo-release is a duplicate release for translation/transliteration purposes.")]
 );
 
 sub LinkEntityName { "album" }
@@ -1337,11 +1338,11 @@ sub CanAddTrack
         $tracknum = int $tracknum;
 
         # Sanity checks on track number
-        $@ = "$tracknum is not a valid track number", return 0
+        $@ = l("$tracknum is not a valid track number"), return 0
                 if $tracknum < 1;
 
         # Can't add a track if we've already got a track with that number
-        $@ = "This release already has a track $tracknum", return 0
+        $@ = l("This release already has a track $tracknum"), return 0
                 if $havetracks->{$tracknum};
     }
 
@@ -1358,8 +1359,9 @@ sub CanAddTrack
     # range.
     if (defined $tracknum)
     {
-        my $t = (($fixtracks == 1) ? "one track" : "$fixtracks tracks");
-        $@ = "You can't add track $tracknum - this release is meant to have exactly $t",
+        $@ = ln("You can't add a track $tracknum - this release is meant to have exactly $fixtracks track",
+                "You can't add a track $tracknum - this release is meant to have exactly $fixtracks tracks",
+                $fixtracks),
                 return 0
                 if $tracknum > $fixtracks;
         
@@ -1370,7 +1372,7 @@ sub CanAddTrack
     # gap in the track sequence.
     my $gap = grep { not $havetracks->{$_} } 1 .. $fixtracks;
 
-    $@ = "This release already has all of its tracks", return 0
+    $@ = l("This release already has all of its tracks"), return 0
         if not $gap;
 
     $@ = "", return 1;
@@ -1387,7 +1389,7 @@ sub CanRemoveTrack
     my $havetracks = $self->_GetTrackNumbersHash;
 
     # Can't remove a track that's not there
-    $@ = "There is no track $tracknum on this album", return 0
+    $@ = l("There is no track $tracknum on this album"), return 0
         if defined $tracknum and not $havetracks->{$tracknum};
 
     # If we have no disc ids, or if we do, but they suggest a conflicting
@@ -1403,8 +1405,9 @@ sub CanRemoveTrack
     {
         # Disallow removal of a track if it's within the TOC range, and it's not a
         # duplicate.
-        my $t = (($fixtracks == 1) ? "one track" : "$fixtracks tracks");
-        $@ = "You can't remove track $tracknum - this album is meant to have exactly $t",
+        $@ = ln("You can't remove track $tracknum - this release is meant to have exactly $fixtracks track",
+                "You can't remove track $tracknum - this release is meant to have exactly $fixtracks tracks",
+                $fixtracks),
                 return 0
                 if $tracknum >= 1 and $tracknum <= $fixtracks
                         and $havetracks->{$tracknum} == 1;
@@ -1419,7 +1422,7 @@ sub CanRemoveTrack
     # Yes, if there's a track outside of the TOC range
     $@ = "", return 1 if grep { $_ < 1 or $_ > $fixtracks } keys %$havetracks;
     # Otherwise no
-    $@ = "None of the tracks on this album is eligible for removal", return 0;
+    $@ = l("None of the tracks on this album is eligible for removal"), return 0;
 }
 
 sub _GetTOCTracksHash

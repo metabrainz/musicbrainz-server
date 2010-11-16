@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::AddTrackAnnotation;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name { 'Add track annotation' }
+sub edit_name { l('Add track annotation') }
 sub edit_type { 64 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddAnnotation' }
 

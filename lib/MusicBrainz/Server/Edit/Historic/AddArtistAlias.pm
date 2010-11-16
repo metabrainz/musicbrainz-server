@@ -1,12 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::AddArtistAlias;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
-sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAlias' }
+sub edit_name { l('Add artist alias') }
 sub edit_type { 15 }
-sub edit_name { 'Add artist alias' }
+sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAlias' }
 
 augment 'upgrade' => sub {
     my $self = shift;

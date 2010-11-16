@@ -4,11 +4,12 @@ use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
-sub edit_name { 'Change release quality' }
+sub edit_name { l('Change release quality') }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release_id} }
 

@@ -1,10 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::ChangeWikiDoc;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
+sub edit_name { l('Change wikidoc') }
 sub edit_type { 48 }
-sub edit_name { 'Change wikidoc' }
 sub ngs_class { 'MusicBrainz::Server::Edit::WikiDoc::Change' }
 
 augment 'upgrade' => sub

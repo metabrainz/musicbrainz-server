@@ -4,11 +4,12 @@ use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_NAME );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
 with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
 
-sub edit_name     { 'Edit release name' }
+sub edit_name     { l('Edit release name') }
 sub historic_type { 3 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_NAME }
 

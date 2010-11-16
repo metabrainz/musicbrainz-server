@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     date_closure
 );
+use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( Maybe Str Int );
@@ -19,8 +20,9 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
+sub edit_name { l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
-sub edit_name { "Edit artist" }
+
 sub _edit_model { 'Artist' }
 
 sub change_fields

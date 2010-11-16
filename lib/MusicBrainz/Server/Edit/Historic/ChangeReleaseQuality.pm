@@ -3,14 +3,15 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit::Historic';
 
-sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
+sub edit_name     { l('Change release quality') }
 sub historic_type { 63 }
-sub edit_name     { 'Change release quality' }
+sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
 sub edit_template { 'historic/change_release_quality' }
 
 sub related_entities

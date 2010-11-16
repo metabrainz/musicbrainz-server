@@ -6,13 +6,14 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Validation 'normalise_strings';
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
-sub edit_name { 'Edit medium' }
+sub edit_name { l('Edit medium') }
 sub _edit_model { 'Medium' }
 sub medium_id { shift->data->{entity_id} }
 

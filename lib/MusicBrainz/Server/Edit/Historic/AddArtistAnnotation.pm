@@ -1,10 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::AddArtistAnnotation;
 use Moose;
 
+use MusicBrainz::Server::Translation qw ( l ln );
+
 extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
+sub edit_name { l('Add artist annotation') }
 sub edit_type { 30 }
-sub edit_name { 'Add artist annotation' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAnnotation' }
 
 augment 'upgrade' => sub

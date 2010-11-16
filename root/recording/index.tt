@@ -1,5 +1,4 @@
 [%- WRAPPER 'recording/layout.tt' page='index' %]
-    <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'recording/annotation.tt' summary=1 -%]
     <h2>[%- l('Appears on releases') -%]</h2>
     [%- WRAPPER "components/with-pager.tt" %]
