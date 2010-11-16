@@ -22,9 +22,9 @@ FTP_FILE_MODE=644
 # Where to back things up to, who should own the backup files, and what mode
 # those files should have.
 # The backups include a full database export, and all replication data.
-BACKUP_DIR=/home/mbserver/data
-BACKUP_USER=mbserver
-BACKUP_GROUP=mbserver
+BACKUP_DIR=/home/mbbackup/data
+BACKUP_USER=mbbackup
+BACKUP_GROUP=mbbackup
 BACKUP_DIR_MODE=700
 BACKUP_FILE_MODE=600
 
