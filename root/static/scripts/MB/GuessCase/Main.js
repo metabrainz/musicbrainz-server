@@ -183,6 +183,34 @@ MB.GuessCase.Main = function () {
     };
 
     /**
+     * Guess the capitalization of a work name
+     * @param	 is		the un-processed input string
+     * @returns			the processed string
+     **/
+    self.guessWork = function(is) {
+	var os, handler;
+	gc.init();
+
+	if (!self.workHandler) {
+	    self.workHandler = MB.GuessCase.Handler.Work ();
+	}
+	handler = self.workHandler;
+
+	// we need to query the handler if the input string is
+	// a special case, fetch the correct format, if the
+	// returned case is indeed a special case.
+	var num = handler.checkSpecialCase(is);
+	if (handler.isSpecialCase(num)) {
+	    os = handler.getSpecialCaseFormatted(is, num);
+	} else {
+	    // if it was not a special case, start Guessing
+	    os = handler.process(is);
+	}
+
+	return os;
+    };
+
+    /**
      * Guess the capitalization of n release name
      * @param	 is		the un-processed input string
      * @returns			the processed string
