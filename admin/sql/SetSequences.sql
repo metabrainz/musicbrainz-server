@@ -11,7 +11,6 @@ SELECT setval('cdtoc_id_seq', (SELECT MAX(id) FROM cdtoc));
 SELECT setval('clientversion_id_seq', (SELECT MAX(id) FROM clientversion));
 SELECT setval('country_id_seq', (SELECT MAX(id) FROM country));
 SELECT setval('currentstat_id_seq', (SELECT MAX(id) FROM currentstat));
-SELECT setval('dbmirror_Pending_SeqId_seq', (SELECT MAX(SeqId) FROM dbmirror_Pending));
 SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
 SELECT setval('editor_preference_id_seq', (SELECT MAX(id) FROM editor_preference));
 SELECT setval('editor_subscribe_artist_id_seq', (SELECT MAX(id) FROM editor_subscribe_artist));

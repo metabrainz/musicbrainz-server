@@ -1,47 +1,23 @@
 package MusicBrainz::Server::Edit::Historic::EditLink;
-use Moose;
-use MooseX::Types::Moose qw( ArrayRef Str Int );
-use MooseX::Types::Structured qw( Dict Optional );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_LINK );
 use MusicBrainz::Server::Data::Utils qw( remove_equal type_to_model );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
-sub edit_name     { 'Edit relationship' }
+sub edit_name     { l('Edit relationship') }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK }
 sub historic_type { 34 }
-
-sub change_fields
-{
-    return Dict[
-        link_type_id     => Int,
-        link_type_phrase => Str,
-        entity0_ids      => ArrayRef[Int],
-        entity0_name     => Str,
-        entity0_type     => Str,
-        entity1_name     => Str,
-        entity1_ids      => ArrayRef[Int],
-        entity1_type     => Str,
-        begin_date       => PartialDateHash,
-        end_date         => PartialDateHash,
-        attributes       => ArrayRef[Int]
-    ]
-}
-
-has '+data' => (
-    isa => Dict[
-        link_id => Int,
-        old => change_fields(),
-        new => change_fields(),
-    ]
-);
 
 sub related_entities
 {
@@ -180,7 +156,4 @@ sub upgrade
     return $self;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
-
-
+1;

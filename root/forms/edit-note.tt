@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset class="editnote">
     <legend>[%- l('Edit Note') -%]</legend>
     [%- UNLESS hide_help -%]
         <p>

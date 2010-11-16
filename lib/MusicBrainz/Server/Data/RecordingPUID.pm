@@ -18,7 +18,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, puid, recording, editpending';
+    return 'id, puid, recording, edits_pending';
 }
 
 sub _column_mapping
@@ -27,7 +27,7 @@ sub _column_mapping
         id            => 'id',
         puid_id       => 'puid',
         recording_id  => 'recording',
-        edits_pending => 'editpending',
+        edits_pending => 'edits_pending',
     };
 }
 
@@ -47,7 +47,7 @@ sub find_by_recording
             recording_puid.id,
             recording_puid.puid,
             recording_puid.recording,
-            recording_puid.editpending,
+            recording_puid.edits_pending,
             puid.id AS p_id,
             puid.puid AS p_puid,
             clientversion.version AS p_version
@@ -89,7 +89,7 @@ sub get_by_recording_puid
             recording_puid.id,
             recording_puid.puid,
             recording_puid.recording,
-            recording_puid.editpending,
+            recording_puid.edits_pending,
             puid.id AS p_id,
             puid.puid AS p_puid,
             clientversion.version AS p_version
@@ -125,14 +125,14 @@ sub find_by_puid
             recording_puid.id,
             recording_puid.puid,
             recording_puid.recording,
-            recording_puid.editpending,
+            recording_puid.edits_pending,
             recording.id AS r_id,
             recording.gid AS r_gid,
             name.name AS r_name,
             recording.artist_credit AS r_artist_credit_id,
             recording.length AS r_length,
             recording.comment AS r_comment,
-            recording.editpending AS r_edits_pending
+            recording.edits_pending AS r_edits_pending
         FROM
             recording_puid
             JOIN recording ON recording.id = recording_puid.recording

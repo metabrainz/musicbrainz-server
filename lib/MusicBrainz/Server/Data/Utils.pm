@@ -14,6 +14,7 @@ use Storable;
 our @EXPORT_OK = qw(
     artist_credit_to_ref
     check_data
+    copy_escape
     defined_hash
     hash_to_row
     add_partial_date_to_row
@@ -50,9 +51,20 @@ Readonly my %TYPE_TO_MODEL => (
     'work'          => 'Work',
 );
 
+sub copy_escape {
+    my $str = shift;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\t/\\t/g;
+    $str =~ s/\r/\\r/g;
+    $str =~ s/\\/\\\\/g;
+    return $str;
+}
+
 sub artist_credit_to_ref
 {
     my ($artist_credit) = @_;
+
+    return $artist_credit unless UNIVERSAL::can ($artist_credit, 'isa');
 
     my $ac = [ map {
         my @credit = ( { name => $_->name, artist => $_->artist_id } );

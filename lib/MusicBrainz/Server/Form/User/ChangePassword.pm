@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::User::ChangePassword;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -33,7 +34,7 @@ sub validate_old_password
     if ($password) {
         my $editor = $self->ctx->model('Editor')->get_by_id($self->ctx->user->id);
         if ($editor->password ne $password) {
-            $field->add_error($self->ctx->gettext('The old password is incorrect'));
+            $field->add_error(l('The old password is incorrect'));
         }
     }
 }

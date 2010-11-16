@@ -3,6 +3,7 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 requires 'load', 'show';
@@ -16,32 +17,60 @@ my %model_to_edit_type = (
     Work => $EDIT_WORK_ADD_ANNOTATION,
 );
 
+after 'load' => sub
+{
+    my ($self, $c) = @_;
+    my $entity = $c->stash->{entity};
+    my $model = $self->{model};
+
+    $c->model($model)->annotation->load_latest($entity);
+};
+
 sub latest_annotation : Chained('load') PathPart('annotation')
 {
     my ($self, $c) = @_;
-
     my $entity = $c->stash->{entity};
+    my $model = $self->{model};
+
     my $annotation = $c->model($self->{model})->annotation->get_latest($entity->id);
+
+    $c->model('Editor')->load($annotation);
+
+    my $annotation_model = $c->model($model)->annotation;
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
 
     $c->stash(
         annotation => $annotation,
-        type       => model_to_type($self->{model}),
+        number_of_revisions => scalar @$annotations,
         template   => $self->action_namespace . '/annotation_revision.tt'
     );
 }
 
-sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
+sub annotation_revision : Chained('load') PathPart('annotation') Args(1) RequireAuth
 {
     my ($self, $c, $id) = @_;
-
     my $entity = $c->stash->{entity};
+    my $model = $self->{model};
+
     my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
         or $c->detach('/error_404');
 
+    $c->model('Editor')->load($annotation);
+
+    my $annotation_model = $c->model($model)->annotation;
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
+
     $c->stash(
         annotation => $annotation,
-        gid        => $entity->gid,
-        type       => model_to_type($self->{model}),
+        number_of_revisions => scalar @$annotations,
     );
 }
 
@@ -49,10 +78,22 @@ after 'show' => sub
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
-    my $type = $self->{model};
+    my $model = $self->{model};
 
-    $c->stash->{type} = model_to_type($type);
-    $c->model($type)->annotation->load_latest($entity);
+    my $annotation = $c->stash->{entity}->{latest_annotation};
+
+    $c->model('Editor')->load($annotation);
+
+    my $annotation_model = $c->model($model)->annotation;
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
+
+    $c->stash(
+        number_of_revisions => scalar @$annotations,
+    );
 };
 
 sub edit_annotation : Chained('load') PathPart RequireAuth Edit
@@ -95,7 +136,7 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
     }
 }
 
-sub annotation_history : Chained('load') PathPart('annotations')
+sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -106,13 +147,14 @@ sub annotation_history : Chained('load') PathPart('annotations')
     my $annotations = $self->_load_paged(
         $c, sub {
             $annotation_model->get_history($entity->id, @_);
-        });
+        }
+    );
 
     $c->model('Editor')->load(@$annotations);
     $c->stash( annotations => $annotations );
 }
 
-sub annotation_diff : Chained('load') PathPart('annotations-differences')
+sub annotation_diff : Chained('load') PathPart('annotations-differences') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -127,13 +169,16 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences')
             is_positive_integer($new) &&
             $old != $new) {
         $c->stash(
-            message => 'The old and new annotation ids must be unique, positive integers'
+            message => l('The old and new annotation ids must be unique, positive integers.')
         );
         $c->detach('/error_400')
     }
 
     my $old_annotation = $annotation_model->get_by_id($old);
     my $new_annotation = $annotation_model->get_by_id($new);
+
+    $c->model('Editor')->load($new_annotation);
+    $c->model('Editor')->load($old_annotation);
 
     $c->stash(
         old => $old_annotation,

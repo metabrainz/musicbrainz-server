@@ -12,7 +12,7 @@ override 'cache_data' => sub
 {
     my $self = shift;
     my $data = super();
-    $data->{amazonasin} = $self->asin;
+    $data->{amazon_asin} = $self->asin;
 
     return $data;
 };

@@ -14,7 +14,7 @@ with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $query = "SELECT artist, artist_name.name, joinphrase, artist_credit, artist.id, gid, n2.name AS artist_name " .
+    my $query = "SELECT artist, artist_name.name, join_phrase, artist_credit, artist.id, gid, n2.name AS artist_name " .
                 "FROM artist_credit_name " .
                 "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
@@ -36,7 +36,7 @@ sub get_by_ids
             artist_id => $row->{artist},
             name => $row->{name}
         );
-        $info{join_phrase} = $row->{joinphrase} if defined $row->{joinphrase};
+        $info{join_phrase} = $row->{join_phrase} if defined $row->{join_phrase};
         my $obj = MusicBrainz::Server::Entity::ArtistCreditName->new(%info);
         $obj->artist(MusicBrainz::Server::Entity::Artist->new(
             id => $row->{id},
@@ -86,7 +86,7 @@ sub find_or_insert
         my $condition = "acn_$i.position = ? AND ".
                         "acn_$i.artist = ? AND ".
                         "an_$i.name = ?";
-        $condition .= " AND acn_$i.joinphrase = ?" if defined $join_phrases->[$i];
+        $condition .= " AND acn_$i.join_phrase = ?" if defined $join_phrases->[$i];
         push @joins, $join;
         push @conditions, $condition;
         $name .= $names[$i];
@@ -96,7 +96,7 @@ sub find_or_insert
     my $sql = Sql->new($self->c->dbh);
     my $query = "SELECT ac.id FROM artist_credit ac " .
                 join(" ", @joins) .
-                " WHERE " . join(" AND ", @conditions) . " AND ac.artistcount = ?";
+                " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
     my @args = zip @positions, @artists, @names, @$join_phrases;
     pop @args unless defined $join_phrases->[$#names];
     my $id = $sql->select_single_value($query, @args, scalar @names);
@@ -106,7 +106,7 @@ sub find_or_insert
         my %names_id = $self->c->model('Artist')->find_or_insert_names(@names, $name);
         $id = $sql->insert_row('artist_credit', {
             name => $names_id{$name},
-            artistcount => scalar @names,
+            artist_count => scalar @names,
         }, 'id');
         for my $i (@positions)
         {
@@ -115,7 +115,7 @@ sub find_or_insert
                     position => $i,
                     artist => $artists[$i],
                     name => $names_id{$names[$i]},
-                    joinphrase => $join_phrases->[$i],
+                    join_phrase => $join_phrases->[$i],
                 });
         }
     }

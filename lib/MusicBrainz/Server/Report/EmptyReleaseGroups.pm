@@ -17,7 +17,7 @@ sub gather_data
             JOIN release_name rn ON rg.name = rn.id
             JOIN release_group_meta rm ON rg.id = rm.id
         WHERE
-            rm.releasecount = 0
+            rm.release_count = 0
         ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
     ");
 }

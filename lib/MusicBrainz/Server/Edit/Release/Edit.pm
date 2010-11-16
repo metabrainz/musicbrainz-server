@@ -18,6 +18,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     clean_submitted_artist_credits
 );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
@@ -25,7 +26,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
-sub edit_name { 'Edit release' }
+sub edit_name { l('Edit release') }
 sub _edit_model { 'Release' }
 sub release_id { shift->data->{entity_id} }
 

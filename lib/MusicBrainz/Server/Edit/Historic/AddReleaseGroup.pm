@@ -1,24 +1,26 @@
 package MusicBrainz::Server::Edit::Historic::AddReleaseGroup;
-use Moose;
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Utils 'upgrade_id';
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
-with 'MusicBrainz::Server::Edit::Historic::HashUpgrade' => {
-    value_mapping => {
-        type_id       => \&upgrade_id,
-    },
-    key_mapping => {
-        Name       => 'name',
-        Type       => 'type_id',
-    }
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+
+my $value_mapping = {
+    type_id       => \&upgrade_id,
 };
 
+my $key_mapping = {
+    Name       => 'name',
+    Type       => 'type_id',
+};
+
+sub edit_name { l('Add release group') }
 sub edit_type { 66 }
-sub edit_name { 'Add release group' }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Create' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
     my $artist_id = $self->new_value->{ArtistId};
@@ -39,6 +41,26 @@ sub extra_parameters
     return ( entity_id => $self->row_id );
 };
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+sub upgrade_attribute {
+    my ($self, $key, $value) = @_;
+
+    my $attribute = $key_mapping->{$key} or return ();
+    my $inflator  = $value_mapping->{$attribute};
+
+    $value = defined $inflator
+        ? $inflator->($value)
+            : $value eq '' ? undef : $value;
+
+    return ($attribute => $value);
+};
+
+sub upgrade_hash {
+    my ($self, $hash) = @_;
+    return {
+        map {
+            $self->upgrade_attribute($_, $hash->{$_});
+        } keys %$hash
+    };
+};
+
 1;

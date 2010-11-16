@@ -58,9 +58,11 @@ sub escape {
     return $str;
 }
 $i = 0;
+my @t = localtime(time());
+my $timestamp = sprintf "%d-%d-%d %d:%02d:%02d" , $t[5] + 1900, $t[4] + 1, $t[3], $t[2], $t[1], $t[0];
 for my $url (values %urls) {
     my $put = join("\t", $url->{id}, $url->{gid}, escape($url->{url}),
-                   escape($url->{description}), $url->{refcount}, 0) . "\n";
+                   escape($url->{description}), $url->{refcount}, 0, $timestamp) . "\n";
 
     $sql->dbh->pg_putcopydata($put);
     printf "%d\r", $i++;
@@ -70,7 +72,7 @@ $sql->dbh->pg_putcopyend();
 printf STDERR 'Adding GID redirections';
 if (%redirects) {
   $sql->do('TRUNCATE url_gid_redirect');
-  $sql->do(q{ INSERT INTO url_gid_redirect (gid, newid) VALUES } .
+  $sql->do(q{ INSERT INTO url_gid_redirect (gid, new_id) VALUES } .
 	   join(", ", ("(?, ?)") x keys %redirects),
 	   %redirects);
 }
@@ -94,13 +96,13 @@ foreach my $type (@entity_types) {
     $sql->do("
 SELECT
     DISTINCT ON (link, $entity0, COALESCE(new_url, $entity1))
-        id, link, $entity0, COALESCE(new_url, $entity1) AS $entity1, editpending
+        id, link, $entity0, COALESCE(new_url, $entity1) AS $entity1, edits_pending
 INTO TEMPORARY tmp_$table
 FROM $table
     LEFT JOIN tmp_url_merge rm ON $table.$entity1=rm.old_url;
 
 TRUNCATE $table;
-INSERT INTO $table SELECT id, link, entity0, entity1, editpending FROM tmp_$table;
+INSERT INTO $table SELECT id, link, entity0, entity1, edits_pending FROM tmp_$table;
 DROP TABLE tmp_$table;
 ");
 }
@@ -108,7 +110,7 @@ DROP TABLE tmp_$table;
 printf STDERR 'Merging l_url_url';
 $sql->do("
 SELECT
-    DISTINCT ON (link, COALESCE(rm0.new_url, entity0), COALESCE(rm1.new_url, entity1)) id, link, COALESCE(rm0.new_url, entity0) AS entity0, COALESCE(rm1.new_url, entity1) AS entity1, editpending
+    DISTINCT ON (link, COALESCE(rm0.new_url, entity0), COALESCE(rm1.new_url, entity1)) id, link, COALESCE(rm0.new_url, entity0) AS entity0, COALESCE(rm1.new_url, entity1) AS entity1, edits_pending
 INTO TEMPORARY tmp_l_url_url
 FROM l_url_url
     LEFT JOIN tmp_url_merge rm0 ON l_url_url.entity0=rm0.old_url

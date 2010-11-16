@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Translation qw ( l ln );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
@@ -10,8 +11,8 @@ use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
+sub edit_name { l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }
-sub edit_name { "Add artist" }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
 

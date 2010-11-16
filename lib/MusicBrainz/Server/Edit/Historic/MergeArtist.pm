@@ -1,13 +1,16 @@
 package MusicBrainz::Server::Edit::Historic::MergeArtist;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+
+sub edit_name { l('Merge artists') }
 sub edit_type { 6 }
-sub edit_name { 'Merge artists' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Merge' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
 
@@ -45,6 +48,4 @@ sub deserialize_previous_value
     return shift;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
 1;

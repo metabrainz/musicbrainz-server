@@ -1,49 +1,20 @@
 package MusicBrainz::Server::Edit::Historic::AddRelease;
-use Moose;
-use MooseX::Types::Structured qw( Dict Optional );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+
+use strict;
+use warnings;
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
-
-sub edit_name     { 'Add release' }
+sub edit_name     { l('Add release') }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
 sub edit_template { 'historic/add_release' }
 
-has '+data' => (
-    isa => Dict[
-        release_ids => ArrayRef[Int],
-        name        => Str,
-        freedb_id   => Optional[Str],
-        cd_index_id => Optional[Str],
-        disc_id     => Optional[Str],
-        toc         => Optional[Str],
-        status_id   => Nullable[Int],
-        type_id     => Nullable[Int],
-        artist_id   => Int,
-        script_id   => Nullable[Int],
-        language_id => Nullable[Int],
-        tracks      => ArrayRef[Dict[
-            position     => Int,
-            recording_id => Int,
-            name         => Str,
-            length       => Nullable[Int],
-            artist_id    => Int
-        ]],
-        release_events => ArrayRef[Dict[
-            country_id     => Nullable[Int],
-            date           => PartialDateHash,
-            label_id       => Nullable[Int],
-            catalog_number => Nullable[Str],
-            barcode        => Nullable[Str],
-            format_id      => Nullable[Int],
-        ]]
-    ]
-);
 
 sub _recording_ids
 {
@@ -214,6 +185,4 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

@@ -1,16 +1,17 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseGroupType;
-use Moose;
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_id );
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
-sub edit_name { 'Edit release group type' }
+sub edit_name { l('Edit release group type') }
 sub edit_type { 70 }
+sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
     return {
@@ -22,8 +23,16 @@ augment 'upgrade' => sub
             type_id => upgrade_id($self->new_value)
         }
     };
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+sub deserialize_previous_value {
+    my ($self, $previous) = @_;
+    return $previous;
+}
 
+sub deserialize_new_value {
+    my ($self, $previous) = @_;
+    return $previous;
+}
+
+1;

@@ -1,18 +1,18 @@
 package MusicBrainz::Server::Edit::Historic::SACToMAC;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_SAC_TO_MAC
     $VARTIST_ID
 );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
-extends 'MusicBrainz::Server::Edit::Historic';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
-sub edit_name     { 'Convert release to multiple artists' }
+sub edit_name     { l('Convert release to multiple artists') }
 sub historic_type { 9 }
 sub edit_type     { $EDIT_HISTORIC_SAC_TO_MAC }
 
@@ -23,14 +23,6 @@ sub related_entities
         release => $self->data->{release_ids}
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        old_artist_id   => Int,
-        old_artist_name => Str,
-        release_ids     => ArrayRef[Int],
-    ]
-);
 
 sub release_ids
 {
@@ -78,6 +70,14 @@ sub upgrade
     return $self;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+sub deserialize_new_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
+sub deserialize_previous_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
 1;

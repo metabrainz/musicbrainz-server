@@ -17,7 +17,7 @@ sub _dbh { shift->c->raw_dbh }
 
 sub _columns
 {
-    return 'id, editor, edit, votetime, vote, superseded';
+    return 'id, editor, edit, vote_time, vote, superseded';
 }
 
 sub _table
@@ -36,7 +36,7 @@ sub _column_mapping
         editor_id => 'editor',
         edit_id => 'edit',
         vote => 'vote',
-        vote_time => 'votetime',
+        vote_time => 'vote_time',
         superseded => 'superseded',
     };
 }
@@ -114,7 +114,7 @@ sub enter_votes
             ++( $delta{ $id }->{no}  ) if $s->{vote} == $VOTE_NO;
             ++( $delta{ $id }->{yes} ) if $s->{vote} == $VOTE_YES;
 
-            $query = 'UPDATE edit SET yesvotes = yesvotes + ?, novotes = novotes + ?' .
+            $query = 'UPDATE edit SET yes_votes = yes_votes + ?, no_votes = no_votes + ?' .
                      ' WHERE id = ?';
             $sql->do($query, $delta{ $id }->{yes} || 0, $delta{ $id }->{no} || 0, $id);
         }
@@ -144,7 +144,7 @@ sub editor_statistics
 
     my $q_all_votes    = $base_query . "GROUP BY vote";
     my $q_recent_votes = $base_query .
-        " AND votetime > NOW() - INTERVAL '28 day' " .
+        " AND vote_time > NOW() - INTERVAL '28 day' " .
         " GROUP BY vote";
 
     my $all_votes = map_query($self->c->raw_dbh, 'vote' => 'count', $q_all_votes, $editor_id);
@@ -192,7 +192,7 @@ sub load_for_edits
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE edit IN (" . placeholders(@ids) . ")
-                 ORDER BY votetime";
+                 ORDER BY vote_time";
     my @votes = query_to_list($self->c->raw_dbh, sub {
             my $vote = $self->_new_from_row(@_);
             my $edit = $id_to_edit{$vote->edit_id};

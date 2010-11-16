@@ -1,10 +1,8 @@
 package MusicBrainz::Server::Edit::Historic::NGSMigration;
-use Moose;
-use MooseX::ABC;
+use strict;
+use warnings;
 
-use Class::MOP;
-
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_type { undef }
 
@@ -33,12 +31,11 @@ sub _create_edit
 sub upgrade
 {
     my $self = shift;
-    my $data = inner();
-    return ( $self->_create_edit($data) );
+    my $data = $self->do_upgrade;
+    $self->data($data);
+    return $self;
 }
 
 sub extra_parameters { return (); }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
 1;

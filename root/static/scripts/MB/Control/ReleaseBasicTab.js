@@ -62,7 +62,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 /**
  * MB.Control.ReleaseTextarea is used to render and parse a tracklist textarea.
  */
-MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
+MB.Control.ReleaseTextarea = function (disc, preview) {
     var self = MB.Object ();
 
     var render = function () {
@@ -73,7 +73,7 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
             {
                 return;
             }
-            
+
             str += item.position.val () + ". " + item.title.val ();
             str += " (" + item.length.val () + ")";
             str += "\n";
@@ -82,17 +82,90 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
         self.textarea.val (str);
     };
 
-    var updatePreview = function () {
-        self.trackparser.run ();
+    var updatePreview = function (filter) {
+        if (self.trackparser)
+        {
+            self.trackparser.run (filter);
+            self.preview.render ();
+        }
+    };
+
+    var collapse = function (chained) {
+        self.trackparser = null;
+        self.textarea.val ('');
+        
+        self.textarea.hide ();
+        self.basicdisc.removeClass ('expanded');
+        self.expand_icon.find ('span.ui-icon')
+            .removeClass ('ui-icon-triangle-1-s')
+            .addClass ('ui-icon-triangle-1-e');
+ 
+        if (!chained)
+        {
+            self.disc.collapse (true);
+        }
+
         self.preview.render ();
+   };
+
+    var expand = function (chained) {
+        self.textarea.show ();
+        self.basicdisc.addClass ('expanded');
+        self.expand_icon.find ('span.ui-icon')
+            .removeClass ('ui-icon-triangle-1-e')
+            .addClass ('ui-icon-triangle-1-s');
+
+        if (!chained)
+        {
+            self.disc.expand (true);
+        }
+    };
+
+    var loadTracklist = function (data) {
+        self.render ();
+        self.trackparser = MB.TrackParser (self.disc, self.textarea, data);
+        self.updatePreview ();
+    };
+
+    var lines = function (data) {
+        if (data)
+        {
+            self.textarea.val (data.join ("\n"));
+        }
+        else
+        {
+            return self.textarea.val ().split ("\n");
+        }
     };
 
     self.disc = disc;
     self.preview = preview;
     self.render = render;
     self.updatePreview = updatePreview;
-    self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
-    self.trackparser = MB.TrackParser (self.disc, serialized);
+    self.lines = lines;
+
+    self.collapse = collapse;
+    self.expand = expand;
+    self.loadTracklist = loadTracklist;
+
+    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc'); 
+    self.textarea = self.basicdisc.find ('textarea.tracklist');
+    self.expand_icon = self.basicdisc.find ('.expand a.icon');
+    self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
+
+    self.expand_icon.click (function (event) {
+        if (self.textarea.is (':visible'))
+        {
+            self.collapse ();
+        }
+        else
+        {
+            self.expand ();
+        }
+
+        event.preventDefault ();
+        return false;
+    });
 
     self.textarea.bind ('keyup', function () {
         if (typeof self.timeout == "number")
@@ -106,13 +179,15 @@ MB.Control.ReleaseTextarea = function (disc, preview, serialized) {
         }, MB.Control._preview_update_timeout);
     });
 
+    self.disc.registerBasic (self);
+
     return self;
 }
 
 /**
  * MB.Control.ReleaseTracklist is used to render and parse the tracklist textareas.
  */
-MB.Control.ReleaseTracklist = function (advancedtab, preview, serialized) {
+MB.Control.ReleaseTracklist = function (advancedtab, preview) {
     var self = MB.Object ();
 
     var render = function () {
@@ -122,18 +197,31 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview, serialized) {
     };
 
     var newDisc = function (disc) {
-        self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview));
+        var ta = MB.Control.ReleaseTextarea (disc, self.preview);
+        self.textareas.push (ta);
+
+        ta.expand ();
     };
+
+    var guessCase = function () {
+        $.each (self.textareas, function (i, textarea) {
+            textarea.updatePreview (self.guess_track.guess);
+            textarea.render ();
+        });
+    };
+
+    self.guess_track = MB.GuessCase.Track ();
 
     self.adv = advancedtab;
     self.preview = preview;
 
     self.render = render;
     self.newDisc = newDisc;
+    self.guessCase = guessCase;
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
-        self.textareas.push (MB.Control.ReleaseTextarea (disc, self.preview, serialized[idx]));
+        self.newDisc (disc);
     });
 
     return self;
@@ -172,9 +260,13 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         self.tracklist.newDisc (self.adv.addDisc ());
     });
 
+    $("a[href=#guesscase]").click (function () {
+        self.tracklist.guessCase ();
+    });
+
     self.adv = advancedtab;
     self.preview = MB.Control.ReleasePreview (self.adv);
-    self.tracklist = MB.Control.ReleaseTracklist (self.adv, self.preview, serialized);
+    self.tracklist = MB.Control.ReleaseTracklist (self.adv, self.preview);
 
     self.preview.render ();
     self.tracklist.render ();

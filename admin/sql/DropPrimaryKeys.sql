@@ -16,8 +16,6 @@ ALTER TABLE cdtoc DROP CONSTRAINT cdtoc_pkey;
 ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;
 ALTER TABLE country DROP CONSTRAINT country_pkey;
 ALTER TABLE currentstat DROP CONSTRAINT currentstat_pkey;
-ALTER TABLE dbmirror_Pending DROP CONSTRAINT dbmirror_Pending_pkey;
-ALTER TABLE dbmirror_PendingData DROP CONSTRAINT dbmirror_PendingData_pkey;
 ALTER TABLE editor DROP CONSTRAINT editor_pkey;
 ALTER TABLE editor_collection DROP CONSTRAINT editor_collection_pkey;
 ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_pkey;

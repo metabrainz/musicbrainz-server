@@ -18,12 +18,12 @@ MusicBrainz::Server::Test->prepare_test_database($c, "
     TRUNCATE artist_name CASCADE;
 
     INSERT INTO artist_name (id, name) VALUES (1, 'Test');
-    INSERT INTO artist (id, gid, name, sortname) VALUES
+    INSERT INTO artist (id, gid, name, sort_name) VALUES
         (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1),
         (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1);
 
-    UPDATE artist_meta SET rating=33, ratingcount=3 WHERE id=1;
-    UPDATE artist_meta SET rating=50, ratingcount=1 WHERE id=2;
+    UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
+    UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 ");
 MusicBrainz::Server::Test->prepare_raw_test_database($c, "
     TRUNCATE artist_rating_raw CASCADE;
