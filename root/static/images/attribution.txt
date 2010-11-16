@@ -41,6 +41,7 @@ Images:
     layout/developer.png   (original: 64x64/apps/package_settings.png)
     layout/download.png    (original: 64x64/apps/download_manager.png)
     layout/quick-start.png (original: 64x64/apps/kdict.png)
+    icons/warning.png      (original: 64x64/apps/important.png)
 
 ----------------------------------------------------------------------------
 

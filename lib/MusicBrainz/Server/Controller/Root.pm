@@ -132,7 +132,14 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
+    # if no javascript cookie is set we don't know if javascript is enabled or not.
+    my $jscookie = $c->request->cookie('javascript');
+    my $js = $jscookie ? $jscookie->value : "unknown";
+    $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
+
     $c->stash(
+        javascript => $js,
+        no_javascript => $js eq "false",
         wiki_server => &DBDefs::WIKITRANS_SERVER,
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
