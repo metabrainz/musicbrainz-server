@@ -57,6 +57,9 @@ MB.utility.fullWidthConverter = function (inputString) {
     return newString.reverse ().join("");
 };
 
+MB.utility.is_ascii = function (str) {
+    return ! /[^\u0000-\u00ff]/.test(str);
+};
 
 MB.utility.template = function(str) {
     var self = MB.Object();

@@ -24,9 +24,22 @@ MB.Control.Autocomplete = function (options) {
     var formatItem = function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        var comment = [];
+
+        if (item.sortname && !MB.utility.is_ascii (item.name))
+        {
+            comment.push (item.sortname);
+        }
+
         if (item.comment)
         {
-            a.append (' <span class="autocomplete-comment">(' + item.comment + ')</span>');
+            comment.push (item.comment);
+        }
+
+        if (comment.length)
+        {
+            a.append (' <span class="autocomplete-comment">(' +
+                      comment.join (", ") + ')</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
