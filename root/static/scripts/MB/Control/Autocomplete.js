@@ -208,6 +208,12 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete._renderItem = function (ul, item) {
             return item['pages'] ? self.formatPager (ul, item) : self.formatItem (ul, item);
         };
+
+        /* because we're overriding select above we also need to override
+           blur on the menu.  select() was used to render the selected value
+           to the associated input, which blur would then reset back to it's
+           original value (We need to prevent blur from doing that). */
+        self.autocomplete.menu.options.blur = function (event, ui) { };
     };
 
     self.input = options.input;
