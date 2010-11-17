@@ -59,6 +59,8 @@ MB.Control.Autocomplete = function (options) {
                 .css ('text-align', 'center')
                 .append (span)
                 .appendTo (ul);
+
+            return li;
         }
 
         if (item.pages === 1)
