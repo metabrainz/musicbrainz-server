@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseAttrs;
-use strict;
-use warnings;
+
+use MusicBrainz::Server::Edit::Historic::Base;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw(
@@ -11,8 +11,6 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
-
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { l('Edit release attributes') }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_ATTRS }

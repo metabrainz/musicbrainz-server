@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Historic::AddRelease;
 
 use strict;
 use warnings;
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );

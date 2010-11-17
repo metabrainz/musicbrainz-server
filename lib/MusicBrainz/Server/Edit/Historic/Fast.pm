@@ -36,8 +36,6 @@ sub artist_name { shift->migration->artist_name(@_) }
 sub label_id_from_alias { shift->migration->label_id_from_alias(@_) }
 sub resolve_annotation_id { shift->migration->resolve_annotation_id(@_) }
 
-sub has_data { shift->data }
-
 sub deserialize
 {
     my ($self, $serialized) = @_;

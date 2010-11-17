@@ -2,6 +2,12 @@
 use strict;
 use warnings;
 
+use MusicBrainz::Server::Edit::Historic::Base;
+{
+    no warnings 'redefine';
+    *MusicBrainz::Server::Edit::Historic::Base::USE_MOOSE = sub { 0 };
+}
+
 use FindBin '$Bin';
 use lib "$Bin/../../../lib";
 
