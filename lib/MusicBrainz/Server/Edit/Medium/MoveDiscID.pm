@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
+use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -10,7 +11,7 @@ extends 'MusicBrainz::Server::Edit';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { 'Move Disc ID' }
+sub edit_name { l('Move Disc ID') }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 
 has '+data' => (

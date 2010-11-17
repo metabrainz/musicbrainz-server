@@ -74,10 +74,7 @@ requires 'Throwable';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
-requires 'XML::Feed'                                  => '0.410';
 requires 'XML::Simple'                                => '2.14';
-requires 'XML::Dumper'                                => '0.81';
-requires 'YAML'                                       => '0.680';
 
 feature 'ETag Caching' =>
     -default                        => 1,
@@ -102,6 +99,11 @@ feature 'Developer features' =>
     'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
     ;
+ 
+feature 'Fast edit migration' =>
+    -default   => 1,
+    'JSON::XS' => '2.27',
+    ;
 
 # These are just for I18N
 requires 'Locale::PO';
@@ -117,6 +119,7 @@ test_requires 'RDF::Query';
 test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
 test_requires 'Test::Differences';
+test_requires 'Test::Mock::Class';
 test_requires 'Test::JSON';
 test_requires 'XML::Parser';
 

@@ -156,22 +156,34 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
 
         self.container.show ();
 
-        var top = self.target.offset ().top - 23;
-        var left = self.content.offset ().left;
+        self.container.position({
+            my: "left top",
+            at: "right top",
+            of: self.target,
+            offset: "37 -23"
+        });
+
+        /* FIXME: figure out why opera doesn't position this correctly on the
+           first call and fix that issue or submit a bug report to opera. */
+        if (window.opera)
+        {
+            self.container.position({
+                my: "left top",
+                at: "right top",
+                of: self.target,
+                offset: "37 -23"
+            });
+        }
+
         var height = self.content.height ();
-        var width = self.content.width ();
 
         if (height < 42)
         {
             height = 42;
         }
 
-        self.container.css ('position', 'absolute');
-        self.container.css ('width', width);
         self.container.css ('min-height', height);
         self.content.css ('min-height', height);
-        self.content.css ('width', '100%');
-        self.container.offset ({ 'top': top, 'left': left });
 
         var pageBottom = self.page.offset ().top + self.page.outerHeight ();
         var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
@@ -185,13 +197,18 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
     };
 
     var tail = function () {
-        
+
         parent_tail ();
 
-        var left = self.content.offset ().left;
-        var top = self.target.offset ().top - 23 + self.target.height () / 2; 
+        var targetY = self.target.offset ().top - 24 + self.target.height () / 2;
+        var offsetY = targetY - self.content.offset ().top;
 
-        self.balloon0.offset ({ 'top': top, 'left': left });
+        self.balloon0.position({
+            my: "right top",
+            at: "left top",
+            of: self.content,
+            offset: "0 " + Math.floor (offsetY)
+        });
 
         self.balloon1.css ('background', '#eee')
             .css ('width', '14px')
@@ -208,7 +225,6 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
             .css ('width', '12px')
             .css ('height', '20px')
             .css ('border-width', '1px 1px 0 0');
-        
     };
 
     var hide = function () {
@@ -263,7 +279,8 @@ MB.Control.BubbleDoc = function (parent, target, content) {
         {
             self.button = true;
         }
-        else if (self.target.filter ('input[type=text]').length)
+        else if (self.target.filter ('input[type=text]').length ||
+                 self.target.filter ('textarea').length)
         {
             self.textinput = true;
         }
@@ -281,11 +298,14 @@ MB.Control.BubbleDoc = function (parent, target, content) {
         {
             /* show content when an input field is focused. */
             self.target.focus (function (event) {
+
                 self.show ();
             });
         }
     };
 
+    self.show = show;
+    self.hide = hide;
     self.initialize = initialize;
 
     return self;
@@ -296,40 +316,13 @@ MB.Control.BubbleDoc = function (parent, target, content) {
    at one of the inputs in the preceding row. */
 MB.Control.BubbleRow = function (parent, target, content, offset) {
     var self = MB.Control.BubbleBase (parent, target, content, offset);
-    
+
     var parent_tail = self.tail;
 
     var tail = function () {
 
-        var pos = self.offset;
-
         parent_tail ();
 
-        if (self.target.css ('text-align') === 'right')
-        {
-            pos = self.target.width () - self.offset;
-        }
-
-        self.balloon0.offset ({ 
-            left: self.target.offset ().left + pos,
-            top: self.content.offset ().top - 14,
-        });
-
-        self.balloon1.css ('width', '42px')
-            .css ('height', '15px')
-            .css ('background', '#fff');
-
-        self.balloon2.borderRadius ({ 'bottom-right': '12px' })
-            .css ('background', '#eee')
-            .css ('width', '20px')
-            .css ('height', '14px')
-            .css ('border-width', '0 1px 1px 0');
-
-        self.balloon3.borderRadius ({ 'bottom-left': '12px' })
-            .css ('background', '#eee')
-            .css ('width', '20px')
-            .css ('height', '14px')
-            .css ('border-width', '0 0 1px 1px');
     };
 
     self.tail = tail;
@@ -340,8 +333,7 @@ MB.Control.BubbleRow = function (parent, target, content, offset) {
 
 /* BubbleCollection is a containter for all the BubbleRows or
    BubbleDocs on a page.  It's main purpose is to allow a Bubble to
-   hide any other active bubbles when it is to be shown. 
-
+   hide any other active bubbles when it is to be shown.
 */
 MB.Control.BubbleCollection = function (targets, contents) {
     var self = MB.Object ();
@@ -356,26 +348,26 @@ MB.Control.BubbleCollection = function (targets, contents) {
     };
 
     var hideAll = function () {
-	self.hideOthers (null);
+        self.hideOthers (null);
     };
 
     var add = function (target, contents) {
-	MB.Control.BubbleDoc (self, target, contents).initialize ();
+        MB.Control.BubbleDoc (self, target, contents).initialize ();
     };
 
     var initialize = function ()
     {
-	var tmp = [];
+        var tmp = [];
 
-	if (targets && contents)
-	{
-	    targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
-	    contents.each (function (idx, data) { tmp[idx].doc = data; });
+        if (targets && contents)
+        {
+            targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
+            contents.each (function (idx, data) { tmp[idx].doc = data; });
 
-	    $.each (tmp, function (idx, data) {
-	        MB.Control.BubbleDoc (self, data.button, data.doc).initialize ();
-	    });
-	}
+            $.each (tmp, function (idx, data) {
+                MB.Control.BubbleDoc (self, data.button, data.doc).initialize ();
+            });
+        }
     }
 
     self.hideOthers = hideOthers;

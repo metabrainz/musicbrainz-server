@@ -4,10 +4,11 @@ use Moose;
 use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Remove release label' }
+sub edit_name { l('Remove release label') }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }

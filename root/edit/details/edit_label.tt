@@ -62,4 +62,12 @@
     <td class="new">[% edit.display_data.country.new.name %]</td>
   </tr>
   [% END %]
+
+  [% IF edit.display_data.ipi_code %]
+  <tr>
+    <th>[% l('IPI code:') %]</th>
+    <td class="old">[% edit.display_data.ipi_code.old.name %]</td>
+    <td class="new">[% edit.display_data.ipi_code.new.name %]</td>
+  </tr>
+  [% END %]
 </table>

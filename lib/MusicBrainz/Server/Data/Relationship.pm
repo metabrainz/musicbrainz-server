@@ -57,7 +57,7 @@ sub _new_from_row
     my %info = (
         id => $row->{id},
         link_id => $row->{link},
-        edits_pending => $row->{editpending},
+        edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
     );
@@ -275,6 +275,23 @@ sub delete_entities
     }
 }
 
+sub exists
+{
+    my ($self, $type0, $type1, $values) = @_;
+    $self->_check_types($type0, $type1);
+    return $self->sql->select_single_value(
+        "SELECT 1 FROM l_${type0}_${type1}
+          WHERE entity0 = ? AND entity1 = ? AND link = ?",
+        $values->{entity0}, $values->{entity1},
+        $self->c->model('Link')->find({
+            link_type_id => $values->{link_type_id},
+            begin_date => $values->{begin_date},
+            end_date => $values->{end_date},
+            attributes => $values->{attributes},
+        })
+    );
+}
+
 sub insert
 {
     my ($self, $type0, $type1, $values) = @_;
@@ -337,7 +354,7 @@ sub adjust_edit_pending
 
     my $sql = Sql->new($self->c->dbh);
     my $query = "UPDATE l_${type0}_${type1}
-                 SET editpending = editpending + ?
+                 SET edits_pending = edits_pending + ?
                  WHERE id IN (" . placeholders(@ids) . ")";
     $sql->do($query, $adjust, @ids);
 }

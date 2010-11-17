@@ -30,7 +30,7 @@ sub _table
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s.id, name.name, %s, locale, editpending',
+    return sprintf '%s.id, name.name, %s, locale, edits_pending',
         $self->table, $self->type;
 }
 
@@ -41,7 +41,7 @@ sub _column_mapping
         id                  => 'id',
         name                => 'name',
         $self->type . '_id' => $self->type,
-        edits_pending       => 'editpending',
+        edits_pending       => 'edits_pending',
         locale              => 'locale'
     };
 }

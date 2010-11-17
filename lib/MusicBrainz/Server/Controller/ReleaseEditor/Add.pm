@@ -15,8 +15,27 @@ sub add : Path('/release/add') Edit RequireAuth
 
 sub cancelled {
     my ($self, $c) = @_;
-    # FIXME: detach to artist, label or release group page if started from there
-    $c->detach ();
+
+    my $rg_gid = $c->req->query_params->{'release-group'};
+    my $label_gid = $c->req->query_params->{'label'};
+    my $artist_gid = $c->req->query_params->{'artist'};
+
+    if ($rg_gid)
+    {
+        $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg_gid ]));
+    }
+    elsif ($label_gid)
+    {
+        $c->response->redirect($c->uri_for_action('/label/show', [ $label_gid ]));
+    }
+    elsif ($artist_gid)
+    {
+        $c->response->redirect($c->uri_for_action('/artist/show', [ $artist_gid ]));
+    }
+    else
+    {
+        $c->response->redirect($c->uri_for_action('/index'));
+    }
 }
 
 augment 'create_edits' => sub
@@ -29,14 +48,14 @@ augment 'create_edits' => sub
     # ----------------------------------------
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode artist_credit date );
+                     country_id barcode artist_credit date as_auto_editor );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     if ($data->{release_group_id}){
         $add_release_args{release_group_id} = $data->{release_group_id};
     }
     else {
-        my @fields = qw( name artist_credit type_id );
+        my @fields = qw( name artist_credit type_id as_auto_editor );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
         my $edit = $self->$edit_action($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);

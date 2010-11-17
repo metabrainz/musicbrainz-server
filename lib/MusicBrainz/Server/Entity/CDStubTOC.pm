@@ -35,6 +35,13 @@ has 'track_offset' => (
     isa => 'ArrayRef[Int]'
 );
 
+sub length
+{
+    my $self = shift;
+
+    return int(($self->leadout_offset / 75) * 1000);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

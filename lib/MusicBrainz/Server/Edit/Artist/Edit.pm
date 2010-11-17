@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     date_closure
 );
+use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( Maybe Str Int );
@@ -19,8 +20,9 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
+sub edit_name { l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
-sub edit_name { "Edit artist" }
+
 sub _edit_model { 'Artist' }
 
 sub change_fields
@@ -32,6 +34,7 @@ sub change_fields
         gender_id  => Nullable[Int],
         country_id => Nullable[Int],
         comment    => Nullable[Str],
+        ipi_code   => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
     ];
@@ -68,6 +71,7 @@ sub build_display_data
         country    => [ qw( country_id Country )],
         name       => 'name',
         sort_name  => 'sort_name',
+        ipi_code   => 'ipi_code',
         comment    => 'comment',
     );
 

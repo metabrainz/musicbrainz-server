@@ -7,11 +7,12 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
-sub edit_name { 'Edit URL' }
+sub edit_name { l('Edit URL') }
 sub edit_type { $EDIT_URL_EDIT }
 sub _edit_model { 'URL' }
 sub url_id { shift->entity_id }

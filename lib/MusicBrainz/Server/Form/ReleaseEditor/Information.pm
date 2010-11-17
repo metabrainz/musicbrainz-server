@@ -25,17 +25,65 @@ has_field 'labels.deleted'   => ( type => 'Checkbox' );
 has_field 'labels.label_id'  => ( type => 'Text' );
 has_field 'labels.name'      => ( type => 'Text' );
 
-has_field 'barcode'           => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
+has_field 'barcode'          => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
 
 # Additional information
 has_field 'annotation'       => ( type => 'TextArea'  );
+has_field 'comment'          => ( type => 'Text', maxlength => 255 );
+
 
 sub options_type_id           { shift->_select_all('ReleaseGroupType') }
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
 sub options_country_id        { shift->_select_all('Country') }
-sub options_language_id       { shift->_select_all('Language') }
-sub options_script_id         { shift->_select_all('Script') }
+
+sub options_language_id {
+    my ($self) = @_;
+
+    # group list of languages in <optgroups>.
+    # most frequently used languages have hardcoded value 2.
+    # languages which shouldn't be shown have hardcoded value 0.
+
+    # FIXME: optgroups need to go through gettext. --warp.
+
+    my $frequent = 2;
+    my $skip = 0;
+
+    my @sorted = sort { $a->{label} cmp $b->{label} } map {
+        {
+            'value' => $_->id,
+            'label' => $_->{name},
+            'class' => 'language',
+            'optgroup' => $_->{frequency} eq $frequent ? 'Frequently used' : 'Other',
+            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
+        }
+    } grep { $_->{frequency} ne $skip } $self->ctx->model('Language')->get_all;
+
+    return \@sorted;
+}
+
+sub options_script_id {
+    my ($self) = @_;
+
+    # group list of scripts in <optgroups>.
+    # most frequently used scripts have hardcoded value 4.
+    # scripts which shouldn't be shown have hardcoded value 1.
+
+    # FIXME: optgroups need to go through gettext. --warp.
+
+    my $frequent = 4;
+    my $skip = 1;
+
+    return [ map {
+        {
+            'value' => $_->id,
+            'label' => $_->{name},
+            'class' => 'script',
+            'optgroup' => $_->{frequency} eq $frequent ? 'Frequently used' : 'Other',
+            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
+        }
+    } grep { $_->{frequency} ne $skip } $self->ctx->model('Script')->get_all ];
+}
 
 
 after 'BUILD' => sub {
@@ -53,8 +101,15 @@ after 'BUILD' => sub {
         my $max = @{ $self->init_object->labels } - 1;
         for (0..$max)
         {
-            my $name = $self->init_object->labels->[$_]->label->name;
+            my $label = $self->init_object->labels->[$_]->label;
+
+            my $name = $label ? $label->name : '';
             $self->field ('labels')->fields->[$_]->field ('name')->value ($name);
+        }
+
+        if (defined $self->init_object->latest_annotation)
+        {
+            $self->field ('annotation')->value ($self->init_object->latest_annotation->text);
         }
     }
 };

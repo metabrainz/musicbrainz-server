@@ -26,10 +26,10 @@ sub cloud : Path('/tags')
 
     if ($hits)
     {
-        $c->stash->{tags} = {
-            max => $cloud->[0]->{count},
+        $c->stash(
+            tag_max_count => $cloud->[0]->{count},
             tags => [ sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud ],
-        };
+        );
     }
 }
 
@@ -40,10 +40,11 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         template => 'tag/index.tt',
         map {
-            my ($entities) = $c->model(type_to_model($_))->tags->find_entities(
+            my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
                 $tag->id, 10);
 
-            $_ . '_tags' => $entities
+            ($_ . '_tags' => $entities,
+             $_ . '_count' => $total)
         } qw( artist label recording release_group work )
     );
 }

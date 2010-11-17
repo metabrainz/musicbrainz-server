@@ -19,7 +19,7 @@ role {
     {
         my ($self, $adjust, @ids) = @_;
         my $sql = Sql->new($self->_dbh);
-        my $query = "UPDATE $table SET editpending = editpending + ? WHERE id IN (" . placeholders(@ids) . ")";
+        my $query = "UPDATE $table SET edits_pending = edits_pending + ? WHERE id IN (" . placeholders(@ids) . ")";
         $sql->do($query, $adjust, @ids);
         if ($self->does('MusicBrainz::Server::Data::Role::EntityCacheBase')) {
             $self->_delete_from_cache(@ids);

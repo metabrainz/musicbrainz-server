@@ -5,10 +5,11 @@ use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ATTRIBUTE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Edit relationship attribute' }
+sub edit_name { l('Edit relationship attribute') }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }
 
 sub change_fields

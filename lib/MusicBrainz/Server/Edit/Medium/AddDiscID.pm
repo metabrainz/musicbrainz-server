@@ -4,8 +4,10 @@ use Method::Signatures::Simple;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
+use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l ln );
 
-sub edit_name { 'Add disc ID' }
+sub edit_name { l('Add disc ID') }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
 extends 'MusicBrainz::Server::Edit';

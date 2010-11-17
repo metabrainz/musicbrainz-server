@@ -117,7 +117,6 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     self.deleted = self.row.find ('span.remove-label input');
 
     self.parent = parent;
-    self.template = template;
     self.catnoUpdate = catnoUpdate;
     self.toggleDelete = toggleDelete;
     self.isDeleted = isDeleted;
@@ -127,7 +126,7 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     MB.Control.Autocomplete ({
         'input': self.name,
         'entity': 'label',
-        'select': self.selected,
+        'select': self.selected
     });
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
@@ -178,7 +177,12 @@ MB.Control.ReleaseBarcode = function() {
     var update = function () {
         var barcode = self.clean ();
 
-        if (barcode.length === 11)
+        if (barcode.length === 0)
+        {
+            self.message.html ("");
+            self.suggestion.html ("");
+        }
+        else if (barcode.length === 11)
         {
             self.message.html (MB.text.Barcode.NoCheckdigitUPC);
             self.suggestion.html (MB.text.Barcode.CheckDigit.replace (
@@ -246,8 +250,16 @@ MB.Control.ReleaseDate = function (bubble_collection) {
           self.inputs[2].val () == '25');
     };
 
+    var januaryFirst = function () {
+        return (parseInt (self.inputs[1].val (), 10) === 1 &&
+                parseInt (self.inputs[2].val (), 10) === 1);
+    };
+
     var update = function (event) {
-	if (self.amazonEpoch ())
+        var amazon = self.amazonEpoch ();
+        var january = self.januaryFirst ();
+
+	if (amazon || january)
         {
             $(this).data ('bubble').show ();
 	}
@@ -255,8 +267,27 @@ MB.Control.ReleaseDate = function (bubble_collection) {
 	{
             $(this).data ('bubble').hide ();
 	}
+
+        if (amazon)
+        {
+            $('p.amazon').show ();
+        }
+        else
+        {
+            $('p.amazon').hide ();
+        }
+
+        if (january)
+        {
+            $('p.january-first').show ();
+        }
+        else
+        {
+            $('p.january-first').hide ();
+        }
     };
 
+    self.januaryFirst = januaryFirst;
     self.amazonEpoch = amazonEpoch;
     self.update = update;
 
@@ -280,6 +311,8 @@ MB.Control.ReleaseInformation = function() {
 
         self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
+        self.bubbles.add ($('#annotation'), $('div.annotation'));
+        self.bubbles.add ($('#id-comment'), $('div.comment'));
 
         $('div.release-label').each (function () {
             self.addLabel ($(this));
@@ -308,6 +341,7 @@ MB.Control.ReleaseInformation = function() {
         self.artistcredit = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit')
         );
+
     };
 
     var addLabel = function (row) {

@@ -13,11 +13,12 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
 );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_WORK_EDIT }
-sub edit_name { 'Edit work' }
+sub edit_name { l('Edit work') }
 sub _edit_model { 'Work' }
 
 sub change_fields

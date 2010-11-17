@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? label.name _ " - ${title}" : label.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -14,6 +14,9 @@
                     [% END %]
                 [% END %]
             [%- END -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+               content=html_escape(label.ipi_code)
+                   IF label.ipi_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(label.country.name)
                    IF label.country -%]
@@ -31,6 +34,11 @@
             <li>[% link_label(label, 'subscribers', l('Subscribers')) %]</li>
         [% END %]
             [% IF c.user_exists %]
+                <li>
+                  <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ label.gid ]) %]">
+                    [% label.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                  </a>
+                </li>
                 <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
                 <li>[% link_label(label, 'merge', l('Merge this label into another')) %]</li>
                 <li>[% use_in_relationship(label) %]</li>

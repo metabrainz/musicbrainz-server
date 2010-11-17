@@ -34,15 +34,15 @@ sub _table
 {
     return 'label ' .
            'JOIN label_name name ON label.name=name.id ' .
-           'JOIN label_name sortname ON label.sortname=sortname.id';
+           'JOIN label_name sort_name ON label.sort_name=sort_name.id';
 }
 
 sub _columns
 {
-    return 'label.id, gid, name.name, sortname.name AS sortname, ' .
-           'type, country, editpending, labelcode, ' .
-           'begindate_year, begindate_month, begindate_day, ' .
-           'enddate_year, enddate_month, enddate_day, comment';
+    return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
+           'type, country, edits_pending, label_code, label.ipi_code, ' .
+           'begin_date_year, begin_date_month, begin_date_day, ' .
+           'end_date_year, end_date_month, end_date_day, comment';
 }
 
 sub _id_column
@@ -61,14 +61,15 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        sort_name => 'sortname',
+        sort_name => 'sort_name',
         type_id => 'type',
         country_id => 'country',
-        label_code => 'labelcode',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begindate_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
-        edits_pending => 'editpending',
+        label_code => 'label_code',
+        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        edits_pending => 'edits_pending',
         comment => 'comment',
+        ipi_code => 'ipi_code',
     };
 }
 
@@ -224,16 +225,17 @@ sub _hash_to_row
 {
     my ($self, $label, $names) = @_;
     my %row = (
-        begindate_year => $label->{begin_date}->{year},
-        begindate_month => $label->{begin_date}->{month},
-        begindate_day => $label->{begin_date}->{day},
-        enddate_year => $label->{end_date}->{year},
-        enddate_month => $label->{end_date}->{month},
-        enddate_day => $label->{end_date}->{day},
+        begin_date_year => $label->{begin_date}->{year},
+        begin_date_month => $label->{begin_date}->{month},
+        begin_date_day => $label->{begin_date}->{day},
+        end_date_year => $label->{end_date}->{year},
+        end_date_month => $label->{end_date}->{month},
+        end_date_day => $label->{end_date}->{day},
         comment => $label->{comment},
         country => $label->{country_id},
         type => $label->{type_id},
-        labelcode => $label->{label_code},
+        label_code => $label->{label_code},
+        ipi_code => $label->{ipi_code},
     );
 
     if ($label->{name}) {
@@ -241,7 +243,7 @@ sub _hash_to_row
     }
 
     if ($label->{sort_name}) {
-        $row{sortname} = $names->{$label->{sort_name}};
+        $row{sort_name} = $names->{$label->{sort_name}};
     }
 
     return { defined_hash(%row) };
@@ -253,8 +255,8 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "label_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

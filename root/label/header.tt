@@ -7,11 +7,11 @@
     ['edit', link_label(label, 'edit', l('Edit'))],
 ] -%]
 
-<div class="labelheader" about="[% rdfa_label_curi(label) %]" typeof="[% rdfa_concept_curi('label') %]">
-    <h1>[% rdfa_link_label_header(label) %] [% rdfa_disambiguation(label) %]</h1>
+<div class="labelheader" [%- rdfa_about_attr(rdfa_label_curi(label)) %] [% rdfa_typeof(rdfa_concept_curi('label')) -%]>
+    <h1>[%- rdfa_link_label_header(label) -%] [%- rdfa_disambiguation(label) -%]</h1>
     <p class="subheader">
-        <span class="prefix">~</span> [% l('Label') %]
+        <span class="prefix">~</span> [%- l('Label') -%]
     </p>
 </div>
 
-[% INCLUDE 'components/tabs.tt' list=info_links %]
+[%- INCLUDE 'components/tabs.tt' list=info_links -%]

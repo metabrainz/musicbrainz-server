@@ -38,7 +38,7 @@ $sql->do("
     DELETE FROM artist_meta WHERE id IN (SELECT old_ac FROM tmp_artist_credit_repl);
     DELETE FROM artist_tag WHERE artist IN (SELECT old_ac FROM tmp_artist_credit_repl);
     DELETE FROM artist_annotation WHERE artist IN (SELECT old_ac FROM tmp_artist_credit_repl);
-    DELETE FROM artist_gid_redirect WHERE newid IN (SELECT old_ac FROM tmp_artist_credit_repl);
+    DELETE FROM artist_gid_redirect WHERE new_id IN (SELECT old_ac FROM tmp_artist_credit_repl);
     DELETE FROM artist_alias WHERE artist IN (SELECT old_ac FROM tmp_artist_credit_repl);
     DELETE FROM artist WHERE id IN (SELECT old_ac FROM tmp_artist_credit_repl);
     DROP TABLE tmp_artist_credit_repl;

@@ -14,7 +14,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, release, discid, trackcount, leadoutoffset, trackoffset';
+    return 'id, release, discid, track_count, leadout_offset, track_offset';
 }
 
 sub _column_mapping
@@ -23,9 +23,9 @@ sub _column_mapping
         id => 'id',
         cdstub_id  => 'release',
         discid => 'discid',
-        track_count => 'trackcount',
-        leadout_offset => 'leadoutoffset',
-        track_offset => 'trackoffset',
+        track_count => 'track_count',
+        leadout_offset => 'leadout_offset',
+        track_offset => 'track_offset',
     };
 }
 

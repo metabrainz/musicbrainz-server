@@ -30,6 +30,7 @@ is ( $label->type_id, 1, "type id" );
 is ( $label->label_code, 2070, "label code" );
 is ( $label->format_label_code, 'LC-02070', "formatted label code" );
 is ( $label->comment, 'Sheffield based electronica label', "comment" );
+is ( $label->ipi_code, '00407982339', "ipi_code" );
 
 my $annotation = $label_data->annotation->get_latest(3);
 is ( $annotation->text, "Label Annotation", "annotation" );
@@ -60,6 +61,7 @@ $label = $label_data->insert({
         sort_name => 'RAM Records',
         type_id => 1,
         country_id => 1,
+        ipi_code => '00407982340',
         end_date => { year => 2000, month => 05 }
     });
 isa_ok($label, 'MusicBrainz::Server::Entity::Label');
@@ -75,10 +77,12 @@ is($label->country_id, 1, "country id");
 ok(!$label->end_date->is_empty, "end date is not empty");
 is($label->end_date->year, 2000, "end date, year");
 is($label->end_date->month, 5, "end date, month");
+is($label->ipi_code, '00407982340', "ipi_code");
 
 $label_data->update($label->id, {
         sort_name => 'Records, RAM',
         begin_date => { year => 1990 },
+        ipi_code => '00407982341',
         comment => 'Drum & bass label'
     });
 
@@ -91,6 +95,7 @@ ok(!$label->end_date->is_empty, "end date is not empty");
 is($label->begin_date->year, 1990, "begin date, year");
 is($label->end_date->year, 2000, "end date, year");
 is($label->end_date->month, 5, "end date, month");
+is($label->ipi_code, '00407982341', "ipi_code updated");
 
 $label_data->delete($label->id);
 $label = $label_data->get_by_id($label->id);

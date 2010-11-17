@@ -13,11 +13,12 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
 );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 
-sub edit_name { 'Add release' }
+sub edit_name { l('Add release') }
 sub edit_type { $EDIT_RELEASE_CREATE }
 sub _create_model { 'Release' }
 sub release_id { shift->entity_id }

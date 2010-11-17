@@ -2,7 +2,7 @@
     artist => artist_credit(rg.artist_credit, plain => 1),
     name => rg.name
 }) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -18,6 +18,11 @@
 
         <ul class="links">
             [% IF c.user_exists %]
+                <li>
+                  <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ rg.gid ]) %]">
+                    [% rg.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                  </a>
+                </li>
                 <li>[% link_release_group(rg, 'merge', l('Merge release group')) %]</li> <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
                 [% IF rg.edits_pending %]
                     <li>[% link_release_group(rg, 'open_edits', l('Open edits')) %]</li>

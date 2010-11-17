@@ -20,7 +20,11 @@ sub index : Path Args(0) RequireAuth(relationship_editor)
         }
         push @table, \@row;
     }
-    $c->stash->{table} = \@table;
+
+    $c->stash(
+        types => \@types,
+        table => \@table,
+    );
 }
 
 sub tree_setup : Chained PathPart('admin/linktype') CaptureArgs(1)

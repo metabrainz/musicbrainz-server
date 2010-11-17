@@ -30,7 +30,7 @@ sub _columns
 {
     return 'work.id, gid, type AS type_id, name.name,
             work.artist_credit AS artist_credit_id, iswc,
-            comment, editpending AS edits_pending';
+            comment, edits_pending';
 }
 
 sub _id_column
@@ -162,8 +162,8 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "work_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 
