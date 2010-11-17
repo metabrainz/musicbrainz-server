@@ -1,3 +1,0 @@
-[%- WRAPPER 'list/layout.tt' title=l('Tag') -%]
-    [%- INCLUDE "components/tag.tt" tag_this_text=l('Tag this list') -%]
-[%- END -%]

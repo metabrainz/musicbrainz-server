@@ -44,7 +44,7 @@
             [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
             <ul>
                 <li>
-                    [% l('{col|My Lists}', { col => c.uri_for_action('/user/lists', [ c.user.name ]) }) %]
+                    [% l('{col|My Collections}', { col => c.uri_for_action('/user/collections', [ c.user.name ]) }) %]
                 </li>
                 <li>
                     [% l('{col|My Ratings}', { col => c.uri_for_action('/user/ratings', [ c.user.name ]) }) %]
