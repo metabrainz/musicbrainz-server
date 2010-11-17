@@ -13,11 +13,11 @@ TRUNCATE l_release_url CASCADE;
 TRUNCATE link_type CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
-INSERT INTO artist (id, gid, name, sortname)
+INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, joinphrase)
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
     VALUES (1, 1, 1, 0, NULL);
 
 INSERT INTO release_name (id, name) VALUES (1, 'Release #1');
@@ -38,7 +38,7 @@ INSERT INTO url (id, gid, url)
            (2, '9413b5e0-2926-11df-8a39-0800200c9a66',
                'http://www.amazon.com/gp/product/B000W23HCY');
 
-INSERT INTO link_type (id, gid, name, linkphrase, rlinkphrase, shortlinkphrase)
+INSERT INTO link_type (id, gid, name, link_phrase, reverse_link_phrase, short_link_phrase)
     VALUES (1, '6538e340-2925-11df-8a39-0800200c9a66', 'cover art link', 'has coverart at', 'provides coverart for', 'coverart'),
            (2, '6d47b930-2925-11df-8a39-0800200c9a66', 'amazon asin', 'has amazon asin', 'is an amazon asin for', 'asin');
 

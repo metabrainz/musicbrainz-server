@@ -87,7 +87,7 @@ $edit = $c->model('Edit')->get_by_id(101);
 is($edit->status, $STATUS_OPEN, 'not changed');
 
 $raw_sql->auto_commit(1);
-$raw_sql->do("UPDATE edit SET yesvotes=100 WHERE id=101");
+$raw_sql->do("UPDATE edit SET yes_votes=100 WHERE id=101");
 
 # Acquire an exclusive lock on the edit
 my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('RAWDATA');

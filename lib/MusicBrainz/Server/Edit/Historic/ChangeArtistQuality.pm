@@ -1,13 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::ChangeArtistQuality;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
 sub edit_name     { l('Change artist quality') }
 sub historic_type { 52 }
@@ -20,14 +18,6 @@ sub related_entities
         artist => [ $self->data->{artist_id} ]
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        artist_id => Int,
-        new => Dict[quality => Int],
-        old => Dict[quality => Int],
-    ]
-);
 
 sub foreign_keys
 {
@@ -61,6 +51,14 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+sub deserialize_new_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
+sub deserialize_previous_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
 1;

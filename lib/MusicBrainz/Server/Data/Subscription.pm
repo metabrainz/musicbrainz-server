@@ -34,7 +34,7 @@ sub subscribe
             $user_id, $id);
 
         my $max_edit_id = $self->c->model('Edit')->get_max_id() || 0;
-        $sql->do("INSERT INTO $table (editor, $column, lasteditsent)
+        $sql->do("INSERT INTO $table (editor, $column, last_edit_sent)
                   VALUES (?, ?, ?)", $user_id, $id, $max_edit_id);
 
     }, $sql);

@@ -23,7 +23,7 @@ sub _table
 sub _columns
 {
     return 'medium.id, tracklist, release, position, format, name,
-            editpending, trackcount';
+            edits_pending, track_count';
 }
 
 sub _id_column
@@ -39,7 +39,7 @@ sub _column_mapping
         tracklist     => sub {
             my ($row, $prefix) = @_;
             my $id = $row->{$prefix . 'tracklist'};
-            my $track_count = $row->{$prefix . 'trackcount'};
+            my $track_count = $row->{$prefix . 'track_count'};
             return unless $id && $track_count;
             return MusicBrainz::Server::Entity::Tracklist->new(
                 id          => $id,
@@ -50,7 +50,7 @@ sub _column_mapping
         position      => 'position',
         name          => 'name',
         format_id     => 'format',
-        edits_pending => 'editpending',
+        edits_pending => 'edits_pending',
     };
 }
 

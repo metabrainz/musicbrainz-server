@@ -1,17 +1,17 @@
 package MusicBrainz::Server::Edit::Historic::EditLabel;
-use Moose;
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
-with 'MusicBrainz::Server::Edit::Historic::Label';
+use base 'MusicBrainz::Server::Edit::Historic::Label';
 
 sub edit_name { l('Edit label') }
 sub edit_type { 55 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Edit' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
 
@@ -25,8 +25,6 @@ augment 'upgrade' => sub
         old => $old,
         new => $new
     };
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
 1;

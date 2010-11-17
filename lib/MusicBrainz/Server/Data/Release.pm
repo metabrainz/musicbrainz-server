@@ -29,7 +29,7 @@ sub _columns
 {
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
             release_group, release.status, release.packaging, date_year, date_month, date_day,
-            release.country, release.comment, release.editpending, release.barcode,
+            release.country, release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality';
 }
 
@@ -55,7 +55,7 @@ sub _column_mapping
         packaging_id => 'packaging',
         country_id => 'country',
         date => sub { partial_date_from_row(shift, shift() . 'date_') },
-        edits_pending => 'editpending',
+        edits_pending => 'edits_pending',
         comment => 'comment',
         barcode => 'barcode',
         script_id => 'script',
@@ -275,7 +275,7 @@ sub find_by_artist_track_count
                         ON medium.release = release.id
                      JOIN tracklist
                         ON medium.tracklist = tracklist.id
-                 WHERE tracklist.trackcount = ? AND acn.artist = ?
+                 WHERE tracklist.track_count = ? AND acn.artist = ?
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
@@ -303,7 +303,7 @@ sub load_with_tracklist_for_recording
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
-                tracklist.trackcount AS m_trackcount,
+                tracklist.track_count AS m_track_count,
             track.id AS t_id, track_name.name AS t_name,
                 track.tracklist AS t_tracklist, track.position AS t_position,
                 track.length AS t_length, track.artist_credit AS t_artist_credit
@@ -516,10 +516,10 @@ sub load_meta
 
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
         my ($obj, $row) = @_;
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
-        $obj->info_url($row->{infourl}) if defined $row->{infourl};
-        $obj->amazon_asin($row->{amazonasin}) if defined $row->{amazonasin};
-        $obj->amazon_store($row->{amazonstore}) if defined $row->{amazonstore};
+        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
+        $obj->info_url($row->{info_url}) if defined $row->{info_url};
+        $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
+        $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};
     }, @objs);
 
     my @ids = keys %id_to_obj;
@@ -529,8 +529,8 @@ sub load_meta
     );
     while (1) {
         my $row = $self->sql->next_row_hash_ref or last;
-        $id_to_obj{ $row->{id} }->cover_art_url( $row->{coverarturl} )
-            if defined $row->{coverarturl};
+        $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
+            if defined $row->{cover_art_url};
     }
     $self->sql->finish;
 }

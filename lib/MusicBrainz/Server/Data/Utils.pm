@@ -14,6 +14,7 @@ use Storable;
 our @EXPORT_OK = qw(
     artist_credit_to_ref
     check_data
+    copy_escape
     defined_hash
     hash_to_row
     add_partial_date_to_row
@@ -49,6 +50,15 @@ Readonly my %TYPE_TO_MODEL => (
     'url'           => 'URL',
     'work'          => 'Work',
 );
+
+sub copy_escape {
+    my $str = shift;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\t/\\t/g;
+    $str =~ s/\r/\\r/g;
+    $str =~ s/\\/\\\\/g;
+    return $str;
+}
 
 sub artist_credit_to_ref
 {

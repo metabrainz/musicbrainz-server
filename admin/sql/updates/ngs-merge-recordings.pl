@@ -480,7 +480,7 @@ Sql::run_in_transaction(sub {
     printf STDERR "Merging isrc\n";
     $sql->do("
 SELECT
-    DISTINCT ON (COALESCE(new_rec, recording), isrc) id, COALESCE(new_rec, recording), isrc, source, editpending
+    DISTINCT ON (COALESCE(new_rec, recording), isrc) id, COALESCE(new_rec, recording), isrc, source, edits_pending
 INTO TEMPORARY tmp_isrc
 FROM isrc
     LEFT JOIN tmp_recording_merge rm ON isrc.recording=rm.old_rec;
@@ -507,13 +507,13 @@ DROP TABLE tmp_isrc;
         $sql->do("
 SELECT
     DISTINCT ON (link, $entity0, COALESCE(new_rec, $entity1))
-        id, link, $entity0, COALESCE(new_rec, $entity1) AS $entity1, editpending
+        id, link, $entity0, COALESCE(new_rec, $entity1) AS $entity1, edits_pending
 INTO TEMPORARY tmp_$table
 FROM $table
     LEFT JOIN tmp_recording_merge rm ON $table.$entity1=rm.old_rec;
 
 TRUNCATE $table;
-INSERT INTO $table SELECT id, link, entity0, entity1, editpending FROM tmp_$table;
+INSERT INTO $table SELECT id, link, entity0, entity1, edits_pending FROM tmp_$table;
 DROP TABLE tmp_$table;
 ");
     }
@@ -521,7 +521,7 @@ DROP TABLE tmp_$table;
     printf STDERR "Merging l_recording_recording\n";
     $sql->do("
 SELECT
-    DISTINCT ON (link, COALESCE(rm0.new_rec, entity0), COALESCE(rm1.new_rec, entity1)) id, link, COALESCE(rm0.new_rec, entity0) AS entity0, COALESCE(rm1.new_rec, entity1) AS entity1, editpending
+    DISTINCT ON (link, COALESCE(rm0.new_rec, entity0), COALESCE(rm1.new_rec, entity1)) id, link, COALESCE(rm0.new_rec, entity0) AS entity0, COALESCE(rm1.new_rec, entity1) AS entity1, edits_pending
 INTO TEMPORARY tmp_l_recording_recording
 FROM l_recording_recording
     LEFT JOIN tmp_recording_merge rm0 ON l_recording_recording.entity0=rm0.old_rec
@@ -549,10 +549,10 @@ DROP TABLE tmp_recording_annotation;
     printf STDERR "Merging recording_gid_redirect\n";
     $sql->do("
 SELECT
-    gid, COALESCE(new_rec, newid)
+    gid, COALESCE(new_rec, new_id)
 INTO TEMPORARY tmp_recording_gid_redirect
 FROM recording_gid_redirect
-    LEFT JOIN tmp_recording_merge rm ON recording_gid_redirect.newid=rm.old_rec;
+    LEFT JOIN tmp_recording_merge rm ON recording_gid_redirect.new_id=rm.old_rec;
 
 TRUNCATE recording_gid_redirect;
 INSERT INTO recording_gid_redirect SELECT * FROM tmp_recording_gid_redirect;
@@ -567,7 +567,7 @@ INSERT INTO recording_gid_redirect
     printf STDERR "Merging recording_puid\n";
     $sql->do("
 SELECT
-    DISTINCT ON (puid, COALESCE(new_rec, recording)) id, puid, COALESCE(new_rec, recording), editpending
+    DISTINCT ON (puid, COALESCE(new_rec, recording)) id, puid, COALESCE(new_rec, recording), edits_pending
 INTO TEMPORARY tmp_recording_puid
 FROM recording_puid
     LEFT JOIN tmp_recording_merge rm ON recording_puid.recording=rm.old_rec;
@@ -593,7 +593,7 @@ DROP TABLE tmp_recording;
     printf STDERR "Merging track\n";
     $sql->do("
 SELECT
-    id, COALESCE(new_rec, recording), tracklist, position, name, artist_credit, length, editpending
+    id, COALESCE(new_rec, recording), tracklist, position, name, artist_credit, length, edits_pending
 INTO TEMPORARY tmp_track
 FROM track
     LEFT JOIN tmp_recording_merge rm ON track.recording=rm.old_rec;
@@ -640,7 +640,7 @@ DROP TABLE tmp_recording_rating_raw;
     while (1) {
         my $row = $raw_sql->next_row_ref or last;
         my ($id, $rating, $count) = @$row;
-        $sql->do("UPDATE recording_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+        $sql->do("UPDATE recording_meta SET rating=?, rating_count=? WHERE id=?", $rating, $count, $id);
     }
     $raw_sql->finish;
     $sql->do("DROP INDEX tmp_recording_meta_idx");

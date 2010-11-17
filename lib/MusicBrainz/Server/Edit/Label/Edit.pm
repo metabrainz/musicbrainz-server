@@ -15,7 +15,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { l('Edit label' }
+sub edit_name { l('Edit label') }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
 

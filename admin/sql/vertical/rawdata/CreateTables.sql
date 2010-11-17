@@ -7,13 +7,13 @@ CREATE TABLE edit
     editor              INTEGER NOT NULL, -- weakly references editor
     type                SMALLINT NOT NULL,
     status              SMALLINT NOT NULL,
-    data                XML NOT NULL,
-    yesvotes            INTEGER NOT NULL DEFAULT 0,
-    novotes             INTEGER NOT NULL DEFAULT 0,
+    data                TEXT NOT NULL,
+    yes_votes            INTEGER NOT NULL DEFAULT 0,
+    no_votes             INTEGER NOT NULL DEFAULT 0,
     autoedit            SMALLINT NOT NULL DEFAULT 0,
-    opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    closetime           TIMESTAMP WITH TIME ZONE,
-    expiretime          TIMESTAMP WITH TIME ZONE NOT NULL,
+    open_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    close_time           TIMESTAMP WITH TIME ZONE,
+    expire_time          TIMESTAMP WITH TIME ZONE NOT NULL,
     language            INTEGER, -- references language
     quality             SMALLINT NOT NULL DEFAULT 1
 );
@@ -24,7 +24,7 @@ CREATE TABLE edit_note
     editor              INTEGER NOT NULL, -- weakly references editor
     edit                INTEGER NOT NULL, -- references edit.id
     text                TEXT NOT NULL,
-    notetime            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    post_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE edit_artist
@@ -75,7 +75,7 @@ CREATE TABLE vote
     editor              INTEGER NOT NULL, -- weakly references editor
     edit                INTEGER NOT NULL, -- references edit.id
     vote                SMALLINT NOT NULL,
-    votetime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    vote_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     superseded          BOOLEAN NOT NULL DEFAULT FALSE
 );
 
@@ -98,9 +98,9 @@ CREATE TABLE cdtoc_raw
     id                  SERIAL,
     release             INTEGER NOT NULL, -- references release_raw.id
     discid              CHAR(28) NOT NULL,
-    trackcount          INTEGER NOT NULL,
-    leadoutoffset       INTEGER NOT NULL,
-    trackoffset         INTEGER[] NOT NULL
+    track_count          INTEGER NOT NULL,
+    leadout_offset       INTEGER NOT NULL,
+    track_offset         INTEGER[] NOT NULL
 );
 
 CREATE TABLE label_rating_raw
@@ -123,9 +123,9 @@ CREATE TABLE release_raw
     title               VARCHAR(255) NOT NULL,
     artist              VARCHAR(255),
     added               TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    lastmodified        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    lookupcount         INTEGER DEFAULT 0,
-    modifycount         INTEGER DEFAULT 0,
+    last_modified        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    lookup_count         INTEGER DEFAULT 0,
+    modify_count         INTEGER DEFAULT 0,
     source              INTEGER DEFAULT 0,
     barcode             VARCHAR(255),
     comment             VARCHAR(255)

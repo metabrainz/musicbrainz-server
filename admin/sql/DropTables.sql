@@ -16,8 +16,6 @@ DROP TABLE cdtoc;
 DROP TABLE clientversion;
 DROP TABLE country;
 DROP TABLE currentstat;
-DROP TABLE dbmirror_Pending;
-DROP TABLE dbmirror_PendingData;
 DROP TABLE editor;
 DROP TABLE editor_preference;
 DROP TABLE editor_subscribe_artist;

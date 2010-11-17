@@ -13,7 +13,7 @@
   </tr>
   <tr>
     <th>[% l('Last updated:') %]</th>
-    <td>[% UserDate.format(recording.last_update_date) %]</td>
+    <td>[% UserDate.format(recording.last_updated) %]</td>
   </tr>
   <tr>
     <th>

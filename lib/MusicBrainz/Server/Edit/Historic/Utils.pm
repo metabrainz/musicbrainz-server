@@ -19,9 +19,12 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 sub upgrade_date
 {
     my $date = shift;
-    $date =~ s/^\s+//;
-    $date =~ s/\s+$//;
-    return partial_date_to_hash($date ? PartialDate->new($date) : PartialDate->new());
+    $date =~ /\s*(\d{4})?-?(\d{1,2})?-?(\d{1,2})?\s*/;
+    my $info = {};
+    $info->{year} = $1 if ($1 && $1 > 0);
+    $info->{month} = $2 if ($2 && $2 > 0);
+    $info->{day} = $3 if ($3 && $3 > 0);
+    return $info;
 }
 
 sub upgrade_id
@@ -56,17 +59,16 @@ sub upgrade_release_status
 {
     my $status_id = shift;
 
-
     # Status' have their own table, so they don't have the 100 offset as before.
     # They are also indexed from 1, not 0
-    $status_id -= 99 if defined $status_id;
-
-    return $status_id;
+    return unless defined $status_id && $status_id ne "";
+    return $status_id - 99;
 }
 
 sub upgrade_type_and_status
 {
     my $type_and_status = shift;
+    return (undef, undef) unless $type_and_status;
 
     my ($type_id, $status_id) = split /,/, $type_and_status;
     if ($type_id && $type_id >= 100) {

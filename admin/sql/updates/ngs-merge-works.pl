@@ -298,13 +298,13 @@ Sql::run_in_transaction(sub {
         $sql->do("
 SELECT
     DISTINCT ON (link, entity0, COALESCE(new_work, entity1))
-        id, link, entity0, COALESCE(new_work, entity1) AS entity1, editpending
+        id, link, entity0, COALESCE(new_work, entity1) AS entity1, edits_pending
 INTO TEMPORARY tmp_$table
 FROM $table
     LEFT JOIN tmp_work_merge rm ON $table.entity1=rm.old_work;
 
 TRUNCATE $table;
-INSERT INTO $table SELECT id, link, entity0, entity1, editpending FROM tmp_$table;
+INSERT INTO $table SELECT id, link, entity0, entity1, edits_pending FROM tmp_$table;
 DROP TABLE tmp_$table;
 ");
     }
@@ -312,7 +312,7 @@ DROP TABLE tmp_$table;
     printf STDERR "Merging l_work_work\n";
     $sql->do("
 SELECT
-    DISTINCT ON (link, COALESCE(rm0.new_work, entity0), COALESCE(rm1.new_work, entity1)) id, link, COALESCE(rm0.new_work, entity0) AS entity0, COALESCE(rm1.new_work, entity1) AS entity1, editpending
+    DISTINCT ON (link, COALESCE(rm0.new_work, entity0), COALESCE(rm1.new_work, entity1)) id, link, COALESCE(rm0.new_work, entity0) AS entity0, COALESCE(rm1.new_work, entity1) AS entity1, edits_pending
 INTO TEMPORARY tmp_l_work_work
 FROM l_work_work
     LEFT JOIN tmp_work_merge rm0 ON l_work_work.entity0=rm0.old_work
@@ -340,10 +340,10 @@ DROP TABLE tmp_work_annotation;
     printf STDERR "Merging work_gid_redirect\n";
     $sql->do("
 SELECT
-    gid, COALESCE(new_work, newid)
+    gid, COALESCE(new_work, new_id)
 INTO TEMPORARY tmp_work_gid_redirect
 FROM work_gid_redirect
-    LEFT JOIN tmp_work_merge rm ON work_gid_redirect.newid=rm.old_work;
+    LEFT JOIN tmp_work_merge rm ON work_gid_redirect.new_id=rm.old_work;
 
 TRUNCATE work_gid_redirect;
 INSERT INTO work_gid_redirect SELECT * FROM tmp_work_gid_redirect;
@@ -379,7 +379,7 @@ DROP TABLE tmp_work;
     while (1) {
         my $row = $raw_sql->next_row_ref or last;
         my ($id, $rating, $count) = @$row;
-        $sql->do("UPDATE work_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+        $sql->do("UPDATE work_meta SET rating=?, rating_count=? WHERE id=?", $rating, $count, $id);
     }
     $raw_sql->finish;
     $sql->do("DROP INDEX tmp_work_meta_idx");

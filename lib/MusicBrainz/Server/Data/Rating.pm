@@ -74,7 +74,7 @@ sub _update_aggregate_rating
     my ($rating_count, $rating_sum) = defined $row ? @$row : (undef, undef);
 
     my $rating_avg = ($rating_count ? int($rating_sum / $rating_count + 0.5) : undef);
-    $sql->do("UPDATE $table SET ratingcount = ?, rating = ?
+    $sql->do("UPDATE $table SET rating_count = ?, rating = ?
               WHERE id = ?", $rating_count, $rating_avg, $entity_id);
 
     return ($rating_count, $rating_sum);

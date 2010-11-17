@@ -11,7 +11,7 @@
         </tr>
         <tr>
             <th>[% l('FreeDB:') %]</th>
-            <td>[% cdtoc.freedbid %]</td>
+            <td>[% cdtoc.freedb_id %]</td>
         </tr>
        <tr>
             <th>[% l('Total tracks:') %]</th>

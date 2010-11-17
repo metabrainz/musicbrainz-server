@@ -5,81 +5,108 @@ use warnings;
 use FindBin '$Bin';
 use lib "$Bin/../../../lib";
 
-use DBDefs;
-use Getopt::Long;
+use aliased 'MusicBrainz::Server::Connector';
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use TryCatch;
+use Sql;
+use Text::CSV_XS;
+use Try::Tiny;
 
 my $c = MusicBrainz::Server::Context->create_script_context;
-my $migration = $c->model('EditMigration');
 
-my $limit  = 1000;
-my $offset = 0;
-my $chunk  = 100000;
-
-GetOptions(
-    "chunks=i"  => \$limit,
-    "offset=i" => \$offset,
-    "chunk-size=i"  => \$chunk
+my %skip = map { $_ => 1 } (
+    2951, 8052, 21556, 
+    21014, 21644,
+    33512, 40573, 505233,
+    1001582, 1025431, 1062521, 1062536
 );
 
-my @upgraded;
-my $sql = Sql->new($c->dbh);
+my $conn = Connector->new( database => Databases->get('READWRITE') );
+my $csv = Text::CSV_XS->new({ binary => 1 });
 
-printf "Upgrading edits!\n";
-$sql->select('SELECT * FROM public.moderation_closed LIMIT ? OFFSET ?',
-             $limit * $chunk, $offset);
+my $raw_dbh = $c->raw_dbh;
+$raw_dbh->do('COPY edit FROM STDIN');
 
-printf "Here we go!\n";
+my $dbh = $conn->dbh;
+$dbh->do('CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid)');
+$dbh->do('CREATE UNIQUE INDEX puid_idx_puid ON puid (puid)');
+$dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
 
-my $raw_sql = Sql->new($c->raw_dbh);
-$raw_sql->begin;
-$raw_sql->do('TRUNCATE edit CASCADE');
-$raw_sql->do("TRUNCATE edit_$_ CASCADE")
-    for qw( artist label release release_group work recording );
+my $sql = Sql->new($dbh);
+my $raw_sql = Sql->new($raw_dbh);
 
-my @migrated_ids = ();
+printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
-my $i = 0;
-while (my $row = $sql->next_row_hash_ref) {
-    my $historic = $migration->_new_from_row($row)
-        or next;
+my ($line, $i) = ('', 0);
+while ($dbh->pg_getcopydata($line) >= 0) {
+    if(my $fields = $csv->parse($line)) {
+        next unless $csv->fields;
+        my %row;
+        @row{qw(
+            id artist moderator tab col type status rowid prevvalue newvalue
+            yesvotes novotes depmod automod opentime closetime expiretime language
+        )} = $csv->fields;
+        
+        next if exists $skip{ $row{id} };
 
-    try {
-        my $upgraded = $historic->upgrade;
-        push @upgraded, $upgraded;
-
-        printf "Upgraded #%d\n", $upgraded->id;
+        my $historic = $c->model('EditMigration')->_new_from_row(\%row)
+            or next;
+            
+        try {
+            $raw_dbh->pg_putcopydata($historic->upgrade->for_copy . "\n");
+        }
+        catch {
+            my $err = $_;
+            printf "$line\n";
+            $skip{ $historic->id } = 1;
+            if ($err =~ /This data is corrupt and cannot be upgraded/) {
+                printf "Cannot upgrade #%d: %s", $historic->id, $err;
+            }
+            else {
+                printf STDERR "Could not upgrade %d\n", $historic->id;
+                printf STDERR "$err\n";
+            }
+        }
     }
-    catch ($err) {
-        printf STDERR "Could not upgrade %d\n", $historic->id;
-        printf STDERR "$err\n";
-    }
 
-    if (@upgraded >= $chunk) {
-        printf "Flushing %d edits to the database\n", scalar(@upgraded);
-        $c->model('Edit')->insert(@upgraded);
-        push @migrated_ids, map { $_->id } @upgraded;
-        @upgraded = ();
-    }
-
-    printf "%d\r", $i++;
+    printf STDERR "%d\r", $i if $i % 1000 == 0;
+    $i++;
 }
 
-printf "Flushing %d edits to the database\n", scalar(@upgraded);
-$c->model('Edit')->insert(@upgraded);
-push @migrated_ids, map { $_->id } @upgraded;
-@upgraded = ();
+$raw_dbh->pg_putcopyend;
 
-my $votes = $sql->select_list_of_lists('
-    SELECT id, moderator AS editor, moderation AS edit, vote, votetime, superseded
-      FROM public.vote_closed
-     WHERE moderation IN (' . placeholders(@migrated_ids) . ')', @migrated_ids);
+printf STDERR "Inserting votes\n";
+$raw_dbh->do('COPY vote FROM STDIN');
+$dbh->do('COPY public.vote_closed TO STDOUT');
+$line = '';
+while ($dbh->pg_getcopydata($line) >= 0) {
+    $raw_dbh->pg_putcopydata($line);
+}
+$raw_dbh->pg_putcopyend;
+
+printf STDERR "Insert edit notes\n";
+$raw_dbh->do('COPY edit_note FROM STDIN');
+$dbh->do('COPY public.moderation_note_closed TO STDOUT');
+$line = '';
+while ($dbh->pg_getcopydata($line) >= 0) {
+    $raw_dbh->pg_putcopydata($line);
+}
+$raw_dbh->pg_putcopyend;
+
+printf STDERR "Removing invalid votes and edit notes\n";
+$raw_sql->begin;
 $raw_sql->do(
-    'INSERT INTO vote (id, editor, edit, vote, votetime, superseded)
-          VALUES ' . (join ", ", (("(?, ?, ?, ?, ?, ?)") x @$votes)),
-    map { @$_ } @$votes
-) if @$votes;
-
+    'DELETE FROM vote WHERE edit IN (' . placeholders(keys %skip) . ')',
+    keys %skip
+);
+$raw_sql->do(
+    'DELETE FROM edit_note WHERE edit IN (' . placeholders(keys %skip) . ')',
+    keys %skip
+);
 $raw_sql->commit;
+
+printf STDERR "Cleaning up\n";
+$dbh->do('DROP INDEX puid_idx_puid');
+$dbh->do('DROP INDEX recording_puid_idx_uniq');
