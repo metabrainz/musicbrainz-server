@@ -20,6 +20,7 @@ sub grouped_relationships
 {
     my ($self, @types) = @_;
     my %filter = map { $_ => 1 } @types;
+    my $filter_present = @types > 0;
 
     my %groups;
     my @relationships = sort {
@@ -30,7 +31,7 @@ sub grouped_relationships
     } $self->all_relationships;
 
     for my $relationship (@relationships) {
-        next unless $filter{ $relationship->target_type };
+        next if ($filter_present && !$filter{ $relationship->target_type });
         $groups{ $relationship->target_type } ||= {};
         $groups{ $relationship->target_type }{ $relationship->phrase } ||= [];
         push @{ $groups{ $relationship->target_type }{ $relationship->phrase} },
