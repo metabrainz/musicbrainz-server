@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Class::Accessor::Fast::XS';
 
-use JSON::XS;
+use JSON::Any qw( XS JSON );
 use Memoize;
 use MusicBrainz::Server::Data::Utils qw( copy_escape );
 use URI::Escape qw( uri_escape uri_unescape );
