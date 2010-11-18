@@ -10,11 +10,12 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Edit::Utils qw( date_closure changed_relations changed_display_data );
 use MusicBrainz::Server::Validation qw( normalise_strings );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { "Edit label" }
+sub edit_name { l('Edit label') }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
 
@@ -27,6 +28,7 @@ sub change_fields
         label_code => Nullable[Int],
         country_id => Nullable[Int],
         comment    => Nullable[Str],
+        ipi_code   => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
     ];
@@ -62,6 +64,7 @@ sub build_display_data
         type       => [ qw( type_id LabelType ) ],
         label_code => 'label_code',
         comment    => 'comment',
+        ipi_code   => 'ipi_code',
         country    => [ qw( country_id Country ) ],
     );
 

@@ -6,13 +6,14 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
-sub edit_name { "Edit relationship" }
+sub edit_name { l("Edit relationship") }
 
 sub _xml_arguments { ForceArray => ['attributes'] }
 

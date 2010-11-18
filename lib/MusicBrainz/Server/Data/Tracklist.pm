@@ -13,7 +13,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, trackcount AS track_count';
+    return 'id, track_count';
 }
 
 sub _entity_class
@@ -25,7 +25,7 @@ sub insert
 {
     my ($self, $tracks) = @_;
     my $sql = Sql->new($self->c->dbh);
-    my $id = $sql->insert_row('tracklist', { trackcount => 0 }, 'id');
+    my $id = $sql->insert_row('tracklist', { track_count => 0 }, 'id');
     $self->_add_tracks($id, $tracks);
     my $class = $self->_entity_class;
     return $class->new( id => $id );

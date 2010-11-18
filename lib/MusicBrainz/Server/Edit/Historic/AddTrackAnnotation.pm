@@ -1,13 +1,15 @@
 package MusicBrainz::Server::Edit::Historic::AddTrackAnnotation;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
-sub edit_name { 'Add track annotation' }
+sub edit_name { l('Add track annotation') }
 sub edit_type { 64 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddAnnotation' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my ($self) = @_;
 
@@ -16,16 +18,14 @@ augment 'upgrade' => sub
         changelog => $self->new_value->{ChangeLog},        entity_id => $self->resolve_recording_id($self->row_id),
         editor_id => $self->editor_id,
     }
-};
+}
 
 sub extra_parameters
 {
     my $self = shift;
     return (
-        annotation_id => $self->resolve_annotation_id($self->id)
+        annotation_id => $self->resolve_annotation_id($self->id) || 0
     );
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
-
+1;

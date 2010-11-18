@@ -1,5 +1,4 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
-     <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
     [%- IF releases.size -%]
         <h2>[% rg.type.name %]</h2>

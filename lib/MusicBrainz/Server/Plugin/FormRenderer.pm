@@ -144,14 +144,43 @@ sub select
     my $field = $self->_lookup_field($field_name) or return;
 
     my @selected = $field->multiple ? @{ $field->value || [] } : ( $field->value );
-    my @options = map {
-        my $option = $_;
+
+    my @options;
+    my %optgroups;
+    my %optgroup_order;
+
+    for my $option (@{ $field->options })
+    {
         my $selected = @selected > 0  && first { $_ && $option->{value} && $option->{value} eq $_ } @selected;
-        $self->h->option({
-            value => $_->{value},
-            selected => $selected ? "selected" : undef,
-        }, $_->{label})
-    } @{ $field->options };
+
+        my $label = delete $option->{label};
+        my $grp = delete $option->{optgroup};
+        my $grp_order = delete $option->{optgroup_order};
+
+        my $option_html = $self->h->option(
+            {
+                %$option, selected => $selected ? "selected" : undef,
+            }, $label);
+
+        if ($grp)
+        {
+            $optgroups{grp} ||= [];
+            push @{ $optgroups{$grp} }, $option_html;
+            $optgroup_order{$grp} = $grp_order;
+        }
+        else
+        {
+            push @options, $option_html;
+        }
+    }
+
+    if (%optgroups)
+    {
+        for (sort { $optgroup_order{$a} cmp $optgroup_order{$b} } keys %optgroup_order)
+        {
+            push @options, $self->h->optgroup({ 'label' => $_ }, $optgroups{$_});
+        }
+    }
 
     if (!$field->required)
     {

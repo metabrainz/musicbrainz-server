@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::User::Register;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -39,7 +40,7 @@ sub validate_username
     if ($username) {
         my $editor = $self->ctx->model('Editor')->get_by_name($username);
         if (defined $editor) {
-            $field->add_error($self->ctx->gettext('Please choose another username, this one is already taken'));
+            $field->add_error(l('Please choose another username, this one is already taken'));
         }
     }
 }

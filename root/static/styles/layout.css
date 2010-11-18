@@ -1,5 +1,5 @@
 body {
-    padding: 0;
+    padding: 0 10px;
     margin: 0;
     background-color: #E7E7E7;
     color: #000;
@@ -367,6 +367,7 @@ span.mp {
 }
 
 .lastupdate,
+.annotation-details,
 .small {
     font-size: 90%;
     color: #777;

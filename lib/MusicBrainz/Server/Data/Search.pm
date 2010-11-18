@@ -39,7 +39,9 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     tag           => 'MusicBrainz::Server::Data::Tag',
 );
 
-use Sub::Exporter -setup => { exports => [qw( escape_query )] };
+use Sub::Exporter -setup => {
+    exports => [qw( escape_query alias_query )]
+};
 
 sub search
 {
@@ -60,7 +62,7 @@ sub search
         $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
 
         my $extra_columns = '';
-        $extra_columns .= 'entity.labelcode,' if $type eq 'label';
+        $extra_columns .= 'entity.label_code,' if $type eq 'label';
 
         $query = "
             SELECT
@@ -68,10 +70,10 @@ sub search
                 entity.gid,
                 entity.comment,
                 aname.name AS name,
-                asortname.name AS sortname,
+                asort_name.name AS sort_name,
                 entity.type,
-                entity.begindate_year, entity.begindate_month, entity.begindate_day,
-                entity.enddate_year, entity.enddate_month, entity.enddate_day,
+                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day,
                 $extra_columns
                 MAX(rank) AS rank
             FROM
@@ -83,16 +85,16 @@ sub search
                     LIMIT ?
                 ) AS r
                 LEFT JOIN ${type}_alias AS alias ON alias.name = r.id
-                JOIN ${type} AS entity ON (r.id = entity.name OR r.id = entity.sortname OR alias.${type} = entity.id)
+                JOIN ${type} AS entity ON (r.id = entity.name OR r.id = entity.sort_name OR alias.${type} = entity.id)
                 JOIN ${type}_name AS aname ON entity.name = aname.id
-                JOIN ${type}_name AS asortname ON entity.sortname = asortname.id
+                JOIN ${type}_name AS asort_name ON entity.sort_name = asort_name.id
                 WHERE entity.id != ?
             GROUP BY
-                $extra_columns entity.id, entity.gid, entity.comment, aname.name, asortname.name, entity.type,
-                entity.begindate_year, entity.begindate_month, entity.begindate_day,
-                entity.enddate_year, entity.enddate_month, entity.enddate_day
+                $extra_columns entity.id, entity.gid, entity.comment, aname.name, asort_name.name, entity.type,
+                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day
             ORDER BY
-                rank DESC, sortname, name
+                rank DESC, sort_name, name
             OFFSET
                 ?
         ";
@@ -121,7 +123,7 @@ sub search
             $join_sql .= '
                 JOIN medium ON medium.release = entity.id
                 JOIN tracklist ON medium.tracklist = tracklist.id';
-            $where_sql = 'WHERE tracklist.trackcount = ?';
+            $where_sql = 'WHERE tracklist.track_count = ?';
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
@@ -403,6 +405,19 @@ sub escape_query
     return $str;
 }
 
+# add alias/sortname queries for entity
+sub alias_query
+{
+    my ($type, $query) = @_;
+
+    return "$type:\"$query\"^1.6 " .
+        "(+sortname:\"$query\"^1.6 -$type:\"$query\") " .
+        "(+alias:\"$query\" -$type:\"$query\" -sortname:\"$query\") " .
+        "(+($type:($query)^0.8) -$type:\"$query\" -sortname:\"$query\" -alias:\"$query\") " .
+        "(+(sortname:($query)^0.8) -$type:($query) -sortname:\"$query\" -alias:\"$query\") " .
+        "(+(alias:($query)^0.4) -$type:($query) -sortname:($query) -alias:\"$query\")";
+}
+
 sub external_search
 {
     my ($self, $c, $type, $query, $limit, $page, $adv, $ua, $no_redirect) = @_;
@@ -420,14 +435,9 @@ sub external_search
     {
         $query = escape_query($query);
 
-        if ($type eq 'artist')
+        if (grep ($type eq $_, 'artist', 'label', 'work'))
         {
-            $query = "artist:\"$query\"^1.6 " .
-                     "(+sortname:\"$query\"^1.6 -artist:\"$query\") " .
-                     "(+alias:\"$query\" -artist:\"$query\" -sortname:\"$query\") " .
-                     "(+(artist:($query)^0.8) -artist:\"$query\" -sortname:\"$query\" -alias:\"$query\") " .
-                     "(+(sortname:($query)^0.8) -artist:($query) -sortname:\"$query\" -alias:\"$query\") " .
-                     "(+(alias:($query)^0.4) -artist:($query) -sortname:($query) -alias:\"$query\")";
+            $query = alias_query ($type, $query);
         }
     }
 

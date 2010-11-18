@@ -72,6 +72,7 @@ sub run
     $self->sql->commit;
 
     printf STDERR "Processed %d, %d still need to be updated\n", $completed, $total - $completed;
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

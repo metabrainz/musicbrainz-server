@@ -71,7 +71,7 @@ sub lookup
                     position,
                     format,
                     name,
-                    editpending
+                    edits_pending
                FROM tracklist_index ti, medium m 
               WHERE m.tracklist = ti.tracklist 
                 AND tracks = ? 
@@ -91,7 +91,7 @@ sub lookup
         $medium->position($item->{position});
         $medium->format_id($item->{format});
         $medium->name($item->{name} or '');
-        $medium->edits_pending($item->{editpending});
+        $medium->edits_pending($item->{edits_pending});
         $result->medium($medium);
         push @results, $result;
     }

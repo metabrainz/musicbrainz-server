@@ -1,10 +1,18 @@
+[% extra_css = "wikidocs.css" %]
 [% WRAPPER "layout.tt" title=l("Link Types") full_width=1 %]
     <div id="content">
         <h1>[% l("Link Types") %]</h1>
-        <p>
-            <table border="1">
+        <table border="1">
+            <tr>
+                <th></th>
+                [% FOR type IN types %]
+                    <th>[% type %]</th>
+                [% END %]
+            </tr>
+
             [% FOR row IN table %]
-                <tr>
+            <tr>
+                <th>[% types.${loop.index} %]</th>
                 [% FOR column IN row %]
                     <td>
                     [% IF column %]
@@ -12,9 +20,8 @@
                     [% END %]
                     </td>
                 [% END %]
-                </tr>
+            </tr>
             [% END %]
-            </table>
-        </p>
+        </table>
     </div>
 [% END %]

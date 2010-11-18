@@ -365,5 +365,16 @@ sub _RUNNING_TESTS { 0 }
 # Set this to an email address and the server will email any bugs to you
 sub EMAIL_BUGS { undef }
 
+################################################################################
+# Profiling
+################################################################################
+# Set these to >0 to enable profiling
+
+# Log if a request in /ws takes more than x seconds
+sub PROFILE_WEB_SERVICE { 0 }
+
+# Log if a request in / (not /ws) takes more than x seconds
+sub PROFILE_SITE { 0 }
+
 1;
 # eof DBDefs.pm

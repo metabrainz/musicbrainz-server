@@ -12,7 +12,7 @@ sub find_by_name_prefix_va
         $prefix, $limit, $offset,
         'artist_credit IN (SELECT artist_credit FROM artist_credit_name ' .
         'JOIN artist_credit ac ON ac.id = artist_credit ' .
-        'WHERE artist = ? AND artistcount = 1)',
+        'WHERE artist = ? AND artist_count = 1)',
         $VARTIST_ID
     );
 }

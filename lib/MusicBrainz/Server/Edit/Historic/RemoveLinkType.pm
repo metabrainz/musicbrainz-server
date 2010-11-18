@@ -1,21 +1,22 @@
 package MusicBrainz::Server::Edit::Historic::RemoveLinkType;
-use Moose;
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK_TYPE );
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
-sub edit_name     { 'Remove link type' }
+sub edit_name     { l('Remove link type') }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK_TYPE }
 sub historic_type { 38 }
 sub ngs_class     { 'MusicBrainz::Server::Edit::Relationship::RemoveLinkType' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
 
-    my ($junk, @attributes) = split /=/, $self->new_value->{old_attribute};
-    my $all_attrs = join "=", @attributes;
-    @attributes = split / /, $all_attrs;
+    my @attributes = split / /, $self->new_value->{attribute} || '';
 
     my %types = (
         album => 'release',
@@ -32,15 +33,15 @@ augment 'upgrade' => sub
             map {
                 my ($name, $min_max) = split /=/, $_;
                 my ($min, $max) = split /-/, $min_max;
-                (
+
+                +{
                     name => $name,
-                    min  => $min,
-                    max  => $max
-                )
+                    min  => $min || 0,
+                    max  => $max || 0
+                }
             } @attributes
         ]
     };
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;

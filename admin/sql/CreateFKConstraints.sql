@@ -12,8 +12,8 @@ ALTER TABLE artist
    REFERENCES artist_name(id);
 
 ALTER TABLE artist
-   ADD CONSTRAINT artist_fk_sortname
-   FOREIGN KEY (sortname)
+   ADD CONSTRAINT artist_fk_sort_name
+   FOREIGN KEY (sort_name)
    REFERENCES artist_name(id);
 
 ALTER TABLE artist
@@ -74,8 +74,8 @@ ALTER TABLE artist_credit_name
    REFERENCES artist_name(id);
 
 ALTER TABLE artist_gid_redirect
-   ADD CONSTRAINT artist_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
+   ADD CONSTRAINT artist_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
    REFERENCES artist(id);
 
 ALTER TABLE artist_meta
@@ -110,8 +110,8 @@ ALTER TABLE editor_subscribe_editor
    REFERENCES editor(id);
 
 ALTER TABLE editor_subscribe_editor
-   ADD CONSTRAINT editor_subscribe_editor_fk_subscribededitor
-   FOREIGN KEY (subscribededitor)
+   ADD CONSTRAINT editor_subscribe_editor_fk_subscribed_editor
+   FOREIGN KEY (subscribed_editor)
    REFERENCES editor(id);
 
 ALTER TABLE editor_subscribe_label
@@ -550,8 +550,8 @@ ALTER TABLE label
    REFERENCES label_name(id);
 
 ALTER TABLE label
-   ADD CONSTRAINT label_fk_sortname
-   FOREIGN KEY (sortname)
+   ADD CONSTRAINT label_fk_sort_name
+   FOREIGN KEY (sort_name)
    REFERENCES label_name(id);
 
 ALTER TABLE label
@@ -585,8 +585,8 @@ ALTER TABLE label_annotation
    REFERENCES annotation(id);
 
 ALTER TABLE label_gid_redirect
-   ADD CONSTRAINT label_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
+   ADD CONSTRAINT label_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
    REFERENCES label(id);
 
 ALTER TABLE label_meta
@@ -685,6 +685,11 @@ ALTER TABLE medium_cdtoc
    FOREIGN KEY (cdtoc)
    REFERENCES cdtoc(id);
 
+ALTER TABLE medium_format
+   ADD CONSTRAINT medium_format_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES medium_format(id);
+
 ALTER TABLE puid
    ADD CONSTRAINT puid_fk_version
    FOREIGN KEY (version)
@@ -711,8 +716,8 @@ ALTER TABLE recording_annotation
    REFERENCES annotation(id);
 
 ALTER TABLE recording_gid_redirect
-   ADD CONSTRAINT recording_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
+   ADD CONSTRAINT recording_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
    REFERENCES recording(id);
 
 ALTER TABLE recording_meta
@@ -794,11 +799,12 @@ ALTER TABLE release_annotation
 ALTER TABLE release_coverart
    ADD CONSTRAINT release_coverart_fk_id
    FOREIGN KEY (id)
-   REFERENCES release(id);
+   REFERENCES release(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE release_gid_redirect
-   ADD CONSTRAINT release_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
+   ADD CONSTRAINT release_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
    REFERENCES release(id);
 
 ALTER TABLE release_group
@@ -827,8 +833,8 @@ ALTER TABLE release_group_annotation
    REFERENCES annotation(id);
 
 ALTER TABLE release_group_gid_redirect
-   ADD CONSTRAINT release_group_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
+   ADD CONSTRAINT release_group_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
    REFERENCES release_group(id);
 
 ALTER TABLE release_group_meta
@@ -904,8 +910,8 @@ ALTER TABLE track
    REFERENCES artist_credit(id);
 
 ALTER TABLE url_gid_redirect
-   ADD CONSTRAINT url_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
+   ADD CONSTRAINT url_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
    REFERENCES url(id);
 
 ALTER TABLE work
@@ -944,8 +950,8 @@ ALTER TABLE work_annotation
    REFERENCES annotation(id);
 
 ALTER TABLE work_gid_redirect
-   ADD CONSTRAINT work_gid_redirect_fk_newid
-   FOREIGN KEY (newid)
+   ADD CONSTRAINT work_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
    REFERENCES work(id);
 
 ALTER TABLE work_meta

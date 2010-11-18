@@ -1,12 +1,10 @@
-[% USE UserDate %]
-
 [% WRAPPER 'components/with-pager.tt' %]
 <form action="[% c.uri_for_action(c.namespace _ '/annotation_diff', [ entity.gid ]) %]">
   <table class="tbl">
     <thead>
       <tr>
-        <th>[% l('New') %]</th>
-        <th>[% l('Old') %]</th>
+        <th class="pos">[% l('Old') %]</th>
+        <th class="pos">[% l('New') %]</th>
         <th>[% l('Editor') %]</th>
         <th>[% l('Date') %]</th>
         <th>[% l('Changelog') %]</th>
@@ -16,12 +14,12 @@
       [% FOR annotation=annotations %]
       <tr>
         <td>
-          <input type="radio" name="new" value="[% annotation.id %]"
-                 [% IF loop.first %]checked="checked"[% END %]/>
-        </td>
-        <td>
           <input type="radio" name="old" value="[% annotation.id %]"
                  [% IF loop.index == 1 %]checked="checked"[% END %]/>
+        </td>
+        <td>
+          <input type="radio" name="new" value="[% annotation.id %]"
+                 [% IF loop.first %]checked="checked"[% END %]/>
         </td>
         <td>[% link_editor(annotation.editor) %]</td>
         <td>[% UserDate.format(annotation.creation_date) %]</td>

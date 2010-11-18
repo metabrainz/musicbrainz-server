@@ -4,12 +4,13 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
+use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Edit barcodes' }
+sub edit_name { l('Edit barcodes') }
 sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }
 
 has '+data' => (

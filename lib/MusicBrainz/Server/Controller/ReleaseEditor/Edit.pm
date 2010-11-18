@@ -10,14 +10,17 @@ sub edit : Chained('/release/load') Edit RequireAuth
 {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
-    $self->_load_tracklist ($c, $release);
+
     $self->run($c, $release);
 }
 
 sub cancelled
 {
     my ($self, $c) = @_;
-    $c->detach('/release/show');
+
+    my $release = $c->stash->{release};
+
+    $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]))
 }
 
 augment 'create_edits' => sub
@@ -39,7 +42,7 @@ augment 'create_edits' => sub
     # ----------------------------------------
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode artist_credit date );
+                     country_id barcode artist_credit date as_auto_editor );
     my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     $args{'to_edit'} = $release;
@@ -55,6 +58,8 @@ augment 'load' => sub
     my ($self, $c, $wizard, $release) = @_;
 
     $self->_load_release ($c, $release);
+    $c->model('Medium')->load_for_releases($release);
+
     $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
 
     return $release;

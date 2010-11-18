@@ -40,12 +40,13 @@ is ( $artist->end_date->month, 3 );
 is ( $artist->end_date->day, 4 );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, 'Yet Another Test Artist' );
+is ( $artist->ipi_code, '00014107338' );
 
 # Test loading metadata
 $artist_data->load_meta($artist);
 is ( $artist->rating, 70 );
 is ( $artist->rating_count, 4 );
-is_deeply ( $artist->last_update_date,
+is_deeply ( $artist->last_updated,
      DateTime->new(year => 2009, month => 7, day => 9,
                    hour => 20, minute => 40, second => 30) );
 
@@ -63,6 +64,7 @@ is ( $artist->end_date->month, undef );
 is ( $artist->end_date->day, undef );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, undef );
+is ( $artist->ipi_code, undef );
 
 # ---
 # Test annotations
@@ -125,6 +127,7 @@ $artist = $artist_data->insert({
         gender_id => 1,
         begin_date => { year => 2000, month => 1, day => 2 },
         end_date => { year => 1999, month => 3, day => 4 },
+        ipi_code => '00014107339',
     });
 isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
 ok($artist->id > 2);
@@ -142,6 +145,7 @@ is($artist->type_id, 1);
 is($artist->gender_id, 1);
 is($artist->country_id, 1);
 is($artist->comment, 'Artist comment');
+is($artist->ipi_code, '00014107339');
 ok(defined $artist->gid);
 
 # ---
@@ -155,6 +159,7 @@ $artist_data->update($artist->id, {
         gender_id => 2,
         country_id => 2,
         comment => 'Updated comment',
+        ipi_code => '00014107341',
     });
 
 $artist = $artist_data->get_by_id($artist->id);
@@ -170,6 +175,7 @@ is($artist->type_id, 2);
 is($artist->gender_id, 2);
 is($artist->country_id, 2);
 is($artist->comment, 'Updated comment');
+is($artist->ipi_code, '00014107341');
 
 $artist_data->update($artist->id, {
         type_id => undef,

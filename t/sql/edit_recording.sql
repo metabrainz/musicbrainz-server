@@ -9,11 +9,11 @@ TRUNCATE track_name CASCADE;
 TRUNCATE recording CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
-INSERT INTO artist (id, gid, name, sortname)
+INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '32552f80-755f-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, name, artist, position, joinphrase)
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, name, artist, position, join_phrase)
     VALUES (1, 1, 1, 0, NULL);
 
 INSERT INTO track_name (id, name) VALUES (1, 'Traits (remix)');

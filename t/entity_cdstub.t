@@ -23,6 +23,7 @@ has_attribute_ok($cdstub, $_) for qw( discid title artist date_added last_modifi
 $cdstubtrack->title("Track title");
 $cdstub->title("CDStub Title");
 $cdstub->tracks([$cdstubtrack]);
+$cdstubtoc->leadout_offset("100000");
 $cdstubtoc->cdstub($cdstub);
 
 # Check to see that the title of the CD Stub is as we expected
@@ -30,5 +31,8 @@ is ($cdstubtoc->cdstub->title, "CDStub Title");
 
 # Check to see that the title of the CD Stub Track is as we expected
 is ($cdstubtoc->cdstub->tracks->[0]->title, "Track title");
+
+# Check to see if the calculated length is correct
+is ($cdstubtoc->length, "1333333");
 
 done_testing;

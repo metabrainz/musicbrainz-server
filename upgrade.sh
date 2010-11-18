@@ -48,14 +48,15 @@ echo `date` : Fixing refcounts
 
 echo `date` : Migrating edits
 echo This step currently disabled
-# ./admin/sql/updates/ngs-migrate-edits.pl
+ ./admin/sql/updates/ngs-migrate-edits.pl
 
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql
 
 #echo `date` : Collecting cover art URLs
-#./admin/RebuildCoverArtUrls.pl
+./admin/psql READWRITE < ./admin/sql/updates/ngs-fast-rebuild-coverart.sql
+./admin/RebuildCoverArtUrls.pl
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then

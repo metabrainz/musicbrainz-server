@@ -1,54 +1,22 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseEventsOld;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Str Int );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD
 );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
-use MusicBrainz::Server::Edit::Types qw (
-    Changeset
-    Nullable
-    PartialDateHash
-);
 use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_date
     upgrade_id
 );
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use base 'MusicBrainz::Server::Edit::Historic::Fast';
 
-sub edit_name     { 'Edit release events' }
-sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
+sub edit_name     { l('Edit release events') }
 sub historic_type { 29 }
-
-sub ReleaseEventFields {
-    return (
-        date           => PartialDateHash,
-        country_id     => Nullable[Int],
-        label_id       => Nullable[Int],
-        catalog_number => Nullable[Str],
-        barcode        => Nullable[Str],
-        format_id      => Nullable[Int],
-    )
-}
-
-has '+data' => (
-    isa => Dict[
-        additions => ArrayRef[Dict[
-            release_id => Int,
-            ReleaseEventFields
-        ]],
-        removals => ArrayRef[Dict[
-            release_id => Int,
-            ReleaseEventFields
-        ]],
-        edits => ArrayRef[Dict[
-            release_id => Int,
-            Changeset(ReleaseEventFields),
-        ]]
-    ]
-);
+sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
 
 sub _additions { @{ shift->data->{additions} } }
 sub _removals  { @{ shift->data->{removals } } }
@@ -211,9 +179,5 @@ sub _decode
     $t =~ s/\$26/\$/g;
     return $t;
 }
-
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
 
 1;
