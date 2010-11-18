@@ -52,7 +52,7 @@ sub run {
             ->get_all_subscriptions($editor->id) or next;
 
         if ($editor->has_confirmed_email_address) {
-            printf "... sending email\n";
+            printf "... sending email\n" if $self->verbose;
             if(my $data = $self->extract_subscription_data(@subscriptions)) {
                 $self->emailer->send_subscriptions_digest(
                     to => $editor,
@@ -62,7 +62,7 @@ sub run {
         }
 
         unless ($self->dry_run) {
-            printf "... updating subscriptions\n";
+            printf "... updating subscriptions\n" if $self->verbose;
             $self->c->model('EditorSubscriptions')
                 ->update_subscriptions($max, $editor->id);
 
