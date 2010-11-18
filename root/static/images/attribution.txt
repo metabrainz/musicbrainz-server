@@ -6,20 +6,6 @@ license which applies to it.
 
 ----------------------------------------------------------------------------
 
-Author:      Unknown
-License:     Unknown
-Notes:       
-
-    Added by Oliver Charles on 2009-02-17, 
-    commit dbfa3243d69e01a8377ee299e50210314a1343bd.
-
-Images:
-
-    icons/rating_star.gif
-    icons/rating_star_small.gif
-
-----------------------------------------------------------------------------
-
 Image set:   Crystal Clear
 Author:      Everaldo Coelho
 License:     LGPL v2.1 or later (see: kde-icons-crystalclear-copyright.txt)
@@ -59,20 +45,43 @@ Images:
 Source:      MediaWiki
 Author:      Unkown
 License:     GPL v2 or later
-Download:    http://commons.wikimedia.org/wiki/File:Icon_External_Link.png
+Download:    http://commons.wikimedia.org/wiki/File:Icon_External_Link.png,
+             http://commons.wikimedia.org/wiki/File:Bullet.gif
 Images:
 
     icons/external.png
+    icons/bullet.gif
+
+----------------------------------------------------------------------------
+
+Author:      Rogie King
+License:     Permissive
+Notes:
+
+    Originally from http://www.komodomedia.com/blog/2007/01/css-star-rating-redux/ .
+    Modified for MusicBrainz by Aurélien Mino.
+
+    Received permission from Rogie King to use these icons:
+
+      "Ok. I'll have to update the article to allow free license for
+      all, however, save this email as a written permission to use it
+      howe you feel fit. It's free code for all, businesses and personal
+      alike, so enjoy."
+
+Images:
+
+    icons/rating_star.gif
+    icons/rating_star_small.gif
 
 ----------------------------------------------------------------------------
 
 Source:      MusicBrainz
+Authors:     Carlin Mangar, Lukáš Lalinský
 License:     GPL v2 or later
 Notes:       Various spacers and icons created for the musicbrainz website.
 Images:
 
     entity/*                        (source: src/label.svg)
-    icons/bullet.gif
     icons/mblookup-tag.gif
     icons/mblookup-tagger.png
     layout/sprites.png              (source: src/sprides.psd)
