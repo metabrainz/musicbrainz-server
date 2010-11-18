@@ -65,6 +65,9 @@ sub run {
             printf "... updating subscriptions\n";
             $self->c->model('EditorSubscriptions')
                 ->update_subscriptions($max, $editor->id);
+
+            my @delete = grep { deleted($_) || merged($_) } @subscriptions;
+            $self->c->model('EditorSubscriptions') ->delete(@delete) if @delete;
         }
 
         printf "\n";
@@ -86,12 +89,10 @@ sub extract_subscription_data
         if (deleted($sub)) {
             $deletions{ $sub->type } ||= [];
             push @{ $deletions{ $sub->type } }, $sub;
-            $self->c->model('Artist')->subscriptions->delete($sub->id);
         }
         elsif (merged($sub)) {
             $merges{ $sub->type } ||= [];
             push @{ $merges{ $sub->type } }, $sub;
-            $self->c->model('Artist')->subscriptions->delete($sub->id);
         }
         else {
             my @edits = $self->c->model('Edit')->find_for_subscription($sub);
@@ -110,7 +111,7 @@ sub extract_subscription_data
     }
 
     my %data;
-    $data{deletions} = \%deletions if %deletions;
+    $data{deletes} = \%deletions if %deletions;
     $data{merges} = \%merges if %merges;
     $data{edits} = \%edits if %edits;
 
