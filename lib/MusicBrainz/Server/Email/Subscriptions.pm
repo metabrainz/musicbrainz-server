@@ -5,8 +5,20 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str );
 use MooseX::Types::Structured qw( Map );
 use String::TT qw( strip tt );
+use MusicBrainz::Server::Entity::Types;
+
+has 'editor' => (
+    isa => 'Editor',
+    required => 1,
+    is => 'ro',
+);
 
 with 'MusicBrainz::Server::Email::Role';
+
+has '+to' => (
+    lazy => 1,
+    default => sub { shift->editor->email }
+);
 
 has '+subject' => (
     default => 'Edits for your subscriptions'
@@ -27,6 +39,12 @@ has 'edits' => (
     is => 'ro',
     default => sub { {} }
 );
+
+sub extra_headers {
+    return (
+        'Reply-To' => $MusicBrainz::Server::Email::SUPPORT_ADDRESS
+    )
+}
 
 sub text {
     my $self = shift;
@@ -54,7 +72,7 @@ sub header {
 This is a notification that edits have been added for artists, labels and
 editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
-[% server %]/user/[% self.to.name %]/subscriptions.html
+[% server %]/user/[% self.editor.name %]/subscriptions.html
 
 To see all open edits for your subscribed artists, see this link:
 [% server %]/edit/search

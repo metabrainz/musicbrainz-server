@@ -76,11 +76,11 @@ test 'Sending edits' => sub {
 
     subtest 'sends email to aCiD2' => sub {
         my %args = inspect($test->emailer)
-            ->send_subscriptions_digest(hash(to => $acid2), anything)
+            ->send_subscriptions_digest(hash(editor => $acid2), anything)
                 ->arguments;
 
         ok(%args, 'sends an email to aCiD2');
-        delete $args{to};
+        delete $args{editor};
         is_deeply(\%args, {
             edits => {
                 artist => [{

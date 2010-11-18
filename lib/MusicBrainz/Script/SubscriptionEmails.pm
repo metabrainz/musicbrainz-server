@@ -55,7 +55,7 @@ sub run {
             printf "... sending email\n" if $self->verbose;
             if(my $data = $self->extract_subscription_data(@subscriptions)) {
                 $self->emailer->send_subscriptions_digest(
-                    to => $editor,
+                    editor => $editor,
                     %$data
                 );
             }

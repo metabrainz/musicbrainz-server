@@ -33,7 +33,7 @@ subtest 'Edits' => sub {
     my @closed = (Edit->new(status => $STATUS_APPLIED));
 
     my $email = Email->new(
-        to => $acid2, 
+        editor => $acid2, 
         edits => {
             artist => [{
                 subscription => $klute_sub,
@@ -52,7 +52,7 @@ subtest 'Edits' => sub {
 };
 
 subtest 'header' => sub {
-    my $email = Email->new(to => $acid2);
+    my $email = Email->new(editor => $acid2);
     is($email->subject, 'Edits for your subscriptions');
 
     contains_string($email->body => '/user/' . $acid2->name . '/subscriptions',
@@ -76,7 +76,7 @@ subtest 'Deletes and merges' => sub {
     );
 
     my $email = Email->new(
-        to => $acid2, 
+        editor => $acid2, 
         deletes => [ $artist_sub, $label_sub ]
     );
 
