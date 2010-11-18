@@ -127,19 +127,6 @@ CREATE TABLE currentstat
     last_updated        TIMESTAMP WITH TIME ZONE
 );
 
-CREATE TABLE dbmirror_Pending (
-    SeqId               SERIAL,
-    TableName           NAME NOT NULL,
-    Op                  CHARACTER,
-    XID                 INTEGER NOT NULL
-);
-
-CREATE TABLE dbmirror_PendingData (
-    SeqId               INTEGER NOT NULL, -- PK
-    IsKey               BOOLEAN NOT NULL, -- PK
-    Data                VARCHAR
-);
-
 CREATE TABLE editor
 (
     id                  SERIAL,
