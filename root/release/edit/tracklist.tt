@@ -129,8 +129,8 @@
             </td>
           </tr>
         </table>
-
         <textarea style="display: none" class="tracklist"></textarea>
+        [% field_errors(form, medium_field.full_name) %]
       </div>
 
       [% END %]
@@ -262,6 +262,7 @@
       </div>
 
       <div class="tracklist-padding">
+      [% field_errors(form, medium_field.full_name) %]
       <table class="medium tbl" style="display: none">
         <thead>
           <tr>

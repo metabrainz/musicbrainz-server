@@ -142,7 +142,7 @@ sub render
     # page is shown to the user.
     if (! $self->shown->[$self->_current])
     {
-        map { $_->clear_errors } $page->fields;
+        $page->clear_errors;
     }
 
     # mark the current page as having been shown to the user.
