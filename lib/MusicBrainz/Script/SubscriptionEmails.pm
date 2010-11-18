@@ -7,6 +7,8 @@ use Moose::Util qw( does_role );
 use MusicBrainz::Server::Types qw( :edit_status );
 
 use aliased 'MusicBrainz::Server::Email';
+use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Delete' => 'DeleteRole';
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Merge' => 'MergeRole';
 
@@ -98,6 +100,8 @@ sub extract_subscription_data
             my @open = grep { $_->is_open } @edits;
             my @applied = grep { $_->status == $STATUS_APPLIED } @edits;
 
+            $self->load_subscription($sub);
+
             $edits{ $sub->type } ||= [];
             push @{ $edits{ $sub->type } }, {
                 open => \@open,
@@ -112,6 +116,17 @@ sub extract_subscription_data
     $data{edits} = \%edits if %edits;
 
     return %data ? \%data : undef;
+}
+
+sub load_subscription
+{
+    my ($self, $subscription) = @_;
+    if ($subscription->isa(ArtistSubscription)) {
+        $self->c->model('Artist')->load($subscription);
+    }
+    elsif ($subscription->isa(LabelSubscription)) {
+        $self->c->model('Label')->load($subscription);
+    }
 }
 
 sub deleted

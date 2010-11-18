@@ -77,6 +77,8 @@ test 'Sending edits' => sub {
             ->send_subscriptions_digest(hash(editor => $acid2), anything)
                 ->arguments;
 
+        verify($c->model('Artist'))->load($spor_subscription);
+
         ok(%args, 'sends an email to aCiD2');
         delete $args{editor};
         is_deeply(\%args, {
