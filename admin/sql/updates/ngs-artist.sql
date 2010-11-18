@@ -15,7 +15,7 @@ CREATE UNIQUE INDEX tmp_artist_name_name ON artist_name (name);
 INSERT INTO artist (id, gid, name, sort_name, type,
                     begin_date_year, begin_date_month, begin_date_day,
                     end_date_year, end_date_month, end_date_day,
-                    comment)
+                    comment, last_updated)
     SELECT
         a.id, gid::uuid, n1.id, n2.id,
         NULLIF(NULLIF(type, 0), 3),
@@ -25,8 +25,12 @@ INSERT INTO artist (id, gid, name, sort_name, type,
         NULLIF(substr(enddate, 1, 4)::int, 0),
         NULLIF(substr(enddate, 6, 2)::int, 0),
         NULLIF(substr(enddate, 9, 2)::int, 0),
-        resolution
-    FROM public.artist a JOIN artist_name n1 ON a.name = n1.name JOIN artist_name n2 ON a.sortname = n2.name;
+        resolution,
+        m.lastupdate
+    FROM public.artist a 
+    JOIN artist_name n1 ON a.name = n1.name 
+    JOIN artist_name n2 ON a.sortname = n2.name
+    JOIN public.artist_meta m ON a.id = m.id;
 
 INSERT INTO artist_credit (id, name, artist_count) SELECT id, name, 1 FROM artist;
 SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));

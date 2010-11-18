@@ -161,7 +161,7 @@ CREATE OR REPLACE FUNCTION a_upd_artist() RETURNS trigger AS $$
 BEGIN
     IF NEW.edits_pending = OLD.edits_pending THEN
         -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE artist_meta SET last_updated=NOW() WHERE id=NEW.id;
+        UPDATE artist SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;
@@ -182,7 +182,7 @@ CREATE OR REPLACE FUNCTION a_upd_label() RETURNS trigger AS $$
 BEGIN
     IF NEW.edits_pending = OLD.edits_pending THEN
         -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE label_meta SET last_updated=NOW() WHERE id=NEW.id;
+        UPDATE label SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;
@@ -208,7 +208,7 @@ BEGIN
     END IF;
     IF NEW.edits_pending = OLD.edits_pending THEN
         -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE recording_meta SET last_updated=NOW() WHERE id=NEW.id;
+        UPDATE recording SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;
@@ -254,7 +254,7 @@ BEGIN
     PERFORM set_release_group_first_release_date(NEW.release_group);
     IF NEW.edits_pending = OLD.edits_pending THEN
         -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE release_meta SET last_updated=NOW() WHERE id=NEW.id;
+        UPDATE release SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;
@@ -291,7 +291,7 @@ BEGIN
     END IF;
     IF NEW.edits_pending = OLD.edits_pending THEN
         -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE release_group_meta SET last_updated=NOW() WHERE id=NEW.id;
+        UPDATE release_group SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;
@@ -361,7 +361,7 @@ BEGIN
     END IF;
     IF NEW.edits_pending = OLD.edits_pending THEN
         -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE work_meta SET last_updated=NOW() WHERE id=NEW.id;
+        UPDATE work SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;

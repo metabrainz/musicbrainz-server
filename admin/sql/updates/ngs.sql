@@ -133,7 +133,7 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 
 CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
 
-INSERT INTO release_group (id, gid, name, type, artist_credit)
+INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
     SELECT
         a.id, gid::uuid, n.id,
         CASE
@@ -150,9 +150,10 @@ INSERT INTO release_group (id, gid, name, type, artist_credit)
             WHEN 10 = type THEN 11
             WHEN 11 = type THEN 12
             ELSE NULL
-        END, COALESCE(new_ac, artist)
+        END, COALESCE(new_ac, artist), r.lastupdate as last_updated
     FROM public.release_group a
         JOIN release_name n ON a.name = n.name
+        JOIN public.albummeta r ON a.id = r.id
         LEFT JOIN tmp_artist_credit_repl acr ON artist=old_ac;
 
 ------------------------
@@ -171,7 +172,7 @@ CREATE UNIQUE INDEX tmp_release_gid_album ON tmp_release_gid(album);
 INSERT INTO release
     (id, gid, release_group, name, artist_credit, barcode, status,
      date_year, date_month, date_day, country, language, script,
-     quality)
+     quality, last_updated)
     SELECT
         r.id,
         CASE WHEN g.gid IS NULL THEN
@@ -194,10 +195,12 @@ INSERT INTO release
         NULLIF(country, 239), -- Use NULL instead of [Unknown Country]
         language,
         script,
-        quality
+        quality,
+        m.lastupdate AS last_updated
     FROM public.release r
         JOIN public.album a ON r.album = a.id
         JOIN release_name n ON a.name = n.name
+        JOIN public.albummeta m ON a.id = m.id
         LEFT JOIN tmp_release_gid g ON r.id=g.id
         LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
@@ -222,7 +225,7 @@ INSERT INTO tmp_release_album
 
 INSERT INTO release
     (id, gid, release_group, name, artist_credit, status, language, script,
-    quality)
+    quality, last_updated)
     SELECT
         r.id,
         a.gid::uuid,
@@ -238,22 +241,24 @@ INSERT INTO release
         END,
         language,
         script,
-        quality
+        quality,
+        m.lastupdate
     FROM tmp_new_release r
         JOIN public.album a ON r.album = a.id
         JOIN release_name n ON a.name = n.name
+        JOIN public.albummeta m ON a.id = m.id
         LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
 DROP INDEX tmp_release_name_name_idx;
 
 -- release_meta for releases converted from release events
 INSERT INTO release_meta
-    SELECT r.id, lastupdate AS last_updated, dateadded FROM
+    SELECT r.id, dateadded FROM
         public.release r JOIN public.albummeta am ON r.album=am.id;
 
 -- release_meta for new releases
-INSERT INTO release_meta (id, last_updated, date_added)
-    SELECT r.id, lastupdate, dateadded FROM
+INSERT INTO release_meta (id, date_added)
+    SELECT r.id, dateadded FROM
         tmp_new_release r JOIN public.albummeta am ON r.album=am.id;
 
 -- convert release events with non-empty label or catalog_number to release_label
@@ -279,9 +284,9 @@ INSERT INTO medium (tracklist, release, position)
 ------------------------
 
 INSERT INTO release_group_meta
-    (id, last_updated, release_count, first_release_date_year,
+    (id, release_count, first_release_date_year,
      first_release_date_month, first_release_date_day)
-    SELECT m.id, lastupdate, count(*),
+    SELECT m.id, count(*),
         NULLIF(substr(firstreleasedate, 1, 4)::int, 0),
         NULLIF(substr(firstreleasedate, 6, 2)::int, 0),
         NULLIF(substr(firstreleasedate, 9, 2)::int, 0)
@@ -303,7 +308,7 @@ CREATE UNIQUE INDEX tmp_label_name_name_idx ON label_name (name);
 INSERT INTO label (id, gid, name, sort_name, type,
                    begin_date_year, begin_date_month, begin_date_day,
                    end_date_year, end_date_month, end_date_day,
-                   comment, country, label_code)
+                   comment, country, label_code, last_updated)
     SELECT
         a.id, gid::uuid, n1.id, n2.id,
         NULLIF(type, 0),
@@ -315,15 +320,19 @@ INSERT INTO label (id, gid, name, sort_name, type,
         NULLIF(substr(enddate, 9, 2)::int, 0),
         resolution,
         NULLIF(country, 239), -- Use NULL instead of [Unknown Country]
-        labelcode
-    FROM public.label a JOIN label_name n1 ON a.name = n1.name JOIN label_name n2 ON a.sortname = n2.name;
+        labelcode,
+        m.lastupdate AS last_updated
+    FROM public.label a 
+    JOIN label_name n1 ON a.name = n1.name 
+    JOIN label_name n2 ON a.sortname = n2.name
+    JOIN public.label_meta m ON a.id = m.id;
 
 INSERT INTO label_alias (label, name)
     SELECT DISTINCT a.ref, n.id
     FROM public.labelalias a JOIN label_name n ON a.name = n.name;
 
-INSERT INTO label_meta (id, last_updated, rating, rating_count)
-    SELECT id, lastupdate, round(rating * 20), rating_count
+INSERT INTO label_meta (id, rating, rating_count)
+    SELECT id, round(rating * 20), rating_count
     FROM public.label_meta;
 
 DROP INDEX tmp_label_name_name_idx;
@@ -401,7 +410,7 @@ FROM (
 CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
 
 INSERT INTO work_name (name)
-    SELECT DISTINCT clean_work_name(track.name)
+    SELECT DISTINCT regexp_replace(track.name, E' \\(feat. .*?\\)', '')
     FROM public.track
         JOIN tmp_work t ON track.id = t.id;
 
@@ -412,7 +421,7 @@ INSERT INTO work (id, gid, name, artist_credit)
         n.id, COALESCE(new_ac, track.artist)
     FROM public.track 
         JOIN tmp_work t ON track.id = t.id  
-        JOIN work_name n ON n.name = clean_work_name(track.name)
+        JOIN work_name n ON n.name = regexp_replace(track.name, E' \\(feat. .*?\\)', '')
         LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac;
 
 DROP INDEX tmp_work_name_name;

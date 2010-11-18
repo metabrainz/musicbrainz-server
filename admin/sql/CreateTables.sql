@@ -26,7 +26,8 @@ CREATE TABLE artist (
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255),
     ipi_code            VARCHAR(11),
-    edits_pending       INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_alias
@@ -35,8 +36,7 @@ CREATE TABLE artist_alias
     artist              INTEGER NOT NULL, -- references artist.id
     name                INTEGER NOT NULL, -- references artist_name.id
     locale              TEXT,
-    edits_pending       INTEGER NOT NULL DEFAULT 0,
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    edits_pending       INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE artist_annotation
@@ -501,7 +501,8 @@ CREATE TABLE label (
     country             INTEGER, -- references country.id
     comment             VARCHAR(255),
     ipi_code            VARCHAR(11),
-    edits_pending       INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_alias
@@ -523,7 +524,6 @@ CREATE TABLE label_annotation
 CREATE TABLE label_meta
 (
     id                  INTEGER NOT NULL, -- PK, references label.id CASCADE
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
 );
@@ -688,7 +688,8 @@ CREATE TABLE recording (
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER,
     comment             VARCHAR(255),
-    edits_pending       INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE recording_annotation
@@ -701,8 +702,7 @@ CREATE TABLE recording_meta
 (
     id                  INTEGER NOT NULL, -- PK, references recording.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    rating_count        INTEGER,
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    rating_count        INTEGER
 );
 
 CREATE TABLE recording_gid_redirect
@@ -746,7 +746,8 @@ CREATE TABLE release (
     barcode             VARCHAR(255),
     comment             VARCHAR(255),
     edits_pending       INTEGER NOT NULL DEFAULT 0,
-    quality             SMALLINT NOT NULL DEFAULT -1
+    quality             SMALLINT NOT NULL DEFAULT -1,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_annotation
@@ -765,7 +766,6 @@ CREATE TABLE release_gid_redirect
 CREATE TABLE release_meta
 (
     id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     date_added          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     info_url            VARCHAR(255),
     amazon_asin         VARCHAR(10),
@@ -806,7 +806,8 @@ CREATE TABLE release_group (
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references release_group_type.id
     comment             VARCHAR(255),
-    edits_pending       INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_group_annotation
@@ -825,7 +826,6 @@ CREATE TABLE release_group_gid_redirect
 CREATE TABLE release_group_meta
 (
     id                  INTEGER NOT NULL, -- PK, references release_group.id CASCADE
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     release_count       INTEGER NOT NULL DEFAULT 0,
     first_release_date_year   SMALLINT,
     first_release_date_month  SMALLINT,
@@ -856,7 +856,7 @@ CREATE TABLE script
 (
     id                  SERIAL,
     iso_code            CHAR(4) NOT NULL, -- ISO 15924
-    isonumber           CHAR(3) NOT NULL, -- ISO 15924
+    iso_number          CHAR(3) NOT NULL, -- ISO 15924
     name                VARCHAR(100) NOT NULL,
     frequency           INTEGER NOT NULL DEFAULT 0
 );
@@ -943,7 +943,8 @@ CREATE TABLE work (
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),
-    edits_pending       INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_alias
@@ -972,7 +973,6 @@ CREATE TABLE work_gid_redirect
 CREATE TABLE work_meta
 (
     id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
 );
