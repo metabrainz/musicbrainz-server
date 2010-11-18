@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::List;
+package MusicBrainz::Server::Form::Collection;
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';

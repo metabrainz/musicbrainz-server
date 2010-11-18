@@ -621,7 +621,7 @@ CREATE TABLE link_type_attribute_type
     max                 SMALLINT
 );
 
-CREATE TABLE list
+CREATE TABLE editor_collection
 (
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -630,9 +630,9 @@ CREATE TABLE list
     public              BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE list_release
+CREATE TABLE editor_collection_release
 (
-    list                INTEGER NOT NULL, -- PK, references list.id
+    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
     release             INTEGER NOT NULL -- PK, references release.id
 );
 

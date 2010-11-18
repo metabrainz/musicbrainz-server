@@ -1,31 +1,31 @@
-package MusicBrainz::Server::Controller::List;
+package MusicBrainz::Server::Controller::Collection;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    entity_name => 'list',
-    model       => 'List',
+    entity_name => 'collection',
+    model       => 'Collection',
 };
 
-sub base : Chained('/') PathPart('list') CaptureArgs(0) { }
+sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 after 'load' => sub
 {
     my ($self, $c) = @_;
-    my $list = $c->stash->{list};
+    my $collection = $c->stash->{collection};
 
     # Load editor
-    $c->model('Editor')->load($list);
+    $c->model('Editor')->load($collection);
 };
 
 sub add : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my $list = $c->stash->{list};
+    my $collection = $c->stash->{collection};
     my $release_id = $c->request->params->{release};
 
-    $c->model('List')->add_releases_to_list($list->id, $release_id);
+    $c->model('Collection')->add_releases_to_collection($collection->id, $release_id);
 
     $c->response->redirect($c->req->referer);
     $c->detach;
@@ -35,10 +35,10 @@ sub remove : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my $list = $c->stash->{list};
+    my $collection = $c->stash->{collection};
     my $release_id = $c->request->params->{release};
 
-    $c->model('List')->remove_releases_from_list($list->id, $release_id);
+    $c->model('Collection')->remove_releases_from_collection($collection->id, $release_id);
 
     $c->response->redirect($c->req->referer);
     $c->detach;
@@ -48,16 +48,16 @@ sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my $list = $c->stash->{list};
+    my $collection = $c->stash->{collection};
 
-    my $user = $list->editor;
+    my $user = $collection->editor;
     $c->detach('/error_404')
-        if ((!$c->user_exists || $c->user->id != $user->id) && !$list->public);
+        if ((!$c->user_exists || $c->user->id != $user->id) && !$collection->public);
 
     my $order = $c->req->params->{order} || 'date';
 
     my $releases = $self->_load_paged($c, sub {
-        $c->model('Release')->find_by_list($list->id, shift, shift, $order);
+        $c->model('Release')->find_by_collection($collection->id, shift, shift, $order);
     });
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
@@ -67,10 +67,10 @@ sub show : Chained('load') PathPart('')
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 
     $c->stash(
-        list => $list,
+        collection => $collection,
         order => $order,
         releases => $releases,
-        template => 'list/index.tt'
+        template => 'collection/index.tt'
     );
 }
 
@@ -85,15 +85,15 @@ sub create : Local RequireAuth
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form( form => 'List' );
+    my $form = $c->form( form => 'Collection' );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my %insert = $self->_form_to_hash($form);
 
-        my $list = $c->model('List')->insert($c->user->id, \%insert);
+        my $collection = $c->model('Collection')->insert($c->user->id, \%insert);
 
         $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+            $c->uri_for_action($self->action_for('show'), [ $collection->gid ]));
     }
 }
 
@@ -101,20 +101,20 @@ sub edit : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my $list = $c->stash->{list};
+    my $collection = $c->stash->{collection};
 
-    my $user = $list->editor;
+    my $user = $collection->editor;
     $c->detach('/error_404') if ($c->user->id != $user->id);
 
-    my $form = $c->form( form => 'List', init_object => $list );
+    my $form = $c->form( form => 'Collection', init_object => $collection );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my %update = $self->_form_to_hash($form);
 
-        $c->model('List')->update($list->id, \%update);
+        $c->model('Collection')->update($collection->id, \%update);
 
         $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $list->gid ]));
+            $c->uri_for_action($self->action_for('show'), [ $collection->gid ]));
     }
 }
 
@@ -122,16 +122,16 @@ sub delete : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my $list = $c->stash->{list};
+    my $collection = $c->stash->{collection};
 
-    my $user = $list->editor;
+    my $user = $collection->editor;
     $c->detach('/error_404') if ($c->user->id != $user->id);
 
     if ($c->form_posted) {
-        $c->model('List')->delete($list->id);
+        $c->model('Collection')->delete($collection->id);
 
         $c->response->redirect(
-            $c->uri_for_action('/user/lists', [ $c->user->name ]));
+            $c->uri_for_action('/user/collections', [ $c->user->name ]));
     }
 }
 

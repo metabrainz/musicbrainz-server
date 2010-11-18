@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::List;
+package MusicBrainz::Server::Entity::Collection;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;

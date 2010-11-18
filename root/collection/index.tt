@@ -1,4 +1,4 @@
-[% WRAPPER "list/layout.tt" full_width=1 page='index' %]
+[% WRAPPER "collection/layout.tt" full_width=1 page='index' %]
 
     [%- IF releases.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
@@ -38,7 +38,7 @@
 </table>
         [%- END -%]
     [%- ELSE -%]
-        <p>[%- l('No releases found in list.') -%]</p>
+        <p>[%- l('No releases found in collection.') -%]</p>
     [%- END -%]
 
 [% END %]
