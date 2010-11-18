@@ -26,14 +26,24 @@ has 'dry_run' => (
     default => 0,
 );
 
+has 'emailer' => (
+    is => 'ro',
+    required => 1,
+    lazy_build => 1
+);
+
+sub _build_emailer { 
+    my $self = shift;
+    return Email->new(c => $self->c);
+}
+
 sub run {
     my ($self, @args) = @_;
     die "Usage error ($0 takes no arguments)" if @args;
 
     my $max = $self->c->model('Edit')->get_max_id;
-    my $email = Email->new(c => $self->c);
-
     my @editors = $self->c->model('Editor')->editors_with_subscriptions;
+
     for my $editor (@editors) {
         printf "Processing subscriptions for '%s'\n", $editor->name
             if $self->verbose;
@@ -43,11 +53,12 @@ sub run {
 
         if ($editor->has_confirmed_email_address) {
             printf "... sending email\n";
-            my %data = $self->extract_subscription_data(@subscriptions);
-            $email->send_subscriptions_digest(
-                to => $editor,
-                %data
-            );
+            if(my $data = $self->extract_subscription_data(@subscriptions)) {
+                $self->emailer->send_subscriptions_digest(
+                    to => $editor,
+                    %$data
+                );
+            }
         }
 
         unless ($self->dry_run) {
@@ -86,24 +97,24 @@ sub extract_subscription_data
             my @edits = $self->c->model('Edit')->find_for_subscription($sub);
             next unless @edits;
 
-            my $open_count = grep { $_->is_open } @edits;
-            my $applied_count = grep { $_->status == $STATUS_APPLIED } @edits;
+            my @open = grep { $_->is_open } @edits;
+            my @applied = grep { $_->status == $STATUS_APPLIED } @edits;
 
             $edits{ $sub->type } ||= [];
             push @{ $edits{ $sub->type } }, {
-                open => $open_count,
-                applied => $applied_count
+                open => \@open,
+                applied => \@applied,
+                subscription => $sub
             };
         }
     }
 
-    $self->c->model('EditorSubscriptions')->update_subscriptions;
+    my %data;
+    $data{deletions} = \%deletions if %deletions;
+    $data{merges} = \%merges if %merges;
+    $data{edits} = \%edits if %edits;
 
-    return (
-        deletions => \%deletions,
-        merges => \%merges,
-        edits => \%edits
-    );
+    return %data ? \%data : undef;
 }
 
 sub deleted
