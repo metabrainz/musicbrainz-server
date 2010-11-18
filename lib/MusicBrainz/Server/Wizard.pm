@@ -137,6 +137,25 @@ sub render
     $self->c->stash->{form} = $page;
     $self->c->stash->{wizard} = $self;
     $self->c->stash->{steps} = \@steps;
+
+    # hide errors if this is the first time (in this wizard session) that this
+    # page is shown to the user.
+    if (! $self->shown->[$self->_current])
+    {
+        map { $_->clear_errors } $page->fields;
+    }
+
+    # mark the current page as having been shown to the user.
+    $self->shown->[$self->_current] = 1;
+}
+
+sub shown
+{
+    my $self = shift;
+
+    $self->_store->{shown} = [] unless $self->_store->{shown};
+
+    return $self->_store->{shown};
 }
 
 # returns the name of the current page.
@@ -313,8 +332,6 @@ sub _store
 sub _retrieve_wizard_settings
 {
     my ($self) = @_;
-
-    $self->c->stash->{things} = "";
 
     my $p = $self->c->request->parameters;
 
