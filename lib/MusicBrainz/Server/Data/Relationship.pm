@@ -13,7 +13,11 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
-use MusicBrainz::Server::Data::Utils qw( placeholders type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    placeholders
+    ref_to_type
+    type_to_model
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -28,16 +32,6 @@ Readonly my @TYPES => qw(
 );
 
 my %TYPES = map { $_ => 1} @TYPES;
-
-Readonly my %ENTITY_CLASS_TO_TYPE => (
-    'MusicBrainz::Server::Entity::Artist'       => 'artist',
-    'MusicBrainz::Server::Entity::Label'        => 'label',
-    'MusicBrainz::Server::Entity::Recording'    => 'recording',
-    'MusicBrainz::Server::Entity::Release'      => 'release',
-    'MusicBrainz::Server::Entity::ReleaseGroup' => 'release_group',
-    'MusicBrainz::Server::Entity::URL'          => 'url',
-    'MusicBrainz::Server::Entity::Work'         => 'work',
-);
 
 sub all_link_types
 {
@@ -196,8 +190,7 @@ sub load_subset
     my %objs_by_type;
     return unless @objs; # nothing to do
     foreach my $obj (@objs) {
-        if (exists $ENTITY_CLASS_TO_TYPE{$obj->meta->name}) {
-            my $type = $ENTITY_CLASS_TO_TYPE{$obj->meta->name};
+        if (my $type = ref_to_type($obj)) {
             $objs_by_type{$type} = [] if !exists($objs_by_type{$type});
             push @{$objs_by_type{$type}}, $obj;
         }
