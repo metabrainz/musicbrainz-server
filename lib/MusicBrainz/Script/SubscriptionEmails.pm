@@ -52,8 +52,8 @@ sub run {
             ->get_all_subscriptions($editor->id) or next;
 
         if ($editor->has_confirmed_email_address) {
-            printf "... sending email\n" if $self->verbose;
             if(my $data = $self->extract_subscription_data(@subscriptions)) {
+                printf "... sending email\n" if $self->verbose;
                 $self->emailer->send_subscriptions_digest(
                     editor => $editor,
                     %$data

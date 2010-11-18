@@ -347,7 +347,10 @@ sub send_subscriptions_digest
 {
     my ($self, %opts) = @_;
 
-    my $email = MusicBrainz::Server::Email::Subscriptions->new(%opts);
+    my $email = MusicBrainz::Server::Email::Subscriptions->new(
+        from => $NOREPLY_ADDRESS,
+        %opts
+    );
     return $self->_send_email($email->create_email);
 }
 

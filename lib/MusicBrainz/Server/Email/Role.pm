@@ -59,7 +59,12 @@ sub create_email {
             From => $self->from,
             Subject => $self->subject
         ],
-        $self->body
+        body => $self->body,
+        attributes => {
+            content_type => "text/plain",
+            charset      => "UTF-8",
+            encoding     => "quoted-printable",
+        }
     );
 }
 

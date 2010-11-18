@@ -36,9 +36,9 @@ sub _column_mapping {
     return {
         id => 'id',
         $self->column . '_id' => $self->column,
-        'last_edit_sent' => 'lasteditsent',
-        'deleted_by_edit' => 'deletedbyedit',
-        'merged_by_edit' => 'mergedbyedit',
+        'last_edit_sent' => 'last_edit_sent',
+        'deleted_by_edit' => 'deleted_by_edit',
+        'merged_by_edit' => 'merged_by_edit',
     };
 }
 

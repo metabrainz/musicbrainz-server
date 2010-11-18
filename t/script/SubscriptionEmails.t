@@ -18,9 +18,7 @@ use MusicBrainz::Server::Types qw( :edit_status );
 
 my $c = MusicBrainz::Server::Test->create_test_context(
     models => {
-        Editor => mock,
-        Edit => mock,
-        EditorSubscriptions => mock
+        map { $_ => mock } qw( Artist Editor Edit EditorSubscriptions )
     }
 );
 
