@@ -141,12 +141,9 @@ test 'Handling deletes and merges' => sub {
         my %args = inspect($test->emailer)->send_subscriptions_digest(anything)
             ->arguments;
 
-        is_deeply($args{merges} => {
-            artist => [ $artist ],
-        }, 'has information about the merged artist');
-        is_deeply($args{deletes} => {
-            label => [ $label ]
-        }, 'has information about the deleted label')
+        is_deeply($args{deletes} => [
+            $artist, $label
+        ], 'has information about the deleted label and merged artist')
     };
 
     subtest 'Deleted deleted and merged subscriptions from the database' => sub {

@@ -66,12 +66,14 @@ sub run {
             $self->c->model('EditorSubscriptions')
                 ->update_subscriptions($max, $editor->id);
 
-            my @delete = grep { deleted($_) || merged($_) } @subscriptions;
+            my @delete = grep { deleted($_) } @subscriptions;
             $self->c->model('EditorSubscriptions') ->delete(@delete) if @delete;
         }
 
         printf "\n";
     }
+
+    return 0;
 }
 
 =head2 extract_subscription_data
@@ -84,15 +86,10 @@ a template.
 sub extract_subscription_data
 {
     my ($self, @subscriptions) = @_;
-    my (%deletions, %merges, %edits);
+    my (@deletions, %edits);
     for my $sub (@subscriptions) {
         if (deleted($sub)) {
-            $deletions{ $sub->type } ||= [];
-            push @{ $deletions{ $sub->type } }, $sub;
-        }
-        elsif (merged($sub)) {
-            $merges{ $sub->type } ||= [];
-            push @{ $merges{ $sub->type } }, $sub;
+            push @deletions, $sub;
         }
         else {
             my @edits = $self->c->model('Edit')->find_for_subscription($sub);
@@ -111,8 +108,7 @@ sub extract_subscription_data
     }
 
     my %data;
-    $data{deletes} = \%deletions if %deletions;
-    $data{merges} = \%merges if %merges;
+    $data{deletes} = \@deletions if @deletions;
     $data{edits} = \%edits if %edits;
 
     return %data ? \%data : undef;
@@ -121,13 +117,8 @@ sub extract_subscription_data
 sub deleted
 {
     my $sub = shift;
-    return does_role($sub, DeleteRole) && $sub->deleted_by_edit;
-}
-
-sub merged
-{
-    my $sub = shift;
-    return does_role($sub, MergeRole) && $sub->merged_by_edit;
+    return (does_role($sub, DeleteRole) && $sub->deleted_by_edit) ||
+           (does_role($sub, MergeRole) && $sub->merged_by_edit);
 }
 
 1;
