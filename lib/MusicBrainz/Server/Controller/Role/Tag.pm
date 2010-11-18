@@ -22,25 +22,18 @@ sub tags : Chained('load') PathPart('tags')
 {
     my ($self, $c) = @_;
 
-    my $tags_model = $c->model($self->{model})->tags;
-
-    my $entity = $c->stash->{$self->{entity_name}};
-    my $tags = $self->_load_paged($c, sub {
-        $tags_model->find_tags($entity->id, shift, shift);
-    });
-
-    $c->stash( tags => $tags );
-}
-
-sub tag : Chained('load') PathPart('tag') RequireAuth
-{
-    my ($self, $c) = @_;
-
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
 
     my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
-    $c->stash->{user_tags} = \@user_tags;
+    my $tags = $self->_load_paged($c, sub {
+        $tags_model->find_tags($entity->id, shift, shift);
+    });
+
+    $c->stash(
+        tags => $tags,
+        user_tags => \@user_tags,
+    );
 
     my @user_tag_names = map { $_->tag->name } @user_tags;
     my $form = $c->form( tag_form => 'Tag', init_object => {
@@ -48,7 +41,6 @@ sub tag : Chained('load') PathPart('tag') RequireAuth
     });
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
         my $tags = $form->field('tags')->value;
         $tags_model->update($c->user->id, $entity->id, $tags);
 
