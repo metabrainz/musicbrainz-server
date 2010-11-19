@@ -147,7 +147,7 @@ sub find_for_subscription
             $self->c->raw_dbh,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
-            $subscription->subscribededitor_id
+            $subscription->subscribed_editor_id
         );
     }
     else {

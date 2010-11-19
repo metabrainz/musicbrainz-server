@@ -177,7 +177,7 @@ subtest 'Find edits by subscription' => sub {
     ok(!(grep { $_->id == 1 } @edits), 'does not have edit #1');
     ok((grep { $_->id == 4 } @edits), 'has edit #4');
 
-    $sub = EditorSubscription->new( subscribededitor_id => 2, last_edit_sent => 0 );
+    $sub = EditorSubscription->new( subscribed_editor_id => 2, last_edit_sent => 0 );
     @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 2, 'found 1 edits');
     ok((grep { $_->id == 2 } @edits), 'has edit #2');

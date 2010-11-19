@@ -155,7 +155,7 @@ test 'Handling deletes and merges' => sub {
 test 'Editor subscriptions' => sub {
     my $test = shift;
     my $editor = Editor->new( id => 2 );
-    my $editor_sub = EditorSubscription->new( subscribededitor_id => $editor->id );
+    my $editor_sub = EditorSubscription->new( subscribed_editor_id => $editor->id );
     my $open_edit = Edit->new( status => $STATUS_OPEN );
     my $applied_edit = Edit->new( status => $STATUS_APPLIED );
 
@@ -183,7 +183,7 @@ test 'Editor subscriptions' => sub {
                 subscription => $editor_sub
             }]
         });
-        is($editor_sub->subscribededitor => $editor,
+        is($editor_sub->subscribed_editor => $editor,
             'did load the editor');
     };
 

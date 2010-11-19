@@ -6,12 +6,12 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Subscription';
 
-has 'subscribededitor' => (
+has 'subscribed_editor' => (
     isa => 'Editor',
     is => 'rw'
 );
 
-has 'subscribededitor_id' => (
+has 'subscribed_editor_id' => (
     isa => 'Int',
     is => 'ro',
 );

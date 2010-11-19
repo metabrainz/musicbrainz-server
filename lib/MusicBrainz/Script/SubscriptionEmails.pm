@@ -129,9 +129,9 @@ sub load_subscription
         $self->c->model('Label')->load($subscription);
     }
     elsif ($subscription->isa(EditorSubscription)) {
-        $subscription->subscribededitor(
+        $subscription->subscribed_editor(
             $self->c->model('Editor')->get_by_id(
-                $subscription->subscribededitor_id));
+                $subscription->subscribed_editor_id));
     }
 }
 
