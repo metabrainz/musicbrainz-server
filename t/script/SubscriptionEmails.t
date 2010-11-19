@@ -8,6 +8,7 @@ use Test::Routine::Util;
 use MusicBrainz::Server::Test;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
 use aliased 'MusicBrainz::Server::Edit';
 use aliased 'MusicBrainz::Server::Entity::Editor';
@@ -148,6 +149,46 @@ test 'Handling deletes and merges' => sub {
 
     subtest 'Deleted deleted and merged subscriptions from the database' => sub {
         verify($c->model('EditorSubscriptions'))->delete(set($artist, $label));
+    }
+};
+
+test 'Editor subscriptions' => sub {
+    my $test = shift;
+    my $editor = Editor->new( id => 2 );
+    my $editor_sub = EditorSubscription->new( subscribededitor_id => $editor->id );
+    my $open_edit = Edit->new( status => $STATUS_OPEN );
+    my $applied_edit = Edit->new( status => $STATUS_APPLIED );
+
+    mock_subscriptions(
+        editors => [ $acid2 ],
+        subscriptions => {
+            $acid2->id => [ $editor_sub ]
+        },
+        edits => [
+            [ $editor_sub => [ $open_edit, $applied_edit ] ]
+        ]
+    );
+    when($c->model('Editor'))->get_by_id($editor->id)->then_return($editor);
+
+    $test->script->run;
+
+    subtest 'Sent emails about the edits made' => sub {
+        my %args = inspect($test->emailer)->send_subscriptions_digest(anything)
+            ->arguments;
+
+        is_deeply($args{edits} => {
+            editor => [{
+                open => [ $open_edit ],
+                applied => [ $applied_edit ],
+                subscription => $editor_sub
+            }]
+        });
+        is($editor_sub->subscribededitor => $editor,
+            'did load the editor');
+    };
+
+    subtest 'Loads the editor in question' => sub {
+        verify($c->model('Editor'))->get_by_id($editor->id);
     }
 };
 

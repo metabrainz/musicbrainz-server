@@ -8,6 +8,7 @@ use MusicBrainz::Server::Types qw( :edit_status );
 
 use aliased 'MusicBrainz::Server::Email';
 use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Delete' => 'DeleteRole';
 use aliased 'MusicBrainz::Server::Entity::Role::Subscription::Merge' => 'MergeRole';
@@ -126,6 +127,11 @@ sub load_subscription
     }
     elsif ($subscription->isa(LabelSubscription)) {
         $self->c->model('Label')->load($subscription);
+    }
+    elsif ($subscription->isa(EditorSubscription)) {
+        $subscription->subscribededitor(
+            $self->c->model('Editor')->get_by_id(
+                $subscription->subscribededitor_id));
     }
 }
 
