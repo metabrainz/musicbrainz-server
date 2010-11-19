@@ -2,10 +2,11 @@ package MusicBrainz::Server::Controller::WS::2::Collection;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
-     list => {
+     collection => {
                          method   => 'GET',
                          inc      => [ qw(releases tags) ],
                          optional => [ qw(limit offset) ],
@@ -23,7 +24,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 
 Readonly our $MAX_ITEMS => 25;
 
-sub base : Chained('/') PathPart('ws/2/collection') CaptureArgs(0) { }
+sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
 
 sub list_toplevel
 {
