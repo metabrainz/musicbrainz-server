@@ -93,4 +93,36 @@ subtest 'Deletes and merges' => sub {
         'has a link to view the merging edit');
 };
 
+subtest 'Subscribed editors' => sub {
+    my $editor = Editor->new(
+        name => 'nikki',
+    );
+    my $editor_sub = EditorSubscription->new( subscribededitor => $editor );
+    my @open = (
+        Edit->new(status => $STATUS_OPEN),
+        Edit->new(status => $STATUS_OPEN)
+    );
+    my @closed = (Edit->new(status => $STATUS_APPLIED));
+
+    my $email = Email->new(
+        editor => $acid2, 
+        edits => {
+            editor => [{
+                subscription => $editor_sub,
+                open => \@open,
+                applied => \@closed
+            }]
+        },
+    );
+
+    contains_string($email->body,
+        sprintf('%s (%d open, %d applied)',
+            $editor->name, scalar(@open), scalar(@closed)),
+        'contains nikkis name and edit count');
+    contains_string($email->body => sprintf('/user/%s/open-edits', $editor->name),
+        'contains a link to view nikkis open edits');
+    contains_string($email->body => sprintf('/user/%s/edits', $editor->name),
+        'contains a link to view all of nikkis edits');
+};
+
 done_testing;

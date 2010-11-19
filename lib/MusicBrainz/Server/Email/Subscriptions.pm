@@ -63,6 +63,10 @@ sub text {
         @{ $self->edits->{label} }
     ) if exists $self->edits->{label};
 
+    push @sections, $self->edits_for_editors(
+        @{ $self->edits->{editor} }
+    ) if exists $self->edits->{editor};
+
     return join("\n\n", @sections);
 }
 
@@ -98,6 +102,21 @@ sub edits_for_type {
 [%- artist = sub.subscription.artist -%]
 [% artist.name %] ([% artist.comment %]) ([% sub.open.size %] open, [% sub.applied.size %] applied)
 [% server %]/artist/[% artist.gid %]/edits
+[% END %]
+};
+}
+
+sub edits_for_editors {
+    my $self = shift;
+    my $subs = \@_;
+    return strip tt q{
+Changes for by your subscribed editors:
+--------------------------------------------------------------------------------
+[% FOR sub IN subs %]
+[%- editor = sub.subscription.subscribededitor -%]
+[% editor.name %] ([% sub.open.size %] open, [% sub.applied.size %] applied)
+Open edits: [% server %]/user/[% editor.name %]/open-edits
+All edits: [% server %]/user/[% editor.name %]/edits
 [% END %]
 };
 }
