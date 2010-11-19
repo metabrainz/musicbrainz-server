@@ -160,4 +160,33 @@ $raw_sql->commit;
 $edit = $edit_data->get_by_id(2);
 is($edit->status, $STATUS_DELETED);
 
+subtest 'Find edits by subscription' => sub {
+    use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
+    use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
+    use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
+
+    my $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
+    my @edits = $edit_data->find_for_subscription($sub);
+    is(@edits => 2, 'found 2 edits');
+    ok((grep { $_->id == 1 } @edits), 'has edit #1');
+    ok((grep { $_->id == 4 } @edits), 'has edit #4');
+
+    $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 1 );
+    @edits = $edit_data->find_for_subscription($sub);
+    is(@edits => 1, 'found 1 edits');
+    ok(!(grep { $_->id == 1 } @edits), 'does not have edit #1');
+    ok((grep { $_->id == 4 } @edits), 'has edit #4');
+
+    $sub = EditorSubscription->new( subscribededitor_id => 2, last_edit_sent => 0 );
+    @edits = $edit_data->find_for_subscription($sub);
+    is(@edits => 2, 'found 1 edits');
+    ok((grep { $_->id == 2 } @edits), 'has edit #2');
+    ok((grep { $_->id == 4 } @edits), 'has edit #4');
+
+    my $sub = LabelSubscription->new( label_id => 1, last_edit_sent => 0 );
+    my @edits = $edit_data->find_for_subscription($sub);
+    is(@edits => 1, 'found 1 edits');
+    ok((grep { $_->id == 2 } @edits), 'has edit #2');
+};
+
 done_testing;
