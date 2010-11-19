@@ -346,14 +346,14 @@ INSERT INTO track_name (name)
 
 CREATE UNIQUE INDEX tmp_track_name_name ON track_name (name);
 
-INSERT INTO recording (id, gid, name, artist_credit, length)
-    SELECT a.id, gid::uuid, n.id, COALESCE(new_ac, a.artist), a.length
+INSERT INTO recording (id, gid, name, artist_credit, length, last_updated)
+    SELECT a.id, gid::uuid, n.id, COALESCE(new_ac, a.artist), a.length, NULL
     FROM public.track a
         JOIN track_name n ON n.name = a.name
         LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
-INSERT INTO track (id, tracklist, name, recording, artist_credit, length, position)
-    SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist), length, a.sequence
+INSERT INTO track (id, tracklist, name, recording, artist_credit, length, position, last_updated)
+    SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist), length, a.sequence, NULL
     FROM public.track t
         JOIN public.albumjoin a ON t.id = a.track
         JOIN track_name n ON n.name = t.name
@@ -416,9 +416,9 @@ INSERT INTO work_name (name)
 
 CREATE UNIQUE INDEX tmp_work_name_name ON work_name (name);
 
-INSERT INTO work (id, gid, name, artist_credit)
+INSERT INTO work (id, gid, name, artist_credit, last_updated)
     SELECT DISTINCT track.id, generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/work/?id=' || track.id), 
-        n.id, COALESCE(new_ac, track.artist)
+        n.id, COALESCE(new_ac, track.artist), NULL::timestamp with time zone
     FROM public.track 
         JOIN tmp_work t ON track.id = t.id  
         JOIN work_name n ON n.name = regexp_replace(track.name, E' \\(feat. .*?\\)', '')
