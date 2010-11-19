@@ -76,10 +76,10 @@ sub header {
 This is a notification that edits have been added for artists, labels and
 editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
-[% server %]/user/[% self.editor.name %]/subscriptions.html
+[% self.server %]/user/[% self.editor.name %]/subscriptions.html
 
 To see all open edits for your subscribed artists, see this link:
-[% server %]/edit/search
+[% self.server %]/edit/search
 };
 }
 
@@ -87,7 +87,7 @@ sub footer {
     my $self = shift;
     return strip tt q{
 Please do not reply to this message.  If you need help, please see
-[% server %]/doc/ContactUs
+[% self.server %]/doc/ContactUs
 };
 }
 
@@ -101,7 +101,7 @@ sub edits_for_type {
 [% FOR sub IN subs %]
 [%- artist = sub.subscription.artist -%]
 [% artist.name %] ([% artist.comment %]) ([% sub.open.size %] open, [% sub.applied.size %] applied)
-[% server %]/artist/[% artist.gid %]/edits
+[% self.server %]/artist/[% artist.gid %]/edits
 [% END %]
 };
 }
@@ -115,8 +115,8 @@ Changes for by your subscribed editors:
 [% FOR sub IN subs %]
 [%- editor = sub.subscription.subscribededitor -%]
 [% editor.name %] ([% sub.open.size %] open, [% sub.applied.size %] applied)
-Open edits: [% server %]/user/[% editor.name %]/open-edits
-All edits: [% server %]/user/[% editor.name %]/edits
+Open edits: [% self.server %]/user/[% editor.name %]/open-edits
+All edits: [% self.server %]/user/[% editor.name %]/edits
 [% END %]
 };
 }
@@ -134,7 +134,7 @@ edit = sub.deleted_by_edit || sub.merged_by_edit;
 type = sub.artist_id ? 'artist' : 'label';
 entity_id = sub.artist_id || sub.label_id -%]
 [%- type | ucfirst %] #[% entity_id %] - [% sub.deleted_by_edit ? 'deleted' : 'merged' %] by edit #[% edit %]
-[% server %]/edit/[% edit %]
+[% self.server %]/edit/[% edit %]
 
 [% END %]
 }

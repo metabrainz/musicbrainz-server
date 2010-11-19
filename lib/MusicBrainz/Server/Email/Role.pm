@@ -2,6 +2,7 @@ package MusicBrainz::Server::Email::Role;
 use Moose::Role;
 use namespace::autoclean;
 
+use DBDefs;
 use MooseX::Types::Moose qw( Str );
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Entity::Types;
@@ -32,6 +33,12 @@ has 'from' => (
     is => 'ro',
     required => 1,
     default => $MusicBrainz::Server::Email::NOREPLY_ADDRESS
+);
+
+has 'server' => (
+    isa => Str,
+    is => 'ro',
+    default => sprintf 'http://%s', DBDefs::WEB_SERVER
 );
 
 sub text { '' }
