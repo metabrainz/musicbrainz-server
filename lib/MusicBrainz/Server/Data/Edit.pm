@@ -38,7 +38,7 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or die "Could not look up class for type ".$row->{type};
-    my $data = JSON::Any->jsonToObj($row->{data});
+    my $data = JSON::Any->new(utf8 => 1)->jsonToObj($row->{data});
 
     my $edit = $class->new({
         c => $self->c,
@@ -258,7 +258,7 @@ sub create
 
         my $row = {
             editor => $edit->editor_id,
-            data => JSON::Any->objToJson($edit->to_hash),
+            data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
             status => $edit->status,
             type => $edit->edit_type,
             open_time => $now,
