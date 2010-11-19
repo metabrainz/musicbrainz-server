@@ -24,7 +24,7 @@ sub update_subscriptions
     $self->sql->begin;
     $self->sql->do(
         "DELETE FROM $_
-          WHERE editor = ? AND (deletedbyedit != 0 OR mergedbyedit != 0)",
+          WHERE editor = ? AND (deleted_by_edit != 0 OR merged_by_edit != 0)",
         $editor_id
     ) for qw(
         editor_subscribe_artist
@@ -32,7 +32,7 @@ sub update_subscriptions
     );
 
     $self->sql->do(
-        "UPDATE $_ SET lasteditsent = ? WHERE editor = ?",
+        "UPDATE $_ SET last_edit_sent = ? WHERE editor = ?",
         $max_id, $editor_id
     ) for qw(
         editor_subscribe_label

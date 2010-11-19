@@ -39,6 +39,7 @@ sub _column_mapping {
         'last_edit_sent' => 'last_edit_sent',
         'deleted_by_edit' => 'deleted_by_edit',
         'merged_by_edit' => 'merged_by_edit',
+        'editor_id' => 'editor',
     };
 }
 

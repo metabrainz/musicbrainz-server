@@ -21,4 +21,17 @@ subtest 'get_all_subscriptions' => sub {
         'subscribed to editor 1');
 };
 
+subtest 'update_subscriptions' => sub {
+    my @subscriptions = $c->model('EditorSubscriptions')
+        ->get_all_subscriptions(2);
+    is($subscriptions[0]->last_edit_sent, 3);
+
+    $c->model('EditorSubscriptions')->update_subscriptions(4,
+        $subscriptions[0]->editor_id);
+
+    @subscriptions = $c->model('EditorSubscriptions')
+        ->get_all_subscriptions(2);
+    is($subscriptions[0]->last_edit_sent, 4);
+};
+
 done_testing;
