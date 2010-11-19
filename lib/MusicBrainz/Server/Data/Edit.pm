@@ -369,7 +369,7 @@ sub load_all
 # Runs it's own transaction
 sub approve
 {
-    my ($self, $edit, $editor) = @_;
+    my ($self, $edit, $editor_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
@@ -378,7 +378,7 @@ sub approve
     # This runs its own transaction, so we cannot currently run it in the below
     # transaction
     $self->c->model('Vote')->enter_votes(
-        $editor->id,
+        $editor_id,
         {
             vote    => $VOTE_YES,
             edit_id => $edit->id
