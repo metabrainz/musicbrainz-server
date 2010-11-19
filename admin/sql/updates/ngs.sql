@@ -362,11 +362,7 @@ DROP INDEX tmp_track_name_name;
 
 CREATE OR REPLACE FUNCTION clean_work_name(name TEXT) RETURNS TEXT AS $$
 BEGIN
-    RETURN btrim(
-        regexp_replace(
-            regexp_replace(name, E'\\(feat. .*?\\)', ''),
-                E'\\(live(,.*?| at.*?)\\)', '')
-    );
+    RETURN btrim( regexp_replace( regexp_replace(name, E'\\(feat. .*?\\)', ''), E'\\(live(,.*?| at.*?)\\)', ''));
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -401,7 +397,7 @@ FROM (
 CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
 
 INSERT INTO work_name (name)
-    SELECT DISTINCT clean_work_name(track.name)
+    SELECT DISTINCT btrim( regexp_replace( regexp_replace(track.name, E'\\(feat. .*?\\)', ''), E'\\(live(,.*?| at.*?)\\)', ''))
     FROM public.track
         JOIN tmp_work t ON track.id = t.id;
 
@@ -412,7 +408,7 @@ INSERT INTO work (id, gid, name, artist_credit)
         n.id, COALESCE(new_ac, track.artist)
     FROM public.track 
         JOIN tmp_work t ON track.id = t.id  
-        JOIN work_name n ON n.name = clean_work_name(track.name)
+        JOIN work_name n ON n.name = btrim( regexp_replace( regexp_replace(track.name, E'\\(feat. .*?\\)', ''), E'\\(live(,.*?| at.*?)\\)', ''))
         LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac;
 
 DROP INDEX tmp_work_name_name;
