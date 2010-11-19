@@ -404,7 +404,11 @@ sub donation_check
 sub editors_with_subscriptions
 {
     my $self = shift;
-    my @tables = qw( editor_subscribe_artist editor_subscribe_label );
+    my @tables = qw(
+        editor_subscribe_artist
+        editor_subscribe_editor
+        editor_subscribe_label
+    );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         " WHERE id IN ($ids)";
