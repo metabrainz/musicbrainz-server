@@ -7,6 +7,9 @@ CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
 CREATE TRIGGER a_upd_artist AFTER UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE a_upd_artist();
 
+CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -106,6 +109,9 @@ CREATE TRIGGER a_ins_label AFTER INSERT ON label
 CREATE TRIGGER a_upd_label AFTER UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE a_upd_label();
 
+CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -130,6 +136,9 @@ CREATE TRIGGER a_upd_recording AFTER UPDATE ON recording
 CREATE TRIGGER a_del_recording AFTER DELETE ON recording
     FOR EACH ROW EXECUTE PROCEDURE a_del_recording();
 
+CREATE TRIGGER b_upd_recording BEFORE UPDATE ON recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER a_ins_release AFTER INSERT ON release
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release();
 
@@ -138,6 +147,9 @@ CREATE TRIGGER a_upd_release AFTER UPDATE ON release
 
 CREATE TRIGGER a_del_release AFTER DELETE ON release
     FOR EACH ROW EXECUTE PROCEDURE a_del_release();
+
+CREATE TRIGGER b_upd_release BEFORE UPDATE ON release
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_release_label BEFORE UPDATE ON release_label 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -150,6 +162,9 @@ CREATE TRIGGER a_upd_release_group AFTER UPDATE ON release_group
 
 CREATE TRIGGER a_del_release_group AFTER DELETE ON release_group
     FOR EACH ROW EXECUTE PROCEDURE a_del_release_group();
+
+CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_tag_relation BEFORE UPDATE ON tag_relation 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -180,6 +195,9 @@ CREATE TRIGGER a_upd_work AFTER UPDATE ON work
 
 CREATE TRIGGER a_del_work AFTER DELETE ON work
     FOR EACH ROW EXECUTE PROCEDURE a_del_work();
+
+CREATE TRIGGER b_upd_work BEFORE UPDATE ON work
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();

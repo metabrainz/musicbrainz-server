@@ -38,7 +38,7 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
 INSERT INTO release_status (id, name) VALUES (1, 'Official');
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
-INSERT INTO script (id, iso_code, isonumber, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
+INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
 INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name)
     VALUES (1, 'deu', 'ger', 'de', 'German');
 

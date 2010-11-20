@@ -16,7 +16,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, iso_code, isonumber AS iso_number, name, frequency';
+    return 'id, iso_code, iso_number AS iso_number, name, frequency';
 }
 
 sub _entity_class
