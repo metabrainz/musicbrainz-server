@@ -135,7 +135,7 @@ CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
 
 INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
     SELECT
-        a.id, gid::uuid, n.id,
+        a.id, a.gid::uuid, n.id,
         CASE
             WHEN 0 = type THEN 1
             WHEN 1 = type THEN 2
@@ -150,11 +150,13 @@ INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
             WHEN 10 = type THEN 11
             WHEN 11 = type THEN 12
             ELSE NULL
-        END, COALESCE(new_ac, artist), r.lastupdate as last_updated
-    FROM public.release_group a
-        JOIN release_name n ON a.name = n.name
-        JOIN public.albummeta r ON a.id = r.id
-        LEFT JOIN tmp_artist_credit_repl acr ON artist=old_ac;
+        END as type, COALESCE(new_ac, rg.artist), max(am.lastupdate) as last_updated
+     FROM public.release_group rg
+        JOIN release_name n ON rg.name = n.name
+        JOIN public.album a ON a.release_group = rg.id
+        JOIN public.albummeta am ON a.id = am.id
+        LEFT JOIN tmp_artist_credit_repl acr ON rg.artist=old_ac
+     GROUP BY a.id, a.gid::uuid, n.id, type, COALESCE(new_ac, rg.artist);
 
 ------------------------
 -- Releases

@@ -107,6 +107,11 @@ $raw_sql->do(
 );
 $raw_sql->commit;
 
+printf STDERR "Nuking rows that point to dead edits...\n";
+# The edit migration drops a few edits and this step nukes old votes or edits that point to empty edits
+$dbh->do('DELETE FROM vote WHERE id IN (SELECT vote.id FROM vote LEFT JOIN edit ON edit.id = vote.edit WHERE edit.id IS NULL)');
+$dbh->do('DELETE FROM edit_note WHERE id IN (SELECT edit_note.id FROM edit_note LEFT JOIN edit ON edit.id = edit_note.edit WHERE edit.id IS NULL)');
+
 printf STDERR "Cleaning up\n";
 $dbh->do('DROP INDEX puid_idx_puid');
 $dbh->do('DROP INDEX recording_puid_idx_uniq');
