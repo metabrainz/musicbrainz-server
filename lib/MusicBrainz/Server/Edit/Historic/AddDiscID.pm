@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_DISCID );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Add disc ID') }
 sub historic_type { 32 }

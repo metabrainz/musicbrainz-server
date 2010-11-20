@@ -99,6 +99,11 @@ feature 'Developer features' =>
     'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
     ;
+ 
+feature 'Fast edit migration' =>
+    -default   => 1,
+    'JSON::XS' => '2.27',
+    ;
 
 # These are just for I18N
 requires 'Locale::PO';

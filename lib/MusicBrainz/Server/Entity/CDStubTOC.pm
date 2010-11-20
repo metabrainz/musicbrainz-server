@@ -42,6 +42,19 @@ sub length
     return int(($self->leadout_offset / 75) * 1000);
 }
 
+# XXX This should be called automatically when loading tracks
+sub update_track_lengths
+{
+    my $self = shift;
+    my $index = 0;
+    my @offsets = @{$self->track_offset};
+    push @offsets, $self->leadout_offset;
+    foreach my $track (@{$self->cdstub->tracks}) {
+        $track->length(int((($offsets[$index + 1] - $offsets[$index]) / 75) * 1000));
+        $index++;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

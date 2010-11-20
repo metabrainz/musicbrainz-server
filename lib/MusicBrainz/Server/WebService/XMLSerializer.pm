@@ -509,6 +509,35 @@ sub _serialize_disc
     push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
 }
 
+sub _serialize_cdstub
+{
+    my ($self, $data, $gen, $toc, $inc, $stash, $toplevel) = @_;
+
+    my $cdstub = $toc->cdstub;
+
+    my @contents = (
+        $gen->title($cdstub->title),
+        $gen->artist($cdstub->artist),
+    );
+    push @contents, $gen->barcode($cdstub->barcode)
+        if $cdstub->barcode;
+    push @contents, $gen->disambiguation($cdstub->comment)
+        if $cdstub->comment;
+
+    my @tracks = map {
+        my @track = ( $gen->title($_->title) );
+        push @track, $gen->artist($_->artist)
+            if $_->artist;
+        push @track, $gen->length($_->length);
+
+        $gen->track(@track);
+    } $cdstub->all_tracks;
+
+    push @contents, $gen->track_list({ count => $cdstub->track_count }, @tracks);
+
+    push @$data, $gen->cdstub({ id => $toc->discid }, @contents);
+}
+
 sub _serialize_label_info_list
 {
     my ($self, $data, $gen, $rel_labels, $inc, $stash) = @_;
@@ -899,6 +928,15 @@ sub discid_resource
 
     my $data = [];
     $self->_serialize_disc($data, $gen, $cdtoc, $inc, $stash, 1);
+    return $data->[0];
+}
+
+sub cdstub_resource
+{
+    my ($self, $gen, $cdtoc, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_cdstub($data, $gen, $cdtoc, $inc, $stash, 1);
     return $data->[0];
 }
 
