@@ -155,26 +155,26 @@ sub _serialize_artist_credit
     push @$data, $gen->artist_credit(@ac);
 }
 
-sub _serialize_list
+sub _serialize_collection
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $data, $gen, $collection, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($list);
+    my $opts = $stash->store ($collection);
 
     my %attrs;
-    $attrs{id} = $list->gid;
+    $attrs{id} = $collection->gid;
 
-    my @list;
-    push @list, $gen->name($list->name);
-    push @list, $gen->editor($list->editor->name);
+    my @collection;
+    push @collection, $gen->name($collection->name);
+    push @collection, $gen->editor($collection->editor->name);
 
     if ($toplevel)
     {
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+        $self->_serialize_release_list(\@collection, $gen, $opts->{releases}, $inc, $stash)
             if $inc->releases;
     }
 
-    push @$data, $gen->list(\%attrs, @list);
+    push @$data, $gen->collection(\%attrs, @collection);
 }
 
 sub _serialize_release_group_list
@@ -839,12 +839,12 @@ sub artist_resource
     return $data->[0];
 }
 
-sub list_resource
+sub collection_resource
 {
-    my ($self, $gen, $list, $inc, $stash) = @_;
+    my ($self, $gen, $collection, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_list($data, $gen, $list, $inc, $stash, 1);
+    $self->_serialize_collection($data, $gen, $collection, $inc, $stash, 1);
 
     return $data->[0];
 }
