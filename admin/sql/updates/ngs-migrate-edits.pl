@@ -2,14 +2,14 @@
 use strict;
 use warnings;
 
+use FindBin '$Bin';
+use lib "$Bin/../../../lib";
+
 use MusicBrainz::Server::Edit::Historic::Base;
 {
     no warnings 'redefine';
     *MusicBrainz::Server::Edit::Historic::Base::USE_MOOSE = sub { 0 };
 }
-
-use FindBin '$Bin';
-use lib "$Bin/../../../lib";
 
 use aliased 'MusicBrainz::Server::Connector';
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
@@ -93,11 +93,18 @@ while ($dbh->pg_getcopydata($line) >= 0) {
 $raw_dbh->pg_putcopyend;
 
 printf STDERR "Insert edit notes\n";
-$raw_dbh->do('COPY edit_note FROM STDIN');
-$dbh->do('COPY public.moderation_note_closed TO STDOUT');
+$raw_dbh->do('COPY edit_note FROM STDIN WITH CSV');
+$dbh->do('COPY public.moderation_note_closed TO STDOUT WITH CSV');
 $line = '';
 while ($dbh->pg_getcopydata($line) >= 0) {
-    $raw_dbh->pg_putcopydata($line);
+    # Column ordering changed here, so we need to reorder the columns
+    # This seemed easiest.
+    if(my $fields = $csv->parse($line)) {
+        my @fields = $csv->fields;
+        if ($csv->combine(@fields[0, 2, 1, 3, 4])) {
+            $raw_dbh->pg_putcopydata($csv->string);
+        }
+    }
 }
 $raw_dbh->pg_putcopyend;
 

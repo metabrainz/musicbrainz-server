@@ -4,7 +4,12 @@ use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_type { shift->ngs_class->edit_type }
+sub ngs_class {  }
+sub edit_type {
+    my $self = shift;
+    return unless $self->ngs_class;
+    $self->ngs_class->edit_type
+}
 
 sub _create_edit
 {

@@ -3,6 +3,7 @@ BEGIN;
 ------------------------
 -- Misc
 ------------------------
+\echo Misc data
 
 INSERT INTO country
     SELECT id, isocode AS iso_code, name
@@ -112,6 +113,7 @@ INSERT INTO historicalstat SELECT * FROM public.historicalstat;
 ------------------------
 -- Tags
 ------------------------
+\echo Tags
 
 INSERT INTO tag
     SELECT id, name, refcount AS ref_count
@@ -126,6 +128,7 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 ------------------------
 -- Release groups
 ------------------------
+\echo Release groups
 
  INSERT INTO release_name (name)
      (SELECT DISTINCT name FROM public.album) UNION
@@ -161,6 +164,7 @@ INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
 ------------------------
 -- Releases
 ------------------------
+\echo Releases
 
 -- Check which release events should get album GIDs (the earliest one from an album)
 SELECT gid::uuid, a.id AS album, (SELECT min(id) FROM public.release r WHERE a.id=r.album) AS id
@@ -299,6 +303,7 @@ INSERT INTO release_group_meta
 ------------------------
 -- Labels
 ------------------------
+\echo Labels
 
 INSERT INTO label_name (name)
     (SELECT DISTINCT name FROM public.label) UNION
@@ -342,6 +347,7 @@ DROP INDEX tmp_label_name_name_idx;
 ------------------------
 -- Tracks
 ------------------------
+\echo Tracks
 
 INSERT INTO track_name (name)
     SELECT DISTINCT name FROM public.track;
@@ -370,10 +376,16 @@ DROP INDEX tmp_track_name_name;
 ------------------------
 -- Works
 ------------------------
+\echo Works
 
-CREATE OR REPLACE FUNCTION clean_work_name(name TEXT) RETURNS TEXT AS $$
+CREATE OR REPLACE FUNCTION clean_work_name(name TEXT) RETURNS TEXT IMMUTABLE
+AS $$
 BEGIN
-    RETURN btrim( regexp_replace( regexp_replace(name, E'\\(feat. .*?\\)', ''), E'\\(live(,.*?| at.*?)\\)', ''));
+    RETURN btrim(
+        regexp_replace(
+            regexp_replace(name, E'\\(feat. .*?\\)', ''),
+                E'\\(live(,.*?| at.*?)\\)', '')
+    );
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -408,7 +420,7 @@ FROM (
 CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
 
 INSERT INTO work_name (name)
-    SELECT DISTINCT btrim( regexp_replace( regexp_replace(track.name, E'\\(feat. .*?\\)', ''), E'\\(live(,.*?| at.*?)\\)', ''))
+    SELECT DISTINCT clean_work_name(track.name)
     FROM public.track
         JOIN tmp_work t ON track.id = t.id;
 
@@ -419,7 +431,7 @@ INSERT INTO work (id, gid, name, artist_credit, last_updated)
         n.id, COALESCE(new_ac, track.artist), NULL::timestamp with time zone
     FROM public.track 
         JOIN tmp_work t ON track.id = t.id  
-        JOIN work_name n ON n.name = btrim( regexp_replace( regexp_replace(track.name, E'\\(feat. .*?\\)', ''), E'\\(live(,.*?| at.*?)\\)', ''))
+        JOIN work_name n ON n.name = clean_work_name(track.name)
         LEFT JOIN tmp_artist_credit_repl acr ON track.artist=old_ac;
 
 DROP INDEX tmp_work_name_name;
@@ -429,6 +441,7 @@ DROP FUNCTION clean_work_name (TEXT);
 ------------------------
 -- Redirects
 ------------------------
+\echo Redirects
 
 INSERT INTO artist_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=2;
 INSERT INTO label_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=4;
@@ -450,6 +463,7 @@ INSERT INTO release_group_gid_redirect SELECT gid::uuid, newid AS new_id FROM pu
 ------------------------
 -- Editors
 ------------------------
+\echo Editors
 
 INSERT INTO editor (id, name, password, privs, email, website, bio,
     email_confirm_date, last_login_date, edits_accepted,
@@ -517,6 +531,7 @@ INSERT INTO editor_subscribe_editor SELECT * FROM public.editor_subscribe_editor
 ------------------------
 -- Annotations
 ------------------------
+\echo Annotations
 
 INSERT INTO annotation (id, editor, text, changelog, created)
     SELECT a.id, moderator, text, changelog, created
@@ -555,6 +570,7 @@ INSERT INTO release_annotation
 ------------------------
 -- PUIDs
 ------------------------
+\echo PUIDs
 
 INSERT INTO clientversion SELECT * FROM public.clientversion;
 
@@ -567,6 +583,7 @@ INSERT INTO recording_puid (id, puid, recording)
 ------------------------
 -- ISRCs
 ------------------------
+\echo ISRCs
 
 INSERT INTO isrc (id, recording, isrc, source, edits_pending)
     SELECT id, track, isrc, source, modpending FROM public.isrc;
@@ -574,6 +591,7 @@ INSERT INTO isrc (id, recording, isrc, source, edits_pending)
 ------------------------
 -- DiscIDs
 ------------------------
+\echo DiscIDs
 
 INSERT INTO cdtoc SELECT * FROM public.cdtoc;
 
