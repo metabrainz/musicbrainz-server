@@ -93,7 +93,7 @@ while ($dbh->pg_getcopydata($line) >= 0) {
 $raw_dbh->pg_putcopyend;
 
 printf STDERR "Insert edit notes\n";
-$raw_dbh->do('COPY edit_note FROM STDIN WITH CSV');
+$raw_dbh->do('COPY edit_note FROM STDIN WITH CSV FORCE NOT NULL text');
 $dbh->do('COPY public.moderation_note_closed TO STDOUT WITH CSV');
 $line = '';
 while ($dbh->pg_getcopydata($line) >= 0) {
@@ -102,7 +102,7 @@ while ($dbh->pg_getcopydata($line) >= 0) {
     if(my $fields = $csv->parse($line)) {
         my @fields = $csv->fields;
         if ($csv->combine(@fields[0, 2, 1, 3, 4])) {
-            $raw_dbh->pg_putcopydata($csv->string);
+            $raw_dbh->pg_putcopydata($csv->string . "\n");
         }
     }
 }
