@@ -30,7 +30,7 @@ sub _columns
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
             release_group, release.status, release.packaging, date_year, date_month, date_day,
             release.country, release.comment, release.edits_pending, release.barcode,
-            release.script, release.language, release.quality';
+            release.script, release.language, release.quality, release.last_updated';
 }
 
 sub _id_column
@@ -60,7 +60,8 @@ sub _column_mapping
         barcode => 'barcode',
         script_id => 'script',
         language_id => 'language',
-        quality => 'quality'
+        quality => 'quality',
+        last_updated => 'last_updated'
     };
 }
 
@@ -516,7 +517,6 @@ sub load_meta
 
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
         my ($obj, $row) = @_;
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
         $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};

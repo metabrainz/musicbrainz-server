@@ -33,7 +33,7 @@ sub _columns
 {
     return 'rg.id, rg.gid, type AS type_id, name.name,
             rg.artist_credit AS artist_credit_id,
-            rg.comment, rg.edits_pending';
+            rg.comment, rg.edits_pending, rg.last_updated';
 }
 
 sub _id_column
@@ -438,7 +438,6 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->release_count($row->{release_count});
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 
