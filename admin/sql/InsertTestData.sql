@@ -464,7 +464,7 @@ INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_off
     (2, 'tLGBAiCflG8ZI6lFcOt87vXjEcI-', '5908ea07', 7, 171327,
      ARRAY[150,22179,49905,69318,96240,121186,143398]);
 INSERT INTO medium_cdtoc (id, medium, cdtoc) VALUES
-    (1, 3, 2), (2, 5, 1);
+    (1, 3, 2);
 
 -- Restart sequences
 ALTER SEQUENCE gender_id_seq RESTART 3;
