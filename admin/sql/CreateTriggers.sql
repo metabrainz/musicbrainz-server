@@ -4,9 +4,6 @@ BEGIN;
 CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
     FOR EACH ROW EXECUTE PROCEDURE a_ins_artist();
 
-CREATE TRIGGER a_upd_artist AFTER UPDATE ON artist
-    FOR EACH ROW EXECUTE PROCEDURE a_upd_artist();
-
 CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -105,9 +102,6 @@ CREATE TRIGGER b_upd_l_work_work BEFORE UPDATE ON l_work_work
 
 CREATE TRIGGER a_ins_label AFTER INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE a_ins_label();
-
-CREATE TRIGGER a_upd_label AFTER UPDATE ON label
-    FOR EACH ROW EXECUTE PROCEDURE a_upd_label();
 
 CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();

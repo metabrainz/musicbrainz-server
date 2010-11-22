@@ -488,7 +488,7 @@ eval {
     WHERE rm0.old_rel IS NULL
     GROUP BY release.id, release.gid, rm1.new_rel, regexp_replace(n.name, E'\\\\s+[(](disc [0-9]+(: .*?)?|bonus disc(: .*?)?)[)]\$', ''), 
              n.name, artist_credit, release_group, status, packaging, country, language, script,
-             date_year, date_month, date_day, barcode, comment, edits_pending, q.quality,last_updated;
+             date_year, date_month, date_day, barcode, comment, edits_pending, q.quality;
 
     INSERT INTO release_name (name)
         SELECT DISTINCT t.name

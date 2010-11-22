@@ -157,15 +157,6 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_artist() RETURNS trigger AS $$
-BEGIN
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-    END IF;
-    RETURN NULL;
-END;
-$$ LANGUAGE 'plpgsql';
-
 -----------------------------------------------------------------------
 -- label triggers
 -----------------------------------------------------------------------
@@ -173,15 +164,6 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_ins_label() RETURNS trigger AS $$
 BEGIN
     INSERT INTO label_meta (id) VALUES (NEW.id);
-    RETURN NULL;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION a_upd_label() RETURNS trigger AS $$
-BEGIN
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-    END IF;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -203,9 +185,6 @@ BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
     END IF;
     RETURN NULL;
 END;
@@ -249,9 +228,6 @@ BEGIN
         PERFORM set_release_group_first_release_date(OLD.release_group);
     END IF;
     PERFORM set_release_group_first_release_date(NEW.release_group);
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-    END IF;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -284,9 +260,6 @@ BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
     END IF;
     RETURN NULL;
 END;
@@ -353,9 +326,6 @@ BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
     END IF;
     RETURN NULL;
 END;

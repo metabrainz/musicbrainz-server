@@ -36,7 +36,8 @@ CREATE TABLE artist_alias
     artist              INTEGER NOT NULL, -- references artist.id
     name                INTEGER NOT NULL, -- references artist_name.id
     locale              TEXT,
-    edits_pending       INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_annotation
@@ -48,7 +49,6 @@ CREATE TABLE artist_annotation
 CREATE TABLE artist_meta
 (
     id                  INTEGER NOT NULL, -- PK, references artist.id CASCADE
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
 );
