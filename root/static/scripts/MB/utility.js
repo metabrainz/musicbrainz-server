@@ -57,6 +57,9 @@ MB.utility.fullWidthConverter = function (inputString) {
     return newString.reverse ().join("");
 };
 
+MB.utility.isArray  = function(o) { return (o instanceof Array    || typeof o == "array"); };
+MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
+MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
 
 MB.utility.template = function(str) {
     var self = MB.Object();
