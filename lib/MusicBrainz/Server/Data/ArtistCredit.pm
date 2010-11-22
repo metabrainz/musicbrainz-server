@@ -14,11 +14,14 @@ with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $query = "SELECT artist, artist_name.name, join_phrase, artist_credit, artist.id, gid, n2.name AS artist_name " .
+    my $query = "SELECT artist, artist_name.name, join_phrase, artist_credit,
+                        artist.id, gid, n2.name AS artist_name,
+                        n3.name AS sort_name " .
                 "FROM artist_credit_name " .
                 "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
                 "JOIN artist_name n2 ON n2.id=artist.name " .
+                "JOIN artist_name n3 ON n3.id=artist.sort_name " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
     my $sql = Sql->new($self->c->dbh);
@@ -42,6 +45,7 @@ sub get_by_ids
             id => $row->{id},
             gid => $row->{gid},
             name => $row->{artist_name},
+            sort_name => $row->{sort_name}
         ));
         my $id = $row->{artist_credit};
         $result{$id}->add_name($obj);
