@@ -205,12 +205,10 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
 
     var guessCase = function () {
         $.each (self.textareas, function (i, textarea) {
-            textarea.updatePreview (self.guess_track.guess);
+            textarea.updatePreview (MB.GuessCase.track.guess);
             textarea.render ();
         });
     };
-
-    self.guess_track = MB.GuessCase.Track ();
 
     self.adv = advancedtab;
     self.preview = preview;
@@ -232,7 +230,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     var self = MB.Object ();
 
     /* switch between basic / advanced view. */
-    var moveMediumFields = function (from, to) {
+    var moveFields = function (from, to) {
         var discs = self.adv.discs.length;
 
         for (var i = 0; i < discs; i++)
@@ -240,16 +238,18 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
             $('.'+from+'-medium-format-and-title').eq(i).contents ().detach ().appendTo (
                 $('.'+to+'-medium-format-and-title').eq(i));
         }
+
+        $('div.guesscase-'+from).children().appendTo($('div.guesscase-'+to));
     };
 
     $("a[href=#advanced]").click (function () {
-        moveMediumFields ('basic', 'advanced');
+        moveFields ('basic', 'advanced');
         $('.basic-tracklist').hide ();
         $('.advanced-tracklist').show ();
     });
 
     $("a[href=#basic]").click (function () {
-        moveMediumFields ('advanced', 'basic');
+        moveFields ('advanced', 'basic');
         $('.advanced-tracklist').hide ();
         $('.basic-tracklist').show ();
         self.tracklist.render ();
@@ -261,7 +261,14 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     });
 
     $("a[href=#guesscase]").click (function () {
-        self.tracklist.guessCase ();
+        if ($('.advanced-tracklist:visible').length)
+        {
+            self.adv.guessCase ();
+        }
+        else
+        {
+            self.tracklist.guessCase ();
+        }
     });
 
     self.adv = advancedtab;

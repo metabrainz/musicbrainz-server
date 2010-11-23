@@ -149,6 +149,8 @@ p.guesscase-options,
 table.medium.tbl td.position  { width: 2em; }
 table.medium.tbl td.length    { width: 5em; }
 table.medium.tbl td.delete    { width: 2em; }
+table.medium.tbl td.guesscase { width: 2em; }
+table.medium.tbl td.guesscase a { color: #d3d3d3; }
 #release-editor table.medium.tbl th {
     background:url("../images/table-header-2.gif") repeat-x scroll 0 50% transparent;
     border-bottom:1px solid #999;
