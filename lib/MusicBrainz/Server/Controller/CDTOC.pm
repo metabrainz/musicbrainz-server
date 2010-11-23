@@ -180,10 +180,15 @@ sub attach : Local RequireAuth
                 $c->model('Search')->search('release', $search_release->field('query')->value, shift, shift,
                                             { track_count => $cdtoc->track_count });
             });
-            $c->model('ArtistCredit')->load(map { $_->entity } @$releases);
+            my @releases = map { $_->entity } @$releases;
+            $c->model('ArtistCredit')->load(@releases);
+            $c->model('Medium')->load_for_releases(@releases);
+            $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+            $c->model('Track')->load_for_tracklists(
+                map { $_->tracklist } map { $_->all_mediums } @releases);
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
-                releases => $releases
+                results => $releases
             );
         }
         else {
