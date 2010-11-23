@@ -14,6 +14,7 @@ use Storable;
 our @EXPORT_OK = qw(
     artist_credit_to_ref
     check_data
+    copy_escape
     defined_hash
     hash_to_row
     add_partial_date_to_row
@@ -34,6 +35,7 @@ our @EXPORT_OK = qw(
     order_by
     check_in_use
     map_query
+    ref_to_type
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -49,6 +51,27 @@ Readonly my %TYPE_TO_MODEL => (
     'url'           => 'URL',
     'work'          => 'Work',
 );
+
+sub copy_escape {
+    my $str = shift;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\t/\\t/g;
+    $str =~ s/\r/\\r/g;
+    $str =~ s/\\/\\\\/g;
+    return $str;
+}
+
+sub ref_to_type
+{
+    my $ref = shift;
+    my %map = reverse %TYPE_TO_MODEL;
+    for (keys %map) {
+        return $map{$_}
+            if ($ref->isa("MusicBrainz::Server::Entity::$_"))
+    }
+    warn "Could not resolve the type of $ref";
+    return;
+}
 
 sub artist_credit_to_ref
 {

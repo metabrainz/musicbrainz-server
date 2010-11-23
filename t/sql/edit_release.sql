@@ -15,12 +15,12 @@ TRUNCATE release_status CASCADE;
 TRUNCATE script CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
-INSERT INTO artist (id, gid, name, sortname) VALUES
+INSERT INTO artist (id, gid, name, sort_name) VALUES
     (1, 'a28505a0-739d-11de-8a39-0800200c9a66', 1, 1),
     (2, '1c034cf0-73a5-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, name, artist, position, joinphrase)
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, name, artist, position, join_phrase)
     VALUES (1, 1, 1, 0, NULL);
 
 INSERT INTO release_name (id, name) VALUES (1, 'Release');
@@ -37,9 +37,9 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
 
 INSERT INTO release_status (id, name) VALUES (1, 'Official');
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
-INSERT INTO country (id, isocode, name) VALUES (1, 'GB', 'United Kingdom');
-INSERT INTO script (id, isocode, isonumber, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
-INSERT INTO language (id, isocode_3t, isocode_3b, isocode_2, name)
+INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
+INSERT INTO script (id, iso_code, isonumber, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
+INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name)
     VALUES (1, 'deu', 'ger', 'de', 'German');
 
 ALTER SEQUENCE artist_credit_id_seq RESTART 2;

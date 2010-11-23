@@ -16,7 +16,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, discid, freedbid, trackcount, leadoutoffset, trackoffset';
+    return 'id, discid, freedb_id, track_count, leadout_offset, track_offset';
 }
 
 sub _column_mapping
@@ -24,10 +24,10 @@ sub _column_mapping
     return {
         id => 'id',
         discid => 'discid',
-        freedbid => 'freedbid',
-        track_count => 'trackcount',
-        leadout_offset => 'leadoutoffset',
-        track_offset => 'trackoffset',
+        freedb_id => 'freedb_id',
+        track_count => 'track_count',
+        leadout_offset => 'leadout_offset',
+        track_offset => 'track_offset',
     };
 }
 
@@ -48,7 +48,7 @@ sub find_by_freedbid
     my ($self, $freedbid) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE freedbid = ?";
+                 WHERE freedb_id = ?";
     return query_to_list(
         $self->c->dbh, sub { $self->_new_from_row(@_) },
         $query, $freedbid);
@@ -70,18 +70,18 @@ sub find_or_insert
         $self->sql->select_single_value(
             'SELECT id FROM cdtoc 
               WHERE discid = ?
-              AND   trackcount = ?
-              AND   leadoutoffset = ?
-              AND   trackoffset = ?',
+              AND   track_count = ?
+              AND   leadout_offset = ?
+              AND   track_offset = ?',
             $cdtoc->discid, $cdtoc->track_count, $cdtoc->leadout_offset,
             $cdtoc->track_offset)
       ||
         $self->sql->insert_row('cdtoc', {
             discid => $cdtoc->discid,
-            freedbid => $cdtoc->freedbid,
-            trackcount => $cdtoc->track_count,
-            leadoutoffset => $cdtoc->leadout_offset,
-            trackoffset => $cdtoc->track_offset
+            freedb_id => $cdtoc->freedb_id,
+            track_count => $cdtoc->track_count,
+            leadout_offset => $cdtoc->leadout_offset,
+            track_offset => $cdtoc->track_offset
         }, 'id');
 
     return $id;

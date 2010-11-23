@@ -1,12 +1,12 @@
 package MusicBrainz::Server::Edit::Historic::MergeRelease;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE );
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -48,21 +48,6 @@ sub _release_ids
         $self->_new_release_ids,
     );
 }
-
-has '+data' => (
-    isa => Dict[
-        old_releases => ArrayRef[Dict[
-            release_ids => ArrayRef[Int],
-            name        => Str
-        ]],
-        new_release => Dict[
-            release_ids => ArrayRef[Int],
-            name        => Str
-        ],
-        merge_attributes => Bool,
-        merge_language   => Bool,
-    ]
-);
 
 sub foreign_keys
 {
@@ -134,6 +119,4 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

@@ -155,26 +155,26 @@ sub _serialize_artist_credit
     push @$data, $gen->artist_credit(@ac);
 }
 
-sub _serialize_list
+sub _serialize_collection
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $data, $gen, $collection, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($list);
+    my $opts = $stash->store ($collection);
 
     my %attrs;
-    $attrs{id} = $list->gid;
+    $attrs{id} = $collection->gid;
 
-    my @list;
-    push @list, $gen->name($list->name);
-    push @list, $gen->editor($list->editor->name);
+    my @collection;
+    push @collection, $gen->name($collection->name);
+    push @collection, $gen->editor($collection->editor->name);
 
     if ($toplevel)
     {
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+        $self->_serialize_release_list(\@collection, $gen, $opts->{releases}, $inc, $stash)
             if $inc->releases;
     }
 
-    push @$data, $gen->list(\%attrs, @list);
+    push @$data, $gen->collection(\%attrs, @collection);
 }
 
 sub _serialize_release_group_list
@@ -509,6 +509,35 @@ sub _serialize_disc
     push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
 }
 
+sub _serialize_cdstub
+{
+    my ($self, $data, $gen, $toc, $inc, $stash, $toplevel) = @_;
+
+    my $cdstub = $toc->cdstub;
+
+    my @contents = (
+        $gen->title($cdstub->title),
+        $gen->artist($cdstub->artist),
+    );
+    push @contents, $gen->barcode($cdstub->barcode)
+        if $cdstub->barcode;
+    push @contents, $gen->disambiguation($cdstub->comment)
+        if $cdstub->comment;
+
+    my @tracks = map {
+        my @track = ( $gen->title($_->title) );
+        push @track, $gen->artist($_->artist)
+            if $_->artist;
+        push @track, $gen->length($_->length);
+
+        $gen->track(@track);
+    } $cdstub->all_tracks;
+
+    push @contents, $gen->track_list({ count => $cdstub->track_count }, @tracks);
+
+    push @$data, $gen->cdstub({ id => $toc->discid }, @contents);
+}
+
 sub _serialize_label_info_list
 {
     my ($self, $data, $gen, $rel_labels, $inc, $stash) = @_;
@@ -810,12 +839,12 @@ sub artist_resource
     return $data->[0];
 }
 
-sub list_resource
+sub collection_resource
 {
-    my ($self, $gen, $list, $inc, $stash) = @_;
+    my ($self, $gen, $collection, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_list($data, $gen, $list, $inc, $stash, 1);
+    $self->_serialize_collection($data, $gen, $collection, $inc, $stash, 1);
 
     return $data->[0];
 }
@@ -899,6 +928,15 @@ sub discid_resource
 
     my $data = [];
     $self->_serialize_disc($data, $gen, $cdtoc, $inc, $stash, 1);
+    return $data->[0];
+}
+
+sub cdstub_resource
+{
+    my ($self, $gen, $cdtoc, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_cdstub($data, $gen, $cdtoc, $inc, $stash, 1);
     return $data->[0];
 }
 

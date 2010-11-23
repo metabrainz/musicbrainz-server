@@ -1,13 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseName;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
 
-use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_NAME );
+use MusicBrainz::Server::Edit::Historic::Base;
+
 use MusicBrainz::Server::Translation qw ( l ln );
-
-extends 'MusicBrainz::Server::Edit::Historic';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_NAME );
 
 sub edit_name     { l('Edit release name') }
 sub historic_type { 3 }
@@ -20,14 +18,6 @@ sub related_entities
         release => $self->data->{release_ids}
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids => ArrayRef[Int],
-        old         => Dict[name => Str],
-        new         => Dict[name => Str]
-    ]
-);
 
 sub foreign_keys
 {
@@ -65,6 +55,14 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+sub deserialize_new_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
+sub deserialize_previous_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
 1;

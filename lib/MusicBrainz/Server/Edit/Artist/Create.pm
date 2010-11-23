@@ -31,7 +31,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     return {
-        ( map { $_ => $self->data->{$_} } qw( name sort_name comment ) ),
+        ( map { $_ => $self->data->{$_} } qw( name sort_name comment ipi_code ) ),
         type       => $loaded->{ArtistType}->{$self->data->{type_id}},
         gender     => $loaded->{Gender}->{$self->data->{gender_id}},
         country    => $loaded->{Country}->{$self->data->{country_id}},
@@ -51,6 +51,7 @@ has '+data' => (
         comment    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
+        ipi_code   => Nullable[Str],
     ]
 );
 

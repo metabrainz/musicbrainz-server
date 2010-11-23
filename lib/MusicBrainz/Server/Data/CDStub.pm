@@ -24,7 +24,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, title, artist, added, lastmodified, lookupcount, modifycount, source, barcode, comment';
+    return 'id, title, artist, added, last_modified, lookup_count, modify_count, source, barcode, comment';
 }
 
 sub _column_mapping
@@ -34,9 +34,9 @@ sub _column_mapping
         title => 'title',  
         artist => 'artist',
         date_added=> 'added',
-        last_modified => 'lastmodified',
-        lookup_count => 'lookupcount',
-        modify_count => 'modifycount',
+        last_modified => 'last_modified',
+        lookup_count => 'lookup_count',
+        modify_count => 'modify_count',
         source => 'source',
         barcode => 'barcode',
         comment => 'comment',
@@ -66,7 +66,7 @@ sub load_top_cdstubs
     my $query = "SELECT release_raw." . $self->_columns . ", discid
                  FROM " . $self->_table . ", cdtoc_raw 
                  WHERE release_raw.id = cdtoc_raw.release
-                 ORDER BY lookupcount desc, modifycount DESC 
+                 ORDER BY lookup_count desc, modify_count DESC 
                  OFFSET ?
                  LIMIT  ?";
     return query_to_list_limited(
@@ -78,7 +78,7 @@ sub increment_lookup_count
 {
     my ($self, $cdstub_id) = @_;
     $self->sql->auto_commit(1);
-    $self->sql->do('UPDATE release_raw SET lookupcount = lookupcount + 1 WHERE id = ?', $cdstub_id);
+    $self->sql->do('UPDATE release_raw SET lookup_count = lookup_count + 1 WHERE id = ?', $cdstub_id);
 }
 
 sub get_by_discid
@@ -160,15 +160,15 @@ sub insert
             artist => $cdstub_hash->{artist},
             comment => $cdstub_hash->{comment} || undef,
             barcode => $cdstub_hash->{barcode} || undef,
-            lookupcount => int(rand(10)) # FIXME - at least comment why we do this. -- aCiD2
+            lookup_count => int(rand(10)) # FIXME - at least comment why we do this. -- aCiD2
         }, 'id');
 
         my $cdtoc_id = $self->sql->insert_row('cdtoc_raw', {
             release => $release_id,
             discid => $cdtoc->discid,
-            trackcount => $cdtoc->track_count,
-            leadoutoffset => $cdtoc->leadout_offset,
-            trackoffset => $cdtoc->track_offset
+            track_count => $cdtoc->track_count,
+            leadout_offset => $cdtoc->leadout_offset,
+            track_offset => $cdtoc->track_offset
         }, 'id');
 
         # FIXME Batch insert

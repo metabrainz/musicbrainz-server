@@ -22,7 +22,7 @@
         [%- UNLESS no_javascript -%]
             <script type="text/javascript" src="[%-
                 c.model('FileCache').squash_scripts(
-                    "lib/jquery/jquery-1.4.2.min.js",
+                    "lib/jquery/jquery-1.4.4.min.js",
                     "lib/jquery.placeholder/jquery.placeholder.min.js",
                     "scripts/MB.js",
                     "scripts/global.js"

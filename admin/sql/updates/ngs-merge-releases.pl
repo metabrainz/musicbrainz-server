@@ -5,7 +5,9 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Context;
 use Sql;
 open LOG, ">:utf8", "release-merge.log";
@@ -21,8 +23,8 @@ eval {
 
     my $link_type = $sql->select_single_value("
         SELECT id FROM link_type WHERE
-                entitytype0='release' AND
-                entitytype1='release' AND
+                entity_type0='release' AND
+                entity_type1='release' AND
                 name='part of set'");
 
     # Load all part-of-set ARs into a graph represented as id=>[id,id,id,..]
@@ -239,13 +241,13 @@ eval {
         $sql->do("
         SELECT
             DISTINCT ON (link, $entity0, COALESCE(new_rel, $entity1))
-                id, link, $entity0, COALESCE(new_rel, $entity1) AS $entity1, editpending
+                id, link, $entity0, COALESCE(new_rel, $entity1) AS $entity1, edits_pending
         INTO TEMPORARY tmp_$table
         FROM $table
             LEFT JOIN tmp_release_merge rm ON $table.$entity1=rm.old_rel;
 
         TRUNCATE $table;
-        INSERT INTO $table SELECT id, link, entity0, entity1, editpending FROM tmp_$table;
+        INSERT INTO $table SELECT id, link, entity0, entity1, edits_pending FROM tmp_$table;
         DROP TABLE tmp_$table;
         ");
     }
@@ -253,7 +255,7 @@ eval {
     printf STDERR "Merging l_release_release\n";
     $sql->do("
     SELECT
-        DISTINCT ON (link, COALESCE(rm0.new_rel, entity0), COALESCE(rm1.new_rel, entity1)) id, link, COALESCE(rm0.new_rel, entity0) AS entity0, COALESCE(rm1.new_rel, entity1) AS entity1, editpending
+        DISTINCT ON (link, COALESCE(rm0.new_rel, entity0), COALESCE(rm1.new_rel, entity1)) id, link, COALESCE(rm0.new_rel, entity0) AS entity0, COALESCE(rm1.new_rel, entity1) AS entity1, edits_pending
     INTO TEMPORARY tmp_l_release_release
     FROM l_release_release
         LEFT JOIN tmp_release_merge rm0 ON l_release_release.entity0=rm0.old_rel
@@ -266,25 +268,136 @@ eval {
     ");
 
     printf STDERR "Merging release_annotation\n";
-    $sql->do("
-    SELECT
-        COALESCE(new_rel, release), annotation
-    INTO TEMPORARY tmp_release_annotation
-    FROM release_annotation
-        LEFT JOIN tmp_release_merge rm ON release_annotation.release=rm.old_rel;
 
-    TRUNCATE release_annotation;
-    INSERT INTO release_annotation SELECT * FROM tmp_release_annotation;
-    DROP TABLE tmp_release_annotation;
+    $sql->do(q!
+        CREATE AGGREGATE array_accum (anyelement)
+        (
+            sfunc = array_append,
+            stype = anyarray,
+            initcond = '{}'
+        );
+
+        CREATE FUNCTION annotation_concat (text, text) RETURNS text AS $$
+        BEGIN
+            RETURN $1 || $2 || E'\n\n';
+        END;
+        $$ LANGUAGE plpgsql;
+
+        CREATE AGGREGATE annotation_append (text)
+        (
+            sfunc = annotation_concat,
+            stype = text,
+            initcond = ''
+        );
+    !);
+
+    # Give us all annotations with releases joined, save a tiny bit of time
+    $sql->do(q{
+        SELECT a.*, ra.release
+        INTO TEMPORARY tmp_annotation
+        FROM annotation a
+        JOIN release_annotation ra ON ra.annotation = a.id;
+        CREATE INDEX tmp_annotation_idx ON tmp_annotation (id);
+    });
+
+    # All annotations that span multiple discs
+    $sql->do(q!
+        SELECT an.*, ra.release
+        INTO TEMPORARY multi_disc_annotations
+        FROM annotation an
+        JOIN release_annotation ra ON ra.annotation = an.id
+        WHERE ra.release IN (
+            SELECT old_rel FROM tmp_release_merge
+            UNION ALL
+            SELECT new_rel FROM tmp_release_merge
+        );
+    !);
+
+    # Now that we have the annotations we want to work with we remove the existing
+    # annotations, which allows us to restart the annotation_id_seq
+    $sql->do(q!
+        DELETE FROM annotation an USING multi_disc_annotations ta
+            WHERE an.id = ta.id;
+        DELETE FROM release_annotation ra USING multi_disc_annotations ta
+            WHERE ra.release = ta.release;
+        SELECT SETVAL('annotation_id_seq', (SELECT MAX(id) FROM annotation))
+    !);
+
+    # We will store our work in progress merging into here
+    $sql->do(q!
+        CREATE TEMPORARY TABLE tmp_merged_annotation (
+            id INT,
+            release INT,
+            editor INT,
+            text TEXT,
+            changelog TEXT,
+            created TIMESTAMP WITH TIME ZONE
+        );
+    !);
+
+    # Gives us a set of <{array}> rows, where the array is all release ids for all
+    # discs in the set
+    my @disc_sets = @{ $sql->select_single_column_array(
+        'SELECT array_prepend(new_rel, array_accum(old_rel)) AS discs
+           FROM tmp_release_merge
+          WHERE new_rel IN (SELECT release FROM tmp_annotation)
+       GROUP BY new_rel') };
+
+    my $i = 0;
+    # Loop over all disc sets and do the merging
+    for my $disc_set (@disc_sets) {
+        printf STDERR "%d/%d\r", $i++, scalar @disc_sets;
+
+        # FIXME merge in medium order
+        $sql->do("
+            INSERT INTO tmp_merged_annotation (text, id, changelog, editor, created, release)
+            WITH merge_ann AS (
+                 SELECT *
+                   FROM multi_disc_annotations an
+                  WHERE release IN (" . placeholders(@$disc_set) . ")
+            )
+            SELECT annotation_append(annotations.text) AS text,
+                   nextval('annotation_id_seq') AS id, changelog, editor,
+                   created, ?::int
+              FROM (
+                     SELECT DISTINCT ON (created.created, annotation.release)
+                            created.id, annotation.text, created.created,
+                            created.editor, created.changelog
+                       FROM merge_ann annotation, merge_ann created
+                      WHERE annotation.created <= created.created
+                   ORDER BY created.created, annotation.release, annotation.created DESC
+                   ) annotations
+            GROUP BY id, created, changelog, editor
+            ORDER BY created;
+        ", @$disc_set, $disc_set->[0]);
+    }
+
+    # FIXME Also seems to insert twice?
+    # Insert the new merged annotations for multiple disc sets
+    $sql->do("
+        INSERT INTO release_annotation (release, annotation)
+            SELECT release, id
+            FROM tmp_merged_annotation;
+
+        INSERT INTO annotation (id, text, editor, changelog, created)
+            SELECT id, text, editor, changelog, created
+            FROM tmp_merged_annotation;
+    ");
+
+    # Cleanup
+    $sql->do("
+        DROP AGGREGATE array_accum (anyelement);
+        DROP AGGREGATE annotation_append (text);
+        DROP FUNCTION annotation_concat (text, text);
     ");
 
     printf STDERR "Merging release_gid_redirect\n";
     $sql->do("
     SELECT
-        gid, COALESCE(new_rel, newid)
+        gid, COALESCE(new_rel, new_id)
     INTO TEMPORARY tmp_release_gid_redirect
     FROM release_gid_redirect
-        LEFT JOIN tmp_release_merge rm ON release_gid_redirect.newid=rm.old_rel;
+        LEFT JOIN tmp_release_merge rm ON release_gid_redirect.new_id=rm.old_rel;
 
     TRUNCATE release_gid_redirect;
     INSERT INTO release_gid_redirect SELECT * FROM tmp_release_gid_redirect;
@@ -296,23 +409,23 @@ eval {
                 JOIN tmp_release_merge rm ON release.id=rm.old_rel;
     ");
 
-    printf STDERR "Merging list_release\n";
+    printf STDERR "Merging editor_collection_release\n";
     $sql->do("
     SELECT
-        DISTINCT list, COALESCE(new_rel, release)
-    INTO TEMPORARY tmp_list_release
-    FROM list_release
-        LEFT JOIN tmp_release_merge rm ON list_release.release=rm.old_rel;
+        DISTINCT collection, COALESCE(new_rel, release)
+    INTO TEMPORARY tmp_editor_collection_release
+    FROM editor_collection_release
+        LEFT JOIN tmp_release_merge rm ON editor_collection_release.release=rm.old_rel;
 
-    TRUNCATE list_release;
-    INSERT INTO list_release SELECT * FROM tmp_list_release;
-    DROP TABLE tmp_list_release;
+    TRUNCATE editor_collection_release;
+    INSERT INTO editor_collection_release SELECT * FROM tmp_editor_collection_release;
+    DROP TABLE tmp_editor_collection_release;
     ");
 
     printf STDERR "Merging release_label\n";
     $sql->do("
     SELECT
-        DISTINCT ON (COALESCE(new_rel, release), label, catno) id, COALESCE(new_rel, release), label, catno
+        DISTINCT ON (COALESCE(new_rel, release), label, catalog_number) id, COALESCE(new_rel, release), label, catalog_number
     INTO TEMPORARY tmp_release_label
     FROM release_label
         LEFT JOIN tmp_release_merge rm ON release_label.release=rm.old_rel;
@@ -327,9 +440,9 @@ eval {
     SELECT COALESCE(new_rel, id) AS id,
         CASE
                 WHEN count(*) > 1 THEN now()
-                ELSE max(lastupdate)
-        END AS lastupdate,
-        min(dateadded) AS dateadded
+                ELSE max(last_updated)
+        END AS last_updated,
+        min(date_added) AS date_added
     INTO TEMPORARY tmp_release_meta
     FROM release_meta
         LEFT JOIN tmp_release_merge rm ON release_meta.id=rm.old_rel
@@ -341,8 +454,8 @@ eval {
     INSERT INTO release_coverart (id)
         SELECT id FROM tmp_release_meta;
 
-    INSERT INTO release_meta (id, lastupdate, dateadded)
-        SELECT id, lastupdate, dateadded FROM tmp_release_meta;
+    INSERT INTO release_meta (id, last_updated, date_added)
+        SELECT id, last_updated, date_added FROM tmp_release_meta;
 
     DROP TABLE tmp_release_meta;
     ");
@@ -351,18 +464,27 @@ eval {
     # Only remove disc information in release name for releases we are merging
     $sql->do("
     CREATE INDEX tmp_release_name_idx_name ON release_name (name);
+    
+    SELECT COALESCE(new_rel, id) AS id,
+        min(quality) AS quality
+    INTO TEMPORARY tmp_release_quality
+    FROM release
+        LEFT JOIN tmp_release_merge rm ON release.id=rm.old_rel
+    GROUP BY COALESCE(new_rel, id);
+
     SELECT release.id, gid,
         CASE
                 WHEN rm1.new_rel IS NOT NULL THEN regexp_replace(n.name, E'\\\\s+[(](disc [0-9]+(: .*?)?|bonus disc(: .*?)?)[)]\$', '')
                 ELSE n.name
         END,
         artist_credit, release_group, status, packaging, country, language, script,
-        date_year, date_month, date_day, barcode, comment, editpending, quality
+        date_year, date_month, date_day, barcode, comment, edits_pending, q.quality
     INTO TEMPORARY tmp_release
     FROM release
         INNER JOIN release_name n ON release.name=n.id
         LEFT JOIN tmp_release_merge rm0 ON release.id=rm0.old_rel
         LEFT JOIN (select distinct new_rel from tmp_release_merge) rm1 ON release.id=rm1.new_rel
+        JOIN tmp_release_quality q ON q.id = release.id
     WHERE rm0.old_rel IS NULL;
 
     INSERT INTO release_name (name)
@@ -374,7 +496,7 @@ eval {
     TRUNCATE release;
     INSERT INTO release
         SELECT t.id, gid, n.id, artist_credit, release_group, status, packaging, country, language, script,
-                date_year, date_month, date_day, barcode, comment, editpending, quality
+                date_year, date_month, date_day, barcode, comment, edits_pending, quality
          FROM tmp_release t
                 JOIN release_name n ON t.name = n.name;
     DROP TABLE tmp_release;
@@ -383,10 +505,10 @@ eval {
 
     printf STDERR "Updating release_group_meta\n";
     $sql->do("
-    SELECT id, lastupdate, COALESCE(t.releasecount, 0), firstreleasedate_year, firstreleasedate_month, firstreleasedate_day, rating, ratingcount
+    SELECT id, last_updated, COALESCE(t.release_count, 0), first_release_date_year, first_release_date_month, first_release_date_day, rating, rating_count
         INTO TEMPORARY tmp_release_group_meta
         FROM release_group_meta rgm
-                LEFT JOIN ( SELECT release_group, count(*) AS releasecount FROM release GROUP BY release_group ) t ON t.release_group = rgm.id;
+                LEFT JOIN ( SELECT release_group, count(*) AS release_count FROM release GROUP BY release_group ) t ON t.release_group = rgm.id;
 
     TRUNCATE release_group_meta;
     INSERT INTO release_group_meta SELECT * FROM tmp_release_group_meta;
