@@ -426,11 +426,11 @@ table.tbl tr.ev td {
     background: #F2F2F2;
 }
 
-table.tbl th.pos { width: 1em; }
-table.tbl th.year { width: 4em; }
-table.tbl th.count { width: 2em; }
-table.tbl th.rating { width: 50px; }
-table.tbl th.treleases { width: 3em; }
+table.tbl .pos { width: 1em; }
+table.tbl .year { width: 4em; }
+table.tbl .count { width: 2em; }
+table.tbl .rating { width: 50px; }
+table.tbl .treleases { width: 3em; }
 table.tbl .t { text-align: right; }
 
 /* Paginator */
