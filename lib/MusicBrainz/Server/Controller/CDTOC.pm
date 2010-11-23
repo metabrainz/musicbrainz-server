@@ -123,6 +123,10 @@ sub attach : Local RequireAuth
     if (my $medium_id = $c->req->query_params->{medium}) {
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('Release')->load($medium);
+        $c->model('ArtistCredit')->load($medium->release);
+
+        $c->stash( release => $medium->release );
+
         $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,
             form        => 'Confirm',
