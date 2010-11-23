@@ -970,3 +970,7 @@ ALTER TABLE work_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
+-- Other constraints
+ALTER TABLE artist
+    ADD CONSTRAINT artist_gender
+    CHECK ( (type = 2 AND gender IS NULL) OR (type != 2) );
