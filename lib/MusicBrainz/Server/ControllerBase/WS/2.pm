@@ -39,7 +39,7 @@ sub unauthorized : Private
 {
     my ($self, $c) = @_;
     $c->res->status(401);
-    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->content_type("application/xml; charset=utf-8");
     $c->res->body($c->stash->{serializer}->output_error("Your credentials ".
         "could not be verified.\nEither you supplied the wrong credentials ".
         "(e.g., bad password), or your client doesn't understand how to ".
@@ -50,7 +50,7 @@ sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->res->status(404);
-    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->content_type("application/xml; charset=utf-8");
     $c->res->body($c->stash->{serializer}->output_error("Not Found"));
 }
 
