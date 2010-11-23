@@ -44,7 +44,7 @@ sub _columns
     return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
            'artist.type, artist.country, gender, artist.edits_pending, artist.ipi_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, artist.comment';
+           'end_date_year, end_date_month, end_date_day, artist.comment, artist.last_updated';
 }
 
 sub _id_column
@@ -72,6 +72,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         ipi_code => 'ipi_code',
+        last_updated => 'last_updated',
     };
 }
 
@@ -283,7 +284,6 @@ sub load_meta
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

@@ -70,7 +70,7 @@ sub for_copy {
         $edit->editor_id,
         $edit->edit_type,
         $edit->status,
-        copy_escape(encode_json($edit->data)),
+        copy_escape(JSON::Any->new(utf8 => 1)->encode($edit->data)),
         $edit->yes_votes,
         $edit->no_votes,
         $edit->auto_edit,

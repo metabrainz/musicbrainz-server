@@ -29,7 +29,7 @@ sub _columns
     return 'recording.id, recording.gid, name.name,
             recording.artist_credit AS artist_credit_id,
             recording.length, recording.comment,
-            recording.edits_pending';
+            recording.edits_pending, recording.last_updated';
 }
 sub _column_mapping
 {
@@ -41,6 +41,7 @@ sub _column_mapping
         length           => 'length',
         comment          => 'comment',
         edits_pending    => 'edits_pending',
+        last_updated     => 'last_updated',
     };
 }
 
@@ -177,7 +178,6 @@ sub load_meta
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

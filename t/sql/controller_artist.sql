@@ -44,7 +44,7 @@ INSERT INTO artist
     (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1,
      2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
 
-UPDATE artist_meta SET rating=70, rating_count=4, last_updated='2009-07-09 20:40:30' WHERE id = 3;
+UPDATE artist_meta SET rating=70, rating_count=4 WHERE id = 3;
 
 INSERT INTO artist (id, gid, name, sort_name) VALUES
     (4, '60e5d080-c964-11de-8a39-0800200c9a66', 3, 3);

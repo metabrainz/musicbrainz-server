@@ -24,6 +24,7 @@ has 'link' => (
 has 'direction' => (
     is => 'rw',
     isa => 'Int',
+    default => $DIRECTION_FORWARD
 );
 
 has 'entity0_id' => (

@@ -30,7 +30,7 @@ sub _columns
 {
     return 'work.id, gid, type AS type_id, name.name,
             work.artist_credit AS artist_credit_id, iswc,
-            comment, edits_pending';
+            comment, edits_pending, work.last_updated';
 }
 
 sub _id_column

@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::Base;
 
-use strict;
-use warnings;
+use Moose;
 use Moose::Exporter;
 use Moose::Util qw( find_meta );
 
@@ -9,7 +8,7 @@ sub USE_MOOSE { 1 }
 
 my ($import) = Moose::Exporter->build_import_methods( also => 'Moose' );
 sub import {
-    my $class = shift;
+    my $class = caller(0);
     if(USE_MOOSE) {
         goto $import;
     }
