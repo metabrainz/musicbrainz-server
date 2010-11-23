@@ -10,10 +10,10 @@ CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor 
+CREATE TRIGGER b_upd_artist_tag BEFORE UPDATE ON artist_tag 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_isrc BEFORE UPDATE ON isrc 
+CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_artist_artist BEFORE UPDATE ON l_artist_artist 
@@ -109,10 +109,16 @@ CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
 CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag 
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_link_attribute_type BEFORE UPDATE ON link_attribute_type 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_link_type BEFORE UPDATE ON link_type 
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_link_type_attribute_type BEFORE UPDATE ON link_type_attribute_type 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium 
@@ -131,6 +137,9 @@ CREATE TRIGGER a_del_recording AFTER DELETE ON recording
     FOR EACH ROW EXECUTE PROCEDURE a_del_recording();
 
 CREATE TRIGGER b_upd_recording BEFORE UPDATE ON recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_recording_tag BEFORE UPDATE ON recording_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_release AFTER INSERT ON release
@@ -158,6 +167,9 @@ CREATE TRIGGER a_del_release_group AFTER DELETE ON release_group
     FOR EACH ROW EXECUTE PROCEDURE a_del_release_group();
 
 CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_release_group_tag BEFORE UPDATE ON release_group_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_tag_relation BEFORE UPDATE ON tag_relation 
@@ -194,6 +206,9 @@ CREATE TRIGGER b_upd_work BEFORE UPDATE ON work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias 
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 COMMIT;

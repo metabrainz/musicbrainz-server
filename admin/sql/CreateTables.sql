@@ -58,7 +58,7 @@ CREATE TABLE artist_tag
     artist              INTEGER NOT NULL, -- PK, references artist.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_credit (
@@ -194,7 +194,7 @@ CREATE TABLE isrc
     isrc                CHAR(12) NOT NULL,
     source              SMALLINT,
     edits_pending       INTEGER NOT NULL DEFAULT 0,
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE historicalstat
@@ -545,7 +545,7 @@ CREATE TABLE label_tag
     label               INTEGER NOT NULL, -- PK, references label.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_type (
@@ -618,7 +618,8 @@ CREATE TABLE link_type_attribute_type
     link_type           INTEGER NOT NULL, -- PK, references link_type.id
     attribute_type      INTEGER NOT NULL, -- PK, references link_attribute_type.id
     min                 SMALLINT,
-    max                 SMALLINT
+    max                 SMALLINT,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE editor_collection
@@ -726,7 +727,7 @@ CREATE TABLE recording_tag
     recording           INTEGER NOT NULL, -- PK, references recording.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release (
@@ -839,7 +840,7 @@ CREATE TABLE release_group_tag
     release_group       INTEGER NOT NULL, -- PK, references release_group.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_group_type (
@@ -987,7 +988,7 @@ CREATE TABLE work_tag
     work                INTEGER NOT NULL, -- PK, references work.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_type (
