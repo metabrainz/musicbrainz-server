@@ -8,12 +8,6 @@ CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
 CREATE TRIGGER a_upd_artist AFTER UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE a_upd_artist();
 
-CREATE TRIGGER b_ins_artist BEFORE INSERT ON artist
-    FOR EACH ROW EXECUTE PROCEDURE artist_groups_have_no_gender();
-
-CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
-    FOR EACH ROW EXECUTE PROCEDURE artist_groups_have_no_gender();
-
 
 CREATE TRIGGER a_ins_label AFTER INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE a_ins_label();

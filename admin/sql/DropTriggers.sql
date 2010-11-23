@@ -3,8 +3,6 @@
 
 DROP TRIGGER a_ins_artist ON artist;
 DROP TRIGGER a_upd_artist ON artist;
-DROP TRIGGER b_ins_artist ON artist;
-DROP TRIGGER b_upd_artist ON artist;
 DROP TRIGGER a_ins_label ON label;
 DROP TRIGGER a_upd_label ON label;
 DROP TRIGGER a_ins_recording ON recording;
