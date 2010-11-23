@@ -27,7 +27,9 @@
                 [% IF rg.edits_pending %]
                     <li>[% link_release_group(rg, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
-                <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
+                [% IF can_delete %]
+                    <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
+                [% END %]
                 <li>[% use_in_relationship(rg) %]</li>
                 <li>[% relate_to_url(rg) %]</li>
                 <li>
