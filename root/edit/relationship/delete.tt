@@ -3,9 +3,9 @@
     <h1>[% l('Delete Relationship') %]</h1>
 
     <p>
-        [%- l('Are you sure you wish to remove the relationship between {entity0} and {entity1} from MusicBrainz?', {
+        [%- l('Are you sure you wish to remove the relationship: {entity0} {relationship}?', {
                 entity0 => link_entity(relationship.entity0),
-                entity1 => link_entity(relationship.entity1),
+                relationship => display_relationship(relationship),
             }) -%]
     </p>
 
