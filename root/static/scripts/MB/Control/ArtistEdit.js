@@ -53,7 +53,7 @@ MB.Control.ArtistEdit = function () {
     };
 
     var guesscase = function (event) {
-        self.$name.val (self.guess_artist.guess (self.$name.val ()));
+        self.$name.val (MB.GuessCase.artist.guess (self.$name.val ()));
 
         event.preventDefault ();
     };
@@ -61,7 +61,7 @@ MB.Control.ArtistEdit = function () {
     var sortname = function (event) {
         var person = self.$type.val () !== '2';
 
-        self.$sort_name.val (self.guess_artist.sortname (self.$name.val (), person));
+        self.$sort_name.val (MB.GuessCase.artist.sortname (self.$name.val (), person));
 
         event.preventDefault ();
     };
@@ -78,8 +78,6 @@ MB.Control.ArtistEdit = function () {
     self.guesscase = guesscase;
     self.sortname = sortname;
     self.copy = copy;
-
-    self.guess_artist = MB.GuessCase.Artist ();
 
     self.typeChanged();
     self.$type.bind ('change.mb', self.typeChanged);

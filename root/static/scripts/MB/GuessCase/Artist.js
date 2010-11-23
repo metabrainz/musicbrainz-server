@@ -21,7 +21,7 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase.Artist = function () {
+MB.GuessCase._Artist = function () {
     var self = MB.Object ();
 
     self.gc = MB.GuessCase.Main ();
@@ -31,3 +31,5 @@ MB.GuessCase.Artist = function () {
 
     return self;
 };
+
+MB.GuessCase.artist = MB.GuessCase._Artist ();

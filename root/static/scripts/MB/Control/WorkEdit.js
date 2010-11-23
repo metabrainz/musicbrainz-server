@@ -27,7 +27,7 @@ MB.Control.WorkEdit = function () {
     self.$copy = $('button.copy');
 
     var guesscase = function (event) {
-        self.$name.val (self.guess_work.guess (self.$name.val ()));
+        self.$name.val (MB.GuessCase.work.guess (self.$name.val ()));
 
         event.preventDefault ();
     };
@@ -40,8 +40,6 @@ MB.Control.WorkEdit = function () {
 
     self.guesscase = guesscase;
     self.copy = copy;
-
-    self.guess_work = MB.GuessCase.Work ();
 
     self.$guesscase.bind ('click.mb', self.guesscase);
     self.$copy.bind ('click.mb', self.copy);

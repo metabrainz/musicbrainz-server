@@ -21,7 +21,7 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase.Label = function () {
+MB.GuessCase._Label = function () {
     var self = MB.Object ();
 
     self.gc = MB.GuessCase.Main ();
@@ -31,3 +31,5 @@ MB.GuessCase.Label = function () {
 
     return self;
 };
+
+MB.GuessCase.label = MB.GuessCase._Label ();

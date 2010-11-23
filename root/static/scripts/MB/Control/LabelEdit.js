@@ -29,13 +29,13 @@ MB.Control.LabelEdit = function () {
     self.$copy = $('button.copy');
 
     var guesscase = function (event) {
-        self.$name.val (self.guess_label.guess (self.$name.val ()));
+        self.$name.val (MB.GuessCase.label.guess (self.$name.val ()));
 
         event.preventDefault ();
     };
 
     var sortname = function (event) {
-        self.$sort_name.val (self.guess_label.sortname (self.$name.val ()));
+        self.$sort_name.val (MB.GuessCase.label.sortname (self.$name.val ()));
 
         event.preventDefault ();
     };
@@ -49,8 +49,6 @@ MB.Control.LabelEdit = function () {
     self.guesscase = guesscase;
     self.sortname = sortname;
     self.copy = copy;
-
-    self.guess_label = MB.GuessCase.Label ();
 
     self.$guesscase.bind ('click.mb', self.guesscase);
     self.$sortname.bind ('click.mb', self.sortname);

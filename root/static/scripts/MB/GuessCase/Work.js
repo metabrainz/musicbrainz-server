@@ -21,7 +21,7 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase.Work = function () {
+MB.GuessCase._Work = function () {
     var self = MB.Object ();
 
     self.gc = MB.GuessCase.Main ();
@@ -30,3 +30,5 @@ MB.GuessCase.Work = function () {
 
     return self;
 };
+
+MB.GuessCase.work = MB.GuessCase._Work ();
