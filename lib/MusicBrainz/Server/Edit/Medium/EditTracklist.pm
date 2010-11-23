@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::EditTracklist;
 use Moose;
 use namespace::autoclean;
-
+use Clone qw( clone );
 use Data::Compare;
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 use aliased 'MusicBrainz::Server::Entity::Tracklist';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
-sub edit_name { l('Edit tracklist) }
+sub edit_name { l('Edit tracklist') }
 sub edit_type { $EDIT_MEDIUM_EDIT_TRACKLIST }
 
 has 'mediums' => (
@@ -62,6 +62,7 @@ sub alter_edit_pending
 sub related_entities
 {
     my $self = shift;
+
     return {
         release => [ map { $_->release_id } $self->mediums ],
         recording =>  [
@@ -79,7 +80,8 @@ sub related_entities
 sub artist_ids
 {
     my $self = shift;
-    map { $_->{artist} }
+
+    return map { $_->{artist} }
         grep { ref($_) } map { @{ $_->{artist_credit} } }
         @{ $self->data->{new_tracklist} },
         @{ $self->data->{old_tracklist} }
@@ -119,11 +121,11 @@ sub _tracks_to_hash
 {
     my $tracks = shift;
     return [ map +{
-        artist_credit => artist_credit_to_ref($_->artist_credit),
-        name => $_->name,
+        artist_credit => $_->{artist_credit},
+        name => $_->{name},
         # Filter out sub-second differences
-        length => unformat_track_length(format_track_length($_->length)),
-        recording_id => $_->recording_id,
+        length => unformat_track_length(format_track_length($_->{length})),
+        recording_id => $_->{recording_id},
     }, @$tracks ];
 }
 
@@ -134,7 +136,7 @@ sub initialize
         tracklist_id => $opts{tracklist_id},
         medium_id => $opts{medium_id},
         separate_tracklists => $opts{separate_tracklists},
-        old_tracklist => _tracks_to_hash($opts{old_tracklist}->tracks),
+        old_tracklist => _tracks_to_hash($opts{old_tracklist}),
         new_tracklist => _tracks_to_hash($opts{new_tracklist})
     };
 
@@ -147,6 +149,8 @@ sub initialize
 sub accept
 {
     my $self = shift;
+
+    my $data_new_tracklist = clone ($self->data->{new_tracklist});
 
     # Make sure the medium still has the same tracklist
     my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
@@ -161,7 +165,7 @@ sub accept
     ) if $medium->tracklist->track_count != @{ $self->data->{old_tracklist} };
 
     # Create related data (artist credits and recordings)
-    for my $track (@{ $self->data->{new_tracklist} }) {
+    for my $track (@{ $data_new_tracklist }) {
         $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
         $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
     }
@@ -178,13 +182,14 @@ sub accept
     }
     else {
         $self->c->model('Tracklist')->replace($medium->tracklist_id, 
-            $self->data->{new_tracklist});
+            $data_new_tracklist);
     }
 }
 
 sub foreign_keys
 {
     my ($self) = @_;
+
     return {
         Artist => [ $self->artist_ids ],
         Medium => {

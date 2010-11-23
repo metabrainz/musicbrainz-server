@@ -1,13 +1,13 @@
 package MusicBrainz::Server::Edit::Historic::MoveRelease;
-use Moose;
-use MooseX::Types::Structured qw( Dict Optional );
-use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_RELEASE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Move release') }
 sub historic_type { 8 }
@@ -20,16 +20,6 @@ sub related_entities
         release => $self->data->{release_ids},
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids     => ArrayRef[Int],
-        move_tracks     => Bool,
-        artist_name     => Str,
-        artist_id       => Int,
-        old_artist_name => Str
-    ]
-);
 
 sub release_ids { @{ shift->data->{release_ids} } }
 
@@ -92,8 +82,13 @@ sub deserialize_new_value
 
     my %deserialized;
 
-    # new.name might be undef (in which case, name==sortname)
-    @deserialized{qw( sort_name artist_name artist_id move_tracks)} = split /\n/, $new;
+    if ($new =~ /\n/) {
+        # new.name might be undef (in which case, name==sortname)
+        @deserialized{qw( sort_name artist_name artist_id move_tracks)} = split /\n/, $new;
+    }
+    else {
+        %deserialized = ( artist_name => $new );
+    }
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
     if ($deserialized{artist_name} =~ /^\d+$/ && !defined $deserialized{artist_id}) {
@@ -101,11 +96,12 @@ sub deserialize_new_value
         $deserialized{artist_id}   = $deserialized{artist_name};
     }
 
-    $deserialized{artist_name} = delete $deserialized{sort_name};
+    $deserialized{move_tracks} ||= 0;
+    $deserialized{artist_id} ||= 0;
+    $deserialized{artist_name} = delete $deserialized{sort_name}
+        if $deserialized{sort_name};
 
     return \%deserialized;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

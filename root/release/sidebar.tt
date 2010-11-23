@@ -16,16 +16,16 @@
     </p>
 [% END -%]
 
-[% BLOCK lists %]
+[% BLOCK collections %]
     <p><ul>
-        [% FOREACH list IN lists %]
-            [% IF containment.${list.id} %]
-                <li><a href="[% c.uri_for_action("/list/remove", [list.gid], { release => release.id }) %]">
-                    [%- l('Remove from list “{list}”', { list => list.name }) %]</a></li>
+        [% FOREACH collection IN collections %]
+            [% IF containment.${collection.id} %]
+                <li><a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
+                    [%- l('Remove from collection “{collection}”', { collection => collection.name }) %]</a></li>
             [% ELSE %]
-                <li><a href="[% c.uri_for_action("/list/add", [list.gid], { release => release.id }) 
+                <li><a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) 
 		    %]">
-                    [%- l('Add to list “{list}”', {list => list.name }) %]</a></li>
+                    [%- l('Add to collection “{collection}”', {collection => collection.name }) %]</a></li>
             [% END %]
         [% END %]
     </ul></p>
@@ -167,7 +167,7 @@ WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
         tag_this_text=l('Tag release group');
         INCLUDE links;
     	INCLUDE other_versions;    
-        INCLUDE lists IF c.user_exists;
+        INCLUDE collections IF c.user_exists;
     END;
 END;
 

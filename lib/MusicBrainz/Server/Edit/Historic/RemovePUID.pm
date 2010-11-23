@@ -1,15 +1,17 @@
 package MusicBrainz::Server::Edit::Historic::RemovePUID;
-use Moose;
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_PUID );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub ngs_class { 'MusicBrainz::Server::Edit::PUID::Delete' }
 sub edit_name { l('Remove PUID') }
 sub edit_type { 46 }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
 
@@ -39,7 +41,4 @@ sub deserialize_previous_value {
     my ($self, $value ) = @_;
     return $value;
 }
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
-
+1;

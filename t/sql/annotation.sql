@@ -22,15 +22,15 @@ TRUNCATE recording_annotation CASCADE;
 TRUNCATE release_annotation CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist Name');
-INSERT INTO artist (id, gid, name, sortname)
+INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
 
-INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, name, position, artist, joinphrase)
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, name, position, artist, join_phrase)
     VALUES (1, 1, 1, 1, NULL);
 
 INSERT INTO label_name (id, name) VALUES (1, 'Label Name');
-INSERT INTO label (id, gid, name, sortname)
+INSERT INTO label (id, gid, name, sort_name)
     VALUES (1, '56a40160-8ff2-11de-8a39-0800200c9a66', 1, 1);
 
 INSERT INTO track_name (id, name) VALUES (1, 'Recording Name');

@@ -15,7 +15,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
 my $cdtoc = $c->model('CDTOC')->get_by_id(1);
 is($cdtoc->id, 1);
 is($cdtoc->discid, 'tLGBAiCflG8ZI6lFcOt87vXjEcI-');
-is($cdtoc->freedbid, '5908ea07');
+is($cdtoc->freedb_id, '5908ea07');
 is($cdtoc->track_count, 7);
 is($cdtoc->leadout_offset, 171327);
 is($cdtoc->track_offset->[0], 150);

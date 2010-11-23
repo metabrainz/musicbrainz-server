@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseLanguage;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
@@ -9,7 +8,7 @@ use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Edit release language') }
 sub historic_type { 44 }
@@ -22,19 +21,6 @@ sub related_entities
         release => [ map { @{ $_->{release_ids} } } @{ $self->data->{old} } ]
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        language_id => Nullable[Int],
-        script_id   => Nullable[Int],
-        old         => ArrayRef[Dict[
-            release_ids  => ArrayRef[Int],
-            language_id  => Nullable[Int],
-            script_id    => Nullable[Int],
-            release_name => Str,
-        ]],
-    ]
-);
 
 sub foreign_keys
 {
@@ -107,6 +93,4 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

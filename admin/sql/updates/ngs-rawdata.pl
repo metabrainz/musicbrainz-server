@@ -129,12 +129,13 @@ while (1) {
             # Map albums to RGs and calculate sums/counts
             foreach $row (@user_data) {
                 my ($rating, $editor, $album) = @$row;
-                my $rg = $rg_map{$album};
+                my $rg = $rg_map{$album} or next;
                 $rg_rating_sum{$rg} += $rating;
                 $rg_rating_cnt{$rg} += 1;
             }
             # Iterate over unique RGs and add average raw ratings
             foreach my $rg (keys %rg_rating_sum) {
+                next unless defined $rg;
                 my $rating = int(0.5 + $rg_rating_sum{$rg} / $rg_rating_cnt{$rg});
                 $raw_sql->do("
                     INSERT INTO release_group_rating_raw (release_group, editor, rating)
@@ -158,7 +159,7 @@ $raw_sql->select("
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($id, $rating, $count) = @$row;
-    $sql->do("UPDATE release_group_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+    $sql->do("UPDATE release_group_meta SET rating=?, rating_count=? WHERE id=?", $rating, $count, $id);
 }
 $raw_sql->finish;
 $sql->do("DROP INDEX tmp_release_group_meta_idx");
@@ -184,14 +185,14 @@ while (1) {
 }
 $sql->finish;
 
-print " * Converting collections to lists\n";
+print " * Converting collections\n";
 
 $raw_sql->select("SELECT id, moderator FROM public.collection_info");
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($id, $editor_id) = @$row;
     # List should be private by default, and called "My Collection"
-    $sql->do("INSERT INTO list (id, editor, name, public, gid) VALUES (?, ?, ?, ?, generate_uuid_v4())",
+    $sql->do("INSERT INTO editor_collection (id, editor, name, public, gid) VALUES (?, ?, ?, ?, generate_uuid_v4())",
              $id, $editor_id, "My Collection", 0);
 }
 $raw_sql->finish;
@@ -202,7 +203,7 @@ while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($list_id, $album_id) = @$row;
     next unless $release_map{$album_id};
-    $sql->do("INSERT INTO list_release (list, release)
+    $sql->do("INSERT INTO editor_collection_release (collection, release)
               VALUES (?, ?)", $list_id, $release_map{$album_id});
 }
 $raw_sql->finish;

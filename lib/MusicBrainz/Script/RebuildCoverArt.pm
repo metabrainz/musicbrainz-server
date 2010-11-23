@@ -1,6 +1,7 @@
 package MusicBrainz::Script::RebuildCoverArt;
 use Moose;
 
+use DBDefs;
 use DateTime::Duration;
 use MusicBrainz::Server::Context;
 
@@ -50,6 +51,10 @@ has 'max_run_time' => (
 sub run
 {
     my $self = shift;
+
+    printf STDERR "You do not have both AWS_PUBLIC and AWS_PRIVATE defined in DBDefs.\n" .
+        "You will not be able to find artwork from Amazon until these are set."
+            unless (DBDefs::AWS_PUBLIC && DBDefs::AWS_PRIVATE);
 
     my $releases = $self->c->model('CoverArt')->find_outdated_releases($self->since);
 

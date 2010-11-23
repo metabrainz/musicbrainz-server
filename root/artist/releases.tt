@@ -1,19 +1,25 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Releases') page='releases' -%]
     [%- IF releases.size -%]
         [%- INCLUDE 'release_group/releases-list.tt' rdfa_made=1 WRAPPER 'components/with-pager.tt' -%]
-    [%- ELSE -%]
-        <p>[%- l('No releases found') -%]</p>
     [%- END -%]
  
-    [% IF va_only %]
-        <p>[% l('This artist only has releases by various artists.') %]</p>
+    [% IF va_only && pager.total_entries == 0 %]
+        <p>[% l('This artist does not have any releases') %]</p>
     [% ELSE %]
-        [% IF !show_va %]
-            <p>[% l('Showing releases by this artist. {show_all|Show various artist releases}.',
-                    { show_all = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 1 }) }) %]</p>
+        [% IF releases.size == 0 %]
+            <p>[% l('No releases found') %]</p>
+        [% END %]
+
+        [% IF va_only %]
+            <p>[% l('This artist only has releases by various artists.') %]</p>
         [% ELSE %]
-            <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
-                    { show_subset = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 0 }) }) %]</p>
+            [% IF !show_va %]
+                <p>[% l('Showing releases by this artist. {show_all|Show various artist releases}.',
+                        { show_all = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 1 }) }) %]</p>
+            [% ELSE %]
+                <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
+                        { show_subset = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 0 }) }) %]</p>
+            [% END %]
         [% END %]
     [% END %]
 [%- END -%]

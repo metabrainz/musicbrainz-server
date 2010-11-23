@@ -27,8 +27,8 @@ sub _table
 sub _columns
 {
     return 'id, gid, url, description,
-            editpending AS edits_pending,
-            refcount AS reference_count';
+            edits_pending,
+            ref_count AS reference_count';
 }
 
 sub _entity_class

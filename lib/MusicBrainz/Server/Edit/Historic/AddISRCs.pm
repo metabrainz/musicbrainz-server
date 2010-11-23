@@ -1,15 +1,15 @@
 package MusicBrainz::Server::Edit::Historic::AddISRCs;
-use Moose;
+use strict;
+use warnings;
 
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 use MusicBrainz::Server::Translation qw ( l ln );
-
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { l('Add ISRCs') }
 sub edit_type { 71 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddISRCs' }
 
-augment 'upgrade' => sub {
+sub do_upgrade {
     my $self = shift;
     my @isrcs;
     for (my $i = 0; ; $i++)
@@ -28,7 +28,6 @@ augment 'upgrade' => sub {
     return {
         isrcs => \@isrcs
     }
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+1;
