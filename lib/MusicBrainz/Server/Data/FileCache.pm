@@ -26,14 +26,17 @@ sub modified {
 
 sub squash_scripts {
     my ($self, @files) = @_;
-    my $hash = md5_hex(join ",", sort @files);
+    @files = map { DBDefs::STATIC_FILES_DIR . '/' . $_ } @files;
+    my $hash = md5_hex(join ",", map {
+        (stat($_))[9] . $_ 
+    } sort @files);
+
     my $path = DBDefs::STATIC_PREFIX . "/$hash.js";
     my $file = DBDefs::STATIC_FILES_DIR . "/$hash.js";
     unless (-e$file) {
         minify(
-            input => join("\n", map {
-                io(DBDefs::STATIC_FILES_DIR . '/' . $_)->all
-            } @files) ) > io($file);
+            input => join("\n", map { io($_)->all } @files)
+        ) > io($file);
     }
 
     return $path;
