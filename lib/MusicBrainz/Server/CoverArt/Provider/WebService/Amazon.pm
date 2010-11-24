@@ -67,7 +67,7 @@ sub search_by_barcode
                   "Service=AWSECommerceService&" .
                   "Operation=ItemLookup&" .
                   "ResponseGroup=Images&" .
-                  "IdType=EAN&" .
+                  "IdType=" . $release->barcode_type . "&" .
                   "SearchIndex=Music&" .
                   "ItemId=" . $release->barcode;
 

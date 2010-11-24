@@ -24,9 +24,10 @@ has 'information_uri' => (
 sub cache_data
 {
     my $self = shift;
-    return {
-        info_url     => $self->information_uri
-    }
+    my $data = {};
+    $data->{info_url} = $self->information_uri
+        if $self->information_uri;
+    return $data;
 }
 
 1;
