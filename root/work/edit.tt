@@ -11,7 +11,10 @@
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Work.js",
       "scripts/MB/GuessCase/Mode/Base.js",
-      "scripts/MB/GuessCase/Mode/Work.js",
+      "scripts/MB/GuessCase/Mode/Classical.js",
+      "scripts/MB/GuessCase/Mode/English.js",
+      "scripts/MB/GuessCase/Mode/French.js",
+      "scripts/MB/GuessCase/Mode/Sentence.js",
       "scripts/MB/GuessCase/Input.js",
       "scripts/MB/GuessCase/Output.js",
       "scripts/MB/GuessCase/Flags.js",
@@ -22,7 +25,7 @@
       "scripts/MB/Control/WorkEdit.js",
     ) -%]"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
+    $('document').ready(function() {
 
       MB.Control.initialize_artist_credit ();
       MB.Control.WorkEdit ();

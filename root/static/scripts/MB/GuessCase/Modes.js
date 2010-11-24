@@ -74,16 +74,17 @@ MB.GuessCase.Modes = function (language) {
         null : MB.GuessCase.Mode.Artist (self);
     self.dropdown = $('#gc-mode');
 
-
     self.modes = [];
-    for (mode in ['English', 'Sentence', 'French', 'Classical']) {
+    $.each (['English', 'Sentence', 'French', 'Classical'], function (idx, mode) {
+
         if (typeof MB.GuessCase.Mode[mode] !== "undefined")
         {
             self.modes.push (MB.GuessCase.Mode[mode] (self));
         }
-    };
+    });
 
     initialize ();
 
     return self;
 };
+
