@@ -157,6 +157,7 @@
                 <li>
                      [% l('{uri|Add Label}', { uri => c.uri_for('/label/create') }) %]
                 </li>
+                <li> [% l('{uri|Add Release}', { uri => c.uri_for_action('/release_editor/add') }) %]</li>
                 <li>
                     [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
                 </li>
