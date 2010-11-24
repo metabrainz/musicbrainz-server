@@ -5,7 +5,7 @@ extends 'MusicBrainz::Server::CoverArt';
 
 has 'asin' => (
     isa => 'Str',
-    is  => 'ro',
+    is  => 'rw',
 );
 
 override 'cache_data' => sub

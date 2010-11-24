@@ -135,6 +135,18 @@ sub load
             $release->cover_art($cover_art);
             last;
         }
+
+        unless ($release->has_cover_art) {
+            for my $provider (@{ $self->providers }) {
+                next unless $provider->does('MusicBrainz::Server::CoverArt::BarcodeSearch');
+
+                my $cover_art = $provider->search_by_barcode($release)
+                    or next;
+
+                $release->cover_art($cover_art);
+                last;
+            }
+        }
     }
 }
 

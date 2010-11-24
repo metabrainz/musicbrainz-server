@@ -1,9 +1,13 @@
 package MusicBrainz::Server::CoverArt;
 use Moose;
+use namespace::autoclean;
+
+use MooseX::Types::URI qw( Uri );
 
 has 'image_uri' => (
-    isa => 'Str',
+    isa => Uri,
     is  => 'ro',
+    coerce => 1
 );
 
 has 'provider' => (
@@ -12,8 +16,9 @@ has 'provider' => (
 );
 
 has 'information_uri' => (
-    isa => 'Str',
+    isa => Uri,
     is  => 'rw',
+    coerce => 1,
 );
 
 sub cache_data
