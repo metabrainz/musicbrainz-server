@@ -1,4 +1,11 @@
 <table class="details">
+  <tr>
+    <th>[% l('Release Group:') %]</th>
+    <td>[% l('{rg} by {artist}', { rg => link_release_group(edit.display_data.release_group),
+                                   artist => artist_credit(edit.display_data.release_group.artist_credit) }) %]
+    </td>
+  </tr>
+
   [%- IF edit.display_data.name -%]
   <tr>
     <th>[% l('Name:') %]</th>

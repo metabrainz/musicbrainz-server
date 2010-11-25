@@ -664,7 +664,8 @@ CREATE TABLE medium_format
     name                VARCHAR(100) NOT NULL,
     parent              INTEGER, -- references medium_format.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    year                SMALLINT
+    year                SMALLINT,
+    has_discids         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE puid
