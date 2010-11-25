@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
+    hash_to_row
     load_subobjects
     placeholders
     query_to_list
@@ -142,18 +143,15 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $work, $names) = @_;
-    my %row = (
-        artist_credit => $work->{artist_credit},
-        iswc => $work->{iswc},
-        comment => $work->{comment},
-        type => $work->{type_id},
-    );
+    my $row = hash_to_row($work, {
+        type => 'type_id',
+        map { $_ => $_ } qw( iswc comment artist_credit )
+    });
 
-    if ($work->{name}) {
-        $row{name} = $names->{$work->{name}};
-    }
+    $row->{name} = $names->{$work->{name}}
+        if (exists $work->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta

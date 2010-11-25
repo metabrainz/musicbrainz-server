@@ -5,14 +5,15 @@ use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
+    add_partial_date_to_row
+    check_in_use
     generate_gid
+    hash_to_row
+    load_subobjects
     partial_date_from_row
     placeholders
-    load_subobjects
-    query_to_list_limited
     query_to_list
-    check_in_use
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -225,29 +226,22 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $label, $names) = @_;
-    my %row = (
-        begin_date_year => $label->{begin_date}->{year},
-        begin_date_month => $label->{begin_date}->{month},
-        begin_date_day => $label->{begin_date}->{day},
-        end_date_year => $label->{end_date}->{year},
-        end_date_month => $label->{end_date}->{month},
-        end_date_day => $label->{end_date}->{day},
-        comment => $label->{comment},
-        country => $label->{country_id},
-        type => $label->{type_id},
-        label_code => $label->{label_code},
-        ipi_code => $label->{ipi_code},
-    );
+    my $row = hash_to_row($label, {
+        country => 'country_id',
+        type => 'type_id',
+        map { $_ => $_ } qw( ipi_code label_code comment )
+    });
 
-    if ($label->{name}) {
-        $row{name} = $names->{$label->{name}};
-    }
+    add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');
+    add_partial_date_to_row($row, $label->{end_date}, 'end_date');
 
-    if ($label->{sort_name}) {
-        $row{sort_name} = $names->{$label->{sort_name}};
-    }
+    $row->{name} = $names->{$label->{name}}
+        if (exists $label->{name});
 
-    return { defined_hash(%row) };
+    $row->{sort_name} = $names->{$label->{sort_name}}
+        if (exists $label->{sort_name});
+
+    return $row;
 }
 
 sub load_meta
