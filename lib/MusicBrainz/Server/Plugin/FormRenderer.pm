@@ -5,6 +5,7 @@ use warnings;
 
 use base 'Template::Plugin';
 
+use Clone qw( clone );
 use List::Util qw( first );
 
 use Carp;
@@ -149,7 +150,8 @@ sub select
     my %optgroups;
     my %optgroup_order;
 
-    for my $option (@{ $field->options })
+    # Clone options as they get mutated
+    for my $option (map { clone($_) } @{ $field->options })
     {
         my $selected = @selected > 0  && first { $_ && $option->{value} && $option->{value} eq $_ } @selected;
 
