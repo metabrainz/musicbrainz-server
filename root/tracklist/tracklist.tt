@@ -2,15 +2,15 @@
 [%# model tracks as blank nodes %]
 <span rel="mo:track">
 <tr class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]" typeof="[% rdfa_concept_curi('track') %]">
-    <td>[% rdfa_track_number(track.position) %]</td>
+    <td class="pos t">[% rdfa_track_number(track.position) %]</td>
     <td>[% rdfa_link_recording_as_track(recording, 'show', track.name) %]</td>
     [%- IF show_artists -%]
         <td>[% rdfa_artist_credit(track.artist_credit) %]</td>
     [%- END -%]
     [% UNLESS hide_rating %]
-    <td class="c">[% rating_stars(recording) %]</td>
+    <td class="rating c">[% rating_stars(recording) %]</td>
     [% END %]
-    <td>[% rdfa_recording_duration(track) %]</td>
+    <td class="treleases">[% rdfa_recording_duration(track) %]</td>
 </tr>
 </span>
 [%- END -%]
