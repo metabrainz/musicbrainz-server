@@ -1,33 +1,28 @@
 package MusicBrainz::Server::Data::EditMigration;
 use Moose;
 
+use DateTime::Format::Pg;
+use IO::All;
 use Memoize;
 use Module::Pluggable::Object;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-has 'edit_mapping' => (
-    isa        => 'HashRef',
-    is         => 'ro',
-    traits     => [ 'Hash' ],
-    lazy_build => 1,
-    handles    => {
-        class_for_type => 'get',
-    }
-);
+my %edit_mapping;
 
-sub _build_edit_mapping
+sub BUILD
 {
+    my $class = shift;
     my $mpo = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Edit::Historic',
         require     => 1
     );
 
-    return {
+    %edit_mapping = (
         map { $_->historic_type => $_ }
             grep { $_->can('historic_type') && $_->historic_type }
                 $mpo->plugins
-    };
+    );
 }
 
 sub _table { 'public.edit_all' }
@@ -41,7 +36,7 @@ sub _new_from_row
 {
     my ($self, $row) = @_;
 
-    my $class = $self->class_for_type($row->{type});
+    my $class = $edit_mapping{$row->{type}};
 
     if (!$class) {
         warn 'No handler for ' . $row->{type};
@@ -68,7 +63,7 @@ sub _new_from_row
     # Some edits do not set an artist ID
     $args{artist_id} = $row->{artist} if $row->{artist};
 
-    my $edit = $class->new(%args);
+    my $edit = $class->new(\%args);
 
     $edit->previous_value($edit->deserialize_previous_value($row->{prevvalue}));
     $edit->new_value($edit->deserialize_new_value($row->{newvalue}));
@@ -109,6 +104,7 @@ my $tmp_recording_merge;
 sub resolve_recording_id
 {
     my ($self, $id) = @_;
+    return 0 unless $id;
     $tmp_recording_merge ||=
         $self->construct_map('tmp_recording_merge',
                              'old_rec' => 'new_rec');
@@ -120,6 +116,7 @@ my $tmp_release_merge;
 sub resolve_release_id
 {
     my ($self, $id) = @_;
+    return 0 unless $id;
     $tmp_release_merge ||=
         $self->construct_map('tmp_release_merge',
                              'old_rel' => 'new_rel');
@@ -167,7 +164,7 @@ sub artist_name
         $self->sql->select_list_of_hashes(q{
             SELECT artist.id, name.name FROM artist
               JOIN artist_name name ON artist.name=name.id
-        }));
+        }), 'id' => 'name');
 
     return $artist_name->{$id} || sprintf '[ Artist #%d ]', $id;
 }
@@ -186,6 +183,7 @@ my $album_release_ids;
 sub album_release_ids
 {
     my ($self, $album_id) = @_;
+    return [] unless $album_id;
 
     $album_release_ids ||= do {
 

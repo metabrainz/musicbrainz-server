@@ -15,7 +15,7 @@ END -%]
         <strong>[% l('Tags:') %]</strong> [% tag_list(tags, more, entity) %]<br />
     [% END %]
     [% IF c.user_exists %]
-        [% link_entity(entity, 'tag', tag_this_text) %]
+        [% link_entity(entity, 'tags', tag_this_text) %]
     [% END %]
 </p>
 [% END %]

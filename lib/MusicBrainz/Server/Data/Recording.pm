@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
+    hash_to_row
     placeholders
     load_subobjects
     query_to_list_limited
@@ -29,7 +30,7 @@ sub _columns
     return 'recording.id, recording.gid, name.name,
             recording.artist_credit AS artist_credit_id,
             recording.length, recording.comment,
-            recording.editpending AS edits_pending';
+            recording.edits_pending, recording.last_updated';
 }
 sub _column_mapping
 {
@@ -41,6 +42,7 @@ sub _column_mapping
         length           => 'length',
         comment          => 'comment',
         edits_pending    => 'edits_pending',
+        last_updated     => 'last_updated',
     };
 }
 
@@ -157,17 +159,14 @@ sub delete
 sub _hash_to_row
 {
     my ($self, $recording, $names) = @_;
-    my %row = (
-        artist_credit => $recording->{artist_credit},
-        length => $recording->{length},
-        comment => $recording->{comment},
-    );
+    my $row = hash_to_row($recording, {
+        map { $_ => $_ } qw( artist_credit length comment )
+    });
 
-    if ($recording->{name}) {
-        $row{name} = $names->{$recording->{name}};
-    }
+    $row->{name} = $names->{$recording->{name}}
+        if (exists $recording->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta
@@ -176,8 +175,7 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "recording_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
 }
 

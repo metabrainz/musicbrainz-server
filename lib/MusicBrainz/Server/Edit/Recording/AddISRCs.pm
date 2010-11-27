@@ -6,6 +6,7 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS
                                        :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
@@ -13,7 +14,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
 };
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
-sub edit_name { 'Add ISRCs' }
+sub edit_name { l('Add ISRCs') }
 
 sub recording_ids { map { $_->{recording_id} } @{ shift->data->{isrcs} } }
 

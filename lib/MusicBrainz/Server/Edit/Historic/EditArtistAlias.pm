@@ -1,14 +1,15 @@
 package MusicBrainz::Server::Edit::Historic::EditArtistAlias;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
-sub ngs_class { 'MusicBrainz::Server::Edit::Artist::EditAlias' }
+sub edit_name { l('Edit artist alias') }
 sub edit_type { 28 }
-sub edit_name { 'Edit artist alias' }
+sub ngs_class { 'MusicBrainz::Server::Edit::Artist::EditAlias' }
 
-augment 'upgrade' => sub {
+sub do_upgrade {
     my $self = shift;
     return {
         alias_id  => $self->row_id,
@@ -20,8 +21,16 @@ augment 'upgrade' => sub {
             name => $self->previous_value,
         }
     };
-};
+}
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+sub deserialize_previous_value {
+    my ($self, $previous) = @_;
+    return $previous;
+}
+
+sub deserialize_new_value {
+    my ($self, $previous) = @_;
+    return $previous;
+}
+
 1;

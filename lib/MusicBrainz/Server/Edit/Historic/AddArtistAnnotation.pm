@@ -1,13 +1,15 @@
 package MusicBrainz::Server::Edit::Historic::AddArtistAnnotation;
-use Moose;
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+use MusicBrainz::Server::Translation qw ( l ln );
 
+sub edit_name { l('Add artist annotation') }
 sub edit_type { 30 }
-sub edit_name { 'Add artist annotation' }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAnnotation' }
 
-augment 'upgrade' => sub
+sub do_upgrade
 {
     my $self = shift;
     return {
@@ -22,11 +24,8 @@ sub extra_parameters
 {
     my $self = shift;
     return (
-        annotation_id => $self->resolve_annotation_id($self->id)
+        annotation_id => $self->resolve_annotation_id($self->id) || 0
     );
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
 1;
-

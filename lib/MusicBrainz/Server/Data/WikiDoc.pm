@@ -77,7 +77,7 @@ sub _fix_html_markup
 
     $content = $tree->as_HTML;
 
-    # Obfuscate e-mail addresses
+    # Obfuscate email addresses
     $content =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
     $content =~ s/mailto:/mailto&#x3a;/g;
 

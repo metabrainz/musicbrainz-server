@@ -126,7 +126,7 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     MB.Control.Autocomplete ({
         'input': self.name,
         'entity': 'label',
-        'select': self.selected,
+        'select': self.selected
     });
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
@@ -341,19 +341,6 @@ MB.Control.ReleaseInformation = function() {
         self.artistcredit = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit')
         );
-
-        /* hide/show full list of languages and scripts in the dropdowns.
-
-           FIXME: the value for 'most frequent' is hardcoded here, should
-           determine that automatically. --warp.
-         */
-        $('option.language[data-frequency!=2]').hide ();
-        $('option.script[data-frequency!=4]').hide ();
-
-        $('a[href=#language_script_full]').click (function () {
-            $('option.language').show ();
-            $('option.script').show ();
-        });
 
     };
 

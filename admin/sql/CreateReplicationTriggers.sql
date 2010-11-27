@@ -7,19 +7,19 @@ BEGIN;
 
 CREATE TRIGGER "reptg_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "annotation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "artist"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_alias"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_annotation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_meta"
@@ -27,7 +27,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_artist_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_credit"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_credit"
@@ -35,7 +35,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_artist_credit_name"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_credit_name"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_gid_redirect"
@@ -52,7 +52,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 -- not replicated:
 -- editor editor_preference editor_subscribe_artist editor_subscribe_label 
--- editor_subscribe_editor list list_release
+-- editor_subscribe_editor editor_collection editor_collection_release
 
 CREATE TRIGGER "reptg_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "cdtoc"
@@ -75,7 +75,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_isrc"
 AFTER INSERT OR DELETE OR UPDATE ON "isrc"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 -- not replicated:
 -- historicalstat
@@ -194,15 +194,15 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_label"
 AFTER INSERT OR DELETE OR UPDATE ON "label"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "label_alias"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "label_annotation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "label_meta"
@@ -218,7 +218,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_label_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "label_tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_type"
 AFTER INSERT OR DELETE OR UPDATE ON "label_type"
@@ -250,11 +250,11 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_medium"
 AFTER INSERT OR DELETE OR UPDATE ON "medium"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_medium_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_cdtoc"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_medium_format"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_format"
@@ -266,11 +266,11 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_recording"
 AFTER INSERT OR DELETE OR UPDATE ON "recording"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_recording_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_annotation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_recording_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_meta"
@@ -282,19 +282,19 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_recording_puid"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_puid"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_recording_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release"
 AFTER INSERT OR DELETE OR UPDATE ON "release"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "release_annotation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "release_gid_redirect"
@@ -302,11 +302,11 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "release_meta"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_label"
 AFTER INSERT OR DELETE OR UPDATE ON "release_label"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_packaging"
 AFTER INSERT OR DELETE OR UPDATE ON "release_packaging"
@@ -318,11 +318,11 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_group_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_annotation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_group_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_gid_redirect"
@@ -334,7 +334,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_group_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_group_type"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_type"
@@ -358,7 +358,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_tag_relation"
 AFTER INSERT OR DELETE OR UPDATE ON "tag_relation"
@@ -366,7 +366,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_track"
 AFTER INSERT OR DELETE OR UPDATE ON "track"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_track_name"
 AFTER INSERT OR DELETE OR UPDATE ON "track_name"
@@ -374,7 +374,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_tracklist"
 AFTER INSERT OR DELETE OR UPDATE ON "tracklist"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_tracklist_index"
 AFTER INSERT OR DELETE OR UPDATE ON "tracklist_index"
@@ -386,11 +386,11 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_work"
 AFTER INSERT OR DELETE OR UPDATE ON "work"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "work_annotation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "work_gid_redirect"
@@ -406,7 +406,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_work_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "work_tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_type"
 AFTER INSERT OR DELETE OR UPDATE ON "work_type"

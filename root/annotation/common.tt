@@ -1,55 +1,48 @@
-[% BLOCK add_annotation_link %]
-<a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
-    [% annotation.text ? l('Edit annotation') : l('Add an annotation') %]
-</a>
-[% END %]
-
-<div class="annotation" id="annotation_box">
-    [%- IF annotation.text -%]
-        <div class="body" id="annotation_box_body">
+[%- IF annotation.text -%]
+    <h2>[% l('Annotation') %]</h2>
+    <div class="annotation">
+        <div class="annotation-body">
             [% IF full_annotation %]
                 [% annotation.text | format_wikitext  %]
             [% ELSE %]
                 [% annotation.summary | format_wikitext  %]
                 [% IF annotation.summary_is_short %]
-                    <p><a href="[% c.uri_for(c.controller.action_for('latest_annotation'), [ gid ]) %]">
+                    <p><a href="[% c.uri_for(c.controller.action_for('latest_annotation'), [ entity.gid ]) %]">
                         Read more&hellip;</a></p>
                 [% END %]
             [% END %]
         </div>
-        [%- IF show_change_log -%]
-            <div class="bar">
-                [% l('Summary:') %] [% annotation.change_log || l('(no change log)') %]
-            </div>
-        [%- END -%]
-        <div class="bar">
-            <div class="details">
-                [% l('Annotation last modified at {last_modified}.', { last_modified => UserDate.format(annotation.creation_date) }) %]
-                <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
-                  [% l('View annotation history') %]
-                </a>
-            </div>
 
-            <div class="options">
-                [%- IF c.user_exists -%]
-                    [% PROCESS add_annotation_link %]
-                [%- ELSE -%]
-                    [% l('Please {uri|log in} to edit this annotation.', {uri => login_url()}) %]
-                [%- END -%]
-            </div>
-        </div>
-    [%- ELSE -%]
-    <div class="bar" style="border-top: none">
-        <div class="details">
-            [% no_annotation %]
-        </div>
-        <div class="options">
-            [%- IF c.user_exists -%]
-                [% PROCESS add_annotation_link %]
-            [%- ELSE -%]
-                [% l('Please {uri|log in} to add an annotation.', {uri => login_url() }) %]
-            [%- END -%]
+        [%- IF show_change_log -%]
+            <p><strong>[% l('Changelog:') %]</strong> [% annotation.changelog || l('(no changelog)') %]</p>
+        [%- END -%]
+
+        <div class="annotation-details">
+            [% IF c.user_exists %]
+                [% IF annotation.id == entity.latest_annotation.id %]
+                    [% l('Annotation last modified by {user} on {date}.', {
+                            user => link_editor(annotation.editor),
+                            date => UserDate.format(annotation.creation_date),
+                        }) %]
+                    [% IF number_of_revisions > 1 =%]
+                      <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
+                        [% l('View annotation history') %]
+                      </a>
+                    [% END %]
+                [% ELSE %]
+                    [% l('This is an {history|old revision} of this annotation, as edited by {user} on {date}.
+                          {current|View current revision}.', {
+                            history => c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]),
+                            user => link_editor(annotation.editor),
+                            date => UserDate.format(annotation.creation_date),
+                            current => c.uri_for(c.controller.action_for('latest_annotation'), [ entity.gid ]),
+                        }) %]
+                [% END %]
+            [% ELSE %]
+                [% l('Annotation last modified on {date}.', {
+                        date => UserDate.format(annotation.creation_date),
+                    }) %]
+            [% END %]
         </div>
     </div>
-    [%- END -%]
-</div>
+[%- END -%]

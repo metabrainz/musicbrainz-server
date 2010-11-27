@@ -36,15 +36,15 @@ sub _table
 {
     return 'artist ' .
            'JOIN artist_name name ON artist.name=name.id ' .
-           'JOIN artist_name sortname ON artist.sortname=sortname.id';
+           'JOIN artist_name sort_name ON artist.sort_name=sort_name.id';
 }
 
 sub _columns
 {
-    return 'artist.id, artist.gid, name.name, sortname.name AS sortname, ' .
-           'artist.type, artist.country, gender, artist.editpending, artist.ipicode, ' .
-           'begindate_year, begindate_month, begindate_day, ' .
-           'enddate_year, enddate_month, enddate_day, artist.comment';
+    return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
+           'artist.type, artist.country, gender, artist.edits_pending, artist.ipi_code, ' .
+           'begin_date_year, begin_date_month, begin_date_day, ' .
+           'end_date_year, end_date_month, end_date_day, artist.comment, artist.last_updated';
 }
 
 sub _id_column
@@ -63,15 +63,16 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        sort_name => 'sortname',
+        sort_name => 'sort_name',
         type_id => 'type',
         country_id => 'country',
         gender_id => 'gender',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begindate_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
-        edits_pending => 'editpending',
+        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        edits_pending => 'edits_pending',
         comment => 'comment',
-        ipi_code => 'ipicode',
+        ipi_code => 'ipi_code',
+        last_updated => 'last_updated',
     };
 }
 
@@ -203,8 +204,8 @@ sub can_delete
     my ($self, $artist_id) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $active_credits = $sql->select_single_column_array(
-        'SELECT refcount FROM artist_credit, artist_credit_name name
-          WHERE name.artist = ? AND name.artist_credit = id AND refcount > 0',
+        'SELECT ref_count FROM artist_credit, artist_credit_name name
+          WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
         $artist_id
     );
     return @$active_credits == 0;
@@ -254,15 +255,15 @@ sub _hash_to_row
         type    => 'type_id',
         gender  => 'gender_id',
         comment => 'comment',
-        ipicode => 'ipi_code',
+        ipi_code => 'ipi_code',
     });
 
     if (exists $values->{begin_date}) {
-        add_partial_date_to_row($row, $values->{begin_date}, 'begindate');
+        add_partial_date_to_row($row, $values->{begin_date}, 'begin_date');
     }
 
     if (exists $values->{end_date}) {
-        add_partial_date_to_row($row, $values->{end_date}, 'enddate');
+        add_partial_date_to_row($row, $values->{end_date}, 'end_date');
     }
 
     if (exists $values->{name}) {
@@ -270,7 +271,7 @@ sub _hash_to_row
     }
 
     if (exists $values->{sort_name}) {
-        $row->{sortname} = $names->{ $values->{sort_name} };
+        $row->{sort_name} = $names->{ $values->{sort_name} };
     }
 
     return $row;
@@ -282,8 +283,7 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "artist_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
 }
 

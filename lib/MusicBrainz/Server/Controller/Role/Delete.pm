@@ -16,6 +16,15 @@ role {
         }
     );
 
+    after 'show' => sub {
+        my ($self, $c) = @_;
+        my $entity_name = $self->{entity_name};
+        my $entity = $c->stash->{ $entity_name };
+        $c->stash(
+            can_delete => $c->model($self->{model})->can_delete($entity->id)
+        );
+    };
+
     method 'delete' => sub {
         my ($self, $c) = @_;
         my $entity_name = $self->{entity_name};

@@ -44,7 +44,7 @@
             [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
             <ul>
                 <li>
-                    [% l('{col|My Lists}', { col => c.uri_for_action('/user/lists', [ c.user.name ]) }) %]
+                    [% l('{col|My Collections}', { col => c.uri_for_action('/user/collections', [ c.user.name ]) }) %]
                 </li>
                 <li>
                     [% l('{col|My Ratings}', { col => c.uri_for_action('/user/ratings', [ c.user.name ]) }) %]
@@ -157,6 +157,7 @@
                 <li>
                      [% l('{uri|Add Label}', { uri => c.uri_for('/label/create') }) %]
                 </li>
+                <li> [% l('{uri|Add Release}', { uri => c.uri_for_action('/release_editor/add') }) %]</li>
                 <li>
                     [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
                 </li>

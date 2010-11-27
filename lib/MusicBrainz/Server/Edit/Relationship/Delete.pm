@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     partial_date_from_row
@@ -14,11 +15,12 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
-sub edit_name { "Remove relationship" }
+sub edit_name { l("Remove relationship") }
 
 has '+data' => (
     isa => Dict[
@@ -43,6 +45,30 @@ has 'relationship' => (
     isa => 'Relationship',
     is => 'rw'
 );
+
+sub edit_conditions
+{
+    return {
+        $QUALITY_LOW => {
+            duration      => 4,
+            votes         => 1,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_NORMAL => {
+            duration      => 14,
+            votes         => 3,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_HIGH => {
+            duration      => 14,
+            votes         => 4,
+            expire_action => $EXPIRE_REJECT,
+            auto_edit     => 0,
+        },
+    };
+}
 
 sub model0 { type_to_model(shift->data->{relationship}{link}{type}{entity0_type}) }
 sub model1 { type_to_model(shift->data->{relationship}{link}{type}{entity1_type}) }
@@ -124,6 +150,9 @@ sub initialize
 
     my $relationship = $opts{relationship}
         or die 'You must pass the relationship object';
+
+    $self->c->model('Link')->load($relationship) unless $relationship->link;
+    $self->c->model('LinkType')->load($relationship->link) unless $relationship->link->type;
 
     $self->relationship($relationship);
     $self->data({

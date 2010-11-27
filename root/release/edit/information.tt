@@ -1,5 +1,5 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.5.custom.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
@@ -28,51 +28,10 @@
 </div>
 [%- END -%]
 
-[%- MACRO artist_credit_table(acfield) BLOCK -%]
-<div class="artist-credit bubble">
-
-  <p>
-    [% l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) %]
-  </p>
-
-  [% FOR ac=acfield.field('names').fields %]
-    [% artistnum = loop.index %]
-    [% artist = acfield.fif.names.$artistnum.artist %]
-    <div class="artist-credit-box">
-    <div class="row">
-      <label>[% l('Artist in MusicBrainz') %]</label>
-      <span class="artist">
-        <input type="text" class="name" value="[% artist.name %]" />
-        <input type="hidden" class="gid" value="[% artist.gid %]" />
-        [% r.hidden (ac.field('artist_id'), class => 'id') %]
-      </span>
-      <span class="link">
-        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">
-          [%- IF artist.gid -%]link[%- END -%]
-        </a>
-      </span>
-    </div>
-    <div class="row">
-      <label>[% l('Artist as credited') %]</label>
-      <span class="artistcredit">
-        [% r.text (ac.field('name'), class => 'credit') %]
-      </span>
-    </div>
-    <div class="row">
-      <label>[% l('Join phrase') %]</label>
-      <span class="joinphrase">
-        [% r.text (ac.field('join_phrase'), class => 'join') %]
-      </span>
-    </div>
-    </div>
-  [% END %]
-</div>
-[%- END -%]
-
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
-  <div class="form">
+  <div class="half-width">
     [% r.hidden ('wizard_session_id') %]
     <fieldset>
       <legend>Release information</legend>
@@ -85,18 +44,13 @@
       </div>
 
       [% WRAPPER form_row %]
-        <label for="release-artist">Artist</label>
+        <label for="release-artist">[% l('Artist') %]</label>
         <input type="text" id="release-artist" value="[% form.field('artist_credit').fif.name %]" />
       [% END %]
 
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]
       [% form_row_select (r, 'status_id', 'Status') %]
-
-      <div style="float: right; margin: 10px;" class="buttons">
-        <a href="#language_script_full">[% l('Show full lists') %]</a>
-      </div>
-
       [% form_row_select (r, 'language_id', 'Language') %]
       [% form_row_select (r, 'script_id', 'Script') %]
 
@@ -152,9 +106,7 @@
 
   <div class="documentation">
 
-    <div class="artist-credit-container" style="display: none">
-    [% artist_credit_table(form.field('artist_credit')) %]
-    </div>
+    [% artist_credit_table(form) %]
 
     <div class="date-container" style="display: none">
       <div class="date bubble">

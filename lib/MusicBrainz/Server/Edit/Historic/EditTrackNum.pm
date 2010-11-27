@@ -1,15 +1,16 @@
 package MusicBrainz::Server::Edit::Historic::EditTrackNum;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNUM );
+use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
-with 'MusicBrainz::Server::Edit::Historic::NoSerialization';
+use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
+sub edit_name     { l('Edit track number') }
 sub historic_type { 5 }
-sub edit_name     { 'Edit track number' }
+sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
 
 sub related_entities
 {
@@ -18,15 +19,6 @@ sub related_entities
         recording => [ $self->data->{recording_id} ]
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        track_id     => Int,
-        recording_id => Int,
-        old          => Dict[position => Int],
-        new          => Dict[position => Int],
-    ]
-);
 
 sub foreign_keys
 {
@@ -51,6 +43,11 @@ sub build_display_data
 sub upgrade
 {
     my $self = shift;
+    unless (looks_like_number($self->new_value) &&
+            looks_like_number($self->previous_value)) {
+        die "This data is corrupt and cannot be upgraded";
+    }
+
     $self->data({
         track_id     => $self->row_id,
         recording_id => $self->resolve_recording_id( $self->row_id ),
@@ -61,6 +58,14 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+sub deserialize_new_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
+sub deserialize_previous_value {
+    my ($self, $value ) = @_;
+    return $value;
+}
+
 1;

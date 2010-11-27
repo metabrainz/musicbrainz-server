@@ -14,19 +14,20 @@ CREATE TABLE artist (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references artist_name.id
-    sortname            INTEGER NOT NULL, -- references artist_name.id
-    begindate_year      SMALLINT,
-    begindate_month     SMALLINT,
-    begindate_day       SMALLINT,
-    enddate_year        SMALLINT,
-    enddate_month       SMALLINT,
-    enddate_day         SMALLINT,
+    sort_name           INTEGER NOT NULL, -- references artist_name.id
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
     type                INTEGER, -- references artist_type.id
     country             INTEGER, -- references country.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255),
-    ipicode             VARCHAR(11),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    ipi_code            VARCHAR(11),
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_alias
@@ -35,7 +36,8 @@ CREATE TABLE artist_alias
     artist              INTEGER NOT NULL, -- references artist.id
     name                INTEGER NOT NULL, -- references artist_name.id
     locale              TEXT,
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_annotation
@@ -47,23 +49,24 @@ CREATE TABLE artist_annotation
 CREATE TABLE artist_meta
 (
     id                  INTEGER NOT NULL, -- PK, references artist.id CASCADE
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    ratingcount         INTEGER
+    rating_count        INTEGER
 );
 
 CREATE TABLE artist_tag
 (
     artist              INTEGER NOT NULL, -- PK, references artist.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
-    count               INTEGER NOT NULL
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_credit (
     id                  SERIAL,
     name                INTEGER NOT NULL, -- references artist_name.id
-    artistcount         SMALLINT NOT NULL,
-    refcount            INTEGER DEFAULT 0
+    artist_count       SMALLINT NOT NULL,
+    ref_count           INTEGER DEFAULT 0,
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_credit_name (
@@ -71,13 +74,14 @@ CREATE TABLE artist_credit_name (
     position            SMALLINT NOT NULL, -- PK
     artist              INTEGER NOT NULL, -- references artist.id CASCADE
     name                INTEGER NOT NULL, -- references artist_name.id
-    joinphrase          VARCHAR(32)
+    join_phrase         VARCHAR(32)
 );
 
 CREATE TABLE artist_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references artist.id
+    new_id              INTEGER NOT NULL, -- references artist.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_name (
@@ -94,22 +98,24 @@ CREATE TABLE cdtoc
 (
     id                  SERIAL,
     discid              CHAR(28) NOT NULL,
-    freedbid            CHAR(8) NOT NULL,
-    trackcount          INTEGER NOT NULL,
-    leadoutoffset       INTEGER NOT NULL,
-    trackoffset         INTEGER[] NOT NULL,
-    degraded            BOOLEAN NOT NULL DEFAULT FALSE
+    freedb_id           CHAR(8) NOT NULL,
+    track_count         INTEGER NOT NULL,
+    leadout_offset      INTEGER NOT NULL,
+    track_offset        INTEGER[] NOT NULL,
+    degraded            BOOLEAN NOT NULL DEFAULT FALSE,
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE clientversion
 (
     id                  SERIAL,
-    version             VARCHAR(64) NOT NULL
+    version             VARCHAR(64) NOT NULL,
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE country (
     id                  SERIAL,
-    isocode             VARCHAR(2) NOT NULL,
+    iso_code            VARCHAR(2) NOT NULL,
     name                VARCHAR(255) NOT NULL
 );
 
@@ -118,20 +124,7 @@ CREATE TABLE currentstat
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
     value               INTEGER NOT NULL,
-    lastupdated         TIMESTAMP WITH TIME ZONE
-);
-
-CREATE TABLE dbmirror_Pending (
-    SeqId               SERIAL,
-    TableName           NAME NOT NULL,
-    Op                  CHARACTER,
-    XID                 INTEGER NOT NULL
-);
-
-CREATE TABLE dbmirror_PendingData (
-    SeqId               INTEGER NOT NULL, -- PK
-    IsKey               BOOLEAN NOT NULL, -- PK
-    Data                VARCHAR
+    last_updated        TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE editor
@@ -143,13 +136,14 @@ CREATE TABLE editor
     email               VARCHAR(64) DEFAULT NULL,
     website             VARCHAR(255) DEFAULT NULL,
     bio                 TEXT DEFAULT NULL,
-    membersince         TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    emailconfirmdate    TIMESTAMP WITH TIME ZONE,
-    lastlogindate       TIMESTAMP WITH TIME ZONE,
-    editsaccepted       INTEGER DEFAULT 0,
-    editsrejected       INTEGER DEFAULT 0,
-    autoeditsaccepted   INTEGER DEFAULT 0,
-    editsfailed         INTEGER DEFAULT 0
+    member_since        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    email_confirm_date  TIMESTAMP WITH TIME ZONE,
+    last_login_date     TIMESTAMP WITH TIME ZONE,
+    edits_accepted      INTEGER DEFAULT 0,
+    edits_rejected      INTEGER DEFAULT 0,
+    auto_edits_accepted  INTEGER DEFAULT 0,
+    edits_failed        INTEGER DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE editor_preference
@@ -165,9 +159,9 @@ CREATE TABLE editor_subscribe_artist
     id                  SERIAL,
     editor              INTEGER NOT NULL, -- references editor.id
     artist              INTEGER NOT NULL, -- weakly references artist
-    lasteditsent        INTEGER NOT NULL, -- weakly references edit
-    deletedbyedit       INTEGER NOT NULL DEFAULT 0, -- weakly references edit
-    mergedbyedit        INTEGER NOT NULL DEFAULT 0 -- weakly references edit
+    last_edit_sent      INTEGER NOT NULL, -- weakly references edit
+    deleted_by_edit     INTEGER NOT NULL DEFAULT 0, -- weakly references edit
+    merged_by_edit      INTEGER NOT NULL DEFAULT 0 -- weakly references edit
 );
 
 CREATE TABLE editor_subscribe_label
@@ -175,17 +169,17 @@ CREATE TABLE editor_subscribe_label
     id                  SERIAL,
     editor              INTEGER NOT NULL, -- references editor.id
     label               INTEGER NOT NULL, -- weakly references label
-    lasteditsent        INTEGER NOT NULL, -- weakly references edit
-    deletedbyedit       INTEGER NOT NULL DEFAULT 0, -- weakly references edit
-    mergedbyedit        INTEGER NOT NULL DEFAULT 0 -- weakly references edit
+    last_edit_sent      INTEGER NOT NULL, -- weakly references edit
+    deleted_by_edit     INTEGER NOT NULL DEFAULT 0, -- weakly references edit
+    merged_by_edit      INTEGER NOT NULL DEFAULT 0 -- weakly references edit
 );
 
 CREATE TABLE editor_subscribe_editor
 (
     id                  SERIAL,
     editor              INTEGER NOT NULL, -- references editor.id (the one who has subscribed)
-    subscribededitor    INTEGER NOT NULL, -- references editor.id (the one being subscribed)
-    lasteditsent        INTEGER NOT NULL  -- weakly references edit
+    subscribed_editor   INTEGER NOT NULL, -- references editor.id (the one being subscribed)
+    last_edit_sent      INTEGER NOT NULL  -- weakly references edit
 );
 
 CREATE TABLE gender (
@@ -199,7 +193,8 @@ CREATE TABLE isrc
     recording           INTEGER NOT NULL, -- references recording.id
     isrc                CHAR(12) NOT NULL,
     source              SMALLINT,
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE historicalstat
@@ -207,7 +202,7 @@ CREATE TABLE historicalstat
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
     value               INTEGER NOT NULL,
-    snapshotdate        DATE NOT NULL
+    snapshot_date       DATE NOT NULL
 );
 
 CREATE TABLE l_artist_artist
@@ -216,7 +211,8 @@ CREATE TABLE l_artist_artist
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references artist.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_label
@@ -225,7 +221,8 @@ CREATE TABLE l_artist_label
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references label.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_recording
@@ -234,7 +231,8 @@ CREATE TABLE l_artist_recording
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references recording.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_release
@@ -243,7 +241,8 @@ CREATE TABLE l_artist_release
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references release.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_release_group
@@ -252,7 +251,8 @@ CREATE TABLE l_artist_release_group
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references release_group.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_url
@@ -261,7 +261,8 @@ CREATE TABLE l_artist_url
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references url.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_work
@@ -270,7 +271,8 @@ CREATE TABLE l_artist_work
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references work.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_label_label
@@ -279,7 +281,8 @@ CREATE TABLE l_label_label
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references label.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_label_recording
@@ -288,7 +291,8 @@ CREATE TABLE l_label_recording
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references recording.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_label_release
@@ -297,7 +301,8 @@ CREATE TABLE l_label_release
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references release.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_label_release_group
@@ -306,7 +311,8 @@ CREATE TABLE l_label_release_group
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references release_group.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_label_url
@@ -315,7 +321,8 @@ CREATE TABLE l_label_url
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references url.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_label_work
@@ -324,7 +331,8 @@ CREATE TABLE l_label_work
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references work.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_recording_recording
@@ -333,7 +341,8 @@ CREATE TABLE l_recording_recording
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references recording.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_recording_release
@@ -342,7 +351,8 @@ CREATE TABLE l_recording_release
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references release.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_recording_release_group
@@ -351,7 +361,8 @@ CREATE TABLE l_recording_release_group
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references release_group.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_recording_url
@@ -360,7 +371,8 @@ CREATE TABLE l_recording_url
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references url.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_recording_work
@@ -369,7 +381,8 @@ CREATE TABLE l_recording_work
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references work.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_release_release
@@ -378,7 +391,8 @@ CREATE TABLE l_release_release
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references release.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_release_release_group
@@ -387,7 +401,8 @@ CREATE TABLE l_release_release_group
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references release_group.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_release_url
@@ -396,7 +411,8 @@ CREATE TABLE l_release_url
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references url.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_release_work
@@ -405,7 +421,8 @@ CREATE TABLE l_release_work
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references work.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_release_group_release_group
@@ -414,7 +431,8 @@ CREATE TABLE l_release_group_release_group
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release_group.id
     entity1             INTEGER NOT NULL, -- references release_group.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_release_group_url
@@ -423,7 +441,8 @@ CREATE TABLE l_release_group_url
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release_group.id
     entity1             INTEGER NOT NULL, -- references url.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_release_group_work
@@ -432,7 +451,8 @@ CREATE TABLE l_release_group_work
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release_group.id
     entity1             INTEGER NOT NULL, -- references work.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_url_url
@@ -441,7 +461,8 @@ CREATE TABLE l_url_url
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references url.id
     entity1             INTEGER NOT NULL, -- references url.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_url_work
@@ -450,7 +471,8 @@ CREATE TABLE l_url_work
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references url.id
     entity1             INTEGER NOT NULL, -- references work.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_work_work
@@ -459,26 +481,28 @@ CREATE TABLE l_work_work
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references work.id
     entity1             INTEGER NOT NULL, -- references work.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references label_name.id
-    sortname            INTEGER NOT NULL, -- references label_name.id
-    begindate_year      SMALLINT,
-    begindate_month     SMALLINT,
-    begindate_day       SMALLINT,
-    enddate_year        SMALLINT,
-    enddate_month       SMALLINT,
-    enddate_day         SMALLINT,
-    labelcode           INTEGER,
+    sort_name           INTEGER NOT NULL, -- references label_name.id
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    label_code          INTEGER,
     type                INTEGER, -- references label_type.id
     country             INTEGER, -- references country.id
     comment             VARCHAR(255),
-    ipicode             VARCHAR(11),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    ipi_code            VARCHAR(11),
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_alias
@@ -487,7 +511,8 @@ CREATE TABLE label_alias
     label               INTEGER NOT NULL, -- references label.id
     name                INTEGER NOT NULL, -- references label_name.id
     locale              TEXT,
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_annotation
@@ -499,15 +524,15 @@ CREATE TABLE label_annotation
 CREATE TABLE label_meta
 (
     id                  INTEGER NOT NULL, -- PK, references label.id CASCADE
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    ratingcount         INTEGER
+    rating_count        INTEGER
 );
 
 CREATE TABLE label_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references label.id
+    new_id              INTEGER NOT NULL, -- references label.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_name (
@@ -519,7 +544,8 @@ CREATE TABLE label_tag
 (
     label               INTEGER NOT NULL, -- PK, references label.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
-    count               INTEGER NOT NULL
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_type (
@@ -530,9 +556,9 @@ CREATE TABLE label_type (
 CREATE TABLE language
 (
     id                  SERIAL,
-    isocode_3t          CHAR(3) NOT NULL, -- ISO 639-2 (T)
-    isocode_3b          CHAR(3) NOT NULL, -- ISO 639-2 (B)
-    isocode_2           CHAR(2), -- ISO 639
+    iso_code_3t         CHAR(3) NOT NULL, -- ISO 639-2 (T)
+    iso_code_3b         CHAR(3) NOT NULL, -- ISO 639-2 (B)
+    iso_code_2          CHAR(2), -- ISO 639
     name                VARCHAR(100) NOT NULL,
     frequency           INTEGER NOT NULL DEFAULT 0
 );
@@ -541,19 +567,21 @@ CREATE TABLE link
 (
     id                  SERIAL,
     link_type           INTEGER NOT NULL, -- references link_type.id
-    begindate_year      SMALLINT,
-    begindate_month     SMALLINT,
-    begindate_day       SMALLINT,
-    enddate_year        SMALLINT,
-    enddate_month       SMALLINT,
-    enddate_day         SMALLINT,
-    attributecount      INTEGER NOT NULL DEFAULT 0
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    attribute_count     INTEGER NOT NULL DEFAULT 0,
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE link_attribute
 (
     link                INTEGER NOT NULL, -- PK, references link.id
-    attribute_type      INTEGER NOT NULL -- PK, references link_attribute_type.id
+    attribute_type      INTEGER NOT NULL, -- PK, references link_attribute_type.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE link_attribute_type
@@ -561,26 +589,28 @@ CREATE TABLE link_attribute_type
     id                  SERIAL,
     parent              INTEGER, -- references link_attribute_type.id
     root                INTEGER NOT NULL, -- references link_attribute_type.id
-    childorder          INTEGER NOT NULL DEFAULT 0,
+    child_order         INTEGER NOT NULL DEFAULT 0,
     gid                 UUID NOT NULL,
     name                VARCHAR(255) NOT NULL,
-    description         TEXT
+    description         TEXT,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE link_type
 (
     id                  SERIAL,
     parent              INTEGER, -- references link_type.id
-    childorder          INTEGER NOT NULL DEFAULT 0,
+    child_order         INTEGER NOT NULL DEFAULT 0,
     gid                 UUID NOT NULL,
-    entitytype0         VARCHAR(50),
-    entitytype1         VARCHAR(50),
+    entity_type0        VARCHAR(50),
+    entity_type1        VARCHAR(50),
     name                VARCHAR(255) NOT NULL,
     description         TEXT,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    shortlinkphrase     VARCHAR(255) NOT NULL,
-    priority            INTEGER NOT NULL DEFAULT 0
+    link_phrase         VARCHAR(255) NOT NULL,
+    reverse_link_phrase VARCHAR(255) NOT NULL,
+    short_link_phrase   VARCHAR(255) NOT NULL,
+    priority            INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE link_type_attribute_type
@@ -588,10 +618,11 @@ CREATE TABLE link_type_attribute_type
     link_type           INTEGER NOT NULL, -- PK, references link_type.id
     attribute_type      INTEGER NOT NULL, -- PK, references link_attribute_type.id
     min                 SMALLINT,
-    max                 SMALLINT
+    max                 SMALLINT,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE list
+CREATE TABLE editor_collection
 (
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -600,9 +631,9 @@ CREATE TABLE list
     public              BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE list_release
+CREATE TABLE editor_collection_release
 (
-    list          INTEGER NOT NULL, -- PK, references list.id
+    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
     release             INTEGER NOT NULL -- PK, references release.id
 );
 
@@ -614,7 +645,8 @@ CREATE TABLE medium
     position            INTEGER NOT NULL,
     format              INTEGER, -- references medium_format.id
     name                VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE medium_cdtoc
@@ -622,13 +654,16 @@ CREATE TABLE medium_cdtoc
     id                  SERIAL,
     medium              INTEGER NOT NULL, -- references medium.id
     cdtoc               INTEGER NOT NULL, -- references cdtoc.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE medium_format
 (
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
+    parent              INTEGER, -- references medium_format.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
     year                SMALLINT
 );
 
@@ -654,7 +689,8 @@ CREATE TABLE recording (
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER,
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE recording_annotation
@@ -667,14 +703,14 @@ CREATE TABLE recording_meta
 (
     id                  INTEGER NOT NULL, -- PK, references recording.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    ratingcount         INTEGER,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    rating_count        INTEGER
 );
 
 CREATE TABLE recording_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references recording.id
+    new_id              INTEGER NOT NULL, -- references recording.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE recording_puid
@@ -682,14 +718,16 @@ CREATE TABLE recording_puid
     id                  SERIAL,
     puid                INTEGER NOT NULL, -- references puid.id
     recording           INTEGER NOT NULL, -- references recording.id
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE recording_tag
 (
     recording           INTEGER NOT NULL, -- PK, references recording.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
-    count               INTEGER NOT NULL
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release (
@@ -708,8 +746,9 @@ CREATE TABLE release (
     date_day            SMALLINT,
     barcode             VARCHAR(255),
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0,
-    quality             SMALLINT NOT NULL DEFAULT -1
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    quality             SMALLINT NOT NULL DEFAULT -1,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_annotation
@@ -721,31 +760,32 @@ CREATE TABLE release_annotation
 CREATE TABLE release_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references release.id
+    new_id              INTEGER NOT NULL, -- references release.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_meta
 (
     id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    infourl             VARCHAR(255),
-    amazonasin          VARCHAR(10),
-    amazonstore         VARCHAR(20)
+    date_added          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    info_url            VARCHAR(255),
+    amazon_asin         VARCHAR(10),
+    amazon_store        VARCHAR(20)
 );
 
 CREATE TABLE release_coverart
 (
     id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
-    coverfetched        TIMESTAMP WITH TIME ZONE,
-    coverarturl         VARCHAR(255)
+    last_updated        TIMESTAMP WITH TIME ZONE,
+    cover_art_url       VARCHAR(255)
 );
 
 CREATE TABLE release_label (
     id                  SERIAL,
     release             INTEGER NOT NULL, -- references release.id
     label               INTEGER, -- references label.id
-    catno               VARCHAR(255)
+    catalog_number      VARCHAR(255),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_packaging
@@ -767,7 +807,8 @@ CREATE TABLE release_group (
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references release_group_type.id
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_group_annotation
@@ -779,26 +820,27 @@ CREATE TABLE release_group_annotation
 CREATE TABLE release_group_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references release_group.id
+    new_id              INTEGER NOT NULL, -- references release_group.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_group_meta
 (
     id                  INTEGER NOT NULL, -- PK, references release_group.id CASCADE
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    releasecount        INTEGER NOT NULL DEFAULT 0,
-    firstreleasedate_year   SMALLINT,
-    firstreleasedate_month  SMALLINT,
-    firstreleasedate_day    SMALLINT,
+    release_count       INTEGER NOT NULL DEFAULT 0,
+    first_release_date_year   SMALLINT,
+    first_release_date_month  SMALLINT,
+    first_release_date_day    SMALLINT,
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    ratingcount         INTEGER
+    rating_count        INTEGER
 );
 
 CREATE TABLE release_group_tag
 (
     release_group       INTEGER NOT NULL, -- PK, references release_group.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
-    count               INTEGER NOT NULL
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_group_type (
@@ -814,8 +856,8 @@ CREATE TABLE release_name (
 CREATE TABLE script
 (
     id                  SERIAL,
-    isocode             CHAR(4) NOT NULL, -- ISO 15924
-    isonumber           CHAR(3) NOT NULL, -- ISO 15924
+    iso_code            CHAR(4) NOT NULL, -- ISO 15924
+    iso_number          CHAR(3) NOT NULL, -- ISO 15924
     name                VARCHAR(100) NOT NULL,
     frequency           INTEGER NOT NULL DEFAULT 0
 );
@@ -832,7 +874,7 @@ CREATE TABLE tag
 (
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
-    refcount            INTEGER NOT NULL DEFAULT 0
+    ref_count           INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE tag_relation
@@ -840,6 +882,7 @@ CREATE TABLE tag_relation
     tag1                INTEGER NOT NULL, -- PK, references tag.id
     tag2                INTEGER NOT NULL, -- PK, references tag.id
     weight              INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     CHECK (tag1 < tag2)
 );
 
@@ -852,7 +895,8 @@ CREATE TABLE track
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER,
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_name (
@@ -863,7 +907,8 @@ CREATE TABLE track_name (
 CREATE TABLE tracklist
 (
     id                  SERIAL,
-    trackcount          INTEGER NOT NULL DEFAULT 0
+    track_count         INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE tracklist_index
@@ -879,14 +924,16 @@ CREATE TABLE url
     gid                 UUID NOT NULL,
     url                 TEXT NOT NULL,
     description         TEXT,
-    refcount            INTEGER NOT NULL DEFAULT 0,
-    editpending         INTEGER NOT NULL DEFAULT 0
+    ref_count           INTEGER NOT NULL DEFAULT 0,
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE url_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references url.id
+    new_id              INTEGER NOT NULL, -- references url.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work (
@@ -897,7 +944,8 @@ CREATE TABLE work (
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_alias
@@ -906,7 +954,8 @@ CREATE TABLE work_alias
     work                INTEGER NOT NULL, -- references work.id
     name                INTEGER NOT NULL, -- references work_name.id
     locale              TEXT,
-    editpending         INTEGER NOT NULL DEFAULT 0
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_annotation
@@ -918,15 +967,15 @@ CREATE TABLE work_annotation
 CREATE TABLE work_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
-    newid               INTEGER NOT NULL -- references work.id
+    new_id              INTEGER NOT NULL, -- references work.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_meta
 (
     id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    ratingcount         INTEGER
+    rating_count        INTEGER
 );
 
 CREATE TABLE work_name (
@@ -938,7 +987,8 @@ CREATE TABLE work_tag
 (
     work                INTEGER NOT NULL, -- PK, references work.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
-    count               INTEGER NOT NULL
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_type (

@@ -388,7 +388,7 @@ foreach my $attr (values %attr_id_map) {
     }
     $sql->do("
         INSERT INTO link_attribute_type
-            (id, parent, root, childorder, gid, name, description)
+            (id, parent, root, child_order, gid, name, description)
             VALUES (?, ?, ?, ?, ?, ?, ?)",
         $attr->{id}, $attr->{parent} || undef, $root->{id}, $attr->{childorder},
         $attr->{mbid}, $attr->{name}, $attr->{description});
@@ -692,9 +692,9 @@ foreach my $orig_t0 (@entity_types) {
                 $seen_ar_type{$row->{id}} = 1;
                 $sql->do("
                     INSERT INTO link_type
-                        (id, parent, childorder, gid, name, description, linkphrase,
-                        rlinkphrase, shortlinkphrase, priority, entitytype0,
-                        entitytype1)
+                        (id, parent, child_order, gid, name, description, link_phrase,
+                        reverse_link_phrase, short_link_phrase, priority, entity_type0,
+                        entity_type1)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ", $id, $parent_id, $row->{childorder}, $gid,
                 $row->{name}, $row->{description}, $linkphrase, $rlinkphrase,
@@ -721,8 +721,8 @@ my $uuid = OSSP::uuid->new;
 $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$root_id");
 my $gid = $uuid->export("str");
 $sql->do("INSERT INTO link_type
-    (id, gid, name, linkphrase,
-    rlinkphrase, shortlinkphrase, entitytype0, entitytype1)
+    (id, gid, name, link_phrase,
+    reverse_link_phrase, short_link_phrase, entity_type0, entity_type1)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     $root_id, $gid, "ROOT", "", "", "ROOT", "recording", "work");
 
@@ -730,8 +730,8 @@ my $recording_work_link_type_id = $sql->select_single_value("SELECT nextval('lin
 $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$recording_work_link_type_id");
 $gid = $uuid->export("str");
 $sql->do("INSERT INTO link_type
-    (id, gid, name, description, linkphrase,
-    rlinkphrase, shortlinkphrase, entitytype0, entitytype1)
+    (id, gid, name, description, link_phrase,
+    reverse_link_phrase, short_link_phrase, entity_type0, entity_type1)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     $recording_work_link_type_id, $gid, "performance", "", "is a performance of", "has performance", "performance", "recording", "work");
 
@@ -1023,8 +1023,8 @@ foreach my $orig_t0 (@entity_types) {
                 my @enddate = split(/-/, $enddate);
                 $sql->do("
                     INSERT INTO link
-                        (id, link_type, begindate_year, begindate_month, begindate_day,
-                        enddate_year, enddate_month, enddate_day, attributecount)
+                        (id, link_type, begin_date_year, begin_date_month, begin_date_day,
+                        end_date_year, end_date_month, end_date_day, attribute_count)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ", $link_id, $link_type_id,
                     ($begindate[0] + 0) || undef,

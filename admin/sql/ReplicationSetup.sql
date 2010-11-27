@@ -8,6 +8,12 @@ BEGIN;
 --CREATE FUNCTION "recordchange" () RETURNS trigger AS
 --'$libdir/pending', 'recordchange' LANGUAGE 'C';
 
+CREATE AGGREGATE array_cat_agg(anyarray)(
+      sfunc       = array_cat,
+      stype       = anyarray,
+      initcond    = '{}'
+);
+
 CREATE TABLE dbmirror_Pending (
     SeqId serial,
     TableName varchar NOT NULL,

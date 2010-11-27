@@ -13,14 +13,26 @@
     <thead>
         <tr>
             <th>[% l('ISRC') %]</th>
-            <th>[% l('Recording count') %]</th>
+            <th>[% l('Artist') %]</th>
+            <th>[% l('Recording') %]</th>
+            <th>[% l('Length') %]</th>
         </tr>
     </thead>
     <tbody>
+        [%- lastisrc = 0 -%]
         [%- FOR item IN items -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td><a href="[% c.uri_for_action('/isrc/show', [ item.isrc ]) %]">[% item.isrc %]</a></td>
-            <td>[% item.recordingcount %]</td>
+        [% IF lastisrc != item.isrc %]
+            <tr class="ev">
+                <td><a href="[% c.uri_for_action('/isrc/show', [ item.isrc ]) %]">[% item.isrc %]</a> ([% item.recordingcount %])</td>
+                <td colspan="3"></td>
+            </tr>
+            [% lastisrc = item.isrc %]
+        [%- END -%]
+        <tr>
+            <td></td>
+            <td>[% artist_credit(item.artist_credit) %]</td>
+            <td><a href="[% c.uri_for_action('/recording/show', [ item.gid ]) %]">[% item.name %]</a></td>
+            <td>[% item.length | format_length %]</td>
         </tr>
         [%- END -%]
     </tbody>

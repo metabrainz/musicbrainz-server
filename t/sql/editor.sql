@@ -7,9 +7,9 @@ TRUNCATE editor_subscribe_editor;
 TRUNCATE list CASCADE;
 TRUNCATE list_release CASCADE;
 
-INSERT INTO editor (id, name, password, privs, email, website, bio, membersince,
-        emailconfirmdate, lastlogindate, editsaccepted, editsrejected,
-        autoeditsaccepted, editsfailed)
+INSERT INTO editor (id, name, password, privs, email, website, bio, member_since,
+        email_confirm_date, last_login_date, edits_accepted, edits_rejected,
+        auto_edits_accepted, edits_failed)
     VALUES (1, 'new_editor', 'password', 1+8+32, 'test@email.com', 'http://test.website',
         'biography', '1989-07-23', '2005-10-20', '2009-01-01', 12, 2, 59, 9),
          (2, 'Alice', 'secret1', 0, 'alice@example.com', 'http://example.com',
@@ -24,7 +24,7 @@ INSERT INTO editor_preference (editor, name, value)
            (2, 'timezone', 'UTC'),
            (2, 'public_ratings', '0');
 
-INSERT INTO editor_subscribe_editor (editor, subscribededitor, lasteditsent)
+INSERT INTO editor_subscribe_editor (editor, subscribed_editor, last_edit_sent)
    VALUES (2, 1, 3);
 
 ALTER SEQUENCE editor_id_seq RESTART 4;

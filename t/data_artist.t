@@ -46,9 +46,7 @@ is ( $artist->ipi_code, '00014107338' );
 $artist_data->load_meta($artist);
 is ( $artist->rating, 70 );
 is ( $artist->rating_count, 4 );
-is_deeply ( $artist->last_update_date,
-     DateTime->new(year => 2009, month => 7, day => 9,
-                   hour => 20, minute => 40, second => 30) );
+isnt ( $artist->last_updated, undef );
 
 # An artist with the minimal set of required attributes
 $artist = $artist_data->get_by_id(2);

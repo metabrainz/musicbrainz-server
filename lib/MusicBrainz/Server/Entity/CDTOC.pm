@@ -11,7 +11,7 @@ has 'discid' => (
     isa => 'Str'
 );
 
-has 'freedbid' => (
+has 'freedb_id' => (
     is => 'rw',
     isa => 'Str'
 );
@@ -120,7 +120,7 @@ sub new_from_toc
         track_count => scalar @track_offsets,
         leadout_offset => $leadout_offset,
         track_offset => \@track_offsets,
-        freedbid => _compute_freedb_id(@track_offsets, $leadout_offset),
+        freedb_id => _compute_freedb_id(@track_offsets, $leadout_offset),
     );
 }
 

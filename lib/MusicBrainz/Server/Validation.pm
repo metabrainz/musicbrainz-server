@@ -35,7 +35,9 @@ require Exporter;
         encode_entities
         is_valid_isrc
         is_valid_iswc
+        is_valid_ipi
         format_iswc
+        format_ipi
         is_valid_url
         is_positive_integer
         is_valid_discid
@@ -143,14 +145,29 @@ sub TrimInPlace
 sub is_valid_iswc
 {
     my $iswc = shift;
+    $iswc =~ s/\s//g;
     return $iswc =~ /^T-?\d{3}\.?\d{3}\.?\d{3}[-.]?\d/;
 }
 
 sub format_iswc
 {
     my $iswc = shift;
+    $iswc =~ s/\s//g;
     $iswc =~ s/^T-?(\d{3})\.?(\d{3})\.?(\d{3})[-.]?(\d)/T-$1.$2.$3-$4/;
     return $iswc;
+}
+
+sub is_valid_ipi
+{
+    my $ipi = shift;
+    return $ipi =~ /^\d{11}$/;
+}
+
+sub format_ipi
+{
+    my $ipi = shift;
+    $ipi =~ s/\D+//g;
+    return $ipi;
 }
 
 sub is_valid_url

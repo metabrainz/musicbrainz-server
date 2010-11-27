@@ -48,7 +48,7 @@ div.tabs ul li a:hover {
 
 .artistheader, .releaseheader, .rgheader,
 .recordingheader, .labelheader, .workheader, .blankheader,
-.listheader {
+.collectionheader {
     padding-left: 38px;
     background: 0 4px no-repeat;
 }
@@ -60,7 +60,7 @@ div.tabs ul li a:hover {
 .recordingheader { background-image: url('../images/entity/recording_lg.png') }
 .labelheader     { background-image: url('../images/entity/label_lg.png') }
 .workheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create work icon */
-.listheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create list icon */
+.collectionheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create collection icon */
 
 .releaseheader .prefix,
 h1 span.prefix,
@@ -85,4 +85,8 @@ p.subheader span { color: #999; }
 
 .annotation {
     margin-top: 1em;
+}
+
+.annotation-diff {
+    margin: 1em 0;
 }

@@ -5,14 +5,13 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
-    defined_hash
-    check_in_use
     generate_gid
+    hash_to_row
     load_subobjects
     partial_date_from_row
     placeholders
-    query_to_list_limited
     query_to_list
+    query_to_list_limited
 );
 
 use MusicBrainz::Server::Constants '$VARTIST_ID';
@@ -33,7 +32,7 @@ sub _columns
 {
     return 'rg.id, rg.gid, type AS type_id, name.name,
             rg.artist_credit AS artist_credit_id,
-            rg.comment, rg.editpending AS edits_pending';
+            rg.comment, rg.edits_pending, rg.last_updated';
 }
 
 sub _id_column
@@ -62,8 +61,8 @@ sub find_by_name_prefix
     my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
 
     my $query = "SELECT " . $self->_columns . ",
-                    rgm.releasecount,
-                    rgm.ratingcount,
+                    rgm.release_count,
+                    rgm.rating_count,
                     rgm.rating
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
@@ -81,8 +80,8 @@ sub find_by_name_prefix
             my $row = $_[0];
             my $rg = $self->_new_from_row(@_);
             $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-            $rg->release_count($row->{releasecount} || 0);
+            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+            $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
         $query, $prefix, $prefix, @bind, $offset || 0);
@@ -95,7 +94,7 @@ sub find_by_name_prefix_va
         $prefix, $limit, $offset,
         'rg.artist_credit IN (SELECT artist_credit FROM artist_credit_name ' .
         'JOIN artist_credit ac ON ac.id = artist_credit ' .
-        'WHERE artist = ? AND artistcount = 1)',
+        'WHERE artist = ? AND artist_count = 1)',
         $VARTIST_ID
     );
 }
@@ -107,11 +106,11 @@ sub find_by_artist
     my $where_types = $types ? 'AND type IN ('.placeholders(@$types).')' : '';
 
     my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    rgm.releasecount,
-                    rgm.ratingcount,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
+                    rgm.release_count,
+                    rgm.rating_count,
                     rgm.rating
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
@@ -122,9 +121,9 @@ sub find_by_artist
                     $where_types
                  ORDER BY
                     rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
                     musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
@@ -132,9 +131,9 @@ sub find_by_artist
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
-            $rg->release_count($row->{releasecount} || 0);
+            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
         $query, $artist_id, @$types, $offset || 0);
@@ -144,11 +143,11 @@ sub find_by_track_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    rgm.releasecount,
-                    rgm.ratingcount,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
+                    rgm.release_count,
+                    rgm.rating_count,
                     rgm.rating
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
@@ -168,9 +167,9 @@ sub find_by_track_artist
                    AND acn.artist != ?
                  ORDER BY
                     rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
                     musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
@@ -178,9 +177,9 @@ sub find_by_track_artist
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
-            $rg->release_count($row->{releasecount} || 0);
+            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
         $query, $artist_id, $artist_id, $offset || 0);
@@ -191,11 +190,11 @@ sub filter_by_artist
 {
     my ($self, $artist_id, $type) = @_;
     my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    rgm.releasecount,
-                    rgm.ratingcount,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
+                    rgm.release_count,
+                    rgm.rating_count,
                     rgm.rating
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
@@ -206,18 +205,18 @@ sub filter_by_artist
                    AND type = ?
                  ORDER BY
                     rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
                     musicbrainz_collate(name.name)";
     return query_to_list(
         $self->c->dbh, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
-            $rg->release_count($row->{releasecount} || 0);
+            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
         $query, $artist_id, $type);
@@ -227,11 +226,11 @@ sub filter_by_track_artist
 {
     my ($self, $artist_id, $type) = @_;
     my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
-                    rgm.releasecount,
-                    rgm.ratingcount,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
+                    rgm.release_count,
+                    rgm.rating_count,
                     rgm.rating
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
@@ -251,18 +250,18 @@ sub filter_by_track_artist
                        AND type = ?
                  ORDER BY
                     rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
                     musicbrainz_collate(name.name)";
     return query_to_list(
         $self->c->dbh, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
-            $rg->release_count($row->{releasecount} || 0);
+            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
         $query, $artist_id, $type);
@@ -272,25 +271,25 @@ sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day
                  FROM " . $self->_table . "
                     JOIN release ON release.release_group = rg.id
                     JOIN release_group_meta rgm ON rgm.id = rg.id
                  WHERE release.id = ?
                  ORDER BY
                     rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
                     musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
+            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
             return $rg;
         },
         $query, $release_id, $offset || 0);
@@ -300,24 +299,24 @@ sub find_by_release_gids
 {
     my ($self, @release_gids) = @_;
     my $query = "SELECT " . $self->_columns . ",
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day
                  FROM " . $self->_table . "
                     JOIN release ON release.release_group = rg.id
                     JOIN release_group_meta rgm ON rgm.id = rg.id
                  WHERE release.gid IN (" . placeholders (@release_gids) . ")
                  ORDER BY
                     rg.type,
-                    rgm.firstreleasedate_year,
-                    rgm.firstreleasedate_month,
-                    rgm.firstreleasedate_day,
+                    rgm.first_release_date_year,
+                    rgm.first_release_date_month,
+                    rgm.first_release_date_day,
                     musicbrainz_collate(name.name)";
     return query_to_list(
         $self->c->dbh, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
+            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
             return $rg;
         },
         $query, @release_gids);
@@ -416,18 +415,15 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
-    my %row = (
-        artist_credit => $group->{artist_credit},
-        comment => $group->{comment},
-        type => $group->{type_id},
-    );
+    my $row = hash_to_row($group, {
+        type => 'type_id',
+        map { $_ => $_ } qw( artist_credit comment )
+    });
 
-    if ($group->{name})
-    {
-        $row{name} = $names->{$group->{name}};
-    }
+    $row->{name} = $names->{$group->{name}}
+        if (exists $group->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta
@@ -436,9 +432,8 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_group_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->release_count($row->{releasecount});
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->release_count($row->{release_count});
     }, @_);
 }
 

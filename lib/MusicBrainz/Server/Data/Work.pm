@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
+    hash_to_row
     load_subobjects
     placeholders
     query_to_list
@@ -30,7 +31,7 @@ sub _columns
 {
     return 'work.id, gid, type AS type_id, name.name,
             work.artist_credit AS artist_credit_id, iswc,
-            comment, editpending AS edits_pending';
+            comment, edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -142,18 +143,15 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $work, $names) = @_;
-    my %row = (
-        artist_credit => $work->{artist_credit},
-        iswc => $work->{iswc},
-        comment => $work->{comment},
-        type => $work->{type_id},
-    );
+    my $row = hash_to_row($work, {
+        type => 'type_id',
+        map { $_ => $_ } qw( iswc comment artist_credit )
+    });
 
-    if ($work->{name}) {
-        $row{name} = $names->{$work->{name}};
-    }
+    $row->{name} = $names->{$work->{name}}
+        if (exists $work->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta
@@ -162,8 +160,8 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "work_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

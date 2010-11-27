@@ -7,12 +7,14 @@ use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
-use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
+use Text::Unaccent qw( unac_string_utf16 );
 use Data::OptList;
+use Encode qw( decode encode );
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
@@ -72,7 +74,10 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 sub _autocomplete_entity {
     my ($self, $c, $type) = @_;
 
-    my $query = escape_query (trim $c->stash->{args}->{q});
+    my $query = trim $c->stash->{args}->{q};
+    $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
+    $query = escape_query ($query);
+
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
@@ -80,11 +85,18 @@ sub _autocomplete_entity {
         $c->detach('bad_req');
     }
 
+    $query = $query.'*';
+
+    if (grep ($type eq $_, 'artist', 'label', 'work'))
+    {
+        $query = alias_query ($type, $query);
+    }
+
     my $model = type_to_model ($type);
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, $type, $query.'*', $limit, $page, 1, undef, $no_redirect);
+        $c, $type, $query, $limit, $page, 1, undef, $no_redirect);
 
     my @output;
 
@@ -153,34 +165,60 @@ sub recording : Chained('root') PathPart('recording') Args(0)
 {
     my ($self, $c) = @_;
 
-    my $query = escape_query ($c->stash->{args}->{q});
+    my $query = escape_query (trim $c->stash->{args}->{q});
     my $artist = escape_query ($c->stash->{args}->{a} || '');
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
+    unless ($query) {
+        $c->detach('bad_req');
+    }
+
+    my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, 'recording', "$query artist:\"$artist\"", $limit, $page, 1, undef, 1);
+        $c, 'recording', "recording:($query*) AND artist:($artist)",
+        $limit, $page, 1, undef, $no_redirect);
 
-    my $pager = $response->{pager};
+    my @output;
 
-    my @entities;
-    for my $result (@{ $response->{results} })
+    if ($response->{pager})
     {
-        my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
-            map { $_->gid } @{ $result->{extra} });
+        my $pager = $response->{pager};
 
-        push @entities, {
-            gid => $result->{entity}->gid,
-            id => $result->{entity}->id,
-            length => MusicBrainz::Server::Filters::format_length ($result->{entity}->length),
-            name => $result->{entity}->name,
-            artist => $result->{entity}->artist_credit->name,
-            releasegroups => _serialize_release_groups (@rgs),
+        for my $result (@{ $response->{results} })
+        {
+            my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
+
+            my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
+                map { $_->gid } @{ $result->{extra} });
+
+            push @output, {
+                name => $result->{entity}->name,
+                id => $entity->id,
+                gid => $result->{entity}->gid,
+                comment => $result->{entity}->comment,
+                length => format_track_length ($result->{entity}->length),
+                artist => $result->{entity}->artist_credit->name,
+                releasegroups => _serialize_release_groups (@rgs),
+            } if $entity;
+
+        }
+
+        push @output, {
+            pages => $pager->last_page,
+            current => $pager->current_page
         };
+    }
+    else
+    {
+        # If an error occurred just ignore it for now and return an
+        # empty list.  The javascript code for autocomplete doesn't
+        # have any way to gracefully report or deal with
+        # errors. --warp.
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@entities));
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 }
 
 sub tracklist : Chained('root') PathPart Args(1) {
@@ -198,6 +236,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
             names => [ map {
                 name => $_->name,
                 gid => $_->artist->gid,
+                id => $_->artist->id,
                 artist_name => $_->artist->name,
                 join => $_->join_phrase
             }, @{ $_->artist_credit->names } ],
@@ -215,7 +254,7 @@ sub default : Path
     my ($self, $c, $resource) = @_;
 
     $c->stash->{serializer} = $serializers{$self->get_default_serialization_type}->new();
-    $c->stash->{error} = "Invalid resource: $resource.";
+    $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
 }
 

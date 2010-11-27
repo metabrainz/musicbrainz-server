@@ -12,15 +12,15 @@ TRUNCATE release_name CASCADE;
 TRUNCATE release_label CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
-INSERT INTO artist (id, gid, name, sortname)
+INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, name, artistcount) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, joinphrase)
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
     VALUES (1, 1, 1, 0, NULL);
 
 INSERT INTO label_name (id, name) VALUES (1, 'Label');
-INSERT INTO label (id, gid, name, sortname)
+INSERT INTO label (id, gid, name, sort_name)
     VALUES (1, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 1, 1);
 
 INSERT INTO release_name (id, name) VALUES (1, 'Release #1');
@@ -30,7 +30,7 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1);
 
-INSERT INTO release_label (id, release, label, catno)
+INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 1, 'LBL-001'), (2, 1, 1, 'LBL-002'), (3, 1, 1, 'LBL-003');
 
 COMMIT;

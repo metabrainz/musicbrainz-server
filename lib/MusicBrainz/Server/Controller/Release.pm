@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use MusicBrainz::Server::Controller::Role::Tag;
+use MusicBrainz::Server::Translation qw ( l ln );
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
@@ -135,20 +136,20 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
-    my @lists;
+    my @collections;
     my %containment;
     if ($c->user_exists) {
-        # Make a list of lists and whether this release is contained in them
-        @lists = $c->model('List')->find_all_by_editor($c->user->id);
+        # Make a list of collections and whether this release is contained in them
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
 
-        foreach my $list (@lists) {
-            $containment{$list->id} = 1
-                if ($c->model('List')->check_release($list->id, $release->id));
+        foreach my $collection (@collections) {
+            $containment{$collection->id} = 1
+                if ($c->model('Collection')->check_release($collection->id, $release->id));
         }
     }
 
     $c->stash(
-        lists       => \@lists,
+        collections       => \@collections,
         containment => \%containment,
         template     => 'release/index.tt',
         show_artists => $release->has_multiple_artists,
@@ -276,7 +277,7 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
         my $release_group = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
         $c->model('ArtistCredit')->load($release_group);
         if ($release->release_group_id == $release_group->id) {
-            $c->stash( message => 'This release is already in the selected release group' );
+            $c->stash( message => l('This release is already in the selected release group') );
             $c->detach('/error_400');
         }
 

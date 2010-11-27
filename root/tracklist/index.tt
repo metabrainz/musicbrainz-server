@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' title=l('Tracklist') full_width=1 -%]
+[%- WRAPPER 'layout.tt' usesRDFa=1 title=l('Tracklist') full_width=1 -%]
     <h1>[%- l('Tracklist') -%]</h1>
 
     <div id="content">

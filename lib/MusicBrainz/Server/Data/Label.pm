@@ -5,14 +5,15 @@ use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
+    add_partial_date_to_row
+    check_in_use
     generate_gid
+    hash_to_row
+    load_subobjects
     partial_date_from_row
     placeholders
-    load_subobjects
-    query_to_list_limited
     query_to_list
-    check_in_use
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -34,15 +35,15 @@ sub _table
 {
     return 'label ' .
            'JOIN label_name name ON label.name=name.id ' .
-           'JOIN label_name sortname ON label.sortname=sortname.id';
+           'JOIN label_name sort_name ON label.sort_name=sort_name.id';
 }
 
 sub _columns
 {
-    return 'label.id, gid, name.name, sortname.name AS sortname, ' .
-           'type, country, editpending, labelcode, label.ipicode, ' .
-           'begindate_year, begindate_month, begindate_day, ' .
-           'enddate_year, enddate_month, enddate_day, comment';
+    return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
+           'type, country, edits_pending, label_code, label.ipi_code, ' .
+           'begin_date_year, begin_date_month, begin_date_day, ' .
+           'end_date_year, end_date_month, end_date_day, comment, label.last_updated';
 }
 
 sub _id_column
@@ -61,15 +62,16 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        sort_name => 'sortname',
+        sort_name => 'sort_name',
         type_id => 'type',
         country_id => 'country',
-        label_code => 'labelcode',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begindate_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
-        edits_pending => 'editpending',
+        label_code => 'label_code',
+        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        edits_pending => 'edits_pending',
         comment => 'comment',
-        ipi_code => 'ipicode',
+        ipi_code => 'ipi_code',
+        last_updated => 'last_updated',
     };
 }
 
@@ -224,29 +226,22 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $label, $names) = @_;
-    my %row = (
-        begindate_year => $label->{begin_date}->{year},
-        begindate_month => $label->{begin_date}->{month},
-        begindate_day => $label->{begin_date}->{day},
-        enddate_year => $label->{end_date}->{year},
-        enddate_month => $label->{end_date}->{month},
-        enddate_day => $label->{end_date}->{day},
-        comment => $label->{comment},
-        country => $label->{country_id},
-        type => $label->{type_id},
-        labelcode => $label->{label_code},
-        ipicode => $label->{ipi_code},
-    );
+    my $row = hash_to_row($label, {
+        country => 'country_id',
+        type => 'type_id',
+        map { $_ => $_ } qw( ipi_code label_code comment )
+    });
 
-    if ($label->{name}) {
-        $row{name} = $names->{$label->{name}};
-    }
+    add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');
+    add_partial_date_to_row($row, $label->{end_date}, 'end_date');
 
-    if ($label->{sort_name}) {
-        $row{sortname} = $names->{$label->{sort_name}};
-    }
+    $row->{name} = $names->{$label->{name}}
+        if (exists $label->{name});
 
-    return { defined_hash(%row) };
+    $row->{sort_name} = $names->{$label->{sort_name}}
+        if (exists $label->{sort_name});
+
+    return $row;
 }
 
 sub load_meta
@@ -255,8 +250,7 @@ sub load_meta
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "label_meta", sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
-        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
 }
 
