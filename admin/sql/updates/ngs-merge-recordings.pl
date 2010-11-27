@@ -159,6 +159,10 @@ sub process_tracks
     #foreach my $track (@$tracks) {
     #    printf STDERR "   - ID=%d, name='%s', artist='%s', length=%d\n", $track->{id}, $track->{name}, $track->{artist}, $track->{length};
     #}
+
+	# Never merge tracks from Live/Bootleg albums
+	$tracks = [ grep { $album_type{$_->{album}} != ((102 << 8) | 9) } @$tracks ];
+
     my @groups = $tracks;
     @groups = group_tracks_by_album_type(@groups);
     @groups = group_tracks_by_artist(@groups);
