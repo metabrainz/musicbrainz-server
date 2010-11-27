@@ -173,6 +173,19 @@ sub process_tracks
         next if @$group < 2;
         my $new_id;
         my @tracks = sort { $a->{id} <=> $b->{id} } @$group;
+
+		# If there are two tracks from the same album, skip the group
+		my %albums;
+		my $duplicate_album = 0;
+        foreach my $track (@tracks) {
+			if (exists $albums{$track->{album}}) {
+				$duplicate_album = 1;
+				last;
+			}
+			$albums{$track->{album}} = 1;
+		}
+		next if $duplicate_album;
+
         # Try to find an official album
         foreach my $track (@tracks) {
             if ($track->{album} && $album_type{$track->{album}} && $album_type{$track->{album}} == ((100 << 8) | 1)) {
