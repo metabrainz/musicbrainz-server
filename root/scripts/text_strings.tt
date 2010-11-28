@@ -60,6 +60,7 @@
             Invalid: '[% l('The barcode you entered is not a valid UPC or EAN code.') %]',
             DoubleCheck: '[% l('Please double-check the barcode on the release.') %]',
             CheckDigit: '[% l('The checkdigit is #checkdigit#.') %]'
-        }
+        },
+        Pager: '[% l('page #{page} of #{total}') %]'
     });
 })(MB);

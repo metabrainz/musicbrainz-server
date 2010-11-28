@@ -35,6 +35,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      tracklist => {
         method => 'GET',
+        optional => [ qw(q artist tracks limit page timestamp) ]
      }
 ]);
 
@@ -223,6 +224,7 @@ sub recording : Chained('root') PathPart('recording') Args(0)
 
 sub tracklist : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
+
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
     $c->model('ArtistCredit')->load($tracklist->all_tracks);
@@ -247,6 +249,79 @@ sub tracklist : Chained('root') PathPart Args(1) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', $structure));
+}
+
+sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
+    my ($self, $c) = @_;
+
+    my $query = escape_query (trim $c->stash->{args}->{q});
+    my $artist = escape_query ($c->stash->{args}->{artist});
+    my $tracks = escape_query ($c->stash->{args}->{tracks});
+    my $limit = $c->stash->{args}->{limit} || 10;
+    my $page = $c->stash->{args}->{page} || 1;
+
+    unless ($query) {
+        $c->detach('bad_req');
+    }
+
+    $query = "release:($query*)";
+    $query .= " AND artist:($artist)" if $artist;
+    $query .= " AND tracks:($tracks)" if $tracks;
+
+    my $no_redirect = 1;
+    my $response = $c->model ('Search')->external_search (
+        $c, 'release', $query, $limit, $page, 1, undef, $no_redirect);
+
+    my @output;
+
+    if ($response->{pager})
+    {
+        my $pager = $response->{pager};
+
+        my @gids = map { $_->{entity}->gid } @{ $response->{results} };
+
+        my @releases = values %{ $c->model ('Release')->get_by_gids (@gids) };
+        $c->model ('Medium')->load_for_releases (@releases);
+        $c->model ('MediumFormat')->load (map { $_->all_mediums } @releases);
+        $c->model ('ArtistCredit')->load (@releases);
+
+        for my $release ( @releases )
+        {
+            next unless $release;
+
+            my $count = 0;
+            for my $medium ($release->all_mediums)
+            {
+                $count += 1;
+
+                push @output, {
+                    gid => $release->gid,
+                    name => $release->name,
+                    position => $count,
+                    format => $medium->format_name,
+                    medium => $medium->name,
+                    comment => $release->comment,
+                    artist => $release->artist_credit->name,
+                    tracklist_id => $medium->tracklist_id,
+                };
+            }
+        }
+
+        push @output, {
+            pages => $pager->last_page,
+            current => $pager->current_page
+        };
+    }
+    else
+    {
+        # If an error occurred just ignore it for now and return an
+        # empty list.  The javascript code for autocomplete doesn't
+        # have any way to gracefully report or deal with
+        # errors. --warp.
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 }
 
 sub default : Path

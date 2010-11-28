@@ -106,7 +106,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
 
         self.preview.render ();
-   };
+    };
 
     var expand = function (chained) {
         self.textarea.show ();
@@ -152,6 +152,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.textarea = self.basicdisc.find ('textarea.tracklist');
     self.expand_icon = self.basicdisc.find ('.expand a.icon');
     self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
+
+    if (!self.tracklist_id.length)
+    {
+        self.tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
+    }
 
     self.expand_icon.click (function (event) {
         if (self.textarea.is (':visible'))
@@ -201,6 +206,8 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
         self.textareas.push (ta);
 
         ta.expand ();
+
+        return ta;
     };
 
     var guessCase = function () {
@@ -242,6 +249,10 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         }
     };
 
+    var addDisc = function () {
+        return self.tracklist.newDisc (self.adv.addDisc ());
+    };
+
     $("a[href=#advanced]").click (function () {
         moveMediumFields ('basic', 'advanced');
         $('.basic-tracklist').hide ();
@@ -257,19 +268,22 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     });
 
     $("a[href=#add_disc]").click (function () {
-        self.tracklist.newDisc (self.adv.addDisc ());
+        self.addDisc ();
     });
 
     $("a[href=#guesscase]").click (function () {
         self.tracklist.guessCase ();
     });
 
+    self.addDisc = addDisc;
     self.adv = advancedtab;
     self.preview = MB.Control.ReleasePreview (self.adv);
     self.tracklist = MB.Control.ReleaseTracklist (self.adv, self.preview);
 
     self.preview.render ();
     self.tracklist.render ();
+
+    self.adv.basic = self;
 
     return self;
 }
