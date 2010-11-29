@@ -35,7 +35,7 @@ role {
         my $add = $c->req->params->{'add-to-merge'};
         my @add = ref($add) ? @$add : ($add);
 
-        $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
+        $c->session->{merger} ||= MusicBrainz::Server::MergeQueue->new(
             type => $self->{model},
         );
 
