@@ -302,7 +302,7 @@
         <a style="min-width: 5em;" href="#next_tracklist">[% l('Next') %]</a>
         <span class="pager-tracklist"></span>
       </div>
-      
+
       <div class="use-tracklist-template" style="display: none; padding-left: 1em;">
 
         <a class="icon" href="#expand_tracklist">

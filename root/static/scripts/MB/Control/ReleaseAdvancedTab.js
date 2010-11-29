@@ -103,7 +103,7 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
         self.row.remove ();
         self.acrow.remove ();
     };
-    
+
     self.render = render;
     self.toggleDelete = toggleDelete;
     self.isDeleted = isDeleted;
@@ -304,8 +304,8 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         var data = self.edits.loadEdits ();
 
         var use_data = function (data) {
-            self.loadTracklist (data); 
-            if (chained) { 
+            self.loadTracklist (data);
+            if (chained) {
                 self.basic.loadTracklist (data);
             }
         };
@@ -316,7 +316,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         }
         else if (!self.tracklist)
         {
-            /* FIXME: ignore result if the disc has been collapsed in 
+            /* FIXME: ignore result if the disc has been collapsed in
                the meantime.  --warp. */
             var tracklist_id = self.basic.tracklist_id.val ();
             if (tracklist_id)
@@ -473,7 +473,7 @@ MB.Control.ReleaseUseTracklist = function (parent) {
             $table.hide ();
             $buttons.hide ();
             self.$pager.hide ();
-            
+
             return;
         }
 
