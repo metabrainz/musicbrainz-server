@@ -1,4 +1,7 @@
 [% BLOCK layout_head %]
+    <script type="text/javascript" src="[%-
+             c.uri_for('/static/scripts/url_cleanup.js');
+    -%]"></script>
    <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
    <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
    <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
