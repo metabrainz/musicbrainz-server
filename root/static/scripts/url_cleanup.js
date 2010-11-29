@@ -5,7 +5,10 @@ var cleanups = {
     },
     discogs: {
         match: new RegExp("^(https?://)?([^/]+\.)?discogs\.com","i"),
-        type: 181
+        type: 181,
+        clean: function(url) {
+            return url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
+        }
     },
     musicmoz: {
         match: new RegExp("^(http://)?([^/]+\.)?musicmoz\.","i"),
@@ -50,7 +53,11 @@ var cleanups = {
     },
     archive: {
         match: new RegExp("^(http://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
-        type: 77
+        type: 77,
+        clean: function(url) { 
+            url = url.replace(/\/http:\/\//, "/");
+			return url.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
+        }
     },
     cdbaby: {
         match: new RegExp("^(http://)?([^/]+\.)?cdbaby\.(com|name)","i"),
@@ -58,15 +65,26 @@ var cleanups = {
     },
     jamendo: {
         match: new RegExp("^(http://)?([^/]+\.)?jamendo\.com","i"),
-        type: 77
+        type: 77,
+        clean: function(url) {
+            url =  url.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
+            url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
+            return url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
+        }
     },
     encyclopedisque: {
         match: new RegExp("^(http://)?([^/]+\.)?encyclopedisque\.fr/images/.*\.jpg","i"),
-        type: 77
+        type: 77,
+        clean: function(url) {
+            return url.replace(/images\/imgdb\/thumb250\//, "images/imgdb/main/");
+        }
     },
     manjdisc: {
         match: new RegExp("^(http://)?([^/]+\.)?mange-disque\.tv/(fs/md_|fstb/tn_md_|info_disque\.php3\\?dis_code=)[0-9]+","i"),
-        type: 77
+        type: 77,
+        clean: function(url) {
+            return url.replace(/(www\.)?mange-disque\.tv\/(fstb\/tn_md_|fs\/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?/,
+                "www.mange-disque.tv/fs/md_$3.jpg");
     },
     lyricwiki: {
         match: new RegExp("^(http://)?([^/]+\.)?lyrics\.wikia\.com", "i"),
@@ -107,14 +125,13 @@ $(function() {
     };
     var url_changed = function() {
         var url = $('#id-ar\\.url').val(),
-            type = guess_type(url),
-            clean = clean_url(url);
+            clean = clean_url(url),
+            type = guess_type(clean);
 
+        $('#id-ar\\.url').val(clean);
         $('#id-ar\\.link_type_id option[value="' + type +'"]')
             .attr('selected', 'selected');
         type_changed();
-
-        $('#id-ar\\.url').val(clean);
     };
 
     $('#id-ar\\.url')
