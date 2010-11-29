@@ -53,20 +53,36 @@ var cleanups = {
     }
 };
 
-function cleanup(current_url) {
-    for each (var url in cleanups) {
-        if(!url.match.test(current_url)) { continue; }
-        $('#id-ar\\.link_type_id option[value="' + url.type +'"]')
-            .attr('selected', 'selected');
-        return;
+var validation_rules = {
+    // "has lyrics at" is only allowed for Lyric Wiki
+    74: function() {
+        return cleanups.lyricwiki.match.test($('#id-ar\\.url').val())
     }
 }
-   
+
+function guess_type(current_url) {
+    for each (var url in cleanups) {
+        if(!url.match.test(current_url)) { continue; }
+        return url.type;
+    }
+    return;
+}
+ 
 $(function() {
-    var change_handler = function() {
-        cleanup($('#id-ar\\.url').val());
+    var type_changed = function() {
+        var checker = validation_rules[$('#id-ar\\.link_type_id').val()];
+        $('button[type="submit"]').attr('disabled',
+            !checker || checker() ? false : 'disabled');
     };
+    var url_changed = function() {
+        var type = guess_type( $('#id-ar\\.url').val() );
+        $('#id-ar\\.link_type_id option[value="' + type +'"]')
+            .attr('selected', 'selected');
+
+        type_changed();
+    };
+
     $('#id-ar\\.url')
-        .change(change_handler)
-        .keyup(change_handler);
+        .change(url_changed)
+        .keyup(url_changed);
 });
