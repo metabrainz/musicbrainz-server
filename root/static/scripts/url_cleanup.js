@@ -25,7 +25,28 @@ var cleanups = {
     },
     amazon: {
         match: new RegExp("^(http://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|co\.jp|jp)","i"),
-        type: 76
+        type: 76,
+        clean: function(url) {
+            // determine tld, asin from url, and build standard format [1],
+            // if both were found. There used to be another [2], but we'll
+            // stick to the new one for now.
+            //
+            // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
+            // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
+            var tld = "", asin = "";
+            if ((m = url.match(/amazon\.([a-z\.]+)\//)) != null) {
+                tld = m[1];
+            }
+            if ((m = url.match(/\/([A-Z0-9]{10})(?:[/?]|$)/)) != null) {
+                asin = m[1];
+            }
+            if (tld != "" && asin != "") {
+                if (tld == "jp") tld = "co.jp";
+                if (tld == "at") tld = "de";
+                return "http://www.amazon." + tld + "/gp/product/" + asin;
+            }
+
+        }
     },
     archive: {
         match: new RegExp("^(http://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
@@ -67,6 +88,16 @@ function guess_type(current_url) {
     }
     return;
 }
+
+function clean_url(dirty_url) {
+    for each (var group in cleanups) {
+        if(!group.hasOwnProperty('clean') || !group.match.test(dirty_url)) 
+            continue;
+
+        return group.clean(dirty_url);
+    }
+    return dirty_url;
+}
  
 $(function() {
     var type_changed = function() {
@@ -75,11 +106,15 @@ $(function() {
             !checker || checker() ? false : 'disabled');
     };
     var url_changed = function() {
-        var type = guess_type( $('#id-ar\\.url').val() );
+        var url = $('#id-ar\\.url').val(),
+            type = guess_type(url),
+            clean = clean_url(url);
+
         $('#id-ar\\.link_type_id option[value="' + type +'"]')
             .attr('selected', 'selected');
-
         type_changed();
+
+        $('#id-ar\\.url').val(clean);
     };
 
     $('#id-ar\\.url')
