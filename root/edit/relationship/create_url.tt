@@ -16,6 +16,8 @@
 
     <form action="[% c.req.uri | html %]" method="post">
 
+    <input type="hidden" id="id-ar.type" value="[% type %]" />
+
     <script type="text/javascript">
         var typeInfo = [% type_info %];
     </script>
@@ -38,7 +40,7 @@
             </tr>
             <tr>
                 <td class="label">[% r.label('url', l('URL:')) %]</td>
-                <td colspan="2">[% r.text('url') %]</td>
+                <td colspan="2">[% r.text('url', { size => 47 }) %]</td>
             </tr>
         </table>
 

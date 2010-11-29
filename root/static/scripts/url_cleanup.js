@@ -1,34 +1,34 @@
 var cleanups = {
     wikipedia: {
         match: new RegExp("^(http://)?([^/]+\.)?wikipedia\.","i"),
-        type: 180
+        type: { artist: 180, label: 218, release_group: 89 }
     },
     discogs: {
         match: new RegExp("^(https?://)?([^/]+\.)?discogs\.com","i"),
-        type: 181,
+        type: { release: 72, release_group: 90, artist: 181, label: 219 },
         clean: function(url) {
             return url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
         }
     },
     musicmoz: {
         match: new RegExp("^(http://)?([^/]+\.)?musicmoz\.","i"),
-        type: 182
+        type: { release: 73, artist: 182 }
     },
     imdb: {
         match: new RegExp("^(http://)?([^/]+\.)?imdb\.com","i"),
-        type: 179
+        type: { release_group: 97, artist: 179 }
     },
     myspace: {
         match: new RegExp("^(http://)?([^/]+\.)?myspace\.com","i"),
-        type: 190
+        type: { artist: 190, label: 217 }
     },
     purevolume: {
         match: new RegExp("^(http://)?([^/]+\.)?purevolume\.com","i"),
-        type: 175
+        type: { artist: 175 }
     },
     amazon: {
         match: new RegExp("^(http://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|co\.jp|jp)","i"),
-        type: 76,
+        type: { release: 76 },
         clean: function(url) {
             // determine tld, asin from url, and build standard format [1],
             // if both were found. There used to be another [2], but we'll
@@ -53,7 +53,7 @@ var cleanups = {
     },
     archive: {
         match: new RegExp("^(http://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
-        type: 77,
+        type: { release: 77 },
         clean: function(url) { 
             url = url.replace(/\/http:\/\//, "/");
 			return url.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
@@ -61,11 +61,11 @@ var cleanups = {
     },
     cdbaby: {
         match: new RegExp("^(http://)?([^/]+\.)?cdbaby\.(com|name)","i"),
-        type: 77
+        type: { release: 77 }
     },
     jamendo: {
         match: new RegExp("^(http://)?([^/]+\.)?jamendo\.com","i"),
-        type: 77,
+        type: { release: 77 },
         clean: function(url) {
             url =  url.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
             url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
@@ -74,21 +74,22 @@ var cleanups = {
     },
     encyclopedisque: {
         match: new RegExp("^(http://)?([^/]+\.)?encyclopedisque\.fr/images/.*\.jpg","i"),
-        type: 77,
+        type: { release: 77 },
         clean: function(url) {
             return url.replace(/images\/imgdb\/thumb250\//, "images/imgdb/main/");
         }
     },
     manjdisc: {
         match: new RegExp("^(http://)?([^/]+\.)?mange-disque\.tv/(fs/md_|fstb/tn_md_|info_disque\.php3\\?dis_code=)[0-9]+","i"),
-        type: 77,
+        type: { release: 77 },
         clean: function(url) {
             return url.replace(/(www\.)?mange-disque\.tv\/(fstb\/tn_md_|fs\/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?/,
                 "www.mange-disque.tv/fs/md_$3.jpg");
+        }
     },
     lyricwiki: {
         match: new RegExp("^(http://)?([^/]+\.)?lyrics\.wikia\.com", "i"),
-        type: 74
+        type: { release: 74 }
     }
 };
 
@@ -99,10 +100,10 @@ var validation_rules = {
     }
 }
 
-function guess_type(current_url) {
+function guess_type(source_type, current_url) {
     for each (var url in cleanups) {
         if(!url.match.test(current_url)) { continue; }
-        return url.type;
+        return url.type[source_type];
     }
     return;
 }
@@ -126,7 +127,7 @@ $(function() {
     var url_changed = function() {
         var url = $('#id-ar\\.url').val(),
             clean = clean_url(url),
-            type = guess_type(clean);
+            type = guess_type($('#id-ar\\.type').val(), clean);
 
         $('#id-ar\\.url').val(clean);
         $('#id-ar\\.link_type_id option[value="' + type +'"]')
