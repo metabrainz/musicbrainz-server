@@ -23,7 +23,7 @@ has '+data' => (
             name => Str,
             id   => Int
         ] ],
-        preserve_names => Bool
+        rename => Bool
     ]
 );
 
@@ -32,8 +32,8 @@ override 'accept' => sub
     my $self = shift;
     $self->c->model('Artist')->merge(
         $self->new_entity->{id},
-        $self->_old_ids,
-        preverse_names => $self->data->{preserve_names}
+        [ $self->_old_ids ],
+        rename => $self->data->{rename}
     );
 };
 

@@ -231,18 +231,18 @@ sub delete
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, $new_id, $old_ids, %opts) = @_;
 
-    $self->alias->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
-    $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('ArtistCredit')->merge_artists($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('artist', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('artist', $new_id, @old_ids);
+    $self->alias->merge($new_id, @$old_ids);
+    $self->tags->merge($new_id, @$old_ids);
+    $self->rating->merge($new_id, @$old_ids);
+    $self->subscription->merge($new_id, @$old_ids);
+    $self->annotation->merge($new_id, @$old_ids);
+    $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
+    $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
+    $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
-    $self->_delete_and_redirect_gids('artist', $new_id, @old_ids);
+    $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
 }
 

@@ -13,7 +13,7 @@
         </ul>
 
         [% USE r = FormRenderer(form) %]
-        [% form_row_checkbox(r, 'preserve_names', l('Update artist credits to use the new artists name')) %]
+        [% form_row_checkbox(r, 'rename', l('Update artist credits to use the new artists name')) %]
 
         [% INCLUDE "forms/edit-note.tt" %]
         [% enter_edit() %]
