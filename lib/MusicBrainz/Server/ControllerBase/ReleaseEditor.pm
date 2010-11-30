@@ -17,6 +17,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_CREATE
+    $EDIT_LABEL_CREATE
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
@@ -179,7 +180,15 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             map { $_ => $artist->{$_} } qw( name sort_name comment ));
-    } @{ $data->{artists} }
+    } @{ $data->{missing}{artists} };
+
+    map {
+        my $label = $_;
+        $self->$edit($c,
+            $EDIT_LABEL_CREATE,
+            $editnote,
+            map { $_ => $label->{$_} } qw( name sort_name comment ));
+    } @{ $data->{missing}{labels} }
 }
 
 sub _edit_release_labels
@@ -613,7 +622,17 @@ sub determine_missing_entities
         )
     );
 
-    $wizard->load_page('missing_entities', { artists => \@credits });
+    my @labels = map +{
+        name => $_->{name}
+    }, grep { !$_->{label_id} }
+        @{ $wizard->value->{labels} };
+
+    $wizard->load_page('missing_entities', {
+        missing => {
+            artists => \@credits,
+            labels => \@labels
+        }
+    });
 }
 
 sub create_common_edits

@@ -12,13 +12,22 @@
 
     <div id="form">
         <fieldset>
-          <legend>Artists</legend>
-        [% FOR artist_row=form.field('artists').fields %]
-            [% form_row_text_long(r, artist_row.field('name'), l('Name:')) %]
-            [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
-            [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
-        [% END %]
-       </fieldset>
+          <legend>[% l( 'Artists' ) %]</legend>
+          [% FOR artist_row=form.field('missing.artists').fields %]
+              [% form_row_text_long(r, artist_row.field('name'), l('Name:')) %]
+              [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
+              [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
+          [% END %]
+        </fieldset>
+
+        <fieldset>
+          <legend>[% l('Labels') %]</legend>
+          [% FOR label_row=form.field('missing.labels').fields %]
+              [% form_row_text_long(r, label_row.field('name'), l('Name:')) %]
+              [% form_row_text_long(r, label_row.field('sort_name'), l('Sort Name:')) %]
+              [% form_row_text_long(r, label_row.field('comment'), l('Comment:')) %]
+          [% END %]
+        </fieldset>
 
         <div style="clear: both;">
           <div class="buttons ui-helper-clearfix">
