@@ -7,6 +7,7 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
@@ -380,6 +381,12 @@ sub run
                 form => 'ReleaseEditor::Recordings'
             },
             {
+                name => 'missing_entities',
+                title => l('Add Missing Entities'),
+                template => 'release/edit/missing_entities.tt',
+                form => 'ReleaseEditor::MissingEntities'
+            },
+            {
                 name => 'editnote',
                 title => l('Edit Note'),
                 template => 'release/edit/editnote.tt',
@@ -407,6 +414,9 @@ sub run
     }
     elsif ($wizard->loading) {
         $self->load($c, $wizard, $release);
+    }
+    elsif ($wizard->current_page eq 'missing_entities') {
+        $self->determine_missing_entities($c, $wizard);
     }
 
     $wizard->render;
@@ -565,6 +575,29 @@ sub prepare_recordings
     $c->stash->{tracklist_edits} = \@tracklist_edits;
 
     $wizard->load_page('recordings', { 'rec_mediums' => \@recording_gids });
+}
+
+sub determine_missing_entities
+{
+    my ($self, $c, $wizard) = @_;
+
+    my $json = JSON::Any->new(utf8 => 1);
+    my @credits = grep { !$_->{artist} } grep { ref($_) }
+        map { @{ clean_submitted_artist_credits($_) } } (
+        (
+            # Artist credit for the release itself
+            $wizard->value->{artist_credit},
+        ),
+        (
+            # Artist credits on new tracklists
+            map { $_->{artist_credit} }
+            map { @{ $json->decode($_) } }
+            grep { $_ } map { $_->{edits} }
+            @{ $wizard->value->{mediums} }
+        )
+    );
+
+    $wizard->load_page('missing_entities', { artists => \@credits });
 }
 
 sub create_common_edits
