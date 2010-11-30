@@ -36,7 +36,7 @@ sub _tracks_from_edits
 {
     my ($self, $edits, $recording_gids, $recording_hash) = @_;
 
-    my $json = JSON::Any->new;
+    my $json = JSON::Any->new( utf8 => 1 );
 
     my @ret;
     my $edited = $self->edited_tracklist ($json->decode ($edits));
@@ -515,7 +515,7 @@ sub prepare_recordings
 {
     my ($self, $c, $wizard, $release) = @_;
 
-    my $json = JSON::Any->new;
+    my $json = JSON::Any->new( utf8 => 1 );
 
     my @recording_gids  = @{ $wizard->value->{rec_mediums} };
     my @tracklist_edits = @{ $wizard->value->{mediums} };
