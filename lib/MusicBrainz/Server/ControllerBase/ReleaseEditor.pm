@@ -16,6 +16,7 @@ use MusicBrainz::Server::Wizard;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_ARTIST_CREATE
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
@@ -164,6 +165,21 @@ sub _create_edit
     $c->stash->{changes} = 1;
 
     return $edit;
+}
+
+sub _edit_missing_entities
+{
+    my ($self, $c, $preview, $editnote, $data, $release) = @_;
+
+    my $edit = $preview ? '_preview_edit' : '_create_edit';
+    
+    map {
+        my $artist = $_;
+        $self->$edit($c,
+            $EDIT_ARTIST_CREATE,
+            $editnote,
+            map { $_ => $artist->{$_} } qw( name sort_name comment ));
+    } @{ $data->{artists} }
 }
 
 sub _edit_release_labels
@@ -608,6 +624,11 @@ sub create_common_edits
     my $data = $opts{data};
     my $edit_note = $opts{edit_note};
     my $release = $opts{release};
+
+    # Artists and labels:
+    # ----------------------------------------
+
+    $self->_edit_missing_entities ($c, $as_previews, $edit_note, $data, $release);
 
     # release labels edit
     # ----------------------------------------

@@ -20,11 +20,13 @@
         [% END %]
        </fieldset>
 
-       <div class="buttons ui-helper-clearfix">
-         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-         [% r.submit ('previous', l('« Previous')) %]
-         [% r.submit ('save', l('Enter edit'), class => 'positive') %]
-       </div>
+        <div style="clear: both;">
+          <div class="buttons ui-helper-clearfix">
+            [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+            [% r.submit ('previous', l('« Previous')) %]
+            [% r.submit ('next', l('Next »')) %]
+          </div>
+        </div>
     </div>
   </div>
 [%- END -%]
