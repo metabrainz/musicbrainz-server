@@ -171,14 +171,15 @@ sub find_outdated_releases
                      OR NOW() - last_updated > ?
              )
            AND ( link_type.name IN ('  . placeholders(@url_types) . ')
-              OR release.barcode IS NOT NULL )
-         LIMIT 1000';
+              OR release.barcode IS NOT NULL )';
 
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
     my $sql = Sql->new($self->c->dbh);
     return query_to_list($self->c->dbh, sub {
-            my $row = shift;
+        my $row = shift;
+        # Construction of these rows is slow, so this is lazy
+        return sub {
             my $release = $self->c->model('Release')->_new_from_row($row, 'r_');
 
             if ($row->{link_type}) {
@@ -191,7 +192,8 @@ sub find_outdated_releases
                         )))
             }
             return $release;
-        }, $query, $pg_date_formatter->format_duration($since), @url_types);
+        }
+    }, $query, $pg_date_formatter->format_duration($since), @url_types);
 }
 
 sub cache_cover_art
@@ -240,8 +242,6 @@ sub parse_from_release
 {
     my ($self, $release) = @_;
     return unless $release->barcode;
-
-    warn "Parsing " . $release->id . ":" . $release->barcode;
 
     for my $provider (@{ $self->providers }) {
         next unless $provider->does('MusicBrainz::Server::CoverArt::BarcodeSearch');

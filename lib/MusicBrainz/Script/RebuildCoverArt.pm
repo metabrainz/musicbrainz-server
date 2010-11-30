@@ -70,6 +70,7 @@ sub run
     while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
                (my $release = shift @releases))
     {
+        $release = $release->();
         next if $seen{$release->id};
         $self->c->model('CoverArt')->cache_cover_art($release);
         $seen{$release->id} = 1;
