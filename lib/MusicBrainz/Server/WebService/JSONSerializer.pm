@@ -7,14 +7,14 @@ sub mime_type { 'application/json' }
 
 sub serialize
 {
-    my ($self, $type, $data) = @_;
+    my ($self, $type, @data) = @_;
 
-    return $self->$type($data);
+    return $self->$type(@data);
 }
 
 sub autocomplete_name
 {
-    my ($self, $list, $limit) = @_;
+    my ($self, $list, $current, $pages) = @_;
 
     my @response = map {
         {
@@ -24,6 +24,12 @@ sub autocomplete_name
             comment => $_->comment,
         }
     } @{$list};
+
+    push @response, {
+        pages => $pages,
+        current => $current
+    };
+
     return encode_json (\@response);
 }
 

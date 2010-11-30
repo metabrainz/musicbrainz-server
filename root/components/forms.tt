@@ -108,7 +108,7 @@
     [%- END -%]
 [%- END -%]
 
-[%- MACRO artist_credit_table(form) BLOCK -%]
+[%- MACRO artist_credit_table(form, show_direct_search) BLOCK -%]
   <div class="artist-credit-container" style="display: none">
     <div class="artist-credit bubble">
       [%- acfield = form.field('artist_credit') -%]
@@ -150,6 +150,13 @@
             </span>
           </div>
 
+        </div>
+      [%- END -%]
+
+      [%- IF show_direct_search -%]
+        <div class="directsearch row">
+          <label>[%- l('Use direct search') -%]</label>
+          <input class="autocomplete-directsearch" type="checkbox" value="0"></input>
         </div>
       [%- END -%]
     </div>

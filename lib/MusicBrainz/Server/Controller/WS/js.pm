@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Controller::WS::js;
 
+use POSIX;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
@@ -21,17 +21,17 @@ my $ws_defs = Data::OptList::mkopt([
      artist => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(limit page timestamp) ]
+         optional => [ qw(direct limit page timestamp) ]
      },
      label => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(limit page timestamp) ]
+         optional => [ qw(direct limit page timestamp) ]
      },
      recording => {
          method   => 'GET',
          required => [ qw(q) ],
-         optional => [ qw(a r limit page timestamp) ]
+         optional => [ qw(a r direct limit page timestamp) ]
      },
      tracklist => {
         method => 'GET',
@@ -75,16 +75,49 @@ sub _autocomplete_entity {
     my ($self, $c, $type) = @_;
 
     my $query = trim $c->stash->{args}->{q};
-    $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
-    $query = escape_query ($query);
-
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
+    my $direct = $c->stash->{args}->{direct};
 
     unless ($query) {
         $c->detach('bad_req');
     }
 
+    if ($direct eq 'true')
+    {
+        $self->_autocomplete_direct($c, $type, $query, $page, $limit);
+    }
+    else
+    {
+        $self->_autocomplete_indexed($c, $type, $query, $page, $limit);
+    }
+}
+
+sub _autocomplete_direct {
+    my ($self, $c, $type, $query, $page, $limit) = @_;
+
+    my $offset = ($page - 1) * $limit;  # page is not zero based.
+
+    my ($entities, $hits) = $c->model($type)->autocomplete_name($query, $limit, $offset);
+
+    # FIXME: I think results should be post-processed to sort the
+    # entries which match the case of the query above other results.
+    # The sortname and aliases should also be taken into account for
+    # those entities which have them.  -- warp.
+
+    my $current = $page;
+    my $pages = ceil ($hits / $limit);
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize(
+                      'autocomplete_name', $entities, $current, $pages));
+}
+
+sub _autocomplete_indexed {
+    my ($self, $c, $type, $query, $page, $limit) = @_;
+
+    $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
+    $query = escape_query ($query);
     $query = $query.'*';
 
     if (grep ($type eq $_, 'artist', 'label', 'work'))
