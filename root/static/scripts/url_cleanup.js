@@ -101,19 +101,25 @@ var validation_rules = {
 }
 
 function guess_type(source_type, current_url) {
-    for each (var url in cleanups) {
-        if(!url.match.test(current_url)) { continue; }
-        return url.type[source_type];
+    for (var group in cleanups) {
+        if(!cleanups.hasOwnProperty(group)) { continue; }
+        
+        var cleanup = cleanups[group];
+        if(!cleanup.match.test(current_url)) { continue; }
+        return cleanup.type[source_type];
     }
     return;
 }
 
 function clean_url(dirty_url) {
-    for each (var group in cleanups) {
-        if(!group.hasOwnProperty('clean') || !group.match.test(dirty_url)) 
+    for (var group in cleanups) {
+        if(!cleanups.hasOwnProperty(group)) { continue; }
+
+        var cleanup = cleanups[group];
+        if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirty_url)) 
             continue;
 
-        return group.clean(dirty_url);
+        return cleanup.clean(dirty_url);
     }
     return dirty_url;
 }
