@@ -676,7 +676,12 @@ sub _misssing_artist_credits
         ),
         (
             # Artist credits on new tracklists
-            map { $_->{artist_credit} }
+            map {
+                [ map { 
+                    { artist => $_->{id}, name => $_->{name} },
+                    $_->{join}
+                } @{ $_->{artist_credit}->{names} } ]
+            }
             map { @{ $json->decode($_) } }
             grep { $_ } map { $_->{edits} }
             @{ $data->{mediums} }
