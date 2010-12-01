@@ -24,6 +24,11 @@ for my $type (qw( artists labels )) {
         type => 'Text',
         required => 1
     );
+
+    has_field "missing.$type.for" => (
+        type => 'Text',
+        required => 1
+    );
 }
 
 1;

@@ -17,6 +17,7 @@
               [% form_row_text_long(r, artist_row.field('name'), l('Name:')) %]
               [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
               [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
+              [% r.hidden(artist_row.field('for')) %]
           [% END %]
         </fieldset>
 
@@ -26,6 +27,7 @@
               [% form_row_text_long(r, label_row.field('name'), l('Name:')) %]
               [% form_row_text_long(r, label_row.field('sort_name'), l('Sort Name:')) %]
               [% form_row_text_long(r, label_row.field('comment'), l('Comment:')) %]
+              [% r.hidden(label_row.field('for')) %]
           [% END %]
         </fieldset>
 
