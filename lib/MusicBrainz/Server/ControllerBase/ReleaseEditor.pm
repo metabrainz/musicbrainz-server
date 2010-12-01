@@ -178,7 +178,6 @@ sub _edit_missing_entities
 
     my @artist_edits = map {
         my $artist = $_;
-        warn "Creating " . $_->{name};
         $self->$edit($c,
             $EDIT_ARTIST_CREATE,
             $editnote,
@@ -476,6 +475,13 @@ sub create_edits
 
             $bad_ac->{artist} = $artist->id;
         }
+
+        for my $bad_label ($self->_missing_labels($data)) {
+            my $label = $created{label}{ $bad_label->{name} }
+                or die 'No label was created for ' . $bad_label->{name};
+
+            $bad_label->{label_id} = $label->id;
+        }
     }
 
     $c->stash->{edits} = [];
@@ -633,17 +639,15 @@ sub determine_missing_entities
 {
     my ($self, $c, $wizard) = @_;
 
-    my @credits =
-        map +{
+    my @credits = map +{
             for => $_->{name},
             name => $_->{name},
         }, $self->_misssing_artist_credits($wizard->value);
 
     my @labels = map +{
-        name => $_->{name},
-        for => $_->{name}
-    }, grep { !$_->{label_id} }
-        @{ $wizard->value->{labels} };
+            for => $_->{name},
+            name => $_->{naem}
+        }, $self->_missing_labels($wizard->value);
 
     $wizard->load_page('missing_entities', {
         missing => {
@@ -651,6 +655,12 @@ sub determine_missing_entities
             labels => \@labels
         }
     });
+}
+
+sub _missing_labels {
+    my ($self, $data) = @_;
+    return grep { !$_->{label_id} }
+        @{ $data->{labels} };
 }
 
 sub _misssing_artist_credits

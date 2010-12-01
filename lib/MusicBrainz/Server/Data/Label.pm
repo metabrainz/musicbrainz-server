@@ -147,6 +147,7 @@ sub insert
         my $row = $self->_hash_to_row($label, \%names);
         $row->{gid} = $label->{gid} || generate_gid();
         push @created, $class->new(
+            name => $label->{name},
             id => $sql->insert_row('label', $row, 'id'),
             gid => $row->{gid}
         );
