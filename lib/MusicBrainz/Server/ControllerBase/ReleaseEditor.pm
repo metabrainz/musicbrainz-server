@@ -659,7 +659,7 @@ sub determine_missing_entities
 
 sub _missing_labels {
     my ($self, $data) = @_;
-    return grep { !$_->{label_id} }
+    return grep { !$_->{label_id} && $_->{name} }
         @{ $data->{labels} };
 }
 
