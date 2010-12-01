@@ -18,6 +18,18 @@
 
 */
 
+MB.constants.LINK_TYPES = {
+    wikipedia: { artist: 180, label: 218, release_group: 89 },
+    discogs: { release: 72, release_group: 90, artist: 181, label: 219 },
+    musicmoz: { release: 73, artist: 182 },
+    imdb: { release_group: 97, artist: 179 },
+    myspace: { artist: 190, label: 217 },
+    purevolume: { artist: 175 },
+    amazon: { release: 76 },
+    coverart: { release: 77 },
+    lyricwiki: { release: 74 }
+};
+
 MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     var self = MB.Object ();
 
@@ -25,49 +37,37 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.urlControl = $(urlControl);
     self.sourceType = sourceType;
 
-    var linkTypes = {
-        wikipedia: { artist: 180, label: 218, release_group: 89 },
-        discogs: { release: 72, release_group: 90, artist: 181, label: 219 },
-        musicmoz: { release: 73, artist: 182 },
-        imdb: { release_group: 97, artist: 179 },
-        myspace: { artist: 190, label: 217 },
-        purevolume: { artist: 175 },
-        amazon: { release: 76 },
-        coverart: { release: 77 },
-        lyricwiki: { release: 74 }
-    };
-
     var cleanups = {
         wikipedia: {
             match: new RegExp("^(http://)?([^/]+\.)?wikipedia\.","i"),
-            type: linkTypes.wikipedia
+            type: MB.constants.LINK_TYPES.wikipedia
         },
         discogs: {
             match: new RegExp("^(https?://)?([^/]+\.)?discogs\.com","i"),
-            type: linkTypes.discogs,
+            type: MB.constants.LINK_TYPES.discogs,
             clean: function(url) {
                 return url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
             }
         },
         musicmoz: {
             match: new RegExp("^(http://)?([^/]+\.)?musicmoz\.","i"),
-            type: linkTypes.musicmoz
+            type: MB.constants.LINK_TYPES.musicmoz
         },
         imdb: {
             match: new RegExp("^(http://)?([^/]+\.)?imdb\.com","i"),
-            type: linkTypes.imdb
+            type: MB.constants.LINK_TYPES.imdb
         },
         myspace: {
             match: new RegExp("^(http://)?([^/]+\.)?myspace\.com","i"),
-            type: linkTypes.myspace
+            type: MB.constants.LINK_TYPES.myspace
         },
         purevolume: {
             match: new RegExp("^(http://)?([^/]+\.)?purevolume\.com","i"),
-            type: linkTypes.purevolume
+            type: MB.constants.LINK_TYPES.purevolume
         },
         amazon: {
             match: new RegExp("^(http://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|co\.jp|jp)","i"),
-            type: linkTypes.amazon,
+            type: MB.constants.LINK_TYPES.amazon,
             clean: function(url) {
                 // determine tld, asin from url, and build standard format [1],
                 // if both were found. There used to be another [2], but we'll
@@ -92,7 +92,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         },
         archive: {
             match: new RegExp("^(http://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
-            type: linkTypes.coverart,
+            type: MB.constants.LINK_TYPES.coverart,
             clean: function(url) { 
                 url = url.replace(/\/http:\/\//, "/");
                 return url.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
@@ -100,11 +100,11 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         },
         cdbaby: {
             match: new RegExp("^(http://)?([^/]+\.)?cdbaby\.(com|name)","i"),
-            type: linkTypes.coverart
+            type: MB.constants.LINK_TYPES.coverart
         },
         jamendo: {
             match: new RegExp("^(http://)?([^/]+\.)?jamendo\.com","i"),
-            type: linkTypes.coverart,
+            type: MB.constants.LINK_TYPES.coverart,
             clean: function(url) {
                 url =  url.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
                 url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
@@ -113,14 +113,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         },
         encyclopedisque: {
             match: new RegExp("^(http://)?([^/]+\.)?encyclopedisque\.fr/images/.*\.jpg","i"),
-            type: linkTypes.coverart,
+            type: MB.constants.LINK_TYPES.coverart,
             clean: function(url) {
                 return url.replace(/images\/imgdb\/thumb250\//, "images/imgdb/main/");
             }
         },
         manjdisc: {
             match: new RegExp("^(http://)?([^/]+\.)?mange-disque\.tv/(fs/md_|fstb/tn_md_|info_disque\.php3\\?dis_code=)[0-9]+","i"),
-            type: linkTypes.coverart,
+            type: MB.constants.LINK_TYPES.coverart,
             clean: function(url) {
                 return url.replace(/(www\.)?mange-disque\.tv\/(fstb\/tn_md_|fs\/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?/,
                     "www.mange-disque.tv/fs/md_$3.jpg");
@@ -128,13 +128,13 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         },
         lyricwiki: {
             match: new RegExp("^(http://)?([^/]+\.)?lyrics\.wikia\.com", "i"),
-            type: linkTypes.lyricwiki
+            type: MB.constants.LINK_TYPES.lyricwiki
         }
     };
 
     var validationRules = { };
     // "has lyrics at" is only allowed for Lyric Wiki
-    validationRules[ linkTypes.lyricwiki.release ] = function() {
+    validationRules[ MB.constants.LINK_TYPES.lyricwiki.release ] = function() {
         return cleanups.lyricwiki.match.test($('#id-ar\\.url').val())
     };
 
