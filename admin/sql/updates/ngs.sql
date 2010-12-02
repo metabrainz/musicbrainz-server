@@ -375,8 +375,11 @@ INSERT INTO track (id, tracklist, name, recording, artist_credit, length, positi
     SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist), length, a.sequence, NULL
     FROM public.track t
         JOIN public.albumjoin a ON t.id = a.track
+        JOIN public.album al ON al.id = a.album
+        JOIN public.release_group rg ON rg.id = al.release_group
         JOIN track_name n ON n.name = t.name
-        LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac;
+        LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac
+       WHERE rg.type != 0 OR rg.type IS NULL;
 
 INSERT INTO recording_meta (id, rating, rating_count)
     SELECT id, round(rating * 20), rating_count
