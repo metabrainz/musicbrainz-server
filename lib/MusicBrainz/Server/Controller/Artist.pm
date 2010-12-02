@@ -294,23 +294,23 @@ sub recordings : Chained('load')
     );
 }
 
-sub nats : Chained('load')
+sub standalone_recordings : Chained('load') PathPart('standalone-recordings')
 {
     my ($self, $c) = @_;
 
     my $artist = $c->stash->{artist};
-    my $nats = $self->_load_paged($c, sub {
-        $c->model('Recording')->find_nats($artist->id, shift, shift);
+    my $standalones = $self->_load_paged($c, sub {
+        $c->model('Recording')->find_standalone($artist->id, shift, shift);
     });
 
-    $c->model('ISRC')->load_for_recordings(@$nats);
-    $c->model('ArtistCredit')->load(@$nats);
+    $c->model('ISRC')->load_for_recordings(@$standalones);
+    $c->model('ArtistCredit')->load(@$standalones);
 
     $c->stash(
-        recordings => $nats,
+        recordings => $standalones,
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
-        } @$nats,
+        } @$standalones,
     );
 }
 

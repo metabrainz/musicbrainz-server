@@ -200,7 +200,7 @@ sub merge
     return 1;
 }
 
-sub find_nats
+sub find_standalone
 {
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query ='

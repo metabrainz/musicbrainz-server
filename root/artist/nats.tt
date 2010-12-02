@@ -1,9 +1,0 @@
-[%- WRAPPER 'artist/layout.tt' title=l('Non-album tracks') page='nats' -%]
-    <h2>[% l('Recordings') %]</h2>
-    [%- IF recordings.size -%]
-        <p>[% l('The following recordings have never been officially released.') %]</p>
-        [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
-    [%- ELSE -%]
-        <p>[%- l('All recordings by this artist have been officially released.') -%]</p>
-    [%- END -%]
-[%- END -%]
