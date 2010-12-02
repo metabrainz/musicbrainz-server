@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::WS::js;
 
-use POSIX;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -85,7 +84,7 @@ sub _autocomplete_entity {
 
     if ($direct eq 'true')
     {
-        $self->_autocomplete_direct($c, $type, $query, $page, $limit);
+        $self->_autocomplete_direct ($c, $type, $query, $page, $limit);
     }
     else
     {
@@ -105,12 +104,27 @@ sub _autocomplete_direct {
     # The sortname and aliases should also be taken into account for
     # those entities which have them.  -- warp.
 
-    my $current = $page;
-    my $pages = ceil ($hits / $limit);
+    my @output = map {
+        {
+            name => $_->name,
+            id => $_->id,
+            gid => $_->gid,
+            comment => $_->comment,
+        }
+    } @$entities;
+
+    my $pager = Data::Page->new ();
+    $pager->entries_per_page ($limit);
+    $pager->current_page ($page);
+    $pager->total_entries ($hits);
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    };
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize(
-                      'autocomplete_name', $entities, $current, $pages));
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 }
 
 sub _autocomplete_indexed {
@@ -180,32 +194,66 @@ sub label : Chained('root') PathPart('label') Args(0)
     $self->_autocomplete_entity($c, 'label');
 }
 
-sub _serialize_release_groups
-{
-    my (@rgs) = @_;
-
-    my @ret;
-
-    for (@rgs)
-    {
-        push @ret, { 'name' => $_->name, 'gid' => $_->gid, };
-    }
-
-    return \@ret;
-}
-
 sub recording : Chained('root') PathPart('recording') Args(0)
 {
     my ($self, $c) = @_;
 
-    my $query = escape_query (trim $c->stash->{args}->{q});
-    my $artist = escape_query ($c->stash->{args}->{a} || '');
+    my $query = trim $c->stash->{args}->{q};
+    my $artist = $c->stash->{args}->{a} || '';
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
+    my $direct = $c->stash->{args}->{direct};
 
     unless ($query) {
         $c->detach('bad_req');
     }
+
+    if ($direct eq 'true')
+    {
+        $self->_recording_direct($c, $query, $artist, $page, $limit);
+    }
+    else
+    {
+        $self->_recording_indexed($c, $query, $artist, $page, $limit);
+    }
+}
+
+sub _recording_direct {
+    my ($self, $c, $query, $artist, $page, $limit) = @_;
+
+    my $offset = ($page - 1) * $limit;  # page is not zero based.
+
+    my ($entities, $hits) = $c->model('Recording')->autocomplete_name(
+        $query, $artist, $limit, $offset);
+
+    $c->model ('ArtistCredit')->load (@$entities);
+
+    my @output;
+
+    for (@$entities) {
+        push @output, {
+            recording => $_,
+            appears => [
+                $c->model ('ReleaseGroup')->find_by_recording ($_->id)
+            ]
+        };
+    };
+
+    my $pager = Data::Page->new ();
+    $pager->entries_per_page ($limit);
+    $pager->current_page ($page);
+    $pager->total_entries ($hits);
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('autocomplete_recording', \@output, $pager));
+}
+
+sub _recording_indexed {
+    my ($self, $c, $query, $artist, $page, $limit) = @_;
+
+    $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
+    $query = escape_query ($query);
+    $artist = escape_query ($artist);
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
@@ -213,34 +261,25 @@ sub recording : Chained('root') PathPart('recording') Args(0)
         $limit, $page, 1, undef, $no_redirect);
 
     my @output;
+    my $pager;
 
     if ($response->{pager})
     {
-        my $pager = $response->{pager};
+        $pager = $response->{pager};
 
         for my $result (@{ $response->{results} })
         {
             my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
 
+            next unless $entity;
+
+            $entity->artist_credit ($result->{entity}->artist_credit);
+
             my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
                 map { $_->gid } @{ $result->{extra} });
 
-            push @output, {
-                name => $result->{entity}->name,
-                id => $entity->id,
-                gid => $result->{entity}->gid,
-                comment => $result->{entity}->comment,
-                length => format_track_length ($result->{entity}->length),
-                artist => $result->{entity}->artist_credit->name,
-                releasegroups => _serialize_release_groups (@rgs),
-            } if $entity;
-
+            push @output, { recording => $entity, appears => \@rgs };
         }
-
-        push @output, {
-            pages => $pager->last_page,
-            current => $pager->current_page
-        };
     }
     else
     {
@@ -251,7 +290,7 @@ sub recording : Chained('root') PathPart('recording') Args(0)
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
+    $c->res->body($c->stash->{serializer}->serialize('autocomplete_recording', \@output, $pager));
 }
 
 sub tracklist : Chained('root') PathPart Args(1) {
