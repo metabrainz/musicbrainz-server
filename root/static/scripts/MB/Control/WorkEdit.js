@@ -1,6 +1,5 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (c) 2005 Stefan Kestenholz (keschte)
    Copyright (C) 2010 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
@@ -19,31 +18,32 @@
 
 */
 
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
-
-MB.GuessCase._Track = function () {
+MB.Control.WorkEdit = function () {
     var self = MB.Object ();
 
-    var guess = function (data) {
+    self.$name = $('#id-edit-work\\.name');
 
-        if (MB.utility.isString (data))
-        {
-            data = [ data ];
-        }
+    self.$guesscase = $('button.guesscase');
+    self.$copy = $('button.copy');
 
-        var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
-        }); 
+    var guesscase = function (event) {
+        self.$name.val (MB.GuessCase.work.guess (self.$name.val ()));
 
-        return ret;
+        event.preventDefault ();
     };
 
-    self.gc = MB.GuessCase.Main ();
+    var copy = function (event) {
+        self.$sort_name.val (self.$name.val ());
 
-    self.guess = guess;
+        event.preventDefault ();
+    };
+
+    self.guesscase = guesscase;
+    self.copy = copy;
+
+    self.$guesscase.bind ('click.mb', self.guesscase);
+    self.$copy.bind ('click.mb', self.copy);
 
     return self;
 };
 
-MB.GuessCase.track = MB.GuessCase._Track ();

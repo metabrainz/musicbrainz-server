@@ -1,34 +1,27 @@
 [% BLOCK layout_head %]
-<script>
-$(document).ready(function() {
-    var $begin = $('#label-edit-artist\\.begin_date'),
-        $end   = $('#label-edit-artist\\.end_date'),
-        $type  = $('#id-edit-artist\\.type_id');
+  <script type="text/javascript" src="[%-
+    c.model('FileCache').squash_scripts(
+      "scripts/MB/utility.js",
+      "scripts/MB/GuessCase/Handler/Base.js",
+      "scripts/MB/GuessCase/Handler/Artist.js",
+      "scripts/MB/GuessCase/Mode/Base.js",
+      "scripts/MB/GuessCase/Mode/Artist.js",
+      "scripts/MB/GuessCase/Input.js",
+      "scripts/MB/GuessCase/Output.js",
+      "scripts/MB/GuessCase/Flags.js",
+      "scripts/MB/GuessCase/Utils.js",
+      "scripts/MB/GuessCase/Modes.js",
+      "scripts/MB/GuessCase/Main.js",
+      "scripts/MB/GuessCase/Artist.js",
+      "scripts/MB/Control/ArtistEdit.js",
+    ) -%]"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
 
-    var artistChangeDateText = function (start, stop) {
-        $begin.text(start);
-        $end.text(stop);
-    };
+      MB.Control.ArtistEdit ();
 
-    /*****************************************************************
-     *  Sets the label descriptions depending upon the artist type:
-     *      Unknown: 0
-     *      Person: 1
-     *      Group: 2
-     *****************************************************************/
-    var artistTypeChanged = function() {
-        switch ($type.val()) {
-            default:
-            case '0': artistChangeDateText('Began:', 'Ended:');       break;
-            case '1': artistChangeDateText('Born:', 'Deceased:');     break;
-            case '2': artistChangeDateText('Founded:', 'Dissolved:'); break;
-        }
-    };
-
-    artistTypeChanged();
-    $type.change(artistTypeChanged);
-});
-</script>
+    });
+  </script>
 [% END %]
 
 [% WRAPPER 'artist/layout.tt' title=l('Edit Artist') full_width=1 page='edit' %]

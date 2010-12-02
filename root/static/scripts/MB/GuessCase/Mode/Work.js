@@ -19,31 +19,16 @@
 
 */
 
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
+MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
+MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
-MB.GuessCase._Track = function () {
-    var self = MB.Object ();
+/**
+ * Models the "Work" GuessCase mode.
+ **/
+MB.GuessCase.Mode.Work = function () {
+    var self = MB.GuessCase.Mode.Base ();
 
-    var guess = function (data) {
-
-        if (MB.utility.isString (data))
-        {
-            data = [ data ];
-        }
-
-        var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
-        }); 
-
-        return ret;
-    };
-
-    self.gc = MB.GuessCase.Main ();
-
-    self.guess = guess;
+    self.setConfig('work mode', '', '');
 
     return self;
 };
-
-MB.GuessCase.track = MB.GuessCase._Track ();

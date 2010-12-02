@@ -32,7 +32,8 @@ MB.GuessCase.Modes = function (language) {
      * Gets the currently selected element from the mode dropdown.
      **/
     var getMode = function () {
-        return self.dropdown.find ('option:selected').data ('mb.guesscase.mode');
+        var mode = self.dropdown.find ('option:selected').data ('mb.guesscase.mode');
+        return mode || MB.GuessCase.Mode.Dummy ();
     };
     
     /**
@@ -73,12 +74,14 @@ MB.GuessCase.Modes = function (language) {
         null : MB.GuessCase.Mode.Artist (self);
     self.dropdown = $('#gc-mode');
 
-    self.modes = [
-        MB.GuessCase.Mode.English (self),
-        MB.GuessCase.Mode.Sentence (self),
-        MB.GuessCase.Mode.French (self),
-        MB.GuessCase.Mode.Classical (self)
-    ];
+
+    self.modes = [];
+    for (mode in ['English', 'Sentence', 'French', 'Classical']) {
+        if (typeof MB.GuessCase.Mode[mode] !== "undefined")
+        {
+            self.modes.push (MB.GuessCase.Mode[mode] (self));
+        }
+    };
 
     initialize ();
 

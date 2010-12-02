@@ -77,6 +77,9 @@ MB.utility.template = function(str) {
     return self;
 };
 
+MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
+MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
+
 MB.utility.load_data = function (files, loaded, callback) {
     var uri = files.pop ();
 

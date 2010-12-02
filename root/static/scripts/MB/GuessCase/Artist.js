@@ -21,29 +21,15 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase._Track = function () {
+MB.GuessCase._Artist = function () {
     var self = MB.Object ();
-
-    var guess = function (data) {
-
-        if (MB.utility.isString (data))
-        {
-            data = [ data ];
-        }
-
-        var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
-        }); 
-
-        return ret;
-    };
 
     self.gc = MB.GuessCase.Main ();
 
-    self.guess = guess;
+    self.guess = self.gc.guessArtist;
+    self.sortname = self.gc.guessArtistSortname;
 
     return self;
 };
 
-MB.GuessCase.track = MB.GuessCase._Track ();
+MB.GuessCase.artist = MB.GuessCase._Artist ();

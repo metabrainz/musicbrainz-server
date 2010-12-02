@@ -21,29 +21,15 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase._Track = function () {
+MB.GuessCase._Label = function () {
     var self = MB.Object ();
-
-    var guess = function (data) {
-
-        if (MB.utility.isString (data))
-        {
-            data = [ data ];
-        }
-
-        var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
-        }); 
-
-        return ret;
-    };
 
     self.gc = MB.GuessCase.Main ();
 
-    self.guess = guess;
+    self.guess = self.gc.guessLabel;
+    self.sortname = self.gc.guessLabelSortname;
 
     return self;
 };
 
-MB.GuessCase.track = MB.GuessCase._Track ();
+MB.GuessCase.label = MB.GuessCase._Label ();
