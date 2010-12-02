@@ -47,6 +47,8 @@ sub _tracks_from_edits
             map {
                 { artist => $_->{id}, name => $_->{name} },
                 $_->{join}
+            } grep {
+                $_->{name} ne '' && $_->{id} ne ''
             } @{ $_->{artist_credit}->{names} }
         ]);
 
