@@ -35,15 +35,15 @@ TRUNCATE edit_note CASCADE;
 
 -- Test multiple edit_notes
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (1, 1, 111, 1, '<data><foo>5</foo></data>', NOW());
+    VALUES (1, 1, 111, 1, '{ "foo": "5" }', NOW());
 
 -- Test a single note
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (2, 1, 111, 1, '<data><foo>5</foo></data>', NOW());
+    VALUES (2, 1, 111, 1, '{ "foo": "5" }', NOW());
 
 -- Test no edit_notes
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (3, 1, 111, 1, '<data><foo>5</foo></data>', NOW());
+    VALUES (3, 1, 111, 1, '{ "foo": "5" }', NOW());
 
 INSERT INTO edit_note (id, editor, edit, text)
     VALUES (1, 1, 1, 'This is a note');
@@ -127,19 +127,19 @@ $en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is(scalar @{ $email_transport->deliveries }, 2);
 
-my $email = $email_transport->deliveries->[0]->{email};
+my $email = $email_transport->deliveries->[1]->{email};
 is($email->get_header('Subject'), 'Note added to your edit #' . $edit->id);
 is($email->get_header('To'), '"editor1" <editor1@example.com>');
 like($email->get_body, qr{http://localhost/edit/${\ $edit->id }});
-like($email->get_body, qr{Editor 'editor3' has added});
+like($email->get_body, qr{'editor3' has added});
 like($email->get_body, qr{to your edit #${\ $edit->id }});
 like($email->get_body, qr{This is my note!});
 
-my $email2 = $email_transport->deliveries->[1]->{email};
+my $email2 = $email_transport->deliveries->[0]->{email};
 is($email2->get_header('Subject'), 'Note added to edit #' . $edit->id);
 is($email2->get_header('To'), '"editor2" <editor2@example.com>');
 like($email2->get_body, qr{http://localhost/edit/${\ $edit->id }});
-like($email2->get_body, qr{Editor 'editor3' has added});
+like($email2->get_body, qr{'editor3' has added});
 like($email2->get_body, qr{to edit #${\ $edit->id }});
 like($email2->get_body, qr{This is my note!});
 

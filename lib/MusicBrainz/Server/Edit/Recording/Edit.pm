@@ -56,6 +56,8 @@ sub foreign_keys
         }
     }
 
+    $relations->{Recording} = { $self->data->{entity_id} => [ 'ArtistCredit' ] };
+
     return $relations;
 }
 
@@ -77,6 +79,8 @@ sub build_display_data
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
     }
+
+    $data->{recording} = $loaded->{Recording}{ $self->data->{entity_id} };
 
     return $data;
 }

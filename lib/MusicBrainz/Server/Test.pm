@@ -12,6 +12,7 @@ use MusicBrainz::WWW::Mechanize;
 use Sql;
 use Template;
 use Test::Builder;
+use Test::Differences;
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
@@ -19,7 +20,10 @@ use XML::Parser;
 
 use Sub::Exporter -setup => {
     exports => [
-        qw( accept_edit reject_edit xml_ok schema_validator xml_post ),
+        qw(
+            accept_edit reject_edit xml_ok schema_validator xml_post
+            compare_body
+        ),
         ws_test => \&_build_ws_test,
     ],
 };
@@ -345,6 +349,15 @@ sub xml_post
     $request->content ($content);
 
     return $request;
+}
+
+sub compare_body
+{
+    my ($got, $expected) = @_;
+
+    $got =~ s/[\r\n]+/\n/g;
+    $expected =~ s/[\r\n]+/\n/g;
+    eq_or_diff($got, $expected);
 }
 
 1;

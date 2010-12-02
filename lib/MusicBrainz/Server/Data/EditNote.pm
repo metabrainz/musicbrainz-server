@@ -85,16 +85,12 @@ sub add_note
         (map { $_->editor_id } @{ $edit->edit_notes }));
     $self->c->model('Editor')->load_preferences(values %$editors);
 
-    my @to_email;
-    push @to_email,
+    my @to_email = grep { $_ != $note_hash->{editor_id} }
         map { $_->id } grep { $_->preferences->email_on_notes }
-        map { $editors->{$_->editor_id} } @{ $edit->edit_notes };
-
-    push @to_email,
-        map { $_->id } grep { $_->preferences->email_on_vote }
-        map { $editors->{$_->editor_id} } @{ $edit->votes };
-
-    @to_email = grep { $_ != $note_hash->{editor_id} } @to_email;
+        map { $editors->{$_->editor_id} }
+            @{ $edit->edit_notes },
+            @{ $edit->votes },
+            $edit;
 
     my $from = $editors->{ $note_hash->{editor_id} };
     for my $editor_id (uniq @to_email) {

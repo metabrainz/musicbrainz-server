@@ -235,8 +235,8 @@ my @tables = qw(
     link_attribute_type
     link_type
     link_type_attribute_type
-    list
-    list_release
+    editor_collection
+    editor_collection_release
     medium
     medium_cdtoc
     medium_format
@@ -666,8 +666,8 @@ my @group_private = qw(
     editor_subscribe_label
     label_rating_raw
     label_tag_raw
-    list
-    list_release
+    editor_collection
+    editor_collection_release
     recording_rating_raw
     recording_tag_raw
     release_coverart

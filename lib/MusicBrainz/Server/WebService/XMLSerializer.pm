@@ -793,11 +793,9 @@ sub output_error
 
     my $gen = MusicBrainz::XML::Generator->new(':std');
 
-    my $xml = $xml_decl_begin;
-    $xml .= $gen->error($gen->text($err), $gen->text(
+    return '<?xml version="1.0" encoding="UTF-8"?>' .
+        $gen->error($gen->text($err), $gen->text(
            "For usage, please see: http://musicbrainz.org/development/mmd"));
-    $xml .= $xml_decl_end;
-    return $xml;
 }
 
 sub output_success

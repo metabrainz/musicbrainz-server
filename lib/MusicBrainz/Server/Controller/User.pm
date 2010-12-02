@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
+use Encode;
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Translation qw ( l ln );
 
@@ -184,7 +185,7 @@ sub _set_login_cookie
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
-        value => $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM)
+        value => encode('utf-8', $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM))
     };
 }
 

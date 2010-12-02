@@ -436,8 +436,8 @@ sub ImportAllTables
         link_attribute_type
         link_type
         link_type_attribute_type
-        list
-        list_release
+        editor_collection
+        editor_collection_release
         medium
         medium_cdtoc
         medium_format

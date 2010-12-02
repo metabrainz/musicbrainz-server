@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
+    hash_to_row
     placeholders
     load_subobjects
     query_to_list_limited
@@ -158,17 +159,14 @@ sub delete
 sub _hash_to_row
 {
     my ($self, $recording, $names) = @_;
-    my %row = (
-        artist_credit => $recording->{artist_credit},
-        length => $recording->{length},
-        comment => $recording->{comment},
-    );
+    my $row = hash_to_row($recording, {
+        map { $_ => $_ } qw( artist_credit length comment )
+    });
 
-    if ($recording->{name}) {
-        $row{name} = $names->{$recording->{name}};
-    }
+    $row->{name} = $names->{$recording->{name}}
+        if (exists $recording->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta

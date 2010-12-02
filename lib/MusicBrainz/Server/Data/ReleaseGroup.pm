@@ -5,14 +5,13 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
-    defined_hash
-    check_in_use
     generate_gid
+    hash_to_row
     load_subobjects
     partial_date_from_row
     placeholders
-    query_to_list_limited
     query_to_list
+    query_to_list_limited
 );
 
 use MusicBrainz::Server::Constants '$VARTIST_ID';
@@ -416,18 +415,15 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
-    my %row = (
-        artist_credit => $group->{artist_credit},
-        comment => $group->{comment},
-        type => $group->{type_id},
-    );
+    my $row = hash_to_row($group, {
+        type => 'type_id',
+        map { $_ => $_ } qw( artist_credit comment )
+    });
 
-    if ($group->{name})
-    {
-        $row{name} = $names->{$group->{name}};
-    }
+    $row->{name} = $names->{$group->{name}}
+        if (exists $group->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta

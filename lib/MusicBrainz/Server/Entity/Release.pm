@@ -68,6 +68,13 @@ has 'barcode' => (
     isa => 'Str'
 );
 
+sub barcode_type {
+    my ($self) = @_;
+    return 'EAN' if length($self->barcode) == 8;
+    return 'UPC' if length($self->barcode) == 12;
+    return 'EAN' if length($self->barcode) == 13;
+}
+
 has 'country_id' => (
     is => 'rw',
     isa => 'Int'
