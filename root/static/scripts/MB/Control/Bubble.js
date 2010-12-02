@@ -160,7 +160,8 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
             my: "left top",
             at: "right top",
             of: self.target,
-            offset: "37 -23"
+            offset: "37 -23",
+            collision: "none"
         });
 
         /* FIXME: figure out why opera doesn't position this correctly on the
@@ -171,7 +172,8 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
                 my: "left top",
                 at: "right top",
                 of: self.target,
-                offset: "37 -23"
+                offset: "37 -23",
+                collision: "none"
             });
         }
 
@@ -188,12 +190,12 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
         var pageBottom = self.page.offset ().top + self.page.outerHeight ();
         var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
 
-         if (pageBottom < bubbleBottom)
-         {
-             var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
+        if (pageBottom < bubbleBottom)
+        {
+            var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
 
-             self.page.css ('min-height', newHeight);
-         }
+            self.page.css ('min-height', newHeight);
+        }
     };
 
     var tail = function () {

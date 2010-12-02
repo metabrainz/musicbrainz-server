@@ -21,21 +21,25 @@
 MB.Control.Autocomplete = function (options) {
     var self = MB.Object();
 
-    var focusEvent = function (event) {
-        if (self.input.val () != '')
-        {
-            /* open the search dropdown and start searching when the input
-               is focused when data is already present. */
-            self.input.trigger ("keydown");
-        }
-    };
-
     var formatItem = function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        var comment = [];
+
+        if (item.sortname && !MB.utility.is_ascii (item.name))
+        {
+            comment.push (item.sortname);
+        }
+
         if (item.comment)
         {
-            a.append (' <span class="autocomplete-comment">(' + item.comment + ')</span>');
+            comment.push (item.comment);
+        }
+
+        if (comment.length)
+        {
+            a.append (' <span class="autocomplete-comment">(' +
+                      comment.join (", ") + ')</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
@@ -43,16 +47,30 @@ MB.Control.Autocomplete = function (options) {
 
     var formatPager = function (ul, item) {
         self.number_of_pages = item.pages;
+        self.pager_menu_item = null;
+
+        if (ul.children ().length === 0)
+        {
+            var span = $('<span>(' + MB.text.NoResults + ')</span>');
+
+            var li = $("<li>")
+                .data ("item.autocomplete", item)
+                .addClass("ui-menu-item")
+                .css ('text-align', 'center')
+                .append (span)
+                .appendTo (ul);
+
+            return li;
+        }
 
         if (item.pages === 1)
         {
-            self.pager_menu_item = null;
             return;
         }
 
         self.pager_menu_item = $("<a>").text ('(' + item.current + ' / ' + item.pages + ')');
 
-        var li =$('<li>')
+        var li = $('<li>')
             .data ("item.autocomplete", item)
             .css ('text-align', 'center')
             .append (self.pager_menu_item)
@@ -87,7 +105,10 @@ MB.Control.Autocomplete = function (options) {
     var pagerKeyEvent = function (event) {
         var menu = self.autocomplete.menu;
 
-	if (!menu.element.is (":visible")) {
+	if (!menu.element.is (":visible") ||
+            !self.pager_menu_item ||
+            !self.pager_menu_item.hasClass ('ui-state-hover'))
+        {
             return;
         }
 
@@ -152,7 +173,10 @@ MB.Control.Autocomplete = function (options) {
             newItem = menu.element.children (".ui-menu-item:last");
         }
 
-        menu.activate (event, newItem);
+        if (newItem.length)
+        {
+            menu.activate (event, newItem);
+        }
 
         self.pagerButtons ();
 
@@ -191,7 +215,6 @@ MB.Control.Autocomplete = function (options) {
         });
 
         self.autocomplete = self.input.data ('autocomplete');
-        self.input.bind ('focus.mb', self.focusEvent);
         self.input.bind ('keydown.mb', self.pagerKeyEvent);
         self.input.bind ('propertychange.mb input.mb',
                          function (event) { self.input.trigger ("keydown"); }
@@ -200,6 +223,12 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete._renderItem = function (ul, item) {
             return item['pages'] ? self.formatPager (ul, item) : self.formatItem (ul, item);
         };
+
+        /* because we're overriding select above we also need to override
+           blur on the menu.  select() was used to render the selected value
+           to the associated input, which blur would then reset back to it's
+           original value (We need to prevent blur from doing that). */
+        self.autocomplete.menu.options.blur = function (event, ui) { };
     };
 
     self.input = options.input;
@@ -210,7 +239,6 @@ MB.Control.Autocomplete = function (options) {
     self.number_of_pages = 1;
     self.selected_item = 0;
 
-    self.focusEvent = focusEvent;
     self.formatPager = options.formatPager || formatPager;
     self.formatItem = options.formatItem || formatItem;
     self.pagerButtons = pagerButtons;
