@@ -200,6 +200,24 @@ sub merge
     return 1;
 }
 
+sub find_nats
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query ='
+        SELECT ' . $self->_columns . '
+          FROM ' . $self->_table . '
+     LEFT JOIN track t ON t.recording = recording.id
+          JOIN artist_credit_name acn
+            ON acn.artist_credit = recording.artist_credit
+         WHERE t.id IS NULL
+           AND acn.artist = ?
+      ORDER BY musicbrainz_collate(name.name)
+        OFFSET ?';
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
