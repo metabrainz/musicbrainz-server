@@ -53,18 +53,17 @@ INSERT INTO release_packaging (id, name) VALUES
     (5, 'Other');
 
 INSERT INTO release_group_type (id, name) VALUES
-    (1, 'Non-Album Tracks'),
-    (2, 'Album'),
-    (3, 'Single'),
-    (4, 'EP'),
-    (5, 'Compilation'),
-    (6, 'Soundtrack'),
-    (7, 'Spokenword'),
-    (8, 'Interview'),
-    (9, 'Audiobook'),
-    (10, 'Live'),
-    (11, 'Remix'),
-    (12, 'Other');
+    (1, 'Album'),
+    (2, 'Single'),
+    (3, 'EP'),
+    (4, 'Compilation'),
+    (5, 'Soundtrack'),
+    (6, 'Spokenword'),
+    (7, 'Interview'),
+    (8, 'Audiobook'),
+    (9, 'Live'),
+    (10, 'Remix'),
+    (11, 'Other');
 
 INSERT INTO medium_format (id, name, year) VALUES
     (1, 'CD', 1982),
@@ -130,34 +129,22 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 ------------------------
 \echo Release groups
 
+--- FIXME skip public.album where the RG is nats
  INSERT INTO release_name (name)
      (SELECT DISTINCT name FROM public.album) UNION
-     (SELECT DISTINCT name FROM public.release_group);
+     (SELECT DISTINCT name FROM public.release_group WHERE type IS NULL OR type != 0);
 
 CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
 
 INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
     SELECT
-        rg.id, gid::uuid, n.id,
-        CASE
-            WHEN 0 = type THEN 1
-            WHEN 1 = type THEN 2
-            WHEN 2 = type THEN 3
-            WHEN 3 = type THEN 4
-            WHEN 4 = type THEN 5
-            WHEN 5 = type THEN 6
-            WHEN 6 = type THEN 7
-            WHEN 7 = type THEN 8
-            WHEN 8 = type THEN 9
-            WHEN 9 = type THEN 10
-            WHEN 10 = type THEN 11
-            WHEN 11 = type THEN 12
-            ELSE NULL
-        END as type, COALESCE(new_ac, artist), rgm.lastupdate as last_updated
+        rg.id, gid::uuid, n.id,type,
+        COALESCE(new_ac, artist), rgm.lastupdate as last_updated
      FROM public.release_group rg
         JOIN release_name n ON rg.name = n.name
         JOIN public.release_group_meta rgm ON rg.id = rgm.id
-        LEFT JOIN tmp_artist_credit_repl acr ON artist=old_ac;
+        LEFT JOIN tmp_artist_credit_repl acr ON artist=old_ac
+     WHERE rg.type != 0 OR rg.type IS NULL;
 
 ------------------------
 -- Releases
@@ -205,16 +192,20 @@ INSERT INTO release
         JOIN public.album a ON r.album = a.id
         JOIN release_name n ON a.name = n.name
         JOIN public.albummeta m ON a.id = m.id
+        JOIN public.release_group rg ON a.release_group = rg.id
         LEFT JOIN tmp_release_gid g ON r.id=g.id
-        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
+        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac
+  WHERE rg.type != 0 OR rg.type IS NULL;
 
 SELECT SETVAL('release_id_seq', (SELECT MAX(id) FROM release));
 
 -- Generate release IDs for albums without release events
-SELECT nextval('release_id_seq') AS id, id AS album
+SELECT nextval('release_id_seq') AS id, a.id AS album
     INTO TEMPORARY tmp_new_release
     FROM public.album a
-    WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id);
+    JOIN public.release_group rg ON a.release_group = rg.id
+    WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id)
+      AND (rg.type != 0 OR rg.type IS NULL);
 
 CREATE TABLE tmp_release_album
 (
@@ -223,7 +214,11 @@ CREATE TABLE tmp_release_album
 );
 
 INSERT INTO tmp_release_album
-    SELECT album, id FROM public.release;
+    SELECT album, release.id FROM public.release
+    JOIN public.album a ON album = a.id
+    JOIN public.release_group rg ON a.release_group = rg.id
+   WHERE rg.type != 0 OR rg.type IS NULL;
+
 INSERT INTO tmp_release_album
     SELECT album, id FROM tmp_new_release;
 
@@ -249,21 +244,31 @@ INSERT INTO release
         m.lastupdate
     FROM tmp_new_release r
         JOIN public.album a ON r.album = a.id
+        JOIN public.release_group rg ON a.release_group = rg.id
         JOIN release_name n ON a.name = n.name
         JOIN public.albummeta m ON a.id = m.id
-        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
+        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac
+  WHERE rg.type != 0 OR rg.type IS NULL;
 
 DROP INDEX tmp_release_name_name_idx;
 
 -- release_meta for releases converted from release events
 INSERT INTO release_meta
     SELECT r.id, dateadded FROM
-        public.release r JOIN public.albummeta am ON r.album=am.id;
+        public.release r
+      JOIN public.albummeta am ON r.album=am.id
+      JOIN public.album a ON a.id = am.id
+      JOIN public.release_group rg ON rg.id = a.release_group
+     WHERE rg.type != 0 OR rg.type IS NULL;
 
 -- release_meta for new releases
 INSERT INTO release_meta (id, date_added)
     SELECT r.id, dateadded FROM
-        tmp_new_release r JOIN public.albummeta am ON r.album=am.id;
+        tmp_new_release r
+      JOIN public.albummeta am ON r.album=am.id
+      JOIN public.album a ON a.id = am.id
+      JOIN public.release_group rg ON rg.id = a.release_group
+     WHERE rg.type != 0 OR rg.type IS NULL;
 
 -- convert release events with non-empty label or catalog_number to release_label
 INSERT INTO release_label (release, label, catalog_number)
@@ -272,11 +277,17 @@ INSERT INTO release_label (release, label, catalog_number)
 
 INSERT INTO tracklist (id, track_count)
     SELECT a.id, am.tracks
-    FROM public.album a JOIN public.albummeta am ON a.id = am.id;
+    FROM public.album a
+    JOIN public.albummeta am ON a.id = am.id
+    JOIN public.release_group rg ON rg.id = a.release_group
+   WHERE rg.type != 0 OR rg.type IS NULL;
 
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
-    FROM public.release r;
+    FROM public.release r
+    JOIN public.album a ON r.album = a.id
+    JOIN public.release_group rg ON a.release_group = rg.id
+   WHERE rg.type != 0 OR rg.type IS NULL;
 
 SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));
 
@@ -296,6 +307,8 @@ INSERT INTO release_group_meta
         NULLIF(substr(firstreleasedate, 9, 2)::int, 0)
     FROM public.release_group_meta m
         LEFT JOIN release r ON r.release_group=m.id
+        JOIN public.release_group rg ON m.id = rg.id
+    WHERE rg.type != 0 OR rg.type IS NULL
     GROUP BY m.id, m.lastupdate, m.firstreleasedate;
 
 ------------------------
