@@ -211,12 +211,10 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
 
     var guessCase = function () {
         $.each (self.textareas, function (i, textarea) {
-            textarea.updatePreview (self.guess_track.guess);
+            textarea.updatePreview (MB.GuessCase.track.guess);
             textarea.render ();
         });
     };
-
-    self.guess_track = MB.GuessCase.Track ();
 
     self.adv = advancedtab;
     self.preview = preview;
