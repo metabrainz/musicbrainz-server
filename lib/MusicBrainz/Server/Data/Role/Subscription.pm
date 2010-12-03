@@ -13,6 +13,11 @@ parameter 'column' => (
     required => 1,
 );
 
+parameter 'class' => (
+    isa => 'Str',
+    required => 1
+);
+
 role
 {
     my $params = shift;
@@ -32,6 +37,7 @@ role
             c => $self->c,
             table => $params->table,
             column => $params->column,
+            class => $params->class
         );
     };
 };

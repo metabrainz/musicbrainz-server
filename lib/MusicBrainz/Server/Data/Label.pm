@@ -26,7 +26,8 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_label',
-    column => 'label'
+    column => 'label',
+    class => 'MusicBrainz::Server::Entity::LabelSubscription'
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };

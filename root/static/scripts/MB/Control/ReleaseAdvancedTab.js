@@ -95,6 +95,16 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
         return self.deleted.val () === '1';
     };
 
+    var lengthOrNull = function () {
+        var l = self.length.val ();
+
+        if (l.match (/[0-9]+:[0-5][0-9]/))
+        {
+            return l;
+        }
+
+        return null;
+    };
 
     /**
      * remove removes the associated inputs and table rows.
@@ -107,6 +117,7 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     self.render = render;
     self.toggleDelete = toggleDelete;
     self.isDeleted = isDeleted;
+    self.lengthOrNull = lengthOrNull;
     self.remove = remove;
 
     self.row.find ("a[href=#remove_track]").click (function () { self.toggleDelete() });
@@ -362,6 +373,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
             {
                 trk.deleted = 0;
             }
+
             self.getTrack (idx).render (trk);
         });
 
@@ -547,7 +559,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         self.discs.push (MB.Control.ReleaseDisc ($(item), self));
     });
 
-    $('form.release-editor').bind ('submit', self.submit);
+    $('form.release-editor').bind ('submit.mb', self.submit);
 
     return self;
 };

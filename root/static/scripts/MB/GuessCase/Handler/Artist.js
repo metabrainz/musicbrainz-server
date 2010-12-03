@@ -154,7 +154,7 @@ MB.GuessCase.Handler.Artist = function () {
     /**
      * Guesses the sortname for artists
      **/
-    self.guessSortName = function(is) {
+    self.guessSortName = function(is, person) {
 	is = gc.u.trim(is);
 
 	// let's see if we got a compound artist
@@ -209,6 +209,11 @@ MB.GuessCase.Handler.Artist = function () {
 		} else {
 		    reorder = true; // reorder by default
 		}
+
+                if (!person)
+                {
+                    reorder = false; // only reorder persons, not groups.
+                }
 
 		// we have to reorder the names
 		var i=0;

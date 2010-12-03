@@ -67,6 +67,12 @@ has 'pages' => (
 
 sub skip { return 0; }
 
+sub valid {
+    my ($self, $page) = @_;
+
+    return $page->validated;
+}
+
 # The steps a request goes through to render a single page in the wizard:
 #
 #     [ sub process ]
@@ -92,8 +98,8 @@ sub process
     }
 
     $self->_retrieve_wizard_settings;
-    $self->_store_page_in_session;
-    $self->_route;
+    my $page = $self->_store_page_in_session;
+    $self->_route ($page);
     $self->_store_wizard_settings;
 
     return;
@@ -131,6 +137,25 @@ sub render
     $self->c->stash->{form} = $page;
     $self->c->stash->{wizard} = $self;
     $self->c->stash->{steps} = \@steps;
+
+    # hide errors if this is the first time (in this wizard session) that this
+    # page is shown to the user.
+    if (! $self->shown->[$self->_current])
+    {
+        $page->clear_errors;
+    }
+
+    # mark the current page as having been shown to the user.
+    $self->shown->[$self->_current] = 1;
+}
+
+sub shown
+{
+    my $self = shift;
+
+    $self->_store->{shown} = [] unless $self->_store->{shown};
+
+    return $self->_store->{shown};
 }
 
 # returns the name of the current page.
@@ -194,14 +219,18 @@ sub _store_page_in_session
                          $self->c->request->parameters );
 
     $self->_store->{"step ".$self->_current} = $page->serialize;
+
+    return $page;
 }
 
 sub _route
 {
-    my ($self) = @_;
+    my ($self, $page) = @_;
+
+    my $valid = $self->valid ($page);
 
     my $p = $self->c->request->parameters;
-    if (defined $p->{next})
+    if (defined $p->{next} && $valid)
     {
         return $self->find_next_page;
     }
@@ -218,7 +247,9 @@ sub _route
         return $self->submitted (1);
     }
 
-    my $max = scalar @{ $self->pages } - 1;
+    # Don't allow forward movement unless the current page is valid.
+    my $max = $valid ? scalar @{ $self->pages } - 1 : $self->_current;
+
     for (0..$max)
     {
         my $name = 'step_'.$self->pages->[$_]->{name};
@@ -234,8 +265,9 @@ sub find_next_page
 {
     my ($self) = @_;
 
-    my $max = scalar @{ $self->pages } - 1;
     my $page = $self->_current;
+
+    my $max = scalar @{ $self->pages } - 1;
 
     while ($page < $max)
     {
@@ -300,8 +332,6 @@ sub _store
 sub _retrieve_wizard_settings
 {
     my ($self) = @_;
-
-    $self->c->stash->{things} = "";
 
     my $p = $self->c->request->parameters;
 
