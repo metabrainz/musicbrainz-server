@@ -244,11 +244,9 @@ INSERT INTO release
         m.lastupdate
     FROM tmp_new_release r
         JOIN public.album a ON r.album = a.id
-        JOIN public.release_group rg ON a.release_group = rg.id
         JOIN release_name n ON a.name = n.name
         JOIN public.albummeta m ON a.id = m.id
-        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac
-  WHERE rg.type != 0 OR rg.type IS NULL;
+        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
 DROP INDEX tmp_release_name_name_idx;
 
@@ -265,10 +263,7 @@ INSERT INTO release_meta
 INSERT INTO release_meta (id, date_added)
     SELECT r.id, dateadded FROM
         tmp_new_release r
-      JOIN public.albummeta am ON r.album=am.id
-      JOIN public.album a ON a.id = am.id
-      JOIN public.release_group rg ON rg.id = a.release_group
-     WHERE rg.type != 0 OR rg.type IS NULL;
+      JOIN public.albummeta am ON r.album=am.id;
 
 -- convert release events with non-empty label or catalog_number to release_label
 INSERT INTO release_label (release, label, catalog_number)
