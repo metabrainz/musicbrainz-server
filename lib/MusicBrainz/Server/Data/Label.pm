@@ -130,6 +130,30 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub autocomplete_name
+{
+    my ($self, $name, $limit, $offset) = @_;
+
+    $limit ||= 10;
+    $offset ||= 0;
+    my $query = "SELECT DISTINCT label.id, label.gid, label_name.name," .
+        " sort_name.name AS sort_name, label.comment " .
+        " FROM label " .
+        " JOIN label_name                     ON label.name=label_name.id " .
+        " JOIN label_name AS sort_name        ON label.sort_name=sort_name.id " .
+        " LEFT JOIN label_alias               ON label_alias.label = label.id" .
+        " LEFT JOIN label_name AS alias_name  ON label_alias.name=alias_name.id " .
+        " WHERE lower(label_name.name) LIKE ?" .
+        " OR lower(sort_name.name) LIKE ?" .
+        " OR lower(alias_name.name) LIKE ?" .
+        " OFFSET ?";
+
+    my $n = lc("$name%");
+
+    return query_to_list_limited($self->c->dbh, $offset, $limit,
+        sub { $self->_new_from_row(shift) }, $query, $n, $n, $n, $offset);
+}
+
 sub load
 {
     my ($self, @objs) = @_;

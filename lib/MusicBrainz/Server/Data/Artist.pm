@@ -164,6 +164,30 @@ sub find_by_work
         $query, $recording_id, $offset || 0);
 }
 
+sub autocomplete_name
+{
+    my ($self, $name, $limit, $offset) = @_;
+
+    $limit ||= 10;
+    $offset ||= 0;
+    my $query = "SELECT DISTINCT artist.id, artist.gid, artist_name.name," .
+        " sort_name.name AS sort_name, artist.comment " .
+        " FROM artist " .
+        " JOIN artist_name                     ON artist.name=artist_name.id " .
+        " JOIN artist_name AS sort_name        ON artist.sort_name=sort_name.id " .
+        " LEFT JOIN artist_alias               ON artist_alias.artist = artist.id" .
+        " LEFT JOIN artist_name AS alias_name  ON artist_alias.name=alias_name.id " .
+        " WHERE lower(artist_name.name) LIKE ?" .
+        " OR lower(sort_name.name) LIKE ?" .
+        " OR lower(alias_name.name) LIKE ?" .
+        " OFFSET ?";
+
+    my $n = lc("$name%");
+
+    return query_to_list_limited($self->c->dbh, $offset, $limit,
+        sub { $self->_new_from_row(shift) }, $query, $n, $n, $n, $offset);
+}
+
 sub load
 {
     my ($self, @objs) = @_;

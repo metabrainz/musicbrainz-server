@@ -104,14 +104,24 @@ sub _autocomplete_direct {
     # The sortname and aliases should also be taken into account for
     # those entities which have them.  -- warp.
 
-    my @output = map {
-        {
+    my @output;
+
+    for (@$entities)
+    {
+        my $item = {
             name => $_->name,
             id => $_->id,
             gid => $_->gid,
             comment => $_->comment,
+        };
+
+        if ($_->meta->has_attribute ('sort_name'))
+        {
+            $item->{sortname} = $_->sort_name;
         }
-    } @$entities;
+
+        push @output, $item;
+    }
 
     my $pager = Data::Page->new ();
     $pager->entries_per_page ($limit);
