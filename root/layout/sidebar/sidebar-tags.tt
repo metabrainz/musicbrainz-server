@@ -9,13 +9,21 @@
     tag_links.join(', ');
 END -%]
 
-[% IF tags.size || c.user_exists %]
-<p>
+<div id="sidebar-tags">
+    <p>
     [% IF tags.size %]
-        <strong>[% l('Tags:') %]</strong> [% tag_list(tags, more, entity) %]<br />
+        <strong>[% l('Tags:') %]</strong>
+        <span class="tags">[% tag_list(tags, more, entity) %]</span>
     [% END %]
+    </p>
     [% IF c.user_exists %]
-        [% link_entity(entity, 'tags', tag_this_text) %]
+        [% IF no_javascript %]
+            <p>[% link_entity(entity, 'tags', tag_this_text) %]</p>
+        [% ELSE %]
+            <form>
+                <input type="text" class="tag-input" />
+                <input type="submit" value="[% l('Tag') %]" />
+            </form>
+        [% END %]
     [% END %]
-</p>
-[% END %]
+</div>

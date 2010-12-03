@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::Role::Tag;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use Readonly;
 
+use List::MoreUtils qw( uniq );
+
 requires 'load', '_load_paged';
 
 Readonly my $TOP_TAGS_COUNT => 5;
@@ -48,6 +50,26 @@ sub tags : Chained('load') PathPart('tags')
         $c->response->redirect($redirect);
         $c->detach;
     }
+}
+
+sub tag_async : Chained('load') PathPart('ajax/tag')
+{
+    my ($self, $c) = @_;
+ 
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $tags_model = $c->model($self->{model})->tags;
+    $tags_model->update($c->user->id, $entity->id, $c->req->params->{tags});
+
+    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
+    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
+
+    my $response = {
+        tags => [
+            uniq sort map { $_->tag->name } @user_tags, @tags 
+        ]
+    };
+
+    $c->res->body(JSON::Any->new(utf8 => 1)->encode($response));
 }
 
 no Moose::Role;
