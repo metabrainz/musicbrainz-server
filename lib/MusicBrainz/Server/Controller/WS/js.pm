@@ -99,11 +99,6 @@ sub _autocomplete_direct {
 
     my ($entities, $hits) = $c->model($type)->autocomplete_name($query, $limit, $offset);
 
-    # FIXME: I think results should be post-processed to sort the
-    # entries which match the case of the query above other results.
-    # The sortname and aliases should also be taken into account for
-    # those entities which have them.  -- warp.
-
     my @output;
 
     for (@$entities)
