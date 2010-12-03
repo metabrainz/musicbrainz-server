@@ -267,8 +267,11 @@ INSERT INTO release_meta (id, date_added)
 
 -- convert release events with non-empty label or catalog_number to release_label
 INSERT INTO release_label (release, label, catalog_number)
-    SELECT id, label, catno FROM public.release
-    WHERE label IS NOT NULL OR catno IS NOT NULL OR catno != '';
+    SELECT release.id, label, catno FROM public.release
+      JOIN public.album a ON a.id = album
+      JOIN public.release_group rg ON rg.id = a.release_group
+    WHERE (label IS NOT NULL OR catno IS NOT NULL OR catno != '')
+      AND (rg.type != 0 OR rg.type IS NULL);
 
 INSERT INTO tracklist (id, track_count)
     SELECT a.id, am.tracks
@@ -467,7 +470,11 @@ INSERT INTO release_gid_redirect
     FROM public.gid_redirect
         JOIN tmp_new_release ON gid_redirect.newid=tmp_new_release.album
     WHERE tbl=1;
-INSERT INTO release_group_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=5;
+INSERT INTO release_group_gid_redirect
+    SELECT gr.gid::uuid, newid AS new_id
+      FROM public.gid_redirect gr
+      JOIN public.release_group rg ON newid = rg.id
+     WHERE (tbl=5) AND (rg.type != 0 OR rg.type IS NULL);
 
 ------------------------
 -- Editors
