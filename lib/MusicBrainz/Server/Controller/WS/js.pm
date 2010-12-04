@@ -285,6 +285,8 @@ sub _recording_indexed {
         {
             my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
 
+            $c->model('ISRC')->load_for_recordings ($entity);
+
             next unless $entity;
 
             $entity->artist_credit ($result->{entity}->artist_credit);

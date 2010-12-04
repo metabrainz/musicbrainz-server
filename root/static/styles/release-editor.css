@@ -260,6 +260,7 @@ tr.track-artist-credit .ac-balloon3 {
             RECORDINGS TAB
    __________________________________ */
 
+span.autocomplete-isrcs,
 span.autocomplete-appears,
 span.autocomplete-comment {
     margin-left: 1em;
