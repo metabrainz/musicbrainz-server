@@ -73,6 +73,8 @@ sub _track_errors {
 sub validate {
     my $self = shift;
 
+    my $json = JSON::Any->new( utf8 => 1 );
+
     for my $medium ($self->field('mediums')->fields)
     {
         my $edits = $medium->field('edits')->value;
@@ -85,7 +87,7 @@ sub validate {
 
         if ($edits)
         {
-            $edits = JSON::Any->decode ($edits);
+            $edits = $json->decode ($edits);
 
             my $tracknumbers = [];
             for (@$edits)
