@@ -137,22 +137,15 @@ sub get_subscriptions
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, $edit_id, @ids) = @_;
 
     my $table = $self->table;
     my $column = $self->column;
+
     my $sql = Sql->new($self->c->dbh);
-
-    # Remove duplicate joins
-    $sql->do("DELETE FROM $table
-              WHERE $column IN (".placeholders(@old_ids).") AND
-                  editor IN (SELECT editor FROM $table WHERE $column = ?)",
-              @old_ids, $new_id);
-
-    # Move all remaining joins to the new entity
-    $sql->do("UPDATE $table SET $column = ?
-              WHERE $column IN (".placeholders(@old_ids).")",
-              $new_id, @old_ids);
+    $sql->do("UPDATE $table SET merged_by_edit = ?
+              WHERE $column IN (".placeholders(@ids).")",
+              $edit_id, @ids);
 }
 
 sub delete
