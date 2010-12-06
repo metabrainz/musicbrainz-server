@@ -232,10 +232,18 @@ sub merge_entities
     my ($self, $type, $target_id, @source_ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
+
+    # Delete relationships where the start is the same as the end
+    # (after merging)
+    $sql->do("DELETE FROM l_${type}_${type}
+               WHERE (entity0 = ? AND entity1 IN (" . placeholders(@source_ids) . '))
+                 OR  (entity0 IN (' . placeholders(@source_ids) . ') AND entity1 = ?)',
+        $target_id, @source_ids, @source_ids, $target_id);
+
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
         # Delete all relationships from the source entities,
-        # which don't already exist on the target entity
+        # which already exist on the target entity
         $sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@source_ids) . ") AND
@@ -248,10 +256,6 @@ sub merge_entities
             WHERE $entity0 IN (" . placeholders(@source_ids) . ")
         ", $target_id, @source_ids);
     }
-
-    # Delete relationships where the start is the same as the end
-    # (after merging)
-    $sql->do("DELETE FROM l_${type}_${type} WHERE entity0 = entity1");
 }
 
 sub delete_entities
