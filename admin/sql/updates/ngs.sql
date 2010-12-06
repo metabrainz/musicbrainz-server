@@ -129,22 +129,20 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 ------------------------
 \echo Release groups
 
---- FIXME skip public.album where the RG is nats
  INSERT INTO release_name (name)
-     (SELECT DISTINCT name FROM public.album) UNION
-     (SELECT DISTINCT name FROM public.release_group WHERE type IS NULL OR type != 0);
+     (SELECT DISTINCT name FROM public.album WHERE attributes[2] != 0) UNION
+     (SELECT DISTINCT name FROM public.release_group);
 
 CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
 
 INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
     SELECT
-        rg.id, gid::uuid, n.id,type,
+        rg.id, gid::uuid, n.id, NULLIF(type, 0) AS type,
         COALESCE(new_ac, artist), rgm.lastupdate as last_updated
      FROM public.release_group rg
         JOIN release_name n ON rg.name = n.name
         JOIN public.release_group_meta rgm ON rg.id = rgm.id
-        LEFT JOIN tmp_artist_credit_repl acr ON artist=old_ac
-     WHERE rg.type != 0 OR rg.type IS NULL;
+        LEFT JOIN tmp_artist_credit_repl acr ON artist=old_ac;
 
 ------------------------
 -- Releases
@@ -192,20 +190,17 @@ INSERT INTO release
         JOIN public.album a ON r.album = a.id
         JOIN release_name n ON a.name = n.name
         JOIN public.albummeta m ON a.id = m.id
-        JOIN public.release_group rg ON a.release_group = rg.id
         LEFT JOIN tmp_release_gid g ON r.id=g.id
-        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac
-  WHERE rg.type != 0 OR rg.type IS NULL;
+        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
 SELECT SETVAL('release_id_seq', (SELECT MAX(id) FROM release));
 
 -- Generate release IDs for albums without release events
-SELECT nextval('release_id_seq') AS id, a.id AS album
+SELECT nextval('release_id_seq') AS id, id AS album
     INTO TEMPORARY tmp_new_release
     FROM public.album a
-    JOIN public.release_group rg ON a.release_group = rg.id
     WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id)
-      AND (rg.type != 0 OR rg.type IS NULL);
+      AND a.attributes[2] != 0;
 
 CREATE TABLE tmp_release_album
 (
@@ -214,11 +209,7 @@ CREATE TABLE tmp_release_album
 );
 
 INSERT INTO tmp_release_album
-    SELECT album, release.id FROM public.release
-    JOIN public.album a ON album = a.id
-    JOIN public.release_group rg ON a.release_group = rg.id
-   WHERE rg.type != 0 OR rg.type IS NULL;
-
+    SELECT album, id FROM public.release;
 INSERT INTO tmp_release_album
     SELECT album, id FROM tmp_new_release;
 
@@ -253,39 +244,26 @@ DROP INDEX tmp_release_name_name_idx;
 -- release_meta for releases converted from release events
 INSERT INTO release_meta
     SELECT r.id, dateadded FROM
-        public.release r
-      JOIN public.albummeta am ON r.album=am.id
-      JOIN public.album a ON a.id = am.id
-      JOIN public.release_group rg ON rg.id = a.release_group
-     WHERE rg.type != 0 OR rg.type IS NULL;
+        public.release r JOIN public.albummeta am ON r.album=am.id;
 
 -- release_meta for new releases
 INSERT INTO release_meta (id, date_added)
     SELECT r.id, dateadded FROM
-        tmp_new_release r
-      JOIN public.albummeta am ON r.album=am.id;
+        tmp_new_release r JOIN public.albummeta am ON r.album=am.id;
 
 -- convert release events with non-empty label or catalog_number to release_label
 INSERT INTO release_label (release, label, catalog_number)
-    SELECT release.id, label, catno FROM public.release
-      JOIN public.album a ON a.id = album
-      JOIN public.release_group rg ON rg.id = a.release_group
-    WHERE (label IS NOT NULL OR catno IS NOT NULL OR catno != '')
-      AND (rg.type != 0 OR rg.type IS NULL);
+    SELECT id, label, catno FROM public.release
+    WHERE label IS NOT NULL OR catno IS NOT NULL OR catno != '';
 
 INSERT INTO tracklist (id, track_count)
     SELECT a.id, am.tracks
-    FROM public.album a
-    JOIN public.albummeta am ON a.id = am.id
-    JOIN public.release_group rg ON rg.id = a.release_group
-   WHERE rg.type != 0 OR rg.type IS NULL;
+    FROM public.album a JOIN public.albummeta am ON a.id = am.id
+    WHERE a.attributes[2] != 0;
 
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
-    FROM public.release r
-    JOIN public.album a ON r.album = a.id
-    JOIN public.release_group rg ON a.release_group = rg.id
-   WHERE rg.type != 0 OR rg.type IS NULL;
+    FROM public.release r;
 
 SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));
 
@@ -305,8 +283,6 @@ INSERT INTO release_group_meta
         NULLIF(substr(firstreleasedate, 9, 2)::int, 0)
     FROM public.release_group_meta m
         LEFT JOIN release r ON r.release_group=m.id
-        JOIN public.release_group rg ON m.id = rg.id
-    WHERE rg.type != 0 OR rg.type IS NULL
     GROUP BY m.id, m.lastupdate, m.firstreleasedate;
 
 ------------------------
@@ -373,11 +349,10 @@ INSERT INTO track (id, tracklist, name, recording, artist_credit, length, positi
     SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist), length, a.sequence, NULL
     FROM public.track t
         JOIN public.albumjoin a ON t.id = a.track
-        JOIN public.album al ON al.id = a.album
-        JOIN public.release_group rg ON rg.id = al.release_group
+        JOIN public.album ON album.id = a.album
         JOIN track_name n ON n.name = t.name
         LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac
-       WHERE rg.type != 0 OR rg.type IS NULL;
+       WHERE album.attributes[2] != 0;
 
 INSERT INTO recording_meta (id, rating, rating_count)
     SELECT id, round(rating * 20), rating_count
@@ -470,11 +445,7 @@ INSERT INTO release_gid_redirect
     FROM public.gid_redirect
         JOIN tmp_new_release ON gid_redirect.newid=tmp_new_release.album
     WHERE tbl=1;
-INSERT INTO release_group_gid_redirect
-    SELECT gr.gid::uuid, newid AS new_id
-      FROM public.gid_redirect gr
-      JOIN public.release_group rg ON newid = rg.id
-     WHERE (tbl=5) AND (rg.type != 0 OR rg.type IS NULL);
+INSERT INTO release_group_gid_redirect SELECT gid::uuid, newid AS new_id FROM public.gid_redirect WHERE tbl=5;
 
 ------------------------
 -- Editors
