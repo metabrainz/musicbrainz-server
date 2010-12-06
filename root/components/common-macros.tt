@@ -318,7 +318,7 @@ END %]
     uri = c.uri_for_action('/edit/relationship/create_url', {
                         type => entity_type(entity),
                         entity => entity.gid
-                   }) | uri;
+                   });
     l('{uri|Relate to URL}', { uri => uri });
 END %]
 
