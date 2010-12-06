@@ -248,6 +248,10 @@ sub merge_entities
             WHERE $entity0 IN (" . placeholders(@source_ids) . ")
         ", $target_id, @source_ids);
     }
+
+    # Delete relationships where the start is the same as the end
+    # (after merging)
+    $sql->do("DELETE FROM l_${type}_${type} WHERE entity0 = entity1");
 }
 
 sub delete_entities
