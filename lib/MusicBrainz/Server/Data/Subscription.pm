@@ -157,14 +157,14 @@ sub merge
 
 sub delete
 {
-    my ($self, @ids) = @_;
+    my ($self, $edit_id, @ids) = @_;
 
     my $table = $self->table;
     my $column = $self->column;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM $table
-              WHERE $column IN (".placeholders(@ids).")", @ids);
+    $sql->do("UPDATE $table SET deleted_by_edit = ?
+               WHERE $column IN (".placeholders(@ids).")", $edit_id, @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

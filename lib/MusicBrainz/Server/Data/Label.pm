@@ -200,7 +200,6 @@ sub delete
     $self->alias->delete_entities(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
-    $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
     my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
