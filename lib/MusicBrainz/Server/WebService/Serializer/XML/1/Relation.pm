@@ -24,6 +24,8 @@ before 'serialize' => sub
 
     $self->attributes->{direction} = 'backward' if $entity->direction == 2;
 
+    $self->attributes->{attributes} =
+        join('', map { $_->name } $entity->link->all_attributes) || undef;
 
     if ($entity->target_type eq 'url')
     {
