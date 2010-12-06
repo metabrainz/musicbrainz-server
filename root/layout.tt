@@ -86,6 +86,13 @@
             </div>
         [%- END -%]
 
+        [% IF makes_no_changes %]
+        <div class="warning-header">
+            <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>
+            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+        </div>
+        [% END %]
+
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
             [%- content -%]
             <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
