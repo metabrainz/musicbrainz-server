@@ -242,8 +242,7 @@ sub merge_entities
 
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
-        # Delete all relationships from the source entities,
-        # which already exist on the target entity
+        # First delete all relationships between source and target entities
         $sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@source_ids) . ") AND
