@@ -184,11 +184,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
             'select': self.update
         });
 
-        if (! self.box[self.box.length - 1].isEmpty ())
-        {
-            /* always add an empty box when there isn't one. */
-            self.addArtistBox (self.box.length);
-        }
+        self.renderPreview ();
     };
 
     var update = function(event, data) {
@@ -218,6 +214,12 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         });
 
         self.artist_input.val(preview);
+
+        if (! self.box[self.box.length - 1].isEmpty ())
+        {
+            /* always add an empty box when there isn't one. */
+            self.addArtistBox (self.box.length);
+        }
     };
 
     var render = function (data) {
