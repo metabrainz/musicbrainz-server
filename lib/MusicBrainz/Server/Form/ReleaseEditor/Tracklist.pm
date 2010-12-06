@@ -97,6 +97,12 @@ sub validate {
                 $medium->add_error ($msg) if $msg;
             }
 
+            unless (scalar @$tracknumbers)
+            {
+                $medium->add_error (l('A tracklist is required'));
+                next;
+            }
+
             shift @$tracknumbers;
             my $count = 1;
             for (@$tracknumbers)
