@@ -1,8 +1,18 @@
 [% BLOCK layout_head %]
    <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
+   <script src="[% c.uri_for('/static/scripts/MB/Control/URLCleanup.js') %]"></script>
    <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
    <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
    <script src="[% c.uri_for('/static/scripts/ar.js') %]" type="text/javascript"></script>
+   <script type="text/javascript">
+    $('document').ready(function() {
+      MB.Control.URLCleanup(
+        $('#id-ar\\.type').val(),
+        $('#id-ar\\.link_type_id'),
+        $('#id-ar\\.url')
+      );
+    });
+   </script>
 [% END %]
 
 [%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
@@ -12,6 +22,8 @@
     [%- USE r = FormRenderer(form) -%]
 
     <form action="[% c.req.uri | html %]" method="post">
+
+    <input type="hidden" id="id-ar.type" value="[% type %]" />
 
     <script type="text/javascript">
         var typeInfo = [% type_info %];
@@ -35,7 +47,7 @@
             </tr>
             <tr>
                 <td class="label">[% r.label('url', l('URL:')) %]</td>
-                <td colspan="2">[% r.text('url') %]</td>
+                <td colspan="2">[% r.text('url', { size => 47 }) %]</td>
             </tr>
         </table>
 
