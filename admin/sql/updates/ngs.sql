@@ -53,18 +53,17 @@ INSERT INTO release_packaging (id, name) VALUES
     (5, 'Other');
 
 INSERT INTO release_group_type (id, name) VALUES
-    (1, 'Non-Album Tracks'),
-    (2, 'Album'),
-    (3, 'Single'),
-    (4, 'EP'),
-    (5, 'Compilation'),
-    (6, 'Soundtrack'),
-    (7, 'Spokenword'),
-    (8, 'Interview'),
-    (9, 'Audiobook'),
-    (10, 'Live'),
-    (11, 'Remix'),
-    (12, 'Other');
+    (1, 'Album'),
+    (2, 'Single'),
+    (3, 'EP'),
+    (4, 'Compilation'),
+    (5, 'Soundtrack'),
+    (6, 'Spokenword'),
+    (7, 'Interview'),
+    (8, 'Audiobook'),
+    (9, 'Live'),
+    (10, 'Remix'),
+    (11, 'Other');
 
 INSERT INTO medium_format (id, name, year) VALUES
     (1, 'CD', 1982),
@@ -131,29 +130,15 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 \echo Release groups
 
  INSERT INTO release_name (name)
-     (SELECT DISTINCT name FROM public.album) UNION
+     (SELECT DISTINCT name FROM public.album WHERE attributes[2] != 0) UNION
      (SELECT DISTINCT name FROM public.release_group);
 
 CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
 
 INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
     SELECT
-        rg.id, gid::uuid, n.id,
-        CASE
-            WHEN 0 = type THEN 1
-            WHEN 1 = type THEN 2
-            WHEN 2 = type THEN 3
-            WHEN 3 = type THEN 4
-            WHEN 4 = type THEN 5
-            WHEN 5 = type THEN 6
-            WHEN 6 = type THEN 7
-            WHEN 7 = type THEN 8
-            WHEN 8 = type THEN 9
-            WHEN 9 = type THEN 10
-            WHEN 10 = type THEN 11
-            WHEN 11 = type THEN 12
-            ELSE NULL
-        END as type, COALESCE(new_ac, artist), rgm.lastupdate as last_updated
+        rg.id, gid::uuid, n.id, NULLIF(type, 0) AS type,
+        COALESCE(new_ac, artist), rgm.lastupdate as last_updated
      FROM public.release_group rg
         JOIN release_name n ON rg.name = n.name
         JOIN public.release_group_meta rgm ON rg.id = rgm.id
@@ -214,7 +199,8 @@ SELECT SETVAL('release_id_seq', (SELECT MAX(id) FROM release));
 SELECT nextval('release_id_seq') AS id, id AS album
     INTO TEMPORARY tmp_new_release
     FROM public.album a
-    WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id);
+    WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id)
+      AND a.attributes[2] != 0;
 
 CREATE TABLE tmp_release_album
 (
@@ -272,7 +258,8 @@ INSERT INTO release_label (release, label, catalog_number)
 
 INSERT INTO tracklist (id, track_count)
     SELECT a.id, am.tracks
-    FROM public.album a JOIN public.albummeta am ON a.id = am.id;
+    FROM public.album a JOIN public.albummeta am ON a.id = am.id
+    WHERE a.attributes[2] != 0;
 
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
@@ -362,8 +349,10 @@ INSERT INTO track (id, tracklist, name, recording, artist_credit, length, positi
     SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist), length, a.sequence, NULL
     FROM public.track t
         JOIN public.albumjoin a ON t.id = a.track
+        JOIN public.album ON album.id = a.album
         JOIN track_name n ON n.name = t.name
-        LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac;
+        LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac
+       WHERE album.attributes[2] != 0;
 
 INSERT INTO recording_meta (id, rating, rating_count)
     SELECT id, round(rating * 20), rating_count
