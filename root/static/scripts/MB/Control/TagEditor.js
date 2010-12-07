@@ -45,4 +45,6 @@ MB.Control.TagEditor = function(container, endpoint, viewTag)
         ev.preventDefault();
         self.submitTags(self.$tagInput.val());
     });
+
+    return self;
 }
