@@ -60,18 +60,9 @@
                            <p>[% l('An error occured while loading this edit') %]</p>
                         [% END %]
                     </div>
-
-                    <div class="edit-notes">
-                        [% INCLUDE "edit/notes.tt" IF edit.edit_notes.size %]
-                        <div class="add-edit-note edit-note" style="display: none">
-                            <h3 class="owner">[% link_editor(c.user) %]</h3>
-                            <div class="edit-note-text">
-                                <textarea class="edit-note" rows="5"
-                                    name="enter-vote.vote.[% loop.index %].edit_note"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
+                    
+                    [% INCLUDE 'edit/notes.tt' verbose=0 hide=1 rows=1 index=loop.index %]
+    
                     <div class="seperator">
                     </div>
                 </div>

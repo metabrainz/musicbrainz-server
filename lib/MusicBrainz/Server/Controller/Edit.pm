@@ -59,28 +59,6 @@ sub show : Chained('load') PathPart('') RequireAuth
     $c->stash->{template} = 'edit/index.tt';
 }
 
-=head2 add_note
-
-Add a moderation note to an existing edit
-
-=cut
-
-sub add_note : Chained('load') PathPart('add-note') RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my $edit = $c->stash->{edit};
-    my $form = $c->form(form => 'EditNote');
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('EditNote')->add_note($edit->id, {
-            editor_id => $c->user->id,
-            text => $form->field('text')->value
-        });
-    }
-
-    $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
-}
-
 sub enter_votes : Local RequireAuth
 {
     my ($self, $c) = @_;
