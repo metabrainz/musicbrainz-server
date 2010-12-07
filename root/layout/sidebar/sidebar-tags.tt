@@ -30,7 +30,7 @@ END -%]
             <p>[% link_entity(entity, 'tags', tag_this_text) %]</p>
         [% ELSE %]
             <form>
-                <input type="text" class="tag-input" />
+                <input type="text" class="tag-input" value="[% user_tags.join(', ') %]" />
                 <input type="submit" value="[% l('Tag') %]" />
             </form>
         [% END %]

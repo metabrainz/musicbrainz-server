@@ -13,11 +13,18 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
-    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
-    my $count = $c->model($self->{model})->tags->find_tag_count($entity->id);
+    my $tags_model = $c->model($self->{model})->tags;
+    my @tags = $tags_model->find_top_tags($entity->id, $TOP_TAGS_COUNT);
+    my $count = $tags_model->find_tag_count($entity->id);
+    my @user_tags = $c->user_exists
+        ? $tags_model->find_user_tags($c->user->id, $entity->id)
+        : ();
 
-    $c->stash( top_tags => \@tags );
-    $c->stash( more_tags => $count > @tags );
+    $c->stash(
+        top_tags => \@tags,
+        more_tags => $count > @tags,
+        user_tags => [ map { $_->tag->name } @user_tags ]
+    );
 };
 
 sub tags : Chained('load') PathPart('tags')
