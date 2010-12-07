@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Controller::Role::Tag;
 use MusicBrainz::Server::Translation qw ( l ln );
 
@@ -314,6 +315,10 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
         $c->stash( template => 'release/move_search.tt' );
     }
 }
+
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type      => $EDIT_RELEASE_DELETE,
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
