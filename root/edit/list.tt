@@ -61,14 +61,16 @@
                         [% END %]
                     </div>
 
-                    [% IF edit.edit_notes.size %]
-                        <div class="edit-notes">
-                            [% INCLUDE "edit/notes.tt" %]
-                            <div class="add-edit-note">
-                                <textarea name="enter-vote.vote.[% loop.index %].edit_note"></textarea>
+                    <div class="edit-notes">
+                        [% INCLUDE "edit/notes.tt" IF edit.edit_notes.size %]
+                        <div class="add-edit-note edit-note" style="display: none">
+                            <h3 class="owner">[% link_editor(c.user) %]</h3>
+                            <div class="edit-note-text">
+                                <textarea class="edit-note" rows="5"
+                                    name="enter-vote.vote.[% loop.index %].edit_note"></textarea>
                             </div>
                         </div>
-                    [% END %]
+                    </div>
 
                     <div class="seperator">
                     </div>

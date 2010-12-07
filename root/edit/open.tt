@@ -1,3 +1,14 @@
+[% BLOCK layout_head %]
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditSummary.js') %]"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.edit-list').each(function() {
+                MB.Control.EditSummary(this);
+            });
+        });
+    </script>
+[% END %]
+
 [%- WRAPPER 'layout.tt' title=l('Open Edits') full_width=1 -%]
     <div id="content">
         <h1>[% l('Open Edits') %]</h1>
