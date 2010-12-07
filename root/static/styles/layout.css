@@ -257,6 +257,8 @@ pre code {
     height: 8px;
 }
 
+
+
 #page .tr, .server-details .tr {
     top: 0; right: 0;
     background: url('/static/images/layout/sprites.png') -14px -58px;
@@ -290,6 +292,21 @@ pre code {
 
 .server-details p {
     margin: 0;
+}
+
+div.warning {
+    margin: 2em auto;
+    border: 1px solid #a1a1a1;
+    min-height: 54px;
+    width: 30em;
+    background: #ffffd0;
+}
+
+div.warning img.warning {
+    float: left;
+    margin: 12px 10px 8px 10px;
+    width: 32px;
+    height: 32px;
 }
 
 #content {

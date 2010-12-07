@@ -19,6 +19,7 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
+        <script type="text/javascript">document.cookie = "javascript=true; path=/";</script>
         [%- UNLESS no_javascript -%]
             <script type="text/javascript" src="[%-
                 c.model('FileCache').squash_scripts(

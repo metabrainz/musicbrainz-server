@@ -10,6 +10,10 @@
         [% END %]
       </ul>
 
+    [%- IF no_javascript -%]
+      [%- warning( l("Javascript needs to be enabled to edit releases.") ) -%]
+    [%- END -%]
+
     [% content %]
 
     </div>
