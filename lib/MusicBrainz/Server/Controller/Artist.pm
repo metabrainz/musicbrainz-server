@@ -494,7 +494,7 @@ around $_ => sub {
     }
 } for qw( edit merge );
 
-sub watch : Chained('load') {
+sub watch : Chained('load') RequireAuth {
     my ($self, $c) = @_;
 
     my $artist = $c->stash->{artist};
@@ -506,7 +506,7 @@ sub watch : Chained('load') {
     $c->response->redirect($c->req->referer);
 }
 
-sub stop_watching : Chained('load') {
+sub stop_watching : Chained('load') RequireAuth {
     my ($self, $c) = @_;
 
     my $artist = $c->stash->{artist};
