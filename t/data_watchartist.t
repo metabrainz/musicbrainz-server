@@ -56,6 +56,38 @@ subtest 'stop_watching' => sub {
         'editor #2 is no longer watching artist #3');
 };
 
+subtest 'find_new_releases' => sub {
+    my $sql = Sql->new($c->dbh);
+
+    subtest 'Find releases in the future' => sub {
+        $sql->begin;
+        $sql->do('UPDATE editor_watch_preferences SET last_checked = NOW()');
+        $sql->do("UPDATE release_meta SET date_added = NOW() + '@ 1 week'::INTERVAL");
+
+        my @releases = $c->model('WatchArtist')->find_new_releases(1);
+        is(@releases => 1, 'found one release');
+        $sql->rollback;
+    };
+
+    subtest 'Find releases after last_checked' => sub {
+        $sql->begin;
+        $sql->do("UPDATE release_meta SET date_added = NOW() - '@ 1 week'::INTERVAL");
+
+        my @releases = $c->model('WatchArtist')->find_new_releases(1);
+        is(@releases => 0, 'found no releases');
+        $sql->rollback;
+    };
+
+    subtest 'Do not notify of newly added releases released in the past' => sub {
+        $sql->begin;
+        $sql->do('UPDATE release SET date_year = 2009');
+        $sql->do("UPDATE release_meta SET date_added = NOW() + '@ 1 week'::INTERVAL");
+        my @releases = $c->model('WatchArtist')->find_new_releases(1);
+        is(@releases => 0, 'found no releases');
+        $sql->rollback;
+    };
+};
+
 done_testing;
 
 sub is_watching {

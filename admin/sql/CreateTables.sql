@@ -641,7 +641,8 @@ CREATE TABLE editor_watch_preferences
 (
     editor INTEGER NOT NULL, -- PK, references editor.id
     notify_via_email BOOLEAN NOT NULL DEFAULT TRUE,
-    notification_timeframe INTERVAL NOT NULL DEFAULT '1 week'
+    notification_timeframe INTERVAL NOT NULL DEFAULT '1 week',
+    last_checked TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE editor_watch_artist

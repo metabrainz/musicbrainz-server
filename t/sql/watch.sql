@@ -3,8 +3,10 @@ SET client_min_messages TO 'warning';
 
 TRUNCATE artist CASCADE;
 TRUNCATE artist_name CASCADE;
+TRUNCATE artist_credit CASCADE;
 TRUNCATE editor CASCADE;
 TRUNCATE editor_watch_artist CASCADE;
+TRUNCATE release_name CASCADE;
 
 INSERT INTO artist_name (id, name)
     VALUES (1, 'Spor'), (2, 'Break'), (3, 'Tosca');
@@ -20,5 +22,27 @@ INSERT INTO editor (id, name, password)
 
 INSERT INTO editor_watch_artist (editor, artist)
     VALUES (1, 1), (1, 2);
+
+INSERT INTO editor_watch_preferences (editor)
+    VALUES (1);
+
+INSERT INTO release_name (id, name)
+    VALUES (1, 'Resistance');
+
+INSERT INTO artist_credit (name, artist_count, id) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name
+    (artist, artist_credit, join_phrase, position, name)
+        VALUES (1, 1, NULL, 1, 1);
+
+INSERT INTO release_group (id, gid, name, artist_credit)
+    VALUES (1, 'd98cfbe2-eb48-48e1-9f7b-e204c15b41c0', 1, 1);
+
+INSERT INTO release
+    (id, gid, name, release_group, artist_credit, date_year, date_month,
+     date_day)
+        VALUES (1, 'f6f95294-e3a6-4ca4-9070-850757026a22', 1, 1, 1,
+                EXTRACT(YEAR FROM NOW() + '@ 1 week'),
+                EXTRACT(MONTH FROM NOW() + '@ 1 week'),
+                EXTRACT(DAY FROM NOW() + '@ 1 week'));
 
 COMMIT;

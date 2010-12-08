@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use MusicBrainz::Server::Data::Utils qw( query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -75,6 +75,37 @@ sub is_watching {
         'SELECT 1 FROM editor_watch_artist
           WHERE editor = ? AND artist = ?',
         $editor_id, $artist_id);
+}
+
+sub find_new_releases {
+    my ($self, $editor_id) = @_;
+
+    use DateTime;
+    use DateTime::Duration;
+    use DateTime::Format::Pg;
+
+    my $format = DateTime::Format::Pg->new;
+    my $past_threshold = DateTime::Duration->new( weeks => 1 );
+
+    my $query = 
+        'SELECT DISTINCT ' . $self->c->model('Release')->_columns . '
+           FROM ' . $self->c->model('Release')->_table . "
+           JOIN release_meta rm ON rm.id = release.id
+           JOIN artist_credit_name acn
+               ON acn.artist_credit = release.artist_credit
+           JOIN editor_watch_artist ewa ON ewa.artist = acn.artist
+           JOIN editor_watch_preferences ewp ON ewp.editor = ewa.editor
+          WHERE rm.date_added > ewp.last_checked
+            AND release.date_year IS NOT NULL
+            AND to_timestamp(
+                date_year || '-' ||
+                COALESCE(date_month, '01') || '-' ||
+                COALESCE(date_day, '01'), 'YYYY-MM-DD') > (NOW() - ?::INTERVAL)";
+
+    return query_to_list(
+        $self->c->dbh, sub { $self->c->model('Release')->_new_from_row(shift) },
+        $query, $format->format_duration($past_threshold),
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
