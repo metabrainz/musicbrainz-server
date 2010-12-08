@@ -89,10 +89,15 @@ sub find_new_releases {
         'SELECT DISTINCT ' . $self->c->model('Release')->_columns . '
            FROM ' . $self->c->model('Release')->_table . "
            JOIN release_meta rm ON rm.id = release.id
+           JOIN release_group rg ON release_group = rg.id
            JOIN artist_credit_name acn
                ON acn.artist_credit = release.artist_credit
            JOIN editor_watch_artist ewa ON ewa.artist = acn.artist
            JOIN editor_watch_preferences ewp ON ewp.editor = ewa.editor
+           JOIN editor_watch_release_group_type watch_rgt
+                ON watch_rgt.release_group_type = rg.type
+           JOIN editor_watch_release_status watch_rs
+                ON watch_rs.release_status = release.status
           WHERE rm.date_added > ewp.last_checked
             AND release.date_year IS NOT NULL
             AND to_timestamp(
