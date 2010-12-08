@@ -165,6 +165,13 @@ CREATE OR REPLACE FUNCTION a_ins_editor() RETURNS trigger AS $$
 BEGIN
     -- add a new entry to the editor_watch_preference table
     INSERT INTO editor_watch_preferences (editor) VALUES (NEW.id);
+
+    -- by default watch for new official albums
+    INSERT INTO editor_watch_release_group_type (editor, release_group_type)
+        VALUES (NEW.id, 2);
+    INSERT INTO editor_watch_release_status (editor, release_status)
+        VALUES (NEW.id, 1);
+
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
