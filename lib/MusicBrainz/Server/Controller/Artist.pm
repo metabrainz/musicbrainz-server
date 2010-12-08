@@ -487,6 +487,18 @@ around $_ => sub {
     }
 } for qw( edit merge );
 
+sub watch : Chained('load') {
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    $c->model('WatchArtist')->watch_artist(
+        artist_id => $artist->id,
+        editor_id => $c->user->id
+    ) if $c->user_exists;
+
+    $c->response->redirect($c->req->referer);
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

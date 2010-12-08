@@ -73,6 +73,13 @@
                     [% l('Add a work') %]
                   </a>
                 </li>
+                [% IF watching_artist %]
+                    <li>
+                        [% link_artist(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
+                    </li>
+                [% ELSE %]
+                    <li>[% link_artist(artist, 'watch', l('Watch this artist for new releases')) %]</li>
+                [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this artist')) %]</li>
             [% END %]
