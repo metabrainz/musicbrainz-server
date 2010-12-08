@@ -7,6 +7,8 @@ use MusicBrainz::Server::Test;
 my $c = MusicBrainz::Server::Test->create_test_context;
 MusicBrainz::Server::Test->prepare_test_database($c, '+watch');
 
+my $sql = Sql->new($c->dbh);
+
 subtest 'Find watched artists for editors watching artists' => sub {
     my @watching = $c->model('WatchArtist')->find_watched_artists(1);
     is(@watching => 2, 'watching 2 artists');
@@ -57,8 +59,6 @@ subtest 'stop_watching' => sub {
 };
 
 subtest 'find_new_releases' => sub {
-    my $sql = Sql->new($c->dbh);
-
     subtest 'Find releases in the future' => sub {
         $sql->begin;
         $sql->do('UPDATE editor_watch_preferences SET last_checked = NOW()');
@@ -86,6 +86,20 @@ subtest 'find_new_releases' => sub {
         is(@releases => 0, 'found no releases');
         $sql->rollback;
     };
+};
+
+subtest 'find_editors_to_notify' => sub {
+    my @editors = $c->model('WatchArtist')->find_editors_to_notify;
+    is(@editors => 1, '1 editors have watch lists');
+    ok((grep { $_->name eq 'acid2' } @editors), 'acid2 has a watchlist');
+};
+
+subtest 'find_editors_to_notify ignores editors not requesting emails' => sub {
+    $sql->auto_commit(1);
+    $sql->do('UPDATE editor_watch_preferences SET notify_via_email = FALSE');
+
+    my @editors = $c->model('WatchArtist')->find_editors_to_notify;
+    is(@editors => 0, '0 editors to notify');
 };
 
 done_testing;

@@ -3,6 +3,8 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
+use DateTime::Duration;
+use DateTime::Format::Pg;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use Try::Tiny;
 
@@ -80,10 +82,6 @@ sub is_watching {
 sub find_new_releases {
     my ($self, $editor_id) = @_;
 
-    use DateTime;
-    use DateTime::Duration;
-    use DateTime::Format::Pg;
-
     my $format = DateTime::Format::Pg->new;
     my $past_threshold = DateTime::Duration->new( weeks => 1 );
 
@@ -106,6 +104,19 @@ sub find_new_releases {
         $self->c->dbh, sub { $self->c->model('Release')->_new_from_row(shift) },
         $query, $format->format_duration($past_threshold),
     );
+}
+
+sub find_editors_to_notify {
+    my ($self) = @_;
+    my $query = 
+        'SELECT DISTINCT editor.* FROM editor
+           JOIN editor_watch_artist ewa ON ewa.editor = editor.id
+           JOIN editor_watch_preferences ewp ON ewp.editor = ewa.editor
+          WHERE ewp.notify_via_email = TRUE';
+
+    return query_to_list(
+        $self->c->dbh, sub { $self->c->model('Editor')->_new_from_row(shift) },
+        $query);
 }
 
 __PACKAGE__->meta->make_immutable;
