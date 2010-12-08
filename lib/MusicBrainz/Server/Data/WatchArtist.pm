@@ -59,5 +59,18 @@ sub watch_artist {
     }
 }
 
+sub is_watching {
+    my ($self, %params) = @_;
+    my $artist_id = delete $params{artist_id}
+        or confess "Missing required parameter 'artist_id'";
+    my $editor_id = delete $params{editor_id}
+        or confess "Missing required parameter 'editor_id'";
+
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM editor_watch_artist
+          WHERE editor = ? AND artist = ?',
+        $editor_id, $artist_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
