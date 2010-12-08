@@ -1,0 +1,19 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+    <h2>[% l('Watched Artists') %]</h2>
+    <p>[% l('You are currently watching the following artists for new
+        releases') %]</p>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>[% l('Artist') %]</th>
+        </tr>
+      </thead>
+      <tbody>
+        [% FOR artist=watching %]
+          <tr>
+            <td>[% link_artist(artist) %]</td>
+          </tr>
+        [% END %]
+      </tbody>
+    </table>
+[% END %]
