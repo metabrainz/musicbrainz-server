@@ -119,5 +119,11 @@ sub find_editors_to_notify {
         $query);
 }
 
+sub update_last_checked {
+    my $self = shift;
+    $self->sql->auto_commit(1);
+    $self->sql->do( 'UPDATE editor_watch_preferences SET last_checked = NOW()');
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

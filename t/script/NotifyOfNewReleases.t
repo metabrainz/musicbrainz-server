@@ -65,6 +65,9 @@ test 'Send with releases' => sub {
     is_deeply(\%args, {
         releases => \@new_releases
     }, 'notifies about 1 new release');
+
+    verify($c->model('WatchArtist'))
+        ->update_last_checked;
 };
 
 test 'Doesnt notify on no releases' => sub {

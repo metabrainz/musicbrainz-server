@@ -102,6 +102,19 @@ subtest 'find_editors_to_notify ignores editors not requesting emails' => sub {
     is(@editors => 0, '0 editors to notify');
 };
 
+subtest 'update_last_checked' => sub {
+    $sql->auto_commit(1);
+    $sql->do("UPDATE editor_watch_preferences
+                 SET last_checked = NOW() - '@ 1 week'::INTERVAL");
+
+    $c->model('WatchArtist')->update_last_checked;
+
+    ok($sql->select_single_value(
+            "SELECT 1 FROM editor_watch_preferences
+              WHERE last_checked > NOW() - '@ 1 week'::INTERVAL"),
+        'last_checked has moved forward in time');
+};
+
 done_testing;
 
 sub is_watching {
