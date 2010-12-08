@@ -5,10 +5,19 @@ use namespace::autoclean;
 use Carp;
 use DateTime::Duration;
 use DateTime::Format::Pg;
+use List::MoreUtils qw( mesh );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use Try::Tiny;
 
+use aliased 'MusicBrainz::Server::Entity::EditorWatchPreferences';
+
 with 'MusicBrainz::Server::Data::Role::Sql';
+
+has 'date_formatter' => (
+    is => 'ro',
+    default => sub { DateTime::Format::Pg->new },
+    handles => [qw( parse_duration format_duration )]
+);
 
 sub find_watched_artists {
     my ($self, $editor_id) = @_;
@@ -82,7 +91,6 @@ sub is_watching {
 sub find_new_releases {
     my ($self, $editor_id) = @_;
 
-    my $format = DateTime::Format::Pg->new;
     my $past_threshold = DateTime::Duration->new( weeks => 1 );
 
     my $query = 
@@ -107,7 +115,7 @@ sub find_new_releases {
 
     return query_to_list(
         $self->c->dbh, sub { $self->c->model('Release')->_new_from_row(shift) },
-        $query, $format->format_duration($past_threshold),
+        $query, $self->format_duration($past_threshold),
     );
 }
 
@@ -128,6 +136,79 @@ sub update_last_checked {
     my $self = shift;
     $self->sql->auto_commit(1);
     $self->sql->do( 'UPDATE editor_watch_preferences SET last_checked = NOW()');
+}
+
+sub save_preferences {
+    my ($self, $editor_id, $preferences) = @_;
+    $self->sql->begin;
+    $self->sql->do(
+        'DELETE FROM editor_watch_release_group_type WHERE editor = ?',
+        $editor_id);
+    $self->sql->do(
+        'DELETE FROM editor_watch_release_status WHERE editor = ?',
+        $editor_id);
+
+    my @types = @{ $preferences->{type_id} };
+    my @type_editors = ($editor_id) x @types;
+    $self->sql->do(
+        'INSERT INTO editor_watch_release_group_type
+            (editor, release_group_type) VALUES ' .
+        join(', ', ('(?, ?)') x @types),
+        mesh @type_editors, @types);
+
+    my @status = @{ $preferences->{status_id} };
+    my @status_editors = ($editor_id) x @status;
+    $self->sql->do(
+        'INSERT INTO editor_watch_release_status
+            (editor, release_status) VALUES ' .
+        join(', ', ('(?, ?)') x @status),
+        mesh @status_editors, @status);
+
+    $self->sql->do(
+        'UPDATE editor_watch_preferences SET
+            notify_via_email = ?,
+            notification_timeframe = ?
+          WHERE editor = ?',
+          $preferences->{notify_via_email},
+          $self->format_duration(
+              DateTime::Duration->new(
+                  days => $preferences->{notification_timeframe})),
+            $editor_id);
+
+    $self->sql->commit;
+}
+
+sub load_preferences {
+    my ($self, $editor_id) = @_;
+
+    my $prefs = $self->sql->select_single_row_hash(
+        'SELECT * FROM editor_watch_preferences WHERE editor = ?', $editor_id);
+
+    my @types = query_to_list(
+        $self->c->dbh,
+        sub { $self->c->model('ReleaseGroupType')->_new_from_row(shift) },
+        'SELECT id, name FROM release_group_type
+           JOIN editor_watch_release_group_type wrgt
+             ON wrgt.release_group_type = id
+          WHERE editor = ?', $editor_id
+      );
+
+    my @statuses = query_to_list(
+        $self->c->dbh,
+        sub { $self->c->model('ReleaseStatus')->_new_from_row(shift) },
+        'SELECT id, name FROM release_status
+           JOIN editor_watch_release_status wrs
+             ON wrs.release_status = id
+          WHERE editor = ?', $editor_id
+      );
+
+    return EditorWatchPreferences->new(
+        notify_via_email => $prefs->{notify_via_email},
+        notification_timeframe => $self->parse_duration(
+            $prefs->{notification_timeframe}),
+        types => \@types,
+        statuses => \@statuses,
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

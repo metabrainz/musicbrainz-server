@@ -96,7 +96,8 @@ subtest 'find_editors_to_notify' => sub {
 
 subtest 'find_editors_to_notify ignores editors not requesting emails' => sub {
     $sql->auto_commit(1);
-    $sql->do('UPDATE editor_watch_preferences SET notify_via_email = FALSE');
+    $sql->do('UPDATE editor_watch_preferences SET notify_via_email = FALSE
+               WHERE editor = 1');
 
     my @editors = $c->model('WatchArtist')->find_editors_to_notify;
     is(@editors => 0, '0 editors to notify');
@@ -113,6 +114,48 @@ subtest 'update_last_checked' => sub {
             "SELECT 1 FROM editor_watch_preferences
               WHERE last_checked > NOW() - '@ 1 week'::INTERVAL"),
         'last_checked has moved forward in time');
+};
+
+subtest 'Default preferences' => sub {
+    my $prefs = $c->model('WatchArtist')->load_preferences(2);
+    
+    is($prefs->notification_timeframe->in_units('days') => 7,
+        'default notification timeframe is 7 days');
+    is($prefs->notify_via_email => 1,
+        'will notify via email by default');
+
+    is($prefs->all_types => 1, 'will watch for albums by default');
+    ok((grep { $_->id => 2 } $prefs->all_types),
+        'will watch for albums by default');
+
+    is($prefs->all_statuses => 1,
+        'will watch for official releases by default');
+    ok((grep { $_->id => 1 } $prefs->all_statuses),
+        'will watch for official releases by default');
+};
+
+subtest 'Saving preferences' => sub {
+    $c->model('WatchArtist')->save_preferences(
+        2, {
+            notification_timeframe => 14,
+            notify_via_email => 0,
+            type_id => [ 1, 2 ],
+            status_id => [ 3 ]
+        });
+
+    my $prefs = $c->model('WatchArtist')->load_preferences(2);
+    
+    is($prefs->notification_timeframe->in_units('days') => 14,
+        'notification timeframe is 14 days');
+    is($prefs->notify_via_email => 0,
+        'will not notify via email');
+
+    is($prefs->all_types => 2);
+    ok((grep { $_->id => 1 } $prefs->all_types));
+    ok((grep { $_->id => 2 } $prefs->all_types));
+
+    is($prefs->all_statuses => 1);
+    ok((grep { $_->id => 3 } $prefs->all_statuses));
 };
 
 done_testing;

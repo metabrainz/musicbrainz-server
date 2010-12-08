@@ -12,11 +12,21 @@ has [qw( type_id status_id )] => (
 has 'types' => (
     isa => 'ArrayRef[ReleaseGroupType]',
     is => 'rw',
+    traits => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        all_types => 'elements'
+    }
 );
 
 has 'statuses' => (
     isa => 'ArrayRef[ReleaseStatus]',
     is => 'rw',
+    traits => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        all_statuses => 'elements'
+    }
 );
 
 has 'notify_via_email' => (
