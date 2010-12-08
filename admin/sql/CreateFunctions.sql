@@ -158,6 +158,18 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
+-- editor triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_editor() RETURNS trigger AS $$
+BEGIN
+    -- add a new entry to the editor_watch_preference table
+    INSERT INTO editor_watch_preferences (editor) VALUES (NEW.id);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
 -- label triggers
 -----------------------------------------------------------------------
 

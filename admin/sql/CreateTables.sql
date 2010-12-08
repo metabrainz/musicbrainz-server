@@ -639,7 +639,7 @@ CREATE TABLE editor_collection_release
 
 CREATE TABLE editor_watch_preferences
 (
-    editor INTEGER NOT NULL, -- PK, references editor.id
+    editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
     notify_via_email BOOLEAN NOT NULL DEFAULT TRUE,
     notification_timeframe INTERVAL NOT NULL DEFAULT '1 week',
     last_checked TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
@@ -647,19 +647,19 @@ CREATE TABLE editor_watch_preferences
 
 CREATE TABLE editor_watch_artist
 (
-    artist INTEGER NOT NULL, -- PK, references artist.id
-    editor INTEGER NOT NULL  -- PK, references editor.id
+    artist INTEGER NOT NULL, -- PK, references artist.id CASCADE
+    editor INTEGER NOT NULL  -- PK, references editor.id CASCADE
 );
 
 CREATE TABLE editor_watch_release_group_type
 (
-    editor INTEGER NOT NULL, -- PK, references editor.id
+    editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
     release_group_type INTEGER NOT NULL -- PK, references release_group_type.id
 );
 
 CREATE TABLE editor_watch_release_status
 (
-    editor INTEGER NOT NULL, -- PK, references editor.id
+    editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
     release_status INTEGER NOT NULL -- PK, references release_status.id
 );
 

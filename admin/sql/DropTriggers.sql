@@ -6,6 +6,7 @@ DROP TRIGGER b_upd_artist ON artist;
 DROP TRIGGER b_upd_artist_alias ON artist_alias;
 DROP TRIGGER b_upd_artist_tag ON artist_tag;
 DROP TRIGGER b_upd_editor ON editor;
+DROP TRIGGER a_ins_editor ON editor;
 DROP TRIGGER b_upd_l_artist_artist ON l_artist_artist;
 DROP TRIGGER b_upd_l_artist_label ON l_artist_label;
 DROP TRIGGER b_upd_l_artist_recording ON l_artist_recording;
