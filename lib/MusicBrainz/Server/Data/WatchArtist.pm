@@ -59,6 +59,20 @@ sub watch_artist {
     }
 }
 
+sub stop_watching_artist {
+    my ($self, %params) = @_;
+    my $artist_id = delete $params{artist_id}
+        or confess "Missing required parameter 'artist_id'";
+    my $editor_id = delete $params{editor_id}
+        or confess "Missing required parameter 'editor_id'";
+
+    $self->sql->auto_commit(1);
+    $self->sql->do(
+        'DELETE FROM editor_watch_artist WHERE artist = ? AND editor = ?',
+        $artist_id, $editor_id
+    );
+}
+
 sub is_watching {
     my ($self, %params) = @_;
     my $artist_id = delete $params{artist_id}
