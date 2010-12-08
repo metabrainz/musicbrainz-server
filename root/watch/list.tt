@@ -1,19 +1,29 @@
 [% WRAPPER 'layout.tt' full_width=1 %]
     <h2>[% l('Watched Artists') %]</h2>
-    <p>[% l('You are currently watching the following artists for new
-        releases') %]</p>
-    <table class="tbl">
-      <thead>
-        <tr>
-          <th>[% l('Artist') %]</th>
-        </tr>
-      </thead>
-      <tbody>
-        [% FOR artist=watching %]
-          <tr>
-            <td>[% link_artist(artist) %]</td>
-          </tr>
-        [% END %]
-      </tbody>
-    </table>
+    [% IF watching.size %]
+        <p>[% l('You are currently watching the following artists for new
+            releases.') %]</p>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>[% l('Artist') %]</th>
+            </tr>
+          </thead>
+          <tbody>
+            [% FOR artist=watching %]
+              <tr>
+                <td>[% link_artist(artist) %]</td>
+              </tr>
+            [% END %]
+          </tbody>
+        </table>
+    [% ELSE %]
+        <p>[% l('You are not currently watching any artists for new
+            releases.') %]</p>
+    [% END %]
+
+    <p>[% l("To watch an artist and be notified of new releases,
+        {search_url|search} for them and select 'Watch this artist for
+        new releases' from the sidebar.",
+        { search_url => c.uri_for_action('/search/search') }) %]</p>
 [% END %]
