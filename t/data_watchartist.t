@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use Test::Fatal;
 use Test::More;
 use MusicBrainz::Server::Test;
 
@@ -16,6 +17,24 @@ subtest 'Find watched artists for editors watching artists' => sub {
 subtest 'Find watched artists where an editor is not watching anyone' => sub {
     my @watching = $c->model('WatchArtist')->find_watched_artists(2);
     is(@watching => 0, 'Editor #2 is not watching any artists');
+};
+
+subtest 'Can add new artists to the watch list' => sub {
+    $c->model('WatchArtist')->watch_artist(
+        artist_id => 3, editor_id => 2
+    );
+
+    my @watching = $c->model('WatchArtist')->find_watched_artists(2);
+    is(@watching => 1, 'Editor #2 is now watching 1 artist');
+    is_watching('Tosca', 3, 2, @watching);
+};
+
+subtest 'Watching a watched artist does not crash' => sub {
+    ok !exception {
+        $c->model('WatchArtist')->watch_artist(
+            artist_id => 3, editor_id => 2
+        );
+    }, 'editor #2 watched artist #3 without an exception';
 };
 
 done_testing;

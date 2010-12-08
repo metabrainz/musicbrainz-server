@@ -2,7 +2,9 @@ package MusicBrainz::Server::Data::WatchArtist;
 use Moose;
 use namespace::autoclean;
 
+use Carp;
 use MusicBrainz::Server::Data::Utils qw( query_to_list );
+use Try::Tiny;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
@@ -30,6 +32,31 @@ sub find_watched_artists {
         },
         $query, $editor_id
     );
+}
+
+sub watch_artist {
+    my ($self, %params) = @_;
+    my $artist_id = delete $params{artist_id}
+        or confess "Missing required parameter 'artist_id'";
+    my $editor_id = delete $params{editor_id}
+        or confess "Missing required parameter 'editor_id'";
+
+    try {
+        $self->sql->auto_commit(1);
+        $self->sql->insert_row('editor_watch_artist', {
+            editor => $editor_id,
+            artist => $artist_id
+        })
+    }
+    catch {
+        my $err = $_;
+        # XXX We need a real solution to detect these exceptions and throw
+        # structured exceptions, maybe from Sql.pm -- ocharles
+        unless ($err =~ /duplicate/) {
+            # Duplicate row errors are fine, but rethrow any other errors
+            die $err;
+        }
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
