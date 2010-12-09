@@ -99,7 +99,7 @@ sub process
 
     $self->_retrieve_wizard_settings;
     my $page = $self->_store_page_in_session;
-    $self->_route ($page);
+    $self->_route ($page); 
     $self->_store_wizard_settings;
 
     return;
@@ -213,10 +213,17 @@ sub _store_page_in_session
 {
     my ($self) = @_;
 
-    my $page = $self->_load_form ($self->_current);
+    return $self->_post_to_page( $self->_current, $self->c->request->params );
+}
+
+sub _post_to_page
+{
+    my ($self, $page_id, $params) = @_;
+
+    my $page = $self->_load_form ($page_id);
 
     $page->unserialize ( $self->_store->{"step ".$self->_current},
-                         $self->c->request->parameters );
+                         $params );
 
     $self->_store->{"step ".$self->_current} = $page->serialize;
 
@@ -307,12 +314,16 @@ sub find_previous_page
 
 sub _set_current
 {
-    my ($self, $value) = @_;
+    my ($self, $value, $old_page) = @_;
 
     my $max = scalar @{ $self->pages } - 1;
 
     $value = 0 if $value < 0;
     $value = $max if $value > $max;
+
+    if (my $hook = $self->pages->[$old_page]{change_page}) {
+        $hook->($self->c, $self, $value);
+    }
 
     $self->{_current} = $value;
 }
