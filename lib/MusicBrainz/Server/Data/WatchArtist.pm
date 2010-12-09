@@ -63,15 +63,17 @@ sub watch_artist {
 
 sub stop_watching_artist {
     my ($self, %params) = @_;
-    my $artist_id = delete $params{artist_id}
-        or confess "Missing required parameter 'artist_id'";
+    my $artist_ids = delete $params{artist_ids}
+        or confess "Missing required parameter 'artist_ids'";
     my $editor_id = delete $params{editor_id}
         or confess "Missing required parameter 'editor_id'";
 
     $self->sql->auto_commit(1);
     $self->sql->do(
-        'DELETE FROM editor_watch_artist WHERE artist = ? AND editor = ?',
-        $artist_id, $editor_id
+        'DELETE FROM editor_watch_artist
+          WHERE artist IN (' . placeholders(@$artist_ids) . ')
+            AND editor = ?',
+        @$artist_ids, $editor_id
     );
 }
 

@@ -511,7 +511,7 @@ sub stop_watching : Chained('load') RequireAuth {
 
     my $artist = $c->stash->{artist};
     $c->model('WatchArtist')->stop_watching_artist(
-        artist_id => $artist->id,
+        artist_ids => [ $artist->id ],
         editor_id => $c->user->id
     ) if $c->user_exists;
 

@@ -50,7 +50,7 @@ subtest 'is_watching' => sub {
 
 subtest 'stop_watching' => sub {
     $c->model('WatchArtist')->stop_watching_artist(
-        artist_id => 3, editor_id => 2
+        artist_ids => [ 3 ], editor_id => 2
     );
 
     ok(!$c->model('WatchArtist')->is_watching(
