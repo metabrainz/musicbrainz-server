@@ -355,6 +355,34 @@ sub _edit_release_annotation
     }
 }
 
+sub pages {
+    return
+        {
+            name => 'information',
+            title => l('Release Information'),
+            template => 'release/edit/information.tt',
+            form => 'ReleaseEditor::Information'
+        },
+        {
+            name => 'tracklist',
+            title => l('Tracklist'),
+            template => 'release/edit/tracklist.tt',
+            form => 'ReleaseEditor::Tracklist'
+        },
+        {
+            name => 'recordings',
+            title => l('Recordings'),
+            template => 'release/edit/recordings.tt',
+            form => 'ReleaseEditor::Recordings'
+        },
+        {
+            name => 'editnote',
+            title => l('Edit Note'),
+            template => 'release/edit/editnote.tt',
+            form => 'ReleaseEditor::EditNote'
+        };
+}
+
 sub run
 {
     my ($self, $c, $release) = @_;
@@ -362,32 +390,7 @@ sub run
     my $wizard = MusicBrainz::Server::Wizard->new(
         c => $c,
         name => 'release_editor',
-        pages => [
-            {
-                name => 'information',
-                title => l('Release Information'),
-                template => 'release/edit/information.tt',
-                form => 'ReleaseEditor::Information'
-            },
-            {
-                name => 'tracklist',
-                title => l('Tracklist'),
-                template => 'release/edit/tracklist.tt',
-                form => 'ReleaseEditor::Tracklist'
-            },
-            {
-                name => 'recordings',
-                title => l('Recordings'),
-                template => 'release/edit/recordings.tt',
-                form => 'ReleaseEditor::Recordings'
-            },
-            {
-                name => 'editnote',
-                title => l('Edit Note'),
-                template => 'release/edit/editnote.tt',
-                form => 'ReleaseEditor::EditNote'
-            },
-        ]
+        pages => [ $self->pages ]
     );
     $wizard->process;
 
@@ -409,6 +412,10 @@ sub run
     }
     elsif ($wizard->loading) {
         $self->load($c, $wizard, $release);
+    }
+    else {
+        my $method = $wizard->current_page;
+        $self->$method($c, $wizard, $release) if $self->can($method);
     }
 
     $wizard->render;

@@ -6,11 +6,43 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
 );
+use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
+use MusicBrainz::Server::Translation qw( l );
+
+around pages => sub {
+    my $next = shift;
+    my $self = shift;
+
+    my @pages = $self->$next;
+    return
+        $pages[0],
+        {
+            name => 'duplicates',
+            title => l('Release Duplicates'),
+            template => 'release/edit/duplicates.tt',
+            form => 'ReleaseEditor::Duplicates',
+        },
+        @pages[1..$#pages];
+};
 
 sub add : Path('/release/add') Edit RequireAuth
 {
     my ($self, $c) = @_;
     $self->run($c);
+}
+
+sub duplicates {
+    my ($self, $c, $wizard) = @_;
+    my $name = $wizard->value->{name};
+    my $artist_credit = $wizard->value->{artist_credit};
+    $c->stash(
+        similar_releases => [
+            $c->model('Release')->find_similar(
+                name => $name,
+                artist_credit => clean_submitted_artist_credits($artist_credit)
+            )
+        ]
+    );
 }
 
 sub cancelled {
