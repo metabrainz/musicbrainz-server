@@ -125,29 +125,6 @@ sub appearances : Chained('load')
     $c->stash->{releases} = $c->model('Release')->find_linked_albums($artist);
 }
 
-=head2 nats
-
-Show all this artists non-album tracks
-
-=cut
-
-sub nats : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->stash->{release} = $c->model('Release')->nat_release($self->entity);
-
-    if ($c->stash->{release})
-    {
-        $c->stash->{release_artist} = $self->entity;
-        $c->forward('/release/show');
-    }
-    else
-    {
-        $c->stash->{template} = 'artist/no_nats.tt';
-    }
-}
-
 =head2 show
 
 Shows an artist's main landing page.
@@ -314,6 +291,26 @@ sub recordings : Chained('load')
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
         } @$recordings,
+    );
+}
+
+sub standalone_recordings : Chained('load') PathPart('standalone-recordings')
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $standalones = $self->_load_paged($c, sub {
+        $c->model('Recording')->find_standalone($artist->id, shift, shift);
+    });
+
+    $c->model('ISRC')->load_for_recordings(@$standalones);
+    $c->model('ArtistCredit')->load(@$standalones);
+
+    $c->stash(
+        recordings => $standalones,
+        show_artists => scalar grep {
+            $_->artist_credit->name ne $artist->name
+        } @$standalones,
     );
 }
 

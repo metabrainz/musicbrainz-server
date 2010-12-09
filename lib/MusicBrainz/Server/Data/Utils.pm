@@ -35,6 +35,7 @@ our @EXPORT_OK = qw(
     order_by
     check_in_use
     map_query
+    ref_to_type
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -58,6 +59,18 @@ sub copy_escape {
     $str =~ s/\r/\\r/g;
     $str =~ s/\\/\\\\/g;
     return $str;
+}
+
+sub ref_to_type
+{
+    my $ref = shift;
+    my %map = reverse %TYPE_TO_MODEL;
+    for (keys %map) {
+        return $map{$_}
+            if ($ref->isa("MusicBrainz::Server::Entity::$_"))
+    }
+    warn "Could not resolve the type of $ref";
+    return;
 }
 
 sub artist_credit_to_ref

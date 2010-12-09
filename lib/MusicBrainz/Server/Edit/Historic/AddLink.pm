@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Add relationship') }
 sub edit_type     { $EDIT_HISTORIC_ADD_LINK }

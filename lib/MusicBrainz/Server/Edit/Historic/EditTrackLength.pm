@@ -5,7 +5,7 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACK_LENGTH );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name { l('Edit track length') }
 sub edit_type { $EDIT_HISTORIC_EDIT_TRACK_LENGTH }

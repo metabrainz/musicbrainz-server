@@ -1,3 +1,0 @@
-BEGIN;
-ALTER TABLE release_meta ADD coverfetched TIMESTAMP WITH TIME ZONE;
-COMMIT;

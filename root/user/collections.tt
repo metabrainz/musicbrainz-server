@@ -1,0 +1,40 @@
+[% WRAPPER "user/profile/layout.tt" title=l("Collections") page="collections" %]
+
+<h2>[% l("Collections") %]</h2>
+
+[%- IF collections.size -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('Collection') %]</th>
+            [% IF viewing_own_profile %]
+            <th style="width: 10em">[% l('Privacy') %]</th>
+            <th style="width: 10em">[% l('Actions') %]</th>
+            [% END %]
+        </tr>
+    </thead>
+    <tbody>
+    [%- FOR collection=collections -%]
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <td>[% link_collection(collection) %]</td>
+            [% IF viewing_own_profile %]
+            <td>[% collection.public ? l('Public') : l('Private') %]</td>
+            <td>
+                [% link_collection(collection, 'edit', l('Edit')) %] |
+                [% link_collection(collection, 'delete', l('Delete')) %]
+            </td>
+            [% END %]
+        </tr>
+    [%- END -%]
+    </tbody>
+</table>
+[%- ELSE -%]
+<p>[% l('No collections found.') -%]</p>
+[%- END -%]
+
+
+<p><a href="[% c.uri_for_action('/collection/create') %]">
+    [% l('Create a new collection') %]
+</a></p>
+
+[% END %]

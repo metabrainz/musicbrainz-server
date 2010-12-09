@@ -5,7 +5,7 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_TRACK_ARTIST );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 

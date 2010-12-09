@@ -13,8 +13,6 @@ DROP FUNCTION a_ins_release();
 DROP FUNCTION a_ins_release_group();
 DROP FUNCTION a_ins_track();
 DROP FUNCTION a_ins_work();
-DROP FUNCTION a_upd_artist();
-DROP FUNCTION a_upd_label();
 DROP FUNCTION a_upd_recording();
 DROP FUNCTION a_upd_release();
 DROP FUNCTION a_upd_release_group();

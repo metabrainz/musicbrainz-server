@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE );
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 

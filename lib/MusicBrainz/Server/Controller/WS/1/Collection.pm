@@ -31,8 +31,8 @@ sub list : Private
     $offset     = 0 if $offset < 0;
     $limit      = 100 if $limit > 100 || $limit < 1;
 
-    my $list_id = $c->model('List')->get_first_list($c->user->id);
-    my ($releases) = $c->model('Release')->find_by_list($list_id, $limit, $offset);
+    my $collection_id = $c->model('Collection')->get_first_collection($c->user->id);
+    my ($releases) = $c->model('Release')->find_by_collection($collection_id, $limit, $offset);
 
     $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
     $c->res->body(
@@ -50,7 +50,7 @@ sub add_remove : Private
 {
     my ($self, $c) = @_;
 
-    my $list_id = $c->model('List')->get_first_list($c->user->id);
+    my $collection_id = $c->model('Collection')->get_first_collection($c->user->id);
 
     my $add    = $c->req->params->{add}    || $c->req->params->{addAlbums}    || '';
     my $remove = $c->req->params->{remove} || $c->req->params->{removeAlbums} || '';
@@ -64,12 +64,12 @@ sub add_remove : Private
 
     if (@can_add) {
         my @add = map { $_->id } values %{ $c->model('Release')->get_by_gids(@can_add) };
-        $c->model('List')->add_releases_to_list($list_id, @add)
+        $c->model('Collection')->add_releases_to_collection($collection_id, @add)
     }
 
     if (@can_remove) {
         my @remove = map { $_->id } values %{ $c->model('Release')->get_by_gids(@can_remove) };
-        $c->model('List')->remove_releases_from_list($list_id, @remove);
+        $c->model('Collection')->remove_releases_from_collection($collection_id, @remove);
     }
 
     $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');

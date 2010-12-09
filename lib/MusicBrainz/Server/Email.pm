@@ -10,13 +10,16 @@ use Email::MIME::Creator;
 use URI::Escape qw( uri_escape );
 use DBDefs;
 
+use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Email::Subscriptions;
+
 has 'c' => (
     is => 'rw',
     isa => 'Object'
 );
 
-Readonly my $NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
-Readonly my $SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
+Readonly our $NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
+Readonly our $SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
 
 our $test_transport = undef;
 
@@ -338,6 +341,17 @@ sub send_password_reset_request
 
     my $email = $self->_create_password_reset_request_email(%opts);
     return $self->_send_email($email);
+}
+
+sub send_subscriptions_digest
+{
+    my ($self, %opts) = @_;
+
+    my $email = MusicBrainz::Server::Email::Subscriptions->new(
+        from => $NOREPLY_ADDRESS,
+        %opts
+    );
+    return $self->_send_email($email->create_email);
 }
 
 sub send_edit_note

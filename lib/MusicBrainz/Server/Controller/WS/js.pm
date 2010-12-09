@@ -108,12 +108,21 @@ sub _autocomplete_entity {
         {
             my $entity = $c->model($model)->get_by_gid ($result->{entity}->gid);
 
-            push @output, {
+            next unless $entity;
+
+            my $item = {
                 name => $result->{entity}->name,
                 id => $entity->id,
                 gid => $result->{entity}->gid,
                 comment => $result->{entity}->comment,
-            } if $entity;
+            };
+
+            if ($entity->meta->has_attribute ('sort_name'))
+            {
+                $item->{sortname} = $entity->sort_name;
+            }
+
+            push @output, $item;
         }
 
         push @output, {

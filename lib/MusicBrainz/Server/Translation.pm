@@ -5,6 +5,7 @@ use Encode;
 use I18N::LangTags ();
 use I18N::LangTags::Detect;
 use Locale::TextDomain q/mb_server/;
+use DBDefs;
 
 use Sub::Exporter -setup => { exports => [qw( l ln )] };
 

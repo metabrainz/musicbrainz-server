@@ -1,5 +1,5 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.5.custom.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>

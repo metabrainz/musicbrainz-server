@@ -108,4 +108,10 @@ is($editors[1], 0, "new_editor has not subscribed to anyone");
 @editors = $editor_data->find_subscribers (2, 10, 0);
 is($editors[1], 0, "alice has no subscribers");
 
+subtest 'Find editors with subscriptions' => sub {
+    my @editors = $editor_data->editors_with_subscriptions;
+    is(@editors => 1, 'found 1 editor');
+    is($editors[0]->id => 2, 'is editor #2');
+};
+
 done_testing;

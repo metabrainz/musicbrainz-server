@@ -9,7 +9,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Remove release') }
 sub historic_type { 12 }

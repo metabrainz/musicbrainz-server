@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
 );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Edit release events') }
 sub historic_type { 29 }

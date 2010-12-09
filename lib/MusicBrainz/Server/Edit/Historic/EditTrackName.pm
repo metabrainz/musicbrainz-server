@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Historic::EditTrackName;
 
 use strict;
 use warnings;
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNAME );
 use MusicBrainz::Server::Translation qw ( l ln );

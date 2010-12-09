@@ -10,7 +10,7 @@ use MusicBrainz::Server::Translation qw ( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Convert release to multiple artists') }
 sub historic_type { 9 }

@@ -32,11 +32,13 @@ ok(is_valid_iswc('T-000000001.0'));
 ok(is_valid_iswc('T0000000010'));
 ok(!is_valid_iswc('T00010'));
 ok(!is_valid_iswc('T-000.000-0'));
+ok(is_valid_iswc('T- 101.914.232-4'));
 
 is(format_iswc('T-000.000.001-0'), 'T-000.000.001-0');
 is(format_iswc('T-000000001-0'), 'T-000.000.001-0');
 is(format_iswc('T-000000001.0'), 'T-000.000.001-0');
 is(format_iswc('T0000000010'), 'T-000.000.001-0');
+is(format_iswc('T- 101.914.232-4'), 'T-101.914.232-4');
 
 
 my ($a, $b) = MusicBrainz::Server::Validation::normalise_strings ('alice', 'bob');

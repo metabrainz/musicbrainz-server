@@ -1,5 +1,5 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.5.custom.js') %]" type="text/javascript"></script>
+  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/lib/json/json2.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
@@ -85,7 +85,8 @@
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
   <div class="half-width basic-tracklist">
-    [% r.hidden ('wizard_session_id') %]
+    [%- r.hidden ('wizard_session_id') -%]
+    [%- r.hidden ('advanced') -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
 
@@ -129,8 +130,8 @@
             </td>
           </tr>
         </table>
-
         <textarea style="display: none" class="tracklist"></textarea>
+        [% field_errors(form, medium_field.full_name) %]
       </div>
 
       [% END %]
@@ -262,6 +263,7 @@
       </div>
 
       <div class="tracklist-padding">
+      [% field_errors(form, medium_field.full_name) %]
       <table class="medium tbl" style="display: none">
         <thead>
           <tr>

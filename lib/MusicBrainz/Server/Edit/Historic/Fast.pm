@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Class::Accessor::Fast::XS';
 
-use JSON::XS;
+use JSON::Any qw( XS JSON );
 use Memoize;
 use MusicBrainz::Server::Data::Utils qw( copy_escape );
 use URI::Escape qw( uri_escape uri_unescape );
@@ -70,7 +70,7 @@ sub for_copy {
         $edit->editor_id,
         $edit->edit_type,
         $edit->status,
-        copy_escape(encode_json($edit->data)),
+        copy_escape(JSON::Any->new(utf8 => 1)->encode($edit->data)),
         $edit->yes_votes,
         $edit->no_votes,
         $edit->auto_edit,

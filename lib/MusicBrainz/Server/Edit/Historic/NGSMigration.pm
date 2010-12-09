@@ -2,9 +2,14 @@ package MusicBrainz::Server::Edit::Historic::NGSMigration;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_type { undef }
+sub ngs_class {  }
+sub edit_type {
+    my $self = shift;
+    return unless $self->ngs_class;
+    $self->ngs_class->edit_type
+}
 
 sub _create_edit
 {

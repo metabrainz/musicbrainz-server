@@ -409,17 +409,17 @@ eval {
                 JOIN tmp_release_merge rm ON release.id=rm.old_rel;
     ");
 
-    printf STDERR "Merging list_release\n";
+    printf STDERR "Merging editor_collection_release\n";
     $sql->do("
     SELECT
-        DISTINCT list, COALESCE(new_rel, release)
-    INTO TEMPORARY tmp_list_release
-    FROM list_release
-        LEFT JOIN tmp_release_merge rm ON list_release.release=rm.old_rel;
+        DISTINCT collection, COALESCE(new_rel, release)
+    INTO TEMPORARY tmp_editor_collection_release
+    FROM editor_collection_release
+        LEFT JOIN tmp_release_merge rm ON editor_collection_release.release=rm.old_rel;
 
-    TRUNCATE list_release;
-    INSERT INTO list_release SELECT * FROM tmp_list_release;
-    DROP TABLE tmp_list_release;
+    TRUNCATE editor_collection_release;
+    INSERT INTO editor_collection_release SELECT * FROM tmp_editor_collection_release;
+    DROP TABLE tmp_editor_collection_release;
     ");
 
     printf STDERR "Merging release_label\n";
@@ -438,10 +438,6 @@ eval {
     printf STDERR "Merging release_meta\n";
     $sql->do("
     SELECT COALESCE(new_rel, id) AS id,
-        CASE
-                WHEN count(*) > 1 THEN now()
-                ELSE max(last_updated)
-        END AS last_updated,
         min(date_added) AS date_added
     INTO TEMPORARY tmp_release_meta
     FROM release_meta
@@ -454,8 +450,8 @@ eval {
     INSERT INTO release_coverart (id)
         SELECT id FROM tmp_release_meta;
 
-    INSERT INTO release_meta (id, last_updated, date_added)
-        SELECT id, last_updated, date_added FROM tmp_release_meta;
+    INSERT INTO release_meta (id, date_added)
+        SELECT id, date_added FROM tmp_release_meta;
 
     DROP TABLE tmp_release_meta;
     ");
@@ -478,14 +474,21 @@ eval {
                 ELSE n.name
         END,
         artist_credit, release_group, status, packaging, country, language, script,
-        date_year, date_month, date_day, barcode, comment, edits_pending, q.quality
+        date_year, date_month, date_day, barcode, comment, edits_pending, q.quality,
+        CASE
+                WHEN count(*) > 1 THEN now()
+                ELSE max(last_updated)
+        END AS last_updated
     INTO TEMPORARY tmp_release
     FROM release
         INNER JOIN release_name n ON release.name=n.id
         LEFT JOIN tmp_release_merge rm0 ON release.id=rm0.old_rel
         LEFT JOIN (select distinct new_rel from tmp_release_merge) rm1 ON release.id=rm1.new_rel
         JOIN tmp_release_quality q ON q.id = release.id
-    WHERE rm0.old_rel IS NULL;
+    WHERE rm0.old_rel IS NULL
+    GROUP BY release.id, release.gid, rm1.new_rel, regexp_replace(n.name, E'\\\\s+[(](disc [0-9]+(: .*?)?|bonus disc(: .*?)?)[)]\$', ''), 
+             n.name, artist_credit, release_group, status, packaging, country, language, script,
+             date_year, date_month, date_day, barcode, comment, edits_pending, q.quality;
 
     INSERT INTO release_name (name)
         SELECT DISTINCT t.name
@@ -496,7 +499,7 @@ eval {
     TRUNCATE release;
     INSERT INTO release
         SELECT t.id, gid, n.id, artist_credit, release_group, status, packaging, country, language, script,
-                date_year, date_month, date_day, barcode, comment, edits_pending, quality
+                date_year, date_month, date_day, barcode, comment, edits_pending, quality, last_updated
          FROM tmp_release t
                 JOIN release_name n ON t.name = n.name;
     DROP TABLE tmp_release;
@@ -505,7 +508,7 @@ eval {
 
     printf STDERR "Updating release_group_meta\n";
     $sql->do("
-    SELECT id, last_updated, COALESCE(t.release_count, 0), first_release_date_year, first_release_date_month, first_release_date_day, rating, rating_count
+    SELECT id, COALESCE(t.release_count, 0), first_release_date_year, first_release_date_month, first_release_date_day, rating, rating_count
         INTO TEMPORARY tmp_release_group_meta
         FROM release_group_meta rgm
                 LEFT JOIN ( SELECT release_group, count(*) AS release_count FROM release GROUP BY release_group ) t ON t.release_group = rgm.id;

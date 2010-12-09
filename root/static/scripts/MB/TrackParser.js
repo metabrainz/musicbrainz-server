@@ -47,8 +47,8 @@ MB.TrackParser = function (disc, textarea, serialized) {
 
             var tmp = this.replace (/\(\?:\?\?\)\s?$/, '');
             self.inputlines[i] = tmp.replace(/\(?\s?([0-9０-９]*[：，．':,.][0-9０-９]+)\s?\)?$/,
-                function (str, p1) { 
-                    self.inputdurations[i] = MB.utility.fullWidthConverter(p1); return ""; 
+                function (str, p1) {
+                    self.inputdurations[i] = MB.utility.fullWidthConverter(p1); return "";
                 }
             );
 
@@ -220,7 +220,7 @@ MB.TrackParser = function (disc, textarea, serialized) {
     self.parseTimes = parseTimes;
     self.cleanSpaces = cleanSpaces;
     self.cleanTitles = cleanTitles;
-    /* 
+    /*
        Various Artist releases are not currently supported, so parseArtists
        is commented out for now. --warp.
 
@@ -231,3 +231,4 @@ MB.TrackParser = function (disc, textarea, serialized) {
 
     return self;
 };
+

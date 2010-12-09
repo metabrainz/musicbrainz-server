@@ -15,7 +15,7 @@ use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Fast';
+use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { l('Remove relationship (historic)') }
 sub historic_type { 35 }
