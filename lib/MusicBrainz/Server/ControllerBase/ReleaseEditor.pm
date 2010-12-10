@@ -247,13 +247,16 @@ sub _edit_release_track_edits
     {
         $medium_idx++;
 
-        next unless $new->{edits};
-
         my $tracklist_id = $new->{tracklist_id};
 
-        if ($tracklist_id)
+        # new medium which re-uses a tracklist already in the database.
+        my $new_medium = $tracklist_id && ! $new->{id};
+
+        next unless $new->{edits} || $new_medium;
+
+        if ($tracklist_id && $new->{id})
         {
-            # We already have a tracklist, so lets create a tracklist edit
+            # We already have a tracklist and a medium, so lets create a tracklist edit
 
             my $old = $c->model('Medium')->get_by_id ($new->{id});
             $c->model('Tracklist')->load ($old);
@@ -271,7 +274,7 @@ sub _edit_release_track_edits
                 as_auto_editor => $data->{as_auto_editor},
             );
         }
-        else
+        elsif (!$tracklist_id)
         {
             my $create_tl = $self->$edit(
                 $c, $EDIT_TRACKLIST_CREATE, $editnote,
