@@ -1,11 +1,6 @@
 package MusicBrainz::Server::Wizard;
-use Moose;
-
-has 'name' => (
-    is => 'ro',
-    isa => 'Str',
-    required => 1,
-);
+use Moose::Role;
+use namespace::autoclean;
 
 has '_current' => (
     is => 'rw',
@@ -62,7 +57,8 @@ has 'page_number' => (
 has 'pages' => (
     isa => 'ArrayRef',
     is => 'ro',
-    required => 1
+    lazy => 1,
+    builder => '_build_pages'
 );
 
 sub skip { return 0; }
