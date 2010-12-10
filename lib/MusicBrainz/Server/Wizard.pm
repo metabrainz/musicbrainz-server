@@ -220,6 +220,11 @@ sub _post_to_page
 {
     my ($self, $page_id, $params) = @_;
 
+    # Hard coding this, not too intelligent?
+    # It's here so we can call _post_to_page from other stuff and it doesn't
+    # have to specify the wizard id...
+    $params->{wizard_session_id} ||= $self->_session_id;
+
     my $page = $self->_load_form ($page_id);
 
     $page->unserialize ( $self->_store->{"step ".$self->_current},

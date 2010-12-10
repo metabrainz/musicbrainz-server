@@ -37,10 +37,9 @@ around pages => sub {
                             format_id => $_->format_id,
                             name => $_->name,
                             deleted => 0,
-                            edits => '[]',
-                            name => undef
+                            edits => '',
                         }, $release->all_mediums
-                    ]
+                    ],
                 }));
             }
         },
