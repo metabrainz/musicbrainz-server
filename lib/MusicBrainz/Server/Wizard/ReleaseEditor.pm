@@ -571,6 +571,16 @@ sub prepare_recordings
     $wizard->load_page('recordings', { 'rec_mediums' => \@recording_gids });
 }
 
+sub load_page
+{
+    my ($self, $step, $init_object) = @_;
+
+    my $page = $self->page_number->{$step};
+    $page = $step unless defined $page;
+
+    return $self->_load_page ($page, $init_object);
+}
+
 sub create_common_edits
 {
     my ($self, $c, %opts) = @_;

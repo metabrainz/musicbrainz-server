@@ -164,16 +164,6 @@ sub current_page
     return $self->pages->[$self->_current]->{name};
 }
 
-sub load_page
-{
-    my ($self, $step, $init_object) = @_;
-
-    my $page = $self->page_number->{$step};
-    $page = $step unless defined $page;
-
-    return $self->_load_page ($page, $init_object);
-}
-
 sub _load_page
 {
     my ($self, $page, $init_object) = @_;
@@ -348,6 +338,8 @@ sub _retrieve_wizard_settings
     my ($self) = @_;
 
     my $p = $self->c->request->parameters;
+
+    return if $self->_session_id;
 
     # FIXME: this will break if the form has a name...
     return $self->_new_session unless $p->{wizard_session_id};
