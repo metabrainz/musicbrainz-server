@@ -9,7 +9,10 @@ sub edit : Chained('/release/load') Edit RequireAuth
 {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
-    ReleaseEditor->new(c => $c)->run($c, $release);
+    ReleaseEditor->new(
+        c => $c,
+        release => $release
+    )->run($c, $release);
 }
 
 1;

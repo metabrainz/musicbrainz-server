@@ -8,6 +8,11 @@ use MusicBrainz::Server::Constants qw(
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
+has 'release' => (
+    is => 'ro',
+    required => 1
+);
+
 sub cancel
 {
     my ($self, $c) = @_;
@@ -47,16 +52,16 @@ augment 'create_edits' => sub
     return $release;
 };
 
-augment 'load' => sub
+augment 'init_object' => sub
 {
-    my ($self, $c, $wizard, $release) = @_;
+    my ($self, $c) = @_;
 
-    $self->_load_release ($c, $release);
-    $c->model('Medium')->load_for_releases($release);
+    $self->_load_release ($c, $self->release);
+    $c->model('Medium')->load_for_releases($self->release);
 
     $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
 
-    return $release;
+    return $self->release;
 };
 
 sub submit {

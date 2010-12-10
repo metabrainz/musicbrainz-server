@@ -19,12 +19,6 @@ has 'c' => (
     isa => 'Object'
 );
 
-has 'loading' => (
-    is => 'rw',
-    isa => 'Bool',
-    default => 0,
-);
-
 has 'submitted' => (
     is => 'rw',
     isa => 'Bool',
@@ -83,15 +77,21 @@ sub valid {
 #  5. Load form and associated template
 #  6. Add tab buttons for each step to the stash
 
+sub _create_new_wizard {
+    my ($self, $c) = @_;
+    return !$c->form_posted || !$c->req->params->{wizard_session_id};
+}
+
 sub process
 {
     my ($self) = @_;
 
-    if ($self->c->request->method ne 'POST')
-    {
+    if ($self->_create_new_wizard($self->c)) {
         $self->_new_session;
-        return $self->loading (1);
+        $self->initialize($self->c);
     }
+
+    return unless $self->c->form_posted;
 
     $self->_retrieve_wizard_settings;
     my $page = $self->_store_page_in_session;
@@ -103,12 +103,12 @@ sub process
 
 sub initialize
 {
-    my ($self, $init_object) = @_;
+    my ($self, $c) = @_;
 
     # if init_object is set, load it in _all_ the forms to deflate all fields
     # from the init_object in one go.  For each form store the ->value (deflated)
     # data in the session.
-    if ($init_object)
+    if (my $init_object = $self->init_object($c))
     {
         my $max = scalar @{ $self->pages } - 1;
         for (0..$max)
@@ -117,6 +117,8 @@ sub initialize
         }
     }
 }
+
+sub init_object { }
 
 sub render
 {

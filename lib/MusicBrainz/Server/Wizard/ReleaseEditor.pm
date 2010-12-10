@@ -408,9 +408,6 @@ sub run
             $self->submit($c, $release);
         }
     }
-    elsif ($self->loading) {
-        $self->load($c, $self, $release);
-    }
     else {
         my $method = $self->current_page;
         $self->$method($c, $self, $release) if $self->can($method);
@@ -437,9 +434,9 @@ sub create_edits
     return $release;
 }
 
-sub load
+sub init_object
 {
-    my ($self, $c, $wizard, $release) = @_;
+    my ($self, $c, $release) = @_;
 
     $release = inner();
 
@@ -452,7 +449,7 @@ sub load
         );
     }
 
-    $wizard->initialize($release);
+    return $release;
 }
 
 sub _load_release_groups

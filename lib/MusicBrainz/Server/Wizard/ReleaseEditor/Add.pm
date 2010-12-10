@@ -122,9 +122,9 @@ augment 'create_edits' => sub
     return $release;
 };
 
-augment 'load' => sub
+augment 'init_object' => sub
 {
-    my ($self, $c, $wizard) = @_;
+    my ($self, $c) = @_;
 
     # There was no existing wizard, provide the wizard with
     # the $release to initialize the forms.
