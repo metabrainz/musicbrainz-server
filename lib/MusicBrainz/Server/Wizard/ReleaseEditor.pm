@@ -610,4 +610,44 @@ sub create_common_edits
     }
 }
 
+sub _transform_parameters {
+    my ($self, $params) = @_;
+
+    my @transformations = (
+        [
+            'language_id', 'language',
+            sub { shift->model('Language')->find_by_code(shift) },
+        ],
+        [
+            'country_id', 'country',
+            sub { shift->model('Country')->find_by_code(shift) },
+        ],
+        [
+            'script_id', 'script',
+            sub { shift->model('Script')->find_by_code(shift) },
+        ],
+        [
+            'status_id', 'status',
+            sub { shift->model('ReleaseStatus')->find_by_name(shift) },
+        ],
+        [
+            'type_id', 'type',
+            sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
+        ],
+        [
+            'packaging_id', 'packaging',
+            sub { shift->model('ReleasePackaging')->find_by_name(shift) },
+        ],
+    );
+
+    for my $trans (@transformations) {
+        my ($key, $alias, $transform) = @$trans;
+        if (exists $params->{$alias}) {
+            $params->{$key} = $transform->($self->c, delete $params->{$alias})->id;
+        }
+    }
+
+    return $params;
+}
+
 1;

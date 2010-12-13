@@ -65,6 +65,13 @@ sub get_by_ids
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
 }
 
+sub _get_by_key
+{
+    my ($self, $key, $id) = @_;
+    my @result = values %{ $self->_get_by_keys($key, $id) };
+    return $result[0];
+}
+
 sub insert { confess "Not implemented" }
 sub update { confess "Not implemented" }
 sub delete { confess "Not implemented" }

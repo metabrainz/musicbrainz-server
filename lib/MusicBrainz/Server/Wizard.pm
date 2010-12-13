@@ -204,6 +204,19 @@ sub _store_page_in_session
     return $self->_post_to_page( $self->_current, $self->c->request->params );
 }
 
+=method _transform_parameters
+
+Allows wizards to provide their own transformation of parameters before they
+are passed into the form. This may allow the wizard to take multiple representations
+of POST data, for example (as in the case of the release editor).
+
+=cut
+
+sub _transform_parameters {
+    my ($self, $params) = @_;
+    return $params;
+}
+
 sub _post_to_page
 {
     my ($self, $page_id, $params) = @_;
@@ -216,7 +229,7 @@ sub _post_to_page
     my $page = $self->_load_form ($page_id);
 
     $page->unserialize ( $self->_store->{"step ".$self->_current},
-                         $params );
+                         $self->_transform_parameters($params) );
 
     $self->_store->{"step ".$self->_current} = $page->serialize;
 
