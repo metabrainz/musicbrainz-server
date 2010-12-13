@@ -20,7 +20,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
-use MusicBrainz::Server::Track qw( unformat_track_length );
+use MusicBrainz::Server::Track qw( format_track_length unformat_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Wizard;
@@ -657,23 +657,66 @@ sub _seed_parameters {
         $label->{name} = $entity->name;
     }
 
-    for my $artist_credit (@{ $params->{artist_credit}{names} }) {
+    for my $artist_credit (
+        map { @{ $_->{names} } } (
+            $params->{artist_credit},
+            map { $_->{artist_credit} || [] }
+                map { @{ $_->{track} || []}  }
+                    @{ $params->{medium} || []}
+        )
+    ) {
         next unless $artist_credit->{mbid};
         my $entity = $self->c->model('Artist')
             ->get_by_gid(delete $artist_credit->{mbid});
         $artist_credit->{artist_id} = $entity->id;
         $artist_credit->{name} ||= $entity->name;
+        $artist_credit->{gid} = $entity->gid;
+        $artist_credit->{artist_name} = $entity->name;
     }
 
-    for my $medium (@{ $params->{mediums} }) {
-      FORMAT: if (my $format = delete $medium->{format}) {
-            my $entity = $self->c->model('MediumFormat')
-                ->find_by_name($format) or last FORMAT;
-            $medium->{format_id} = $entity->id;
+    {
+        my $medium_idx;
+        my $json = JSON::Any->new(utf8 => 1);
+        for my $medium (@{ $params->{mediums} }) {
+            if (my $format = delete $medium->{format}) {
+                my $entity = $self->c->model('MediumFormat')
+                    ->find_by_name($format);
+                $medium->{format_id} = $entity->id if $entity;
+            }
+
+            if (my @tracks = @{ $medium->{track} || [] }) {
+                my @edits;
+                my $track_idx;
+                for my $track (@tracks) {
+                    $track->{position} = ++$track_idx;
+                    my $track_ac = $track->{artist_credit} || $params->{artist_credit};
+                    if ($track_ac->{names}) {
+                        $track->{artist_credit}{names} = [
+                            map +{
+                                name => $_->{name},
+                                id => $_->{artist_id},
+                                join => $_->{join_phrase},
+                                artist_name => $_->{artist_name},
+                                gid => $_->{gid}
+                            }, @{$track_ac->{names}}
+                        ];
+                    }
+
+                    if (my $length = $track->duration) {
+                        $track->{length} = ($length =~ /:/)
+                            ? $length
+                            : format_track_length($length);
+                    }
+
+                    push @edits, $track;
+                }
+
+                $medium->{edits} = $json->encode(\@edits);
+            }
+
+            $medium->{position} = ++$medium_idx;
         }
-
-        
-    }
+    };
 
     return collapse_hash($params);
 }
