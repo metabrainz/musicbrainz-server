@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Wizard';
 
+use CGI::Expand qw( expand_hash collapse_hash );
 use Encode;
 use JSON::Any;
 use MusicBrainz::Server::Constants qw(
@@ -612,6 +613,7 @@ sub create_common_edits
 
 sub _transform_parameters {
     my ($self, $params) = @_;
+    $params = expand_hash($params);
 
     my @transformations = (
         [
@@ -647,7 +649,15 @@ sub _transform_parameters {
         }
     }
 
-    return $params;
+    for my $label (@{ $params->{labels} }) {
+        next unless $label->{mbid};
+        my $entity = $self->c->model('Label')
+            ->get_by_gid(delete $label->{mbid});
+        $label->{label_id} = $entity->id;
+        $label->{name} = $entity->name;
+    }
+
+    return collapse_hash($params);
 }
 
 1;
