@@ -89,16 +89,15 @@ sub process
     if ($self->_create_new_wizard($self->c)) {
         $self->_new_session;
         $self->initialize($self->c);
+        $self->seed($self->c->req->params)
+            if $self->c->form_posted;
     }
-
-    return unless $self->c->form_posted;
-
-    $self->_retrieve_wizard_settings;
-    my $page = $self->_store_page_in_session;
-    $self->_route ($page); 
-    $self->_store_wizard_settings;
-
-    return;
+    elsif ($self->c->form_posted) {
+        $self->_retrieve_wizard_settings;
+        my $page = $self->_store_page_in_session;
+        $self->_route ($page); 
+        $self->_store_wizard_settings;
+    }
 }
 
 sub initialize
@@ -212,9 +211,19 @@ of POST data, for example (as in the case of the release editor).
 
 =cut
 
-sub _transform_parameters {
+sub _seed_parameters {
     my ($self, $params) = @_;
     return $params;
+}
+
+sub seed {
+    my ($self, $params) = @_;
+    $params = $self->_seed_parameters($params);
+
+    my $max = scalar @{ $self->pages } - 1;
+    for (0..$max) {
+        $self->_post_to_page($_, $params);
+    }
 }
 
 sub _post_to_page
@@ -228,10 +237,10 @@ sub _post_to_page
 
     my $page = $self->_load_form ($page_id);
 
-    $page->unserialize ( $self->_store->{"step ".$self->_current},
-                         $self->_transform_parameters($params) );
+    $page->unserialize ( $self->_store->{"step $page_id"},
+                         $params );
 
-    $self->_store->{"step ".$self->_current} = $page->serialize;
+    $self->_store->{"step $page_id"} = $page->serialize;
 
     return $page;
 }

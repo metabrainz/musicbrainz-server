@@ -611,7 +611,7 @@ sub create_common_edits
     }
 }
 
-sub _transform_parameters {
+sub _seed_parameters {
     my ($self, $params) = @_;
     $params = expand_hash($params);
 
@@ -663,6 +663,16 @@ sub _transform_parameters {
             ->get_by_gid(delete $artist_credit->{mbid});
         $artist_credit->{artist_id} = $entity->id;
         $artist_credit->{name} ||= $entity->name;
+    }
+
+    for my $medium (@{ $params->{mediums} }) {
+      FORMAT: if (my $format = delete $medium->{format}) {
+            my $entity = $self->c->model('MediumFormat')
+                ->find_by_name($format) or last FORMAT;
+            $medium->{format_id} = $entity->id;
+        }
+
+        
     }
 
     return collapse_hash($params);

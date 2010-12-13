@@ -55,6 +55,15 @@ sub get_tree
     return $root;
 }
 
+sub find_by_name
+{
+    my ($self, $name) = @_;
+    my $row = $self->sql->select_single_row_hash(
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+          WHERE lower(name) = lower(?)', $name);
+    return $row ? $self->_new_from_row($row) : undef;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
