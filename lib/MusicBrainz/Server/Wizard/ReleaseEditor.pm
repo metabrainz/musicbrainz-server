@@ -657,6 +657,14 @@ sub _transform_parameters {
         $label->{name} = $entity->name;
     }
 
+    for my $artist_credit (@{ $params->{artist_credit}{names} }) {
+        next unless $artist_credit->{mbid};
+        my $entity = $self->c->model('Artist')
+            ->get_by_gid(delete $artist_credit->{mbid});
+        $artist_credit->{artist_id} = $entity->id;
+        $artist_credit->{name} ||= $entity->name;
+    }
+
     return collapse_hash($params);
 }
 
