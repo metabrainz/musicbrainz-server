@@ -18,7 +18,7 @@
 
 */
 
-MB.Control.TagEditor = function(container, endpoint, viewTag)
+MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
 {
     var self = MB.Object();
     var tagTemplate = MB.utility.template('<a href="' + viewTag + '#{tag}">#{tag}</a>');
@@ -30,15 +30,20 @@ MB.Control.TagEditor = function(container, endpoint, viewTag)
 
     self.submitTags = function(tags) {
         $.post(endpoint, { tags: tags }, function(data) {
-            self.updateTagDisplay(data.tags);
+            self.updateTagDisplay(data.tags, data.more);
         }, 'json');
     };
 
-    self.updateTagDisplay = function(tags) {
-        self.$tagList.html(
-            tags.map(function(tag) {
+    self.updateTagDisplay = function(tags, more) {
+        var html = tags.map(function(tag) {
                 return tagTemplate.draw({tag: tag});
-            }).join(', '));
+            }).join(', ');
+
+        if (more) {
+            html += ', ' + moreHtml;
+        }
+
+        self.$tagList.html(html);
     };
 
     self.$apply.click(function(ev) {

@@ -14,7 +14,8 @@ END -%]
 <script type="text/javascript">
     $(function() {
         MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
-            "[% c.uri_for('/tag/') %]");
+            "[% c.uri_for('/tag/') %]",
+            '[% link_entity(entity, 'tags', l('more&hellip;')) %]');
     });
 </script>
 
@@ -30,7 +31,7 @@ END -%]
             <p>[% link_entity(entity, 'tags', tag_this_text) %]</p>
         [% ELSE %]
             <form>
-                <input type="text" class="tag-input" value="[% user_tags.join(', ') %]" />
+                <input type="text" class="tag-input" value="[% sidebar_user_tags.join(', ') %]" />
                 <input type="submit" value="[% l('Tag') %]" />
             </form>
         [% END %]

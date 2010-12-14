@@ -23,7 +23,7 @@ after 'load' => sub
     $c->stash(
         top_tags => \@tags,
         more_tags => $count > @tags,
-        user_tags => [ map { $_->tag->name } @user_tags ]
+        sidebar_user_tags => [ map { $_->tag->name } @user_tags ]
     );
 };
 
@@ -69,11 +69,13 @@ sub tag_async : Chained('load') PathPart('ajax/tag')
 
     my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
     my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
+    my $count = $tags_model->find_tag_count($entity->id);
 
     my $response = {
         tags => [
             uniq sort map { $_->tag->name } @user_tags, @tags 
-        ]
+        ],
+        more => $count > @tags
     };
 
     $c->res->body(JSON::Any->new(utf8 => 1)->encode($response));
