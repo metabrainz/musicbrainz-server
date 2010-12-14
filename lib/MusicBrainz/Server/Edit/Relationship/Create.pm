@@ -124,6 +124,25 @@ sub insert
     $self->entity($relationship);
 }
 
+sub accept
+{
+    my ($self) = @_;
+
+    my $link_type = $self->c->model('LinkType')->get_by_id(
+        $self->data->{link_type_id}
+    );
+
+    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
+        my $url = $self->c->model('URL')->get_by_id(
+            $self->data->{entity1}
+        );
+
+        $self->c->model('CoverArt')->cache_cover_art(
+            $self->data->{entity0}, $link_type->name, $url->url
+        );
+    }
+}
+
 sub reject
 {
     my $self = shift;
