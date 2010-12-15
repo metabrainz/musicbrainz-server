@@ -207,6 +207,7 @@ sub insert
         $row->{gid} = $artist->{gid} || generate_gid();
 
         push @created, $class->new(
+            name => $artist->{name},
             id => $sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );

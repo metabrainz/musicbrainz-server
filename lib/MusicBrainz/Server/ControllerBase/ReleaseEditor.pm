@@ -7,6 +7,7 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
@@ -15,6 +16,8 @@ use MusicBrainz::Server::Wizard;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_ARTIST_CREATE
+    $EDIT_LABEL_CREATE
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_DELETERELEASELABEL
@@ -165,6 +168,41 @@ sub _create_edit
     $c->stash->{changes} = 1;
 
     return $edit;
+}
+
+sub _edit_missing_entities
+{
+    my ($self, $c, $preview, $editnote, $data, $release) = @_;
+
+    my $edit = $preview ? '_preview_edit' : '_create_edit';
+    
+    my %created;
+
+    my @artist_edits = map {
+        my $artist = $_;
+        $self->$edit($c,
+            $EDIT_ARTIST_CREATE,
+            $editnote,
+            map { $_ => $artist->{$_} } qw( name sort_name comment ));
+    } @{ $data->{missing}{artists} };
+
+    my @label_edits = map {
+        my $label = $_;
+        $self->$edit($c,
+            $EDIT_LABEL_CREATE,
+            $editnote,
+            map { $_ => $label->{$_} } qw( name sort_name comment ));
+    } @{ $data->{missing}{labels} };
+
+    return () if $preview;
+    return (
+        artist => {
+            map { $_->entity->name => $_->entity } @artist_edits
+        },
+        label => {
+            map { $_->entity->name => $_->entity } @label_edits
+        }
+    )
 }
 
 sub _edit_release_labels
@@ -385,6 +423,12 @@ sub run
                 form => 'ReleaseEditor::Recordings'
             },
             {
+                name => 'missing_entities',
+                title => l('Add Missing Entities'),
+                template => 'release/edit/missing_entities.tt',
+                form => 'ReleaseEditor::MissingEntities'
+            },
+            {
                 name => 'editnote',
                 title => l('Edit Note'),
                 template => 'release/edit/editnote.tt',
@@ -413,6 +457,9 @@ sub run
     elsif ($wizard->loading) {
         $self->load($c, $wizard, $release);
     }
+    elsif ($wizard->current_page eq 'missing_entities') {
+        $self->determine_missing_entities($c, $wizard);
+    }
 
     $wizard->render;
 }
@@ -420,6 +467,27 @@ sub run
 sub create_edits
 {
     my ($self, $c, $data, $previewing, $editnote, $release) = @_;
+
+    # Artists and labels:
+    # ----------------------------------------
+    my (%created) = $self->_edit_missing_entities(
+        $c, $previewing, $editnote, $data, $release);
+
+    unless ($previewing) {
+        for my $bad_ac ($self->_misssing_artist_credits($data)) {
+            my $artist = $created{artist}{ $bad_ac->{name} }
+                or die 'No artist was created for ' . $bad_ac->{name};
+
+            $bad_ac->{artist} = $artist->id;
+        }
+
+        for my $bad_label ($self->_missing_labels($data)) {
+            my $label = $created{label}{ $bad_label->{name} }
+                or die 'No label was created for ' . $bad_label->{name};
+
+            $bad_label->{label_id} = $label->id;
+        }
+    }
 
     $c->stash->{edits} = [];
     $release = inner();
@@ -570,6 +638,59 @@ sub prepare_recordings
     $c->stash->{tracklist_edits} = \@tracklist_edits;
 
     $wizard->load_page('recordings', { 'rec_mediums' => \@recording_gids });
+}
+
+sub determine_missing_entities
+{
+    my ($self, $c, $wizard) = @_;
+
+    my @credits = map +{
+            for => $_->{name},
+            name => $_->{name},
+        }, $self->_misssing_artist_credits($wizard->value);
+
+    my @labels = map +{
+            for => $_->{name},
+            name => $_->{naem}
+        }, $self->_missing_labels($wizard->value);
+
+    $wizard->load_page('missing_entities', {
+        missing => {
+            artists => \@credits,
+            labels => \@labels
+        }
+    });
+}
+
+sub _missing_labels {
+    my ($self, $data) = @_;
+    return grep { !$_->{label_id} && $_->{name} }
+        @{ $data->{labels} };
+}
+
+sub _misssing_artist_credits
+{
+    my ($self, $data) = @_;
+    my $json = JSON::Any->new(utf8 => 1);
+    return 
+        grep { !$_->{artist} } grep { ref($_) }
+        map { @{ clean_submitted_artist_credits($_) } }
+        (
+            # Artist credit for the release itself
+            $data->{artist_credit},
+        ),
+        (
+            # Artist credits on new tracklists
+            map {
+                [ map { 
+                    { artist => $_->{id}, name => $_->{name} },
+                    $_->{join}
+                } @{ $_->{artist_credit}->{names} } ]
+            }
+            map { @{ $json->decode($_) } }
+            grep { $_ } map { $_->{edits} }
+            @{ $data->{mediums} }
+        );
 }
 
 sub create_common_edits
