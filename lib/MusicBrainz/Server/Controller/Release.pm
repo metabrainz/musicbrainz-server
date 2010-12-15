@@ -13,9 +13,9 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::Tag';
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
-use MusicBrainz::Server::Controller::Role::Tag;
 use MusicBrainz::Server::Translation qw ( l ln );
 
 use MusicBrainz::Server::Constants qw(
@@ -60,13 +60,6 @@ after 'load' => sub
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
-
-    # Load release group tags
-    my $entity = $c->stash->{$self->{entity_name}};
-    my @tags = $c->model('ReleaseGroup')->tags->find_top_tags(
-        $release->release_group->id,
-        $MusicBrainz::Server::Controller::Role::Tag::TOP_TAGS_COUNT);
-    $c->stash->{top_tags} = \@tags;
 
     # We need to load more artist credits in 'show'
     if ($c->action->name ne 'show') {
