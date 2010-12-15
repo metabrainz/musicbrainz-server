@@ -252,37 +252,37 @@ sub _edit_release_track_edits
         # new medium which re-uses a tracklist already in the database.
         my $new_medium = $tracklist_id && ! $new->{id};
 
-        next unless $new->{edits} || $new_medium;
-
-        if ($tracklist_id && $new->{id})
+        if ($new->{edits} || $new_medium)
         {
-            # We already have a tracklist and a medium, so lets create a tracklist edit
+            if ($tracklist_id && $new->{id})
+            {
+                # We already have a tracklist and a medium, so lets create a tracklist edit
 
-            my $old = $c->model('Medium')->get_by_id ($new->{id});
-            $c->model('Tracklist')->load ($old);
-            $c->model('Track')->load_for_tracklists ($old->tracklist);
-            $c->model('ArtistCredit')->load ($old->tracklist->all_tracks);
+                my $old = $c->model('Medium')->get_by_id ($new->{id});
+                $c->model('Tracklist')->load ($old);
+                $c->model('Track')->load_for_tracklists ($old->tracklist);
+                $c->model('ArtistCredit')->load ($old->tracklist->all_tracks);
 
-            $self->$edit($c,
-                $EDIT_MEDIUM_EDIT_TRACKLIST,
-                $editnote,
-                separate_tracklists => 1,
-                medium_id => $new->{id},
-                tracklist_id => $new->{tracklist_id},
-                old_tracklist => $self->_tracks_to_ref ($old->tracklist->tracks),
-                new_tracklist => $self->_tracks_to_ref ($new->{tracks}),
-                as_auto_editor => $data->{as_auto_editor},
-            );
+                $self->$edit($c,
+                             $EDIT_MEDIUM_EDIT_TRACKLIST,
+                             $editnote,
+                             separate_tracklists => 1,
+                             medium_id => $new->{id},
+                             tracklist_id => $new->{tracklist_id},
+                             old_tracklist => $self->_tracks_to_ref ($old->tracklist->tracks),
+                             new_tracklist => $self->_tracks_to_ref ($new->{tracks}),
+                             as_auto_editor => $data->{as_auto_editor},
+                    );
+            }
+            elsif (!$tracklist_id)
+            {
+                my $create_tl = $self->$edit(
+                    $c, $EDIT_TRACKLIST_CREATE, $editnote,
+                    tracks => $self->_tracks_to_ref ($new->{tracks}));
+
+                $tracklist_id = $create_tl->tracklist_id || 0;
+            }
         }
-        elsif (!$tracklist_id)
-        {
-            my $create_tl = $self->$edit(
-                $c, $EDIT_TRACKLIST_CREATE, $editnote,
-                tracks => $self->_tracks_to_ref ($new->{tracks}));
-
-            $tracklist_id = $create_tl->tracklist_id || 0;
-        }
-
 
         if ($new->{id})
         {
