@@ -826,6 +826,14 @@ CREATE TABLE release_status
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE release_tag
+(
+    release             INTEGER NOT NULL, -- PK, references release.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE release_group (
     id                  SERIAL,
     gid                 UUID NOT NULL,

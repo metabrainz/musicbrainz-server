@@ -131,6 +131,13 @@ CREATE TABLE release_raw
     comment             VARCHAR(255)
 );
 
+CREATE TABLE release_tag_raw
+(
+    release             INTEGER NOT NULL, -- PK
+    editor              INTEGER NOT NULL, -- PK
+    tag                 INTEGER NOT NULL -- PK
+);
+
 CREATE TABLE release_group_rating_raw
 (
     release_group       INTEGER NOT NULL, -- PK
