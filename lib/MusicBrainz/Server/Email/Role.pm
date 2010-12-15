@@ -8,24 +8,14 @@ use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Entity::Types;
 use String::TT qw( strip );
 
+requires 'to', 'subject';
+
 has 'body' => (
     isa => Str,
     is => 'ro',
     builder => 'text',
     lazy => 1,
     required => 1
-);
-
-has 'to' => (
-    isa => Str,
-    required => 1,
-    is => 'ro',
-);
-
-has 'subject' => (
-    isa => Str,
-    required => 1,
-    is => 'ro',
 );
 
 has 'from' => (
