@@ -231,7 +231,7 @@
           </a>
         </td>
         <td class="guesscase">
-          <a class="guesscase-track" href="#guesscase_track">aA</a>
+          <a class="guesscase-track" href="#guesscase_track">[%- l('aA') -%]</a>
         </td>
       </tr>
       <tr class="track-artist-credit">
