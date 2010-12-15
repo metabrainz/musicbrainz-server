@@ -3,14 +3,15 @@ package MusicBrainz::Server::Data::Release;
 use Moose;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
+    add_partial_date_to_row
     generate_gid
+    hash_to_row
     load_subobjects
+    order_by
     partial_date_from_row
     placeholders
-    query_to_list_limited
     query_to_list
-    order_by
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -437,6 +438,8 @@ sub update
     $sql->update_row('release', $row, { id => $release_id });
 }
 
+sub can_delete { 1 }
+
 sub delete
 {
     my ($self, @release_ids) = @_;
@@ -484,28 +487,23 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $release, $names) = @_;
-    my %row = (
-        artist_credit => $release->{artist_credit},
-        release_group => $release->{release_group_id},
-        status => $release->{status_id},
-        packaging => $release->{packaging_id},
-        date_year => $release->{date}->{year},
-        date_month => $release->{date}->{month},
-        date_day => $release->{date}->{day},
-        barcode => $release->{barcode},
-        comment => $release->{comment},
-        country => $release->{country_id},
-        script => $release->{script_id},
-        language => $release->{language_id},
-        quality => $release->{quality}
-    );
+    my $row = hash_to_row($release, { 
+        artist_credit => 'artist_credit',
+        release_group => 'release_group_id',
+        status => 'status_id',
+        packaging => 'packaging_id',
+        country => 'country_id',
+        script => 'script_id',
+        language => 'language_id',
+        map { $_ => $_ } qw( barcode comment quality )
+    });
 
-    if ($release->{name})
-    {
-        $row{name} = $names->{$release->{name}};
-    }
+    add_partial_date_to_row($row, $release->{date}, 'date');
 
-    return { defined_hash(%row) };
+    $row->{name} = $names->{$release->{name}}
+        if (exists $release->{name});
+
+    return $row;
 }
 
 sub load_meta

@@ -1,6 +1,5 @@
 [%- BLOCK layout_head -%]
   <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
@@ -27,7 +26,6 @@
      <p class="barcode-suggestion"></p>
 </div>
 [%- END -%]
-
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
@@ -106,15 +104,20 @@
 
   <div class="documentation">
 
+    <p style="margin: 2em; text-align: right;">
+       <input class="autocomplete-directsearch" type="checkbox" value="0"></input>
+       <label>[%- l('Use direct search') -%]</label>
+    </p>
+
     [% artist_credit_table(form) %]
 
     <div class="date-container" style="display: none">
       <div class="date bubble">
- 	<p class="amazon" style="display: none">
-	  [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %] 
-	</p>
+        <p class="amazon" style="display: none">
+          [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %]
+        </p>
         <p class="january-first" style="display: none">
-	  [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %] 
+          [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %]
         </p>
      </div>
     </div>
@@ -122,12 +125,12 @@
     [% FOR field=form.field('labels').fields %]
     <div class="catno-container" style="display: none">
       <div class="catno bubble">
-	<p>
+        <p>
           [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
-	</p>
-	<p>
+        </p>
+        <p>
           [% l('If this is an Amazon ASIN, please do not enter it in the catalog number field, but add it as a URL relationship later.') %]
-	</p>
+        </p>
       </div>
     </div>
     [% END %]

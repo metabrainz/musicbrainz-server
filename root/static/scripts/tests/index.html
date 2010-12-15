@@ -28,6 +28,8 @@
     <script type="text/javascript" src="../MB/Control/ReleaseBasicTab.js"></script>
     <script type="text/javascript" src="../MB/Control/ReleaseAdvancedTab.js"></script>
 
+    <script type="text/javascript" src="../MB/Control/URLCleanup.js"></script>
+
     <!-- Release Editor tests. -->
     <script type="text/javascript" src="ReleaseEditor/ArtistCredit.js"></script>
     <script type="text/javascript" src="ReleaseEditor/AdvancedTab.js"></script>
@@ -35,6 +37,9 @@
     <script type="text/javascript" src="ReleaseEditor/Encoding.js"></script>
     <script type="text/javascript" src="ReleaseEditor/TrackParser.js"></script>
     <script type="text/javascript" src="ReleaseEditor/Runner.js"></script>
+
+    <!-- URL cleanup -->
+    <script type="text/javascript" src="Control/URLCleanup.js"></script>
 
     <script type="text/javascript">
 
@@ -48,7 +53,8 @@
               old_done (failures, total);
           };
 
-          MB.tests.ReleaseEditor.Run ();
+          //MB.tests.ReleaseEditor.Run ();
+          MB.tests.URLCleanup.Run ();
       });
 
     </script>

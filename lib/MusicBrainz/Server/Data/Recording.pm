@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
+    hash_to_row
     placeholders
     load_subobjects
     query_to_list_limited
@@ -94,6 +95,23 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub autocomplete_name
+{
+    my ($self, $name, $artist, $limit, $offset) = @_;
+
+    $limit ||= 10;
+    $offset ||= 0;
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table .
+        " JOIN artist_credit ON artist_credit.id = recording.artist_credit" .
+        " JOIN artist_name ON artist_name.id = artist_credit.name" .
+        " WHERE lower(name.name) LIKE ?" .
+        " AND lower(artist_name.name) LIKE ?" .
+        " OFFSET ?";
+
+    return query_to_list_limited($self->c->dbh, $offset, $limit,
+        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), lc("$artist%"), $offset);
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -158,17 +176,14 @@ sub delete
 sub _hash_to_row
 {
     my ($self, $recording, $names) = @_;
-    my %row = (
-        artist_credit => $recording->{artist_credit},
-        length => $recording->{length},
-        comment => $recording->{comment},
-    );
+    my $row = hash_to_row($recording, {
+        map { $_ => $_ } qw( artist_credit length comment )
+    });
 
-    if ($recording->{name}) {
-        $row{name} = $names->{$recording->{name}};
-    }
+    $row->{name} = $names->{$recording->{name}}
+        if (exists $recording->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta
@@ -200,6 +215,24 @@ sub merge
 
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
     return 1;
+}
+
+sub find_standalone
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query ='
+        SELECT ' . $self->_columns . '
+          FROM ' . $self->_table . '
+     LEFT JOIN track t ON t.recording = recording.id
+          JOIN artist_credit_name acn
+            ON acn.artist_credit = recording.artist_credit
+         WHERE t.id IS NULL
+           AND acn.artist = ?
+      ORDER BY musicbrainz_collate(name.name)
+        OFFSET ?';
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
 }
 
 __PACKAGE__->meta->make_immutable;

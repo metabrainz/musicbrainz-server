@@ -5,7 +5,15 @@
     <fieldset>
       <legend>[%- l('Work Details') -%]</legend>
       [%- form_row_artist_credit(form) -%]
-      [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%#- form_row_text_long(r, 'name', l('Name:')) -%]
+
+      [% WRAPPER form_row %]
+        [% r.label('name', l('Name:')) %]
+        [% r.text('name', { style => 'width: 200px' })  %]
+        <button style="width: 96px" class="guesscase">[% l('Guess case') %]</button>
+        [% field_errors(form, 'name') %]
+      [% END %]
+
       [%- form_row_text_long(r, 'comment', l('Comment:')) -%]
       [%- form_row_text_long(r, 'iswc', l('ISWC:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
@@ -17,7 +25,7 @@
   </div>
 
   <div class="documentation">
-    [%- artist_credit_table(form) -%]
+    [%- artist_credit_table(form, 1) -%]
   </div>
 
 </form>

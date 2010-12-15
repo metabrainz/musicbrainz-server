@@ -19,6 +19,7 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
+        <script type="text/javascript">document.cookie = "javascript=true; path=/";</script>
         [%- UNLESS no_javascript -%]
             <script type="text/javascript" src="[%-
                 c.model('FileCache').squash_scripts(
@@ -85,6 +86,13 @@
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [%- END -%]
+
+        [% IF makes_no_changes %]
+        <div class="warning-header">
+            <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>
+            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+        </div>
+        [% END %]
 
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
             [%- content -%]

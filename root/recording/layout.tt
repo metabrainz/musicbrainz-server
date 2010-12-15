@@ -22,7 +22,10 @@
             [%- END -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags more=more_tags tag_this_text=l('Tag this recording') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags
+            more=more_tags tag_this_text=l('Tag this recording')
+            async = c.uri_for_action('/recording/tag_async', [ recording.gid ])
+            -%]
 
         <ul class="links">
           [% IF c.user_exists %]

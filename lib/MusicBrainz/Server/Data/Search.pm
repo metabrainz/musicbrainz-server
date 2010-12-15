@@ -401,6 +401,9 @@ sub schema_fixup
 sub escape_query
 {
     my $str = shift;
+
+    return "" unless $str;
+
     $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/g;
     return $str;
 }

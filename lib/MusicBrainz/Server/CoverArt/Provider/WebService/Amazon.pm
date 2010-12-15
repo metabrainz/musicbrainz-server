@@ -9,6 +9,7 @@ use XML::Simple;
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 
 extends 'MusicBrainz::Server::CoverArt::Provider';
+with 'MusicBrainz::Server::CoverArt::BarcodeSearch';
 
 has '+link_type_name' => (
     default => 'amazon asin',
@@ -43,12 +44,40 @@ sub lookup_cover_art
     my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
     return unless $asin;
 
-    my $url = "http://ecs.amazonaws.com/onca/xml?" .
+    my @parts = split /\./, $store;
+    my $locale = $parts[-1];
+    my $url = "http://ecs.amazonaws.$locale/onca/xml?" .
                   "Service=AWSECommerceService&" .
                   "Operation=ItemLookup&" .
                   "ItemId=$asin&" .
                   "ResponseGroup=Images";
 
+    my $cover_art = $self->_lookup_coverart($url);
+    $cover_art->asin($asin);
+    $cover_art->information_uri($uri);
+
+    return $cover_art;
+}
+
+sub search_by_barcode
+{
+    my ($self, $release) = @_;
+
+    return unless $release->barcode;
+
+    my $url = "http://ecs.amazonaws.com/onca/xml?" .
+                  "Service=AWSECommerceService&" .
+                  "Operation=ItemLookup&" .
+                  "ResponseGroup=Images&" .
+                  "IdType=" . $release->barcode_type . "&" .
+                  "SearchIndex=Music&" .
+                  "ItemId=" . $release->barcode;
+
+    return $self->_lookup_coverart($url);
+}
+
+sub _lookup_coverart {
+    my ($self, $url) = @_;   
     $url = $self->_aws_signature->addRESTSecret($url);
 
     # Respect Amazon SLA
@@ -61,7 +90,6 @@ sub lookup_cover_art
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     my $response = $lwp->get($url) or return;
-
     my $xml_res = XMLin($response->decoded_content, ForceArray => [ 'ImageSet' ]);
 
     my $image_url;
@@ -72,14 +100,10 @@ sub lookup_cover_art
 
     return unless $image_url;
 
-    my $cover_art = CoverArt->new(
+    return CoverArt->new(
         provider        => $self,
         image_uri       => $image_url,
-        information_uri => $uri,
-        asin            => $asin
     );
-
-    return $cover_art;
 }
 
 no Moose;

@@ -75,7 +75,13 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
             }
 
             str += item.position.val () + ". " + item.title.val ();
-            str += " (" + item.length.val () + ")";
+
+            var len = item.lengthOrNull ();
+            if (len)
+            {
+                str += " (" + len + ")";
+            }
+
             str += "\n";
         });
 
@@ -93,20 +99,20 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     var collapse = function (chained) {
         self.trackparser = null;
         self.textarea.val ('');
-        
+
         self.textarea.hide ();
         self.basicdisc.removeClass ('expanded');
         self.expand_icon.find ('span.ui-icon')
             .removeClass ('ui-icon-triangle-1-s')
             .addClass ('ui-icon-triangle-1-e');
- 
+
         if (!chained)
         {
             self.disc.collapse (true);
         }
 
         self.preview.render ();
-   };
+    };
 
     var expand = function (chained) {
         self.textarea.show ();
@@ -152,6 +158,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.textarea = self.basicdisc.find ('textarea.tracklist');
     self.expand_icon = self.basicdisc.find ('.expand a.icon');
     self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
+
+    if (!self.tracklist_id.length)
+    {
+        self.tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
+    }
 
     self.expand_icon.click (function (event) {
         if (self.textarea.is (':visible'))
@@ -201,16 +212,16 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
         self.textareas.push (ta);
 
         ta.expand ();
+
+        return ta;
     };
 
     var guessCase = function () {
         $.each (self.textareas, function (i, textarea) {
-            textarea.updatePreview (self.guess_track.guess);
+            textarea.updatePreview (MB.GuessCase.track.guess);
             textarea.render ();
         });
     };
-
-    self.guess_track = MB.GuessCase.Track ();
 
     self.adv = advancedtab;
     self.preview = preview;
@@ -232,7 +243,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     var self = MB.Object ();
 
     /* switch between basic / advanced view. */
-    var moveMediumFields = function (from, to) {
+    var moveFields = function (from, to) {
         var discs = self.adv.discs.length;
 
         for (var i = 0; i < discs; i++)
@@ -240,30 +251,46 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
             $('.'+from+'-medium-format-and-title').eq(i).contents ().detach ().appendTo (
                 $('.'+to+'-medium-format-and-title').eq(i));
         }
+
+        $('div.guesscase-'+from).children().appendTo($('div.guesscase-'+to));
+    };
+
+    var addDisc = function () {
+        return self.tracklist.newDisc (self.adv.addDisc ());
     };
 
     $("a[href=#advanced]").click (function () {
-        moveMediumFields ('basic', 'advanced');
+        moveFields ('basic', 'advanced');
         $('.basic-tracklist').hide ();
         $('.advanced-tracklist').show ();
+        $('#id-advanced').val ('1');
     });
 
     $("a[href=#basic]").click (function () {
-        moveMediumFields ('advanced', 'basic');
+        moveFields ('advanced', 'basic');
         $('.advanced-tracklist').hide ();
         $('.basic-tracklist').show ();
+        $('#id-advanced').val ('0');
         self.tracklist.render ();
         self.preview.render ();
     });
 
     $("a[href=#add_disc]").click (function () {
-        self.tracklist.newDisc (self.adv.addDisc ());
+        self.addDisc ();
     });
 
     $("a[href=#guesscase]").click (function () {
-        self.tracklist.guessCase ();
+        if ($('.advanced-tracklist:visible').length)
+        {
+            self.adv.guessCase ();
+        }
+        else
+        {
+            self.tracklist.guessCase ();
+        }
     });
 
+    self.addDisc = addDisc;
     self.adv = advancedtab;
     self.preview = MB.Control.ReleasePreview (self.adv);
     self.tracklist = MB.Control.ReleaseTracklist (self.adv, self.preview);
@@ -271,5 +298,13 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     self.preview.render ();
     self.tracklist.render ();
 
+    if ($('#id-advanced').val () == '1')
+    {
+        $("a[href=#advanced]").trigger ('click');
+    }
+
+    self.adv.basic = self;
+
     return self;
 }
+

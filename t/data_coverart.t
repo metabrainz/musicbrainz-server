@@ -63,6 +63,17 @@ subtest 'Handles Amazon ASINs for downloads' => sub {
     done_testing;
 };
 
+subtest 'Searching Amazon by barcode' => sub {
+    plan skip_all => 'Testing Amazon barcode searches requires the AWS_PUBLIC and AWS_PRIVATE configuration variables to be set'
+        unless DBDefs::AWS_PUBLIC() && DBDefs::AWS_PRIVATE();
+
+    my $release = Release->new( name => 'Symmetry', barcode => '5060157037002' );
+
+    $c->model('CoverArt')->load($release);
+    ok($release->has_cover_art);
+    ok($ua->get($release->cover_art->image_uri)->is_success);
+};
+
 done_testing;
 
 sub make_release

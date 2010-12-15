@@ -131,6 +131,14 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
 
+    if (self.isDeleted ())
+    {
+        // if the label is marked as deleted, make sure it is displayed as such
+        // after page load.
+        self.toggleDelete (1);
+    }
+
+
     return self;
 };
 
@@ -353,12 +361,20 @@ MB.Control.ReleaseInformation = function() {
         MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
     };
 
+    var submit = function () {
+        // always submit disabled inputs.
+        $('input:disabled').removeAttr ('disabled');
+    };
+
     self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
     self.initialize = initialize;
     self.addLabel = addLabel;
+    self.submit = submit;
 
     self.initialize ();
+
+    $('form.release-editor').bind ('submit.mb', self.submit);
 
     return self;
 }

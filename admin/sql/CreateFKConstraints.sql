@@ -134,6 +134,46 @@ ALTER TABLE editor_subscribe_label
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE editor_watch_artist
+   ADD CONSTRAINT editor_watch_artist_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE editor_watch_artist
+   ADD CONSTRAINT editor_watch_artist_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE editor_watch_preferences
+   ADD CONSTRAINT editor_watch_preferences_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE editor_watch_release_group_type
+   ADD CONSTRAINT editor_watch_release_group_type_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE editor_watch_release_group_type
+   ADD CONSTRAINT editor_watch_release_group_type_fk_release_group_type
+   FOREIGN KEY (release_group_type)
+   REFERENCES release_group_type(id);
+
+ALTER TABLE editor_watch_release_status
+   ADD CONSTRAINT editor_watch_release_status_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE editor_watch_release_status
+   ADD CONSTRAINT editor_watch_release_status_fk_release_status
+   FOREIGN KEY (release_status)
+   REFERENCES release_status(id);
+
 ALTER TABLE isrc
    ADD CONSTRAINT isrc_fk_recording
    FOREIGN KEY (recording)
@@ -970,3 +1010,7 @@ ALTER TABLE work_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
+-- Other constraints
+ALTER TABLE artist
+    ADD CONSTRAINT artist_gender
+    CHECK ( (type = 2 AND gender IS NULL) OR (type != 2) );

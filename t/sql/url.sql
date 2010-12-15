@@ -9,7 +9,7 @@ INSERT INTO url (id, gid, url, description, ref_count)
            'EVIL', 1);
 
 INSERT INTO url (id, gid, url, description, ref_count)
-    VALUES (2, '25d6b63a-12dc-41c9-858a-2f42ae610a7d', 'http://zh-yue.wikipedia.org/wiki/王菲',
+    VALUES (3, '25d6b63a-12dc-41c9-858a-2f42ae610a7d', 'http://zh-yue.wikipedia.org/wiki/王菲',
         'Cantonese wikipedia page of Faye Wong', 1);
 
 COMMIT;
