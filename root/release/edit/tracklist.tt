@@ -153,21 +153,23 @@
 
     </fieldset>
 
-    <fieldset>
-      <legend>Guess case</legend>
-      <div style="float: right; margin: 10px;" class="buttons">
-        <a href="#guesscase">[% l('Guess case') %]</a>
-      </div>
-      <p class="guesscase-options">
-        <select name="gc-mode" id="gc-mode"> </select>
-        <br />
-        <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
-        <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
-        <br />
-        <input type="checkbox" name="gc-roman" id="gc-roman">
-        <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
-      </p>
-    </fieldset>
+    <div class="guesscase-basic">
+      <fieldset class="guesscase">
+        <legend>Guess case</legend>
+        <div style="float: right; margin: 10px;" class="buttons">
+          <a href="#guesscase">[% l('Guess case') %]</a>
+        </div>
+        <p class="guesscase-options">
+          <select name="gc-mode" id="gc-mode"> </select>
+          <br />
+          <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+          <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+          <br />
+          <input type="checkbox" name="gc-roman" id="gc-roman">
+          <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+        </p>
+      </fieldset>
+    </div>
 
     <div class="buttons ui-helper-clearfix">
       [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
@@ -228,6 +230,9 @@
             <span class="ui-icon ui-icon-closethick">[% l('Remove Track') %]</span>
           </a>
         </td>
+        <td class="guesscase">
+          <a class="guesscase-track" href="#guesscase_track">aA</a>
+        </td>
       </tr>
       <tr class="track-artist-credit">
         <td colspan="5">
@@ -274,6 +279,7 @@
             </th>
             <th class="length">[% l('Length') %]</th>
             <th class="delete"></th>
+            <th class="guesscase"></th>
           </tr>
         </thead>
         <tfoot />
@@ -343,6 +349,9 @@
       </div>
 
     </fieldset>
+
+    <div class="guesscase-advanced">
+    </div>
 
     <div class="buttons ui-helper-clearfix">
       [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
