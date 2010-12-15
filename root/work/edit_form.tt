@@ -25,7 +25,7 @@
   </div>
 
   <div class="documentation">
-    [%- artist_credit_table(form) -%]
+    [%- artist_credit_table(form, 1) -%]
   </div>
 
 </form>

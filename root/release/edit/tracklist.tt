@@ -179,6 +179,7 @@
   </div>
 
   <div class="documentation basic-tracklist">
+
     <h2>Preview</h2>
 
     [% USE w = Wizard() %]
@@ -202,10 +203,18 @@
 
     <fieldset class="tracklist">
       <legend>[% l('Tracklist') %]</legend>
-      <div style="float: right; margin: 10px;" class="buttons">
+
+      [%# FIXME: move this checkbox elsewhere. --warp. %]
+      <p style="float: right; margin: 16px 1em 0 0; text-align: right;">
+         <input style="margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;" class="autocomplete-directsearch" type="checkbox" value="0"></input>
+         <label>[%- l('Use direct search') -%]</label>
+      </p>
+      <div style="float: left; margin: 10px;" class="buttons">
         <a href="#basic">[% l('Basic') %]</a>
       </div>
-      <p style="margin: 10px; width: 300px;">[% l('Click Basic to return to the basic tracklist editor.') %]</p>
+
+      <p style="margin: 18px 10px 0 0; width: 400px;">[% l('Click Basic to return to the basic tracklist editor.') %]</p>
+
     </fieldset>
 
     [%# The following is only included so it can be cloned when adding new tracks. --warp. %]

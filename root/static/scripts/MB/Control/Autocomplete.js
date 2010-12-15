@@ -190,9 +190,11 @@ MB.Control.Autocomplete = function (options) {
             self.page_term = request.term;
         }
 
+        var directsearch = $('input.autocomplete-directsearch:visible').eq(0).is(':checked');
+
         $.ajax(self.lookupHook ({
             url: self.url,
-            data: { q: request.term, page: self.current_page },
+            data: { q: request.term, page: self.current_page, direct: directsearch },
             success: response
         }));
     };
