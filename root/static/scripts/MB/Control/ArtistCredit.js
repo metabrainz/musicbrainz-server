@@ -256,10 +256,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
                 'join': item.join.val () || ''
             };
 
-            if (ac.id)
-            {
-                ret.push (ac);
-            }
+            ret.push (ac);
         });
 
         return { 'names': ret, 'preview': self.artist_input.val() };
