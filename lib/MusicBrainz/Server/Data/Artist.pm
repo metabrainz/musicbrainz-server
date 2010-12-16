@@ -207,6 +207,7 @@ sub insert
         $row->{gid} = $artist->{gid} || generate_gid();
 
         push @created, $class->new(
+            name => $artist->{name},
             id => $sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
@@ -246,7 +247,6 @@ sub delete
     $self->alias->delete_entities(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
-    $self->subscription->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->dbh);

@@ -340,13 +340,21 @@ INSERT INTO track_name (name)
 CREATE UNIQUE INDEX tmp_track_name_name ON track_name (name);
 
 INSERT INTO recording (id, gid, name, artist_credit, length, last_updated)
-    SELECT a.id, gid::uuid, n.id, COALESCE(new_ac, a.artist), a.length, NULL
+    SELECT a.id, gid::uuid, n.id, COALESCE(new_ac, a.artist),
+    CASE
+        WHEN a.length <= 0 THEN NULL
+        ELSE a.length
+    END as length, NULL
     FROM public.track a
         JOIN track_name n ON n.name = a.name
         LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
 INSERT INTO track (id, tracklist, name, recording, artist_credit, length, position, last_updated)
-    SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist), length, a.sequence, NULL
+    SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist),
+    CASE
+        WHEN length <= 0 THEN NULL
+        ELSE length
+    END, a.sequence, NULL
     FROM public.track t
         JOIN public.albumjoin a ON t.id = a.track
         JOIN public.album ON album.id = a.album

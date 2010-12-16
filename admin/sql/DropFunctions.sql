@@ -7,6 +7,7 @@ DROP FUNCTION a_del_release_group();
 DROP FUNCTION a_del_track();
 DROP FUNCTION a_del_work();
 DROP FUNCTION a_ins_artist();
+DROP FUNCTION a_ins_editor();
 DROP FUNCTION a_ins_label();
 DROP FUNCTION a_ins_recording();
 DROP FUNCTION a_ins_release();

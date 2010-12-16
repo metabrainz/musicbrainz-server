@@ -22,7 +22,10 @@
                    IF label.country -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags more=more_tags tag_this_text=l('Tag this label') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags
+            more=more_tags tag_this_text=l('Tag this label')
+            async = c.uri_for_action('/label/tag_async', [ label.gid ])
+            -%]
 
         <ul class="links">
         [% IF c.user_exists %]

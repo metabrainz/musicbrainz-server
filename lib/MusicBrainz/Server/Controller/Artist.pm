@@ -80,6 +80,13 @@ after 'load' => sub
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
+
+    $c->stash(
+        watching_artist =>
+            $c->user_exists && $c->model('WatchArtist')->is_watching(
+                editor_id => $c->user->id, artist_id => $artist->id
+            )
+    );
 };
 
 =head2 similar
@@ -486,6 +493,30 @@ around $_ => sub {
         $self->$orig($c);
     }
 } for qw( edit merge );
+
+sub watch : Chained('load') RequireAuth {
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    $c->model('WatchArtist')->watch_artist(
+        artist_id => $artist->id,
+        editor_id => $c->user->id
+    ) if $c->user_exists;
+
+    $c->response->redirect($c->req->referer);
+}
+
+sub stop_watching : Chained('load') RequireAuth {
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    $c->model('WatchArtist')->stop_watching_artist(
+        artist_ids => [ $artist->id ],
+        editor_id => $c->user->id
+    ) if $c->user_exists;
+
+    $c->response->redirect($c->req->referer);
+}
 
 =head1 LICENSE
 

@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Controller::Role::Tag;
 use MusicBrainz::Server::Translation qw ( l ln );
 
@@ -321,6 +322,10 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     confirmation_template => 'release/merge_confirm.tt',
     search_template => 'release/merge_search.tt',
     merge_form => 'Merge::Release',
+};
+
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type      => $EDIT_RELEASE_DELETE,
 };
 
 __PACKAGE__->meta->make_immutable;

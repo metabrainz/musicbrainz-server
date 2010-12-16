@@ -442,6 +442,8 @@ sub update
     $sql->update_row('release', $row, { id => $release_id });
 }
 
+sub can_delete { 1 }
+
 sub delete
 {
     my ($self, @release_ids) = @_;

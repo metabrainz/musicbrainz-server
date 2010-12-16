@@ -242,6 +242,7 @@ sub _recording_direct {
         $query, $artist, $limit, $offset);
 
     $c->model ('ArtistCredit')->load (@$entities);
+    $c->model('ISRC')->load_for_recordings (@$entities);
 
     my @output;
 
@@ -285,6 +286,8 @@ sub _recording_indexed {
         for my $result (@{ $response->{results} })
         {
             my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
+
+            $c->model('ISRC')->load_for_recordings ($entity);
 
             next unless $entity;
 

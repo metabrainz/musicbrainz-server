@@ -1,20 +1,6 @@
 <table class="details">
-  <th>[% l('Releases:') %]</th>
-  <td>
-    [% IF edit.display_data.releases.size %]
-      <ul>
-        [% FOR release=edit.display_data.releases %]
-        <li>
-          [% link_release(release) %]
-        </li>
-        [% END %]
-      </ul>
-    [% ELSE %]
-      [% edit.display_data.name | html %]
-    [% END %]
-  </td>
   <tr>
-    <th>[% l('Artist:') %]</th>
-    <td>[% artist_credit(edit.display_data.artist_credit) %]</td>
+    <th>[% l('Release:') %]</th>
+    <td>[% edit.display_data.name %]</td>
   </tr>
 </table>

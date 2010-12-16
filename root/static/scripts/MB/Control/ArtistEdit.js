@@ -21,9 +21,11 @@
 MB.Control.ArtistEdit = function () {
     var self = MB.Object ();
 
-    self.$begin = $('#label-edit-artist\\.begin_date');
-    self.$end   = $('#label-edit-artist\\.end_date');
-    self.$type  = $('#id-edit-artist\\.type_id');
+    self.$begin  = $('#label-edit-artist\\.begin_date');
+    self.$end    = $('#label-edit-artist\\.end_date');
+    self.$type   = $('#id-edit-artist\\.type_id');
+    self.$gender = $('#id-edit-artist\\.gender_id');
+    self.old_gender = self.$gender.val();
 
     self.$name = $('#id-edit-artist\\.name');
     self.$sort_name = $('#id-edit-artist\\.sort_name');
@@ -46,10 +48,33 @@ MB.Control.ArtistEdit = function () {
     var typeChanged = function() {
         switch (self.$type.val()) {
             default:
-            case '0': self.changeDateText(MB.text.ArtistDate.Unknown);  break;
-            case '1': self.changeDateText(MB.text.ArtistDate.Person);  break;
-            case '2': self.changeDateText(MB.text.ArtistDate.Founded); break;
+            case '0':
+                self.changeDateText(MB.text.ArtistDate.Unknown);
+                self.enableGender();
+                break;
+
+            case '1':
+                self.changeDateText(MB.text.ArtistDate.Person);
+                self.enableGender();
+                break;
+
+            case '2':
+                self.changeDateText(MB.text.ArtistDate.Founded);
+                self.disableGender();
+                break;
         }
+    };
+
+    var enableGender = function() {
+        self.$gender
+           .attr("disabled", null)
+           .val(self.old_gender);
+    };
+
+    var disableGender = function() {
+        self.$gender.attr("disabled", "disabled");
+        self.old_gender = self.$gender.val();
+        self.$gender.val('');
     };
 
     var guesscase = function (event) {
@@ -78,6 +103,8 @@ MB.Control.ArtistEdit = function () {
     self.guesscase = guesscase;
     self.sortname = sortname;
     self.copy = copy;
+    self.enableGender = enableGender;
+    self.disableGender = disableGender;
 
     self.typeChanged();
     self.$type.bind ('change.mb', self.typeChanged);

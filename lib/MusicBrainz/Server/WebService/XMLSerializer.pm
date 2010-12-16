@@ -646,6 +646,11 @@ sub _serialize_relation
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
 
+    push @list, $gen->attribute_list(
+        map { $gen->attribute($_->name) }
+            $rel->link->all_attributes
+    ) if ($rel->link->all_attributes);
+
     unless ($rel->target_type eq 'url')
     {
         my $method =  "_serialize_" . $rel->target_type;
