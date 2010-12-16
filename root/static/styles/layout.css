@@ -279,6 +279,7 @@ pre code {
     background: url('/static/images/layout/sprites.png') -41px -58px;
 }
 
+.warning-header,
 .server-details {
     margin: 10px 0;
     text-align: center;
@@ -290,8 +291,13 @@ pre code {
     position: relative;
 }
 
-.server-details p {
+.server-details p,
+.warning-header p {
     margin: 0;
+}
+
+.warning-header {
+    color: #000;
 }
 
 div.warning {

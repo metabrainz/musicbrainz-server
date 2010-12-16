@@ -87,7 +87,7 @@ sub _insert_edit {
         );
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        # XXX Display a message about having made no changes
+        $c->stash( makes_no_changes => 1 );
     }
     catch ($e) {
         use Data::Dumper;
@@ -127,7 +127,7 @@ sub edit_action
             %extra
         );
 
-        $opts{on_creation}->($edit) if exists $opts{on_creation};
+        $opts{on_creation}->($edit) if $edit && exists $opts{on_creation};
     }
 }
 

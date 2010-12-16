@@ -14,7 +14,10 @@
         [%- END -%]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=rg -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=rg tags=top_tags more=more_tags tag_this_text=l('Tag release group') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=rg tags=top_tags
+            more=more_tags tag_this_text=l('Tag release group')
+            async = c.uri_for_action('/release_group/tag_async', [ rg.gid ])
+            -%]
 
         <ul class="links">
             [% IF c.user_exists %]

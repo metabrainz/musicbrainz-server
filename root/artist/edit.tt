@@ -17,9 +17,7 @@
     ) -%]"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-
-      MB.Control.ArtistEdit ();
-
+         MB.Control.ArtistEdit ();
     });
   </script>
 [% END %]

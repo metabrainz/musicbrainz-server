@@ -51,4 +51,14 @@ sub options_country_id  { shift->_select_all('Country') }
 
 sub dupe_model { shift->ctx->model('Artist') }
 
+sub validate {
+    my ($self) = @_;
+
+    if ($self->field('type_id')->input == 2) {
+        if ($self->field('gender_id')->value) {
+            $self->field('gender_id')->add_error('Group artists cannot have a gender');
+        }
+    }
+}
+
 1;
