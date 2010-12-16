@@ -76,6 +76,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
             str += item.position.val () + ". " + item.title.val ();
 
+            if (self.variousArtists () && item.preview.val () !== '')
+            {
+                str += MB.TrackParser.separator + item.preview.val ();
+            }
+
             var len = item.lengthOrNull ();
             if (len)
             {
@@ -129,7 +134,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     var loadTracklist = function (data) {
         self.render ();
-        self.trackparser = MB.TrackParser (self.disc, self.textarea, data);
+        self.trackparser = MB.TrackParser.Parser (self.disc, self.textarea, data);
         self.updatePreview ();
     };
 
@@ -143,6 +148,8 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
             return self.textarea.val ().split ("\n");
         }
     };
+
+    self.variousArtists = function () { return self.$various_artists.val() == '1'; };
 
     self.disc = disc;
     self.preview = preview;
@@ -158,6 +165,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.textarea = self.basicdisc.find ('textarea.tracklist');
     self.expand_icon = self.basicdisc.find ('.expand a.icon');
     self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
+    self.$various_artists = $('#various-artists');
 
     self.expand_icon.click (function (event) {
         if (self.textarea.is (':visible'))

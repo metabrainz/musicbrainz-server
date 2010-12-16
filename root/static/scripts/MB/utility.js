@@ -102,3 +102,4 @@ MB.utility.exception = function (name, message) {
     return new e ();
 };
 
+MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }

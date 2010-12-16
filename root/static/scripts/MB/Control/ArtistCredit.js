@@ -223,6 +223,10 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     };
 
     var render = function (data) {
+        $.each (self.box, function (idx, item) {
+            item.clear ();
+        });
+
         $.each (data.names, function (idx, item) {
 
             var box = self.addArtistBox (idx);
@@ -248,18 +252,16 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         var ret = [];
 
         $.each (self.box, function (idx, item) {
-            var ac = {
+            if (item.isEmpty ())
+                return;
+
+            ret.push ({
                 'artist_name': item.name.val (),
                 'name': item.credit.val (),
                 'id': item.id.val (),
                 'gid': item.gid.val (),
                 'join': item.join.val () || ''
-            };
-
-            if (ac.id)
-            {
-                ret.push (ac);
-            }
+            });
         });
 
         return { 'names': ret, 'preview': self.artist_input.val() };
