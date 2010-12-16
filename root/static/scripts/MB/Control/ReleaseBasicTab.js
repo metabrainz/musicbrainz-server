@@ -93,10 +93,17 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.textarea.val (str);
     };
 
-    var updatePreview = function (filter) {
+    var updatePreview = function () {
+        if (typeof self.timeout == "number")
+        {
+            clearTimeout (self.timeout);
+        }
+
+        delete self.timeout;
+
         if (self.trackparser)
         {
-            self.trackparser.run (filter);
+            self.trackparser.run ();
             self.preview.render ();
         }
     };
@@ -187,15 +194,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     });
 
     self.textarea.bind ('keyup', function () {
-        if (typeof self.timeout == "number")
-        {
-            clearTimeout (self.timeout);
-        }
-
-        self.timeout = setTimeout (function () {
-            delete self.timeout;
+        var newTimeout = setTimeout (function () {
             self.updatePreview ();
         }, MB.Control._preview_update_timeout);
+
+        self.timeout = newTimeout;
     });
 
     self.disc.registerBasic (self);
@@ -225,10 +228,17 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
     };
 
     var guessCase = function () {
+        /* make sure all the input fields on the advanced tab are up-to-date. */
         $.each (self.textareas, function (i, textarea) {
             textarea.updatePreview (MB.GuessCase.track.guess);
-            textarea.render ();
         });
+
+        /* have the advanced view guess case all the discs. */
+        self.adv.guessCase ();
+
+        /* take the new inputs and render them to our textareas and the preview. */
+        self.render ();
+        self.preview.render ();
     };
 
     self.adv = advancedtab;
