@@ -173,6 +173,7 @@ sub load_page
     my $page = $self->page_number->{$step};
     $page = $step unless defined $page;
 
+    return if $self->shown->[ $page ];
     return $self->_load_page ($page, $init_object);
 }
 

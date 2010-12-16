@@ -658,7 +658,7 @@ sub determine_missing_entities
 
     my @labels = map +{
             for => $_->{name},
-            name => $_->{naem}
+            name => $_->{name}
         }, $self->_missing_labels($wizard->value);
 
     $wizard->load_page('missing_entities', {
