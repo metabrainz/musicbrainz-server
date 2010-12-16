@@ -713,7 +713,7 @@ CREATE TABLE recording (
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
-    length              INTEGER,
+    length              INTEGER CHECK (length IS NULL OR length > 0),
     comment             VARCHAR(255),
     edits_pending       INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -920,7 +920,7 @@ CREATE TABLE track
     position            INTEGER NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
-    length              INTEGER,
+    length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
