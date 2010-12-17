@@ -25,7 +25,9 @@ sub cancelled
 
 augment 'create_edits' => sub
 {
-    my ($self, $c, $data, $previewing, $editnote, $release) = @_;
+    my ($self, %opts) = @_;
+    my ($c, $data, $create_edit, $editnote, $release, $previewing)
+        = @opts{qw( c data create_edit edit_note release previewing )};
 
     $self->_load_release ($c, $release);
     $c->stash( medium_formats => [ $c->model('MediumFormat')->get_all ] );
@@ -35,8 +37,6 @@ augment 'create_edits' => sub
     # confirm track <-> recording associations.
     my @tracks = $release->all_tracks;
     $c->model('Recording')->load (@tracks);
-
-    my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
 
     # release edit
     # ----------------------------------------
@@ -48,7 +48,7 @@ augment 'create_edits' => sub
     $args{'to_edit'} = $release;
     $c->stash->{changes} = 0;
 
-    $self->$edit_action($c, $EDIT_RELEASE_EDIT, $editnote, %args);
+    $create_edit->($EDIT_RELEASE_EDIT, $editnote, %args);
 
     return $release;
 };
@@ -69,6 +69,17 @@ sub submitted {
     my ($self, $c, $release) = @_;
     $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
     $c->detach;
+}
+
+# this just loads the remaining bits of a release, not yet loaded by 'load'
+sub _load_release
+{
+    my ($self, $c, $release) = @_;
+
+    $c->model('ReleaseLabel')->load($release);
+    $c->model('Label')->load(@{ $release->labels });
+    $c->model('ReleaseGroupType')->load($release->release_group);
+    $c->model('Release')->annotation->load_latest ($release);
 }
 
 1;

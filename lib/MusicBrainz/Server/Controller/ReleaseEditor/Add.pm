@@ -39,10 +39,10 @@ sub cancelled {
 }
 
 augment 'create_edits' => sub
-{ 
-    my ($self, $c, $data, $previewing, $editnote, $release) = @_;
-
-    my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
+{
+    my ($self, %args) = @_;
+    my ($c, $data, $create_edit, $editnote, $release, $previewing)
+        = @args{qw( c data create_edit edit_note release previewing )};
 
     # add release (and release group if necessary)
     # ----------------------------------------
@@ -58,7 +58,7 @@ augment 'create_edits' => sub
         my @fields = qw( name artist_credit type_id as_auto_editor );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-        my $edit = $self->$edit_action($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+        my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 
         # Previewing a release doesn't care about having the release group id
         $add_release_args{release_group_id} = $edit->entity->id
@@ -66,7 +66,7 @@ augment 'create_edits' => sub
     }
 
     # Add the release edit
-    my $add_release_edit = $self->$edit_action($c,
+    my $add_release_edit = $create_edit->(
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
     $release = $add_release_edit->entity;
 
