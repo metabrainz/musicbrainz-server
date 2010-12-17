@@ -241,15 +241,17 @@ sub determine_missing_entities
 {
     my ($self) = @_;
 
+    my $data = $self->_expand_mediums(clone($self->value));
+
     my @credits = map +{
             for => $_->{name},
             name => $_->{name},
-        }, $self->_misssing_artist_credits($self->value);
+        }, $self->_misssing_artist_credits($data);
 
     my @labels = map +{
             for => $_->{name},
-            name => $_->{naem}
-        }, $self->_missing_labels($self->value);
+            name => $_->{name}
+        }, $self->_missing_labels($data);
 
     $self->load_page('missing_entities', {
         missing => {
@@ -268,24 +270,17 @@ sub _missing_labels {
 sub _misssing_artist_credits
 {
     my ($self, $data) = @_;
-    my $json = JSON::Any->new(utf8 => 1);
-    return 
+    return
         grep { !$_->{artist} } grep { ref($_) }
-        map { @{ clean_submitted_artist_credits($_) } }
         (
             # Artist credit for the release itself
-            $data->{artist_credit},
+            map { @{ clean_submitted_artist_credits($_) } }
+                $data->{artist_credit}
         ),
         (
             # Artist credits on new tracklists
-            map {
-                [ map { 
-                    { artist => $_->{id}, name => $_->{name} },
-                    $_->{join}
-                } @{ $_->{artist_credit}->{names} } ]
-            }
-            map { @{ $json->decode($_) } }
-            grep { $_ } map { $_->{edits} }
+            map { @{ $_->{artist_credit}->{names} } }
+            map { @{ $_->{tracks} } } grep { $_->{edits} }
             @{ $data->{mediums} }
         );
 }
@@ -308,7 +303,12 @@ sub create_edits
             my $artist = $created{artist}{ $bad_ac->{name} }
                 or die 'No artist was created for ' . $bad_ac->{name};
 
+            # XXX Fix me
+            # Because bad_ac might refer to data in the form submisison
+            # OR an actual ArtistCredit object, we need to fill in both of these
+            # It's a horrible hack.
             $bad_ac->{artist} = $artist->id;
+            $bad_ac->{artist_id} = $artist->id;
         }
 
         for my $bad_label ($self->_missing_labels($data)) {
@@ -319,7 +319,6 @@ sub create_edits
         }
     }
 
-    $self->c->stash->{edits} = [];
     $self->release(inner());
 
     # Add any other extra edits (adding mediums, etc)
@@ -643,17 +642,20 @@ sub _expand_mediums
                 position => $_->{position},
                 artist_credit => ArtistCredit->from_array ([
                     map {
-                        { artist => $_->{id}, name => $_->{name} },
+                        {
+                            artist => $_->{id},
+                            name => $_->{name}
+                        },
                         $_->{join}
                     } grep {
-                        $_->{name} ne '' && $_->{id} ne ''
+                        $_->{name}
                     } @{ $_->{artist_credit}->{names} }
                 ])
             )
         } @{ $self->edited_tracklist($json->decode($edits)) } ];
     }
 
-    return $data->{mediums};
+    return $data;
 }
 
 =method _tracks_to_ref
