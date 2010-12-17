@@ -7,6 +7,7 @@ has_field 'missing' => ( type => 'Compound' );
 for my $type (qw( artists labels )) {
     has_field "missing.$type" => (
         type => 'Repeatable',
+        num_when_empty => 0
     );
 
     has_field "missing.$type.name" => (
