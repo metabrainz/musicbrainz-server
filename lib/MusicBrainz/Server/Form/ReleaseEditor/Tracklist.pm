@@ -3,7 +3,8 @@ use HTML::FormHandler::Moose;
 use JSON::Any;
 use Text::Trim qw( trim );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Track qw( format_track_length );
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -23,7 +24,7 @@ has_field 'advanced' => ( type => 'Integer' );
 sub options_mediums_format_id { shift->_select_all('MediumFormat') }
 
 sub _track_errors {
-    my ($self, $track, $tracknumbers) = @_;
+    my ($self, $track, $tracknumbers, $cdtoc) = @_;
 
     return 0 if $track->{deleted};
 
@@ -67,13 +68,79 @@ sub _track_errors {
         return l('An artist is required on track {pos}.', { pos => $pos });
     }
 
+    if ($cdtoc)
+    {
+        my $details = $cdtoc->track_details->[$pos - 1];
+        next unless $details;
+
+        my $cdtoc_duration = format_track_length ($details->{length_time});
+        if ($track->{length} ne $cdtoc_duration)
+        {
+            return l('The length of track {pos} cannot be changed, it should be {length}.',
+                     { pos => $pos, length => $cdtoc_duration });
+        }
+    }
+
     return 0;
+};
+
+sub _validate_edits {
+    my $self = shift;
+    my $medium = shift;
+    my $json = JSON::Any->new( utf8 => 1 );
+    my $edits = $json->decode (shift);
+    my $entity;
+    my $cdtoc;
+    my $medium_id = $medium->field('id')->value;
+
+    warn "medium id is ".$medium->field('id')->value."\n";
+
+    if ($medium_id)
+    {
+        $entity = $self->ctx->model('Medium')->get_by_id ($medium_id);
+        my @medium_cdtocs = $self->ctx->model('MediumCDTOC')->load_for_mediums($entity);
+        $self->ctx->model('CDTOC')->load(@medium_cdtocs);
+
+        $cdtoc = $medium_cdtocs[0]->cdtoc if scalar @medium_cdtocs;
+    }
+
+    my $tracknumbers = [];
+    for (@$edits)
+    {
+        my $msg = $self->_track_errors ($_, $tracknumbers, $cdtoc);
+
+        $medium->add_error ($msg) if $msg;
+    }
+
+    unless (scalar @$tracknumbers)
+    {
+        $medium->add_error (l('A tracklist is required'));
+        next;
+    }
+
+    shift @$tracknumbers; # there is no track 0, this shifts off an undef.
+
+    if ($cdtoc->track_count != scalar @$tracknumbers)
+    {
+        $medium->add_error (
+            ln('This medium has a Disc ID, it should have exactly {n} track.',
+               'This medium has a Disc ID, it should have exactly {n} tracks.',
+               $cdtoc->track_count, { n => $cdtoc->track_count }));
+    }
+
+    my $count = 1;
+    for (@$tracknumbers)
+    {
+        $medium->add_error (
+            l('Track {pos} is missing.', { pos => $count }))
+            unless defined $_;
+
+        $count++;
+    }
 };
 
 sub validate {
     my $self = shift;
-
-    my $json = JSON::Any->new( utf8 => 1 );
 
     for my $medium ($self->field('mediums')->fields)
     {
@@ -85,35 +152,7 @@ sub validate {
             next;
         }
 
-        if ($edits)
-        {
-            $edits = $json->decode ($edits);
-
-            my $tracknumbers = [];
-            for (@$edits)
-            {
-                my $msg = $self->_track_errors ($_, $tracknumbers);
-
-                $medium->add_error ($msg) if $msg;
-            }
-
-            unless (scalar @$tracknumbers)
-            {
-                $medium->add_error (l('A tracklist is required'));
-                next;
-            }
-
-            shift @$tracknumbers;
-            my $count = 1;
-            for (@$tracknumbers)
-            {
-                $medium->add_error (
-                    l('Track {pos} is missing.', { pos => $count }))
-                    unless defined $_;
-
-                $count++;
-            }
-        }
+        $self->_validate_edits ($medium, $edits) if $edits;
     }
 };
 
