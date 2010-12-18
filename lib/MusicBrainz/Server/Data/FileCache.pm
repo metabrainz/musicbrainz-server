@@ -27,14 +27,14 @@ sub modified {
 
 
 sub squash {
-    my ($self, $minifier, $suffix, @files) = @_;
+    my ($self, $minifier, $prefix, $suffix, @files) = @_;
     @files = map { DBDefs::STATIC_FILES_DIR . '/' . $_ } @files;
     my $hash = md5_hex(join ",", map {
         (stat($_))[9] . $_ 
     } sort @files);
 
-    my $path = DBDefs::STATIC_PREFIX . "/$hash.$suffix";
-    my $file = DBDefs::STATIC_FILES_DIR . "/$hash.$suffix";
+    my $path = DBDefs::STATIC_PREFIX . "/$prefix$hash.$suffix";
+    my $file = DBDefs::STATIC_FILES_DIR . "/$prefix$hash.$suffix";
     unless (-e$file) {
         &$minifier(input => join("\n", map { io($_)->all } @files)) > io($file);
     }
@@ -45,13 +45,13 @@ sub squash {
 sub squash_scripts {
     my $self = shift;
 
-    return $self->squash(\&Javascript::Closure::minify, "js", @_);
+    return $self->squash(\&Javascript::Closure::minify, "", "js", @_);
 }
 
 sub squash_styles {
     my $self = shift;
 
-    return $self->squash(\&CSS::Minifier::minify, "css", @_);
+    return $self->squash(\&CSS::Minifier::minify, "styles/", "css", @_);
 }
 
 __PACKAGE__->meta->make_immutable;
