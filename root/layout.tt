@@ -11,7 +11,15 @@
           [%- END -%]
         [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        <link rel="stylesheet" type="text/css" href="/static/main.css?mtime=[% c.model('FileCache').modified('main.css') %]" />
+        <link rel="stylesheet" type="text/css" href="[%-
+                c.model('FileCache').squash_styles(
+                    "styles/layout.css",
+                    "styles/entity.css",
+                    "styles/forms.css",
+                    "styles/edit.css",
+                    "styles/widgets.css",
+                )
+        -%]"/>
         [% IF extra_css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
         [% END %]
