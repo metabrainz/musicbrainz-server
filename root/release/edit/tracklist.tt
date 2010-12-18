@@ -257,10 +257,10 @@
       </legend>
 
       <div id="mediums.[% loop.index %].buttons" style="float: right; margin: 20px 20px 0 0;" >
-          <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track" title="[% l('Add Track') %]">
-            <span class="ui-icon ui-icon-plusthick">[% l('Add Track') %]</span>
+          <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track" title="[% l('Add Track(s)') %]">
+            <span class="ui-icon ui-icon-plusthick">[% l('Add Track(s)') %]</span>
           </a>
-          &nbsp;
+          <input type="text" class="add-track-count" value="1" />
           <a class="icon" href="#discdown" title="[% l('Move disc down') %]">
             <span class="ui-icon ui-icon-arrowthick-1-s">[% l('down') %]</span>
           </a>
