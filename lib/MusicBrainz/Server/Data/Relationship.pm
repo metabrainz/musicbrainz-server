@@ -13,7 +13,11 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
-use MusicBrainz::Server::Data::Utils qw( placeholders type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    placeholders
+    ref_to_type
+    type_to_model
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -28,16 +32,6 @@ Readonly my @TYPES => qw(
 );
 
 my %TYPES = map { $_ => 1} @TYPES;
-
-Readonly my %ENTITY_CLASS_TO_TYPE => (
-    'MusicBrainz::Server::Entity::Artist'       => 'artist',
-    'MusicBrainz::Server::Entity::Label'        => 'label',
-    'MusicBrainz::Server::Entity::Recording'    => 'recording',
-    'MusicBrainz::Server::Entity::Release'      => 'release',
-    'MusicBrainz::Server::Entity::ReleaseGroup' => 'release_group',
-    'MusicBrainz::Server::Entity::URL'          => 'url',
-    'MusicBrainz::Server::Entity::Work'         => 'work',
-);
 
 sub all_link_types
 {
@@ -57,7 +51,7 @@ sub _new_from_row
     my %info = (
         id => $row->{id},
         link_id => $row->{link},
-        edits_pending => $row->{editpending},
+        edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
     );
@@ -196,8 +190,7 @@ sub load_subset
     my %objs_by_type;
     return unless @objs; # nothing to do
     foreach my $obj (@objs) {
-        if (exists $ENTITY_CLASS_TO_TYPE{$obj->meta->name}) {
-            my $type = $ENTITY_CLASS_TO_TYPE{$obj->meta->name};
+        if (my $type = ref_to_type($obj)) {
             $objs_by_type{$type} = [] if !exists($objs_by_type{$type});
             push @{$objs_by_type{$type}}, $obj;
         }
@@ -239,10 +232,17 @@ sub merge_entities
     my ($self, $type, $target_id, @source_ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
+
+    # Delete relationships where the start is the same as the end
+    # (after merging)
+    $sql->do("DELETE FROM l_${type}_${type}
+               WHERE (entity0 = ? AND entity1 IN (" . placeholders(@source_ids) . '))
+                 OR  (entity0 IN (' . placeholders(@source_ids) . ') AND entity1 = ?)',
+        $target_id, @source_ids, @source_ids, $target_id);
+
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
-        # Delete all relationships from the source entities,
-        # which don't already exist on the target entity
+        # First delete all relationships between source and target entities
         $sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@source_ids) . ") AND
@@ -269,6 +269,23 @@ sub delete_entities
             WHERE $entity0 IN (" . placeholders(@ids) . ")
         ", @ids);
     }
+}
+
+sub exists
+{
+    my ($self, $type0, $type1, $values) = @_;
+    $self->_check_types($type0, $type1);
+    return $self->sql->select_single_value(
+        "SELECT 1 FROM l_${type0}_${type1}
+          WHERE entity0 = ? AND entity1 = ? AND link = ?",
+        $values->{entity0}, $values->{entity1},
+        $self->c->model('Link')->find({
+            link_type_id => $values->{link_type_id},
+            begin_date => $values->{begin_date},
+            end_date => $values->{end_date},
+            attributes => $values->{attributes},
+        })
+    );
 }
 
 sub insert
@@ -333,7 +350,7 @@ sub adjust_edit_pending
 
     my $sql = Sql->new($self->c->dbh);
     my $query = "UPDATE l_${type0}_${type1}
-                 SET editpending = editpending + ?
+                 SET edits_pending = edits_pending + ?
                  WHERE id IN (" . placeholders(@ids) . ")";
     $sql->do($query, $adjust, @ids);
 }

@@ -13,13 +13,14 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
 );
 use MusicBrainz::Server::Track;
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
-sub edit_name { 'Edit recording' }
+sub edit_name { l('Edit recording') }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 
@@ -55,6 +56,8 @@ sub foreign_keys
         }
     }
 
+    $relations->{Recording} = { $self->data->{entity_id} => [ 'ArtistCredit' ] };
+
     return $relations;
 }
 
@@ -76,6 +79,8 @@ sub build_display_data
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
     }
+
+    $data->{recording} = $loaded->{Recording}{ $self->data->{entity_id} };
 
     return $data;
 }

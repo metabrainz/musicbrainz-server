@@ -126,10 +126,18 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     MB.Control.Autocomplete ({
         'input': self.name,
         'entity': 'label',
-        'select': self.selected,
+        'select': self.selected
     });
 
     self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
+
+    if (self.isDeleted ())
+    {
+        // if the label is marked as deleted, make sure it is displayed as such
+        // after page load.
+        self.toggleDelete (1);
+    }
+
 
     return self;
 };
@@ -342,19 +350,6 @@ MB.Control.ReleaseInformation = function() {
             $('input#release-artist'), $('div.artist-credit')
         );
 
-        /* hide/show full list of languages and scripts in the dropdowns.
-
-           FIXME: the value for 'most frequent' is hardcoded here, should
-           determine that automatically. --warp.
-         */
-        $('option.language[data-frequency!=2]').hide ();
-        $('option.script[data-frequency!=4]').hide ();
-
-        $('a[href=#language_script_full]').click (function () {
-            $('option.language').show ();
-            $('option.script').show ();
-        });
-
     };
 
     var addLabel = function (row) {
@@ -366,12 +361,20 @@ MB.Control.ReleaseInformation = function() {
         MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
     };
 
+    var submit = function () {
+        // always submit disabled inputs.
+        $('input:disabled').removeAttr ('disabled');
+    };
+
     self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
     self.initialize = initialize;
     self.addLabel = addLabel;
+    self.submit = submit;
 
     self.initialize ();
+
+    $('form.release-editor').bind ('submit.mb', self.submit);
 
     return self;
 }

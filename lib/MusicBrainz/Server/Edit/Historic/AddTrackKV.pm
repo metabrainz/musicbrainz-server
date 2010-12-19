@@ -1,13 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::AddTrackKV;
-use Moose;
-use MooseX::Types::Structured qw( Dict Optional );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK_KV );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { 'Add track' }
+sub edit_name     { l('Add track') }
 sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
 sub edit_template { 'historic/add_track_kv' }
@@ -20,19 +21,6 @@ sub related_entities
         recording => [ $self->data->{recording_id} ]
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids  => ArrayRef[Int],
-        track_id     => Int,
-        recording_id => Int,
-        name         => Str,
-        # There are some edits with track number as "10 secret track"
-        position     => Int | Str,
-        length       => Nullable[Int],
-        artist_id    => Int,
-    ]
-);
 
 sub release_ids { @{ shift->data->{release_ids} } }
 
@@ -82,6 +70,4 @@ sub upgrade
     return $self;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

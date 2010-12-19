@@ -2,12 +2,13 @@ package MusicBrainz::Server::Edit::Artist::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE_ALIAS );
+use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 
 sub _alias_model { shift->c->model('Artist')->alias }
 
-sub edit_name { 'Remove artist alias' }
+sub edit_name { l('Remove artist alias') }
 sub edit_type { $EDIT_ARTIST_DELETE_ALIAS }
 
 sub related_entities { { artist => [ shift->artist_id ] } }

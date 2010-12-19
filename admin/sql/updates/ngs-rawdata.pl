@@ -5,6 +5,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Validation;
 use Sql;
 
@@ -129,12 +130,13 @@ while (1) {
             # Map albums to RGs and calculate sums/counts
             foreach $row (@user_data) {
                 my ($rating, $editor, $album) = @$row;
-                my $rg = $rg_map{$album};
+                my $rg = $rg_map{$album} or next;
                 $rg_rating_sum{$rg} += $rating;
                 $rg_rating_cnt{$rg} += 1;
             }
             # Iterate over unique RGs and add average raw ratings
             foreach my $rg (keys %rg_rating_sum) {
+                next unless defined $rg;
                 my $rating = int(0.5 + $rg_rating_sum{$rg} / $rg_rating_cnt{$rg});
                 $raw_sql->do("
                     INSERT INTO release_group_rating_raw (release_group, editor, rating)
@@ -158,7 +160,7 @@ $raw_sql->select("
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($id, $rating, $count) = @$row;
-    $sql->do("UPDATE release_group_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+    $sql->do("UPDATE release_group_meta SET rating=?, rating_count=? WHERE id=?", $rating, $count, $id);
 }
 $raw_sql->finish;
 $sql->do("DROP INDEX tmp_release_group_meta_idx");
@@ -184,14 +186,14 @@ while (1) {
 }
 $sql->finish;
 
-print " * Converting collections to lists\n";
+print " * Converting collections\n";
 
 $raw_sql->select("SELECT id, moderator FROM public.collection_info");
 while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($id, $editor_id) = @$row;
     # List should be private by default, and called "My Collection"
-    $sql->do("INSERT INTO list (id, editor, name, public, gid) VALUES (?, ?, ?, ?, generate_uuid_v4())",
+    $sql->do("INSERT INTO editor_collection (id, editor, name, public, gid) VALUES (?, ?, ?, ?, generate_uuid_v4())",
              $id, $editor_id, "My Collection", 0);
 }
 $raw_sql->finish;
@@ -202,8 +204,55 @@ while (1) {
     my $row = $raw_sql->next_row_ref or last;
     my ($list_id, $album_id) = @$row;
     next unless $release_map{$album_id};
-    $sql->do("INSERT INTO list_release (list, release)
+    $sql->do("INSERT INTO editor_collection_release (collection, release)
               VALUES (?, ?)", $list_id, $release_map{$album_id});
+}
+$raw_sql->finish;
+
+$raw_sql->select(
+    'SELECT moderator, artist
+       FROM public.collection_watch_artist_join watch
+       JOIN public.collection_info ci ON ci.id = collection_info');
+while (my $row = $raw_sql->next_row_hash_ref) {
+    $sql->do('INSERT INTO editor_watch_artist (editor, artist)
+        VALUES (?, ?)', $row->{moderator}, $row->{artist});
+}
+$raw_sql->finish;
+
+use DateTime::Duration;
+use DateTime::Format::Pg;
+
+my $format = DateTime::Format::Pg->new;
+
+$raw_sql->select('SELECT * FROM public.collection_info');
+while (my $row = $raw_sql->next_row_hash_ref) {
+    $sql->do('INSERT INTO editor_watch_preferences
+        (editor, notify_via_email, notification_timeframe, last_checked)
+            VALUES (?, ?, ?, ?)',
+        $row->{moderator}, $row->{emailnotifications},
+        $format->format_interval(
+            DateTime::Duration->new( days => $row->{notificationinterval} )),
+        $row->{lastcheck});
+
+    my @attributes = @{ $row->{ignoreattributes} };
+    my @types = grep { $_ < 100 } @attributes;
+    my @status = map { $_ - 99 } grep { $_ >= 100 } @attributes;
+
+    $sql->do(
+        'INSERT INTO editor_watch_release_group_type
+            (editor, release_group_type)
+                SELECT ?, id
+                  FROM release_group_type
+                 WHERE id NOT IN (' . placeholders(@types) . ')',
+        $row->{moderator}, @types);
+
+    $sql->do(
+        'INSERT INTO editor_watch_release_status
+            (editor, release_status)
+                SELECT ?, id
+                  FROM release_status
+                 WHERE id NOT IN (' . placeholders(@status) . ')',
+        $row->{moderator}, @status);
 }
 $raw_sql->finish;
 

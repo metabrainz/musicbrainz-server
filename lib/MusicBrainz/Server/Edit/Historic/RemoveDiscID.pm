@@ -1,14 +1,14 @@
 package MusicBrainz::Server::Edit::Historic::RemoveDiscID;
-use Moose;
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
+use strict;
+use warnings;
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_DISCID );
+use MusicBrainz::Server::Translation qw ( l ln );
 
-extends 'MusicBrainz::Server::Edit::Historic';
+use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { 'Remove disc ID' }
+sub edit_name     { l('Remove disc ID') }
 sub historic_type { 20 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_DISCID }
 sub edit_template { 'historic/remove_disc_id' }
@@ -20,15 +20,6 @@ sub related_entities
         release => $self->data->{release_ids}
     }
 }
-
-has '+data' => (
-    isa => Dict[
-        release_ids => ArrayRef[Int],
-        cdtoc_id    => Maybe[Int],
-        full_toc    => Maybe[Str],
-        disc_id     => Str,
-    ]
-);
 
 sub foreign_keys
 {
@@ -61,7 +52,14 @@ sub upgrade
 }
 
 sub deserialize_previous_value { my $self = shift; return shift; }
+sub deserialize_new_value {
+    my ($self, $value) = @_;
+    if ($value eq 'DELETE') {
+        return { FullToc => '', CDTOCId => 0, AlbumId => 0 }
+    }
+    else {
+        $self->deserialize($value);
+    }
+}
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;

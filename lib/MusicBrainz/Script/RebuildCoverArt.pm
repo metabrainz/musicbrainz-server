@@ -1,35 +1,13 @@
 package MusicBrainz::Script::RebuildCoverArt;
 use Moose;
 
+use DBDefs;
 use DateTime::Duration;
 use MusicBrainz::Server::Context;
 
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
-
-has 'c' => (
-    isa        => 'MusicBrainz::Server::Context',
-    is         => 'ro',
-    traits     => [ 'NoGetopt' ],
-    lazy_build => 1,
-);
-
-sub _build_c
-{
-    return MusicBrainz::Server::Context->create_script_context;
-}
-
-has 'sql' => (
-    isa        => 'Sql',
-    is         => 'ro',
-    traits     => [ 'NoGetopt' ],
-    lazy_build => 1,
-);
-
-sub _build_sql
-{
-    return Sql->new(shift->c->dbh);
-}
+with 'MusicBrainz::Script::Role::Context';
 
 has 'since' => (
     isa      => 'DateTime::Duration',
@@ -51,19 +29,28 @@ sub run
 {
     my $self = shift;
 
-    my $releases = $self->c->model('CoverArt')->find_outdated_releases($self->since);
+    printf STDERR "You do not have both AWS_PUBLIC and AWS_PRIVATE defined in DBDefs.\n" .
+        "You will not be able to find artwork from Amazon until these are set."
+            unless (DBDefs::AWS_PUBLIC && DBDefs::AWS_PRIVATE);
+
+    my @releases = $self->c->model('CoverArt')->find_outdated_releases($self->since);
 
     my $completed = 0;
-    my $total = @$releases;
+    my $total = @releases;
     my $started_at = DateTime->now;
 
     printf STDERR "There are %d releases to update\n", $total;
 
+    my %seen;
+
     $self->sql->begin;
     while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
-               (my $row = shift @$releases))
+               (my $release = shift @releases))
     {
-        $self->c->model('CoverArt')->cache_cover_art($row->{release}, $row->{link_type}, $row->{url});
+        $release = $release->();
+        next if $seen{$release->id};
+        $self->c->model('CoverArt')->cache_cover_art($release);
+        $seen{$release->id} = 1;
         if ($completed++ % 10 == 0) {
             printf STDERR "%d/%d\r", $completed, $total;
         }
@@ -71,7 +58,8 @@ sub run
     $self->sql->finish;
     $self->sql->commit;
 
-    printf STDERR "Processed %d, %d still need to be updated\n", $completed, $total - $completed;
+    printf STDERR "Processed %d, at least %d still need to be updated\n", $completed, $total - $completed;
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

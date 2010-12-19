@@ -4,10 +4,12 @@ use Moose;
 use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
-sub edit_name { 'Remove release label' }
+sub edit_name { l('Remove release label') }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
@@ -79,6 +81,19 @@ sub build_display_data
         label => $rl->label,
     };
 }
+
+sub initialize
+{
+    my ($self, %opts) = @_;
+    my $release_label = delete $opts{release_label};
+    die "You must specify the release label object to delete"
+        unless defined $release_label;
+
+    $self->data({
+        release_label_id => $release_label->id,
+        release_id => $release_label->release_id,
+    });
+};
 
 sub accept
 {

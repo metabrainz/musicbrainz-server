@@ -2,6 +2,7 @@
     ['index', rdfa_seeAlso_link_artist(artist, 'show', l('Overview'))],
     ['releases', rdfa_seeAlso_link_artist(artist, 'releases', l('Releases'))],
     ['recordings', rdfa_seeAlso_link_artist(artist, 'recordings', l('Recordings'))],
+    ['standalone', rdfa_seeAlso_link_artist(artist, 'standalone_recordings', l('Standalone Recordings')) ],
     ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
     ['relationships', rdfa_seeAlso_link_artist(artist, 'relationships', l('Relationships'))],
     ['aliases', rdfa_seeAlso_link_artist(artist, 'aliases', l('Aliases'))],
@@ -14,7 +15,7 @@
     ['edit', link_artist(artist, 'edit', l('Edit'))]
    ) UNLESS artist.is_special_purpose %]
 
-<div class="artistheader" about="[% rdfa_artist_curi(artist) %]" typeof="[% rdfa_concept_curi(artist.type_name) %]">
+<div class="artistheader" [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%] [% rdfa_typeof(rdfa_concept_curi(artist.type_name)) %]>
     <h1>[% rdfa_topic_is_artist(artist) %] [% rdfa_disambiguation(artist) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [% html_escape(artist.type_name) or l('Artist') %]

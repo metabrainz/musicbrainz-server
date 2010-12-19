@@ -5,34 +5,10 @@ h1 span {
     color: inherit;
 }
 
-#release-editor .form {
-    clear: both;
-    float: left;
-    width: 465px;
-    margin: 0;
-}
-
-#release-editor .documentation {
-    margin-left: 485px;
-}
-
-#release-editor fieldset {
-    background-color: #f0f0f0;
-    border: 1px solid #aaa;
-    margin-top: 0;
-}
-
-/* h2? */
-#release-editor fieldset legend {
-    color: #fc6714;
-    font-size: 120%;
-    font-weight: bold;
-    margin: 0 10px;
-}
+#release-editor div.half-width { margin: 0; }
 
 #release-editor div.artist-credit label,
-#release-editor div.release-label label.label-name,
-#release-editor fieldset label.row {
+#release-editor div.release-label label.label-name {
     float: left;
     margin-right: 1em;
     text-align: right;
@@ -59,7 +35,9 @@ h1 span {
 #release-editor div.release-label label.catno,
 #release-editor div.release-label input.catno { margin: 0; }
 
-#release-editor fieldset label.required {
+#release-editor fieldset select#id-language_id,
+#release-editor fieldset select#id-script_id {
+    width: 180px;
     font-weight: bold;
 }
 
@@ -69,11 +47,6 @@ h1 span {
     width: 300px;
 }
 
-#release-editor fieldset select#id-language_id,
-#release-editor fieldset select#id-script_id {
-    width: 180px;
-}
-
 #release-editor fieldset input[type=checkbox],
 #release-editor fieldset span.partial-date input {
     width: auto;
@@ -81,7 +54,6 @@ h1 span {
 
 #release-editor fieldset textarea {
     height: 10px;
-    width: 300px;
 }
 
 #release-editor fieldset textarea.tracklist {
@@ -90,16 +62,17 @@ h1 span {
     width: 430px;
 }
 
-#release-editor fieldset h3 {
-    margin: 24px 10px 0;
-}
-
+p.guesscase-options,
 #tracklist-options {
     margin: 10px 0 10px 10px;
 }
 
+#release-editor fieldset p.guesscase-options select {
+    width: 100px;
+}
+
 #release-editor ul.tabs {
-    background: url(../images/release_editor/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828;
+    background: url(../lib/jquery.ui/themes/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -175,6 +148,8 @@ h1 span {
 table.medium.tbl td.position  { width: 2em; }
 table.medium.tbl td.length    { width: 5em; }
 table.medium.tbl td.delete    { width: 2em; }
+table.medium.tbl td.guesscase { width: 2em; }
+table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor table.medium.tbl th {
     background:url("../images/table-header-2.gif") repeat-x scroll 0 50% transparent;
     border-bottom:1px solid #999;
@@ -199,7 +174,7 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
 
-#release-editor .changes p { margin-top: 0; }
+#release-editor .recordings p { margin-top: 0; }
 #release-editor .documentation p { margin-top: 0; }
 #release-editor table.preview { width: 100%; margin: 0 0 10px 0 }
 #release-editor table.preview .duration { padding-left: 10px; }
@@ -208,7 +183,8 @@ table.medium.tbl td.delete    { width: 2em; }
     text-align: right;
 }
 
-#release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 10px 0 0 0; }
+#release-editor div.basic-disc.expanded { margin: 0 0 10px 0; }
+#release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 0; }
 #release-editor table.basic-format h3 { margin: 0; }
 #release-editor table.basic-format td.format { text-align: right; }
 
@@ -221,10 +197,19 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.deleted td,
 #release-editor .medium.tbl tr.deleted td input { color: #aaa; text-decoration: line-through; }
 
-/* __________________________________
+#release-editor fieldset legend {
+    color: #fc6714;
+    font-size: 120%;
+    font-weight: bold;
+    margin: 0 10px;
+}
 
-          ARTIST CREDIT EDITOR
-   __________________________________ */
+#release-editor fieldset {
+    border: 1px solid #aaa;
+    background: #f0f0f0;
+    margin-top: 0;
+}
+
 
 #release-editor .medium.tbl tr.track-artist-credit,
 #release-editor .medium.tbl tr.track-artist-credit th,
@@ -235,7 +220,6 @@ table.medium.tbl td.delete    { width: 2em; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 1em; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
-#release-editor div.bubble,
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 1em; border: 1px solid #999;
     background: #fff;
@@ -246,13 +230,10 @@ table.medium.tbl td.delete    { width: 2em; }
 
 #release-editor .documentation div.barcode-container,
 #release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 5em; }
-#release-editor div.bubble,
-#release-editor div.select-recording,
-#release-editor div.artist-credit { background: #f0f0f0; }
-#release-editor div.artist-credit div.row { clear: none; }
+#release-editor div.select-recording { background: #f0f0f0; }
 
 /* little speech balloon "tail" to visibly associate the artist credit
-   editor with the artist input field. */
+   editor with the artist input field. (FIXME: move this to Bubble.js --warp). */
 
 tr.track-artist-credit .ac-balloon0 { position: relative; margin-top: 4px; }
 tr.track-artist-credit .ac-balloon1 {
@@ -278,13 +259,20 @@ tr.track-artist-credit .ac-balloon3 {
 
 /* __________________________________
 
-            PREVIEW CHANGES
+            RECORDINGS TAB
    __________________________________ */
 
+span.autocomplete-isrcs,
+span.autocomplete-appears,
+span.autocomplete-comment {
+    margin-left: 1em;
+    color: #999;
+    font-size: 80%;
+}
 
-a.change-recording { min-width: 4em; }
-table.matches { width: 100%; }
 span.add-recording { color: #999; }
+table.matches { width: 100%; }
+a.change-recording { min-width: 4em; }
 
 /* __________________________________
 

@@ -80,6 +80,13 @@ after 'load' => sub
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
+
+    $c->stash(
+        watching_artist =>
+            $c->user_exists && $c->model('WatchArtist')->is_watching(
+                editor_id => $c->user->id, artist_id => $artist->id
+            )
+    );
 };
 
 =head2 similar
@@ -123,29 +130,6 @@ sub appearances : Chained('load')
     my $artist = $self->entity;
 
     $c->stash->{releases} = $c->model('Release')->find_linked_albums($artist);
-}
-
-=head2 nats
-
-Show all this artists non-album tracks
-
-=cut
-
-sub nats : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->stash->{release} = $c->model('Release')->nat_release($self->entity);
-
-    if ($c->stash->{release})
-    {
-        $c->stash->{release_artist} = $self->entity;
-        $c->forward('/release/show');
-    }
-    else
-    {
-        $c->stash->{template} = 'artist/no_nats.tt';
-    }
 }
 
 =head2 show
@@ -314,6 +298,26 @@ sub recordings : Chained('load')
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
         } @$recordings,
+    );
+}
+
+sub standalone_recordings : Chained('load') PathPart('standalone-recordings')
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $standalones = $self->_load_paged($c, sub {
+        $c->model('Recording')->find_standalone($artist->id, shift, shift);
+    });
+
+    $c->model('ISRC')->load_for_recordings(@$standalones);
+    $c->model('ArtistCredit')->load(@$standalones);
+
+    $c->stash(
+        recordings => $standalones,
+        show_artists => scalar grep {
+            $_->artist_credit->name ne $artist->name
+        } @$standalones,
     );
 }
 
@@ -489,6 +493,30 @@ around $_ => sub {
         $self->$orig($c);
     }
 } for qw( edit merge );
+
+sub watch : Chained('load') RequireAuth {
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    $c->model('WatchArtist')->watch_artist(
+        artist_id => $artist->id,
+        editor_id => $c->user->id
+    ) if $c->user_exists;
+
+    $c->response->redirect($c->req->referer);
+}
+
+sub stop_watching : Chained('load') RequireAuth {
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    $c->model('WatchArtist')->stop_watching_artist(
+        artist_ids => [ $artist->id ],
+        editor_id => $c->user->id
+    ) if $c->user_exists;
+
+    $c->response->redirect($c->req->referer);
+}
 
 =head1 LICENSE
 

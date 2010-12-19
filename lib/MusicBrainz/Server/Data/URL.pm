@@ -11,7 +11,9 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
 
 my %URL_SPECIALIZATIONS = (
     'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia.*/wiki/}i,
-    'ASIN' => qr{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i
+    'ASIN' => qr{^http://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
+    'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/cd}i,
+    'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i
 );
 
 sub _gid_redirect_table
@@ -27,17 +29,19 @@ sub _table
 sub _columns
 {
     return 'id, gid, url, description,
-            editpending AS edits_pending,
-            refcount AS reference_count';
+            edits_pending,
+            ref_count AS reference_count';
 }
 
 sub _entity_class
 {
     my ($self, $row) = @_;
-    for my $class (keys %URL_SPECIALIZATIONS) {
-        my $regex = $URL_SPECIALIZATIONS{$class};
-        return "MusicBrainz::Server::Entity::URL::$class"
-            if ($row->{url} =~ $regex);
+    if ($row->{url}) {
+        for my $class (keys %URL_SPECIALIZATIONS) {
+            my $regex = $URL_SPECIALIZATIONS{$class};
+            return "MusicBrainz::Server::Entity::URL::$class"
+                if ($row->{url} =~ $regex);
+        }
     }
     return 'MusicBrainz::Server::Entity::URL';
 }

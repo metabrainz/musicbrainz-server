@@ -5,14 +5,15 @@ extends 'MusicBrainz::Server::CoverArt';
 
 has 'asin' => (
     isa => 'Str',
-    is  => 'ro',
+    is  => 'rw',
 );
 
 override 'cache_data' => sub
 {
     my $self = shift;
     my $data = super();
-    $data->{amazonasin} = $self->asin;
+    $data->{amazon_asin} = $self->asin
+        if $self->asin;
 
     return $data;
 };

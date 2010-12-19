@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA1 qw(sha1_base64);
+use MusicBrainz::Server::Translation qw (l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 sub index : Path('/account') RequireAuth
@@ -39,21 +40,21 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
 
     unless (is_positive_integer($user_id) && $user_id) {
         $c->stash(
-            message => $c->gettext('The user ID is missing or, is in an invalid format.'),
+            message => l('The user ID is missing or is in an invalid format.'),
             template => 'account/verify_email_error.tt',
         );
     }
 
     unless ($email) {
         $c->stash(
-            message => $c->gettext('The email address is missing.'),
+            message => l('The email address is missing.'),
             template => 'account/verify_email_error.tt',
         );
     }
 
     unless (is_positive_integer($time) && $time) {
         $c->stash(
-            message => $c->gettext('The time is missing, or is in an invalid format.'),
+            message => l('The time is missing or is in an invalid format.'),
             template => 'account/verify_email_error.tt',
         );
         $c->detach;
@@ -61,7 +62,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
 
     unless ($key) {
         $c->stash(
-            message => $c->gettext('The key is missing.'),
+            message => l('The verification key is missing.'),
             template => 'account/verify_email_error.tt',
         );
         $c->detach;
@@ -69,7 +70,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
 
     unless ($self->_checksum($email, $user_id, $time) eq $key) {
         $c->stash(
-            message => $c->gettext('The checksum is invalid, please double check your email.'),
+            message => l('The checksum is invalid, please double check your email.'),
             template => 'account/verify_email_error.tt',
         );
         $c->detach;
@@ -77,7 +78,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
 
     if (($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT) < time()) {
         $c->stash(
-            message => $c->gettext('Sorry, this email verification link has expired.'),
+            message => l('Sorry, this email verification link has expired.'),
             template => 'account/verify_email_error.tt',
         );
         $c->detach;
@@ -86,7 +87,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
     my $editor = $c->model('Editor')->get_by_id($user_id);
     unless (defined $editor) {
         $c->stash(
-            message => $c->gettext('User with id {user_id} could not be found.',
+            message => l('A user with ID \'{user_id}\' could not be found.',
                                    { user_id => $user_id }),
             template => 'account/verify_email_error.tt',
         );
@@ -144,13 +145,11 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
 
         my $editor = $c->model('Editor')->get_by_name($username);
         if (!defined $editor) {
-            $form->field('username')->add_error(
-                $c->gettext('There is no user with this username'));
+            $form->field('username')->add_error(l('There is no user with this username'));
         }
         else {
             if ($editor->email && $editor->email ne $email) {
-                $form->field('email')->add_error(
-                    $c->gettext('There is no user with this username and email'));
+                $form->field('email')->add_error(l('There is no user with this username and email'));
             }
             else {
                 $self->_send_password_reset_email($c, $editor);
@@ -179,7 +178,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
 
     if (!$editor_id || !$time || !$key) {
         $c->stash(
-            message => $c->gettext('Missing required parameter.'),
+            message => l('Missing one or more required parameters.'),
             template => 'account/reset_password_error.tt',
         );
         $c->detach;
@@ -187,7 +186,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
 
     if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT < time()) {
         $c->stash(
-            message => $c->gettext('Sorry, this password reset link has expired.'),
+            message => l('Sorry, this password reset link has expired.'),
             template => 'account/reset_password_error.tt',
         );
         $c->detach;
@@ -195,7 +194,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
 
     if ($self->_reset_password_checksum($editor_id, $time) ne $key) {
         $c->stash(
-            message => $c->gettext('The checksum is invalid, please double check your email.'),
+            message => l('The checksum is invalid, please double check your email.'),
             template => 'account/reset_password_error.tt',
         );
         $c->detach;
@@ -204,7 +203,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     my $editor = $c->model('Editor')->get_by_id($editor_id);
     if (!defined $editor) {
         $c->stash(
-            message => $c->gettext('User with id {user_id} could not be found',
+            message => l('User with ID \'{user_id}\' could not be found',
                                    { user_id => $editor_id }),
             template => 'account/reset_password_error.tt',
         );
@@ -245,8 +244,7 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
 
         my @editors = $c->model('Editor')->find_by_email($email);
         if (!@editors) {
-            $form->field('email')->add_error(
-                $c->gettext('There is no user with this email'));
+            $form->field('email')->add_error(l('There is no user with this email'));
         }
         else {
             foreach my $editor (@editors) {
@@ -355,11 +353,25 @@ sub preferences : Path('/account/preferences') RequireAuth
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
     $c->model('Editor')->load_preferences($editor);
+    my $watch_prefs = $c->model('WatchArtist')->load_preferences($editor->id);
 
     my $form = $c->form( form => 'User::Preferences', item => $editor->preferences );
+    my $watch_prefs_form = $c->form(
+        watch_prefs => 'User::WatchPreferences',
+        item => {
+            notify_via_email => $watch_prefs->notify_via_email,
+            notification_timeframe => $watch_prefs->notification_timeframe->in_units('days'),
+            type_id => [ map { $_->id } $watch_prefs->all_types ],
+            status_id => [ map { $_->id } $watch_prefs->all_statuses ],
+        }
+    );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
+    if ($c->form_posted &&
+        $form->process( params => $c->req->params ) &&
+        $watch_prefs_form->process( params => $c->req->params )) {
         $c->model('Editor')->save_preferences($editor, $form->values);
+        $c->model('WatchArtist')->save_preferences(
+            $editor->id, $watch_prefs_form->values);
 
         $c->user->preferences($editor->preferences);
         $c->persist_user();

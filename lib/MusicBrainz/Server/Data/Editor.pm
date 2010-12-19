@@ -18,7 +18,8 @@ use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED :privilege
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_editor',
-    column => 'subscribededitor'
+    column => 'subscribed_editor',
+    class => 'MusicBrainz::Server::Entity::EditorSubscription'
 };
 
 sub _table
@@ -29,8 +30,8 @@ sub _table
 sub _columns
 {
     return 'editor.id, name, password, privs, email, website, bio,
-            membersince, emailconfirmdate, lastlogindate, editsaccepted,
-            editsrejected, autoeditsaccepted, editsfailed';
+            member_since, email_confirm_date, last_login_date, edits_accepted,
+            edits_rejected, auto_edits_accepted, edits_failed';
 }
 
 sub _column_mapping
@@ -43,13 +44,13 @@ sub _column_mapping
         privileges              => 'privs',
         website                 => 'website',
         biography               => 'bio',
-        accepted_edits          => 'editsaccepted',
-        rejected_edits          => 'editsrejected',
-        failed_edits            => 'editsfailed',
-        accepted_auto_edits     => 'autoeditsaccepted',
-        email_confirmation_date => 'emailconfirmdate',
-        registration_date       => 'membersince',
-        last_login_date         => 'lastlogindate',
+        accepted_edits          => 'edits_accepted',
+        rejected_edits          => 'edits_rejected',
+        failed_edits            => 'edits_failed',
+        accepted_auto_edits     => 'auto_edits_accepted',
+        email_confirmation_date => 'email_confirm_date',
+        registration_date       => 'member_since',
+        last_login_date         => 'last_login_date',
     };
 }
 
@@ -197,7 +198,7 @@ sub find_by_subscribed_editor
     my ($self, $editor_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN editor_subscribe_editor s ON editor.id = s.subscribededitor
+                    JOIN editor_subscribe_editor s ON editor.id = s.subscribed_editor
                  WHERE s.editor = ?
                  ORDER BY editor.name, editor.id
                  OFFSET ?";
@@ -212,7 +213,7 @@ sub find_subscribers
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_editor s ON editor.id = s.editor
-                 WHERE s.subscribededitor = ?
+                 WHERE s.subscribed_editor = ?
                  ORDER BY editor.name, editor.id
                  OFFSET ?";
     return query_to_list_limited(
@@ -246,13 +247,13 @@ sub update_email
     Sql::run_in_transaction(sub {
         if ($email) {
             my $email_confirmation_date = $sql->select_single_value(
-                'UPDATE editor SET email=?, emailconfirmdate=NOW()
-                WHERE id=? RETURNING emailconfirmdate', $email, $editor->id);
+                'UPDATE editor SET email=?, email_confirm_date=NOW()
+                WHERE id=? RETURNING email_confirm_date', $email, $editor->id);
             $editor->email($email);
             $editor->email_confirmation_date($email_confirmation_date);
         }
         else {
-            $sql->do('UPDATE editor SET email=NULL, emailconfirmdate=NULL
+            $sql->do('UPDATE editor SET email=NULL, email_confirm_date=NULL
                       WHERE id=?', $editor->id);
             delete $editor->{email};
             delete $editor->{email_confirmation_date};
@@ -359,10 +360,10 @@ sub credit
     my ($self, $editor_id, $status, $as_autoedit) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $column;
-    $column = "editsrejected" if $status == $STATUS_FAILEDVOTE;
-    $column = "editsaccepted" if $status == $STATUS_APPLIED && !$as_autoedit;
-    $column = "autoeditsaccepted" if $status == $STATUS_APPLIED && $as_autoedit;
-    $column ||= "editsfailed";
+    $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
+    $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
+    $column = "auto_edits_accepted" if $status == $STATUS_APPLIED && $as_autoedit;
+    $column ||= "edits_failed";
     my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
     $sql->do($query, $editor_id);
 }
@@ -398,6 +399,23 @@ sub donation_check
     }
 
     return { nag => $nag, days => $days };
+}
+
+sub editors_with_subscriptions
+{
+    my $self = shift;
+    my @tables = qw(
+        editor_subscribe_artist
+        editor_subscribe_editor
+        editor_subscribe_label
+    );
+    my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+        " WHERE id IN ($ids)";
+
+    return query_to_list (
+        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query);
 }
 
 

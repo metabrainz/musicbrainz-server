@@ -21,8 +21,8 @@ sub _table
 
 sub _columns
 {
-    return 'id, link_type, begindate_year, begindate_month, begindate_day,
-            enddate_year, enddate_month, enddate_day';
+    return 'id, link_type, begin_date_year, begin_date_month, begin_date_day,
+            end_date_year, end_date_month, end_date_day';
 }
 
 sub _column_mapping
@@ -30,8 +30,8 @@ sub _column_mapping
     return {
         id         => 'id',
         type_id    => 'link_type',
-        begin_date => sub { partial_date_from_row(shift, 'begindate_') },
-        end_date   => sub { partial_date_from_row(shift, 'enddate_') },
+        begin_date => sub { partial_date_from_row(shift, 'begin_date_') },
+        end_date   => sub { partial_date_from_row(shift, 'end_date_') },
     };
 }
 
@@ -102,10 +102,9 @@ sub load
     load_subobjects($self, 'link', @objs);
 }
 
-sub find_or_insert
+sub find
 {
     my ($self, $values) = @_;
-
     my (@joins, @conditions, @args);
 
     push @conditions, "link_type = ?";
@@ -113,7 +112,6 @@ sub find_or_insert
 
     foreach my $date_key (qw( begin_date end_date )) {
         my $column_prefix = $date_key;
-        $column_prefix =~ s/_//g;
         foreach my $key (qw( year month day )) {
             if (defined $values->{$date_key}->{$key}) {
                 push @conditions, "${column_prefix}_${key} = ?";
@@ -127,7 +125,7 @@ sub find_or_insert
 
     my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
 
-    push @conditions, "attributecount = ?";
+    push @conditions, "attribute_count = ?";
     push @args, scalar(@attrs);
 
     my $i = 1;
@@ -139,22 +137,28 @@ sub find_or_insert
     }
 
     my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
+    return $self->sql->select_single_value($query, @args);
+}
 
-    my $sql = Sql->new($self->c->dbh);
-    my $id = $sql->select_single_value($query, @args);
+sub find_or_insert
+{
+    my ($self, $values) = @_;
 
+    my $id = $self->find($values);
     return $id if defined $id;
+
+    my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
 
     my $row = {
         link_type      => $values->{link_type_id},
-        attributecount => scalar(@attrs),
+        attribute_count => scalar(@attrs),
     };
-    add_partial_date_to_row($row, $values->{begin_date}, "begindate");
-    add_partial_date_to_row($row, $values->{end_date}, "enddate");
-    $id = $sql->insert_row("link", $row, "id");
+    add_partial_date_to_row($row, $values->{begin_date}, "begin_date");
+    add_partial_date_to_row($row, $values->{end_date}, "end_date");
+    $id = $self->sql->insert_row("link", $row, "id");
 
     foreach my $attr (@attrs) {
-        $sql->insert_row("link_attribute", {
+        $self->sql->insert_row("link_attribute", {
             link           => $id,
             attribute_type => $attr,
         });

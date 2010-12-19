@@ -3,7 +3,7 @@
     work => work.name,
     artist => artist_credit(work.artist_credit, plain => 1)
 }) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -17,10 +17,18 @@
                    IF work.iswc -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags more=more_tags tag_this_text=l('Tag this work') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags
+            more=more_tags tag_this_text=l('Tag this work')
+            async = c.uri_for_action('/work/tag_async', [ work.gid ])
+            -%]
 
         <ul class="links">
             [% IF c.user_exists %]
+              <li>
+                <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ work.gid ]) %]">
+                  [% work.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                </a>
+              </li>
                <li>[% link_work(work, 'merge', l('Merge this work into another')) %]</li>
                <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>

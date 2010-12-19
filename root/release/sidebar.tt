@@ -1,9 +1,3 @@
-[%- BLOCK about; %]
-<span about="[% rdfa_release_curi(release) %]">
-  [% content %]
-</span>
-[% END %]
-
 [%- BLOCK cover_art; %]
     <p>
         [% IF release.cover_art_url; %]
@@ -22,16 +16,16 @@
     </p>
 [% END -%]
 
-[% BLOCK lists %]
+[% BLOCK collections %]
     <p><ul>
-        [% FOREACH list IN lists %]
-            [% IF containment.${list.id} %]
-                <li><a href="[% c.uri_for_action("/list/remove", [list.gid], { release => release.id }) %]">
-                    [%- l('Remove from list “{list}”', { list => list.name }) %]</a></li>
+        [% FOREACH collection IN collections %]
+            [% IF containment.${collection.id} %]
+                <li><a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
+                    [%- l('Remove from collection “{collection}”', { collection => collection.name }) %]</a></li>
             [% ELSE %]
-                <li><a href="[% c.uri_for_action("/list/add", [list.gid], { release => release.id }) 
+                <li><a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) 
 		    %]">
-                    [%- l('Add to list “{list}”', {list => list.name }) %]</a></li>
+                    [%- l('Add to collection “{collection}”', {collection => collection.name }) %]</a></li>
             [% END %]
         [% END %]
     </ul></p>
@@ -141,6 +135,12 @@
 [% BLOCK links %]
     <ul class="links">
       [% IF c.user_exists %]
+        <li>
+          <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ release.gid ]) %]">
+            [% release.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+          </a>
+        </li>
+        <li>[% link_release(release, 'delete', l('Delete this release')) %]</li>
         <li>[% link_release(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_release(release, 'move', l('Change release group')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
@@ -156,8 +156,7 @@
 [% END %]
 
 [%
-WRAPPER 'layout/sidebar.tt';
-  WRAPPER about;
+WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
     INCLUDE cover_art;
     
     INCLUDE release_properties;
@@ -169,9 +168,8 @@ WRAPPER 'layout/sidebar.tt';
         tag_this_text=l('Tag release group');
         INCLUDE links;
     	INCLUDE other_versions;    
-        INCLUDE lists IF c.user_exists;
+        INCLUDE collections IF c.user_exists;
     END;
-  END;
 END;
 
 -%]

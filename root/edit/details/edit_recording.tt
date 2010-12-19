@@ -1,4 +1,11 @@
 <table class="details">
+  <tr>
+    <th>[% l('Recording:') %]</th>
+    <td>[% l('{recording} by {artist}',
+                { recording => link_recording(edit.display_data.recording),
+                  artist => artist_credit(edit.display_data.recording.artist_credit) } )%]</td>
+  </tr>
+
   [%- IF edit.display_data.name -%]
   <tr>
     <th>[% l('Name:') %]</th>

@@ -4,6 +4,8 @@ use Moose;
 use Sql;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
+with 'MusicBrainz::Server::Data::Role::NewFromRow';
+
 has 'c' => (
     is => 'rw',
     isa => 'Object'
@@ -18,6 +20,28 @@ has 'column' => (
     is => 'ro',
     isa => 'Str'
 );
+
+has 'class' => (
+    is => 'ro',
+    isa => 'Str',
+);
+
+sub _entity_class {
+    my $self = shift;
+    return $self->class;
+}
+
+sub _column_mapping {
+    my $self = shift;
+    return {
+        id => 'id',
+        $self->column . '_id' => $self->column,
+        'last_edit_sent' => 'last_edit_sent',
+        'deleted_by_edit' => 'deleted_by_edit',
+        'merged_by_edit' => 'merged_by_edit',
+        'editor_id' => 'editor',
+    };
+}
 
 sub subscribe
 {
@@ -34,7 +58,7 @@ sub subscribe
             $user_id, $id);
 
         my $max_edit_id = $self->c->model('Edit')->get_max_id() || 0;
-        $sql->do("INSERT INTO $table (editor, $column, lasteditsent)
+        $sql->do("INSERT INTO $table (editor, $column, last_edit_sent)
                   VALUES (?, ?, ?)", $user_id, $id, $max_edit_id);
 
     }, $sql);
@@ -103,36 +127,37 @@ sub get_subscribed_editor_count
                                     WHERE $column = ?", $entity_id);
 }
 
+sub get_subscriptions
+{
+    my ($self, $editor_id) = @_;
+    my $query = 'SELECT * FROM ' . $self->table . ' WHERE editor = ?';
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+        $query, $editor_id);
+}
+
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, $edit_id, @ids) = @_;
 
     my $table = $self->table;
     my $column = $self->column;
+
     my $sql = Sql->new($self->c->dbh);
-
-    # Remove duplicate joins
-    $sql->do("DELETE FROM $table
-              WHERE $column IN (".placeholders(@old_ids).") AND
-                  editor IN (SELECT editor FROM $table WHERE $column = ?)",
-              @old_ids, $new_id);
-
-    # Move all remaining joins to the new entity
-    $sql->do("UPDATE $table SET $column = ?
-              WHERE $column IN (".placeholders(@old_ids).")",
-              $new_id, @old_ids);
+    $sql->do("UPDATE $table SET merged_by_edit = ?
+              WHERE $column IN (".placeholders(@ids).")",
+              $edit_id, @ids);
 }
 
 sub delete
 {
-    my ($self, @ids) = @_;
+    my ($self, $edit_id, @ids) = @_;
 
     my $table = $self->table;
     my $column = $self->column;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM $table
-              WHERE $column IN (".placeholders(@ids).")", @ids);
+    $sql->do("UPDATE $table SET deleted_by_edit = ?
+               WHERE $column IN (".placeholders(@ids).")", $edit_id, @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -1,5 +1,5 @@
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 title='Release Editor (FIXME: change title)' -%]
-  <form action="[% c.req.uri %]" method="post">
+  <form action="[% c.req.uri %]" method="post" class="release-editor">
 
     <div id="release-editor">
       <ul class="tabs ui-helper-clearfix">
@@ -9,6 +9,10 @@
         </li>
         [% END %]
       </ul>
+
+    [%- IF no_javascript -%]
+      [%- warning( l("Javascript needs to be enabled to edit releases.") ) -%]
+    [%- END -%]
 
     [% content %]
 

@@ -3,9 +3,14 @@ use Moose;
 
 use aliased 'MusicBrainz::Server::CoverArt::Provider::RegularExpression'  => 'RegularExpressionProvider';
 use aliased 'MusicBrainz::Server::CoverArt::Provider::WebService::Amazon' => 'AmazonProvider';
+use aliased 'MusicBrainz::Server::Entity::Link';
+use aliased 'MusicBrainz::Server::Entity::LinkType';
+use aliased 'MusicBrainz::Server::Entity::Relationship';
+use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::URL';
 
 use DateTime::Format::Pg;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
@@ -106,6 +111,7 @@ has '_handled_link_types' => (
         can_parse     => 'exists',
         get_providers => 'get',
         handled_types => 'keys',
+        all_providers => 'values',
     }
 );
 
@@ -135,6 +141,13 @@ sub load
             $release->cover_art($cover_art);
             last;
         }
+
+        unless ($release->has_cover_art) {
+            my $cover_art = $self->parse_from_release($release)
+                or next;
+
+            $release->cover_art($cover_art);
+        }
     }
 }
 
@@ -145,39 +158,69 @@ sub find_outdated_releases
     my @url_types = $self->handled_types;
 
     my $query = '
-        SELECT url.url, l.entity0 AS release, link_type.name AS link_type
-          FROM l_release_url l
-          JOIN link      ON l.link = link.id
-          JOIN link_type ON link.link_type = link_type.id
-          JOIN url       ON l.entity1 = url.id
-         WHERE l.entity0 IN (
+        SELECT release.id AS r_id, release.barcode AS r_barcode,
+               url.url, link_type.name AS link_type
+          FROM release
+     LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
+     LEFT JOIN link ON ( link.id = l.link )
+     LEFT JOIN link_type ON ( link_type.id = link.link_type )
+     LEFT JOIN url ON ( url.id = l.entity1 )
+         WHERE release.id IN(
                  SELECT id FROM release_coverart
-                  WHERE coverfetched IS NULL
-                     OR NOW() - coverfetched > ?
-             ) AND
-               link_type.name IN ('  . placeholders(@url_types) . ')';
+                  WHERE last_updated IS NULL
+                     OR NOW() - last_updated > ?
+             )
+           AND ( link_type.name IN ('  . placeholders(@url_types) . ')
+              OR release.barcode IS NOT NULL )';
+
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
     my $sql = Sql->new($self->c->dbh);
-    return $sql->select_list_of_hashes($query, $pg_date_formatter->format_duration($since),
-                                       @url_types);
+    return query_to_list($self->c->dbh, sub {
+        my $row = shift;
+        # Construction of these rows is slow, so this is lazy
+        return sub {
+            my $release = $self->c->model('Release')->_new_from_row($row, 'r_');
+
+            if ($row->{link_type}) {
+                $release->add_relationship(
+                    Relationship->new(
+                        entity0 => $release,
+                        entity1 => $self->c->model('URL')->_new_from_row($row),
+                        link => Link->new(
+                            type => LinkType->new( name => $row->{link_type} )
+                        )))
+            }
+            return $release;
+        }
+    }, $query, $pg_date_formatter->format_duration($since), @url_types);
 }
 
 sub cache_cover_art
 {
-    my ($self, $release_id, $link_type, $url) = @_;
-    my $cover_art =  $self->parse_from_type_url($link_type, $url)
-        or return;
+    my ($self, $release) = @_;
+    my $cover_art;
+    if ($release->all_relationships) {
+        $cover_art =  $self->parse_from_type_url(
+            $release->relationships->[0]->link->type,
+            $release->relationships->[0]->entity1->url
+        );
+    }
+
+    $cover_art ||= $self->parse_from_release($release);
+
+    return unless $cover_art;
 
     my $meta_update  = $cover_art->cache_data;
     my $cover_update = {
-        coverfetched => DateTime->now,
-        coverarturl  => $cover_art->image_uri
+        last_updated => DateTime->now,
+        cover_art_url  => $cover_art->image_uri
     };
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->update_row('release_meta', $meta_update, { id => $release_id });
-    $sql->update_row('release_coverart', $cover_update, { id => $release_id });
+    $sql->update_row('release_meta', $meta_update, { id => $release->id })
+        if keys %$meta_update;
+    $sql->update_row('release_coverart', $cover_update, { id => $release->id });
 }
 
 sub parse_from_type_url
@@ -188,11 +231,26 @@ sub parse_from_type_url
     my $cover_art;
     for my $provider (@{ $self->get_providers($type) }) {
         next unless $provider->handles($url);
-        $cover_art = $provider->lookup_cover_art($url)
+        $cover_art = $provider->lookup_cover_art($url, undef)
             and last;
     }
 
     return $cover_art;
+}
+
+sub parse_from_release
+{
+    my ($self, $release) = @_;
+    return unless $release->barcode;
+
+    for my $provider (@{ $self->providers }) {
+        next unless $provider->does('MusicBrainz::Server::CoverArt::BarcodeSearch');
+
+        my $cover_art = $provider->search_by_barcode($release)
+            or next;
+
+        return $cover_art;
+    }
 }
 
 1;

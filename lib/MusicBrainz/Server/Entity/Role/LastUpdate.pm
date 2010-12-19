@@ -3,7 +3,7 @@ use Moose::Role;
 
 use MusicBrainz::Server::Types;
 
-has 'last_update_date' => (
+has 'last_updated' => (
     is => 'rw',
     isa => 'DateTime',
     coerce => 1,

@@ -1,5 +1,16 @@
+[% BLOCK layout_head %]
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/utility.js') %]"></script>
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
+    <script type="text/javascript">
+        $(function() {
+            MB.Control.TagEditor($('#sidebar-tags'),
+                "[% c.uri_for_action('/artist/tag_async', [ artist.gid ]) %]",
+                "[% c.uri_for('/tag/') %]");
+        });
+    </script>
+[% END %]
+
 [%- WRAPPER "artist/layout.tt" page='index' -%]
-    <h2>[% l('Annotation') %]</h2>
     [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
 
     [%- IF release_groups.size -%]
@@ -24,7 +35,7 @@
                                 <th class="count c">[% l('Releases') %]</th>
                             </tr>
                         </thead>
-                        <tbody about="[%- rdfa_artist_curi(artist) -%]">
+                        <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
                     [% rg_type = rg.type %]
                 [% END %]
                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
@@ -43,19 +54,25 @@
             </table>
             [% END %]
         [%- END -%]
-    [%- ELSE -%]
-        <p>[% l('No release groups found') %]</p>
     [%- END -%]
- 
-    [% IF va_only %]
-        <p>[% l('This artist only has release groups by various artists.') %]</p>
+
+    [% IF va_only && pager.total_entries == 0 %]
+        <p>[% l('This artist does not have any release groups') %]</p>
     [% ELSE %]
-        [% IF !show_va %]
-            <p>[% l('Showing release groups by this artist. {show_all|Show various artist release groups}.',
-                    { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+        [% IF release_groups.size == 0 %]
+            <p>[% l('No release groups found') %]</p>
+        [% END %]
+
+        [% IF va_only %]
+            <p>[% l('This artist only has release groups by various artists.') %]</p>
         [% ELSE %]
-            <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
-                    { show_subset = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
+            [% IF !show_va %]
+                <p>[% l('Showing release groups by this artist. {show_all|Show various artist release groups}.',
+                        { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+            [% ELSE %]
+                <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
+                        { show_subset = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
+            [% END %]
         [% END %]
     [% END %]
 [% END %]

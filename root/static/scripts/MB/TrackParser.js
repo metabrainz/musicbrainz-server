@@ -18,7 +18,7 @@
 
 */
 
-MB.TrackParser = function (disc, serialized) {
+MB.TrackParser = function (disc, textarea, serialized) {
     var self = MB.Object ();
 
     var getTrackInput = function () {
@@ -47,8 +47,8 @@ MB.TrackParser = function (disc, serialized) {
 
             var tmp = this.replace (/\(\?:\?\?\)\s?$/, '');
             self.inputlines[i] = tmp.replace(/\(?\s?([0-9０-９]*[：，．':,.][0-9０-９]+)\s?\)?$/,
-                function (str, p1) { 
-                    self.inputdurations[i] = MB.utility.fullWidthConverter(p1); return ""; 
+                function (str, p1) {
+                    self.inputdurations[i] = MB.utility.fullWidthConverter(p1); return "";
                 }
             );
 
@@ -88,10 +88,10 @@ MB.TrackParser = function (disc, serialized) {
         var map = {};
 
         $.each (self.originals, function (idx, track) {
-            if (map[track.title] === undefined) {
-                map[track.title] = [];
+            if (map[track.name] === undefined) {
+                map[track.name] = [];
             }
-            map[track.title].push (idx);
+            map[track.name].push (idx);
         });
 
         var lastused = self.originals.length - 1;
@@ -124,7 +124,7 @@ MB.TrackParser = function (disc, serialized) {
             if (map[title] === undefined || map[title].length === 0)
             {
                 data.row = ++lastused;
-                data.title = title;
+                data.name = title;
                 inserted.push (data);
             }
             else if ($.inArray (idx, map[title]) !== -1)
@@ -184,7 +184,7 @@ MB.TrackParser = function (disc, serialized) {
         self.disc.sort ();
     };
 
-    var run = function () {
+    var run = function (filter) {
         self.inputartists = [];
         self.inputdurations = [];
 
@@ -195,14 +195,20 @@ MB.TrackParser = function (disc, serialized) {
         self.cleanTitles ();
         self.inputtitles = self.inputlines;
 
+        if (filter) {
+            $.each (self.inputtitles, function (idx, line) {
+                self.inputtitles[idx] = filter (line);
+            });
+        }
+
         self.fillInData ();
     };
 
     /* public variables. */
     self.disc = disc;
+    self.textarea = textarea;
     self.originals = $.isArray (serialized) ? serialized : [];
     self.artistseparator = new RegExp ("\\s[/\\t]");
-    self.textarea = $('#mediums\\.'+disc.number+'\\.tracklist');
     self.guesscase = $('#guesscase');
     self.tracknumbers = $('#tracknumbers');
     self.vinylnumbers = $('#vinylnumbers');
@@ -214,7 +220,7 @@ MB.TrackParser = function (disc, serialized) {
     self.parseTimes = parseTimes;
     self.cleanSpaces = cleanSpaces;
     self.cleanTitles = cleanTitles;
-    /* 
+    /*
        Various Artist releases are not currently supported, so parseArtists
        is commented out for now. --warp.
 
@@ -225,3 +231,4 @@ MB.TrackParser = function (disc, serialized) {
 
     return self;
 };
+

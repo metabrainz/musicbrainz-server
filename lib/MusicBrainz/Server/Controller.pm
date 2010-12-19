@@ -6,6 +6,7 @@ use Carp;
 use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 use TryCatch;
 
@@ -25,7 +26,7 @@ sub not_found
 sub invalid_mbid
 {
     my ($self, $c, $id) = @_;
-    $c->stash( message  => "'$id' is not a valid MusicBrainz ID" );
+    $c->stash( message  => l("'$id' is not a valid MusicBrainz ID") );
     $c->detach('/error_400');
 }
 
@@ -86,7 +87,7 @@ sub _insert_edit {
         );
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        # XXX Display a message about having made no changes
+        $c->stash( makes_no_changes => 1 );
     }
     catch ($e) {
         use Data::Dumper;
@@ -126,7 +127,7 @@ sub edit_action
             %extra
         );
 
-        $opts{on_creation}->($edit) if exists $opts{on_creation};
+        $opts{on_creation}->($edit) if $edit && exists $opts{on_creation};
     }
 }
 

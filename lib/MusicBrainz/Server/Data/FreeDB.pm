@@ -15,7 +15,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, discid, freedbid, trackcount, leadoutoffset, trackoffset';
+    return 'id, discid, freedb_id, track_count, leadout_offset, track_offset';
 }
 
 sub _column_mapping
@@ -23,10 +23,10 @@ sub _column_mapping
     return {
         id => 'id',
         discid => 'discid',
-        freedbid => 'freedbid',
-        track_count => 'trackcount',
-        leadout_offset => 'leadoutoffset',
-        track_offset => 'trackoffset',
+        freedb_id => 'freedb_id',
+        track_count => 'track_count',
+        leadout_offset => 'leadout_offset',
+        track_offset => 'track_offset',
     };
 }
 

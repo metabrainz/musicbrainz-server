@@ -13,6 +13,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
 );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
@@ -22,7 +23,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { "Edit release group" }
+sub edit_name { l("Edit release group") }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity_id} }
 
@@ -60,6 +61,10 @@ sub foreign_keys
         }
     }
 
+    $relations->{ReleaseGroup} = {
+        $self->data->{entity_id} => [ 'ArtistCredit' ]
+    };
+
     return $relations;
 }
 
@@ -81,6 +86,10 @@ sub build_display_data
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
     }
+
+    $data->{release_group} = $loaded->{ReleaseGroup}{
+        $self->data->{entity_id}
+    };
 
     return $data;
 }

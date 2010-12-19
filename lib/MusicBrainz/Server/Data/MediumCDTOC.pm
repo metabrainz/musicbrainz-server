@@ -17,7 +17,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, medium, cdtoc, editpending';
+    return 'id, medium, cdtoc, edits_pending';
 }
 
 sub _column_mapping
@@ -26,7 +26,7 @@ sub _column_mapping
         id => 'id',
         medium_id => 'medium',
         cdtoc_id => 'cdtoc',
-        edits_pending => 'editpending',
+        edits_pending => 'edits_pending',
     };
 }
 

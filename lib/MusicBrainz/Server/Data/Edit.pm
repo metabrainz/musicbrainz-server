@@ -10,8 +10,10 @@ use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
-use XML::Dumper;
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
+use JSON::Any;
+
+use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -22,8 +24,8 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, opentime, expiretime, closetime, data, language, type,
-            yesvotes, novotes, autoedit, status, quality';
+    return 'id, editor, open_time, expire_time, close_time, data, language, type,
+            yes_votes, no_votes, autoedit, status, quality';
 }
 
 sub _dbh
@@ -38,21 +40,21 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or die "Could not look up class for type ".$row->{type};
-    my $data = xml2pl($row->{data});
+    my $data = JSON::Any->new(utf8 => 1)->jsonToObj($row->{data});
 
-    my $edit = $class->new(
+    my $edit = $class->new({
         c => $self->c,
         id => $row->{id},
-        yes_votes => $row->{yesvotes},
-        no_votes => $row->{novotes},
+        yes_votes => $row->{yes_votes},
+        no_votes => $row->{no_votes},
         editor_id => $row->{editor},
-        created_time => $row->{opentime},
-        expires_time => $row->{expiretime},
+        created_time => $row->{open_time},
+        expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
         quality => $row->{quality},
         c => $self->c,
-    );
+    });
     $edit->language_id($row->{language}) if $row->{language};
     try {
         $edit->restore($data);
@@ -60,7 +62,7 @@ sub _new_from_row
     catch {
         $edit->clear_data;
     }
-    $edit->close_time($row->{closetime}) if defined $row->{closetime};
+    $edit->close_time($row->{close_time}) if defined $row->{close_time};
     return $edit;
 }
 
@@ -134,6 +136,32 @@ sub find
         }, $query, @args, $offset);
 }
 
+sub find_for_subscription
+{
+    my ($self, $subscription) = @_;
+    if($subscription->isa(EditorSubscription)) {
+        my $query = 'SELECT ' . $self->_columns . ' FROM edit 
+                      WHERE id > ? AND editor = ?';
+
+        return query_to_list(
+            $self->c->raw_dbh,
+            sub { $self->_new_from_row(shift) },
+            $query, $subscription->last_edit_sent,
+            $subscription->subscribed_editor_id
+        );
+    }
+    else {
+        my $type = $subscription->type;
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+            " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
+            "   AND id > ?";
+        return query_to_list(
+            $self->c->raw_dbh,
+            sub { $self->_new_from_row(shift) },
+            $query, $subscription->target_id, $subscription->last_edit_sent);
+    }
+}
+
 sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
@@ -143,50 +171,6 @@ sub merge_entities
                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
     $sql->do("UPDATE edit_$type SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-}
-
-sub escape
-{
-    my ($self, $str) = @_;
-    $str =~ s/\n/\\n/g;
-    $str =~ s/\t/\\t/g;
-    $str =~ s/\r/\\r/g;
-    return $str;
-}
-
-sub insert
-{
-    my ($self, @edits) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $sql_raw = Sql->new($self->c->raw_dbh);
-
-    $sql_raw->do('COPY edit FROM stdout');
-
-    use DateTime::Format::Pg;
-
-    for my $edit (@edits) {
-        my @data = (
-            $edit->id,
-            $edit->editor_id,
-            $edit->edit_type,
-            $edit->status,
-            $self->escape(pl2xml($edit->to_hash, NoAttr => 1)),
-            $edit->yes_votes,
-            $edit->no_votes,
-            $edit->auto_edit,
-            DateTime::Format::Pg->format_datetime($edit->created_time),
-            DateTime::Format::Pg->format_datetime($edit->close_time),
-            DateTime::Format::Pg->format_datetime($edit->expires_time),
-            '\N',
-            1
-        );
-
-        $sql_raw->dbh->pg_putcopydata(
-            join("\t", @data) . "\n"
-        );
-    }
-
-    $sql_raw->dbh->pg_putcopyend();
 }
 
 sub preview
@@ -302,14 +286,14 @@ sub create
 
         my $row = {
             editor => $edit->editor_id,
-            data => pl2xml($edit->to_hash),
+            data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
             status => $edit->status,
             type => $edit->edit_type,
-            opentime => $now,
-            expiretime => $now + $duration,
+            open_time => $now,
+            expire_time => $now + $duration,
             autoedit => $edit->auto_edit,
             quality => $edit->quality,
-            closetime => $edit->close_time
+            close_time => $edit->close_time
         };
 
         my $edit_id = $sql_raw->insert_row('edit', $row, 'id');
@@ -385,7 +369,7 @@ sub load_all
 # Runs it's own transaction
 sub approve
 {
-    my ($self, $edit, $editor) = @_;
+    my ($self, $edit, $editor_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
@@ -394,7 +378,7 @@ sub approve
     # This runs its own transaction, so we cannot currently run it in the below
     # transaction
     $self->c->model('Vote')->enter_votes(
-        $editor->id,
+        $editor_id,
         {
             vote    => $VOTE_YES,
             edit_id => $edit->id
@@ -481,7 +465,7 @@ sub _close
     my ($self, $edit, $close_sub) = @_;
     my $sql_raw = Sql->new($self->c->raw_dbh);
     my $status = &$close_sub($edit);
-    my $query = "UPDATE edit SET status = ?, closetime = NOW() WHERE id = ?";
+    my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $sql_raw->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1);
     $edit->status($status);

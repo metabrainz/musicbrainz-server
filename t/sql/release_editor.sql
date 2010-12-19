@@ -1,12 +1,12 @@
 BEGIN;
 SET client_min_messages TO 'warning';
 
-INSERT INTO language (id, isocode_3t, isocode_3b, isocode_2, name) VALUES (1, 'deu', 'ger', 'de', 'German');
-INSERT INTO script (id, isocode, isonumber, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
-INSERT INTO country (id, isocode, name) VALUES (1, 'GB', 'United Kingdom');
+INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name) VALUES (1, 'deu', 'ger', 'de', 'German');
+INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
+INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 
 INSERT INTO artist_name (id, name) VALUES (2, 'Other Artist');
-INSERT INTO artist (id, name, sortname, gid) VALUES (2, 2, 2, '9f5ad190-caee-11de-8a39-0800200c9a66');
+INSERT INTO artist (id, name, sort_name, gid) VALUES (2, 2, 2, '9f5ad190-caee-11de-8a39-0800200c9a66');
 INSERT INTO tracklist (id) VALUES (3);
 INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (17, 3, 1, 1, 1, 1, 293720);
 INSERT INTO medium_format (id, name) VALUES (2, 'Musical Box');

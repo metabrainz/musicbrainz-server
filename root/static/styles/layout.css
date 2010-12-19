@@ -257,6 +257,8 @@ pre code {
     height: 8px;
 }
 
+
+
 #page .tr, .server-details .tr {
     top: 0; right: 0;
     background: url('/static/images/layout/sprites.png') -14px -58px;
@@ -277,6 +279,7 @@ pre code {
     background: url('/static/images/layout/sprites.png') -41px -58px;
 }
 
+.warning-header,
 .server-details {
     margin: 10px 0;
     text-align: center;
@@ -288,8 +291,28 @@ pre code {
     position: relative;
 }
 
-.server-details p {
+.server-details p,
+.warning-header p {
     margin: 0;
+}
+
+.warning-header {
+    color: #000;
+}
+
+div.warning {
+    margin: 2em auto;
+    border: 1px solid #a1a1a1;
+    min-height: 54px;
+    width: 30em;
+    background: #ffffd0;
+}
+
+div.warning img.warning {
+    float: left;
+    margin: 12px 10px 8px 10px;
+    width: 32px;
+    height: 32px;
 }
 
 #content {
@@ -367,6 +390,7 @@ span.mp {
 }
 
 .lastupdate,
+.annotation-details,
 .small {
     font-size: 90%;
     color: #777;
@@ -425,11 +449,11 @@ table.tbl tr.ev td {
     background: #F2F2F2;
 }
 
-table.tbl th.pos { width: 1em; }
-table.tbl th.year { width: 4em; }
-table.tbl th.count { width: 2em; }
-table.tbl th.rating { width: 50px; }
-table.tbl th.treleases { width: 3em; }
+table.tbl .pos { width: 1em; }
+table.tbl .year { width: 4em; }
+table.tbl .count { width: 2em; }
+table.tbl .rating { width: 50px; }
+table.tbl .treleases { width: 3em; }
 table.tbl .t { text-align: right; }
 
 /* Paginator */

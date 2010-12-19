@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 
@@ -16,7 +17,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
-sub edit_name { 'Add relationship' }
+sub edit_name { l('Add relationship') }
 sub _create_model { 'Relationship' }
 
 has '+data' => (
@@ -121,6 +122,25 @@ sub insert
 
     $self->entity_id($relationship->id);
     $self->entity($relationship);
+}
+
+sub accept
+{
+    my ($self) = @_;
+
+    my $link_type = $self->c->model('LinkType')->get_by_id(
+        $self->data->{link_type_id}
+    );
+
+    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
+        my $url = $self->c->model('URL')->get_by_id(
+            $self->data->{entity1}
+        );
+
+        $self->c->model('CoverArt')->cache_cover_art(
+            $self->data->{entity0}, $link_type->name, $url->url
+        );
+    }
 }
 
 sub reject

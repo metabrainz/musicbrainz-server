@@ -5,29 +5,47 @@
 [% END %]
 <form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
-    [%- IF form.field('confirmed').required -%]
-        <fieldset>
-            <legend>[%- l('Are you sure?') -%]</legend>
-            <p>
-                <strong class='warning'>[% l('Warning:') %]</strong>
-                [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
-                <ul>
-                    [% FOREACH dupe=dupes %]
-                    <li>[% link_label(dupe) %]</li>
-                    [% END %]
-                </ul>
-            </p>
-            [%- WRAPPER 'layout/guidelines.tt' -%]
-                [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
-                [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish duplicate labels, and that you know what you are doing.', {doc_artistcomment => doc_link('Label_Comment')})) -%]
-            [%- END -%]
-            [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not a duplicate, and I know what I am doing.')) %]
-        </fieldset>
-    [%- END -%]
+
+    [% IF form.has_duplicates %]
+    <fieldset>
+        <legend>[% l('Possible Duplicate Labels') %]</legend>
+        <p>
+            <strong class='warning'>[% l('Warning:') %]</strong>
+            [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
+            <ul>
+                [% FOREACH dupe=form.duplicates %]
+                <li>[% link_label(dupe) %] [% disambiguation(dupe) %]</li>
+                [% END %]
+            </ul>
+        </p>
+
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
+            [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish duplicate labels, and that you know what you are doing.', {doc_labelcomment => doc_link('Label_Comment')})) -%]
+        [%- END -%]
+
+        [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not duplicate, and I know what I am doing.')) %]
+    </fieldset>
+    [% END %]
+
     <fieldset>
         <legend>[% l('Label Details') %]</legend>
-        [% form_row_text_long(r, 'name', l('Name:')) %]
-        [% form_row_text_long(r, 'sort_name', l('Sort name:')) %]
+
+        [% WRAPPER form_row %]
+          [% r.label('name', l('Name:')) %]
+          [% r.text('name', { size => 47 })  %]
+          <button class="guesscase">[% l('Guess case') %]</button>
+          [% field_errors(form, 'name') %]
+        [% END %]
+
+        [% WRAPPER form_row %]
+          [% r.label('sort_name', l('Sort name:')) %]
+          [% r.text('sort_name', { size => 47 })  %]
+          <button class="sortname">[% l('Guess') %]</button>
+          <button class="copy">[% l('Copy') %]</button>
+          [% field_errors(form, 'sort_name') %]
+        [% END %]
+
         [% form_row_text_long(r, 'comment', l('Comment:')) %]
         [% form_row_select(r, 'type_id', l('Type:')) %]
         [% form_row_select(r, 'country_id', l('Country:')) %]

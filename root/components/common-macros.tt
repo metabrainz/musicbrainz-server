@@ -134,14 +134,14 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text || html_escape(artist.name);
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '" title="' _ artist.sort_name _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_list(list, action, text) BLOCK;
+[%- MACRO link_collection(collection, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/list/$action", [ list.gid ]);
-    text = text || html_escape(list.name);
+    link = c.uri_for_action("/collection/$action", [ collection.gid ]);
+    text = text || html_escape(collection.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -315,12 +315,11 @@ END %]
 END %]
 
 [% MACRO relate_to_url(entity) BLOCK;
-    l('{uri|Relate to URL}', {
-            uri => c.uri_for_action('/edit/relationship/create_url', {
+    uri = c.uri_for_action('/edit/relationship/create_url', {
                         type => entity_type(entity),
                         entity => entity.gid
-                   })
-    });
+                   });
+    l('{uri|Relate to URL}', { uri => uri });
 END %]
 
 [% MACRO quality_name(quality) SWITCH quality;
@@ -413,6 +412,14 @@ END -%]
             [%- END -%]
 [% END %]
 
+[%- MACRO warning(message) BLOCK -%]
+   <div class="nojavascript warning">
+     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
+   </div>
+[%- END -%]
+
 [%- MACRO wiki_link(server, id) BLOCK -%]
 http://[%- server -%]/[%- id -%]"
 [%- END -%]
+

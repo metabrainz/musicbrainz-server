@@ -24,9 +24,22 @@ MB.Control.Autocomplete = function (options) {
     var formatItem = function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        var comment = [];
+
+        if (item.sortname && !MB.utility.is_ascii (item.name))
+        {
+            comment.push (item.sortname);
+        }
+
         if (item.comment)
         {
-            a.append (' <span class="autocomplete-comment">(' + item.comment + ')</span>');
+            comment.push (item.comment);
+        }
+
+        if (comment.length)
+        {
+            a.append (' <span class="autocomplete-comment">(' +
+                      comment.join (", ") + ')</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
@@ -34,16 +47,30 @@ MB.Control.Autocomplete = function (options) {
 
     var formatPager = function (ul, item) {
         self.number_of_pages = item.pages;
+        self.pager_menu_item = null;
+
+        if (ul.children ().length === 0)
+        {
+            var span = $('<span>(' + MB.text.NoResults + ')</span>');
+
+            var li = $("<li>")
+                .data ("item.autocomplete", item)
+                .addClass("ui-menu-item")
+                .css ('text-align', 'center')
+                .append (span)
+                .appendTo (ul);
+
+            return li;
+        }
 
         if (item.pages === 1)
         {
-            self.pager_menu_item = null;
             return;
         }
 
         self.pager_menu_item = $("<a>").text ('(' + item.current + ' / ' + item.pages + ')');
 
-        var li =$('<li>')
+        var li = $('<li>')
             .data ("item.autocomplete", item)
             .css ('text-align', 'center')
             .append (self.pager_menu_item)
@@ -75,6 +102,30 @@ MB.Control.Autocomplete = function (options) {
         next.click (function (event) { self.switchPage (event,  1); });
     };
 
+    var pagerKeyEvent = function (event) {
+        var menu = self.autocomplete.menu;
+
+	if (!menu.element.is (":visible") ||
+            !self.pager_menu_item ||
+            !self.pager_menu_item.hasClass ('ui-state-hover'))
+        {
+            return;
+        }
+
+        var keyCode = $.ui.keyCode;
+
+        switch (event.keyCode) {
+        case keyCode.LEFT:
+            self.switchPage (event, -1);
+            event.preventDefault ();
+            break;
+        case keyCode.RIGHT:
+            self.switchPage (event, 1);
+            event.preventDefault ();
+            break;
+        };
+    };
+
     var switchPage = function (event, direction) {
         self.current_page = self.current_page + direction;
 
@@ -103,27 +154,6 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.search (null, event);
     };
 
-    var pagerKeyEvent = function (event) {
-        var menu = self.autocomplete.menu;
-
-	if (!menu.element.is (":visible")) {
-            return;
-        }
-
-        var keyCode = $.ui.keyCode;
-
-        switch (event.keyCode) {
-        case keyCode.LEFT:
-            self.switchPage (event, -1);
-            event.preventDefault ();
-            break;
-        case keyCode.RIGHT:
-            self.switchPage (event, 1);
-            event.preventDefault ();
-            break;
-        };
-    };
-
     var close = function (event) { self.input.focus (); };
     var open = function (event) {
         var menu = self.autocomplete.menu;
@@ -137,13 +167,16 @@ MB.Control.Autocomplete = function (options) {
         {
             newItem = menu.element.children (".ui-menu-item").eq(self.selected_item);
         }
-        
+
         if (!newItem.length)
         {
             newItem = menu.element.children (".ui-menu-item:last");
         }
 
-        menu.activate (event, newItem);
+        if (newItem.length)
+        {
+            menu.activate (event, newItem);
+        }
 
         self.pagerButtons ();
 
@@ -157,11 +190,20 @@ MB.Control.Autocomplete = function (options) {
             self.page_term = request.term;
         }
 
-        $.ajax({
+        var directsearch = $('input.autocomplete-directsearch:visible').eq(0).is(':checked');
+
+        $.ajax(self.lookupHook ({
             url: self.url,
-            data: { q: request.term, page: self.current_page },
-            success: response,
-        });
+            data: { q: request.term, page: self.current_page, direct: directsearch },
+            success: response
+        }));
+    };
+
+    var select = function (event, data) {
+
+        event.preventDefault ();
+
+        return options.select (event, data.item);
     };
 
     var initialize = function () {
@@ -169,9 +211,9 @@ MB.Control.Autocomplete = function (options) {
         self.input.autocomplete ({
             'source': lookup,
             'minLength': options.minLength ? options.minLength : 2,
-            'select': function (event, data) { return options.select (event, data.item); },
+            'select': select,
             'close': self.close,
-            'open': self.open,
+            'open': self.open
         });
 
         self.autocomplete = self.input.data ('autocomplete');
@@ -181,20 +223,29 @@ MB.Control.Autocomplete = function (options) {
         );
 
         self.autocomplete._renderItem = function (ul, item) {
-            return item['pages'] ? formatPager (ul, item) : formatItem (ul, item);
+            return item['pages'] ? self.formatPager (ul, item) : self.formatItem (ul, item);
         };
+
+        /* because we're overriding select above we also need to override
+           blur on the menu.  select() was used to render the selected value
+           to the associated input, which blur would then reset back to it's
+           original value (We need to prevent blur from doing that). */
+        self.autocomplete.menu.options.blur = function (event, ui) { };
     };
 
     self.input = options.input;
     self.url = options.entity ? "/ws/js/" + options.entity : options.url;
+    self.lookupHook = options.lookupHook || function (r) { return r; };
     self.page_term = '';
     self.current_page = 1;
     self.number_of_pages = 1;
     self.selected_item = 0;
 
-    self.switchPage = switchPage;
+    self.formatPager = options.formatPager || formatPager;
+    self.formatItem = options.formatItem || formatItem;
     self.pagerButtons = pagerButtons;
     self.pagerKeyEvent = pagerKeyEvent;
+    self.switchPage = switchPage;
     self.close = close;
     self.open = open;
     self.lookup = lookup;

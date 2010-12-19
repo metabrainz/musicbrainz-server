@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Context;
 use Moose;
 
+use DBDefs;
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;

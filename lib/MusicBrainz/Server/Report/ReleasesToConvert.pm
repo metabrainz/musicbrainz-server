@@ -9,7 +9,7 @@ sub gather_data
 
     $self->gather_data_from_query($writer, "
         SELECT release.gid, release.artist_credit AS artist_credit_id,
-               release_name.name, tracklist.id, tracklist.trackcount, COUNT(*)
+               release_name.name, tracklist.id, tracklist.track_count, COUNT(*)
         FROM track_name 
         JOIN track ON track.name = track_name.id
         JOIN tracklist ON track.tracklist = tracklist.id
@@ -18,13 +18,13 @@ sub gather_data
         JOIN release_name ON release.name = release_name.id
         WHERE track_name.name ~* E'[^\\d]-[^\\d]' 
         GROUP BY release.gid, release.artist_credit, release_name.name, 
-                 tracklist.id, tracklist.trackcount
-        HAVING count(*) = tracklist.trackcount
+                 tracklist.id, tracklist.track_count
+        HAVING count(*) = tracklist.track_count
     ");
 
     $self->gather_data_from_query($writer, "
         SELECT release.gid, release.artist_credit AS artist_credit_id,
-               release_name.name, tracklist.id, tracklist.trackcount, COUNT(*)
+               release_name.name, tracklist.id, tracklist.track_count, COUNT(*)
         FROM track_name 
         JOIN track ON track.name = track_name.id
         JOIN tracklist ON track.tracklist = tracklist.id
@@ -33,8 +33,8 @@ sub gather_data
         JOIN release_name ON release.name = release_name.id
         WHERE track_name.name LIKE '%/%'
         GROUP BY release.gid, release.artist_credit, release_name.name, 
-                 tracklist.id, tracklist.trackcount
-        HAVING count(*) = tracklist.trackcount
+                 tracklist.id, tracklist.track_count
+        HAVING count(*) = tracklist.track_count
     ");
 }
 

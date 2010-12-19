@@ -3,15 +3,17 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Translation qw ( l ln );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
+sub edit_name { l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }
-sub edit_name { "Add artist" }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
 
@@ -30,7 +32,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     return {
-        ( map { $_ => $self->data->{$_} } qw( name sort_name comment ) ),
+        ( map { $_ => $self->data->{$_} } qw( name sort_name comment ipi_code ) ),
         type       => $loaded->{ArtistType}->{$self->data->{type_id}},
         gender     => $loaded->{Gender}->{$self->data->{gender_id}},
         country    => $loaded->{Country}->{$self->data->{country_id}},
@@ -50,6 +52,7 @@ has '+data' => (
         comment    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
+        ipi_code   => Nullable[Str],
     ]
 );
 

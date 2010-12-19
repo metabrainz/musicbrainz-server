@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -28,7 +28,7 @@ sub get_by_gid
     my $table = $self->_gid_redirect_table;
     if (defined($table)) {
         my $sql = Sql->new($self->c->dbh);
-        my $id = $sql->select_single_value("SELECT newid FROM $table WHERE gid=?", $gid);
+        my $id = $sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
         if (defined($id)) {
             return $self->get_by_id($id);
         }
@@ -45,14 +45,15 @@ sub find_by_name
 
 sub autocomplete_name
 {
-    my ($self, $name, $limit) = @_;
+    my ($self, $name, $limit, $offset) = @_;
 
     $limit ||= 10;
+    $offset ||= 0;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table .
-        " WHERE lower(name.name) LIKE ? LIMIT ?";
+        " WHERE lower(name.name) LIKE ? OFFSET ?";
 
-    return query_to_list($self->c->dbh,
-        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), $limit);
+    return query_to_list_limited($self->c->dbh, $offset, $limit,
+        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), $offset);
 }
 
 sub remove_gid_redirects
@@ -60,7 +61,7 @@ sub remove_gid_redirects
     my ($self, @ids) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
-    $sql->do("DELETE FROM $table WHERE newid IN (" . placeholders(@ids) . ')', @ids);
+    $sql->do("DELETE FROM $table WHERE new_id IN (" . placeholders(@ids) . ')', @ids);
 }
 
 sub add_gid_redirects
@@ -68,7 +69,7 @@ sub add_gid_redirects
     my ($self, %redirects) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
-    my $query = "INSERT INTO $table (gid, newid) VALUES " .
+    my $query = "INSERT INTO $table (gid, new_id) VALUES " .
                 (join ", ", ('(?, ?)') x keys %redirects);
     $sql->do($query, %redirects);
 }
@@ -79,8 +80,8 @@ sub update_gid_redirects
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
     $sql->do("
-        UPDATE $table SET newid = ?
-        WHERE newid IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+        UPDATE $table SET new_id = ?
+        WHERE new_id IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
 sub _delete_and_redirect_gids

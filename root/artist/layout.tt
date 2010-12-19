@@ -1,11 +1,9 @@
-[%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? artist.name _ " - ${title}" : artist.name -%]
 
-    [% WRAPPER 'layout/sidebar.tt' %]
-	<div about="[% rdfa_artist_curi(artist) %]">
+    [% WRAPPER 'layout/sidebar.tt' about=rdfa_artist_curi(artist)%]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=html_escape(artist.sort_name)
-	       property=rdfa_sort_name_property
+               content=rdfa_sort_name(artist.sort_name)
                    IF artist.name != artist.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(artist.type_name)
@@ -23,16 +21,21 @@
                    ([% rdfa_artist_age(display_age (artist.age)) %])
                 [% END %]
             [% END %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+               content=html_escape(artist.ipi_code)
+                   IF artist.ipi_code -%]
             [%- END -%]
 	    [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(artist.country.name)
                    IF artist.country -%]
         [% END %]
-	</div>
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags more=more_tags tag_this_text=l('Tag this artist') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags
+            more=more_tags tag_this_text=l('Tag this artist')
+            async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
+            -%]
 
         <ul class="links">
             [% IF c.user_exists && !artist.is_special_purpose %]
@@ -45,6 +48,11 @@
             [% END %]
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
+                  <li>
+                    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
+                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                    </a>
+                  </li>
                   <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
                   <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
                   [% IF artist.edits_pending %]
@@ -68,6 +76,13 @@
                     [% l('Add a work') %]
                   </a>
                 </li>
+                [% IF watching_artist %]
+                    <li>
+                        [% link_artist(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
+                    </li>
+                [% ELSE %]
+                    <li>[% link_artist(artist, 'watch', l('Watch this artist for new releases')) %]</li>
+                [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this artist')) %]</li>
             [% END %]

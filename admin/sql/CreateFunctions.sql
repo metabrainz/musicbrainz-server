@@ -120,26 +120,26 @@ END;
 $$ LANGUAGE 'plpgsql' IMMUTABLE STRICT;
 
 
-CREATE OR REPLACE FUNCTION inc_refcount(tbl varchar, row_id integer, val integer) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION inc_ref_count(tbl varchar, row_id integer, val integer) RETURNS void AS $$
 BEGIN
-    -- increment refcount for the new name
-    EXECUTE 'SELECT refcount FROM ' || tbl || ' WHERE id = ' || row_id || ' FOR UPDATE';
-    EXECUTE 'UPDATE ' || tbl || ' SET refcount = refcount + ' || val || ' WHERE id = ' || row_id;
+    -- increment ref_count for the new name
+    EXECUTE 'SELECT ref_count FROM ' || tbl || ' WHERE id = ' || row_id || ' FOR UPDATE';
+    EXECUTE 'UPDATE ' || tbl || ' SET ref_count = ref_count + ' || val || ' WHERE id = ' || row_id;
     RETURN;
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION dec_refcount(tbl varchar, row_id integer, val integer) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION dec_ref_count(tbl varchar, row_id integer, val integer) RETURNS void AS $$
 DECLARE
     ref_count integer;
 BEGIN
-    -- decrement refcount for the old name,
-    -- or delete it if refcount would drop to 0
-    EXECUTE 'SELECT refcount FROM ' || tbl || ' WHERE id = ' || row_id || ' FOR UPDATE' INTO ref_count;
+    -- decrement ref_count for the old name,
+    -- or delete it if ref_count would drop to 0
+    EXECUTE 'SELECT ref_count FROM ' || tbl || ' WHERE id = ' || row_id || ' FOR UPDATE' INTO ref_count;
     IF ref_count <= val THEN
         EXECUTE 'DELETE FROM ' || tbl || ' WHERE id = ' || row_id;
     ELSE
-        EXECUTE 'UPDATE ' || tbl || ' SET refcount = refcount - ' || val || ' WHERE id = ' || row_id;
+        EXECUTE 'UPDATE ' || tbl || ' SET ref_count = ref_count - ' || val || ' WHERE id = ' || row_id;
     END IF;
     RETURN;
 END;
@@ -157,12 +157,21 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_artist() RETURNS trigger AS $$
+-----------------------------------------------------------------------
+-- editor triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_editor() RETURNS trigger AS $$
 BEGIN
-    IF NEW.editpending = OLD.editpending THEN
-        -- editpending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE artist_meta SET lastupdate=NOW() WHERE id=NEW.id;
-    END IF;
+    -- add a new entry to the editor_watch_preference table
+    INSERT INTO editor_watch_preferences (editor) VALUES (NEW.id);
+
+    -- by default watch for new official albums
+    INSERT INTO editor_watch_release_group_type (editor, release_group_type)
+        VALUES (NEW.id, 2);
+    INSERT INTO editor_watch_release_status (editor, release_status)
+        VALUES (NEW.id, 1);
+
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -178,23 +187,13 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_label() RETURNS trigger AS $$
-BEGIN
-    IF NEW.editpending = OLD.editpending THEN
-        -- editpending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE label_meta SET lastupdate=NOW() WHERE id=NEW.id;
-    END IF;
-    RETURN NULL;
-END;
-$$ LANGUAGE 'plpgsql';
-
 -----------------------------------------------------------------------
 -- recording triggers
 -----------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION a_ins_recording() RETURNS trigger AS $$
 BEGIN
-    PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
+    PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     INSERT INTO recording_meta (id) VALUES (NEW.id);
     RETURN NULL;
 END;
@@ -203,12 +202,8 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_upd_recording() RETURNS trigger AS $$
 BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
-        PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
-        PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.editpending = OLD.editpending THEN
-        -- editpending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE recording_meta SET lastupdate=NOW() WHERE id=NEW.id;
+        PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
+        PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
     RETURN NULL;
 END;
@@ -216,7 +211,7 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_del_recording() RETURNS trigger AS $$
 BEGIN
-    PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
+    PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -227,11 +222,11 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_release() RETURNS trigger AS $$
 BEGIN
-    -- increment refcount of the name
-    PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
-    -- increment releasecount of the parent release group
-    UPDATE release_group_meta SET releasecount = releasecount + 1 WHERE id = NEW.release_group;
-    PERFORM set_release_group_firstreleasedate(NEW.release_group);
+    -- increment ref_count of the name
+    PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
+    -- increment release_count of the parent release group
+    UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
+    PERFORM set_release_group_first_release_date(NEW.release_group);
     -- add new release_meta
     INSERT INTO release_meta (id) VALUES (NEW.id);
     INSERT INTO release_coverart (id) VALUES (NEW.id);
@@ -242,31 +237,27 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_upd_release() RETURNS trigger AS $$
 BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
-        PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
-        PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
+        PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
+        PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
     IF NEW.release_group != OLD.release_group THEN
-        -- release group is changed, decrement releasecount in the original RG, increment in the new one
-        UPDATE release_group_meta SET releasecount = releasecount - 1 WHERE id = OLD.release_group;
-        UPDATE release_group_meta SET releasecount = releasecount + 1 WHERE id = NEW.release_group;
-        PERFORM set_release_group_firstreleasedate(OLD.release_group);
+        -- release group is changed, decrement release_count in the original RG, increment in the new one
+        UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
+        UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
+        PERFORM set_release_group_first_release_date(OLD.release_group);
     END IF;
-    PERFORM set_release_group_firstreleasedate(NEW.release_group);
-    IF NEW.editpending = OLD.editpending THEN
-        -- editpending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE release_meta SET lastupdate=NOW() WHERE id=NEW.id;
-    END IF;
+    PERFORM set_release_group_first_release_date(NEW.release_group);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_del_release() RETURNS trigger AS $$
 BEGIN
-    -- decrement refcount of the name
-    PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
-    -- decrement releasecount of the parent release group
-    UPDATE release_group_meta SET releasecount = releasecount - 1 WHERE id = OLD.release_group;
-    PERFORM set_release_group_firstreleasedate(OLD.release_group);
+    -- decrement ref_count of the name
+    PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
+    -- decrement release_count of the parent release group
+    UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
+    PERFORM set_release_group_first_release_date(OLD.release_group);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -277,7 +268,7 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_release_group() RETURNS trigger AS $$
 BEGIN
-    PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
+    PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     INSERT INTO release_group_meta (id) VALUES (NEW.id);
     RETURN NULL;
 END;
@@ -286,12 +277,8 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_upd_release_group() RETURNS trigger AS $$
 BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
-        PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
-        PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.editpending = OLD.editpending THEN
-        -- editpending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE release_group_meta SET lastupdate=NOW() WHERE id=NEW.id;
+        PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
+        PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
     RETURN NULL;
 END;
@@ -299,7 +286,7 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_del_release_group() RETURNS trigger AS $$
 BEGIN
-    PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
+    PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -310,9 +297,9 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_track() RETURNS trigger AS $$
 BEGIN
-    PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
-    -- increment trackcount in the parent tracklist
-    UPDATE tracklist SET trackcount = trackcount + 1 WHERE id = NEW.tracklist;
+    PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
+    -- increment track_count in the parent tracklist
+    UPDATE tracklist SET track_count = track_count + 1 WHERE id = NEW.tracklist;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -320,13 +307,13 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_upd_track() RETURNS trigger AS $$
 BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
-        PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
-        PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
+        PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
+        PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
     IF NEW.tracklist != OLD.tracklist THEN
-        -- tracklist is changed, decrement trackcount in the original tracklist, increment in the new one
-        UPDATE tracklist SET trackcount = trackcount - 1 WHERE id = OLD.tracklist;
-        UPDATE tracklist SET trackcount = trackcount + 1 WHERE id = NEW.tracklist;
+        -- tracklist is changed, decrement track_count in the original tracklist, increment in the new one
+        UPDATE tracklist SET track_count = track_count - 1 WHERE id = OLD.tracklist;
+        UPDATE tracklist SET track_count = track_count + 1 WHERE id = NEW.tracklist;
     END IF;
     RETURN NULL;
 END;
@@ -334,9 +321,9 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_del_track() RETURNS trigger AS $$
 BEGIN
-    PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
-    -- decrement trackcount in the parent tracklist
-    UPDATE tracklist SET trackcount = trackcount - 1 WHERE id = OLD.tracklist;
+    PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
+    -- decrement track_count in the parent tracklist
+    UPDATE tracklist SET track_count = track_count - 1 WHERE id = OLD.tracklist;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -347,7 +334,7 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_work() RETURNS trigger AS $$
 BEGIN
-    PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
+    PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     INSERT INTO work_meta (id) VALUES (NEW.id);
     RETURN NULL;
 END;
@@ -356,12 +343,8 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_upd_work() RETURNS trigger AS $$
 BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
-        PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
-        PERFORM inc_refcount('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.editpending = OLD.editpending THEN
-        -- editpending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE work_meta SET lastupdate=NOW() WHERE id=NEW.id;
+        PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
+        PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
     RETURN NULL;
 END;
@@ -369,8 +352,19 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_del_work() RETURNS trigger AS $$
 BEGIN
-    PERFORM dec_refcount('artist_credit', OLD.artist_credit, 1);
+    PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- lastupdate triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION b_upd_last_updated_table() RETURNS trigger AS $$
+BEGIN
+    NEW.last_updated = NOW();
+    RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -474,14 +468,14 @@ $$ LANGUAGE 'plpgsql' IMMUTABLE;
 
 
 -------------------------------------------------------------------
--- Maintain release_group_meta.firstreleasedate
+-- Maintain release_group_meta.first_release_date
 -------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION set_release_group_firstreleasedate(release_group_id INTEGER)
+CREATE OR REPLACE FUNCTION set_release_group_first_release_date(release_group_id INTEGER)
 RETURNS VOID AS $$
 BEGIN
-    UPDATE release_group_meta SET firstreleasedate_year = first.date_year,
-                                  firstreleasedate_month = first.date_month,
-                                  firstreleasedate_day = first.date_day
+    UPDATE release_group_meta SET first_release_date_year = first.date_year,
+                                  first_release_date_month = first.date_month,
+                                  first_release_date_day = first.date_day
       FROM (
         SELECT date_year, date_month, date_day FROM release
          WHERE release_group = release_group_id

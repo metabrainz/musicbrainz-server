@@ -134,6 +134,25 @@ Sql::run_in_transaction(sub {
 
     open LOG, ">upgrade-merge-works.log";
 
+	# Use remastered recordings
+    printf STDERR "Processing remastered and karaoke recordings\n";
+	
+    $sql->select("
+        SELECT link0, link1
+        FROM public.l_track_track l
+            JOIN public.track r0 ON r0.id = l.link0
+            JOIN public.track r1 ON r1.id = l.link1
+        WHERE l.link_type in (3, 16) 
+            AND r0.artist = r1.artist
+        ");
+    while (1) {
+        my $link = $sql->next_row_ref or last;
+        add_merge($link->[0], $link->[1]);
+        $targets{$link->[0]} = 1;
+        printf LOG "Same work: $link->[0] => $link->[1]\n";
+    }
+    $sql->finish;
+
 	# Use recordings linked to multiple works with the default AR
     printf STDERR "Processing recordings linked to multiple works\n";
 
@@ -169,7 +188,7 @@ Sql::run_in_transaction(sub {
     $sql->finish;
 
 	# Use URL: lyrics.wikia, score, ...
-    printf STDERR "Processing lyrics and score URLs\n";
+    printf STDERR "Processing work URLs (lyrics, score, ...)\n";
 
     $sql->select("
         SELECT lrw.entity0 AS url, w.id, n.name, w.artist_credit as artist
@@ -182,7 +201,7 @@ Sql::run_in_transaction(sub {
                 SELECT entity0 FROM l_url_work
                 GROUP BY entity0 HAVING count(*)>1
             ) u ON u.entity0=lrw.entity0
-		WHERE lt.name in ('score', 'lyrics')
+		WHERE lt.name in ('score', 'lyrics', 'ibdb', 'iobdb')
         ORDER BY u.entity0, w.id
     ");
     $i = 1;
@@ -200,11 +219,6 @@ Sql::run_in_transaction(sub {
     }
     process_works([ @works ]) if @works;
     $sql->finish;
-	
-	# Use remastered recordings
-    #printf STDERR "Processing remastered recordings\n";
-	
-	#TODO
 	
     # Generate a "new_id -> [ old_id ]" map from "old_id -> new_id"
 
@@ -284,13 +298,13 @@ Sql::run_in_transaction(sub {
         $sql->do("
 SELECT
     DISTINCT ON (link, entity0, COALESCE(new_work, entity1))
-        id, link, entity0, COALESCE(new_work, entity1) AS entity1, editpending
+        id, link, entity0, COALESCE(new_work, entity1) AS entity1, edits_pending
 INTO TEMPORARY tmp_$table
 FROM $table
     LEFT JOIN tmp_work_merge rm ON $table.entity1=rm.old_work;
 
 TRUNCATE $table;
-INSERT INTO $table SELECT id, link, entity0, entity1, editpending FROM tmp_$table;
+INSERT INTO $table SELECT id, link, entity0, entity1, edits_pending FROM tmp_$table;
 DROP TABLE tmp_$table;
 ");
     }
@@ -298,7 +312,7 @@ DROP TABLE tmp_$table;
     printf STDERR "Merging l_work_work\n";
     $sql->do("
 SELECT
-    DISTINCT ON (link, COALESCE(rm0.new_work, entity0), COALESCE(rm1.new_work, entity1)) id, link, COALESCE(rm0.new_work, entity0) AS entity0, COALESCE(rm1.new_work, entity1) AS entity1, editpending
+    DISTINCT ON (link, COALESCE(rm0.new_work, entity0), COALESCE(rm1.new_work, entity1)) id, link, COALESCE(rm0.new_work, entity0) AS entity0, COALESCE(rm1.new_work, entity1) AS entity1, edits_pending
 INTO TEMPORARY tmp_l_work_work
 FROM l_work_work
     LEFT JOIN tmp_work_merge rm0 ON l_work_work.entity0=rm0.old_work
@@ -326,10 +340,10 @@ DROP TABLE tmp_work_annotation;
     printf STDERR "Merging work_gid_redirect\n";
     $sql->do("
 SELECT
-    gid, COALESCE(new_work, newid)
+    gid, COALESCE(new_work, new_id)
 INTO TEMPORARY tmp_work_gid_redirect
 FROM work_gid_redirect
-    LEFT JOIN tmp_work_merge rm ON work_gid_redirect.newid=rm.old_work;
+    LEFT JOIN tmp_work_merge rm ON work_gid_redirect.new_id=rm.old_work;
 
 TRUNCATE work_gid_redirect;
 INSERT INTO work_gid_redirect SELECT * FROM tmp_work_gid_redirect;
@@ -365,7 +379,7 @@ DROP TABLE tmp_work;
     while (1) {
         my $row = $raw_sql->next_row_ref or last;
         my ($id, $rating, $count) = @$row;
-        $sql->do("UPDATE work_meta SET rating=?, ratingcount=? WHERE id=?", $rating, $count, $id);
+        $sql->do("UPDATE work_meta SET rating=?, rating_count=? WHERE id=?", $rating, $count, $id);
     }
     $raw_sql->finish;
     $sql->do("DROP INDEX tmp_work_meta_idx");

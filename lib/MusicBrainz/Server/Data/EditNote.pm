@@ -18,7 +18,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, edit, text, notetime';
+    return 'id, editor, edit, text, post_time';
 }
 
 sub _column_mapping
@@ -28,7 +28,7 @@ sub _column_mapping
         editor_id => 'editor',
         edit_id => 'edit',
         text => 'text',
-        post_time => 'notetime',
+        post_time => 'post_time',
     }
 }
 
@@ -45,7 +45,7 @@ sub load_for_edits
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE edit IN (' . placeholders(@ids) . ')' .
-                ' ORDER BY notetime, id';
+                ' ORDER BY post_time, id';
     my @notes = query_to_list($self->c->raw_dbh, sub {
             my $r = shift;
             my $note = $self->_new_from_row($r);
@@ -85,16 +85,12 @@ sub add_note
         (map { $_->editor_id } @{ $edit->edit_notes }));
     $self->c->model('Editor')->load_preferences(values %$editors);
 
-    my @to_email;
-    push @to_email,
+    my @to_email = grep { $_ != $note_hash->{editor_id} }
         map { $_->id } grep { $_->preferences->email_on_notes }
-        map { $editors->{$_->editor_id} } @{ $edit->edit_notes };
-
-    push @to_email,
-        map { $_->id } grep { $_->preferences->email_on_vote }
-        map { $editors->{$_->editor_id} } @{ $edit->votes };
-
-    @to_email = grep { $_ != $note_hash->{editor_id} } @to_email;
+        map { $editors->{$_->editor_id} }
+            @{ $edit->edit_notes },
+            @{ $edit->votes },
+            $edit;
 
     my $from = $editors->{ $note_hash->{editor_id} };
     for my $editor_id (uniq @to_email) {

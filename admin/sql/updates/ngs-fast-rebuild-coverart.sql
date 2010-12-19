@@ -3,8 +3,8 @@ CREATE UNIQUE INDEX l_release_url_idx_uniq ON l_release_url (entity0, entity1, l
 
 -- Add coverart for ASINs using the old way
 UPDATE release_coverart
-    SET coverfetched = NOW() - '1 minute'::INTERVAL * ROUND(RANDOM() * 20160), -- 20160 minutes = 2 weeks
-        coverarturl = (SELECT 'http://' 
+    SET last_updated = NOW() - '1 minute'::INTERVAL * ROUND(RANDOM() * 20160), -- 20160 minutes = 2 weeks
+        cover_art_url = (SELECT 'http://' 
         || (CASE WHEN substring(url.url from E'^http://www\\.amazon\\.(com|ca|de|fr|co\\.(jp|uk))/') = 'de' THEN 'ec2.images-amazon.com' ELSE 'ec1.images-amazon.com' END)
         || '/images/P/'
         || substring(url.url from 'product/([0-9A-Z]{10})')
@@ -32,10 +32,10 @@ UPDATE release_coverart
         WHERE link_type.name = 'amazon asin'
             AND url ~ E'^http://www\\.amazon\\.(com|ca|de|fr|co\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
             AND l.entity0 = release_coverart.id
-    ) AND coverarturl IS NULL;
+    ) AND cover_art_url IS NULL;
 
 UPDATE release_meta
-    SET amazonasin = (SELECT substring(url.url from 'product/([0-9A-Z]{10})')
+    SET amazon_asin = (SELECT substring(url.url from 'product/([0-9A-Z]{10})')
         FROM l_release_url l
           JOIN link      ON l.link = link.id
           JOIN link_type ON link.link_type = link_type.id
@@ -44,7 +44,7 @@ UPDATE release_meta
             AND url ~ E'^http://www\\.amazon\\.(com|ca|de|fr|co\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
             AND l.entity0 = release_meta.id
         LIMIT 1
-    ), infourl = (SELECT url.url
+    ), info_url = (SELECT url.url
         FROM l_release_url l
           JOIN link      ON l.link = link.id
           JOIN link_type ON link.link_type = link_type.id
@@ -61,6 +61,6 @@ UPDATE release_meta
         WHERE link_type.name = 'amazon asin'
             AND url ~ E'^http://www\\.amazon\\.(com|ca|de|fr|co\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
             AND l.entity0 = release_meta.id
-    ) AND amazonasin IS NULL;
+    ) AND amazon_asin IS NULL;
 
 DROP INDEX l_release_url_idx_uniq;

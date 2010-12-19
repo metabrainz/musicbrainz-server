@@ -18,8 +18,8 @@ sub gather_data
         WHERE
             (artist.type != 1 OR artist.type IS NULL) AND
             link_type.name NOT IN ('collaboration') AND
-            link_type.entitytype0 = 'artist' AND
-            link_type.entitytype1 = 'artist'
+            link_type.entity_type0 = 'artist' AND
+            link_type.entity_type1 = 'artist'
         ORDER BY name.name, artist.id
     ");
 }

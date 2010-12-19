@@ -18,130 +18,162 @@
 
 */
 
-MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
+MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback) {
     var self = MB.Object ();
 
-    self.row = $(row);
-    self.container = $('#select-recording-'+disc+'-'+track);
-    self.radioname = 'select-recording-'+disc+'-'+track;
+    self.$container = $container;
+    self.artistname = artistname;
 
-    self.link = self.row.find ('span.recording');
-    self.gid = self.row.find ('input.gid');
-    self.artist = self.row.next ().find ('span.recording-artist');
-    self.use_recording = self.row.next ().andSelf ().find ('span.recording');
-    self.add_recording = self.row.find ('span.add-recording');
+    self.$search = self.$container.find ('input.recording');
+    self.$radio = self.$container.find ('input.clientmatch');
 
-    self.search = self.container.find ('input.recording');
-    self.matches = self.container.find ('table.matches tbody');
-    self.separator = self.matches.find ('tr.separator');
+    self.$name = self.$container.find ('tr.clientmatch a.name');
+    self.$gid = self.$container.find ('tr.clientmatch input.gid');
+    self.$artist = self.$container.find ('tr.clientmatch td.artist');
+    self.$length = self.$container.find ('tr.clientmatch td.length');
+    self.$appears = self.$container.find ('tr.clientmatch span.appears');
+    self.$comment = self.$container.find ('tr.clientmatch span.comment');
 
-    var query = function (value) {
+    var render_release_groups = function ($target, rgs) {
 
-        if (value === '')
-        {
-            return false;
-        }
+        $target.empty ();
 
-        var artistname = self.row.next ().find ('.track-artist').text ();
+        var first = true;
+        $.each (rgs, function (idx, item) {
 
-        return {
-            url: '/ws/js/recording', 
-            data: { q: value, a: artistname },
-        };
-    };
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                $target.append (", ");
+            }
 
-    var renderMatches = function(data) {
-        self.matches.find ('tr.clientmatch').remove ();
-
-        if (data.length === 0)
-        {
-            self.matches.find ('tr.servermatch').show ();
-            return;
-        }
-
-        self.matches.find ('tr.servermatch').hide ();
-
-        var rec = MB.utility.template (
-            '    <tr class="clientmatch recordingmatch">' +
-                '  <td class="select">' +
-                '    <input type="radio" name="' + self.radioname + '" class="recordingmatch" />' +
-                '  </td>' +
-                '  <td class="recording">' +
-                '    <input type="hidden" class="gid" value="#{gid}" />' +
-                '    <a href="/recording/#{gid}">#{name}</a>' +
-                '  </td>' +
-                '  <td class="artist">#{artist}</td>' +
-                '  <td class="length">#{length}</td>' +
-                '</tr>' +
-                '<tr class="clientmatch releaselist">' +
-                '  <td> </td>' +
-                '  <td colspan="3">' + MB.text.AppearsOn + ' #{releasegroups}</td>' +
-                '</tr>'
-        );
-
-        var rg = MB.utility.template ('<a href="/release-group/#{gid}">#{name}</a>');
-
-        $.each (data, function (i, result) {
-
-            var releasegroups = [];
-            $.each (result.releasegroups, function (idx, item) {
-                releasegroups.push (rg.draw (item));
-            });
-
-            result.releasegroups = releasegroups.join (", ");
-
-            var html = rec.draw (result);
-
-            $(html).insertBefore (self.separator);
+            var a = '<a href="/release-group/' + item.gid + '">' + item.name + '</a>';
+            $target.append ($(a));
         });
-
-        self.matches.find ('tr.clientmatch input.recordingmatch').change (self.select);
     };
 
-    var select = function(event) {
-        var row = $(this).closest ('tr');
+    var selected = function (event, data) {
+        self.$name.text (data.name);
+        self.$name.attr ('href', '/recording/' + data.gid);
+        self.$gid.val (data.gid);
+        self.$artist.text (data.artist);
+        self.$length.text (data.length);
+        render_release_groups (self.$appears, data.releasegroups);
 
-        if (row.hasClass ('addnew'))
+        self.$container.find ('tr.clientmatch').show ();
+
+        if (data.comment)
         {
-            self.gid.val ('');
-            self.add_recording.show ();
-            self.use_recording.hide ();
+            self.$comment.text (data.comment);
+            self.$comment.closest ('tr').show ();
         }
         else
         {
-            row.find ('td.recording a').clone ().appendTo (self.link.empty ());
-
-            self.gid.val (row.find ('input.gid').val ());
-            self.artist.text (row.find ('td.artist').text ());
-
-            self.use_recording.show ();
-            self.add_recording.hide ();
+            self.$comment.closest ('tr').hide ();
         }
+
+        self.$radio.attr ('checked', true);
+        self.$radio.trigger ('change');
     };
 
-    var initialize = function() {
-        self.autocomplete = MB.utility.AutoComplete (
-            self.search, self.query, self.renderMatches);
+    var formatItem = function (ul, item) {
+        var a = $("<a>").text (item.name);
 
-        self.container.find ('a[href=#cancel-search]').click (function (event) {
-            $(this).prev('input').val ('');
-            self.renderMatches ([]);
-        });
+        a.append (' - <span class="autocomplete-artist">' + item.artist + '</span>');
 
-        self.matches.find ('tr.servermatch input.recordingmatch').change (self.select);
-        self.matches.find ('tr.addnew input.newrecording').change (self.select);
+        if (item.releasegroups)
+        {
+            var rgs = {};
+            /* don't display the same name multiple times. */
+            $.each (item.releasegroups, function (idx, item) {
+                rgs[item.name] = item.name;
+            });
+
+            a.append ('<br /><span class="autocomplete-appears">appears on: '
+                      + MB.utility.keys (rgs).join (", ") + '</span>');
+        }
+
+        if (item.comment)
+        {
+            a.append ('<br /><span class="autocomplete-comment">(' + item.comment + ')</span>');
+        }
+
+        if (item.isrcs.length)
+        {
+            a.append ('<br /><span class="autocomplete-isrcs">isrcs: '
+                      + item.isrcs.join (", ") + '</span>');
+        }
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     };
 
-    self.query = query;
-    self.renderMatches = renderMatches;
-    self.select = select;
-    self.initialize = initialize;
+    var lookupHook = function (request) {
 
-    self.initialize ();
+        $.extend (request.data, { 'a': self.artistname });
+
+        return request;
+    };
+
+    self.selected = selected;
+
+    MB.Control.Autocomplete ({
+        'input': self.$search,
+        'entity': 'recording',
+        'select': self.selected,
+        'formatItem': formatItem,
+        'lookupHook': lookupHook
+    });
 
     return self;
 };
 
+
+MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
+    var self = MB.Object ();
+
+    var $container = $('#select-recording-'+disc+'-'+track);
+
+    self.$row = $(row);
+    self.$matches = $container.find ('table.matches tbody');
+
+    self.$link = self.$row.find ('span.recording');
+    self.$gid = self.$row.find ('input.gid');
+    self.$artist = self.$row.next ().find ('span.recording-artist');
+    self.$use_recording = self.$row.next ().andSelf ().find ('span.recording');
+    self.$add_recording = self.$row.find ('span.add-recording');
+
+    var change = function (event) {
+        var $row = $(this).closest ('tr');
+
+        if ($row.hasClass ('addnew'))
+        {
+            self.$gid.val ('');
+            self.$add_recording.show ();
+            self.$use_recording.hide ();
+        }
+        else
+        {
+            $row.find ('td.recording a').clone ().appendTo (self.$link.empty ());
+
+            self.$gid.val ($row.find ('input.gid').val ());
+            self.$artist.text ($row.find ('td.artist').text ());
+
+            self.$use_recording.show ();
+            self.$add_recording.hide ();
+        }
+        
+    };
+
+    self.$matches.find ('input.recordingmatch').change (change);
+
+    var artistname = self.$row.next ().find ('.track-artist').text ();
+    self.select = MB.Control.ReleaseRecordingsSelect ($container, artistname, change);
+
+    return self;
+};
 
 MB.Control.ReleaseRecordingsDisc = function (disc, fieldset) {
     var self = MB.Object ();
@@ -161,7 +193,9 @@ MB.Control.ReleaseRecordings = function () {
     self.discs = [];
 
     $('fieldset.recording-assoc-disc').each (function (idx, disc) {
-        self.discs.push (MB.Control.ReleaseRecordingsDisc (idx, disc));
+        var discno = $(disc).attr ('id').replace ('recording-assoc-disc-', '');
+
+        self.discs.push (MB.Control.ReleaseRecordingsDisc (discno, disc));
     });
 
     MB.Control.BubbleCollection ($('a.change-recording'), $('div.select-recording'));

@@ -206,7 +206,7 @@ sub Create
     push @opts, "plpgsql";
     $ENV{"PGPASSWORD"} = $sys_db->password;
     system "createlang", @opts;
-    die "\nFailed to create language\n" if ($? >> 8);
+    print "\nFailed to create language -- its likely to be already installed, continuing.\n" if ($? >> 8);
 }
 
 sub CreateRelations
@@ -267,7 +267,7 @@ sub CreateRelations
         CreateReplicationFunction();
         RunSQLScript($READWRITE, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
     }
-    if ($REPTYPE == RT_SLAVE)
+    if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
     {
         RunSQLScript($READWRITE, "ReplicationSetup.sql", "Setting up replication ...");
     }
