@@ -231,6 +231,9 @@ MB.Control.Autocomplete = function (options) {
            to the associated input, which blur would then reset back to it's
            original value (We need to prevent blur from doing that). */
         self.autocomplete.menu.options.blur = function (event, ui) { };
+
+        /* focus, idem. */
+        self.autocomplete.menu.options.focus = function (event, ui) { };
     };
 
     self.input = options.input;
