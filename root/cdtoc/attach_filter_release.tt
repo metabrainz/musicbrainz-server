@@ -28,7 +28,7 @@
             [% FOR medium=release.mediums %]
               [% NEXT UNLESS
                     medium.tracklist.track_count == cdtoc.track_count AND
-                    medium.format.has_discids %]
+                    medium.may_have_discids %]
               <tr class="subh">
                 <th colspan="3">
                   <input type="radio" name="medium" value="[% medium.id %]" />
