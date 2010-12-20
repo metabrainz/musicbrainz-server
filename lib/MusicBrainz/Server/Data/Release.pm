@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' }
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
 
 sub _table
 {
@@ -448,6 +449,7 @@ sub delete
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
+    $self->tags->delete(@release_ids);
     my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
         @release_ids);
@@ -463,6 +465,7 @@ sub merge
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
 
     # XXX merge release attributes
 
