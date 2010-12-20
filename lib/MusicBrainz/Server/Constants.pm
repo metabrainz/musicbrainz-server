@@ -95,6 +95,7 @@ Readonly our $EDIT_MEDIUM_REMOVE_DISCID => 54;
 Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
 Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 Readonly our $EDIT_MEDIUM_EDIT_TRACKLIST => 57;
+Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_MERGE => 74;
