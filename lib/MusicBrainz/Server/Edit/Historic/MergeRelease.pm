@@ -13,6 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 sub edit_name     { l('Merge releases') }
 sub historic_type { 23 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE }
+sub edit_template { 'historic/merge_releases' }
 
 sub related_entities
 {

@@ -55,6 +55,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::Edit
     MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
+    MusicBrainz::Server::Edit::Release::Merge
     MusicBrainz::Server::Edit::Release::Move
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
