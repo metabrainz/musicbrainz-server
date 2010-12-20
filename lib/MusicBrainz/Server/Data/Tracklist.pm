@@ -73,6 +73,19 @@ sub usage_count
           WHERE tracklist.id = ?', $tracklist_id);
 }
 
+sub set_lengths_to_cdtoc
+{
+    my ($self, $tracklist_id, $cdtoc_id) = @_;
+    my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id)
+        or die "Could not load CDTOC";
+
+    my @info = @{ $cdtoc->track_details };
+    for my $i (0..$#info) {
+        my $query = 'UPDATE track SET length = ? WHERE tracklist = ? AND position = ?';
+        $self->sql->do($query, $info[$i]->{length_time}, $tracklist_id, $i + 1);
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -5,9 +5,11 @@ TRUNCATE artist_credit CASCADE;
 TRUNCATE artist_credit_name CASCADE;
 TRUNCATE artist_name CASCADE;
 TRUNCATE artist CASCADE;
+TRUNCATE cdtoc CASCADE;
 TRUNCATE country CASCADE;
 TRUNCATE language CASCADE;
 TRUNCATE medium CASCADE;
+TRUNCATE medium_cdtoc CASCADE;
 TRUNCATE medium_format CASCADE;
 TRUNCATE recording CASCADE;
 TRUNCATE release CASCADE;
@@ -101,8 +103,13 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (2, 1
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (3, 2, 1, 1, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2, 2, 2, 1, 'A Sky of Honey');
 
+INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset, degraded)
+       VALUES (1, 'BySFY0Ymit0miawEWumIN8Nvx-', '4b094107', 7, 171327,
+              '{187, 25585, 46070, 70612, 89517, 143492, 164262}', FALSE);
+
 ALTER SEQUENCE track_name_id_seq RESTART 17;
 ALTER SEQUENCE track_id_seq RESTART 17;
 ALTER SEQUENCE recording_id_seq RESTART 17;
+ALTER SEQUENCE tracklist_id_seq RESTART 3;
 
 COMMIT;
