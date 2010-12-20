@@ -280,6 +280,7 @@ pre code {
 }
 
 .warning-header,
+.flash,
 .server-details {
     margin: 10px 0;
     text-align: center;
@@ -291,6 +292,12 @@ pre code {
     position: relative;
 }
 
+.flash {
+    color: #000;
+    font-weight: normal;
+}
+
+.flash p,
 .server-details p,
 .warning-header p {
     margin: 0;

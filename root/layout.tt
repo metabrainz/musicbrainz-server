@@ -94,6 +94,15 @@
         </div>
         [% END %]
 
+        [% IF c.flash.message %]
+            <div class="flash">
+                <p>
+                    [% c.flash.message %]
+                </p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [% END %]
+
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
             [%- content -%]
             <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
