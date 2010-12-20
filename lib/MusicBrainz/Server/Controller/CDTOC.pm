@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_REMOVE_DISCID
     $EDIT_MEDIUM_MOVE_DISCID
+    $EDIT_SET_TRACK_LENGTHS
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -87,6 +88,31 @@ sub remove : Local RequireAuth
             $c->detach;
         }
     )
+}
+
+sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $cdtoc = $c->stash->{cdtoc};
+    my $tracklist_id = $c->req->query_params->{tracklist};
+    my ($mediums) = $c->model('Medium')->find_by_tracklist(
+        $tracklist_id, 100, 0)
+        or die "Could not find mediums";
+
+    $c->model('Release')->load(@$mediums);
+    $c->model('ArtistCredit')->load(map { $_->release } @$mediums);
+    
+    $c->stash( mediums => $mediums );
+
+    $self->edit_action($c,
+        form => 'Confirm',
+        type => $EDIT_SET_TRACK_LENGTHS,
+        edit_args => {
+            tracklist_id => $tracklist_id,
+            cdtoc_id => $cdtoc->id
+        }
+    );
 }
 
 sub lookup : Local
