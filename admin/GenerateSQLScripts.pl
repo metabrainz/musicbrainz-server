@@ -165,11 +165,21 @@ while ($create_functions_sql =~ m/CREATE .*?FUNCTION\s+(.+?)\s+RETURNS/gi) {
 }
 @functions = sort(@functions);
 
+my @aggregates;
+while ($create_functions_sql =~ m/CREATE\s+AGGREGATE\s+(\w+)/gi) {
+    my $name = $1;
+    push @aggregates, $name;
+}
+@aggregates = sort(@aggregates);
+
 open OUT, ">$FindBin::Bin/../admin/sql/DropFunctions.sql";
 print OUT "-- Automatically generated, do not edit.\n";
 print OUT "\\unset ON_ERROR_STOP\n\n";
 foreach my $func (@functions) {
     print OUT "DROP FUNCTION $func;\n";
+}
+foreach my $agg (@aggregates) {
+    print OUT "DROP AGGREGATE $agg;\n";
 }
 close OUT;
 

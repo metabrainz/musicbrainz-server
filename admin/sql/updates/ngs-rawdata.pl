@@ -65,8 +65,6 @@ my $albums = $sql->select_list_of_hashes("SELECT id, release_group FROM public.a
 my %rg_map = map { $_->{id} => $_->{release_group} } @$albums;
 $albums = undef;
 
-$raw_sql->do("CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}')");
-
 print " * Converting raw tags\n";
 my %aggr;
 $raw_sql->select("
@@ -164,8 +162,6 @@ while (1) {
 }
 $raw_sql->finish;
 $sql->do("DROP INDEX tmp_release_group_meta_idx");
-
-$raw_sql->do("DROP AGGREGATE array_accum (anyelement)");
 
 print " * Converting CD stubs\n";
 $raw_sql->do("INSERT INTO cdtoc_raw SELECT * FROM public.cdtoc_raw");
