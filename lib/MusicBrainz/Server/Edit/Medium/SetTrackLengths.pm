@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Medium::SetTrackLengths;
 use Moose;
 use namespace::autoclean;
 
-use MooseX::Types::Moose qw( Int );
+use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
 
@@ -11,7 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
-sub edit_name { 'Set track\ lengths' }
+sub edit_name { 'Set track lengths' }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
 
 has '+data' => (
@@ -21,22 +21,33 @@ has '+data' => (
         affected_releases => ArrayRef[Dict[
             id => Int,
             name => Str,
-        ]]
+        ]],
+        length => Dict[
+            old => ArrayRef[Int],
+            new => ArrayRef[Int],
+        ]
     ]
 );
+
+sub release_ids {
+    my $self = shift;
+    return map { $_->{id} } @{ $self->data->{affected_releases} };
+}
 
 sub foreign_keys {
     my $self = shift;
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->_release_ids
-        }
+            map { $_ => [ 'ArtistCredit' ] } $self->release_ids
+        },
+        CDTOC => [ $self->data->{cdtoc_id} ]
     }
 }
 
 sub build_display_data {
     my ($self, $loaded) = @_;
     return {
+        cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc_id} },
         releases => [
             map {
                 $loaded->{Release}{ $_->{id} } ||
@@ -60,13 +71,22 @@ sub initialize {
     $self->c->model('Release')->load(@$mediums);
     $self->c->model('ArtistCredit')->load(map { $_->release } @$mediums);
 
+    my $tracklist = $self->c->model('Tracklist')->get_by_id($tracklist_id);
+    $self->c->model('Track')->load_for_tracklists($tracklist);
+
+    my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id);
+
     $self->data({
         tracklist_id => $tracklist_id,
         cdtoc_id => $cdtoc_id,
         affected_releases => [ map +{
             id => $_->id,
             name => $_->name
-        }, @$releases ]
+        }, map { $_->release } @$mediums ],
+        length => {
+            old => [ map { $_->length } $tracklist->all_tracks ],
+            new => [ map { $_->{length_time} } @{ $cdtoc->track_details } ],
+        }
     })
 }
 
