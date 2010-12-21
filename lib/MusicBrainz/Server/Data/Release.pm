@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Data::Release;
 
 use Moose;
+
+use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
@@ -62,7 +64,11 @@ sub _column_mapping
         barcode => 'barcode',
         script_id => 'script',
         language_id => 'language',
-        quality => 'quality',
+        quality => sub {
+            my ($row, $prefix) = @_;
+            my $quality = $row->{"${prefix}quality"};
+            return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
+        },
         last_updated => 'last_updated'
     };
 }
