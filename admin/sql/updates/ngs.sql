@@ -552,10 +552,9 @@ SELECT nextval('annotation_id_seq') AS id, r.release,
     moderator AS editor, text, changelog, created
 INTO TEMPORARY tmp_release_annotation
 FROM
-    public.annotation a, tmp_release_album r, public.moderator
-JOIN public.album ON album.id = r.album
+    public.annotation a, tmp_release_album r, public.moderator, public.album
 WHERE a.moderator = moderator.id AND a.type = 2 AND a.rowid = r.album
-  AND album.attributes[2] != 0;
+  AND album.id = r.album AND album.attributes[2] != 0;
 
 INSERT INTO annotation (id, editor, text, changelog, created)
     SELECT id, editor, text, changelog, created
