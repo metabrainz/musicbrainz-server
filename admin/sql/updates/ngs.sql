@@ -264,7 +264,7 @@ INSERT INTO tracklist (id, track_count)
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
     FROM public.release r JOIN public.album a ON album = r.id
-   WHERE attributes[2] != 0;
+   WHERE a.attributes[2] != 0;
 
 SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));
 
@@ -553,8 +553,9 @@ SELECT nextval('annotation_id_seq') AS id, r.release,
 INTO TEMPORARY tmp_release_annotation
 FROM
     public.annotation a, tmp_release_album r, public.moderator
+JOIN public.album ON album.id = r.album
 WHERE a.moderator = moderator.id AND a.type = 2 AND a.rowid = r.album
-  AND attributes[2] != 0;
+  AND album.attributes[2] != 0;
 
 INSERT INTO annotation (id, editor, text, changelog, created)
     SELECT id, editor, text, changelog, created
