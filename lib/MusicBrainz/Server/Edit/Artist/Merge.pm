@@ -27,7 +27,7 @@ has '+data' => (
     ]
 );
 
-override 'accept' => sub
+sub accept
 {
     my $self = shift;
     $self->c->model('Artist')->merge(

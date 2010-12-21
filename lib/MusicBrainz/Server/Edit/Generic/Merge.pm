@@ -94,7 +94,7 @@ sub build_display_data
     return $data;
 }
 
-override 'accept' => sub
+sub accept
 {
     my $self = shift;
     $self->c->model( $self->_merge_model )->merge($self->new_entity->{id}, $self->_old_ids);
