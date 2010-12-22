@@ -86,12 +86,12 @@ INSERT INTO medium_format (id, name, year, has_discids) VALUES
     (20, 'Blu-ray', NULL, FALSE),
     (21, 'VHS', NULL, FALSE),
     (22, 'VCD', NULL, FALSE),
-    (23, 'SVCD', NULL),
-    (24, 'Betamax', NULL),
-    (25, 'HDCD', TRUE),
-    (26, 'USB Flash Drive', NULL),
-    (27, 'slotMusic', NULL),
-    (28, 'UMD', NULL);
+    (23, 'SVCD', NULL, FALSE),
+    (24, 'Betamax', NULL, FALSE),
+    (25, 'HDCD', NULL, TRUE),
+    (26, 'USB Flash Drive', NULL, FALSE),
+    (27, 'slotMusic', NULL, FALSE),
+    (28, 'UMD', NULL, FALSE);
 
 INSERT INTO medium_format (id, name, year, child_order, parent) VALUES
     (29, '7"', NULL, 0, 7),
