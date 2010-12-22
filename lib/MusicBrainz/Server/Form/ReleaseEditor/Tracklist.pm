@@ -93,8 +93,6 @@ sub _validate_edits {
     my $cdtoc;
     my $medium_id = $medium->field('id')->value;
 
-    warn "medium id is ".$medium->field('id')->value."\n";
-
     if ($medium_id)
     {
         $entity = $self->ctx->model('Medium')->get_by_id ($medium_id);
