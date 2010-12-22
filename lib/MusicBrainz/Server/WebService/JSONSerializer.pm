@@ -47,6 +47,7 @@ sub autocomplete_recording
             comment => $item->{recording}->comment,
             length => format_track_length ($item->{recording}->length),
             artist => $item->{recording}->artist_credit->name,
+            isrcs => [ map { $_->isrc } @{ $item->{recording}->isrcs } ],
             releasegroups => [ map {
                 { 'name' => $_->name, 'gid' => $_->gid }
             } @{ $item->{appears} } ],

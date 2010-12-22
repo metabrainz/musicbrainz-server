@@ -16,6 +16,9 @@ CREATE TRIGGER b_upd_artist_tag BEFORE UPDATE ON artist_tag
 CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_ins_editor AFTER INSERT ON editor
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_editor();
+
 CREATE TRIGGER b_upd_l_artist_artist BEFORE UPDATE ON l_artist_artist 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

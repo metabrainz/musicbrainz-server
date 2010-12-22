@@ -9,13 +9,31 @@
     tag_links.join(', ');
 END -%]
 
-[% IF tags.size || c.user_exists %]
-<p>
+<script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/utility.js') %]"></script>
+<script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
+<script type="text/javascript">
+    $(function() {
+        MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
+            "[% c.uri_for('/tag/') %]",
+            '[% link_entity(entity, 'tags', l('more&hellip;')) %]');
+    });
+</script>
+
+<div id="sidebar-tags">
+    <p>
     [% IF tags.size %]
-        <strong>[% l('Tags:') %]</strong> [% tag_list(tags, more, entity) %]<br />
+        <strong>[% l('Tags:') %]</strong>
+        <span class="tags">[% tag_list(tags, more, entity) %]</span>
     [% END %]
+    </p>
     [% IF c.user_exists %]
-        [% link_entity(entity, 'tags', tag_this_text) %]
+        [% IF no_javascript %]
+            <p>[% link_entity(entity, 'tags', tag_this_text) %]</p>
+        [% ELSE %]
+            <form>
+                <input type="text" class="tag-input" value="[% sidebar_user_tags.join(', ') %]" />
+                <input type="submit" value="[% l('Tag') %]" />
+            </form>
+        [% END %]
     [% END %]
-</p>
-[% END %]
+</div>

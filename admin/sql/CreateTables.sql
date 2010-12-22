@@ -637,6 +637,32 @@ CREATE TABLE editor_collection_release
     release             INTEGER NOT NULL -- PK, references release.id
 );
 
+CREATE TABLE editor_watch_preferences
+(
+    editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
+    notify_via_email BOOLEAN NOT NULL DEFAULT TRUE,
+    notification_timeframe INTERVAL NOT NULL DEFAULT '1 week',
+    last_checked TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE editor_watch_artist
+(
+    artist INTEGER NOT NULL, -- PK, references artist.id CASCADE
+    editor INTEGER NOT NULL  -- PK, references editor.id CASCADE
+);
+
+CREATE TABLE editor_watch_release_group_type
+(
+    editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
+    release_group_type INTEGER NOT NULL -- PK, references release_group_type.id
+);
+
+CREATE TABLE editor_watch_release_status
+(
+    editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
+    release_status INTEGER NOT NULL -- PK, references release_status.id
+);
+
 CREATE TABLE medium
 (
     id                  SERIAL,
@@ -664,7 +690,8 @@ CREATE TABLE medium_format
     name                VARCHAR(100) NOT NULL,
     parent              INTEGER, -- references medium_format.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    year                SMALLINT
+    year                SMALLINT,
+    has_discids         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE puid
@@ -687,7 +714,7 @@ CREATE TABLE recording (
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
-    length              INTEGER,
+    length              INTEGER CHECK (length IS NULL OR length > 0),
     comment             VARCHAR(255),
     edits_pending       INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -800,6 +827,14 @@ CREATE TABLE release_status
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE release_tag
+(
+    release             INTEGER NOT NULL, -- PK, references release.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE release_group (
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -894,7 +929,7 @@ CREATE TABLE track
     position            INTEGER NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
-    length              INTEGER,
+    length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

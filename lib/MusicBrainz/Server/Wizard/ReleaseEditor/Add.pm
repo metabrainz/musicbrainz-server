@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Wizard::ReleaseEditor::Add;
 use Moose;
+use namespace::autoclean;
 
 use CGI::Expand qw( collapse_hash );
+
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
@@ -62,36 +64,11 @@ sub duplicates {
     );
 }
 
-sub cancel {
-    my ($self, $c) = @_;
-
-    my $rg_gid = $c->req->query_params->{'release-group'};
-    my $label_gid = $c->req->query_params->{'label'};
-    my $artist_gid = $c->req->query_params->{'artist'};
-
-    if ($rg_gid)
-    {
-        $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg_gid ]));
-    }
-    elsif ($label_gid)
-    {
-        $c->response->redirect($c->uri_for_action('/label/show', [ $label_gid ]));
-    }
-    elsif ($artist_gid)
-    {
-        $c->response->redirect($c->uri_for_action('/artist/show', [ $artist_gid ]));
-    }
-    else
-    {
-        $c->response->redirect($c->uri_for_action('/index'));
-    }
-}
-
 augment 'create_edits' => sub
-{ 
-    my ($self, $c, $data, $previewing, $editnote, $release) = @_;
-
-    my $edit_action = $previewing ? '_preview_edit' : '_create_edit';
+{
+    my ($self, %args) = @_;
+    my ($data, $create_edit, $editnote, $release, $previewing)
+        = @args{qw( data create_edit edit_note release previewing )};
 
     # add release (and release group if necessary)
     # ----------------------------------------
@@ -107,7 +84,7 @@ augment 'create_edits' => sub
         my @fields = qw( name artist_credit type_id as_auto_editor );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-        my $edit = $self->$edit_action($c, $EDIT_RELEASEGROUP_CREATE, $editnote, %args);
+        my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 
         # Previewing a release doesn't care about having the release group id
         $add_release_args{release_group_id} = $edit->entity->id
@@ -115,23 +92,23 @@ augment 'create_edits' => sub
     }
 
     # Add the release edit
-    my $add_release_edit = $self->$edit_action($c,
+    my $add_release_edit = $create_edit->(
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
     $release = $add_release_edit->entity;
 
     return $release;
 };
 
-augment 'init_object' => sub
+augment 'load' => sub
 {
-    my ($self, $c) = @_;
+    my ($self) = @_;
 
     # There was no existing wizard, provide the wizard with
     # the $release to initialize the forms.
 
-    my $rg_gid = $c->req->query_params->{'release-group'};
-    my $label_gid = $c->req->query_params->{'label'};
-    my $artist_gid = $c->req->query_params->{'artist'};
+    my $rg_gid = $self->c->req->query_params->{'release-group'};
+    my $label_gid = $self->c->req->query_params->{'label'};
+    my $artist_gid = $self->c->req->query_params->{'artist'};
 
     my $release = MusicBrainz::Server::Entity::Release->new(
         mediums => [
@@ -141,22 +118,22 @@ augment 'init_object' => sub
 
     if ($rg_gid)
     {
-        $c->detach () unless MusicBrainz::Server::Validation::IsGUID($rg_gid);
-        my $rg = $c->model('ReleaseGroup')->get_by_gid($rg_gid);
-        $c->detach () unless $rg;
+        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($rg_gid);
+        my $rg = $self->c->model('ReleaseGroup')->get_by_gid($rg_gid);
+        $self->c->detach () unless $rg;
 
         $release->release_group_id ($rg->id);
         $release->release_group ($rg);
         $release->name ($rg->name);
 
-        $c->model('ArtistCredit')->load ($rg);
+        $self->c->model('ArtistCredit')->load ($rg);
 
         $release->artist_credit ($rg->artist_credit);
     }
     elsif ($label_gid)
     {
-        $c->detach () unless MusicBrainz::Server::Validation::IsGUID($label_gid);
-        my $label = $c->model('Label')->get_by_gid($label_gid);
+        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($label_gid);
+        my $label = $self->c->model('Label')->get_by_gid($label_gid);
 
         $release->add_label(
             MusicBrainz::Server::Entity::ReleaseLabel->new(
@@ -166,9 +143,9 @@ augment 'init_object' => sub
     }
     elsif ($artist_gid)
     {
-        $c->detach () unless MusicBrainz::Server::Validation::IsGUID($artist_gid);
-        my $artist = $c->model('Artist')->get_by_gid($artist_gid);
-        $c->detach () unless $artist;
+        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($artist_gid);
+        my $artist = $self->c->model('Artist')->get_by_gid($artist_gid);
+        $self->c->detach () unless $artist;
 
         $release->artist_credit (
             MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
@@ -183,15 +160,5 @@ augment 'init_object' => sub
     return $release;
 };
 
-sub submit
-{
-    my ($self, $c, $release) = @_;
-
-    # Not previewing, we've added a release.
-    $c->response->redirect(
-        $c->uri_for_action('/release/show', [ $release->gid ])
-    );
-    $c->detach;
-}
-
+__PACKAGE__->meta->make_immutable;
 1;

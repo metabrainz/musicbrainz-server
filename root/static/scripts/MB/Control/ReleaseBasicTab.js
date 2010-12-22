@@ -243,7 +243,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     var self = MB.Object ();
 
     /* switch between basic / advanced view. */
-    var moveMediumFields = function (from, to) {
+    var moveFields = function (from, to) {
         var discs = self.adv.discs.length;
 
         for (var i = 0; i < discs; i++)
@@ -251,6 +251,8 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
             $('.'+from+'-medium-format-and-title').eq(i).contents ().detach ().appendTo (
                 $('.'+to+'-medium-format-and-title').eq(i));
         }
+
+        $('div.guesscase-'+from).children().appendTo($('div.guesscase-'+to));
     };
 
     var addDisc = function () {
@@ -258,14 +260,14 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     };
 
     $("a[href=#advanced]").click (function () {
-        moveMediumFields ('basic', 'advanced');
+        moveFields ('basic', 'advanced');
         $('.basic-tracklist').hide ();
         $('.advanced-tracklist').show ();
         $('#id-advanced').val ('1');
     });
 
     $("a[href=#basic]").click (function () {
-        moveMediumFields ('advanced', 'basic');
+        moveFields ('advanced', 'basic');
         $('.advanced-tracklist').hide ();
         $('.basic-tracklist').show ();
         $('#id-advanced').val ('0');
@@ -278,7 +280,14 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     });
 
     $("a[href=#guesscase]").click (function () {
-        self.tracklist.guessCase ();
+        if ($('.advanced-tracklist:visible').length)
+        {
+            self.adv.guessCase ();
+        }
+        else
+        {
+            self.tracklist.guessCase ();
+        }
     });
 
     self.addDisc = addDisc;

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::ControllerBase::ReleaseEditor;
 use Moose;
+use warnings FATAL => 'all';
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 

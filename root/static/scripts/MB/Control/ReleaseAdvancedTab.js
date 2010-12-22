@@ -60,6 +60,13 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     };
 
     /**
+     * Guess Case the track title.
+     */
+    var guessCase = function () {
+        self.title.val (MB.GuessCase.track.guess (self.title.val ()));
+    };
+
+    /**
      * toggleDelete (un)marks the track for deletion. Provide a boolean to delete
      * or undelete a track, or leave it empty to toggle.
      */
@@ -115,13 +122,16 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     };
 
     self.render = render;
+    self.guessCase = guessCase;
     self.toggleDelete = toggleDelete;
     self.isDeleted = isDeleted;
     self.lengthOrNull = lengthOrNull;
     self.remove = remove;
 
-    self.row.find ("a[href=#remove_track]").click (function () { self.toggleDelete() });
+    self.row.find ("a[href=#remove_track]").click (function () { self.toggleDelete(); });
+    self.row.find ("a[href=#guesscase_track]").click (self.guessCase);
     self.artist_credit = MB.Control.ArtistCreditRow (self.row, self.acrow);
+
 
     if (self.isDeleted ())
     {
@@ -380,6 +390,10 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         self.sort ();
     };
 
+    var guessCase = function () {
+        $.each (self.tracks, function (idx, item) { item.guessCase (); });
+    };
+
     self.table = self.fieldset.find ('table.medium');
     self.artist_column_checkbox = self.table.find ('th.artist input');
 
@@ -424,6 +438,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.collapse = collapse;
     self.expand = expand;
     self.loadTracklist = loadTracklist;
+    self.guessCase = guessCase;
 
     self.buttons.find ('a[href=#discdown]').click (self.moveDown);
     self.buttons.find ('a[href=#discup]').click (self.moveUp);
@@ -694,6 +709,10 @@ MB.Control.ReleaseAdvancedTab = function () {
         }
     };
 
+    var guessCase = function () {
+        $.each (self.discs, function (idx, disc) { disc.guessCase (); });
+    };
+
     var submit = function (event) {
         $.each (self.discs, function (idx, disc) {
             disc.submit (event);
@@ -704,6 +723,7 @@ MB.Control.ReleaseAdvancedTab = function () {
     self.discs = [];
     self.addDisc = addDisc;
     self.moveDisc = moveDisc;
+    self.guessCase = guessCase;
     self.submit = submit;
     self.basic = null; // set by MB.Control.ReleaseBasicTab.
 

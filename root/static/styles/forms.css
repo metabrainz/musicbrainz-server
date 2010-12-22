@@ -3,8 +3,8 @@ input.jquery_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 12px;
+    margin-bottom: 12px;
     border: none;
     padding: 0;
 }
@@ -13,15 +13,15 @@ fieldset legend { margin-top: 0; }
 
 form div.row {
     clear: left;
-    margin: 0.5em 0;
+    margin: 6px 0;
 }
 
 form div.row label,
 form div.row div.label {
     float: left;
     text-align: right;
-    width: 11em;
-    margin-right: 1em;
+    width: 132px;
+    margin-right: 12px;
 }
 
 form div.row p { float: none; clear: none; }
@@ -29,11 +29,11 @@ form div.row p { float: none; clear: none; }
 form div.no-label,
 form p.no-label,
 form ul.errors {
-    margin-left: 12em;
+    margin-left: 144px;
 }
 
 form ul.errors {
-    margin-top: 0.3em;
+    margin-top: 4px;
     padding-left: 0;
     list-style-type: none;
     list-style-image: none;
@@ -88,7 +88,7 @@ div.ar-descr {
     background: #F9F9F9;
     padding: 4px;
     border: dotted 1px #D0D0D0;
-    margin: 0.5em;
+    margin: 6px;
 }
 
 a.selectFilterPrev,
@@ -103,7 +103,7 @@ a.selectFilterNext:hover {
 }
 
 div.searchform {
-    margin-top: 2em;
+    margin-top: 24px;
 }
 
 /* __________________________________
@@ -132,12 +132,12 @@ button.autocomplete-pager {
 div.half-width {
     clear: both;
     float: left;
-    margin: 1em 0 0 0;
+    margin: 12px 0 0 0;
     width: 465px;
 }
 
 div.half-width p {
-    margin: 1em;
+    margin: 12px;
 }
 
 div.documentation {
@@ -164,9 +164,9 @@ div.half-width fieldset legend {
 
 div.half-width fieldset label.row {
     float: left;
-    margin-right: 1em;
+    margin-right: 12px;
     text-align: right;
-    width: 11em;
+    width: 132px;
 }
 
 div.half-width fieldset label.required {
@@ -194,7 +194,7 @@ div.half-width fieldset h3 {
 
 div.documentation div.bubble {
     margin: 0;
-    padding: 1em;
+    padding: 12px;
     border: 1px solid #999;
     background: #f0f0f0;
     -moz-border-radius: 12px;

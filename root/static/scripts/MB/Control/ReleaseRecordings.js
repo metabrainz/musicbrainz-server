@@ -92,13 +92,19 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
                 rgs[item.name] = item.name;
             });
 
-            a.append ('<br /><span class="autocomplete-appears">appears on: ' 
+            a.append ('<br /><span class="autocomplete-appears">appears on: '
                       + MB.utility.keys (rgs).join (", ") + '</span>');
         }
 
         if (item.comment)
         {
             a.append ('<br /><span class="autocomplete-comment">(' + item.comment + ')</span>');
+        }
+
+        if (item.isrcs.length)
+        {
+            a.append ('<br /><span class="autocomplete-isrcs">isrcs: '
+                      + item.isrcs.join (", ") + '</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);

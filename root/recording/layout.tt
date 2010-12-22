@@ -22,7 +22,10 @@
             [%- END -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags more=more_tags tag_this_text=l('Tag this recording') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags
+            more=more_tags tag_this_text=l('Tag this recording')
+            async = c.uri_for_action('/recording/tag_async', [ recording.gid ])
+            -%]
 
         <ul class="links">
           [% IF c.user_exists %]
@@ -36,7 +39,11 @@
           [% IF recording.edits_pending %]
             <li>[% link_recording(recording, 'open_edits', l('Open edits')) %]</li>
           [% END %]
-          <li>[% link_recording(recording, 'merge', l('Merge this recording with another')) %]</li>
+          <li>
+            <a href="[% c.uri_for_action('/recording/merge_queue', { 'add-to-merge' => recording.id }) %]">
+              [% l('Merge this recording with another') %]
+            </a>
+          </li>
           <li>[% use_in_relationship(recording) %]</li>
           <li>[% relate_to_url(recording) %]</li>
           [% ELSE %]

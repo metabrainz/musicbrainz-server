@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Wizard;
-use Moose::Role;
-use namespace::autoclean;
+use Moose;
 
 has '_current' => (
     is => 'rw',
@@ -17,6 +16,12 @@ has '_session_id' => (
 has 'c' => (
     is => 'rw',
     isa => 'Object'
+);
+
+has 'loading' => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
 );
 
 has 'submitted' => (
@@ -51,9 +56,19 @@ has 'page_number' => (
 has 'pages' => (
     isa => 'ArrayRef',
     is => 'ro',
+    required => 1,
     lazy => 1,
     builder => '_build_pages'
 );
+
+has $_ => (
+    isa => 'CodeRef',
+    traits => [ 'Code' ],
+    default => sub { sub {} },
+    handles => {
+        $_ => 'execute',
+    }
+) for qw( on_cancel on_submit );
 
 sub skip { return 0; }
 
@@ -88,7 +103,7 @@ sub process
 
     if ($self->_create_new_wizard($self->c)) {
         $self->_new_session;
-        $self->initialize($self->c);
+        $self->load($self->init_object);
         $self->seed($self->c->req->params)
             if $self->c->form_posted;
     }
@@ -102,12 +117,12 @@ sub process
 
 sub initialize
 {
-    my ($self, $c) = @_;
+    my ($self, $init_object) = @_;
 
     # if init_object is set, load it in _all_ the forms to deflate all fields
     # from the init_object in one go.  For each form store the ->value (deflated)
     # data in the session.
-    if (my $init_object = $self->init_object($c))
+    if ($init_object)
     {
         my $max = scalar @{ $self->pages } - 1;
         for (0..$max)
@@ -116,8 +131,6 @@ sub initialize
         }
     }
 }
-
-sub init_object { }
 
 sub render
 {
@@ -161,6 +174,16 @@ sub current_page
     my $self = shift;
 
     return $self->pages->[$self->_current]->{name};
+}
+
+sub load_page
+{
+    my ($self, $step, $init_object) = @_;
+
+    my $page = $self->page_number->{$step};
+    $page = $step unless defined $page;
+
+    return $self->_load_page ($page, $init_object);
 }
 
 sub _load_page
@@ -262,11 +285,11 @@ sub _route
     }
     elsif (defined $p->{cancel})
     {
-        return $self->cancelled (1);
+        return $self->on_cancel($self);
     }
     elsif (defined $p->{save})
     {
-        return $self->submitted (1);
+        return $self->submitted(1);
     }
 
     # Don't allow forward movement unless the current page is valid.

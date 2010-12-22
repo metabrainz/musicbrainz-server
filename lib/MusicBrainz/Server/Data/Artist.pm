@@ -207,6 +207,7 @@ sub insert
         $row->{gid} = $artist->{gid} || generate_gid();
 
         push @created, $class->new(
+            name => $artist->{name},
             id => $sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
@@ -246,7 +247,6 @@ sub delete
     $self->alias->delete_entities(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
-    $self->subscription->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->dbh);
@@ -256,18 +256,18 @@ sub delete
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, $new_id, $old_ids, %opts) = @_;
 
-    $self->alias->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
-    $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('ArtistCredit')->merge_artists($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('artist', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('artist', $new_id, @old_ids);
+    $self->alias->merge($new_id, @$old_ids);
+    $self->tags->merge($new_id, @$old_ids);
+    $self->rating->merge($new_id, @$old_ids);
+    $self->subscription->merge($new_id, @$old_ids);
+    $self->annotation->merge($new_id, @$old_ids);
+    $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
+    $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
+    $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
-    $self->_delete_and_redirect_gids('artist', $new_id, @old_ids);
+    $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
 }
 
