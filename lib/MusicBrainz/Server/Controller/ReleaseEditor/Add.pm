@@ -15,6 +15,9 @@ sub add : Path('/release/add') Edit RequireAuth
                 $c->uri_for_action('/release/show', [ $wizard->release->gid ])
             );
             $c->detach
+        },
+        on_cancel => sub {
+            $self->cancelled($c)
         }
     );
     $wizard->run;
@@ -43,14 +46,6 @@ sub cancelled {
     {
         $c->response->redirect($c->uri_for_action('/index'));
     }
-}
-
-sub submitted
-{
-    my ($self, $c, $release) = @_;
-
-    # Not previewing, we've added a release.
-
 }
 
 1;
