@@ -1,7 +1,5 @@
 BEGIN;
 
-CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
-
 INSERT INTO tracklist_index (tracklist, tracks, toc)
     SELECT s.tracklist, count(s.length), create_cube_from_durations(array_accum(s.length)) 
       FROM 
@@ -17,7 +15,5 @@ INSERT INTO tracklist_index (tracklist, tracks, toc)
            ORDER BY t.tracklist, t.position
           ) AS s 
     GROUP BY s.tracklist;
-
-DROP AGGREGATE array_accum (anyelement);
 
 COMMIT;

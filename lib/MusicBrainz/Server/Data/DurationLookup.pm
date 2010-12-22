@@ -98,6 +98,28 @@ sub lookup
     return \@results;
 }
 
+sub update
+{
+    my ($self, $tracklist) = @_;
+
+    $self->c->log->debug("update tracklist $tracklist");
+
+    my $sql = Sql->new($self->c->dbh);
+    $sql->execute(
+           "update tracklist_index set toc = create_cube_from_durations
+            (
+                (
+                    select array_accum(s.length) 
+                      from (
+                            select t.length 
+                             from track t 
+                            where tracklist = ? 
+                         order by t.position
+                          ) as s
+                 )
+            ) where tracklist = ?", $tracklist, $tracklist);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
