@@ -105,6 +105,10 @@ sub _insert_edit {
         });
     }
 
+    $c->flash->{message} = $edit->is_open
+        ? l('Thank you, your edit has been entered into the edit queue for peer review.')
+        : l('Thank you, your edit has been accepted and applied');
+
     return $edit;
 }
 
