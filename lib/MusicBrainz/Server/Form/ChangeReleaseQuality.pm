@@ -10,7 +10,8 @@ sub edit_field_names { qw(quality) }
 has '+name' => ( default => 'change-release-quality' );
 
 has_field 'quality' => (
-    type => 'Select'
+    type => 'Select',
+    required => 1
 );
 
 sub options_quality

@@ -1,12 +1,6 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
 
-has 'name' => (
-    is => 'ro',
-    isa => 'Str',
-    required => 1,
-);
-
 has '_current' => (
     is => 'rw',
     isa => 'Int',
@@ -62,8 +56,19 @@ has 'page_number' => (
 has 'pages' => (
     isa => 'ArrayRef',
     is => 'ro',
-    required => 1
+    required => 1,
+    lazy => 1,
+    builder => '_build_pages'
 );
+
+has $_ => (
+    isa => 'CodeRef',
+    traits => [ 'Code' ],
+    default => sub { sub {} },
+    handles => {
+        $_ => 'execute',
+    }
+) for qw( on_cancel on_submit );
 
 sub skip { return 0; }
 
@@ -253,11 +258,11 @@ sub _route
     }
     elsif (defined $p->{cancel})
     {
-        return $self->cancelled (1);
+        return $self->on_cancel($self);
     }
     elsif (defined $p->{save})
     {
-        return $self->submitted (1);
+        return $self->submitted(1);
     }
 
     # Don't allow forward movement unless the current page is valid.
