@@ -96,7 +96,7 @@ sub load_subobjects
     return unless @objs;
 
     my $attr_id = $attr_obj . "_id";
-    @objs = grep { defined } @objs;
+    @objs = grep { $_->meta->find_attribute_by_name($attr_id) } grep { defined } @objs;
     my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @objs;
     my @ids = grep { $_ } keys %ids;
     my $data;
