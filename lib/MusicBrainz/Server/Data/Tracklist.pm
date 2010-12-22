@@ -84,6 +84,8 @@ sub set_lengths_to_cdtoc
         my $query = 'UPDATE track SET length = ? WHERE tracklist = ? AND position = ?';
         $self->sql->do($query, $info[$i]->{length_time}, $tracklist_id, $i + 1);
     }
+
+    $self->c->model('DurationLookup')->update($tracklist_id);
 }
 
 sub merge
