@@ -68,6 +68,7 @@ sub get_by_ids
 sub insert { confess "Not implemented" }
 sub update { confess "Not implemented" }
 sub delete { confess "Not implemented" }
+sub merge  { confess "Not implemented" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

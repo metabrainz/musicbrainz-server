@@ -60,9 +60,7 @@ sub _track_errors {
 
     if (! $track->{artist_credit}->{names} ||
         scalar @{ $track->{artist_credit}->{names} } < 1 ||
-        trim $track->{artist_credit}->{names}->[0]->{gid} eq '' ||
-        trim $track->{artist_credit}->{names}->[0]->{name} eq '' ||
-        trim $track->{artist_credit}->{names}->[0]->{artist_name} eq '')
+        trim $track->{artist_credit}->{names}->[0]->{name} eq '')
     {
         return l('An artist is required on track {pos}.', { pos => $pos });
     }

@@ -126,6 +126,7 @@ sub update
     my %names = $self->find_or_insert_names($track_hash->{name});
     my $row = $self->_create_row($track_hash, \%names);
     $sql->update_row('track', $row, { id => $track_id });
+    $self->c->model('DurationLookup')->update($self->tracklist_id);
 }
 
 sub insert

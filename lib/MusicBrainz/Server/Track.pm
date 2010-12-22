@@ -51,9 +51,9 @@ sub UnformatTrackLength
     {
         return $1;
     }
-    elsif ($length =~ /^\s*\?:\?\?\s*$/)
+    elsif ($length =~ /^\s*\?:\?\?\s*$/ || $length =~ /^\s*$/)
     {
-        return;
+        return undef;
     }
     else {
         confess("$length is not a valid track length");
