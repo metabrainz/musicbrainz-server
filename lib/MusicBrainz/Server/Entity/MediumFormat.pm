@@ -29,6 +29,11 @@ has 'parent' => (
     isa => 'MediumFormat',
 );
 
+has 'has_discids' => (
+    is => 'rw',
+    isa => 'Bool'
+);
+
 has 'children' => (
     is => 'rw',
     isa => 'ArrayRef[MediumFormat]',

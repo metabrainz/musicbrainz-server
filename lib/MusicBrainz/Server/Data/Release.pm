@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Data::Release;
 
 use Moose;
+
+use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
@@ -20,6 +22,7 @@ with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' }
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
 
 sub _table
 {
@@ -61,7 +64,11 @@ sub _column_mapping
         barcode => 'barcode',
         script_id => 'script',
         language_id => 'language',
-        quality => 'quality',
+        quality => sub {
+            my ($row, $prefix) = @_;
+            my $quality = $row->{"${prefix}quality"};
+            return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
+        },
         last_updated => 'last_updated'
     };
 }
@@ -448,6 +455,7 @@ sub delete
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
+    $self->tags->delete(@release_ids);
     my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
         @release_ids);
@@ -463,6 +471,7 @@ sub merge
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
 
     # XXX merge release attributes
 
