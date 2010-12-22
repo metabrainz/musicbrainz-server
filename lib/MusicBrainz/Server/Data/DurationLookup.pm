@@ -100,24 +100,17 @@ sub lookup
 
 sub update
 {
-    my ($self, $tracklist) = @_;
-
-    $self->c->log->debug("update tracklist $tracklist");
-
-    my $sql = Sql->new($self->c->dbh);
-    $sql->execute(
-           "update tracklist_index set toc = create_cube_from_durations
+    my ($self, $tracklist_id) = @_;
+    $self->sql->execute(
+        "UPDATE tracklist_index SET toc = create_cube_from_durations
             (
                 (
-                    select array_accum(s.length) 
-                      from (
-                            select t.length 
-                             from track t 
-                            where tracklist = ? 
-                         order by t.position
-                          ) as s
+                    SELECT array_accum(t.length)
+                      FROM track t
+                     WHERE tracklist = ?
+                  ORDER BY t.position
                  )
-            ) where tracklist = ?", $tracklist, $tracklist);
+            ) WHERE tracklist = ?", $tracklist_id, $tracklist_id);
 }
 
 __PACKAGE__->meta->make_immutable;
