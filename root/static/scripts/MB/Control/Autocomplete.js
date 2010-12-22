@@ -190,9 +190,11 @@ MB.Control.Autocomplete = function (options) {
             self.page_term = request.term;
         }
 
+        var directsearch = $('input.autocomplete-directsearch:visible').eq(0).is(':checked');
+
         $.ajax(self.lookupHook ({
             url: self.url,
-            data: { q: request.term, page: self.current_page },
+            data: { q: request.term, page: self.current_page, direct: directsearch },
             success: response
         }));
     };
@@ -229,6 +231,9 @@ MB.Control.Autocomplete = function (options) {
            to the associated input, which blur would then reset back to it's
            original value (We need to prevent blur from doing that). */
         self.autocomplete.menu.options.blur = function (event, ui) { };
+
+        /* focus, idem. */
+        self.autocomplete.menu.options.focus = function (event, ui) { };
     };
 
     self.input = options.input;

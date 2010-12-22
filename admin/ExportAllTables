@@ -122,12 +122,13 @@ my %table_db_mapping =
 (
     'artist_rating_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
     'artist_tag_raw'                                            =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_group_rating_raw'                          =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_group_rating_raw'                                  =>      { dbh => $rawdbh, sql => $rawsql },
     'release_group_tag_raw'                                     =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_tag_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
     'recording_rating_raw'                                      =>      { dbh => $rawdbh, sql => $rawsql },
     'recording_tag_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
     'label_rating_raw'                                          =>      { dbh => $rawdbh, sql => $rawsql },
-    'label_tag_raw'                                                     =>      { dbh => $rawdbh, sql => $rawsql },
+    'label_tag_raw'                                             =>      { dbh => $rawdbh, sql => $rawsql },
     'work_rating_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
     'work_tag_raw'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
     'cdtoc_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
@@ -166,6 +167,7 @@ my @tables = qw(
     recording_tag_raw
     release_group_rating_raw
     release_group_tag_raw
+    release_tag_raw
     release_raw
     track_raw
     vote
@@ -262,6 +264,7 @@ my @tables = qw(
     release_name
     release_packaging
     release_status
+    release_tag
     script
     script_language
     tag
@@ -622,6 +625,7 @@ my @group_derived = qw(
     release_group_annotation
     release_group_meta
     release_group_tag
+    release_tag
     tag
     tag_relation
     work_annotation
@@ -673,6 +677,7 @@ my @group_private = qw(
     release_coverart
     release_group_rating_raw
     release_group_tag_raw
+    release_tag_raw
     work_rating_raw
     work_tag_raw
 );

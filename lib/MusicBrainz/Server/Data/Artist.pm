@@ -164,6 +164,30 @@ sub find_by_work
         $query, $recording_id, $offset || 0);
 }
 
+sub autocomplete_name
+{
+    my ($self, $name, $limit, $offset) = @_;
+
+    $limit ||= 10;
+    $offset ||= 0;
+    my $query = "SELECT DISTINCT artist.id, artist.gid, artist_name.name," .
+        " sort_name.name AS sort_name, artist.comment " .
+        " FROM artist " .
+        " JOIN artist_name                     ON artist.name=artist_name.id " .
+        " JOIN artist_name AS sort_name        ON artist.sort_name=sort_name.id " .
+        " LEFT JOIN artist_alias               ON artist_alias.artist = artist.id" .
+        " LEFT JOIN artist_name AS alias_name  ON artist_alias.name=alias_name.id " .
+        " WHERE lower(artist_name.name) LIKE ?" .
+        " OR lower(sort_name.name) LIKE ?" .
+        " OR lower(alias_name.name) LIKE ?" .
+        " OFFSET ?";
+
+    my $n = lc("$name%");
+
+    return query_to_list_limited($self->c->dbh, $offset, $limit,
+        sub { $self->_new_from_row(shift) }, $query, $n, $n, $n, $offset);
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -183,6 +207,7 @@ sub insert
         $row->{gid} = $artist->{gid} || generate_gid();
 
         push @created, $class->new(
+            name => $artist->{name},
             id => $sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
@@ -222,7 +247,6 @@ sub delete
     $self->alias->delete_entities(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
-    $self->subscription->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->dbh);
@@ -232,18 +256,18 @@ sub delete
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, $new_id, $old_ids, %opts) = @_;
 
-    $self->alias->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
-    $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('ArtistCredit')->merge_artists($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('artist', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('artist', $new_id, @old_ids);
+    $self->alias->merge($new_id, @$old_ids);
+    $self->tags->merge($new_id, @$old_ids);
+    $self->rating->merge($new_id, @$old_ids);
+    $self->subscription->merge($new_id, @$old_ids);
+    $self->annotation->merge($new_id, @$old_ids);
+    $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
+    $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
+    $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
-    $self->_delete_and_redirect_gids('artist', $new_id, @old_ids);
+    $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
 }
 

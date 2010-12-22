@@ -27,10 +27,13 @@
     [%- mediums = w.page('tracklist').field('mediums') -%]
     [%- multidisc = mediums.fields.size > 1 -%]
 
-    <h3>[%- information.field('name').value -%]</h3>
-    <p>by [%- information.field('artist_credit').fif.name -%]</p>
-
     <div class="half-width recording-assoc">
+
+      <p>
+        <strong>[%- information.field('name').value -%]</strong><br />
+        by [%- information.field('artist_credit').fif.name -%]
+      </p>
+
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]
 
       [%- medium_idx = loop.index -%]
@@ -120,6 +123,12 @@
 
 
     <div class="documentation">
+
+      <p style="margin: 2em; text-align: right;">
+         <input class="autocomplete-directsearch" type="checkbox" value="0"></input>
+         <label>[%- l('Use direct search') -%]</label>
+      </p>
+
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]
 
       [%- medium_idx = loop.index -%]

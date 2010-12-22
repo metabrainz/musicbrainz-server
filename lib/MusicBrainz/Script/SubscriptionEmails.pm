@@ -68,9 +68,6 @@ sub run {
             printf "... updating subscriptions\n" if $self->verbose;
             $self->c->model('EditorSubscriptions')
                 ->update_subscriptions($max, $editor->id);
-
-            my @delete = grep { deleted($_) } @subscriptions;
-            $self->c->model('EditorSubscriptions') ->delete(@delete) if @delete;
         }
 
         printf "\n";

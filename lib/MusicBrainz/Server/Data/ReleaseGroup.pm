@@ -322,6 +322,28 @@ sub find_by_release_gids
         $query, @release_gids);
 }
 
+sub find_by_recording
+{
+    my ($self, $recording) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN release ON release.release_group = rg.id
+                    JOIN medium ON medium.release = release.id
+                    JOIN track ON track.tracklist = medium.tracklist
+                    JOIN recording ON recording.id = track.recording
+                 WHERE recording.id = ?
+                 ORDER BY
+                    rg.type,
+                    musicbrainz_collate(name.name)";
+
+    return query_to_list(
+        $self->c->dbh, sub {
+            my $row = $_[0];
+            return $self->_new_from_row($row);
+        },
+        $query, $recording);
+}
+
 sub insert
 {
     my ($self, @groups) = @_;

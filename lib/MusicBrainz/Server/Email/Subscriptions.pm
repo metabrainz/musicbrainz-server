@@ -13,16 +13,15 @@ has 'editor' => (
     is => 'ro',
 );
 
-with 'MusicBrainz::Server::Email::Role';
-
-has '+to' => (
+has 'to' => (
+    is => 'ro',
     lazy => 1,
     default => sub { shift->editor->email }
 );
 
-has '+subject' => (
-    default => 'Edits for your subscriptions'
-);
+with 'MusicBrainz::Server::Email::Role';
+
+sub subject { 'Edits for your subscriptions' }
 
 has 'deletes' => (
     isa => ArrayRef,

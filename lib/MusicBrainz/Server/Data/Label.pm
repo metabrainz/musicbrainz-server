@@ -130,6 +130,30 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub autocomplete_name
+{
+    my ($self, $name, $limit, $offset) = @_;
+
+    $limit ||= 10;
+    $offset ||= 0;
+    my $query = "SELECT DISTINCT label.id, label.gid, label_name.name," .
+        " sort_name.name AS sort_name, label.comment " .
+        " FROM label " .
+        " JOIN label_name                     ON label.name=label_name.id " .
+        " JOIN label_name AS sort_name        ON label.sort_name=sort_name.id " .
+        " LEFT JOIN label_alias               ON label_alias.label = label.id" .
+        " LEFT JOIN label_name AS alias_name  ON label_alias.name=alias_name.id " .
+        " WHERE lower(label_name.name) LIKE ?" .
+        " OR lower(sort_name.name) LIKE ?" .
+        " OR lower(alias_name.name) LIKE ?" .
+        " OFFSET ?";
+
+    my $n = lc("$name%");
+
+    return query_to_list_limited($self->c->dbh, $offset, $limit,
+        sub { $self->_new_from_row(shift) }, $query, $n, $n, $n, $offset);
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -148,6 +172,7 @@ sub insert
         my $row = $self->_hash_to_row($label, \%names);
         $row->{gid} = $label->{gid} || generate_gid();
         push @created, $class->new(
+            name => $label->{name},
             id => $sql->insert_row('label', $row, 'id'),
             gid => $row->{gid}
         );
@@ -200,7 +225,6 @@ sub delete
     $self->alias->delete_entities(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
-    $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
     my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
