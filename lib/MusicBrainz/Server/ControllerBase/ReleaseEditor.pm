@@ -447,7 +447,7 @@ sub run
     elsif ($wizard->current_page eq 'editnote' || $wizard->submitted) {
         my $previewing = !$wizard->submitted;
         my $data = $wizard->value;
-        my $editnote = $data->{editnote};
+        my $editnote = $data->{edit_note};
         $release = $self->create_edits($c, $data, $previewing, $editnote, $release);
 
         if (!$previewing) {
