@@ -17,7 +17,10 @@ has_field 'vote.edit_id' => (
 
 has_field 'vote.vote' => (
     type => 'Integer',
-    required => 1,
+);
+
+has_field 'vote.edit_note' => (
+    type => 'Text',
 );
 
 1;

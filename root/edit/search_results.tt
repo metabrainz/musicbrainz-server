@@ -1,13 +1,19 @@
 [%- BLOCK layout_head -%]
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditSummary.js') %]"></script>
     <script type="text/javascript">
-        window.onload = function() {
+        $(function() {
+            $('.edit-list').each(function() {
+                console.log(this);
+                MB.Control.EditSummary(this);
+            });
+
             $('.search-refine select').attr('size', '10');
 
             $('.search-toggle a').click(function () {
                 $('.search-refine').slideToggle('500');
                 return false;
             })
-        }
+        });
     </script>
 [%- END -%]
 
