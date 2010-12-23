@@ -189,6 +189,8 @@ sub _autocomplete_indexed {
         # empty list.  The javascript code for autocomplete doesn't
         # have any way to gracefully report or deal with
         # errors. --warp.
+
+        push @output, { pages => 1, current => 1 };
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -305,6 +307,11 @@ sub _recording_indexed {
         # empty list.  The javascript code for autocomplete doesn't
         # have any way to gracefully report or deal with
         # errors. --warp.
+
+        $pager = Data::Page->new ();
+        $pager->entries_per_page ($limit);
+        $pager->current_page ($page);
+        $pager->total_entries (0);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
