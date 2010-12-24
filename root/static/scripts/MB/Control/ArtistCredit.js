@@ -223,7 +223,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
     };
 
     var render = function (data) {
-        $.each (self.box, function(idx, item) {
+        $.each (self.box, function (idx, item) {
              item.clear();
         });
 
@@ -252,16 +252,16 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         var ret = [];
 
         $.each (self.box, function (idx, item) {
-           if(item.isEmpty ())
+            if(item.isEmpty ())
                 return;
 
-           ret.push({
+            ret.push({
                 'artist_name': item.name.val (),
                 'name': item.credit.val (),
                 'id': item.id.val (),
                 'gid': item.gid.val (),
                 'join': item.join.val () || ''
-           });
+            });
         });
 
         return { 'names': ret, 'preview': self.artist_input.val() };

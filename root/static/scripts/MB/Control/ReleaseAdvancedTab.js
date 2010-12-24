@@ -224,6 +224,19 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         return self.tracks[idx];
     };
 
+    var getTracksAtPosition = function (pos) {
+
+        var ret = [];
+        $.each (self.tracks, function (idx, item) {
+            if (parseInt (item.position.val ()) === pos)
+            {
+                ret.push (item);
+            }
+        });
+
+        return ret;
+    };
+
     /**
      * removeTracks removes all table rows for unused track positions.  It expects
      * the position of the last used track as input.
@@ -444,6 +457,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.addTrack = addTrack;
     self.addTrackEvent = addTrackEvent;
     self.getTrack = getTrack;
+    self.getTracksAtPosition = getTracksAtPosition;
     self.removeTracks = removeTracks;
     self.sort = sort;
     self.updateArtistColumn = updateArtistColumn;

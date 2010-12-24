@@ -185,6 +185,9 @@
     [% USE w = Wizard() %]
     [% information = w.page ('information') %]
     [% release_artist = information.field('artist_credit') %]
+    <input type="hidden" name="various-artists" class="various-artists" id="various-artists"
+        value="[% information.field('various_artists').value %]" />
+
     <h3>[% information.field('name').value %]</h3>
     <p>by [% release_artist.fif.name %]</p>
 
