@@ -15,7 +15,7 @@ has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist_id' => ( type => 'Integer' );
-has_field 'mediums.edits' => ( type => 'Text' );
+has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
 
 # keep track of advanced or basic view, useful when navigating away from
 # this page and coming back, or when validation failed.
@@ -76,7 +76,8 @@ sub _track_errors {
         my $cdtoc_duration = format_track_length ($details->{length_time});
         if ($track->{length} ne $cdtoc_duration)
         {
-            return l('The length of track {pos} cannot be changed, it should be {length}.',
+            $track->{length} = $cdtoc_duration;
+            return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
                      { pos => $pos, length => $cdtoc_duration });
         }
     }
@@ -88,10 +89,11 @@ sub _validate_edits {
     my $self = shift;
     my $medium = shift;
     my $json = JSON::Any->new( utf8 => 1 );
-    my $edits = $json->decode (shift);
+    my $edits = $json->decode ($medium->field('edits')->value);
     my $entity;
     my $cdtoc;
     my $medium_id = $medium->field('id')->value;
+    my @errors;
 
     if ($medium_id)
     {
@@ -107,34 +109,38 @@ sub _validate_edits {
     {
         my $msg = $self->_track_errors ($_, $tracknumbers, $cdtoc);
 
-        $medium->add_error ($msg) if $msg;
+        push @errors, $msg if $msg;
     }
 
     unless (scalar @$tracknumbers)
     {
-        $medium->add_error (l('A tracklist is required'));
-        next;
+        push @errors, l('A tracklist is required');
+        return @errors;
     }
 
     shift @$tracknumbers; # there is no track 0, this shifts off an undef.
 
     if ($cdtoc->track_count != scalar @$tracknumbers)
     {
-        $medium->add_error (
+        push @errors,
             ln('This medium has a Disc ID, it should have exactly {n} track.',
                'This medium has a Disc ID, it should have exactly {n} tracks.',
-               $cdtoc->track_count, { n => $cdtoc->track_count }));
+               $cdtoc->track_count, { n => $cdtoc->track_count });
     }
 
     my $count = 1;
     for (@$tracknumbers)
     {
-        $medium->add_error (
-            l('Track {pos} is missing.', { pos => $count }))
+        push @errors, l('Track {pos} is missing.', { pos => $count })
             unless defined $_;
 
         $count++;
     }
+
+    $json = JSON::Any->new;
+    $medium->field('edits')->value ($json->encode ($edits));
+
+    return @errors;
 };
 
 sub validate {
@@ -150,7 +156,8 @@ sub validate {
             next;
         }
 
-        $self->_validate_edits ($medium, $edits) if $edits;
+        my @errors = $self->_validate_edits ($medium) if $edits;
+        map { $medium->add_error ($_) } @errors;
     }
 };
 

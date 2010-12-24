@@ -3,13 +3,14 @@ use Moose;
 use TryCatch;
 use Encode;
 use JSON::Any;
+use Text::Trim qw( trim );
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Track qw( unformat_track_length );
+use MusicBrainz::Server::Track qw( format_track_length unformat_track_length );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Wizard;
 
@@ -582,7 +583,6 @@ sub edited_tracklist
 
     return [ sort { $a->{position} > $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
-
 
 sub prepare_recordings
 {
