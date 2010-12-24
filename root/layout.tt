@@ -11,7 +11,15 @@
           [%- END -%]
         [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        <link rel="stylesheet" type="text/css" href="/static/main.css?mtime=[% c.model('FileCache').modified('main.css') %]" />
+        <link rel="stylesheet" type="text/css" href="[%-
+                c.model('FileCache').squash_styles(
+                    "styles/layout.css",
+                    "styles/entity.css",
+                    "styles/forms.css",
+                    "styles/edit.css",
+                    "styles/widgets.css",
+                )
+        -%]"/>
         [% IF extra_css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
         [% END %]
@@ -94,10 +102,43 @@
         </div>
         [% END %]
 
+        [% IF c.flash.message %]
+            <div class="flash">
+                <p>
+                    [% c.flash.message %]
+                </p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [% END %]
+
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
             [%- content -%]
             <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
+
+        [% IF c.session.merger %]
+            <div id="current-editing">
+                <h2>[% l('Merge Process') %]</h2>
+                <p>[% l('You currently have the following entities selected
+                         for merging:') %]</p>
+                <ul>
+                  [% FOR entity=to_merge %]
+                    <li>[% descriptive_link(entity) %]</li>
+                  [% END %]
+                </ul>
+                <p>
+                  [% l('When you are ready to merge these, just click the Merge button.
+                        You may still add more to this merge queue by simply browsing to
+                        the entities page and following the merge link.') %]
+                </p>
+                [% IF merger.ready_to_merge %]
+                <form action="[% merge_link %]" method="get">
+                  [% form_submit(l('Merge')) %]
+                </form>
+                [% END %]
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [% END %]
 
         <div id="footer">
             <p class="links">

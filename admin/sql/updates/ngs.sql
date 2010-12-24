@@ -65,33 +65,34 @@ INSERT INTO release_group_type (id, name) VALUES
     (10, 'Remix'),
     (11, 'Other');
 
-INSERT INTO medium_format (id, name, year) VALUES
-    (1, 'CD', 1982),
-    (2, 'DVD', 1995),
-    (3, 'SACD', 1999),
-    (4, 'DualDisc', 2004),
-    (5, 'LaserDisc', 1978),
-    (6, 'MiniDisc', 1992),
-    (7, 'Vinyl', 1895),
-    (8, 'Cassette', 1964),
-    (9, 'Cartridge', 1962),
-    (10, 'Reel-to-reel', 1935),
-    (11, 'DAT', 1976),
-    (12, 'Digital Media', NULL),
-    (13, 'Other', NULL),
-    (14, 'Wax Cylinder', 1877),
-    (15, 'Piano Roll', 1883),
-    (16, 'DCC', 1992),
-    (17, 'HD-DVD', NULL),
-    (20, 'Blu-ray', NULL),
-    (21, 'VHS', NULL),
-    (22, 'VCD', NULL),
-    (23, 'SVCD', NULL),
-    (24, 'Betamax', NULL),
-    (25, 'HDCD', NULL),
-    (26, 'USB Flash Drive', NULL),
-    (27, 'slotMusic', NULL),
-    (28, 'UMD', NULL);
+INSERT INTO medium_format (id, name, year, has_discids) VALUES
+    (1, 'CD', 1982, TRUE),
+    (2, 'DVD', 1995, FALSE),
+    (3, 'SACD', 1999, TRUE),
+    (4, 'DualDisc', 2004, TRUE),
+    (5, 'LaserDisc', 1978, FALSE),
+    (6, 'MiniDisc', 1992, FALSE),
+    (7, 'Vinyl', 1895, FALSE),
+    (8, 'Cassette', 1964, FALSE),
+    (9, 'Cartridge', 1962, FALSE),
+    (10, 'Reel-to-reel', 1935, FALSE),
+    (11, 'DAT', 1976, FALSE),
+    (12, 'Digital Media', NULL, FALSE),
+    (13, 'Other', NULL, TRUE),
+    (14, 'Wax Cylinder', 1877, FALSE),
+    (15, 'Piano Roll', 1883, FALSE),
+    (16, 'DCC', 1992, FALSE),
+    (17, 'HD-DVD', NULL, FALSE),
+    (20, 'Blu-ray', NULL, FALSE),
+    (21, 'VHS', NULL, FALSE),
+    (22, 'VCD', NULL, FALSE),
+    (23, 'SVCD', NULL, FALSE),
+    (24, 'Betamax', NULL, FALSE),
+    (25, 'HDCD', NULL, TRUE),
+    (26, 'USB Flash Drive', NULL, FALSE),
+    (27, 'slotMusic', NULL, FALSE),
+    (28, 'UMD', NULL, FALSE);
+
 INSERT INTO medium_format (id, name, year, child_order, parent) VALUES
     (29, '7"', NULL, 0, 7),
     (30, '10"', NULL, 1, 7),
@@ -263,7 +264,7 @@ INSERT INTO tracklist (id, track_count)
 
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
-    FROM public.release r JOIN public.album a ON album = r.id
+    FROM public.release r JOIN public.album a ON a.id = r.album
    WHERE a.attributes[2] != 0;
 
 SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));

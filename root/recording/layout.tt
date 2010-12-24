@@ -39,7 +39,11 @@
           [% IF recording.edits_pending %]
             <li>[% link_recording(recording, 'open_edits', l('Open edits')) %]</li>
           [% END %]
-          <li>[% link_recording(recording, 'merge', l('Merge this recording with another')) %]</li>
+          <li>
+            <a href="[% c.uri_for_action('/recording/merge_queue', { 'add-to-merge' => recording.id }) %]">
+              [% l('Merge this recording with another') %]
+            </a>
+          </li>
           <li>[% use_in_relationship(recording) %]</li>
           <li>[% relate_to_url(recording) %]</li>
           [% ELSE %]

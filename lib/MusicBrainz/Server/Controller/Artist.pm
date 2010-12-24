@@ -447,8 +447,7 @@ Merge 2 artists into a single artist
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_ARTIST_MERGE,
-    confirmation_template => 'artist/merge_confirm.tt',
-    search_template       => 'artist/merge_search.tt',
+    form => 'Merge::Artist'
 };
 
 =head2 rating
@@ -492,7 +491,7 @@ around $_ => sub {
     else {
         $self->$orig($c);
     }
-} for qw( edit merge );
+} for qw( edit );
 
 sub watch : Chained('load') RequireAuth {
     my ($self, $c) = @_;

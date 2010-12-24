@@ -47,6 +47,8 @@
                 <div class="edit-list">
                     [% INCLUDE 'edit/edit_header.tt' summary=1 %]
 
+                    <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.[% loop.index %].edit_id" />
+
                     <div class="edit-actions c[%- PROCESS edit_status -%]">
                         [%- INCLUDE 'edit/info.tt' summary=1 -%]
                     </div>
@@ -58,13 +60,9 @@
                            <p>[% l('An error occured while loading this edit') %]</p>
                         [% END %]
                     </div>
-
-                    [% IF edit.edit_notes.size %]
-                        <div class="edit-notes">
-                            [% INCLUDE "edit/notes.tt" %]
-                        </div>
-                    [% END %]
-
+                    
+                    [% INCLUDE 'edit/notes.tt' verbose=0 hide=1 rows=1 index=loop.index %]
+    
                     <div class="seperator">
                     </div>
                 </div>

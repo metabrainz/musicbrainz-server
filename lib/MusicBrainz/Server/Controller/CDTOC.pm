@@ -184,8 +184,9 @@ sub attach : Local RequireAuth
             $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-            $c->model('Track')->load_for_tracklists(
-                map { $_->tracklist } map { $_->all_mediums } @releases);
+            my @mediums = grep { !$_->format || $_->format->has_discids }
+                map { $_->all_mediums } @releases;
+            $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 results => $releases
