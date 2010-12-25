@@ -30,9 +30,9 @@ MB.Control.ArtistEdit = function () {
     self.$name = $('#id-edit-artist\\.name');
     self.$sort_name = $('#id-edit-artist\\.sort_name');
 
-    self.$guesscase = $('button.guesscase');
-    self.$sortname = $('button.sortname');
-    self.$copy = $('button.copy');
+    self.$guesscase = $('input.guesscase');
+    self.$sortname = $('input.sortname');
+    self.$copy = $('input.copy');
 
     var changeDateText = function (text) {
         self.$begin.text(text[0]);
