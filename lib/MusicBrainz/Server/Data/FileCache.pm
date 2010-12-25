@@ -4,8 +4,6 @@ use namespace::autoclean;
 
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
-use Javascript::Closure;
-use CSS::Minifier;
 use IO::All;
 
 with 'MusicBrainz::Server::Data::Role::Context';
@@ -45,13 +43,13 @@ sub squash {
 sub squash_scripts {
     my $self = shift;
 
-    return $self->squash(\&Javascript::Closure::minify, "", "js", @_);
+    return $self->squash(DBDefs::MINIFY_SCRIPTS, "", "js", @_);
 }
 
 sub squash_styles {
     my $self = shift;
 
-    return $self->squash(\&CSS::Minifier::minify, "styles/", "css", @_);
+    return $self->squash(DBDefs::MINIFY_STYLES, "styles/", "css", @_);
 }
 
 __PACKAGE__->meta->make_immutable;
