@@ -84,14 +84,21 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     var update = function(event, data) {
+
         if (data.name)
         {
-            self.render ({
-                'artist_name': data.name,
-                'name': data.name,
-                'gid': data.gid,
-                'id': data.id
-            });
+            self.name.val (data.name).removeClass ('error');
+            self.gid.val (data.gid);
+            self.id.val (data.id);
+            self.link.html ('link').
+                attr('href', '/artist/'+data.gid).
+                attr('title', data.comment);
+
+            if (self.credit.val () === '')
+            {
+                self.credit.val (data.name);
+            }
+
             self.container.renderPreview();
         }
 
@@ -109,6 +116,15 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         if (self.name.val() !== "" && self.id.val() === "")
         {
             self.name.addClass('error');
+        }
+
+        /* if the artist was cleared the user probably wants to delete it,
+           make sure ids and links are emptied out too. */
+        if (self.name.val() === '')
+        {
+            self.gid.val ('');
+            self.id.val ('');
+            self.link.html ('').attr('href', '').attr('title', '');
         }
 
         self.container.renderPreview();
