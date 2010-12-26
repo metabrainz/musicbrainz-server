@@ -31,14 +31,14 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     if (!self.row)
     {
         self.catno_message = $('div.catno-container:first').clone ();
-	self.catno_message.insertAfter ($('div.catno-container:last'));
-	self.catno_message.hide ();
+        self.catno_message.insertAfter ($('div.catno-container:last'));
+        self.catno_message.hide ();
 
-	self.row = $('div.release-label:first').clone ();
-	self.row.find ('input.label-id').val ('');
-	self.row.find ('input.label-name').val ('');
-	self.row.find ('input.catno').val ('');
-	self.row.find ('*').each (function (idx, element) {
+        self.row = $('div.release-label:first').clone ();
+        self.row.find ('input.label-id').val ('');
+        self.row.find ('input.label-name').val ('');
+        self.row.find ('input.catno').val ('');
+        self.row.find ('*').each (function (idx, element) {
             var item = $(element);
             if (item.attr ('id'))
             {
@@ -100,13 +100,13 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
 
     var catnoUpdate = function () {
 
-	if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
+        if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
         {
-  	    self.catno.data ('bubble').show ();
+            self.catno.data ('bubble').show ();
         }
-	else
+        else
         {
-  	    self.catno.data ('bubble').hide ();
+            self.catno.data ('bubble').hide ();
         }
     };
 
@@ -249,13 +249,13 @@ MB.Control.ReleaseDate = function (bubble_collection) {
     self.bubbles = bubble_collection;
 
     self.inputs = [ $('#id-date\\.year'),
-        $('#id-date\\.month'), $('#id-date\\.day') ] 
+        $('#id-date\\.month'), $('#id-date\\.day') ]
     self.message = $('div.date');
 
     var amazonEpoch = function () {
-	return (self.inputs[0].val () == '1995' &&
-	  self.inputs[1].val () == '10' &&
-          self.inputs[2].val () == '25');
+        return (self.inputs[0].val () == '1995' &&
+                self.inputs[1].val () == '10' &&
+                self.inputs[2].val () == '25');
     };
 
     var januaryFirst = function () {
@@ -267,14 +267,14 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         var amazon = self.amazonEpoch ();
         var january = self.januaryFirst ();
 
-	if (amazon || january)
+        if (amazon || january)
         {
             $(this).data ('bubble').show ();
-	}
-	else
-	{
+        }
+        else
+        {
             $(this).data ('bubble').hide ();
-	}
+        }
 
         if (amazon)
         {
@@ -300,7 +300,7 @@ MB.Control.ReleaseDate = function (bubble_collection) {
     self.update = update;
 
     $.each (self.inputs, function (idx, item) {
-        item.data ('bubble', 
+        item.data ('bubble',
             MB.Control.BubbleDocBase (self.bubbles, item, self.message));
 
         item.bind ('change keyup focus', self.update);
@@ -317,7 +317,7 @@ MB.Control.ReleaseInformation = function() {
 
     var initialize = function () {
 
-        self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
+        self.bubbles.add ($('#release-artist'), $('div.artist-credit.bubble'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
         self.bubbles.add ($('#annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
@@ -333,7 +333,7 @@ MB.Control.ReleaseInformation = function() {
 
         $('a[href=#add_label]').click (function (event) {
             self.addLabel ();
-	    self.bubbles.hideAll ();
+            self.bubbles.hideAll ();
             event.preventDefault ();
         });
 
@@ -378,3 +378,4 @@ MB.Control.ReleaseInformation = function() {
 
     return self;
 }
+

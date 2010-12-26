@@ -233,8 +233,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     border-radius: 12px;
 }
 
-#release-editor .documentation div.barcode-container,
-#release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 60px; }
+#release-editor .documentation div.barcode-container { width: 100%; margin-top: 60px; }
 #release-editor div.select-recording { background: #f0f0f0; }
 
 /* little speech balloon "tail" to visibly associate the artist credit

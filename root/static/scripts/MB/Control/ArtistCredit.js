@@ -333,7 +333,7 @@ MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
 MB.Control.initialize_artist_credit = function (bubbles) {
 
     var $target = $('input#entity-artist');
-    var $container = $('div.artist-credit');
+    var $container = $('div.artist-credit.bubble');
 
     bubbles.add ($target, $container);
     MB.Control.ArtistCreditVertical ($target, $container);
