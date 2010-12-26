@@ -330,11 +330,11 @@ MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
 
 /* A generic artist credit initialize function for use outside the
    release editor. */
-MB.Control.initialize_artist_credit = function () {
+MB.Control.initialize_artist_credit = function (bubbles) {
 
-    var target = $('input#entity-artist');
-    var container = $('div.artist-credit');
+    var $target = $('input#entity-artist');
+    var $container = $('div.artist-credit');
 
-    MB.Control.BubbleCollection (target, container);
-    MB.Control.ArtistCreditVertical (target, container);
+    bubbles.add ($target, $container);
+    MB.Control.ArtistCreditVertical ($target, $container);
 };

@@ -126,6 +126,28 @@
   </fieldset>
 [%- END -%]
 
+[%- MACRO guesscase_bubble BLOCK -%]
+  <div class="guess-case-container" style="display: none">
+    <div class="guess-case bubble">
+      <p>
+        [%- l('FIXME: some introductory text about guess case goes here.') -%]
+      </p>
+      <div class="buttons">
+        <a href="#guesscase">[% l('Guess case') %]</a>
+      </div>
+      <p class="guesscase-options">
+        <select name="gc-mode" id="gc-mode"> </select>
+        <br />
+        <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+        <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+        <br />
+        <input type="checkbox" name="gc-roman" id="gc-roman">
+        <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+      </p>
+    </div>
+  </div>
+[%- END -%]
+
 [%- MACRO artist_credit_table(form, show_direct_search) BLOCK -%]
   <div class="artist-credit-container" style="display: none">
     <div class="artist-credit bubble">
