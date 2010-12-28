@@ -72,7 +72,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.credit.val (data.name);
         self.gid.val(data.gid);
         self.id.val(data.id);
-        self.link.html ('link').
+        self.link.html (MB.text.link).
             attr('href', '/artist/'+data.gid).
             attr('title', data.comment);
 
@@ -90,7 +90,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.name.val (data.name).removeClass ('error');
             self.gid.val (data.gid);
             self.id.val (data.id);
-            self.link.html ('link').
+            self.link.html (MB.text.link).
                 attr('href', '/artist/'+data.gid).
                 attr('title', data.comment);
 

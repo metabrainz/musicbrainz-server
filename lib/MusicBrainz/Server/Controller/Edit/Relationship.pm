@@ -90,6 +90,12 @@ sub edit : Local RequireAuth Edit
             $values->{attrs}->{$name} = 1;
         }
     }
+
+    $values->{entity0}->{id} = $rel->entity0_id;
+    $values->{entity1}->{id} = $rel->entity1_id;
+    $values->{entity0}->{name} = $rel->entity0->name;
+    $values->{entity1}->{name} = $rel->entity1->name;
+
     my $form = $c->form( form => 'Relationship', init_object => $values );
     $form->field('link_type_id')->_load_options;
 
