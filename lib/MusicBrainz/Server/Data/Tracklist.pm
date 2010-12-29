@@ -25,10 +25,11 @@ sub insert
 {
     my ($self, $tracks) = @_;
     my $sql = Sql->new($self->c->dbh);
+    # track_count is 0 because the trigger will increment it
     my $id = $sql->insert_row('tracklist', { track_count => 0 }, 'id');
     $self->_add_tracks($id, $tracks);
     my $class = $self->_entity_class;
-    return $class->new( id => $id );
+    return $id;
 }
 
 sub delete
@@ -71,6 +72,30 @@ sub usage_count
         'SELECT count(*) FROM medium
            JOIN tracklist ON medium.tracklist = tracklist.id
           WHERE tracklist.id = ?', $tracklist_id);
+}
+
+sub find_or_insert
+{
+    my ($self, $tracks) = @_;
+
+    my (@join, @where);
+    for my $i (1..@$tracks) {
+        my $n = $i - 1;
+        push @join,
+            "JOIN track t$i ON tracklist.id = t$i.tracklist " .
+            "JOIN track_name tn$i ON t$i.name = tn$i.id";
+        push @where, "(tn$i.name = ? AND t$i.artist_credit = ? AND t$i.recording = ?)";
+        $tracks->[$n]->{position} ||= $n;
+    }
+    my $query =
+        'SELECT tracklist.id FROM tracklist ' .
+        join(' ', @join) . '
+        WHERE tracklist.track_count = ? AND ' . join(' AND ', @where);
+
+    my @tracks = sort { $a->{position} <=> $b->{position} } @$tracks;
+    return $self->sql->select_single_value($query, scalar(@$tracks),
+        map { $_->{name}, $_->{artist_credit}, $_->{recording} } @tracks)
+            || $self->insert($tracks);
 }
 
 __PACKAGE__->meta->make_immutable;
