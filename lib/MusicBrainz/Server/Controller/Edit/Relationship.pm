@@ -193,13 +193,21 @@ sub create : Local RequireAuth Edit
             }
         }
 
+        my $entity0 = $source->id;
+        my $entity1 = $dest->id;
+
+        if ($type0 eq $type1 && $form->field('direction')->value)
+        {
+            ($entity0, $entity1) = ($entity1, $entity0);
+        }
+
         if ($c->model('Relationship')->exists($type0, $type1, {
             link_type_id => $form->field('link_type_id')->value,
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
             attributes => \@attributes,
-            entity0 => $source->id,
-            entity1 => $dest->id
+            entity0 => $entity0,
+            entity1 => $entity1,
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -209,8 +217,8 @@ sub create : Local RequireAuth Edit
             edit_type    => $EDIT_RELATIONSHIP_CREATE,
             type0        => $type0,
             type1        => $type1,
-            entity0      => $source->id,
-            entity1      => $dest->id,
+            entity0      => $entity0,
+            entity1      => $entity1,
             begin_date   => $form->field('begin_date')->value,
             end_date     => $form->field('end_date')->value,
             link_type_id => $form->field('link_type_id')->value,
