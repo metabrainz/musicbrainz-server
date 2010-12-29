@@ -62,6 +62,18 @@ sub build_display_data
     }
 }
 
+sub insert
+{
+    my $self = shift;
+
+    # Make a copy of the data so we don't accidently modify it
+    my $hash   = $self->_insert_hash(clone($self->data));
+    my $entity = $self->c->model( $self->_create_model )->find_or_insert( $hash );
+
+    $self->entity($entity);
+    $self->entity_id($entity->id);
+}
+
 sub _insert_hash
 {
     my ($self, $data) = @_;

@@ -29,7 +29,7 @@ sub insert
     my $id = $sql->insert_row('tracklist', { track_count => 0 }, 'id');
     $self->_add_tracks($id, $tracks);
     my $class = $self->_entity_class;
-    return $id;
+    return $class->new( id => $id );
 }
 
 sub delete
@@ -77,7 +77,6 @@ sub usage_count
 sub find_or_insert
 {
     my ($self, $tracks) = @_;
-
     my (@join, @where);
     for my $i (1..@$tracks) {
         my $n = $i - 1;
@@ -93,9 +92,11 @@ sub find_or_insert
         WHERE tracklist.track_count = ? AND ' . join(' AND ', @where);
 
     my @tracks = sort { $a->{position} <=> $b->{position} } @$tracks;
-    return $self->sql->select_single_value($query, scalar(@$tracks),
-        map { $_->{name}, $_->{artist_credit}, $_->{recording} } @tracks)
-            || $self->insert($tracks);
+    my $id = $self->sql->select_single_value($query, scalar(@$tracks),
+        map { $_->{name}, $_->{artist_credit}, $_->{recording} } @tracks);
+
+    my $class = $self->_entity_class;
+    return $id ? $class->new( id => $id ) : $self->insert($tracks);
 }
 
 __PACKAGE__->meta->make_immutable;

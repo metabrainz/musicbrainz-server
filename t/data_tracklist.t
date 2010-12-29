@@ -29,7 +29,7 @@ is ( $tracklist1->tracks->[5]->name, "Joanni", "sixth track is Joanni" );
 is ( scalar($tracklist2->all_tracks), 9, "9 tracks" );
 is ( $tracklist2->tracks->[3]->name, "The Painter's Link", "fourth track is The Painter's Link" );
 
-my $tracklist_id = $tracklist_data->find_or_insert([{
+my $tracklist = $tracklist_data->find_or_insert([{
     name => 'Track 1',
     position => 1,
     artist_credit => 1,
@@ -41,7 +41,7 @@ my $tracklist_id = $tracklist_data->find_or_insert([{
     recording => 2
 }]);
 
-my $tracklist = $tracklist_data->get_by_id($tracklist_id);
+$tracklist = $tracklist_data->get_by_id($tracklist->id);
 $track_data->load_for_tracklists($tracklist);
 is($tracklist->track_count, 2, "Inserted a new tracklist with two tracks");
 is($tracklist->all_tracks, 2);
@@ -60,9 +60,10 @@ my $tracks = [
     { name => 'Track 3', artist_credit => 1, recording => 3 }
 ];
 
-my $tl_id = $tracklist_data->find_or_insert($tracks);
-ok($tl_id, 'returned a tracklist id');
-is($tracklist_data->find_or_insert($tracks) => $tl_id,
+$tracklist = $tracklist_data->find_or_insert($tracks);
+ok($tracklist, 'returned a tracklist id');
+ok($tracklist->id > 0, 'returned a tracklist id');
+is($tracklist_data->find_or_insert($tracks)->id => $tracklist->id,
    'returns the same tracklist for a reinsert');
 
 done_testing;
