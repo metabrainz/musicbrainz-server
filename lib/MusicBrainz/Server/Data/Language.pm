@@ -34,7 +34,7 @@ sub load
 sub find_by_code
 {
     my ($self, $code) = @_;
-    return $self->_get_by_key('iso_code_3t' => $code);
+    return $self->_get_by_key('iso_code_3t' => $code, transform => 'lower');
 }
 
 __PACKAGE__->meta->make_immutable;

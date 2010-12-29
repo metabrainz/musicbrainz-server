@@ -67,9 +67,19 @@ sub get_by_ids
 
 sub _get_by_key
 {
-    my ($self, $key, $id) = @_;
-    my @result = values %{ $self->_get_by_keys($key, $id) };
-    return $result[0];
+    my ($self, $key, $id, %options) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table;
+    if (my $transform = $options{transform}) {
+        $query .= " WHERE $transform($key) = $transform(?)";
+    }
+    else {
+        $query .= " WHERE $key = ?";
+    }
+
+    return $self->_new_from_row(
+        $self->sql->select_single_row_hash(
+            $query, $id));
 }
 
 sub insert { confess "Not implemented" }
