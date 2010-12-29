@@ -271,14 +271,15 @@ sub _misssing_artist_credits
 {
     my ($self, $data) = @_;
     return
-        grep { !$_->{artist} } grep { ref($_) }
         (
             # Artist credit for the release itself
+            grep { !$_->{artist} } grep { ref($_) }
             map { @{ clean_submitted_artist_credits($_) } }
                 $data->{artist_credit}
         ),
         (
             # Artist credits on new tracklists
+            grep { !$_->{artist_id} }
             map { @{ $_->{artist_credit}->{names} } }
             map { @{ $_->{tracks} } } grep { $_->{edits} }
             @{ $data->{mediums} }
@@ -747,15 +748,16 @@ sub _seed_parameters {
                     @{ $params->{medium} || []}
         )
     ) {
-        next unless $artist_credit->{mbid};
-        my $entity = $self->c->model('Artist')
-            ->get_by_gid(delete $artist_credit->{mbid});
-        $artist_credit->{artist_id} = $entity->id;
-        $artist_credit->{name} ||= $entity->name;
-        $artist_credit->{gid} = $entity->gid;
-        $artist_credit->{artist_name} = $entity->name;
+        if (my $mbid = $artist_credit->{mbid}){
+            my $entity = $self->c->model('Artist')
+                ->get_by_gid($mbid);
+            $artist_credit->{artist_id} = $entity->id;
+            $artist_credit->{name} ||= $entity->name;
+            $artist_credit->{gid} = $entity->gid;
+            $artist_credit->{artist_name} = $entity->name;
+        }
     }
-
+    
     {
         my $medium_idx;
         my $json = JSON::Any->new(utf8 => 1);
