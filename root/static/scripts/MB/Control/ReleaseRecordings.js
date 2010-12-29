@@ -79,37 +79,6 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$radio.trigger ('change');
     };
 
-    var formatItem = function (ul, item) {
-        var a = $("<a>").text (item.name);
-
-        a.append (' - <span class="autocomplete-artist">' + item.artist + '</span>');
-
-        if (item.releasegroups)
-        {
-            var rgs = {};
-            /* don't display the same name multiple times. */
-            $.each (item.releasegroups, function (idx, item) {
-                rgs[item.name] = item.name;
-            });
-
-            a.append ('<br /><span class="autocomplete-appears">appears on: '
-                      + MB.utility.keys (rgs).join (", ") + '</span>');
-        }
-
-        if (item.comment)
-        {
-            a.append ('<br /><span class="autocomplete-comment">(' + item.comment + ')</span>');
-        }
-
-        if (item.isrcs.length)
-        {
-            a.append ('<br /><span class="autocomplete-isrcs">isrcs: '
-                      + item.isrcs.join (", ") + '</span>');
-        }
-
-        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
-    };
-
     var lookupHook = function (request) {
 
         $.extend (request.data, { 'a': self.artistname });
@@ -119,11 +88,9 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
 
     self.selected = selected;
 
-    MB.Control.Autocomplete ({
+    MB.Control.AutocompleteRecording ({
         'input': self.$search,
-        'entity': 'recording',
         'select': self.selected,
-        'formatItem': formatItem,
         'lookupHook': lookupHook
     });
 
