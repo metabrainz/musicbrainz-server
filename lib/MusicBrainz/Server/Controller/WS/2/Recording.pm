@@ -165,7 +165,7 @@ sub recording_submit : Private
     my ($self, $c) = @_;
 
     my $client = $c->req->query_params->{client}
-        or _error($c, 'You must provide information about your client, by the client query parameter');
+        or $self->_error($c, 'You must provide information about your client, by the client query parameter');
 
     my $xp = XML::XPath->new( xml => $c->request->body );
 
@@ -173,15 +173,15 @@ sub recording_submit : Private
     for my $node ($xp->find('/metadata/recording-list/recording')->get_nodelist)
     {
         my $id = $node->getAttribute('id') or
-            _error ($c, "All releases must have an MBID present");
+            $self->_error ($c, "All releases must have an MBID present");
 
-        _error($c, "$id is not a valid MBID")
+        $self->_error($c, "$id is not a valid MBID")
             unless MusicBrainz::Server::Validation::IsGUID($id);
 
         my @puids = $node->find('puid-list/puid')->get_nodelist;
         for my $puid_node (@puids) {
             my $puid = $puid_node->getAttribute('id');
-            _error($c, "$puid is not a valid PUID")
+            $self->_error($c, "$puid is not a valid PUID")
                 unless MusicBrainz::Server::Validation::IsGUID($puid);
 
             $submit_puid{ $id } ||= [];
@@ -191,7 +191,7 @@ sub recording_submit : Private
         my @isrcs = $node->find('isrc-list/isrc')->get_nodelist;
         for my $isrc_node (@isrcs) {
             my $isrc = $isrc_node->getAttribute('id');
-            _error($c, "$isrc is not a valid ISRC")
+            $self->_error($c, "$isrc is not a valid ISRC")
                 unless is_valid_isrc($isrc);
 
             $submit_isrc{ $id } ||= [];
@@ -205,7 +205,7 @@ sub recording_submit : Private
 
     my @submissions;
     for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
-        _error($c, "$recording_gid does not match any known recordings")
+        $self->_error($c, "$recording_gid does not match any known recordings")
             unless exists $recordings_by_gid{$recording_gid};
     }
 

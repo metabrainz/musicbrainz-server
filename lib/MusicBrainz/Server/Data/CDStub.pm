@@ -99,7 +99,7 @@ sub insert
     my ($track_artists, $track_titles) = (0, 0);
     for my $track (@tracks) {
         $track_artists++ if $track->{artist};
-        $track_titles++;
+        $track_titles++ if $track->{title};
     }
 
     my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($cdstub_hash->{toc});

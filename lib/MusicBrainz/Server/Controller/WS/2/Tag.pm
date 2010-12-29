@@ -69,14 +69,14 @@ sub tag_submit : Private
         $type =~ s/-/_/;
 
         my $model = type_to_model ($type);
-        _error ($c, "Unrecognized entity $type.") unless $model;
+        $self->_error ($c, "Unrecognized entity $type.") unless $model;
 
         my $gid = $node->getAttribute ('id');
-        _error ($c, "Cannot parse MBID: $gid.")
+        $self->_error ($c, "Cannot parse MBID: $gid.")
             unless MusicBrainz::Server::Validation::IsGUID($gid);
 
         my $entity = $c->model($model)->get_by_gid($gid);
-        _error ($c, "Cannot find $type $gid.") unless $entity;
+        $self->_error ($c, "Cannot find $type $gid.") unless $entity;
 
         # postpone any updates until we've made some effort to parse the whole
         # body and report possible errors in it.
