@@ -1,27 +1,19 @@
 <table class="details">
   <tr>
     <th rowspan="2">[% l('Relationship:') %]</th>
+
+    [%# FIXME: this isn't granular enough.  only the changed bits should be highlighted as old or new. --warp. %]
     <td class="old">
-      <ul>
-        [% FOR relationship=edit.display_data.relationship.old %]
-        <li>
-           [% link_entity(relationship.source); %]
-           [% display_relationship(relationship); %]
-        </li>
-        [% END %]
-      </ul>
+      [% relationship=edit.display_data.old %]
+      [% link_entity(relationship.source); %]
+      [% display_relationship(relationship); %]
     </td>
   </tr>
   <tr>
     <td class="new">
-      <ul>
-        [% FOR relationship=edit.display_data.relationship.new %]
-        <li>
-           [% link_entity(relationship.source); %]
-           [% display_relationship(relationship); %]
-        </li>
-        [% END %]
-      </ul>
+      [% relationship=edit.display_data.new %]
+      [% link_entity(relationship.source); %]
+      [% display_relationship(relationship); %]
     </td>
   </tr>
 </table>
