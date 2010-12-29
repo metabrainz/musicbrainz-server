@@ -15,6 +15,7 @@ use MusicBrainz::Server::Wizard;
 use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
@@ -757,7 +758,7 @@ sub _seed_parameters {
             $artist_credit->{artist_name} = $entity->name;
         }
     }
-    
+
     {
         my $medium_idx;
         my $json = JSON::Any->new(utf8 => 1);
@@ -766,6 +767,29 @@ sub _seed_parameters {
                 my $entity = $self->c->model('MediumFormat')
                     ->find_by_name($format);
                 $medium->{format_id} = $entity->id if $entity;
+            }
+
+            if (my $toc = $medium->{toc}) {
+                my $cdtoc = CDTOC->new_from_toc($toc);
+                if (ref($medium->{track})) {
+                    if (@{ $medium->{track} } != $cdtoc->track_count) {
+                        delete $medium->{toc};
+                    }
+                    else {
+                        my $details = $cdtoc->track_details;
+                        for my $i (1..$cdtoc->track_count) {
+                            my $n = $i - 1;
+                            $medium->{track}->[$n] ||= {};
+                            $medium->{track}->[$n]->{length} =
+                                $details->[$n]->{length_time};
+                        }
+                    }
+                }
+                else {
+                    $medium->{track} = [ map +{
+                        length => $_->{length_time}
+                    }, @{ $cdtoc->track_details } ];
+                }
             }
 
             if (my @tracks = @{ $medium->{track} || [] }) {
