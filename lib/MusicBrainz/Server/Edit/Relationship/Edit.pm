@@ -7,7 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
-use MusicBrainz::Server::Data::Utils qw( 
+use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
   partial_date_from_row
   type_to_model
@@ -81,10 +81,10 @@ sub foreign_keys
 
     push @{ $load{$model0} }, $self->data->{link}->{entity0_id};
     push @{ $load{$model1} }, $self->data->{link}->{entity1_id};
-    push @{ $load{$model0} }, $old->{entity0} if $old->{entity0};
-    push @{ $load{$model1} }, $old->{entity1} if $old->{entity1};
-    push @{ $load{$model0} }, $new->{entity0} if $new->{entity0};
-    push @{ $load{$model1} }, $new->{entity1} if $new->{entity1};
+    push @{ $load{$model0} }, $old->{entity0_id} if $old->{entity0_id};
+    push @{ $load{$model1} }, $old->{entity1_id} if $old->{entity1_id};
+    push @{ $load{$model0} }, $new->{entity0_id} if $new->{entity0_id};
+    push @{ $load{$model1} }, $new->{entity1_id} if $new->{entity1_id};
 
     return \%load;
 }
@@ -100,8 +100,10 @@ sub _build_relationship
     my $begin      = defined $change->{begin_date} ? $change->{begin_date} : $link->{begin_date};
     my $end        = defined $change->{end_date}   ? $change->{end_date}   : $link->{end_date};
     my $attributes = defined $change->{attributes} ? $change->{attributes} : $link->{attributes};
-    my $entity0    = defined $change->{entity0}    ? $change->{entity0}    : $link->{entity0_id}; 
-    my $entity1    = defined $change->{entity1}    ? $change->{entity1}    : $link->{entity1_id}; 
+    my $entity0    = defined $change->{entity0_id} ? $change->{entity0_id} : $link->{entity0_id};
+    my $entity1    = defined $change->{entity1_id} ? $change->{entity1_id} : $link->{entity1_id};
+
+    return unless $entity0 && $entity1;
 
     return Relationship->new(
         link => Link->new(
@@ -119,7 +121,7 @@ sub _build_relationship
         ),
         entity0 => $loaded->{$model0}{ $entity0 },
         entity1 => $loaded->{$model1}{ $entity1 },
-    );    
+    );
 }
 
 sub build_display_data
@@ -236,6 +238,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
