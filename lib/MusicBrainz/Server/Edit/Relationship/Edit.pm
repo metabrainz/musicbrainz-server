@@ -55,31 +55,22 @@ sub related_entities
 {
     my ($self) = @_;
 
-    my $result;
-    if ($self->data->{type0} eq $self->data->{type1}) {
-        $result = {
-            $self->data->{type0} => [
-                $self->data->{new}{entity0_id},
-                $self->data->{new}{entity1_id},
-                $self->data->{old}{entity0_id},
-                $self->data->{old}{entity1_id},
-            ]
-        };
-    }
-    else {
-        $result = {
-            $self->data->{type0} => [ 
-                $self->data->{new}{entity0_id},
-                $self->data->{old}{entity0_id},
-            ],
-            $self->data->{type1} => [ 
-                $self->data->{new}{entity1_id},
-                $self->data->{old}{entity1_id},
-            ]
-        };
-    }
+    my $old = $self->data->{old};
+    my $new = $self->data->{new};
 
-    return $result;
+    my $type0 = $self->data->{type0};
+    my $type1 = $self->data->{type1};
+
+    my %result;
+    $result{$type0} = [];
+    $result{$type1} = [];
+
+    push @{ $result{$type0} }, $old->{entity0_id} if $old->{entity0_id};
+    push @{ $result{$type0} }, $new->{entity0_id} if $new->{entity0_id};
+    push @{ $result{$type1} }, $old->{entity1_id} if $old->{entity1_id};
+    push @{ $result{$type1} }, $new->{entity1_id} if $new->{entity1_id};
+
+    return \%result;
 }
 
 sub adjust_edit_pending
