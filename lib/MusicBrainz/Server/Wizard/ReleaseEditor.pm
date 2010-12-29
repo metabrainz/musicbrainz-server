@@ -728,11 +728,15 @@ sub _seed_parameters {
     }
 
     for my $label (@{ $params->{labels} }) {
-        next unless $label->{mbid};
-        my $entity = $self->c->model('Label')
-            ->get_by_gid(delete $label->{mbid});
-        $label->{label_id} = $entity->id;
-        $label->{name} = $entity->name;
+        if (my $mbid = $label->{mbid}) {
+            my $entity = $self->c->model('Label')
+                ->get_by_gid($mbid);
+            $label->{label_id} = $entity->id;
+            $label->{name} = $entity->name;
+        }
+        elsif (my $name = $label->{name}) {
+            $label->{name} = $name;
+        }
     }
 
     for my $artist_credit (
