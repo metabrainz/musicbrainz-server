@@ -120,6 +120,8 @@ sub edit : Local RequireAuth Edit
             edit_type => $EDIT_RELATIONSHIP_EDIT,
             type0             => $type0,
             type1             => $type1,
+            entity0_id        => $values->{entity0}->{id},
+            entity1_id        => $values->{entity1}->{id},
             relationship      => $rel,
             link_type_id      => $values->{link_type_id},
             begin_date        => $values->{begin_date},
