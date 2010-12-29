@@ -53,7 +53,7 @@ var typeInfo = [% type_info %];
                   [% r.checkbox('direction') %] Change direction
               [%- ELSE -%]
                   [% r.hidden('direction') %]
-                  <button id="changedirection">Change direction</button>
+                  <input type="button" id="changedirection" value="[% l('Change direction') %]" />
               [%- END -%]
               </span>
             [% END %]

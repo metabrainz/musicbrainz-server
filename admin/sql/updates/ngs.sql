@@ -264,7 +264,7 @@ INSERT INTO tracklist (id, track_count)
 
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
-    FROM public.release r JOIN public.album a ON album = r.album
+    FROM public.release r JOIN public.album a ON a.id = r.album
    WHERE a.attributes[2] != 0;
 
 SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));

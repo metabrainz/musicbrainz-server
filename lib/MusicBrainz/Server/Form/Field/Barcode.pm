@@ -10,10 +10,4 @@ has '+maxlength' => (
     default => 255
 );
 
-apply ([
-   { check => sub { MusicBrainz::Server::Validation::IsValidEAN(shift) },
-     message => l('This is not a valid barcode'),
-   }
-]);
-
 1;

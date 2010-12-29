@@ -686,7 +686,7 @@ sub edited_tracklist
 {
     my ($self, $tracks) = @_;
 
-    return [ sort { $a->{position} > $b->{position} } grep { ! $_->{deleted} } @$tracks ];
+    return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
 
 sub _seed_parameters {

@@ -106,8 +106,7 @@ table.vote-tally .date {
 }
 
 .add-edit-note textarea {
-    width: 350px;
-    color: #999999;
+    width: 98%;
     display: block;
 }
 
