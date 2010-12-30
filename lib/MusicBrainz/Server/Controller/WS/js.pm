@@ -17,25 +17,30 @@ use Encode qw( decode encode );
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
-     artist => {
-         method   => 'GET',
-         required => [ qw(q) ],
-         optional => [ qw(direct limit page timestamp) ]
-     },
-     label => {
-         method   => 'GET',
-         required => [ qw(q) ],
-         optional => [ qw(direct limit page timestamp) ]
-     },
-     recording => {
-         method   => 'GET',
-         required => [ qw(q) ],
-         optional => [ qw(a r direct limit page timestamp) ]
-     },
-     tracklist => {
+    "artist" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(direct limit page timestamp) ]
+    },
+    "label" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(direct limit page timestamp) ]
+    },
+    "recording" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(a r direct limit page timestamp) ]
+    },
+    "release-group" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(a r direct limit page timestamp) ]
+    },
+    "tracklist" => {
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
-     }
+    }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -212,6 +217,13 @@ sub label : Chained('root') PathPart('label') Args(0)
     my ($self, $c) = @_;
 
     $self->_autocomplete_entity($c, 'label');
+}
+
+sub release_group : Chained('root') PathPart('release-group') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_autocomplete_entity($c, 'release_group');
 }
 
 sub recording : Chained('root') PathPart('recording') Args(0)

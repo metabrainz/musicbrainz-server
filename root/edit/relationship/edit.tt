@@ -28,7 +28,7 @@
 [%- USE r = FormRenderer(form) -%]
 
 [%- MACRO relationship_entity(field, entity, type) BLOCK; -%]
-  [%- IF type == 'artist' OR type == 'label' OR type == 'recording'  -%]
+  [%- IF type == 'artist' OR type == 'label' OR type == 'recording' OR type == 'release_group' -%]
     [%- r.hidden(field.field('id')) -%]
     [%- r.text(field.field('name')) -%]
     <span class="link">

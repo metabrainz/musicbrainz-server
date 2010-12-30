@@ -42,7 +42,7 @@ MB.Control.RelationshipEntity = function (entity) {
 
     var options = {
         'input': self.$name,
-        'entity': self.type,
+        'entity': self.type.replace ("_", "-"),
         'select': self.selected
     };
 
