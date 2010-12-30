@@ -98,22 +98,25 @@ sub _autocomplete_direct {
 
     my $offset = ($page - 1) * $limit;  # page is not zero based.
 
-    my ($entities, $hits) = $c->model($type)->autocomplete_name($query, $limit, $offset);
+    my ($search_results, $hits) = $c->model ('Search')->search (
+        $type, $query, $limit, $offset);
 
     my @output;
 
-    for (@$entities)
+    for (@$search_results)
     {
+        my $entity = $_->entity;
+
         my $item = {
-            name => $_->name,
-            id => $_->id,
-            gid => $_->gid,
-            comment => $_->comment,
+            name => $entity->name,
+            id => $entity->id,
+            gid => $entity->gid,
+            comment => $entity->comment,
         };
 
-        if ($_->meta->has_attribute ('sort_name'))
+        if ($entity->meta->has_attribute ('sort_name'))
         {
-            $item->{sortname} = $_->sort_name;
+            $item->{sortname} = $entity->sort_name;
         }
 
         push @output, $item;
@@ -238,15 +241,20 @@ sub _recording_direct {
 
     my $offset = ($page - 1) * $limit;  # page is not zero based.
 
-    my ($entities, $hits) = $c->model('Recording')->autocomplete_name(
-        $query, $artist, $limit, $offset);
+    my $where = {};
+    $where->{artist} = $artist if $artist;
 
-    $c->model ('ArtistCredit')->load (@$entities);
-    $c->model('ISRC')->load_for_recordings (@$entities);
+    my ($search_results, $hits) = $c->model ('Search')->search (
+        'recording', $query, $limit, $offset, $where);
+
+    my @entities = map { $_->entity } @$search_results;
+
+    $c->model ('ArtistCredit')->load (@entities);
+    $c->model('ISRC')->load_for_recordings (@entities);
 
     my @output;
 
-    for (@$entities) {
+    for (@entities) {
         push @output, {
             recording => $_,
             appears => [

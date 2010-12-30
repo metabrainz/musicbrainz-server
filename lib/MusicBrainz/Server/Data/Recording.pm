@@ -95,23 +95,6 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
-sub autocomplete_name
-{
-    my ($self, $name, $artist, $limit, $offset) = @_;
-
-    $limit ||= 10;
-    $offset ||= 0;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table .
-        " JOIN artist_credit ON artist_credit.id = recording.artist_credit" .
-        " JOIN artist_name ON artist_name.id = artist_credit.name" .
-        " WHERE lower(name.name) LIKE ?" .
-        " AND lower(artist_name.name) LIKE ?" .
-        " OFFSET ?";
-
-    return query_to_list_limited($self->c->dbh, $offset, $limit,
-        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), lc("$artist%"), $offset);
-}
-
 sub load
 {
     my ($self, @objs) = @_;
