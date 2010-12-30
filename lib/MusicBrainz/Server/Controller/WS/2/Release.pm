@@ -211,14 +211,14 @@ sub release_submit : Private
     my @submit;
     for my $node ($xp->find('/metadata/release-list/release')->get_nodelist) {
         my $id = $node->getAttribute('id') or
-            _error ($c, "All releases must have an MBID present");
+            $self->_error ($c, "All releases must have an MBID present");
 
-        _error($c, "$id is not a valid MBID")
+        $self->_error($c, "$id is not a valid MBID")
             unless MusicBrainz::Server::Validation::IsGUID($id);
 
         my $barcode = $node->find('barcode')->string_value;
 
-        _error($c, "$barcode is not a valid barcode")
+        $self->_error($c, "$barcode is not a valid barcode")
             unless MusicBrainz::Server::Validation::IsValidEAN($barcode);
 
         push @submit, { release => $id, barcode => $barcode };
@@ -229,7 +229,7 @@ sub release_submit : Private
 
     for my $submission (@submit) {
         my $gid = $submission->{release};
-        _error($c, "$gid does not match any existing releases")
+        $self->_error($c, "$gid does not match any existing releases")
             unless exists $gid_map{$gid};
     }
 
@@ -245,7 +245,7 @@ sub release_submit : Private
         );
     }
     catch ($e) {
-        _error($c, "This edit could not be successfully created: $e");
+        $self->_error($c, "This edit could not be successfully created: $e");
     }
 
     $c->detach('success');
