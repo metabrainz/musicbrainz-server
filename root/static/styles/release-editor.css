@@ -52,7 +52,7 @@ h1 span {
     width: auto;
 }
 
-#release-editor fieldset textarea {
+#release-editor fieldset.information textarea {
     height: 10px;
 }
 
@@ -215,6 +215,16 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     margin-top: 0;
 }
 
+#release-editor fieldset.editnote {
+    border: 0;
+    background: inherit;
+}
+
+#release-editor fieldset.editnote textarea {
+    width: 300px;
+}
+
+#release-editor div.editnote { margin-bottom: 1em; }
 
 #release-editor .medium.tbl tr.track-artist-credit,
 #release-editor .medium.tbl tr.track-artist-credit th,
