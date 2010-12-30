@@ -700,11 +700,6 @@ foreach my $orig_t0 (@entity_types) {
             $query = "SELECT * FROM public.l_${orig_t0}_${orig_t1}";
         }
 
-        # Do not migrate relationships on non-album track releases
-        if ($orig_t0 eq 'album') {
-            $query .= ' LEFT JOIN public.album a ON a.id = link0 WHERE a.id IS NULL';
-        }
-
         $rows = $sql->select_list_of_hashes($query);
         my $i = 0;
         my $cnt = scalar(@$rows);

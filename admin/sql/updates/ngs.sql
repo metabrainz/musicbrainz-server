@@ -131,7 +131,7 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 \echo Release groups
 
  INSERT INTO release_name (name)
-     (SELECT DISTINCT name FROM public.album WHERE attributes[2] != 0) UNION
+     (SELECT DISTINCT name FROM public.album WHERE NOT (0 = ANY(attributes[2:10]))) UNION
      (SELECT DISTINCT name FROM public.release_group);
 
 CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
@@ -154,7 +154,8 @@ INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
 SELECT gid::uuid, a.id AS album, (SELECT min(id) FROM public.release r WHERE a.id=r.album) AS id
     INTO TEMPORARY tmp_release_gid
     FROM public.album a
-    WHERE EXISTS (SELECT id FROM public.release r WHERE r.album=a.id);
+    WHERE EXISTS (SELECT id FROM public.release r WHERE r.album=a.id)
+      AND NOT (0 = ANY(a.attributes[2:10]));
 
 CREATE UNIQUE INDEX tmp_release_gid_id ON tmp_release_gid(id);
 CREATE UNIQUE INDEX tmp_release_gid_album ON tmp_release_gid(album);
@@ -201,7 +202,7 @@ SELECT nextval('release_id_seq') AS id, id AS album
     INTO TEMPORARY tmp_new_release
     FROM public.album a
     WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id)
-      AND a.attributes[2] != 0;
+      AND NOT (0 = ANY(a.attributes[2:10]));
 
 CREATE TABLE tmp_release_album
 (
@@ -244,8 +245,10 @@ DROP INDEX tmp_release_name_name_idx;
 
 -- release_meta for releases converted from release events
 INSERT INTO release_meta
-    SELECT r.id, dateadded FROM
-        public.release r JOIN public.albummeta am ON r.album=am.id;
+    SELECT r.id, dateadded FROM public.release r
+      JOIN public.albummeta am ON r.album=am.id
+      JOIN public.album al ON al.id = r.album
+     WHERE NOT (0 = ANY(al.attributes[2:10]));
 
 -- release_meta for new releases
 INSERT INTO release_meta (id, date_added)
@@ -260,12 +263,12 @@ INSERT INTO release_label (release, label, catalog_number)
 INSERT INTO tracklist (id, track_count)
     SELECT a.id, am.tracks
     FROM public.album a JOIN public.albummeta am ON a.id = am.id
-    WHERE a.attributes[2] != 0;
+    WHERE NOT (0 = ANY(a.attributes[2:10]));
 
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
     FROM public.release r JOIN public.album a ON a.id = r.album
-   WHERE a.attributes[2] != 0;
+   WHERE NOT (0 = ANY(a.attributes[2:10]));
 
 SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));
 
@@ -362,7 +365,7 @@ INSERT INTO track (id, tracklist, name, recording, artist_credit, length, positi
         JOIN public.album ON album.id = a.album
         JOIN track_name n ON n.name = t.name
         LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac
-       WHERE album.attributes[2] != 0;
+       WHERE NOT (0 = ANY(album.attributes[2:10]));
 
 INSERT INTO recording_meta (id, rating, rating_count)
     SELECT id, round(rating * 20), rating_count
@@ -555,7 +558,7 @@ INTO TEMPORARY tmp_release_annotation
 FROM
     public.annotation a, tmp_release_album r, public.moderator, public.album
 WHERE a.moderator = moderator.id AND a.type = 2 AND a.rowid = r.album
-  AND album.id = r.album AND album.attributes[2] != 0;
+  AND album.id = r.album AND NOT (0 = ANY(album.attributes[2:10]));
 
 INSERT INTO annotation (id, editor, text, changelog, created)
     SELECT id, editor, text, changelog, created

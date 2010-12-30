@@ -215,6 +215,12 @@ while (my $row = $raw_sql->next_row_hash_ref) {
 }
 $raw_sql->finish;
 
+$sql->do('DELETE FROM editor_watch_artist WHERE artist IN(
+    SELECT artist FROM editor_watch_artist
+ LEFT JOIN artist on artist.id = artist
+     WHERE artist.id IS NULL
+)');
+
 use DateTime::Duration;
 use DateTime::Format::Pg;
 
@@ -222,13 +228,12 @@ my $format = DateTime::Format::Pg->new;
 
 $raw_sql->select('SELECT * FROM public.collection_info');
 while (my $row = $raw_sql->next_row_hash_ref) {
-    $sql->do('INSERT INTO editor_watch_preferences
+    $sql->do("INSERT INTO editor_watch_preferences
         (editor, notify_via_email, notification_timeframe, last_checked)
-            VALUES (?, ?, ?, ?)',
+            VALUES (?, ?, ?, NOW() - '@ 1 year'::INTERVAL)",
         $row->{moderator}, $row->{emailnotifications},
         $format->format_interval(
-            DateTime::Duration->new( days => $row->{notificationinterval} )),
-        $row->{lastcheck});
+            DateTime::Duration->new( days => $row->{notificationinterval} )));
 
     my @attributes = @{ $row->{ignoreattributes} };
     my @types = grep { $_ < 100 } @attributes;
@@ -240,7 +245,7 @@ while (my $row = $raw_sql->next_row_hash_ref) {
                 SELECT ?, id
                   FROM release_group_type
                  WHERE id NOT IN (' . placeholders(@types) . ')',
-        $row->{moderator}, @types);
+        $row->{moderator}, @types) if @types;
 
     $sql->do(
         'INSERT INTO editor_watch_release_status
@@ -248,7 +253,7 @@ while (my $row = $raw_sql->next_row_hash_ref) {
                 SELECT ?, id
                   FROM release_status
                  WHERE id NOT IN (' . placeholders(@status) . ')',
-        $row->{moderator}, @status);
+        $row->{moderator}, @status) if @status;
 }
 $raw_sql->finish;
 
