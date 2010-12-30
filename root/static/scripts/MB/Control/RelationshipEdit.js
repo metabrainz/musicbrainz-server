@@ -22,6 +22,12 @@ MB.Control.RelationshipEntity = function (entity) {
     var self = MB.Object ();
 
     self.$id = $('#id-ar\\.' + entity + '\\.id');
+
+    if (self.$id.length === 0)
+    {
+        return self; // URL entity type, not currently supported.
+    }
+
     self.$name = $('#id-ar\\.' + entity + '\\.name');
     self.$link = self.$name.siblings ('span.link').find ('a');
     self.type = self.$link.attr ('class');

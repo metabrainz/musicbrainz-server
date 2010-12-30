@@ -192,10 +192,7 @@ sub initialize
         croak ("Cannot change direction unless both endpoints are the same type")
             if ($type0 ne $type1);
 
-        my $tmp = $opts{entity0_id};
-        $opts{entity0_id} = $opts{entity1_id};
-        $opts{entity1_id} = $tmp;
-
+        ($opts{entity0_id}, $opts{entity1_id}) = ($opts{entity1_id}, $opts{entity0_id});
     }
 
     my $link = $relationship->link;

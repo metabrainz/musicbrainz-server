@@ -35,7 +35,17 @@ my $ws_defs = Data::OptList::mkopt([
     "release-group" => {
         method   => 'GET',
         required => [ qw(q) ],
-        optional => [ qw(a r direct limit page timestamp) ]
+        optional => [ qw(r direct limit page timestamp) ]
+    },
+    "release" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(r direct limit page timestamp) ]
+    },
+    "work" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(r direct limit page timestamp) ]
     },
     "tracklist" => {
         method => 'GET',
@@ -224,6 +234,20 @@ sub release_group : Chained('root') PathPart('release-group') Args(0)
     my ($self, $c) = @_;
 
     $self->_autocomplete_entity($c, 'release_group');
+}
+
+sub release : Chained('root') PathPart('release') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_autocomplete_entity($c, 'release');
+}
+
+sub work : Chained('root') PathPart('work') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_autocomplete_entity($c, 'work');
 }
 
 sub recording : Chained('root') PathPart('recording') Args(0)
