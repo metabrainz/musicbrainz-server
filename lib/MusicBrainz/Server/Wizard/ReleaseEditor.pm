@@ -23,6 +23,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_CREATE
     $EDIT_LABEL_CREATE
     $EDIT_MEDIUM_CREATE
+    $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
     $EDIT_MEDIUM_EDIT_TRACKLIST
@@ -527,6 +528,16 @@ sub _edit_release_track_edits
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
+            if ($new->{toc}) {
+                $create_edit->(
+                    $EDIT_MEDIUM_ADD_DISCID,
+                    $editnote,
+                    medium_id  => $previewing ? 0 : $add_medium->entity_id,
+                    release_id => $previewing ? 0 : $self->release->id,
+                    cdtoc      => $new->{toc}
+                );
+            }
+
             if ($new->{position} != $medium_idx + 1)
             {
                 # Disc was inserted at the wrong position, enter an edit to re-order it.
@@ -827,7 +838,7 @@ sub _seed_parameters {
     };
 
     return collapse_hash($params);
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 1;

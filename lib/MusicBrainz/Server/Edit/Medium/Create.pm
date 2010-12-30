@@ -23,7 +23,7 @@ has '+data' => (
         format_id    => Optional[Int],
         position     => Int,
         release_id   => NullableOnPreview[Int],
-        tracklist_id => NullableOnPreview[Int],
+        tracklist_id => NullableOnPreview[Int]
     ]
 );
 
