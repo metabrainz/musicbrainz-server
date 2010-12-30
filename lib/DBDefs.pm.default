@@ -245,6 +245,20 @@ sub PROXY_HOST { '' }
 sub PROXY_PORT { 8000 }
 
 ################################################################################
+# Minify settings
+################################################################################
+
+# The following two values determine how scripts and styles are minified.
+sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
+sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
+
+# If you wish to disable minifying for either javascript or css, use a dummy
+# minifier instead:
+# sub MINIFY_DUMMY { my %args = @_; return $args{input}; }
+# sub MINIFY_SCRIPTS { return \&MINIFY_DUMMY; }
+# sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
+
+################################################################################
 # Other Settings
 ################################################################################
 
