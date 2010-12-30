@@ -165,7 +165,13 @@ MB.Control.ReleaseRecordings = function () {
         self.discs.push (MB.Control.ReleaseRecordingsDisc (discno, disc));
     });
 
-    MB.Control.BubbleCollection ($('a.change-recording'), $('div.select-recording'));
+    var bc = MB.Control.BubbleCollection ($('a.change-recording'), $('div.select-recording'));
+
+    bc.bind ('show', function (bubble) {
+        var $input = bubble.content.find ('input.recording');
+        $input.focus ();
+        $input.data ('autocomplete').search ($input.val ());
+    });
 
     return self;
 };
