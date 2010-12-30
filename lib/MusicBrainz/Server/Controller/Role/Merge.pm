@@ -13,6 +13,11 @@ parameter 'form' => (
     default => 'Merge',
 );
 
+parameter 'merge_form' => (
+    isa => 'Str',
+    default => 'Confirm'
+);
+
 role {
     my $params = shift;
     my %extra = @_;

@@ -73,6 +73,41 @@ sub usage_count
           WHERE tracklist.id = ?', $tracklist_id);
 }
 
+sub set_lengths_to_cdtoc
+{
+    my ($self, $tracklist_id, $cdtoc_id) = @_;
+    my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id)
+        or die "Could not load CDTOC";
+
+    my @info = @{ $cdtoc->track_details };
+    for my $i (0..$#info) {
+        my $query = 'UPDATE track SET length = ? WHERE tracklist = ? AND position = ?';
+        $self->sql->do($query, $info[$i]->{length_time}, $tracklist_id, $i + 1);
+    }
+
+    $self->c->model('DurationLookup')->update($tracklist_id);
+}
+
+sub merge
+{
+    my ($self, $new_tracklist_id, $old_tracklist_id) = @_;
+    my @recording_merges = @{
+        $self->sql->select_list_of_lists(
+            'SELECT newr.id AS new, oldr.id AS old
+               FROM track oldt
+               JOIN track newt ON newt.position = oldt.position
+               JOIN recording newr ON newt.recording = newr.id
+               JOIN recording oldr ON oldt.recording = oldr.id
+              WHERE newt.tracklist = ? AND oldt.tracklist = ?',
+            $new_tracklist_id, $old_tracklist_id
+        )
+    };
+
+    for my $recording_merge (@recording_merges) {
+        $self->c->model('Recording')->merge(@$recording_merge);
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
