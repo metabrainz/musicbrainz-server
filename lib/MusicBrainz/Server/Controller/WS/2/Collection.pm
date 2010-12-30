@@ -62,9 +62,25 @@ sub list: Chained('load') PathPart('')
     }
 }
 
+sub list_list : Chained('base') PathPart('')
+{
+    my ($self, $c) = @_;
+    $c->authenticate({}, 'musicbrainz.org');
+
+    my $stash = WebServiceStash->new;
+    my @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+    $c->model('Editor')->load(@collections);
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,
+                                                     $c->stash->{inc}, $stash));
+}
+
 sub list_post {
     my ($self, $c) = @_;
     my $collection = $c->stash->{entity};
+
+    $c->authenticate({}, 'musicbrainz.org');
 
     my $client = $c->req->query_params->{client}
         or _error($c, 'You must provide information about your client, by the client query parameter');
