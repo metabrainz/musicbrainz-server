@@ -40,30 +40,19 @@ MB.Control.RelationshipEntity = function (entity) {
         return false;
     };
 
-    self.lookupHook = function (request) {
-
-        var $artist = self.$name.siblings ('input.artist');
-
-        $.extend (request.data, { 'a': $artist.val () });
-
-        return request;
+    var options = {
+        'input': self.$name,
+        'entity': self.type,
+        'select': self.selected
     };
 
     if (self.type === 'recording')
     {
-        MB.Control.AutocompleteRecording ({
-            'input': self.$name,
-            'select': self.selected,
-            'lookupHook': self.lookupHook
-        });
+        MB.Control.AutocompleteRecording (options);
     }
     else
     {
-        MB.Control.Autocomplete ({
-            'input': self.$name,
-            'entity': self.type,
-            'select': self.selected
-        });
+        MB.Control.Autocomplete (options);
     }
 
     return self;
@@ -92,4 +81,3 @@ MB.Control.RelationshipEdit = function () {
 
     return self;
 };
-
