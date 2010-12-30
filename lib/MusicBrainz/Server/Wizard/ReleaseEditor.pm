@@ -754,7 +754,7 @@ sub _seed_parameters {
 
     for my $artist_credit (
         map { @{ $_->{names} } } (
-            $params->{artist_credit},
+            ($params->{artist_credit} || ()),
             map { $_->{artist_credit} || [] }
                 map { @{ $_->{track} || []}  }
                     @{ $params->{medium} || []}
@@ -780,8 +780,8 @@ sub _seed_parameters {
                 $medium->{format_id} = $entity->id if $entity;
             }
 
-            if (my $toc = $medium->{toc}) {
-                my $cdtoc = CDTOC->new_from_toc($toc);
+            my $toc = $medium->{toc};
+            if ($toc and my $cdtoc = CDTOC->new_from_toc($toc)) {
                 if (ref($medium->{track})) {
                     if (@{ $medium->{track} } != $cdtoc->track_count) {
                         delete $medium->{toc};
