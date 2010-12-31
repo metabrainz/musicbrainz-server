@@ -29,6 +29,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::MoveDiscID
     MusicBrainz::Server::Edit::Medium::EditTracklist
     MusicBrainz::Server::Edit::Medium::RemoveDiscID
+    MusicBrainz::Server::Edit::Medium::SetTrackLengths
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddPUIDs
@@ -54,6 +55,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::Edit
     MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
+    MusicBrainz::Server::Edit::Release::Merge
     MusicBrainz::Server::Edit::Release::Move
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create

@@ -12,6 +12,9 @@
             [% IF c.session.tport %]
               <th>[% l('Tagger') %]</th>
             [% END %]
+            [% IF c.user_exists %]
+              <th>[% l('Edit') %]</th>
+            [% END %]
         </tr>
     </thead>
     <tbody>
@@ -44,6 +47,14 @@
             [% IF c.session.tport %]
             <td>
               [% tagger_icon(release) %]
+            </td>
+            [% END %]
+            [% IF c.user_exists %]
+            <td>
+              <a href="[% c.uri_for_action('/cdtoc/set_durations',
+                              [ cdtoc.discid ], { tracklist => medium.tracklist_id }) %]">
+                [% l('Set track durations') %]
+              </a>
             </td>
             [% END %]
         </tr>

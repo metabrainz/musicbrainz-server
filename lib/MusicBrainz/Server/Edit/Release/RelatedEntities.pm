@@ -2,25 +2,29 @@ package MusicBrainz::Server::Edit::Release::RelatedEntities;
 use Moose::Role;
 use namespace::autoclean;
 
-requires 'c', 'release_id';
+requires 'c';
 
 around 'related_entities' => sub
 {
     my $orig = shift;
     my $self = shift;
 
-    my $release = $self->c->model('Release')->get_by_id($self->release_id);
-    $self->c->model('ReleaseGroup')->load($release);
-    $self->c->model('ArtistCredit')->load($release, $release->release_group);
+    my @releases = values %{ $self->c->model('Release')->get_by_ids($self->release_ids) };
+    $self->c->model('ReleaseGroup')->load(@releases);
+    $self->c->model('ArtistCredit')->load(
+        @releases, map { $_->release_group } @releases);
  
     return {
         artist => [
             map { $_->artist_id } map { @{ $_->artist_credit->names } }
-                $release, $release->release_group
+                @releases,
+                map { $_->release_group } @releases
         ],
-        release => [ $release->id ],
-        release_group => [ $release->release_group_id ],
+        release => [ map { $_->id } @releases ],
+        release_group => [ map { $_->release_group_id } @releases ],
     }
 };
+
+sub release_ids { shift->release_id }
 
 1;
