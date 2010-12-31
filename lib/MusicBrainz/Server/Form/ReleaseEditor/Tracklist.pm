@@ -118,7 +118,7 @@ sub _validate_edits {
 
     shift @$tracknumbers; # there is no track 0, this shifts off an undef.
 
-    if ($cdtoc->track_count != scalar @$tracknumbers)
+    if ($cdtoc && $cdtoc->track_count != scalar @$tracknumbers)
     {
         push @errors,
             ln('This medium has a Disc ID, it should have exactly {n} track.',
