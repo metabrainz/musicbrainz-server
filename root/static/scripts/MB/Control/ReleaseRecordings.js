@@ -175,14 +175,72 @@ MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
     return self;
 };
 
-MB.Control.ReleaseRecordingsDisc = function (disc, fieldset) {
+MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     var self = MB.Object ();
 
+    self.parent = parent;
     self.tracks = [];
+    self.$fieldset = $(fieldset);
+    self.$edit = self.$fieldset.find ('a[href=#edit]');
 
-    $(fieldset).find ('tr.track').each (function (idx, row) {
-        self.tracks.push (MB.Control.ReleaseRecordingsTrack (disc, idx, row));
-    });
+    self.renderTrack = function (idx, $track, $bubble, data) {
+
+        $track.find ('input.gid').attr (
+            'id', 'id-rec_mediums.' + disc + '.associations.' + idx + '.gid');
+
+        $track.find ('.position').text (idx + 1);
+        $track.find ('.name').text (data.name);
+        $track.find ('.recording .gid').val (data.recording.gid);
+        $track.find ('.recording .recording').text (data.recording.name);
+
+        $track.find ('.track-artist').text (data.artist_credit.preview);
+        $track.find ('.recording-artist').text (data.recording.artist_credit.preview);
+
+        self.parent.bc.add ($track.find ('.change-recording'), $bubble.find ('div.select-recording'));
+    };
+
+    self.load = function (data) {
+        self.$fieldset.find ('.clickedit').hide ();
+        var $table = $('table.disc-template').clone ().show ()
+            .appendTo (self.$fieldset);
+
+        var $track_templates = $table.find ('tr.track.template').next ('tr.template').andSelf ();
+        var $select_template = $('div.select-recording-container.template');
+
+        $.each (data, function (idx, trk) {
+            var $track = $track_templates.clone ().appendTo ($table);
+            var $bubble = $select_template.clone ().insertAfter ($select_template);
+            self.renderTrack (idx, $track, $bubble, trk);
+            $bubble.attr ('id', 'select-recording-'+disc+'-'+idx);
+            $track.removeClass ('template');
+            $bubble.removeClass ('template');
+        });
+
+        $track_templates.remove ();
+
+        self.initializeTracks ();
+    };
+
+    self.lazyLoad = function () {
+        var tracklist = self.$fieldset.find ('input.tracklist-id').val ();
+        var data = { recordings: 1 };
+        $.getJSON ('/ws/js/tracklist/' + tracklist, data, self.load);
+    };
+
+    self.initializeTracks = function () {
+        self.$fieldset.find ('tr.track').each (function (idx, row) {
+            self.tracks.push (MB.Control.ReleaseRecordingsTrack (disc, idx, row));
+        });
+    };
+
+    if (self.$edit.length)
+    {
+        self.$edit.bind ('click.mb', self.lazyLoad);
+    }
+    else
+    {
+        self.initializeTracks ();
+    }
 
     return self;
 };
@@ -192,19 +250,23 @@ MB.Control.ReleaseRecordings = function () {
 
     self.discs = [];
 
-    $('fieldset.recording-assoc-disc').each (function (idx, disc) {
-        var discno = $(disc).attr ('id').replace ('recording-assoc-disc-', '');
-
-        self.discs.push (MB.Control.ReleaseRecordingsDisc (discno, disc));
-    });
-
-    var bc = MB.Control.BubbleCollection ($('a.change-recording'), $('div.select-recording'));
-
-    bc.bind ('show', function (bubble) {
+    self.Autocomplete = function (bubble) {
         var $input = bubble.content.find ('input.recording');
         $input.focus ();
         $input.data ('autocomplete').search ($input.val ());
+    };
+
+    $('fieldset.recording-assoc-disc').each (function (idx, disc) {
+        var discno = $(disc).attr ('id').replace ('recording-assoc-disc-', '');
+
+        self.discs.push (MB.Control.ReleaseRecordingsDisc (self, discno, disc));
     });
+
+    self.bc = MB.Control.BubbleCollection (
+        $('tr.track:not(.template) a.change-recording:not(.template)'),
+        $('div.select-recording-container:not(.template) div.select-recording'));
+
+    self.bc.bind ('show', self.Autocomplete);
 
     return self;
 };

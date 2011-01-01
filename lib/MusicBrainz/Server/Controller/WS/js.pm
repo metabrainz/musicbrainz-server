@@ -34,8 +34,8 @@ my $ws_defs = Data::OptList::mkopt([
      },
      tracklist => {
         method => 'GET',
-        optional => [ qw(q artist tracks limit page timestamp) ]
-     }
+        optional => [ qw(q artist tracks recordings limit page timestamp) ]
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -329,30 +329,50 @@ sub _recording_indexed {
 sub tracklist : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
+    # include recording associations
+    my $recordings = $c->stash->{args}->{recordings};
+
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
     $c->model('ArtistCredit')->load($tracklist->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
         $tracklist->all_tracks);
 
-    my $structure = [ map {
-        length => format_track_length($_->length),
-        name => $_->name,
-        artist_credit => {
-            names => [ map {
+    $c->model('Recording')->load ($tracklist->all_tracks);
+
+    my @structure;
+    for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
+    {
+        my $data = {
+            length => format_track_length($_->length),
+            name => $_->name,
+            artist_credit => { preview => $_->artist_credit->name }
+        };
+
+        if ($recordings)
+        {
+            $data->{recording} = {
+                gid => $_->recording->gid,
+                name => $_->recording->name,
+                artist_credit => { preview => $_->artist_credit->name },
+            };
+        }
+        else
+        {
+            $data->{artist_credit}->{names} = [ map {
                 name => $_->name,
                 gid => $_->artist->gid,
                 id => $_->artist->id,
                 artist_name => $_->artist->name,
                 join => $_->join_phrase
-            }, @{ $_->artist_credit->names } ],
-            preview => $_->artist_credit->name
+            }, @{ $_->artist_credit->names } ];
         }
-    }, sort { $a->position <=> $b->position }
-    $tracklist->all_tracks ];
+
+        push @structure, $data;
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $structure));
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
 }
 
 sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {

@@ -374,9 +374,12 @@ MB.Control.BubbleCollection = function (targets, contents) {
     };
 
     var add = function (target, contents) {
-        self.bubbles.push (
-            MB.Control.BubbleDoc (self, target, contents).initialize ()
-        );
+        var bubble = MB.Control.BubbleDoc (self, target, contents).initialize ();
+        self.bubbles.push (bubble);
+
+        $.each (self.bounded, function (key, fun) {
+            bubble.bind (key, fun);
+        });
     };
 
     var initialize = function ()
@@ -400,8 +403,11 @@ MB.Control.BubbleCollection = function (targets, contents) {
         $.each (self.bubbles, function (idx, bubble) {
             bubble.bind (key, fun);
         });
+
+        self.bounded[key] = fun;
     };
 
+    self.bounded = {};
     self.hideOthers = hideOthers;
     self.hideAll = hideAll;
     self.add = add;
