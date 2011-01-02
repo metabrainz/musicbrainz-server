@@ -32,7 +32,10 @@
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags more=more_tags tag_this_text=l('Tag this artist') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags
+            more=more_tags tag_this_text=l('Tag this artist')
+            async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
+            -%]
 
         <ul class="links">
             [% IF c.user_exists && !artist.is_special_purpose %]
@@ -50,7 +53,11 @@
                       [% artist.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
                     </a>
                   </li>
-                  <li>[% link_artist(artist, 'merge', l('Merge this artist into another')) %]</li>
+                  <li>
+                    <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
+                      [% l('Merge this artist with another') %]
+                    </a>
+                  </li>
                   <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
                   [% IF artist.edits_pending %]
                     <li>[% link_artist(artist, 'open_edits', l('Open edits')) %]</li>
@@ -73,6 +80,13 @@
                     [% l('Add a work') %]
                   </a>
                 </li>
+                [% IF watching_artist %]
+                    <li>
+                        [% link_artist(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
+                    </li>
+                [% ELSE %]
+                    <li>[% link_artist(artist, 'watch', l('Watch this artist for new releases')) %]</li>
+                [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this artist')) %]</li>
             [% END %]

@@ -5,6 +5,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Validation;
 use Sql;
 
@@ -63,8 +64,6 @@ print " * Loading release group map\n";
 my $albums = $sql->select_list_of_hashes("SELECT id, release_group FROM public.album");
 my %rg_map = map { $_->{id} => $_->{release_group} } @$albums;
 $albums = undef;
-
-$raw_sql->do("CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}')");
 
 print " * Converting raw tags\n";
 my %aggr;
@@ -164,8 +163,6 @@ while (1) {
 $raw_sql->finish;
 $sql->do("DROP INDEX tmp_release_group_meta_idx");
 
-$raw_sql->do("DROP AGGREGATE array_accum (anyelement)");
-
 print " * Converting CD stubs\n";
 $raw_sql->do("INSERT INTO cdtoc_raw SELECT * FROM public.cdtoc_raw");
 $raw_sql->do("INSERT INTO release_raw SELECT * FROM public.release_raw");
@@ -205,6 +202,58 @@ while (1) {
     next unless $release_map{$album_id};
     $sql->do("INSERT INTO editor_collection_release (collection, release)
               VALUES (?, ?)", $list_id, $release_map{$album_id});
+}
+$raw_sql->finish;
+
+$raw_sql->select(
+    'SELECT moderator, artist
+       FROM public.collection_watch_artist_join watch
+       JOIN public.collection_info ci ON ci.id = collection_info');
+while (my $row = $raw_sql->next_row_hash_ref) {
+    $sql->do('INSERT INTO editor_watch_artist (editor, artist)
+        VALUES (?, ?)', $row->{moderator}, $row->{artist});
+}
+$raw_sql->finish;
+
+$sql->do('DELETE FROM editor_watch_artist WHERE artist IN(
+    SELECT artist FROM editor_watch_artist
+ LEFT JOIN artist on artist.id = artist
+     WHERE artist.id IS NULL
+)');
+
+use DateTime::Duration;
+use DateTime::Format::Pg;
+
+my $format = DateTime::Format::Pg->new;
+
+$raw_sql->select('SELECT * FROM public.collection_info');
+while (my $row = $raw_sql->next_row_hash_ref) {
+    $sql->do("INSERT INTO editor_watch_preferences
+        (editor, notify_via_email, notification_timeframe, last_checked)
+            VALUES (?, ?, ?, NOW() - '@ 1 year'::INTERVAL)",
+        $row->{moderator}, $row->{emailnotifications},
+        $format->format_interval(
+            DateTime::Duration->new( days => $row->{notificationinterval} )));
+
+    my @attributes = @{ $row->{ignoreattributes} };
+    my @types = grep { $_ < 100 } @attributes;
+    my @status = map { $_ - 99 } grep { $_ >= 100 } @attributes;
+
+    $sql->do(
+        'INSERT INTO editor_watch_release_group_type
+            (editor, release_group_type)
+                SELECT ?, id
+                  FROM release_group_type
+                 WHERE id NOT IN (' . placeholders(@types) . ')',
+        $row->{moderator}, @types) if @types;
+
+    $sql->do(
+        'INSERT INTO editor_watch_release_status
+            (editor, release_status)
+                SELECT ?, id
+                  FROM release_status
+                 WHERE id NOT IN (' . placeholders(@status) . ')',
+        $row->{moderator}, @status) if @status;
 }
 $raw_sql->finish;
 

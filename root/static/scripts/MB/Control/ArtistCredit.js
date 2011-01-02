@@ -84,14 +84,21 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     var update = function(event, data) {
+
         if (data.name)
         {
-            self.render ({
-                'artist_name': data.name,
-                'name': data.name,
-                'gid': data.gid,
-                'id': data.id
-            });
+            self.name.val (data.name).removeClass ('error');
+            self.gid.val (data.gid);
+            self.id.val (data.id);
+            self.link.html ('link').
+                attr('href', '/artist/'+data.gid).
+                attr('title', data.comment);
+
+            if (self.credit.val () === '')
+            {
+                self.credit.val (data.name);
+            }
+
             self.container.renderPreview();
         }
 
@@ -109,6 +116,15 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         if (self.name.val() !== "" && self.id.val() === "")
         {
             self.name.addClass('error');
+        }
+
+        /* if the artist was cleared the user probably wants to delete it,
+           make sure ids and links are emptied out too. */
+        if (self.name.val() === '')
+        {
+            self.gid.val ('');
+            self.id.val ('');
+            self.link.html ('').attr('href', '').attr('title', '');
         }
 
         self.container.renderPreview();
@@ -184,11 +200,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
             'select': self.update
         });
 
-        if (! self.box[self.box.length - 1].isEmpty ())
-        {
-            /* always add an empty box when there isn't one. */
-            self.addArtistBox (self.box.length);
-        }
+        self.renderPreview ();
     };
 
     var update = function(event, data) {
@@ -218,9 +230,19 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         });
 
         self.artist_input.val(preview);
+
+        if (! self.box[self.box.length - 1].isEmpty ())
+        {
+            /* always add an empty box when there isn't one. */
+            self.addArtistBox (self.box.length);
+        }
     };
 
     var render = function (data) {
+        $.each (self.box, function (idx, item) {
+             item.clear();
+        });
+
         $.each (data.names, function (idx, item) {
 
             var box = self.addArtistBox (idx);
@@ -246,18 +268,16 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         var ret = [];
 
         $.each (self.box, function (idx, item) {
-            var ac = {
+            if(item.isEmpty ())
+                return;
+
+            ret.push({
                 'artist_name': item.name.val (),
                 'name': item.credit.val (),
                 'id': item.id.val (),
                 'gid': item.gid.val (),
                 'join': item.join.val () || ''
-            };
-
-            if (ac.id)
-            {
-                ret.push (ac);
-            }
+            });
         });
 
         return { 'names': ret, 'preview': self.artist_input.val() };

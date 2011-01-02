@@ -788,11 +788,12 @@ foreach my $orig_t0 (@entity_types) {
         my %discogs;
         my %amazon;
 
+        my $query;
         if ($orig_t0 eq "album" && $orig_t1 eq "url") {
             # Load also the URLs
-            $rows = $sql->select_list_of_hashes("
+            $query = "
                 SELECT l.*, url.url FROM public.l_${orig_t0}_${orig_t1} l
-                LEFT JOIN public.url ON l.link1=url.id");
+                LEFT JOIN public.url ON l.link1=url.id";
             # Load Discogs URL data
             LWP::Simple::mirror("http://users.musicbrainz.org/~luks/ngs/discogs.dat", "discogs.dat");
             open(DISCOGS, "<discogs.dat");
@@ -815,8 +816,10 @@ foreach my $orig_t0 (@entity_types) {
             close(AMAZON);
         }
         else {
-            $rows = $sql->select_list_of_hashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
+            $query = "SELECT * FROM public.l_${orig_t0}_${orig_t1}";
         }
+
+        $rows = $sql->select_list_of_hashes($query);
         my $i = 0;
         my $cnt = scalar(@$rows);
         foreach my $row (@$rows) {

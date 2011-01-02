@@ -27,6 +27,7 @@ Images:
     layout/developer.png   (original: 64x64/apps/package_settings.png)
     layout/download.png    (original: 64x64/apps/download_manager.png)
     layout/quick-start.png (original: 64x64/apps/kdict.png)
+    icons/warning.png      (original: 64x64/apps/important.png)
 
 ----------------------------------------------------------------------------
 
@@ -76,7 +77,7 @@ Images:
 ----------------------------------------------------------------------------
 
 Source:      MusicBrainz
-Authors:     Carlin Mangar, Lukáš Lalinský
+Authors:     Robert Kaye, Lukáš Lalinský
 License:     GPL v2 or later
 Notes:       Various spacers and icons created for the musicbrainz website.
 Images:
@@ -88,5 +89,14 @@ Images:
     layout/page-bg.gif
     layout/table-header.gif
     layout/table-header-2.gif
+
+----------------------------------------------------------------------------
+
+Source:      MusicBrainz Picard
+Authors:     Carlin Mangar
+License:     CC-BY-SA/2.0/uk (see 
+             resources/img-src/Copyright.htm included with Picard)
+Images:
+
     logos/musicbrainz-picard.png
 

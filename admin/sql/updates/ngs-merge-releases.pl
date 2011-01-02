@@ -270,13 +270,6 @@ eval {
     printf STDERR "Merging release_annotation\n";
 
     $sql->do(q!
-        CREATE AGGREGATE array_accum (anyelement)
-        (
-            sfunc = array_append,
-            stype = anyarray,
-            initcond = '{}'
-        );
-
         CREATE FUNCTION annotation_concat (text, text) RETURNS text AS $$
         BEGIN
             RETURN $1 || $2 || E'\n\n';
@@ -386,7 +379,6 @@ eval {
 
     # Cleanup
     $sql->do("
-        DROP AGGREGATE array_accum (anyelement);
         DROP AGGREGATE annotation_append (text);
         DROP FUNCTION annotation_concat (text, text);
     ");

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -41,18 +41,6 @@ sub find_by_name
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . " WHERE name.name = ?";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query, $name);
-}
-
-sub autocomplete_name
-{
-    my ($self, $name, $limit) = @_;
-
-    $limit ||= 10;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table .
-        " WHERE lower(name.name) LIKE ? LIMIT ?";
-
-    return query_to_list($self->c->dbh,
-        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), $limit);
 }
 
 sub remove_gid_redirects

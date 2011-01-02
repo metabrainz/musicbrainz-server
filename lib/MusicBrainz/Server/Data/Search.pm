@@ -129,6 +129,14 @@ sub search
         elsif ($type eq 'recording') {
             $join_sql = "JOIN track ON r.id = track.name
                          JOIN ${type} entity ON track.recording = entity.id";
+
+            if ($where && exists $where->{artist})
+            {
+                $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit"
+                    ." JOIN artist_name ON artist_credit.name = artist_name.id";
+                $where_sql = 'WHERE artist_name.name LIKE ?';
+                push @where_args, lc("%".$where->{artist}."%");
+            }
         }
 
         $query = "
@@ -401,6 +409,9 @@ sub schema_fixup
 sub escape_query
 {
     my $str = shift;
+
+    return "" unless $str;
+
     $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/g;
     return $str;
 }

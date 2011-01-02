@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Track;
 use strict;
+use Carp 'confess';
 
 use Sub::Exporter -setup => {
     exports => [
@@ -42,27 +43,21 @@ sub FormatXSDTrackLength
 sub UnformatTrackLength
 {
     my $length = shift;
-    my $ms = -1;
-    
-    if ($length =~ /^\s*\?:\?\?\s*$/)
+    if ($length =~ /^\s*(\d{1,3}):(\d{1,2})\s*$/ && $2 < 60)
     {
-        $ms = 0;
-    }
-    elsif ($length =~ /^\s*(\d{1,3}):(\d{1,2})\s*$/ && $2 < 60)
-    {
-        $ms = ($1 * 60 + $2) * 1000;
+        return ($1 * 60 + $2) * 1000;
     }
     elsif ($length =~ /^\s*(\d+)\s+ms\s*$/)
     {
-        $ms = $1;
+        return $1;
     }
-    else
+    elsif ($length =~ /^\s*\?:\?\?\s*$/ || $length =~ /^\s*$/)
     {
-        $ms = -1;
+        return undef;
     }
-    
-    return $ms;
-
+    else {
+        confess("$length is not a valid track length");
+    }
 }
 
 1;

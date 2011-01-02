@@ -164,6 +164,28 @@ sub _fix_fif
     return $fif;
 }
 
+sub clear_errors {
+    my ($self, $field) = @_;
+
+    if (!$field)
+    {
+        map { $self->clear_errors ($_) } $self->fields;
+        return;
+    }
+
+    $field->clear_errors;
+
+    if ($field->is_repeatable)
+    {
+        map { $self->clear_errors ($_) } $field->fields;
+    }
+
+    if ($field->can ('is_compound') && $field->is_compound)
+    {
+        map { $self->clear_errors ($_) } $field->fields;
+    }
+}
+
 
 1;
 

@@ -1,3 +1,29 @@
+[% BLOCK layout_head %]
+  <script type="text/javascript" src="[%-
+    c.model('FileCache').squash_scripts(
+      "scripts/MB/utility.js",
+      "scripts/MB/GuessCase/Handler/Base.js",
+      "scripts/MB/GuessCase/Handler/Label.js",
+      "scripts/MB/GuessCase/Mode/Base.js",
+      "scripts/MB/GuessCase/Mode/Artist.js",
+      "scripts/MB/GuessCase/Input.js",
+      "scripts/MB/GuessCase/Output.js",
+      "scripts/MB/GuessCase/Flags.js",
+      "scripts/MB/GuessCase/Utils.js",
+      "scripts/MB/GuessCase/Modes.js",
+      "scripts/MB/GuessCase/Main.js",
+      "scripts/MB/GuessCase/Label.js",
+      "scripts/MB/Control/LabelEdit.js",
+    ) -%]"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      MB.Control.LabelEdit ();
+
+    });
+  </script>
+[% END %]
+
 [%- WRAPPER 'label/layout.tt' title=l('Edit Label') full_width=1 page='edit' -%]
       [%- INCLUDE "label/edit_form.tt" -%]
 [%- END -%]

@@ -97,6 +97,14 @@ END -%]
     END;
 END -%]
 
+[% MACRO descriptive_link(entity)
+    IF entity.artist_credit.defined;
+        l('{entity} by {artist}', { entity => link_entity(entity),
+                                    artist => artist_credit(entity.artist_credit) });
+    ELSE;
+        l('{entity}', { entity => link_entity(entity) });
+    END; %]
+
 [%- MACRO entity_type(entity) BLOCK;
     type = "$entity";
     IF    type.search('Entity::Artist='); "artist";
@@ -318,7 +326,7 @@ END %]
     uri = c.uri_for_action('/edit/relationship/create_url', {
                         type => entity_type(entity),
                         entity => entity.gid
-                   }) | uri;
+                   });
     l('{uri|Relate to URL}', { uri => uri });
 END %]
 
@@ -412,6 +420,14 @@ END -%]
             [%- END -%]
 [% END %]
 
+[%- MACRO warning(message) BLOCK -%]
+   <div class="nojavascript warning">
+     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
+   </div>
+[%- END -%]
+
 [%- MACRO wiki_link(server, id) BLOCK -%]
 http://[%- server -%]/[%- id -%]"
 [%- END -%]
+

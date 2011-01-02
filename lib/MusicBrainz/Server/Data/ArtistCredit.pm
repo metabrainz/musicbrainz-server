@@ -129,10 +129,20 @@ sub find_or_insert
 
 sub merge_artists
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, $new_id, $old_ids, %opts) = @_;
     my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE artist_credit_name SET artist = ?
-              WHERE artist IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    if ($opts{rename}) {
+        $sql->do(
+            'UPDATE artist_credit_name acn SET name = artist.name
+               FROM artist
+              WHERE artist.id = ?
+                AND acn.artist IN (' . placeholders(@$old_ids) . ')',
+            $new_id, @$old_ids);
+    }
+    $sql->do(
+        'UPDATE artist_credit_name SET artist = ?
+          WHERE artist IN ('.placeholders(@$old_ids).')',
+        $new_id, @$old_ids);
 }
 
 __PACKAGE__->meta->make_immutable;

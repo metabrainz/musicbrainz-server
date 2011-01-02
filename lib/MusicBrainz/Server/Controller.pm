@@ -87,7 +87,7 @@ sub _insert_edit {
         );
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        # XXX Display a message about having made no changes
+        $c->stash( makes_no_changes => 1 );
     }
     catch ($e) {
         use Data::Dumper;
@@ -104,6 +104,10 @@ sub _insert_edit {
             editor_id => $c->user->id,
         });
     }
+
+    $c->flash->{message} = $edit->is_open
+        ? l('Thank you, your edit has been entered into the edit queue for peer review.')
+        : l('Thank you, your edit has been accepted and applied');
 
     return $edit;
 }
@@ -127,7 +131,7 @@ sub edit_action
             %extra
         );
 
-        $opts{on_creation}->($edit) if exists $opts{on_creation};
+        $opts{on_creation}->($edit) if $edit && exists $opts{on_creation};
     }
 }
 

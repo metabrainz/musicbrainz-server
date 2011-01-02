@@ -1,0 +1,37 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+    <h2>[% l('Watched Artists') %]</h2>
+    [% IF watching.size %]
+        <p>[% l('You are currently watching the following artists for new
+            releases.') %]</p>
+        <form method="post">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th style="width: 1em"></th>
+              <th>[% l('Artist') %]</th>
+            </tr>
+          </thead>
+          <tbody>
+            [% FOR artist=watching %]
+              <tr class="[% loop.count % 2 == 0 ? 'ev' : '' %]">
+                <td>
+                  <input name="remove" value="[% artist.id %]" type="checkbox" />
+                </td>
+                <td>[% link_artist(artist) %]</td>
+              </tr>
+            [% END %]
+          </tbody>
+        </table>
+        [% form_submit(l('Stop watching selected artists'))
+            WRAPPER form_row %]
+        </form>
+    [% ELSE %]
+        <p>[% l('You are not currently watching any artists for new
+            releases.') %]</p>
+    [% END %]
+
+    <p>[% l("To watch an artist and be notified of new releases,
+        {search_url|search} for them and select 'Watch this artist for
+        new releases' from the sidebar.",
+        { search_url => c.uri_for_action('/search/search') }) %]</p>
+[% END %]

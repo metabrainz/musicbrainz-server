@@ -60,6 +60,7 @@ MB.utility.fullWidthConverter = function (inputString) {
 MB.utility.isArray  = function(o) { return (o instanceof Array    || typeof o == "array"); };
 MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
 MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
+MB.utility.is_ascii = function (str) { return ! /[^\u0000-\u00ff]/.test(str); };
 
 MB.utility.template = function(str) {
     var self = MB.Object();
@@ -101,3 +102,4 @@ MB.utility.exception = function (name, message) {
     return new e ();
 };
 
+MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }

@@ -5,12 +5,13 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
+with 'MusicBrainz::Server::Edit::Role::DeleteSubscription';
 
 sub edit_name { l('Remove artist') }
 sub edit_type { $EDIT_ARTIST_DELETE }
 
 sub _delete_model { 'Artist' }
-
+sub subscription_model { shift->c->model('Artist')->subscription }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

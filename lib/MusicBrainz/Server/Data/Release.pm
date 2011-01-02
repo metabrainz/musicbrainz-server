@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Data::Release;
 
 use Moose;
+
+use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
@@ -20,6 +22,11 @@ with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' }
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
+
+use Readonly;
+Readonly our $MERGE_APPEND => 1;
+Readonly our $MERGE_MERGE => 2;
 
 sub _table
 {
@@ -61,7 +68,11 @@ sub _column_mapping
         barcode => 'barcode',
         script_id => 'script',
         language_id => 'language',
-        quality => 'quality',
+        quality => sub {
+            my ($row, $prefix) = @_;
+            my $quality = $row->{"${prefix}quality"};
+            return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
+        },
         last_updated => 'last_updated'
     };
 }
@@ -438,6 +449,8 @@ sub update
     $sql->update_row('release', $row, { id => $release_id });
 }
 
+sub can_delete { 1 }
+
 sub delete
 {
     my ($self, @release_ids) = @_;
@@ -446,7 +459,10 @@ sub delete
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
+    $self->tags->delete(@release_ids);
     my $sql = Sql->new($self->c->dbh);
+    $sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
+        @release_ids);
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
         @release_ids);
     return;
@@ -454,29 +470,67 @@ sub delete
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, %opts) = @_;
+
+    my $new_id = $opts{new_id};
+    my @old_ids = @{ $opts{old_ids} };
+    my $merge_strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Collection')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
 
     # XXX merge release attributes
 
     # XXX allow actual tracklists/mediums merging
     my $sql = Sql->new($self->c->dbh);
-    my $pos = $sql->select_single_value('
-        SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
-    foreach my $old_id (@old_ids) {
-        my $medium_ids = $sql->select_single_column_array('
-            SELECT id FROM medium WHERE release=?
-            ORDER BY position', $old_id);
-        foreach my $medium_id (@$medium_ids) {
+    if ($merge_strategy == $MERGE_APPEND) {
+        my $pos = $sql->select_single_value('
+            SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
+        my @medium_ids = @{
+            $sql->select_single_column_array(
+                'SELECT medium.id FROM medium
+                   JOIN release ON medium.release = release.id
+                   JOIN release_name ON release_name.id = release.name
+                  WHERE release.id IN (' . placeholders(@old_ids) . ')
+               ORDER BY musicbrainz_collate(release_name.name), medium.position',
+                @old_ids
+            );
+        };
+        foreach my $medium_id (@medium_ids) {
             $sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
                      $new_id, ++$pos, $medium_id);
         }
     }
+    elsif ($merge_strategy == $MERGE_MERGE) {
+        my @tracklist_merges = @{ 
+            $sql->select_list_of_lists(
+                'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
+                   FROM medium newmed, medium oldmed
+                  WHERE newmed.release = ?
+                    AND oldmed.release IN (' . placeholders(@old_ids) . ')
+                    AND newmed.position = oldmed.position',
+                $new_id, @old_ids
+            )
+        };
+        for my $tracklist_merge (@tracklist_merges) {
+            $self->c->model('Tracklist')->merge(@$tracklist_merge);
+        }
+
+        $sql->do(
+            'DELETE FROM medium WHERE release IN (' . placeholders(@old_ids) . ')',
+            @old_ids
+        );
+    }
+
+    $sql->do(
+        'DELETE FROM release_coverart
+          WHERE id IN (' . placeholders(@old_ids) . ')',
+        @old_ids
+    );
 
     $self->_delete_and_redirect_gids('release', $new_id, @old_ids);
     return 1;

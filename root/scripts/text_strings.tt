@@ -60,6 +60,12 @@
             Invalid: '[% l('The barcode you entered is not a valid UPC or EAN code.') %]',
             DoubleCheck: '[% l('Please double-check the barcode on the release.') %]',
             CheckDigit: '[% l('The checkdigit is #checkdigit#.') %]'
-        }
+        },
+        ArtistDate: {
+            Unknown: [ '[% l('Began:') %]', '[% l('Ended:') %]' ],
+            Person: [ '[% l('Born:') %]', '[% l('Deceased:') %]' ],
+            Founded: [ '[% l('Founded:') %]', '[% l('Dissolved') %]' ]
+        },
+        Pager: '[% l('page #{page} of #{total}') %]'
     });
 })(MB);

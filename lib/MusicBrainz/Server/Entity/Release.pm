@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
+with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
@@ -67,6 +68,13 @@ has 'barcode' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub barcode_type {
+    my ($self) = @_;
+    return 'EAN' if length($self->barcode) == 8;
+    return 'UPC' if length($self->barcode) == 12;
+    return 'EAN' if length($self->barcode) == 13;
+}
 
 has 'country_id' => (
     is => 'rw',

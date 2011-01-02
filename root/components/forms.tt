@@ -4,18 +4,24 @@
     </span>
 [%- END -%]
 
-[%- MACRO enter_edit(extra) BLOCK %]
-    [% IF c.user.is_auto_editor %]
+[%- MACRO as_auto_editor BLOCK -%]
+    [%- IF c.user.is_auto_editor -%]
         <div class="row no-label">
             <div class="auto-editor">
-                [% USE r = FormRenderer(form) %]
-                [% r.checkbox('as_auto_editor') %]
-                [% r.label('as_auto_editor',
+                [%- USE r = FormRenderer(form) -%]
+                [%- r.checkbox('as_auto_editor') -%]
+                [%- r.label('as_auto_editor',
                            l('Enable {autoed|auto-editor} privileges for this edit.',
-                            { autoed = doc_link('Auto-Editor') }), inline => 1) %]
+                            { autoed = doc_link('Auto-Editor') }), inline => 1) -%]
             </div>
         </div>
-    [% END %]
+    [%- ELSE -%]
+        <h1>YOU ARE NO AUTO EDITOR</h1>
+    [%- END -%]
+[%- END -%]
+
+[%- MACRO enter_edit(extra) BLOCK -%]
+    [%- as_auto_editor() -%]
     <div class="row no-label buttons">
         <button type="submit" class="submit positive">[% l('Enter edit') %]</button>
         [% extra %]
@@ -108,7 +114,7 @@
     [%- END -%]
 [%- END -%]
 
-[%- MACRO artist_credit_table(form) BLOCK -%]
+[%- MACRO artist_credit_table(form, show_direct_search) BLOCK -%]
   <div class="artist-credit-container" style="display: none">
     <div class="artist-credit bubble">
       [%- acfield = form.field('artist_credit') -%]
@@ -150,6 +156,13 @@
             </span>
           </div>
 
+        </div>
+      [%- END -%]
+
+      [%- IF show_direct_search -%]
+        <div class="directsearch row">
+          <label>[%- l('Use direct search') -%]</label>
+          <input class="autocomplete-directsearch" type="checkbox" value="0"></input>
         </div>
       [%- END -%]
     </div>

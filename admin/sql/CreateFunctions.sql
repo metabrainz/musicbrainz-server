@@ -1,6 +1,9 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+-- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
+CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
+
 -- This function calculates an integer based on the first 6
 -- characters of the input. First, it strips accents, converts to upper case
 -- and removes everything except ASCII characters A-Z and space. That means
@@ -153,6 +156,25 @@ CREATE OR REPLACE FUNCTION a_ins_artist() RETURNS trigger AS $$
 BEGIN
     -- add a new entry to the artist_meta table
     INSERT INTO artist_meta (id) VALUES (NEW.id);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- editor triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_editor() RETURNS trigger AS $$
+BEGIN
+    -- add a new entry to the editor_watch_preference table
+    INSERT INTO editor_watch_preferences (editor) VALUES (NEW.id);
+
+    -- by default watch for new official albums
+    INSERT INTO editor_watch_release_group_type (editor, release_group_type)
+        VALUES (NEW.id, 2);
+    INSERT INTO editor_watch_release_status (editor, release_status)
+        VALUES (NEW.id, 1);
+
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
