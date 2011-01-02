@@ -254,7 +254,7 @@
                 <tr class="servermatch comment">
                   <td> </td>
                   <td colspan="3">
-                    [%- l('comment on:') %]
+                    [%- l('comment:') %]
                     <span class="comment">
                   </td>
                 </tr>
@@ -310,19 +310,19 @@
                   <td colspan="3">[%- l('comment:') %]<span class="comment"></span></td>
                 </tr>
 
-                <tr class="servermatch recordingmatch" style="display: none">
+                <tr class="servermatch recordingmatch">
                   <td class="select">
                      <input type="radio" class="servermatch recordingmatch" checked="checked" />
                   </td>
                   <td class="recording">
                     <input type="hidden" class="gid" value="" />
-                    <a href="" class="link" />
+                    <a href="" class="name" />
                   </td>
                   <td class="artist"></td>
                   <td class="length"></td>
                 </tr>
 
-                <tr class="servermatch releaselist" style="display: none">
+                <tr class="servermatch releaselist">
                   <td> </td>
                   <td colspan="3">[%- l('appears on:') %]<span class="appears"></span></td>
                 </tr>

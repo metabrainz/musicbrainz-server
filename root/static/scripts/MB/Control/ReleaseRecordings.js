@@ -34,7 +34,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
     self.$appears = self.$container.find ('tr.clientmatch span.appears');
     self.$comment = self.$container.find ('tr.clientmatch span.comment');
 
-    var render_release_groups = function ($target, rgs) {
+    self.renderReleaseGroups = function ($target, rgs) {
 
         $target.empty ();
 
@@ -55,13 +55,13 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         });
     };
 
-    var selected = function (event, data) {
+    self.selected = function (event, data) {
         self.$name.text (data.name);
         self.$name.attr ('href', '/recording/' + data.gid);
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
         self.$length.text (data.length);
-        render_release_groups (self.$appears, data.releasegroups);
+        self.renderReleaseGroups (self.$appears, data.releasegroups);
 
         self.$container.find ('tr.clientmatch').show ();
 
@@ -79,7 +79,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$radio.trigger ('change');
     };
 
-    var formatItem = function (ul, item) {
+    self.formatItem = function (ul, item) {
         var a = $("<a>").text (item.name);
 
         a.append (' - <span class="autocomplete-artist">' + item.artist + '</span>');
@@ -110,21 +110,19 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     };
 
-    var lookupHook = function (request) {
+    self.lookupHook = function (request) {
 
         $.extend (request.data, { 'a': self.artistname });
 
         return request;
     };
 
-    self.selected = selected;
-
     MB.Control.Autocomplete ({
         'input': self.$search,
         'entity': 'recording',
         'select': self.selected,
-        'formatItem': formatItem,
-        'lookupHook': lookupHook
+        'formatItem': self.formatItem,
+        'lookupHook': self.lookupHook
     });
 
     return self;
@@ -185,18 +183,27 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
     self.renderTrack = function (idx, $track, $bubble, data) {
 
-        $track.find ('input.gid').attr (
-            'id', 'id-rec_mediums.' + disc + '.associations.' + idx + '.gid');
-
+        /* track. */
         $track.find ('.position').text (idx + 1);
         $track.find ('.name').text (data.name);
-        $track.find ('.recording .gid').val (data.recording.gid);
-        $track.find ('.recording .recording').text (data.recording.name);
-
         $track.find ('.track-artist').text (data.artist_credit.preview);
-        $track.find ('.recording-artist').text (data.recording.artist_credit.preview);
 
+        /* search bubble. */
         self.parent.bc.add ($track.find ('.change-recording'), $bubble.find ('div.select-recording'));
+
+        $bubble.find ('tr.servermatch a.name').text (data.recording.name)
+            .attr ('href', '/recording/' + data.recording.gid);
+
+        $bubble.find ('tr.servermatch input.gid').val (data.recording.gid)
+        $bubble.find ('tr.servermatch td.artist').text (data.recording.artist_credit.preview)
+        $bubble.find ('tr.servermatch td.length').text (data.length)
+
+        if (data.recording.comment)
+        {
+            $bubble.find ('tr.servermatch span.comment').text (data.recording.comment).show ();
+        }
+
+        $bubble.find ('input.recording').val (data.recording.name);
     };
 
     self.load = function (data) {
@@ -211,20 +218,27 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             var $track = $track_templates.clone ().appendTo ($table);
             var $bubble = $select_template.clone ().insertAfter ($select_template);
             self.renderTrack (idx, $track, $bubble, trk);
-            $bubble.attr ('id', 'select-recording-'+disc+'-'+idx);
+
+            var id = 'select-recording-'+disc+'-'+idx;
+            $bubble.attr ('id', id).find ('input.recordingmatch').attr ('name', id);
             $track.removeClass ('template');
             $bubble.removeClass ('template');
+
+            var rr_track = MB.Control.ReleaseRecordingsTrack (disc, idx, $track.eq(0));
+            self.tracks.push (rr_track);
+
+            rr_track.select.renderReleaseGroups (
+                $bubble.find ('tr.servermatch span.appears'), trk.recording.releasegroups);
+
+            $bubble.find ('input.servermatch').trigger ('change');
         });
 
         $track_templates.remove ();
-
-        self.initializeTracks ();
     };
 
     self.lazyLoad = function () {
         var tracklist = self.$fieldset.find ('input.tracklist-id').val ();
-        var data = { recordings: 1 };
-        $.getJSON ('/ws/js/tracklist/' + tracklist, data, self.load);
+        $.getJSON ('/ws/js/associations/' + tracklist, self.load);
     };
 
     self.initializeTracks = function () {
