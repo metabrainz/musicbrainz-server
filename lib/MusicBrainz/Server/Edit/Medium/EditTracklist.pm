@@ -77,25 +77,6 @@ sub related_entities
     };
 }
 
-sub artist_ids
-{
-    my $self = shift;
-
-    return map { $_->{artist} }
-        grep { ref($_) } map { @{ $_->{artist_credit} } }
-        @{ $self->data->{new_tracklist} },
-        @{ $self->data->{old_tracklist} }
-}
-
-sub recording_ids
-{
-    my $self = shift;
-    grep { defined }
-        map { $_->{recording_id} }
-        @{ $self->data->{new_tracklist} },
-        @{ $self->data->{old_tracklist} }
-}
-
 sub track {
     return Dict[
         name => Str,

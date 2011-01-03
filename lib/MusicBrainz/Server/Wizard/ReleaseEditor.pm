@@ -5,7 +5,6 @@ use namespace::autoclean;
 use Clone 'clone';
 use JSON::Any;
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -23,12 +22,10 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
-    $EDIT_MEDIUM_EDIT_TRACKLIST
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
-    $EDIT_TRACKLIST_CREATE
 );
 
 extends 'MusicBrainz::Server::Wizard';
@@ -271,15 +268,16 @@ sub _misssing_artist_credits
 {
     my ($self, $data) = @_;
     return
-        grep { !$_->{artist} } grep { ref($_) }
         (
             # Artist credit for the release itself
+            grep { !$_->{artist} } grep { ref($_) }
             map { @{ clean_submitted_artist_credits($_) } }
                 $data->{artist_credit}
         ),
         (
             # Artist credits on new tracklists
-            map { @{ $_->{artist_credit}->{names} } }
+            grep { !$_->artist_id }
+            map { @{ $_->artist_credit->names } }
             map { @{ $_->{tracks} } } grep { $_->{edits} }
             @{ $data->{mediums} }
         );
@@ -450,45 +448,9 @@ sub _edit_release_track_edits
     {
         $medium_idx++;
 
-        my $tracklist_id = $new->{tracklist_id};
-
-        # new medium which re-uses a tracklist already in the database.
-        my $new_medium = $tracklist_id && ! $new->{id};
-
-        if ($new->{edits} || $new_medium)
-        {
-            if ($tracklist_id && $new->{id})
-            {
-                # We already have a tracklist and a medium, so lets create a tracklist edit
-
-                my $old = $self->c->model('Medium')->get_by_id ($new->{id});
-                $self->c->model('Tracklist')->load ($old);
-                $self->c->model('Track')->load_for_tracklists ($old->tracklist);
-                $self->c->model('ArtistCredit')->load ($old->tracklist->all_tracks);
-
-                $create_edit->(
-                    $EDIT_MEDIUM_EDIT_TRACKLIST,
-                    $editnote,
-                    separate_tracklists => 1,
-                    medium_id => $new->{id},
-                    tracklist_id => $new->{tracklist_id},
-                    old_tracklist => $self->_tracks_to_ref ($old->tracklist->tracks),
-                    new_tracklist => $self->_tracks_to_ref ($new->{tracks}),
-                    as_auto_editor => $data->{as_auto_editor},
-                );
-            }
-            elsif (!$tracklist_id)
-            {
-                my $create_tl = $create_edit->(
-                    $EDIT_TRACKLIST_CREATE, $editnote,
-                    tracks => $self->_tracks_to_ref ($new->{tracks}));
-
-                $tracklist_id = $create_tl->tracklist_id || 0;
-            }
-        }
-
         if ($new->{id})
         {
+            # The medium already exists
             if ($new->{deleted})
             {
                 # Delete medium
@@ -501,13 +463,23 @@ sub _edit_release_track_edits
             else
             {
                 # Edit medium
-                $create_edit->(
-                    $EDIT_MEDIUM_EDIT, $editnote,
+                my %opts = (
                     name => $new->{name},
                     format_id => $new->{format_id},
                     position => $new->{position},
                     to_edit => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    separate_tracklists => 1,
                     as_auto_editor => $data->{as_auto_editor},
+                );
+
+                if ($new->{edits}) {
+                    $opts{tracklist} = $new->{tracks};
+                }
+
+                # Edit medium
+                $create_edit->(
+                    $EDIT_MEDIUM_EDIT, $editnote,
+                    %opts
                 );
             }
         }
@@ -515,12 +487,13 @@ sub _edit_release_track_edits
         {
             my $opts = {
                 position => $medium_idx + 1,
-                tracklist_id => $tracklist_id,
                 release_id => $previewing ? 0 : $self->release->id,
             };
 
             $opts->{name} = $new->{name} if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
+
+            $opts->{tracklist} = $new->{tracklist_id} || $new->{tracks};
 
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
@@ -656,24 +629,6 @@ sub _expand_mediums
     }
 
     return $data;
-}
-
-=method _tracks_to_ref
-
-Deflates a track object into a hash reference that is used by edits
-
-=cut
-
-sub _tracks_to_ref
-{
-    my ($self, $tracklist) = @_;
-    return [ map +{
-        name => $_->name,
-        length => $_->length,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
-        recording_id => $_->recording_id,
-        position => $_->position,
-    }, @$tracklist ];
 }
 
 =method edited_tracklist
