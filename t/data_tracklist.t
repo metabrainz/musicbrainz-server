@@ -29,7 +29,7 @@ is ( $tracklist1->tracks->[5]->name, "Joanni", "sixth track is Joanni" );
 is ( scalar($tracklist2->all_tracks), 9, "9 tracks" );
 is ( $tracklist2->tracks->[3]->name, "The Painter's Link", "fourth track is The Painter's Link" );
 
-my $tracklist = $tracklist_data->insert([{
+my $tracklist = $tracklist_data->find_or_insert([{
     name => 'Track 1',
     position => 1,
     artist_credit => 1,
@@ -40,7 +40,6 @@ my $tracklist = $tracklist_data->insert([{
     artist_credit => 1,
     recording => 2
 }]);
-isa_ok($tracklist, 'MusicBrainz::Server::Entity::Tracklist');
 
 $tracklist = $tracklist_data->get_by_id($tracklist->id);
 $track_data->load_for_tracklists($tracklist);
@@ -71,5 +70,17 @@ subtest 'Can set tracklist times via a disc id' => sub {
     is($tracklist->tracks->[5]->length, 276000);
     is($tracklist->tracks->[6]->length, 94000);
 };
+
+my $tracks = [
+    { name => 'Track 1', artist_credit => 1, recording => 1 },
+    { name => 'Track 2', artist_credit => 1, recording => 2 },
+    { name => 'Track 3', artist_credit => 1, recording => 3 }
+];
+
+$tracklist = $tracklist_data->find_or_insert($tracks);
+ok($tracklist, 'returned a tracklist id');
+ok($tracklist->id > 0, 'returned a tracklist id');
+is($tracklist_data->find_or_insert($tracks)->id => $tracklist->id,
+   'returns the same tracklist for a reinsert');
 
 done_testing;
