@@ -423,6 +423,7 @@ my %album_ar_types = (
         5  => 'release_group',  # mash-up
         2  => 'release',        # first album release
         15 => 'release',        # transliteration
+        18 => 'release_group',  # single from
     },
     'artist' => {
         1 => 'release', # performance
