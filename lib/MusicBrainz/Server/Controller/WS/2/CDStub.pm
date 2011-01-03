@@ -69,8 +69,6 @@ sub cdstub_submit : Private
             unless $has_track_artists;
 
         try {
-            use Devel::Dwarn;
-            Dwarn { %data, tracks => \@tracks };
             $c->model('CDStub')->insert({
                 %data,
                 tracks => \@tracks
