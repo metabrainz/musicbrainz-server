@@ -12,6 +12,10 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Utils qw(
+    load_artist_credit_definitions
+    artist_credit_from_loaded_definition
+);
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -99,17 +103,48 @@ sub initialize
 
 sub foreign_keys {
     my $self = shift;
+    my %fk;
     if (exists $self->data->{new}{format_id}) {
-        return {
-            MediumFormat => {
-                $self->data->{new}{format_id} => [],
-                $self->data->{old}{format_id} => [],
-            }
+        $fk{MediumFormat} = {
+            $self->data->{new}{format_id} => [],
+            $self->data->{old}{format_id} => [],
         }
     }
-    else {
-        return { };
-    }
+
+    $fk{Artist} = {
+        map {
+            load_artist_credit_definitions($_->{artist_credit})
+        } map { @{ $self->data->{$_}{tracklist} } }
+            qw( old new )
+        };
+    $fk{Recording} = {
+        map {
+            $_->{recording_id}
+        } map { @{ $self->data->{$_}{tracklist} } }
+            qw( old new )
+    };
+
+    return \%fk;
+}
+
+sub display_tracklist {
+    my ($self, $loaded, $tracklist) = @_;
+
+    use aliased 'MusicBrainz::Server::Entity::Recording';
+    use aliased 'MusicBrainz::Server::Entity::Tracklist';
+    use aliased 'MusicBrainz::Server::Entity::Track';
+
+    return Tracklist->new(
+        tracks => [ map {
+            Track->new(
+                name => $_->{name},
+                length => $_->{length},
+                artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
+                recording => $loaded->{Recording}{ $_->{recording_id} } ||
+                    Recording->new( name => $_->{name} )
+            )
+        } @$tracklist ]
+    )
 }
 
 sub build_display_data
@@ -132,6 +167,12 @@ sub build_display_data
             };
         }
     }
+
+    $data->{new}{tracklist} = $self->display_tracklist($loaded, $self->data->{new}{tracklist});
+    $data->{old}{tracklist} = $self->display_tracklist($loaded, $self->data->{old}{tracklist});
+
+    use Devel::Dwarn;
+    Dwarn $data;
 
     return $data;
 }

@@ -22,4 +22,28 @@
     <td class="new">[% edit.display_data.name.new %]</td>
   </tr>
   [% END %]
+
+   <tr>
+     <th>[% l('Old Tracklist:') %]</th>
+     <td>
+       <table class="tbl">
+         <tbody>
+         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.old.tracklist
+            hide_rating=1 show_artists=1 %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
+  
+   <tr>
+     <th>[% l('New Tracklist:') %]</th>
+     <td>
+       <table class="tbl">
+         <tbody>
+         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.new.tracklist
+            hide_rating=1 show_artists=1 %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
 </table>

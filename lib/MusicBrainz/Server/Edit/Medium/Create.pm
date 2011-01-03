@@ -9,6 +9,10 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Utils qw(
+    load_artist_credit_definitions
+    artist_credit_from_loaded_definition
+);
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -74,18 +78,43 @@ sub foreign_keys
     $fk{Release} = { $self->data->{release_id} => [ 'ArtistCredit' ] }
         if $self->data->{release_id};
 
+    $fk{Artist} = {
+        map {
+            load_artist_credit_definitions($_->{artist_credit})
+        } @{ $self->data->{tracklist} }
+    };
+
+    $fk{Recording} = {
+        map {
+            $_->{recording_id}
+        } @{ $self->data->{tracklist} }
+    };
+
     return \%fk;
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+
+    use aliased 'MusicBrainz::Server::Entity::Tracklist';
+    use aliased 'MusicBrainz::Server::Entity::Track';
+
     return {
         name         => $self->data->{name},
         format       => $loaded->{MediumFormat}->{ $self->data->{format_id} },
         position     => $self->data->{position},
         release      => $loaded->{Release}->{ $self->data->{release_id} },
-        tracklist_id => $self->data->{tracklist_id},
+        tracklist    => Tracklist->new(
+            tracks => [ map {
+                Track->new(
+                    name => $_->{name},
+                    length => $_->{length},
+                    artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
+                    recording => $loaded->{Recording}{ $_->{recording_id} }
+                )
+            } @{ $self->data->{tracklist} } ]
+        )
     };
 }
 
@@ -100,7 +129,7 @@ sub _insert_hash {
     }
 
     $data->{tracklist_id} = $self->c->model('Tracklist')->find_or_insert($tracklist)->id;
-    
+
     return $data;
 }
 
