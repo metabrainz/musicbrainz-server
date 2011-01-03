@@ -805,7 +805,7 @@ foreach my $orig_t0 (@entity_types) {
             }
             close(DISCOGS);
             # Load Amazon URL data
-            LWP::Simple::mirror("http://users.musicbrainz.org/~luks/ngs/amazon.dat", "amazon.dat");
+            LWP::Simple::mirror("http://users.musicbrainz.org/murdos/ngs/amazon.dat", "amazon.dat");
             open(AMAZON, "<amazon.dat");
             while (<AMAZON>) {
                 my $line = $_;
