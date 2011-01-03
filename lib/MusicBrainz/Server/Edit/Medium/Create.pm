@@ -1,11 +1,17 @@
 package MusicBrainz::Server::Edit::Medium::Create;
 use Carp;
 use Moose;
-use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
-use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
+use MusicBrainz::Server::Edit::Types qw(
+    ArtistCreditDefinition
+    Nullable
+    NullableOnPreview
+);
 use MusicBrainz::Server::Entity::Medium;
+use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -23,22 +29,40 @@ has '+data' => (
         format_id    => Optional[Int],
         position     => Int,
         release_id   => NullableOnPreview[Int],
-        tracklist_id => NullableOnPreview[Int],
+        tracklist    => ArrayRef[track()]
     ]
 );
 
-after 'initialize' => sub {
-    my $self = shift;
+sub track {
+    return Dict[
+        name => Str,
+        artist_credit => ArtistCreditDefinition,
+        length => Nullable[Int],
+        recording_id => NullableOnPreview[Int],
+    ];
+}
 
-    if ($self->preview)
-    {
-       $self->entity ( MusicBrainz::Server::Entity::Medium->new( $self->data ));
-       return;
-    }
+sub _tracks_to_hash
+{
+    my $tracks = shift;
+    return [ map +{
+        name => $_->name,
+        artist_credit => artist_credit_to_ref ($_->artist_credit),
+        recording_id => $_->recording_id,
 
-    croak "No release_id specified" unless $self->data->{release_id};
-    croak "No tracklist_id specified" unless $self->data->{tracklist_id};
-};
+        # Filter out sub-second differences
+        length => unformat_track_length(format_track_length($_->length)),
+    }, @$tracks ];
+}
+
+sub initialize {
+    my ($self, %opts) = @_;
+
+    my $tracklist = delete $opts{tracklist};
+    $opts{tracklist} = _tracks_to_hash($tracklist);
+
+    $self->data(\%opts);
+}
 
 sub foreign_keys
 {
@@ -63,6 +87,21 @@ sub build_display_data
         release      => $loaded->{Release}->{ $self->data->{release_id} },
         tracklist_id => $self->data->{tracklist_id},
     };
+}
+
+sub _insert_hash {
+    my ($self, $data) = @_;
+
+    # Create related data (artist credits and recordings)
+    my $tracklist = delete $data->{tracklist};
+    for my $track (@$tracklist) {
+        $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
+        $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
+    }
+
+    $data->{tracklist_id} = $self->c->model('Tracklist')->find_or_insert($tracklist)->id;
+    
+    return $data;
 }
 
 __PACKAGE__->meta->make_immutable;
