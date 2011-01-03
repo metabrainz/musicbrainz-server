@@ -66,7 +66,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             type: MB.constants.LINK_TYPES.purevolume
         },
         amazon: {
-            match: new RegExp("^(http://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|co\.jp|jp)","i"),
+            match: new RegExp("^(http://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp)","i"),
             type: MB.constants.LINK_TYPES.amazon,
             clean: function(url) {
                 // determine tld, asin from url, and build standard format [1],

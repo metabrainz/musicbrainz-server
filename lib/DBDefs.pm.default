@@ -316,6 +316,7 @@ my %amazon_store_associate_ids = (
     'amazon.com'    => 'musicbrainz0d-20',
     'amazon.de'         => 'musicbrainz00-21',
     'amazon.fr'         => 'musicbrainz0e-21',
+    'amazon.it'         => '', #TODO: Someone should probably sign up for an associate ID.
 );
 
 sub AWS_ASSOCIATE_ID
