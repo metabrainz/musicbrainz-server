@@ -8,11 +8,6 @@ parameter 'edit_type' => (
     required => 1
 );
 
-parameter 'form' => (
-    isa => 'Str',
-    default => 'Merge',
-);
-
 parameter 'merge_form' => (
     isa => 'Str',
     default => 'Confirm'
@@ -40,9 +35,12 @@ role {
         my $add = $c->req->params->{'add-to-merge'};
         my @add = ref($add) ? @$add : ($add);
 
-        $c->session->{merger} ||= MusicBrainz::Server::MergeQueue->new(
-            type => $self->{model},
-        );
+        if (!$c->session->{merger} ||
+            $c->session->{merger}->type ne $self->{model}) {
+            $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
+                type => $self->{model},
+            );
+        }
 
         my $merger = $c->session->{merger};
         $merger->add_entities(@add);
@@ -73,7 +71,7 @@ role {
             $c->model($merger->type)->get_by_ids($merger->all_entities)
         };
 
-        my $form = $c->form(form => $params->form);
+        my $form = $c->form(form => $params->merge_form);
         if ($form->submitted_and_valid($c->req->params)) {
             my $new_id = $form->field('target')->value;
             my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;

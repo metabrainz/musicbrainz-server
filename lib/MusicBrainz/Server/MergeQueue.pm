@@ -27,7 +27,7 @@ sub ready_to_merge {
 
 sub add_entities {
     my ($self, @entities) = @_;
-    my %all_existing = map { $_ => 1 } $self->all_entities;
+    my %all_existing = map { $_ => 1 } grep { $_ } $self->all_entities;
     my %new = map { $_ => 1 }
         grep { !exists $all_existing{ $_ } } @entities;
     $self->_add_entities(keys %new);
