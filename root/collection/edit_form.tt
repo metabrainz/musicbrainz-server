@@ -6,5 +6,7 @@
         [% form_row_checkbox(r, 'public', l('Allow other users to see this collection')) %]
     </fieldset>
 
-    [% enter_edit() %]
+    <div class="row no-label">
+        [% form_submit(l('Create collection')) %]
+    </div>
 </form>
