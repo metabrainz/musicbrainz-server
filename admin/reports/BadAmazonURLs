@@ -45,7 +45,7 @@ sub GatherData
             AND link0 = album.id
             AND url ~ 'amazon' 
             AND url !~ 'amazon\.cn'
-            AND url !~ '^http://www\.amazon\.(com|ca|de|fr|co\.(jp|uk))/gp/product/[0-9A-Z]{10}$'
+            AND url !~ '^http://www\.amazon\.(com|ca|de|fr|it|co\.(jp|uk))/gp/product/[0-9A-Z]{10}$'
           ORDER BY url.id 
 EOF
 

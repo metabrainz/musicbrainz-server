@@ -15,26 +15,36 @@
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 */
 
-MB.Control.WorkEdit = function () {
-    var self = MB.Object ();
+MB.Control.EditSummary = function(container) {
+    var self = MB.Object();
 
-    self.$name = $('#id-edit-work\\.name');
+    var $container = $(container),
+        $toggleEditNote = $container.find('.edit-note-toggle'),
+        $editNote = $container.find('.add-edit-note'),
+        $editNoteField = $editNote.find('textarea');
 
-    self.$guesscase = $('input.guesscase');
-
-    var guesscase = function (event) {
-        self.$name.val (MB.GuessCase.work.guess (self.$name.val ()));
-
-        event.preventDefault ();
+    self.addNote = function() {
+        $toggleEditNote
+            .html('Delete Note')
+            .unbind('click').click(self.deleteNote);
+        $editNote.show();
+        $editNoteField.focus();
     };
 
-    self.guesscase = guesscase;
+    self.deleteNote = function() {
+        $toggleEditNote
+            .html('Add Note')
+            .unbind('click').click(self.addNote);
+        $editNote.hide();
+        $editNoteField.val('');
+    };
 
-    self.$guesscase.bind ('click.mb', self.guesscase);
+    self.initialize = function() {
+        $toggleEditNote.click(self.addNote);
+    };
 
+    self.initialize();
     return self;
 };
-

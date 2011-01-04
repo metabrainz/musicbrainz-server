@@ -84,7 +84,7 @@ sub run
         my $previewing = !$self->submitted;
 
         my $data = clone($self->value);
-        my $editnote = $data->{editnote};
+        my $editnote = $data->{edit_note};
 
         $self->release($self->create_edits(
             data => clone($data),
@@ -686,7 +686,7 @@ sub edited_tracklist
 {
     my ($self, $tracks) = @_;
 
-    return [ sort { $a->{position} > $b->{position} } grep { ! $_->{deleted} } @$tracks ];
+    return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
 
 __PACKAGE__->meta->make_immutable;

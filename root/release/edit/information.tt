@@ -89,7 +89,7 @@
       [% form_row_text (r, 'barcode', 'Barcode') %]
     </fieldset>
 
-    <fieldset>
+    <fieldset class="information">
       <legend>Additional information</legend>
       [% form_row_textarea(r, 'annotation', l('Annotation')) %]
       [% form_row_text(r, 'comment', l('Comment')) %]

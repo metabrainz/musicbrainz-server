@@ -98,22 +98,25 @@ sub _autocomplete_direct {
 
     my $offset = ($page - 1) * $limit;  # page is not zero based.
 
-    my ($entities, $hits) = $c->model($type)->autocomplete_name($query, $limit, $offset);
+    my ($search_results, $hits) = $c->model ('Search')->search (
+        $type, $query, $limit, $offset);
 
     my @output;
 
-    for (@$entities)
+    for (@$search_results)
     {
+        my $entity = $_->entity;
+
         my $item = {
-            name => $_->name,
-            id => $_->id,
-            gid => $_->gid,
-            comment => $_->comment,
+            name => $entity->name,
+            id => $entity->id,
+            gid => $entity->gid,
+            comment => $entity->comment,
         };
 
-        if ($_->meta->has_attribute ('sort_name'))
+        if ($entity->meta->has_attribute ('sort_name'))
         {
-            $item->{sortname} = $_->sort_name;
+            $item->{sortname} = $entity->sort_name;
         }
 
         push @output, $item;
@@ -189,6 +192,8 @@ sub _autocomplete_indexed {
         # empty list.  The javascript code for autocomplete doesn't
         # have any way to gracefully report or deal with
         # errors. --warp.
+
+        push @output, { pages => 1, current => 1 };
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -238,15 +243,20 @@ sub _recording_direct {
 
     my $offset = ($page - 1) * $limit;  # page is not zero based.
 
-    my ($entities, $hits) = $c->model('Recording')->autocomplete_name(
-        $query, $artist, $limit, $offset);
+    my $where = {};
+    $where->{artist} = $artist if $artist;
 
-    $c->model ('ArtistCredit')->load (@$entities);
-    $c->model('ISRC')->load_for_recordings (@$entities);
+    my ($search_results, $hits) = $c->model ('Search')->search (
+        'recording', $query, $limit, $offset, $where);
+
+    my @entities = map { $_->entity } @$search_results;
+
+    $c->model ('ArtistCredit')->load (@entities);
+    $c->model('ISRC')->load_for_recordings (@entities);
 
     my @output;
 
-    for (@$entities) {
+    for (@entities) {
         push @output, {
             recording => $_,
             appears => [
@@ -305,6 +315,11 @@ sub _recording_indexed {
         # empty list.  The javascript code for autocomplete doesn't
         # have any way to gracefully report or deal with
         # errors. --warp.
+
+        $pager = Data::Page->new ();
+        $pager->entries_per_page ($limit);
+        $pager->current_page ($page);
+        $pager->total_entries (0);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
