@@ -6,18 +6,13 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
     Nullable
     NullableOnPreview
 );
-use MusicBrainz::Server::Edit::Utils qw(
-    load_artist_credit_definitions
-    artist_credit_from_loaded_definition
-);
 use MusicBrainz::Server::Validation 'normalise_strings';
-use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
@@ -48,28 +43,6 @@ sub change_fields
     ];
 }
 
-sub track {
-    return Dict[
-        name => Str,
-        artist_credit => ArtistCreditDefinition,
-        length => Nullable[Int],
-        recording_id => NullableOnPreview[Int],
-    ];
-}
-
-sub _tracks_to_hash
-{
-    my $tracks = shift;
-    return [ map +{
-        name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
-        recording_id => $_->recording_id,
-
-        # Filter out sub-second differences
-        length => unformat_track_length(format_track_length($_->length)),
-    }, @$tracks ];
-}
-
 sub initialize
 {
     my ($self, %opts) = @_;
@@ -89,8 +62,8 @@ sub initialize
         $self->c->model('Track')->load_for_tracklists ($entity->tracklist);
         $self->c->model('ArtistCredit')->load ($entity->tracklist->all_tracks);
 
-        $data->{old}{tracklist} = _tracks_to_hash($entity->tracklist->tracks);
-        $data->{new}{tracklist} = _tracks_to_hash($tracklist);
+        $data->{old}{tracklist} = tracks_to_hash($entity->tracklist->tracks);
+        $data->{new}{tracklist} = tracks_to_hash($tracklist);
         $data->{separate_tracklists} = $separate_tracklists;
     }
 
@@ -111,40 +84,10 @@ sub foreign_keys {
         }
     }
 
-    $fk{Artist} = {
-        map {
-            load_artist_credit_definitions($_->{artist_credit})
-        } map { @{ $self->data->{$_}{tracklist} } }
-            qw( old new )
-        };
-    $fk{Recording} = {
-        map {
-            $_->{recording_id}
-        } map { @{ $self->data->{$_}{tracklist} } }
-            qw( old new )
-    };
+    tracklist_foreign_keys(\%fk, $_)
+        for map { $self->data->{$_}{tracklist} } qw( new old );
 
     return \%fk;
-}
-
-sub display_tracklist {
-    my ($self, $loaded, $tracklist) = @_;
-
-    use aliased 'MusicBrainz::Server::Entity::Recording';
-    use aliased 'MusicBrainz::Server::Entity::Tracklist';
-    use aliased 'MusicBrainz::Server::Entity::Track';
-
-    return Tracklist->new(
-        tracks => [ map {
-            Track->new(
-                name => $_->{name},
-                length => $_->{length},
-                artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
-                recording => $loaded->{Recording}{ $_->{recording_id} } ||
-                    Recording->new( name => $_->{name} )
-            )
-        } @$tracklist ]
-    )
 }
 
 sub build_display_data
@@ -168,11 +111,8 @@ sub build_display_data
         }
     }
 
-    $data->{new}{tracklist} = $self->display_tracklist($loaded, $self->data->{new}{tracklist});
-    $data->{old}{tracklist} = $self->display_tracklist($loaded, $self->data->{old}{tracklist});
-
-    use Devel::Dwarn;
-    Dwarn $data;
+    $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
+    $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
     return $data;
 }
