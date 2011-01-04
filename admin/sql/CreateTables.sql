@@ -119,14 +119,6 @@ CREATE TABLE country (
     name                VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE currentstat
-(
-    id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
-    value               INTEGER NOT NULL,
-    last_updated        TIMESTAMP WITH TIME ZONE
-);
-
 CREATE TABLE editor
 (
     id                  SERIAL,
@@ -197,10 +189,9 @@ CREATE TABLE isrc
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE historicalstat
+CREATE TABLE historical_statistic
 (
-    id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
+    name                VARCHAR(100) NOT NULL, -- PK
     value               INTEGER NOT NULL,
     snapshot_date       DATE NOT NULL
 );
@@ -903,6 +894,13 @@ CREATE TABLE script_language
     script              INTEGER NOT NULL, -- references script.id
     language            INTEGER NOT NULL, -- references language.id
     frequency           INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE statistic
+(
+    name                VARCHAR(100) NOT NULL, -- PK,
+    value               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH time ZONE
 );
 
 CREATE TABLE tag

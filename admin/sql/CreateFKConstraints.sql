@@ -909,6 +909,16 @@ ALTER TABLE release_meta
    REFERENCES release(id)
    ON DELETE CASCADE;
 
+ALTER TABLE release_tag
+   ADD CONSTRAINT release_tag_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_tag
+   ADD CONSTRAINT release_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
 ALTER TABLE script_language
    ADD CONSTRAINT script_language_fk_script
    FOREIGN KEY (script)
