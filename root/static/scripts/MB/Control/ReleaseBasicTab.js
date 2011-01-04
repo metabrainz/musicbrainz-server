@@ -222,11 +222,14 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
         });
     };
 
-    var newDisc = function (disc) {
+    var newDisc = function (disc, expand_discs) {
         var ta = MB.Control.ReleaseTextarea (disc, self.preview);
         self.textareas.push (ta);
 
-        ta.expand ();
+        if (expand_discs)
+        {
+            ta.expand ();
+        }
 
         return ta;
     };
@@ -254,7 +257,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
-        self.newDisc (disc);
+        self.newDisc (disc, self.adv.discs.length < 4);
     });
 
     return self;
