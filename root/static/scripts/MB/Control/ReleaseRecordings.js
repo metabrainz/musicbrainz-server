@@ -148,7 +148,7 @@ MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
 
         if ($row.hasClass ('addnew'))
         {
-            self.$gid.val ('');
+            self.$gid.val ('new');
             self.$add_recording.show ();
             self.$use_recording.hide ();
         }
@@ -218,6 +218,9 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             var $track = $track_templates.clone ().appendTo ($table);
             var $bubble = $select_template.clone ().insertAfter ($select_template);
             self.renderTrack (idx, $track, $bubble, trk);
+
+            var name = 'rec_mediums.'+disc+'.associations.'+idx+'.gid';
+            $track.find ('input.gid').attr ('name', name);
 
             var id = 'select-recording-'+disc+'-'+idx;
             $bubble.attr ('id', id).find ('input.recordingmatch').attr ('name', id);

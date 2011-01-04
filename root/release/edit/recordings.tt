@@ -111,15 +111,13 @@
 
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
                 [%- r.hidden (assoc.field('gid'), class => 'gid') -%]
+                [% addnew = (assoc.field('gid').value == 'new') %]
                 <span class="recording"
-                  [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
-
-                  [%- IF assoc.field('gid').value -%]
-                    [% link_entity (recording) %]
-                  [%- END -%]
+                  [%- IF addnew -%]style="display: none"[% END %]>
+                  [%- UNLESS addnew -%][% link_entity (recording) %][%- END -%]
                 </span>
                 <span class="add-recording"
-                  [% IF assoc.field('gid').value %]style="display: none"[% END %]>
+                  [% UNLESS addnew %]style="display: none"[% END %]>
                   [%- l('(add a new recording)') -%]
                 </span>
               </td>
@@ -135,7 +133,7 @@
               </td>
               <td style="padding: 0 0 0.5em 0;" >
                 <span class="recording"
-                  [% UNLESS assoc.field('gid').value %]style="display: none"[% END %]>
+                  [% IF addnew %]style="display: none"[% END %]>
                   [% l('by') %]
                   <span class="recording-artist">
                     [%- recording.artist_credit.name -%]
@@ -268,7 +266,6 @@
                          [%- UNLESS assoc.field('gid').value -%]checked="checked"[%- END -%] />
                   </td>
                   <td class="recording" colspan="3">
-                    <input type="hidden" class="gid" value="" />
                     [% l('Add a new recording') %]
                   </td>
                 </tr>
@@ -337,7 +334,6 @@
                      <input type="radio" class="newrecording recordingmatch" />
                   </td>
                   <td class="recording" colspan="3">
-                    <input type="hidden" class="gid" value="" />
                     [% l('Add a new recording') %]
                   </td>
                 </tr>
