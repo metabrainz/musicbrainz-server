@@ -815,30 +815,28 @@ sub recalculate_all
 	my %notdone = %stats;
 	my %done;
 
-    Sql::run_in_transaction(sub {
-        while (1) {
-            last unless %notdone;
+    while (1) {
+        last unless %notdone;
 
-            my $count = 0;
+        my $count = 0;
 
-            # Work out which stats from %notdone we can do this time around
-            for my $name (sort keys %notdone) {
-                my $d = $stats{$name}{PREREQ} || [];
-                next if grep { $notdone{$_} } @$d;
+        # Work out which stats from %notdone we can do this time around
+        for my $name (sort keys %notdone) {
+            my $d = $stats{$name}{PREREQ} || [];
+            next if grep { $notdone{$_} } @$d;
 
-                # $name has no unsatisfied dependencies.  Let's do it!
-                $self->recalculate($name);
+            # $name has no unsatisfied dependencies.  Let's do it!
+            $self->recalculate($name);
 
-                $done{$name} = delete $notdone{$name};
-                ++$count;
-            }
-
-            next if $count;
-
-            my $s = join ", ", keys %notdone;
-            die "Failed to solve stats dependencies: circular dependency? ($s)";
+            $done{$name} = delete $notdone{$name};
+            ++$count;
         }
-    }, $self->sql);
+
+        next if $count;
+
+        my $s = join ", ", keys %notdone;
+        die "Failed to solve stats dependencies: circular dependency? ($s)";
+    }
 }
 
 1;
