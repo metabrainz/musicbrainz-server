@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 
 use Try::Tiny;
 
@@ -73,260 +73,6 @@ sub take_snapshot {
         'INSERT INTO historical_statistic (name, value, snapshot_date)
              SELECT name, value, current_date FROM ' . $self->_table);
 }
-
-=pod todo
-    
-	"count.album.Ndiscids" => {
-		DESC => "Distribution of disc IDs per release (varying disc IDs)",
-		PREREQ => [qw[ count.album count.album.has_discid ]],
-		CALC => sub {
-			my ($self, $sql) = @_;
-
-			my $max_dist_tail = 10;
-
-			my $data = $sql->SelectListOfLists(
-				"SELECT c, COUNT(*) AS freq
-				FROM (
-					SELECT album, COUNT(*) AS c
-					FROM album_cdtoc
-					GROUP BY album
-				) AS t
-				GROUP BY c
-				",
-			);
-
-			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
-
-			for (@$data)
-			{
-				$dist{ $_->[0] } = $_->[1], next
-					if $_->[0] < $max_dist_tail;
-
-				$dist{$max_dist_tail} += $_->[1];
-			}
-
-			$dist{0} = $self->Fetch("count.album")
-				- $self->Fetch("count.album.has_discid");
-			
-			+{
-				map {
-					"count.album.".$_."discids" => $dist{$_}
-				} keys %dist
-			};
-		},
-	},
-	"count.quality.album.high" => {
-		DESC => "Count of high quality releases",
-		CALC => sub {
-			my ($self, $sql) = @_;
-
-			my $data = $sql->SelectListOfLists(
-				"SELECT quality, COUNT(*) FROM album GROUP BY quality",
-			);
-
-			my %dist = map { @$_ } @$data;
-			# Transfer unknown quality count to the level represented by &ModDefs::QUALITY_UNKNOWN_MAPPED
-			# but still keep unknown quality count on its own, for reference
-			$dist{&ModDefs::QUALITY_UNKNOWN_MAPPED} += $dist{&ModDefs::QUALITY_UNKNOWN};
-
-			+{
-				"count.quality.album.high"		=> $dist{&ModDefs::QUALITY_HIGH}	|| 0,
-				"count.quality.album.low"		=> $dist{&ModDefs::QUALITY_LOW}		|| 0,
-				"count.quality.album.normal"	=> $dist{&ModDefs::QUALITY_NORMAL}	|| 0,
-				"count.quality.album.unknown"	=> $dist{&ModDefs::QUALITY_UNKNOWN}	|| 0,
-			};
-		},
-	},
-	"count.quality.album.low" => {
-		DESC => "Count of low quality releases",
-		PREREQ => [qw[ count.quality.album.high ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.quality.album.normal" => {
-		DESC => "Count of normal quality releases",
-		PREREQ => [qw[ count.quality.album.high ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.quality.album.unknown" => {
-		DESC => "Count of unknow quality releases",
-		PREREQ => [qw[ count.quality.album.high ]],
-		PREREQ_ONLY => 1,
-	},
-
-	"count.puid.Ntracks" => {
-		DESC => "Distribution of tracks per PUID (collisions)",
-		CALC => sub {
-			my ($self, $sql) = @_;
-
-			my $max_dist_tail = 10;
-
-			my $data = $sql->SelectListOfLists(
-				"SELECT c, COUNT(*) AS freq
-				FROM (
-					SELECT puid, COUNT(*) AS c
-					FROM puidjoin
-					GROUP BY puid
-				) AS t
-				GROUP BY c
-				",
-			);
-
-			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
-
-			for (@$data)
-			{
-				$dist{ $_->[0] } = $_->[1], next
-					if $_->[0] < $max_dist_tail;
-
-				$dist{$max_dist_tail} += $_->[1];
-			}
-			
-			+{
-				map {
-					"count.puid.".$_."tracks" => $dist{$_}
-				} keys %dist
-			};
-		},
-	},
-
-	"count.track.Npuids" => {
-		DESC => "Distribution of PUIDs per track (varying PUIDs)",
-		PREREQ => [qw[ count.track count.track.has_puid ]],
-		CALC => sub {
-			my ($self, $sql) = @_;
-
-			my $max_dist_tail = 10;
-
-			my $data = $sql->SelectListOfLists(
-				"SELECT c, COUNT(*) AS freq
-				FROM (
-					SELECT track, COUNT(*) AS c
-					FROM puidjoin
-					GROUP BY track
-				) AS t
-				GROUP BY c
-				",
-			);
-
-			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
-
-			for (@$data)
-			{
-				$dist{ $_->[0] } = $_->[1], next
-					if $_->[0] < $max_dist_tail;
-
-				$dist{$max_dist_tail} += $_->[1];
-			}
-
-			$dist{0} = $self->Fetch("count.track")
-				- $self->Fetch("count.track.has_puid");
-			
-			+{
-				map {
-					"count.track.".$_."puids" => $dist{$_}
-				} keys %dist
-			};
-		},
-	},
-
-	"count.ar.links" => {
-		DESC => "Count of all advanced relationships links",
-		CALC => sub {
-			my ($self, $sql) = @_;
-			my %r;
-			$r{'count.ar.links'} = 0;
-
-			require MusicBrainz::Server::LinkEntity;
-
-			for my $t (@{ MusicBrainz::Server::LinkEntity->AllLinkTypes })
-			{
-				require MusicBrainz::Server::Link;
-				my $l = MusicBrainz::Server::Link->new($sql->{DBH}, $t);
-				my $n = $l->CountLinksByType;
-				$r{"count.ar.links.".$l->Table} = $n;
-				$r{'count.ar.links'} += $n;
-			}
-
-			return \%r;
-		},
-	},
-	"count.ar.links.l_album_album" => {
-		DESC => "Count of release-release advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_artist" => {
-		DESC => "Count of release-artist advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_label" => {
-		DESC => "Count of release-label advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_track" => {
-		DESC => "Count of release-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_url" => {
-		DESC => "Count of release-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_artist" => {
-		DESC => "Count of artist-artist advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_label" => {
-		DESC => "Count of artist-label advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_track" => {
-		DESC => "Count of artist-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_url" => {
-		DESC => "Count of artist-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_label_label" => {
-		DESC => "Count of label-label advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_label_track" => {
-		DESC => "Count of label-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_label_url" => {
-		DESC => "Count of label-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_track_track" => {
-		DESC => "Count of track-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_track_url" => {
-		DESC => "Count of track-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_url_url" => {
-		DESC => "Count of URL-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-
-=cut
 
 my %stats = (
 	"count.album" => {
@@ -773,6 +519,254 @@ my %stats = (
 			       $self->fetch('count.rating.raw.release') +
 			       $self->fetch('count.rating.raw.track');
 		},
+	},
+
+    "count.album.Ndiscids" => {
+		DESC => "Distribution of disc IDs per release (varying disc IDs)",
+		PREREQ => [qw[ count.album count.album.has_discid ]],
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $max_dist_tail = 10;
+
+			my $data = $sql->select_list_of_lists(
+				"SELECT c, COUNT(*) AS freq
+				FROM (
+					SELECT medium, COUNT(*) AS c
+					FROM medium_cdtoc
+					GROUP BY medium
+				) AS t
+				GROUP BY c
+				",
+			);
+
+			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+			for (@$data)
+			{
+				$dist{ $_->[0] } = $_->[1], next
+					if $_->[0] < $max_dist_tail;
+
+				$dist{$max_dist_tail} += $_->[1];
+			}
+
+			$dist{0} = $self->fetch("count.album")
+				- $self->fetch("count.album.has_discid");
+
+			+{
+				map {
+					"count.album.".$_."discids" => $dist{$_}
+				} keys %dist
+			};
+		},
+	},
+
+    "count.quality.album.high" => {
+		DESC => "Count of high quality releases",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $data = $sql->select_list_of_lists(
+				"SELECT quality, COUNT(*) FROM release GROUP BY quality",
+			);
+
+			my %dist = map { @$_ } @$data;
+			# Transfer unknown quality count to the level represented by &ModDefs::QUALITY_UNKNOWN_MAPPED
+			# but still keep unknown quality count on its own, for reference
+			$dist{$QUALITY_UNKNOWN_MAPPED} += $dist{$QUALITY_UNKNOWN};
+
+			+{
+				"count.quality.album.high"		=> $dist{$QUALITY_HIGH}	|| 0,
+				"count.quality.album.low"		=> $dist{$QUALITY_LOW}		|| 0,
+				"count.quality.album.normal"	=> $dist{$QUALITY_NORMAL}	|| 0,
+				"count.quality.album.unknown"	=> $dist{$QUALITY_UNKNOWN}	|| 0,
+			};
+		},
+	},
+	"count.quality.album.low" => {
+		DESC => "Count of low quality releases",
+		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.quality.album.normal" => {
+		DESC => "Count of normal quality releases",
+		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.quality.album.unknown" => {
+		DESC => "Count of unknow quality releases",
+		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ_ONLY => 1,
+	},
+
+    "count.puid.Ntracks" => {
+		DESC => "Distribution of tracks per PUID (collisions)",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $max_dist_tail = 10;
+
+			my $data = $sql->select_list_of_lists(
+				"SELECT c, COUNT(*) AS freq
+				FROM (
+					SELECT puid, COUNT(*) AS c
+					FROM recording_puid
+					GROUP BY puid
+				) AS t
+				GROUP BY c
+				",
+			);
+
+			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+			for (@$data)
+			{
+				$dist{ $_->[0] } = $_->[1], next
+					if $_->[0] < $max_dist_tail;
+
+				$dist{$max_dist_tail} += $_->[1];
+			}
+			
+			+{
+				map {
+					"count.puid.".$_."tracks" => $dist{$_}
+				} keys %dist
+			};
+		},
+	},
+
+    "count.track.Npuids" => {
+		DESC => "Distribution of PUIDs per track (varying PUIDs)",
+		PREREQ => [qw[ count.track count.track.has_puid ]],
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $max_dist_tail = 10;
+
+			my $data = $sql->select_list_of_lists(
+				"SELECT c, COUNT(*) AS freq
+				FROM (
+					SELECT recording, COUNT(*) AS c
+					FROM recording_puid
+					GROUP BY recording
+				) AS t
+				GROUP BY c
+				",
+			);
+
+			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+			for (@$data)
+			{
+				$dist{ $_->[0] } = $_->[1], next
+					if $_->[0] < $max_dist_tail;
+
+				$dist{$max_dist_tail} += $_->[1];
+			}
+
+			$dist{0} = $self->fetch("count.track")
+				- $self->fetch("count.track.has_puid");
+			
+			+{
+				map {
+					"count.track.".$_."puids" => $dist{$_}
+				} keys %dist
+			};
+		},
+	},
+
+    "count.ar.links" => {
+		DESC => "Count of all advanced relationships links",
+		CALC => sub {
+			my ($self, $sql) = @_;
+			my %r;
+			$r{'count.ar.links'} = 0;
+
+			for my $t ($self->c->model('Relationship')->all_pairs) {
+                my $table = join('_', 'l', @$t);
+				my $n = $sql->select_single_value(
+                    "SELECT count(*) FROM $table");
+				$r{"count.ar.links.$table"} = $n;
+				$r{'count.ar.links'} += $n;
+			}
+
+			return \%r;
+		},
+	},
+	"count.ar.links.l_album_album" => {
+		DESC => "Count of release-release advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_album_artist" => {
+		DESC => "Count of release-artist advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_album_label" => {
+		DESC => "Count of release-label advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_album_track" => {
+		DESC => "Count of release-track advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_album_url" => {
+		DESC => "Count of release-URL advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_artist_artist" => {
+		DESC => "Count of artist-artist advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_artist_label" => {
+		DESC => "Count of artist-label advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_artist_track" => {
+		DESC => "Count of artist-track advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_artist_url" => {
+		DESC => "Count of artist-URL advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_label_label" => {
+		DESC => "Count of label-label advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_label_track" => {
+		DESC => "Count of label-track advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_label_url" => {
+		DESC => "Count of label-URL advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_track_track" => {
+		DESC => "Count of track-track advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_track_url" => {
+		DESC => "Count of track-URL advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_url_url" => {
+		DESC => "Count of URL-URL advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
 	},
 );
 
