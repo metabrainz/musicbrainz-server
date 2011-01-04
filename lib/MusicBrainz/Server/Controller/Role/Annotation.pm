@@ -85,14 +85,10 @@ after 'show' => sub
     $c->model('Editor')->load($annotation);
 
     my $annotation_model = $c->model($model)->annotation;
-    my $annotations = $self->_load_paged(
-        $c, sub {
-            $annotation_model->get_history($entity->id, @_);
-        }
-    );
+    my (undef, $no) = $annotation_model->get_history($entity->id, 50, 0);
 
     $c->stash(
-        number_of_revisions => scalar @$annotations,
+        number_of_revisions => $no,
     );
 };
 

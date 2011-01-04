@@ -42,7 +42,7 @@ INSERT INTO artist
     (3, '745c079d-374e-4436-9448-da92dedef3ce', 3, 4, 1, 1, 1,
      2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
 
-UPDATE artist_meta SET rating=70, rating_count=4, last_updated='2009-07-09 20:40:30' WHERE id=3;
+UPDATE artist_meta SET rating=70, rating_count=4 WHERE id=3;
 
 TRUNCATE artist_credit_name CASCADE;
 TRUNCATE artist_credit CASCADE;
@@ -135,7 +135,7 @@ INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name, frequency)
 
 TRUNCATE script CASCADE;
 
-INSERT INTO script (id, iso_code, isonumber, name, frequency)
+INSERT INTO script (id, iso_code, iso_number, name, frequency)
     VALUES (1, 'Ugar', '040', 'Ugaritic', 2),
            (2, 'Hebr', '125', 'Hebrew', 4);
 
@@ -461,10 +461,10 @@ INSERT INTO work_tag (tag, work, count) VALUES (1, 1, 2);
 
 TRUNCATE cdtoc CASCADE;
 INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset) VALUES
-    (1, 'tLGBAiCflG8ZI6lFcOt87vXjEcI-', '5908ea07', 7, 171327,
+    (2, 'tLGBAiCflG8ZI6lFcOt87vXjEcI-', '5908ea07', 7, 171327,
      ARRAY[150,22179,49905,69318,96240,121186,143398]);
 INSERT INTO medium_cdtoc (id, medium, cdtoc) VALUES
-    (1, 3, 1), (2, 5, 1);
+    (1, 3, 2);
 
 -- Restart sequences
 ALTER SEQUENCE gender_id_seq RESTART 3;

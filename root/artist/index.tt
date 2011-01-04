@@ -1,8 +1,22 @@
+[% BLOCK layout_head %]
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/utility.js') %]"></script>
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
+    <script type="text/javascript">
+        $(function() {
+            MB.Control.TagEditor($('#sidebar-tags'),
+                "[% c.uri_for_action('/artist/tag_async', [ artist.gid ]) %]",
+                "[% c.uri_for('/tag/') %]");
+        });
+    </script>
+[% END %]
+
 [%- WRAPPER "artist/layout.tt" page='index' -%]
     [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
 
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
+            <form action="[% c.uri_for_action('/release_group/merge_queue') %]"
+                method="post">
             [%- rg_type = 0 -%]
             [%- FOR rg=release_groups -%]
                 [% IF rg_type != rg.type %]
@@ -14,6 +28,7 @@
                     <table class="tbl">
                         <thead>
                             <tr>
+                                [% IF c.user_exists %]<th class="pos"></th>[% END %]
                                 <th class="year c">[% l('Year') %]</th>
                                 <th>[% l('Title') %]</th>
                                 [% IF show_va %]
@@ -28,6 +43,12 @@
                 [% END %]
                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
 		    [% rdfa_release_group_ns(rg) %]>
+                    [% IF c.user_exists %]
+                    <td>
+                        <input type="checkbox" name="add-to-merge"
+                            value="[% rg.id %]" />
+                    </td>
+                    [% END %]
                     <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
                     <td>[% rdfa_made_rg_link(rg) %]</td>
                     [% IF show_va %]
@@ -41,6 +62,8 @@
                 </tbody>
             </table>
             [% END %]
+            [% form_submit(l('Merge release groups')) WRAPPER form_row IF c.user_exists %]
+            </form>
         [%- END -%]
     [%- END -%]
 

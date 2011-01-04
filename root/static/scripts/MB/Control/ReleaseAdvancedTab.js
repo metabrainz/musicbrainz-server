@@ -60,6 +60,13 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
     };
 
     /**
+     * Guess Case the track title.
+     */
+    var guessCase = function () {
+        self.title.val (MB.GuessCase.track.guess (self.title.val ()));
+    };
+
+    /**
      * toggleDelete (un)marks the track for deletion. Provide a boolean to delete
      * or undelete a track, or leave it empty to toggle.
      */
@@ -95,6 +102,16 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
         return self.deleted.val () === '1';
     };
 
+    var lengthOrNull = function () {
+        var l = self.length.val ();
+
+        if (l.match (/[0-9]+:[0-5][0-9]/))
+        {
+            return l;
+        }
+
+        return null;
+    };
 
     /**
      * remove removes the associated inputs and table rows.
@@ -103,14 +120,18 @@ MB.Control.ReleaseTrack = function (track, artistcredit) {
         self.row.remove ();
         self.acrow.remove ();
     };
-    
+
     self.render = render;
+    self.guessCase = guessCase;
     self.toggleDelete = toggleDelete;
     self.isDeleted = isDeleted;
+    self.lengthOrNull = lengthOrNull;
     self.remove = remove;
 
-    self.row.find ("a[href=#remove_track]").click (function () { self.toggleDelete() });
+    self.row.find ("a[href=#remove_track]").click (function () { self.toggleDelete(); });
+    self.row.find ("a[href=#guesscase_track]").click (self.guessCase);
     self.artist_credit = MB.Control.ArtistCreditRow (self.row, self.acrow);
+
 
     if (self.isDeleted ())
     {
@@ -144,7 +165,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
      * addTrack renders new tr.track and tr.track-artist-credit rows in the
      * tracklist table.  It copies the release artistcredit.
      */
-    var addTrack = function (event) {
+    var addTrack = function () {
         var trackno = self.tracks.length;
 
         var previous = null;
@@ -173,6 +194,22 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         }
     };
 
+    var addTrackEvent = function (event) {
+        var count = parseInt (self.$add_track_count.val ());
+
+        if (!count || count < 1)
+        {
+            count = 1;
+        }
+
+        while (count)
+        {
+            self.addTrack ();
+            count = count - 1;
+        }
+    };
+
+
     /**
      * getTrack merely returns the track from self.tracks if the track
      * exists.  If the track does not exist yet getTrack will
@@ -185,6 +222,19 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         }
 
         return self.tracks[idx];
+    };
+
+    var getTracksAtPosition = function (pos) {
+
+        var ret = [];
+        $.each (self.tracks, function (idx, item) {
+            if (parseInt (item.position.val ()) === pos)
+            {
+                ret.push (item);
+            }
+        });
+
+        return ret;
     };
 
     /**
@@ -304,8 +354,8 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         var data = self.edits.loadEdits ();
 
         var use_data = function (data) {
-            self.loadTracklist (data); 
-            if (chained) { 
+            self.loadTracklist (data);
+            if (chained) {
                 self.basic.loadTracklist (data);
             }
         };
@@ -316,7 +366,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         }
         else if (!self.tracklist)
         {
-            /* FIXME: ignore result if the disc has been collapsed in 
+            /* FIXME: ignore result if the disc has been collapsed in
                the meantime.  --warp. */
             var tracklist_id = self.basic.tracklist_id.val ();
             if (tracklist_id)
@@ -362,10 +412,15 @@ MB.Control.ReleaseDisc = function (disc, parent) {
             {
                 trk.deleted = 0;
             }
+
             self.getTrack (idx).render (trk);
         });
 
         self.sort ();
+    };
+
+    var guessCase = function () {
+        $.each (self.tracks, function (idx, item) { item.guessCase (); });
     };
 
     self.table = self.fieldset.find ('table.medium');
@@ -400,7 +455,9 @@ MB.Control.ReleaseDisc = function (disc, parent) {
 
     self.fullTitle = fullTitle;
     self.addTrack = addTrack;
+    self.addTrackEvent = addTrackEvent;
     self.getTrack = getTrack;
+    self.getTracksAtPosition = getTracksAtPosition;
     self.removeTracks = removeTracks;
     self.sort = sort;
     self.updateArtistColumn = updateArtistColumn;
@@ -412,7 +469,11 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.collapse = collapse;
     self.expand = expand;
     self.loadTracklist = loadTracklist;
+    self.guessCase = guessCase;
 
+    self.$add_track_count = self.buttons.find ('input.add-track-count');
+
+    self.buttons.find ('a[href=#add_track]').click(self.addTrackEvent);
     self.buttons.find ('a[href=#discdown]').click (self.moveDown);
     self.buttons.find ('a[href=#discup]').click (self.moveUp);
 
@@ -431,11 +492,161 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         return false;
     });
 
-    $("#mediums\\."+self.number+"\\.add_track").click(self.addTrack);
     self.artist_column_checkbox.bind ('change', self.updateArtistColumn);
 
     self.updateArtistColumn ();
     self.sort ();
+
+    return self;
+};
+
+MB.Control.ReleaseUseTracklist = function (parent) {
+    var self = MB.Object ();
+
+    self.parent = parent;
+    self.$fieldset = $('fieldset.use-tracklist');
+    self.$release = self.$fieldset.find ('input.tracklist-release');
+    self.$artist = self.$fieldset.find ('input.tracklist-artist');
+    self.$count = self.$fieldset.find ('input.tracklist-count');
+    self.$template = self.$fieldset.find ('.use-tracklist-template');
+    self.$pager = self.$fieldset.find ('span.pager-tracklist');
+
+    self.$usetracklist = $('a[href=#use_tracklist]');
+    self.$search = $('a[href=#search_tracklist]');
+    self.$next = $('a[href=#next_tracklist]');
+    self.$prev = $('a[href=#prev_tracklist]');
+
+    var expand = function (event) {
+
+        var $div = $(this).closest('div');
+        var $table = $div.find('table');
+        var $icon = $div.find ('span.ui-icon');
+        var $loading = $div.find('.tracklist-loading');
+        var $buttons = $div.find ('div.buttons');
+        var tracklist = $div.find ('input.tracklist-id').val ();
+
+        if ($table.is(':visible') || $loading.is(':visible'))
+        {
+            $icon.removeClass ('ui-icon-triangle-1-s').addClass ('ui-icon-triangle-1-e');
+            $div.removeClass ('tracklist-padding');
+            $loading.hide ();
+            $table.hide ();
+            $buttons.hide ();
+            self.$pager.hide ();
+
+            return;
+        }
+
+        $icon.removeClass ('ui-icon-triangle-1-e').addClass ('ui-icon-triangle-1-s');
+        $div.addClass ('tracklist-padding');
+        $loading.show ();
+
+        $.getJSON ('/ws/js/tracklist/' + tracklist, function (data) {
+            $table.find ('tr.track').eq (0).nextAll ().remove ();
+
+            $.each (data, function (idx, item) {
+                var tr = $table.find ('tr.track').eq(0).clone ()
+                    .appendTo ($table.find ('tbody'));
+
+                tr.find ('td.position').text (idx + 1);
+                tr.find ('td.title').text (item.name);
+                tr.find ('td.artist').text (item.artist_credit.preview);
+                tr.find ('td.length').text (item.length);
+                tr.show ();
+            });
+
+            $loading.hide ();
+            $table.show ();
+            $buttons.show ();
+        });
+
+    };
+
+    var results = function (data) {
+
+        $.each (data, function (idx, item) {
+            if (item.current)
+            {
+                var pager = MB.utility.template (MB.text.Pager);
+                self.total = item.pages;
+
+                self.$pager.text (pager.draw ({ 'page': item.current, 'total': item.pages }));
+                return;
+            }
+
+            var tl = self.$template.clone ()
+                .appendTo (self.$fieldset)
+                .removeClass ('use-tracklist-template')
+                .addClass ('use-tracklist');
+
+            var format = item.format ? item.format : 'Disc';
+            var medium = '(' + format + ' ' + item.position +
+                (item.medium ? ': ' + item.medium : '') + ')';
+
+            tl.find ('span.title').text (item.name);
+            tl.find ('span.medium').text (medium);
+            tl.find ('span.artist').text (item.artist);
+            tl.find ('input.tracklist-id').val (item.tracklist_id);
+            tl.find ('a.icon').bind ('click.mb', self.expand);
+            tl.find ('a[href=#use_this_tracklist]').bind ('click.mb', function (event) {
+                self.useTracklist (item.tracklist_id);
+            });
+
+            tl.show ();
+        });
+
+        self.$fieldset.css ('height', 'auto');
+    };
+
+    var search = function (event, direction) {
+        var newPage = self.page + direction;
+        if (newPage < 1 || newPage > self.total)
+        {
+            return;
+        }
+
+        self.page = newPage;
+        var height = $('fieldset.use-tracklist').innerHeight ();
+        self.$fieldset.css ('height', height);
+        self.$fieldset.find ('div.use-tracklist').remove ();
+
+        var data = {
+            q: self.$release.val (),
+            artist: self.$artist.val (),
+            tracks: self.$count.val (),
+            page: self.page,
+        };
+        $.getJSON ('/ws/js/tracklist', data, self.results);
+    };
+
+    var useTracklist = function (id) {
+
+        var ta = self.parent.basic.addDisc ();
+        ta.tracklist_id.val (id);
+        ta.collapse ();
+        ta.expand ();
+
+        self.$fieldset.hide ();
+    };
+
+    var onChange = function (event) { self.page = 1; };
+
+    self.page = 1;
+    self.total = 1;
+    self.expand = expand;
+    self.results = results;
+    self.useTracklist = useTracklist;
+
+    self.$search.bind ('click.mb', function (event) { search (event, 0); });
+    self.$prev.bind ('click.mb', function (event) { search (event, -1); });
+    self.$next.bind ('click.mb', function (event) { search (event,  1); });
+    self.$usetracklist.bind ('click.mb', function (event) {
+        self.$fieldset.toggle ();
+    });
+
+    self.$release.bind ('change.mb', onChange);
+    self.$artist.bind ('change.mb', onChange);
+    self.$count.bind ('change.mb', onChange);
 
     return self;
 };
@@ -531,6 +742,10 @@ MB.Control.ReleaseAdvancedTab = function () {
         }
     };
 
+    var guessCase = function () {
+        $.each (self.discs, function (idx, disc) { disc.guessCase (); });
+    };
+
     var submit = function (event) {
         $.each (self.discs, function (idx, disc) {
             disc.submit (event);
@@ -541,13 +756,17 @@ MB.Control.ReleaseAdvancedTab = function () {
     self.discs = [];
     self.addDisc = addDisc;
     self.moveDisc = moveDisc;
+    self.guessCase = guessCase;
     self.submit = submit;
+    self.basic = null; // set by MB.Control.ReleaseBasicTab.
+
+    self.use_tracklist = MB.Control.ReleaseUseTracklist (self);
 
     self.tab.find ('fieldset.advanced-disc').each (function (idx, item) {
         self.discs.push (MB.Control.ReleaseDisc ($(item), self));
     });
 
-    $('form.release-editor').bind ('submit', self.submit);
+    $('form.release-editor').bind ('submit.mb', self.submit);
 
     return self;
 };

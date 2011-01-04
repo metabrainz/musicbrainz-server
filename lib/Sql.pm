@@ -170,7 +170,7 @@ sub begin
 {
     my $self = shift;
     carp 'begin called while auto_commit still active' if $self->_auto_commit;
-    croak 'begin called while already in a transaction' if $self->is_in_transaction;
+    carp 'begin called while already in a transaction' if $self->is_in_transaction;
     $self->dbh->{AutoCommit} = 0;
 }
 

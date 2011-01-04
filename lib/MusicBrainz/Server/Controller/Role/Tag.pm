@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::Role::Tag;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use Readonly;
 
+use List::MoreUtils qw( uniq );
+
 requires 'load', '_load_paged';
 
 Readonly my $TOP_TAGS_COUNT => 5;
@@ -11,28 +13,21 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
-    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
-    my $count = $c->model($self->{model})->tags->find_tag_count($entity->id);
+    my $tags_model = $c->model($self->{model})->tags;
+    my @tags = $tags_model->find_top_tags($entity->id, $TOP_TAGS_COUNT);
+    my $count = $tags_model->find_tag_count($entity->id);
+    my @user_tags = $c->user_exists
+        ? $tags_model->find_user_tags($c->user->id, $entity->id)
+        : ();
 
-    $c->stash( top_tags => \@tags );
-    $c->stash( more_tags => $count > @tags );
+    $c->stash(
+        top_tags => \@tags,
+        more_tags => $count > @tags,
+        sidebar_user_tags => [ map { $_->tag->name } @user_tags ]
+    );
 };
 
 sub tags : Chained('load') PathPart('tags')
-{
-    my ($self, $c) = @_;
-
-    my $tags_model = $c->model($self->{model})->tags;
-
-    my $entity = $c->stash->{$self->{entity_name}};
-    my $tags = $self->_load_paged($c, sub {
-        $tags_model->find_tags($entity->id, shift, shift);
-    });
-
-    $c->stash( tags => $tags );
-}
-
-sub tag : Chained('load') PathPart('tag') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -40,7 +35,14 @@ sub tag : Chained('load') PathPart('tag') RequireAuth
     my $tags_model = $c->model($self->{model})->tags;
 
     my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
-    $c->stash->{user_tags} = \@user_tags;
+    my $tags = $self->_load_paged($c, sub {
+        $tags_model->find_tags($entity->id, shift, shift);
+    });
+
+    $c->stash(
+        tags => $tags,
+        user_tags => \@user_tags,
+    );
 
     my @user_tag_names = map { $_->tag->name } @user_tags;
     my $form = $c->form( tag_form => 'Tag', init_object => {
@@ -48,7 +50,6 @@ sub tag : Chained('load') PathPart('tag') RequireAuth
     });
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
         my $tags = $form->field('tags')->value;
         $tags_model->update($c->user->id, $entity->id, $tags);
 
@@ -56,6 +57,28 @@ sub tag : Chained('load') PathPart('tag') RequireAuth
         $c->response->redirect($redirect);
         $c->detach;
     }
+}
+
+sub tag_async : Chained('load') PathPart('ajax/tag')
+{
+    my ($self, $c) = @_;
+ 
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $tags_model = $c->model($self->{model})->tags;
+    $tags_model->update($c->user->id, $entity->id, $c->req->params->{tags});
+
+    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
+    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
+    my $count = $tags_model->find_tag_count($entity->id);
+
+    my $response = {
+        tags => [
+            uniq sort map { $_->tag->name } @user_tags, @tags 
+        ],
+        more => $count > @tags
+    };
+
+    $c->res->body(JSON::Any->new(utf8 => 1)->encode($response));
 }
 
 no Moose::Role;

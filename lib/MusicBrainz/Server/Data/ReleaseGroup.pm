@@ -5,14 +5,13 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
-    defined_hash
-    check_in_use
     generate_gid
+    hash_to_row
     load_subobjects
     partial_date_from_row
     placeholders
-    query_to_list_limited
     query_to_list
+    query_to_list_limited
 );
 
 use MusicBrainz::Server::Constants '$VARTIST_ID';
@@ -33,7 +32,7 @@ sub _columns
 {
     return 'rg.id, rg.gid, type AS type_id, name.name,
             rg.artist_credit AS artist_credit_id,
-            rg.comment, rg.edits_pending';
+            rg.comment, rg.edits_pending, rg.last_updated';
 }
 
 sub _id_column
@@ -323,6 +322,28 @@ sub find_by_release_gids
         $query, @release_gids);
 }
 
+sub find_by_recording
+{
+    my ($self, $recording) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN release ON release.release_group = rg.id
+                    JOIN medium ON medium.release = release.id
+                    JOIN track ON track.tracklist = medium.tracklist
+                    JOIN recording ON recording.id = track.recording
+                 WHERE recording.id = ?
+                 ORDER BY
+                    rg.type,
+                    musicbrainz_collate(name.name)";
+
+    return query_to_list(
+        $self->c->dbh, sub {
+            my $row = $_[0];
+            return $self->_new_from_row($row);
+        },
+        $query, $recording);
+}
+
 sub insert
 {
     my ($self, @groups) = @_;
@@ -416,18 +437,15 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
-    my %row = (
-        artist_credit => $group->{artist_credit},
-        comment => $group->{comment},
-        type => $group->{type_id},
-    );
+    my $row = hash_to_row($group, {
+        type => 'type_id',
+        map { $_ => $_ } qw( artist_credit comment )
+    });
 
-    if ($group->{name})
-    {
-        $row{name} = $names->{$group->{name}};
-    }
+    $row->{name} = $names->{$group->{name}}
+        if (exists $group->{name});
 
-    return { defined_hash(%row) };
+    return $row;
 }
 
 sub load_meta
@@ -438,7 +456,6 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->release_count($row->{release_count});
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

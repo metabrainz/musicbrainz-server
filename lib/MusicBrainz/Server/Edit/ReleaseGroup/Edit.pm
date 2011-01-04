@@ -61,6 +61,10 @@ sub foreign_keys
         }
     }
 
+    $relations->{ReleaseGroup} = {
+        $self->data->{entity_id} => [ 'ArtistCredit' ]
+    };
+
     return $relations;
 }
 
@@ -82,6 +86,10 @@ sub build_display_data
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
     }
+
+    $data->{release_group} = $loaded->{ReleaseGroup}{
+        $self->data->{entity_id}
+    };
 
     return $data;
 }

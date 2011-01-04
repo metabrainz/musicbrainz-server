@@ -204,7 +204,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = html_escape(text) || html_escape(artist.name);
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="foaf:name rdfs:label" xml:lang="">' _ text _ '</a>';
+    '<a title="' _ artist.sort_name _ '" rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="foaf:name rdfs:label" xml:lang="">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';      
   ELSE;
     link_artist(artist, action, text);
@@ -402,7 +402,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = html_escape(text) || html_escape(artist.name);
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
+    '<a title="' _ artist.sort_name _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
   ELSE;
     link_artist(artist, action, text);

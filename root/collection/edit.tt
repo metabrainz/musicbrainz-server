@@ -1,0 +1,3 @@
+[% WRAPPER "collection/layout.tt" title=l('Edit Collection') full_width=1 page='edit' %]
+    [% INCLUDE 'collection/edit_form.tt' %]
+[% END %]

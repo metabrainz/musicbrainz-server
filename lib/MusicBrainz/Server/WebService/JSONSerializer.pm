@@ -1,44 +1,65 @@
 package MusicBrainz::Server::WebService::JSONSerializer;
 
 use Moose;
-use JSON;
+use JSON::Any;
+use MusicBrainz::Server::Track qw( format_track_length );
 
 sub mime_type { 'application/json' }
 
 sub serialize
 {
-    my ($self, $type, $data) = @_;
+    my ($self, $type, @data) = @_;
 
-    return $self->$type($data);
-}
-
-sub autocomplete_name
-{
-    my ($self, $list, $limit) = @_;
-
-    my @response = map {
-        {
-            name => $_->name,
-            id => $_->id,
-            gid => $_->gid,
-            comment => $_->comment,
-        }
-    } @{$list};
-    return encode_json (\@response);
+    return $self->$type(@data);
 }
 
 sub generic
 {
     my ($self, $response) = @_;
 
-    return encode_json ($response);
+    my $json = JSON::Any->new;
+
+    return $json->encode ($response);
 }
 
 sub output_error
 {
     my ($self, $err) = @_;
 
-    return encode_json ({ error => $err });
+    my $json = JSON::Any->new;
+
+    return $json->encode ({ error => $err });
+}
+
+sub autocomplete_recording
+{
+    my ($self, $results, $pager) = @_;
+
+    my $json = JSON::Any->new;
+
+    my @output;
+
+    for my $item (@$results) {
+        push @output, {
+            name => $item->{recording}->name,
+            id => $item->{recording}->id,
+            gid => $item->{recording}->gid,
+            comment => $item->{recording}->comment,
+            length => format_track_length ($item->{recording}->length),
+            artist => $item->{recording}->artist_credit->name,
+            isrcs => [ map { $_->isrc } @{ $item->{recording}->isrcs } ],
+            releasegroups => [ map {
+                { 'name' => $_->name, 'gid' => $_->gid }
+            } @{ $item->{appears} } ],
+        };
+    };
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return $json->encode (\@output);
 }
 
 __PACKAGE__->meta->make_immutable;

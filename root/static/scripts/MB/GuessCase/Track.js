@@ -21,7 +21,7 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase.Track = function () {
+MB.GuessCase._Track = function () {
     var self = MB.Object ();
 
     var guess = function (data) {
@@ -39,15 +39,11 @@ MB.GuessCase.Track = function () {
         return ret;
     };
 
-    var initMode = function () {
-        window.gc = self.gc;
-    };
-
     self.gc = MB.GuessCase.Main ();
 
     self.guess = guess;
 
-    initMode ();
-
     return self;
 };
+
+MB.GuessCase.track = MB.GuessCase._Track ();

@@ -123,5 +123,7 @@ MB.GuessCase.Flags = function () {
 	self.numberSplitExpect = false;
     };
 
+    self.init ();
+
     return self;
 }

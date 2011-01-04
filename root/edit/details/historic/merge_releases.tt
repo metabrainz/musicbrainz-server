@@ -1,0 +1,37 @@
+<table>
+  <tr>
+    <th>[%- ln('Old release:', 'Old releases:', edit.display_data.releases.size) %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases.old %]
+        <li>[% l('{release} by {artist}',
+                 { release => link_release(release),
+                   artist  => artist_credit(release.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('New Release:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases.new %]
+        <li>[% l('{release} by {artist}',
+                 { release => link_release(release),
+                   artist  => artist_credit(release.artist_credit) }) %]</li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Merge attributes:') %]</th>
+    <td>[% edit.display_data.merge_attributes ? l('Yes') : l('No') %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Merge language &amp; script:') %]</th>
+    <td>[% edit.display_data.merge_language ? l('Yes') : l('No') %]</td>
+  </tr>
+</table>

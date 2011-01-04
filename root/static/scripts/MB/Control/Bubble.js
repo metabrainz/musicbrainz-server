@@ -100,11 +100,21 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
         self.move ();
         self.tail ();
         self.visible = true;
+
+        if (typeof self.callbacks['show'] === "function")
+        {
+            self.callbacks['show'] (self);
+        }
     };
 
     var hide = function () {
         self.container.hide ();
         self.visible = false;
+
+        if (typeof self.callbacks['hide'] === "function")
+        {
+            self.callbacks['hide'] (self);
+        }
     };
 
     var toggle = function () {
@@ -118,13 +128,19 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
         }
     };
 
+    var bind = function (key, fun) {
+        self.callbacks[key] = fun;
+    };
+
     self.visible = false;
+    self.callbacks = {};
 
     self.move = function () {};
     self.tail = tail;
     self.show = show;
     self.hide = hide;
     self.toggle = toggle;
+    self.bind = bind;
 
     self.balloon0 = $('<div>');
     self.balloon1 = $('<div>');
@@ -160,7 +176,8 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
             my: "left top",
             at: "right top",
             of: self.target,
-            offset: "37 -23"
+            offset: "37 -23",
+            collision: "none"
         });
 
         /* FIXME: figure out why opera doesn't position this correctly on the
@@ -171,7 +188,8 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
                 my: "left top",
                 at: "right top",
                 of: self.target,
-                offset: "37 -23"
+                offset: "37 -23",
+                collision: "none"
             });
         }
 
@@ -188,12 +206,12 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
         var pageBottom = self.page.offset ().top + self.page.outerHeight ();
         var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
 
-         if (pageBottom < bubbleBottom)
-         {
-             var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
+        if (pageBottom < bubbleBottom)
+        {
+            var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
 
-             self.page.css ('min-height', newHeight);
-         }
+            self.page.css ('min-height', newHeight);
+        }
     };
 
     var tail = function () {
@@ -302,6 +320,8 @@ MB.Control.BubbleDoc = function (parent, target, content) {
                 self.show ();
             });
         }
+
+        return self;
     };
 
     self.show = show;
@@ -338,6 +358,8 @@ MB.Control.BubbleRow = function (parent, target, content, offset) {
 MB.Control.BubbleCollection = function (targets, contents) {
     var self = MB.Object ();
 
+    self.bubbles = [];
+
     var hideOthers = function (bubble) {
         if (self.active)
         {
@@ -352,7 +374,9 @@ MB.Control.BubbleCollection = function (targets, contents) {
     };
 
     var add = function (target, contents) {
-        MB.Control.BubbleDoc (self, target, contents).initialize ();
+        self.bubbles.push (
+            MB.Control.BubbleDoc (self, target, contents).initialize ()
+        );
     };
 
     var initialize = function ()
@@ -365,16 +389,25 @@ MB.Control.BubbleCollection = function (targets, contents) {
             contents.each (function (idx, data) { tmp[idx].doc = data; });
 
             $.each (tmp, function (idx, data) {
-                MB.Control.BubbleDoc (self, data.button, data.doc).initialize ();
+                self.bubbles.push (
+                    MB.Control.BubbleDoc (self, data.button, data.doc).initialize ()
+                );
             });
         }
     }
+
+    var bind = function (key, fun) {
+        $.each (self.bubbles, function (idx, bubble) {
+            bubble.bind (key, fun);
+        });
+    };
 
     self.hideOthers = hideOthers;
     self.hideAll = hideAll;
     self.add = add;
     self.initialize = initialize;
     self.active = false;
+    self.bind = bind;
 
     self.initialize ();
 

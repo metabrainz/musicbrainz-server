@@ -5,6 +5,7 @@ BEGIN { extends 'Catalyst::Controller' }
 # Import MusicBrainz libraries
 use DBDefs;
 use ModDefs;
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Replication ':replication_type';
 
 #
@@ -132,7 +133,14 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
+    # if no javascript cookie is set we don't know if javascript is enabled or not.
+    my $jscookie = $c->request->cookie('javascript');
+    my $js = $jscookie ? $jscookie->value : "unknown";
+    $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
+
     $c->stash(
+        javascript => $js,
+        no_javascript => $js eq "false",
         wiki_server => &DBDefs::WIKITRANS_SERVER,
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
@@ -246,6 +254,23 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
+
+    # Merging
+    if (my $merger = $c->session->{merger}) {
+        my $model = $c->model($merger->type);
+        my @merge = values %{
+            $model->get_by_ids($merger->all_entities)
+        };
+        $c->model('ArtistCredit')->load(@merge);
+
+        $c->stash(
+            to_merge => [ @merge ],
+            merger => $merger,
+            merge_link => $c->uri_for_action(
+                model_to_type($merger->type) . '/merge',
+            )
+        );
+    }
 }
 
 sub chrome_frame : Local

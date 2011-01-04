@@ -1,0 +1,44 @@
+[%- BLOCK layout_head -%]
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+[%- END -%]
+
+[%- WRAPPER 'release/edit/layout.tt' -%]
+  [%- USE r = FormRenderer(form) -%]
+  <div class="changes">
+    [%- r.hidden ('wizard_session_id') -%]
+
+    [%- USE w = Wizard() -%]
+    [%- information = w.page('information') -%]
+
+    <div id="form">
+        <fieldset>
+          <legend>[% l( 'Artists' ) %]</legend>
+          [% FOR artist_row=form.field('missing.artists').fields %]
+              [% form_row_text_long(r, artist_row.field('name'), l('Name:')) %]
+              [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
+              [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
+              [% r.hidden(artist_row.field('for')) %]
+          [% END %]
+        </fieldset>
+
+        <fieldset>
+          <legend>[% l('Labels') %]</legend>
+          [% FOR label_row=form.field('missing.labels').fields %]
+              [% form_row_text_long(r, label_row.field('name'), l('Name:')) %]
+              [% form_row_text_long(r, label_row.field('sort_name'), l('Sort Name:')) %]
+              [% form_row_text_long(r, label_row.field('comment'), l('Comment:')) %]
+              [% r.hidden(label_row.field('for')) %]
+          [% END %]
+        </fieldset>
+
+        <div style="clear: both;">
+          <div class="buttons ui-helper-clearfix">
+            [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+            [% r.submit ('previous', l('« Previous')) %]
+            [% r.submit ('next', l('Next »')) %]
+          </div>
+        </div>
+    </div>
+  </div>
+[%- END -%]
+

@@ -38,17 +38,17 @@ sub rating_submit : Private
         $type =~ s/-/_/;
 
         my $model = type_to_model ($type);
-        _error ($c, "Unrecognized entity $type.") unless $model;
+        $self->_error ($c, "Unrecognized entity $type.") unless $model;
 
         my $gid = $node->getAttribute ('id');
-        _error ($c, "Cannot parse MBID: $gid.")
+        $self->_error ($c, "Cannot parse MBID: $gid.")
             unless MusicBrainz::Server::Validation::IsGUID($gid);
 
         my $entity = $c->model($model)->get_by_gid($gid);
-        _error ($c, "Cannot find $type $gid.") unless $entity;
+        $self->_error ($c, "Cannot find $type $gid.") unless $entity;
 
         my $rating = $node->find ('user-rating')->string_value;
-        _error ($c, "Rating should be an integer between 0 and 100")
+        $self->_error ($c, "Rating should be an integer between 0 and 100")
             unless looks_like_number ($rating) && $rating >= 0 && $rating <= 100;
 
         # postpone any updates until we've made some effort to parse the whole

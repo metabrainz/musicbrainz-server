@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
-use Javascript::Closure qw( minify );
 use IO::All;
 
 with 'MusicBrainz::Server::Data::Role::Context';
@@ -24,19 +23,33 @@ sub modified {
     return $mtime;
 }
 
-sub squash_scripts {
-    my ($self, @files) = @_;
-    my $hash = md5_hex(join ",", sort @files);
-    my $path = DBDefs::STATIC_PREFIX . "/$hash.js";
-    my $file = DBDefs::STATIC_FILES_DIR . "/$hash.js";
+
+sub squash {
+    my ($self, $minifier, $prefix, $suffix, @files) = @_;
+    @files = map { DBDefs::STATIC_FILES_DIR . '/' . $_ } @files;
+    my $hash = md5_hex(join ",", map {
+        (stat($_))[9] . $_ 
+    } sort @files);
+
+    my $path = DBDefs::STATIC_PREFIX . "/$prefix$hash.$suffix";
+    my $file = DBDefs::STATIC_FILES_DIR . "/$prefix$hash.$suffix";
     unless (-e$file) {
-        minify(
-            input => join("\n", map {
-                io(DBDefs::STATIC_FILES_DIR . '/' . $_)->all
-            } @files) ) > io($file);
+        &$minifier(input => join("\n", map { io($_)->all } @files)) > io($file);
     }
 
     return $path;
+}
+
+sub squash_scripts {
+    my $self = shift;
+
+    return $self->squash(DBDefs::MINIFY_SCRIPTS, "", "js", @_);
+}
+
+sub squash_styles {
+    my $self = shift;
+
+    return $self->squash(DBDefs::MINIFY_STYLES, "styles/", "css", @_);
 }
 
 __PACKAGE__->meta->make_immutable;

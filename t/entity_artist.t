@@ -16,6 +16,7 @@ ok( defined $artist->end_date );
 ok( $artist->end_date->is_empty );
 
 is( $artist->type_name, undef );
+is( $artist->last_updated , undef );
 $artist->type(MusicBrainz::Server::Entity::ArtistType->new(id => 1, name => 'Person'));
 is( $artist->type_name, 'Person' );
 is( $artist->type->id, 1 );

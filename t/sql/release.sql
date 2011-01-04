@@ -41,7 +41,7 @@ INSERT INTO release_name (id, name) VALUES (2, 'Release #2');
 INSERT INTO release_status (id, name) VALUES (1, 'Official');
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
-INSERT INTO script (id, iso_code, isonumber, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
+INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
 INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name)
     VALUES (1, 'deu', 'ger', 'de', 'German');
 
@@ -102,8 +102,30 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (5, '538aff00-a009-4515-a064-11a6d5a502ee', 5, 2, 3);
 
-ALTER SEQUENCE release_name_id_seq RESTART 6;
+-- test merge strategies
+INSERT INTO release_name (id, name)
+    VALUES (6, 'The Prologue (disc 1)'), (7, 'The Prologue (disc 2)'),
+           (8, 'Subversion EP (disc 1)'), (9, 'Subversion EP (disc 2)');
+INSERT INTO release (id, gid, name, release_group, artist_credit)
+    VALUES (6, '7a906020-72db-11de-8a39-0800200c9a70', 6, 1, 1),
+           (7, '7a906020-72db-11de-8a39-0800200c9a71', 7, 1, 1),
+           (8, '7a906020-72db-11de-8a39-0800200c9a72', 8, 1, 1),
+           (9, '7a906020-72db-11de-8a39-0800200c9a73', 9, 1, 1);
+INSERT INTO tracklist (id, trackcount) VALUES (2, 1), (3, 1), (4, 1), (5, 1);
+INSERT INTO recording (id, gid, name, artist_credit)
+    VALUES (2, '50a772b0-f0cc-11df-98cf-0800200c9a66', 1, 1),
+           (3, '5d9cb570-f0cc-11df-98cf-0800200c9a66', 1, 1),
+           (4, '64cac850-f0cc-11df-98cf-0800200c9a66', 1, 1),
+           (5, '691ee030-f0cc-11df-98cf-0800200c9a66', 1, 1);
+INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
+    VALUES (2, 1, 1, 2, 1, 2), (3, 1, 1, 3, 1, 3),
+           (4, 1, 1, 4, 1, 4), (5, 1, 1, 5, 1, 5);
+INSERT INTO medium (id, release, tracklist, position)
+    VALUES (2, 6, 2, 1), (3, 7, 3, 1),
+           (4, 8, 4, 1), (5, 9, 5, 1);
+
+ALTER SEQUENCE release_name_id_seq RESTART 10;
 ALTER SEQUENCE release_group_id_seq RESTART 5;
-ALTER SEQUENCE release_id_seq RESTART 6;
+ALTER SEQUENCE release_id_seq RESTART 10;
 
 COMMIT;

@@ -97,8 +97,11 @@ The following people have contributed to the MusicBrainz server:
   - Patches for other bugs
   - Employed by MusicBrainz, so loads more stuff
 
-  Pavan 'navap'
-  - Small CSS patches
+  Kuno 'warp' Woudt
+  - Employed by MusicBrainz, so loads of stuff
+
+  Pavan 'navap' Chander
+  - Help with various HTML/CSS fixes
 
   Brian 'BrianFreud' Schweitzer
   - Small template and CSS patches
@@ -110,9 +113,6 @@ The following people have contributed to the MusicBrainz server:
   Mustaqil "Muzz" Ali
   - Submitted patch for #3329
 
-  Pavan Chander
-  - Help with various HTML/CSS fixes
-
   Daniel Michel
   - Created release groups icons
 
@@ -122,3 +122,20 @@ The following people have contributed to the MusicBrainz server:
   - Programming support on a variety of features/bugs
 
 (please send change requests to rob@musicbrainz.org or maintainer)
+
+
+Third-party code and data
+=========================
+
+Various icons and other images are included in the MusicBrainz source tree,
+their attribution and copyright details can be found in the following file:
+
+      root/static/images/attribution.txt
+
+
+Several javascript libraries are included in the MusicBrainz source tree,
+their attribution and copyright details can be found in the following file:
+
+      root/static/lib/libraries.txt
+
+

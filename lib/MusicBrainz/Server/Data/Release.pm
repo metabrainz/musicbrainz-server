@@ -1,16 +1,19 @@
 package MusicBrainz::Server::Data::Release;
 
 use Moose;
+
+use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
+    add_partial_date_to_row
     generate_gid
+    hash_to_row
     load_subobjects
+    order_by
     partial_date_from_row
     placeholders
-    query_to_list_limited
     query_to_list
-    order_by
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -19,6 +22,11 @@ with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' }
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
+
+use Readonly;
+Readonly our $MERGE_APPEND => 1;
+Readonly our $MERGE_MERGE => 2;
 
 sub _table
 {
@@ -30,7 +38,7 @@ sub _columns
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
             release_group, release.status, release.packaging, date_year, date_month, date_day,
             release.country, release.comment, release.edits_pending, release.barcode,
-            release.script, release.language, release.quality';
+            release.script, release.language, release.quality, release.last_updated';
 }
 
 sub _id_column
@@ -60,7 +68,12 @@ sub _column_mapping
         barcode => 'barcode',
         script_id => 'script',
         language_id => 'language',
-        quality => 'quality'
+        quality => sub {
+            my ($row, $prefix) = @_;
+            my $quality = $row->{"${prefix}quality"};
+            return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
+        },
+        last_updated => 'last_updated'
     };
 }
 
@@ -380,9 +393,9 @@ sub find_by_medium
                          $query, @{ids}, $offset || 0);
 }
 
-sub find_by_list
+sub find_by_collection
 {
-    my ($self, $list_id, $limit, $offset, $order) = @_;
+    my ($self, $collection_id, $limit, $offset, $order) = @_;
 
     my $extra_join = "";
     my $order_by = order_by($order, "date", {
@@ -396,16 +409,16 @@ sub find_by_list
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN list_release l
-                        ON release.id = l.release
+                    JOIN editor_collection_release cr
+                        ON release.id = cr.release
                     $extra_join
-                 WHERE l.list = ?
+                 WHERE cr.collection = ?
                  ORDER BY $order_by
                  OFFSET ?";
 
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $list_id, $offset || 0);
+        $query, $collection_id, $offset || 0);
 }
 
 sub insert
@@ -436,15 +449,20 @@ sub update
     $sql->update_row('release', $row, { id => $release_id });
 }
 
+sub can_delete { 1 }
+
 sub delete
 {
     my ($self, @release_ids) = @_;
 
-    $self->c->model('List')->delete_releases(@release_ids);
+    $self->c->model('Collection')->delete_releases(@release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
+    $self->tags->delete(@release_ids);
     my $sql = Sql->new($self->c->dbh);
+    $sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
+        @release_ids);
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
         @release_ids);
     return;
@@ -452,29 +470,67 @@ sub delete
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, %opts) = @_;
+
+    my $new_id = $opts{new_id};
+    my @old_ids = @{ $opts{old_ids} };
+    my $merge_strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
     $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('List')->merge_releases($new_id, @old_ids);
+    $self->c->model('Collection')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
 
     # XXX merge release attributes
 
     # XXX allow actual tracklists/mediums merging
     my $sql = Sql->new($self->c->dbh);
-    my $pos = $sql->select_single_value('
-        SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
-    foreach my $old_id (@old_ids) {
-        my $medium_ids = $sql->select_single_column_array('
-            SELECT id FROM medium WHERE release=?
-            ORDER BY position', $old_id);
-        foreach my $medium_id (@$medium_ids) {
+    if ($merge_strategy == $MERGE_APPEND) {
+        my $pos = $sql->select_single_value('
+            SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
+        my @medium_ids = @{
+            $sql->select_single_column_array(
+                'SELECT medium.id FROM medium
+                   JOIN release ON medium.release = release.id
+                   JOIN release_name ON release_name.id = release.name
+                  WHERE release.id IN (' . placeholders(@old_ids) . ')
+               ORDER BY musicbrainz_collate(release_name.name), medium.position',
+                @old_ids
+            );
+        };
+        foreach my $medium_id (@medium_ids) {
             $sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
                      $new_id, ++$pos, $medium_id);
         }
     }
+    elsif ($merge_strategy == $MERGE_MERGE) {
+        my @tracklist_merges = @{ 
+            $sql->select_list_of_lists(
+                'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
+                   FROM medium newmed, medium oldmed
+                  WHERE newmed.release = ?
+                    AND oldmed.release IN (' . placeholders(@old_ids) . ')
+                    AND newmed.position = oldmed.position',
+                $new_id, @old_ids
+            )
+        };
+        for my $tracklist_merge (@tracklist_merges) {
+            $self->c->model('Tracklist')->merge(@$tracklist_merge);
+        }
+
+        $sql->do(
+            'DELETE FROM medium WHERE release IN (' . placeholders(@old_ids) . ')',
+            @old_ids
+        );
+    }
+
+    $sql->do(
+        'DELETE FROM release_coverart
+          WHERE id IN (' . placeholders(@old_ids) . ')',
+        @old_ids
+    );
 
     $self->_delete_and_redirect_gids('release', $new_id, @old_ids);
     return 1;
@@ -483,28 +539,23 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $release, $names) = @_;
-    my %row = (
-        artist_credit => $release->{artist_credit},
-        release_group => $release->{release_group_id},
-        status => $release->{status_id},
-        packaging => $release->{packaging_id},
-        date_year => $release->{date}->{year},
-        date_month => $release->{date}->{month},
-        date_day => $release->{date}->{day},
-        barcode => $release->{barcode},
-        comment => $release->{comment},
-        country => $release->{country_id},
-        script => $release->{script_id},
-        language => $release->{language_id},
-        quality => $release->{quality}
-    );
+    my $row = hash_to_row($release, { 
+        artist_credit => 'artist_credit',
+        release_group => 'release_group_id',
+        status => 'status_id',
+        packaging => 'packaging_id',
+        country => 'country_id',
+        script => 'script_id',
+        language => 'language_id',
+        map { $_ => $_ } qw( barcode comment quality )
+    });
 
-    if ($release->{name})
-    {
-        $row{name} = $names->{$release->{name}};
-    }
+    add_partial_date_to_row($row, $release->{date}, 'date');
 
-    return { defined_hash(%row) };
+    $row->{name} = $names->{$release->{name}}
+        if (exists $release->{name});
+
+    return $row;
 }
 
 sub load_meta
@@ -516,7 +567,6 @@ sub load_meta
 
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
         my ($obj, $row) = @_;
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
         $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};

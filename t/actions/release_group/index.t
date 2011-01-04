@@ -46,5 +46,7 @@ $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'fetch rele
 $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/merge',
                         'has link to merge release groups');
 
+$mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/edits',
+    'has a link to view editing history for the release group');
 
 done_testing;

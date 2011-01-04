@@ -5,14 +5,15 @@ use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
+    add_partial_date_to_row
+    check_in_use
     generate_gid
+    hash_to_row
+    load_subobjects
     partial_date_from_row
     placeholders
-    load_subobjects
-    query_to_list_limited
     query_to_list
-    check_in_use
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -25,7 +26,8 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_label',
-    column => 'label'
+    column => 'label',
+    class => 'MusicBrainz::Server::Entity::LabelSubscription'
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
@@ -42,7 +44,7 @@ sub _columns
     return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
            'type, country, edits_pending, label_code, label.ipi_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, comment';
+           'end_date_year, end_date_month, end_date_day, comment, label.last_updated';
 }
 
 sub _id_column
@@ -70,6 +72,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         ipi_code => 'ipi_code',
+        last_updated => 'last_updated',
     };
 }
 
@@ -145,6 +148,7 @@ sub insert
         my $row = $self->_hash_to_row($label, \%names);
         $row->{gid} = $label->{gid} || generate_gid();
         push @created, $class->new(
+            name => $label->{name},
             id => $sql->insert_row('label', $row, 'id'),
             gid => $row->{gid}
         );
@@ -197,7 +201,6 @@ sub delete
     $self->alias->delete_entities(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
-    $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
     my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
@@ -224,29 +227,22 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $label, $names) = @_;
-    my %row = (
-        begin_date_year => $label->{begin_date}->{year},
-        begin_date_month => $label->{begin_date}->{month},
-        begin_date_day => $label->{begin_date}->{day},
-        end_date_year => $label->{end_date}->{year},
-        end_date_month => $label->{end_date}->{month},
-        end_date_day => $label->{end_date}->{day},
-        comment => $label->{comment},
-        country => $label->{country_id},
-        type => $label->{type_id},
-        label_code => $label->{label_code},
-        ipi_code => $label->{ipi_code},
-    );
+    my $row = hash_to_row($label, {
+        country => 'country_id',
+        type => 'type_id',
+        map { $_ => $_ } qw( ipi_code label_code comment )
+    });
 
-    if ($label->{name}) {
-        $row{name} = $names->{$label->{name}};
-    }
+    add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');
+    add_partial_date_to_row($row, $label->{end_date}, 'end_date');
 
-    if ($label->{sort_name}) {
-        $row{sort_name} = $names->{$label->{sort_name}};
-    }
+    $row->{name} = $names->{$label->{name}}
+        if (exists $label->{name});
 
-    return { defined_hash(%row) };
+    $row->{sort_name} = $names->{$label->{sort_name}}
+        if (exists $label->{sort_name});
+
+    return $row;
 }
 
 sub load_meta
@@ -256,7 +252,6 @@ sub load_meta
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

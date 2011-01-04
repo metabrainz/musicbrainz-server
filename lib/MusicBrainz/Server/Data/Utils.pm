@@ -35,6 +35,7 @@ our @EXPORT_OK = qw(
     order_by
     check_in_use
     map_query
+    ref_to_type
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -60,6 +61,18 @@ sub copy_escape {
     return $str;
 }
 
+sub ref_to_type
+{
+    my $ref = shift;
+    my %map = reverse %TYPE_TO_MODEL;
+    for (keys %map) {
+        return $map{$_}
+            if ($ref->isa("MusicBrainz::Server::Entity::$_"))
+    }
+    warn "Could not resolve the type of $ref";
+    return;
+}
+
 sub artist_credit_to_ref
 {
     my ($artist_credit) = @_;
@@ -83,7 +96,7 @@ sub load_subobjects
     return unless @objs;
 
     my $attr_id = $attr_obj . "_id";
-    @objs = grep { defined } @objs;
+    @objs = grep { $_->meta->find_attribute_by_name($attr_id) } grep { defined } @objs;
     my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @objs;
     my @ids = grep { $_ } keys %ids;
     my $data;

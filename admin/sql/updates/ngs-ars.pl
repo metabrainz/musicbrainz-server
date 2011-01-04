@@ -11,6 +11,8 @@ use Sql;
 use LWP::Simple qw();
 use OSSP::uuid;
 
+open LOG, ">:utf8", "release-ars.log";
+
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $UUID_NS_URL = OSSP::uuid->new;
@@ -247,6 +249,123 @@ sub load_release_info
     return map { $_->{id} => $_ } @$data;
 }
 
+
+sub longest_common_prefix {
+   	my $prefix = shift;
+   	for (@_) {
+		chop $prefix while (! /^\Q$prefix\E/);
+	}
+	return $prefix;
+}
+
+sub match_release_events
+{
+    my ($rinfo, $entities0, $entities1, $strict) = @_;
+
+	$strict = 1 unless defined $strict;
+
+    my %used;
+    my @new_links;
+
+    foreach my $entity0 (@$entities0) {
+        foreach my $entity1 (@$entities1) {
+            next if $entity0 == $entity1;
+            printf LOG "   ** Comparing %s and %s (%d)\n", $entity0, $entity1, $strict;
+            next unless exists $rinfo->{$entity0};
+            next unless exists $rinfo->{$entity1};
+            my $m_sum = 0;
+            my $m_cnt = 0;
+
+            $m_cnt += 1
+                if (defined $rinfo->{$entity0}->{releasedate} ||
+                    defined $rinfo->{$entity1}->{releasedate});
+            $m_sum += 1
+                if (defined $rinfo->{$entity0}->{releasedate} &&
+                    defined $rinfo->{$entity1}->{releasedate} &&
+                    $rinfo->{$entity0}->{releasedate} eq $rinfo->{$entity1}->{releasedate});
+
+            $m_cnt += 1
+                if (defined $rinfo->{$entity0}->{country} ||
+                    defined $rinfo->{$entity1}->{country});
+            $m_sum += 1
+                if (defined $rinfo->{$entity0}->{country} &&
+                    defined $rinfo->{$entity1}->{country} &&
+                    $rinfo->{$entity0}->{country} == $rinfo->{$entity1}->{country});
+
+            my $barcode0 = $rinfo->{$entity0}->{barcode};
+            my $barcode1 = $rinfo->{$entity1}->{barcode};
+			my $barcodes_match = (defined $barcode0 && defined $barcode1 && $barcode0 eq $barcode1);
+            $m_cnt += 1 if (defined $barcode0 || defined $barcode1);
+            $m_sum += 1 if $barcodes_match;
+
+            my $catno0 = $rinfo->{$entity0}->{catno};
+            my $catno1 = $rinfo->{$entity1}->{catno};
+            $m_cnt += 1 if (defined $catno0 || defined $catno1);
+			if (defined $catno0 && defined $catno1) {
+				$catno0 = lc($catno0);
+				$catno1 = lc($catno1);
+				if (!$strict) { 
+					# barcodes match exactly, we can be less strict about the catalog numbers
+					$catno0 = mangle_catno($catno0);
+					$catno1 = mangle_catno($catno1);
+					my $prefix = longest_common_prefix($catno0, $catno1);
+					$m_sum += 1 if (length($prefix) >= length($catno0) - 2 && length($prefix) >= length($catno1) - 2);
+				}
+				else {
+					# require exact catalog number match
+					$m_sum += 1	if $catno0 eq $catno1;
+				}
+			}
+
+            $m_cnt += 1
+                if (defined $rinfo->{$entity0}->{label} ||
+                    defined $rinfo->{$entity1}->{label});
+            $m_sum += 1
+                if (defined $rinfo->{$entity0}->{label} &&
+                    defined $rinfo->{$entity1}->{label} &&
+                    $rinfo->{$entity0}->{label} == $rinfo->{$entity1}->{label});
+
+            my $score = $m_cnt > 0 ? 1.0 * $m_sum / $m_cnt : 0;
+            printf LOG "      - %s vs %s, ", $rinfo->{$entity0}->{releasedate} || "-", $rinfo->{$entity1}->{releasedate} || "-";
+            printf LOG "%s vs %s, ", $rinfo->{$entity0}->{country} || "-", $rinfo->{$entity1}->{country} || "-";
+            printf LOG "%s vs %s, ", $rinfo->{$entity0}->{barcode} || "-", $rinfo->{$entity1}->{barcode} || "-";
+            printf LOG "%s vs %s, ", $rinfo->{$entity0}->{catno} || "-", $rinfo->{$entity1}->{catno} || "-";
+            printf LOG "%s vs %s\n", $rinfo->{$entity0}->{label} || "-", $rinfo->{$entity1}->{label} || "-";
+            printf LOG "      Score: %f\n", $score;
+            if ($score >= 1.0) {
+                $used{$entity0} += 1;
+                $used{$entity1} += 1;
+                push @new_links, [$entity0, $entity1];
+            }
+        }
+    }
+
+	if ($strict) {
+		my @unused_entities0 = grep { !$used{$_} } @$entities0;
+		my @unused_entities1 = grep { !$used{$_} } @$entities1;
+		if (@unused_entities0 && @unused_entities1) {
+			my @non_strict_links = match_release_events($rinfo, \@unused_entities0, \@unused_entities1, 0);
+			foreach my $pair (@non_strict_links) {
+				$used{$pair->[0]} = 1;
+				$used{$pair->[1]} = 1;
+				push @new_links, $pair;
+			}
+		}
+	}
+
+    if ($strict && %used) {
+        foreach my $used (values %used) {
+            if ($used > 1) {
+                # Ambiguous match, forget everything
+                @new_links = ();
+                last;
+            }
+        }
+    }
+
+    return @new_links;
+}
+
 $sql->begin;
 eval {
 
@@ -304,6 +423,7 @@ my %album_ar_types = (
         5  => 'release_group',  # mash-up
         2  => 'release',        # first album release
         15 => 'release',        # transliteration
+        18 => 'release_group',  # single from
     },
     'artist' => {
         1 => 'release', # performance
@@ -669,11 +789,12 @@ foreach my $orig_t0 (@entity_types) {
         my %discogs;
         my %amazon;
 
+        my $query;
         if ($orig_t0 eq "album" && $orig_t1 eq "url") {
             # Load also the URLs
-            $rows = $sql->select_list_of_hashes("
+            $query = "
                 SELECT l.*, url.url FROM public.l_${orig_t0}_${orig_t1} l
-                LEFT JOIN public.url ON l.link1=url.id");
+                LEFT JOIN public.url ON l.link1=url.id";
             # Load Discogs URL data
             LWP::Simple::mirror("http://users.musicbrainz.org/~luks/ngs/discogs.dat", "discogs.dat");
             open(DISCOGS, "<discogs.dat");
@@ -685,7 +806,7 @@ foreach my $orig_t0 (@entity_types) {
             }
             close(DISCOGS);
             # Load Amazon URL data
-            LWP::Simple::mirror("http://users.musicbrainz.org/~luks/ngs/amazon.dat", "amazon.dat");
+            LWP::Simple::mirror("http://users.musicbrainz.org/murdos/ngs/amazon.dat", "amazon.dat");
             open(AMAZON, "<amazon.dat");
             while (<AMAZON>) {
                 my $line = $_;
@@ -696,8 +817,10 @@ foreach my $orig_t0 (@entity_types) {
             close(AMAZON);
         }
         else {
-            $rows = $sql->select_list_of_hashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
+            $query = "SELECT * FROM public.l_${orig_t0}_${orig_t1}";
         }
+
+        $rows = $sql->select_list_of_hashes($query);
         my $i = 0;
         my $cnt = scalar(@$rows);
         foreach my $row (@$rows) {
@@ -863,84 +986,7 @@ foreach my $orig_t0 (@entity_types) {
                     FROM public.release r
                     WHERE r.id IN ('.placeholders(@ids).')', @ids);
                 my %rinfo = map { $_->{id} => $_ } @$rinfo;
-                my %used;
-                foreach $entity0 (@entity0) {
-                    foreach $entity1 (@entity1) {
-                        next if $entity0 == $entity1;
-                        #printf STDERR "   ** Comparing %s and %s\n", $entity0, $entity1;
-                        next unless exists $rinfo{$entity0};
-                        next unless exists $rinfo{$entity1};
-                        my $m_sum = 0;
-                        my $m_cnt = 0;
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{releasedate} ||
-                                defined $rinfo{$entity1}->{releasedate});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{releasedate} &&
-                                defined $rinfo{$entity1}->{releasedate} &&
-                                $rinfo{$entity0}->{releasedate} eq $rinfo{$entity1}->{releasedate});
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{country} ||
-                                defined $rinfo{$entity1}->{country});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{country} &&
-                                defined $rinfo{$entity1}->{country} &&
-                                $rinfo{$entity0}->{country} == $rinfo{$entity1}->{country});
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{barcode} ||
-                                defined $rinfo{$entity1}->{barcode});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{barcode} &&
-                                defined $rinfo{$entity1}->{barcode} &&
-                                $rinfo{$entity0}->{barcode} eq $rinfo{$entity1}->{barcode});
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{catno} ||
-                                defined $rinfo{$entity1}->{catno});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{catno} &&
-                                defined $rinfo{$entity1}->{catno} &&
-                                 # lower-cased cat#
-                                (lc($rinfo{$entity0}->{catno}) eq lc($rinfo{$entity1}->{catno}) ||
-                                 # lower-cased cat# without the last character (multi-disc cat#s)
-                                 substr(lc($rinfo{$entity0}->{catno}), 0, -1) eq substr(lc($rinfo{$entity1}->{catno}), 0, -1)));
-
-                        $m_cnt += 1
-                            if (defined $rinfo{$entity0}->{label} ||
-                                defined $rinfo{$entity1}->{label});
-                        $m_sum += 1
-                            if (defined $rinfo{$entity0}->{label} &&
-                                defined $rinfo{$entity1}->{label} &&
-                                $rinfo{$entity0}->{label} == $rinfo{$entity1}->{label});
-
-                        my $score = $m_cnt > 0 ? 1.0 * $m_sum / $m_cnt : 0;
-                        #printf STDERR "      - %s vs %s, ", $rinfo{$entity0}->{releasedate} || "-", $rinfo{$entity1}->{releasedate} || "-";
-                        #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{country} || "-", $rinfo{$entity1}->{country} || "-";
-                        #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{barcode} || "-", $rinfo{$entity1}->{barcode} || "-";
-                        #printf STDERR "%s vs %s, ", $rinfo{$entity0}->{catno} || "-", $rinfo{$entity1}->{catno} || "-";
-                        #printf STDERR "%s vs %s\n", $rinfo{$entity0}->{label} || "-", $rinfo{$entity1}->{label} || "-";
-                        #printf STDERR "      Score: %f\n", $score;
-                        if ($score >= 1.0) {
-                            $used{$entity0} += 1;
-                            $used{$entity1} += 1;
-                            push @new_links, [$entity0, $entity1];
-                        }
-                    }
-                }
-                # If we have some matches, ...
-                if (%used) {
-                    foreach my $used (values %used) {
-                        if ($used > 1) {
-                            # Ambiguous match, forget everything
-                            @new_links = ();
-                            last;
-                        }
-                    }
-
-                }
+                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1);
                 if (@new_links) {
                     #foreach my $r (@new_links) {
                         #printf STDERR "      %d -> %d\n", $r->[0], $r->[1];
@@ -962,6 +1008,12 @@ foreach my $orig_t0 (@entity_types) {
                     }
                 }
             }
+
+            if ($new_t0 eq "release" && $new_t1 eq "release") {
+				foreach my $pair (@new_links) {
+					printf LOG "%d - %s\n", $pair->[0], $pair->[1];
+				}
+			}
 
             my $link_type_key = join("_", $new_t0, $new_t1, $row->{link_type});
             my $link_type_id = $link_type_map{$link_type_key};

@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_name { l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }

@@ -27,7 +27,8 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_artist',
-    column => 'artist'
+    column => 'artist',
+    class => 'MusicBrainz::Server::Entity::ArtistSubscription'
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
@@ -44,7 +45,7 @@ sub _columns
     return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
            'artist.type, artist.country, gender, artist.edits_pending, artist.ipi_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, artist.comment';
+           'end_date_year, end_date_month, end_date_day, artist.comment, artist.last_updated';
 }
 
 sub _id_column
@@ -72,6 +73,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         ipi_code => 'ipi_code',
+        last_updated => 'last_updated',
     };
 }
 
@@ -181,6 +183,7 @@ sub insert
         $row->{gid} = $artist->{gid} || generate_gid();
 
         push @created, $class->new(
+            name => $artist->{name},
             id => $sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
@@ -220,7 +223,6 @@ sub delete
     $self->alias->delete_entities(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
-    $self->subscription->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->dbh);
@@ -230,18 +232,18 @@ sub delete
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, $new_id, $old_ids, %opts) = @_;
 
-    $self->alias->merge($new_id, @old_ids);
-    $self->tags->merge($new_id, @old_ids);
-    $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
-    $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('ArtistCredit')->merge_artists($new_id, @old_ids);
-    $self->c->model('Edit')->merge_entities('artist', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('artist', $new_id, @old_ids);
+    $self->alias->merge($new_id, @$old_ids);
+    $self->tags->merge($new_id, @$old_ids);
+    $self->rating->merge($new_id, @$old_ids);
+    $self->subscription->merge($new_id, @$old_ids);
+    $self->annotation->merge($new_id, @$old_ids);
+    $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
+    $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
+    $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
-    $self->_delete_and_redirect_gids('artist', $new_id, @old_ids);
+    $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
 }
 
@@ -283,7 +285,6 @@ sub load_meta
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }
 

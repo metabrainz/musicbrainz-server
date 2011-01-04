@@ -34,8 +34,22 @@
 
     <fieldset>
         <legend>[% l('Artist Details') %]</legend>
-        [% form_row_text_long(r, 'name', l('Name:')) %]
-        [% form_row_text_long(r, 'sort_name', l('Sort name:')) %]
+
+        [% WRAPPER form_row %]
+          [% r.label('name', l('Name:')) %]
+          [% r.text('name', { size => 47 })  %]
+          <input type="button" class="guesscase" value="[% l('Guess case') %]" />
+          [% field_errors(form, 'name') %]
+        [% END %]
+
+        [% WRAPPER form_row %]
+          [% r.label('sort_name', l('Sort name:')) %]
+          [% r.text('sort_name', { size => 47 })  %]
+          <input type="button" class="sortname" value="[% l('Guess') %]" />
+          <input type="button" class="copy" value="[% l('Copy') %]" />
+          [% field_errors(form, 'sort_name') %]
+        [% END %]
+
         [% form_row_text_long(r, 'comment', l('Comment:')) %]
         [% form_row_select(r, 'type_id', l('Type:')) %]
         [% form_row_select(r, 'gender_id', l('Gender:')) %]

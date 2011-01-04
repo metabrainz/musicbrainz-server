@@ -78,6 +78,8 @@ Readonly our $EDIT_RELEASE_DELETERELEASELABEL => 36;
 Readonly our $EDIT_RELEASE_EDITRELEASELABEL => 37;
 Readonly our $EDIT_RELEASE_CHANGE_QUALITY => 38;
 Readonly our $EDIT_RELEASE_EDIT_BARCODES => 39;
+Readonly our $EDIT_RELEASE_DELETE => 310;
+Readonly our $EDIT_RELEASE_MERGE => 311;
 
 Readonly our $EDIT_WORK_CREATE => 41;
 Readonly our $EDIT_WORK_EDIT => 42;
@@ -94,6 +96,7 @@ Readonly our $EDIT_MEDIUM_REMOVE_DISCID => 54;
 Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
 Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 Readonly our $EDIT_MEDIUM_EDIT_TRACKLIST => 57;
+Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_MERGE => 74;

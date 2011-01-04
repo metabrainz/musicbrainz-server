@@ -1,6 +1,9 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+-- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
+CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
+
 -- This function calculates an integer based on the first 6
 -- characters of the input. First, it strips accents, converts to upper case
 -- and removes everything except ASCII characters A-Z and space. That means
@@ -157,12 +160,21 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_artist() RETURNS trigger AS $$
+-----------------------------------------------------------------------
+-- editor triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_editor() RETURNS trigger AS $$
 BEGIN
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE artist_meta SET last_updated=NOW() WHERE id=NEW.id;
-    END IF;
+    -- add a new entry to the editor_watch_preference table
+    INSERT INTO editor_watch_preferences (editor) VALUES (NEW.id);
+
+    -- by default watch for new official albums
+    INSERT INTO editor_watch_release_group_type (editor, release_group_type)
+        VALUES (NEW.id, 2);
+    INSERT INTO editor_watch_release_status (editor, release_status)
+        VALUES (NEW.id, 1);
+
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -174,16 +186,6 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_ins_label() RETURNS trigger AS $$
 BEGIN
     INSERT INTO label_meta (id) VALUES (NEW.id);
-    RETURN NULL;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION a_upd_label() RETURNS trigger AS $$
-BEGIN
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE label_meta SET last_updated=NOW() WHERE id=NEW.id;
-    END IF;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -205,10 +207,6 @@ BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE recording_meta SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;
@@ -252,10 +250,6 @@ BEGIN
         PERFORM set_release_group_first_release_date(OLD.release_group);
     END IF;
     PERFORM set_release_group_first_release_date(NEW.release_group);
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE release_meta SET last_updated=NOW() WHERE id=NEW.id;
-    END IF;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -288,10 +282,6 @@ BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE release_group_meta SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;
@@ -358,10 +348,6 @@ BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    IF NEW.edits_pending = OLD.edits_pending THEN
-        -- edits_pending is unchanged and we are in UPDATE query, that means some data have changed
-        UPDATE work_meta SET last_updated=NOW() WHERE id=NEW.id;
     END IF;
     RETURN NULL;
 END;

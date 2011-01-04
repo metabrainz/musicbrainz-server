@@ -8,8 +8,9 @@
   <div id="overview">
     <h2 class="top-header">Overview</h2>
     <div id="overview-main">
-        <p>Utility script for absolutely positioning any widget relative to the window, document, a particular element, or the cursor/mouse.</p>
-<p>Do not need ui.core.js or effects.core.js.</p>
+        <p>Utility script for positioning any widget relative to the window, document, a particular element, or the cursor/mouse.</p>
+<p><em>Note: jQuery UI does not support positioning hidden elements.</em></p>
+<p>Does not need ui.core.js or effects.core.js.</p>
     </div>
     <div id="overview-dependencies">
         <h3>Dependencies</h3>
@@ -152,12 +153,12 @@ $(document).mousemove(function(ev){
     <h3 class="option-name"><a href="#option-of">of</a></h3>
     <dl>
       <dt class="option-type-label">Type:</dt>
-        <dd class="option-type">Selector</dd>
+        <dd class="option-type">Selector, Element, jQuery, Event</dd>
       
     </dl>
   </div>
   <div class="option-description">
-    <p>Element to position against. You can use a browser event object contains pageX and pageY values. Example: "#top-menu"</p>
+    <p>Element to position against. If you provide a selector, the first matching element will be used. If you provide a jQuery object, the first element will be used. If you provide an event object, the pageX and pageY properties will be used. Example: "#top-menu"</p>
   </div>
 </li>
 
@@ -217,10 +218,10 @@ $(document).mousemove(function(ev){
 </div>
 
 </p><!-- 
-Pre-expand include size: 7094 bytes
-Post-expand include size: 10335 bytes
-Template argument size: 7101 bytes
+Pre-expand include size: 7124 bytes
+Post-expand include size: 11012 bytes
+Template argument size: 7642 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3784-1!1!0!!en!2 and timestamp 20100909204144 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3784-1!1!0!!en!2 and timestamp 20101025190222 -->

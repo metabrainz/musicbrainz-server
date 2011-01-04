@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
+use Encode;
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Translation qw ( l ln );
 
@@ -184,7 +185,7 @@ sub _set_login_cookie
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
-        value => $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM)
+        value => encode('utf-8', $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM))
     };
 }
 
@@ -257,7 +258,7 @@ sub contact : Chained('base') RequireAuth HiddenOnSlaves
     }
 }
 
-sub lists : Chained('load') PathPart('lists')
+sub collections : Chained('load') PathPart('collections')
 {
     my ($self, $c) = @_;
 
@@ -265,13 +266,13 @@ sub lists : Chained('load') PathPart('lists')
 
     my $show_private = $c->stash->{viewing_own_profile};
 
-    my $lists = $self->_load_paged($c, sub {
-        $c->model('List')->find_by_editor($user->id, $show_private, shift, shift);
+    my $collections = $self->_load_paged($c, sub {
+        $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
     });
 
     $c->stash(
         user => $user,
-        lists => $lists,
+        collections => $collections,
     );
 }
 

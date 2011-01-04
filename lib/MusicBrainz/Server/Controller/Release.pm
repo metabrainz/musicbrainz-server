@@ -13,13 +13,15 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::Tag';
 
-use MusicBrainz::Server::Controller::Role::Tag;
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
     $EDIT_RELEASE_MOVE
+    $EDIT_RELEASE_MERGE
 );
 
 # A duration lookup has to match within this many milliseconds
@@ -59,13 +61,6 @@ after 'load' => sub
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
-
-    # Load release group tags
-    my $entity = $c->stash->{$self->{entity_name}};
-    my @tags = $c->model('ReleaseGroup')->tags->find_top_tags(
-        $release->release_group->id,
-        $MusicBrainz::Server::Controller::Role::Tag::TOP_TAGS_COUNT);
-    $c->stash->{top_tags} = \@tags;
 
     # We need to load more artist credits in 'show'
     if ($c->action->name ne 'show') {
@@ -136,20 +131,20 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
-    my @lists;
+    my @collections;
     my %containment;
     if ($c->user_exists) {
-        # Make a list of lists and whether this release is contained in them
-        @lists = $c->model('List')->find_all_by_editor($c->user->id);
+        # Make a list of collections and whether this release is contained in them
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
 
-        foreach my $list (@lists) {
-            $containment{$list->id} = 1
-                if ($c->model('List')->check_release($list->id, $release->id));
+        foreach my $collection (@collections) {
+            $containment{$collection->id} = 1
+                if ($c->model('Collection')->check_release($collection->id, $release->id));
         }
     }
 
     $c->stash(
-        lists       => \@lists,
+        collections       => \@collections,
         containment => \%containment,
         template     => 'release/index.tt',
         show_artists => $release->has_multiple_artists,
@@ -314,6 +309,17 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
         $c->stash( template => 'release/move_search.tt' );
     }
 }
+
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type      => $EDIT_RELEASE_DELETE,
+};
+
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_RELEASE_MERGE,
+    confirmation_template => 'release/merge_confirm.tt',
+    search_template => 'release/merge_search.tt',
+    merge_form => 'Merge::Release',
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

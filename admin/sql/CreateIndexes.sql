@@ -125,10 +125,9 @@ CREATE UNIQUE INDEX language_idx_iso_code_3b ON language (iso_code_3b);
 CREATE UNIQUE INDEX language_idx_iso_code_3t ON language (iso_code_3t);
 CREATE UNIQUE INDEX language_idx_iso_code_2 ON language (iso_code_2);
 
-CREATE UNIQUE INDEX list_idx_gid ON list (gid);
-CREATE INDEX list_idx_name ON list (name);
-
-CREATE INDEX list_idx_editor ON list (editor);
+CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
+CREATE INDEX editor_collection_idx_name ON editor_collection (name);
+CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
 CREATE UNIQUE INDEX medium_idx_release ON medium (release, position);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
