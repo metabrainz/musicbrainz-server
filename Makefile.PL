@@ -77,7 +77,7 @@ requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
 requires 'XML::Simple'                                => '2.14';
-requires 'XML::XPath";
+requires 'XML::XPath';
 
 feature 'ETag Caching' =>
     -default                        => 1,
