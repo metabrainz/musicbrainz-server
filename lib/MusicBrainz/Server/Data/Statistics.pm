@@ -75,7 +75,7 @@ sub take_snapshot {
 }
 
 my %stats = (
-	"count.album" => {
+	"count.release" => {
 		DESC => "Count of all releases",
 		SQL => "SELECT COUNT(*) FROM release",
 	},
@@ -95,12 +95,12 @@ my %stats = (
 		DESC => "Count of all disc IDs",
 		SQL => "SELECT COUNT(*) FROM medium_cdtoc",
 	},
-	"count.moderation" => {
+	"count.edit" => {
 		DESC => "Count of all edits",
 		SQL => "SELECT COUNT(*) FROM edit",
         DB => 'RAWDATA'
 	},
-	"count.moderator" => {
+	"count.editor" => {
 		DESC => "Count of all editors",
 		SQL => "SELECT COUNT(*) FROM editor",
 	},
@@ -120,6 +120,10 @@ my %stats = (
 		DESC => "Count of all tracks",
 		SQL => "SELECT COUNT(*) FROM track",
 	},
+    "count.recording" => {
+		DESC => "Count of all recordings",
+		SQL => "SELECT COUNT(*) FROM recording",
+	},
 	"count.isrc.all" => {
 		DESC => "Count of all ISRCs joined to tracks",
 		SQL => "SELECT COUNT(*) FROM isrc",
@@ -133,40 +137,40 @@ my %stats = (
 		SQL => "SELECT COUNT(*) FROM vote",
         DB => 'RAWDATA'
 	},
-	"count.album.various" => {
+	"count.release.various" => {
 		DESC => "Count of all 'Various Artists' releases",
 		SQL => 'SELECT COUNT(*) FROM release
                   JOIN artist_credit ac ON ac.id = artist_credit
                   JOIN artist_credit_name acn ON acn.artist_credit = ac.id
                  WHERE artist_count = 1 AND artist = ' . $VARTIST_ID,
 	},
-	"count.album.nonvarious" => {
-		DESC => "Count of all 'Various Artists' releases",
-		PREREQ => [qw[ count.album count.album.various ]],
+	"count.release.nonvarious" => {
+		DESC => "Count of all releases, other than 'Various Artists'",
+		PREREQ => [qw[ count.release count.release.various ]],
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			$self->fetch("count.album")
-				- $self->fetch("count.album.various")
+			$self->fetch("count.release")
+				- $self->fetch("count.release.various")
 		},
 	},
-	"count.album.has_discid" => {
+	"count.release.has_discid" => {
 		DESC => "Count of releases with at least one disc ID",
 		SQL => "SELECT COUNT(DISTINCT release)
                   FROM medium_cdtoc
                   JOIN medium ON medium.id = medium",
 	},
 
-	"count.track.has_isrc" => {
+	"count.recording.has_isrc" => {
 		DESC => "Count of recordings with at least one ISRC",
 		SQL => "SELECT COUNT(DISTINCT recording) FROM isrc",
 	},
-	"count.track.has_puid" => {
+	"count.recording.has_puid" => {
 		DESC => "Count of tracks with at least one PUID",
 		SQL => "SELECT COUNT(DISTINCT recording) FROM recording_puid",
 	},
 
-	"count.moderation.open" => {
+	"count.edit.open" => {
 		DESC => "Count of open edits",
         DB => 'RAWDATA',
 		CALC => sub {
@@ -179,66 +183,66 @@ my %stats = (
 			my %dist = map { @$_ } @$data;
 
 			+{
-				"count.moderation.open"			=> $dist{$STATUS_OPEN}			|| 0,
-				"count.moderation.applied"		=> $dist{$STATUS_APPLIED}		|| 0,
-				"count.moderation.failedvote"	=> $dist{$STATUS_FAILEDVOTE}	|| 0,
-				"count.moderation.faileddep"	=> $dist{$STATUS_FAILEDDEP}	    || 0,
-				"count.moderation.error"		=> $dist{$STATUS_ERROR}		    || 0,
-				"count.moderation.failedprereq"	=> $dist{$STATUS_FAILEDPREREQ}	|| 0,
-				"count.moderation.evalnochange"	=> 0,
-				"count.moderation.tobedeleted"	=> $dist{$STATUS_TOBEDELETED}	|| 0,
-				"count.moderation.deleted"		=> $dist{$STATUS_DELETED}       || 0,
+				"count.edit.open"			=> $dist{$STATUS_OPEN}			|| 0,
+				"count.edit.applied"		=> $dist{$STATUS_APPLIED}		|| 0,
+				"count.edit.failedvote"	=> $dist{$STATUS_FAILEDVOTE}	|| 0,
+				"count.edit.faileddep"	=> $dist{$STATUS_FAILEDDEP}	    || 0,
+				"count.edit.error"		=> $dist{$STATUS_ERROR}		    || 0,
+				"count.edit.failedprereq"	=> $dist{$STATUS_FAILEDPREREQ}	|| 0,
+				"count.edit.evalnochange"	=> 0,
+				"count.edit.tobedeleted"	=> $dist{$STATUS_TOBEDELETED}	|| 0,
+				"count.edit.deleted"		=> $dist{$STATUS_DELETED}       || 0,
 			};
 		},
 	},
-	"count.moderation.applied" => {
+	"count.edit.applied" => {
 		DESC => "Count of applied edits",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.failedvote" => {
+	"count.edit.failedvote" => {
 		DESC => "Count of edits which were voted down",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.faileddep" => {
+	"count.edit.faileddep" => {
 		DESC => "Count of edits which failed their dependency check",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.error" => {
+	"count.edit.error" => {
 		DESC => "Count of edits which failed because of an internal error",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.failedprereq" => {
+	"count.edit.failedprereq" => {
 		DESC => "Count of edits which failed because a prerequisitite moderation failed",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.evalnochange" => {
+	"count.edit.evalnochange" => {
 		DESC => "Count of evalnochange edits",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.tobedeleted" => {
+	"count.edit.tobedeleted" => {
 		DESC => "Count of edits marked as 'to be deleted'",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.deleted" => {
+	"count.edit.deleted" => {
 		DESC => "Count of deleted edits",
-		PREREQ => [qw[ count.moderation.open ]],
+		PREREQ => [qw[ count.edit.open ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderation.perday" => {
+	"count.edit.perday" => {
 		DESC => "Count of edits per day",
 		SQL => "SELECT count(id) FROM edit
 				WHERE open_time >= (now() - interval '1 day')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
         DB => 'RAWDATA'
 	},
-	"count.moderation.perweek" => {
+	"count.edit.perweek" => {
 		DESC => "Count of edits per week",
 		SQL => "SELECT count(id) FROM edit
 				WHERE open_time >= (now() - interval '7 days')
@@ -309,7 +313,7 @@ my %stats = (
 	# count active moderators in last week(?)
 	# editing / voting / overall
 
-	"count.moderator.editlastweek" => {
+	"count.editor.editlastweek" => {
 		DESC => "Count of editors who have submitted edits during the last week",
         DB => 'RAWDATA',
 		CALC => sub {
@@ -357,20 +361,20 @@ my %stats = (
 			);
 			
 			+{
-				"count.moderator.editlastweek"	=> $editors,
-				"count.moderator.votelastweek"	=> $voters,
-				"count.moderator.activelastweek"=> $both,
+				"count.editor.editlastweek"	=> $editors,
+				"count.editor.votelastweek"	=> $voters,
+				"count.editor.activelastweek"=> $both,
 			};
 		},
 	},
-	"count.moderator.votelastweek" => {
+	"count.editor.votelastweek" => {
 		DESC => "Count of editors who have voted on edits during the last week",
-		PREREQ => [qw[ count.moderator.editlastweek ]],
+		PREREQ => [qw[ count.editor.editlastweek ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.moderator.activelastweek" => {
+	"count.editor.activelastweek" => {
 		DESC => "Count of active editors (editing or voting) during the last week",
-		PREREQ => [qw[ count.moderator.editlastweek ]],
+		PREREQ => [qw[ count.editor.editlastweek ]],
 		PREREQ_ONLY => 1,
 	},
 
@@ -438,8 +442,8 @@ my %stats = (
 		PREREQ => [qw[ count.rating.artist ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.rating.release" => {
-		DESC => "Count of release ratings",
+	"count.rating.releasegroup" => {
+		DESC => "Count of release group ratings",
 		CALC => sub {
 			my ($self, $sql) = @_;
 
@@ -448,18 +452,18 @@ my %stats = (
 			);
 
 			+{
-				"count.rating.release"		=> $data->[0]	|| 0,
-				"count.rating.raw.release"	=> $data->[1]	|| 0,
+				"count.rating.releasegroup"		=> $data->[0]	|| 0,
+				"count.rating.raw.releasegroup"	=> $data->[1]	|| 0,
 			};
 		},
 	},
-	"count.rating.raw.release" => {
-		DESC => "Count of all release raw ratings",
-		PREREQ => [qw[ count.rating.release ]],
+	"count.rating.raw.releasegroup" => {
+		DESC => "Count of all release group raw ratings",
+		PREREQ => [qw[ count.rating.releasegroup ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.rating.track" => {
-		DESC => "Count of track ratings",
+	"count.rating.recording" => {
+		DESC => "Count of recording ratings",
 		CALC => sub {
 			my ($self, $sql) = @_;
 
@@ -468,13 +472,13 @@ my %stats = (
 			);
 
 			+{
-				"count.rating.track"		=> $data->[0]	|| 0,
-				"count.rating.raw.track"	=> $data->[1]	|| 0,
+				"count.rating.recording"		=> $data->[0]	|| 0,
+				"count.rating.raw.recording"	=> $data->[1]	|| 0,
 			};
 		},
 	},
-	"count.rating.raw.track" => {
-		DESC => "Count of all track raw ratings",
+	"count.rating.raw.recording" => {
+		DESC => "Count of all recording raw ratings",
 		PREREQ => [qw[ count.rating.track ]],
 		PREREQ_ONLY => 1,
 	},
@@ -500,7 +504,7 @@ my %stats = (
 	},
 	"count.rating" => {
 		DESC => "Count of all ratings",
-		PREREQ => [qw[ count.rating.artist count.rating.label count.rating.release count.rating.track ]],
+		PREREQ => [qw[ count.rating.artist count.rating.label count.rating.releasegroup count.rating.recording ]],
 		CALC => sub {
 			my ($self, $sql) = @_;
 			return $self->fetch('count.rating.artist') + 
@@ -511,7 +515,7 @@ my %stats = (
 	},
 	"count.rating.raw" => {
 		DESC => "Count of all raw ratings",
-		PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.release count.rating.raw.track ]],
+		PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.releasegroup count.rating.raw.recording ]],
 		CALC => sub {
 			my ($self, $sql) = @_;
 			return $self->fetch('count.rating.raw.artist') + 
@@ -521,9 +525,9 @@ my %stats = (
 		},
 	},
 
-    "count.album.Ndiscids" => {
+    "count.release.Ndiscids" => {
 		DESC => "Distribution of disc IDs per release (varying disc IDs)",
-		PREREQ => [qw[ count.album count.album.has_discid ]],
+		PREREQ => [qw[ count.release count.release.has_discid ]],
 		CALC => sub {
 			my ($self, $sql) = @_;
 
@@ -550,12 +554,12 @@ my %stats = (
 				$dist{$max_dist_tail} += $_->[1];
 			}
 
-			$dist{0} = $self->fetch("count.album")
-				- $self->fetch("count.album.has_discid");
+			$dist{0} = $self->fetch("count.release")
+				- $self->fetch("count.release.has_discid");
 
 			+{
 				map {
-					"count.album.".$_."discids" => $dist{$_}
+					"count.release.".$_."discids" => $dist{$_}
 				} keys %dist
 			};
 		},
@@ -599,8 +603,8 @@ my %stats = (
 		PREREQ_ONLY => 1,
 	},
 
-    "count.puid.Ntracks" => {
-		DESC => "Distribution of tracks per PUID (collisions)",
+    "count.puid.Nrecordings" => {
+		DESC => "Distribution of recordings per PUID (collisions)",
 		CALC => sub {
 			my ($self, $sql) = @_;
 
@@ -635,9 +639,9 @@ my %stats = (
 		},
 	},
 
-    "count.track.Npuids" => {
-		DESC => "Distribution of PUIDs per track (varying PUIDs)",
-		PREREQ => [qw[ count.track count.track.has_puid ]],
+    "count.recording.Npuids" => {
+		DESC => "Distribution of PUIDs per recording (varying PUIDs)",
+		PREREQ => [qw[ count.recording count.recording.has_puid ]],
 		CALC => sub {
 			my ($self, $sql) = @_;
 
@@ -664,8 +668,8 @@ my %stats = (
 				$dist{$max_dist_tail} += $_->[1];
 			}
 
-			$dist{0} = $self->fetch("count.track")
-				- $self->fetch("count.track.has_puid");
+			$dist{0} = $self->fetch("count.recording")
+				- $self->fetch("count.recording.has_puid");
 			
 			+{
 				map {
