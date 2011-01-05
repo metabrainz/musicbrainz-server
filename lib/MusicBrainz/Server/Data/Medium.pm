@@ -126,6 +126,7 @@ sub update
     my ($self, $medium_id, $medium_hash) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $row = $self->_create_row($medium_hash);
+    return unless %$row;
     $sql->update_row('medium', $row, { id => $medium_id });
 }
 
