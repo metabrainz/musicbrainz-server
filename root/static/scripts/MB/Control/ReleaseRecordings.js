@@ -53,6 +53,8 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
             var a = '<a href="/release-group/' + item.gid + '">' + item.name + '</a>';
             $target.append ($(a));
         });
+
+        return rgs.length;
     };
 
     self.selected = function (event, data) {
@@ -191,16 +193,18 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
         /* search bubble. */
         self.parent.bc.add ($track.find ('.change-recording'), $bubble.find ('div.select-recording'));
 
+        $bubble.find ('tr.servermatch.recordingmatch').show ();
         $bubble.find ('tr.servermatch a.name').text (data.recording.name)
             .attr ('href', '/recording/' + data.recording.gid);
 
-        $bubble.find ('tr.servermatch input.gid').val (data.recording.gid)
-        $bubble.find ('tr.servermatch td.artist').text (data.recording.artist_credit.preview)
-        $bubble.find ('tr.servermatch td.length').text (data.length)
+        $bubble.find ('tr.servermatch input.gid').val (data.recording.gid);
+        $bubble.find ('tr.servermatch td.artist').text (data.recording.artist_credit.preview);
+        $bubble.find ('tr.servermatch td.length').text (data.length);
 
         if (data.recording.comment)
         {
-            $bubble.find ('tr.servermatch span.comment').text (data.recording.comment).show ();
+            $bubble.find ('tr.servermatch span.comment').text (data.recording.comment);
+            $bubble.find ('tr.servermatch.comment').show ();
         }
 
         $bubble.find ('input.recording').val (data.recording.name);
@@ -230,10 +234,15 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             var rr_track = MB.Control.ReleaseRecordingsTrack (disc, idx, $track.eq(0));
             self.tracks.push (rr_track);
 
-            rr_track.select.renderReleaseGroups (
+            var appears = rr_track.select.renderReleaseGroups (
                 $bubble.find ('tr.servermatch span.appears'), trk.recording.releasegroups);
 
-            $bubble.find ('input.servermatch').trigger ('change');
+            if (appears)
+            {
+                $bubble.find ('tr.servermatch.releaselist').show ();
+            }
+
+            $bubble.find ('input.servermatch').attr ('checked', true).trigger ('change');
         });
 
         $track_templates.remove ();

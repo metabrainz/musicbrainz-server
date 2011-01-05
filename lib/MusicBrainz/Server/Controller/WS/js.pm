@@ -459,7 +459,7 @@ sub associations : Chained('root') PathPart Args(1) {
             artist_credit => { preview => $_->artist_credit->name },
             releasegroups => [ map {
                 { 'name' => $_->name, 'gid' => $_->gid }
-            } $c->model ('ReleaseGroup')->find_by_recording ($_->id) ]
+            } $c->model ('ReleaseGroup')->find_by_recording ($_->recording->id) ]
         };
 
         push @structure, $data;

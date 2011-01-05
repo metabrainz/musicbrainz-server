@@ -1,6 +1,5 @@
 [%- BLOCK layout_head -%]
   <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
   <script src="[% c.uri_for('/static/scripts/MB/Control/Bubble.js') %]" type="text/javascript"></script>
@@ -15,6 +14,108 @@
 
     });
   </script>
+[%- END -%]
+
+[%- MACRO select_recording(name, track, servermatch, recording) BLOCK -%]
+  <div class="select-recording-container [% UNLESS name %]template[% END %]"
+    style="display: none" [% IF name %]id="[% name %]"[% END %]>
+
+    <div class="select-recording bubble">
+      <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
+      <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
+
+      <p>
+        Search:
+        <input type="text" class="recording" value="[% IF track %][% track.name %][% END %]" />
+      </p>
+
+      <table class="matches">
+        <tbody>
+          <tr class="clientmatch recordingmatch" style="display: none">
+            <td class="select">
+              <input type="radio" class="clientmatch recordingmatch" 
+                  [% IF name %]name="[% name %]"[% END %] />
+            </td>
+            <td class="recording">
+              <input type="hidden" class="gid" value="" />
+              <a class="name" href="/recording"> </a>
+            </td>
+            <td class="artist"></td>
+            <td class="length"></td>
+          </tr>
+
+          <tr class="clientmatch releaselist" style="display: none">
+            <td> </td>
+            <td colspan="3">[%- l('appears on:') %] <span class="appears"></span></td>
+          </tr>
+          <tr class="clientmatch comment" style="display: none">
+            <td> </td>
+            <td colspan="3">[%- l('comment:') %] <span class="comment"></span></td>
+          </tr>
+
+          <tr class="servermatch recordingmatch"
+            [%- UNLESS servermatch -%]style="display: none"[% END %]>
+            <td class="select">
+              <input type="radio" class="servermatch recordingmatch" 
+                  [%- IF servermatch %] checked="checked"[%- END -%]
+                  [%- IF name %] name="[% name %]"[%- END -%] />
+            </td>
+            [%- IF recording -%][%# FIXME: is this neccesary? %]
+              <td class="recording">
+                <input type="hidden" class="gid" value="[% recording.gid %]" />
+                [% link_entity (recording) %]
+              </td>
+              <td class="artist">[% recording.artist_credit.name %]</td>
+              <td class="length">[% recording.length | format_length %]</td>
+            [%- ELSE -%]
+              <td class="recording">
+                <input type="hidden" class="gid" value="" />
+                <a href="" class="name" />
+              </td>
+              <td class="artist"></td>
+              <td class="length"></td>
+            [%- END -%]
+          </tr>
+
+          [%- IF servermatch -%]
+            <tr class="servermatch releaselist">
+              <td> </td>
+              <td colspan="3">
+                [%- l('appears on:') %]
+                [% recording_id = '' _ recording.id %]
+                <span class="appears">
+                  [% FOR rg=appears_on.$recording_id %]
+                    [% link_entity(rg) -%][%- UNLESS loop.last %], [% END %]
+                  [% END %]
+                </span>
+              </td>
+            </tr>
+          [%- ELSE -%]
+            <tr class="servermatch releaselist" style="display: none">
+              <td> </td>
+              <td colspan="3">[%- l('appears on:') %]<span class="appears"></span></td>
+            </tr>
+          [%- END -%]
+
+          <tr class="servermatch comment"
+            [%- UNLESS recording.comment %] style="display: none"[% END %]>
+            <td> </td>
+            <td colspan="3">
+              [%- l('comment:') %]<span class="comment">[%- recording.comment -%]</span>
+            </td>
+          </tr>
+
+          <tr class="addnew">
+            <td class="select">
+              <input type="radio" class="newrecording recordingmatch" 
+                  [%- IF name %] name="[% name %]"[%- END -%] />
+            </td>
+            <td class="recording" colspan="3">[% l('Add a new recording') %]</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
@@ -170,180 +271,26 @@
          <label>[%- l('Use direct search') -%]</label>
       </p>
 
-    [%- FOR rec_medium=form.field('rec_mediums').fields -%]
+      [%- FOR rec_medium=form.field('rec_mediums').fields -%]
 
-      [%- medium_idx = loop.index -%]
-      [%- edits = tracklist_edits.$medium_idx.edits -%]
-      [%- medium = mediums.fields.$medium_idx -%]
+        [%- medium_idx = loop.index -%]
+        [%- edits = tracklist_edits.$medium_idx.edits -%]
+        [%- medium = mediums.fields.$medium_idx -%]
 
-      [%- NEXT UNLESS edits -%]
+        [%- NEXT UNLESS edits -%]
 
-      [%- FOR track=edits -%]
-        [%- track_idx = loop.index -%]
-        [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
-        [%- recording = suggestions.$medium_idx.$track_idx -%]
-        <div class="select-recording-container" style="display: none"
-          id='[% "select-recording-$medium_idx-$track_idx" %]'>
-          <div class="select-recording bubble">
-            <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
-            <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
+        [%- FOR track=edits -%]
+          [%- track_idx = loop.index -%]
+          [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
+          [%- recording = suggestions.$medium_idx.$track_idx -%]
 
-            <p>
-              Search: <input type="text" class="recording" value="[% track.name %]" />
-            </p>
-
-            <table class="matches">
-              <tbody>
-                <tr class="clientmatch recordingmatch" style="display: none">
-                  <td class="select">
-                     <input type="radio" class="clientmatch recordingmatch"
-                         name='[% "select-recording-$medium_idx-$track_idx" %]' />
-                  </td>
-                  <td class="recording">
-                    <input type="hidden" class="gid" value="" />
-                    <a class="name" href="/recording"> </a>
-                  </td>
-                  <td class="artist"></td>
-                  <td class="length"></td>
-                </tr>
-                <tr class="clientmatch releaselist" style="display: none">
-                  <td> </td>
-                  <td colspan="3">
-                    [%- l('appears on:') %]
-                    <span class="appears"></span>
-                  </td>
-                </tr>
-                <tr class="clientmatch comment" style="display: none">
-                  <td> </td>
-                  <td colspan="3">
-                    [%- l('comment:') %]
-                    <span class="comment"></span>
-                  </td>
-                </tr>
-
-                <tr class="servermatch recordingmatch"
-                  [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
-                  <td class="select">
-                     <input type="radio" class="servermatch recordingmatch"
-                         name='[% "select-recording-$medium_idx-$track_idx" %]'
-                         [%- IF assoc.field('gid').value -%]checked="checked"[%- END -%] />
-                  </td>
-                  <td class="recording">
-                    <input type="hidden" class="gid" value="[% recording.gid %]" />
-                    [% link_entity (recording) %]
-                  </td>
-                  <td class="artist">[% recording.artist_credit.name %]</td>
-                  <td class="length">[% recording.length | format_length %]</td>
-                </tr>
-
-                <tr class="servermatch releaselist"
-                  [%- UNLESS assoc.field('gid').value -%]style="display: none"[% END %]>
-                  <td> </td>
-                  <td colspan="3">
-                    [%- l('appears on:') %]
-                    [% recording_id = '' _ recording.id %]
-                    [% FOR rg=appears_on.$recording_id %]
-                      [% link_entity(rg) -%][%- UNLESS loop.last %], [% END %]
-                    [% END %]
-                  </td>
-                </tr>
-
-                [%- IF recording.comment -%]
-                <tr class="servermatch comment">
-                  <td> </td>
-                  <td colspan="3">
-                    [%- l('comment:') %]
-                    <span class="comment">
-                  </td>
-                </tr>
-                [%- END -%]
-
-
-                <tr class="addnew">
-                  <td class="select">
-                     <input type="radio" class="newrecording recordingmatch"
-                         name='[% "select-recording-$medium_idx-$track_idx" %]'
-                         [%- UNLESS assoc.field('gid').value -%]checked="checked"[%- END -%] />
-                  </td>
-                  <td class="recording" colspan="3">
-                    [% l('Add a new recording') %]
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+          [% name = "select-recording-$medium_idx-$track_idx" %]
+          [% select_recording (name, track, recording.gid, recording) %]
+        [%- END -%]
       [%- END -%]
-    [%- END -%]
 
-        <div class="select-recording-container template" style="display: none">
-          <div class="select-recording bubble">
-            <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
-            <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
-
-            <p>
-              Search: <input type="text" class="recording" value="" />
-            </p>
-
-            <table class="matches">
-              <tbody>
-                <tr class="clientmatch recordingmatch" style="display: none">
-                  <td class="select">
-                     <input type="radio" class="clientmatch recordingmatch" />
-                  </td>
-                  <td class="recording">
-                    <input type="hidden" class="gid" value="" />
-                    <a class="name" href="/recording"> </a>
-                  </td>
-                  <td class="artist"></td>
-                  <td class="length"></td>
-                </tr>
-                <tr class="clientmatch releaselist" style="display: none">
-                  <td> </td>
-                  <td colspan="3">[%- l('appears on:') %]<span class="appears"></span></td>
-                </tr>
-                <tr class="clientmatch comment" style="display: none">
-                  <td> </td>
-                  <td colspan="3">[%- l('comment:') %]<span class="comment"></span></td>
-                </tr>
-
-                <tr class="servermatch recordingmatch">
-                  <td class="select">
-                     <input type="radio" class="servermatch recordingmatch" checked="checked" />
-                  </td>
-                  <td class="recording">
-                    <input type="hidden" class="gid" value="" />
-                    <a href="" class="name" />
-                  </td>
-                  <td class="artist"></td>
-                  <td class="length"></td>
-                </tr>
-
-                <tr class="servermatch releaselist">
-                  <td> </td>
-                  <td colspan="3">[%- l('appears on:') %]<span class="appears"></span></td>
-                </tr>
-
-                <tr class="servermatch comment" style="display: none">
-                  <td> </td>
-                  <td colspan="3">[%- l('comment:') %]<span class="comment"></span></td>
-                </tr>
-
-                <tr class="addnew">
-                  <td class="select">
-                     <input type="radio" class="newrecording recordingmatch" />
-                  </td>
-                  <td class="recording" colspan="3">
-                    [% l('Add a new recording') %]
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
+      [% select_recording () %]
     </div>
-
 
     <div style="clear: both;">
       <div class="buttons ui-helper-clearfix">
