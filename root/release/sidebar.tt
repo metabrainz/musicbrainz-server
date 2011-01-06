@@ -170,6 +170,7 @@ WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
         INCLUDE links;
     	INCLUDE other_versions;    
         INCLUDE collections IF c.user_exists;
+        INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release;
     END;
 END;
 

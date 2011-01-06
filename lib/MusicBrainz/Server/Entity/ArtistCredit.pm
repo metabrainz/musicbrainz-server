@@ -13,7 +13,7 @@ has 'names' => (
     traits => [ 'Array' ],
     handles => {
         add_name => 'push',
-        clear_names => 'clear'
+        clear_names => 'clear',
     }
 );
 

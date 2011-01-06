@@ -23,7 +23,7 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
-sub pretty_name { MusicBrainz::Server::Filters::uri_decode(shift->url->as_string) }
+sub pretty_name { shift->url->host }
 
 sub name { shift->url->as_string }
 

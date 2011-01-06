@@ -162,6 +162,5 @@
         [%- IF c.session.tport -%]
             <iframe name="tagger-iframe" height="0" width="0" frameborder="0"></iframe>
         [%- END -%]
-
     </body>
 </html>

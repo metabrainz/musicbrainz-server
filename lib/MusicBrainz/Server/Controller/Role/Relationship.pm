@@ -8,20 +8,8 @@ requires 'load';
 sub relationships : Chained('load') PathPart('relationships')
 {
     my ($self, $c) = @_;
-
     my $entity = $c->stash->{$self->{entity_name}};
-
     $c->model('Relationship')->load($entity);
-    my @relationships =
-        sort {
-            ($a->phrase cmp $b->phrase)
-            or
-            ($a->target->name cmp $b->target->name)
-        } $entity->all_relationships;
-
-    $c->stash(
-        relationships => \@relationships,
-    );
 }
 
 sub relate : Chained('load')
@@ -51,6 +39,12 @@ sub relate : Chained('load')
         $c->response->redirect($c->req->referer);
     }
 }
+
+after 'load' => sub {
+    my ($self, $c) = @_;
+    my $entity = $c->stash->{entity};
+    $c->model('Relationship')->load_subset([ 'url' ], $entity);
+};
 
 no Moose::Role;
 1;

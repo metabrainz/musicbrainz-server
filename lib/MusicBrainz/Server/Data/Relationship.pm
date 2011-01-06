@@ -98,11 +98,15 @@ sub _load
     my ($self, $type, $target_types, @objs) = @_;
     my @target_types = @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
-    my %objs_by_id = map { $_->id => $_ } @objs;
-    my @ids = keys %objs_by_id;
     my @rels;
     my $sql = Sql->new($self->c->dbh);
     foreach my $t (@types) {
+        my $target_type = $type eq $t->[0] ? $t->[1] : $t->[0];
+        my %objs_by_id = map { $_->id => $_ }
+            grep { $_->relationships_by_type($target_type) == 0 } @objs;
+        my @ids = keys %objs_by_id;
+        next unless @ids;
+
         my $type0 = $t->[0];
         my $type1 = $t->[1];
         my @cond;

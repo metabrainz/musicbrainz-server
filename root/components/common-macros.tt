@@ -420,6 +420,33 @@ END -%]
             [%- END -%]
 [% END %]
 
+[% MACRO trusted_domain(url) BLOCK;
+    url.url.host.search('discogs.com$')   ||
+    url.url.host.search('wikipedia.org$') ||
+    url.url.host.search('bbc.co.uk$')     ||
+    url.url.host.search('facebook.com$')  ||
+    url.url.host.search('myspace.com$')   ||
+    url.url.host.search('last.fm$')       ||
+    url.url.host.search('imdb.com$')      ||
+    url.url.host.search('myspace.com$')   ||
+    url.url.host.search('twitter.com$')   ||
+    url.url.host.search('youtube.com$')   ||
+    0;
+END %]
+
+[% MACRO favicon_image(url)
+       IF url.url.host.search('discogs.com$'); '/static/images/favicons/discogs-32.png';
+    ELSIF url.url.host.search('wikipedia.org$'); '/static/images/favicons/wikipedia-32.png';
+    ELSIF url.url.host.search('bbc.co.uk'); '/static/images/favicons/bbc-32.gif';
+    ELSIF url.url.host.search('facebook.com'); '/static/images/favicons/facebook-32.png';
+    ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-32.png';
+    ELSIF url.url.host.search('last.fm'); '/static/images/favicons/lastfm-32.png';
+    ELSIF url.url.host.search('imdb.com'); '/static/images/favicons/imdb.png';
+    ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-32.png';
+    ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-32.png';
+    ELSE;  'http://' _ url.url.host _ '/favicon.ico';
+END %]
+
 [%- MACRO warning(message) BLOCK -%]
    <div class="nojavascript warning">
      <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />

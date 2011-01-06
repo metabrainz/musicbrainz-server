@@ -93,6 +93,8 @@
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist -%]
     [% END %]
 
     <div id="content">
