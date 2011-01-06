@@ -296,7 +296,7 @@ MB.Control.ReleaseInformation = function() {
 
     self.initialize = function () {
 
-        self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
+        self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
         self.bubbles.add ($('#annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
@@ -326,7 +326,7 @@ MB.Control.ReleaseInformation = function() {
         });
 
         self.artistcredit = MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit')
+            $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
 
     };

@@ -41,10 +41,7 @@
         [% field_errors(form, 'various_artists') %]
       </div>
 
-      [% WRAPPER form_row %]
-        <label for="release-artist">[% l('Artist') %]</label>
-        <input type="text" id="release-artist" value="[% form.field('artist_credit').fif.name %]" />
-      [% END %]
+      [%- form_row_artist_credit(form, 'release-artist') -%]
 
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]

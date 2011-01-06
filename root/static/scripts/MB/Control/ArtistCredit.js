@@ -323,21 +323,33 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
 };
 
 /* ArtistCreditVertical is the container for all the artist credits on the
-   release (which appears on the information page).  It is currently identical
-   to a plain container. */
-MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
+   release (which appears on the information page). */
+MB.Control.ArtistCreditVertical = function ($target, $container, $button) {
+    var self = MB.Control.ArtistCreditContainer ($target, $container);
+
+    $container.bind ('bubbleOpen.mb', function () { 
+        $button.val (' << '); 
+        $target.attr ('disabled', 'disabled');
+    });
+    
+    $container.bind ('bubbleClose.mb', function () {
+        $button.val (' >> '); 
+        $target.removeAttr ('disabled');
+    });
+
+    return self;
+}
+
 
 
 /* A generic artist credit initialize function for use outside the
    release editor. */
 MB.Control.initialize_artist_credit = function () {
 
-    var target = $('input#entity-artist');
-    var button = $('input#open-ac');
-    var container = $('div.artist-credit');
+    var $target = $('input#entity-artist');
+    var $button = $('input#open-ac');
+    var $container = $('div.artist-credit');
 
-    button.data ('bubble.mb', { 'open': ' >> ', 'close': ' << ' });
-
-    MB.Control.BubbleCollection (button, container);
-    MB.Control.ArtistCreditVertical (target, container);
+    MB.Control.BubbleCollection ($button, $container);
+    MB.Control.ArtistCreditVertical ($target, $container, $button);
 };

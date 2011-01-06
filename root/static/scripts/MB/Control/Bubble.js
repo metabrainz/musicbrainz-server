@@ -101,6 +101,8 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
         self.tail ();
         self.visible = true;
 
+        self.content.trigger ('bubbleOpen');
+
         if (typeof self.callbacks['show'] === "function")
         {
             self.callbacks['show'] (self);
@@ -110,6 +112,8 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
     var hide = function () {
         self.container.hide ();
         self.visible = false;
+
+        self.content.trigger ('bubbleClose');
 
         if (typeof self.callbacks['hide'] === "function")
         {
@@ -128,6 +132,8 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
         }
     };
 
+    /* FIXME: used only in MB.Control.ReleaseRecordings, should be refactored to use
+       proper javascript/jquery events. */
     var bind = function (key, fun) {
         self.callbacks[key] = fun;
     };
@@ -273,15 +279,8 @@ MB.Control.BubbleDoc = function (parent, target, content) {
 
         if (self.button)
         {
-            /* FIXME: fix the code that relies on this to use the method
-               used below. */
+            /* FIXME: fix the code that relies on this to use proper js events. */
             self.target.text (MB.text.Done);
-        }
-
-        var target_data = self.target.data ('bubble.mb');
-        if (target_data)
-        {
-            self.target.val (target_data.close);
         }
     };
 
@@ -290,15 +289,8 @@ MB.Control.BubbleDoc = function (parent, target, content) {
 
         if (self.button)
         {
-            /* FIXME: fix the code that relies on this to use the method
-               used below. */
+            /* FIXME: fix the code that relies on this to use proper js events. */
             self.target.text (MB.text.Change);
-        }
-
-        var target_data = self.target.data ('bubble.mb');
-        if (target_data)
-        {
-            self.target.val (target_data.open);
         }
     };
 
