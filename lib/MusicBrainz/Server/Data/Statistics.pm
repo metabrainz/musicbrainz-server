@@ -556,7 +556,7 @@ my %stats = (
 		},
 	},
 
-    "count.quality.album.high" => {
+    "count.quality.release.high" => {
 		DESC => "Count of high quality releases",
 		CALC => sub {
 			my ($self, $sql) = @_;
@@ -571,26 +571,26 @@ my %stats = (
 			$dist{$QUALITY_UNKNOWN_MAPPED} += $dist{$QUALITY_UNKNOWN};
 
 			+{
-				"count.quality.album.high"		=> $dist{$QUALITY_HIGH}	|| 0,
-				"count.quality.album.low"		=> $dist{$QUALITY_LOW}		|| 0,
-				"count.quality.album.normal"	=> $dist{$QUALITY_NORMAL}	|| 0,
-				"count.quality.album.unknown"	=> $dist{$QUALITY_UNKNOWN}	|| 0,
+				"count.quality.release.high"		=> $dist{$QUALITY_HIGH}	|| 0,
+				"count.quality.release.low"		=> $dist{$QUALITY_LOW}		|| 0,
+				"count.quality.release.normal"	=> $dist{$QUALITY_NORMAL}	|| 0,
+				"count.quality.release.unknown"	=> $dist{$QUALITY_UNKNOWN}	|| 0,
 			};
 		},
 	},
-	"count.quality.album.low" => {
+	"count.quality.release.low" => {
 		DESC => "Count of low quality releases",
-		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ => [qw[ count.quality.release.high ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.quality.album.normal" => {
+	"count.quality.release.normal" => {
 		DESC => "Count of normal quality releases",
-		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ => [qw[ count.quality.release.high ]],
 		PREREQ_ONLY => 1,
 	},
-	"count.quality.album.unknown" => {
+	"count.quality.release.unknown" => {
 		DESC => "Count of unknow quality releases",
-		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ => [qw[ count.quality.release.high ]],
 		PREREQ_ONLY => 1,
 	},
 
@@ -688,81 +688,17 @@ my %stats = (
 			return \%r;
 		},
 	},
-	"count.ar.links.l_album_album" => {
-		DESC => "Count of release-release advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_artist" => {
-		DESC => "Count of release-artist advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_label" => {
-		DESC => "Count of release-label advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_track" => {
-		DESC => "Count of release-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_album_url" => {
-		DESC => "Count of release-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_artist" => {
-		DESC => "Count of artist-artist advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_label" => {
-		DESC => "Count of artist-label advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_track" => {
-		DESC => "Count of artist-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_artist_url" => {
-		DESC => "Count of artist-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_label_label" => {
-		DESC => "Count of label-label advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_label_track" => {
-		DESC => "Count of label-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_label_url" => {
-		DESC => "Count of label-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_track_track" => {
-		DESC => "Count of track-track advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_track_url" => {
-		DESC => "Count of track-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
-	"count.ar.links.l_url_url" => {
-		DESC => "Count of URL-URL advanced relationships links",
-		PREREQ => [qw[ count.ar.links ]],
-		PREREQ_ONLY => 1,
-	},
+
+    (
+        map {
+            my ($l0, $l1) = @$_;
+            "count.ar.links.l_${l0}_${l1}" => {
+                DESC => "Count of $l0-$l1 advanced relationship links",
+                PREREQ => [qw( count.ar.links )],
+                PREREQ_ONLY => 1
+            }
+        } $self->c->model('Relationship')->all_pairs
+    )
 );
 
 sub recalculate {
