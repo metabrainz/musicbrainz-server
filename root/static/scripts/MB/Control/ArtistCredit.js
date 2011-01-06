@@ -333,8 +333,11 @@ MB.Control.ArtistCreditVertical = MB.Control.ArtistCreditContainer;
 MB.Control.initialize_artist_credit = function () {
 
     var target = $('input#entity-artist');
+    var button = $('input#open-ac');
     var container = $('div.artist-credit');
 
-    MB.Control.BubbleCollection (target, container);
+    button.data ('bubble.mb', { 'open': ' >> ', 'close': ' << ' });
+
+    MB.Control.BubbleCollection (button, container);
     MB.Control.ArtistCreditVertical (target, container);
 };

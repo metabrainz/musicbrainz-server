@@ -273,7 +273,15 @@ MB.Control.BubbleDoc = function (parent, target, content) {
 
         if (self.button)
         {
+            /* FIXME: fix the code that relies on this to use the method
+               used below. */
             self.target.text (MB.text.Done);
+        }
+
+        var target_data = self.target.data ('bubble.mb');
+        if (target_data)
+        {
+            self.target.val (target_data.close);
         }
     };
 
@@ -282,7 +290,15 @@ MB.Control.BubbleDoc = function (parent, target, content) {
 
         if (self.button)
         {
+            /* FIXME: fix the code that relies on this to use the method
+               used below. */
             self.target.text (MB.text.Change);
+        }
+
+        var target_data = self.target.data ('bubble.mb');
+        if (target_data)
+        {
+            self.target.val (target_data.open);
         }
     };
 
