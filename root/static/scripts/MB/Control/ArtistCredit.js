@@ -61,8 +61,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.join.val ('');
         self.gid.val ('');
         self.id.val ('');
-        self.link.val ('');
-        self.link.html ('');
+        self.link.hide ().attr('href', '').attr('title', '');
     };
 
     var render = function (data) {
@@ -72,7 +71,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.credit.val (data.name);
         self.gid.val(data.gid);
         self.id.val(data.id);
-        self.link.html ('link').
+        self.link.show ().
             attr('href', '/artist/'+data.gid).
             attr('title', data.comment);
 
@@ -90,7 +89,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.name.val (data.name).removeClass ('error');
             self.gid.val (data.gid);
             self.id.val (data.id);
-            self.link.html ('link').
+            self.link.show ().
                 attr('href', '/artist/'+data.gid).
                 attr('title', data.comment);
 
@@ -124,7 +123,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.gid.val ('');
             self.id.val ('');
-            self.link.html ('').attr('href', '').attr('title', '');
+            self.link.hide ().attr('href', '').attr('title', '');
         }
 
         self.container.renderPreview();
