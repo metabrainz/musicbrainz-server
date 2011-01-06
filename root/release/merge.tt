@@ -13,6 +13,7 @@
             </li>
             [% END %]
         </ul>
+        [% field_errors(form, 'target') %]
 
         [% USE r = FormRenderer(form) %]
         [% form_row_select(r, 'merge_strategy', l('Merge strategy:')) %]

@@ -11,6 +11,7 @@
             </li>
             [% END %]
         </ul>
+        [% field_errors(form, 'target') %]
 
         [% USE r = FormRenderer(form) %]
         [% form_row_checkbox(r, 'rename', l('Update artist credits to use the new artists name')) %]

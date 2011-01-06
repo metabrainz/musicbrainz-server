@@ -10,7 +10,7 @@ parameter 'edit_type' => (
 
 parameter 'merge_form' => (
     isa => 'Str',
-    default => 'Confirm'
+    default => 'Merge'
 );
 
 role {
