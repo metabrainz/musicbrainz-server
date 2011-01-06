@@ -28,6 +28,7 @@ sub insert
     # track_count is 0 because the trigger will increment it
     my $id = $sql->insert_row('tracklist', { track_count => 0 }, 'id');
     $self->_add_tracks($id, $tracks);
+    $self->c->model('DurationLookup')->update($id);
     my $class = $self->_entity_class;
     return $class->new( id => $id );
 }
