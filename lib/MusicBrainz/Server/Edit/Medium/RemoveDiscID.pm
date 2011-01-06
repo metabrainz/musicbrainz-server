@@ -11,6 +11,7 @@ sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Medium';
 
 sub medium_id { shift->data->{medium_id} }
 

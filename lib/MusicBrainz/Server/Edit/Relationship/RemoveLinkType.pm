@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Historic';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { l('Remove relationship type') }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE }

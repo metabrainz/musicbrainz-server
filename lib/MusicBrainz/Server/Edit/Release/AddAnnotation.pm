@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Add release annotation') }
 sub edit_type { $EDIT_RELEASE_ADD_ANNOTATION }

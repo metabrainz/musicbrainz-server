@@ -11,6 +11,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { l("Edit relationship") }

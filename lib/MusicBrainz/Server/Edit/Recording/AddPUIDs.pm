@@ -9,6 +9,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
     -excludes => 'recording_ids'
 };
+with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_name { l('Add PUIDs') }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }

@@ -10,6 +10,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Medium';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { l('Remove medium') }

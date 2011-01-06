@@ -18,6 +18,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
 sub edit_name { l('Edit recording') }
