@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
+use MusicBrainz::Server::Relationship;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
@@ -694,7 +695,7 @@ my %stats = (
                 PREREQ => [qw( count.ar.links )],
                 PREREQ_ONLY => 1
             }
-        } $self->c->model('Relationship')->all_pairs
+        } MusicBrainz::Server::Data::Relationship->all_pairs
     )
 );
 
