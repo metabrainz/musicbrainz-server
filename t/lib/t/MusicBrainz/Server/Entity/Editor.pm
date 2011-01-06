@@ -1,10 +1,13 @@
-#!/usr/bin/perl -w
-use strict;
-use Test::More tests => 24;
+package t::MusicBrainz::Server::Entity::Editor;
+use Test::Routine;
+use Test::Moose;
+use Test::More;
 
 BEGIN { use_ok 'MusicBrainz::Server::Entity::Editor' };
 
 use DateTime;
+
+test all => sub {
 
 my $editor = MusicBrainz::Server::Entity::Editor->new;
 ok(defined $editor, 'new did not construct anything');
@@ -39,3 +42,7 @@ ok($editor->is_newbie);
 
 $editor->registration_date(DateTime->new(year => '1980'));
 ok(!$editor->is_newbie, 'shouldnt be a newbie');
+
+};
+
+1;

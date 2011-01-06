@@ -1,7 +1,11 @@
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Entity::PartialDate;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use MusicBrainz::Server::Entity::PartialDate;
+
+test all => sub {
 
 my $date;
 my $partial;
@@ -73,6 +77,6 @@ $b = Date->new( month => 1, day => 1 );
 ok(!($a < $b));
 ok(!($b < $a));
 
-done_testing;
+};
 
 1;

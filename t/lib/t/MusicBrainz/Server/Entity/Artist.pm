@@ -1,13 +1,17 @@
-use strict;
-use warnings;
-use Test::More;
+package t::MusicBrainz::Server::Entity::Artist;
+use Test::Routine;
 use Test::Moose;
+use Test::More;
+
 use Date::Calc qw(This_Year);
+
 use_ok 'MusicBrainz::Server::Entity::Artist';
 use_ok 'MusicBrainz::Server::Entity::ArtistType';
 use_ok 'MusicBrainz::Server::Entity::ArtistAlias';
 
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $VARTIST_GID );
+
+test all => sub {
 
 my $artist = MusicBrainz::Server::Entity::Artist->new();
 ok( defined $artist->begin_date );
@@ -94,4 +98,6 @@ ok(MusicBrainz::Server::Entity::Artist->new( gid => $VARTIST_GID )->is_special_p
 ok(!MusicBrainz::Server::Entity::Artist->new( id => 5 )->is_special_purpose);
 ok(!MusicBrainz::Server::Entity::Artist->new( gid => '7527f6c2-d762-4b88-b5e2-9244f1e34c46' )->is_special_purpose);
 
-done_testing;
+};
+
+1;

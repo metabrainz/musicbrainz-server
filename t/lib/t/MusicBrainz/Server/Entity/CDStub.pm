@@ -1,10 +1,13 @@
-use strict;
-use warnings;
-use Test::More;
+package t::MusicBrainz::Server::Entity::CDStub;
+use Test::Routine;
 use Test::Moose;
+use Test::More;
+
 use_ok 'MusicBrainz::Server::Entity::CDStub';
 use_ok 'MusicBrainz::Server::Entity::CDStubTOC';
 use_ok 'MusicBrainz::Server::Entity::CDStubTrack';
+
+test all => sub {
 
 #check to see that all the attributes are present
 my $cdstubtoc = MusicBrainz::Server::Entity::CDStubTOC->new();
@@ -35,4 +38,6 @@ is ($cdstubtoc->cdstub->tracks->[0]->title, "Track title");
 # Check to see if the calculated length is correct
 is ($cdstubtoc->length, "1333333");
 
-done_testing;
+};
+
+1;

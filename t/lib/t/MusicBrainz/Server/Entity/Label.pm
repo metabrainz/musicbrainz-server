@@ -1,9 +1,13 @@
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Entity::Label;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use_ok 'MusicBrainz::Server::Entity::Label';
 use_ok 'MusicBrainz::Server::Entity::LabelType';
 use_ok 'MusicBrainz::Server::Entity::LabelAlias';
+
+test all => sub {
 
 my $label = MusicBrainz::Server::Entity::Label->new();
 ok( defined $label->begin_date );
@@ -30,4 +34,6 @@ $label->end_date->year  (2009);
 my @got = $label->age;
 is_deeply( \@got, [33, 0, 0], "Label age 33 years" );
 
-done_testing;
+};
+
+1;

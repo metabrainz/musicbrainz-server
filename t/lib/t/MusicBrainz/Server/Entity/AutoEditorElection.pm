@@ -1,7 +1,7 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use Test::More tests => 11;
+package t::MusicBrainz::Server::Entity::AutoEditorElection;
+use Test::Routine;
+use Test::Moose;
+use Test::More;
 
 BEGIN {
     use_ok 'MusicBrainz::Server::Entity::AutoEditorElection';
@@ -10,6 +10,8 @@ BEGIN {
 
 use MusicBrainz::Server::Types qw( :election_status :vote );
 use MusicBrainz::Server::Entity::Editor;
+
+test all => sub {
 
 my $election = MusicBrainz::Server::Entity::AutoEditorElection->new;
 ok(defined $election, "constructor");
@@ -38,3 +40,6 @@ ok($no_vote->is_no);
 ok(!$other_vote->is_yes);
 ok(!$other_vote->is_no);
 
+};
+
+1;

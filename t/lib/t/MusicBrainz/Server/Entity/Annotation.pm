@@ -1,11 +1,13 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-
+package t::MusicBrainz::Server::Entity::Annotation;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use MusicBrainz::Server::Entity::Artist;
 
 BEGIN { use_ok 'MusicBrainz::Server::Entity::Annotation' };
+
+test all => sub {
 
 my $text = <<'TEXT';
 This is a ''test'' annotation
@@ -30,4 +32,6 @@ my $artist = MusicBrainz::Server::Entity::Artist->new();
 $annotation->parent( $artist );
 ok( defined $annotation->parent );
 
-done_testing;
+};
+
+1;

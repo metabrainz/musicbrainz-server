@@ -1,8 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use Test::More;
+package t::MusicBrainz::Server::Entity::Release;
+use Test::Routine;
 use Test::Moose;
+use Test::More;
+
 use_ok 'MusicBrainz::Server::Entity::Release';
 use_ok 'MusicBrainz::Server::Entity::ReleasePackaging';
 use_ok 'MusicBrainz::Server::Entity::ReleaseStatus';
@@ -10,6 +10,8 @@ use_ok 'MusicBrainz::Server::Entity::Medium';
 use_ok 'MusicBrainz::Server::Entity::MediumFormat';
 use_ok 'MusicBrainz::Server::Entity::Tracklist';
 use_ok 'MusicBrainz::Server::Entity::Track';
+
+test all => sub {
 
 my $release = MusicBrainz::Server::Entity::Release->new();
 ok( defined $release->date );
@@ -68,4 +70,6 @@ $track = MusicBrainz::Server::Entity::Track->new(artist_credit_id => 2);
 $tracklist->add_track($track);
 is( $release->has_multiple_artists, 1, 'Release has multiple artists' );
 
-done_testing;
+};
+
+1;

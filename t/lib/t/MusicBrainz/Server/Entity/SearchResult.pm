@@ -1,10 +1,13 @@
-use strict;
-use warnings;
-use Test::More;
+package t::MusicBrainz::Server::Entity::SearchResult;
+use Test::Routine;
 use Test::Moose;
+use Test::More;
+
 use MusicBrainz::Server::Entity::Artist;
 
 use_ok 'MusicBrainz::Server::Entity::SearchResult';
+
+test all => sub {
 
 my $searchresult = MusicBrainz::Server::Entity::SearchResult->new();
 has_attribute_ok($searchresult, $_) for qw( position score );
@@ -16,4 +19,6 @@ ok( defined $searchresult->entity );
 $searchresult->extra( [ $artist ] );
 ok( defined $searchresult->extra );
 
-done_testing;
+};
+
+1;

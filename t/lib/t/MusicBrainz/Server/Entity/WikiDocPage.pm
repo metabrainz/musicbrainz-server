@@ -1,8 +1,11 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use Test::More tests => 4;
+package t::MusicBrainz::Server::Entity::WikiDocPage;
+use Test::Routine;
+use Test::Moose;
+use Test::More;
+
 use_ok 'MusicBrainz::Server::Entity::WikiDocPage';
+
+test all => sub {
 
 my $page = MusicBrainz::Server::Entity::WikiDocPage->new(
     title => 'About MusicBrainz',
@@ -11,4 +14,7 @@ my $page = MusicBrainz::Server::Entity::WikiDocPage->new(
 
 is($page->title, 'About MusicBrainz');
 is($page->version, 14508);
-is($page->content, '<p>Hello</p>');
+
+};
+
+1;

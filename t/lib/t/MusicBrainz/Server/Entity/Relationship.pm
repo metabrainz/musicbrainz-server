@@ -1,12 +1,15 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use Test::More tests => 11;
+package t::MusicBrainz::Server::Entity::Relationship;
+use Test::Routine;
+use Test::Moose;
+use Test::More;
 
 use_ok 'MusicBrainz::Server::Entity::Relationship';
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::Link;
+
+
+test all => sub {
 
 is( MusicBrainz::Server::Entity::Relationship::_join_attrs([]), '' );
 is( MusicBrainz::Server::Entity::Relationship::_join_attrs(['A']), 'a' );
@@ -105,3 +108,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     ),
 );
 is( $rel->phrase, 'has orchestra additionally arranged by' );
+
+};
+
+1;
