@@ -10,7 +10,7 @@ has 'type' => (
 
 has 'entities' => (
     isa => 'ArrayRef',
-    is => 'ro',
+    is => 'rw',
     default => sub { [] },
     traits => [ 'Array' ],
     handles => {
@@ -31,6 +31,15 @@ sub add_entities {
     my %new = map { $_ => 1 }
         grep { !exists $all_existing{ $_ } } @entities;
     $self->_add_entities(keys %new);
+}
+
+sub remove_entities {
+    my ($self, @entities) = @_;
+    my %to_remove = map { $_ => 1 } grep { $_ } @entities;
+    my %all_existing = map { $_ => 1 } grep { $_ } $self->all_entities;
+    $self->entities([
+        grep { !exists $to_remove{$_} } keys %all_existing
+    ])
 }
 
 1;
