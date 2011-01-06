@@ -894,7 +894,7 @@ CREATE TABLE statistic
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
     value               INTEGER NOT NULL,
-    last_updated        TIMESTAMP WITH time ZONE
+    last_updated        date NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE tag

@@ -6,8 +6,6 @@ use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 
-use Try::Tiny;
-
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
@@ -37,25 +35,16 @@ sub fetch {
     }
 }
 
-sub update {
+sub insert {
     my ($self, %updates) = @_;
     $self->sql->do('LOCK TABLE ' . $self->_table . ' IN EXCLUSIVE MODE');
     for my $key (keys %updates) {
         next unless defined $updates{$key};
 
-        try {
-            $self->sql->insert_row(
-                $self->_table,
-                { name => $key, value => $updates{$key} }
-            );
-        }
-        catch {
-            $self->sql->update_row(
-                $self->_table,
-                { value => $updates{$key}, last_updated => \'now()' },
-                { name => $key }
-            );
-        }
+        $self->sql->insert_row(
+            $self->_table,
+            { name => $key, value => $updates{$key} }
+        );
     }
 }
 
@@ -724,7 +713,7 @@ sub recalculate {
 
     if (my $query = $definition->{SQL}) {
         my $value = $sql->select_single_value($query);
-		$self->update($statistic => $value);
+		$self->insert($statistic => $value);
 		return;
     }
 
@@ -732,9 +721,9 @@ sub recalculate {
         my $output = $calculate->($self, $sql);
         if (ref($output) eq "HASH")
 		{
-			$self->update(%$output);
+			$self->insert(%$output);
 		} else {
-			$self->update($statistic => $output);
+			$self->insert($statistic => $output);
 		}
     }
 
