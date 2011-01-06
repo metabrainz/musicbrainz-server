@@ -65,7 +65,7 @@
       [% form_row_select (r, 'country_id', 'Country') %]
       [% form_row_select (r, 'packaging_id', 'Packaging') %]
 
-      <div class="label-container">
+      <div class="label-container" style="padding: 0.5em 0">
         [% FOR field=form.field('labels').fields %]
         <div class="release-label">
           [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
@@ -78,11 +78,20 @@
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <span class="ui-icon ui-icon-closethick" title="[% l('Remove Label') %]">[% l('Remove Label') %]</span>
+              <img src="/static/images/icons/delete_row.png" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
             </a>
           </span>
 
         </div>
+        [% END %]
+
+        [% WRAPPER form_row %]
+          <div class="add-label" style="text-align: right; width: 100%; ">
+            <span class="add-label" style="padding: 0 1em;">[% l('Add Label') %]</span>
+            <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
+              <img src="/static/images/icons/add_row.png" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
+            </a>
+          </div>
         [% END %]
       </div>
 
@@ -97,7 +106,6 @@
 
     <div class="buttons ui-helper-clearfix">
         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-        <a href="#add_label">[% l('Add Label') %]</a>
         [% r.submit ('next', l('Next »')) %]
     </div>
   </div>

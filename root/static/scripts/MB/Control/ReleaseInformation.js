@@ -31,14 +31,14 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     if (!self.row)
     {
         self.catno_message = $('div.catno-container:first').clone ();
-	self.catno_message.insertAfter ($('div.catno-container:last'));
-	self.catno_message.hide ();
+        self.catno_message.insertAfter ($('div.catno-container:last'));
+        self.catno_message.hide ();
 
-	self.row = $('div.release-label:first').clone ();
-	self.row.find ('input.label-id').val ('');
-	self.row.find ('input.label-name').val ('');
-	self.row.find ('input.catno').val ('');
-	self.row.find ('*').each (function (idx, element) {
+        self.row = $('div.release-label:first').clone ();
+        self.row.find ('input.label-id').val ('');
+        self.row.find ('input.label-name').val ('');
+        self.row.find ('input.catno').val ('');
+        self.row.find ('*').each (function (idx, element) {
             var item = $(element);
             if (item.attr ('id'))
             {
@@ -52,44 +52,30 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
             }
         });
 
-        self.row.appendTo ($('div.label-container').append ());
+        self.row.insertAfter ($('div.release-label:last'));
+        self.row.find ('span.remove-label input').val ('0');
+        self.row.show ();
     }
 
     /**
-     * toggleDelete (un)marks the track for deletion. Provide a boolean to delete
-     * or undelete a track, or leave it empty to toggle.
+     * markDeleted marks the track for deletion.
      */
-    var toggleDelete = function (value) {
-        var deleted = (value === undefined) ? !parseInt (self.deleted.val ()) : value;
-        if (deleted)
-        {
-            self.deleted.val('1');
-            self.row.addClass('deleted');
-            self.name.attr ('disabled', 'disabled');
-            self.catno.attr ('disabled', 'disabled');
-        }
-        else
-        {
-            self.deleted.val ('0');
-            self.row.removeClass('deleted');
-            self.name.removeAttr ('disabled');
-            self.catno.removeAttr ('disabled');
-        }
-
-        window.toggled = self;
+    self.markDeleted = function () {
+        self.deleted.val('1');
+        self.row.hide ();
     };
 
     /**
      * isDeleted returns true if this track is marked for deletion.
      */
-    var isDeleted = function () {
+    self.isDeleted = function () {
         return self.deleted.val () === '1';
     };
 
     /**
      * selected is a callback called by autocomplete when a selection is made.
      */
-    var selected = function (event, data) {
+    self.selected = function (event, data) {
         self.id.val(data.id);
         self.name.removeClass('error');
         self.name.val(data.name);
@@ -98,15 +84,15 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
         return false;
     };
 
-    var catnoUpdate = function () {
+    self.catnoUpdate = function () {
 
-	if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
+        if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
         {
-  	    self.catno.data ('bubble').show ();
+            self.catno.data ('bubble').show ();
         }
-	else
+        else
         {
-  	    self.catno.data ('bubble').hide ();
+            self.catno.data ('bubble').hide ();
         }
     };
 
@@ -116,12 +102,6 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     self.catno_message = $('div.catno').eq(self.labelno);
     self.deleted = self.row.find ('span.remove-label input');
 
-    self.parent = parent;
-    self.catnoUpdate = catnoUpdate;
-    self.toggleDelete = toggleDelete;
-    self.isDeleted = isDeleted;
-    self.selected = selected;
-
     self.catno.bind ('change keyup focus', self.catnoUpdate);
     MB.Control.Autocomplete ({
         'input': self.name,
@@ -129,15 +109,14 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
         'select': self.selected
     });
 
-    self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
+    self.row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
 
     if (self.isDeleted ())
     {
         // if the label is marked as deleted, make sure it is displayed as such
         // after page load.
-        self.toggleDelete (1);
+        self.markDeleted ();
     }
-
 
     return self;
 };
@@ -249,13 +228,13 @@ MB.Control.ReleaseDate = function (bubble_collection) {
     self.bubbles = bubble_collection;
 
     self.inputs = [ $('#id-date\\.year'),
-        $('#id-date\\.month'), $('#id-date\\.day') ] 
+        $('#id-date\\.month'), $('#id-date\\.day') ]
     self.message = $('div.date');
 
     var amazonEpoch = function () {
-	return (self.inputs[0].val () == '1995' &&
-	  self.inputs[1].val () == '10' &&
-          self.inputs[2].val () == '25');
+        return (self.inputs[0].val () == '1995' &&
+                self.inputs[1].val () == '10' &&
+                self.inputs[2].val () == '25');
     };
 
     var januaryFirst = function () {
@@ -267,14 +246,14 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         var amazon = self.amazonEpoch ();
         var january = self.januaryFirst ();
 
-	if (amazon || january)
+        if (amazon || january)
         {
             $(this).data ('bubble').show ();
-	}
-	else
-	{
+        }
+        else
+        {
             $(this).data ('bubble').hide ();
-	}
+        }
 
         if (amazon)
         {
@@ -300,7 +279,7 @@ MB.Control.ReleaseDate = function (bubble_collection) {
     self.update = update;
 
     $.each (self.inputs, function (idx, item) {
-        item.data ('bubble', 
+        item.data ('bubble',
             MB.Control.BubbleDocBase (self.bubbles, item, self.message));
 
         item.bind ('change keyup focus', self.update);
@@ -315,7 +294,7 @@ MB.Control.ReleaseInformation = function() {
     self.bubbles = MB.Control.BubbleCollection ();
     self.release_date = MB.Control.ReleaseDate (self.bubbles);
 
-    var initialize = function () {
+    self.initialize = function () {
 
         self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
@@ -333,7 +312,7 @@ MB.Control.ReleaseInformation = function() {
 
         $('a[href=#add_label]').click (function (event) {
             self.addLabel ();
-	    self.bubbles.hideAll ();
+            self.bubbles.hideAll ();
             event.preventDefault ();
         });
 
@@ -352,25 +331,24 @@ MB.Control.ReleaseInformation = function() {
 
     };
 
-    var addLabel = function (row) {
+    self.addLabel = function (row) {
         var labelno = self.labels.length;
         var l = MB.Control.ReleaseLabel(row, self, labelno);
 
         self.labels.push (l);
 
         MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
+
+        return l;
     };
 
-    var submit = function () {
+    self.submit = function () {
         // always submit disabled inputs.
         $('input:disabled').removeAttr ('disabled');
     };
 
     self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
-    self.initialize = initialize;
-    self.addLabel = addLabel;
-    self.submit = submit;
 
     self.initialize ();
 
