@@ -212,7 +212,7 @@ sub edit_types : Path('/doc/Edit_Types')
     );
 }
 
-sub edit_type : Path('/doc/Edit_Types/') Args(1) {
+sub edit_type : Path('/doc/Edit_Types') Args(1) {
     my ($self, $c, $edit_type) = @_;
 
     my $class = EditRegistry->class_from_type($edit_type);

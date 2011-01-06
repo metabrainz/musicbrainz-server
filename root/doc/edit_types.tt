@@ -9,7 +9,11 @@
               <ul>
                 [% FOR edit_type=category.value %]
                   [% USE class = Class(edit_type) %]
-                  <li>[% class.edit_name %]</li>
+                  <li>
+                    <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
+                      [% class.edit_name %]
+                       </a>
+                  </li>
                 [% END %]
               </ul>
             </li>
