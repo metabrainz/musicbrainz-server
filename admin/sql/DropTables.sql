@@ -27,7 +27,6 @@ DROP TABLE editor_watch_preferences;
 DROP TABLE editor_watch_release_group_type;
 DROP TABLE editor_watch_release_status;
 DROP TABLE gender;
-DROP TABLE historical_statistic;
 DROP TABLE isrc;
 DROP TABLE l_artist_artist;
 DROP TABLE l_artist_label;

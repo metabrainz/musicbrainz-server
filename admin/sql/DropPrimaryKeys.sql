@@ -27,7 +27,6 @@ ALTER TABLE editor_watch_preferences DROP CONSTRAINT editor_watch_preferences_pk
 ALTER TABLE editor_watch_release_group_type DROP CONSTRAINT editor_watch_release_group_type_pkey;
 ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_status_pkey;
 ALTER TABLE gender DROP CONSTRAINT gender_pkey;
-ALTER TABLE historical_statistic DROP CONSTRAINT historical_statistic_pkey;
 ALTER TABLE isrc DROP CONSTRAINT isrc_pkey;
 ALTER TABLE l_artist_artist DROP CONSTRAINT l_artist_artist_pkey;
 ALTER TABLE l_artist_label DROP CONSTRAINT l_artist_label_pkey;

@@ -36,7 +36,6 @@ my $sql = Sql->new($c->dbh);
 
 $sql->begin;
 $c->model('Statistics')->recalculate_all;
-$c->model('Statistics')->take_snapshot;
 $sql->commit;
 
 if (-t STDOUT)

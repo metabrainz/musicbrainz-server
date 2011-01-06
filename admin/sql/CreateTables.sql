@@ -189,13 +189,6 @@ CREATE TABLE isrc
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE historical_statistic
-(
-    name                VARCHAR(100) NOT NULL, -- PK
-    value               INTEGER NOT NULL,
-    snapshot_date       DATE NOT NULL
-);
-
 CREATE TABLE l_artist_artist
 (
     id                  SERIAL,
@@ -898,7 +891,8 @@ CREATE TABLE script_language
 
 CREATE TABLE statistic
 (
-    name                VARCHAR(100) NOT NULL, -- PK,
+    id                  SERIAL,
+    name                VARCHAR(100) NOT NULL,
     value               INTEGER NOT NULL,
     last_updated        TIMESTAMP WITH time ZONE
 );

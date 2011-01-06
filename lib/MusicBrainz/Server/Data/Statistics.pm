@@ -65,15 +65,6 @@ sub last_refreshed {
         'SELECT min(last_updated) FROM ' . $self->_table);
 }
 
-sub take_snapshot {
-    my $self = shift;
-    $self->sql->do(
-        'DELETE FROM historical_statistic WHERE snapshot_date = current_date');
-    $self->sql->do(
-        'INSERT INTO historical_statistic (name, value, snapshot_date)
-             SELECT name, value, current_date FROM ' . $self->_table);
-}
-
 my %stats = (
 	"count.release" => {
 		DESC => "Count of all releases",

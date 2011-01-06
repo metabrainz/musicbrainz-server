@@ -27,7 +27,6 @@ ALTER TABLE editor_watch_preferences ADD CONSTRAINT editor_watch_preferences_pke
 ALTER TABLE editor_watch_release_group_type ADD CONSTRAINT editor_watch_release_group_type_pkey PRIMARY KEY (editor, release_group_type);
 ALTER TABLE editor_watch_release_status ADD CONSTRAINT editor_watch_release_status_pkey PRIMARY KEY (editor, release_status);
 ALTER TABLE gender ADD CONSTRAINT gender_pkey PRIMARY KEY (id);
-ALTER TABLE historical_statistic ADD CONSTRAINT historical_statistic_pkey PRIMARY KEY (name);
 ALTER TABLE isrc ADD CONSTRAINT isrc_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_artist ADD CONSTRAINT l_artist_artist_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_label ADD CONSTRAINT l_artist_label_pkey PRIMARY KEY (id);
@@ -100,7 +99,7 @@ ALTER TABLE release_tag ADD CONSTRAINT release_tag_pkey PRIMARY KEY (release, ta
 ALTER TABLE replication_control ADD CONSTRAINT replication_control_pkey PRIMARY KEY (id);
 ALTER TABLE script ADD CONSTRAINT script_pkey PRIMARY KEY (id);
 ALTER TABLE script_language ADD CONSTRAINT script_language_pkey PRIMARY KEY (id);
-ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (name);
+ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id);
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
