@@ -662,6 +662,10 @@ INSERT INTO statistic (id, value, last_updated, name)
 
         ELSE name
       END AS name
-      FROM public.currentstat;
+      FROM (
+           SELECT id, value, lastupdated, name FROM public.currentstat
+      UNION ALL
+           SELECT id, value, snapshotdate, name FROM public.historicalstat
+      ) s;
 
 COMMIT;
