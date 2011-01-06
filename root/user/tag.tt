@@ -1,4 +1,4 @@
-[% WRAPPER 'user/profile/layout.tt' %]
+[% WRAPPER 'user/profile/layout.tt' page='tags' %]
 
 [% FOR section=[
     [l('Artists'), artist],
