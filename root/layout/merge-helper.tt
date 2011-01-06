@@ -13,13 +13,22 @@
         </li>
       [% END %]
     </ul>
+    [% IF merge.reday_to_merge %]
     <p>
       [% l('When you are ready to merge these, just click the Merge button.
       You may still add more to this merge queue by simply browsing to
       the entities page and following the merge link.') %]
     </p>
+    [% ELSE %]
+    <p>
+      [% l('Please navigate to the pages of other entities you wish to merge and
+      select the "merge" link.') %]
+    </p>
+    [% END %]
     <div class="buttons" style="display: table-cell">
-      <button type="submit" name="submit" value="merge">[% l('Merge') %]</button>
+      [% IF merger.ready_to_merge %]
+        <button type="submit" name="submit" value="merge">[% l('Merge') %]</button>
+      [% END %]
       <button type="submit" name="submit" value="remove">
         [% l('Remove selected releases') %]</button>
       <button type="submit" name="submit" value="cancel">[% l('Cancel') %]</button>
