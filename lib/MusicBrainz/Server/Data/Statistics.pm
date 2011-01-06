@@ -115,6 +115,14 @@ my %stats = (
 		DESC => "Count of all recordings",
 		SQL => "SELECT COUNT(*) FROM recording",
 	},
+    "count.work" => {
+		DESC => "Count of all works",
+		SQL => "SELECT COUNT(*) FROM work",
+	},
+    "count.artistcredit" => {
+		DESC => "Count of all artist credits",
+		SQL => "SELECT COUNT(*) FROM artist_credit",
+	},
 	"count.isrc.all" => {
 		DESC => "Count of all ISRCs joined to tracks",
 		SQL => "SELECT COUNT(*) FROM isrc",
