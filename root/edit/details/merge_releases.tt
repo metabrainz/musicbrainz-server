@@ -19,4 +19,14 @@
                                         artist => artist_credit(edit.display_data.new.artist_credit)  }) %]
     </td>
   </tr>
+
+  <tr>
+    <th>[% l('Merge strategy:') %]</th>
+    <td>
+    [% SWITCH edit.data.merge_strategy;
+        CASE 1; l('Append mediums to target release');
+        CASE 2; l('Merge mediums and recordings');
+    END %]
+    </td>
+  </tr>
 </table>
