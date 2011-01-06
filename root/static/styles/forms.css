@@ -145,9 +145,12 @@ div.documentation {
 }
 
 div.half-width fieldset {
-    background-color: #f0f0f0;
-    border: 1px solid #aaa;
+    border: 1px solid #ddd;
     margin-top: 0;
+
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 div.half-width fieldset.editnote {
