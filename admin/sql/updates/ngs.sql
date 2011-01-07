@@ -608,7 +608,7 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
 ------------------------
 \echo Stats
 
-INSERT INTO statistic (id, value, last_updated, name)
+INSERT INTO statistic (id, value, date_collected, name)
     SELECT id, value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'

@@ -52,7 +52,7 @@ sub insert {
 sub last_refreshed {
     my $self = shift;
     return $self->sql->select_single_value(
-        'SELECT min(last_updated) FROM ' . $self->_table);
+        'SELECT min(date_collected) FROM ' . $self->_table);
 }
 
 my %stats = (
