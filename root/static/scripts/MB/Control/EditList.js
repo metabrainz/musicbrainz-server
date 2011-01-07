@@ -42,6 +42,10 @@ MB.Control.EditList = function(container) {
         });
 
         $container.before($voteOptions);
+
+        $container.find('.edit-list').each(function() {
+            MB.Control.EditSummary(this);
+        });
     }
 
     self.initialize()

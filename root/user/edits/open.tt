@@ -3,9 +3,6 @@
     <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditList.js') %]"></script>
     <script type="text/javascript">
         $(function() {
-            $('.edit-list').each(function() {
-                MB.Control.EditSummary(this);
-            });
             MB.Control.EditList('#edits');
         });
     </script>
