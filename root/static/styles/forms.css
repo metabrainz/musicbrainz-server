@@ -24,6 +24,11 @@ form div.row div.label {
     margin-right: 12px;
 }
 
+form div.row input[type=text] {
+    width: 176px;
+}
+
+
 form div.row p { float: none; clear: none; }
 
 form div.no-label,

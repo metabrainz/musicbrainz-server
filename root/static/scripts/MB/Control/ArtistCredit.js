@@ -25,10 +25,10 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     if (obj === null)
     {
-        self.row = self.container.box[boxnumber - 1].row.clone ();
+        self.$row = self.container.box[boxnumber - 1].$row.clone ();
 
         var nameid = new RegExp ("artist_credit.names.[0-9]+");
-        self.row.find ("*").each (function (idx, element) {
+        self.$row.find ("*").each (function (idx, element) {
             var item = $(element);
             if (item.attr ('id'))
             {
@@ -44,58 +44,55 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     }
     else
     {
-        self.row = obj;
+        self.$row = obj;
     }
 
     self.boxnumber = boxnumber;
-    self.name = self.row.find ('input.name');
-    self.credit = self.row.find ('input.credit');
-    self.join = self.row.find ('input.join');
-    self.gid = self.row.find ('input.gid');
-    self.id = self.row.find ('input.id');
-    self.link = self.row.find ('a');
+    self.$name = self.$row.find ('input.name');
+    self.$sortname = self.$row.find ('input.sortname');
+    self.$credit = self.$row.find ('input.credit');
+    self.$join = self.$row.find ('input.join');
+    self.$gid = self.$row.find ('input.gid');
+    self.$id = self.$row.find ('input.id');
+    self.$remove_artist = self.$row.find ('input.remove-artist-credit');
 
-    var clear = function () {
-        self.name.val ('');
-        self.credit.val ('');
-        self.join.val ('');
-        self.gid.val ('');
-        self.id.val ('');
-        self.link.hide ().attr('href', '').attr('title', '');
+    self.clear = function () {
+        self.$name.val ('');
+        self.$sortname.val ('');
+        self.$credit.val ('');
+        self.$join.val ('');
+        self.$gid.val ('');
+        self.$id.val ('');
     };
 
-    var render = function (data) {
+    self.render = function (data) {
 
-        self.name.val(data.artist_name).removeClass('error');
-        self.join.val(data.join || '');
-        self.credit.val (data.name);
-        self.gid.val(data.gid);
-        self.id.val(data.id);
-        self.link.show ().
-            attr('href', '/artist/'+data.gid).
-            attr('title', data.comment);
+        self.$name.val (data.artist_name).removeClass('error');
+        self.$sortname.val (data.sortname);
+        self.$join.val (data.join || '');
+        self.$credit.val (data.name);
+        self.$gid.val (data.gid);
+        self.$id.val (data.id);
 
-        if (self.credit.val () === '')
+        if (self.$credit.val () === '')
         {
-            self.credit.val (data.name);
+            self.$credit.val (data.name);
         }
 
     };
 
-    var update = function(event, data) {
+    self.update = function(event, data) {
 
         if (data.name)
         {
-            self.name.val (data.name).removeClass ('error');
-            self.gid.val (data.gid);
-            self.id.val (data.id);
-            self.link.show ().
-                attr('href', '/artist/'+data.gid).
-                attr('title', data.comment);
+            self.$name.val (data.name).removeClass ('error');
+            self.$sortname.val (data.sortname);
+            self.$gid.val (data.gid);
+            self.$id.val (data.id);
 
-            if (self.credit.val () === '')
+            if (self.$credit.val () === '')
             {
-                self.credit.val (data.name);
+                self.$credit.val (data.name);
             }
 
             self.container.renderPreview();
@@ -105,58 +102,71 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         return false;
     };
 
-    var joinBlurred = function(event) {
-        self.container.renderPreview();
-    };
-
-    var nameBlurred = function(event) {
+    self.nameBlurred = function(event) {
         /* mark the field as having an error if no lookup was
          * performed for this artist name. */
-        if (self.name.val() !== "" && self.id.val() === "")
+        if (self.$name.val() !== "" && self.$id.val() === "")
         {
-            self.name.addClass('error');
+            self.$name.addClass('error');
         }
 
         /* if the artist was cleared the user probably wants to delete it,
-           make sure ids and links are emptied out too. */
-        if (self.name.val() === '')
+           make sure ids are emptied out too. */
+        if (self.$name.val() === '')
         {
-            self.gid.val ('');
-            self.id.val ('');
-            self.link.hide ().attr('href', '').attr('title', '');
+            self.$gid.val ('');
+            self.$id.val ('');
         }
 
         self.container.renderPreview();
     };
 
-    var creditBlurred = function(event) {
-        if (self.credit.val() === "")
-            return;
-
-        self.container.addArtistBox(self.boxnumber + 1);
+    self.creditBlurred = function(event) {
         self.container.renderPreview();
     };
 
-    var isEmpty = function () {
-        return (self.name.val () === '' &&
-                self.credit.val () === '' &&
-                self.join.val () === '');
+    self.joinBlurred = function(event) {
+        self.container.renderPreview();
     };
 
-    self.clear = clear;
-    self.render = render;
-    self.update = update;
-    self.joinBlurred = joinBlurred;
-    self.nameBlurred = nameBlurred;
-    self.creditBlurred = creditBlurred;
-    self.isEmpty = isEmpty;
+    self.isEmpty = function () {
+        return (self.$name.val () === '' &&
+                self.$credit.val () === '' &&
+                self.$join.val () === '');
+    };
 
-    self.join.bind('blur', self.joinBlurred);
-    self.name.bind('blur', self.nameBlurred);
-    self.credit.bind('blur', self.creditBlurred);
+    self.renderPreviewText = function () {
+        return self.$credit.val () + self.$join.val ();
+    };
+
+    self.renderPreviewHTML = function () {
+        return '<a target="_blank" href="/artist/' + self.$gid.val () + 
+            '" title="' + self.$sortname.val () + '">' +
+            self.$credit.val () + '</a>' + self.$join.val ();
+    };
+
+    self.remove = function () {
+        if (self.container.removeArtistBox (self.boxnumber))
+        {
+            self.$row.remove (); 
+        }
+    };
+
+    self.showJoin = function () {
+        self.$join.closest ('div.row').show ();
+    };
+
+    self.hideJoin = function () {
+        self.$join.closest ('div.row').hide ();
+    };
+
+    self.$join.bind('blur.mb', self.joinBlurred);
+    self.$name.bind('blur.mb', self.nameBlurred);
+    self.$credit.bind('blur.mb', self.creditBlurred);
+    self.$remove_artist.bind ('click.mb', self.remove);
 
     MB.Control.Autocomplete ({
-        'input': self.name,
+        'input': self.$name,
         'entity': 'artist',
         'select': self.update
     });
@@ -173,16 +183,18 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
 /* an ArtistCreditContainer is the base container for all the artist credits
    on a track or the release. */
-MB.Control.ArtistCreditContainer = function(input, artistcredits) {
+MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
     var self = MB.Object();
 
     self.box = [];
-    self.artistcredits = artistcredits;
-    self.artist_input = input;
+    self.$artist_input = $input;
+    self.$artistcredits = $artistcredits;
+    self.$preview = $artistcredits.find ('span.artist-credit-preview');
+    self.$add_artist = self.$artistcredits.find ('input.add-artist-credit');
 
-    var initialize = function() {
+    self.initialize = function() {
 
-        self.artistcredits.find('.artist-credit-box').each(function(i) {
+        self.$artistcredits.find('.artist-credit-box').each(function(i) {
             self.box[i] = MB.Control.ArtistCredit($(this), i, self);
         });
 
@@ -194,50 +206,81 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         }
 
         MB.Control.Autocomplete ({
-            'input': self.artist_input,
+            'input': self.$artist_input,
             'entity': 'artist',
             'select': self.update
         });
 
+        self.$add_artist.bind ('click.mb', self.addArtistBox);
+
+        self.updateJoinVisibility ();
         self.renderPreview ();
     };
 
-    var update = function(event, data) {
+    self.update = function(event, data) {
         event.preventDefault();
         self.box[0].update(event, data);
     };
 
-    var addArtistBox = function(i) {
-        if (self.box[i]) {
-            return self.box[i];
-        }
+    self.addArtistBox = function () {
+        var pos = self.box.length;
+        var prev = self.box[pos-1];
 
-        self.box[i] = MB.Control.ArtistCredit(null, i, self);
-        self.box[i].row.insertAfter (self.box[i-1].row);
+        self.box[pos] = MB.Control.ArtistCredit(null, pos, self);
+        self.box[pos].$row.insertAfter (prev.$row);
 
-        return self.box[i];
+        prev.showJoin ();
+        self.box[pos].hideJoin ();
+
+        return self.box[pos];
     };
 
-    var renderPreview = function() {
-        var preview = "";
+    self.removeArtistBox = function (pos) {
+        if (self.box.length < 2)
+        {
+            /* Do not allow the last box to be deleted. */
+            return false;
+        }
 
-        self.artistcredits.find ('.artist-credit-box').each(function(i, box) {
-            var name = $(box).find('input.credit').val();
-            var join = $(box).find('input.join').val() || '';
+        self.box.splice (pos, 1);
 
-            preview += name + join;
+        $.each (self.box, function (idx, box) { box.boxnumber = idx; });
+        self.updateJoinVisibility ();
+
+        return true;
+    };
+
+    self.updateJoinVisibility = function () {
+
+        $.each (self.box, function (idx, box) { 
+            if (idx === self.box.length - 1)
+            {
+                box.hideJoin ();
+            }
+            else
+            {
+                box.showJoin ();
+            }
         });
 
-        self.artist_input.val(preview);
-
-        if (! self.box[self.box.length - 1].isEmpty ())
-        {
-            /* always add an empty box when there isn't one. */
-            self.addArtistBox (self.box.length);
-        }
     };
 
-    var render = function (data) {
+    /* renderPreview updates both the main entity artist input field
+       and the preview displayed inside the artist credit bubble. */
+    self.renderPreview = function() {
+        var previewText = [];
+        var previewHTML = [];
+
+        $.each (self.box, function (idx, box) {
+            previewText.push (box.renderPreviewText ());
+            previewHTML.push (box.renderPreviewHTML ());
+        });
+
+        self.$artist_input.val (previewText.join (""));
+        self.$preview.html (previewHTML.join (""));
+    };
+
+    self.render = function (data) {
         $.each (self.box, function (idx, item) {
              item.clear();
         });
@@ -251,11 +294,11 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         self.renderPreview ();
     };
 
-    var isVariousArtists = function () {
+    self.isVariousArtists = function () {
         return self.box[0].gid.val () === MB.constants.VARTIST_GID;
     };
 
-    var clear = function () {
+    self.clear = function () {
         $.each (self.box, function (idx, item) {
             item.clear ();
         });
@@ -263,7 +306,7 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         self.renderPreview ();
     };
 
-    var toData = function () {
+    self.toData = function () {
         var ret = [];
 
         $.each (self.box, function (idx, item) {
@@ -282,15 +325,6 @@ MB.Control.ArtistCreditContainer = function(input, artistcredits) {
         return { 'names': ret, 'preview': self.artist_input.val() };
     };
 
-    self.initialize = initialize;
-    self.update = update;
-    self.addArtistBox = addArtistBox;
-    self.renderPreview = renderPreview;
-    self.render = render;
-    self.isVariousArtists = isVariousArtists;
-    self.clear = clear;
-    self.toData = toData;
-
     self.initialize ();
 
     return self;
@@ -304,17 +338,15 @@ MB.Control.artist_credit_hide_rows = function (parent) {
 MB.Control.ArtistCreditRow = function (row, acrow) {
     var self = MB.Control.ArtistCreditContainer (row.find ("td.artist input"), acrow);
 
-    var initialize = function () {
+    self.initialize = function () {
         self.artist_input.focus(function(event) {
-            $('tr.track-artist-credit').not(self.artistcredits).hide();
+            $('tr.track-artist-credit').not(self.$artistcredits).hide();
 
-            self.artistcredits.show ();
+            self.$artistcredits.show ();
         });
 
-        self.artistcredits.hide ();
+        self.$artistcredits.hide ();
     };
-
-    self.initialize = initialize;
 
     self.initialize ();
 
