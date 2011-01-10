@@ -36,35 +36,43 @@
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
+$('a[href=#advanced]').click ();
+$('input.artistcolumn').click ();
+
+    MB.debug.waitForElement ('a[href=#credits]:eq(1)', function (button) {
+        button.click ();
+    });
 
     });
 
   </script>
 [%- END -%]
 
-[%- MACRO artist_credit_table(acfield) BLOCK -%]
-<div class="ac-balloon0">
-  <div class="ac-balloon1">
-    <div class="ac-balloon2"></div>
-    <div class="ac-balloon3"></div>
-  </div>
-</div>
-<table class="artist-credit" style="width: 100%">
-  <tr class="artist-credit-header">
-    <th>[% l('Link') %]</th>
-    <th>[% l('Artist in MusicBrainz') %]</th>
-    <th>[% l('Artist as credited on this track') %]</th>
-    <th>[% l('Join phrase') %]</th>
-  </tr>
+[%- MACRO artist_credit_row(acfield) BLOCK -%]
+<table class="artist-credit bubble" style="width: 100%">
+  <thead>
+    <tr class="artist-credit-preview">
+      <td colspan="4">
+        <div class="row">
+          <label>Preview</label>
+          <span class="artist-credit-preview">[% artist_credit(acfield.fif) %]</span>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="artist-credit-header">
+      <th>[% l('Artist in MusicBrainz') %]</th>
+     <th>[% l('Artist as credited on this track') %]</th>
+      <th>[% l('Join phrase') %]</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+
   [% FOR ac=acfield.field('names').fields %]
     [% artistnum = loop.index %]
     [% artist = acfield.fif.names.$artistnum.artist %]
     <tr class="artist-credit-box">
-      <td class="link">
-        <a tabindex="-1" href="[% c.uri_for_action("/artist/show", [ artist.gid ]) %]">
-          [%- IF artist.gid -%][% l('link') %][%- END -%]
-        </a>
-      </td>
       <td class="artist">
         <input type="text" class="name" value="[% artist.name %]" />
         <input type="hidden" class="gid" value="[% artist.gid %]" />
@@ -76,8 +84,25 @@
       <td class="joinphrase">
         <input type="text" class="join" value="[% ac.field('join_phrase').value %]" />
       </td>
+      <td class="icon">
+        <input type="button" class="icon remove-artist-credit"
+          title="[% l('Remove Artist Credit') %]" 
+          style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
+      </td>
     </tr>
   [% END %]
+
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right;">[% l('Add Artist Credit') %]</td>
+      <td class="icon">
+        <input type="button" class="icon add-artist-credit"
+          title="[% l('Add Artist Credit') %]" 
+          style="background-image: url(/static/images/icons/add_row.png); width: 16px; height: 16px; border: 0;" />
+      </td>
+    </tr>
+  </tbody>
 </table>
 [%- END -%]
 
@@ -231,10 +256,16 @@
           <input type="text" class="track-name" />
         </td>
         <td class="artist">
-          <input type="text" class="artist-credit-preview" value="[% release_artist.fif.name %]" />
+          <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
+        </td>
+        <td class="credits-button">
+          <a href="#credits">[% l('credits') %]</a>
         </td>
         <td class="length">
           <input type="text" class="track-length" size="5" value="?:??" />
+        </td>
+        <td class="guesscase">
+          <a class="guesscase-track" href="#guesscase_track">[%- l('aA') -%]</a>
         </td>
         <td class="delete">
           <input type="hidden" class="deleted" value="0" />
@@ -242,13 +273,10 @@
             <span class="ui-icon ui-icon-closethick">[% l('Remove Track') %]</span>
           </a>
         </td>
-        <td class="guesscase">
-          <a class="guesscase-track" href="#guesscase_track">[%- l('aA') -%]</a>
-        </td>
       </tr>
-      <tr class="track-artist-credit">
-        <td colspan="5">
-          [% artist_credit_table(release_artist) %]
+      <tr class="track-artist-credit container" style="display: none">
+        <td colspan="7">
+          [% artist_credit_row(release_artist) %]
         </td>
       </tr>
     </table>
@@ -285,7 +313,7 @@
           <tr>
             <th class="position">[% l('#') %]</th>
             <th class="title">[% l('Title') %]</th>
-            <th class="artist">
+            <th class="artist" colspan="2">
               <input type="checkbox" class="artistcolumn" />
               [% l('Artist') %]
             </th>

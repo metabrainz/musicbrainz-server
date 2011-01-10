@@ -140,7 +140,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.renderPreviewHTML = function () {
-        return '<a target="_blank" href="/artist/' + self.$gid.val () + 
+        return '<a target="_blank" href="/artist/' + self.$gid.val () +
             '" title="' + self.$sortname.val () + '">' +
             self.$credit.val () + '</a>' + self.$join.val ();
     };
@@ -148,16 +148,16 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.remove = function () {
         if (self.container.removeArtistBox (self.boxnumber))
         {
-            self.$row.remove (); 
+            self.$row.remove ();
         }
     };
 
     self.showJoin = function () {
-        self.$join.closest ('div.row').show ();
+        self.$join.closest ('.join-container').show ();
     };
 
     self.hideJoin = function () {
-        self.$join.closest ('div.row').hide ();
+        self.$join.closest ('.join-container').hide ();
     };
 
     self.$join.bind('blur.mb', self.joinBlurred);
@@ -252,7 +252,7 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
 
     self.updateJoinVisibility = function () {
 
-        $.each (self.box, function (idx, box) { 
+        $.each (self.box, function (idx, box) {
             if (idx === self.box.length - 1)
             {
                 box.hideJoin ();
@@ -286,16 +286,19 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
         });
 
         $.each (data.names, function (idx, item) {
+            if (self.box.length === idx)
+            {
+                self.addArtistBox (idx);
+            }
 
-            var box = self.addArtistBox (idx);
-            box.render (item);
+            self.box[idx].render (item);
         });
 
         self.renderPreview ();
     };
 
     self.isVariousArtists = function () {
-        return self.box[0].gid.val () === MB.constants.VARTIST_GID;
+        return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
     };
 
     self.clear = function () {
@@ -322,7 +325,7 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
             });
         });
 
-        return { 'names': ret, 'preview': self.artist_input.val() };
+        return { 'names': ret, 'preview': self.$artist_input.val() };
     };
 
     self.initialize ();
@@ -330,25 +333,18 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
     return self;
 };
 
-MB.Control.artist_credit_hide_rows = function (parent) {
-    parent.find ('tr.track-artist-credit').hide();
-}
-
 /* an ArtistCreditRow is the container for all the artist credits on a track. */
-MB.Control.ArtistCreditRow = function (row, acrow) {
-    var self = MB.Control.ArtistCreditContainer (row.find ("td.artist input"), acrow);
+MB.Control.ArtistCreditRow = function ($target, $container, $button) {
+    var self = MB.Control.ArtistCreditContainer ($target, $container);
 
-    self.initialize = function () {
-        self.artist_input.focus(function(event) {
-            $('tr.track-artist-credit').not(self.$artistcredits).hide();
+    $container.bind ('bubbleOpen.mb', function () {
+        $target.attr ('disabled', 'disabled');
+    });
 
-            self.$artistcredits.show ();
-        });
+    $container.bind ('bubbleClose.mb', function () {
+        $target.removeAttr ('disabled');
+    });
 
-        self.$artistcredits.hide ();
-    };
-
-    self.initialize ();
 
     return self;
 };
@@ -358,13 +354,13 @@ MB.Control.ArtistCreditRow = function (row, acrow) {
 MB.Control.ArtistCreditVertical = function ($target, $container, $button) {
     var self = MB.Control.ArtistCreditContainer ($target, $container);
 
-    $container.bind ('bubbleOpen.mb', function () { 
-        $button.val (' << '); 
+    $container.bind ('bubbleOpen.mb', function () {
+        $button.val (' << ');
         $target.attr ('disabled', 'disabled');
     });
-    
+
     $container.bind ('bubbleClose.mb', function () {
-        $button.val (' >> '); 
+        $button.val (' >> ');
         $target.removeAttr ('disabled');
     });
 
@@ -384,3 +380,4 @@ MB.Control.initialize_artist_credit = function () {
     MB.Control.BubbleCollection ($button, $container);
     MB.Control.ArtistCreditVertical ($target, $container, $button);
 };
+

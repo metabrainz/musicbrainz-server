@@ -154,7 +154,7 @@
             </span>
           </div>
 
-          <div class="row">
+          <div class="row join-container">
             <label>[% l('Join phrase') %]</label>
             <span class="joinphrase">
               [%- r.text (ac.field('join_phrase'), class => 'join') -%]

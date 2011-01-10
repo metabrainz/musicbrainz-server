@@ -42,13 +42,13 @@ MB.Control.ReleasePreview = function (advancedtab) {
                 }
 
                 var tr = $('<tr>').appendTo (table);
-                tr.append ($('<td class="trackno">').text (item.position.val ()));
-                tr.append ($('<td class="title">').text (item.title.val ()));
+                tr.append ($('<td class="trackno">').text (item.$position.val ()));
+                tr.append ($('<td class="title">').text (item.$title.val ()));
                 if ($('#various-artists').val () == '1')
                 {
-                    tr.append ($('<td class="artist">').text (item.preview.val ()));
+                    tr.append ($('<td class="artist">').text (item.$artist.val ()));
                 }
-                tr.append ($('<td class="duration">').text (item.length.val ()));
+                tr.append ($('<td class="duration">').text (item.$length.val ()));
             });
 
         });
@@ -78,11 +78,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
                 return;
             }
 
-            str += item.position.val () + ". " + item.title.val ();
+            str += item.$position.val () + ". " + item.$title.val ();
 
-            if (self.variousArtists () && item.preview.val () !== '')
+            if (self.variousArtists () && item.$artist.val () !== '')
             {
-                str += MB.TrackParser.separator + item.preview.val ();
+                str += MB.TrackParser.separator + item.$artist.val ();
             }
 
             var len = item.lengthOrNull ();

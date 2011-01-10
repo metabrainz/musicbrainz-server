@@ -423,7 +423,7 @@ MB.Control.BubbleCollection = function ($targets, $contents) {
         {
             $targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
             $contents.each (function (idx, data) { tmp[idx].doc = data; });
-            $.each (tmp, function (idx, data) { self.add (data.button, data.doc); });
+            $.each (tmp, function (idx, data) { self.add ($(data.button), $(data.doc)); });
         }
     }
 
