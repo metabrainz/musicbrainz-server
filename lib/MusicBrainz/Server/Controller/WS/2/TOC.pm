@@ -5,6 +5,8 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' };
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
+use MusicBrainz::Server::Translation 'l';
+
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -25,6 +27,10 @@ sub toc : Chained('root') PathPart('toc') Args(1)
     my ($self, $c, $toc) = @_;
 
     my $results = $c->model('DurationLookup')->lookup($toc, 10000);
+    if (!defined($results)) {
+        $self->_error($c, l('Invalid TOC'));
+    }
+    
     my $inc = $c->stash->{inc};
 
     $c->model('Release')->load(map { $_->medium } @$results);
