@@ -1,7 +1,7 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
    Copyright (C) 2010 Kuno Woudt <kuno@frob.nl>
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010,2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -61,32 +61,32 @@ jQuery.fn.borderRadius = function (radius) {
 /* BubbleBase provides the common code for speech bubbles as used
    on the Release Editor.
 */
-MB.Control.BubbleBase = function (parent, target, content, offset) {
+MB.Control.BubbleBase = function (parent, $target, $content, offset) {
     var self = MB.Object ();
 
     self.parent = parent;
     self.offset = offset ? offset : 20;
-    self.target = $(target);
-    self.content = $(content);
-    self.container = self.content.parent ();
+    self.$target = $target;
+    self.$content = $content;
+    self.$container = self.$content.parent ();
 
-    self.target.data ('bubble', self);
+    self.$target.data ('bubble', self);
 
-    var tail = function () {
-        self.balloon0.css ('position', 'absolute').css ('z-index', '1');
+    self.tail = function () {
+        self.$balloon0.css ('position', 'absolute').css ('z-index', '1');
 
-        self.balloon1.css ('position', 'absolute')
+        self.$balloon1.css ('position', 'absolute')
             .css ('padding', '0')
             .css ('margin', '0');
 
-        self.balloon2.css ('float', 'left')
+        self.$balloon2.css ('float', 'left')
             .css ('background', '#fff')
             .css ('padding', '0')
             .css ('margin', '0')
             .css ('border-style', 'solid')
             .css ('border-color', '#999');
 
-        self.balloon3.css ('float', 'left')
+        self.$balloon3.css ('float', 'left')
             .css ('background', '#fff')
             .css ('padding', '0')
             .css ('margin', '0')
@@ -94,14 +94,14 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
             .css ('border-color', '#999');
     };
 
-    var show = function () {
+    self.show = function () {
         self.parent.hideOthers (self);
-        self.container.show ();
+        self.$container.show ();
         self.move ();
         self.tail ();
         self.visible = true;
 
-        self.content.trigger ('bubbleOpen');
+        self.$content.trigger ('bubbleOpen');
 
         if (typeof self.callbacks['show'] === "function")
         {
@@ -109,11 +109,11 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
         }
     };
 
-    var hide = function () {
-        self.container.hide ();
+    self.hide = function () {
+        self.$container.hide ();
         self.visible = false;
 
-        self.content.trigger ('bubbleClose');
+        self.$content.trigger ('bubbleClose');
 
         if (typeof self.callbacks['hide'] === "function")
         {
@@ -121,7 +121,7 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
         }
     };
 
-    var toggle = function () {
+    self.toggle = function () {
         if (self.visible)
         {
             self.hide ();
@@ -132,9 +132,47 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
         }
     };
 
+    self.initialize = function () {
+        self.button = false;
+        self.textinput = false;
+
+        if (self.$target.filter ('a').length ||
+            self.$target.filter ('input[type=submit]').length ||
+            self.$target.filter ('input[type=button]').length)
+        {
+            self.button = true;
+        }
+        else if (self.$target.filter ('input[type=text]').length ||
+                 self.$target.filter ('textarea').length)
+        {
+            self.textinput = true;
+        }
+
+        if (self.button)
+        {
+            /* show content when a button is pressed. */
+            self.$target.click (function (event) {
+                self.toggle ();
+                event.preventDefault ();
+            });
+        }
+
+        if (self.textinput)
+        {
+            /* show content when an input field is focused. */
+            self.$target.focus (function (event) {
+
+                self.show ();
+            });
+        }
+
+        return self;
+    };
+
+
     /* FIXME: used only in MB.Control.ReleaseRecordings, should be refactored to use
        proper javascript/jquery events. */
-    var bind = function (key, fun) {
+    self.bind = function (key, fun) {
         self.callbacks[key] = fun;
     };
 
@@ -142,20 +180,15 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
     self.callbacks = {};
 
     self.move = function () {};
-    self.tail = tail;
-    self.show = show;
-    self.hide = hide;
-    self.toggle = toggle;
-    self.bind = bind;
 
-    self.balloon0 = $('<div>');
-    self.balloon1 = $('<div>');
-    self.balloon2 = $('<div>');
-    self.balloon3 = $('<div>');
+    self.$balloon0 = $('<div>');
+    self.$balloon1 = $('<div>');
+    self.$balloon2 = $('<div>');
+    self.$balloon3 = $('<div>');
 
-    self.balloon0.append (
-        self.balloon1.append (self.balloon2).append (self.balloon3)
-    ).insertBefore (self.content);
+    self.$balloon0.append (
+        self.$balloon1.append (self.$balloon2).append (self.$balloon3)
+    ).insertBefore (self.$content);
 
     return self;
 };
@@ -168,20 +201,19 @@ MB.Control.BubbleBase = function (parent, target, content, offset) {
    inserted above it) make sure to call move() again whenever that
    input is focused and the documentation div displayed.
 */
-MB.Control.BubbleDocBase = function (parent, target, content) {
-    var self = MB.Control.BubbleBase (parent, target, content);
+MB.Control.BubbleDocBase = function (parent, $target, $content) {
+    var self = MB.Control.BubbleBase (parent, $target, $content);
 
     var parent_tail = self.tail;
     var parent_hide = self.hide;
 
-    var move = function () {
+    self.move = function () {
+        self.$container.show ();
 
-        self.container.show ();
-
-        self.container.position({
+        self.$container.position({
             my: "left top",
             at: "right top",
-            of: self.target,
+            of: self.$target,
             offset: "37 -23",
             collision: "none"
         });
@@ -190,151 +222,104 @@ MB.Control.BubbleDocBase = function (parent, target, content) {
            first call and fix that issue or submit a bug report to opera. */
         if (window.opera)
         {
-            self.container.position({
+            self.$container.position({
                 my: "left top",
                 at: "right top",
-                of: self.target,
+                of: self.$target,
                 offset: "37 -23",
                 collision: "none"
             });
         }
 
-        var height = self.content.height ();
+        var height = self.$content.height ();
 
         if (height < 42)
         {
             height = 42;
         }
 
-        self.container.css ('min-height', height);
-        self.content.css ('min-height', height);
+        self.$container.css ('min-height', height);
+        self.$content.css ('min-height', height);
 
-        var pageBottom = self.page.offset ().top + self.page.outerHeight ();
-        var bubbleBottom = self.container.offset ().top + self.container.outerHeight ();
+        var pageBottom = self.$page.offset ().top + self.$page.outerHeight ();
+        var bubbleBottom = self.$container.offset ().top + self.$container.outerHeight ();
 
         if (pageBottom < bubbleBottom)
         {
-            var newHeight = self.page.outerHeight () + bubbleBottom - pageBottom + 10;
+            var newHeight = self.$page.outerHeight () + bubbleBottom - pageBottom + 10;
 
-            self.page.css ('min-height', newHeight);
+            self.$page.css ('min-height', newHeight);
         }
     };
 
-    var tail = function () {
+    self.tail = function () {
 
         parent_tail ();
 
-        var targetY = self.target.offset ().top - 24 + self.target.height () / 2;
-        var offsetY = targetY - self.content.offset ().top;
+        var targetY = self.$target.offset ().top - 24 + self.$target.height () / 2;
+        var offsetY = targetY - self.$content.offset ().top;
 
-        self.balloon0.position({
+        self.$balloon0.position({
             my: "right top",
             at: "left top",
-            of: self.content,
+            of: self.$content,
             offset: "0 " + Math.floor (offsetY)
         });
 
-        self.balloon1.css ('background', '#eee')
+        self.$balloon1.css ('background', '#eee')
             .css ('width', '14px')
             .css ('height', '42px')
             .css ('left', '-12px')
             .css ('top', '10px');
 
-        self.balloon2.borderRadius ({ 'bottom-right': '12px' })
+        self.$balloon2.borderRadius ({ 'bottom-right': '12px' })
             .css ('width', '12px')
             .css ('height', '20px')
             .css ('border-width', '0 1px 1px 0');
 
-        self.balloon3.borderRadius ({ 'top-right': '12px' })
+        self.$balloon3.borderRadius ({ 'top-right': '12px' })
             .css ('width', '12px')
             .css ('height', '20px')
             .css ('border-width', '1px 1px 0 0');
     };
 
-    var hide = function () {
+    self.hide = function () {
         parent_hide ();
 
-        self.page.css ('min-height', '');
+        self.$page.css ('min-height', '');
     };
 
-
-    self.page = $('#page');
-
-    self.move = move;
-    self.tail = tail;
-    self.hide = hide;
+    self.$page = $('#page');
 
     return self;
 };
 
 
-MB.Control.BubbleDoc = function (parent, target, content) {
-    var self = MB.Control.BubbleDocBase (parent, target, content);
+MB.Control.BubbleDoc = function (parent, $target, $content) {
+    var self = MB.Control.BubbleDocBase (parent, $target, $content);
 
     var parent_show = self.show;
     var parent_hide = self.hide;
 
-    var show = function () {
+    self.show = function () {
         parent_show ();
 
         if (self.button)
         {
             /* FIXME: fix the code that relies on this to use proper js events. */
-            self.target.text (MB.text.Done);
+            self.$target.text (MB.text.Done);
         }
     };
 
-    var hide = function () {
+    self.hide = function () {
         parent_hide ();
 
         if (self.button)
         {
             /* FIXME: fix the code that relies on this to use proper js events. */
-            self.target.text (MB.text.Change);
+            self.$target.text (MB.text.Change);
         }
     };
-
-    var initialize = function () {
-
-        self.button = false;
-        self.textinput = false;
-
-        if (self.target.filter ('a').length ||
-            self.target.filter ('input[type=submit]').length ||
-            self.target.filter ('input[type=button]').length)
-        {
-            self.button = true;
-        }
-        else if (self.target.filter ('input[type=text]').length ||
-                 self.target.filter ('textarea').length)
-        {
-            self.textinput = true;
-        }
-
-        if (self.button)
-        {
-            /* show content when a button is pressed. */
-            self.target.click (function (event) {
-                self.toggle ();
-                event.preventDefault ();
-            });
-        }
-
-        if (self.textinput)
-        {
-            /* show content when an input field is focused. */
-            self.target.focus (function (event) {
-
-                self.show ();
-            });
-        }
-
-        return self;
-    };
-
-    self.show = show;
-    self.hide = hide;
-    self.initialize = initialize;
 
     return self;
 };
@@ -342,18 +327,52 @@ MB.Control.BubbleDoc = function (parent, target, content) {
 
 /* BubbleRow turns the div inside a table row into a bubble pointing
    at one of the inputs in the preceding row. */
-MB.Control.BubbleRow = function (parent, target, content, offset) {
-    var self = MB.Control.BubbleBase (parent, target, content, offset);
+MB.Control.BubbleRow = function (parent, $target, $acrow, offset) {
+    var $content = $acrow.find ('.bubble');
+    var self = MB.Control.BubbleBase (parent, $target, $content, offset);
+
+    self.$container = $acrow;
 
     var parent_tail = self.tail;
 
-    var tail = function () {
-
+    self.tail = function () {
         parent_tail ();
 
-    };
+        var $input = self.$target.closest ('td').prev ().find ('input');
 
-    self.tail = tail;
+        var targetX = $input.offset ().left + 24;
+        var offsetX = targetX - self.$content.offset ().left;
+
+        self.$balloon0.position({
+            my: "left bottom",
+            at: "left top",
+            of: self.$content,
+            offset: parseInt (offsetX, 10) + " 2",
+            collision: "none",
+            'using': function (props) {
+                /* fix unstable positioning due to fractions. */
+                props.top = parseInt (props.top, 10);
+                props.left = parseInt (props.left, 10);
+                $(this).css (props);
+            }
+        });
+
+        self.$balloon1.css ('background', '#eee')
+            .css ('width', '42px')
+            .css ('height', '14px')
+            .css ('left', '10px')
+            .css ('top', '-12px');
+
+        self.$balloon2.borderRadius ({ 'bottom-right': '12px' })
+            .css ('width', '20px')
+            .css ('height', '12px')
+            .css ('border-width', '0 1px 1px 0');
+
+        self.$balloon3.borderRadius ({ 'bottom-left': '12px' })
+            .css ('width', '20px')
+            .css ('height', '12px')
+            .css ('border-width', '0 0 1px 1px');
+    };
 
     return self;
 };
@@ -363,12 +382,23 @@ MB.Control.BubbleRow = function (parent, target, content, offset) {
    BubbleDocs on a page.  It's main purpose is to allow a Bubble to
    hide any other active bubbles when it is to be shown.
 */
-MB.Control.BubbleCollection = function (targets, contents) {
+MB.Control.BubbleCollection = function ($targets, $contents) {
     var self = MB.Object ();
 
+    self.type = MB.Control.BubbleDoc;
     self.bubbles = [];
 
-    var hideOthers = function (bubble) {
+    self.add = function ($target, $contents) {
+        self.bubbles.push (self.type (self, $target, $contents).initialize ());
+    };
+
+    self.bind = function (key, fun) {
+        $.each (self.bubbles, function (idx, bubble) {
+            bubble.bind (key, fun);
+        });
+    };
+
+    self.hideOthers = function (bubble) {
         if (self.active)
         {
             self.active.hide ();
@@ -377,45 +407,27 @@ MB.Control.BubbleCollection = function (targets, contents) {
         self.active = bubble;
     };
 
-    var hideAll = function () {
+    self.hideAll = function () {
         self.hideOthers (null);
     };
 
-    var add = function (target, contents) {
-        self.bubbles.push (
-            MB.Control.BubbleDoc (self, target, contents).initialize ()
-        );
+    self.setType = function (type) {
+        self.type = type;
     };
 
-    var initialize = function ()
+    self.initialize = function ()
     {
         var tmp = [];
 
-        if (targets && contents)
+        if ($targets && $contents)
         {
-            targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
-            contents.each (function (idx, data) { tmp[idx].doc = data; });
-
-            $.each (tmp, function (idx, data) {
-                self.bubbles.push (
-                    MB.Control.BubbleDoc (self, data.button, data.doc).initialize ()
-                );
-            });
+            $targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
+            $contents.each (function (idx, data) { tmp[idx].doc = data; });
+            $.each (tmp, function (idx, data) { self.add (data.button, data.doc); });
         }
     }
 
-    var bind = function (key, fun) {
-        $.each (self.bubbles, function (idx, bubble) {
-            bubble.bind (key, fun);
-        });
-    };
-
-    self.hideOthers = hideOthers;
-    self.hideAll = hideAll;
-    self.add = add;
-    self.initialize = initialize;
     self.active = false;
-    self.bind = bind;
 
     self.initialize ();
 
