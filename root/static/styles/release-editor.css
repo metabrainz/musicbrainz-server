@@ -199,6 +199,9 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor div.basic-medium-format-and-title label { float: none; }
 
+#release-editor div.advanced-format td { vertical-align: top; }
+#release-editor div.advanced-format td.icon { padding: 10px; }
+
 #release-editor fieldset legend {
     color: #fc6714;
     font-size: 120%;
@@ -240,13 +243,13 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     border-radius: 12px;
 }
 
-#release-editor .medium.tbl tr.track-artist-credit td table td { 
-    background: #f0f0f0; 
+#release-editor .medium.tbl tr.track-artist-credit td table td {
+    background: #f0f0f0;
     padding: 2px;
 }
 
-#release-editor .medium.tbl tr.track-artist-credit td table td.icon { 
-    padding-left: 10px;
+#release-editor .medium.tbl tr.track-artist-credit td table td.icon {
+    padding-left: 10px
 }
 
 #release-editor .documentation div.barcode-container,

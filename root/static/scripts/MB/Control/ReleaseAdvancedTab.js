@@ -339,9 +339,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.$table.hide ();
         self.removeTracks (0);
         self.$fieldset.removeClass ('expanded');
-        self.$expand_icon.find ('span.ui-icon')
-            .removeClass ('ui-icon-triangle-1-s')
-            .addClass ('ui-icon-triangle-1-w');
+        self.$collapse_icon.hide ();
+        self.$expand_icon.show ();
 
         if (!chained)
         {
@@ -368,7 +367,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             /* FIXME: ignore result if the disc has been collapsed in
                the meantime.  --warp. */
-            var tracklist_id = self.basic.tracklist_id.val ();
+            var tracklist_id = self.basic.$tracklist_id.val ();
             if (tracklist_id)
             {
                 $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, use_data);
@@ -381,9 +380,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         self.$table.show ();
         self.$fieldset.addClass ('expanded');
-        self.$expand_icon.find ('span.ui-icon')
-            .removeClass ('ui-icon-triangle-1-w')
-            .addClass ('ui-icon-triangle-1-s');
+        self.$expand_icon.hide ();
+        self.$collapse_icon.show ();
 
         if (!chained)
         {
@@ -443,7 +441,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.edits = MB.Control.ReleaseEdits ($('#mediums\\.'+self.number+'\\.edits'));
 
     self.$buttons = $('#mediums\\.'+self.number+'\\.buttons');
-    self.$expand_icon = self.$buttons.find ('a.expand.icon');
+
+    self.$expand_icon = self.$fieldset.find ('input.expand-disc');
+    self.$collapse_icon = self.$fieldset.find ('input.collapse-disc');
     self.$template = $('table.tracklist-template');
 
     self.$fieldset.find ('table.medium tbody tr.track').each (function (idx, item) {
@@ -458,20 +458,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$buttons.find ('a[href=#discdown]').click (self.moveDown);
     self.$buttons.find ('a[href=#discup]').click (self.moveUp);
 
-    self.$expand_icon.click (function (event) {
-
-        if (self.$table.is (':visible'))
-        {
-            self.collapse ();
-        }
-        else
-        {
-            self.expand ();
-        }
-
-        event.preventDefault ();
-        return false;
-    });
+    self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
+    self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
 
     self.$artist_column_checkbox.bind ('change', self.updateArtistColumn);
 
@@ -712,7 +700,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         {
             disc.fieldset.insertBefore (other.fieldset);
 
-            /* FIXME: yes, I am aware that the variable names I've chosen 
+            /* FIXME: yes, I am aware that the variable names I've chosen
                here could use a little improvement. --warp. */
             disc.basic.basicdisc.insertBefore (other.basic.basicdisc);
         }

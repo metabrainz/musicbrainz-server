@@ -317,11 +317,11 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
                 return;
 
             ret.push({
-                'artist_name': item.name.val (),
-                'name': item.credit.val (),
-                'id': item.id.val (),
-                'gid': item.gid.val (),
-                'join': item.join.val () || ''
+                'artist_name': item.$name.val (),
+                'name': item.$credit.val (),
+                'id': item.$id.val (),
+                'gid': item.$gid.val (),
+                'join': item.$join.val () || ''
             });
         });
 

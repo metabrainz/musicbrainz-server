@@ -36,12 +36,6 @@
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
-$('a[href=#advanced]').click ();
-$('input.artistcolumn').click ();
-
-    MB.debug.waitForElement ('a[href=#credits]:eq(1)', function (button) {
-        button.click ();
-    });
 
     });
 
@@ -86,7 +80,7 @@ $('input.artistcolumn').click ();
       </td>
       <td class="icon">
         <input type="button" class="icon remove-artist-credit"
-          title="[% l('Remove Artist Credit') %]" 
+          title="[% l('Remove Artist Credit') %]"
           style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
       </td>
     </tr>
@@ -98,7 +92,7 @@ $('input.artistcolumn').click ();
       <td style="text-align: right;">[% l('Add Artist Credit') %]</td>
       <td class="icon">
         <input type="button" class="icon add-artist-credit"
-          title="[% l('Add Artist Credit') %]" 
+          title="[% l('Add Artist Credit') %]"
           style="background-image: url(/static/images/icons/add_row.png); width: 16px; height: 16px; border: 0;" />
       </td>
     </tr>
@@ -122,10 +116,13 @@ $('input.artistcolumn').click ();
 
         <table class="basic-format">
           <tr>
-            <td class="expand" >
-              <a class="icon" href="#expand_disc">
-                <span class="ui-icon ui-icon-triangle-1-e">[% l("Expand") %]</span>
-              </a>
+            <td class="icon">
+              <input type="button" class="icon expand-disc"
+                title="[% l('Expand Disc') %]"
+                style="background-image: url(/static/images/icons/expand.png); width: 16px; height: 16px; border: 0;" />
+              <input type="button" class="icon collapse-disc"
+                title="[% l('Collapse Disc') %]"
+                style="display: none; background-image: url(/static/images/icons/collapse.png); width: 16px; height: 16px; border: 0;" />
             </td>
             <td class="disc" >
             [% IF multidisc %]
@@ -287,24 +284,36 @@ $('input.artistcolumn').click ();
         [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
       </legend>
 
-      <div id="mediums.[% loop.index %].buttons" style="float: right; margin: 20px 20px 0 0;" >
-          <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track" title="[% l('Add Track(s)') %]">
-            <span class="ui-icon ui-icon-plusthick">[% l('Add Track(s)') %]</span>
-          </a>
-          <input type="text" class="add-track-count" value="1" />
-          <a class="icon" href="#discdown" title="[% l('Move disc down') %]">
-            <span class="ui-icon ui-icon-arrowthick-1-s">[% l('down') %]</span>
-          </a>
-          <a class="icon" href="#discup" title="[% l('Move disc up') %]">
-            <span class="ui-icon ui-icon-arrowthick-1-n">[% l('up') %]</span>
-          </a>
-          <a class="expand icon" href="#expand_disc" title="[% l("Expand") %]">
-            <span class="ui-icon ui-icon-triangle-1-w">[% l("Expand") %]</span>
-          </a>
-      </div>
+      <table class="advanced-format">
+        <tr>
+          <td class="icon" style="vertical-align: top; padding: 10px;">
+            <input type="button" class="icon expand-disc"
+              title="[% l('Expand Disc') %]"
+              style="background-image: url(/static/images/icons/expand.png); width: 16px; height: 16px; border: 0;" />
+            <input type="button" class="icon collapse-disc"
+              title="[% l('Collapse Disc') %]"
+              style="display: none; background-image: url(/static/images/icons/collapse.png); width: 16px; height: 16px; border: 0;" />
+          </td>
 
-      <div class="advanced-medium-format-and-title">
-      </div>
+          <td class="format">
+            <div class="advanced-medium-format-and-title">
+            </div>
+          </td>
+
+          <td class="buttons" id="mediums.[% loop.index %].buttons" style="vertical-align: top">
+            <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track" title="[% l('Add Track(s)') %]">
+              <span class="ui-icon ui-icon-plusthick">[% l('Add Track(s)') %]</span>
+            </a>
+            <input type="text" class="add-track-count" value="1" />
+            <a class="icon" href="#discdown" title="[% l('Move disc down') %]">
+              <span class="ui-icon ui-icon-arrowthick-1-s">[% l('down') %]</span>
+            </a>
+            <a class="icon" href="#discup" title="[% l('Move disc up') %]">
+              <span class="ui-icon ui-icon-arrowthick-1-n">[% l('up') %]</span>
+            </a>
+          </td>
+        </tr>
+      </table>
 
       <div class="tracklist-padding">
       [% field_errors(form, medium_field.full_name) %]
