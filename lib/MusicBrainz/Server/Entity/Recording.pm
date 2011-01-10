@@ -33,7 +33,7 @@ has 'track' => (
 
 has 'length' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Maybe[Int]'
 );
 
 has 'comment' => (

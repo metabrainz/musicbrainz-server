@@ -89,7 +89,7 @@
       [% form_row_text (r, 'barcode', 'Barcode') %]
     </fieldset>
 
-    <fieldset>
+    <fieldset class="information">
       <legend>Additional information</legend>
       [% form_row_textarea(r, 'annotation', l('Annotation')) %]
       [% form_row_text(r, 'comment', l('Comment')) %]
@@ -142,7 +142,7 @@
     <div class="annotation-container" style="display: none">
       <div class="annotation bubble">
         <p>
-          [% l('The notes field functions like a miniature wiki.') %]
+          [% l('The annotation field functions like a miniature wiki.') %]
         </p>
         <p>
           [% l('The purpose of this field is to add information that usually doesn\'t fit into the strict structural data schema of MusicBrainz (be it due to technical limitations that may be addressed later, or because the information in itself has to be free-text).') %]

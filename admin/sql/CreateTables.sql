@@ -690,7 +690,8 @@ CREATE TABLE medium_format
     name                VARCHAR(100) NOT NULL,
     parent              INTEGER, -- references medium_format.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    year                SMALLINT
+    year                SMALLINT,
+    has_discids         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE puid
@@ -824,6 +825,14 @@ CREATE TABLE release_status
 (
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE release_tag
+(
+    release             INTEGER NOT NULL, -- PK, references release.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE release_group (

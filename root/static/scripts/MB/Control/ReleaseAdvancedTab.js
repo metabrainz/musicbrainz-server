@@ -165,7 +165,7 @@ MB.Control.ReleaseDisc = function (disc, parent) {
      * addTrack renders new tr.track and tr.track-artist-credit rows in the
      * tracklist table.  It copies the release artistcredit.
      */
-    var addTrack = function (event) {
+    var addTrack = function () {
         var trackno = self.tracks.length;
 
         var previous = null;
@@ -194,6 +194,22 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         }
     };
 
+    var addTrackEvent = function (event) {
+        var count = parseInt (self.$add_track_count.val ());
+
+        if (!count || count < 1)
+        {
+            count = 1;
+        }
+
+        while (count)
+        {
+            self.addTrack ();
+            count = count - 1;
+        }
+    };
+
+
     /**
      * getTrack merely returns the track from self.tracks if the track
      * exists.  If the track does not exist yet getTrack will
@@ -206,6 +222,19 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         }
 
         return self.tracks[idx];
+    };
+
+    var getTracksAtPosition = function (pos) {
+
+        var ret = [];
+        $.each (self.tracks, function (idx, item) {
+            if (parseInt (item.position.val ()) === pos)
+            {
+                ret.push (item);
+            }
+        });
+
+        return ret;
     };
 
     /**
@@ -426,7 +455,9 @@ MB.Control.ReleaseDisc = function (disc, parent) {
 
     self.fullTitle = fullTitle;
     self.addTrack = addTrack;
+    self.addTrackEvent = addTrackEvent;
     self.getTrack = getTrack;
+    self.getTracksAtPosition = getTracksAtPosition;
     self.removeTracks = removeTracks;
     self.sort = sort;
     self.updateArtistColumn = updateArtistColumn;
@@ -440,6 +471,9 @@ MB.Control.ReleaseDisc = function (disc, parent) {
     self.loadTracklist = loadTracklist;
     self.guessCase = guessCase;
 
+    self.$add_track_count = self.buttons.find ('input.add-track-count');
+
+    self.buttons.find ('a[href=#add_track]').click(self.addTrackEvent);
     self.buttons.find ('a[href=#discdown]').click (self.moveDown);
     self.buttons.find ('a[href=#discup]').click (self.moveUp);
 
@@ -458,7 +492,6 @@ MB.Control.ReleaseDisc = function (disc, parent) {
         return false;
     });
 
-    $("#mediums\\."+self.number+"\\.add_track").click(self.addTrack);
     self.artist_column_checkbox.bind ('change', self.updateArtistColumn);
 
     self.updateArtistColumn ();

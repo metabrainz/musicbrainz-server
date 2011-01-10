@@ -13,7 +13,7 @@ has 'names' => (
     traits => [ 'Array' ],
     handles => {
         add_name => 'push',
-        clear_names => 'clear'
+        clear_names => 'clear',
     }
 );
 
@@ -61,9 +61,10 @@ sub from_array
 
         next unless $artist && $artist->{name};
 
-        my %initname = ( name => $artist->{name}, artist_id => $artist->{artist} );
+        my %initname = ( name => $artist->{name} );
 
         $initname{join_phrase} = $join if $join;
+        $initname{artist_id} = $artist->{artist} if $artist->{artist};
 
         $ret->add_name( ArtistCreditName->new(%initname) );
     }

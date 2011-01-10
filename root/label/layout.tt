@@ -43,7 +43,11 @@
                   </a>
                 </li>
                 <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
-                <li>[% link_label(label, 'merge', l('Merge this label into another')) %]</li>
+                <li>
+                  <a href="[% c.uri_for_action('/label/merge_queue', { 'add-to-merge' => label.id }) %]">
+                    [% l('Merge this label with another') %]
+                  </a>
+                </li>
                 <li>[% use_in_relationship(label) %]</li>
                 <li>[% relate_to_url(label) %]</li>
                 <li>[% link_label(label, 'edits', l('View editing history')) %]</li>
@@ -61,6 +65,8 @@
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=label -%]
     [% END %]
 
     <div id="content">

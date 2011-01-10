@@ -24,9 +24,9 @@ MB.Control.LabelEdit = function () {
     self.$name = $('#id-edit-label\\.name');
     self.$sort_name = $('#id-edit-label\\.sort_name');
 
-    self.$guesscase = $('button.guesscase');
-    self.$sortname = $('button.sortname');
-    self.$copy = $('button.copy');
+    self.$guesscase = $('input.guesscase');
+    self.$sortname = $('input.sortname');
+    self.$copy = $('input.copy');
 
     var guesscase = function (event) {
         self.$name.val (MB.GuessCase.label.guess (self.$name.val ()));

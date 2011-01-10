@@ -6,21 +6,36 @@
     [%- 'owner' IF edit.editor_id == note.editor_id -%]
 [% END %]
 
-[% IF edit.edit_notes.size %]
-    [% FOR note=edit.edit_notes %]
-        <div class="edit-note">
-            <h3 class="[%- PROCESS votename -%]">
-                [%- l('{editor}', { editor => link_editor(note.editor) }) -%]
-                <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
-            </h3>
-            <div class="edit-note-text">
-                [%- note.text | format_editnote -%]
+[% DEFAULT verbose = 1,
+           hide = 0,
+           rows = 5,
+           index = 0%]
+
+<div class="edit-notes">
+    [% IF edit.edit_notes.size %]
+        [% FOR note=edit.edit_notes %]
+            <div class="edit-note">
+                <h3 class="[%- PROCESS votename -%]">
+                    [%- l('{editor}', { editor => link_editor(note.editor) }) -%]
+                    <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
+                </h3>
+                <div class="edit-note-text">
+                    [%- note.text | format_editnote -%]
+                </div>
             </div>
+        [% END %]
+    [% ELSIF verbose %]
+        <div class="edit-note">
+            <em>[% l('No edit notes have been added.') %]</em>
         </div>
     [% END %]
-[% ELSE %]
-    <div class="edit-note">
-        <em>[% l('No edit notes have been added.') %]</em>
-    </div>
-[% END %]
 
+    <div class="add-edit-note edit-note"
+        [%- 'style="display: none"' IF hide -%]>
+        <h3 class="owner">[% link_editor(c.user) %]</h3>
+        <div class="edit-note-text">
+            <textarea class="edit-note" rows="1" placeholder="[% l('Add an edit note') %]"
+                name="enter-vote.vote.[% index %].edit_note"></textarea>
+        </div>
+    </div>
+</div>

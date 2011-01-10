@@ -23,8 +23,7 @@ MB.Control.WorkEdit = function () {
 
     self.$name = $('#id-edit-work\\.name');
 
-    self.$guesscase = $('button.guesscase');
-    self.$copy = $('button.copy');
+    self.$guesscase = $('input.guesscase');
 
     var guesscase = function (event) {
         self.$name.val (MB.GuessCase.work.guess (self.$name.val ()));
@@ -32,17 +31,9 @@ MB.Control.WorkEdit = function () {
         event.preventDefault ();
     };
 
-    var copy = function (event) {
-        self.$sort_name.val (self.$name.val ());
-
-        event.preventDefault ();
-    };
-
     self.guesscase = guesscase;
-    self.copy = copy;
 
     self.$guesscase.bind ('click.mb', self.guesscase);
-    self.$copy.bind ('click.mb', self.copy);
 
     return self;
 };

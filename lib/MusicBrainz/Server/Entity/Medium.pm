@@ -64,6 +64,11 @@ has 'cdtocs' => (
     }
 );
 
+sub may_have_discids {
+    my $self = shift;
+    return !$self->format || $self->format->has_discids;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

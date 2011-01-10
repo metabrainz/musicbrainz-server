@@ -1,17 +1,17 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
 
-has 'name' => (
-    is => 'ro',
-    isa => 'Str',
-    required => 1,
-);
-
 has '_current' => (
     is => 'rw',
     isa => 'Int',
     default => 0,
-    trigger => \&_set_current,
+);
+
+has '_processed_page' => (
+    is => 'rw',
+    isa => 'MusicBrainz::Server::Form::Step',
+    predicate => '_has_processed_page',
+    clearer => '_clear_processed_page',
 );
 
 has '_session_id' => (
@@ -62,8 +62,19 @@ has 'page_number' => (
 has 'pages' => (
     isa => 'ArrayRef',
     is => 'ro',
-    required => 1
+    required => 1,
+    lazy => 1,
+    builder => '_build_pages'
 );
+
+has $_ => (
+    isa => 'CodeRef',
+    traits => [ 'Code' ],
+    default => sub { sub {} },
+    handles => {
+        $_ => 'execute',
+    }
+) for qw( on_cancel on_submit );
 
 sub skip { return 0; }
 
@@ -126,7 +137,10 @@ sub render
 {
     my ($self) = @_;
 
-    my $page = $self->_load_page ($self->_current);
+    # If we're rendering the same page we processed, re-use the existing form.
+    # (otherwise validation errors may get lost).
+    my $page = $self->_has_processed_page ? $self->_processed_page :
+        $self->_load_page ($self->_current);
 
     my @steps = map {
         { title => $_->{title}, name => 'step_'.$_->{name} }
@@ -218,6 +232,10 @@ sub _store_page_in_session
     $page->unserialize ( $self->_store->{"step ".$self->_current},
                          $self->c->request->parameters );
 
+    # Save the processed page, if we're not navigating away from it we do not
+    # want to reload it.
+    $self->_processed_page ($page);
+
     $self->_store->{"step ".$self->_current} = $page->serialize;
 
     return $page;
@@ -240,11 +258,11 @@ sub _route
     }
     elsif (defined $p->{cancel})
     {
-        return $self->cancelled (1);
+        return $self->on_cancel($self);
     }
     elsif (defined $p->{save})
     {
-        return $self->submitted (1);
+        return $self->submitted(1);
     }
 
     # Don't allow forward movement unless the current page is valid.
@@ -305,17 +323,21 @@ sub find_previous_page
     return 0;
 }
 
-sub _set_current
-{
-    my ($self, $value) = @_;
+around '_current' => sub {
+    my ($orig, $self, $value) = @_;
+
+    return $self->$orig () unless $value;
 
     my $max = scalar @{ $self->pages } - 1;
 
     $value = 0 if $value < 0;
     $value = $max if $value > $max;
 
-    $self->{_current} = $value;
-}
+    # navigating away from the page just processed, so clear it.
+    $self->_clear_processed_page if $self->$orig () ne $value;
+
+    return $self->$orig ($value);
+};
 
 sub _store
 {

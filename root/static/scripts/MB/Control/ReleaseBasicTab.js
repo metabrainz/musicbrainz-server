@@ -41,10 +41,14 @@ MB.Control.ReleasePreview = function (advancedtab) {
                     return;
                 }
 
-                $('<tr>').appendTo (table).
-                    append ($('<td class="trackno">').text (item.position.val ())).
-                    append ($('<td class="title">').text (item.title.val ())).
-                    append ($('<td class="duration">').text (item.length.val ()));
+                var tr = $('<tr>').appendTo (table);
+                tr.append ($('<td class="trackno">').text (item.position.val ()));
+                tr.append ($('<td class="title">').text (item.title.val ()));
+                if ($('#various-artists').val () == '1')
+                {
+                    tr.append ($('<td class="artist">').text (item.preview.val ()));
+                }
+                tr.append ($('<td class="duration">').text (item.length.val ()));
             });
 
         });
@@ -76,6 +80,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
             str += item.position.val () + ". " + item.title.val ();
 
+            if (self.variousArtists () && item.preview.val () !== '')
+            {
+                str += MB.TrackParser.separator + item.preview.val ();
+            }
+
             var len = item.lengthOrNull ();
             if (len)
             {
@@ -88,10 +97,17 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.textarea.val (str);
     };
 
-    var updatePreview = function (filter) {
+    var updatePreview = function () {
+        if (typeof self.timeout == "number")
+        {
+            clearTimeout (self.timeout);
+        }
+
+        delete self.timeout;
+
         if (self.trackparser)
         {
-            self.trackparser.run (filter);
+            self.trackparser.run ();
             self.preview.render ();
         }
     };
@@ -129,7 +145,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     var loadTracklist = function (data) {
         self.render ();
-        self.trackparser = MB.TrackParser (self.disc, self.textarea, data);
+        self.trackparser = MB.TrackParser.Parser (self.disc, self.textarea, data);
         self.updatePreview ();
     };
 
@@ -143,6 +159,8 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
             return self.textarea.val ().split ("\n");
         }
     };
+
+    self.variousArtists = function () { return self.$various_artists.val() == '1'; };
 
     self.disc = disc;
     self.preview = preview;
@@ -158,6 +176,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.textarea = self.basicdisc.find ('textarea.tracklist');
     self.expand_icon = self.basicdisc.find ('.expand a.icon');
     self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
+    self.$various_artists = $('#various-artists');
 
     if (!self.tracklist_id.length)
     {
@@ -179,15 +198,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     });
 
     self.textarea.bind ('keyup', function () {
-        if (typeof self.timeout == "number")
-        {
-            clearTimeout (self.timeout);
-        }
-
-        self.timeout = setTimeout (function () {
-            delete self.timeout;
+        var newTimeout = setTimeout (function () {
             self.updatePreview ();
         }, MB.Control._preview_update_timeout);
+
+        self.timeout = newTimeout;
     });
 
     self.disc.registerBasic (self);
@@ -207,20 +222,30 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
         });
     };
 
-    var newDisc = function (disc) {
+    var newDisc = function (disc, expand_discs) {
         var ta = MB.Control.ReleaseTextarea (disc, self.preview);
         self.textareas.push (ta);
 
-        ta.expand ();
+        if (expand_discs)
+        {
+            ta.expand ();
+        }
 
         return ta;
     };
 
     var guessCase = function () {
+        /* make sure all the input fields on the advanced tab are up-to-date. */
         $.each (self.textareas, function (i, textarea) {
             textarea.updatePreview (MB.GuessCase.track.guess);
-            textarea.render ();
         });
+
+        /* have the advanced view guess case all the discs. */
+        self.adv.guessCase ();
+
+        /* take the new inputs and render them to our textareas and the preview. */
+        self.render ();
+        self.preview.render ();
     };
 
     self.adv = advancedtab;
@@ -232,7 +257,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
-        self.newDisc (disc);
+        self.newDisc (disc, self.adv.discs.length < 4);
     });
 
     return self;

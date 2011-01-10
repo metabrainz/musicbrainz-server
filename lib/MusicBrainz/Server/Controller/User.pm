@@ -331,9 +331,11 @@ sub tags : Chained('load') PathPart('tags')
 
     my $tags = $c->model('Editor')->get_tags ($user);
 
+    use List::Util 'sum';
     $c->stash(
         user => $user,
         tags => $tags,
+        tag_max_count => sum(map { $_->{count} } @{ $tags->{tags} }),
         template => 'user/tags.tt',
     );
 }

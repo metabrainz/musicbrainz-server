@@ -43,19 +43,6 @@ sub find_by_name
     return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
-sub autocomplete_name
-{
-    my ($self, $name, $limit, $offset) = @_;
-
-    $limit ||= 10;
-    $offset ||= 0;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table .
-        " WHERE lower(name.name) LIKE ? OFFSET ?";
-
-    return query_to_list_limited($self->c->dbh, $offset, $limit,
-        sub { $self->_new_from_row(shift) }, $query, lc("$name%"), $offset);
-}
-
 sub remove_gid_redirects
 {
     my ($self, @ids) = @_;

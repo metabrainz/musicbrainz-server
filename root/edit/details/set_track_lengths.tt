@@ -1,0 +1,34 @@
+<table class="details">
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td>
+      <ul>
+        [% FOR release=edit.display_data.releases %]
+          <li>[% l('{release} by {artist}', { release => link_release(release),
+                                      artist => artist_credit(release.artist_credit) }) %]
+          </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Disc ID:') %]</th>
+    <td>[% link_cdtoc(edit.display_data.cdtoc) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Old track lengths:') %]</th>
+    <td>
+      [% FOR length=edit.data.length.old %]
+         [% length | format_length %]
+      [% END %]
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('New track lengths:') %]</th>
+    <td>
+      [% FOR length=edit.data.length.new %]
+         [% length | format_length %]
+      [% END %]
+    </td>
+  </tr>
+</table>

@@ -16,6 +16,42 @@ has 'relationships' => (
     }
 );
 
+sub grouped_relationships
+{
+    my ($self, @types) = @_;
+    my %filter = map { $_ => 1 } @types;
+    my $filter_present = @types > 0;
+
+    my %groups;
+    my @relationships = sort {
+        $a->link->begin_date        <=> $b->link->begin_date ||
+        $a->link->end_date          <=> $b->link->end_date   ||
+        $a->link->type->child_order <=> $b->link->type->child_order ||
+        $a->target->name            cmp $b->target->name
+    } $self->all_relationships;
+
+    for my $relationship (@relationships) {
+        next if ($filter_present && !$filter{ $relationship->target_type });
+        $groups{ $relationship->target_type } ||= {};
+        $groups{ $relationship->target_type }{ $relationship->phrase } ||= [];
+        push @{ $groups{ $relationship->target_type }{ $relationship->phrase} },
+            $relationship;
+    }
+
+    return \%groups;
+}
+
+sub relationships_by_type
+{
+    my ($self, @types) = @_;
+    my %types = map { $_ => 1 } @types;
+
+    return grep {
+        defined $_->link && defined $_->link->type &&
+        exists $types{ $_->target_type };
+    } $self->all_relationships;
+}
+
 1;
 
 =head1 NAME

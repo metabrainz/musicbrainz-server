@@ -2,7 +2,7 @@
 
    <p>
        [% IF tags.tags.size %]
-           [% INCLUDE 'components/tag-cloud.tt' %]
+           [% INCLUDE 'components/tag-cloud.tt' tags = tags.tags %]
        [% ELSE %]
            [%- l('{user} has not tagged anything.', { user => user.name }) %]
        [% END %]

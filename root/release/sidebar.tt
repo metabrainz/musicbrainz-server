@@ -164,11 +164,13 @@ WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
 
     UNLESS editing;
         INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group;
-        INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release.release_group
-        tag_this_text=l('Tag release group');
+        INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release
+        async = c.uri_for_action('/release/tag_async', [ release.gid ])
+        tag_this_text=l('Tag release');
         INCLUDE links;
     	INCLUDE other_versions;    
         INCLUDE collections IF c.user_exists;
+        INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release;
     END;
 END;
 

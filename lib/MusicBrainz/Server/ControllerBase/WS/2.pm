@@ -75,7 +75,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 
 sub _error
 {
-    my ($c, $error) = @_;
+    my ($self, $c, $error) = @_;
 
     $c->stash->{error} = $error;
     $c->detach('bad_req');
@@ -368,15 +368,15 @@ sub _validate_post
 
     if (!$h->content_type_charset && $h->content_type_charset ne 'UTF-8')
     {
-        _error ($c, "Unsupported charset, please use UTF-8.")
+        $self->_error ($c, "Unsupported charset, please use UTF-8.")
     }
 
     if ($h->content_type ne 'application/xml')
     {
-        _error ($c, "Unsupported content-type, please use application/xml");
+        $self->_error ($c, "Unsupported content-type, please use application/xml");
     }
 
-    _error ($c, "Please specify the name and version number of your client application.")
+    $self->_error ($c, "Please specify the name and version number of your client application.")
         unless $c->req->params->{client};
 }
 

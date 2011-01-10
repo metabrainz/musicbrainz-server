@@ -40,6 +40,12 @@ after 'delete' => sub
     $self->_delete_from_cache(@ids);
 };
 
+after 'merge' => sub
+{
+    my ($self, @ids) = @_;
+    $self->_delete_from_cache(@ids);
+};
+
 sub _delete_from_cache
 {
     my ($self, @ids) = @_;

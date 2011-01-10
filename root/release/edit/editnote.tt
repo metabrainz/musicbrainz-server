@@ -4,52 +4,35 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
    [% USE r = FormRenderer(form) %]
+   [% r.hidden ('wizard_session_id') %]
 
    <div id="form">
-     <div class="half-width">
 
        [%- FOREACH edit=edits -%]
+         <div class="edit-list">
+           <h2>[% edit.edit_name | html %]</h2>
 
-       <div class="edit-list">
-         <h2>[% edit.edit_name | html %]</h2>
+           <div class="edit-details">
+           [% IF edit.data.defined %]
+             [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+           [% ELSE %]
+             <p>[% l('An error occured while loading this edit') %]</p>
+           [% END %]
+           </div>
 
-         <div class="edit-details">
-         [% IF edit.data.defined %]
-           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
-         [% ELSE %]
-           <p>[% l('An error occured while loading this edit') %]</p>
-         [% END %]
          </div>
-
-       </div>
-
        [%- END -%]
 
-
-       [% r.hidden ('wizard_session_id') %]
-       <fieldset>
-         <legend>Edit Note</legend>
-         [% form_row_textarea (r, 'editnote', 'Edit note') %]
-       </fieldset>
-
-       [% IF c.user.is_auto_editor %]
-       <div class="row no-label">
-         <div class="auto-editor">
-             [% r.checkbox('as_auto_editor') %]
-             [% r.label('as_auto_editor',
-                 l('Enable {autoed|auto-editor} privileges for this edit.',
-                    { autoed = doc_link('Auto-Editor') }), inline => 1) %]
-         </div>
+       <div class="half-width editnote">
+         [%- INCLUDE 'forms/edit-note.tt' -%]
+         [%- as_auto_editor() -%]
        </div>
-       [% END %]
 
-       <div class="buttons ui-helper-clearfix">
+       <div class="row buttons ui-helper-clearfix">
          [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
          [% r.submit ('previous', l('« Previous')) %]
          [% r.submit ('save', l('Enter edit'), class => 'positive') %]
        </div>
-
-     </div>
 
    </div>
 
