@@ -1,5 +1,5 @@
 
-ICONS = add_row.png delete_row.png collapse.png expand.png
+ICONS = add_row.png delete_row.png collapse.png expand.png up.png down.png
 
 ALL:  $(ICONS)
 

@@ -454,9 +454,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.$add_track_count = self.$buttons.find ('input.add-track-count');
 
-    self.$buttons.find ('a[href=#add_track]').click(self.addTrackEvent);
-    self.$buttons.find ('a[href=#discdown]').click (self.moveDown);
-    self.$buttons.find ('a[href=#discup]').click (self.moveUp);
+    self.$buttons.find ('a[href=#add_track]').bind ('click.mb', self.addTrackEvent);
+    self.$buttons.find ('input.disc-down').bind ('click.mb', self.moveDown);
+    self.$buttons.find ('input.disc-up').bind ('click.mb', self.moveUp);
 
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
@@ -698,7 +698,7 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         if (direction < 0)
         {
-            disc.fieldset.insertBefore (other.fieldset);
+            disc.$fieldset.insertBefore (other.$fieldset);
 
             /* FIXME: yes, I am aware that the variable names I've chosen
                here could use a little improvement. --warp. */
@@ -706,7 +706,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         }
         else
         {
-            other.fieldset.insertBefore (disc.fieldset);
+            other.$fieldset.insertBefore (disc.$fieldset);
             other.basic.basicdisc.insertBefore (disc.basic.basicdisc);
         }
     };

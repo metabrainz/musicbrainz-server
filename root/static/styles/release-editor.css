@@ -199,8 +199,9 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor div.basic-medium-format-and-title label { float: none; }
 
-#release-editor div.advanced-format td { vertical-align: top; }
-#release-editor div.advanced-format td.icon { padding: 10px; }
+#release-editor table.advanced-format { width: 100%; }
+#release-editor table.advanced-format td { vertical-align: top; }
+#release-editor table.advanced-format td.icon { padding: 10px; }
 
 #release-editor fieldset legend {
     color: #fc6714;

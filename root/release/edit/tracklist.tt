@@ -286,7 +286,7 @@
 
       <table class="advanced-format">
         <tr>
-          <td class="icon" style="vertical-align: top; padding: 10px;">
+          <td class="icon">
             <input type="button" class="icon expand-disc"
               title="[% l('Expand Disc') %]"
               style="background-image: url(/static/images/icons/expand.png); width: 16px; height: 16px; border: 0;" />
@@ -300,17 +300,21 @@
             </div>
           </td>
 
-          <td class="buttons" id="mediums.[% loop.index %].buttons" style="vertical-align: top">
+          <td class="icon" id="mediums.[% loop.index %].buttons" style="text-align: right;">
+            <!--
             <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track" title="[% l('Add Track(s)') %]">
               <span class="ui-icon ui-icon-plusthick">[% l('Add Track(s)') %]</span>
             </a>
             <input type="text" class="add-track-count" value="1" />
-            <a class="icon" href="#discdown" title="[% l('Move disc down') %]">
-              <span class="ui-icon ui-icon-arrowthick-1-s">[% l('down') %]</span>
-            </a>
-            <a class="icon" href="#discup" title="[% l('Move disc up') %]">
-              <span class="ui-icon ui-icon-arrowthick-1-n">[% l('up') %]</span>
-            </a>
+            -->
+
+            <input type="button" class="icon disc-down"
+              title="[% l('Move disc down') %]"
+              style="background-image: url(/static/images/icons/down.png); width: 16px; height: 16px; border: 0;" />
+            <input type="button" class="icon disc-up"
+              title="[% l('Move disc up') %]"
+              style="background-image: url(/static/images/icons/up.png); width: 16px; height: 16px; border: 0;" />
+
           </td>
         </tr>
       </table>
