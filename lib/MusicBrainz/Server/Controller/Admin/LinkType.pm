@@ -104,13 +104,15 @@ sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     }
     $c->stash( link_type => $link_type );
 
-    my $attribs = $c->model('LinkType')->get_attribute_type_list($id);;
+    my $attribs = $c->model('LinkType')->get_attribute_type_list($id);
     my %attrib_names = map { $_->{type} => $_->{name} } @$attribs;
     $c->stash( attrib_names => \%attrib_names );
 
     my $form = $c->form( form => 'Admin::LinkType', init_object => {
         attributes => $attribs,
-        %$link_type,
+        map { $_ => $link_type->$_ }
+            qw( parent_id child_order name link_phrase reverse_link_phrase
+                short_link_phrase description priority )
     });
     $form->field('parent_id')->_load_options;
 
