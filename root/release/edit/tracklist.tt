@@ -226,22 +226,6 @@
 
   <div class="advanced-tracklist" style="display: none;">
 
-    <fieldset class="tracklist">
-      <legend>[% l('Tracklist') %]</legend>
-
-      [%# FIXME: move this checkbox elsewhere. --warp. %]
-      <p style="float: right; margin: 16px 1em 0 0; text-align: right;">
-         <input style="margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;" class="autocomplete-directsearch" type="checkbox" value="0"></input>
-         <label>[%- l('Use direct search') -%]</label>
-      </p>
-      <div style="float: left; margin: 10px;" class="buttons">
-        <a href="#basic">[% l('Basic') %]</a>
-      </div>
-
-      <p style="margin: 18px 10px 0 0; width: 400px;">[% l('Click Basic to return to the basic tracklist editor.') %]</p>
-
-    </fieldset>
-
     [%# The following is only included so it can be cloned when adding new tracks. --warp. %]
     <table class="tracklist-template" style="display: none">
       <tr class="track">
@@ -407,6 +391,9 @@
     </div>
 
     <div class="buttons ui-helper-clearfix">
+      <div class="buttons-right" style="float: right; text-align: right;">
+        <a href="#basic" style="margin-right: 1px">[% l('Return to basic editor') %]</a>
+      </div>
       [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
       <a href="#use_tracklist">[% l('Use Tracklist') %]</a>
       <a href="#add_disc">[% l('Add Disc') %]</a>

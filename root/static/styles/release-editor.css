@@ -214,6 +214,10 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     border: 1px solid #aaa;
     background: #ffffff;
     margin-top: 0;
+
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 #release-editor fieldset.editnote {
