@@ -15,7 +15,7 @@ has_field 'language_id'      => ( type => 'Select'    );
 has_field 'script_id'        => ( type => 'Select'    );
 
 # Release event
-has_field 'date'             => ( type => '+MusicBrainz::Server::Form::Field::PartialDate' );
+has_field 'date'             => ( type => '+MusicBrainz::Server::Form::Field::PartialDate', not_nullable => 1 );
 has_field 'country_id'       => ( type => 'Select'    );
 has_field 'packaging_id'     => ( type => 'Select'    );
 
