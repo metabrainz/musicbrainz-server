@@ -181,20 +181,25 @@ sub create : Local RequireAuth Edit
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @attributes;
+        my $link_type_id = $form->field('link_type_id')->value;
+        my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
+        my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
+            $link_type->all_attributes;
         foreach my $attr ($attr_tree->all_children) {
             my $value = $form->field('attrs')->field($attr->name)->value;
             if (defined $value) {
-                if (scalar $attr->all_children) {
-                    push @attributes, @{ $value };
-                }
-                elsif ($value) {
-                    push @attributes, $attr->id;
+                my @values = $attr->all_children ? @{ $value } : ($attr->id);
+                push @attributes, @values;
+                if ($required_attributes{$attr->id} && !@values) {
+                    $form->field('attrs')->field($attr->name)->add_error(
+                        l('This attribute is required'));
+                    $c->detach;
                 }
             }
         }
 
         if ($c->model('Relationship')->exists($type0, $type1, {
-            link_type_id => $form->field('link_type_id')->value,
+            link_type_id => $link_type_id,
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
             attributes => \@attributes,

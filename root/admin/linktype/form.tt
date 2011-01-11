@@ -35,6 +35,7 @@
                     <span style="width:100px; display: inline-block;">[% attrib_names.item(field.field('type').value) %]</span>
                     [% r.text(field.field('min'), { size => 3 }) %] - [% r.text(field.field('max'), { size => 3 }) %]
             </div>
+            [% field_errors(form, field.name) %]
         [% END %]
     [% END %]
 

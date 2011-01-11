@@ -27,7 +27,7 @@
 [%- END -%]
 
 [%- MACRO field_errors(form, field_name) BLOCK -%]
-    [% field = form.field(field_name) %]
+    [% field = form.field(field_name) || field_name %]
     [%- IF field.has_errors OR field.error_fields -%]
         <ul class="errors">
           [%- FOR err IN field.errors -%]
