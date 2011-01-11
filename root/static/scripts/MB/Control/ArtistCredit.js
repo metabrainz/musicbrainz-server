@@ -337,11 +337,18 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
 MB.Control.ArtistCreditRow = function ($target, $container, $button) {
     var self = MB.Control.ArtistCreditContainer ($target, $container);
 
-    $container.bind ('bubbleOpen.mb', function () {
+    $container.bind ('bubbleOpen.mb', function (event) {
+        /* do not open the bubble if the target isn't enabled. */
+        if ($target.attr ('disabled'))
+        {
+            event.preventDefault ();
+            return false;
+        }
+
         $target.attr ('disabled', 'disabled');
     });
 
-    $container.bind ('bubbleClose.mb', function () {
+    $container.bind ('bubbleClose.mb', function (event) {
         $target.removeAttr ('disabled');
     });
 

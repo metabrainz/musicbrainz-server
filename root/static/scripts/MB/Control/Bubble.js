@@ -95,13 +95,19 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
     };
 
     self.show = function () {
+        var ev = $.Event ('bubbleOpen');
+        self.$content.trigger (ev);
+
+        if (ev.isDefaultPrevented ())
+        {
+            return ev;
+        }
+
         self.parent.hideOthers (self);
         self.$container.show ();
         self.move ();
         self.tail ();
         self.visible = true;
-
-        self.$content.trigger ('bubbleOpen');
 
         if (typeof self.callbacks['show'] === "function")
         {
@@ -110,10 +116,16 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
     };
 
     self.hide = function () {
+        var ev = $.Event ('bubbleClose');
+        self.$content.trigger (ev);
+
+        if (ev.isDefaultPrevented ())
+        {
+            return ev;
+        }
+
         self.$container.hide ();
         self.visible = false;
-
-        self.$content.trigger ('bubbleClose');
 
         if (typeof self.callbacks['hide'] === "function")
         {
@@ -151,7 +163,7 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
         if (self.button)
         {
             /* show content when a button is pressed. */
-            self.$target.click (function (event) {
+            self.$target.bind ('click.mb', function (event) {
                 self.toggle ();
                 event.preventDefault ();
             });
@@ -160,7 +172,7 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
         if (self.textinput)
         {
             /* show content when an input field is focused. */
-            self.$target.focus (function (event) {
+            self.$target.bind ('focus.mb', function (event) {
 
                 self.show ();
             });
@@ -347,7 +359,7 @@ MB.Control.BubbleRow = function (parent, $target, $acrow, offset) {
             my: "left bottom",
             at: "left top",
             of: self.$content,
-            offset: parseInt (offsetX, 10) + " 2",
+            offset: parseInt (offsetX, 10) + " 1",
             collision: "none",
             'using': function (props) {
                 /* fix unstable positioning due to fractions. */

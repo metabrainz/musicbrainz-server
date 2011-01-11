@@ -201,7 +201,7 @@ MB.Control.ReleaseRecordings = function () {
     var bc = MB.Control.BubbleCollection ($('a.change-recording'), $('div.select-recording'));
 
     bc.bind ('show', function (bubble) {
-        var $input = bubble.content.find ('input.recording');
+        var $input = bubble.$content.find ('input.recording');
         $input.focus ();
         $input.data ('autocomplete').search ($input.val ());
     });

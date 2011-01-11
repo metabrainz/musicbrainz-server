@@ -269,15 +269,18 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * inputs matches the checkbox at the top of the column.
      */
     self.updateArtistColumn = function () {
-        var artists = self.$table.find ('tr.track td.artist input');
+        var $artists = self.$table.find ('tr.track td.artist input');
         if (self.$artist_column_checkbox.filter(':checked').val ())
         {
-            artists.removeAttr('disabled').css('color', 'inherit');
+            $artists.removeAttr('disabled').css('color', 'inherit');
         }
         else
         {
-            artists.attr('disabled','disabled').css('color', MB.Control._disabled_colour);
+            /* opening a bubble will disable the input, and re-enable
+               it on close.  make sure to hide these bubbles _before_
+               trying to disable the associated input. */
             self.bubble_collection.hideAll ();
+            $artists.attr('disabled','disabled').css('color', MB.Control._disabled_colour);
         }
     };
 
