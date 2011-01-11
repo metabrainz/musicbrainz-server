@@ -245,18 +245,19 @@
         <td class="length">
           <input type="text" class="track-length" size="5" value="?:??" />
         </td>
-        <td class="guesscase">
-          <a class="guesscase-track" href="#guesscase_track">[%- l('aA') -%]</a>
-        </td>
-        <td class="delete">
+        <td class="icon">
+          <input type="button" class="icon guesscase-track"
+            title="[% l('Guess case track') %]"
+            style="background-image: url(/static/images/icons/guesscase.png); width: 16px; height: 16px; border: 0;" />
+
           <input type="hidden" class="deleted" value="0" />
-          <a class="icon disc-remove-track" href="#remove_track">
-            <span class="ui-icon ui-icon-closethick">[% l('Remove Track') %]</span>
-          </a>
+          <input type="button" class="icon remove-track"
+            title="[% l('Remove track') %]"
+            style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
         </td>
       </tr>
       <tr class="track-artist-credit container" style="display: none">
-        <td colspan="7">
+        <td colspan="6">
           [% artist_credit_row(release_artist) %]
         </td>
       </tr>
@@ -285,13 +286,6 @@
           </td>
 
           <td class="icon" id="mediums.[% loop.index %].buttons" style="text-align: right;">
-            <!--
-            <a id="mediums.[% loop.index %].add_track" class="icon disc-add-track" href="#add_track" title="[% l('Add Track(s)') %]">
-              <span class="ui-icon ui-icon-plusthick">[% l('Add Track(s)') %]</span>
-            </a>
-            <input type="text" class="add-track-count" value="1" />
-            -->
-
             <input type="button" class="icon disc-down"
               title="[% l('Move disc down') %]"
               style="background-image: url(/static/images/icons/down.png); width: 16px; height: 16px; border: 0;" />
@@ -304,24 +298,33 @@
       </table>
 
       <div class="tracklist-padding">
-      [% field_errors(form, medium_field.full_name) %]
-      <table class="medium tbl" style="display: none">
-        <thead>
-          <tr>
-            <th class="position">[% l('#') %]</th>
-            <th class="title">[% l('Title') %]</th>
-            <th class="artist" colspan="2">
-              <input type="checkbox" class="artistcolumn" />
-              [% l('Artist') %]
-            </th>
-            <th class="length">[% l('Length') %]</th>
-            <th class="delete"></th>
-            <th class="guesscase"></th>
-          </tr>
-        </thead>
-        <tfoot />
-        <tbody> </tbody>
-      </table>
+        [% field_errors(form, medium_field.full_name) %]
+        <table class="medium tbl" style="display: none">
+          <thead>
+            <tr>
+              <th class="position">[% l('#') %]</th>
+               <th class="title">[% l('Title') %]</th>
+              <th class="artist" colspan="2">
+                <input type="checkbox" class="artistcolumn" />
+                [% l('Artist') %]
+              </th>
+              <th class="length">[% l('Length') %]</th>
+              <th class="icons"></th>
+            </tr>
+          </thead>
+          <tfoot />
+          <tbody> </tbody>
+        </table>
+      </div>
+
+      <div class="icon add-track" style="float: right;">
+        <span style="padding-right: 1em">
+          [% l('Add {num} track(s)', num => '<input type="text" class="add-track-count" value="1" />') %]
+        </span>
+          <input type="button" class="icon add-track"
+            title="[% l('Add track(s)') %]"
+            style="background-image: url(/static/images/icons/add_row.png); width: 16px; height: 16px; border: 0;" />
+
       </div>
 
     </fieldset>

@@ -35,7 +35,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.$id = $track.find ('td.title input[type=hidden]');
     self.$artist = $track.find ('td.artist input');
     self.$length = $track.find ('td.length input');
-    self.$deleted = $track.find ('td.delete input');
+    self.$deleted = $track.find ('td input.deleted');
 
     /**
      * render enters the supplied data into the form fields for this track.
@@ -70,21 +70,12 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     };
 
     /**
-     * toggleDelete (un)marks the track for deletion. Provide a boolean to delete
-     * or undelete a track, or leave it empty to toggle.
+     * deleteTrack marks the track for deletion.
      */
-    self.toggleDelete = function (value) {
-        var deleted = (value === undefined) ? !parseInt (self.$deleted.val ()) : value;
-        if (deleted)
-        {
-            self.$deleted.val('1');
-            self.$row.addClass('deleted');
-        }
-        else
-        {
-            self.$deleted.val ('0');
-            self.$row.removeClass('deleted');
-        }
+    self.deleteTrack = function () {
+        self.$deleted.val('1');
+        self.$row.hide (); /* FIXME: need to close artist credits? */
+
         var trackpos = 1;
 
         self.$row.closest ('tbody').find ('tr.track').each (
@@ -124,8 +115,8 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$acrow.remove ();
     };
 
-    self.$row.find ("a[href=#remove_track]").click (function () { self.toggleDelete(); });
-    self.$row.find ("a[href=#guesscase_track]").click (self.guessCase);
+    self.$row.find ("input.remove-track").bind ('click.mb', self.deleteTrack);
+    self.$row.find ("input.guesscase-track").bind ('click.mb', self.guessCase);
 
     var $target = self.$row.find ("td.artist input");
     var $button = self.$row.find ("a[href=#credits]");
@@ -452,9 +443,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         );
     });
 
-    self.$add_track_count = self.$buttons.find ('input.add-track-count');
-
-    self.$buttons.find ('a[href=#add_track]').bind ('click.mb', self.addTrackEvent);
+    self.$add_track_count = self.$fieldset.find ('input.add-track-count');
+    self.$fieldset.find ('input.add-track').bind ('click.mb', self.addTrackEvent);
     self.$buttons.find ('input.disc-down').bind ('click.mb', self.moveDown);
     self.$buttons.find ('input.disc-up').bind ('click.mb', self.moveUp);
 
