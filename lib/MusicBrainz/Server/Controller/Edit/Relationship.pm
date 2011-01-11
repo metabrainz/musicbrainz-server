@@ -187,7 +187,7 @@ sub create : Local RequireAuth Edit
             $link_type->all_attributes;
         foreach my $attr ($attr_tree->all_children) {
             my $value = $form->field('attrs')->field($attr->name)->value;
-            if (defined $value) {
+            if ($value) {
                 my @values = $attr->all_children ? @{ $value } : ($attr->id);
                 push @attributes, @values;
                 if ($required_attributes{$attr->id} && !@values) {
