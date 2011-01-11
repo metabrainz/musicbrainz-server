@@ -31,14 +31,17 @@
         [%- UNLESS no_javascript -%]
             <script type="text/javascript" src="[%-
                 c.model('FileCache').squash_scripts(
-                    "lib/jquery/jquery-1.4.4.min.js",
-                    "lib/jquery.placeholder/jquery.placeholder.min.js",
+                    "lib/jquery/jquery-1.4.4.js",
+                    "scripts/mb_placeholder.js",
                     "scripts/MB.js",
                     "scripts/global.js"
                 )
             -%]"></script>
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
+        <script type="text/javascript">
+            $(document).ready (function () { $("[placeholder]").mb_placeholder (); });
+        </script>
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
     </head>

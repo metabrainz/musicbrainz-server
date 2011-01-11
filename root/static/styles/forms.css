@@ -1,5 +1,5 @@
 input { background: #fff; color: #000; }
-.jquery_placeholder { color: #aaa; }
+.mb_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {
@@ -24,7 +24,7 @@ form div.row div.label {
     margin-right: 12px;
 }
 
-form div.row input[type=text] {
+div.bubble div.row input[type=text] {
     width: 176px;
 }
 
