@@ -39,6 +39,7 @@ sub field_list
             push @fields, 'attrs.' . $attr->name . '.contains', {
                 type => 'Select',
                 options => \@opts,
+                required => 1
             };
         }
         else {
