@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Controller::Admin::LinkAttributeType;
 use Moose;
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
+);
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -41,8 +44,10 @@ sub create : Local Args(0) RequireAuth(relationship_editor)
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $values = $form->values;
 
-        my $sql = Sql->new($c->model('MB')->dbh);
-        Sql::run_in_transaction(sub { $c->model('LinkAttributeType')->insert($values) }, $sql);
+        $self->_insert_edit($c, $form,
+            edit_type => $EDIT_RELATIONSHIP_ADD_ATTRIBUTE,
+            map { $_->name => $_->value } $form->edit_fields
+        );
 
         my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'created' });
         $c->response->redirect($url);
