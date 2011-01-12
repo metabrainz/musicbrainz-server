@@ -6,7 +6,10 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Sql;
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_TYPE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELATIONSHIP_ADD_TYPE
+    $EDIT_RELATIONSHIP_EDIT_LINK_TYPE
+);
 
 sub index : Path Args(0) RequireAuth(relationship_editor)
 {
@@ -123,12 +126,26 @@ sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     });
     $form->field('parent_id')->_load_options;
 
+    my $old_values = { map { $_->name => $_->value } $form->edit_fields };
+    $old_values->{attributes} = [
+        map +{
+            # We don't want the 'active' field
+            min => $_->{min},
+            max => $_->{max},
+            type => $_->{type},
+        }, grep { $_->{active} } @{ $old_values->{attributes} }
+    ];
+
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $values = $form->values;
+        my $values = { map { $_->name => $_->value } $form->edit_fields };
         $values->{attributes} = $self->_get_attribute_values($form);
 
-        my $sql = Sql->new($c->model('MB')->dbh);
-        Sql::run_in_transaction(sub { $c->model('LinkType')->update($id, $values) }, $sql);
+        $self->_insert_edit($c, $form,
+            edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
+            old => $old_values,
+            new => $values,
+            link_id => $id
+        );
 
         my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
         $c->response->redirect($url);
