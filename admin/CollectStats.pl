@@ -22,27 +22,25 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+use warnings;
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use DBDefs;
 use MusicBrainz::Server::Context;
 use Sql;
 
 my $c = MusicBrainz::Server::Context->new;
-$sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->dbh);
 
-use MusicBrainz::Server::Statistic;
-my $s = MusicBrainz::Server::Statistic->new($c->dbh);
-
-$sql->Begin;
-$s->RecalculateAll;
-$s->TakeSnapshot;
-$sql->Commit;
+$sql->begin;
+$c->model('Statistics')->recalculate_all;
+$sql->commit;
 
 if (-t STDOUT)
 {
-    my $all = $s->FetchAllAsHashRef;
+    my $all = $c->model('Statistics')->fetch;
     printf "%10d : %s\n", $all->{$_}, $_
         for sort keys %$all;
 }

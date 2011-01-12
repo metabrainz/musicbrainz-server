@@ -19,16 +19,11 @@ CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
 
 CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
-CREATE INDEX currentstat_name ON currentstat (name);
-
 CREATE INDEX editor_idx_name ON editor (LOWER(name));
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
-
-CREATE INDEX historicalstat_date ON historicalstat (snapshot_date);
-CREATE INDEX historicalstat_name_snapshot_date ON historicalstat (name, snapshot_date);
 
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
 
@@ -166,6 +161,8 @@ CREATE UNIQUE INDEX release_name_idx_name ON release_name (name);
 CREATE INDEX release_name_idx_page ON release_name (page_index(name));
 
 CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
+
+CREATE INDEX statistic_name ON statistic (name);
 
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 

@@ -180,6 +180,8 @@ ALTER TABLE release_group_tag DROP CONSTRAINT release_group_tag_fk_tag;
 ALTER TABLE release_label DROP CONSTRAINT release_label_fk_release;
 ALTER TABLE release_label DROP CONSTRAINT release_label_fk_label;
 ALTER TABLE release_meta DROP CONSTRAINT release_meta_fk_id;
+ALTER TABLE release_tag DROP CONSTRAINT release_tag_fk_release;
+ALTER TABLE release_tag DROP CONSTRAINT release_tag_fk_tag;
 ALTER TABLE script_language DROP CONSTRAINT script_language_fk_script;
 ALTER TABLE script_language DROP CONSTRAINT script_language_fk_language;
 ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_fk_tag1;
