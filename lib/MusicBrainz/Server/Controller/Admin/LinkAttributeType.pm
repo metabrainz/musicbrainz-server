@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Admin::LinkAttributeType;
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
+    $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE
 );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
@@ -42,8 +43,6 @@ sub create : Local Args(0) RequireAuth(relationship_editor)
     my $form = $c->form( form => 'Admin::LinkAttributeType' );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $values = $form->values;
-
         $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_ADD_ATTRIBUTE,
             map { $_->name => $_->value } $form->edit_fields
@@ -89,8 +88,14 @@ sub delete : Local Args(1) RequireAuth(relationship_editor)
     }
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $sql = Sql->new($c->model('MB')->dbh);
-        Sql::run_in_transaction(sub { $c->model('LinkAttributeType')->delete($id) }, $sql);
+        $self->_insert_edit($c, $form,
+            edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE,
+            name => $link_attr_type->name,
+            description => $link_attr_type->description,
+            parent_id => $link_attr_type->parent_id,
+            child_order => $link_attr_type->child_order,
+            id => $link_attr_type->id
+        );
 
         my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'deleted' });
         $c->response->redirect($url);
