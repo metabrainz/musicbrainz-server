@@ -1,8 +1,11 @@
-[% BLOCK layout_head %]
-    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditList.js') %]"></script>
+[%- BLOCK layout_head -%]
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditSummary.js') %]"></script>
     <script type="text/javascript">
         $(function() {
-            MB.Control.EditList('#edits');
+            $('.edit-list').each(function() {
+                console.log(this);
+                MB.Control.EditSummary(this);
+            });
 
             $('.search-refine select').attr('size', '10');
 
