@@ -204,7 +204,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = html_escape(text) || html_escape(artist.name);
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a title="' _ artist.sort_name _ '" rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="foaf:name rdfs:label" xml:lang="">' _ text _ '</a>';
+    '<a title="' _ html_escape(artist.sort_name) _ '" rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="foaf:name rdfs:label" xml:lang="">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';      
   ELSE;
     link_artist(artist, action, text);
@@ -266,7 +266,7 @@ END -%]
 [% # note assumes rdfa_release_ns() is active -%]
 [%- MACRO rdfa_release_country_abbr(release) BLOCK;
  '<span about="[rel:]" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(release.country) _ '">' IF doRDFa;
- '<abbr title="' _ release.country.name _ '">' _ release.country.iso_code _ '</abbr>';
+ '<abbr title="' _ html_escape(release.country.name) _ '">' _ release.country.iso_code _ '</abbr>';
  '</span>' IF doRDFa;
 END -%]
 
@@ -402,7 +402,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = html_escape(text) || html_escape(artist.name);
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a title="' _ artist.sort_name _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
+    '<a title="' _ html_escape(artist.sort_name) _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
   ELSE;
     link_artist(artist, action, text);
@@ -528,7 +528,7 @@ END -%]
 [%# assumes rdfa_release_ns -%]
 [%- MACRO rdfa_release_format(release) BLOCK;
  IF doRDFa;
-    '<span about="[rel:]" typeof="' _ rdfa_format_list(release.mediums) _ '">' _ release.combined_format_name _ '</span>' IF release.combined_format_name ;
+    '<span about="[rel:]" typeof="' _ rdfa_format_list(release.mediums) _ '">' _ html_escape(release.combined_format_name) _ '</span>' IF release.combined_format_name ;
  ELSE;
     '' _ release.combined_format_name _ '' IF release.combined_format_name ;
  END;
