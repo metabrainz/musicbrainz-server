@@ -369,6 +369,9 @@ around '_current' => sub {
 
     return $self->$orig () unless $value;
 
+    # navigating away from the page just processed, so clear it.
+    $self->_clear_processed_page if $self->$orig () ne $value;
+
     my $max = scalar @{ $self->pages } - 1;
 
     $value = 0 if $value < 0;
@@ -380,9 +383,6 @@ around '_current' => sub {
 sub _set_current
 {
     my ($self, $value, $old_page) = @_;
-
-    # navigating away from the page just processed, so clear it.
-    $self->_clear_processed_page if $self->$orig () ne $value;
 
     if (my $hook = $self->pages->[$old_page]{change_page}) {
         $hook->($self->c, $self, $value);
