@@ -128,8 +128,53 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.container.renderPreview();
     };
 
+
     self.joinBlurred = function(event) {
         self.container.renderPreview();
+    };
+
+    /* A note on mb_automatic.
+       =======================
+
+       The behaviour created by following change event and controlled
+       through the "mb_automatic" data variable on the input is
+       somewhat similar to the behaviour of the placeholder attribute
+       on the artist credit.
+
+       The most important difference is that the value is not cleared
+       on focus, this allows the user to clear the value and in this
+       way submit an empty value.
+
+       Because the behaviour is slightly different from a regular
+       placeholder, the value is not displayed in gray.  This is
+       unfortunate in the sense that it is not apparent to the user
+       that the value is automatic -- the user will not be able to
+       determine wether a ', ' or ' & ' value may change when
+       adding/removing artist credits just from viewing the form.
+
+       --warp.
+    */
+
+    self.joinChanged = function(event) {
+        if (self.$join.data ('mb_automatic'))
+        {
+            /* this is the first value the user has entered into this field.
+
+               If it is a simple word (such as "and") or an abbreviation
+               (such as "feat.") it is likely that it should be surrounded
+               by spaces.  Add those spaces automatically only this first
+               time.
+            */
+
+            var join = self.$join.val ();
+            if (join.match (/^[A-Za-z]*\.?$/))
+            {
+                self.$join.val (' ' + join + ' ');
+            }
+        }
+
+        /* this join phrase has been changed, it should no langer be automatic. */
+        self.$join.data ('mb_automatic', false).removeClass ('mb_automatic');
     };
 
     self.isEmpty = function () {
@@ -165,17 +210,33 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         }
     };
 
-    self.showJoin = function () {
+    /* showJoin will uncover a possibly hidden join phrase input, and if
+       neccesary automatically set its value.  The pos argument should be
+       the position counted from the end, so that the join phrases between
+       the final two artist credits has position 1, the one before that
+       position 2, etc...
+    */
+    self.showJoin = function (pos) {
+        if (self.$join.data ('mb_automatic'))
+        {
+            self.$join.val (pos === 1 ? ' & ' : ', ');
+        }
+
         self.$join.closest ('.join-container').show ();
     };
 
     self.hideJoin = function () {
         self.$join.closest ('.join-container').hide ();
+
+        /* join phrases are automatic on those join phrases which will only
+           be shown when a new artist credit is added. */
+        self.$join.data ('mb_automatic', true).addClass ('mb_automatic');
     };
 
-    self.$join.bind('blur.mb', self.joinBlurred);
     self.$name.bind('blur.mb', self.nameBlurred);
     self.$credit.bind('blur.mb', self.creditBlurred);
+    self.$join.bind('blur.mb', self.joinBlurred);
+    self.$join.bind('change.mb', self.joinChanged);
     self.$remove_artist.bind ('click.mb', self.remove);
 
     MB.Control.Autocomplete ({
@@ -226,7 +287,7 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
 
-        self.updateJoinVisibility ();
+        self.updateJoinPhrases ();
         self.renderPreview ();
     };
 
@@ -242,8 +303,8 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
         self.box[pos] = MB.Control.ArtistCredit(null, pos, self);
         self.box[pos].$row.insertAfter (prev.$row);
 
-        prev.showJoin ();
-        self.box[pos].hideJoin ();
+        self.updateJoinPhrases ();
+        self.renderPreview ();
 
         return self.box[pos];
     };
@@ -258,12 +319,13 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
         self.box.splice (pos, 1);
 
         $.each (self.box, function (idx, box) { box.boxnumber = idx; });
-        self.updateJoinVisibility ();
+        self.updateJoinPhrases ();
+        self.renderPreview ();
 
         return true;
     };
 
-    self.updateJoinVisibility = function () {
+    self.updateJoinPhrases = function () {
 
         $.each (self.box, function (idx, box) {
             if (idx === self.box.length - 1)
@@ -272,7 +334,7 @@ MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
             }
             else
             {
-                box.showJoin ();
+                box.showJoin (self.box.length - 1 - idx);
             }
         });
 
