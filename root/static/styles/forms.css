@@ -28,6 +28,8 @@ div.bubble div.row input[type=text] {
     width: 176px;
 }
 
+div.bubble div.row label,
+div.bubble div.row div.label { width: 150px; }
 
 form div.row p { float: none; clear: none; }
 

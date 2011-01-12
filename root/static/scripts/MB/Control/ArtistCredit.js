@@ -21,7 +21,9 @@
 MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     var self = MB.Object();
 
+    self.boxnumber = boxnumber;
     self.container = container;
+    self.placeholder_options = { 'submit_placeholder_if_empty': true };
 
     if (obj === null)
     {
@@ -47,7 +49,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.$row = obj;
     }
 
-    self.boxnumber = boxnumber;
     self.$name = self.$row.find ('input.name');
     self.$sortname = self.$row.find ('input.sortname');
     self.$credit = self.$row.find ('input.credit');
@@ -76,7 +77,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         if (self.$credit.val () === '')
         {
-            self.$credit.val (data.name);
+            self.$credit.attr ('placeholder', data.name)
+                .mb_placeholder (self.placeholder_options);
         }
 
     };
@@ -92,7 +94,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
             if (self.$credit.val () === '')
             {
-                self.$credit.val (data.name);
+                self.$credit.attr ('placeholder', data.name)
+                    .mb_placeholder (self.placeholder_options);
             }
 
             self.container.renderPreview();
@@ -135,14 +138,24 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                 self.$join.val () === '');
     };
 
+    self.renderName = function () {
+        var name = self.$credit.val ();
+        if (name === '')
+        {
+            return self.$name.val ();
+        }
+
+        return name;
+    };
+
     self.renderPreviewText = function () {
-        return self.$credit.val () + self.$join.val ();
+        return self.renderName () + self.$join.val ();
     };
 
     self.renderPreviewHTML = function () {
         return '<a target="_blank" href="/artist/' + self.$gid.val () +
             '" title="' + self.$sortname.val () + '">' +
-            self.$credit.val () + '</a>' + self.$join.val ();
+            self.renderName () + '</a>' + self.$join.val ();
     };
 
     self.remove = function () {
