@@ -113,6 +113,7 @@
 
               <div class="basic-medium-format-and-title">
                 [% r.hidden(medium_field.field('id')) %]
+                [% r.hidden(medium_field.field('toc')) %]
                 [% r.hidden(medium_field.field('deleted')) %]
                 [% r.hidden(medium_field.field('position')) %]
                 [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]

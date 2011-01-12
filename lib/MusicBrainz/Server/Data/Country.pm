@@ -29,6 +29,12 @@ sub load
     load_subobjects($self, 'country', @objs);
 }
 
+sub find_by_code
+{
+    my ($self, $code) = @_;
+    return $self->_get_by_key('iso_code' => $code, transform => 'lower');
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
