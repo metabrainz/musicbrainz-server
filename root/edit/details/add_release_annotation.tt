@@ -33,7 +33,7 @@
         [% edit.display.change_log || l('(no change log)') %]
       [% ELSE %]
       <a href="[% c.uri_for_action('/release/annotation_revision', [ edit.display_data.release.gid ], edit.display_data.annotation_id) %]">
-        [% edit.display.change_log || l('(no change log)') %]
+        [% html_escape(edit.display.change_log) || l('(no change log)') %]
       </a>
       [% END %]
     </td>

@@ -1,17 +1,17 @@
 <table class="details">
   <tr>
     <th>[% l('Name:') %]</th>
-    <td>[% edit.display_data.name %]</td>
+    <td>[% edit.display_data.name | html %]</td>
   </tr>
   <tr>
     <th>[% l('Sort name:') %]</th>
-    <td>[% edit.display_data.sort_name %]</td>
+    <td>[% edit.display_data.sort_name | html %]</td>
   </tr>
 
   [% IF edit.display_data.comment %]
   <tr>
     <th>[% l('Comment:') %]</th>
-    <td>[% edit.display_data.comment %]</td>
+    <td>[% edit.display_data.comment | html %]</td>
   </tr>
   [% END %]
 
