@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -339,6 +340,25 @@ sub tags : Chained('load') PathPart('tags')
         template => 'user/tags.tt',
     );
 }
+
+sub tag : Chained('load') PathPart('tags') Args(1)
+{
+    my ($self, $c, $tag_name) = @_;
+    my $user = $c->stash->{user};
+    my $tag = $c->model('Tag')->get_by_name($tag_name);
+
+    if ($tag) {
+        $c->stash(
+            tag => $tag,
+            map {
+                $_ => [ $c->model(type_to_model($_))
+                    ->tags->find_editor_entities($user->id, $tag->id)
+                ]
+            } qw( artist label recording release_group work )
+        );
+    }
+}
+
 
 sub privileged : Path('/privileged')
 {

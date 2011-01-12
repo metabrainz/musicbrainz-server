@@ -437,6 +437,23 @@ sub find_entities
         $query, $tag_id, $offset || 0);
 }
 
+sub find_editor_entities
+{
+    my ($self, $editor_id, $tag_id, $limit, $offset) = @_;
+
+    my $type = $self->type;
+    my $tag_table = $self->tag_table;
+
+    my $raw_sql = Sql->new($self->c->raw_dbh);
+    my @tags = @{ $raw_sql->select_single_column_array(
+        'SELECT ' . $type . ' FROM ' . $type . '_tag_raw
+          WHERE editor = ?',
+        $editor_id) };
+
+    my $objs = $self->parent->get_by_ids(@tags);
+    return values %$objs;
+}
+
 no Moose;
 1;
 

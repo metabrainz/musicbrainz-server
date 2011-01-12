@@ -2,7 +2,13 @@
 
    <p>
        [% IF tags.tags.size %]
-           [% INCLUDE 'components/tag-cloud.tt' tags = tags.tags %]
+           [% BLOCK tag_link_block %]
+           <a href="[% c.uri_for_action('/user/tag', [ user.name ], tag.tag.name) %]">
+           [% tag.tag.name | html %]
+           </a>
+           [% END %]
+           [% INCLUDE 'components/tag-cloud.tt'
+                tags = tags.tags  %]
        [% ELSE %]
            [%- l('{user} has not tagged anything.', { user => user.name }) %]
        [% END %]
