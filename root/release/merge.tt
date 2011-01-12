@@ -1,7 +1,9 @@
-[% WRAPPER 'layout.tt' title=l('Merge Artists') full_width=1 %]
-    <h2>[% l('Merge Artists') %]</h2>
-    <p>[% l('You are about to merge the following artists into a single artist. Please
-             select the artist which you would like other artists to be merged into:') %]</p>
+[% WRAPPER 'layout.tt' title=l('Merge Releases') full_width=1 %]
+    <h2>[% l('Merge Releases') %]</h2>
+    <p>[% l('You are about to merge the following releases into a single release. Please
+             select the release group which you would like other release groups to be merged
+             into:') %]</p>
+
     <form action="[% c.req.uri %]" method="post">
         <ul>
             [% FOR entity=to_merge %]
@@ -14,7 +16,7 @@
         [% field_errors(form, 'target') %]
 
         [% USE r = FormRenderer(form) %]
-        [% form_row_checkbox(r, 'rename', l('Update artist credits to use the new artists name')) %]
+        [% form_row_select(r, 'merge_strategy', l('Merge strategy:')) %]
 
         [% INCLUDE "forms/edit-note.tt" %]
         [% enter_edit() %]
