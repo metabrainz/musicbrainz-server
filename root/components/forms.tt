@@ -108,7 +108,7 @@
     [%- WRAPPER form_row -%]
         <label for="entity-artist" class="required">[% l('Artist:') %]</label>
         <input type="text" id="entity-artist"
-            value="[% form.field('artist_credit').fif.name %]" />
+            value="[% html_escape(form.field('artist_credit').fif.name) %]" />
     [%- END -%]
 [%- END -%]
 
@@ -129,7 +129,7 @@
           <div class="row">
             <label>[% l('Artist in MusicBrainz') %]</label>
             <span class="artist">
-              <input type="text" class="name" value="[% artist.name %]" />
+              <input type="text" class="name" value="[% artist.name | html %]" />
               <input type="hidden" class="gid" value="[% artist.gid %]" />
               [%- r.hidden (ac.field('artist_id'), class => 'id') -%]
             </span>
