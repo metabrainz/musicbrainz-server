@@ -323,9 +323,9 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ rec.gid ]);
     text = html_escape(text) || html_escape(rec.name);
-    '<span class="mp">' IF rg.edits_pending AND action == 'show';
+    '<span class="mp">' IF rec.edits_pending AND action == 'show';
     '<a rel="foaf:made" resource="[rec:]" href="' _ link _ '"><span about="[rec:]" typeof="' _ rdfa_concept_curi('recording') _ '" property="dct:title rdfs:label" xml:lang="">' _ text _ '</span></a>';
-    '</span>' IF rg.edits_pending AND action == 'show';
+    '</span>' IF rec.edits_pending AND action == 'show';
   ELSE;
     link_recording(rec, action, text);
   END;
