@@ -181,18 +181,27 @@
     <div class="guesscase-basic">
       <fieldset class="guesscase">
         <legend>Guess case</legend>
-        <div style="float: right; margin: 10px;" class="buttons">
-          <a href="#guesscase">[% l('Guess case') %]</a>
-        </div>
-        <p class="guesscase-options">
-          <select name="gc-mode" id="gc-mode"> </select>
-          <br />
-          <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
-          <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
-          <br />
-          <input type="checkbox" name="gc-roman" id="gc-roman">
-          <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
-        </p>
+        <table style="width: 100%">
+          <tr>
+            <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
+              <img src="/static/images/icons/guesscase.32x32.png" />
+            </td>
+            <td class="options" style="vertical-align: top;">
+              <p class="guesscase-options">
+                <select name="gc-mode" id="gc-mode"> </select>
+                <br />
+                <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+                <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+                <br />
+                <input type="checkbox" name="gc-roman" id="gc-roman">
+                <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+              </p>
+            </td>
+            <td class="buttons" style="margin: 10px; vertical-align: top;">
+              <a href="#guesscase" style="float: right">[% l('Guess case') %]</a>
+            </td>
+          </tr>
+        </table>
       </fieldset>
     </div>
 
