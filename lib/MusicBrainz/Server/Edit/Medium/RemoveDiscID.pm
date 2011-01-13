@@ -61,8 +61,7 @@ method build_display_data ($loaded)
 override 'accept' => sub {
     my ($self) = @_;
     $self->c->model('MediumCDTOC')->delete(
-        $self->data->{cdtoc_id},
-        $self->data->{medium_id},
+        $self->data->{medium_cdtoc}
     );
 };
 
