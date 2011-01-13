@@ -69,7 +69,7 @@
                  * a placeholder.
                  */
                 if (this != document.activeElement && $elem.val () == '') {
-                    $elem.addClass (classname).val (placeholder_value);
+                    $elem.addClass (classname).val ($elem.attr ('placeholder'));
                 }
             });
 
@@ -108,6 +108,8 @@
                 /* already bound to this element.  So only update the
                    options, the caller may simply want to change those. */
                 $elem.data ('mb_placeholder', elemdata);
+                $elem.triggerHandler('focus');
+                $elem.triggerHandler('blur');
                 return;
             }
 

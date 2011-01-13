@@ -108,8 +108,11 @@
     [%- id = id || 'entity-artist' -%]
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
-        <input type="text" id="[% id %]" style="width: 262px"
-            value="[% form.field('artist_credit').fif.name %]" />
+        <span class="autocomplete">
+          <img class="search" src="/static/images/icons/search.png" />
+          <input type="text" id="[% id %]" style="width: 262px"
+              value="[% form.field('artist_credit').fif.name %]" />
+        </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
     [%- END -%]
 [%- END -%]
@@ -134,7 +137,8 @@
 
           <div class="row">
             <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
-            <span class="artist">
+            <span class="artist autocomplete">
+              <img class="search" src="/static/images/icons/search.png" />
               <input type="text" class="name" value="[% artist.name %]" />
               <input type="hidden" class="gid" value="[% artist.gid %]" />
               <input type="hidden" class="sortname" value="[% artist.sort_name %]" />

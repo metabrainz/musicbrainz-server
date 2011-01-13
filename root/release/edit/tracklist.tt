@@ -56,7 +56,7 @@
 
     <tr class="artist-credit-header">
       <th>[% l('Artist in MusicBrainz') %]</th>
-     <th>[% l('Artist as credited on this track') %]</th>
+      <th>[% l('Artist as credited on this track') %]</th>
       <th>[% l('Join phrase') %]</th>
       <th> </th>
     </tr>
@@ -68,7 +68,10 @@
     [% artist = acfield.fif.names.$artistnum.artist %]
     <tr class="artist-credit-box">
       <td class="artist">
-        <input type="text" class="name" value="[% artist.name %]" />
+        <span class="autocomplete">
+          <img class="search" src="/static/images/icons/search.png" />
+          <input type="text" class="name" value="[% artist.name %]" />
+        </span>
         <input type="hidden" class="gid" value="[% artist.gid %]" />
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </td>

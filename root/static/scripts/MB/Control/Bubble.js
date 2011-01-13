@@ -95,6 +95,9 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
     };
 
     self.show = function () {
+        if (self.visible)
+            return;
+
         var ev = $.Event ('bubbleOpen');
         self.$content.trigger (ev);
 
@@ -108,14 +111,13 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
         self.move ();
         self.tail ();
         self.visible = true;
-
-        if (typeof self.callbacks['show'] === "function")
-        {
-            self.callbacks['show'] (self);
-        }
+        self.$container.trigger ('bubbleShow');
     };
 
     self.hide = function () {
+        if (!self.visible)
+            return;
+
         var ev = $.Event ('bubbleClose');
         self.$content.trigger (ev);
 
@@ -126,11 +128,7 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
 
         self.$container.hide ();
         self.visible = false;
-
-        if (typeof self.callbacks['hide'] === "function")
-        {
-            self.callbacks['hide'] (self);
-        }
+        self.$container.trigger ('bubbleHide');
     };
 
     self.toggle = function () {
@@ -182,14 +180,7 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
     };
 
 
-    /* FIXME: used only in MB.Control.ReleaseRecordings, should be refactored to use
-       proper javascript/jquery events. */
-    self.bind = function (key, fun) {
-        self.callbacks[key] = fun;
-    };
-
     self.visible = false;
-    self.callbacks = {};
 
     self.move = function () {};
 

@@ -21,6 +21,8 @@ h1 span {
     background: #fff;
 }
 
+#release-editor tr.artist-credit-box input[type=text] { width: 200px; }
+
 #release-editor div.release-label { margin: 6px 0; }
 #release-editor div.release-label input.label-name { width: 134px; }
 #release-editor div.release-label label.catno {
@@ -245,6 +247,9 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor .medium.tbl tr.track-artist-credit > td { background-color: #fff; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 12px; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
+
+tr.artist-credit-box span.autocomplete { display: inline-block; position: relative; width: 100%; }
+tr.artist-credit-box span.autocomplete img.search { position: absolute; right: 3px; top: 3px; }
 
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 12px; border: 1px solid #999;

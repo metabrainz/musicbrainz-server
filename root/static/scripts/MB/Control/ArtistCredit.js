@@ -92,7 +92,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$gid.val (data.gid);
             self.$id.val (data.id);
 
-            if (self.$credit.val () === '')
+            if (self.$credit.val () === '' || self.$credit.hasClass ('mb_placeholder'))
             {
                 self.$credit.attr ('placeholder', data.name)
                     .mb_placeholder (self.placeholder_options);
@@ -187,7 +187,12 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         var name = self.$credit.val ();
         if (name === '')
         {
-            return self.$name.val ();
+            name = self.$credit.attr ('placeholder');
+        }
+
+        if (!name)
+        {
+            name = '';
         }
 
         return name;
@@ -251,24 +256,35 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
          * credit by cloning the previous artist. */
         self.clear ();
     }
+    else
+    {
+        /* if artist name and artist credit are identical on load, render
+           the artist credit as a placeholder. */
+        if (self.$name.val () === self.$credit.val ())
+        {
+            self.$credit.val ('');
+            self.$credit.attr ('placeholder', self.$name.val ())
+                .mb_placeholder (self.placeholder_options);
+        }
+    }
 
     return self;
 }
 
 /* an ArtistCreditContainer is the base container for all the artist credits
    on a track or the release. */
-MB.Control.ArtistCreditContainer = function($input, $artistcredits) {
+MB.Control.ArtistCreditContainer = function($target, $container) {
     var self = MB.Object();
 
     self.box = [];
-    self.$artist_input = $input;
-    self.$artistcredits = $artistcredits;
-    self.$preview = $artistcredits.find ('span.artist-credit-preview');
-    self.$add_artist = self.$artistcredits.find ('input.add-artist-credit');
+    self.$artist_input = $target;
+    self.$container = $container;
+    self.$preview = $container.find ('span.artist-credit-preview');
+    self.$add_artist = self.$container.find ('input.add-artist-credit');
 
     self.initialize = function() {
 
-        self.$artistcredits.find('.artist-credit-box').each(function(i) {
+        self.$container.find('.artist-credit-box').each(function(i) {
             self.box[i] = MB.Control.ArtistCredit($(this), i, self);
         });
 
@@ -421,12 +437,13 @@ MB.Control.ArtistCreditRow = function ($target, $container, $button) {
         }
 
         $target.attr ('disabled', 'disabled');
+        $target.closest ('span.autocomplete').addClass ('disabled');
     });
 
     $container.bind ('bubbleClose.mb', function (event) {
         $target.removeAttr ('disabled');
+        $target.closest ('span.autocomplete').removeClass ('disabled');
     });
-
 
     return self;
 };
@@ -436,14 +453,16 @@ MB.Control.ArtistCreditRow = function ($target, $container, $button) {
 MB.Control.ArtistCreditVertical = function ($target, $container, $button) {
     var self = MB.Control.ArtistCreditContainer ($target, $container);
 
-    $container.bind ('bubbleOpen.mb', function () {
+    $container.bind ('bubbleOpen.mb', function (event) {
         $button.val (' << ');
         $target.attr ('disabled', 'disabled');
+        $target.closest ('span.autocomplete').addClass ('disabled');
     });
 
-    $container.bind ('bubbleClose.mb', function () {
+    $container.bind ('bubbleClose.mb', function (event) {
         $button.val (' >> ');
         $target.removeAttr ('disabled');
+        $target.closest ('span.autocomplete').removeClass ('disabled');
     });
 
     return self;

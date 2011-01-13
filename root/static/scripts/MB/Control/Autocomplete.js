@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010,2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -79,7 +79,7 @@ MB.Control.Autocomplete = function (options) {
         return li;
     };
 
-    var pagerButtons = function () {
+    self.pagerButtons = function () {
         var li = self.pager_menu_item;
 
         if (!li)
@@ -102,10 +102,10 @@ MB.Control.Autocomplete = function (options) {
         next.click (function (event) { self.switchPage (event,  1); });
     };
 
-    var pagerKeyEvent = function (event) {
+    self.pagerKeyEvent = function (event) {
         var menu = self.autocomplete.menu;
 
-	if (!menu.element.is (":visible") ||
+    if (!menu.element.is (":visible") ||
             !self.pager_menu_item ||
             !self.pager_menu_item.hasClass ('ui-state-hover'))
         {
@@ -126,7 +126,7 @@ MB.Control.Autocomplete = function (options) {
         };
     };
 
-    var switchPage = function (event, direction) {
+    self.switchPage = function (event, direction) {
         self.current_page = self.current_page + direction;
 
         if (self.current_page < 1)
@@ -154,8 +154,8 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.search (null, event);
     };
 
-    var close = function (event) { self.input.focus (); };
-    var open = function (event) {
+    self.close = function (event) { self.$input.focus (); };
+    self.open = function (event) {
         var menu = self.autocomplete.menu;
 
         var newItem;
@@ -182,7 +182,7 @@ MB.Control.Autocomplete = function (options) {
 
     };
 
-    var lookup = function (request, response) {
+    self.lookup = function (request, response) {
         if (request.term != self.page_term)
         {
             /* always reset to first page if we're looking for something new. */
@@ -199,28 +199,31 @@ MB.Control.Autocomplete = function (options) {
         }));
     };
 
-    var select = function (event, data) {
-
+    self.select = function (event, data) {
         event.preventDefault ();
 
         return options.select (event, data.item);
     };
 
-    var initialize = function () {
+    self.initialize = function () {
 
-        self.input.autocomplete ({
-            'source': lookup,
+        self.$input.autocomplete ({
+            'source': self.lookup,
             'minLength': options.minLength ? options.minLength : 2,
-            'select': select,
+            'select': self.select,
             'close': self.close,
             'open': self.open
         });
 
-        self.autocomplete = self.input.data ('autocomplete');
-        self.input.bind ('keydown.mb', self.pagerKeyEvent);
-        self.input.bind ('propertychange.mb input.mb',
-                         function (event) { self.input.trigger ("keydown"); }
-        );
+        self.autocomplete = self.$input.data ('autocomplete');
+        self.$input.bind ('keydown.mb', self.pagerKeyEvent);
+        self.$input.bind ('propertychange.mb input.mb', function (event) {
+            self.$input.trigger ("keydown");
+        });
+
+        self.$search.bind ('click.mb', function (event) {
+            self.autocomplete.search (self.$input.val ());
+        });
 
         self.autocomplete._renderItem = function (ul, item) {
             return item['pages'] ? self.formatPager (ul, item) : self.formatItem (ul, item);
@@ -236,7 +239,9 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.menu.options.focus = function (event, ui) { };
     };
 
-    self.input = options.input;
+    self.$input = options.input;
+    self.$search = self.$input.closest ('span.autocomplete').find('img.search');
+
     self.url = options.entity ? "/ws/js/" + options.entity : options.url;
     self.lookupHook = options.lookupHook || function (r) { return r; };
     self.page_term = '';
@@ -246,14 +251,8 @@ MB.Control.Autocomplete = function (options) {
 
     self.formatPager = options.formatPager || formatPager;
     self.formatItem = options.formatItem || formatItem;
-    self.pagerButtons = pagerButtons;
-    self.pagerKeyEvent = pagerKeyEvent;
-    self.switchPage = switchPage;
-    self.close = close;
-    self.open = open;
-    self.lookup = lookup;
 
-    initialize ();
+    self.initialize ();
 
     return self;
 };
