@@ -305,6 +305,12 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         self.updateJoinPhrases ();
         self.renderPreview ();
+
+        if (self.box.length > 1)
+        {
+            /* multiple artists, disable main artist input. */
+            self.disableTarget ();
+        }
     };
 
     self.update = function(event, data) {
@@ -419,6 +425,20 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         return { 'names': ret, 'preview': self.$artist_input.val() };
     };
 
+    self.enableTarget = function () {
+        /* multiple artists, do not enable main artist input. */
+        if (self.box.length > 1)
+            return;
+
+        $target.removeAttr ('disabled');
+        $target.closest ('span.autocomplete').removeClass ('disabled');
+    };
+
+    self.disableTarget = function () {
+        $target.attr ('disabled', 'disabled');
+        $target.closest ('span.autocomplete').addClass ('disabled');
+    };
+
     self.initialize ();
 
     return self;
@@ -428,21 +448,23 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 MB.Control.ArtistCreditRow = function ($target, $container, $button) {
     var self = MB.Control.ArtistCreditContainer ($target, $container);
 
+    var $artistcolumn = $target.closest ('table.medium').find ('input.artistcolumn');
+
     $container.bind ('bubbleOpen.mb', function (event) {
-        /* do not open the bubble if the target isn't enabled. */
-        if ($target.attr ('disabled'))
+        /* do not open the bubble if the artist column isn't enabled. */
+        if ($artistcolumn.is (':checked'))
+        {
+            self.disableTarget ();
+        }
+        else
         {
             event.preventDefault ();
             return false;
         }
-
-        $target.attr ('disabled', 'disabled');
-        $target.closest ('span.autocomplete').addClass ('disabled');
     });
 
     $container.bind ('bubbleClose.mb', function (event) {
-        $target.removeAttr ('disabled');
-        $target.closest ('span.autocomplete').removeClass ('disabled');
+        self.enableTarget ();
     });
 
     return self;
@@ -455,14 +477,12 @@ MB.Control.ArtistCreditVertical = function ($target, $container, $button) {
 
     $container.bind ('bubbleOpen.mb', function (event) {
         $button.val (' << ');
-        $target.attr ('disabled', 'disabled');
-        $target.closest ('span.autocomplete').addClass ('disabled');
+        self.disableTarget ();
     });
 
     $container.bind ('bubbleClose.mb', function (event) {
         $button.val (' >> ');
-        $target.removeAttr ('disabled');
-        $target.closest ('span.autocomplete').removeClass ('disabled');
+        self.enableTarget ();
     });
 
     return self;

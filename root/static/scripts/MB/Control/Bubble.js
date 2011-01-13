@@ -111,7 +111,6 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
         self.move ();
         self.tail ();
         self.visible = true;
-        self.$container.trigger ('bubbleShow');
     };
 
     self.hide = function () {
@@ -128,7 +127,6 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
 
         self.$container.hide ();
         self.visible = false;
-        self.$container.trigger ('bubbleHide');
     };
 
     self.toggle = function () {
