@@ -1,34 +1,38 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/lib/json/json2.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/TrackParser.js') %]" type="text/javascript"></script>
-
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Handler/Base.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Handler/Track.js') %]" type="text/javascript"></script>
-
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Base.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Classical.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/English.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/French.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Mode/Sentence.js') %]" type="text/javascript"></script>
-
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Input.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Output.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Flags.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Utils.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Modes.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Main.js') %]" type="text/javascript"></script>
-
-  <script src="[% c.uri_for('/static/scripts/MB/GuessCase/Track.js') %]" type="text/javascript"></script>
-
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseEdits.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseBasicTab.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseAdvancedTab.js') %]" type="text/javascript"></script>
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <link rel="stylesheet" type="text/css" href="[%-
+      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
+
+  <script type="text/javascript" src="[%-
+      c.model('FileCache').squash_scripts(
+        "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
+        "lib/json/json2.js",
+        "scripts/MB/utility.js",
+        "scripts/MB/TrackParser.js",
+
+        "scripts/MB/GuessCase/Utils.js",
+        "scripts/MB/GuessCase/Handler/Base.js",
+        "scripts/MB/GuessCase/Handler/Track.js",
+        "scripts/MB/GuessCase/Mode/Base.js",
+        "scripts/MB/GuessCase/Mode/Classical.js",
+        "scripts/MB/GuessCase/Mode/English.js",
+        "scripts/MB/GuessCase/Mode/French.js",
+        "scripts/MB/GuessCase/Mode/Sentence.js",
+        "scripts/MB/GuessCase/Input.js",
+        "scripts/MB/GuessCase/Output.js",
+        "scripts/MB/GuessCase/Flags.js",
+        "scripts/MB/GuessCase/Modes.js",
+        "scripts/MB/GuessCase/Main.js",
+        "scripts/MB/GuessCase/Track.js",
+
+        "scripts/MB/Control/ArtistCredit.js",
+        "scripts/MB/Control/Autocomplete.js",
+        "scripts/MB/Control/Bubble.js",
+        "scripts/MB/Control/ReleaseEdits.js",
+        "scripts/MB/Control/ReleaseBasicTab.js",
+        "scripts/MB/Control/ReleaseAdvancedTab.js",
+      )
+  -%]"></script>
   <script type="text/javascript">
 
     $('document').ready (function () {
