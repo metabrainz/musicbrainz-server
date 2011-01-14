@@ -277,14 +277,6 @@ tr.track-artist-credit .ac-balloon3 {
             RECORDINGS TAB
    __________________________________ */
 
-span.autocomplete-isrcs,
-span.autocomplete-appears,
-span.autocomplete-comment {
-    margin-left: 12px;
-    color: #999;
-    font-size: 80%;
-}
-
 span.add-recording { color: #999; }
 table.matches { width: 100%; }
 a.change-recording { min-width: 48px; }
