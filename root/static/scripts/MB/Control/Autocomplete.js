@@ -79,6 +79,19 @@ MB.Control.Autocomplete = function (options) {
         return li;
     };
 
+    var formatMessage = function (ul, item) {
+
+        var message = $("<a>").text (item.message);
+
+        var li = $('<li>')
+            .data ("item.autocomplete", item)
+            .css ('text-align', 'center')
+            .append (message)
+            .appendTo (ul);
+
+        return li;
+    };
+
     self.pagerButtons = function () {
         var li = self.pager_menu_item;
 
@@ -154,6 +167,14 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.search (null, event);
     };
 
+    self.searchAgain = function (toggle) {
+        if (toggle) {
+            self.indexed_search = ! self.indexed_search;
+        }
+
+        self.autocomplete.search (self.$input.val ());
+    };
+
     self.close = function (event) { self.$input.focus (); };
     self.open = function (event) {
         var menu = self.autocomplete.menu;
@@ -190,19 +211,26 @@ MB.Control.Autocomplete = function (options) {
             self.page_term = request.term;
         }
 
-        var directsearch = $('input.autocomplete-directsearch:visible').eq(0).is(':checked');
-
         $.ajax(self.lookupHook ({
             url: self.url,
-            data: { q: request.term, page: self.current_page, direct: directsearch },
-            success: response
+            data: { q: request.term, page: self.current_page, direct: !self.indexed_search },
+            success: function (data, result, request) {
+                data.push ({
+                    "action": function () { self.searchAgain (true); },
+                    "message": self.indexed_search ?
+                        MB.text.SwitchToDirectSearch :
+                        MB.text.SwitchToIndexedSearch
+                });
+
+                return response (data, result, request);
+            }
         }));
     };
 
     self.select = function (event, data) {
         event.preventDefault ();
 
-        return options.select (event, data.item);
+        return data.item.action ? data.item.action () : options.select (event, data.item);
     };
 
     self.initialize = function () {
@@ -222,11 +250,13 @@ MB.Control.Autocomplete = function (options) {
         });
 
         self.$search.bind ('click.mb', function (event) {
-            self.autocomplete.search (self.$input.val ());
+            self.searchAgain ();
         });
 
         self.autocomplete._renderItem = function (ul, item) {
-            return item['pages'] ? self.formatPager (ul, item) : self.formatItem (ul, item);
+            return item['pages'] ? self.formatPager (ul, item) :
+                item['message'] ? self.formatMessage (ul, item) :
+                self.formatItem (ul, item);
         };
 
         /* because we're overriding select above we also need to override
@@ -248,9 +278,11 @@ MB.Control.Autocomplete = function (options) {
     self.current_page = 1;
     self.number_of_pages = 1;
     self.selected_item = 0;
+    self.indexed_search = true;
 
-    self.formatPager = options.formatPager || formatPager;
     self.formatItem = options.formatItem || formatItem;
+    self.formatPager = options.formatPager || formatPager;
+    self.formatMessage = options.formatMessage || formatMessage;
 
     self.initialize ();
 

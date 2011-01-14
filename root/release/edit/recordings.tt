@@ -124,11 +124,6 @@
 
     <div class="documentation">
 
-      <p style="margin: 2em; text-align: right;">
-         <input class="autocomplete-directsearch" type="checkbox" value="0"></input>
-         <label>[%- l('Use direct search') -%]</label>
-      </p>
-
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]
 
       [%- medium_idx = loop.index -%]
