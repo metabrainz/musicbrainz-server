@@ -150,6 +150,18 @@
         <li>[% link_release(release, 'move', l('Change release group')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
+        <li>
+          <a href="[%
+            c.uri_for_action('/edit/relationship/create_batch', {
+              type => c.session.relationship.type0,
+              gid => c.session.relationship.entity0,
+              release => release.gid
+            })
+          -%]">
+            [% l('Relate {what} to recordings',
+                 { what => html_escape(c.session.relationship.name) }) %]
+          </a>
+        </li>
       [% ELSE %]
         <li>[% request_login(l('Please log in to edit this release')) %]</li>
       [% END %]
