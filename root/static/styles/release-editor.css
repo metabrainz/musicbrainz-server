@@ -50,9 +50,8 @@ h1 span {
 }
 
 #release-editor fieldset input[type=checkbox],
-#release-editor fieldset span.partial-date input {
-    width: auto;
-}
+#release-editor fieldset span.partial-date input { width: auto; }
+#release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
 
 #release-editor fieldset.information textarea {
     height: 10px;

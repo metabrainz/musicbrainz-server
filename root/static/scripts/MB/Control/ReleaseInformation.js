@@ -231,28 +231,28 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         $('#id-date\\.month'), $('#id-date\\.day') ]
     self.message = $('div.date');
 
-    var amazonEpoch = function () {
+    self.amazonEpoch = function () {
         return (self.inputs[0].val () == '1995' &&
                 self.inputs[1].val () == '10' &&
                 self.inputs[2].val () == '25');
     };
 
-    var januaryFirst = function () {
+    self.januaryFirst = function () {
         return (parseInt (self.inputs[1].val (), 10) === 1 &&
                 parseInt (self.inputs[2].val (), 10) === 1);
     };
 
-    var update = function (event) {
+    self.update = function (event) {
         var amazon = self.amazonEpoch ();
         var january = self.januaryFirst ();
 
         if (amazon || january)
         {
-            $(this).data ('bubble').show ();
+            self.bubble.show ();
         }
         else
         {
-            $(this).data ('bubble').hide ();
+            self.bubble.hide ();
         }
 
         if (amazon)
@@ -274,16 +274,12 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         }
     };
 
-    self.januaryFirst = januaryFirst;
-    self.amazonEpoch = amazonEpoch;
-    self.update = update;
-
     $.each (self.inputs, function (idx, item) {
-        item.data ('bubble',
-            MB.Control.BubbleDocBase (self.bubbles, item, self.message));
-
         item.bind ('change keyup focus', self.update);
     });
+
+    self.bubble = self.bubbles.add (
+        self.inputs[0].closest ('span.partial-date'), self.message);
 
     return self;
 };

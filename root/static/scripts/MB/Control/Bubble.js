@@ -216,7 +216,7 @@ MB.Control.BubbleDocBase = function (parent, $target, $content) {
             at: "right top",
             of: self.$target,
             offset: "37 -23",
-            collision: "none"
+            collision: "none none"
         });
 
         /* FIXME: figure out why opera doesn't position this correctly on the
@@ -228,7 +228,7 @@ MB.Control.BubbleDocBase = function (parent, $target, $content) {
                 at: "right top",
                 of: self.$target,
                 offset: "37 -23",
-                collision: "none"
+                collision: "none none"
             });
         }
 
@@ -294,7 +294,6 @@ MB.Control.BubbleDocBase = function (parent, $target, $content) {
 
     return self;
 };
-
 
 MB.Control.BubbleDoc = function (parent, $target, $content) {
     var self = MB.Control.BubbleDocBase (parent, $target, $content);
@@ -386,17 +385,13 @@ MB.Control.BubbleRow = function (parent, $target, $acrow, offset) {
 MB.Control.BubbleCollection = function ($targets, $contents) {
     var self = MB.Object ();
 
-    self.type = MB.Control.BubbleDoc;
     self.bubbles = [];
 
     self.add = function ($target, $contents) {
-        self.bubbles.push (self.type (self, $target, $contents).initialize ());
-    };
+        var bubble = self.type (self, $target, $contents).initialize ();
+        self.bubbles.push (bubble);
 
-    self.bind = function (key, fun) {
-        $.each (self.bubbles, function (idx, bubble) {
-            bubble.bind (key, fun);
-        });
+        return bubble;
     };
 
     self.hideOthers = function (bubble) {
@@ -416,9 +411,15 @@ MB.Control.BubbleCollection = function ($targets, $contents) {
         self.type = type;
     };
 
+    self.resetType = function (type) {
+        self.type = MB.Control.BubbleDoc;
+    };
+
     self.initialize = function ()
     {
         var tmp = [];
+
+        self.resetType ();
 
         if ($targets && $contents)
         {
