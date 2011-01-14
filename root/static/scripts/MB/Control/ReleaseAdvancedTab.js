@@ -173,8 +173,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         var trk = MB.Control.ReleaseTrack (self, $row, $acrow);
         trk.$position.val (trackno + 1);
 
-        self.updateArtistColumn ();
-
         self.tracks.push (trk);
         self.sorted_tracks.push (trk);
 
@@ -269,10 +267,12 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * inputs matches the checkbox at the top of the column.
      */
     self.updateArtistColumn = function () {
-        var $artists = self.$table.find ('tr.track td.artist input');
-        if (self.$artist_column_checkbox.filter(':checked').val ())
+
+        if (self.$artist_column_checkbox.is (':checked'))
         {
-            $artists.removeAttr('disabled').css('color', 'inherit');
+            $.each (self.tracks, function (idx, item) {
+                item.artist_credit.enableTarget ();
+            });
         }
         else
         {
@@ -280,7 +280,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                it on close.  make sure to hide these bubbles _before_
                trying to disable the associated input. */
             self.bubble_collection.hideAll ();
-            $artists.attr('disabled','disabled').css('color', MB.Control._disabled_colour);
+
+            $.each (self.tracks, function (idx, item) {
+                item.artist_credit.disableTarget ();
+            });
         }
     };
 

@@ -449,12 +449,31 @@ MB.Control.ArtistCreditRow = function ($target, $container, $button) {
     var self = MB.Control.ArtistCreditContainer ($target, $container);
 
     var $artistcolumn = $target.closest ('table.medium').find ('input.artistcolumn');
+    var $credits = $target.closest ('tr.track').find ('a.credits-button');
+
+    var parent_enableTarget = self.enableTarget;
+    var parent_disableTarget = self.disableTarget;
+
+    self.enableTarget = function () {
+        if ($artistcolumn.is (':checked')) {
+            parent_enableTarget ();
+            $credits.show ();
+        };
+    };
+
+    self.disableTarget = function (keep_credits) {
+        parent_disableTarget ();
+        if (keep_credits)
+            return;
+
+        $credits.hide ();
+    };
 
     $container.bind ('bubbleOpen.mb', function (event) {
         /* do not open the bubble if the artist column isn't enabled. */
         if ($artistcolumn.is (':checked'))
         {
-            self.disableTarget ();
+            self.disableTarget (1);
         }
         else
         {
@@ -466,6 +485,15 @@ MB.Control.ArtistCreditRow = function ($target, $container, $button) {
     $container.bind ('bubbleClose.mb', function (event) {
         self.enableTarget ();
     });
+
+
+    if ($artistcolumn.is (':checked')) {
+        self.enableTarget ();
+    }
+    else
+    {
+        self.disableTarget ();
+    }
 
     return self;
 };

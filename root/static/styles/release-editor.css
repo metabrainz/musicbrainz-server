@@ -166,6 +166,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     padding: 0 5px;
 }
 
+#release-editor .medium.tbl td input[type=text][disabled] { color: #aaa; }
 #release-editor .medium.tbl td input[type=text] {
     background: #fff;
     height: 100%;

@@ -252,7 +252,7 @@
           <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
         </td>
         <td class="credits-button">
-          <a href="#credits">[% l('credits') %]</a>
+          <a class="credits-button" href="#credits">[% l('credits') %]</a>
         </td>
         <td class="length">
           <input type="text" class="track-length" size="5" value="?:??" />
