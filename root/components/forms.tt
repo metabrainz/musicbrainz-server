@@ -111,7 +111,7 @@
         <span class="autocomplete">
           <img class="search" src="/static/images/icons/search.png" />
           <input type="text" id="[% id %]" style="width: 262px"
-              value="[% form.field('artist_credit').fif.name %]" />
+              value="[% html_escape(form.field('artist_credit').fif.name) %]" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
     [%- END -%]
@@ -139,7 +139,7 @@
             <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
             <span class="artist autocomplete">
               <img class="search" src="/static/images/icons/search.png" />
-              <input type="text" class="name" value="[% artist.name %]" />
+              <input type="text" class="name" value="[% artist.name | html %]" />
               <input type="hidden" class="gid" value="[% artist.gid %]" />
               <input type="hidden" class="sortname" value="[% artist.sort_name %]" />
               [%- r.hidden (ac.field('artist_id'), class => 'id') -%]

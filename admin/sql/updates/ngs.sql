@@ -603,4 +603,69 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
         JOIN medium m ON m.release=re.release
     WHERE m.format IS NULL OR m.format IN (1,4); -- Unknown, CD or DualDisc
 
+------------------------
+-- Statistics
+------------------------
+\echo Stats
+
+INSERT INTO statistic (id, value, date_collected, name)
+    SELECT id, value, lastupdated,
+      CASE
+        WHEN name = 'count.album' THEN 'count.release'
+        WHEN name = 'count.album.has_discid' THEN 'count.release.has_discid'
+        WHEN name = 'count.album.nonvarious' THEN 'count.release.nonvarious'
+        WHEN name = 'count.album.various' THEN 'count.release.various'
+        WHEN name = 'count.moderation' THEN 'count.edit'
+        WHEN name = 'count.moderation.applied' THEN 'count.edit.applied'
+        WHEN name = 'count.moderation.deleted' THEN 'count.edit.tobedeleted'
+        WHEN name = 'count.moderation.error' THEN 'count.edit.error'
+        WHEN name = 'count.moderation.evalnochange' THEN 'count.edit.evalnochange'
+        WHEN name = 'count.moderation.faileddep' THEN 'count.edit.faileddep'
+        WHEN name = 'count.moderation.failedprereq' THEN 'count.edit.failedprereq'
+        WHEN name = 'count.moderation.failedvote' THEN 'count.edit.failedvote'
+        WHEN name = 'count.moderation.open' THEN 'count.edit.open'
+        WHEN name = 'count.moderation.perday' THEN 'count.edit.perday'
+        WHEN name = 'count.moderation.perweek' THEN 'count.edit.perweek'
+        WHEN name = 'count.moderation.tobedeleted' THEN 'count.edit.tobedeleted'
+        WHEN name = 'count.moderator' THEN 'count.editor'
+        WHEN name = 'count.moderator.activelastweek' THEN 'count.editor.activelastweek'
+        WHEN name = 'count.moderator.editlastweek' THEN 'count.editor.editlastweek'
+        WHEN name = 'count.moderator.votelastweek' THEN 'count.editor.votelastweek'
+        WHEN name = 'count.rating.raw.release' THEN 'count.rating.raw.releasegroup'
+        WHEN name = 'count.rating.raw.track' THEN 'count.rating.raw.recording'
+        WHEN name = 'count.rating.release' THEN 'count.rating.releasegroup'
+        WHEN name = 'count.rating.track' THEN 'count.rating.recording'
+        WHEN name = 'count.track.has_isrc' THEN 'count.recording.has_isrc'
+        WHEN name = 'count.track.has_puid' THEN 'count.recording.has_puid'
+
+        WHEN name = 'count.ar.links.l_album_album' THEN 'count.ar.links.l_release_release'
+        WHEN name = 'count.ar.links.l_album_artist' THEN 'count.ar.links.l_artist_release'
+        WHEN name = 'count.ar.links.l_album_label' THEN 'count.ar.links.l_label_release'
+        WHEN name = 'count.ar.links.l_album_track' THEN 'count.ar.links.l_recording_release'
+        WHEN name = 'count.ar.links.l_album_url' THEN 'count.ar.links.l_release_url'
+        WHEN name = 'count.ar.links.l_artist_track' THEN 'count.ar.links.l_artist_recording'
+        WHEN name = 'count.ar.links.l_label_track' THEN 'count.ar.links.l_label_recording'
+        WHEN name = 'count.ar.links.l_track_track' THEN 'count.ar.links.l_recording_recording'
+        WHEN name = 'count.ar.links.l_track_url' THEN 'count.ar.links.l_recording_url'
+
+        WHEN name ~ E'count\\.quality\\.album'
+           THEN replace(name, 'album', 'release')
+
+        WHEN name ~ E'count\\.album\\.\\d+discids'
+           THEN replace(name, 'album', 'medium')
+
+        WHEN name ~ E'count.puid.\\d+tracks'
+          THEN replace(name, 'tracks', 'recordings')
+
+        WHEN name ~ E'count.track.\\d+puids'
+          THEN replace(name, 'track', 'recording')
+
+        ELSE name
+      END AS name
+      FROM (
+           SELECT id, value, lastupdated, name FROM public.currentstat
+      UNION ALL
+           SELECT id, value, snapshotdate, name FROM public.historicalstat
+      ) s;
+
 COMMIT;

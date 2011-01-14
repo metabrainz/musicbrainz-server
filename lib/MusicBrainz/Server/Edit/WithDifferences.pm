@@ -26,21 +26,29 @@ sub _change_hash
     return \%old;
 }
 
-sub _change_data {
+sub _changes {
     my ($self, $object, %opts) = @_;
-    local $Storable::canonical = 1;
 
     my $old = $self->_change_hash($object, keys %opts);
     my $new = \%opts;
 
     remove_equal($old, $new);
 
-    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw unless keys %$new && keys %$old;
-
     return (
         old => $old,
         new => $new
     );
+}
+
+sub _change_data {
+    my ($self, $object, %opts) = @_;
+
+    my %data = $self->_changes($object, %opts);
+    my ($new, $old) = @data{qw( new old )};
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+          unless keys %$new && keys %$old;
+
+    return %data;
 };
 
 1;

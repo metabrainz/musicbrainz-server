@@ -77,6 +77,7 @@ after 'load' => sub
         $c->stash->{subscribed} = $artist_model->subscription->check_subscription(
             $c->user->id, $artist->id);
     }
+
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);

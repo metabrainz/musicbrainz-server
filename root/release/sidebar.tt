@@ -140,6 +140,11 @@
             [% release.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
           </a>
         </li>
+        <li>
+          <a href="[% c.uri_for_action('/release/merge_queue', { 'add-to-merge' => release.id }) %]">
+            [% l('Merge this release with another') %]
+          </a>
+        </li>
         <li>[% link_release(release, 'delete', l('Delete this release')) %]</li>
         <li>[% link_release(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_release(release, 'move', l('Change release group')) %]</li>
@@ -170,6 +175,7 @@ WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
         INCLUDE links;
     	INCLUDE other_versions;    
         INCLUDE collections IF c.user_exists;
+        INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release;
     END;
 END;
 

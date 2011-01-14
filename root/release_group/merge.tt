@@ -11,6 +11,7 @@
             </li>
             [% END %]
         </ul>
+        [% field_errors(form, 'target') %]
 
         [% INCLUDE "forms/edit-note.tt" %]
         [% enter_edit() %]

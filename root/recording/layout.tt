@@ -52,6 +52,8 @@
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=recording -%]
     [% END %]
 
     <div id="content">

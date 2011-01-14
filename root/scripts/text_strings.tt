@@ -68,7 +68,7 @@
         },
         Pager: '[% l('page #{page} of #{total}') %]',
         SwitchToDirectSearch: '[% l('Not found? Try again with direct search.') %]',
-        SwitchToIndexedSearch: '[% l('Slow? Switch back to indexed search.') %]'
-
+        SwitchToIndexedSearch: '[% l('Slow? Switch back to indexed search.') %]',
+        link: '[% l('link') %]'
     });
 })(MB);

@@ -277,14 +277,6 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
             RECORDINGS TAB
    __________________________________ */
 
-span.autocomplete-isrcs,
-span.autocomplete-appears,
-span.autocomplete-comment {
-    margin-left: 12px;
-    color: #999;
-    font-size: 80%;
-}
-
 span.add-recording { color: #999; }
 table.matches { width: 100%; }
 a.change-recording { min-width: 48px; }

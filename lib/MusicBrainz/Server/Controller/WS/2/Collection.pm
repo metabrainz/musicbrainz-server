@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use List::MoreUtils qw( uniq all );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -11,6 +12,9 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(releases tags) ],
                          optional => [ qw(limit offset) ],
      },
+     collection => {
+         method => 'POST',
+     }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -48,6 +52,71 @@ sub list_toplevel
 
 sub list: Chained('load') PathPart('')
 {
+    my ($self, $c) = @_;
+
+    if ($c->req->method eq 'GET') {
+        $self->list_get($c);
+    }
+    else {
+        $self->list_post($c);
+    }
+}
+
+sub list_list : Chained('base') PathPart('')
+{
+    my ($self, $c) = @_;
+    $c->authenticate({}, 'musicbrainz.org');
+
+    my $stash = WebServiceStash->new;
+    my @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+    $c->model('Editor')->load(@collections);
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,
+                                                     $c->stash->{inc}, $stash));
+}
+
+sub list_post {
+    my ($self, $c) = @_;
+    my $collection = $c->stash->{entity};
+
+    $c->authenticate({}, 'musicbrainz.org');
+
+    my $client = $c->req->query_params->{client}
+        or _error($c, 'You must provide information about your client, by the client query parameter');
+
+    my $xp = XML::XPath->new( xml => $c->request->body );
+
+    my @add_gids = uniq map { $_->getAttribute('id') }
+        $xp->find('/metadata/add/release')->get_nodelist;
+
+    my @remove_gids = uniq map { $_->getAttribute('id') }
+        $xp->find('/metadata/add/release')->get_nodelist;
+
+    _error ($c, "All releases must have an MBID present")
+        unless all { defined } (@add_gids, @remove_gids);
+
+    for my $gid (@add_gids, @remove_gids) {
+        _error($c, "$gid is not a valid MBID")
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+    }
+
+    my %releases = map {
+        $_->gid => $_
+    } values %{ $c->model('Release')->get_by_gids(@add_gids, @remove_gids) };
+
+    $c->model('Collection')->add_releases_to_collection(
+        $collection->id,
+        map { $_->id } grep { defined } map { $releases{$_} } @add_gids
+    ) if @add_gids;
+
+    $c->model('Collection')->remove_releases_from_collection(
+        $collection->id,
+        map { $_->id } grep { defined } map { $releases{$_} } @remove_gids
+    ) if @remove_gids;
+}
+
+sub list_get {
     my ($self, $c) = @_;
     my $collection = $c->stash->{entity};
 

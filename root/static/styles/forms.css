@@ -136,6 +136,14 @@ button.autocomplete-pager {
     background-color: transparent;
 }
 
+span.autocomplete-isrcs,
+span.autocomplete-appears,
+span.autocomplete-comment {
+    margin-left: 12px;
+    color: #999;
+    font-size: 80%;
+}
+
 /* __________________________________
 
          Half-width edit forms

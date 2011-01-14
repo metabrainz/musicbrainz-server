@@ -2,10 +2,10 @@ package MusicBrainz::Server::Wizard::ReleaseEditor;
 use Moose;
 use namespace::autoclean;
 
+use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use JSON::Any;
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -14,6 +14,7 @@ use MusicBrainz::Server::Wizard;
 use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
@@ -21,14 +22,13 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_CREATE
     $EDIT_LABEL_CREATE
     $EDIT_MEDIUM_CREATE
+    $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
-    $EDIT_MEDIUM_EDIT_TRACKLIST
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
-    $EDIT_TRACKLIST_CREATE
 );
 
 extends 'MusicBrainz::Server::Wizard';
@@ -102,12 +102,11 @@ sub run
     elsif ($self->current_page eq 'missing_entities') {
         $self->determine_missing_entities;
     }
-    elsif ($self->loading) {
-        $self->load($self->release);
-    }
 
     $self->render;
 }
+
+sub init_object { shift->release }
 
 sub load
 {
@@ -271,15 +270,16 @@ sub _misssing_artist_credits
 {
     my ($self, $data) = @_;
     return
-        grep { !$_->{artist} } grep { ref($_) }
         (
             # Artist credit for the release itself
+            grep { !$_->{artist} } grep { ref($_) }
             map { @{ clean_submitted_artist_credits($_) } }
                 $data->{artist_credit}
         ),
         (
             # Artist credits on new tracklists
-            map { @{ $_->{artist_credit}->{names} } }
+            grep { !$_->artist_id }
+            map { @{ $_->artist_credit->names } }
             map { @{ $_->{tracks} } } grep { $_->{edits} }
             @{ $data->{mediums} }
         );
@@ -450,45 +450,9 @@ sub _edit_release_track_edits
     {
         $medium_idx++;
 
-        my $tracklist_id = $new->{tracklist_id};
-
-        # new medium which re-uses a tracklist already in the database.
-        my $new_medium = $tracklist_id && ! $new->{id};
-
-        if ($new->{edits} || $new_medium)
-        {
-            if ($tracklist_id && $new->{id})
-            {
-                # We already have a tracklist and a medium, so lets create a tracklist edit
-
-                my $old = $self->c->model('Medium')->get_by_id ($new->{id});
-                $self->c->model('Tracklist')->load ($old);
-                $self->c->model('Track')->load_for_tracklists ($old->tracklist);
-                $self->c->model('ArtistCredit')->load ($old->tracklist->all_tracks);
-
-                $create_edit->(
-                    $EDIT_MEDIUM_EDIT_TRACKLIST,
-                    $editnote,
-                    separate_tracklists => 1,
-                    medium_id => $new->{id},
-                    tracklist_id => $new->{tracklist_id},
-                    old_tracklist => $self->_tracks_to_ref ($old->tracklist->tracks),
-                    new_tracklist => $self->_tracks_to_ref ($new->{tracks}),
-                    as_auto_editor => $data->{as_auto_editor},
-                );
-            }
-            elsif (!$tracklist_id)
-            {
-                my $create_tl = $create_edit->(
-                    $EDIT_TRACKLIST_CREATE, $editnote,
-                    tracks => $self->_tracks_to_ref ($new->{tracks}));
-
-                $tracklist_id = $create_tl->tracklist_id || 0;
-            }
-        }
-
         if ($new->{id})
         {
+            # The medium already exists
             if ($new->{deleted})
             {
                 # Delete medium
@@ -501,13 +465,23 @@ sub _edit_release_track_edits
             else
             {
                 # Edit medium
-                $create_edit->(
-                    $EDIT_MEDIUM_EDIT, $editnote,
+                my %opts = (
                     name => $new->{name},
                     format_id => $new->{format_id},
                     position => $new->{position},
                     to_edit => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    separate_tracklists => 1,
                     as_auto_editor => $data->{as_auto_editor},
+                );
+
+                if ($new->{edits}) {
+                    $opts{tracklist} = $new->{tracks};
+                }
+
+                # Edit medium
+                $create_edit->(
+                    $EDIT_MEDIUM_EDIT, $editnote,
+                    %opts
                 );
             }
         }
@@ -515,15 +489,26 @@ sub _edit_release_track_edits
         {
             my $opts = {
                 position => $medium_idx + 1,
-                tracklist_id => $tracklist_id,
                 release_id => $previewing ? 0 : $self->release->id,
             };
 
             $opts->{name} = $new->{name} if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
+            $opts->{tracklist} = $new->{tracklist_id} || $new->{tracks};
+
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
+
+            if ($new->{toc}) {
+                $create_edit->(
+                    $EDIT_MEDIUM_ADD_DISCID,
+                    $editnote,
+                    medium_id  => $previewing ? 0 : $add_medium->entity_id,
+                    release_id => $previewing ? 0 : $self->release->id,
+                    cdtoc      => $new->{toc}
+                );
+            }
 
             if ($new->{position} != $medium_idx + 1)
             {
@@ -658,24 +643,6 @@ sub _expand_mediums
     return $data;
 }
 
-=method _tracks_to_ref
-
-Deflates a track object into a hash reference that is used by edits
-
-=cut
-
-sub _tracks_to_ref
-{
-    my ($self, $tracklist) = @_;
-    return [ map +{
-        name => $_->name,
-        length => $_->length,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
-        recording_id => $_->recording_id,
-        position => $_->position,
-    }, @$tracklist ];
-}
-
 =method edited_tracklist
 
 Returns a list of tracks, sorted by position, with deleted tracks removed
@@ -688,6 +655,144 @@ sub edited_tracklist
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
+
+sub _seed_parameters {
+    my ($self, $params) = @_;
+    $params = expand_hash($params);
+
+    my @transformations = (
+        [
+            'language_id', 'language',
+            sub { shift->model('Language')->find_by_code(shift) },
+        ],
+        [
+            'country_id', 'country',
+            sub { shift->model('Country')->find_by_code(shift) },
+        ],
+        [
+            'script_id', 'script',
+            sub { shift->model('Script')->find_by_code(shift) },
+        ],
+        [
+            'status_id', 'status',
+            sub { shift->model('ReleaseStatus')->find_by_name(shift) },
+        ],
+        [
+            'type_id', 'type',
+            sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
+        ],
+        [
+            'packaging_id', 'packaging',
+            sub { shift->model('ReleasePackaging')->find_by_name(shift) },
+        ],
+    );
+
+    for my $trans (@transformations) {
+        my ($key, $alias, $transform) = @$trans;
+        if (exists $params->{$alias}) {
+            $params->{$key} = $transform->($self->c, delete $params->{$alias})->id;
+        }
+    }
+
+    for my $label (@{ $params->{labels} }) {
+        if (my $mbid = $label->{mbid}) {
+            my $entity = $self->c->model('Label')
+                ->get_by_gid($mbid);
+            $label->{label_id} = $entity->id;
+            $label->{name} = $entity->name;
+        }
+        elsif (my $name = $label->{name}) {
+            $label->{name} = $name;
+        }
+    }
+
+    for my $artist_credit (
+        map { @{ $_->{names} } } (
+            ($params->{artist_credit} || ()),
+            map { $_->{artist_credit} || [] }
+                map { @{ $_->{track} || []}  }
+                    @{ $params->{medium} || []}
+        )
+    ) {
+        if (my $mbid = $artist_credit->{mbid}){
+            my $entity = $self->c->model('Artist')
+                ->get_by_gid($mbid);
+            $artist_credit->{artist_id} = $entity->id;
+            $artist_credit->{name} ||= $entity->name;
+            $artist_credit->{gid} = $entity->gid;
+            $artist_credit->{artist_name} = $entity->name;
+        }
+    }
+
+    {
+        my $medium_idx;
+        my $json = JSON::Any->new(utf8 => 1);
+        for my $medium (@{ $params->{mediums} }) {
+            if (my $format = delete $medium->{format}) {
+                my $entity = $self->c->model('MediumFormat')
+                    ->find_by_name($format);
+                $medium->{format_id} = $entity->id if $entity;
+            }
+
+            my $toc = $medium->{toc};
+            if ($toc and my $cdtoc = CDTOC->new_from_toc($toc)) {
+                if (ref($medium->{track})) {
+                    if (@{ $medium->{track} } != $cdtoc->track_count) {
+                        delete $medium->{toc};
+                    }
+                    else {
+                        my $details = $cdtoc->track_details;
+                        for my $i (1..$cdtoc->track_count) {
+                            my $n = $i - 1;
+                            $medium->{track}->[$n] ||= {};
+                            $medium->{track}->[$n]->{length} =
+                                $details->[$n]->{length_time};
+                        }
+                    }
+                }
+                else {
+                    $medium->{track} = [ map +{
+                        length => $_->{length_time}
+                    }, @{ $cdtoc->track_details } ];
+                }
+            }
+
+            if (my @tracks = @{ $medium->{track} || [] }) {
+                my @edits;
+                my $track_idx;
+                for my $track (@tracks) {
+                    $track->{position} = ++$track_idx;
+                    my $track_ac = $track->{artist_credit} || $params->{artist_credit};
+                    if ($track_ac->{names}) {
+                        $track->{artist_credit}{names} = [
+                            map +{
+                                name => $_->{name},
+                                id => $_->{artist_id},
+                                join => $_->{join_phrase},
+                                artist_name => $_->{artist_name},
+                                gid => $_->{gid}
+                            }, @{$track_ac->{names}}
+                        ];
+                    }
+
+                    if (my $length = $track->{duration}) {
+                        $track->{length} = ($length =~ /:/)
+                            ? $length
+                            : format_track_length($length);
+                    }
+
+                    push @edits, $track;
+                }
+
+                $medium->{edits} = $json->encode(\@edits);
+            }
+
+            $medium->{position} = ++$medium_idx;
+        }
+    };
+
+    return collapse_hash($params);
+};
 
 __PACKAGE__->meta->make_immutable;
 1;

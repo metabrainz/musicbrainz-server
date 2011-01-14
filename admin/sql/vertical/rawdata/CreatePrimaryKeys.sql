@@ -20,6 +20,7 @@ ALTER TABLE recording_tag_raw ADD CONSTRAINT recording_tag_raw_pkey PRIMARY KEY 
 ALTER TABLE release_group_rating_raw ADD CONSTRAINT release_group_rating_raw_pkey PRIMARY KEY (release_group, editor);
 ALTER TABLE release_group_tag_raw ADD CONSTRAINT release_group_tag_raw_pkey PRIMARY KEY (release_group, editor, tag);
 ALTER TABLE release_raw ADD CONSTRAINT release_raw_pkey PRIMARY KEY (id);
+ALTER TABLE release_tag_raw ADD CONSTRAINT release_tag_raw_pkey PRIMARY KEY (release, editor, tag);
 ALTER TABLE track_raw ADD CONSTRAINT track_raw_pkey PRIMARY KEY (id);
 ALTER TABLE vote ADD CONSTRAINT vote_pkey PRIMARY KEY (id);
 ALTER TABLE work_rating_raw ADD CONSTRAINT work_rating_raw_pkey PRIMARY KEY (work, editor);
