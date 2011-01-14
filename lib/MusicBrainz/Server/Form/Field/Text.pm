@@ -6,6 +6,7 @@ apply ([
     {
         transform => sub {
             my $text = shift;
+            $text =~ s/[^[:print:]]//g;
             $text =~ s/\s+/ /g;
             return $text;
         }
