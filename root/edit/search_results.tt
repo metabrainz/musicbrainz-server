@@ -4,7 +4,6 @@
     <script type="text/javascript">
         $(function() {
             $('.edit-list').each(function() {
-                console.log(this);
                 MB.Control.EditSummary(this);
             });
 
