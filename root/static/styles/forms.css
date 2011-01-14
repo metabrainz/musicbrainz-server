@@ -29,10 +29,6 @@ div.bubble div.row input[type=text] {
     font-size: 1em;
 }
 
-div.bubble span.autocomplete { display: inline-block; position: relative; }
-div.bubble span.autocomplete img.search { position: absolute; left: 160px; top: 3px; }
-div.bubble span.autocomplete.disabled img.search { display: none; }
-
 div.bubble div.row label,
 div.bubble div.row div.label { width: 150px; }
 
@@ -123,6 +119,10 @@ div.searchform {
           MB.Control.Autocomplete
    __________________________________ */
 
+span.autocomplete { display: inline-block; position: relative; }
+span.autocomplete img.search { position: absolute; right: 3px; top: 3px; }
+span.autocomplete.disabled img.search { display: none; }
+
 .ui-autocomplete-loading {
     background: white url(../lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif) right center no-repeat;
 }
@@ -187,10 +187,6 @@ div.half-width fieldset label.row {
 div.half-width fieldset label.required {
     font-weight: bold;
 }
-
-div.half-width span.autocomplete { display: inline-block; position: relative; }
-div.half-width span.autocomplete img.search { position: absolute; right: 3px; top: 3px; }
-div.half-width span.autocomplete.disabled img.search { display: none; }
 
 div.half-width fieldset input,
 div.half-width fieldset select {

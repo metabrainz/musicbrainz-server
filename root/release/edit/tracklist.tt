@@ -68,7 +68,7 @@
     [% artist = acfield.fif.names.$artistnum.artist %]
     <tr class="artist-credit-box">
       <td class="artist">
-        <span class="autocomplete">
+        <span class="autocomplete" style="width: 100%">
           <img class="search" src="/static/images/icons/search.png" />
           <input type="text" class="name" value="[% artist.name %]" />
         </span>
@@ -248,8 +248,11 @@
           <input type="hidden" class="id" />
           <input type="text" class="track-name" />
         </td>
-        <td class="artist">
-          <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
+        <td class="artist autocomplete">
+          <span class="autocomplete" style="width: 100%">
+            <img class="search" src="/static/images/icons/search.png" style="top: 1px;"  />
+            <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
+          </span>
         </td>
         <td class="credits-button">
           <a class="credits-button" href="#credits">[% l('credits') %]</a>
