@@ -64,6 +64,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.$join.val ('');
         self.$gid.val ('');
         self.$id.val ('');
+
+        self.$credit.attr ('placeholder', '')
+            .mb_placeholder (self.placeholder_options);
     };
 
     self.render = function (data) {
@@ -232,6 +235,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     self.hideJoin = function () {
         self.$join.closest ('.join-container').hide ();
+        self.$join.val ('');
 
         /* join phrases are automatic on those join phrases which will only
            be shown when a new artist credit is added. */
