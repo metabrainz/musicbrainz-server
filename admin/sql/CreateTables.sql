@@ -119,14 +119,6 @@ CREATE TABLE country (
     name                VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE currentstat
-(
-    id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
-    value               INTEGER NOT NULL,
-    last_updated        TIMESTAMP WITH TIME ZONE
-);
-
 CREATE TABLE editor
 (
     id                  SERIAL,
@@ -195,14 +187,6 @@ CREATE TABLE isrc
     source              SMALLINT,
     edits_pending       INTEGER NOT NULL DEFAULT 0,
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE historicalstat
-(
-    id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
-    value               INTEGER NOT NULL,
-    snapshot_date       DATE NOT NULL
 );
 
 CREATE TABLE l_artist_artist
@@ -903,6 +887,14 @@ CREATE TABLE script_language
     script              INTEGER NOT NULL, -- references script.id
     language            INTEGER NOT NULL, -- references language.id
     frequency           INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE statistic
+(
+    id                  SERIAL,
+    name                VARCHAR(100) NOT NULL,
+    value               INTEGER NOT NULL,
+    date_collected      date NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE tag

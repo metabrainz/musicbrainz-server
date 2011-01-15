@@ -114,6 +114,11 @@ sub build_display_data
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
+    my $medium = $self->c->model('Medium')->get_by_id($self->data->{entity_id});
+    $self->c->model('Release')->load($medium);
+    $self->c->model('ArtistCredit')->load($medium->release);
+    $data->{release} = $medium->release;
+
     return $data;
 }
 

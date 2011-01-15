@@ -8,13 +8,16 @@ with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'ar' );
 
-has_field 'link_type_id' => (
-    type => 'Select',
-);
+has_field 'link_type_id' => ( type => 'Select' );
+has_field 'direction'    => ( type => 'Checkbox' );
 
-has_field 'direction' => (
-    type => 'Checkbox',
-);
+has_field 'entity0'      => ( type => 'Compound' );
+has_field 'entity0.id'   => ( type => 'Text' );
+has_field 'entity0.name' => ( type => 'Text' );
+
+has_field 'entity1'      => ( type => 'Compound' );
+has_field 'entity1.id'   => ( type => 'Text' );
+has_field 'entity1.name' => ( type => 'Text' );
 
 sub trim
 {

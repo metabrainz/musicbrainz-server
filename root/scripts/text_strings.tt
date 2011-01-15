@@ -66,6 +66,7 @@
             Person: [ '[% l('Born:') %]', '[% l('Deceased:') %]' ],
             Founded: [ '[% l('Founded:') %]', '[% l('Dissolved') %]' ]
         },
-        Pager: '[% l('page #{page} of #{total}') %]'
+        Pager: '[% l('page #{page} of #{total}') %]',
+        link: '[% l('link') %]'
     });
 })(MB);

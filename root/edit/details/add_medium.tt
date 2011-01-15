@@ -2,14 +2,14 @@
    [%- IF edit.display_data.name -%]
    <tr>
      <th>[% l('Name:') %]</th>
-     <td>[% edit.display_data.name %]</td>
+     <td>[% edit.display_data.name | html %]</td>
    </tr>
    [%- END -%]
 
    [% IF edit.display_data.format -%]
    <tr>
      <th>[% l('Format:') %]</th>
-     <td>[% edit.display_data.format.name %]</td>
+     <td>[% edit.display_data.format.name | html %]</td>
    </tr>
    [% END %]
 
