@@ -26,7 +26,7 @@ sub options_mediums_format_id {
     my ($self) = @_;
 
     my $root_format = $self->ctx->model('MediumFormat')->get_tree;
-    return [ $self->_build_medium_format_options($root_format, 'name', '&nbsp;') ];
+    return [ $self->_build_medium_format_options($root_format, 'name', '') ];
 };
 
 sub _build_medium_format_options
@@ -34,7 +34,7 @@ sub _build_medium_format_options
     my ($self, $root, $attr, $indent) = @_;
 
     my @options;
-    push @options, $root->id, $indent . trim($root->$attr);
+    push @options, $root->id, $indent . trim($root->$attr) if $root->id;
     $indent .= '&nbsp;&nbsp;&nbsp;';
 
     foreach my $child ($root->all_children) {
