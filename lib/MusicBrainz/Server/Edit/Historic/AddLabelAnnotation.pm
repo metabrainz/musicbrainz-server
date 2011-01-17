@@ -9,6 +9,13 @@ sub edit_name { l('Add label annotation') }
 sub edit_type { 57 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::AddAnnotation' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        label => [ $self->row_id ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;
