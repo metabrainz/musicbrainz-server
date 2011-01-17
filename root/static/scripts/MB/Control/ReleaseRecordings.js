@@ -181,6 +181,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     self.tracks = [];
     self.$fieldset = $(fieldset);
     self.$edit = self.$fieldset.find ('a[href=#edit]');
+    self.$nowloading = self.$fieldset.find ('div.recordings-loading');
 
     self.renderTrack = function (idx, $track, $bubble, data) {
 
@@ -210,7 +211,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     };
 
     self.load = function (data) {
-        self.$fieldset.find ('.clickedit').hide ();
+        self.$nowloading.hide ();
+
         var $table = $('table.disc-template').clone ().show ()
             .appendTo (self.$fieldset);
 
@@ -249,6 +251,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
     self.lazyLoad = function () {
         var tracklist = self.$fieldset.find ('input.tracklist-id').val ();
+        self.$fieldset.find ('.clickedit').hide ();
+        self.$nowloading.show ();
         $.getJSON ('/ws/js/associations/' + tracklist, self.load);
     };
 

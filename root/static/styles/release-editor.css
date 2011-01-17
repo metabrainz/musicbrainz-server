@@ -65,7 +65,9 @@ h1 span {
 }
 
 #release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
+#release-editor fieldset div.recordings-loading,
 #release-editor fieldset div.tracklist-loading { padding: 110px 0 0 0; height: 140px; }
+#release-editor fieldset div.recordings-loading,
 #release-editor fieldset div.tracklist-loading p {
     width: 100%;
     text-align: center;
