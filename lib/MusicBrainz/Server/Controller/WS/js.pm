@@ -50,6 +50,9 @@ my $ws_defs = Data::OptList::mkopt([
     "tracklist" => {
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
+    },
+    "associations" => {
+        method => 'GET',
     }
 ]);
 
@@ -462,6 +465,44 @@ sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
+}
+
+# recording associations
+sub associations : Chained('root') PathPart Args(1) {
+    my ($self, $c, $id) = @_;
+
+    my $tracklist = $c->model('Tracklist')->get_by_id($id);
+    $c->model('Track')->load_for_tracklists($tracklist);
+    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
+        $tracklist->all_tracks);
+
+    $c->model('Recording')->load ($tracklist->all_tracks);
+
+    my @structure;
+    for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
+    {
+        my $data = {
+            length => format_track_length($_->length),
+            name => $_->name,
+            artist_credit => { preview => $_->artist_credit->name }
+        };
+
+        $data->{recording} = {
+            gid => $_->recording->gid,
+            name => $_->recording->name,
+            length => format_track_length($_->recording->length),
+            artist_credit => { preview => $_->artist_credit->name },
+            releasegroups => [ map {
+                { 'name' => $_->name, 'gid' => $_->gid }
+            } $c->model ('ReleaseGroup')->find_by_recording ($_->recording->id) ]
+        };
+
+        push @structure, $data;
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
 }
 
 sub default : Path

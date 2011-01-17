@@ -221,7 +221,7 @@ sub prepare_recordings
             $suggestions[$count] = \@recordings;
 
             $recording_gids[$count]->{associations} = [
-                map { { 'gid' => $_ ? $_->gid : undef } } @recordings
+                map { { 'gid' => ($_ ? $_->gid : "new") } } @recordings
             ];
         }
         else
@@ -606,6 +606,31 @@ sub _create_edit {
     return $edit;
 }
 
+
+sub _expand_track
+{
+    my ($self, $trk, $assoc) = @_;
+
+    my $entity = Track->new(
+        length => unformat_track_length ($trk->{length}),
+        name => $trk->{name},
+        position => $trk->{position},
+        artist_credit => ArtistCredit->from_array ([
+            map {
+                { artist => $_->{id}, name => $_->{name} },
+                $_->{join}
+            } grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
+        ]));
+
+    if ($assoc)
+    {
+        $entity->recording_id ($assoc->id);
+        $entity->recording ($assoc);
+    }
+
+    return $entity;
+}
+
 =method _expand_mediums
 
 Expands the 'edits' element for each medium object into a set of tracks
@@ -617,27 +642,51 @@ sub _expand_mediums
     my ($self, $data) = @_;
     my $json = JSON::Any->new( utf8 => 1 );
 
-    for (@{ $data->{mediums} }) {
-        my $edits = $_->{edits} or next;
+    my $count = 0;
+    for my $disc (@{ $data->{mediums} }) {
+        my $rec_medium = $data->{rec_mediums}->[$count];
+        my $tracklist_id = $rec_medium->{tracklist_id};
+        my $associations = $rec_medium->{associations};
+        my $edits = $disc->{edits};
+        $count++;
 
-        $_->{tracks} = [ map {
-            Track->new(
-                length => unformat_track_length ($_->{length}),
-                name => $_->{name},
-                position => $_->{position},
-                artist_credit => ArtistCredit->from_array ([
-                    map {
-                        {
-                            artist => $_->{id},
-                            name => $_->{name}
-                        },
-                        $_->{join}
-                    } grep {
-                        $_->{name}
-                    } @{ $_->{artist_credit}->{names} }
-                ])
-            )
-        } @{ $self->edited_tracklist($json->decode($edits)) } ];
+        next unless $edits || $associations && scalar @$associations;
+
+        my @gids = grep { $_ ne 'new' } map { $_->{gid} } @$associations;
+        my %recordings = map { $_->gid => $_ }
+          values %{ $self->c->model('Recording')->get_by_gids (@gids) };
+
+        if ($edits)
+        {
+            my $pos = 0;
+            $disc->{tracks} = [ map {
+                my $rec = $recordings{$associations->[$pos]->{gid}};
+                $pos++;
+                $self->_expand_track ($_, $rec);
+            } @{ $self->edited_tracklist($json->decode($edits)) } ];
+        }
+        else
+        {
+            my $tracklist = $self->c->model('Tracklist')->get_by_id ($tracklist_id);
+            $self->c->model('Track')->load_for_tracklists ($tracklist);
+            $self->c->model('ArtistCredit')->load ($tracklist->all_tracks);
+
+            my $pos = 0;
+            $disc->{tracks} = [ map {
+                my $rec = $recordings{$associations->[$pos]->{gid}};
+                $pos++;
+                if ($rec) {
+                    $_->recording_id ($rec->id);
+                    $_->recording ($rec);
+                }
+                else
+                {
+                    $_->clear_recording_id;
+                    $_->clear_recording;
+                }
+                $_
+            } $tracklist->all_tracks ];
+        }
     }
 
     return $data;
