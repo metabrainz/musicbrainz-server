@@ -6,7 +6,12 @@ extends 'MusicBrainz::Server::Entity::URL';
 
 sub pretty_name { 'CDBaby' }
 
-override url => sub { super() . '/from/musicbrainz' };
+override url => sub {
+    my $self = shift;
+    my $url = super()->clone;
+    $url->path($url->path . '/from/musicbrainz');
+    return $url
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

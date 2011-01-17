@@ -65,6 +65,23 @@ sub get_by_ids
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
 }
 
+sub _get_by_key
+{
+    my ($self, $key, $id, %options) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table;
+    if (my $transform = $options{transform}) {
+        $query .= " WHERE $transform($key) = $transform(?)";
+    }
+    else {
+        $query .= " WHERE $key = ?";
+    }
+
+    return $self->_new_from_row(
+        $self->sql->select_single_row_hash(
+            $query, $id));
+}
+
 sub insert { confess "Not implemented" }
 sub update { confess "Not implemented" }
 sub delete { confess "Not implemented" }

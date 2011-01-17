@@ -47,4 +47,9 @@
       [% END %]
     [%- END -%]
   </form>
+
+  <form action="[% c.uri_for('/release/add') %]" method="post">
+    <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
+    [% form_submit(l('Add a new release')) %]
+  </form>
 [% END %]

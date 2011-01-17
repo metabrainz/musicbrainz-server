@@ -76,6 +76,11 @@
                   </a>
                 </li>
                 <li>
+                  <a href="[% c.uri_for_action('/recording/create', { artist = artist.gid }) %]">
+                    [% l('Add a new standalone recording') %]
+                  </a>
+                </li>
+                <li>
                   <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
                     [% l('Add a work') %]
                   </a>
@@ -93,6 +98,8 @@
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist -%]
     [% END %]
 
     <div id="content">

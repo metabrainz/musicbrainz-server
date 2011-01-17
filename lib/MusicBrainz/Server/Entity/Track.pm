@@ -8,12 +8,14 @@ with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'recording_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
+    clearer => 'clear_recording_id'
 );
 
 has 'recording' => (
     is => 'rw',
-    isa => 'Recording'
+    isa => 'Recording',
+    clearer => 'clear_recording'
 );
 
 has 'tracklist_id' => (

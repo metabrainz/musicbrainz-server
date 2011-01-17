@@ -4,7 +4,7 @@ use Moose;
 use Time::HiRes qw (sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
 use LWP::UserAgent;
-use XML::Simple;
+use XML::XPath;
 
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 
@@ -90,13 +90,11 @@ sub _lookup_coverart {
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     my $response = $lwp->get($url) or return;
-    my $xml_res = XMLin($response->decoded_content, ForceArray => [ 'ImageSet' ]);
+    my $xp = XML::XPath->new( xml => $response->decoded_content );
 
-    my $image_url;
-    for my $image_set (@{ $xml_res->{Items}->{Item}->{ImageSets}->{ImageSet} }) {
-        next unless $image_set->{Category} eq 'primary';
-        $image_url = $image_set->{MediumImage}->{URL};
-    }
+    my $image_url = $xp->find(
+        '/ItemLookupResponse/Items/Item/ImageSets/ImageSet[@Category="primary"]/LargeImage/URL'
+    )->string_value;
 
     return unless $image_url;
 

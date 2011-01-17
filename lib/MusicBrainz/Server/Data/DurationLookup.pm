@@ -4,7 +4,7 @@ use Readonly;
 use MusicBrainz::Server::Entity::DurationLookupResult;
 use MusicBrainz::Server::Entity::Medium;
 
-with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::Sql';
 
 Readonly our $DIMENSIONS => 6;
 
@@ -101,16 +101,28 @@ sub lookup
 sub update
 {
     my ($self, $tracklist_id) = @_;
-    $self->sql->execute(
-        "UPDATE tracklist_index SET toc = create_cube_from_durations
-            (
-                (
-                    SELECT array_accum(t.length)
-                      FROM track t
-                     WHERE tracklist = ?
-                  ORDER BY t.position
-                 )
-            ) WHERE tracklist = ?", $tracklist_id, $tracklist_id);
+    my $create_cube = 'create_cube_from_durations((
+                    SELECT array(
+                        SELECT t.length
+                          FROM track t
+                         WHERE tracklist = ?
+                      ORDER BY t.position
+                    )
+            ))';
+
+    if ($self->sql->select_single_value(
+        'SELECT 1 FROM tracklist_index WHERE tracklist = ?', $tracklist_id
+    )) {
+        $self->sql->do(
+            "UPDATE tracklist_index SET toc = $create_cube
+              WHERE tracklist = ?", $tracklist_id, $tracklist_id);
+    }
+    else {
+        $self->sql->do(
+            "INSERT INTO tracklist_index (tracklist, toc)
+             VALUES (?, $create_cube)",
+            $tracklist_id, $tracklist_id);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

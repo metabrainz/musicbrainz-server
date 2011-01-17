@@ -70,7 +70,7 @@ sub _column_mapping
         language_id => 'language',
         quality => sub {
             my ($row, $prefix) = @_;
-            my $quality = $row->{"${prefix}quality"};
+            my $quality = $row->{"${prefix}quality"} || -1;
             return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
         },
         last_updated => 'last_updated'
@@ -598,6 +598,28 @@ sub find_ids_by_track_ids
     return $sql->select_single_column_array($query, @ids);
 }
 
+sub find_similar
+{
+    my ($self, %opts) = @_;
+    my $name = $opts{name};
+    my $artist_credit = $opts{artist_credit};
+
+    my ($results) = $self->c->model('Search')->search('release', $name, 50, 0);
+    my @releases = map { $_->entity } @$results;
+    $self->c->model('ArtistCredit')->load(@releases);
+
+    my %artist_ids = map { $_->{artist} => 1 } grep { ref($_) } @$artist_credit;
+    return
+        # Make sure all the artists are in the artist credit
+        grep {
+            keys %artist_ids == grep {
+                exists $artist_ids{$_->artist_id}
+            } $_->artist_credit->all_names
+        }
+        # Make sure the artist credit has the same amount of artists
+        grep { $_->artist_credit->artist_count == keys %artist_ids }
+            @releases;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
