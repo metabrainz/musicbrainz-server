@@ -19,6 +19,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { l("Edit relationship") }

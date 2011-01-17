@@ -19,6 +19,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }

@@ -439,6 +439,11 @@ table.tbl tr.subh th {
     border-bottom: solid 1px #999999;
 }
 
+table.tbl tbody th {
+    border-right: 1px solid #999999;
+    background: none;
+}
+
 table.tbl th a {
     color: #000;
 }
@@ -451,7 +456,8 @@ table.tbl td {
     padding: 0.2em 0.4em;
 }
 
-table.tbl tr.ev td {
+table.tbl tr.ev td,
+table.tbl tr.ev th {
     padding: 0.2em 0.4em;
     background: #F2F2F2;
 }

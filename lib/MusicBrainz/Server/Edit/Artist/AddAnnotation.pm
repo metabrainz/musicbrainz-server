@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
+with 'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { l('Add artist annotation') }
 sub edit_type { $EDIT_ARTIST_ADD_ANNOTATION }

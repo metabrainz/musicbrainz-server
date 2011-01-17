@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
+with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_type { $EDIT_RELEASEGROUP_DELETE }
 sub edit_name { l("Remove release group") }

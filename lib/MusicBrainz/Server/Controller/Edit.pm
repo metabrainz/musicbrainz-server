@@ -8,6 +8,8 @@ use DBDefs;
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
+use aliased 'MusicBrainz::Server::EditRegistry';
+
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Edit',
     entity_name => 'edit',
@@ -185,80 +187,46 @@ sub search : Path('/search/edits') RequireAuth
 Display a table of all edit types, and their relative conditions
 for acceptance
 
-sub conditions : Local
+=cut
+
+sub edit_types : Path('/doc/Edit_Types')
 {
     my ($self, $c) = @_;
 
-    my @qualities = (
-        ModDefs::QUALITY_LOW,
-        ModDefs::QUALITY_NORMAL,
-        ModDefs::QUALITY_HIGH,
+    my %by_category;
+    for my $class (EditRegistry->get_all_classes) {
+        $by_category{$class->edit_category} ||= [];
+        push @{ $by_category{$class->edit_category} }, $class;
+    }
+
+    for my $category (keys %by_category) {
+        $by_category{$category} = [
+            sort { $a->edit_name cmp $b->edit_name }
+                @{ $by_category{$category} }
+            ];
+    }
+
+    $c->stash(
+        by_category => \%by_category,
+        template => 'doc/edit_types.tt'
     );
-    $c->stash->{quality_levels} = \@qualities;
-
-    $c->stash->{qualities} = [ map {
-        ModDefs::GetQualityText($_)
-    } @qualities ];
-
-    $c->stash->{quality_changes} = [
-        map {
-            my $level = Moderation::GetQualityChangeDefs($_);
-
-            +{
-                name            => $_ == 0 ? 'Lower Quality' : 'Raise Quality',
-                voting_period   => $level->{duration},
-                unanimous_votes => $level->{votes},
-                expire_action   => ModDefs::GetExpireActionText($level->{expireaction}),
-                is_autoedit     => $level->{autoedit},
-            }
-        }
-        (0, 1)
-    ];
-
-    my %categories = ModDefs::GetModCategories();
-    my @edits      = Moderation::GetEditTypes();
-
-    $c->stash->{categories} = [
-        map {
-            my $cat = $_;
-
-            +{
-                title => ModDefs::GetModCategoryTitle($_),
-                edits => [
-                    sort { $a->{name} cmp $b->{name} }
-                    grep {
-                        my $name = $_->{name};
-                        my %bad_names = (
-                            'Edit Release Events (old version)' => 1,
-                            'Add Track (old version)' => 1,
-                            'Edit Artist Name' => 1,
-                            'Edit Artist Sortname' => 1
-                        );
-                        not $bad_names{$name};
-                    }
-                    map {
-                        my $edit_type = $_;
-
-                        my $hash = +{
-                            map { $_ => Moderation::GetEditLevelDefs($_, $edit_type) }
-                                @qualities
-                        };
-                        $hash->{name}     = Moderation::GetEditLevelDefs(ModDefs::QUALITY_NORMAL, $edit_type)->{name};
-                        $hash->{criteria} = $categories{$edit_type}->{criteria};
-
-                        $hash;
-                    }
-                    grep { $categories{$_}->{category} == $cat } @edits ],
-            };
-        } (
-            ModDefs::CAT_ARTIST,
-            ModDefs::CAT_RELEASE,
-            ModDefs::CAT_DEPENDS,
-            ModDefs::CAT_NONE,
-        )
-    ];
 }
 
-=cut
+sub edit_type : Path('/doc/Edit_Types') Args(1) {
+    my ($self, $c, $edit_type) = @_;
+
+    my $class = EditRegistry->class_from_type($edit_type);
+    my $id = 'Edit Type/$class->edit_name';
+    $id =~ s/ /_/g;
+
+    my $version = $c->model('WikiDocIndex')->get_page_version($id);
+    my $page = $c->model('WikiDoc')->get_page($id, $version);
+
+    $c->stash(
+        edit_type => $class,
+        template => 'doc/edit_type.tt',
+        page => $page
+    );
+}
 
 1;

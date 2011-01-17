@@ -1,0 +1,23 @@
+[% extra_css = "wikidocs.css" %]
+[% WRAPPER "layout.tt" full_width=1 title=l('Edit types') -%]
+    <div id="content">
+        <h1>[%- l('Edit Types') -%]</h1>
+        <ul>
+          [% FOR category=by_category.pairs %]
+            <li>
+              [% category.key %]
+              <ul>
+                [% FOR edit_type=category.value %]
+                  [% USE class = Class(edit_type) %]
+                  <li>
+                    <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
+                      [% class.edit_name %]
+                       </a>
+                  </li>
+                [% END %]
+              </ul>
+            </li>
+          [% END %]
+        </ul>
+    </div>
+[% END %]

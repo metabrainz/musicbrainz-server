@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT_ALIAS );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
+with 'MusicBrainz::Server::Edit::Label';
 
 sub _alias_model { shift->c->model('Label')->alias }
 

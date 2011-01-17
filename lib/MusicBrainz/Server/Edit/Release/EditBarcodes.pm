@@ -9,6 +9,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Edit barcodes') }
 sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }

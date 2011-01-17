@@ -10,6 +10,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Change release group') }
 sub edit_type { $EDIT_RELEASE_MOVE }

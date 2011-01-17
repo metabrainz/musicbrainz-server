@@ -16,6 +16,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Medium';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
 sub edit_name { l('Add medium') }

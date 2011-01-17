@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE_ALIAS );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
+with 'MusicBrainz::Server::Edit::Work';
 
 sub _alias_model { shift->c->model('Work')->alias }
 

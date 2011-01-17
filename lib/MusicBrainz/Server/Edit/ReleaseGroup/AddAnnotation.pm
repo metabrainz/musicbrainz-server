@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
+with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_name { l('Add release group annotation') }
 sub edit_type { $EDIT_RELEASEGROUP_ADD_ANNOTATION }

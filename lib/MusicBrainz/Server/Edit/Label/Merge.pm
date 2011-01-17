@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Role::MergeSubscription';
+with 'MusicBrainz::Server::Edit::Label';
 
 sub edit_type { $EDIT_LABEL_MERGE }
 sub edit_name { l('Merge labels') }
