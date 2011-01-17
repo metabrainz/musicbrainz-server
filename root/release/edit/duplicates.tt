@@ -1,21 +1,6 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/Bubble.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseInformation.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
-  <script type="text/javascript">
-    $('document').ready (function () {
-
-       MB.Control.ReleaseInformation ();
-
-    });
-  </script>
+  <link rel="stylesheet" type="text/css" href="[%-
+      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]

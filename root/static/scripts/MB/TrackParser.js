@@ -274,7 +274,7 @@ MB.TrackParser.Track = function (position, line, parent) {
             if (trk.isDeleted ())
                 return true;
 
-            var match = self.matchTrack (trk.title.val ());
+            var match = self.matchTrack (trk.$title.val ());
             if (match)
             {
                 self.artist = MB.TrackParser.Artist (trk, match.artist);
@@ -297,7 +297,7 @@ MB.TrackParser.Track = function (position, line, parent) {
             if (trk.isDeleted ())
                 return true;
 
-            var match = self.matchArtist (trk.preview.val ());
+            var match = self.matchArtist (trk.$artist.val ());
             if (match)
             {
                 self.artist = MB.TrackParser.Artist (trk, match.artist);

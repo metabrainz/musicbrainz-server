@@ -26,7 +26,7 @@ MB.Control._preview_update_timeout = 500;
 MB.Control.ReleasePreview = function (advancedtab) {
     var self = MB.Object ();
 
-    var render = function () {
+    self.render = function () {
         var preview = $('#preview').html ('');
 
         $.each (self.adv.discs, function (idx, disc) {
@@ -42,13 +42,13 @@ MB.Control.ReleasePreview = function (advancedtab) {
                 }
 
                 var tr = $('<tr>').appendTo (table);
-                tr.append ($('<td class="trackno">').text (item.position.val ()));
-                tr.append ($('<td class="title">').text (item.title.val ()));
+                tr.append ($('<td class="trackno">').text (item.$position.val ()));
+                tr.append ($('<td class="title">').text (item.$title.val ()));
                 if ($('#various-artists').val () == '1')
                 {
-                    tr.append ($('<td class="artist">').text (item.preview.val ()));
+                    tr.append ($('<td class="artist">').text (item.$artist.val ()));
                 }
-                tr.append ($('<td class="duration">').text (item.length.val ()));
+                tr.append ($('<td class="duration">').text (item.$length.val ()));
             });
 
         });
@@ -56,8 +56,6 @@ MB.Control.ReleasePreview = function (advancedtab) {
 
     self.preview = $('#preview');
     self.adv = advancedtab;
-
-    self.render = render;
 
     return self;
 };
@@ -69,7 +67,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 MB.Control.ReleaseTextarea = function (disc, preview) {
     var self = MB.Object ();
 
-    var render = function () {
+    self.render = function () {
         var str = "";
 
         $.each (disc.sorted_tracks, function (idx, item) {
@@ -78,11 +76,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
                 return;
             }
 
-            str += item.position.val () + ". " + item.title.val ();
+            str += item.$position.val () + ". " + item.$title.val ();
 
-            if (self.variousArtists () && item.preview.val () !== '')
+            if (self.variousArtists () && item.$artist.val () !== '')
             {
-                str += MB.TrackParser.separator + item.preview.val ();
+                str += MB.TrackParser.separator + item.$artist.val ();
             }
 
             var len = item.lengthOrNull ();
@@ -97,7 +95,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.textarea.val (str);
     };
 
-    var updatePreview = function () {
+    self.updatePreview = function () {
         if (typeof self.timeout == "number")
         {
             clearTimeout (self.timeout);
@@ -112,15 +110,14 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
     };
 
-    var collapse = function (chained) {
+    self.collapse = function (chained) {
         self.trackparser = null;
         self.textarea.val ('');
 
         self.textarea.hide ();
         self.basicdisc.removeClass ('expanded');
-        self.expand_icon.find ('span.ui-icon')
-            .removeClass ('ui-icon-triangle-1-s')
-            .addClass ('ui-icon-triangle-1-e');
+        self.$collapse_icon.hide ();
+        self.$expand_icon.show ();
 
         if (!chained)
         {
@@ -130,12 +127,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.preview.render ();
     };
 
-    var expand = function (chained) {
+    self.expand = function (chained) {
         self.textarea.show ();
         self.basicdisc.addClass ('expanded');
-        self.expand_icon.find ('span.ui-icon')
-            .removeClass ('ui-icon-triangle-1-e')
-            .addClass ('ui-icon-triangle-1-s');
+        self.$expand_icon.hide ();
+        self.$collapse_icon.show ();
 
         if (!chained)
         {
@@ -143,13 +139,13 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
     };
 
-    var loadTracklist = function (data) {
+    self.loadTracklist = function (data) {
         self.render ();
         self.trackparser = MB.TrackParser.Parser (self.disc, self.textarea, data);
         self.updatePreview ();
     };
 
-    var lines = function (data) {
+    self.lines = function (data) {
         if (data)
         {
             self.textarea.val (data.join ("\n"));
@@ -164,38 +160,21 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.disc = disc;
     self.preview = preview;
-    self.render = render;
-    self.updatePreview = updatePreview;
-    self.lines = lines;
 
-    self.collapse = collapse;
-    self.expand = expand;
-    self.loadTracklist = loadTracklist;
-
-    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc'); 
+    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc');
     self.textarea = self.basicdisc.find ('textarea.tracklist');
-    self.expand_icon = self.basicdisc.find ('.expand a.icon');
-    self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
+    self.$expand_icon = self.basicdisc.find ('input.expand-disc');
+    self.$collapse_icon = self.basicdisc.find ('input.collapse-disc');
+    self.$tracklist_id = self.basicdisc.find ('input.tracklist-id');
     self.$various_artists = $('#various-artists');
 
-    if (!self.tracklist_id.length)
+    if (!self.$tracklist_id.length)
     {
-        self.tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
+        self.$tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
     }
 
-    self.expand_icon.click (function (event) {
-        if (self.textarea.is (':visible'))
-        {
-            self.collapse ();
-        }
-        else
-        {
-            self.expand ();
-        }
-
-        event.preventDefault ();
-        return false;
-    });
+    self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
+    self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
 
     self.textarea.bind ('keyup', function () {
         var newTimeout = setTimeout (function () {

@@ -291,7 +291,5 @@ MB.Control.ReleaseRecordings = function () {
         $('tr.track:not(.template) a.change-recording:not(.template)'),
         $('div.select-recording-container:not(.template) div.select-recording'));
 
-    self.bc.bind ('show', self.Autocomplete);
-
     return self;
 };
