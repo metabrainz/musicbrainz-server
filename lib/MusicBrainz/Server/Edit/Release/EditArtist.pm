@@ -26,6 +26,14 @@ has '+data' => (
     ]
 );
 
+sub alter_edit_pending
+{
+    my $self = shift;
+    return {
+        Release => [ $self->release_ids ],
+    }
+}
+
 sub initialize {
     my ($self, %opts) = @_;
     my $release = delete $opts{release} or die 'Missing release object';
