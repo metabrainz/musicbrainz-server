@@ -14,6 +14,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 use aliased 'MusicBrainz::Server::Connector';
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
@@ -50,8 +51,6 @@ $link_sql->begin;
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
-my %links = map { $_ => [] } qw( artist label recording release release_group url );
-
 my ($line, $i) = ('', 0);
 while ($dbh->pg_getcopydata($line) >= 0) {
     if(my $fields = $csv->parse($line)) {
@@ -73,7 +72,7 @@ while ($dbh->pg_getcopydata($line) >= 0) {
 
             if(my %related = %{ $historic->related_entities }) {
                 for my $type (keys %related) {
-                    my @links = @{ $related{$type} };
+                    my @links = uniq grep { defined } @{ $related{$type} } or next;
                     $link_sql->do(
                         "INSERT INTO edit_$type (edit, $type) VALUES ".
                             join(', ', ("(?, ?)") x @links),
