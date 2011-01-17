@@ -46,6 +46,7 @@ $dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
 my $sql = Sql->new($dbh);
 my $raw_sql = Sql->new($raw_dbh);
 my $link_sql = Sql->new($link_dbh);
+$link_sql->begin;
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
@@ -99,6 +100,7 @@ while ($dbh->pg_getcopydata($line) >= 0) {
     $i++;
 }
 $raw_dbh->pg_putcopyend;
+$link_sql->commit;
 
 printf STDERR "Inserting votes\n";
 $raw_dbh->do('COPY vote FROM STDIN');
