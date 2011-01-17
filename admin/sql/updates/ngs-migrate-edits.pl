@@ -74,11 +74,10 @@ while ($dbh->pg_getcopydata($line) >= 0) {
             if(my %related = %{ $historic->related_entities }) {
                 for my $type (keys %related) {
                     my @links = @{ $related{$type} };
-                    my @rows = map { [ $historic->id => $_ ] } @links;
                     $link_sql->do(
                         "INSERT INTO edit_$type (edit, $type) VALUES ".
                             join(', ', ("(?, ?)") x @links),
-                        @rows);
+                        map { $historic->id => $_ } @links);
                 }
             }
         }
