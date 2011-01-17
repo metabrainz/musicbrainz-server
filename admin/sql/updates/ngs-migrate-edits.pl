@@ -30,6 +30,9 @@ my %skip = map { $_ => 1 } (
 );
 
 my $conn = Connector->new( database => Databases->get('READWRITE') );
+my $raw_conn_2 = Connector->new( database => Databases->get('RAWDATA') );
+my $link_dbh = $raw_conn_2->dbh;
+
 my $csv = Text::CSV_XS->new({ binary => 1 });
 
 my $raw_dbh = $c->raw_dbh;
@@ -42,6 +45,7 @@ $dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
 
 my $sql = Sql->new($dbh);
 my $raw_sql = Sql->new($raw_dbh);
+my $link_sql = Sql->new($link_dbh);
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
@@ -56,19 +60,25 @@ while ($dbh->pg_getcopydata($line) >= 0) {
             id artist moderator tab col type status rowid prevvalue newvalue
             yesvotes novotes depmod automod opentime closetime expiretime language
         )} = $csv->fields;
-        
+
         next if exists $skip{ $row{id} };
 
         my $historic = $c->model('EditMigration')->_new_from_row(\%row)
             or next;
-            
+
         try {
             $historic->upgrade;
             $raw_dbh->pg_putcopydata($historic->for_copy . "\n");
 
-            my %related = %{ $historic->related_entities };
-            for my $type (keys %related) {
-                push @{ $links{$type} }, map { [ $historic->id => $_ ] } @{ $related{$type} };
+            if(my %related = %{ $historic->related_entities }) {
+                for my $type (keys %related) {
+                    my @links = @{ $related{$type} };
+                    my @rows = map { [ $historic->id => $_ ] } @links;
+                    $link_sql->do(
+                        "INSERT INTO edit_$type (edit, $type) VALUES ".
+                            join(', ', ("(?, ?)") x @links),
+                        @rows);
+                }
             }
         }
         catch {
@@ -89,15 +99,6 @@ while ($dbh->pg_getcopydata($line) >= 0) {
     $i++;
 }
 $raw_dbh->pg_putcopyend;
-
-printf STDERR "Linking edits\n";
-for my $type (keys %links) {
-    $raw_dbh->do("COPY edit_$type FROM STDIN");
-    for my $row (@{ $links{$type} }) {
-        $raw_dbh->pg_putcopydata(join("\t", @$row) . "\n");
-    }
-    $raw_dbh->pg_putcopyend;
-}
 
 printf STDERR "Inserting votes\n";
 $raw_dbh->do('COPY vote FROM STDIN');
