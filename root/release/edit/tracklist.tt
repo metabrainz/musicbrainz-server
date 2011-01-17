@@ -159,6 +159,13 @@
             </td>
           </tr>
         </table>
+        <div style="display: none" class="tracklist-loading">
+          <p>
+            <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+            &nbsp;
+            [% l('Now loading tracklist...') %]
+          </p>
+        </div>
         <textarea style="display: none" class="tracklist"></textarea>
         [% field_errors(form, medium_field.full_name) %]
       </div>
@@ -317,6 +324,14 @@
         </tr>
       </table>
 
+      <div style="display: none" class="tracklist-loading">
+        <p>
+          <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+          &nbsp;
+          [% l('Now loading tracklist...') %]
+        </p>
+      </div>
+
       <div class="tracklist-padding">
         [% field_errors(form, medium_field.full_name) %]
         <table class="medium tbl" style="display: none">
@@ -381,9 +396,6 @@
         <input type="hidden" class="tracklist-id" />
         <br />
 
-        <div class="tracklist-loading" style="display: none">
-          [% l('Loading...') %]
-        </div>
         <table class="medium tbl" style="display: none">
           <thead>
             <tr>
