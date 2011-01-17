@@ -45,6 +45,8 @@ my $raw_sql = Sql->new($raw_dbh);
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
+my %links = map { $_ => [] } qw( artist label recording release release_group url );
+
 my ($line, $i) = ('', 0);
 while ($dbh->pg_getcopydata($line) >= 0) {
     if(my $fields = $csv->parse($line)) {
@@ -61,7 +63,13 @@ while ($dbh->pg_getcopydata($line) >= 0) {
             or next;
             
         try {
-            $raw_dbh->pg_putcopydata($historic->upgrade->for_copy . "\n");
+            $historic->upgrade;
+            $raw_dbh->pg_putcopydata($historic->for_copy . "\n");
+
+            my %related = $historic->related_entities;
+            for my $type (keys %related) {
+                push @{ $links{$type} }, map { [ $historic->id => $_ ] } @{ $related{$type} };
+            }
         }
         catch {
             my $err = $_;
@@ -80,8 +88,16 @@ while ($dbh->pg_getcopydata($line) >= 0) {
     printf STDERR "%d\r", $i if $i % 1000 == 0;
     $i++;
 }
-
 $raw_dbh->pg_putcopyend;
+
+printf STDERR "Linking edits\n";
+for my $type (keys %links) {
+    $raw_dbh->do("COPY edit_$type FROM STDIN");
+    for my $row (@{ $links{$type} }) {
+        $raw_dbh->pg_putcopydata(join("\t", @$row) . "\n");
+    }
+    $raw_dbh->pg_putcopyend;
+}
 
 printf STDERR "Inserting votes\n";
 $raw_dbh->do('COPY vote FROM STDIN');
