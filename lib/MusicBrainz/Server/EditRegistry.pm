@@ -53,6 +53,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::Delete
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
+    MusicBrainz::Server::Edit::Release::EditArtist
     MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::Release::Merge
