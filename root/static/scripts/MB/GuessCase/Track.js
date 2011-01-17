@@ -40,10 +40,13 @@ MB.GuessCase._Track = function () {
     };
 
     self.gc = MB.GuessCase.Main ();
-
     self.guess = guess;
 
     return self;
 };
 
-MB.GuessCase.track = MB.GuessCase._Track ();
+$('document').ready (function () {
+
+    MB.GuessCase.track = MB.GuessCase._Track ();
+
+});

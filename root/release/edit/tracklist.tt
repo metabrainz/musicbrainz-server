@@ -184,6 +184,8 @@
     </fieldset>
 
     <div class="guesscase-basic">
+      [%#- FIXME: use guesscase() -%]
+
       <fieldset class="guesscase">
         <legend>Guess case</legend>
         <table style="width: 100%">
@@ -208,6 +210,7 @@
           </tr>
         </table>
       </fieldset>
+
     </div>
 
     <div class="buttons ui-helper-clearfix">

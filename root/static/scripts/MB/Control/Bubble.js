@@ -435,3 +435,4 @@ MB.Control.BubbleCollection = function ($targets, $contents) {
 
     return self;
 };
+
