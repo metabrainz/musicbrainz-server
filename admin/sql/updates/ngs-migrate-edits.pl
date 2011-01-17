@@ -66,7 +66,7 @@ while ($dbh->pg_getcopydata($line) >= 0) {
             $historic->upgrade;
             $raw_dbh->pg_putcopydata($historic->for_copy . "\n");
 
-            my %related = $historic->related_entities;
+            my %related = %{ $historic->related_entities };
             for my $type (keys %related) {
                 push @{ $links{$type} }, map { [ $historic->id => $_ ] } @{ $related{$type} };
             }
