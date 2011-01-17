@@ -64,6 +64,59 @@ sub duplicates {
     );
 }
 
+around _build_pages => sub {
+    my $next = shift;
+    my $self = shift;
+
+    my @pages = @{ $self->$next };
+    return [
+        $pages[0],
+        {
+            name => 'duplicates',
+            title => l('Release Duplicates'),
+            template => 'release/edit/duplicates.tt',
+            form => 'ReleaseEditor::Duplicates',
+            change_page => sub {
+                my ($c, $wizard, $page) = @_;
+                my $release_id = $self->value->{duplicate_id}
+                    or return;
+
+                my $release = $c->model('Release')->get_by_id($release_id);
+                $c->model('Medium')->load_for_releases($release);
+                $self->_post_to_page($page, collapse_hash({
+                    mediums => [
+                        map +{
+                            tracklist_id => $_->tracklist_id,
+                            position => $_->position,
+                            format_id => $_->format_id,
+                            name => $_->name,
+                            deleted => 0,
+                            edits => '',
+                        }, $release->all_mediums
+                    ],
+                }));
+            }
+        },
+        @pages[1..$#pages]
+    ];
+};
+
+after render => sub {
+    my ($self) = @_;
+    if ($self->current_page eq 'duplicates') {
+        my $name = $self->value->{name};
+        my $artist_credit = $self->value->{artist_credit};
+        $self->c->stash(
+            similar_releases => [
+                $self->c->model('Release')->find_similar(
+                    name => $name,
+                    artist_credit => clean_submitted_artist_credits($artist_credit)
+                )
+            ]
+        )
+    }
+};
+
 augment 'create_edits' => sub
 {
     my ($self, %args) = @_;
