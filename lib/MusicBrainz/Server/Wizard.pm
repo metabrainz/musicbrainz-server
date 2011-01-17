@@ -5,7 +5,13 @@ has '_current' => (
     is => 'rw',
     isa => 'Int',
     default => 0,
-    trigger => \&_set_current,
+);
+
+has '_processed_page' => (
+    is => 'rw',
+    isa => 'MusicBrainz::Server::Form::Step',
+    predicate => '_has_processed_page',
+    clearer => '_clear_processed_page',
 );
 
 has '_session_id' => (
@@ -92,22 +98,27 @@ sub valid {
 #  5. Load form and associated template
 #  6. Add tab buttons for each step to the stash
 
+sub _create_new_wizard {
+    my ($self, $c) = @_;
+    return !$c->form_posted || !$c->req->params->{wizard_session_id};
+}
+
 sub process
 {
     my ($self) = @_;
 
-    if ($self->c->request->method ne 'POST')
-    {
+    if ($self->_create_new_wizard($self->c)) {
         $self->_new_session;
-        return $self->loading (1);
+        $self->load($self->init_object);
+        $self->seed($self->c->req->params)
+            if $self->c->form_posted;
     }
-
-    $self->_retrieve_wizard_settings;
-    my $page = $self->_store_page_in_session;
-    $self->_route ($page);
-    $self->_store_wizard_settings;
-
-    return;
+    elsif ($self->c->form_posted) {
+        $self->_retrieve_wizard_settings;
+        my $page = $self->_store_page_in_session;
+        $self->_route ($page); 
+        $self->_store_wizard_settings;
+    }
 }
 
 sub initialize
@@ -131,7 +142,10 @@ sub render
 {
     my ($self) = @_;
 
-    my $page = $self->_load_page ($self->_current);
+    # If we're rendering the same page we processed, re-use the existing form.
+    # (otherwise validation errors may get lost).
+    my $page = $self->_has_processed_page ? $self->_processed_page :
+        $self->_load_page ($self->_current);
 
     my @steps = map {
         { title => $_->{title}, name => 'step_'.$_->{name} }
@@ -218,12 +232,52 @@ sub _store_page_in_session
 {
     my ($self) = @_;
 
+    # Save the processed page, if we're not navigating away from it we do not
+    # want to reload it.
     my $page = $self->_load_form ($self->_current);
+    $self->_processed_page ($page);
 
-    $page->unserialize ( $self->_store->{"step ".$self->_current},
-                         $self->c->request->parameters );
+    return $self->_post_to_page( $self->_current, $self->c->request->params );
+}
 
-    $self->_store->{"step ".$self->_current} = $page->serialize;
+=method _transform_parameters
+
+Allows wizards to provide their own transformation of parameters before they
+are passed into the form. This may allow the wizard to take multiple representations
+of POST data, for example (as in the case of the release editor).
+
+=cut
+
+sub _seed_parameters {
+    my ($self, $params) = @_;
+    return $params;
+}
+
+sub seed {
+    my ($self, $params) = @_;
+    $params = $self->_seed_parameters($params);
+
+    my $max = scalar @{ $self->pages } - 1;
+    for (0..$max) {
+        $self->_post_to_page($_, $params);
+    }
+}
+
+sub _post_to_page
+{
+    my ($self, $page_id, $params) = @_;
+
+    # Hard coding this, not too intelligent?
+    # It's here so we can call _post_to_page from other stuff and it doesn't
+    # have to specify the wizard id...
+    $params->{wizard_session_id} ||= $self->_session_id;
+
+    my $page = $self->_load_form ($page_id);
+
+    $page->unserialize ( $self->_store->{"step $page_id"},
+                         $params );
+
+    $self->_store->{"step $page_id"} = $page->serialize;
 
     return $page;
 }
@@ -310,14 +364,29 @@ sub find_previous_page
     return 0;
 }
 
-sub _set_current
-{
-    my ($self, $value) = @_;
+around '_current' => sub {
+    my ($orig, $self, $value) = @_;
+
+    return $self->$orig () unless $value;
+
+    # navigating away from the page just processed, so clear it.
+    $self->_clear_processed_page if $self->$orig () ne $value;
 
     my $max = scalar @{ $self->pages } - 1;
 
     $value = 0 if $value < 0;
     $value = $max if $value > $max;
+
+    return $self->$orig ($value);
+};
+
+sub _set_current
+{
+    my ($self, $value, $old_page) = @_;
+
+    if (my $hook = $self->pages->[$old_page]{change_page}) {
+        $hook->($self->c, $self, $value);
+    }
 
     $self->{_current} = $value;
 }
@@ -339,6 +408,8 @@ sub _retrieve_wizard_settings
     my ($self) = @_;
 
     my $p = $self->c->request->parameters;
+
+    return if $self->_session_id;
 
     # FIXME: this will break if the form has a name...
     return $self->_new_session unless $p->{wizard_session_id};

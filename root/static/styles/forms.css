@@ -1,5 +1,5 @@
 input { background: #fff; color: #000; }
-.jquery_placeholder { color: #aaa; }
+.mb_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {
@@ -23,6 +23,14 @@ form div.row div.label {
     width: 132px;
     margin-right: 12px;
 }
+
+div.bubble div.row input[type=text] {
+    width: 176px;
+    font-size: 1em;
+}
+
+div.bubble div.row label,
+div.bubble div.row div.label { width: 150px; }
 
 form div.row p { float: none; clear: none; }
 
@@ -111,6 +119,10 @@ div.searchform {
           MB.Control.Autocomplete
    __________________________________ */
 
+span.autocomplete { display: inline-block; position: relative; }
+span.autocomplete img.search { position: absolute; right: 2px; top: 3px; }
+span.autocomplete.disabled img.search { display: none; }
+
 .ui-autocomplete-loading {
     background: white url(../lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif) right center no-repeat;
 }
@@ -122,6 +134,14 @@ button.autocomplete-pager {
     width: 18px;
     height: 18px;
     background-color: transparent;
+}
+
+span.autocomplete-isrcs,
+span.autocomplete-appears,
+span.autocomplete-comment {
+    margin-left: 12px;
+    color: #999;
+    font-size: 80%;
 }
 
 /* __________________________________
@@ -145,9 +165,12 @@ div.documentation {
 }
 
 div.half-width fieldset {
-    background-color: #f0f0f0;
-    border: 1px solid #aaa;
+    border: 1px solid #ddd;
     margin-top: 0;
+
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 div.half-width fieldset.editnote {

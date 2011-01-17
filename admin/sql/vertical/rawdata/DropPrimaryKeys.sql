@@ -20,6 +20,7 @@ ALTER TABLE recording_tag_raw DROP CONSTRAINT recording_tag_raw_pkey;
 ALTER TABLE release_group_rating_raw DROP CONSTRAINT release_group_rating_raw_pkey;
 ALTER TABLE release_group_tag_raw DROP CONSTRAINT release_group_tag_raw_pkey;
 ALTER TABLE release_raw DROP CONSTRAINT release_raw_pkey;
+ALTER TABLE release_tag_raw DROP CONSTRAINT release_tag_raw_pkey;
 ALTER TABLE track_raw DROP CONSTRAINT track_raw_pkey;
 ALTER TABLE vote DROP CONSTRAINT vote_pkey;
 ALTER TABLE work_rating_raw DROP CONSTRAINT work_rating_raw_pkey;

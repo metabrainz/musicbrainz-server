@@ -8,9 +8,9 @@ parameter 'edit_type' => (
     required => 1
 );
 
-parameter 'form' => (
+parameter 'merge_form' => (
     isa => 'Str',
-    default => 'Merge',
+    default => 'Merge'
 );
 
 role {
@@ -35,9 +35,12 @@ role {
         my $add = $c->req->params->{'add-to-merge'};
         my @add = ref($add) ? @$add : ($add);
 
-        $c->session->{merger} ||= MusicBrainz::Server::MergeQueue->new(
-            type => $self->{model},
-        );
+        if (!$c->session->{merger} ||
+            $c->session->{merger}->type ne $self->{model}) {
+            $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
+                type => $self->{model},
+            );
+        }
 
         my $merger = $c->session->{merger};
         $merger->add_entities(@add);
@@ -56,19 +59,61 @@ role {
 
     method 'merge' => sub {
         my ($self, $c) = @_;
-        $c->stash( template => $c->namespace . '/merge.tt' );
+
+        my $action = $c->req->params->{submit};
+        if ($action eq 'remove') {
+            $self->_merge_remove($c);
+        }
+        elsif ($action eq 'cancel') {
+            $self->_merge_cancel($c);
+        }
+        else {
+            $self->_merge_confirm($c);
+        }
+    };
+
+    method _merge_cancel => sub {
+        my ($self, $c) = @_;
+        delete $c->session->{merger};
+        $c->res->redirect($c->req->referer);
+        $c->detach;
+    };
+
+    method _merge_remove => sub {
+        my ($self, $c) = @_;
 
         my $merger = $c->session->{merger}
-            or die 'No merge in process';
+            or $c->res->redirect('/'), $c->detach;
 
-        die 'Not yet ready to merge'
-            unless $merger->ready_to_merge;
+        my $submitted = $c->req->params->{remove};
+        my @remove = ref($submitted) ? @$submitted : ($submitted);
+        $merger->remove_entities(@remove);
+
+        $self->_merge_cancel($c)
+            if $merger->entity_count == 0;
+
+        $c->res->redirect($c->req->referer);
+        $c->detach;
+    };
+
+    method _merge_confirm => sub {
+        my ($self, $c) = @_;
+        $c->stash(
+            template => $c->namespace . '/merge.tt',
+            hide_merge_helper => 1
+        );
+
+        my $merger = $c->session->{merger}
+            or $c->res->redirect('/'), $c->detach;
 
         my @entities = values %{
             $c->model($merger->type)->get_by_ids($merger->all_entities)
         };
 
-        my $form = $c->form(form => $params->form);
+        $c->detach
+            unless $merger->ready_to_merge;
+
+        my $form = $c->form(form => $params->merge_form);
         if ($form->submitted_and_valid($c->req->params)) {
             my $new_id = $form->field('target')->value;
             my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;

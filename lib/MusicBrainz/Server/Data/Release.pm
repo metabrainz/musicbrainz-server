@@ -24,6 +24,10 @@ with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
 
+use Readonly;
+Readonly our $MERGE_APPEND => 1;
+Readonly our $MERGE_MERGE => 2;
+
 sub _table
 {
     return 'release JOIN release_name name ON release.name=name.id';
@@ -66,7 +70,7 @@ sub _column_mapping
         language_id => 'language',
         quality => sub {
             my ($row, $prefix) = @_;
-            my $quality = $row->{"${prefix}quality"};
+            my $quality = $row->{"${prefix}quality"} || -1;
             return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
         },
         last_updated => 'last_updated'
@@ -457,6 +461,8 @@ sub delete
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);
     my $sql = Sql->new($self->c->dbh);
+    $sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
+        @release_ids);
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
         @release_ids);
     return;
@@ -464,7 +470,11 @@ sub delete
 
 sub merge
 {
-    my ($self, $new_id, @old_ids) = @_;
+    my ($self, %opts) = @_;
+
+    my $new_id = $opts{new_id};
+    my @old_ids = @{ $opts{old_ids} };
+    my $merge_strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Collection')->merge_releases($new_id, @old_ids);
@@ -477,17 +487,50 @@ sub merge
 
     # XXX allow actual tracklists/mediums merging
     my $sql = Sql->new($self->c->dbh);
-    my $pos = $sql->select_single_value('
-        SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
-    foreach my $old_id (@old_ids) {
-        my $medium_ids = $sql->select_single_column_array('
-            SELECT id FROM medium WHERE release=?
-            ORDER BY position', $old_id);
-        foreach my $medium_id (@$medium_ids) {
+    if ($merge_strategy == $MERGE_APPEND) {
+        my $pos = $sql->select_single_value('
+            SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
+        my @medium_ids = @{
+            $sql->select_single_column_array(
+                'SELECT medium.id FROM medium
+                   JOIN release ON medium.release = release.id
+                   JOIN release_name ON release_name.id = release.name
+                  WHERE release.id IN (' . placeholders(@old_ids) . ')
+               ORDER BY musicbrainz_collate(release_name.name), medium.position',
+                @old_ids
+            );
+        };
+        foreach my $medium_id (@medium_ids) {
             $sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
                      $new_id, ++$pos, $medium_id);
         }
     }
+    elsif ($merge_strategy == $MERGE_MERGE) {
+        my @tracklist_merges = @{ 
+            $sql->select_list_of_lists(
+                'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
+                   FROM medium newmed, medium oldmed
+                  WHERE newmed.release = ?
+                    AND oldmed.release IN (' . placeholders(@old_ids) . ')
+                    AND newmed.position = oldmed.position',
+                $new_id, @old_ids
+            )
+        };
+        for my $tracklist_merge (@tracklist_merges) {
+            $self->c->model('Tracklist')->merge(@$tracklist_merge);
+        }
+
+        $sql->do(
+            'DELETE FROM medium WHERE release IN (' . placeholders(@old_ids) . ')',
+            @old_ids
+        );
+    }
+
+    $sql->do(
+        'DELETE FROM release_coverart
+          WHERE id IN (' . placeholders(@old_ids) . ')',
+        @old_ids
+    );
 
     $self->_delete_and_redirect_gids('release', $new_id, @old_ids);
     return 1;
@@ -555,6 +598,28 @@ sub find_ids_by_track_ids
     return $sql->select_single_column_array($query, @ids);
 }
 
+sub find_similar
+{
+    my ($self, %opts) = @_;
+    my $name = $opts{name};
+    my $artist_credit = $opts{artist_credit};
+
+    my ($results) = $self->c->model('Search')->search('release', $name, 50, 0);
+    my @releases = map { $_->entity } @$results;
+    $self->c->model('ArtistCredit')->load(@releases);
+
+    my %artist_ids = map { $_->{artist} => 1 } grep { ref($_) } @$artist_credit;
+    return
+        # Make sure all the artists are in the artist credit
+        grep {
+            keys %artist_ids == grep {
+                exists $artist_ids{$_->artist_id}
+            } $_->artist_credit->all_names
+        }
+        # Make sure the artist credit has the same amount of artists
+        grep { $_->artist_credit->artist_count == keys %artist_ids }
+            @releases;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

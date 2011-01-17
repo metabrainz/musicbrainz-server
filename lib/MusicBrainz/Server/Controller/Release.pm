@@ -21,6 +21,7 @@ use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
     $EDIT_RELEASE_MOVE
+    $EDIT_RELEASE_MERGE
 );
 
 # A duration lookup has to match within this many milliseconds
@@ -308,6 +309,13 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
         $c->stash( template => 'release/move_search.tt' );
     }
 }
+
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_RELEASE_MERGE,
+    confirmation_template => 'release/merge_confirm.tt',
+    search_template => 'release/merge_search.tt',
+    merge_form => 'Merge::Release',
+};
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,

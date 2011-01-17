@@ -1,5 +1,5 @@
 var urlRegExps = {
-    amazon:          new RegExp("^(?:http://)?(?:[^/]+.)?amazon.(com|ca|cn|co.uk|uk|fr|at|de|co.jp|jp)","i"),
+    amazon:          new RegExp("^(?:http://)?(?:[^/]+.)?amazon.(com|ca|cn|co.uk|uk|fr|at|de|co.jp|jp|it)","i"),
     archivedown:     new RegExp("^(http://)?([^/]+.)?archive.org/.*.(mp3|ogg|flac|shn)$","i"),
     archiveimg:      new RegExp("^(http://)?([^/]+.)?archive.org/.*.(jpg|jpeg|png|gif)$","i"),
     cdbaby:          new RegExp("^(http://)?([^/]+.)?cdbaby.(com|name)","i"),

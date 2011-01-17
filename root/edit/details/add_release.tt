@@ -11,16 +11,16 @@
 
   <tr>
     <th>[% l('Status:') %]</th>
-    <td>[% edit.display_data.status.name %]</td>
+    <td>[% edit.display_data.status.name | html %]</td>
   </tr>
 
   <tr>
     <th>[% l('Script:') %]</th>
-    <td>[% edit.display_data.script.name %]</td>
+    <td>[% edit.display_data.script.name | html %]</td>
   </tr>
 
   <tr>
     <th>[% l('Language:') %]</th>
-    <td>[% edit.display_data.language.name %]</td>
+    <td>[% edit.display_data.language.name | html %]</td>
   </tr>
 </table>

@@ -1,0 +1,4 @@
+#!/bin/bash
+mkdir -p ./main
+exec multilog t \
+       +'*' s1000000 n50 ./main \

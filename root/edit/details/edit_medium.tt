@@ -2,8 +2,8 @@
   [% IF edit.display_data.format %]
   <tr>
     <th>[% l('Format:') %]</th>
-    <td class="old">[% edit.display_data.format.old.name %]</td>
-    <td class="new">[% edit.display_data.format.new.name %]</td>
+    <td class="old">[% edit.display_data.format.old.name | html %]</td>
+    <td class="new">[% edit.display_data.format.new.name | html %]</td>
   </tr>
   [% END %]
 
@@ -18,8 +18,42 @@
   [% IF edit.display_data.name %]
   <tr>
     <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old %]</td>
-    <td class="new">[% edit.display_data.name.new %]</td>
+    <td class="old">[% edit.display_data.name.old | html %]</td>
+    <td class="new">[% edit.display_data.name.new | html %]</td>
   </tr>
   [% END %]
+
+  [% UNLESS edit.preview %]
+  <tr>
+    <th>[% l('Release:') %]</th>
+    <td>
+      [% l('{release} by {artist}', { release => link_release(edit.display_data.release),
+             artist => artist_credit(edit.display_data.release.artist_credit) }) %]
+    </td>
+  </tr>
+  [% END %]
+
+   <tr>
+     <th>[% l('Old Tracklist:') %]</th>
+     <td>
+       <table class="tbl">
+         <tbody>
+         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.old.tracklist
+            hide_rating=1 show_artists=1 %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
+  
+   <tr>
+     <th>[% l('New Tracklist:') %]</th>
+     <td>
+       <table class="tbl">
+         <tbody>
+         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.new.tracklist
+            hide_rating=1 show_artists=1 %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
 </table>

@@ -40,6 +40,39 @@ is ($date->format, "1476-12-01");
 $date = MusicBrainz::Server::Entity::PartialDate->new( "1476-12-01" );
 is ($date->format, "1476-12-01");
 
+use aliased 'MusicBrainz::Server::Entity::PartialDate' => 'Date';
+my ($a, $b);
+
+$a = Date->new( year => 2000 );
+$b = Date->new( year => 2001 );
+ok($a < $b);
+ok($b > $a);
+
+$a = Date->new( year => 2000, month => 1 );
+$b = Date->new( year => 2000, month => 5 );
+ok($a < $b);
+ok($b > $a);
+
+$a = Date->new( year => 2000, month => 1, day => 1 );
+$b = Date->new( year => 2000, month => 1, day => 20 );
+ok($a < $b);
+ok($b > $a);
+
+$a = Date->new( year => 2000, month => 1, day => 1 );
+$b = Date->new( year => 2000, month => 1, day => 1 );
+ok(!($a < $b));
+ok(!($b < $a));
+
+$a = Date->new( month => 1, day => 1 );
+$b = Date->new( year => 2000, month => 1, day => 1 );
+ok($a < $b);
+ok($b > $a);
+
+$a = Date->new( month => 1, day => 1 );
+$b = Date->new( month => 1, day => 1 );
+ok(!($a < $b));
+ok(!($b < $a));
+
 done_testing;
 
 1;

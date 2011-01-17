@@ -52,44 +52,30 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
             }
         });
 
-        self.row.appendTo ($('div.label-container').append ());
+        self.row.insertAfter ($('div.release-label:last'));
+        self.row.find ('span.remove-label input').val ('0');
+        self.row.show ();
     }
 
     /**
-     * toggleDelete (un)marks the track for deletion. Provide a boolean to delete
-     * or undelete a track, or leave it empty to toggle.
+     * markDeleted marks the track for deletion.
      */
-    var toggleDelete = function (value) {
-        var deleted = (value === undefined) ? !parseInt (self.deleted.val ()) : value;
-        if (deleted)
-        {
-            self.deleted.val('1');
-            self.row.addClass('deleted');
-            self.name.attr ('disabled', 'disabled');
-            self.catno.attr ('disabled', 'disabled');
-        }
-        else
-        {
-            self.deleted.val ('0');
-            self.row.removeClass('deleted');
-            self.name.removeAttr ('disabled');
-            self.catno.removeAttr ('disabled');
-        }
-
-        window.toggled = self;
+    self.markDeleted = function () {
+        self.deleted.val('1');
+        self.row.hide ();
     };
 
     /**
      * isDeleted returns true if this track is marked for deletion.
      */
-    var isDeleted = function () {
+    self.isDeleted = function () {
         return self.deleted.val () === '1';
     };
 
     /**
      * selected is a callback called by autocomplete when a selection is made.
      */
-    var selected = function (event, data) {
+    self.selected = function (event, data) {
         self.id.val(data.id);
         self.name.removeClass('error');
         self.name.val(data.name);
@@ -98,7 +84,7 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
         return false;
     };
 
-    var catnoUpdate = function () {
+    self.catnoUpdate = function () {
 
         if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
         {
@@ -116,12 +102,6 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
     self.catno_message = $('div.catno').eq(self.labelno);
     self.deleted = self.row.find ('span.remove-label input');
 
-    self.parent = parent;
-    self.catnoUpdate = catnoUpdate;
-    self.toggleDelete = toggleDelete;
-    self.isDeleted = isDeleted;
-    self.selected = selected;
-
     self.catno.bind ('change keyup focus', self.catnoUpdate);
     MB.Control.Autocomplete ({
         'input': self.name,
@@ -129,15 +109,14 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
         'select': self.selected
     });
 
-    self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
+    self.row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
 
     if (self.isDeleted ())
     {
         // if the label is marked as deleted, make sure it is displayed as such
         // after page load.
-        self.toggleDelete (1);
+        self.markDeleted ();
     }
-
 
     return self;
 };
@@ -252,28 +231,28 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         $('#id-date\\.month'), $('#id-date\\.day') ]
     self.message = $('div.date');
 
-    var amazonEpoch = function () {
+    self.amazonEpoch = function () {
         return (self.inputs[0].val () == '1995' &&
                 self.inputs[1].val () == '10' &&
                 self.inputs[2].val () == '25');
     };
 
-    var januaryFirst = function () {
+    self.januaryFirst = function () {
         return (parseInt (self.inputs[1].val (), 10) === 1 &&
                 parseInt (self.inputs[2].val (), 10) === 1);
     };
 
-    var update = function (event) {
+    self.update = function (event) {
         var amazon = self.amazonEpoch ();
         var january = self.januaryFirst ();
 
         if (amazon || january)
         {
-            $(this).data ('bubble').show ();
+            self.bubble.show ();
         }
         else
         {
-            $(this).data ('bubble').hide ();
+            self.bubble.hide ();
         }
 
         if (amazon)
@@ -295,16 +274,12 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         }
     };
 
-    self.januaryFirst = januaryFirst;
-    self.amazonEpoch = amazonEpoch;
-    self.update = update;
-
     $.each (self.inputs, function (idx, item) {
-        item.data ('bubble',
-            MB.Control.BubbleDocBase (self.bubbles, item, self.message));
-
         item.bind ('change keyup focus', self.update);
     });
+
+    self.bubble = self.bubbles.add (
+        self.inputs[0].closest ('span.partial-date'), self.message);
 
     return self;
 };
@@ -315,9 +290,9 @@ MB.Control.ReleaseInformation = function() {
     self.bubbles = MB.Control.BubbleCollection ();
     self.release_date = MB.Control.ReleaseDate (self.bubbles);
 
-    var initialize = function () {
+    self.initialize = function () {
 
-        self.bubbles.add ($('#release-artist'), $('div.artist-credit.bubble'));
+        self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
         self.bubbles.add ($('#annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
@@ -347,30 +322,29 @@ MB.Control.ReleaseInformation = function() {
         });
 
         self.artistcredit = MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit')
+            $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
 
     };
 
-    var addLabel = function (row) {
+    self.addLabel = function (row) {
         var labelno = self.labels.length;
         var l = MB.Control.ReleaseLabel(row, self, labelno);
 
         self.labels.push (l);
 
         MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
+
+        return l;
     };
 
-    var submit = function () {
+    self.submit = function () {
         // always submit disabled inputs.
         $('input:disabled').removeAttr ('disabled');
     };
 
     self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
-    self.initialize = initialize;
-    self.addLabel = addLabel;
-    self.submit = submit;
 
     self.initialize ();
 

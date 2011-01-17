@@ -177,6 +177,17 @@ sub _serialize_collection
     push @$data, $gen->collection(\%attrs, @collection);
 }
 
+sub _serialize_collection_list
+{
+    my ($self, $data, $gen, $collections, $inc, $stash, $toplevel) = @_;
+
+    my @list;
+    map { $self->_serialize_collection(\@list, $gen, $_, $inc, $stash, 0) }
+        @$collections;
+
+    push @$data, $gen->collection_list(@list);
+}
+
 sub _serialize_release_group_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
@@ -848,6 +859,16 @@ sub collection_resource
 
     my $data = [];
     $self->_serialize_collection($data, $gen, $collection, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub collection_list_resource
+{
+    my ($self, $gen, $collections, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_collection_list($data, $gen, $collections, $inc, $stash, 1);
 
     return $data->[0];
 }

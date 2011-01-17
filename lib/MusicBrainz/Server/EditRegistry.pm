@@ -27,11 +27,12 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::Delete
     MusicBrainz::Server::Edit::Medium::Edit
     MusicBrainz::Server::Edit::Medium::MoveDiscID
-    MusicBrainz::Server::Edit::Medium::EditTracklist
     MusicBrainz::Server::Edit::Medium::RemoveDiscID
+    MusicBrainz::Server::Edit::Medium::SetTrackLengths
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddPUIDs
+    MusicBrainz::Server::Edit::Recording::Create
     MusicBrainz::Server::Edit::Recording::Edit
     MusicBrainz::Server::Edit::Recording::RemoveISRC
     MusicBrainz::Server::Edit::Recording::AddISRCs
@@ -54,13 +55,13 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::Edit
     MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
+    MusicBrainz::Server::Edit::Release::Merge
     MusicBrainz::Server::Edit::Release::Move
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
     MusicBrainz::Server::Edit::ReleaseGroup::Delete
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
-    MusicBrainz::Server::Edit::Tracklist::Create
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias

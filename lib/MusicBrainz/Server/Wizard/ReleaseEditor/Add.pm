@@ -2,12 +2,67 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Add;
 use Moose;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
+use CGI::Expand qw( collapse_hash );
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
 );
+use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
+use MusicBrainz::Server::Translation qw( l );
+
+extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
+
+around _build_pages => sub {
+    my $next = shift;
+    my $self = shift;
+
+    my @pages = @{ $self->$next };
+    return [
+        $pages[0],
+        {
+            name => 'duplicates',
+            title => l('Release Duplicates'),
+            template => 'release/edit/duplicates.tt',
+            form => 'ReleaseEditor::Duplicates',
+            change_page => sub {
+                my ($c, $wizard, $page) = @_;
+                my $release_id = $wizard->value->{duplicate_id}
+                    or return;
+
+                my $release = $c->model('Release')->get_by_id($release_id);
+                $c->model('Medium')->load_for_releases($release);
+                $wizard->_post_to_page($page, collapse_hash({
+                    mediums => [
+                        map +{
+                            tracklist_id => $_->tracklist_id,
+                            position => $_->position,
+                            format_id => $_->format_id,
+                            name => $_->name,
+                            deleted => 0,
+                            edits => '',
+                        }, $release->all_mediums
+                    ],
+                }));
+            }
+        },
+        @pages[1..$#pages]
+    ];
+};
+
+sub duplicates {
+    my ($self, $c, $wizard) = @_;
+    my $name = $wizard->value->{name};
+    my $artist_credit = $wizard->value->{artist_credit};
+    $c->stash(
+        similar_releases => [
+            $c->model('Release')->find_similar(
+                name => $name,
+                artist_credit => clean_submitted_artist_credits($artist_credit)
+            )
+        ]
+    );
+}
 
 augment 'create_edits' => sub
 {

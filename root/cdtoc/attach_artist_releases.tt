@@ -34,4 +34,9 @@
     <p>[% l('{artist} has no releases which have {n} tracks.', { artist => link_artist(artist),
               n => cdtoc.track_count }) %]</p>
   [% END %]
+
+  <form action="[% c.uri_for('/release/add', { artist => artist.gid }) %]" method="post">
+    <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
+    [% form_submit(l('Add a new release')) %]
+  </form>
 [% END %]

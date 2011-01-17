@@ -3,27 +3,48 @@ use HTML::FormHandler::Moose;
 use JSON::Any;
 use Text::Trim qw( trim );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Track qw( format_track_length );
 
 extends 'MusicBrainz::Server::Form::Step';
 
 has_field 'mediums' => ( type => 'Repeatable', num_when_empty => 0 );
 has_field 'mediums.id' => ( type => 'Integer' );
+has_field 'mediums.toc' => ( type => 'Text' );
 has_field 'mediums.name' => ( type => 'Text' );
 has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist_id' => ( type => 'Integer' );
-has_field 'mediums.edits' => ( type => 'Text' );
+has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
 
 # keep track of advanced or basic view, useful when navigating away from
 # this page and coming back, or when validation failed.
 has_field 'advanced' => ( type => 'Integer' );
 
-sub options_mediums_format_id { shift->_select_all('MediumFormat') }
+sub options_mediums_format_id { 
+    my ($self) = @_;
+
+    my $root_format = $self->ctx->model('MediumFormat')->get_tree;
+    return [ $self->_build_medium_format_options($root_format, 'name', '') ];
+};
+
+sub _build_medium_format_options
+{
+    my ($self, $root, $attr, $indent) = @_;
+
+    my @options;
+    push @options, $root->id, $indent . trim($root->$attr) if $root->id;
+    $indent .= '&nbsp;&nbsp;&nbsp;';
+
+    foreach my $child ($root->all_children) {
+        push @options, $self->_build_medium_format_options($child, $attr, $indent);
+    }
+    return @options;
+}
 
 sub _track_errors {
-    my ($self, $track, $tracknumbers) = @_;
+    my ($self, $track, $tracknumbers, $cdtoc) = @_;
 
     return 0 if $track->{deleted};
 
@@ -65,13 +86,83 @@ sub _track_errors {
         return l('An artist is required on track {pos}.', { pos => $pos });
     }
 
+    if ($cdtoc)
+    {
+        my $details = $cdtoc->track_details->[$pos - 1];
+        next unless $details;
+
+        my $cdtoc_duration = format_track_length ($details->{length_time});
+        if ($track->{length} ne $cdtoc_duration)
+        {
+            $track->{length} = $cdtoc_duration;
+            return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
+                     { pos => $pos, length => $cdtoc_duration });
+        }
+    }
+
     return 0;
+};
+
+sub _validate_edits {
+    my $self = shift;
+    my $medium = shift;
+    my $json = JSON::Any->new( utf8 => 1 );
+    my $edits = $json->decode ($medium->field('edits')->value);
+    my $entity;
+    my $cdtoc;
+    my $medium_id = $medium->field('id')->value;
+    my @errors;
+
+    if ($medium_id)
+    {
+        $entity = $self->ctx->model('Medium')->get_by_id ($medium_id);
+        my @medium_cdtocs = $self->ctx->model('MediumCDTOC')->load_for_mediums($entity);
+        $self->ctx->model('CDTOC')->load(@medium_cdtocs);
+
+        $cdtoc = $medium_cdtocs[0]->cdtoc if scalar @medium_cdtocs;
+    }
+
+    my $tracknumbers = [];
+    for (@$edits)
+    {
+        my $msg = $self->_track_errors ($_, $tracknumbers, $cdtoc);
+
+        push @errors, $msg if $msg;
+    }
+
+    unless (scalar @$tracknumbers)
+    {
+        push @errors, l('A tracklist is required');
+        return @errors;
+    }
+
+    shift @$tracknumbers; # there is no track 0, this shifts off an undef.
+
+    if ($cdtoc && $cdtoc->track_count != scalar @$tracknumbers)
+    {
+        push @errors,
+            ln('This medium has a Disc ID, it should have exactly {n} track.',
+               'This medium has a Disc ID, it should have exactly {n} tracks.',
+               $cdtoc->track_count, { n => $cdtoc->track_count });
+    }
+
+    my $count = 1;
+    for (@$tracknumbers)
+    {
+        push @errors, l('Track {pos} is missing.', { pos => $count })
+            unless defined $_;
+
+        $count++;
+    }
+
+    $json = JSON::Any->new;
+    $medium->field('edits')->value ($json->encode ($edits));
+
+    return @errors;
 };
 
 sub validate {
     my $self = shift;
-
-    my $json = JSON::Any->new( utf8 => 1 );
 
     for my $medium ($self->field('mediums')->fields)
     {
@@ -83,35 +174,8 @@ sub validate {
             next;
         }
 
-        if ($edits)
-        {
-            $edits = $json->decode ($edits);
-
-            my $tracknumbers = [];
-            for (@$edits)
-            {
-                my $msg = $self->_track_errors ($_, $tracknumbers);
-
-                $medium->add_error ($msg) if $msg;
-            }
-
-            unless (scalar @$tracknumbers)
-            {
-                $medium->add_error (l('A tracklist is required'));
-                next;
-            }
-
-            shift @$tracknumbers;
-            my $count = 1;
-            for (@$tracknumbers)
-            {
-                $medium->add_error (
-                    l('Track {pos} is missing.', { pos => $count }))
-                    unless defined $_;
-
-                $count++;
-            }
-        }
+        my @errors = $self->_validate_edits ($medium) if $edits;
+        map { $medium->add_error ($_) } @errors;
     }
 };
 
