@@ -5,11 +5,18 @@ use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
-use MusicBrainz::Server::Relationship;
+use MusicBrainz::Server::Data::Relationship;
+use MusicBrainz::Server::Entity::Statistics;
 
+extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
+
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::Statistics';
+}
 
 sub fetch {
     my ($self, @names) = @_;
@@ -52,7 +59,7 @@ sub insert {
 sub last_refreshed {
     my $self = shift;
     return $self->sql->select_single_value(
-        'SELECT min(last_updated) FROM ' . $self->_table);
+        'SELECT min(date_collected) FROM ' . $self->_table);
 }
 
 my %stats = (
@@ -60,7 +67,7 @@ my %stats = (
 		DESC => "Count of all releases",
 		SQL => "SELECT COUNT(*) FROM release",
 	},
-	"count.releasegroups" => {
+	"count.releasegroup" => {
 		DESC => "Count of all release groups",
 		SQL => "SELECT COUNT(*) FROM release_group",
 	},
@@ -90,7 +97,7 @@ my %stats = (
 		SQL => "SELECT COUNT(distinct barcode) FROM release",
 	},
 	"count.puid" => {
-		DESC => "Count of all PUIDs joined to tracks",
+		DESC => "Count of all PUIDs joined to recordings",
 		SQL => "SELECT COUNT(*) FROM recording_puid",
 	},
 	"count.puid.ids" => {
@@ -114,7 +121,7 @@ my %stats = (
 		SQL => "SELECT COUNT(*) FROM artist_credit",
 	},
 	"count.isrc.all" => {
-		DESC => "Count of all ISRCs joined to tracks",
+		DESC => "Count of all ISRCs joined to recordings",
 		SQL => "SELECT COUNT(*) FROM isrc",
 	},
 	"count.isrc" => {
@@ -155,7 +162,7 @@ my %stats = (
 		SQL => "SELECT COUNT(DISTINCT recording) FROM isrc",
 	},
 	"count.recording.has_puid" => {
-		DESC => "Count of tracks with at least one PUID",
+		DESC => "Count of recordings with at least one PUID",
 		SQL => "SELECT COUNT(DISTINCT recording) FROM recording_puid",
 	},
 
@@ -622,7 +629,7 @@ my %stats = (
 			
 			+{
 				map {
-					"count.puid.".$_."tracks" => $dist{$_}
+					"count.puid.".$_."recordings" => $dist{$_}
 				} keys %dist
 			};
 		},
@@ -662,7 +669,7 @@ my %stats = (
 			
 			+{
 				map {
-					"count.track.".$_."puids" => $dist{$_}
+					"count.recording.".$_."puids" => $dist{$_}
 				} keys %dist
 			};
 		},
@@ -760,6 +767,31 @@ sub recalculate_all
         my $s = join ", ", keys %notdone;
         die "Failed to solve stats dependencies: circular dependency? ($s)";
     }
+}
+
+use Data::Dumper;
+sub get_todays_statistics {
+
+    my $self = shift;
+
+    my $obj = MusicBrainz::Server::Entity::Statistics->new();
+
+    my $query = "SELECT id, 
+                        date_part('epoch', date_collected) AS date_collected, 
+                        name,
+                        value
+                   FROM statistic 
+                  WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
+    my $sql = Sql->new($self->c->dbh);
+    $sql->select($query);
+    while (1) {
+        my $row = $sql->next_row_hash_ref or last;
+        $obj->date_collected(DateTime->from_epoch( epoch => $row->{date_collected})) if (!$obj->date_collected);
+        $obj->data->{$row->{name}} = $row->{value};
+    }
+    $sql->finish;
+
+    return $obj;
 }
 
 1;
