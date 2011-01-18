@@ -91,6 +91,9 @@
             <li>
                 [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
             </li>
+            <li>
+                [% l('{url|Statistics}', { url => c.uri_for('/statistics') }) %]
+            </li>
         </ul>
     </li>
     <li>
