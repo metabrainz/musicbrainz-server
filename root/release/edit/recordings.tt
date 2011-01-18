@@ -33,7 +33,10 @@
 
       <p>
         Search:
-        <input type="text" class="recording" value="[% IF track %][% track.name %][% END %]" />
+        <span class="autocomplete">
+          <input type="text" class="recording" value="[% IF track %][% track.name %][% END %]" />
+          <img class="search" src="/static/images/icons/search.png" />
+        </span>
       </p>
 
       <table class="matches">
