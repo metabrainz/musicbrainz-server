@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Moose;
-use Data::Dumper;
 use MusicBrainz::Server::Data::Statistics;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -21,7 +20,6 @@ sub statistics : Path('')
 #       ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id); fails
 #       for duplicate key 1
 #       count.quality.release.unknown is too high
-#       count.editor.* is zero
 
     my $stats = $c->model('Statistics')->get_todays_statistics();
     $stats->{data}->{"count.release.various.p"} = 
@@ -138,8 +136,6 @@ sub statistics : Path('')
                     _percent($stats, "count.vote.no", "count.vote");
     $stats->{data}->{"count.vote.abstain.p"} = 
                     _percent($stats, "count.vote.abstain", "count.vote");
-
-    print STDERR Dumper($stats);
 
     $c->stash( 
               template => 'statistics/index.tt',
