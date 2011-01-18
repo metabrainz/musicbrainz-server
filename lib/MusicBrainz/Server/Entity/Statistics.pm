@@ -19,6 +19,17 @@ has date_collected => (
    isa => 'DateTime'
 );
 
+sub ratio {
+    my ($self, $num_stat, $denom_stat) = @_;
+    my ($numerator, $denominator) = (
+        $self->statistic($num_stat),
+        $self->statistic($denom_stat),
+    );
+
+    return unless $denominator > 0;
+    return $numerator * 100 / $denominator;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
