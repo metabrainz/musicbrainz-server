@@ -34,7 +34,9 @@ sub tags : Chained('load') PathPart('tags')
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
 
-    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
+    my @user_tags = $c->user_exists
+        ? $tags_model->find_user_tags($c->user->id, $entity->id)
+        : ();
     my $tags = $self->_load_paged($c, sub {
         $tags_model->find_tags($entity->id, shift, shift);
     });
