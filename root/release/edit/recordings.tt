@@ -296,6 +296,7 @@
           [% name = "select-recording-$medium_idx-$track_idx" %]
           [% select_recording (name, track, recording.gid, recording) %]
         [%- END -%]
+
       [%- END -%]
 
       [% select_recording () %]

@@ -272,6 +272,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         $('.basic-tracklist').hide ();
         $('.advanced-tracklist').show ();
         $('#id-advanced').val ('1');
+        $(window).scrollTop (0);
     });
 
     $("a[href=#basic]").click (function () {

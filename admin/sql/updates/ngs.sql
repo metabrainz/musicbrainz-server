@@ -65,40 +65,41 @@ INSERT INTO release_group_type (id, name) VALUES
     (10, 'Remix'),
     (11, 'Other');
 
-INSERT INTO medium_format (id, name, year, has_discids) VALUES
-    (1, 'CD', 1982, TRUE),
-    (2, 'DVD', 1995, FALSE),
-    (3, 'SACD', 1999, TRUE),
-    (4, 'DualDisc', 2004, TRUE),
-    (5, 'LaserDisc', 1978, FALSE),
-    (6, 'MiniDisc', 1992, FALSE),
-    (7, 'Vinyl', 1895, FALSE),
-    (8, 'Cassette', 1964, FALSE),
-    (9, 'Cartridge', 1962, FALSE),
-    (10, 'Reel-to-reel', 1935, FALSE),
-    (11, 'DAT', 1976, FALSE),
-    (12, 'Digital Media', NULL, FALSE),
-    (13, 'Other', NULL, TRUE),
-    (14, 'Wax Cylinder', 1877, FALSE),
-    (15, 'Piano Roll', 1883, FALSE),
-    (16, 'DCC', 1992, FALSE),
-    (17, 'HD-DVD', NULL, FALSE),
-    (20, 'Blu-ray', NULL, FALSE),
-    (21, 'VHS', NULL, FALSE),
-    (22, 'VCD', NULL, FALSE),
-    (23, 'SVCD', NULL, FALSE),
-    (24, 'Betamax', NULL, FALSE),
-    (25, 'HDCD', NULL, TRUE),
-    (26, 'USB Flash Drive', NULL, FALSE),
-    (27, 'slotMusic', NULL, FALSE),
-    (28, 'UMD', NULL, FALSE);
+INSERT INTO medium_format (id, name, year, has_discids, child_order) VALUES
+    (1, 'CD', 1982, TRUE, 0),
+    (2, 'DVD', 1995, FALSE, 4),
+    (3, 'SACD', 1999, TRUE, 5),
+    (4, 'DualDisc', 2004, TRUE, 6),
+    (6, 'MiniDisc', 1992, FALSE, 7),
+    (7, 'Vinyl', 1895, FALSE, 1),
+    (8, 'Cassette', 1964, FALSE, 3),
+    (12, 'Digital Media', NULL, FALSE, 2),
+    (13, 'Other', NULL, TRUE, 13),
+    (17, 'HD-DVD', NULL, FALSE, 9),
+    (20, 'Blu-ray', NULL, FALSE, 8),
+    (22, 'VCD', NULL, FALSE, 11),
+    (28, 'UMD', NULL, FALSE, 12),
+    (32, 'Videotape', NULL, FALSE, 10);
 
-INSERT INTO medium_format (id, name, year, child_order, parent) VALUES
-    (29, '7"', NULL, 0, 7),
-    (30, '10"', NULL, 1, 7),
-    (31, '12"', NULL, 2, 7),
-    (18, 'DVD-Audio', NULL, 0, 2),
-    (19, 'DVD-Video', NULL, 1, 2);
+INSERT INTO medium_format (id, name, year, has_discids, child_order, parent) VALUES
+    (5, 'LaserDisc', 1978, FALSE, 0, 13),
+    (9, 'Cartridge', 1962, FALSE, 0, 13),
+    (10, 'Reel-to-reel', 1935, FALSE, 0, 13),
+    (11, 'DAT', 1976, FALSE, 0, 13),
+    (14, 'Wax Cylinder', 1877, FALSE, 0, 13),
+    (15, 'Piano Roll', 1883, FALSE, 0, 13),
+    (16, 'DCC', 1992, FALSE, 0, 13),
+    (21, 'VHS', NULL, FALSE, 0, 32),
+    (23, 'SVCD', NULL, FALSE, 0, 22),
+    (24, 'Betamax', NULL, FALSE, 1, 32),
+    (25, 'HDCD', NULL, TRUE, 0, 1),
+    (29, '7" Vinyl', NULL, FALSE, 0, 7),
+    (30, '10" Vinyl', NULL, FALSE, 1, 7),
+    (31, '12" Vinyl', NULL, FALSE, 2, 7),
+    (26, 'USB Flash Drive', NULL, FALSE, 0, 12),
+    (27, 'slotMusic', NULL, FALSE, 1, 12),
+    (18, 'DVD-Audio', NULL, FALSE, 0, 2),
+    (19, 'DVD-Video', NULL, FALSE, 1, 2);
 
 INSERT INTO url
     SELECT id, gid::uuid, url, description, refcount AS ref_count
