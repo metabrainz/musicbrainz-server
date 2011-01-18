@@ -106,10 +106,6 @@ INSERT INTO url
     FROM public.url;
 
 INSERT INTO replication_control SELECT * FROM public.replication_control;
-INSERT INTO currentstat
-    SELECT id, name, value, lastupdated AS last_updated
-    FROM public.currentstat;
-INSERT INTO historicalstat SELECT * FROM public.historicalstat;
 
 ------------------------
 -- Tags
