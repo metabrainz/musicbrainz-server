@@ -1,0 +1,260 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        <title>Database statistics - MusicBrainz</title>
+        <link rel="stylesheet" type="text/css" href="/static/styles/bc16db42a90fbd689873db2a8e5fdd70.css"/>
+        
+        <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="http://musicbrainz.homeip.net:3000/static/search_plugins/opensearch/musicbrainz_artist.xml" />
+        <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="http://musicbrainz.homeip.net:3000/static/search_plugins/opensearch/musicbrainz_label.xml" />
+        <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Release" href="http://musicbrainz.homeip.net:3000/static/search_plugins/opensearch/musicbrainz_release.xml" />
+        <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Track" href="http://musicbrainz.homeip.net:3000/static/search_plugins/opensearch/musicbrainz_track.xml" />
+        <script type="text/javascript">document.cookie = "javascript=true; path=/";</script>            <script type="text/javascript" src="/static/dd5bda384f89bb084d60091a5d19199c.js"></script>
+            <script type="text/javascript" src="http://musicbrainz.homeip.net:3000/text.js"></script>            </head>
+    <body>
+        <div id="header">
+            <div id="header-logo">
+                <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
+                <div>                    <form action="http://musicbrainz.homeip.net:3000/search" method="get">
+                        <input class="" id="id-query" name="query" placeholder="search" type="text" value="" /><select id="id-type" name="type"><option value="artist">Artist</option><option value="release_group">Release Group</option><option value="release">Release</option><option value="recording">Recording</option><option value="work">Work</option><option value="label">Label</option><option value="annotation">Annotation</option><option value="cdstub">CD Stub</option><option value="editor">Editor</option><option value="freedb">FreeDB</option><option value="tag">Tag</option></select>
+                        
+    <span class="buttons header-search">
+        <button type="submit">Search</button>
+    </span>
+                    </form>
+                </div>
+            </div>
+            <div id="header-menu">
+                <div><ul class="r">        <li><a href="http://musicbrainz.homeip.net:3000/login?uri=%2Fstatistics">Log In</a></li>
+        <li><a href="http://musicbrainz.homeip.net:3000/register">Create Account</a></li></ul>
+
+<ul>
+    <li><a href="http://musicbrainz.homeip.net:3000/doc/About_MusicBrainz">About</a>        <ul>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Sponsors">Sponsors</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Bio">People</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Press">In the Press</a>            </li>
+            <li class="separator"><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_License">Data Licenses</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Social_Contract">Social Contract</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Privacy_Policy">Privacy Policy</a>            </li>
+            <li class="separator">
+                <a href="http://musicbrainz.homeip.net:3000/elections">Auto-editor Elections</a>
+            </li>
+            <li>
+                <a href="http://musicbrainz.homeip.net:3000/privileged">Privileged User Accounts</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="http://blog.musicbrainz.org" class="internal">
+            Blog
+        </a>
+    </li>
+
+    <li><a href="http://musicbrainz.homeip.net:3000/doc/Products">Products</a>        <ul>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Picard">MusicBrainz Picard</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Jaikoz">Jaikoz</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Magic_MP3_Tagger">Magic MP3 Tagger</a>            </li>
+            <li class="separator"><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Server">MusicBrainz Server</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Database">MusicBrainz Database</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/XML_Web_Service">XML Web Service</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Live_Data_Feed">Live Data Feed</a>            </li>
+            <li class="separator"><a href="http://musicbrainz.homeip.net:3000/doc/FreeDB_Gateway">Freedb Gateway</a>            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="http://musicbrainz.homeip.net:3000/search">Search</a>
+        <ul>
+            <li>
+                <a href="http://musicbrainz.homeip.net:3000/browse">Browse</a>
+            </li>
+            <li>
+                <a href="http://musicbrainz.homeip.net:3000/tags">Tags</a>
+            </li>
+            <li>
+                <a href="http://musicbrainz.homeip.net:3000/cdstub/browse">Top CD Stubs</a>
+            </li>
+            <li class="separator">
+                 <a href="http://musicbrainz.homeip.net:3000/search/plugins">Browser Search Plugins</a>
+            </li>
+        </ul>
+    </li>    <li><a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Documentation">Documentation</a>        <ul>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Beginners_Guide">Beginners Guide</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Official_Style_Guideline">Style Guidelines</a>            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Frequently_Asked_Questions">FAQs</a>            </li>
+            <li class="separator"><a href="http://musicbrainz.homeip.net:3000/doc/Development">Development</a>            </li>
+        </ul>
+    </li>
+    <li><a href="http://musicbrainz.homeip.net:3000/doc/Contact_Us">Contact Us</a>        <ul>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Mailing_Lists">Mailing Lists</a>            </li>
+            <li>
+                <a href="http://forums.musicbrainz.org" class="internal">
+                    Web Forums
+                </a>
+            </li>
+            <li class="separator">
+                <a href="http://musicbrainz.uservoice.com" class="internal">
+                    Suggest a Feature
+                </a>
+            </li>
+            <li>
+                <a href="http://jira.musicbrainz.org" class="internal">
+                    Report a Bug
+                </a>
+            </li>
+            <li><a href="http://musicbrainz.homeip.net:3000/doc/Copyright_Violation_Notice">Report a Copyright Violation</a>            </li>
+        </ul>
+    </li>
+</ul>
+                    <div class="r"></div><div class="l"></div>
+                </div>
+            </div>
+        </div>
+
+        
+            <div class="server-details">
+                <p>ruaok's dev server The main server is located at <a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>.</p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        
+
+        
+
+        
+
+        <div id="page"> 
+
+
+
+
+            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+        </div>
+
+        
+
+        <div id="footer">
+            <p class="links">
+                <a href="http://metabrainz.org/donate" class="internal">Donate</a> | 
+                <a href="http://wiki.musicbrainz.org/" class="internal">Wiki</a> | 
+                <a href="http://forums.musicbrainz.org/" class="internal">Forums</a> | 
+                <a href="http://jira.musicbrainz.org/" class="internal">Bug Tracker</a> | 
+                <a href="http://www.cafepress.com/musicbrainz" class="internal">Schwag</a>
+            </p>
+
+            <p class="sponsors">
+                Hosted by <a href="http://digitalwest.net/">Digital West</a>. Sponsored by: <a href="http://www.google.com/">Google</a>,
+                      <a href="http://osuosl.org/">OSUOSL</a> and <a href="http://musicbrainz.homeip.net:3000/doc/MusicBrainz_Sponsors">others&hellip;</a>
+            </p>
+        </div>
+
+    </body>
+</html>
+
