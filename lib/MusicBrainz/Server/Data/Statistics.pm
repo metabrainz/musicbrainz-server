@@ -763,28 +763,28 @@ sub recalculate_all
     }
 }
 
-sub get_todays_statistics {
+sub get_latest_statistics {
 
     my $self = shift;
-
-    my $obj = MusicBrainz::Server::Entity::Statistics->new();
-
-    my $query = "SELECT id, 
-                        date_part('epoch', date_collected) AS date_collected, 
+    my $query = "SELECT id,
+                        date_collected,
                         name,
                         value
-                   FROM statistic 
+                   FROM statistic
                   WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
     my $sql = Sql->new($self->c->dbh);
-    $sql->select($query);
+    $sql->select($query) or return;
+
+    my $stats = MusicBrainz::Server::Entity::Statistics->new();
     while (1) {
         my $row = $sql->next_row_hash_ref or last;
-        $obj->date_collected(DateTime->from_epoch( epoch => $row->{date_collected})) if (!$obj->date_collected);
-        $obj->data->{$row->{name}} = $row->{value};
+        $stats->date_collected($row->{date_collected})
+            unless $stats->date_collected;
+        $stats->data->{$row->{name}} = $row->{value};
     }
     $sql->finish;
 
-    return $obj;
+    return $stats;
 }
 
 1;

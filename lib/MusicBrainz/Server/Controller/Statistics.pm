@@ -14,7 +14,7 @@ sub statistics : Path('')
 
     $c->stash(
         template => 'statistics/index.tt',
-        stats    => $c->model('Statistics')->get_todays_statistics();
+        stats    => $c->model('Statistics')->get_latest_statistics();
     );
 }
 

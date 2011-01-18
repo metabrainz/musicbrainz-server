@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Statistics;
 use Moose;
 
+use MusicBrainz::Server::Types;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
 
@@ -16,7 +17,8 @@ has data => (
 
 has date_collected => (
    is => 'rw',
-   isa => 'DateTime'
+   isa => 'DateTime',
+   coerce => 1
 );
 
 sub ratio {
