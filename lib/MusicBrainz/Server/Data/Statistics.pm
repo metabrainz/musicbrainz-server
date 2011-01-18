@@ -763,7 +763,6 @@ sub recalculate_all
     }
 }
 
-use Data::Dumper;
 sub get_todays_statistics {
 
     my $self = shift;
