@@ -9,6 +9,16 @@ sub edit_name { l('Merge artists') }
 sub edit_type { 67 }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Merge' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        release_group => [
+            $self->data->{new_entity}{id},
+            map { $_->{id} } @{ $self->data->{old_entities} }
+        ]
+    }
+}
+
 sub old_entities
 {
     my $self = shift;
