@@ -74,7 +74,7 @@ END; -%]
     END -%]
 
 [%- MACRO disambiguation(entity) BLOCK;
-    '<span class="comment">' _ html_escape("(${entity.comment})") _ '</span>' IF entity.comment;
+    ' <span class="comment">' _ html_escape("(${entity.comment})") _ '</span>' IF entity.comment;
 END -%]
 
 [%- MACRO artist_credit(ac, opts) BLOCK -%]
