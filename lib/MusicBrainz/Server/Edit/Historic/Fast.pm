@@ -67,7 +67,7 @@ sub for_copy {
     my $edit = shift;
     my $type = $edit->edit_type;
     if ($edit->can('ngs_class')) {
-        Class:MOP::load_class($edit->ngs_class);
+        Class::MOP::load_class($edit->ngs_class);
         $type = $edit->ngs_class->edit_type;
     }
 
