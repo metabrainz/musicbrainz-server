@@ -86,14 +86,21 @@ END -%]
 
 
 [%- MACRO link_entity(entity, action, text) BLOCK;
-    IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
+    IF entity.gid;
+      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
+      END;
+    ELSIF !entity;
+      caption = l("This entity has been deleted, and cannot be displayed.");
+      '<span class="deleted tooltip" title="' _ caption _ '">' _ l('[deleted]') _ '</span>';
+    ELSE;
+      html_escape(entity.name);
     END;
     disambiguation(entity);
 END -%]
