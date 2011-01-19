@@ -9,13 +9,21 @@ sub edit_name { l('Add track annotation') }
 sub edit_type { 64 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddAnnotation' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        recording => [ $self->data->{entity_id} ]
+    }
+}
+
 sub do_upgrade
 {
     my ($self) = @_;
 
     return {
         text      => $self->new_value->{Text},
-        changelog => $self->new_value->{ChangeLog},        entity_id => $self->resolve_recording_id($self->row_id),
+        changelog => $self->new_value->{ChangeLog},
+        entity_id => $self->resolve_recording_id($self->row_id),
         editor_id => $self->editor_id,
     }
 }

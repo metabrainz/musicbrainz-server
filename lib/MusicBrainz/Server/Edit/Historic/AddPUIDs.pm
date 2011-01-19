@@ -9,6 +9,15 @@ sub edit_name { l('Add PUIDs') }
 sub edit_type { 47 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddPUIDs' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        recording => [
+            map { $_->{recording_id} } @{ $self->data->{puids} }
+        ]
+    }
+}
+
 sub do_upgrade {
     my ($self) = @_;
 

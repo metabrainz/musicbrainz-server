@@ -22,8 +22,8 @@ sub historic_type { 33 }
 
 sub type0 { shift->data->{entity0_type} }
 sub type1 { shift->data->{entity1_type} }
-sub model0 { type_to_model(shift->type0) } 
-sub model1 { type_to_model(shift->type1) } 
+sub model0 { type_to_model(shift->type0) }
+sub model1 { type_to_model(shift->type1) }
 
 sub related_entities
 {
