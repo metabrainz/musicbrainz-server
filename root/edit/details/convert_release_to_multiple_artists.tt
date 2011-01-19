@@ -5,11 +5,7 @@
       [% IF edit.display_data.releases.size %]
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% release.defined ?
-                l('{release} by {artist}',
-                 { release => link_entity(release),
-                   artist  => artist_credit(release.artist_credit) }) :
-                l('(unknown)') %]</li>
+        <li>[% descriptive_link(release) %]</li>
         [% END %]
       </ul>
       [% ELSE;

@@ -8,9 +8,7 @@
     <th>[% l('From:') %]</th>
     <td>
       [% release = edit.display_data.old_release %]
-      [% l('{release} by {artist}', {
-             release => link_entity(release),
-             artist  => artist_credit(release.artist_credit) }) %]</li>
+      [% descriptive_link(release) %]</li>
     </td>
   </tr>
 
@@ -18,9 +16,7 @@
     <th>[% l('To:') %]</th>
     <td>
       [% release = edit.display_data.new_release %]
-      [% l('{release} by {artist}', {
-             release => link_entity(release),
-             artist  => artist_credit(release.artist_credit) }) %]</li>
+      [% descriptive_link(release) %]</li>
     </td>
   </tr>
 </table>
