@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -24,7 +25,10 @@ has '+data' => (
             name => Str,
         ]],
         length => Dict[
-            old => ArrayRef[Int],
+            # Old track lengths may be undef
+            old => ArrayRef[Nullable[Int]],
+
+            # But new tracks must be set if we have a toc
             new => ArrayRef[Int],
         ]
     ]
