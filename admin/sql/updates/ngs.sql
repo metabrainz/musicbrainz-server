@@ -605,8 +605,8 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
 ------------------------
 \echo Stats
 
-INSERT INTO statistic (id, value, date_collected, name)
-    SELECT id, value, lastupdated,
+INSERT INTO statistic (value, date_collected, name)
+    SELECT value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'
         WHEN name = 'count.album.has_discid' THEN 'count.release.has_discid'
@@ -660,9 +660,9 @@ INSERT INTO statistic (id, value, date_collected, name)
         ELSE name
       END AS name
       FROM (
-           SELECT id, value, lastupdated, name FROM public.currentstat
+           SELECT value, lastupdated, name FROM public.currentstat
       UNION ALL
-           SELECT id, value, snapshotdate, name FROM public.historicalstat
+           SELECT value, snapshotdate, name FROM public.historicalstat
       ) s;
 
 COMMIT;
