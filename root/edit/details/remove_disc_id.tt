@@ -3,7 +3,7 @@
     <th>[% l('Release:') %]</th>
     <td>[% l('{release} by {artist}',
              { artist  => artist_credit(edit.display_data.release.artist_credit),
-               release => link_release(edit.display_data.release) }) %]</td>
+               release => link_entity(edit.display_data.release) }) %]</td>
   </tr>
   <tr>
     <th>[% l('Disc ID:') %]</th>

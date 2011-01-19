@@ -5,7 +5,7 @@
       <ul>
         [% FOR recording=edit.display_data.old %]
           <li>[% l('{recording} by {artist}',
-               { recording => link_recording(recording),
+               { recording => link_entity(recording),
                  artist => artist_credit(recording.artist_credit)}) %]</li>
         [% END %]
       </ul>
@@ -15,7 +15,7 @@
   <tr>
     <th>[% l('New recording:') %]</th>
     <td>
-      [% l('{recording} by {artist}', { recording => link_recording(edit.display_data.new),
+      [% l('{recording} by {artist}', { recording => link_entity(edit.display_data.new),
                                         artist => artist_credit(edit.display_data.new.artist_credit)  }) %]
     </td>
   </tr>

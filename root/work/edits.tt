@@ -13,7 +13,7 @@
 
 [% WRAPPER 'layout.tt' title=l('Edits for “{name}”', { name => html_escape(work.name) }) full_width=1 %]
     <div class="workheader">
-        <h1>[% l('Edits for “{link}”', { link => link_work(work) }) %] [% disambiguation(work) %]</h1>
+        <h1>[% l('Edits for “{link}”', { link => link_entity(work) }) %] [% disambiguation(work) %]</h1>
         <p class="subheader">
             <span class="prefix">~</span>
                 [% l('{type} by {artist}', {

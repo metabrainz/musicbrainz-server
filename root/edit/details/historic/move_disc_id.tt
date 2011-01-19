@@ -11,7 +11,7 @@
       <ul>
         [% FOR release=edit.display_data.old_releases %]
           <li>[% l('{release} by {artist}', {
-                 release => link_release(release),
+                 release => link_entity(release),
                  artist  => artist_credit(release.artist_credit) }) %]</li>
         [% END %]
       </ul>
@@ -24,7 +24,7 @@
       <ul>
         [% FOR release=edit.display_data.new_releases %]
           <li>[% l('{release} by {artist}', {
-                 release => link_release(release),
+                 release => link_entity(release),
                  artist  => artist_credit(release.artist_credit) }) %]</li>
         [% END %]
       </ul>

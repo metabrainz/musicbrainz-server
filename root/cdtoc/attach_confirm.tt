@@ -2,7 +2,7 @@
   <h2>[% l('Attach CDTOC') %]</h2>
   [% WRAPPER 'layout/guidelines.tt' %]
     [%- create_guideline(l('Are you sure that you wish to attach the disc ID <code>{discid}</code> to
-                            {release} by {artist}?', { discid => cdtoc.discid, release => link_release(release),
+                            {release} by {artist}?', { discid => cdtoc.discid, release => link_entity(release),
                                                        artist => artist_credit(release.artist_credit) })) -%]
   [% END %]
   <form action="[% c.req.uri %]" method="post">

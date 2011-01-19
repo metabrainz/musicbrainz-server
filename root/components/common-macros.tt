@@ -288,7 +288,7 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
-    out.push(link_label(label.label)) FOR label=labels;
+    out.push(link_entity(label.label)) FOR label=labels;
     out.join(', ');
 END -%]
 

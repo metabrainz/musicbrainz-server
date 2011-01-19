@@ -2,7 +2,7 @@
   <tr>
     <th>[% l('Recording:') %]</th>
     <td>[% l('{recording} by {artist}',
-                { recording => link_recording(edit.display_data.recording),
+                { recording => link_entity(edit.display_data.recording),
                   artist => artist_credit(edit.display_data.recording.artist_credit) } )%]</td>
   </tr>
 

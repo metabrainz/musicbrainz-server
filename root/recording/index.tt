@@ -25,7 +25,7 @@
 		        <td>[%- rdfa_track_number(track.position) -%]/[%- track.tracklist.track_count -%]</td>
                         <td>[%- rdfa_label_title(track.name) -%]</td>
                         <td>[%- rdfa_recording_duration(track) -%]</td>
-                        <td>[%- rdfa_link_release_track(release, track) -%]</td>
+                        <td>[%- rdfa_link_entity_track(release, track) -%]</td>
                         <td>[%- artist_credit(release.artist_credit) -%]</td>
                         <td>[%- rdfa_release_event_date(release) -%]</td>
                         <td>

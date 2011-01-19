@@ -19,7 +19,7 @@
           <thead>
             <tr>
               <th colspan="3">
-                [% l('{release} by {artist}', { release => link_release(release) _ ' ' _ disambiguation(release),
+                [% l('{release} by {artist}', { release => link_entity(release) _ ' ' _ disambiguation(release),
                                                 artist => artist_credit(release.artist_credit) }) %]
               </th>
             </tr>

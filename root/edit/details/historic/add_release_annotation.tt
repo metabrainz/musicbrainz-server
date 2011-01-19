@@ -4,7 +4,7 @@
         <td>
             <ul>
             [% FOR release=edit.display_data.releases %]
-                <li>[% l('{release} by {artist}', { release => link_release(release),
+                <li>[% l('{release} by {artist}', { release => link_entity(release),
                                                     artist => artist_credit(release.artist_credit) }) %]</li>
             [% END %]
             </ul>

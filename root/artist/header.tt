@@ -1,18 +1,18 @@
 [%- info_links = [
-    ['index', rdfa_seeAlso_link_artist(artist, 'show', l('Overview'))],
-    ['releases', rdfa_seeAlso_link_artist(artist, 'releases', l('Releases'))],
-    ['recordings', rdfa_seeAlso_link_artist(artist, 'recordings', l('Recordings'))],
-    ['standalone', rdfa_seeAlso_link_artist(artist, 'standalone_recordings', l('Standalone Recordings')) ],
-    ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
-    ['relationships', rdfa_seeAlso_link_artist(artist, 'relationships', l('Relationships'))],
-    ['aliases', rdfa_seeAlso_link_artist(artist, 'aliases', l('Aliases'))],
-    ['tags', link_artist(artist, 'tags', l('Tags'))],
-    ['details', rdfa_seeAlso_link_artist(artist, 'details', l('Details'))],
+    ['index', rdfa_seeAlso_link_entity(artist, 'show', l('Overview'))],
+    ['releases', rdfa_seeAlso_link_entity(artist, 'releases', l('Releases'))],
+    ['recordings', rdfa_seeAlso_link_entity(artist, 'recordings', l('Recordings'))],
+    ['standalone', rdfa_seeAlso_link_entity(artist, 'standalone_recordings', l('Standalone Recordings')) ],
+    ['works', rdfa_seeAlso_link_entity(artist, 'works', l('Works'))],
+    ['relationships', rdfa_seeAlso_link_entity(artist, 'relationships', l('Relationships'))],
+    ['aliases', rdfa_seeAlso_link_entity(artist, 'aliases', l('Aliases'))],
+    ['tags', link_entity(artist, 'tags', l('Tags'))],
+    ['details', rdfa_seeAlso_link_entity(artist, 'details', l('Details'))],
 ] -%]
 [%# note no RDFa for tags, edit.  relationships @@TODO %]
 
 [% info_links.push(
-    ['edit', link_artist(artist, 'edit', l('Edit'))]
+    ['edit', link_entity(artist, 'edit', l('Edit'))]
    ) UNLESS artist.is_special_purpose %]
 
 <div class="artistheader" [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%] [% rdfa_typeof(rdfa_concept_curi(artist.type_name)) %]>

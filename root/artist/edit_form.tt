@@ -18,7 +18,7 @@
             [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
             <ul>
                 [% FOREACH dupe=form.duplicates %]
-                <li>[% link_artist(dupe) %] [% disambiguation(dupe) %]</li>
+                <li>[% link_entity(dupe) %] [% disambiguation(dupe) %]</li>
                 [% END %]
             </ul>
         </p>

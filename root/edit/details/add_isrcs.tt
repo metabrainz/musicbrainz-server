@@ -7,7 +7,7 @@
         <li>
           [% l('ISRC {isrc} to {recording} by {artist}',
                { isrc => link_isrc(addition.isrc),
-                 recording => link_recording(addition.recording),
+                 recording => link_entity(addition.recording),
                  artist => artist_credit(addition.recording.artist_credit) }) %]
         </li>
         [% END %]

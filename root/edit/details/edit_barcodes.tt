@@ -2,7 +2,7 @@
     [% FOR submission=edit.display_data.submissions %]
     <tr>
         <th>[% l('Release:') %]</th>
-        <td>[% l('{release} by {artist}', { release => link_release(submission.release),
+        <td>[% l('{release} by {artist}', { release => link_entity(submission.release),
                                             artist => artist_credit(submission.release.artist_credit) }) %]</td>
     </tr>
     <tr>

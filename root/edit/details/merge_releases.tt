@@ -5,7 +5,7 @@
       <ul>
         [% FOR release=edit.display_data.old %]
           <li>[% l('{release} by {artist}',
-               { release => link_release(release),
+               { release => link_entity(release),
                  artist => artist_credit(release.artist_credit)}) %]</li>
         [% END %]
       </ul>
@@ -15,7 +15,7 @@
   <tr>
     <th>[% l('New release:') %]</th>
     <td>
-      [% l('{release} by {artist}', { release => link_release(edit.display_data.new),
+      [% l('{release} by {artist}', { release => link_entity(edit.display_data.new),
                                         artist => artist_credit(edit.display_data.new.artist_credit)  }) %]
     </td>
   </tr>
