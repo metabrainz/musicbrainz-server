@@ -4,7 +4,7 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Owner:')
-               content=link_editor(collection.editor) %]
+               content=link_entity(collection.editor) %]
         [%- END -%]
 
         [% link_collection(collection, 'delete', l('Delete this collection')) %]

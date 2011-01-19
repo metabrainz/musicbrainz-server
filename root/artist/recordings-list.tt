@@ -20,7 +20,7 @@
                     value="[% recording.id %]" />
             </td>
             [% END %]
-            <td>[% rdfa_made_recording_link(recording) %] [% disambiguation(recording) %]</td>
+            <td>[% rdfa_made_recording_link(recording) %]</td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(recording.artist_credit) %]</td>
             [%- END -%]

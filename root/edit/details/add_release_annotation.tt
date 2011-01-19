@@ -1,7 +1,7 @@
 <table class="details">
   <tr>
     <th>[% l('Release:') %]</th>
-    <td>[% link_release(edit.display_data.release) %]
+    <td>[% link_entity(edit.display_data.release) %]
   </tr>
   [% IF edit.preview %]
     [%# If this is a preview, the changelog link will not take you to the updated     %]
