@@ -102,6 +102,15 @@ sub work : Chained('load')
     $c->stash( entity_tags => $entity_tags );
 }
 
+sub not_found
+{
+    my ($self, $c, $tagname) = @_;
+    $c->response->status(404);
+    $c->stash( template => $self->action_namespace . '/not_found.tt',
+               tag => $tagname );
+    $c->detach;
+}
+
 no Moose;
 1;
 
