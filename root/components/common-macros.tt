@@ -102,7 +102,7 @@ END -%]
     ELSE;
       html_escape(entity.name);
     END;
-    disambiguation(entity);
+    disambiguation(entity) UNLESS text;
 END -%]
 
 [% MACRO descriptive_link(entity)
