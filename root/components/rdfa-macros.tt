@@ -192,9 +192,9 @@ END -%]
 
 [%- MACRO rdfa_disambiguation(entity) BLOCK;
   IF doRDFa;
-    '<span class="comment">(<span property="rdfs:comment">' _ html_escape(entity.comment) _ '</span>)</span>' IF entity.comment;
+    ' <span class="comment">(<span property="rdfs:comment">' _ html_escape(entity.comment) _ '</span>)</span>' IF entity.comment;
   ELSE;
-    '<span class="comment">(' _ html_escape(entity.comment) _ ')</span>' IF entity.comment;
+    ' <span class="comment">(' _ html_escape(entity.comment) _ ')</span>' IF entity.comment;
   END;
 END -%]
 
