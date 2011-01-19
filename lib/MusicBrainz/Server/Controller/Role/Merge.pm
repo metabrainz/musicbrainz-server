@@ -34,6 +34,7 @@ role {
 
         my $add = $c->req->params->{'add-to-merge'};
         my @add = ref($add) ? @$add : ($add);
+        my @loaded = values %{ $model->get_by_ids(@add) };
 
         if (!$c->session->{merger} ||
             $c->session->{merger}->type ne $self->{model}) {
@@ -43,7 +44,7 @@ role {
         }
 
         my $merger = $c->session->{merger};
-        $merger->add_entities(@add);
+        $merger->add_entities(map { $_->id } @loaded);
 
         if ($merger->ready_to_merge) {
             $c->response->redirect(
@@ -53,7 +54,7 @@ role {
         else {
             $c->response->redirect(
                 $c->uri_for_action(
-                    $self->action_for('show'), [ $add[0] ]));
+                    $self->action_for('show'), [ $loaded[0]->gid ]));
         }
     };
 
