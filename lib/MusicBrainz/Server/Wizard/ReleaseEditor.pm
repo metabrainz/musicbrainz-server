@@ -38,12 +38,14 @@ has 'release' => (
 );
 
 sub _build_pages {
+    my $self = shift;
+
     return [
         {
             name => 'information',
             title => l('Release Information'),
             template => 'release/edit/information.tt',
-            form => 'ReleaseEditor::Information'
+            form => 'ReleaseEditor::Information',
         },
         {
             name => 'tracklist',
@@ -55,19 +57,23 @@ sub _build_pages {
             name => 'recordings',
             title => l('Recordings'),
             template => 'release/edit/recordings.tt',
-            form => 'ReleaseEditor::Recordings'
+            form => 'ReleaseEditor::Recordings',
+            prepare => sub { $self->prepare_recordings ($self->release); },
         },
         {
             name => 'missing_entities',
             title => l('Add Missing Entities'),
             template => 'release/edit/missing_entities.tt',
-            form => 'ReleaseEditor::MissingEntities'
+            form => 'ReleaseEditor::MissingEntities',
+            prepare => sub { $self->determine_missing_entities; },
+
         },
         {
             name => 'editnote',
             title => l('Edit Note'),
             template => 'release/edit/editnote.tt',
-            form => 'ReleaseEditor::EditNote'
+            form => 'ReleaseEditor::EditNote',
+            prepare => sub { $self->prepare_edits; },
         },
     ]
 }
@@ -75,35 +81,13 @@ sub _build_pages {
 sub run
 {
     my $self = shift;
+
     $self->process;
 
-    if ($self->current_page eq 'recordings') {
-        $self->prepare_recordings($self->release);
+    if ($self->submitted)
+    {
+        $self->prepare_edits;
     }
-    elsif ($self->current_page eq 'editnote' || $self->submitted) {
-        my $previewing = !$self->submitted;
-
-        my $data = clone($self->value);
-        my $editnote = $data->{edit_note};
-
-        $self->release($self->create_edits(
-            data => clone($data),
-            create_edit => $previewing
-                ? sub { $self->_preview_edit(@_) }
-                : sub { $self->_submit_edit(@_) },
-            edit_note => $editnote,
-            previewing => $previewing
-        ));
-
-        if (!$previewing) {
-            $self->on_submit($self);
-        }
-    }
-    elsif ($self->current_page eq 'missing_entities') {
-        $self->determine_missing_entities;
-    }
-
-    $self->render;
 }
 
 sub init_object { shift->release }
@@ -224,6 +208,12 @@ sub prepare_recordings
                 map { { 'gid' => ($_ ? $_->gid : "new") } } @recordings
             ];
         }
+        elsif (defined $_->{edits})
+        {
+            $recording_gids[$count]->{associations} = [
+                map { { 'gid' => 'new' } } @{ $_->{edits} }
+            ];
+        }
         else
         {
             $recording_gids[$count]->{associations} = [ ];
@@ -258,6 +248,30 @@ sub determine_missing_entities
             labels => \@labels
         }
     });
+}
+
+sub prepare_edits
+{
+    my $self = shift;
+
+    my $previewing = !$self->submitted;
+
+    my $data = clone($self->value);
+    my $editnote = $data->{edit_note};
+
+    $self->release(
+        $self->create_edits(
+            data => clone($data),
+            create_edit => $previewing
+                ? sub { $self->_preview_edit(@_) }
+                : sub { $self->_submit_edit(@_) },
+            edit_note => $editnote,
+            previewing => $previewing
+        ));
+
+    if (!$previewing) {
+        $self->on_submit($self);
+    }
 }
 
 sub _missing_labels {
@@ -549,6 +563,7 @@ sub _edit_release_annotation
 sub _preview_edit
 {
     my ($self, $type, $editnote, %args) = @_;
+
     my $edit = $self->_create_edit(
         sub { $self->c->model('Edit')->preview(@_) },
         $type, $self->c->user->id,
