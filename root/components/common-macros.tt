@@ -94,8 +94,8 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
       END;
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
     ELSIF !entity;
       caption = l("This entity has been deleted, and cannot be displayed.");
       '<span class="deleted tooltip" title="' _ caption _ '">' _ l('[deleted]') _ '</span>';
