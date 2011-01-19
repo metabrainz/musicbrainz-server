@@ -109,9 +109,9 @@
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
-          <img class="search" src="/static/images/icons/search.png" />
           <input type="text" id="[% id %]" style="width: 262px"
               value="[% html_escape(form.field('artist_credit').fif.name) %]" />
+          <img class="search" src="/static/images/icons/search.png" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
     [%- END -%]
@@ -194,8 +194,8 @@
           <div class="row">
             <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
             <span class="artist autocomplete">
-              <img class="search" src="/static/images/icons/search.png" />
               <input type="text" class="name" value="[% artist.name | html %]" />
+              <img class="search" src="/static/images/icons/search.png" />
               <input type="hidden" class="gid" value="[% artist.gid %]" />
               <input type="hidden" class="sortname" value="[% artist.sort_name %]" />
               [%- r.hidden (ac.field('artist_id'), class => 'id') -%]

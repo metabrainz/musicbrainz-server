@@ -73,8 +73,8 @@
     <tr class="artist-credit-box">
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
-          <img class="search" src="/static/images/icons/search.png" />
           <input type="text" class="name" value="[% artist.name %]" />
+          <img class="search" src="/static/images/icons/search.png" />
         </span>
         <input type="hidden" class="gid" value="[% artist.gid %]" />
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
@@ -159,6 +159,13 @@
             </td>
           </tr>
         </table>
+        <div style="display: none" class="tracklist-loading">
+          <p>
+            <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+            &nbsp;
+            [% l('Now loading tracklist...') %]
+          </p>
+        </div>
         <textarea style="display: none" class="tracklist"></textarea>
         [% field_errors(form, medium_field.full_name) %]
       </div>
@@ -258,8 +265,8 @@
         </td>
         <td class="artist autocomplete">
           <span class="autocomplete" style="width: 100%">
-            <img class="search" src="/static/images/icons/search.png" style="top: 1px;"  />
             <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
+            <img class="search" src="/static/images/icons/search.png" style="top: 1px;"  />
           </span>
         </td>
         <td class="credits-button">
@@ -319,6 +326,14 @@
           </td>
         </tr>
       </table>
+
+      <div style="display: none" class="tracklist-loading">
+        <p>
+          <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+          &nbsp;
+          [% l('Now loading tracklist...') %]
+        </p>
+      </div>
 
       <div class="tracklist-padding">
         [% field_errors(form, medium_field.full_name) %]
@@ -384,9 +399,6 @@
         <input type="hidden" class="tracklist-id" />
         <br />
 
-        <div class="tracklist-loading" style="display: none">
-          [% l('Loading...') %]
-        </div>
         <table class="medium tbl" style="display: none">
           <thead>
             <tr>

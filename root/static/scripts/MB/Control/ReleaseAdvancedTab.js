@@ -287,6 +287,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
     };
 
+    /* This function registers the ReleaseTextarea for this disc as self.basic. */
     self.registerBasic = function (basic) {
         self.basic = basic;
     };
@@ -310,7 +311,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             self.$position.val (val);
             self.$fieldset.find ('span.discnum').text (val);
-            self.basic.basicdisc.find ('span.discnum').text (val);
+            self.basic.$basicdisc.find ('span.discnum').text (val);
             return val;
         }
 
@@ -375,7 +376,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             }
         }
 
-        self.$table.show ();
+        self.$nowloading.show ();
         self.$fieldset.addClass ('expanded');
         self.$expand_icon.hide ();
         self.$collapse_icon.show ();
@@ -411,6 +412,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         });
 
         self.sort ();
+        self.$table.show ();
+        self.$nowloading.hide ();
     };
 
     self.guessCase = function () {
@@ -441,6 +444,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.$expand_icon = self.$fieldset.find ('input.expand-disc');
     self.$collapse_icon = self.$fieldset.find ('input.collapse-disc');
+    self.$nowloading = self.$fieldset.find ('div.tracklist-loading');
+
     self.$template = $('table.tracklist-template');
 
     self.$fieldset.find ('table.medium tbody tr.track').each (function (idx, item) {
@@ -698,12 +703,12 @@ MB.Control.ReleaseAdvancedTab = function () {
 
             /* FIXME: yes, I am aware that the variable names I've chosen
                here could use a little improvement. --warp. */
-            disc.basic.basicdisc.insertBefore (other.basic.basicdisc);
+            disc.basic.$basicdisc.insertBefore (other.basic.$basicdisc);
         }
         else
         {
             other.$fieldset.insertBefore (disc.$fieldset);
-            other.basic.basicdisc.insertBefore (disc.basic.basicdisc);
+            other.basic.$basicdisc.insertBefore (disc.basic.$basicdisc);
         }
     };
 
