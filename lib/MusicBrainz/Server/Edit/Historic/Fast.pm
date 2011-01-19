@@ -65,11 +65,16 @@ sub decode_value
 
 sub for_copy {
     my $edit = shift;
+    my $type = $edit->edit_type;
+    if ($edit->can('ngs_class')) {
+        Class:MOP::load_class($edit->ngs_class);
+        $type = $edit->ngs_class->edit_type;
+    }
 
     return join("\t",
         $edit->id,
         $edit->editor_id,
-        $edit->edit_type,
+        $type,
         $edit->status,
         copy_escape(JSON::Any->new(utf8 => 1)->encode($edit->data)),
         $edit->yes_votes,
