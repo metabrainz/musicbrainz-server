@@ -95,6 +95,7 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
     END;
+    disambiguation(entity);
 END -%]
 
 [% MACRO descriptive_link(entity)

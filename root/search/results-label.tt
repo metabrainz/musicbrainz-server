@@ -21,7 +21,6 @@
                             <td>[% result.score %]</td>
                             <td>
                                 [% link_entity(result.entity) %]
-                                [% disambiguation(result.entity) %]
                             </td>
                             <td>[% result.entity.sort_name %]</td>
                             <td>[% result.entity.type_name  %]</td>
