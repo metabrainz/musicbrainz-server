@@ -462,9 +462,26 @@ sub delete
     $self->tags->delete(@release_ids);
     my $sql = Sql->new($self->c->dbh);
     $sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
-        @release_ids);
+             @release_ids);
+
+    $sql->do('DELETE FROM medium WHERE release IN ('. placeholders(@release_ids) . ')',
+             @release_ids);
+
+    my @orphaned_tracklists = @{
+        $sql->select_single_column_array(
+            'SELECT tracklist.id FROM tracklist
+          LEFT JOIN medium ON medium.tracklist = tracklist.id
+              WHERE medium.id IS NULL'
+        )
+    };
+    $sql->do('DELETE FROM track WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+             @orphaned_tracklists);
+    $sql->do('DELETE FROM tracklist WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+             @orphaned_tracklists);
+
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
-        @release_ids);
+             @release_ids);
+
     return;
 }
 
