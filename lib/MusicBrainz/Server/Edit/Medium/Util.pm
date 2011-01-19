@@ -48,11 +48,11 @@ sub tracklist_foreign_keys {
         } @$tracklist
     };
 
-    $fk->{Recording} = {
+    $fk->{Recording} = [
         map {
             $_->{recording_id}
         } @$tracklist
-    };
+    ];
 }
 
 sub track {
