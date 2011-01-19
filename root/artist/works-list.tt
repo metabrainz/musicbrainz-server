@@ -11,7 +11,7 @@
     </thead>
     <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
         [%- FOR work=works -%]
-        <tr>
+        <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% rdfa_made_work_link(work) %]</td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(work.artist_credit) %]</td>
