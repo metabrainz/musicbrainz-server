@@ -38,7 +38,7 @@ is( $rls->[2]->catalog_number, "ABC-123" );
 is( $rls->[3]->release->id, 1 );
 is( $rls->[3]->catalog_number, "ABC-123-X" );
 
-my $sql = Sql->new($test->c->dbh);
+my $sql = $test->c->sql;
 $sql->begin;
 
 $rl_data->merge_labels(1, 2);

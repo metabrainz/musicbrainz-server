@@ -6,13 +6,22 @@ use Test::Fatal;
 
 use MusicBrainz::Server::Test;
 
-with 't::Context';
+around 'run_test' => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($self->c, '+watch');
+    $self->$orig(@_);
+};
+
+with 't::Context' => {
+    initial_sql => '+watch'
+};
 
 around '_build_context' => sub {
     my $orig = shift;
     my $self = shift;
     my $c = $self->$orig;
-    MusicBrainz::Server::Test->prepare_test_database($c, '+watch');
     return $c;
 };
 
@@ -20,7 +29,7 @@ has sql => (
     is => 'ro',
     lazy => 1,
     default => sub {
-        Sql->new(shift->c->dbh);
+        shift->c->sql
     }
 );
 

@@ -33,14 +33,14 @@ sub _get_by_keys
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ")";
     my $sql = $self->sql;
-    $sql->select($query, @ids);
+    $self->sql->select($query, @ids);
     my %result;
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $result{$obj->id} = $obj;
     }
-    $sql->finish;
+    $self->sql->finish;
     return \%result;
 }
 

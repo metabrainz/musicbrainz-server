@@ -67,10 +67,8 @@ is(keys %names, 2);
 is($names{'Dancing Queen'}, 1);
 ok($names{'Traits'} > 1);
 
-my $sql = Sql->new($test->c->dbh);
-my $raw_sql = Sql->new($test->c->raw_dbh);
-$sql->begin;
-$raw_sql->begin;
+$test->c->sql->begin;
+$test->c->raw_sql->begin;
 
 $work = $work_data->insert({
         name => 'Traits',
@@ -103,9 +101,8 @@ $work_data->delete($work->id);
 $work = $work_data->get_by_id($work->id);
 ok(!defined $work);
 
-$raw_sql->commit;
-$sql->commit;
-
+$test->c->raw_sql->commit;
+$test->c->sql->commit;
 
 # Both #1 and #2 are in the DB
 $work = $work_data->get_by_id(1);
@@ -114,11 +111,11 @@ $work = $work_data->get_by_id(2);
 ok(defined $work);
 
 # Merge #2 into #1
-$sql->begin;
-$raw_sql->begin;
+$test->c->sql->begin;
+$test->c->raw_sql->begin;
 $work_data->merge(1, 2);
-$sql->commit;
-$raw_sql->commit;
+$test->c->sql->commit;
+$test->c->raw_sql->commit;
 
 # Only #1 is now in the DB
 $work = $work_data->get_by_id(1);

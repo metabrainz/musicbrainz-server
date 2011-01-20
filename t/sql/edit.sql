@@ -1,8 +1,8 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
-TRUNCATE edit CASCADE;
-TRUNCATE edit_artist CASCADE;
-TRUNCATE edit_label CASCADE;
+
+
+
 
 INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (1, 1, 123, 1, '{ "key": "value" }', NOW());
@@ -26,4 +26,4 @@ INSERT INTO edit_label (edit, label) VALUES (2, 1);
 
 SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));
 
-COMMIT;
+

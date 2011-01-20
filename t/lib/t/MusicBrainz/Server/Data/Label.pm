@@ -56,10 +56,8 @@ is(keys %names, 2);
 is($names{'Warp Records'}, 1);
 ok($names{'RAM Records'} > 1);
 
-my $sql = Sql->new($test->c->dbh);
-my $sql_raw = Sql->new($test->c->raw_dbh);
-$sql->begin;
-$sql_raw->begin;
+$test->c->sql->begin;
+$test->c->raw_sql->begin;
 
 $label = $label_data->insert({
         name => 'RAM Records',
@@ -113,8 +111,8 @@ ok(!defined $label, "label merged");
 $label = $label_data->get_by_id(3);
 ok(defined $label, "label merged");
 
-$sql_raw->commit;
-$sql->commit;
+$test->c->raw_sql->commit;
+$test->c->sql->commit;
 
 };
 

@@ -165,7 +165,7 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $data = $sql->select_list_of_lists(
+			my $data = $self->sql->select_list_of_lists(
 				"SELECT status, COUNT(*) FROM edit GROUP BY status",
 			);
 
@@ -261,7 +261,7 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $data = $sql->select_list_of_lists(
+			my $data = $self->sql->select_list_of_lists(
 				"SELECT vote, COUNT(*) FROM vote GROUP BY vote",
 			);
 
@@ -308,13 +308,13 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $threshold_id = $sql->select_single_value(
+			my $threshold_id = $self->sql->select_single_value(
 				"SELECT MAX(id) FROM edit
 				WHERE open_time <= (now() - interval '7 days')",
 			);
 
 			# Active voters
-			my $voters = $sql->select_single_value(
+			my $voters = $self->sql->select_single_value(
 				"SELECT COUNT(DISTINCT editor)
 				FROM vote
 				WHERE edit > ?
@@ -324,7 +324,7 @@ my %stats = (
 			);
 
 			# Editors
-			my $editors = $sql->select_single_value(
+			my $editors = $self->sql->select_single_value(
 				"SELECT COUNT(DISTINCT editor)
 				FROM edit
 				WHERE id > ?
@@ -334,7 +334,7 @@ my %stats = (
 			);
 
 			# Either
-			my $both = $sql->select_single_value(
+			my $both = $self->sql->select_single_value(
 				"SELECT COUNT(DISTINCT m) FROM (
 					SELECT editor AS m
 					FROM edit
@@ -416,7 +416,7 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $data = $sql->select_single_row_array(
+			my $data = $self->sql->select_single_row_array(
 				"SELECT COUNT(*), SUM(rating_count) FROM artist_meta WHERE rating_count > 0",
 			);
 
@@ -436,7 +436,7 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $data = $sql->select_single_row_array(
+			my $data = $self->sql->select_single_row_array(
 				"SELECT COUNT(*), SUM(rating_count) FROM release_group_meta WHERE rating_count > 0",
 			);
 
@@ -456,7 +456,7 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $data = $sql->select_single_row_array(
+			my $data = $self->sql->select_single_row_array(
 				"SELECT COUNT(*), SUM(rating_count) FROM recording_meta WHERE rating_count > 0",
 			);
 
@@ -476,7 +476,7 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $data = $sql->select_single_row_array(
+			my $data = $self->sql->select_single_row_array(
 				"SELECT COUNT(*), SUM(rating_count)	FROM label_meta WHERE rating_count > 0",
 			);
 
@@ -522,7 +522,7 @@ my %stats = (
 
 			my $max_dist_tail = 10;
 
-			my $data = $sql->select_list_of_lists(
+			my $data = $self->sql->select_list_of_lists(
 				"SELECT c, COUNT(*) AS freq
 				FROM (
 					SELECT medium, COUNT(*) AS c
@@ -559,7 +559,7 @@ my %stats = (
 		CALC => sub {
 			my ($self, $sql) = @_;
 
-			my $data = $sql->select_list_of_lists(
+			my $data = $self->sql->select_list_of_lists(
 				"SELECT quality, COUNT(*) FROM release GROUP BY quality",
 			);
 
@@ -599,7 +599,7 @@ my %stats = (
 
 			my $max_dist_tail = 10;
 
-			my $data = $sql->select_list_of_lists(
+			my $data = $self->sql->select_list_of_lists(
 				"SELECT c, COUNT(*) AS freq
 				FROM (
 					SELECT puid, COUNT(*) AS c
@@ -636,7 +636,7 @@ my %stats = (
 
 			my $max_dist_tail = 10;
 
-			my $data = $sql->select_list_of_lists(
+			my $data = $self->sql->select_list_of_lists(
 				"SELECT c, COUNT(*) AS freq
 				FROM (
 					SELECT recording, COUNT(*) AS c
@@ -677,7 +677,7 @@ my %stats = (
 
 			for my $t ($self->c->model('Relationship')->all_pairs) {
                 my $table = join('_', 'l', @$t);
-				my $n = $sql->select_single_value(
+				my $n = $self->sql->select_single_value(
                     "SELECT count(*) FROM $table");
 				$r{"count.ar.links.$table"} = $n;
 				$r{'count.ar.links'} += $n;
@@ -713,7 +713,7 @@ sub recalculate {
             : die "Unknown database: $db";
 
     if (my $query = $definition->{SQL}) {
-        my $value = $sql->select_single_value($query);
+        my $value = $self->sql->select_single_value($query);
 		$self->insert($statistic => $value);
 		return;
     }

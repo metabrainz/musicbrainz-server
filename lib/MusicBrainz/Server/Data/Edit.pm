@@ -33,6 +33,8 @@ sub _dbh
     return shift->c->raw_dbh;
 }
 
+sub sql { return shift->c->raw_sql }
+
 sub _new_from_row
 {
     my ($self, $row) = @_;
@@ -76,7 +78,7 @@ sub get_by_id_and_lock
         "WHERE id = ? FOR UPDATE NOWAIT";
 
     my $sql = Sql->new($self->_dbh);
-    my $row = $sql->select_single_row_hash($query, $id);
+    my $row = $self->sql->select_single_row_hash($query, $id);
     return unless defined $row;
 
     my $edit = $self->_new_from_row($row);
@@ -88,7 +90,7 @@ sub get_max_id
     my ($self) = @_;
 
     my $sql = Sql->new($self->c->raw_dbh);
-    return $sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
+    return $self->sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
                                     LIMIT 1");
 }
 
@@ -131,7 +133,7 @@ sub find
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
     $query .= ' ORDER BY id DESC OFFSET ?';
 
-    return query_to_list_limited($self->c->raw_dbh, $offset, $limit, sub {
+    return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
         }, $query, @args, $offset);
 }
@@ -144,7 +146,7 @@ sub find_for_subscription
                       WHERE id > ? AND editor = ?';
 
         return query_to_list(
-            $self->c->raw_dbh,
+            $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
             $subscription->subscribed_editor_id
@@ -156,7 +158,7 @@ sub find_for_subscription
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
             "   AND id > ?";
         return query_to_list(
-            $self->c->raw_dbh,
+            $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->target_id, $subscription->last_edit_sent);
     }
@@ -166,10 +168,10 @@ sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->raw_dbh);
-    $sql->do("DELETE FROM edit_$type
+    $self->sql->do("DELETE FROM edit_$type
               WHERE edit IN (SELECT edit FROM edit_$type WHERE $type = ?) AND
                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-    $sql->do("UPDATE edit_$type SET $type = ?
+    $self->sql->do("UPDATE edit_$type SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
@@ -312,7 +314,7 @@ sub create
         if ($edit->is_open) {
             $edit->adjust_edit_pending(+1);
         }
-    }, $sql, $sql_raw);
+    }, $self->c->sql, $self->c->sql_raw);
 
     return $edit;
 }
@@ -390,7 +392,7 @@ sub approve
         $edit = $self->get_by_id_and_lock($edit->id);
         # Apply the changes and close the edit
         $self->accept($edit);
-    }, $sql, $sql_raw);
+    }, $self->c->sql, $self->c->raw_sql);
 }
 
 sub _do_accept
@@ -457,7 +459,7 @@ sub cancel
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
         $sql_raw->do($query, $STATUS_TOBEDELETED, $edit->id);
         $edit->adjust_edit_pending(-1);
-   }, $sql, $sql_raw);
+   }, $self->c->sql, $self->c->raw_sql);
 }
 
 sub _close

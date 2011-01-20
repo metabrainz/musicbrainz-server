@@ -35,28 +35,27 @@ is ( $ac->names->[1]->artist->gid, "5441c29d-3602-4898-b1a1-b77fa23b8e50" );
 is ( $ac->names->[1]->artist->name, "David Bowie" );
 is ( $ac->names->[1]->join_phrase, undef );
 
-my $sql = Sql->new($test->c->dbh);
 $ac = $artist_credit_data->find_or_insert(
     { name => 'Queen', artist => 1 }, ' & ',
     { name => 'David Bowie', artist => 2 });
 is($ac, 1);
 
-$sql->begin;
+$test->c->sql->begin;
 $ac = $artist_credit_data->find_or_insert(
     { name => 'Massive Attack', artist => 1 }, ' and ',
     { name => 'Portishead', artist => 2 });
-$sql->commit;
+$test->c->sql->commit;
 ok(defined $ac);
 ok($ac > 1);
 
-my $name = $sql->select_single_value('
+my $name = $test->c->sql->select_single_value('
     SELECT name FROM artist_name
     WHERE id=(SELECT name FROM artist_credit WHERE id=?)', $ac);
 is($name, "Massive Attack and Portishead");
 
-$sql->begin;
+$test->c->sql->begin;
 $artist_credit_data->merge_artists(3, [ 2 ]);
-$sql->commit;
+$test->c->sql->commit;
 $ac = $artist_credit_data->get_by_id(1);
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);

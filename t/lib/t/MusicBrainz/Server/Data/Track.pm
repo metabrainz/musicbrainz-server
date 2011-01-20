@@ -81,12 +81,11 @@ is($track->recording_id, 2);
 is($track->length, 500);
 is($track->name, "Test track!");
 
-my $sql = Sql->new($test->c->dbh);
 Sql::run_in_transaction(sub {
     $track_data->delete($track->id);
     $track = $track_data->get_by_id($track->id);
     ok(!defined $track);
-}, $sql);
+}, $test->c->sql);
 
 };
 

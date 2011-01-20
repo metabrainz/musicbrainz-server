@@ -26,7 +26,7 @@ sub insert
     my ($self, $tracks) = @_;
     my $sql = Sql->new($self->c->dbh);
     # track_count is 0 because the trigger will increment it
-    my $id = $sql->insert_row('tracklist', { track_count => 0 }, 'id');
+    my $id = $self->sql->insert_row('tracklist', { track_count => 0 }, 'id');
     $self->_add_tracks($id, $tracks);
     $self->c->model('DurationLookup')->update($id);
     my $class = $self->_entity_class;
@@ -38,9 +38,9 @@ sub delete
     my ($self, @tracklist_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM track WHERE tracklist IN (' . placeholders(@tracklist_ids). ')';
-    $sql->do($query, @tracklist_ids);
+    $self->sql->do($query, @tracklist_ids);
     $query = 'DELETE FROM tracklist WHERE id IN ('. placeholders(@tracklist_ids) . ')';
-    $sql->do($query, @tracklist_ids);
+    $self->sql->do($query, @tracklist_ids);
 }
 
 sub replace

@@ -38,23 +38,29 @@ is ($count, 4, "tag count is four");
 my ($tags, $hits) = $tag_data->find_tags(4, 100, 0);
 is( scalar(@$tags), 4 );
 
-my $sql = Sql->new($test->c->dbh);
-my $raw_sql = Sql->new($test->c->raw_dbh);
-
-$sql->begin;
-$raw_sql->begin;
+$test->c->sql->begin;
+$test->c->raw_sql->begin;
 $tag_data->delete(4);
-$sql->commit;
-$raw_sql->commit;
+$test->c->sql->commit;
+$test->c->raw_sql->commit;
 
 @tags = $tag_data->find_top_tags(4, 2);
 is( scalar(@tags), 0 );
 
+};
+
+test retest => sub {
+
+my $test = shift;
+
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+tag');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+tag_raw');
 
+my $tag_data = MusicBrainz::Server::Data::EntityTag->new(
+    c => $test->c, type => 'artist', tag_table => 'artist_tag');
+
 # Artists tagged with 'musical'
-($tags, $hits) = $test->c->model('Artist')->tags->find_entities(1, 10, 0);
+my ($tags, $hits) = $test->c->model('Artist')->tags->find_entities(1, 10, 0);
 is($hits, 2);
 is(scalar(@$tags), 2);
 is($tags->[0]->count, 5);
@@ -80,11 +86,11 @@ is($tags->[1]->entity->name, 'Artist 1');
 #     (3, 4, 5)
 #     (4, 4, 2)
 
-$sql->begin;
-$raw_sql->begin;
+$test->c->sql->begin;
+$test->c->raw_sql->begin;
 $tag_data->merge(3, 4);
-$sql->commit;
-$raw_sql->commit;
+$test->c->sql->commit;
+$test->c->raw_sql->commit;
 
 #     (1, 3, 1)
 #     (1, 3, 2)
@@ -99,7 +105,7 @@ $raw_sql->commit;
 #     (3, 3, 5)
 #     (4, 3, 2)
 
-@tags = $tag_data->find_top_tags(3, 10);
+my @tags = $tag_data->find_top_tags(3, 10);
 is( scalar(@tags), 4 );
 is( $tags[0]->tag->name, 'musical' );
 is( $tags[0]->count, 5 );
@@ -153,7 +159,7 @@ is( $tags[3]->count, 1 );
 is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
-$tags = $raw_sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
+$tags = $test->c->raw_sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
 is_deeply([5], $tags);
 
 };

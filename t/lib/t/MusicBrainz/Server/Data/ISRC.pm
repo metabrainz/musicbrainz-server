@@ -31,7 +31,7 @@ is($isrcs[1]->isrc, 'DEE250800231');
 @isrcs = $test->c->model('ISRC')->find_by_recording([1, 2]);
 is(scalar @isrcs, 3);
 
-my $sql = Sql->new($test->c->dbh);
+my $sql = $test->c->sql;
 $sql->begin;
 $test->c->model('ISRC')->merge_recordings(1, 2);
 $sql->commit;

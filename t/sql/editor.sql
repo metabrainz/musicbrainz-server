@@ -1,11 +1,11 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE editor CASCADE;
-TRUNCATE editor_preference;
-TRUNCATE editor_subscribe_editor;
-TRUNCATE list CASCADE;
-TRUNCATE list_release CASCADE;
+
+
+
+
+
 
 INSERT INTO editor (id, name, password, privs, email, website, bio, member_since,
         email_confirm_date, last_login_date, edits_accepted, edits_rejected,
@@ -33,4 +33,4 @@ INSERT INTO list (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-
 INSERT INTO list_release (list, release)
     VALUES (1, 1), (1, 2);
 
-COMMIT;
+

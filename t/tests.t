@@ -27,26 +27,28 @@ my @classes = qw(
     t::MusicBrainz::Server::Entity::SearchResult
     t::MusicBrainz::Server::Entity::WikiDocPage
     t::MusicBrainz::Server::Entity::Work
+);
 
-    t::MusicBrainz::Server::Data::Artist
+my @data_tests = qw(
     t::MusicBrainz::Server::Data::Alias
+    t::MusicBrainz::Server::Data::Artist
     t::MusicBrainz::Server::Data::ArtistCredit
     t::MusicBrainz::Server::Data::ArtistType
     t::MusicBrainz::Server::Data::CDStub
+    t::MusicBrainz::Server::Data::CoverArt
     t::MusicBrainz::Server::Data::CDTOC
     t::MusicBrainz::Server::Data::CoreEntityCache
     t::MusicBrainz::Server::Data::Country
-    t::MusicBrainz::Server::Data::CoverArt
     t::MusicBrainz::Server::Data::DurationLookup
     t::MusicBrainz::Server::Data::EditNote
     t::MusicBrainz::Server::Data::EntityCache
     t::MusicBrainz::Server::Data::Gender
     t::MusicBrainz::Server::Data::ISRC
-    t::MusicBrainz::Server::Data::LabelType
     t::MusicBrainz::Server::Data::Label
+    t::MusicBrainz::Server::Data::LabelType
     t::MusicBrainz::Server::Data::Language
-    t::MusicBrainz::Server::Data::LinkAttributeType
     t::MusicBrainz::Server::Data::Link
+    t::MusicBrainz::Server::Data::LinkAttributeType
     t::MusicBrainz::Server::Data::LinkType
     t::MusicBrainz::Server::Data::Medium
     t::MusicBrainz::Server::Data::MediumFormat
@@ -63,12 +65,12 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::URL
     t::MusicBrainz::Server::Data::Utils
     t::MusicBrainz::Server::Data::WatchArtist
-    t::MusicBrainz::Server::Data::WikiDocIndex
     t::MusicBrainz::Server::Data::WikiDoc
+    t::MusicBrainz::Server::Data::WikiDocIndex
     t::MusicBrainz::Server::Data::Work
     t::MusicBrainz::Server::Data::WorkType
 );
 
-run_tests($_ => $_) for (qw( t::MusicBrainz::Server::Data::WorkType ));
+run_tests($_ => $_) for (@data_tests);
 
 done_testing;

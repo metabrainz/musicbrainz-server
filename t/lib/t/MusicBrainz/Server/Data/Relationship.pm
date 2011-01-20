@@ -67,12 +67,12 @@ is( scalar($recording1->all_relationships), 2 );
 is( $recording1->relationships->[0]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
 is( $recording1->relationships->[1]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
 
-my $sql = Sql->new($test->c->dbh);
+my $sql = $test->c->sql;
 $sql->begin;
 $sql->do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
 # Merge ARs for artist #2 to #1
 $rel_data->merge_entities('artist', 1, 2);
-$sql->commit;
+$test->c->sql->commit;
 
 $artist1->clear_relationships;
 $artist2->clear_relationships;

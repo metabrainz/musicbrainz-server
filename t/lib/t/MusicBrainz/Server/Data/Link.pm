@@ -5,7 +5,6 @@ use Test::More;
 
 use_ok 'MusicBrainz::Server::Data::Link';
 
-use Sql;
 use MusicBrainz::Server::Test;
 
 with 't::Context';
@@ -14,8 +13,6 @@ test all => sub {
 
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
-
-my $sql = Sql->new($test->c->dbh);
 
 my $link_id = $test->c->model('Link')->find_or_insert({
     link_type_id => 1,
@@ -35,14 +32,14 @@ $link_id = $test->c->model('Link')->find_or_insert({
 });
 is($link_id, 2);
 
-$sql->begin;
+$test->c->sql->begin;
 $link_id = $test->c->model('Link')->find_or_insert({
     link_type_id => 1,
     begin_date => { year => 2009 },
     end_date => { year => 2010 },
     attributes => [ 1, 3 ],
 });
-$sql->commit;
+$test->c->sql->commit;
 is($link_id, 100);
 
 my $link = $test->c->model('Link')->get_by_id(100);

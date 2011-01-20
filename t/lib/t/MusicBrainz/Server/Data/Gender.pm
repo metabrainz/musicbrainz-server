@@ -39,7 +39,7 @@ is(@gs, 2);
 is($gs[0]->id, 1);
 is($gs[1]->id, 2);
 
-my $sql = Sql->new($test->c->dbh);
+my $sql = $test->c->sql;
 $sql->begin;
 
 my $new_gender = $gender_data->insert({ name => 'Unknown' });

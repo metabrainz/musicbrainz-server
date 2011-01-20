@@ -26,8 +26,8 @@ is ( $url->description, "MusicBrainz" );
 is ( $url->edits_pending, 0 );
 is ( $url->reference_count, 2 );
 
-my $sql = Sql->new($test->c->dbh);
-my $raw_sql = Sql->new($test->c->raw_dbh);
+my $sql = $test->c->sql;
+my $raw_sql = $test->c->raw_sql;
 $sql->begin;
 $raw_sql->begin;
 

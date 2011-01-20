@@ -1,15 +1,15 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE link_type CASCADE;
-TRUNCATE link CASCADE;
-TRUNCATE l_artist_artist CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_name CASCADE;
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 
@@ -42,4 +42,4 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 ALTER SEQUENCE l_artist_artist_id_seq RESTART 2;
 ALTER SEQUENCE link_id_seq RESTART 2;
 
-COMMIT;
+

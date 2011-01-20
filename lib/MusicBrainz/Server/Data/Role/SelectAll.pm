@@ -19,7 +19,7 @@ role
         my $query = "SELECT " . $self->_columns . 
                     " FROM " . $self->_table .
                     " ORDER BY " . (join ", ", @{ $p->order_by });
-        return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query);
+        return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
     };
 };
 

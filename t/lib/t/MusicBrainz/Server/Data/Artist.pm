@@ -19,8 +19,8 @@ my $test = shift;
 
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_artist');
 
-my $sql = Sql->new($test->c->dbh);
-my $raw_sql = Sql->new($test->c->raw_dbh);
+my $sql = $test->c->sql;
+my $raw_sql = $test->c->raw_sql;
 $sql->begin;
 $raw_sql->begin;
 
@@ -237,6 +237,9 @@ my $rec = $test->c->model('Recording')->insert({
 });
 
 ok(!$artist_data->can_delete(1));
+
+$sql->commit;
+$raw_sql->commit;
 
 };
 

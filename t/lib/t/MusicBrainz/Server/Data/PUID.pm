@@ -36,7 +36,7 @@ is(scalar @puids, 2);
 is($puids[0]->puid->puid, '134478d1-306e-41a1-8b37-ff525e53c8be');
 is($puids[1]->puid->puid, 'be42c064-91ba-4e0d-8841-085fb9ab8b17');
 
-my $sql = Sql->new($test->c->dbh);
+my $sql = $test->c->sql;
 $sql->begin;
 $test->c->model('RecordingPUID')->merge_recordings(1, 2);
 $sql->commit;

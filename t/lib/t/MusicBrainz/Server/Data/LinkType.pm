@@ -15,7 +15,7 @@ test all => sub {
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
 
-my $sql = Sql->new($test->c->dbh);
+my $sql = $test->c->sql;
 
 my $link_type = $test->c->model('LinkType')->get_by_id(1);
 is($link_type->id, 1);

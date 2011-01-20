@@ -23,14 +23,14 @@ is ( $date->month, 1 );
 is ( $date->day, 2 );
 
 my @result = MusicBrainz::Server::Data::Utils::query_to_list(
-    $test->c->dbh, sub { $_[0] }, "SELECT * FROM artist_type
+    $test->c->sql, sub { $_[0] }, "SELECT * FROM artist_type
                         WHERE id IN (1, 2) ORDER BY id");
 is ( scalar(@result), 2 );
 is ( $result[0]->{id}, 1 );
 is ( $result[1]->{id}, 2 );
 
 my ($result, $hits) = MusicBrainz::Server::Data::Utils::query_to_list_limited(
-    $test->c->dbh, 0, 1, sub { $_[0] }, "SELECT * FROM artist_type
+    $test->c->sql, 0, 1, sub { $_[0] }, "SELECT * FROM artist_type
                               WHERE id IN (1, 2) ORDER BY id");
 @result = @{$result};
 is ( scalar(@result), 1 );

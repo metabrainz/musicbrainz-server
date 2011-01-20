@@ -184,7 +184,7 @@ sub find_outdated_releases
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
     my $sql = Sql->new($self->c->dbh);
-    return query_to_list($self->c->dbh, sub {
+    return query_to_list($self->c->sql, sub {
         my $row = shift;
         # Construction of these rows is slow, so this is lazy
         return sub {
@@ -226,9 +226,9 @@ sub cache_cover_art
     };
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->update_row('release_meta', $meta_update, { id => $release->id })
+    $self->sql->update_row('release_meta', $meta_update, { id => $release->id })
         if keys %$meta_update;
-    $sql->update_row('release_coverart', $cover_update, { id => $release->id });
+    $self->sql->update_row('release_coverart', $cover_update, { id => $release->id });
 }
 
 sub parse_from_type_url

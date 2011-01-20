@@ -22,8 +22,7 @@ my $test = shift;
 
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+artistalias');
 
-my $sql = Sql->new($test->c->dbh);
-$sql->begin;
+$test->c->sql->begin;
 
 # Artist data should do the alias role
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
@@ -95,7 +94,7 @@ is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
 is($alias_set->[0]->locale, 'en_AU');
 
-$sql->commit;
+$test->c->sql->commit;
 
 # Make sure other data types support aliases
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);

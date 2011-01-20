@@ -53,7 +53,7 @@ is( $results->[1]->position, 1 );
 ok( !$medium_data->load() );
 
 # Test editing mediums
-my $sql = Sql->new($test->c->dbh);
+my $sql = $test->c->sql;
 $sql->begin;
 
 $medium_data->update(1, {

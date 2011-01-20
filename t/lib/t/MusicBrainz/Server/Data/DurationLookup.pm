@@ -16,8 +16,8 @@ test all => sub {
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_durationlookup');
 
-my $sql = Sql->new($test->c->dbh);
-my $raw_sql = Sql->new($test->c->raw_dbh);
+my $sql = $test->c->sql;
+my $raw_sql = $test->c->raw_sql;
 
 my $lookup_data = MusicBrainz::Server::Data::DurationLookup->new(c => $test->c);
 does_ok($lookup_data, 'MusicBrainz::Server::Data::Role::Context');
