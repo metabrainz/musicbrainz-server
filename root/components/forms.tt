@@ -197,7 +197,7 @@
               <input type="text" class="name" value="[% artist.name | html %]" />
               <img class="search" src="/static/images/icons/search.png" />
               <input type="hidden" class="gid" value="[% artist.gid %]" />
-              <input type="hidden" class="sortname" value="[% artist.sort_name %]" />
+              <input type="hidden" class="sortname" value="[% artist.sort_name | html %]" />
               [%- r.hidden (ac.field('artist_id'), class => 'id') -%]
             </span>
 

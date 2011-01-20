@@ -51,6 +51,8 @@
             </tr>
         </table>
 
+        [% field_errors(form, 'url') %]
+
     </fieldset>
 
     [% INCLUDE 'forms/edit-note.tt' %]
