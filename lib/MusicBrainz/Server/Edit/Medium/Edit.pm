@@ -141,8 +141,9 @@ sub accept {
         # See if we need a new tracklist
         if ($self->data->{separate_tracklists} &&
                 $self->c->model('Tracklist')->usage_count($medium->tracklist_id) > 1) {
+
             my $new_tracklist = $self->c->model('Tracklist')->find_or_insert(
-                $self->data->{new_tracklist}
+                $data_new_tracklist
             );
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
