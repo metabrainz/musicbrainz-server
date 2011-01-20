@@ -12,14 +12,17 @@
     </thead>
     <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
         [%- FOR work=works -%]
-        <tr>
+        <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
             [% IF c.user_exists %]
             <td>
                 <input type="checkbox" name="add-to-merge"
                     value="[% work.id %]" />
             </td>
             [% END %]
-            <td>[% rdfa_made_work_link(work) %]</td>
+            <td>
+              [% rdfa_made_work_link(work) %]
+              [% disambiguation(work) %]
+            </td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(work.artist_credit) %]</td>
             [%- END -%]

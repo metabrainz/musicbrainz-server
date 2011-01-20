@@ -1,1 +1,32 @@
-results-release_group.tt
+[% WRAPPER "layout.tt" title=l("Search Results") full_width=1 %]
+    <div id="content">
+        <h1>[% l("Search Results") %]</h1>
+        [%- IF results.size -%]
+            [% WRAPPER 'components/with-pager.tt' search=1 %]
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>[% l('Score') %]</th>
+                            <th>[% l('Release Group') %]</th>
+                            <th>[% l('Artist') %]</th>
+                            <th>[% l('Type') %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [%- FOR result=results -%]
+                        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                            <td>[% result.score %]</td>
+                            <td>[% link_entity(result.entity) %]</td>
+                            <td>[% artist_credit(result.entity.artist_credit) %]</td>
+                            <td>[% result.entity.type.name %]</td>
+                        </tr>
+                        [%- END -%]
+                    </tbody>
+                </table>
+            [% END %]
+        [%- ELSE -%]
+            <p>[% l('No results found') %]</p>
+        [%- END -%]
+        [%- INCLUDE "search/form.tt" -%]
+    </div>
+[% END %]
