@@ -140,8 +140,8 @@
             <span class="artist autocomplete">
               <img class="search" src="/static/images/icons/search.png" />
               <input type="text" class="name" value="[% artist.name | html %]" />
-              <input type="hidden" class="gid" value="[% artist.gid %]" />
-              <input type="hidden" class="sortname" value="[% artist.sort_name %]" />
+              <input type="hidden" class="gid" value="[% artist.gid | html %]" />
+              <input type="hidden" class="sortname" value="[% artist.sort_name | html %]" />
               [%- r.hidden (ac.field('artist_id'), class => 'id') -%]
             </span>
 

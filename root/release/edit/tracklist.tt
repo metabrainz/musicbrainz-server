@@ -74,16 +74,16 @@
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
           <img class="search" src="/static/images/icons/search.png" />
-          <input type="text" class="name" value="[% artist.name %]" />
+          <input type="text" class="name" value="[% artist.name | html %]" />
         </span>
-        <input type="hidden" class="gid" value="[% artist.gid %]" />
+        <input type="hidden" class="gid" value="[% artist.gid | html %]" />
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </td>
       <td class="artistcredit">
-        <input type="text" class="credit" value="[% ac.field('name').value %]" />
+        <input type="text" class="credit" value="[% ac.field('name').value | html %]" />
       </td>
       <td class="joinphrase">
-        <input type="text" class="join" value="[% ac.field('join_phrase').value %]" />
+        <input type="text" class="join" value="[% ac.field('join_phrase').value | html %]" />
       </td>
       <td class="icon">
         <input type="button" class="icon remove-artist-credit"
@@ -225,10 +225,10 @@
     [% information = w.page ('information') %]
     [% release_artist = information.field('artist_credit') %]
     <input type="hidden" name="various-artists" class="various-artists" id="various-artists"
-        value="[% information.field('various_artists').value %]" />
+        value="[% information.field('various_artists').value | html %]" />
 
-    <h3>[% information.field('name').value %]</h3>
-    <p>by [% release_artist.fif.name %]</p>
+    <h3>[% information.field('name').value | html %]</h3>
+    <p>by [% release_artist.fif.name | html %]</p>
 
     <div id="preview"> </div>
 
@@ -256,7 +256,7 @@
         <td class="artist autocomplete">
           <span class="autocomplete" style="width: 100%">
             <img class="search" src="/static/images/icons/search.png" style="top: 1px;"  />
-            <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
+            <input type="text" class="track-artist" value="[% release_artist.fif.name | html %]" />
           </span>
         </td>
         <td class="credits-button">

@@ -33,7 +33,7 @@
 
       <p>
         Search:
-        <input type="text" class="recording" value="[% IF track %][% track.name %][% END %]" />
+        <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
       </p>
 
       <table class="matches">
@@ -69,10 +69,10 @@
             </td>
             [%- IF recording -%][%# FIXME: is this neccesary? %]
               <td class="recording">
-                <input type="hidden" class="gid" value="[% recording.gid %]" />
+                <input type="hidden" class="gid" value="[% recording.gid | html %]" />
                 [% link_entity (recording) %]
               </td>
-              <td class="artist">[% recording.artist_credit.name %]</td>
+              <td class="artist">[% recording.artist_credit.name | html %]</td>
               <td class="length">[% recording.length | format_length %]</td>
             [%- ELSE -%]
               <td class="recording">
@@ -108,7 +108,7 @@
             [%- UNLESS recording.comment %] style="display: none"[% END %]>
             <td> </td>
             <td colspan="3">
-              [%- l('comment:') %]<span class="comment">[%- recording.comment -%]</span>
+              [%- l('comment:') %]<span class="comment">[%- recording.comment | html -%]</span>
             </td>
           </tr>
 
@@ -171,8 +171,8 @@
       </table>
 
       <p>
-        <strong>[%- information.field('name').value -%]</strong><br />
-        by [%- information.field('artist_credit').fif.name -%]
+        <strong>[%- information.field('name').value | html -%]</strong><br />
+        by [%- information.field('artist_credit').fif.name | html -%]
       </p>
 
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]
@@ -186,9 +186,9 @@
         <legend>
           [%- IF medium.field('name').value -%]
             [%- IF multidisc -%]
-              [%- l('Disc {num}: {title}', { num => medium.field('position').value, title => medium.field('name').value }) -%]
+              [%- l('Disc {num}: {title}', { num => medium.field('position').value, title => html_escape(medium.field('name').value) }) -%]
             [%- ELSE -%]
-              [%- medium.field('name').value -%]
+              [%- medium.field('name').value | html -%]
             [%- END -%]
           [%- ELSE -%]
             [%- IF multidisc -%]
@@ -214,8 +214,8 @@
             [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
             [%- recording = suggestions.$medium_idx.$track_idx -%]
             <tr class="track">
-              <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position %]</td>
-              <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">[% track.name %]</td>
+              <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position | html %]</td>
+              <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">[% track.name | html %]</td>
 
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
                 [%- r.hidden (assoc.field('gid'), class => 'gid') -%]
@@ -237,14 +237,14 @@
             <tr>
               <td style="padding: 0 0.5em 0.5em 0;" class="artist">
                 [% l('by') %]
-                <span class="track-artist">[%- track.artist_credit.preview -%]</span>
+                <span class="track-artist">[%- track.artist_credit.preview | html -%]</span>
               </td>
               <td style="padding: 0 0 0.5em 0;" >
                 <span class="recording"
                   [% IF addnew %]style="display: none"[% END %]>
                   [% l('by') %]
                   <span class="recording-artist">
-                    [%- recording.artist_credit.name -%]
+                    [%- recording.artist_credit.name | html -%]
                   </span>
                 </span>
               </td>
