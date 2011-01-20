@@ -68,6 +68,8 @@ sub track {
 sub display_tracklist {
     my ($loaded, $tracklist) = @_;
 
+    $tracklist ||= [];
+
     return Tracklist->new(
         tracks => [ map {
             Track->new(
