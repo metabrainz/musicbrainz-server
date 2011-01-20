@@ -5,8 +5,8 @@ set -e
 cd mb_server
 umask 022
 exec \
-	setuidgid mbserver \
-	./script/musicbrainz_fastcgi.pl \
-		-listen 127.0.0.1:55901 \
-		-nproc 5 \
-		-keeperr \
+	setuidgid musicbrainz perl -I/home/musicbrainz/perl5/lib/perl5 \
+            ./script/musicbrainz_fastcgi.pl \
+ 		-listen 127.0.0.1:55901 \
+ 		-nproc 5 \
+		-keeperr

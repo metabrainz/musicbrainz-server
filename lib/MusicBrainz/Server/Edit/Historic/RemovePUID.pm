@@ -11,6 +11,13 @@ sub ngs_class { 'MusicBrainz::Server::Edit::PUID::Delete' }
 sub edit_name { l('Remove PUID') }
 sub edit_type { 46 }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        recording => [ $self->data->{recording_id} ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;
