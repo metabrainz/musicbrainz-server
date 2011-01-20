@@ -39,7 +39,7 @@ sub change_fields
         position => Optional[Int],
         name => Nullable[Str],
         format_id => Nullable[Int],
-        tracklist => ArrayRef[track()],
+        tracklist => Optional[ArrayRef[track()]],
     ];
 }
 
@@ -77,15 +77,22 @@ sub initialize
 sub foreign_keys {
     my $self = shift;
     my %fk;
-    if (exists $self->data->{new}{format_id}) {
-        $fk{MediumFormat} = {
-            $self->data->{new}{format_id} => [],
-            $self->data->{old}{format_id} => [],
-        }
-    }
 
-    tracklist_foreign_keys(\%fk, $_)
-        for map { $self->data->{$_}{tracklist} } qw( new old );
+    $fk{MediumFormat} = {};
+
+    $fk{MediumFormat}->{$self->data->{old}{format_id}} = []
+        if exists $self->data->{old}{format_id};
+
+    $fk{MediumFormat}->{$self->data->{new}{format_id}} = []
+        if exists $self->data->{new}{format_id};
+
+    my @tracks;
+    push @tracks, @{ $self->data->{old}{tracklist} }
+        if exists $self->data->{old}{tracklist};
+    push @tracks, @{ $self->data->{new}{tracklist} }
+        if exists $self->data->{new}{tracklist};
+
+    tracklist_foreign_keys (\%fk, \@tracks);
 
     return \%fk;
 }
@@ -129,7 +136,6 @@ sub accept {
 
     if ($self->data->{new}{tracklist}) {
         my $data_new_tracklist = clone ($self->data->{new}{tracklist});
-
         my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
 
         # Create related data (artist credits and recordings)
@@ -150,7 +156,7 @@ sub accept {
             });
         }
         else {
-            $self->c->model('Tracklist')->replace($medium->tracklist_id, 
+            $self->c->model('Tracklist')->replace($medium->tracklist_id,
                                                   $data_new_tracklist);
         }
     }
