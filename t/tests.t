@@ -69,6 +69,6 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::WorkType
 );
 
-run_tests($_ => $_) for (@classes);
+run_tests($_ => $_) for (qw( t::MusicBrainz::Server::Data::WorkType ));
 
 done_testing;

@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::Script';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+script');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+script');
 
-my $script_data = MusicBrainz::Server::Data::Script->new(c => $c);
+my $script_data = MusicBrainz::Server::Data::Script->new(c => $test->c);
 
 my $script = $script_data->get_by_id(1);
 is ( $script->id, 1 );

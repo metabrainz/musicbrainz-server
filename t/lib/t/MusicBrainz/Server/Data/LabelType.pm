@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::LabelType';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+labeltype');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+labeltype');
 
-my $lt_data = MusicBrainz::Server::Data::LabelType->new(c => $c);
+my $lt_data = MusicBrainz::Server::Data::LabelType->new(c => $test->c);
 
 my $lt = $lt_data->get_by_id(1);
 is ( $lt->id, 1 );

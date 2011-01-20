@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::Country';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+country');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+country');
 
-my $country_data = MusicBrainz::Server::Data::Country->new(c => $c);
+my $country_data = MusicBrainz::Server::Data::Country->new(c => $test->c);
 
 my $country = $country_data->get_by_id(1);
 is ( $country->id, 1 );

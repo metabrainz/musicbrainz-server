@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::Language';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+language');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+language');
 
-my $language_data = MusicBrainz::Server::Data::Language->new(c => $c);
+my $language_data = MusicBrainz::Server::Data::Language->new(c => $test->c);
 
 my $language = $language_data->get_by_id(1);
 is ( $language->id, 1 );

@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::Track';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
 
-my $track_data = MusicBrainz::Server::Data::Track->new(c => $c);
+my $track_data = MusicBrainz::Server::Data::Track->new(c => $test->c);
 
 my $track = $track_data->get_by_id(1);
 is ( $track->id, 1 );
@@ -79,7 +81,7 @@ is($track->recording_id, 2);
 is($track->length, 500);
 is($track->name, "Test track!");
 
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($test->c->dbh);
 Sql::run_in_transaction(sub {
     $track_data->delete($track->id);
     $track = $track_data->get_by_id($track->id);

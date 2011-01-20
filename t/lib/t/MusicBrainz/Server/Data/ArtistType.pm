@@ -8,12 +8,15 @@ use_ok 'MusicBrainz::Server::Data::ArtistType';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+artisttype');
+my $test = shift;
 
-my $at_data = MusicBrainz::Server::Data::ArtistType->new(c => $c);
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+artisttype');
+
+my $at_data = MusicBrainz::Server::Data::ArtistType->new(c => $test->c);
 
 my $at = $at_data->get_by_id(1);
 is ( $at->id, 1 );

@@ -8,13 +8,15 @@ use_ok 'MusicBrainz::Server::Data::EntityTag';
 use Sql;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+tag');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+tag');
 
 my $tag_data = MusicBrainz::Server::Data::EntityTag->new(
-    c => $c, type => 'artist', tag_table => 'artist_tag');
+    c => $test->c, type => 'artist', tag_table => 'artist_tag');
 
 my @tags = $tag_data->find_top_tags(3, 2);
 is( scalar(@tags), 2 );
@@ -36,8 +38,8 @@ is ($count, 4, "tag count is four");
 my ($tags, $hits) = $tag_data->find_tags(4, 100, 0);
 is( scalar(@$tags), 4 );
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
+my $sql = Sql->new($test->c->dbh);
+my $raw_sql = Sql->new($test->c->raw_dbh);
 
 $sql->begin;
 $raw_sql->begin;
@@ -48,11 +50,11 @@ $raw_sql->commit;
 @tags = $tag_data->find_top_tags(4, 2);
 is( scalar(@tags), 0 );
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+tag');
-MusicBrainz::Server::Test->prepare_raw_test_database($c, '+tag_raw');
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+tag');
+MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+tag_raw');
 
 # Artists tagged with 'musical'
-($tags, $hits) = $c->model('Artist')->tags->find_entities(1, 10, 0);
+($tags, $hits) = $test->c->model('Artist')->tags->find_entities(1, 10, 0);
 is($hits, 2);
 is(scalar(@$tags), 2);
 is($tags->[0]->count, 5);

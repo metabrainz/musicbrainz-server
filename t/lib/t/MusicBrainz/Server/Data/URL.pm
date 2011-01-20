@@ -9,12 +9,14 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Sql;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+url');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+url');
 
-my $url_data = MusicBrainz::Server::Data::URL->new(c => $c);
+my $url_data = MusicBrainz::Server::Data::URL->new(c => $test->c);
 
 my $url = $url_data->get_by_id(1);
 is ( $url->id, 1 );
@@ -24,8 +26,8 @@ is ( $url->description, "MusicBrainz" );
 is ( $url->edits_pending, 0 );
 is ( $url->reference_count, 2 );
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
+my $sql = Sql->new($test->c->dbh);
+my $raw_sql = Sql->new($test->c->raw_dbh);
 $sql->begin;
 $raw_sql->begin;
 

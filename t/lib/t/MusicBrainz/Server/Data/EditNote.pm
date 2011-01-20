@@ -28,6 +28,8 @@ BEGIN {
     *DBDefs::WEB_SERVER = sub { "localhost" };
 }
 
+with 't::Context';
+
 test all => sub {
 
 my $raw_sql = <<'RAWSQL';
@@ -60,15 +62,15 @@ ALTER SEQUENCE edit_note_id_seq RESTART 4;
 
 RAWSQL
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
-MusicBrainz::Server::Test->prepare_raw_test_database($c, $raw_sql);
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
+MusicBrainz::Server::Test->prepare_raw_test_database($test->c, $raw_sql);
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("MockEdit");
 
-my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
-my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $c);
+my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
 
 # Multiple edit edit_notes
 my $edit = $edit_data->get_by_id(1);
@@ -112,7 +114,7 @@ check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
         text => 'This is a new edit note');
 
 # Make sure we can insert edit notes while already in a transaction
-my $sql = Sql->new($c->raw_dbh);
+my $sql = Sql->new($test->c->raw_dbh);
 $sql->begin;
 lives_ok {
     $en_data->insert($edit->id, {
@@ -122,7 +124,7 @@ lives_ok {
 $sql->commit;
 
 # Test adding edit notes with email sending
-$c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 1 });
+$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 1 });
 
 $en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
 

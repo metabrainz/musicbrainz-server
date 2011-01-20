@@ -10,16 +10,19 @@ use_ok 'MusicBrainz::Server::Data::CDStubTrack';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_raw_test_database($c, '+cdstub_raw');
+my $test = shift;
 
-my $cdstubtoc = MusicBrainz::Server::Data::CDStubTOC->new(c => $c);
+MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+cdstub_raw');
+
+my $cdstubtoc = MusicBrainz::Server::Data::CDStubTOC->new(c => $test->c);
 
 my $toc = $cdstubtoc->get_by_discid('YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
-$c->model('CDStub')->load($toc);
-$c->model('CDStubTrack')->load_for_cdstub($toc->cdstub);
+$test->c->model('CDStub')->load($toc);
+$test->c->model('CDStubTrack')->load_for_cdstub($toc->cdstub);
 
 is ( $toc->discid, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
 is ( $toc->leadout_offset, 20000 );

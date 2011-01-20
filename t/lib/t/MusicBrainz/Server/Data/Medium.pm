@@ -8,14 +8,16 @@ use_ok 'MusicBrainz::Server::Data::Medium';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
-MusicBrainz::Server::Test->prepare_test_database($c,
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+MusicBrainz::Server::Test->prepare_test_database($test->c,
     "INSERT INTO medium_format (id, name) VALUES (2, 'Telepathic Transmission')");
 
-my $medium_data = MusicBrainz::Server::Data::Medium->new(c => $c);
+my $medium_data = MusicBrainz::Server::Data::Medium->new(c => $test->c);
 
 my $medium = $medium_data->get_by_id(1);
 is ( $medium->id, 1 );
@@ -51,7 +53,7 @@ is( $results->[1]->position, 1 );
 ok( !$medium_data->load() );
 
 # Test editing mediums
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($test->c->dbh);
 $sql->begin;
 
 $medium_data->update(1, {

@@ -14,16 +14,19 @@ BEGIN {
     use_ok 'MusicBrainz::Server::Data::Work';
 }
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
+my $test = shift;
 
-my $sql = Sql->new($c->dbh);
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+artistalias');
+
+my $sql = Sql->new($test->c->dbh);
 $sql->begin;
 
 # Artist data should do the alias role
-my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
+my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Alias');
 does_ok($artist_data->alias, 'MusicBrainz::Server::Data::Role::Editable');
 
@@ -95,10 +98,10 @@ is($alias_set->[0]->locale, 'en_AU');
 $sql->commit;
 
 # Make sure other data types support aliases
-my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
+my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);
 does_ok($label_data, 'MusicBrainz::Server::Data::Role::Alias');
 
-my $work_data = MusicBrainz::Server::Data::Work->new(c => $c);
+my $work_data = MusicBrainz::Server::Data::Work->new(c => $test->c);
 does_ok($work_data, 'MusicBrainz::Server::Data::Role::Alias');
 
 };

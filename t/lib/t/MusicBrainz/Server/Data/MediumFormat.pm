@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::MediumFormat';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+mediumformat');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+mediumformat');
 
-my $mf_data = MusicBrainz::Server::Data::MediumFormat->new(c => $c);
+my $mf_data = MusicBrainz::Server::Data::MediumFormat->new(c => $test->c);
 
 my $mf = $mf_data->get_by_id(1);
 is ( $mf->id, 1 );

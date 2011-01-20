@@ -11,13 +11,14 @@ use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
 
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+relationships');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
 
-my $rel_data = $c->model('Relationship');
+my $rel_data = $test->c->model('Relationship');
 
 my $artist1 = MusicBrainz::Server::Entity::Artist->new(id => 1);
 my $artist2 = MusicBrainz::Server::Entity::Artist->new(id => 2);
@@ -66,7 +67,7 @@ is( scalar($recording1->all_relationships), 2 );
 is( $recording1->relationships->[0]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
 is( $recording1->relationships->[1]->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD );
 
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($test->c->dbh);
 $sql->begin;
 $sql->do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
 # Merge ARs for artist #2 to #1

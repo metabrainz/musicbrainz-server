@@ -9,12 +9,14 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Sql;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+releaselabel');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+releaselabel');
 
-my $rl_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $c);
+my $rl_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $test->c);
 
 my $rl = $rl_data->get_by_id(1);
 is( $rl->id, 1 );
@@ -36,7 +38,7 @@ is( $rls->[2]->catalog_number, "ABC-123" );
 is( $rls->[3]->release->id, 1 );
 is( $rls->[3]->catalog_number, "ABC-123-X" );
 
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($test->c->dbh);
 $sql->begin;
 
 $rl_data->merge_labels(1, 2);

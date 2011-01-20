@@ -6,6 +6,8 @@ use Test::More;
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 
+with 't::Context' => { -excludes => '_build_context' };
+
 {
     package t::CoreEntityCache::MyEntity;
     use Moose;
@@ -53,58 +55,60 @@ use MusicBrainz::Server::Context;
     }
 }
 
+sub _build_context {
+    my $cache_manager = MusicBrainz::Server::CacheManager->new(
+        profiles => {
+            test => {
+                class => 't::CoreEntityCache::MockCache',
+                wrapped => 1,
+                keys => ['prefix'],
+            },
+        },
+        default_profile => 'test',
+    );
+
+    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
+}
 
 test all => sub {
 
-my $cache_manager = MusicBrainz::Server::CacheManager->new(
-    profiles => {
-        test => {
-            class => 't::CoreEntityCache::MockCache',
-            wrapped => 1,
-            keys => ['prefix'],
-        },
-    },
-    default_profile => 'test',
-);
-
-my $c = MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
-
-my $entity_data = t::CoreEntityCache::MyCachedEntityData->new(c => $c);
+my $test = shift;
+my $entity_data = t::CoreEntityCache::MyCachedEntityData->new(c => $test->c);
 
 my $entity = $entity_data->get_by_gid('abc');
 is ( $entity->id, 1 );
 is ( $entity_data->get_by_gid_called, 1 );
 is ( $entity_data->get_by_id_called, 0 );
-is ( $c->cache->_orig->get_called, 1 );
-is ( $c->cache->_orig->set_called, 2 );
-ok ( $c->cache->_orig->data->{'prefix:1'} =~ '1' );
-ok ( $c->cache->_orig->data->{'prefix:abc'} =~ '1' );
+is ( $test->c->cache->_orig->get_called, 1 );
+is ( $test->c->cache->_orig->set_called, 2 );
+ok ( $test->c->cache->_orig->data->{'prefix:1'} =~ '1' );
+ok ( $test->c->cache->_orig->data->{'prefix:abc'} =~ '1' );
 
 $entity_data->get_by_gid_called(0);
 $entity_data->get_by_id_called(0);
-$c->cache->_orig->get_called(0);
-$c->cache->_orig->set_called(0);
+$test->c->cache->_orig->get_called(0);
+$test->c->cache->_orig->set_called(0);
 
 $entity = $entity_data->get_by_gid('abc');
 is ( $entity->id, 1 );
 is ( $entity_data->get_by_gid_called, 0 );
 is ( $entity_data->get_by_id_called, 0 );
-is ( $c->cache->_orig->get_called, 2 );
-is ( $c->cache->_orig->set_called, 0 );
+is ( $test->c->cache->_orig->get_called, 2 );
+is ( $test->c->cache->_orig->set_called, 0 );
 
 $entity_data->get_by_gid_called(0);
 $entity_data->get_by_id_called(0);
-$c->cache->_orig->get_called(0);
-$c->cache->_orig->set_called(0);
+$test->c->cache->_orig->get_called(0);
+$test->c->cache->_orig->set_called(0);
 
-delete $c->cache->_orig->data->{'prefix:1'};
+delete $test->c->cache->_orig->data->{'prefix:1'};
 
 $entity = $entity_data->get_by_gid('abc');
 is ( $entity->id, 1 );
 is ( $entity_data->get_by_gid_called, 0 );
 is ( $entity_data->get_by_id_called, 1 );
-is ( $c->cache->_orig->get_called, 2 );
-is ( $c->cache->_orig->set_called, 2 );
+is ( $test->c->cache->_orig->get_called, 2 );
+is ( $test->c->cache->_orig->set_called, 2 );
 
 };
 

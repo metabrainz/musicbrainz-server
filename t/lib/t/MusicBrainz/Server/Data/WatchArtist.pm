@@ -6,14 +6,15 @@ use Test::Fatal;
 
 use MusicBrainz::Server::Test;
 
-has 'c' => (
-    is => 'ro',
-    default => sub {
-        my $c = MusicBrainz::Server::Test->create_test_context;
-        MusicBrainz::Server::Test->prepare_test_database($c, '+watch');
-        return $c;
-    }
-);
+with 't::Context';
+
+around '_build_context' => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $c = $self->$orig;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+watch');
+    return $c;
+};
 
 has sql => (
     is => 'ro',

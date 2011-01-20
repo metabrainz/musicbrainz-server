@@ -9,12 +9,14 @@ use MusicBrainz::Server::Data::Search;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+work');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
 
-my $work_data = MusicBrainz::Server::Data::Work->new(c => $c);
+my $work_data = MusicBrainz::Server::Data::Work->new(c => $test->c);
 
 my $work = $work_data->get_by_id(1);
 is ( $work->id, 1 );
@@ -35,7 +37,7 @@ is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
 
 is ( $work->type, undef );
-MusicBrainz::Server::Data::WorkType->new(c => $c)->load($work);
+MusicBrainz::Server::Data::WorkType->new(c => $test->c)->load($work);
 is ( $work->type->name, "Composition" );
 
 my ($works, $hits) = $work_data->find_by_artist(1, 100);
@@ -52,7 +54,7 @@ is ( $work->id, 1 );
 $work = $work_data->get_by_gid('ffffffff-ffff-ffff-ffff-ffffffffffff');
 is ( $work, undef );
 
-my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
 ($results, $hits) = $search->search("work", "queen", 10);
 is( $hits, 1 );
@@ -65,8 +67,8 @@ is(keys %names, 2);
 is($names{'Dancing Queen'}, 1);
 ok($names{'Traits'} > 1);
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
+my $sql = Sql->new($test->c->dbh);
+my $raw_sql = Sql->new($test->c->raw_dbh);
 $sql->begin;
 $raw_sql->begin;
 

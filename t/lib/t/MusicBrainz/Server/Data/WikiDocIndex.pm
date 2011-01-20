@@ -16,18 +16,18 @@ sub DEMOLISH {
     unlink shift->index_filename;
 }
 
+with 't::Context';
+
 test all => sub {
 
 my $test = shift;
-
-my $c = MusicBrainz::Server::Test->create_test_context();
 
 open my $fh, ">", $test->index_filename;
 print $fh "Test_Page=123\n";
 close $fh;
 
 my $wdi = MusicBrainz::Server::Data::WikiDocIndex->new(
-    c => $c,
+    c => $test->c,
     _index_file => $test->index_filename
 );
 

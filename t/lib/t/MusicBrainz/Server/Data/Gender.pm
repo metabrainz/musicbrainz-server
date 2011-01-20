@@ -9,12 +9,14 @@ use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+gender');
 
-my $gender_data = MusicBrainz::Server::Data::Gender->new(c => $c);
+my $gender_data = MusicBrainz::Server::Data::Gender->new(c => $test->c);
 
 my $gender = $gender_data->get_by_id(1);
 is ( $gender->id, 1 );
@@ -37,7 +39,7 @@ is(@gs, 2);
 is($gs[0]->id, 1);
 is($gs[1]->id, 2);
 
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($test->c->dbh);
 $sql->begin;
 
 my $new_gender = $gender_data->insert({ name => 'Unknown' });

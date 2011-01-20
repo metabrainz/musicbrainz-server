@@ -10,10 +10,12 @@ use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Entity::Artist;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, "
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, "
     SET client_min_messages TO 'warning';
 
     TRUNCATE artist CASCADE;
@@ -28,14 +30,14 @@ MusicBrainz::Server::Test->prepare_test_database($c, "
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 ");
-MusicBrainz::Server::Test->prepare_raw_test_database($c, "
+MusicBrainz::Server::Test->prepare_raw_test_database($test->c, "
     TRUNCATE artist_rating_raw CASCADE;
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 1, 50), (2, 2, 50), (1, 3, 40), (1, 4, 10);
 ");
 
 my $rating_data = MusicBrainz::Server::Data::Rating->new(
-    c => $c, type => 'artist');
+    c => $test->c, type => 'artist');
 my @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 3 );
 is( $ratings[0]->editor_id, 1 );
@@ -55,7 +57,7 @@ is($artist->user_rating, 50);
 $rating_data->load_user_ratings(3, $artist);
 is($artist->user_rating, 40);
 
-my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
+my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 
 # Update rating on artist with only one rating
 $rating_data->update(2, 2, 40);
@@ -89,8 +91,8 @@ is($artist->user_rating, undef);
 $artist_data->load_meta($artist);
 is($artist->rating, 33);
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
+my $sql = Sql->new($test->c->dbh);
+my $raw_sql = Sql->new($test->c->raw_dbh);
 
 $sql->begin;
 $raw_sql->begin;
@@ -101,7 +103,7 @@ $raw_sql->commit;
 @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 0 );
 
-MusicBrainz::Server::Test->prepare_raw_test_database($c, "
+MusicBrainz::Server::Test->prepare_raw_test_database($test->c, "
     TRUNCATE artist_rating_raw CASCADE;
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 1, 50), (2, 1, 60), (2, 2, 70), (1, 3, 40), (1, 4, 10);

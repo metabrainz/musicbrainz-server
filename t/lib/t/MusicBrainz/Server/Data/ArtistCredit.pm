@@ -8,12 +8,15 @@ use_ok 'MusicBrainz::Server::Data::ArtistCredit';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
+my $test = shift;
 
-my $artist_credit_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $c);
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+artistcredit');
+
+my $artist_credit_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $test->c);
 
 my $ac = $artist_credit_data->get_by_id(1);
 is ( $ac->id, 1 );
@@ -32,7 +35,7 @@ is ( $ac->names->[1]->artist->gid, "5441c29d-3602-4898-b1a1-b77fa23b8e50" );
 is ( $ac->names->[1]->artist->name, "David Bowie" );
 is ( $ac->names->[1]->join_phrase, undef );
 
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($test->c->dbh);
 $ac = $artist_credit_data->find_or_insert(
     { name => 'Queen', artist => 1 }, ' & ',
     { name => 'David Bowie', artist => 2 });

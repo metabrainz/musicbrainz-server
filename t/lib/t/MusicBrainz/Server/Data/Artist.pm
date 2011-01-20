@@ -11,17 +11,20 @@ use MusicBrainz::Server::Data::Search;
 use MusicBrainz::Server::Test;
 use Sql;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
+my $test = shift;
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_artist');
+
+my $sql = Sql->new($test->c->dbh);
+my $raw_sql = Sql->new($test->c->raw_dbh);
 $sql->begin;
 $raw_sql->begin;
 
-my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
+my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Editable');
 
 
@@ -96,7 +99,7 @@ $raw_sql->commit;
 
 # ---
 # Searching for artists
-my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my ($results, $hits) = $search->search("artist", "test", 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
@@ -224,10 +227,10 @@ is($artist->name, 'Test Artist');
 # Checking when an artist is in use or not
 
 ok($artist_data->can_delete(1));
-my $ac = $c->model('ArtistCredit')->find_or_insert({ artist => 1, name => 'Calibre' });
+my $ac = $test->c->model('ArtistCredit')->find_or_insert({ artist => 1, name => 'Calibre' });
 ok($artist_data->can_delete(1));
 
-my $rec = $c->model('Recording')->insert({
+my $rec = $test->c->model('Recording')->insert({
     name => "Love's Too Tight Too Mention",
     artist_credit => $ac,
     comment => 'Drum & bass track',

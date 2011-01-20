@@ -13,12 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::URL';
 
-has 'c' => (
-    is => 'ro',
-    default => sub {
-        MusicBrainz::Server::Test->create_test_context;
-    }
-);
+with 't::Context';
 
 has 'ua' => (
     is => 'ro',

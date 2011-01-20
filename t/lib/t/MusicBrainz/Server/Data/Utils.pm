@@ -8,10 +8,12 @@ use_ok 'MusicBrainz::Server::Data::Utils';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+artisttype');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+artisttype');
 
 my $date = MusicBrainz::Server::Data::Utils::partial_date_from_row(
     { a_year => 2008, a_month => 1, a_day => 2 }, 'a_');
@@ -21,14 +23,14 @@ is ( $date->month, 1 );
 is ( $date->day, 2 );
 
 my @result = MusicBrainz::Server::Data::Utils::query_to_list(
-    $c->dbh, sub { $_[0] }, "SELECT * FROM artist_type
+    $test->c->dbh, sub { $_[0] }, "SELECT * FROM artist_type
                         WHERE id IN (1, 2) ORDER BY id");
 is ( scalar(@result), 2 );
 is ( $result[0]->{id}, 1 );
 is ( $result[1]->{id}, 2 );
 
 my ($result, $hits) = MusicBrainz::Server::Data::Utils::query_to_list_limited(
-    $c->dbh, 0, 1, sub { $_[0] }, "SELECT * FROM artist_type
+    $test->c->dbh, 0, 1, sub { $_[0] }, "SELECT * FROM artist_type
                               WHERE id IN (1, 2) ORDER BY id");
 @result = @{$result};
 is ( scalar(@result), 1 );

@@ -10,12 +10,14 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Sql;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+label');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+label');
 
-my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
+my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);
 
 my $label = $label_data->get_by_id(3);
 is ( $label->id, 3, "id");
@@ -41,7 +43,7 @@ is ( $annotation->text, "Label Annotation", "annotation" );
 $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
 is ( $label->id, 3, "get label by gid" );
 
-my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my ($results, $hits) = $search->search("label", "Warp", 10);
 is( $hits, 1, "Searching for Warp, 1 hit" );
 is( scalar(@$results), 1, "Searching for Warp, 1 result" );
@@ -54,8 +56,8 @@ is(keys %names, 2);
 is($names{'Warp Records'}, 1);
 ok($names{'RAM Records'} > 1);
 
-my $sql = Sql->new($c->dbh);
-my $sql_raw = Sql->new($c->raw_dbh);
+my $sql = Sql->new($test->c->dbh);
+my $sql_raw = Sql->new($test->c->raw_dbh);
 $sql->begin;
 $sql_raw->begin;
 
@@ -70,7 +72,7 @@ $label = $label_data->insert({
 isa_ok($label, 'MusicBrainz::Server::Entity::Label');
 ok($label->id > 1);
 
-ok(!$c->model('Label')->in_use($label->id));
+ok(!$test->c->model('Label')->in_use($label->id));
 
 $label = $label_data->get_by_id($label->id);
 is($label->name, 'RAM Records', "name");

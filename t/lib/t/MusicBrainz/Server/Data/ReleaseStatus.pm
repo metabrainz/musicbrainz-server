@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::ReleaseStatus';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+releasestatus');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasestatus');
 
-my $lt_data = MusicBrainz::Server::Data::ReleaseStatus->new(c => $c);
+my $lt_data = MusicBrainz::Server::Data::ReleaseStatus->new(c => $test->c);
 
 my $lt = $lt_data->get_by_id(1);
 is ( $lt->id, 1 );

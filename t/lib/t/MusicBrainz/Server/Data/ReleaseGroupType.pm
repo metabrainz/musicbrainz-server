@@ -8,12 +8,14 @@ use_ok 'MusicBrainz::Server::Data::ReleaseGroupType';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+releasegrouptype');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegrouptype');
 
-my $rgt_data = MusicBrainz::Server::Data::ReleaseGroupType->new(c => $c);
+my $rgt_data = MusicBrainz::Server::Data::ReleaseGroupType->new(c => $test->c);
 
 my $rgt = $rgt_data->get_by_id(1);
 is ( $rgt->id, 1 );

@@ -1,18 +1,21 @@
 package t::MusicBrainz::Server::Data::WorkType;
 use Test::Routine;
 use Test::More;
+use Test::Moose;
 
 use_ok 'MusicBrainz::Server::Data::WorkType';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+worktype');
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+worktype');
 
-my $wt_data = MusicBrainz::Server::Data::WorkType->new(c => $c);
+my $wt_data = MusicBrainz::Server::Data::WorkType->new(c => $test->c);
 
 my $wt = $wt_data->get_by_id(1);
 is ( $wt->id, 1 );
