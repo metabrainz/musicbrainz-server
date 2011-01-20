@@ -48,11 +48,11 @@ sub tracklist_foreign_keys {
         } @$tracklist
     };
 
-    $fk->{Recording} = {
+    $fk->{Recording} = [
         map {
             $_->{recording_id}
         } @$tracklist
-    };
+    ];
 }
 
 sub track {
@@ -75,7 +75,8 @@ sub display_tracklist {
                 length => $_->{length},
                 artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
                 position => $_->{position},
-                recording => $loaded->{Recording}{ $_->{recording_id} } ||
+                recording => $_->{recording_id} ? 
+                    $loaded->{Recording}{ $_->{recording_id} } :
                     Recording->new( name => $_->{name} )
             )
         } sort { $a->{position} <=> $b->{position} } @$tracklist ]
