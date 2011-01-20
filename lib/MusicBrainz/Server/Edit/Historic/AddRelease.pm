@@ -15,7 +15,6 @@ sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
 sub edit_template { 'historic/add_release' }
 
-
 sub _recording_ids
 {
     my $self = shift;
@@ -50,6 +49,7 @@ sub related_entities
 {
     my $self = shift;
     return {
+        artist    => [ $self->_artist_ids ],
         recording => [ $self->_recording_ids ],
         release   => [ $self->_release_ids ]
     }
