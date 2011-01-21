@@ -4,9 +4,7 @@
     <td>
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% l('{release} by {artist}',
-                 { release => link_release(release),
-                   artist  => artist_credit(release.artist_credit) }) %]</li>
+        <li>[% descriptive_link(release) %]</li>
         [% END %]
       </ul>
     </td>
@@ -14,13 +12,13 @@
 
   <tr>
     <th>[% l('Name:') %]</th>
-    <td>[% link_recording(edit.display_data.recording, 'show', edit.display_data.name) %]</td>
+    <td>[% link_entity(edit.display_data.recording, 'show', edit.display_data.name) %]</td>
   </tr>
 
   [% IF edit.display_data.artist %]
   <tr>
     <th>[% l('Artist:') %]</th>
-    <td>[% link_artist(edit.display_data.artist) %]</td>
+    <td>[% link_entity(edit.display_data.artist) %]</td>
   </tr>
   [% END %]
 

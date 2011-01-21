@@ -1,7 +1,7 @@
 [%- USE qr = FormRenderer(query_form) -%]
 
 [% BLOCK format_result;
-   link_entity(entity); ' '; disambiguation(entity);
+   link_entity(entity);
    END %]
 
 <form action="[% c.req.uri %]" method="get">

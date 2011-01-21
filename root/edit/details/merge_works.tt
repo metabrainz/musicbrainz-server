@@ -4,11 +4,11 @@
     <td>
       [% IF edit.display_data.old.size == 1 %]
         [% work = edit.display_data.old.0 %]
-        [% l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) }) %]
+        [% descriptive_link(work) %]
       [% ELSE %]
       <ul>
         [% FOR work=edit.display_data.old %]
-        <li>[% l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) }) %]</li>
+        <li>[% descriptive_link(work) %]</li>
         [% END %]
       </ul>
       [% END %]
@@ -19,7 +19,7 @@
     <th>[%- l('New work:') %]</th>
     <td>
       [% work = edit.display_data.new;
-         l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) })
+         descriptive_link(work);
       %]
     </td>
   </tr>

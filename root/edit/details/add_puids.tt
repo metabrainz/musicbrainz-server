@@ -11,8 +11,7 @@
         [% FOR puid=edit.display_data.puids %]
         <li>
           <code>[% link_puid(puid) %]</code> -
-          [% l('{recording} by {artist}', { recording => link_recording(puid.recording),
-                                           artist => artist_credit(puid.recording.artist_credit) }) %]
+          [% descriptive_link(puid.recording) %]
         </li>
         [% END %]
       </ul>
