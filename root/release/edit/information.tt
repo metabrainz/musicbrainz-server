@@ -38,7 +38,7 @@
     [% r.hidden ('wizard_session_id') %]
     <fieldset>
       <legend>Release information</legend>
-      [% form_row_text (r, 'name', 'Title') %]
+      [% form_row_text (r, 'name') %]
       [% r.hidden ('release_group_id') %]
       <div class="row">
         [% r.label('various_artists', 'Various Artists release') %]
