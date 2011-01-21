@@ -29,9 +29,7 @@ my @classes = qw(
     t::MusicBrainz::Server::Entity::SearchResult
     t::MusicBrainz::Server::Entity::WikiDocPage
     t::MusicBrainz::Server::Entity::Work
-);
 
-my @data_tests = qw(
     t::MusicBrainz::Server::Data::Alias
     t::MusicBrainz::Server::Data::Artist
     t::MusicBrainz::Server::Data::ArtistCredit
@@ -82,6 +80,6 @@ my @data_tests = qw(
     t::MusicBrainz::Server::Data::WorkType
 );
 
-run_tests($_ => $_) for (@data_tests);
+run_tests($_ => $_) for (@classes);
 
 done_testing;
