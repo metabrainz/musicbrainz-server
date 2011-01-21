@@ -75,11 +75,11 @@ test 'WatchArtist->is_watching' => sub {
     my $test = shift;
 
     ok($test->c->model('WatchArtist')->is_watching(
-        artist_id => 3, editor_id => 2),
-        'editor #2 is watching artist #3');
+        artist_id => 1, editor_id => 1),
+        'editor #1 is watching artist #1');
     ok(!$test->c->model('WatchArtist')->is_watching(
-        artist_id => 1, editor_id => 2),
-        'editor #2 is not watching artist #1');
+        artist_id => 3, editor_id => 1),
+        'editor #1 is not watching artist #3');
 };
 
 test 'WatchArtist->stop_watching' => sub {

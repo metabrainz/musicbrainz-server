@@ -18,6 +18,8 @@ around run_test => sub {
     my $orig = shift;
     my $self = shift;
 
+    MusicBrainz::Server::Test->prepare_test_server;
+
     $self->c->sql->begin;
     $self->c->raw_sql->begin;
 

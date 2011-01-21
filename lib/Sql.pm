@@ -335,9 +335,8 @@ sub _select_single_row
     }
     catch {
         my $err = $_;
-        cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
+        confess "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
-        confess $err;
     };
 }
 

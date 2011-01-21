@@ -6,6 +6,8 @@ use lib 't/lib';
 use Test::More;
 use Test::Routine::Util;
 
+use MusicBrainz::Server::Test;
+
 my @classes = qw(
     t::MusicBrainz::Server::Entity::Artist
     t::MusicBrainz::Server::Entity::Annotation
@@ -35,17 +37,17 @@ my @data_tests = qw(
     t::MusicBrainz::Server::Data::ArtistCredit
     t::MusicBrainz::Server::Data::ArtistType
     t::MusicBrainz::Server::Data::CDStub
-    t::MusicBrainz::Server::Data::CoverArt
     t::MusicBrainz::Server::Data::CDTOC
     t::MusicBrainz::Server::Data::Collection
     t::MusicBrainz::Server::Data::CoreEntityCache
     t::MusicBrainz::Server::Data::Country
+    t::MusicBrainz::Server::Data::CoverArt
     t::MusicBrainz::Server::Data::DurationLookup
+    t::MusicBrainz::Server::Data::Edit
     t::MusicBrainz::Server::Data::EditNote
     t::MusicBrainz::Server::Data::Editor
     t::MusicBrainz::Server::Data::EditorSubscriptions
     t::MusicBrainz::Server::Data::EntityCache
-    t::MusicBrainz::Server::Data::Edit
     t::MusicBrainz::Server::Data::Gender
     t::MusicBrainz::Server::Data::ISRC
     t::MusicBrainz::Server::Data::Label
@@ -60,6 +62,7 @@ my @data_tests = qw(
     t::MusicBrainz::Server::Data::Rating
     t::MusicBrainz::Server::Data::Recording
     t::MusicBrainz::Server::Data::Relationship
+    t::MusicBrainz::Server::Data::Release
     t::MusicBrainz::Server::Data::ReleaseGroup
     t::MusicBrainz::Server::Data::ReleaseGroupType
     t::MusicBrainz::Server::Data::ReleaseLabel
