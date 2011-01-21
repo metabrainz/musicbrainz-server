@@ -1,18 +1,25 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Data::Release;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use_ok 'MusicBrainz::Server::Data::Release';
+
+use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED );
 use MusicBrainz::Server::Data::ReleaseLabel;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Sql;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+with 't::Context';
 
-my $release_data = MusicBrainz::Server::Data::Release->new(c => $c);
+test all => sub {
+
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+
+my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
 
 my $release = $release_data->get_by_id(1);
 is( $release->id, 1, 'get release 1 by id');
@@ -31,9 +38,9 @@ is( $release->date->day, 8 );
 is( $release->barcode, "731453398122" );
 is( $release->comment, "Comment" );
 is( $release->edits_pending, 2 );
-is( $release->quality, -1 );
+is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 
-my $release_label_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $c);
+my $release_label_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $test->c);
 $release_label_data->load($release);
 ok( @{$release->labels} >= 2 );
 is( $release->labels->[0]->label_id, 1 );
@@ -42,7 +49,7 @@ is( $release->labels->[1]->label_id, 1 );
 is( $release->labels->[1]->catalog_number, "ABC-123-X", 'release also has catalog number ABC-123-X' );
 
 $release = $release_data->get_by_id(2);
-is( $release->quality, -1 );
+is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 
 my ($releases, $hits) = $release_data->find_by_artist(1, 100);
 is( $hits, 6 );
@@ -63,8 +70,8 @@ is( $releases->[0]->id, 3, 'found release by recording' );
 ($releases, $hits) = $release_data->find_by_release_group(1, 100);
 is( $hits, 6 );
 is( scalar(@$releases), 6 );
-is( $releases->[0]->id, 1, 'found release by release group' );
-is( $releases->[1]->id, 2, 'found release by release group' );
+ok( (grep { $_->id == 1 } @$releases), 'found release by release group' );
+ok( (grep { $_->id == 2 } @$releases), 'found release by release group' );
 
 my @releases = $release_data->find_by_medium(1, 100);
 is( $releases[0]->id, 3 );
@@ -81,8 +88,8 @@ is($names{'Arrival'}, 1);
 is($names{'Release #2'}, 2);
 ok($names{'Protection'} > 2);
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
+my $sql = $test->c->sql;
+my $raw_sql = $test->c->raw_sql;
 $sql->begin;
 $release = $release_data->insert({
         name => 'Protection',
@@ -147,7 +154,7 @@ $raw_sql->begin;
 $sql->begin;
 $release_data->merge(new_id => 6, old_ids => [ 7 ]);
 $release = $release_data->get_by_id(6);
-$c->model('Medium')->load_for_releases($release);
+$test->c->model('Medium')->load_for_releases($release);
 is($release->all_mediums, 2);
 is($release->mediums->[0]->id, 2);
 is($release->mediums->[0]->position, 1);
@@ -168,15 +175,15 @@ $raw_sql->begin;
 $sql->begin;
 $release_data->merge(new_id => 8, old_ids => [ 9 ], merge_strategy => 2);
 $release = $release_data->get_by_id(8);
-$c->model('Medium')->load_for_releases($release);
+$test->c->model('Medium')->load_for_releases($release);
 is($release->all_mediums, 1);
 is($release->mediums->[0]->id, 4);
 is($release->mediums->[0]->position, 1);
 
 # Make sure it merged the recordings
 is(
-    $c->model('Recording')->get_by_gid('64cac850-f0cc-11df-98cf-0800200c9a66')->id,
-    $c->model('Recording')->get_by_gid('691ee030-f0cc-11df-98cf-0800200c9a66')->id
+    $test->c->model('Recording')->get_by_gid('64cac850-f0cc-11df-98cf-0800200c9a66')->id,
+    $test->c->model('Recording')->get_by_gid('691ee030-f0cc-11df-98cf-0800200c9a66')->id
 );
 
 # Only #6 is now in the DB
@@ -188,4 +195,6 @@ ok(!defined $release);
 $raw_sql->commit;
 $sql->commit;
 
-done_testing;
+};
+
+1;

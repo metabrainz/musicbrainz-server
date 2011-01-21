@@ -12,3 +12,5 @@ INSERT INTO vote (editor, vote, vote_time, edit)
            (1, 1, NOW(), 1),
            (1, 1, '1970-05-10', 1);
 
+
+ALTER SEQUENCE edit_id_seq RESTART 2;

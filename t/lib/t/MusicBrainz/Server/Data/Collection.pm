@@ -1,18 +1,23 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Data::Collection;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use_ok 'MusicBrainz::Server::Data::Collection';
 
 use MusicBrainz::Server::Test;
 use Sql;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+collection');
+with 't::Context';
 
+test all => sub {
 
-my $sql = Sql->new($c->dbh);
-my $coll_data = MusicBrainz::Server::Data::Collection->new(c => $c);
+my $test = shift;
+
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+collection');
+
+my $sql = $test->c->sql;
+my $coll_data = MusicBrainz::Server::Data::Collection->new(c => $test->c);
 
 $sql->begin;
 $coll_data->merge_releases(1, 2, 3);
@@ -38,4 +43,6 @@ ok($coll_data->check_release(1, 3), 'Release #3 has been added to collection #1'
 $coll_data->add_releases_to_collection (1, 3);
 ok($coll_data->check_release(1, 3), 'No exception occured when re-adding release #3');
 
-done_testing;
+};
+
+1;

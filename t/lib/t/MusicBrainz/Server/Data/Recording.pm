@@ -1,7 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use Test::More tests => 38;
+package t::MusicBrainz::Server::Data::Recording;
+use Test::Routine;
+use Test::Moose;
+use Test::More;
+
 use_ok 'MusicBrainz::Server::Data::Recording';
 use MusicBrainz::Server::Data::Search;
 use encoding 'utf8';
@@ -9,11 +10,15 @@ use encoding 'utf8';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
-MusicBrainz::Server::Test->prepare_test_database($c, '+recording');
+with 't::Context';
 
-my $rec_data = MusicBrainz::Server::Data::Recording->new(c => $c);
+test all => sub {
+
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+recording');
+
+my $rec_data = MusicBrainz::Server::Data::Recording->new(c => $test->c);
 
 my $rec = $rec_data->get_by_id(1);
 is ( $rec->id, 1 );
@@ -45,7 +50,7 @@ is ( $annotation->text, "Annotation" );
 $rec = $rec_data->get_by_gid('0986e67c-6b7a-40b7-b4ba-c9d7583d6426');
 is ( $rec->id, 1 );
 
-my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
 ($results, $hits) = $search->search("recording", "coral", 10);
 is( $hits, 1 );
@@ -53,10 +58,8 @@ is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "A Coral Room" );
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
-$sql->begin;
-$raw_sql->begin;
+$test->c->sql->begin;
+$test->c->raw_sql->begin;
 
 $rec = $rec_data->insert({
         name => 'Traits',
@@ -85,8 +88,8 @@ $rec_data->delete($rec);
 $rec = $rec_data->get_by_id($rec->id);
 ok(!defined $rec);
 
-$sql->commit;
-$raw_sql->commit;
+$test->c->sql->commit;
+$test->c->raw_sql->commit;
 
 # Both #1 and #2 are in the DB
 $rec = $rec_data->get_by_id(1);
@@ -95,14 +98,18 @@ $rec = $rec_data->get_by_id(2);
 ok(defined $rec);
 
 # Merge #2 into #1
-$sql->begin;
-$raw_sql->begin;
+$test->c->sql->begin;
+$test->c->raw_sql->begin;
 $rec_data->merge(1, 2);
-$sql->commit;
-$raw_sql->commit;
+$test->c->sql->commit;
+$test->c->raw_sql->commit;
 
 # Only #1 is now in the DB
 $rec = $rec_data->get_by_id(1);
 ok(defined $rec);
 $rec = $rec_data->get_by_id(2);
 ok(!defined $rec);
+
+};
+
+1;

@@ -37,11 +37,15 @@ my @data_tests = qw(
     t::MusicBrainz::Server::Data::CDStub
     t::MusicBrainz::Server::Data::CoverArt
     t::MusicBrainz::Server::Data::CDTOC
+    t::MusicBrainz::Server::Data::Collection
     t::MusicBrainz::Server::Data::CoreEntityCache
     t::MusicBrainz::Server::Data::Country
     t::MusicBrainz::Server::Data::DurationLookup
     t::MusicBrainz::Server::Data::EditNote
+    t::MusicBrainz::Server::Data::Editor
+    t::MusicBrainz::Server::Data::EditorSubscriptions
     t::MusicBrainz::Server::Data::EntityCache
+    t::MusicBrainz::Server::Data::Edit
     t::MusicBrainz::Server::Data::Gender
     t::MusicBrainz::Server::Data::ISRC
     t::MusicBrainz::Server::Data::Label
@@ -54,16 +58,20 @@ my @data_tests = qw(
     t::MusicBrainz::Server::Data::MediumFormat
     t::MusicBrainz::Server::Data::PUID
     t::MusicBrainz::Server::Data::Rating
+    t::MusicBrainz::Server::Data::Recording
     t::MusicBrainz::Server::Data::Relationship
+    t::MusicBrainz::Server::Data::ReleaseGroup
     t::MusicBrainz::Server::Data::ReleaseGroupType
     t::MusicBrainz::Server::Data::ReleaseLabel
     t::MusicBrainz::Server::Data::ReleasePackaging
     t::MusicBrainz::Server::Data::ReleaseStatus
     t::MusicBrainz::Server::Data::Script
+    t::MusicBrainz::Server::Data::Search
     t::MusicBrainz::Server::Data::Tag
     t::MusicBrainz::Server::Data::Track
     t::MusicBrainz::Server::Data::URL
     t::MusicBrainz::Server::Data::Utils
+    t::MusicBrainz::Server::Data::Vote
     t::MusicBrainz::Server::Data::WatchArtist
     t::MusicBrainz::Server::Data::WikiDoc
     t::MusicBrainz::Server::Data::WikiDocIndex

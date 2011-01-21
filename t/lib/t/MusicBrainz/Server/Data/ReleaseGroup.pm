@@ -1,7 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Data::ReleaseGroup;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use_ok 'MusicBrainz::Server::Data::ReleaseGroup';
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Search;
@@ -10,10 +11,14 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Sql;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+releasegroup');
+with 't::Context';
 
-my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $c);
+test all => sub {
+
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
+
+my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $test->c);
 
 my $rg = $rg_data->get_by_id(1);
 is( $rg->id, 1 );
@@ -43,7 +48,7 @@ is( $hits, 1 );
 is( scalar(@$rgs), 1 );
 is( $rgs->[0]->id, 3 );
 
-my $release_data = MusicBrainz::Server::Data::Release->new(c => $c);
+my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
 my $release = $release_data->get_by_id(1);
 isnt( $release, undef );
 is( $release->release_group, undef );
@@ -57,7 +62,7 @@ is ( $annotation->text, "Annotation" );
 $rg = $rg_data->get_by_gid('77637e8c-be66-46ea-87b3-73addc722fc9');
 is ( $rg->id, 1 );
 
-my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
 ($results, $hits) = $search->search("release_group", "release group", 10);
 is( $hits, 1 );
@@ -65,8 +70,8 @@ is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
 is( $results->[0]->entity->id, 1 );
 
-my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
+my $sql = $test->c->sql;
+my $raw_sql = $test->c->raw_sql;
 $sql->begin;
 $raw_sql->begin;
 
@@ -108,4 +113,6 @@ ok(defined $rg);
 $raw_sql->commit;
 $sql->commit;
 
-done_testing;
+};
+
+1;

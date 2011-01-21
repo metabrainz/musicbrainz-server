@@ -148,8 +148,8 @@ sub editor_statistics
         " AND vote_time > NOW() - INTERVAL '28 day' " .
         " GROUP BY vote";
 
-    my $all_votes = map_query($self->c->raw_dbh, 'vote' => 'count', $q_all_votes, $editor_id);
-    my $recent_votes = map_query($self->c->raw_dbh, 'vote' => 'count', $q_recent_votes, $editor_id);
+    my $all_votes = map_query($self->c->raw_sql, 'vote' => 'count', $q_all_votes, $editor_id);
+    my $recent_votes = map_query($self->c->raw_sql, 'vote' => 'count', $q_recent_votes, $editor_id);
 
     my %names = (
         $VOTE_ABSTAIN => 'Abstain',

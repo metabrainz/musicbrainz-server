@@ -1,17 +1,22 @@
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Data::Tracklist;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use_ok 'MusicBrainz::Server::Data::Tracklist';
-use MusicBrainz::Server::Data::Track;
 
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
-MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
+with 't::Context';
 
-my $tracklist_data = MusicBrainz::Server::Data::Tracklist->new(c => $c);
+test all => sub {
+
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+
+my $tracklist_data = MusicBrainz::Server::Data::Tracklist->new(c => $test->c);
 
 my $tracklist1 = $tracklist_data->get_by_id(1);
 is ( $tracklist1->id, 1, "id" );
@@ -21,7 +26,7 @@ my $tracklist2 = $tracklist_data->get_by_id(2);
 is ( $tracklist2->id, 2, "id" );
 is ( $tracklist2->track_count, 9, "track count" );
 
-my $track_data = MusicBrainz::Server::Data::Track->new(c => $c);
+my $track_data = MusicBrainz::Server::Data::Track->new(c => $test->c);
 $track_data->load_for_tracklists($tracklist1, $tracklist2);
 is ( scalar($tracklist1->all_tracks), 7, "7 tracks" );
 is ( $tracklist1->tracks->[0]->name, "King of the Mountain", "first track is King of the Mountain" );
@@ -55,10 +60,9 @@ is($tracklist->tracks->[1]->artist_credit_id, 1, "... with artist credit 1");
 is($tracklist->tracks->[1]->recording_id, 2, "... with recording id 2");
 
 subtest 'Can set tracklist times via a disc id' => sub {
-    my $sql = Sql->new($c->dbh);
     Sql::run_in_transaction(sub {
         $tracklist_data->set_lengths_to_cdtoc(1, 1);
-    }, $sql);
+    }, $test->c->sql);
 
     $tracklist = $tracklist_data->get_by_id(1);
     $track_data->load_for_tracklists($tracklist);
@@ -83,4 +87,6 @@ ok($tracklist->id > 0, 'returned a tracklist id');
 is($tracklist_data->find_or_insert($tracks)->id => $tracklist->id,
    'returns the same tracklist for a reinsert');
 
-done_testing;
+};
+
+1;

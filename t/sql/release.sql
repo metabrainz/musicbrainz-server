@@ -1,32 +1,3 @@
-
-SET client_min_messages TO 'warning';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
@@ -109,7 +80,7 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
            (7, '7a906020-72db-11de-8a39-0800200c9a71', 7, 1, 1),
            (8, '7a906020-72db-11de-8a39-0800200c9a72', 8, 1, 1),
            (9, '7a906020-72db-11de-8a39-0800200c9a73', 9, 1, 1);
-INSERT INTO tracklist (id, trackcount) VALUES (2, 1), (3, 1), (4, 1), (5, 1);
+INSERT INTO tracklist (id, track_count) VALUES (2, 1), (3, 1), (4, 1), (5, 1);
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (2, '50a772b0-f0cc-11df-98cf-0800200c9a66', 1, 1),
            (3, '5d9cb570-f0cc-11df-98cf-0800200c9a66', 1, 1),

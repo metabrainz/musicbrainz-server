@@ -1,6 +1,8 @@
-#!/usr/bin/perl
-use strict;
+package t::MusicBrainz::Server::Data::Editor;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use DateTime;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -9,10 +11,15 @@ use Sql;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+with 't::Context';
 
-my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $c);
+test all => sub {
+
+my $test = shift;
+
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
 
 my $editor = $editor_data->get_by_id(1);
 ok(defined $editor, 'no editor returned');
@@ -48,7 +55,7 @@ Sql::run_in_transaction(sub {
         $editor_data->credit($editor->id, $STATUS_APPLIED, 1);
         $editor_data->credit($editor->id, $STATUS_FAILEDVOTE);
         $editor_data->credit($editor->id, $STATUS_ERROR);
-    }, Sql->new($c->dbh));
+    }, $test->c->sql);
 
 $editor = $editor_data->get_by_id($editor->id);
 is($editor->accepted_edits, 13);
@@ -114,4 +121,6 @@ subtest 'Find editors with subscriptions' => sub {
     is($editors[0]->id => 2, 'is editor #2');
 };
 
-done_testing;
+};
+
+1;

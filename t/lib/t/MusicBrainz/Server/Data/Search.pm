@@ -1,9 +1,9 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use HTTP::Response;
-use Test::More;
+package t::MusicBrainz::Server::Data::Search;
+use Test::Routine;
 use Test::Moose;
+use Test::More;
+
+use HTTP::Response;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Test::Mock::Class ':all';
@@ -11,26 +11,13 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 use_ok 'MusicBrainz::Server::Data::Search';
 
-sub load_data
-{
-    my ($type) = @_;
+with 't::Context';
 
-    ok (type_to_model($type), "$type has a model");
+test all => sub {
 
-    return MusicBrainz::Server::Data::Search->new()->external_search(
-            MusicBrainz::Server::Test->create_test_context(), 
-            $type, 
-            'love',  # "Love" always has tons of hits
-            25,      # items per page
-            0,       # paging offset
-            0,       # advanced search
-            MusicBrainz::Server::Test::mock_search_server($type)
-    );
-}
+my $test = shift;
 
-MusicBrainz::Server::Test->prepare_test_server();
-
-my $data = load_data('artist');
+my $data = load_data('artist', $test->c);
 
 is ( @{$data->{results} }, 25 );
 
@@ -43,7 +30,7 @@ is ( $artist->comment, 'folk-rock/psychedelic band' );
 is ( $artist->gid, '34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47' );
 is ( $artist->type->name, 'group' );
 
-$data = load_data('release_group');
+$data = load_data('release_group', $test->c);
 
 is ( @{$data->{results} }, 25 );
 
@@ -60,7 +47,7 @@ is ( $release_group->artist_credit->names->[0]->artist->comment, 'Dutch rock sin
 
 
 
-$data = load_data('release');
+$data = load_data('release', $test->c);
 
 is ( @{$data->{results} }, 25 );
 
@@ -78,7 +65,7 @@ is ( $release->mediums->[0]->tracklist->track_count, 9 );
 
 
 
-$data = load_data('recording');
+$data = load_data('recording', $test->c);
 
 is ( @{$data->{results} }, 25 );
 
@@ -97,11 +84,11 @@ is ( @{$extra}, 3 );
 is ( $extra->[0]->release_group->type->name, "album" );
 is ( $extra->[0]->name, "Sixpence None the Richer" );
 is ( $extra->[0]->gid, "24efdbe1-a15d-4cc0-a6d7-59bd1ebbdcc3" );
-is ( $extra->[0]->mediums->[0]->tracklist->tracks->[0]->position, 10 );
+is ( $extra->[0]->mediums->[0]->tracklist->tracks->[0]->position, 11 );
 is ( $extra->[0]->mediums->[0]->tracklist->track_count, 12 );
 
 
-$data = load_data('label');
+$data = load_data('label', $test->c);
 
 is ( @{$data->{results} }, 25 );
 my $label = $data->{results}->[0]->{entity};
@@ -114,7 +101,7 @@ is ( $label->type->name, 'production' );
 
 
 
-$data = load_data('annotation');
+$data = load_data('annotation', $test->c);
 is ( @{$data->{results} }, 25 );
 
 my $annotation = $data->{results}->[0]->{entity};
@@ -124,7 +111,7 @@ is ( $annotation->text, "<p>Soul Love</p>\n" );
 
 
 
-$data = load_data('cdstub');
+$data = load_data('cdstub', $test->c);
 
 is ( @{$data->{results} }, 25 );
 my $cdstub = $data->{results}->[0]->{entity};
@@ -137,7 +124,7 @@ is ( $cdstub->track_count, '17');
 
 
 
-$data = load_data('freedb');
+$data = load_data('freedb', $test->c);
 
 is ( @{$data->{results} }, 25 );
 my $freedb = $data->{results}->[0]->{entity};
@@ -149,10 +136,9 @@ is ( $freedb->category, 'misc');
 is ( $freedb->year, '');
 is ( $freedb->track_count, '19');
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
-my @direct = MusicBrainz::Server::Data::Search->new(c => $c)->search(
+my @direct = MusicBrainz::Server::Data::Search->new(c => $test->c)->search(
     'release', 'Blonde on blonde', 25, 0, 0);
 
 my $results = $direct[0];
@@ -161,6 +147,23 @@ is ($direct[1], 2, "two search results");
 is ($results->[0]->entity->name, 'Blonde on Blonde', 'exact phrase ranked first');
 is ($results->[1]->entity->name, 'Blues on Blonde on Blonde', 'longer phrase ranked second');
 
-done_testing;
+};
+
+sub load_data
+{
+    my ($type, $c) = @_;
+
+    ok (type_to_model($type), "$type has a model");
+
+    return MusicBrainz::Server::Data::Search->new()->external_search(
+        $c,
+        $type,
+        'love',  # "Love" always has tons of hits
+        25,      # items per page
+        0,       # paging offset
+        0,       # advanced search
+        MusicBrainz::Server::Test::mock_search_server($type)
+    );
+}
 
 1;

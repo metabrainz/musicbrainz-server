@@ -1,6 +1,8 @@
-#!/usr/bin/perl
-use strict;
+package t::MusicBrainz::Server::Data::EditorSubscriptions;
+use Test::Routine;
+use Test::Moose;
 use Test::More;
+
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
@@ -8,11 +10,16 @@ BEGIN { use_ok 'MusicBrainz::Server::Data::EditorSubscriptions'; }
 
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
-my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+with 't::Context';
+
+test all => sub {
+
+my $test = shift;
+
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
 subtest 'get_all_subscriptions' => sub {
-    my @subscriptions = $c->model('EditorSubscriptions')
+    my @subscriptions = $test->c->model('EditorSubscriptions')
         ->get_all_subscriptions(2);
     is(@subscriptions => 1, 'found one subscription');
     isa_ok($subscriptions[0] => EditorSubscription,
@@ -22,16 +29,18 @@ subtest 'get_all_subscriptions' => sub {
 };
 
 subtest 'update_subscriptions' => sub {
-    my @subscriptions = $c->model('EditorSubscriptions')
+    my @subscriptions = $test->c->model('EditorSubscriptions')
         ->get_all_subscriptions(2);
     is($subscriptions[0]->last_edit_sent, 3);
 
-    $c->model('EditorSubscriptions')->update_subscriptions(4,
+    $test->c->model('EditorSubscriptions')->update_subscriptions(4,
         $subscriptions[0]->editor_id);
 
-    @subscriptions = $c->model('EditorSubscriptions')
+    @subscriptions = $test->c->model('EditorSubscriptions')
         ->get_all_subscriptions(2);
     is($subscriptions[0]->last_edit_sent, 4);
 };
 
-done_testing;
+};
+
+1;
