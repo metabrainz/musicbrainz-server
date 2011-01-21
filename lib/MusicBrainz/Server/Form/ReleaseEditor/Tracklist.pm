@@ -155,7 +155,6 @@ sub _validate_edits {
         $count++;
     }
 
-    $json = JSON::Any->new;
     $medium->field('edits')->value ($json->encode ($edits));
 
     return @errors;
