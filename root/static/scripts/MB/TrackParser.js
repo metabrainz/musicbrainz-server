@@ -466,7 +466,7 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
 
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
     self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
-    self.variousArtists = function () { return self.$various_artists.val() == '1'; };
+    self.variousArtists = function () { return self.disc.isVariousArtists (); };
 
     /* public variables. */
     self.disc = disc;
@@ -476,7 +476,6 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.$tracknumbers = $('#tracknumbers');
     self.$vinylnumbers = $('#vinylnumbers');
     self.$tracktimes = $('#tracktimes');
-    self.$various_artists = $('#various-artists');
 
     return self;
 };

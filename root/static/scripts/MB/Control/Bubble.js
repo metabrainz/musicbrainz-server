@@ -146,7 +146,8 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
 
         if (self.$target.filter ('a').length ||
             self.$target.filter ('input[type=submit]').length ||
-            self.$target.filter ('input[type=button]').length)
+            self.$target.filter ('input[type=button]').length ||
+            self.$target.filter ('img').length)
         {
             self.button = true;
         }

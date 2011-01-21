@@ -121,6 +121,9 @@
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
 
+        <input type="hidden" name="various-artists" class="various-artists"
+            value="[% information.field('various_artists').value | html %]" />
+
         <table class="basic-format">
           <tr>
             <td class="icon">
@@ -234,9 +237,6 @@
     [% USE w = Wizard() %]
     [% information = w.page ('information') %]
     [% release_artist = information.field('artist_credit') %]
-    <input type="hidden" name="various-artists" class="various-artists" id="various-artists"
-        value="[% information.field('various_artists').value | html %]" />
-
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
 

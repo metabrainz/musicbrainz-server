@@ -106,7 +106,7 @@ sub not_found
 {
     my ($self, $c, $tagname) = @_;
     $c->response->status(404);
-    $c->stash( template => $self->action_namespace . '/not_found.tt',
+    $c->stash( template => 'tag/not_found.tt',
                tag => $tagname );
     $c->detach;
 }

@@ -44,7 +44,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
                 var tr = $('<tr>').appendTo (table);
                 tr.append ($('<td class="trackno">').text (item.$position.val ()));
                 tr.append ($('<td class="title">').text (item.$title.val ()));
-                if ($('#various-artists').val () == '1')
+                if (disc.isVariousArtists ())
                 {
                     tr.append ($('<td class="artist">').text (item.$artist.val ()));
                 }
@@ -78,7 +78,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
             str += item.$position.val () + ". " + item.$title.val ();
 
-            if (self.variousArtists () && item.$artist.val () !== '')
+            if (self.isVariousArtists () && item.$artist.val () !== '')
             {
                 str += MB.TrackParser.separator + item.$artist.val ();
             }
@@ -159,7 +159,13 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
     };
 
-    self.variousArtists = function () { return self.$various_artists.val() == '1'; };
+    /**
+     * isVariousArtists returns false only if all tracks on the disc are identical
+     * to the release artist.
+     */
+    self.isVariousArtists = function () {
+        return self.$various_artists.val() == '1';
+    };
 
     self.disc = disc;
     self.preview = preview;
@@ -170,7 +176,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$expand_icon = self.$basicdisc.find ('input.expand-disc');
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
-    self.$various_artists = $('#various-artists');
+    self.$various_artists = self.basicdisc.find ('input.various-artists');
 
     if (!self.$tracklist_id.length)
     {
