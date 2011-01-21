@@ -1,6 +1,5 @@
-<h2>[% l("Relationships") %]</h2>
-
 [%- DEFAULT relationships = source.grouped_relationships -%]
+
 [% IF relationships.size %]
     [% hide_ac = entity_type(source) == 'artist' ? source.name
                : source.artist_credit.defined    ? source.artist_credit.name
