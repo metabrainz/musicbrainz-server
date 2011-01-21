@@ -40,7 +40,8 @@ INSERT INTO release_gid_redirect (gid, new_id) VALUES ('71dc55d8-0fc6-41c1-94e0-
 
 INSERT INTO artist_name (id, name) VALUES (2, 'Various Artists');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2);
+    VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2),
+           (3, '1a906020-72db-11de-8a39-0800200c9a66', 2, 2);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (2, 2, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (2, 2, 2, 1, NULL);
 
@@ -93,8 +94,27 @@ INSERT INTO medium (id, release, tracklist, position)
     VALUES (2, 6, 2, 1), (3, 7, 3, 1),
            (4, 8, 4, 1), (5, 9, 5, 1);
 
+-- Test for searching by track artist
+INSERT INTO artist_credit (id, name, artist_count) VALUES (3, 2, 2);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+    VALUES (3, 2, 2, 1, NULL),
+           (3, 3, 2, 2, NULL);
+
+-- Both releases contain tracks by artist 3
+-- Release 10 is by artist 1 & 3. Release 11 is by artist 1
+-- Therefore release 11 is the only VA release for artist 3
+INSERT INTO release (id, gid, name, release_group, artist_credit)
+    VALUES (10, '7b906020-72db-11de-8a39-0800200c9a70', 6, 4, 3),
+           (11, '7c906020-72db-11de-8a39-0800200c9a71', 7, 4, 2);
+
+INSERT INTO tracklist (id, track_count) VALUES (6, 1);
+INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
+    VALUES (6, 1, 3, 6, 1, 2);
+INSERT INTO medium (id, release, tracklist, position)
+    VALUES (6, 10, 6, 1), (7, 11, 6, 1);
+
 ALTER SEQUENCE release_name_id_seq RESTART 10;
 ALTER SEQUENCE release_group_id_seq RESTART 5;
-ALTER SEQUENCE release_id_seq RESTART 10;
+ALTER SEQUENCE release_id_seq RESTART 12;
 
 
