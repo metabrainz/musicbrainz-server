@@ -7,11 +7,11 @@ has '+name' => ( default => 'CDStub' );
 
 has_field 'title' => (
     required => 1,
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
 );
 
 has_field 'comment' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
 );
 
 has_field 'barcode' => (
@@ -19,7 +19,7 @@ has_field 'barcode' => (
 );
 
 has_field 'artist' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
 );
 
 has_field 'tracks' => (
@@ -31,12 +31,12 @@ has_field 'multiple_artists' => (
 );
 
 has_field 'tracks.title' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1
 );
 
 has_field 'tracks.artist' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
 );
 
 sub default_multiple_artists { shift->field('artist')->value eq '' }

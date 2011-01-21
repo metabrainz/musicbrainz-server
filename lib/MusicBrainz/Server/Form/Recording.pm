@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 has '+name' => ( default => 'edit-recording' );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 
@@ -16,7 +16,7 @@ has_field 'length' => (
 );
 
 has_field 'comment' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 
