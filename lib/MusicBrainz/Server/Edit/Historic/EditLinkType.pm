@@ -24,7 +24,7 @@ sub upgrade_values
     my @attributes = split / /, $self->new_value->{attribute};
 
     my $mapped = {
-        parent              => $values->{parent},
+        parent_id           => $values->{parent},
         name                => $values->{name},
         child_order         => $values->{childorder},
         link_phrase         => $values->{linkphrase},
