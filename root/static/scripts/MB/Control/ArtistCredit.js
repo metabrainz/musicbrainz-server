@@ -80,10 +80,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         if (self.$credit.val () === '')
         {
-            self.$credit.attr ('placeholder', data.name)
+            self.$credit.attr ('placeholder', data.artist_name)
                 .mb_placeholder (self.placeholder_options);
         }
-
     };
 
     self.update = function(event, data) {
@@ -400,6 +399,20 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
     self.isVariousArtists = function () {
         return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
+    };
+
+    self.isEmpty = function () {
+        var isEmpty = true;
+
+        $.each (self.box, function (idx, box) {
+            if (! box.isEmpty ())
+            {
+                isEmpty = false;
+                return false;
+            }
+        });
+
+        return isEmpty;
     };
 
     /**

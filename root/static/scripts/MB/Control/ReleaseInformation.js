@@ -290,12 +290,34 @@ MB.Control.ReleaseInformation = function() {
     self.bubbles = MB.Control.BubbleCollection ();
     self.release_date = MB.Control.ReleaseDate (self.bubbles);
 
+    self.variousArtistsChecked = function () {
+        if (self.artistcredit.isEmpty ())
+        {
+            var va = {
+                'artist_name': MB.constants.VARTIST_NAME,
+                'sortname': MB.constants.VARTIST_NAME,
+                'name': '',
+                'gid': MB.constants.VARTIST_GID,
+                'id': ''
+            };
+
+            self.artistcredit.render ({ names: [ va ] });
+        }
+    };
+
     self.initialize = function () {
 
         self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
         self.bubbles.add ($('#annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
+
+        $('#id-various_artists').bind ('change', function () {
+            if ($(this).is(':checked'))
+            {
+                self.variousArtistsChecked ();
+            }
+        });
 
         $('div.release-label').each (function () {
             self.addLabel ($(this));
@@ -306,7 +328,7 @@ MB.Control.ReleaseInformation = function() {
             $(this).val (barcode);
         });
 
-        $('a[href=#add_label]').click (function (event) {
+        $('a[href=#add_label]').bind ('click.mb', function (event) {
             self.addLabel ();
             self.bubbles.hideAll ();
             event.preventDefault ();
