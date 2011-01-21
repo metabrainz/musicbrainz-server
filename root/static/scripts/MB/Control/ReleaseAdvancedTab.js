@@ -48,6 +48,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         if (data.artist_credit)
         {
             self.artist_credit.render (data.artist_credit);
+            self.updateVariousArtists ();
         }
 
         if (data.deleted)
@@ -87,6 +88,19 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
                 }
             }
         );
+    };
+
+    /**
+     * updateVariousArtists will mark the disc as VA if the artist for this
+     * track is different from the release artist.
+     */
+    self.updateVariousArtists = function () {
+        if (self.isDeleted () ||
+            self.parent.isVariousArtists () ||
+            self.artist_credit.isReleaseArtist ())
+            return;
+
+        self.parent.setVariousArtists ();
     };
 
     /**
@@ -277,7 +291,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         else
         {
             /* opening a bubble will disable the input, and re-enable
-               it on close.  make sure to hide these bubbles _before_
+               it on close.  make sure to close these bubbles _before_
                trying to disable the associated input. */
             self.bubble_collection.hideAll ();
 
@@ -418,6 +432,23 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.guessCase = function () {
         $.each (self.tracks, function (idx, item) { item.guessCase (); });
+    };
+
+
+    /**
+     * isVariousArtists returns false only if all tracks on the disc are identical
+     * to the release artist.
+     */
+    self.isVariousArtists = function () {
+        return self.basic.isVariousArtists ();
+    };
+
+    /**
+     * Allow a track to mark this disc as various artists.  There currently is no way
+     * to change this back to single artists.
+     */
+    self.setVariousArtists = function () {
+        self.basic.$various_artists.val ('1');
     };
 
     self.$table = self.$fieldset.find ('table.medium');
