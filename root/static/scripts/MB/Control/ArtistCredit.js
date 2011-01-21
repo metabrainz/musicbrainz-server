@@ -402,6 +402,31 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
     };
 
+    /**
+     * This compares the current artist credit to the release artist
+     * as it was rendered into a template on the tracklist tab of the
+     * release editor.
+     */
+    self.isReleaseArtist = function () {
+        $release_artist = $('table.tracklist-template tr.track-artist-credit');
+        var isReleaseArtist = true;
+
+        $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
+            var box = self.box[idx];
+
+            if (box.$gid.val () !== $(row).find ('input.gid').val () ||
+                box.$name.val () !== $(row).find ('input.name').val () ||
+                box.$credit.val () !== $(row).find ('input.credit').val () ||
+                box.$join.val () !== $(row).find ('input.join').val ())
+            {
+                isReleaseArtist = false;
+                return false;
+            }
+        });
+
+        return isReleaseArtist;
+    };
+
     self.clear = function () {
         $.each (self.box, function (idx, item) {
             item.clear ();
