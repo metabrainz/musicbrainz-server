@@ -130,7 +130,7 @@ MB.Control.ReleaseBarcode = function() {
     self.suggestion = $('p.barcode-suggestion');
     self.count = 0;
 
-    var checkDigit = function (barcode) {
+    self.checkDigit = function (barcode) {
         var weights = [ 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3 ];
 
         if (barcode.length !== 12)
@@ -149,19 +149,23 @@ MB.Control.ReleaseBarcode = function() {
         return checkdigit === 10 ? '0' : '' + checkdigit;
     };
 
-    var validate = function (barcode) {
+    self.validate = function (barcode) {
         return self.checkDigit (barcode.slice (0, 12)) === barcode[12];
     };
 
-    var clean = function () {
-        var barcode = self.input.val ().replace (/[^0-9]/g, '');
+    self.clean = function () {
+        var current = self.input.val ();
+        var barcode = current.replace (/[^0-9]/g, '');
 
-        self.input.val (barcode);
+        if (barcode !== current)
+        {
+            self.input.val (barcode);
+        }
 
         return barcode;
     };
 
-    var update = function () {
+    self.update = function () {
         var barcode = self.clean ();
 
         if (barcode.length === 0)
@@ -209,11 +213,6 @@ MB.Control.ReleaseBarcode = function() {
             self.suggestion.html (MB.text.DoubleCheck);
         }
     };
-
-    self.checkDigit = checkDigit;
-    self.validate = validate;
-    self.clean = clean;
-    self.update = update;
 
     self.input.bind ('change keyup', self.update);
     self.update ();
