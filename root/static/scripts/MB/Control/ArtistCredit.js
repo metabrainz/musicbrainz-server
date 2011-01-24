@@ -307,8 +307,20 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
 
-        self.updateJoinPhrases ();
-        self.renderPreview ();
+        if (self.box[self.box.length - 1].$join.val () !== '')
+        {
+            /* This artist credit uses a join phrase on the final artist.  Add an
+               artist credit to make sure that join phrase appears in the interface
+               and isn't cleared. */
+            self.addArtistBox ();
+        }
+        else
+        {
+            /* addArtistBox already calls updateJoinPhrases and renderPreview. so
+               there is no need to call these unless addArtistBox wasn't called. */
+            self.updateJoinPhrases ();
+            self.renderPreview ();
+        }
 
         if (self.box.length > 1)
         {

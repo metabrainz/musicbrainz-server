@@ -49,10 +49,25 @@ my $name = $sql->select_single_value('
 is($name, "Massive Attack and Portishead");
 
 $sql->begin;
-$artist_credit_data->merge_artists(3, 2);
+$artist_credit_data->merge_artists(3, [ 2 ]);
 $sql->commit;
 $ac = $artist_credit_data->get_by_id(1);
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);
+
+$sql->begin;
+# verify empty trailing artist credits and a trailing join phrase.
+$ac = $artist_credit_data->find_or_insert(
+    { name => '涼宮ハルヒ', artist => 1 }, '(',
+    { name => '平野 綾', artist => 2 }, ')',
+    { name => '', artist => undef }, '',
+    { name => '', artist => undef }, '',
+    { name => '', artist => undef }, '' );
+$sql->commit;
+ok(defined $ac);
+ok($ac > 1);
+
+$ac = $artist_credit_data->get_by_id($ac);
+is(scalar $ac->all_names, 2);
 
 done_testing;
