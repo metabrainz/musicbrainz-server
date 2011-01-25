@@ -760,7 +760,7 @@ sub xml_search
     }
     else
     {
-        return $response->content;
+        return $response->decoded_content;
     }
 }
 
