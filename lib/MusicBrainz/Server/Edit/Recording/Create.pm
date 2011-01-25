@@ -16,6 +16,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
 sub edit_name { l('Add standalone recording') }
