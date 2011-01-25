@@ -39,6 +39,7 @@ $annotation = MusicBrainz::Server::Entity::Annotation->new(
 like($annotation->summary, qr/This is.../, 'has first line of summary');
 like($annotation->summary, qr/the preview!/, 'has second line of summary');
 unlike($annotation->summary, qr/More text here/, 'doesnt have second paragraph');
+ok($annotation->summary_is_short);
 
 };
 
