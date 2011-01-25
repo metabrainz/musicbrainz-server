@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ARTIST );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+use MusicBrainz::Server::Translation 'l';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
