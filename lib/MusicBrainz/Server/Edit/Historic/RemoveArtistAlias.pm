@@ -9,6 +9,13 @@ sub ngs_class { 'MusicBrainz::Server::Edit::Artist::DeleteAlias' }
 sub edit_type { 14 }
 sub edit_name { l('Remove artist alias') }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        artist => [ $self->artist_id ]
+    }
+}
+
 sub do_upgrade {
     my $self = shift;
     return {

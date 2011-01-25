@@ -20,6 +20,7 @@ DROP TABLE recording_tag_raw;
 DROP TABLE release_group_rating_raw;
 DROP TABLE release_group_tag_raw;
 DROP TABLE release_raw;
+DROP TABLE release_tag_raw;
 DROP TABLE track_raw;
 DROP TABLE vote;
 DROP TABLE work_rating_raw;

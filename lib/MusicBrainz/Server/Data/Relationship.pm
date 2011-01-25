@@ -231,6 +231,21 @@ sub _generate_table_list
     return @types;
 }
 
+sub all_pairs
+{
+    my $self = shift;
+
+    # Generate a list of all possible type combinations
+    my @all;
+    for my $l0 (@TYPES) {
+        for my $l1 (@TYPES) {
+            next if $l1 lt $l0;
+            push @all, [ $l0, $l1 ];
+        }
+    }
+    return @all;
+}
+
 sub merge_entities
 {
     my ($self, $type, $target_id, @source_ids) = @_;

@@ -1,5 +1,6 @@
 [%- BLOCK layout_head -%]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <link rel="stylesheet" type="text/css" href="[%-
+      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]

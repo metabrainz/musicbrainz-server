@@ -9,6 +9,13 @@ sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Delete' }
 sub edit_type { 19 }
 sub edit_name { l('Remove artist') }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        artist => [ $self->row_id ]
+    }
+}
+
 sub do_upgrade {
     my $self = shift;
     return {

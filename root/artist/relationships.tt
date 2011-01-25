@@ -1,6 +1,7 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Relationships') page='relationships' -%]
     <span [% rdfa_about_attr(rdfa_artist_curi(artist)) %]>
 
+    <h2>[% l("Relationships") %]</h2>
     [% INCLUDE "components/relationships.tt"
         relationships=artist.grouped_relationships('artist', 'url', 'label') %]
 
@@ -25,7 +26,7 @@
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
                     <td>[% rel.begin_date.format %]</td>
                     <td>
-                        [% link_entity(rel.target) %] [% disambiguation(rel.target) %]
+                        [% link_entity(rel.target) %]
                     </td>
                     <td>
                         [% artist_credit(rel.target.artist_credit) %]

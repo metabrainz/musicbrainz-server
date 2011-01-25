@@ -4,7 +4,7 @@
     <td>
       <ul>
         [% FOR label=edit.display_data.old %]
-        <li>[% link_label(label) %]</li>
+        <li>[% link_entity(label) %]</li>
         [% END %]
       </ul>
     </td>
@@ -12,6 +12,6 @@
 
   <tr>
     <th>[%- l('New label:') %]</th>
-    <td>[% link_label(edit.display_data.new) %]</td>
+    <td>[% link_entity(edit.display_data.new) %]</td>
   </tr>
 </table>

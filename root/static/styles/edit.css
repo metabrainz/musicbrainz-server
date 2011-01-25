@@ -1,5 +1,10 @@
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
+.overall-vote {
+    float: right;
+    margin-bottom: 1em;
+}
+
 .edit-expiration {
     font-weight: bold;
 }

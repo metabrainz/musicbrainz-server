@@ -9,6 +9,16 @@ sub edit_type { 58 }
 sub edit_name { l('Merge labels') }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Merge' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        label => [
+            $self->data->{new_entity}{id},
+            map { $_->{id} } @{ $self->data->{old_entities} }
+        ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;

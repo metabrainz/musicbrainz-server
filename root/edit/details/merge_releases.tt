@@ -1,22 +1,29 @@
 <table class="details">
   <tr>
-    <th>[%- ln('Old recording:', 'Old recordings:', edit.display_data.old.size) %]</th>
+    <th>[%- ln('Old release:', 'Old releases:', edit.display_data.old.size) %]</th>
     <td>
       <ul>
-        [% FOR recording=edit.display_data.old %]
-          <li>[% l('{recording} by {artist}',
-               { recording => link_recording(recording),
-                 artist => artist_credit(recording.artist_credit)}) %]</li>
+        [% FOR release=edit.display_data.old %]
+          <li>[% descriptive_link(release) %]</li>
         [% END %]
       </ul>
     </td>
   </tr>
 
   <tr>
-    <th>[% l('New recording:') %]</th>
+    <th>[% l('New release:') %]</th>
     <td>
-      [% l('{recording} by {artist}', { recording => link_recording(edit.display_data.new),
-                                        artist => artist_credit(edit.display_data.new.artist_credit)  }) %]
+      [% descriptive_link(edit.display_data.new) %]
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Merge strategy:') %]</th>
+    <td>
+    [% SWITCH edit.data.merge_strategy;
+        CASE 1; l('Append mediums to target release');
+        CASE 2; l('Merge mediums and recordings');
+    END %]
     </td>
   </tr>
 </table>

@@ -16,11 +16,15 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_CREATE
     $EDIT_RECORDING_EDIT
     $EDIT_RECORDING_MERGE
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_PUID_DELETE
 );
+
+use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use MusicBrainz::Server::Entity::Recording;
 
 =head1 NAME
 
@@ -71,17 +75,12 @@ after 'tags' => sub
     my $recording = $c->stash->{recording};
 };
 
-=head2 relations
+after 'relationships' => sub {
+    my ($self, $c) = @_;
 
-Shows all relations to a given recording
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c, $mbid) = @_;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
-}
+    my $recording = $c->stash->{recording};
+    $c->model('Relationship')->load($recording->related_works);
+};
 
 =head2 details
 
@@ -145,6 +144,22 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RECORDING_MERGE,
     search_template => 'recording/merge_search.tt',
     confirmation_template => 'recording/merge_confirm.tt'
+};
+
+with 'MusicBrainz::Server::Controller::Role::Create' => {
+    form      => 'Recording',
+    edit_type => $EDIT_RECORDING_CREATE,
+    edit_arguments => sub {
+        my ($self, $c) = @_;
+        my $artist_gid = $c->req->query_params->{artist};
+        if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
+            my $rg = MusicBrainz::Server::Entity::Recording->new(
+                artist_credit => ArtistCredit->from_artist($artist)
+            );
+            $c->stash( initial_artist => $artist );
+            return ( item => $rg );
+        }
+    }
 };
 
 before 'edit' => sub {

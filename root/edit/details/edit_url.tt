@@ -19,8 +19,8 @@
   [% IF edit.display_data.description %]
   <tr>
     <th>[% l('Description:') %]</th>
-    <td class="old">[% edit.display_data.description.old %]</td>
-    <td class="new">[% edit.display_data.description.new %]</td>
+    <td class="old">[% edit.display_data.description.old | html %]</td>
+    <td class="new">[% edit.display_data.description.new | html %]</td>
   </tr>
   [% END %]
 </table>

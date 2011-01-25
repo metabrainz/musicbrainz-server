@@ -74,27 +74,35 @@ END; -%]
     END -%]
 
 [%- MACRO disambiguation(entity) BLOCK;
-    '<span class="comment">' _ html_escape("(${entity.comment})") _ '</span>' IF entity.comment;
+    ' <span class="comment">' _ html_escape("(${entity.comment})") _ '</span>' IF entity.comment;
 END -%]
 
 [%- MACRO artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
-        [%- opts.plain ? html_escape(name.name) : link_artist(name.artist, 'show', name.name) -%]
+        [%- opts.plain ? html_escape(name.name) : link_artist(name.artist, 'show', html_escape(name.name)) -%]
         [%- name.join_phrase | html -%]
     [%- END -%]
 [%- END -%]
 
 
 [%- MACRO link_entity(entity, action, text) BLOCK;
-    IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
+    IF entity.gid;
+      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
+      END;
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
+    ELSE;
+      caption = l("This entity has been deleted, and cannot be displayed correctly.");
+      '<span class="deleted tooltip" title="' _ caption _ '">' _
+        (html_escape(entity.name) || l('[deleted]')) _
+      '</span>';
     END;
+    disambiguation(entity) UNLESS text;
 END -%]
 
 [% MACRO descriptive_link(entity)
@@ -142,7 +150,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text || html_escape(artist.name);
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a href="' _ link _ '" title="' _ artist.sort_name _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '" title="' _ html_escape(artist.sort_name) _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
@@ -288,7 +296,7 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
-    out.push(link_label(label.label)) FOR label=labels;
+    out.push(link_entity(label.label)) FOR label=labels;
     out.join(', ');
 END -%]
 

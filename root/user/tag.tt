@@ -1,0 +1,20 @@
+[% WRAPPER 'user/profile/layout.tt' page='tags' %]
+
+[% FOR section=[
+    [l('Artists'), artist],
+    [l('Labels'), label],
+    [l('Recordings'), recording],
+    [l('Release Groups'), release_group],
+    [l('Works'), work],
+] %]
+    [% IF section.1.size %]
+        <h2>[% section.0 %]</h2>
+        <ul>
+            [% FOR entity=section.1 %]
+            <li>[% link_entity(entity) %]</li>
+            [% END %]
+        </ul>
+    [% END %]
+[% END %]
+
+[% END %]

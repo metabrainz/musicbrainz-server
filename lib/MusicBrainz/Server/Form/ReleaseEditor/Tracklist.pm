@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Form::Step';
 
 has_field 'mediums' => ( type => 'Repeatable', num_when_empty => 0 );
 has_field 'mediums.id' => ( type => 'Integer' );
+has_field 'mediums.toc' => ( type => 'Text' );
 has_field 'mediums.name' => ( type => 'Text' );
 has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
@@ -21,7 +22,26 @@ has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
 # this page and coming back, or when validation failed.
 has_field 'advanced' => ( type => 'Integer' );
 
-sub options_mediums_format_id { shift->_select_all('MediumFormat') }
+sub options_mediums_format_id {
+    my ($self) = @_;
+
+    my $root_format = $self->ctx->model('MediumFormat')->get_tree;
+    return [ $self->_build_medium_format_options($root_format, 'name', '') ];
+};
+
+sub _build_medium_format_options
+{
+    my ($self, $root, $attr, $indent) = @_;
+
+    my @options;
+    push @options, $root->id, $indent . trim($root->$attr) if $root->id;
+    $indent .= '&nbsp;&nbsp;&nbsp;';
+
+    foreach my $child ($root->all_children) {
+        push @options, $self->_build_medium_format_options($child, $attr, $indent);
+    }
+    return @options;
+}
 
 sub _track_errors {
     my ($self, $track, $tracknumbers, $cdtoc) = @_;
@@ -135,7 +155,6 @@ sub _validate_edits {
         $count++;
     }
 
-    $json = JSON::Any->new;
     $medium->field('edits')->value ($json->encode ($edits));
 
     return @errors;
