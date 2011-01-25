@@ -18,6 +18,7 @@ requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding';
 requires 'Catalyst::Runtime'                          => '5.80021';
 requires 'Catalyst::View::TT'                         => '0.29';
+requires 'CGI::Expand';
 requires 'Class::MOP';
 requires 'CSS::Minifier';
 requires 'Clone';
