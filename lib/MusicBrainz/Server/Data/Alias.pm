@@ -67,7 +67,7 @@ sub find_by_entity_id
                  WHERE $key IN (" . placeholders(@ids) . ")
                  ORDER BY musicbrainz_collate(name.name)";
 
-    return [ query_to_list($self->c->dbh, sub {
+    return [ query_to_list($self->c->sql, sub {
         $self->_new_from_row(@_)
     }, $query, @ids) ];
 }
@@ -85,7 +85,7 @@ sub has_locale
         $query .= ' AND ' . $type . '_alias.id != ?';
         push @args, $filter;
     }
-    return defined $sql->select_single_value($query, @args);
+    return defined $self->sql->select_single_value($query, @args);
 }
 
 sub load
@@ -100,7 +100,7 @@ sub delete
     my $sql = Sql->new($self->c->dbh);
     my $query = "DELETE FROM " . $self->table .
                 " WHERE id IN (" . placeholders(@ids) . ")";
-    $sql->do($query, @ids);
+    $self->sql->do($query, @ids);
     return 1;
 }
 
@@ -110,7 +110,7 @@ sub delete_entities
     my $sql = Sql->new($self->c->dbh);
     my $query = "DELETE FROM " . $self->table .
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")";
-    $sql->do($query, @ids);
+    $self->sql->do($query, @ids);
     return 1;
 }
 
@@ -124,7 +124,7 @@ sub insert
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         push @created, $class->new(
-            id => $sql->insert_row($table, {
+            id => $self->sql->insert_row($table, {
                 $type  => $hash->{$type . '_id'},
                 name   => $names{ $hash->{name} },
                 locale => $hash->{locale}
@@ -139,10 +139,10 @@ sub merge
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
-    $sql->do("DELETE FROM $table
+    $self->sql->do("DELETE FROM $table
               WHERE name IN (SELECT name FROM $table WHERE $type = ?) AND
                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-    $sql->do("UPDATE $table SET $type = ?
+    $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
@@ -156,7 +156,7 @@ sub update
         my %names = $self->parent->find_or_insert_names($alias_hash->{name});
         $alias_hash->{name} = $names{ $alias_hash->{name} };
     }
-    $sql->update_row($table, $alias_hash, { id => $alias_id });
+    $self->sql->update_row($table, $alias_hash, { id => $alias_id });
 }
 
 no Moose;

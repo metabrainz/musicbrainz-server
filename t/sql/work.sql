@@ -1,17 +1,17 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE annotation CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE editor CASCADE;
-TRUNCATE work_annotation CASCADE;
-TRUNCATE work_gid_redirect CASCADE;
-TRUNCATE work_name CASCADE;
-TRUNCATE work_type CASCADE;
-TRUNCATE work CASCADE;
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'ABBA');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -41,4 +41,4 @@ INSERT INTO work_annotation (work, annotation) VALUES (1, 1);
 ALTER SEQUENCE work_id_seq RESTART 3;
 ALTER SEQUENCE work_name_id_seq RESTART 3;
 
-COMMIT;
+

@@ -73,7 +73,7 @@ sub find_by_artist
                  ORDER BY musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
 }
 
@@ -91,7 +91,7 @@ sub find_by_release
                  OFFSET ?";
 
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $release_id, $offset || 0);
 }
 
@@ -114,7 +114,7 @@ sub insert
         my $row = $self->_hash_to_row($recording, \%names);
         $row->{gid} = $recording->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->insert_row('recording', $row, 'id'),
+            id => $self->sql->insert_row('recording', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -128,14 +128,14 @@ sub update
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('recording', $row, { id => $recording_id });
+    $self->sql->update_row('recording', $row, { id => $recording_id });
 }
 
 sub can_delete
 {
     my ($self, $recording_id) = @_;
     my $sql = Sql->new($self->c->dbh);
-    my $refcount = $sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
+    my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
     return @$refcount == 0;
 }
 
@@ -152,7 +152,7 @@ sub delete
     $self->rating->delete($recording->id);
     $self->remove_gid_redirects($recording->id);
     my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
+    $self->sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
     return;
 }
 
@@ -193,7 +193,7 @@ sub merge
 
     # Move tracks to the new recording
     my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE track SET recording = ?
+    $self->sql->do('UPDATE track SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
@@ -214,7 +214,7 @@ sub find_standalone
       ORDER BY musicbrainz_collate(name.name)
         OFFSET ?';
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
 }
 

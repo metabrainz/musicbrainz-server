@@ -129,7 +129,7 @@ sub find_by_artist
                           country.name, barcode
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, @$statuses, @$types, $offset || 0);
 }
 
@@ -153,7 +153,7 @@ sub find_by_label
                           country.name, barcode
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $label_id, $offset || 0);
 }
 
@@ -169,7 +169,7 @@ sub find_by_disc_id
                  WHERE cdtoc.discid = ?
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)";
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $disc_id);
 }
 
@@ -189,7 +189,7 @@ sub find_by_release_group
                           country.name, barcode
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, @ids, @$statuses, $offset || 0);
 }
 
@@ -211,7 +211,7 @@ sub find_by_track_artist
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $artist_id, $offset || 0);
 }
 
@@ -240,7 +240,7 @@ sub find_for_various_artists
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $artist_id, @$statuses, @$types, $offset || 0);
 }
 
@@ -266,12 +266,12 @@ sub find_by_recording
                  OFFSET ?";
 
     if (!defined $limit) {
-        return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+        return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                              $query, @ids, @$statuses, @$types, $offset || 0);
     }
     else {
         return query_to_list_limited(
-            $self->c->dbh, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
+            $self->c->sql, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
             $query, @ids, @$statuses, @$types, $offset || 0);
     }
 }
@@ -292,7 +292,7 @@ sub find_by_artist_track_count
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $track_count, $artist_id, $offset || 0);
 }
 
@@ -334,7 +334,7 @@ sub load_with_tracklist_for_recording
        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
        OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row = shift;
             my $track = MusicBrainz::Server::Data::Track->_new_from_row($row, 't_');
             my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
@@ -363,7 +363,7 @@ sub find_by_puid
                       JOIN puid ON puid.id = recording_puid.puid
                      WHERE puid.puid IN (' . placeholders(@ids) . ')
                 )';
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                          $query, @{ids});
 }
 
@@ -374,7 +374,7 @@ sub find_by_tracklist
                 ' FROM ' . $self->_table .
                 ' JOIN medium ON medium.release = release.id ' .
                 ' WHERE medium.tracklist = ?';
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                          $query, $tracklist_id);
 }
 
@@ -389,7 +389,7 @@ sub find_by_medium
                      WHERE medium.id IN (' . placeholders(@ids) . ')
                 )
                 OFFSET ?';
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                          $query, @{ids}, $offset || 0);
 }
 
@@ -417,7 +417,7 @@ sub find_by_collection
                  OFFSET ?";
 
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $collection_id, $offset || 0);
 }
 
@@ -433,7 +433,7 @@ sub insert
         my $row = $self->_hash_to_row($release, \%names);
         $row->{gid} = $release->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->insert_row('release', $row, 'id'),
+            id => $self->sql->insert_row('release', $row, 'id'),
             gid => $row->{gid},
         );
     }
@@ -446,7 +446,7 @@ sub update
     my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('release', $row, { id => $release_id });
+    $self->sql->update_row('release', $row, { id => $release_id });
 }
 
 sub can_delete { 1 }
@@ -460,26 +460,25 @@ sub delete
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
+    $self->sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
              @release_ids);
 
-    $sql->do('DELETE FROM medium WHERE release IN ('. placeholders(@release_ids) . ')',
+    $self->sql->do('DELETE FROM medium WHERE release IN ('. placeholders(@release_ids) . ')',
              @release_ids);
 
     my @orphaned_tracklists = @{
-        $sql->select_single_column_array(
+        $self->sql->select_single_column_array(
             'SELECT tracklist.id FROM tracklist
           LEFT JOIN medium ON medium.tracklist = tracklist.id
               WHERE medium.id IS NULL'
         )
     };
-    $sql->do('DELETE FROM track WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+    $self->sql->do('DELETE FROM track WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
              @orphaned_tracklists);
-    $sql->do('DELETE FROM tracklist WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+    $self->sql->do('DELETE FROM tracklist WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
              @orphaned_tracklists);
 
-    $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
+    $self->sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
              @release_ids);
 
     return;
@@ -505,10 +504,10 @@ sub merge
     # XXX allow actual tracklists/mediums merging
     my $sql = Sql->new($self->c->dbh);
     if ($merge_strategy == $MERGE_APPEND) {
-        my $pos = $sql->select_single_value('
+        my $pos = $self->sql->select_single_value('
             SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
         my @medium_ids = @{
-            $sql->select_single_column_array(
+            $self->sql->select_single_column_array(
                 'SELECT medium.id FROM medium
                    JOIN release ON medium.release = release.id
                    JOIN release_name ON release_name.id = release.name
@@ -518,13 +517,13 @@ sub merge
             );
         };
         foreach my $medium_id (@medium_ids) {
-            $sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
+            $self->sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
                      $new_id, ++$pos, $medium_id);
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
         my @tracklist_merges = @{ 
-            $sql->select_list_of_lists(
+            $self->sql->select_list_of_lists(
                 'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
                    FROM medium newmed, medium oldmed
                   WHERE newmed.release = ?
@@ -537,13 +536,13 @@ sub merge
             $self->c->model('Tracklist')->merge(@$tracklist_merge);
         }
 
-        $sql->do(
+        $self->sql->do(
             'DELETE FROM medium WHERE release IN (' . placeholders(@old_ids) . ')',
             @old_ids
         );
     }
 
-    $sql->do(
+    $self->sql->do(
         'DELETE FROM release_coverart
           WHERE id IN (' . placeholders(@old_ids) . ')',
         @old_ids
@@ -612,7 +611,7 @@ sub find_ids_by_track_ids
                              WHERE id IN (' . placeholders(@ids) . ')
                         )';
     my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_column_array($query, @ids);
+    return $self->sql->select_single_column_array($query, @ids);
 }
 
 sub find_similar

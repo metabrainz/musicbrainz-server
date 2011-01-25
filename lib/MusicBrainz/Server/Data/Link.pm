@@ -58,9 +58,9 @@ sub _load_attributes
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
         my $sql = Sql->new($self->c->dbh);
-        $sql->select($query, @ids);
+        $self->sql->select($query, @ids);
         while (1) {
-            my $row = $sql->next_row_hash_ref or last;
+            my $row = $self->sql->next_row_hash_ref or last;
             my $id = $row->{link};
             if (exists $data->{$id}) {
                 my $attr = MusicBrainz::Server::Entity::LinkAttributeType->new(
@@ -74,7 +74,7 @@ sub _load_attributes
                 $data->{$id}->add_attribute($attr);
             }
         }
-        $sql->finish;
+        $self->sql->finish;
     }
 }
 

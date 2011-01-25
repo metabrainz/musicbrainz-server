@@ -67,7 +67,7 @@ sub load_for_tracklists
                  FROM " . $self->_table . "
                  WHERE tracklist IN (" . placeholders(@ids) . ")
                  ORDER BY tracklist, position";
-    my @tracks = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+    my @tracks = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $track (@tracks) {
         $id_to_tracklist{$track->tracklist_id}->add_track($track);
@@ -105,7 +105,7 @@ sub find_by_recording
         ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
         OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row       = shift;
             my $track     = $self->_new_from_row($row);
             my $medium    = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
@@ -129,7 +129,7 @@ sub insert
     for my $track_hash (@track_hashes) {
         my $row = $self->_create_row($track_hash, \%names);
         push @created, $class->new(
-            id => $sql->insert_row('track', $row, 'id')
+            id => $self->sql->insert_row('track', $row, 'id')
         );
     }
     return @created > 1 ? @created : $created[0];
@@ -142,7 +142,7 @@ sub delete
     my ($self, @track_ids) = @_;
     my $query = 'DELETE FROM track WHERE id IN (' . placeholders(@track_ids) . ')';
     my $sql = Sql->new($self->c->dbh);
-    $sql->do($query, @track_ids);
+    $self->sql->do($query, @track_ids);
     return 1;
 }
 

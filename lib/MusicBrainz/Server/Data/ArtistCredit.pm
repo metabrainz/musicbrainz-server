@@ -32,9 +32,9 @@ sub get_by_ids
         $result{$id} = $obj;
         $counts{$id} = 0;
     }
-    $sql->select($query, @ids);
+    $self->sql->select($query, @ids);
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my %info = (
             artist_id => $row->{artist},
             name => $row->{name}
@@ -51,7 +51,7 @@ sub get_by_ids
         $result{$id}->add_name($obj);
         $counts{$id} += 1;
     }
-    $sql->finish;
+    $self->sql->finish;
     foreach my $id (@ids) {
         $result{$id}->artist_count($counts{$id});
     }
@@ -103,18 +103,18 @@ sub find_or_insert
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
     my @args = zip @positions, @artists, @names, @$join_phrases;
     pop @args unless defined $join_phrases->[$#names];
-    my $id = $sql->select_single_value($query, @args, scalar @names);
+    my $id = $self->sql->select_single_value($query, @args, scalar @names);
 
     if(!defined $id)
     {
         my %names_id = $self->c->model('Artist')->find_or_insert_names(@names, $name);
-        $id = $sql->insert_row('artist_credit', {
+        $id = $self->sql->insert_row('artist_credit', {
             name => $names_id{$name},
             artist_count => scalar @names,
         }, 'id');
         for my $i (@positions)
         {
-            $sql->insert_row('artist_credit_name', {
+            $self->sql->insert_row('artist_credit_name', {
                     artist_credit => $id,
                     position => $i,
                     artist => $artists[$i],
@@ -132,14 +132,14 @@ sub merge_artists
     my ($self, $new_id, $old_ids, %opts) = @_;
     my $sql = Sql->new($self->c->dbh);
     if ($opts{rename}) {
-        $sql->do(
+        $self->sql->do(
             'UPDATE artist_credit_name acn SET name = artist.name
                FROM artist
               WHERE artist.id = ?
                 AND acn.artist IN (' . placeholders(@$old_ids) . ')',
             $new_id, @$old_ids);
     }
-    $sql->do(
+    $self->sql->do(
         'UPDATE artist_credit_name SET artist = ?
           WHERE artist IN ('.placeholders(@$old_ids).')',
         $new_id, @$old_ids);

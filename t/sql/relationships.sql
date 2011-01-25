@@ -1,12 +1,12 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE TABLE link_attribute_type CASCADE;
-TRUNCATE TABLE link_type CASCADE;
-TRUNCATE TABLE link_type_attribute_type CASCADE;
-TRUNCATE TABLE link CASCADE;
-TRUNCATE TABLE link_attribute CASCADE;
-TRUNCATE TABLE l_artist_recording CASCADE;
+
+
+
+
+
+
 
 INSERT INTO link_attribute_type (id, root, gid, name)
     VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'Additional'),
@@ -33,12 +33,12 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4),
                                                          (2, 1),
                                                          (2, 3);
 
-TRUNCATE artist_name CASCADE;
-TRUNCATE track_name CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE recording CASCADE;
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1');
 INSERT INTO artist_name (id, name) VALUES (2, 'Artist 2');
@@ -66,4 +66,4 @@ ALTER SEQUENCE link_type_id_seq RESTART 100;
 ALTER SEQUENCE link_id_seq RESTART 100;
 ALTER SEQUENCE l_artist_recording_id_seq RESTART 100;
 
-COMMIT;
+

@@ -12,7 +12,9 @@ use MusicBrainz::Server::Entity::UserTag;
 use MusicBrainz::Server::Entity::Tag;
 use Sql;
 
-has [qw( c parent )] => (
+with 'MusicBrainz::Server::Data::Role::Sql';
+
+has [qw( parent )] => (
     isa => 'Object',
     is => 'ro'
 );
@@ -32,7 +34,7 @@ sub find_tags
                 "WHERE " . $self->type . " = ?" .
                 "ORDER BY entity_tag.count DESC, tag.name OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row($_[0]) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row($_[0]) },
         $query, $entity_id, $offset);
 }
 
@@ -52,7 +54,7 @@ sub find_top_tags
                 "JOIN tag ON tag.id = entity_tag.tag " .
                 "WHERE " . $self->type . " = ? " .
                 "ORDER BY entity_tag.count DESC, tag.name LIMIT ?";
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
+    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
                          $query, $entity_id, $limit);
 }
 
@@ -71,7 +73,7 @@ sub find_tags_for_entities
                  WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
                  ORDER BY entity_tag.count DESC, tag.name";
     return query_to_list(
-        $self->c->dbh, sub {
+        $self->c->sql, sub {
             $self->_new_from_row($_[0])
         }, $query, @ids);
 }
@@ -91,7 +93,7 @@ sub find_user_tags_for_entities
                  WHERE editor = ?
                  AND $type IN (" . placeholders(@ids) . ")";
 
-    my @tags = query_to_list($self->c->raw_dbh, sub {
+    my @tags = query_to_list($self->c->raw_sql, sub {
         my $row = shift;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag},
@@ -123,7 +125,7 @@ sub delete
 {
     my ($self, @entity_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
-    $sql->do("
+    $self->sql->do("
         DELETE FROM " . $self->tag_table . "
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
@@ -148,12 +150,12 @@ sub _merge
     my $raw_sql = Sql->new($self->c->raw_dbh);
 
     # Load the tag ids for both entities
-    my $old_tag_ids = $sql->select_single_column_array("
+    my $old_tag_ids = $self->sql->select_single_column_array("
         SELECT tag
           FROM $assoc_table
          WHERE $entity_type = ?", $old_entity_id);
 
-    my $new_tag_ids = $sql->select_single_column_array("
+    my $new_tag_ids = $self->sql->select_single_column_array("
         SELECT tag
           FROM $assoc_table
          WHERE $entity_type = ?", $new_entity_id);
@@ -197,7 +199,7 @@ sub _merge
             # Update the aggregated tag count for moved raw tags
             if ($count)
             {
-                $sql->do("
+                $self->sql->do("
                     UPDATE $assoc_table
                        SET count = count + ?
                      WHERE $entity_type = ? AND tag = ?", $count, $new_entity_id, $tag_id);
@@ -207,7 +209,7 @@ sub _merge
         # If the tag doesn't exist for the target entity, move it
         else
         {
-            $sql->do("
+            $self->sql->do("
                 UPDATE $assoc_table
                    SET $entity_type = ?
                  WHERE $entity_type = ? AND tag = ?", $new_entity_id, $old_entity_id, $tag_id);
@@ -219,7 +221,7 @@ sub _merge
     }
 
     # Delete unused tags
-    $sql->do("DELETE FROM $assoc_table WHERE $entity_type = ?", $old_entity_id);
+    $self->sql->do("DELETE FROM $assoc_table WHERE $entity_type = ?", $old_entity_id);
     $raw_sql->do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $old_entity_id);
 }
 
@@ -302,15 +304,15 @@ sub update
         if (scalar(@$old_tag_ids)) {
             # Load the corresponding tag strings from the main server
             #
-            @old_tags = $sql->select("SELECT id, name FROM tag
+            @old_tags = $self->sql->select("SELECT id, name FROM tag
                                       WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
                                       @$old_tag_ids);
             # Create a lookup friendly hash from the old tags
             if (@old_tags) {
-                while (my $row = $sql->next_row_ref()) {
+                while (my $row = $self->sql->next_row_ref()) {
                     $old_tag_info{$row->[1]} = $row->[0];
                 }
-                $sql->finish();
+                $self->sql->finish();
             }
         }
 
@@ -324,7 +326,7 @@ sub update
 
             # Lookup tag id for current tag, checking for UNICODE
             my $tag_id = eval {
-                $sql->select_single_value("SELECT id FROM tag WHERE name = ?", $tag);
+                $self->sql->select_single_value("SELECT id FROM tag WHERE name = ?", $tag);
             };
             if ($@) {
                 my $err = $@;
@@ -332,25 +334,25 @@ sub update
                 die $err;
             }
             if (!defined $tag_id) {
-                $tag_id = $sql->select_single_value("INSERT INTO tag (name) VALUES (?) RETURNING id", $tag);
+                $tag_id = $self->sql->select_single_value("INSERT INTO tag (name) VALUES (?) RETURNING id", $tag);
             }
 
             # Add raw tag associations
             $raw_sql->do("INSERT INTO $assoc_table_raw ($entity_type, tag, editor) VALUES (?, ?, ?)", $entity_id, $tag_id, $user_id);
 
             # Look for the association in the aggregate tags
-            $count = $sql->select_single_value("SELECT count
+            $count = $self->sql->select_single_value("SELECT count
                                                    FROM $assoc_table
                                                   WHERE $entity_type = ?
                                                     AND tag = ?", $entity_id, $tag_id);
 
             # if not found, add it
             if (!$count) {
-                $sql->do("INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, 1)", $entity_id, $tag_id);
+                $self->sql->do("INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, 1)", $entity_id, $tag_id);
             }
             else {
                 # Otherwise increment the refcount
-                $sql->do("UPDATE $assoc_table SET count = count + 1 WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id);
+                $self->sql->do("UPDATE $assoc_table SET count = count + 1 WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id);
             }
 
             # With this tag taken care of remove it from the list
@@ -360,7 +362,7 @@ sub update
         # For any of the old tags that were not affected, remove them since the user doesn't seem to want them anymore
         foreach my $tag (keys %old_tag_info) {
             # Lookup tag id for current tag
-            my $tag_id = $sql->select_single_value("SELECT tag.id FROM tag WHERE tag.name = ?", $tag);
+            my $tag_id = $self->sql->select_single_value("SELECT tag.id FROM tag WHERE tag.name = ?", $tag);
             die "Cannot load tag" if (!$tag_id);
 
             # Remove the raw tag association
@@ -370,26 +372,26 @@ sub update
                                   AND editor = ?", $entity_id, $tag_id, $user_id);
 
             # Decrement the count for this tag
-            $count = $sql->select_single_value("SELECT count
+            $count = $self->sql->select_single_value("SELECT count
                                                 FROM $assoc_table
                                                WHERE $entity_type = ?
                                                  AND tag = ?", $entity_id, $tag_id);
 
             if (defined $count && $count > 1) {
                 # Decrement the refcount
-                $sql->do("UPDATE $assoc_table SET count = count - 1
+                $self->sql->do("UPDATE $assoc_table SET count = count - 1
                            WHERE $entity_type = ?
                              AND tag = ?", $entity_id, $tag_id);
             }
             else {
                 # if count goes to zero, remove the association
-                $sql->do("DELETE FROM $assoc_table
+                $self->sql->do("DELETE FROM $assoc_table
                            WHERE $entity_type = ?
                              AND tag = ?", $entity_id, $tag_id);
             }
         }
 
-    }, $sql, $raw_sql);
+    }, $self->c->sql, $self->c->raw_sql);
 }
 
 sub find_user_tags
@@ -400,7 +402,7 @@ sub find_user_tags
     my $table = $self->tag_table . '_raw';
     my $query = "SELECT tag FROM $table WHERE editor = ? AND $type = ?";
 
-    my @tags = query_to_list($self->c->raw_dbh, sub {
+    my @tags = query_to_list($self->c->raw_sql, sub {
         my $row = shift;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag},
@@ -425,7 +427,7 @@ sub find_entities
                  ORDER BY tt.count DESC, musicbrainz_collate(name.name), " . $self->parent->_id_column . "
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $entity = $self->parent->_new_from_row($row);
             return MusicBrainz::Server::Entity::AggregatedTag->new(

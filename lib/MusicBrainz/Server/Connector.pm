@@ -18,6 +18,15 @@ has 'database' => (
     is  => 'rw',
 );
 
+has 'sql' => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        Sql->new($self->dbh)
+    },
+    lazy => 1
+);
+
 sub _build_conn
 {
     my ($self) = @_;
