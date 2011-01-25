@@ -1,22 +1,5 @@
 <table class="details">
-  <tr>
-    <th>[%- ln('Old release:', 'Old releases:', edit.display_data.old.size) %]</th>
-    <td>
-      <ul>
-        [% FOR release=edit.display_data.old %]
-          <li>[% descriptive_link(release) %]</li>
-        [% END %]
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <th>[% l('New release:') %]</th>
-    <td>
-      [% descriptive_link(edit.display_data.new) %]
-    </td>
-  </tr>
-
+  [% INCLUDE 'edit/details/merge_common.tt' %]
   <tr>
     <th>[% l('Merge strategy:') %]</th>
     <td>
