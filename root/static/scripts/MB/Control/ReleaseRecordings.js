@@ -295,7 +295,7 @@ MB.Control.ReleaseRecordings = function () {
         self.discs.push (MB.Control.ReleaseRecordingsDisc (self, discno, disc));
     });
 
-    var $targets = $('tr.track:not(.template) input.change-recording');
+    var $targets = $('tr.track:not(.template) .change-recording');
     var $containers = $('div.select-recording-container:not(.template) div.select-recording');
 
     self.addBubble ($targets, $containers);
