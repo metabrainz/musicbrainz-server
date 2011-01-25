@@ -176,7 +176,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$expand_icon = self.$basicdisc.find ('input.expand-disc');
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
-    self.$various_artists = self.basicdisc.find ('input.various-artists');
+    self.$various_artists = self.$basicdisc.find ('input.various-artists');
 
     if (!self.$tracklist_id.length)
     {
