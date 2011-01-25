@@ -58,6 +58,7 @@ sub foreign_keys
                           Country => 'country_id',
                           Gender => 'gender_id',
                       ));
+    $relations->{Artist} = [ $self->data->{entity_id} ];
 
     return $relations;
 }
@@ -91,6 +92,8 @@ sub build_display_data
             old => PartialDate->new($self->data->{old}{end_date}),
         };
     }
+
+    $data->{artist} = $loaded->{Artist}{ $self->data->{entity_id} };
 
     return $data;
 }
