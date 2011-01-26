@@ -206,8 +206,8 @@ sub create : Local RequireAuth Edit
             }
         }
 
-        my $entity0 = $source->id;
-        my $entity1 = $dest->id;
+        my $entity0 = $source;
+        my $entity1 = $dest;
 
         if ($type0 eq $type1 && $form->field('direction')->value)
         {
@@ -219,8 +219,8 @@ sub create : Local RequireAuth Edit
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
             attributes => \@attributes,
-            entity0 => $entity0,
-            entity1 => $entity1,
+            entity0 => $entity0->id,
+            entity1 => $entity1->id,
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -387,8 +387,8 @@ sub create_url : Local RequireAuth Edit
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my $url = $c->model('URL')->find_or_insert($form->field('url')->value);
 
-        my $e0 = $types[0] eq 'url' ? $url->id : $entity->id;
-        my $e1 = $types[1] eq 'url' ? $url->id : $entity->id;
+        my $e0 = $types[0] eq 'url' ? $url : $entity;
+        my $e1 = $types[1] eq 'url' ? $url : $entity;
 
         $self->_insert_edit($c, $form,
             edit_type    => $EDIT_RELATIONSHIP_CREATE,
