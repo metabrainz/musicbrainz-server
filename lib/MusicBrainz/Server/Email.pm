@@ -7,6 +7,7 @@ use Email::Address;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
+use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape );
 use DBDefs;
 
