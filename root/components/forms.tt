@@ -50,7 +50,7 @@
 
 [% MACRO form_row_text(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.text(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -58,7 +58,7 @@
 
 [% MACRO form_row_text_long(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.text(field_name, { size => 47 })  %]
       [% field_errors(form, field_name) %]
     [% END %]
@@ -66,7 +66,7 @@
 
 [% MACRO form_row_textarea(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.textarea(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -74,7 +74,7 @@
 
 [% MACRO form_row_password(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.password(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -83,14 +83,14 @@
 [% MACRO form_row_checkbox(r, field_name, label) BLOCK %]
     <div class="row no-label">
       [% r.checkbox(field_name) %]
-      [% r.label(field_name, label, inline => 1) %]
+      [% r.label(field_name, label || r.form.field(field_name).label, inline => 1) %]
       [% field_errors(r.form, field_name) %]
     </div>
 [% END %]
 
 [% MACRO form_row_select(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.select(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -98,7 +98,7 @@
 
 [% MACRO form_row_date(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label, fake => 1) %]
+      [% r.label(field_name, label || r.form.field(field_name).label, fake => 1) %]
       [% r.date(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
