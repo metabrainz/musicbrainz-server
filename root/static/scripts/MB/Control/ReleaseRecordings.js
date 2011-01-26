@@ -89,7 +89,8 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         return request;
     };
 
-    MB.Control.AutocompleteRecording ({
+    MB.Control.Autocomplete ({
+        'entity': 'recording',
         'input': self.$search,
         'select': self.selected,
         'lookupHook': self.lookupHook

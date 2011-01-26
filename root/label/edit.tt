@@ -1,7 +1,6 @@
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
-      "scripts/MB/utility.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Label.js",
       "scripts/MB/GuessCase/Mode/Base.js",
