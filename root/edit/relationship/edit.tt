@@ -1,13 +1,9 @@
 [% BLOCK layout_head %]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
-        "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
         "scripts/MB/html.js",
-        "scripts/MB/utility.js",
         "scripts/MB/Control/Autocomplete.js",
-        "scripts/MB/Control/AutocompleteRecording.js",
         "scripts/MB/Control/RelationshipEdit.js",
         "scripts/ar.js",
       )

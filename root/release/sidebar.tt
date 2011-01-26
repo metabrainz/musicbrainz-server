@@ -149,6 +149,7 @@
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
+        <li>[% relate_to_ellipsis(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
       [% ELSE %]
         <li>[% request_login(l('Please log in to edit this release')) %]</li>

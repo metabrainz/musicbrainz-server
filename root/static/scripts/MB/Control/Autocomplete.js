@@ -18,10 +18,8 @@
 
 */
 
-MB.Control.Autocomplete = function (options) {
-    var self = MB.Object();
-
-    var formatItem = function (ul, item) {
+MB.Control.autocomplete_formatters = {
+    "generic": function (ul, item) {
         var a = $("<a>").text (item.name);
 
         var comment = [];
@@ -43,7 +41,43 @@ MB.Control.Autocomplete = function (options) {
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
-    };
+    },
+
+    "recording": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        a.append (' - <span class="autocomplete-artist">' + item.artist + '</span>');
+
+        if (item.releasegroups)
+        {
+            var rgs = {};
+            /* don't display the same name multiple times. */
+            $.each (item.releasegroups, function (idx, item) {
+                rgs[item.name] = item.name;
+            });
+
+            a.append ('<br /><span class="autocomplete-appears">appears on: '
+                      + MB.utility.keys (rgs).join (", ") + '</span>');
+        }
+
+        if (item.comment)
+        {
+            a.append ('<br /><span class="autocomplete-comment">(' + item.comment + ')</span>');
+        }
+
+        if (item.isrcs.length)
+        {
+            a.append ('<br /><span class="autocomplete-isrcs">isrcs: '
+                      + item.isrcs.join (", ") + '</span>');
+        }
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+    }
+};
+
+
+MB.Control.Autocomplete = function (options) {
+    var self = MB.Object();
 
     var formatPager = function (ul, item) {
         self.number_of_pages = item.pages;
@@ -235,6 +269,8 @@ MB.Control.Autocomplete = function (options) {
 
     self.initialize = function () {
 
+        self.changeEntity (options.entity);
+
         self.$input.autocomplete ({
             'source': self.lookup,
             'minLength': options.minLength ? options.minLength : 2,
@@ -269,10 +305,24 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.menu.options.focus = function (event, ui) { };
     };
 
+    self.changeEntity = function (entity) {
+        self.entity = entity;
+        self.url = options.url || "/ws/js/" + self.entity;
+
+        if (options.formatItem)
+        {
+            self.formatItem = options.formatItem;
+        }
+        else
+        {
+            self.formatItem = MB.Control.autocomplete_formatters[self.entity] ||
+                MB.Control.autocomplete_formatters['generic'];
+        }
+    };
+
     self.$input = options.input;
     self.$search = self.$input.closest ('span.autocomplete').find('img.search');
 
-    self.url = options.entity ? "/ws/js/" + options.entity : options.url;
     self.lookupHook = options.lookupHook || function (r) { return r; };
     self.page_term = '';
     self.current_page = 1;
@@ -280,7 +330,6 @@ MB.Control.Autocomplete = function (options) {
     self.selected_item = 0;
     self.indexed_search = true;
 
-    self.formatItem = options.formatItem || formatItem;
     self.formatPager = options.formatPager || formatPager;
     self.formatMessage = options.formatMessage || formatMessage;
 
@@ -288,3 +337,4 @@ MB.Control.Autocomplete = function (options) {
 
     return self;
 };
+
