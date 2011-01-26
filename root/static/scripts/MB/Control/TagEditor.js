@@ -37,7 +37,7 @@ MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
     self.updateTagDisplay = function(tags, more) {
         var html = tags.length ? tags.map(function(tag) {
                 return tagTemplate.draw({tag: tag});
-            }).join(', ') : '(none)';
+            }).join(', ') : MB.text.None;
 
         if (more) {
             html += ', ' + moreHtml;
