@@ -46,13 +46,7 @@ sub upgrade_type
 
 sub upgrade_release_type
 {
-    my $type_id = shift;
-
-    # Type constants used to be 0 indexed, but as they are now in the database
-    # they are indexed from 1.
-    $type_id++ if defined $type_id;
-    
-    return $type_id;
+    shift;
 }
 
 sub upgrade_release_status
