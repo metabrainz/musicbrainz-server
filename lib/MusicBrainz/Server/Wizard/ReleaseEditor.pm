@@ -2,6 +2,7 @@ package MusicBrainz::Server::Wizard::ReleaseEditor;
 use Moose;
 use namespace::autoclean;
 
+use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use JSON::Any;
 use MusicBrainz::Server::Data::Search qw( escape_query );
@@ -13,6 +14,7 @@ use MusicBrainz::Server::Wizard;
 use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
@@ -20,6 +22,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_CREATE
     $EDIT_LABEL_CREATE
     $EDIT_MEDIUM_CREATE
+    $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
@@ -35,12 +38,14 @@ has 'release' => (
 );
 
 sub _build_pages {
+    my $self = shift;
+
     return [
         {
             name => 'information',
             title => l('Release Information'),
             template => 'release/edit/information.tt',
-            form => 'ReleaseEditor::Information'
+            form => 'ReleaseEditor::Information',
         },
         {
             name => 'tracklist',
@@ -52,19 +57,23 @@ sub _build_pages {
             name => 'recordings',
             title => l('Recordings'),
             template => 'release/edit/recordings.tt',
-            form => 'ReleaseEditor::Recordings'
+            form => 'ReleaseEditor::Recordings',
+            prepare => sub { $self->prepare_recordings ($self->release); },
         },
         {
             name => 'missing_entities',
             title => l('Add Missing Entities'),
             template => 'release/edit/missing_entities.tt',
-            form => 'ReleaseEditor::MissingEntities'
+            form => 'ReleaseEditor::MissingEntities',
+            prepare => sub { $self->determine_missing_entities; },
+
         },
         {
             name => 'editnote',
             title => l('Edit Note'),
             template => 'release/edit/editnote.tt',
-            form => 'ReleaseEditor::EditNote'
+            form => 'ReleaseEditor::EditNote',
+            prepare => sub { $self->prepare_edits; },
         },
     ]
 }
@@ -72,39 +81,16 @@ sub _build_pages {
 sub run
 {
     my $self = shift;
+
     $self->process;
 
-    if ($self->current_page eq 'recordings') {
-        $self->prepare_recordings($self->release);
+    if ($self->submitted)
+    {
+        $self->prepare_edits;
     }
-    elsif ($self->current_page eq 'editnote' || $self->submitted) {
-        my $previewing = !$self->submitted;
-
-        my $data = clone($self->value);
-        my $editnote = $data->{edit_note};
-
-        $self->release($self->create_edits(
-            data => clone($data),
-            create_edit => $previewing
-                ? sub { $self->_preview_edit(@_) }
-                : sub { $self->_submit_edit(@_) },
-            edit_note => $editnote,
-            previewing => $previewing
-        ));
-
-        if (!$previewing) {
-            $self->on_submit($self);
-        }
-    }
-    elsif ($self->current_page eq 'missing_entities') {
-        $self->determine_missing_entities;
-    }
-    elsif ($self->loading) {
-        $self->load($self->release);
-    }
-
-    $self->render;
 }
+
+sub init_object { shift->release }
 
 sub load
 {
@@ -219,7 +205,13 @@ sub prepare_recordings
             $suggestions[$count] = \@recordings;
 
             $recording_gids[$count]->{associations} = [
-                map { { 'gid' => $_ ? $_->gid : undef } } @recordings
+                map { { 'gid' => ($_ ? $_->gid : "new") } } @recordings
+            ];
+        }
+        elsif (defined $_->{edits})
+        {
+            $recording_gids[$count]->{associations} = [
+                map { { 'gid' => 'new' } } @{ $_->{edits} }
             ];
         }
         else
@@ -256,6 +248,30 @@ sub determine_missing_entities
             labels => \@labels
         }
     });
+}
+
+sub prepare_edits
+{
+    my $self = shift;
+
+    my $previewing = !$self->submitted;
+
+    my $data = clone($self->value);
+    my $editnote = $data->{edit_note};
+
+    $self->release(
+        $self->create_edits(
+            data => clone($data),
+            create_edit => $previewing
+                ? sub { $self->_preview_edit(@_) }
+                : sub { $self->_submit_edit(@_) },
+            edit_note => $editnote,
+            previewing => $previewing
+        ));
+
+    if (!$previewing) {
+        $self->on_submit($self);
+    }
 }
 
 sub _missing_labels {
@@ -498,6 +514,16 @@ sub _edit_release_track_edits
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
+            if ($new->{toc}) {
+                $create_edit->(
+                    $EDIT_MEDIUM_ADD_DISCID,
+                    $editnote,
+                    medium_id  => $previewing ? 0 : $add_medium->entity_id,
+                    release_id => $previewing ? 0 : $self->release->id,
+                    cdtoc      => $new->{toc}
+                );
+            }
+
             if ($new->{position} != $medium_idx + 1)
             {
                 # Disc was inserted at the wrong position, enter an edit to re-order it.
@@ -537,6 +563,7 @@ sub _edit_release_annotation
 sub _preview_edit
 {
     my ($self, $type, $editnote, %args) = @_;
+
     my $edit = $self->_create_edit(
         sub { $self->c->model('Edit')->preview(@_) },
         $type, $self->c->user->id,
@@ -594,6 +621,31 @@ sub _create_edit {
     return $edit;
 }
 
+
+sub _expand_track
+{
+    my ($self, $trk, $assoc) = @_;
+
+    my $entity = Track->new(
+        length => unformat_track_length ($trk->{length}),
+        name => $trk->{name},
+        position => $trk->{position},
+        artist_credit => ArtistCredit->from_array ([
+            map {
+                { artist => $_->{id}, name => $_->{name} },
+                $_->{join}
+            } grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
+        ]));
+
+    if ($assoc)
+    {
+        $entity->recording_id ($assoc->id);
+        $entity->recording ($assoc);
+    }
+
+    return $entity;
+}
+
 =method _expand_mediums
 
 Expands the 'edits' element for each medium object into a set of tracks
@@ -605,27 +657,51 @@ sub _expand_mediums
     my ($self, $data) = @_;
     my $json = JSON::Any->new( utf8 => 1 );
 
-    for (@{ $data->{mediums} }) {
-        my $edits = $_->{edits} or next;
+    my $count = 0;
+    for my $disc (@{ $data->{mediums} }) {
+        my $rec_medium = $data->{rec_mediums}->[$count];
+        my $tracklist_id = $rec_medium->{tracklist_id};
+        my $associations = $rec_medium->{associations};
+        my $edits = $disc->{edits};
+        $count++;
 
-        $_->{tracks} = [ map {
-            Track->new(
-                length => unformat_track_length ($_->{length}),
-                name => $_->{name},
-                position => $_->{position},
-                artist_credit => ArtistCredit->from_array ([
-                    map {
-                        {
-                            artist => $_->{id},
-                            name => $_->{name}
-                        },
-                        $_->{join}
-                    } grep {
-                        $_->{name}
-                    } @{ $_->{artist_credit}->{names} }
-                ])
-            )
-        } @{ $self->edited_tracklist($json->decode($edits)) } ];
+        next unless $edits || $associations && scalar @$associations;
+
+        my @gids = grep { $_ ne 'new' } map { $_->{gid} } @$associations;
+        my %recordings = map { $_->gid => $_ }
+          values %{ $self->c->model('Recording')->get_by_gids (@gids) };
+
+        if ($edits)
+        {
+            my $pos = 0;
+            $disc->{tracks} = [ map {
+                my $rec = $recordings{$associations->[$pos]->{gid}};
+                $pos++;
+                $self->_expand_track ($_, $rec);
+            } @{ $self->edited_tracklist($json->decode($edits)) } ];
+        }
+        else
+        {
+            my $tracklist = $self->c->model('Tracklist')->get_by_id ($tracklist_id);
+            $self->c->model('Track')->load_for_tracklists ($tracklist);
+            $self->c->model('ArtistCredit')->load ($tracklist->all_tracks);
+
+            my $pos = 0;
+            $disc->{tracks} = [ map {
+                my $rec = $recordings{$associations->[$pos]->{gid}};
+                $pos++;
+                if ($rec) {
+                    $_->recording_id ($rec->id);
+                    $_->recording ($rec);
+                }
+                else
+                {
+                    $_->clear_recording_id;
+                    $_->clear_recording;
+                }
+                $_
+            } $tracklist->all_tracks ];
+        }
     }
 
     return $data;
@@ -643,6 +719,144 @@ sub edited_tracklist
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
+
+sub _seed_parameters {
+    my ($self, $params) = @_;
+    $params = expand_hash($params);
+
+    my @transformations = (
+        [
+            'language_id', 'language',
+            sub { shift->model('Language')->find_by_code(shift) },
+        ],
+        [
+            'country_id', 'country',
+            sub { shift->model('Country')->find_by_code(shift) },
+        ],
+        [
+            'script_id', 'script',
+            sub { shift->model('Script')->find_by_code(shift) },
+        ],
+        [
+            'status_id', 'status',
+            sub { shift->model('ReleaseStatus')->find_by_name(shift) },
+        ],
+        [
+            'type_id', 'type',
+            sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
+        ],
+        [
+            'packaging_id', 'packaging',
+            sub { shift->model('ReleasePackaging')->find_by_name(shift) },
+        ],
+    );
+
+    for my $trans (@transformations) {
+        my ($key, $alias, $transform) = @$trans;
+        if (exists $params->{$alias}) {
+            $params->{$key} = $transform->($self->c, delete $params->{$alias})->id;
+        }
+    }
+
+    for my $label (@{ $params->{labels} }) {
+        if (my $mbid = $label->{mbid}) {
+            my $entity = $self->c->model('Label')
+                ->get_by_gid($mbid);
+            $label->{label_id} = $entity->id;
+            $label->{name} = $entity->name;
+        }
+        elsif (my $name = $label->{name}) {
+            $label->{name} = $name;
+        }
+    }
+
+    for my $artist_credit (
+        map { @{ $_->{names} } } (
+            ($params->{artist_credit} || ()),
+            map { $_->{artist_credit} || [] }
+                map { @{ $_->{track} || []}  }
+                    @{ $params->{medium} || []}
+        )
+    ) {
+        if (my $mbid = $artist_credit->{mbid}){
+            my $entity = $self->c->model('Artist')
+                ->get_by_gid($mbid);
+            $artist_credit->{artist_id} = $entity->id;
+            $artist_credit->{name} ||= $entity->name;
+            $artist_credit->{gid} = $entity->gid;
+            $artist_credit->{artist_name} = $entity->name;
+        }
+    }
+
+    {
+        my $medium_idx;
+        my $json = JSON::Any->new(utf8 => 1);
+        for my $medium (@{ $params->{mediums} }) {
+            if (my $format = delete $medium->{format}) {
+                my $entity = $self->c->model('MediumFormat')
+                    ->find_by_name($format);
+                $medium->{format_id} = $entity->id if $entity;
+            }
+
+            my $toc = $medium->{toc};
+            if ($toc and my $cdtoc = CDTOC->new_from_toc($toc)) {
+                if (ref($medium->{track})) {
+                    if (@{ $medium->{track} } != $cdtoc->track_count) {
+                        delete $medium->{toc};
+                    }
+                    else {
+                        my $details = $cdtoc->track_details;
+                        for my $i (1..$cdtoc->track_count) {
+                            my $n = $i - 1;
+                            $medium->{track}->[$n] ||= {};
+                            $medium->{track}->[$n]->{length} =
+                                $details->[$n]->{length_time};
+                        }
+                    }
+                }
+                else {
+                    $medium->{track} = [ map +{
+                        length => $_->{length_time}
+                    }, @{ $cdtoc->track_details } ];
+                }
+            }
+
+            if (my @tracks = @{ $medium->{track} || [] }) {
+                my @edits;
+                my $track_idx;
+                for my $track (@tracks) {
+                    $track->{position} = ++$track_idx;
+                    my $track_ac = $track->{artist_credit} || $params->{artist_credit};
+                    if ($track_ac->{names}) {
+                        $track->{artist_credit}{names} = [
+                            map +{
+                                name => $_->{name},
+                                id => $_->{artist_id},
+                                join => $_->{join_phrase},
+                                artist_name => $_->{artist_name},
+                                gid => $_->{gid}
+                            }, @{$track_ac->{names}}
+                        ];
+                    }
+
+                    if (my $length = $track->{duration}) {
+                        $track->{length} = ($length =~ /:/)
+                            ? $length
+                            : format_track_length($length);
+                    }
+
+                    push @edits, $track;
+                }
+
+                $medium->{edits} = $json->encode(\@edits);
+            }
+
+            $medium->{position} = ++$medium_idx;
+        }
+    };
+
+    return collapse_hash($params);
+};
 
 __PACKAGE__->meta->make_immutable;
 1;

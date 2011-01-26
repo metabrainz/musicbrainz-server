@@ -17,10 +17,14 @@
     [%- END -%]
 [% END %]
 
+[% BLOCK tag_link_block %]
+[% link_tag(tag.tag) %]
+[% END %]
+
 <ul class="tag-cloud">
     [% FOR tag=tags %]
         <li class="[%- PROCESS tag_size -%]" title="[% l("'{tag}' has been tagged {num} times", { tag => html_escape(tag.tag.name), num => add_commas(tag.count) }) %]">
-            [%- link_tag(tag.tag) -%]
+          [% PROCESS tag_link_block %]
         </li>
     [% END %]
 </ul>

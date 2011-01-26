@@ -90,6 +90,12 @@ sub edit : Local RequireAuth Edit
             $values->{attrs}->{$name} = 1;
         }
     }
+
+    $values->{entity0}->{id} = $rel->entity0_id;
+    $values->{entity1}->{id} = $rel->entity1_id;
+    $values->{entity0}->{name} = $rel->entity0->name;
+    $values->{entity1}->{name} = $rel->entity1->name;
+
     my $form = $c->form( form => 'Relationship', init_object => $values );
     $form->field('link_type_id')->_load_options;
 
@@ -114,6 +120,8 @@ sub edit : Local RequireAuth Edit
             edit_type => $EDIT_RELATIONSHIP_EDIT,
             type0             => $type0,
             type1             => $type1,
+            entity0_id        => $values->{entity0}->{id},
+            entity1_id        => $values->{entity1}->{id},
             relationship      => $rel,
             link_type_id      => $values->{link_type_id},
             begin_date        => $values->{begin_date},
@@ -193,13 +201,21 @@ sub create : Local RequireAuth Edit
             }
         }
 
+        my $entity0 = $source;
+        my $entity1 = $dest;
+
+        if ($type0 eq $type1 && $form->field('direction')->value)
+        {
+            ($entity0, $entity1) = ($entity1, $entity0);
+        }
+
         if ($c->model('Relationship')->exists($type0, $type1, {
             link_type_id => $form->field('link_type_id')->value,
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
             attributes => \@attributes,
-            entity0 => $source->id,
-            entity1 => $dest->id
+            entity0 => $entity0->id,
+            entity1 => $entity1->id,
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -209,8 +225,8 @@ sub create : Local RequireAuth Edit
             edit_type    => $EDIT_RELATIONSHIP_CREATE,
             type0        => $type0,
             type1        => $type1,
-            entity0      => $source->id,
-            entity1      => $dest->id,
+            entity0      => $entity0,
+            entity1      => $entity1,
             begin_date   => $form->field('begin_date')->value,
             end_date     => $form->field('end_date')->value,
             link_type_id => $form->field('link_type_id')->value,
@@ -267,8 +283,8 @@ sub create_url : Local RequireAuth Edit
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my $url = $c->model('URL')->find_or_insert($form->field('url')->value);
 
-        my $e0 = $types[0] eq 'url' ? $url->id : $entity->id;
-        my $e1 = $types[1] eq 'url' ? $url->id : $entity->id;
+        my $e0 = $types[0] eq 'url' ? $url : $entity;
+        my $e1 = $types[1] eq 'url' ? $url : $entity;
 
         $self->_insert_edit($c, $form,
             edit_type    => $EDIT_RELATIONSHIP_CREATE,

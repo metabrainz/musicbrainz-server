@@ -101,6 +101,16 @@ sub lookup
 sub update
 {
     my ($self, $tracklist_id) = @_;
+
+    return unless $self->sql->select_single_value(
+        'SELECT 1 FROM tracklist
+           JOIN track ON track.tracklist = tracklist.id
+          WHERE tracklist.id = ?
+         HAVING count(track.id) <= 99
+            AND sum(track.length) < 4800000',
+        $tracklist_id
+    );
+
     my $create_cube = 'create_cube_from_durations((
                     SELECT array(
                         SELECT t.length

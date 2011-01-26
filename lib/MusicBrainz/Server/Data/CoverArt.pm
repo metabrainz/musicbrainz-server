@@ -44,12 +44,20 @@ sub _build_providers {
             uri_expression     => '^(.*\.(jpg|jpeg|png|gif))$',
             image_uri_template => '$1',
         ),
+        # XXX Can the following be merged somehow?
         RegularExpressionProvider->new(
             name                 => "Jamendo",
             domain               => 'www.jamendo.com',
-            uri_expression       => 'http://www\.jamendo\.com/(\w\w/)?album/(\d+)',
-            image_uri_template   => 'http://img.jamendo.com/albums/$2/covers/1.200.jpg',
+            uri_expression       => 'http://www\.jamendo\.com/(\w\w/)?album/(\d{1,3})\W?$',
+            image_uri_template   => 'http://imgjam.com/albums/s0/$2/covers/1.200.jpg',
             release_uri_template => 'http://www.jamendo.com/album/$2',
+        ),
+        RegularExpressionProvider->new(
+            name                 => "Jamendo",
+            domain               => 'www.jamendo.com',
+            uri_expression       => 'http://www\.jamendo\.com/(\w\w/)?album/(\d+)(\d{3})',
+            image_uri_template   => 'http://imgjam.com/albums/s$2/$2$3/covers/1.200.jpg',
+            release_uri_template => 'http://www.jamendo.com/album/$2$3',
         ),
         RegularExpressionProvider->new(
             name               => '8bitpeoples.com',

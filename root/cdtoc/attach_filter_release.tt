@@ -19,7 +19,7 @@
           <thead>
             <tr>
               <th colspan="3">
-                [% l('{release} by {artist}', { release => link_release(release) _ ' ' _ disambiguation(release),
+                [% l('{release} by {artist}', { release => link_entity(release),
                                                 artist => artist_credit(release.artist_credit) }) %]
               </th>
             </tr>
@@ -46,5 +46,10 @@
       </div>
       [% END %]
     [%- END -%]
+  </form>
+
+  <form action="[% c.uri_for('/release/add') %]" method="post">
+    <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
+    [% form_submit(l('Add a new release')) %]
   </form>
 [% END %]

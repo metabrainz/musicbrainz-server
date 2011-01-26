@@ -274,7 +274,7 @@ MB.TrackParser.Track = function (position, line, parent) {
             if (trk.isDeleted ())
                 return true;
 
-            var match = self.matchTrack (trk.title.val ());
+            var match = self.matchTrack (trk.$title.val ());
             if (match)
             {
                 self.artist = MB.TrackParser.Artist (trk, match.artist);
@@ -297,7 +297,7 @@ MB.TrackParser.Track = function (position, line, parent) {
             if (trk.isDeleted ())
                 return true;
 
-            var match = self.matchArtist (trk.preview.val ());
+            var match = self.matchArtist (trk.$artist.val ());
             if (match)
             {
                 self.artist = MB.TrackParser.Artist (trk, match.artist);
@@ -466,7 +466,7 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
 
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
     self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
-    self.variousArtists = function () { return self.$various_artists.val() == '1'; };
+    self.variousArtists = function () { return self.disc.isVariousArtists (); };
 
     /* public variables. */
     self.disc = disc;
@@ -476,7 +476,6 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.$tracknumbers = $('#tracknumbers');
     self.$vinylnumbers = $('#vinylnumbers');
     self.$tracktimes = $('#tracktimes');
-    self.$various_artists = $('#various-artists');
 
     return self;
 };

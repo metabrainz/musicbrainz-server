@@ -9,6 +9,13 @@ sub edit_name { l('Edit artist alias') }
 sub edit_type { 28 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::EditAlias' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        artist => [ $self->artist_id ]
+    }
+}
+
 sub do_upgrade {
     my $self = shift;
     return {

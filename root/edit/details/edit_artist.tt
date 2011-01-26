@@ -1,49 +1,54 @@
 <table class="details">
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td>[% link_entity(edit.display_data.artist) %]</td>
+  </tr>
+
   [% IF edit.display_data.name %]
   <tr>
     <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old %]</td>
-    <td class="new">[% edit.display_data.name.new %]</td>
+    <td class="old">[% edit.display_data.name.old | html %]</td>
+    <td class="new">[% edit.display_data.name.new | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.sort_name %]
   <tr>
     <th>[% l('Sort name:') %]</th>
-    <td class="old">[% edit.display_data.sort_name.old %]</td>
-    <td class="new">[% edit.display_data.sort_name.new %]</td>
+    <td class="old">[% edit.display_data.sort_name.old | html %]</td>
+    <td class="new">[% edit.display_data.sort_name.new | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.comment %]
   <tr>
     <th>[% l('Comment:') %]</th>
-    <td class="old">[% edit.display_data.comment.old %]</td>
-    <td class="new">[% edit.display_data.comment.new %]</td>
+    <td class="old">[% edit.display_data.comment.old | html %]</td>
+    <td class="new">[% edit.display_data.comment.new | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.type %]
   <tr>
     <th>[% l('Type:') %]</th>
-    <td class="old">[% edit.display_data.type.old.name %]</td>
-    <td class="new">[% edit.display_data.type.new.name %]</td>
+    <td class="old">[% edit.display_data.type.old.name | html %]</td>
+    <td class="new">[% edit.display_data.type.new.name | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.gender %]
   <tr>
     <th>[% l('Gender:') %]</th>
-    <td class="old">[% edit.display_data.gender.old.name %]</td>
-    <td class="new">[% edit.display_data.gender.new.name %]</td>
+    <td class="old">[% edit.display_data.gender.old.name | html %]</td>
+    <td class="new">[% edit.display_data.gender.new.name | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.country %]
   <tr>
     <th>[% l('Country:') %]</th>
-    <td class="old">[% edit.display_data.country.old.name %]</td>
-    <td class="new">[% edit.display_data.country.new.name %]</td>
+    <td class="old">[% edit.display_data.country.old.name | html %]</td>
+    <td class="new">[% edit.display_data.country.new.name | html %]</td>
   </tr>
   [% END %]
 

@@ -1,5 +1,6 @@
 [%- WRAPPER "work/layout.tt" page='index' -%]
     [%- INCLUDE 'work/annotation.tt' summary=1 -%]
+    <h2>[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=work -%]
 [%- END -%]
 

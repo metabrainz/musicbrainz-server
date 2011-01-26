@@ -4,6 +4,7 @@ use Method::Signatures::Simple;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
+use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -12,12 +13,13 @@ sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 has '+data' => (
     isa => Dict[
         cdtoc      => Str,
-        medium_id  => Int,
-        release_id => Int,
+        medium_id  => NullableOnPreview[Int],
+        release_id => NullableOnPreview[Int],
     ]
 );
 
@@ -30,6 +32,16 @@ method alter_edit_pending
     }
 }
 
+after initialize => sub {
+    my $self = shift;
+
+    if ($self->preview)
+    {
+       $self->entity_id(0);
+       return;
+    }
+};
+
 method related_entities
 {
     return {
@@ -39,8 +51,6 @@ method related_entities
 
 method foreign_keys
 {
-    my $release_id =
-
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
         MediumCDTOC => [ $self->entity_id => [ 'CDTOC' ] ]

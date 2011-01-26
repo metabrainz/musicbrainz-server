@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 16 16" width="16px" height="16px">
+
+    <rect id="background" fill="#fff" x="0px" y="0px" width="16px" height="16px" />
+
+    <circle cx="7px" cy="7px" r="4" stroke="#000" fill="#fff" stroke-width="2" />
+    <polygon fill="#000" points="10,9 14,13 13,14 9,10" />
+
+</svg>

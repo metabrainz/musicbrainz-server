@@ -18,7 +18,7 @@
     <tbody>
         [%- FOR release=releases -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td>[% link_release(release) %]</td>
+            <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
             <td>[% release.combined_format_name or "-" %]</td>
             <td>[% release.combined_track_count or "-" %]</td>

@@ -14,6 +14,7 @@ has 'names' => (
     handles => {
         add_name => 'push',
         clear_names => 'clear',
+        all_names => 'elements',
     }
 );
 
