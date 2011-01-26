@@ -20,10 +20,13 @@ END -%]
 
 <div id="sidebar-tags">
     <p>
-    [% IF tags.size %]
-        <strong>[% l('Tags:') %]</strong>
-        <span class="tags">[% tag_list(tags, more, entity) %]</span>
-    [% END %]
+    <strong>[% l('Tags:') %]</strong>
+    <span class="tags">
+      [% tag_list(tags, more, entity) %]
+      [% UNLESS tags.size %]
+      (none)
+      [% END %]
+    </span>
     </p>
     [% IF c.user_exists %]
         [% IF no_javascript %]
