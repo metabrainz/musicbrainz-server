@@ -94,9 +94,9 @@ sub build_display_data
     return {
         relationship => MusicBrainz::Server::Entity::Relationship->new(
             entity0 => $loaded->{ $self->model0 }->{ $self->data->{relationship}{entity0_id} } ||
-                $self->model0->_entity_class->new( name => '[deleted]' ),
+                $self->c->model($self->model0)->_entity_class->new( name => '[deleted]' ),
             entity1 => $loaded->{ $self->model1 }->{ $self->data->{relationship}{entity1_id} } ||
-                $self->model1->_entity_class->new( name => '[deleted]' ),
+                $self->c->model($self->model1)->_entity_class->new( name => '[deleted]' ),
             phrase => $self->data->{relationship}{phrase},
             link => MusicBrainz::Server::Entity::Link->new(
                 begin_date => partial_date_from_row($self->data->{relationship}{link}{begin_date}),
