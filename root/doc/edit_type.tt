@@ -54,7 +54,7 @@
        <tr class="ev">
          <th>[% l('Auto edit') %]</th>
          [% FOR quality=quality_levels %]
-         <td>[% class.edit_conditions.${quality}.auto_edit ? '&#10004;' : '&#10005;' %]</td>
+         <td>[% class.edit_conditions.${quality}.auto_edit ? l('&#10004;') : l('&#10005;') %]</td>
          [% END %]
        </tr>
      </tbody>
