@@ -80,6 +80,7 @@ sub find_or_insert
         pop @positions;
         pop @artists;
         pop @names;
+        pop @$join_phrases if scalar @$join_phrases > scalar @positions;
     }
 
     my $name = "";
