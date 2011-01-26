@@ -65,6 +65,8 @@ sub decode_value
     return uri_unescape(substr($value, 5));
 }
 
+sub extra_parameters { () }
+
 sub for_copy {
     my $edit = shift;
     my $type = $edit->edit_type;
@@ -78,7 +80,12 @@ sub for_copy {
         $edit->editor_id,
         $type,
         $edit->status,
-        copy_escape(JSON::Any->new(utf8 => 1)->encode($edit->data)),
+        copy_escape(
+            JSON::Any->new(utf8 => 1)->encode({
+                %{ $edit->data },
+                $edit->extra_parameters
+            })
+          ),
         $edit->yes_votes,
         $edit->no_votes,
         $edit->auto_edit,
