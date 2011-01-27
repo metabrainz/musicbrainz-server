@@ -598,7 +598,7 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
     FROM tmp_release_album re
         JOIN public.album_cdtoc ac ON re.album=ac.album
         JOIN medium m ON m.release=re.release
-    WHERE m.format IS NULL OR m.format IN (1,4); -- Unknown, CD or DualDisc
+    WHERE m.format IS NULL OR m.format IN (SELECT id FROM medium_format WHERE has_discids);
 
 ------------------------
 -- Statistics
