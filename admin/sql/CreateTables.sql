@@ -138,6 +138,25 @@ CREATE TABLE editor
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE editor_collection
+(
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    name                VARCHAR NOT NULL,
+    public              BOOLEAN NOT NULL DEFAULT FALSE,
+    subscribed          BOOLEAN NOT NULL DEFAULT FALSE,
+    last_edit_sent      INTEGER CHECK (NOT subscribed OR last_edit_sent IS NOT NULL) -- weakly references edit
+);
+
+CREATE TABLE editor_collection_release
+(
+    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
+    release             INTEGER NOT NULL, -- PK, references release.id
+    deleted_by_edit     INTEGER, -- weakly references edit
+    merged_by_edit      INTEGER -- weakly references edit
+);
+
 CREATE TABLE editor_preference
 (
     id                  SERIAL,
@@ -604,21 +623,6 @@ CREATE TABLE link_type_attribute_type
     min                 SMALLINT,
     max                 SMALLINT,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE editor_collection
-(
-    id                  SERIAL,
-    gid                 UUID NOT NULL,
-    editor              INTEGER NOT NULL, -- references editor.id
-    name                VARCHAR NOT NULL,
-    public              BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE editor_collection_release
-(
-    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
-    release             INTEGER NOT NULL -- PK, references release.id
 );
 
 CREATE TABLE editor_watch_preferences
