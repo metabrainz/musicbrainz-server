@@ -4,6 +4,7 @@
         <legend>[% l('Collection Details') %]</legend>
         [% form_row_text_long(r, 'name', l('Name:')) %]
         [% form_row_checkbox(r, 'public', l('Allow other users to see this collection')) %]
+        [% form_row_checkbox(r, 'subscribed', l('Subscribe to edits made on releases from this collection')) %]
     </fieldset>
 
     <div class="row no-label">

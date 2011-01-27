@@ -22,7 +22,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, gid, editor, name, public';
+    return 'id, gid, editor, name, public, subscribed, last_edit_sent';
 }
 
 sub _id_column
@@ -38,6 +38,8 @@ sub _column_mapping
         editor_id => 'editor',
         name => 'name',
         public => 'public',
+        subscribed => 'subscribed',
+        last_edit_sent => 'last_edit_sent',
     };
 }
 
@@ -163,6 +165,7 @@ sub insert
         my $row = $self->_hash_to_row($collection);
         $row->{editor} = $editor_id;
         $row->{gid} = $collection->{gid} || generate_gid();
+        $row->{last_edit_sent} = $row->{subscribed} ? ($self->c->model('Edit')->get_max_id() || 0) : undef;
 
         push @created, $class->new(
             id => $self->sql->insert_row('editor_collection', $row, 'id'),
@@ -177,6 +180,8 @@ sub update
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
+    # FIXME: last_edit_sent should only be set again if the 'subscribed' value has changed
+    $row->{last_edit_sent} = $row->{subscribed} ? ($self->c->model('Edit')->get_max_id() || 0) : undef;
     $self->sql->auto_commit;
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
 }
@@ -200,7 +205,8 @@ sub _hash_to_row
 
     my %row = (
         name => $values->{name},
-        public => $values->{public}
+        public => $values->{public},
+        subscribed => $values->{subscribed},
     );
 
     return \%row;

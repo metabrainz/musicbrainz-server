@@ -20,6 +20,16 @@ has 'public' => (
     isa => 'Bool'
 );
 
+has 'subscribed' => (
+    is => 'rw',
+    isa => 'Bool'
+);
+
+has 'last_edit_sent' => (
+    isa => 'Int',
+    is => 'ro'
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
