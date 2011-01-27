@@ -1,18 +1,18 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE country CASCADE;
-TRUNCATE language CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE release_packaging CASCADE;
-TRUNCATE release_status CASCADE;
-TRUNCATE script CASCADE;
+
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name) VALUES
@@ -46,4 +46,4 @@ ALTER SEQUENCE artist_credit_id_seq RESTART 2;
 ALTER SEQUENCE artist_name_id_seq RESTART 2;
 ALTER SEQUENCE release_name_id_seq RESTART 3;
 
-COMMIT;
+

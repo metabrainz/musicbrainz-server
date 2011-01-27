@@ -71,8 +71,8 @@ sub remove_releases_from_collection
     my ($self, $collection_id, @release_ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->auto_commit;
-    $sql->do("DELETE FROM editor_collection_release
+    $self->sql->auto_commit;
+    $self->sql->do("DELETE FROM editor_collection_release
               WHERE collection = ? AND release IN (" . placeholders(@release_ids) . ")",
               $collection_id, @release_ids);
 }
@@ -82,7 +82,7 @@ sub check_release
     my ($self, $collection_id, $release_id) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("
+    return $self->sql->select_single_value("
         SELECT 1 FROM editor_collection_release
         WHERE collection = ? AND release = ?",
         $collection_id, $release_id) ? 1 : 0;
@@ -96,13 +96,13 @@ sub merge_releases
 
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
     # a collection that already contains $new_id)
-    $sql->do("DELETE FROM editor_collection_release
+    $self->sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@old_ids).") AND
                   collection IN (SELECT collection FROM editor_collection_release WHERE release = ?)",
               @old_ids, $new_id);
 
     # Move all remaining joins to the new release
-    $sql->do("UPDATE editor_collection_release SET release = ?
+    $self->sql->do("UPDATE editor_collection_release SET release = ?
               WHERE release IN (".placeholders(@old_ids).")",
               $new_id, @old_ids);
 }
@@ -112,7 +112,7 @@ sub delete_releases
     my ($self, @ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM editor_collection_release
+    $self->sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@ids).")", @ids);
 }
 
@@ -130,7 +130,7 @@ sub find_by_editor
     $query .= "ORDER BY musicbrainz_collate(name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $id, $offset || 0);
 }
 
@@ -150,7 +150,7 @@ sub find_all_by_editor
 
     $query .= "ORDER BY musicbrainz_collate(name)";
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $id);
 }
 

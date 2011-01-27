@@ -60,7 +60,7 @@ sub find_by_artist
                  ORDER BY musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
 }
 
@@ -73,7 +73,7 @@ sub find_by_iswc
                  ORDER BY musicbrainz_collate(name.name)";
 
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $iswc);
 }
 
@@ -95,7 +95,7 @@ sub insert
         my $row = $self->_hash_to_row($work, \%names);
         $row->{gid} = $work->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->insert_row('work', $row, 'id'),
+            id => $self->sql->insert_row('work', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -108,7 +108,7 @@ sub update
     my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('work', $row, { id => $work_id });
+    $self->sql->update_row('work', $row, { id => $work_id });
 }
 
 sub delete
@@ -121,7 +121,7 @@ sub delete
     $self->rating->delete($work_id);
     $self->remove_gid_redirects($work_id);
     my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM work WHERE id = ?', $work_id);
+    $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }
 

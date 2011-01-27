@@ -28,16 +28,23 @@ sub register_database
 
 sub get_connection
 {
-    my ($class, $key) = @_;
+    my ($class, $key, %opts) = @_;
+    Class::MOP::load_class($connector_class);
 
-    $connections{ $key } ||= do {
-        Class::MOP::load_class($connector_class);
-
+    if ($opts{fresh}) {
         my $database = $databases{ $key };
-        $connector_class->new( database => $database );
-      };
+        return $connector_class->new( database => $database );
+    }
+    else {
+        $connections{ $key } ||= do {
 
-    return $connections{ $key };
+
+            my $database = $databases{ $key };
+            $connector_class->new( database => $database );
+        };
+
+        return $connections{ $key };
+    }
 }
 
 sub connector_class

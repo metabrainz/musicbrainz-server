@@ -1,48 +1,48 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 SET search_path TO musicbrainz_test;
 
-TRUNCATE release_group_type CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_type CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_alias CASCADE;
+
+
+
+
+
+
+
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 265420;
-TRUNCATE tag CASCADE;
-TRUNCATE artist_tag CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_status CASCADE;
-TRUNCATE country CASCADE;
-TRUNCATE language CASCADE;
-TRUNCATE script CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE medium_format CASCADE;
-TRUNCATE tracklist CASCADE;
-TRUNCATE track_name CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE clientversion CASCADE;
-TRUNCATE puid CASCADE;
-TRUNCATE recording_puid CASCADE;
-TRUNCATE isrc CASCADE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223060;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223061;
-TRUNCATE recording_tag CASCADE;
-TRUNCATE track CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE cdtoc CASCADE;
-TRUNCATE medium_cdtoc CASCADE;
-TRUNCATE label_type CASCADE;
-TRUNCATE label_name CASCADE;
-TRUNCATE label CASCADE;
+
+
+
+
+
+
+
+
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 381;
-TRUNCATE label_tag CASCADE;
-TRUNCATE release_label CASCADE;
+
+
 UPDATE release_group_meta SET first_release_date_day = 4, rating = NULL, first_release_date_year = 2001, rating_count = NULL, release_count = 2, first_release_date_month = 7 WHERE id = 377462;
-TRUNCATE release_group_tag CASCADE;
+
 UPDATE artist_meta SET rating_count = 2, rating = 70 WHERE id = 11545;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 1542682;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 1542683;
@@ -70,7 +70,7 @@ UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 6750268;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 6750269;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 6750270;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 6750271;
-TRUNCATE label_alias CASCADE;
+
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 132;
 UPDATE release_group_meta SET first_release_date_day = 29, rating = NULL, first_release_date_year = 2007, rating_count = NULL, release_count = 1, first_release_date_month = 1 WHERE id = 597897;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8509231;
@@ -268,23 +268,23 @@ UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621512;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621513;
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 30181;
 UPDATE release_group_meta SET first_release_date_day = 8, rating = NULL, first_release_date_year = 2007, rating_count = NULL, release_count = 1, first_release_date_month = 11 WHERE id = 772397;
-TRUNCATE link_type CASCADE;
-TRUNCATE link CASCADE;
-TRUNCATE l_artist_artist CASCADE;
-TRUNCATE link_attribute_type CASCADE;
-TRUNCATE link_attribute CASCADE;
-TRUNCATE l_artist_recording CASCADE;
-TRUNCATE l_artist_release CASCADE;
-TRUNCATE l_artist_label CASCADE;
-TRUNCATE url CASCADE;
-TRUNCATE l_artist_url CASCADE;
-TRUNCATE l_recording_recording CASCADE;
-TRUNCATE l_recording_release CASCADE;
-TRUNCATE l_recording_url CASCADE;
-TRUNCATE work_name CASCADE;
-TRUNCATE work CASCADE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 1542682;
-TRUNCATE l_recording_work CASCADE;
+
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 1542684;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 7905443;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 7905441;
@@ -340,14 +340,14 @@ UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 3622832;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 162921;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 211564;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 2726277;
-TRUNCATE l_release_group_url CASCADE;
-TRUNCATE l_release_release CASCADE;
-TRUNCATE l_release_url CASCADE;
-TRUNCATE l_label_recording CASCADE;
-TRUNCATE l_label_release CASCADE;
-TRUNCATE l_label_label CASCADE;
-TRUNCATE l_label_url CASCADE;
-TRUNCATE link_type_attribute_type CASCADE;
+
+
+
+
+
+
+
+
 
 INSERT INTO release_group_type (name, id) VALUES ('Single', 3);
 INSERT INTO release_name (name, id) VALUES ('サマーれげぇ!レインボー', 1184);
@@ -4316,5 +4316,5 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUE
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES (130, 194, 0, 1);
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES (6, 477, 0, 1);
 
-COMMIT;
+
 

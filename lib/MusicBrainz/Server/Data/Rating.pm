@@ -22,7 +22,7 @@ sub find_by_entity_id
         SELECT editor, rating FROM ${type}_rating_raw
         WHERE $type = ? ORDER BY rating DESC, editor";
 
-    return query_to_list($self->c->raw_dbh, sub {
+    return query_to_list($self->c->raw_sql, sub {
         my $row = $_[0];
         return MusicBrainz::Server::Entity::Rating->new(
             editor_id => $row->{editor},
@@ -45,13 +45,13 @@ sub load_user_ratings
         WHERE editor = ? AND $type IN (".placeholders(@ids).")";
 
     my $sql = Sql->new($self->c->raw_dbh);
-    $sql->select($query, $user_id, @ids);
+    $self->c->raw_sql->select($query, $user_id, @ids);
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->c->raw_sql->next_row_hash_ref or last;
         my $obj = $id_to_obj{$row->{id}};
         $obj->user_rating($row->{rating});
     }
-    $sql->finish;
+    $self->c->raw_sql->finish;
 }
 
 sub _update_aggregate_rating
@@ -74,7 +74,7 @@ sub _update_aggregate_rating
     my ($rating_count, $rating_sum) = defined $row ? @$row : (undef, undef);
 
     my $rating_avg = ($rating_count ? int($rating_sum / $rating_count + 0.5) : undef);
-    $sql->do("UPDATE $table SET rating_count = ?, rating = ?
+    $self->c->sql->do("UPDATE $table SET rating_count = ?, rating = ?
               WHERE id = ?", $rating_count, $rating_avg, $entity_id);
 
     return ($rating_count, $rating_sum);
@@ -84,12 +84,11 @@ sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    my $raw_sql = Sql->new($self->c->raw_dbh);
-
     my $type = $self->type;
     my $table = $type . '_meta';
     my $table_raw = $type . '_rating_raw';
 
+    my $raw_sql = $self->c->raw_sql;
     # Remove duplicate joins (ie, rows with entities from @old_ids and
     # tagged by editors that already tagged $new_id)
     $raw_sql->do("DELETE FROM $table_raw
@@ -111,7 +110,7 @@ sub merge
 sub delete
 {
     my ($self, @entity_ids) = @_;
-    my $raw_sql = Sql->new($self->c->raw_dbh);
+    my $raw_sql = $self->c->raw_sql;
     $raw_sql->do("
         DELETE FROM " . $self->type . "_rating_raw
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
@@ -159,7 +158,7 @@ sub update
         # Update the aggregate rating
         ($rating_count, $rating_sum) = $self->_update_aggregate_rating($entity_id);
 
-    }, $sql, $raw_sql);
+    }, $self->c->sql, $self->c->raw_sql);
 
     return ($rating_avg, $rating_count);
 }

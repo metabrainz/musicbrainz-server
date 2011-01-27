@@ -1,23 +1,23 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE annotation CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE editor CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_group_type CASCADE;
-TRUNCATE release_group_annotation CASCADE;
-TRUNCATE release_group_gid_redirect CASCADE;
-TRUNCATE release_name CASCADE;
 
-TRUNCATE medium CASCADE;
-TRUNCATE track_name CASCADE;
-TRUNCATE tracklist CASCADE;
-TRUNCATE recording CASCADE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -30,8 +30,6 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
 INSERT INTO release_name (id, name) VALUES (1, 'Release Group');
 INSERT INTO release_name (id, name) VALUES (2, 'Release Name');
 INSERT INTO release_name (id, name) VALUES (3, 'To Merge');
-
-INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
 
 INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
     VALUES (1, '7b5d22d0-72d7-11de-8a39-0800200c9a66', 1, 1, 1, 'Comment', 2);
@@ -71,4 +69,4 @@ INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
 ALTER SEQUENCE release_name_id_seq RESTART 5;
 ALTER SEQUENCE release_group_id_seq RESTART 4;
 
-COMMIT;
+

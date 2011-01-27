@@ -3,7 +3,7 @@ use Moose;
 
 use DBDefs;
 use Carp qw( cluck croak carp );
-use TryCatch;
+use Try::Tiny;
 use utf8 ();
 
 has 'debug' => (
@@ -57,7 +57,7 @@ sub BUILDARGS
 sub auto_commit
 {
     my $self = shift;
-    carp 'auto_commit called while already in transaction' if $self->is_in_transaction;
+    return if $self->is_in_transaction;
     $self->_auto_commit(1);
 }
 
@@ -72,15 +72,16 @@ sub select
     my ($self, $query, @params) = @_;
     my $prepare_method = (@params ? "prepare_cached" : "prepare");
 
-    try {
+    return try {
         my $tt = Sql::Timer->new($query, \@params) if $self->debug;
 
         $self->sth( $self->dbh->$prepare_method($query) );
         $self->sth->execute(@params);
         return $self->sth->rows;
     }
-    catch ($err) {
-        croak "Failed query:\n\t'$query'\n\t(@params)\n$err\n" unless $self->quiet;
+    catch {
+        my $err = $_;
+        confess "Failed query:\n\t'$query'\n\t(@params)\n$err\n" unless $self->quiet;
         $self->finish;
     };
 }
@@ -96,18 +97,17 @@ sub do
     my $prepare_method = (@params ? "prepare_cached" : "prepare");
 
     $self->_auto_commit(0) if $self->_auto_commit;
-    try {
+    return try {
         my $tt = Sql::Timer->new($query, \@params) if $self->debug;
         my $sth = $self->dbh->$prepare_method($query);
         my $rows = $sth->execute(@params);
         $sth->finish;
         return $rows;
     }
-    catch ($err) {
-        croak "Failed query:\n\t'$query'\n\t(@params)\n$err\n" unless $self->quiet;
+    catch {
+        my $err = $_;
+        confess "Failed query:\n\t'$query'\n\t(@params)\n$err\n" unless $self->quiet;
     };
-
-    return 1;
 }
 
 # Insert a single row into a table, $tab; $row is a hash reference, where the
@@ -162,30 +162,47 @@ sub update_row
     my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
                 ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
     $self->do($query,
-        (map { ref($_) eq 'SCALAR' ? $$_ : $_ } map { $update->{$_} } @update_columns),
+        (map { $update->{$_} } @update_columns),
         (map { $conditions->{$_} } @condition_columns));
 }
+
+has 'transaction_depth' => (
+    isa => 'Int',
+    is => 'ro',
+    default => 0,
+    traits => [ 'Counter' ],
+    handles => {
+        inc_transaction_depth => 'inc',
+        dec_transaction_depth => 'dec'
+    }
+);
 
 sub begin
 {
     my $self = shift;
-    carp 'begin called while auto_commit still active' if $self->_auto_commit;
-    carp 'begin called while already in a transaction' if $self->is_in_transaction;
     $self->dbh->{AutoCommit} = 0;
+    $self->inc_transaction_depth;
+    if ($self->transaction_depth == 1) {
+        my $tt = Sql::Timer->new('BEGIN', []) if $self->debug;
+    }
 }
 
 sub commit
 {
     my $self = shift;
     croak 'commit called without begin' unless $self->is_in_transaction;
+    $self->dec_transaction_depth;
+    return unless $self->transaction_depth == 0;
 
-    try {
+    return try {
+        my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;
         my $rv = $self->dbh->commit;
         cluck "Commit failed" if ($rv eq '' && !$self->quiet);
         $self->dbh->{AutoCommit} = 1;
         return $rv;
     }
-    catch ($err) {
+    catch {
+        my $err = $_;
         $self->dbh->{AutoCommit} = 1;
         cluck $err unless ($self->quiet);
         eval { $self->rollback };
@@ -197,14 +214,19 @@ sub rollback
 {
     my $self = shift;
     croak 'rollback called without begin' unless $self->is_in_transaction;
+    $self->dec_transaction_depth;
 
-    try {
+    return unless $self->transaction_depth == 0;
+
+    return try {
+        my $tt = Sql::Timer->new('ROLLBACK', []) if $self->debug;
         my $rv = $self->dbh->rollback;
         cluck "Rollback failed" if ($rv eq '' && !$self->quiet);
         $self->dbh->{AutoCommit} = 1;
         return $rv;
     }
-    catch ($err) {
+    catch {
+        my $err = $_;
         $self->dbh->{AutoCommit} = 1;
         cluck $err unless $self->quiet;
         croak $err;
@@ -232,7 +254,7 @@ sub _auto_transaction {
 
     $_->begin for @sql;
     my $w = wantarray;
-    try {
+    return try {
         my (@r, $r);
 
         @r = &$sub() if $w;
@@ -243,7 +265,8 @@ sub _auto_transaction {
 
         return $w ? @r : $r;
     }
-    catch ($err) {
+    catch {
+        my $err = $_;
         for my $sql (@sql) {
             eval { $sql->rollback };
         }
@@ -295,7 +318,7 @@ sub _select_single_row
     my $method = "fetchrow_$type";
     my @params = @$params;
 
-    try {
+    return try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
         my $sth = $self->dbh->prepare_cached($query);
@@ -309,10 +332,10 @@ sub _select_single_row
 
         return $first_row;
     }
-    catch ($err) {
-    cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
+    catch {
+        my $err = $_;
+        confess "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
-        croak $err;
     };
 }
 
@@ -378,10 +401,11 @@ sub _select_list
         $sth->finish;
         return \@vals;
     }
-    catch ($err) {
-    cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
+    catch {
+        my $err = $_;
+        cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
-        croak $err;
+        confess $err;
     };
 }
 

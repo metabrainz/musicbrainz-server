@@ -1,7 +1,7 @@
-BEGIN;
+
 SET client_min_messages TO 'WARNING';
 
-TRUNCATE artist_tag_raw CASCADE;
+
 
 INSERT INTO artist_tag_raw (tag, artist, editor) VALUES
 
@@ -26,4 +26,4 @@ INSERT INTO artist_tag_raw (tag, artist, editor) VALUES
 
     (4, 4, 2);
 
-COMMIT;
+

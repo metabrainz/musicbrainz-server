@@ -45,7 +45,7 @@ sub find_by_recording
                    FROM ".$self->_table."
                   WHERE recording IN (" . placeholders(@ids) . ")
                   ORDER BY isrc";
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
+    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
                          $query, @ids);
 }
 
@@ -73,7 +73,7 @@ sub find_by_isrc
                    FROM ".$self->_table."
                   WHERE isrc = ?
                ORDER BY id";
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
+    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
                          $query, $isrc);
 }
 
@@ -83,7 +83,7 @@ sub delete
     my $sql = Sql->new($self->c->dbh);
 
     # Delete ISRCs from @old_ids that already exist for $new_id
-    $sql->do('DELETE FROM isrc
+    $self->sql->do('DELETE FROM isrc
               WHERE id IN ('.placeholders(@isrc_ids).')', @isrc_ids);
 }
 
@@ -94,13 +94,13 @@ sub merge_recordings
     my $sql = Sql->new($self->c->dbh);
 
     # Delete ISRCs from @old_ids that already exist for $new_id
-    $sql->do('DELETE FROM isrc
+    $self->sql->do('DELETE FROM isrc
               WHERE recording IN ('.placeholders(@old_ids).') AND
                   isrc IN (SELECT isrc FROM isrc WHERE recording = ?)',
               @old_ids, $new_id);
 
     # Move the rest
-    $sql->do('UPDATE isrc SET recording = ?
+    $self->sql->do('UPDATE isrc SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')',
               $new_id, @old_ids);
 }
@@ -112,7 +112,7 @@ sub delete_recordings
     my $sql = Sql->new($self->c->dbh);
 
     # Remove ISRCs
-    $sql->do('DELETE FROM isrc
+    $self->sql->do('DELETE FROM isrc
               WHERE recording IN ('.placeholders(@ids).')', @ids);
 }
 
@@ -121,7 +121,7 @@ sub insert
     my ($self, @isrcs) = @_;
     my $sql = Sql->new($self->c->dbh);
 
-    $sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
+    $self->sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
                  (join ",", (("(?, ?, ?)") x @isrcs)),
              map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
                  @isrcs);
