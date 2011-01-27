@@ -62,7 +62,6 @@ sub _entity_class
 sub get_by_name
 {
     my ($self, $name) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE lower(name) = ? LIMIT 1';
@@ -77,8 +76,6 @@ sub _get_ratings_for_type
     my $query = "
         SELECT $type AS id, rating FROM ${type}_rating_raw
         WHERE editor = ? ORDER BY rating DESC, editor";
-
-    my $sql = Sql->new($self->c->raw_dbh);
 
     my $results = $self->sql->select_list_of_hashes ($query, $id);
     my $entities = $self->c->model(type_to_model($type))->get_by_ids(map { $_->{id} } @$results);
@@ -132,7 +129,6 @@ sub _get_tags_for_type
         WHERE editor = ?
         GROUP BY tag";
 
-    my $sql = Sql->new($self->c->raw_dbh);
     my $results = $self->sql->select_list_of_hashes ($query, $id);
 
     return { map { $_->{tag} => $_ } @$results };
@@ -225,7 +221,6 @@ sub insert
 {
     my ($self, $data) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
             id => $self->sql->insert_row('editor', $data, 'id'),
@@ -243,7 +238,6 @@ sub update_email
 {
     my ($self, $editor, $email) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
         if ($email) {
             my $email_confirmation_date = $self->sql->select_single_value(
@@ -265,7 +259,6 @@ sub update_password
 {
     my ($self, $editor, $password) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET password=? WHERE id=?',
                  $password, $editor->id);
@@ -276,7 +269,6 @@ sub update_profile
 {
     my ($self, $editor, $website, $bio) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
                  $website || undef, $bio || undef, $editor->id);
@@ -296,7 +288,6 @@ sub update_privileges
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
                 + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET privs=? WHERE id=?',
                  $privs, $editor->id);
@@ -321,7 +312,6 @@ sub load_preferences
         "FROM editor_preference WHERE editor IN (%s)",
         placeholders(keys %editors);
 
-    my $sql = Sql->new($self->c->dbh);
     my $prefs = $self->sql->select_list_of_hashes($query, keys %editors);
 
     for my $pref (@$prefs) {
@@ -335,7 +325,6 @@ sub save_preferences
 {
     my ($self, $editor, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
 
         $self->sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor->id);
@@ -358,7 +347,6 @@ sub save_preferences
 sub credit
 {
     my ($self, $editor_id, $status, $as_autoedit) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $column;
     $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
     $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;

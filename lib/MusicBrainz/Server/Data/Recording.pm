@@ -104,7 +104,6 @@ sub load
 sub insert
 {
     my ($self, @recordings) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names(map { $_->{name} } @recordings);
     my $class = $self->_entity_class;
@@ -124,7 +123,6 @@ sub insert
 sub update
 {
     my ($self, $recording_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
@@ -134,7 +132,6 @@ sub update
 sub can_delete
 {
     my ($self, $recording_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
     return @$refcount == 0;
 }
@@ -151,7 +148,6 @@ sub delete
     $self->tags->delete($recording->id);
     $self->rating->delete($recording->id);
     $self->remove_gid_redirects($recording->id);
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
     return;
 }
@@ -192,7 +188,6 @@ sub merge
     $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);
 
     # Move tracks to the new recording
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('UPDATE track SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 

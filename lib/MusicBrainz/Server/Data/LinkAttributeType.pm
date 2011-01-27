@@ -50,7 +50,6 @@ sub get_tree
 {
     my ($self) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   ORDER BY child_order, id');
     my %id_to_obj;
@@ -76,7 +75,6 @@ sub find_root
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'SELECT root FROM ' . $self->_table . ' WHERE id = ?';
     return $self->sql->select_single_value($query, $id);
 }
@@ -85,7 +83,6 @@ sub insert
 {
     my ($self, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     $row->{id} = $self->sql->select_single_value("SELECT nextval('link_attribute_type_id_seq')");
     $row->{gid} = $values->{gid} || generate_gid();
@@ -112,12 +109,11 @@ sub update
 {
     my ($self, $id, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     if (%$row) {
         if ($row->{parent}) {
             $row->{root} = $self->find_root($row->{parent});
-            $self->_update_root($sql, $id, $row->{root});
+            $self->_update_root($self->sql, $id, $row->{root});
         }
         $self->sql->update_row('link_attribute_type', $row, { id => $id });
     }
@@ -127,7 +123,6 @@ sub delete
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('DELETE FROM link_attribute_type WHERE id = ?', $id);
 }
 

@@ -709,7 +709,7 @@ sub recalculate {
 
     my $db = $definition->{DB} || 'READWRITE';
     my $sql = $db eq 'READWRITE' ? $self->sql
-            : $db eq 'RAWDATA'   ? Sql->new($self->c->raw_dbh)
+            : $db eq 'RAWDATA'   ? $self->c->raw_sql
             : die "Unknown database: $db";
 
     if (my $query = $definition->{SQL}) {
