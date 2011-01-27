@@ -76,7 +76,6 @@ sub has_locale
 {
     my ($self, $entity_id, $locale_name, $filter) = @_;
     return unless defined $locale_name;
-    my $sql  = Sql->new($self->c->dbh);
     my $type = $self->type;
     my $query = 'SELECT 1 FROM ' . $self->_table .
         " WHERE $type = ? AND locale = ?";
@@ -97,7 +96,6 @@ sub load
 sub delete
 {
     my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = "DELETE FROM " . $self->table .
                 " WHERE id IN (" . placeholders(@ids) . ")";
     $self->sql->do($query, @ids);
@@ -107,7 +105,6 @@ sub delete
 sub delete_entities
 {
     my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = "DELETE FROM " . $self->table .
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")";
     $self->sql->do($query, @ids);
@@ -117,7 +114,6 @@ sub delete_entities
 sub insert
 {
     my ($self, @alias_hashes) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
     my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
     my @created;
@@ -136,7 +132,6 @@ sub insert
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
     $self->sql->do("DELETE FROM $table
@@ -149,7 +144,6 @@ sub merge
 sub update
 {
     my ($self, $alias_id, $alias_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
     if (exists $alias_hash->{name}) {

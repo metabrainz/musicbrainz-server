@@ -24,7 +24,6 @@ sub get_by_ids
                 "JOIN artist_name n3 ON n3.id=artist.sort_name " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
-    my $sql = Sql->new($self->c->dbh);
     my %result;
     my %counts;
     foreach my $id (@ids) {
@@ -98,7 +97,6 @@ sub find_or_insert
         $name .= $join_phrases->[$i] if defined $join_phrases->[$i];
     }
 
-    my $sql = Sql->new($self->c->dbh);
     my $query = "SELECT ac.id FROM artist_credit ac " .
                 join(" ", @joins) .
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
@@ -131,7 +129,6 @@ sub find_or_insert
 sub merge_artists
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
-    my $sql = Sql->new($self->c->dbh);
     if ($opts{rename}) {
         $self->sql->do(
             'UPDATE artist_credit_name acn SET name = artist.name

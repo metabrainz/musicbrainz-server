@@ -122,7 +122,6 @@ sub find_by_recording
 sub insert
 {
     my ($self, @track_hashes) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name} } @track_hashes);
     my $class = $self->_entity_class;
     my @created;
@@ -141,7 +140,6 @@ sub delete
 {
     my ($self, @track_ids) = @_;
     my $query = 'DELETE FROM track WHERE id IN (' . placeholders(@track_ids) . ')';
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do($query, @track_ids);
     return 1;
 }

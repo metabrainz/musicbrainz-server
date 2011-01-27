@@ -118,7 +118,6 @@ sub load_meta
     return unless @objs;
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
-    my $sql = Sql->new($c->dbh);
     $c->sql->select("SELECT * FROM $table
                   WHERE id IN (" . placeholders(@ids) . ")", @ids);
     while (1) {
@@ -198,7 +197,6 @@ sub insert_and_create
     my ($data, @objs) = @_;
     my $class = $data->_entity_class;
     Class::MOP::load_class($class);
-    my $sql = Sql->new($data->c->dbh);
     my %map = $data->_attribute_mapping;
     my @ret;
     for my $obj (@objs)

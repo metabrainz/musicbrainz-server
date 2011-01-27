@@ -716,9 +716,9 @@ sub recalculate {
             : die "Unknown database: $db";
 
     if (my $query = $definition->{SQL}) {
-        my $value = $sql->select_single_value($query);
-        $self->insert($statistic => $value);
-        return;
+        my $value = $self->sql->select_single_value($query);
+		$self->insert($statistic => $value);
+		return;
     }
 
     if (my $calculate = $definition->{CALC}) {
@@ -772,17 +772,16 @@ sub get_latest_statistics {
                         value
                    FROM statistic
                   WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
-    my $sql = Sql->new($self->c->dbh);
-    $sql->select($query) or return;
+    $self->sql->select($query) or return;
 
     my $stats = MusicBrainz::Server::Entity::Statistics->new();
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         $stats->date_collected($row->{date_collected})
             unless $stats->date_collected;
         $stats->data->{$row->{name}} = $row->{value};
     }
-    $sql->finish;
+    $self->sql->finish;
 
     return $stats;
 }

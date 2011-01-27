@@ -49,9 +49,9 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
-	    'date_xsd_type' => \&MusicBrainz::Server::Filters::date_xsd_type,
+            'date_xsd_type' => \&MusicBrainz::Server::Filters::date_xsd_type,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
-	    'format_length_xsd' => \&MusicBrainz::Server::Filters::format_length_xsd,
+            'format_length_xsd' => \&MusicBrainz::Server::Filters::format_length_xsd,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
@@ -64,9 +64,12 @@ __PACKAGE__->config(
         PRE_PROCESS => [
             'components/common-macros.tt',
             'components/forms.tt',
-	    'components/rdfa-macros.tt',
+            'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
+        STAT_TTL => 60,
+        CACHE_SIZE => 60,
+        COMPILE_EXT => '.ttc',
     },
     'Plugin::Session' => {
         expires => 36000 # 10 hours
