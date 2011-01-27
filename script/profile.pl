@@ -1,10 +1,15 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
+use FindBin '$Bin';
+use lib "$Bin/../lib";
 use MusicBrainz::WWW::Mechanize;
 
 my $mech = MusicBrainz::WWW::Mechanize->new( catalyst_app => 'MusicBrainz::Server' );
 
-my $profile = 'http://127.0.0.1:3000/release/3cd97a2d-f038-4468-aee2-e6464df3eb8d';
+my $profile = 'http://127.0.0.1:3000' . join('',@ARGV);
+
+print "Profiling $profile\n";
 
 # Prime the caches
 $mech->get($profile);
