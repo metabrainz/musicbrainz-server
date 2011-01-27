@@ -70,7 +70,6 @@ sub remove_releases_from_collection
 {
     my ($self, $collection_id, @release_ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->auto_commit;
     $self->sql->do("DELETE FROM editor_collection_release
               WHERE collection = ? AND release IN (" . placeholders(@release_ids) . ")",
@@ -81,7 +80,6 @@ sub check_release
 {
     my ($self, $collection_id, $release_id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     return $self->sql->select_single_value("
         SELECT 1 FROM editor_collection_release
         WHERE collection = ? AND release = ?",
@@ -91,8 +89,6 @@ sub check_release
 sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
-
-    my $sql = Sql->new($self->c->dbh);
 
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
     # a collection that already contains $new_id)
@@ -111,7 +107,6 @@ sub delete_releases
 {
     my ($self, @ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@ids).")", @ids);
 }

@@ -42,7 +42,6 @@ sub _load_attributes
             FROM link_type_attribute_type
             WHERE link_type IN (" . placeholders(@ids) . ")
             ORDER BY link_type";
-        my $sql = Sql->new($self->c->dbh);
         $self->sql->select($query, @ids);
         while (1) {
             my $row = $self->sql->next_row_hash_ref or last;
@@ -87,7 +86,6 @@ sub get_tree
 {
     my ($self, $type0, $type1) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   WHERE entity_type0=? AND entity_type1=?
                   ORDER BY child_order, id', $type0, $type1);
@@ -116,7 +114,6 @@ sub get_attribute_type_list
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     if (defined $id) {
         $self->sql->select('SELECT t.id, t.name, at.link_type, at.min, at.max
                           FROM link_attribute_type t
@@ -148,7 +145,6 @@ sub insert
 {
     my ($self, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     $row->{gid} = $values->{gid} || generate_gid();
     my $id = $self->sql->insert_row('link_type', $row, 'id');
@@ -169,7 +165,6 @@ sub update
 {
     my ($self, $id, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     if (%$row) {
         $self->sql->update_row('link_type', $row, { id => $id });
@@ -191,7 +186,6 @@ sub delete
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
     $self->sql->do('DELETE FROM link_type WHERE id = ?', $id);
 }

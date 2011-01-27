@@ -57,7 +57,6 @@ sub _load_attributes
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
-        my $sql = Sql->new($self->c->dbh);
         $self->sql->select($query, @ids);
         while (1) {
             my $row = $self->sql->next_row_hash_ref or last;

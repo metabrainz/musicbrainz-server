@@ -44,7 +44,7 @@ sub find_tag_count
     my $query = "SELECT count(*) FROM " . $self->tag_table . " entity_tag " .
                 "WHERE " . $self->type . " = ? ";
 
-    return Sql->new($self->c->dbh)->select_single_value($query, $entity_id);
+    return $self->sql->select_single_value($query, $entity_id);
 }
 
 sub find_top_tags
@@ -124,13 +124,11 @@ sub _new_from_row
 sub delete
 {
     my ($self, @entity_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do("
         DELETE FROM " . $self->tag_table . "
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
-    my $raw_sql = Sql->new($self->c->raw_dbh);
-    $raw_sql->do("
+    $self->c->raw_sql->do("
         DELETE FROM " . $self->tag_table . "_raw
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
@@ -146,9 +144,6 @@ sub _merge
     my $assoc_table = $self->tag_table;
     my $assoc_table_raw = $self->tag_table . '_raw';
 
-    my $sql = Sql->new($self->c->dbh);
-    my $raw_sql = Sql->new($self->c->raw_dbh);
-
     # Load the tag ids for both entities
     my $old_tag_ids = $self->sql->select_single_column_array("
         SELECT tag
@@ -161,6 +156,7 @@ sub _merge
          WHERE $entity_type = ?", $new_entity_id);
     my %new_tag_ids = map { $_ => 1 } @$new_tag_ids;
 
+    my $raw_sql = $self->c->raw_sql;
     foreach my $tag_id (@$old_tag_ids)
     {
         # If both entities share the tag, move the individual raw tags
@@ -285,11 +281,9 @@ sub update
     my $assoc_table = $self->tag_table;
     my $assoc_table_raw = $self->tag_table . '_raw';
 
-    my $sql = Sql->new($self->c->dbh);
-    my $raw_sql = Sql->new($self->c->raw_dbh);
-
     @new_tags = $self->parse_tags($input);
 
+    my $raw_sql = $self->c->raw_sql;
     Sql::run_in_transaction(sub {
 
         # Load the existing raw tag ids for this entity
@@ -446,8 +440,7 @@ sub find_editor_entities
     my $type = $self->type;
     my $tag_table = $self->tag_table;
 
-    my $raw_sql = Sql->new($self->c->raw_dbh);
-    my @tags = @{ $raw_sql->select_single_column_array(
+    my @tags = @{ $self->c->raw_sql->select_single_column_array(
         'SELECT ' . $type . ' FROM ' . $type . '_tag_raw
           WHERE editor = ?',
         $editor_id) };

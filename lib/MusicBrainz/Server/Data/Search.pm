@@ -183,7 +183,6 @@ sub search
     my $fuzzy_search_limit = 10000;
     my $search_timeout = 60 * 1000;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->auto_commit;
     $self->sql->do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
     $self->sql->auto_commit;

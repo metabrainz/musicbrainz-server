@@ -100,7 +100,6 @@ sub get_by_recording_puid
         WHERE recording_puid.recording = ? AND puid.puid = ?
         ORDER BY recording_puid.id";
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->sql->select_single_row_hash($query, $recording_id, $puid_str)
         or return;
 
@@ -154,8 +153,6 @@ sub merge_recordings
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-
     # Delete links from @old_ids that already exist for $new_id
     $self->sql->do('DELETE FROM recording_puid
               WHERE recording IN ('.placeholders(@old_ids).') AND
@@ -172,8 +169,6 @@ sub delete_recordings
 {
     my ($self, @ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-
     # Remove PUID<->recording links
     my $puid_ids = $self->sql->select_single_column_array('
         DELETE FROM recording_puid
@@ -186,7 +181,6 @@ sub delete_recordings
 sub delete
 {
     my ($self, $puid_id, $recording_puid_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM recording_puid WHERE id = ?';
     $self->sql->do($query, $recording_puid_id);
     $self->c->model('PUID')->delete_unused_puids($puid_id);
