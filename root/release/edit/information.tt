@@ -75,8 +75,8 @@
 
           [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
           <span class="label autocomplete">
-            <img class="search" src="/static/images/icons/search.png" />
             [%- r.text(field.field('name'), class => 'label-name') -%]
+            <img class="search" src="/static/images/icons/search.png" />
           </span>
           [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
