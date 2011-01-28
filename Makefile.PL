@@ -18,6 +18,7 @@ requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding';
 requires 'Catalyst::Runtime'                          => '5.80021';
 requires 'Catalyst::View::TT'                         => '0.29';
+requires 'CGI::Expand';
 requires 'Class::MOP';
 requires 'CSS::Minifier';
 requires 'Clone';
@@ -76,6 +77,7 @@ requires 'Throwable';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
+requires 'XML::SemanticDiff';                         => '1.0000';
 requires 'XML::Simple'                                => '2.14';
 requires 'XML::XPath';
 

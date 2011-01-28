@@ -28,7 +28,10 @@
 
       <p>
         Search:
-        <input type="text" class="recording" value="[% IF track %][% track.name %][% END %]" />
+        <span class="autocomplete">
+          <input type="text" class="recording" value="[% IF track %][% track.name %][% END %]" />
+          <img class="search" src="/static/images/icons/search.png" />
+        </span>
       </p>
 
       <table class="matches">
@@ -251,12 +254,19 @@
 
         [%- ELSE -%]
 
-
           <div style="float: left; margin: 10px;" class="clickedit buttons">
             <a href="#edit">[% l('Edit') %]</a>
           </div>
 
           <p class="clickedit" style="margin: 18px 10px 0 0; width: 400px;">[% l('Click Edit to edit the recording associations for this disc.') %]</p>
+
+          <div style="display: none" class="recordings-loading">
+            <p>
+              <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+              &nbsp;
+              [% l('Now loading recording associations...') %]
+            </p>
+          </div>
 
         [%- END -%]
 

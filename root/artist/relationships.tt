@@ -2,7 +2,7 @@
     <span [% rdfa_about_attr(rdfa_artist_curi(artist)) %]>
 
     <h2>[% l("Relationships") %]</h2>
-    [% INCLUDE "components/relationships.tt"
+    [% INCLUDE "components/relationships.tt" source=artist
         relationships=artist.grouped_relationships('artist', 'url', 'label') %]
 
     <h2>[% l('Appearences') %]</h2>
