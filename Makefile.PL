@@ -77,6 +77,7 @@ requires 'Throwable';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
+requires 'XML::SemanticDiff';                         => '1.0000';
 requires 'XML::Simple'                                => '2.14';
 requires 'XML::XPath';
 
