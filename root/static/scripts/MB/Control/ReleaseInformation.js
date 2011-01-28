@@ -170,8 +170,8 @@ MB.Control.ReleaseBarcode = function() {
 
         if (barcode.length === 0)
         {
-            self.message.html ("");
-            self.suggestion.html ("");
+            self.message.html ('');
+            self.suggestion.html ('');
         }
         else if (barcode.length === 11)
         {
@@ -184,7 +184,7 @@ MB.Control.ReleaseBarcode = function() {
             if (self.validate ('0' + barcode))
             {
                 self.message.html (MB.text.Barcode.ValidUPC);
-                self.suggestion.html ("");
+                self.suggestion.html ('');
             }
             else
             {
@@ -204,13 +204,13 @@ MB.Control.ReleaseBarcode = function() {
             else
             {
                 self.message.html (MB.text.Barcode.InvalidEAN);
-                self.suggestion.html (MB.text.DoubleCheck);
+                self.suggestion.html (MB.text.Barcode.DoubleCheck);
             }
         }
         else
         {
             self.message.html (MB.text.Barcode.Invalid);
-            self.suggestion.html (MB.text.DoubleCheck);
+            self.suggestion.html (MB.text.Barcode.DoubleCheck);
         }
     };
 
