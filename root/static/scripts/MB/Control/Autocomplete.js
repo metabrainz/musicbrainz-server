@@ -209,6 +209,10 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.search (self.$input.val ());
     };
 
+    self.hide = function (event) {
+        self.autocomplete.close ();
+    };
+
     self.close = function (event) { self.$input.focus (); };
     self.open = function (event) {
         var menu = self.autocomplete.menu;
@@ -255,6 +259,8 @@ MB.Control.Autocomplete = function (options) {
                         MB.text.SwitchToDirectSearch :
                         MB.text.SwitchToIndexedSearch
                 });
+
+                data = self.resultHook (data);
 
                 return response (data, result, request);
             }
@@ -324,6 +330,7 @@ MB.Control.Autocomplete = function (options) {
     self.$search = self.$input.closest ('span.autocomplete').find('img.search');
 
     self.lookupHook = options.lookupHook || function (r) { return r; };
+    self.resultHook = options.resultHook || function (r) { return r; };
     self.page_term = '';
     self.current_page = 1;
     self.number_of_pages = 1;

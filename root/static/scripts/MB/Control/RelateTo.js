@@ -48,6 +48,11 @@ MB.Control.RelateTo = function () {
         self.selected_item.type = self.type ();
     };
 
+    self.cancel = function (event) {
+        self.autocomplete.hide ();
+        self.$relate.hide ();
+    };
+
     self.createRelationship = function (event) {
         var location = '/edit/relationship/create';
         var query_string = $.param ({
@@ -60,18 +65,36 @@ MB.Control.RelateTo = function () {
         window.location = location + '?' + query_string;
     };
 
+    self.resultHook = function (result) {
+
+        if (self.$type0.val () !== self.type ())
+            return result;
+
+        // filter out any results which refer to the same entity as the one
+        // we're viewing.
+        var ret = [];
+        $.each (result, function (idx, item) {
+            if (item.gid === undefined || item.gid !== self.$gid0.val ()) {
+                ret.push (item);
+            }
+        });
+
+        return ret;
+    };
+
     self.$select.bind ('change.mb', function (event) {
         self.autocomplete.changeEntity (self.type ());
     });
 
     self.$link.bind ('click.mb', function (event) { self.$relate.show (); });
-    self.$cancel.bind ('click.mb', function (event) { self.$relate.hide (); });
+    self.$cancel.bind ('click.mb', self.cancel);
     self.$create.bind ('click.mb', self.createRelationship);
 
     self.autocomplete = MB.Control.Autocomplete ({
         'entity': self.type (),
         'input': self.$input,
-        'select': self.select
+        'select': self.select,
+        'resultHook': self.resultHook
     });
 
     return self;
