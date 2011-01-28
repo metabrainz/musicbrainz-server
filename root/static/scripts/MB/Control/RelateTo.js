@@ -48,6 +48,11 @@ MB.Control.RelateTo = function () {
         self.selected_item.type = self.type ();
     };
 
+    self.cancel = function (event) {
+        self.autocomplete.hide ();
+        self.$relate.hide ();
+    };
+
     self.createRelationship = function (event) {
         var location = '/edit/relationship/create';
         var query_string = $.param ({
@@ -82,7 +87,7 @@ MB.Control.RelateTo = function () {
     });
 
     self.$link.bind ('click.mb', function (event) { self.$relate.show (); });
-    self.$cancel.bind ('click.mb', function (event) { self.$relate.hide (); });
+    self.$cancel.bind ('click.mb', self.cancel);
     self.$create.bind ('click.mb', self.createRelationship);
 
     self.autocomplete = MB.Control.Autocomplete ({

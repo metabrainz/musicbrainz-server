@@ -209,6 +209,10 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.search (self.$input.val ());
     };
 
+    self.hide = function (event) {
+        self.autocomplete.close ();
+    };
+
     self.close = function (event) { self.$input.focus (); };
     self.open = function (event) {
         var menu = self.autocomplete.menu;
