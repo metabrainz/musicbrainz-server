@@ -410,6 +410,7 @@ sub editors_with_subscriptions
         editor_subscribe_label
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
+    $ids .= ' UNION ALL SELECT editor FROM editor_collection WHERE subscribed';
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         " WHERE id IN ($ids)";
 

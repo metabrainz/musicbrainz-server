@@ -21,7 +21,6 @@ ALTER TABLE artist_tag DROP CONSTRAINT artist_tag_fk_artist;
 ALTER TABLE artist_tag DROP CONSTRAINT artist_tag_fk_tag;
 ALTER TABLE editor_collection DROP CONSTRAINT editor_collection_fk_editor;
 ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_fk_collection;
-ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_fk_release;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_fk_editor;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_fk_editor;
 ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editor_subscribe_editor_fk_editor;

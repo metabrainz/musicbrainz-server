@@ -51,10 +51,10 @@ sub run {
         printf "Processing subscriptions for '%s'\n", $editor->name
             if $self->verbose;
 
-        my @subscriptions = $self->c->model('EditorSubscriptions')
-            ->get_all_subscriptions($editor->id) or next;
-
         if ($editor->has_confirmed_email_address) {
+            my @subscriptions = $self->c->model('EditorSubscriptions')
+                ->get_all_subscriptions($editor->id) or next;
+
             if(my $data = $self->extract_subscription_data(@subscriptions)) {
                 printf "... sending email\n" if $self->verbose;
                 $self->emailer->send_subscriptions_digest(

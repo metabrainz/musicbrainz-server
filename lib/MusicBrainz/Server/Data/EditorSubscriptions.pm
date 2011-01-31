@@ -5,6 +5,7 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 my @subscribable_models = qw(
     Artist
+    Collection
     Editor
     Label
 );
@@ -32,12 +33,20 @@ sub update_subscriptions
     );
 
     $self->sql->do(
+        "DELETE FROM editor_collection_release
+          WHERE collection IN (SELECT id FROM editor_collection_release WHERE editor = ?)
+             AND (deleted_by_edit != 0 OR merged_by_edit != 0)",
+        $editor_id
+    );
+
+    $self->sql->do(
         "UPDATE $_ SET last_edit_sent = ? WHERE editor = ?",
         $max_id, $editor_id
     ) for qw(
         editor_subscribe_label
         editor_subscribe_artist
         editor_subscribe_editor
+        editor_collection
     );
     $self->sql->commit;
 }

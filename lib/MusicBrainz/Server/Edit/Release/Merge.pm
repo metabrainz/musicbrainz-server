@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
     -excludes => 'release_ids'
 };
+with 'MusicBrainz::Server::Edit::Role::MergeSubscription';
 
 has '+data' => (
     isa => Dict[
@@ -29,6 +30,7 @@ has '+data' => (
 sub edit_name { l('Merge releases') }
 sub edit_type { $EDIT_RELEASE_MERGE }
 sub _merge_model { 'Release' }
+sub subscription_model { shift->c->model('Collection')->subscription }
 
 sub release_ids { @{ shift->_entity_ids } }
 

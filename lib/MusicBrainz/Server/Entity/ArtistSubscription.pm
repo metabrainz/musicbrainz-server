@@ -9,6 +9,11 @@ with qw(
     MusicBrainz::Server::Entity::Role::Subscription::Merge
 );
 
+has 'id' => (
+    isa => 'Int',
+    is => 'ro'
+);
+
 has 'artist_id' => (
     isa => 'Int',
     is => 'ro',

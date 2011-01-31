@@ -54,13 +54,21 @@ sub text {
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed artists',
+        'artist',
         @{ $self->edits->{artist} }
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
+        'label',
         @{ $self->edits->{label} }
     ) if exists $self->edits->{label};
+
+    push @sections, $self->edits_for_type(
+        'Changes for releases in your subscribed collections',
+        'release',
+        @{ $self->edits->{release} }
+    ) if exists $self->edits->{release};
 
     push @sections, $self->edits_for_editors(
         @{ $self->edits->{editor} }
@@ -93,14 +101,15 @@ Please do not reply to this message.  If you need help, please see
 sub edits_for_type {
     my $self = shift;
     my $header = shift;
+    my $type = shift;
     my $subs = \@_;
     return strip tt q{
 [% header %]
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
-[%- artist = sub.subscription.artist -%]
-[% artist.name %] ([% artist.comment %]) ([% sub.open.size %] open, [% sub.applied.size %] applied)
-[% self.server %]/artist/[% artist.gid %]/edits
+[%- entity = sub.subscription.type -%]
+[% entity.name %] ([% entity.comment %]) ([% sub.open.size %] open, [% sub.applied.size %] applied)
+[% self.server %]/[% type % ]/[% entity.gid %]/edits
 [% END %]
 };
 }
@@ -109,7 +118,7 @@ sub edits_for_editors {
     my $self = shift;
     my $subs = \@_;
     return strip tt q{
-Changes for by your subscribed editors:
+Changes for your subscribed editors:
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
 [%- editor = sub.subscription.subscribed_editor -%]

@@ -152,7 +152,7 @@ CREATE TABLE editor_collection
 CREATE TABLE editor_collection_release
 (
     collection          INTEGER NOT NULL, -- PK, references editor_collection.id
-    release             INTEGER NOT NULL, -- PK, references release.id
+    release             INTEGER NOT NULL, -- PK, weakly references release
     deleted_by_edit     INTEGER, -- weakly references edit
     merged_by_edit      INTEGER -- weakly references edit
 );

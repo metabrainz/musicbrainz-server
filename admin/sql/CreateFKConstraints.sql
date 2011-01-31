@@ -104,11 +104,6 @@ ALTER TABLE editor_collection_release
    FOREIGN KEY (collection)
    REFERENCES editor_collection(id);
 
-ALTER TABLE editor_collection_release
-   ADD CONSTRAINT editor_collection_release_fk_release
-   FOREIGN KEY (release)
-   REFERENCES release(id);
-
 ALTER TABLE editor_preference
    ADD CONSTRAINT editor_preference_fk_editor
    FOREIGN KEY (editor)
