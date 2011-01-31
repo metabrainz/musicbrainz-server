@@ -18,7 +18,9 @@ requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding';
 requires 'Catalyst::Runtime'                          => '5.80021';
 requires 'Catalyst::View::TT'                         => '0.29';
+requires 'CGI::Expand';
 requires 'Class::MOP';
+requires 'CSS::Minifier';
 requires 'Clone';
 requires 'Data::Compare';
 requires 'Data::OptList';
@@ -76,6 +78,7 @@ requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
 requires 'XML::Simple'                                => '2.14';
+requires 'XML::XPath';
 
 feature 'ETag Caching' =>
     -default                        => 1,

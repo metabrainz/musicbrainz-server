@@ -50,7 +50,10 @@
                     </td>
                     [% END %]
                     <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
-                    <td>[% rdfa_made_rg_link(rg) %]</td>
+                    <td>
+                      [% rdfa_made_rg_link(rg) %]
+                      [% disambiguation(rg) %]
+                    </td>
                     [% IF show_va %]
                     <td>[% artist_credit(rg.artist_credit) %]</td>
                     [% END %]

@@ -14,8 +14,18 @@ CREATE INDEX edit_idx_type ON edit (type);
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
 
+-- Entity indexes
+CREATE INDEX edit_artist_idx ON edit_artist (artist);
+CREATE INDEX edit_label_idx ON edit_label (label);
+CREATE INDEX edit_release_idx ON edit_release (release);
+CREATE INDEX edit_release_group_idx ON edit_release_group (release_group);
+CREATE INDEX edit_recording_idx ON edit_recording (recording);
+CREATE INDEX edit_work_idx ON edit_work (work);
+CREATE INDEX edit_url_idx ON edit_url (url);
+
 CREATE INDEX edit_note_idx_edit ON edit_note (edit);
 CREATE INDEX vote_idx_edit ON vote (edit);
+CREATE INDEX vote_idx_editor ON vote (editor);
 
 CREATE INDEX artist_rating_raw_idx_artist ON artist_rating_raw (artist);
 CREATE INDEX artist_rating_raw_idx_editor ON artist_rating_raw (editor);

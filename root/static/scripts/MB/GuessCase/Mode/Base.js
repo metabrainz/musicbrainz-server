@@ -206,37 +206,8 @@ MB.GuessCase.Mode.Base = function () {
 
 	if (!gc.re.PREPROCESS_COMMONS) {
     	    gc.re.PREPROCESS_COMMONS = [
-		self.fix ("D.J. -> DJ", /(\b|^)D\.?J\.?(\s|\)|$)/i, "DJ")
-		, self.fix ("M.C. -> MC", /(\b|^)M\.?C\.?(\s|\)|$)/i, "MC")
-
-		// http://unicode.e-workers.de/wgl4.php
-		// http://www.cs.sfu.ca/~ggbaker/reference/characters/
-		// single quotes
-		, self.fix ("Opening single-quote &#x2018;", "\u2018", "'")
-		, self.fix ("Closing single-quote &#x2019;", "\u2019", "'")
-
-		// weird single quotes.
-		, self.fix ("Acute accent &#x0301;", "\u0301", "'")
-		, self.fix ("Acute accent &#x00B4;", "\u00B4", "'")
-		, self.fix ("Grave accent &#x0300;", "\u0300", "'")
-		, self.fix ("Backtick &#x0060;", "\u0060", "'")
-		, self.fix ("Prime &#x2023;", "\u2023", "'")
-
-		// double quotes
-		, self.fix ("Opening double-quote &#x201C;", "\u201C", "\"")
-		, self.fix ("Closing double-quote &#x201D;", "\u201D", "\"")
-
-		// hyphens
-		, self.fix ("Soft hyphen &#x00AD;", "\u00AD", "-")
-		, self.fix ("Closing Hyphen &#x2010;", "\u2010", "-")
-		, self.fix ("Non-breaking hyphen &#x2011;", "\u2011", "-")
-		, self.fix ("En-dash &#x2013;", "\u2013", "-")
-		, self.fix ("Em-dash &#x2014;", "\u2014", "-")
-		, self.fix ("hyphen bullet &#x2043;", "\u2043", "-")
-		, self.fix ("Minus sign &#x2212;", "\u2212", "-")
-
-		// ellipsis
-		, self.fix ("Ellipsis &#x2026;", "\u2026", "...")
+		self.fix ("D.J. -> DJ", /(\b|^)D\.?J\.?(\s|\)|$)/i, "DJ"),
+		self.fix ("M.C. -> MC", /(\b|^)M\.?C\.?(\s|\)|$)/i, "MC")
 	    ];
 	}
 	return self.runFixes(is, gc.re.PREPROCESS_COMMONS);

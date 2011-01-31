@@ -76,15 +76,16 @@ sub _cmp
 {
     my ($a, $b) = @_;
 
-    return  0 unless defined($a) && defined($b);
-    return  0 unless (defined($a->year) && defined($b->year));
-    return -1 if defined($a->year) && !defined($b->year);
-    return  1 if !defined($a->year) && defined($b->year);
+    # Stuff without a year sorts first too
+    return  0 if (!defined($a->year) && !defined($b->year));
+    return  1 if ( defined($a->year) && !defined($b->year));
+    return -1 if (!defined($a->year) &&  defined($b->year));
 
-    my ($days) = Date::Calc::Delta_Days(
-        $a->year, $a->month || 1, $a->day || 1,
-        $b->year, $b->month || 12, $b->day || 31,
-    );
+    # We have years for both dates, we can now assume real sorting
+    my @begin = ($a->year, $a->month || 1, $a->day || 1);
+    my @end =   ($b->year, $b->month || 1, $b->day || 1);
+
+    my ($days) = Date::Calc::Delta_Days(@begin, @end);
 
     return $days > 0 ? -1
          : $days < 0 ?  1

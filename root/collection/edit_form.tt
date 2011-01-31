@@ -6,5 +6,11 @@
         [% form_row_checkbox(r, 'public', l('Allow other users to see this collection')) %]
     </fieldset>
 
-    [% enter_edit() %]
+    <div class="row no-label">
+        [% IF c.action.name == "create" %]
+            [% form_submit(l('Create collection')) %]
+        [% ELSE %]
+            [% form_submit(l('Update collection')) %]
+        [% END %]
+    </div>
 </form>

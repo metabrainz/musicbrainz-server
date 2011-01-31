@@ -6,7 +6,7 @@
       <p>[% l('We found a single disc in MusicBrainz matching the information you provided. This is disc {n}
                of {release} by {artist}. If this is not the release you are looking for, you may search using
                the form below in order to attach this disc to another MusicBrainz release.',
-               { n => medium.position, release => link_release(medium.release),
+               { n => medium.position, release => link_entity(medium.release),
                  artist => artist_credit(medium.release.artist_credit) }) %]</p>
     [% ELSE %]
       <p>[% l('We found multiple discs matching the information you requested, as listed below. If none of these

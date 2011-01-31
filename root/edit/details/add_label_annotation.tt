@@ -1,13 +1,13 @@
 <table class="details">
   <tr>
     <th>[% l('Label:') %]</th>
-    <td>[% link_label(edit.display_data.label) %]</td>
+    <td>[% link_entity(edit.display_data.label) %]</td>
   </tr>
   <tr>
     <th>[% l('Changelog:') %]</th>
     <td>
       <a href="[% c.uri_for_action('/label/annotation_revision', [ edit.display_data.label.gid ], edit.display_data.annotation_id) %]">
-        [% edit.display_data.changelog || l('(no changelog)') %]
+        [% html_escape(edit.display_data.changelog) || l('(no changelog)') %]
       </a>
     </td>
   </tr>

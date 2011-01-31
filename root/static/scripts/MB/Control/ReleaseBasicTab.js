@@ -26,7 +26,7 @@ MB.Control._preview_update_timeout = 500;
 MB.Control.ReleasePreview = function (advancedtab) {
     var self = MB.Object ();
 
-    var render = function () {
+    self.render = function () {
         var preview = $('#preview').html ('');
 
         $.each (self.adv.discs, function (idx, disc) {
@@ -41,10 +41,14 @@ MB.Control.ReleasePreview = function (advancedtab) {
                     return;
                 }
 
-                $('<tr>').appendTo (table).
-                    append ($('<td class="trackno">').text (item.position.val ())).
-                    append ($('<td class="title">').text (item.title.val ())).
-                    append ($('<td class="duration">').text (item.length.val ()));
+                var tr = $('<tr>').appendTo (table);
+                tr.append ($('<td class="trackno">').text (item.$position.val ()));
+                tr.append ($('<td class="title">').text (item.$title.val ()));
+                if (disc.isVariousArtists ())
+                {
+                    tr.append ($('<td class="artist">').text (item.$artist.val ()));
+                }
+                tr.append ($('<td class="duration">').text (item.$length.val ()));
             });
 
         });
@@ -52,8 +56,6 @@ MB.Control.ReleasePreview = function (advancedtab) {
 
     self.preview = $('#preview');
     self.adv = advancedtab;
-
-    self.render = render;
 
     return self;
 };
@@ -65,7 +67,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 MB.Control.ReleaseTextarea = function (disc, preview) {
     var self = MB.Object ();
 
-    var render = function () {
+    self.render = function () {
         var str = "";
 
         $.each (disc.sorted_tracks, function (idx, item) {
@@ -74,7 +76,12 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
                 return;
             }
 
-            str += item.position.val () + ". " + item.title.val ();
+            str += item.$position.val () + ". " + item.$title.val ();
+
+            if (self.isVariousArtists () && item.$artist.val () !== '')
+            {
+                str += MB.TrackParser.separator + item.$artist.val ();
+            }
 
             var len = item.lengthOrNull ();
             if (len)
@@ -88,23 +95,29 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.textarea.val (str);
     };
 
-    var updatePreview = function (filter) {
+    self.updatePreview = function () {
+        if (typeof self.timeout == "number")
+        {
+            clearTimeout (self.timeout);
+        }
+
+        delete self.timeout;
+
         if (self.trackparser)
         {
-            self.trackparser.run (filter);
+            self.trackparser.run ();
             self.preview.render ();
         }
     };
 
-    var collapse = function (chained) {
+    self.collapse = function (chained) {
         self.trackparser = null;
         self.textarea.val ('');
 
         self.textarea.hide ();
         self.basicdisc.removeClass ('expanded');
-        self.expand_icon.find ('span.ui-icon')
-            .removeClass ('ui-icon-triangle-1-s')
-            .addClass ('ui-icon-triangle-1-e');
+        self.$collapse_icon.hide ();
+        self.$expand_icon.show ();
 
         if (!chained)
         {
@@ -114,12 +127,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.preview.render ();
     };
 
-    var expand = function (chained) {
+    self.expand = function (chained) {
         self.textarea.show ();
         self.basicdisc.addClass ('expanded');
-        self.expand_icon.find ('span.ui-icon')
-            .removeClass ('ui-icon-triangle-1-e')
-            .addClass ('ui-icon-triangle-1-s');
+        self.$expand_icon.hide ();
+        self.$collapse_icon.show ();
 
         if (!chained)
         {
@@ -127,13 +139,13 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
     };
 
-    var loadTracklist = function (data) {
+    self.loadTracklist = function (data) {
         self.render ();
-        self.trackparser = MB.TrackParser (self.disc, self.textarea, data);
+        self.trackparser = MB.TrackParser.Parser (self.disc, self.textarea, data);
         self.updatePreview ();
     };
 
-    var lines = function (data) {
+    self.lines = function (data) {
         if (data)
         {
             self.textarea.val (data.join ("\n"));
@@ -144,50 +156,38 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
     };
 
+    /**
+     * isVariousArtists returns false only if all tracks on the disc are identical
+     * to the release artist.
+     */
+    self.isVariousArtists = function () {
+        return self.$various_artists.val() == '1';
+    };
+
     self.disc = disc;
     self.preview = preview;
-    self.render = render;
-    self.updatePreview = updatePreview;
-    self.lines = lines;
 
-    self.collapse = collapse;
-    self.expand = expand;
-    self.loadTracklist = loadTracklist;
-
-    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc'); 
+    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc');
     self.textarea = self.basicdisc.find ('textarea.tracklist');
-    self.expand_icon = self.basicdisc.find ('.expand a.icon');
-    self.tracklist_id = self.basicdisc.find ('input.tracklist-id');
+    self.$expand_icon = self.basicdisc.find ('input.expand-disc');
+    self.$collapse_icon = self.basicdisc.find ('input.collapse-disc');
+    self.$tracklist_id = self.basicdisc.find ('input.tracklist-id');
+    self.$various_artists = self.basicdisc.find ('input.various-artists');
 
-    if (!self.tracklist_id.length)
+    if (!self.$tracklist_id.length)
     {
-        self.tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
+        self.$tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
     }
 
-    self.expand_icon.click (function (event) {
-        if (self.textarea.is (':visible'))
-        {
-            self.collapse ();
-        }
-        else
-        {
-            self.expand ();
-        }
-
-        event.preventDefault ();
-        return false;
-    });
+    self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
+    self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
 
     self.textarea.bind ('keyup', function () {
-        if (typeof self.timeout == "number")
-        {
-            clearTimeout (self.timeout);
-        }
-
-        self.timeout = setTimeout (function () {
-            delete self.timeout;
+        var newTimeout = setTimeout (function () {
             self.updatePreview ();
         }, MB.Control._preview_update_timeout);
+
+        self.timeout = newTimeout;
     });
 
     self.disc.registerBasic (self);
@@ -207,20 +207,30 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
         });
     };
 
-    var newDisc = function (disc) {
+    var newDisc = function (disc, expand_discs) {
         var ta = MB.Control.ReleaseTextarea (disc, self.preview);
         self.textareas.push (ta);
 
-        ta.expand ();
+        if (expand_discs)
+        {
+            ta.expand ();
+        }
 
         return ta;
     };
 
     var guessCase = function () {
+        /* make sure all the input fields on the advanced tab are up-to-date. */
         $.each (self.textareas, function (i, textarea) {
             textarea.updatePreview (MB.GuessCase.track.guess);
-            textarea.render ();
         });
+
+        /* have the advanced view guess case all the discs. */
+        self.adv.guessCase ();
+
+        /* take the new inputs and render them to our textareas and the preview. */
+        self.render ();
+        self.preview.render ();
     };
 
     self.adv = advancedtab;
@@ -232,7 +242,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
-        self.newDisc (disc);
+        self.newDisc (disc, self.adv.discs.length < 4);
     });
 
     return self;
@@ -264,6 +274,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         $('.basic-tracklist').hide ();
         $('.advanced-tracklist').show ();
         $('#id-advanced').val ('1');
+        $(window).scrollTop (0);
     });
 
     $("a[href=#basic]").click (function () {

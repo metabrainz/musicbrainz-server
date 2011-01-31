@@ -29,12 +29,12 @@
                   [% work.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
                 </a>
               </li>
-               <li>[% link_work(work, 'merge', l('Merge this work into another')) %]</li>
-               <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
+               <li>[% link_entity(work, 'merge', l('Merge this work into another')) %]</li>
+               <li>[% link_entity(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
                <li>[% relate_to_url(work) %]</li>
                [% IF work.edits_pending %]
-                 <li>[% link_work(work, 'open_edits', l('Open edits')) %]</li>
+                 <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
                [% END %]
             [% ELSE %]
                <li>[% request_login(l('Please log in to edit this work')) %]</li>
@@ -42,6 +42,8 @@
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=work -%]
     [% END %]
 
 <div id="content">

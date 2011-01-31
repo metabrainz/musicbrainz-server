@@ -21,7 +21,7 @@
               [%- artist = artist.entity -%]
               <li>
                 <input type="radio" name="artist" value="[% artist.id %]" />
-                [% link_artist(artist) %] [% disambiguation(artist) %]
+                [% link_entity(artist) %]
               </li>
               [%- END -%]
             </ul>
@@ -32,5 +32,10 @@
           [% form_submit(l('Select')) %]
         </div>
     [%- END -%]
+  </form>
+
+  <form action="[% c.uri_for('/release/add', { artist => artist.gid }) %]" method="post">
+    <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
+    [% form_submit(l('Add a new release')) %]
   </form>
 [% END %]

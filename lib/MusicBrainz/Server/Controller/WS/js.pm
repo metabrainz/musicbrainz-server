@@ -17,25 +17,43 @@ use Encode qw( decode encode );
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
-     artist => {
-         method   => 'GET',
-         required => [ qw(q) ],
-         optional => [ qw(direct limit page timestamp) ]
-     },
-     label => {
-         method   => 'GET',
-         required => [ qw(q) ],
-         optional => [ qw(direct limit page timestamp) ]
-     },
-     recording => {
-         method   => 'GET',
-         required => [ qw(q) ],
-         optional => [ qw(a r direct limit page timestamp) ]
-     },
-     tracklist => {
+    "artist" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(direct limit page timestamp) ]
+    },
+    "label" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(direct limit page timestamp) ]
+    },
+    "recording" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(a r direct limit page timestamp) ]
+    },
+    "release-group" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(r direct limit page timestamp) ]
+    },
+    "release" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(r direct limit page timestamp) ]
+    },
+    "work" => {
+        method   => 'GET',
+        required => [ qw(q) ],
+        optional => [ qw(r direct limit page timestamp) ]
+    },
+    "tracklist" => {
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
-     }
+    },
+    "associations" => {
+        method => 'GET',
+    }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -98,22 +116,25 @@ sub _autocomplete_direct {
 
     my $offset = ($page - 1) * $limit;  # page is not zero based.
 
-    my ($entities, $hits) = $c->model($type)->autocomplete_name($query, $limit, $offset);
+    my ($search_results, $hits) = $c->model ('Search')->search (
+        $type, $query, $limit, $offset);
 
     my @output;
 
-    for (@$entities)
+    for (@$search_results)
     {
+        my $entity = $_->entity;
+
         my $item = {
-            name => $_->name,
-            id => $_->id,
-            gid => $_->gid,
-            comment => $_->comment,
+            name => $entity->name,
+            id => $entity->id,
+            gid => $entity->gid,
+            comment => $entity->comment,
         };
 
-        if ($_->meta->has_attribute ('sort_name'))
+        if ($entity->meta->has_attribute ('sort_name'))
         {
-            $item->{sortname} = $_->sort_name;
+            $item->{sortname} = $entity->sort_name;
         }
 
         push @output, $item;
@@ -189,6 +210,8 @@ sub _autocomplete_indexed {
         # empty list.  The javascript code for autocomplete doesn't
         # have any way to gracefully report or deal with
         # errors. --warp.
+
+        push @output, { pages => 1, current => 1 };
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -207,6 +230,27 @@ sub label : Chained('root') PathPart('label') Args(0)
     my ($self, $c) = @_;
 
     $self->_autocomplete_entity($c, 'label');
+}
+
+sub release_group : Chained('root') PathPart('release-group') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_autocomplete_entity($c, 'release_group');
+}
+
+sub release : Chained('root') PathPart('release') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_autocomplete_entity($c, 'release');
+}
+
+sub work : Chained('root') PathPart('work') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $self->_autocomplete_entity($c, 'work');
 }
 
 sub recording : Chained('root') PathPart('recording') Args(0)
@@ -238,15 +282,20 @@ sub _recording_direct {
 
     my $offset = ($page - 1) * $limit;  # page is not zero based.
 
-    my ($entities, $hits) = $c->model('Recording')->autocomplete_name(
-        $query, $artist, $limit, $offset);
+    my $where = {};
+    $where->{artist} = $artist if $artist;
 
-    $c->model ('ArtistCredit')->load (@$entities);
-    $c->model('ISRC')->load_for_recordings (@$entities);
+    my ($search_results, $hits) = $c->model ('Search')->search (
+        'recording', $query, $limit, $offset, $where);
+
+    my @entities = map { $_->entity } @$search_results;
+
+    $c->model ('ArtistCredit')->load (@entities);
+    $c->model('ISRC')->load_for_recordings (@entities);
 
     my @output;
 
-    for (@$entities) {
+    for (@entities) {
         push @output, {
             recording => $_,
             appears => [
@@ -305,6 +354,11 @@ sub _recording_indexed {
         # empty list.  The javascript code for autocomplete doesn't
         # have any way to gracefully report or deal with
         # errors. --warp.
+
+        $pager = Data::Page->new ();
+        $pager->entries_per_page ($limit);
+        $pager->current_page ($page);
+        $pager->total_entries (0);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -411,6 +465,44 @@ sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
+}
+
+# recording associations
+sub associations : Chained('root') PathPart Args(1) {
+    my ($self, $c, $id) = @_;
+
+    my $tracklist = $c->model('Tracklist')->get_by_id($id);
+    $c->model('Track')->load_for_tracklists($tracklist);
+    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
+        $tracklist->all_tracks);
+
+    $c->model('Recording')->load ($tracklist->all_tracks);
+
+    my @structure;
+    for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
+    {
+        my $data = {
+            length => format_track_length($_->length),
+            name => $_->name,
+            artist_credit => { preview => $_->artist_credit->name }
+        };
+
+        $data->{recording} = {
+            gid => $_->recording->gid,
+            name => $_->recording->name,
+            length => format_track_length($_->recording->length),
+            artist_credit => { preview => $_->artist_credit->name },
+            releasegroups => [ map {
+                { 'name' => $_->name, 'gid' => $_->gid }
+            } $c->model ('ReleaseGroup')->find_by_recording ($_->recording->id) ]
+        };
+
+        push @structure, $data;
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
 }
 
 sub default : Path

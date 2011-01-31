@@ -1,0 +1,25 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+  <h2>[% l('Set tracklist durations based on disc id') %]</h2>
+  <p>
+    [% l('You are about to enter an edit that will change the durations of tracks
+          to match that of the below disc ID.') %]
+  </p>
+
+  [% INCLUDE 'cdtoc/info.tt' %]
+
+  <h2>[% l('Mediums') %]</h2>
+  <p>
+    [% l('The tracklist you are altering is currently in use by the following releases:') %]
+  </p>
+  [% FOR medium=mediums %]
+  <ul>
+    <li>[% l('{release} by {artist}', { release => link_entity(medium.release),
+                                        artist => artist_credit(medium.release.artist_credit) }) %]</li>
+  </ul>
+  [% END %]
+
+  <form method="post">
+  [% INCLUDE 'forms/edit-note.tt' %]
+  [% enter_edit() %]
+  </form>
+[% END %]

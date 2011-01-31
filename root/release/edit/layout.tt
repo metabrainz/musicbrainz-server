@@ -1,4 +1,10 @@
-[%- WRAPPER 'layout.tt' full_width=1 edit=1 title='Release Editor (FIXME: change title)' -%]
+[% IF release.name %]
+   [% page_title = l('Edit Release: {name}', { name => release.name }) %]
+[% ELSE %]
+   [% page_title = l('Add Release') %]
+[% END %]
+
+[%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
   <form action="[% c.req.uri %]" method="post" class="release-editor">
 
     <div id="release-editor">

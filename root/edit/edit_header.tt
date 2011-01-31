@@ -83,7 +83,7 @@
     <p class="subheader">
         <span class="prefix">~</span>
         [% l('Edit by {editor}',
-            { editor => link_editor(edit.editor) }) %]
+            { editor => link_entity(edit.editor) }) %]
         [% '<span>(<span class="tooltip" title="This edit was automatically applied.">auto-edit</span>)</span>' IF edit.auto_edit %]
     </p>
 </div>

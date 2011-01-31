@@ -1,5 +1,10 @@
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
+.overall-vote {
+    float: right;
+    margin-bottom: 1em;
+}
+
 .edit-expiration {
     font-weight: bold;
 }
@@ -106,8 +111,7 @@ table.vote-tally .date {
 }
 
 .add-edit-note textarea {
-    width: 350px;
-    color: #999999;
+    width: 98%;
     display: block;
 }
 

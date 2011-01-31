@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::Merge::Release;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 
-extends 'MusicBrainz::Server::Form::Confirm';
+extends 'MusicBrainz::Server::Form::Merge';
 
 has_field 'merge_strategy' => (
     type => 'Select',

@@ -40,12 +40,15 @@
 </div>
 
 [% IF edits.size %]
+    <div id="edits">
     [% WRAPPER 'components/with-pager.tt' search=0;
     # We always want search != 1 when calling the paginator from this template %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
             [%- FOREACH edit=edits -%]
                 <div class="edit-list">
                     [% INCLUDE 'edit/edit_header.tt' summary=1 %]
+
+                    <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.[% loop.index %].edit_id" />
 
                     <div class="edit-actions c[%- PROCESS edit_status -%]">
                         [%- INCLUDE 'edit/info.tt' summary=1 -%]
@@ -58,13 +61,9 @@
                            <p>[% l('An error occured while loading this edit') %]</p>
                         [% END %]
                     </div>
-
-                    [% IF edit.edit_notes.size %]
-                        <div class="edit-notes">
-                            [% INCLUDE "edit/notes.tt" %]
-                        </div>
-                    [% END %]
-
+                    
+                    [% INCLUDE 'edit/notes.tt' verbose=0 hide=1 rows=1 index=loop.index %]
+    
                     <div class="seperator">
                     </div>
                 </div>
@@ -76,6 +75,7 @@
             </div>
         </form>
     [% END %]
+    </div>
 [% ELSE %]
     [% IF search %]
         <p>[% l('No edits were found matching your query. Please {search|try again}.',

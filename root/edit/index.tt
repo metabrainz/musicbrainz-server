@@ -1,45 +1,9 @@
 [%- BLOCK layout_head -%]
+    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditNote.js') %]"></script>
     <script type="text/javascript">
-        window.onload = function() {
-            var i = document.createElement('input');
-            if ('placeholder' in i) {
-                resize();
-            } else {
-                placeholder();
-                resize();
-            }
-        }
-
-        function placeholder() {
-            var text = $('.add-edit-note textarea');
-            var textvalue = "Add an edit note";
-            text.attr('value',textvalue);
-
-            text.focus(function() {
-                if (text.attr('value') == textvalue) {
-                    text.removeAttr('value');
-                }
-            })
-
-            text.blur(function() {
-                if (!text.attr('value')) {
-                    text.css('color','#999999');
-                    text.attr('value',textvalue);
-                }
-            })
-        }
-
-        function resize() {
-            var text = $('.add-edit-note textarea');
-            var button = $('.add-edit-note input');
-
-            text.focus(function() {
-                text.css('color','#000000');
-                text.css('width','98%');
-                text.attr('rows','5');
-                button.css('display','inline');
-            })
-        }
+        $(function() {
+            MB.Control.EditNote($('textarea'));
+        });
     </script>
 [%- END -%]
 
@@ -72,6 +36,7 @@
                 <tr class="noborder">
                     <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
                         <input type="hidden" value="[% c.req.uri %]" name="url" />
+                        <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
                         <th>[% l('My vote') %]</th>
                         <td class="vote">
                             [% INCLUDE 'edit/vote.tt' %]
@@ -81,7 +46,7 @@
             [% END %]
             [% FOR vote=edit.votes %]
                 <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
-                    <th>[% link_editor(vote.editor) %]</th>
+                    <th>[% link_entity(vote.editor) %]</th>
                     <td class="vote">
                         [% vote.vote_name %]
                         <span class="date">[% UserDate.format(vote.vote_time) %]</span>
@@ -115,13 +80,13 @@
             </p>
         [% END %]
 
-        <div class="edit-notes">
+        <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
             <h2>[% l('Edit notes') %]</h2>
+            <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
+            <input type="hidden" value="[% c.req.uri %]" name="url" />
             [% INCLUDE 'edit/notes.tt' %]
-            <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
-                [% INCLUDE 'edit/add_note.tt' %]
-            </form>
-        </div>
+            [% form_submit(l('Add note')) %]
+        </form>
     </div>
 [%- END -%]
 

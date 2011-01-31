@@ -31,6 +31,7 @@ echo `date` : Migrating data
 ./admin/sql/updates/ngs-ars.pl
 ./admin/sql/updates/ngs-rawdata.pl
 ./admin/sql/updates/ngs-artistcredit-2.pl
+./admin/psql READWRITE <./admin/sql/updates/ngs-link-phrases.sql
 
 echo `date` : Merging releases
 ./admin/sql/updates/ngs-merge-releases.pl

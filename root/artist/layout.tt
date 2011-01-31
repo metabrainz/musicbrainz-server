@@ -44,7 +44,7 @@
                 [% ELSE %]
                     <li><a href="[% c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
                 [% END %]
-                <li>[% link_artist(artist, 'subscribers', l('Subscribers')) %]</li>
+                <li>[% link_entity(artist, 'subscribers', l('Subscribers')) %]</li>
             [% END %]
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
@@ -58,9 +58,9 @@
                       [% l('Merge this artist with another') %]
                     </a>
                   </li>
-                  <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
+                  <li>[% link_entity(artist, 'edits', l('View editing history')) %]</li>
                   [% IF artist.edits_pending %]
-                    <li>[% link_artist(artist, 'open_edits', l('Open edits')) %]</li>
+                    <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
                   <li>[% use_in_relationship(artist) %]</li>
                   <li>[% relate_to_url(artist) %]</li>
@@ -76,16 +76,21 @@
                   </a>
                 </li>
                 <li>
+                  <a href="[% c.uri_for_action('/recording/create', { artist = artist.gid }) %]">
+                    [% l('Add a new standalone recording') %]
+                  </a>
+                </li>
+                <li>
                   <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
                     [% l('Add a work') %]
                   </a>
                 </li>
                 [% IF watching_artist %]
                     <li>
-                        [% link_artist(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
+                        [% link_entity(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
                     </li>
                 [% ELSE %]
-                    <li>[% link_artist(artist, 'watch', l('Watch this artist for new releases')) %]</li>
+                    <li>[% link_entity(artist, 'watch', l('Watch this artist for new releases')) %]</li>
                 [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this artist')) %]</li>
@@ -93,6 +98,8 @@
         </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist -%]
     [% END %]
 
     <div id="content">

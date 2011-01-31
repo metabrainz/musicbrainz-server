@@ -77,6 +77,7 @@ after 'load' => sub
         $c->stash->{subscribed} = $artist_model->subscription->check_subscription(
             $c->user->id, $artist->id);
     }
+
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
@@ -447,7 +448,7 @@ Merge 2 artists into a single artist
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_ARTIST_MERGE,
-    form => 'Merge::Artist'
+    merge_form => 'Merge::Artist'
 };
 
 =head2 rating

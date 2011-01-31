@@ -18,7 +18,7 @@
             [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
             <ul>
                 [% FOREACH dupe=form.duplicates %]
-                <li>[% link_artist(dupe) %] [% disambiguation(dupe) %]</li>
+                <li>[% link_entity(dupe) %]</li>
                 [% END %]
             </ul>
         </p>
@@ -38,15 +38,15 @@
         [% WRAPPER form_row %]
           [% r.label('name', l('Name:')) %]
           [% r.text('name', { size => 47 })  %]
-          <button class="guesscase">[% l('Guess case') %]</button>
+          <input type="button" class="guesscase" value="[% l('Guess case') %]" />
           [% field_errors(form, 'name') %]
         [% END %]
 
         [% WRAPPER form_row %]
           [% r.label('sort_name', l('Sort name:')) %]
           [% r.text('sort_name', { size => 47 })  %]
-          <button class="sortname">[% l('Guess') %]</button>
-          <button class="copy">[% l('Copy') %]</button>
+          <input type="button" class="sortname" value="[% l('Guess') %]" />
+          <input type="button" class="copy" value="[% l('Copy') %]" />
           [% field_errors(form, 'sort_name') %]
         [% END %]
 

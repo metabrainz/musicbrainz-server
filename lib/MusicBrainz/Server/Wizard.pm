@@ -1,11 +1,18 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
+use Carp qw( croak );
 
 has '_current' => (
     is => 'rw',
     isa => 'Int',
     default => 0,
-    trigger => \&_set_current,
+);
+
+has '_processed_page' => (
+    is => 'rw',
+    isa => 'MusicBrainz::Server::Form::Step',
+    predicate => '_has_processed_page',
+    clearer => '_clear_processed_page',
 );
 
 has '_session_id' => (
@@ -92,22 +99,37 @@ sub valid {
 #  5. Load form and associated template
 #  6. Add tab buttons for each step to the stash
 
+sub _create_new_wizard {
+    my ($self, $c) = @_;
+    return !$c->form_posted || !$c->req->params->{wizard_session_id};
+}
+
 sub process
 {
     my ($self) = @_;
+    my $page;
 
-    if ($self->c->request->method ne 'POST')
-    {
+    if ($self->_create_new_wizard($self->c)) {
         $self->_new_session;
-        return $self->loading (1);
+        $self->load($self->init_object);
+        $self->seed($self->c->req->params)
+            if $self->c->form_posted;
+
+        $page = $self->navigate_to_page;
+    }
+    elsif ($self->c->form_posted) {
+        $self->_retrieve_wizard_settings;
+        $page = $self->_store_page_in_session;
+        $page = $self->_route ($page);
+        $self->_store_wizard_settings;
+    }
+    else
+    {
+        # Shouldn't come here.
+        croak "Error processing wizard.";
     }
 
-    $self->_retrieve_wizard_settings;
-    my $page = $self->_store_page_in_session;
-    $self->_route ($page); 
-    $self->_store_wizard_settings;
-
-    return;
+    $self->render ($page) if $page;
 }
 
 sub initialize
@@ -127,11 +149,23 @@ sub initialize
     }
 }
 
+
+sub navigate_to_page
+{
+    my $self = shift;
+
+    my $prepare = $self->pages->[$self->_current]->{prepare};
+    &$prepare if defined $prepare;
+
+    # If we're rendering the same page we processed, re-use the existing form.
+    # (otherwise validation errors may get lost).
+    return $self->_has_processed_page ? $self->_processed_page :
+        $self->_load_page ($self->_current);
+}
+
 sub render
 {
-    my ($self) = @_;
-
-    my $page = $self->_load_page ($self->_current);
+    my ($self, $page) = @_;
 
     my @steps = map {
         { title => $_->{title}, name => 'step_'.$_->{name} }
@@ -218,7 +252,36 @@ sub _store_page_in_session
 {
     my ($self) = @_;
 
-    return $self->_post_to_page( $self->_current, $self->c->request->params );
+    my $page = $self->_post_to_page( $self->_current, $self->c->request->params );
+
+    # Save the processed page, if we're not navigating away from it we do not
+    # want to reload it.
+    $self->_processed_page ($page);
+
+    return $page;
+}
+
+=method _transform_parameters
+
+Allows wizards to provide their own transformation of parameters before they
+are passed into the form. This may allow the wizard to take multiple representations
+of POST data, for example (as in the case of the release editor).
+
+=cut
+
+sub _seed_parameters {
+    my ($self, $params) = @_;
+    return $params;
+}
+
+sub seed {
+    my ($self, $params) = @_;
+    $params = $self->_seed_parameters($params);
+
+    my $max = scalar @{ $self->pages } - 1;
+    for (0..$max) {
+        $self->_post_to_page($_, $params);
+    }
 }
 
 sub _post_to_page
@@ -232,10 +295,10 @@ sub _post_to_page
 
     my $page = $self->_load_form ($page_id);
 
-    $page->unserialize ( $self->_store->{"step ".$self->_current},
+    $page->unserialize ( $self->_store->{"step $page_id"},
                          $params );
 
-    $self->_store->{"step ".$self->_current} = $page->serialize;
+    $self->_store->{"step $page_id"} = $page->serialize;
 
     return $page;
 }
@@ -244,38 +307,66 @@ sub _route
 {
     my ($self, $page) = @_;
 
-    my $valid = $self->valid ($page);
-
     my $p = $self->c->request->parameters;
-    if (defined $p->{next} && $valid)
+    if (defined $p->{next})
     {
-        return $self->find_next_page;
+        $self->find_next_page if $self->valid ($page);
+        return $self->navigate_to_page;
     }
     elsif (defined $p->{previous})
     {
-        return $self->find_previous_page;
+        $self->find_previous_page;
+        return $self->navigate_to_page;
     }
     elsif (defined $p->{cancel})
     {
-        return $self->on_cancel($self);
+        $self->on_cancel($self);
+        return;
     }
     elsif (defined $p->{save})
     {
-        return $self->submitted(1);
+        $self->submitted(1);
+        return;
     }
 
-    # Don't allow forward movement unless the current page is valid.
-    my $max = $valid ? scalar @{ $self->pages } - 1 : $self->_current;
+    my $max = scalar @{ $self->pages } - 1;
+    my $pos;
 
     for (0..$max)
     {
-        my $name = 'step_'.$self->pages->[$_]->{name};
-        if (defined $p->{$name})
-        {
-            $self->_current ($_);
-            return;
-        }
+        $pos = $_;
+        last if defined $p->{'step_'.$self->pages->[$_]->{name}};
     }
+
+    # we are already at the requested position.
+    return $self->navigate_to_page if $pos == $self->_current;
+
+    if ($pos < $self->_current)
+    {
+        # just set the page when moving backward.
+        $self->_current ($pos);
+        return $self->navigate_to_page;
+    }
+
+    my $ret;
+
+    # validate each page when moving forward, if a page is not valid, stop there.
+    while ($pos > $self->_current)
+    {
+        last unless $self->find_next_page;
+        $ret = $self->navigate_to_page;
+        last unless $self->valid ($ret);
+    }
+
+    if ($pos != $self->_current)
+    {
+        # The user did not end up on the page s/he requested, perhaps s/he should be
+        # informed of this -- otherwise it may be a bit confusing.
+
+        # FIXME: add notification
+    }
+
+    return $ret;
 }
 
 sub find_next_page
@@ -322,14 +413,25 @@ sub find_previous_page
     return 0;
 }
 
-sub _set_current
-{
-    my ($self, $value, $old_page) = @_;
+around '_current' => sub {
+    my ($orig, $self, $value) = @_;
+
+    return $self->$orig () unless $value;
+
+    # navigating away from the page just processed, so clear it.
+    $self->_clear_processed_page if $self->$orig () ne $value;
 
     my $max = scalar @{ $self->pages } - 1;
 
     $value = 0 if $value < 0;
     $value = $max if $value > $max;
+
+    return $self->$orig ($value);
+};
+
+sub _set_current
+{
+    my ($self, $value, $old_page) = @_;
 
     if (my $hook = $self->pages->[$old_page]{change_page}) {
         $hook->($self->c, $self, $value);
@@ -355,6 +457,8 @@ sub _retrieve_wizard_settings
     my ($self) = @_;
 
     my $p = $self->c->request->parameters;
+
+    return if $self->_session_id;
 
     # FIXME: this will break if the form has a name...
     return $self->_new_session unless $p->{wizard_session_id};

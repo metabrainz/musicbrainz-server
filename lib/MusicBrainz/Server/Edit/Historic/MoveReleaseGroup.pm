@@ -10,6 +10,17 @@ sub edit_name { 'Move release group' }
 sub edit_type { 69 }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        release_group => [ $self->data->{entity_id} ],
+        artist => [
+            $self->data->{new}{artist_credit}[0]{id},
+            $self->data->{old}{artist_credit}[0]{id}
+        ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;

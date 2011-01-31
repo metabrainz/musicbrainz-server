@@ -1,0 +1,37 @@
+#!/bin/bash
+
+cd /etc/service/mb_server-fastcgi
+
+if ! svok . ; then
+	echo "Warning: supervise is not running in $PWD" >&2
+fi
+
+case "$1" in
+	start)
+		svc -u .
+		svstat "$PWD"
+		;;
+	stop)
+		svc -d .
+		svstat "$PWD"
+		;;
+	reload)
+		if ! svstat . | grep -q "^.: up " ; then
+			echo "Warning: not running, reload will have no effect" >&2
+		fi
+		svc -h .
+		echo SIGHUP sent
+		svstat "$PWD"
+		;;
+	restart|force-reload)
+		svc -ut .
+		svstat "$PWD"
+		;;
+	status)
+		svstat "$PWD"
+		;;
+    *)
+        echo "Usage: $0 { stop | start | reload | restart | force-reload }"
+        exit 1
+        ;;
+esac

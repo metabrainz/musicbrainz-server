@@ -65,50 +65,47 @@ INSERT INTO release_group_type (id, name) VALUES
     (10, 'Remix'),
     (11, 'Other');
 
-INSERT INTO medium_format (id, name, year, has_discids) VALUES
-    (1, 'CD', 1982, TRUE),
-    (2, 'DVD', 1995, FALSE),
-    (3, 'SACD', 1999, TRUE),
-    (4, 'DualDisc', 2004, TRUE),
-    (5, 'LaserDisc', 1978, FALSE),
-    (6, 'MiniDisc', 1992, FALSE),
-    (7, 'Vinyl', 1895, FALSE),
-    (8, 'Cassette', 1964, FALSE),
-    (9, 'Cartridge', 1962, FALSE),
-    (10, 'Reel-to-reel', 1935, FALSE),
-    (11, 'DAT', 1976, FALSE),
-    (12, 'Digital Media', NULL, FALSE),
-    (13, 'Other', NULL, TRUE),
-    (14, 'Wax Cylinder', 1877, FALSE),
-    (15, 'Piano Roll', 1883, FALSE),
-    (16, 'DCC', 1992, FALSE),
-    (17, 'HD-DVD', NULL, FALSE),
-    (20, 'Blu-ray', NULL, FALSE),
-    (21, 'VHS', NULL, FALSE),
-    (22, 'VCD', NULL, FALSE),
-    (23, 'SVCD', NULL, FALSE),
-    (24, 'Betamax', NULL, FALSE),
-    (25, 'HDCD', NULL, TRUE),
-    (26, 'USB Flash Drive', NULL, FALSE),
-    (27, 'slotMusic', NULL, FALSE),
-    (28, 'UMD', NULL, FALSE);
+INSERT INTO medium_format (id, name, year, has_discids, child_order) VALUES
+    (1, 'CD', 1982, TRUE, 0),
+    (2, 'DVD', 1995, FALSE, 4),
+    (3, 'SACD', 1999, TRUE, 5),
+    (4, 'DualDisc', 2004, TRUE, 6),
+    (6, 'MiniDisc', 1992, FALSE, 7),
+    (7, 'Vinyl', 1895, FALSE, 1),
+    (8, 'Cassette', 1964, FALSE, 3),
+    (12, 'Digital Media', NULL, FALSE, 2),
+    (13, 'Other', NULL, TRUE, 13),
+    (17, 'HD-DVD', NULL, FALSE, 9),
+    (20, 'Blu-ray', NULL, FALSE, 8),
+    (22, 'VCD', NULL, FALSE, 11),
+    (28, 'UMD', NULL, FALSE, 12),
+    (32, 'Videotape', NULL, FALSE, 10);
 
-INSERT INTO medium_format (id, name, year, child_order, parent) VALUES
-    (29, '7"', NULL, 0, 7),
-    (30, '10"', NULL, 1, 7),
-    (31, '12"', NULL, 2, 7),
-    (18, 'DVD-Audio', NULL, 0, 2),
-    (19, 'DVD-Video', NULL, 1, 2);
+INSERT INTO medium_format (id, name, year, has_discids, child_order, parent) VALUES
+    (5, 'LaserDisc', 1978, FALSE, 0, 13),
+    (9, 'Cartridge', 1962, FALSE, 0, 13),
+    (10, 'Reel-to-reel', 1935, FALSE, 0, 13),
+    (11, 'DAT', 1976, FALSE, 0, 13),
+    (14, 'Wax Cylinder', 1877, FALSE, 0, 13),
+    (15, 'Piano Roll', 1883, FALSE, 0, 13),
+    (16, 'DCC', 1992, FALSE, 0, 13),
+    (21, 'VHS', NULL, FALSE, 0, 32),
+    (23, 'SVCD', NULL, FALSE, 0, 22),
+    (24, 'Betamax', NULL, FALSE, 1, 32),
+    (25, 'HDCD', NULL, TRUE, 0, 1),
+    (29, '7" Vinyl', NULL, FALSE, 0, 7),
+    (30, '10" Vinyl', NULL, FALSE, 1, 7),
+    (31, '12" Vinyl', NULL, FALSE, 2, 7),
+    (26, 'USB Flash Drive', NULL, FALSE, 0, 12),
+    (27, 'slotMusic', NULL, FALSE, 1, 12),
+    (18, 'DVD-Audio', NULL, FALSE, 0, 2),
+    (19, 'DVD-Video', NULL, FALSE, 1, 2);
 
 INSERT INTO url
     SELECT id, gid::uuid, url, description, refcount AS ref_count
     FROM public.url;
 
 INSERT INTO replication_control SELECT * FROM public.replication_control;
-INSERT INTO currentstat
-    SELECT id, name, value, lastupdated AS last_updated
-    FROM public.currentstat;
-INSERT INTO historicalstat SELECT * FROM public.historicalstat;
 
 ------------------------
 -- Tags
@@ -131,7 +128,7 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 \echo Release groups
 
  INSERT INTO release_name (name)
-     (SELECT DISTINCT name FROM public.album WHERE attributes[2] != 0) UNION
+     (SELECT DISTINCT name FROM public.album WHERE NOT (0 = ANY(attributes[2:10]))) UNION
      (SELECT DISTINCT name FROM public.release_group);
 
 CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
@@ -154,7 +151,8 @@ INSERT INTO release_group (id, gid, name, type, artist_credit, last_updated)
 SELECT gid::uuid, a.id AS album, (SELECT min(id) FROM public.release r WHERE a.id=r.album) AS id
     INTO TEMPORARY tmp_release_gid
     FROM public.album a
-    WHERE EXISTS (SELECT id FROM public.release r WHERE r.album=a.id);
+    WHERE EXISTS (SELECT id FROM public.release r WHERE r.album=a.id)
+      AND NOT (0 = ANY(a.attributes[2:10]));
 
 CREATE UNIQUE INDEX tmp_release_gid_id ON tmp_release_gid(id);
 CREATE UNIQUE INDEX tmp_release_gid_album ON tmp_release_gid(album);
@@ -201,7 +199,7 @@ SELECT nextval('release_id_seq') AS id, id AS album
     INTO TEMPORARY tmp_new_release
     FROM public.album a
     WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id)
-      AND a.attributes[2] != 0;
+      AND NOT (0 = ANY(a.attributes[2:10]));
 
 CREATE TABLE tmp_release_album
 (
@@ -244,8 +242,10 @@ DROP INDEX tmp_release_name_name_idx;
 
 -- release_meta for releases converted from release events
 INSERT INTO release_meta
-    SELECT r.id, dateadded FROM
-        public.release r JOIN public.albummeta am ON r.album=am.id;
+    SELECT r.id, dateadded FROM public.release r
+      JOIN public.albummeta am ON r.album=am.id
+      JOIN public.album al ON al.id = r.album
+     WHERE NOT (0 = ANY(al.attributes[2:10]));
 
 -- release_meta for new releases
 INSERT INTO release_meta (id, date_added)
@@ -260,12 +260,12 @@ INSERT INTO release_label (release, label, catalog_number)
 INSERT INTO tracklist (id, track_count)
     SELECT a.id, am.tracks
     FROM public.album a JOIN public.albummeta am ON a.id = am.id
-    WHERE a.attributes[2] != 0;
+    WHERE NOT (0 = ANY(a.attributes[2:10]));
 
 INSERT INTO medium (id, tracklist, release, format, position)
     SELECT r.id, r.album, r.id, NULLIF(r.format, 0), 1
-    FROM public.release r JOIN public.album a ON album = r.album
-   WHERE a.attributes[2] != 0;
+    FROM public.release r JOIN public.album a ON a.id = r.album
+   WHERE NOT (0 = ANY(a.attributes[2:10]));
 
 SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));
 
@@ -362,7 +362,7 @@ INSERT INTO track (id, tracklist, name, recording, artist_credit, length, positi
         JOIN public.album ON album.id = a.album
         JOIN track_name n ON n.name = t.name
         LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac
-       WHERE album.attributes[2] != 0;
+       WHERE NOT (0 = ANY(album.attributes[2:10]));
 
 INSERT INTO recording_meta (id, rating, rating_count)
     SELECT id, round(rating * 20), rating_count
@@ -555,7 +555,7 @@ INTO TEMPORARY tmp_release_annotation
 FROM
     public.annotation a, tmp_release_album r, public.moderator, public.album
 WHERE a.moderator = moderator.id AND a.type = 2 AND a.rowid = r.album
-  AND album.id = r.album AND album.attributes[2] != 0;
+  AND album.id = r.album AND NOT (0 = ANY(album.attributes[2:10]));
 
 INSERT INTO annotation (id, editor, text, changelog, created)
     SELECT id, editor, text, changelog, created
@@ -599,5 +599,70 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
         JOIN public.album_cdtoc ac ON re.album=ac.album
         JOIN medium m ON m.release=re.release
     WHERE m.format IS NULL OR m.format IN (1,4); -- Unknown, CD or DualDisc
+
+------------------------
+-- Statistics
+------------------------
+\echo Stats
+
+INSERT INTO statistic (value, date_collected, name)
+    SELECT value, lastupdated,
+      CASE
+        WHEN name = 'count.album' THEN 'count.release'
+        WHEN name = 'count.album.has_discid' THEN 'count.release.has_discid'
+        WHEN name = 'count.album.nonvarious' THEN 'count.release.nonvarious'
+        WHEN name = 'count.album.various' THEN 'count.release.various'
+        WHEN name = 'count.moderation' THEN 'count.edit'
+        WHEN name = 'count.moderation.applied' THEN 'count.edit.applied'
+        WHEN name = 'count.moderation.deleted' THEN 'count.edit.tobedeleted'
+        WHEN name = 'count.moderation.error' THEN 'count.edit.error'
+        WHEN name = 'count.moderation.evalnochange' THEN 'count.edit.evalnochange'
+        WHEN name = 'count.moderation.faileddep' THEN 'count.edit.faileddep'
+        WHEN name = 'count.moderation.failedprereq' THEN 'count.edit.failedprereq'
+        WHEN name = 'count.moderation.failedvote' THEN 'count.edit.failedvote'
+        WHEN name = 'count.moderation.open' THEN 'count.edit.open'
+        WHEN name = 'count.moderation.perday' THEN 'count.edit.perday'
+        WHEN name = 'count.moderation.perweek' THEN 'count.edit.perweek'
+        WHEN name = 'count.moderation.tobedeleted' THEN 'count.edit.tobedeleted'
+        WHEN name = 'count.moderator' THEN 'count.editor'
+        WHEN name = 'count.moderator.activelastweek' THEN 'count.editor.activelastweek'
+        WHEN name = 'count.moderator.editlastweek' THEN 'count.editor.editlastweek'
+        WHEN name = 'count.moderator.votelastweek' THEN 'count.editor.votelastweek'
+        WHEN name = 'count.rating.raw.release' THEN 'count.rating.raw.releasegroup'
+        WHEN name = 'count.rating.raw.track' THEN 'count.rating.raw.recording'
+        WHEN name = 'count.rating.release' THEN 'count.rating.releasegroup'
+        WHEN name = 'count.rating.track' THEN 'count.rating.recording'
+        WHEN name = 'count.track.has_isrc' THEN 'count.recording.has_isrc'
+        WHEN name = 'count.track.has_puid' THEN 'count.recording.has_puid'
+
+        WHEN name = 'count.ar.links.l_album_album' THEN 'count.ar.links.l_release_release'
+        WHEN name = 'count.ar.links.l_album_artist' THEN 'count.ar.links.l_artist_release'
+        WHEN name = 'count.ar.links.l_album_label' THEN 'count.ar.links.l_label_release'
+        WHEN name = 'count.ar.links.l_album_track' THEN 'count.ar.links.l_recording_release'
+        WHEN name = 'count.ar.links.l_album_url' THEN 'count.ar.links.l_release_url'
+        WHEN name = 'count.ar.links.l_artist_track' THEN 'count.ar.links.l_artist_recording'
+        WHEN name = 'count.ar.links.l_label_track' THEN 'count.ar.links.l_label_recording'
+        WHEN name = 'count.ar.links.l_track_track' THEN 'count.ar.links.l_recording_recording'
+        WHEN name = 'count.ar.links.l_track_url' THEN 'count.ar.links.l_recording_url'
+
+        WHEN name ~ E'count\\.quality\\.album'
+           THEN replace(name, 'album', 'release')
+
+        WHEN name ~ E'count\\.album\\.\\d+discids'
+           THEN replace(name, 'album', 'medium')
+
+        WHEN name ~ E'count.puid.\\d+tracks'
+          THEN replace(name, 'tracks', 'recordings')
+
+        WHEN name ~ E'count.track.\\d+puids'
+          THEN replace(name, 'track', 'recording')
+
+        ELSE name
+      END AS name
+      FROM (
+           SELECT value, lastupdated, name FROM public.currentstat
+      UNION ALL
+           SELECT value, snapshotdate, name FROM public.historicalstat
+      ) s;
 
 COMMIT;
