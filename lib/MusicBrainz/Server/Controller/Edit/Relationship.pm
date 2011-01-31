@@ -246,11 +246,8 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
     my $qp = $c->req->query_params;
 
     if (!$qp->{gid}) {
-        $c->stash( message => l(
-            'Please first navigate to the page of the artist who you wish to relate ' .
-            'to recordings on this release and select "use in relationship"'
-        ) );
-        $c->detach('/error_500');
+        $c->stash( template => 'edit/relationship/no-start.tt' );
+        $c->detach;
     }
 
     my $release_gid = $qp->{release};
