@@ -111,6 +111,7 @@ MB.GuessCase.Utils = function () {
      *								in post-processing
      * keschte		2005-07-21		added outtake(s),rehearsal,intro,outro
      * lukas		2007-05-10		added orchestral
+     * warp             2011-01-31              MBS-1312, add "with" and "without."
      **/
     self.getLowerCaseBracketWords = function() {
 	return ["acoustic", "album", "alternate", "bonus", "clean", "dirty", "disc",
@@ -122,7 +123,7 @@ MB.GuessCase.Utils = function () {
 		"outro", "long", "short", "main", "remake", "clubmix",
 		"composition", "reinterpreted", "session", "rework", "reworked",
 		"remixed", "reedit", "airplay", "a_cappella", "excerpt", "medley",
-		"orchestral"];
+		"orchestral", "with", "without"];
     };
     self.isLowerCaseBracketWord = function(w) {
 

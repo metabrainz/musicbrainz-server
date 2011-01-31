@@ -197,7 +197,6 @@ MB.GuessCase.Output = function () {
      *							the gc.f.forceCaps parameter.
      **/
     self.capitalizeLastWord = function(overrideCaps) {
-	overrideCaps = (overrideCaps != null ? overrideCaps : null);
 	self.capitalizeWordAtIndex(self.getLength()-1, overrideCaps);
     };
 

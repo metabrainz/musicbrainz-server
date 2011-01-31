@@ -169,12 +169,17 @@ MB.tests.GuessCase.BugFixes = function() {
             {
                 input: "E Pra Sempre Te Amar: Ao Vivo",
                 expected: "E pra sempre te amar: Ao vivo",
-                bug: 'MBS-1311', mode: "Sentence", roman: true, keepuppercase: true
+                bug: 'MBS-1311', mode: "Sentence",
             },
             {
                 input: "Me Esqueça / No Limite / Desesperadamente Apaixonado",
                 expected: "Me esqueça / No limite / Desesperadamente apaixonado",
-                bug: 'MBS-1311', mode: "Sentence", roman: true, keepuppercase: true
+                bug: 'MBS-1311', mode: "Sentence",
+            },
+            {
+                input: "ハイタッチ (w/o maaya)",
+                expected: "ハイタッチ (without Maaya)",
+                bug: 'MBS-1312', mode: "English",
             }
         ];
 

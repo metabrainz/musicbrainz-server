@@ -257,6 +257,9 @@ MB.GuessCase.Mode.Base = function () {
 		, self.fix ("f. -> ft. ", /(\s)f\.(\s)/i, "ft." )
 		, self.fix ("'featuring - ' -> feat", /(\s)featuring -(\s)/i, "feat" )
 
+                // without (jira ticket MBS-1312).
+		, self.fix ("w/o -> without", /(\b|^)w[\/]o(\b)/i, "without" )
+
 		// vinyl
 		, self.fix ("12'' -> 12\"", /(\s|^|\()(\d+)''(\s|$)/i, "$2\"" )
 		, self.fix ("12in -> 12\"", /(\s|^|\()(\d+)in(ch)?(\s|$)/i, "$2\"" )
