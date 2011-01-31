@@ -113,7 +113,8 @@ sub search
         $extra_columns = "entity.length,"
             if ($type eq "recording");
 
-        $extra_columns .= 'entity.language, entity.script,'
+        $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
+            entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
 
         my ($join_sql, $where_sql) 
