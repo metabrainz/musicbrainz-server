@@ -36,6 +36,17 @@ MB.GuessCase.Modes = function (language) {
         return mode || MB.GuessCase.Mode.Dummy ();
     };
     
+
+    /**
+     * Set mode.
+     **/
+    var setMode = function (mode) {
+        self.dropdown.find ('option:selected').removeAttr ('selected');
+        self.dropdown.find ('option:contains(' + mode + ')').attr ('selected', 'selected');
+
+        return getMode ();
+    };
+
     /**
      * Update the help text displayed when a mode is selected.
      **/
@@ -48,6 +59,16 @@ MB.GuessCase.Modes = function (language) {
      * Fill the mode dropdown with options from the mode list.
      */
     var initialize = function () {
+
+        self.dropdown = $('#gc-mode');
+        self.dropdown.empty ();
+
+        $.each (['English', 'Sentence', 'French', 'Classical'], function (idx, mode) {
+            if (typeof MB.GuessCase.Mode[mode] !== "undefined")
+            {
+                self.modes.push (MB.GuessCase.Mode[mode] (self));
+            }
+        });
 
         $.each (self.modes, function (idx, mode) {
             var option = $('<option>');
@@ -68,22 +89,18 @@ MB.GuessCase.Modes = function (language) {
     };
 
     self.getMode = getMode;
+    self.setMode = setMode;
     self.updateMode = updateMode;
 
     self.artist_mode = (typeof MB.GuessCase.Mode.Artist === "undefined") ? 
         null : MB.GuessCase.Mode.Artist (self);
     self.dropdown = $('#gc-mode');
 
-
     self.modes = [];
-    for (mode in ['English', 'Sentence', 'French', 'Classical']) {
-        if (typeof MB.GuessCase.Mode[mode] !== "undefined")
-        {
-            self.modes.push (MB.GuessCase.Mode[mode] (self));
-        }
-    };
 
-    initialize ();
+    $(document).ready (function () {
+        initialize ();
+    });
 
     return self;
 };
