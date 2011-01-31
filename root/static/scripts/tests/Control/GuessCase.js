@@ -160,7 +160,37 @@ MB.tests.GuessCase.Modes = function() {
     });
 };
 
+
+MB.tests.GuessCase.BugFixes = function() {
+    QUnit.module('Guess Case');
+    QUnit.test('BugFixes', function() {
+
+        tests = [
+            {
+                input: "E Pra Sempre Te Amar: Ao Vivo",
+                expected: "E pra sempre te amar: Ao vivo",
+                bug: 'MBS-1311', mode: "Sentence", roman: true, keepuppercase: true
+            },
+            {
+                input: "Me Esqueça / No Limite / Desesperadamente Apaixonado",
+                expected: "Me esqueça / No limite / Desesperadamente apaixonado",
+                bug: 'MBS-1311', mode: "Sentence", roman: true, keepuppercase: true
+            }
+        ];
+
+        $.each(tests, function(idx, test) {
+            /* input and expected don't exist as options and will be ignored. */
+            MB.GuessCase.work.gc.setOptions (test);
+
+            result = MB.GuessCase.work.guess (test.input);
+            QUnit.equals(result, test.expected, test.bug + ', ' + test.input);
+        });
+
+    });
+};
+
 MB.tests.GuessCase.Run = function() {
     MB.tests.GuessCase.Sortname ();
     MB.tests.GuessCase.Modes ();
+    MB.tests.GuessCase.BugFixes ();
 };

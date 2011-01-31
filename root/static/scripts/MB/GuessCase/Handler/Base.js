@@ -217,7 +217,7 @@ MB.GuessCase.Handler.Base = function () {
 
 		// force capitalization of the last word,
 		// because we are starting a new subtitle
-		gc.o.capitalizeLastWord(true);
+	        gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
 	    }
 
 	    // from next position on, skip spaces and dots.
@@ -358,7 +358,7 @@ MB.GuessCase.Handler.Base = function () {
 	    gc.re.HYPHEN = "-";
 	}
 	if (gc.i.matchCurrentWord(gc.re.HYPHEN)) {
-	    gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: !gc.getMode().isSentenceCaps()});
+	    gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
 	    gc.f.resetContext();
 
 	    // don't capitalize next word after hyphen in sentence mode.
