@@ -55,13 +55,19 @@ after render => sub {
     if ($self->current_page eq 'duplicates') {
         my $name = $self->value->{name};
         my $artist_credit = $self->value->{artist_credit};
+
+        my @releases = $self->c->model('Release')->find_similar(
+            name => $name,
+            artist_credit => clean_submitted_artist_credits($artist_credit)
+        );
+        $self->c->model('Medium')->load_for_releases(@releases);
+        $self->c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+        $self->c->model('Country')->load(@releases);
+        $self->c->model('ReleaseLabel')->load(@releases);
+        $self->c->model('Label')->load(map { $_->all_labels } @releases);
+
         $self->c->stash(
-            similar_releases => [
-                $self->c->model('Release')->find_similar(
-                    name => $name,
-                    artist_credit => clean_submitted_artist_credits($artist_credit)
-                )
-            ]
+            similar_releases => \@releases
         )
     }
 };
