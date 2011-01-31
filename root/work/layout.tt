@@ -34,7 +34,7 @@
                    [% l('Merge this work with another') %]
                  </a>
                </li>
-               <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
+               <li>[% link_entity(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
                <li>[% relate_to_ellipsis(work) %]</li>
                <li>[% relate_to_url(work) %]</li>
