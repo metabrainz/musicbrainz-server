@@ -180,6 +180,18 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "ハイタッチ (w/o maaya)",
                 expected: "ハイタッチ (without Maaya)",
                 bug: 'MBS-1312', mode: "English",
+            },
+            {
+
+                input: "Megablast (Rap Version) (ft. Merlin)",
+                expected: "Megablast (rap version) (feat. Merlin)",
+                bug: 'MBS-1313', mode: "English",
+            },
+            {
+
+                input: "너 (Techno Version)",
+                expected: "너 (techno version)",
+                bug: 'MBS-1313', mode: "English",
             }
         ];
 
