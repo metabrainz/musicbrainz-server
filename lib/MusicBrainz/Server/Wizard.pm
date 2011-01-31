@@ -6,6 +6,7 @@ has '_current' => (
     is => 'rw',
     isa => 'Int',
     default => 0,
+    trigger => \&_set_current
 );
 
 has '_processed_page' => (
