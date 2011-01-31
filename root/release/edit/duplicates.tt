@@ -19,6 +19,14 @@
     </td>
     [% END %]
     [% INCLUDE 'release_group/releases-list.tt' releases=similar_releases %]
+
+    <div class="row no-label">
+        <input id="no-duplicate" name="[% form.field('duplicate_id').html_name %]"
+               value="" type="radio" checked="checked" />
+        <label for="no-duplicate" class="inline">
+          [% l('Do not use any of the above releases as a starting point') %]
+        </label>
+    </div>
   </fieldset>
   <div class="buttons ui-helper-clearfix">
     [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
