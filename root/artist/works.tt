@@ -6,6 +6,7 @@
     <table class="tbl">
         <thead>
             <tr>
+                [% IF c.user_exists %]<th></th>[% END %]
                 <th>[% l('Date') %]</th>
                 <th>[% l('Work') %]</th>
                 <th>[% l('Artists') %]</th>
@@ -20,6 +21,12 @@
             <tbody>
                 [% FOR rel IN group.value %]
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+                    [% IF c.user_exists %]
+                    <td>
+                      <input type="checkbox" name="add-to-merge"
+                             value="[% work.id %]" />
+                    </td>
+                    [% END %]
                     <td>[% rel.begin_date.format %]</td>
                     <td>
                         [% descriptive_link(rel.target) %]
