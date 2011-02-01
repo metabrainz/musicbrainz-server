@@ -192,6 +192,11 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "너 (Techno Version)",
                 expected: "너 (techno version)",
                 bug: 'MBS-1313', mode: "English",
+            },
+            {
+                input: "aka AKA a.k.a. A.K.A. a/k/a A/K/A",
+                expected: "a.k.a. a.k.a. a.k.a. a.k.a. a.k.a. a.k.a.",
+                bug: "MBS-1314", mode: "English"
             }
         ];
 
