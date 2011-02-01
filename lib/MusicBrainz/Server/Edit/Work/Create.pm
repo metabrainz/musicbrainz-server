@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 
 sub edit_name { l('Add work') }
 sub edit_type { $EDIT_WORK_CREATE }

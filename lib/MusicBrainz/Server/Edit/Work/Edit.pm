@@ -13,10 +13,12 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 
 sub edit_type { $EDIT_WORK_EDIT }
 sub edit_name { l('Edit work') }
 sub _edit_model { 'Work' }
+sub work_id { shift->entity_id }
 
 sub change_fields
 {
