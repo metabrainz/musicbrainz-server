@@ -197,6 +197,16 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "aka AKA a.k.a. A.K.A. a/k/a A/K/A",
                 expected: "a.k.a. a.k.a. a.k.a. a.k.a. a.k.a. a.k.a.",
                 bug: "MBS-1314", mode: "English"
+            },
+            {
+                input: "Boy In Da Corner / Fire Ina Hole / Bird Inna De Nest / Rock Di Mexicano",
+                expected: "Boy in da Corner / Fire ina Hole / Bird inna de Nest / Rock di Mexicano",
+                bug: "MBS-1315", mode: "English"
+            },
+            {
+                input: "We Ready Fe Dem / Santa Fe Express / We Come Fi Rock",
+                expected: "We Ready fe Dem / Santa Fe Express / We Come fi Rock",
+                bug: "MBS-1315", mode: "English"
             }
         ];
 

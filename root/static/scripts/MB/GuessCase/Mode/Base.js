@@ -106,11 +106,16 @@ MB.GuessCase.Mode.Base = function () {
      * tma              2005-01-29              first version
      * keschte          2005-04-17              added french lowercase characters
      * keschte          2005-06-14              added "tha" to be handled like "the"
+     * warp             2011-02-01              added da, de, di, fe, fi, ina, inna
      **/
     self.getLowerCaseWords = function() {
-        return ["a","and","n","an","as","at","but","by","for","in",
-                "nor","of","o","on","or","the","to","tha"];
+        return [
+            'a', 'an', 'and', 'as', 'at', 'but', 'by', 'da', 'de', 'di', 'fe',
+            'fi', 'for', 'in', 'ina', 'inna', 'n', 'nor', 'o', 'of', 'on', 'or',
+            'tha', 'the', 'to'
+        ];
     };
+
     self.isLowerCaseWord = function(w) {
 
         if (!self.lowerCaseWords) {
@@ -329,6 +334,10 @@ MB.GuessCase.Mode.Base = function () {
                 , self.fix ("oc_remix", /(\b|^)oc_remix(\b)/i, "OC ReMix")
                 , self.fix ("re_edit inside brackets", /(\b|^)Re_edit(\b)/, "re-edit")
                 , self.fix_all ("a.k.a. lowercase", /(\b|^)a_k_a_(\b|$)/ig, "a.k.a.")
+
+                // 'fe' is considered a lowercase word, but "Santa Fe" is very common in
+                // song titles, so change that "fe" back into "Fe".
+                , self.fix_all ("a.k.a. lowercase", /(\b|^)Santa fe(\b|$)/g, "Santa Fe")
 
                 // TODO: check if needed?
                 , self.fix ("whitespace in R&B", /(\b|^)R\s*&\s*B(\b)/i, "R&B")
