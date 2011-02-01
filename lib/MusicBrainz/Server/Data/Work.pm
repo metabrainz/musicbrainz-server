@@ -30,8 +30,7 @@ sub _table
 sub _columns
 {
     return 'work.id, gid, type AS type_id, name.name,
-            work.artist_credit AS artist_credit_id, iswc,
-            comment, edits_pending, work.last_updated';
+            iswc, comment, edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -142,7 +141,7 @@ sub _hash_to_row
     my ($self, $work, $names) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
-        map { $_ => $_ } qw( iswc comment artist_credit )
+        map { $_ => $_ } qw( iswc comment )
     });
 
     $row->{name} = $names->{$work->{name}}

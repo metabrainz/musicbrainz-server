@@ -241,12 +241,8 @@ sub works : Chained('load')
         $c->stash( template => 'artist/works.tt' );
     }
 
-    $c->model('ArtistCredit')->load(@$works);
     $c->stash(
-        works => $works,
-        show_artists => scalar grep {
-            $_->artist_credit->name ne $artist->name
-        } @$works,
+        works => $works
     );
 }
 

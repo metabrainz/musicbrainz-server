@@ -26,17 +26,6 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit',
-    predicate => 'artist_credit_loaded',
-);
-
 has 'iswc' => (
     is => 'rw',
     isa => 'Str'
