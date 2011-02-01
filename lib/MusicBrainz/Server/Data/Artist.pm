@@ -351,9 +351,14 @@ WITH work_recordings AS (
                musicbrainz_collate(sort_name.name)';
 
     my %id_to_work = map { $_->id => $_ } @works;
-    $self->sql->select($query, keys %id_to_work);
+    my %artist_cache;
+
+    $self->sql->select($query, map { $_->id } @works);
     while (my $row = $self->sql->next_row_hash_ref) {
-        my $artist = $self->_new_from_row($row);
+        my $artist = $artist_cache{$row->{id}} || do {
+            $artist_cache{$row->{id}} = $self->_new_from_row($row);
+        };
+
         $id_to_work{ $row->{work} }->add_artist($artist);
     }
 }
