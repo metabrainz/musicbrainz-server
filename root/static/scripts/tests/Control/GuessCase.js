@@ -177,6 +177,11 @@ MB.tests.GuessCase.BugFixes = function() {
 
         tests = [
             {
+                input: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
+                expected: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
+                bug: 'MBS-991', mode: "English",
+            },
+            {
                 input: "E Pra Sempre Te Amar: Ao Vivo",
                 expected: "E pra sempre te amar: Ao vivo",
                 bug: 'MBS-1311', mode: "Sentence",

@@ -223,7 +223,6 @@ MB.GuessCase.Mode.Base = function () {
     };
 
     /**
-     * Replace unicode special characters with their ascii equivalent
      * Note:    this function is run before all guess types
      *                  (artist|release|track)
      *

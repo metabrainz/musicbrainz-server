@@ -133,7 +133,7 @@ MB.GuessCase.Handler.Base = function () {
 	    // check them.
 	    var handled = false;
 	    if (!gc.re.SPECIALCASES) {
-		gc.re.SPECIALCASES = /(&|\?|\!|;|:|'|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+		gc.re.SPECIALCASES = /(&|\?|\!|;|:|'|‘|’|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
 	    }
 	    if (gc.i.matchCurrentWord(gc.re.SPECIALCASES)) {
 		handled = true;
@@ -434,8 +434,9 @@ MB.GuessCase.Handler.Base = function () {
     self.doSingleQuote = function() {
 
 	if (!gc.re.SINGLEQUOTE) {
-	    gc.re.SINGLEQUOTE = "'";
+	    gc.re.SINGLEQUOTE = /['‘’]/;
 	}
+
 	if (gc.i.matchCurrentWord(gc.re.SINGLEQUOTE)) {
 	    gc.f.forceCaps = false;
 	    var a = gc.i.isPreviousWord(" ");
