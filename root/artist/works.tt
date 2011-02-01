@@ -1,6 +1,7 @@
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
     <h2>[% l('Works') %]</h2>
 
+    [% IF artist.all_relationships %]
     <table class="tbl">
         <thead>
             <tr>
@@ -26,4 +27,7 @@
             </tbody>
         [%- END -%]
     </table>
+    [% ELSE %]
+      [% l('This artist is not currently associated with any works.') %]
+    [% END %]
 [%- END -%]
