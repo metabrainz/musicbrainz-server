@@ -284,6 +284,80 @@ sub load_meta
     }, @_);
 }
 
+sub load_for_works {
+    my ($self, @works) = @_;
+    return unless @works;
+
+    my $cte_query = '
+WITH work_recordings AS (
+    SELECT entity0 AS recording, entity1 AS work
+      FROM l_recording_work
+     WHERE entity1 IN (' . placeholders(@works) . ')
+), popular_recordings AS (
+    SELECT work, recording, count(recording) AS ar_count FROM (
+           SELECT wr.work, entity1 AS recording
+             FROM l_artist_recording
+             JOIN work_recordings wr ON wr.recording = entity1
+        UNION ALL
+           SELECT wr.work, entity1 AS recording
+             FROM l_label_recording
+             JOIN work_recordings wr ON wr.recording = entity1
+        UNION ALL
+           SELECT wr.work, entity1 AS recording
+             FROM l_recording_recording
+             JOIN work_recordings wr ON wr.recording = entity1
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_recording
+             JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_release
+             JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_release_group
+             JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_url
+             JOIN work_recordings wr ON wr.recording = entity0
+       ) recording_ids
+       GROUP BY work, recording
+       ORDER BY count(recording_ids.recording) DESC
+       LIMIT 3)';
+
+    my $artist_work_subq = q{
+(
+    SELECT wr.work, law.entity0 AS artist, NULL as sort_order
+      FROM l_artist_work law
+      JOIN work_recordings wr ON wr.work = law.entity1
+
+    -- Combine that with all artists
+ UNION
+       SELECT pr.work, acn.artist, pr.ar_count AS sort_order
+         FROM popular_recordings pr
+         JOIN recording ON pr.recording = recording.id
+         JOIN artist_credit_name acn ON acn.artist_credit = recording.artist_credit
+) work_artist
+};
+
+    my $query =
+        "$cte_query
+         SELECT work_artist.work," . $self->_columns . "
+          FROM $artist_work_subq, " . $self->_table . '
+         WHERE artist.id = work_artist.artist
+      ORDER BY work_artist.sort_order DESC NULLS FIRST,
+               musicbrainz_collate(sort_name.name)';
+
+    my %id_to_work = map { $_->id => $_ } @works;
+    $self->sql->select($query, keys %id_to_work);
+    while (my $row = $self->sql->next_row_hash_ref) {
+        my $artist = $self->_new_from_row($row);
+        $id_to_work{ $row->{work} }->add_artist($artist);
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

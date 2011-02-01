@@ -208,46 +208,11 @@ browsable (not just paginated)
 sub works : Chained('load')
 {
     my ($self, $c) = @_;
-
     my $artist = $c->stash->{artist};
-    my $works;
-
-    if ($artist->id == $VARTIST_ID)
-    {
-        my $index = $c->req->query_params->{index};
-        if ($index) {
-            $works = $self->_load_paged($c, sub {
-                $c->model('Work')->find_by_name_prefix_va($index, shift,
-                                                                  shift);
-            });
-        }
-        $c->stash(
-            template => 'artist/browse_various_works.tt',
-            index    => $index,
-        );
-    }
-    else
-    {
-        $works = $self->_load_paged($c, sub {
-                $c->model('Work')->find_by_artist($artist->id, shift, shift);
-            });
-
-        $c->model('Work')->load_meta(@$works);
-
-        if ($c->user_exists) {
-            $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
-        }
-
-        $c->stash( template => 'artist/works.tt' );
-    }
-
-    $c->model('ArtistCredit')->load(@$works);
-    $c->stash(
-        works => $works,
-        show_artists => scalar grep {
-            $_->artist_credit->name ne $artist->name
-        } @$works,
-    );
+    $c->model('Relationship')->load_subset([ 'work' ], $artist);
+    $c->model('Artist')->load_for_works(map {
+        $_->target
+    } $artist->relationships_by_type('work'));
 }
 
 =head2 recordings

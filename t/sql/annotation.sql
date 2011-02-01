@@ -24,7 +24,7 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (1, 'e4919fa0-8ff2-11de-8a39-0800200c9a66', 1, 1, 1);
 
 INSERT INTO work_name (id, name) VALUES (1, 'Work Name');
-INSERT INTO work (id, gid, name, artist_credit)
-    VALUES (1, 'b0c3aea0-8ff4-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO work (id, gid, name)
+    VALUES (1, 'b0c3aea0-8ff4-11de-8a39-0800200c9a66', 1);
 
 INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');

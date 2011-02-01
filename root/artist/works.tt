@@ -1,20 +1,43 @@
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
     <h2>[% l('Works') %]</h2>
-    [%- IF works.size -%]
-      <form action="[% c.uri_for_action('/work/merge_queue') %]"
-            method="post">
-        [%- INCLUDE 'artist/works-list.tt' WRAPPER 'components/with-pager.tt' -%]
-        [% form_submit(l('Add selected releases for merging')) IF c.user_exists %]
-      </form>
-    [%- ELSE -%]
-        <p>[%- l('No works found.') -%]</p>
-    [%- END -%]
-
-    [% IF c.user_exists %]
-    <p>
-      <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
-        [% l('Create a work') %]
-      </a>
-    </p>
+    [% IF artist.relationships_by_type('work') %]
+    <form action="[% c.uri_for_action('/work/merge_queue') %]"
+          method="post">
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>[% l('Date') %]</th>
+                <th>[% l('Work') %]</th>
+                <th>[% l('Artists') %]</th>
+            </tr>
+        </thead>
+        [%- FOREACH group IN artist.grouped_relationships('work').work.pairs -%]
+            <thead>
+                <tr class="subh">
+                    <th colspan="3">[% group.key %]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% FOR rel IN group.value %]
+                <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+                    <td>[% rel.begin_date.format %]</td>
+                    <td>
+                        [% descriptive_link(rel.target) %]
+                    </td>
+                    <td>
+                      <ul>
+                        [% FOR artist=rel.target.artists %]
+                        <li>[% link_entity(artist) %]</li>
+                        [% END %]
+                      </ul>
+                    </td>
+                </tr>
+                [% END %]
+            </tbody>
+        [%- END -%]
+    </table>
+    [% form_submit(l('Add selected releases for merging')) IF c.user_exists %]
+    [% ELSE %]
+      [% l('This artist is not currently associated with any works.') %]
     [% END %]
 [%- END -%]

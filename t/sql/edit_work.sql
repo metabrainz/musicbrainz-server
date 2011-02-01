@@ -19,7 +19,7 @@ INSERT INTO artist_credit_name (artist_credit, name, artist, position, join_phra
 
 INSERT INTO work_type (id, name) VALUES (1, 'Remix');
 INSERT INTO work_name (id, name) VALUES (1, 'Traits (remix)');
-INSERT INTO work (id, gid, name, artist_credit) VALUES (1, '581556f0-755f-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO work (id, gid, name) VALUES (1, '581556f0-755f-11de-8a39-0800200c9a66', 1);
 
 ALTER SEQUENCE work_name_id_seq RESTART 2;
 

@@ -6,9 +6,11 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 
 sub edit_type { $EDIT_WORK_MERGE }
 sub edit_name { l("Merge works") }
+sub work_ids { @{ shift->_entity_ids } }
 
 sub _merge_model { 'Work' }
 

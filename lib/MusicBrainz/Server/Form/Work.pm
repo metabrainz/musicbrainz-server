@@ -24,10 +24,6 @@ has_field 'comment' => (
     maxlength => 255
 );
 
-has_field 'artist_credit' => (
-    type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
-);
-
 sub edit_field_names { qw( type_id name iswc comment artist_credit ) }
 
 sub options_type_id { shift->_select_all('WorkType') }

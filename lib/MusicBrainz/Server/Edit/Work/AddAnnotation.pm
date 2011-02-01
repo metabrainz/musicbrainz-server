@@ -6,13 +6,11 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 
 sub edit_name { l('Add work annotation') }
 sub edit_type { $EDIT_WORK_ADD_ANNOTATION }
-
-sub related_entities { { work => [ shift->work_id ] } }
 sub models { [qw( Work )] }
-
 sub _annotation_model { shift->c->model('Work')->annotation }
 
 has 'work_id' => (

@@ -6,13 +6,12 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Add';
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 
 sub _alias_model { shift->c->model('Work')->alias }
 
 sub edit_name { l('Add work alias') }
 sub edit_type { $EDIT_WORK_ADD_ALIAS }
-
-sub related_entities { { work => [ shift->work_id ] } }
 
 sub adjust_edit_pending
 {

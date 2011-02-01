@@ -22,7 +22,6 @@ my $work = $work_data->get_by_id(1);
 is ( $work->id, 1 );
 is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
 is ( $work->name, "Dancing Queen" );
-is ( $work->artist_credit_id, 1 );
 is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
@@ -31,7 +30,6 @@ $work = $work_data->get_by_gid("745c079d-374e-4436-9448-da92dedef3ce");
 is ( $work->id, 1 );
 is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
 is ( $work->name, "Dancing Queen" );
-is ( $work->artist_credit_id, 1 );
 is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
@@ -39,11 +37,6 @@ is ( $work->edits_pending, 0 );
 is ( $work->type, undef );
 MusicBrainz::Server::Data::WorkType->new(c => $test->c)->load($work);
 is ( $work->type->name, "Composition" );
-
-my ($works, $hits) = $work_data->find_by_artist(1, 100);
-is( $hits, 1 );
-is( scalar(@$works), 1 );
-is( $works->[0]->name, "Dancing Queen" );
 
 my $annotation = $work_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );
@@ -56,7 +49,7 @@ is ( $work, undef );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
-($results, $hits) = $search->search("work", "queen", 10);
+my ($results, $hits) = $search->search("work", "queen", 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
@@ -72,7 +65,6 @@ $test->c->raw_sql->begin;
 
 $work = $work_data->insert({
         name => 'Traits',
-        artist_credit => 1,
         type_id => 1,
         iswc => 'T-000.000.001-0',
         comment => 'Drum & bass track',
@@ -82,7 +74,6 @@ ok($work->id > 1);
 
 $work = $work_data->get_by_id($work->id);
 is($work->name, 'Traits');
-is($work->artist_credit_id, 1);
 is($work->comment, 'Drum & bass track');
 is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
