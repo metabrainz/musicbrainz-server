@@ -29,8 +29,8 @@ sub _table
 
 sub _columns
 {
-    return 'work.id, gid, type AS type_id, name.name,
-            iswc, comment, edits_pending, work.last_updated';
+    return 'work.id, work.gid, work.type AS type_id, name.name,
+            work.iswc, work.comment, work.edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -53,9 +53,8 @@ sub find_by_artist
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                     JOIN artist_credit_name acn
-                         ON acn.artist_credit = work.artist_credit
-                 WHERE acn.artist = ?
+                 JOIN l_artist_work ar ON ar.entity1 = work.id
+                 WHERE ar.entity0 = ?
                  ORDER BY musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
