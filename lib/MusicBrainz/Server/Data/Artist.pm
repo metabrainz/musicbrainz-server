@@ -286,6 +286,7 @@ sub load_meta
 
 sub load_for_works {
     my ($self, @works) = @_;
+    return unless @works;
 
     my $cte_query = '
 WITH work_recordings AS (

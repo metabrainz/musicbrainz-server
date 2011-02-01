@@ -212,7 +212,7 @@ sub works : Chained('load')
     $c->model('Relationship')->load_subset([ 'work' ], $artist);
     $c->model('Artist')->load_for_works(map {
         $_->target
-    } $artist->all_relationships);
+    } $artist->relationships_by_type('work'));
 }
 
 =head2 recordings
