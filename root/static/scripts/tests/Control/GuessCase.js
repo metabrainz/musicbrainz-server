@@ -146,6 +146,16 @@ MB.tests.GuessCase.Modes = function() {
                 input: "Concerto d-Moll nach Antonio Vivaldi op 3 nr 11 bwv596: V. allergro",
                 expected: "Concerto D-Moll nach antonio vivaldi, Op. 3, No. 11, BWV 596: V. Allegro",
                 mode: "Classical", roman: true, keepuppercase: false
+            },
+            {
+                input: "American Way ft. Kelis",
+                expected: "American Way (feat. Kelis)",
+                mode: "English", roman: true, keepuppercase: false
+            },
+            {
+                input: "Bring It All To Me (f. 50 Cent)",
+                expected: "Bring It All to Me (feat. 50 Cent)",
+                mode: "English", roman: true, keepuppercase: false
             }
         ];
 
@@ -207,6 +217,11 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "We Ready Fe Dem / Santa Fe Express / We Come Fi Rock",
                 expected: "We Ready fe Dem / Santa Fe Express / We Come fi Rock",
                 bug: "MBS-1315", mode: "English"
+            },
+            {
+                input: "Contagious (The Isley Brothers f/ R. Kelly)",
+                expected: "Contagious (The Isley Brothers feat. R. Kelly)",
+                bug: "MBS-1316", mode: "English"
             }
         ];
 

@@ -279,6 +279,7 @@ MB.GuessCase.Mode.Base = function () {
                 // featuring variant
                 , self.fix ("/w -> ft. ", /(\s)[\/]w(\s)/i, "ft." )
                 , self.fix ("f. -> ft. ", /(\s)f\.(\s)/i, "ft." )
+                , self.fix ("f/ -> ft. ", /(\s)f\/(\s)/i, "ft." )
                 , self.fix ("'featuring - ' -> feat", /(\s)featuring -(\s)/i, "feat" )
 
                 // without (jira ticket MBS-1312).
