@@ -36,6 +36,16 @@ has 'comment' => (
     isa => 'Str'
 );
 
+has 'artists' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    default => sub { [] },
+    handles => {
+        add_artist => 'push',
+        all_artists => 'elements',
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

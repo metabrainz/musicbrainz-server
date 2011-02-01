@@ -7,12 +7,13 @@
             <tr>
                 <th>[% l('Date') %]</th>
                 <th>[% l('Work') %]</th>
+                <th>[% l('Artists') %]</th>
             </tr>
         </thead>
         [%- FOREACH group IN artist.grouped_relationships('work').work.pairs -%]
             <thead>
                 <tr class="subh">
-                    <th colspan="2">[% group.key %]</th>
+                    <th colspan="3">[% group.key %]</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,13 @@
                     <td>[% rel.begin_date.format %]</td>
                     <td>
                         [% descriptive_link(rel.target) %]
+                    </td>
+                    <td>
+                      <ul>
+                        [% FOR artist=rel.target.artists %]
+                        <li>[% link_entity(artist) %]</li>
+                        [% END %]
+                      </ul>
                     </td>
                 </tr>
                 [% END %]
