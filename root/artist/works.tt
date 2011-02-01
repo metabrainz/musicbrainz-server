@@ -25,8 +25,8 @@
                     </td>
                     <td>
                       <ul>
-                        [% FOR artist=rel.target.artists %]
-                        <li>[% link_entity(artist) %]</li>
+                        [% FOR rel_artist=rel.target.artists %]
+                        <li>[% link_entity(rel_artist) %]</li>
                         [% END %]
                       </ul>
                     </td>
