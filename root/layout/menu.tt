@@ -165,6 +165,9 @@
                     [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
                 </li>
                 <li>
+                    [% l('{uri|Add Work}', { uri => c.uri_for_action('/work/create') }) %]
+                </li>
+                <li>
                     [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
                 </li>
                 <li class="separator">
