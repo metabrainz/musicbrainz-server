@@ -18,6 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
     ref_to_type
     type_to_model
 );
+use Scalar::Util 'weaken';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -55,12 +56,16 @@ sub _new_from_row
         entity0_id => $entity0,
         entity1_id => $entity1,
     );
+
+    my $weaken;
     if (defined $obj) {
         if ($matching_entity_type == 0 && $entity0 == $obj->id) {
+            $weaken = 'entity0';
             $info{entity0} = $obj;
             $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD;
         }
         elsif ($matching_entity_type == 1 && $entity1 == $obj->id) {
+            $weaken = 'entity1';
             $info{entity1} = $obj;
             $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
         }
@@ -69,7 +74,11 @@ sub _new_from_row
         }
     }
 
-    return MusicBrainz::Server::Entity::Relationship->new(%info);
+    my $rel = MusicBrainz::Server::Entity::Relationship->new(%info);
+    # XXX MASSIVE MASSIVE HACK.
+    weaken($rel->{$weaken}) if $obj;
+
+    return $rel;
 }
 
 sub _check_types

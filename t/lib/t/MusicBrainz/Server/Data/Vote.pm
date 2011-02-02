@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Vote;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Vote' }
 
@@ -35,6 +36,9 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+vote_stats');
 
+my $vote_data = $test->c->model('Vote');
+memory_cycle_ok($vote_data);
+
 my $edit = $test->c->model('Edit')->create(
     editor_id => 1,
     edit_type => 4242,
@@ -42,10 +46,11 @@ my $edit = $test->c->model('Edit')->create(
 );
 
 # Test voting on an edit
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
+$vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
+$vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
+$vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
+$vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
+memory_cycle_ok($vote_data);
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is(scalar @{ $email_transport->deliveries }, 1);
@@ -58,7 +63,7 @@ like($email->get_body, qr{http://localhost/edit/${\ $edit->id }});
 like($email->get_body, qr{'editor2'});
 
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
-$test->c->model('Vote')->load_for_edits($edit);
+$vote_data->load_for_edits($edit);
 
 is(scalar @{ $edit->votes }, 4);
 is($edit->votes->[0]->vote, $VOTE_NO);
@@ -71,39 +76,43 @@ is($edit->votes->[3]->superseded, 0);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
 
 # Make sure the person who created a vote cannot vote
-$test->c->model('Vote')->enter_votes(1, { edit_id => $edit->id, vote => $VOTE_NO });
+$vote_data->enter_votes(1, { edit_id => $edit->id, vote => $VOTE_NO });
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
-$test->c->model('Vote')->load_for_edits($edit);
+$vote_data->load_for_edits($edit);
 is(scalar @{ $email_transport->deliveries }, 1);
 is($email_transport->deliveries->[-1]->{email}, $email);
+memory_cycle_ok($vote_data);
+memory_cycle_ok($edit);
 
 is(scalar @{ $edit->votes }, 5);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
 
 # Check the vote counts
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
-$test->c->model('Vote')->load_for_edits($edit);
+$vote_data->load_for_edits($edit);
 is($edit->yes_votes, 1);
 is($edit->no_votes, 1);
 
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
+$vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 is($edit->yes_votes, 0);
 is($edit->no_votes, 1);
 
 # Make sure future no votes do not cause another email to be sent out
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
+$vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
 is(scalar @{ $email_transport->deliveries }, 1);
 is($email_transport->deliveries->[-1]->{email}, $email);
 
 # Entering invalid votes doesn't do anything
-$test->c->model('Vote')->load_for_edits($edit);
+$vote_data->load_for_edits($edit);
 my $old_count = @{ $edit->votes };
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 123 });
+$vote_data->enter_votes(2, { edit_id => $edit->id, vote => 123 });
 is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
 
 # Check the voting statistics
-my $stats = $test->c->model('Vote')->editor_statistics(1);
+my $stats = $vote_data->editor_statistics(1);
+memory_cycle_ok($stats);
+memory_cycle_ok($vote_data);
 is_deeply($stats, [
     {
         name   => 'Yes',

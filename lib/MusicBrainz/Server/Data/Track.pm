@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
     placeholders
 );
+use Scalar::Util 'weaken';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'track_name' };
@@ -114,6 +115,10 @@ sub find_by_recording
             $medium->release($release);
             $tracklist->medium($medium);
             $track->tracklist($tracklist);
+
+            # XXX HACK!!
+            weaken($medium->{tracklist});
+
             return $track;
         },
         $query, $recording_id, $offset || 0);

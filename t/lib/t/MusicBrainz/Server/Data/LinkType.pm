@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::LinkType;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 use_ok 'MusicBrainz::Server::Data::LinkType';
 
@@ -15,24 +16,30 @@ test all => sub {
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
 
+my $lt_data = $test->c->model('LinkType');
+
 my $sql = $test->c->sql;
 
-my $link_type = $test->c->model('LinkType')->get_by_id(1);
+my $link_type = $lt_data->get_by_id(1);
 is($link_type->id, 1);
 is($link_type->name, 'instrument');
 is($link_type->short_link_phrase, 'performer');
 
+memory_cycle_ok($lt_data);
+memory_cycle_ok($link_type);
+
 $sql->begin;
-$test->c->model('LinkType')->update(1, { name => 'instrument test' });
+$lt_data->update(1, { name => 'instrument test' });
+memory_cycle_ok($lt_data);
 $sql->commit;
 
-$link_type = $test->c->model('LinkType')->get_by_id(1);
+$link_type = $lt_data->get_by_id(1);
 is($link_type->id, 1);
 is($link_type->name, 'instrument test');
 is($link_type->short_link_phrase, 'performer');
 
 $sql->begin;
-$link_type = $test->c->model('LinkType')->insert({
+$link_type = $lt_data->insert({
     parent_id => 1,
     name => 'instrument test',
     link_phrase => 'link_phrase',
@@ -42,6 +49,7 @@ $link_type = $test->c->model('LinkType')->insert({
         { type => 1, min => 0, max => 1 }
     ],
 });
+memory_cycle_ok($lt_data);
 $sql->commit;
 
 is($link_type->id, 100);
@@ -52,7 +60,7 @@ is($row->{min}, 0);
 is($row->{max}, 1);
 
 $sql->begin;
-$link_type = $test->c->model('LinkType')->update(100, {
+$link_type = $lt_data->update(100, {
     attributes => [
         { type => 2 }
     ],
@@ -64,23 +72,24 @@ is($row->{attribute_type}, 2);
 is($row->{min}, undef);
 is($row->{max}, undef);
 
-$link_type = $test->c->model('LinkType')->get_by_id(100);
+$link_type = $lt_data->get_by_id(100);
 is($link_type->parent_id, 1);
 
 $sql->begin;
-$link_type = $test->c->model('LinkType')->update(100, {
+$link_type = $lt_data->update(100, {
     parent_id => undef,
 });
 $sql->commit;
 
-$link_type = $test->c->model('LinkType')->get_by_id(100);
+$link_type = $lt_data->get_by_id(100);
 is($link_type->parent_id, undef);
 
 $sql->begin;
-$link_type = $test->c->model('LinkType')->delete(100);
+$link_type = $lt_data->delete(100);
+memory_cycle_ok($lt_data);
 $sql->commit;
 
-$link_type = $test->c->model('LinkType')->get_by_id(100);
+$link_type = $lt_data->get_by_id(100);
 is($link_type, undef);
 
 };

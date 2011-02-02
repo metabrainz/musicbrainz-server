@@ -11,7 +11,8 @@ extends 'MusicBrainz::Server::Data::Entity';
 has 'parent' => (
     does => 'MusicBrainz::Server::Data::Role::Name',
     is => 'rw',
-    required => 1
+    required => 1,
+    weak_ref => 1
 );
 
 has [qw( table type entity )] => (
