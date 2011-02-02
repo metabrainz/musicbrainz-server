@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Alias;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 use DateTime;
 use MusicBrainz::Server::Context;
@@ -36,12 +37,14 @@ isa_ok($alias, 'MusicBrainz::Server::Entity::ArtistAlias', 'not an artist alias'
 is($alias->name, 'Alias 1', 'alias name');
 is($alias->artist_id, 1, 'artist id');
 ok(!$alias->locale, 'has no locale');
+memory_cycle_ok($artist_data->alias, 'alias dao shouldnt leak after get_by_id');
 
 # Loading the artist from an alias
 $artist_data->load($alias);
 ok(defined $alias->artist, 'didnt load artist');
 isa_ok($alias->artist, 'MusicBrainz::Server::Entity::Artist', 'not an artist object');
 is($alias->artist->id, $alias->artist_id, 'loaded artist id');
+memory_cycle_ok($alias, 'alias shouldnt leak after loading');
 
 # Find all aliases for an artist
 my $alias_set = $artist_data->alias->find_by_entity_id(1);
@@ -52,6 +55,8 @@ is($alias_set->[0]->locale, undef);
 is($alias_set->[1]->name, 'Alias 2');
 is($alias_set->[1]->artist_id, 1);
 is($alias_set->[1]->locale, 'en_GB');
+memory_cycle_ok($alias, 'alias find_by_entity_id shouldnt leak');
+memory_cycle_ok($alias_set, 'results of find_by_entity_id shouldnt leak');
 
 # Attempt finding aliases for an artist with no aliases
 $alias_set = $artist_data->alias->find_by_entity_id(2);
@@ -59,9 +64,11 @@ is(scalar @$alias_set, 0);
 
 # Make sure we can check if an entity has aliases for a given locale
 ok($artist_data->alias->has_locale(1, 'en_GB'), 'artist 1 has en_GB locale');
+memory_cycle_ok($artist_data->alias, 'has_locale doesnt leak');
 
 # Test merging aliases together
 $artist_data->alias->merge(1, 2);
+memory_cycle_ok($artist_data->alias, 'merge doesnt leak');
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 2);
@@ -89,6 +96,8 @@ is(scalar @$alias_set, 0);
 
 # Test inserting new aliases
 $artist_data->alias->insert({ artist_id => 1, name => 'New alias', locale => 'en_AU' });
+memory_cycle_ok($artist_data->alias, 'insert doesnt leak');
+
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
