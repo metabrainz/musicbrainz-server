@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::EntityCache;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 {
     package MyEntityData;
@@ -72,6 +73,9 @@ is ( $test->c->cache->_orig->get_called, 1 );
 is ( $test->c->cache->_orig->set_called, 1 );
 ok ( $test->c->cache->_orig->data->{'prefix:1'} =~ 'data' );
 
+memory_cycle_ok($entity);
+memory_cycle_ok($entity_data);
+
 $entity_data->get_called(0);
 $test->c->cache->_orig->get_called(0);
 $test->c->cache->_orig->set_called(0);
@@ -81,6 +85,9 @@ is ( $entity, 'data' );
 is ( $entity_data->get_called, 0 );
 is ( $test->c->cache->_orig->get_called, 1 );
 is ( $test->c->cache->_orig->set_called, 0 );
+
+memory_cycle_ok($entity);
+memory_cycle_ok($entity_data);
 
 delete $test->c->cache->_orig->data->{'prefix:1'};
 $entity = $entity_data->get_by_id(1);

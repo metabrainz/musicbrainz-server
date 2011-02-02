@@ -14,9 +14,10 @@ use Sql;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
-has [qw( parent )] => (
+has parent => (
     isa => 'Object',
-    is => 'ro'
+    is => 'ro',
+    weak_ref => 1
 );
 
 has [qw( tag_table type )] => (
