@@ -371,7 +371,8 @@ has 'transport' => (
 
 sub get_test_transport
 {
-    use MusicBrainz::Server::Test;
+    require MusicBrainz::Server::Test;
+    MusicBrainz::Server::Email->import;
     return MusicBrainz::Server::Test->get_test_transport;
 }
 
@@ -380,7 +381,8 @@ sub _build_transport
     my ($self) = @_;
 
     if (&DBDefs::_RUNNING_TESTS) { # XXX shouldn't be here
-        use MusicBrainz::Server::Test;
+        require MusicBrainz::Server::Test;
+        MusicBrainz::Server::Email->import;
         return MusicBrainz::Server::Test->get_test_transport;
     }
 
