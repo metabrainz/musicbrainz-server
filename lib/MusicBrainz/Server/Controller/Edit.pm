@@ -180,9 +180,9 @@ sub subscribed : Local RequireAuth
         $c->model('Edit')->subscribed_entity_edits($c->user->id, shift, shift);
     });
     $c->model('Edit')->load_all(@$edits);
-    $c->model('Editor')->load(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
 
     $c->stash(
         edits    => $edits,
@@ -197,9 +197,9 @@ sub subscribed_editors : Local RequireAuth
         $c->model('Edit')->subscribed_editor_edits($c->user->id, shift, shift);
     });
     $c->model('Edit')->load_all(@$edits);
-    $c->model('Editor')->load(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
 
     $c->stash(
         edits    => $edits,
