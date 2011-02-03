@@ -203,6 +203,32 @@ sub subscribed_entity_edits
         $offset);
 }
 
+sub subscribed_editor_edits {
+    my ($self, $editor_id, $limit, $offset) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    my @editor_ids = @{
+        $sql->select_single_column_array(
+            'SELECT subscribed_editor FROM editor_subscribe_editor
+              WHERE editor = ?',
+            $editor_id)
+    } or return;
+
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+        ' WHERE status = ?
+            AND editor IN (' . placeholders(@editor_ids) . ')
+       ORDER BY id DESC
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->c->raw_dbh, $offset, $limit,
+        sub {
+            return $self->_new_from_row(shift);
+        },
+        $query, $STATUS_OPEN, @editor_ids, $offset);
+}
+
 sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
