@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Edit::Release::DeleteReleaseLabel;
 use Moose;
 
-use MooseX::Types::Moose qw( Int );
+use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -18,7 +19,9 @@ sub models { [qw( Release ReleaseLabel )] }
 has '+data' => (
     isa => Dict[
         release_label_id => Int,
-        release_id => Int
+        release_id => Int,
+        label_id => Nullable[Int],
+        catalog_number => Nullable[Str]
     ]
 );
 
@@ -36,8 +39,7 @@ around 'related_entities' => sub {
     my $self = shift;
     my $related = $self->$orig;
 
-    my $release_label = $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
-    $related->{label} = [ $release_label->label_id ],
+    $related->{label} = [ $self->data->{label_id} ],
 
     return $related;
 };
@@ -65,20 +67,19 @@ sub foreign_keys
 
     return {
         Release => { $self->release_id => [] },
-        ReleaseLabel => { $self->release_label_id => ['Label'] },
+        Label => [ $self->data->{label_id} ]
     };
 };
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-
-    my $rl = $loaded->{ReleaseLabel}->{ $self->data->{release_label_id} };
+    my $label = $loaded->{Label}->{ $self->data->{label_id} };
 
     return {
         release => $loaded->{Release}->{ $self->data->{release_id} },
-        catalog_number => $rl->catalog_number,
-        label => $rl->label,
+        catalog_number => $self->data->{catalog_number},
+        label => ($label || $self->data->{catalog_number})
     };
 }
 
@@ -91,6 +92,8 @@ sub initialize
 
     $self->data({
         release_label_id => $release_label->id,
+        catalog_number => $release_label->catalog_number,
+        label_id => $release_label->label_id,
         release_id => $release_label->release_id,
     });
 };
