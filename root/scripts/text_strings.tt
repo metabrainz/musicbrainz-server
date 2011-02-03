@@ -19,6 +19,7 @@
 
 (function(MB) {
     $.extend(MB.text, {
+        None: '[% l('(none)') %]',
         Artist: '[% l('Artist') %]',
         Name: '[% l('Name') %]',
         JoinPhrase: '[% l('Join Phrase') %]',

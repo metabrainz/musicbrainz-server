@@ -16,7 +16,7 @@
         [% FOR similar=similar_releases %]
             <li>
               <input type="radio" name="[% form.field('duplicate_id').html_name %]" value="[% similar.id %]" />
-              [% link_release(similar) %]
+              [% link_entity(similar) %]
             </li>
         [% END %]
       </ul>

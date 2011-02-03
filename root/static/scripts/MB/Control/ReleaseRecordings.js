@@ -163,7 +163,6 @@ MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
             self.$use_recording.show ();
             self.$add_recording.hide ();
         }
-        
     };
 
     self.$matches.find ('input.recordingmatch').change (change);
@@ -181,6 +180,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     self.tracks = [];
     self.$fieldset = $(fieldset);
     self.$edit = self.$fieldset.find ('a[href=#edit]');
+    self.$nowloading = self.$fieldset.find ('div.recordings-loading');
 
     self.renderTrack = function (idx, $track, $bubble, data) {
 
@@ -190,7 +190,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
         $track.find ('.track-artist').text (data.artist_credit.preview);
 
         /* search bubble. */
-        self.parent.bc.add ($track.find ('.change-recording'), $bubble.find ('div.select-recording'));
+        self.parent.addBubble ($track.find ('.change-recording'), $bubble.find ('div.select-recording'));
 
         $bubble.find ('tr.servermatch.recordingmatch').show ();
         $bubble.find ('tr.servermatch a.name').text (data.recording.name)
@@ -210,7 +210,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     };
 
     self.load = function (data) {
-        self.$fieldset.find ('.clickedit').hide ();
+        self.$nowloading.hide ();
+
         var $table = $('table.disc-template').clone ().show ()
             .appendTo (self.$fieldset);
 
@@ -249,6 +250,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
     self.lazyLoad = function () {
         var tracklist = self.$fieldset.find ('input.tracklist-id').val ();
+        self.$fieldset.find ('.clickedit').hide ();
+        self.$nowloading.show ();
         $.getJSON ('/ws/js/associations/' + tracklist, self.load);
     };
 
@@ -274,11 +277,20 @@ MB.Control.ReleaseRecordings = function () {
     var self = MB.Object ();
 
     self.discs = [];
+    self.bc = MB.Control.BubbleCollection ();
 
-    self.Autocomplete = function (bubble) {
-        var $input = bubble.content.find ('input.recording');
-        $input.focus ();
-        $input.data ('autocomplete').search ($input.val ());
+    self.addBubble = function ($targets, $containers) {
+        self.bc.add ($targets, $containers);
+
+        $containers.each (function (idx, elem) {
+            $(elem).bind ('bubbleOpen.mb', function (event) {
+                $targets.eq (idx).text (MB.text.Done);
+            });
+
+            $(elem).bind ('bubbleClose.mb', function (event) {
+                $targets.eq (idx).text (MB.text.Change);
+            });
+        });
     };
 
     $('fieldset.recording-assoc-disc').each (function (idx, disc) {
@@ -287,9 +299,10 @@ MB.Control.ReleaseRecordings = function () {
         self.discs.push (MB.Control.ReleaseRecordingsDisc (self, discno, disc));
     });
 
-    self.bc = MB.Control.BubbleCollection (
-        $('tr.track:not(.template) a.change-recording:not(.template)'),
-        $('div.select-recording-container:not(.template) div.select-recording'));
+    var $targets = $('tr.track:not(.template) .change-recording');
+    var $containers = $('div.select-recording-container:not(.template) div.select-recording');
+
+    self.addBubble ($targets, $containers);
 
     return self;
 };

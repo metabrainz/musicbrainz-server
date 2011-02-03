@@ -22,7 +22,7 @@ has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
 # this page and coming back, or when validation failed.
 has_field 'advanced' => ( type => 'Integer' );
 
-sub options_mediums_format_id { 
+sub options_mediums_format_id {
     my ($self) = @_;
 
     my $root_format = $self->ctx->model('MediumFormat')->get_tree;
@@ -155,7 +155,6 @@ sub _validate_edits {
         $count++;
     }
 
-    $json = JSON::Any->new;
     $medium->field('edits')->value ($json->encode ($edits));
 
     return @errors;

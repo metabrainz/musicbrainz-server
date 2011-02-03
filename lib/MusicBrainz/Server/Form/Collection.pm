@@ -6,7 +6,7 @@ extends 'MusicBrainz::Server::Form';
 has '+name' => ( default => 'edit-list' );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 

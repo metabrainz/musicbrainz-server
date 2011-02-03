@@ -32,9 +32,15 @@
             </td>
             [% END %]
             [% IF rdfa_made %]
-	       <td>[% rdfa_made_release_link(release) %]</td>
+	       <td>
+             [% rdfa_made_release_link(release) %]
+             [% disambiguation(release) %]
+           </td>
 	    [% ELSE %]
-	       <td>[% rdfa_event_product_release_link(release) %]</td>
+	       <td>
+             [% rdfa_event_product_release_link(release) %]
+             [% disambiguation(release) %]
+           </td>
 	    [% END %]
             [% IF show_va %]
             <td>[% artist_credit(release.artist_credit) %]</td>

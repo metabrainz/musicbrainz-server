@@ -21,7 +21,7 @@
             [% IF c.user_exists %]
                 [% IF annotation.id == entity.latest_annotation.id %]
                     [% l('Annotation last modified by {user} on {date}.', {
-                            user => link_editor(annotation.editor),
+                            user => link_entity(annotation.editor),
                             date => UserDate.format(annotation.creation_date),
                         }) %]
                     [% IF number_of_revisions > 1 =%]
@@ -33,7 +33,7 @@
                     [% l('This is an {history|old revision} of this annotation, as edited by {user} on {date}.
                           {current|View current revision}.', {
                             history => c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]),
-                            user => link_editor(annotation.editor),
+                            user => link_entity(annotation.editor),
                             date => UserDate.format(annotation.creation_date),
                             current => c.uri_for(c.controller.action_for('latest_annotation'), [ entity.gid ]),
                         }) %]

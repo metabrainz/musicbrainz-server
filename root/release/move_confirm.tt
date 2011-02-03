@@ -3,8 +3,8 @@
     [% WRAPPER 'layout/guidelines.tt' %]
         [%- create_guideline(l('Are you sure that you want to move {release} by {release_artist}
                                 to the release group {group} by {artist}?', 
-                               { release => link_release(release), release_artist => artist_credit(release.artist_credit),
-                                 group => link_release_group(release_group), artist => artist_credit(release_group.artist_credit) })) -%]
+                               { release => link_entity(release), release_artist => artist_credit(release.artist_credit),
+                                 group => link_entity(release_group), artist => artist_credit(release_group.artist_credit) })) -%]
     [%- END -%]
     <form action="[% c.req.uri_with( gid => new_artist.gid ) %]" method="post">
         [% INCLUDE "forms/edit-note.tt" %]

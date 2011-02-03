@@ -106,10 +106,6 @@ INSERT INTO url
     FROM public.url;
 
 INSERT INTO replication_control SELECT * FROM public.replication_control;
-INSERT INTO currentstat
-    SELECT id, name, value, lastupdated AS last_updated
-    FROM public.currentstat;
-INSERT INTO historicalstat SELECT * FROM public.historicalstat;
 
 ------------------------
 -- Tags
@@ -602,15 +598,15 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
     FROM tmp_release_album re
         JOIN public.album_cdtoc ac ON re.album=ac.album
         JOIN medium m ON m.release=re.release
-    WHERE m.format IS NULL OR m.format IN (1,4); -- Unknown, CD or DualDisc
+    WHERE m.format IS NULL OR m.format IN (SELECT id FROM medium_format WHERE has_discids);
 
 ------------------------
 -- Statistics
 ------------------------
 \echo Stats
 
-INSERT INTO statistic (id, value, date_collected, name)
-    SELECT id, value, lastupdated,
+INSERT INTO statistic (value, date_collected, name)
+    SELECT value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'
         WHEN name = 'count.album.has_discid' THEN 'count.release.has_discid'
@@ -664,9 +660,9 @@ INSERT INTO statistic (id, value, date_collected, name)
         ELSE name
       END AS name
       FROM (
-           SELECT id, value, lastupdated, name FROM public.currentstat
+           SELECT value, lastupdated, name FROM public.currentstat
       UNION ALL
-           SELECT id, value, snapshotdate, name FROM public.historicalstat
+           SELECT value, snapshotdate, name FROM public.historicalstat
       ) s;
 
 COMMIT;

@@ -7,7 +7,7 @@
        [% create_guideline(l("Are you sure you want to remove the alias {alias} , which
                               points to the artist {artist}?",
                              { alias => html_escape(alias.name),
-                               artist => link_artist(artist) })) %]
+                               artist => link_entity(artist) })) %]
        [% create_guideline(l("If you added this alias by mistake, please follow the
                               instructions about {cancel|how to cancel pending edits}, to
                               cancel the pending add track edit. Removing pending edits,
