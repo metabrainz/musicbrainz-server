@@ -227,7 +227,35 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "Contagious (The Isley Brothers f/ R. Kelly)",
                 expected: "Contagious (The Isley Brothers feat. R. Kelly)",
                 bug: "MBS-1316", mode: "English"
+            },
+            {
+                input: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
+                expected: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
+                bug: "MBS-1318", mode: "English"
             }
+
+            /* There is no fix for these yet.
+            {
+                input: "(Dance With the) Guitar Man",
+                expected: "(Dance With the) Guitar Man",
+                bug: "MBS-1317", mode: "English"
+            },
+            {
+                input: "My Life (Live to the Max)",
+                expected: "My Life (Live to the Max)",
+                bug: "MBS-1317", mode: "English"
+            },
+            {
+                input: "My Life (Club Is Open)",
+                expected: "My Life (Club Is Open)",
+                bug: "MBS-1317", mode: "English"
+            },
+            {
+                input: "Here I Am (Come and Take Me)",
+                expected: "Here I Am (Come and Take Me)",
+                bug: "MBS-1317", mode: "English"
+            }
+            */
         ];
 
         $.each(tests, function(idx, test) {
