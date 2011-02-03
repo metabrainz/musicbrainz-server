@@ -25,6 +25,11 @@ MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
  * Main class of the GC functionality
  **/
 MB.GuessCase.Main = function () {
+    if (window.gc)
+    {
+        return window.gc; /* yay. we're a singleton now. */
+    }
+
     var self = MB.Object ();
 
     // ----------------------------------------------------------------------------
@@ -276,11 +281,38 @@ MB.GuessCase.Main = function () {
      * Selects the current value from the DropDown.
      **/
     self.useSelectedMode = function () {
-        gc.mode = self.modes.getMode ();
+        self.mode = self.modes.getMode ();
     };
 
     self.getMode = function () {
         return self.modes.getMode ();
+    };
+
+    self.setMode = function (value) {
+        self.mode = self.modes.setMode (value);
+        return self.mode;
+    };
+
+    self.setOptions = function (options) {
+        if (options.mode)
+        {
+            self.setMode (options.mode);
+        }
+
+        $.each (options, function (key, value) {
+            var $checkbox = $('#gc-' + key);
+            if ($checkbox.length)
+            {
+                if (value)
+                {
+                    $checkbox.attr ('checked', 'checked');
+                }
+                else
+                {
+                    $checkbox.removeAttr ('checked');
+                }
+            }
+        });
     };
 
     /**
