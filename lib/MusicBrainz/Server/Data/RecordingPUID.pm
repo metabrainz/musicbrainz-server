@@ -153,11 +153,16 @@ sub merge_recordings
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    my @ids = ($new_id, @old_ids);
+
     # Delete links from @old_ids that already exist for $new_id
     $self->sql->do('DELETE FROM recording_puid
-              WHERE recording IN ('.placeholders(@old_ids).') AND
-                  puid IN (SELECT puid FROM recording_puid WHERE recording = ?)',
-              @old_ids, $new_id);
+              WHERE recording IN ('.placeholders(@ids).')
+                AND id NOT IN (
+                SELECT DISTINCT ON (puid) id
+                  FROM recording_puid
+                 WHERE recording IN ('.placeholders(@ids).')
+              )', @ids, @ids);
 
     # Move the rest
     $self->sql->do('UPDATE recording_puid SET recording = ?
