@@ -1,10 +1,19 @@
-use strict;
-use warnings;
-
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Artist::Works;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+use MusicBrainz::Server::Test qw( html_ok );
+
+with 't::Mechanize', 't::Context';
+
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/works', 'get Test Artist works page');
 xml_ok($mech->content);
@@ -13,4 +22,6 @@ $mech->title_like(qr/works/i, 'title indicates works listing');
 $mech->content_contains('Test Work');
 $mech->content_contains('/work/745c079d-374e-4436-9448-da92dedef3ce', 'has a link to the work');
 
-done_testing;
+};
+
+1;

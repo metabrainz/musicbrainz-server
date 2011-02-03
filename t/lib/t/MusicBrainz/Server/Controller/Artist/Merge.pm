@@ -1,14 +1,19 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Artist::Merge;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-MusicBrainz::Server::Test->prepare_test_server();
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 # Test merging artists
 my $response;
@@ -16,7 +21,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/artist/60e5d080-c964-11de-8a39-0800200c9a66/merge');
-xml_ok($mech->content);
+html_ok($mech->content);
 $response = $mech->submit_form(
     with_fields => {
         'filter.query' => 'Test',
@@ -39,4 +44,6 @@ is_deeply($edit->data, {
         new_entity => { name => 'Test Artist', id => 3, },
     });
 
-done_testing;
+};
+
+1;

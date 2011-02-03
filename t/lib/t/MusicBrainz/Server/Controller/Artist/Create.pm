@@ -1,22 +1,19 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
+package t::MusicBrainz::Server::Controller::Artist::Create;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-MusicBrainz::Server::Test->prepare_test_server();
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
 
-sub _delete_artist
-{
-    my $sql = Sql->new ($c->conn->dbh);
-    $sql->auto_commit(1);
-    $sql->do('DELETE FROM artist WHERE id IN (?)', @_);
-}
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 # Test creating new artists via the create artist form
 $mech->get_ok('/login');
@@ -24,7 +21,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 subtest 'Create artists with all fields' => sub {
     $mech->get_ok('/artist/create');
-    xml_ok($mech->content);
+    html_ok($mech->content);
     my $response = $mech->submit_form(
         with_fields => {
             'edit-artist.name' => 'controller artist',
@@ -63,12 +60,13 @@ subtest 'Create artists with all fields' => sub {
             month => 4,
             day => 15
         },
+        ipi_code => undef
     });
 
 
     # Test display of edit data
     $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-    xml_ok ($mech->content, '..xml is valid');
+    html_ok ($mech->content, '..xml is valid');
     $mech->content_contains ('controller artist', '.. contains artist name');
     $mech->content_contains ('artist, controller', '.. contains sort name');
     $mech->content_contains ('Person', '.. contains artist type');
@@ -80,14 +78,14 @@ subtest 'Create artists with all fields' => sub {
     $mech->content_contains ('2003-04-15', '.. contains end date');
 
     # Cleaning up.
-    _delete_artist ($edit->entity_id);
+    _delete_artist ($c, $edit->entity_id);
 
     done_testing;
 };
 
 subtest 'Creating artists with only the minimal amount of fields' => sub {
     $mech->get_ok('/artist/create');
-    xml_ok($mech->content);
+    html_ok($mech->content);
     my $response = $mech->submit_form(
         with_fields => {
             'edit-artist.name' => 'Alice Artist',
@@ -116,20 +114,29 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
     is($edit->data->{country_id}, undef);
     is($edit->data->{gender_id}, undef);
     is($edit->data->{comment}, undef);
+    is($edit->data->{ipi_code}, undef);
 
     ok( PartialDate->new($edit->data->{begin_date})->is_empty );
     ok( PartialDate->new($edit->data->{end_date})->is_empty );
 
     # Test display of edit data
     $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-    xml_ok ($mech->content, '..xml is valid');
+    html_ok ($mech->content, '..xml is valid');
     $mech->content_contains ('Alice Artist', '.. contains artist name');
     $mech->content_contains ('Artist, Alice', '.. contains sort name');
 
     # Cleaning up.
-    _delete_artist ($edit->entity_id);
+    _delete_artist ($c, $edit->entity_id);
 
     done_testing;
 };
 
-done_testing;
+};
+
+sub _delete_artist
+{
+    my $c = shift;
+    $c->sql->do('DELETE FROM artist WHERE id IN (?)', @_);
+}
+
+1;

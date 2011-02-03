@@ -55,8 +55,6 @@ INSERT INTO artist_alias (id, name, artist, edits_pending)
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 1, NULL);
 
-INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
-
 INSERT INTO release_name (id, name)
     VALUES (1, 'Test RG 1'),
            (2, 'Test RG 2'),
