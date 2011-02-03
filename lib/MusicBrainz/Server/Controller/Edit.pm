@@ -186,7 +186,7 @@ sub subscribed : Local RequireAuth
 
     $c->stash(
         edits    => $edits,
-        template => 'edit/search_results.tt'
+        template => 'edit/subscribed.tt'
     );
 }
 
@@ -203,7 +203,7 @@ sub subscribed_editors : Local RequireAuth
 
     $c->stash(
         edits    => $edits,
-        template => 'edit/search_results.tt'
+        template => 'edit/subscribed-editors.tt'
     );
 }
 

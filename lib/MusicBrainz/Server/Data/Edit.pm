@@ -191,7 +191,9 @@ sub subscribed_entity_edits
                     ')'
                 } @filter_on
             ) .
-         ') OFFSET ?';
+         ')
+       ORDER BY id DESC
+         OFFSET ?';
 
     return query_to_list_limited(
         $self->c->raw_dbh, $offset, $limit,
