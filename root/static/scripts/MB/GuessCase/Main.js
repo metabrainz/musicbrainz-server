@@ -224,10 +224,10 @@ MB.GuessCase.Main = function () {
 	var os, handler;
 	gc.init();
 
-	if (!gc.releaseHandler) {
-	    gc.releaseHandler = new GcReleaseHandler();
+	if (!self.releaseHandler) {
+	    self.releaseHandler = MB.GuessCase.Handler.Release ();
 	}
-	handler = gc.releaseHandler;
+	handler = self.releaseHandler;
 
 	self.useSelectedMode(mode);
 
