@@ -162,6 +162,47 @@ sub find_for_subscription
     }
 }
 
+sub subscribed_entity_edits
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my @subscribable_types = qw( artist label );
+
+    my $sql = Sql->new($self->c->dbh);
+    my %subscriptions = map {
+        $_ => $sql->select_single_column_array(
+            "SELECT $_ FROM editor_subscribe_$_ WHERE editor = ?",
+            $editor_id
+        )
+    } @subscribable_types;
+
+    my @filter_on = grep { @{ $subscriptions{$_} } } keys %subscriptions
+        or return;
+
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+        ' WHERE editor != ?
+            AND status = ?
+            AND id IN (' .
+            join(
+                ' UNION ALL ',
+                map {
+                    "SELECT edit FROM edit_$_ WHERE $_ IN (" .
+                        placeholders(@{ $subscriptions{$_} }) .
+                    ')'
+                } @filter_on
+            ) .
+         ') OFFSET ?';
+
+    return query_to_list_limited(
+        $self->c->raw_dbh, $offset, $limit,
+        sub {
+            return $self->_new_from_row(shift);
+        },
+        $query, $editor_id, $STATUS_OPEN,
+        (map { @{ $subscriptions{$_} } } @filter_on),
+        $offset);
+}
+
 sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
