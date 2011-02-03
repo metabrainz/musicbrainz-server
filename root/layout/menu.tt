@@ -55,6 +55,12 @@
                 <li>
                     [% l('{col|My Watched Artists}', { col => c.uri_for_action('/watch/list') }) %]
                 </li>
+                <li>
+                    [% l('{col|Edits for Subscribed Entities}', { col => c.uri_for_action('/edit/subscribed') }) %]
+                </li>
+                <li>
+                    [% l('{col|Edits by Subscribed Editors}', { col => c.uri_for_action('/edit/subscribed_editors') }) %]
+                </li>
             </ul>
         </li>
     [%- ELSE -%]
