@@ -167,9 +167,8 @@ sub subscribed_entity_edits
     my ($self, $editor_id, $limit, $offset) = @_;
     my @subscribable_types = qw( artist label );
 
-    my $sql = Sql->new($self->c->dbh);
     my %subscriptions = map {
-        $_ => $sql->select_single_column_array(
+        $_ => $self->c->sql->select_single_column_array(
             "SELECT $_ FROM editor_subscribe_$_ WHERE editor = ?",
             $editor_id
         )
@@ -196,7 +195,7 @@ sub subscribed_entity_edits
          OFFSET ?';
 
     return query_to_list_limited(
-        $self->c->raw_dbh, $offset, $limit,
+        $self->sql, $offset, $limit,
         sub {
             return $self->_new_from_row(shift);
         },
@@ -208,9 +207,8 @@ sub subscribed_entity_edits
 sub subscribed_editor_edits {
     my ($self, $editor_id, $limit, $offset) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my @editor_ids = @{
-        $sql->select_single_column_array(
+        $self->c->sql->select_single_column_array(
             'SELECT subscribed_editor FROM editor_subscribe_editor
               WHERE editor = ?',
             $editor_id)
@@ -224,7 +222,7 @@ sub subscribed_editor_edits {
          OFFSET ?';
 
     return query_to_list_limited(
-        $self->c->raw_dbh, $offset, $limit,
+        $self->sql, $offset, $limit,
         sub {
             return $self->_new_from_row(shift);
         },
