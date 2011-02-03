@@ -1,14 +1,19 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Artist::AddAlias;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-MusicBrainz::Server::Test->prepare_test_server();
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 # Test adding aliases
 $mech->get('/login');
@@ -29,7 +34,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 
 $mech->content_contains('Test Artist', '..contains artist name');
 $mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '..contains artist link');
@@ -37,4 +42,7 @@ $mech->content_contains('An alias', '..contains alias name');
 
 $mech->get_ok("/test/reject-edit/".$edit->id, 'reject edit');
 
-done_testing;
+
+};
+
+1;

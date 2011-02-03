@@ -1,20 +1,26 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Artist::Edit;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 # Test editing artists
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
-xml_ok($mech->content);
+html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-artist.name' => 'edit artist',
@@ -79,7 +85,7 @@ is_deeply($edit->data, {
 
 # Test display of edit data
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-xml_ok ($mech->content, '..xml is valid');
+html_ok ($mech->content, '..xml is valid');
 $mech->content_contains ('edit artist', '.. contains old artist name');
 $mech->content_contains ('Test Artist', '.. contains new artist name');
 $mech->content_contains ('artist, controller', '.. contains old sort name');
@@ -97,5 +103,6 @@ $mech->content_contains ('Yet Another Test Artist',
 $mech->content_contains ('artist created in controller_artist.t',
                          '.. contains new artist comment');
 
-done_testing;
+};
 
+1;

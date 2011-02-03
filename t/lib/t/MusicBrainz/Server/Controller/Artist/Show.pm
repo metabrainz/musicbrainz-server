@@ -1,18 +1,20 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Artist::Show;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 $mech->get_ok("/artist/745c079d-374e-4436-9448-da92dedef3ce", 'fetch artist index page');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/Test Artist/, 'title has artist name');
 $mech->content_like(qr/Test Artist/, 'content has artist name');
 $mech->content_like(qr/Artist, Test/, 'content has artist sort name');
@@ -40,5 +42,7 @@ $mech->content_like(qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66}, 're
 $mech->content_like(qr/Test RG 2/, 'release group 2');
 $mech->content_like(qr{/release-group/7348f3a0-454e-11de-8a39-0800200c9a66}, 'release group 2');
 
-done_testing;
 
+};
+
+1;
