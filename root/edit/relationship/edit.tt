@@ -1,5 +1,5 @@
 [% BLOCK layout_head %]
-  <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
         "scripts/MB/html.js",
