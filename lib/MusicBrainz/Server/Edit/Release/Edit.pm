@@ -77,6 +77,10 @@ sub foreign_keys
         }
     }
 
+    $relations->{Release} = {
+        $self->data->{entity_id} => [ 'ArtistCredit' ]
+    };
+
     return $relations;
 }
 
@@ -111,6 +115,8 @@ sub build_display_data
             old => partial_date_from_row($self->data->{old}{date}),
         };
     }
+
+    $data->{release} = $loaded->{Release}{ $self->data->{entity_id} };
 
     return $data;
 }

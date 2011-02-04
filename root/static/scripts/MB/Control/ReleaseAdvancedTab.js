@@ -48,6 +48,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         if (data.artist_credit)
         {
             self.artist_credit.render (data.artist_credit);
+            self.updateVariousArtists ();
         }
 
         if (data.deleted)
@@ -87,6 +88,19 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
                 }
             }
         );
+    };
+
+    /**
+     * updateVariousArtists will mark the disc as VA if the artist for this
+     * track is different from the release artist.
+     */
+    self.updateVariousArtists = function () {
+        if (self.isDeleted () ||
+            self.parent.isVariousArtists () ||
+            self.artist_credit.isReleaseArtist ())
+            return;
+
+        self.parent.setVariousArtists ();
     };
 
     /**
@@ -277,7 +291,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         else
         {
             /* opening a bubble will disable the input, and re-enable
-               it on close.  make sure to hide these bubbles _before_
+               it on close.  make sure to close these bubbles _before_
                trying to disable the associated input. */
             self.bubble_collection.hideAll ();
 
@@ -287,6 +301,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
     };
 
+    /* This function registers the ReleaseTextarea for this disc as self.basic. */
     self.registerBasic = function (basic) {
         self.basic = basic;
     };
@@ -310,7 +325,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             self.$position.val (val);
             self.$fieldset.find ('span.discnum').text (val);
-            self.basic.basicdisc.find ('span.discnum').text (val);
+            self.basic.$basicdisc.find ('span.discnum').text (val);
             return val;
         }
 
@@ -375,7 +390,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             }
         }
 
-        self.$table.show ();
+        self.$nowloading.show ();
         self.$fieldset.addClass ('expanded');
         self.$expand_icon.hide ();
         self.$collapse_icon.show ();
@@ -411,10 +426,29 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         });
 
         self.sort ();
+        self.$table.show ();
+        self.$nowloading.hide ();
     };
 
     self.guessCase = function () {
         $.each (self.tracks, function (idx, item) { item.guessCase (); });
+    };
+
+
+    /**
+     * isVariousArtists returns false only if all tracks on the disc are identical
+     * to the release artist.
+     */
+    self.isVariousArtists = function () {
+        return self.basic.isVariousArtists ();
+    };
+
+    /**
+     * Allow a track to mark this disc as various artists.  There currently is no way
+     * to change this back to single artists.
+     */
+    self.setVariousArtists = function () {
+        self.basic.$various_artists.val ('1');
     };
 
     self.$table = self.$fieldset.find ('table.medium');
@@ -441,6 +475,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.$expand_icon = self.$fieldset.find ('input.expand-disc');
     self.$collapse_icon = self.$fieldset.find ('input.collapse-disc');
+    self.$nowloading = self.$fieldset.find ('div.tracklist-loading');
+
     self.$template = $('table.tracklist-template');
 
     self.$fieldset.find ('table.medium tbody tr.track').each (function (idx, item) {
@@ -698,12 +734,12 @@ MB.Control.ReleaseAdvancedTab = function () {
 
             /* FIXME: yes, I am aware that the variable names I've chosen
                here could use a little improvement. --warp. */
-            disc.basic.basicdisc.insertBefore (other.basic.basicdisc);
+            disc.basic.$basicdisc.insertBefore (other.basic.$basicdisc);
         }
         else
         {
             other.$fieldset.insertBefore (disc.$fieldset);
-            other.basic.basicdisc.insertBefore (disc.basic.basicdisc);
+            other.basic.$basicdisc.insertBefore (disc.basic.$basicdisc);
         }
     };
 

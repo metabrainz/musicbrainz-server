@@ -98,6 +98,7 @@ DROP TRIGGER "reptg_release_group_tag" ON "release_group_tag";
 DROP TRIGGER "reptg_release_group_type" ON "release_group_type";
 DROP TRIGGER "reptg_release_name" ON "release_name";
 DROP TRIGGER "reptg_script" ON "script";
+DROP TRIGGER "reptg_statistic" ON "statistic";
 DROP TRIGGER "reptg_replication_control" ON "replication_control";
 DROP TRIGGER "reptg_script_language" ON "script_language";
 DROP TRIGGER "reptg_tag" ON "tag";

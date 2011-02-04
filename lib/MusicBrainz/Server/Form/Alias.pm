@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 has '+name' => ( default => 'edit-alias' );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1
 );
 
