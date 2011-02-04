@@ -11,6 +11,8 @@ my $test = shift;
 my $mech = $test->mech;
 my $c    = $test->c;
 
+MusicBrainz::Server::Test->prepare_test_database($c);
+
 $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80/discids');
 html_ok($mech->content);
 $mech->content_like(qr{tLGBAiCflG8ZI6lFcOt87vXjEcI-});
