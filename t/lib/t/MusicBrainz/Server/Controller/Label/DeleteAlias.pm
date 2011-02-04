@@ -1,12 +1,17 @@
-use strict;
+package t::MusicBrainz::Server::Controller::Label::DeleteAlias;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -30,4 +35,6 @@ xml_ok($mech->content, '..valid xml');
 $mech->content_contains('Warp Records', '..has label name');
 $mech->content_contains('Test Label Alias', '..has alias name');
 
-done_testing;
+};
+
+1;
