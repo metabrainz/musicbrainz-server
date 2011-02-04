@@ -5,8 +5,6 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 test all => sub {
 
 my $test = shift;
@@ -39,9 +37,6 @@ html_ok($mech->content, '..valid xml');
 $mech->content_contains('Test Artist', '..contains artist name');
 $mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '..contains artist link');
 $mech->content_contains('An alias', '..contains alias name');
-
-$mech->get_ok("/test/reject-edit/".$edit->id, 'reject edit');
-
 
 };
 
