@@ -35,6 +35,9 @@ subtype 'CDTOC'
 subtype 'CDStub'
     => as class_type 'MusicBrainz::Server::Entity::CDStub';
 
+subtype 'Echoprint'
+    => as class_type 'MusicBrainz::Server::Entity::Echoprint';
+
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
 

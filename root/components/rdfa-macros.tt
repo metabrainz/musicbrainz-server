@@ -435,6 +435,16 @@ END -%]
     link_puid(puid, action, text);
   END;
 END -%]
+[%- MACRO rdfa_link_echoprint(echoprint, action, text) BLOCK;
+  IF doRDFa;
+    action = action || 'show';
+    link = c.uri_for_action("/echoprint/$action", [ echoprint.name ]);
+    text = html_escape(text) || '<code about="[rec:]" property="mo:echoprint">' _ html_escape(echoprint.name) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+  ELSE;
+    link_echoprint(echoprint, action, text);
+  END;
+END -%]
 
 [%- MACRO rdfa_link_release_track(release, track, action, text) BLOCK;
   IF doRDFa;

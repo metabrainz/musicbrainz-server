@@ -123,6 +123,23 @@ sub puid : Private
     $c->stash->{results} = \@results;
 }
 
+sub echoprint : Private
+{
+    my ($self, $c) = @_;
+
+    my $echoprint = $c->stash->{taglookup}->field('echoprint')->value();
+    my @releases = $c->model('Release')->find_by_echoprint($echoprint);
+
+    $c->model('ArtistCredit')->load(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('Script')->load(@releases);
+    $c->model('Language')->load(@releases);
+
+    my @results = map { { entity => $_ } } @releases;
+
+    $c->stash->{results} = \@results;
+}
+
 sub external : Private
 {
     my ($self, $c) = @_;

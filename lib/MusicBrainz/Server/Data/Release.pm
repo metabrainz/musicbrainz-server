@@ -367,6 +367,24 @@ sub find_by_puid
                          $query, @{ids});
 }
 
+sub find_by_echoprint
+{
+    my ($self, $ids) = @_;
+    my @ids = ref $ids ? @$ids : ( $ids );
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE release.id IN (
+                    SELECT release FROM medium
+                      JOIN track ON track.tracklist = medium.tracklist
+                      JOIN recording ON recording.id = track.recording
+                      JOIN recording_echoprint ON recording_echoprint.recording = recording.id
+                      JOIN echoprint ON echoprint.id = recording_echoprint.echoprint
+                     WHERE echoprint.echoprint IN (' . placeholders(@ids) . ')
+                )';
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+                         $query, @{ids});
+}
+
 sub find_by_tracklist
 {
     my ($self, $tracklist_id) = @_;

@@ -125,6 +125,19 @@ sub puids : Chained('load') PathPart('puids')
     );
 }
 
+sub echoprints : Chained('load') PathPart('echoprints')
+{
+    my ($self, $c) = @_;
+
+    my $recording = $c->stash->{recording};
+    my @echoprints = $c->model('RecordingEchoprint')->find_by_recording($recording->id);
+    $c->stash(
+        echoprints => \@echoprints,
+        template   => 'recording/echoprints.tt',
+    );
+}
+
+
 =head2 DESTRUCTIVE METHODS
 
 This methods alter data

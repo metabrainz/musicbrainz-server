@@ -272,6 +272,23 @@ sub linked_recordings
         }
     }
 
+    if ($c->stash->{inc}->echoprints)
+    {
+        my @echoprints = $c->model('RecordingEchoprint')->find_by_recording(map { $_->id } @$recordings);
+
+        my %echoprint_per_recording;
+        for (@echoprints)
+        {
+            $echoprint_per_recording{$_->recording_id} = [] unless $echoprint_per_recording{$_->recording_id};
+            push @{ $echoprint_per_recording{$_->recording_id} }, $_;
+        };
+
+        for (@$recordings)
+        {
+            $stash->store ($_)->{echoprints} = $echoprint_per_recording{$_->id};
+        }
+    }
+
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$recordings);

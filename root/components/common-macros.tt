@@ -224,6 +224,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_echoprint(echoprint, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/echoprint/$action", [ echoprint.echoprint ]);
+    text = text || '<code>' _ html_escape(echoprint.echoprint) _ '</code>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/isrc/$action", [ isrc ]);

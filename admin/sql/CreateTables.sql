@@ -119,6 +119,13 @@ CREATE TABLE country (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE echoprint
+(
+    id                  SERIAL,
+    echoprint           CHAR(18) NOT NULL,
+    version             INTEGER NOT NULL -- references clientversion.id
+);
+
 CREATE TABLE editor
 (
     id                  SERIAL,
@@ -708,6 +715,15 @@ CREATE TABLE recording_annotation
 (
     recording           INTEGER NOT NULL, -- PK, references recording.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE recording_echoprint
+(
+    id                  SERIAL,
+    echoprint           INTEGER NOT NULL, -- references echoprint.id
+    recording           INTEGER NOT NULL, -- references recording.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0,
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE recording_meta

@@ -56,6 +56,7 @@ sub SetSequence
     };
     if ($@)
     {
+        print "Error: $@\n";
         $sql->Rollback;
     }
 }

@@ -113,6 +113,18 @@ sub IsGUID
     1;
 }
 
+sub IsEchoprint
+{
+    my $t = $_[0];
+    defined($t) and not ref($t) or return undef;
+    length($t) eq 18 or return undef;
+
+    $t = lc $t;
+    $t =~ /\A([0-9a-z]{18})\z/x or return undef;
+    $_[0] = $1;
+    1;
+}
+
 sub IsValidURL
 {
     my ($class, $url) = @_;

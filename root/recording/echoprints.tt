@@ -1,0 +1,44 @@
+[%- WRAPPER 'recording/layout.tt' page='echoprints' %]
+
+    <h2>[%- l('Associated Echoprints') -%]</h2>
+
+    [% IF echoprints.size %]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('Echoprint') %]</th>
+                    [% IF c.user_exists %]
+                        <th style="width: 5em">
+                            [% l('Actions') %]
+                        </td>
+                    [% END %]
+                </tr>
+            </thead>
+	    <tbody [% rdfa_recording_ns(recording) %]>
+            [% FOR echoprint IN echoprints %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>
+                      [% '<span class="mp">' IF echoprint.edits_pending %]
+                      [% rdfa_link_echoprint(echoprint.echoprint) %]
+                      [% '</span>' IF echoprint.edits_pending %]
+                    </td>
+                    [% IF c.user_exists %]
+                        <td>
+                          <a href="[% c.uri_for_action('/recording/delete_echoprint', [ recording.gid ], { echoprint => echoprint.echoprint.echoprint }) %]">
+                            Delete</a>
+                        </td>
+                    [% END %]
+                </tr>
+            [% END %]
+	    </tbody>
+        </table>
+
+        [% UNLESS c.user_exists %]
+            <p>[% l('Please {login_url|login} to edit these Echoprints.', { login_url => login_url() }) %]</p>
+        [% END %]
+
+    [% ELSE %]
+        <p>[% l('This recording does not have any associated Echoprints') %]</p>
+    [% END %]
+
+[%- END -%]

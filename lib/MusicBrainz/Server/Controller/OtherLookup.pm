@@ -161,6 +161,23 @@ sub puid : Private
     $c->detach;
 }
 
+sub echoprint : Private
+{
+    my ($self, $c) = @_;
+
+    my $echoprint =  $c->req->query_params->{echoprint};
+
+    if (!MusicBrainz::Server::Validation::IsEchoprint($echoprint))
+    {
+        $c->stash->{error} = l('Invalid Echoprint.');
+        return;
+    }
+
+    my $uri = $c->uri_for_action('/echoprint/show', [ $echoprint ]);
+    $c->response->redirect( $uri );
+    $c->detach;
+}
+
 sub discid : Private
 {
     my ($self, $c) = @_;

@@ -69,6 +69,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 -- not replicated:
 -- currentstat
 
+CREATE TRIGGER "reptg_echoprint"
+AFTER INSERT OR DELETE OR UPDATE ON "echoprint"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_gender"
 AFTER INSERT OR DELETE OR UPDATE ON "gender"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -270,6 +274,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_recording_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_recording_echoprint"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_echoprint"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_recording_meta"

@@ -1,0 +1,9 @@
+[% WRAPPER 'recording/layout.tt' title=l('Remove Echoprint') %]
+   <p>[% l('Are you sure you want to remove the Echoprint <code>{echoprint}</code> from {recording} by {ac}?',
+           { echoprint => echoprint.echoprint.echoprint, recording => link_entity(recording),
+             ac => artist_credit(recording.artist_credit) }) %]</p>
+   <form action="[% c.req.uri %]" method="post">
+     [%- INCLUDE 'forms/edit-note.tt' -%]
+     [% enter_edit() %]
+   </form>
+[% END %]

@@ -1,4 +1,4 @@
-	package MusicBrainz::Server::WebService::XMLSerializer;
+package MusicBrainz::Server::WebService::XMLSerializer;
 
 use Moose;
 use Scalar::Util 'reftype';
@@ -411,6 +411,8 @@ sub _serialize_recording
 
     $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, $stash)
         if ($opts->{puids} && $inc->puids);
+    $self->_serialize_echoprint_list(\@list, $gen, $opts->{echoprints}, $inc, $stash)
+        if ($opts->{echoprints} && $inc->echoprints);
     $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);
 
@@ -698,6 +700,33 @@ sub _serialize_puid
     push @$data, $gen->puid({ id => $puid->puid }, @list);
 }
 
+sub _serialize_echoprint_list
+{
+    my ($self, $data, $gen, $echoprints, $inc, $stash) = @_;
+
+    my @list;
+    foreach my $echoprint (@$echoprints)
+    {
+        $self->_serialize_echoprint(\@list, $gen, $echoprint->echoprint, $inc, $stash);
+    }
+    push @$data, $gen->echoprint_list({ count => scalar(@$echoprints) }, @list);
+}
+
+sub _serialize_echoprint
+{
+    my ($self, $data, $gen, $echoprint, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($echoprint);
+
+    my @list;
+    if ($toplevel)
+    {
+        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $stash, $toplevel)
+            if ${opts}->{recordings};
+    }
+    push @$data, $gen->echoprint({ id => $echoprint->echoprint }, @list);
+}
+
 sub _serialize_isrc_list
 {
     my ($self, $data, $gen, $isrcs, $inc, $stash, $toplevel) = @_;
@@ -943,6 +972,15 @@ sub puid_resource
 
     my $data = [];
     $self->_serialize_puid($data, $gen, $puid, $inc, $stash, 1);
+    return $data->[0];
+}
+
+sub echoprint_resource
+{
+    my ($self, $gen, $echoprint, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_echoprint($data, $gen, $echoprint, $inc, $stash, 1);
     return $data->[0];
 }
 

@@ -1,0 +1,20 @@
+<table class="details">
+  <tr>
+    <th>[% l('Client:') %]</th>
+    <td>[% edit.data.client_version | html %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l("Echoprints:") %]</th>
+    <td>
+      <ul>
+        [% FOR echoprint=edit.display_data.echoprints %]
+        <li>
+          <code>[% link_echoprint(echoprint) %]</code> -
+          [% descriptive_link(echoprint.recording) %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table>

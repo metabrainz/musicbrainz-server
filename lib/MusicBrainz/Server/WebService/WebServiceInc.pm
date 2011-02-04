@@ -8,7 +8,7 @@ has $_ => (
     isa => 'Int',
     default => 0
 ) for qw(
-          aliases discids isrcs media puids various_artists artist_credits
+          aliases discids isrcs media puids echoprints various_artists artist_credits
           artists labels recordings releases release_groups works
           artist_rels label_rels recording_rels release_rels
           release_group_rels url_rels work_rels

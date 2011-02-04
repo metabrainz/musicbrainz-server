@@ -7,6 +7,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Function::Parameters 'f';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_PUIDS
+    $EDIT_RECORDING_ADD_ECHOPRINTS
     $EDIT_RECORDING_ADD_ISRCS
 );
 
@@ -23,14 +24,15 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
-                         inc      => [ qw(artist-credits puids isrcs
+                         inc      => [ qw(artist-credits puids echoprints isrcs
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(limit offset) ],
      },
      recording => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits puids isrcs aliases
-                                          _relations tags user-tags ratings user-ratings) ]
+                         inc      => [ qw(artists releases artist-credits puids echoprints 
+                                          isrcs aliases _relations tags user-tags ratings 
+                                          user-ratings) ]
      },
      recording => {
                          method => 'POST'
@@ -169,7 +171,7 @@ sub recording_submit : Private
 
     my $xp = XML::XPath->new( xml => $c->request->body );
 
-    my (%submit_puid, %submit_isrc);
+    my (%submit_puid, %submit_isrc, %submit_echoprint);
     for my $node ($xp->find('/metadata/recording-list/recording')->get_nodelist)
     {
         my $id = $node->getAttribute('id') or
@@ -188,6 +190,16 @@ sub recording_submit : Private
             push @{ $submit_puid{$id} }, $puid;
         }
 
+        my @echoprints = $node->find('echoprint-list/echoprint')->get_nodelist;
+        for my $echoprint_node (@echoprints) {
+            my $echoprint = $echoprint_node->getAttribute('id');
+            $self->_error($c, "$echoprint is not a valid echoprint")
+                unless MusicBrainz::Server::Validation::IsGUID($echoprint);
+
+            $submit_echoprint{ $id } ||= [];
+            push @{ $submit_echoprint{$id} }, $echoprint;
+        }
+
         my @isrcs = $node->find('isrc-list/isrc')->get_nodelist;
         for my $isrc_node (@isrcs) {
             my $isrc = $isrc_node->getAttribute('id');
@@ -200,11 +212,12 @@ sub recording_submit : Private
     }
 
     my %recordings_by_id = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
-                                                                  keys %submit_isrc) };
+                                                                  keys %submit_isrc,
+                                                                  keys %submit_echoprint) };
     my %recordings_by_gid = map { $_->gid => $_->id } values %recordings_by_id;
 
     my @submissions;
-    for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
+    for my $recording_gid (keys %submit_puid, keys %submit_isrc, keys %submit_echoprint) {
         $self->_error($c, "$recording_gid does not match any known recordings")
             unless exists $recordings_by_gid{$recording_gid};
     }
@@ -225,12 +238,37 @@ sub recording_submit : Private
         }
     );
 
+    # Submit Echoprints
+    $buffer = Buffer->new(
+        limit => 100,
+        on_full => f($contents) {
+            my $new_rows = $c->model('RecordingEchoprint')->filter_additions(@$contents);
+            return unless @$new_rows;
+
+            $c->model('Edit')->create(
+                edit_type      => $EDIT_RECORDING_ADD_PUIDS,
+                editor_id      => $c->user->id,
+                client_version => $client,
+                echoprints     => $new_rows
+            );
+        }
+    );
+
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_puid) {
             $buffer->add_items(map +{
                 recording_id => $recordings_by_gid{$recording_gid},
                 puid         => $_
             }, @{ $submit_puid{$recording_gid} });
+        }
+    });
+
+    $buffer->flush_on_complete(sub {
+        for my $recording_gid (keys %submit_echoprint) {
+            $buffer->add_items(map +{
+                recording_id => $recordings_by_gid{$recording_gid},
+                echoprint    => $_
+            }, @{ $submit_echoprint{$recording_gid} });
         }
     });
 

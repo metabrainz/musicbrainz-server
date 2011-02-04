@@ -11,5 +11,6 @@ has_field 'track'    => ( type => 'Text'    );
 has_field 'duration' => ( type => 'Integer' );
 has_field 'filename' => ( type => 'Text'    );
 has_field 'puid'     => ( type => 'Text'    );
+has_field 'echoprint'=> ( type => 'Text'    );
 
 1;

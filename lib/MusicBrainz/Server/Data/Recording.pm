@@ -146,6 +146,7 @@ sub delete
 
     $self->c->model('Relationship')->delete_entities('recording', $recording->id);
     $self->c->model('RecordingPUID')->delete_recordings($recording->id);
+    $self->c->model('RecordingEchoprint')->delete_recordings($recording->id);
     $self->c->model('ISRC')->delete_recordings($recording->id);
     $self->annotation->delete($recording->id);
     $self->tags->delete($recording->id);
@@ -187,6 +188,7 @@ sub merge
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('RecordingPUID')->merge_recordings($new_id, @old_ids);
+    $self->c->model('RecordingEchoprint')->merge_recordings($new_id, @old_ids);
     $self->c->model('ISRC')->merge_recordings($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);

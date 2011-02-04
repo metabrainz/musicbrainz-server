@@ -61,6 +61,16 @@ has 'puids' => (
     }
 );
 
+has 'echoprints' => (
+    isa     => 'ArrayRef',
+    is      => 'ro',
+    traits  => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        add_echoprint => 'push',
+    }
+);
+
 sub related_works {
     my $self = shift;
     return map {

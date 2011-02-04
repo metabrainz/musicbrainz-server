@@ -94,6 +94,11 @@ ALTER TABLE artist_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
+ALTER TABLE echoprint
+   ADD CONSTRAINT echoprint_fk_version
+   FOREIGN KEY (version)
+   REFERENCES clientversion(id);
+
 ALTER TABLE editor_collection
    ADD CONSTRAINT editor_collection_fk_editor
    FOREIGN KEY (editor)
@@ -754,6 +759,16 @@ ALTER TABLE recording_annotation
    ADD CONSTRAINT recording_annotation_fk_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
+
+ALTER TABLE recording_echoprint
+   ADD CONSTRAINT recording_echoprint_fk_echoprint
+   FOREIGN KEY (echoprint)
+   REFERENCES echoprint(id);
+
+ALTER TABLE recording_echoprint
+   ADD CONSTRAINT recording_echoprint_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
 
 ALTER TABLE recording_gid_redirect
    ADD CONSTRAINT recording_gid_redirect_fk_new_id

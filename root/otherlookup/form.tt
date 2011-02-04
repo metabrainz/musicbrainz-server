@@ -8,6 +8,7 @@
         [% form_row_text(r, 'freedbid', l('Freedb ID:')) %]
         [% form_row_text_long(r, 'mbid',     l('MBID:')) %]
         [% form_row_text_long(r, 'puid',     l('PUID:')) %]
+        [% form_row_text_long(r, 'echoprint',     l('Echoprint:')) %]
         [% form_row_text_long(r, 'discid',   l('Disc ID:')) %]
 
         <div class="row no-label">

@@ -14,6 +14,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Artist::Edit
     MusicBrainz::Server::Edit::Artist::EditAlias
     MusicBrainz::Server::Edit::Artist::Merge
+    MusicBrainz::Server::Edit::Echoprint::Delete
     MusicBrainz::Server::Edit::Label::AddAlias
     MusicBrainz::Server::Edit::Label::DeleteAlias
     MusicBrainz::Server::Edit::Label::AddAnnotation
@@ -31,6 +32,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::SetTrackLengths
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
+    MusicBrainz::Server::Edit::Recording::AddEchoprints
     MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Create
     MusicBrainz::Server::Edit::Recording::Edit

@@ -6,6 +6,7 @@ Disallow: /artist/
 Disallow: /browse/
 Disallow: /cdstub/
 Disallow: /cdtoc/
+Disallow: /echoprint/
 Disallow: /edit/
 Disallow: /freedb/
 Disallow: /isrc/
