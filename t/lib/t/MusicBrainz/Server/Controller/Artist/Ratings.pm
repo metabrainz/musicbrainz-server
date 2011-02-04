@@ -24,7 +24,10 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (3, 2, 100);
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/ratings', 'get artist ratings');
 html_ok($mech->content);
 $mech->content_contains('new_editor');
-$mech->content_contains('20 - ');
+{
+    local $TODO = 'MBS-1440';
+    $mech->content_contains('20 - ');
+}
 $mech->content_lacks('alice');
 $mech->content_lacks('100');
 $mech->content_contains('1 private rating not listed');

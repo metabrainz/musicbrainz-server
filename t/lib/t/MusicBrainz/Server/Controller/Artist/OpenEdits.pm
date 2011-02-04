@@ -36,11 +36,6 @@ $mech->get_ok("/artist/745c079d-374e-4436-9448-da92dedef3ce/open_edits",
               'fetch artist edit history');
 $mech->content_contains('/edit/' . $edit->id, 'contains open edit id');
 
-$mech->get_ok("/test/reject-edit/".$edit->id, 'reject edit');
-
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce');
-$mech->content_contains('Test Artist', 'contains original artist name');
-
 };
 
 1;
