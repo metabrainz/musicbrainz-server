@@ -17,7 +17,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/label/create');
-xml_ok($mech->content);
+html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
@@ -59,7 +59,7 @@ is_deeply($edit->data, {
     });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('controller label', '..has name');
 $mech->content_contains('label, controller', '..has sort name');
 $mech->content_contains('label created in controller_label.t', '..has comment');

@@ -17,7 +17,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/label/f34c079d-374e-4436-9448-da92dedef3ce/delete');
-xml_ok($mech->content);
+html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'confirm.edit_note' => ' ',
@@ -34,7 +34,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('Empty Label', '..contains old label name');
 
 };

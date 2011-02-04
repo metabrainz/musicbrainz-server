@@ -15,7 +15,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '');
 
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/details",
               'fetch work details page');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->content_contains('http://musicbrainz.org/work/745c079d-374e-4436-9448-da92dedef3ce',
                         '..has permanent link');
 $mech->content_contains('<td>745c079d-374e-4436-9448-da92dedef3ce</td>',

@@ -14,7 +14,7 @@ my $c    = $test->c;
 MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
 
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->content_like(qr{musical});
 ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 

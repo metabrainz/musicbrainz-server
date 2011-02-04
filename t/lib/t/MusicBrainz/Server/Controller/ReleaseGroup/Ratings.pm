@@ -12,7 +12,7 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/ratings', 'get rg ratings');
-xml_ok($mech->content);
+html_ok($mech->content);
 
 };
 

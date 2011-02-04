@@ -15,7 +15,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/remove-puid?puid=b9c8f51f-cc9a-48fa-a415-4c91fcca80f0');
-xml_ok($mech->content);
+html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'confirm.edit_note' => ' ',
@@ -34,7 +34,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', '..contains puid');
 $mech->content_contains('Dancing Queen', '..contains recording name');
 

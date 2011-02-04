@@ -12,7 +12,7 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $mech->get_ok('/puid/b9c8f51f-cc9a-48fa-a415-4c91fcca80f0');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->content_contains('Dancing Queen');
 $mech->content_contains('ABBA');
 

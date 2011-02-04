@@ -17,7 +17,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/merge');
-xml_ok($mech->content);
+html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'filter.query' => 'Another',
@@ -41,7 +41,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('Warp Records', '..contains old name');
 $mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190', '..contains old label link');
 $mech->content_contains('Another Label', '..contains new name');

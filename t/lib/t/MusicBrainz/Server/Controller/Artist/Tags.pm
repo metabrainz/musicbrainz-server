@@ -17,7 +17,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 # Test tags
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->content_like(qr{musical});
 ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 

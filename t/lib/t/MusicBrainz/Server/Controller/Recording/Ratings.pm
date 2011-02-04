@@ -12,7 +12,7 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/ratings', 'get recording ratings');
-xml_ok($mech->content);
+html_ok($mech->content);
 
 };
 

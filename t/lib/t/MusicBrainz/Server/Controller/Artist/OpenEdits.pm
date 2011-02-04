@@ -20,7 +20,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
-xml_ok($mech->content);
+html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-artist.name' => 'history viewing',

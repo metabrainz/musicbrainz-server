@@ -12,7 +12,7 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80', 'fetch release');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/Aerial/, 'title has release name');
 $mech->content_like(qr/Aerial/, 'content has release name');
 $mech->content_like(qr/Kate Bush/, 'release artist credit');

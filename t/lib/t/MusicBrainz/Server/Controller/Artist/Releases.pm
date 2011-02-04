@@ -17,7 +17,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
 # Test /artist/gid/releases
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/releases', 'get Test Artist page');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/Test Artist/, 'title has Test Artist');
 $mech->title_like(qr/releases/i, 'title indicates releases listing');
 $mech->content_contains('Test Release', 'release title');

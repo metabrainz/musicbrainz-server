@@ -12,7 +12,7 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'fetch release group');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/Arrival/, 'title has release group name');
 $mech->content_like(qr/Arrival/, 'content has release group name');
 $mech->content_like(qr/Album/, 'has release group type');
@@ -22,7 +22,7 @@ $mech->content_like(qr{/artist/a45c079d-374e-4436-9448-da92dedef3cf}, 'link to a
 $mech->content_like(qr/Test annotation 5/, 'has annotation');
 
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5', 'fetch Aerial release group');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->content_like(qr/Aerial/);
 $mech->content_like(qr/2xCD/, 'correct medium format');
 $mech->content_like(qr/7 \+ 9/, 'correct track count');
