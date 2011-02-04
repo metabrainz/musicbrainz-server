@@ -18,7 +18,7 @@
       "scripts/MB/GuessCase/Utils.js",
       "scripts/MB/GuessCase/Modes.js",
       "scripts/MB/GuessCase/Main.js",
-      "scripts/MB/GuessCase/ReleaseGroup.js",
+      "scripts/MB/GuessCase/Release.js",
       "scripts/MB/Control/ArtistCredit.js",
       "scripts/MB/Control/Autocomplete.js",
       "scripts/MB/Control/Bubble.js",

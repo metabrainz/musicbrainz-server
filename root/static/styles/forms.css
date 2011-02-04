@@ -219,6 +219,10 @@ div.half-width fieldset textarea {
     width: 300px;
 }
 
+div.half-width fieldset input.label-code {
+    width: 100px;
+}
+
 div.half-width fieldset h3 {
     margin: 24px 10px 0;
 }

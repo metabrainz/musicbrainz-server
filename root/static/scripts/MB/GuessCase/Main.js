@@ -359,3 +359,4 @@ MB.GuessCase.Main = function () {
 
     return self;
 };
+

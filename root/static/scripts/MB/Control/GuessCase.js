@@ -94,12 +94,19 @@ MB.Control.initialize_guess_case = function (bubbles, type) {
     bubbles.add ($name, $gcdoc);
     MB.Control.GuessCase (type, $name);
 
-    if (type === 'artist')
+    if (type === 'label' || type === 'artist')
     {
         var $sortname = $('input#id-edit-' + type + '\\.sort_name');
         var $sortdoc = $('div.sortname.bubble');
 
         bubbles.add ($sortname, $sortdoc);
-        MB.Control.ArtistSortName (type, $name, $sortname).initialize ();
+        if (type === 'artist')
+        {
+            MB.Control.ArtistSortName (type, $name, $sortname).initialize ();
+        }
+        else
+        {
+            MB.Control.SortName (type, $name, $sortname).initialize ();
+        }
     }
 };
