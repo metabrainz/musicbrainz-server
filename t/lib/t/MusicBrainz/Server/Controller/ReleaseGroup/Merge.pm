@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::ReleaseGroup::Merge;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -41,4 +44,6 @@ $mech->content_contains('234c079d-374e-4436-9448-da92dedef3ce', '..has link to o
 $mech->content_contains('Test RG 1', '..has new release group name');
 $mech->content_contains('ecc33260-454c-11de-8a39-0800200c9a66', '..has a link to new release group');
 
-done_testing;
+};
+
+1;

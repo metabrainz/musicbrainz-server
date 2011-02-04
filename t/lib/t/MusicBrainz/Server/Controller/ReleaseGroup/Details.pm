@@ -1,13 +1,15 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::ReleaseGroup::Show;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok("/release-group/234c079d-374e-4436-9448-da92dedef3ce/details",
               'fetch release group details page');
@@ -17,4 +19,6 @@ $mech->content_contains('http://musicbrainz.org/release-group/234c079d-374e-4436
 $mech->content_contains('<td>234c079d-374e-4436-9448-da92dedef3ce</td>',
                         '..has mbid in plain text');
 
-done_testing;
+};
+
+1;
