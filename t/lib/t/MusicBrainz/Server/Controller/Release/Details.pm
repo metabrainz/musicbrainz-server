@@ -1,13 +1,15 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Release::Details;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok("/release/f205627f-b70a-409d-adbe-66289b614e80/details",
               'fetch release details page');
@@ -17,4 +19,6 @@ $mech->content_contains('http://musicbrainz.org/release/f205627f-b70a-409d-adbe-
 $mech->content_contains('<td>f205627f-b70a-409d-adbe-66289b614e80</td>',
                         '..has mbid in plain text');
 
-done_testing;
+};
+
+1;
