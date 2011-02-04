@@ -68,18 +68,11 @@ sub enter_votes : Local RequireAuth
     my $form = $c->form(vote_form => 'Vote');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @submissions = @{ $form->field('vote')->value };
-        my @votes = grep { $_->{vote} } @submissions;
-        $c->model('Vote')->enter_votes($c->user->id, @votes);
-        
-        my @notes = grep { $_->{edit_note} } @submissions;
-        for my $note (@notes) {
-            $c->model('EditNote')->add_note(
-                $note->{edit_id},
-                {
-                    editor_id => $c->user->id,
-                    text => $note->{edit_note},
-                });
-        }
+        $c->model('Edit')->insert_votes_and_notes(
+            $c->user->id,
+            votes => [ grep { defined($_->{vote}) } @submissions ],
+            notes => [ grep { defined($_->{edit_note}) } @submissions ]
+        );
     }
 
     my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open_edits');
@@ -180,6 +173,40 @@ sub search : Path('/search/edits') RequireAuth
             template => 'edit/search_results.tt'
         );
     }
+}
+
+sub subscribed : Local RequireAuth
+{
+    my ($self, $c) = @_;
+    my $edits = $self->_load_paged($c, sub {
+        $c->model('Edit')->subscribed_entity_edits($c->user->id, shift, shift);
+    });
+    $c->model('Edit')->load_all(@$edits);
+    $c->model('Vote')->load_for_edits(@$edits);
+    $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+
+    $c->stash(
+        edits    => $edits,
+        template => 'edit/subscribed.tt'
+    );
+}
+
+sub subscribed_editors : Local RequireAuth
+{
+    my ($self, $c) = @_;
+    my $edits = $self->_load_paged($c, sub {
+        $c->model('Edit')->subscribed_editor_edits($c->user->id, shift, shift);
+    });
+    $c->model('Edit')->load_all(@$edits);
+    $c->model('Vote')->load_for_edits(@$edits);
+    $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+
+    $c->stash(
+        edits    => $edits,
+        template => 'edit/subscribed-editors.tt'
+    );
 }
 
 =head2 conditions

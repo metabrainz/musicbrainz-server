@@ -162,6 +162,73 @@ sub find_for_subscription
     }
 }
 
+sub subscribed_entity_edits
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my @subscribable_types = qw( artist label );
+
+    my %subscriptions = map {
+        $_ => $self->c->sql->select_single_column_array(
+            "SELECT $_ FROM editor_subscribe_$_ WHERE editor = ?",
+            $editor_id
+        )
+    } @subscribable_types;
+
+    my @filter_on = grep { @{ $subscriptions{$_} } } keys %subscriptions
+        or return;
+
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+        ' WHERE editor != ?
+            AND status = ?
+            AND id IN (' .
+            join(
+                ' UNION ALL ',
+                map {
+                    "SELECT edit FROM edit_$_ WHERE $_ IN (" .
+                        placeholders(@{ $subscriptions{$_} }) .
+                    ')'
+                } @filter_on
+            ) .
+         ')
+       ORDER BY id DESC
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub {
+            return $self->_new_from_row(shift);
+        },
+        $query, $editor_id, $STATUS_OPEN,
+        (map { @{ $subscriptions{$_} } } @filter_on),
+        $offset);
+}
+
+sub subscribed_editor_edits {
+    my ($self, $editor_id, $limit, $offset) = @_;
+
+    my @editor_ids = @{
+        $self->c->sql->select_single_column_array(
+            'SELECT subscribed_editor FROM editor_subscribe_editor
+              WHERE editor = ?',
+            $editor_id)
+    } or return;
+
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+        ' WHERE status = ?
+            AND editor IN (' . placeholders(@editor_ids) . ')
+       ORDER BY id DESC
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub {
+            return $self->_new_from_row(shift);
+        },
+        $query, $STATUS_OPEN, @editor_ids, $offset);
+}
+
 sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
@@ -459,6 +526,24 @@ sub _close
     $edit->adjust_edit_pending(-1);
     $edit->status($status);
     $self->c->model('Editor')->credit($edit->editor_id, $status);
+}
+
+sub insert_votes_and_notes {
+    my ($self, $user_id, %data) = @_;
+    my @votes = @{ $data{votes} || [] };
+    my @notes = @{ $data{notes} || [] };
+
+    Sql::run_in_transaction(sub {
+        $self->c->model('Vote')->enter_votes($user_id, @votes);
+        for my $note (@notes) {
+            $self->c->model('EditNote')->add_note(
+                $note->{edit_id},
+                {
+                    editor_id => $user_id,
+                    text => $note->{edit_note},
+                });
+        }
+    }, $self->c->raw_sql);
 }
 
 __PACKAGE__->meta->make_immutable;
