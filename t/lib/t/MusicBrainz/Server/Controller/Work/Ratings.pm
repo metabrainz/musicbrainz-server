@@ -14,7 +14,7 @@ my $c    = $test->c;
 MusicBrainz::Server::Test->prepare_test_database($c, '');
 
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/ratings");
-xml_ok($mech->content);
+html_ok($mech->content);
 
 };
 

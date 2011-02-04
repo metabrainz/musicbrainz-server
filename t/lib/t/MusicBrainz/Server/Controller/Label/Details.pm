@@ -15,7 +15,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
 
 $mech->get_ok("/label/46f0f4cd-8aab-4b33-b698-f459faf64190/details",
               'fetch label details page');
-xml_ok($mech->content);
+html_ok($mech->content);
 
 $mech->content_contains('http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
                         '..has permanent link');

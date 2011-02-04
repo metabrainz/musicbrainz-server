@@ -39,7 +39,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('Test Artist', '..has artist name');
 $mech->content_contains('Test Alias', '..has old alias name');
 $mech->content_contains('Edited alias', '..has new alias name');

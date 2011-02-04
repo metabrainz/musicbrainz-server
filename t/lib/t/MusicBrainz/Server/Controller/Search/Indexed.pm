@@ -12,7 +12,7 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $mech->get_ok('/search?query=Love&type=artist', 'perform artist search');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->content_contains('784 results', 'has result count');
 $mech->content_contains('L.O.V.E.', 'has correct search result');
 $mech->content_contains('Love, Laura', 'has artist sortname');

@@ -14,7 +14,7 @@ my $c    = $test->c;
 MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
 
 $mech->get_ok("/label/46f0f4cd-8aab-4b33-b698-f459faf64190", 'fetch label index');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/Warp Records/, 'title has label name');
 $mech->content_like(qr/Warp Records/, 'content has label name');
 $mech->content_like(qr/Sheffield based electronica label/, 'disambiguation comments');

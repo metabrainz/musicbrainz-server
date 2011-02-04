@@ -15,7 +15,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce/merge');
-xml_ok($mech->content);
+html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'filter.query' => 'Test RG 1',
@@ -38,7 +38,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('Arrival', '..has old release group name');
 $mech->content_contains('234c079d-374e-4436-9448-da92dedef3ce', '..has link to old release group');
 $mech->content_contains('Test RG 1', '..has new release group name');

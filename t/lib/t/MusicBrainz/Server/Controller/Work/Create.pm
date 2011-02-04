@@ -17,7 +17,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/work/create');
-xml_ok($mech->content);
+html_ok($mech->content);
 
 my $request = POST $mech->uri, [
     'edit-work.comment' => 'A comment!',
@@ -42,7 +42,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('Enchanted', '..has work name');
 $mech->content_contains('A comment!', '..has comment');
 $mech->content_contains('Composition', '..has type');

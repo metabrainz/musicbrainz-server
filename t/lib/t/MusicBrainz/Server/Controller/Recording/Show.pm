@@ -12,7 +12,7 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8', 'fetch recording');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/King of the Mountain/, 'title has recording name');
 $mech->content_like(qr/King of the Mountain/, 'content has recording name');
 $mech->content_like(qr/4:54/, 'has recording duration');
@@ -27,7 +27,7 @@ $mech->content_like(qr{/artist/4b585938-f271-45e2-b19a-91c634b5e396}, 'link to a
 $mech->content_like(qr/This recording does not have an annotation/, 'has no annotation');
 
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce', 'fetch dancing queen recording');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/Dancing Queen/);
 $mech->content_contains('Test annotation 3', 'has annotation');
 

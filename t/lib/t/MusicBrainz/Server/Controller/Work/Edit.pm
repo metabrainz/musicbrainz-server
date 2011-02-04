@@ -17,7 +17,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
-xml_ok($mech->content);
+html_ok($mech->content);
 my $request = POST $mech->uri, [
     'edit-work.iswc' => 'T-123456789-0',
     'edit-work.comment' => 'A comment!',
@@ -30,7 +30,7 @@ my $request = POST $mech->uri, [
 my $response = $mech->request($request);
 ok($mech->success);
 ok($mech->uri =~ qr{/work/745c079d-374e-4436-9448-da92dedef3ce$});
-xml_ok($mech->content);
+html_ok($mech->content);
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
@@ -57,7 +57,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-xml_ok($mech->content, '..valid xml');
+html_ok($mech->content, '..valid xml');
 $mech->content_contains('Another name', '..has new name');
 $mech->content_contains('Dancing Queen', '..has old name');
 $mech->content_contains('T-123.456.789-0', '..has new iswc');
