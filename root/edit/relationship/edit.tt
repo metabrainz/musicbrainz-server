@@ -52,12 +52,6 @@
 var typeInfo = [% type_info %];
 </script>
 
-[%# FIXME: move this checkbox elsewhere. --warp. %]
-<p style="float: right; margin: 16px 1em; text-align: right;">
-    <input style="margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;" class="autocomplete-directsearch" type="checkbox" value="0"></input>
-    <label>[%- l('Use direct search') -%]</label>
-</p>
-
 <fieldset>
     <legend>[% l('Relationship Details') %]</legend>
 
