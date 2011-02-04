@@ -1,13 +1,17 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Work::Show;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '');
 
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce");
 xml_ok($mech->content);
@@ -27,4 +31,6 @@ is($mech->status(), 404);
 $mech->get('/work/xxxx079d-374e-4436-9448-da92dedef3ce', 'bad request');
 is($mech->status(), 400);
 
-done_testing;
+};
+
+1;
