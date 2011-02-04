@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::Release::AddAnnotation;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -34,4 +37,6 @@ $mech->content_like(qr{release/f205627f-b70a-409d-adbe-66289b614e80/?"}, '..has 
 $mech->content_contains('release/f205627f-b70a-409d-adbe-66289b614e80/annotation/' . $edit->annotation_id,
                         '..has a link to the annotation');
 
-done_testing;
+};
+
+1;
