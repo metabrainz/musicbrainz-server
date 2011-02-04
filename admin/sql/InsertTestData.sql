@@ -1,5 +1,3 @@
-BEGIN;
-
 SET client_min_messages TO 'WARNING';
 
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
@@ -401,5 +399,3 @@ ALTER SEQUENCE medium_id_seq RESTART 7;
 ALTER SEQUENCE tag_id_seq RESTART 100;
 
 SET client_min_messages TO 'NOTICE';
-
-COMMIT;

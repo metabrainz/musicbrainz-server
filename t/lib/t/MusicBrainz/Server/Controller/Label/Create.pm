@@ -11,7 +11,7 @@ my $test = shift;
 my $mech = $test->mech;
 my $c    = $test->c;
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
+MusicBrainz::Server::Test->prepare_test_database($c);
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -56,6 +56,7 @@ is_deeply($edit->data, {
             month => 4,
             day => 15
         },
+        ipi_code => undef,
     });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');

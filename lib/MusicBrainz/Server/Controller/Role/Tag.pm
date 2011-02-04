@@ -35,7 +35,6 @@ sub tags : Chained('load') PathPart('tags')
 
     my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id)
         if $c->user_exists;
-
     my $tags = $self->_load_paged($c, sub {
         $tags_model->find_tags($entity->id, shift, shift);
     });
