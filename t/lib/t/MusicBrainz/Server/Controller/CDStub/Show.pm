@@ -1,18 +1,20 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::CDStub::Show;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_raw_test_database($c, '+cdstub_raw');
 
 $mech->get_ok("/cdstub/YfSgiOEayqN77Irs.VNV.UNJ0Zs-", 'fetch cdstub page');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->title_like(qr/Test Stub/, 'title has artist name');
 $mech->content_like(qr/Test Artist/, 'content has artist name');
 $mech->content_like(qr/YfSgiOEayqN77Irs.VNV.UNJ0Zs-/, 'content has disc id');
@@ -21,5 +23,6 @@ $mech->content_like(qr/Track title 2/, 'content has first track');
 $mech->content_like(qr/837101029192/, 'content has barcode');
 $mech->content_like(qr/this is a comment/, 'content has comment');
 
-done_testing;
+};
 
+1;
