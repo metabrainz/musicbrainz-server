@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::Search::Direct;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/search?query=Kate&type=artist&direct=on', 'perform artist search');
 xml_ok($mech->content);
@@ -65,4 +68,6 @@ $mech->content_contains('1 result', 'has result count');
 $mech->content_contains('musical', 'has correct search result');
 $mech->content_contains('/tag/musical', 'has link to the tag');
 
-done_testing;
+};
+
+1;
