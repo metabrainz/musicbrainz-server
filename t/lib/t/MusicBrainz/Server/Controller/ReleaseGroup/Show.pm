@@ -11,6 +11,8 @@ my $test = shift;
 my $mech = $test->mech;
 my $c    = $test->c;
 
+MusicBrainz::Server::Test->prepare_test_database($c);
+
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'fetch release group');
 html_ok($mech->content);
 $mech->title_like(qr/Arrival/, 'title has release group name');
@@ -46,7 +48,7 @@ $mech->content_like(qr{0094634396028}, 'has the us barcode');
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'fetch release group');
-$mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/merge',
+$mech->content_contains('/release_group/merge_queue?add-to-merge=1',
                         'has link to merge release groups');
 
 $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/edits',
