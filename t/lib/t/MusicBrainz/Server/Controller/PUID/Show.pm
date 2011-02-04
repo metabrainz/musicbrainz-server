@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::PUID::Show;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/puid/b9c8f51f-cc9a-48fa-a415-4c91fcca80f0');
 xml_ok($mech->content);
@@ -19,4 +22,6 @@ is($mech->status(), 404);
 $mech->get('/puid/ffffffff-cc9a-48fa-a415-4c91fcca80f0');
 is($mech->status(), 404);
 
-done_testing;
+};
+
+1;
