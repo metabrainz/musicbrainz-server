@@ -1,13 +1,17 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Label::Details;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
 
 $mech->get_ok("/label/46f0f4cd-8aab-4b33-b698-f459faf64190/details",
               'fetch label details page');
@@ -18,4 +22,6 @@ $mech->content_contains('http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f4
 $mech->content_contains('<td>46f0f4cd-8aab-4b33-b698-f459faf64190</td>',
                         '..has mbid in plain text');
 
-done_testing;
+};
+
+1;
