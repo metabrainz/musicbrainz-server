@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::Recording::Show;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8', 'fetch recording');
 xml_ok($mech->content);
@@ -28,4 +31,6 @@ xml_ok($mech->content);
 $mech->title_like(qr/Dancing Queen/);
 $mech->content_contains('Test annotation 3', 'has annotation');
 
-done_testing;
+};
+
+1;

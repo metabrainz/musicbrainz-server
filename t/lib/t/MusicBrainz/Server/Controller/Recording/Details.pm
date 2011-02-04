@@ -1,13 +1,15 @@
-use strict;
-use warnings;
-
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
+package t::MusicBrainz::Server::Controller::Recording::Details;
+use Test::Routine;
 use Test::More;
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok("/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/details",
               'fetch recording details page');
@@ -17,4 +19,6 @@ $mech->content_contains('http://musicbrainz.org/recording/54b9d183-7dab-42ba-94a
 $mech->content_contains('<td>54b9d183-7dab-42ba-94a3-7388a66604b8</td>',
                         '..has mbid in plain text');
 
-done_testing;
+};
+
+1;
