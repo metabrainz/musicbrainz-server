@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::ReleaseGroup::Show;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'fetch release group');
 xml_ok($mech->content);
@@ -49,4 +52,6 @@ $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/mer
 $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce/edits',
     'has a link to view editing history for the release group');
 
-done_testing;
+};
+
+1;
