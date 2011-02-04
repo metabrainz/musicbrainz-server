@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::Recording::DeletePUID;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -35,4 +38,6 @@ xml_ok($mech->content, '..valid xml');
 $mech->content_contains('b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', '..contains puid');
 $mech->content_contains('Dancing Queen', '..contains recording name');
 
-done_testing;
+};
+
+1;

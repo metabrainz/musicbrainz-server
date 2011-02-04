@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::Recording::Merge;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -40,8 +43,6 @@ xml_ok($mech->content, '..valid xml');
 $mech->content_contains('Dancing Queen', '..contains old name');
 $mech->content_contains('King of the Mountain', '..contains new name');
 
-# FIXME: this currently does not work, I've created a ticket for this in jira. See http://jira.musicbrainz.org/browse/MBS-783 .
-# $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce', '...contains old recording link');
-# $mech->content_contains('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8', '..contains new recording link');
+};
 
-done_testing;
+1;

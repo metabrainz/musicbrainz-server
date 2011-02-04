@@ -1,12 +1,15 @@
-use strict;
+package t::MusicBrainz::Server::Controller::Recording::PUIDs;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
 
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/puids', 'get recording puids');
 xml_ok($mech->content);
@@ -16,4 +19,6 @@ $mech->content_contains('puid/134478d1-306e-41a1-8b37-ff525e53c8be', 'has puid 2
 $mech->get_ok('/recording/659f405b-b4ee-4033-868a-0daa27784b89/puids', 'get a page with no puids');
 $mech->content_contains('This recording does not have any associated PUIDs');
 
-done_testing;
+};
+
+1;
