@@ -205,9 +205,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.renderPreviewHTML = function () {
-        return '<a target="_blank" href="/artist/' + self.$gid.val () +
-            '" title="' + self.$sortname.val () + '">' +
-            self.renderName () + '</a>' + self.$join.val ();
+        return '<a target="_blank" href="/artist/' +
+            MB.utility.escapeHTML (self.$gid.val ()) + '" title="' +
+            MB.utility.escapeHTML (self.$sortname.val ()) + '">' +
+            MB.utility.escapeHTML (self.renderName ()) + '</a>' +
+            MB.utility.escapeHTML (self.$join.val ());
     };
 
     self.remove = function () {

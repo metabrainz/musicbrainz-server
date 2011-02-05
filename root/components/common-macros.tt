@@ -143,8 +143,6 @@ END -%]
     '</span>' IF label.edits_pending AND action == 'show';
 END -%]
 
-
-
 [%- MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
