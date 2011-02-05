@@ -47,7 +47,6 @@ around 'validate_field' => sub {
 
         if ($artist_id && $name)
         {
-            warn "[allow linked] artists++ (now $artists)\n";
             $artists++;
         }
 
@@ -55,7 +54,6 @@ around 'validate_field' => sub {
         {
             if ($self->allow_unlinked)
             {
-                warn "[allow unlinked] artists++ (now $artists)\n";
                 $artists++;
             }
             else
@@ -68,26 +66,21 @@ around 'validate_field' => sub {
         }
     }
 
-    warn "final artist count: $artists\n";
-
-#     Do not nag about the field being required if there are other errors which
-#     already invalidate the field.
+    # Do not nag about the field being required if there are other
+    # errors which already invalidate the field.
     return 0 if $self->has_errors;
 
     if ($self->required && ! $artists)
     {
         $self->add_error ("Artist credit field is required");
-        return 1;
     }
 
-    return 0;
+    return !$self->has_errors;
 };
 
 sub validate
 {
     my $self = shift;
-
-#     warn "Perhaps called on edit submit? \n";
 
     my @credits;
     my @fields = $self->field('names')->fields;
@@ -102,12 +95,8 @@ sub validate
         push @credits, $join if $join || @fields;
     }
 
-#     use Data::Dumper;
-#     warn "new value is ".Dumper (\@credits)."\n";
 
     $self->value(\@credits);
-
-#     $self->add_error ('end of validate...');
 }
 
 around 'fif' => sub {
