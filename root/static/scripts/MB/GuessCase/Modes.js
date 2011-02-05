@@ -51,8 +51,7 @@ MB.GuessCase.Modes = function (language) {
      * Update the help text displayed when a mode is selected.
      **/
     var updateMode = function (event) {
-        // FIXME: needs to be a doc bubble. --warp. 
-        // $('#gc-help').html (self.getMode ().getDescription ());
+        $('#gc-help').html (self.getMode ().getDescription ());
     };
 
     /**
@@ -104,3 +103,4 @@ MB.GuessCase.Modes = function (language) {
 
     return self;
 };
+

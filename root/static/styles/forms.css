@@ -116,6 +116,13 @@ div.searchform {
 
 /* __________________________________
 
+          Guess Case doc bubble
+   __________________________________ */
+
+div.bubble table td { vertical-align: top; width: 50%; }
+
+/* __________________________________
+
           MB.Control.Autocomplete
    __________________________________ */
 
@@ -212,6 +219,10 @@ div.half-width fieldset textarea {
     width: 300px;
 }
 
+div.half-width fieldset input.label-code {
+    width: 100px;
+}
+
 div.half-width fieldset h3 {
     margin: 24px 10px 0;
 }
@@ -227,4 +238,5 @@ div.documentation div.bubble {
 }
 
 div.documentation div.artist-credit div.row { clear: none; }
+div.documentation div.container { width: 100%; }
 

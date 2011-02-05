@@ -21,33 +21,19 @@
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
-MB.GuessCase._Track = function () {
+MB.GuessCase._Release = function () {
     var self = MB.Object ();
 
-    var guess = function (data) {
-
-        if (MB.utility.isString (data))
-        {
-            return self.gc.guessTrack (data);
-        }
-
-        var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
-        }); 
-
-        return ret;
-    };
-
     self.gc = MB.GuessCase.Main ();
-    self.guess = guess;
+    self.guess = self.gc.guessRelease;
 
     return self;
 };
 
 $('document').ready (function () {
 
-    MB.GuessCase.track = MB.GuessCase._Track ();
-    MB.GuessCase.recording = MB.GuessCase.track;
+    MB.GuessCase.release = MB.GuessCase._Release ();
+    MB.GuessCase["release_group"] = MB.GuessCase.release;
+    MB.GuessCase["release-group"] = MB.GuessCase.release;
 
 });

@@ -374,3 +374,4 @@ MB.Control.ReleaseInformation = function() {
 
     return self;
 }
+
