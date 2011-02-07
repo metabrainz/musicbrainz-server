@@ -1,14 +1,19 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Work::Edit;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Work::Edit' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
@@ -16,7 +21,7 @@ my $work = $c->model('Work')->get_by_id(1);
 is_unchanged($work);
 is($work->edits_pending, 0);
 
-my $edit = create_edit($work);
+my $edit = create_edit($c, $work);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
 
 my ($edits) = $c->model('Edit')->find({ work => 1 }, 10, 0);
@@ -33,7 +38,7 @@ is_unchanged($work);
 is($work->edits_pending, 0);
 
 $work = $c->model('Work')->get_by_id(1);
-$edit = create_edit($work);
+$edit = create_edit($c, $work);
 accept_edit($c, $edit);
 
 $work = $c->model('Work')->get_by_id(1);
@@ -45,9 +50,10 @@ is($work->type_id, 1);
 is($work->edits_pending, 0);
 is($work->artist_credit->name, 'Foo');
 
-done_testing;
+};
 
 sub create_edit {
+    my $c = shift;
     my $work = shift;
     return $c->model('Edit')->create(
         edit_type => $EDIT_WORK_EDIT,
@@ -71,3 +77,5 @@ sub is_unchanged {
     is($work->type_id, undef);
     is($work->artist_credit_id, 1);
 }
+
+1;

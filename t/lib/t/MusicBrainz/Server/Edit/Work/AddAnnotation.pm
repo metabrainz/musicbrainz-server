@@ -1,13 +1,19 @@
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Work::AddAnnotation;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Work::AddAnnotation' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ANNOTATION );
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+annotation');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
@@ -41,4 +47,6 @@ is($annotation->changelog, 'A changelog');
 my $annotation2 = $c->model('Work')->annotation->get_by_id($edit->annotation_id);
 is_deeply($annotation, $annotation2);
 
-done_testing;
+};
+
+1;

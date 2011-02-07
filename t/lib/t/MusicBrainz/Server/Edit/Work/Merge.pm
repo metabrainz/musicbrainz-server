@@ -1,7 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Work::Merge;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Work::Merge' }
 
@@ -9,11 +10,15 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_MERGE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+work');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $edit = create_edit();
+my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Merge');
 
 my ($edits, $hits) = $c->model('Edit')->find({ work => [1, 2] }, 10, 0);
@@ -32,7 +37,7 @@ $a2 = $c->model('Work')->get_by_id(2);
 is($a1->edits_pending, 0);
 is($a2->edits_pending, 0);
 
-$edit = create_edit();
+$edit = create_edit($c);
 accept_edit($c, $edit);
 
 $a1 = $c->model('Work')->get_by_id(1);
@@ -42,9 +47,10 @@ ok(defined $a2);
 
 is($a2->edits_pending, 0);
 
-done_testing;
+};
 
 sub create_edit {
+    my $c = shift;
     return $c->model('Edit')->create(
         edit_type => $EDIT_WORK_MERGE,
         editor_id => 1,
@@ -52,3 +58,5 @@ sub create_edit {
         new_entity => { id => 2, name => 'New Work' },
     );
 }
+
+1;
