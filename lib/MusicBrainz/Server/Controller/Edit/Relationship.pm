@@ -90,23 +90,24 @@ sub edit : Local RequireAuth Edit
             $values->{attrs}->{$name} = 1;
         }
     }
-    my $form = $c->form( form => 'Relationship', init_object => $values );
+    my $form = $c->form(
+        form => 'Relationship',
+        init_object => $values,
+        attr_tree => $attr_tree
+    );
     $form->field('link_type_id')->_load_options;
 
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my @attributes;
-        foreach my $attr ($attr_tree->all_children) {
+        for my $attr ($attr_tree->all_children) {
             my $value = $form->field('attrs')->field($attr->name)->value;
-            if (defined $value) {
-                if (scalar $attr->all_children) {
-                    push @attributes, @{ $value };
-                }
-                elsif ($value) {
-                    push @attributes, $attr->id;
-                }
-            }
+            next unless defined($value);
+
+            push @attributes, scalar($attr->all_children)
+                ? @$value
+                : $value ? $attr->all_children : ();
         }
 
         my $values = $form->values;
@@ -173,7 +174,10 @@ sub create : Local RequireAuth Edit
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
     $c->stash( attr_tree => $attr_tree );
 
-    my $form = $c->form( form => 'Relationship' );
+    my $form = $c->form(
+        form => 'Relationship',
+        attr_tree => $attr_tree
+    );
     $c->stash(
         source => $source, source_type => $type0,
         dest   => $dest,   dest_type   => $type1
@@ -181,25 +185,17 @@ sub create : Local RequireAuth Edit
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @attributes;
-        my $link_type_id = $form->field('link_type_id')->value;
-        my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
-        my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
-            $link_type->all_attributes;
-        foreach my $attr ($attr_tree->all_children) {
+        for my $attr ($attr_tree->all_children) {
             my $value = $form->field('attrs')->field($attr->name)->value;
-            if ($value) {
-                my @values = $attr->all_children ? @{ $value } : ($attr->id);
-                push @attributes, @values;
-                if ($required_attributes{$attr->id} && !@values) {
-                    $form->field('attrs')->field($attr->name)->add_error(
-                        l('This attribute is required'));
-                    $c->detach;
-                }
-            }
+            next unless defined($value);
+
+            push @attributes, scalar($attr->all_children)
+                ? @$value
+                : $value ? $attr->all_children : ();
         }
 
         if ($c->model('Relationship')->exists($type0, $type1, {
-            link_type_id => $link_type_id,
+            link_type_id => $form->field('link_type_id')->value,
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
             attributes => \@attributes,
