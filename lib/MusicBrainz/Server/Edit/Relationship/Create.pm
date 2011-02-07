@@ -42,8 +42,8 @@ has '+data' => (
 sub initialize
 {
     my ($self, %opts) = @_;
-    my $e0 = delete $opts{entity0};
-    my $e1 = delete $opts{entity1};
+    my $e0 = delete $opts{entity0} or die "No entity0";
+    my $e1 = delete $opts{entity1} or die "No entity1";
 
     $opts{entity0} = {
         id => $e0->id,
@@ -164,13 +164,20 @@ sub accept
     );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $url = $self->c->model('URL')->get_by_id(
-            $self->data->{entity1}{id}
+        my $release = $self->c->model('Release')->get_by_id(
+            $self->data->{entity0}{id}
         );
 
-        $self->c->model('CoverArt')->cache_cover_art(
-            $self->data->{entity0}{id}, $link_type->name, $url->url
+        my $relationship = $self->c->model('Relationship')->get_by_id(
+            $self->data->{type0}, $self->data->{type1},
+            $self->entity_id
         );
+        $self->c->model('Link')->load($relationship);
+        $self->c->model('LinkType')->load($relationship->link);
+        $self->c->model('Relationship')->load_entities($relationship);
+        $release->add_relationship($relationship);
+
+        $self->c->model('CoverArt')->cache_cover_art($release);
     }
 }
 

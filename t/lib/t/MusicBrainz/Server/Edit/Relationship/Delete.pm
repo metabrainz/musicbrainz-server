@@ -1,16 +1,20 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Relationship::Delete;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Relationship::Delete' }
 
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
@@ -18,7 +22,7 @@ subtest 'Test edit creation/rejection' => sub {
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     is($rel->edits_pending, 0);
 
-    my $edit = _create_edit();
+    my $edit = _create_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Delete');
 
     my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
@@ -41,7 +45,7 @@ subtest 'Test edit creation/rejection' => sub {
 };
 
 subtest 'Creating as an auto-editor still requires voting' => sub {
-    my $edit = _create_edit(privileges => $AUTO_EDITOR_FLAG);
+    my $edit = _create_edit($c, privileges => $AUTO_EDITOR_FLAG);
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     ok(defined $rel, 'relationship should still exist');
     is($rel->edits_pending, 1, 'relationship should have an edit pending');
@@ -49,15 +53,16 @@ subtest 'Creating as an auto-editor still requires voting' => sub {
 
 subtest 'Test edit acception' => sub {
     # Test accepting the edit
-    my $edit = _create_edit();
+    my $edit = _create_edit($c);
     accept_edit($c, $edit);
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     ok(!defined $rel);
 };
 
-done_testing;
+};
 
 sub _create_edit {
+    my $c = shift;
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_DELETE,
@@ -69,3 +74,4 @@ sub _create_edit {
     );
 }
 
+1;
