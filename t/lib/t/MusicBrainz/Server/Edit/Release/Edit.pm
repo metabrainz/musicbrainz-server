@@ -1,7 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Release::Edit;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::Edit' };
 
@@ -9,7 +10,11 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
@@ -21,7 +26,7 @@ is_unchanged($release);
 is($release->edits_pending, 0);
 
 # Test editing all possible fields
-my $edit = create_edit($release);
+my $edit = create_edit($c, $release);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit');
 
 my ($edits) = $c->model('Edit')->find({ release => $release->id }, 10, 0);
@@ -37,7 +42,7 @@ is_unchanged($release);
 is($release->edits_pending, 0);
 
 # Accept the edit
-$edit = create_edit($release);
+$edit = create_edit($c, $release);
 accept_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
@@ -55,7 +60,7 @@ is($release->language_id, 1);
 is($release->comment, 'Edited comment');
 is($release->artist_credit->name, 'New Artist');
 
-done_testing;
+};
 
 sub is_unchanged {
     my ($release) = @_;
@@ -72,6 +77,7 @@ sub is_unchanged {
 }
 
 sub create_edit {
+    my $c = shift;
     my $release = shift;
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_EDIT,
@@ -94,3 +100,5 @@ sub create_edit {
         script_id => 1,
     );
 }
+
+1;

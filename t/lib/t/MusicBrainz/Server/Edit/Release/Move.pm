@@ -1,7 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Release::Move;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::Move' };
 
@@ -9,7 +10,11 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
@@ -21,7 +26,7 @@ is_unchanged($release);
 is($release->edits_pending, 0);
 
 # Test editing all possible fields
-my $edit = create_edit($release);
+my $edit = create_edit($c, $release, $release_group);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Move');
 
 my ($edits) = $c->model('Edit')->find({ release => $release->id }, 10, 0);
@@ -37,14 +42,14 @@ is_unchanged($release);
 is($release->edits_pending, 0);
 
 # Accept the edit
-$edit = create_edit($release);
+$edit = create_edit($c, $release, $release_group);
 accept_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
 is($release->release_group_id, 2);
 is($release->edits_pending, 0);
 
-done_testing;
+};
 
 sub is_unchanged {
     my ($release) = @_;
@@ -52,7 +57,9 @@ sub is_unchanged {
 }
 
 sub create_edit {
+    my $c = shift;
     my $release = shift;
+    my $release_group = shift;
     $c->model('ReleaseGroup')->load($release);
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_MOVE,
@@ -61,3 +68,5 @@ sub create_edit {
         new_release_group => $release_group
     );
 }
+
+1;

@@ -1,16 +1,23 @@
-#!/usr/bin/perl
-use strict;
+package t::MusicBrainz::Server::Edit::Release::EditBarcodes;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
+
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::EditBarcodes' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+release');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $edit = _create_edit();
+my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditBarcodes');
 
 my ($edits) = $c->model('Edit')->find({ release => [1, 2] }, 10, 0);
@@ -26,7 +33,7 @@ is($r2->barcode, undef);
 
 reject_edit($c, $edit);
 
-my $edit = _create_edit();
+my $edit = _create_edit($c);
 accept_edit($c, $edit);
 
 my $r1 = $c->model('Release')->get_by_id(1);
@@ -36,9 +43,10 @@ is($r1->barcode, '5099703257021');
 is($r2->edits_pending, 0);
 is($r2->barcode, '5199703257021');
 
-done_testing;
+};
 
 sub _create_edit {
+    my $c = shift;
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_EDIT_BARCODES,
         editor_id => 1,
@@ -54,3 +62,5 @@ sub _create_edit {
         ]
     );
 }
+
+1;

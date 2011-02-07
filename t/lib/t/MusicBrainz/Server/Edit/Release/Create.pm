@@ -1,6 +1,8 @@
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Release::Create;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::Create' }
 
@@ -8,7 +10,11 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CREATE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c);
 MusicBrainz::Server::Test->prepare_test_database($c, '+releasestatus');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
@@ -17,7 +23,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
 SQL
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $edit = create_edit();
+my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Create');
 
 ok(defined $edit->release_id);
@@ -40,17 +46,18 @@ reject_edit($c, $edit);
 $release = $c->model('Release')->get_by_id($edit->release_id);
 ok(!defined $release);
 
-$edit = create_edit();
+$edit = create_edit($c);
 accept_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id($edit->release_id);
 ok(defined $release);
 is($release->edits_pending, 0);
 
-done_testing;
+};
 
 sub create_edit
 {
+    my $c = shift;
     return $c->model('Edit')->create(
         editor_id => 1,
         edit_type => $EDIT_RELEASE_CREATE,
@@ -64,3 +71,4 @@ sub create_edit
     );
 }
 
+1;
