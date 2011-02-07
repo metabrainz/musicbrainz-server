@@ -1,21 +1,25 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::PUID::Delete;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::PUID::Delete'; }
 
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+puid');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $delete_puid = $c->model('RecordingPUID')->get_by_recording_puid(3, '134478d1-306e-41a1-8b37-ff525e53c8be')
-    or die "Fuck this";
-my $edit = _create_edit();
+    or die "Could not get recording puid";
+my $edit = _create_edit($c, $delete_puid);
 isa_ok($edit, 'MusicBrainz::Server::Edit::PUID::Delete');
 
 my @puids = $c->model('RecordingPUID')->find_by_recording(3);
@@ -33,7 +37,7 @@ reject_edit($c, $edit);
 $puid = $c->model('RecordingPUID')->get_by_id(6);
 is($puid->edits_pending, 0);
 
-$edit = _create_edit();
+$edit = _create_edit($c, $delete_puid);
 accept_edit($c, $edit);
 
 @puids = $c->model('RecordingPUID')->find_by_recording(3);
@@ -42,12 +46,15 @@ is(scalar @puids, 1);
 $puid = $c->model('RecordingPUID')->get_by_id(6);
 ok(!defined $puid);
 
-done_testing;
+};
 
 sub _create_edit {
+    my ($c, $delete_puid) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_PUID_DELETE,
         editor_id => 1,
         puid => $delete_puid,
     );
 }
+
+1;
