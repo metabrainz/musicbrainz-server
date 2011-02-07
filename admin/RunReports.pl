@@ -7,7 +7,6 @@ use strict;
 use File::Basename qw( basename );
 use File::Temp qw( tempdir );
 use File::Path qw( rmtree mkpath );
-use UNIVERSAL::require;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::ReportFactory;
 use MusicBrainz::Server::PagedReport;

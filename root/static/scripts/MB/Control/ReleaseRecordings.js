@@ -50,7 +50,8 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
                 $target.append (", ");
             }
 
-            var a = '<a href="/release-group/' + item.gid + '">' + item.name + '</a>';
+            var a = '<a href="/release-group/' + item.gid + '">' +
+                MB.utility.escapeHTML (item.name) + '</a>';
             $target.append ($(a));
         });
 
@@ -81,37 +82,6 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$radio.trigger ('change');
     };
 
-    self.formatItem = function (ul, item) {
-        var a = $("<a>").text (item.name);
-
-        a.append (' - <span class="autocomplete-artist">' + item.artist + '</span>');
-
-        if (item.releasegroups)
-        {
-            var rgs = {};
-            /* don't display the same name multiple times. */
-            $.each (item.releasegroups, function (idx, item) {
-                rgs[item.name] = item.name;
-            });
-
-            a.append ('<br /><span class="autocomplete-appears">appears on: '
-                      + MB.utility.keys (rgs).join (", ") + '</span>');
-        }
-
-        if (item.comment)
-        {
-            a.append ('<br /><span class="autocomplete-comment">(' + item.comment + ')</span>');
-        }
-
-        if (item.isrcs.length)
-        {
-            a.append ('<br /><span class="autocomplete-isrcs">isrcs: '
-                      + item.isrcs.join (", ") + '</span>');
-        }
-
-        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
-    };
-
     self.lookupHook = function (request) {
 
         $.extend (request.data, { 'a': self.artistname });
@@ -122,7 +92,6 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
     MB.Control.AutocompleteRecording ({
         'input': self.$search,
         'select': self.selected,
-        'formatItem': self.formatItem,
         'lookupHook': self.lookupHook
     });
 
@@ -180,6 +149,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     self.tracks = [];
     self.$fieldset = $(fieldset);
     self.$edit = self.$fieldset.find ('a[href=#edit]');
+    self.$nowloading = self.$fieldset.find ('div.recordings-loading');
 
     self.renderTrack = function (idx, $track, $bubble, data) {
 
@@ -209,7 +179,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     };
 
     self.load = function (data) {
-        self.$fieldset.find ('.clickedit').hide ();
+        self.$nowloading.hide ();
+
         var $table = $('table.disc-template').clone ().show ()
             .appendTo (self.$fieldset);
 
@@ -248,6 +219,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
     self.lazyLoad = function () {
         var tracklist = self.$fieldset.find ('input.tracklist-id').val ();
+        self.$fieldset.find ('.clickedit').hide ();
+        self.$nowloading.show ();
         $.getJSON ('/ws/js/associations/' + tracklist, self.load);
     };
 

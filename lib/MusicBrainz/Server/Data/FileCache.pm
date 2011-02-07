@@ -28,13 +28,19 @@ sub squash {
     my ($self, $minifier, $prefix, $suffix, @files) = @_;
     @files = map { DBDefs::STATIC_FILES_DIR . '/' . $_ } @files;
     my $hash = md5_hex(join ",", map {
-        (stat($_))[9] . $_ 
+        (stat($_))[9] . $_
     } sort @files);
 
     my $path = DBDefs::STATIC_PREFIX . "/$prefix$hash.$suffix";
     my $file = DBDefs::STATIC_FILES_DIR . "/$prefix$hash.$suffix";
     unless (-e$file) {
-        &$minifier(input => join("\n", map { io($_)->all } @files)) > io($file);
+        my $input = join("\n", map { io($_)->all } @files);
+        if (my $output = &$minifier(input => $input)) {
+            $output > io($file);
+        }
+        else {
+            $input > io($file);
+        }
     }
 
     return $path;

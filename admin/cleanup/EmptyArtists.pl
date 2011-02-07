@@ -97,7 +97,7 @@ print localtime() . " : Finding unused artists (using artist credit/AR/edit crit
 
 my $query = <<EOF;
 
-    SELECT a.id, a.name, a.sortname
+    SELECT a.id, a.name, a.sort_name
     FROM artist a
 
     -- Look for artist credits
@@ -158,8 +158,8 @@ my $query = <<EOF;
     AND         t7.artist_recording     IS NULL
     AND         t8.artist_url           IS NULL
     AND         t9.artist_work          IS NULL
-    AND         a.editpending = 0
-    ORDER BY sortname
+    AND         a.edits_pending = 0
+    ORDER BY sort_name
 
 EOF
 

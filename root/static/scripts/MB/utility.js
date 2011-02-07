@@ -103,3 +103,10 @@ MB.utility.exception = function (name, message) {
 };
 
 MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
+
+MB.utility.escapeHTML = function (str) {
+    if (!str) return '';
+
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+

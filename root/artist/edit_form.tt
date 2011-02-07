@@ -4,67 +4,62 @@
         [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('Style_Guideline')})) -%]
         [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment|add a comment to this artist}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('Artist_Comment')})) -%]
     [%- END -%]
-    [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. <span class="only-if-no-javascript">(Available only if you have JavaScript enabled.)</span>')) -%]
 [%- END -%]
 
 <form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
 
-    [% IF form.has_duplicates %]
-    <fieldset>
-        <legend>[% l('Possible Duplicate Artists') %]</legend>
-        <p>
-            <strong class='warning'>[% l('Warning:') %]</strong>
-            [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
-            <ul>
-                [% FOREACH dupe=form.duplicates %]
-                <li>[% link_entity(dupe) %]</li>
-                [% END %]
-            </ul>
-        </p>
+    <div class="half-width">
 
-        [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
-            [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('Artist_Comment')})) -%]
-        [%- END -%]
+       [% IF form.has_duplicates %]
+      <fieldset>
+          <legend>[% l('Possible Duplicate Artists') %]</legend>
+          <p>
+              <strong class='warning'>[% l('Warning:') %]</strong>
+              [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
+              <ul>
+                  [% FOREACH dupe=form.duplicates %]
+                  <li>[% link_artist(dupe) %] [% disambiguation(dupe) %]</li>
+                  [% END %]
+              </ul>
+          </p>
 
-        [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this artist is not duplicate, and I know what I am doing.')) %]
-    </fieldset>
-    [% END %]
+          [%- WRAPPER 'layout/guidelines.tt' -%]
+              [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
+              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('Artist_Comment')})) -%]
+          [%- END -%]
 
-    <fieldset>
+          [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this artist is not duplicate, and I know what I am doing.')) %]
+      </fieldset>
+      [% END %]
+
+      <fieldset>
         <legend>[% l('Artist Details') %]</legend>
+        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
+        [%- form_row_text_long(r, 'comment', l('Comment:')) -%]
+        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%- form_row_select(r, 'gender_id', l('Gender:')) -%]
+        [%- form_row_select(r, 'country_id', l('Country:')) -%]
+        [%- form_row_text(r, 'ipi_code', l('IPI code:')) -%]
+      </fieldset>
 
-        [% WRAPPER form_row %]
-          [% r.label('name', l('Name:')) %]
-          [% r.text('name', { size => 47 })  %]
-          <input type="button" class="guesscase" value="[% l('Guess case') %]" />
-          [% field_errors(form, 'name') %]
-        [% END %]
-
-        [% WRAPPER form_row %]
-          [% r.label('sort_name', l('Sort name:')) %]
-          [% r.text('sort_name', { size => 47 })  %]
-          <input type="button" class="sortname" value="[% l('Guess') %]" />
-          <input type="button" class="copy" value="[% l('Copy') %]" />
-          [% field_errors(form, 'sort_name') %]
-        [% END %]
-
-        [% form_row_text_long(r, 'comment', l('Comment:')) %]
-        [% form_row_select(r, 'type_id', l('Type:')) %]
-        [% form_row_select(r, 'gender_id', l('Gender:')) %]
-        [% form_row_select(r, 'country_id', l('Country:')) %]
-        [% form_row_text(r, 'ipi_code', l('IPI code:')) %]
-    </fieldset>
-    <fieldset>
+      <fieldset>
         <legend>[% l('Date Period') %]</legend>
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
         [% form_row_date(r, 'begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'end_date', l('End date:')) %]
-    </fieldset>
-    [% INCLUDE 'forms/edit-note.tt' %]
+      </fieldset>
+      [% INCLUDE 'forms/edit-note.tt' %]
 
-    [% enter_edit() %]
+      [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+    [%- sortname_bubble() -%]
+  </div>
+
 </form>

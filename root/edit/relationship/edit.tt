@@ -1,6 +1,5 @@
 [% BLOCK layout_head %]
   <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-  <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
         "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
@@ -52,12 +51,6 @@
 <script type="text/javascript">
 var typeInfo = [% type_info %];
 </script>
-
-[%# FIXME: move this checkbox elsewhere. --warp. %]
-<p style="float: right; margin: 16px 1em; text-align: right;">
-    <input style="margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;" class="autocomplete-directsearch" type="checkbox" value="0"></input>
-    <label>[%- l('Use direct search') -%]</label>
-</p>
 
 <fieldset>
     <legend>[% l('Relationship Details') %]</legend>
