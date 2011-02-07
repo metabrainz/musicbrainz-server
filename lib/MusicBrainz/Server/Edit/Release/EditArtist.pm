@@ -8,13 +8,18 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ARTIST );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
+use MusicBrainz::Server::Edit::Utils qw(
+    load_artist_credit_definitions
+    artist_credit_from_loaded_definition
+);
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Translation 'l';
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
-sub edit_name { l('Change release quality') }
+sub edit_name { l('Edit release artist') }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{release_id} }
 
@@ -33,6 +38,44 @@ sub alter_edit_pending
     return {
         Release => [ $self->release_ids ],
     }
+}
+
+sub foreign_keys
+{
+    my ($self) = @_;
+    my $relations = {};
+
+    if (exists $self->data->{new_artist_credit}) {
+        $relations->{Artist} = {
+            map {
+                load_artist_credit_definitions($self->data->{$_})
+            } qw( new_artist_credit old_artist_credit )
+        };
+    }
+
+    $relations->{Release} = {
+        $self->data->{release_id} => [ 'ArtistCredit' ]
+    };
+
+    return $relations;
+}
+
+sub build_display_data
+{
+    my ($self, $loaded) = @_;
+
+    my $data = {};
+
+    if (exists $self->data->{new_artist_credit}) {
+        $data->{artist_credit} = {
+            new => artist_credit_from_loaded_definition($loaded, $self->data->{new_artist_credit}),
+            old => artist_credit_from_loaded_definition($loaded, $self->data->{old_artist_credit})
+        }
+    }
+
+    $data->{release} = $loaded->{Release}{ $self->data->{release_id} };
+
+    return $data;
 }
 
 sub initialize {
