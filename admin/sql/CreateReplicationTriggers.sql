@@ -352,6 +352,10 @@ CREATE TRIGGER "reptg_script"
 AFTER INSERT OR DELETE OR UPDATE ON "script"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_statistic"
+AFTER INSERT OR DELETE OR UPDATE ON "statistic"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_script_language"
 AFTER INSERT OR DELETE OR UPDATE ON "script_language"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

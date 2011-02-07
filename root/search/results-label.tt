@@ -20,8 +20,7 @@
                         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                             <td>[% result.score %]</td>
                             <td>
-                                [% link_label(result.entity) %]
-                                [% disambiguation(result.entity) %]
+                                [% link_entity(result.entity) %]
                             </td>
                             <td>[% result.entity.sort_name %]</td>
                             <td>[% result.entity.type_name  %]</td>

@@ -426,7 +426,6 @@ sub find_by_collection
 sub insert
 {
     my ($self, @releases) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my @created;
     my %names = $self->find_or_insert_names(map { $_->{name} } @releases);
     my $class = $self->_entity_class;
@@ -445,7 +444,6 @@ sub insert
 sub update
 {
     my ($self, $release_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('release', $row, { id => $release_id });
@@ -462,11 +460,35 @@ sub delete
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);
-    my $sql = Sql->new($self->c->dbh);
+
     $self->sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
-        @release_ids);
+             @release_ids);
+
+    $self->sql->do('DELETE FROM medium WHERE release IN ('. placeholders(@release_ids) . ')',
+             @release_ids);
+
+    my @orphaned_tracklists = @{
+        $self->sql->select_single_column_array(
+            'SELECT tracklist.id FROM tracklist
+          LEFT JOIN medium ON medium.tracklist = tracklist.id
+              WHERE medium.id IS NULL'
+        )
+    };
+
+    if (@orphaned_tracklists) {
+        $self->sql->do(
+            'DELETE FROM track
+              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+        $self->sql->do(
+            'DELETE FROM tracklist
+              WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+    }
+
     $self->sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
-        @release_ids);
+             @release_ids);
+
     return;
 }
 
@@ -488,7 +510,6 @@ sub merge
     # XXX merge release attributes
 
     # XXX allow actual tracklists/mediums merging
-    my $sql = Sql->new($self->c->dbh);
     if ($merge_strategy == $MERGE_APPEND) {
         my $pos = $self->sql->select_single_value('
             SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
@@ -596,7 +617,6 @@ sub find_ids_by_track_ids
                             SELECT tracklist FROM track
                              WHERE id IN (' . placeholders(@ids) . ')
                         )';
-    my $sql = Sql->new($self->c->dbh);
     return $self->sql->select_single_column_array($query, @ids);
 }
 

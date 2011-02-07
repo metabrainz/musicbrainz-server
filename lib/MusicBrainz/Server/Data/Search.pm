@@ -113,7 +113,8 @@ sub search
         $extra_columns = "entity.length,"
             if ($type eq "recording");
 
-        $extra_columns .= 'entity.language, entity.script,'
+        $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
+            entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
 
         my ($join_sql, $where_sql) 
@@ -183,7 +184,6 @@ sub search
     my $fuzzy_search_limit = 10000;
     my $search_timeout = 60 * 1000;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->auto_commit;
     $self->sql->do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
     $self->sql->auto_commit;
@@ -760,7 +760,7 @@ sub xml_search
     }
     else
     {
-        return $response->content;
+        return $response->decoded_content;
     }
 }
 

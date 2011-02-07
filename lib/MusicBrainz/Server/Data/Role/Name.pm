@@ -26,7 +26,6 @@ role
     {
         my ($self, @names) = @_;
         @names = uniq grep { defined } @names or return;
-        my $sql = Sql->new($self->c->dbh);
         my $query = "SELECT id, name FROM $table" .
                     ' WHERE name IN (' . placeholders(@names) . ')';
         my $found = $self->sql->select_list_of_hashes($query, @names);

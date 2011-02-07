@@ -21,7 +21,7 @@
           <input type="radio" name="new" value="[% annotation.id %]" class="new"
                  [% IF loop.first %]checked="checked"[% END %]/>
         </td>
-        <td>[% link_editor(annotation.editor) %]</td>
+        <td>[% link_entity(annotation.editor) %]</td>
         <td>[% UserDate.format(annotation.creation_date) %]</td>
         <td>
           <a href="[% c.uri_for_action(c.controller.action_for('annotation_revision'),

@@ -23,13 +23,13 @@
                                 <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
                                     [%- IF loop.count == 1 -%]
                                         <td>[% result.score %]</td>
-                                        <td>[% link_recording(result.entity) %]</td>
+                                        <td>[% link_entity(result.entity) %]</td>
                                         <td>[% result.entity.length | format_length %]</td>
                                         <td>[% artist_credit(result.entity.artist_credit) %]</td>
                                     [%- ELSE -%]
                                         <td colspan="4">&nbsp;</td>
                                     [%- END -%]
-                                    <td>[%- link_release(release) -%]</td>
+                                    <td>[%- link_entity(release) -%]</td>
                                     <td>[%- release.find_track_for_recording(result.entity).position -%]/[%- release.combined_track_count -%]</td>
                                     <td>[%- release.find_medium_for_recording(result.entity).position -%]</td>
                                     <td>[%- release.release_group.type.name -%]</td>

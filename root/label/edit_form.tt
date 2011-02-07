@@ -6,65 +6,61 @@
 <form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
 
-    [% IF form.has_duplicates %]
-    <fieldset>
-        <legend>[% l('Possible Duplicate Labels') %]</legend>
-        <p>
-            <strong class='warning'>[% l('Warning:') %]</strong>
-            [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
-            <ul>
-                [% FOREACH dupe=form.duplicates %]
-                <li>[% link_label(dupe) %] [% disambiguation(dupe) %]</li>
-                [% END %]
-            </ul>
-        </p>
+    <div class="half-width">
 
-        [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
-            [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish duplicate labels, and that you know what you are doing.', {doc_labelcomment => doc_link('Label_Comment')})) -%]
-        [%- END -%]
+      [% IF form.has_duplicates %]
+      <fieldset>
+          <legend>[% l('Possible Duplicate Labels') %]</legend>
+          <p>
+              <strong class='warning'>[% l('Warning:') %]</strong>
+              [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
+              <ul>
+                  [% FOREACH dupe=form.duplicates %]
+                  <li>[% link_entity(dupe) %]</li>
+                  [% END %]
+              </ul>
+          </p>
 
-        [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not duplicate, and I know what I am doing.')) %]
-    </fieldset>
-    [% END %]
+          [%- WRAPPER 'layout/guidelines.tt' -%]
+              [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
+              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish duplicate labels, and that you know what you are doing.', {doc_labelcomment => doc_link('Label_Comment')})) -%]
+          [%- END -%]
 
-    <fieldset>
+          [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not duplicate, and I know what I am doing.')) %]
+      </fieldset>
+      [% END %]
+
+      <fieldset>
         <legend>[% l('Label Details') %]</legend>
-
+        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
+        [%- form_row_text_long(r, 'comment', l('Comment:')) -%]
+        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%- form_row_select(r, 'country_id', l('Country:')) -%]
         [% WRAPPER form_row %]
-          [% r.label('name', l('Name:')) %]
-          [% r.text('name', { size => 47 })  %]
-          <input type="button" class="guesscase" value="[% l('Guess case') %]" />
-          [% field_errors(form, 'name') %]
-        [% END %]
-
-        [% WRAPPER form_row %]
-          [% r.label('sort_name', l('Sort name:')) %]
-          [% r.text('sort_name', { size => 47 })  %]
-          <input type="button" class="sortname" value="[% l('Guess') %]" />
-          <input type="button" class="copy" value="[% l('Copy') %]" />
-          [% field_errors(form, 'sort_name') %]
-        [% END %]
-
-        [% form_row_text_long(r, 'comment', l('Comment:')) %]
-        [% form_row_select(r, 'type_id', l('Type:')) %]
-        [% form_row_select(r, 'country_id', l('Country:')) %]
-        [% WRAPPER form_row %]
-            [% r.label('label_code', l('Label code:')) %]
-            LC-[% r.text('label_code', size => 5) %]
-            [% field_errors(form, 'label_code') %]
+            [%- r.label('label_code', l('Label code:')) %]
+            LC- [% r.text('label_code', size => 5, class => "label-code") -%]
+            [%- field_errors(form, 'label_code') -%]
         [% END %]
         [% form_row_text(r, 'ipi_code', l('IPI code:')) %]
-    </fieldset>
-    <fieldset>
+      </fieldset>
+
+      <fieldset>
         <legend>[% l('Date Period') %]</legend>
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
         [% form_row_date(r, 'begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'end_date', l('End date:')) %]
-    </fieldset>
-    [% INCLUDE 'forms/edit-note.tt' %]
+      </fieldset>
+      [% INCLUDE 'forms/edit-note.tt' %]
 
-    [% enter_edit() %]
+      [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+    [%- sortname_bubble() -%]
+  </div>
+
 </form>

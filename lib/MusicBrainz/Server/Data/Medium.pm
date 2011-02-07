@@ -124,7 +124,6 @@ sub find_by_tracklist
 sub update
 {
     my ($self, $medium_id, $medium_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_create_row($medium_hash);
     return unless %$row;
     $self->sql->update_row('medium', $row, { id => $medium_id });
@@ -133,7 +132,6 @@ sub update
 sub insert
 {
     my ($self, @medium_hashes) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $class = $self->_entity_class;
     my @created;
     for my $medium_hash (@medium_hashes) {
@@ -150,7 +148,6 @@ sub insert
 sub delete
 {
     my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
 

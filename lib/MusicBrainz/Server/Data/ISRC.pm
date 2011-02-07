@@ -80,7 +80,6 @@ sub find_by_isrc
 sub delete
 {
     my ($self, @isrc_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
 
     # Delete ISRCs from @old_ids that already exist for $new_id
     $self->sql->do('DELETE FROM isrc
@@ -90,8 +89,6 @@ sub delete
 sub merge_recordings
 {
     my ($self, $new_id, @old_ids) = @_;
-
-    my $sql = Sql->new($self->c->dbh);
 
     # Delete ISRCs from @old_ids that already exist for $new_id
     $self->sql->do('DELETE FROM isrc
@@ -109,8 +106,6 @@ sub delete_recordings
 {
     my ($self, @ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-
     # Remove ISRCs
     $self->sql->do('DELETE FROM isrc
               WHERE recording IN ('.placeholders(@ids).')', @ids);
@@ -119,7 +114,6 @@ sub delete_recordings
 sub insert
 {
     my ($self, @isrcs) = @_;
-    my $sql = Sql->new($self->c->dbh);
 
     $self->sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
                  (join ",", (("(?, ?, ?)") x @isrcs)),

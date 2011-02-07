@@ -51,7 +51,6 @@ sub enter_votes
     my $vote_tc = find_type_constraint('VoteOption');
     @votes = grep { $vote_tc->check($_->{vote}) } @votes;
 
-    my $sql = Sql->new($self->c->raw_dbh);
     my $query;
     Sql::run_in_transaction(sub {
         $self->sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');

@@ -82,7 +82,6 @@ sub find_by_label
 sub merge_labels
 {
     my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('UPDATE release_label SET label = ?
               WHERE label IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
@@ -91,7 +90,6 @@ sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
     # XXX avoid duplicates
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('UPDATE release_label SET release = ?
               WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
@@ -109,7 +107,6 @@ sub insert
     my @created;
     my $class = $self->_entity_class;
 
-    my $sql = Sql->new($self->c->dbh);
     push @created, $class->new(id => $self->sql->insert_row('release_label', $row, 'id'));
 
     return wantarray ? @created : $created[0];
@@ -122,14 +119,12 @@ sub update
         catalog_number => 'catalog_number',
         label => 'label_id',
     });
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->update_row('release_label', $row, { id => $id });
 }
 
 sub delete
 {
     my ($self, @release_label_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM release_label WHERE id IN (' . placeholders(@release_label_ids) . ')';
     $self->sql->do($query, @release_label_ids);
 }

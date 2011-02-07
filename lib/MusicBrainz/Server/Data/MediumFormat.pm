@@ -33,7 +33,6 @@ sub get_tree
 {
     my ($self) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   ORDER BY child_order, id');
     my %id_to_obj;

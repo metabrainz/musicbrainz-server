@@ -23,14 +23,15 @@ MB.Control.AutocompleteRecording = function (options) {
     var formatItem = function (ul, item) {
         var a = $("<a>").text (item.name);
 
-        a.append (' - <span class="autocomplete-artist">' + item.artist + '</span>');
+        a.append (' - <span class="autocomplete-artist">' +
+                  MB.utility.escapeHTML (item.artist) + '</span>');
 
         if (item.releasegroups)
         {
             var rgs = {};
             /* don't display the same name multiple times. */
             $.each (item.releasegroups, function (idx, item) {
-                rgs[item.name] = item.name;
+                rgs[MB.utility.escapeHTML (item.name)] = true;
             });
 
             a.append ('<br /><span class="autocomplete-appears">appears on: '
@@ -39,20 +40,21 @@ MB.Control.AutocompleteRecording = function (options) {
 
         if (item.comment)
         {
-            a.append ('<br /><span class="autocomplete-comment">(' + item.comment + ')</span>');
+            a.append ('<br /><span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
         if (item.isrcs.length)
         {
-            a.append ('<br /><span class="autocomplete-isrcs">isrcs: '
-                      + item.isrcs.join (", ") + '</span>');
+            a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
+                      MB.utility.escapeHTML (item.isrcs.join) (", ") + '</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     };
 
     options.entity = 'recording';
-    options.formatItem = options.formatItem ? options.formatItem : formatItem; 
+    options.formatItem = options.formatItem ? options.formatItem : formatItem;
 
     var self = MB.Control.Autocomplete (options);
 

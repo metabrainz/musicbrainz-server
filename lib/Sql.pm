@@ -196,7 +196,6 @@ sub commit
 
     return try {
         my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;
-        confess('Commit requested');
         my $rv = $self->dbh->commit;
         cluck "Commit failed" if ($rv eq '' && !$self->quiet);
         $self->dbh->{AutoCommit} = 1;

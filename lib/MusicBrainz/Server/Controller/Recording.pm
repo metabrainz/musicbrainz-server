@@ -75,17 +75,12 @@ after 'tags' => sub
     my $recording = $c->stash->{recording};
 };
 
-=head2 relations
+after 'relationships' => sub {
+    my ($self, $c) = @_;
 
-Shows all relations to a given recording
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c, $mbid) = @_;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
-}
+    my $recording = $c->stash->{recording};
+    $c->model('Relationship')->load($recording->related_works);
+};
 
 =head2 details
 

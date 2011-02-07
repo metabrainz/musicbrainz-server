@@ -9,12 +9,12 @@ with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 has '+name' => ( default => 'edit-label' );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 
 has_field 'sort_name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 
@@ -32,7 +32,7 @@ has_field 'country_id' => (
 );
 
 has_field 'comment' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 

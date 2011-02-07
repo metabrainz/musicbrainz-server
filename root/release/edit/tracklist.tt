@@ -73,17 +73,17 @@
     <tr class="artist-credit-box">
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
+          <input type="text" class="name" value="[% artist.name | html %]" />
           <img class="search" src="/static/images/icons/search.png" />
-          <input type="text" class="name" value="[% artist.name %]" />
         </span>
-        <input type="hidden" class="gid" value="[% artist.gid %]" />
+        <input type="hidden" class="gid" value="[% artist.gid | html %]" />
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </td>
       <td class="artistcredit">
-        <input type="text" class="credit" value="[% ac.field('name').value %]" />
+        <input type="text" class="credit" value="[% ac.field('name').value | html %]" />
       </td>
       <td class="joinphrase">
-        <input type="text" class="join" value="[% ac.field('join_phrase').value %]" />
+        <input type="text" class="join" value="[% ac.field('join_phrase').value | html %]" />
       </td>
       <td class="icon">
         <input type="button" class="icon remove-artist-credit"
@@ -120,6 +120,9 @@
 
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
+
+        <input type="hidden" name="various-artists" class="various-artists"
+            value="[% information.field('various_artists').value | html %]" />
 
         <table class="basic-format">
           <tr>
@@ -159,6 +162,13 @@
             </td>
           </tr>
         </table>
+        <div style="display: none" class="tracklist-loading">
+          <p>
+            <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+            &nbsp;
+            [% l('Now loading tracklist...') %]
+          </p>
+        </div>
         <textarea style="display: none" class="tracklist"></textarea>
         [% field_errors(form, medium_field.full_name) %]
       </div>
@@ -184,6 +194,8 @@
     </fieldset>
 
     <div class="guesscase-basic">
+      [%#- FIXME: use guesscase() -%]
+
       <fieldset class="guesscase">
         <legend>Guess case</legend>
         <table style="width: 100%">
@@ -208,6 +220,7 @@
           </tr>
         </table>
       </fieldset>
+
     </div>
 
     <div class="buttons ui-helper-clearfix">
@@ -224,11 +237,8 @@
     [% USE w = Wizard() %]
     [% information = w.page ('information') %]
     [% release_artist = information.field('artist_credit') %]
-    <input type="hidden" name="various-artists" class="various-artists" id="various-artists"
-        value="[% information.field('various_artists').value %]" />
-
-    <h3>[% information.field('name').value %]</h3>
-    <p>by [% release_artist.fif.name %]</p>
+    <h3>[% information.field('name').value | html %]</h3>
+    <p>by [% release_artist.fif.name | html %]</p>
 
     <div id="preview"> </div>
 
@@ -255,8 +265,8 @@
         </td>
         <td class="artist autocomplete">
           <span class="autocomplete" style="width: 100%">
+            <input type="text" class="track-artist" value="[% release_artist.fif.name | html %]" />
             <img class="search" src="/static/images/icons/search.png" style="top: 1px;"  />
-            <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
           </span>
         </td>
         <td class="credits-button">
@@ -316,6 +326,14 @@
           </td>
         </tr>
       </table>
+
+      <div style="display: none" class="tracklist-loading">
+        <p>
+          <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+          &nbsp;
+          [% l('Now loading tracklist...') %]
+        </p>
+      </div>
 
       <div class="tracklist-padding">
         [% field_errors(form, medium_field.full_name) %]
@@ -381,9 +399,6 @@
         <input type="hidden" class="tracklist-id" />
         <br />
 
-        <div class="tracklist-loading" style="display: none">
-          [% l('Loading...') %]
-        </div>
         <table class="medium tbl" style="display: none">
           <thead>
             <tr>

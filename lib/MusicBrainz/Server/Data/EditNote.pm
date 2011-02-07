@@ -67,7 +67,6 @@ sub insert
         $key => $note_hash->{$_};
     } keys %$note_hash;
     $r{edit} = $edit_id;
-    my $sql = Sql->new($self->c->raw_dbh);
     $self->sql->auto_commit;
     $self->sql->insert_row('edit_note', \%r);
 }
