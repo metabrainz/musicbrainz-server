@@ -1,16 +1,20 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Artist::Create;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Create' }
 
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
@@ -51,4 +55,6 @@ is($edit->display_data->{begin_date}->format, "1981-05" );
 is($edit->status, $STATUS_APPLIED, 'add artist edits should be autoedits');
 is($artist->edits_pending, 0, 'add artist edits should be autoedits');
 
-done_testing;
+};
+
+1;

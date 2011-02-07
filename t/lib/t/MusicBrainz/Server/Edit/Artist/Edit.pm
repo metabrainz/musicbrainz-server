@@ -1,20 +1,24 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Artist::Edit;
+use Test::Routine;
 use Test::More;
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Edit' }
+with 't::Context';
+
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 # Test creating the edit
 my $artist = $c->model('Artist')->get_by_id(1);
-my $edit = _create_full_edit($artist);
+my $edit = _create_full_edit($c, $artist);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
 
 my ($edits, $hits) = $c->model('Edit')->find({ artist => $artist->id }, 10, 0);
@@ -34,7 +38,7 @@ is($artist->edits_pending, 0);
 
 # Test accepting the edit
 $artist = $c->model('Artist')->get_by_id(1);
-$edit = _create_full_edit($artist);
+$edit = _create_full_edit($c, $artist);
 
 accept_edit($c, $edit);
 
@@ -100,10 +104,10 @@ ok($artist->end_date->is_empty);
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);
 
-done_testing;
+};
 
 sub _create_full_edit {
-    my $artist = shift;
+    my ($c, $artist) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 2,
@@ -128,3 +132,5 @@ sub is_unchanged {
     ok($artist->begin_date->is_empty);
     ok($artist->end_date->is_empty);
 }
+
+1;

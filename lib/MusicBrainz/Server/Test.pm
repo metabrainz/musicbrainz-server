@@ -165,26 +165,22 @@ sub accept_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->accept($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
 sub reject_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->reject($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
 my $mock;
