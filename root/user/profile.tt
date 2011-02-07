@@ -12,8 +12,6 @@
     <h2>[% l('General Information') %]</h2>
     <dl class="profileinfo">
 
-        [% html_escape(user.name) WRAPPER property name=l("Name") %]
-
         [% WRAPPER property name=l("Email:") %]
             [% IF user.email %]
                 [% IF viewing_own_profile %]

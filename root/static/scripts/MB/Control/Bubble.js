@@ -146,7 +146,8 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
 
         if (self.$target.filter ('a').length ||
             self.$target.filter ('input[type=submit]').length ||
-            self.$target.filter ('input[type=button]').length)
+            self.$target.filter ('input[type=button]').length ||
+            self.$target.filter ('img').length)
         {
             self.button = true;
         }
@@ -295,35 +296,8 @@ MB.Control.BubbleDocBase = function (parent, $target, $content) {
     return self;
 };
 
-MB.Control.BubbleDoc = function (parent, $target, $content) {
-    var self = MB.Control.BubbleDocBase (parent, $target, $content);
-
-    var parent_show = self.show;
-    var parent_hide = self.hide;
-
-    self.show = function () {
-        parent_show ();
-
-        if (self.button)
-        {
-            /* FIXME: fix the code that relies on this to use proper js events. */
-            self.$target.text (MB.text.Done);
-        }
-    };
-
-    self.hide = function () {
-        parent_hide ();
-
-        if (self.button)
-        {
-            /* FIXME: fix the code that relies on this to use proper js events. */
-            self.$target.text (MB.text.Change);
-        }
-    };
-
-    return self;
-};
-
+/* There is no longer a difference between BubbleDocBase and BubbleDoc. --warp. */
+MB.Control.BubbleDoc = MB.Control.BubbleDocBase;
 
 /* BubbleRow turns the div inside a table row into a bubble pointing
    at one of the inputs in the preceding row. */
@@ -387,10 +361,24 @@ MB.Control.BubbleCollection = function ($targets, $contents) {
 
     self.bubbles = [];
 
-    self.add = function ($target, $contents) {
-        var bubble = self.type (self, $target, $contents).initialize ();
-        self.bubbles.push (bubble);
+    self.add = function ($targets, $contents) {
 
+        var tmp = [];
+        var bubble = null;
+
+        if ($targets && $contents)
+        {
+            $targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
+            $contents.each (function (idx, data) { tmp[idx].doc = data; });
+            $.each (tmp, function (idx, data) {
+                bubble = self.type (self, $(data.button), $(data.doc)).initialize ();
+                self.bubbles.push (bubble);
+            });
+        }
+
+        /* .add() used to accept only a single target + container, it may still be
+         * called like that, and the caller will expect that bubble to be returned.
+         */ 
         return bubble;
     };
 
@@ -420,13 +408,7 @@ MB.Control.BubbleCollection = function ($targets, $contents) {
         var tmp = [];
 
         self.resetType ();
-
-        if ($targets && $contents)
-        {
-            $targets.each (function (idx, data) { tmp.push ({ 'button': data }); });
-            $contents.each (function (idx, data) { tmp[idx].doc = data; });
-            $.each (tmp, function (idx, data) { self.add ($(data.button), $(data.doc)); });
-        }
+        self.add ($targets, $contents);
     }
 
     self.active = false;
@@ -435,3 +417,4 @@ MB.Control.BubbleCollection = function ($targets, $contents) {
 
     return self;
 };
+

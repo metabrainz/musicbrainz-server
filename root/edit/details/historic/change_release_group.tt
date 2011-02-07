@@ -1,5 +1,5 @@
 [% MACRO display_rg(rg) IF rg;
-     link_release_group(rg);
+     link_entity(rg);
    ELSE; l('(unknown)');
 END; %]
 
@@ -9,7 +9,7 @@ END; %]
     <td colspan="2">
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% link_release(release) %]</li>
+        <li>[% link_entity(release) %]</li>
         [% END %]
       </ul>
     </td>

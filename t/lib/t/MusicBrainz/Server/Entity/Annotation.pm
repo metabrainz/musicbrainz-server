@@ -32,6 +32,15 @@ my $artist = MusicBrainz::Server::Entity::Artist->new();
 $annotation->parent( $artist );
 ok( defined $annotation->parent );
 
+$annotation = MusicBrainz::Server::Entity::Annotation->new(
+    text => "This is...\nthe preview!\n\nMore text here"
+);
+
+like($annotation->summary, qr/This is.../, 'has first line of summary');
+like($annotation->summary, qr/the preview!/, 'has second line of summary');
+unlike($annotation->summary, qr/More text here/, 'doesnt have second paragraph');
+ok($annotation->summary_is_short);
+
 };
 
 1;
