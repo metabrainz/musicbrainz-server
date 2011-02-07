@@ -1,7 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Label::Edit;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::Edit' }
 
@@ -9,12 +10,16 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $label = $c->model('Label')->get_by_id(1);
-my $edit = create_full_edit($label);
+my $edit = create_full_edit($c, $label);
 
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
 
@@ -31,7 +36,7 @@ $label = $c->model('Label')->get_by_id($edit->label_id);
 is_unchanged($label);
 is($label->edits_pending, 0);
 
-$edit = create_full_edit($label);
+$edit = create_full_edit($c, $label);
 accept_edit($c, $edit);
 
 $label = $c->model('Label')->get_by_id($edit->label_id);
@@ -48,10 +53,10 @@ is($label->end_date->month, 5);
 is($label->end_date->day, 30);
 is($label->edits_pending, 0);
 
-done_testing;
+};
 
 sub create_full_edit {
-    my $label = shift;
+    my ($c, $label) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_EDIT,
         editor_id => 2,
@@ -76,3 +81,5 @@ sub is_unchanged {
     ok($label->begin_date->is_empty);
     ok($label->end_date->is_empty);
 }
+
+1;

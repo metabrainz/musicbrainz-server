@@ -1,16 +1,23 @@
-#!/usr/bin/perl
-use strict;
+package t::MusicBrainz::Server::Edit::Label::AddAlias;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
+
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::AddAlias' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_ADD_ALIAS );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+labelalias');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $edit = _create_edit();
+my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAlias');
 ok(defined $edit->alias_id);
 ok($edit->alias_id > 0);
@@ -37,7 +44,7 @@ is(@$alias_set, 2);
 $label = $c->model('Label')->get_by_id(1);
 is($label->edits_pending, 0);
 
-my $edit = _create_edit();
+my $edit = _create_edit($c);
 accept_edit($c, $edit);
 
 $label = $c->model('Label')->get_by_id(1);
@@ -46,9 +53,10 @@ is($label->edits_pending, 0);
 $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
 is(@$alias_set, 3);
 
-done_testing;
+};
 
 sub _create_edit {
+    my $c = shift;
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_ADD_ALIAS,
         editor_id => 1,
@@ -56,3 +64,5 @@ sub _create_edit {
         name => 'Another alias',
     );
 }
+
+1;

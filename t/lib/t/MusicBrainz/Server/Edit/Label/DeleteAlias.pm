@@ -1,19 +1,25 @@
-use strict;
+package t::MusicBrainz::Server::Edit::Label::DeleteAlias;
+use Test::Routine;
 use Test::More;
-use Test::Moose;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::DeleteAlias' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE_ALIAS );
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+labelalias');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $alias = $c->model('Label')->alias->get_by_id(1);
 
-my $edit = _create_edit();
+my $edit = _create_edit($c, $alias);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::DeleteAlias');
 
 my ($edits) = $c->model('Edit')->find({ label => 1 }, 10, 0);
@@ -45,7 +51,7 @@ $alias = $c->model('Label')->alias->get_by_id(1);
 ok(defined $alias);
 is($alias->edits_pending, 0);
 
-my $edit = _create_edit();
+my $edit = _create_edit($c, $alias);
 MusicBrainz::Server::Test::accept_edit($c, $edit);
 
 $label = $c->model('Label')->get_by_id(1);
@@ -57,9 +63,10 @@ ok(!defined $alias);
 $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
 is(@$alias_set, 1);
 
-done_testing;
+};
 
 sub _create_edit {
+    my ($c, $alias) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_DELETE_ALIAS,
         editor_id => 1,
@@ -67,3 +74,5 @@ sub _create_edit {
         alias     => $alias,
     );
 }
+
+1;

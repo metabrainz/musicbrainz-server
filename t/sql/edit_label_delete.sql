@@ -2,7 +2,7 @@
 SET client_min_messages TO 'warning';
 
 
-
+INSERT INTO label_type (id, name) VALUES (1, 'Official production');
 
 
 INSERT INTO label_name (id, name) VALUES (1, 'Label Name');

@@ -1,24 +1,24 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Label::Create;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::Create'; }
 
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+labeltype');
-MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
-    SET client_min_messages TO warning;
-    TRUNCATE label CASCADE;
-SQL
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $edit = create_edit();
+my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Create');
 
 ok(defined $edit->label_id);
@@ -47,17 +47,18 @@ $label = $c->model('Label')->get_by_id($edit->label_id);
 is($label->edits_pending, 0);
 
 # Test rejecting the edit
-$edit = create_edit();
+$edit = create_edit($c);
 reject_edit($c, $edit);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $label = $c->model('Label')->get_by_id($edit->label_id);
 ok(!defined $label);
 
-done_testing;
+};
 
 sub create_edit
 {
+    my $c = shift;
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_CREATE,
         editor_id => 1,
@@ -71,3 +72,5 @@ sub create_edit
         end_date => { year => 2005, month => 5, day => 30 }
     );
 }
+
+1;
