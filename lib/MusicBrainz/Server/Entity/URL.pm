@@ -23,6 +23,18 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
+# Some things that don't know what they are constructing may try and use
+# `name' - but this really means the `url' attribute
+sub BUILDARGS {
+    my $self = shift;
+    my %args = @_ == 1 ? %{ $_[0] } : @_;
+    if (my $name = delete $args{name}) {
+        $args{url} = $name;
+    }
+
+    return \%args;
+}
+
 sub pretty_name { shift->url->host }
 
 sub name { shift->url->as_string }

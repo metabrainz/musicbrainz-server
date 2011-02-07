@@ -72,7 +72,7 @@ sub relationship_cartesian_product
                     entity0 => $loaded->{ $model0 }{ $entity0_id } ||
                         $self->c->model($model0)->_entity_class->new( name => $relationship->{entity0_name}),
                     entity1 => $loaded->{ $model1 }{ $entity1_id } ||
-                        $self->c->model($model0)->_entity_class->new( name => $relationship->{entity1_name}),
+                        $self->c->model($model1)->_entity_class->new( name => $relationship->{entity1_name}),
                     link    => Link->new(
                         id => $relationship->{link_id},
                         begin_date => PartialDate->new($relationship->{begin_date}),
