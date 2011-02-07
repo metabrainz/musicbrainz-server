@@ -1,21 +1,26 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Recording::RemoveISRC;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Recording::RemoveISRC' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+isrc');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $isrc = $c->model('ISRC')->get_by_id(1);
 
 {
-    my $edit = create_edit();
+    my $edit = create_edit($c, $isrc);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::RemoveISRC');
 
     my ($edits) = $c->model('Edit')->find({ recording => 1 }, 10, 0);
@@ -37,7 +42,7 @@ my $isrc = $c->model('ISRC')->get_by_id(1);
 }
 
 {
-    my $edit = create_edit();
+    my $edit = create_edit($c, $isrc);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::RemoveISRC');
 
     my ($edits) = $c->model('Edit')->find({ recording => 1 }, 10, 0);
@@ -58,13 +63,15 @@ my $isrc = $c->model('ISRC')->get_by_id(1);
     is($recording->edits_pending, 0);
 }
 
-
-done_testing;
+};
 
 sub create_edit {
+    my ($c, $isrc) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_RECORDING_REMOVE_ISRC,
         editor_id => 1,
         isrc      => $isrc
     );
 }
+
+1;

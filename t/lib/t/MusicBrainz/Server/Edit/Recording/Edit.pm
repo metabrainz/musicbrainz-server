@@ -1,14 +1,19 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Recording::Edit;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Recording::Edit' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
@@ -16,7 +21,7 @@ my $recording = $c->model('Recording')->get_by_id(1);
 is_unchanged($recording);
 is($recording->edits_pending, 0);
 
-my $edit = create_edit($recording);
+my $edit = create_edit($c, $recording);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::Edit');
 
 my ($edits) = $c->model('Edit')->find({ recording => 1 }, 10, 0);
@@ -33,7 +38,7 @@ is_unchanged($recording);
 is($recording->edits_pending, 0);
 
 $recording = $c->model('Recording')->get_by_id(1);
-$edit = create_edit($recording);
+$edit = create_edit($c, $recording);
 accept_edit($c, $edit);
 
 $recording = $c->model('Recording')->get_by_id(1);
@@ -44,10 +49,10 @@ is($recording->length, 12345);
 is($recording->edits_pending, 0);
 is($recording->artist_credit->name, 'Foo');
 
-done_testing;
+};
 
 sub create_edit {
-    my $recording = shift;
+    my ($c, $recording) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_RECORDING_EDIT,
         editor_id => 1,
@@ -71,3 +76,5 @@ sub is_unchanged {
         is($recording->length, undef);
     }
 }
+
+1;
