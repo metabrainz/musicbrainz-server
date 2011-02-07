@@ -461,6 +461,24 @@ sub _close
     $self->c->model('Editor')->credit($edit->editor_id, $status);
 }
 
+sub insert_votes_and_notes {
+    my ($self, $user_id, %data) = @_;
+    my @votes = @{ $data{votes} || [] };
+    my @notes = @{ $data{notes} || [] };
+
+    Sql::run_in_transaction(sub {
+        $self->c->model('Vote')->enter_votes($user_id, @votes);
+        for my $note (@notes) {
+            $self->c->model('EditNote')->add_note(
+                $note->{edit_id},
+                {
+                    editor_id => $user_id,
+                    text => $note->{edit_note},
+                });
+        }
+    }, $self->c->raw_sql);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

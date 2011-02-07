@@ -44,7 +44,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
                 var tr = $('<tr>').appendTo (table);
                 tr.append ($('<td class="trackno">').text (item.$position.val ()));
                 tr.append ($('<td class="title">').text (item.$title.val ()));
-                if ($('#various-artists').val () == '1')
+                if (disc.isVariousArtists ())
                 {
                     tr.append ($('<td class="artist">').text (item.$artist.val ()));
                 }
@@ -78,7 +78,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
             str += item.$position.val () + ". " + item.$title.val ();
 
-            if (self.variousArtists () && item.$artist.val () !== '')
+            if (self.isVariousArtists () && item.$artist.val () !== '')
             {
                 str += MB.TrackParser.separator + item.$artist.val ();
             }
@@ -92,7 +92,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
             str += "\n";
         });
 
-        self.textarea.val (str);
+        self.$textarea.val (str);
     };
 
     self.updatePreview = function () {
@@ -112,10 +112,10 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.collapse = function (chained) {
         self.trackparser = null;
-        self.textarea.val ('');
+        self.$textarea.val ('');
 
-        self.textarea.hide ();
-        self.basicdisc.removeClass ('expanded');
+        self.$textarea.hide ();
+        self.$basicdisc.removeClass ('expanded');
         self.$collapse_icon.hide ();
         self.$expand_icon.show ();
 
@@ -128,8 +128,9 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     };
 
     self.expand = function (chained) {
-        self.textarea.show ();
-        self.basicdisc.addClass ('expanded');
+
+        self.$nowloading.show ();
+        self.$basicdisc.addClass ('expanded');
         self.$expand_icon.hide ();
         self.$collapse_icon.show ();
 
@@ -140,33 +141,42 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     };
 
     self.loadTracklist = function (data) {
+        self.$textarea.show ();
+        self.$nowloading.hide ();
         self.render ();
-        self.trackparser = MB.TrackParser.Parser (self.disc, self.textarea, data);
+        self.trackparser = MB.TrackParser.Parser (self.disc, self.$textarea, data);
         self.updatePreview ();
     };
 
     self.lines = function (data) {
         if (data)
         {
-            self.textarea.val (data.join ("\n"));
+            self.$textarea.val (data.join ("\n"));
         }
         else
         {
-            return self.textarea.val ().split ("\n");
+            return self.$textarea.val ().split ("\n");
         }
     };
 
-    self.variousArtists = function () { return self.$various_artists.val() == '1'; };
+    /**
+     * isVariousArtists returns false only if all tracks on the disc are identical
+     * to the release artist.
+     */
+    self.isVariousArtists = function () {
+        return self.$various_artists.val() == '1';
+    };
 
     self.disc = disc;
     self.preview = preview;
 
-    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc');
-    self.textarea = self.basicdisc.find ('textarea.tracklist');
-    self.$expand_icon = self.basicdisc.find ('input.expand-disc');
-    self.$collapse_icon = self.basicdisc.find ('input.collapse-disc');
-    self.$tracklist_id = self.basicdisc.find ('input.tracklist-id');
-    self.$various_artists = $('#various-artists');
+    self.$basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc');
+    self.$textarea = self.$basicdisc.find ('textarea.tracklist');
+    self.$nowloading = self.$basicdisc.find ('div.tracklist-loading');
+    self.$expand_icon = self.$basicdisc.find ('input.expand-disc');
+    self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
+    self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
+    self.$various_artists = self.$basicdisc.find ('input.various-artists');
 
     if (!self.$tracklist_id.length)
     {
@@ -176,7 +186,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
 
-    self.textarea.bind ('keyup', function () {
+    self.$textarea.bind ('keyup', function () {
         var newTimeout = setTimeout (function () {
             self.updatePreview ();
         }, MB.Control._preview_update_timeout);

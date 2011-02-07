@@ -129,7 +129,7 @@ sub _get_tags_for_type
         WHERE editor = ?
         GROUP BY tag";
 
-    my $results = $self->sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->raw_sql->select_list_of_hashes ($query, $id);
 
     return { map { $_->{tag} => $_ } @$results };
 }

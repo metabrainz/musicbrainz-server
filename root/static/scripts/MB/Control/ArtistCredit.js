@@ -80,10 +80,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         if (self.$credit.val () === '')
         {
-            self.$credit.attr ('placeholder', data.name)
+            self.$credit.attr ('placeholder', data.artist_name)
                 .mb_placeholder (self.placeholder_options);
         }
-
     };
 
     self.update = function(event, data) {
@@ -206,9 +205,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.renderPreviewHTML = function () {
-        return '<a target="_blank" href="/artist/' + self.$gid.val () +
-            '" title="' + self.$sortname.val () + '">' +
-            self.renderName () + '</a>' + self.$join.val ();
+        return '<a target="_blank" href="/artist/' +
+            MB.utility.escapeHTML (self.$gid.val ()) + '" title="' +
+            MB.utility.escapeHTML (self.$sortname.val ()) + '">' +
+            MB.utility.escapeHTML (self.renderName ()) + '</a>' +
+            MB.utility.escapeHTML (self.$join.val ());
     };
 
     self.remove = function () {
@@ -402,6 +403,45 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
     };
 
+    self.isEmpty = function () {
+        var isEmpty = true;
+
+        $.each (self.box, function (idx, box) {
+            if (! box.isEmpty ())
+            {
+                isEmpty = false;
+                return false;
+            }
+        });
+
+        return isEmpty;
+    };
+
+    /**
+     * This compares the current artist credit to the release artist
+     * as it was rendered into a template on the tracklist tab of the
+     * release editor.
+     */
+    self.isReleaseArtist = function () {
+        $release_artist = $('table.tracklist-template tr.track-artist-credit');
+        var isReleaseArtist = true;
+
+        $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
+            var box = self.box[idx];
+
+            if (box.$gid.val () !== $(row).find ('input.gid').val () ||
+                box.$name.val () !== $(row).find ('input.name').val () ||
+                box.$credit.val () !== $(row).find ('input.credit').val () ||
+                box.$join.val () !== $(row).find ('input.join').val ())
+            {
+                isReleaseArtist = false;
+                return false;
+            }
+        });
+
+        return isReleaseArtist;
+    };
+
     self.clear = function () {
         $.each (self.box, function (idx, item) {
             item.clear ();
@@ -524,13 +564,13 @@ MB.Control.ArtistCreditVertical = function ($target, $container, $button) {
 
 /* A generic artist credit initialize function for use outside the
    release editor. */
-MB.Control.initialize_artist_credit = function () {
+MB.Control.initialize_artist_credit = function (bubbles) {
 
-    var $target = $('input#entity-artist');
     var $button = $('input#open-ac');
-    var $container = $('div.artist-credit');
+    var $target = $('input#entity-artist');
+    var $container = $('div.artist-credit.bubble');
 
-    MB.Control.BubbleCollection ($button, $container);
+    bubbles.add ($button, $container);
     MB.Control.ArtistCreditVertical ($target, $container, $button);
 };
 

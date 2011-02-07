@@ -20,7 +20,10 @@
                 <tbody [% rdfa_label_ns(label) %]>
                     [%- FOREACH release=releases %]
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release.release) %] [% rdfa_about_attr(rdfa_release_curi(release.release)) -%]>
-                        <td>[% rdfa_label_release_link(release.release) %]</td>
+                        <td>
+                          [% rdfa_label_release_link(release.release) %]
+                          [% disambiguation(release.release) %]
+                        </td>
                         <td>[% rdfa_artist_credit(release.release.artist_credit) %]</td>
                         <td>[% rdfa_release_catno(release.catalog_number) %]</td>
                         <td>[% rdfa_release_event_date(release.release) %]</td>

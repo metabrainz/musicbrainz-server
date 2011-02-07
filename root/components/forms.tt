@@ -50,7 +50,7 @@
 
 [% MACRO form_row_text(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.text(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -58,7 +58,7 @@
 
 [% MACRO form_row_text_long(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.text(field_name, { size => 47 })  %]
       [% field_errors(form, field_name) %]
     [% END %]
@@ -66,7 +66,7 @@
 
 [% MACRO form_row_textarea(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.textarea(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -74,7 +74,7 @@
 
 [% MACRO form_row_password(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.password(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -83,14 +83,14 @@
 [% MACRO form_row_checkbox(r, field_name, label) BLOCK %]
     <div class="row no-label">
       [% r.checkbox(field_name) %]
-      [% r.label(field_name, label, inline => 1) %]
+      [% r.label(field_name, label || r.form.field(field_name).label, inline => 1) %]
       [% field_errors(r.form, field_name) %]
     </div>
 [% END %]
 
 [% MACRO form_row_select(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label) %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.select(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -98,7 +98,7 @@
 
 [% MACRO form_row_date(r, field_name, label) BLOCK %]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label, fake => 1) %]
+      [% r.label(field_name, label || r.form.field(field_name).label, fake => 1) %]
       [% r.date(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
@@ -109,12 +109,78 @@
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
-          <img class="search" src="/static/images/icons/search.png" />
           <input type="text" id="[% id %]" style="width: 262px"
               value="[% html_escape(form.field('artist_credit').fif.name) %]" />
+          <img class="search" src="/static/images/icons/search.png" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
     [%- END -%]
+[%- END -%]
+
+[%- MACRO guesscase BLOCK -%]
+  <fieldset class="guesscase">
+    <legend>Guess case</legend>
+    <div style="float: right; margin: 10px;" class="buttons">
+      <a href="#guesscase">[% l('Guess case') %]</a>
+    </div>
+    <p class="guesscase-options">
+        <select name="gc-mode" id="gc-mode"> </select>
+        <br />
+      <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+      <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+      <br />
+      <input type="checkbox" name="gc-roman" id="gc-roman">
+      <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+    </p>
+  </fieldset>
+[%- END -%]
+
+[%- MACRO guesscase_bubble(hide_mode) BLOCK -%]
+  <div class="guess-case container" style="display: none">
+    <div class="guess-case bubble">
+      <p>
+        [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
+      </p>
+      <div class="buttons">
+        <a href="#guesscase">[% l('Guess case') %]</a>
+      </div>
+      <p class="guesscase-options">
+        <table>
+          <tr>
+            <td>
+            [%- UNLESS hide_mode -%]
+              <select name="gc-mode" id="gc-mode"> </select><br />
+              <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+              <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+              <br />
+              <input type="checkbox" name="gc-roman" id="gc-roman">
+              <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+            [%- END -%]
+            </td>
+            <td>
+            [%- UNLESS hide_mode -%]
+              <span id="gc-help"> </span>
+            [%- END -%]
+            </td>
+          </tr>
+        </table>
+      </p>
+    </div>
+  </div>
+[%- END -%]
+
+[%- MACRO sortname_bubble(hide_mode) BLOCK -%]
+  <div class="sortname container" style="display: none">
+    <div class="sortname bubble">
+      <p>
+        [%- (l('Please use the Sort Name button to guess the sort name.')) -%]
+      </p>
+      <div class="buttons">
+        <a href="#sortname">[% l('Sort Name') %]</a>
+        <a href="#copy">[% l('Copy') %]</a>
+      </div>
+    </div>
+  </div>
 [%- END -%]
 
 [%- MACRO artist_credit_table(form) BLOCK -%]
@@ -138,10 +204,10 @@
           <div class="row">
             <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
             <span class="artist autocomplete">
-              <img class="search" src="/static/images/icons/search.png" />
               <input type="text" class="name" value="[% artist.name | html %]" />
-              <input type="hidden" class="gid" value="[% artist.gid %]" />
-              <input type="hidden" class="sortname" value="[% artist.sort_name %]" />
+              <img class="search" src="/static/images/icons/search.png" />
+              <input type="hidden" class="gid" value="[% artist.gid | html %]" />
+              <input type="hidden" class="sortname" value="[% artist.sort_name | html %]" />
               [%- r.hidden (ac.field('artist_id'), class => 'id') -%]
             </span>
 

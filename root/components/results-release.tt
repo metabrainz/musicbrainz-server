@@ -20,7 +20,7 @@
             [%- IF results.0.score -%]
             <td>[% result.score %]</td>
             [%- END -%]
-            <td>[% link_release(result.entity) %]</td>
+            <td>[% link_entity(result.entity) %]</td>
             <td>[% artist_credit(result.entity.artist_credit) %]</td>
             <td>[% result.entity.combined_track_count %]</td>
             <td>
