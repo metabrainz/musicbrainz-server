@@ -1,21 +1,24 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::ReleaseGroup::Edit;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
-use Sql;
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $rg = $c->model('ReleaseGroup')->get_by_id(1);
-my $edit = create_edit($rg);
+my $edit = create_edit($c, $rg);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Edit');
 
 my ($edits) = $c->model('Edit')->find({ release_group => 1 }, 10, 0);
@@ -30,7 +33,7 @@ $rg = $c->model('ReleaseGroup')->get_by_id(1);
 is_unchanged($rg);
 is($rg->edits_pending, 0);
 
-$edit = create_edit($rg);
+$edit = create_edit($c, $rg);
 accept_edit($c, $edit);
 $rg = $c->model('ReleaseGroup')->get_by_id(1);
 $c->model('ArtistCredit')->load($rg);
@@ -40,10 +43,10 @@ is($rg->type_id, 1);
 is($rg->comment, 'EP');
 is($rg->name, 'We Know');
 
-done_testing;
+};
 
 sub create_edit {
-    my $rg = shift;
+    my ($c, $rg) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_EDIT,
         editor_id => 2,
@@ -67,3 +70,5 @@ sub is_unchanged {
     is($rg->comment, undef);
     is($rg->artist_credit_id, 1);
 }
+
+1;

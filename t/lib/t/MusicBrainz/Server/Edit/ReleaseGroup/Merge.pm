@@ -1,19 +1,23 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::ReleaseGroup::Merge;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::ReleaseGroup::Merge' }
 
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_MERGE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Context->new();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_merge');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $edit = create_edit();
+my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Merge');
 
 my ($edits) = $c->model('Edit')->find({ release_group => [1, 2] }, 10, 0);
@@ -28,15 +32,16 @@ $rgs = $c->model('ReleaseGroup')->get_by_ids(1, 2);
 ok(defined $rgs->{1});
 ok(defined $rgs->{2});
 
-$edit = create_edit();
+$edit = create_edit($c);
 accept_edit($c, $edit);
 $rgs = $c->model('ReleaseGroup')->get_by_ids(1, 2);
 ok(defined $rgs->{1});
 ok(!defined $rgs->{2});
 
-done_testing;
+};
 
 sub create_edit {
+    my $c = shift;
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_MERGE,
         editor_id => 1,
@@ -46,3 +51,5 @@ sub create_edit {
         new_entity => { id => 1, name => 'New RG' },
     );
 }
+
+1;
