@@ -718,7 +718,7 @@ sub recalculate {
     if (my $query = $definition->{SQL}) {
         my $value = $self->sql->select_single_value($query);
 		$self->insert($statistic => $value);
-		return;
+        return;
     }
 
     if (my $calculate = $definition->{CALC}) {
@@ -772,6 +772,10 @@ sub get_latest_statistics {
                         value
                    FROM statistic
                   WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     $self->sql->select($query) or return;
 
     my $stats = MusicBrainz::Server::Entity::Statistics->new();

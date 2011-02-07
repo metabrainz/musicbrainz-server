@@ -460,6 +460,7 @@ sub delete
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);
+
     $self->sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
              @release_ids);
 
@@ -473,10 +474,17 @@ sub delete
               WHERE medium.id IS NULL'
         )
     };
-    $self->sql->do('DELETE FROM track WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
-             @orphaned_tracklists);
-    $self->sql->do('DELETE FROM tracklist WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
-             @orphaned_tracklists);
+
+    if (@orphaned_tracklists) {
+        $self->sql->do(
+            'DELETE FROM track
+              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+        $self->sql->do(
+            'DELETE FROM tracklist
+              WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+    }
 
     $self->sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
              @release_ids);
