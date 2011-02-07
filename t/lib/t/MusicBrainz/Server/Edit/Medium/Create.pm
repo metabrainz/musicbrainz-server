@@ -1,17 +1,39 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Medium::Create;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Create'; }
 
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
+use aliased 'MusicBrainz::Server::Entity::Track';
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+create_medium');
+
+my $tracklist = [
+    Track->new(
+        name => 'Fluffles',
+        artist_credit => ArtistCredit->new(
+            names => [
+                ArtistCreditName->new(
+                    name => 'Warp Industries',
+                    artist_id => 1
+                )]),
+        recording_id => 1,
+        position => 1
+    )
+];
 
 my $edit = $c->model('Edit')->create(
     edit_type => $EDIT_MEDIUM_CREATE,
@@ -20,7 +42,7 @@ my $edit = $c->model('Edit')->create(
     position => 1,
     format_id => 1,
     release_id => 1,
-    tracklist_id => 1
+    tracklist => $tracklist
 );
 
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Create');
@@ -49,7 +71,7 @@ $edit = $c->model('Edit')->create(
     position => 2,
     format_id => 1,
     release_id => 1,
-    tracklist_id => 1
+    tracklist => $tracklist
 );
 
 my $medium_id = $edit->medium_id;
@@ -58,4 +80,6 @@ reject_edit($c, $edit);
 $medium = $c->model('Medium')->get_by_id($medium_id);
 ok(!defined $medium);
 
-done_testing;
+};
+
+1;

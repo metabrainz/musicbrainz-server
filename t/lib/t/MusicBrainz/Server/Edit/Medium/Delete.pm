@@ -1,7 +1,8 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Medium::Delete;
+use Test::Routine;
 use Test::More;
+
+with 't::Context';
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Delete' }
 
@@ -9,11 +10,15 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $edit = _create_edit();
+my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Delete');
 
 # Make sure we can load the artist
@@ -27,14 +32,16 @@ ok(defined $medium);
 is($medium->edits_pending, 0);
 
 # Test accepting the edit
-$edit = _create_edit();
+$edit = _create_edit($c, );
 accept_edit($c, $edit);
 $medium = $c->model('Medium')->get_by_id(1);
 ok(!defined $medium);
 
-done_testing;
+
+};
 
 sub _create_edit {
+    my $c = shift;
     my $medium = $c->model('Medium')->get_by_id(1);
     return $c->model('Edit')->create(
         edit_type => $EDIT_MEDIUM_DELETE,
@@ -43,3 +50,4 @@ sub _create_edit {
     );
 }
 
+1;
