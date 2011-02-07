@@ -48,6 +48,12 @@
       </div>
 
       [%- form_row_artist_credit(form, 'release-artist') -%]
+      <div class="row">
+        [% r.label('various_artists', 'Change track artists') %]
+        <img style="float: right; margin-right: 12px;" id="help-va"
+             src="/static/images/icons/help.png" />
+        [% r.checkbox('change_track_artists') %]
+      </div>
 
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]
