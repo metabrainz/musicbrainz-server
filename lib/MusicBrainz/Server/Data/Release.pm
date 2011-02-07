@@ -474,10 +474,17 @@ sub delete
               WHERE medium.id IS NULL'
         )
     };
-    $sql->do('DELETE FROM track WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
-             @orphaned_tracklists);
-    $sql->do('DELETE FROM tracklist WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
-             @orphaned_tracklists);
+
+    if (@orphaned_tracklists) {
+        $sql->do(
+            'DELETE FROM track
+              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+        $sql->do(
+            'DELETE FROM tracklist
+              WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+    }
 
     $sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
              @release_ids);
