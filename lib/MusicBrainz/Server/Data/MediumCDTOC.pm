@@ -90,6 +90,23 @@ sub update
         { id => $medium_cdtoc_id });
 }
 
+sub delete
+{
+    my ($self, $medium_cdtoc_id) = @_;
+    my $cdtoc_id = $self->sql->select_single_value(
+        'DELETE FROM ' . $self->_table . ' WHERE id = ?
+           RETURNING cdtoc',
+        $medium_cdtoc_id
+    );
+    # Delete the CDTOC if it is now unused
+    $self->sql->do(
+        'DELETE FROM cdtoc WHERE id IN (
+             SELECT cd.id FROM cdtoc cd
+          LEFT JOIN medium_cdtoc mcd ON mcd.cdtoc = cd.id
+             WHERE cd.id = ? AND mcd.id IS NULL
+         )', $cdtoc_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
