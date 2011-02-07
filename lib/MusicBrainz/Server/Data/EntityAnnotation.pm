@@ -53,7 +53,6 @@ sub get_latest
                 " FROM " . $self->_table .
                 " WHERE " . $self->type . " = ?" .
                 " ORDER BY created DESC LIMIT 1";
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->sql->select_single_row_hash($query, $id)
         or return undef;
     return $self->_new_from_row($row);
@@ -72,7 +71,6 @@ sub load_latest
 sub edit
 {
     my ($self, $annotation_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $annotation_id = $self->sql->insert_row('annotation', {
         editor => $annotation_hash->{editor_id},
         text => $annotation_hash->{text},
@@ -91,7 +89,6 @@ sub delete
     my $query = "DELETE FROM " . $self->table .
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")" .
                 " RETURNING annotation";
-    my $sql = Sql->new($self->c->dbh);
     my $annotations = $self->sql->select_single_column_array($query, @ids);
     return 1 unless scalar @$annotations;
     $query = "DELETE FROM annotation WHERE id IN (" . placeholders(@$annotations) . ")";
@@ -102,7 +99,6 @@ sub delete
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
     $self->sql->do("UPDATE $table SET $type = ?

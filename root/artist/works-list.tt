@@ -19,7 +19,10 @@
                     value="[% work.id %]" />
             </td>
             [% END %]
-            <td>[% rdfa_made_work_link(work) %]</td>
+            <td>
+              [% rdfa_made_work_link(work) %]
+              [% disambiguation(work) %]
+            </td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(work.artist_credit) %]</td>
             [%- END -%]

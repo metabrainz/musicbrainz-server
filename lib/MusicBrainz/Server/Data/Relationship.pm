@@ -86,7 +86,6 @@ sub get_by_id
     $self->_check_types($type0, $type1);
 
     my $query = "SELECT * FROM l_${type0}_${type1} WHERE id = ?";
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->sql->select_single_row_hash($query, $id)
         or return undef;
 
@@ -99,7 +98,6 @@ sub _load
     my @target_types = @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my @rels;
-    my $sql = Sql->new($self->c->dbh);
     foreach my $t (@types) {
         my $target_type = $type eq $t->[0] ? $t->[1] : $t->[0];
         my %objs_by_id = map { $_->id => $_ }
@@ -250,8 +248,6 @@ sub merge_entities
 {
     my ($self, $type, $target_id, @source_ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-
     # Delete relationships where the start is the same as the end
     # (after merging)
     $self->sql->do("DELETE FROM l_${type}_${type}
@@ -286,7 +282,6 @@ sub delete_entities
 {
     my ($self, $type, @ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
         $self->sql->do("
@@ -318,7 +313,6 @@ sub insert
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = {
         link => $self->c->model('Link')->find_or_insert({
             link_type_id => $values->{link_type_id},
@@ -348,7 +342,6 @@ sub update
         $link{$_} = defined $values->{$_} ? $values->{$_} : $link->{$_};
     }
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = {};
 
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
@@ -363,7 +356,6 @@ sub delete
     my ($self, $type0, $type1, @ids) = @_;
     $self->_check_types($type0, $type1);
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do("DELETE FROM l_${type0}_${type1}
               WHERE id IN (" . placeholders(@ids) . ")", @ids);
 }
@@ -373,7 +365,6 @@ sub adjust_edit_pending
     my ($self, $type0, $type1, $adjust, @ids) = @_;
     $self->_check_types($type0, $type1);
 
-    my $sql = Sql->new($self->c->dbh);
     my $query = "UPDATE l_${type0}_${type1}
                  SET edits_pending = edits_pending + ?
                  WHERE id IN (" . placeholders(@ids) . ")";

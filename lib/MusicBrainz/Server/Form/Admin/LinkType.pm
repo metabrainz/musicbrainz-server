@@ -3,6 +3,12 @@ package MusicBrainz::Server::Form::Admin::LinkType;
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
+with 'MusicBrainz::Server::Form::Role::Edit';
+
+sub edit_field_names {
+    qw( parent_id child_order name link_phrase reverse_link_phrase
+        short_link_phrase description priority attributes
+  ) }
 
 has '+name' => ( default => 'linktype' );
 

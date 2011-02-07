@@ -46,7 +46,6 @@ sub subscribe
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
 
         return if $self->sql->select_single_value("
@@ -67,7 +66,6 @@ sub unsubscribe
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
 
         $self->sql->do("
@@ -85,7 +83,6 @@ sub check_subscription
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
     return $self->sql->select_single_value("
         SELECT 1 FROM $table
         WHERE editor = ? AND $column = ?",
@@ -117,7 +114,6 @@ sub get_subscribed_editor_count
 
     my $table = $self->table;
     my $column = $self->column;
-    my $sql = Sql->new($self->c->dbh);
 
     return $self->sql->select_single_value("SELECT count(*) FROM $table
                                     WHERE $column = ?", $entity_id);
@@ -138,7 +134,6 @@ sub merge
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do("UPDATE $table SET merged_by_edit = ?
               WHERE $column IN (".placeholders(@ids).")",
               $edit_id, @ids);
@@ -151,7 +146,6 @@ sub delete
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do("UPDATE $table SET deleted_by_edit = ?
                WHERE $column IN (".placeholders(@ids).")", $edit_id, @ids);
 }

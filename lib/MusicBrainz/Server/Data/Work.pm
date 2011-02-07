@@ -86,7 +86,6 @@ sub load
 sub insert
 {
     my ($self, @works) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name} } @works);
     my $class = $self->_entity_class;
     my @created;
@@ -105,7 +104,6 @@ sub insert
 sub update
 {
     my ($self, $work_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('work', $row, { id => $work_id });
@@ -120,7 +118,6 @@ sub delete
     $self->tags->delete($work_id);
     $self->rating->delete($work_id);
     $self->remove_gid_redirects($work_id);
-    my $sql = Sql->new($self->c->dbh);
     $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }

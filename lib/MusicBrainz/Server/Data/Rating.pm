@@ -44,7 +44,6 @@ sub load_user_ratings
         SELECT $type AS id, rating FROM ${type}_rating_raw
         WHERE editor = ? AND $type IN (".placeholders(@ids).")";
 
-    my $sql = Sql->new($self->c->raw_dbh);
     $self->c->raw_sql->select($query, $user_id, @ids);
     while (1) {
         my $row = $self->c->raw_sql->next_row_hash_ref or last;
@@ -58,15 +57,12 @@ sub _update_aggregate_rating
 {
     my ($self, $entity_id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    my $raw_sql = Sql->new($self->c->raw_dbh);
-
     my $type = $self->type;
     my $table = $type . '_meta';
     my $table_raw = $type . '_rating_raw';
 
     # Update the aggregate rating
-    my $row = $raw_sql->select_single_row_array("
+    my $row = $self->c->raw_sql->select_single_row_array("
         SELECT count(rating), sum(rating)
         FROM $table_raw WHERE $type = ?
         GROUP BY $type", $entity_id);
@@ -124,8 +120,7 @@ sub update
 
     my ($rating_count, $rating_sum, $rating_avg);
 
-    my $sql = Sql->new($self->c->dbh);
-    my $raw_sql = Sql->new($self->c->raw_dbh);
+    my $raw_sql = $self->c->raw_sql;
     Sql::run_in_transaction(sub {
 
         my $type = $self->type;

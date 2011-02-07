@@ -69,7 +69,7 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     path           => '/release-group/create',
-    form           => 'Recording',
+    form           => 'ReleaseGroup',
     edit_type      => $EDIT_RELEASEGROUP_CREATE,
     edit_arguments => sub {
         my ($self, $c) = @_;

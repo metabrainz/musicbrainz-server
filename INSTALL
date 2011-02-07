@@ -54,7 +54,7 @@ Server configuration
 
 1)  Download the source code.
 
-        git clone git://git.musicbrainz.org/musicbrainz-server/core.git musicbrainz-server
+        git clone git://git.musicbrainz.org/musicbrainz-server.git
         cd musicbrainz-server
 
 2)  Modify the server configuration file.

@@ -167,7 +167,7 @@ sub begin : Private
     }
 
     # Can we automatically login?
-    if (my $cookie = $c->req->cookie('remember_login') && !$c->user_exists) {
+    if (!$c->user_exists) {
         $c->forward('/user/cookie_login');
     }
 
