@@ -772,10 +772,7 @@ sub get_latest_statistics {
                         value
                    FROM statistic
                   WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
-<<<<<<< HEAD
-=======
 
->>>>>>> master
     $self->sql->select($query) or return;
 
     my $stats = MusicBrainz::Server::Entity::Statistics->new();
