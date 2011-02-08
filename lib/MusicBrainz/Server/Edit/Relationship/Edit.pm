@@ -71,7 +71,11 @@ sub foreign_keys
     my %load;
 
     $load{LinkType} = [ $self->data->{link}->{link_type_id} ];
-    $load{LinkAttributeType} = $self->data->{link}->{attributes};
+    $load{LinkAttributeType} = [
+        @{ $self->data->{link}->{attributes} },
+        @{ $self->data->{new}->{attributes} },
+        @{ $self->data->{old}->{attributes} }
+    ];
 
     my $old = $self->data->{old};
     my $new = $self->data->{new};
