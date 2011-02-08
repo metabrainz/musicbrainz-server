@@ -1,16 +1,26 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::LookupNonCore;
+use Test::Routine;
 use Test::More;
-use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
-use MusicBrainz::Server::Test ws_test => { version => 2 };
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+with 't::Mechanize', 't::Context';
+
+use utf8;
+use XML::SemanticDiff;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'discid lookup with artist-credits',
     '/discid/T.epJ9O5SoDjPqAJuOJfAI9O8Nk-?inc=artist-credits' =>
@@ -29,10 +39,12 @@ ws_test 'discid lookup with artist-credits',
                     <name-credit>
                         <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                             <name>BoA</name>
+                            <sort-name>BoA</sort-name>
                         </artist>
                     </name-credit>
                 </artist-credit>
                 <date>2004-01-15</date><country>JP</country>
+                <asin>B0000YGBSG</asin>
             </release>
         </release-list>
     </disc>
@@ -87,4 +99,7 @@ ws_test 'isrc lookup with releases',
     </isrc-list>
 </metadata>';
 
-done_testing;
+};
+
+1;
+

@@ -1,16 +1,26 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::LookupArtist;
+use Test::Routine;
 use Test::More;
-use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
-use MusicBrainz::Server::Test ws_test => { version => 2 };
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+with 't::Mechanize', 't::Context';
+
+use utf8;
+use XML::SemanticDiff;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'basic artist lookup',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' =>
@@ -44,6 +54,18 @@ ws_test 'artist lookup with releases',
     <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="group">
         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
         <release-list count="2">
+          <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+                <title>サマーれげぇ!レインボー</title>
+                <status>official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>jpn</language>
+                    <script>Jpan</script>
+                </text-representation>
+                <date>2001-07-04</date>
+                <country>JP</country>
+                <barcode>4942463511227</barcode>
+            </release>
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
                 <status>pseudo-release</status>
@@ -51,18 +73,6 @@ ws_test 'artist lookup with releases',
                 <text-representation>
                     <language>jpn</language>
                     <script>Latn</script>
-                </text-representation>
-                <date>2001-07-04</date>
-                <country>JP</country>
-                <barcode>4942463511227</barcode>
-            </release>
-            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title>
-                <status>official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>jpn</language>
-                    <script>Jpan</script>
                 </text-representation>
                 <date>2001-07-04</date>
                 <country>JP</country>
@@ -169,11 +179,13 @@ ws_test 'artist lookup with recordings and artist credits',
                     <name-credit joinphrase="♥">
                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                             <name>m-flo</name>
+                            <sort-name>m-flo</sort-name>
                         </artist>
                     </name-credit>
                     <name-credit>
                         <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                             <name>BoA</name>
+                            <sort-name>BoA</sort-name>
                         </artist>
                     </name-credit>
                 </artist-credit>
@@ -184,11 +196,13 @@ ws_test 'artist lookup with recordings and artist credits',
                     <name-credit joinphrase="♥">
                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                             <name>m-flo</name>
+                            <sort-name>m-flo</sort-name>
                         </artist>
                     </name-credit>
                     <name-credit>
                         <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                             <name>BoA</name>
+                            <sort-name>BoA</sort-name>
                         </artist>
                     </name-credit>
                 </artist-credit>
@@ -258,4 +272,7 @@ ws_test 'various artists release lookup',
     </artist>
 </metadata>';
 
-done_testing;
+};
+
+1;
+

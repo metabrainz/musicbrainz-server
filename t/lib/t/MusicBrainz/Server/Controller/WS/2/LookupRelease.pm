@@ -1,17 +1,26 @@
-# FIXME There are no tests for quality, when quality is low or high
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::LookupRelease;
+use Test::Routine;
 use Test::More;
-use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
-use MusicBrainz::Server::Test ws_test => { version => 2 };
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+with 't::Mechanize', 't::Context';
+
+use utf8;
+use XML::SemanticDiff;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'basic release lookup',
     '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' =>
@@ -24,6 +33,7 @@ ws_test 'basic release lookup',
             <language>jpn</language><script>Latn</script>
         </text-representation>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <asin>B00005LA6G</asin>
     </release>
 </metadata>';
 
@@ -53,6 +63,7 @@ ws_test 'release lookup with artists + aliases',
             </name-credit>
         </artist-credit>
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <asin>B0001FAD2O</asin>
     </release>
 </metadata>';
 
@@ -67,6 +78,7 @@ ws_test 'release lookup with labels and recordings',
             <language>eng</language><script>Latn</script>
         </text-representation>
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <asin>B0001FAD2O</asin>
         <label-info-list count="1">
             <label-info>
                 <catalog-number>rzcd-45118</catalog-number>
@@ -117,6 +129,7 @@ ws_test 'release lookup with release-groups',
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name>
+                    <sort-name>m-flo</sort-name>
                 </artist>
             </name-credit>
         </artist-credit>
@@ -126,11 +139,13 @@ ws_test 'release lookup with release-groups',
                 <name-credit>
                     <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                         <name>m-flo</name>
+                        <sort-name>m-flo</sort-name>
                     </artist>
                 </name-credit>
             </artist-credit>
         </release-group>
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <asin>B0001FAD2O</asin>
     </release>
 </metadata>';
 
@@ -145,6 +160,7 @@ ws_test 'release lookup with discids and puids',
             <language>jpn</language><script>Latn</script>
         </text-representation>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <asin>B00005LA6G</asin>
         <medium-list count="1">
             <medium>
                 <position>1</position><format>cd</format>
@@ -187,4 +203,7 @@ ws_test 'release lookup with discids and puids',
     </release>
 </metadata>';
 
-done_testing;
+};
+
+1;
+

@@ -1,16 +1,26 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::BrowseRelease;
+use Test::Routine;
 use Test::More;
-use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
-use MusicBrainz::Server::Test ws_test => { version => 2 };
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+with 't::Mechanize', 't::Context';
+
+use utf8;
+use XML::SemanticDiff;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'browse releases via artist (paging)',
     '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' =>
@@ -24,6 +34,7 @@ ws_test 'browse releases via artist (paging)',
                 <language>eng</language><script>Latn</script>
             </text-representation>
             <date>1999-09-23</date><country>US</country>
+            <asin>B00001IVAI</asin>
         </release>
     </release-list>
 </metadata>';
@@ -40,6 +51,7 @@ ws_test 'browse releases via label',
                 <language>eng</language><script>Latn</script>
             </text-representation>
             <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+            <asin>B000KJTG6K</asin>
             <medium-list count="1">
                 <medium>
                     <position>1</position><format>cd</format><track-list count="12" />
@@ -53,6 +65,7 @@ ws_test 'browse releases via label',
                 <language>eng</language><script>Latn</script>
             </text-representation>
             <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
+            <asin>B001IKWNCE</asin>
             <medium-list count="2">
                 <medium>
                     <position>1</position><format>cd</format><track-list count="9" />
@@ -77,6 +90,7 @@ ws_test 'browse releases via release group',
                 <language>jpn</language><script>Latn</script>
             </text-representation>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <asin>B00005LA6G</asin>
         </release>
         <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
             <title>サマーれげぇ!レインボー</title><status>official</status>
@@ -85,6 +99,7 @@ ws_test 'browse releases via release group',
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <asin>B00005LA6G</asin>
         </release>
     </release-list>
 </metadata>';
@@ -104,6 +119,7 @@ ws_test 'browse releases via recording',
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
             <date>2004-01-15</date><country>JP</country><barcode>4988064173907</barcode>
+            <asin>B0000YG9NS</asin>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>avcd-17390</catalog-number>
@@ -120,6 +136,7 @@ ws_test 'browse releases via recording',
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
             <date>2004-01-15</date><country>JP</country><barcode>4988064173891</barcode>
+            <asin>B0000YGBSG</asin>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>avcd-17389</catalog-number>
@@ -132,4 +149,7 @@ ws_test 'browse releases via recording',
     </release-list>
 </metadata>';
 
-done_testing;
+};
+
+1;
+

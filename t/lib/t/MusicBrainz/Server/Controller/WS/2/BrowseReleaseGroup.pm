@@ -1,16 +1,26 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::BrowseReleaseGroup;
+use Test::Routine;
 use Test::More;
-use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
-use MusicBrainz::Server::Test ws_test => { version => 2 };
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+with 't::Mechanize', 't::Context';
+
+use utf8;
+use XML::SemanticDiff;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'browse release group via release',
     '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+ratings' =>
@@ -23,6 +33,7 @@ ws_test 'browse release group via release',
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
                         <name>Distance</name>
+                        <sort-name>Distance</sort-name>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -31,6 +42,7 @@ ws_test 'browse release group via release',
                 <tag count="1"><name>electronic</name></tag>
                 <tag count="1"><name>grime</name></tag>
             </tag-list>
+            <rating votes-count="1">4</rating>
         </release-group>
     </release-group-list>
 </metadata>';
@@ -46,6 +58,7 @@ ws_test 'browse release group via artist',
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
                         <name>Distance</name>
+                        <sort-name>Distance</sort-name>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -54,6 +67,7 @@ ws_test 'browse release group via artist',
                 <tag count="1"><name>electronic</name></tag>
                 <tag count="1"><name>grime</name></tag>
             </tag-list>
+            <rating votes-count="1">4</rating>
         </release-group>
         <release-group type="album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
             <title>Repercussions</title>
@@ -61,6 +75,7 @@ ws_test 'browse release group via artist',
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
                         <name>Distance</name>
+                        <sort-name>Distance</sort-name>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -75,4 +90,7 @@ ws_test 'browse singles via artist',
     <release-group-list count="0" />
 </metadata>';
 
-done_testing;
+};
+
+1;
+
