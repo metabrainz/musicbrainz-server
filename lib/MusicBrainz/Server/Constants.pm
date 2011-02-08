@@ -126,7 +126,7 @@ Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 Readonly our $EDIT_URL_EDIT => 101;
 
 Readonly our $EDIT_PUID_DELETE => 113;
-Readonly our $EDIT_ECHOPRINT_DELETE => 113;
+Readonly our $EDIT_ECHOPRINT_DELETE => 114;
 
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_NAME       => 201;
 Readonly our $EDIT_HISTORIC_EDIT_TRACKNAME          => 204;

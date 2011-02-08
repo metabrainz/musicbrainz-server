@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Echoprint::Delete;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_Echoprint_DELETE );
+use MusicBrainz::Server::Constants qw( $EDIT_ECHOPRINT_DELETE );
 use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );
@@ -9,7 +9,7 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
-sub edit_type { $EDIT_Echoprint_DELETE }
+sub edit_type { $EDIT_ECHOPRINT_DELETE }
 sub edit_name { l('Remove Echoprint') }
 
 sub alter_edit_pending  { { RecordingEchoprint => [ shift->recording_echoprint_id ] } }

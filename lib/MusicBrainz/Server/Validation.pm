@@ -41,6 +41,7 @@ require Exporter;
         is_valid_url
         is_positive_integer
         is_valid_discid
+        is_echoprint
         normalise_strings
     )
 }
@@ -113,7 +114,7 @@ sub IsGUID
     1;
 }
 
-sub IsEchoprint
+sub is_echoprint
 {
     my $t = $_[0];
     defined($t) and not ref($t) or return undef;

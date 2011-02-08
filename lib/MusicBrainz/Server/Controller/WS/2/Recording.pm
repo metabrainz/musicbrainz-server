@@ -194,7 +194,7 @@ sub recording_submit : Private
         for my $echoprint_node (@echoprints) {
             my $echoprint = $echoprint_node->getAttribute('id');
             $self->_error($c, "$echoprint is not a valid echoprint")
-                unless MusicBrainz::Server::Validation::IsGUID($echoprint);
+                unless MusicBrainz::Server::Validation::is_echoprint($echoprint);
 
             $submit_echoprint{ $id } ||= [];
             push @{ $submit_echoprint{$id} }, $echoprint;
@@ -238,22 +238,6 @@ sub recording_submit : Private
         }
     );
 
-    # Submit Echoprints
-    $buffer = Buffer->new(
-        limit => 100,
-        on_full => f($contents) {
-            my $new_rows = $c->model('RecordingEchoprint')->filter_additions(@$contents);
-            return unless @$new_rows;
-
-            $c->model('Edit')->create(
-                edit_type      => $EDIT_RECORDING_ADD_PUIDS,
-                editor_id      => $c->user->id,
-                client_version => $client,
-                echoprints     => $new_rows
-            );
-        }
-    );
-
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_puid) {
             $buffer->add_items(map +{
@@ -262,6 +246,22 @@ sub recording_submit : Private
             }, @{ $submit_puid{$recording_gid} });
         }
     });
+
+    # Submit Echoprints
+    $buffer = Buffer->new(
+        limit => 100,
+        on_full => f($contents) {
+            my $new_rows = $c->model('RecordingEchoprint')->filter_additions(@$contents);
+            return unless @$new_rows;
+
+            $c->model('Edit')->create(
+                edit_type      => $EDIT_RECORDING_ADD_ECHOPRINTS,
+                editor_id      => $c->user->id,
+                client_version => $client,
+                echoprints     => $new_rows
+            );
+        }
+    );
 
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_echoprint) {

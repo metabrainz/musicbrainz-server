@@ -22,7 +22,7 @@ sub echoprint : Chained('root') PathPart('echoprint') Args(1)
 {
     my ($self, $c, $id) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!MusicBrainz::Server::Validation::is_echoprint($id))
     {
         $c->stash->{error} = "Invalid echoprint.";
         $c->detach('bad_req');

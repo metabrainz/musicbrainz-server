@@ -7,7 +7,7 @@ sub load : Chained('/') PathPart('echoprint') CaptureArgs(1)
 {
     my ($self, $c, $id) = @_;
 
-    unless (MusicBrainz::Server::Validation::IsEchoprint($id)) {
+    unless (MusicBrainz::Server::Validation::is_echoprint($id)) {
         $c->detach('/error_404');
     }
 

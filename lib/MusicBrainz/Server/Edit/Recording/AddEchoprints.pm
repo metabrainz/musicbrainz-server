@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Recording::AddEchoprints;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_EchoprintS );
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ECHOPRINTS );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
 };
 
 sub edit_name { l('Add Echoprints') }
-sub edit_type { $EDIT_RECORDING_ADD_EchoprintS }
+sub edit_type { $EDIT_RECORDING_ADD_ECHOPRINTS }
 
 has '+data' => (
     isa => Dict[
