@@ -1,15 +1,17 @@
-use strict;
+package t::MusicBrainz::Server::Controller::User::Register;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-MusicBrainz::Server::Test->prepare_test_server;
+test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
 $mech->get_ok('/register', 'Fetch registration page');
 $mech->submit_form( with_fields => {
@@ -41,12 +43,6 @@ my ($verify_link) = $email->get_body =~ qr{http://localhost(/verify-email.*)};
 $mech->get_ok($verify_link, 'verify account');
 $mech->content_like(qr/Thank you, your email address has now been verified/);
 
-# remove the newly added users.
-use Sql;
-my $sql = Sql->new($c->dbh);
-$sql->begin;
-$sql->do ('DELETE FROM editor WHERE name=\'brand_new_editor\'');
-$sql->do ('DELETE FROM editor WHERE name=\'email_editor\'');
-$sql->commit;
+};
 
-done_testing;
+1;

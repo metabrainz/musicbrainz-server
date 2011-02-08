@@ -1,18 +1,20 @@
-use strict;
+package t::MusicBrainz::Server::Controller::User::LostPassword;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-MusicBrainz::Server::Test->prepare_test_server;
+test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
 $mech->get_ok('/lost-password');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->submit_form( with_fields => {
     'lostpassword.username' => 'new_editor',
     'lostpassword.email' => 'test@email.com'
@@ -27,7 +29,7 @@ like($email->get_body, qr{http://localhost/reset-password.*});
 $email->get_body =~ qr{http://localhost(/reset-password.*)};
 my $reset_password_path = $1;
 $mech->get_ok($reset_password_path);
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->content_contains("Set a new password for your MusicBrainz account.");
 $mech->submit_form( with_fields => {
     'resetpassword.password' => 'new_password',
@@ -45,4 +47,6 @@ $mech->get_ok('/logout');
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'new_password' } );
 
-done_testing;
+};
+
+1;
