@@ -1,16 +1,26 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::LookupTagsRatings;
+use Test::Routine;
 use Test::More;
-use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
-use MusicBrainz::Server::Test ws_test => { version => 2 };
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+with 't::Mechanize', 't::Context';
+
+use utf8;
+use XML::SemanticDiff;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'artist lookup with tags and ratings',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+ratings' =>
@@ -21,34 +31,13 @@ ws_test 'artist lookup with tags and ratings',
         <life-span>
             <begin>1986-11-05</begin>
         </life-span>
-        <tag-list>
-          <tag count="1"><name>country schlager thrash gabber</name></tag>
-          <tag count="1"><name>c-pop</name></tag>
-          <tag count="1"><name>japanese</name></tag>
-          <tag count="1"><name>j-pop</name></tag>
-          <tag count="1"><name>k-pop</name></tag>
-          <tag count="1"><name>pop</name></tag>
-          <tag count="1"><name>speedcore</name></tag>
-        </tag-list>
-        <rating votes-count="3">4.35</rating>
+        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>pop</name></tag></tag-list><rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
 
 ws_test 'recording lookup with tags and ratings',
-    '/recording/eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e?inc=tags+ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
-        <title>サマーれげぇ!レインボー (instrumental)</title><length>292800</length>
-        <tag-list>
-          <tag count="1"><name>instrumental version</name></tag>
-          <tag count="1"><name>jpop</name></tag>
-          <tag count="1"><name>korean</name></tag>
-          <tag count="1"><name>metal</name></tag>
-          <tag count="1"><name>thrash metal</name></tag>
-        </tag-list>
-    </recording>
-</metadata>';
+    '/recording/7a356856-9483-42c2-bed9-dc07cb555952?inc=tags+ratings' =>
+    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><recording id="7a356856-9483-42c2-bed9-dc07cb555952"><title>Cella</title><length>334000</length><tag-list><tag count="1"><name>dubstep</name></tag></tag-list></recording></metadata>';
 
 ws_test 'label lookup with tags and ratings',
     '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+ratings' =>
@@ -84,6 +73,7 @@ ws_test 'release group lookup with tags and ratings',
                 <name>grime</name>
             </tag>
         </tag-list>
+        <rating votes-count="1">4</rating>
     </release-group>
 </metadata>';
 
@@ -104,15 +94,7 @@ ws_test 'artist lookup with release-groups, tags and ratings',
                 </tag-list>
             </release-group>
         </release-group-list>
-        <tag-list>
-          <tag count="1"><name>country schlager thrash gabber</name></tag>
-          <tag count="1"><name>c-pop</name></tag>
-          <tag count="1"><name>japanese</name></tag>
-          <tag count="1"><name>j-pop</name></tag>
-          <tag count="1"><name>k-pop</name></tag>
-          <tag count="1"><name>pop</name></tag>
-          <tag count="1"><name>speedcore</name></tag>
-        </tag-list>
+        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
         <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
@@ -134,9 +116,14 @@ ws_test 'release lookup with release-groups, tags and ratings',
                 <tag count="1"><name>electronic</name></tag>
                 <tag count="1"><name>grime</name></tag>
             </tag-list>
+            <rating votes-count="1">4</rating>
         </release-group>
         <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+        <asin>B000KJTG6K</asin>
     </release>
 </metadata>';
 
-done_testing;
+};
+
+1;
+

@@ -357,6 +357,7 @@ sub _build_ws_test {
             $validator->($mech->content, 'validating');
 
             is_xml_same($mech->content, $expected);
+            $Test->note($mech->content);
         });
     }
 }

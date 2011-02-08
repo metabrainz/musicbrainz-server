@@ -1,16 +1,26 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::LookupLabel;
+use Test::Routine;
 use Test::More;
-use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test ws_test => { version => 2 };
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+with 't::Mechanize', 't::Context';
+
+use utf8;
+use XML::SemanticDiff;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'basic label lookup',
     '/label/b4edce40-090f-4956-b82a-5d9d285da40b' =>
@@ -78,4 +88,7 @@ ws_test 'label lookup with releases, inc=media',
     </label>
 </metadata>';
 
-done_testing;
+};
+
+1;
+

@@ -1,20 +1,26 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::2::BrowseArtists;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
+
+with 't::Mechanize', 't::Context';
+
+use utf8;
 use XML::SemanticDiff;
-use Catalyst::Test 'MusicBrainz::Server';
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };
 
-use Test::WWW::Mechanize::Catalyst;
+test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+my $test = shift;
+my $c = $test->c;
 my $v2 = schema_validator;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
 my $diff = XML::SemanticDiff->new;
+my $mech = $test->mech;
 
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'browse artists via release group',
     '/artist?release-group=22b54315-6e51-350b-bb34-e6e16f7688bd' =>
@@ -67,13 +73,13 @@ ws_test 'browse artists via release, inc=tags+ratings',
                 <begin>1986-11-05</begin>
             </life-span>
             <tag-list>
-                <tag count="1"><name>country schlager thrash gabber</name></tag>
                 <tag count="1"><name>c-pop</name></tag>
                 <tag count="1"><name>japanese</name></tag>
+                <tag count="1"><name>jpop</name></tag>
                 <tag count="1"><name>j-pop</name></tag>
+                <tag count="1"><name>kpop</name></tag>
                 <tag count="1"><name>k-pop</name></tag>
                 <tag count="1"><name>pop</name></tag>
-                <tag count="1"><name>speedcore</name></tag>
             </tag-list>
             <rating votes-count="3">4.35</rating>
         </artist>
@@ -87,4 +93,7 @@ ws_test 'browse artists via release, inc=tags+ratings',
     </artist-list>
 </metadata>';
 
-done_testing;
+};
+
+1;
+
