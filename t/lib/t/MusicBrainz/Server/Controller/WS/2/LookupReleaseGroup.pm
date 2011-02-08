@@ -26,7 +26,7 @@ ws_test 'basic release group lookup',
     '/release-group/b84625af-6229-305f-9f1b-59c0185df016' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="single" id="b84625af-6229-305f-9f1b-59c0185df016">
+    <release-group type="Single" id="b84625af-6229-305f-9f1b-59c0185df016">
         <title>サマーれげぇ!レインボー</title>
     </release-group>
 </metadata>';
@@ -35,11 +35,11 @@ ws_test 'release group lookup with releases',
     '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
+    <release-group type="Album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
         <release-list count="1">
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
-                <title>Repercussions</title><status>official</status>
+                <title>Repercussions</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
@@ -55,7 +55,7 @@ ws_test 'release group lookup with artists',
     '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=artists' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
+    <release-group type="Album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
         <artist-credit>
             <name-credit>
@@ -71,7 +71,7 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
     '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+    <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
         <artist-credit>
             <name-credit>
@@ -83,7 +83,7 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
         </artist-credit>
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-                <title>the Love Bug</title><status>official</status>
+                <title>the Love Bug</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
@@ -98,7 +98,7 @@ ws_test 'release group lookup with pseudo-releases',
     '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases&status=pseudo-release' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+    <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
         <artist-credit>
             <name-credit>

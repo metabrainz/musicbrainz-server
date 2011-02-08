@@ -595,7 +595,7 @@ sub _serialize_label
 
     my %attrs;
     $attrs{id} = $label->gid;
-    $attrs{type} = label->type->name if $label->type;
+    $attrs{type} = $label->type->name if $label->type;
 
     my @list;
     push @list, $gen->name($label->name);

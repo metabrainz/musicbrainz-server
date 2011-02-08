@@ -30,7 +30,7 @@ ws_test 'discid lookup with artist-credits',
         <sectors>256486</sectors>
         <release-list count="1">
             <release id="757a1723-3769-4298-89cd-48d31177852a">
-                <title>LOVE &amp; HONESTY</title><status>pseudo-release</status>
+                <title>LOVE &amp; HONESTY</title><status>Pseudo-Release</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language><script>Latn</script>
@@ -77,7 +77,7 @@ ws_test 'isrc lookup with releases',
                     <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
                     <release-list count="2">
                         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                            <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+                            <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
                             <quality>normal</quality>
                             <text-representation>
                                 <language>jpn</language><script>Latn</script>
@@ -85,7 +85,7 @@ ws_test 'isrc lookup with releases',
                             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
                         </release>
                         <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                            <title>サマーれげぇ!レインボー</title><status>official</status>
+                            <title>サマーれげぇ!レインボー</title><status>Official</status>
                             <quality>normal</quality>
                             <text-representation>
                                 <language>jpn</language><script>Jpan</script>

@@ -27,7 +27,7 @@ ws_test 'basic release lookup',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-        <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language><script>Latn</script>
@@ -42,7 +42,7 @@ ws_test 'release lookup with artists + aliases',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-        <title>the Love Bug</title><status>official</status>
+        <title>the Love Bug</title><status>Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
@@ -72,7 +72,7 @@ ws_test 'release lookup with labels and recordings',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-        <title>the Love Bug</title><status>official</status>
+        <title>the Love Bug</title><status>Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
@@ -81,7 +81,7 @@ ws_test 'release lookup with labels and recordings',
         <asin>B0001FAD2O</asin>
         <label-info-list count="1">
             <label-info>
-                <catalog-number>rzcd-45118</catalog-number>
+                <catalog-number>RZCD-45118</catalog-number>
                 <label id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
                     <name>rhythm zone</name><sort-name>rhythm zone</sort-name>
                 </label>
@@ -120,7 +120,7 @@ ws_test 'release lookup with release-groups',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-        <title>the Love Bug</title><status>official</status>
+        <title>the Love Bug</title><status>Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
@@ -133,7 +133,7 @@ ws_test 'release lookup with release-groups',
                 </artist>
             </name-credit>
         </artist-credit>
-        <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+        <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
             <title>the Love Bug</title>
             <artist-credit>
                 <name-credit>
@@ -154,7 +154,7 @@ ws_test 'release lookup with discids and puids',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-        <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language><script>Latn</script>
@@ -163,7 +163,7 @@ ws_test 'release lookup with discids and puids',
         <asin>B00005LA6G</asin>
         <medium-list count="1">
             <medium>
-                <position>1</position><format>cd</format>
+                <position>1</position><format>CD</format>
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
                         <sectors>60295</sectors>
