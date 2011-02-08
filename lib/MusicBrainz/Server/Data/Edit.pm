@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Edit;
 use Moose;
 
-use Carp qw( carp croak );
+use Carp qw( carp croak confess );
 use Data::OptList;
 use DateTime;
 use TryCatch;
@@ -33,13 +33,15 @@ sub _dbh
     return shift->c->raw_dbh;
 }
 
+sub sql { return shift->c->raw_sql }
+
 sub _new_from_row
 {
     my ($self, $row) = @_;
 
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
-        or die "Could not look up class for type ".$row->{type};
+        or confess"Could not look up class for type ".$row->{type};
     my $data = JSON::Any->new(utf8 => 1)->jsonToObj($row->{data});
 
     my $edit = $class->new({
@@ -75,8 +77,7 @@ sub get_by_id_and_lock
         "SELECT " . $self->_columns . " FROM " . $self->_table . " " .
         "WHERE id = ? FOR UPDATE NOWAIT";
 
-    my $sql = Sql->new($self->_dbh);
-    my $row = $sql->select_single_row_hash($query, $id);
+    my $row = $self->sql->select_single_row_hash($query, $id);
     return unless defined $row;
 
     my $edit = $self->_new_from_row($row);
@@ -87,8 +88,7 @@ sub get_max_id
 {
     my ($self) = @_;
 
-    my $sql = Sql->new($self->c->raw_dbh);
-    return $sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
+    return $self->sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
                                     LIMIT 1");
 }
 
@@ -131,7 +131,7 @@ sub find
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
     $query .= ' ORDER BY id DESC OFFSET ?';
 
-    return query_to_list_limited($self->c->raw_dbh, $offset, $limit, sub {
+    return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
         }, $query, @args, $offset);
 }
@@ -144,7 +144,7 @@ sub find_for_subscription
                       WHERE id > ? AND editor = ?';
 
         return query_to_list(
-            $self->c->raw_dbh,
+            $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
             $subscription->subscribed_editor_id
@@ -156,7 +156,7 @@ sub find_for_subscription
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
             "   AND id > ?";
         return query_to_list(
-            $self->c->raw_dbh,
+            $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->target_id, $subscription->last_edit_sent);
     }
@@ -165,11 +165,10 @@ sub find_for_subscription
 sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->raw_dbh);
-    $sql->do("DELETE FROM edit_$type
+    $self->sql->do("DELETE FROM edit_$type
               WHERE edit IN (SELECT edit FROM edit_$type WHERE $type = ?) AND
                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-    $sql->do("UPDATE edit_$type SET $type = ?
+    $self->sql->do("UPDATE edit_$type SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
@@ -181,7 +180,7 @@ sub preview
     my $editor_id = delete $opts{editor_id} or croak "editor_id required";
     my $privs = delete $opts{privileges} || 0;
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
-        or die "Could not lookup edit type for $type";
+        or confess "Could not lookup edit type for $type";
 
     unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
     {
@@ -194,7 +193,7 @@ sub preview
         $edit->initialize(%opts);
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        die $e;
+        confess $e;
     }
     catch ($err) {
         use Data::Dumper;
@@ -228,21 +227,19 @@ sub preview
 sub create
 {
     my ($self, %opts) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $sql_raw = Sql->new($self->c->raw_dbh);
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
     my $editor_id = delete $opts{editor_id} or croak "editor_id required";
     my $privs = delete $opts{privileges} || 0;
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
-        or die "Could not lookup edit type for $type";
+        or confess "Could not lookup edit type for $type";
 
     my $edit = $class->new( editor_id => $editor_id, c => $self->c );
     try {
         $edit->initialize(%opts);
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        die $e;
+        confess $e;
     }
     catch ($err) {
         use Data::Dumper;
@@ -296,7 +293,7 @@ sub create
             close_time => $edit->close_time
         };
 
-        my $edit_id = $sql_raw->insert_row('edit', $row, 'id');
+        my $edit_id = $self->c->raw_sql->insert_row('edit', $row, 'id');
         $edit->id($edit_id);
 
         my $ents = $edit->related_entities;
@@ -306,13 +303,13 @@ sub create
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
             my @all_ids = ($edit_id) x @$ids;
-            $sql_raw->do($query, zip @all_ids, @$ids);
+            $self->c->raw_sql->do($query, zip @all_ids, @$ids);
         }
 
         if ($edit->is_open) {
             $edit->adjust_edit_pending(+1);
         }
-    }, $sql, $sql_raw);
+    }, $self->c->sql, $self->c->raw_sql);
 
     return $edit;
 }
@@ -371,26 +368,21 @@ sub approve
 {
     my ($self, $edit, $editor_id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    my $sql_raw = Sql->new($self->c->raw_dbh);
-
-    # Add the vote from the editor too
-    # This runs its own transaction, so we cannot currently run it in the below
-    # transaction
-    $self->c->model('Vote')->enter_votes(
-        $editor_id,
-        {
-            vote    => $VOTE_YES,
-            edit_id => $edit->id
-        }
-    );
-
     Sql::run_in_transaction(sub {
         # Load the edit again, but this time lock it for updates
         $edit = $self->get_by_id_and_lock($edit->id);
+
+        $self->c->model('Vote')->enter_votes(
+            $editor_id,
+            {
+                vote    => $VOTE_YES,
+                edit_id => $edit->id
+            }
+        );
+
         # Apply the changes and close the edit
         $self->accept($edit);
-    }, $sql, $sql_raw);
+    }, $self->c->sql, $self->c->raw_sql);
 }
 
 sub _do_accept
@@ -429,7 +421,7 @@ sub accept
 {
     my ($self, $edit) = @_;
 
-    die "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
+    confess "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
     $self->_close($edit, sub { $self->_do_accept(shift) });
 }
 
@@ -442,7 +434,7 @@ sub reject
     my $expected_status = ($status == $STATUS_DELETED)
         ? $STATUS_TOBEDELETED
         : $STATUS_OPEN;
-    die "The edit is not open anymore." if $edit->status != $expected_status;
+    confess "The edit is not open anymore." if $edit->status != $expected_status;
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
 
@@ -451,25 +443,40 @@ sub cancel
 {
     my ($self, $edit) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    my $sql_raw = Sql->new($self->c->raw_dbh);
     Sql::run_in_transaction(sub {
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
-        $sql_raw->do($query, $STATUS_TOBEDELETED, $edit->id);
+        $self->c->raw_sql->do($query, $STATUS_TOBEDELETED, $edit->id);
         $edit->adjust_edit_pending(-1);
-   }, $sql, $sql_raw);
+   }, $self->c->sql, $self->c->raw_sql);
 }
 
 sub _close
 {
     my ($self, $edit, $close_sub) = @_;
-    my $sql_raw = Sql->new($self->c->raw_dbh);
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
-    $sql_raw->do($query, $status, $edit->id);
+    $self->c->raw_sql->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1);
     $edit->status($status);
     $self->c->model('Editor')->credit($edit->editor_id, $status);
+}
+
+sub insert_votes_and_notes {
+    my ($self, $user_id, %data) = @_;
+    my @votes = @{ $data{votes} || [] };
+    my @notes = @{ $data{notes} || [] };
+
+    Sql::run_in_transaction(sub {
+        $self->c->model('Vote')->enter_votes($user_id, @votes);
+        for my $note (@notes) {
+            $self->c->model('EditNote')->add_note(
+                $note->{edit_id},
+                {
+                    editor_id => $user_id,
+                    text => $note->{edit_note},
+                });
+        }
+    }, $self->c->raw_sql);
 }
 
 __PACKAGE__->meta->make_immutable;

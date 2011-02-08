@@ -1,12 +1,12 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE isrc CASCADE;
-TRUNCATE track_name CASCADE;
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'ABBA');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -29,4 +29,4 @@ INSERT INTO isrc (id, recording, isrc) VALUES
     (2, 2, 'DEE250800230'),
     (3, 2, 'DEE250800231');
 
-COMMIT;
+

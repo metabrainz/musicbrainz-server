@@ -1,13 +1,13 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE work CASCADE;
-TRUNCATE work_name CASCADE;
-TRUNCATE work_alias CASCADE;
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -38,4 +38,4 @@ INSERT INTO work_alias (id, work, name) VALUES (3, 3, 4);
 ALTER SEQUENCE work_name_id_seq RESTART 5;
 ALTER SEQUENCE work_alias_id_seq RESTART 4;
 
-COMMIT;
+

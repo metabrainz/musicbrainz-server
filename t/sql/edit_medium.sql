@@ -1,14 +1,14 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE tracklist CASCADE;
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -32,4 +32,4 @@ INSERT INTO tracklist (id, track_count) VALUES (2, 1);
 INSERT INTO medium (id, tracklist, release, position, name)
     VALUES (1, 1, 1, 1, 'Medium Name');
 
-COMMIT;
+

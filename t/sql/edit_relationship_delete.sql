@@ -1,11 +1,11 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE link_type CASCADE;
-TRUNCATE link CASCADE;
-TRUNCATE l_artist_artist CASCADE;
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 
@@ -21,4 +21,4 @@ INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
 
 INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 1, 2);
 
-COMMIT;
+

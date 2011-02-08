@@ -118,15 +118,14 @@ sub load_meta
     return unless @objs;
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
-    my $sql = Sql->new($c->dbh);
-    $sql->select("SELECT * FROM $table
+    $c->sql->select("SELECT * FROM $table
                   WHERE id IN (" . placeholders(@ids) . ")", @ids);
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $c->sql->next_row_hash_ref or last;
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-    $sql->finish;
+    $c->sql->finish;
 }
 
 sub check_in_use
@@ -166,8 +165,7 @@ sub placeholders
 
 sub query_to_list
 {
-    my ($dbh, $builder, $query, @args) = @_;
-    my $sql = Sql->new($dbh);
+    my ($sql, $builder, $query, @args) = @_;
     $sql->select($query, @args);
     my @result;
     while (1) {
@@ -181,8 +179,7 @@ sub query_to_list
 
 sub query_to_list_limited
 {
-    my ($dbh, $offset, $limit, $builder, $query, @args) = @_;
-    my $sql = Sql->new($dbh);
+    my ($sql, $offset, $limit, $builder, $query, @args) = @_;
     $sql->select($query, @args);
     my @result;
     while ($limit--) {
@@ -200,13 +197,12 @@ sub insert_and_create
     my ($data, @objs) = @_;
     my $class = $data->_entity_class;
     Class::MOP::load_class($class);
-    my $sql = Sql->new($data->c->dbh);
     my %map = $data->_attribute_mapping;
     my @ret;
     for my $obj (@objs)
     {
         my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
-        my $id = $sql->insert_row($data->_table, \%row, 'id');
+        my $id = $data->sql->insert_row($data->_table, \%row, 'id');
         push @ret, $class->new( id => $id, %$obj);
     }
 
@@ -318,8 +314,7 @@ sub remove_equal
 
 sub map_query
 {
-    my ($dbh, $key, $value, $query, @bind_params) = @_;
-    my $sql = Sql->new($dbh);
+    my ($sql, $key, $value, $query, @bind_params) = @_;
     return {
         map { $_->{$key} => $_->{$value} }
             @{ $sql->select_list_of_hashes($query, @bind_params) }

@@ -49,7 +49,7 @@ sub load
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, rl_catalog_number";
-    my @labels = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+    my @labels = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {
         foreach (@{ $id_to_release{$label->release_id} })
@@ -71,7 +71,7 @@ sub find_by_label
                  ORDER BY date_year, date_month, date_day, catalog_number, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $rl = $self->_new_from_row(@_);
             $rl->release(MusicBrainz::Server::Data::Release->_new_from_row(@_));
             return $rl;
@@ -82,8 +82,7 @@ sub find_by_label
 sub merge_labels
 {
     my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE release_label SET label = ?
+    $self->sql->do('UPDATE release_label SET label = ?
               WHERE label IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
@@ -91,8 +90,7 @@ sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
     # XXX avoid duplicates
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE release_label SET release = ?
+    $self->sql->do('UPDATE release_label SET release = ?
               WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
@@ -109,8 +107,7 @@ sub insert
     my @created;
     my $class = $self->_entity_class;
 
-    my $sql = Sql->new($self->c->dbh);
-    push @created, $class->new(id => $sql->insert_row('release_label', $row, 'id'));
+    push @created, $class->new(id => $self->sql->insert_row('release_label', $row, 'id'));
 
     return wantarray ? @created : $created[0];
 }
@@ -122,16 +119,14 @@ sub update
         catalog_number => 'catalog_number',
         label => 'label_id',
     });
-    my $sql = Sql->new($self->c->dbh);
-    $sql->update_row('release_label', $row, { id => $id });
+    $self->sql->update_row('release_label', $row, { id => $id });
 }
 
 sub delete
 {
     my ($self, @release_label_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM release_label WHERE id IN (' . placeholders(@release_label_ids) . ')';
-    $sql->do($query, @release_label_ids);
+    $self->sql->do($query, @release_label_ids);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -86,8 +86,7 @@ sub get_by_id
     $self->_check_types($type0, $type1);
 
     my $query = "SELECT * FROM l_${type0}_${type1} WHERE id = ?";
-    my $sql = Sql->new($self->c->dbh);
-    my $row = $sql->select_single_row_hash($query, $id)
+    my $row = $self->sql->select_single_row_hash($query, $id)
         or return undef;
 
     return $self->_new_from_row($row);
@@ -99,7 +98,6 @@ sub _load
     my @target_types = @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my @rels;
-    my $sql = Sql->new($self->c->dbh);
     foreach my $t (@types) {
         my $target_type = $type eq $t->[0] ? $t->[1] : $t->[0];
         my %objs_by_id = map { $_->id => $_ }
@@ -123,9 +121,9 @@ sub _load
             SELECT * FROM l_${type0}_${type1}
             WHERE " . join(" OR ", @cond) . "
             ORDER BY id";
-        $sql->select($query, @params);
+        $self->sql->select($query, @params);
         while (1) {
-            my $row = $sql->next_row_hash_ref or last;
+            my $row = $self->sql->next_row_hash_ref or last;
             my $entity0 = $row->{entity0};
             my $entity1 = $row->{entity1};
             if ($type eq $type0 && exists $objs_by_id{$entity0}) {
@@ -141,7 +139,7 @@ sub _load
                 push @rels, $rel;
             }
         }
-        $sql->finish;
+        $self->sql->finish;
     }
     return @rels;
 }
@@ -250,11 +248,9 @@ sub merge_entities
 {
     my ($self, $type, $target_id, @source_ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-
     # Delete relationships where the start is the same as the end
     # (after merging)
-    $sql->do("DELETE FROM l_${type}_${type}
+    $self->sql->do("DELETE FROM l_${type}_${type}
                WHERE (entity0 = ? AND entity1 IN (" . placeholders(@source_ids) . '))
                  OR  (entity0 IN (' . placeholders(@source_ids) . ') AND entity1 = ?)',
         $target_id, @source_ids, @source_ids, $target_id);
@@ -262,14 +258,14 @@ sub merge_entities
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
         # First delete all relationships between source and target entities
-        $sql->do("
+        $self->sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@source_ids) . ") AND
                 EXISTS (SELECT 1 FROM $table b WHERE $entity0 = ? AND
                     a.$entity1 = b.$entity1 AND a.link = b.link)
         ", @source_ids, $target_id);
         # Move all remaining relationships
-        $sql->do("
+        $self->sql->do("
             UPDATE $table SET $entity0 = ?
             WHERE $entity0 IN (" . placeholders(@source_ids) . ")
         ", $target_id, @source_ids);
@@ -280,10 +276,9 @@ sub delete_entities
 {
     my ($self, $type, @ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
-        $sql->do("
+        $self->sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@ids) . ")
         ", @ids);
@@ -312,7 +307,6 @@ sub insert
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = {
         link => $self->c->model('Link')->find_or_insert({
             link_type_id => $values->{link_type_id},
@@ -323,7 +317,7 @@ sub insert
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
     };
-    my $id = $sql->insert_row("l_${type0}_${type1}", $row, 'id');
+    my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
 
     return $self->_entity_class->new( id => $id );
 }
@@ -342,14 +336,13 @@ sub update
         $link{$_} = defined $values->{$_} ? $values->{$_} : $link->{$_};
     }
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = {};
 
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
     $row->{entity0} = $values->{entity0_id} if exists $values->{entity0_id};
     $row->{entity1} = $values->{entity1_id} if exists $values->{entity1_id};
 
-    $sql->update_row("l_${type0}_${type1}", $row, { id => $id });
+    $self->sql->update_row("l_${type0}_${type1}", $row, { id => $id });
 }
 
 sub delete
@@ -357,8 +350,7 @@ sub delete
     my ($self, $type0, $type1, @ids) = @_;
     $self->_check_types($type0, $type1);
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM l_${type0}_${type1}
+    $self->sql->do("DELETE FROM l_${type0}_${type1}
               WHERE id IN (" . placeholders(@ids) . ")", @ids);
 }
 
@@ -367,11 +359,10 @@ sub adjust_edit_pending
     my ($self, $type0, $type1, $adjust, @ids) = @_;
     $self->_check_types($type0, $type1);
 
-    my $sql = Sql->new($self->c->dbh);
     my $query = "UPDATE l_${type0}_${type1}
                  SET edits_pending = edits_pending + ?
                  WHERE id IN (" . placeholders(@ids) . ")";
-    $sql->do($query, $adjust, @ids);
+    $self->sql->do($query, $adjust, @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

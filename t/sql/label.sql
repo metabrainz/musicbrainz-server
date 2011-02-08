@@ -1,13 +1,6 @@
-BEGIN;
 SET client_min_messages TO 'warning';
 
-TRUNCATE annotation CASCADE;
-TRUNCATE editor CASCADE;
-TRUNCATE label CASCADE;
-TRUNCATE label_annotation CASCADE;
-TRUNCATE label_gid_redirect CASCADE;
-TRUNCATE label_name CASCADE;
-TRUNCATE label_type CASCADE;
+INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 
 INSERT INTO label_name (id, name) VALUES (1, 'Warp Records');
 INSERT INTO label_name (id, name) VALUES (2, 'To Merge');
@@ -32,4 +25,4 @@ INSERT INTO label_gid_redirect (gid, new_id) VALUES ('efdf3fe9-c293-4acd-b4b2-8d
 ALTER SEQUENCE label_name_id_seq RESTART 4;
 ALTER SEQUENCE label_id_seq RESTART 4;
 
-COMMIT;
+

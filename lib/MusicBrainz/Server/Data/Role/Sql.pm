@@ -4,15 +4,9 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
-has 'sql' => (
-    isa => 'Sql',
-    is  => 'ro',
-    lazy_build => 1
-);
-
-sub _build_sql {
+sub sql {
     my $self = shift;
-    return Sql->new($self->_dbh);
+    return $self->c->sql;
 }
 
 sub _dbh

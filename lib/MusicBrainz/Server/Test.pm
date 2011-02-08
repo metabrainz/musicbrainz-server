@@ -17,6 +17,7 @@ use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
 use XML::Parser;
+use Email::Sender::Transport::Test;
 
 use Sub::Exporter -setup => {
     exports => [
@@ -99,9 +100,20 @@ sub prepare_raw_test_database
 
 sub prepare_test_server
 {
-    no warnings 'redefine';
-    *DBDefs::_RUNNING_TESTS = sub { 1 };
-    *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
+    {
+        no warnings 'redefine';
+        *DBDefs::_RUNNING_TESTS = sub { 1 };
+        *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
+    };
+
+    $test_transport = Email::Sender::Transport::Test->new();
+}
+
+sub get_test_transport {
+    use Carp;
+    Carp::confess("Y U NO INITIALIZE MAN?")
+          unless $test_transport;
+    return $test_transport;
 }
 
 sub get_latest_edit
