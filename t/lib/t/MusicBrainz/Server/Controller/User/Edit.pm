@@ -1,21 +1,23 @@
-use strict;
+package t::MusicBrainz::Server::Controller::User::Edit;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-MusicBrainz::Server::Test->prepare_test_server;
+test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/account/edit');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->submit_form( with_fields => {
     'profile.website' => 'foo',
     'profile.biography' => 'hello world!',
@@ -45,11 +47,7 @@ $mech->content_contains('http://example.com/~new_editor/');
 $mech->content_contains('hello world!');
 $mech->content_contains('new_email@example.com');
 
-# reset the changed email back to the original.
-use Sql;
-my $sql = Sql->new($c->dbh);
-$sql->begin;
-$sql->do ('UPDATE editor SET email=\'test@email.com\' WHERE name=\'new_editor\'');
-$sql->commit;
 
-done_testing;
+};
+
+1;

@@ -1,31 +1,30 @@
-use strict;
-use warnings;
-use FindBin qw($Bin);
+package t::MusicBrainz::Server::Controller::User::Donation;
+use Test::Routine;
 use Test::More;
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+use MusicBrainz::Server::Test qw( html_ok );
 
-BEGIN {
-    $ENV{ LWP_UA_MOCK } ||= 'playback';
-    $ENV{ LWP_UA_MOCK_FILE } ||= $Bin.'/donation.metabrainz-nagcheck.lwp-mock';
-}
-
+use FindBin qw($Bin);
 use LWP;
 use LWP::UserAgent::Mockable;
 
-MusicBrainz::Server::Test->prepare_test_server;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+$ENV{ LWP_UA_MOCK } ||= 'playback';
+$ENV{ LWP_UA_MOCK_FILE } ||= $Bin.'/donation.metabrainz-nagcheck.lwp-mock';
 
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get('/account/donation');
 $mech->content_contains ("You will never be nagged");
-
 
 $mech->get('/logout');
 $mech->get('/login');
@@ -36,6 +35,7 @@ $mech->content_contains ("We have not received a donation from you recently");
 
 LWP::UserAgent::Mockable->finished;
 
-done_testing;
+
+};
 
 1;

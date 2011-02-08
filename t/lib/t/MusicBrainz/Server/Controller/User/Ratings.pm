@@ -1,15 +1,21 @@
-use strict;
+package t::MusicBrainz::Server::Controller::User::Ratings;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-MusicBrainz::Server::Test->prepare_test_server;
+test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+MusicBrainz::Server::Test->prepare_raw_test_database($c, '
+TRUNCATE artist_rating_raw CASCADE;
+INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (7, 1, 80);
+');
 
 $mech->get('/user/new_editor/ratings');
 $mech->content_contains('Kate Bush', "new_editor has rated Kate Bush");
@@ -31,4 +37,6 @@ $mech->get('/user/alice/ratings');
 is ($mech->status(), 200, "alice can view her own ratings");
 $mech->content_contains('Alice has not rated anything', "alice has not rated anything");
 
-done_testing;
+};
+
+1;

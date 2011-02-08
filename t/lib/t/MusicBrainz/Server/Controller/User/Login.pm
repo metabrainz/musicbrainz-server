@@ -1,15 +1,20 @@
-use strict;
+package t::MusicBrainz::Server::Controller::User::Login;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
 $mech->get_ok('/login');
-xml_ok($mech->content);
+html_ok($mech->content);
 $mech->submit_form( with_fields => { username => '', password => '' } );
 $mech->content_contains('Incorrect username or password');
 $mech->submit_form( with_fields => { username => 'new_editor', password => '' } );
@@ -19,4 +24,6 @@ $mech->content_contains('Incorrect username or password');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 is($mech->uri->path, '/user/new_editor');
 
-done_testing;
+};
+
+1;

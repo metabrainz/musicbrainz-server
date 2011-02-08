@@ -1,15 +1,17 @@
-use strict;
+package t::MusicBrainz::Server::Controller::User::Show;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use Catalyst::Test 'MusicBrainz::Server';
-use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Test qw( xml_ok );
-use Test::WWW::Mechanize::Catalyst;
+with 't::Mechanize', 't::Context';
 
-MusicBrainz::Server::Test->prepare_test_server;
+test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
 $mech->get('/user/new_editor');
 $mech->content_contains('Collection', "Collection tab appears on profile of user");
@@ -23,4 +25,6 @@ $mech->submit_form( with_fields => { username => 'alice', password => 'secret1' 
 $mech->get('/user/alice');
 $mech->content_contains('Collection', "Collection tab appears on own profile, even if marked private");
 
-done_testing;
+};
+
+1;
