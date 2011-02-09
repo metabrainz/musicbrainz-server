@@ -6,6 +6,7 @@ extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT
+    $EDIT_RELEASE_ARTIST
 );
 
 augment 'create_edits' => sub
@@ -17,23 +18,33 @@ augment 'create_edits' => sub
     $self->_load_release;
     $self->c->stash( medium_formats => [ $self->c->model('MediumFormat')->get_all ] );
 
-    # FIXME Do we need this? -- acid
-    # we're on the changes preview page, load recordings so that the user can
-    # confirm track <-> recording associations.
-    my @tracks = $self->release->all_tracks;
-    $self->c->model('Recording')->load (@tracks);
-
     # release edit
     # ----------------------------------------
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode artist_credit date as_auto_editor );
+                     country_id barcode date as_auto_editor );
     my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     $args{'to_edit'} = $self->release;
     $self->c->stash->{changes} = 0;
 
+    # If the release artist will be changed by an EDIT_RELEASE_ARTIST edit, do
+    # not change the release artist in the EDIT_RELEASE_EDIT.
+    $args{artist_credit} = $data->{artist_credit} unless $data->{change_track_artists};
+
     $create_edit->($EDIT_RELEASE_EDIT, $editnote, %args);
+
+    # release artist edit
+    # ----------------------------------------
+    # if the 'change track artists' checkbox is checked, also enter a release
+    # artist edit.
+
+    if ($data->{change_track_artists})
+    {
+        $create_edit->(
+            $EDIT_RELEASE_ARTIST, $editnote, release => $self->release,
+            update_tracklists => 1, artist_credit => $data->{artist_credit});
+    }
 
     return $self->release;
 };

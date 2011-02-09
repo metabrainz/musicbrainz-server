@@ -33,6 +33,8 @@
 
     $('document').ready (function () {
 
+       MB.release_artist_json = [% release_artist_json %];
+
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
