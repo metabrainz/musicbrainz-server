@@ -61,6 +61,12 @@
                 <li>
                     [% l('{col|Edits by Subscribed Editors}', { col => c.uri_for_action('/edit/subscribed_editors') }) %]
                 </li>
+                <li class="separator">
+                    [% l('{edits|My Open Edits}', { edits => c.uri_for_action('/user/edits/open', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{edits|All My Edits}', { edits => c.uri_for_action('/user/edits/all', [ c.user.name ]) }) %]
+                </li>
             </ul>
         </li>
     [%- ELSE -%]
