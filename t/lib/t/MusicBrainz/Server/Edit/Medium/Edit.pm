@@ -19,7 +19,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $medium = $c->model('Medium')->get_by_id(1);
 is_unchanged($medium);

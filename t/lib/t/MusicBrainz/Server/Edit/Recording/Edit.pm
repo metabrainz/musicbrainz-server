@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $recording = $c->model('Recording')->get_by_id(1);
 is_unchanged($recording);

@@ -16,7 +16,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 subtest 'Test edit creation/rejection' => sub {
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);

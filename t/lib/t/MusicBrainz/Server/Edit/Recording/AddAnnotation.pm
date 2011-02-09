@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+annotation');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $edit = $c->model('Edit')->create(
     edit_type => $EDIT_RECORDING_ADD_ANNOTATION,

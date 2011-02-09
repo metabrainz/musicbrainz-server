@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $rl = $c->model('ReleaseLabel')->get_by_id(1);
 

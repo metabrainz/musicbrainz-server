@@ -19,7 +19,6 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
     TRUNCATE artist CASCADE;
 SQL
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my ($new_medium, $medium_cdtoc) = reload_data($c);
 

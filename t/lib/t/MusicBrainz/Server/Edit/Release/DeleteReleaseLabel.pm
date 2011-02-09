@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+delete_rl');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::DeleteReleaseLabel');

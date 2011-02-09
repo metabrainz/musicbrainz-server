@@ -21,7 +21,6 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
     TRUNCATE release CASCADE;
 SQL
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Create');

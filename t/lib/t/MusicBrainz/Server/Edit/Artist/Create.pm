@@ -20,7 +20,6 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
     TRUNCATE artist CASCADE;
 SQL
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $edit = $c->model('Edit')->create(
     edit_type => $EDIT_ARTIST_CREATE,

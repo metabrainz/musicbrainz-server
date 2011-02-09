@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+puid');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $delete_puid = $c->model('RecordingPUID')->get_by_recording_puid(3, '134478d1-306e-41a1-8b37-ff525e53c8be')
     or die "Could not get recording puid";

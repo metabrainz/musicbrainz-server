@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $alias = $c->model('Artist')->alias->get_by_id(1);
 

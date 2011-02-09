@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+isrc');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $isrc = $c->model('ISRC')->get_by_id(1);
 

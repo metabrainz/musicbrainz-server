@@ -15,7 +15,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $rg = $c->model('ReleaseGroup')->get_by_id(1);
 my $edit = create_edit($c, $rg);

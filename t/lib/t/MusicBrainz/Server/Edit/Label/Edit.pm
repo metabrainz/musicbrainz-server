@@ -16,7 +16,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $label = $c->model('Label')->get_by_id(1);
 my $edit = create_full_edit($c, $label);

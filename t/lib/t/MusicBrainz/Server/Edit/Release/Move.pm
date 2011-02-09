@@ -16,7 +16,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 # Starting point for releases
 my $release_group = $c->model('ReleaseGroup')->get_by_id(2);
