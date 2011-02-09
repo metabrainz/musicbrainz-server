@@ -91,6 +91,11 @@ sub _insert_hash {
     return $data;
 }
 
+after reject => sub {
+    my $self = shift;
+    $self->c->model('Tracklist')->garbage_collect;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -75,10 +75,15 @@ $edit = $c->model('Edit')->create(
 );
 
 my $medium_id = $edit->medium_id;
+$medium = $c->model('Medium')->get_by_id($medium_id);
+my $tracklist_id = $medium->tracklist_id;
 reject_edit($c, $edit);
 
 $medium = $c->model('Medium')->get_by_id($medium_id);
 ok(!defined $medium);
+
+$tracklist = $c->model('Tracklist')->get_by_id($tracklist_id);
+ok(!defined $tracklist, 'deleted now orphaned tracklist');
 
 };
 

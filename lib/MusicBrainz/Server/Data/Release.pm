@@ -465,24 +465,7 @@ sub delete
     $self->sql->do('DELETE FROM medium WHERE release IN ('. placeholders(@release_ids) . ')',
              @release_ids);
 
-    my @orphaned_tracklists = @{
-        $self->sql->select_single_column_array(
-            'SELECT tracklist.id FROM tracklist
-          LEFT JOIN medium ON medium.tracklist = tracklist.id
-              WHERE medium.id IS NULL'
-        )
-    };
-
-    if (@orphaned_tracklists) {
-        $self->sql->do(
-            'DELETE FROM track
-              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
-            @orphaned_tracklists);
-        $self->sql->do(
-            'DELETE FROM tracklist
-              WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
-            @orphaned_tracklists);
-    }
+    $self->c->model('Tracklist')->garbage_collect;
 
     $self->sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
              @release_ids);
