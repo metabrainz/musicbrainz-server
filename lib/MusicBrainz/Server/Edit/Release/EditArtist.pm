@@ -73,6 +73,7 @@ sub build_display_data
         }
     }
 
+    $data->{update_tracklists} = $self->data->{update_tracklists};
     $data->{release} = $loaded->{Release}{ $self->data->{release_id} };
 
     return $data;
