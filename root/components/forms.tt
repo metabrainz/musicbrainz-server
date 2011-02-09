@@ -145,16 +145,16 @@
       <div class="buttons">
         <a href="#guesscase">[% l('Guess case') %]</a>
       </div>
-      <p class="guesscase-options">
+      <div class="guesscase-options">
         <table>
           <tr>
             <td>
             [%- UNLESS hide_mode -%]
               <select name="gc-mode" id="gc-mode"> </select><br />
-              <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+              <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked" />
               <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
               <br />
-              <input type="checkbox" name="gc-roman" id="gc-roman">
+              <input type="checkbox" name="gc-roman" id="gc-roman" />
               <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
             [%- END -%]
             </td>
@@ -165,7 +165,7 @@
             </td>
           </tr>
         </table>
-      </p>
+      </div>
     </div>
   </div>
 [%- END -%]
