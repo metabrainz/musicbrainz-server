@@ -18,12 +18,6 @@ augment 'create_edits' => sub
     $self->_load_release;
     $self->c->stash( medium_formats => [ $self->c->model('MediumFormat')->get_all ] );
 
-    # FIXME Do we need this? -- acid
-    # we're on the changes preview page, load recordings so that the user can
-    # confirm track <-> recording associations.
-    my @tracks = $self->release->all_tracks;
-    $self->c->model('Recording')->load (@tracks);
-
     # release edit
     # ----------------------------------------
 

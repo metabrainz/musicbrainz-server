@@ -264,7 +264,9 @@ MB.TrackParser.Track = function (position, line, parent) {
         var current = self.parent.disc.getTracksAtPosition (self.position);
         if (original)
         {
-            current.push (original);
+            // FIXME: original is completely different format from the other
+            // tracks.  this will never match anything in original. --warp.
+            // current.push (original);
         }
 
         /* first, try to match the trackname.. if we find a match the rest
