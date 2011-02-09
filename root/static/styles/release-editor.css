@@ -73,12 +73,12 @@ h1 span {
     text-align: center;
 }
 
-p.guesscase-options,
+div.guesscase-options,
 #tracklist-options {
     margin: 10px 0 10px 10px;
 }
 
-#release-editor fieldset p.guesscase-options select {
+#release-editor fieldset div.guesscase-options select {
     width: 100px;
 }
 
