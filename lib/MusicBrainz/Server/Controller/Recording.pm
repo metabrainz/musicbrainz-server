@@ -21,6 +21,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_MERGE
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_PUID_DELETE
+    $EDIT_ECHOPRINT_DELETE
 );
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -242,6 +243,35 @@ sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
             on_creation => sub {
                 $c->response->redirect(
                     $c->uri_for_action('/recording/puids', [ $recording->gid ]));
+            }
+        );
+    }
+}
+
+sub delete_echoprint : Chained('load') PathPart('remove-echoprint') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $echoprint_str = $c->req->query_params->{echoprint};
+    my $recording = $c->stash->{recording};
+    my $echoprint = $c->model('RecordingEchoprint')->get_by_recording_echoprint($recording->id, $echoprint_str);
+
+    if (!$echoprint) {
+        $c->stash( message => 'Not a valid Echoprint' );
+        $c->detach('/error_500');
+    }
+    else
+    {
+        $c->stash( echoprint => $echoprint );
+
+        $self->edit_action($c,
+            form => 'Confirm',
+            type => $EDIT_ECHOPRINT_DELETE,
+            edit_args => {
+                echoprint => $echoprint,
+            },
+            on_creation => sub {
+                $c->response->redirect(
+                    $c->uri_for_action('/recording/echoprints', [ $recording->gid ]));
             }
         );
     }
