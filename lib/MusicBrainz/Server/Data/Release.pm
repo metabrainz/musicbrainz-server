@@ -198,8 +198,6 @@ sub find_by_track_artist
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 JOIN artist_credit_name release_acn
-                   ON release_acn.artist_credit = release.artist_credit
                  WHERE release.id IN (
                      SELECT release FROM medium
                          JOIN track tr
@@ -207,7 +205,11 @@ sub find_by_track_artist
                          JOIN artist_credit_name acn
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?)
-                  AND release_acn.artist != ?
+                  AND release.id NOT IN (
+                     SELECT id FROM release
+                       JOIN artist_credit_name acn
+                         ON release.artist_credit = acn.artist_credit
+                      WHERE acn.artist = ?)
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(

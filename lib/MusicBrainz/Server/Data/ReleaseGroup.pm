@@ -164,7 +164,11 @@ sub find_by_track_artist
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?
                  )
-                   AND acn.artist != ?
+                   AND rg.id NOT IN (
+                     SELECT id FROM release_group
+                       JOIN artist_credit_name acn
+                         ON release_group.artist_credit = acn.artist_credit
+                      WHERE acn.artist = ?)
                  ORDER BY
                     rg.type,
                     rgm.first_release_date_year,

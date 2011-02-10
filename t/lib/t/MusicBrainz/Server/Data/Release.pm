@@ -57,10 +57,11 @@ is( scalar(@$releases), 6 );
 is( $releases->[0]->id, 1, 'found release by artist');
 is( $releases->[1]->id, 2, 'found release by artist');
 
-($releases, $hits) = $release_data->find_by_track_artist(1, 100);
+($releases, $hits) = $release_data->find_by_track_artist(3, 100);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
-is( $releases->[0]->id, 3, 'found release by track artist');
+ok( (grep { $_->id == 11 } @$releases), 'found release 11' );
+ok( (grep { $_->id == 10 } @$releases) == 0, 'did not find release 10' );
 
 ($releases, $hits) = $release_data->find_by_recording(1, 100);
 is( $hits, 1 );
