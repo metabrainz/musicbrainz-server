@@ -1,7 +1,7 @@
 <ul class="r">
     [%- IF c.user_exists -%]
         <li>
-            [% link_editor(c.user) %]
+            [% link_entity(c.user) %]
             <ul>
                 <li>
                     [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
@@ -55,6 +55,12 @@
                 <li>
                     [% l('{col|My Watched Artists}', { col => c.uri_for_action('/watch/list') }) %]
                 </li>
+                <li class="separator">
+                    [% l('{edits|My Open Edits}', { edits => c.uri_for_action('/user/edits/open', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{edits|All My Edits}', { edits => c.uri_for_action('/user/edits/all', [ c.user.name ]) }) %]
+                </li>
             </ul>
         </li>
     [%- ELSE -%]
@@ -90,6 +96,9 @@
             </li>
             <li>
                 [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
+            </li>
+            <li>
+                [% l('{url|Statistics}', { url => c.uri_for('/statistics') }) %]
             </li>
         </ul>
     </li>

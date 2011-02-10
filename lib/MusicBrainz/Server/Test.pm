@@ -16,14 +16,15 @@ use Test::Differences;
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
-use XML::Parser;
+use XML::LibXML;
 use Email::Sender::Transport::Test;
+use Try::Tiny;
 
 use Sub::Exporter -setup => {
     exports => [
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
-            compare_body
+            compare_body html_ok
         ),
         ws_test => \&_build_ws_test,
     ],
@@ -137,6 +138,21 @@ sub diag_lineno
     }
 }
 
+sub html_ok
+{
+    my ($content, $message) = @_;
+
+    $message ||= "invalid HTML";
+
+    try {
+        XML::LibXML->load_html(string => $content);
+        $Test->ok(1, $message);
+    }
+    catch {
+        $Test->ok(0, $_);
+    }
+}
+
 sub xml_ok
 {
     my ($content, $message) = @_;
@@ -165,26 +181,22 @@ sub accept_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->accept($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
 sub reject_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->reject($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
 my $mock;
@@ -341,6 +353,7 @@ sub _build_ws_test {
             $validator->($mech->content, 'validating');
 
             is_xml_same($mech->content, $expected);
+            $Test->note($mech->content);
         });
     }
 }

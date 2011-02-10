@@ -413,7 +413,7 @@ Merge 2 artists into a single artist
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_ARTIST_MERGE,
-    form => 'Merge::Artist'
+    merge_form => 'Merge::Artist'
 };
 
 =head2 rating

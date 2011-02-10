@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Tracklist;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 use_ok 'MusicBrainz::Server::Data::Tracklist';
 
@@ -17,10 +18,13 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
 
 my $tracklist_data = MusicBrainz::Server::Data::Tracklist->new(c => $test->c);
+memory_cycle_ok($tracklist_data);
 
 my $tracklist1 = $tracklist_data->get_by_id(1);
 is ( $tracklist1->id, 1, "id" );
 is ( $tracklist1->track_count, 7, "track count");
+memory_cycle_ok($tracklist_data);
+memory_cycle_ok($tracklist1);
 
 my $tracklist2 = $tracklist_data->get_by_id(2);
 is ( $tracklist2->id, 2, "id" );
@@ -34,6 +38,10 @@ is ( $tracklist1->tracks->[5]->name, "Joanni", "sixth track is Joanni" );
 is ( scalar($tracklist2->all_tracks), 9, "9 tracks" );
 is ( $tracklist2->tracks->[3]->name, "The Painter's Link", "fourth track is The Painter's Link" );
 
+memory_cycle_ok($tracklist_data);
+memory_cycle_ok($track_data);
+memory_cycle_ok($tracklist1);
+
 my $tracklist = $tracklist_data->find_or_insert([{
     name => 'Track 1',
     position => 1,
@@ -45,6 +53,9 @@ my $tracklist = $tracklist_data->find_or_insert([{
     artist_credit => 1,
     recording => 2
 }]);
+
+memory_cycle_ok($tracklist_data);
+memory_cycle_ok($tracklist);
 
 $tracklist = $tracklist_data->get_by_id($tracklist->id);
 $track_data->load_for_tracklists($tracklist);
@@ -59,9 +70,13 @@ is($tracklist->tracks->[1]->position, 2, "... at position 2");
 is($tracklist->tracks->[1]->artist_credit_id, 1, "... with artist credit 1");
 is($tracklist->tracks->[1]->recording_id, 2, "... with recording id 2");
 
+memory_cycle_ok($tracklist_data);
+memory_cycle_ok($tracklist);
+
 subtest 'Can set tracklist times via a disc id' => sub {
     Sql::run_in_transaction(sub {
         $tracklist_data->set_lengths_to_cdtoc(1, 1);
+        memory_cycle_ok($tracklist_data);
     }, $test->c->sql);
 
     $tracklist = $tracklist_data->get_by_id(1);
@@ -82,6 +97,8 @@ my $tracks = [
 ];
 
 $tracklist = $tracklist_data->find_or_insert($tracks);
+memory_cycle_ok($tracklist_data);
+
 ok($tracklist, 'returned a tracklist id');
 ok($tracklist->id > 0, 'returned a tracklist id');
 is($tracklist_data->find_or_insert($tracks)->id => $tracklist->id,

@@ -11,7 +11,7 @@ has_field 'type_id' => (
 );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 
@@ -20,7 +20,7 @@ has_field 'iswc' => (
 );
 
 has_field 'comment' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 

@@ -198,8 +198,6 @@ sub find_by_track_artist
     my ($self, $artist_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 JOIN artist_credit_name release_acn
-                   ON release_acn.artist_credit = release.artist_credit
                  WHERE release.id IN (
                      SELECT release FROM medium
                          JOIN track tr
@@ -207,7 +205,11 @@ sub find_by_track_artist
                          JOIN artist_credit_name acn
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?)
-                  AND release_acn.artist != ?
+                  AND release.id NOT IN (
+                     SELECT id FROM release
+                       JOIN artist_credit_name acn
+                         ON release.artist_credit = acn.artist_credit
+                      WHERE acn.artist = ?)
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
@@ -313,6 +315,7 @@ sub load_with_tracklist_for_recording
                 release.country AS r_country, release.status AS r_status,
                 release.packaging AS r_packaging,
                 release.quality AS r_quality,
+                release.release_group AS r_release_group,
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
@@ -458,10 +461,18 @@ sub delete
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);
+
     $self->sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
-        @release_ids);
+             @release_ids);
+
+    $self->sql->do('DELETE FROM medium WHERE release IN ('. placeholders(@release_ids) . ')',
+             @release_ids);
+
+    $self->c->model('Tracklist')->garbage_collect;
+
     $self->sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
-        @release_ids);
+             @release_ids);
+
     return;
 }
 

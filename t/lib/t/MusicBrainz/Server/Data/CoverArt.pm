@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::CoverArt;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 use DBDefs;
 use LWP::UserAgent;
@@ -33,6 +34,9 @@ test 'Parses valid cover art relationships' => sub {
     ok($release->has_cover_art);
     is($release->cover_art->provider->name, 'archive.org');
     is($release->cover_art->image_uri, 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
+
+    memory_cycle_ok($test->c->model('CoverArt'));
+    memory_cycle_ok($release);
 };
 
 test 'Doesnt parse invalid cover art relationships' => sub {
@@ -42,6 +46,9 @@ test 'Doesnt parse invalid cover art relationships' => sub {
 
     $test->c->model('CoverArt')->load($release);
     ok(!$release->has_cover_art);
+
+    memory_cycle_ok($test->c->model('CoverArt'));
+    memory_cycle_ok($release);
 };
 
 test 'Handles Amazon ASINs' => sub {
@@ -55,6 +62,9 @@ test 'Handles Amazon ASINs' => sub {
     $test->c->model('CoverArt')->load($release);
     ok($release->has_cover_art);
     ok($test->ua->get($release->cover_art->image_uri)->is_success);
+
+    memory_cycle_ok($test->c->model('CoverArt'));
+    memory_cycle_ok($release);
 };
 
 test 'Handles Amazon ASINs for downloads' => sub {
@@ -68,6 +78,9 @@ test 'Handles Amazon ASINs for downloads' => sub {
     $test->c->model('CoverArt')->load($release);
     ok($release->has_cover_art);
     ok($test->ua->get($release->cover_art->image_uri)->is_success);
+
+    memory_cycle_ok($test->c->model('CoverArt'));
+    memory_cycle_ok($release);
 };
 
 test 'Searching Amazon by barcode' => sub {
@@ -81,6 +94,9 @@ test 'Searching Amazon by barcode' => sub {
     $test->c->model('CoverArt')->load($release);
     ok($release->has_cover_art);
     ok($test->ua->get($release->cover_art->image_uri)->is_success);
+
+    memory_cycle_ok($test->c->model('CoverArt'));
+    memory_cycle_ok($release);
 };
 
 sub make_release

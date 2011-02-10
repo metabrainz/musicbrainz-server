@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Search;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 use HTTP::Response;
 use MusicBrainz::Server::Context;
@@ -18,6 +19,7 @@ test all => sub {
 my $test = shift;
 
 my $data = load_data('artist', $test->c);
+memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -31,6 +33,7 @@ is ( $artist->gid, '34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47' );
 is ( $artist->type->name, 'group' );
 
 $data = load_data('release_group', $test->c);
+memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -48,6 +51,7 @@ is ( $release_group->artist_credit->names->[0]->artist->comment, 'Dutch rock sin
 
 
 $data = load_data('release', $test->c);
+memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -66,6 +70,7 @@ is ( $release->mediums->[0]->tracklist->track_count, 9 );
 
 
 $data = load_data('recording', $test->c);
+memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -89,6 +94,7 @@ is ( $extra->[0]->mediums->[0]->tracklist->track_count, 12 );
 
 
 $data = load_data('label', $test->c);
+memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 my $label = $data->{results}->[0]->{entity};
@@ -102,6 +108,7 @@ is ( $label->type->name, 'production' );
 
 
 $data = load_data('annotation', $test->c);
+memory_cycle_ok($data);
 is ( @{$data->{results} }, 25 );
 
 my $annotation = $data->{results}->[0]->{entity};
@@ -112,6 +119,7 @@ is ( $annotation->text, "<p>Soul Love</p>\n" );
 
 
 $data = load_data('cdstub', $test->c);
+memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 my $cdstub = $data->{results}->[0]->{entity};
@@ -125,6 +133,7 @@ is ( $cdstub->track_count, '17');
 
 
 $data = load_data('freedb', $test->c);
+memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 my $freedb = $data->{results}->[0]->{entity};

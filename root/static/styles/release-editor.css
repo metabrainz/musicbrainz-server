@@ -57,18 +57,28 @@ h1 span {
     height: 10px;
 }
 
+#release-editor fieldset div.tracklist-loading,
 #release-editor fieldset textarea.tracklist {
     height: 250px;
     margin: 0 10px;
     width: 430px;
 }
 
-p.guesscase-options,
+#release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
+#release-editor fieldset div.recordings-loading,
+#release-editor fieldset div.tracklist-loading { padding: 110px 0 0 0; height: 140px; }
+#release-editor fieldset div.recordings-loading,
+#release-editor fieldset div.tracklist-loading p {
+    width: 100%;
+    text-align: center;
+}
+
+div.guesscase-options,
 #tracklist-options {
     margin: 10px 0 10px 10px;
 }
 
-#release-editor fieldset p.guesscase-options select {
+#release-editor fieldset div.guesscase-options select {
     width: 100px;
 }
 
@@ -269,6 +279,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor .documentation div.barcode-container,
 #release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 60px; }
+
 #release-editor div.select-recording { background: #f0f0f0; }
 
 /* __________________________________

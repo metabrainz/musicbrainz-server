@@ -430,6 +430,8 @@ table.details table.tbl th {
     width: auto;
 }
 
+.deleted { color: #999999; }
+
 table.tbl tr.subh td,
 table.tbl tr.subh th {
     font-size: 95%;

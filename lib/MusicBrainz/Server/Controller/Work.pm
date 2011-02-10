@@ -50,7 +50,7 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-for my $action (qw( relationships aliases )) {
+for my $action (qw( relationships aliases tags details )) {
     after $action => sub {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};

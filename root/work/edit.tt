@@ -5,12 +5,14 @@
     c.model('FileCache').squash_scripts(
       "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
       "scripts/MB/utility.js",
-      "scripts/MB/Control/Autocomplete.js",
       "scripts/MB/Control/Bubble.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Work.js",
       "scripts/MB/GuessCase/Mode/Base.js",
-      "scripts/MB/GuessCase/Mode/Work.js",
+      "scripts/MB/GuessCase/Mode/Classical.js",
+      "scripts/MB/GuessCase/Mode/English.js",
+      "scripts/MB/GuessCase/Mode/French.js",
+      "scripts/MB/GuessCase/Mode/Sentence.js",
       "scripts/MB/GuessCase/Input.js",
       "scripts/MB/GuessCase/Output.js",
       "scripts/MB/GuessCase/Flags.js",
@@ -18,12 +20,14 @@
       "scripts/MB/GuessCase/Modes.js",
       "scripts/MB/GuessCase/Main.js",
       "scripts/MB/GuessCase/Work.js",
-      "scripts/MB/Control/WorkEdit.js",
+      "scripts/MB/Control/Bubble.js",
+      "scripts/MB/Control/GuessCase.js",
     ) -%]"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
+    $('document').ready(function() {
 
-      MB.Control.WorkEdit ();
+      var bubbles = MB.Control.BubbleCollection ();
+      MB.Control.initialize_guess_case (bubbles, 'work');
 
     });
   </script>

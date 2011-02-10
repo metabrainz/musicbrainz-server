@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Data::Work;
 use Test::Routine;
 use Test::More;
+use Test::Memory::Cycle;
 
 use_ok 'MusicBrainz::Server::Data::Work';
 use MusicBrainz::Server::Data::WorkType;
@@ -17,6 +18,7 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
 
 my $work_data = MusicBrainz::Server::Data::Work->new(c => $test->c);
+memory_cycle_ok($work_data);
 
 my $work = $work_data->get_by_id(1);
 is ( $work->id, 1 );
@@ -25,6 +27,8 @@ is ( $work->name, "Dancing Queen" );
 is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
+memory_cycle_ok($work_data);
+memory_cycle_ok($work);
 
 $work = $work_data->get_by_gid("745c079d-374e-4436-9448-da92dedef3ce");
 is ( $work->id, 1 );
@@ -33,19 +37,29 @@ is ( $work->name, "Dancing Queen" );
 is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
+memory_cycle_ok($work_data);
+memory_cycle_ok($work);
 
 is ( $work->type, undef );
 MusicBrainz::Server::Data::WorkType->new(c => $test->c)->load($work);
 is ( $work->type->name, "Composition" );
+memory_cycle_ok($work_data);
+memory_cycle_ok($work);
 
 my $annotation = $work_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );
+
+memory_cycle_ok($work_data);
+memory_cycle_ok($annotation);
 
 $work = $work_data->get_by_gid('28e73402-5666-4d74-80ab-c3734dc699ea');
 is ( $work->id, 1 );
 
 $work = $work_data->get_by_gid('ffffffff-ffff-ffff-ffff-ffffffffffff');
 is ( $work, undef );
+
+memory_cycle_ok($work_data);
+memory_cycle_ok($annotation);
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
@@ -55,10 +69,14 @@ is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Dancing Queen" );
 
+memory_cycle_ok($results);
+
 my %names = $work_data->find_or_insert_names('Dancing Queen', 'Traits');
 is(keys %names, 2);
 is($names{'Dancing Queen'}, 1);
 ok($names{'Traits'} > 1);
+memory_cycle_ok($work_data);
+memory_cycle_ok(\%names);
 
 $test->c->sql->begin;
 $test->c->raw_sql->begin;
@@ -69,6 +87,9 @@ $work = $work_data->insert({
         iswc => 'T-000.000.001-0',
         comment => 'Drum & bass track',
     });
+memory_cycle_ok($work_data);
+memory_cycle_ok($work);
+
 isa_ok($work, 'MusicBrainz::Server::Entity::Work');
 ok($work->id > 1);
 
@@ -83,12 +104,15 @@ $work_data->update($work->id, {
         name => 'Traits (remix)',
         iswc => 'T-100.000.001-0',
     });
+memory_cycle_ok($work_data);
 
 $work = $work_data->get_by_id($work->id);
 is($work->name, 'Traits (remix)');
 is($work->iswc, 'T-100.000.001-0');
 
 $work_data->delete($work->id);
+memory_cycle_ok($work_data);
+
 $work = $work_data->get_by_id($work->id);
 ok(!defined $work);
 
@@ -105,6 +129,7 @@ ok(defined $work);
 $test->c->sql->begin;
 $test->c->raw_sql->begin;
 $work_data->merge(1, 2);
+memory_cycle_ok($work_data);
 $test->c->sql->commit;
 $test->c->raw_sql->commit;
 
@@ -114,6 +139,52 @@ ok(defined $work);
 $work = $work_data->get_by_id(2);
 ok(!defined $work);
 
+};
+
+test 'Merge with funky relationships' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1);
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO work_name (id, name)
+    VALUES (1, 'Target'), (2, 'Merge 1'), (3, 'Merge 2');
+INSERT INTO work (id, gid, name, artist_credit)
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2, 1),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3, 1);
+
+INSERT INTO link_type
+    (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,
+     short_link_phrase)
+    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
+            'performed',
+            'performed by',
+            'performer');
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
+INSERT INTO l_artist_work (id, entity0, link, entity1)
+    VALUES (1, 1, 1, 2),
+           (2, 1, 1, 3);
+EOSQL
+
+    $test->c->model('Work')->merge(1, 2, 3);
+
+    my $final_work = $test->c->model('Work')->get_by_id(1);
+    $test->c->model('Relationship')->load($final_work);
+    is($final_work->all_relationships => 1,
+       'Merged work has a single relationship');
+    is($final_work->relationships->[0]->link_id => 1,
+       'Relationship is of link type 1');
+    is($final_work->relationships->[0]->entity0_id => 1,
+       'Points to artist 1');
+    is($final_work->relationships->[0]->entity1_id => 1,
+       'Originates from work 1');
 };
 
 1;

@@ -84,6 +84,7 @@ Readonly our $EDIT_RELEASE_CHANGE_QUALITY => 38;
 Readonly our $EDIT_RELEASE_EDIT_BARCODES => 39;
 Readonly our $EDIT_RELEASE_DELETE => 310;
 Readonly our $EDIT_RELEASE_MERGE => 311;
+Readonly our $EDIT_RELEASE_ARTIST => 312;
 
 Readonly our $EDIT_WORK_CREATE => 41;
 Readonly our $EDIT_WORK_EDIT => 42;

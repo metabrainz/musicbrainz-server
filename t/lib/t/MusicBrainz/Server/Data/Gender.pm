@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Gender;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Memory::Cycle;
 
 use_ok 'MusicBrainz::Server::Data::Gender';
 
@@ -17,10 +18,14 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+gender');
 
 my $gender_data = MusicBrainz::Server::Data::Gender->new(c => $test->c);
+memory_cycle_ok($gender_data);
 
 my $gender = $gender_data->get_by_id(1);
 is ( $gender->id, 1 );
 is ( $gender->name, "Male" );
+
+memory_cycle_ok($gender_data);
+memory_cycle_ok($gender);
 
 $gender = $gender_data->get_by_id(2);
 is ( $gender->id, 2 );
@@ -39,6 +44,9 @@ is(@gs, 2);
 is($gs[0]->id, 1);
 is($gs[1]->id, 2);
 
+memory_cycle_ok($gender_data);
+memory_cycle_ok(\@gs);
+
 my $sql = $test->c->sql;
 $sql->begin;
 
@@ -48,6 +56,9 @@ isa_ok($new_gender, 'MusicBrainz::Server::Entity::Gender');
 ok(defined $new_gender->id, 'id should be defined');
 ok($new_gender->id > 2, 'should be >2 from sequence');
 is($new_gender->name, 'Unknown');
+
+memory_cycle_ok($gender_data);
+memory_cycle_ok($new_gender);
 
 my $created = $gender_data->get_by_id($new_gender->id);
 ok(defined $created);

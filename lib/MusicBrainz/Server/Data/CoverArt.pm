@@ -209,7 +209,7 @@ sub cache_cover_art
     my $cover_art;
     if ($release->all_relationships) {
         $cover_art =  $self->parse_from_type_url(
-            $release->relationships->[0]->link->type,
+            $release->relationships->[0]->link->type->name,
             $release->relationships->[0]->entity1->url
         );
     }
@@ -224,9 +224,9 @@ sub cache_cover_art
         cover_art_url  => $cover_art->image_uri
     };
 
-    $self->sql->update_row('release_meta', $meta_update, { id => $release->id })
+    $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
         if keys %$meta_update;
-    $self->sql->update_row('release_coverart', $cover_update, { id => $release->id });
+    $self->c->sql->update_row('release_coverart', $cover_update, { id => $release->id });
 }
 
 sub parse_from_type_url
