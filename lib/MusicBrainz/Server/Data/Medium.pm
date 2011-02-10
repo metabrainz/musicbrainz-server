@@ -77,7 +77,7 @@ sub load_for_releases
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, position";
-    my @mediums = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+    my @mediums = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     foreach my $medium (@mediums) {
         foreach (@{ $id_to_release{$medium->release_id} })
@@ -111,7 +111,7 @@ sub find_by_tracklist
         ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
         OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row = shift;
             my $medium = $self->_new_from_row($row, 'm_');
             my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
@@ -124,23 +124,21 @@ sub find_by_tracklist
 sub update
 {
     my ($self, $medium_id, $medium_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_create_row($medium_hash);
     return unless %$row;
-    $sql->update_row('medium', $row, { id => $medium_id });
+    $self->sql->update_row('medium', $row, { id => $medium_id });
 }
 
 sub insert
 {
     my ($self, @medium_hashes) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $class = $self->_entity_class;
     my @created;
     for my $medium_hash (@medium_hashes) {
         my $row = $self->_create_row($medium_hash);
 
         push @created, $class->new(
-            id => $sql->insert_row('medium', $row, 'id'),
+            id => $self->sql->insert_row('medium', $row, 'id'),
             %{ $medium_hash }
         );
     }
@@ -150,8 +148,7 @@ sub insert
 sub delete
 {
     my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
+    $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
 
 sub _create_row

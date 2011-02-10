@@ -14,6 +14,7 @@ use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
 extends 'MusicBrainz::Server::Data::Entity';
 
 sub _dbh { shift->c->raw_dbh }
+sub sql { return shift->c->raw_sql }
 
 sub _columns
 {
@@ -50,10 +51,9 @@ sub enter_votes
     my $vote_tc = find_type_constraint('VoteOption');
     @votes = grep { $vote_tc->check($_->{vote}) } @votes;
 
-    my $sql = Sql->new($self->c->raw_dbh);
     my $query;
     Sql::run_in_transaction(sub {
-        $sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
+        $self->sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
         # Filter votes on edits that are open
         my @edit_ids = map { $_->{edit_id} } @votes;
@@ -84,7 +84,7 @@ sub enter_votes
         $query = 'UPDATE vote SET superseded = TRUE' .
                  ' WHERE editor = ? AND superseded = FALSE AND edit IN (' . placeholders(@edit_ids) . ')'.
                  ' RETURNING edit, vote';
-        my $superseded = $sql->select_list_of_hashes($query, $editor_id, @edit_ids);
+        my $superseded = $self->sql->select_list_of_hashes($query, $editor_id, @edit_ids);
 
         my %delta;
         # Change the vote count delta for any votes that were changed
@@ -96,14 +96,14 @@ sub enter_votes
 
         # Select all the edits that have not yet received a no vote
         $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote != ?';
-        my $emailed = $sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
+        my $emailed = $self->sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
         my %already_emailed = map { $_ => 1 } @$emailed;
 
         # Insert our new votes
         $query = 'INSERT INTO vote (editor, edit, vote) VALUES ';
         $query .= join ", ", (('(?, ?, ?)') x @votes);
         $query .= ' RETURNING edit, vote';
-        my $voted = $sql->select_list_of_hashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
+        my $voted = $self->sql->select_list_of_hashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
         my %edit_to_vote = map { $_->{edit} => $_->{vote} } @$voted;
         my @email_edit_ids = grep { $edit_to_vote{$_} == $VOTE_NO }
                              grep { !exists $already_emailed{$_} } @edit_ids;
@@ -116,7 +116,7 @@ sub enter_votes
 
             $query = 'UPDATE edit SET yes_votes = yes_votes + ?, no_votes = no_votes + ?' .
                      ' WHERE id = ?';
-            $sql->do($query, $delta{ $id }->{yes} || 0, $delta{ $id }->{no} || 0, $id);
+            $self->sql->do($query, $delta{ $id }->{yes} || 0, $delta{ $id }->{no} || 0, $id);
         }
 
         # Send out the emails for no votes
@@ -131,7 +131,7 @@ sub enter_votes
             $email->send_first_no_vote(edit_id => $edit_id, voter => $voter, editor => $editor )
                 if $editor->preferences->email_on_no_vote;
         }
-    }, $sql);
+    }, $self->c->sql);
 }
 
 sub editor_statistics
@@ -147,8 +147,8 @@ sub editor_statistics
         " AND vote_time > NOW() - INTERVAL '28 day' " .
         " GROUP BY vote";
 
-    my $all_votes = map_query($self->c->raw_dbh, 'vote' => 'count', $q_all_votes, $editor_id);
-    my $recent_votes = map_query($self->c->raw_dbh, 'vote' => 'count', $q_recent_votes, $editor_id);
+    my $all_votes = map_query($self->c->raw_sql, 'vote' => 'count', $q_all_votes, $editor_id);
+    my $recent_votes = map_query($self->c->raw_sql, 'vote' => 'count', $q_recent_votes, $editor_id);
 
     my %names = (
         $VOTE_ABSTAIN => 'Abstain',
@@ -193,7 +193,7 @@ sub load_for_edits
                  FROM " . $self->_table . "
                  WHERE edit IN (" . placeholders(@ids) . ")
                  ORDER BY vote_time";
-    my @votes = query_to_list($self->c->raw_dbh, sub {
+    my @votes = query_to_list($self->c->raw_sql, sub {
             my $vote = $self->_new_from_row(@_);
             my $edit = $id_to_edit{$vote->edit_id};
             $edit->add_vote($vote);

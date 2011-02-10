@@ -39,21 +39,12 @@ var MB = {
 };
 
 MB.constants.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
+MB.constants.VARTIST_NAME = 'Various Artists';
 
 MB.Object = function () {
     var self = {};
 
-    var parent = function (name) {
-        var that = this;
-        var method = this[name];
-
-        return function () {
-            return method.apply (that, arguments);
-        };
-    };
-
-    self.parent = parent;
-
     return self;
 };
+
 

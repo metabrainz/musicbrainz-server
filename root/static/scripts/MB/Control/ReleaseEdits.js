@@ -87,11 +87,11 @@ MB.Control.ReleaseEdits = function ($edits) {
             var from = tracklist[idx];
 
             var to = {
-                'position': trk.position.val (),
-                'name': trk.title.val (),
-                'length': trk.length.val (),
+                'position': trk.$position.val (),
+                'name': trk.$title.val (),
+                'length': trk.$length.val (),
                 'artist_credit': trk.artist_credit.toData (),
-                'deleted': trk.deleted.val ()
+                'deleted': trk.$deleted.val ()
             };
 
             edited_tracklist.push (to);
@@ -111,10 +111,6 @@ MB.Control.ReleaseEdits = function ($edits) {
         if (changes)
         {
             self.$edits.val (JSON.stringify (edited_tracklist));
-        }
-        else
-        {
-            self.$edits.val ('');
         }
     };
 

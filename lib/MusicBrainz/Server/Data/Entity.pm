@@ -33,14 +33,14 @@ sub _get_by_keys
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ")";
     my $sql = $self->sql;
-    $sql->select($query, @ids);
+    $self->sql->select($query, @ids);
     my %result;
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $result{$obj->id} = $obj;
     }
-    $sql->finish;
+    $self->sql->finish;
     return \%result;
 }
 
@@ -63,6 +63,23 @@ sub get_by_ids
     return {} unless @ids;
 
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
+}
+
+sub _get_by_key
+{
+    my ($self, $key, $id, %options) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table;
+    if (my $transform = $options{transform}) {
+        $query .= " WHERE $transform($key) = $transform(?)";
+    }
+    else {
+        $query .= " WHERE $key = ?";
+    }
+
+    return $self->_new_from_row(
+        $self->sql->select_single_row_hash(
+            $query, $id));
 }
 
 sub insert { confess "Not implemented" }

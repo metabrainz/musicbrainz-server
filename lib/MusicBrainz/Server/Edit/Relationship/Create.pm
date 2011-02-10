@@ -22,8 +22,14 @@ sub _create_model { 'Relationship' }
 
 has '+data' => (
     isa => Dict[
-        entity0      => Int,
-        entity1      => Int,
+        entity0      => Dict[
+            id   => Int,
+            name => Str
+        ],
+        entity1      => Dict[
+            id   => Int,
+            name => Str
+        ],
         link_type_id => Int,
         attributes   => Nullable[ArrayRef[Int]],
         begin_date   => Nullable[PartialDateHash],
@@ -33,18 +39,37 @@ has '+data' => (
     ]
 );
 
+sub initialize
+{
+    my ($self, %opts) = @_;
+    my $e0 = delete $opts{entity0} or die "No entity0";
+    my $e1 = delete $opts{entity1} or die "No entity1";
+
+    $opts{entity0} = {
+        id => $e0->id,
+        name => $e0->name,
+    };
+
+    $opts{entity1} = {
+        id => $e1->id,
+        name => $e1->name,
+    };
+
+    $self->data({ %opts });
+}
+
 sub foreign_keys
 {
     my ($self) = @_;
     my %load = (
         LinkType                            => [ $self->data->{link_type_id} ],
         LinkAttributeType                   => $self->data->{attributes},
-        type_to_model($self->data->{type0}) => [ $self->data->{entity0} ]
+        type_to_model($self->data->{type0}) => [ $self->data->{entity0}{id} ]
     );
 
     # Type 1 my be equal to type 0, so we need to be careful
     $load{ type_to_model($self->data->{type1}) } ||= [];
-    push @{ $load{ type_to_model($self->data->{type1}) } }, $self->data->{entity1};
+    push @{ $load{ type_to_model($self->data->{type1}) } }, $self->data->{entity1}{id};
 
     return \%load;
 }
@@ -70,8 +95,14 @@ sub build_display_data
                     } @{ $self->data->{attributes} }
                 ]
             ),
-            entity0 => $loaded->{$model0}{ $self->data->{entity0} },
-            entity1 => $loaded->{$model1}{ $self->data->{entity1} },
+            entity0 => $loaded->{$model0}{ $self->data->{entity0}{id} } ||
+                $self->c->model($model0)->_entity_class->new(
+                    name => $self->data->{entity0}{name}
+                ),
+            entity1 => $loaded->{$model1}{ $self->data->{entity1}{id} } ||
+                $self->c->model($model1)->_entity_class->new(
+                    name => $self->data->{entity1}{name}
+                ),
         )
     }
 }
@@ -83,14 +114,14 @@ sub related_entities
     my $result;
     if ($self->data->{type0} eq $self->data->{type1}) {
         $result = {
-            $self->data->{type0} => [ $self->data->{entity0},
-                                      $self->data->{entity1} ]
+            $self->data->{type0} => [ $self->data->{entity0}{id},
+                                      $self->data->{entity1}{id} ]
         };
     }
     else {
         $result = {
-            $self->data->{type0} => [ $self->data->{entity0} ],
-            $self->data->{type1} => [ $self->data->{entity1} ]
+            $self->data->{type0} => [ $self->data->{entity0}{id} ],
+            $self->data->{type1} => [ $self->data->{entity1}{id} ]
         };
     }
 
@@ -112,8 +143,8 @@ sub insert
     my $relationship = $self->c->model('Relationship')->insert(
         $self->data->{type0},
         $self->data->{type1}, {
-            entity0_id   => $self->data->{entity0},
-            entity1_id   => $self->data->{entity1},
+            entity0_id   => $self->data->{entity0}{id},
+            entity1_id   => $self->data->{entity1}{id},
             attributes   => $self->data->{attributes},
             link_type_id => $self->data->{link_type_id},
             begin_date   => $self->data->{begin_date},
@@ -133,13 +164,20 @@ sub accept
     );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $url = $self->c->model('URL')->get_by_id(
-            $self->data->{entity1}
+        my $release = $self->c->model('Release')->get_by_id(
+            $self->data->{entity0}{id}
         );
 
-        $self->c->model('CoverArt')->cache_cover_art(
-            $self->data->{entity0}, $link_type->name, $url->url
+        my $relationship = $self->c->model('Relationship')->get_by_id(
+            $self->data->{type0}, $self->data->{type1},
+            $self->entity_id
         );
+        $self->c->model('Link')->load($relationship);
+        $self->c->model('LinkType')->load($relationship->link);
+        $self->c->model('Relationship')->load_entities($relationship);
+        $release->add_relationship($relationship);
+
+        $self->c->model('CoverArt')->cache_cover_art($release);
     }
 }
 

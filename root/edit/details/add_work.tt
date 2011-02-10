@@ -1,7 +1,7 @@
 <table class="details">
   <tr>
     <th>[% l('Name:') %]</th>
-    <td>[% edit.display_data.name %]</td>
+    <td>[% edit.display_data.name | html %]</td>
   </tr>
 
   <tr>
@@ -12,7 +12,7 @@
   [% IF edit.display_data.comment %]
   <tr>
     <th>[% l('Comment:') %]</th>
-    <td>[% edit.display_data.comment %]</td>
+    <td>[% edit.display_data.comment | html %]</td>
   </tr>
   [% END %]
 
@@ -26,7 +26,7 @@
   [% IF edit.display_data.type %]
   <tr>
     <th>[% l('Type:') %]</th>
-    <td>[% edit.display_data.type.name %]</td>
+    <td>[% edit.display_data.type.name | html%]</td>
   </tr>
   [% END %]
 </table>

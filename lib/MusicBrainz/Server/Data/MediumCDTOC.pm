@@ -44,7 +44,7 @@ sub find_by_medium
         WHERE medium IN (" . placeholders(@medium_ids) . ")
         ORDER BY id";
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, @medium_ids);
 }
 
@@ -88,6 +88,23 @@ sub update
     my ($self, $medium_cdtoc_id, $update) = @_;
     $self->sql->update_row('medium_cdtoc', hash_to_row($update, { reverse %{ $self->_column_mapping } }),
         { id => $medium_cdtoc_id });
+}
+
+sub delete
+{
+    my ($self, $medium_cdtoc_id) = @_;
+    my $cdtoc_id = $self->sql->select_single_value(
+        'DELETE FROM ' . $self->_table . ' WHERE id = ?
+           RETURNING cdtoc',
+        $medium_cdtoc_id
+    );
+    # Delete the CDTOC if it is now unused
+    $self->sql->do(
+        'DELETE FROM cdtoc WHERE id IN (
+             SELECT cd.id FROM cdtoc cd
+          LEFT JOIN medium_cdtoc mcd ON mcd.cdtoc = cd.id
+             WHERE cd.id = ? AND mcd.id IS NULL
+         )', $cdtoc_id);
 }
 
 __PACKAGE__->meta->make_immutable;

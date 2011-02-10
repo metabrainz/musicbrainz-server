@@ -22,12 +22,13 @@ our %EXPORT_TAGS = (
     expire_action => _get(qr/^EXPIRE_/),
     quality       => _get(qr/^QUALITY_/),
     annotation    => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
-    historic      => _get(qr/^EDIT_HISTORIC/)
+    historic      => _get(qr/^EDIT_HISTORIC/),
+    editor        => _get(qr/^EDITOR_/)
 );
 
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY)_/) },
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -38,6 +39,9 @@ Readonly our $VARTIST_ID  => 1;
 
 Readonly our $EXPIRE_ACCEPT => 1;
 Readonly our $EXPIRE_REJECT => 2;
+
+Readonly our $EDITOR_MODBOT => 1;
+Readonly our $EDITOR_FREEDB => 2;
 
 Readonly our $QUALITY_UNKNOWN        => -1;
 Readonly our $QUALITY_UNKNOWN_MAPPED => 1;
@@ -80,6 +84,7 @@ Readonly our $EDIT_RELEASE_CHANGE_QUALITY => 38;
 Readonly our $EDIT_RELEASE_EDIT_BARCODES => 39;
 Readonly our $EDIT_RELEASE_DELETE => 310;
 Readonly our $EDIT_RELEASE_MERGE => 311;
+Readonly our $EDIT_RELEASE_ARTIST => 312;
 
 Readonly our $EDIT_WORK_CREATE => 41;
 Readonly our $EDIT_WORK_EDIT => 42;
@@ -97,6 +102,7 @@ Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
 Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
+Readonly our $EDIT_RECORDING_CREATE => 71;
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_MERGE => 74;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;

@@ -50,7 +50,7 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     );
 }
 
-sub annotation_revision : Chained('load') PathPart('annotation') Args(1) RequireAuth
+sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
 {
     my ($self, $c, $id) = @_;
     my $entity = $c->stash->{entity};

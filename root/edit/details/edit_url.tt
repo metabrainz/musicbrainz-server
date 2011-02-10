@@ -3,24 +3,24 @@
 [% END %]
 
 <table class="details">
+  <tr>
+    <th>[% l('URL:') %]</th>
+    <td>[% link_entity(edit.display_data.url) %]</td>
+  </tr>
+
   [% IF edit.display_data.uri %]
   <tr>
     <th>[% l('URL:') %]</th>
     <td class="old">[% show_url(edit.display_data.uri.old) %]</td>
     <td class="new">[% show_url(edit.display_data.uri.new) %]</td>
   </tr>
-  [% ELSE %]
-  <tr>
-    <th>[% l('URL:') %]</th>
-    <td colspan="2">[% show_url(edit.display_data.url.url) %]</td>
-  </tr>
   [% END %]
 
   [% IF edit.display_data.description %]
   <tr>
     <th>[% l('Description:') %]</th>
-    <td class="old">[% edit.display_data.description.old %]</td>
-    <td class="new">[% edit.display_data.description.new %]</td>
+    <td class="old">[% edit.display_data.description.old | html %]</td>
+    <td class="new">[% edit.display_data.description.new | html %]</td>
   </tr>
   [% END %]
 </table>

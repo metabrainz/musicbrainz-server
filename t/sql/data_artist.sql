@@ -1,28 +1,27 @@
-BEGIN;
+
 SET client_min_messages TO 'WARNING';
 
-TRUNCATE artist_credit CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE track_name CASCADE;
 
-TRUNCATE artist_type CASCADE;
+
+
+
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
 
-TRUNCATE artist_name CASCADE;
+
 INSERT INTO artist_name (id, name) VALUES (1, 'Test Artist');
 INSERT INTO artist_name (id, name) VALUES (2, 'Artist, Test');
 INSERT INTO artist_name (id, name) VALUES (3, 'Minimal Artist');
 
-TRUNCATE country CASCADE;
+
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 INSERT INTO country (id, iso_code, name) VALUES (2, 'US', 'United States');
 
-TRUNCATE gender CASCADE;
+
 INSERT INTO gender (id, name) VALUES (1, 'Male');
 INSERT INTO gender (id, name) VALUES (2, 'Female');
 
-TRUNCATE artist CASCADE;
+
 INSERT INTO artist
     (id, gid, name, sort_name, type, gender, country,
      begin_date_year, begin_date_month, begin_date_day,
@@ -38,9 +37,9 @@ UPDATE artist_meta SET rating=70, rating_count=4 WHERE id=1;
 
 ALTER SEQUENCE artist_name_id_seq RESTART 3;
 
-TRUNCATE annotation CASCADE;
-TRUNCATE artist_annotation CASCADE;
-TRUNCATE editor CASCADE;
+
+
+
 
 INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
 
@@ -50,10 +49,10 @@ INSERT INTO annotation (id, editor, text) VALUES (2, 1, 'Test annotation 2');
 INSERT INTO artist_annotation (artist, annotation) VALUES (1, 1);
 INSERT INTO artist_annotation (artist, annotation) VALUES (2, 2);
 
-TRUNCATE artist_gid_redirect CASCADE;
+
 INSERT INTO artist_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 1);
 
 ALTER SEQUENCE artist_name_id_seq RESTART 4;
 ALTER SEQUENCE artist_id_seq RESTART 3;
 
-COMMIT;
+

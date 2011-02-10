@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -121,6 +122,7 @@ sub cookie_login : Private
 {
     my ($self, $c) = @_;
     my $cookie = $c->req->cookie('remember_login') or return;
+    return unless $cookie->value;
     return if $c->user_exists;
 
     my ($user_name, $password, $delete_cookie);
@@ -185,7 +187,7 @@ sub _set_login_cookie
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
-        value => encode('utf-8', $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM))
+        value => encode('utf-8', $value) . "\t" . sha1_base64(encode('utf-8', $value) . DBDefs::SMTP_SECRET_CHECKSUM)
     };
 }
 
@@ -339,6 +341,25 @@ sub tags : Chained('load') PathPart('tags')
         template => 'user/tags.tt',
     );
 }
+
+sub tag : Chained('load') PathPart('tags') Args(1)
+{
+    my ($self, $c, $tag_name) = @_;
+    my $user = $c->stash->{user};
+    my $tag = $c->model('Tag')->get_by_name($tag_name);
+
+    if ($tag) {
+        $c->stash(
+            tag => $tag,
+            map {
+                $_ => [ $c->model(type_to_model($_))
+                    ->tags->find_editor_entities($user->id, $tag->id)
+                ]
+            } qw( artist label recording release_group work )
+        );
+    }
+}
+
 
 sub privileged : Path('/privileged')
 {

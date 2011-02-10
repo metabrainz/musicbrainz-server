@@ -1,11 +1,11 @@
-BEGIN;
+
 SET client_min_messages TO 'WARNING';
 
-TRUNCATE tag CASCADE;
-TRUNCATE artist_tag CASCADE;
 
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist CASCADE;
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1');
 INSERT INTO artist_name (id, name) VALUES (2, 'Artist 2');
@@ -30,4 +30,4 @@ INSERT INTO artist_tag (tag, artist, count) VALUES
 
 ALTER SEQUENCE tag_id_seq RESTART 5;
 
-COMMIT;
+

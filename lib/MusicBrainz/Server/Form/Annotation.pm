@@ -10,7 +10,7 @@ has_field 'text' => (
 );
 
 has_field 'changelog' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 

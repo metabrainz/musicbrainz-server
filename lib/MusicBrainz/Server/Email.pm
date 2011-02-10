@@ -7,6 +7,7 @@ use Email::Address;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
+use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape );
 use DBDefs;
 
@@ -370,7 +371,9 @@ has 'transport' => (
 
 sub get_test_transport
 {
-    return $test_transport;
+    require MusicBrainz::Server::Test;
+    MusicBrainz::Server::Email->import;
+    return MusicBrainz::Server::Test->get_test_transport;
 }
 
 sub _build_transport
@@ -378,14 +381,11 @@ sub _build_transport
     my ($self) = @_;
 
     if (&DBDefs::_RUNNING_TESTS) { # XXX shouldn't be here
-        if (!defined $test_transport) {
-            use Email::Sender::Transport::Test;
-            $test_transport = Email::Sender::Transport::Test->new();
-        }
-        return $test_transport;
+        require MusicBrainz::Server::Test;
+        MusicBrainz::Server::Email->import;
+        return MusicBrainz::Server::Test->get_test_transport;
     }
 
-    use Email::Sender::Transport::SMTP;
     return Email::Sender::Transport::SMTP->new({
         host => &DBDefs::SMTP_SERVER,
     });

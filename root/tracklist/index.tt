@@ -40,7 +40,7 @@
                 [%- release=medium.release -%]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>[% medium.position %]/[% release.medium_count %]</td>
-                    <td>[% link_release(release) %]</td>
+                    <td>[% link_entity(release) %]</td>
                     <td>[% artist_credit(release.artist_credit) %]</td>
                     <td>[% release.date.format %]</td>
                     <td>

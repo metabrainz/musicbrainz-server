@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Form::ReleaseEditor::Information;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form::Step';
 
 # Release information
-has_field 'name'             => ( type => 'Text', required => 1 );
+has_field 'name'             => ( type => 'Text', required => 1, label => l('Title') );
 has_field 'various_artists'  => ( type => 'Checkbox'  );
 has_field 'release_group_id' => ( type => 'Hidden'    );
 
@@ -15,7 +16,7 @@ has_field 'language_id'      => ( type => 'Select'    );
 has_field 'script_id'        => ( type => 'Select'    );
 
 # Release event
-has_field 'date'             => ( type => '+MusicBrainz::Server::Form::Field::PartialDate' );
+has_field 'date'             => ( type => '+MusicBrainz::Server::Form::Field::PartialDate', not_nullable => 1 );
 has_field 'country_id'       => ( type => 'Select'    );
 has_field 'packaging_id'     => ( type => 'Select'    );
 

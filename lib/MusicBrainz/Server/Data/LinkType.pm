@@ -42,10 +42,9 @@ sub _load_attributes
             FROM link_type_attribute_type
             WHERE link_type IN (" . placeholders(@ids) . ")
             ORDER BY link_type";
-        my $sql = Sql->new($self->c->dbh);
-        $sql->select($query, @ids);
+        $self->sql->select($query, @ids);
         while (1) {
-            my $row = $sql->next_row_hash_ref or last;
+            my $row = $self->sql->next_row_hash_ref or last;
             my $id = $row->{link_type};
             if (exists $data->{$id}) {
                 my %args = ( type_id => $row->{attribute_type} );
@@ -55,7 +54,7 @@ sub _load_attributes
                 $data->{$id}->add_attribute($attr);
             }
         }
-        $sql->finish;
+        $self->sql->finish;
     }
 }
 
@@ -87,19 +86,18 @@ sub get_tree
 {
     my ($self, $type0, $type1) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+    $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   WHERE entity_type0=? AND entity_type1=?
                   ORDER BY child_order, id', $type0, $type1);
     my %id_to_obj;
     my @objs;
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
         push @objs, $obj;
     }
-    $sql->finish;
+    $self->sql->finish;
 
     $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
 
@@ -116,21 +114,20 @@ sub get_attribute_type_list
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     if (defined $id) {
-        $sql->select('SELECT t.id, t.name, at.link_type, at.min, at.max
+        $self->sql->select('SELECT t.id, t.name, at.link_type, at.min, at.max
                           FROM link_attribute_type t
                           LEFT JOIN link_type_attribute_type at
                               ON t.id = at.attribute_type AND at.link_type = ?
                       WHERE t.parent IS NULL ORDER BY t.child_order, t.id', $id);
     }
     else {
-        $sql->select('SELECT t.id, t.name FROM link_attribute_type t
+        $self->sql->select('SELECT t.id, t.name FROM link_attribute_type t
                       WHERE t.parent IS NULL ORDER BY t.child_order, t.id');
     }
     my @result;
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         push @result, {
             type   => $row->{id},
             active => $row->{link_type} ? 1 : 0,
@@ -139,7 +136,7 @@ sub get_attribute_type_list
             name   => $row->{name},
         };
     }
-    $sql->finish;
+    $self->sql->finish;
 
     return \@result;
 }
@@ -148,13 +145,12 @@ sub insert
 {
     my ($self, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     $row->{gid} = $values->{gid} || generate_gid();
-    my $id = $sql->insert_row('link_type', $row, 'id');
+    my $id = $self->sql->insert_row('link_type', $row, 'id');
     if (exists $values->{attributes}) {
         foreach my $attrib (@{$values->{attributes}}) {
-            $sql->insert_row('link_type_attribute_type', {
+            $self->sql->insert_row('link_type_attribute_type', {
                 link_type      => $id,
                 attribute_type => $attrib->{type},
                 min            => $attrib->{min},
@@ -169,15 +165,14 @@ sub update
 {
     my ($self, $id, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     if (%$row) {
-        $sql->update_row('link_type', $row, { id => $id });
+        $self->sql->update_row('link_type', $row, { id => $id });
     }
     if (exists $values->{attributes}) {
-        $sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
+        $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
         foreach my $attrib (@{$values->{attributes}}) {
-            $sql->insert_row('link_type_attribute_type', {
+            $self->sql->insert_row('link_type_attribute_type', {
                 link_type      => $id,
                 attribute_type => $attrib->{type},
                 min            => $attrib->{min},
@@ -191,9 +186,8 @@ sub delete
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
-    $sql->do('DELETE FROM link_type WHERE id = ?', $id);
+    $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
+    $self->sql->do('DELETE FROM link_type WHERE id = ?', $id);
 }
 
 sub _hash_to_row

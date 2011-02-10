@@ -50,18 +50,17 @@ sub get_tree
 {
     my ($self) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+    $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   ORDER BY child_order, id');
     my %id_to_obj;
     my @objs;
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
         push @objs, $obj;
     }
-    $sql->finish;
+    $self->sql->finish;
 
     my $root = MusicBrainz::Server::Entity::LinkAttributeType->new;
     foreach my $obj (@objs) {
@@ -76,31 +75,29 @@ sub find_root
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'SELECT root FROM ' . $self->_table . ' WHERE id = ?';
-    return $sql->select_single_value($query, $id);
+    return $self->sql->select_single_value($query, $id);
 }
 
 sub insert
 {
     my ($self, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
-    $row->{id} = $sql->select_single_value("SELECT nextval('link_attribute_type_id_seq')");
+    $row->{id} = $self->sql->select_single_value("SELECT nextval('link_attribute_type_id_seq')");
     $row->{gid} = $values->{gid} || generate_gid();
     $row->{root} = $row->{parent} ? $self->find_root($row->{parent}) : $row->{id};
-    $sql->insert_row('link_attribute_type', $row);
+    $self->sql->insert_row('link_attribute_type', $row);
     return $self->_entity_class->new( id => $row->{id}, gid => $row->{gid} );
 }
 
 sub _update_root
 {
     my ($self, $sql, $parent, $root) = @_;
-    my $ids = $sql->select_single_column_array('SELECT id FROM link_attribute_type
+    my $ids = $self->sql->select_single_column_array('SELECT id FROM link_attribute_type
                                              WHERE parent = ?', $parent);
     if (@$ids) {
-        $sql->do('UPDATE link_attribute_type SET root = ?
+        $self->sql->do('UPDATE link_attribute_type SET root = ?
                   WHERE id IN ('.placeholders(@$ids).')', $root, @$ids);
         foreach my $id (@$ids) {
             $self->_update_root($sql, $id, $root);
@@ -112,14 +109,13 @@ sub update
 {
     my ($self, $id, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     my $row = $self->_hash_to_row($values);
     if (%$row) {
         if ($row->{parent}) {
             $row->{root} = $self->find_root($row->{parent});
-            $self->_update_root($sql, $id, $row->{root});
+            $self->_update_root($self->sql, $id, $row->{root});
         }
-        $sql->update_row('link_attribute_type', $row, { id => $id });
+        $self->sql->update_row('link_attribute_type', $row, { id => $id });
     }
 }
 
@@ -127,8 +123,7 @@ sub delete
 {
     my ($self, $id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM link_attribute_type WHERE id = ?', $id);
+    $self->sql->do('DELETE FROM link_attribute_type WHERE id = ?', $id);
 }
 
 sub _hash_to_row

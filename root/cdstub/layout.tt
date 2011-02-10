@@ -26,11 +26,11 @@
             [% tracks = 'tracks:(' _ cdstubtoc.track_count _ ')' %]
             [% barcode = 'barcode:(' _ cdstubtoc.cdstub.barcode _ ')' IF cdstubtoc.cdstub.barcode %]
             [% l('{uri|Search the database for this CD}', {
-                    uri => c.uri_for_action('/search/search', {
+                    uri => html_escape(c.uri_for_action('/search/search', {
                         query => artist _ ' ' _ release _ ' ' _ tracks _ ' ' _ barcode,
                         type => 'release',
                         advanced => 1
-                    })
+                    }))
             }) %]
           </li>
         </ul>

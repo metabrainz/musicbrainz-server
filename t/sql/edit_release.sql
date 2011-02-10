@@ -1,18 +1,18 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE country CASCADE;
-TRUNCATE language CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE release_packaging CASCADE;
-TRUNCATE release_status CASCADE;
-TRUNCATE script CASCADE;
+
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name) VALUES
@@ -35,7 +35,6 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (1, 'ec8c4910-739d-11de-8a39-0800200c9a66', 1, 1, 1);
 
-INSERT INTO release_status (id, name) VALUES (1, 'Official');
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
@@ -46,4 +45,4 @@ ALTER SEQUENCE artist_credit_id_seq RESTART 2;
 ALTER SEQUENCE artist_name_id_seq RESTART 2;
 ALTER SEQUENCE release_name_id_seq RESTART 3;
 
-COMMIT;
+

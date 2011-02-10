@@ -455,7 +455,7 @@ unaccent_data_222,
 unaccent_data_223,
 unaccent_data_224,
 unaccent_data_225,
-unaccent_data_226,
+unaccent_data_226
 };
 
 unsigned char unaccent_indexes[] = {

@@ -41,6 +41,8 @@ has [qw( new_value previous_value )] => (
     is  => 'rw',
 );
 
+sub related_entities { return {} }
+
 sub deserialize
 {
     my ($self, $serialized) = @_;

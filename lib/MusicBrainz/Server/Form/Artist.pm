@@ -9,12 +9,12 @@ with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 has '+name' => ( default => 'edit-artist' );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 
 has_field 'sort_name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 
@@ -31,7 +31,7 @@ has_field 'country_id' => (
 );
 
 has_field 'comment' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 
@@ -54,7 +54,8 @@ sub dupe_model { shift->ctx->model('Artist') }
 sub validate {
     my ($self) = @_;
 
-    if ($self->field('type_id')->input == 2) {
+    if ($self->field('type_id')->value &&
+        $self->field('type_id')->value == 2) {
         if ($self->field('gender_id')->value) {
             $self->field('gender_id')->add_error('Group artists cannot have a gender');
         }

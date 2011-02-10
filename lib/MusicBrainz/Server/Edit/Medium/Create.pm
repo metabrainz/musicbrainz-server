@@ -59,12 +59,20 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
+    my $medium = $self->c->model('Medium')->get_by_id($self->entity_id);
+    if ($medium)
+    {
+        $self->c->model('Release')->load($medium);
+        $self->c->model('ArtistCredit')->load($medium->release);
+    }
+
     return {
         name         => $self->data->{name},
         format       => $loaded->{MediumFormat}->{ $self->data->{format_id} },
         position     => $self->data->{position},
         release      => $loaded->{Release}->{ $self->data->{release_id} },
-        tracklist    => display_tracklist($loaded, $self->data->{tracklist})
+        tracklist    => display_tracklist($loaded, $self->data->{tracklist}),
+        release      => $medium ? $medium->release : undef,
     };
 }
 
@@ -82,6 +90,11 @@ sub _insert_hash {
 
     return $data;
 }
+
+after reject => sub {
+    my $self = shift;
+    $self->c->model('Tracklist')->garbage_collect;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

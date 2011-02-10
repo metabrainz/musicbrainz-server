@@ -33,18 +33,17 @@ sub get_tree
 {
     my ($self) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+    $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   ORDER BY child_order, id');
     my %id_to_obj;
     my @objs;
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
         push @objs, $obj;
     }
-    $sql->finish;
+    $self->sql->finish;
 
     my $root = MusicBrainz::Server::Entity::MediumFormat->new;
     foreach my $obj (@objs) {
@@ -53,6 +52,15 @@ sub get_tree
     }
 
     return $root;
+}
+
+sub find_by_name
+{
+    my ($self, $name) = @_;
+    my $row = $self->sql->select_single_row_hash(
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+          WHERE lower(name) = lower(?)', $name);
+    return $row ? $self->_new_from_row($row) : undef;
 }
 
 __PACKAGE__->meta->make_immutable;

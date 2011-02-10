@@ -32,6 +32,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddPUIDs
+    MusicBrainz::Server::Edit::Recording::Create
     MusicBrainz::Server::Edit::Recording::Edit
     MusicBrainz::Server::Edit::Recording::RemoveISRC
     MusicBrainz::Server::Edit::Recording::AddISRCs
@@ -52,6 +53,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::Delete
     MusicBrainz::Server::Edit::Release::DeleteReleaseLabel
     MusicBrainz::Server::Edit::Release::Edit
+    MusicBrainz::Server::Edit::Release::EditArtist
     MusicBrainz::Server::Edit::Release::EditBarcodes
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::Release::Merge

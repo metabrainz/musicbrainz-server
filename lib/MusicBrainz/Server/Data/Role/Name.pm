@@ -26,14 +26,13 @@ role
     {
         my ($self, @names) = @_;
         @names = uniq grep { defined } @names or return;
-        my $sql = Sql->new($self->c->dbh);
         my $query = "SELECT id, name FROM $table" .
                     ' WHERE name IN (' . placeholders(@names) . ')';
-        my $found = $sql->select_list_of_hashes($query, @names);
+        my $found = $self->sql->select_list_of_hashes($query, @names);
         my %found_names = map { $_->{name} => $_->{id} } @$found;
         for my $new_name (grep { !exists $found_names{$_} } @names)
         {
-            my $id = $sql->insert_row($table, {
+            my $id = $self->sql->insert_row($table, {
                     name => $new_name,
                 }, 'id');
             $found_names{$new_name} = $id;

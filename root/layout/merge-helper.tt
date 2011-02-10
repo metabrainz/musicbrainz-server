@@ -1,0 +1,38 @@
+<div id="current-editing">
+  <form action="[% merge_link %]" method="get">
+    <h2>[% l('Merge Process') %]</h2>
+    <p>[% l('You currently have the following entities selected
+      for merging:') %]</p>
+    <ul>
+      [% FOR entity=to_merge %]
+        <li>
+          <input type="checkbox" id="remove.[% entity.id %]"
+                 name="remove" value="[% entity.id %]" />
+          <label for="remove.[% entity.id %]">
+            [% descriptive_link(entity) %]</label>
+        </li>
+      [% END %]
+    </ul>
+    [% IF merge.reday_to_merge %]
+    <p>
+      [% l('When you are ready to merge these, just click the Merge button.
+      You may still add more to this merge queue by simply browsing to
+      the entities page and following the merge link.') %]
+    </p>
+    [% ELSE %]
+    <p>
+      [% l('Please navigate to the pages of other entities you wish to merge and
+      select the "merge" link.') %]
+    </p>
+    [% END %]
+    <div class="buttons" style="display: table-cell">
+      [% IF merger.ready_to_merge %]
+        <button type="submit" name="submit" value="merge">[% l('Merge') %]</button>
+      [% END %]
+      <button type="submit" name="submit" value="remove">
+        [% l('Remove selected entities') %]</button>
+      <button type="submit" name="submit" value="cancel">[% l('Cancel') %]</button>
+    </div>
+  </form>
+  <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+</div>
