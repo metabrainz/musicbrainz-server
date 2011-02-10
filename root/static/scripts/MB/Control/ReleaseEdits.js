@@ -112,10 +112,6 @@ MB.Control.ReleaseEdits = function ($edits) {
         {
             self.$edits.val (JSON.stringify (edited_tracklist));
         }
-        else
-        {
-            self.$edits.val ('');
-        }
     };
 
     var loadEdits = function () {
