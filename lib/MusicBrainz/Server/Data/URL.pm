@@ -93,7 +93,10 @@ sub find_or_insert
         }, 'id');
     }
 
-    return $self->_new_from_row({ id => $id });
+    return $self->_new_from_row({
+        id => $id,
+        url => $url
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -21,6 +21,8 @@ sub _columns
     return 'id, editor, edit, text, post_time';
 }
 
+sub sql { shift->c->raw_sql }
+
 sub _column_mapping
 {
     return {
@@ -46,7 +48,7 @@ sub load_for_edits
                 ' FROM ' . $self->_table .
                 ' WHERE edit IN (' . placeholders(@ids) . ')' .
                 ' ORDER BY post_time, id';
-    my @notes = query_to_list($self->c->raw_dbh, sub {
+    my @notes = query_to_list($self->c->raw_sql, sub {
             my $r = shift;
             my $note = $self->_new_from_row($r);
             my $edit = $id_to_edit{ $r->{edit} };
@@ -65,9 +67,8 @@ sub insert
         $key => $note_hash->{$_};
     } keys %$note_hash;
     $r{edit} = $edit_id;
-    my $sql = Sql->new($self->c->raw_dbh);
-    $sql->auto_commit;
-    $sql->insert_row('edit_note', \%r);
+    $self->sql->auto_commit;
+    $self->sql->insert_row('edit_note', \%r);
 }
 
 sub add_note

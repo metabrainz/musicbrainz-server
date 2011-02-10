@@ -92,7 +92,7 @@ sub find_by_subscribed_editor
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
 }
 
@@ -107,7 +107,7 @@ sub find_by_recording
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $recording_id, $offset || 0);
 }
 
@@ -130,7 +130,7 @@ sub find_by_release
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $release_id, $release_id, $offset || 0);
 }
 
@@ -145,7 +145,7 @@ sub find_by_release_group
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $recording_id, $offset || 0);
 }
 
@@ -160,7 +160,7 @@ sub find_by_work
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $recording_id, $offset || 0);
 }
 
@@ -173,7 +173,6 @@ sub load
 sub insert
 {
     my ($self, @artists) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @artists);
     my $class = $self->_entity_class;
     my @created;
@@ -184,7 +183,7 @@ sub insert
 
         push @created, $class->new(
             name => $artist->{name},
-            id => $sql->insert_row('artist', $row, 'id'),
+            id => $self->sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -195,17 +194,15 @@ sub update
 {
     my ($self, $artist_id, $update) = @_;
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('artist', $row, { id => $artist_id });
+    $self->sql->update_row('artist', $row, { id => $artist_id });
 }
 
 sub can_delete
 {
     my ($self, $artist_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $active_credits = $sql->select_single_column_array(
+    my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
         $artist_id
@@ -225,8 +222,7 @@ sub delete
     $self->rating->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do($query, @artist_ids);
+    $self->sql->do($query, @artist_ids);
     return 1;
 }
 

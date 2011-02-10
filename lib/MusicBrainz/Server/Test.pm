@@ -16,13 +16,15 @@ use Test::Differences;
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
-use XML::Parser;
+use XML::LibXML;
+use Email::Sender::Transport::Test;
+use Try::Tiny;
 
 use Sub::Exporter -setup => {
     exports => [
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
-            compare_body
+            compare_body html_ok
         ),
         ws_test => \&_build_ws_test,
     ],
@@ -99,9 +101,20 @@ sub prepare_raw_test_database
 
 sub prepare_test_server
 {
-    no warnings 'redefine';
-    *DBDefs::_RUNNING_TESTS = sub { 1 };
-    *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
+    {
+        no warnings 'redefine';
+        *DBDefs::_RUNNING_TESTS = sub { 1 };
+        *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
+    };
+
+    $test_transport = Email::Sender::Transport::Test->new();
+}
+
+sub get_test_transport {
+    use Carp;
+    Carp::confess("Y U NO INITIALIZE MAN?")
+          unless $test_transport;
+    return $test_transport;
 }
 
 sub get_latest_edit
@@ -122,6 +135,21 @@ sub diag_lineno
     foreach (@lines) {
         diag $line, $_;
         $line += 1;
+    }
+}
+
+sub html_ok
+{
+    my ($content, $message) = @_;
+
+    $message ||= "invalid HTML";
+
+    try {
+        XML::LibXML->load_html(string => $content);
+        $Test->ok(1, $message);
+    }
+    catch {
+        $Test->ok(0, $_);
     }
 }
 
@@ -153,26 +181,22 @@ sub accept_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->accept($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
 sub reject_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->reject($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
 my $mock;
@@ -329,6 +353,7 @@ sub _build_ws_test {
             $validator->($mech->content, 'validating');
 
             is_xml_same($mech->content, $expected);
+            $Test->note($mech->content);
         });
     }
 }

@@ -24,9 +24,8 @@ sub _entity_class
 sub insert
 {
     my ($self, $tracks) = @_;
-    my $sql = Sql->new($self->c->dbh);
     # track_count is 0 because the trigger will increment it
-    my $id = $sql->insert_row('tracklist', { track_count => 0 }, 'id');
+    my $id = $self->sql->insert_row('tracklist', { track_count => 0 }, 'id');
     $self->_add_tracks($id, $tracks);
     $self->c->model('DurationLookup')->update($id);
     my $class = $self->_entity_class;
@@ -36,11 +35,10 @@ sub insert
 sub delete
 {
     my ($self, @tracklist_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM track WHERE tracklist IN (' . placeholders(@tracklist_ids). ')';
-    $sql->do($query, @tracklist_ids);
+    $self->sql->do($query, @tracklist_ids);
     $query = 'DELETE FROM tracklist WHERE id IN ('. placeholders(@tracklist_ids) . ')';
-    $sql->do($query, @tracklist_ids);
+    $self->sql->do($query, @tracklist_ids);
 }
 
 sub replace
@@ -73,6 +71,29 @@ sub usage_count
         'SELECT count(*) FROM medium
            JOIN tracklist ON medium.tracklist = tracklist.id
           WHERE tracklist.id = ?', $tracklist_id);
+}
+
+sub garbage_collect {
+    my $self = shift;
+
+    my @orphaned_tracklists = @{
+        $self->sql->select_single_column_array(
+            'SELECT tracklist.id FROM tracklist
+          LEFT JOIN medium ON medium.tracklist = tracklist.id
+              WHERE medium.id IS NULL'
+        )
+    };
+
+    if (@orphaned_tracklists) {
+        $self->sql->do(
+            'DELETE FROM track
+              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+        $self->sql->do(
+            'DELETE FROM tracklist
+              WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+    }
 }
 
 sub set_lengths_to_cdtoc

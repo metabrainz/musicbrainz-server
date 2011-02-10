@@ -91,7 +91,7 @@ sub find_by_subscribed_editor
                  ORDER BY musicbrainz_collate(name.name), label.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
 }
 
@@ -110,7 +110,7 @@ sub find_by_artist
                  ORDER BY label.id";
 
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $artist_id);
 }
 
@@ -126,7 +126,7 @@ sub find_by_release
                  OFFSET ?";
 
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $release_id, $offset || 0);
 }
 
@@ -139,7 +139,6 @@ sub load
 sub insert
 {
     my ($self, @labels) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name } } @labels);
     my $class = $self->_entity_class;
     my @created;
@@ -149,7 +148,7 @@ sub insert
         $row->{gid} = $label->{gid} || generate_gid();
         push @created, $class->new(
             name => $label->{name},
-            id => $sql->insert_row('label', $row, 'id'),
+            id => $self->sql->insert_row('label', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -159,19 +158,17 @@ sub insert
 sub update
 {
     my ($self, $label_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('label', $row, { id => $label_id });
+    $self->sql->update_row('label', $row, { id => $label_id });
     return 1;
 }
 
 sub in_use
 {
     my ($self, $label_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
 
-    return check_in_use($sql,
+    return check_in_use($self->sql,
         'release_label         WHERE label = ?'   => [ $label_id ],
         'l_artist_label        WHERE entity1 = ?' => [ $label_id ],
         'l_label_recording     WHERE entity0 = ?' => [ $label_id ],
@@ -186,8 +183,7 @@ sub in_use
 sub can_delete
 {
     my ($self, $label_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $refcount = $sql->select_single_column_array('SELECT 1 FROM release_label WHERE label = ?', $label_id);
+    my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM release_label WHERE label = ?', $label_id);
     return @$refcount == 0;
 }
 
@@ -202,8 +198,7 @@ sub delete
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
+    $self->sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
     return 1;
 }
 

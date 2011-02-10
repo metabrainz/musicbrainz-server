@@ -1,14 +1,14 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE tracklist CASCADE;
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -27,9 +27,13 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '6a7d1660-792f-11de-8a39-0800200c9a66', 1, 1, 1);
 
 INSERT INTO tracklist (id, track_count) VALUES (1, 1);
-INSERT INTO tracklist (id, track_count) VALUES (2, 1);
 
 INSERT INTO medium (id, tracklist, release, position, name)
     VALUES (1, 1, 1, 1, 'Medium Name');
 
-COMMIT;
+
+INSERT INTO medium_format (id, name) VALUES (1, 'CD');
+
+INSERT INTO track_name (id, name) VALUES (1, 'Track');
+INSERT INTO recording (id, gid, name, artist_credit)
+    VALUES (1, 'a037f860-792f-11de-8a39-0800200c9a66', 1, 1);

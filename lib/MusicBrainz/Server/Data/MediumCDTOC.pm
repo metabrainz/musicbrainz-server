@@ -44,7 +44,7 @@ sub find_by_medium
         WHERE medium IN (" . placeholders(@medium_ids) . ")
         ORDER BY id";
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, @medium_ids);
 }
 

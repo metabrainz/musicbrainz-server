@@ -41,7 +41,7 @@ sub get_history
                 ' WHERE ' . $self->type . ' = ?' .
                 ' ORDER BY created DESC OFFSET ?';
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $id, $offset || 0
     );
 }
@@ -53,8 +53,7 @@ sub get_latest
                 " FROM " . $self->_table .
                 " WHERE " . $self->type . " = ?" .
                 " ORDER BY created DESC LIMIT 1";
-    my $sql = Sql->new($self->c->dbh);
-    my $row = $sql->select_single_row_hash($query, $id)
+    my $row = $self->sql->select_single_row_hash($query, $id)
         or return undef;
     return $self->_new_from_row($row);
 }
@@ -72,13 +71,12 @@ sub load_latest
 sub edit
 {
     my ($self, $annotation_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $annotation_id = $sql->insert_row('annotation', {
+    my $annotation_id = $self->sql->insert_row('annotation', {
         editor => $annotation_hash->{editor_id},
         text => $annotation_hash->{text},
         changelog => $annotation_hash->{changelog}
     }, 'id');
-    $sql->insert_row($self->table, {
+    $self->sql->insert_row($self->table, {
         $self->type => $annotation_hash->{entity_id},
         annotation => $annotation_id
     });
@@ -91,21 +89,19 @@ sub delete
     my $query = "DELETE FROM " . $self->table .
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")" .
                 " RETURNING annotation";
-    my $sql = Sql->new($self->c->dbh);
-    my $annotations = $sql->select_single_column_array($query, @ids);
+    my $annotations = $self->sql->select_single_column_array($query, @ids);
     return 1 unless scalar @$annotations;
     $query = "DELETE FROM annotation WHERE id IN (" . placeholders(@$annotations) . ")";
-    $sql->do($query, @$annotations);
+    $self->sql->do($query, @$annotations);
     return 1;
 }
 
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
-    $sql->do("UPDATE $table SET $type = ?
+    $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 

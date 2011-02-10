@@ -71,9 +71,8 @@ MB.tests.GuessCase.Modes = function() {
 
         tests = [
             {
-                // FIXME: should be lowercase 'of' in expected?
                 input: 'Members Of Mayday',
-                expected: 'Members Of Mayday'
+                expected: 'Members of Mayday'
             },
             {
                 input: 'the prodigy & tom morello',

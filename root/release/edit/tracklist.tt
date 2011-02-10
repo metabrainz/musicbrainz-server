@@ -245,7 +245,7 @@
     <div style="float: right; margin: 10px;" class="buttons">
       <a href="#advanced">[% l('Advanced') %]</a>
     </div>
-    <p style="margin: 10px; width: 300px;">[% l('Please use the advanced tracklist editor if this preview seems incorrect.') %]</p>
+    <p style="margin: 10px; width: 300px;">[% l('Use the advanced tracklist editor if this preview seems incorrect.') %]</p>
 
     <br style="clear: right;" />
 

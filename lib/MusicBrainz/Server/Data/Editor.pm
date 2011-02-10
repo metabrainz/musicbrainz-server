@@ -62,11 +62,10 @@ sub _entity_class
 sub get_by_name
 {
     my ($self, $name) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE lower(name) = ? LIMIT 1';
-    my $row = $sql->select_single_row_hash($query, lc $name);
+    my $row = $self->sql->select_single_row_hash($query, lc $name);
     return $self->_new_from_row($row);
 }
 
@@ -78,9 +77,7 @@ sub _get_ratings_for_type
         SELECT $type AS id, rating FROM ${type}_rating_raw
         WHERE editor = ? ORDER BY rating DESC, editor";
 
-    my $sql = Sql->new($self->c->raw_dbh);
-
-    my $results = $sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->raw_sql->select_list_of_hashes ($query, $id);
     my $entities = $self->c->model(type_to_model($type))->get_by_ids(map { $_->{id} } @$results);
 
     my $ratings = [];
@@ -112,7 +109,6 @@ sub get_ratings
 {
     my ($self, $user, $me) = @_;
 
-
     my $ratings = {};
     foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
     {
@@ -132,8 +128,7 @@ sub _get_tags_for_type
         WHERE editor = ?
         GROUP BY tag";
 
-    my $sql = Sql->new($self->c->raw_dbh);
-    my $results = $sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->raw_sql->select_list_of_hashes ($query, $id);
 
     return { map { $_->{tag} => $_ } @$results };
 }
@@ -189,7 +184,7 @@ sub find_by_privileges
                  WHERE (privs & ?) > 0
                  ORDER BY editor.name, editor.id";
     return query_to_list (
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $privs);
 }
 
@@ -203,7 +198,7 @@ sub find_by_subscribed_editor
                  ORDER BY editor.name, editor.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
 }
 
@@ -217,7 +212,7 @@ sub find_subscribers
                  ORDER BY editor.name, editor.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
 }
 
@@ -225,10 +220,9 @@ sub insert
 {
     my ($self, $data) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
-            id => $sql->insert_row('editor', $data, 'id'),
+            id => $self->sql->insert_row('editor', $data, 'id'),
             name => $data->{name},
             password => $data->{password},
             accepted_edits => 0,
@@ -236,51 +230,48 @@ sub insert
             failed_edits => 0,
             accepted_auto_edits => 0,
         );
-    }, $sql);
+    }, $self->sql);
 }
 
 sub update_email
 {
     my ($self, $editor, $email) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
         if ($email) {
-            my $email_confirmation_date = $sql->select_single_value(
+            my $email_confirmation_date = $self->sql->select_single_value(
                 'UPDATE editor SET email=?, email_confirm_date=NOW()
                 WHERE id=? RETURNING email_confirm_date', $email, $editor->id);
             $editor->email($email);
             $editor->email_confirmation_date($email_confirmation_date);
         }
         else {
-            $sql->do('UPDATE editor SET email=NULL, email_confirm_date=NULL
+            $self->sql->do('UPDATE editor SET email=NULL, email_confirm_date=NULL
                       WHERE id=?', $editor->id);
             delete $editor->{email};
             delete $editor->{email_confirmation_date};
         }
-    }, $sql);
+    }, $self->sql);
 }
 
 sub update_password
 {
     my ($self, $editor, $password) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
-        $sql->do('UPDATE editor SET password=? WHERE id=?',
+        $self->sql->do('UPDATE editor SET password=? WHERE id=?',
                  $password, $editor->id);
-    }, $sql);
+    }, $self->sql);
 }
 
 sub update_profile
 {
     my ($self, $editor, $website, $bio) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
-        $sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
+        $self->sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
                  $website || undef, $bio || undef, $editor->id);
-    }, $sql);
+    }, $self->sql);
 }
 
 sub update_privileges
@@ -296,11 +287,10 @@ sub update_privileges
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
                 + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
-        $sql->do('UPDATE editor SET privs=? WHERE id=?',
+        $self->sql->do('UPDATE editor SET privs=? WHERE id=?',
                  $privs, $editor->id);
-    }, $sql);
+    }, $self->sql);
 }
 
 sub load
@@ -321,8 +311,7 @@ sub load_preferences
         "FROM editor_preference WHERE editor IN (%s)",
         placeholders(keys %editors);
 
-    my $sql = Sql->new($self->c->dbh);
-    my $prefs = $sql->select_list_of_hashes($query, keys %editors);
+    my $prefs = $self->sql->select_list_of_hashes($query, keys %editors);
 
     for my $pref (@$prefs) {
         my ($editor_id, $key, $value) = ($pref->{editor}, $pref->{name}, $pref->{value});
@@ -335,15 +324,14 @@ sub save_preferences
 {
     my ($self, $editor, $values) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
 
-        $sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor->id);
+        $self->sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor->id);
         my $preferences_meta = $editor->preferences->meta;
         foreach my $name (keys %$values) {
             my $default = $preferences_meta->get_attribute($name)->default;
             unless ($default eq $values->{$name}) {
-                $sql->insert_row('editor_preference', {
+                $self->sql->insert_row('editor_preference', {
                     editor => $editor->id,
                     name   => $name,
                     value  => $values->{$name},
@@ -352,20 +340,19 @@ sub save_preferences
         }
         $editor->preferences(MusicBrainz::Server::Entity::Preferences->new(%$values));
 
-    }, $sql);
+    }, $self->sql);
 }
 
 sub credit
 {
     my ($self, $editor_id, $status, $as_autoedit) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $column;
     $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
     $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
     $column = "auto_edits_accepted" if $status == $STATUS_APPLIED && $as_autoedit;
     $column ||= "edits_failed";
     my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
-    $sql->do($query, $editor_id);
+    $self->sql->do($query, $editor_id);
 }
 
 sub donation_check
@@ -414,7 +401,7 @@ sub editors_with_subscriptions
         " WHERE id IN ($ids)";
 
     return query_to_list (
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query);
 }
 

@@ -1,16 +1,16 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE url CASCADE;
-TRUNCATE l_release_url CASCADE;
-TRUNCATE link_type CASCADE;
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -47,4 +47,4 @@ INSERT INTO link (id, link_type) VALUES (1, 1), (2, 2);
 INSERT INTO l_release_url (link, entity0, entity1)
     VALUES (1, 1, 1), (2, 2, 2);
 
-COMMIT;
+

@@ -7,9 +7,10 @@ use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
      puid => {
-                         method   => 'GET',
-                         inc      => [ qw(artists releases puids isrcs artist-credits aliases
-                                          _relations tags user-tags ratings user-ratings) ]
+         method   => 'GET',
+         inc      => [ qw(artists releases puids isrcs artist-credits aliases
+                          _relations tags user-tags ratings user-ratings
+                          release-groups ) ]
      }
 ]);
 
