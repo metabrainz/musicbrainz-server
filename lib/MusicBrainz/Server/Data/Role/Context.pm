@@ -3,7 +3,8 @@ use Moose::Role;
 
 has 'c' => (
     is => 'rw',
-    isa => 'Object'
+    isa => 'Object',
+    weak_ref => 1
 );
 
 no Moose::Role;

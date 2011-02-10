@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Exception;
+use Test::Memory::Cycle;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Gender' };
 
@@ -72,6 +73,8 @@ MusicBrainz::Server::EditRegistry->register_type("MockEdit");
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
 
+memory_cycle_ok($en_data);
+
 # Multiple edit edit_notes
 my $edit = $edit_data->get_by_id(1);
 $en_data->load_for_edits($edit);
@@ -85,6 +88,9 @@ check_note($edit->edit_notes->[1], 'MusicBrainz::Server::Entity::EditNote',
        editor_id => 2,
        edit_id => 1,
        text => 'This is a later note');
+
+memory_cycle_ok($en_data);
+memory_cycle_ok($edit);
 
 # Single edit note
 $edit = $edit_data->get_by_id(2);
@@ -105,6 +111,8 @@ $en_data->insert($edit->id, {
         editor_id => 3,
         text => 'This is a new edit note',
     });
+
+memory_cycle_ok($en_data);
 
 $en_data->load_for_edits($edit);
 is(@{ $edit->edit_notes }, 1);
