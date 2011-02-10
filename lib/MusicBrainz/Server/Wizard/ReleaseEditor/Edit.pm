@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Wizard::ReleaseEditor::Edit;
 use Moose;
+use Data::Compare;
 use namespace::autoclean;
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref artist_credit_to_alternative_ref );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
@@ -47,6 +49,30 @@ augment 'create_edits' => sub
     }
 
     return $self->release;
+};
+
+override 'prepare_tracklist' => sub {
+    my ($self, $release) = @_;
+
+    my $json = JSON::Any->new( utf8 => 1 );
+
+    my $database_artist = artist_credit_to_ref ($release->artist_credit);
+    my $submitted_artist = $self->value->{artist_credit};
+
+    if (!$self->value->{change_track_artists} ||
+        Compare ($database_artist, $submitted_artist))
+    {
+        # Just use "null" here to indicate the release artist wasn't edited.
+        # (or that it was edited, but the user doesn't want track artists to change).
+        $self->c->stash->{release_artist_json} = "null";
+    }
+    else
+    {
+        # The release artist was changed, provide javascript with the original
+        # release artist, so it knows which track artists to update.
+        $self->c->stash->{release_artist_json} = $json->encode (
+            artist_credit_to_alternative_ref ($release->artist_credit));
+    }
 };
 
 augment 'load' => sub
