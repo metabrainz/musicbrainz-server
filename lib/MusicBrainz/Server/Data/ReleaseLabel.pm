@@ -89,7 +89,17 @@ sub merge_labels
 sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
-    # XXX avoid duplicates
+    my @ids = ($new_id, @old_ids);
+    $self->sql->do(
+        'DELETE FROM release_label
+          WHERE release IN (' . placeholders(@ids) . ")
+            AND id NOT IN (
+                SELECT DISTINCT ON (label, catalog_number)
+                       id
+                  FROM release_label
+                 WHERE release IN (" . placeholders(@ids) . ')
+            )', @ids, @ids);
+
     $self->sql->do('UPDATE release_label SET release = ?
               WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
