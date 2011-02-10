@@ -73,6 +73,29 @@ sub usage_count
           WHERE tracklist.id = ?', $tracklist_id);
 }
 
+sub garbage_collect {
+    my $self = shift;
+
+    my @orphaned_tracklists = @{
+        $self->sql->select_single_column_array(
+            'SELECT tracklist.id FROM tracklist
+          LEFT JOIN medium ON medium.tracklist = tracklist.id
+              WHERE medium.id IS NULL'
+        )
+    };
+
+    if (@orphaned_tracklists) {
+        $self->sql->do(
+            'DELETE FROM track
+              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+        $self->sql->do(
+            'DELETE FROM tracklist
+              WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+    }
+}
+
 sub set_lengths_to_cdtoc
 {
     my ($self, $tracklist_id, $cdtoc_id) = @_;

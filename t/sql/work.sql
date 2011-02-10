@@ -40,5 +40,4 @@ INSERT INTO work_annotation (work, annotation) VALUES (1, 1);
 
 ALTER SEQUENCE work_id_seq RESTART 3;
 ALTER SEQUENCE work_name_id_seq RESTART 3;
-
-
+ALTER SEQUENCE artist_credit_id_seq RESTART 3;

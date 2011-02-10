@@ -35,7 +35,6 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (1, 'ec8c4910-739d-11de-8a39-0800200c9a66', 1, 1, 1);
 
-INSERT INTO release_status (id, name) VALUES (1, 'Official');
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');

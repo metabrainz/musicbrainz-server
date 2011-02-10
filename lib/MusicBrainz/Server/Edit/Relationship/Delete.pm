@@ -163,6 +163,8 @@ sub initialize
 
     $self->c->model('Link')->load($relationship) unless $relationship->link;
     $self->c->model('LinkType')->load($relationship->link) unless $relationship->link->type;
+    $self->c->model('Relationship')->load_entities($relationship)
+        unless $relationship->entity0 && $relationship->entity1;
 
     $self->relationship($relationship);
     $self->data({
