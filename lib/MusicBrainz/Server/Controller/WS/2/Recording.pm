@@ -30,7 +30,8 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings
+                                          release-groups) ]
      },
      recording => {
                          method => 'POST'
@@ -75,6 +76,17 @@ sub recording_toplevel
         $self->linked_releases ($c, $stash, $results[0]);
 
         $opts->{releases} = $self->make_list (@results);
+
+        if ($c->stash->{inc}->release_groups) {
+            my @releases = @{$results[0]};
+            $c->model('ReleaseGroup')->load(@releases);
+
+            if ($c->stash->{inc}->artists) {
+                $c->model('ArtistCredit')->load(map { $_->release_group } @releases);
+                $c->model('Artist')->load(
+                    map { @{ $_->release_group->artist_credit->names } } @releases);
+            }
+        }
     }
 
     if ($c->stash->{inc}->artists)

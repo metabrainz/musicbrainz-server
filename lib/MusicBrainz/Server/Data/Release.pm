@@ -315,6 +315,7 @@ sub load_with_tracklist_for_recording
                 release.country AS r_country, release.status AS r_status,
                 release.packaging AS r_packaging,
                 release.quality AS r_quality,
+                release.release_group AS r_release_group,
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,

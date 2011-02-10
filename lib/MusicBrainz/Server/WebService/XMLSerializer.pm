@@ -286,15 +286,15 @@ sub _serialize_release
     {
         $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artist_credits || $inc->artists;
-
-        $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
-            if ($release->release_group && $inc->release_groups);
     }
     else
     {
         $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
+
+    $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
+            if ($release->release_group && $inc->release_groups);
 
     push @list, $gen->date($release->date->format) if $release->date;
     push @list, $gen->country($release->country->iso_code) if $release->country;
