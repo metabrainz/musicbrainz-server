@@ -38,20 +38,46 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         my $opts = $stash->store ($cdtoc);
 
         my @releases = $c->model('Release')->find_by_medium(
-            [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type});
-        $opts->{releases} = $self->make_list (\@releases);
+            [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type}
+        );
 
-        for (@releases)
-        {
-            $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
+        if (@releases) {
+            $opts->{releases} = $self->make_list (\@releases);
+
+            for (@releases) {
+                $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
+            }
+
+            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+            $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
+            return
         }
-
-        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
-        return;
     }
 
-    if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
+    if (my $toc = $c->req->query_params->{toc}) {
+        my $results = $c->model('DurationLookup')->lookup($toc, 10000);
+        if (!defined($results)) {
+            $self->_error($c, l('Invalid TOC'));
+        }
+
+        my $inc = $c->stash->{inc};
+
+        $c->model('Release')->load(map { $_->medium } @$results);
+        my @releases = map { $_->medium->release } @$results;
+
+        $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_)
+            for @releases;
+
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->serialize(
+            'release_list',
+            {
+                items => \@releases
+            },
+            $c->stash->{inc}, $stash
+        ));
+    }
+    elsif (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
         my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($id);
         if ($cd_stub_toc) {
             $c->model('CDStub')->load($cd_stub_toc);
@@ -64,8 +90,9 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             return;
         }
     }
-
-    $c->detach('not_found');
+    else {
+        $c->detach('not_found');
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
