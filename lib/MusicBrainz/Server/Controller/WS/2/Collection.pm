@@ -91,7 +91,7 @@ sub list_post {
         $xp->find('/metadata/add/release')->get_nodelist;
 
     my @remove_gids = uniq map { $_->getAttribute('id') }
-        $xp->find('/metadata/add/release')->get_nodelist;
+        $xp->find('/metadata/remove/release')->get_nodelist;
 
     _error ($c, "All releases must have an MBID present")
         unless all { defined } (@add_gids, @remove_gids);
@@ -114,6 +114,8 @@ sub list_post {
         $collection->id,
         map { $_->id } grep { defined } map { $releases{$_} } @remove_gids
     ) if @remove_gids;
+
+    $c->detach('success');
 }
 
 sub list_get {

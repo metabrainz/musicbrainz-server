@@ -1,13 +1,28 @@
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Controller::WS::2::SubmitCDStub;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
+with 't::Mechanize', 't::Context';
+
+use utf8;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::Test qw( schema_validator xml_ok xml_post );
-use MusicBrainz::WWW::Mechanize;
+use XML::SemanticDiff;
+use XML::XPath;
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post );
+use MusicBrainz::Server::Test ws_test => {
+    version => 2
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+my $v2 = schema_validator;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 my $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -38,4 +53,7 @@ $c->model('CDStubTrack')->load_for_cdstub($cdstub);
 is($cdstub->all_tracks => 1);
 is($cdstub->tracks->[0]->title, 'Warrior');
 
-done_testing;
+};
+
+1;
+
