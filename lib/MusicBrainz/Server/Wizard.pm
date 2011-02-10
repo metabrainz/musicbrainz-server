@@ -417,7 +417,7 @@ sub find_previous_page
 around '_current' => sub {
     my ($orig, $self, $value) = @_;
 
-    return $self->$orig () unless $value;
+    return $self->$orig () unless defined $value;
 
     # navigating away from the page just processed, so clear it.
     $self->_clear_processed_page if $self->$orig () ne $value;
