@@ -39,10 +39,12 @@ INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist
     (id, gid, name, sort_name, type, gender, country,
      begin_date_year, begin_date_month, begin_date_day,
-     end_date_year, end_date_month, end_date_day, comment)
+     end_date_year, end_date_month, end_date_day, comment,
+     last_updated)
     VALUES
     (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1,
-     2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
+     2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist',
+     '2009-07-09');
 
 UPDATE artist_meta SET rating=70, rating_count=4 WHERE id = 3;
 
@@ -54,8 +56,6 @@ INSERT INTO artist_alias (id, name, artist, edits_pending)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 1, NULL);
-
-INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
 
 INSERT INTO release_name (id, name)
     VALUES (1, 'Test RG 1'),

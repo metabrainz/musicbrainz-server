@@ -1,18 +1,18 @@
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 
-use FindBin qw( $Bin );
-use lib "$Bin/lib";
-
+use lib 't/lib';
 use MusicBrainz::Server::Test;
-use Catalyst::Test 'MusicBrainz::Server';
-use Test::Aggregate::Nested;
+use Test::More;
+use Test::Routine::Util;
+use Try::Tiny;
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+my $mpo = Module::Pluggable::Object->new(
+    search_path => 't::MusicBrainz::Server::Controller');
+my @classes = $mpo->plugins;
 
-my $tests = Test::Aggregate::Nested->new( {
-    dirs     => 't/controllers',
-    verbose  => 1,
-} );
+for (@classes) {
+    run_tests($_ => $_)
+}
 
-$tests->run;
+done_testing;

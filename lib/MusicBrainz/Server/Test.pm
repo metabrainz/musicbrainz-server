@@ -16,14 +16,15 @@ use Test::Differences;
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
-use XML::Parser;
+use XML::LibXML;
 use Email::Sender::Transport::Test;
+use Try::Tiny;
 
 use Sub::Exporter -setup => {
     exports => [
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
-            compare_body
+            compare_body html_ok
         ),
         ws_test => \&_build_ws_test,
     ],
@@ -134,6 +135,21 @@ sub diag_lineno
     foreach (@lines) {
         diag $line, $_;
         $line += 1;
+    }
+}
+
+sub html_ok
+{
+    my ($content, $message) = @_;
+
+    $message ||= "invalid HTML";
+
+    try {
+        XML::LibXML->load_html(string => $content);
+        $Test->ok(1, $message);
+    }
+    catch {
+        $Test->ok(0, $_);
     }
 }
 
@@ -337,6 +353,7 @@ sub _build_ws_test {
             $validator->($mech->content, 'validating');
 
             is_xml_same($mech->content, $expected);
+            $Test->note($mech->content);
         });
     }
 }
