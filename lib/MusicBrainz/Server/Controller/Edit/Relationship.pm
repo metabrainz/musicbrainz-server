@@ -96,23 +96,24 @@ sub edit : Local RequireAuth Edit
     $values->{entity0}->{name} = $rel->entity0->name;
     $values->{entity1}->{name} = $rel->entity1->name;
 
-    my $form = $c->form( form => 'Relationship', init_object => $values );
+    my $form = $c->form(
+        form => 'Relationship',
+        init_object => $values,
+        attr_tree => $attr_tree
+    );
     $form->field('link_type_id')->_load_options;
 
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my @attributes;
-        foreach my $attr ($attr_tree->all_children) {
+        for my $attr ($attr_tree->all_children) {
             my $value = $form->field('attrs')->field($attr->name)->value;
-            if (defined $value) {
-                if (scalar $attr->all_children) {
-                    push @attributes, @{ $value };
-                }
-                elsif ($value) {
-                    push @attributes, $attr->id;
-                }
-            }
+            next unless defined($value);
+
+            push @attributes, scalar($attr->all_children)
+                ? @$value
+                : $value ? $attr->all_children : ();
         }
 
         my $values = $form->values;
@@ -181,7 +182,10 @@ sub create : Local RequireAuth Edit
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
     $c->stash( attr_tree => $attr_tree );
 
-    my $form = $c->form( form => 'Relationship' );
+    my $form = $c->form(
+        form => 'Relationship',
+        attr_tree => $attr_tree
+    );
     $c->stash(
         source => $source, source_type => $type0,
         dest   => $dest,   dest_type   => $type1
@@ -189,16 +193,13 @@ sub create : Local RequireAuth Edit
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @attributes;
-        foreach my $attr ($attr_tree->all_children) {
+        for my $attr ($attr_tree->all_children) {
             my $value = $form->field('attrs')->field($attr->name)->value;
-            if (defined $value) {
-                if (scalar $attr->all_children) {
-                    push @attributes, @{ $value };
-                }
-                elsif ($value) {
-                    push @attributes, $attr->id;
-                }
-            }
+            next unless defined($value);
+
+            push @attributes, scalar($attr->all_children)
+                ? @$value
+                : $value ? $attr->all_children : ();
         }
 
         my $entity0 = $source;
