@@ -125,4 +125,50 @@ ok(!defined $work);
 
 };
 
+test 'Merge with funky relationships' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1);
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO work_name (id, name)
+    VALUES (1, 'Target'), (2, 'Merge 1'), (3, 'Merge 2');
+INSERT INTO work (id, gid, name, artist_credit)
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2, 1),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3, 1);
+
+INSERT INTO link_type
+    (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,
+     short_link_phrase)
+    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
+            'performed',
+            'performed by',
+            'performer');
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
+INSERT INTO l_artist_work (id, entity0, link, entity1)
+    VALUES (1, 1, 1, 2),
+           (2, 1, 1, 3);
+EOSQL
+
+    $test->c->model('Work')->merge(1, 2, 3);
+
+    my $final_work = $test->c->model('Work')->get_by_id(1);
+    $test->c->model('Relationship')->load($final_work);
+    is($final_work->all_relationships => 1,
+       'Merged work has a single relationship');
+    is($final_work->relationships->[0]->link_id => 1,
+       'Relationship is of link type 1');
+    is($final_work->relationships->[0]->entity0_id => 1,
+       'Points to artist 1');
+    is($final_work->relationships->[0]->entity1_id => 1,
+       'Originates from work 1');
+};
+
 1;

@@ -257,18 +257,24 @@ sub merge_entities
 
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
-        # First delete all relationships between source and target entities
-        $self->sql->do("
-            DELETE FROM $table a
-            WHERE $entity0 IN (" . placeholders(@source_ids) . ") AND
-                EXISTS (SELECT 1 FROM $table b WHERE $entity0 = ? AND
-                    a.$entity1 = b.$entity1 AND a.link = b.link)
-        ", @source_ids, $target_id);
+
+        # We want to keep a single row for each link type, and foreign entity.
+        $self->sql->do(
+            "DELETE FROM $table
+            WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
+              AND id NOT IN (
+                  SELECT DISTINCT ON ($entity1, link) id
+                    FROM $table
+                   WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
+              )",
+            $target_id, @source_ids, $target_id, @source_ids
+        );
+
         # Move all remaining relationships
         $self->sql->do("
             UPDATE $table SET $entity0 = ?
-            WHERE $entity0 IN (" . placeholders(@source_ids) . ")
-        ", $target_id, @source_ids);
+            WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
+        ", $target_id, $target_id, @source_ids);
     }
 }
 
