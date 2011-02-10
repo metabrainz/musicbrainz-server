@@ -13,6 +13,7 @@ has 'languages' => (
     isa => 'ArrayRef',
     is => 'rw',
     traits => [ 'Array' ],
+    default => sub { [] },
     handles => {
         all_system_languages => 'elements',
     }
