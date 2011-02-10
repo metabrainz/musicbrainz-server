@@ -26,7 +26,7 @@ ws_test 'basic artist lookup',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+    <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name>
         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
     </artist>
@@ -36,7 +36,7 @@ ws_test 'artist lookup, inc=aliases',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+    <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
         <name>BoA</name><sort-name>BoA</sort-name>
         <life-span>
             <begin>1986-11-05</begin>
@@ -51,12 +51,12 @@ ws_test 'artist lookup with releases',
     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="group">
+    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
         <release-list count="2">
           <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
                 <title>サマーれげぇ!レインボー</title>
-                <status>official</status>
+                <status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
@@ -68,7 +68,7 @@ ws_test 'artist lookup with releases',
             </release>
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
-                <status>pseudo-release</status>
+                <status>Pseudo-Release</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
@@ -86,12 +86,12 @@ ws_test 'artist lookup with pseudo-releases',
     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="group">
+    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
         <release-list count="1">
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
-                <status>pseudo-release</status>
+                <status>Pseudo-Release</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
@@ -109,11 +109,11 @@ ws_test 'artist lookup with releases and discids',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+    <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <release-list count="2">
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-                <title>My Demons</title><status>official</status>
+                <title>My Demons</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
@@ -121,7 +121,7 @@ ws_test 'artist lookup with releases and discids',
                 <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>cd</format>
+                        <position>1</position><format>CD</format>
                         <disc-list count="1">
                             <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
                                 <sectors>281289</sectors>
@@ -132,7 +132,7 @@ ws_test 'artist lookup with releases and discids',
                 </medium-list>
             </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
-                <title>Repercussions</title><status>official</status>
+                <title>Repercussions</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
@@ -140,7 +140,7 @@ ws_test 'artist lookup with releases and discids',
                 <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
-                        <position>1</position><format>cd</format>
+                        <position>1</position><format>CD</format>
                         <disc-list count="1">
                             <disc id="93K4ogyxWlv522XF0BG8fZOuay4-">
                                 <sectors>215137</sectors>
@@ -149,7 +149,7 @@ ws_test 'artist lookup with releases and discids',
                         <track-list count="9" />
                     </medium>
                     <medium>
-                        <title>Chestplate Singles</title><position>2</position><format>cd</format>
+                        <title>Chestplate Singles</title><position>2</position><format>CD</format>
                         <disc-list count="1">
                             <disc id="VnL0A7ksXznBxvZ94H3Z61EZY3k-">
                                 <sectors>208393</sectors>
@@ -167,7 +167,7 @@ ws_test 'artist lookup with recordings and artist credits',
     '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+    <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
         <name>m-flo</name><sort-name>m-flo</sort-name>
         <life-span>
             <begin>1998</begin>
@@ -215,13 +215,13 @@ ws_test 'artist lookup with release groups',
     '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+    <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
         <name>m-flo</name><sort-name>m-flo</sort-name>
         <life-span>
             <begin>1998</begin>
         </life-span>
         <release-group-list count="1">
-            <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+            <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
                 <title>the Love Bug</title>
             </release-group>
         </release-group-list>
@@ -232,14 +232,14 @@ ws_test 'single artist release lookup',
     '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+    <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
         <name>m-flo</name><sort-name>m-flo</sort-name>
         <life-span>
             <begin>1998</begin>
         </life-span>
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-                <title>the Love Bug</title><status>official</status>
+                <title>the Love Bug</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
@@ -254,14 +254,14 @@ ws_test 'various artists release lookup',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+    <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
         <name>BoA</name><sort-name>BoA</sort-name>
         <life-span>
             <begin>1986-11-05</begin>
         </life-span>
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-                <title>the Love Bug</title><status>official</status>
+                <title>the Love Bug</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
