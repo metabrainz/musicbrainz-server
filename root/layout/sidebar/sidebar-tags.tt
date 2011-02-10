@@ -14,7 +14,7 @@ END -%]
     $(function() {
         MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
             "[% c.uri_for('/tag/') %]",
-            '[% link_entity(entity, 'tags', l('more&hellip;')).replace("'", "\\'") %]');
+            '[% link_entity(entity, 'tags', l('more&hellip;')).replace("'", "\\'").replace('</', '<\/') %]');
     });
 </script>
 

@@ -31,6 +31,7 @@
                     [% l('Merge this release group with another') %]
                   </a>
                 </li>
+                <li>[% link_entity(rg, 'edits', l('View editing history')) %]</li>
                 [% IF rg.edits_pending %]
                     <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
                 [% END %]

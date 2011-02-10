@@ -361,7 +361,7 @@ sub artist
     my $data = get_rows ($dbh, 'artist', 'id', $id);
 
     generic_verbose ($dbh, 'artist_name', 'id', $data->[0]->{name});
-    generic_verbose ($dbh, 'artist_name', 'id', $data->[0]->{sortname});
+    generic_verbose ($dbh, 'artist_name', 'id', $data->[0]->{sort_name});
     generic ($dbh, 'artist_type', 'id', $data->[0]->{type});
     generic ($dbh, 'gender', 'id', $data->[0]->{gender});
     generic ($dbh, 'country', 'id', $data->[0]->{country});
@@ -476,7 +476,7 @@ sub tracklists
 
     for (@$data)
     {
-        $_->{trackcount} = 0;
+        $_->{track_count} = 0;
     }
     backup ($dbh, 'tracklist', $data);
 
@@ -720,28 +720,14 @@ sub main
     print "Writing output to $outputfile ...\n";
     open (DUMP, ">$outputfile");
 
-    print DUMP "BEGIN;\n";
     print DUMP "SET client_min_messages TO 'warning';\n";
     print DUMP "SET search_path TO $test_schema;\n\n";
-
-    my %truncated;
-    foreach (@backup)
-    {
-        (my $truncate = $_) =~ s/INSERT INTO ([^ ]*) .*/TRUNCATE $1 CASCADE;/;
-
-        next if $truncated{$truncate};
-        print DUMP "$truncate\n";
-        $truncated{$truncate} = 1;
-    }
-
-    print DUMP "\n";
 
     foreach (@backup)
     {
         print DUMP "$_\n";
     }
 
-    print DUMP "\nCOMMIT;\n\n";
     close (DUMP);
 
     print "Done!\n";

@@ -216,7 +216,7 @@ sub release_submit : Private
         $self->_error($c, "$id is not a valid MBID")
             unless MusicBrainz::Server::Validation::IsGUID($id);
 
-        my $barcode = $node->find('barcode')->string_value;
+        my $barcode = $node->find('barcode')->string_value or next;
 
         $self->_error($c, "$barcode is not a valid barcode")
             unless MusicBrainz::Server::Validation::IsValidEAN($barcode);
@@ -233,19 +233,21 @@ sub release_submit : Private
             unless exists $gid_map{$gid};
     }
 
-    try {
-        $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            privileges => $c->user->privileges,
-            edit_type => $EDIT_RELEASE_EDIT_BARCODES,
-            submissions => [ map +{
-                release_id => $gid_map{ $_->{release} },
-                barcode => $_->{barcode}
-            }, @submit ]
-        );
-    }
-    catch ($e) {
-        $self->_error($c, "This edit could not be successfully created: $e");
+    if (@submit) {
+        try {
+            $c->model('Edit')->create(
+                editor_id => $c->user->id,
+                privileges => $c->user->privileges,
+                edit_type => $EDIT_RELEASE_EDIT_BARCODES,
+                submissions => [ map +{
+                    release_id => $gid_map{ $_->{release} },
+                    barcode => $_->{barcode}
+                }, @submit ]
+            );
+        }
+        catch ($e) {
+            $self->_error($c, "This edit could not be successfully created: $e");
+        }
     }
 
     $c->detach('success');

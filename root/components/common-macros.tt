@@ -336,7 +336,7 @@ END %]
                         type => entity_type(entity),
                         entity => entity.gid
                    });
-    l('{uri|Relate to URL}', { uri => uri });
+    l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END %]
 
 [%- MACRO relate_to_ellipsis(entity) BLOCK -%]
