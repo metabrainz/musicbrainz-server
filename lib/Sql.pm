@@ -195,7 +195,6 @@ sub commit
     return unless $self->transaction_depth == 0;
 
     return try {
-        die "Commiting";
         my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;
         my $rv = $self->dbh->commit;
         cluck "Commit failed" if ($rv eq '' && !$self->quiet);
