@@ -26,7 +26,7 @@ ws_test 'artist lookup with url relationships',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+    <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <relation-list target-type="url">
             <relation type="myspace">
@@ -49,7 +49,7 @@ ws_test 'artist lookup with non-url relationships',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=artist-rels+label-rels+recording-rels+release-rels+release-group-rels+work-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+    <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
         <name>BoA</name><sort-name>BoA</sort-name>
         <life-span>
             <begin>1986-11-05</begin>
@@ -71,7 +71,7 @@ ws_test 'release lookup with release relationships',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-        <title>サマーれげぇ!レインボー</title><status>official</status>
+        <title>サマーれげぇ!レインボー</title><status>Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language><script>Jpan</script>
@@ -139,7 +139,7 @@ ws_test 'label lookup with label and url relationships',
     '/label/72a46579-e9a0-405a-8ee1-e6e6b63b8212?inc=label-rels+url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label type="original production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
+    <label type="Original Production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
         <name>rhythm zone</name><sort-name>rhythm zone</sort-name><country>JP</country>
         <relation-list target-type="url">
             <relation type="official_site">
@@ -162,7 +162,7 @@ ws_test 'release group lookup with url relationships',
     '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+    <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
         <relation-list target-type="url">
             <relation type="wikipedia">

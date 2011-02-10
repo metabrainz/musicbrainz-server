@@ -39,7 +39,7 @@ ws_test 'recording lookup with releases',
         <title>サマーれげぇ!レインボー</title><length>296026</length>
         <release-list count="2">
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                <title>Summer Reggae! Rainbow</title><status>pseudo-release</status>
+                <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language><script>Latn</script>
@@ -47,7 +47,7 @@ ws_test 'recording lookup with releases',
                 <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
             </release>
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title><status>official</status>
+                <title>サマーれげぇ!レインボー</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language><script>Jpan</script>
@@ -66,7 +66,7 @@ ws_test 'lookup recording with official singles',
         <title>サマーれげぇ!レインボー</title><length>296026</length>
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title><status>official</status>
+                <title>サマーれげぇ!レインボー</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language><script>Jpan</script>
@@ -85,11 +85,11 @@ ws_test 'lookup recording with official singles (+media)',
         <title>サマーれげぇ!レインボー</title><length>296026</length>
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title><status>official</status><date>2001-07-04</date><country>JP</country>
+                <title>サマーれげぇ!レインボー</title><status>Official</status><date>2001-07-04</date><country>JP</country>
                 <quality>normal</quality>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>cd</format>
+                        <position>1</position><format>CD</format>
                         <track-list count="3">
                             <track>
                                 <position>1</position><title>サマーれげぇ!レインボー</title>

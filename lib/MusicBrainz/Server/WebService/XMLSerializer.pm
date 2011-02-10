@@ -94,7 +94,7 @@ sub _serialize_artist
 
     my %attrs;
     $attrs{id} = $artist->gid;
-    $attrs{type} = lc($artist->type->name) if ($artist->type);
+    $attrs{type} = $artist->type->name if ($artist->type);
 
     my @list;
     push @list, $gen->name($artist->name);
@@ -103,7 +103,7 @@ sub _serialize_artist
 
     if ($toplevel)
     {
-        push @list, $gen->gender(lc($artist->gender->name)) if ($artist->gender);
+        push @list, $gen->gender($artist->gender->name) if ($artist->gender);
         push @list, $gen->country($artist->country->iso_code) if ($artist->country);
 
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
@@ -208,7 +208,7 @@ sub _serialize_release_group
 
     my %attr;
     $attr{id} = $release_group->gid;
-    $attr{type} = lc($release_group->type->name) if $release_group->type;
+    $attr{type} = $release_group->type->name if $release_group->type;
 
     my @list;
     push @list, $gen->title($release_group->name);
@@ -275,7 +275,7 @@ sub _serialize_release
     my @list;
 
     push @list, $gen->title($release->name);
-    push @list, $gen->status(lc($release->status->name)) if $release->status;
+    push @list, $gen->status($release->status->name) if $release->status;
     push @list, $gen->disambiguation($release->comment) if $release->comment;
     push @list, $gen->packaging($release->packaging) if $release->packaging;
 
@@ -344,7 +344,7 @@ sub _serialize_work
 
     my %attrs;
     $attrs{id} = $work->gid;
-    $attrs{type} = lc($work->type->name) if ($work->type);
+    $attrs{type} = $work->type->name if ($work->type);
 
     my @list;
     push @list, $gen->iswc($iswc) if $iswc;
@@ -440,7 +440,7 @@ sub _serialize_medium
     my @med;
     push @med, $gen->title($medium->name) if $medium->name;
     push @med, $gen->position($medium->position);
-    push @med, $gen->format(lc($medium->format->name)) if ($medium->format);
+    push @med, $gen->format($medium->format->name) if ($medium->format);
     $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
 
     $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $stash);
@@ -566,7 +566,7 @@ sub _serialize_label_info
     my ($self, $data, $gen, $rel_label, $inc, $stash) = @_;
 
     my @list;
-    push @list, $gen->catalog_number (lc($rel_label->catalog_number))
+    push @list, $gen->catalog_number ($rel_label->catalog_number)
         if $rel_label->catalog_number;
     $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash);
     push @$data, $gen->label_info(@list);
@@ -595,7 +595,7 @@ sub _serialize_label
 
     my %attrs;
     $attrs{id} = $label->gid;
-    $attrs{type} = lc($label->type->name) if $label->type;
+    $attrs{type} = $label->type->name if $label->type;
 
     my @list;
     push @list, $gen->name($label->name);
