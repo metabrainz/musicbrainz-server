@@ -200,6 +200,9 @@
             <li>
                 [%- l('{uri|Relationship Attributes}', { uri => c.uri_for('/admin/linkattributetype') }) -%]
             </li>
+            <li>
+                [%- l('{uri|Instrument Tree}', { uri => c.uri_for('/admin/linkattributetype/instruments') }) -%]
+            </li>
             <li class="separator">
                 [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
             </li>
