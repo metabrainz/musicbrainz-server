@@ -1,10 +1,12 @@
 [% BLOCK link_type %]
     <li style="margin-top:1em;">
         <strong>[% obj.name | html %]</strong>
+        [%- IF c.user.is_relationship_editor -%]
         [
             <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">Edit</a>
             [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">Delete</a>[% END %]
         ]
+        [% END %]
         <br />
         [% l('Child order:') %] <em>[% obj.child_order %]</em><br />
         [% l('Forward link phrase:') %] <em>[% obj.link_phrase || "-" | html %]</em><br />
@@ -27,7 +29,10 @@
 
         <p class="buttons">
             <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Relationship Types') %]</a>
+            [%- IF c.user.is_relationship_editor -%]
             <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Relationship Type') %]</a>
+            [%- END -%]
+            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
         </p>
 
         <ul>

@@ -1,10 +1,12 @@
 [% BLOCK link_attribute_type %]
     <li style="margin-top:1em;">
         <strong>[% obj.name | html %]</strong>
+        [%- IF c.user.is_relationship_editor -%]
         [
-            <a href="[% c.uri_for_action('/admin/linkattributetype/edit', obj.id) %]">Edit</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.id) %]">Delete</a>[% END %]
+            <a href="[% c.uri_for_action('/admin/linkattributetype/edit', obj.id) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.id) %]">[% l('Delete') %]</a>[% END %]
         ]
+        [%- END -%]
         <br />
         [% l('Description:') %] <em>[% obj.description || "-" %]</em><br />
 
@@ -23,7 +25,10 @@
         <h1>[% l("Relationship Attributes") %]</h1>
 
         <p class="buttons">
+            [%- IF c.user.is_relationship_editor -%]
             <a href="[% c.uri_for_action('/admin/linkattributetype/create') %]">[% l('New Relationship Attribute') %]</a>
+            [%- END -%]
+            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Relationship Types') %]</a>
         </p>
 
         <ul>

@@ -29,7 +29,7 @@ sub _load_link_attr_type
     return $link_attr_type;
 }
 
-sub index : Path Args(0) RequireAuth(relationship_editor)
+sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
