@@ -615,7 +615,7 @@ MB.Control.ReleaseUseTracklist = function (parent) {
             q: self.$release.val (),
             artist: self.$artist.val (),
             tracks: self.$count.val (),
-            page: self.page,
+            page: self.page
         };
         $.getJSON ('/ws/js/tracklist', data, self.results);
     };
