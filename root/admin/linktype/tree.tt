@@ -1,17 +1,20 @@
 [% BLOCK link_type %]
-    <li style="margin-top:1em;">
-        <strong>[% obj.name | html %]</strong>
+    <li style="padding-top: 0.5em">
+        <span><strong>[% obj.name | html %]</strong> (<a class="toggle" style="cursor:pointer">more</a>)</span>
+        <div class="reldetails" style="margin-left: 20px; padding: 3px">
+        [%- IF c.user.is_relationship_editor -%]
+        <strong>[% l('Child order:') %]</strong> [% obj.child_order %]<br />
+        [% END %]
+        <strong>[% l('Forward link phrase:') %]</strong> [% obj.link_phrase || l("(none)") | html %]<br />
+        <strong>[% l('Reverse link phrase:') %]</strong> [% obj.reverse_link_phrase || l("(none)") | html %]<br />
+        <strong>[% l('Description:') %]</strong> [% obj.description || l("(none)") %]<br />
         [%- IF c.user.is_relationship_editor -%]
         [
             <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">Edit</a>
             [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">Delete</a>[% END %]
         ]
         [% END %]
-        <br />
-        [% l('Child order:') %] <em>[% obj.child_order %]</em><br />
-        [% l('Forward link phrase:') %] <em>[% obj.link_phrase || "-" | html %]</em><br />
-        [% l('Reverse link phrase:') %] <em>[% obj.reverse_link_phrase || "-" | html %]</em><br />
-        [% l('Description:') %] <em>[% obj.description || "-" %]</em><br />
+        </div>
 
         [% IF obj.children %]
             <ul>
@@ -32,6 +35,8 @@
             [%- IF c.user.is_relationship_editor -%]
             <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Relationship Type') %]</a>
             [%- END -%]
+            <a id="showAll">[% l('Expand All') %]</a>
+            <a id="hideAll" style="display:none">[% l('Collapse All') %]</a>
             <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
         </p>
 
@@ -42,3 +47,5 @@
         </ul>
     </div>
 [% END %]
+
+<script src="[% c.uri_for('/static/scripts/MB/reltypeslist.js') %]" type="text/javascript"></script>
