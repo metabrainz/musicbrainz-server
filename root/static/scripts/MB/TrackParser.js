@@ -33,7 +33,7 @@ MB.TrackParser.Artist = function (track, artist) {
             'name': name,
             'id': '',
             'gid': '',
-            'join': null,
+            'join': null
         });
     };
 
@@ -383,7 +383,7 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
             var data = {
                 'position': track.position,
                 'length': track.duration,
-                'artist_credit': track.artist,
+                'artist_credit': track.artist
             };
 
             var title = track.title;
