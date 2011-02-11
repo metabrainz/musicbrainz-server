@@ -1,3 +1,7 @@
+[%- BLOCK layout_head -%]
+  <script type="text/javascript" src="[%- c.model('FileCache').squash_scripts("scripts/MB/reltypeslist.js") -%]"></script>
+[%- END -%]
+
 [% BLOCK link_type %]
     <li style="padding-top: 0.5em">
         <span><strong>[% obj.name | html %]</strong> (<a class="toggle" style="cursor:pointer">more</a>)</span>
@@ -47,5 +51,3 @@
         </ul>
     </div>
 [% END %]
-
-<script src="[% c.uri_for('/static/scripts/MB/reltypeslist.js') %]" type="text/javascript"></script>

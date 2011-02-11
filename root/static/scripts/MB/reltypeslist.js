@@ -1,25 +1,29 @@
-$(".reldetails").hide();
 
-$(".toggle").click(function() {
+$(document).ready (function () {
 
-    $(this).parent().next(".reldetails").toggle();
+    $(".reldetails").hide();
 
-    if ( $(this).parent().next(".reldetails").is(':hidden') ) {
-        $(this).text("more");
-    } else {
-        $(this).text("less");
-    }
+    $(".toggle").click(function() {
 
+        $(this).parent().next(".reldetails").toggle();
 
-});
+        if ( $(this).parent().next(".reldetails").is(':hidden') ) {
+            $(this).text("more");
+        } else {
+            $(this).text("less");
+        }
 
-$("#showAll,").click(function () {
-    $(".reldetails, #hideAll").show();
-    $("#showAll").hide();
-});
+    });
 
-$("#hideAll,").click(function () {
-    $(".reldetails, #hideAll").hide();
-    $("#showAll").show();
+    $("#showAll,").click(function () {
+        $(".reldetails, #hideAll").show();
+        $("#showAll").hide();
+    });
+
+    $("#hideAll,").click(function () {
+        $(".reldetails, #hideAll").hide();
+        $("#showAll").show();
+    });
+
 });
 
