@@ -464,6 +464,23 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
         self.fillInData ();
     };
 
+    self.setOptions = function (options) {
+        $.each (options, function (key, value) {
+            var $checkbox = $('#' + key);
+            if ($checkbox.length)
+            {
+                if (value)
+                {
+                    $checkbox.attr ('checked', 'checked');
+                }
+                else
+                {
+                    $checkbox.removeAttr ('checked');
+                }
+            }
+        });
+    };
+
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
     self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
     self.variousArtists = function () { return self.disc.isVariousArtists (); };
