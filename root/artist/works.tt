@@ -16,6 +16,7 @@
         [%- FOREACH group IN artist.grouped_relationships('work').work.pairs -%]
             <thead>
                 <tr class="subh">
+                    [% IF c.user_exists %]<th></th>[% END %]
                     <th colspan="3">[% group.key %]</th>
                 </tr>
             </thead>
