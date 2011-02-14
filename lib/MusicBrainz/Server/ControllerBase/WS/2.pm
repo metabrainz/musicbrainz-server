@@ -366,7 +366,7 @@ sub _validate_post
 
     my $h = $c->request->headers;
 
-    if (!$h->content_type_charset && $h->content_type_charset ne 'UTF-8')
+    if ($h->content_type_charset && $h->content_type_charset ne 'UTF-8')
     {
         $self->_error ($c, "Unsupported charset, please use UTF-8.")
     }

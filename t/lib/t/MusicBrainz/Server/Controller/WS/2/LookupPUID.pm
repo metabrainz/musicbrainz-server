@@ -48,7 +48,7 @@ ws_test 'puid lookup with releases',
         <release-list count="2">
           <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title>
-            <status>pseudo-release</status>
+            <status>Pseudo-Release</status>
             <quality>normal</quality>
             <text-representation>
               <language>jpn</language><script>Latn</script>
@@ -57,7 +57,7 @@ ws_test 'puid lookup with releases',
           </release>
           <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
             <title>サマーれげぇ!レインボー</title>
-            <status>official</status>
+            <status>Official</status>
             <quality>normal</quality>
             <text-representation>
               <language>jpn</language><script>Jpan</script>
@@ -82,7 +82,7 @@ ws_test 'puid lookup with release groups',
         <release-list count="2">
           <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title>
-            <status>pseudo-release</status>
+            <status>Pseudo-Release</status>
             <quality>normal</quality>
             <text-representation>
               <language>jpn</language><script>Latn</script>
@@ -94,7 +94,7 @@ ws_test 'puid lookup with release groups',
           </release>
           <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
             <title>サマーれげぇ!レインボー</title>
-            <status>official</status>
+            <status>Official</status>
             <quality>normal</quality>
             <text-representation>
               <language>jpn</language><script>Jpan</script>
