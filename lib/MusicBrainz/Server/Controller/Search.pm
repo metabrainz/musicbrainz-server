@@ -127,9 +127,12 @@ sub direct : Private
             $c->model('Recording')->load(map { $_->tracklist->all_tracks }
                                          map { $_->all_mediums } @releases);
         }
+        case 'work' {
+            $c->model('Artist')->load_for_works(@entities);
+        }
     }
 
-    if ($type =~ /(recording|work|release|release_group)/)
+    if ($type =~ /(recording|release|release_group)/)
     {
         $c->model('ArtistCredit')->load(@entities);
     }
