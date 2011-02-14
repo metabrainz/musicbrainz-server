@@ -184,7 +184,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
     self.position = position;
-    self.line = line;
+    self.line = $.trim (line);
     self.parent = parent;
     self.duration = '?:??';
     self.name = '';
@@ -319,7 +319,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.clean = function () {
-        self.line = $.trim (self.line)
+        self.title = $.trim (self.title)
             .replace (/(.*),\sThe$/i, "The $1")
             .replace (/\s*,/g, ",");
     };
