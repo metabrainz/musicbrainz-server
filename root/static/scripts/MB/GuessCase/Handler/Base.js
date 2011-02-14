@@ -905,9 +905,6 @@ MB.GuessCase.Handler.Base = function () {
 	       (gc.i.getWordAtIndex(wi).match(gc.re.SPACES_DOTS) != null)) {
 	    wi++;
 	}
-	if (si != wi) {
-
-	}
 
 	var w = (gc.i.getWordAtIndex(wi) || "");
 
@@ -1024,9 +1021,6 @@ MB.GuessCase.Handler.Base = function () {
 	    while ((wi < len-1) &&
 		   (gc.i.getWordAtIndex(wi).match(gc.re.SPACES_DOTS) != null)) {
 		wi++;
-	    }
-	    if (si != wi) {
-
 	    }
 
 	    // test for number, or roman numeral

@@ -1,9 +1,7 @@
 [% BLOCK layout_head %]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
         "scripts/MB/html.js",
-        "scripts/MB/Control/Autocomplete.js",
         "scripts/MB/Control/RelationshipEdit.js",
         "scripts/ar.js",
       )
@@ -26,7 +24,10 @@
 [%- MACRO relationship_entity(field, entity, type) BLOCK; -%]
   [%- IF type != 'url' -%]
     [%- r.hidden(field.field('id')) -%]
-    [%- r.text(field.field('name')) -%]
+    <span class="[% type %] autocomplete">
+      [%- r.text(field.field('name'), class => type _ '-name') -%]
+      <img class="search" src="/static/images/icons/search.png" />
+    </span>
     <span class="link">
       [%# NOTE: do not add other classes to the <a> element below, this class is used by javascript to get the entity type. --warp. %]
       <a tabindex="-1" class="[%- type -%]"

@@ -20,7 +20,7 @@
 
 MB.Control.autocomplete_formatters = {
     "generic": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text (MB.utility.escapeHTML (item.name));
 
         var comment = [];
 
@@ -37,16 +37,17 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append (' <span class="autocomplete-comment">(' +
-                      comment.join (", ") + ')</span>');
+                      MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     },
 
     "recording": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text (MB.utility.escapeHTML (item.name));
 
-        a.append (' - <span class="autocomplete-artist">' + item.artist + '</span>');
+        a.append (' - <span class="autocomplete-artist">' + 
+                  MB.utility.escapeHTML (item.artist) + '</span>');
 
         if (item.releasegroups)
         {
@@ -56,19 +57,20 @@ MB.Control.autocomplete_formatters = {
                 rgs[item.name] = item.name;
             });
 
-            a.append ('<br /><span class="autocomplete-appears">appears on: '
-                      + MB.utility.keys (rgs).join (", ") + '</span>');
+            a.append ('<br /><span class="autocomplete-appears">appears on: ' +
+                      MB.utility.escapeHTML (MB.utility.keys (rgs).join (", ")) + '</span>');
         }
 
         if (item.comment)
         {
-            a.append ('<br /><span class="autocomplete-comment">(' + item.comment + ')</span>');
+            a.append ('<br /><span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
         if (item.isrcs.length)
         {
-            a.append ('<br /><span class="autocomplete-isrcs">isrcs: '
-                      + item.isrcs.join (", ") + '</span>');
+            a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
+                      MB.utility.escapeHTML (item.isrcs.join (", ")) + '</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
