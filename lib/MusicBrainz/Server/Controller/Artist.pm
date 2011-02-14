@@ -209,10 +209,11 @@ sub works : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
-    $c->model('Relationship')->load_subset([ 'work' ], $artist);
-    $c->model('Artist')->load_for_works(map {
-        $_->target
-    } $artist->relationships_by_type('work'));
+    my $grouped_works = $self->_load_paged($c, sub {
+        $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
+    });
+    $c->model('Artist')->load_for_works(map { @{ $_->{works} } } @$grouped_works);
+    $c->stash( grouped_works => $grouped_works );
 }
 
 =head2 recordings

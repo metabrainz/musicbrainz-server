@@ -1,10 +1,11 @@
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
     <h2>[% l('Works') %]</h2>
 
-    [% IF artist.relationships_by_type('work') %]
-    <form action="[% c.uri_for_action('/work/merge_queue') %]"
-          method="post">
-    <table class="tbl">
+    [% IF grouped_works.size %]
+      [% WRAPPER 'components/with-pager.tt' %]
+      <form action="[% c.uri_for_action('/work/merge_queue') %]"
+            method="post">
+      <table class="tbl">
         <thead>
             <tr>
                 [% IF c.user_exists %]<th></th>[% END %]
@@ -13,15 +14,17 @@
                 <th>[% l('Artists') %]</th>
             </tr>
         </thead>
-        [%- FOREACH group IN artist.grouped_relationships('work').work.pairs -%]
+          [% FOR group = grouped_works %]
+            [% IF group.link_type %]
             <thead>
                 <tr class="subh">
                     [% IF c.user_exists %]<th></th>[% END %]
-                    <th colspan="3">[% group.key %]</th>
+                    <th colspan="3">[% group.link_type.name %]</th>
                 </tr>
             </thead>
+            [% END %]
             <tbody>
-                [% FOR rel IN group.value %]
+                [% FOR work IN group.works %]
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
                     [% IF c.user_exists %]
                     <td>
@@ -29,13 +32,13 @@
                              value="[% work.id %]" />
                     </td>
                     [% END %]
-                    <td>[% rel.begin_date.format %]</td>
+                    <td></td>
                     <td>
-                        [% descriptive_link(rel.target) %]
+                        [% descriptive_link(work) %]
                     </td>
                     <td>
                       <ul>
-                        [% FOR rel_artist=rel.target.artists %]
+                        [% FOR rel_artist=work.artists %]
                         <li>[% link_entity(rel_artist) %]</li>
                         [% END %]
                       </ul>
@@ -43,8 +46,9 @@
                 </tr>
                 [% END %]
             </tbody>
-        [%- END -%]
-    </table>
+          [% END %]
+      </table>
+      [% END %]
     [% form_submit(l('Add selected works for merging')) IF c.user_exists %]
     </form>
     [% ELSE %]
