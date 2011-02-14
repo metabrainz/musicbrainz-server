@@ -288,13 +288,26 @@ sub load_for_works {
     my ($self, @works) = @_;
     return unless @works;
 
-    my $cte_query = '
-WITH work_recordings AS (
+    my %id_to_work = map { $_->id => $_ } @works;
+    my @ids = keys %id_to_work;
+
+    my $cte = '
+WITH works AS (
+    SELECT work.id FROM (
+        VALUES ' .
+            join(',', ('(?::INTEGER)') x @ids)
+        . ') AS work (id)
+),
+work_recordings AS (
     SELECT entity0 AS recording, entity1 AS work
-      FROM l_recording_work
-     WHERE entity1 IN (' . placeholders(@works) . ')
-), popular_recordings AS (
-    SELECT work, recording, count(recording) AS ar_count FROM (
+      FROM l_recording_work lrw
+      JOIN works ON lrw.entity1 = works.id
+), recordings AS (
+    SELECT row_number() OVER (
+               PARTITION BY work, recording
+               ORDER BY count(recording_ids.recording) DESC
+           ), work, recording
+      FROM (
            SELECT wr.work, entity1 AS recording
              FROM l_artist_recording
              JOIN work_recordings wr ON wr.recording = entity1
@@ -322,38 +335,40 @@ WITH work_recordings AS (
            SELECT wr.work, entity0 AS recording
              FROM l_recording_url
              JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_work
+             JOIN work_recordings wr ON wr.recording = entity0
        ) recording_ids
        GROUP BY work, recording
-       ORDER BY count(recording_ids.recording) DESC
-       LIMIT 3)';
+),
+popular_recordings AS (
+    SELECT work, recording FROM recordings
+     WHERE row_number <= 3
+)
+';
 
-    my $artist_work_subq = q{
-(
-    SELECT wr.work, law.entity0 AS artist, NULL as sort_order
-      FROM l_artist_work law
-      JOIN work_recordings wr ON wr.work = law.entity1
+    my $subq = '(
+    SELECT entity1 AS work, entity0 AS artist
+      FROM l_artist_work
+      JOIN works ON works.id = entity1
 
-    -- Combine that with all artists
- UNION
-       SELECT pr.work, acn.artist, pr.ar_count AS sort_order
-         FROM popular_recordings pr
-         JOIN recording ON pr.recording = recording.id
-         JOIN artist_credit_name acn ON acn.artist_credit = recording.artist_credit
-) work_artist
-};
+UNION
 
-    my $query =
-        "$cte_query
-         SELECT work_artist.work," . $self->_columns . "
-          FROM $artist_work_subq, " . $self->_table . '
-         WHERE artist.id = work_artist.artist
-      ORDER BY work_artist.sort_order DESC NULLS FIRST,
-               musicbrainz_collate(sort_name.name)';
+    SELECT pr.work, acn.artist
+      FROM popular_recordings pr
+      JOIN recording r ON pr.recording = r.id
+      JOIN artist_credit_name acn ON r.artist_credit = acn.artist_credit
+) s';
 
-    my %id_to_work = map { $_->id => $_ } @works;
+    my $query = $cte .
+        'SELECT s.work, ' . $self->_columns .
+        "  FROM $subq," . $self->_table .
+        '  WHERE s.artist = artist.id';
+
+    $self->sql->select($query, @ids);
     my %artist_cache;
 
-    $self->sql->select($query, map { $_->id } @works);
     while (my $row = $self->sql->next_row_hash_ref) {
         my $artist = $artist_cache{$row->{id}} || do {
             $artist_cache{$row->{id}} = $self->_new_from_row($row);
