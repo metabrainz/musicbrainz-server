@@ -58,13 +58,12 @@ MB.Control.autocomplete_formatters = {
             });
 
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
-                      MB.utility.escapeHTML (MB.utility.keys (rgs).join (", ")) +
-                      '</span>');
+                      MB.utility.escapeHTML (MB.utility.keys (rgs).join (", ")) + '</span>');
         }
 
         if (item.comment)
         {
-            a.append ('<br /><span class="autocomplete-comment">(' + 
+            a.append ('<br /><span class="autocomplete-comment">(' +
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 

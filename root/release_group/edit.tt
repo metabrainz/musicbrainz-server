@@ -1,8 +1,6 @@
 [%- BLOCK layout_head -%]
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
-      "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
-      "scripts/MB/utility.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Release.js",
       "scripts/MB/GuessCase/Mode/Base.js",
@@ -18,7 +16,6 @@
       "scripts/MB/GuessCase/Main.js",
       "scripts/MB/GuessCase/Release.js",
       "scripts/MB/Control/ArtistCredit.js",
-      "scripts/MB/Control/Autocomplete.js",
       "scripts/MB/Control/Bubble.js",
       "scripts/MB/Control/GuessCase.js",
     ) -%]"></script>
