@@ -320,10 +320,12 @@ sub _recording_indexed {
     $query = escape_query ($query);
     $artist = escape_query ($artist);
 
+    my $lucene_query = "recording:($query*)";
+    $lucene_query .= " AND artist:($artist)" if $artist;
+
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, 'recording', "recording:($query*) AND artist:($artist)",
-        $limit, $page, 1, undef, $no_redirect);
+        $c, 'recording', $lucene_query, $limit, $page, 1, undef, $no_redirect);
 
     my @output;
     my $pager;
