@@ -184,7 +184,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
     self.position = position;
-    self.line = line;
+    self.line = $.trim (line);
     self.parent = parent;
     self.duration = '?:??';
     self.name = '';
@@ -321,7 +321,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.clean = function () {
-        self.line = $.trim (self.line)
+        self.title = $.trim (self.title)
             .replace (/(.*),\sThe$/i, "The $1")
             .replace (/\s*,/g, ",");
     };
@@ -464,6 +464,23 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.run = function () {
         self.tracks = self.getTrackInput ();
         self.fillInData ();
+    };
+
+    self.setOptions = function (options) {
+        $.each (options, function (key, value) {
+            var $checkbox = $('#' + key);
+            if ($checkbox.length)
+            {
+                if (value)
+                {
+                    $checkbox.attr ('checked', 'checked');
+                }
+                else
+                {
+                    $checkbox.removeAttr ('checked');
+                }
+            }
+        });
     };
 
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };

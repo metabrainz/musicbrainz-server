@@ -37,6 +37,9 @@
     <script type="text/javascript" src="../MB/GuessCase/Track.js"></script>
     <script type="text/javascript" src="../MB/GuessCase/Work.js"></script>
 
+    <!-- Track Parser -->
+    <script type="text/javascript" src="../MB/TrackParser.js"></script>
+
     <!-- Load tests -->
     <script type="text/javascript">
 
@@ -47,6 +50,7 @@
 
     <script type="text/javascript" src="Control/URLCleanup.js"></script>
     <script type="text/javascript" src="GuessCase.js"></script>
+    <script type="text/javascript" src="TrackParser.js"></script>
 
     <!-- Start! -->
     <script type="text/javascript">
@@ -63,6 +67,7 @@
 
           MB.tests.URLCleanup.Run ();
           MB.tests.GuessCase.Run ();
+          MB.tests.TrackParser.Run ();
       });
 
     </script>
@@ -87,6 +92,14 @@
         <label for="gc-roman">Uppercase roman numerals</label>
       </p>
     </fieldset>
+
+    <!-- FIXME: Allow these things to be set in a way which is easier for testing. -->
+    <div class="trackparser-options" style="display: none">
+      <input type="checkbox" id="tracknumbers" />
+      <input type="checkbox" id="vinylnumbers" />
+      <input type="checkbox" id="tracktimes" />
+      <textarea class="tracklist" />
+    </div>
 
   </body>
 </html>
