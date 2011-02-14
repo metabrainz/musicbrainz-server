@@ -46,20 +46,11 @@ MB.Control.RelationshipEntity = function (entity) {
         return false;
     };
 
-    var options = {
+    MB.Control.Autocomplete ({
         'input': self.$name,
         'entity': self.type.replace ("_", "-"),
         'select': self.selected
-    };
-
-    if (self.type === 'recording')
-    {
-        MB.Control.AutocompleteRecording (options);
-    }
-    else
-    {
-        MB.Control.Autocomplete (options);
-    }
+    });
 
     return self;
 }

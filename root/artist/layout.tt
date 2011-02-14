@@ -63,6 +63,7 @@
                     <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
                   <li>[% use_in_relationship(artist) %]</li>
+                  <li>[% relate_to_ellipsis(artist) %]</li>
                   <li>[% relate_to_url(artist) %]</li>
                 [% END %]
                 <li>

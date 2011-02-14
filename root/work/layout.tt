@@ -36,6 +36,7 @@
                </li>
                <li>[% link_entity(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
+               <li>[% relate_to_ellipsis(work) %]</li>
                <li>[% relate_to_url(work) %]</li>
                [% IF work.edits_pending %]
                  <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
