@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 [% IF c.user_exists %]<th></th>[% END %]
-                <th>[% l('Date') %]</th>
                 <th>[% l('Work') %]</th>
                 <th>[% l('Artists') %]</th>
             </tr>
@@ -19,7 +18,7 @@
             <thead>
                 <tr class="subh">
                     [% IF c.user_exists %]<th></th>[% END %]
-                    <th colspan="3">[% group.link_type.name %]</th>
+                    <th colspan="2">[% group.link_type.name %]</th>
                 </tr>
             </thead>
             [% END %]
@@ -32,7 +31,6 @@
                              value="[% work.id %]" />
                     </td>
                     [% END %]
-                    <td></td>
                     <td>
                         [% descriptive_link(work) %]
                     </td>

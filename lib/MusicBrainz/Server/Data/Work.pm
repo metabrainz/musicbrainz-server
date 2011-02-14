@@ -91,13 +91,8 @@ sub find_by_artist
         },
         $query, $artist_id, $artist_id, $offset || 0);
 
-    my $link_types = $self->c->model('LinkType')->get_by_ids(
-        grep { $_ } keys %grouped_works
-    );
-
-    # FIXME Can this sort be done by the query itself?
     return ([ map +{
-        link_type => $link_types->{$_},
+        link_type => $_,
         works => $grouped_works{$_}
     }, sort keys %grouped_works ], $hits);
 }
