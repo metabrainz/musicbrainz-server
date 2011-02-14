@@ -47,7 +47,7 @@ MB.Control.AutocompleteRecording = function (options) {
         if (item.isrcs.length)
         {
             a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                      MB.utility.escapeHTML (item.isrcs.join) (", ") + '</span>');
+                      MB.utility.escapeHTML (item.isrcs.join (", ")) + '</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
