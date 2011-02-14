@@ -5,13 +5,7 @@
     <fieldset>
       <legend>[%- l('Work Details') -%]</legend>
 
-      [% WRAPPER form_row %]
-        [% r.label('name', l('Name:')) %]
-        [% r.text('name', { style => 'width: 200px' })  %]
-        <input type="button" style="width: 96px" class="guesscase" value="[% l('Guess case') %]" />
-        [% field_errors(form, 'name') %]
-      [% END %]
-
+      [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'comment', l('Comment:')) -%]
       [%- form_row_text_long(r, 'iswc', l('ISWC:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]

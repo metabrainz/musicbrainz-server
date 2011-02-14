@@ -4,7 +4,6 @@
     c.model('FileCache').squash_scripts(
       "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
       "scripts/MB/utility.js",
-      "scripts/MB/Control/Autocomplete.js",
       "scripts/MB/Control/Bubble.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Work.js",

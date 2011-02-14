@@ -1,5 +1,6 @@
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
     <h2>[% l('Works') %]</h2>
+
     [% IF artist.relationships_by_type('work') %]
     <form action="[% c.uri_for_action('/work/merge_queue') %]"
           method="post">
