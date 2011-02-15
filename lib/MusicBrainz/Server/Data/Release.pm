@@ -70,7 +70,8 @@ sub _column_mapping
         language_id => 'language',
         quality => sub {
             my ($row, $prefix) = @_;
-            my $quality = $row->{"${prefix}quality"} || -1;
+            my $quality = $row->{"${prefix}quality"};
+            $quality = $QUALITY_UNKNOWN unless defined($quality);
             return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
         },
         last_updated => 'last_updated'
