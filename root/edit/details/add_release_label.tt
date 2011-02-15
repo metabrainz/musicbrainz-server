@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-release-label">
     [% UNLESS edit.preview %]
     <tr>
         <th>[% l('Release:') %]</th>

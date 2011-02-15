@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-release-group">
   <tr>
     <th>[% l('Name:') %]</th>
     <td>[% edit.display_data.name | html %]</td>

@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details remove-artist">
   <tr>
     <th>[% l('Artist:') %]</th>
     <td>[% edit.display_data.name %]</td>
