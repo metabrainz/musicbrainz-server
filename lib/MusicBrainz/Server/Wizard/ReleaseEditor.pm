@@ -782,7 +782,7 @@ sub _seed_parameters {
             ($params->{artist_credit} || ()),
             map { $_->{artist_credit} || [] }
                 map { @{ $_->{track} || []}  }
-                    @{ $params->{medium} || []}
+                    @{ $params->{mediums} || []}
         )
     ) {
         if (my $mbid = $artist_credit->{mbid}){

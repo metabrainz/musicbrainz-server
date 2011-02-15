@@ -18,7 +18,7 @@
         [% END %]
 
         <ul class="links">
-          <li>[% l('{uri|Import CD stub as a release}', { uri => '/404' } ) %]</li>
+          <li>[% link_cdstub(cdstubtoc, 'import', l('Import as MusicBrainz release')) %]</li>
           <li>[% l('{uri|Add disc ID to an existing release}', { uri => '/404' } ) %]</li>
           <li>
             [% artist = 'artist:(' _ (cdstubtoc.cdstub.artist || l('Various Artists')) _ ')' %]
