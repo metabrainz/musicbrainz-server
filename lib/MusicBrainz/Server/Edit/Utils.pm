@@ -14,6 +14,7 @@ our @EXPORT_OK = qw(
     date_closure
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    artist_credit_preview
     clean_submitted_artist_credits
     changed_relations
     changed_display_data
@@ -66,6 +67,34 @@ sub artist_credit_from_loaded_definition
             name => $artist->{name},
             artist => $loaded->{Artist}->{ $artist->{artist} }
         );
+        $ac->join_phrase($join) if $join;
+
+        push @names, $ac;
+    }
+
+    return MusicBrainz::Server::Entity::ArtistCredit->new(
+        names => \@names
+    );
+}
+
+sub artist_credit_preview
+{
+    my ($loaded, $definition) = @_;
+
+    my @names;
+    my @def = @$definition;
+
+    while (@def)
+    {
+        my $artist = shift @def;
+        my $join = shift @def;
+
+        next unless $artist->{name};
+
+        my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
+            name => $artist->{name});
+
+        $ac->artist($loaded->{Artist}->{ $artist->{artist} }) if $artist->{artist};
         $ac->join_phrase($join) if $join;
 
         push @names, $ac;
