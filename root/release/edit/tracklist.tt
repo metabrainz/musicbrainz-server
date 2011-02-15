@@ -105,6 +105,10 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
+  [% USE w = Wizard() %]
+  [% information = w.page ('information') %]
+  [% release_artist = information.field('artist_credit') %]
+
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
     [%- r.hidden ('advanced') -%]
@@ -230,9 +234,6 @@
 
     <h2>Preview</h2>
 
-    [% USE w = Wizard() %]
-    [% information = w.page ('information') %]
-    [% release_artist = information.field('artist_credit') %]
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
 
