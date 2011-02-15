@@ -203,6 +203,20 @@ sub update
     $self->sql->commit;
 }
 
+sub delete
+{
+    my ($self, $discid) = @_;
+    my $release_id = $self->sql->select_single_value(
+        'DELETE FROM cdtoc_raw WHERE discid = ? RETURNING release',
+        $discid);
+    $self->sql->do(
+        'DELETE FROM track_raw WHERE release = ?',
+        $release_id);
+    $self->sql->do(
+        'DELETE FROM release_raw WHERE id = ?',
+        $release_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
