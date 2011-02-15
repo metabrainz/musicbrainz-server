@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details remove-release-group">
   <tr>
     <th>[% l('Release group:') %]</th>
     <td>[% edit.display_data.name %]</td>
