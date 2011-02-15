@@ -7,7 +7,7 @@ use Clone 'clone';
 use JSON::Any;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
-use MusicBrainz::Server::Track qw( unformat_track_length );
+use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Wizard;
@@ -778,9 +778,9 @@ sub _seed_parameters {
     }
 
     for my $artist_credit (
-        map { @{ $_->{names} } } (
+        map { @{ $_->{names} || [] } } (
             ($params->{artist_credit} || ()),
-            map { $_->{artist_credit} || [] }
+            map { $_->{artist_credit} || {} }
                 map { @{ $_->{track} || []}  }
                     @{ $params->{mediums} || []}
         )
@@ -807,6 +807,7 @@ sub _seed_parameters {
 
             my $toc = $medium->{toc};
             if ($toc and my $cdtoc = CDTOC->new_from_toc($toc)) {
+                warn "Toc is valid";
                 if (ref($medium->{track})) {
                     if (@{ $medium->{track} } != $cdtoc->track_count) {
                         delete $medium->{toc};
@@ -846,7 +847,7 @@ sub _seed_parameters {
                         ];
                     }
 
-                    if (my $length = $track->{duration}) {
+                    if (my $length = $track->{length}) {
                         $track->{length} = ($length =~ /:/)
                             ? $length
                             : format_track_length($length);
