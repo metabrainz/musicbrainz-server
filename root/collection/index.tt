@@ -5,6 +5,7 @@
         <table class="tbl">
     <thead>
         <tr>
+            [% IF c.user_exists %]<th></th>[% END %]
             [% sortble_table_header('title', l('Release')) %]
             [% sortble_table_header('artist', l('Artist')) %]
             <th>[% l('Format') %]</th>
@@ -18,6 +19,11 @@
     <tbody>
         [%- FOR release=releases -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            [% IF c.user_exists %]
+            <td>
+              <input type="checkbox" name="" />
+            </td>
+            [% END %]
             <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
             <td>[% release.combined_format_name or "-" %]</td>
