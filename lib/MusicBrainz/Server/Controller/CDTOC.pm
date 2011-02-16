@@ -219,6 +219,15 @@ sub attach : Local RequireAuth
             );
         }
         else {
+            if(my ($stub_toc) = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid)) {
+                $c->model('CDStub')->load($stub_toc);
+                my @mediums = $c->model('Medium')->find_for_cdstub($stub_toc);
+                $c->model('ArtistCredit')->load(map { $_->release } @mediums);
+                $c->stash(
+                    possible_mediums => [ @mediums  ]
+                );
+            }
+
             $c->stash( template => 'cdtoc/lookup.tt' );
             $c->forward('/cdtoc/lookup');
         }
