@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Types qw(
     PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
-    artist_credit_from_loaded_definition
+    artist_credit_preview
 );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -66,15 +66,17 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $status = $self->data->{status_id};
+    my $script = $self->data->{script_id};
+    my $lang = $self->data->{language_id};
 
     return {
-        artist_credit => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
-        name          => $self->data->{name},
-        comment       => $self->data->{comment},
+        artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
+        name          => $self->data->{name} || '',
+        comment       => $self->data->{comment} || '',
         status        => $status ? $loaded->{ReleaseStatus}->{ $status } : '',
-        script        => $loaded->{Script}{ $self->data->{script_id} },
-        language      => $loaded->{Language}{ $self->data->{language_id} },
-        barcode       => $self->data->{barcode},
+        script        => $script ? $loaded->{Script}{ $script } : '',
+        language      => $lang ? $loaded->{Language}{ $lang } : '',
+        barcode       => $self->data->{barcode} || '',
     };
 }
 

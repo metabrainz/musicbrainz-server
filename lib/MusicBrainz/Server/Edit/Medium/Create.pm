@@ -60,16 +60,18 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $medium = $self->c->model('Medium')->get_by_id($self->entity_id);
+    my $medium = $self->entity_id && $self->c->model('Medium')->get_by_id($self->entity_id);
     if ($medium)
     {
         $self->c->model('Release')->load($medium);
         $self->c->model('ArtistCredit')->load($medium->release);
     }
 
+    my $format = $self->data->{format_id};
+
     return {
-        name         => $self->data->{name},
-        format       => $loaded->{MediumFormat}->{ $self->data->{format_id} },
+        name         => $self->data->{name} || '',
+        format       => $format ? $loaded->{MediumFormat}->{ $format } : '',
         position     => $self->data->{position},
         release      => $loaded->{Release}->{ $self->data->{release_id} },
         tracklist    => display_tracklist($loaded, $self->data->{tracklist}),

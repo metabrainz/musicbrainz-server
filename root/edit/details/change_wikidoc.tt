@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details change-wikidoc">
   [% IF edit.data.page %]
   <tr>
     <th>[% l('WikiDoc:') %]</th>

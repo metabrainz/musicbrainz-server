@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-label-annotation">
   <tr>
     <th>[% l('Label:') %]</th>
     <td>[% link_entity(edit.display_data.label) %]</td>
