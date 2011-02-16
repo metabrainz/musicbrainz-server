@@ -22,8 +22,8 @@ sub _table
 
 sub _columns
 {
-    return 'medium.id, tracklist, release, position, format, name,
-            edits_pending, track_count';
+    return 'medium.id, tracklist, release, position, format, medium.name,
+            medium.edits_pending, track_count';
 }
 
 sub _id_column
@@ -163,6 +163,40 @@ sub _create_row
         $row{$mapped} = $medium_hash->{$col};
     }
     return \%row;
+}
+
+sub find_for_cdstub {
+    my ($self, $cdstub_toc, $limit, $offset) = @_;
+    my $query =
+        'SELECT ' . join(', ', $self->c->model('Release')->_columns,
+                         map { "medium.$_ AS m_$_" } qw(
+                             id name tracklist release position format edits_pending
+                         )) . "
+           FROM (
+                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
+                           name
+                    FROM release_name, plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) AS name
+           JOIN release ON name.id = release.name
+           JOIN medium ON medium.release = release.id
+           JOIN tracklist ON medium.tracklist = tracklist.id
+          WHERE track_count = ?
+       ORDER BY name.rank DESC, musicbrainz_collate(name.name),
+                release.artist_credit";
+
+    return query_to_list(
+        $self->sql, sub {
+            my $row = shift;
+            my $release = $self->c->model('Release')->_new_from_row($row);
+            my $medium = $self->_new_from_row($row, 'm_');
+            $medium->release($release);
+            return $medium;
+        },
+        $query, $cdstub_toc->cdstub->title, 10, $cdstub_toc->track_count
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
