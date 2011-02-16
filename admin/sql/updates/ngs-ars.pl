@@ -424,6 +424,7 @@ my %album_ar_types = (
         2  => 'release',        # first album release
         15 => 'release',        # transliteration
         18 => 'release_group',  # single from
+        19 => 'release',        # supporting release
     },
     'artist' => {
         1 => 'release', # performance
@@ -454,11 +455,11 @@ my %album_ar_types = (
         25 => 'release', # misc
         26 => 'release', # legal representation
         27 => 'release', # booking
-        28 => 'release', # artists and repertoire
+        28 => 'release_group', # artists and repertoire
         30 => 'release', # art direction
-        29 => 'release', # creative direction
+        29 => 'release_group', # creative direction
         24 => 'release', # recording
-        34 => 'release', # travel
+        34 => 'release_group', # travel
         36 => 'release', # merchandise
         33 => 'release', # photography
         48 => 'release', # orchestrator
@@ -471,6 +472,7 @@ my %album_ar_types = (
         15 => 'release', # arranger
         52 => 'release', # programming
         53 => 'release', # editor
+        55 => 'release', # writer
     },
     'label' => {
         2 => 'release', # publishing
@@ -479,7 +481,7 @@ my %album_ar_types = (
         2 => 'release', # samples material
     },
     'url' => {
-        25 => 'release', # musicmoz
+        25 => 'release_group', # musicmoz
         16 => 'release_group', # discography
         18 => 'release', # get the music
         29 => 'release', # Affiliate links
@@ -494,6 +496,13 @@ my %album_ar_types = (
         36 => 'release_group', # ibdb
         37 => 'release_group', # iobdb
         27 => 'release_group', # IMDb
+        38 => 'release_group', # lyrics
+#       40 => # production => both
+        41 => 'release_group', # recording studio
+        42 => 'release_group', # score
+        43 => 'release', # IMDB samples
+        44 => 'release', # streaming music
+        45 => 'release', # vgmdb
     },
 );
 
@@ -546,7 +555,8 @@ my %track_ar_types = (
         47 => 'recording',   # liner notes
         49 => 'recording',   # programming
         50 => 'recording',   # editor
-        51 => 'work',  # librettist
+        51 => 'work',        # librettist
+        53 => 'work',        # writer
     },
     'label' => {
 #        2 => # publishing => both
