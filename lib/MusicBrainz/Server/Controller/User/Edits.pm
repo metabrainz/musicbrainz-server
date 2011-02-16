@@ -3,45 +3,61 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use MusicBrainz::Server::Types '$STATUS_OPEN';
+use MusicBrainz::Server::Types ':edit_status';
 
 __PACKAGE__->config(
     paging_limit => 25,
 );
 
-sub open : Chained('/user/load') PathPart('open-edits') RequireAuth HiddenOnSlaves {
-    my ($self, $c) = @_;
+sub _edits {
+    my ($self, $c, %args) = @_;
 
+    $args{editor} = $c->stash->{user}->id;
     my $edits = $self->_load_paged($c, sub {
-        return $c->model('Edit')->find({ editor => $c->stash->{user}->id, status => $STATUS_OPEN },
-                                       shift, shift);
+        return $c->model('Edit')->find(\%args, shift, shift);
     });
 
-    $c->stash( edits => $edits );
+    $c->model('Edit')->load_all(@$edits);
+    $c->model('Vote')->load_for_edits(@$edits);
+    $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+
+    $c->stash(
+        edits => $edits,
+        template => 'edit/search_results.tt',
+        search => 0
+    );
 }
 
-sub all : Chained('/user/load') PathPart('all-edits') RequireAuth HiddenOnSlaves {
+sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
-
-    my $edits = $self->_load_paged($c, sub {
-        return $c->model('Edit')->find({ editor => $c->stash->{user}->id },
-                                       shift, shift);
-    });
-
-    $c->stash( edits => $edits );
+    $self->_edits($c, status => $STATUS_OPEN);
 }
 
-# Load related entities for all edits
-for my $action (qw( open all )) {
-    after $action => sub {
-        my ($self, $c) = @_;
-        my $edits = $c->stash->{edits};
+sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth HiddenOnSlaves {
+    my ($self, $c) = @_;
+    $self->_edits($c, status => $STATUS_APPLIED);
+}
 
-        $c->model('Edit')->load_all(@$edits);
-        $c->model('Vote')->load_for_edits(@$edits);
-        $c->model('EditNote')->load_for_edits(@$edits);
-        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-    };
+sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOnSlaves {
+    my ($self, $c) = @_;
+    $self->_edits($c, status => [ $STATUS_FAILEDDEP, $STATUS_FAILEDPREREQ,
+                                  $STATUS_ERROR, $STATUS_NOVOTES ]);
+}
+
+sub rejected : Chained('/user/load') PathPart('edits/rejecte') RequireAuth HiddenOnSlaves {
+    my ($self, $c) = @_;
+    $self->_edits($c, status => [ $STATUS_FAILEDVOTE ]);
+}
+
+sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth HiddenOnSlaves {
+    my ($self, $c) = @_;
+    $self->_edits($c, autoedit => 1);
+}
+
+sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnSlaves {
+    my ($self, $c) = @_;
+    $self->_edits($c);
 }
 
 no Moose;
