@@ -68,6 +68,20 @@ $ac = $artist_credit_data->get_by_id(1);
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);
 
-};
+$test->c->sql->begin;
+# verify empty trailing artist credits and a trailing join phrase.
+$ac = $artist_credit_data->find_or_insert(
+    { name => '涼宮ハルヒ', artist => 1 }, '(',
+    { name => '平野 綾', artist => 2 }, ')',
+    { name => '', artist => undef }, '',
+    { name => '', artist => undef }, '',
+    { name => '', artist => undef }, '' );
+$test->c->sql->commit;
+ok(defined $ac);
+ok($ac > 1);
 
-1;
+$ac = $artist_credit_data->get_by_id($ac);
+is(scalar $ac->all_names, 2);
+
+done_testing;
+
