@@ -171,6 +171,7 @@ sub find_by_voter
            FROM ' . $self->_table . '
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
+       ORDER BY id DESC
          OFFSET ?';
 
     return query_to_list_limited(
