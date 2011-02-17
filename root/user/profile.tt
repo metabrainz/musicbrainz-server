@@ -132,7 +132,13 @@
 
     <table class="statistics" summary="[% l('This table shows a summary of votes cast by this editor.') %]">
         <thead>
-        <tr><th colspan="3">[% l('Votes ({view_url|view})', { view_url => '/404' }) %]</th></tr>
+          <tr>
+            <th colspan="3">
+              [% l('Votes ({view_url|view})', {
+                     view_url => c.uri_for_action('/user/edits/votes', [ user.name ])
+                 }) %]
+            </th>
+          </tr>
             <tr>
                 <th id="table_vote_summary_vote"></th>
                 <th id="table_vote_summary_recent">
