@@ -51,7 +51,8 @@ sub _build_pages {
             name => 'tracklist',
             title => l('Tracklist'),
             template => 'release/edit/tracklist.tt',
-            form => 'ReleaseEditor::Tracklist'
+            form => 'ReleaseEditor::Tracklist',
+            prepare => sub { $self->prepare_tracklist ($self->release); },
         },
         {
             name => 'recordings',
@@ -162,6 +163,13 @@ sub associate_recordings
     }
 
     return map { $_ ? $recordings->{$_} : undef } @ret;
+}
+
+sub prepare_tracklist
+{
+    my ($self, $release) = @_;
+
+    $self->c->stash->{release_artist_json} = "null";
 }
 
 sub prepare_recordings

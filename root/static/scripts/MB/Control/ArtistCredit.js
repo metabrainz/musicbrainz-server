@@ -390,6 +390,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         self.$artist_input.val (previewText.join (""));
         self.$preview.html (previewHTML.join (""));
+
+        self.$artist_input.trigger ('artistCreditChanged');
     };
 
     self.render = function (data) {
