@@ -47,6 +47,7 @@ requires 'IO::All';
 requires 'Javascript::Closure';
 requires 'JSON'                                       => '2.14';
 requires 'Log::Dispatch';
+requires 'List::UtilsBy'                              => '0.06';
 requires 'List::MoreUtils'                            => '0.22';
 requires 'Method::Signatures::Simple';
 requires 'Module::Pluggable'                          => '3.9';

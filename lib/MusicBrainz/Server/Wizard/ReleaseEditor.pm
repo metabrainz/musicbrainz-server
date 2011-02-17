@@ -5,6 +5,7 @@ use namespace::autoclean;
 use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use JSON::Any;
+use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length );
@@ -235,12 +236,14 @@ sub determine_missing_entities
     my @credits = map +{
             for => $_->{name},
             name => $_->{name},
-        }, $self->_misssing_artist_credits($data);
+        }, uniq_by { $_->{name} }
+            $self->_misssing_artist_credits($data);
 
     my @labels = map +{
             for => $_->{name},
             name => $_->{name}
-        }, $self->_missing_labels($data);
+        }, uniq_by { $_->{name} }
+            $self->_missing_labels($data);
 
     $self->load_page('missing_entities', {
         missing => {
