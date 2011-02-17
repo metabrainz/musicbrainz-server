@@ -83,5 +83,8 @@ ok($ac > 1);
 $ac = $artist_credit_data->get_by_id($ac);
 is(scalar $ac->all_names, 2);
 
-done_testing;
+};
+
+1;
+
 
