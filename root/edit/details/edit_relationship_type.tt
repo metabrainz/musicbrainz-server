@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-relationship-type">
   [% IF edit.data.new.name %]
   <tr>
     <th>[% l('Name:') %]</th>

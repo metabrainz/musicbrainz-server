@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-disc-id">
   <tr>
     <th>[% l('Release:') %]</th>
     <td>

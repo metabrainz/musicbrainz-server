@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-isrcs">
   <tr>
     <th>[% l('Additions:') %]</th>
     <td>

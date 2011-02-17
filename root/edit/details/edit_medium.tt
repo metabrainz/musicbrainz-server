@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-medium">
   [% IF edit.display_data.format %]
   <tr>
     <th>[% l('Format:') %]</th>

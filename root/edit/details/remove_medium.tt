@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details remove-medium">
   <tr>
     <th>[% l('Medium:') %]</th>
     <td>
