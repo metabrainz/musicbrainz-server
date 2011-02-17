@@ -114,6 +114,7 @@
           <img class="search" src="/static/images/icons/search.png" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
+        [% field_errors(r.form, 'artist_credit') %]
     [%- END -%]
 [%- END -%]
 

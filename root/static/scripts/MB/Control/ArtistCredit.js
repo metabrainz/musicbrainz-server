@@ -123,6 +123,15 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$id.val ('');
         }
 
+        /* if the artist credit is empty use the value of $name as
+         * placeholder.
+         */
+        if (self.$credit.val () === '')
+        {
+            self.$credit.attr ('placeholder', self.$name.val ())
+                .mb_placeholder (self.placeholder_options);
+        }
+
         self.container.renderPreview();
     };
 
@@ -307,6 +316,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         });
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
+        self.$artist_input.bind ('blur.mb', self.targetBlurred);
 
         self.updateJoinPhrases ();
         self.renderPreview ();
@@ -470,6 +480,11 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         });
 
         return { 'names': ret, 'preview': self.$artist_input.val() };
+    };
+
+    self.targetBlurred = function(event) {
+        self.box[0].$name.val (self.$artist_input.val ());
+        self.box[0].$name.trigger ('blur');
     };
 
     self.enableTarget = function () {
