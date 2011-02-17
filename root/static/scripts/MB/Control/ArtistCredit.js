@@ -481,9 +481,12 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             if(item.isEmpty ())
                 return;
 
+            var artistcredit = item.$credit.val () ?
+                item.$credit.val () : item.$credit.attr ('placeholder');
+
             ret.push({
                 'artist_name': item.$name.val (),
-                'name': item.$credit.val (),
+                'name': artistcredit,
                 'id': item.$id.val (),
                 'gid': item.$gid.val (),
                 'join': item.$join.val () || ''
