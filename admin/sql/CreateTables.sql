@@ -967,7 +967,7 @@ CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references work_name.id
-    artist_credit       INTEGER CHECK (artist_credit IS NULL), -- no longer in use
+    artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),
