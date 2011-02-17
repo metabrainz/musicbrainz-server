@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-release-group">
   <tr>
     <th>[% l('Release Group:') %]</th>
     <td>

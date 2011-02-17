@@ -83,6 +83,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$credit.attr ('placeholder', data.artist_name)
                 .mb_placeholder (self.placeholder_options);
         }
+
+        if (self.$join.val () !== '')
+        {
+            self.$join.data ('mb_automatic', false).removeClass ('mb_automatic');
+        }
     };
 
     self.update = function(event, data) {
@@ -121,6 +126,15 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.$gid.val ('');
             self.$id.val ('');
+        }
+
+        /* if the artist credit is empty use the value of $name as
+         * placeholder.
+         */
+        if (self.$credit.val () === '')
+        {
+            self.$credit.attr ('placeholder', self.$name.val ())
+                .mb_placeholder (self.placeholder_options);
         }
 
         self.container.renderPreview();
@@ -307,9 +321,22 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         });
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
+        self.$artist_input.bind ('blur.mb', self.targetBlurred);
 
-        self.updateJoinPhrases ();
-        self.renderPreview ();
+        if (self.box[self.box.length - 1].$join.val () !== '')
+        {
+            /* This artist credit uses a join phrase on the final artist.  Add an
+               artist credit to make sure that join phrase appears in the interface
+               and isn't cleared. */
+            self.addArtistBox ();
+        }
+        else
+        {
+            /* addArtistBox already calls updateJoinPhrases and renderPreview. so
+               there is no need to call these unless addArtistBox wasn't called. */
+            self.updateJoinPhrases ();
+            self.renderPreview ();
+        }
 
         if (self.box.length > 1)
         {
@@ -380,6 +407,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         self.$artist_input.val (previewText.join (""));
         self.$preview.html (previewHTML.join (""));
+
+        self.$artist_input.trigger ('artistCreditChanged');
     };
 
     self.render = function (data) {
@@ -457,9 +486,12 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             if(item.isEmpty ())
                 return;
 
+            var artistcredit = item.$credit.val () ?
+                item.$credit.val () : item.$credit.attr ('placeholder');
+
             ret.push({
                 'artist_name': item.$name.val (),
-                'name': item.$credit.val (),
+                'name': artistcredit,
                 'id': item.$id.val (),
                 'gid': item.$gid.val (),
                 'join': item.$join.val () || ''
@@ -467,6 +499,11 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         });
 
         return { 'names': ret, 'preview': self.$artist_input.val() };
+    };
+
+    self.targetBlurred = function(event) {
+        self.box[0].$name.val (self.$artist_input.val ());
+        self.box[0].$name.trigger ('blur');
     };
 
     self.enableTarget = function () {

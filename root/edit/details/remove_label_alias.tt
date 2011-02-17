@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details remove-label-alias">
   <tr>
     <th>[% l('Label:') %]</th>
     <td>[% link_entity(edit.display_data.label) %]</td>

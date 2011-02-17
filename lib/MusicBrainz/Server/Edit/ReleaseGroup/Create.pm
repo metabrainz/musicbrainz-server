@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
-    artist_credit_from_loaded_definition
+    artist_credit_preview
 );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -45,9 +45,9 @@ sub build_display_data
     my $type = $self->data->{type_id};
 
     return {
-        artist_credit => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
-        name          => $self->data->{name},
-        comment       => $self->data->{comment},
+        artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
+        name          => $self->data->{name} || '',
+        comment       => $self->data->{comment} || '',
         type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',
     };
 }

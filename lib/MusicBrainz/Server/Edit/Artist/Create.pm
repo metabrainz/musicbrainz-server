@@ -31,11 +31,15 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
+    my $type = $self->data->{type_id};
+    my $gender = $self->data->{gender_id};
+    my $country = $self->data->{country_id};
+
     return {
-        ( map { $_ => $self->data->{$_} } qw( name sort_name comment ipi_code ) ),
-        type       => $loaded->{ArtistType}->{$self->data->{type_id}},
-        gender     => $loaded->{Gender}->{$self->data->{gender_id}},
-        country    => $loaded->{Country}->{$self->data->{country_id}},
+        ( map { $_ => $self->data->{$_} || '' } qw( name sort_name comment ipi_code ) ),
+        type       => $type ? $loaded->{ArtistType}->{$type} : '',
+        gender     => $gender ? $loaded->{Gender}->{$gender} : '',
+        country    => $country ? $loaded->{Country}->{$country} : '',
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
     };

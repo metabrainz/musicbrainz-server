@@ -7,7 +7,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_model artist_credit_to_alternative_ref );
 use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
@@ -380,13 +380,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
         length => format_track_length($_->length),
         name => $_->name,
         artist_credit => {
-            names => [ map {
-                name => $_->name,
-                gid => $_->artist->gid,
-                id => $_->artist->id,
-                artist_name => $_->artist->name,
-                join => $_->join_phrase
-            }, @{ $_->artist_credit->names } ],
+            names => artist_credit_to_alternative_ref ($_->artist_credit),
             preview => $_->artist_credit->name
         }
     }, sort { $a->position <=> $b->position }

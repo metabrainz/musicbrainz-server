@@ -349,14 +349,13 @@ sub _route
         return $self->navigate_to_page;
     }
 
-    my $ret;
+    my $ret = $page;
 
     # validate each page when moving forward, if a page is not valid, stop there.
-    while ($pos > $self->_current)
+    while ($self->valid ($ret) && ($pos > $self->_current))
     {
         last unless $self->find_next_page;
         $ret = $self->navigate_to_page;
-        last unless $self->valid ($ret);
     }
 
     if ($pos != $self->_current)
