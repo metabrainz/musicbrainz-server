@@ -244,8 +244,8 @@ sub determine_missing_entities
 
     $self->load_page('missing_entities', {
         missing => {
-            artists => \@credits,
-            labels => \@labels
+            artist => \@credits,
+            label => \@labels
         }
     });
 }
@@ -382,7 +382,7 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             map { $_ => $artist->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{artists} };
+    } @{ $data->{missing}{artist} };
 
     my @label_edits = map {
         my $label = $_;
@@ -390,7 +390,7 @@ sub _edit_missing_entities
             $EDIT_LABEL_CREATE,
             $editnote,
             map { $_ => $label->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{labels} };
+    } @{ $data->{missing}{label} };
 
     return () if $previewing;
     return (
