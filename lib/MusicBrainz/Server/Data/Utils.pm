@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Data::Utils;
 
 use base 'Exporter';
-
 use Class::MOP;
+use Scalar::Util 'blessed';
 use Data::Compare;
 use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Entity::PartialDate;
@@ -13,6 +13,7 @@ use Storable;
 
 our @EXPORT_OK = qw(
     artist_credit_to_ref
+    artist_credit_to_alternative_ref
     check_data
     copy_escape
     defined_hash
@@ -77,15 +78,32 @@ sub artist_credit_to_ref
 {
     my ($artist_credit) = @_;
 
-    return $artist_credit unless UNIVERSAL::can ($artist_credit, 'isa');
+    return $artist_credit unless blessed $artist_credit;
 
-    my $ac = [ map {
+    return [ map {
         my @credit = ( { name => $_->name, artist => $_->artist_id } );
         push @credit, $_->join_phrase if $_->join_phrase;
 
         @credit;
     } @{ $artist_credit->names } ];
-    return $ac;
+}
+
+# FIXME: It is unfortunate that we have two different formats for storing
+# artist credits outside of objects.  These should be consolidated. --warp.
+sub artist_credit_to_alternative_ref
+{
+    my ($artist_credit) = @_;
+
+    return $artist_credit unless blessed $artist_credit;
+
+    return [
+        map {
+            name => $_->name,
+            gid => $_->artist->gid,
+            id => $_->artist->id,
+            artist_name => $_->artist->name,
+            join => $_->join_phrase
+        }, $artist_credit->all_names ];
 }
 
 sub load_subobjects

@@ -39,6 +39,7 @@
                     <li>[% link_entity(rg, 'delete', l('Delete this release group')) %]</li>
                 [% END %]
                 <li>[% use_in_relationship(rg) %]</li>
+                <li>[% relate_to_ellipsis(rg) %]</li>
                 <li>[% relate_to_url(rg) %]</li>
                 <li>
                   <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">

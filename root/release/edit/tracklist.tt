@@ -1,13 +1,10 @@
 [%- BLOCK layout_head -%]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
   <link rel="stylesheet" type="text/css" href="[%-
       c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
 
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
-        "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
         "lib/json/json2.js",
-        "scripts/MB/utility.js",
         "scripts/MB/TrackParser.js",
 
         "scripts/MB/GuessCase/Utils.js",
@@ -26,7 +23,6 @@
         "scripts/MB/GuessCase/Track.js",
 
         "scripts/MB/Control/ArtistCredit.js",
-        "scripts/MB/Control/Autocomplete.js",
         "scripts/MB/Control/Bubble.js",
         "scripts/MB/Control/ReleaseEdits.js",
         "scripts/MB/Control/ReleaseBasicTab.js",
@@ -36,6 +32,8 @@
   <script type="text/javascript">
 
     $('document').ready (function () {
+
+       MB.release_artist_json = [% release_artist_json %];
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
@@ -109,6 +107,10 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
+  [% USE w = Wizard() %]
+  [% information = w.page ('information') %]
+  [% release_artist = information.field('artist_credit') %]
+
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
     [%- r.hidden ('advanced') -%]
@@ -234,9 +236,6 @@
 
     <h2>Preview</h2>
 
-    [% USE w = Wizard() %]
-    [% information = w.page ('information') %]
-    [% release_artist = information.field('artist_credit') %]
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
 

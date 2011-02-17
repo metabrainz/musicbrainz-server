@@ -29,7 +29,7 @@ MB.Control.RelationshipEntity = function (entity) {
     }
 
     self.$name = $('#id-ar\\.' + entity + '\\.name');
-    self.$link = self.$name.siblings ('span.link').find ('a');
+    self.$link = self.$name.closest ('span').siblings ('span.link').find ('a');
     self.type = self.$link.attr ('class');
 
     self.selected = function (event, data) {
@@ -46,20 +46,11 @@ MB.Control.RelationshipEntity = function (entity) {
         return false;
     };
 
-    var options = {
+    MB.Control.Autocomplete ({
         'input': self.$name,
         'entity': self.type.replace ("_", "-"),
         'select': self.selected
-    };
-
-    if (self.type === 'recording')
-    {
-        MB.Control.AutocompleteRecording (options);
-    }
-    else
-    {
-        MB.Control.Autocomplete (options);
-    }
+    });
 
     return self;
 }

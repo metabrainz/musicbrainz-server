@@ -9,6 +9,7 @@
 /Makefile
 /META.yml
 /po/*.mo
+*.ttc
 *~
 .#*
 

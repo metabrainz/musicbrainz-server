@@ -33,7 +33,7 @@ MB.TrackParser.Artist = function (track, artist) {
             'name': name,
             'id': '',
             'gid': '',
-            'join': null,
+            'join': null
         });
     };
 
@@ -264,7 +264,9 @@ MB.TrackParser.Track = function (position, line, parent) {
         var current = self.parent.disc.getTracksAtPosition (self.position);
         if (original)
         {
-            current.push (original);
+            // FIXME: original is completely different format from the other
+            // tracks.  this will never match anything in original. --warp.
+            // current.push (original);
         }
 
         /* first, try to match the trackname.. if we find a match the rest
@@ -383,7 +385,7 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
             var data = {
                 'position': track.position,
                 'length': track.duration,
-                'artist_credit': track.artist,
+                'artist_credit': track.artist
             };
 
             var title = track.title;

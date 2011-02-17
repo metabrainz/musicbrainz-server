@@ -360,6 +360,63 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
     };
 
+    self.getReleaseArtist = function () {
+        $release_artist = $('table.tracklist-template tr.track-artist-credit');
+
+        var names = [];
+        var preview = "";
+        $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
+            names[idx] = {
+                "artist_name": $(row).find ('input.name').val (),
+                "name": $(row).find ('input.credit').val (),
+                "gid": $(row).find ('input.gid').val (),
+                "id": $(row).find ('input.id').val (),
+                "join": $(row).find ('input.join').val ()
+            };
+
+            preview += names[idx].name + names[idx].join;
+        });
+
+        return { names: names, preview: preview };
+    };
+
+    self.changeTrackArtists = function (data) {
+        if (!MB.release_artist_json)
+        {
+            return data;
+        }
+
+        /* if MB.release_artist_json is not null, the user has changed the release
+           artist and wants to change track artists too.
+
+           The following code compares the artist for each track to the previous
+           release artist, if they are the same we need to update the artist for
+           that track with the new release artist.
+        */
+        $.each (data, function (idx, track) {
+            if (track.artist_credit.names.length === MB.release_artist_json.length)
+            {
+                var update = true;
+
+                $.each (MB.release_artist_json, function (idx, credit) {
+                    tmp = track.artist_credit.names[idx];
+                    if (credit.name !== tmp.name || credit.id !== tmp.id)
+                    {
+                        update = false;
+                        return false;
+                    }
+                });
+
+                if (update)
+                {
+                    data[idx].artist_credit = self.getReleaseArtist ();
+                }
+            }
+        });
+
+        return data;
+    };
+
     self.expand = function (chained) {
         self.expanded = true;
         var data = self.edits.loadEdits ();
@@ -382,7 +439,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             var tracklist_id = self.basic.$tracklist_id.val ();
             if (tracklist_id)
             {
-                $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, use_data);
+                $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, function (data) {
+                    use_data (self.changeTrackArtists (data));
+                });
             }
             else
             {
@@ -615,7 +674,7 @@ MB.Control.ReleaseUseTracklist = function (parent) {
             q: self.$release.val (),
             artist: self.$artist.val (),
             tracks: self.$count.val (),
-            page: self.page,
+            page: self.page
         };
         $.getJSON ('/ws/js/tracklist', data, self.results);
     };
