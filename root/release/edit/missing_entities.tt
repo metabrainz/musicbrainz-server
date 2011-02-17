@@ -15,7 +15,11 @@
         <fieldset>
           <legend>[% l( 'Artists' ) %]</legend>
           [% FOR artist_row=form.field('missing.artist').fields %]
-              [% form_row_text_long(r, artist_row.field('name'), l('Name:')) %]
+              [% r.hidden(artist_row.field('name')) %]
+              [% WRAPPER form_row %]
+                  <div class="label">[% l('Name:') %]</div>
+                  [% artist_row.field('name').value | html %]
+              [% END %]
               [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
               [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
               [% r.hidden(artist_row.field('for')) %]
@@ -25,7 +29,11 @@
         <fieldset>
           <legend>[% l('Labels') %]</legend>
           [% FOR label_row=form.field('missing.label').fields %]
-              [% form_row_text_long(r, label_row.field('name'), l('Name:')) %]
+              [% r.hidden(label_row.field('name')) %]
+              [% WRAPPER form_row %]
+                  <div class="label">[% l('Name:') %]</div>
+                  [% label_row.field('name').value | html %]
+              [% END %]
               [% form_row_text_long(r, label_row.field('sort_name'), l('Sort Name:')) %]
               [% form_row_text_long(r, label_row.field('comment'), l('Comment:')) %]
               [% r.hidden(label_row.field('for')) %]
