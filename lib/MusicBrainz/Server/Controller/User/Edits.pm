@@ -21,7 +21,7 @@ sub _edits {
 
     $c->stash(
         edits => $edits,
-        template => 'edit/search_results.tt',
+        template => 'user/edits.tt',
         search => 0
     );
 
