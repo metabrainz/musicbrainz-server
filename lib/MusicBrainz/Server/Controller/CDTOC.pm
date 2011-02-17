@@ -219,7 +219,8 @@ sub attach : Local RequireAuth
             );
         }
         else {
-            if(my ($stub_toc) = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid)) {
+            my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
+            if($stub_toc) {
                 $c->model('CDStub')->load($stub_toc);
                 my @mediums = $c->model('Medium')->find_for_cdstub($stub_toc);
                 $c->model('ArtistCredit')->load(map { $_->release } @mediums);
