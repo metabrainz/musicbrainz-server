@@ -220,8 +220,11 @@ sub attach : Local RequireAuth
             }
         }
 
-        $search_artist->process(params => { 'filter-artist.query' => $initial_artist });
-        $search_release->process(params => { 'filter-release.query' => $initial_release });
+        $search_artist->process(params => { 'filter-artist.query' => $initial_artist })
+            if $initial_artist;
+
+        $search_release->process(params => { 'filter-release.query' => $initial_release })
+            if $initial_release;
 
         $c->stash(
             medium_cdtocs => $self->_load_releases($c, $cdtoc),
