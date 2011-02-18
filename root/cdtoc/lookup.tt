@@ -52,10 +52,7 @@
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_artist) %]
     <input type="hidden" name="toc" value="[% toc %]" />
-    [% WRAPPER form_row %]
-      [% r.label('query', l('Artist:')) %]
-      [% r.text('query') %]
-    [% END %]
+    [% form_row_text(r, 'query', l('Artist:')) %]
     <div class="row no-label">
       [% form_submit(l('Search')) %]
     </div>
@@ -65,10 +62,7 @@
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% toc %]" />
-    [% WRAPPER form_row %]
-      [% r.label('query', l('Release title:')) %]
-      [% r.text('query') %]
-    [% END %]
+    [% form_row_text(r, 'query', l('Release:')) %]
     <div class="row no-label">
       [% form_submit(l('Search')) %]
     </div>
