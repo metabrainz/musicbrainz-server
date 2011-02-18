@@ -872,11 +872,15 @@ sub _seed_parameters {
         }
     };
 
-    # FIXME a bit of a hack, but if labels = [], HTML::FormHandler
+    # FIXME a bit of a hack, but if either of these = [], HTML::FormHandler
     # will show no rows
     $params->{labels} = [
         { label => '', catalog_number => '' }
     ] unless @{ $params->{labels}||[] };
+
+    $params->{mediums} = [
+        { position => 1 },
+    ] unless @{ $params->{mediums}||[] };
 
     return collapse_hash($params);
 };
