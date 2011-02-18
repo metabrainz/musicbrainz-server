@@ -774,7 +774,7 @@ sub _seed_parameters {
         }
     }
 
-    for my $label (@{ $params->{labels} }) {
+    for my $label (@{ $params->{labels} || [] }) {
         if (my $mbid = $label->{mbid}) {
             my $entity = $self->c->model('Label')
                 ->get_by_gid($mbid);
@@ -807,7 +807,7 @@ sub _seed_parameters {
     {
         my $medium_idx;
         my $json = JSON::Any->new(utf8 => 1);
-        for my $medium (@{ $params->{mediums} }) {
+        for my $medium (@{ $params->{mediums} || [] }) {
             if (my $format = delete $medium->{format}) {
                 my $entity = $self->c->model('MediumFormat')
                     ->find_by_name($format);
