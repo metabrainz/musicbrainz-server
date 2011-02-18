@@ -769,7 +769,8 @@ sub _seed_parameters {
     for my $trans (@transformations) {
         my ($key, $alias, $transform) = @$trans;
         if (exists $params->{$alias}) {
-            $params->{$key} = $transform->($self->c, delete $params->{$alias})->id;
+            my $obj = $transform->($self->c, delete $params->{$alias}) or next;
+            $params->{$key} = $obj->id;
         }
     }
 
