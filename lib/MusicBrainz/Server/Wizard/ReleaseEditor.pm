@@ -816,7 +816,6 @@ sub _seed_parameters {
 
             my $toc = $medium->{toc};
             if ($toc and my $cdtoc = CDTOC->new_from_toc($toc)) {
-                warn "Toc is valid";
                 if (ref($medium->{track})) {
                     if (@{ $medium->{track} } != $cdtoc->track_count) {
                         delete $medium->{toc};
