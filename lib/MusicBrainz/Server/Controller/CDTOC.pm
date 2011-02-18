@@ -186,6 +186,7 @@ sub attach : Local RequireAuth
                 template => 'cdtoc/attach_filter_artist.tt',
                 artists => $artists
             );
+            $c->detach;
         }
         elsif ($search_release->submitted_and_valid($c->req->query_params)) {
             my $releases = $self->_load_paged($c, sub {
@@ -203,6 +204,7 @@ sub attach : Local RequireAuth
                 template => 'cdtoc/attach_filter_release.tt',
                 results => $releases
             );
+            $c->detach;
         }
         else {
             my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
@@ -220,8 +222,11 @@ sub attach : Local RequireAuth
             }
         }
 
-        $search_artist->process(params => { 'filter-artist.query' => $initial_artist });
-        $search_release->process(params => { 'filter-release.query' => $initial_release });
+        $search_artist->process(params => { 'filter-artist.query' => $initial_artist })
+            if $initial_artist;
+
+        $search_release->process(params => { 'filter-release.query' => $initial_release })
+            if $initial_release;
 
         $c->stash(
             medium_cdtocs => $self->_load_releases($c, $cdtoc),
