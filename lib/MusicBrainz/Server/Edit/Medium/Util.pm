@@ -13,7 +13,7 @@ use MusicBrainz::Server::Edit::Types qw(
 );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
-    artist_credit_from_loaded_definition
+    artist_credit_preview
 );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 
@@ -75,7 +75,7 @@ sub display_tracklist {
             Track->new(
                 name => $_->{name},
                 length => $_->{length},
-                artist_credit => artist_credit_from_loaded_definition($loaded, $_->{artist_credit}),
+                artist_credit => artist_credit_preview ($loaded, $_->{artist_credit}),
                 position => $_->{position},
                 recording => $_->{recording_id} ? 
                     $loaded->{Recording}{ $_->{recording_id} } :
