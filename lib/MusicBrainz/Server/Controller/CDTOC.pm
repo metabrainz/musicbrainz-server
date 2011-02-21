@@ -115,23 +115,6 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
     );
 }
 
-sub lookup : Local
-{
-    my ($self, $c) = @_;
-
-    my $discid = $c->req->query_params->{id};
-    my $track_count = $c->req->query_params->{tracks};
-    my $toc = $c->req->query_params->{toc};
-
-    my $cdtoc = $c->model('CDTOC')->get_by_discid($discid);
-    if ($cdtoc) {
-        $c->stash( medium_cdtocs => $self->_load_releases($c, $cdtoc) );
-    }
-
-    $c->form( query_release => 'Search::Query', name => 'filter-release' );
-    $c->form( query_artist => 'Search::Query', name => 'filter-artist' );
-}
-
 sub attach : Local RequireAuth
 {
     my ($self, $c) = @_;
@@ -191,6 +174,9 @@ sub attach : Local RequireAuth
         my $search_artist = $c->form( query_artist => 'Search::Query', name => 'filter-artist' );
         my $search_release = $c->form( query_release => 'Search::Query', name => 'filter-release' );
 
+        my ($initial_artist, $initial_release) = map { $c->req->query_params->{$_} }
+            qw( artist-name release-name );
+
         # One of these must have been submitted to get here
         if ($search_artist->submitted_and_valid($c->req->query_params)) {
             my $artists = $self->_load_paged($c, sub {
@@ -200,6 +186,7 @@ sub attach : Local RequireAuth
                 template => 'cdtoc/attach_filter_artist.tt',
                 artists => $artists
             );
+            $c->detach;
         }
         elsif ($search_release->submitted_and_valid($c->req->query_params)) {
             my $releases = $self->_load_paged($c, sub {
@@ -217,11 +204,34 @@ sub attach : Local RequireAuth
                 template => 'cdtoc/attach_filter_release.tt',
                 results => $releases
             );
+            $c->detach;
         }
         else {
-            $c->stash( template => 'cdtoc/lookup.tt' );
-            $c->forward('/cdtoc/lookup');
+            my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
+            if($stub_toc) {
+                $c->model('CDStub')->load($stub_toc);
+
+                $initial_artist  ||= $stub_toc->cdstub->artist;
+                $initial_release ||= $stub_toc->cdstub->title;
+
+                my @mediums = $c->model('Medium')->find_for_cdstub($stub_toc);
+                $c->model('ArtistCredit')->load(map { $_->release } @mediums);
+                $c->stash(
+                    possible_mediums => [ @mediums  ]
+                );
+            }
         }
+
+        $search_artist->process(params => { 'filter-artist.query' => $initial_artist })
+            if $initial_artist;
+
+        $search_release->process(params => { 'filter-release.query' => $initial_release })
+            if $initial_release;
+
+        $c->stash(
+            medium_cdtocs => $self->_load_releases($c, $cdtoc),
+            template => 'cdtoc/lookup.tt',
+        );
     }
 }
 
