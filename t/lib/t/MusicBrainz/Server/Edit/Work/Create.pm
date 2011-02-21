@@ -26,12 +26,9 @@ my ($edits, $hits) = $c->model('Edit')->find({ work => $edit->work_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 my $rg = $c->model('Work')->get_by_id($edit->work_id);
-$c->model('ArtistCredit')->load($rg);
 ok(defined $rg);
 is($rg->name, 'Mrs. Bongo');
 is($rg->comment => 'Work comment');
-is($rg->artist_credit->names->[0]->name, 'Tosca');
-is($rg->artist_credit->names->[0]->artist_id, 1);
 is($rg->type_id, 1);
 is($rg->iswc, 'T-000.000.001-0');
 is($rg->edits_pending, 1);
@@ -57,9 +54,6 @@ sub create_edit
         editor_id => 1,
         edit_type => $EDIT_WORK_CREATE,
         name => 'Mrs. Bongo',
-        artist_credit => [
-        { artist => 1, name => 'Tosca' }
-        ],
         comment => 'Work comment',
         type_id => 1,
         iswc => 'T-000.000.001-0'
