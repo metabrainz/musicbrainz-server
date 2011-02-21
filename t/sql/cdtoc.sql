@@ -22,3 +22,4 @@ INSERT INTO medium_cdtoc (id, medium, cdtoc) VALUES
     (1, 1, 1), (2, 2, 1);
 
 ALTER SEQUENCE cdtoc_id_seq RESTART 2;
+ALTER SEQUENCE medium_cdtoc_id_seq RESTART 3;
