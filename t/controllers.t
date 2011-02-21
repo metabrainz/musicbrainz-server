@@ -11,8 +11,7 @@ my $mpo = Module::Pluggable::Object->new(
     search_path => 't::MusicBrainz::Server::Controller::WS');
 my @classes = $mpo->plugins;
 
+plan tests => scalar(@classes);
 for (@classes) {
     run_tests($_ => $_)
 }
-
-done_testing;
