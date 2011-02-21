@@ -5,7 +5,7 @@ use Test::More;
 
 use MusicBrainz::Server::Entity::Artist;
 
-use_ok 'MusicBrainz::Server::Entity::SearchResult';
+use MusicBrainz::Server::Entity::SearchResult;
 
 test all => sub {
 

@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Recording::RemoveISRC' };
+BEGIN { use MusicBrainz::Server::Edit::Recording::RemoveISRC };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

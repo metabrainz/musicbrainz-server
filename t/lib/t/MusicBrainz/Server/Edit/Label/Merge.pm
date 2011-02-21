@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::Merge'; }
+BEGIN { use MusicBrainz::Server::Edit::Label::Merge; }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_MERGE );

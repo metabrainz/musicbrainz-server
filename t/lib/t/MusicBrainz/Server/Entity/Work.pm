@@ -3,9 +3,9 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::Work';
-use_ok 'MusicBrainz::Server::Entity::WorkType';
-use_ok 'MusicBrainz::Server::Entity::WorkAlias';
+use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Entity::WorkType;
+use MusicBrainz::Server::Entity::WorkAlias;
 
 test all => sub {
 

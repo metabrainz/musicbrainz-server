@@ -82,6 +82,5 @@ my @classes = qw(
     t::MusicBrainz::Server::Controller::WS::js::Autocomplete
 );
 
+plan tests => scalar(@classes);
 run_tests($_ => $_) for (@classes);
-
-done_testing;

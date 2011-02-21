@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::EditBarcodes' }
+BEGIN { use MusicBrainz::Server::Edit::Release::EditBarcodes }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

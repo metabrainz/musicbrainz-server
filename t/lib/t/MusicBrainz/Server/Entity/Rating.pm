@@ -4,7 +4,8 @@ use Test::Moose;
 use Test::More;
 
 test all => sub {
-    use_ok 'MusicBrainz::Server::Entity::Rating';
+    use MusicBrainz::Server::Entity::Rating;
+    ok 1;
 };
 
 1;

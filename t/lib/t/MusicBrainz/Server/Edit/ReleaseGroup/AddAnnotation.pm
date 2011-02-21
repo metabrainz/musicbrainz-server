@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation' }
+BEGIN { use MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_ADD_ANNOTATION );
 use MusicBrainz::Server::Test;

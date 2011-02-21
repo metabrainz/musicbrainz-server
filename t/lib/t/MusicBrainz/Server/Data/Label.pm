@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Label';
+use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;

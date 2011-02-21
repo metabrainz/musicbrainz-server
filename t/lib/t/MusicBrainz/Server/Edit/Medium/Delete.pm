@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Delete' }
+BEGIN { use MusicBrainz::Server::Edit::Medium::Delete }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );

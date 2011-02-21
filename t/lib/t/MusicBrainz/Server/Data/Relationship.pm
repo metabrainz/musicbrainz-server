@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Relationship';
+use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Entity::Relationship;
