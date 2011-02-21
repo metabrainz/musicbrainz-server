@@ -149,16 +149,12 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, NULL);
-
 INSERT INTO work_name (id, name)
     VALUES (1, 'Target'), (2, 'Merge 1'), (3, 'Merge 2');
-INSERT INTO work (id, gid, name, artist_credit)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2, 1),
-           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3, 1);
+INSERT INTO work (id, gid, name)
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3);
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,
