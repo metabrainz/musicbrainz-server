@@ -29,7 +29,7 @@
   <tr>
     <th>[% l('XML:') %]</th>
     <td>
-      [% link = c.uri_for('/ws/2/work', work.gid, { 'inc' => 'artists+aliases' }) %]
+      [% link = c.uri_for('/ws/2/work', work.gid, { 'inc' => 'aliases' }) %]
       <a href="[% link %]">[% display_url(link) %]</a>
     </td>
   </tr>

@@ -1,0 +1,6 @@
+<table class="details">
+  <tr>
+    <th>[% l('Work:') %]</th>
+    <td>[% edit.display_data.name | html %]</td>
+  </tr>
+</table>

@@ -1,14 +1,11 @@
-[% main_title = l('{type} “{work}” by {artist}', {
+[% main_title = l('{type} “{work}”', {
     type => work.type_name or l('Work'),
-    work => work.name,
-    artist => artist_credit(work.artist_credit, plain => 1)
+    work => work.name
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-               content=artist_credit(work.artist_credit) %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(work.type.name)
                    IF work.type -%]
