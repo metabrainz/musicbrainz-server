@@ -186,12 +186,16 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
 
-    self.$textarea.bind ('keyup', function () {
+    self.$textarea.bind ('keyup.mb', function () {
         var newTimeout = setTimeout (function () {
             self.updatePreview ();
         }, MB.Control._preview_update_timeout);
 
         self.timeout = newTimeout;
+    });
+
+    self.$textarea.bind ('blur.mb', function () {
+        self.updatePreview ();
     });
 
     self.disc.registerBasic (self);
