@@ -78,6 +78,8 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::WikiDocIndex
     t::MusicBrainz::Server::Data::Work
     t::MusicBrainz::Server::Data::WorkType
+
+    t::MusicBrainz::Server::Controller::WS::js::Autocomplete
 );
 
 run_tests($_ => $_) for (@classes);
