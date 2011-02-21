@@ -127,6 +127,7 @@ test_requires 'Test::Differences';
 test_requires 'Test::JSON';
 test_requires 'Test::LongString';
 test_requires 'Test::Magpie' => '0.04';
+test_requires 'Test::Memory::Cycle';
 test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
 test_requires 'XML::Parser';
