@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Label::Create'; }
+BEGIN { use MusicBrainz::Server::Edit::Label::Create; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );

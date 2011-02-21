@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Data::Utils';
+use MusicBrainz::Server::Data::Utils;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;

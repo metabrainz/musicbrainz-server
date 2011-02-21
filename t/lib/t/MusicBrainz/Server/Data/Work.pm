@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Work';
+use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::WorkType;
 use MusicBrainz::Server::Data::Search;
 

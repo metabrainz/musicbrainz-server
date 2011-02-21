@@ -5,7 +5,7 @@ use Test::More;
 
 use MusicBrainz::Server::Entity::Artist;
 
-BEGIN { use_ok 'MusicBrainz::Server::Entity::Annotation' };
+BEGIN { use MusicBrainz::Server::Entity::Annotation };
 
 test all => sub {
 

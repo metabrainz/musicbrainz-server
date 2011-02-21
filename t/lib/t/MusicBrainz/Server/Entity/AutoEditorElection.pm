@@ -4,8 +4,8 @@ use Test::Moose;
 use Test::More;
 
 BEGIN {
-    use_ok 'MusicBrainz::Server::Entity::AutoEditorElection';
-    use_ok 'MusicBrainz::Server::Entity::AutoEditorElectionVote';
+    use MusicBrainz::Server::Entity::AutoEditorElection;
+    use MusicBrainz::Server::Entity::AutoEditorElectionVote;
 }
 
 use MusicBrainz::Server::Types qw( :election_status :vote );

@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::ReleaseGroup::Delete'; }
+BEGIN { use MusicBrainz::Server::Edit::ReleaseGroup::Delete; }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );

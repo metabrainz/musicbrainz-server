@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Work::AddAlias' }
+BEGIN { use MusicBrainz::Server::Edit::Work::AddAlias }
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ALIAS );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

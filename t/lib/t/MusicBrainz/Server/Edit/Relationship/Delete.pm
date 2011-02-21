@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Relationship::Delete' }
+BEGIN { use MusicBrainz::Server::Edit::Relationship::Delete }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

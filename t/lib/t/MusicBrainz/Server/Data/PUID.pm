@@ -4,8 +4,8 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::PUID';
-use_ok 'MusicBrainz::Server::Data::RecordingPUID';
+use MusicBrainz::Server::Data::PUID;
+use MusicBrainz::Server::Data::RecordingPUID;
 
 use Sql;
 use MusicBrainz::Server::Test;

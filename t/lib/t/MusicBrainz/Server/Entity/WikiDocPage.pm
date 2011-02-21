@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::WikiDocPage';
+use MusicBrainz::Server::Entity::WikiDocPage;
 
 test all => sub {
 

@@ -4,8 +4,8 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::CDTOC';
-use_ok 'MusicBrainz::Server::Data::MediumCDTOC';
+use MusicBrainz::Server::Data::CDTOC;
+use MusicBrainz::Server::Data::MediumCDTOC;
 
 use Sql;
 use MusicBrainz::Server::Test;

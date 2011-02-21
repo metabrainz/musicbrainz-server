@@ -7,7 +7,7 @@ use Test::Memory::Cycle;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
-BEGIN { use_ok 'MusicBrainz::Server::Data::EditorSubscriptions'; }
+BEGIN { use MusicBrainz::Server::Data::EditorSubscriptions; }
 
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 

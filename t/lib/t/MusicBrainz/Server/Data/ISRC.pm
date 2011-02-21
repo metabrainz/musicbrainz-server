@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::ISRC';
+use MusicBrainz::Server::Data::ISRC;
 
 use Sql;
 use MusicBrainz::Server::Test;

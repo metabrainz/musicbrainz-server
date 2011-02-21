@@ -5,7 +5,7 @@ use Test::More;
 use Test::Fatal;
 use Test::Memory::Cycle;
 
-BEGIN { use_ok 'MusicBrainz::Server::Data::Edit' };
+BEGIN { use MusicBrainz::Server::Data::Edit };
 
 {
     package t::Edit::MockEdit;

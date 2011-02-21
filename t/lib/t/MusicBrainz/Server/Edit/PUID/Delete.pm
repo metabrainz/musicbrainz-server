@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::PUID::Delete'; }
+BEGIN { use MusicBrainz::Server::Edit::PUID::Delete; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

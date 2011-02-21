@@ -3,9 +3,9 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::CDStub';
-use_ok 'MusicBrainz::Server::Entity::CDStubTOC';
-use_ok 'MusicBrainz::Server::Entity::CDStubTrack';
+use MusicBrainz::Server::Entity::CDStub;
+use MusicBrainz::Server::Entity::CDStubTOC;
+use MusicBrainz::Server::Entity::CDStubTrack;
 
 test all => sub {
 

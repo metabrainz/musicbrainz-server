@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Country';
+use MusicBrainz::Server::Data::Country;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;

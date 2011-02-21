@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::AddAnnotation' }
+BEGIN { use MusicBrainz::Server::Edit::Artist::AddAnnotation }
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_ADD_ANNOTATION );
 use MusicBrainz::Server::Test;

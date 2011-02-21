@@ -10,9 +10,9 @@ use MusicBrainz::Server::Test;
 use Sql;
 
 BEGIN {
-    use_ok 'MusicBrainz::Server::Data::Artist';
-    use_ok 'MusicBrainz::Server::Data::Label';
-    use_ok 'MusicBrainz::Server::Data::Work';
+    use MusicBrainz::Server::Data::Artist;
+    use MusicBrainz::Server::Data::Label;
+    use MusicBrainz::Server::Data::Work;
 }
 
 with 't::Context';

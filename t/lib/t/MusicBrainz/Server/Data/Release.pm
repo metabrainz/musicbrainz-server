@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Release';
+use MusicBrainz::Server::Data::Release;
 
 use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED );
 use MusicBrainz::Server::Data::ReleaseLabel;

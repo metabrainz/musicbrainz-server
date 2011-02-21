@@ -4,9 +4,9 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::CDStub';
-use_ok 'MusicBrainz::Server::Data::CDStubTOC';
-use_ok 'MusicBrainz::Server::Data::CDStubTrack';
+use MusicBrainz::Server::Data::CDStub;
+use MusicBrainz::Server::Data::CDStubTOC;
+use MusicBrainz::Server::Data::CDStubTrack;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;

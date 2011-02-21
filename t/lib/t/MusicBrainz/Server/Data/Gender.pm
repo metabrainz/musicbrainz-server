@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Gender';
+use MusicBrainz::Server::Data::Gender;
 
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Context;

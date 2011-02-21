@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::DeleteAlias' }
+BEGIN { use MusicBrainz::Server::Edit::Artist::DeleteAlias }
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE_ALIAS );
 use MusicBrainz::Server::Test;

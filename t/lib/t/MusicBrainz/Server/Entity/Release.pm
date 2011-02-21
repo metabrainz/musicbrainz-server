@@ -3,13 +3,13 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::Release';
-use_ok 'MusicBrainz::Server::Entity::ReleasePackaging';
-use_ok 'MusicBrainz::Server::Entity::ReleaseStatus';
-use_ok 'MusicBrainz::Server::Entity::Medium';
-use_ok 'MusicBrainz::Server::Entity::MediumFormat';
-use_ok 'MusicBrainz::Server::Entity::Tracklist';
-use_ok 'MusicBrainz::Server::Entity::Track';
+use MusicBrainz::Server::Entity::Release;
+use MusicBrainz::Server::Entity::ReleasePackaging;
+use MusicBrainz::Server::Entity::ReleaseStatus;
+use MusicBrainz::Server::Entity::Medium;
+use MusicBrainz::Server::Entity::MediumFormat;
+use MusicBrainz::Server::Entity::Tracklist;
+use MusicBrainz::Server::Entity::Track;
 
 test all => sub {
 

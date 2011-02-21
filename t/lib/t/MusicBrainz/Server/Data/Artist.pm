@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Artist';
+use MusicBrainz::Server::Data::Artist;
 
 use DateTime;
 use MusicBrainz::Server::Context;

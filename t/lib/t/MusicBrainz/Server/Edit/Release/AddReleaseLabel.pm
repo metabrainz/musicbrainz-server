@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Release::AddReleaseLabel' }
+BEGIN { use MusicBrainz::Server::Edit::Release::AddReleaseLabel }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
