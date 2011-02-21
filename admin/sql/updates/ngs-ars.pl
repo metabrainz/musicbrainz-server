@@ -806,7 +806,7 @@ foreach my $orig_t0 (@entity_types) {
                 SELECT l.*, url.url FROM public.l_${orig_t0}_${orig_t1} l
                 LEFT JOIN public.url ON l.link1=url.id";
             # Load Discogs URL data
-            LWP::Simple::mirror("http://users.musicbrainz.org/~luks/ngs/discogs.dat", "discogs.dat");
+            LWP::Simple::mirror("http://users.musicbrainz.org/murdos/ngs/discogs.dat", "discogs.dat");
             open(DISCOGS, "<discogs.dat");
             while (<DISCOGS>) {
                 my $line = $_;
