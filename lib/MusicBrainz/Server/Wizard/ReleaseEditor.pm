@@ -5,6 +5,7 @@ use namespace::autoclean;
 use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use JSON::Any;
+use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
@@ -243,17 +244,19 @@ sub determine_missing_entities
     my @credits = map +{
             for => $_->{name},
             name => $_->{name},
-        }, $self->_misssing_artist_credits($data);
+        }, uniq_by { $_->{name} }
+            $self->_misssing_artist_credits($data);
 
     my @labels = map +{
             for => $_->{name},
             name => $_->{name}
-        }, $self->_missing_labels($data);
+        }, uniq_by { $_->{name} }
+            $self->_missing_labels($data);
 
     $self->load_page('missing_entities', {
         missing => {
-            artists => \@credits,
-            labels => \@labels
+            artist => \@credits,
+            label => \@labels
         }
     });
 }
@@ -390,7 +393,7 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             map { $_ => $artist->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{artists} };
+    } @{ $data->{missing}{artist} };
 
     my @label_edits = map {
         my $label = $_;
@@ -398,7 +401,7 @@ sub _edit_missing_entities
             $EDIT_LABEL_CREATE,
             $editnote,
             map { $_ => $label->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{labels} };
+    } @{ $data->{missing}{label} };
 
     return () if $previewing;
     return (

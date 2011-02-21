@@ -1,10 +1,14 @@
 package MusicBrainz::Server::Form::ReleaseEditor::MissingEntities;
 use HTML::FormHandler::Moose;
 
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
+
 extends 'MusicBrainz::Server::Form::Step';
 has_field 'missing' => ( type => 'Compound' );
 
-for my $type (qw( artists labels )) {
+my @types = qw( artist label );
+
+for my $type (@types) {
     has_field "missing.$type" => (
         type => 'Repeatable',
         num_when_empty => 0
@@ -21,14 +25,30 @@ for my $type (qw( artists labels )) {
     );
 
     has_field "missing.$type.comment" => (
-        type => 'Text',
-        required => 1
+        type => 'Text'
     );
 
     has_field "missing.$type.for" => (
         type => 'Text',
         required => 1
     );
+}
+
+sub validate {
+    my $self = shift;
+
+    for my $type (@types) {
+        for my $field ($self->field('missing')->field($type)->fields) {
+            next if $field->has_errors;
+
+            my @entities = $self->ctx->model(type_to_model($type))
+                ->find_by_name($field->field('name')->input)
+                    or next;
+
+            $field->field('comment')->required(1);
+            $field->field('comment')->validate_field;
+        }
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
