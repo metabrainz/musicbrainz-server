@@ -327,7 +327,7 @@ sub schema_validator
     };
 }
 
-sub _build_ws_test {
+sub _build_ws_test_xml {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
@@ -356,6 +356,43 @@ sub _build_ws_test {
             $Test->note($mech->content);
         });
     }
+}
+
+sub _build_ws_test_json {
+    use Test::JSON import => [ 'is_valid_json', 'is_json' ];
+
+    my ($class, $name, $args) = @_;
+    my $end_point = '/ws/' . $args->{version};
+
+    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+
+    return sub {
+        my ($msg, $url, $expected, $opts) = @_;
+        $opts ||= {};
+
+        $Test->subtest($msg => sub {
+            if (exists $opts->{username} && exists $opts->{password}) {
+                $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
+            }
+            else {
+                $mech->clear_credentials;
+            }
+
+            $Test->plan(tests => 3);
+
+            $mech->get_ok($end_point . $url, 'fetching');
+            is_valid_json ($mech->content, "validating (is_valid_json)");
+
+            is_json ($mech->content, $expected);
+            $Test->note($mech->content);
+        });
+    };
+}
+
+sub _build_ws_test {
+    my ($class, $name, $args) = @_;
+
+    return $args->{version} eq 'js' ? _build_ws_test_json (@_) : _build_ws_test_xml (@_);
 }
 
 sub xml_post
