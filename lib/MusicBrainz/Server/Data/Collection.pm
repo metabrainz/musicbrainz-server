@@ -49,6 +49,8 @@ sub _entity_class
 sub add_releases_to_collection
 {
     my ($self, $collection_id, @release_ids) = @_;
+    return unless @release_ids;
+
     $self->sql->auto_commit;
 
     my $added = $self->sql->select_single_column_array("SELECT release FROM editor_collection_release
@@ -69,6 +71,7 @@ sub add_releases_to_collection
 sub remove_releases_from_collection
 {
     my ($self, $collection_id, @release_ids) = @_;
+    return unless @release_ids;
 
     $self->sql->auto_commit;
     $self->sql->do("DELETE FROM editor_collection_release

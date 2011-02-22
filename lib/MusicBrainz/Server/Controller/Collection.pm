@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Collection;
 use Moose;
+use Scalar::Util qw( looks_like_number );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -16,6 +17,10 @@ after 'load' => sub
 
     # Load editor
     $c->model('Editor')->load($collection);
+
+    $c->stash(
+        my_collection => $c->user_exists && $c->user->id == $collection->editor_id
+    )
 };
 
 sub add : Chained('load') RequireAuth
@@ -49,6 +54,15 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
+
+    if ($c->form_posted && $c->stash->{my_collection}) {
+        my $remove_params = $c->req->params->{remove};
+        $c->model('Collection')->remove_releases_from_collection(
+            $collection->id,
+            grep { looks_like_number($_) }
+                ref($remove_params) ? @$remove_params : ($remove_params)
+        );
+    }
 
     my $user = $collection->editor;
     $c->detach('/error_404')
