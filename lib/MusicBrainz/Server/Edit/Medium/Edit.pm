@@ -6,6 +6,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
@@ -28,6 +29,7 @@ has '+data' => (
     isa => Dict[
         entity_id => NullableOnPreview[Int],
         separate_tracklists => Optional[Bool],
+        current_tracklist => Int,
         old => change_fields(),
         new => change_fields()
     ]
@@ -54,6 +56,7 @@ sub initialize
 
     my $data = {
         entity_id => $entity->id,
+        current_tracklist => $entity->tracklist_id,
         $self->_changes($entity, %opts)
     };
 
@@ -69,7 +72,6 @@ sub initialize
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
           if Compare($data->{old}, $data->{new});
-
 
     $self->data($data);
 }
@@ -137,6 +139,18 @@ sub accept {
     if ($self->data->{new}{tracklist}) {
         my $data_new_tracklist = clone ($self->data->{new}{tracklist});
         my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
+        my $tracklist = $self->c->model('Tracklist')->get_by_id($medium->tracklist_id);
+        $self->c->model('Track')->load_for_tracklists($tracklist);
+        $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
+
+        use Devel::Dwarn;
+        Dwarn tracks_to_hash($tracklist->tracks);
+        Dwarn $self->data->{old}{tracklist};
+
+        unless (Compare(tracks_to_hash($tracklist->tracks), $self->data->{old}{tracklist})) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('The tracklist has changed since this edit was created');
+        }
 
         # Create related data (artist credits and recordings)
         for my $track (@{ $data_new_tracklist }) {
