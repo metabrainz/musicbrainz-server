@@ -52,9 +52,8 @@ $link_sql->begin;
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
-my ($line, $i) = ('', 0);
+my ($line, $i) = (decode('utf-8', ''), 0);
 while ($dbh->pg_getcopydata($line) >= 0) {
-    $line = decode('utf-8', $line);
     if(my $fields = $csv->parse($line)) {
         next unless $csv->fields;
         my %row;
