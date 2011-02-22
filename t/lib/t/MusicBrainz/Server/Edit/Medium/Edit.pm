@@ -5,6 +5,7 @@ use Test::More;
 with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
+use MusicBrainz::Server::Types ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::Edit }
@@ -46,6 +47,29 @@ is($medium->release_id, 1);
 is($medium->position, 2);
 is($medium->edits_pending, 0);
 
+};
+
+test 'Edits are rejected if the tracklist has changed since edit creation' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
+INSERT INTO editor (id, name, password) VALUES (4, 'modbot', 'pass');
+EOSQL
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $edit1 = create_edit($c, $medium);
+    my $edit2 = create_edit($c, $medium);
+
+    accept_edit($c, $edit1);
+    accept_edit($c, $edit2);
+
+    $edit1 = $c->model('Edit')->get_by_id($edit1->id);
+    $edit2 = $c->model('Edit')->get_by_id($edit2->id);
+
+    is($edit1->status, $STATUS_APPLIED, 'edit 1 applied');
+    is($edit2->status, $STATUS_FAILEDDEP, 'edit 2 has a failed dependency error');
 };
 
 sub create_edit {
