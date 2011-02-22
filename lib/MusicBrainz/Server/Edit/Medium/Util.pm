@@ -67,8 +67,8 @@ sub track {
 
 sub display_tracklist {
     my ($loaded, $tracklist) = @_;
-
     $tracklist ||= [];
+    return unless @$tracklist;
 
     return Tracklist->new(
         tracks => [ map {

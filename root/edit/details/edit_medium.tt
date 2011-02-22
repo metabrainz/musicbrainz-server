@@ -32,7 +32,8 @@
   </tr>
   [% END %]
 
-   <tr>
+  [% IF edit.display_data.old.tracklist %]
+  <tr>
      <th>[% l('Old Tracklist:') %]</th>
      <td>
        <table class="tbl">
@@ -43,7 +44,9 @@
        </table>
      </td>
    </tr>
-  
+  [% END %]
+
+  [% IF edit.display_data.new.tracklist %]
    <tr>
      <th>[% l('New Tracklist:') %]</th>
      <td>
@@ -55,4 +58,5 @@
        </table>
      </td>
    </tr>
+  [% END %]
 </table>
