@@ -23,17 +23,23 @@
 #   $Id$
 #____________________________________________________________________________
 
-use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
-
 use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+
+use aliased 'MusicBrainz::Server::Entity::Track';
+
 use DBDefs;
-use MusicBrainz::Server::Release;
-use MusicBrainz::Server::Track;
-use MusicBrainz::Server::ReleaseCDTOC;
-use Moderation;
-use MusicBrainz;
-use UserStuff;
+use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Constants qw(
+    $EDITOR_MODBOT
+    $EDIT_SET_TRACK_LENGTHS
+    $EDIT_MEDIUM_EDIT
+);
+use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Track qw( format_track_length );
 
 use Getopt::Long;
 my $debug = 0;
@@ -60,260 +66,233 @@ Allowed options are:
 
 EOF
 
-my $mb = MusicBrainz->new;
-$mb->Login;
-my $sql = Sql->new($mb->{dbh});
-$| = 1;
-my $privs = &UserStuff::AUTOMOD_FLAG;
-my $moderator = &ModDefs::MODBOT_MODERATOR;
+my $c = MusicBrainz::Server::Context->create_script_context;
 
-# Find albums with at least one track to fix
-print localtime() . " : Finding candidate albums\n" if $verbose;
-my $albums = $sql->SelectListOfHashes(
-    "SELECT DISTINCT a.id, a.artist
-    FROM album a, albumjoin j, track t, album_cdtoc
-    WHERE a.id = j.album
-    AND t.id = j.track
-    AND album_cdtoc.album = a.id
-    AND t.length <= 0",
-);
-printf localtime() . " : Found %d album%s\n",
-    scalar(@$albums), (@$albums==1 ? "" : "s"),
+# Find mediums with at least one track to fix
+print localtime() . " : Finding candidate mediums\n" if $verbose;
+my @medium_ids = @{ $c->sql->select_single_column_array(
+    "SELECT DISTINCT m.id
+       FROM medium m
+       JOIN medium_cdtoc mcd ON mcd.medium = m.id
+       JOIN tracklist tl ON tl.id = m.tracklist
+       JOIN track t ON t.tracklist = tl.id
+      WHERE t.length IS NULL OR t.length = 0 AND tl.track_count > 0"
+) };
+printf localtime() . " : Found %d medium%s\n",
+    scalar(@medium_ids), (@medium_ids == 1 ? "" : "s")
     if $verbose;
 
 my $tracks_fixed = 0;
 my $tracks_set = 0;
-my $albums_fixed = 0;
+my $mediums_fixed = 0;
 
-for my $album (@$albums)
+my @mediums = values %{ $c->model('Medium')->get_by_ids(@medium_ids) };
+$c->model('Track')->load_for_tracklists(map { $_->tracklist } @mediums);
+$c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } @mediums);
+
+for my $medium (@mediums)
 {
-    my $id = $album->{id};
-    print localtime() . " : Fixing album #$id\n" if $verbose;
+    printf "%s : Fixing medium #%d\n", scalar(localtime), $medium->id
+        if $verbose;
 
-    no warnings 'exiting';
-    eval {
+    my @cdtocs = $c->model('MediumCDTOC')->find_by_medium($medium->id);
+    $c->model('CDTOC')->load(@cdtocs);
 
-        my $tocs = MusicBrainz::Server::ReleaseCDTOC->newFromRelease($mb->{dbh}, $id);
-        $_ = $_->GetCDTOC for @$tocs;
+    @cdtocs = map { $_->cdtoc } @cdtocs;
+    my @tracks = $medium->tracklist->all_tracks;
 
-        if ($debug)
-        {
-                print "TOCs:\n";
-                for my $t (@$tocs)
-                {
-                        print "  " . $t->GetTOC . "\n";
-
-                        my @l = TrackLengthsFromTOC($t);
-                        @l = map { MusicBrainz::Server::Track::FormatTrackLength($_) } @l;
-                        print "    (@l)\n";
-                }
+    if ($debug) {
+        print "TOCs:\n";
+        for my $cdtoc (@cdtocs) {
+            print "  " . $cdtoc->toc . "\n";
+            printf "    (%s)\n", format_track_length($_->{length_time})
+                for @{ $cdtoc->track_details };
         }
 
-        my $tracks = $sql->SelectListOfHashes(
-                "SELECT t.id, t.length, j.sequence, t.artist
-                FROM track t, albumjoin j
-                WHERE t.id = j.track
-                AND j.album = ?
-                ORDER BY j.sequence",
-                $id,
-        );
-
-        if ($debug)
-        {
-                print "Tracks:\n";
-                printf "  #%02d : %10d %-8s  %12d\n",
-                        $_->{sequence},
-                        $_->{length},
-                        (($_->{length} > 0) ? MusicBrainz::Server::Track::FormatTrackLength($_->{length}) : ""),
-                        $_->{id},
-                        for @$tracks;
-        }
-
-        # Easy case: there is one disc ID, we have exactly the correct set of
-        # tracks, and all the tracks have no length.
-        if (@$tocs == 1)
-        {
-                my $release = MusicBrainz::Server::Release->new($mb->{dbh});
-                $release->SetId($id);
-                $release->SetArtist($album->{artist});
-
-                my $ideal_tracks = $tocs->[0]->GetTrackCount;
-                my $want_tracks = join ",", 1 .. $ideal_tracks;
-                my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
-
-                if ($want_tracks eq $have_tracks)
-                {
-                        # Check that each track either has no length, or its length seems
-                        # to match that given in the TOC
-
-                        my @want = TrackLengthsFromTOC($tocs->[0]);
-                        my @got = map { $_->{length} } @$tracks;
-                        my $bad = 0;
-
-                        for (1 .. $ideal_tracks)
-                        {
-                                my $got_l = $got[$_-1];
-                                my $want_l = $want[$_-1];
-
-                                next if $got_l <= 0;
-                                my $diff = abs($got_l - $want_l);
-                                next if $diff < 5000;
-
-                                ++$bad;
-                        }
-
-                        if ($bad == 0)
-                        {
-                                # For each track with no length, set the length as indicated
-                                # by the TOC
-                                
-                                print "Set track durations from CDTOC #". $tocs->[0]->GetId ." for release #". $release->GetId . "\n"
-                                        if $verbose;
-
-                                my @mods = Moderation->InsertModeration(
-                                        DBH => $mb->{dbh},
-                                        uid => $moderator,
-                                        privs => $privs,
-                                        type => &ModDefs::MOD_SET_RELEASE_DURATIONS,
-                                        release =>  $release,
-                                        cdtoc => $tocs->[0],
-                                ) unless $dry_run;
-
-                                $mods[0]->InsertNote($moderator, "FixTrackLength script") if $mods[0];
-
-                                ++$albums_fixed;
-                                next;
-                        }
-                }
-        }
-
-        # Probably the next case to handle is any combination of:
-        # - multiple TOCs, but where they are all "close enough"
-        # - tracks already have length, but all those tracks match the TOC "well enough"
-        my %c; ++$c{ $_->GetTrackCount } for @$tocs;
-
-        if (keys(%c) == 1)
-        {
-                # OK, one or more TOCs where the track counts match at least.
-                # How do the track lengths compare?
-
-                my @parsed_tocs = map { [TrackLengthsFromTOC($_)] } @$tocs;
-                my $num_tracks = (keys %c)[0];
-
-                # Calculate the average track lengths
-                my @average_toc;
-                for my $n (0 .. $num_tracks-1)
-                {
-                        my @l = map { $_->[$n] } @parsed_tocs;
-                        my $avg = 0;
-                        $avg += $_ for @l;
-                        $avg /= @l;
-                        push @average_toc, $avg;
-                }
-
-                # See how far off each TOC is from the average
-                my @skew;
-                for my $p (@parsed_tocs)
-                {
-                        my $sqdiff = 0;
-                        for my $n (0 .. $num_tracks-1)
-                        {
-                                my $diff = $p->[$n] - $average_toc[$n];
-                                $sqdiff += $diff*$diff;
-                        }
-                        $sqdiff /= $num_tracks;
-                        $sqdiff = sqrt($sqdiff) / 1000;
-
-                        print "Skew for @$p = $sqdiff\n" if $debug;
-                        push @skew, $sqdiff;
-                }
-
-                if (not grep { $_ > 5 } @skew)
-                {
-                        # Good, the TOC track lengths agree (clearly, if there's only one
-                        # TOC).
-                        # For each track which has length already, let's see how
-                        # closely it matches the average TOC.
-                        my $sqdiff = 0;
-                        for my $t (@$tracks)
-                        {
-                                my $l = $t->{length};
-                                $l > 0 or next;
-                                my $diff = $l - $average_toc[$t->{sequence}-1];
-                                $sqdiff += $diff*$diff;
-                        }
-                        $sqdiff /= $num_tracks;
-                        $sqdiff = sqrt($sqdiff) / 1000;
-
-                        print "Skew for existing tracks = $sqdiff\n" if $debug;
-
-                        if ($sqdiff < 5)
-                        {
-                                for my $t (@$tracks)
-                                {
-                                        # TODO? next if $t->{length} > 0;
-                                        my $new_length = int($average_toc[$t->{sequence}-1]);
-                                        my $track = MusicBrainz::Server::Track->new($mb->{dbh});
-                                        $track->SetId($t->{id});
-                                        $track->SetArtist($t->{artist});
-                                        $track->SetLength($t->{length});
-
-                                        print "Edit track time #". $track->GetId ." with length = $new_length\n"
-                                                if $verbose;
-
-                                        my @mods = Moderation->InsertModeration(
-                                                DBH => $mb->{dbh},
-                                                uid => $moderator,
-                                                privs => $privs,
-                                                type => &ModDefs::MOD_EDIT_TRACKTIME,
-                                                track =>  $track,
-                                                newlength => $new_length,
-                                        ) unless $dry_run;
-
-                                        $mods[0]->InsertNote($moderator, "FixTrackLength script") if $mods[0];
-                                        
-                                        ++$tracks_fixed;
-                                        ++$tracks_set unless $t->{length} > 0;
-                                }
-
-                                ++$albums_fixed;
-                                next;
-                        }
-                }
-        }
-
-        print "Don't know what to do about album #$id\n";
-
-        print " - multiple TOCs\n" if @$tocs > 1 and keys(%c)==1;
-        print " - multiple conflicting TOCs\n" if @$tocs > 1 and keys(%c)>1;
-
-        if (keys(%c)==1)
-        {
-                my $ideal_tracks = $tocs->[0]->GetTrackCount;
-                my $want_tracks = join ",", 1 .. $ideal_tracks;
-                my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
-                print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
-        }
-
-        my $withlength = grep { $_->{length}>0 } @$tracks;
-        print " - $withlength tracks have length\n" if $withlength;
-
-    };
-
-    if (my $err = $@)
-    {
-        warn $err;
-        eval { $sql->Rollback };
+        print "Tracks:\n";
+        printf "  #%02d : %10d %-8s  %12d\n",
+            $_->position, $_->length || 0,
+            $_->length ? format_track_length($_->length) : '',
+            $_->id
+                for @tracks;
     }
+
+    # Easy case: there is one disc ID, we have exactly the correct set of
+    # tracks, and all the tracks have no length.
+    if (@cdtocs == 1) {
+        my $cdtoc = $cdtocs[0];
+
+        my $cdtoc_track_count = $cdtoc->track_count;
+        my $want_tracks = join ",", 1 .. $cdtoc_track_count;
+        my $have_tracks = join ",", sort { $a<=>$b } map { $_->position }
+            @tracks;
+
+        if ($want_tracks eq $have_tracks) {
+            # Check that each track either has no length, or its length seems
+            # to match that given in the TOC
+
+            my @want = map { $_->{length_time} } @{ $cdtoc->track_details };
+            my @got = map { $_->length } @tracks;
+            my $bad = 0;
+
+            for (1 .. $cdtoc_track_count) {
+                my $got_l = $got[$_-1];
+                my $want_l = $want[$_-1];
+
+                next unless $got_l;
+                my $diff = abs($got_l - $want_l);
+                next if $diff < 5000;
+
+                ++$bad;
+            }
+
+            if ($bad == 0) {
+                # All track lengths are wrong, so we change them with a
+                # SetTrackLengths edit
+                printf "Set track durations from CDTOC #%d for medium #%d\n",
+                    $cdtoc->id, $medium->id
+                        if $verbose;
+
+                unless ($dry_run) {
+                    my $edit = $c->model('Edit')->create(
+                        editor_id => $EDITOR_MODBOT,
+                        privileges => $AUTO_EDITOR_FLAG,
+                        edit_type => $EDIT_SET_TRACK_LENGTHS,
+                        tracklist_id => $medium->tracklist_id,
+                        cdtoc_id => $cdtoc->id
+                    );
+
+                    $c->model('EditNote')->add_note(
+                        $edit->id,
+                        {
+                            editor_id => $EDITOR_MODBOT,
+                            text => 'FixTrackLength script'
+                        }
+                    );
+                }
+
+                ++$mediums_fixed;
+                next;
+            }
+        }
+    }
+
+    # Probably the next case to handle is any combination of:
+    # - multiple TOCs, but where they are all "close enough"
+    # - tracks already have length, but all those tracks match the TOC "well enough"
+    my %c; ++$c{ $_->track_count } for @cdtocs;
+
+    if (keys(%c) == 1) {
+        # All CDTOCs have matching track counts
+        my @parsed_tocs = map [
+            map { $_->{length_time} } @{ $_->track_details }
+        ], @cdtocs;
+        my $num_tracks = $cdtocs[0]->track_count;
+
+        # Calculate the average track lengths
+        my @average_toc;
+        for my $n (0 .. $num_tracks-1) {
+            my @l = map { $_->[$n] } @parsed_tocs;
+            my $avg = 0;
+            $avg += $_ for @l;
+            $avg /= @l;
+            push @average_toc, $avg;
+        }
+
+        # See how far off each TOC is from the average
+        my @skew;
+        for my $p (@parsed_tocs) {
+            my $sqdiff = 0;
+            for my $n (0 .. $num_tracks-1) {
+                my $diff = $p->[$n] - $average_toc[$n];
+                $sqdiff += $diff*$diff;
+            }
+            $sqdiff /= $num_tracks;
+            $sqdiff = sqrt($sqdiff) / 1000;
+
+            print "Skew for @$p = $sqdiff\n" if $debug;
+            push @skew, $sqdiff;
+        }
+
+        unless(grep { $_ > 5 } @skew) {
+            # Good, the TOC track lengths agree (clearly, if there's only one
+            # TOC).
+            # For each track which has length already, let's see how
+            # closely it matches the average TOC.
+            my $sqdiff = 0;
+            for my $t (@tracks) {
+                my $l = $t->length || 0;
+                $l > 0 or next;
+                my $diff = $l - $average_toc[$t->position - 1];
+                $sqdiff += $diff*$diff;
+            }
+            $sqdiff /= $num_tracks;
+            $sqdiff = sqrt($sqdiff) / 1000;
+
+            print "Skew for existing tracks = $sqdiff\n" if $debug;
+
+            if ($sqdiff < 5) {
+                unless (@tracks) {
+                    # FIXME This is a bug, and a hacky fix!
+                    # I have no idea why, but load_for_tracklists above sometimes
+                    # doesn't actually load all tracklists...
+                    warn "A medium has lost its tracklist: " . $medium->id;
+                    $c->model('Track')->load_for_tracklists($medium->tracklist);
+                    @tracks = $medium->tracklist->all_tracks;
+                    $c->model('ArtistCredit')->load(@tracks);
+                }
+
+                my @new_tracklist = map {
+                    Track->new(
+                        length => int($average_toc[$_->position - 1]),
+                        name => $_->name,
+                        artist_credit => $_->artist_credit,
+                        recording_id => $_->recording_id,
+                        position => $_->position
+                    )
+                } @tracks;
+
+                unless ($dry_run) {
+                    my $edit = $c->model('Edit')->create(
+                        edit_type => $EDIT_MEDIUM_EDIT,
+                        editor_id => $EDITOR_MODBOT,
+                        privileges => $AUTO_EDITOR_FLAG,
+                        to_edit => $medium,
+                        tracklist => \@new_tracklist,
+                        separate_tracklists => 1 # TODO ?
+                    );
+
+                    $c->model('EditNote')->add_note(
+                        $edit->id,
+                        {
+                            editor_id => $EDITOR_MODBOT,
+                            text => 'FixTrackLength script'
+                        }
+                    );
+
+                }
+
+                ++$mediums_fixed;
+                next;
+            }
+        }
+    }
+
+    printf "Don't know what to do about medium #%d\n", $medium->id;
+    print " - multiple TOCs\n" if @cdtocs > 1 and keys(%c) == 1;
+    print " - multiple conflicting TOCs\n" if @cdtocs > 1 and keys(%c)>1;
+
+    if (keys(%c) == 1) {
+        my $ideal_track_count = $cdtocs[0]->track_count;
+        my $want_tracks = join ",", 1 .. $ideal_track_count;
+        my $have_tracks = join ",", sort { $a<=>$b } map { $_->position }
+            @tracks;
+        print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
+    }
+
+    my $withlength = grep { $_->length && $_->length > 0 } @tracks;
+    print " - $withlength tracks have length\n" if $withlength;
 }
 
-print localtime() . " : Fixed $tracks_fixed tracks on $albums_fixed albums\n";
+print localtime() . " : Fixed $tracks_fixed tracks on $mediums_fixed mediums\n";
 print localtime() . " : ($tracks_set had no previous length)\n";
-
-sub TrackLengthsFromTOC
-{
-    my $toc = shift;
-    map { $_/75*1000 } @{ $toc->GetTrackLengths };
-}
-
-# eof FixTrackLength.pl
