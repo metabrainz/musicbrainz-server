@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
+    $EDIT_RECORDING_DELETE
     $EDIT_RECORDING_EDIT
     $EDIT_RECORDING_MERGE
     $EDIT_RECORDING_ADD_ISRCS
@@ -233,6 +234,10 @@ sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
         );
     }
 }
+
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type => $EDIT_RECORDING_DELETE,
+};
 
 =head1 LICENSE
 

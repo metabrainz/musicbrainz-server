@@ -95,6 +95,14 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub can_delete {
+    my ($self, $recording_id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM track WHERE recording = ? LIMIT 1',
+        $recording_id
+    );
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -127,13 +135,6 @@ sub update
     my %names = $track_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('recording', $row, { id => $recording_id });
-}
-
-sub can_delete
-{
-    my ($self, $recording_id) = @_;
-    my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
-    return @$refcount == 0;
 }
 
 sub delete
