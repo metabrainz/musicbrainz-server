@@ -4,7 +4,8 @@ use Test::Moose;
 use Test::More;
 
 test all => sub {
-    use_ok 'MusicBrainz::Server::Entity::Language';
+    use MusicBrainz::Server::Entity::Language;
+    ok 1;
 };
 
 1;

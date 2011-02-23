@@ -24,8 +24,9 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, open_time, expire_time, close_time, data, language, type,
-            yes_votes, no_votes, autoedit, status, quality';
+    return 'edit.id, edit.editor, edit.open_time, edit.expire_time, edit.close_time,
+            edit.data, edit.language, edit.type, edit.yes_votes, edit.no_votes,
+            edit.autoedit, edit.status, edit.quality';
 }
 
 sub _dbh
@@ -160,6 +161,24 @@ sub find_for_subscription
             sub { $self->_new_from_row(shift) },
             $query, $subscription->target_id, $subscription->last_edit_sent);
     }
+}
+
+sub find_by_voter
+{
+    my ($self, $voter_id, $limit, $offset) = @_;
+    my $query =
+        'SELECT ' . $self->_columns . '
+           FROM ' . $self->_table . '
+           JOIN vote ON vote.edit = edit.id
+          WHERE vote.editor = ? AND vote.superseded = FALSE
+       ORDER BY id DESC
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub { $self->_new_from_row(shift) },
+        $query, $voter_id, $offset
+    );
 }
 
 sub merge_entities

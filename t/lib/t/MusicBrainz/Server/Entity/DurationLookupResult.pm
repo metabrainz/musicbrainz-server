@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-BEGIN { use_ok 'MusicBrainz::Server::Entity::DurationLookupResult'; }
+BEGIN { use MusicBrainz::Server::Entity::DurationLookupResult; }
 
 test all => sub {
 

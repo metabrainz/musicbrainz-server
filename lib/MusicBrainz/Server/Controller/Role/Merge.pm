@@ -53,8 +53,10 @@ role {
         }
         else {
             $c->response->redirect(
-                $c->uri_for_action(
-                    $self->action_for('show'), [ $loaded[0]->gid ]));
+                $loaded[0]
+                    ? $c->uri_for_action(
+                        $self->action_for('show'), [ $loaded[0]->gid ])
+                    : $c->uri_for_action('/search/search'));
         }
     };
 

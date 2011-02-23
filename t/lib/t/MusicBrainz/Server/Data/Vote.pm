@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-BEGIN { use_ok 'MusicBrainz::Server::Data::Vote' }
+BEGIN { use MusicBrainz::Server::Data::Vote }
 
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Types qw( :vote );

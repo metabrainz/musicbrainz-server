@@ -5,9 +5,10 @@ use namespace::autoclean;
 use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use JSON::Any;
+use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
-use MusicBrainz::Server::Track qw( unformat_track_length );
+use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Wizard;
@@ -66,8 +67,8 @@ sub _build_pages {
             title => l('Add Missing Entities'),
             template => 'release/edit/missing_entities.tt',
             form => 'ReleaseEditor::MissingEntities',
-            prepare => sub { $self->determine_missing_entities; },
-
+            prepare => sub { $self->prepare_missing_entities; },
+            skip => sub { $self->skip_missing_entities; },
         },
         {
             name => 'editnote',
@@ -234,7 +235,7 @@ sub prepare_recordings
     $self->load_page('recordings', { 'rec_mediums' => \@recording_gids });
 }
 
-sub determine_missing_entities
+sub prepare_missing_entities
 {
     my ($self) = @_;
 
@@ -243,19 +244,32 @@ sub determine_missing_entities
     my @credits = map +{
             for => $_->{name},
             name => $_->{name},
-        }, $self->_misssing_artist_credits($data);
+        }, uniq_by { $_->{name} }
+            $self->_misssing_artist_credits($data);
 
     my @labels = map +{
             for => $_->{name},
             name => $_->{name}
-        }, $self->_missing_labels($data);
+        }, uniq_by { $_->{name} }
+            $self->_missing_labels($data);
 
     $self->load_page('missing_entities', {
         missing => {
-            artists => \@credits,
-            labels => \@labels
+            artist => \@credits,
+            label => \@labels
         }
     });
+
+    $self->c->stash(
+        missing_entity_count => scalar @credits + scalar @labels
+    );
+}
+
+sub skip_missing_entities
+{
+    my $self = shift;
+
+    return ! $self->c->stash->{missing_entity_count};
 }
 
 sub prepare_edits
@@ -390,7 +404,7 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             map { $_ => $artist->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{artists} };
+    } @{ $data->{missing}{artist} };
 
     my @label_edits = map {
         my $label = $_;
@@ -398,7 +412,7 @@ sub _edit_missing_entities
             $EDIT_LABEL_CREATE,
             $editnote,
             map { $_ => $label->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{labels} };
+    } @{ $data->{missing}{label} };
 
     return () if $previewing;
     return (
@@ -769,11 +783,12 @@ sub _seed_parameters {
     for my $trans (@transformations) {
         my ($key, $alias, $transform) = @$trans;
         if (exists $params->{$alias}) {
-            $params->{$key} = $transform->($self->c, delete $params->{$alias})->id;
+            my $obj = $transform->($self->c, delete $params->{$alias}) or next;
+            $params->{$key} = $obj->id;
         }
     }
 
-    for my $label (@{ $params->{labels} }) {
+    for my $label (@{ $params->{labels} || [] }) {
         if (my $mbid = $label->{mbid}) {
             my $entity = $self->c->model('Label')
                 ->get_by_gid($mbid);
@@ -786,11 +801,11 @@ sub _seed_parameters {
     }
 
     for my $artist_credit (
-        map { @{ $_->{names} } } (
+        map { @{ $_->{names} || [] } } (
             ($params->{artist_credit} || ()),
-            map { $_->{artist_credit} || [] }
+            map { $_->{artist_credit} || {} }
                 map { @{ $_->{track} || []}  }
-                    @{ $params->{medium} || []}
+                    @{ $params->{mediums} || []}
         )
     ) {
         if (my $mbid = $artist_credit->{mbid}){
@@ -806,7 +821,7 @@ sub _seed_parameters {
     {
         my $medium_idx;
         my $json = JSON::Any->new(utf8 => 1);
-        for my $medium (@{ $params->{mediums} }) {
+        for my $medium (@{ $params->{mediums} || [] }) {
             if (my $format = delete $medium->{format}) {
                 my $entity = $self->c->model('MediumFormat')
                     ->find_by_name($format);
@@ -854,7 +869,7 @@ sub _seed_parameters {
                         ];
                     }
 
-                    if (my $length = $track->{duration}) {
+                    if (my $length = $track->{length}) {
                         $track->{length} = ($length =~ /:/)
                             ? $length
                             : format_track_length($length);
@@ -869,6 +884,16 @@ sub _seed_parameters {
             $medium->{position} = ++$medium_idx;
         }
     };
+
+    # FIXME a bit of a hack, but if either of these = [], HTML::FormHandler
+    # will show no rows
+    $params->{labels} = [
+        { label => '', catalog_number => '' }
+    ] unless @{ $params->{labels}||[] };
+
+    $params->{mediums} = [
+        { position => 1 },
+    ] unless @{ $params->{mediums}||[] };
 
     return collapse_hash($params);
 };

@@ -14,7 +14,7 @@
     </script>
 [% END %]
 
-[% WRAPPER 'user/profile/layout.tt' title=l('Open Edits') page='open_edits' %]
-   <h2>[% l('Open Edits by {name}', { name => html_escape(user.name) }) %]</h2>
+[% WRAPPER 'user/profile/layout.tt' title=l('Edits') %]
+   <h2>[% l('Edits by {name}', { name => html_escape(user.name) }) %]</h2>
    [% INCLUDE 'edit/list.tt' %]
 [% END %]

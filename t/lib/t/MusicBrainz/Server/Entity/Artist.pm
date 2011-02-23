@@ -5,9 +5,9 @@ use Test::More;
 
 use Date::Calc qw(This_Year);
 
-use_ok 'MusicBrainz::Server::Entity::Artist';
-use_ok 'MusicBrainz::Server::Entity::ArtistType';
-use_ok 'MusicBrainz::Server::Entity::ArtistAlias';
+use MusicBrainz::Server::Entity::Artist;
+use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::ArtistAlias;
 
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $VARTIST_GID );
 

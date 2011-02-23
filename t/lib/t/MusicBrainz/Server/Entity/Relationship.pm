@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::Relationship';
+use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::Link;

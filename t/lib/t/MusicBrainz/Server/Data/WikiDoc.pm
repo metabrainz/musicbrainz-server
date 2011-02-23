@@ -9,7 +9,7 @@ use MusicBrainz::Server::Test;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::WikiDoc';
+use MusicBrainz::Server::Data::WikiDoc;
 
 with 't::Context';
 

@@ -4,7 +4,6 @@
   <div class="half-width">
     <fieldset>
       <legend>[%- l('Work Details') -%]</legend>
-      [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'comment', l('Comment:')) -%]
       [%- form_row_text_long(r, 'iswc', l('ISWC:')) -%]

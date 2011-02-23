@@ -18,7 +18,9 @@
             [%- FOREACH alias IN aliases -%]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>
+                        [% '<span class="mp">' IF alias.edits_pending %]
                         [% rdfa_alias(alias.name, entity) %]
+                        [% '</span>' IF alias.edits_pending %]
                     </td>
                     [% IF c.user_exists %]
                         <td>

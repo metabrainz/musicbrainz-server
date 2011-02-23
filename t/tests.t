@@ -80,6 +80,5 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::WorkType
 );
 
+plan tests => scalar(@classes);
 run_tests($_ => $_) for (@classes);
-
-done_testing;

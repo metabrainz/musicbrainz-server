@@ -4,14 +4,39 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::CDTOC';
-use_ok 'MusicBrainz::Server::Data::MediumCDTOC';
+use MusicBrainz::Server::Data::CDTOC;
+use MusicBrainz::Server::Data::MediumCDTOC;
 
 use Sql;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Entity::Medium;
 
 with 't::Context';
+
+test 'Adding a CDTOC to a medium removes CD stubs' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+cdtoc');
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+cdstub_raw');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
+    INSERT INTO cdtoc
+        (id, discid, freedb_id, track_count, leadout_offset, track_offset)
+    VALUES
+        (3, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-', '5908ea07', 7, 171327,
+         ARRAY[150,22179,49905,69318,96240,121186,143398]);
+EOSQL
+
+    my $discid = 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-';
+    my $toc = $test->c->model('CDStubTOC')->get_by_discid($discid);
+    ok($toc, 'cd stub exists');
+
+    $test->c->model('MediumCDTOC')->insert({
+        medium => 1,
+        cdtoc  => 3
+    });
+
+    $toc = $test->c->model('CDStubTOC')->get_by_discid($discid);
+    ok(!$toc, 'cd stub no longer exists');
+};
 
 test all => sub {
 

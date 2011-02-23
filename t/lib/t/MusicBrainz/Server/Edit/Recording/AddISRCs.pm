@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Recording::AddISRCs' };
+BEGIN { use MusicBrainz::Server::Edit::Recording::AddISRCs };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

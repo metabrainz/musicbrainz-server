@@ -7,7 +7,7 @@ with 't::Context';
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Edit' }
+BEGIN { use MusicBrainz::Server::Edit::Medium::Edit }
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';

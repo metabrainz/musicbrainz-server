@@ -10,7 +10,7 @@ use MusicBrainz::Server::Test;
 use Test::Mock::Class ':all';
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
-use_ok 'MusicBrainz::Server::Data::Search';
+use MusicBrainz::Server::Data::Search;
 
 with 't::Context';
 

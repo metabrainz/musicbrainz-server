@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Create'; }
+BEGIN { use MusicBrainz::Server::Edit::Medium::Create; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );

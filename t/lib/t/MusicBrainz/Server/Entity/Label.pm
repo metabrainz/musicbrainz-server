@@ -3,9 +3,9 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::Label';
-use_ok 'MusicBrainz::Server::Entity::LabelType';
-use_ok 'MusicBrainz::Server::Entity::LabelAlias';
+use MusicBrainz::Server::Entity::Label;
+use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::LabelAlias;
 
 test all => sub {
 

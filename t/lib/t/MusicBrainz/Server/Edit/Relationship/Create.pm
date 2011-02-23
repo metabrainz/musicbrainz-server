@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Relationship::Create' }
+BEGIN { use MusicBrainz::Server::Edit::Relationship::Create }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );

@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Work::Edit' };
+BEGIN { use MusicBrainz::Server::Edit::Work::Edit };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
@@ -41,13 +41,11 @@ $edit = create_edit($c, $work);
 accept_edit($c, $edit);
 
 $work = $c->model('Work')->get_by_id(1);
-$c->model('ArtistCredit')->load($work);
 is($work->name, 'Edited name');
 is($work->comment, 'Edited comment');
 is($work->iswc, '123456789123456');
 is($work->type_id, 1);
 is($work->edits_pending, 0);
-is($work->artist_credit->name, 'Foo');
 
 };
 
@@ -62,9 +60,6 @@ sub create_edit {
         comment => 'Edited comment',
         iswc => '123456789123456',
         type_id => 1,
-        artist_credit => [
-            { artist => 1, name => 'Foo' },
-        ]
     );
 }
 
@@ -74,7 +69,6 @@ sub is_unchanged {
     is($work->comment, undef);
     is($work->iswc, undef);
     is($work->type_id, undef);
-    is($work->artist_credit_id, 1);
 }
 
 1;

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
 use Sql;
 
-BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
+BEGIN { use MusicBrainz::Server::Data::Editor; }
 
 with 't::Context';
 

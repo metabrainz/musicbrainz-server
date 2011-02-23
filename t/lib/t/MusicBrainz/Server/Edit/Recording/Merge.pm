@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Recording::Merge'; }
+BEGIN { use MusicBrainz::Server::Edit::Recording::Merge; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

@@ -98,8 +98,8 @@ ALTER SEQUENCE artist_name_id_seq RESTART 5;
 INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work_name (id, name) VALUES (1, 'Test Work');
-INSERT INTO work (id, gid, name, artist_credit, type, iswc) VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1, 'T-000.000.001-0');
+INSERT INTO work (id, gid, name, type, iswc) VALUES
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 'T-000.000.001-0');
 
 
 

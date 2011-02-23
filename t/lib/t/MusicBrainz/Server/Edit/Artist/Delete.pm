@@ -4,7 +4,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Delete' }
+BEGIN { use MusicBrainz::Server::Edit::Artist::Delete }
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Types ':edit_status';

@@ -5,7 +5,7 @@ use Test::More;
 use Test::Exception;
 use Test::Memory::Cycle;
 
-BEGIN { use_ok 'MusicBrainz::Server::Data::Gender' };
+BEGIN { use MusicBrainz::Server::Data::Gender };
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;

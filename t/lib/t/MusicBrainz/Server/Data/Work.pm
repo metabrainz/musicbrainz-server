@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Memory::Cycle;
 
-use_ok 'MusicBrainz::Server::Data::Work';
+use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::WorkType;
 use MusicBrainz::Server::Data::Search;
 
@@ -24,7 +24,6 @@ my $work = $work_data->get_by_id(1);
 is ( $work->id, 1 );
 is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
 is ( $work->name, "Dancing Queen" );
-is ( $work->artist_credit_id, 1 );
 is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
@@ -35,7 +34,6 @@ $work = $work_data->get_by_gid("745c079d-374e-4436-9448-da92dedef3ce");
 is ( $work->id, 1 );
 is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
 is ( $work->name, "Dancing Queen" );
-is ( $work->artist_credit_id, 1 );
 is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
@@ -47,13 +45,6 @@ MusicBrainz::Server::Data::WorkType->new(c => $test->c)->load($work);
 is ( $work->type->name, "Composition" );
 memory_cycle_ok($work_data);
 memory_cycle_ok($work);
-
-my ($works, $hits) = $work_data->find_by_artist(1, 100);
-is( $hits, 1 );
-is( scalar(@$works), 1 );
-is( $works->[0]->name, "Dancing Queen" );
-memory_cycle_ok($work_data);
-memory_cycle_ok($works);
 
 my $annotation = $work_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );
@@ -72,7 +63,7 @@ memory_cycle_ok($annotation);
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
-($results, $hits) = $search->search("work", "queen", 10);
+my ($results, $hits) = $search->search("work", "queen", 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
@@ -92,7 +83,6 @@ $test->c->raw_sql->begin;
 
 $work = $work_data->insert({
         name => 'Traits',
-        artist_credit => 1,
         type_id => 1,
         iswc => 'T-000.000.001-0',
         comment => 'Drum & bass track',
@@ -105,7 +95,6 @@ ok($work->id > 1);
 
 $work = $work_data->get_by_id($work->id);
 is($work->name, 'Traits');
-is($work->artist_credit_id, 1);
 is($work->comment, 'Drum & bass track');
 is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
@@ -160,16 +149,12 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, NULL);
-
 INSERT INTO work_name (id, name)
     VALUES (1, 'Target'), (2, 'Merge 1'), (3, 'Merge 2');
-INSERT INTO work (id, gid, name, artist_credit)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2, 1),
-           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3, 1);
+INSERT INTO work (id, gid, name)
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3);
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,

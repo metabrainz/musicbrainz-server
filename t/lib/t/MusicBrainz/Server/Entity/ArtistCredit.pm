@@ -3,8 +3,8 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::ArtistCredit';
-use_ok 'MusicBrainz::Server::Entity::ArtistCreditName';
+use MusicBrainz::Server::Entity::ArtistCredit;
+use MusicBrainz::Server::Entity::ArtistCreditName;
 
 test all => sub {
 

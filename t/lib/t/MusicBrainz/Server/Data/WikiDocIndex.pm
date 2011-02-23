@@ -6,7 +6,7 @@ use Test::Memory::Cycle;
 use File::Temp;
 use MusicBrainz::Server::Test;
 
-use_ok 'MusicBrainz::Server::Data::WikiDocIndex';
+use MusicBrainz::Server::Data::WikiDocIndex;
 
 has index_filename => (
     is => 'ro',

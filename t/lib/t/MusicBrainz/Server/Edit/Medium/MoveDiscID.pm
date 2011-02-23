@@ -7,7 +7,7 @@ with 't::Context';
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::MoveDiscID' }
+BEGIN { use MusicBrainz::Server::Edit::Medium::MoveDiscID }
 
 test all => sub {
 

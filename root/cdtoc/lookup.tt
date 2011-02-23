@@ -20,14 +20,39 @@
              MusicBrainz') %]</p>
   [% END %]
 
+  [% IF possible_mediums.size %]
+  <h2>[% l('Possible Mediums') %]</h2>
+  <p>[% l('Based on the CD stub you selected, we found the following mediums in MusicBrainz
+           that may be related:') %]</p>
+  <form action="[% c.req.uri %]" method="GET">
+    <input type="hidden" name="toc" value="[% toc %]" />
+    <table class="tbl">
+      <thead>
+        <th></th>
+        <th>[% l('Release') %]</th>
+        <th>[% l('Medium') %]</th>
+        <th>[% l('Artist') %]</th>
+      </thead>
+      <tbody>
+        [% FOR medium=possible_mediums %]
+        <tr class="[% 'ev' IF loop.count % 2 == 0 %]">
+          <td><input type="radio" name="medium" value="[% medium.id %]" /></td>
+          <td>[% link_entity(medium.release) %]</td>
+          <td>[% medium.position %]</td>
+          <td>[% artist_credit(medium.release.artist_credit) %]</td>
+        </tr>
+        [% END %]
+      </tbody>
+    </table>
+    [% form_submit(l('Attach Disc ID')) %]
+  </form>
+  [% END %]
+
   <h2>[% l('Search by artist') %]</h2>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_artist) %]
     <input type="hidden" name="toc" value="[% toc %]" />
-    [% WRAPPER form_row %]
-      [% r.label('query', l('Artist:')) %]
-      [% r.text('query') %]
-    [% END %]
+    [% form_row_text(r, 'query', l('Artist:')) %]
     <div class="row no-label">
       [% form_submit(l('Search')) %]
     </div>
@@ -37,10 +62,7 @@
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% toc %]" />
-    [% WRAPPER form_row %]
-      [% r.label('query', l('Release title:')) %]
-      [% r.text('query') %]
-    [% END %]
+    [% form_row_text(r, 'query', l('Release:')) %]
     <div class="row no-label">
       [% form_submit(l('Search')) %]
     </div>

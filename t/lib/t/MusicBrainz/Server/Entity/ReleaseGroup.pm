@@ -3,8 +3,8 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Entity::ReleaseGroup';
-use_ok 'MusicBrainz::Server::Entity::ReleaseGroupType';
+use MusicBrainz::Server::Entity::ReleaseGroup;
+use MusicBrainz::Server::Entity::ReleaseGroupType;
 
 test all => sub {
 
