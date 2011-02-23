@@ -1,4 +1,4 @@
-	package MusicBrainz::Server::WebService::XMLSerializer;
+package MusicBrainz::Server::WebService::XMLSerializer;
 
 use Moose;
 use Scalar::Util 'reftype';
@@ -924,7 +924,7 @@ sub isrc_resource
     my ($self, $gen, $isrc, $inc, $stash) = @_;
 
     my $data = [];
-    $self->_serialize_isrc_list($data, $gen, $isrc, $inc, $stash, 1);
+    $self->_serialize_isrc($data, $gen, $isrc, $inc, $stash, 1);
     return $data->[0];
 }
 
