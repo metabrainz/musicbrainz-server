@@ -143,10 +143,6 @@ sub accept {
         $self->c->model('Track')->load_for_tracklists($tracklist);
         $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
 
-        use Devel::Dwarn;
-        Dwarn tracks_to_hash($tracklist->tracks);
-        Dwarn $self->data->{old}{tracklist};
-
         unless (Compare(tracks_to_hash($tracklist->tracks), $self->data->{old}{tracklist})) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('The tracklist has changed since this edit was created');
