@@ -45,7 +45,9 @@ augment 'create_edits' => sub
     {
         $create_edit->(
             $EDIT_RELEASE_ARTIST, $editnote, release => $self->release,
-            update_tracklists => 1, artist_credit => $data->{artist_credit});
+            update_tracklists => 1, artist_credit => $data->{artist_credit},
+            as_auto_editor => $data->{as_auto_editor}
+        );
     }
 
     return $self->release;

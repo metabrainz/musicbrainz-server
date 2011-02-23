@@ -403,6 +403,7 @@ sub _edit_missing_entities
         $create_edit->(
             $EDIT_ARTIST_CREATE,
             $editnote,
+            as_auto_editor => $data->{as_auto_editor},
             map { $_ => $artist->{$_} } qw( name sort_name comment ));
     } @{ $data->{missing}{artist} };
 
@@ -411,6 +412,7 @@ sub _edit_missing_entities
         $create_edit->(
             $EDIT_LABEL_CREATE,
             $editnote,
+            as_auto_editor => $data->{as_auto_editor},
             map { $_ => $label->{$_} } qw( name sort_name comment ));
     } @{ $data->{missing}{label} };
 
@@ -526,6 +528,7 @@ sub _edit_release_track_edits
             my $opts = {
                 position => $medium_idx + 1,
                 release_id => $previewing ? 0 : $self->release->id,
+                as_auto_editor => $data->{as_auto_editor},
             };
 
             $opts->{name} = $new->{name} if $new->{name};
@@ -549,7 +552,8 @@ sub _edit_release_track_edits
                     $editnote,
                     medium_id  => $previewing ? 0 : $add_medium->entity_id,
                     release_id => $previewing ? 0 : $self->release->id,
-                    cdtoc      => $new->{toc}
+                    cdtoc      => $new->{toc},
+                    as_auto_editor => $data->{as_auto_editor},
                 );
             }
 
