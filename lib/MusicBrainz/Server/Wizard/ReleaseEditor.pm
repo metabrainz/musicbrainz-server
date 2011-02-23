@@ -67,8 +67,8 @@ sub _build_pages {
             title => l('Add Missing Entities'),
             template => 'release/edit/missing_entities.tt',
             form => 'ReleaseEditor::MissingEntities',
-            prepare => sub { $self->determine_missing_entities; },
-
+            prepare => sub { $self->prepare_missing_entities; },
+            skip => sub { $self->skip_missing_entities; },
         },
         {
             name => 'editnote',
@@ -235,7 +235,7 @@ sub prepare_recordings
     $self->load_page('recordings', { 'rec_mediums' => \@recording_gids });
 }
 
-sub determine_missing_entities
+sub prepare_missing_entities
 {
     my ($self) = @_;
 
@@ -259,6 +259,17 @@ sub determine_missing_entities
             label => \@labels
         }
     });
+
+    $self->c->stash(
+        missing_entity_count => scalar @credits + scalar @labels
+    );
+}
+
+sub skip_missing_entities
+{
+    my $self = shift;
+
+    return ! $self->c->stash->{missing_entity_count};
 }
 
 sub prepare_edits
