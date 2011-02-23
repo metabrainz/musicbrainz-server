@@ -230,8 +230,8 @@ subtest 'Find edits by subscription' => sub {
     memory_cycle_ok($edit_data);
     memory_cycle_ok(\@edits);
 
-    my $sub = LabelSubscription->new( label_id => 1, last_edit_sent => 0 );
-    my @edits = $edit_data->find_for_subscription($sub);
+    $sub = LabelSubscription->new( label_id => 1, last_edit_sent => 0 );
+    @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 1, 'found 1 edits');
     ok((grep { $_->id == 2 } @edits), 'has edit #2');
     memory_cycle_ok($edit_data);
