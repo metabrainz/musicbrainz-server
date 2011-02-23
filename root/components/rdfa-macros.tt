@@ -380,9 +380,9 @@ END -%]
 [%- MACRO rdfa_link_recording_header(recording) BLOCK;
   IF doRDFa;
     link = c.uri_for_action("/recording/show", [ recording.gid ]);
-    '<span class="mp">' IF recording.edits_pending AND action == 'show';
+    '<span class="mp">' IF recording.edits_pending;
     '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="dct:title rdfs:label" xml:lang="" datatype="">' _ html_escape(recording.name) _ '</a>';
-    '</span>' IF recording.edits_pending AND action == 'show';      
+    '</span>' IF recording.edits_pending;
   ELSE;
     link_recording(recording);
   END;
