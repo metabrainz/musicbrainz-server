@@ -36,6 +36,7 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::ArtistType
     t::MusicBrainz::Server::Data::CDStub
     t::MusicBrainz::Server::Data::CDTOC
+    t::MusicBrainz::Server::Data::Collate
     t::MusicBrainz::Server::Data::Collection
     t::MusicBrainz::Server::Data::CoreEntityCache
     t::MusicBrainz::Server::Data::Country
@@ -78,8 +79,6 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::WikiDocIndex
     t::MusicBrainz::Server::Data::Work
     t::MusicBrainz::Server::Data::WorkType
-
-    t::MusicBrainz::Server::Controller::WS::js::Autocomplete
 );
 
 plan tests => scalar(@classes);
