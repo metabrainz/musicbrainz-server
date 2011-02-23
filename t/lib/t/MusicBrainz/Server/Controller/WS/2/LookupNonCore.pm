@@ -70,7 +70,6 @@ ws_test 'isrc lookup with releases',
     '/isrc/JPA600102460?inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <isrc-list count="1">
         <isrc id="JPA600102460">
             <recording-list count="1">
                 <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
@@ -96,7 +95,6 @@ ws_test 'isrc lookup with releases',
                 </recording>
             </recording-list>
         </isrc>
-    </isrc-list>
 </metadata>';
 
 };

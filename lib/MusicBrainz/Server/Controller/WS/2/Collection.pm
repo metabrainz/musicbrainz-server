@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use List::MoreUtils qw( uniq all );
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -85,13 +86,13 @@ sub list_post {
     my $client = $c->req->query_params->{client}
         or _error($c, 'You must provide information about your client, by the client query parameter');
 
-    my $xp = XML::XPath->new( xml => $c->request->body );
+    my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
-    my @add_gids = uniq map { $_->getAttribute('id') }
-        $xp->find('/metadata/add/release')->get_nodelist;
+    my @add_gids = uniq map { $xp->find('@mb:id', $_)->string_value }
+        $xp->find('/mb:metadata/mb:add/mb:release')->get_nodelist;
 
-    my @remove_gids = uniq map { $_->getAttribute('id') }
-        $xp->find('/metadata/remove/release')->get_nodelist;
+    my @remove_gids = uniq map { $xp->find('@mb:id', $_)->string_value }
+        $xp->find('/mb:metadata/mb:remove/mb:release')->get_nodelist;
 
     _error ($c, "All releases must have an MBID present")
         unless all { defined } (@add_gids, @remove_gids);

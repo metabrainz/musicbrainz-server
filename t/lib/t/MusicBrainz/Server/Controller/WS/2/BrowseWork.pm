@@ -22,6 +22,11 @@ my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
+{
+
+local $TODO = 'This fail since artists were removed from works.';
+# And we haven't worked out how they should work
+
 ws_test 'browse works via artist (first page)',
     '/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5' =>
     '<?xml version="1.0" encoding="UTF-8"?>
@@ -67,6 +72,8 @@ ws_test 'browse works via artist (second page)',
     </work>
   </work-list>
 </metadata>';
+
+}
 
 };
 

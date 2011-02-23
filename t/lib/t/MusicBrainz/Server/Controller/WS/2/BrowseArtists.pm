@@ -73,13 +73,13 @@ ws_test 'browse artists via release, inc=tags+ratings',
                 <begin>1986-11-05</begin>
             </life-span>
             <tag-list>
-                <tag count="1"><name>c-pop</name></tag>
-                <tag count="1"><name>japanese</name></tag>
-                <tag count="1"><name>jpop</name></tag>
-                <tag count="1"><name>j-pop</name></tag>
-                <tag count="1"><name>kpop</name></tag>
-                <tag count="1"><name>k-pop</name></tag>
-                <tag count="1"><name>pop</name></tag>
+              <tag count="1"><name>c-pop</name></tag>
+              <tag count="1"><name>j-pop</name></tag>
+              <tag count="1"><name>japanese</name></tag>
+              <tag count="1"><name>jpop</name></tag>
+              <tag count="1"><name>k-pop</name></tag>
+              <tag count="1"><name>kpop</name></tag>
+              <tag count="1"><name>pop</name></tag>
             </tag-list>
             <rating votes-count="3">4.35</rating>
         </artist>
