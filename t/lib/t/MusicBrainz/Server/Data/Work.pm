@@ -62,7 +62,6 @@ memory_cycle_ok($work_data);
 memory_cycle_ok($annotation);
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
-my $results;
 my ($results, $hits) = $search->search("work", "queen", 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
