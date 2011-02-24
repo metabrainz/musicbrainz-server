@@ -63,18 +63,19 @@ sub lookup
     my $dur_string = "'{" . join(",", @durations) . "}'";
 
     my $list = $self->sql->select_list_of_hashes(
-            "SELECT ti.tracklist AS tracklist, 
-                    cube_distance(toc, create_cube_from_durations($dur_string)) AS distance, 
+            "SELECT ti.tracklist AS tracklist,
+                    cube_distance(toc, create_cube_from_durations($dur_string)) AS distance,
                     m.id as medium,
                     release,
                     position,
                     format,
                     name,
                     edits_pending
-               FROM tracklist_index ti, medium m 
-              WHERE m.tracklist = ti.tracklist 
-                AND tracks = ? 
-                AND toc <@ create_bounding_cube($dur_string, ?) 
+               FROM tracklist_index ti
+               JOIN tracklist t ON t.id = ti.tracklist
+               JOIN medium m ON m.tracklist = ti.tracklist
+             WHERE  t.track_count = ?
+                AND toc <@ create_bounding_cube($dur_string, ?)
            ORDER BY distance", $toc_info{tracks}, $fuzzy);
 
     my @results;
