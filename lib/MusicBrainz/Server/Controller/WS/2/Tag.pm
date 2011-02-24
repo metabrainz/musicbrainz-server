@@ -65,7 +65,7 @@ sub tag_submit : Private
     my @submit;
     for my $node ($xp->find('/mb:metadata/*/*')->get_nodelist)
     {
-        my $type = $node->getName;
+        my $type = $node->getLocalName;
         $type =~ s/-/_/;
 
         my $model = type_to_model ($type);
