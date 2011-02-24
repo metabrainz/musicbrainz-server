@@ -17,8 +17,7 @@ has request_parsers => (
     }
 );
 
-has request_data_class => (
-    isa => 'Str',
+has request_data => (
     is => 'ro',
     required => 1
 );
@@ -34,19 +33,20 @@ sub process_request {
         %args = $parser->parse($request);
     }
     else {
-        try {
-            %args = (
-                %{ $request->query_parameters },
-                %args,
-            );
-        }
-        catch {
-            http_throw('BadRequest' => $_);
-        }
+        %args = (
+            %{ $request->query_parameters },
+            %args,
+        );
     }
 
-    Class::MOP::load_class($self->request_data_class);
-    $self->execute($self->request_data_class->new( %args ));
+    my $result = $self->request_data->process({ %args });
+
+    http_throw('BadRequest' => {
+        message => $result->result('gid')->errors
+    })
+        unless $result->valid;
+
+    $self->execute($result->clean);
 }
 
 1;

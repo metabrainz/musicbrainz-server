@@ -36,6 +36,7 @@ require Exporter;
         is_valid_isrc
         is_valid_iswc
         is_valid_ipi
+        is_valid_gid
         format_iswc
         format_ipi
         is_valid_url
@@ -112,6 +113,7 @@ sub IsGUID
     $_[0] = $1;
     1;
 }
+*is_valid_gid = *IsGUID;
 
 sub IsValidURL
 {
