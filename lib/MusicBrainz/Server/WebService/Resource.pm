@@ -2,8 +2,16 @@ package MusicBrainz::Server::WebService::Resource;
 use Moose::Role;
 use namespace::autoclean;
 
-use Plack::Response;
 use HTTP::Throwable::Factory 'http_throw';
+use Module::Pluggable::Object;
+use Plack::Response;
+
+has c => (
+    is => 'ro',
+    required => 1
+);
+
+with 'MusicBrainz::Server::WebService::Resource';
 
 has representations => (
     is => 'ro',
@@ -20,8 +28,25 @@ has methods => (
     is => 'ro',
     required => 1,
     traits => [ 'Hash' ],
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        my $mpo = Module::Pluggable::Object->new(
+            search_path => $self->meta->name,
+            require => 1
+        );
+        return {
+            map {
+                my ($method) = $_ =~ /.*::([a-z]*)$/i;
+                uc($method) => $_->new(c => $self->c)
+            } grep {
+                $_->does('MusicBrainz::Server::WebService::Method')
+            } $mpo->plugins
+        }
+    },
     handles => {
         method_handler => 'get',
+        supported_methods => 'keys'
     }
 );
 
@@ -29,7 +54,9 @@ sub handle_request {
     my ($self, $request) = @_;
 
     my $method = $self->method_handler($request->method)
-        or return http_throw('MethodNotAllowed');
+        or return http_throw('MethodNotAllowed' => {
+            allow => [ $self->supported_methods ]
+        });
 
     my $resource = $method->process_request($request);
 
@@ -42,8 +69,7 @@ sub handle_request {
 
         return Plack::Response->new(
             200 => [] => $serializer->serialize($resource)
-        )
-            or http_throw('NotAcceptable');
+        ) or http_throw('NotAcceptable');
     }
 
     http_throw('NotAcceptable');

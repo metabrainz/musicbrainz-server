@@ -22,6 +22,11 @@ has request_data => (
     required => 1
 );
 
+has c => (
+    is => 'ro',
+    required => 1
+);
+
 sub process_request {
     my ($self, $request) = @_;
 
