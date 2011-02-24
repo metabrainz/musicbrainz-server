@@ -64,20 +64,20 @@ sub run {
         my @subscriptions = $self->c->model('EditorSubscriptions')
             ->get_all_subscriptions($editor->id) or next;
 
-        if ($editor->has_confirmed_email_address) {
-            if(my $data = $self->extract_subscription_data(@subscriptions)) {
-                printf "... sending email\n" if $self->verbose;
-                $self->emailer->send_subscriptions_digest(
-                    editor => $editor,
-                    %$data
-                );
-            }
-        }
+        if(my $data = $self->extract_subscription_data(@subscriptions)) {
+            unless ($self->dry_run) {
+                if ($editor->has_confirmed_email_address) {
+                    printf "... sending email\n" if $self->verbose;
+                    $self->emailer->send_subscriptions_digest(
+                        editor => $editor,
+                        %$data
+                    );
+                }
 
-        unless ($self->dry_run) {
-            printf "... updating subscriptions\n" if $self->verbose;
-            $self->c->model('EditorSubscriptions')
-                ->update_subscriptions($max, $editor->id);
+                printf "... updating subscriptions\n" if $self->verbose;
+                $self->c->model('EditorSubscriptions')
+                    ->update_subscriptions($max, $editor->id);
+            }
         }
 
         printf "\n";
