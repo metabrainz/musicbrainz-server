@@ -5,8 +5,8 @@ use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ALIAS );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Add';
-with 'MusicBrainz::Server::Edit::Work';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Work';
 
 sub _alias_model { shift->c->model('Work')->alias }
 

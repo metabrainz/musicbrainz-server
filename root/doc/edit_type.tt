@@ -13,6 +13,14 @@
 [% WRAPPER 'layout.tt' full_width=1 title=class.edit_name %]
    <h1>[% class.edit_name %]</h1>
 
+   <p>
+   <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a> &gt;
+   [% class.edit_category %] &gt;
+   <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
+     [% class.edit_name %]
+   </a>
+   </p>
+
    [% IF page %]
    <h2>[% l('Description') %]</h2>
    [% page.content %]
@@ -54,7 +62,7 @@
        <tr class="ev">
          <th>[% l('Auto edit') %]</th>
          [% FOR quality=quality_levels %]
-         <td>[% class.edit_conditions.${quality}.auto_edit ? '&#10004;' : '&#10005;' %]</td>
+         <td>[% class.edit_conditions.${quality}.auto_edit ? l('&#10004;') : l('&#10005;') %]</td>
          [% END %]
        </tr>
      </tbody>

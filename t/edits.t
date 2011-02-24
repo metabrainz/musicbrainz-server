@@ -11,7 +11,9 @@ my $mpo = Module::Pluggable::Object->new(
     search_path => 't::MusicBrainz::Server::Edit');
 my @classes = $mpo->plugins;
 
+push @classes, 't::MusicBrainz::Server::EditRegistry';
+
 plan tests => scalar(@classes);
-for ($mpo->plugins) {
+for (@classes) {
     run_tests($_ => $_)
 }
