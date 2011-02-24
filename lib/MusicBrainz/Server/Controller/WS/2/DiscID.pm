@@ -54,7 +54,20 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         }
     }
 
-    if (my $toc = $c->req->query_params->{toc}) {
+    if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
+        my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($id);
+        if ($cd_stub_toc) {
+            $c->model('CDStub')->load($cd_stub_toc);
+            $c->model('CDStub')->increment_lookup_count($cd_stub_toc->cdstub->id);
+            $c->model('CDStubTrack')->load_for_cdstub($cd_stub_toc->cdstub);
+            $cd_stub_toc->update_track_lengths;
+
+            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+            $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
+            return;
+        }
+    }
+    elsif (my $toc = $c->req->query_params->{toc}) {
         my $results = $c->model('DurationLookup')->lookup($toc, 10000);
         if (!defined($results)) {
             $self->_error($c, l('Invalid TOC'));
@@ -76,19 +89,6 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             },
             $c->stash->{inc}, $stash
         ));
-    }
-    elsif (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
-        my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($id);
-        if ($cd_stub_toc) {
-            $c->model('CDStub')->load($cd_stub_toc);
-            $c->model('CDStub')->increment_lookup_count($cd_stub_toc->cdstub->id);
-            $c->model('CDStubTrack')->load_for_cdstub($cd_stub_toc->cdstub);
-            $cd_stub_toc->update_track_lengths;
-
-            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-            $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
-            return;
-        }
     }
     else {
         $c->detach('not_found');
