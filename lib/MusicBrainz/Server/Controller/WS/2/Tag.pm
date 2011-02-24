@@ -71,7 +71,7 @@ sub tag_submit : Private
         my $model = type_to_model ($type);
         $self->_error ($c, "Unrecognized entity $type.") unless $model;
 
-        my $gid = $node->getAttribute ('id');
+        my $gid = $xp->find('@mb:id', $node)->string_value;
         $self->_error ($c, "Cannot parse MBID: $gid.")
             unless MusicBrainz::Server::Validation::IsGUID($gid);
 
