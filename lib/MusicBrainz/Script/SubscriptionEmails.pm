@@ -32,13 +32,14 @@ has 'dry_run' => (
 has 'emailer' => (
     is => 'ro',
     required => 1,
-    lazy_build => 1
+    lazy_build => 1,
+    traits   => [ 'NoGetopt' ],
 );
 
 has edit_cache => (
     is => 'ro',
     default => sub { {} },
-    traits => [ 'Hash' ],
+    traits => [ 'Hash', 'NoGetopt' ],
     handles => {
         cached_edits => 'get',
         cache_edits => 'set'
