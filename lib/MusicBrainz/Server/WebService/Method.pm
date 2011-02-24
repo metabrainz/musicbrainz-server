@@ -47,11 +47,24 @@ sub process_request {
     my $result = $self->request_data->process({ %args });
 
     http_throw('BadRequest' => {
-        message => $result->result('gid')->errors
+        message => join(' ', _collect_errors($result))
     })
         unless $result->valid;
 
     $self->execute($result->clean);
+}
+
+sub _collect_errors {
+    my ($result) = @_;
+    my @child;
+    if (my $child = $result->can('results')) {
+        push @child, _collect_errors($_)
+            for $result->results;
+    }
+    return (
+        $result->errors,
+        @child
+    );
 }
 
 1;

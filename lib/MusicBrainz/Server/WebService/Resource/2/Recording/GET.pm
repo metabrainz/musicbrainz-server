@@ -3,7 +3,7 @@ use Moose;
 use Data::TreeValidator::Sugar qw( branch leaf );
 use namespace::clean;
 
-use MusicBrainz::Server::WebService::Validation qw( gid );
+use MusicBrainz::Server::WebService::Validation qw( gid inc );
 
 with 'MusicBrainz::Server::WebService::Method';
 
@@ -12,6 +12,12 @@ has request_data => (
     default => sub {
         branch {
             gid => gid,
+            inc => inc(
+                qw( artists isrcs puids ),
+                releases => [qw(
+                    artist-credits discids media
+                )]
+            )
         }
     }
 );
