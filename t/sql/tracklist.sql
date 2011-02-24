@@ -105,7 +105,9 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2
 
 INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset, degraded)
        VALUES (1, 'BySFY0Ymit0miawEWumIN8Nvx-', '4b094107', 7, 171327,
-              '{187, 25585, 46070, 70612, 89517, 143492, 164262}', FALSE);
+              '{187, 25585, 46070, 70612, 89517, 143492, 164262}', FALSE),
+              (2, 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-', '6309da09', 9, 189343,
+              '{150,6614,32287,54041,61236,88129,92729,115276,153877}', FALSE);
 
 ALTER SEQUENCE track_name_id_seq RESTART 17;
 ALTER SEQUENCE track_id_seq RESTART 17;
