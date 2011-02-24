@@ -35,7 +35,17 @@ has 'emailer' => (
     lazy_build => 1
 );
 
-sub _build_emailer { 
+has edit_cache => (
+    is => 'ro',
+    default => sub { {} },
+    traits => [ 'Hash' ],
+    handles => {
+        cached_edits => 'get',
+        cache_edits => 'set'
+    }
+);
+
+sub _build_emailer {
     my $self = shift;
     return Email->new(c => $self->c);
 }
@@ -92,7 +102,8 @@ sub extract_subscription_data
             push @deletions, $sub;
         }
         else {
-            my @edits = $self->c->model('Edit')->find_for_subscription($sub);
+            my @edits = $self->_edits_for_subscription($sub);
+
             next unless @edits;
 
             my @open = grep { $_->is_open } @edits;
@@ -137,6 +148,22 @@ sub deleted
     my $sub = shift;
     return (does_role($sub, DeleteRole) && $sub->deleted_by_edit) ||
            (does_role($sub, MergeRole) && $sub->merged_by_edit);
+}
+
+sub _edits_for_subscription {
+    my ($self, $sub) = @_;
+    my $cache_key = ref($sub) . ': ' .
+        join(', ', $sub->target_id, $sub->last_edit_sent);
+    return @{
+        $self->cached_edits($cache_key) ||
+        do {
+            $self->cache_edits(
+                $cache_key => [
+                    $self->c->model('Edit')->find_for_subscription($sub)
+                ]
+            );
+        }
+    };
 }
 
 1;
