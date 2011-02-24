@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { l('Edit relationship attribute') }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }

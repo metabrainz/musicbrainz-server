@@ -21,6 +21,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
+with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { l("Edit release group") }

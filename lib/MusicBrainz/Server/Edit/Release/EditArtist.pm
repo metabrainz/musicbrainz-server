@@ -18,6 +18,7 @@ use MusicBrainz::Server::Translation 'l';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Edit release artist') }
 sub edit_type { $EDIT_RELEASE_ARTIST }

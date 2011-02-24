@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Role::DeleteSubscription';
+with 'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { l('Remove artist') }
 sub edit_type { $EDIT_ARTIST_DELETE }

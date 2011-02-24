@@ -186,7 +186,7 @@
                     [% l('{uri|Editing Suggestions}', { uri => c.uri_for_action('/report/index') }) %]
                 </li>
                 <li class="separator">
-                    [% l('{uri|Edit Conditions}', { uri => c.uri_for('/edit/conditions') }) %]
+                    [% l('{uri|Edit Conditions}', { uri => c.uri_for_action('/edit/edit_types') }) %]
                 </li>
             </ul>
         </li>

@@ -8,6 +8,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
     -excludes => 'recording_ids'
 };
+with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_name { l('Merge recordings') }
 sub edit_type { $EDIT_RECORDING_MERGE }

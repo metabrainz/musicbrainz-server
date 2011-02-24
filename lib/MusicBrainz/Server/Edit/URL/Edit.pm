@@ -11,6 +11,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::URL';
 
 sub edit_name { l('Edit URL') }
 sub edit_type { $EDIT_URL_EDIT }

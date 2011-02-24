@@ -9,6 +9,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Add release label') }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }

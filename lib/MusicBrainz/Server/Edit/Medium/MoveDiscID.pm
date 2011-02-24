@@ -8,6 +8,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Medium';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 

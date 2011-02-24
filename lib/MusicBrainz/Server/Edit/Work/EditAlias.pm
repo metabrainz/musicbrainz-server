@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Work';
 
 sub _alias_model { shift->c->model('Work')->alias }
 

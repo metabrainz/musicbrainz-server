@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Work';
 
 sub edit_type { $EDIT_WORK_EDIT }
 sub edit_name { l('Edit work') }

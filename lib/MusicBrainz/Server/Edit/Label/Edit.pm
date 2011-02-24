@@ -13,6 +13,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Label';
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { l('Edit label') }

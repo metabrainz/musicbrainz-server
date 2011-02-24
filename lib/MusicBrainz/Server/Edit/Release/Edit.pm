@@ -24,6 +24,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { l('Edit release') }

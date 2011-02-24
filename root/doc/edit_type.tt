@@ -1,0 +1,70 @@
+[% USE class = Class(edit_type) %]
+[% quality_levels = [ 0, 1, 2 ] %]
+[% BLOCK layout_head %]
+<style>
+  table.tbl { width: auto; }
+  tbody td {
+    border-left: 1px solid #999999;
+    text-align: center
+  }
+</style>
+[% END %]
+
+[% WRAPPER 'layout.tt' full_width=1 title=class.edit_name %]
+   <h1>[% class.edit_name %]</h1>
+
+   <p>
+   <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a> &gt;
+   [% class.edit_category %] &gt;
+   <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
+     [% class.edit_name %]
+   </a>
+   </p>
+
+   [% IF page %]
+   <h2>[% l('Description') %]</h2>
+   [% page.content %]
+   [% END %]
+
+   <h2>[% l('Details') %]</h2>
+   <table class="tbl">
+     <thead>
+       <tr>
+         <th></th>
+         [% FOR quality=quality_levels %]
+         <th>[% quality_name(quality) %]</th>
+         [% END %]
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <th>[% l('Voting period (days)') %]</th>
+         [% FOR quality=quality_levels %]
+         <td>[% class.edit_conditions.${quality}.duration %]</td>
+         [% END %]
+       </tr>
+       <tr class="ev">
+         <th>[% l('Votes') %]</th>
+         [% FOR quality=quality_levels %]
+         <td>[% class.edit_conditions.${quality}.votes %]</td>
+         [% END %]
+       </tr>
+       <tr>
+         <th>[% l('Expire action') %]</th>
+         [% FOR quality=quality_levels %]
+         <td>
+           [% SWITCH class.edit_conditions.${quality}.expire_action;
+             CASE 1; l('Accept');
+             CASE 2; l('Reject');
+           END %]</td>
+         [% END %]
+       </tr>
+       <tr class="ev">
+         <th>[% l('Auto edit') %]</th>
+         [% FOR quality=quality_levels %]
+         <td>[% class.edit_conditions.${quality}.auto_edit ? l('&#10004;') : l('&#10005;') %]</td>
+         [% END %]
+       </tr>
+     </tbody>
+   </table>
+[% END %]

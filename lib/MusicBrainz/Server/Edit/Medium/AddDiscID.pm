@@ -13,6 +13,7 @@ sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Medium';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 
 has '+data' => (

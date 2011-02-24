@@ -12,6 +12,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Label';
 
 sub edit_name { l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }

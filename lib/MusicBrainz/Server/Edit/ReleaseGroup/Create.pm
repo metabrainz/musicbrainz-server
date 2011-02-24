@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
+with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_name { l('Add release group') }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }

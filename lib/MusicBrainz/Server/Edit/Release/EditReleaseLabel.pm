@@ -10,6 +10,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Edit release label') }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
