@@ -118,8 +118,10 @@ sub list_list : Chained('base') PathPart('')
     $c->authenticate({}, 'musicbrainz.org');
 
     my $stash = WebServiceStash->new;
+
     my @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
     $c->model('Editor')->load(@collections);
+    $c->model('Collection')->load_release_count(@collections);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,
