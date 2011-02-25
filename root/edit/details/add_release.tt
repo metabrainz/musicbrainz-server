@@ -12,7 +12,7 @@
   [% IF edit.display_data.comment %]
   <tr>
     <th>[% l('Comment:') %]</th>
-    <td>[% edit.display_data.comment.name | html %]</td>
+    <td>[% edit.display_data.comment | html %]</td>
   </tr>
   [% END %]
 
