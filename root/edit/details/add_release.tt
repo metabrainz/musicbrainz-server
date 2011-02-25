@@ -9,18 +9,24 @@
     <td>[% artist_credit(edit.display_data.artist_credit) %]</td>
   </tr>
 
+  [% IF edit.display_data.status %]
   <tr>
     <th>[% l('Status:') %]</th>
     <td>[% edit.display_data.status.name | html %]</td>
   </tr>
+  [% END %]
 
+  [% IF edit.display_data.script %]
   <tr>
     <th>[% l('Script:') %]</th>
     <td>[% edit.display_data.script.name | html %]</td>
   </tr>
+  [% END %]
 
+  [% IF edit.display_data.language %]
   <tr>
     <th>[% l('Language:') %]</th>
     <td>[% edit.display_data.language.name | html %]</td>
   </tr>
+  [% END %]
 </table>
