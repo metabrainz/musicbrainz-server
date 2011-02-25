@@ -9,6 +9,13 @@
     <td>[% artist_credit(edit.display_data.artist_credit) %]</td>
   </tr>
 
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Comment:') %]</th>
+    <td>[% edit.display_data.comment.name | html %]</td>
+  </tr>
+  [% END %]
+
   [% IF edit.display_data.status %]
   <tr>
     <th>[% l('Status:') %]</th>
