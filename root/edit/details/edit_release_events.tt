@@ -1,4 +1,4 @@
-<table class="details edit-release-events">
+<table class="tbl edit-release-events">
   <thead>
     <tr>
       <th>[% l('Release') %]</th>
