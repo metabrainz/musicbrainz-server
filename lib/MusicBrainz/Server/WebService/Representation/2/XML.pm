@@ -5,6 +5,8 @@ use HTTP::Throwable::Factory qw( http_throw );
 use Module::Pluggable::Object;
 use Scalar::Util 'blessed';
 
+with 'MusicBrainz::Server::WebService::Representation';
+
 has serializers => (
     is => 'ro',
     isa => 'HashRef',
@@ -26,6 +28,8 @@ has serializers => (
         serializer => 'get'
     }
 );
+
+sub content_type { 'application/xml' }
 
 sub serialize {
     my ($self, $resource) = @_;
