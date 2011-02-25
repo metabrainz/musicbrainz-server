@@ -31,7 +31,8 @@ ws_test 'artist lookup with tags and ratings',
         <life-span>
             <begin>1986-11-05</begin>
         </life-span>
-        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>pop</name></tag></tag-list><rating votes-count="3">4.35</rating>
+        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
+        <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
 
@@ -94,7 +95,7 @@ ws_test 'artist lookup with release-groups, tags and ratings',
                 </tag-list>
             </release-group>
         </release-group-list>
-        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
+        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
         <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
@@ -111,11 +112,7 @@ ws_test 'release lookup with release-groups, tags and ratings',
         </text-representation>
         <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
             <title>My Demons</title>
-            <tag-list>
-                <tag count="2"><name>dubstep</name></tag>
-                <tag count="1"><name>electronic</name></tag>
-                <tag count="1"><name>grime</name></tag>
-            </tag-list>
+            <tag-list><tag count="2"><name>dubstep</name></tag><tag count="1"><name>electronic</name></tag><tag count="1"><name>grime</name></tag></tag-list>
             <rating votes-count="1">4</rating>
         </release-group>
         <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
