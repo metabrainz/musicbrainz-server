@@ -1,7 +1,7 @@
-package MusicBrainz::Server::WebService::Representation::2::XML::ArtistCredit;
+package MusicBrainz::Server::WebService::2::Representation::XML::ArtistCredit;
 use Moose;
 
-with 'MusicBrainz::Server::WebService::Representation::2::XML::Serializer';
+with 'MusicBrainz::Server::WebService::2::Representation::XML::Serializer';
 
 sub serialize_resource {
     my ($self, $artist_credit, %extra) = @_;

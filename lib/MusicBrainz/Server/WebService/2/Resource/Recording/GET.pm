@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Resource::2::Recording::GET;
+package MusicBrainz::Server::WebService::2::Resource::Recording::GET;
 use Moose;
 use namespace::clean;
 

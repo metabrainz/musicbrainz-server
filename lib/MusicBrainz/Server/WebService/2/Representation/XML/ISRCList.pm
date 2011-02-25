@@ -1,7 +1,7 @@
-package MusicBrainz::Server::WebService::Representation::2::XML::ISRCList;
+package MusicBrainz::Server::WebService::2::Representation::XML::ISRCList;
 use Moose;
 
-with 'MusicBrainz::Server::WebService::Representation::2::XML::Serializer';
+with 'MusicBrainz::Server::WebService::2::Representation::XML::Serializer';
 
 sub serialize_resource {
     my ($self, $isrcs) = @_;

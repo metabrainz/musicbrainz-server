@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Representation::2::XML;
+package MusicBrainz::Server::WebService::2::Representation::XML;
 use Moose;
 
 use HTTP::Throwable::Factory qw( http_throw );
@@ -12,7 +12,7 @@ has serializers => (
     isa => 'HashRef',
     default => sub {
         my $self = shift;
-        my $prefix = 'MusicBrainz::Server::WebService::Representation::2::XML';
+        my $prefix = 'MusicBrainz::Server::WebService::2::Representation::XML';
         return {
             map {
                 my ($name) = $_ =~ /${prefix}::(.*)/;
