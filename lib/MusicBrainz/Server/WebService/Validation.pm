@@ -26,7 +26,7 @@ sub inc {
             _parse_inc(shift, mkopt_hash(\@options));
         } ],
         transformations => [ sub {
-            my @inc = split /\s+/, shift;
+            my @inc = split /\s+/, (shift || '');
             return { map { $_ => 1 } @inc };
         } ],
     )
@@ -34,7 +34,7 @@ sub inc {
 
 sub _parse_inc {
     my ($inc_string, $options) = @_;
-    my %inc = map { $_ => 1 } split /\s+/, $inc_string;
+    my %inc = map { $_ => 1 } split /\s+/, ($inc_string || '');
 
     my %opts = %$options;
     my %reverse_deps = map {

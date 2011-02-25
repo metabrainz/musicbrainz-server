@@ -3,11 +3,11 @@ use Moose;
 
 with 'MusicBrainz::Server::WebService::2::Representation::XML::Serializer';
 
-sub serialize_resource {
+sub element { 'isrc' }
+
+sub serialize_inner {
     my ($self, $isrc, %extra) = @_;
-    $self->xml->isrc(
-        $isrc->isrc
-    );
+    return $isrc->isrc;
 }
 
 1;

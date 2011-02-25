@@ -3,11 +3,17 @@ use Moose;
 
 with 'MusicBrainz::Server::WebService::2::Representation::XML::Serializer';
 
-sub serialize_resource {
-    my ($self, $artist, %extra) = @_;
-    $self->xml->artist(
-        { id => $artist->gid },
+sub element { 'artist' }
 
+sub attributes {
+    my ($self, $artist) = @_;
+    { id => $artist->gid };
+}
+
+sub serialize_inner {
+    my ($self, $artist, %extra) = @_;
+
+    return (
         # The name, sort-name and comment are always present
         $self->xml->name($artist->name),
         $self->xml->sort_name($artist->sort_name),

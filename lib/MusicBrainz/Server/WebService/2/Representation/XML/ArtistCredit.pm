@@ -3,9 +3,11 @@ use Moose;
 
 with 'MusicBrainz::Server::WebService::2::Representation::XML::Serializer';
 
-sub serialize_resource {
+sub element { 'artist-credit' }
+
+sub serialize_inner {
     my ($self, $artist_credit, %extra) = @_;
-    $self->xml->artist_credit(
+    return (
         map {
             $self->xml->name_credit(
                 {
