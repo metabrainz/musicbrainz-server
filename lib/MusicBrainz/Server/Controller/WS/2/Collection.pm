@@ -39,6 +39,14 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 
     my $collection = $c->stash->{entity};
 
+    if (!$collection->public) {
+        $c->authenticate({}, 'musicbrainz.org');
+        if ($c->user_exists) {
+            $self->_error($c, 'You do not have permission to view this collection')
+                unless $c->user->id == $collection->editor_id;
+        }
+    }
+
     my $stash = WebServiceStash->new;
 
     my $opts = $stash->store ($collection);
