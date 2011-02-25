@@ -49,38 +49,7 @@ ws_test 'artist lookup, inc=aliases',
 
 ws_test 'artist lookup with releases',
     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
-        <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
-        <release-list count="2">
-          <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title>
-                <status>Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>jpn</language>
-                    <script>Jpan</script>
-                </text-representation>
-                <date>2001-07-04</date>
-                <country>JP</country>
-                <barcode>4942463511227</barcode>
-            </release>
-            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                <title>Summer Reggae! Rainbow</title>
-                <status>Pseudo-Release</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>jpn</language>
-                    <script>Latn</script>
-                </text-representation>
-                <date>2001-07-04</date>
-                <country>JP</country>
-                <barcode>4942463511227</barcode>
-            </release>
-        </release-list>
-    </artist>
-</metadata>';
+    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Group" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f"><name>7人祭</name><sort-name>7nin Matsuri</sort-name><release-list count="2"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e"><title>サマーれげぇ!レインボー</title><status>Official</status><quality>normal</quality><text-representation><language>jpn</language><script>Jpan</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release><release id="b3b7e934-445b-4c68-a097-730c6a6d47e6"><title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status><quality>normal</quality><text-representation><language>jpn</language><script>Latn</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release></release-list></artist></metadata>';
 
 ws_test 'artist lookup with pseudo-releases',
     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' =>
@@ -252,25 +221,7 @@ ws_test 'single artist release lookup',
 
 ws_test 'various artists release lookup',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-        <name>BoA</name><sort-name>BoA</sort-name>
-        <life-span>
-            <begin>1986-11-05</begin>
-        </life-span>
-        <release-list count="1">
-            <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-                <title>the Love Bug</title><status>Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>eng</language><script>Latn</script>
-                </text-representation>
-                <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
-            </release>
-        </release-list>
-    </artist>
-</metadata>';
+    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name><life-span><begin>1986-11-05</begin></life-span><release-list count="1"><release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7"><title>the Love Bug</title><status>Official</status><quality>normal</quality><text-representation><language>eng</language><script>Latn</script></text-representation><date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode></release></release-list></artist></metadata>';
 
 };
 
