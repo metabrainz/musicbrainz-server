@@ -61,9 +61,7 @@ sub handle_request {
     my $resource = $method->process_request($request);
 
     my @accept = $request->header('Accept');
-    warn $_ for @accept;
     for my $accept ($request->header('Accept')) {
-        warn $accept;
         my $serializer = $self->serializer($accept)
             or next;
 
