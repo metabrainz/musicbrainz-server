@@ -32,8 +32,21 @@ sub execute {
         inline => []
     );
 
+    my @load_ac = $recording;
+
+    if ($input->{inc}{releases}) {
+        my ($releases) = $self->c->model('Release')->find_by_recording(
+            $recording->id, 25, 0
+        );
+
+        push @{ $ret{inline} },
+            bless($releases, 'MusicBrainz::Server::Entity::ReleaseList');
+
+        push @load_ac, @$releases if $input->{inc}{artists};
+    }
+
     if ($input->{inc}{artists}) {
-        $self->c->model('ArtistCredit')->load($recording);
+        $self->c->model('ArtistCredit')->load(@load_ac);
     }
 
     if ($input->{inc}{isrcs}) {
