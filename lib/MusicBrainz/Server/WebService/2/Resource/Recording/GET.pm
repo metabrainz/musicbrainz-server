@@ -6,9 +6,9 @@ use Data::TreeValidator::Sugar qw( branch leaf );
 use HTTP::Throwable::Factory qw( http_throw );
 use MusicBrainz::Server::WebService::Validation qw( gid inc );
 
-with 'MusicBrainz::Server::WebService::Method';
+with 'Sloth::Method';
 
-has request_data => (
+has request_data_validator => (
     is => 'ro',
     default => sub {
         branch {

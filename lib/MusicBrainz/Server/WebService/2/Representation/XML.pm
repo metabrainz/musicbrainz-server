@@ -5,7 +5,7 @@ use HTTP::Throwable::Factory qw( http_throw );
 use Module::Pluggable::Object;
 use Scalar::Util 'blessed';
 
-with 'MusicBrainz::Server::WebService::Representation';
+with 'Sloth::Representation';
 
 has serializers => (
     is => 'ro',
