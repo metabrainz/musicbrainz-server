@@ -76,7 +76,7 @@ sub lookup_cover_art
                   "ItemId=$asin&" .
                   "ResponseGroup=Images";
 
-    my $cover_art = $self->_lookup_coverart($url);
+    my $cover_art = $self->_lookup_coverart($url) or return;
     $cover_art->asin($asin);
     $cover_art->information_uri($uri);
 
@@ -114,6 +114,7 @@ sub _lookup_coverart {
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     my $response = $lwp->get($url) or return;
+    return unless $response->is_success;
     my $xp = XML::XPath->new( xml => $response->decoded_content );
 
     my $image_url = $xp->find(
