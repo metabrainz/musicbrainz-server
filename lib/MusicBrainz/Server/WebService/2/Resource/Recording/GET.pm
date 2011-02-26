@@ -16,7 +16,7 @@ has request_data_validator => (
             inc => inc(
                 qw( isrcs puids ),
                 artists => [qw( aliases )],
-                releases => [qw( discids media )]
+                releases => [qw( artist-credits discids media )]
             )
         }
     }
