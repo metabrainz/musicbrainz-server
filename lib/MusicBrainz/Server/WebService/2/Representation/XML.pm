@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::2::Representation::XML;
 use Moose;
 
+use Encode 'encode';
 use HTTP::Throwable::Factory qw( http_throw );
 use Module::Pluggable::Object;
 use Scalar::Util 'blessed';
@@ -33,12 +34,12 @@ sub content_type { 'application/xml' }
 
 sub serialize {
     my ($self, $resource) = @_;
-    return join("\n",
+    return encode('utf-8', join("\n",
         '<?xml version="1.0"?>',
         '<metadata>',
         $self->serialize_resource($resource),
         '</metadata>'
-    );
+    ));
 }
 
 sub serialize_resource {
