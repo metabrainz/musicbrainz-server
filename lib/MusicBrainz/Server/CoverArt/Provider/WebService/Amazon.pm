@@ -20,6 +20,25 @@ has '_aws_signature' => (
     lazy_build => 1,
 );
 
+has '_store_map' => (
+    is => 'ro',
+    default => sub {
+        return {
+            'amazon.co.uk' => 'ecs.amazonaws.co.uk',
+            'amazon.com' => 'ecs.amazon.com',
+            'amazon.de' => 'ecs.amazon.de',
+            'amazon.jp' => 'ecs.amazon.jp',
+            'amazon.co.jp' => 'ecs.amazon.jp',
+            'amazon.fr' => 'ecs.amazon.fr',
+            'amazon.it' => 'ecs.amazon.com'
+        }
+    },
+    traits => [ 'Hash' ],
+    handles => {
+        get_store_api => 'get'
+    }
+);
+
 my $last_request_time;
 
 sub _build__aws_signature
@@ -44,9 +63,14 @@ sub lookup_cover_art
     my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
     return unless $asin;
 
-    my @parts = split /\./, $store;
-    my $locale = $parts[-1];
-    my $url = "http://ecs.amazonaws.$locale/onca/xml?" .
+    my $end_point = $self->get_store_api($store);
+
+    unless ($end_point) {
+        warn "$store does not have a known ECS end point";
+        return;
+    }
+
+    my $url = "http://$end_point/onca/xml?" .
                   "Service=AWSECommerceService&" .
                   "Operation=ItemLookup&" .
                   "ItemId=$asin&" .
