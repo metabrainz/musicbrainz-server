@@ -40,7 +40,9 @@ MB.TrackParser.Artist = function (track, artist) {
     self.addArtistCredit = function (unused, ac) {
         if (unused !== '')
         {
-            if (self.names[self.names.length - 1].join === null)
+            if (self.names.length > 0 &&
+                (self.names[self.names.length - 1].join === null ||
+                 self.names[self.names.length - 1].join === ''))
             {
                 /* the previous entry does not have a join phrase, so the
                    unused string must be the join phrase. */
@@ -74,8 +76,8 @@ MB.TrackParser.Artist = function (track, artist) {
         if (unused !== '')
         {
             if (self.names.length > 0 &&
-                self.names[self.names.length - 1].join === null ||
-                self.names[self.names.length - 1].join === '')
+                (self.names[self.names.length - 1].join === null ||
+                 self.names[self.names.length - 1].join === ''))
             {
                 /* The previous entry is missing the join phrase and
                    we're missing the artist... let's assume the
@@ -120,8 +122,8 @@ MB.TrackParser.Artist = function (track, artist) {
         */
 
         if (self.names.length > 0 &&
-            self.names[self.names.length - 1].join === null ||
-            self.names[self.names.length - 1].join === '')
+            (self.names[self.names.length - 1].join === null ||
+             self.names[self.names.length - 1].join === ''))
         {
             self.appendToArtist (unused);
         }
