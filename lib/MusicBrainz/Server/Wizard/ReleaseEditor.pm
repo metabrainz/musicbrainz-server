@@ -127,21 +127,42 @@ sub _load_release_groups
     return \@rgs;
 }
 
+
+=method name_is_equivalent
+
+Compares two track names, considers them equivalent if there are only
+case changes or changes in punctuation between the two strings.
+
+=cut
+
+sub name_is_equivalent
+{
+    my ($self, $a, $b) = @_;
+
+    $a =~ s/\p{Punctuation}//g;
+    $b =~ s/\p{Punctuation}//g;
+
+    return lc($a) eq lc($b);
+}
+
 sub associate_recordings
 {
     my ($self, $edits, $tracklists) = @_;
 
     my @ret;
-    my @recordings;
+    my @recording_ids;
 
     my $count = 0;
     for (@$edits)
     {
-        if ($tracklists->tracks->[$count] &&
-            $_->{name} eq $tracklists->tracks->[$count]->name)
+        my $trk = $tracklists->tracks->[$count];
+
+        if ($trk &&
+            ($self->name_is_equivalent ($_->{name}, $trk->name) ||
+             $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
         {
-            push @recordings, $tracklists->tracks->[$count]->recording_id;
-            push @ret, $tracklists->tracks->[$count]->recording_id;
+            push @recording_ids, $trk->recording_id;
+            push @ret, $trk->recording_id;
         }
         else
         {
@@ -151,7 +172,7 @@ sub associate_recordings
         $count += 1;
     }
 
-    my $recordings = $self->c->model('Recording')->get_by_ids (@recordings);
+    my $recordings = $self->c->model('Recording')->get_by_ids (@recording_ids);
     $self->c->model('ArtistCredit')->load(values %$recordings);
 
     $self->c->stash->{appears_on} = {} unless $self->c->stash->{appears_on};
