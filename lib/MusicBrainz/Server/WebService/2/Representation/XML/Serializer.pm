@@ -17,16 +17,19 @@ has parent => (
     }
 );
 
-sub attributes { +{} }
+sub attributes { }
+sub serialize_inner { }
 
-requires 'serialize_inner', 'element';
+requires 'element';
 
 sub serialize_resource {
     my $self = shift;
+    my ($entity, %extra) = @_;
 
     $self->xml->${\$self->element}(
-        $self->attributes(@_),
-        $self->serialize_inner(@_)
+        { $self->attributes(@_) },
+        $self->serialize_inner(@_),
+        map { $self->serialize($_) } @{ $extra{inline} || [] }
     );
 }
 
