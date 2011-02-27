@@ -129,11 +129,18 @@ sub update
     $self->sql->update_row('recording', $row, { id => $recording_id });
 }
 
+sub usage_count
+{
+    my ($self, $recording_id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT count(*) FROM track
+          WHERE recording = ?', $recording_id);
+}
+
 sub can_delete
 {
     my ($self, $recording_id) = @_;
-    my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
-    return @$refcount == 0;
+    return $self->usage_count ($recording_id) == 0;
 }
 
 sub delete
