@@ -392,13 +392,12 @@ sub find_next_page
 
 sub find_previous_page
 {
-    my ($self, $pageno) = @_;
+    my ($self) = @_;
 
-    $pageno ||= $self->_current - 1;
+    my $page = $self->_current;
+    $self->_current ($page - 1);
 
-    $self->_current ($pageno);
-
-    return $self->_current < $pageno;
+    return $self->_current < $page;
 }
 
 around '_current' => sub {
