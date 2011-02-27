@@ -1,9 +1,9 @@
 
--- jquery/jquery-1.4.4.min.js --
+-- jquery/jquery-1.5.1.js --
 
 library:     jQuery
 license:     MIT/GPLv2
-version:     1.4.4
+version:     1.5.1
 author:      John Resig
 url:         http://jquery.com
 
