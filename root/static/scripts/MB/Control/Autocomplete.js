@@ -49,6 +49,12 @@ MB.Control.autocomplete_formatters = {
         a.append (' - <span class="autocomplete-artist">' + 
                   MB.utility.escapeHTML (item.artist) + '</span>');
 
+        if (item.comment)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
         if (item.releasegroups)
         {
             var rgs = {};
@@ -59,12 +65,6 @@ MB.Control.autocomplete_formatters = {
 
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
                       MB.utility.escapeHTML (MB.utility.keys (rgs).join (", ")) + '</span>');
-        }
-
-        if (item.comment)
-        {
-            a.append ('<br /><span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
         if (item.isrcs.length)
@@ -273,13 +273,13 @@ MB.Control.Autocomplete = function (options) {
 
         self.changeEntity (options.entity);
 
-        self.$input.autocomplete ({
+        self.$input.autocomplete ($.extend({}, options, {
             'source': self.lookup,
             'minLength': options.minLength ? options.minLength : 2,
             'select': self.select,
             'close': self.close,
             'open': self.open
-        });
+        }));
 
         self.autocomplete = self.$input.data ('autocomplete');
         self.$input.bind ('keydown.mb', self.pagerKeyEvent);

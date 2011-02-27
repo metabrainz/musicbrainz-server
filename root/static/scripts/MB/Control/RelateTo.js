@@ -71,7 +71,12 @@ MB.Control.RelateTo = function () {
     self.autocomplete = MB.Control.Autocomplete ({
         'entity': self.type (),
         'input': self.$input,
-        'select': self.select
+        'select': self.select,
+        'position': {
+            my: "right top",
+            at: "right bottom",
+            collision: "none"
+        }
     });
 
     return self;
