@@ -26,9 +26,9 @@
 <p>The third variation, the callback, provides the most flexibility, and can be used to connect any data source to Autocomplete. The callback gets two arguments:</p>
 <ul>
 <li>A request object, with a single property called "term", which refers to the value currently in the text input. For example, when the user entered "new yo" in a city field, the Autocomplete term will equal "new yo".</li>
-<li>A response callback, which expects a single argument to contain the data to suggest to the user. This data should be filtered based on the provided term, and can be in any of the formats described above for simple local data (String-Array or Object-Array with label/value/both properties).</li>
+<li>A response callback, which expects a single argument to contain the data to suggest to the user. This data should be filtered based on the provided term, and can be in any of the formats described above for simple local data (String-Array or Object-Array with label/value/both properties). It's important when providing a custom source callback to handle errors during the request. You must always call the response callback even if you encounter an error. This ensures that the widget always has the correct state.</li>
 </ul>
-<p>The demos all focus on different variations of the source-option - look for the one that matches your use case, and take a look at the code.</p>
+<p>The label is always treated as text, if you want the label to be treated as html you can use <a href="https://github.com/scottgonzalez/jquery-ui-extensions/blob/master/autocomplete/jquery.ui.autocomplete.html.js" class="external text" title="https://github.com/scottgonzalez/jquery-ui-extensions/blob/master/autocomplete/jquery.ui.autocomplete.html.js">Scott González' html extension</a>. The demos all focus on different variations of the source-option - look for the one that matches your use case, and take a look at the code.</p>
     </div>
     <div id="overview-dependencies">
         <h3>Dependencies</h3>
@@ -116,6 +116,48 @@ A simple jQuery UI Autocomplete.<br />
 var disabled = $( ".selector" ).autocomplete( "option", "disabled" );
 //setter
 $( ".selector" ).autocomplete( "option", "disabled", true );</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
+<li class="option" id="option-appendTo">
+  <div class="option-header">
+    <h3 class="option-name"><a href="#option-appendTo">appendTo</a></h3>
+    <dl>
+      <dt class="option-type-label">Type:</dt>
+        <dd class="option-type">Selector</dd>
+      
+      <dt class="option-default-label">Default:</dt>
+        <dd class="option-default">"body"</dd>
+      
+    </dl>
+  </div>
+  <div class="option-description">
+    <p>Which element the menu should be appended to.</p>
+  </div>
+  <div class="option-examples">
+    <h4>Code examples</h4>
+    <dl class="option-examples-list">
+    
+<dt>
+  Initialize a autocomplete with the <code>appendTo</code> option specified.
+</dt>
+<dd>
+<pre><code>$( ".selector" ).autocomplete({ appendTo: "#someElem" });</code></pre>
+</dd>
+
+    
+<dt>
+  Get or set the <code>appendTo</code> option, after init.
+</dt>
+<dd>
+<pre><code>//getter
+var appendTo = $( ".selector" ).autocomplete( "option", "appendTo" );
+//setter
+$( ".selector" ).autocomplete( "option", "appendTo", "#someElem" );</code></pre>
 </dd>
 
     </dl>
@@ -255,6 +297,45 @@ $( ".selector" ).autocomplete( "option", "source", [&quot;c++&quot;, &quot;java&
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
       
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">autocompletecreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when autocomplete is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).autocomplete({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>autocompletecreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;autocompletecreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="event" id="event-search">
   <div class="event-header">
     <h3 class="event-name"><a href="#event-search">search</a></h3>
@@ -701,10 +782,10 @@ $( ".selector" ).autocomplete( "option", "source", [&quot;c++&quot;, &quot;java&
 </div>
 
 </p><!-- 
-Pre-expand include size: 29860 bytes
-Post-expand include size: 48463 bytes
-Template argument size: 26753 bytes
+Pre-expand include size: 32903 bytes
+Post-expand include size: 54578 bytes
+Template argument size: 29474 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3766-1!1!0!!en!2 and timestamp 20101025043907 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3766-1!1!0!!en!2 and timestamp 20110221125419 -->
