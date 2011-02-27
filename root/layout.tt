@@ -36,7 +36,7 @@
                 <script type="text/javascript" src="[%-
                   c.model('FileCache').squash_scripts(
                       "lib/jquery/jquery-1.4.4.js",
-                      "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
+                      "lib/jquery.ui/ui/jquery-ui-1.8.10.custom.js",
                       "scripts/mb_placeholder.js",
                       "scripts/MB.js",
                       "scripts/global.js",
