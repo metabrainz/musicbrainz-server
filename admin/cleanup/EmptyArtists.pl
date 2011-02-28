@@ -98,7 +98,7 @@ print localtime() . " : Finding unused artists (using artist credit/AR/edit crit
 my $query = <<EOF;
 
     SELECT artist.id, name.name, sort_name.name
-    FROM empty_artists('1 week'::INTERVAL) artist
+    FROM empty_artists() artist
     JOIN artist_name name ON artist.name = name.id
     JOIN artist_name sort_name ON artist.sort_name = sort_name.id
 

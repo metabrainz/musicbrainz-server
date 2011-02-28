@@ -475,7 +475,7 @@ $$ LANGUAGE 'plpgsql';
 -- last $interval
 -------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION orphanedArtists(interval) RETURNS SETOF artist AS
+CREATE OR REPLACE FUNCTION empty_artists() RETURNS SETOF artist AS
 $BODY$
 DECLARE
     artist_row artist%rowtype;
@@ -483,7 +483,6 @@ BEGIN
     FOR artist_row IN
         SELECT * FROM artist
         WHERE edits_pending = 0
-          AND last_updated > NOW() - $1
     LOOP
         CONTINUE WHEN
         (
