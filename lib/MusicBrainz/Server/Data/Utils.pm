@@ -1,42 +1,44 @@
 package MusicBrainz::Server::Data::Utils;
 
 use base 'Exporter';
+use Carp 'confess';
 use Class::MOP;
-use Scalar::Util 'blessed';
 use Data::Compare;
 use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
-use Sql;
 use Readonly;
+use Scalar::Util 'blessed';
+use Sql;
 use Storable;
 
 our @EXPORT_OK = qw(
-    artist_credit_to_ref
+    add_partial_date_to_row
     artist_credit_to_alternative_ref
+    artist_credit_to_ref
     check_data
+    check_in_use
     copy_escape
     defined_hash
+    generate_gid
+    generate_gid
     hash_to_row
-    add_partial_date_to_row
-    remove_equal
-    generate_gid
     insert_and_create
-    generate_gid
     load_meta
     load_subobjects
+    map_query
+    merge_table_attributes
+    model_to_type
+    object_to_ids
+    order_by
     partial_date_from_row
     partial_date_to_hash
     placeholders
     query_to_list
     query_to_list_limited
-    type_to_model
-    model_to_type
-    object_to_ids
-    order_by
-    check_in_use
-    map_query
     ref_to_type
+    remove_equal
+    type_to_model
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -348,6 +350,31 @@ sub check_data
         MusicBrainz::Server::Exceptions::BadData->throw($error)
             unless $check->($data);
     }
+}
+
+sub merge_table_attributes {
+    my (my $sql, %named_params) = @_;
+    my $table = $named_params{table} or confess 'Missing parameter $table';
+    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
+    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
+    my @columns = @{ $named_params{columns} } or confess 'Missing parameter \@columns';
+    my @all_ids = ($new_id, @$old_ids);
+
+    $sql->do(
+        "UPDATE $table SET " .
+            join(',', map {
+                "$_ = (SELECT new_val FROM (
+                     SELECT (id = ?) AS first, $_ AS new_val
+                       FROM $table
+                      WHERE $_ IS NOT NULL
+                        AND id IN (" . placeholders(@all_ids) . ")
+                   ORDER BY first DESC
+                      LIMIT 1
+                      ) s)";
+            } @merge_columns) . '
+            WHERE id = ?',
+        (@all_ids, $new_id) x @merge_columns, $new_id
+    );
 }
 
 1;
