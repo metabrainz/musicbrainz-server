@@ -14,7 +14,8 @@ my %URL_SPECIALIZATIONS = (
     'ASIN' => qr{^http://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/cd}i,
     'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i,
-    'Twitter' => qr{^https?://(?:www.)?twitter.com/}i
+    'Twitter' => qr{^https?://(?:www.)?twitter.com/}i,
+    'YouTube' => qr{^https?://(?:www.)?youtube.com/user/}i,
 );
 
 sub _gid_redirect_table
