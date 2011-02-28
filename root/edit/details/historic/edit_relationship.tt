@@ -1,0 +1,33 @@
+<table class="details">
+  <tr>
+    <th rowspan="2">[% l('Old relationships:') %]</th>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        [% FOR relationship=edit.display_data.relationship.old %]
+        <li>
+           [% link_entity(relationship.source); %]
+           [% display_relationship(relationship); %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2">[% l('New relationships:') %]</th>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        [% FOR relationship=edit.display_data.relationship.new %]
+        <li>
+           [% link_entity(relationship.source); %]
+           [% display_relationship(relationship); %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table>
