@@ -35,7 +35,7 @@ sub BUILDARGS {
     return \%args;
 }
 
-sub pretty_name { shift->url->host }
+sub pretty_name { shift->url->as_string }
 
 sub name { shift->url->as_string }
 
