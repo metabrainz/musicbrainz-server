@@ -7,7 +7,7 @@ extends 'MusicBrainz::Server::Entity::URL';
 override pretty_name => sub {
     my $self = shift;
 
-    if ($self->url =~ m{^http://(?:www.)?myspace.com.com/([^/]+)/?$}i) {
+    if ($self->url =~ m{^http://(?:www.)?myspace.com/([^/]+)/?$}i) {
         return $1;
     }
     else {
