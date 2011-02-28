@@ -371,9 +371,9 @@ sub merge_table_attributes {
                    ORDER BY first DESC
                       LIMIT 1
                       ) s)";
-            } @merge_columns) . '
+            } @columns) . '
             WHERE id = ?',
-        (@all_ids, $new_id) x @merge_columns, $new_id
+        (@all_ids, $new_id) x @columns, $new_id
     );
 }
 
