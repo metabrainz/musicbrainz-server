@@ -16,6 +16,7 @@ my %URL_SPECIALIZATIONS = (
     'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i,
     'Twitter' => qr{^https?://(?:www.)?twitter.com/}i,
     'YouTube' => qr{^https?://(?:www.)?youtube.com/user/}i,
+    'MySpace' => qr{^https?://(?:www.)?myspace.com/}i,
 );
 
 sub _gid_redirect_table
