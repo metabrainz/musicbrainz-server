@@ -239,6 +239,24 @@ sub merge
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
     $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
+    my @merge_columns = qw( comment ipi_code gender country type );
+    my @all_ids = ($new_id, @$old_ids);
+    $self->sql->do(
+        'UPDATE artist SET ' .
+            join(',', map {
+                "$_ = (SELECT new_val FROM (
+                     SELECT (id = ?) AS first, $_ AS new_val
+                       FROM artist
+                      WHERE $_ IS NOT NULL
+                        AND id IN (" . placeholders(@all_ids) . ")
+                   ORDER BY first DESC
+                      LIMIT 1
+                      ) s)";
+            } @merge_columns) . '
+            WHERE id = ?',
+        (@all_ids, $new_id) x @merge_columns, $new_id
+    );
+
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
 }
