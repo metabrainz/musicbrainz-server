@@ -13,7 +13,8 @@ my %URL_SPECIALIZATIONS = (
     'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia.*/wiki/}i,
     'ASIN' => qr{^http://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/cd}i,
-    'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i
+    'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i,
+    'Twitter' => qr{^https?://(?:www.)?twitter.com/}i
 );
 
 sub _gid_redirect_table
