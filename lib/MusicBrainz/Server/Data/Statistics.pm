@@ -716,7 +716,7 @@ sub recalculate {
             : die "Unknown database: $db";
 
     if (my $query = $definition->{SQL}) {
-        my $value = $self->sql->select_single_value($query);
+        my $value = $sql->select_single_value($query);
 		$self->insert($statistic => $value);
         return;
     }
