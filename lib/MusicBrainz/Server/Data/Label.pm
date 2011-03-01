@@ -210,7 +210,7 @@ sub merge
     $self->alias->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
+    $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_labels($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);
