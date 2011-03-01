@@ -75,9 +75,12 @@ sub discid : Chained('root') PathPart('discid') Args(1)
 
         my $inc = $c->stash->{inc};
 
-        $c->model('Release')->load(map { $_->medium } @$results);
-        my @releases = map { $_->medium->release } @$results;
+        $c->model('MediumFormat')->load(map { $_->medium } @$results);
 
+        my @mediums = grep { $_->format->has_discids } map { $_->medium } @$results;
+        $c->model('Release')->load(@mediums);
+
+        my @releases = map { $_->release } @mediums;
         $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_)
             for @releases;
 
