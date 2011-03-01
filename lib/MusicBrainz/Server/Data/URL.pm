@@ -15,7 +15,7 @@ my %URL_SPECIALIZATIONS = (
     'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/cd}i,
     'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i,
     'Twitter' => qr{^https?://(?:www.)?twitter.com/}i,
-    'YouTube' => qr{^https?://(?:www.)?youtube.com/user/}i,
+    'YouTube' => qr{^https?://(?:www.)?youtube.com/(?:user/)}i,
     'MySpace' => qr{^https?://(?:www.)?myspace.com/}i,
 );
 
