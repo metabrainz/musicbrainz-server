@@ -59,7 +59,7 @@ sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOn
     });
 }
 
-sub rejected : Chained('/user/load') PathPart('edits/rejecte') RequireAuth HiddenOnSlaves {
+sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
     $self->_edits($c, sub {
         return $c->model('Edit')->find({
