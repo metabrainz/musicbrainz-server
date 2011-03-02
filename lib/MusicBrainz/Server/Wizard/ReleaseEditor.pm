@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
+use Digest::SHA1 qw( sha1_base64 );
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
@@ -145,6 +146,40 @@ sub name_is_equivalent
     return lc($a) eq lc($b);
 }
 
+=head2 edit_sha1
+
+Generates a hash code for a particular edited track.  If a track
+is moved the hash will remain the same, any other change to the
+track will result in a different hash.
+
+=cut
+
+sub edit_sha1
+{
+    sub structureToString {
+        my $obj = shift;
+
+        if (ref $obj eq "ARRAY")
+        {
+            my @ret = map { structureToString ($_) } @$obj;
+            return '[' . join (",", @ret) . ']';
+        }
+        elsif (ref $obj eq "HASH")
+        {
+            my @ret = map {
+                $_ . ':' . structureToString ($obj->{$_})
+            } sort keys %$obj;
+            return '{' . join (",", @ret) . '}';
+        }
+        else
+        {
+            return $obj;
+        }
+    }
+
+    return sha1_base64 (structureToString (shift));
+}
+
 sub associate_recordings
 {
     my ($self, $edits, $tracklists) = @_;
@@ -189,6 +224,8 @@ sub associate_recordings
         {
             push @ret, { 'id' => undef, 'confirmed' => 1 };
         }
+
+        $ret[$#ret]->{'edit_sha1'} = $_->{edit_sha1};
 
         $count += 1;
     }
@@ -265,13 +302,18 @@ sub prepare_recordings
             $recording_gids[$count]->{associations} = [ map {
                 {
                     'gid' => ($_->{recording} ? $_->{recording}->gid : "new"),
-                    'confirmed' => $_->{confirmed} ? 1 : undef
+                    'confirmed' => $_->{confirmed} ? 1 : undef,
+                    'edit_sha1' => $_->{edit_sha1}
                 } } @recordings ];
         }
         elsif (defined $_->{edits})
         {
             $recording_gids[$count]->{associations} = [ map {
-                { 'gid' => 'new', 'confirmed' => 1 } } @{ $_->{edits} } ];
+                {
+                    'gid' => 'new',
+                    'confirmed' => 1,
+                    'edit_sha1' => $_->{edit_sha1},
+                } } @{ $_->{edits} } ];
         }
         else
         {

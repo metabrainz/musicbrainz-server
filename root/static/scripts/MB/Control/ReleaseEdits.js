@@ -87,12 +87,14 @@ MB.Control.ReleaseEdits = function ($edits) {
             var from = tracklist[idx];
 
             var to = {
-                'position': trk.$position.val (),
                 'name': trk.$title.val (),
                 'length': trk.$length.val (),
                 'artist_credit': trk.artist_credit.toData (),
                 'deleted': trk.$deleted.val ()
             };
+
+            to['edit_sha1'] = b64_sha1 (MB.utility.structureToString (to));
+            to['position'] = trk.$position.val ();
 
             edited_tracklist.push (to);
 

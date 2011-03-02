@@ -223,6 +223,7 @@
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
                 [%- r.hidden (assoc.field('gid'), class => 'gid') -%]
                 [%- r.hidden (assoc.field('confirmed'), class => 'confirmed') -%]
+                [%- r.hidden (assoc.field('edit_sha1'), class => 'edit_sha1') -%]
 
                 [% addnew = (assoc.field('gid').value == 'new') %]
                 <span class="recording"

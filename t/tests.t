@@ -79,6 +79,8 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::WikiDocIndex
     t::MusicBrainz::Server::Data::Work
     t::MusicBrainz::Server::Data::WorkType
+
+    t::MusicBrainz::Server::Wizard::ReleaseEditor
 );
 
 plan tests => scalar(@classes);
