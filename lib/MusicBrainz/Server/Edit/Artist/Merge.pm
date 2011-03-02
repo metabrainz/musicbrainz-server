@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Artist::Merge;
 use Moose;
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
@@ -26,7 +26,7 @@ has '+data' => (
             name => Str,
             id   => Int
         ] ],
-        rename => Bool
+        rename => Optional[Bool]
     ]
 );
 
