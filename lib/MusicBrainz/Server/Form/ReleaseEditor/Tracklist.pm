@@ -175,6 +175,20 @@ sub validate {
 
         my @errors = $self->_validate_edits ($medium) if $edits;
         map { $medium->add_error ($_) } @errors;
+
+        if (my $medium_id = $medium->field('id')->value) {
+            $self->ctx->model('MediumCDTOC')->find_by_medium($medium_id)
+                or next;
+
+            if (my $format_id = $medium->field('format_id')->value) {
+                my $format = $self->ctx->model('MediumFormat')->get_by_id($format_id);
+
+                $medium->field('format_id')->add_error(
+                    l('This medium already has disc IDs so you may only change the format
+                       to a format that can have disc IDs')
+                ) unless $format->has_discids;
+            }
+        }
     }
 };
 
