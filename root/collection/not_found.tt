@@ -1,0 +1,5 @@
+[% WRAPPER 'layout.tt' title=l('Collection Not Found') full_width=1 %]
+<h1>[% l('Collection Not Found') %]</h1>
+
+<p>[% l('Sorry, we could not find an collection with that MusicBrainz ID.') %]</p>
+[% END %]
