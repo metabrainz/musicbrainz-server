@@ -5,6 +5,10 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 __PACKAGE__->config( namespace => 'release/import' );
 
+__PACKAGE__->config(
+    namespace => 'release_editor/import'
+);
+
 sub freedb : Path('/release/import/freedb') RequireAuth {
     my ($self, $c) = @_;
     my $import_form = $c->form( freedb => 'Search::FreeDB' );
