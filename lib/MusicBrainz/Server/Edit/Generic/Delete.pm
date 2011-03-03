@@ -72,11 +72,23 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys {
+    my ($self) = @_;
+    return {
+        $self->_delete_model => [ $self->data->{entity_id} ]
+    }
+}
+
 sub build_display_data
 {
-    my $self = shift;
+    my ($self, $loaded) = @_;
+
+    my $model = $self->_delete_model;
     return {
-        name => $self->data->{name}
+        entity => $loaded->{$model}->{$self->data->{entity_id}} ||
+            $self->c->model($model)->_entity_class->new(
+                name => $self->data->{name}
+            )
     };
 }
 
