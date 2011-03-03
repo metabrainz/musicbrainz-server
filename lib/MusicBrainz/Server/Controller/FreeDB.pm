@@ -15,7 +15,7 @@ sub _load {
 }
 
 sub import : Chained('load') PathPart RequireAuth {
-
+    my ($self, $c) = @_;
 }
 
 =head1 LICENSE
