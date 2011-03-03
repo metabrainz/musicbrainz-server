@@ -56,6 +56,7 @@ sub _do_read {
     my $va;
     for my $i (0..99) {
         my $track = $data{"TTITLE$i"} or next;
+        $track =~ s/^\d+\.\s*//; # Trim leading track numbers
 
         my ($artist, $title);
         if ($track =~ $split) {
