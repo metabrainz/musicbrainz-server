@@ -23,7 +23,8 @@
     <p>[% l("Enter the category/id of the CD you want to import (e.g.
       <code>rock/a10bda0b</code>).") %]</p>
     [% USE r = FormRenderer(freedb) %]
-    [% form_row_text(r, 'query', l('FreeDB ID:')) %]
+    [% form_row_select(r, 'category', l('Category:')) %]
+    [% form_row_text(r, 'discid', l('FreeDB ID:')) %]
     <div class="row no-label buttons">
       [% form_submit(l('Search')) WRAPPER form_row %]
     </div>

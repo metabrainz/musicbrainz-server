@@ -8,10 +8,15 @@ __PACKAGE__->config( namespace => 'release/import' );
 sub freedb : Path('/release/import/freedb') RequireAuth {
     my ($self, $c) = @_;
     my $query_form  = $c->form( query => 'Search::Query', name => 'search' );
-    my $import_form = $c->form( freedb => 'Search::Query', name => 'freedb' );
+    my $import_form = $c->form( freedb => 'Search::FreeDB' );
 
     if ($import_form->submitted_and_valid($c->req->query_params)) {
-        die 'Looks like I have an ID';
+        $c->response->redirect(
+            $c->uri_for_action('/freedb/import', [
+                $import_form->field('category')->value,
+                $import_form->field('discid')->value
+            ])
+        );
     }
 
     if ($query_form->submitted_and_valid($c->req->query_params)) {
