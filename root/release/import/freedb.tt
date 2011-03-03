@@ -9,10 +9,14 @@
   </p>
 
   <h3>[% l('Search') %]</h3>
-  <form method="get" action="[% c.req.uri %]">
+  <form method="get" action="[% c.uri_for_action('/search/search') %]">
     <p>[% l("Enter the title and/or the artist name of the CD you want to import.") %]</p>
-    [% USE r = FormRenderer(query) %]
-    [% form_row_text(r, 'query', l('Search:')) %]
+    [% WRAPPER form_row %]
+      <label for="id-freedb-search">[% l('Query:') %]</label>
+      <input id="id-freedb-search" type="text" name="query" />
+    [% END %]
+    <input name="type" value="freedb" type="hidden" />
+
     <div class="row no-label buttons">
       [% form_submit(l('Search')) WRAPPER form_row %]
     </div>

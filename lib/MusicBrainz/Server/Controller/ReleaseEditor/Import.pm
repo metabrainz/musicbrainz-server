@@ -7,7 +7,6 @@ __PACKAGE__->config( namespace => 'release/import' );
 
 sub freedb : Path('/release/import/freedb') RequireAuth {
     my ($self, $c) = @_;
-    my $query_form  = $c->form( query => 'Search::Query', name => 'search' );
     my $import_form = $c->form( freedb => 'Search::FreeDB' );
 
     if ($import_form->submitted_and_valid($c->req->query_params)) {
@@ -17,10 +16,6 @@ sub freedb : Path('/release/import/freedb') RequireAuth {
                 $import_form->field('discid')->value
             ])
         );
-    }
-
-    if ($query_form->submitted_and_valid($c->req->query_params)) {
-        die 'I should search';
     }
 }
 
