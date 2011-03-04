@@ -60,6 +60,7 @@ sub _entity_class
 sub find_by_entity_id
 {
     my ($self, @ids) = @_;
+    return [] unless @ids;
 
     my $key = $self->type;
 
