@@ -41,8 +41,6 @@ url:         http://docs.jquery.com/QUnit, http://github.com/jquery/qunit
 
 library:     sha1
 license:     BSD
-version:     v2.1a
+version:     v2.2
 author:      Paul Johnston
-url:         http://oauth.googlecode.com/svn/code/javascript/sha1.js
-note:        The version included here was obtained from the oauth.net
-             code repository on google code.
+url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip

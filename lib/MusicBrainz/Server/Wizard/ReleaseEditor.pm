@@ -5,9 +5,11 @@ use namespace::autoclean;
 use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use Digest::SHA1 qw( sha1_base64 );
+use Encode qw( decode encode );
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_alternative_ref );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -171,18 +173,22 @@ sub edit_sha1
             } sort keys %$obj;
             return '{' . join (",", @ret) . '}';
         }
-        else
+        elsif ($obj)
         {
             return $obj;
         }
+        else
+        {
+            return '';
+        }
     }
 
-    return sha1_base64 (structureToString (shift));
+    return sha1_base64 (encode ('utf-8', structureToString (shift)));
 }
 
 sub associate_recordings
 {
-    my ($self, $edits, $tracklists) = @_;
+    my ($self, $edits, $tracklists, $recording_edits) = @_;
 
     my @ret;
     my @recording_ids;
@@ -190,11 +196,23 @@ sub associate_recordings
     my $count = 0;
     for (@$edits)
     {
-        my $trk = $tracklists->tracks->[$count];
+        my $trk = $tracklists->tracks->[$_->{original_position} - 1];
+        my $rec_edit = $recording_edits->{$_->{edit_sha1}};
+
+        my $prefix = "track ".$_->{name}." with sha1 ".$_->{edit_sha1}." ---> ";
+
+        # track edit is already associated with a recording edit
+        if ($rec_edit)
+        {
+            warn "$prefix already associated...\n";
+            push @recording_ids, $rec_edit->{id} if $rec_edit->{id};
+            push @ret, $rec_edit;
+        }
 
         # track hasn't changed
-        if ($trk && ($_->{name} eq $trk->name))
+        elsif ($trk && ($_->{name} eq $trk->name))
         {
+            warn "$prefix no changes...\n";
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
@@ -205,6 +223,8 @@ sub associate_recordings
                ($self->name_is_equivalent ($_->{name}, $trk->name) ||
                 $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
         {
+            my $usage_count = $self->c->model('Recording')->usage_count ($trk->recording_id);
+            warn "$prefix minor changes (or low usage count: $usage_count)...\n";
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
@@ -213,6 +233,7 @@ sub associate_recordings
         # track changed
         elsif ($trk)
         {
+            warn "$prefix big changes...\n";
             push @ret, { 'id' => undef, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
@@ -222,6 +243,7 @@ sub associate_recordings
         #  "confirmed => 0" if found?)
         else
         {
+            warn "$prefix new track...\n";
             push @ret, { 'id' => undef, 'confirmed' => 1 };
         }
 
@@ -263,7 +285,7 @@ sub prepare_recordings
 
     my $json = JSON::Any->new( utf8 => 1 );
 
-    my @recording_gids  = @{ $self->value->{rec_mediums} };
+    my @recording_edits = @{ $self->value->{rec_mediums} };
     my @tracklist_edits = @{ $self->value->{mediums} };
 
     my $tracklists = $self->c->model('Tracklist')->get_by_ids(
@@ -272,6 +294,63 @@ sub prepare_recordings
         @tracklist_edits);
 
     $self->c->model('Track')->load_for_tracklists (values %$tracklists);
+
+    my %recording_edits;
+
+    use Data::Dumper;
+    if (scalar @recording_edits)
+    {
+        my @recording_gids;
+
+        for my $medium (@recording_edits)
+        {
+            push @recording_gids, map { $_->{gid} } grep {
+                $_->{gid} ne 'new' } @{ $medium->{associations} };
+        }
+
+        my %recordings_by_gid = map {
+            $_->{gid} => $_
+        } values %{ $self->c->model('Recording')->get_by_gids (@recording_gids) };
+
+
+        for my $medium (@recording_edits)
+        {
+            for (@{ $medium->{associations} })
+            {
+                $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
+                $recording_edits{$_->{edit_sha1}} = $_;
+            }
+        }
+    }
+    else
+    {
+        for my $tracklist (values %$tracklists)
+        {
+            $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+            $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+            for (@{ $tracklist->{tracks} })
+            {
+                my $sha1 = edit_sha1 (
+                    {
+                        name => $_->name,
+                        length => format_track_length ($_->length),
+                        artist_credit => {
+                            preview => $_->artist_credit->name,
+                            names => artist_credit_to_alternative_ref (
+                                $_->artist_credit)
+                        }
+                    });
+
+                $recording_edits{$sha1} = {
+                    edit_sha1 => $sha1,
+                    confirmed => 1,
+                    id => $_->recording->id,
+                    gid => $_->recording->gid
+                };
+            }
+        }
+    }
 
     my @suggestions;
 
@@ -283,23 +362,17 @@ sub prepare_recordings
         $_->{edits} = $self->edited_tracklist ($json->decode ($_->{edits}))
             if $_->{edits};
 
-        # FIXME: we don't want to lose previously created associations
-        # here, however... if the tracklist has been edited since making
-        # these choices those associations could be wrong.  Perhaps a
-        # javascript warning when going back?  For now, just wipe the
-        # slate clean on loading this page.  --warp.
-
-        $recording_gids[$count]->{tracklist_id} = $_->{tracklist_id};
+        $recording_edits[$count]->{tracklist_id} = $_->{tracklist_id};
 
         if (defined $_->{edits} && defined $_->{tracklist_id}) {
             my @recordings = $self->associate_recordings (
-                $_->{edits}, $tracklists->{$_->{tracklist_id}});
+                $_->{edits}, $tracklists->{$_->{tracklist_id}}, \%recording_edits);
 
             $suggestions[$count] = [ map { $_->{recording} } @recordings ];
 
-            # set confirmed to undef if false, so that the required
+            # set confirmed to undef if false, so that the 'required'
             # attribute on the field prevents the page from validating
-            $recording_gids[$count]->{associations} = [ map {
+            $recording_edits[$count]->{associations} = [ map {
                 {
                     'gid' => ($_->{recording} ? $_->{recording}->gid : "new"),
                     'confirmed' => $_->{confirmed} ? 1 : undef,
@@ -308,7 +381,7 @@ sub prepare_recordings
         }
         elsif (defined $_->{edits})
         {
-            $recording_gids[$count]->{associations} = [ map {
+            $recording_edits[$count]->{associations} = [ map {
                 {
                     'gid' => 'new',
                     'confirmed' => 1,
@@ -317,14 +390,14 @@ sub prepare_recordings
         }
         else
         {
-            $recording_gids[$count]->{associations} = [ ];
+            $recording_edits[$count]->{associations} = [ ];
         }
     }
 
     $self->c->stash->{suggestions} = \@suggestions;
     $self->c->stash->{tracklist_edits} = \@tracklist_edits;
 
-    $self->load_page('recordings', { 'rec_mediums' => \@recording_gids });
+    $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
 }
 
 sub prepare_missing_entities
@@ -841,6 +914,9 @@ Returns a list of tracks, sorted by position, with deleted tracks removed
 sub edited_tracklist
 {
     my ($self, $tracks) = @_;
+
+    my $idx = 1;
+    map { $_->{original_position} = $idx++; } @$tracks;
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }

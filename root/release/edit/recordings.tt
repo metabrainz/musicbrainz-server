@@ -152,6 +152,8 @@
             <td class="name" style="width: 40%; padding: 0.5em 0.5em 0 0;" ></td>
             <td class="recording" style="width: 40%; padding: 0.5em 0 0 0;">
               <input class="gid" type="hidden" />
+              <input class="confirmed" type="hidden" />
+              <input class="edit_sha1" type="hidden" />
               <span class="recording"></span>
               <span class="add-recording" style="display: none">[%- l('(add a new recording)') -%]</span>
             </td>
