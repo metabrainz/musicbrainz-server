@@ -6,12 +6,21 @@ use warnings;
 use Locale::PO;
 use Data::Dumper;
 use Template::Parser;
+use File::Slurp;
 
 my @MARKERS = qw/l ln/;
 
+my @files;
+
 if (! defined $ARGV[0]) {
-    print "Need filename";
-    exit;
+    @files = read_file(\*STDIN);
+    unless (@files) {
+        print "Need filename, either as command-line or on stdin";
+        exit;
+    }
+    chomp for @files;
+} else {
+    @files = @ARGV;
 }
 
 my $po = new Locale::PO(-msgid=>'', -msgstr=>
@@ -29,7 +38,7 @@ map {
     print $_->dump();
 } map {
     parse_file($_);
-} @ARGV;
+} @files;
 
 sub get_translations {
     my $data = shift;
