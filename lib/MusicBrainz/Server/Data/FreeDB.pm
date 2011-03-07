@@ -50,12 +50,20 @@ sub _do_read {
         split /\r\n/, $response->decoded_content;
 
     my $split = qr{ [\/-] };
-    my ($release_artist, $title) = split $split, $data{DTITLE}, 2;
+    my ($release_artist, $title);
+    my $va;
+    if ($data{DTITLE} =~ $split) {
+        ($release_artist, $title) = split $split, $data{DTITLE}, 2;
+    }
+    else {
+        ($release_artist, $title) = ('', $data{DTITLE});
+        $va = 1;
+    }
 
     my @tracks;
-    my $va;
     for my $i (0..99) {
-        my $track = $data{"TTITLE$i"} or next;
+        exists $data{"TTITLE$i"} or next;
+        my $track = $data{"TTITLE$i"};
         $track =~ s/^\d+\.\s*//; # Trim leading track numbers
 
         my ($artist, $title);

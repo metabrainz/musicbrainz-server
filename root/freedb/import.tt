@@ -13,14 +13,14 @@
 <table class="tbl">
   <thead>
     <tr>
-      <th>[% l('#') %]</th>
+      <th class="pos t">[% l('#') %]</th>
       <th>[% l('Track') %]</th>
     </tr>
   </thead>
   <tbody>
     [% FOR track=entity.tracks %]
     <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
-      <td>[% loop.count %]</td>
+      <td class="pos t">[% loop.count %]</td>
       <td>
         <input type="hidden" name="mediums.0.track.[% loop.index %].name"
                value="[% track.freedb_title %]" />
@@ -54,7 +54,7 @@
 <table class="tbl">
   <thead>
     <tr>
-      <th>[% l('#') %]</th>
+      <th class="pos t">[% l('#') %]</th>
       <th>[% l('Track') %]</th>
       <th>[% l('Artist') %]</th>
     </tr>
@@ -62,7 +62,7 @@
   <tbody>
     [% FOR track=entity.tracks %]
     <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
-      <td>[% loop.count %]</td>
+      <td class="pos t">[% loop.count %]</td>
       <td>
         <input type="hidden" name="mediums.0.track.[% loop.index %].name"
                value="[% track.title %]" />
