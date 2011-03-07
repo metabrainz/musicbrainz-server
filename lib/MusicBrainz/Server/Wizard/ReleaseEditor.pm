@@ -186,6 +186,71 @@ sub edit_sha1
     return sha1_base64 (encode ('utf-8', structureToString (shift)));
 }
 
+sub recording_edits_by_hash
+{
+    my ($self, @edits) = @_;
+
+    my %recording_edits;
+    my @recording_gids;
+
+    for my $medium (@edits)
+    {
+        push @recording_gids, map { $_->{gid} } grep {
+            $_->{gid} ne 'new' } @{ $medium->{associations} };
+    }
+
+    my %recordings_by_gid = map {
+        $_->{gid} => $_
+    } values %{ $self->c->model('Recording')->get_by_gids (@recording_gids) };
+
+    for my $medium (@edits)
+    {
+        for (@{ $medium->{associations} })
+        {
+            $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
+            $recording_edits{$_->{edit_sha1}} = $_;
+        }
+    }
+
+    return %recording_edits;
+}
+
+sub recording_edits_from_tracklist
+{
+    my ($self, $tracklists_by_id) = @_;
+
+    my %recording_edits;
+
+    for my $tracklist (values %$tracklists_by_id)
+    {
+        $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+        $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+        for (@{ $tracklist->{tracks} })
+        {
+            my $sha1 = edit_sha1 (
+                {
+                    name => $_->name,
+                    length => format_track_length ($_->length),
+                    artist_credit => {
+                        preview => $_->artist_credit->name,
+                        names => artist_credit_to_alternative_ref (
+                            $_->artist_credit)
+                    }
+                });
+
+            $recording_edits{$sha1} = {
+                edit_sha1 => $sha1,
+                confirmed => 1,
+                id => $_->recording->id,
+                gid => $_->recording->gid
+            };
+        }
+    }
+
+    return %recording_edits;
+}
+
 sub associate_recordings
 {
     my ($self, $edits, $tracklists, $recording_edits) = @_;
@@ -199,20 +264,17 @@ sub associate_recordings
         my $trk = $tracklists->tracks->[$_->{original_position} - 1];
         my $rec_edit = $recording_edits->{$_->{edit_sha1}};
 
-        my $prefix = "track ".$_->{name}." with sha1 ".$_->{edit_sha1}." ---> ";
-
         # track edit is already associated with a recording edit
         if ($rec_edit)
         {
-            warn "$prefix already associated...\n";
             push @recording_ids, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
+            $self->c->stash->{confirmation_required} = 1 unless $rec_edit->{confirmed};
         }
 
         # track hasn't changed
         elsif ($trk && ($_->{name} eq $trk->name))
         {
-            warn "$prefix no changes...\n";
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
@@ -223,8 +285,6 @@ sub associate_recordings
                ($self->name_is_equivalent ($_->{name}, $trk->name) ||
                 $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
         {
-            my $usage_count = $self->c->model('Recording')->usage_count ($trk->recording_id);
-            warn "$prefix minor changes (or low usage count: $usage_count)...\n";
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
@@ -233,7 +293,6 @@ sub associate_recordings
         # track changed
         elsif ($trk)
         {
-            warn "$prefix big changes...\n";
             push @ret, { 'id' => undef, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
@@ -243,7 +302,6 @@ sub associate_recordings
         #  "confirmed => 0" if found?)
         else
         {
-            warn "$prefix new track...\n";
             push @ret, { 'id' => undef, 'confirmed' => 1 };
         }
 
@@ -281,97 +339,51 @@ sub prepare_tracklist
 
 sub prepare_recordings
 {
-    my ($self) = @_;
+    my ($self, $release) = @_;
 
     my $json = JSON::Any->new( utf8 => 1 );
 
     my @recording_edits = @{ $self->value->{rec_mediums} };
     my @tracklist_edits = @{ $self->value->{mediums} };
 
-    my $tracklists = $self->c->model('Tracklist')->get_by_ids(
-        map { $_->{tracklist_id} }
-        grep { defined $_->{edits} && defined $_->{tracklist_id} }
+    use Data::Dumper;
+
+    my $tracklists_by_id = $self->c->model('Tracklist')->get_by_ids(
+        map { $_->{tracklist_id} } grep { defined $_->{tracklist_id} }
         @tracklist_edits);
 
-    $self->c->model('Track')->load_for_tracklists (values %$tracklists);
+    $self->c->model('Track')->load_for_tracklists (values %$tracklists_by_id);
 
-    my %recording_edits;
-
-    use Data::Dumper;
-    if (scalar @recording_edits)
-    {
-        my @recording_gids;
-
-        for my $medium (@recording_edits)
-        {
-            push @recording_gids, map { $_->{gid} } grep {
-                $_->{gid} ne 'new' } @{ $medium->{associations} };
-        }
-
-        my %recordings_by_gid = map {
-            $_->{gid} => $_
-        } values %{ $self->c->model('Recording')->get_by_gids (@recording_gids) };
-
-
-        for my $medium (@recording_edits)
-        {
-            for (@{ $medium->{associations} })
-            {
-                $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
-                $recording_edits{$_->{edit_sha1}} = $_;
-            }
-        }
-    }
-    else
-    {
-        for my $tracklist (values %$tracklists)
-        {
-            $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
-            $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
-
-            for (@{ $tracklist->{tracks} })
-            {
-                my $sha1 = edit_sha1 (
-                    {
-                        name => $_->name,
-                        length => format_track_length ($_->length),
-                        artist_credit => {
-                            preview => $_->artist_credit->name,
-                            names => artist_credit_to_alternative_ref (
-                                $_->artist_credit)
-                        }
-                    });
-
-                $recording_edits{$sha1} = {
-                    edit_sha1 => $sha1,
-                    confirmed => 1,
-                    id => $_->recording->id,
-                    gid => $_->recording->gid
-                };
-            }
-        }
-    }
+    my %recording_edits = scalar @recording_edits ?
+        $self->recording_edits_by_hash (@recording_edits) :
+        $self->recording_edits_from_tracklist ($tracklists_by_id);
 
     my @suggestions;
+    my @tracklists;
 
     my $count = -1;
-    for (@tracklist_edits)
+    for my $medium (@tracklist_edits)
     {
         $count += 1;
 
-        $_->{edits} = $self->edited_tracklist ($json->decode ($_->{edits}))
-            if $_->{edits};
+        $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
+            if $medium->{edits};
 
-        $recording_edits[$count]->{tracklist_id} = $_->{tracklist_id};
+        $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
 
-        if (defined $_->{edits} && defined $_->{tracklist_id}) {
+        if (defined $medium->{edits} && defined $medium->{tracklist_id})
+        {
+            # Tracks were edited, suggest which recordings should be
+            # associated with the edited tracks.
             my @recordings = $self->associate_recordings (
-                $_->{edits}, $tracklists->{$_->{tracklist_id}}, \%recording_edits);
+                $medium->{edits},
+                $tracklists_by_id->{$medium->{tracklist_id}},
+                \%recording_edits);
 
             $suggestions[$count] = [ map { $_->{recording} } @recordings ];
 
-            # set confirmed to undef if false, so that the 'required'
-            # attribute on the field prevents the page from validating
+            # Set confirmed to undef if false, so that the 'required'
+            # attribute on the field prevents the page from validating.
             $recording_edits[$count]->{associations} = [ map {
                 {
                     'gid' => ($_->{recording} ? $_->{recording}->gid : "new"),
@@ -379,8 +391,11 @@ sub prepare_recordings
                     'edit_sha1' => $_->{edit_sha1}
                 } } @recordings ];
         }
-        elsif (defined $_->{edits})
+        elsif (defined $medium->{edits})
         {
+            # A new tracklist has been entered, create new recordings
+            # for all these tracks by default (no recording
+            # assocations are suggested).
             $recording_edits[$count]->{associations} = [ map {
                 {
                     'gid' => 'new',
@@ -388,14 +403,47 @@ sub prepare_recordings
                     'edit_sha1' => $_->{edit_sha1},
                 } } @{ $_->{edits} } ];
         }
+        elsif ($recording_edits[$count]->{associations} &&
+               scalar @{ $recording_edits[$count]->{associations} })
+        {
+            # There are no track edits, but there are edits to the
+            # recording associations.  Load the previously selected
+            # recordings as suggestions.
+
+            my @assoc = @{ $recording_edits[$count]->{associations} };
+            my $recordings_by_id = $self->c->model('Recording')->get_by_ids (
+                map { $_->{id} } grep { $_->{id} } @assoc);
+
+            my @recordings = map { $recordings_by_id->{$_->{id}} } grep { $_->{id} } @assoc;
+
+            $self->c->model('ArtistCredit')->load (@recordings);
+            $suggestions[$count] = \@recordings;
+
+            # Also load the tracklist, as tracks cannot be rendered
+            # from the edits.
+            $tracklists[$count] = $tracklists_by_id->{$medium->{tracklist_id}};
+            $self->c->model('ArtistCredit')->load (@{ $tracklists[$count]->tracks });
+
+            # FIXME: duplicated from associate recordings.  fix.
+            $self->c->stash->{appears_on} = {} unless $self->c->stash->{appears_on};
+            for (@recordings)
+            {
+                next unless $_;
+
+                $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
+            }
+        }
         else
         {
+            # There are no track edits, and no edits to the recording
+            # associations.
             $recording_edits[$count]->{associations} = [ ];
         }
     }
 
     $self->c->stash->{suggestions} = \@suggestions;
     $self->c->stash->{tracklist_edits} = \@tracklist_edits;
+    $self->c->stash->{tracklists} = \@tracklists;
 
     $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
 }

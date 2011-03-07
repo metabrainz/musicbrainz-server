@@ -490,9 +490,13 @@ sub edit_sha1
             } sort keys %$obj;
             return '{' . join (",", @ret) . '}';
         }
-        else
+        elsif ($obj)
         {
             return $obj;
+        }
+        else
+        {
+            return '';
         }
     }
 
