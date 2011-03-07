@@ -804,6 +804,21 @@ sub _seed_parameters {
         }
     }
 
+    for my $container (
+        $params,
+        map { @{ $_->{track} || [] } }
+            @{ $params->{mediums} || [] }
+    ) {
+        if (ref($container->{artist_credit}) eq 'ARRAY') {
+            $container->{artist_credit} = {
+                names => $container->{artist_credit}
+            };
+        }
+        elsif (ref($container->{artist_credit}) ne 'HASH') {
+            delete $container->{artist_credit};
+        }
+    }
+
     for my $artist_credit (
         map { @{ $_->{names} || [] } } (
             ($params->{artist_credit} || ()),
