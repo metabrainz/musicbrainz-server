@@ -11,6 +11,9 @@ use MusicBrainz::Server::Translation qw( l ln );
 sub edit_name { l('Add disc ID') }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
+use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
+
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Medium';
@@ -62,7 +65,10 @@ method build_display_data ($loaded)
 {
     return {
         release => $loaded->{Release}{ $self->release_id },
-        medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id },
+        medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id } ||
+            MediumCDTOC->new(
+                cdtoc => CDTOC->new_from_toc($self->data->{cdtoc})
+            )
     }
 }
 

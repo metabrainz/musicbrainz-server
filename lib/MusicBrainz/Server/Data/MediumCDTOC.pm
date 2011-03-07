@@ -80,13 +80,14 @@ sub get_by_medium_cdtoc
 sub insert
 {
     my ($self, $hash) = @_;
-    $self->sql->insert_row('medium_cdtoc', $hash);
+    my $id = $self->sql->insert_row('medium_cdtoc', $hash, 'id');
     $self->c->model('CDStub')->delete(
         $self->sql->select_single_value(
             'SELECT discid FROM cdtoc WHERE id = ?',
             $hash->{cdtoc}
         )
     );
+    return $id;
 }
 
 sub update
