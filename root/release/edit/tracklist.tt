@@ -5,6 +5,7 @@
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
         "lib/json/json2.js",
+        "lib/sha1/sha1.js",
         "scripts/MB/TrackParser.js",
 
         "scripts/MB/GuessCase/Utils.js",
