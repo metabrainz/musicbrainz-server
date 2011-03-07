@@ -15,6 +15,7 @@
     <tr>
       <th class="pos t">[% l('#') %]</th>
       <th>[% l('Track') %]</th>
+      <th class="treleases">[% l('Length') %]</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,11 @@
                name="mediums.0.track.[% loop.index %].artist_credit.names.0.name"
                value="[% release.artist %]" />
         [% track.freedb_title | html %]
+      </td>
+      <td>
+        <input type="hidden" name="mediums.0.track.[% loop.index %].length"
+               value="[% track.length %]" />
+        [% track.length | format_length %]
       </td>
     </tr>
     [% END %]
@@ -57,6 +63,7 @@
       <th class="pos t">[% l('#') %]</th>
       <th>[% l('Track') %]</th>
       <th>[% l('Artist') %]</th>
+      <th class="treleases">[% l('Length') %]</th>
     </tr>
   </thead>
   <tbody>
@@ -73,6 +80,11 @@
                name="mediums.0.track.[% loop.index %].artist_credit.names.0.name"
                value="[% track.artist %]" />
         [% track.artist | html %]
+      </td>
+      <td>
+        <input type="hidden" name="mediums.0.track.[% loop.index %].length"
+               value="[% track.length %]" />
+        [% track.length | format_length %]
       </td>
     </tr>
     [% END %]

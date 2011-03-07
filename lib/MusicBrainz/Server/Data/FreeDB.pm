@@ -45,10 +45,24 @@ sub read {
 sub _do_read {
     my ($self, $response) = @_;
 
+    # Extract all key-value pairs in the FreeDB data
     my %data = map { split /=/, $_, 2 }
         grep { /^[A-Z0-9]+=/ }
         split /\r\n/, $response->decoded_content;
 
+    # Extract all track offsets
+    my @offsets = map { /^#\s+(\d+)$/; $1; }
+        grep { /^#\s+\d+$/ }
+        split /\r\n/, $response->decoded_content;
+
+    # Extract the disc duration and add it as the final frame offset
+    my ($disc_duration) = map { /(\d+)/; $1; }
+        grep { /^#\s+Disc length:/ }
+        split /\r\n/, $response->decoded_content;
+
+    push @offsets, $disc_duration * 75;
+
+    # Attempt to determine the release title and artist
     my $split = qr{ [\/-] };
     my ($release_artist, $title);
     my $va;
@@ -60,6 +74,7 @@ sub _do_read {
         $va = 1;
     }
 
+    # Extract each track
     my @tracks;
     for my $i (0..99) {
         exists $data{"TTITLE$i"} or next;
@@ -78,10 +93,12 @@ sub _do_read {
         push @tracks, {
             artist => $artist,
             title => $title,
-            freedb_title => $track
+            freedb_title => $track,
+            length => int((($offsets[$i + 1] - $offsets[$i]) * 1000) / 75)
         };
     }
 
+    # Structure data and return a FreeDB entity
     return FreeDB->new(
         tracks => \@tracks,
         discid => $data{DISCID},
