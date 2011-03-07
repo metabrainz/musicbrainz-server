@@ -7,7 +7,11 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
-use MusicBrainz::Server::Data::Utils qw( type_to_model artist_credit_to_alternative_ref );
+use MusicBrainz::Server::Data::Utils qw(
+    artist_credit_to_alternative_ref
+    hash_structure
+    type_to_model
+);
 use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
@@ -463,49 +467,6 @@ sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
     $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 }
 
-use Digest::SHA1 qw( sha1_base64 );
-
-=head2 edit_sha1
-
-Generates a hash code for a particular edited track.  If a track
-is moved the hash will remain the same, any other change to the
-track will result in a different hash.
-
-=cut
-
-sub edit_sha1
-{
-    sub structureToString {
-        my $obj = shift;
-
-        if (ref $obj eq "ARRAY")
-        {
-            my @ret = map { structureToString ($_) } @$obj;
-            return '[' . join (",", @ret) . ']';
-        }
-        elsif (ref $obj eq "HASH")
-        {
-            my @ret = map {
-                $_ . ':' . structureToString ($obj->{$_})
-            } sort keys %$obj;
-            return '{' . join (",", @ret) . '}';
-        }
-        elsif ($obj)
-        {
-            return $obj;
-        }
-        else
-        {
-            return '';
-        }
-    }
-
-    use Encode qw( decode encode );
-    return sha1_base64 (encode ("utf-8", structureToString (shift)));
-}
-
-
-
 # recording associations
 sub associations : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
@@ -534,7 +495,7 @@ sub associations : Chained('root') PathPart Args(1) {
             length => format_track_length($_->length),
             name => $_->name,
             artist_credit => { preview => $_->artist_credit->name },
-            edit_sha1 => edit_sha1 ($track)
+            edit_sha1 => hash_structure ($track)
         };
 
         $data->{recording} = {

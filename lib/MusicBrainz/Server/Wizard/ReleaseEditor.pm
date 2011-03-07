@@ -4,12 +4,10 @@ use namespace::autoclean;
 
 use CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
-use Digest::SHA1 qw( sha1_base64 );
-use Encode qw( decode encode );
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_alternative_ref );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_alternative_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -115,6 +113,13 @@ sub load
     $self->initialize($release);
 }
 
+=method _load_release_groups
+
+Load release groups for a particular recording.  Used to display the
+"appears on" field underneath a recording suggestion.
+
+=cut
+
 sub _load_release_groups
 {
     my ($self, $recording) = @_;
@@ -148,43 +153,13 @@ sub name_is_equivalent
     return lc($a) eq lc($b);
 }
 
-=head2 edit_sha1
+=method recording_edits_by_hash
 
-Generates a hash code for a particular edited track.  If a track
-is moved the hash will remain the same, any other change to the
-track will result in a different hash.
+Takes the inbound (posted to the form) recording association edits,
+loads the recordings and makes them available indexed by the edit_sha1
+hash of the track edit.
 
 =cut
-
-sub edit_sha1
-{
-    sub structureToString {
-        my $obj = shift;
-
-        if (ref $obj eq "ARRAY")
-        {
-            my @ret = map { structureToString ($_) } @$obj;
-            return '[' . join (",", @ret) . ']';
-        }
-        elsif (ref $obj eq "HASH")
-        {
-            my @ret = map {
-                $_ . ':' . structureToString ($obj->{$_})
-            } sort keys %$obj;
-            return '{' . join (",", @ret) . '}';
-        }
-        elsif ($obj)
-        {
-            return $obj;
-        }
-        else
-        {
-            return '';
-        }
-    }
-
-    return sha1_base64 (encode ('utf-8', structureToString (shift)));
-}
 
 sub recording_edits_by_hash
 {
@@ -215,6 +190,19 @@ sub recording_edits_by_hash
     return %recording_edits;
 }
 
+=method recording_edits_by_hash
+
+Create no-op recording association edits for a particular tracklist
+which are confirmed and linked to the edit_sha1 hashes of unedited
+tracks.
+
+When only a few tracks have been edited in a tracklist their recording
+associations are unsure.  The recording associations for the remaining
+tracks are known and will be taken from the hashref returned from this
+method.
+
+=cut
+
 sub recording_edits_from_tracklist
 {
     my ($self, $tracklists_by_id) = @_;
@@ -228,7 +216,7 @@ sub recording_edits_from_tracklist
 
         for (@{ $tracklist->{tracks} })
         {
-            my $sha1 = edit_sha1 (
+            my $edit_sha1 = hash_structure (
                 {
                     name => $_->name,
                     length => format_track_length ($_->length),
@@ -239,8 +227,8 @@ sub recording_edits_from_tracklist
                     }
                 });
 
-            $recording_edits{$sha1} = {
-                edit_sha1 => $sha1,
+            $recording_edits{$edit_sha1} = {
+                edit_sha1 => $edit_sha1,
                 confirmed => 1,
                 id => $_->recording->id,
                 gid => $_->recording->gid
@@ -250,6 +238,16 @@ sub recording_edits_from_tracklist
 
     return %recording_edits;
 }
+
+=method associate_recordings
+
+For each track edit, suggest whether the existing recording
+association should be kept or a new recording should be added.
+
+For each recording association set "confirmed => 0" if we are unsure
+about the suggestion and require the user to confirm our choice.
+
+=cut
 
 sub associate_recordings
 {
@@ -280,7 +278,7 @@ sub associate_recordings
         }
 
         # track has minor changes (case / punctuation)
-        # or recording is only associated with this track
+        # OR the recording is only associated with this track
         elsif ($trk &&
                ($self->name_is_equivalent ($_->{name}, $trk->name) ||
                 $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
@@ -313,15 +311,6 @@ sub associate_recordings
     my $recordings = $self->c->model('Recording')->get_by_ids (@recording_ids);
     $self->c->model('ArtistCredit')->load(values %$recordings);
 
-    $self->c->stash->{appears_on} = {} unless $self->c->stash->{appears_on};
-
-    for (values %$recordings)
-    {
-        next unless $_;
-
-        $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
-    }
-
     for (@ret)
     {
         $_->{recording} = $_->{id} ? $recordings->{$_->{id}} : undef;
@@ -345,8 +334,6 @@ sub prepare_recordings
 
     my @recording_edits = @{ $self->value->{rec_mediums} };
     my @tracklist_edits = @{ $self->value->{mediums} };
-
-    use Data::Dumper;
 
     my $tracklists_by_id = $self->c->model('Tracklist')->get_by_ids(
         map { $_->{tracklist_id} } grep { defined $_->{tracklist_id} }
@@ -414,24 +401,15 @@ sub prepare_recordings
             my $recordings_by_id = $self->c->model('Recording')->get_by_ids (
                 map { $_->{id} } grep { $_->{id} } @assoc);
 
-            my @recordings = map { $recordings_by_id->{$_->{id}} } grep { $_->{id} } @assoc;
+            my @recordings = map { $recordings_by_id->{$_->{id}} } @assoc;
 
-            $self->c->model('ArtistCredit')->load (@recordings);
+            $self->c->model('ArtistCredit')->load (grep { $_ } @recordings);
             $suggestions[$count] = \@recordings;
 
             # Also load the tracklist, as tracks cannot be rendered
-            # from the edits.
+            # from the (non-existent) track edits.
             $tracklists[$count] = $tracklists_by_id->{$medium->{tracklist_id}};
             $self->c->model('ArtistCredit')->load (@{ $tracklists[$count]->tracks });
-
-            # FIXME: duplicated from associate recordings.  fix.
-            $self->c->stash->{appears_on} = {} unless $self->c->stash->{appears_on};
-            for (@recordings)
-            {
-                next unless $_;
-
-                $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
-            }
         }
         else
         {
@@ -444,6 +422,14 @@ sub prepare_recordings
     $self->c->stash->{suggestions} = \@suggestions;
     $self->c->stash->{tracklist_edits} = \@tracklist_edits;
     $self->c->stash->{tracklists} = \@tracklists;
+    $self->c->stash->{appears_on} = {};
+
+    for my $medium_recordings (@suggestions)
+    {
+        map {
+            $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
+        } grep { $_ } @$medium_recordings;
+    }
 
     $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
 }
