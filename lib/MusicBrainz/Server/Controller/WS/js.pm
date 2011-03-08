@@ -498,14 +498,19 @@ sub associations : Chained('root') PathPart Args(1) {
             edit_sha1 => hash_structure ($track)
         };
 
+
+        my %rgs;
+        for ($c->model ('ReleaseGroup')->find_by_recording ($_->recording->id))
+        {
+            $rgs{$_->gid} = { 'name' => $_->name, 'gid' => $_->gid };
+        }
+
         $data->{recording} = {
             gid => $_->recording->gid,
             name => $_->recording->name,
             length => format_track_length($_->recording->length),
             artist_credit => { preview => $_->artist_credit->name },
-            releasegroups => [ map {
-                { 'name' => $_->name, 'gid' => $_->gid }
-            } $c->model ('ReleaseGroup')->find_by_recording ($_->recording->id) ]
+            releasegroups => [ sort { $a->{name} cmp $b->{name} } values %rgs ],
         };
 
         push @structure, $data;
