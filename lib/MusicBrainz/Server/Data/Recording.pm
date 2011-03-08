@@ -96,6 +96,14 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub can_delete {
+    my ($self, $recording_id) = @_;
+    return !$self->sql->select_single_value(
+        'SELECT 1 FROM track WHERE recording = ? LIMIT 1',
+        $recording_id
+    );
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -138,25 +146,21 @@ sub usage_count
           WHERE recording = ?', $recording_id);
 }
 
-sub can_delete
-{
-    my ($self, $recording_id) = @_;
-    return $self->usage_count ($recording_id) == 0;
-}
-
 sub delete
 {
-    my ($self, $recording) = @_;
-    return unless $self->can_delete($recording->id);
+    my ($self, @recording_ids) = @_;
 
-    $self->c->model('Relationship')->delete_entities('recording', $recording->id);
-    $self->c->model('RecordingPUID')->delete_recordings($recording->id);
-    $self->c->model('ISRC')->delete_recordings($recording->id);
-    $self->annotation->delete($recording->id);
-    $self->tags->delete($recording->id);
-    $self->rating->delete($recording->id);
-    $self->remove_gid_redirects($recording->id);
-    $self->sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
+    $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
+    $self->c->model('RecordingPUID')->delete_recordings(@recording_ids);
+    $self->c->model('ISRC')->delete_recordings(@recording_ids);
+    $self->annotation->delete(@recording_ids);
+    $self->tags->delete(@recording_ids);
+    $self->rating->delete(@recording_ids);
+    $self->remove_gid_redirects(@recording_ids);
+    $self->sql->do(
+        'DELETE FROM recording WHERE id IN (' . placeholders(@recording_ids) . ')',
+        @recording_ids
+    );
     return;
 }
 

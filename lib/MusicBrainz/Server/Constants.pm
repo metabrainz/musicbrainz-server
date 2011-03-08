@@ -106,6 +106,7 @@ Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
 Readonly our $EDIT_RECORDING_CREATE => 71;
 Readonly our $EDIT_RECORDING_EDIT => 72;
+Readonly our $EDIT_RECORDING_DELETE => 73;
 Readonly our $EDIT_RECORDING_MERGE => 74;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
