@@ -78,7 +78,7 @@ sub discid : Chained('root') PathPart('discid') Args(1)
 
         $c->model('MediumFormat')->load(map { $_->medium } @$results);
 
-        my @mediums = grep { $_->format->has_discids } map { $_->medium } @$results;
+        my @mediums = grep { $_->may_have_discids } map { $_->medium } @$results;
         $c->model('Release')->load(@mediums);
 
         my @releases = map { $_->release } @mediums;
