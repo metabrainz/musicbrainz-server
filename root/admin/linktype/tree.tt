@@ -1,15 +1,24 @@
+[%- BLOCK layout_head -%]
+  <script type="text/javascript" src="[%- c.model('FileCache').squash_scripts("scripts/MB/reltypeslist.js") -%]"></script>
+[%- END -%]
+
 [% BLOCK link_type %]
-    <li style="margin-top:1em;">
-        <strong>[% obj.name | html %]</strong>
+    <li style="padding-top: 0.5em">
+        <span><strong>[% obj.name | html %]</strong> (<a class="toggle" style="cursor:pointer">more</a>)</span>
+        <div class="reldetails" style="margin-left: 20px; padding: 3px">
+        [%- IF c.user.is_relationship_editor -%]
+        <strong>[% l('Child order:') %]</strong> [% obj.child_order %]<br />
+        [% END %]
+        <strong>[% l('Forward link phrase:') %]</strong> [% obj.link_phrase || l("(none)") | html %]<br />
+        <strong>[% l('Reverse link phrase:') %]</strong> [% obj.reverse_link_phrase || l("(none)") | html %]<br />
+        <strong>[% l('Description:') %]</strong> [% obj.description || l("(none)") %]<br />
+        [%- IF c.user.is_relationship_editor -%]
         [
             <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">Edit</a>
             [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">Delete</a>[% END %]
         ]
-        <br />
-        [% l('Child order:') %] <em>[% obj.child_order %]</em><br />
-        [% l('Forward link phrase:') %] <em>[% obj.link_phrase || "-" | html %]</em><br />
-        [% l('Reverse link phrase:') %] <em>[% obj.reverse_link_phrase || "-" | html %]</em><br />
-        [% l('Description:') %] <em>[% obj.description || "-" %]</em><br />
+        [% END %]
+        </div>
 
         [% IF obj.children %]
             <ul>
@@ -21,13 +30,18 @@
     </li>
 [% END %]
 
-[% WRAPPER "layout.tt" title=l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) full_width=1 %]
+[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) full_width=1 %]
     <div id="content">
-        <h1>[% l("{type0}-{type1} Link Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
+        <h1>[% l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
 
         <p class="buttons">
-            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Link Types') %]</a>
-            <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Link Type') %]</a>
+            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Relationship Types') %]</a>
+            [%- IF c.user.is_relationship_editor -%]
+            <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Relationship Type') %]</a>
+            [%- END -%]
+            <a id="showAll">[% l('Expand All') %]</a>
+            <a id="hideAll" style="display:none">[% l('Collapse All') %]</a>
+            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
         </p>
 
         <ul>
