@@ -34,7 +34,8 @@ use Sub::Exporter -setup => {
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
 
-my $test_context;
+our $test_context;
+our $test_transport = Email::Sender::Transport::Test->new();
 
 sub create_test_context
 {
@@ -108,13 +109,10 @@ sub prepare_test_server
         *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
     };
 
-    $test_transport = Email::Sender::Transport::Test->new();
+    $test_transport->clear_deliveries;
 }
 
 sub get_test_transport {
-    use Carp;
-    Carp::confess("Y U NO INITIALIZE MAN?")
-          unless $test_transport;
     return $test_transport;
 }
 
@@ -200,7 +198,7 @@ sub reject_edit
     $c->raw_sql->commit;
 }
 
-my $mock;
+our $mock;
 sub mock_context
 {
     $mock ||= do {
@@ -211,7 +209,7 @@ sub mock_context
     return $mock;
 }
 
-my $tt;
+our $tt;
 sub evaluate_template
 {
     my ($class, $template, %vars) = @_;
