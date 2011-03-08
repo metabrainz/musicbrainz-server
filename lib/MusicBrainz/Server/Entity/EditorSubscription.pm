@@ -18,4 +18,6 @@ has 'subscribed_editor_id' => (
 
 sub type { 'editor' }
 
+sub target_id { shift->subscribed_editor_id }
+
 1;
