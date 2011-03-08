@@ -388,7 +388,7 @@ sub prepare_recordings
                     'gid' => 'new',
                     'confirmed' => 1,
                     'edit_sha1' => $_->{edit_sha1},
-                } } @{ $_->{edits} } ];
+                } } @{ $medium->{edits} } ];
         }
         elsif ($recording_edits[$count]->{associations} &&
                scalar @{ $recording_edits[$count]->{associations} })
