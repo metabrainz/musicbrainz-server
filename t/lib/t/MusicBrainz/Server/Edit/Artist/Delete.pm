@@ -16,6 +16,10 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_delete');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
+INSERT INTO editor (id, name, password) VALUES (4, 'modbot', 'pass');
+EOSQL
 
 my $artist = $c->model('Artist')->get_by_id(1);
 

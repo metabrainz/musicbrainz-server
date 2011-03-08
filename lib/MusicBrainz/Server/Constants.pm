@@ -40,8 +40,9 @@ Readonly our $VARTIST_ID  => 1;
 Readonly our $EXPIRE_ACCEPT => 1;
 Readonly our $EXPIRE_REJECT => 2;
 
-Readonly our $EDITOR_MODBOT => 1;
+Readonly our $EDITOR_ANONYMOUS => 1;
 Readonly our $EDITOR_FREEDB => 2;
+Readonly our $EDITOR_MODBOT => 4;
 
 Readonly our $QUALITY_UNKNOWN        => -1;
 Readonly our $QUALITY_UNKNOWN_MAPPED => 1;
