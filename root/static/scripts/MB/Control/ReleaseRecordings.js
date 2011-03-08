@@ -137,7 +137,7 @@ MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
 
     self.$matches.find ('input.recordingmatch').change (change);
 
-    var artistname = self.$row.next ().find ('.track-artist').text ();
+    var artistname = $.trim (self.$row.next ().find ('.track-artist').text ());
     self.select = MB.Control.ReleaseRecordingsSelect ($container, artistname, change);
 
     return self;
