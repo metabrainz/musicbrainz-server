@@ -48,8 +48,7 @@ my $sql = $c->sql;
 my $sql_raw = $c->raw_sql;
 Sql::run_in_transaction(
     sub {
-        my $recording = $c->model('Recording')->get_by_id(1);
-        $c->model('Recording')->delete($recording);
+        $c->model('Recording')->delete(1);
     }, $sql, $sql_raw);
 
 $edit = _create_edit($c, $artist);
