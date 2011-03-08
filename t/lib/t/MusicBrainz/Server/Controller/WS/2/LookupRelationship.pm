@@ -112,14 +112,6 @@ ws_test 'recording lookup with artist relationships and credits',
             </name-credit>
         </artist-credit>
         <relation-list target-type="artist">
-            <relation type="vocal">
-                <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target>
-                <direction>backward</direction>
-                <attribute-list><attribute>guest</attribute></attribute-list>
-                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-                    <name>BoA</name><sort-name>BoA</sort-name>
-                </artist>
-            </relation>
             <relation type="producer">
                 <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
                 <direction>backward</direction>
@@ -132,6 +124,14 @@ ws_test 'recording lookup with artist relationships and credits',
                 <direction>backward</direction>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
+                </artist>
+            </relation>
+            <relation type="vocal">
+                <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target>
+                <direction>backward</direction>
+                <attribute-list><attribute>guest</attribute></attribute-list>
+                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                    <name>BoA</name><sort-name>BoA</sort-name>
                 </artist>
             </relation>
         </relation-list>
