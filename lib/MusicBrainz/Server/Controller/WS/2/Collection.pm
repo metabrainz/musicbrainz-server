@@ -28,6 +28,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Collection',
+    entity_name => 'collection'
 };
 
 Readonly our $MAX_ITEMS => 25;
