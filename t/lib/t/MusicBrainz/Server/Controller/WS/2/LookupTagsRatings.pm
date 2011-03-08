@@ -80,7 +80,6 @@ ws_test 'release group lookup with tags and ratings',
 
 ws_test 'artist lookup with release-groups, tags and ratings',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+ratings' =>
-<<<<<<< HEAD
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -100,9 +99,6 @@ ws_test 'artist lookup with release-groups, tags and ratings',
         <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
-=======
-    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name><life-span><begin>1986-11-05</begin></life-span><release-group-list count="1"><release-group type="Album" id="23f421e7-431e-3e1d-bcbf-b91f5f7c5e2c"><title>LOVE &amp; HONESTY</title><tag-list><tag count="1"><name>format-dvd-video</name></tag></tag-list></release-group></release-group-list><tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>pop</name></tag></tag-list><rating votes-count="3">4.35</rating></artist></metadata>';
->>>>>>> mbs-1504-xml-namespaces
 
 ws_test 'release lookup with release-groups, tags and ratings',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=release-groups+tags+ratings' =>
