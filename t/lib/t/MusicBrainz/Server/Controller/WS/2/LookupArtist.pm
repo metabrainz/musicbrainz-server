@@ -42,7 +42,7 @@ ws_test 'artist lookup, inc=aliases',
             <begin>1986-11-05</begin>
         </life-span>
         <alias-list count="5">
-            <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>보아</alias><alias>ボア</alias>
+            <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>ボア</alias><alias>보아</alias>
         </alias-list>
     </artist>
 </metadata>';
@@ -81,25 +81,6 @@ ws_test 'artist lookup with releases and discids',
     <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <release-list count="2">
-            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-                <title>My Demons</title><status>Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>eng</language><script>Latn</script>
-                </text-representation>
-                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
-                <medium-list count="1">
-                    <medium>
-                        <position>1</position><format>CD</format>
-                        <disc-list count="1">
-                            <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
-                                <sectors>281289</sectors>
-                            </disc>
-                        </disc-list>
-                        <track-list count="12" />
-                    </medium>
-                </medium-list>
-            </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>Official</status>
                 <quality>normal</quality>
@@ -125,6 +106,25 @@ ws_test 'artist lookup with releases and discids',
                             </disc>
                         </disc-list>
                         <track-list count="9" />
+                    </medium>
+                </medium-list>
+            </release>
+            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+                <title>My Demons</title><status>Official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>eng</language><script>Latn</script>
+                </text-representation>
+                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+                <medium-list count="1">
+                    <medium>
+                        <position>1</position><format>CD</format>
+                        <disc-list count="1">
+                            <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
+                                <sectors>281289</sectors>
+                            </disc>
+                        </disc-list>
+                        <track-list count="12" />
                     </medium>
                 </medium-list>
             </release>
