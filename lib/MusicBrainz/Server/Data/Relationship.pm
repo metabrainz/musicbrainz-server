@@ -127,7 +127,7 @@ sub _load
             push @cond, "entity1 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
             $target = $type0;
-            $target_id = 'entity1';
+            $target_id = 'entity0';
         }
 
         my $select = "* FROM l_${type0}_${type1}
