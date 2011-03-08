@@ -44,20 +44,6 @@ ws_test 'browse releases via label',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
-        <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-            <title>My Demons</title><status>Official</status>
-            <quality>normal</quality>
-            <text-representation>
-                <language>eng</language><script>Latn</script>
-            </text-representation>
-            <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
-            <asin>B000KJTG6K</asin>
-            <medium-list count="1">
-                <medium>
-                    <position>1</position><format>CD</format><track-list count="12" />
-                </medium>
-            </medium-list>
-        </release>
         <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
             <title>Repercussions</title><status>Official</status>
             <quality>normal</quality>
@@ -75,6 +61,20 @@ ws_test 'browse releases via label',
                 </medium>
             </medium-list>
         </release>
+        <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+            <title>My Demons</title><status>Official</status>
+            <quality>normal</quality>
+            <text-representation>
+                <language>eng</language><script>Latn</script>
+            </text-representation>
+            <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+            <asin>B000KJTG6K</asin>
+            <medium-list count="1">
+                <medium>
+                    <position>1</position><format>CD</format><track-list count="12" />
+                </medium>
+            </medium-list>
+        </release>
     </release-list>
 </metadata>';
 
@@ -83,20 +83,20 @@ ws_test 'browse releases via release group',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
-        <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-            <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
-            <quality>normal</quality>
-            <text-representation>
-                <language>jpn</language><script>Latn</script>
-            </text-representation>
-            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
-            <asin>B00005LA6G</asin>
-        </release>
         <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
             <title>サマーれげぇ!レインボー</title><status>Official</status>
             <quality>normal</quality>
             <text-representation>
                 <language>jpn</language><script>Jpan</script>
+            </text-representation>
+            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <asin>B00005LA6G</asin>
+        </release>
+        <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+            <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+            <quality>normal</quality>
+            <text-representation>
+                <language>jpn</language><script>Latn</script>
             </text-representation>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
             <asin>B00005LA6G</asin>
@@ -112,23 +112,6 @@ ws_test 'browse releases via recording',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
-        <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
-            <title>LOVE &amp; HONESTY</title><status>Official</status>
-            <quality>normal</quality>
-            <text-representation>
-                <language>jpn</language><script>Jpan</script>
-            </text-representation>
-            <date>2004-01-15</date><country>JP</country><barcode>4988064173907</barcode>
-            <asin>B0000YG9NS</asin>
-            <label-info-list count="1">
-                <label-info>
-                    <catalog-number>AVCD-17390</catalog-number>
-                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
-                        <name>avex trax</name><sort-name>avex trax</sort-name>
-                    </label>
-                </label-info>
-            </label-info-list>
-        </release>
         <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
             <title>LOVE &amp; HONESTY</title><status>Official</status>
             <quality>normal</quality>
@@ -140,6 +123,23 @@ ws_test 'browse releases via recording',
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>AVCD-17389</catalog-number>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
+                        <name>avex trax</name><sort-name>avex trax</sort-name>
+                    </label>
+                </label-info>
+            </label-info-list>
+        </release>
+        <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
+            <title>LOVE &amp; HONESTY</title><status>Official</status>
+            <quality>normal</quality>
+            <text-representation>
+                <language>jpn</language><script>Jpan</script>
+            </text-representation>
+            <date>2004-01-15</date><country>JP</country><barcode>4988064173907</barcode>
+            <asin>B0000YG9NS</asin>
+            <label-info-list count="1">
+                <label-info>
+                    <catalog-number>AVCD-17390</catalog-number>
                     <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>
