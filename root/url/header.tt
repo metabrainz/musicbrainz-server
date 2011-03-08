@@ -5,12 +5,15 @@
 ] -%]
 
 <div class="urlheader">
-<h1>[% link_url(url, 'show', display_url(url.url)) %] - [% url.pretty_name %]</h1>
-[% IF url.description %]
+<h1><a href="[% url.url | uri %]">[% url.pretty_name | html %]</a></h1>
 <p class="subheader">
-    <span class="prefix">~</span> [% html_escape(url.description) %]
-</p>
+<span class="prefix">~</span>
+[% IF url.description %]
+     [% html_escape(url.description) %]
+[% ELSE %]
+     [% html_escape(url.url) %]
 [% END %]
+</p>
 </div>
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]
