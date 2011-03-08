@@ -16,9 +16,6 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 $mech->get('/user/new_editor');
 $mech->content_contains('Collection', "Collection tab appears on profile of user");
 
-$mech->get('/user/alice');
-$mech->content_lacks('Collection', "Collection tab does not appear when collection marked private");
-
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'alice', password => 'secret1' } );
 
