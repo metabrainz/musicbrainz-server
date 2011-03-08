@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Test;
 
 use DBDefs;
+use Encode qw( encode );
 use FindBin '$Bin';
 use HTTP::Headers;
 use HTTP::Request;
@@ -353,7 +354,7 @@ sub _build_ws_test_xml {
             $validator->($mech->content, 'validating');
 
             is_xml_same($mech->content, $expected);
-            $Test->note($mech->content);
+            $Test->note(encode('utf-8', $mech->content));
         });
     }
 }
