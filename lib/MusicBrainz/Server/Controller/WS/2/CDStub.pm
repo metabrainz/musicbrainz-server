@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::2::CDStub;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use Try::Tiny;
 
@@ -36,36 +37,36 @@ sub cdstub_submit : Private
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
 
-    my $xp = XML::XPath->new( xml => $c->request->body );
-    for my $release ($xp->find('/metadata/release')->get_nodelist)
+    my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
+    for my $release ($xp->find('/mb:metadata/mb:release')->get_nodelist)
     {
         my %data = (
-            title => $release->find('title')->string_value,
-            discid => $release->find('discid')->string_value,
-            toc => $release->find('toc')->string_value,
+            title  => $xp->find('mb:title', $release)->string_value,
+            discid => $xp->find('mb:discid', $release)->string_value,
+            toc    => $xp->find('mb:toc', $release)->string_value,
         );
 
-        if (my $barcode = $release->find('barcode')->string_value) {
+        if (my $barcode = $xp->find('mb:barcode', $release)->string_value) {
             $data{barcode} = $barcode;
         }
 
-        if (my $comment = $release->find('comment')->string_value) {
+        if (my $comment = $xp->find('mb:comment', $release)->string_value) {
             $data{comment} = $comment;
         }
 
         my $has_track_artists;
         my @tracks = map {
             my %track = (
-                title => $_->find('title')->string_value || undef
+                title => $xp->find('mb:title', $_)->string_value || undef
             );
-            if (my $artist = $_->find('artist')->string_value) {
+            if (my $artist = $xp->find('mb:artist', $_)->string_value) {
                 $track{artist} = $artist;
                 $has_track_artists = 1;
             }
             \%track;
-        } $release->find('track-list/track')->get_nodelist;
+        } $xp->find('mb:track-list/mb:track', $release)->get_nodelist;
 
-        $data{artist} = $release->find('artist')->string_value
+        $data{artist} = $xp->find('mb:artist', $release)->string_value
             unless $has_track_artists;
 
         try {
