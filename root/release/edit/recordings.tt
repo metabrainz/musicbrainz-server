@@ -98,7 +98,7 @@
           [%- ELSE -%]
             <tr class="servermatch releaselist" style="display: none">
               <td> </td>
-              <td colspan="3">[%- l('appears on:') %]<span class="appears"></span></td>
+              <td colspan="3">[%- l('appears on:') %] <span class="appears"></span></td>
             </tr>
           [%- END -%]
 
