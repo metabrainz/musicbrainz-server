@@ -317,7 +317,7 @@ sub _route
     my $requested = $self->_current;
     if (defined $p->{next})
     {
-        return unless $self->valid ($page);
+        return $self->navigate_to_page unless $self->valid ($page);
 
         $requested++;
     }
