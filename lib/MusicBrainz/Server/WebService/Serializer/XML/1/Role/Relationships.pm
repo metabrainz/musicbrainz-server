@@ -24,7 +24,7 @@ before 'serialize' => sub
             my $relationships = $by_type{$type};
 
             $self->add(
-                List->new( sort => sub { $_->target_key } )
+                List->new( sort => sub { $_->target_key . $_->link->type->name } )
                     ->serialize({ 'target-type' => map_type($type) },
                                 $relationships)
             )

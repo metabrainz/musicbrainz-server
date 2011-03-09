@@ -35,7 +35,7 @@ around 'serialize' => sub {
     $opts ||= {};
     $opts->{in_list} = 1;
 
-    my @ents = $self->can_sort ? sort_by { $self->sort } @$entities : @$entities;
+    my @ents = $self->can_sort ? sort_by { $self->sort->() } @$entities : @$entities;
 
     map { $self->add( serialize_entity($_, $inc, $opts) ) } @ents;
 
