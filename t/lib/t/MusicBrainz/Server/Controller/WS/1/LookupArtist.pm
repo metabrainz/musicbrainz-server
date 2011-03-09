@@ -1,12 +1,30 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::LookupArtist;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+use utf8;
+use HTTP::Request::Common;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password'), (2, 'other editor', 'password');
+EOSQL
+
+
 MusicBrainz::Server::Test->prepare_raw_test_database(
     $c, <<'EOSQL');
 TRUNCATE artist_tag_raw CASCADE;
@@ -76,11 +94,129 @@ ws_test 'artist lookup with tags',
 
 ws_test 'artist lookup with release-relationships',
     '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=release-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group"><name>Plone</name><sort-name>Plone</sort-name><relation-list target-type="Release"><relation target="fbe4eb72-0f24-3875-942e-f581589713d4" type="Design/Illustration"><release id="fbe4eb72-0f24-3875-942e-f581589713d4" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /></release></relation><relation target="dd66bfdd-6097-32e3-91b6-67f47ba25d4c" type="Design/Illustration"><release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /></release></relation><relation target="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Design/Illustration"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /></release></relation></relation-list></artist></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+<artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group">
+  <name>Plone</name><sort-name>Plone</sort-name>
+  <relation-list target-type="Release">
+    <relation target="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Design/Illustration">
+      <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official">
+        <title>For Beginner Piano</title><text-representation script="Latn" language="ENG" />
+        <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+          <name>Plone</name><sort-name>Plone</sort-name>
+        </artist>
+      </release>
+    </relation>
+    <relation target="dd66bfdd-6097-32e3-91b6-67f47ba25d4c" type="Design/Illustration">
+      <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c" type="Album Official">
+        <title>For Beginner Piano</title><text-representation script="Latn" language="ENG" />
+        <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+          <name>Plone</name><sort-name>Plone</sort-name>
+        </artist>
+      </release>
+    </relation>
+    <relation target="fbe4eb72-0f24-3875-942e-f581589713d4" type="Design/Illustration">
+      <release id="fbe4eb72-0f24-3875-942e-f581589713d4" type="Album Official">
+        <title>For Beginner Piano</title>
+        <text-representation script="Latn" language="ENG" />
+        <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+          <name>Plone</name><sort-name>Plone</sort-name>
+        </artist>
+      </release>
+    </relation>
+  </relation-list>
+</artist>
+</metadata>';
 
 ws_test 'artist lookup with track-relationships',
     '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=track-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group"><name>Plone</name><sort-name>Plone</sort-name><relation-list target-type="Track"><relation target="44704dda-b877-4551-a2a8-c1f764476e65" type="Producer"><track id="44704dda-b877-4551-a2a8-c1f764476e65"><title>On My Bus</title><duration>267560</duration></track></relation><relation target="8920288e-7541-48a7-b23b-f80447c8b1ab" type="Producer"><track id="8920288e-7541-48a7-b23b-f80447c8b1ab"><title>Top &amp; Low Rent</title><duration>230506</duration></track></relation><relation target="6e89c516-b0b6-4735-a758-38e31855dcb6" type="Producer"><track id="6e89c516-b0b6-4735-a758-38e31855dcb6"><title>Plock</title><duration>237133</duration></track></relation><relation target="791d9b27-ae1a-4295-8943-ded4284f2122" type="Producer"><track id="791d9b27-ae1a-4295-8943-ded4284f2122"><title>Marbles</title><duration>229826</duration></track></relation><relation target="4f392ffb-d3df-4f8a-ba74-fdecbb1be877" type="Producer"><track id="4f392ffb-d3df-4f8a-ba74-fdecbb1be877"><title>Busy Working</title><duration>217440</duration></track></relation><relation target="dc891eca-bf42-4103-8682-86068fe732a5" type="Producer"><track id="dc891eca-bf42-4103-8682-86068fe732a5"><title>The Greek Alphabet</title><duration>227293</duration></track></relation><relation target="25e9ae0f-8b7d-4230-9cde-9a07f7680e4a" type="Producer"><track id="25e9ae0f-8b7d-4230-9cde-9a07f7680e4a"><title>Press a Key</title><duration>244506</duration></track></relation><relation target="6f9c8c32-3aae-4dad-b023-56389361cf6b" type="Producer"><track id="6f9c8c32-3aae-4dad-b023-56389361cf6b"><title>Bibi Plone</title><duration>173960</duration></track></relation><relation target="7e379a1d-f2bc-47b8-964e-00723df34c8a" type="Producer"><track id="7e379a1d-f2bc-47b8-964e-00723df34c8a"><title>Be Rude to Your School</title><duration>208706</duration></track></relation><relation target="a8614bda-42dc-43c7-ac5f-4067acb6f1c5" type="Producer"><track id="a8614bda-42dc-43c7-ac5f-4067acb6f1c5"><title>Summer Plays Out</title><duration>320067</duration></track></relation></relation-list></artist></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group">
+        <name>Plone</name><sort-name>Plone</sort-name>
+        <relation-list target-type="Track">
+            <relation target="25e9ae0f-8b7d-4230-9cde-9a07f7680e4a" type="Producer">
+                <track id="25e9ae0f-8b7d-4230-9cde-9a07f7680e4a">
+                    <title>Press a Key</title><duration>244506</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="44704dda-b877-4551-a2a8-c1f764476e65" type="Producer">
+                <track id="44704dda-b877-4551-a2a8-c1f764476e65">
+                    <title>On My Bus</title><duration>267560</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="4f392ffb-d3df-4f8a-ba74-fdecbb1be877" type="Producer">
+                <track id="4f392ffb-d3df-4f8a-ba74-fdecbb1be877">
+                    <title>Busy Working</title><duration>217440</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="6e89c516-b0b6-4735-a758-38e31855dcb6" type="Producer">
+                <track id="6e89c516-b0b6-4735-a758-38e31855dcb6">
+                    <title>Plock</title><duration>237133</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="6f9c8c32-3aae-4dad-b023-56389361cf6b" type="Producer">
+                <track id="6f9c8c32-3aae-4dad-b023-56389361cf6b">
+                    <title>Bibi Plone</title><duration>173960</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="791d9b27-ae1a-4295-8943-ded4284f2122" type="Producer">
+                <track id="791d9b27-ae1a-4295-8943-ded4284f2122">
+                    <title>Marbles</title><duration>229826</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="7e379a1d-f2bc-47b8-964e-00723df34c8a" type="Producer">
+                <track id="7e379a1d-f2bc-47b8-964e-00723df34c8a">
+                    <title>Be Rude to Your School</title><duration>208706</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="8920288e-7541-48a7-b23b-f80447c8b1ab" type="Producer">
+                <track id="8920288e-7541-48a7-b23b-f80447c8b1ab">
+                    <title>Top &amp; Low Rent</title><duration>230506</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="a8614bda-42dc-43c7-ac5f-4067acb6f1c5" type="Producer">
+                <track id="a8614bda-42dc-43c7-ac5f-4067acb6f1c5">
+                    <title>Summer Plays Out</title><duration>320067</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+            <relation target="dc891eca-bf42-4103-8682-86068fe732a5" type="Producer">
+                <track id="dc891eca-bf42-4103-8682-86068fe732a5">
+                    <title>The Greek Alphabet</title><duration>227293</duration>
+                    <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                      <name>Plone</name><sort-name>Plone</sort-name>
+                    </artist>
+                </track>
+            </relation>
+        </relation-list>
+    </artist>
+</metadata>';
 
 ws_test 'artist lookup with ratings',
     '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=ratings' =>
@@ -200,16 +336,16 @@ ws_test 'artist lookup with label-relationships',
    <name>Andy C</name><sort-name>Andy C</sort-name>
    <disambiguation>UK drum &amp; bass DJ/producer</disambiguation>
    <relation-list target-type="Label">
-     <relation target="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="LabelFounder">
-       <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f">
-         <name>RAM Records</name>
-         <sort-name>RAM Records</sort-name>
-       </label>
-     </relation>
      <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelFounder">
        <label id="60a71ab7-a21b-4f25-94e0-1f51a84a9add">
          <name>Frequency Recordings</name>
          <sort-name>Frequency Recordings</sort-name>
+       </label>
+     </relation>
+     <relation target="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="LabelFounder">
+       <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f">
+         <name>RAM Records</name>
+         <sort-name>RAM Records</sort-name>
        </label>
      </relation>
     </relation-list>
@@ -287,4 +423,7 @@ ws_test 'artist lookup with ratings',
 </metadata>',
   { username => 'other editor', password => 'password' };
 
-done_testing;
+};
+
+1;
+
