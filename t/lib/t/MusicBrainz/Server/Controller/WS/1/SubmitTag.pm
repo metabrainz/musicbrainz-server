@@ -1,15 +1,28 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::SubmitTag;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
+with 't::Mechanize', 't::Context';
+
+use utf8;
 use HTTP::Request::Common;
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
 
-use MusicBrainz::WWW::Mechanize;
+test all => sub {
 
-my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password');
+EOSQL
 
 subtest 'Submit a single tag' => sub {
     my $request = POST '/ws/1/tag/?type=xml', [
@@ -64,9 +77,9 @@ subtest 'Submit a multiple tags' => sub {
           <tag-list><tag>production</tag></tag-list>
          </metadata>',
         { username => 'editor', password => 'password' };
+}
 
-    done_testing;
 };
 
-done_testing;
+1;
 
