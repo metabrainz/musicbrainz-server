@@ -1,12 +1,28 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::LookupLabel;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+use HTTP::Request::Common;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password');
+EOSQL
+
 MusicBrainz::Server::Test->prepare_raw_test_database(
     $c, <<'EOSQL');
 TRUNCATE label_tag_raw CASCADE;
@@ -85,10 +101,10 @@ ws_test 'label lookup with url-relationships',
   <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="OriginalProduction">
     <name>RAM Records</name><sort-name>RAM Records</sort-name><country>GB</country>
     <relation-list target-type="Url">
-      <relation target="http://www.myspace.com/ramrecordsltd" type="Myspace" />
-      <relation target="http://www.discogs.com/label/RAM+Records" type="Discogs" />
-      <relation target="http://www.ramrecords.co.uk" type="OfficialSite" />
       <relation target="http://en.wikipedia.org/wiki/Ram_Records_(UK)" type="Wikipedia" />
+      <relation target="http://www.discogs.com/label/RAM+Records" type="Discogs" />
+      <relation target="http://www.myspace.com/ramrecordsltd" type="Myspace" />
+      <relation target="http://www.ramrecords.co.uk/" type="OfficialSite" />
     </relation-list>
   </label>
 </metadata>';
@@ -100,16 +116,22 @@ ws_test 'label lookup with release-relationships',
  <sort-name>Atlantic</sort-name>
  <country>US</country>
  <relation-list target-type="Release">
-  <relation target="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Publishing">
-   <release id="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Album Official">
-    <title>Recipe for Hate</title>
-    <text-representation script="Latn" language="ENG" />
-   </release>
-  </relation>
   <relation target="99303476-675d-3c88-a4ee-8c40ea91b1e2" type="Publishing">
    <release id="99303476-675d-3c88-a4ee-8c40ea91b1e2" type="Album Official">
     <title>Recipe for Hate</title>
     <text-representation script="Latn" language="ENG" />
+    <artist id="149e6720-4e4a-41a4-afca-6d29083fc091">
+      <name>Bad Religion</name><sort-name>Bad Religion</sort-name>
+    </artist>
+   </release>
+  </relation>
+  <relation target="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Publishing">
+   <release id="f07d489d-a06e-4f39-b95e-5692e2a4f465" type="Album Official">
+    <title>Recipe for Hate</title>
+    <text-representation script="Latn" language="ENG" />
+    <artist id="149e6720-4e4a-41a4-afca-6d29083fc091">
+      <name>Bad Religion</name><sort-name>Bad Religion</sort-name>
+    </artist>
    </release>
   </relation>
  </relation-list>
@@ -125,4 +147,7 @@ ws_test 'label lookup with ratings',
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="46f0f4cd-8aab-4b33-b698-f459faf64190" type="OriginalProduction"><name>Warp Records</name><sort-name>Warp Records</sort-name><country>GB</country><user-rating>5</user-rating></label></metadata>',
    { username => 'editor', password => 'password' };
 
-done_testing;
+};
+
+1;
+
