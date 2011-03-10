@@ -85,11 +85,11 @@ sub merge
     my $table_raw = $type . '_rating_raw';
 
     my $ratings = $self->c->raw_sql->do(
-        "INSERT INTO $table_raw (editor, rating, recording)
+        "INSERT INTO $table_raw (editor, rating, $type)
              SELECT editor, max(rating), ?
-               FROM delete_ratings('recording', ?)
+               FROM delete_ratings(?, ?)
            GROUP BY editor",
-        $new_id, [ $new_id, @old_ids ]
+        $new_id, $type, [ $new_id, @old_ids ]
     );
 
     # Update the aggregate rating
