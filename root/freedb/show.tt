@@ -45,7 +45,7 @@
     [% form_submit(l('Import')) WRAPPER form_row %]
   </form>
 [% ELSE %]
-  <p>[% l("Please login to import this FreeDB disc.") %]</p>
+  <p>[% request_login(l("Please login to import this FreeDB disc.")) %]</p>
 [% END %]
 
 </form>
@@ -99,11 +99,11 @@
     <input type="hidden" name="mediums.0.track.[% loop.index %].length"
            value="[% track.length %]" />
     [% END %]
-    
+
     [% form_submit(l('Import')) WRAPPER form_row %]
   </form>
 [% ELSE %]
-  <p>[% l("Please login to import this FreeDB disc.") %]</p>
+  <p>[% request_login(l("Please login to import this FreeDB disc.")) %]</p>
 [% END %]
 
 [% END %]
