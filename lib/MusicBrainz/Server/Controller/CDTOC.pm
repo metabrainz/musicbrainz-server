@@ -32,7 +32,7 @@ sub _load
 sub _load_releases
 {
     my ($self, $c, $cdtoc) = @_;
-    my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
+    my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
     my @releases = $c->model('Release')->load(@mediums);
     $c->model('MediumFormat')->load(@mediums);

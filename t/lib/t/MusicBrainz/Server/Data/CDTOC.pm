@@ -64,7 +64,7 @@ is($cdtoc->id, 1);
 memory_cycle_ok($cdtoc_data);
 memory_cycle_ok($cdtoc);
 
-my @medium_cdtoc = $medium_cdtoc_data->find_by_cdtoc(1);
+my @medium_cdtoc = $medium_cdtoc_data->find_by_discid($cdtoc->discid);
 is(scalar(@medium_cdtoc), 2);
 is($medium_cdtoc[0]->medium_id, 1);
 is($medium_cdtoc[1]->medium_id, 2);

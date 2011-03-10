@@ -189,7 +189,7 @@ sub freedbid : Private
     my @medium_cdtocs;
     for (@cdtocs)
     {
-        push @medium_cdtocs, $c->model('MediumCDTOC')->find_by_cdtoc($_->id);
+        push @medium_cdtocs, $c->model('MediumCDTOC')->find_by_discid($_->discid);
     }
 
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
