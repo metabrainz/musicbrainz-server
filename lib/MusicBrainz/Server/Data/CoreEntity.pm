@@ -38,7 +38,8 @@ sub get_by_gid
 sub find_by_name
 {
     my ($self, $name) = @_;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . " WHERE name.name = ?";
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
+                  WHERE unaccent(lower(name.name)) = unaccent(lower(?))";
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
