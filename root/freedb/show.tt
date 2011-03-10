@@ -1,0 +1,111 @@
+[%- WRAPPER 'layout.tt' full_width=1 title=html_escape(entity.title) %]
+
+<h1>[% html_escape(entity.title _ ' - ' _ entity.artist) %]</h1>
+
+<h2>[% l('Import as a Single Artist Release') %]</h2>
+
+<table class="tbl">
+  <thead>
+    <tr>
+      <th class="pos t">[% l('#') %]</th>
+      <th>[% l('Track') %]</th>
+      <th class="treleases">[% l('Length') %]</th>
+    </tr>
+  </thead>
+  <tbody>
+    [% FOR track=entity.tracks %]
+    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+      <td class="pos t">[% loop.count %]</td>
+      <td>
+        [% track.freedb_title | html %]
+      </td>
+      <td>
+        [% track.length | format_length %]
+      </td>
+    </tr>
+    [% END %]
+  </tbody>
+</table>
+
+[% IF c.user_exists %]
+  <form action="[% c.uri_for('/release/add') %]" method="post">
+    <input type="hidden" name="name" value="[% entity.title %]" />
+    <input type="hidden" name="artist" value="[% entity.title %]" />
+    <input type="hidden" name="mediums.0.format" value="CD" />
+    <input type="hidden" name="artist_credit.names.0.name" value="[% entity.artist %]" />
+    [% FOR track=entity.tracks %]
+      <input type="hidden" name="mediums.0.track.[% loop.index %].name"
+             value="[% track.freedb_title %]" />
+      <input type="hidden"
+             name="mediums.0.track.[% loop.index %].artist_credit.names.0.name"
+             value="[% release.artist %]" />
+      <input type="hidden" name="mediums.0.track.[% loop.index %].length"
+               value="[% track.length %]" />
+    [% END %]
+    [% form_submit(l('Import')) WRAPPER form_row %]
+  </form>
+[% ELSE %]
+  <p>[% request_login(l("Please login to import this FreeDB disc.")) %]</p>
+[% END %]
+
+</form>
+
+[% IF entity.looks_like_va %]
+<h2>[% l('Import as Multiple Artist Release') %]</h2>
+<p>[% l('The tracklist found looks like it may have different artists on some tracks. If
+  the below display looks correct, you should import this releases as a multiple
+  release') %]</p>
+
+<table class="tbl">
+  <thead>
+    <tr>
+      <th class="pos t">[% l('#') %]</th>
+      <th>[% l('Track') %]</th>
+      <th>[% l('Artist') %]</th>
+      <th class="treleases">[% l('Length') %]</th>
+    </tr>
+  </thead>
+  <tbody>
+    [% FOR track=entity.tracks %]
+    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+      <td class="pos t">[% loop.count %]</td>
+      <td>
+        [% track.title | html %]
+      </td>
+      <td>
+        [% track.artist | html %]
+      </td>
+      <td>
+        [% track.length | format_length %]
+      </td>
+    </tr>
+    [% END %]
+  </tbody>
+</table>
+
+[% IF c.user_exists %]
+  <form action="[% c.uri_for('/release/add') %]" method="post">
+    <input type="hidden" name="name" value="[% entity.title %]" />
+    <input type="hidden" name="artist" value="[% entity.title %]" />
+    <input type="hidden" name="mediums.0.format" value="CD" />
+    <input type="hidden" name="artist_credit.names.0.name" value="[% entity.artist %]" />
+
+    [% FOR track=entity.tracks %]
+    <input type="hidden" name="mediums.0.track.[% loop.index %].name"
+           value="[% track.title %]" />
+    <input type="hidden"
+           name="mediums.0.track.[% loop.index %].artist_credit.names.0.name"
+           value="[% track.artist %]" />
+    <input type="hidden" name="mediums.0.track.[% loop.index %].length"
+           value="[% track.length %]" />
+    [% END %]
+
+    [% form_submit(l('Import')) WRAPPER form_row %]
+  </form>
+[% ELSE %]
+  <p>[% request_login(l("Please login to import this FreeDB disc.")) %]</p>
+[% END %]
+
+[% END %]
+
+[% END %]

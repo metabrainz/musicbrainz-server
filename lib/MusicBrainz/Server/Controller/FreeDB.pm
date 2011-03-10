@@ -14,9 +14,7 @@ sub _load {
     return $c->model('FreeDB')->lookup($category, $id);
 }
 
-sub import : Chained('load') PathPart RequireAuth {
-    my ($self, $c) = @_;
-}
+sub show : Chained('load') PathPart('') {}
 
 =head1 LICENSE
 
