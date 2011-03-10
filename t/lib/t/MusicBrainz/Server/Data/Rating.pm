@@ -143,10 +143,10 @@ $test->c->raw_sql->commit;
 
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 $artist_data->load_meta($artist);
-is($artist->rating, 43);
+is($artist->rating, 45);
 
 $rating_data->load_user_ratings(1, $artist);
-is($artist->user_rating, 50);
+is($artist->user_rating, 60);
 
 $rating_data->load_user_ratings(2, $artist);
 is($artist->user_rating, 70);
