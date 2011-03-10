@@ -154,34 +154,43 @@ process_indexes("CreateIndexes.sql", "DropIndexes.sql");
 process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
 process_indexes("vertical/rawdata/CreateIndexes.sql", "vertical/rawdata/DropIndexes.sql");
 
-open FILE, "<$FindBin::Bin/../admin/sql/CreateFunctions.sql";
-my $create_functions_sql = do { local $/; <FILE> };
-close FILE;
+sub process_functions
+{
+    my ($infile, $outfile) = @_;
 
-my @functions;
-while ($create_functions_sql =~ m/CREATE .*?FUNCTION\s+(.+?)\s+RETURNS/gi) {
-    my $name = $1;
-    push @functions, $name;
-}
-@functions = sort(@functions);
+    open FILE, "<$FindBin::Bin/../admin/sql/$infile";
+    my $create_functions_sql = do { local $/; <FILE> };
+    close FILE;
 
-my @aggregates;
-while ($create_functions_sql =~ m/CREATE\s+AGGREGATE\s+(\w+)/gi) {
-    my $name = $1;
-    push @aggregates, $name;
-}
-@aggregates = sort(@aggregates);
+    my @functions;
+    while ($create_functions_sql =~ m/CREATE .*?FUNCTION\s+(.+?)\s+RETURNS/gi) {
+        my $name = $1;
+        push @functions, $name;
+    }
+    @functions = sort(@functions);
 
-open OUT, ">$FindBin::Bin/../admin/sql/DropFunctions.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\unset ON_ERROR_STOP\n\n";
-foreach my $func (@functions) {
-    print OUT "DROP FUNCTION $func;\n";
+    my @aggregates;
+    while ($create_functions_sql =~ m/CREATE\s+AGGREGATE\s+(\w+)/gi) {
+        my $name = $1;
+        push @aggregates, $name;
+    }
+    @aggregates = sort(@aggregates);
+
+    open OUT, ">$FindBin::Bin/../admin/sql/$outfile";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $func (@functions) {
+        print OUT "DROP FUNCTION $func;\n";
+    }
+    foreach my $agg (@aggregates) {
+        print OUT "DROP AGGREGATE $agg;\n";
+    }
+    close OUT;
 }
-foreach my $agg (@aggregates) {
-    print OUT "DROP AGGREGATE $agg;\n";
-}
-close OUT;
+
+process_functions("CreateFunctions.sql", "DropFunctions.sql");
+process_functions("vertical/rawdata/CreateFunctions.sql",
+                  "vertical/rawdata/DropFunctions.sql");
 
 open FILE, "<$FindBin::Bin/../admin/sql/CreateTriggers.sql";
 my $create_triggers_sql = do { local $/; <FILE> };
