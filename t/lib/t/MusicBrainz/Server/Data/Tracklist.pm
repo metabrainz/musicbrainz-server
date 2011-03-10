@@ -12,6 +12,28 @@ use MusicBrainz::Server::Test;
 
 with 't::Context';
 
+test 'Track count triggers' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+
+    my $sql = $test->c->sql;
+
+    my $tc1 = $sql->select_single_value("SELECT track_count FROM tracklist WHERE id=1");
+    my $tc2 = $sql->select_single_value("SELECT track_count FROM tracklist WHERE id=2");
+
+    is ( $tc1, 7 );
+    is ( $tc2, 9 );
+
+    $sql->auto_commit(1);
+    $sql->do("DELETE FROM track WHERE tracklist=1");
+
+    $tc1 = $sql->select_single_value("SELECT track_count FROM tracklist WHERE id=1");
+    $tc2 = $sql->select_single_value("SELECT track_count FROM tracklist WHERE id=2");
+
+    is ( $tc1, 0 );
+    is ( $tc2, 9 );
+};
+
 test all => sub {
 
 my $test = shift;
