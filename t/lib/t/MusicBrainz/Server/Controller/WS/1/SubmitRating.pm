@@ -1,15 +1,28 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::SubmitRating;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
+with 't::Mechanize', 't::Context';
+
+use utf8;
 use HTTP::Request::Common;
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
 
-use MusicBrainz::WWW::Mechanize;
+test all => sub {
 
-my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password'), (2, 'other editor', 'password');
+EOSQL
 
 subtest 'Submit a single rating' => sub {
     my $request = POST '/ws/1/rating/?type=xml', [
@@ -28,8 +41,6 @@ subtest 'Submit a single rating' => sub {
         '<?xml version="1.0" encoding="UTF-8"?>
          <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><user-rating>3</user-rating></metadata>',
         { username => 'editor', password => 'password' };
-
-    done_testing;
 };
 
 subtest 'Submit a multiple ratings' => sub {
@@ -58,9 +69,9 @@ subtest 'Submit a multiple ratings' => sub {
         '<?xml version="1.0" encoding="UTF-8"?>
          <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><user-rating>2</user-rating></metadata>',
         { username => 'editor', password => 'password' };
-
-    done_testing;
 };
 
-done_testing;
+};
+
+1;
 
