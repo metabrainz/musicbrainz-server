@@ -183,6 +183,8 @@
       [%- medium = mediums.fields.$medium_idx -%]
       [%- edits = tracklist_edits.$medium_idx.edits -%]
 
+      [%- NEXT IF medium.field('deleted').value -%]
+
       <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]">
 
         [%- r.hidden (rec_medium.field('tracklist_id'), class => 'tracklist-id' ) -%]

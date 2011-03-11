@@ -246,6 +246,10 @@ sub prepare_recordings
     {
         $count += 1;
 
+        $recording_gids[$count]->{tracklist_id} = $_->{tracklist_id};
+
+        next if $_->{deleted};
+
         $_->{edits} = $self->edited_tracklist ($json->decode ($_->{edits}))
             if $_->{edits};
 
