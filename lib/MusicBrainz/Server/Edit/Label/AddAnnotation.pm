@@ -4,6 +4,8 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw( l ln );
 
+use aliased 'MusicBrainz::Server::Entity::Label';
+
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Label';
 
@@ -19,7 +21,7 @@ has 'label_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity_id} }
+    default => sub { shift->data->{entity}{id} }
 );
 
 has 'label' => (
@@ -41,7 +43,8 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig();
-    $data->{label} = $loaded->{Label}->{ $self->label_id };
+    $data->{label} = $loaded->{Label}->{ $self->label_id }
+        || Label->new( name => $self->data->{entity}{name} );
 
     return $data;
 };

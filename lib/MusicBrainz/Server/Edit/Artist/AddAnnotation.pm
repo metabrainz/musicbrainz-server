@@ -21,7 +21,7 @@ has 'artist_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity_id} }
+    default => sub { shift->data->{entity}{id} }
 );
 
 has 'artist' => (

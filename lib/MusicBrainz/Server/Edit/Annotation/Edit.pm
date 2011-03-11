@@ -16,7 +16,10 @@ has '+data' => (
         editor_id => Int,
         text      => Nullable[Str],
         changelog => Nullable[Str],
-        entity_id => NullableOnPreview[Int],
+        entity    => NullableOnPreview[Dict[
+            id   => Int,
+            name => Str
+        ]],
     ],
 );
 
@@ -54,7 +57,12 @@ sub insert
 {
     my $self = shift;
     my $model = $self->_annotation_model;
-    my $id = $model->edit($self->data);
+    my $id = $model->edit({
+        entity_id => $self->data->{entity}{id},
+        text      => $self->data->{text},
+        changelog => $self->data->{changelog},
+        editor_id => $self->data->{editor_id}
+    });
     $self->annotation_id($id);
 }
 
@@ -63,14 +71,18 @@ sub _annotation_model { die 'Not implemented' }
 sub initialize
 {
     my ($self, %opts) = @_;
+    unless ($self->preview) {
+        my $entity = delete $opts{entity} or die 'Missing entity argument';
+        $opts{entity} = {
+            id => $entity->id,
+            name => $entity->name
+        }
+    }
+
     $self->data({
         %opts,
         editor_id => $self->editor_id,
     });
-
-    return if $self->preview;
-
-    croak "No entity_id specified" unless $self->data->{entity_id};
 }
 
 override 'to_hash' => sub
