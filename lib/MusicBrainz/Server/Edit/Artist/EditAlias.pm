@@ -22,7 +22,7 @@ sub adjust_edit_pending
     $self->c->model('Artist')->alias->adjust_edit_pending($adjust, $self->alias_id);
 }
 
-sub artist_id { shift->data->{entity_id} }
+sub artist_id { shift->data->{entity}{id} }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

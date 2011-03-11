@@ -91,8 +91,8 @@ sub edit_alias : Chained('alias') PathPart('edit') RequireAuth Edit
         item => $alias,
         type => $model_to_edit_type{edit}->{ $self->{model} },
         edit_args => {
-            alias     => $alias,
-            entity_id => $c->stash->{ $self->{entity_name} }->id,
+            alias  => $alias,
+            entity => $c->stash->{ $self->{entity_name} }
         },
         on_creation => sub { $self->_redir_to_aliases($c) }
     );
