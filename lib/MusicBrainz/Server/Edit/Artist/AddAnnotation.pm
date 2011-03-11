@@ -4,6 +4,8 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw ( l ln );
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
+
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 
@@ -41,7 +43,8 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig();
-    $data->{artist} = $loaded->{Artist}->{ $self->artist_id };
+    $data->{artist} = $loaded->{Artist}->{ $self->artist_id }
+        || Artist->new( name => $self->data->{entity}{name} );
 
     return $data;
 };
