@@ -201,7 +201,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         if (url !== clean)
             self.urlControl.val(clean);
 
-        if (self.typeControl) {
+        if (self.typeControl.length) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
                 .attr('selected', 'selected');
