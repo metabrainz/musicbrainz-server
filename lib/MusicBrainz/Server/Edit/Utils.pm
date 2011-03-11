@@ -97,7 +97,10 @@ sub artist_credit_preview
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $artist->{name});
 
-        $ac->artist($loaded->{Artist}->{ $artist->{artist} }) if $artist->{artist};
+        $ac->artist(
+            $loaded->{Artist}->{ $artist->{artist} }
+                || Artist->new( name => $artist->{name} )
+        ) if $artist->{artist};
         $ac->join_phrase($join) if $join;
 
         push @names, $ac;

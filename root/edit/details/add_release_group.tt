@@ -1,3 +1,9 @@
+<tr>
+  <th>[% l('Release Group:') %]</th>
+  <td>[% artist_credit(edit.display_data.release_group) %]</td>
+</tr>
+
+
 <table class="details add-release-group">
   <tr>
     <th>[% l('Name:') %]</th>
