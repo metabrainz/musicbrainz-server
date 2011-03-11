@@ -36,6 +36,14 @@ has '+data' => (
     ]
 );
 
+sub alter_edit_pending
+{
+    my $self = shift;
+    return {
+        'Medium' => [ $self->entity_id ]
+    }
+}
+
 sub change_fields
 {
     return Dict[

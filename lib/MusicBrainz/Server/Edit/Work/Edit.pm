@@ -12,6 +12,8 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Translation qw( l ln );
 
+use aliased 'MusicBrainz::Server::Entity::Work';
+
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
@@ -33,7 +35,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         new => change_fields(),
         old => change_fields()
     ],
@@ -46,6 +51,8 @@ sub foreign_keys
     changed_relations($self->data, $relations,
         WorkType => 'type_id',
     );
+
+    $relations->{Work} = [ $self->entity_id ];
 
     return $relations;
 }
@@ -62,6 +69,9 @@ sub build_display_data
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
+
+    $data->{work} = $loaded->{Work}{ $self->entity_id }
+        || Work->new( name => $self->data->{entity}{name} );
 
     return $data;
 }
