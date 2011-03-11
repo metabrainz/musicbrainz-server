@@ -180,8 +180,11 @@ sub submit_puid : Private
         while(my ($recording_gid, $puids) = each %$submit) {
             next unless exists $recordings->{ $recording_gid };
             $buffer->add_items(map +{
-                recording_id => $recordings->{ $recording_gid }->id,
-                puid         => $_
+                recording => {
+                    id   => $recordings->{ $recording_gid }->id,
+                    name => $recordings->{ $recording_gid }->name
+                },
+                puid      => $_
             }, @$puids);
         }
     });
