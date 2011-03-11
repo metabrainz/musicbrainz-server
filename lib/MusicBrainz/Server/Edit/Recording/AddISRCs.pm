@@ -14,17 +14,22 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
 };
 with 'MusicBrainz::Server::Edit::Recording';
 
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
 sub edit_name { l('Add ISRCs') }
 
-sub recording_ids { map { $_->{recording_id} } @{ shift->data->{isrcs} } }
+sub recording_ids { map { $_->{recording}{id} } @{ shift->data->{isrcs} } }
 
 has '+data' => (
     isa => Dict[
         isrcs => ArrayRef[Dict[
-            isrc         => Str,
-            recording_id => Int,
-            source       => Nullable[Int],
+            isrc      => Str,
+            recording => Dict[
+                id => Int,
+                name => Str
+            ],
+            source    => Nullable[Int],
         ]]
     ]
 );
@@ -49,7 +54,7 @@ sub related_entities
     my $self = shift;
     return {
         recording => [ uniq map {
-            $_->{recording_id}
+            $_->{recording}{id}
         } @{ $self->data->{isrcs} } ]
     }
 }
@@ -59,7 +64,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Recording => { map {
-            $_->{recording_id} => ['ArtistCredit']
+            $_->{recording}{id} => ['ArtistCredit']
         } @{ $self->data->{isrcs} } }
     }
 }
@@ -70,7 +75,8 @@ sub build_display_data
     return {
         additions => [
             map { +{
-                recording => $loaded->{Recording}{ $_->{recording_id} },
+                recording => $loaded->{Recording}{ $_->{recording}{id} }
+                    || Recording->new( name => $_->{recording}{name} ),
                 isrc      => $_->{isrc},
                 source    => $_->{source}
             } } @{ $self->data->{isrcs} }
@@ -82,7 +88,11 @@ sub accept
 {
     my $self = shift;
     $self->c->model('ISRC')->insert(
-        @{ $self->data->{isrcs} }
+        map +{
+            recording_id => $_->{recording}{id},
+            isrc => $_->{isrc},
+            source => $_->{source}
+        }, @{ $self->data->{isrcs} }
     );
 }
 

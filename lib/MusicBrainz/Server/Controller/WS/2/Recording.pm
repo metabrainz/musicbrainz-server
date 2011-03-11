@@ -265,7 +265,10 @@ sub recording_submit : Private
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_isrc) {
             $buffer->add_items(map +{
-                recording_id => $recordings_by_gid{$recording_gid},
+                recording => {
+                    id => $recordings_by_gid{$recording_gid}->id,
+                    name => $recordings_by_gid{$recording_gid}->name
+                },
                 isrc         => $_
             }, @{ $submit_isrc{$recording_gid} });
         }

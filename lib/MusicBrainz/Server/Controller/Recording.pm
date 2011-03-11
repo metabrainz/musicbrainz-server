@@ -195,9 +195,12 @@ sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
             $c, $form,
             edit_type => $EDIT_RECORDING_ADD_ISRCS,
             isrcs => [ {
-                isrc         => $form->field('isrc')->value,
-                recording_id => $recording->id,
-                source       => 0
+                isrc      => $form->field('isrc')->value,
+                recording => {
+                    id => $recording->id,
+                    name => $recording->name
+                },
+                source    => 0
             } ]
         );
 
