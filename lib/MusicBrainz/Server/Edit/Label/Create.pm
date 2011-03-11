@@ -14,6 +14,8 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Label';
 
+use aliased 'MusicBrainz::Server::Entity::Label';
+
 sub edit_name { l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub _create_model { 'Label' }
@@ -38,6 +40,7 @@ sub foreign_keys
     my $self = shift;
 
     return {
+        Label     => [ $self->entity_id ],
         LabelType => [ $self->data->{type_id} ],
         Country   => [ $self->data->{country_id} ],
     };
@@ -48,6 +51,8 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $data = {
+        label      => $loaded->{Label}{ $self->entity_id }
+            || Label->new( name => $self->data->{name} ),
         name       => $self->data->{name},
         sort_name  => $self->data->{sort_name},
         type       => $loaded->{LabelType}->{ $self->data->{type_id} },
