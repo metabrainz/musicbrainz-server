@@ -19,15 +19,41 @@
 */
 
 MB.constants.LINK_TYPES = {
-    wikipedia: { artist: 180, label: 218, release_group: 89 },
-    discogs: { release: 72, release_group: 90, artist: 181, label: 219 },
-    musicmoz: { release: 73, artist: 182 },
-    imdb: { release_group: 97, artist: 179 },
-    myspace: { artist: 190, label: 217 },
-    purevolume: { artist: 175 },
-    amazon: { release: 76 },
-    coverart: { release: 77 },
-    lyricwiki: { release: 74 }
+    wikipedia: {
+        artist: 179,
+        label: 216,
+        release_group: 89
+    },
+    discogs: {
+        release: 76,
+        release_group: 90,
+        artist: 180,
+        label: 217
+    },
+    musicmoz: {
+        release: 91,
+        artist: 181
+    },
+    imdb: {
+        release_group: 97,
+        artist: 178
+    },
+    myspace: {
+        artist: 189,
+        label: 215
+    },
+    purevolume: {
+        artist: 174
+    },
+    amazon: {
+        release: 77
+    },
+    coverart: {
+        release: 78
+    },
+    lyricwiki: {
+        release_group: 92
+    }
 };
 
 MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
@@ -175,7 +201,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         if (url !== clean)
             self.urlControl.val(clean);
 
-        if (self.typeControl) {
+        if (self.typeControl.length) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
                 .attr('selected', 'selected');

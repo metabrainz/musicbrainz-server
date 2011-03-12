@@ -3,8 +3,9 @@
         <h1>[% l("Administration") %]</h1>
         <ul>
             [% IF c.user.is_relationship_editor %]
-                <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Link Types') %]</a></li>
-                <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Link Attribute Types') %]</a></li>
+                <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Relationship Types') %]</a></li>
+                <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Relationship Attributes') %]</a></li>
+                <li><a href="[% c.uri_for_action('/admin/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a></li>
             [% END %]
             [% IF c.user.is_wiki_transcluder %]
                 <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a></li>

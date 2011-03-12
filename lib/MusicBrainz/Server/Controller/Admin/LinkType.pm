@@ -12,7 +12,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE
 );
 
-sub index : Path Args(0) RequireAuth(relationship_editor)
+sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
@@ -49,7 +49,7 @@ sub tree_setup : Chained PathPart('admin/linktype') CaptureArgs(1)
     );
 }
 
-sub tree : Chained('tree_setup') PathPart('') RequireAuth(relationship_editor)
+sub tree : Chained('tree_setup') PathPart('')
 {
     my ($self, $c) = @_;
 }

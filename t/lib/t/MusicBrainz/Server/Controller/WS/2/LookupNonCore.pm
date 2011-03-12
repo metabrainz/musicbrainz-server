@@ -68,7 +68,34 @@ ws_test 'basic puid lookup',
 
 ws_test 'isrc lookup with releases',
     '/isrc/JPA600102460?inc=releases' =>
-    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><isrc id="JPA600102460"><recording-list count="1"><recording id="487cac92-eed5-4efa-8563-c9a818079b9a"><title>HELLO! また会おうね (7人祭 version)</title><length>213106</length><release-list count="2"><release id="b3b7e934-445b-4c68-a097-730c6a6d47e6"><title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status><quality>normal</quality><text-representation><language>jpn</language><script>Latn</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e"><title>サマーれげぇ!レインボー</title><status>Official</status><quality>normal</quality><text-representation><language>jpn</language><script>Jpan</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release></release-list></recording></recording-list></isrc></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+        <isrc id="JPA600102460">
+            <recording-list count="1">
+                <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
+                    <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
+                    <release-list count="2">
+                        <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+                            <title>サマーれげぇ!レインボー</title><status>Official</status>
+                            <quality>normal</quality>
+                            <text-representation>
+                                <language>jpn</language><script>Jpan</script>
+                            </text-representation>
+                            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+                        </release>
+                        <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+                            <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+                            <quality>normal</quality>
+                            <text-representation>
+                                <language>jpn</language><script>Latn</script>
+                            </text-representation>
+                            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+                        </release>
+                    </release-list>
+                </recording>
+            </recording-list>
+        </isrc>
+</metadata>';
 
 };
 

@@ -20,6 +20,12 @@ has 'public' => (
     isa => 'Bool'
 );
 
+has release_count => (
+    is => 'rw',
+    isa => 'Int',
+    predicate => 'loaded_release_count'
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

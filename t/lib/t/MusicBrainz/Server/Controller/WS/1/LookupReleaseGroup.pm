@@ -1,10 +1,23 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::LookupReleaseGroup;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+with 't::Mechanize', 't::Context';
+
+use HTTP::Request::Common;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'release group lookup',
     '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?type=xml' =>
@@ -41,4 +54,7 @@ ws_test 'release group lookup with releases',
   </release-group>
 </metadata>';
 
-done_testing;
+};
+
+1;
+

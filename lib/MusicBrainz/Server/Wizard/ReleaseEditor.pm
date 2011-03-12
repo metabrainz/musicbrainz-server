@@ -128,11 +128,14 @@ sub _load_release_groups
 
     $self->c->model('ReleaseGroup')->load(map { $_->tracklist->medium->release } @{ $tracks });
 
-    my @rgs = sort { $a->name cmp $b->name } map {
-            $_->tracklist->medium->release->release_group
-    } @{ $tracks };
+    my %rgs;
+    for (@{ $tracks })
+    {
+        my $rg = $_->tracklist->medium->release->release_group;
+        $rgs{$rg->gid} = $rg;
+    }
 
-    return \@rgs;
+    return [ sort { $a->name cmp $b->name } values %rgs ];
 }
 
 

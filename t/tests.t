@@ -27,6 +27,7 @@ my @classes = qw(
     t::MusicBrainz::Server::Entity::Relationship
     t::MusicBrainz::Server::Entity::ReleaseGroup
     t::MusicBrainz::Server::Entity::SearchResult
+    t::MusicBrainz::Server::Entity::URL
     t::MusicBrainz::Server::Entity::WikiDocPage
     t::MusicBrainz::Server::Entity::Work
 

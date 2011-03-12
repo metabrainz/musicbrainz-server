@@ -25,12 +25,12 @@ has '_store_map' => (
     default => sub {
         return {
             'amazon.co.uk' => 'ecs.amazonaws.co.uk',
-            'amazon.com' => 'ecs.amazon.com',
-            'amazon.de' => 'ecs.amazon.de',
-            'amazon.jp' => 'ecs.amazon.jp',
-            'amazon.co.jp' => 'ecs.amazon.jp',
-            'amazon.fr' => 'ecs.amazon.fr',
-            'amazon.it' => 'ecs.amazon.com'
+            'amazon.com' => 'ecs.amazonaws.com',
+            'amazon.de' => 'ecs.amazonaws.de',
+            'amazon.jp' => 'ecs.amazonaws.jp',
+            'amazon.co.jp' => 'ecs.amazonaws.jp',
+            'amazon.fr' => 'ecs.amazonaws.fr',
+            'amazon.it' => 'ecs.amazonaws.com'
         }
     },
     traits => [ 'Hash' ],

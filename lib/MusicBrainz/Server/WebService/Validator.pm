@@ -247,9 +247,16 @@ sub validate_inc
                 exists $all{$i}
             } keys %extra_inc;
 
-            $c->stash->{error} = "$i is not a valid option for the inc parameter for the $resource resource " .
-                                 "unless you specify one of the following other inc parameters: " .
-                                 join(', ', @possible);
+            if (@possible) {
+                $c->stash->{error} =
+                    "$i is not a valid option for the inc parameter for the $resource resource " .
+                    "unless you specify one of the following other inc parameters: " .
+                        join(', ', @possible);
+            }
+            else {
+                $c->stash->{error} = "$i is not a valid inc parameter for the $resource resource.";
+            }
+
             return;
         }
         push @filtered, $i;

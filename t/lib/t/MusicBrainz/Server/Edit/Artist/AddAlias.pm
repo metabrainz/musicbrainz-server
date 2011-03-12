@@ -40,10 +40,10 @@ reject_edit($c, $edit);
 $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 2);
 
-my $artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(1);
 is($artist->edits_pending, 0);
 
-my $edit = _create_edit($c);
+$edit = _create_edit($c);
 accept_edit($c, $edit);
 
 $artist = $c->model('Artist')->get_by_id(1);

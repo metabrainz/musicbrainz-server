@@ -40,8 +40,9 @@ Readonly our $VARTIST_ID  => 1;
 Readonly our $EXPIRE_ACCEPT => 1;
 Readonly our $EXPIRE_REJECT => 2;
 
-Readonly our $EDITOR_MODBOT => 1;
+Readonly our $EDITOR_ANONYMOUS => 1;
 Readonly our $EDITOR_FREEDB => 2;
+Readonly our $EDITOR_MODBOT => 4;
 
 Readonly our $QUALITY_UNKNOWN        => -1;
 Readonly our $QUALITY_UNKNOWN_MAPPED => 1;
@@ -105,6 +106,7 @@ Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
 Readonly our $EDIT_RECORDING_CREATE => 71;
 Readonly our $EDIT_RECORDING_EDIT => 72;
+Readonly our $EDIT_RECORDING_DELETE => 73;
 Readonly our $EDIT_RECORDING_MERGE => 74;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;

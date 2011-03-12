@@ -22,8 +22,6 @@ has 'c' => (
 Readonly our $NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
 Readonly our $SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
 
-our $test_transport = undef;
-
 sub _user_address
 {
     my ($user, $hidden) = @_;
@@ -381,9 +379,7 @@ sub _build_transport
     my ($self) = @_;
 
     if (&DBDefs::_RUNNING_TESTS) { # XXX shouldn't be here
-        require MusicBrainz::Server::Test;
-        MusicBrainz::Server::Email->import;
-        return MusicBrainz::Server::Test->get_test_transport;
+        return $self->get_test_transport;
     }
 
     return Email::Sender::Transport::SMTP->new({

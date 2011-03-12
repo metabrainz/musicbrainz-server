@@ -1,35 +1,34 @@
-[% BLOCK link_attribute_type %]
-    <li style="margin-top:1em;">
-        <strong>[% obj.name | html %]</strong>
-        [
-            <a href="[% c.uri_for_action('/admin/linkattributetype/edit', obj.id) %]">Edit</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.id) %]">Delete</a>[% END %]
-        ]
-        <br />
-        [% l('Description:') %] <em>[% obj.description || "-" %]</em><br />
+[% PROCESS 'admin/linkattributetype/common.tt' %]
 
-        [% IF obj.children %]
-        <ul>
-            [% FOR child IN obj.children %]
-            [% PROCESS link_attribute_type obj=child %]
-            [% END %]
-        </ul>
-        [% END %]
-    </li>
-[% END %]
-
-[% WRAPPER "layout.tt" title=l("Link Attribute Types") full_width=1 %]
+[% WRAPPER "layout.tt" title=l("Relationship Attributes") full_width=1 %]
     <div id="content">
-        <h1>[% l("Link Attribute Types") %]</h1>
+        <h1>[% l("Relationship Attributes") %]</h1>
 
         <p class="buttons">
-            <a href="[% c.uri_for_action('/admin/linkattributetype/create') %]">[% l('New Link Attribute Type') %]</a>
+            [%- IF c.user.is_relationship_editor -%]
+            <a href="[% c.uri_for_action('/admin/linkattributetype/create') %]">[% l('New Relationship Attribute') %]</a>
+            [%- END -%]
+            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Relationship Types') %]</a>
         </p>
 
-        <ul>
-            [% FOR child IN root.children %]
-                [% PROCESS link_attribute_type obj=child %]
-            [% END %]
-        </ul>
+        [% FOR obj IN root.children %]
+            <h2 id="[% obj.name %]">[% obj.name FILTER ucfirst | html %]</h2>
+            [% PROCESS attribute_details obj=obj toplevel=1 %]
+
+            [%- IF obj.children.size -%]
+            <br/><br/>
+            [% l('Possible values:') %]
+            <ul>
+            [%- IF obj.name == 'instrument' -%]
+                <li>[% l('See the {uri|full instrument tree}.', { uri => c.uri_for('/admin/linkattributetype/instruments') }) %]</li>
+            [%- ELSE -%]
+                [% FOR child IN obj.children %]
+                [% PROCESS attribute_tree obj=child %]
+                [% END %]
+            [%- END -%]
+            </ul>
+
+            [%- END -%]
+        [% END %]
     </div>
 [% END %]

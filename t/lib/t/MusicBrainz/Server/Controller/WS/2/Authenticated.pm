@@ -107,8 +107,6 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
     <user-rating>80</user-rating>
 </metadata>';
 
-diag($mech->content);
-
 my $diff = XML::SemanticDiff->new;
 is($diff->compare ($expected, $expected), 0, 'result ok');
 

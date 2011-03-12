@@ -8,7 +8,7 @@ use Test::Routine::Util;
 use Try::Tiny;
 
 my $mpo = Module::Pluggable::Object->new(
-    search_path => 't::MusicBrainz::Server::Controller::WS');
+    search_path => 't::MusicBrainz::Server::Controller');
 my @classes = $mpo->plugins;
 
 plan tests => scalar(@classes);

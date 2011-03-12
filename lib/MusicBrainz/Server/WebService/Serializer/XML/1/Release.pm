@@ -7,6 +7,8 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
+use List::Util 'sum';
+
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent';
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit';
@@ -130,6 +132,11 @@ before 'serialize' => sub
 
         $self->add( $self->gen->$relist({ count => 1 }) )
             unless $inc->release_events;
+
+        $self->add( $self->gen->$tracklist({
+            count => sum map { $_->tracklist->track_count } $entity->all_mediums
+        }) ) unless ($inc && $inc->tracklist) ||
+                    ($opts && $opts->{track_map});
 
         $self->add( $self->gen->$disclist({
             count => scalar map { $_->all_cdtocs } map { $_->all_mediums } $entity
