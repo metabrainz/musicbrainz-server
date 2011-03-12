@@ -358,7 +358,7 @@ sub prepare_recordings
 
         $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
 
-        next if $_->{deleted};
+        next if $medium->{deleted};
 
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
@@ -695,6 +695,7 @@ sub _edit_release_track_edits
         if ($new->{id})
         {
             # The medium already exists
+
             if ($new->{deleted})
             {
                 # Delete medium
@@ -727,8 +728,10 @@ sub _edit_release_track_edits
                 );
             }
         }
-        else
+        elsif (!$new->{deleted})
         {
+            # Medium does not exist yet.
+
             my $opts = {
                 position => $medium_idx + 1,
                 release_id => $previewing ? 0 : $self->release->id,
