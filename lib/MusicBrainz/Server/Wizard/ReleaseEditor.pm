@@ -356,10 +356,12 @@ sub prepare_recordings
     {
         $count += 1;
 
+        $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
+
+        next if $_->{deleted};
+
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
-
-        $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
 
         if (defined $medium->{edits} && defined $medium->{tracklist_id})
         {
