@@ -1,8 +1,10 @@
 <table class="details add-release-annotation">
+  [%- IF edit.display_data.release || !edit.preview -%]
   <tr>
     <th>[% l('Release:') %]</th>
     <td>[% link_entity(edit.display_data.release) %]
   </tr>
+  [% END %]
   [% IF edit.preview %]
     [%# If this is a preview, the changelog link will not take you to the updated     %]
     [%# text as it has not been applied yet.  Therefore, we need to display it here.  %]

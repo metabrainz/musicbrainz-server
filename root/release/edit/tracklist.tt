@@ -184,7 +184,7 @@
       <h3>Options</h3>
       <p id="tracklist-options">
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
-      <label for="tracknumbers">[% l('Tracknames start with a number') %]</label>
+      <label for="tracknumbers">[% l('Track names start with a number') %]</label>
       <br />
       <input type="checkbox" name="vinylnumbers" id="vinylnumbers">
       <label for="vinylnumbers">[% l('Enable vinyl track numbers') %]</label>

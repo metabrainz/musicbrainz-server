@@ -1,12 +1,28 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::LookupRelease;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+use HTTP::Request::Common;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password');
+EOSQL
+
 MusicBrainz::Server::Test->prepare_raw_test_database(
     $c, <<'EOSQL');
 TRUNCATE release_group_tag_raw CASCADE;
@@ -132,7 +148,7 @@ ws_test 'release with tracks & artists (single medium, VA release)',
         <title>the Love Bug (cover)</title>
         <duration>333000</duration>
         <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
-          <sort-name></sort-name><name>BAGDAD CAFE THE trench town</name>
+          <sort-name>BAGDAD CAFE THE trench town</sort-name><name>BAGDAD CAFE THE trench town</name>
         </artist>
       </track>
     </track-list>
@@ -197,8 +213,8 @@ ws_test 'release with puids',
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official"><title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin><track-list><track id="162630d9-36d2-4a8d-ade1-1c77440b34e7"><title>サマーれげぇ!レインボー</title><duration>296026</duration><puid-list><puid id="cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" /></puid-list></track><track id="487cac92-eed5-4efa-8563-c9a818079b9a"><title>HELLO! また会おうね (7人祭 version)</title><duration>213106</duration><puid-list><puid id="251bd265-84c7-ed8f-aecf-1d9918582399" /></puid-list></track><track id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e"><title>サマーれげぇ!レインボー (instrumental)</title><duration>292800</duration><puid-list><puid id="7b8a868f-1e67-852b-5141-ad1edfb1e492" /></puid-list></track></track-list></release></metadata>';
 
 ws_test 'release with ratings',
-    '/release/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?type=xml&inc=ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official"><title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" /><asin>B00005LA6G</asin><rating votes-count="2">90</rating></release></metadata>';
+    '/release/699c8545-75b4-378e-bc29-9d0f951f7eee?type=xml&inc=ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="699c8545-75b4-378e-bc29-9d0f951f7eee" type="Album Official"><title>Surrender</title><text-representation script="Latn" language="ENG" /><rating votes-count="3">87</rating></release></metadata>';
 
 ws_test 'release with artist-relationships',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?type=xml&inc=artist-rels' =>
@@ -206,11 +222,41 @@ ws_test 'release with artist-relationships',
 
 ws_test 'release with url-relationships',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?type=xml&inc=url-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official"><title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin><relation-list target-type="Url"><relation target="http://www.amazon.com/gp/product/B00001IVAI" type="AmazonAsin" /><relation target="http://www.discogs.com/release/30895" type="Discogs" /><relation target="http://www.discogs.com/release/30896" type="Discogs" /></relation-list></release></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221" type="Album Official">
+    <title>For Beginner Piano</title><text-representation script="Latn" language="ENG" /><asin>B00001IVAI</asin>
+    <relation-list target-type="Url">
+      <relation target="http://www.amazon.com/gp/product/B00001IVAI" type="AmazonAsin" />
+      <relation target="http://www.discogs.com/release/1722" type="Discogs" />
+      <relation target="http://www.discogs.com/release/30895" type="Discogs" />
+      <relation target="http://www.discogs.com/release/30896" type="Discogs" />
+    </relation-list>
+  </release>
+</metadata>';
 
 ws_test 'release with release-relationships',
     '/release/757a1723-3769-4298-89cd-48d31177852a?type=xml&inc=release-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="757a1723-3769-4298-89cd-48d31177852a" type="Album Pseudo-Release"><title>LOVE &amp; HONESTY</title><text-representation script="Latn" language="JPN" /><asin>B0000YGBSG</asin><relation-list target-type="Release"><relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Transl-Tracklisting"><release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation><relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Transl-Tracklisting"><release id="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Album Official"><title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" /></release></relation></relation-list></release></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="757a1723-3769-4298-89cd-48d31177852a" type="Album Pseudo-Release">
+    <title>LOVE &amp; HONESTY</title><text-representation script="Latn" language="JPN" /><asin>B0000YGBSG</asin>
+    <relation-list target-type="Release">
+      <relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Transl-Tracklisting" attributes="Transliterated">
+        <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Album Official">
+          <title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" />
+          <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name></artist>
+        </release>
+      </relation>
+      <relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Transl-Tracklisting" attributes="Transliterated">
+        <release id="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Album Official">
+          <title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" />
+          <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name></artist>
+        </release>
+      </relation>
+    </relation-list>
+  </release>
+</metadata>';
 
 ws_test 'release with counts',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=counts' =>
@@ -218,7 +264,7 @@ ws_test 'release with counts',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
     <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
-    <release-event-list count="1" /><track-list count="12" /><disc-list count="1" />
+    <release-event-list count="1" /><disc-list count="1" />
   </release>
 </metadata>';
 
@@ -244,19 +290,19 @@ ws_test 'release with label-relationships',
  <asin>B000002IX5</asin>
  <relation-list target-type="Label">
   <relation direction="backward"
-            target="1bfd06be-a6ed-4ced-8159-7d4d2923a40c"
-            type="Publishing">
-   <label id="1bfd06be-a6ed-4ced-8159-7d4d2923a40c">
-    <name>Epitaph</name>
-    <sort-name>Epitaph</sort-name>
-   </label>
-  </relation>
-  <relation direction="backward"
             target="50c384a2-0b44-401b-b893-8181173339c7"
             type="Publishing">
    <label id="50c384a2-0b44-401b-b893-8181173339c7">
     <name>Atlantic</name>
     <sort-name>Atlantic</sort-name>
+   </label>
+  </relation>
+  <relation direction="backward"
+            target="1bfd06be-a6ed-4ced-8159-7d4d2923a40c"
+            type="Publishing">
+   <label id="1bfd06be-a6ed-4ced-8159-7d4d2923a40c">
+    <name>Epitaph</name>
+    <sort-name>Epitaph</sort-name>
    </label>
   </relation>
  </relation-list>
@@ -278,6 +324,7 @@ ws_test 'release with track-relationships',
    <track id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
     <title>Dear Diary</title>
     <duration>86666</duration>
+    <artist id="6fe9f838-112e-44f1-af83-97464f08285b"><name>Wedlock</name><sort-name>Wedlock</sort-name></artist>
    </track>
   </relation>
  </relation-list>
@@ -307,13 +354,16 @@ ws_test 'release with user ratings',
 </metadata>',
     { username => 'editor', password => 'password' };
 
-sub todo {
+{
+local $TODO = 'Todo';
 
 ws_test 'release with track-level-relationships',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-level-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
+};
 
-}
+};
 
-done_testing;
+1;
+

@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
 
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -179,20 +180,20 @@ sub recording_submit : Private
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
 
-    my $xp = XML::XPath->new( xml => $c->request->body );
+    my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
     my (%submit_puid, %submit_isrc);
-    for my $node ($xp->find('/metadata/recording-list/recording')->get_nodelist)
+    for my $node ($xp->find('/mb:metadata/mb:recording-list/mb:recording')->get_nodelist)
     {
-        my $id = $node->getAttribute('id') or
+        my $id = $xp->find('@mb:id', $node)->string_value or
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
             unless MusicBrainz::Server::Validation::IsGUID($id);
 
-        my @puids = $node->find('puid-list/puid')->get_nodelist;
+        my @puids = $xp->find('mb:puid-list/mb:puid', $node)->get_nodelist;
         for my $puid_node (@puids) {
-            my $puid = $puid_node->getAttribute('id');
+            my $puid = $xp->find('@mb:id', $puid_node)->string_value;
             $self->_error($c, "$puid is not a valid PUID")
                 unless MusicBrainz::Server::Validation::IsGUID($puid);
 
@@ -200,9 +201,9 @@ sub recording_submit : Private
             push @{ $submit_puid{$id} }, $puid;
         }
 
-        my @isrcs = $node->find('isrc-list/isrc')->get_nodelist;
+        my @isrcs = $xp->find('mb:isrc-list/mb:isrc', $node)->get_nodelist;
         for my $isrc_node (@isrcs) {
-            my $isrc = $isrc_node->getAttribute('id');
+            my $isrc = $xp->find('@mb:id', $isrc_node)->string_value;
             $self->_error($c, "$isrc is not a valid ISRC")
                 unless is_valid_isrc($isrc);
 

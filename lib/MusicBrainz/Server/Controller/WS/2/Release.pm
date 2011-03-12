@@ -6,6 +6,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT_BARCODES
 );
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use TryCatch;
 
@@ -206,17 +207,17 @@ sub release_submit : Private
 {
     my ($self, $c) = @_;
 
-    my $xp = XML::XPath->new( xml => $c->request->body );
+    my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
     my @submit;
-    for my $node ($xp->find('/metadata/release-list/release')->get_nodelist) {
-        my $id = $node->getAttribute('id') or
+    for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
+        my $id = $xp->find('@mb:id', $node)->string_value or
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
             unless MusicBrainz::Server::Validation::IsGUID($id);
 
-        my $barcode = $node->find('barcode')->string_value or next;
+        my $barcode = $xp->find('mb:barcode', $node)->string_value or next;
 
         $self->_error($c, "$barcode is not a valid barcode")
             unless MusicBrainz::Server::Validation::IsValidEAN($barcode);

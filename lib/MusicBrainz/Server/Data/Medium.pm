@@ -148,6 +148,14 @@ sub insert
 sub delete
 {
     my ($self, @ids) = @_;
+    my @tocs = @{
+        $self->sql->select_single_column_array(
+            'SELECT id FROM medium_cdtoc WHERE medium IN (' . placeholders(@ids) . ')',
+            @ids
+        )
+    };
+
+    $self->c->model('MediumCDTOC')->delete($_) for @tocs;
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
 

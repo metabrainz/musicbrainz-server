@@ -60,8 +60,8 @@ is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 my ($releases, $hits) = $release_data->find_by_artist(1, 100);
 is( $hits, 6 );
 is( scalar(@$releases), 6 );
-is( $releases->[0]->id, 1, 'found release by artist');
-is( $releases->[1]->id, 2, 'found release by artist');
+ok( (grep { $_->id == 1 } @$releases), 'found release by artist');
+ok( (grep { $_->id == 2 } @$releases), 'found release by artist');
 memory_cycle_ok($release_data);
 memory_cycle_ok($releases);
 

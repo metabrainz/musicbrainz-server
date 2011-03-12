@@ -137,7 +137,7 @@ MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
 
     self.$matches.find ('input.recordingmatch').change (change);
 
-    var artistname = self.$row.next ().find ('.track-artist').text ();
+    var artistname = $.trim (self.$row.next ().find ('.track-artist').text ());
     self.select = MB.Control.ReleaseRecordingsSelect ($container, artistname, change);
 
     return self;
@@ -254,7 +254,10 @@ MB.Control.ReleaseRecordings = function () {
 
         $containers.each (function (idx, elem) {
             $(elem).bind ('bubbleOpen.mb', function (event) {
-                $targets.eq (idx).text (MB.text.Done);
+                $targets.eq (idx)
+                    .text (MB.text.Done)
+                    .removeClass ('negative')
+                    .closest ('tr').find ('input.confirmed').val ("1");
             });
 
             $(elem).bind ('bubbleClose.mb', function (event) {

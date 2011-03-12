@@ -60,6 +60,23 @@ MB.Control.RelateTo = function () {
         window.location = location + '?' + query_string;
     };
 
+    self.resultHook = function (result) {
+
+        if (self.$type0.val () !== self.type ())
+            return result;
+
+        // filter out any results which refer to the same entity as the one
+        // we're viewing.
+        var ret = [];
+        $.each (result, function (idx, item) {
+            if (item.gid === undefined || item.gid !== self.$gid0.val ()) {
+                ret.push (item);
+            }
+        });
+
+        return ret;
+    };
+
     self.$select.bind ('change.mb', function (event) {
         self.autocomplete.changeEntity (self.type ());
     });
@@ -72,6 +89,7 @@ MB.Control.RelateTo = function () {
         'entity': self.type (),
         'input': self.$input,
         'select': self.select,
+        'resultHook': self.resultHook,
         'position': {
             my: "right top",
             at: "right bottom",

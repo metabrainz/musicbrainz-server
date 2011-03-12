@@ -6,6 +6,7 @@ use Data::OptList;
 use DateTime;
 use TryCatch;
 use List::MoreUtils qw( uniq zip );
+use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
@@ -184,9 +185,17 @@ sub find_by_voter
 sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
-    $self->sql->do("DELETE FROM edit_$type
-              WHERE edit IN (SELECT edit FROM edit_$type WHERE $type = ?) AND
-                    $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+    my @ids = ($new_id, @old_ids);
+    $self->sql->do(
+        "DELETE FROM edit_$type
+          WHERE $type IN (" . placeholders(@ids) . ")
+            AND (edit, $type) NOT IN (
+                   SELECT DISTINCT ON (edit) edit, $type
+                     FROM edit_$type
+                    WHERE $type IN (" . placeholders(@ids) . ")
+                )",
+        @ids, @ids);
+
     $self->sql->do("UPDATE edit_$type SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
@@ -412,6 +421,12 @@ sub _do_accept
         $edit->accept;
     }
     catch (MusicBrainz::Server::Edit::Exceptions::FailedDependency $err) {
+        $self->c->model('EditNote')->add_note(
+            $edit->id => {
+                editor_id => $EDITOR_MODBOT,
+                text => $err->message
+            }
+        );
         return $STATUS_FAILEDDEP;
     }
     catch ($err) {

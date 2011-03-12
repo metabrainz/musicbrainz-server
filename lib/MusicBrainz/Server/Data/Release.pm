@@ -466,8 +466,17 @@ sub delete
     $self->sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
              @release_ids);
 
-    $self->sql->do('DELETE FROM medium WHERE release IN ('. placeholders(@release_ids) . ')',
+    $self->sql->do('DELETE FROM release_label WHERE release IN (' . placeholders(@release_ids) . ')',
              @release_ids);
+
+    my @mediums = @{
+        $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release IN (' . placeholders(@release_ids) . ')',
+            @release_ids
+        )
+    };
+
+    $self->c->model('Medium')->delete($_) for @mediums;
 
     $self->c->model('Tracklist')->garbage_collect;
 

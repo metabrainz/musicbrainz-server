@@ -120,11 +120,32 @@ sub _load_release_groups
 
     $self->c->model('ReleaseGroup')->load(map { $_->tracklist->medium->release } @{ $tracks });
 
-    my @rgs = sort { $a->name cmp $b->name } map {
-            $_->tracklist->medium->release->release_group
-    } @{ $tracks };
+    my %rgs;
+    for (@{ $tracks })
+    {
+        my $rg = $_->tracklist->medium->release->release_group;
+        $rgs{$rg->gid} = $rg;
+    }
 
-    return \@rgs;
+    return [ sort { $a->name cmp $b->name } values %rgs ];
+}
+
+
+=method name_is_equivalent
+
+Compares two track names, considers them equivalent if there are only
+case changes or changes in punctuation between the two strings.
+
+=cut
+
+sub name_is_equivalent
+{
+    my ($self, $a, $b) = @_;
+
+    $a =~ s/\p{Punctuation}//g;
+    $b =~ s/\p{Punctuation}//g;
+
+    return lc($a) eq lc($b);
 }
 
 sub associate_recordings
@@ -132,26 +153,50 @@ sub associate_recordings
     my ($self, $edits, $tracklists) = @_;
 
     my @ret;
-    my @recordings;
+    my @recording_ids;
 
     my $count = 0;
     for (@$edits)
     {
-        if ($tracklists->tracks->[$count] &&
-            $_->{name} eq $tracklists->tracks->[$count]->name)
+        my $trk = $tracklists->tracks->[$count];
+
+        # track hasn't changed
+        if ($trk && ($_->{name} eq $trk->name))
         {
-            push @recordings, $tracklists->tracks->[$count]->recording_id;
-            push @ret, $tracklists->tracks->[$count]->recording_id;
+            push @recording_ids, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
+
+        # track has minor changes (case / punctuation)
+        # or recording is only associated with this track
+        elsif ($trk &&
+               ($self->name_is_equivalent ($_->{name}, $trk->name) ||
+                $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
+        {
+            push @recording_ids, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
+            $self->c->stash->{confirmation_required} = 1;
+        }
+
+        # track changed
+        elsif ($trk)
+        {
+            push @ret, { 'id' => undef, 'confirmed' => 0 };
+            $self->c->stash->{confirmation_required} = 1;
+        }
+
+        # track is new
+        # (FIXME: search for similar existing tracks, suggest those and set
+        #  "confirmed => 0" if found?)
         else
         {
-            push @ret, undef;
+            push @ret, { 'id' => undef, 'confirmed' => 1 };
         }
 
         $count += 1;
     }
 
-    my $recordings = $self->c->model('Recording')->get_by_ids (@recordings);
+    my $recordings = $self->c->model('Recording')->get_by_ids (@recording_ids);
     $self->c->model('ArtistCredit')->load(values %$recordings);
 
     $self->c->stash->{appears_on} = {} unless $self->c->stash->{appears_on};
@@ -163,7 +208,12 @@ sub associate_recordings
         $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
     }
 
-    return map { $_ ? $recordings->{$_} : undef } @ret;
+    for (@ret)
+    {
+        $_->{recording} = $_->{id} ? $recordings->{$_->{id}} : undef;
+    }
+
+    return @ret;
 }
 
 sub prepare_tracklist
@@ -211,17 +261,20 @@ sub prepare_recordings
             my @recordings = $self->associate_recordings (
                 $_->{edits}, $tracklists->{$_->{tracklist_id}});
 
-            $suggestions[$count] = \@recordings;
+            $suggestions[$count] = [ map { $_->{recording} } @recordings ];
 
-            $recording_gids[$count]->{associations} = [
-                map { { 'gid' => ($_ ? $_->gid : "new") } } @recordings
-            ];
+            # set confirmed to undef if false, so that the required
+            # attribute on the field prevents the page from validating
+            $recording_gids[$count]->{associations} = [ map {
+                {
+                    'gid' => ($_->{recording} ? $_->{recording}->gid : "new"),
+                    'confirmed' => $_->{confirmed} ? 1 : undef
+                } } @recordings ];
         }
         elsif (defined $_->{edits})
         {
-            $recording_gids[$count]->{associations} = [
-                map { { 'gid' => 'new' } } @{ $_->{edits} }
-            ];
+            $recording_gids[$count]->{associations} = [ map {
+                { 'gid' => 'new', 'confirmed' => 1 } } @{ $_->{edits} } ];
         }
         else
         {
@@ -586,7 +639,7 @@ sub _edit_release_annotation
     {
         my $edit = $create_edit->(
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
-            entity_id => $previewing ? 0 : $self->release->id,
+            entity_id => $self->release ? $self->release->id : 0,
             text => $data_annotation,
             as_auto_editor => $data->{as_auto_editor},
         );

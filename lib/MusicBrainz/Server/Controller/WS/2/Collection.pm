@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use List::MoreUtils qw( uniq all );
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -13,7 +14,10 @@ my $ws_defs = Data::OptList::mkopt([
                          optional => [ qw(limit offset) ],
      },
      collection => {
-         method => 'POST',
+         method => 'PUT',
+     },
+     collection => {
+         method => 'DELETE',
      }
 ]);
 
@@ -24,15 +28,28 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Collection',
+    entity_name => 'collection'
 };
 
 Readonly our $MAX_ITEMS => 25;
 
 sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
 
-sub list_toplevel
+sub releases_get : Chained('load') PathPart('releases') Args(0)
 {
-    my ($self, $c, $stash, $collection) = @_;
+    my ($self, $c) = @_;
+
+    my $collection = $c->stash->{entity};
+
+    if (!$collection->public) {
+        $c->authenticate({}, 'musicbrainz.org');
+        if ($c->user_exists) {
+            $self->_error($c, 'You do not have permission to view this collection')
+                unless $c->user->id == $collection->editor_id;
+        }
+    }
+
+    my $stash = WebServiceStash->new;
 
     my $opts = $stash->store ($collection);
 
@@ -40,25 +57,57 @@ sub list_toplevel
 
     $c->model('Editor')->load($collection);
 
-    if ($c->stash->{inc}->releases)
-    {
-        my @results = $c->model('Release')->find_by_collection($collection->id, $MAX_ITEMS);
+    my @results = $c->model('Release')->find_by_collection($collection->id, $MAX_ITEMS);
 
-        $opts->{releases} = $self->make_list(@results);
+    $opts->{releases} = $self->make_list(@results);
 
-        $self->linked_releases($c, $stash, $opts->{releases}->{items});
-    }
+    $self->linked_releases($c, $stash, $opts->{releases}->{items});
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
 }
 
-sub list: Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
+sub releases : Chained('load') PathPart('releases') Args(1) {
+    my ($self, $c, $releases) = @_;
+    my $collection = $c->stash->{entity};
 
-    if ($c->req->method eq 'GET') {
-        $self->list_get($c);
+    $c->authenticate({}, 'musicbrainz.org');
+
+    my $client = $c->req->query_params->{client}
+        or $self->_error($c, 'You must provide information about your client, by the client query parameter');
+
+    my @gids = split /;/, $releases;
+
+    $self->_error ($c, "All releases must have an MBID present")
+        unless all { defined } (@gids);
+
+    for my $gid (@gids) {
+        $self->_error($c, "$gid is not a valid MBID")
+            unless MusicBrainz::Server::Validation::IsGUID($gid);
+    }
+
+    my %releases = map {
+        $_->gid => $_
+    } values %{ $c->model('Release')->get_by_gids(@gids) };
+
+    if ($c->req->method eq 'PUT') {
+        $c->model('Collection')->add_releases_to_collection(
+            $collection->id,
+            map { $_->id } grep { defined } map { $releases{$_} } @gids
+        );
+
+        $c->detach('success');
+    }
+    elsif ($c->req->method eq 'DELETE') {
+        $c->model('Collection')->remove_releases_from_collection(
+            $collection->id,
+            map { $_->id } grep { defined } map { $releases{$_} } @gids
+        );
+
+        $c->detach('success');
     }
     else {
-        $self->list_post($c);
+        $self->_error($c, 'You can only PUT or DELETE this resource');
     }
 }
 
@@ -68,66 +117,14 @@ sub list_list : Chained('base') PathPart('')
     $c->authenticate({}, 'musicbrainz.org');
 
     my $stash = WebServiceStash->new;
+
     my @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
     $c->model('Editor')->load(@collections);
+    $c->model('Collection')->load_release_count(@collections);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,
                                                      $c->stash->{inc}, $stash));
-}
-
-sub list_post {
-    my ($self, $c) = @_;
-    my $collection = $c->stash->{entity};
-
-    $c->authenticate({}, 'musicbrainz.org');
-
-    my $client = $c->req->query_params->{client}
-        or _error($c, 'You must provide information about your client, by the client query parameter');
-
-    my $xp = XML::XPath->new( xml => $c->request->body );
-
-    my @add_gids = uniq map { $_->getAttribute('id') }
-        $xp->find('/metadata/add/release')->get_nodelist;
-
-    my @remove_gids = uniq map { $_->getAttribute('id') }
-        $xp->find('/metadata/remove/release')->get_nodelist;
-
-    _error ($c, "All releases must have an MBID present")
-        unless all { defined } (@add_gids, @remove_gids);
-
-    for my $gid (@add_gids, @remove_gids) {
-        _error($c, "$gid is not a valid MBID")
-            unless MusicBrainz::Server::Validation::IsGUID($gid);
-    }
-
-    my %releases = map {
-        $_->gid => $_
-    } values %{ $c->model('Release')->get_by_gids(@add_gids, @remove_gids) };
-
-    $c->model('Collection')->add_releases_to_collection(
-        $collection->id,
-        map { $_->id } grep { defined } map { $releases{$_} } @add_gids
-    ) if @add_gids;
-
-    $c->model('Collection')->remove_releases_from_collection(
-        $collection->id,
-        map { $_->id } grep { defined } map { $releases{$_} } @remove_gids
-    ) if @remove_gids;
-
-    $c->detach('success');
-}
-
-sub list_get {
-    my ($self, $c) = @_;
-    my $collection = $c->stash->{entity};
-
-    my $stash = WebServiceStash->new;
-
-    $self->list_toplevel ($c, $stash, $collection);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
 }
 
 __PACKAGE__->meta->make_immutable;

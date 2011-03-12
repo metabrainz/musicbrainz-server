@@ -54,19 +54,6 @@ ws_test 'label lookup with releases, inc=media',
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
         <release-list count="2">
-            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-                <title>My Demons</title><status>Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>eng</language><script>Latn</script>
-                </text-representation>
-                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
-                <medium-list count="1">
-                    <medium>
-                        <position>1</position><format>CD</format><track-list count="12" />
-                    </medium>
-                </medium-list>
-            </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>Official</status>
                 <quality>normal</quality>
@@ -81,6 +68,19 @@ ws_test 'label lookup with releases, inc=media',
                     <medium>
                         <title>Chestplate Singles</title>
                         <position>2</position><format>CD</format><track-list count="9" />
+                    </medium>
+                </medium-list>
+            </release>
+            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+                <title>My Demons</title><status>Official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>eng</language><script>Latn</script>
+                </text-representation>
+                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+                <medium-list count="1">
+                    <medium>
+                        <position>1</position><format>CD</format><track-list count="12" />
                     </medium>
                 </medium-list>
             </release>

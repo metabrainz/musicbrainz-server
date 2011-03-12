@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::Differences;
+use Test::LongString;
 use Test::More;
 use_ok 'MusicBrainz::Server::Email';
 
@@ -41,7 +41,7 @@ is($e->get_header('To'), '"Editor 2" <bar@example.com>');
 is($e->get_header('BCC'), undef);
 is($e->get_header('Subject'), 'Hey');
 compare_body($e->get_body, <<EOS);
-MusicBrainz editor 'Editor 1' has sent you the following message:
+MusicBrainz user 'Editor 1' has sent you the following message:
 ------------------------------------------------------------------------
 Hello!
 ------------------------------------------------------------------------
@@ -69,7 +69,7 @@ is($e->get_header('To'), '"Editor 2" <bar@example.com>');
 is($e->get_header('BCC'), '"Editor 1" <foo@example.com>');
 is($e->get_header('Subject'), 'Hey');
 compare_body($e->get_body, <<EOS);
-MusicBrainz editor 'Editor 1' has sent you the following message:
+MusicBrainz user 'Editor 1' has sent you the following message:
 ------------------------------------------------------------------------
 Hello!
 ------------------------------------------------------------------------
@@ -125,6 +125,10 @@ Your MusicBrainz username is: Editor 1
 If you have also forgotten your password, use this username and your email address
 to reset your password here - http://localhost/lost-password
 
+If you didn't initiate this request and feel that you've received this email in
+error, don't worry, you don't need to take any further action and can safely
+disregard this email.
+
 -- The MusicBrainz Team
 EOS
 
@@ -150,8 +154,9 @@ http://musicbrainz.org/reset-password
 If clicking the link above doesn't work, please copy and paste the URL in a
 new browser window instead.
 
-If you didn't initiate this request and feel that you've received this email
-in error, you don't need to take any further action and can safely disregard this email.
+If you didn't initiate this request and feel that you've received this email in
+error, don't worry, you don't need to take any further action and can safely
+disregard this email.
 
 If you still have problems logging in, please drop us a line - see
 http://localhost/doc/Contact_Us for details.
@@ -256,5 +261,5 @@ sub compare_body
 
     $got =~ s/[\r\n]+/\n/g;
     $expected =~ s/[\r\n]+/\n/g;
-    eq_or_diff($got, $expected);
+    is_string($got, $expected);
 }
