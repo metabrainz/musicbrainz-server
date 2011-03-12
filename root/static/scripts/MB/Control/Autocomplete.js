@@ -20,7 +20,7 @@
 
 MB.Control.autocomplete_formatters = {
     "generic": function (ul, item) {
-        var a = $("<a>").text (MB.utility.escapeHTML (item.name));
+        var a = $("<a>").text (item.name);
 
         var comment = [];
 
@@ -44,7 +44,7 @@ MB.Control.autocomplete_formatters = {
     },
 
     "recording": function (ul, item) {
-        var a = $("<a>").text (MB.utility.escapeHTML (item.name));
+        var a = $("<a>").text (item.name);
 
         a.append (' - <span class="autocomplete-artist">' + 
                   MB.utility.escapeHTML (item.artist) + '</span>');
