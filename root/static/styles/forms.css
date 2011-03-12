@@ -57,6 +57,8 @@ select.error {
     background: #ffaaaa;
 }
 
+input.lookup-performed { background: #bfb; }
+
 form .input-note {
     font-style: italic;
     font-size: 85%;
