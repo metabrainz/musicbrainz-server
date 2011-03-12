@@ -804,7 +804,7 @@ sub _edit_release_annotation
     {
         my $edit = $create_edit->(
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
-            entity_id => $previewing ? 0 : $self->release->id,
+            entity_id => $self->release ? $self->release->id : 0,
             text => $data_annotation,
             as_auto_editor => $data->{as_auto_editor},
         );
