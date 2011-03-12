@@ -60,7 +60,7 @@ MB.Control.ReleaseEdits = function ($edits) {
 
         var changes = false;
 
-        if (artistChanges (from['artist_credit'], to['artist_credit']))
+        if (self.artistChanges (from['artist_credit'], to['artist_credit']))
         {
             return true;
         }

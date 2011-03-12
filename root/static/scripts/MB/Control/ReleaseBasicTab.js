@@ -144,6 +144,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         if (!chained && self.disc.isLastDisc ())
             return;
 
+        /* FIXME: remove from parent textareas. */
         self.$textarea.val ('');
         self.$textarea.hide ();
         self.$basicdisc.hide ();
@@ -293,7 +294,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     };
 
     var addDisc = function () {
-        return self.tracklist.newDisc (self.adv.addDisc ());
+        return self.tracklist.newDisc (self.adv.addDisc (), true);
     };
 
     $("a[href=#advanced]").click (function () {

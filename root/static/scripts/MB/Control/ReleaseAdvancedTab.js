@@ -451,6 +451,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             }
         };
 
+        self.$nowloading.show ();
+        self.$fieldset.addClass ('expanded');
+        self.$expand_icon.hide ();
+        self.$collapse_icon.show ();
+
         if (data)
         {
             use_data (data);
@@ -471,11 +476,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                 use_data ([]);
             }
         }
-
-        self.$nowloading.show ();
-        self.$fieldset.addClass ('expanded');
-        self.$expand_icon.hide ();
-        self.$collapse_icon.show ();
 
         if (!chained)
         {
