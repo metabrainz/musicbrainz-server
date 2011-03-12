@@ -26,7 +26,11 @@ sub options_mediums_format_id {
     my ($self) = @_;
 
     my $root_format = $self->ctx->model('MediumFormat')->get_tree;
-    return [ $self->_build_medium_format_options($root_format, 'name', '') ];
+
+    return [
+        map {
+            $self->_build_medium_format_options($_, 'name', '')
+        } $root_format->all_children ];
 };
 
 sub _build_medium_format_options
