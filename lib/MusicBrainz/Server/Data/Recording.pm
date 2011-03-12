@@ -224,6 +224,44 @@ sub find_standalone
         $query, $artist_id, $offset || 0);
 }
 
+=method appears_on
+
+This method will return a list of release groups the recording appears
+on. The results are ordered using the type-id (so albums come first,
+then singles, etc..) and then by name.
+
+If you set the $truncate argument the resulting list will be truncated
+at that offset if neccesary.  If the results are truncated the string
+"..." will be appended to the list of results.
+
+=cut
+
+sub appears_on
+{
+    my ($self, $recording_id, $truncate) = @_;
+
+    my %rgs;
+    for ($self->c->model ('ReleaseGroup')->find_by_recording ($recording_id))
+    {
+        next unless $_;
+
+        $rgs{$_->name} = $_;
+    }
+
+    # A crude ordering of importance.
+    my @ret = sort { $a->type_id cmp $b->type_id }
+              sort { $a->name cmp $b->name }
+              values %rgs;
+
+    if ($truncate && scalar @ret > $truncate)
+    {
+        splice @ret, $truncate;
+        push @ret, "...";
+    }
+
+    return \@ret;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

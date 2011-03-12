@@ -34,12 +34,13 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
     self.$appears = self.$container.find ('tr.clientmatch span.appears');
     self.$comment = self.$container.find ('tr.clientmatch span.comment');
 
-    self.renderReleaseGroups = function ($target, rgs) {
+    self.renderReleaseGroups = function ($target, gid, rgs) {
 
         $target.empty ();
 
         var first = true;
         $.each (rgs, function (idx, item) {
+            var a;
 
             if (first)
             {
@@ -50,8 +51,16 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
                 $target.append (", ");
             }
 
-            var a = '<a href="/release-group/' + item.gid + '">' +
-                MB.utility.escapeHTML (item.name) + '</a>';
+            if (item === '...')
+            {
+                a = '<a target="_blank" href="/recording/' + gid + '/">...</a>';
+            }
+            else
+            {
+                a = '<a target="_blank" href="/release-group/' + item.gid +
+                    '">' + MB.utility.escapeHTML (item.name) + '</a>';
+            }
+
             $target.append ($(a));
         });
 
@@ -64,7 +73,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
         self.$length.text (data.length);
-        self.renderReleaseGroups (self.$appears, data.releasegroups);
+        self.renderReleaseGroups (self.$appears, data.gid, data.releasegroups);
 
         self.$container.find ('tr.clientmatch').show ();
 
@@ -205,7 +214,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             self.tracks.push (rr_track);
 
             var appears = rr_track.select.renderReleaseGroups (
-                $bubble.find ('tr.servermatch span.appears'), trk.recording.releasegroups);
+                $bubble.find ('tr.servermatch span.appears'),
+                trk.recording.gid, trk.recording.releasegroups);
 
             if (appears)
             {
