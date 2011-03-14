@@ -20,7 +20,10 @@ sub do_upgrade {
     my $self = shift;
     return {
         alias_id  => $self->row_id,
-        entity_id => $self->artist_id,
+        entity => {
+            id => $self->artist_id,
+            name => '[deleted]'
+        },
         new => {
             name => $self->new_value,
         },
