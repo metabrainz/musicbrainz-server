@@ -35,9 +35,14 @@ has 'release' => (
 sub foreign_keys
 {
     my $self = shift;
-    return {
-        Release => [ $self->release_id ],
-    };
+    if ($self->preview) {
+        return { };
+    }
+    else {
+        return {
+            Release => [ $self->release_id ],
+        };
+    }
 }
 
 around 'build_display_data' => sub
@@ -46,8 +51,10 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig();
-    $data->{release} = $loaded->{Release}->{ $self->release_id }
-        || Release->new( name => $self->data->{entity}{name} );
+    unless ($self->preview) {
+        $data->{release} = $loaded->{Release}->{ $self->release_id }
+            || Release->new( name => $self->data->{entity}{name} );
+    }
 
     return $data;
 };

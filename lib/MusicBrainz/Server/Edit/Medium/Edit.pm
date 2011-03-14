@@ -21,6 +21,8 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { l('Edit medium') }
 sub _edit_model { 'Medium' }
@@ -29,6 +31,10 @@ sub medium_id { shift->data->{entity_id} }
 has '+data' => (
     isa => Dict[
         entity_id => NullableOnPreview[Int],
+        release => Dict[
+            id => Int,
+            name => Str
+        ],
         separate_tracklists => Optional[Bool],
         current_tracklist => Int,
         old => change_fields(),
@@ -63,8 +69,16 @@ sub initialize
     my $separate_tracklists = delete $opts{separate_tracklists};
     die "You must specify the object to edit" unless defined $entity;
 
+    unless ($entity->release) {
+        $self->c->model('Release')->load($entity);
+    }
+
     my $data = {
         entity_id => $entity->id,
+        release => {
+            id => $entity->release->id,
+            name => $entity->release->name
+        },
         current_tracklist => $entity->tracklist_id,
         $self->_changes($entity, %opts)
     };
@@ -87,7 +101,9 @@ sub initialize
 
 sub foreign_keys {
     my $self = shift;
-    my %fk;
+    my %fk = (
+        Release => { $self->data->{release}{id} => [ 'ArtistCredit' ] },
+    );
 
     $fk{MediumFormat} = {};
 
@@ -131,11 +147,8 @@ sub build_display_data
 
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
-
-    my $medium = $self->c->model('Medium')->get_by_id($self->data->{entity_id});
-    $self->c->model('Release')->load($medium);
-    $self->c->model('ArtistCredit')->load($medium->release);
-    $data->{release} = $medium->release;
+    $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
+        || Release->new( name => $self->data->{release}{name} );
 
     return $data;
 }
