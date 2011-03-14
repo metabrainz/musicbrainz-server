@@ -17,6 +17,7 @@ my %URL_SPECIALIZATIONS = (
     'Twitter' => qr{^https?://(?:www.)?twitter.com/}i,
     'YouTube' => qr{^https?://(?:www.)?youtube.com/(?:user/)}i,
     'MySpace' => qr{^https?://(?:www.)?myspace.com/}i,
+    'Facebook' => qr{^https?://(?:www.)?facebook.com/}i,
 );
 
 sub _gid_redirect_table
