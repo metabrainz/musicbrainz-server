@@ -14,19 +14,34 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 
-sub medium_id { shift->data->{medium_id} }
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::Release';
+
+sub medium_id { shift->data->{medium}{id} }
 
 has '+data' => (
     isa => Dict[
-        cdtoc_id     => Int,
-        medium_id    => Int,
-        medium_cdtoc => Int,
+        medium       => Dict[
+            id => Int,
+            release => Dict[
+                id => Int,
+                name => Str,
+            ]
+        ],
+        medium_cdtoc => Dict[
+            cdtoc        => Dict[
+                id => Int,
+                toc => Str,
+            ],
+            id => Int,
+        ]
     ]
 );
 
 has 'release_id' => (
     is => 'rw',
-    lazy_build => 1
+    lazy => 1,
+    default => sub { shift->data->{medium}{release}{id} }
 );
 
 sub edit_conditions
@@ -53,17 +68,37 @@ sub edit_conditions
     };
 }
 
+method initialize (%opts) {
+    my $medium = delete $opts{medium} or die 'Missing "medium" parameter';
+    my $cdtoc = delete $opts{cdtoc} or die 'Missing "cdtoc" parameter';
 
-method _build_release_id {
-    return $self->c->model('Medium')
-        ->get_by_id($self->medium_id)
-            ->release_id;
+    unless ($medium->release) {
+        $self->c->model('Release')->load($medium);
+    }
+
+    $opts{medium} = {
+        id => $medium->id,
+        release => {
+            id => $medium->release_id,
+            name => $medium->release->name
+        }
+    };
+
+    $opts{medium_cdtoc} = {
+        id => $cdtoc->id,
+        cdtoc => {
+            id => $cdtoc->cdtoc->id,
+            toc => $cdtoc->cdtoc->toc
+        }
+    };
+
+    $self->data(\%opts);
 }
 
 method alter_edit_pending
 {
     return {
-        MediumCDTOC => [ $self->data->{medium_cdtoc} ],
+        MediumCDTOC => [ $self->data->{medium_cdtoc}{id} ],
     }
 }
 
@@ -73,22 +108,26 @@ method foreign_keys
 
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
-        CDTOC   => [ $self->data->{cdtoc_id} ]
+        CDTOC   => [ $self->data->{medium_cdtoc}{cdtoc}{id} ]
     }
 }
 
 method build_display_data ($loaded)
 {
     return {
-        release => $loaded->{Release}{ $self->release_id },
-        cdtoc   => $loaded->{CDTOC}{ $self->data->{cdtoc_id} },
+        release => $loaded->{Release}{ $self->release_id } ||
+            Release->new(
+                $self->data->{medium}{release}
+            ),
+        cdtoc   => $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} }
+            || CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
     }
 }
 
 override 'accept' => sub {
     my ($self) = @_;
     $self->c->model('MediumCDTOC')->delete(
-        $self->data->{medium_cdtoc}
+        $self->data->{medium_cdtoc}{id}
     );
 };
 
