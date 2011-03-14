@@ -76,6 +76,7 @@ sub build_display_data
         }
     }
 
+    return $data;
 }
 
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -119,6 +120,13 @@ sub initialize
 
     unless ($release_label->label) {
         $self->c->model('Label')->load($release_label);
+    }
+
+    if (my $lbl = $opts{label}) {
+        $opts{label} = {
+            id => $lbl->id,
+            name => $lbl->name
+        }
     }
 
     $self->data({

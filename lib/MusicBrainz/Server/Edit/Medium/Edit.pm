@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
 
-extends 'MusicBrainz::Server::Edit::Generic::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
@@ -26,7 +26,8 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { l('Edit medium') }
 sub _edit_model { 'Medium' }
-sub medium_id { shift->data->{entity_id} }
+sub entity_id { shift->data->{entity_id} }
+sub medium_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[

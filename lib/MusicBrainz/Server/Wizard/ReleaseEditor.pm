@@ -516,7 +516,7 @@ sub _edit_release_labels
                 $create_edit->(
                     $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
                     release_label => $old_label,
-                    label_id => $new_label->{label_id},
+                    label => $labels->{ $new_label->{label_id} },
                     catalog_number => $new_label->{catalog_number},
                     as_auto_editor => $data->{as_auto_editor},
                     );
