@@ -1,25 +1,20 @@
-package MusicBrainz::Server::Entity::URL::Wikipedia;
+package MusicBrainz::Server::Entity::URL::Facebook;
 
 use Moose;
-use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Trusted';
 
-sub pretty_name
-{
+override pretty_name => sub {
     my $self = shift;
 
-    my $name = $self->url->path;
-    $name =~ s{^/wiki/}{};
-    $name =~ s{_}{ }g;
-
-    if (my ($language) = $self->url->host =~ /(.*)\.wikipedia/) {
-        $name = "$language: $name";
+    if ($self->url =~ m{^http://(?:www.)?facebook.com/([^/]+)/?$}i) {
+        return $1;
     }
-
-    return MusicBrainz::Server::Filters::uri_decode($name);
-}
+    else {
+        return super();
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

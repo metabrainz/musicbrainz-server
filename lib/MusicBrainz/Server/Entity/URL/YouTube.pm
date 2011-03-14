@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::URL::YouTube;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Trusted';
 
 override pretty_name => sub {
     my $self = shift;
