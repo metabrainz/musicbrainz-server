@@ -123,6 +123,10 @@ sub edit_action
     $form_args{init_object} = $opts{item} if exists $opts{item};
     my $form = $c->form( form => $opts{form}, %form_args );
 
+    if (%{ $c->req->query_params }) {
+        $form->process( params => $c->req->params );
+    }
+
     if ($c->form_posted && $form->submitted_and_valid($c->req->params))
     {
         my @options = (map { $_->name => $_->value } $form->edit_fields);
