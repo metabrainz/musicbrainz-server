@@ -265,7 +265,7 @@ sub associate_recordings
         my $trk = $tracklists->tracks->[$_->{original_position} - 1];
         my $rec_edit = $recording_edits->{$_->{edit_sha1}};
 
-        # track edit is already associated with a recording edit
+        # Track edit is already associated with a recording edit.
         if ($rec_edit)
         {
             push @recording_ids, $rec_edit->{id} if $rec_edit->{id};
@@ -273,32 +273,31 @@ sub associate_recordings
             $self->c->stash->{confirmation_required} = 1 unless $rec_edit->{confirmed};
         }
 
-        # track hasn't changed
-        elsif ($trk && ($_->{name} eq $trk->name))
+        # Track hasn't changed OR track has minor changes (case / punctuation).
+        elsif ($trk && $self->name_is_equivalent ($_->{name}, $trk->name))
         {
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
-        # track has minor changes (case / punctuation)
-        # OR the recording is only associated with this track
-        elsif ($trk &&
-               ($self->name_is_equivalent ($_->{name}, $trk->name) ||
-                $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
+        # Track changed significantly, but there is only one recording
+        # associated with it.  Keep the recording association, but ask
+        # for confirmation.
+        elsif ($trk && $self->c->model('Recording')->usage_count ($trk->recording_id) == 1)
         {
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
 
-        # track changed
+        # Track changed.
         elsif ($trk)
         {
             push @ret, { 'id' => undef, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
 
-        # track is new
+        # Track is new.
         # (FIXME: search for similar existing tracks, suggest those and set
         #  "confirmed => 0" if found?)
         else
