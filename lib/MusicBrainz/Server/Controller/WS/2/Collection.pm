@@ -57,14 +57,11 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 
     $c->model('Editor')->load($collection);
 
-    if ($c->stash->{inc}->releases)
-    {
-        my @results = $c->model('Release')->find_by_collection($collection->id, $MAX_ITEMS);
+    my @results = $c->model('Release')->find_by_collection($collection->id, $MAX_ITEMS);
 
-        $opts->{releases} = $self->make_list(@results);
+    $opts->{releases} = $self->make_list(@results);
 
-        $self->linked_releases($c, $stash, $opts->{releases}->{items});
-    }
+    $self->linked_releases($c, $stash, $opts->{releases}->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
