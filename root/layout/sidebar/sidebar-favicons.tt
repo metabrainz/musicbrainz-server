@@ -6,7 +6,7 @@
         [% url=favicon.target %]
         [% NEXT UNLESS url.trusted %]
         <li>
-          <a href="[% url.name | uri %]">
+          <a href="[% url.url %]">
             <img src="[% favicon_image(url) %]" class="border"/>
             [% display_url(url) %]</a>
         </li>
