@@ -426,7 +426,13 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
         $.each (no_change, function (idx, data) {
             var copy = original (data.row);
             copy.deleted = 0;
-            copy.length = data.length;
+
+            /* only override the original track length if there is no cdtoc. */
+            if (!self.hasToc ())
+            {
+                copy.length = data.length;
+            }
+
             if (data.artist_credit)
             {
                 copy.artist_credit = data.artist_credit;
@@ -439,7 +445,13 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
             var copy = original (data.row);
             copy.deleted = 0;
             copy.position = data.position;
-            copy.length = data.length;
+
+            /* only override the original track length if there is no cdtoc. */
+            if (!self.hasToc ())
+            {
+                copy.length = data.length;
+            }
+
             if (data.artist_credit)
             {
                 copy.artist_credit = data.artist_credit;
@@ -492,6 +504,7 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
     self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
     self.variousArtists = function () { return self.disc.isVariousArtists (); };
+    self.hasToc = function () { return self.disc.hasToc (); };
 
     /* public variables. */
     self.disc = disc;
