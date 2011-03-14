@@ -143,7 +143,7 @@ sub attach : Local RequireAuth
             edit_args   => {
                 cdtoc      => $toc,
                 medium_id  => $medium_id,
-                release_id => $medium->release_id
+                release    => $medium->release
             },
             on_creation => sub {
                 $c->response->redirect(
