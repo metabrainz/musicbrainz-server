@@ -20,7 +20,7 @@
 
 MB.Control.autocomplete_formatters = {
     "generic": function (ul, item) {
-        var a = $("<a>").text (MB.utility.escapeHTML (item.name));
+        var a = $("<a>").text (item.name);
 
         var comment = [];
 
@@ -44,10 +44,7 @@ MB.Control.autocomplete_formatters = {
     },
 
     "recording": function (ul, item) {
-        var a = $("<a>").text (MB.utility.escapeHTML (item.name));
-
-        a.append (' - <span class="autocomplete-artist">' + 
-                  MB.utility.escapeHTML (item.artist) + '</span>');
+        var a = $("<a>").text (item.name);
 
         if (item.comment)
         {
@@ -55,16 +52,18 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
+        a.append ('<br /><span class="autocomplete-comment">by ' +
+                  MB.utility.escapeHTML (item.artist) + '</span>');
+
         if (item.releasegroups)
         {
-            var rgs = {};
-            /* don't display the same name multiple times. */
+            var rgs = [];
             $.each (item.releasegroups, function (idx, item) {
-                rgs[item.name] = item.name;
+                rgs.push (item === '...' ? item : item.name);
             });
 
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
-                      MB.utility.escapeHTML (MB.utility.keys (rgs).join (", ")) + '</span>');
+                      MB.utility.escapeHTML (rgs.join (", ")) + '</span>');
         }
 
         if (item.isrcs.length)

@@ -297,16 +297,12 @@ sub _recording_direct {
     $c->model ('ArtistCredit')->load (@entities);
     $c->model('ISRC')->load_for_recordings (@entities);
 
-    my @output;
-
-    for (@entities) {
-        push @output, {
+    my @output = map {
+        {
             recording => $_,
-            appears => [
-                $c->model ('ReleaseGroup')->find_by_recording ($_->id)
-            ]
-        };
-    };
+            appears => $c->model('Recording')->appears_on ($_->id, 3),
+        }
+    } @entities;
 
     my $pager = Data::Page->new ();
     $pager->entries_per_page ($limit);
@@ -348,10 +344,10 @@ sub _recording_indexed {
 
             $entity->artist_credit ($result->{entity}->artist_credit);
 
-            my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
-                map { $_->gid } @{ $result->{extra} });
-
-            push @output, { recording => $entity, appears => \@rgs };
+            push @output, {
+                recording => $entity,
+                appears => $c->model('Recording')->appears_on ($entity->id, 3)
+            };
         }
     }
     else
@@ -498,19 +494,15 @@ sub associations : Chained('root') PathPart Args(1) {
             edit_sha1 => hash_structure ($track)
         };
 
-
-        my %rgs;
-        for ($c->model ('ReleaseGroup')->find_by_recording ($_->recording->id))
-        {
-            $rgs{$_->gid} = { 'name' => $_->name, 'gid' => $_->gid };
-        }
-
         $data->{recording} = {
             gid => $_->recording->gid,
             name => $_->recording->name,
             length => format_track_length($_->recording->length),
             artist_credit => { preview => $_->artist_credit->name },
-            releasegroups => [ sort { $a->{name} cmp $b->{name} } values %rgs ],
+            releasegroups => [
+                map {
+                    $_ eq "..." ? $_ : { 'name' => $_->name, 'gid' => $_->gid }
+                } @{ $c->model('Recording')->appears_on ($_->recording->id, 3) } ],
         };
 
         push @structure, $data;

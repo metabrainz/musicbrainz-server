@@ -49,7 +49,7 @@ sub autocomplete_recording
             artist => $item->{recording}->artist_credit->name,
             isrcs => [ map { $_->isrc } @{ $item->{recording}->isrcs } ],
             releasegroups => [ map {
-                { 'name' => $_->name, 'gid' => $_->gid }
+                $_ eq "..." ? $_ : { 'name' => $_->name, 'gid' => $_->gid }
             } @{ $item->{appears} } ],
         };
     };

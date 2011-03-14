@@ -265,7 +265,7 @@ sub associate_recordings
         my $trk = $tracklists->tracks->[$_->{original_position} - 1];
         my $rec_edit = $recording_edits->{$_->{edit_sha1}};
 
-        # track edit is already associated with a recording edit
+        # Track edit is already associated with a recording edit.
         if ($rec_edit)
         {
             push @recording_ids, $rec_edit->{id} if $rec_edit->{id};
@@ -273,32 +273,31 @@ sub associate_recordings
             $self->c->stash->{confirmation_required} = 1 unless $rec_edit->{confirmed};
         }
 
-        # track hasn't changed
-        elsif ($trk && ($_->{name} eq $trk->name))
+        # Track hasn't changed OR track has minor changes (case / punctuation).
+        elsif ($trk && $self->name_is_equivalent ($_->{name}, $trk->name))
         {
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
-        # track has minor changes (case / punctuation)
-        # OR the recording is only associated with this track
-        elsif ($trk &&
-               ($self->name_is_equivalent ($_->{name}, $trk->name) ||
-                $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
+        # Track changed significantly, but there is only one recording
+        # associated with it.  Keep the recording association, but ask
+        # for confirmation.
+        elsif ($trk && $self->c->model('Recording')->usage_count ($trk->recording_id) == 1)
         {
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
 
-        # track changed
+        # Track changed.
         elsif ($trk)
         {
             push @ret, { 'id' => undef, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
 
-        # track is new
+        # Track is new.
         # (FIXME: search for similar existing tracks, suggest those and set
         #  "confirmed => 0" if found?)
         else
@@ -356,10 +355,12 @@ sub prepare_recordings
     {
         $count += 1;
 
+        $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
+
+        next if $medium->{deleted};
+
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
-
-        $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
 
         if (defined $medium->{edits} && defined $medium->{tracklist_id})
         {
@@ -704,6 +705,7 @@ sub _edit_release_track_edits
         if ($new->{id})
         {
             # The medium already exists
+
             if ($new->{deleted})
             {
                 # Delete medium
@@ -736,8 +738,10 @@ sub _edit_release_track_edits
                 );
             }
         }
-        else
+        elsif (!$new->{deleted})
         {
+            # Medium does not exist yet.
+
             my $opts = {
                 position => $medium_idx + 1,
                 release_id => $previewing ? 0 : $self->release->id,
@@ -799,7 +803,7 @@ sub _edit_release_annotation
     {
         my $edit = $create_edit->(
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
-            entity_id => $previewing ? 0 : $self->release->id,
+            entity_id => $self->release ? $self->release->id : 0,
             text => $data_annotation,
             as_auto_editor => $data->{as_auto_editor},
         );
