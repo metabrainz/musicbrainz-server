@@ -83,8 +83,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
                 str += MB.TrackParser.separator + item.$artist.val ();
             }
 
+            /* do not render a track length if:
+               - the track does not have a duration
+               - the duration cannot be changed (attached discid). */
             var len = item.lengthOrNull ();
-            if (len)
+            if (len && !self.hasToc ())
             {
                 str += " (" + len + ")";
             }
@@ -185,6 +188,10 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         return self.$various_artists.val() == '1';
     };
 
+    self.hasToc = function () {
+        return MB.medium_cdtocs[disc.number] || self.$toc.val () !== '';
+    };
+
     self.disc = disc;
     self.preview = preview;
 
@@ -195,6 +202,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
+    self.$toc = self.$basicdisc.find ('input.toc');
     self.$various_artists = self.$basicdisc.find ('input.various-artists');
 
     if (!self.$tracklist_id.length)

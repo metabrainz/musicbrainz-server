@@ -90,6 +90,17 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         );
     };
 
+    /* disableTracklistEditing disables the position and duration inputs and
+       disables the remove track button if a CDTOC is present. */
+    self.disableTracklistEditing = function () {
+        if (!self.parent.hasToc ())
+            return;
+
+        self.$position.attr ('disabled', 'disabled');
+        self.$length.attr ('disabled', 'disabled');
+        self.$row.find ("input.remove-track").hide ();
+    };
+
     /**
      * updateVariousArtists will mark the disc as VA if the artist for this
      * track is different from the release artist.
@@ -195,6 +206,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             trk.artist_credit.clear ();
         }
+
+        trk.disableTracklistEditing ();
     };
 
     self.addTrackEvent = function (event) {
@@ -523,6 +536,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      */
     self.isVariousArtists = function () {
         return self.basic.isVariousArtists ();
+    };
+
+    self.hasToc = function () {
+        return self.basic.hasToc ();
     };
 
     /**
