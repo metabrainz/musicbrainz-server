@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::URL::ASIN;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Trusted';
 
 sub pretty_name
 {

@@ -3,8 +3,8 @@
     <p><strong>[% l('External links:') %]</strong></p>
     <ul class="favicons">
       [%- FOREACH favicon IN favicons -%]
-        [% NEXT UNLESS trusted_domain(favicon.target) %]
         [% url=favicon.target %]
+        [% NEXT UNLESS url.trusted %]
         <li>
           <a href="[% url.url | uri %]">
             <img src="[% favicon_image(url) %]" class="border"/>

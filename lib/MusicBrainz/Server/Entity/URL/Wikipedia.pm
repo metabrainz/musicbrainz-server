@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Trusted';
 
 sub pretty_name
 {
