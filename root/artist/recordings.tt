@@ -1,3 +1,9 @@
+[% BLOCK layout_head %]
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js'
+    ) %]"></script>
+[% END %]
+
 [%- WRAPPER 'artist/layout.tt' title=l('Recordings') page='recordings' -%]
     <h2>[% l('Recordings') %]</h2>
     [%- IF recordings.size -%]

@@ -1,3 +1,9 @@
+[% BLOCK layout_head %]
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js'
+    ) %]"></script>
+[% END %]
+
 [% WRAPPER "collection/layout.tt" full_width=1 page='index' %]
 
     [%- IF releases.size -%]
@@ -6,7 +12,7 @@
         <table class="tbl">
           <thead>
               <tr>
-                  [% IF my_collection %]<th></th>[% END %]
+                  [% IF my_collection %]<th><input type="checkbox" /></th>[% END %]
                   [% sortble_table_header('title', l('Release')) %]
                   [% sortble_table_header('artist', l('Artist')) %]
                   <th>[% l('Format') %]</th>
