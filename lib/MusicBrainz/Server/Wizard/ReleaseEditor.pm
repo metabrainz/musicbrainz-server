@@ -606,7 +606,7 @@ sub _edit_missing_entities
 
     my %created;
 
-    my @missing_artist = @{ $data->{missing}{artist} };
+    my @missing_artist = @{ $data->{missing}{artist} || [] };
     my @artist_edits = map {
         my $artist = $_;
         $create_edit->(
@@ -616,7 +616,7 @@ sub _edit_missing_entities
             map { $_ => $artist->{$_} } qw( name sort_name comment ));
     } grep { !$_->{entity_id} } @missing_artist;
 
-    my @missing_label = @{ $data->{missing}{label} };
+    my @missing_label = @{ $data->{missing}{label} || [] };
     my @label_edits = map {
         my $label = $_;
         $create_edit->(
