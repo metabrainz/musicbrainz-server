@@ -139,6 +139,27 @@ sub merge
               $edit_id, @ids);
 }
 
+sub merge_entities
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    my $column = $self->column;
+    my $table = $self->table;
+
+    $self->sql->do(
+        "INSERT INTO $table (editor, $column, last_edit_sent)
+         SELECT DISTINCT editor, ?::INTEGER, max(last_edit_sent)
+           FROM $table t1
+          WHERE $column IN (" . placeholders(@old_ids) . ")
+            AND NOT EXISTS (
+                SELECT 1 FROM $table t2
+                 WHERE t2.$column = ? AND t2.editor = t1.editor
+                )
+       GROUP BY editor, $column",
+        $new_id, @old_ids, $new_id
+    );
+}
+
 sub delete
 {
     my ($self, $edit_id, @ids) = @_;

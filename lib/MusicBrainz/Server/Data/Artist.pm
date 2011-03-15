@@ -234,7 +234,7 @@ sub merge
     $self->alias->merge($new_id, @$old_ids);
     $self->tags->merge($new_id, @$old_ids);
     $self->rating->merge($new_id, @$old_ids);
-    $self->subscription->merge($new_id, @$old_ids);
+    $self->subscription->merge_entities($new_id, @$old_ids);
     $self->annotation->merge($new_id, @$old_ids);
     $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
