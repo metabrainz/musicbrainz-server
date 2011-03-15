@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
     load_subobjects
+    merge_table_attributes
     order_by
     partial_date_from_row
     placeholders
@@ -501,7 +502,14 @@ sub merge
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
 
-    # XXX merge release attributes
+    merge_table_attributes(
+        $self->sql => (
+            table => 'release',
+            columns => [ qw( status packaging country comment barcode script language ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
 
     # XXX allow actual tracklists/mediums merging
     if ($merge_strategy == $MERGE_APPEND) {
