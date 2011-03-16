@@ -47,7 +47,8 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            $_ => DateTime::Locale->load($_)->name
+            my $name = DateTime::Locale->load($_)->name;
+            $_ => (/_/ ? "&nbsp;&nbsp;$name" : $name)
         } sort { $a cmp $b } DateTime::Locale->ids
     ];
 }
