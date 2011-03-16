@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::Alias;
 use HTML::FormHandler::Moose;
 
-use Locale::Language;
+use DateTime::Locale;
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -47,8 +47,8 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            language2code($_) => $_
-        } sort { $a cmp $b } all_language_names()
+            $_ => DateTime::Locale->load($_)->name
+        } sort { $a cmp $b } DateTime::Locale->ids
     ];
 }
 

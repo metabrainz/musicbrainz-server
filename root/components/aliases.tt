@@ -11,7 +11,7 @@
                             [% l('Actions') %]
                         </td>
                     [% END %]
-                    <th style="width: 5em">[% l('Language') %]</th>
+                    <th style="width: 5em">[% l('Locale') %]</th>
                 </tr>
             </thead>
             <tbody about="[% rdfa_entity_curi(entity) %]">
@@ -32,7 +32,7 @@
                             </a>
                         </td>
                     [% END %]
-                    <td>[% IF alias.locale %][% alias.locale | language %][% END %]</td>
+                    <td>[% IF alias.locale %][% alias.locale | locale %][% END %]</td>
                 </tr>
             [%- END -%]
             </tbody>
