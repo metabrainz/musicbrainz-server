@@ -9,12 +9,13 @@ around 'related_entities' => sub
     my $orig = shift;
     my $self = shift;
 
-    my @recordings = values %{ $self->c->model('Recording')->get_by_ids($self->recording_ids) };
-    
-    my @releases;
-    for my $recording (@recordings) {
-        push @releases, $self->c->model('Release')->find_by_recording($recording->id);
-    }
+    my @recordings = values %{
+        $self->c->model('Recording')->get_by_ids($self->recording_ids)
+    };
+
+    my @releases = $self->c->model('Release')->find_by_recording(
+        [ $self->recording_ids ]
+    );
 
     $self->c->model('ReleaseGroup')->load(@releases);
     $self->c->model('ArtistCredit')->load(@recordings, @releases,
