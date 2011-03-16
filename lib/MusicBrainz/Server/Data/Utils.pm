@@ -222,18 +222,18 @@ track will result in a different hash.
 
 sub hash_structure
 {
-    sub structureToString {
+    sub structure_to_string {
         my $obj = shift;
 
         if (ref $obj eq "ARRAY")
         {
-            my @ret = map { structureToString ($_) } @$obj;
+            my @ret = map { structure_to_string ($_) } @$obj;
             return '[' . join (",", @ret) . ']';
         }
         elsif (ref $obj eq "HASH")
         {
             my @ret = map {
-                $_ . ':' . structureToString ($obj->{$_})
+                $_ . ':' . structure_to_string ($obj->{$_})
             } sort keys %$obj;
             return '{' . join (",", @ret) . '}';
         }
@@ -247,7 +247,7 @@ sub hash_structure
         }
     }
 
-    return sha1_base64 (encode ("utf-8", structureToString (shift)));
+    return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
 }
 
 sub insert_and_create
