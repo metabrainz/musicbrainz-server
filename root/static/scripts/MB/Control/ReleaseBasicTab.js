@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010-2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -312,10 +312,6 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         $('#id-advanced').val ('0');
         self.tracklist.render ();
         self.preview.render ();
-    });
-
-    $("a[href=#add_disc]").click (function () {
-        self.addDisc ();
     });
 
     $("a[href=#guesscase]").click (function () {

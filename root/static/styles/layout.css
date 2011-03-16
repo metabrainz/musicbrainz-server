@@ -19,6 +19,8 @@ a:visited { color:#3C5DCE; }
 a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
+a.icon:hover { text-decoration: none; }
+
 a>img { border: 0; }
 
 /* TODO:
