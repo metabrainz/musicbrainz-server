@@ -36,3 +36,11 @@ version:     (commit ba03becf377e01bd9a464857369fefd13e4b337b)
 authors:     Jörn Zaefferer, John Resig
 url:         http://docs.jquery.com/QUnit, http://github.com/jquery/qunit
 
+
+-- sha1/sha1.js --
+
+library:     sha1
+license:     BSD
+version:     v2.2
+author:      Paul Johnston
+url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip

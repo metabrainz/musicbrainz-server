@@ -181,6 +181,8 @@ sub validate {
 
     for my $medium ($self->field('mediums')->fields)
     {
+        next if $medium->field('deleted')->value;
+
         my $edits = $medium->field('edits')->value;
 
         unless ($edits || $medium->field('tracklist_id')->value)

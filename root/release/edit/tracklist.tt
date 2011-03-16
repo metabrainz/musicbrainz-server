@@ -5,6 +5,7 @@
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
         "lib/json/json2.js",
+        "lib/sha1/sha1.js",
         "scripts/MB/TrackParser.js",
 
         "scripts/MB/GuessCase/Utils.js",
@@ -154,13 +155,18 @@
 
                 <div class="row">
                   [% r.label(medium_field.field('format_id'), l('Format')) %]
-                  [% r.select(medium_field.field('format_id')) %]
+                  [% r.select(medium_field.field('format_id'), class => 'format') %]
                 </div>
                 <div class="row advanced-tracklist" style="display: none;">
                   [% r.label(medium_field.field('name'), l('Title')) %]
                   [% r.text(medium_field.field('name')) %]
                 </div>
               </div>
+            </td>
+            <td class="icon">
+              <input type="button" class="icon remove-disc"
+                title="[% l('Remove disc') %]"
+                style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
             </td>
           </tr>
         </table>
@@ -321,7 +327,10 @@
             <input type="button" class="icon disc-up"
               title="[% l('Move disc up') %]"
               style="background-image: url(/static/images/icons/up.png); width: 16px; height: 16px; border: 0;" />
-
+            <span class="empty-icon" style="display: inline-block; width: 16px; height: 16px;"> </span>
+            <input type="button" class="icon remove-disc"
+              title="[% l('Remove disc') %]"
+              style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
           </td>
         </tr>
       </table>

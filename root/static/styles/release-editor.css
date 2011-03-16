@@ -49,6 +49,8 @@ h1 span {
     width: 300px;
 }
 
+#release-editor fieldset select.format { width: 150px; }
+
 #release-editor fieldset input[type=checkbox],
 #release-editor fieldset span.partial-date input { width: auto; }
 #release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
@@ -200,7 +202,8 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor div.basic-disc.expanded { margin: 0 0 10px 0; }
 #release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 0; }
 #release-editor table.basic-format h3 { margin: 0; }
-#release-editor table.basic-format td.format { text-align: right; }
+#release-editor table.basic-format td.format { text-align: center; }
+#release-editor table.basic-format td.icon { text-align: right; }
 
 #release-editor div.basic-medium-format-and-title div.row {
     display: inline;

@@ -1,14 +1,16 @@
 package MusicBrainz::Server::Edit::Medium::Delete;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Str Int );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 
@@ -22,7 +24,7 @@ has '+data' => (
     isa => Dict[
         medium_id => Int,
         format_id => Nullable[Int],
-        tracklist_id => Int,
+        tracklist => Optional[ArrayRef[track()]],
         name => Nullable[Str],
         position => Int,
         release_id => Int
@@ -32,19 +34,26 @@ has '+data' => (
 sub foreign_keys
 {
     my $self = shift;
-    return {
-        MediumFormat => { $self->data->{format_id} => [] },
-        Release => { $self->data->{release_id} => [qw( ArtistCredit )] }
-    };
+    my %fk;
+
+    $fk{MediumFormat} = { $self->data->{format_id} => [] };
+    $fk{Release} = { $self->data->{release_id} => [qw( ArtistCredit )] };
+
+    tracklist_foreign_keys (\%fk, $self->data->{tracklist});
+
+    return \%fk;
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+
     return {
         format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
         release => $loaded->{Release}->{ $self->data->{release_id} },
-        map { $_ => $self->data->{$_} } qw( name position tracklist_id )
+        tracklist => display_tracklist ($loaded, $self->data->{tracklist}),
+        name => $self->data->{name},
+        position => $self->data->{position},
     }
 }
 
@@ -53,10 +62,15 @@ sub initialize
     my ($self, %args) = @_;
 
     my $medium = $args{medium} or die 'Missing required medium object';
+
+    $self->c->model('Tracklist')->load ($medium);
+    $self->c->model('Track')->load_for_tracklists ($medium->tracklist);
+    $self->c->model('ArtistCredit')->load ($medium->tracklist->all_tracks);
+
     $self->data({
         medium_id => $medium->id,
         format_id => $medium->format_id,
-        tracklist_id => $medium->tracklist_id,
+        tracklist => tracks_to_hash($medium->tracklist->tracks),
         name => $medium->name,
         position => $medium->position,
         release_id => $medium->release_id,

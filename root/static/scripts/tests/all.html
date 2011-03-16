@@ -1,11 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
-                    "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
   <head>
     <link rel="stylesheet" href="../../lib/qunit/qunit.css" type="text/css" />
     <script type="text/javascript" src="../../lib/jquery/jquery-1.4.4.js"></script>
     <script type="text/javascript" src="../../lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js"></script>
     <script type="text/javascript" src="../../lib/qunit/qunit.js"></script>
+    <script type="text/javascript" src="../../lib/sha1/sha1.js"></script>
     <script type="text/javascript" src="../MB.js"></script>
     <script type="text/javascript" src="../MB/utility.js"></script>
 
@@ -48,6 +48,7 @@
 
     </script>
 
+    <script type="text/javascript" src="utility.js"></script>
     <script type="text/javascript" src="Control/URLCleanup.js"></script>
     <script type="text/javascript" src="GuessCase.js"></script>
     <script type="text/javascript" src="TrackParser.js"></script>
@@ -65,6 +66,7 @@
               old_done (failures, total);
           };
 
+          MB.tests.utility.Run ();
           MB.tests.URLCleanup.Run ();
           MB.tests.GuessCase.Run ();
           MB.tests.TrackParser.Run ();
