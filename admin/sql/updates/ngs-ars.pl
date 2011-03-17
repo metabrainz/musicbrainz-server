@@ -873,12 +873,14 @@ foreach my $orig_t0 (@entity_types) {
             }
 
             my (@target, @source);
-            if (exists $duplicate_to_works{ $orig_t0 }
+            if ($orig_t1 eq 'track'
+                    && exists $duplicate_to_works{ $orig_t0 }
                     && exists $duplicate_to_works{ $orig_t0 }{ $row->{link_type} }) {
                 @source = $new_entity_types{$orig_t0} || $orig_t0;
                 @target = qw( recording work );
             }
-            elsif (exists $duplicate_to_works{ $orig_t1 }
+            elsif ($orig_t0 eq 'track'
+                    && exists $duplicate_to_works{ $orig_t1 }
                     && exists $duplicate_to_works{ $orig_t1 }{ $row->{link_type} }) {
                 @source = qw( recording work );
                 @target = $new_entity_types{$orig_t1} || $orig_t1;
