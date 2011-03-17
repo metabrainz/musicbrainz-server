@@ -706,8 +706,6 @@ MB.Control.ReleaseAdvancedTab = function () {
     self.discs = [];
     self.basic = null; // set by MB.Control.ReleaseBasicTab.
 
-    self.use_tracklist = MB.Control.ReleaseUseTracklist (self);
-
     self.$tab.find ('fieldset.advanced-disc').each (function (idx, item) {
         self.discs.push (MB.Control.ReleaseDisc (self, $(item)));
     });

@@ -18,72 +18,145 @@
 
 */
 
-MB.Control.ReleaseUseTracklist = function (parent) {
+MB.Control.ReleaseImportSearchResult = function (parent, $template) {
     var self = MB.Object ();
 
     self.parent = parent;
-    self.$fieldset = $('div.add-disc-tab.tracklist');
-    self.$release = self.$fieldset.find ('input.tracklist-release');
-    self.$artist = self.$fieldset.find ('input.tracklist-artist');
-    self.$count = self.$fieldset.find ('input.tracklist-count');
-    self.$template = self.$fieldset.find ('.use-tracklist-template');
-    self.$pager_div = self.$fieldset.find ('div.pager');
-    self.$pager = self.$fieldset.find ('span.pager-tracklist');
+    self.$tracklist = $template;
+    self.$table = self.$tracklist.find('table.import-tracklist');
+    self.$loading = self.$tracklist.find('.tracklist-loading');
+    self.$icon = self.$tracklist.find ('span.ui-icon');
+    self.$id = self.$tracklist.find ('input.id');
 
-    self.$search = $('a[href=#search_tracklist]');
-    self.$next = $('a[href=#next_tracklist]');
-    self.$prev = $('a[href=#prev_tracklist]');
+    self.$tracklist
+        .appendTo (parent.$container)
+        .removeClass ('import-template')
+        .addClass ('search-result');
+
+    self.toggle = function (event) {
+        if (self.$table.is(':visible') || self.$loading.is(':visible'))
+        {
+            self.collapse (event);
+        }
+        else
+        {
+            self.expand (event);
+        }
+    };
 
     self.expand = function (event) {
+        self.parent.collapseAll ();
 
-        var $div = $(this).closest('div');
-        var $table = $div.find('table');
-        var $icon = $div.find ('span.ui-icon');
-        var $loading = $div.find('.tracklist-loading');
-        var $buttons = $div.find ('div.buttons');
-        var tracklist = $div.find ('input.tracklist-id').val ();
+        self.$icon.removeClass ('ui-icon-triangle-1-e').addClass ('ui-icon-triangle-1-s');
+        self.$tracklist.addClass ('tracklist-padding');
+        self.$loading.show ();
 
-        if ($table.is(':visible') || $loading.is(':visible'))
-        {
-            $icon.removeClass ('ui-icon-triangle-1-s').addClass ('ui-icon-triangle-1-e');
-            $div.removeClass ('tracklist-padding');
-            $loading.hide ();
-            $table.hide ();
-            $buttons.hide ();
-
-            return;
-        }
-
-        $('table.use-tracklist').hide ();
-        $('div.use-tracklist a.icon span').removeClass ('ui-icon-triangle-1-s').addClass ('ui-icon-triangle-1-e');
-        $('div.use-tracklist').removeClass ('tracklist-padding');
-
-        $icon.removeClass ('ui-icon-triangle-1-e').addClass ('ui-icon-triangle-1-s');
-        $div.addClass ('tracklist-padding');
-        $loading.show ();
-
-        $.getJSON ('/ws/js/tracklist/' + tracklist, function (data) {
-            $table.find ('tr.track').eq (0).nextAll ().remove ();
+        $.getJSON ('/ws/js/' + self.type + '/' + self.$id.val (), function (data) {
+            self.$table.find ('tr.track').eq (0).nextAll ().remove ();
 
             $.each (data, function (idx, item) {
-                var tr = $table.find ('tr.track').eq(0).clone ()
-                    .appendTo ($table.find ('tbody'));
+                var tr = self.$table.find ('tr.track').eq(0).clone ()
+                    .appendTo (self.$table.find ('tbody'));
+
+                var artist = item.artist ? item.artist :
+                    item.artist_credit ? item.artist_credit.preview : "";
 
                 tr.find ('td.position').text (idx + 1);
                 tr.find ('td.title').text (item.name);
-                tr.find ('td.artist').text (item.artist_credit.preview);
+                tr.find ('td.artist').text (artist);
                 tr.find ('td.length').text (item.length);
                 tr.show ();
             });
 
-            $loading.hide ();
-            $table.show ();
-            $buttons.show ();
+            self.$loading.hide ();
+            self.$table.show ();
         });
+    };
 
+    self.collapse = function (event) {
+        self.$icon.removeClass ('ui-icon-triangle-1-s').addClass ('ui-icon-triangle-1-e');
+        self.$tracklist.removeClass ('tracklist-padding');
+        self.$loading.hide ();
+        self.$table.hide ();
+    };
+
+    self.initialize = function (type, item) {
+
+        self.type = type;
+
+        if (item.position)
+        {
+            var format = item.format ? item.format : 'Disc';
+            var medium = '(' + format + ' ' + item.position +
+                (item.medium ? ': ' + item.medium : '') + ')';
+
+            self.$tracklist.find ('span.medium').text (medium);
+        };
+
+        var id = item.tracklist_id ? item.tracklist_id : item.discid;
+
+        self.$id.val (id);
+        self.$tracklist.find ('span.title').text (item.name);
+        self.$tracklist.find ('span.artist').text (item.artist);
+        self.$tracklist.find ('a.icon').bind ('click.mb', self.toggle);
+
+        self.$tracklist.show ();
+    };
+
+    return self;
+};
+
+MB.Control.ReleaseImport = function (parent, type) {
+    var self = MB.Object ();
+
+    self.$container = $('div.add-disc-tab.' + type);
+    self.$search = self.$container.find ('a[href=#search]');
+    self.$next = self.$container.find ('a[href=#next]');
+    self.$prev = self.$container.find ('a[href=#prev]');
+
+    self.$release = self.$container.find ('input.release');
+    self.$artist = self.$container.find ('input.artist');
+    self.$count = self.$container.find ('input.track-count');
+
+    self.$pager_div = self.$container.find ('div.pager');
+    self.$pager = self.$container.find ('span.pager');
+
+    self.$template = parent.$add_disc_dialog.find ('div.import-template');
+
+    self.search = function (event, direction) {
+
+        var newPage = self.page + direction;
+        if (newPage < 1 || newPage > self.total)
+        {
+            return;
+        }
+
+        self.page = newPage;
+        var height = self.$container.innerHeight ();
+        self.$container.css ('height', height);
+        self.$container.find ('div.search-result').remove ();
+
+        var data = {
+            q: self.$release.val (),
+            artist: self.$artist.val (),
+            tracks: self.$count.val (),
+            page: self.page
+        };
+        $.getJSON ('/ws/js/' + type, data, self.results);
+    };
+
+    self.collapseAll = function () {
+        $.each (self.search_results, function (idx, result) {
+            result.collapse ();
+        });
     };
 
     self.results = function (data) {
+
+        while (self.search_results.length)
+        {
+            self.search_results.pop ().remove ();
+        }
 
         $.each (data, function (idx, item) {
             if (item.current)
@@ -96,62 +169,33 @@ MB.Control.ReleaseUseTracklist = function (parent) {
                 return;
             }
 
-            var tl = self.$template.clone ()
-                .appendTo (self.$fieldset)
-                .removeClass ('use-tracklist-template')
-                .addClass ('use-tracklist');
+            var sr = MB.Control.ReleaseImportSearchResult (self, self.$template.clone ());
 
-            var format = item.format ? item.format : 'Disc';
-            var medium = '(' + format + ' ' + item.position +
-                (item.medium ? ': ' + item.medium : '') + ')';
+            sr.initialize (type, item);
 
-            tl.find ('span.title').text (item.name);
-            tl.find ('span.medium').text (medium);
-            tl.find ('span.artist').text (item.artist);
-            tl.find ('input.tracklist-id').val (item.tracklist_id);
-            tl.find ('a.icon').bind ('click.mb', self.expand);
-
-            tl.show ();
+            self.search_results.push (sr);
         });
 
-        self.$fieldset.css ('height', 'auto');
+        self.$container.css ('height', 'auto');
     };
 
-    self.search = function (event, direction) {
-        var newPage = self.page + direction;
-        if (newPage < 1 || newPage > self.total)
-        {
-            return;
-        }
+//     self.useTracklist = function (id) {
 
-        self.page = newPage;
-        var height = self.$fieldset.innerHeight ();
-        self.$fieldset.css ('height', height);
-        self.$fieldset.find ('div.use-tracklist').remove ();
+//         var ta = self.parent.basic.addDisc ();
+//         ta.tracklist_id.val (id);
+//         ta.collapse ();
+//         ta.expand ();
 
-        var data = {
-            q: self.$release.val (),
-            artist: self.$artist.val (),
-            tracks: self.$count.val (),
-            page: self.page
-        };
-        $.getJSON ('/ws/js/tracklist', data, self.results);
-    };
+//         self.$fieldset.hide ();
+//     };
 
-    self.useTracklist = function (id) {
-
-        var ta = self.parent.basic.addDisc ();
-        ta.tracklist_id.val (id);
-        ta.collapse ();
-        ta.expand ();
-
-        self.$fieldset.hide ();
-    };
 
     self.onChange = function (event) { self.page = 1; };
 
     self.page = 1;
     self.total = 1;
+
+    self.search_results = [];
 
     self.$search.bind ('click.mb', function (event) { self.search (event, 0); });
     self.$prev.bind ('click.mb', function (event) { self.search (event, -1); });
@@ -211,6 +255,10 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         $('html').animate({ scrollTop: 0 }, 500);
 
     });
+
+    self.use_tracklist = MB.Control.ReleaseImport (self, 'tracklist');
+    self.freedb_import = MB.Control.ReleaseImport (self, 'freedb');
+    self.cdstub_import = MB.Control.ReleaseImport (self, 'cdstub');
 
     return self;
 };
