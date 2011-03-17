@@ -402,17 +402,18 @@ sub tracklist : Chained('root') PathPart Args(1) {
     $c->res->body($c->stash->{serializer}->serialize('generic', $structure));
 }
 
-sub freedb : Chained('root') PathPart Args(1) {
-    my ($self, $c, $id) = @_;
+sub freedb : Chained('root') PathPart Args(2) {
+    my ($self, $c, $category, $id) = @_;
 
-    my @ret = [
+    my $response = $c->model ('FreeDB')->lookup ($category, $id);
+
+    my @ret = map {
         {
-            name => "FIXME: /ws/js/freedb lookups not yet supported",
-            length => "5:00",
+            name => $_->{title},
+            artist => $_->{artist},
+            length => format_track_length($_->{length}),
         }
-    ];
-
-    warn "FIXME: /ws/js/freedb lookups not yet supported\n";
+    } @{ $response->tracks };
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@ret));

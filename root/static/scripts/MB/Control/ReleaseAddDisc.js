@@ -33,6 +33,10 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         .removeClass ('import-template')
         .addClass ('search-result');
 
+    self.remove = function () {
+        self.$tracklist.remove ();
+    };
+
     self.toggle = function (event) {
         if (self.$table.is(':visible') || self.$loading.is(':visible'))
         {
@@ -93,7 +97,11 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             self.$tracklist.find ('span.medium').text (medium);
         };
 
-        var id = item.tracklist_id ? item.tracklist_id : item.discid;
+        var id = item.tracklist_id ? item.tracklist_id :
+            item.category ? item.category + '/' + item.discid :
+            item.discid;
+
+        console.log ('category', item.category);
 
         self.$id.val (id);
         self.$tracklist.find ('span.title').text (item.name);
