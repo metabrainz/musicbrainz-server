@@ -3,33 +3,18 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'CDStub',
+    model => 'FreeDB',
+    arg_count => 2        # Category/FreeDB ID
 };
 
 sub base : Chained('/') PathPart('freedb') CaptureArgs(0) { }
 
-# THIS CODE IS INCOMPLETE. IT'S ONLY HERE TO ALLOW THE OUTPUT OF CDSTUB LINKS
-sub _load 
-{
-    my ($self, $c, $id) = @_;
-    return $id; #$c->model('CDStub')->get_by_id($id);
+sub _load {
+    my ($self, $c, $category, $id) = @_;
+    return $c->model('FreeDB')->lookup($category, $id);
 }
 
-sub import : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    $c->stash( template => 'freedb/index.tt' );
-}
-
-sub index : Local
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-
-    $c->stash->{search}->field("type")->value('freedb');
-}
+sub show : Chained('load') PathPart('') {}
 
 =head1 LICENSE
 
