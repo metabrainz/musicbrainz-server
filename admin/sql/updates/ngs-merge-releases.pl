@@ -509,7 +509,17 @@ eval {
     INSERT INTO release_group_meta SELECT * FROM tmp_release_group_meta;
     ");
 
-    # XXX:Remove or merge orphaned release-groups
+    # Remove or merge orphaned release-groups
+    printf STDERR "Removing empty release groups\n";
+    $sql->do("
+    DELETE FROM release_group_gid_redirect rg USING release_group_meta rgm
+    WHERE rgm.id = rg.new_id AND rgm.release_count = 0
+    ");
+
+    $sql->do("
+    DELETE FROM release_group rg USING release_group_meta rgm
+    WHERE rgm.id = rg.id AND rgm.release_count = 0
+    ");
 
     $sql->commit;
 };
