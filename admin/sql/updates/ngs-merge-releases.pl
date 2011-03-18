@@ -511,15 +511,32 @@ eval {
 
     # Remove or merge orphaned release-groups
     printf STDERR "Removing empty release groups\n";
-    $sql->do("
-    DELETE FROM release_group_gid_redirect rg USING release_group_meta rgm
-    WHERE rgm.id = rg.new_id AND rgm.release_count = 0
-    ");
+    my $ids = $sql->select_single_column_array('
+    SELECT rg.id
+      FROM release_group rg
+      JOIN release_group_meta rgm ON rgm.id = rg.id
+     WHERE rgm.release_count = 0
+       AND rg.id NOT IN (
+           SELECT entity1 FROM l_artist_release_group
+        UNION ALL
+           SELECT entity1 FROM l_label_release_group
+        UNION ALL
+           SELECT entity1 FROM l_recording_release_group
+        UNION ALL
+           SELECT entity1 FROM l_release_release_group
+        UNION ALL
+           SELECT entity1 FROM l_release_group_release_group
+        UNION ALL
+           SELECT entity0 FROM l_release_group_release_group
+        UNION ALL
+           SELECT entity0 FROM l_release_group_url
+        UNION ALL
+           SELECT entity0 FROM l_release_group_work
+       )
+    ');
 
-    $sql->do("
-    DELETE FROM release_group rg USING release_group_meta rgm
-    WHERE rgm.id = rg.id AND rgm.release_count = 0
-    ");
+    $sql->do('DELETE FROM release_group_gid_redirect WHERE new_id = any(?)', $ids);
+    $sql->do('DELETE FROM release_group WHERE id = any(?)', $ids);
 
     $sql->commit;
 };
