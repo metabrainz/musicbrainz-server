@@ -28,7 +28,37 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=CDStub import</td>
+	<td>link=Existing tracklist</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href=#search]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.search-result:eq(5) a.icon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.search-result:eq(5) a.icon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.add-disc</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.remove-disc:eq(0)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>step_editnote</td>
 	<td></td>
 </tr>
 </tbody></table>

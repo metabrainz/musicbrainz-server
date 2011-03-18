@@ -74,6 +74,8 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
             self.$loading.hide ();
             self.$table.show ();
+
+            self.parent.selected = self;
         });
     };
 
@@ -100,8 +102,6 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         var id = item.tracklist_id ? item.tracklist_id :
             item.category ? item.category + '/' + item.discid :
             item.discid;
-
-        console.log ('category', item.category);
 
         self.$id.val (id);
         self.$tracklist.find ('span.title').text (item.name);
@@ -157,6 +157,8 @@ MB.Control.ReleaseImport = function (parent, type) {
         $.each (self.search_results, function (idx, result) {
             result.collapse ();
         });
+
+        self.selected = null;
     };
 
     self.results = function (data) {
@@ -187,23 +189,12 @@ MB.Control.ReleaseImport = function (parent, type) {
         self.$container.css ('height', 'auto');
     };
 
-//     self.useTracklist = function (id) {
-
-//         var ta = self.parent.basic.addDisc ();
-//         ta.tracklist_id.val (id);
-//         ta.collapse ();
-//         ta.expand ();
-
-//         self.$fieldset.hide ();
-//     };
-
-
     self.onChange = function (event) { self.page = 1; };
 
     self.page = 1;
     self.total = 1;
-
     self.search_results = [];
+    self.selected = null;
 
     self.$search.bind ('click.mb', function (event) { self.search (event, 0); });
     self.$prev.bind ('click.mb', function (event) { self.search (event, -1); });
@@ -238,6 +229,15 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
 
     self.confirm_manual = function (event) {
         basic_tab.addDisc ();
+        self.close (event);
+    };
+
+    self.confirm_tracklist = function (event) {
+        var ta = basic_tab.addDisc ();
+        ta.$tracklist_id.val (self.use_tracklist.selected.$id.val ());
+        ta.collapse ();
+        ta.expand ();
+
         self.close (event);
     };
 
