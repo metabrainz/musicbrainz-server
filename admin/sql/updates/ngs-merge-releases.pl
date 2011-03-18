@@ -539,6 +539,7 @@ eval {
     $sql->do('DELETE FROM release_group_gid_redirect WHERE new_id = any(?)', $ids);
     $sql->do('DELETE FROM release_group_tag WHERE release_group = any(?)', $ids);
     $sql->do('DELETE FROM release_group WHERE id = any(?)', $ids);
+    $sql->do('DELETE FROM release_group_meta WHERE id = any(?)', $ids);
 
     $c->raw_sql->do('DELETE FROM release_group_rating_raw WHERE release_group = any(?)', $ids);
     $c->raw_sql->do('DELETE FROM release_group_tag_raw WHERE release_group = any(?)', $ids);
