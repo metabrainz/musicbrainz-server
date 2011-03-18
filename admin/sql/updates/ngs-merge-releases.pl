@@ -19,6 +19,7 @@ my $c = MusicBrainz::Server::Context->create_script_context();
 my $sql = Sql->new($c->dbh);
 
 $sql->begin;
+$c->raw_sql->begin;
 eval {
 
     my $link_type = $sql->select_single_value("
@@ -536,11 +537,17 @@ eval {
     ');
 
     $sql->do('DELETE FROM release_group_gid_redirect WHERE new_id = any(?)', $ids);
+    $sql->do('DELETE FROM release_group_tag WHERE release_group = any(?)', $ids);
     $sql->do('DELETE FROM release_group WHERE id = any(?)', $ids);
 
+    $c->raw_sql->do('DELETE FROM release_group_rating_raw WHERE release_group = any(?)', $ids);
+    $c->raw_sql->do('DELETE FROM release_group_tag_raw WHERE release_group = any(?)', $ids);
+
     $sql->commit;
+    $c->raw_sql->commit;
 };
 if ($@) {
     printf STDERR "ERROR: %s\n", $@;
     $sql->rollback;
+    $c->raw_sql->rollback;
 }
