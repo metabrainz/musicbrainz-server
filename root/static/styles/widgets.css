@@ -114,7 +114,8 @@
 
 /* buttons inline with an input row in a form. */
 form div.row input[type=button],
-form input[type=button] {
+form input[type=button],
+form input[type=submit] {
 
     color:#565656;
     background-color:#F0F0F0;
