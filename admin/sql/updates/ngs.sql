@@ -609,7 +609,7 @@ INSERT INTO statistic (value, date_collected, name)
     SELECT value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'
-        WHEN name = 'count.album.has_discid' THEN 'count.release.has_discid'
+        WHEN name = 'count.album.has_discid' THEN 'count.medium.has_discid'
         WHEN name = 'count.album.nonvarious' THEN 'count.release.nonvarious'
         WHEN name = 'count.album.various' THEN 'count.release.various'
         WHEN name = 'count.moderation' THEN 'count.edit'

@@ -150,11 +150,10 @@ my %stats = (
                 - $self->fetch("count.release.various")
         },
     },
-    "count.release.has_discid" => {
-        DESC => "Count of releases with at least one disc ID",
-        SQL => "SELECT COUNT(DISTINCT release)
-                  FROM medium_cdtoc
-                  JOIN medium ON medium.id = medium",
+    "count.medium.has_discid" => {
+        DESC => "Count of media with at least one disc ID",
+        SQL => "SELECT COUNT(DISTINCT medium)
+                  FROM medium_cdtoc",
     },
 
     "count.recording.has_isrc" => {
