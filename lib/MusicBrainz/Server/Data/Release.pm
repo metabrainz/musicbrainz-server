@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Release;
 
 use Moose;
 
+use Carp 'confess';
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
@@ -511,23 +512,21 @@ sub merge
         )
     );
 
-    # XXX allow actual tracklists/mediums merging
     if ($merge_strategy == $MERGE_APPEND) {
-        my $pos = $self->sql->select_single_value('
-            SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
-        my @medium_ids = @{
-            $self->sql->select_single_column_array(
-                'SELECT medium.id FROM medium
-                   JOIN release ON medium.release = release.id
-                   JOIN release_name ON release_name.id = release.name
-                  WHERE release.id IN (' . placeholders(@old_ids) . ')
-               ORDER BY musicbrainz_collate(release_name.name), medium.position',
-                @old_ids
-            );
-        };
-        foreach my $medium_id (@medium_ids) {
-            $self->sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
-                     $new_id, ++$pos, $medium_id);
+        my %positions = %{ $opts{medium_positions} || {} }
+            or confess('Missing medium_positions parameter');
+
+        my @medium_ids = @{ $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release IN (' . placeholders($new_id, @old_ids) . ')',
+            $new_id, @old_ids
+        ) };
+
+        confess('medium_positions does not account for all mediums in all releases')
+            if (keys %positions != grep { exists $positions{$_} } @medium_ids);
+
+        foreach my $id (@medium_ids) {
+            $self->sql->do('UPDATE medium SET release = ?, position = ? WHERE id = ?',
+                           $new_id, $positions{$id}, $id);
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {

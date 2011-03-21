@@ -184,15 +184,22 @@ ok(defined $release);
 # Merge #7 into #6 with append stategy
 $raw_sql->begin;
 $sql->begin;
-$release_data->merge(new_id => 6, old_ids => [ 7 ]);
+$release_data->merge(
+    new_id => 6,
+    old_ids => [ 7 ],
+    medium_positions => {
+        3 => 1,
+        2 => 2
+    }
+);
 memory_cycle_ok($release_data);
 
 $release = $release_data->get_by_id(6);
 $test->c->model('Medium')->load_for_releases($release);
 is($release->all_mediums, 2);
-is($release->mediums->[0]->id, 2);
+is($release->mediums->[0]->id, 3);
 is($release->mediums->[0]->position, 1);
-is($release->mediums->[1]->id, 3);
+is($release->mediums->[1]->id, 2);
 is($release->mediums->[1]->position, 2);
 memory_cycle_ok($release);
 
