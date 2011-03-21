@@ -164,6 +164,24 @@ sub find_for_subscription
     }
 }
 
+sub find_by_voter
+{
+    my ($self, $voter_id, $limit, $offset) = @_;
+    my $query =
+        'SELECT ' . $self->_columns . '
+           FROM ' . $self->_table . '
+           JOIN vote ON vote.edit = edit.id
+          WHERE vote.editor = ? AND vote.superseded = FALSE
+       ORDER BY id DESC
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub { $self->_new_from_row(shift) },
+        $query, $voter_id, $offset
+    );
+}
+
 sub subscribed_entity_edits
 {
     my ($self, $editor_id, $limit, $offset) = @_;
@@ -229,24 +247,6 @@ sub subscribed_editor_edits {
             return $self->_new_from_row(shift);
         },
         $query, $STATUS_OPEN, @editor_ids, $offset);
-}
-
-sub find_by_voter
-{
-    my ($self, $voter_id, $limit, $offset) = @_;
-    my $query =
-        'SELECT ' . $self->_columns . '
-           FROM ' . $self->_table . '
-           JOIN vote ON vote.edit = edit.id
-          WHERE vote.editor = ? AND vote.superseded = FALSE
-       ORDER BY id DESC
-         OFFSET ?';
-
-    return query_to_list_limited(
-        $self->sql, $offset, $limit,
-        sub { $self->_new_from_row(shift) },
-        $query, $voter_id, $offset
-    );
 }
 
 sub merge_entities
