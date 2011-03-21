@@ -30,4 +30,21 @@ sub options_merge_strategy {
     ]
 }
 
+sub validate {
+    my ($self) = @_;
+    if($self->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+        my %positions;
+        for my $field ($self->field('mediums')->fields) {
+            my $pos_field = $field->field('position');
+            $pos_field->add_error(l('Another medium is already in this position'))
+                if exists $positions{$pos_field->value};
+
+            $pos_field->add_error(l('Positions must be greater than 0'))
+                if $pos_field->value < 1;
+
+            $positions{ $pos_field->value }++;
+        }
+    }
+}
+
 1;
