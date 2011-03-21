@@ -7,8 +7,8 @@ eval `./admin/ShowDBDefs`
 
 echo `date` : Upgrading to N.G.S.!!1!
 
-#echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql READWRITE
-#echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql RAWDATA
+echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql READWRITE
+echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql RAWDATA
 echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql READWRITE
 echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql RAWDATA
 
@@ -50,7 +50,7 @@ echo `date` : Fixing refcounts
 
 echo `date` : Migrating edits
 echo This step currently disabled
- ./admin/sql/updates/ngs-migrate-edits.pl
+#./admin/sql/updates/ngs-migrate-edits.pl
 
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
