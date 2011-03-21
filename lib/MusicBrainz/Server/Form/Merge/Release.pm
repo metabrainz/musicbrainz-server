@@ -9,6 +9,18 @@ has_field 'merge_strategy' => (
     required => 1
 );
 
+has_field 'mediums' => (
+    type => 'Repeatable'
+);
+
+has_field 'mediums.id' => (
+    type => 'Integer',
+);
+
+has_field 'mediums.position' => (
+    type => 'Integer',
+);
+
 sub edit_field_names { return ('merge_strategy') }
 
 sub options_merge_strategy {

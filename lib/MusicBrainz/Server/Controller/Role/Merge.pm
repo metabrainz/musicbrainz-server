@@ -116,7 +116,10 @@ role {
         $c->detach
             unless $merger->ready_to_merge;
 
-        my $form = $c->form(form => $params->merge_form);
+        my $form = $c->form(
+            form => $params->merge_form,
+            $self->_merge_form_arguments($c, @entities)
+        );
         if ($form->submitted_and_valid($c->req->params)) {
             my $new_id = $form->field('target')->value;
             my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;
