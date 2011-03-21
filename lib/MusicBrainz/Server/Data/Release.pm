@@ -488,6 +488,31 @@ sub delete
     return;
 }
 
+sub can_merge {
+    my ($self, $strategy, $new_id, @old_ids) = @_;
+
+    if ($strategy == $MERGE_MERGE) {
+        my $mediums_differ = $self->sql->select_single_value(
+            'SELECT TRUE
+               FROM (
+           SELECT medium.id, medium.position, tracklist.track_count
+             FROM medium
+             JOIN tracklist ON tracklist.id = medium.tracklist
+            WHERE release IN (' . placeholders(@old_ids) . ')
+                    ) s
+               FULL OUTER JOIN medium new_medium ON new_medium.position = s.position
+               JOIN tracklist ON tracklist.id = new_medium.tracklist
+              WHERE new_medium.release = ?
+                AND (   tracklist.track_count <> s.track_count
+                     OR new_medium.id IS NULL
+                     OR s.id IS NULL)
+               LIMIT 1',
+            @old_ids, $new_id);
+
+        return !$mediums_differ;
+    };
+}
+
 sub merge
 {
     my ($self, %opts) = @_;
@@ -530,7 +555,10 @@ sub merge
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
-        my @tracklist_merges = @{ 
+        confess('Mediums contain differing numbers of tracks')
+            unless $self->can_merge($MERGE_MERGE, $new_id, @old_ids);
+
+        my @tracklist_merges = @{
             $self->sql->select_list_of_lists(
                 'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
                    FROM medium newmed, medium oldmed

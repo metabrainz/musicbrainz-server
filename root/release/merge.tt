@@ -1,3 +1,15 @@
+[% BLOCK layout_head %]
+<script type="text/javascript">
+    $(function() {
+        $('#id-merge\\.merge_strategy').change(function() {
+            var val = $(this).val();
+            $('.merge-strategy').hide();
+            $('#merge-strategy-' + val).show();
+        });
+    });
+</script>
+[% END %]
+
 [% WRAPPER 'layout.tt' title=l('Merge Releases') full_width=1 %]
     <h2>[% l('Merge Releases') %]</h2>
     <p>[% l('You are about to merge the following releases into a single release. Please
@@ -20,7 +32,12 @@
 
         [% form.errors %]
 
-        <div>
+        <div id="merge-strategy-1" class="merge-strategy">
+          <p>
+            [% l('Using this merge strategy, all mediums from all releases will be used. You may specify
+                  the new order of mediums. The order does not have to be continuous, but all medium positions
+                  must be positive, and multiple mediums cannot be in the same position') %]
+          </p>
           <table class="tbl">
             <tbody>
               [% FOR medium=mediums %]
@@ -43,6 +60,12 @@
               [% END %]
             </tbody>
           </table>
+        </div>
+
+        <div id="merge-strategy-2">
+          <p>[% l('This merge strategy will merge all mediums together into a single set of mediums. Recordings
+                   between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
+          <p>[% l('This requires that mediums over each release have corresponding track counts.') %]</p>
         </div>
 
         [% INCLUDE "forms/edit-note.tt" %]
