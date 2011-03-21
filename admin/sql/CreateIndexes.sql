@@ -163,6 +163,7 @@ CREATE INDEX release_name_idx_page ON release_name (page_index(name));
 CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
 
 CREATE INDEX statistic_name ON statistic (name);
+CREATE UNIQUE INDEX statistic_name_date_collected ON statistic (name, date_collected);
 
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 
