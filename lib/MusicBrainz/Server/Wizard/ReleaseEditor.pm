@@ -763,13 +763,15 @@ sub _edit_release_track_edits
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
-            if ($new->{toc}) {
+            my $toc = $self->c->model('CDStubTOC')->get_by_discid ($new->{toc}) if $new->{toc};
+            if ($toc)
+            {
                 $create_edit->(
                     $EDIT_MEDIUM_ADD_DISCID,
                     $editnote,
                     medium_id  => $previewing ? 0 : $add_medium->entity_id,
                     release_id => $previewing ? 0 : $self->release->id,
-                    cdtoc      => $new->{toc},
+                    cdtoc      => $toc->toc,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
@@ -929,6 +931,10 @@ sub _expand_mediums
                 $pos++;
                 $self->_expand_track ($_, $rec);
             } @{ $self->edited_tracklist($json->decode($edits)) } ];
+        }
+        elsif ($disc->{deleted})
+        {
+            $disc->{tracks} = [ ];
         }
         else
         {
@@ -1106,6 +1112,10 @@ sub _seed_parameters {
                                 gid => $_->{gid}
                             }, @{$track_ac->{names}}
                         ];
+
+                        $track->{artist_credit}{preview} = join (
+                            "", map { $_->{name} . $_->{join_phrase}
+                            } @{$track_ac->{names}});
                     }
 
                     if (my $length = $track->{length}) {

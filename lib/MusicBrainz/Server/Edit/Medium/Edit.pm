@@ -30,7 +30,7 @@ has '+data' => (
     isa => Dict[
         entity_id => NullableOnPreview[Int],
         separate_tracklists => Optional[Bool],
-        current_tracklist => Int,
+        current_tracklist => NullableOnPreview[Int],
         old => change_fields(),
         new => change_fields()
     ]
@@ -53,26 +53,40 @@ sub initialize
     my $entity = delete $opts{to_edit};
     my $tracklist = delete $opts{tracklist};
     my $separate_tracklists = delete $opts{separate_tracklists};
-    die "You must specify the object to edit" unless defined $entity;
+    my $data;
 
-    my $data = {
-        entity_id => $entity->id,
-        current_tracklist => $entity->tracklist_id,
-        $self->_changes($entity, %opts)
-    };
-
-    if ($tracklist) {
-        $self->c->model('Tracklist')->load ($entity);
-        $self->c->model('Track')->load_for_tracklists ($entity->tracklist);
-        $self->c->model('ArtistCredit')->load ($entity->tracklist->all_tracks);
-
-        $data->{old}{tracklist} = tracks_to_hash($entity->tracklist->tracks);
-        $data->{new}{tracklist} = tracks_to_hash($tracklist);
-        $data->{separate_tracklists} = $separate_tracklists;
+    # FIXME: really should receive an entity on preview too.
+    if ($self->preview && !defined $entity)
+    {
+        # This currently only happens when a new medium just created with
+        # an Add Medium edit needs to immediatly get an edit to change
+        # position.
+        $data->{old}{position} = 0;
+        $data->{new}{position} = delete $opts{position};
     }
+    else
+    {
+        die "You must specify the object to edit" unless defined $entity;
 
-    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-          if Compare($data->{old}, $data->{new});
+        $data = {
+            entity_id => $entity->id,
+            current_tracklist => $entity->tracklist_id,
+            $self->_changes($entity, %opts)
+        };
+
+        if ($tracklist) {
+            $self->c->model('Tracklist')->load ($entity);
+            $self->c->model('Track')->load_for_tracklists ($entity->tracklist);
+            $self->c->model('ArtistCredit')->load ($entity->tracklist->all_tracks);
+
+            $data->{old}{tracklist} = tracks_to_hash($entity->tracklist->tracks);
+            $data->{new}{tracklist} = tracks_to_hash($tracklist);
+            $data->{separate_tracklists} = $separate_tracklists;
+        }
+
+        MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+            if Compare($data->{old}, $data->{new});
+    }
 
     $self->data($data);
 }
@@ -124,10 +138,13 @@ sub build_display_data
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
-    my $medium = $self->c->model('Medium')->get_by_id($self->data->{entity_id});
-    $self->c->model('Release')->load($medium);
-    $self->c->model('ArtistCredit')->load($medium->release);
-    $data->{release} = $medium->release;
+    if ($self->data->{entity_id})
+    {
+        my $medium = $self->c->model('Medium')->get_by_id($self->data->{entity_id});
+        $self->c->model('Release')->load($medium);
+        $self->c->model('ArtistCredit')->load($medium->release);
+        $data->{release} = $medium->release;
+    }
 
     return $data;
 }
