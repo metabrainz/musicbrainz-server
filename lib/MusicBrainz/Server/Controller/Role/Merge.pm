@@ -121,7 +121,6 @@ role {
             $self->_merge_form_arguments($c, @entities)
         );
         if ($form->submitted_and_valid($c->req->params)) {
-            use Devel::Dwarn; Dwarn $form->value;
             my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
             my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;
             $self->_insert_edit($c, $form,

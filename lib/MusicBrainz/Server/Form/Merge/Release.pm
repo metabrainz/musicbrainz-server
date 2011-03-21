@@ -59,8 +59,6 @@ sub validate {
             $seen_pos{ $pos_field->value }++;
             $positions{$field->field('id')->value} = $pos_field->value;
         }
-
-        #$self->field('medium_positions')->_set_value(\%positions);
     }
 }
 
