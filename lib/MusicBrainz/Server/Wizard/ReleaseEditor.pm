@@ -1095,6 +1095,10 @@ sub _seed_parameters {
                                 gid => $_->{gid}
                             }, @{$track_ac->{names}}
                         ];
+
+                        $track->{artist_credit}{preview} = join (
+                            "", map { $_->{name} . $_->{join_phrase}
+                            } @{$track_ac->{names}});
                     }
 
                     if (my $length = $track->{length}) {
