@@ -1,4 +1,13 @@
 <table class="details edit-medium">
+  [% UNLESS edit.preview %]
+  <tr>
+    <th>[% l('Release:') %]</th>
+    <td>
+      [% descriptive_link(edit.display_data.release) %]
+    </td>
+  </tr>
+  [% END %]
+
   [% IF edit.display_data.format %]
   <tr>
     <th>[% l('Format:') %]</th>
@@ -20,15 +29,6 @@
     <th>[% l('Name:') %]</th>
     <td class="old">[% edit.display_data.name.old | html %]</td>
     <td class="new">[% edit.display_data.name.new | html %]</td>
-  </tr>
-  [% END %]
-
-  [% UNLESS edit.preview %]
-  <tr>
-    <th>[% l('Release:') %]</th>
-    <td>
-      [% descriptive_link(edit.display_data.release) %]
-    </td>
   </tr>
   [% END %]
 

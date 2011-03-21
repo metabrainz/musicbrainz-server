@@ -11,8 +11,9 @@ use MusicBrainz::Server::Translation qw( l ln );
 sub edit_name { l('Add disc ID') }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
-use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
+use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
@@ -21,13 +22,16 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 
 has '+data' => (
     isa => Dict[
-        cdtoc      => Str,
-        medium_id  => NullableOnPreview[Int],
-        release_id => NullableOnPreview[Int],
+        cdtoc     => Str,
+        medium_id => NullableOnPreview[Int],
+        release   => NullableOnPreview[Dict[
+            id => Int,
+            name => Str
+        ]],
     ]
 );
 
-method release_id { $self->data->{release_id} }
+method release_id { $self->data->{release}{id} }
 
 method alter_edit_pending
 {
@@ -36,14 +40,22 @@ method alter_edit_pending
     }
 }
 
-after initialize => sub {
-    my $self = shift;
+sub initialize {
+    my ($self, %opts) = @_;
 
     if ($self->preview)
     {
        $self->entity_id(0);
-       return;
     }
+    else {
+        my $release = $opts{release} or die 'Missing "release" argument';
+        $opts{release} = {
+            id => $release->id,
+            name => $release->name
+        };
+    }
+
+    $self->data(\%opts);
 };
 
 method related_entities
@@ -64,7 +76,10 @@ method foreign_keys
 method build_display_data ($loaded)
 {
     return {
-        release => $loaded->{Release}{ $self->release_id },
+        release => $loaded->{Release}{ $self->release_id } ||
+            Release->new(
+                name => $self->data->{release}{name}
+            ),
         medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id } ||
             MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{cdtoc})

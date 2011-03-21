@@ -214,7 +214,7 @@ sub recording_submit : Private
 
     my %recordings_by_id = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
                                                                   keys %submit_isrc) };
-    my %recordings_by_gid = map { $_->gid => $_->id } values %recordings_by_id;
+    my %recordings_by_gid = map { $_->gid => $_ } values %recordings_by_id;
 
     my @submissions;
     for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
@@ -241,8 +241,11 @@ sub recording_submit : Private
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_puid) {
             $buffer->add_items(map +{
-                recording_id => $recordings_by_gid{$recording_gid},
-                puid         => $_
+                recording => {
+                    id => $recordings_by_gid{$recording_gid}->id,
+                    name => $recordings_by_gid{$recording_gid}->name
+                },
+                puid      => $_
             }, @{ $submit_puid{$recording_gid} });
         }
     });
@@ -262,7 +265,10 @@ sub recording_submit : Private
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_isrc) {
             $buffer->add_items(map +{
-                recording_id => $recordings_by_gid{$recording_gid},
+                recording => {
+                    id => $recordings_by_gid{$recording_gid}->id,
+                    name => $recordings_by_gid{$recording_gid}->name
+                },
                 isrc         => $_
             }, @{ $submit_isrc{$recording_gid} });
         }

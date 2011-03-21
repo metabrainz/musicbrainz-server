@@ -638,6 +638,12 @@ sub _edit_release_labels
 
     my $max = scalar @{ $data->{'labels'} } - 1;
 
+    my $labels = $self->c->model('Label')->get_by_ids(
+        grep { $_ }
+            (map { $_->{label_id} } @{ $data->{'labels'} }),
+            (map { $_->label_id } $self->release ? $self->release->all_labels : ())
+    );
+
     for (0..$max)
     {
         my $new_label = $data->{'labels'}->[$_];
@@ -660,7 +666,7 @@ sub _edit_release_labels
                 $create_edit->(
                     $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
                     release_label => $old_label,
-                    label_id => $new_label->{label_id},
+                    label => $labels->{ $new_label->{label_id} },
                     catalog_number => $new_label->{catalog_number},
                     as_auto_editor => $data->{as_auto_editor},
                     );
@@ -669,10 +675,11 @@ sub _edit_release_labels
         elsif ($new_label->{label_id} || $new_label->{catalog_number})
         {
             # Add ReleaseLabel
+
             $create_edit->(
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
-                release_id => $previewing ? 0 : $self->release->id,
-                label_id => $new_label->{label_id},
+                release => $previewing ? undef : $self->release,
+                label => $labels->{ $new_label->{label_id} },
                 catalog_number => $new_label->{catalog_number},
                 as_auto_editor => $data->{as_auto_editor},
             );
@@ -733,7 +740,7 @@ sub _edit_release_track_edits
 
             my $opts = {
                 position => $medium_idx + 1,
-                release_id => $previewing ? 0 : $self->release->id,
+                release => $previewing ? undef : $self->release,
                 as_auto_editor => $data->{as_auto_editor},
             };
 
@@ -792,7 +799,7 @@ sub _edit_release_annotation
     {
         my $edit = $create_edit->(
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
-            entity_id => $self->release ? $self->release->id : 0,
+            entity => $self->release,
             text => $data_annotation,
             as_auto_editor => $data->{as_auto_editor},
         );

@@ -23,7 +23,10 @@ subtype 'AliasHash'
 has '+data' => (
     isa => Dict[
         alias_id => Int,
-        entity_id => Int,
+        entity => Dict[
+            id   => Int,
+            name => Str
+        ],
         new => find_type_constraint('AliasHash'),
         old => find_type_constraint('AliasHash'),
     ]
@@ -36,7 +39,7 @@ sub foreign_keys
     my $self = shift;
     my $model = type_to_model($self->_alias_model->type);
     return {
-        $model => [ $self->data->{entity_id} ],
+        $model => [ $self->data->{entity}{id} ],
     };
 }
 
@@ -56,7 +59,10 @@ sub build_display_data
             new => $self->data->{new}{locale},
             old => $self->data->{old}{locale}
         },
-        $type => $loaded->{$model}{ $self->data->{entity_id} }
+        $type => $loaded->{$model}{ $self->data->{entity}{id} }
+            || $self->c->model($model)->_entity_class->new(
+                name => $self->data->{entity}{name}
+            )
     };
 }
 
@@ -72,9 +78,13 @@ sub initialize
     my ($self, %opts) = @_;
     my $alias = delete $opts{alias};
     die "You must specify the alias object to edit" unless defined $alias;
+    my $entity = delete $opts{entity} or die 'Missing "entity" argument';
     $self->data({
         alias_id => $alias->id,
-        entity_id => delete $opts{entity_id},
+        entity => {
+            id => $entity->id,
+            name => $entity->name
+        },
         $self->_change_data($alias, %opts)
     });
 }

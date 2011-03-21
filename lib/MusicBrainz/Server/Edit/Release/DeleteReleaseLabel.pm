@@ -10,9 +10,13 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 sub edit_name { l('Remove release label') }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
+
+sub release_id { shift->data->{release}{id} }
+sub release_label_id { shift->data->{release_label_id} }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 sub models { [qw( Release ReleaseLabel )] }
@@ -20,47 +24,27 @@ sub models { [qw( Release ReleaseLabel )] }
 has '+data' => (
     isa => Dict[
         release_label_id => Int,
-        release_id => Int,
-        label_id => Nullable[Int],
+        release => Dict[
+            id => Int,
+            name => Str
+        ],
+        label => Nullable[Dict[
+            id => Int,
+            name => Str
+        ]],
         catalog_number => Nullable[Str]
     ]
 );
-
-has 'release_id' => (
-    isa => Int,
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{release_id} }
-);
-
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 around 'related_entities' => sub {
     my $orig = shift;
     my $self = shift;
     my $related = $self->$orig;
 
-    $related->{label} = [ $self->data->{label_id} ],
+    $related->{label} = [ $self->data->{label}{id} ],
 
     return $related;
 };
-
-has 'release' => (
-    isa => 'Release',
-    is => 'rw',
-);
-
-has 'release_label_id' => (
-    isa => 'Int',
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{release_label_id} }
-);
-
-has 'release_label' => (
-    isa => 'ReleaseLabel',
-    is => 'rw',
-);
 
 sub foreign_keys
 {
@@ -68,20 +52,26 @@ sub foreign_keys
 
     return {
         Release => { $self->release_id => [] },
-        Label => [ $self->data->{label_id} ]
+        Label => [ $self->data->{label}{id} ]
     };
 };
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my $label = $loaded->{Label}->{ $self->data->{label_id} };
+    my $label = $loaded->{Label}->{ $self->data->{label} };
 
-    return {
+    my $data = {
         release => $loaded->{Release}->{ $self->data->{release_id} },
         catalog_number => $self->data->{catalog_number},
-        label => ($label || $self->data->{catalog_number})
     };
+
+    if (my $lbl = $self->data->{label}) {
+        $data->{label} = $loaded->{Label}{ $lbl->{id} }
+            || Label->new( name => $lbl->{name} )
+    }
+
+    return $data;
 }
 
 sub initialize
@@ -91,11 +81,25 @@ sub initialize
     die "You must specify the release label object to delete"
         unless defined $release_label;
 
+    unless ($release_label->release) {
+        $self->c->model('Release')->load($release_label);
+    }
+
+    unless ($release_label->label) {
+        $self->c->model('Label')->load($release_label);
+    }
+
     $self->data({
         release_label_id => $release_label->id,
         catalog_number => $release_label->catalog_number,
-        label_id => $release_label->label_id,
-        release_id => $release_label->release_id,
+        label => $release_label->label ? {
+            id => $release_label->label->id,
+            name => $release_label->label->name
+        } : undef,
+        release => {
+            id => $release_label->release->id,
+            name => $release_label->release->name
+        }
     });
 };
 

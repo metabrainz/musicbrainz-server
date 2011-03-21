@@ -122,7 +122,7 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
                 $form,
                 edit_type => $model_to_edit_type{$model},
                 (map { $_->name => $_->value } $form->edit_fields),
-                entity_id => $entity->id
+                entity => $entity
             );
 
             my $show = $self->action_for('show');
