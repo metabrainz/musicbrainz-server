@@ -14,6 +14,7 @@ sub import {
     }
     else {
         no strict 'refs';
+        Class::MOP::load_class('MusicBrainz::Server::Edit::Historic::Fast');
         push @{"$class\::ISA"}, 'MusicBrainz::Server::Edit::Historic::Fast';
     }
 }
