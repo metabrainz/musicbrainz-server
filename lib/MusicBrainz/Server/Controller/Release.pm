@@ -334,7 +334,7 @@ sub _merge_form_arguments {
     );
 
     return (
-        item => { mediums => \@mediums }
+        init_object => { medium_positions => { map => \@mediums } }
     );
 }
 

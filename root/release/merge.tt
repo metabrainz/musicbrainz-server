@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' title=l('Merge Releases') full_width=1 %]
     <h2>[% l('Merge Releases') %]</h2>
     <p>[% l('You are about to merge the following releases into a single release. Please
-             select the release group which you would like other release groups to be merged
+             select the release which you would like other release to be merged
              into:') %]</p>
 
     <form action="[% c.req.uri %]" method="post">
@@ -18,14 +18,18 @@
         [% USE r = FormRenderer(form) %]
         [% form_row_select(r, 'merge_strategy', l('Merge strategy:')) %]
 
+        [% form.errors %]
+
         <div>
           <table class="tbl">
             <tbody>
               [% FOR medium=mediums %]
+              [% field = form.field('medium_positions').field('map').field(loop.index) %]
               <tr class="subh">
                 <th colspan="4">
                   <label>[% l('New position:') %]</label>
-                  [% r.text(form.field('mediums').field(loop.index).field('position')) %]
+                  [% r.text(field.field('position')) %]
+                  [% r.hidden(field.field('id')) %]
                 </th>
               </tr>
               [% FOR track=medium.tracklist.tracks %]
