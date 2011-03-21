@@ -19,7 +19,10 @@ sub related_entities {
 sub do_upgrade {
     my $self = shift;
     return {
-        entity_id => $self->artist_id,
+        entity    => {
+            id => $self->artist_id,
+            name => '[deleted]',
+        },
         alias_id  => $self->row_id,
         name      => $self->previous_value
     }

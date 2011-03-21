@@ -18,22 +18,31 @@ sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 sub related_entities { { release => [ shift->release_id ] } }
 
+use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 subtype 'ReleaseLabelHash'
     => as Dict[
-        label_id => Nullable[Int],
+        label => Nullable[Dict[
+            id => Int,
+            name => Str,
+        ]],
         catalog_number => Nullable[Str]
     ];
 
 has '+data' => (
     isa => Dict[
         release_label_id => Int,
-        release_id => Int,
+        release => Dict[
+            id => Int,
+            name => Str
+        ],
         new => find_type_constraint('ReleaseLabelHash'),
         old => find_type_constraint('ReleaseLabelHash')
     ]
 );
 
-sub release_id { shift->data->{release_id} }
+sub release_id { shift->data->{release}{id} }
 sub release_label_id { shift->data->{release_label_id} }
 
 sub foreign_keys
@@ -42,8 +51,8 @@ sub foreign_keys
 
     my $keys = { Release => { $self->release_id => [] } };
 
-    $keys->{Label}->{ $self->data->{old}{label_id} } = [];
-    $keys->{Label}->{ $self->data->{new}{label_id} } = [];
+    $keys->{Label}->{ $self->data->{old}{label}{id} } = [];
+    $keys->{Label}->{ $self->data->{new}{label}{id} } = [];
 
     return $keys;
 };
@@ -52,17 +61,22 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    return {
+    my $data = {
         release => $loaded->{Release}->{ $self->release_id },
-        label => {
-            new => $loaded->{Label}->{ $self->data->{new}{label_id} },
-            old => $loaded->{Label}->{ $self->data->{old}{label_id} },
-        },
         catalog_number => {
             new => $self->data->{new}{catalog_number},
             old => $self->data->{old}{catalog_number},
         },
     };
+
+    for (qw( new old )) {
+        if (my $lbl = $self->data->{$_}{label}) {
+            $data->{label}{$_} = $loaded->{Label}{ $lbl->{id} }
+                || Label->new( name => $lbl->{name} );
+        }
+    }
+
+    return $data;
 }
 
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -73,12 +87,25 @@ around 'related_entities' => sub {
     my $related = $self->$orig;
 
     $related->{label} = [
-        $self->data->{new}{label_id},
-        $self->data->{old}{label_id},
+        $self->data->{new}{label}{id},
+        $self->data->{old}{label}{id},
     ],
 
     return $related;
 };
+
+sub _mapping {
+    my $self = shift;
+    return (
+        label => sub {
+            my $rl = shift;
+            return {
+                id => $rl->label->id,
+                name => $rl->label->name
+            }
+        }
+    )
+}
 
 sub initialize
 {
@@ -87,9 +114,27 @@ sub initialize
     die "You must specify the release label object to edit"
         unless defined $release_label;
 
+    unless ($release_label->release) {
+        $self->c->model('Release')->load($release_label);
+    }
+
+    unless ($release_label->label) {
+        $self->c->model('Label')->load($release_label);
+    }
+
+    if (my $lbl = $opts{label}) {
+        $opts{label} = {
+            id => $lbl->id,
+            name => $lbl->name
+        }
+    }
+
     $self->data({
         release_label_id => $release_label->id,
-        release_id => $release_label->release_id,
+        release => {
+            id => $release_label->release->id,
+            name => $release_label->release->name,
+        },
         $self->_change_data($release_label, %opts),
     });
 };
@@ -97,7 +142,10 @@ sub initialize
 sub accept
 {
     my $self = shift;
-    $self->c->model('ReleaseLabel')->update($self->release_label_id, $self->data->{new});
+    $self->c->model('ReleaseLabel')->update($self->release_label_id, {
+        label_id => $self->data->{new}{label}{id},
+        catalog_number => $self->data->{new}{catalog_number},
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -21,7 +21,10 @@ sub do_upgrade
     my $self = shift;
 
     return {
-        entity_id => $self->artist_id,
+        entity => {
+            id => $self->artist_id,
+            name => $self->previous_value
+        },
         old => {
             name => $self->previous_value
         },

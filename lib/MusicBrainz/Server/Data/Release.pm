@@ -440,6 +440,7 @@ sub insert
         push @created, $class->new(
             id => $self->sql->insert_row('release', $row, 'id'),
             gid => $row->{gid},
+            name => $release->{name}
         );
     }
     return @releases > 1 ? @created : $created[0];

@@ -79,9 +79,8 @@ sub remove : Local RequireAuth
         form        => 'Confirm',
         type        => $EDIT_MEDIUM_REMOVE_DISCID,
         edit_args   => {
-            cdtoc_id     => $cdtoc_id,
-            medium_id    => $medium_id,
-            medium_cdtoc => $cdtoc->id
+            medium => $medium,
+            cdtoc  => $cdtoc
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/discids', [ $release->gid ]));
@@ -143,7 +142,7 @@ sub attach : Local RequireAuth
             edit_args   => {
                 cdtoc      => $toc,
                 medium_id  => $medium_id,
-                release_id => $medium->release_id
+                release    => $medium->release
             },
             on_creation => sub {
                 $c->response->redirect(

@@ -12,7 +12,10 @@ sub _alias_model { die 'Not implemented' }
 has '+data' => (
     isa => Dict[
         alias_id  => Int,
-        entity_id => Int,
+        entity    => Dict[
+            id   => Int,
+            name => Str
+        ],
         name      => Str,
     ]
 );
@@ -47,9 +50,13 @@ sub initialize
 {
     my ($self, %opts) = @_;
     my $alias = $opts{alias} or die 'Missing required "alias" argument';
+    my $entity = delete $opts{entity} or die 'Missing required "entity" argument';
 
     $self->data({
-        entity_id => $opts{entity_id},
+        entity    => {
+            id   => $entity->id,
+            name => $entity->name
+        },
         alias_id  => $alias->id,
         name      => $alias->name,
     });

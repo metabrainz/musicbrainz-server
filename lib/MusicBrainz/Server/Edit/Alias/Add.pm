@@ -12,9 +12,12 @@ sub _alias_model { die 'Not implemented' }
 
 has '+data' => (
     isa => Dict[
-        name      => Str,
-        entity_id => Int,
-        locale    => Nullable[Str]
+        name   => Str,
+        entity => Dict[
+            id   => Int,
+            name => Str
+        ],
+        locale => Nullable[Str]
     ]
 );
 
@@ -48,9 +51,17 @@ sub insert
     my $self = shift;
     my %data = %{ $self->data };
     my $model = $self->_alias_model;
-    # We have to remap this, as alias wants to see 'artist_id' for example, not 'entity_id'
-    $data{ $model->type . '_id' } = delete $data{entity_id};
-    $self->alias_id( $model->insert(\%data)->id );
+
+    $self->alias_id(
+        $model->insert({
+            # FIXME
+            # We have to remap this, as alias wants to see 'artist_id'
+            # for example, not 'entity_id'
+            $model->type . '_id' => $data{entity}{id},
+            name => $data{name},
+            locale => $data{locale}
+        })->id
+    );
 }
 
 sub reject
@@ -62,7 +73,11 @@ sub reject
 sub initialize
 {
     my ($self, %opts) = @_;
-    $opts{entity_id} = delete $opts{ $self->_alias_model->type . '_id' };
+    my $entity = delete $opts{entity} or die 'Missing entity object';
+    $opts{entity} = {
+        id => $entity->id,
+        name => $entity->name
+    };
     $self->data(\%opts);
 }
 

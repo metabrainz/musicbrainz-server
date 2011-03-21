@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use List::MoreUtils qw( all pairwise );
-use MooseX::Types::Moose qw( Bool Int );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ARTIST );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -20,13 +20,18 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 sub edit_name { l('Edit release artist') }
 sub edit_type { $EDIT_RELEASE_ARTIST }
-sub release_id { shift->data->{release_id} }
+sub release_id { shift->data->{release}{id} }
 
 has '+data' => (
     isa => Dict[
-        release_id => Int,
+        release => Dict[
+            id => Int,
+            name => Str
+        ],
         update_tracklists => Bool,
         old_artist_credit => ArtistCreditDefinition,
         new_artist_credit => ArtistCreditDefinition
@@ -55,7 +60,7 @@ sub foreign_keys
     }
 
     $relations->{Release} = {
-        $self->data->{release_id} => [ 'ArtistCredit' ]
+        $self->data->{release}{id} => [ 'ArtistCredit' ]
     };
 
     return $relations;
@@ -75,7 +80,8 @@ sub build_display_data
     }
 
     $data->{update_tracklists} = $self->data->{update_tracklists};
-    $data->{release} = $loaded->{Release}{ $self->data->{release_id} };
+    $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
+        || Release->new( name => $self->data->{release}{name} );
 
     return $data;
 }
@@ -88,7 +94,10 @@ sub initialize {
     }
 
     $self->data({
-        release_id => $release->id,
+        release => {
+            id => $release->id,
+            name => $release->name
+        },
         update_tracklists => $opts{update_tracklists},
         new_artist_credit => $opts{artist_credit},
         old_artist_credit => artist_credit_to_ref($release->artist_credit)
@@ -109,7 +118,7 @@ sub accept {
         });
 
     if ($self->data->{update_tracklists}) {
-        my $release = $self->c->model('Release')->get_by_id($self->data->{release_id});
+        my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
         $self->c->model('Medium')->load_for_releases($release);
         $self->c->model('Track')->load_for_tracklists(
             map { $_->tracklist } $release->all_mediums);

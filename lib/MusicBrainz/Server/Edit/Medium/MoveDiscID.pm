@@ -10,6 +10,8 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium';
 
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { l('Move Disc ID') }
@@ -17,7 +19,10 @@ sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 
 has '+data' => (
     isa => Dict[
-        medium_cdtoc_id => Int,
+        medium_cdtoc => Dict[
+            id => Int,
+            toc => Str
+        ],
         old_medium => Dict[
             id => Int,
             release => Dict[
@@ -74,7 +79,10 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        medium_cdtoc => $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc_id} },
+        medium_cdtoc => $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc}{id} }
+            || MediumCDTOC->new(
+                cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
+            ),
         old_release => $loaded->{Release}->{ $self->data->{old_medium}{release}{id} }
             || Release->new( name => $self->data->{old_medium}{release}{name} ),
         new_release => $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
@@ -89,7 +97,10 @@ sub initialize
     my $medium_cdtoc = $opts{medium_cdtoc} or die 'No medium_cdtoc';
 
     $self->data({
-        medium_cdtoc_id => $medium_cdtoc->id,
+        medium_cdtoc => {
+            id => $medium_cdtoc->id,
+            toc => $medium_cdtoc->cdtoc->toc
+        },
         old_medium => {
             id => $medium_cdtoc->medium->id,
             release => {

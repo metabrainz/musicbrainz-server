@@ -35,7 +35,10 @@ sub do_upgrade
     remove_equal($old, $new);
 
     return {
-        entity_id => $self->resolve_url_id($self->row_id),
+        entity => {
+            id => $self->resolve_url_id($self->row_id),
+            name => '[deleted]'
+        },
         new => $new,
         old => $old
     }
