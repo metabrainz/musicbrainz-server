@@ -484,9 +484,6 @@ sub disc_results {
     my @output;
     for (@$results)
     {
-        use Data::Dumper;
-        warn Dumper ($_)."\n";
-
         my %result = (
             discid => $_->entity->discid,
             name => $_->entity->title,

@@ -86,6 +86,45 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         self.$table.hide ();
     };
 
+    self.renderToDisc = function (basic_disc) {
+        //  FIXME: currently not handled correctly by the server.
+        if (self.type === 'cdstub')
+        {
+            basic_disc.$toc.val (self.discid);
+        }
+
+        var data = [];
+        $.each (self.$table.find ('tr.track'), function (idx, row) {
+
+            if (idx === 0)
+            {
+                return; /* skip template track. */
+            }
+
+            var $row = $(row);
+
+            var trk = {
+                'position': $row.find ('td.position').text (),
+                'name': $row.find ('td.title').text (),
+                'length': $row.find ('td.length').text (),
+                'deleted': 0
+            };
+
+            var artist = $row.find ('td.artist').text ();
+            if (artist)
+            {
+                trk['artist_credit'] = { names: [ { 'artist_name': artist } ] };
+            }
+
+            basic_disc.disc.getTrack (idx - 1).render (trk);
+
+        });
+
+        basic_disc.disc.sort ();
+        basic_disc.render ();
+        basic_disc.updatePreview ();
+    };
+
     self.initialize = function (type, item) {
 
         self.type = type;
@@ -102,6 +141,8 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         var id = item.tracklist_id ? item.tracklist_id :
             item.category ? item.category + '/' + item.discid :
             item.discid;
+
+        self.discid = item.discid;
 
         self.$id.val (id);
         self.$tracklist.find ('span.title').text (item.name);
@@ -233,11 +274,21 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
     };
 
     self.confirm_tracklist = function (event) {
-        var ta = basic_tab.addDisc ();
-        ta.$tracklist_id.val (self.use_tracklist.selected.$id.val ());
-        ta.collapse ();
-        ta.expand ();
+        var disc = basic_tab.addDisc ();
+        disc.$tracklist_id.val (self.use_tracklist.selected.$id.val ());
+        disc.collapse ();
+        disc.expand ();
 
+        self.close (event);
+    };
+
+    self.confirm_freedb = function (event) {
+        self.freedb_import.selected.renderToDisc (basic_tab.addDisc ());
+        self.close (event);
+    };
+
+    self.confirm_cdstub = function (event) {
+        self.cdstub_import.selected.renderToDisc (basic_tab.addDisc ());
         self.close (event);
     };
 
