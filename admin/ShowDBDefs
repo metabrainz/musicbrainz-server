@@ -27,21 +27,17 @@
 # This script echoes the settings in DBDefs.pm to standard output, in
 # a format usable by the shell (e.g. eval `./admin/ShowDBDefs`)
 
+use strict;
+use warnings;
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use strict;
 use DBDefs;
+use Package::Stash;
 use String::ShellQuote;
 
-my $stash = do { no strict; \%{"DBDefs::"} };
+my $export = Package::Stash->new('DBDefs')->get_all_symbols('CODE');
 
-for (sort keys %$stash)
-{
-    next unless /^[A-Z]+(_[A-Z]+)*$/;
-    my $glob = $stash->{$_};
-    defined &$glob or next;
-    print "export $_=", shell_quote(scalar &$glob), "\n";
-}
-
-# eof dbdefs.sh
+printf "export %s=%s\n", $_, shell_quote($export->{$_}->() || '')
+    for (grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export)

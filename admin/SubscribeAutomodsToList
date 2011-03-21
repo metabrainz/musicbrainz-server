@@ -23,14 +23,14 @@
 #____________________________________________________________________________
 
 use strict;
+use warnings;
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
 use MusicBrainz::Server::Context;
-use Sql;
-use UserStuff;
+use MusicBrainz::Server::Types '$AUTO_EDITOR_FLAG';
 use String::ShellQuote qw( shell_quote );
 
 my $sConfigFile = "$FindBin::Bin/SubscribeAutomodsToList.conf";
@@ -39,8 +39,7 @@ GetOptions(
     "--config-file|f=s" => \$sConfigFile,
 ) or exit 2;
 
-my $mb = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($mb->dbh);
+my $c = MusicBrainz::Server::Context->create_script_context;
 
 use vars qw( %allowed_nonmember_automods %allowed_posting_guests );
 
@@ -50,8 +49,8 @@ if (-f $sConfigFile)
     do $sConfigFile or die ($!||$@);
 }
 
-my $automods = $sql->SelectListOfLists("SELECT name, email FROM moderator
-    WHERE (privs & ?) > 0", UserStuff::AUTOMOD_FLAG);
+my $automods = $c->sql->select_list_of_lists("SELECT name, email FROM editor
+    WHERE (privs & ?) > 0", $AUTO_EDITOR_FLAG);
 
 {
     my $rsync_script = &DBDefs::MB_SERVER_ROOT . "/bin/rsync-automods-list";

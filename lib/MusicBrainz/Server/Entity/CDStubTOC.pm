@@ -55,11 +55,7 @@ sub update_track_lengths
     }
 }
 
-sub toc {
-    my $self = shift;
-    return join(' ', '1', $self->track_count, $self->leadout_offset,
-                @{ $self->track_offset });
-}
+with 'MusicBrainz::Server::Entity::Role::TOC';
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
