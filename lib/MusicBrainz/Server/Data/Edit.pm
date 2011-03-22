@@ -393,7 +393,7 @@ sub create
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
-            $ids = [ uniq @$ids ];
+            $ids = [ uniq grep { defined } @$ids ];
             @$ids or next;
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
