@@ -125,6 +125,7 @@ sub edit_action
 
     if (%{ $c->req->query_params }) {
         $form->process( params => $c->req->params );
+        $form->clear_errors;
     }
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params))
