@@ -99,6 +99,8 @@ role {
         $c->detach;
     };
 
+    method _merge_form_arguments => sub { };
+
     method _merge_confirm => sub {
         my ($self, $c) = @_;
         $c->stash(
