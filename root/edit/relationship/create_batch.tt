@@ -69,12 +69,33 @@
             <tr>
                 <td class="label">[% l('Recordings:') %]</td>
                 <td colspan="2" id="entity1">
-                [% FOR recording=recordings %]
-                  <input type="checkbox" name="recording_id"
-                         value="[% recording.id %]" />
-                  [% link_recording(recording) %]
-                  <br />
-                [% END %]
+                  <table class="tbl">
+                    [% FOR medium=release.all_mediums %]
+                    <tr class="subh">
+                      <th colspan="5">
+                        [%~ medium.format_name or l("Medium") | html =%]
+                        [%= medium.position ~%]
+                        [%~ IF medium.name ~%]:
+                        [%= medium.name | html ~%]
+                        [%~ END ~%]
+                      </th>
+                    </tr>
+                    [% FOR track=medium.tracklist.tracks %]
+                    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+                      <td class="pos t">
+                        <input type="checkbox" name="recording_id"
+                               value="[% track.recording_id %]" />
+                      </td>
+                      <td class="pos t">
+                        [% track.position %]
+                      </td>
+                      <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
+                      <td>[% artist_credit(track.artist_credit) %]</td>
+                      <td class="treleases">[% track.length | format_length %]</td>
+                    </tr>
+                    [% END %]
+                    [% END %]
+                  </table>
                 </td>
             </tr>
             <tr>

@@ -271,7 +271,11 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
         $c->detach('/error_500');
     }
 
-    my ($recordings) = $c->model('Recording')->find_by_release($release->id);
+    $c->model('Medium')->load_for_releases($release);
+    $c->model('MediumFormat')->load($release->all_mediums);
+    $c->model('Track')->load_for_tracklists(map { $_->tracklist } $release->all_mediums);
+    $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
+    $c->model('Recording')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
 
     my $dest = $model->get_by_gid($gid);
     if (!$dest) {
@@ -292,9 +296,9 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
 
     my $form = $c->form( form => 'Relationship' );
     $c->stash(
-        recordings => $recordings,
-        dest       => $dest,
-        type       => $type
+        release => $release,
+        dest    => $dest,
+        type    => $type
     );
 
     my $form = $c->form( form => 'Relationship::Recordings' );
