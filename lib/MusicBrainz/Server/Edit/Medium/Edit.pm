@@ -32,10 +32,10 @@ sub medium_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         entity_id => NullableOnPreview[Int],
-        release => Dict[
+        release => NullableOnPreview[Dict[
             id => Int,
             name => Str
-        ],
+        ]],
         separate_tracklists => Optional[Bool],
         current_tracklist => NullableOnPreview[Int],
         old => change_fields(),
@@ -68,43 +68,31 @@ sub initialize
     my $entity = delete $opts{to_edit};
     my $tracklist = delete $opts{tracklist};
     my $separate_tracklists = delete $opts{separate_tracklists};
+    my $data;
 
+    # FIXME: really should receive an entity on preview too.
+    if ($self->preview && !defined $entity)
+    {
         # This currently only happens when a new medium just created with
         # an Add Medium edit needs to immediatly get an edit to change
         # position.
-        #$data->{old}{position} = 0;
-        #$data->{new}{position} = delete $opts{position};
-    die "You must specify the object to edit" unless defined $entity;
-
-    unless ($entity->release) {
-        $self->c->model('Release')->load($entity);
-    }
-
-    my $data = {
-        entity_id => $entity->id,
-        release => {
-            id => $entity->release->id,
-            name => $entity->release->name
-        },
-        current_tracklist => $entity->tracklist_id,
-        $self->_changes($entity, %opts)
-    };
-
-    if ($tracklist) {
-        $self->c->model('Tracklist')->load ($entity);
-        $self->c->model('Track')->load_for_tracklists ($entity->tracklist);
-        $self->c->model('ArtistCredit')->load ($entity->tracklist->all_tracks);
-
-        $data->{old}{tracklist} = tracks_to_hash($entity->tracklist->tracks);
-        $data->{new}{tracklist} = tracks_to_hash($tracklist);
-        $data->{separate_tracklists} = $separate_tracklists;
+        $data->{old}{position} = 0;
+        $data->{new}{position} = delete $opts{position};
     }
     else
     {
         die "You must specify the object to edit" unless defined $entity;
 
+        unless ($entity->release) {
+            $self->c->model('Release')->load($entity);
+        }
+
         $data = {
             entity_id => $entity->id,
+            release => {
+                id => $entity->release->id,
+                name => $entity->release->name
+            },
             current_tracklist => $entity->tracklist_id,
             $self->_changes($entity, %opts)
         };
@@ -174,7 +162,6 @@ sub build_display_data
 
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
-<<<<<<< HEAD
 
     if ($self->data->{entity_id})
     {
@@ -183,10 +170,6 @@ sub build_display_data
         $self->c->model('ArtistCredit')->load($medium->release);
         $data->{release} = $medium->release;
     }
-=======
-    $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
-        || Release->new( name => $self->data->{release}{name} );
->>>>>>> master
 
     return $data;
 }

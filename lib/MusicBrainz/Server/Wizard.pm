@@ -188,6 +188,11 @@ sub render
     if (! $self->shown->[$self->_current])
     {
         $page->clear_errors;
+
+        # clear_errors doesn't clear everything, error_fields on the form still
+        # contains the error fields -- so let's set an extra flag so the template
+        # knows wether to show errors or not.
+        $self->c->stash->{hide_errors} = 1;
     }
 
     # mark the current page as having been shown to the user.
