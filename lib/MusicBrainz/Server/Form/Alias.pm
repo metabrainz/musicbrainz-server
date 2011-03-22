@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::Alias;
 use HTML::FormHandler::Moose;
 
 use DateTime::Locale;
+use List::UtilsBy 'sort_by';
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -47,9 +48,10 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            my $name = DateTime::Locale->load($_)->name;
-            $_ => (/_/ ? "&nbsp;&nbsp;$name" : $name)
-        } sort { $a cmp $b } DateTime::Locale->ids
+            $_->id => ($_->id =~ /_/ ? "&nbsp;&nbsp;&nbsp;" : '') . $_->name
+        }
+            sort_by { $_->name }
+                map { DateTime::Locale->load($_) } DateTime::Locale->ids
     ];
 }
 
