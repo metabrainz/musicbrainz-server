@@ -40,6 +40,8 @@
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
 
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+
     });
 
   </script>
