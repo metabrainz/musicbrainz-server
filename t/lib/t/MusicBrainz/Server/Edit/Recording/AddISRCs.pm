@@ -37,7 +37,7 @@ sub create_edit {
         edit_type => $EDIT_RECORDING_ADD_ISRCS,
         editor_id => 1,
         isrcs => [
-            { recording_id => 1, isrc => 'DEE250800232' }
+            { recording => { id => 1, name => 'Recording' }, isrc => 'DEE250800232' }
         ]
     );
 }

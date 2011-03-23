@@ -51,8 +51,8 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
         editor_id => 1,
-        release_id => 1,
-        label_id => 1,
+        release => $c->model('Release')->get_by_id(1),
+        label => $c->model('Label')->get_by_id(1),
         catalog_number => 'AVCD-51002',
     );
 }
