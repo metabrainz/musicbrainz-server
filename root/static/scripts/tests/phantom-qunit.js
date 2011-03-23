@@ -40,15 +40,45 @@ pq.waitForElement = function (selector, callback) {
         function () { callback (jQuery (selector)) });
 };
 
-pq.getResults = function (elem) {
+pq.TAP = function (elem) {
+
+    var failures = 0;
+
+    var $sections = jQuery ('#qunit-tests').children ('li');
+    console.log ('1..' + $sections.length);
+
+    $sections.each (function (idx, test) {
+        var testno = idx + 1;
+        var $section = jQuery (test);
+        var $strong = $section.find ('strong');
+        var name = $strong.find ('span.module-name').text () + ': ' + $strong.find ('span.test-name').text ();
+
+        var $tests = $section.find ('ol > li');
+        console.log ('    1..' + $tests.length);
+
+        var pass = '';
+        $tests.each (function (idx, subtest) {
+            var testno = idx + 1;
+            var $li = jQuery (subtest);
+            var message = $li.find ('span.test-message').text ();
+            if ($li.hasClass ('pass'))
+            {
+                console.log ('    ok ' + testno + ' - ' + message);
+            }
+            else
+            {
+                console.log ('    not ok ' + testno + ' - ' + message);
+                pass = 'not ';
+                failures++;
+            }
+        });
+
+        console.log (pass + 'ok ' + testno + ' - ' + name);
+    });
 
     var $results = jQuery(elem);
 
     var failed = $results.find ('.failed').text ();
-    var passed = $results.find ('.passed').text ();
-    var total = $results.find ('.total').text ();
-
-    console.log('Failed: ' + failed + ', Passed: '+ passed + ',  Total: '+ total);
 
     phantom.exit (parseInt(failed,10) > 0);
 };
@@ -69,6 +99,6 @@ if (phantom.state.length === 0)
 }
 else
 {
-    pq.waitForElement ('#qunit-testresult', pq.getResults);
+    pq.waitForElement ('#qunit-testresult', pq.TAP);
 }
 
