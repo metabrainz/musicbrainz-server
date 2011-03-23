@@ -37,6 +37,7 @@ our %dispatch = (
               $tb->ok(0, 'Could not find: ' . $_[0]);
           }
     },
+    fireEvent => 'fire_event_ok',
 );
 
 sub BUILDARGS {
