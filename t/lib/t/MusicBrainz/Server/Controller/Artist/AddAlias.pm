@@ -27,7 +27,10 @@ my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAlias');
 is_deeply($edit->data, {
     locale => undef,
-    entity_id => 3,
+    entity => {
+        id => 3,
+        name => 'Test Artist'
+    },
     name => 'An alias',
 });
 

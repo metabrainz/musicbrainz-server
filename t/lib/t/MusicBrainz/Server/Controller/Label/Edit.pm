@@ -38,7 +38,10 @@ my $response = $mech->submit_form(
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
 is_deeply($edit->data, {
-        entity_id => 2,
+        entity => {
+            id => 2,
+            name => 'Warp Records'
+        },
         new => {
             name => 'controller label',
             sort_name => 'label, controller',

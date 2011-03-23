@@ -36,10 +36,15 @@ subtest 'Submit a set of PUIDs' => sub {
     ok($mech->success);
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    my $rec = $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7');
     isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddPUIDs');
     is_deeply($edit->data->{puids}, [
         { puid => '7b8a868f-1e67-852b-5141-ad1edfb1e492',
-          recording_id => $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7')->id }
+          recording => {
+              id => $rec->id,
+              name => $rec->name
+          }
+      }
     ]);
 };
 
@@ -55,10 +60,15 @@ subtest 'Submit a set of ISRCs' => sub {
     ok($mech->success);
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    my $rec = $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7');
     isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddISRCs');
     is_deeply($edit->data->{isrcs}, [
         { isrc => 'GBAAA9400365',
-          recording_id => $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7')->id }
+          recording => {
+              id => $rec->id,
+              name => $rec->name
+          }
+      }
     ]);
 };
 
