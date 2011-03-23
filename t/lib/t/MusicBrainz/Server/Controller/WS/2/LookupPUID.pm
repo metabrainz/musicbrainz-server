@@ -87,7 +87,7 @@ ws_test 'puid lookup with release groups',
             <text-representation>
               <language>jpn</language><script>Jpan</script>
             </text-representation>
-            <release-group id="b84625af-6229-305f-9f1b-59c0185df016">
+            <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
             </release-group>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
@@ -99,7 +99,7 @@ ws_test 'puid lookup with release groups',
             <text-representation>
               <language>jpn</language><script>Latn</script>
             </text-representation>
-            <release-group id="b84625af-6229-305f-9f1b-59c0185df016">
+            <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
             </release-group>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>

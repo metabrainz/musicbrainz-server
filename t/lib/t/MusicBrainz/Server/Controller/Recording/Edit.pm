@@ -35,7 +35,10 @@ html_ok($mech->content);
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::Edit');
 is_deeply($edit->data, {
-    entity_id => 1,
+    entity => {
+        id => 1,
+        name => 'Dancing Queen'
+    },
     new => {
         name => 'Another name',
         comment => 'A comment!',
