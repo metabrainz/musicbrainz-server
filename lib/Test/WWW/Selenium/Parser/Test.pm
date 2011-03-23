@@ -36,7 +36,7 @@ sub new_from_file {
     my $xpc = XML::LibXML::XPathContext->new($dom);
 
     return $class->new(
-        name => $xpc->findvalue('//thead/tr/td'),
+        name => $file,
         commands => [
             map {
                 Test::WWW::Selenium::Parser::Command->new(
