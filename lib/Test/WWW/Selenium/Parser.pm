@@ -1,6 +1,7 @@
 package Test::WWW::Selenium::Parser;
 use Moose;
 
+use Time::HiRes qw(sleep);
 use Test::Builder;
 use Test::WWW::Selenium;
 use aliased 'Test::WWW::Selenium::Parser::Test';
@@ -23,7 +24,19 @@ our %dispatch = (
     click => 'click_ok',
     type => 'type_ok',
     verifyText => 'text_is',
-    verifyElementPresent => 'is_element_present_ok'
+    verifyElementPresent => 'is_element_present_ok',
+    waitForElementPresent => sub {
+        WAIT: {
+              for (1..60) {
+                  if (eval { $_->is_element_present("css=a.change-recording:eq(2)") }) {
+                      $tb->ok(1, 'Found ' . $_[0]);
+                      last WAIT
+                  }
+                  sleep(1);
+              }
+              $tb->ok(0, 'Could not find: ' . $_[0]);
+          }
+    },
 );
 
 sub BUILDARGS {
