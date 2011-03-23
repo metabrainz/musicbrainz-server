@@ -38,6 +38,9 @@ our %dispatch = (
           }
     },
     fireEvent => 'fire_event_ok',
+    verifyTextNotPresent => sub {
+        $tb->ok(not $_->is_text_present(@_));
+    }
 );
 
 sub BUILDARGS {
