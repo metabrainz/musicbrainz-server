@@ -93,6 +93,15 @@ sub search : Chained('root') PathPart('')
 # Don't render with TT
 sub end : Private { }
 
+sub bad_req : Private
+{
+    my ($self, $c, $error) = @_;
+    $c->res->status(HTTP_BAD_REQUEST);
+    $c->res->content_type("text/plain; charset=utf-8");
+    $c->res->body($c->stash->{serializer}->output_error($error || $c->stash->{error}));
+    $c->detach;
+}
+
 sub load : Chained('root') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $gid) = @_;
@@ -107,16 +116,6 @@ sub load : Chained('root') PathPart('') CaptureArgs(1)
         or $c->detach('not_found');
 
     $c->stash->{entity} = $entity;
-}
-
-sub bad_req : Private
-{
-    my ($self, $c) = @_;
-    $c->res->status(HTTP_BAD_REQUEST);
-    $c->res->content_type("text/plain; charset=utf-8");
-    $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}.
-                  "\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012"));
-    $c->detach;
 }
 
 sub not_found : Private

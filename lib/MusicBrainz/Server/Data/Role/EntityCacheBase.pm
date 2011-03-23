@@ -6,7 +6,7 @@ use List::MoreUtils qw( uniq );
 around 'get_by_ids' => sub
 {
     my ($orig, $self, @ids) = @_;
-    return unless grep { defined && $_ } @ids;
+    return {} unless grep { defined && $_ } @ids;
     my %ids = map { $_ => 1 } @ids;
     my @keys = map { $self->_id_cache_prefix . ':' . $_ } keys %ids;
     my $cache = $self->c->cache($self->_id_cache_prefix);

@@ -41,7 +41,7 @@ my $edit = $c->model('Edit')->create(
     name => 'Studio',
     position => 1,
     format_id => 1,
-    release_id => 1,
+    release => $c->model('Release')->get_by_id(1),
     tracklist => $tracklist
 );
 
@@ -70,8 +70,11 @@ $edit = $c->model('Edit')->create(
     name => 'Live',
     position => 2,
     format_id => 1,
-    release_id => 1,
-    tracklist => $tracklist
+    release => $c->model('Release')->get_by_id(1),
+    tracklist => [
+        $tracklist->[0],
+        $tracklist->[0]->meta->clone_object($tracklist->[0], position => 2)
+    ]
 );
 
 my $medium_id = $edit->medium_id;

@@ -53,10 +53,15 @@ is($mech->status, HTTP_OK);
 xml_ok($mech->content);
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+my $rec = $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7');
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddPUIDs');
 is_deeply($edit->data->{puids}, [
     { puid => 'eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e',
-      recording_id => $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7')->id }
+      recording => {
+          id => $rec->id,
+          name => $rec->name
+      }
+  }
 ]);
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
@@ -76,10 +81,15 @@ is($mech->status, HTTP_OK);
 xml_ok($mech->content);
 
 $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+$rec = $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7');
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddISRCs');
 is_deeply($edit->data->{isrcs}, [
     { isrc => 'GBAAA0300123',
-      recording_id => $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7')->id }
+      recording => {
+          id => $rec->id,
+          name => $rec->name
+      }
+  }
 ]);
 
 };
