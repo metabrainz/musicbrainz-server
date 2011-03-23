@@ -59,7 +59,7 @@ sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_WORK_ADD_ALIAS,
         editor_id => 1,
-        work_id => 1,
+        entity => $c->model('Work')->get_by_id(1),
         name => 'Another alias',
     );
 }
