@@ -1,31 +1,24 @@
 use strict;
 use warnings FATAL => 'all';
-use Test::More tests => 3;
 
-use Test::Aggregate::Nested;
+use Test::More;
+use Test::WWW::Selenium::Parser;
 
+use aliased 'File::Find::Rule' => 'Find';
 
-subtest 'Login' => sub {
-    Test::Aggregate::Nested->new(
-    {
-        dirs => 't/selenium/login',
-        verbose => 1,
-    })->run;
-};
+my $selenium_runner = Test::WWW::Selenium::Parser->new(
+    host => 'localhost',
+    port => 4444,
+    browser => '*chrome',
+    browser_url => "http://localhost:3000/"
+);
 
-subtest 'Bugfixes' => sub {
-    Test::Aggregate::Nested->new(
-    {
-        dirs => 't/selenium/bugfixes',
-        verbose => 1,
-    })->run;
-};
+my @tests = (
+    't/selenium/login/login.html',
+    Find->file->name('*.html')
+          ->in('t/selenium/bugfixes')
+);
 
-subtest 'Release Editor' => sub {
-    Test::Aggregate::Nested->new(
-    {
-        dirs => 't/selenium/release_editor',
-        verbose => 1,
-    })->run;
-};
+plan tests => scalar(@tests);
 
+$selenium_runner->parse($_)->run for @tests;
