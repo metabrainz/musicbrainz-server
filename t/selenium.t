@@ -49,6 +49,7 @@ if ($selenium->is_success)
     finally {
         $c->sql->rollback;
         $c->raw_sql->rollback;
+        die(@_) if @_;
     };
 }
 else
