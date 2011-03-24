@@ -80,10 +80,10 @@
             <p>[% l('This artist only has release groups by various artists.') %]</p>
         [% ELSE %]
             [% IF !show_va %]
-                <p>[% l('Showing release groups by this artist. {show_all|Show various artist release groups}.',
+                <p>[% l('Showing release groups by this artist. {show_all|Show Various Artist release groups instead}.',
                         { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
             [% ELSE %]
-                <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
+                <p>[% l('Showing Various Artist release groups. {show_subset|Show release groups by this artist instead}.',
                         { show_subset = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
             [% END %]
         [% END %]
