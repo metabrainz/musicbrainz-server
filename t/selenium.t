@@ -3,28 +3,29 @@ use warnings FATAL => 'all';
 
 use Test::More;
 use Test::WWW::Selenium::Parser;
-
 use aliased 'File::Find::Rule' => 'Find';
-
 use LWP::UserAgent;
+use MusicBrainz::Server::Test;
 
 # Selenium Remote Control should be running at the following host:port.
 # See http://wiki.musicbrainz.org/User:kuno/Testing for more info.
 my $rc_host = 'localhost';
 my $rc_port = 4444;
 
-# my $musicbrainz = LWP::UserAgent->new->get ("http://localhost:3000
 my $selenium = LWP::UserAgent->new->get (
     "http://$rc_host:$rc_port/selenium-server/core/RemoteRunner.html");
 
 if ($selenium->is_success)
 {
-    my $selenium_runner = Test::WWW::Selenium::Parser->new(
-        host => $rc_host,
-        port => $rc_port,
-        browser => '*chrome',
-        browser_url => "http://localhost:3000/"
-    );
+    my $c = MusicBrainz::Server::Test->create_test_context();
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    my $selenium_runner = Test::WWW::Selenium::Parser->new({
+        port => 3001,
+        selenium_host => $rc_host,
+        selenium_port => $rc_port,
+    });
 
     my @tests = (
         't/selenium/login/login.html',

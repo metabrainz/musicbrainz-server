@@ -3,7 +3,7 @@ use Moose;
 
 use Time::HiRes qw(sleep);
 use Test::Builder;
-use Test::WWW::Selenium;
+use Test::WWW::Selenium::Catalyst 'MusicBrainz::Server', -no_selenium_server => 1;
 use aliased 'Test::WWW::Selenium::Parser::Test';
 
 has test_runner => (
@@ -46,7 +46,7 @@ our %dispatch = (
 sub BUILDARGS {
     my ($self, @args) = @_;
     return {
-        test_runner => Test::WWW::Selenium->new(@args)
+        test_runner => Test::WWW::Selenium::Catalyst->start (@args)
     };
 }
 
