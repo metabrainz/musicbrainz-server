@@ -234,6 +234,15 @@ sub find_standalone
         $query, $artist_id, $offset || 0);
 }
 
+sub editor_can_create_recordings {
+    my ($self, $editor) = @_;
+    warn $editor->registration_date;
+    return DateTime::Duration->compare(
+        DateTime->now - $editor->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) && $editor->accepted_edits >= 10;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

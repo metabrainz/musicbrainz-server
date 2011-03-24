@@ -163,6 +163,17 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     }
 };
 
+around create => sub {
+    my ($orig, $self, $c, @args) = @_;
+    if ($c->user_exists && !$c->model('Recording')->editor_can_create_recordings($c->user)) {
+        $c->stash( template => 'recording/cannot_add.tt' );
+        $c->detach;
+    }
+    else {
+        $self->$orig($c, @args);
+    }
+};
+
 before 'edit' => sub {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
