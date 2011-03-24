@@ -20,6 +20,14 @@ my $selenium = LWP::UserAgent->new->get (
 
 if ($selenium->is_success)
 {
+    my @tests = (
+        't/selenium/login/login.html',
+        Find->file->name('*.html')->in('t/selenium/bugfixes'),
+        Find->file->name('*.html')->in('t/selenium/release_editor'),
+    );
+
+    plan tests => scalar(@tests);
+
     my $c = MusicBrainz::Server::Test->create_test_context();
 
     $c->sql->begin;
@@ -37,13 +45,6 @@ if ($selenium->is_success)
             })
         );
 
-        my @tests = (
-            't/selenium/login/login.html',
-            #         Find->file->name('*.html')->in('t/selenium/bugfixes'),
-            #         Find->file->name('*.html')->in('t/selenium/release_editor'),
-        );
-
-        plan tests => scalar(@tests);
         $selenium_runner->parse($_)->run for @tests;
     }
     finally {
