@@ -56,10 +56,18 @@ sub show : Chained('load') PathPart('')
     $c->model('Country')->load(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
+    $c->model('ReleaseStatus')->load(@$releases);
+
+    my %grouped;
+    for my $release (@$releases) {
+        my $group = $release->status_name || '';
+        $grouped{$group} ||= [];
+        push @{ $grouped{$group} }, $release;
+    }
 
     $c->stash(
         template => 'release_group/index.tt',
-        releases => $releases
+        releases => \%grouped
     );
 }
 
