@@ -212,7 +212,11 @@ sub works : Chained('load')
     my $grouped_works = $self->_load_paged($c, sub {
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
-    $c->model('Artist')->load_for_works(map { @{ $_->{works} } } @$grouped_works);
+    my @works = map { @{ $_->{works} } } @$grouped_works;
+    $c->model('Artist')->load_for_works(@works);
+    if ($c->user_exists) {
+        $c->model('Work')->rating->load_user_ratings($c->user->id, @works);
+    }
     $c->stash( grouped_works => $grouped_works );
 }
 

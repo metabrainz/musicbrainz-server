@@ -21,6 +21,8 @@
                 [% END %]
                 <th>[% l('Work') %]</th>
                 <th>[% l('Artists') %]</th>
+                <th>[% l('ISWC') %]</th>
+                <th>[% l('Rating') %]</th>
             </tr>
         </thead>
           [% FOR group = grouped_works %]
@@ -28,7 +30,7 @@
             <thead>
                 <tr class="subh">
                     [% IF c.user_exists %]<th></th>[% END %]
-                    <th colspan="2">[% group.link_type.name %]</th>
+                    <th colspan="4">[% group.link_type.name %]</th>
                 </tr>
             </thead>
             [% END %]
@@ -51,6 +53,8 @@
                         [% END %]
                       </ul>
                     </td>
+                    <td>[% work.iswc | html %]</td>
+                    <td>[% rating_stars(work) %]</td>
                 </tr>
                 [% END %]
             </tbody>
