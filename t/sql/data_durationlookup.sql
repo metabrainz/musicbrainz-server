@@ -15,9 +15,8 @@ SET client_min_messages TO 'WARNING';
 
 
 
-
-INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (1, 10, '(909106, 767426, 725600, 867733, 739200, 306640)');
-INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (2, 10, '(431293, 577466, 334600, 374359, 547039, 469506)');
+INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (1, 7, '(663400, 258839, 358960, 332613, 296160, 372386)');
+INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (2, 9, '(428492, 290053, 454506, 61333, 815305, 472880)');
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 

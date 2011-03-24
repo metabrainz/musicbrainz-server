@@ -52,7 +52,10 @@ EOSQL
     is_deeply($edit->data, {
         submissions => [
             {
-                release_id => 243064,
+                release => {
+                    id => 243064,
+                    name => 'For Beginner Piano'
+                },
                 barcode => '5021603064126'
             }
         ]

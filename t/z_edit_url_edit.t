@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+url-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+url');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 

@@ -28,7 +28,10 @@ my $response = $mech->submit_form(
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::URL::Edit');
 is_deeply($edit->data, {
-    entity_id => 1,
+    entity => {
+        id => 1,
+        name => 'http://musicbrainz.org/'
+    },
     new => {
         url => 'http://google.com/',
         description => 'Google',

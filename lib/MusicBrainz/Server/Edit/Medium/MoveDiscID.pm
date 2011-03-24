@@ -54,7 +54,7 @@ sub alter_edit_pending
     my ($self) = @_;
     return {
         Release => [ $self->release_ids ],
-        MediumCDTOC => [ $self->data->{medium_cdtoc_id} ]
+        MediumCDTOC => [ $self->data->{medium_cdtoc}{id} ]
     };
 }
 
@@ -96,6 +96,10 @@ sub initialize
     my $new = $opts{new_medium} or die 'No new medium';
     my $medium_cdtoc = $opts{medium_cdtoc} or die 'No medium_cdtoc';
 
+    unless ($medium_cdtoc->cdtoc) {
+        $self->c->model('CDTOC')->load($medium_cdtoc);
+    }
+
     $self->data({
         medium_cdtoc => {
             id => $medium_cdtoc->id,
@@ -122,7 +126,7 @@ sub accept
 {
     my $self = shift;
     $self->c->model('MediumCDTOC')->update(
-        $self->data->{medium_cdtoc_id},
+        $self->data->{medium_cdtoc}{id},
         { medium_id => $self->data->{new_medium}{id} }
     );
 }

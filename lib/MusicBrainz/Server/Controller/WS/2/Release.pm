@@ -68,7 +68,7 @@ sub release_toplevel
         $c->model('ReleaseLabel')->load($release);
         $c->model('Label')->load($release->all_labels);
 
-        my @labels = map { $_->label } $release->all_labels;
+        my @labels = grep { defined } map { $_->label } $release->all_labels;
 
         $self->linked_labels ($c, $stash, \@labels);
     }

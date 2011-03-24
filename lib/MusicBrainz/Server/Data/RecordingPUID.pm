@@ -207,15 +207,21 @@ sub filter_additions
 
     return \@additions unless @tuples;
 
-    my $query = 'SELECT v.* FROM ' .
-        '(VALUES ' . join(', ', ('(?::integer, ?::integer)') x @tuples) . ') AS v(puid, recording) '.
-        'LEFT JOIN recording_puid rp ON (v.recording = rp.recording AND v.puid = rp.puid) '.
-        'WHERE rp.recording IS NULL AND rp.puid IS NULL';
+    my $query = 'SELECT v.* FROM
+        (VALUES ' . join(', ', ('(?::integer, ?::integer, ?)') x @tuples) . ') AS v(puid, recording, name)
+        LEFT JOIN recording_puid rp ON (v.recording = rp.recording AND v.puid = rp.puid)
+        WHERE rp.recording IS NULL AND rp.puid IS NULL';
 
-    my $rows = $self->sql->select_list_of_hashes($query, map { $puids{ $_->{puid} }, $_->{recording_id} } @tuples);
+    my $rows = $self->sql->select_list_of_hashes(
+        $query,
+        map { $puids{ $_->{puid} }, $_->{recording}{id}, $_->{recording}{name} } @tuples
+    );
     push @additions, map +{
         puid         => $puid_ids{ $_->{puid} },
-        recording_id => $_->{recording}
+        recording    => {
+            id   => $_->{recording},
+            name => $_->{name}
+        }
     }, @$rows;
 
     return \@additions;
