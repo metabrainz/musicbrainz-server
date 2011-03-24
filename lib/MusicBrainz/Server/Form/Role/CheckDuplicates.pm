@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Form::Role::CheckDuplicates;
 use HTML::FormHandler::Moose::Role;
+use MusicBrainz::Server::Translation 'l';
 use namespace::autoclean;
 
 requires 'dupe_model';
 
 has_field 'not_dupe' => (
     type => 'Boolean',
+    required_message => ' '
 );
 
 has 'duplicates' => (
