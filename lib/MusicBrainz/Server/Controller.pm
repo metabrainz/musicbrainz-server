@@ -121,15 +121,9 @@ sub edit_action
 
     my %form_args = %{ $opts{form_args} || {}};
     $form_args{init_object} = $opts{item} if exists $opts{item};
-    my $form = $c->form( form => $opts{form}, %form_args );
+    my $form = $c->form( form => $opts{form}, ctx => $c, %form_args );
 
-    if (%{ $c->req->query_params }) {
-        $form->process( params => $c->req->params );
-        $form->clear_errors;
-    }
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
 
@@ -140,6 +134,10 @@ sub edit_action
         );
 
         $opts{on_creation}->($edit) if $edit && exists $opts{on_creation};
+    }
+    elsif (!$c->form_posted && %{ $c->req->query_params }) {
+        $form->process( params => $c->req->params );
+        $form->clear_errors;
     }
 }
 
