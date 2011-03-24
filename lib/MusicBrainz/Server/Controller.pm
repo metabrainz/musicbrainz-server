@@ -55,7 +55,7 @@ auto-editing, for example).
 sub submit_and_validate
 {
     my ($self, $c) = @_;
-    if($c->form_posted && $self->form->validate($c->req->params))
+    if($c->form_posted && $self->form->validate($c->req->body_params))
     {
         if ($self->form->isa('MusicBrainz::Server::Form'))
         {
@@ -123,7 +123,7 @@ sub edit_action
     $form_args{init_object} = $opts{item} if exists $opts{item};
     my $form = $c->form( form => $opts{form}, ctx => $c, %form_args );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted && $form->submitted_and_valid($c->req->body_params)) {
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
 
@@ -136,7 +136,7 @@ sub edit_action
         $opts{on_creation}->($edit) if $edit && exists $opts{on_creation};
     }
     elsif (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->params );
+        $form->process( params => $c->req->query_params );
         $form->clear_errors;
     }
 }
