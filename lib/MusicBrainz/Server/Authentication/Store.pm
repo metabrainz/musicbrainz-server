@@ -36,6 +36,7 @@ sub for_session
         emailconf => defined $user->email_confirmation_date
             ? $user->email_confirmation_date->epoch
             : undef,
+        registered => $user->registration_date->epoch,
         accepted_edits => $user->accepted_edits,
         prefs => $user->preferences,
     };
@@ -51,6 +52,7 @@ sub from_session
         accepted_edits => $frozen->{accepted_edits},
         preferences => $frozen->{prefs},
         privileges => $frozen->{privs},
+        registration_date => DateTime->from_epoch( epoch => $frozen->{registered} )
     );
     $args{email} = $frozen->{email}
         if defined $frozen->{email};

@@ -272,6 +272,14 @@ sub appears_on
     return \@ret;
 }
 
+sub editor_can_create_recordings {
+    my ($self, $editor) = @_;
+    return DateTime::Duration->compare(
+        DateTime->now - $editor->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) && $editor->accepted_edits >= 10;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
