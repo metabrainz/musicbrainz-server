@@ -223,7 +223,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('base') RequireAuth HiddenOnSlaves
+sub contact : Chained('load') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
