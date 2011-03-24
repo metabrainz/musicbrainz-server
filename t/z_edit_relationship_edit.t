@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 

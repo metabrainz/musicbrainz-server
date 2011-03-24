@@ -1,0 +1,10 @@
+BEGIN;
+SET client_min_messages TO 'WARNING';
+
+TRUNCATE tag CASCADE;
+TRUNCATE artist_tag CASCADE;
+
+TRUNCATE artist_name CASCADE;
+TRUNCATE artist CASCADE;
+
+COMMIT;

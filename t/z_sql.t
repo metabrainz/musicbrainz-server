@@ -8,6 +8,7 @@ BEGIN { use_ok 'Sql' }
 
 use MusicBrainz::Server::Test;
 my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c, '+tag-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+tag');
 
 throws_ok { Sql->new } qr/Missing required argument 'dbh'/,
