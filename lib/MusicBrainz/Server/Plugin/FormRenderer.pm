@@ -107,16 +107,15 @@ sub label
     my $fake_label = delete $attrs->{fake};
 
     my $field = $self->_lookup_field($field_name) or return;
-    my $class = $field->required ? "required " : "";
-    $class .= delete $attrs->{inline} ? "inline " : "";
-    if (exists $attrs->{class}) {
-        $class .= delete $attrs->{class};
-    }
+    my @class;
+    push @class, qw(required) if $field->required;
+    push @class, qw(inline) if delete $attrs->{inline};
+    push @class, delete $attrs->{class} if $attrs->{class};
 
     if ($fake_label)
     {
         return $self->h->div({
-            class => "$class label",
+            class => join(' ', 'label', @class),
             id => 'label-' . $field->id,
             %$attrs
         }, $label);
@@ -126,7 +125,7 @@ sub label
         return $self->h->label({
             id => 'label-' . $field->id,
             for => 'id-' . $field->id,
-            class => $class || undef
+            class => join(' ', @class) || undef,
             %$attrs
         }, $label);
     }
