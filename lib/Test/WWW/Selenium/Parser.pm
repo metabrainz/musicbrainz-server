@@ -17,25 +17,27 @@ our %dispatch = (
     assertValue => 'value_is',
     click => 'click_ok',
     clickAndWait => sub {
-        $_->click_ok(@_);
-        $_->wait_for_page_to_load_ok(30000)
+        my $sel = shift;
+        $sel->click_ok(@_);
+        $sel->wait_for_page_to_load_ok(30000)
     },
     fireEvent => 'fire_event_ok',
     open => 'open_ok',
     select => 'select_ok',
     type => 'type_ok',
     verifyElementNotPresent => sub {
-        $tb->ok(not $_->is_element_present(@_));
+        $tb->ok(not shift->is_element_present(@_));
     },
     verifyElementPresent => 'is_element_present_ok',
     verifyText => 'text_is',
     verifyTextNotPresent => sub {
-        $tb->ok(not $_->is_text_present(@_));
+        $tb->ok(not shift->is_text_present(@_));
     },
     waitForElementPresent => sub {
+        my $sel = shift;
         WAIT: {
               for (1..$timeout_in_seconds) {
-                  if (eval { $_->is_element_present($_[0]) }) {
+                  if (eval { $sel->is_element_present($_[0]) }) {
                       $tb->ok(1, 'Found ' . $_[0]);
                       last WAIT
                   }
@@ -60,8 +62,7 @@ sub run_test {
                 or die 'Cannot dispatch ' . $command->command;
 
             if (ref($method) eq 'CODE') {
-                local $_ = $self->test_runner;
-                $method->($command->args);
+                $method->($self->test_runner, $command->args);
             }
             else {
                 $self->test_runner->$method($command->args);
