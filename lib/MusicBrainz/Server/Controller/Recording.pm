@@ -148,7 +148,7 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
-    form      => 'Recording',
+    form      => 'Recording::Standalone',
     edit_type => $EDIT_RECORDING_CREATE,
     edit_arguments => sub {
         my ($self, $c) = @_;
