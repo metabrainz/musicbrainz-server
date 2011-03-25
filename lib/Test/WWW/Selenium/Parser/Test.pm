@@ -35,6 +35,14 @@ sub new_from_file {
     my $dom = XML::LibXML->load_html( string => do { local $/ = undef; <$test_fh> } );
     my $xpc = XML::LibXML::XPathContext->new($dom);
 
+    sub node_to_string {
+        return join ("", map {
+            my $str = $_->toString;
+            $str =~ s,<br />,\n,g;
+            $str
+        } shift->getChildNodes);
+    };
+
     return $class->new(
         name => $file,
         commands => [
@@ -42,7 +50,7 @@ sub new_from_file {
                 Test::WWW::Selenium::Parser::Command->new(
                     command => $_->[0]->string_value,
                     args => do {
-                        my (undef, @args) = map { $_->string_value } @$_;
+                        my (undef, @args) = map { node_to_string ($_) } @$_;
                         \@args
                     }
                 )

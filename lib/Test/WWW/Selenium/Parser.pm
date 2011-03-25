@@ -33,18 +33,59 @@ our %dispatch = (
     verifyTextNotPresent => sub {
         $tb->ok(not shift->is_text_present(@_));
     },
+    verifyTextPresent => 'is_text_present_ok',
+    verifyVisible => 'is_visible',
     waitForElementPresent => sub {
         my $sel = shift;
-        WAIT: {
-              for (1..$timeout_in_seconds) {
-                  if (eval { $sel->is_element_present($_[0]) }) {
-                      $tb->ok(1, 'Found ' . $_[0]);
-                      last WAIT
-                  }
-                  sleep(1);
+      WAIT: {
+          for (1..$timeout_in_seconds) {
+              if (eval { $sel->is_element_present($_[0]) }) {
+                  $tb->ok(1, 'Found ' . $_[0]);
+                  last WAIT
               }
-              $tb->ok(0, 'Could not find: ' . $_[0]);
+              sleep(1);
           }
+          $tb->ok(0, 'Could not find: ' . $_[0]);
+        }
+    },
+    waitForNotValue => sub {
+        my $sel = shift;
+      WAIT: {
+          for (1..$timeout_in_seconds) {
+              if (eval { $_[1] ne $sel->get_value($_[0]) }) {
+                  $tb->ok(1, $_[0] . ' does not have value ' . $_[1]);
+                  last WAIT
+              }
+              sleep(1);
+          }
+          $tb->ok(0, $_[0] . ' has value ' . $_[1]);
+        }
+    },
+    waitForVisible => sub {
+        my $sel = shift;
+      WAIT: {
+          for (1..$timeout_in_seconds) {
+              if (eval { $sel->is_visible($_[0]) }) {
+                  $tb->ok(1, $_[0] . ' is visible');
+                  last WAIT
+              }
+              sleep(1);
+          }
+          $tb->ok(0, $_[0] . ' is not visible');
+        }
+    },
+    waitForText => sub {
+        my $sel = shift;
+      WAIT: {
+          for (1..$timeout_in_seconds) {
+              if (eval { $_[1] eq $sel->get_text($_[0]) }) {
+                  $tb->ok(1, 'Text of ' . $_[0] . ' is ' . $_[1]);
+                  last WAIT
+              }
+              sleep(1);
+          }
+          $tb->ok(0, "Text of ${_[0]} is ".$sel->get_text($_[0])." but expected ${_[1]}");
+        }
     },
 );
 
