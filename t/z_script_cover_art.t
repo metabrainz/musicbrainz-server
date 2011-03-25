@@ -7,7 +7,7 @@ BEGIN { use_ok 'MusicBrainz::Script::RebuildCoverArt' }
 
 use MusicBrainz::Server::Test;
 my $c = MusicBrainz::Server::Test->create_test_context;
-MusicBrainz::Server::Test->prepare_test_database($c, '+inserttestdata');
+MusicBrainz::Server::Test->prepare_test_database($c, '+inserttestdata-with-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+coverart-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+coverart');
 
