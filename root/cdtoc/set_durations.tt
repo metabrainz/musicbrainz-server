@@ -13,7 +13,7 @@
   </p>
   [% FOR medium=mediums %]
   <ul>
-    <li>[% l('{release} by {artist}', { release => link_release(medium.release),
+    <li>[% l('{release} by {artist}', { release => link_entity(medium.release),
                                         artist => artist_credit(medium.release.artist_credit) }) %]</li>
   </ul>
   [% END %]

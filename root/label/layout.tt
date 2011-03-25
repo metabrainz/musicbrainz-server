@@ -34,7 +34,7 @@
             [% ELSE %]
                 <li><a href="[% c.uri_for_action('/account/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
             [% END %]
-            <li>[% link_label(label, 'subscribers', l('Subscribers')) %]</li>
+            <li>[% link_entity(label, 'subscribers', l('Subscribers')) %]</li>
         [% END %]
             [% IF c.user_exists %]
                 <li>
@@ -42,17 +42,18 @@
                     [% label.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
                   </a>
                 </li>
-                <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
+                <li>[% link_entity(label, 'delete', l('Delete this label')) %]</li>
                 <li>
                   <a href="[% c.uri_for_action('/label/merge_queue', { 'add-to-merge' => label.id }) %]">
                     [% l('Merge this label with another') %]
                   </a>
                 </li>
                 <li>[% use_in_relationship(label) %]</li>
+                <li>[% relate_to_ellipsis(label) %]</li>
                 <li>[% relate_to_url(label) %]</li>
-                <li>[% link_label(label, 'edits', l('View editing history')) %]</li>
+                <li>[% link_entity(label, 'edits', l('View editing history')) %]</li>
                 [% IF label.edits_pending %]
-                  <li>[% link_label(label, 'open_edits', l('Open edits')) %]</li>
+                  <li>[% link_entity(label, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
                 <li>
                   <a href="[% c.uri_for_action('/release_editor/add', { label = label.gid }) %]">

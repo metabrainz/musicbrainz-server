@@ -10,8 +10,9 @@ has_field 'text' => (
 );
 
 has_field 'changelog' => (
-    type      => 'Text',
-    maxlength => 255
+    type      => '+MusicBrainz::Server::Form::Field::Text',
+    maxlength => 255,
+    default_over_obj => ''
 );
 
 has 'annotation_model' => (

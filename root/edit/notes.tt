@@ -16,7 +16,7 @@
         [% FOR note=edit.edit_notes %]
             <div class="edit-note">
                 <h3 class="[%- PROCESS votename -%]">
-                    [%- l('{editor}', { editor => link_editor(note.editor) }) -%]
+                    [%- l('{editor}', { editor => link_entity(note.editor) }) -%]
                     <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
                 </h3>
                 <div class="edit-note-text">
@@ -32,7 +32,7 @@
 
     <div class="add-edit-note edit-note"
         [%- 'style="display: none"' IF hide -%]>
-        <h3 class="owner">[% link_editor(c.user) %]</h3>
+        <h3 class="owner">[% link_entity(c.user) %]</h3>
         <div class="edit-note-text">
             <textarea class="edit-note" rows="1" placeholder="[% l('Add an edit note') %]"
                 name="enter-vote.vote.[% index %].edit_note"></textarea>

@@ -1,11 +1,11 @@
-<table class="details">
+<table class="details remove-releases">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">
       <ul>
         [% FOR release=edit.display_data.releases %]
         <li>
-           [% link_release (release) %]
+           [% link_entity (release) %]
         </li>
         [% END %]
       </ul>

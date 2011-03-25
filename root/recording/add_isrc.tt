@@ -2,7 +2,7 @@
    <h2>[% l('Add ISRC') %]</h2>
    <p>[% l('You are about to add an ISRC to {recording} by {ac}. The ISRC must be entered in
             standard <code>CCXXXYYNNNNNN</code> format:',
-           { recording => link_recording(recording),
+           { recording => link_entity(recording),
              ac => artist_credit(recording.artist_credit) }) %]</p>
    <ul>
      <li>[% l('"CC" is the appropriate for the registrant two-character country code.') %]</li>

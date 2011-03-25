@@ -151,7 +151,7 @@ my @tables = qw(
     artist_rating_raw
     artist_tag_raw
     cdtoc_raw
-    currentstat
+    statistic
     edit
     edit_artist
     edit_label
@@ -160,7 +160,6 @@ my @tables = qw(
     edit_release
     edit_release_group
     edit_work
-    historicalstat
     label_rating_raw
     label_tag_raw
     recording_rating_raw
@@ -634,8 +633,7 @@ my @group_derived = qw(
     );
 
 my @group_stats = qw(
-    currentstat
-    historicalstat
+    statistic
 );
 
 my @group_editor = qw(

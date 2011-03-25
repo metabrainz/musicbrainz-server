@@ -24,7 +24,7 @@
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% medium.position %]/[% release.medium_count %]</td>
             <td>[% medium.format_name or "-" %]</td>
-            <td>[% link_release(release) %]</td>
+            <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
             <td>[% release.date.format %]</td>
             <td>
@@ -36,7 +36,7 @@
             </td>
             <td>[%-
                 labels = [];
-                labels.push(link_label(label.label)) FOR label=release.labels;
+                labels.push(link_entity(label.label)) FOR label=release.labels;
                 labels.join(', ')
             -%]</td>
             <td>[%-

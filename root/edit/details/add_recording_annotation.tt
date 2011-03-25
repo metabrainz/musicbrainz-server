@@ -1,7 +1,7 @@
-<table class="details">
+<table class="details add-recording-annotation">
   <tr>
     <th>[% l('Recording:') %]</th>
-    <td>[% link_recording(edit.display_data.recording) %]
+    <td>[% link_entity(edit.display_data.recording) %]
   </tr>
   <tr>
     <th>[% l('Changelog:') %]</th>

@@ -1,11 +1,10 @@
-<table class="details">
+<table class="details set-track-lengths">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td>
       <ul>
         [% FOR release=edit.display_data.releases %]
-          <li>[% l('{release} by {artist}', { release => link_release(release),
-                                      artist => artist_credit(release.artist_credit) }) %]
+          <li>[% descriptive_link(release) %]
           </li>
         [% END %]
       </ul>

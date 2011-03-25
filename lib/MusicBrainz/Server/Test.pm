@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Test;
 
 use DBDefs;
+use Encode qw( encode );
 use FindBin '$Bin';
 use HTTP::Headers;
 use HTTP::Request;
@@ -16,13 +17,15 @@ use Test::Differences;
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
-use XML::Parser;
+use XML::LibXML;
+use Email::Sender::Transport::Test;
+use Try::Tiny;
 
 use Sub::Exporter -setup => {
     exports => [
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
-            compare_body
+            compare_body html_ok
         ),
         ws_test => \&_build_ws_test,
     ],
@@ -31,7 +34,8 @@ use Sub::Exporter -setup => {
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
 
-my $test_context;
+our $test_context;
+our $test_transport = Email::Sender::Transport::Test->new();
 
 sub create_test_context
 {
@@ -99,9 +103,17 @@ sub prepare_raw_test_database
 
 sub prepare_test_server
 {
-    no warnings 'redefine';
-    *DBDefs::_RUNNING_TESTS = sub { 1 };
-    *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
+    {
+        no warnings 'redefine';
+        *DBDefs::_RUNNING_TESTS = sub { 1 };
+        *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
+    };
+
+    $test_transport->clear_deliveries;
+}
+
+sub get_test_transport {
+    return $test_transport;
 }
 
 sub get_latest_edit
@@ -122,6 +134,21 @@ sub diag_lineno
     foreach (@lines) {
         diag $line, $_;
         $line += 1;
+    }
+}
+
+sub html_ok
+{
+    my ($content, $message) = @_;
+
+    $message ||= "invalid HTML";
+
+    try {
+        XML::LibXML->load_html(string => $content);
+        $Test->ok(1, $message);
+    }
+    catch {
+        $Test->ok(0, $_);
     }
 }
 
@@ -153,29 +180,25 @@ sub accept_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->accept($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
 sub reject_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->dbh);
-    my $raw_sql = Sql->new($c->raw_dbh);
-    $sql->begin;
-    $raw_sql->begin;
+    $c->sql->begin;
+    $c->raw_sql->begin;
     $c->model('Edit')->reject($edit);
-    $sql->commit;
-    $raw_sql->commit;
+    $c->sql->commit;
+    $c->raw_sql->commit;
 }
 
-my $mock;
+our $mock;
 sub mock_context
 {
     $mock ||= do {
@@ -186,7 +209,7 @@ sub mock_context
     return $mock;
 }
 
-my $tt;
+our $tt;
 sub evaluate_template
 {
     my ($class, $template, %vars) = @_;
@@ -303,7 +326,7 @@ sub schema_validator
     };
 }
 
-sub _build_ws_test {
+sub _build_ws_test_xml {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
@@ -329,8 +352,46 @@ sub _build_ws_test {
             $validator->($mech->content, 'validating');
 
             is_xml_same($mech->content, $expected);
+            $Test->note(encode('utf-8', $mech->content));
         });
     }
+}
+
+sub _build_ws_test_json {
+    use Test::JSON import => [ 'is_valid_json', 'is_json' ];
+
+    my ($class, $name, $args) = @_;
+    my $end_point = '/ws/' . $args->{version};
+
+    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+
+    return sub {
+        my ($msg, $url, $expected, $opts) = @_;
+        $opts ||= {};
+
+        $Test->subtest($msg => sub {
+            if (exists $opts->{username} && exists $opts->{password}) {
+                $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
+            }
+            else {
+                $mech->clear_credentials;
+            }
+
+            $Test->plan(tests => 3);
+
+            $mech->get_ok($end_point . $url, 'fetching');
+            is_valid_json ($mech->content, "validating (is_valid_json)");
+
+            is_json ($mech->content, $expected);
+            $Test->note($mech->content);
+        });
+    };
+}
+
+sub _build_ws_test {
+    my ($class, $name, $args) = @_;
+
+    return $args->{version} eq 'js' ? _build_ws_test_json (@_) : _build_ws_test_xml (@_);
 }
 
 sub xml_post

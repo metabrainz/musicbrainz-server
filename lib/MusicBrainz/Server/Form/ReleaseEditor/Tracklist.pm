@@ -4,7 +4,7 @@ use JSON::Any;
 use Text::Trim qw( trim );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Track qw( format_track_length );
+use MusicBrainz::Server::Track qw( format_track_length unformat_track_length );
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -22,10 +22,33 @@ has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
 # this page and coming back, or when validation failed.
 has_field 'advanced' => ( type => 'Integer' );
 
-sub options_mediums_format_id { shift->_select_all('MediumFormat') }
+sub options_mediums_format_id {
+    my ($self) = @_;
+
+    my $root_format = $self->ctx->model('MediumFormat')->get_tree;
+
+    return [
+        map {
+            $self->_build_medium_format_options($_, 'name', '')
+        } $root_format->all_children ];
+};
+
+sub _build_medium_format_options
+{
+    my ($self, $root, $attr, $indent) = @_;
+
+    my @options;
+    push @options, $root->id, $indent . trim($root->$attr) if $root->id;
+    $indent .= '&nbsp;&nbsp;&nbsp;';
+
+    foreach my $child ($root->all_children) {
+        push @options, $self->_build_medium_format_options($child, $attr, $indent);
+    }
+    return @options;
+}
 
 sub _track_errors {
-    my ($self, $track, $tracknumbers, $cdtoc) = @_;
+    my ($self, $track, $tracknumbers, $cdtoc, $medium) = @_;
 
     return 0 if $track->{deleted};
 
@@ -69,15 +92,24 @@ sub _track_errors {
 
     if ($cdtoc)
     {
-        my $details = $cdtoc->track_details->[$pos - 1];
-        next unless $details;
+        # cdtoc present, so do not allow the user to change track lengths.
+        # There could be multiple cdtocs though, we do not know from which
+        # of those the track lengths were set, so we'll have to take the
+        # track length currently set for the track.
 
-        my $cdtoc_duration = format_track_length ($details->{length_time});
-        if ($track->{length} ne $cdtoc_duration)
+        my $details = $medium->tracklist->tracks->[$pos - 1];
+
+        my $distance = abs ($details->length - 
+                            unformat_track_length ($track->{length}));
+
+        # always reset the track length.
+        $track->{length} = format_track_length ($details->length);
+
+        # only warn the user about this if the edited value differs more than 2 seconds.
+        if ($distance > 2000)
         {
-            $track->{length} = $cdtoc_duration;
             return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
-                     { pos => $pos, length => $cdtoc_duration });
+                     { pos => $pos });
         }
     }
 
@@ -97,6 +129,9 @@ sub _validate_edits {
     if ($medium_id)
     {
         $entity = $self->ctx->model('Medium')->get_by_id ($medium_id);
+        $self->ctx->model('Tracklist')->load ($entity);
+        $self->ctx->model('Track')->load_for_tracklists ($entity->tracklist);
+
         my @medium_cdtocs = $self->ctx->model('MediumCDTOC')->load_for_mediums($entity);
         $self->ctx->model('CDTOC')->load(@medium_cdtocs);
 
@@ -106,7 +141,7 @@ sub _validate_edits {
     my $tracknumbers = [];
     for (@$edits)
     {
-        my $msg = $self->_track_errors ($_, $tracknumbers, $cdtoc);
+        my $msg = $self->_track_errors ($_, $tracknumbers, $cdtoc, $entity);
 
         push @errors, $msg if $msg;
     }
@@ -136,7 +171,6 @@ sub _validate_edits {
         $count++;
     }
 
-    $json = JSON::Any->new;
     $medium->field('edits')->value ($json->encode ($edits));
 
     return @errors;
@@ -147,6 +181,8 @@ sub validate {
 
     for my $medium ($self->field('mediums')->fields)
     {
+        next if $medium->field('deleted')->value;
+
         my $edits = $medium->field('edits')->value;
 
         unless ($edits || $medium->field('tracklist_id')->value)
@@ -157,6 +193,20 @@ sub validate {
 
         my @errors = $self->_validate_edits ($medium) if $edits;
         map { $medium->add_error ($_) } @errors;
+
+        if (my $medium_id = $medium->field('id')->value) {
+            $self->ctx->model('MediumCDTOC')->find_by_medium($medium_id)
+                or next;
+
+            if (my $format_id = $medium->field('format_id')->value) {
+                my $format = $self->ctx->model('MediumFormat')->get_by_id($format_id);
+
+                $medium->field('format_id')->add_error(
+                    l('This medium already has disc IDs so you may only change the format
+                       to a format that can have disc IDs')
+                ) unless $format->has_discids;
+            }
+        }
     }
 };
 

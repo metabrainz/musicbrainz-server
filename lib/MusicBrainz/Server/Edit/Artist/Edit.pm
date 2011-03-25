@@ -16,9 +16,11 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
@@ -42,7 +44,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         new => change_fields(),
         old => change_fields(),
     ]
@@ -57,6 +62,7 @@ sub foreign_keys
                           Country => 'country_id',
                           Gender => 'gender_id',
                       ));
+    $relations->{Artist} = [ $self->data->{entity}{id} ];
 
     return $relations;
 }
@@ -76,6 +82,9 @@ sub build_display_data
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
+
+    $data->{artist} = $loaded->{Artist}{ $self->data->{entity}{id} }
+        || Artist->new( name => $self->data->{entity}{name} );
 
     if (exists $self->data->{new}{begin_date}) {
         $data->{begin_date} = {

@@ -1,22 +1,3 @@
-<table class="details">
-  <tr>
-    <th>[%- ln('Old recording:', 'Old recordings:', edit.display_data.old.size) %]</th>
-    <td>
-      <ul>
-        [% FOR recording=edit.display_data.old %]
-          <li>[% l('{recording} by {artist}',
-               { recording => link_recording(recording),
-                 artist => artist_credit(recording.artist_credit)}) %]</li>
-        [% END %]
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <th>[% l('New recording:') %]</th>
-    <td>
-      [% l('{recording} by {artist}', { recording => link_recording(edit.display_data.new),
-                                        artist => artist_credit(edit.display_data.new.artist_credit)  }) %]
-    </td>
-  </tr>
+<table class="details merge-recordings">
+  [% INCLUDE 'edit/details/merge_common.tt' %]
 </table>

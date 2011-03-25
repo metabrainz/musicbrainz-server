@@ -14,8 +14,11 @@ use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
 sub edit_name { l('Add standalone recording') }
@@ -35,7 +38,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
+        Artist    => { load_artist_credit_definitions($self->data->{artist_credit}) },
         Recording => { $self->entity_id => [ 'ArtistCredit' ] }
     }
 }
@@ -49,7 +52,8 @@ sub build_display_data
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         length        => $self->data->{length},
-        recording => $loaded->{Recording}{ $self->entity_id }
+        recording => $loaded->{Recording}{ $self->entity_id } ||
+            Recording->new( name => $self->data->{name} )
     };
 }
 

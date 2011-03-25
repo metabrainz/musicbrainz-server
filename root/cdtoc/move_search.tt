@@ -28,7 +28,7 @@
               [%- release = release.entity -%]
               <li>
                 <input type="radio" name="release" value="[% release.id %]" />
-                [% l('{release} by {artist}', { release => link_release(release),
+                [% l('{release} by {artist}', { release => link_entity(release),
                                                 artist => artist_credit(release.artist_credit) }) %]
               </li>
               [%- END -%]

@@ -17,7 +17,7 @@
                 <td>
                   <input name="remove" value="[% artist.id %]" type="checkbox" />
                 </td>
-                <td>[% link_artist(artist) %]</td>
+                <td>[% link_entity(artist) %]</td>
               </tr>
             [% END %]
           </tbody>

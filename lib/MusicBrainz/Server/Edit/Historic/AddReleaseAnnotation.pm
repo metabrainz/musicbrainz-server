@@ -15,6 +15,13 @@ sub historic_type { 31 }
 sub edit_type { $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION }
 sub edit_template { 'historic/add_release_annotation' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        release => $self->data->{release_ids}
+    }
+}
+
 sub upgrade
 {
     my $self = shift;

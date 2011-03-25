@@ -25,7 +25,10 @@
                 </tr>
                 [% FOR medium_cdtoc IN medium.cdtocs %]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    <td>[% link_cdtoc(medium_cdtoc.cdtoc) %]</td>
+                    <td>
+                      [% '<span class="mp">' IF medium_cdtoc.edits_pending %]
+                        [% link_cdtoc(medium_cdtoc.cdtoc) %]
+                      [% '</span>' IF medium_cdtoc.edits_pending %]</td>
                     <td>[% medium_cdtoc.cdtoc.track_count %]</td>
                     <td>[% medium_cdtoc.cdtoc.length | format_length %]</td>
                     [% IF c.user_exists %]

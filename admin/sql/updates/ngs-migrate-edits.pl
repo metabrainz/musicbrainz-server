@@ -14,6 +14,8 @@ use MusicBrainz::Server::Edit::Historic::Base;
 use aliased 'MusicBrainz::Server::Connector';
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
+use Encode 'decode';
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
@@ -30,6 +32,9 @@ my %skip = map { $_ => 1 } (
 );
 
 my $conn = Connector->new( database => Databases->get('READWRITE') );
+my $raw_conn_2 = Connector->new( database => Databases->get('RAWDATA') );
+my $link_dbh = $raw_conn_2->dbh;
+
 my $csv = Text::CSV_XS->new({ binary => 1 });
 
 my $raw_dbh = $c->raw_dbh;
@@ -42,10 +47,12 @@ $dbh->do('COPY public.moderation_closed TO STDOUT WITH CSV');
 
 my $sql = Sql->new($dbh);
 my $raw_sql = Sql->new($raw_dbh);
+my $link_sql = Sql->new($link_dbh);
+$link_sql->begin;
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
-my ($line, $i) = ('', 0);
+my ($line, $i) = (decode('utf-8', ''), 0);
 while ($dbh->pg_getcopydata($line) >= 0) {
     if(my $fields = $csv->parse($line)) {
         next unless $csv->fields;
@@ -54,14 +61,25 @@ while ($dbh->pg_getcopydata($line) >= 0) {
             id artist moderator tab col type status rowid prevvalue newvalue
             yesvotes novotes depmod automod opentime closetime expiretime language
         )} = $csv->fields;
-        
+
         next if exists $skip{ $row{id} };
 
         my $historic = $c->model('EditMigration')->_new_from_row(\%row)
             or next;
-            
+
         try {
-            $raw_dbh->pg_putcopydata($historic->upgrade->for_copy . "\n");
+            $historic->upgrade;
+            $raw_dbh->pg_putcopydata($historic->for_copy . "\n");
+
+            if(my %related = %{ $historic->related_entities }) {
+                for my $type (keys %related) {
+                    my @links = uniq grep { defined } @{ $related{$type} } or next;
+                    $link_sql->do(
+                        "INSERT INTO edit_$type (edit, $type) VALUES ".
+                            join(', ', ("(?, ?)") x @links),
+                        map { $historic->id => $_ } @links);
+                }
+            }
         }
         catch {
             my $err = $_;
@@ -80,8 +98,8 @@ while ($dbh->pg_getcopydata($line) >= 0) {
     printf STDERR "%d\r", $i if $i % 1000 == 0;
     $i++;
 }
-
 $raw_dbh->pg_putcopyend;
+$link_sql->commit;
 
 printf STDERR "Inserting votes\n";
 $raw_dbh->do('COPY vote FROM STDIN');

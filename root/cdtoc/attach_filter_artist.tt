@@ -21,7 +21,7 @@
               [%- artist = artist.entity -%]
               <li>
                 <input type="radio" name="artist" value="[% artist.id %]" />
-                [% link_artist(artist) %] [% disambiguation(artist) %]
+                [% link_entity(artist) %]
               </li>
               [%- END -%]
             </ul>
@@ -34,7 +34,13 @@
     [%- END -%]
   </form>
 
+  <h2>[% l('Add a new release') %]</h2>
+  <p>[% l("If you don't see the artist you are looking for, you can still add a new release.
+           This will allow you to create this artist and a release at the same time") %]</p>
+
   <form action="[% c.uri_for('/release/add', { artist => artist.gid }) %]" method="post">
+    <input type="hidden" name="artist_credit.names.0.name"
+           value="[% query_artist.field('query').value %]" />
     <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
     [% form_submit(l('Add a new release')) %]
   </form>

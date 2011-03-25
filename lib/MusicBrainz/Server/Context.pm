@@ -14,7 +14,7 @@ has 'cache_manager' => (
 
 has 'conn' => (
     is => 'ro',
-    handles => [ 'dbh' ],
+    handles => [ 'dbh', 'sql' ],
     lazy_build => 1,
 );
 
@@ -24,7 +24,10 @@ sub _build_conn {
 
 has 'raw_conn' => (
     is         => 'ro',
-    handles    => { raw_dbh => 'dbh' },
+    handles    => {
+        raw_dbh => 'dbh',
+        raw_sql => 'sql',
+    },
     lazy_build => 1,
 );
 

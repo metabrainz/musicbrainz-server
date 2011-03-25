@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' title=l('Unused Tag') full_width=1 %]
+[% WRAPPER 'layout.tt' title=l('Tag Not Used') full_width=1 %]
 <h1>[% l('Tag Not Used') %]</h1>
 
 <p>[% l('No MusicBrainz entities have yet been tagged with the tag "{tag}".

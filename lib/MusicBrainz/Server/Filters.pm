@@ -69,12 +69,16 @@ sub format_wikitext
 
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;
-    return Text::WikiFormat::format($text, {}, {
-        prefix => "http://wiki.musicbrainz.org/",
-        extended => 1,
-        absolute_links => 1,
-        implicit_links => 0
-    });
+    return decode(
+        'utf-8',
+        Text::WikiFormat::format(
+            encode('utf-8' => $text), {}, {
+                prefix => "http://wiki.musicbrainz.org/",
+                extended => 1,
+                absolute_links => 1,
+                implicit_links => 0
+            })
+      );
 }
 
 sub format_editnote

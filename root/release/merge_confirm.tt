@@ -2,8 +2,8 @@
     <h2>[% l('Merge Releases') %]</h2>
     [% WRAPPER 'layout/guidelines.tt' %]
         [%- create_guideline(l('Are you sure that you want to merge {release1} by {artist1} into {release2} by {artist2}?', {
-                release1 => link_release(old), artist1 => artist_credit(old.artist_credit),
-                release2 => link_release(new), artist2 => artist_credit(new.artist_credit) })) -%]
+                release1 => link_entity(old), artist1 => artist_credit(old.artist_credit),
+                release2 => link_entity(new), artist2 => artist_credit(new.artist_credit) })) -%]
     [%- END -%]
     <form action="[% c.req.uri_with( gid => new_release.gid ) %]" method="post">
         [% USE r = FormRenderer(form) %]

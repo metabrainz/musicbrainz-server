@@ -26,17 +26,6 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit',
-    predicate => 'artist_credit_loaded',
-);
-
 has 'iswc' => (
     is => 'rw',
     isa => 'Str'
@@ -45,6 +34,16 @@ has 'iswc' => (
 has 'comment' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'artists' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    default => sub { [] },
+    handles => {
+        add_artist => 'push',
+        all_artists => 'elements',
+    }
 );
 
 __PACKAGE__->meta->make_immutable;

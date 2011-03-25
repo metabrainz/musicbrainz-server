@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
+
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id upgrade_type_and_status );
@@ -14,7 +16,6 @@ sub edit_name     { l('Add release') }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
 sub edit_template { 'historic/add_release' }
-
 
 sub _recording_ids
 {
@@ -50,6 +51,7 @@ sub related_entities
 {
     my $self = shift;
     return {
+        artist    => [ $self->_artist_ids ],
         recording => [ $self->_recording_ids ],
         release   => [ $self->_release_ids ]
     }
@@ -87,7 +89,9 @@ sub build_display_data
             map { +{
                 country        => $loaded->{Country}->{ $_->{country_id} },
                 date           => partial_date_from_row( $_->{date} ),
-                label          => $loaded->{Label}->{ $_->{label_id} },
+                label          => $_->{label_id}
+                    ? ($loaded->{Label}->{ $_->{label_id} } || Label->new( id => $_->{label_id} ))
+                    : undef,
                 catalog_number => $_->{catalog_number},
                 barcode        => $_->{barcode},
                 format         => $loaded->{MediumFormat}->{ $_->{format_id} }

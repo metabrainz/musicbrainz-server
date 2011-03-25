@@ -70,8 +70,10 @@
 /* Positive */
 .buttons a.positive,
 .buttons input[type=submit].positive,
+.buttons input[type=button].positive,
 .buttons button.positive { color:#529214; }
 .buttons a.positive:hover,                  .buttons a.positive:focus,
+.buttons input[type=button].positive:hover, .buttons input[type=button].positive:focus,
 .buttons input[type=submit].positive:hover, .buttons input[type=submit].positive:focus,
 .buttons button.positive:hover,             .buttons button.positive:focus {
     background-color:#E6EFC2;
@@ -86,9 +88,11 @@
 
 /* Negative */
 .buttons a.negative,
+.buttons input[type=button].negative,
 .buttons input[type=submit].negative,
 .buttons button.negative { color:#d12f19; }
 .buttons a.negative:hover,                  .buttons a.negative:focus,
+.buttons input[type=button].negative:hover, .buttons input[type=button].negative:focus,
 .buttons input[type=submit].negative:hover, .buttons input[type=submit].negative:focus,
 .buttons button.negative:hover,             .buttons button.negative:focus {
     background:#fbe3e4;
@@ -112,6 +116,25 @@
 }
 
 
+/* buttons inline with an input row in a form. */
+form div.row input[type=button],
+form input[type=button],
+form input[type=submit] {
+
+    color:#565656;
+    background-color:#F0F0F0;
+    border:1px solid #D0D0D0;
+    border-top:1px solid #EAEAEA;
+    border-left:1px solid #EAEAEA;
+
+    cursor:pointer;
+
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+
 /*
 ** RATINGS
 */
@@ -121,11 +144,11 @@
 .star-rating a:active,
 .star-rating a:focus,
 .star-rating .current-user-rating,
-.star-rating .current-rating{
+.star-rating .current-rating {
     background: url('/static/images/icons/rating_star.gif') left -1000px repeat-x;
 }
 
-.star-rating{
+.star-rating {
     position:relative;
     display:block;
     width:125px;
@@ -137,13 +160,13 @@
     background-position: 0px 0px;
 }
 
-.star-rating li{
+.star-rating li {
     display: inline;
 }
 
 .star-rating a,
 .star-rating .current-user-rating,
-.star-rating .current-rating{
+.star-rating .current-rating {
     position:absolute;
     top:0;
     left:0;
@@ -155,54 +178,54 @@
     border: none;
 }
 
-.star-rating a:hover{
+.star-rating a:hover {
     background-position: 0px -25px;
 }
 
-.star-rating a.stars-1{
+.star-rating a.stars-1 {
     width:20%;
     z-index:6;
 }
 
-.star-rating a.stars-2{
+.star-rating a.stars-2 {
     width:40%;
     z-index:5;
 }
 
-.star-rating a.stars-3{
+.star-rating a.stars-3 {
     width:60%;
     z-index:4;
 }
 
-.star-rating a.stars-4{
+.star-rating a.stars-4 {
     width:80%;
     z-index:3;
 }
 
-.star-rating a.stars-5{
+.star-rating a.stars-5 {
     width:100%;
     z-index:2;
 }
 
-.star-rating .current-rating{
+.star-rating .current-rating {
     z-index:1;
     background-position: 0px -75px;
 }
 
-.star-rating .current-user-rating{
+.star-rating .current-user-rating {
     z-index:1;
     background-position: 0px -50px;
 }
 
 /* for an inline rater */
-.inline-rating{
+.inline-rating {
     display:-moz-inline-block;
     display:-moz-inline-box;
     display:inline-block;
 }
 
 /* smaller star */
-.small-star{
+.small-star {
     width:50px;
     height:10px;
 }
@@ -212,21 +235,21 @@
 .small-star a:active,
 .small-star a:focus,
 .small-star .current-user-rating,
-.small-star .current-rating{
+.small-star .current-rating {
     background-image: url('/static/images/icons/rating_star_small.gif');
     line-height: 10px;
     height: 10px;
 }
 
-.small-star a:hover{
+.small-star a:hover {
     background-position: 0px -20px;
 }
 
-.small-star .current-rating{
+.small-star .current-rating {
     background-position: 0px -30px;
 }
 
-.small-star .current-user-rating{
+.small-star .current-user-rating {
     background-position: 0px -10px;
 }
 
@@ -257,6 +280,23 @@ ul.tag-cloud li.tag4 { font-size: 1.7em; }
 ul.tag-cloud li.tag5 { font-size: 1.7em; font-weight: bold; }
 ul.tag-cloud li.tag6 { font-size: 2em; font-weight: bold;}
 ul.tag-cloud li.tag7 { font-size: 2.5em; font-weight: bold; }
+
+/*
+** "Relate to ..." popup.
+*/
+div.relate-to {
+    position: relative;
+    left: -180px;
+    top: 4px;
+    width: 320px;
+    background: #f0f0f0;
+    padding: 10px 7px 7px 10px;
+    border: 1px solid #999;
+    z-index: 3;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
 
 /*
 ** Favicons
@@ -296,7 +336,7 @@ ul.favicons a {
     color: #000000;
 }
 
-ul.favicons a:hover { 
+ul.favicons a:hover {
     color: #000000;
     text-decoration: none;
 }
@@ -318,3 +358,4 @@ ul.favicons .border {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
+

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>add-release</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add-release</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/release/add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-name</td>
+	<td>Release Editor: Add Release test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>release-artist</td>
+	<td>m-flo</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.search</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=li.ui-menu-item:eq(0) a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=li.ui-menu-item:eq(0) a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id-type_id</td>
+	<td>label=EP</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id-status_id</td>
+	<td>label=Official</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id-language_id</td>
+	<td>label=English</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id-script_id</td>
+	<td>label=Latin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-date.year</td>
+	<td>2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-date.month</td>
+	<td>03</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-date.day</td>
+	<td>08</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id-country_id</td>
+	<td>label=Netherlands</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id-packaging_id</td>
+	<td>label=Jewel Case</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id-labels.0.label_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-labels.0.name</td>
+	<td>warp records</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.search:eq(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=li.ui-menu-item:eq(0) a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=li.ui-menu-item:eq(0) a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyNotValue</td>
+	<td>id-labels.0.label_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-barcode</td>
+	<td>9781591843849</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.documentation p</td>
+	<td>by m-flo</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.documentation h3</td>
+	<td>Release Editor: Add Release test</td>
+</tr>
+<tr>
+	<td>waitForVisible</td>
+	<td>css=textarea.tracklist</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.tracklist</td>
+	<td>1. Add Release test (selenium version) (2:43)<br />2. Add Release test (ambient mix) (12:09)<br /></td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>css=textarea.tracklist</td>
+	<td>blur</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=td.duration:eq(1)</td>
+	<td>12:09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=td.duration:eq(0)</td>
+	<td>2:43</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=td.title:eq(0)</td>
+	<td>Add Release test (selenium version)</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=td.title:eq(1)</td>
+	<td>Add Release test (ambient mix)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyVisible</td>
+	<td>css=td.recording:eq(1) span.add-recording</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyVisible</td>
+	<td>css=td.recording:eq(2) span.add-recording</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=table.add-release-group</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=table.add-release</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=table.add-release-label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=table.add-medium</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>edit_note</td>
+	<td>This is an add release test edit made with selenium.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-save</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

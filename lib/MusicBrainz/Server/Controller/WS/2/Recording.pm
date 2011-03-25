@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
 
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -30,7 +31,8 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings
+                                          release-groups) ]
      },
      recording => {
                          method => 'POST'
@@ -75,6 +77,18 @@ sub recording_toplevel
         $self->linked_releases ($c, $stash, $results[0]);
 
         $opts->{releases} = $self->make_list (@results);
+
+        if ($c->stash->{inc}->release_groups) {
+            my @releases = @{$results[0]};
+            $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+
+            if ($c->stash->{inc}->artists) {
+                $c->model('ArtistCredit')->load(map { $_->release_group } @releases);
+                $c->model('Artist')->load(
+                    map { @{ $_->release_group->artist_credit->names } } @releases);
+            }
+        }
     }
 
     if ($c->stash->{inc}->artists)
@@ -167,20 +181,20 @@ sub recording_submit : Private
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
 
-    my $xp = XML::XPath->new( xml => $c->request->body );
+    my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
     my (%submit_puid, %submit_isrc);
-    for my $node ($xp->find('/metadata/recording-list/recording')->get_nodelist)
+    for my $node ($xp->find('/mb:metadata/mb:recording-list/mb:recording')->get_nodelist)
     {
-        my $id = $node->getAttribute('id') or
+        my $id = $xp->find('@mb:id', $node)->string_value or
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
             unless MusicBrainz::Server::Validation::IsGUID($id);
 
-        my @puids = $node->find('puid-list/puid')->get_nodelist;
+        my @puids = $xp->find('mb:puid-list/mb:puid', $node)->get_nodelist;
         for my $puid_node (@puids) {
-            my $puid = $puid_node->getAttribute('id');
+            my $puid = $xp->find('@mb:id', $puid_node)->string_value;
             $self->_error($c, "$puid is not a valid PUID")
                 unless MusicBrainz::Server::Validation::IsGUID($puid);
 
@@ -188,9 +202,9 @@ sub recording_submit : Private
             push @{ $submit_puid{$id} }, $puid;
         }
 
-        my @isrcs = $node->find('isrc-list/isrc')->get_nodelist;
+        my @isrcs = $xp->find('mb:isrc-list/mb:isrc', $node)->get_nodelist;
         for my $isrc_node (@isrcs) {
-            my $isrc = $isrc_node->getAttribute('id');
+            my $isrc = $xp->find('@mb:id', $isrc_node)->string_value;
             $self->_error($c, "$isrc is not a valid ISRC")
                 unless is_valid_isrc($isrc);
 
@@ -201,7 +215,7 @@ sub recording_submit : Private
 
     my %recordings_by_id = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
                                                                   keys %submit_isrc) };
-    my %recordings_by_gid = map { $_->gid => $_->id } values %recordings_by_id;
+    my %recordings_by_gid = map { $_->gid => $_ } values %recordings_by_id;
 
     my @submissions;
     for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
@@ -228,8 +242,11 @@ sub recording_submit : Private
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_puid) {
             $buffer->add_items(map +{
-                recording_id => $recordings_by_gid{$recording_gid},
-                puid         => $_
+                recording => {
+                    id => $recordings_by_gid{$recording_gid}->id,
+                    name => $recordings_by_gid{$recording_gid}->name
+                },
+                puid      => $_
             }, @{ $submit_puid{$recording_gid} });
         }
     });
@@ -249,7 +266,10 @@ sub recording_submit : Private
     $buffer->flush_on_complete(sub {
         for my $recording_gid (keys %submit_isrc) {
             $buffer->add_items(map +{
-                recording_id => $recordings_by_gid{$recording_gid},
+                recording => {
+                    id => $recordings_by_gid{$recording_gid}->id,
+                    name => $recordings_by_gid{$recording_gid}->name
+                },
                 isrc         => $_
             }, @{ $submit_isrc{$recording_gid} });
         }

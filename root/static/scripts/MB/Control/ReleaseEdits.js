@@ -21,7 +21,7 @@
 MB.Control.ReleaseEdits = function ($edits) {
     var self = MB.Object ();
 
-    var artistChanges = function (from, to) {
+    self.artistChanges = function (from, to) {
 
         var changes = false;
 
@@ -56,11 +56,11 @@ MB.Control.ReleaseEdits = function ($edits) {
         return changes;
     };
 
-    var trackChanges = function (from, to) {
+    self.trackChanges = function (from, to) {
 
         var changes = false;
 
-        if (artistChanges (from['artist_credit'], to['artist_credit']))
+        if (self.artistChanges (from['artist_credit'], to['artist_credit']))
         {
             return true;
         }
@@ -78,7 +78,7 @@ MB.Control.ReleaseEdits = function ($edits) {
         return changes;
     };
 
-    var saveEdits = function (tracklist, tracks) {
+    self.saveEdits = function (tracklist, tracks) {
 
         var changes = false;
         var edited_tracklist = [];
@@ -87,12 +87,14 @@ MB.Control.ReleaseEdits = function ($edits) {
             var from = tracklist[idx];
 
             var to = {
-                'position': trk.position.val (),
-                'name': trk.title.val (),
-                'length': trk.length.val (),
-                'artist_credit': trk.artist_credit.toData (),
-                'deleted': trk.deleted.val ()
+                'name': trk.$title.val (),
+                'length': trk.$length.val (),
+                'artist_credit': trk.artist_credit.toData ()
             };
+
+            to['edit_sha1'] = b64_sha1 (MB.utility.structureToString (to));
+            to['position'] = trk.$position.val ();
+            to['deleted'] = trk.$deleted.val ();
 
             edited_tracklist.push (to);
 
@@ -112,13 +114,9 @@ MB.Control.ReleaseEdits = function ($edits) {
         {
             self.$edits.val (JSON.stringify (edited_tracklist));
         }
-        else
-        {
-            self.$edits.val ('');
-        }
     };
 
-    var loadEdits = function () {
+    self.loadEdits = function () {
         var data = self.$edits.val ();
 
         if (data)
@@ -129,10 +127,9 @@ MB.Control.ReleaseEdits = function ($edits) {
         return data;
     };
 
-    self.artistChanges = artistChanges;
-    self.trackChanges = trackChanges;
-    self.saveEdits = saveEdits;
-    self.loadEdits = loadEdits;
+    self.clearEdits = function () {
+        self.$edits.val ('');
+    };
 
     self.$edits = $edits;
 

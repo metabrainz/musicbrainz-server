@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="../../lib/qunit/qunit.css" type="text/css" />
+    <script type="text/javascript" src="../../lib/jquery/jquery-1.4.4.js"></script>
+    <script type="text/javascript" src="../../lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js"></script>
+    <script type="text/javascript" src="../../lib/qunit/qunit.js"></script>
+    <script type="text/javascript" src="../../lib/sha1/sha1.js"></script>
+    <script type="text/javascript" src="../MB.js"></script>
+    <script type="text/javascript" src="../MB/utility.js"></script>
+
+    <!-- URL Cleanup -->
+    <script type="text/javascript" src="../MB/Control/URLCleanup.js"></script>
+
+    <!-- Guess Case -->
+    <script type="text/javascript" src="../MB/GuessCase/Handler/Artist.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Handler/Base.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Handler/Label.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Handler/Release.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Handler/Track.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Handler/Work.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Mode/Artist.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Mode/Base.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Mode/Classical.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Mode/English.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Mode/French.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Mode/Sentence.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Mode/Work.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Input.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Output.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Flags.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Utils.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Modes.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Main.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Artist.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Label.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Track.js"></script>
+    <script type="text/javascript" src="../MB/GuessCase/Work.js"></script>
+
+    <!-- Track Parser -->
+    <script type="text/javascript" src="../MB/TrackParser.js"></script>
+
+    <!-- Load tests -->
+    <script type="text/javascript">
+
+        /* provide namespace for tests. */
+        MB.tests = (MB.tests) ? MB.tests : {};
+
+    </script>
+
+    <script type="text/javascript" src="utility.js"></script>
+    <script type="text/javascript" src="Control/URLCleanup.js"></script>
+    <script type="text/javascript" src="GuessCase.js"></script>
+    <script type="text/javascript" src="TrackParser.js"></script>
+
+    <!-- Start! -->
+    <script type="text/javascript">
+
+      $(document).ready (function () {
+
+          var old_done = QUnit.done;
+          QUnit.done = function (failures, total)
+          {
+              $('#placeholder').empty ();
+
+              old_done (failures, total);
+          };
+
+          MB.tests.utility.Run ();
+          MB.tests.URLCleanup.Run ();
+          MB.tests.GuessCase.Run ();
+          MB.tests.TrackParser.Run ();
+      });
+
+    </script>
+  </head>
+  <body>
+    <h1 id="qunit-header">MusicBrainz QUnit Test Runner</h1>
+    <h2 id="qunit-banner"></h2>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="placeholder"></div>
+
+    <!-- FIXME: Allow these things to be set in a way which is easier for testing. -->
+    <fieldset class="guesscase" style="display: none">
+      <legend>Guess case</legend>
+      <p class="guesscase-options">
+        <select name="gc-mode" id="gc-mode"> </select>
+        <br />
+        <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+        <label for="gc-keepuppercase">Keep uppercase words uppercased</label>
+        <br />
+        <input type="checkbox" name="gc-roman" id="gc-roman">
+        <label for="gc-roman">Uppercase roman numerals</label>
+      </p>
+    </fieldset>
+
+    <!-- FIXME: Allow these things to be set in a way which is easier for testing. -->
+    <div class="trackparser-options" style="display: none">
+      <input type="checkbox" id="tracknumbers" />
+      <input type="checkbox" id="vinylnumbers" />
+      <input type="checkbox" id="tracktimes" />
+      <textarea class="tracklist" />
+    </div>
+
+  </body>
+</html>
+

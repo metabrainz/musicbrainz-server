@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
     hash_to_row
+    merge_table_attributes
     placeholders
     load_subobjects
     query_to_list_limited
@@ -73,7 +74,7 @@ sub find_by_artist
                  ORDER BY musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
 }
 
@@ -91,8 +92,16 @@ sub find_by_release
                  OFFSET ?";
 
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $release_id, $offset || 0);
+}
+
+sub can_delete {
+    my ($self, $recording_id) = @_;
+    return !$self->sql->select_single_value(
+        'SELECT 1 FROM track WHERE recording = ? LIMIT 1',
+        $recording_id
+    );
 }
 
 sub load
@@ -104,7 +113,6 @@ sub load
 sub insert
 {
     my ($self, @recordings) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names(map { $_->{name} } @recordings);
     my $class = $self->_entity_class;
@@ -114,7 +122,7 @@ sub insert
         my $row = $self->_hash_to_row($recording, \%names);
         $row->{gid} = $recording->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->insert_row('recording', $row, 'id'),
+            id => $self->sql->insert_row('recording', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -124,35 +132,35 @@ sub insert
 sub update
 {
     my ($self, $recording_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my %names = $track_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('recording', $row, { id => $recording_id });
+    $self->sql->update_row('recording', $row, { id => $recording_id });
 }
 
-sub can_delete
+sub usage_count
 {
     my ($self, $recording_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $refcount = $sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
-    return @$refcount == 0;
+    return $self->sql->select_single_value(
+        'SELECT count(*) FROM track
+          WHERE recording = ?', $recording_id);
 }
 
 sub delete
 {
-    my ($self, $recording) = @_;
-    return unless $self->can_delete($recording->id);
+    my ($self, @recording_ids) = @_;
 
-    $self->c->model('Relationship')->delete_entities('recording', $recording->id);
-    $self->c->model('RecordingPUID')->delete_recordings($recording->id);
-    $self->c->model('ISRC')->delete_recordings($recording->id);
-    $self->annotation->delete($recording->id);
-    $self->tags->delete($recording->id);
-    $self->rating->delete($recording->id);
-    $self->remove_gid_redirects($recording->id);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
+    $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
+    $self->c->model('RecordingPUID')->delete_recordings(@recording_ids);
+    $self->c->model('ISRC')->delete_recordings(@recording_ids);
+    $self->annotation->delete(@recording_ids);
+    $self->tags->delete(@recording_ids);
+    $self->rating->delete(@recording_ids);
+    $self->remove_gid_redirects(@recording_ids);
+    $self->sql->do(
+        'DELETE FROM recording WHERE id IN (' . placeholders(@recording_ids) . ')',
+        @recording_ids
+    );
     return;
 }
 
@@ -192,9 +200,17 @@ sub merge
     $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);
 
     # Move tracks to the new recording
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE track SET recording = ?
+    $self->sql->do('UPDATE track SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+
+    merge_table_attributes(
+        $self->sql => (
+            table => 'recording',
+            columns => [ qw( length comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
 
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
     return 1;
@@ -214,8 +230,16 @@ sub find_standalone
       ORDER BY musicbrainz_collate(name.name)
         OFFSET ?';
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub editor_can_create_recordings {
+    my ($self, $editor) = @_;
+    return DateTime::Duration->compare(
+        DateTime->now - $editor->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) && $editor->accepted_edits >= 10;
 }
 
 __PACKAGE__->meta->make_immutable;

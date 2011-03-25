@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Relationship;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation 'l';
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -18,6 +19,10 @@ has_field 'entity0.name' => ( type => 'Text' );
 has_field 'entity1'      => ( type => 'Compound' );
 has_field 'entity1.id'   => ( type => 'Text' );
 has_field 'entity1.name' => ( type => 'Text' );
+
+has attr_tree => (
+    is => 'ro',
+);
 
 sub trim
 {
@@ -75,6 +80,27 @@ sub options_link_type_id
 }
 
 sub edit_field_names { qw() }
+
+after validate => sub {
+    my ($self) = @_;
+
+    my $link_type_id = $self->field('link_type_id')->value;
+    my $link_type = $self->ctx->model('LinkType')->get_by_id($link_type_id);
+
+    my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
+        $link_type->all_attributes;
+
+    foreach my $attr ($self->attr_tree->all_children) {
+        my $value = $self->field('attrs')->field($attr->name)->value;
+        if ($value) {
+            my @values = $attr->all_children ? @{ $value } : ($attr->id);
+            if ($required_attributes{$attr->id} && !@values) {
+                $self->field('attrs')->field($attr->name)->add_error(
+                    l('This attribute is required'));
+            }
+        }
+    }
+};
 
 1;
 

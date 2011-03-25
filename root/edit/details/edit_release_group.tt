@@ -1,9 +1,8 @@
-<table class="details">
+<table class="details edit-release-group">
   <tr>
     <th>[% l('Release Group:') %]</th>
     <td>
-      [% l('{rg} by {artist}', { rg => link_release_group(edit.display_data.release_group),
-                                 artist => artist_credit(edit.display_data.release_group.artist_credit) }) %]
+      [% descriptive_link(edit.display_data.release_group) %]
     </td>
   </tr>
 
@@ -25,7 +24,7 @@
 
   [%- IF edit.display_data.type -%]
   <tr>
-    <th>[% l('Work Type:') %]</th>
+    <th>[% l('Release Group Type:') %]</th>
     <td class="old">[% edit.display_data.type.old.name | html %]</td>
     <td class="new">[% edit.display_data.type.new.name | html %]</td>
   </tr>

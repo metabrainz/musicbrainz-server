@@ -4,7 +4,7 @@
         [%- create_guideline(l('Please review the {doc_remove|remove release edit-type} documentation before entering this edit.', {doc_remove => doc_link('Remove_Release')})) -%]
     [%- END -%]
     <p>
-        [%- l('Are you sure you wish to remove the release {release} from MusicBrainz?', { release => link_release(release) }) -%]
+        [%- l('Are you sure you wish to remove the release {release} from MusicBrainz?', { release => link_entity(release) }) -%]
     </p>
     <form action="[% c.req.uri %]" method="post">
         [%- USE r = FormRenderer(form) -%]

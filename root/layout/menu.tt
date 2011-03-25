@@ -1,7 +1,7 @@
 <ul class="r">
     [%- IF c.user_exists -%]
         <li>
-            [% link_editor(c.user) %]
+            [% link_entity(c.user) %]
             <ul>
                 <li>
                     [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
@@ -55,6 +55,18 @@
                 <li>
                     [% l('{col|My Watched Artists}', { col => c.uri_for_action('/watch/list') }) %]
                 </li>
+                <li class="separator">
+                    [% l('{edits|My Open Edits}', { edits => c.uri_for_action('/user/edits/open', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{edits|All My Edits}', { edits => c.uri_for_action('/user/edits/all', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{col|Edits for Subscribed Entities}', { col => c.uri_for_action('/edit/subscribed') }) %]
+                </li>
+                <li>
+                    [% l('{col|Edits by Subscribed Editors}', { col => c.uri_for_action('/edit/subscribed_editors') }) %]
+                </li>
             </ul>
         </li>
     [%- ELSE -%]
@@ -90,6 +102,9 @@
             </li>
             <li>
                 [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
+            </li>
+            <li>
+                [% l('{url|Statistics}', { url => c.uri_for('/statistics') }) %]
             </li>
         </ul>
     </li>
@@ -165,6 +180,9 @@
                     [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
                 </li>
                 <li>
+                    [% l('{uri|Add Work}', { uri => c.uri_for_action('/work/create') }) %]
+                </li>
+                <li>
                     [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
                 </li>
                 <li class="separator">
@@ -174,7 +192,7 @@
                     [% l('{uri|Editing Suggestions}', { uri => c.uri_for_action('/report/index') }) %]
                 </li>
                 <li class="separator">
-                    [% l('{uri|Edit Conditions}', { uri => c.uri_for('/edit/conditions') }) %]
+                    [% l('{uri|Edit Conditions}', { uri => c.uri_for_action('/edit/edit_types') }) %]
                 </li>
             </ul>
         </li>
@@ -190,6 +208,15 @@
             </li>
             <li>
                 [%- l('{doc|FAQs}', {doc => doc_link('Frequently_Asked_Questions')}) -%]
+            </li>
+            <li class="separator">
+                [%- l('{uri|Relationship Types}', { uri => c.uri_for('/admin/linktype') }) -%]
+            </li>
+            <li>
+                [%- l('{uri|Relationship Attributes}', { uri => c.uri_for('/admin/linkattributetype') }) -%]
+            </li>
+            <li>
+                [%- l('{uri|Instrument Tree}', { uri => c.uri_for('/admin/linkattributetype/instruments') }) -%]
             </li>
             <li class="separator">
                 [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]

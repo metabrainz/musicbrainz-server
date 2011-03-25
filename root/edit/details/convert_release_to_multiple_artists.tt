@@ -1,15 +1,11 @@
-<table class="details">
+<table class="details convert-release-to-multiple-artists">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">
       [% IF edit.display_data.releases.size %]
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% release.defined ?
-                l('{release} by {artist}',
-                 { release => link_release(release),
-                   artist  => artist_credit(release.artist_credit) }) :
-                l('(unknown)') %]</li>
+        <li>[% descriptive_link(release) %]</li>
         [% END %]
       </ul>
       [% ELSE;
@@ -20,7 +16,7 @@
 
   <tr>
     <th>[% l('Artist:') %]</th>
-    <td class="old">[% link_artist(edit.display_data.artist.old) %]</td>
-    <td class="new">[% link_artist(edit.display_data.artist.new) %]</td>
+    <td class="old">[% link_entity(edit.display_data.artist.old) %]</td>
+    <td class="new">[% link_entity(edit.display_data.artist.new) %]</td>
   </tr>
 </table>

@@ -184,7 +184,8 @@ sub select
         }
     }
 
-    if (!$field->required)
+    $attrs ||= {};
+    if (!$field->required || delete $attrs->{no_default})
     {
         unshift @options, $self->h->option({
             selected => !defined $field->value ? "selected" : undef,

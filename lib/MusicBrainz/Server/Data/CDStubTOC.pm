@@ -39,6 +39,8 @@ sub _dbh
     return shift->c->raw_dbh;
 }
 
+sub sql { return shift->c->raw_sql }
+
 sub load
 {
     my ($self, @objs) = @_;

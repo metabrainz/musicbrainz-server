@@ -1,7 +1,7 @@
-<table class="details">
+<table class="details add-label-alias">
   <tr>
     <th>[% l('Label:') %]</th>
-    <td>[% link_label(edit.display_data.label) %]</td>
+    <td>[% link_entity(edit.display_data.label) %]</td>
   </tr>
   <tr>
     <th>[% l('Alias:') %]</th>

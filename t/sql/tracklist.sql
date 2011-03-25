@@ -1,26 +1,26 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE cdtoc CASCADE;
-TRUNCATE country CASCADE;
-TRUNCATE language CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE medium_cdtoc CASCADE;
-TRUNCATE medium_format CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE release_status CASCADE;
-TRUNCATE release_packaging CASCADE;
-TRUNCATE script CASCADE;
-TRUNCATE tracklist CASCADE;
-TRUNCATE track CASCADE;
-TRUNCATE track_name CASCADE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 
@@ -96,7 +96,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, date_year)
     VALUES (1, 'f205627f-b70a-409d-adbe-66289b614e80', 1, 1, 1, 2007),
            (2, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 1, 1, 1, 2008);
 
-INSERT INTO medium_format (id, name) VALUES (1, 'Format');
+INSERT INTO medium_format (id, name, has_discids) VALUES (1, 'Format', TRUE);
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (1, 1, 1, 1, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (2, 1, 2, 2, 1, 'A Sky of Honey');
 
@@ -105,11 +105,13 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2
 
 INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset, degraded)
        VALUES (1, 'BySFY0Ymit0miawEWumIN8Nvx-', '4b094107', 7, 171327,
-              '{187, 25585, 46070, 70612, 89517, 143492, 164262}', FALSE);
+              '{187, 25585, 46070, 70612, 89517, 143492, 164262}', FALSE),
+              (2, 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-', '6309da09', 9, 189343,
+              '{150,6614,32287,54041,61236,88129,92729,115276,153877}', FALSE);
 
 ALTER SEQUENCE track_name_id_seq RESTART 17;
 ALTER SEQUENCE track_id_seq RESTART 17;
 ALTER SEQUENCE recording_id_seq RESTART 17;
 ALTER SEQUENCE tracklist_id_seq RESTART 3;
 
-COMMIT;
+

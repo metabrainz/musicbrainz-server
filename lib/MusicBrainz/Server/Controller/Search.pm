@@ -78,22 +78,6 @@ sub direct : Private
        $c->model('Search')->search($type, $query, shift, shift);
     }, $form->field('limit')->value);
 
-    my $pager = $c->stash->{pager};
-    if (@$results == 1 && $pager->current_page == 1) {
-        if ($type eq 'artist' || $type eq 'release' ||
-                $type eq 'label' || $type eq 'release-group')
-        {
-            my $redirect;
-            $redirect = $results->[0]->entity->gid;
-
-            my $type_controller = $c->controller(type_to_model($type));
-            my $action = $type_controller->action_for('show');
-
-            $c->res->redirect($c->uri_for($action, [ $redirect ]));
-            $c->detach;
-        }
-    }
-
     my @entities = map { $_->entity } @$results;
 
     use Switch;
@@ -127,9 +111,12 @@ sub direct : Private
             $c->model('Recording')->load(map { $_->tracklist->all_tracks }
                                          map { $_->all_mediums } @releases);
         }
+        case 'work' {
+            $c->model('Artist')->load_for_works(@entities);
+        }
     }
 
-    if ($type =~ /(recording|work|release|release_group)/)
+    if ($type =~ /(recording|release|release_group)/)
     {
         $c->model('ArtistCredit')->load(@entities);
     }

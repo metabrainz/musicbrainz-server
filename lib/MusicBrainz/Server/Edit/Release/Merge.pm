@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
     -excludes => 'release_ids'
 };
+with 'MusicBrainz::Server::Edit::Release';
 
 has '+data' => (
     isa => Dict[

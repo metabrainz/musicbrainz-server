@@ -5,7 +5,6 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list
 );
-use TryCatch;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -50,7 +49,7 @@ sub find_by_freedbid
                  FROM " . $self->_table . "
                  WHERE freedb_id = ?";
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $freedbid);
 }
 

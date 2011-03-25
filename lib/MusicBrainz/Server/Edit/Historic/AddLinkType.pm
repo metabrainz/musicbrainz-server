@@ -20,10 +20,12 @@ sub do_upgrade
         album => 'release',
     );
 
+    my ($t0, $t1) = map { $types{$_} || $_ } split /-/, $self->new_value->{types};
     my $data = {
-        types               => [ map { $types{$_} || $_ } split /-/, $self->new_value->{types} ],
+        entity0_type        => $t0,
+        entity1_type        => $t0,
         name                => $self->new_value->{name},
-        parent              => $self->new_value->{parent},
+        parent_id           => $self->new_value->{parent},
         gid                 => $self->new_value->{gid},
         link_phrase         => $self->new_value->{linkphrase},
         reverse_link_phrase => $self->new_value->{rlinkphrase},

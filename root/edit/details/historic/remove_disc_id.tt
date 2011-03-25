@@ -5,9 +5,7 @@
       <ul>
         [% FOR release=edit.display_data.releases %]
         <li>
-          [% l('{release} by {artist}', {
-                 release => link_release(release),
-                 artist  => artist_credit(release.artist_credit) }) %]
+          [% descriptive_link(release) %]
           </li>
         [% END %]
       </ul>

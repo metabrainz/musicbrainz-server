@@ -6,8 +6,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Sql;
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELATIONSHIP_ADD_TYPE
+    $EDIT_RELATIONSHIP_EDIT_LINK_TYPE
+    $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE
+);
 
-sub index : Path Args(0) RequireAuth(relationship_editor)
+sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
@@ -44,7 +49,7 @@ sub tree_setup : Chained PathPart('admin/linktype') CaptureArgs(1)
     );
 }
 
-sub tree : Chained('tree_setup') PathPart('') RequireAuth(relationship_editor)
+sub tree : Chained('tree_setup') PathPart('')
 {
     my ($self, $c) = @_;
 }
@@ -80,15 +85,21 @@ sub create : Chained('tree_setup') RequireAuth(relationship_editor)
     $form->field('parent_id')->_load_options;
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $values = $form->values;
+        my $values = { map { $_->name => $_->value } $form->edit_fields };
         $values->{entity0_type} = $c->stash->{type0};
         $values->{entity1_type} = $c->stash->{type1};
         $values->{attributes} = $self->_get_attribute_values($form);
 
-        my $sql = Sql->new($c->model('MB')->dbh);
-        Sql::run_in_transaction(sub { $c->model('LinkType')->insert($values) }, $sql);
+        $self->_insert_edit($c, $form,
+            edit_type => $EDIT_RELATIONSHIP_ADD_TYPE,
+            %$values
+        );
 
-        my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'created' });
+        my $url = $c->uri_for_action(
+            '/admin/linktype/tree',
+            [ $c->stash->{types} ],
+            { msg => 'created' }
+        );
         $c->response->redirect($url);
         $c->detach;
     }
@@ -116,12 +127,26 @@ sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     });
     $form->field('parent_id')->_load_options;
 
+    my $old_values = { map { $_->name => $_->value } $form->edit_fields };
+    $old_values->{attributes} = [
+        map +{
+            # We don't want the 'active' field
+            min => $_->{min},
+            max => $_->{max},
+            type => $_->{type},
+        }, grep { $_->{active} } @{ $old_values->{attributes} }
+    ];
+
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $values = $form->values;
+        my $values = { map { $_->name => $_->value } $form->edit_fields };
         $values->{attributes} = $self->_get_attribute_values($form);
 
-        my $sql = Sql->new($c->model('MB')->dbh);
-        Sql::run_in_transaction(sub { $c->model('LinkType')->update($id, $values) }, $sql);
+        $self->_insert_edit($c, $form,
+            edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
+            old => $old_values,
+            new => $values,
+            link_id => $id
+        );
 
         my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
         $c->response->redirect($url);
@@ -142,8 +167,23 @@ sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     my $form = $c->form( form => 'Confirm' );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $sql = Sql->new($c->model('MB')->dbh);
-        Sql::run_in_transaction(sub { $c->model('LinkType')->delete($id) }, $sql);
+        $self->_insert_edit($c, $form,
+            edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE,
+            link_type_id => $id,
+            types => [ $link_type->entity0_type, $link_type->entity1_type ],
+            name => $link_type->name,
+            link_phrase => $link_type->link_phrase,
+            short_link_phrase => $link_type->short_link_phrase,
+            reverse_link_phrase => $link_type->reverse_link_phrase,
+            description => $link_type->description,
+            attributes => [
+                map +{
+                    type => $_->type_id,
+                    min => $_->min,
+                    max => $_->max
+                }, $link_type->all_attributes
+            ]
+        );
 
         my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'deleted' });
         $c->response->redirect($url);

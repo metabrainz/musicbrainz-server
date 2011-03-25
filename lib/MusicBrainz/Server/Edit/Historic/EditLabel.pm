@@ -11,6 +11,13 @@ sub edit_name { l('Edit label') }
 sub edit_type { 55 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Edit' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        label => [ $self->row_id ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;

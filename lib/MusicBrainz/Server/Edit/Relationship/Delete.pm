@@ -18,6 +18,7 @@ use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { l("Remove relationship") }
@@ -26,8 +27,14 @@ has '+data' => (
     isa => Dict[
         relationship => Dict[
             id => Int,
-            entity0_id => Int,
-            entity1_id => Int,
+            entity0 => Dict[
+                id => Int,
+                name => Str,
+            ],
+            entity1 => Dict[
+                id => Int,
+                name => Str,
+            ],
             phrase     => Str,
             link => Dict[
                 begin_date => PartialDateHash,
@@ -81,8 +88,8 @@ sub foreign_keys
     $ids{ $self->model0 } ||= [];
     $ids{ $self->model1 } ||= [];
 
-    push @{ $ids{$self->model0} }, $self->data->{relationship}{entity0_id};
-    push @{ $ids{$self->model1} }, $self->data->{relationship}{entity1_id};
+    push @{ $ids{$self->model0} }, $self->data->{relationship}{entity0}{id};
+    push @{ $ids{$self->model1} }, $self->data->{relationship}{entity1}{id};
 
     return \%ids;
 }
@@ -93,10 +100,14 @@ sub build_display_data
 
     return {
         relationship => MusicBrainz::Server::Entity::Relationship->new(
-            entity0 => $loaded->{ $self->model0 }->{ $self->data->{relationship}{entity0_id} } ||
-                $self->model0->_entity_class->new( name => '[deleted]' ),
-            entity1 => $loaded->{ $self->model1 }->{ $self->data->{relationship}{entity1_id} } ||
-                $self->model1->_entity_class->new( name => '[deleted]' ),
+            entity0 => $loaded->{ $self->model0 }->{ $self->data->{relationship}{entity0}{id} } ||
+                $self->c->model($self->model0)->_entity_class->new(
+                    name => $self->data->{relationship}{entity0}{name}
+                ),
+            entity1 => $loaded->{ $self->model1 }->{ $self->data->{relationship}{entity1}{id} } ||
+                $self->c->model($self->model1)->_entity_class->new(
+                    name => $self->data->{relationship}{entity1}{name}
+                ),
             phrase => $self->data->{relationship}{phrase},
             link => MusicBrainz::Server::Entity::Link->new(
                 begin_date => partial_date_from_row($self->data->{relationship}{link}{begin_date}),
@@ -153,13 +164,21 @@ sub initialize
 
     $self->c->model('Link')->load($relationship) unless $relationship->link;
     $self->c->model('LinkType')->load($relationship->link) unless $relationship->link->type;
+    $self->c->model('Relationship')->load_entities($relationship)
+        unless $relationship->entity0 && $relationship->entity1;
 
     $self->relationship($relationship);
     $self->data({
         relationship => {
             id => $relationship->id,
-            entity0_id => $relationship->entity0_id,
-            entity1_id => $relationship->entity1_id,
+            entity0 => {
+                id => $relationship->entity0_id,
+                name => $relationship->entity0->name
+            },
+            entity1 => {
+                id => $relationship->entity1_id,
+                name => $relationship->entity1->name
+            },
             phrase => $relationship->phrase,
             link => {
                 begin_date => partial_date_to_hash($relationship->link->begin_date),

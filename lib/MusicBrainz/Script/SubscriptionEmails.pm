@@ -32,10 +32,21 @@ has 'dry_run' => (
 has 'emailer' => (
     is => 'ro',
     required => 1,
-    lazy_build => 1
+    lazy_build => 1,
+    traits   => [ 'NoGetopt' ],
 );
 
-sub _build_emailer { 
+has edit_cache => (
+    is => 'ro',
+    default => sub { {} },
+    traits => [ 'Hash', 'NoGetopt' ],
+    handles => {
+        cached_edits => 'get',
+        cache_edits => 'set'
+    }
+);
+
+sub _build_emailer {
     my $self = shift;
     return Email->new(c => $self->c);
 }
@@ -54,20 +65,20 @@ sub run {
         my @subscriptions = $self->c->model('EditorSubscriptions')
             ->get_all_subscriptions($editor->id) or next;
 
-        if ($editor->has_confirmed_email_address) {
-            if(my $data = $self->extract_subscription_data(@subscriptions)) {
-                printf "... sending email\n" if $self->verbose;
-                $self->emailer->send_subscriptions_digest(
-                    editor => $editor,
-                    %$data
-                );
-            }
-        }
+        if(my $data = $self->extract_subscription_data(@subscriptions)) {
+            unless ($self->dry_run) {
+                if ($editor->has_confirmed_email_address) {
+                    printf "... sending email\n" if $self->verbose;
+                    $self->emailer->send_subscriptions_digest(
+                        editor => $editor,
+                        %$data
+                    );
+                }
 
-        unless ($self->dry_run) {
-            printf "... updating subscriptions\n" if $self->verbose;
-            $self->c->model('EditorSubscriptions')
-                ->update_subscriptions($max, $editor->id);
+                printf "... updating subscriptions\n" if $self->verbose;
+                $self->c->model('EditorSubscriptions')
+                    ->update_subscriptions($max, $editor->id);
+            }
         }
 
         printf "\n";
@@ -92,7 +103,8 @@ sub extract_subscription_data
             push @deletions, $sub;
         }
         else {
-            my @edits = $self->c->model('Edit')->find_for_subscription($sub);
+            my @edits = $self->_edits_for_subscription($sub);
+
             next unless @edits;
 
             my @open = grep { $_->is_open } @edits;
@@ -137,6 +149,22 @@ sub deleted
     my $sub = shift;
     return (does_role($sub, DeleteRole) && $sub->deleted_by_edit) ||
            (does_role($sub, MergeRole) && $sub->merged_by_edit);
+}
+
+sub _edits_for_subscription {
+    my ($self, $sub) = @_;
+    my $cache_key = ref($sub) . ': ' .
+        join(', ', $sub->target_id, $sub->last_edit_sent);
+    return @{
+        $self->cached_edits($cache_key) ||
+        do {
+            $self->cache_edits(
+                $cache_key => [
+                    $self->c->model('Edit')->find_for_subscription($sub)
+                ]
+            );
+        }
+    };
 }
 
 1;

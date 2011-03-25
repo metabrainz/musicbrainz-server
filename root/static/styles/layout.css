@@ -19,6 +19,8 @@ a:visited { color:#3C5DCE; }
 a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
+a>img { border: 0; }
+
 /* TODO:
 ** When we start using relative links for internal links, add:
 ** a[href^="http://"], a[href^="https://"], */
@@ -305,6 +307,7 @@ pre code {
     color: #000;
 }
 
+div.notice,
 div.warning {
     margin: 2em auto;
     border: 1px solid #a1a1a1;
@@ -312,6 +315,10 @@ div.warning {
     width: 30em;
     background: #ffffd0;
 }
+
+div.notice p { margin: 1em; }
+
+#release-editor div.changes div.notice { margin: 2em auto 0 auto; }
 
 div.warning img.warning {
     float: left;
@@ -428,6 +435,8 @@ table.details table.tbl th {
     width: auto;
 }
 
+.deleted { color: #999999; }
+
 table.tbl tr.subh td,
 table.tbl tr.subh th {
     font-size: 95%;
@@ -435,6 +444,11 @@ table.tbl tr.subh th {
     font-weight: bold;
     border-top: solid 1px #999999;
     border-bottom: solid 1px #999999;
+}
+
+table.tbl tbody th {
+    border-right: 1px solid #999999;
+    background: none;
 }
 
 table.tbl th a {
@@ -449,7 +463,8 @@ table.tbl td {
     padding: 0.2em 0.4em;
 }
 
-table.tbl tr.ev td {
+table.tbl tr.ev td,
+table.tbl tr.ev th {
     padding: 0.2em 0.4em;
     background: #F2F2F2;
 }

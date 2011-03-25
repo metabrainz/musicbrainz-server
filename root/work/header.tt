@@ -11,9 +11,8 @@
     <h1>“[% rdfa_link_work_header(work) %]” [% disambiguation(work) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-            [% l('{type} by {artist}', {
-                type = html_escape(work.type_name) or l('Work'),
-                artist = rdfa_artist_credit(work.artist_credit)
+            [% l('{type}', {
+                type = html_escape(work.type_name) or l('Work')
             })%]
     </p>
 </div>

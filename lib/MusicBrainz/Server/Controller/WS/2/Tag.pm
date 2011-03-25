@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -59,19 +60,18 @@ sub tag_submit : Private
 
     $self->_validate_post ($c);
 
-    use XML::XPath;
-    my $xp = XML::XPath->new( xml => $c->request->body );
+    my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
     my @submit;
-    for my $node ($xp->find('/metadata/*/*')->get_nodelist)
+    for my $node ($xp->find('/mb:metadata/*/*')->get_nodelist)
     {
-        my $type = $node->getName;
+        my $type = $node->getLocalName;
         $type =~ s/-/_/;
 
         my $model = type_to_model ($type);
         $self->_error ($c, "Unrecognized entity $type.") unless $model;
 
-        my $gid = $node->getAttribute ('id');
+        my $gid = $xp->find('@mb:id', $node)->string_value;
         $self->_error ($c, "Cannot parse MBID: $gid.")
             unless MusicBrainz::Server::Validation::IsGUID($gid);
 
@@ -82,7 +82,7 @@ sub tag_submit : Private
         # body and report possible errors in it.
         push @submit, { model => $model,  entity => $entity, tags => [ map {
                 $_->string_value
-            } $node->find ('user-tag-list/user-tag/name')->get_nodelist ], };
+            } $xp->find('mb:user-tag-list/mb:user-tag/mb:name', $node)->get_nodelist ], };
     }
 
     for (@submit)

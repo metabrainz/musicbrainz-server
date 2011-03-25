@@ -9,10 +9,7 @@ use MusicBrainz::Server::Entity::WikiDocPage;
 use URI::Escape qw( uri_unescape );
 use Encode qw( decode );
 
-has 'c' => (
-    is => 'rw',
-    isa => 'Object'
-);
+with 'MusicBrainz::Server::Data::Role::Context';
 
 Readonly my $WIKI_CACHE_TIMEOUT => 60 * 60;
 

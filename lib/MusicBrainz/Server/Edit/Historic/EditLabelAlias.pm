@@ -9,12 +9,22 @@ sub edit_name { l('Edit label alias') }
 sub edit_type { 61 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::EditAlias' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        label => [ $self->data->{entity_id} ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;
     return {
         alias_id  => $self->row_id,
-        entity_id => $self->label_id_from_alias($self->row_id) || 0,
+        entity    => {
+            id => $self->label_id_from_alias($self->row_id) || 0,
+            name => '[deleted]',
+        },
         old       => { name => $self->previous_value },
         new       => { name => $self->new_value }
     }

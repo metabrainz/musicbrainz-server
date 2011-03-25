@@ -19,6 +19,7 @@ has 'editor' => (
 has 'edit' => (
     isa => 'Edit',
     is => 'rw',
+    weak_ref => 1
 );
 
 has 'vote_time' => (

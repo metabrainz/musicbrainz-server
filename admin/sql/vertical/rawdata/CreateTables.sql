@@ -29,43 +29,43 @@ CREATE TABLE edit_note
 
 CREATE TABLE edit_artist
 (
-    edit                INTEGER NOT NULL, -- PK
+    edit                INTEGER NOT NULL, -- PK, references edit.id
     artist              INTEGER NOT NULL -- PK
 );
 
 CREATE TABLE edit_label
 (
-    edit                INTEGER NOT NULL, -- PK
+    edit                INTEGER NOT NULL, -- PK, references edit.id
     label               INTEGER NOT NULL -- PK
 );
 
 CREATE TABLE edit_release
 (
-    edit                INTEGER NOT NULL, -- PK
+    edit                INTEGER NOT NULL, -- PK, references edit.id
     release             INTEGER NOT NULL -- PK
 );
 
 CREATE TABLE edit_release_group
 (
-    edit                INTEGER NOT NULL, -- PK
+    edit                INTEGER NOT NULL, -- PK, references edit.id
     release_group       INTEGER NOT NULL -- PK
 );
 
 CREATE TABLE edit_recording
 (
-    edit                INTEGER NOT NULL, -- PK
+    edit                INTEGER NOT NULL, -- PK, references edit.id
     recording           INTEGER NOT NULL -- PK
 );
 
 CREATE TABLE edit_work
 (
-    edit                INTEGER NOT NULL, -- PK
+    edit                INTEGER NOT NULL, -- PK, references edit.id
     work                INTEGER NOT NULL -- PK
 );
 
 CREATE TABLE edit_url
 (
-    edit                INTEGER NOT NULL, -- PK
+    edit                INTEGER NOT NULL, -- PK, references edit.id
     url                 INTEGER NOT NULL -- PK
 );
 

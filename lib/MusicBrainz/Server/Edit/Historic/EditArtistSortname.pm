@@ -9,12 +9,22 @@ sub edit_name { l('Edit artist name') }
 sub edit_type { 2 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Edit' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        artist => [ $self->artist_id ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;
 
     return {
-        entity_id => $self->artist_id,
+        entity => {
+            id => $self->artist_id,
+            name => '[deleted]',
+        },
         old => {
             sort_name => $self->previous_value
         },

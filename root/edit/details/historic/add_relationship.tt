@@ -1,6 +1,7 @@
 <table class="details">
   <tr>
     <th rowspan="2">[% l('Relationships:') %]</th>
+  </tr>
   <tr>
     <td>
       <ul>

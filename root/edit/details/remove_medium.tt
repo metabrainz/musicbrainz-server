@@ -1,18 +1,29 @@
-<table class="details">
+<table class="details remove-medium">
   <tr>
     <th>[% l('Medium:') %]</th>
     <td>
-      [% l('"{name}."', { name => edit.display_data.name }) %]
-      [% l('{format} {position} for {release} by {artist}',
+      [%- SET discname = '"' _ edit.display_data.name _ '"' IF edit.display_data.name; -%]
+      [% l('{format} {position} {name} on {release} by {artist}',
            { format => edit.display_data.format.name || l('Medium'),
              position => edit.display_data.position,
-             release => link_release(edit.display_data.release),
+             name => discname,
+             release => link_entity(edit.display_data.release),
              artist => artist_credit(edit.display_data.release.artist_credit) }) %]
     </td>
   </tr>
 
-  <tr>
-    <th>[% l('Tracklist:') %]</th>
-    <td>[% link_tracklist({ id => edit.display_data.tracklist_id }, 'show', l('Show')) %]</td>
-  </tr>
+  [% IF edit.display_data.tracklist %]
+   <tr>
+     <th>[% l('Tracklist:') %]</th>
+     <td>
+       <table class="tbl">
+         <tbody>
+         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.tracklist
+            hide_rating=1 show_artists=1 %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
+  [% END %]
+
 </table>

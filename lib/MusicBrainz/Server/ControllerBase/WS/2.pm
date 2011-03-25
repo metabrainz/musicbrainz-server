@@ -366,14 +366,12 @@ sub _validate_post
 
     my $h = $c->request->headers;
 
-    if (!$h->content_type_charset && $h->content_type_charset ne 'UTF-8')
-    {
-        $self->_error ($c, "Unsupported charset, please use UTF-8.")
-    }
-
-    if ($h->content_type ne 'application/xml')
-    {
-        $self->_error ($c, "Unsupported content-type, please use application/xml");
+    unless ($h->content_type eq 'application/xml' &&
+            $h->content_type_charset eq 'UTF-8') {
+        $c->stash->{error} = '/ws/2/ only supports POST in application/xml; charset=UTF-8';
+        $c->forward('bad_req');
+        $c->res->status(415);
+        $c->detach;
     }
 
     $self->_error ($c, "Please specify the name and version number of your client application.")

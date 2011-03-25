@@ -145,10 +145,11 @@
             [% l('Merge this release with another') %]
           </a>
         </li>
-        <li>[% link_release(release, 'delete', l('Delete this release')) %]</li>
-        <li>[% link_release(release, 'change_quality', l('Change release quality')) %]</li>
-        <li>[% link_release(release, 'move', l('Change release group')) %]</li>
+        <li>[% link_entity(release, 'delete', l('Delete this release')) %]</li>
+        <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
+        <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
+        <li>[% relate_to_ellipsis(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
         <li>
           <a href="[%
@@ -165,9 +166,9 @@
       [% ELSE %]
         <li>[% request_login(l('Please log in to edit this release')) %]</li>
       [% END %]
-      <li>[% link_release(release, 'edits', l('View editing history')) %]</li>
+      <li>[% link_entity(release, 'edits', l('View editing history')) %]</li>
       [% IF release.edits_pending %]
-        <li>[% link_release(release, 'open_edits', l('Open edits')) %]</li>
+        <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>
       [% END %]
     </ul>
 [% END %]

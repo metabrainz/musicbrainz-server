@@ -23,15 +23,26 @@ parameter defs => (
 
 our (%types, %statuses);
 our %relation_types = (
-    "artist-rels" => 1,
-    "release-rels" => 1,
-    "release-group-rels" => 1,
-    "recording-rels" => 1,
-    "track-rels" => 1,  # FIXME: only needed for /ws/1, this needs to be split off from /ws/2.
-    "label-rels" => 1,
-    "work-rels" => 1,
-    "url-rels" => 1,
+    1 => {
+        "artist-rels" => 1,
+        "release-rels" => 1,
+        "track-rels" => 1,
+        "label-rels" => 1,
+        "work-rels" => 1,
+        "url-rels" => 1,
+    },
+    2 => {
+        "artist-rels" => 1,
+        "release-rels" => 1,
+        "release-group-rels" => 1,
+        "recording-rels" => 1,
+        "label-rels" => 1,
+        "work-rels" => 1,
+        "url-rels" => 1,
+    },
 );
+
+
 
 # extra inc contains inc= arguments which should be allowed if another
 # argument is present.  E.g. puids and isrcs only make sense on a
@@ -224,7 +235,7 @@ sub validate_inc
             }
         }
 
-        if ($allow_relations && exists $relation_types{$i})
+        if ($allow_relations && exists $relation_types{$version}{$i})
         {
             push @relations_used, $i;
             next;
@@ -236,9 +247,16 @@ sub validate_inc
                 exists $all{$i}
             } keys %extra_inc;
 
-            $c->stash->{error} = "$i is not a valid option for the inc parameter for the $resource resource " .
-                                 "unless you specify one of the following other inc parameters: " .
-                                 join(', ', @possible);
+            if (@possible) {
+                $c->stash->{error} =
+                    "$i is not a valid option for the inc parameter for the $resource resource " .
+                    "unless you specify one of the following other inc parameters: " .
+                        join(', ', @possible);
+            }
+            else {
+                $c->stash->{error} = "$i is not a valid inc parameter for the $resource resource.";
+            }
+
             return;
         }
         push @filtered, $i;

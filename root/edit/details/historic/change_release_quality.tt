@@ -4,7 +4,7 @@
     <td>
       <ul>
         [% FOR release=change.releases %]
-        <li>[% link_release(release) %]</li>
+        <li>[% link_entity(release) %]</li>
         [% END %]
       </ul>
     </td>

@@ -24,9 +24,8 @@ sub _entity_class
 sub insert
 {
     my ($self, $tracks) = @_;
-    my $sql = Sql->new($self->c->dbh);
     # track_count is 0 because the trigger will increment it
-    my $id = $sql->insert_row('tracklist', { track_count => 0 }, 'id');
+    my $id = $self->sql->insert_row('tracklist', { track_count => 0 }, 'id');
     $self->_add_tracks($id, $tracks);
     $self->c->model('DurationLookup')->update($id);
     my $class = $self->_entity_class;
@@ -36,11 +35,10 @@ sub insert
 sub delete
 {
     my ($self, @tracklist_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM track WHERE tracklist IN (' . placeholders(@tracklist_ids). ')';
-    $sql->do($query, @tracklist_ids);
+    $self->sql->do($query, @tracklist_ids);
     $query = 'DELETE FROM tracklist WHERE id IN ('. placeholders(@tracklist_ids) . ')';
-    $sql->do($query, @tracklist_ids);
+    $self->sql->do($query, @tracklist_ids);
 }
 
 sub replace
@@ -73,6 +71,29 @@ sub usage_count
         'SELECT count(*) FROM medium
            JOIN tracklist ON medium.tracklist = tracklist.id
           WHERE tracklist.id = ?', $tracklist_id);
+}
+
+sub garbage_collect {
+    my $self = shift;
+
+    my @orphaned_tracklists = @{
+        $self->sql->select_single_column_array(
+            'SELECT tracklist.id FROM tracklist
+          LEFT JOIN medium ON medium.tracklist = tracklist.id
+              WHERE medium.id IS NULL'
+        )
+    };
+
+    if (@orphaned_tracklists) {
+        $self->sql->do(
+            'DELETE FROM track
+              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+        $self->sql->do(
+            'DELETE FROM tracklist
+              WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
+            @orphaned_tracklists);
+    }
 }
 
 sub set_lengths_to_cdtoc
@@ -113,26 +134,43 @@ sub merge
 sub find_or_insert
 {
     my ($self, $tracks) = @_;
-    my (@join, @where);
-    for my $i (1..@$tracks) {
-        my $n = $i - 1;
-        push @join,
-            "JOIN track t$i ON tracklist.id = t$i.tracklist " .
-            "JOIN track_name tn$i ON t$i.name = tn$i.id";
-        push @where, "(tn$i.name = ? AND t$i.artist_credit = ? AND t$i.recording = ?)";
-        $tracks->[$n]->{position} ||= $n;
-    }
+
     my $query =
-        'SELECT tracklist.id FROM tracklist ' .
-        join(' ', @join) . '
-        WHERE tracklist.track_count = ? AND ' . join(' AND ', @where);
+        'SELECT tracklist
+           FROM (
+                    SELECT tracklist FROM track
+                      JOIN track_name name ON name.id = track.name
+                     WHERE ' . join(' OR ', ('(
+                               name.name = ?
+                           AND artist_credit = ?
+                           AND recording = ?
+                           AND position = ?
+                           )') x @$tracks) . '
+                ) s
+       GROUP BY tracklist
+         HAVING COUNT(tracklist) = ?';
 
-    my @tracks = sort { $a->{position} <=> $b->{position} } @$tracks;
-    my $id = $self->sql->select_single_value($query, scalar(@$tracks),
-        map { $_->{name}, $_->{artist_credit}, $_->{recording} } @tracks);
+    my @possible_tracklists = @{
+        $self->sql->select_single_column_array(
+            $query,
+            (map {
+                $_->{name},
+                $_->{artist_credit},
+                $_->{recording_id},
+                $_->{position}
+            } @$tracks),
+            scalar(@$tracks)
+        )
+    };
 
-    my $class = $self->_entity_class;
-    return $id ? $class->new( id => $id ) : $self->insert($tracks);
+    if (@possible_tracklists == 1) {
+        return $self->_entity_class->new(
+            id => $possible_tracklists[0]
+        );
+    }
+    else {
+        $self->insert($tracks);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

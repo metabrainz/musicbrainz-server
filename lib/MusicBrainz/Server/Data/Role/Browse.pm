@@ -17,7 +17,7 @@ sub find_by_name_prefix
     $query .= ' ORDER BY musicbrainz_collate(name.name) OFFSET ?';
 
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $prefix, $prefix, @bind, $offset || 0);
 }
 

@@ -122,6 +122,7 @@ sub cookie_login : Private
 {
     my ($self, $c) = @_;
     my $cookie = $c->req->cookie('remember_login') or return;
+    return unless $cookie->value;
     return if $c->user_exists;
 
     my ($user_name, $password, $delete_cookie);
@@ -186,7 +187,7 @@ sub _set_login_cookie
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
-        value => encode('utf-8', $value . "\t" . sha1_base64($value . DBDefs::SMTP_SECRET_CHECKSUM))
+        value => encode('utf-8', $value) . "\t" . sha1_base64(encode('utf-8', $value) . DBDefs::SMTP_SECRET_CHECKSUM)
     };
 }
 
@@ -222,7 +223,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('base') RequireAuth HiddenOnSlaves
+sub contact : Chained('load') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 

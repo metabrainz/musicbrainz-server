@@ -58,7 +58,7 @@ sub find_by_recording
         WHERE recording_puid.recording IN (" . placeholders(@ids) . ")
         ORDER BY recording_puid.id";
     return query_to_list(
-        $self->c->dbh, sub {
+        $self->c->sql, sub {
             $self->_create_recording_puid(shift);
         },
         $query, @ids);
@@ -100,8 +100,7 @@ sub get_by_recording_puid
         WHERE recording_puid.recording = ? AND puid.puid = ?
         ORDER BY recording_puid.id";
 
-    my $sql = Sql->new($self->c->dbh);
-    my $row = $sql->select_single_row_hash($query, $recording_id, $puid_str)
+    my $row = $self->sql->select_single_row_hash($query, $recording_id, $puid_str)
         or return;
 
     return $self->_create_recording_puid($row);
@@ -140,7 +139,7 @@ sub find_by_puid
         WHERE recording_puid.puid = ?
         ORDER BY name.name, recording.id";
     return query_to_list(
-        $self->c->dbh, sub {
+        $self->c->sql, sub {
             my $row = shift;
             my $recording_puid = $self->_new_from_row($row);
             my $recording = $self->c->model('Recording')->_new_from_row($row, 'r_');
@@ -154,16 +153,19 @@ sub merge_recordings
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
+    my @ids = ($new_id, @old_ids);
 
     # Delete links from @old_ids that already exist for $new_id
-    $sql->do('DELETE FROM recording_puid
-              WHERE recording IN ('.placeholders(@old_ids).') AND
-                  puid IN (SELECT puid FROM recording_puid WHERE recording = ?)',
-              @old_ids, $new_id);
+    $self->sql->do('DELETE FROM recording_puid
+              WHERE recording IN ('.placeholders(@ids).')
+                AND id NOT IN (
+                SELECT DISTINCT ON (puid) id
+                  FROM recording_puid
+                 WHERE recording IN ('.placeholders(@ids).')
+              )', @ids, @ids);
 
     # Move the rest
-    $sql->do('UPDATE recording_puid SET recording = ?
+    $self->sql->do('UPDATE recording_puid SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')',
               $new_id, @old_ids);
 }
@@ -172,10 +174,8 @@ sub delete_recordings
 {
     my ($self, @ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-
     # Remove PUID<->recording links
-    my $puid_ids = $sql->select_single_column_array('
+    my $puid_ids = $self->sql->select_single_column_array('
         DELETE FROM recording_puid
         WHERE recording IN ('.placeholders(@ids).')
         RETURNING puid', @ids);
@@ -186,9 +186,8 @@ sub delete_recordings
 sub delete
 {
     my ($self, $puid_id, $recording_puid_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = 'DELETE FROM recording_puid WHERE id = ?';
-    $sql->do($query, $recording_puid_id);
+    $self->sql->do($query, $recording_puid_id);
     $self->c->model('PUID')->delete_unused_puids($puid_id);
 }
 
@@ -208,15 +207,21 @@ sub filter_additions
 
     return \@additions unless @tuples;
 
-    my $query = 'SELECT v.* FROM ' .
-        '(VALUES ' . join(', ', ('(?::integer, ?::integer)') x @tuples) . ') AS v(puid, recording) '.
-        'LEFT JOIN recording_puid rp ON (v.recording = rp.recording AND v.puid = rp.puid) '.
-        'WHERE rp.recording IS NULL AND rp.puid IS NULL';
+    my $query = 'SELECT v.* FROM
+        (VALUES ' . join(', ', ('(?::integer, ?::integer, ?)') x @tuples) . ') AS v(puid, recording, name)
+        LEFT JOIN recording_puid rp ON (v.recording = rp.recording AND v.puid = rp.puid)
+        WHERE rp.recording IS NULL AND rp.puid IS NULL';
 
-    my $rows = $self->sql->select_list_of_hashes($query, map { $puids{ $_->{puid} }, $_->{recording_id} } @tuples);
+    my $rows = $self->sql->select_list_of_hashes(
+        $query,
+        map { $puids{ $_->{puid} }, $_->{recording}{id}, $_->{recording}{name} } @tuples
+    );
     push @additions, map +{
         puid         => $puid_ids{ $_->{puid} },
-        recording_id => $_->{recording}
+        recording    => {
+            id   => $_->{recording},
+            name => $_->{name}
+        }
     }, @$rows;
 
     return \@additions;

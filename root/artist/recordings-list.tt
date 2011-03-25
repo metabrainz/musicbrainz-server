@@ -1,7 +1,20 @@
+[% BLOCK recording_row_prefix %]
+  [% IF c.user_exists %]
+  <td>
+    <input type="checkbox" name="add-to-merge"
+           value="[% recording.id %]" />
+  </td>
+  [% END %]
+[% END %]
+
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists %]<th></th>[% END %]
+            [% IF c.user_exists %]
+            <th style="width: 1em">
+            <input type="checkbox" />
+            </th>
+            [% END %]
             <th>[%- l('Name') -%]</th>
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
@@ -14,13 +27,11 @@
     <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
         [%- FOR recording=recordings -%]
         <tr [% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_recording_ns(recording) %]>
-            [% IF c.user_exists %]
+            [% PROCESS recording_row_prefix %]
             <td>
-                <input type="checkbox" name="add-to-merge"
-                    value="[% recording.id %]" />
+              [% rdfa_made_recording_link(recording) %]
+              [% disambiguation(recording) %]
             </td>
-            [% END %]
-            <td>[% rdfa_made_recording_link(recording) %] [% disambiguation(recording) %]</td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(recording.artist_credit) %]</td>
             [%- END -%]

@@ -1,5 +1,12 @@
 <table class="details">
   <tr>
+    <th>[% l('Release Group:') %]</th>
+    <td>[% descriptive_link(edit.display_data.release_group) %]</td>
+  </tr>
+</table>
+
+<table class="details add-release-group">
+  <tr>
     <th>[% l('Name:') %]</th>
     <td>[% edit.display_data.name | html %]</td>
   </tr>

@@ -6,6 +6,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
@@ -15,23 +16,40 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
 
-extends 'MusicBrainz::Server::Edit::Generic::Edit';
+extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Medium';
+
+use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { l('Edit medium') }
 sub _edit_model { 'Medium' }
-sub medium_id { shift->data->{entity_id} }
+sub entity_id { shift->data->{entity_id} }
+sub medium_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
         entity_id => NullableOnPreview[Int],
+        release => Dict[
+            id => Int,
+            name => Str
+        ],
         separate_tracklists => Optional[Bool],
+        current_tracklist => Int,
         old => change_fields(),
         new => change_fields()
     ]
 );
+
+sub alter_edit_pending
+{
+    my $self = shift;
+    return {
+        'Medium' => [ $self->entity_id ]
+    }
+}
 
 sub change_fields
 {
@@ -39,7 +57,7 @@ sub change_fields
         position => Optional[Int],
         name => Nullable[Str],
         format_id => Nullable[Int],
-        tracklist => ArrayRef[track()],
+        tracklist => Optional[ArrayRef[track()]],
     ];
 }
 
@@ -52,8 +70,17 @@ sub initialize
     my $separate_tracklists = delete $opts{separate_tracklists};
     die "You must specify the object to edit" unless defined $entity;
 
+    unless ($entity->release) {
+        $self->c->model('Release')->load($entity);
+    }
+
     my $data = {
         entity_id => $entity->id,
+        release => {
+            id => $entity->release->id,
+            name => $entity->release->name
+        },
+        current_tracklist => $entity->tracklist_id,
         $self->_changes($entity, %opts)
     };
 
@@ -70,22 +97,30 @@ sub initialize
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
           if Compare($data->{old}, $data->{new});
 
-
     $self->data($data);
 }
 
 sub foreign_keys {
     my $self = shift;
-    my %fk;
-    if (exists $self->data->{new}{format_id}) {
-        $fk{MediumFormat} = {
-            $self->data->{new}{format_id} => [],
-            $self->data->{old}{format_id} => [],
-        }
-    }
+    my %fk = (
+        Release => { $self->data->{release}{id} => [ 'ArtistCredit' ] },
+    );
 
-    tracklist_foreign_keys(\%fk, $_)
-        for map { $self->data->{$_}{tracklist} } qw( new old );
+    $fk{MediumFormat} = {};
+
+    $fk{MediumFormat}->{$self->data->{old}{format_id}} = []
+        if exists $self->data->{old}{format_id};
+
+    $fk{MediumFormat}->{$self->data->{new}{format_id}} = []
+        if exists $self->data->{new}{format_id};
+
+    my @tracks;
+    push @tracks, @{ $self->data->{old}{tracklist} }
+        if exists $self->data->{old}{tracklist};
+    push @tracks, @{ $self->data->{new}{tracklist} }
+        if exists $self->data->{new}{tracklist};
+
+    tracklist_foreign_keys (\%fk, \@tracks);
 
     return \%fk;
 }
@@ -113,11 +148,8 @@ sub build_display_data
 
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
-
-    my $medium = $self->c->model('Medium')->get_by_id($self->data->{entity_id});
-    $self->c->model('Release')->load($medium);
-    $self->c->model('ArtistCredit')->load($medium->release);
-    $data->{release} = $medium->release;
+    $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
+        || Release->new( name => $self->data->{release}{name} );
 
     return $data;
 }
@@ -129,8 +161,15 @@ sub accept {
 
     if ($self->data->{new}{tracklist}) {
         my $data_new_tracklist = clone ($self->data->{new}{tracklist});
-
         my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
+        my $tracklist = $self->c->model('Tracklist')->get_by_id($medium->tracklist_id);
+        $self->c->model('Track')->load_for_tracklists($tracklist);
+        $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
+
+        unless (Compare(tracks_to_hash($tracklist->tracks), $self->data->{old}{tracklist})) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('The tracklist has changed since this edit was created');
+        }
 
         # Create related data (artist credits and recordings)
         for my $track (@{ $data_new_tracklist }) {
@@ -141,15 +180,16 @@ sub accept {
         # See if we need a new tracklist
         if ($self->data->{separate_tracklists} &&
                 $self->c->model('Tracklist')->usage_count($medium->tracklist_id) > 1) {
+
             my $new_tracklist = $self->c->model('Tracklist')->find_or_insert(
-                $self->data->{new_tracklist}
+                $data_new_tracklist
             );
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
             });
         }
         else {
-            $self->c->model('Tracklist')->replace($medium->tracklist_id, 
+            $self->c->model('Tracklist')->replace($medium->tracklist_id,
                                                   $data_new_tracklist);
         }
     }

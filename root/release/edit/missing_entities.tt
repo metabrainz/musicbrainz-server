@@ -1,5 +1,6 @@
 [%- BLOCK layout_head -%]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <link rel="stylesheet" type="text/css" href="[%-
+      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
@@ -11,25 +12,71 @@
     [%- information = w.page('information') -%]
 
     <div id="form">
-        <fieldset>
-          <legend>[% l( 'Artists' ) %]</legend>
-          [% FOR artist_row=form.field('missing.artists').fields %]
-              [% form_row_text_long(r, artist_row.field('name'), l('Name:')) %]
-              [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
-              [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
-              [% r.hidden(artist_row.field('for')) %]
-          [% END %]
-        </fieldset>
+      [% IF form.field('missing.artist').fields.size %]
+        <h1>[% l('Artists') %]</h1>
+        [% FOR artist_row=form.field('missing.artist').fields %]
+          [% possible = possible_artists.item(artist_row.field('for').value) %]
+          <fieldset>
+            <legend>[% artist_row.field('name').value | html %]</legend>
+            [% r.hidden(artist_row.field('name')) %]
+            [% IF possible.size %]
+            <p>[% l('We found the following artists with the same name already existing in
+                     MusicBrainz. If any of these are the artist you intened to use, please
+                     select the artist:') %]</p>
+            <ul>
+              [% FOR artist=possible %]
+              <li>
+                <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                       value="[% artist.id %]" />
+                [% link_entity(artist) %]
+              </li>
+              [% END %]
+            </ul>
+            <p>[% l('If none of these artists match the artist you intended, you can still
+                     create a new artist.') %]</p>
+            [% ELSE %]
+            <p>[% l("We couldn't find an artist with the name you entered. If you wish to
+                     create a new artist, please fill in the fields below:") %]</p>
+            [% END %]
+            [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
+            [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
+            [% r.hidden(artist_row.field('for')) %]
+          </fieldset>
+        [% END %]
+      [% END %]
 
-        <fieldset>
-          <legend>[% l('Labels') %]</legend>
-          [% FOR label_row=form.field('missing.labels').fields %]
-              [% form_row_text_long(r, label_row.field('name'), l('Name:')) %]
-              [% form_row_text_long(r, label_row.field('sort_name'), l('Sort Name:')) %]
-              [% form_row_text_long(r, label_row.field('comment'), l('Comment:')) %]
-              [% r.hidden(label_row.field('for')) %]
-          [% END %]
-        </fieldset>
+      [% IF form.field('missing.label').fields.size %]
+        <h1>[% l('Labels') %]</h1>
+        [% FOR label_row=form.field('missing.label').fields %]
+          [% possible = possible_labels.item(label_row.field('for').value) %]
+          <fieldset>
+            <legend>[% label_row.field('name').value | html %]</legend>
+            [% r.hidden(label_row.field('name')) %]
+            [% IF possible.size %]
+            <p>[% l('We found the following labels with the same name already existing in
+                     MusicBrainz. If any of these are the label you intened to use, please
+                     select the label:') %]</p>
+            <ul>
+              [% FOR label=possible %]
+              <li>
+                <input type="radio" name="[% label_row.field('entity_id').html_name %]"
+                       value="[% label.id %]" />
+                [% link_entity(label) %]
+              </li>
+              [% END %]
+            </ul>
+            <p>[% l('If none of these labels match the label you intended, you can still
+                     create a new label.') %]</p>
+            [% ELSE %]
+            <p>[% l("We couldn't find an label with the name you entered. If you wish to
+                     create a new label, please fill in the fields below:") %]</p>
+            [% END %]
+            [% form_row_text_long(r, label_row.field('sort_name'), l('Sort Name:')) %]
+            [% form_row_text_long(r, label_row.field('comment'), l('Comment:')) %]
+            [% r.hidden(label_row.field('for')) %]
+          </fieldset>
+        [% END %]
+      [% END %]
 
         <div style="clear: both;">
           <div class="buttons ui-helper-clearfix">

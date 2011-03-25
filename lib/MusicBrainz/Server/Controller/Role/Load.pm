@@ -36,7 +36,7 @@ role
         my $entity = $self->_load($c, $gid);
 
         if (!defined $entity) {
-            $self->not_found($c);
+            $self->not_found($c, $gid);
             $c->detach;
             return;
         }

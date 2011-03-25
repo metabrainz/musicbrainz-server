@@ -1,42 +1,59 @@
+[% BLOCK layout_head %]
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js'
+    ) %]"></script>
+[% END %]
+
 [% WRAPPER "collection/layout.tt" full_width=1 page='index' %]
 
     [%- IF releases.size -%]
+      <form action="[% c.req.uri %]" method="post">
         [%- WRAPPER 'components/with-pager.tt' -%]
         <table class="tbl">
-    <thead>
-        <tr>
-            [% sortble_table_header('title', l('Release')) %]
-            [% sortble_table_header('artist', l('Artist')) %]
-            <th>[% l('Format') %]</th>
-            <th>[% l('Tracks') %]</th>
-            [% sortble_table_header('date', l('Date')) %]
-            <th>[% l('Country') %]</th>
-            <th>[% l('Label') %]</th>
-            <th>[% l('Catalog#') %]</th>
-        </tr>
-    </thead>
-    <tbody>
-        [%- FOR release=releases -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td>[% link_release(release) %]</td>
-            <td>[% artist_credit(release.artist_credit) %]</td>
-            <td>[% release.combined_format_name or "-" %]</td>
-            <td>[% release.combined_track_count or "-" %]</td>
-            <td>[% release.date.format %]</td>
-            <td>
-                [%- IF release.country -%]
-                <abbr title="[% release.country.name | html %]">
-                    [% release.country.iso_code | html %]
-                </abbr>
-                [%- END -%]
-            </td>
-            <td>[% release_label_list(release.labels) %]</td>
-            <td>[% release_catno_list(release.labels) %]</td>
-        </tr>
+          <thead>
+              <tr>
+                  [% IF my_collection %]<th><input type="checkbox" /></th>[% END %]
+                  [% sortble_table_header('title', l('Release')) %]
+                  [% sortble_table_header('artist', l('Artist')) %]
+                  <th>[% l('Format') %]</th>
+                  <th>[% l('Tracks') %]</th>
+                  [% sortble_table_header('date', l('Date')) %]
+                  <th>[% l('Country') %]</th>
+                  <th>[% l('Label') %]</th>
+                  <th>[% l('Catalog#') %]</th>
+              </tr>
+          </thead>
+          <tbody>
+              [%- FOR release=releases -%]
+              <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                  [% IF my_collection %]
+                  <td>
+                    <input type="checkbox" name="remove" value="[% release.id %]" />
+                  </td>
+                  [% END %]
+                  <td>[% link_entity(release) %]</td>
+                  <td>[% artist_credit(release.artist_credit) %]</td>
+                  <td>[% release.combined_format_name or "-" %]</td>
+                  <td>[% release.combined_track_count or "-" %]</td>
+                  <td>[% release.date.format %]</td>
+                  <td>
+                      [%- IF release.country -%]
+                      <abbr title="[% release.country.name | html %]">
+                          [% release.country.iso_code | html %]
+                      </abbr>
+                      [%- END -%]
+                  </td>
+                  <td>[% release_label_list(release.labels) %]</td>
+                  <td>[% release_catno_list(release.labels) %]</td>
+              </tr>
+              [%- END -%]
+          </tbody>
+        </table>
+
+        [% form_submit(l('Remove selected releases from collection'))
+             IF my_collection %]
         [%- END -%]
-    </tbody>
-</table>
-        [%- END -%]
+      </form>
     [%- ELSE -%]
         <p>[%- l('No releases found in collection.') -%]</p>
     [%- END -%]

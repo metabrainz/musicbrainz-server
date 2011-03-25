@@ -1,41 +1,46 @@
 package MusicBrainz::Server::Data::Utils;
 
 use base 'Exporter';
-
+use Carp 'confess';
 use Class::MOP;
 use Data::Compare;
+use Digest::SHA1 qw( sha1_base64 );
+use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
-use Sql;
 use Readonly;
+use Scalar::Util 'blessed';
+use Sql;
 use Storable;
 
 our @EXPORT_OK = qw(
+    add_partial_date_to_row
+    artist_credit_to_alternative_ref
     artist_credit_to_ref
     check_data
+    check_in_use
     copy_escape
     defined_hash
+    generate_gid
     hash_to_row
-    add_partial_date_to_row
-    remove_equal
-    generate_gid
+    hash_structure
     insert_and_create
-    generate_gid
     load_meta
     load_subobjects
+    map_query
+    merge_table_attributes
+    model_to_type
+    object_to_ids
+    order_by
     partial_date_from_row
     partial_date_to_hash
     placeholders
     query_to_list
     query_to_list_limited
-    type_to_model
-    model_to_type
-    object_to_ids
-    order_by
-    check_in_use
-    map_query
     ref_to_type
+    remove_equal
+    type_to_model
 );
 
 Readonly my %TYPE_TO_MODEL => (
@@ -77,15 +82,32 @@ sub artist_credit_to_ref
 {
     my ($artist_credit) = @_;
 
-    return $artist_credit unless UNIVERSAL::can ($artist_credit, 'isa');
+    return $artist_credit unless blessed $artist_credit;
 
-    my $ac = [ map {
+    return [ map {
         my @credit = ( { name => $_->name, artist => $_->artist_id } );
         push @credit, $_->join_phrase if $_->join_phrase;
 
         @credit;
     } @{ $artist_credit->names } ];
-    return $ac;
+}
+
+# FIXME: It is unfortunate that we have two different formats for storing
+# artist credits outside of objects.  These should be consolidated. --warp.
+sub artist_credit_to_alternative_ref
+{
+    my ($artist_credit) = @_;
+
+    return $artist_credit unless blessed $artist_credit;
+
+    return [
+        map {
+            name => $_->name,
+            gid => $_->artist->gid,
+            id => $_->artist->id,
+            artist_name => $_->artist->name,
+            join => $_->join_phrase
+        }, $artist_credit->all_names ];
 }
 
 sub load_subobjects
@@ -118,15 +140,14 @@ sub load_meta
     return unless @objs;
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
-    my $sql = Sql->new($c->dbh);
-    $sql->select("SELECT * FROM $table
+    $c->sql->select("SELECT * FROM $table
                   WHERE id IN (" . placeholders(@ids) . ")", @ids);
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $c->sql->next_row_hash_ref or last;
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-    $sql->finish;
+    $c->sql->finish;
 }
 
 sub check_in_use
@@ -166,8 +187,7 @@ sub placeholders
 
 sub query_to_list
 {
-    my ($dbh, $builder, $query, @args) = @_;
-    my $sql = Sql->new($dbh);
+    my ($sql, $builder, $query, @args) = @_;
     $sql->select($query, @args);
     my @result;
     while (1) {
@@ -181,8 +201,7 @@ sub query_to_list
 
 sub query_to_list_limited
 {
-    my ($dbh, $offset, $limit, $builder, $query, @args) = @_;
-    my $sql = Sql->new($dbh);
+    my ($sql, $offset, $limit, $builder, $query, @args) = @_;
     $sql->select($query, @args);
     my @result;
     while (!defined($limit) || $limit--) {
@@ -195,18 +214,55 @@ sub query_to_list_limited
     return (\@result, $hits);
 }
 
+=func hash_structure
+
+Generates a hash code for a particular edited track.  If a track
+is moved the hash will remain the same, any other change to the
+track will result in a different hash.
+
+=cut
+
+sub hash_structure
+{
+    sub structure_to_string {
+        my $obj = shift;
+
+        if (ref $obj eq "ARRAY")
+        {
+            my @ret = map { structure_to_string ($_) } @$obj;
+            return '[' . join (",", @ret) . ']';
+        }
+        elsif (ref $obj eq "HASH")
+        {
+            my @ret = map {
+                $_ . ':' . structure_to_string ($obj->{$_})
+            } sort keys %$obj;
+            return '{' . join (",", @ret) . '}';
+        }
+        elsif ($obj)
+        {
+            return $obj;
+        }
+        else
+        {
+            return '';
+        }
+    }
+
+    return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
+}
+
 sub insert_and_create
 {
     my ($data, @objs) = @_;
     my $class = $data->_entity_class;
     Class::MOP::load_class($class);
-    my $sql = Sql->new($data->c->dbh);
     my %map = $data->_attribute_mapping;
     my @ret;
     for my $obj (@objs)
     {
         my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
-        my $id = $sql->insert_row($data->_table, \%row, 'id');
+        my $id = $data->sql->insert_row($data->_table, \%row, 'id');
         push @ret, $class->new( id => $id, %$obj);
     }
 
@@ -318,8 +374,7 @@ sub remove_equal
 
 sub map_query
 {
-    my ($dbh, $key, $value, $query, @bind_params) = @_;
-    my $sql = Sql->new($dbh);
+    my ($sql, $key, $value, $query, @bind_params) = @_;
     return {
         map { $_->{$key} => $_->{$value} }
             @{ $sql->select_list_of_hashes($query, @bind_params) }
@@ -335,6 +390,31 @@ sub check_data
         MusicBrainz::Server::Exceptions::BadData->throw($error)
             unless $check->($data);
     }
+}
+
+sub merge_table_attributes {
+    my (my $sql, %named_params) = @_;
+    my $table = $named_params{table} or confess 'Missing parameter $table';
+    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
+    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
+    my @columns = @{ $named_params{columns} } or confess 'Missing parameter \@columns';
+    my @all_ids = ($new_id, @$old_ids);
+
+    $sql->do(
+        "UPDATE $table SET " .
+            join(',', map {
+                "$_ = (SELECT new_val FROM (
+                     SELECT (id = ?) AS first, $_ AS new_val
+                       FROM $table
+                      WHERE $_ IS NOT NULL
+                        AND id IN (" . placeholders(@all_ids) . ")
+                   ORDER BY first DESC
+                      LIMIT 1
+                      ) s)";
+            } @columns) . '
+            WHERE id = ?',
+        (@all_ids, $new_id) x @columns, $new_id
+    );
 }
 
 1;

@@ -1,4 +1,11 @@
 <table class="details">
+    <tr>
+        <th>[% l('Label:') %]</th>
+        <td>[% link_entity(edit.display_data.label) %]</td>
+    </tr>
+</table>
+
+<table class="details add-label">
   <tr>
     <th>[% l('Name:') %]</th>
     <td>[% edit.display_data.name | html %]</td>

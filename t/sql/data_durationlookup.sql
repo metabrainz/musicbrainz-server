@@ -1,23 +1,22 @@
-BEGIN;
+
 SET client_min_messages TO 'WARNING';
 
-TRUNCATE tracklist_index CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE medium_format CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE tracklist CASCADE;
-TRUNCATE track CASCADE;
-TRUNCATE track_name CASCADE;
 
-INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (1, 10, '(909106, 767426, 725600, 867733, 739200, 306640)');
-INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (2, 10, '(431293, 577466, 334600, 374359, 547039, 469506)');
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (1, 7, '(663400, 258839, 358960, 332613, 296160, 372386)');
+INSERT INTO tracklist_index (tracklist, tracks, toc) VALUES (2, 9, '(428492, 290053, 454506, 61333, 815305, 472880)');
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 
@@ -104,4 +103,4 @@ ALTER SEQUENCE track_name_id_seq RESTART 17;
 ALTER SEQUENCE track_id_seq RESTART 17;
 ALTER SEQUENCE recording_id_seq RESTART 17;
 
-COMMIT;
+

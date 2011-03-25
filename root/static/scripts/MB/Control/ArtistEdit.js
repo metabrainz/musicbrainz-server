@@ -27,14 +27,7 @@ MB.Control.ArtistEdit = function () {
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
 
-    self.$name = $('#id-edit-artist\\.name');
-    self.$sort_name = $('#id-edit-artist\\.sort_name');
-
-    self.$guesscase = $('input.guesscase');
-    self.$sortname = $('input.sortname');
-    self.$copy = $('input.copy');
-
-    var changeDateText = function (text) {
+    self.changeDateText = function (text) {
         self.$begin.text(text[0]);
         self.$end.text(text[1]);
     };
@@ -45,7 +38,7 @@ MB.Control.ArtistEdit = function () {
            Person: 1
            Group: 2
     */
-    var typeChanged = function() {
+    self.typeChanged = function() {
         switch (self.$type.val()) {
             default:
             case '0':
@@ -65,52 +58,20 @@ MB.Control.ArtistEdit = function () {
         }
     };
 
-    var enableGender = function() {
+    self.enableGender = function() {
         self.$gender
            .attr("disabled", null)
            .val(self.old_gender);
     };
 
-    var disableGender = function() {
+    self.disableGender = function() {
         self.$gender.attr("disabled", "disabled");
         self.old_gender = self.$gender.val();
         self.$gender.val('');
     };
 
-    var guesscase = function (event) {
-        self.$name.val (MB.GuessCase.artist.guess (self.$name.val ()));
-
-        event.preventDefault ();
-    };
-
-    var sortname = function (event) {
-        var person = self.$type.val () !== '2';
-
-        self.$sort_name.val (MB.GuessCase.artist.sortname (self.$name.val (), person));
-
-        event.preventDefault ();
-    };
-
-    var copy = function (event) {
-        self.$sort_name.val (self.$name.val ());
-
-        event.preventDefault ();
-    };
-
-    self.changeDateText = changeDateText;
-    self.typeChanged = typeChanged;
-
-    self.guesscase = guesscase;
-    self.sortname = sortname;
-    self.copy = copy;
-    self.enableGender = enableGender;
-    self.disableGender = disableGender;
-
     self.typeChanged();
     self.$type.bind ('change.mb', self.typeChanged);
-    self.$guesscase.bind ('click.mb', self.guesscase);
-    self.$sortname.bind ('click.mb', self.sortname);
-    self.$copy.bind ('click.mb', self.copy);
 
     return self;
 };
