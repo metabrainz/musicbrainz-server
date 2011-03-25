@@ -21,11 +21,11 @@
 MB.Control.SelectAll = function (table) {
     var self = MB.Object ();
 
-    self.table = $(table);
+    self.$table = $(table);
 
-    self.table.find('th input[type="checkbox"]').change(function() {
+    self.$table.find('th input[type="checkbox"]').change(function() {
         var $input = $(this);
-        self.table.find('td input[type="checkbox"]').attr('checked', $input.attr('checked'));
+        self.$table.find('td input[type="checkbox"]').attr('checked', $input.attr('checked'));
     });
 
     return self;
