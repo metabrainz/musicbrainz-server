@@ -28,6 +28,9 @@ use MusicBrainz::Server::Edit::Label::Create;
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c, '+inserttestdata-with-truncate');
+MusicBrainz::Server::Test->prepare_test_database($c, '+editqueue-truncate');
+MusicBrainz::Server::Test->prepare_raw_test_database($c, '+editqueue_raw-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+editqueue');
 MusicBrainz::Server::Test->prepare_raw_test_database($c, '+editqueue_raw');
 
