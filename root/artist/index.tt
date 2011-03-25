@@ -1,5 +1,8 @@
 [% BLOCK layout_head %]
-    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js',
+      'scripts/MB/Control/TagEditor.js'
+    ) %]"></script>
     <script type="text/javascript">
         $(function() {
             MB.Control.TagEditor($('#sidebar-tags'),
