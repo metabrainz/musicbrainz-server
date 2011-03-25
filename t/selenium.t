@@ -48,6 +48,9 @@ if ($selenium->is_success)
 
         $selenium_runner->parse($_)->run for @tests;
     }
+    catch {
+        warn "error: $_";
+    }
     finally {
         $c->sql->rollback;
         $c->raw_sql->rollback;

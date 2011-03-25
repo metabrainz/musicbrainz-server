@@ -5,6 +5,8 @@ use Time::HiRes qw(sleep);
 use Test::Builder;
 use aliased 'Test::WWW::Selenium::Parser::Test';
 
+my $timeout_in_seconds = 60;
+
 has test_runner => (
     is => 'ro',
     required => 1
@@ -12,22 +14,28 @@ has test_runner => (
 
 my $tb = Test::Builder->new;
 our %dispatch = (
-    open => 'open_ok',
+    assertValue => 'value_is',
+    click => 'click_ok',
     clickAndWait => sub {
         $_->click_ok(@_);
         $_->wait_for_page_to_load_ok(30000)
     },
+    fireEvent => 'fire_event_ok',
+    open => 'open_ok',
+    select => 'select_ok',
+    type => 'type_ok',
     verifyElementNotPresent => sub {
         $tb->ok(not $_->is_element_present(@_));
     },
-    click => 'click_ok',
-    type => 'type_ok',
-    verifyText => 'text_is',
     verifyElementPresent => 'is_element_present_ok',
+    verifyText => 'text_is',
+    verifyTextNotPresent => sub {
+        $tb->ok(not $_->is_text_present(@_));
+    },
     waitForElementPresent => sub {
         WAIT: {
-              for (1..60) {
-                  if (eval { $_->is_element_present("css=a.change-recording:eq(2)") }) {
+              for (1..$timeout_in_seconds) {
+                  if (eval { $_->is_element_present($_[0]) }) {
                       $tb->ok(1, 'Found ' . $_[0]);
                       last WAIT
                   }
@@ -36,10 +44,6 @@ our %dispatch = (
               $tb->ok(0, 'Could not find: ' . $_[0]);
           }
     },
-    fireEvent => 'fire_event_ok',
-    verifyTextNotPresent => sub {
-        $tb->ok(not $_->is_text_present(@_));
-    }
 );
 
 sub BUILDARGS {
