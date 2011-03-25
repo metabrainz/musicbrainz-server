@@ -10,6 +10,7 @@ use Email::MIME::Creator;
 use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape );
 use DBDefs;
+use Try::Tiny;
 
 use MusicBrainz::Server::Types qw( :edit_status );
 use MusicBrainz::Server::Email::Subscriptions;
@@ -307,7 +308,7 @@ sub send_first_no_vote
 {
     my $self = shift;
     my $email = $self->_create_no_vote_email(@_);
-    return $self->_send_email($email);
+    return try { $self->_send_email($email) }
 }
 
 sub send_message_to_editor
@@ -350,7 +351,7 @@ sub send_subscriptions_digest
         from => $NOREPLY_ADDRESS,
         %opts
     );
-    return $self->_send_email($email->create_email);
+    return try { $self->_send_email($email->create_email) }
 }
 
 sub send_edit_note
@@ -358,7 +359,7 @@ sub send_edit_note
     my ($self, %opts) = @_;
 
     my $email = $self->_create_edit_note_email(%opts);
-    return $self->_send_email($email);
+    return try { $self->_send_email($email) }
 }
 
 has 'transport' => (
