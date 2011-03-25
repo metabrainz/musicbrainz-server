@@ -36,6 +36,7 @@ if ($selenium->is_success)
     try {
         MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
         MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+        MusicBrainz::Server::Test->prepare_test_database($c, '+../../admin/sql/SetSequences');
 
         my $selenium_runner = Test::WWW::Selenium::Parser->new(
             test_runner => Test::WWW::Selenium::Catalyst->start({
