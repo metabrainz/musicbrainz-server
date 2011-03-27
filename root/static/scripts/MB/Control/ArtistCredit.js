@@ -73,6 +73,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.render = function (data) {
 
         self.$name.val (data.artist_name).removeClass('error');
+        self.container.clearError (self);
         self.$sortname.val (data.sortname);
         self.$join.val (data.join || '');
         self.$credit.val (data.name);
@@ -109,6 +110,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         if (data.name)
         {
             self.$name.val (data.name).removeClass ('error');
+            self.container.clearError (self);
             self.$sortname.val (data.sortname);
             self.$gid.val (data.gid);
             self.$id.val (data.id);
@@ -133,6 +135,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         if (self.$name.val() !== "" && self.$id.val() === "")
         {
             self.$name.addClass('error');
+            self.container.error (self);
         }
 
         /* if the artist was cleared the user probably wants to delete it,
@@ -318,6 +321,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     self.$container = $container;
     self.$preview = $container.find ('span.artist-credit-preview');
     self.$add_artist = self.$container.find ('input.add-artist-credit');
+    self.errors = {};
 
     self.initialize = function() {
 
@@ -360,6 +364,20 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         {
             /* multiple artists, disable main artist input. */
             self.disableTarget ();
+        }
+    };
+
+    self.error = function (child) {
+        self.errors[child.boxnumber] = true;
+        self.$artist_input.addClass ('error');
+    };
+
+    self.clearError = function (child) {
+        delete self.errors[child.boxnumber];
+
+        if (MB.utility.keys (self.errors).length === 0)
+        {
+            self.$artist_input.removeClass ('error');
         }
     };
 
