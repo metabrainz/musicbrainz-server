@@ -54,8 +54,10 @@ span.error {
 
 input.error,
 select.error {
-    background: #ffaaaa;
+    background: #ffaaaa ! important;
 }
+
+input.lookup-performed { background: #bfb; }
 
 form .input-note {
     font-style: italic;
