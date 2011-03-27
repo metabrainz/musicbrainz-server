@@ -84,18 +84,13 @@ sub merge
     my $table = $type . '_meta';
     my $table_raw = $type . '_rating_raw';
 
-    my $raw_sql = $self->c->raw_sql;
-    # Remove duplicate joins (ie, rows with entities from @old_ids and
-    # tagged by editors that already tagged $new_id)
-    $raw_sql->do("DELETE FROM $table_raw
-                  WHERE $type IN (".placeholders(@old_ids).") AND
-                      editor IN (SELECT editor FROM $table_raw WHERE $type = ?)",
-                  @old_ids, $new_id);
-
-    # Move all remaining joins to the new entity
-    $raw_sql->do("UPDATE $table_raw SET $type = ?
-                  WHERE $type IN (".placeholders(@old_ids).")",
-                  $new_id, @old_ids);
+    my $ratings = $self->c->raw_sql->do(
+        "INSERT INTO $table_raw (editor, rating, $type)
+             SELECT editor, max(rating), ?
+               FROM delete_ratings(?, ?)
+           GROUP BY editor",
+        $new_id, $type, [ $new_id, @old_ids ]
+    );
 
     # Update the aggregate rating
     $self->_update_aggregate_rating($new_id);

@@ -222,6 +222,10 @@ sub create : Local RequireAuth Edit
             $c->detach;
         }
 
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
         $self->_insert_edit($c, $form,
             edit_type    => $EDIT_RELATIONSHIP_CREATE,
             type0        => $type0,
@@ -230,7 +234,7 @@ sub create : Local RequireAuth Edit
             entity1      => $entity1,
             begin_date   => $form->field('begin_date')->value,
             end_date     => $form->field('end_date')->value,
-            link_type_id => $form->field('link_type_id')->value,
+            link_type    => $link_type,
             attributes   => \@attributes,
         );
 
@@ -287,13 +291,17 @@ sub create_url : Local RequireAuth Edit
         my $e0 = $types[0] eq 'url' ? $url : $entity;
         my $e1 = $types[1] eq 'url' ? $url : $entity;
 
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
         $self->_insert_edit($c, $form,
             edit_type    => $EDIT_RELATIONSHIP_CREATE,
             type0        => $types[0],
             type1        => $types[1],
             entity0      => $e0,
             entity1      => $e1,
-            link_type_id => $form->field('link_type_id')->value,
+            link_type    => $link_type,
             attributes   => [],
         );
         my $redirect = $c->controller(type_to_model($type))->action_for('show');

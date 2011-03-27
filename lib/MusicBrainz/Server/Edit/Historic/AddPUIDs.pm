@@ -27,7 +27,10 @@ sub do_upgrade {
 
         push @puids, {
             puid         => $puid,
-            recording_id => $self->resolve_recording_id($self->new_value->{"TrackId$i"})
+            recording    => {
+                id => $self->resolve_recording_id($self->new_value->{"TrackId$i"}),
+                name => '[deleted]'
+            }
         };
     }
 

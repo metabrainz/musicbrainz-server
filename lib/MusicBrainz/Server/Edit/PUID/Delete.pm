@@ -13,6 +13,8 @@ with 'MusicBrainz::Server::Edit::Recording';
 sub edit_type { $EDIT_PUID_DELETE }
 sub edit_name { l('Remove PUID') }
 
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 sub alter_edit_pending  { { RecordingPUID => [ shift->recording_puid_id ] } }
 
 has '+data' => (
@@ -22,13 +24,16 @@ has '+data' => (
         recording_puid_id => Maybe[Int],
         puid_id           => Maybe[Int],
 
-        recording_id      => Int,
+        recording         => Dict[
+            id => Int,
+            name => Str
+        ],
         puid              => Str
     ]
 );
 
 sub puid_id { shift->data->{puid_id} }
-sub recording_id { shift->data->{recording_id} }
+sub recording_id { shift->data->{recording}{id} }
 sub recording_puid_id { shift->data->{recording_puid_id} }
 
 sub foreign_keys
@@ -46,7 +51,8 @@ sub build_display_data
 
     return {
         puid      => $loaded->{PUID}->{ $self->puid_id },
-        recording => $loaded->{Recording}->{ $self->recording_id },
+        recording => $loaded->{Recording}->{ $self->recording_id }
+            || Recording->new( name => $self->data->{recording}{name} ),
         puid_name => $self->data->{puid}
     };
 }
@@ -56,11 +62,18 @@ sub initialize
     my ($self, %opts) = @_;
     my $puid = $opts{puid} or die "Missing required 'puid' object";
 
+    unless ($puid->recording) {
+        $self->c->model('Recording')->load($puid);
+    }
+
     $self->data({
         recording_puid_id => $puid->id,
         puid_id => $puid->puid_id,
         puid => $puid->puid->puid,
-        recording_id => $puid->recording_id
+        recording => {
+            id => $puid->recording->id,
+            name => $puid->recording->name
+        }
     })
 }
 

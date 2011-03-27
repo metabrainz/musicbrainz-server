@@ -265,7 +265,7 @@ sub associate_recordings
         my $trk = $tracklists->tracks->[$_->{original_position} - 1];
         my $rec_edit = $recording_edits->{$_->{edit_sha1}};
 
-        # track edit is already associated with a recording edit
+        # Track edit is already associated with a recording edit.
         if ($rec_edit)
         {
             push @recording_ids, $rec_edit->{id} if $rec_edit->{id};
@@ -273,32 +273,31 @@ sub associate_recordings
             $self->c->stash->{confirmation_required} = 1 unless $rec_edit->{confirmed};
         }
 
-        # track hasn't changed
-        elsif ($trk && ($_->{name} eq $trk->name))
+        # Track hasn't changed OR track has minor changes (case / punctuation).
+        elsif ($trk && $self->name_is_equivalent ($_->{name}, $trk->name))
         {
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
-        # track has minor changes (case / punctuation)
-        # OR the recording is only associated with this track
-        elsif ($trk &&
-               ($self->name_is_equivalent ($_->{name}, $trk->name) ||
-                $self->c->model('Recording')->usage_count ($trk->recording_id) == 1))
+        # Track changed significantly, but there is only one recording
+        # associated with it.  Keep the recording association, but ask
+        # for confirmation.
+        elsif ($trk && $self->c->model('Recording')->usage_count ($trk->recording_id) == 1)
         {
             push @recording_ids, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
 
-        # track changed
+        # Track changed.
         elsif ($trk)
         {
             push @ret, { 'id' => undef, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
         }
 
-        # track is new
+        # Track is new.
         # (FIXME: search for similar existing tracks, suggest those and set
         #  "confirmed => 0" if found?)
         else
@@ -465,7 +464,12 @@ sub prepare_missing_entities
     });
 
     $self->c->stash(
-        missing_entity_count => scalar @credits + scalar @labels
+        missing_entity_count => scalar @credits + scalar @labels,
+        possible_artists => {
+            map {
+                $_ => [ $self->c->model('Artist')->find_by_name($_) ]
+            } map { $_->{for} } @credits
+        }
     );
 }
 
@@ -547,15 +551,15 @@ sub create_edits
             # Because bad_ac might refer to data in the form submisison
             # OR an actual ArtistCredit object, we need to fill in both of these
             # It's a horrible hack.
-            $bad_ac->{artist} = $artist->id;
-            $bad_ac->{artist_id} = $artist->id;
+            $bad_ac->{artist} = $artist;
+            $bad_ac->{artist_id} = $artist;
         }
 
         for my $bad_label ($self->_missing_labels($data)) {
             my $label = $created{label}{ $bad_label->{name} }
                 or die 'No label was created for ' . $bad_label->{name};
 
-            $bad_label->{label_id} = $label->id;
+            $bad_label->{label_id} = $label;
         }
     }
 
@@ -602,6 +606,7 @@ sub _edit_missing_entities
 
     my %created;
 
+    my @missing_artist = @{ $data->{missing}{artist} || [] };
     my @artist_edits = map {
         my $artist = $_;
         $create_edit->(
@@ -609,8 +614,9 @@ sub _edit_missing_entities
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
             map { $_ => $artist->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{artist} };
+    } grep { !$_->{entity_id} } @missing_artist;
 
+    my @missing_label = @{ $data->{missing}{label} || [] };
     my @label_edits = map {
         my $label = $_;
         $create_edit->(
@@ -618,15 +624,19 @@ sub _edit_missing_entities
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
             map { $_ => $label->{$_} } qw( name sort_name comment ));
-    } @{ $data->{missing}{label} };
+    } grep { !$_->{entity_id} } @{ $data->{missing}{label} };
 
     return () if $previewing;
     return (
         artist => {
-            map { $_->entity->name => $_->entity } @artist_edits
+            (map { $_->entity->name => $_->entity->id } @artist_edits),
+            (map { $_->{for} => $_->{entity_id} }
+                 grep { $_->{entity_id} } @missing_artist)
         },
         label => {
-            map { $_->entity->name => $_->entity } @label_edits
+            (map { $_->entity->name => $_->entity->id } @label_edits),
+            (map { $_->{for} => $_->{entity_id} }
+                 grep { $_->{entity_id} } @missing_label)
         }
     )
 }
@@ -638,6 +648,12 @@ sub _edit_release_labels
         = @args{qw( data create_edit edit_note previewing )};
 
     my $max = scalar @{ $data->{'labels'} } - 1;
+
+    my $labels = $self->c->model('Label')->get_by_ids(
+        grep { $_ }
+            (map { $_->{label_id} } @{ $data->{'labels'} }),
+            (map { $_->label_id } $self->release ? $self->release->all_labels : ())
+    );
 
     for (0..$max)
     {
@@ -661,7 +677,7 @@ sub _edit_release_labels
                 $create_edit->(
                     $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
                     release_label => $old_label,
-                    label_id => $new_label->{label_id},
+                    label => $labels->{ $new_label->{label_id} },
                     catalog_number => $new_label->{catalog_number},
                     as_auto_editor => $data->{as_auto_editor},
                     );
@@ -670,10 +686,11 @@ sub _edit_release_labels
         elsif ($new_label->{label_id} || $new_label->{catalog_number})
         {
             # Add ReleaseLabel
+
             $create_edit->(
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
-                release_id => $previewing ? 0 : $self->release->id,
-                label_id => $new_label->{label_id},
+                release => $previewing ? undef : $self->release,
+                label => $labels->{ $new_label->{label_id} },
                 catalog_number => $new_label->{catalog_number},
                 as_auto_editor => $data->{as_auto_editor},
             );
@@ -734,7 +751,7 @@ sub _edit_release_track_edits
 
             my $opts = {
                 position => $medium_idx + 1,
-                release_id => $previewing ? 0 : $self->release->id,
+                release => $previewing ? undef : $self->release,
                 as_auto_editor => $data->{as_auto_editor},
             };
 
@@ -793,7 +810,7 @@ sub _edit_release_annotation
     {
         my $edit = $create_edit->(
             $EDIT_RELEASE_ADD_ANNOTATION, $editnote,
-            entity_id => $previewing ? 0 : $self->release->id,
+            entity => $self->release,
             text => $data_annotation,
             as_auto_editor => $data->{as_auto_editor},
         );
@@ -1014,6 +1031,21 @@ sub _seed_parameters {
         }
     }
 
+    for my $container (
+        $params,
+        map { @{ $_->{track} || [] } }
+            @{ $params->{mediums} || [] }
+    ) {
+        if (ref($container->{artist_credit}) eq 'ARRAY') {
+            $container->{artist_credit} = {
+                names => $container->{artist_credit}
+            };
+        }
+        elsif (ref($container->{artist_credit}) ne 'HASH') {
+            delete $container->{artist_credit};
+        }
+    }
+
     for my $artist_credit (
         map { @{ $_->{names} || [] } } (
             ($params->{artist_credit} || ()),
@@ -1081,6 +1113,10 @@ sub _seed_parameters {
                                 gid => $_->{gid}
                             }, @{$track_ac->{names}}
                         ];
+
+                        $track->{artist_credit}{preview} = join (
+                            "", map { $_->{name} . $_->{join_phrase}
+                            } @{$track_ac->{names}});
                     }
 
                     if (my $length = $track->{length}) {

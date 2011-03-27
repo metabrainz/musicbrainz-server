@@ -55,10 +55,6 @@ h1 span {
 #release-editor fieldset span.partial-date input { width: auto; }
 #release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
 
-#release-editor fieldset.information textarea {
-    height: 10px;
-}
-
 #release-editor fieldset div.tracklist-loading,
 #release-editor fieldset textarea.tracklist {
     height: 250px;

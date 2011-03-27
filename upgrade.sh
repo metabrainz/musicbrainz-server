@@ -23,6 +23,7 @@ echo `date` : Creating schema
 ./admin/psql READWRITE <./admin/sql/CreateFunctions.sql
 ./admin/psql --system READWRITE <./admin/sql/CreateSearchConfiguration.sql
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreateTables.sql
+./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreateFunctions.sql
 
 echo `date` : Migrating data
 ./admin/psql READWRITE <./admin/sql/updates/ngs-artist.sql

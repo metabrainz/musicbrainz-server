@@ -7,13 +7,14 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
-    hash_to_row
     add_partial_date_to_row
+    defined_hash
     generate_gid
+    hash_to_row
+    load_subobjects
+    merge_table_attributes
     partial_date_from_row
     placeholders
-    load_subobjects
     query_to_list_limited
 );
 
@@ -233,11 +234,20 @@ sub merge
     $self->alias->merge($new_id, @$old_ids);
     $self->tags->merge($new_id, @$old_ids);
     $self->rating->merge($new_id, @$old_ids);
-    $self->subscription->merge($new_id, @$old_ids);
+    $self->subscription->merge_entities($new_id, @$old_ids);
     $self->annotation->merge($new_id, @$old_ids);
     $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
     $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
+
+    merge_table_attributes(
+        $self->sql => (
+            table => 'artist',
+            columns => [ qw( comment ipi_code gender country type ) ],
+            old_ids => $old_ids,
+            new_id => $new_id
+        )
+    );
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;

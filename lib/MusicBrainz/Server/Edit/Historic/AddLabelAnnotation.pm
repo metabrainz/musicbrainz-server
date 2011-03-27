@@ -23,7 +23,10 @@ sub do_upgrade
         editor_id => $self->editor_id,
         text      => $self->new_value->{Text},
         changelog => $self->new_value->{ChangeLog},
-        entity_id => $self->row_id,
+        entity    => {
+            id   => $self->row_id,
+            name => '[deleted]',
+        }
     }
 };
 

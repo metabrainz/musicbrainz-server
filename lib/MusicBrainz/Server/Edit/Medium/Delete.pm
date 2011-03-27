@@ -24,7 +24,6 @@ has '+data' => (
     isa => Dict[
         medium_id => Int,
         format_id => Nullable[Int],
-        tracklist_id => Int,
         tracklist => Optional[ArrayRef[track()]],
         name => Nullable[Str],
         position => Int,
@@ -53,7 +52,8 @@ sub build_display_data
         format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
         release => $loaded->{Release}->{ $self->data->{release_id} },
         tracklist => display_tracklist ($loaded, $self->data->{tracklist}),
-        map { $_ => $self->data->{$_} } qw( name position tracklist_id )
+        name => $self->data->{name},
+        position => $self->data->{position},
     }
 }
 
@@ -70,7 +70,6 @@ sub initialize
     $self->data({
         medium_id => $medium->id,
         format_id => $medium->format_id,
-        tracklist_id => $medium->tracklist_id,
         tracklist => tracks_to_hash($medium->tracklist->tracks),
         name => $medium->name,
         position => $medium->position,
