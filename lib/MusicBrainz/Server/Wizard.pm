@@ -371,7 +371,7 @@ sub _route
         # validate each page when moving forward.
         # - if a page is not valid, stop there.
         # - if a page should be skipped, skip it.
-        while (($allow_skip && $self->skip ||
+        while (($allow_skip && $self->skip) ||
                ($self->valid ($page) && $requested > $self->_current))
         {
             last unless $self->find_next_page;
