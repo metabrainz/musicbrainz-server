@@ -402,12 +402,12 @@ FROM (
         SELECT link0 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
+            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke', 'cover')
         UNION
         SELECT link1 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
+            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke', 'cover')
         UNION
         SELECT link0 AS id
             FROM public.l_track_url l
