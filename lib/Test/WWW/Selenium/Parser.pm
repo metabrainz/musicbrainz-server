@@ -34,7 +34,14 @@ our %dispatch = (
         $tb->ok(not shift->is_text_present(@_));
     },
     verifyTextPresent => 'is_text_present_ok',
+    verifyNotVisible => sub {
+        $tb->ok(not shift->is_visible(@_));
+    },
     verifyVisible => 'is_visible',
+    verifyNotValue => sub {
+        $tb->ok(not shift->value_is(@_));
+    },
+    verifyValue => 'value_is',
     waitForElementPresent => sub {
         my $sel = shift;
       WAIT: {
