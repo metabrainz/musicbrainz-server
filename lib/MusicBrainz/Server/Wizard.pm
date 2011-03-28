@@ -79,7 +79,7 @@ has $_ => (
 ) for qw( on_cancel on_submit );
 
 sub skip {
-    my ($self, $page) = @_;
+    my $self = shift;
 
     my $skip = $self->pages->[$self->_current]->{skip};
     return defined $skip ? &$skip : 0;
@@ -320,6 +320,7 @@ sub _route
 
     my $p = $self->c->request->parameters;
     my $requested = $self->_current;
+    my $allow_skip = 1;
     if (defined $p->{next})
     {
         return $self->navigate_to_page unless $self->valid ($page);
@@ -342,6 +343,9 @@ sub _route
     }
     else
     {
+        # Only skip pages when using "Previous" and "Next" buttons, do not
+        # allow skipping when a page tab has been clicked directly.
+        $allow_skip = 0;
         my $max = scalar @{ $self->pages } - 1;
         for (0..$max)
         {
@@ -356,7 +360,7 @@ sub _route
     if ($requested < $self->_current)
     {
         # navigate to previous pages, skipping pages which need to be skipped.
-        while ($requested < $self->_current || $self->skip ($page))
+        while ($requested < $self->_current || ($allow_skip && $self->skip))
         {
             last unless $self->find_previous_page;
             $page = $self->navigate_to_page;
@@ -367,7 +371,8 @@ sub _route
         # validate each page when moving forward.
         # - if a page is not valid, stop there.
         # - if a page should be skipped, skip it.
-        while ($self->skip ($page) || ($self->valid ($page) && $requested > $self->_current))
+        while (($allow_skip && $self->skip ||
+               ($self->valid ($page) && $requested > $self->_current))
         {
             last unless $self->find_next_page;
             $page = $self->navigate_to_page;

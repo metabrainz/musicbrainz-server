@@ -1,5 +1,8 @@
 [% BLOCK layout_head %]
-    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js',
+      'scripts/MB/Control/TagEditor.js'
+    ) %]"></script>
     <script type="text/javascript">
         $(function() {
             MB.Control.TagEditor($('#sidebar-tags'),
@@ -30,7 +33,7 @@
                                 [% IF c.user_exists %]<th class="pos"></th>[% END %]
                                 <th class="year c">[% l('Year') %]</th>
                                 <th>[% l('Title') %]</th>
-                                [% IF show_va %]
+                                [% IF show_artists %]
                                 <th>[% l('Artist') %]</th>
                                 [% END %]
                                 <th class="rating c">[% l('Rating') %]</th>
@@ -53,7 +56,7 @@
                       [% rdfa_made_rg_link(rg) %]
                       [% disambiguation(rg) %]
                     </td>
-                    [% IF show_va %]
+                    [% IF show_artists %]
                     <td>[% artist_credit(rg.artist_credit) %]</td>
                     [% END %]
                     <td class="c">[% rating_stars(rg) %]</td>
@@ -80,10 +83,10 @@
             <p>[% l('This artist only has release groups by various artists.') %]</p>
         [% ELSE %]
             [% IF !show_va %]
-                <p>[% l('Showing release groups by this artist. {show_all|Show various artist release groups}.',
+                <p>[% l('Showing release groups by this artist. {show_all|Show Various Artist release groups instead}.',
                         { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
             [% ELSE %]
-                <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
+                <p>[% l('Showing Various Artist release groups. {show_subset|Show release groups by this artist instead}.',
                         { show_subset = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
             [% END %]
         [% END %]
