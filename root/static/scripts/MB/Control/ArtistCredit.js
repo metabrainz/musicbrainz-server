@@ -93,6 +93,15 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         }
     };
 
+    self.guessCase = function () {
+        /* only GuessCase new artists, not those which have already been identified. */
+        if (self.$gid.val () === "" && self.$id.val () === "")
+        {
+            self.$name.val (MB.GuessCase.artist.guess (self.$name.val ()));
+            self.$credit.val (MB.GuessCase.artist.guess (self.$credit.val ()));
+        }
+    };
+
     self.updateLookupPerformed = function ()
     {
         if (self.$gid.val () && self.$id.val ())
@@ -482,6 +491,14 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             }
 
             self.box[idx].render (item);
+        });
+
+        self.renderPreview ();
+    };
+
+    self.guessCase = function () {
+        $.each (self.box, function (idx, item) {
+            item.guessCase();
         });
 
         self.renderPreview ();
