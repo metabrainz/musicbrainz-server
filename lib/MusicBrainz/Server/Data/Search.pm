@@ -229,7 +229,6 @@ my %mapping = (
     'title'          => 'name',
     'artist-credit'  => 'artist_credit',
     'status'         => '',
-    'country'        => '',
     'label-code'     => 'label_code',
 );
 
@@ -258,6 +257,11 @@ sub schema_fixup
             $data->{$mapping{$k}} = $data->{$k} if ($mapping{$k});
             delete $data->{$k};
         }
+    }
+
+    if (exists $data->{country})
+    {
+        $data->{country} = $c->model('Country')->find_by_code ($data->{country});
     }
 
     if ($type eq 'artist' && exists $data->{type})

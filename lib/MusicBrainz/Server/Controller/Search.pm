@@ -89,6 +89,7 @@ sub direct : Private
             $c->model('ReleaseGroupType')->load(@entities);
         }
         case 'release' {
+            $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
