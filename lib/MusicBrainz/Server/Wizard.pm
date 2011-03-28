@@ -79,7 +79,7 @@ has $_ => (
 ) for qw( on_cancel on_submit );
 
 sub skip {
-    my ($self, $page) = @_;
+    my $self = shift;
 
     my $skip = $self->pages->[$self->_current]->{skip};
     return defined $skip ? &$skip : 0;
@@ -360,7 +360,7 @@ sub _route
     if ($requested < $self->_current)
     {
         # navigate to previous pages, skipping pages which need to be skipped.
-        while ($requested < $self->_current || ($allow_skip && $self->skip ($page)))
+        while ($requested < $self->_current || ($allow_skip && $self->skip))
         {
             last unless $self->find_previous_page;
             $page = $self->navigate_to_page;
@@ -371,7 +371,7 @@ sub _route
         # validate each page when moving forward.
         # - if a page is not valid, stop there.
         # - if a page should be skipped, skip it.
-        while (($allow_skip && $self->skip ($page)) ||
+        while (($allow_skip && $self->skip ||
                ($self->valid ($page) && $requested > $self->_current))
         {
             last unless $self->find_next_page;
