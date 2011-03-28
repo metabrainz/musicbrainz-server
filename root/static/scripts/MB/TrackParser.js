@@ -497,7 +497,6 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.disc = disc;
     self.textarea = textarea;
     self.originals = $.isArray (serialized) ? serialized : [];
-    self.$guesscase = $('#guesscase');
     self.$tracknumbers = $('#tracknumbers');
     self.$vinylnumbers = $('#vinylnumbers');
     self.$tracktimes = $('#tracktimes');
