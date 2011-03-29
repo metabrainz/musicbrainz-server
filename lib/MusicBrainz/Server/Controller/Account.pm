@@ -131,8 +131,8 @@ sub _send_password_reset_email
     }
     catch {
         $c->flash->{message} = l(
-            'We were unable to send login information to your accounts email address. Please try again,
-             however if you continue to experience difficulty please contact us at support@musicbrainz.org'
+            'We were unable to send login information to your email address.  Please try again,
+             however if you continue to experience difficulty contact us at support@musicbrainz.org.'
         );
     };
 }
@@ -457,7 +457,10 @@ sub _send_confirmation_email
         $c->flash->{message} = l(
             'We were unable to send a confirmation email to you. Please confirm that you have entered a valid
              address by editing your account settings. If the problem still persists, please contact us at
-             support@musicbrainz.org'
+             support@musicbrainz.org',
+            {
+                settings => c.uri_for_action('/account/edit')
+            }
         );
     };
 }
