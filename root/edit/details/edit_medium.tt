@@ -2,17 +2,17 @@
   [% UNLESS edit.preview %]
   <tr>
     <th>[% l('Release:') %]</th>
-    <td>
+    <td colspan="2">
       [% descriptive_link(edit.display_data.release) %]
     </td>
   </tr>
   [% END %]
 
-  [% IF edit.display_data.format %]
+  [% IF edit.display_data.name %]
   <tr>
-    <th>[% l('Format:') %]</th>
-    <td class="old">[% edit.display_data.format.old.name | html %]</td>
-    <td class="new">[% edit.display_data.format.new.name | html %]</td>
+    <th>[% l('Name:') %]</th>
+    <td class="old">[% edit.display_data.name.old | html %]</td>
+    <td class="new">[% edit.display_data.name.new | html %]</td>
   </tr>
   [% END %]
 
@@ -24,11 +24,11 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.name %]
+  [% IF edit.display_data.format %]
   <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old | html %]</td>
-    <td class="new">[% edit.display_data.name.new | html %]</td>
+    <th>[% l('Format:') %]</th>
+    <td class="old">[% edit.display_data.format.old.name | html %]</td>
+    <td class="new">[% edit.display_data.format.new.name | html %]</td>
   </tr>
   [% END %]
 
