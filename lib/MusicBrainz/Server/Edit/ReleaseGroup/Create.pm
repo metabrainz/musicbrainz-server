@@ -16,6 +16,8 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
+use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
+
 sub edit_name { l('Add release group') }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }
 sub _create_model { 'ReleaseGroup' }
@@ -35,6 +37,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
+        ReleaseGroup     => [ $self->entity_id ],
         ReleaseGroupType => [ $self->data->{type_id} ]
     };
 }
@@ -50,6 +53,8 @@ sub build_display_data
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',
+        release_group => $loaded->{ReleaseGroup}{ $self->entity_id }
+            || ReleaseGroup->new( name => $self->data->{name} )
     };
 }
 

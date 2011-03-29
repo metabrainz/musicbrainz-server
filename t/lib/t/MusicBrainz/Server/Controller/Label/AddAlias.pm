@@ -25,7 +25,10 @@ my $response = $mech->submit_form(
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAlias');
 is_deeply($edit->data, {
-    entity_id => 2,
+    entity => {
+        id => 2,
+        name => 'Warp Records'
+    },
     name => 'An alias',
     locale => undef,
 });

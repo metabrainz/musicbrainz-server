@@ -134,26 +134,43 @@ sub merge
 sub find_or_insert
 {
     my ($self, $tracks) = @_;
-    my (@join, @where);
-    for my $i (1..@$tracks) {
-        my $n = $i - 1;
-        push @join,
-            "JOIN track t$i ON tracklist.id = t$i.tracklist " .
-            "JOIN track_name tn$i ON t$i.name = tn$i.id";
-        push @where, "(tn$i.name = ? AND t$i.artist_credit = ? AND t$i.recording = ?)";
-        $tracks->[$n]->{position} ||= $n;
-    }
+
     my $query =
-        'SELECT tracklist.id FROM tracklist ' .
-        join(' ', @join) . '
-        WHERE tracklist.track_count = ? AND ' . join(' AND ', @where);
+        'SELECT tracklist
+           FROM (
+                    SELECT tracklist FROM track
+                      JOIN track_name name ON name.id = track.name
+                     WHERE ' . join(' OR ', ('(
+                               name.name = ?
+                           AND artist_credit = ?
+                           AND recording = ?
+                           AND position = ?
+                           )') x @$tracks) . '
+                ) s
+       GROUP BY tracklist
+         HAVING COUNT(tracklist) = ?';
 
-    my @tracks = sort { $a->{position} <=> $b->{position} } @$tracks;
-    my $id = $self->sql->select_single_value($query, scalar(@$tracks),
-        map { $_->{name}, $_->{artist_credit}, $_->{recording} } @tracks);
+    my @possible_tracklists = @{
+        $self->sql->select_single_column_array(
+            $query,
+            (map {
+                $_->{name},
+                $_->{artist_credit},
+                $_->{recording_id},
+                $_->{position}
+            } @$tracks),
+            scalar(@$tracks)
+        )
+    };
 
-    my $class = $self->_entity_class;
-    return $id ? $class->new( id => $id ) : $self->insert($tracks);
+    if (@possible_tracklists == 1) {
+        return $self->_entity_class->new(
+            id => $possible_tracklists[0]
+        );
+    }
+    else {
+        $self->insert($tracks);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

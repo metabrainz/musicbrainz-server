@@ -40,7 +40,11 @@ my $RAWDATA   = Databases->get("RAWDATA");
 # Register a new database connection as the system user, but to the MB
 # database
 my $SYSTEM = Databases->get("SYSTEM");
-my $SYSMB  = $SYSTEM->meta->clone_object($SYSTEM, database => $READWRITE->database);
+my $SYSMB  = $SYSTEM->meta->clone_object(
+    $SYSTEM,
+    database => $READWRITE->database,
+    schema => $READWRITE->schema
+);
 Databases->register_database("SYSMB", $SYSMB);
 
 # Check to make sure that the main and raw databases are not the same
@@ -70,18 +74,20 @@ my $sqldir = "$FindBin::Bin/sql";
 
 sub RunSQLScript
 {
-    my ($db, $file, $startmessage) = @_;
-    $startmessage ||= "Running sql/$file";
+    my ($db, $file, $startmessage, $path) = @_;
+    $startmessage ||= "Running $file";
     print localtime() . " : $startmessage ($file)\n";
+
+    $path ||= $sqldir;   
 
     my $opts = $db->shell_args;
     my $echo = ($fEcho ? "-e" : "");
     my $stdout = ($fQuiet ? ">/dev/null" : "");
 
-    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz";
+    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema;
     $ENV{"PGPASSWORD"} = $db->password;
-    print "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |\n";
-    open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |")
+    print "$psql $echo -f $path/$file $opts 2>&1 $stdout |\n";
+    open(PIPE, "$psql $echo -f $path/$file $opts 2>&1 $stdout |")
         or die "exec '$psql': $!";
     while (<PIPE>)
     {
@@ -89,7 +95,7 @@ sub RunSQLScript
     }
     close PIPE;
 
-    die "Error during sql/$file" if ($? >> 8);
+    die "Error during $file" if ($? >> 8);
 }
 
 sub InstallExtension
@@ -110,12 +116,12 @@ sub InstallExtension
     my $sql = <SCRIPT>;
     close(SCRIPT);
     $sql =~ s/search_path = public/search_path = $schema/;
-    open(SCRIPT, ">$sqldir/ext.$$.sql") or die;
+    open(SCRIPT, ">/tmp/ext.$$.sql") or die;
     print SCRIPT $sql;
     close(SCRIPT);
 
-    RunSQLScript($db, "ext.$$.sql", "Installing $ext extension ...");
-    unlink("$sqldir/ext.$$.sql");
+    RunSQLScript($db, "ext.$$.sql", "Installing $ext extension ...", "/tmp");
+    unlink("/tmp/ext.$$.sql");
 }
 
 sub CreateReplicationFunction
@@ -215,16 +221,16 @@ sub CreateRelations
 
     my $opts = $READWRITE->shell_args;
     $ENV{"PGPASSWORD"} = $READWRITE->password;
-    system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
+    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $READWRITE->schema));
     die "\nFailed to create schema\n" if ($? >> 8);
 
     $opts = $RAWDATA->shell_args;
     $ENV{"PGPASSWORD"} = $RAWDATA->password;
-    system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
+    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $RAWDATA->schema));
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    InstallExtension($SYSMB, "cube.sql", "musicbrainz");
-    InstallExtension($SYSMB, "musicbrainz_collate.sql", "musicbrainz");
+    InstallExtension($SYSMB, "cube.sql", $READWRITE->schema);
+    InstallExtension($SYSMB, "musicbrainz_collate.sql", $READWRITE->schema);
 
     RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($RAWDATA, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
@@ -245,7 +251,7 @@ sub CreateRelations
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
-    RunSQLScript($RAWDATA, "CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($RAWDATA, "vertical/rawdata/CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($RAWDATA, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");

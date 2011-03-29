@@ -20,6 +20,8 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
 
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 sub edit_type { $EDIT_RECORDING_EDIT }
 sub edit_name { l('Edit recording') }
 sub _edit_model { 'Recording' }
@@ -37,7 +39,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         old => change_fields(),
         new => change_fields(),
     ]
@@ -57,7 +62,7 @@ sub foreign_keys
         }
     }
 
-    $relations->{Recording} = { $self->data->{entity_id} => [ 'ArtistCredit' ] };
+    $relations->{Recording} = { $self->data->{entity}{id} => [ 'ArtistCredit' ] };
 
     return $relations;
 }
@@ -81,7 +86,8 @@ sub build_display_data
         }
     }
 
-    $data->{recording} = $loaded->{Recording}{ $self->data->{entity_id} };
+    $data->{recording} = $loaded->{Recording}{ $self->data->{entity}{id} }
+        || Recording->new( name => $self->data->{entity}{name} );
 
     return $data;
 }

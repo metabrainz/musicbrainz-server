@@ -147,6 +147,7 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
+    my $artist = $c->stash->{artist};
     my $release_groups;
     if ($c->stash->{artist}->id == $VARTIST_ID)
     {
@@ -168,7 +169,6 @@ sub show : PathPart('') Chained('load')
         my $show_va = $c->req->query_params->{va};
         if ($show_va) {
             $method = 'find_by_track_artist';
-            $c->stash( show_va => 1 );
         }
 
         $release_groups = $self->_load_paged($c, sub {
@@ -181,8 +181,7 @@ sub show : PathPart('') Chained('load')
                     $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
                 });
             $c->stash(
-                va_only => 1,
-                show_va => 1
+                va_only => 1
             );
         }
 
@@ -195,7 +194,12 @@ sub show : PathPart('') Chained('load')
 
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
-    $c->stash( release_groups => $release_groups );
+    $c->stash(
+        release_groups => $release_groups,
+        show_artists => scalar grep {
+            $_->artist_credit->name ne $artist->name
+        } @$release_groups,
+    );
 }
 
 =head2 works
@@ -212,7 +216,11 @@ sub works : Chained('load')
     my $grouped_works = $self->_load_paged($c, sub {
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
-    $c->model('Artist')->load_for_works(map { @{ $_->{works} } } @$grouped_works);
+    my @works = map { @{ $_->{works} } } @$grouped_works;
+    $c->model('Artist')->load_for_works(@works);
+    if ($c->user_exists) {
+        $c->model('Work')->rating->load_user_ratings($c->user->id, @works);
+    }
     $c->stash( grouped_works => $grouped_works );
 }
 

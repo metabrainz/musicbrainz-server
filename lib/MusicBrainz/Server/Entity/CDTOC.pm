@@ -140,6 +140,8 @@ sub _compute_freedb_id
     sprintf "%08x", ((($n % 0xFF) << 24) | ($t << 8) | $tracks);
 }
 
+with 'MusicBrainz::Server::Entity::Role::TOC';
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
