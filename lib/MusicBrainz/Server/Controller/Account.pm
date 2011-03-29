@@ -459,7 +459,7 @@ sub _send_confirmation_email
              address by editing your account settings. If the problem still persists, please contact us at
              support@musicbrainz.org',
             {
-                settings => c.uri_for_action('/account/edit')
+                settings => $c->uri_for_action('/account/edit')
             }
         );
     };
