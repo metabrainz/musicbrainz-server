@@ -71,11 +71,19 @@ sub _annotation_model { die 'Not implemented' }
 sub initialize
 {
     my ($self, %opts) = @_;
-    my $entity = delete $opts{entity} or die 'Missing entity argument';
-    $opts{entity} = {
-        id => $entity->id,
-        name => $entity->name
-    };
+
+    my $entity = delete $opts{entity};
+
+    if ($entity) {
+        $opts{entity} = {
+            id => $entity->id,
+            name => $entity->name
+        };
+    }
+    else
+    {
+        die 'Missing entity argument' unless $self->preview;
+    }
 
     $self->data({
         %opts,
