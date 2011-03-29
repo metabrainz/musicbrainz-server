@@ -6,20 +6,14 @@ extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
+use Text::Trim;
+
 has '+name' => ( default => 'ar' );
 
 has_field 'link_type_id' => (
     type => 'Select',
     required => 1
 );
-
-sub trim
-{
-    my $s = $_[0];
-    $s =~ s/^\s+//;
-    $s =~ s/\s+$//;
-    return $s;
-}
 
 sub field_list
 {
