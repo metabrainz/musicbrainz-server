@@ -56,7 +56,8 @@ __PACKAGE__->config(
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
-            'language' => \&MusicBrainz::Server::Filters::language
+            'language' => \&MusicBrainz::Server::Filters::language,
+            'locale' => \&MusicBrainz::Server::Filters::locale
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
