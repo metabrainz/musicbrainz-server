@@ -239,6 +239,6 @@ div.documentation div.bubble {
     border-radius: 12px;
 }
 
-div.documentation div.artist-credit div.row { clear: none; }
+div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
 div.documentation div.container { width: 100%; }
 
