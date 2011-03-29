@@ -74,9 +74,11 @@ my $sqldir = "$FindBin::Bin/sql";
 
 sub RunSQLScript
 {
-    my ($db, $file, $startmessage) = @_;
-    $startmessage ||= "Running sql/$file";
+    my ($db, $file, $startmessage, $path) = @_;
+    $startmessage ||= "Running $file";
     print localtime() . " : $startmessage ($file)\n";
+
+    $path ||= $sqldir;   
 
     my $opts = $db->shell_args;
     my $echo = ($fEcho ? "-e" : "");
@@ -84,8 +86,8 @@ sub RunSQLScript
 
     $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema;
     $ENV{"PGPASSWORD"} = $db->password;
-    print "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |\n";
-    open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |")
+    print "$psql $echo -f $path/$file $opts 2>&1 $stdout |\n";
+    open(PIPE, "$psql $echo -f $path/$file $opts 2>&1 $stdout |")
         or die "exec '$psql': $!";
     while (<PIPE>)
     {
@@ -93,7 +95,7 @@ sub RunSQLScript
     }
     close PIPE;
 
-    die "Error during sql/$file" if ($? >> 8);
+    die "Error during $file" if ($? >> 8);
 }
 
 sub InstallExtension
@@ -114,12 +116,12 @@ sub InstallExtension
     my $sql = <SCRIPT>;
     close(SCRIPT);
     $sql =~ s/search_path = public/search_path = $schema/;
-    open(SCRIPT, ">$sqldir/ext.$$.sql") or die;
+    open(SCRIPT, ">/tmp/ext.$$.sql") or die;
     print SCRIPT $sql;
     close(SCRIPT);
 
-    RunSQLScript($db, "ext.$$.sql", "Installing $ext extension ...");
-    unlink("$sqldir/ext.$$.sql");
+    RunSQLScript($db, "ext.$$.sql", "Installing $ext extension ...", "/tmp");
+    unlink("/tmp/ext.$$.sql");
 }
 
 sub CreateReplicationFunction
@@ -249,7 +251,7 @@ sub CreateRelations
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
-    RunSQLScript($RAWDATA, "CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($RAWDATA, "vertical/rawdata/CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($RAWDATA, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
