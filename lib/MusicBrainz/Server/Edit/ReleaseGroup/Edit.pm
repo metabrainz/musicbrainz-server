@@ -30,6 +30,18 @@ sub edit_name { l("Edit release group") }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 
+around related_entities => sub {
+    my ($orig, $self, @args) = @_;
+    my %rel = %{ $self->$orig(@args) };
+    if ($self->data->{new}{artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+        push @{ $rel{artist} }, keys(%new), keys(%old);
+    }
+
+    return \%rel;
+};
+
 sub change_fields
 {
     return Dict[
