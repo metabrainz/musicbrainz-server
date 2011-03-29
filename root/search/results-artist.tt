@@ -31,7 +31,7 @@
                 </table>
             [% END %]
         [%- ELSE -%]
-            <p>[% l('No results found. You may wish to try refining your search query') %]</p>
+            <p>[% l('No results found. Try refining your search query.') %]</p>
         [%- END -%]
         <p>
           [% l('Alternatively, you may {uri|add a new artist}.', {
