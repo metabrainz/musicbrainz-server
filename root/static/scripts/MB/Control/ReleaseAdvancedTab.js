@@ -599,7 +599,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         var newdisc_bas = lastdisc_bas.clone ().insertAfter (lastdisc_bas);
         var newdisc_adv = lastdisc_adv.clone ().insertAfter (lastdisc_adv);
 
-        newdisc_adv.find ('tbody').empty ();
+        newdisc_adv.find ('table.medium.tbl tbody').empty ();
 
         var discnum = newdisc_bas.find ("h3").find ('span.discnum');
         discnum.text (discs + 1);
