@@ -22,6 +22,7 @@ our %dispatch = (
         $sel->wait_for_page_to_load_ok(30000)
     },
     fireEvent => 'fire_event_ok',
+    focus => 'focus_ok',
     open => 'open_ok',
     select => 'select_ok',
     type => 'type_ok',
