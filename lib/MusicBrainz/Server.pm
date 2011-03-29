@@ -162,6 +162,14 @@ if (&DBDefs::USE_ETAGS) {
     push @args, "Cache::HTTP";
 }
 
+
+if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
+{
+    use MusicBrainz::Server::DatabaseConnectionFactory;
+    MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
+    warn "WARNING: Using test database schema\n";
+}
+
 # Start the application
 __PACKAGE__->setup(@args);
 

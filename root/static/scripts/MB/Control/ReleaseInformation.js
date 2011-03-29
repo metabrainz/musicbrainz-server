@@ -21,24 +21,24 @@
 /**
  * MB.Control.ReleaseLabel keeps track of the label/catno inputs.
  */
-MB.Control.ReleaseLabel = function(row, parent, labelno) {
+MB.Control.ReleaseLabel = function($row, parent, labelno) {
     var self = MB.Object();
 
-    self.row = row;
+    self.$row = $row;
     self.parent = parent;
     self.labelno = labelno;
 
-    if (!self.row)
+    if (!self.$row)
     {
-        self.catno_message = $('div.catno-container:first').clone ();
-        self.catno_message.insertAfter ($('div.catno-container:last'));
-        self.catno_message.hide ();
+        self.$catno_message = $('div.catno-container:first').clone ();
+        self.$catno_message.insertAfter ($('div.catno-container:last'));
+        self.$catno_message.hide ();
 
-        self.row = $('div.release-label:first').clone ();
-        self.row.find ('input.label-id').val ('');
-        self.row.find ('input.label-name').val ('');
-        self.row.find ('input.catno').val ('');
-        self.row.find ('*').each (function (idx, element) {
+        self.$row = $('div.release-label:first').clone ();
+        self.$row.find ('input.label-id').val ('');
+        self.$row.find ('input.label-name').val ('');
+        self.$row.find ('input.catno').val ('');
+        self.$row.find ('*').each (function (idx, element) {
             var item = $(element);
             if (item.attr ('id'))
             {
@@ -52,64 +52,77 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
             }
         });
 
-        self.row.insertAfter ($('div.release-label:last'));
-        self.row.find ('span.remove-label input').val ('0');
-        self.row.show ();
+        self.$row.insertAfter ($('div.release-label:last'));
+        self.$row.find ('span.remove-label input').val ('0');
+        self.$row.show ();
     }
 
     /**
      * markDeleted marks the track for deletion.
      */
     self.markDeleted = function () {
-        self.deleted.val('1');
-        self.row.hide ();
+        self.$deleted.val('1');
+        self.$row.hide ();
     };
 
     /**
      * isDeleted returns true if this track is marked for deletion.
      */
     self.isDeleted = function () {
-        return self.deleted.val () === '1';
+        return self.$deleted.val () === '1';
     };
 
     /**
      * selected is a callback called by autocomplete when a selection is made.
      */
     self.selected = function (event, data) {
-        self.id.val(data.id);
-        self.name.removeClass('error');
-        self.name.val(data.name);
+        self.$id.val(data.id);
+        self.$name.removeClass('error');
+        self.$name.val(data.name);
+        self.updateLookupPerformed ();
 
         event.preventDefault();
         return false;
     };
 
-    self.catnoUpdate = function () {
-
-        if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
+    self.updateLookupPerformed = function ()
+    {
+        if (self.$id.val ())
         {
-            self.catno.data ('bubble').show ();
+            self.$name.addClass ('lookup-performed');
         }
         else
         {
-            self.catno.data ('bubble').hide ();
+            self.$name.removeClass ('lookup-performed');
         }
     };
 
-    self.id = self.row.find('input.label-id');
-    self.name = self.row.find('input.label-name');
-    self.catno = self.row.find('input.catno');
-    self.catno_message = $('div.catno').eq(self.labelno);
-    self.deleted = self.row.find ('span.remove-label input');
+    self.catnoUpdate = function () {
 
-    self.catno.bind ('change keyup focus', self.catnoUpdate);
+        if (self.$catno.val ().match (/^B00[0-9A-Z]{7}$/))
+        {
+            self.$catno.data ('bubble').show ();
+        }
+        else
+        {
+            self.$catno.data ('bubble').hide ();
+        }
+    };
+
+    self.$id = self.$row.find('input.label-id');
+    self.$name = self.$row.find('input.label-name');
+    self.$catno = self.$row.find('input.catno');
+    self.$catno_message = $('div.catno').eq(self.labelno);
+    self.$deleted = self.$row.find ('span.remove-label input');
+
+    self.$catno.bind ('change keyup focus', self.catnoUpdate);
     MB.Control.Autocomplete ({
-        'input': self.name,
+        'input': self.$name,
         'entity': 'label',
         'select': self.selected
     });
 
-    self.row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
+    self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
 
     if (self.isDeleted ())
     {
@@ -117,6 +130,8 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
         // after page load.
         self.markDeleted ();
     }
+
+    self.updateLookupPerformed ();
 
     return self;
 };
@@ -344,13 +359,13 @@ MB.Control.ReleaseInformation = function() {
         });
     };
 
-    self.addLabel = function (row) {
+    self.addLabel = function ($row) {
         var labelno = self.labels.length;
-        var l = MB.Control.ReleaseLabel(row, self, labelno);
+        var l = MB.Control.ReleaseLabel($row, self, labelno);
 
         self.labels.push (l);
 
-        MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
+        MB.Control.BubbleDocBase (self.bubbles, l.$catno, l.$catno_message);
 
         return l;
     };

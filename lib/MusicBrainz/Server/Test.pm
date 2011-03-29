@@ -76,6 +76,9 @@ sub _load_query
         $query = do { local $/; <FILE> };
     }
 
+    # comment PostgreSQL interactive terminal commands.
+    $query =~ s/^(\\.*)$/-- $1/mg;
+
     return $query;
 }
 

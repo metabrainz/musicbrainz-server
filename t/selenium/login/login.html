@@ -3,38 +3,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:3000" />
-<title>mbs-1490</title>
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>login</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">mbs-1490</td></tr>
+<tr><td rowspan="1" colspan="3">login</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7/edit</td>
+	<td>/logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>css=li.editing</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log In</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id-remember_me</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>annotation</td>
-	<td>this is an annotation to test MBS-1524.</td>
+	<td>id-username</td>
+	<td>kuno</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-password</td>
+	<td>byld</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>step_editnote</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>css=table.add-release-annotation</td>
+	<td>css=span.login button</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=table.add-release-annotation td p</td>
-	<td>this is an annotation to test MBS-1524.</td>
+	<td>css=li.account a</td>
+	<td>kuno</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=li.editing</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>

@@ -68,6 +68,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      */
     self.guessCase = function () {
         self.$title.val (MB.GuessCase.track.guess (self.$title.val ()));
+        self.artist_credit.guessCase ();
     };
 
     /**
@@ -299,6 +300,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             $.each (self.tracks, function (idx, item) {
                 item.artist_credit.enableTarget ();
+                item.artist_credit.$artist_input.removeClass ('column-disabled');
             });
         }
         else
@@ -310,6 +312,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
             $.each (self.tracks, function (idx, item) {
                 item.artist_credit.disableTarget ();
+                item.artist_credit.$artist_input.addClass ('column-disabled');
             });
         }
     };
