@@ -27,14 +27,12 @@
               [% ELSE %]
             <tbody>
               [% END %]
-              [%- FOR group=releases.pairs -%]
-              [% IF group.key %]
+              [%- FOR group=releases -%]
               <tr class="subh">
                 [% IF c.user_exists %]<th></th>[% END %]
-                <th colspan="[% c.session.tport ? 10 : 9 %]">[% group.key %]</th>
+                <th colspan="[% c.session.tport ? 10 : 9 %]">[% group.0.status_name || l('(unknown)') %]</th>
               </tr>
-              [% END %]
-              [% FOR release=group.value %]
+              [% FOR release=group %]
               <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
                 [% IF c.user_exists %]
                 <td>
@@ -68,8 +66,8 @@
                 [%- IF c.session.tport -%]
                 <td>[% tagger_icon(release) %]</td>
                 [%- END -%]
+                [% END %]
               </tr>
-              [% END %]
               [% END %]
             </tbody>
           </table>

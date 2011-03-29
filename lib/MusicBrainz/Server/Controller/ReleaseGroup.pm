@@ -24,6 +24,8 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
+use List::UtilsBy 'nsort_by';
+
 __PACKAGE__->config(
     namespace   => 'release_group',
 );
@@ -67,7 +69,9 @@ sub show : Chained('load') PathPart('')
 
     $c->stash(
         template => 'release_group/index.tt',
-        releases => \%grouped
+        releases => [
+            nsort_by { $_->[0]->status_id } values %grouped
+        ]
     );
 }
 
