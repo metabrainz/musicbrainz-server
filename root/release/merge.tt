@@ -13,7 +13,7 @@
 [% WRAPPER 'layout.tt' title=l('Merge Releases') full_width=1 %]
     <h2>[% l('Merge Releases') %]</h2>
     <p>[% l('You are about to merge the following releases into a single release. Please
-             select the release which you would like other release to be merged
+             select the release which you would like the other releases to be merged
              into:') %]</p>
 
     <form action="[% c.req.uri %]" method="post">
