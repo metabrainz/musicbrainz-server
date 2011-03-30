@@ -269,7 +269,8 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
     };
 
     self.confirm_manual = function (event) {
-        basic_tab.addDisc ();
+        /* add the disc and start with atleast one track. */
+        basic_tab.addDisc ().disc.addTrack ();
         self.close (event);
     };
 
