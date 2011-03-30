@@ -163,12 +163,10 @@ sub build_display_data
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
-    if ($self->data->{entity_id})
+    if ($self->data->{release})
     {
-        my $medium = $self->c->model('Medium')->get_by_id($self->data->{entity_id});
-        $self->c->model('Release')->load($medium);
-        $self->c->model('ArtistCredit')->load($medium->release);
-        $data->{release} = $medium->release;
+        $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
+            || Release->new( name => $self->data->{release}{name} );
     }
 
     return $data;
