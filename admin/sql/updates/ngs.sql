@@ -606,7 +606,7 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
 \echo Stats
 
 INSERT INTO statistic (value, date_collected, name)
-    SELECT value, lastupdated,
+    SELECT DISTINCT ON (name, lastupdated) value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'
         WHEN name = 'count.album.has_discid' THEN 'count.medium.has_discid'
@@ -669,7 +669,7 @@ INSERT INTO statistic (value, date_collected, name)
       ) s;
 
 INSERT INTO statistic (value, date_collected, name)
-    SELECT value, snapshotdate, 'count.recording'
+    SELECT DISTINCT ON (name, snapshotdate) value, snapshotdate, 'count.recording'
     FROM (
            SELECT value, lastupdated::date AS snapshotdate, name FROM public.currentstat
       UNION
