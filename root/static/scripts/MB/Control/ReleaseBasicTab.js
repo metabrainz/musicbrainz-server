@@ -200,7 +200,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     if (!self.$tracklist_id.length)
     {
-        self.$tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
+        self.$tracklist_id = self.disc.$fieldset.find ('input.tracklist-id');
     }
 
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
