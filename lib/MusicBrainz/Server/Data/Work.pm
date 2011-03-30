@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
     load_subobjects
+    merge_table_attributes
     placeholders
     query_to_list
     query_to_list_limited
@@ -165,6 +166,15 @@ sub merge
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
+
+    merge_table_attributes(
+        $self->sql => (
+            table => 'work',
+            columns => [ qw( type iswc comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
 
     $self->_delete_and_redirect_gids('work', $new_id, @old_ids);
     return 1;

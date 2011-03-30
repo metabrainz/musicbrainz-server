@@ -6,6 +6,7 @@ use namespace::autoclean;
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Translation qw (l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
+use Try::Tiny;
 
 sub index : Path('/account') RequireAuth
 {
@@ -122,10 +123,18 @@ sub _send_password_reset_email
         key => $self->_reset_password_checksum($editor->id, $time),
     });
 
-    $c->model('Email')->send_password_reset_request(
-        user                => $editor,
-        reset_password_link => $reset_password_link,
-    );
+    try {
+        $c->model('Email')->send_password_reset_request(
+            user                => $editor,
+            reset_password_link => $reset_password_link,
+        );
+    }
+    catch {
+        $c->flash->{message} = l(
+            'We were unable to send login information to your email address.  Please try again,
+             however if you continue to experience difficulty contact us at support@musicbrainz.org.'
+        );
+    };
 }
 
 sub lost_password : Path('/lost-password') ForbiddenOnSlaves
@@ -248,7 +257,7 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
         }
         else {
             foreach my $editor (@editors) {
-                $c->model('Email')->send_lost_username( user => $editor );
+                try { $c->model('Email')->send_lost_username( user => $editor ) }
             }
             $c->response->redirect($c->uri_for_action('/account/lost_username',
                                                       { sent => 1}));
@@ -438,10 +447,22 @@ sub _send_confirmation_email
         chk    => $self->_checksum($email, $editor->id, $time),
     });
 
-    $c->model('Email')->send_email_verification(
-        email             => $email,
-        verification_link => $verification_link,
-    );
+    try {
+        $c->model('Email')->send_email_verification(
+            email             => $email,
+            verification_link => $verification_link,
+        );
+    }
+    catch {
+        $c->flash->{message} = l(
+            'We were unable to send a confirmation email to you. Please confirm that you have entered a valid
+             address by editing your account settings. If the problem still persists, please contact us at
+             support@musicbrainz.org',
+            {
+                settings => $c->uri_for_action('/account/edit')
+            }
+        );
+    };
 }
 
 sub _checksum

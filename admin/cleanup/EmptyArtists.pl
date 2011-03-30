@@ -97,69 +97,10 @@ print localtime() . " : Finding unused artists (using artist credit/AR/edit crit
 
 my $query = <<EOF;
 
-    SELECT a.id, a.name, a.sort_name
-    FROM artist a
-
-    -- Look for artist credits
-    LEFT JOIN (
-        SELECT artist, COUNT(*) AS credits FROM artist_credit_name GROUP BY artist
-    ) t1
-    ON a.id = t1.artist
-
-    -- Look for AR artist-artist relationships
-    LEFT JOIN (
-        SELECT entity0 as artist, COUNT(*) AS artist_artist FROM l_artist_artist GROUP BY entity0
-        UNION
-        SELECT entity1 as artist, COUNT(*) AS artist_artist FROM l_artist_artist GROUP BY entity1
-    ) t3
-    ON a.id = t3.artist
-
-    -- Look for AR artist-release relationships
-    LEFT JOIN (
-        SELECT entity0 as artist, COUNT(*) AS artist_release FROM l_artist_release GROUP BY entity0
-    ) t4
-    ON a.id = t4.artist
-
-    -- Look for AR artist-release_group relationships
-    LEFT JOIN (
-        SELECT entity0 as artist, COUNT(*) AS artist_release_group FROM l_artist_release_group GROUP BY entity0
-    ) t5
-    ON a.id = t5.artist
-
-    -- Look for AR artist-label relationships
-    LEFT JOIN (
-        SELECT entity0 as artist, COUNT(*) AS artist_label FROM l_artist_label GROUP BY entity0
-    ) t6
-    ON a.id = t6.artist
-
-    -- Look for AR artist-recording relationships
-    LEFT JOIN (
-        SELECT entity0 as artist, COUNT(*) AS artist_recording FROM l_artist_recording GROUP BY entity0
-    ) t7
-    ON a.id = t7.artist
-
-    -- Look for AR artist-url relationships
-    LEFT JOIN (
-        SELECT entity0 as artist, COUNT(*) AS artist_url FROM l_artist_url GROUP BY entity0
-    ) t8
-    ON a.id = t8.artist
-
-    -- Look for AR artist-work relationships
-    LEFT JOIN (
-        SELECT entity0 as artist, COUNT(*) AS artist_work FROM l_artist_work GROUP BY entity0
-    ) t9
-    ON a.id = t9.artist
-
-    WHERE    t1.credits IS NULL
-    AND         t3.artist_artist        IS NULL
-    AND         t4.artist_release       IS NULL
-    AND         t5.artist_release_group IS NULL
-    AND         t6.artist_label         IS NULL
-    AND         t7.artist_recording     IS NULL
-    AND         t8.artist_url           IS NULL
-    AND         t9.artist_work          IS NULL
-    AND         a.edits_pending = 0
-    ORDER BY sort_name
+    SELECT artist.id, name.name, sort_name.name
+    FROM empty_artists() artist
+    JOIN artist_name name ON artist.name = name.id
+    JOIN artist_name sort_name ON artist.sort_name = sort_name.id
 
 EOF
 

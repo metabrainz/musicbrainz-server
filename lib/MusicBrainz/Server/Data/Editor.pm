@@ -3,6 +3,7 @@ use Moose;
 use LWP;
 use URI::Escape;
 
+use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -229,6 +230,7 @@ sub insert
             rejected_edits => 0,
             failed_edits => 0,
             accepted_auto_edits => 0,
+            registration_date => DateTime->now
         );
     }, $self->sql);
 }

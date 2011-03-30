@@ -149,4 +149,9 @@ sub language
     return code2language(shift);
 }
 
+sub locale
+{
+    return DateTime::Locale->load(shift)->name
+}
+
 1;

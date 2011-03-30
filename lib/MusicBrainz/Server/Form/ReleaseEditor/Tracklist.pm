@@ -99,17 +99,23 @@ sub _track_errors {
 
         my $details = $medium->tracklist->tracks->[$pos - 1];
 
-        my $distance = abs ($details->length - 
-                            unformat_track_length ($track->{length}));
-
-        # always reset the track length.
-        $track->{length} = format_track_length ($details->length);
-
-        # only warn the user about this if the edited value differs more than 2 seconds.
-        if ($distance > 2000)
+        # if $details is undef the track doesn't exist, presumably the user
+        # is trying to add tracks despite a discid present, this will be
+        # caught later on... here in _track_errors we just ignore it.
+        if ($details)
         {
-            return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
-                     { pos => $pos });
+            my $distance = abs ($details->length -
+                                unformat_track_length ($track->{length}));
+
+            # always reset the track length.
+            $track->{length} = format_track_length ($details->length);
+
+            # only warn the user about this if the edited value differs more than 2 seconds.
+            if ($distance > 2000)
+            {
+                return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
+                         { pos => $pos });
+            }
         }
     }
 
@@ -193,6 +199,20 @@ sub validate {
 
         my @errors = $self->_validate_edits ($medium) if $edits;
         map { $medium->add_error ($_) } @errors;
+
+        if (my $medium_id = $medium->field('id')->value) {
+            $self->ctx->model('MediumCDTOC')->find_by_medium($medium_id)
+                or next;
+
+            if (my $format_id = $medium->field('format_id')->value) {
+                my $format = $self->ctx->model('MediumFormat')->get_by_id($format_id);
+
+                $medium->field('format_id')->add_error(
+                    l('This medium already has disc IDs so you may only change the format
+                       to a format that can have disc IDs')
+                ) unless $format->has_discids;
+            }
+        }
     }
 };
 

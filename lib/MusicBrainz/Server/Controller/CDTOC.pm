@@ -32,7 +32,7 @@ sub _load
 sub _load_releases
 {
     my ($self, $c, $cdtoc) = @_;
-    my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
+    my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
     my @releases = $c->model('Release')->load(@mediums);
     $c->model('MediumFormat')->load(@mediums);
@@ -79,9 +79,8 @@ sub remove : Local RequireAuth
         form        => 'Confirm',
         type        => $EDIT_MEDIUM_REMOVE_DISCID,
         edit_args   => {
-            cdtoc_id     => $cdtoc_id,
-            medium_id    => $medium_id,
-            medium_cdtoc => $cdtoc->id
+            medium => $medium,
+            cdtoc  => $cdtoc
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/discids', [ $release->gid ]));
@@ -143,7 +142,7 @@ sub attach : Local RequireAuth
             edit_args   => {
                 cdtoc      => $toc,
                 medium_id  => $medium_id,
-                release_id => $medium->release_id
+                release    => $medium->release
             },
             on_creation => sub {
                 $c->response->redirect(

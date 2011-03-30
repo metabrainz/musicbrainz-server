@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
     load_subobjects
+    merge_table_attributes
     partial_date_from_row
     placeholders
     query_to_list
@@ -209,11 +210,20 @@ sub merge
     $self->alias->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
-    $self->subscription->merge($new_id, @old_ids);
+    $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_labels($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('label', $new_id, @old_ids);
+
+    merge_table_attributes(
+        $self->sql => (
+            table => 'label',
+            columns => [ qw( type country label_code ipi_code comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
 
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
     return 1;

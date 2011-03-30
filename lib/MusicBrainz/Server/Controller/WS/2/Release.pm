@@ -68,7 +68,7 @@ sub release_toplevel
         $c->model('ReleaseLabel')->load($release);
         $c->model('Label')->load($release->all_labels);
 
-        my @labels = map { $_->label } $release->all_labels;
+        my @labels = grep { defined } map { $_->label } $release->all_labels;
 
         $self->linked_labels ($c, $stash, \@labels);
     }
@@ -226,7 +226,7 @@ sub release_submit : Private
     }
 
     my %releases = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
-    my %gid_map = map { $_->gid => $_->id } values %releases;
+    my %gid_map = map { $_->gid => $_ } values %releases;
 
     for my $submission (@submit) {
         my $gid = $submission->{release};
@@ -241,7 +241,10 @@ sub release_submit : Private
                 privileges => $c->user->privileges,
                 edit_type => $EDIT_RELEASE_EDIT_BARCODES,
                 submissions => [ map +{
-                    release_id => $gid_map{ $_->{release} },
+                    release => {
+                        id => $gid_map{ $_->{release} }->id,
+                        name => $gid_map{ $_->{release} }->name
+                    },
                     barcode => $_->{barcode}
                 }, @submit ]
             );

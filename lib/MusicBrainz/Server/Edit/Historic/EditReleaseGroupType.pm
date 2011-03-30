@@ -22,7 +22,10 @@ sub do_upgrade
 {
     my $self = shift;
     return {
-        entity_id => $self->row_id,
+        entity => {
+            id => $self->row_id,
+            name => '[deleted]'
+        },
         old => {
             type_id => upgrade_id($self->previous_value)
         },
