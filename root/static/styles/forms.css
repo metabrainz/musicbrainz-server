@@ -1,5 +1,5 @@
 input { background: #fff; color: #000; }
-.mb_placeholder { color: #aaa; }
+input:-moz-placeholder, .mb_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {

@@ -116,7 +116,7 @@
             elemdata.bound = true;
             $elem.data ('mb_placeholder', elemdata);
 
-            if ('placeholder' in elem)
+            if ('placeholder' in $elem)
             {
                 return placeholderNative ($elem);
             }
