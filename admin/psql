@@ -54,7 +54,7 @@ my $db = Databases->get($key) or die "No such database '$key'\n";
 
 if ($system) {
     my $sys_db = Databases->get("SYSTEM");
-    $db = $db->meta->clone_object($sys_db, database => $db->database);
+    $db = $db->meta->clone_object($sys_db, database => $db->database, schema => $db->schema);
 }
 
 if (defined $profile && $profile eq "test") {
