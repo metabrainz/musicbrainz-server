@@ -280,6 +280,29 @@ sub find_by_recording
     }
 }
 
+sub find_by_recordings
+{
+    my ($self, @ids) = @_;
+
+    my $query =
+        "SELECT DISTINCT ON (release.id) " . $self->_columns . ", recording.id AS recording
+           FROM release
+           JOIN release_name name ON name.id = release.name
+           JOIN medium ON release.id = medium.release
+           JOIN track ON track.tracklist = medium.tracklist
+           JOIN recording ON recording.id = track.recording
+          WHERE recording.id IN (" . placeholders(@ids) . ")";
+
+    my %map;
+    $self->sql->select($query, @ids);
+    while (my $row = $self->sql->next_row_hash_ref) {
+        $map{ $row->{recording} } ||= [];
+        push @{ $map{ $row->{recording} } }, $self->_new_from_row($row)
+    }
+
+    return %map;
+}
+
 sub find_by_artist_track_count
 {
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
