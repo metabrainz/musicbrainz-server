@@ -489,8 +489,8 @@ END %]
     ELSE;  'http://' _ url.url.host _ '/favicon.ico';
 END %]
 
-[%- MACRO warning(message) BLOCK -%]
-   <div class="nojavascript warning">
+[%- MACRO warning(message, class) BLOCK -%]
+   <div class="warning[% ' ' _ class IF class %]">
      <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
    </div>
