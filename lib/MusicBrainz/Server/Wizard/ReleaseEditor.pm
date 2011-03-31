@@ -613,9 +613,7 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            name => $artist->{name},
-            sort_name => $artist->{sort_name} || '',
-            comment => $artist->{comment} || '');
+            map { $_ => $artist->{$_} } qw( name sort_name comment ));
     } grep { !$_->{entity_id} } @missing_artist;
 
     my @missing_label = @{ $data->{missing}{label} || [] };
