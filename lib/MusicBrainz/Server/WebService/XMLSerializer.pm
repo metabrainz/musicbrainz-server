@@ -571,7 +571,8 @@ sub _serialize_label_info
     my @list;
     push @list, $gen->catalog_number ($rel_label->catalog_number)
         if $rel_label->catalog_number;
-    $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash);
+    $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash)
+        if $rel_label->label;
     push @$data, $gen->label_info(@list);
 }
 

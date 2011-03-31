@@ -136,100 +136,44 @@ sub delete
     return 1;
 }
 
-# TODO this is a copy of old MB::S::Tag, update it to handle multiple old IDs
-sub _merge
-{
-    my ($self, $new_entity_id, $old_entity_id) = @_;
-
-    my $entity_type = $self->type;
-    my $assoc_table = $self->tag_table;
-    my $assoc_table_raw = $self->tag_table . '_raw';
-
-    # Load the tag ids for both entities
-    my $old_tag_ids = $self->sql->select_single_column_array("
-        SELECT tag
-          FROM $assoc_table
-         WHERE $entity_type = ?", $old_entity_id);
-
-    my $new_tag_ids = $self->sql->select_single_column_array("
-        SELECT tag
-          FROM $assoc_table
-         WHERE $entity_type = ?", $new_entity_id);
-    my %new_tag_ids = map { $_ => 1 } @$new_tag_ids;
-
-    my $raw_sql = $self->c->raw_sql;
-    foreach my $tag_id (@$old_tag_ids)
-    {
-        # If both entities share the tag, move the individual raw tags
-        if ($new_tag_ids{$tag_id})
-        {
-            my $count = 0;
-
-            # Load the editor ids for this tag and both entities
-            # TODO: move this outside of this loop, to avoid multiple queries
-            my $old_editor_ids = $raw_sql->select_single_column_array("
-                SELECT editor
-                  FROM $assoc_table_raw
-                 WHERE $entity_type = ? AND tag = ?", $old_entity_id, $tag_id);
-
-            my $new_editor_ids = $raw_sql->select_single_column_array("
-                SELECT editor
-                  FROM $assoc_table_raw
-                 WHERE $entity_type = ? AND tag = ?", $new_entity_id, $tag_id);
-            my %new_editor_ids = map { $_ => 1 } @$new_editor_ids;
-
-            foreach my $editor_id (@$old_editor_ids)
-            {
-                # If the raw tag doesn't exist for the target entity, move it
-                if (!$new_editor_ids{$editor_id})
-                {
-                    $raw_sql->do("
-                        UPDATE $assoc_table_raw
-                           SET $entity_type = ?
-                         WHERE $entity_type = ?
-                           AND tag = ?
-                           AND editor = ?", $new_entity_id, $old_entity_id, $tag_id, $editor_id);
-                    $count++;
-                }
-            }
-
-            # Update the aggregated tag count for moved raw tags
-            if ($count)
-            {
-                $self->sql->do("
-                    UPDATE $assoc_table
-                       SET count = count + ?
-                     WHERE $entity_type = ? AND tag = ?", $count, $new_entity_id, $tag_id);
-            }
-
-        }
-        # If the tag doesn't exist for the target entity, move it
-        else
-        {
-            $self->sql->do("
-                UPDATE $assoc_table
-                   SET $entity_type = ?
-                 WHERE $entity_type = ? AND tag = ?", $new_entity_id, $old_entity_id, $tag_id);
-            $raw_sql->do("
-                UPDATE $assoc_table_raw
-                   SET $entity_type = ?
-                 WHERE $entity_type = ? AND tag = ?", $new_entity_id, $old_entity_id, $tag_id);
-        }
-    }
-
-    # Delete unused tags
-    $self->sql->do("DELETE FROM $assoc_table WHERE $entity_type = ?", $old_entity_id);
-    $raw_sql->do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $old_entity_id);
-}
-
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    foreach my $old_id (@old_ids) {
-        $self->_merge($new_id, $old_id);
+    my $entity_type = $self->type;
+    my $assoc_table = $self->tag_table;
+    my $assoc_table_raw = $self->tag_table . '_raw';
+    my @ids = ($new_id, @old_ids);
+
+    $self->c->raw_sql->do(
+        "INSERT INTO $assoc_table_raw ($entity_type, editor, tag)
+             SELECT ?, s.editor, s.tag
+               FROM (SELECT DISTINCT editor, tag FROM delete_tags('$entity_type', ?)) s",
+        $new_id, \@ids
+    );
+
+    my @tags = @{
+        $self->c->raw_sql->select_list_of_hashes(
+            "SELECT tag, count(tag) AS count
+               FROM $assoc_table_raw
+              WHERE $entity_type = ?
+           GROUP BY tag",
+            $new_id
+        )
+    };
+
+    $self->c->sql->do(
+        "DELETE FROM $assoc_table WHERE $entity_type IN (" . placeholders(@ids) . ")",
+        @ids
+    );
+
+    if(@tags) {
+        $self->c->sql->do(
+            "INSERT INTO $assoc_table ($entity_type, tag, count)
+             VALUES " . join(',', ("(?, ?, ?)") x @tags),
+            map { ($new_id, $_->{tag}, $_->{count}) } @tags
+        );
     }
-    return 1;
 }
 
 # Algorithm for updating tags

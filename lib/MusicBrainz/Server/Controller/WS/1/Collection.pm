@@ -54,11 +54,11 @@ sub add_remove : Private
         my $add    = $c->req->params->{add}    || $c->req->params->{addAlbums}    || '';
         my $remove = $c->req->params->{remove} || $c->req->params->{removeAlbums} || '';
 
-        my @can_add    = $self->_clean_mbid_list(split /\s*,\s*/, $add);
-        my @can_remove = $self->_clean_mbid_list(split /\s*,\s*/, $remove);
+        my @can_add    = $self->_clean_mbid_list($c, split /\s*,\s*/, $add);
+        my @can_remove = $self->_clean_mbid_list($c, split /\s*,\s*/, $remove);
 
         if (@can_add && @can_remove) {
-            $self->bad_req('You cannot add and releases from a collection in the same call');
+            $self->bad_req($c, 'You cannot add and releases from a collection in the same call');
         }
 
         if (@can_add) {
@@ -78,12 +78,12 @@ sub add_remove : Private
 
 sub _clean_mbid_list
 {
-    my ($self, @mbids) = @_;
+    my ($self, $c, @mbids) = @_;
 
     my @ok;
     for my $mbid (@mbids) {
         MusicBrainz::Server::Validation::TrimInPlace($mbid);
-        $self->bad_req('You must supply a list of valid MBIDs')
+        $self->bad_req($c, 'You must supply a list of valid MBIDs')
             if (!MusicBrainz::Server::Validation::IsGUID($mbid));
 
         push @ok, $mbid;

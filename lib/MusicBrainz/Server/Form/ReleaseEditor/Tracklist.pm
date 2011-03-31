@@ -99,17 +99,23 @@ sub _track_errors {
 
         my $details = $medium->tracklist->tracks->[$pos - 1];
 
-        my $distance = abs ($details->length - 
-                            unformat_track_length ($track->{length}));
-
-        # always reset the track length.
-        $track->{length} = format_track_length ($details->length);
-
-        # only warn the user about this if the edited value differs more than 2 seconds.
-        if ($distance > 2000)
+        # if $details is undef the track doesn't exist, presumably the user
+        # is trying to add tracks despite a discid present, this will be
+        # caught later on... here in _track_errors we just ignore it.
+        if ($details)
         {
-            return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
-                     { pos => $pos });
+            my $distance = abs ($details->length -
+                                unformat_track_length ($track->{length}));
+
+            # always reset the track length.
+            $track->{length} = format_track_length ($details->length);
+
+            # only warn the user about this if the edited value differs more than 2 seconds.
+            if ($distance > 2000)
+            {
+                return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
+                         { pos => $pos });
+            }
         }
     }
 
@@ -181,6 +187,8 @@ sub validate {
 
     for my $medium ($self->field('mediums')->fields)
     {
+        next if $medium->field('deleted')->value;
+
         my $edits = $medium->field('edits')->value;
 
         unless ($edits || $medium->field('tracklist_id')->value)

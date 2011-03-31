@@ -4,6 +4,8 @@ use base 'Exporter';
 use Carp 'confess';
 use Class::MOP;
 use Data::Compare;
+use Digest::SHA1 qw( sha1_base64 );
+use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
@@ -21,8 +23,8 @@ our @EXPORT_OK = qw(
     copy_escape
     defined_hash
     generate_gid
-    generate_gid
     hash_to_row
+    hash_structure
     insert_and_create
     load_meta
     load_subobjects
@@ -210,6 +212,44 @@ sub query_to_list_limited
     my $hits = $sql->row_count + $offset;
     $sql->finish;
     return (\@result, $hits);
+}
+
+=func hash_structure
+
+Generates a hash code for a particular edited track.  If a track
+is moved the hash will remain the same, any other change to the
+track will result in a different hash.
+
+=cut
+
+sub hash_structure
+{
+    sub structure_to_string {
+        my $obj = shift;
+
+        if (ref $obj eq "ARRAY")
+        {
+            my @ret = map { structure_to_string ($_) } @$obj;
+            return '[' . join (",", @ret) . ']';
+        }
+        elsif (ref $obj eq "HASH")
+        {
+            my @ret = map {
+                $_ . ':' . structure_to_string ($obj->{$_})
+            } sort keys %$obj;
+            return '{' . join (",", @ret) . '}';
+        }
+        elsif ($obj)
+        {
+            return $obj;
+        }
+        else
+        {
+            return '';
+        }
+    }
+
+    return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
 }
 
 sub insert_and_create

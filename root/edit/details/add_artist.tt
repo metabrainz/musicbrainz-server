@@ -1,3 +1,10 @@
+<table class="details">
+    <tr>
+        <th>[% l('Artist:') %]</th>
+        <td>[% link_entity(edit.display_data.artist) %]</td>
+    </tr>
+</table>
+
 <table class="details add-artist">
     <tr>
         <th>[% l('Name:') %]</th>

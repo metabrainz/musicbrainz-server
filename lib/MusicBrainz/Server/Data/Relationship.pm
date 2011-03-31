@@ -130,7 +130,7 @@ sub _load
             $target_id = 'entity0';
         }
 
-        my $select = "* FROM l_${type0}_${type1}
+        my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id";
         my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
                      l.end_date_year,   l.end_date_month,   l.end_date_day';

@@ -609,12 +609,12 @@ INSERT INTO statistic (value, date_collected, name)
     SELECT value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'
-        WHEN name = 'count.album.has_discid' THEN 'count.release.has_discid'
+        WHEN name = 'count.album.has_discid' THEN 'count.medium.has_discid'
         WHEN name = 'count.album.nonvarious' THEN 'count.release.nonvarious'
         WHEN name = 'count.album.various' THEN 'count.release.various'
         WHEN name = 'count.moderation' THEN 'count.edit'
         WHEN name = 'count.moderation.applied' THEN 'count.edit.applied'
-        WHEN name = 'count.moderation.deleted' THEN 'count.edit.tobedeleted'
+        WHEN name = 'count.moderation.deleted' THEN 'count.edit.deleted'
         WHEN name = 'count.moderation.error' THEN 'count.edit.error'
         WHEN name = 'count.moderation.evalnochange' THEN 'count.edit.evalnochange'
         WHEN name = 'count.moderation.faileddep' THEN 'count.edit.faileddep'
@@ -632,6 +632,9 @@ INSERT INTO statistic (value, date_collected, name)
         WHEN name = 'count.rating.raw.track' THEN 'count.rating.raw.recording'
         WHEN name = 'count.rating.release' THEN 'count.rating.releasegroup'
         WHEN name = 'count.rating.track' THEN 'count.rating.recording'
+        WHEN name = 'count.tag.raw.release' THEN 'count.tag.raw.releasegroup'
+        WHEN name = 'count.tag.raw.track' THEN 'count.tag.raw.recording'
+        WHEN name = 'count.releasegroups' THEN 'count.releasegroup'
         WHEN name = 'count.track.has_isrc' THEN 'count.recording.has_isrc'
         WHEN name = 'count.track.has_puid' THEN 'count.recording.has_puid'
 
@@ -660,9 +663,18 @@ INSERT INTO statistic (value, date_collected, name)
         ELSE name
       END AS name
       FROM (
-           SELECT value, lastupdated, name FROM public.currentstat
-      UNION ALL
+           SELECT value, lastupdated::date, name FROM public.currentstat
+      UNION
            SELECT value, snapshotdate, name FROM public.historicalstat
       ) s;
+
+INSERT INTO statistic (value, date_collected, name)
+    SELECT value, snapshotdate, 'count.recording'
+    FROM (
+           SELECT value, lastupdated::date AS snapshotdate, name FROM public.currentstat
+      UNION
+           SELECT value, snapshotdate, name FROM public.historicalstat
+      ) s
+    WHERE name = 'count.track';
 
 COMMIT;

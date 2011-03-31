@@ -59,7 +59,7 @@ sub create_edit {
         edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
         editor_id => 1,
         release_label => $rl,
-        label_id => 2,
+        label => $c->model('Label')->get_by_id(2),
         catalog_number => 'FOO',
     );
 }
