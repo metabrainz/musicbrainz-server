@@ -45,6 +45,9 @@ sub validate {
             next if $field->has_errors;
             next if $field->field('entity_id')->value;
 
+            $field->field('sort_name')->required(1);
+            $field->field('sort_name')->validate_field;
+
             my @entities = $self->ctx->model(type_to_model($type))
                 ->find_by_name($field->field('name')->input)
                     or next;
