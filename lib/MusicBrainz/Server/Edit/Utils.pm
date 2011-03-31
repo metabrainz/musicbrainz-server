@@ -8,6 +8,8 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
+
 use base 'Exporter';
 
 our @EXPORT_OK = qw(
@@ -65,7 +67,8 @@ sub artist_credit_from_loaded_definition
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $artist->{name},
-            artist => $loaded->{Artist}->{ $artist->{artist} }
+            artist => $loaded->{Artist}->{ $artist->{artist} } ||
+                Artist->new( name => $artist->{name} )
         );
         $ac->join_phrase($join) if $join;
 
@@ -94,7 +97,10 @@ sub artist_credit_preview
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $artist->{name});
 
-        $ac->artist($loaded->{Artist}->{ $artist->{artist} }) if $artist->{artist};
+        $ac->artist(
+            $loaded->{Artist}->{ $artist->{artist} }
+                || Artist->new( name => $artist->{name} )
+        ) if $artist->{artist};
         $ac->join_phrase($join) if $join;
 
         push @names, $ac;

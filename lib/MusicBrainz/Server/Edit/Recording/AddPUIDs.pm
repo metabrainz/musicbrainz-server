@@ -11,6 +11,8 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
 };
 with 'MusicBrainz::Server::Edit::Recording';
 
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 sub edit_name { l('Add PUIDs') }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }
 
@@ -19,19 +21,22 @@ has '+data' => (
         client_version => Str,
         puids => ArrayRef[Dict[
             puid         => Str,
-            recording_id => Int
+            recording    => Dict[
+                id => Int,
+                name => Str
+            ]
         ]]
     ]
 );
 
-sub recording_ids { map { $_->{recording_id} } @{ shift->data->{puids} } }
+sub recording_ids { map { $_->{recording}{id} } @{ shift->data->{puids} } }
 
 sub foreign_keys
 {
     my $self = shift;
     return {
         Recording => { map {
-            $_->{recording_id} => ['ArtistCredit']
+            $_->{recording}{id} => ['ArtistCredit']
         } @{ $self->data->{puids} } }
     }
 }
@@ -43,7 +48,8 @@ sub build_display_data
         client_version => $self->data->{client_version},
         puids => [ map { +{
             puid      => $_->{puid},
-            recording => $loaded->{Recording}{ $_->{recording_id} }
+            recording => $loaded->{Recording}{ $_->{recording}{id} }
+                || Recording->new( name => $_->{recording}{name} )
         } } @{ $self->data->{puids} } ]
     }
 }
@@ -61,7 +67,7 @@ sub accept
     );
 
     my @submit = map +{
-        recording_id => $_->{recording_id},
+        recording_id => $_->{recording}{id},
         puid_id      => $puid_id{ $_->{puid} }
     }, @insert;
 

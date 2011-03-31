@@ -10,7 +10,7 @@
   [% IF edit.display_data.locale %]
   <tr>
     <th>[% l('Locale:') %]</th>
-    <td>[% edit.display_data.locale | language %]</td>
+    <td>[% edit.display_data.locale | locale %]</td>
   </tr>
   [% END %]
 </table>

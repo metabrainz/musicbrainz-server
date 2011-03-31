@@ -19,6 +19,7 @@ my $c = MusicBrainz::Server::Context->create_script_context();
 my $sql = Sql->new($c->dbh);
 
 $sql->begin;
+$c->raw_sql->begin;
 eval {
 
     my $link_type = $sql->select_single_value("
@@ -509,11 +510,45 @@ eval {
     INSERT INTO release_group_meta SELECT * FROM tmp_release_group_meta;
     ");
 
-    # XXX:Remove or merge orphaned release-groups
+    # Remove or merge orphaned release-groups
+    printf STDERR "Removing empty release groups\n";
+    my $ids = $sql->select_single_column_array('
+    SELECT rg.id
+      FROM release_group rg
+      JOIN release_group_meta rgm ON rgm.id = rg.id
+     WHERE rgm.release_count = 0
+       AND rg.id NOT IN (
+           SELECT entity1 FROM l_artist_release_group
+        UNION ALL
+           SELECT entity1 FROM l_label_release_group
+        UNION ALL
+           SELECT entity1 FROM l_recording_release_group
+        UNION ALL
+           SELECT entity1 FROM l_release_release_group
+        UNION ALL
+           SELECT entity1 FROM l_release_group_release_group
+        UNION ALL
+           SELECT entity0 FROM l_release_group_release_group
+        UNION ALL
+           SELECT entity0 FROM l_release_group_url
+        UNION ALL
+           SELECT entity0 FROM l_release_group_work
+       )
+    ');
+
+    $sql->do('DELETE FROM release_group_gid_redirect WHERE new_id = any(?)', $ids);
+    $sql->do('DELETE FROM release_group_tag WHERE release_group = any(?)', $ids);
+    $sql->do('DELETE FROM release_group WHERE id = any(?)', $ids);
+    $sql->do('DELETE FROM release_group_meta WHERE id = any(?)', $ids);
+
+    $c->raw_sql->do('DELETE FROM release_group_rating_raw WHERE release_group = any(?)', $ids);
+    $c->raw_sql->do('DELETE FROM release_group_tag_raw WHERE release_group = any(?)', $ids);
 
     $sql->commit;
+    $c->raw_sql->commit;
 };
 if ($@) {
     printf STDERR "ERROR: %s\n", $@;
     $sql->rollback;
+    $c->raw_sql->rollback;
 }

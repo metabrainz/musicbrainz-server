@@ -24,13 +24,15 @@
 #____________________________________________________________________________
 
 use strict;
+use warnings;
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
-use MusicBrainz::Server::Language;
+use Try::Tiny;
 
 use constant MAX_TOP_LANGUAGES => 20;
 
@@ -42,8 +44,8 @@ use constant PRESELECTED_LANGUAGES => qw (
 );
 
 
-my $c = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($c->dbh);
+my $c = MusicBrainz::Server::Context->create_script_context;
+my $sql = $c->sql;
 
 #
 # Set the frequency attribute of the language table.
@@ -53,19 +55,17 @@ my %languages = ( );
 
 foreach my $code ( PRESELECTED_LANGUAGES )
 {
-    my $lang = MusicBrainz::Server::Language->newFromISOCode3T(
-        $mb->{dbh}, $code);
-
-    $languages{ $lang->GetId() } = 1;
+    my $lang = $c->model('Language')->find_by_code($code);
+    $languages{ $lang->id } = 1;
 }
 
 #
 # Calculate language frequencies
 #
 
-$sql->Select(<<'EOF', MAX_TOP_LANGUAGES + scalar(PRESELECTED_LANGUAGES));
+$sql->select(<<'EOF', MAX_TOP_LANGUAGES + scalar(PRESELECTED_LANGUAGES));
     SELECT              language, COUNT(*)
-    FROM                album
+    FROM                release
     WHERE NOT   language IS NULL
     GROUP BY    language
     ORDER BY    COUNT(*) DESC
@@ -74,14 +74,14 @@ EOF
 
 
 # put at most MAX_TOP_LANGUAGES into %languages
-while ( my ($language, $count) = $sql->NextRow() )
+while ( my ($language, $count) = $sql->next_row() )
 {
     last if keys(%languages) >= MAX_TOP_LANGUAGES;
 
     $languages{ $language } = 1;
 }
 
-$sql->Finish();
+$sql->finish();
 
 print 'New top languages: ', join(' ', keys %languages), "\n";
 
@@ -89,30 +89,36 @@ print 'New top languages: ', join(' ', keys %languages), "\n";
 # Start transaction here. No strict isolation required up to now.
 #
 
-eval
+try
 {
-    $sql->Begin;
+    $sql->begin;
 
-    my $top_languages = join(',', grep { m/^\d+$/ } keys %languages);
+    my @top_languages = grep { m/^\d+$/ } keys %languages;
 
     # ignore languages with a frequency of 0 (never displayed in the UI)
 
     # reset current top languages to frequency 1 (default frequency)
-    $sql->Do('UPDATE language SET frequency = 1 WHERE frequency = 2');
+    $sql->do(
+        'UPDATE language SET frequency = ? WHERE frequency = ?',
+        1, 2
+    );
 
     # set new top languages to 2 (displayed in the short list)
-    $sql->Do("UPDATE language SET frequency = 2 WHERE id IN ($top_languages)");
+    $sql->do(
+        'UPDATE language SET frequency = 2
+          WHERE id IN (' . placeholders(@top_languages) . ')',
+        @top_languages
+    );
 
-    $sql->Commit;
-};
-
-if ($@)
+    $sql->commit;
+}
+catch
 {
     print "ERROR: Setting frequencies didn't work\n";
-    $sql->Rollback();
+    print $_;
+    $sql->rollback();
     exit 1;
 }
-
 
 #
 # TODO: Invalidate memcached entries to use the new values sooner.

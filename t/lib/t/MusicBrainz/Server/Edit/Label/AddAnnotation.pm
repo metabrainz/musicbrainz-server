@@ -16,11 +16,12 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+annotation');
 
+my $label = $c->model('Label')->get_by_id(1);
 my $edit = $c->model('Edit')->create(
     edit_type => $EDIT_LABEL_ADD_ANNOTATION,
     editor_id => 1,
 
-    entity_id => 1,
+    entity => $label,
     text => 'Test annotation',
     changelog => 'A changelog',
 );
@@ -34,8 +35,7 @@ is($edit->display_data->{label}->id, 1);
 is($edit->display_data->{changelog}, 'A changelog');
 is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
-my $label = $c->model('Label')->get_by_id(1);
-
+$label = $c->model('Label')->get_by_id(1);
 $c->model('Label')->annotation->load_latest($label);
 my $annotation = $label->latest_annotation;
 ok(defined $annotation);

@@ -8,6 +8,8 @@ extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 
+use aliased 'MusicBrainz::Server::Entity::Work';
+
 sub _alias_model { shift->c->model('Work')->alias }
 
 sub edit_name { l('Remove work alias') }
@@ -25,7 +27,7 @@ has 'work_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity_id} }
+    default => sub { shift->data->{entity}{id} }
 );
 
 sub foreign_keys
@@ -42,7 +44,8 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig($loaded);
-    $data->{work} = $loaded->{Work}->{ $self->work_id };
+    $data->{work} = $loaded->{Work}->{ $self->work_id }
+        || Work->new( name => $self->data->{entity}{name} );
 
     return $data;
 };
