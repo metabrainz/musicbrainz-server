@@ -4,7 +4,8 @@ use FindBin qw( $Bin );
 
 my @phantomjs = Env::Path->PATH->Whence('phantomjs');
 my $phantomjs = scalar @phantomjs ? $phantomjs[0] :
-    $ENV{HOME}.'/opt/phantomjs/bin/phantomjs';
+    ($ENV{MUSICBRAINZ_PHANTOMJS} ? $ENV{MUSICBRAINZ_PHANTOMJS} :
+     $ENV{HOME}.'/opt/phantomjs/bin/phantomjs');
 
 my @xvfb_run = Env::Path->PATH->Whence('xvfb-run');
 my $xvfb_run = $xvfb_run[0] if scalar @xvfb_run;
