@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Entity::URL;
-
 use Moose;
+
+use Encode 'decode';
 use MooseX::Types::URI qw( Uri );
 use MusicBrainz::Server::Filters;
+use URI::Escape;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -35,7 +37,7 @@ sub BUILDARGS {
     return \%args;
 }
 
-sub pretty_name { shift->url->host }
+sub pretty_name { decode('utf-8', uri_unescape(shift->url->as_string)) }
 
 sub name { shift->url->as_string }
 

@@ -15,7 +15,7 @@ has 'label_id' => (
 );
 
 has 'label' => (
-    isa => 'Artist',
+    isa => 'Label',
     is => 'rw',
 );
 

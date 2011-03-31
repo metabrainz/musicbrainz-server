@@ -20,7 +20,10 @@ sub do_upgrade {
     my $self = shift;
     return {
         name      => $self->new_value,
-        entity_id => $self->row_id
+        entity    => {
+            name => $self->previous_value,
+            id   => $self->row_id
+        }
     };
 }
 

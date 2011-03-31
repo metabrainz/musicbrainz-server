@@ -29,9 +29,6 @@ ws_test 'artist lookup with url relationships',
     <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <relation-list target-type="url">
-            <relation type="myspace">
-                <target>http://www.myspace.com/djdistancedub</target>
-            </relation>
             <relation type="blog">
                 <target>http://dj-distance.blogspot.com/</target>
             </relation>
@@ -40,6 +37,9 @@ ws_test 'artist lookup with url relationships',
             </relation>
             <relation type="discogs">
                 <target>http://www.discogs.com/artist/DJ+Distance</target>
+            </relation>
+            <relation type="myspace">
+                <target>http://www.myspace.com/djdistancedub</target>
             </relation>
         </relation-list>
     </artist>
@@ -112,23 +112,26 @@ ws_test 'recording lookup with artist relationships and credits',
             </name-credit>
         </artist-credit>
         <relation-list target-type="artist">
-            <relation type="vocal">
-                <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target><direction>backward</direction>
-                <attribute-list><attribute>guest</attribute></attribute-list>
-                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-                    <name>BoA</name><sort-name>BoA</sort-name>
-                </artist>
-            </relation>
             <relation type="producer">
-                <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
+                <direction>backward</direction>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                 </artist>
             </relation>
             <relation type="programming">
-                <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
+                <direction>backward</direction>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
+                </artist>
+            </relation>
+            <relation type="vocal">
+                <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target>
+                <direction>backward</direction>
+                <attribute-list><attribute>guest</attribute></attribute-list>
+                <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                    <name>BoA</name><sort-name>BoA</sort-name>
                 </artist>
             </relation>
         </relation-list>
@@ -142,17 +145,17 @@ ws_test 'label lookup with label and url relationships',
     <label type="Original Production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
         <name>rhythm zone</name><sort-name>rhythm zone</sort-name><country>JP</country>
         <relation-list target-type="url">
-            <relation type="official_site">
-                <target>http://rzn.jp/</target>
+            <relation type="wikipedia">
+                <target>http://en.wikipedia.org/wiki/Rhythm_Zone</target>
             </relation>
             <relation type="wikipedia">
                 <target>http://ja.wikipedia.org/wiki/Rhythm_zone</target>
             </relation>
+            <relation type="official_site">
+                <target>http://rzn.jp/</target>
+            </relation>
             <relation type="discogs">
                 <target>http://www.discogs.com/label/Rhythm+Zone</target>
-            </relation>
-            <relation type="wikipedia">
-                <target>http://en.wikipedia.org/wiki/Rhythm_Zone</target>
             </relation>
         </relation-list>
     </label>

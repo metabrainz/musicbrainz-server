@@ -4,6 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use Switch;
+use List::UtilsBy qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
@@ -63,7 +64,7 @@ sub _serialize_alias
     {
         my %attr = ( count => scalar(@$aliases) );
         my @alias_list;
-        foreach my $al (@$aliases)
+        foreach my $al (sort_by { $_->name } @$aliases)
         {
             push @alias_list, $gen->alias($al->name);
         }
@@ -78,9 +79,9 @@ sub _serialize_artist_list
     if (@{ $list->{items} })
     {
         my @list;
-        foreach my $label (@{ $list->{items} })
+        foreach my $artist (sort_by { $_->gid } @{ $list->{items} })
         {
-            $self->_serialize_artist(\@list, $gen, $label, $inc, $stash, 1);
+            $self->_serialize_artist(\@list, $gen, $artist, $inc, $stash, 1);
         }
         push @$data, $gen->artist_list($self->_list_attributes ($list), @list);
     }
@@ -170,8 +171,10 @@ sub _serialize_collection
 
     if ($toplevel)
     {
-        $self->_serialize_release_list(\@collection, $gen, $opts->{releases}, $inc, $stash)
-            if $inc->releases;
+        $self->_serialize_release_list(\@collection, $gen, $opts->{releases}, $inc, $stash);
+    }
+    elsif ($collection->loaded_release_count) {
+        push @collection, $gen->release_list({ count => $collection->release_count });
     }
 
     push @$data, $gen->collection(\%attrs, @collection);
@@ -183,7 +186,7 @@ sub _serialize_collection_list
 
     my @list;
     map { $self->_serialize_collection(\@list, $gen, $_, $inc, $stash, 0) }
-        @$collections;
+        sort_by { $_->gid } @$collections;
 
     push @$data, $gen->collection_list(@list);
 }
@@ -193,7 +196,7 @@ sub _serialize_release_group_list
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
-    foreach my $rg (@{ $list->{items} })
+    foreach my $rg (sort_by { $_->gid } @{ $list->{items} })
     {
         $self->_serialize_release_group(\@list, $gen, $rg, $inc, $stash, $toplevel);
     }
@@ -239,7 +242,7 @@ sub _serialize_release_list
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
-    foreach my $release (@{ $list->{items} })
+    foreach my $release (sort_by { $_->gid } @{ $list->{items} })
     {
         $self->_serialize_release(\@list, $gen, $release, $inc, $stash, $toplevel);
     }
@@ -322,7 +325,7 @@ sub _serialize_work_list
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
-    foreach my $work (@{ $list->{items} })
+    foreach my $work (sort_by { $_->gid } @{ $list->{items} })
     {
         $self->_serialize_work(\@list, $gen, $work, $inc, $stash, $toplevel);
     }
@@ -376,7 +379,7 @@ sub _serialize_recording_list
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
-    foreach my $recording (@{ $list->{items} })
+    foreach my $recording (sort_by { $_->gid } @{ $list->{items} })
     {
         $self->_serialize_recording(\@list, $gen, $recording, $inc, $stash, $toplevel);
     }
@@ -426,7 +429,7 @@ sub _serialize_medium_list
     my ($self, $data, $gen, $mediums, $inc, $stash) = @_;
 
     my @list;
-    foreach my $medium (@$mediums)
+    foreach my $medium (nsort_by { $_->position } @$mediums)
     {
         $self->_serialize_medium(\@list, $gen, $medium, $inc, $stash);
     }
@@ -459,7 +462,7 @@ sub _serialize_track_list
 
     my $min = @{$tracklist->tracks} ? $tracklist->tracks->[0]->position : 0;
     my @list;
-    foreach my $track (@{$tracklist->tracks})
+    foreach my $track (nsort_by { $_->position } @{$tracklist->tracks})
     {
         $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
@@ -496,7 +499,7 @@ sub _serialize_disc_list
     my ($self, $data, $gen, $cdtoclist, $inc, $stash) = @_;
 
     my @list;
-    foreach my $cdtoc (@$cdtoclist)
+    foreach my $cdtoc (sort_by { $_->cdtoc->discid } @$cdtoclist)
     {
         $self->_serialize_disc(\@list, $gen, $cdtoc->cdtoc, $inc, $stash);
     }
@@ -568,7 +571,8 @@ sub _serialize_label_info
     my @list;
     push @list, $gen->catalog_number ($rel_label->catalog_number)
         if $rel_label->catalog_number;
-    $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash);
+    $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash)
+        if $rel_label->label;
     push @$data, $gen->label_info(@list);
 }
 
@@ -579,7 +583,7 @@ sub _serialize_label_list
     if (@{ $list->{items} })
     {
         my @list;
-        foreach my $label (@{ $list->{items} })
+        foreach my $label (sort_by { $_->gid } @{ $list->{items} })
         {
             $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
         }
@@ -633,10 +637,10 @@ sub _serialize_relation_lists
         $types{$rel->target_type} = [] if !exists $types{$rel->target_type};
         push @{$types{$rel->target_type}}, $rel;
     }
-    foreach my $type (keys %types)
+    foreach my $type (sort keys %types)
     {
         my @list;
-        foreach my $rel (@{$types{$type}})
+        foreach my $rel (sort_by { $_->target_key } @{$types{$type}})
         {
             $self->_serialize_relation($src_entity, \@list, $gen, $rel);
         }
@@ -676,7 +680,7 @@ sub _serialize_puid_list
     my ($self, $data, $gen, $puids, $inc, $stash) = @_;
 
     my @list;
-    foreach my $puid (@$puids)
+    foreach my $puid (sort_by { $_->puid->puid } @$puids)
     {
         $self->_serialize_puid(\@list, $gen, $puid->puid, $inc, $stash);
     }
@@ -710,7 +714,7 @@ sub _serialize_isrc_list
     }
 
     my @list;
-    foreach my $k (keys %uniq_isrc)
+    foreach my $k (sort keys %uniq_isrc)
     {
         $self->_serialize_isrc(\@list, $gen, $uniq_isrc{$k}, $inc, $stash, $toplevel);
     }
@@ -753,7 +757,7 @@ sub _serialize_tag_list
     my ($self, $data, $gen, $inc, $opts) = @_;
 
     my @list;
-    foreach my $tag (@{$opts->{tags}})
+    foreach my $tag (sort_by { $_->tag->name } @{$opts->{tags}})
     {
         $self->_serialize_tag(\@list, $gen, $tag, $inc, $opts);
     }
@@ -772,7 +776,7 @@ sub _serialize_user_tag_list
     my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
 
     my @list;
-    foreach my $tag (@{$opts->{user_tags}})
+    foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_tags}})
     {
         $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
     }

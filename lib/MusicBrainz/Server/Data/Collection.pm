@@ -170,6 +170,25 @@ sub insert
     return @created > 1 ? @created : $created[0];
 }
 
+sub load_release_count {
+    my ($self, @collections) = @_;
+    my %collection_map = map { $_->id => $_ } grep { defined } @collections;
+    my $query =
+        'SELECT id, coalesce(
+           (SELECT count(release)
+              FROM editor_collection_release
+             WHERE collection = col.id), 0)
+           FROM (
+              VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
+                ) col (id)';
+
+    $self->sql->select($query, keys %collection_map);
+    while (my ($id, $count) = $self->sql->next_row) {
+        $collection_map{$id}->release_count($count);
+    }
+    $self->sql->finish;
+}
+
 sub update
 {
     my ($self, $collection_id, $update) = @_;

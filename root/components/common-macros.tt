@@ -495,6 +495,12 @@ END %]
    </div>
 [%- END -%]
 
+[%- MACRO notice(message) BLOCK -%]
+   <div class="notice">
+     <p>[% l('<strong>Note</strong>:') %] [% message %]</p>
+   </div>
+[%- END -%]
+
 [%- MACRO wiki_link(server, id) BLOCK -%]
 http://[%- server -%]/[%- id -%]"
 [%- END -%]

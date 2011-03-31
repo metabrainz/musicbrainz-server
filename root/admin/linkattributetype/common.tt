@@ -1,0 +1,34 @@
+[% BLOCK attribute_tree %]
+    <li style="margin-top:0.25em">
+        <strong>[% obj.name FILTER ucfirst | html %]</strong>
+        [% PROCESS attribute_details obj=obj toplevel=0 %]
+
+        [%- IF obj.children.size -%]
+        <ul>
+            [% FOR child IN obj.children %]
+            [% PROCESS attribute_tree obj=child %]
+            [% END %]
+        </ul>
+        [% END %]
+    </li>
+[% END %]
+
+[% BLOCK attribute_details %]
+        [%- IF c.user.is_relationship_editor -%]
+            [%- IF !toplevel %]([% END -%]
+            [%- obj.description || l('none') -%]
+            [%- IF !toplevel -%])[%- END -%]
+            ([% obj.child_order %])
+
+            [
+            <a href="[% c.uri_for_action('/admin/linkattributetype/edit', obj.id) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.id) %]">[% l('Delete') %]</a>[% END %]
+            ]
+        [%- ELSE -%]
+            [%- IF obj.description && obj.description != obj.name -%]
+                [%- IF !toplevel %]([% END -%]
+                [%- obj.description -%]
+                [%- IF !toplevel -%])[%- END -%]
+            [%- END -%]
+        [% END %]
+[% END %]

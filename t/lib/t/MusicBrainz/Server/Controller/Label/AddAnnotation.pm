@@ -28,7 +28,10 @@ ok($mech->uri =~ qr{/label/4b4ccf60-658e-11de-8a39-0800200c9a66/?}, 'should redi
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAnnotation');
 is_deeply($edit->data, {
-    entity_id => 3,
+    entity => {
+        id => 3,
+        name => 'Another Label'
+    },
     text => 'Test annotation 2. This is my annotation',
     changelog => 'Changelog here',
     editor_id => 1

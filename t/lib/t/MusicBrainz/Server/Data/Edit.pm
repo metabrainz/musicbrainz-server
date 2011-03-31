@@ -25,6 +25,31 @@ MusicBrainz::Server::EditRegistry->register_type("t::Edit::MockEdit");
 
 with 't::Context';
 
+test 'Merge entity edit history' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, <<'EOSQL');
+INSERT INTO edit_artist (edit, artist) VALUES (4, 3);
+EOSQL
+
+    {
+        my ($edits, $hits) = $test->c->model('Edit')->find({ artist => 2 }, 10, 0);
+        is($hits => 1, 'found 1 edit before merge');
+    }
+
+    $test->c->model('Edit')->merge_entities('artist', 1, 2);
+
+    {
+        my ($edits, $hits) = $test->c->model('Edit')->find({ artist => 1 }, 10, 0);
+        is($hits => 2, 'found 2 edits post merge');
+    }
+
+    {
+        my ($edits, $hits) = $test->c->model('Edit')->find({ artist => 3 }, 10, 0);
+        is($hits => 1, 'other entity-edit links are not affected');
+    }
+};
+
 # Test approving edits, while something (editqueue) is holding a lock on it
 # Acquire an exclusive lock on the edit
 test 'Test locks on edits' => sub {

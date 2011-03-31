@@ -9,6 +9,8 @@ use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
+
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Artist';
@@ -22,6 +24,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
+        Artist     => [ $self->entity_id ],
         ArtistType => [ $self->data->{type_id} ],
         Gender     => [ $self->data->{gender_id} ],
         Country    => [ $self->data->{country_id} ]
@@ -43,6 +46,8 @@ sub build_display_data
         country    => $country ? $loaded->{Country}->{$country} : '',
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
+        artist     => $loaded->{Artist}->{ $self->entity_id } ||
+            Artist->new( name => $self->data->{name} )
     };
 }
 

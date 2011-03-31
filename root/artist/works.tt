@@ -1,3 +1,9 @@
+[% BLOCK layout_head %]
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js'
+    ) %]"></script>
+[% END %]
+
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
     <h2>[% l('Works') %]</h2>
 
@@ -8,9 +14,15 @@
       <table class="tbl">
         <thead>
             <tr>
-                [% IF c.user_exists %]<th></th>[% END %]
+                [% IF c.user_exists %]
+                <th>
+                <input type="checkbox" />
+                </th>
+                [% END %]
                 <th>[% l('Work') %]</th>
                 <th>[% l('Artists') %]</th>
+                <th>[% l('ISWC') %]</th>
+                <th>[% l('Rating') %]</th>
             </tr>
         </thead>
           [% FOR group = grouped_works %]
@@ -18,7 +30,7 @@
             <thead>
                 <tr class="subh">
                     [% IF c.user_exists %]<th></th>[% END %]
-                    <th colspan="2">[% group.link_type.name %]</th>
+                    <th colspan="4">[% group.link_type.name %]</th>
                 </tr>
             </thead>
             [% END %]
@@ -41,6 +53,8 @@
                         [% END %]
                       </ul>
                     </td>
+                    <td>[% work.iswc | html %]</td>
+                    <td>[% rating_stars(work) %]</td>
                 </tr>
                 [% END %]
             </tbody>

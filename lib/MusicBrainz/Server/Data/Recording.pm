@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
     hash_to_row
+    merge_table_attributes
     placeholders
     load_subobjects
     query_to_list_limited
@@ -95,6 +96,14 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub can_delete {
+    my ($self, $recording_id) = @_;
+    return !$self->sql->select_single_value(
+        'SELECT 1 FROM track WHERE recording = ? LIMIT 1',
+        $recording_id
+    );
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -129,26 +138,29 @@ sub update
     $self->sql->update_row('recording', $row, { id => $recording_id });
 }
 
-sub can_delete
+sub usage_count
 {
     my ($self, $recording_id) = @_;
-    my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM track WHERE recording = ?', $recording_id);
-    return @$refcount == 0;
+    return $self->sql->select_single_value(
+        'SELECT count(*) FROM track
+          WHERE recording = ?', $recording_id);
 }
 
 sub delete
 {
-    my ($self, $recording) = @_;
-    return unless $self->can_delete($recording->id);
+    my ($self, @recording_ids) = @_;
 
-    $self->c->model('Relationship')->delete_entities('recording', $recording->id);
-    $self->c->model('RecordingPUID')->delete_recordings($recording->id);
-    $self->c->model('ISRC')->delete_recordings($recording->id);
-    $self->annotation->delete($recording->id);
-    $self->tags->delete($recording->id);
-    $self->rating->delete($recording->id);
-    $self->remove_gid_redirects($recording->id);
-    $self->sql->do('DELETE FROM recording WHERE id = ?', $recording->id);
+    $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
+    $self->c->model('RecordingPUID')->delete_recordings(@recording_ids);
+    $self->c->model('ISRC')->delete_recordings(@recording_ids);
+    $self->annotation->delete(@recording_ids);
+    $self->tags->delete(@recording_ids);
+    $self->rating->delete(@recording_ids);
+    $self->remove_gid_redirects(@recording_ids);
+    $self->sql->do(
+        'DELETE FROM recording WHERE id IN (' . placeholders(@recording_ids) . ')',
+        @recording_ids
+    );
     return;
 }
 
@@ -191,6 +203,15 @@ sub merge
     $self->sql->do('UPDATE track SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 
+    merge_table_attributes(
+        $self->sql => (
+            table => 'recording',
+            columns => [ qw( length comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
     return 1;
 }
@@ -211,6 +232,14 @@ sub find_standalone
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub editor_can_create_recordings {
+    my ($self, $editor) = @_;
+    return DateTime::Duration->compare(
+        DateTime->now - $editor->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) && $editor->accepted_edits >= 10;
 }
 
 __PACKAGE__->meta->make_immutable;

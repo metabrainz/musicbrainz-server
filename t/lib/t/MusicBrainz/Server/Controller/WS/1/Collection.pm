@@ -1,16 +1,29 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::Collection;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
+
+with 't::Mechanize', 't::Context';
 
 use HTTP::Request::Common;
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
 
-use MusicBrainz::WWW::Mechanize;
+test all => sub {
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password');
+INSERT INTO editor_collection (id, gid, editor, name)
+    VALUES (1, 'b33f3e54-caab-4ad4-94a6-a598e0e52eec', 1, 'My Collection');
+EOSQL
 
 subtest 'Add a release to a collection' => sub {
     my $request = POST '/ws/1/collection/?type=xml', [
@@ -55,5 +68,7 @@ subtest 'Remove releases from collections' => sub {
     done_testing;
 };
 
-done_testing;
+};
+
+1;
 

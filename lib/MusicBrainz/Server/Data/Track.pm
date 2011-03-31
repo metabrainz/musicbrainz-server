@@ -61,7 +61,11 @@ sub load
 sub load_for_tracklists
 {
     my ($self, @tracklists) = @_;
-    my %id_to_tracklist = map { $_->id => $_ } @tracklists;
+    my %id_to_tracklist;
+    for my $tracklist (@tracklists) {
+        $id_to_tracklist{$tracklist->id} ||= [];
+        push @{ $id_to_tracklist{$tracklist->id} }, $tracklist;
+    }
     my @ids = keys %id_to_tracklist;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
@@ -71,7 +75,8 @@ sub load_for_tracklists
     my @tracks = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $track (@tracks) {
-        $id_to_tracklist{$track->tracklist_id}->add_track($track);
+        my @tracklists = @{ $id_to_tracklist{$track->tracklist_id} };
+        $_->add_track($track) for @tracklists;
     }
 }
 

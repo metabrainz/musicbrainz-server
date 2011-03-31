@@ -24,7 +24,11 @@
             <tbody>
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
-                    <td>[% rel.begin_date.format %]</td>
+                    <td>
+                    [% UNLESS rel.link.end_date.is_empty AND rel.link.begin_date.is_empty %]
+                      [% rel.link.begin_date.format %] &mdash; [% rel.link.end_date.format %]
+                    [% END %]
+                    </td>
                     <td>
                         [% link_entity(rel.target) %]
                     </td>

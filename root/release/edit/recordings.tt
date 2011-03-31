@@ -98,7 +98,7 @@
           [%- ELSE -%]
             <tr class="servermatch releaselist" style="display: none">
               <td> </td>
-              <td colspan="3">[%- l('appears on:') %]<span class="appears"></span></td>
+              <td colspan="3">[%- l('appears on:') %] <span class="appears"></span></td>
             </tr>
           [%- END -%]
 
@@ -113,6 +113,7 @@
           <tr class="addnew">
             <td class="select">
               <input type="radio" class="newrecording recordingmatch" 
+                  [%- UNLESS servermatch %] checked="checked"[%- END -%]
                   [%- IF name %] name="[% name %]"[%- END -%] />
             </td>
             <td class="recording" colspan="3">[% l('Add a new recording') %]</td>
@@ -127,6 +128,10 @@
   [%- USE r = FormRenderer(form) -%]
   <div class="changes">
     [%- r.hidden ('wizard_session_id') -%]
+
+    [%- IF confirmation_required -%]
+      [%- notice(l('Some tracks were changed, please confirm that the associated recordings are correct.')) -%]
+    [%- END -%]
 
     [%- USE w = Wizard() -%]
     [%- information = w.page('information') -%]
@@ -147,6 +152,8 @@
             <td class="name" style="width: 40%; padding: 0.5em 0.5em 0 0;" ></td>
             <td class="recording" style="width: 40%; padding: 0.5em 0 0 0;">
               <input class="gid" type="hidden" />
+              <input class="confirmed" type="hidden" value="1" />
+              <input class="edit_sha1" type="hidden" />
               <span class="recording"></span>
               <span class="add-recording" style="display: none">[%- l('(add a new recording)') -%]</span>
             </td>
@@ -178,6 +185,8 @@
       [%- medium = mediums.fields.$medium_idx -%]
       [%- edits = tracklist_edits.$medium_idx.edits -%]
 
+      [%- NEXT IF medium.field('deleted').value -%]
+
       <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]">
 
         [%- r.hidden (rec_medium.field('tracklist_id'), class => 'tracklist-id' ) -%]
@@ -197,8 +206,7 @@
           [%- END -%]
         </legend>
 
-        [%- IF edits -%]
-
+        [%- IF rec_medium.field('associations').fields -%]
         <table>
           <thead>
           <tr>
@@ -207,9 +215,13 @@
           </thead>
           <tbody>
 
-          [%- FOR track=edits -%]
+          [%- FOR assoc=rec_medium.field('associations').fields -%]
             [%- track_idx = loop.index -%]
-            [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
+            [%- IF edits -%]
+              [%- track=edits.$track_idx -%]
+            [%- ELSE -%]
+              [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
+            [%- END -%]
             [%- recording = suggestions.$medium_idx.$track_idx -%]
             <tr class="track">
               <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position | html %]</td>
@@ -217,6 +229,9 @@
 
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
                 [%- r.hidden (assoc.field('gid'), class => 'gid') -%]
+                [%- r.hidden (assoc.field('confirmed'), class => 'confirmed') -%]
+                [%- r.hidden (assoc.field('edit_sha1'), class => 'edit_sha1') -%]
+
                 [% addnew = (assoc.field('gid').value == 'new') %]
                 <span class="recording"
                   [%- IF addnew -%]style="display: none"[% END %]>
@@ -228,14 +243,25 @@
                 </span>
               </td>
               <td rowspan="2" class="buttons" style="vertical-align: middle; width: 10%;">
-                <a class="change-recording" href="#change-recording">Change</a>
+                [%- IF assoc.field('confirmed').value -%]
+                  <a class="change-recording" href="#change-recording">
+                  [%- l('Change') -%]
+                  </a>
+                [%- ELSE -%]
+                  <a class="change-recording negative" href="#change-recording">
+                  [%- l('Confirm') -%]
+                  </a>
+                [%- END -%]
+                </a>
               </td>
             </tr>
 
             <tr>
               <td style="padding: 0 0.5em 0.5em 0;" class="artist">
                 [% l('by') %]
-                <span class="track-artist">[%- track.artist_credit.preview | html -%]</span>
+                <span class="track-artist">
+                  [%- track.artist_credit.preview || track.artist_credit.name | html -%]
+                </span>
               </td>
               <td style="padding: 0 0 0.5em 0;" >
                 <span class="recording"
@@ -284,11 +310,13 @@
         [%- edits = tracklist_edits.$medium_idx.edits -%]
         [%- medium = mediums.fields.$medium_idx -%]
 
-        [%- NEXT UNLESS edits -%]
-
-        [%- FOR track=edits -%]
+        [%- FOR assoc=rec_medium.field('associations').fields -%]
           [%- track_idx = loop.index -%]
-          [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
+          [%- IF edits -%]
+            [%- track=edits.$track_idx -%]
+          [%- ELSE -%]
+            [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
+          [%- END -%]
           [%- recording = suggestions.$medium_idx.$track_idx -%]
 
           [% name = "select-recording-$medium_idx-$track_idx" %]

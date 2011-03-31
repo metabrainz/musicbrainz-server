@@ -40,7 +40,7 @@ is(@$alias_set, 2);
 
 MusicBrainz::Server::Test::reject_edit($c, $edit);
 
-my $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
+$alias_set = $c->model('Label')->alias->find_by_entity_id(1);
 is(@$alias_set, 2);
 
 $label = $c->model('Label')->get_by_id(1);
@@ -50,7 +50,7 @@ $alias = $c->model('Label')->alias->get_by_id(1);
 ok(defined $alias);
 is($alias->edits_pending, 0);
 
-my $edit = _create_edit($c, $alias);
+$edit = _create_edit($c, $alias);
 MusicBrainz::Server::Test::accept_edit($c, $edit);
 
 $label = $c->model('Label')->get_by_id(1);
@@ -69,7 +69,7 @@ sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_DELETE_ALIAS,
         editor_id => 1,
-        entity_id => 1,
+        entity    => $c->model('Label')->get_by_id(1),
         alias     => $alias,
     );
 }

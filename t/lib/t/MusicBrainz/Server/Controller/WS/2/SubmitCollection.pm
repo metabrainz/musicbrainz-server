@@ -7,6 +7,7 @@ with 't::Mechanize', 't::Context';
 
 use utf8;
 use HTTP::Status qw( :constants );
+use HTTP::Request::Common qw( DELETE );
 use XML::SemanticDiff;
 use XML::XPath;
 
@@ -33,23 +34,16 @@ EOSQL
 my $collection = $c->model('Collection')->get_first_collection(1);
 my $release = $c->model('Release')->get_by_gid('0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e');
 
+my $uri = '/ws/2/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/'.
+    $release->gid . '?client=test-1.0';
+
 subtest 'Add releases to collection' => sub {
-    my $content = '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <add>
-    <release id="' . $release->gid . '" />
-  </add>
-</metadata>';
-
-    my $req = xml_post('/ws/2/collection/f34c079d-374e-4436-9448-da92dedef3ce?client=test-1.0', $content);
-
-    $mech->request($req);
-    is($mech->status, HTTP_UNAUTHORIZED, 'cant POST without authentication');
+    $mech->put($uri);
+    is($mech->status, HTTP_UNAUTHORIZED, 'cant PUT without authentication');
 
     $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
-    $mech->request($req);
-    is($mech->status, HTTP_OK);
+    $mech->put_ok($uri);
     note($mech->content);
     xml_ok($mech->content);
 
@@ -60,25 +54,11 @@ $test->_clear_mech;
 $mech = $test->mech;
 
 subtest 'Remove releases from collection' => sub {
-    my $content = '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <remove>
-    <release id="' . $release->gid . '" />
-  </remove>
-</metadata>';
-
-    my $req = xml_post('/ws/2/collection/f34c079d-374e-4436-9448-da92dedef3ce?client=test-1.0', $content);
-
+    my $req = DELETE $uri;
     $mech->request($req);
     is($mech->status, HTTP_UNAUTHORIZED, 'cant POST without authentication');
 
     $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
-
-    $mech->request($req);
-    is($mech->status, HTTP_OK);
-    xml_ok($mech->content);
-
-    $c->model('Collection')->check_release($collection, $release->id);
 
     $mech->request($req);
     is($mech->status, HTTP_OK);

@@ -43,7 +43,10 @@ ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce}, 'should redir
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
 is_deeply($edit->data, {
-        entity_id => 3,
+        entity => {
+            id => 3,
+            name => 'Test Artist'
+        },
         new => {
             name => 'edit artist',
             sort_name => 'artist, controller',

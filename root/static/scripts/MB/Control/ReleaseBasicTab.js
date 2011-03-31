@@ -140,6 +140,24 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
     };
 
+    self.removeDisc = function (chained) {
+        if (!chained && self.disc.isLastDisc ())
+            return;
+
+        /* FIXME: remove from parent textareas. */
+        self.$textarea.val ('');
+        self.$textarea.hide ();
+        self.$basicdisc.hide ();
+
+        if (!chained)
+        {
+            self.disc.removeDisc (true);
+        }
+
+        /* render preview after the advanced tab has also removed all tracks. */
+        self.preview.render ();
+    };
+
     self.loadTracklist = function (data) {
         self.$textarea.show ();
         self.$nowloading.hide ();
@@ -175,6 +193,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$nowloading = self.$basicdisc.find ('div.tracklist-loading');
     self.$expand_icon = self.$basicdisc.find ('input.expand-disc');
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
+    self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
     self.$various_artists = self.$basicdisc.find ('input.various-artists');
 
@@ -185,6 +204,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
+    self.$delete_icon.bind ('click.mb', function (ev) { self.removeDisc (); });
 
     self.$textarea.bind ('keyup.mb', function () {
         var newTimeout = setTimeout (function () {
@@ -274,7 +294,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     };
 
     var addDisc = function () {
-        return self.tracklist.newDisc (self.adv.addDisc ());
+        return self.tracklist.newDisc (self.adv.addDisc (), true);
     };
 
     $("a[href=#advanced]").click (function () {

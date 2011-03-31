@@ -17,7 +17,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, medium, cdtoc, edits_pending';
+    return 'medium_cdtoc.id, medium, cdtoc, edits_pending';
 }
 
 sub _column_mapping
@@ -60,11 +60,17 @@ sub load_for_mediums
     return @list;
 }
 
-sub find_by_cdtoc
+sub find_by_discid
 {
-    my ($self, $cdtoc_id) = @_;
-    return sort { $a->id <=> $b->id }
-        values %{ $self->_get_by_keys("cdtoc", $cdtoc_id) };
+    my ($self, $discid) = @_;
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+           JOIN cdtoc ON cdtoc = cdtoc.id
+          WHERE discid = ?
+       ORDER BY medium_cdtoc.id ASC';
+    return query_to_list(
+        $self->sql, sub { $self->_new_from_row(@_) },
+        $query, $discid);
 }
 
 sub get_by_medium_cdtoc
@@ -80,13 +86,14 @@ sub get_by_medium_cdtoc
 sub insert
 {
     my ($self, $hash) = @_;
-    $self->sql->insert_row('medium_cdtoc', $hash);
+    my $id = $self->sql->insert_row('medium_cdtoc', $hash, 'id');
     $self->c->model('CDStub')->delete(
         $self->sql->select_single_value(
             'SELECT discid FROM cdtoc WHERE id = ?',
             $hash->{cdtoc}
         )
     );
+    return $id;
 }
 
 sub update

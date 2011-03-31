@@ -1,27 +1,4 @@
-
 SET client_min_messages TO 'warning';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO country (id, iso_code, name) VALUES
     (1, 'GB', 'United Kingdom'),
@@ -101,9 +78,6 @@ INSERT INTO work_name (id, name) VALUES (1, 'Test Work');
 INSERT INTO work (id, gid, name, type, iswc) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 'T-000.000.001-0');
 
-
-
-
 INSERT INTO link_attribute_type (id, root, gid, name)
     VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'additional');
 INSERT INTO link_attribute_type (id, root, gid, name)
@@ -113,26 +87,27 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-
-
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
             'performer');
 
-
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+    VALUES (2, 'a610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
+            'performed {additional} {instrument} on',
+            'has {additional} {instrument} performed by',
+            'performer');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1);
+
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 2, 1, NULL);
 
-
-
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 1, 2);
-
+INSERT INTO link (id, link_type, attribute_count) VALUES (3, 2, 0);
 
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4);
@@ -142,6 +117,7 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
+INSERT INTO l_artist_work (id, link, entity0, entity1) VALUES (1, 2, 3, 1);
 
 INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
 INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);

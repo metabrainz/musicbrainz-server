@@ -20,9 +20,13 @@ before 'serialize' => sub
                 $relationship;
         }
 
-        while (my ($type, $relationships) = each %by_type) {
+        for my $type (sort keys %by_type) {
+            my $relationships = $by_type{$type};
+
             $self->add(
-                List->new->serialize({ 'target-type' => map_type($type) }, $relationships)
+                List->new( sort => sub { $_->target_key . $_->link->type->name } )
+                    ->serialize({ 'target-type' => map_type($type) },
+                                $relationships)
             )
         }
     }

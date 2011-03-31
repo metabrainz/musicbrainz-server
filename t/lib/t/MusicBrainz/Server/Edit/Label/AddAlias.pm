@@ -43,7 +43,7 @@ is(@$alias_set, 2);
 $label = $c->model('Label')->get_by_id(1);
 is($label->edits_pending, 0);
 
-my $edit = _create_edit($c);
+$edit = _create_edit($c);
 accept_edit($c, $edit);
 
 $label = $c->model('Label')->get_by_id(1);
@@ -59,7 +59,7 @@ sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_ADD_ALIAS,
         editor_id => 1,
-        label_id => 1,
+        entity => $c->model('Label')->get_by_id(1),
         name => 'Another alias',
     );
 }

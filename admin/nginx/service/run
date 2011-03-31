@@ -9,4 +9,6 @@ exec \
             ./script/musicbrainz_fastcgi.pl \
  		-listen 127.0.0.1:55901 \
  		-nproc 5 \
+ 		-p fcgi.pid \
 		-keeperr
+

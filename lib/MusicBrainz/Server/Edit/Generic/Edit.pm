@@ -9,7 +9,7 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 requires 'change_fields', '_edit_model';
 
-sub entity_id { shift->data->{entity_id} }
+sub entity_id { shift->data->{entity}{id} }
 
 sub alter_edit_pending
 {
@@ -44,7 +44,10 @@ sub initialize
     die "You must specify the object to edit" unless defined $entity;
 
     $self->data({
-        entity_id => $entity->id,
+        entity => {
+            id => $entity->id,
+            name => $entity->name
+        },
         $self->_change_data($entity, %opts)
     });
 };

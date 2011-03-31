@@ -24,8 +24,6 @@ my $request = POST $mech->uri, [
     'edit-work.comment' => 'A comment!',
     'edit-work.type_id' => 1,
     'edit-work.name' => 'Enchanted',
-    'edit-work.artist_credit.names.0.name' => 'Variant',
-    'edit-work.artist_credit.names.0.artist_id' => '3',
     'edit-work.iswc' => 'T-000.000.001-0',
 ];
 
@@ -35,7 +33,6 @@ ok($mech->success);
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Create');
 is_deeply($edit->data, {
-    artist_credit => [ { artist => 3, name => 'Variant' } ],
     name          => 'Enchanted',
     comment       => 'A comment!',
     type_id       => 1,
@@ -47,8 +44,6 @@ html_ok($mech->content, '..valid xml');
 $mech->content_contains('Enchanted', '..has work name');
 $mech->content_contains('A comment!', '..has comment');
 $mech->content_contains('Composition', '..has type');
-$mech->content_contains('Variant', '..hasartist');
-$mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '...and links to artist');
 
 };
 

@@ -26,7 +26,10 @@ $mech->submit_form(
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::AddAnnotation');
 is_deeply($edit->data, {
-    entity_id => 2,
+    entity => {
+        id => 2,
+        name => 'Aerial'
+    },
     text => 'This is my annotation',
     changelog => 'Changelog here',
     editor_id => 1

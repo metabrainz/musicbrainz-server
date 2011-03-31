@@ -8,6 +8,7 @@ BEGIN { use_ok 'Sql' }
 
 use MusicBrainz::Server::Test;
 my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c, '+tag-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+tag');
 
 throws_ok { Sql->new } qr/Missing required argument 'dbh'/,
@@ -128,9 +129,11 @@ my $sql =
     lives_ok { $sql->begin } 'can enter a transaction';
     ok($sql->is_in_transaction);
 
-    throws_ok { $sql->begin } qr/begin called while already in a transaction/,
-        'cannot nest begin calls';
+    lives_ok { $sql->begin } 'can nest begin calls';
     ok($sql->is_in_transaction);
+
+    lives_ok { $sql->commit } 'can commit';
+    ok($sql->is_in_transaction, 'remains in transaction');
 
     lives_ok { $sql->commit } 'can commit';
 

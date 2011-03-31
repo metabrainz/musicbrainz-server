@@ -63,7 +63,7 @@ role {
     method 'merge' => sub {
         my ($self, $c) = @_;
 
-        my $action = $c->req->params->{submit};
+        my $action = $c->req->params->{submit} || '';
         if ($action eq 'remove') {
             $self->_merge_remove($c);
         }

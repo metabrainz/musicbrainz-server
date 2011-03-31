@@ -116,20 +116,44 @@ sub _load
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my @cond;
-        my @params;
+        my (@cond, @params, $target, $target_id, $query);
         if ($type eq $type0) {
             push @cond, "entity0 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
+            $target = $type1;
+            $target_id = 'entity1';
         }
         if ($type eq $type1) {
             push @cond, "entity1 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
+            $target = $type0;
+            $target_id = 'entity0';
         }
-        my $query = "
-            SELECT * FROM l_${type0}_${type1}
+
+        my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
+                      JOIN link l ON link = l.id";
+        my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
+                     l.end_date_year,   l.end_date_month,   l.end_date_day';
+
+        if ($target eq 'url') {
+            $query = "
+            SELECT $select
+              JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
-            ORDER BY id";
+            ORDER BY $order, url";
+        } else {
+            my $name_table =
+                $target eq 'recording'     ? 'track_name'   :
+                $target eq 'release_group' ? 'release_name' :
+                                             "${target}_name";
+            $query = "
+            SELECT $select
+              JOIN $target ON $target_id = ${target}.id
+              JOIN $name_table name ON name.id = ${target}.name
+            WHERE " . join(" OR ", @cond) . "
+            ORDER BY $order, musicbrainz_collate(name.name)";
+        }
+
         $self->sql->select($query, @params);
         while (1) {
             my $row = $self->sql->next_row_hash_ref or last;

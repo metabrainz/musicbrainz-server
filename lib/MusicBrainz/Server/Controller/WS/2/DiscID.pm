@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' };
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Validation qw( is_valid_discid );
+use MusicBrainz::Server::Translation qw( l );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -32,7 +33,7 @@ sub discid : Chained('root') PathPart('discid') Args(1)
     my $stash = WebServiceStash->new;
     my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
     if ($cdtoc) {
-        my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
+        my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
         $c->model('Medium')->load(@mediumcdtocs);
 
         my $opts = $stash->store ($cdtoc);
@@ -75,9 +76,12 @@ sub discid : Chained('root') PathPart('discid') Args(1)
 
         my $inc = $c->stash->{inc};
 
-        $c->model('Release')->load(map { $_->medium } @$results);
-        my @releases = map { $_->medium->release } @$results;
+        $c->model('MediumFormat')->load(map { $_->medium } @$results);
 
+        my @mediums = grep { $_->may_have_discids } map { $_->medium } @$results;
+        $c->model('Release')->load(@mediums);
+
+        my @releases = map { $_->release } @mediums;
         $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_)
             for @releases;
 

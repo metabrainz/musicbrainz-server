@@ -29,11 +29,26 @@ sub _load_link_attr_type
     return $link_attr_type;
 }
 
-sub index : Path Args(0) RequireAuth(relationship_editor)
+sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
     $self->_load_tree($c);
+}
+
+sub instruments : Path('/admin/linkattributetype/instruments')
+{
+    my ($self, $c) = @_;
+
+    my $tree = $c->model('LinkAttributeType')->get_tree();
+    my $instruments;
+
+    for my $i ($tree->all_children) {
+        next unless $i->{'name'} eq "instrument";
+        $instruments = $i;
+    }
+
+    $c->stash( root => $instruments );
 }
 
 sub create : Local Args(0) RequireAuth(relationship_editor)

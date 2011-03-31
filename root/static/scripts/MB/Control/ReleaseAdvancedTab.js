@@ -320,6 +320,29 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         event.preventDefault ();
     };
 
+    self.removeDisc = function (chained) {
+        if (!chained && self.isLastDisc ())
+            return;
+
+        self.edits.clearEdits ();
+        self.tracklist = null;
+        self.removeTracks (-1);
+
+        self.$deleted.val (1);
+        self.$fieldset.hide ();
+
+        self.parent.removeDisc (self);
+
+        if (!chained)
+        {
+            self.basic.removeDisc (true);
+        }
+    };
+
+    self.isLastDisc = function () {
+        return self.parent.isLastDisc (self);
+    };
+
     self.position = function (val) {
         if (val)
         {
@@ -428,6 +451,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             }
         };
 
+        self.$nowloading.show ();
+        self.$fieldset.addClass ('expanded');
+        self.$expand_icon.hide ();
+        self.$collapse_icon.show ();
+
         if (data)
         {
             use_data (data);
@@ -448,11 +476,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                 use_data ([]);
             }
         }
-
-        self.$nowloading.show ();
-        self.$fieldset.addClass ('expanded');
-        self.$expand_icon.hide ();
-        self.$collapse_icon.show ();
 
         if (!chained)
         {
@@ -525,6 +548,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * being children of self.fieldset, and we need to find them based
      * on their id attribute. */
     self.$title = $('#id-mediums\\.'+self.number+'\\.name');
+    self.$deleted = $('#id-mediums\\.'+self.number+'\\.deleted');
     self.$position = $('#id-mediums\\.'+self.number+'\\.position');
     self.$format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
 
@@ -548,7 +572,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$fieldset.find ('input.add-track').bind ('click.mb', self.addTrackEvent);
     self.$buttons.find ('input.disc-down').bind ('click.mb', self.moveDown);
     self.$buttons.find ('input.disc-up').bind ('click.mb', self.moveUp);
-
+    self.$buttons.find ('input.remove-disc')
+        .bind ('click.mb', function (ev) { self.removeDisc (); });
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
 
@@ -722,7 +747,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         var newdisc_bas = lastdisc_bas.clone ().insertAfter (lastdisc_bas);
         var newdisc_adv = lastdisc_adv.clone ().insertAfter (lastdisc_adv);
 
-        newdisc_adv.find ('tbody').empty ();
+        newdisc_adv.find ('table.medium.tbl tbody').empty ();
 
         var discnum = newdisc_bas.find ("h3").find ('span.discnum');
         discnum.text (discs + 1);
@@ -774,10 +799,10 @@ MB.Control.ReleaseAdvancedTab = function () {
         var idx = position - 1;
 
         if (direction < 0 && idx === 0)
-            return;
+            return false;
 
         if (direction > 0 && idx === self.discs.length - 1)
-            return;
+            return false;
 
         var other = self.discs[idx + direction];
 
@@ -800,6 +825,19 @@ MB.Control.ReleaseAdvancedTab = function () {
             other.$fieldset.insertBefore (disc.$fieldset);
             other.basic.$basicdisc.insertBefore (disc.basic.$basicdisc);
         }
+
+        return true;
+    };
+
+    self.isLastDisc = function (disc) {
+        return (self.discs.length == 1);
+    };
+
+    self.removeDisc = function (disc) {
+
+        while (self.moveDisc (disc, +1)) { };
+
+        var deleted = self.discs.pop ();
     };
 
     self.guessCase = function () {

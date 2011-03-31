@@ -1,12 +1,37 @@
-use utf8;
-use strict;
+package t::MusicBrainz::Server::Controller::WS::1::LookupTrack;
+use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
 
-use MusicBrainz::Server::Test
-    qw( xml_ok schema_validator ),
-    ws_test => { version => 1 };
+with 't::Mechanize', 't::Context';
 
-my $c = MusicBrainz::Server::Test->create_test_context;
+use HTTP::Request::Common;
+use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test ws_test => {
+    version => 1
+};
+
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+my $mech = $test->mech;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO link_type
+    (id, parent, child_order, gid, entity_type0, entity_type1,
+     name, description, link_phrase, reverse_link_phrase, short_link_phrase)
+VALUES (251, NULL, 1, '45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5', 'recording', 'url',
+        'download for free', 'Indicates a webpage where you can download',
+        'download for free', 'free download page for', 'download for free');
+INSERT INTO link (id, link_type, attribute_count) VALUES (24957, 251, 0);
+INSERT INTO l_recording_url (id, link, entity0, entity1)
+    VALUES (9000, 24957, 4223059, 195251);
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password');
+EOSQL
+
 MusicBrainz::Server::Test->prepare_raw_test_database(
     $c, <<'EOSQL');
 TRUNCATE recording_tag_raw CASCADE;
@@ -53,15 +78,12 @@ ws_test 'lookup track with multiple artists',
 </metadata>';
 
 ws_test 'lookup track with tags',
-    '/track/eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e?type=xml&inc=tags' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
-  <track id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
-    <title>サマーれげぇ!レインボー (instrumental)</title><duration>292800</duration>
-    <tag-list>
-      <tag count="1">instrumental version</tag><tag count="1">jpop</tag><tag count="1">korean</tag>
-      <tag count="1">metal</tag><tag count="1">thrash metal</tag>
-    </tag-list>
+    '/track/7a356856-9483-42c2-bed9-dc07cb555952?type=xml&inc=tags' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" >
+  <track id="7a356856-9483-42c2-bed9-dc07cb555952">
+    <title>Cella</title><duration>334000</duration>
+    <tag-list><tag count="1">dubstep</tag></tag-list>
   </track>
 </metadata>';
 
@@ -115,15 +137,6 @@ ws_test 'lookup track with artist-relationships',
  <relation-list target-type="Artist">
   <relation direction="backward"
             target="22dd2db3-88ea-4428-a7a8-5cd3acf23175"
-            type="Programming">
-   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
-    <name>m-flo</name>
-    <sort-name>m-flo</sort-name>
-    <life-span begin="1998" />
-   </artist>
-  </relation>
-  <relation direction="backward"
-            target="22dd2db3-88ea-4428-a7a8-5cd3acf23175"
             type="Producer">
    <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
     <name>m-flo</name>
@@ -132,8 +145,17 @@ ws_test 'lookup track with artist-relationships',
    </artist>
   </relation>
   <relation direction="backward"
+            target="22dd2db3-88ea-4428-a7a8-5cd3acf23175"
+            type="Programming">
+   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+    <name>m-flo</name>
+    <sort-name>m-flo</sort-name>
+    <life-span begin="1998" />
+   </artist>
+  </relation>
+  <relation direction="backward"
             target="a16d1433-ba89-4f72-a47b-a370add0bb55"
-            type="Vocal">
+            type="Vocal" attributes="Guest">
    <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
     <name>BoA</name>
     <sort-name>BoA</sort-name>
@@ -170,6 +192,7 @@ ws_test 'lookup track with release-relationships',
    <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Spokenword Official">
     <title>An Inextricable Tale Audiobook</title>
     <text-representation script="Latn" language="ENG" />
+    <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c"><name>Paul Allgood</name><sort-name>Allgood, Paul</sort-name></artist>
    </release>
   </relation>
  </relation-list>
@@ -183,21 +206,22 @@ ws_test 'lookup track with track-relationships',
  <relation-list target-type="Track">
   <relation direction="backward"
             target="162630d9-36d2-4a8d-ade1-1c77440b34e7"
-            type="OtherVersion">
+            type="Karaoke">
    <track id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
     <title>サマーれげぇ!レインボー</title>
     <duration>296026</duration>
+    <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f"><name>7人祭</name><sort-name>7nin Matsuri</sort-name></artist>
    </track>
   </relation>
  </relation-list>
 </track></metadata>';
 
 ws_test 'lookup track with url-relationships',
-    '/track/050e2f1b-ce1a-49b7-8b0b-15b1e7c5ec02?type=xml&inc=url-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="050e2f1b-ce1a-49b7-8b0b-15b1e7c5ec02">
- <title>Jailbait (demo)</title>
+    '/track/162630d9-36d2-4a8d-ade1-1c77440b34e7?type=xml&inc=url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+ <title>サマーれげぇ!レインボー</title><duration>296026</duration>
  <relation-list target-type="Url">
-  <relation target="http://www.corporationblend.com/mp3s/Jailbait.mp3" type="DownloadFor Free" />
+  <relation target="http://en.wikipedia.org/wiki/Freestyle_Dust" type="DownloadForFree" />
  </relation-list>
 </track></metadata>';
 
@@ -231,4 +255,7 @@ ws_test 'lookup track with ratings',
 </track></metadata>',
     { username => 'editor', password => 'password' };
 
-done_testing;
+};
+
+1;
+

@@ -7,7 +7,11 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
-use MusicBrainz::Server::Data::Utils qw( type_to_model artist_credit_to_alternative_ref );
+use MusicBrainz::Server::Data::Utils qw(
+    artist_credit_to_alternative_ref
+    hash_structure
+    type_to_model
+);
 use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
@@ -478,20 +482,35 @@ sub associations : Chained('root') PathPart Args(1) {
     my @structure;
     for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
     {
+        my $track = {
+            name => $_->name,
+            length => format_track_length($_->length),
+            artist_credit => { 
+                preview => $_->artist_credit->name,
+                names => artist_credit_to_alternative_ref ($_->artist_credit),
+            }
+        };
+
         my $data = {
             length => format_track_length($_->length),
             name => $_->name,
-            artist_credit => { preview => $_->artist_credit->name }
+            artist_credit => { preview => $_->artist_credit->name },
+            edit_sha1 => hash_structure ($track)
         };
+
+
+        my %rgs;
+        for ($c->model ('ReleaseGroup')->find_by_recording ($_->recording->id))
+        {
+            $rgs{$_->gid} = { 'name' => $_->name, 'gid' => $_->gid };
+        }
 
         $data->{recording} = {
             gid => $_->recording->gid,
             name => $_->recording->name,
             length => format_track_length($_->recording->length),
             artist_credit => { preview => $_->artist_credit->name },
-            releasegroups => [ map {
-                { 'name' => $_->name, 'gid' => $_->gid }
-            } $c->model ('ReleaseGroup')->find_by_recording ($_->recording->id) ]
+            releasegroups => [ sort { $a->{name} cmp $b->{name} } values %rgs ],
         };
 
         push @structure, $data;

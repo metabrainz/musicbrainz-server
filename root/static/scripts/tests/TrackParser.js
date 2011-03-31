@@ -25,7 +25,7 @@ MB.tests.TrackParser.BugFixes = function() {
                     { title: "Never Can Wait",  duration: "3:24" }
                 ],
                 bug: 'MBS-1284',
-                tracknumbers: true, vinylnumbers: false, tracktimes: true,
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];
 
