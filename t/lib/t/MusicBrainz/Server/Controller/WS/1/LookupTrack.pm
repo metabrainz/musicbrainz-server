@@ -221,7 +221,7 @@ ws_test 'lookup track with url-relationships',
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
  <title>サマーれげぇ!レインボー</title><duration>296026</duration>
  <relation-list target-type="Url">
-  <relation target="http://en.wikipedia.org/wiki/Freestyle_Dust" type="DownloadFor Free" />
+  <relation target="http://en.wikipedia.org/wiki/Freestyle_Dust" type="DownloadForFree" />
  </relation-list>
 </track></metadata>';
 

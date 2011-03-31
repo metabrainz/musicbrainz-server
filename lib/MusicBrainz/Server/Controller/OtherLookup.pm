@@ -184,12 +184,12 @@ sub freedbid : Private
 
     my $freedbid =  $c->req->query_params->{freedbid};
 
-    my @cdtocs = $c->model ('CDTOC')->find_by_freedbid ($freedbid);
+    my @cdtocs = $c->model ('CDTOC')->find_by_freedbid (lc($freedbid));
 
     my @medium_cdtocs;
     for (@cdtocs)
     {
-        push @medium_cdtocs, $c->model('MediumCDTOC')->find_by_cdtoc($_->id);
+        push @medium_cdtocs, $c->model('MediumCDTOC')->find_by_discid($_->discid);
     }
 
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);

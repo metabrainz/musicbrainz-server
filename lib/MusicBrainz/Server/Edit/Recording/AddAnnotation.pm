@@ -4,6 +4,8 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw( l ln );
 
+use aliased 'MusicBrainz::Server::Entity::Recording';
+
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
 
@@ -18,7 +20,7 @@ has 'recording_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity_id} }
+    default => sub { shift->data->{entity}{id} }
 );
 
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
@@ -42,7 +44,8 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig();
-    $data->{recording} = $loaded->{Recording}->{ $self->recording_id };
+    $data->{recording} = $loaded->{Recording}->{ $self->recording_id }
+        || Recording->new( name => $self->data->{entity}{name} );
 
     return $data;
 };

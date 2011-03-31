@@ -25,7 +25,10 @@ sub do_upgrade
 {
     my $self = shift;
     return {
-        entity_id => $self->row_id,
+        entity => {
+            id => $self->row_id,
+            name => '[deleted]'
+        },
         new => {
             artist_credit => [
                 { name => $self->new_value->{name},

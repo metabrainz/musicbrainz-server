@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
     hash_to_row
+    merge_table_attributes
     placeholders
     load_subobjects
     query_to_list_limited
@@ -202,6 +203,15 @@ sub merge
     $self->sql->do('UPDATE track SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 
+    merge_table_attributes(
+        $self->sql => (
+            table => 'recording',
+            columns => [ qw( length comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
     return 1;
 }
@@ -222,6 +232,14 @@ sub find_standalone
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub editor_can_create_recordings {
+    my ($self, $editor) = @_;
+    return DateTime::Duration->compare(
+        DateTime->now - $editor->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) && $editor->accepted_edits >= 10;
 }
 
 __PACKAGE__->meta->make_immutable;

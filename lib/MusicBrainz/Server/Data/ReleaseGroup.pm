@@ -8,6 +8,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
     load_subobjects
+    merge_table_attributes
     partial_date_from_row
     placeholders
     query_to_list
@@ -422,6 +423,15 @@ sub merge
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
+
+    merge_table_attributes(
+        $self->sql => (
+            table => 'release_group',
+            columns => [ qw( type comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
 
     # Move releases to the new release group
     $self->sql->do('UPDATE release SET release_group = ?

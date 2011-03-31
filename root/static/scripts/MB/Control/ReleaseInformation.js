@@ -335,15 +335,6 @@ MB.Control.ReleaseInformation = function() {
             event.preventDefault ();
         });
 
-        var annotation = $('#annotation');
-        annotation.focus (function() { annotation.css('height','70px'); });
-        annotation.blur (function() {
-            if (!annotation.attr('value'))
-            {
-                annotation.css('height','10px');
-            }
-        });
-
         self.artistcredit = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );

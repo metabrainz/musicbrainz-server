@@ -28,10 +28,6 @@ OUTPUT=`
 ./admin/RemoveOldSessions > /dev/null
 
 OUTPUT=`
-    ./admin/ResetSigserverCount --threshold=3 2>&1
-` || echo "$OUTPUT"
-
-OUTPUT=`
     ./admin/RunExport 2>&1
 ` || echo "$OUTPUT"
 

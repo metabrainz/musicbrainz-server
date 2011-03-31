@@ -21,7 +21,10 @@ sub do_upgrade
     my ($self) = @_;
 
     return {
-        entity_id => $self->row_id,
+        entity => {
+            id => $self->row_id,
+            name => $self->previous_value,
+        },
         old => {
             name => $self->previous_value,
         },

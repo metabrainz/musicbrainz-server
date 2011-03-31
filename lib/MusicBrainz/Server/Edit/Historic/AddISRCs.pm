@@ -28,9 +28,12 @@ sub do_upgrade {
 
         push @isrcs, {
             isrc         => $isrc,
-            recording_id => $self->resolve_recording_id(
-                $self->new_value->{"TrackId$i"}
-            )
+            recording    => {
+                id => $self->resolve_recording_id(
+                    $self->new_value->{"TrackId$i"}
+                ),
+                name => '[deleted]',
+            }
         };
     }
 

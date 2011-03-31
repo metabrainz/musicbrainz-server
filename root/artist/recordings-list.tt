@@ -10,7 +10,11 @@
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists %]<th style="width: 1em"></th>[% END %]
+            [% IF c.user_exists %]
+            <th style="width: 1em">
+            <input type="checkbox" />
+            </th>
+            [% END %]
             <th>[%- l('Name') -%]</th>
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
