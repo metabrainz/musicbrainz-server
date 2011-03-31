@@ -251,6 +251,8 @@
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
 
+    <div style="display: none" id="discid-warning">[% warning("") %]</div>
+
     <div id="preview"> </div>
 
     <div style="float: right; margin: 10px;" class="buttons">
