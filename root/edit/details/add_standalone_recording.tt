@@ -1,3 +1,10 @@
+<table class="details">
+    <tr>
+        <th>[% l('Recording:') %]</th>
+        <td>[% link_entity(edit.display_data.recording) %]</td>
+    </tr>
+</table>
+
 <table class="details add-standalone-recording">
   <tr>
     <th>[% l('Name:') %]</th>

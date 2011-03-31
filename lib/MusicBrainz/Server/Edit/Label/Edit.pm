@@ -15,6 +15,8 @@ use MusicBrainz::Server::Translation qw( l ln );
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Label';
 
+use aliased 'MusicBrainz::Server::Entity::Label';
+
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { l('Edit label') }
 sub _edit_model { 'Label' }
@@ -37,7 +39,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         new => change_fields(),
         old => change_fields(),
     ]
@@ -51,6 +56,8 @@ sub foreign_keys
         LabelType => 'type_id',
         Country   => 'country_id',
     );
+
+    $relations->{Label} = [ $self->data->{entity}{id} ];
 
     return $relations;
 }
@@ -80,6 +87,9 @@ sub build_display_data
             };
         }
     }
+
+    $data->{label} = $loaded->{Label}{ $self->data->{entity}{id} }
+        || Label->new( name => $self->data->{entity}{name} );
 
     return $data;
 }

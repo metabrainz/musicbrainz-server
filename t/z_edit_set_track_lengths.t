@@ -8,6 +8,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::SetTrackLengths' };
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
 
 my $c = MusicBrainz::Server::Test->create_test_context;
+MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
 
 my $edit = $c->model('Edit')->create(

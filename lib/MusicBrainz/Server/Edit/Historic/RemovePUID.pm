@@ -37,7 +37,10 @@ sub do_upgrade
 
     return {
         puid              => $self->previous_value,
-        recording_id      => $recording_id,
+        recording         => {
+            id => $recording_id,
+            name => '[deleted]',
+        },
 
         recording_puid_id => $recording_puid_id,
         puid_id           => $puid_id,

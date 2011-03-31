@@ -11,13 +11,18 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 sub edit_name { l('Edit barcodes') }
 sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }
 
 has '+data' => (
     isa => Dict[
         submissions => ArrayRef[Dict[
-            release_id => Int,
+            release => Dict[
+                id => Int,
+                name => Str
+            ],
             barcode => Str,
         ]]
     ]
@@ -47,7 +52,7 @@ sub edit_conditions
     };
 }
 
-sub release_ids { map { $_->{release_id} } @{ shift->data->{submissions} } }
+sub release_ids { map { $_->{release}{id} } @{ shift->data->{submissions} } }
 
 sub related_entities
 {
@@ -78,8 +83,9 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         submissions => [
-            map +{ 
-                release => $loaded->{Release}->{ $_->{release_id} },
+            map +{
+                release => $loaded->{Release}->{ $_->{release}{id} }
+                    || Release->new( name => $_->{release}{name} ),
                 barcode => $_->{barcode},
             }, @{ $self->data->{submissions} }
         ]
@@ -90,7 +96,7 @@ sub accept {
     my ($self) = @_;
     for my $submission (@{ $self->data->{submissions} }) {
         $self->c->model('Release')->update(
-            $submission->{release_id},
+            $submission->{release}{id},
             { barcode => $submission->{barcode} }
         )
     }

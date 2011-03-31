@@ -46,16 +46,24 @@ is($r2->barcode, '5199703257021');
 
 sub _create_edit {
     my $c = shift;
+    my $old_rel = $c->model('Release')->get_by_id(1);
+    my $new_rel = $c->model('Release')->get_by_id(2);
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_EDIT_BARCODES,
         editor_id => 1,
         submissions => [
             {
-                release_id => 1,
+                release => {
+                    id => $old_rel->id,
+                    name => $old_rel->name,
+                },
                 barcode => '5099703257021',
             },
             {
-                release_id => 2,
+                release => {
+                    id => $new_rel->id,
+                    name => $new_rel->name
+                },
                 barcode => '5199703257021'
             }
         ]

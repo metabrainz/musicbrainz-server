@@ -11,6 +11,8 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 
+use aliased 'MusicBrainz::Server::Entity::Work';
+
 sub edit_name { l('Add work') }
 sub edit_type { $EDIT_WORK_CREATE }
 sub _create_model { 'Work' }
@@ -29,6 +31,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
+        Work => [ $self->entity_id ],
         WorkType => [ $self->data->{type_id} ]
     };
 }
@@ -41,6 +44,8 @@ sub build_display_data
         comment       => $self->data->{comment},
         type          => $loaded->{WorkType}->{ $self->data->{type_id} },
         iswc          => $self->data->{iswc},
+        work          => $loaded->{Work}{ $self->entity_id }
+            || Work->new( name => $self->data->{name} )
     };
 }
 

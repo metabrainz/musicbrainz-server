@@ -184,7 +184,7 @@ sub freedbid : Private
 
     my $freedbid =  $c->req->query_params->{freedbid};
 
-    my @cdtocs = $c->model ('CDTOC')->find_by_freedbid ($freedbid);
+    my @cdtocs = $c->model ('CDTOC')->find_by_freedbid (lc($freedbid));
 
     my @medium_cdtocs;
     for (@cdtocs)
