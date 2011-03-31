@@ -33,7 +33,7 @@
 [% WRAPPER 'recording/layout.tt' full_width=1 title=l('Edit recording') page='edit' %]
 
    [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page.") ) -%]
+     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
 
    [% INCLUDE 'recording/edit_form.tt' %]

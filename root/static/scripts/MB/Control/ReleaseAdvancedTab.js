@@ -163,6 +163,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$fieldset = $disc;
     self.parent = parent;
     self.bubble_collection = self.parent.bubble_collection;
+    self.track_count = null;
 
     /**
      * fullTitle returns the disc title prefixed with 'Disc #: '.  Or just
@@ -320,6 +321,12 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     /* This function registers the ReleaseTextarea for this disc as self.basic. */
     self.registerBasic = function (basic) {
         self.basic = basic;
+
+        /* the basic disc knows about tocs, so we can now call hasToc. */
+        if (self.hasToc ())
+        {
+            self.$fieldset.find ('div.add-track').hide ();
+        }
     };
 
     /* 'up' is visual, so the disc position decreases. */
@@ -464,6 +471,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             self.loadTracklist (data);
             if (chained) {
                 self.basic.loadTracklist (data);
+            }
+
+            if (self.hasToc ()) {
+                self.track_count = data.length;
             }
         };
 
