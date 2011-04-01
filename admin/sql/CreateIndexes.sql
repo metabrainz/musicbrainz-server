@@ -124,7 +124,7 @@ CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
-ALTER TABLE medium ADD CONSTRAINT medium_release_position UNIQUE(release, position) DEFERRABLE;
+CREATE INDEX medium_idx_release ON medium (release);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
 
 CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
