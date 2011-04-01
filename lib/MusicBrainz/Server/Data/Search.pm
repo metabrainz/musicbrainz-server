@@ -262,6 +262,7 @@ sub schema_fixup
     if (exists $data->{country})
     {
         $data->{country} = $c->model('Country')->find_by_code ($data->{country});
+        delete $data->{country} unless defined $data->{country};
     }
 
     if ($type eq 'artist' && exists $data->{type})
