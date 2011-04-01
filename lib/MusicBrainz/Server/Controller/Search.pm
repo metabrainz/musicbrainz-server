@@ -98,10 +98,13 @@ sub direct : Private
             $c->model('LabelType')->load(@entities);
         }
         case 'recording' {
-            for my $result (@$results) {
-                my @releases = $c->model('Release')->find_by_recording($result->entity->id, 4096);
-                $result->extra($releases[0]);
-            }
+            my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
+                $_->entity->id
+            } @$results);
+            my %result_map = map { $_->entity->id => $_ } @$results;
+
+            $result_map{$_}->extra($recording_releases_map{$_}) for keys %recording_releases_map;
+
             my @releases = map { @{ $_->extra } } @$results;
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
