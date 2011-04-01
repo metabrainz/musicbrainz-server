@@ -293,10 +293,12 @@ sub _recording_direct {
     $c->model ('ArtistCredit')->load (@entities);
     $c->model('ISRC')->load_for_recordings (@entities);
 
+    my %appears_on = $c->model('Recording')->appears_on (3, @entities);
+
     my @output = map {
         {
             recording => $_,
-            appears => $c->model('Recording')->appears_on ($_->id, 3),
+            appears_on => $appears_on{$_->id}
         }
     } @entities;
 
@@ -330,6 +332,8 @@ sub _recording_indexed {
     {
         $pager = $response->{pager};
 
+        my @entities;
+
         for my $result (@{ $response->{results} })
         {
             my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
@@ -340,11 +344,17 @@ sub _recording_indexed {
 
             $entity->artist_credit ($result->{entity}->artist_credit);
 
-            push @output, {
-                recording => $entity,
-                appears => $c->model('Recording')->appears_on ($entity->id, 3)
-            };
+            push @entities, $entity;
         }
+
+        my %appears_on = $c->model('Recording')->appears_on (3, @entities);
+
+        @output = map {
+            {
+                recording => $_,
+                appears_on => $appears_on{$_->id}
+            }
+        } @entities;
     }
     else
     {
@@ -471,6 +481,9 @@ sub associations : Chained('root') PathPart Args(1) {
 
     $c->model('Recording')->load ($tracklist->all_tracks);
 
+    my %appears_on = $c->model('Recording')->appears_on (
+        3, map { $_->recording } $tracklist->all_tracks);
+
     my @structure;
     for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
     {
@@ -485,10 +498,13 @@ sub associations : Chained('root') PathPart Args(1) {
             name => $_->recording->name,
             length => format_track_length($_->recording->length),
             artist_credit => { preview => $_->artist_credit->name },
-            releasegroups => [
-                map {
-                    $_ eq "..." ? $_ : { 'name' => $_->name, 'gid' => $_->gid }
-                } @{ $c->model('Recording')->appears_on ($_->recording->id, 3) } ],
+            appears_on => {
+                hits => $appears_on{$_->recording->id}{hits},
+                results => [ map { {
+                    'name' => $_->name,
+                    'gid' => $_->gid
+                    } } @{ $appears_on{$_->recording->id}{results} } ],
+            }
         };
 
         push @structure, $data;

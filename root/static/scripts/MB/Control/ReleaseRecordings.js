@@ -39,7 +39,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         $target.empty ();
 
         var first = true;
-        $.each (rgs, function (idx, item) {
+        $.each (rgs.results, function (idx, item) {
             var a;
 
             if (first)
@@ -51,20 +51,19 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
                 $target.append (", ");
             }
 
-            if (item === '...')
-            {
-                a = '<a target="_blank" href="/recording/' + gid + '/">...</a>';
-            }
-            else
-            {
-                a = '<a target="_blank" href="/release-group/' + item.gid +
-                    '">' + MB.utility.escapeHTML (item.name) + '</a>';
-            }
+            a = '<a target="_blank" href="/release-group/' + item.gid +
+                '">' + MB.utility.escapeHTML (item.name) + '</a>';
 
             $target.append ($(a));
         });
 
-        return rgs.length;
+        if (rgs.hits > rgs.results.length)
+        {
+            $target.append (
+                $('<a target="_blank" href="/recording/' + gid + '/">...</a>'));
+        }
+
+        return rgs.results.length;
     };
 
     self.selected = function (event, data) {
@@ -73,7 +72,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
         self.$length.text (data.length);
-        self.renderReleaseGroups (self.$appears, data.gid, data.releasegroups);
+        self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
 
         self.$container.find ('tr.clientmatch').show ();
 
@@ -215,7 +214,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
             var appears = rr_track.select.renderReleaseGroups (
                 $bubble.find ('tr.servermatch span.appears'),
-                trk.recording.gid, trk.recording.releasegroups);
+                trk.recording.gid, trk.recording.appears_on);
 
             if (appears)
             {

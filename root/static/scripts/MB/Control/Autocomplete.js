@@ -55,12 +55,17 @@ MB.Control.autocomplete_formatters = {
         a.append ('<br /><span class="autocomplete-comment">by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
 
-        if (item.releasegroups)
+        if (item.appears_on)
         {
             var rgs = [];
-            $.each (item.releasegroups, function (idx, item) {
-                rgs.push (item === '...' ? item : item.name);
+            $.each (item.appears_on.results, function (idx, item) {
+                rgs.push (item.name);
             });
+
+            if (item.appears_on.hits > item.appears_on.results.length)
+            {
+                rgs.push ('...');
+            }
 
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
                       MB.utility.escapeHTML (rgs.join (", ")) + '</span>');
