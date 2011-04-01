@@ -48,9 +48,13 @@ sub autocomplete_recording
             length => format_track_length ($item->{recording}->length),
             artist => $item->{recording}->artist_credit->name,
             isrcs => [ map { $_->isrc } @{ $item->{recording}->isrcs } ],
-            releasegroups => [ map {
-                $_ eq "..." ? $_ : { 'name' => $_->name, 'gid' => $_->gid }
-            } @{ $item->{appears} } ],
+            appears_on => {
+                hits => $item->{appears_on}{hits},
+                results => [ map { {
+                    'name' => $_->name,
+                    'gid' => $_->gid
+                    } } @{ $item->{appears_on}{results} } ],
+            }
         };
     };
 
