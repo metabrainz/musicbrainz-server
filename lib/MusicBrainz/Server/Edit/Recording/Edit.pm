@@ -27,6 +27,18 @@ sub edit_name { l('Edit recording') }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 
+around related_entities => sub {
+    my ($orig, $self, @args) = @_;
+    my %rel = %{ $self->$orig(@args) };
+    if ($self->data->{new}{artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+        push @{ $rel{artist} }, keys(%new), keys(%old);
+    }
+
+    return \%rel;
+};
+
 sub change_fields
 {
     Dict[
