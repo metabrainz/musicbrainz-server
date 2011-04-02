@@ -712,13 +712,15 @@ sub _edit_release_track_edits
         if ($new->{id})
         {
             # The medium already exists
+            my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+            $entity->release ($self->release);
 
             if ($new->{deleted})
             {
                 # Delete medium
                 $create_edit->(
                     $EDIT_MEDIUM_DELETE, $editnote,
-                    medium => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    medium => $entity,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
@@ -729,7 +731,7 @@ sub _edit_release_track_edits
                     name => $new->{name},
                     format_id => $new->{format_id},
                     position => $new->{position},
-                    to_edit => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    to_edit => $entity,
                     separate_tracklists => 1,
                     as_auto_editor => $data->{as_auto_editor},
                 );
