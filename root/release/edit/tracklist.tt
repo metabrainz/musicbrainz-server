@@ -145,7 +145,7 @@
       <table class="import-search-fields">
         <tr>
           <td><label for="import-release">[% l('Release:') %]</label></td>
-          <td><input type="text" id="import-release" class="release" value="Love" /></td>
+          <td><input type="text" id="import-release" class="release" value="" /></td>
           <td> </td>
         </tr>
         <tr>
