@@ -119,39 +119,12 @@
 [%- END -%]
 
 
-[%- MACRO tracklist_import(type) BLOCK -%]
-<p>
-  [% l('Use the following fields to search for a cdstub.') %]
-</p>
-
-<table>
-  <tr>
-    <td><label for="[% type %]-release">[% l('Release:') %]</label></td>
-    <td><input type="text" id="[% type %]-release" class="release" value="Love" /></td>
-    <td> </td>
-  </tr>
-  <tr>
-    <td><label for="[% type %]-artist">[% l('Artist:') %]</label></td>
-    <td><input type="text" id="[% type %]-artist" class="artist" value="" /></td>
-    <td rowspan="2" style="vertical-align: bottom;">
-      <div class="buttons">
-        <a style="min-width: 5em;" href="#search">[% l('Search') %]
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td><label for="track-count">[% l('Track count:') %]</label></td>
-    <td><input type="text" id="track-count" class="track-count" value="" /></td>
-  </tr>
-</table>
-
+[%- MACRO tracklist_pager BLOCK -%]
 <div class="pager" style="width: 100%; text-align: right; display: none;">
   <a href="#prev">&lt;&lt;</a>
   <span class="pager"></span>
   <a href="#next">&gt;&gt;</a>
 </div>
-
-
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
@@ -176,13 +149,46 @@
     </div>
 
     <div class="add-disc-tab tracklist" style="display: none">
-      [%- tracklist_import('tracklist') -%]
+      <p>
+        [% l('Use the following fields to search for an existing tracklist.') %]
+      </p>
+
+      <table class="import-search-fields">
+        <tr>
+          <td><label for="import-release">[% l('Release:') %]</label></td>
+          <td><input type="text" id="import-release" class="release" value="" /></td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td><label for="import-artist">[% l('Artist:') %]</label></td>
+          <td><input type="text" id="import-artist" class="artist" value="" /></td>
+          <td rowspan="2" style="vertical-align: bottom;">
+            <div class="buttons">
+              <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="track-count">[% l('Track count:') %]</label></td>
+          <td><input type="text" id="track-count" class="track-count" value="" /></td>
+        </tr>
+      </table>
+
+      [%- tracklist_pager -%]
     </div>
     <div class="add-disc-tab freedb" style="display: none">
-      [%- tracklist_import('freedb') -%]
+      <p>
+        [% l('Use the following fields to search for a freedb.') %]
+      </p>
+
+      [%- tracklist_pager -%]
     </div>
     <div class="add-disc-tab cdstub" style="display: none">
-      [%- tracklist_import('cdstub') -%]
+      <p>
+        [% l('Use the following fields to search for a cdstub.') %]
+      </p>
+
+      [%- tracklist_pager -%]
     </div>
 
     <div class="import-template" style="display: none; padding-left: 1em;">
