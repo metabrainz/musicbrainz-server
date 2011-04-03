@@ -166,6 +166,8 @@ MB.Control.ReleaseImport = function (parent, type) {
 
     self.$pager_div = self.$container.find ('div.pager');
     self.$pager = self.$container.find ('span.pager');
+    self.$searching = self.$container.find ('div.tracklist-searching');
+    self.$noresults = self.$container.find ('div.tracklist-no-results');
 
     self.$template = parent.$add_disc_dialog.find ('div.import-template');
 
@@ -176,6 +178,9 @@ MB.Control.ReleaseImport = function (parent, type) {
         {
             return;
         }
+
+        self.$noresults.hide ();
+        self.$searching.show ();
 
         self.page = newPage;
         var height = self.$container.innerHeight ();
@@ -188,6 +193,7 @@ MB.Control.ReleaseImport = function (parent, type) {
             tracks: parent.$count.val (),
             page: self.page
         };
+
         $.getJSON ('/ws/js/' + type, data, self.results);
     };
 
@@ -206,6 +212,8 @@ MB.Control.ReleaseImport = function (parent, type) {
             self.search_results.pop ().remove ();
         }
 
+        self.$searching.hide ();
+
         $.each (data, function (idx, item) {
             if (item.current)
             {
@@ -223,6 +231,12 @@ MB.Control.ReleaseImport = function (parent, type) {
 
             self.search_results.push (sr);
         });
+
+        if (data.length < 2)
+        {
+            self.$pager_div.hide ();
+            self.$noresults.show ();
+        }
 
         self.$container.css ('height', 'auto');
     };
