@@ -422,20 +422,22 @@ sub freedb : Chained('root') PathPart Args(2) {
 sub cdstub : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
+    my @ret;
     my $toc = $c->model('CDStubTOC')->get_by_discid($id);
+
     if ($toc)
     {
         $c->model('CDStub')->load ($toc);
         $c->model('CDStubTrack')->load_for_cdstub ($toc->cdstub);
         $toc->update_track_lengths;
-    }
 
-    my @ret = map {
-        {
-            name => $_->title,
-            length => format_track_length($_->length),
-        }
-    } $toc->cdstub->all_tracks;
+        @ret = map {
+            {
+                name => $_->title,
+                length => format_track_length($_->length),
+            }
+        } $toc->cdstub->all_tracks;
+    }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@ret));
