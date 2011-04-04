@@ -187,6 +187,7 @@ WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
         INCLUDE links;
         INCLUDE collections IF c.user_exists;
         INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release;
+        INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=release;
     END;
 END;
 

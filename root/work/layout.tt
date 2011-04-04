@@ -53,9 +53,9 @@
             [% END %]
         </ul>
 
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
-
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=work -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
     [% END %]
 
 <div id="content">
