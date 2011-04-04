@@ -50,15 +50,15 @@
                 [% UNLESS artist.is_special_purpose %]
                   <li>
                     <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
-                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                     </a>
                   </li>
                   <li>
                     <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
-                      [% l('Merge this artist with another') %]
+                      [% l('Merge artist') %]
                     </a>
                   </li>
-                  <li>[% link_entity(artist, 'edits', l('View editing history')) %]</li>
+                  <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
                   [% IF artist.edits_pending %]
                     <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
@@ -68,33 +68,33 @@
                 [% END %]
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
-                    [% l('Add a new release group') %]
+                    [% l('Add release group') %]
                   </a>
                 </li>
                 <li>
                   <a href="[% c.uri_for_action('/release_editor/add', { artist = artist.gid }) %]">
-                    [% l('Add a new release') %]
+                    [% l('Add release') %]
                   </a>
                 </li>
                 <li>
                   <a href="[% c.uri_for_action('/recording/create', { artist = artist.gid }) %]">
-                    [% l('Add a new standalone recording') %]
+                    [% l('Add recording') %]
                   </a>
                 </li>
                 <li>
                   <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
-                    [% l('Add a work') %]
+                    [% l('Add work') %]
                   </a>
                 </li>
                 [% IF watching_artist %]
                     <li>
-                        [% link_entity(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
+                        [% link_entity(artist, 'stop_watching', l('Do not watch for new releases')) %]
                     </li>
                 [% ELSE %]
-                    <li>[% link_entity(artist, 'watch', l('Watch this artist for new releases')) %]</li>
+                    <li>[% link_entity(artist, 'watch', l('Watch for new releases')) %]</li>
                 [% END %]
             [% ELSE %]
-                <li>[% request_login(l('Please log in to edit this artist')) %]</li>
+                <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
 

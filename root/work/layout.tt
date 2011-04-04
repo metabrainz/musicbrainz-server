@@ -23,15 +23,15 @@
             [% IF c.user_exists %]
               <li>
                 <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ work.gid ]) %]">
-                  [% work.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                  [% work.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                 </a>
               </li>
                <li>
                  <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.id }) %]">
-                   [% l('Merge this work with another') %]
+                   [% l('Merge work') %]
                  </a>
                </li>
-               <li>[% link_entity(work, 'edits', l('View editing history')) %]</li>
+               <li>[% link_entity(work, 'edits', l('Editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
                <li>[% relate_to_ellipsis(work) %]</li>
                <li>[% relate_to_url(work) %]</li>
@@ -39,7 +39,7 @@
                  <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
                [% END %]
             [% ELSE %]
-               <li>[% request_login(l('Please log in to edit this work')) %]</li>
+               <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
 

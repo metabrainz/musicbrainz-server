@@ -23,31 +23,31 @@
             [% IF c.user_exists %]
                 <li>
                   <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ rg.gid ]) %]">
-                    [% rg.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                    [% rg.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                   </a>
                 </li>
                 <li>
                   <a href="[% c.uri_for_action('/release_group/merge_queue', { 'add-to-merge' => rg.id }) %]">
-                    [% l('Merge this release group with another') %]
+                    [% l('Merge release group') %]
                   </a>
                 </li>
-                <li>[% link_entity(rg, 'edits', l('View editing history')) %]</li>
+                <li>[% link_entity(rg, 'edits', l('Editing history')) %]</li>
                 [% IF rg.edits_pending %]
                     <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
                 [% IF can_delete %]
-                    <li>[% link_entity(rg, 'delete', l('Remove this release group')) %]</li>
+                    <li>[% link_entity(rg, 'delete', l('Remove release group')) %]</li>
                 [% END %]
                 <li>[% use_in_relationship(rg) %]</li>
                 <li>[% relate_to_ellipsis(rg) %]</li>
                 <li>[% relate_to_url(rg) %]</li>
                 <li>
                   <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">
-                    [% l('Add a new release') %]
+                    [% l('Add release') %]
                   </a>
                 </li>
             [% ELSE %]
-               <li>[% request_login(l('Please log in to edit this release group')) %]</li>
+               <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
 
