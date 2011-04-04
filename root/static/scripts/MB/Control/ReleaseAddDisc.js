@@ -88,10 +88,12 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
     self.renderToDisc = function (basic_disc) {
         //  FIXME: currently not handled correctly by the server.
+        /*
         if (self.type === 'cdstub')
         {
             basic_disc.$toc.val (self.discid);
         }
+        */
 
         var data = [];
         $.each (self.$table.find ('tr.track'), function (idx, row) {
@@ -159,16 +161,13 @@ MB.Control.ReleaseImport = function (parent, type) {
     var self = MB.Object ();
 
     self.$container = $('div.add-disc-tab.' + type);
-    self.$search = self.$container.find ('a[href=#search]');
     self.$next = self.$container.find ('a[href=#next]');
     self.$prev = self.$container.find ('a[href=#prev]');
 
-    self.$release = self.$container.find ('input.release');
-    self.$artist = self.$container.find ('input.artist');
-    self.$count = self.$container.find ('input.track-count');
-
     self.$pager_div = self.$container.find ('div.pager');
     self.$pager = self.$container.find ('span.pager');
+    self.$searching = self.$container.find ('div.tracklist-searching');
+    self.$noresults = self.$container.find ('div.tracklist-no-results');
 
     self.$template = parent.$add_disc_dialog.find ('div.import-template');
 
@@ -180,17 +179,21 @@ MB.Control.ReleaseImport = function (parent, type) {
             return;
         }
 
+        self.$noresults.hide ();
+        self.$searching.show ();
+
         self.page = newPage;
         var height = self.$container.innerHeight ();
         self.$container.css ('height', height);
         self.$container.find ('div.search-result').remove ();
 
         var data = {
-            q: self.$release.val (),
-            artist: self.$artist.val (),
-            tracks: self.$count.val (),
+            q: parent.$release.val (),
+            artist: parent.$artist.val (),
+            tracks: parent.$count.val (),
             page: self.page
         };
+
         $.getJSON ('/ws/js/' + type, data, self.results);
     };
 
@@ -208,6 +211,8 @@ MB.Control.ReleaseImport = function (parent, type) {
         {
             self.search_results.pop ().remove ();
         }
+
+        self.$searching.hide ();
 
         $.each (data, function (idx, item) {
             if (item.current)
@@ -227,6 +232,12 @@ MB.Control.ReleaseImport = function (parent, type) {
             self.search_results.push (sr);
         });
 
+        if (data.length < 2)
+        {
+            self.$pager_div.hide ();
+            self.$noresults.show ();
+        }
+
         self.$container.css ('height', 'auto');
     };
 
@@ -237,13 +248,8 @@ MB.Control.ReleaseImport = function (parent, type) {
     self.search_results = [];
     self.selected = null;
 
-    self.$search.bind ('click.mb', function (event) { self.search (event, 0); });
     self.$prev.bind ('click.mb', function (event) { self.search (event, -1); });
     self.$next.bind ('click.mb', function (event) { self.search (event,  1); });
-
-    self.$release.bind ('change.mb', self.onChange);
-    self.$artist.bind ('change.mb', self.onChange);
-    self.$count.bind ('change.mb', self.onChange);
 
     return self;
 };
@@ -254,12 +260,19 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
 
     self.$add_disc_dialog = $('div.add-disc-dialog');
 
+    self.$release = self.$add_disc_dialog.find ('input.release');
+    self.$artist = self.$add_disc_dialog.find ('input.artist');
+    self.$count = self.$add_disc_dialog.find ('input.track-count');
+
     self.selectTab = function (event) {
         var tab = $(this).attr ('class');
         $('.add-disc-dialog ul.tabs li').removeClass ('sel');
         $(this).closest ('li').addClass ('sel');
         $('div.add-disc-tab').hide ();
-        $('div.add-disc-tab.' + tab).show ();
+
+        $('div.add-disc-tab.' + tab)
+            .show ()
+            .find ('div.pager').before ($('table.import-search-fields'));
     };
 
     self.confirm = function (event) {
@@ -297,11 +310,21 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         self.$add_disc_dialog.hide ();
     };
 
+    self.onChange = function (event) {
+        self.use_tracklist.onChange ();
+        self.freedb_import.onChange ();
+        self.cdstub_import.onChange ();
+    };
+
     self.$add_disc_dialog.appendTo ($('body'));
     self.$add_disc_dialog.find ('ul.tabs a').bind ('click.mb', self.selectTab);
 
     self.$add_disc_dialog.find ('input.add-disc').bind ('click.mb', self.confirm);
     self.$add_disc_dialog.find ('input.cancel').bind ('click.mb', self.close);
+
+    self.$release.bind ('change.mb', self.onChange);
+    self.$artist.bind ('change.mb', self.onChange);
+    self.$count.bind ('change.mb', self.onChange);
 
     $("a[href=#add_disc]").click (function () {
 
@@ -314,6 +337,22 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
 
         $('html').animate({ scrollTop: 0 }, 500);
 
+    });
+
+    $('a[href=#import-search]').click (function (event) {
+
+        if ($('div.add-disc-tab:visible').hasClass ('tracklist'))
+        {
+            self.use_tracklist.search (event, 0);
+        }
+        else if ($('div.add-disc-tab:visible').hasClass ('freedb'))
+        {
+            self.freedb_import.search (event, 0);
+        }
+        else if ($('div.add-disc-tab:visible').hasClass ('cdstub'))
+        {
+            self.cdstub_import.search (event, 0);
+        }
     });
 
     self.use_tracklist = MB.Control.ReleaseImport (self, 'tracklist');
