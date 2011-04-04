@@ -284,6 +284,7 @@ sub find_by_recording
 sub find_by_recordings
 {
     my ($self, @ids) = @_;
+    return () unless @ids;
 
     my $query =
         "SELECT DISTINCT ON (release.id) " . $self->_columns . ", recording.id AS recording
