@@ -8,14 +8,6 @@
     </div>
 [% END %]
 
-[%- BLOCK other_versions; %]
-    <p>
-        <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
-            [% l('See other versions of this release') %]
-        </a>
-    </p>
-[% END -%]
-
 [% BLOCK collections %]
     <h2>[% l('Collections') %]</h2>
     <ul class="links">
@@ -186,7 +178,6 @@ WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
         async = c.uri_for_action('/release/tag_async', [ release.gid ])
         tag_this_text=l('Tag release');
         INCLUDE links;
-    	INCLUDE other_versions;    
         INCLUDE collections IF c.user_exists;
         INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release;
     END;
