@@ -252,7 +252,7 @@ END -%]
 
 [%- MACRO link_freedb(freedb, action, text) BLOCK;
     action = action || 'import';
-    link = c.uri_for_action("/freedb/$action", [ freedb.discid ]);
+    link = c.uri_for_action("/freedb/$action", [ freedb.category, freedb.discid ]);
     text = text || html_escape(freedb.discid);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
