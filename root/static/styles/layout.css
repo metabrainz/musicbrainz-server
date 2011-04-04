@@ -353,7 +353,7 @@ div.warning img.warning {
 }
 
 #sidebar ul.links {
-    margin-left: 0em;
+    margin: 0;
     padding-left: 2em;
 }
 
@@ -587,6 +587,7 @@ table.details td.old {
 /* Sidebar properties */
 dl.properties {
     margin-bottom: 12pt;
+    margin: 0;
 }
 
 dl.properties dt {
