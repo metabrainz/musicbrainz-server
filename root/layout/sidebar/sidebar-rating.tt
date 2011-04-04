@@ -2,6 +2,6 @@
 <p>
     [% rating_stars(entity) %]
     [%- IF entity.rating_count -%]
-    <br />[% link_entity(entity, "ratings", l("Show user ratings")) %]
+    ([% link_entity(entity, "ratings", l("see all ratings")) %])
     [%- END -%]
 </p>
