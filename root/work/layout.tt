@@ -5,6 +5,8 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+        [% IF work.type || work.iswc %]
+        <h2>[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(work.type.name)
@@ -13,12 +15,14 @@
                content=html_escape(work.iswc)
                    IF work.iswc -%]
         [% END %]
+        [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags
             more=more_tags tag_this_text=l('Tag this work')
             async = c.uri_for_action('/work/tag_async', [ work.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
               <li>

@@ -18,8 +18,8 @@ END -%]
 </script>
 
 <div id="sidebar-tags">
+    <h2>[% l('Tags') %]</h2>
     <p>
-    <strong>[% l('Tags:') %]</strong>
     <span class="tags">
       [% tag_list(tags, more, entity) %]
       [% UNLESS tags.size %]

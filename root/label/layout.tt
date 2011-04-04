@@ -1,6 +1,7 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? label.name _ " - ${title}" : label.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+        <h2>[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(label.type_name)
@@ -27,6 +28,7 @@
             async = c.uri_for_action('/label/tag_async', [ label.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
         [% IF c.user_exists %]
             [% IF subscribed %]

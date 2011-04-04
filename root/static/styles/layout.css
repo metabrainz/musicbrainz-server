@@ -55,6 +55,8 @@ fieldset legend {
     font-weight: bold;
 }
 
+#sidebar h2 { font-size: 100% }
+
 h3 {
     margin-top: 1em;
     margin-bottom: 0;

@@ -5,6 +5,7 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+        <h2>[% l('Release group information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(rg.artist_credit) %]
@@ -19,6 +20,7 @@
             async = c.uri_for_action('/release_group/tag_async', [ rg.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
                 <li>

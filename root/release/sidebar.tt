@@ -17,6 +17,7 @@
 [% END -%]
 
 [% BLOCK collections %]
+    <h2>[% l('Collections') %]</h2>
     <p><ul>
         [% FOREACH collection IN collections %]
             [% IF containment.${collection.id} %]
@@ -133,6 +134,7 @@
    END %]
 
 [% BLOCK links %]
+    <h2>[% l('Editing') %]</h2>
     <ul class="links">
       [% IF c.user_exists %]
         <li>
@@ -161,10 +163,15 @@
     </ul>
 [% END %]
 
+[% BLOCK heading %]
+    <h2>[% l('Release information') %]</h2>
+[% END %]
+
 [%
 WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
     INCLUDE cover_art;
-    
+
+    INCLUDE heading;
     INCLUDE release_properties;
     INCLUDE release_label_properties;
 

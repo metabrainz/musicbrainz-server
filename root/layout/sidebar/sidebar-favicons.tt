@@ -8,7 +8,7 @@
 
 [%- favicons = entity.relationships_by_type('url') -%]
 [%- IF favicons.size -%]
-    <p><strong>[% l('External links:') %]</strong></p>
+    <h2>[% l('External links') %]</h2>
     <ul class="favicons">
         [%- FOREACH favicon IN favicons -%]
             [% NEXT UNLESS trusted_domain(favicon.target) %]

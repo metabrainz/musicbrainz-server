@@ -1,6 +1,7 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? artist.name _ " - ${title}" : artist.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_artist_curi(artist)%]
+        <h2>[% l('Artist information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
                content=rdfa_sort_name(artist.sort_name)
@@ -37,6 +38,7 @@
             async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists && !artist.is_special_purpose %]
                 [% IF subscribed %]
