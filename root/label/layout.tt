@@ -69,6 +69,7 @@
         </ul>
 
         <h2>[% l('User stuff') %]</h2>
+        <ul class="links">
         [% IF c.user_exists %]
             [% IF subscribed %]
                 <li><a href="[% c.uri_for_action('/account/subscriptions/label/remove', { id => label.id }) %]">[% l('Unsubscribe') %]</a></li>
@@ -77,6 +78,7 @@
             [% END %]
             <li>[% link_entity(label, 'subscribers', l('Subscribers')) %]</li>
         [% END %]
+        </ul>
 
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=label -%]
 
