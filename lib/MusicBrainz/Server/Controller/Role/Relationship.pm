@@ -33,7 +33,8 @@ sub relate : Chained('load')
         $c->session->{relationship} = {
             type0   => $type,
             entity0 => $entity->gid,
-            name    => $entity->name
+            name    => $entity->name,
+            id      => $entity->id
         };
 
         $c->response->redirect($c->req->referer);
