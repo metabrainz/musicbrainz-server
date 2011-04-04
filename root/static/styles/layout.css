@@ -357,6 +357,17 @@ div.warning img.warning {
     padding-left: 2em;
 }
 
+#sidebar ul.links hr {
+    padding: 0;
+    margin: 3px;
+    height: 1px;
+    width: 75%;
+    border: 0;
+    color: #D3D3D3;
+    background-color: #D3D3D3;
+}
+
+
 #sidebar .cover-art {
     text-align: center;
 }

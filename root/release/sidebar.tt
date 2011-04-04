@@ -139,23 +139,30 @@
             [% release.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
           </a>
         </li>
+        <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
+        <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>
           <a href="[% c.uri_for_action('/release/merge_queue', { 'add-to-merge' => release.id }) %]">
             [% l('Merge release') %]
           </a>
         </li>
         <li>[% link_entity(release, 'delete', l('Remove release')) %]</li>
-        <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
-        <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
+
+        <hr/>
+
         <li>[% use_in_relationship(release) %]</li>
         <li>[% relate_to_ellipsis(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
+
+        <hr/>
+
+        [% IF release.edits_pending %]
+          <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>
+        [% END %]
+      <li>[% link_entity(release, 'edits', l('Editing history')) %]</li>
+
       [% ELSE %]
         <li>[% request_login(l('Log in to edit')) %]</li>
-      [% END %]
-      <li>[% link_entity(release, 'edits', l('Editing history')) %]</li>
-      [% IF release.edits_pending %]
-        <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>
       [% END %]
     </ul>
 [% END %]

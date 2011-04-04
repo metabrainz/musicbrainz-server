@@ -35,13 +35,19 @@
                    [% l('Merge work') %]
                  </a>
                </li>
-               <li>[% link_entity(work, 'edits', l('Editing history')) %]</li>
+
+               <hr/>
+
                <li>[% use_in_relationship(work) %]</li>
                <li>[% relate_to_ellipsis(work) %]</li>
                <li>[% relate_to_url(work) %]</li>
+
+               <hr/>
+
                [% IF work.edits_pending %]
                  <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
                [% END %]
+               <li>[% link_entity(work, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
                <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]

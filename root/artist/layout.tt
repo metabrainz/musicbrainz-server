@@ -39,35 +39,8 @@
             -%]
 
         <h2>[% l('Editing') %]</h2>
-        <ul class="links">
-            [% IF c.user_exists && !artist.is_special_purpose %]
-                [% IF subscribed %]
-                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/remove', { id => artist.id }) %]">[% l('Unsubscribe') %]</a></li>
-                [% ELSE %]
-                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
-                [% END %]
-                <li>[% link_entity(artist, 'subscribers', l('Subscribers')) %]</li>
-            [% END %]
             [% IF c.user_exists %]
-                [% UNLESS artist.is_special_purpose %]
-                  <li>
-                    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
-                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-                    </a>
-                  </li>
-                  <li>
-                    <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
-                      [% l('Merge artist') %]
-                    </a>
-                  </li>
-                  <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
-                  [% IF artist.edits_pending %]
-                    <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
-                  [% END %]
-                  <li>[% use_in_relationship(artist) %]</li>
-                  <li>[% relate_to_ellipsis(artist) %]</li>
-                  <li>[% relate_to_url(artist) %]</li>
-                [% END %]
+            <ul class="links">
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
                     [% l('Add release group') %]
@@ -88,17 +61,59 @@
                     [% l('Add work') %]
                   </a>
                 </li>
-                [% IF watching_artist %]
-                    <li>
-                        [% link_entity(artist, 'stop_watching', l('Do not watch for new releases')) %]
-                    </li>
-                [% ELSE %]
-                    <li>[% link_entity(artist, 'watch', l('Watch for new releases')) %]</li>
+ 
+                [% UNLESS artist.is_special_purpose %]
+                  <hr/>
+
+                  <li>
+                    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
+                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
+                    </a>
+                  </li>
+                  <li>
+                    <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
+                      [% l('Merge artist') %]
+                    </a>
+                  </li>
+
+                  <hr/>
+
+                  <li>[% use_in_relationship(artist) %]</li>
+                  <li>[% relate_to_ellipsis(artist) %]</li>
+                  <li>[% relate_to_url(artist) %]</li>
+
+                  <hr/>
+
+                  [% IF artist.edits_pending %]
+                    <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
+                  [% END %]
+                  <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
                 [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
+
+        [% IF c.user_exists && !artist.is_special_purpose %]
+        <h2>User stuff</h2>
+        <ul class="links">
+            [% IF c.user_exists && !artist.is_special_purpose %]
+                [% IF subscribed %]
+                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/remove', { id => artist.id }) %]">[% l('Unsubscribe') %]</a></li>
+                [% ELSE %]
+                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
+                [% END %]
+                <li>[% link_entity(artist, 'subscribers', l('Subscribers')) %]</li>
+            [% END %]
+            [% IF watching_artist %]
+                <li>
+                    [% link_entity(artist, 'stop_watching', l('Do not watch for new releases')) %]
+                </li>
+            [% ELSE %]
+                <li>[% link_entity(artist, 'watch', l('Watch for new releases')) %]</li>
+            [% END %]
+        </ul>
+        [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
 
