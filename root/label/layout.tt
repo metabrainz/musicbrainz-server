@@ -68,7 +68,7 @@
             [% END %]
         </ul>
 
-        <h2>[% l('User stuff') %]</h2>
+        <h2>[% l('Subscriptions') %]</h2>
         <ul class="links">
         [% IF c.user_exists %]
             [% IF subscribed %]
