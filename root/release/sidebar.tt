@@ -18,18 +18,23 @@
 
 [% BLOCK collections %]
     <h2>[% l('Collections') %]</h2>
-    <p><ul>
+    <ul class="links">
+        [%- IF collections.size > 0 -%]
         [% FOREACH collection IN collections %]
+            <li>[% link_collection(collection) %]
             [% IF containment.${collection.id} %]
-                <li><a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
-                    [%- l('Remove from collection “{collection}”', { collection => collection.name }) %]</a></li>
+                (<a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
+                    [%- l('remove') %]</a>)
             [% ELSE %]
-                <li><a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) 
-		    %]">
-                    [%- l('Add to collection “{collection}”', {collection => collection.name }) %]</a></li>
+                (<a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) %]">
+                    [%- l('add') %]</a>)
             [% END %]
+            </li>
         [% END %]
-    </ul></p>
+        [% ELSE %]
+            <li>[% l("You have no collections. {uri|Create one}", {uri => c.uri_for_action("/collection/create")}) %]</li>
+        [% END %]
+    </ul>
 [% END %]
 
 [%- MACRO editable_property(label, text, field, field_name, class, property, datatype)
