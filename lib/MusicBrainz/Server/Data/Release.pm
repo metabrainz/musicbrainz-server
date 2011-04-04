@@ -584,9 +584,12 @@ sub merge
         confess('Mediums contain differing numbers of tracks')
             unless $self->can_merge($MERGE_MERGE, $new_id, @old_ids);
 
-        my @tracklist_merges = @{
-            $self->sql->select_list_of_lists(
-                'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
+        my @merges = @{
+            $self->sql->select_list_of_hashes(
+                'SELECT newmed.id AS new_id,
+                        oldmed.id AS old_id,
+                        newmed.tracklist AS new_tracklist,
+                        oldmed.tracklist AS old_tracklist
                    FROM medium newmed, medium oldmed
                   WHERE newmed.release = ?
                     AND oldmed.release IN (' . placeholders(@old_ids) . ')
@@ -594,8 +597,16 @@ sub merge
                 $new_id, @old_ids
             )
         };
-        for my $tracklist_merge (@tracklist_merges) {
-            $self->c->model('Tracklist')->merge(@$tracklist_merge);
+        for my $merge (@merges) {
+            $self->c->model('Tracklist')->merge(
+                $merge->{new_tracklist},
+                $merge->{old_tracklist}
+            ) if $merge->{new_tracklist} != $merge->{old_tracklist};
+
+            $self->c->model('MediumCDTOC')->merge_mediums(
+                $merge->{new_id},
+                $merge->{old_id}
+            );
         }
 
         $self->sql->do(
@@ -617,7 +628,7 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $release, $names) = @_;
-    my $row = hash_to_row($release, { 
+    my $row = hash_to_row($release, {
         artist_credit => 'artist_credit',
         release_group => 'release_group_id',
         status => 'status_id',
