@@ -586,7 +586,7 @@ table.details td.old {
 
 /* Sidebar properties */
 dl.properties {
-    margin-bottom: 12pt;
+    margin-bottom: 1em;
     margin: 0;
 }
 
@@ -599,7 +599,7 @@ dl.properties dt {
 
 dl.properties dd,
 dl.properties dt {
-    line-height: 200%;
+    line-height: 175%;
 }
 
 /* Search Plugins */
