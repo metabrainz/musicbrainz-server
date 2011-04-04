@@ -430,7 +430,8 @@ sub find_by_collection
         "date"   => "date_year, date_month, date_day, musicbrainz_collate(name.name)",
         "title"  => "musicbrainz_collate(name.name), date_year, date_month, date_day",
         "artist" => sub {
-            $extra_join = "JOIN artist_name ac_name ON ac_name.id=release.artist_credit";
+            $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit
+                           JOIN artist_name ac_name ON ac_name.id=ac.name";
             return "musicbrainz_collate(ac_name.name), date_year, date_month, date_day, musicbrainz_collate(name.name)";
         },
     });
@@ -443,6 +444,8 @@ sub find_by_collection
                  WHERE cr.collection = ?
                  ORDER BY $order_by
                  OFFSET ?";
+
+    warn $query;
 
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
