@@ -143,7 +143,7 @@ sub merge
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
     $self->sql->do(
         "INSERT INTO $table (name, $type)
-            SELECT $type.name, ?::INTEGER
+            SELECT DISTINCT ON ($type.name) $type.name, ?::INTEGER
               FROM $type
          LEFT JOIN $table alias ON alias.name = $type.name
              WHERE $type.id IN (" . placeholders(@old_ids) . ")
