@@ -446,8 +446,6 @@ sub find_by_collection
                  ORDER BY $order_by
                  OFFSET ?";
 
-    warn $query;
-
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $collection_id, $offset || 0);
