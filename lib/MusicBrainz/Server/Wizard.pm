@@ -5,8 +5,7 @@ use Carp qw( croak );
 has '_current' => (
     is => 'rw',
     isa => 'Int',
-    default => 0,
-    trigger => \&_set_current
+    default => 0
 );
 
 has '_processed_page' => (
@@ -324,7 +323,9 @@ sub _route
     if (defined $p->{next})
     {
         return $self->navigate_to_page unless $self->valid ($page);
-
+        if (my $submit = $self->pages->[$self->_current]->{submit}) {
+            $submit->();
+        }
         $requested++;
     }
     elsif (defined $p->{previous})
@@ -425,16 +426,6 @@ around '_current' => sub {
 
     return $self->$orig ($value);
 };
-
-sub _set_current
-{
-    my ($self, $value, $old_page) = @_;
-
-    my $change_page = $self->pages->[$old_page]->{change_page};
-    $change_page->($value) if defined $change_page;
-
-    $self->{_current} = $value;
-}
 
 sub _store
 {
