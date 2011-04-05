@@ -21,7 +21,7 @@ sub accept_edit : Path('/test/accept-edit') Args(1)
     my $edit = $c->model('Edit')->get_by_id($edit_id)
         or $c->detach('/error_404');
 
-    _accept_edit($c, $edit);
+    _accept_edit($c, $edit) if $edit->is_open;
     $c->response->redirect($c->request->referer);
 }
 
@@ -31,7 +31,7 @@ sub reject_edit : Path('/test/reject-edit') Args(1)
     my $edit = $c->model('Edit')->get_by_id($edit_id)
         or $c->detach('/error_404');
 
-    _reject_edit($c, $edit);
+    _reject_edit($c, $edit) if $edit->is_open;
     $c->response->redirect($c->request->referer);
 }
 
