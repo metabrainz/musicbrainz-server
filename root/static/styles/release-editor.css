@@ -155,6 +155,7 @@ div.guesscase-options,
 #release-editor fieldset.advanced-disc tr.track > td > input[type=text]:focus { border: 1px solid #FFBA58; }
 
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
+table.medium.tbl tr.deleted { display: none; }
 table.medium.tbl td.position  { width: 2em; }
 table.medium.tbl td.credits-button { width: 4em; text-align: right; }
 table.medium.tbl td.length    { width: 5em; }
