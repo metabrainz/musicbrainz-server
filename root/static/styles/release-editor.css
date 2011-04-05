@@ -312,6 +312,9 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 .add-disc-dialog div.tracklist-padding { padding: 0 12px 12px 12px; }
 
+.add-disc-dialog div.import-message { width: 100%; padding-left: 1em; }
+.add-disc-dialog div.import-message p { clear: both; }
+
 /* __________________________________
 
             RECORDINGS TAB
