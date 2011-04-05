@@ -117,16 +117,20 @@
   <a href="#next">&gt;&gt;</a>
 </div>
 
-<div style="display: none; width: 100%; padding-left: 1em;" class="tracklist-searching">
-  <p style="clear: both;">
+<div style="display: none;" class="tracklist-searching import-message">
+  <p>
     <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
     &nbsp;
     [% l('Searching...') %]
   </p>
 </div>
 
-<div style="display: none; width: 100%; padding-left: 1em;" class="tracklist-no-results">
-  <p style="clear: both;">[% l('No results') %]</p>
+<div style="display: none;" class="tracklist-no-results import-message">
+  <p>[% l('No results') %]</p>
+</div>
+
+<div style="display: none;" class="tracklist-error import-message">
+  <p>[% l('An error occured: ') %]<span class="message"> </span></p>
 </div>
 [%- END -%]
 
