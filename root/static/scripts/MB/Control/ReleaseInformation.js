@@ -335,6 +335,12 @@ MB.Control.ReleaseInformation = function() {
             }
         });
 
+        if ($('div.artist-credit-box:eq(0) input.gid').val () ===
+            MB.constants.VARTIST_GID)
+        {
+            $('#id-various_artists').attr ('checked', 'checked');
+        }
+
         $('div.release-label').each (function () {
             self.addLabel ($(this));
         });
