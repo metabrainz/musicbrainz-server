@@ -11,6 +11,7 @@
         "scripts/MB/GuessCase/Utils.js",
         "scripts/MB/GuessCase/Handler/Base.js",
         "scripts/MB/GuessCase/Handler/Artist.js",
+        "scripts/MB/GuessCase/Handler/Release.js",
         "scripts/MB/GuessCase/Handler/Track.js",
         "scripts/MB/GuessCase/Mode/Base.js",
         "scripts/MB/GuessCase/Mode/Artist.js",
@@ -24,6 +25,7 @@
         "scripts/MB/GuessCase/Modes.js",
         "scripts/MB/GuessCase/Main.js",
         "scripts/MB/GuessCase/Artist.js",
+        "scripts/MB/GuessCase/Release.js",
         "scripts/MB/GuessCase/Track.js",
 
         "scripts/MB/Control/ArtistCredit.js",
@@ -126,16 +128,20 @@
   <a href="#next">&gt;&gt;</a>
 </div>
 
-<div style="display: none; width: 100%; padding-left: 1em;" class="tracklist-searching">
-  <p style="clear: both;">
+<div style="display: none;" class="tracklist-searching import-message">
+  <p>
     <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
     &nbsp;
     [% l('Searching...') %]
   </p>
 </div>
 
-<div style="display: none; width: 100%; padding-left: 1em;" class="tracklist-no-results">
-  <p style="clear: both;">[% l('No results') %]</p>
+<div style="display: none;" class="tracklist-no-results import-message">
+  <p>[% l('No results') %]</p>
+</div>
+
+<div style="display: none;" class="tracklist-error import-message">
+  <p>[% l('An error occured: ') %]<span class="message"> </span></p>
 </div>
 [%- END -%]
 
@@ -308,6 +314,11 @@
                 <div class="row advanced-tracklist" style="display: none;">
                   [% r.label(medium_field.field('name'), l('Title')) %]
                   [% r.text(medium_field.field('name')) %]
+
+                  <input type="button" class="icon guesscase-medium"
+                      title="[% l('Guess case track') %]"
+                      style="background-image: url(/static/images/icons/guesscase.png); width: 16px; height: 16px; border: 0;" />
+
                 </div>
               </div>
             </td>

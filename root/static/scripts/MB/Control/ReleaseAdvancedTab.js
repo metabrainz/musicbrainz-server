@@ -540,7 +540,13 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.guessCase = function () {
+        self.guessCaseTitle ();
+
         $.each (self.tracks, function (idx, item) { item.guessCase (); });
+    };
+
+    self.guessCaseTitle = function () {
+        self.$title.val (MB.GuessCase.release.guess (self.$title.val ()));
     };
 
 
@@ -582,6 +588,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$deleted = $('#id-mediums\\.'+self.number+'\\.deleted');
     self.$position = $('#id-mediums\\.'+self.number+'\\.position');
     self.$format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
+
+    self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 
     self.edits = MB.Control.ReleaseEdits ($('#mediums\\.'+self.number+'\\.edits'));
 
