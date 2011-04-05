@@ -5,6 +5,7 @@ use Text::Trim qw( trim );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Track qw( format_track_length unformat_track_length );
+use Try::Tiny;
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -89,6 +90,19 @@ sub _track_errors {
     {
         return l('An artist is required on track {pos}.', { pos => $pos });
     }
+
+    my $error = try {
+        unformat_track_length ($track->{length});
+        return;
+    }
+    catch {
+        return l(
+            'Track {pos} has an invalid length. Must be in the format MM:SS',
+            { pos => $pos }
+        );
+    };
+
+    return $error if $error;
 
     if ($cdtoc)
     {
