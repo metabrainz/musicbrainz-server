@@ -22,7 +22,7 @@ sub accept_edit : Path('/test/accept-edit') Args(1)
         or $c->detach('/error_404');
 
     _accept_edit($c, $edit) if $edit->is_open;
-    $c->response->redirect($c->request->referer);
+    $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
 }
 
 sub reject_edit : Path('/test/reject-edit') Args(1)
@@ -32,7 +32,7 @@ sub reject_edit : Path('/test/reject-edit') Args(1)
         or $c->detach('/error_404');
 
     _reject_edit($c, $edit) if $edit->is_open;
-    $c->response->redirect($c->request->referer);
+    $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
 }
 
 sub _accept_edit
