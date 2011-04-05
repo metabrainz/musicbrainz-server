@@ -330,9 +330,13 @@ END -%]
 END %]
 
 [% MACRO use_in_relationship(entity) BLOCK;
-    text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
-                                  : l('Use in a relationship');
-    link_entity(entity, 'relate', text);
+    IF c.session.relationship.id == entity.id;
+      l('Please select another entity to relate {name} to', { name => c.session.relationship.name });
+    ELSE;
+      text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
+                                    : l('Use in a relationship');
+      link_entity(entity, 'relate', text);
+    END;
 END %]
 
 [% MACRO relate_to_url(entity) BLOCK;
