@@ -5,7 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub pretty_name {
+sub sidebar_name {
     my $self = shift;
 
     if ($self->url =~ m{^http://(?:www.)?youtube.com/user/([^/]+)/?$}i) {
