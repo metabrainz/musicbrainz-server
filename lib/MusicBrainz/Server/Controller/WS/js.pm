@@ -513,13 +513,14 @@ sub disc_search {
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
-    unless ($query) {
-        $c->detach('bad_req');
-    }
+    my $title = $type eq 'release' ? "release:($query*)" : "$query*";
+    my @query;
 
-    $query = $type eq 'release' ? "release:($query*)" : "$query*";
-    $query .= " AND artist:($artist)" if $artist;
-    $query .= " AND tracks:($tracks)" if $tracks;
+    push @query, $title if $query;
+    push @query, "artist:($artist)" if $artist;
+    push @query, "tracks:($tracks)" if $tracks;
+
+    $query = join (" AND ", @query);
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
