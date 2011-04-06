@@ -1,5 +1,5 @@
 [%- favicons = entity.relationships_by_type('url') -%]
-[%- IF favicons.size -%]
+[%- IF favicons -%]
     <p><strong>[% l('External links:') %]</strong></p>
     <ul class="favicons">
       [%- FOREACH favicon IN favicons -%]
@@ -12,6 +12,4 @@
         </li>
       [%- END -%]
     </ul>
-[%- ELSE -%]
-    <p>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</p>
 [%- END -%]
