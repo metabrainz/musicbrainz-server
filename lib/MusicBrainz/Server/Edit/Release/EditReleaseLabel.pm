@@ -51,8 +51,8 @@ sub foreign_keys
 
     my $keys = { Release => { $self->release_id => [] } };
 
-    $keys->{Label}->{ $self->data->{old}{label}{id} } = [];
-    $keys->{Label}->{ $self->data->{new}{label}{id} } = [];
+    $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
+    $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
 
     return $keys;
 };
