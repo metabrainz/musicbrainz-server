@@ -3,9 +3,9 @@ package MusicBrainz::Server::Entity::URL::Facebook;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
-with 'MusicBrainz::Server::Entity::URL::Trusted';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-override pretty_name => sub {
+sub sidebar_name {
     my $self = shift;
 
     if ($self->url =~ m{^http://(?:www.)?facebook.com/([^/]+)/?$}i) {
@@ -14,7 +14,7 @@ override pretty_name => sub {
     else {
         return super();
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

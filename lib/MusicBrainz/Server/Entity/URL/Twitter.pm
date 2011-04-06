@@ -3,9 +3,9 @@ package MusicBrainz::Server::Entity::URL::Twitter;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
-with 'MusicBrainz::Server::Entity::URL::Trusted';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-override pretty_name => sub {
+sub sidebar_name {
     my $self = shift;
 
     if ($self->url =~ m{^http://(?:www.)?twitter.com/([^/]+)/?$}i) {

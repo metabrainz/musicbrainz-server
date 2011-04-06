@@ -4,11 +4,11 @@
     <ul class="favicons">
       [%- FOREACH favicon IN favicons -%]
         [% url=favicon.target %]
-        [% NEXT UNLESS url.trusted %]
+        [% NEXT UNLESS url.does('MusicBrainz::Server::Entity::URL::Sidebar') %]
         <li>
           <a href="[% url.url %]">
             <img src="[% favicon_image(url) %]" class="border"/>
-            [% display_url(url) %]</a>
+            [% url.sidebar_name | html %]</a>
         </li>
       [%- END -%]
     </ul>

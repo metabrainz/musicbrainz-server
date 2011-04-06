@@ -9,13 +9,6 @@ use URI::Escape;
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 
-has trusted => (
-    is => 'ro',
-    builder => '_build_trusted'
-);
-
-sub _build_trusted { 0 }
-
 has 'url' => (
     is => 'rw',
     isa => Uri,

@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
-with 'MusicBrainz::Server::Entity::URL::Trusted';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 sub pretty_name
 {
@@ -20,6 +20,8 @@ sub pretty_name
 
     return MusicBrainz::Server::Filters::uri_decode($name);
 }
+
+sub sidebar_name { shift->pretty_name }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
