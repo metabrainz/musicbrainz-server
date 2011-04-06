@@ -10,7 +10,9 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { 'Reorder mediums' }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
 
+with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+
 sub release_id { shift->data->{release}{id} }
 
 # Medium order is a map of medium id to position
@@ -50,6 +52,42 @@ sub initialize {
     });
 
     return $self;
+}
+
+sub foreign_keys {
+    my $self = shift;
+
+    my %fk = ( Release => { $self->data->{release}{id} => [ ] } );
+
+    map {
+        $fk{Medium}->{$_} = []
+    } keys %{ $self->data->{old} };
+
+    return \%fk;
+}
+
+sub build_display_data {
+    my ($self, $loaded) = @_;
+
+    my %new = %{ $self->data->{new} };
+    my %old = %{ $self->data->{old} };
+    my %data;
+
+    my @medium_ids = sort { $new{$old{$a}} <=> $new{$old{$a}} } keys %old;
+
+    $data{mediums} = [ map {
+        my $entity = $loaded->{Medium}{ $_ };
+        {
+            old => $old{$_},
+            new => $new{$old{$_}},
+            title => $entity ? $entity->name : ""
+        }
+    } @medium_ids ];
+
+    $data{release} = $loaded->{Release}{ $self->data->{release}{id} }
+        || Release->new( name => $self->data->{release}{name} );
+
+    return \%data;
 }
 
 sub accept {
