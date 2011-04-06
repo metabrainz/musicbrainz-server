@@ -99,10 +99,10 @@ sub _mapping {
     return (
         label => sub {
             my $rl = shift;
-            return {
+            return $rl->label ? {
                 id => $rl->label->id,
                 name => $rl->label->name
-            }
+            } : undef;
         }
     )
 }
