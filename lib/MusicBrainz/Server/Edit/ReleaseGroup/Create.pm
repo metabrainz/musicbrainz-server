@@ -65,7 +65,8 @@ sub _insert_hash
     return $data
 }
 
-sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+sub allow_auto_edit { 1 }
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
