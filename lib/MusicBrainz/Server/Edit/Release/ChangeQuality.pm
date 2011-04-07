@@ -4,6 +4,7 @@ use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
@@ -63,6 +64,10 @@ method build_display_data ($loaded)
 method initialize (%opts)
 {
     my $release = $opts{to_edit} or die 'Need a release to change quality';
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+          if $release->quality == $opts{quality};
+
     $self->data({
         release => {
             id => $release->id,

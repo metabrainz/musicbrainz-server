@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::EntityAnnotation;
 use Moose;
 
+use HTML::Entities qw( decode_entities );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
@@ -44,6 +45,16 @@ sub get_history
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $id, $offset || 0
     );
+}
+
+sub _column_mapping {
+    return {
+        id => 'id',
+        text => sub { decode_entities(shift->{text}) },
+        changelog => 'changelog',
+        editor_id => 'editor_id',
+        creation_date => 'creation_date'
+    }
 }
 
 sub get_latest

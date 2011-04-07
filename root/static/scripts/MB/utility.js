@@ -143,3 +143,14 @@ MB.utility.structureToString = function (obj) {
     }
 };
 
+
+/* Set a particular button to be the default submit action for a form. */
+MB.utility.setDefaultAction = function (form, button) {
+
+    $(form).prepend (
+        $(button).clone ().css ({
+           position: 'absolute',
+           left: "-999px", top: "-999px", height: 0, width: 0
+        }));
+
+};
