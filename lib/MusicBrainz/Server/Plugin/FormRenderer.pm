@@ -13,10 +13,12 @@ use HTML::Tiny;
 
 sub new
 {
-    my ($class, $context, $form) = @_;
+    my ($class, $context, $form, $opts) = @_;
+    $opts ||= {};
     return bless {
         form => $form,
-        h => HTML::Tiny->new
+        h => HTML::Tiny->new,
+        id_prefix => $opts->{id_prefix} || ''
     }, $class;
 }
 
@@ -39,6 +41,11 @@ sub _lookup_field
     return ref $field ? $field : $self->form->field($field);
 }
 
+sub _id {
+    my ($self, $field) = @_;
+    return $self->{id_prefix} . "id-" . $field->html_name;
+}
+
 sub _render_input
 {
     my ($self, $field, $type, %attrs) = @_;
@@ -46,7 +53,7 @@ sub _render_input
     my $class = delete $attrs{class} || '';
     return $self->h->input({
             type => $type,
-            id => "id-" . $field->html_name,
+            id => $self->_id($field),
             value => $field->fif,
             name => $field->html_name,
             class => $class . ($field->has_errors ? ' error' : ''),
@@ -76,7 +83,7 @@ sub submit
     my $field = $self->_lookup_field($field_name) or return;
     return $self->h->input({
             type => 'submit',
-            id => "id-" . $field->html_name,
+            id => $self->_id($field),
             value => $value,
             name => $field->html_name,
             %$attrs
@@ -96,7 +103,7 @@ sub textarea
     my $field = $self->_lookup_field($field_name) or return;
     return $self->h->textarea({
             name => $field->html_name,
-            id => $field->id,
+            id => $self->_id($field),
             %{ $attrs || {} },
         }, $field->fif);
 }
@@ -116,14 +123,14 @@ sub label
     {
         return $self->h->div({
             class => join(' ', 'label', @class),
-            id => 'label-' . $field->id,
+            id => 'label-' . $self->_id($field),
             %$attrs
         }, $label);
     }
     else
     {
         return $self->h->label({
-            id => 'label-' . $field->id,
+            id => 'label-' . $self->_id($field),
             for => 'id-' . $field->id,
             class => join(' ', @class) || undef,
             %$attrs
@@ -192,7 +199,7 @@ sub select
     }
 
     return $self->h->select({
-        id => "id-" . $field->html_name,
+        id => $self->_id($field),
         name => $field->html_name,
         multiple => $field->multiple ? "multiple" : undef,
         disabled => $field->disabled ? "disabled" : undef,
@@ -209,7 +216,7 @@ sub radio
 
     return $self->h->input({
         type => 'radio',
-        id => "id-" . $field->html_name . "-$option" ,
+        id => $self->_id($field) . "-$option" ,
         name => $field->html_name,
         checked => $value eq $field->value ? 'checked' : undef,
         disabled => $field->disabled ? "disabled" : undef,
@@ -259,7 +266,7 @@ sub artist_credit_editor
         $self->_render_input($_->field('join_phrase'), 'text', class => 'join')
     ] } $field->field('names')->fields;
 
-    return $self->h->div({ id => $field->html_name, class => 'artist-credit' }, [
+    return $self->h->div({ id => $self->_id($field), class => 'artist-credit' }, [
         map {
             $self->h->div({ class => 'credit' }, $_)
         } @credits
