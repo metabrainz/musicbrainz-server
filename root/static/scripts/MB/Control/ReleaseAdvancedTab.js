@@ -68,6 +68,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      */
     self.guessCase = function () {
         self.$title.val (MB.GuessCase.track.guess (self.$title.val ()));
+        self.artist_credit.guessCase ();
     };
 
     /**

@@ -10,9 +10,11 @@
 
         "scripts/MB/GuessCase/Utils.js",
         "scripts/MB/GuessCase/Handler/Base.js",
+        "scripts/MB/GuessCase/Handler/Artist.js",
         "scripts/MB/GuessCase/Handler/Release.js",
         "scripts/MB/GuessCase/Handler/Track.js",
         "scripts/MB/GuessCase/Mode/Base.js",
+        "scripts/MB/GuessCase/Mode/Artist.js",
         "scripts/MB/GuessCase/Mode/Classical.js",
         "scripts/MB/GuessCase/Mode/English.js",
         "scripts/MB/GuessCase/Mode/French.js",
@@ -22,6 +24,7 @@
         "scripts/MB/GuessCase/Flags.js",
         "scripts/MB/GuessCase/Modes.js",
         "scripts/MB/GuessCase/Main.js",
+        "scripts/MB/GuessCase/Artist.js",
         "scripts/MB/GuessCase/Release.js",
         "scripts/MB/GuessCase/Track.js",
 

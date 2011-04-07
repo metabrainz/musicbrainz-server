@@ -14,8 +14,9 @@ has test_runner => (
 
 my $tb = Test::Builder->new;
 our %dispatch = (
-    assertValue => 'value_is',
     assertElementPresent => 'is_element_present_ok',
+    assertValue => 'value_is',
+    check => 'check_ok',
     click => 'click_ok',
     clickAndWait => sub {
         my $sel = shift;
@@ -27,6 +28,7 @@ our %dispatch = (
     open => 'open_ok',
     select => 'select_ok',
     type => 'type_ok',
+    uncheck => 'uncheck_ok',
     verifyElementNotPresent => sub {
         $tb->ok(not shift->is_element_present(@_));
     },
