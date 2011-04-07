@@ -132,6 +132,8 @@ test_requires 'Test::Magpie' => '0.04';
 test_requires 'Test::Memory::Cycle';
 test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
+test_requires 'Test::WWW::Selenium';
+test_requires 'Test::WWW::Selenium::Catalyst';
 test_requires 'XML::Parser';
 
 catalyst;
