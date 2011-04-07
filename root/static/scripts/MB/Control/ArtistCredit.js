@@ -76,15 +76,23 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.container.clearError (self);
         self.$sortname.val (data.sortname);
         self.$join.val (data.join || '');
-        self.$credit.val (data.name);
         self.$gid.val (data.gid);
         self.$id.val (data.id);
         self.updateLookupPerformed ();
 
-        if (self.$credit.val () === '')
+        if (data.name === '' || data.name === data.artist_name)
         {
-            self.$credit.attr ('placeholder', data.artist_name)
+            self.$credit
+                .val ('')
+                .attr ('placeholder', data.artist_name)
                 .mb_placeholder (self.placeholder_options);
+        }
+        else
+        {
+            self.$credit
+                .removeAttr ('placeholder')
+                .mb_placeholder (self.placeholder_options)
+                .val (data.name);
         }
 
         if (self.$join.val () !== '')

@@ -147,6 +147,11 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
 
+  [% USE r = FormRenderer(form) %]
+  [% USE w = Wizard() %]
+  [% information = w.page ('information') %]
+  [% release_artist = information.field('artist_credit') %]
+
   <div class="add-disc-dialog" style="display: none">
     <h1>Add Disc</h1>
 
@@ -174,12 +179,12 @@
       <table class="import-search-fields">
         <tr>
           <td><label for="import-release">[% l('Release:') %]</label></td>
-          <td><input type="text" id="import-release" class="release" value="" /></td>
+          <td><input type="text" id="import-release" class="release" value="[% information.field('name').value | html %]" /></td>
           <td> </td>
         </tr>
         <tr>
           <td><label for="import-artist">[% l('Artist:') %]</label></td>
-          <td><input type="text" id="import-artist" class="artist" value="" /></td>
+          <td><input type="text" id="import-artist" class="artist" value="[% release_artist.fif.name | html %]" /></td>
           <td rowspan="2" style="vertical-align: bottom;">
             <div class="buttons">
               <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
@@ -260,11 +265,6 @@
     </div>
 
   </div>
-
-  [% USE r = FormRenderer(form) %]
-  [% USE w = Wizard() %]
-  [% information = w.page ('information') %]
-  [% release_artist = information.field('artist_credit') %]
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]

@@ -9,8 +9,8 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
-sub edit_type { die }
-sub edit_name { die }
+sub edit_type { die 'Unimplemented' }
+sub edit_name { die 'Unimplemented' }
 
 sub edit_template
 {
