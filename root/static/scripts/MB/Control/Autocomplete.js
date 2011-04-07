@@ -271,6 +271,32 @@ MB.Control.Autocomplete = function (options) {
         return data.item.action ? data.item.action () : options.select (event, data.item);
     };
 
+    /* iamfeelinglucky is used in selenium tests.
+
+       Operating the autocomplete menus is very cumbersome and unreliable
+       from selenium, so instead a selenium test can trigger this event.
+       This function will perform a direct search and select the first
+       result (hence the name).
+
+       To use this in selenium do (using release-artist as an example):
+
+       FireEvent        "release-artist"                      "iamfeelinglucky"
+       waitForNotValue  "id-artist_credit.names.0.artist_id"  ""
+
+       Using an empty string with waitForNotValue means we wait for the value
+       to not be the empty string.
+    */
+    self.iamfeelinglucky = function (event) {
+        self.indexed_search = false;
+
+        var fake_event = { preventDefault: function () {} };
+
+        var term = self.$input.val ();
+        self.lookup ({ "term": term }, function (data, result, request) {
+            options.select (fake_event, data[0]);
+        });
+    };
+
     self.initialize = function () {
 
         self.changeEntity (options.entity);
@@ -288,6 +314,7 @@ MB.Control.Autocomplete = function (options) {
         self.$input.bind ('propertychange.mb input.mb', function (event) {
             self.$input.trigger ("keydown");
         });
+        self.$input.bind ('iamfeelinglucky', self.iamfeelinglucky);
 
         self.$search.bind ('click.mb', function (event) {
             self.searchAgain ();

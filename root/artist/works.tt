@@ -30,7 +30,7 @@
             <thead>
                 <tr class="subh">
                     [% IF c.user_exists %]<th></th>[% END %]
-                    <th colspan="4">[% group.link_type.name %]</th>
+                    <th colspan="4">[% group.link_type %]</th>
                 </tr>
             </thead>
             [% END %]

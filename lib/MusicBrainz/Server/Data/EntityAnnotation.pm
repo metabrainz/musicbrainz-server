@@ -49,7 +49,11 @@ sub get_history
 
 sub _column_mapping {
     return {
-        text => sub { decode_entities(shift->{text}) }
+        id => 'id',
+        text => sub { decode_entities(shift->{text}) },
+        changelog => 'changelog',
+        editor_id => 'editor_id',
+        creation_date => 'creation_date'
     }
 }
 
