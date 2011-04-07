@@ -4,6 +4,7 @@ use MooseX::ABC;
 
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Edit::Exceptions;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -97,8 +98,22 @@ sub build_display_data
 sub accept
 {
     my $self = shift;
+    my $model = $self->c->model( $self->_merge_model );
+    if (my $target = $model->get_by_id($self->new_entity->{id})) {
+        $self->do_merge;
+    }
+    else {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The target has been removed since this edit was created'
+        );
+    }
+}
+
+sub do_merge
+{
+    my $self = shift;
     $self->c->model( $self->_merge_model )->merge($self->new_entity->{id}, $self->_old_ids);
-};
+}
 
 sub _entity_ids
 {
