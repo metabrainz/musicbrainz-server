@@ -106,7 +106,17 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         if (self.$gid.val () === "" && self.$id.val () === "")
         {
             self.$name.val (MB.GuessCase.artist.guess (self.$name.val ()));
-            self.$credit.val (MB.GuessCase.artist.guess (self.$credit.val ()));
+
+            if (self.$credit.val () !== "")
+            {
+                self.$credit.val (MB.GuessCase.artist.guess (self.$credit.val ()));
+            }
+            else if (self.$credit.attr ('placeholder') !== "")
+            {
+                self.$credit.attr (
+                    'placeholder',
+                    MB.GuessCase.artist.guess (self.$credit.attr ('placeholder')));
+            }
         }
     };
 
