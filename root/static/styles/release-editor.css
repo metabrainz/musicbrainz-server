@@ -156,6 +156,7 @@ div.guesscase-options,
 
 #release-editor div.tracklist-padding { padding: 0 12px 12px 12px; }
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
+table.medium.tbl tr.deleted { display: none; }
 table.medium.tbl td.position  { width: 2em; }
 table.medium.tbl td.credits-button { width: 4em; text-align: right; }
 table.medium.tbl td.length    { width: 5em; }

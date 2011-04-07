@@ -17,7 +17,6 @@ sub gather_data
             FROM isrc
             GROUP BY isrc HAVING count(*) > 1
           ) t ON t.isrc = i.isrc
-        WHERE i.isrc LIKE 'FR%'
         ORDER BY recordingcount DESC, i.isrc
     ");
 }

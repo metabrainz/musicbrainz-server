@@ -513,7 +513,13 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.guessCase = function () {
+        self.guessCaseTitle ();
+
         $.each (self.tracks, function (idx, item) { item.guessCase (); });
+    };
+
+    self.guessCaseTitle = function () {
+        self.$title.val (MB.GuessCase.release.guess (self.$title.val ()));
     };
 
 
@@ -551,6 +557,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$deleted = $('#id-mediums\\.'+self.number+'\\.deleted');
     self.$position = $('#id-mediums\\.'+self.number+'\\.position');
     self.$format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
+
+    self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 
     self.edits = MB.Control.ReleaseEdits ($('#mediums\\.'+self.number+'\\.edits'));
 
@@ -747,7 +755,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         var newdisc_bas = lastdisc_bas.clone ().insertAfter (lastdisc_bas);
         var newdisc_adv = lastdisc_adv.clone ().insertAfter (lastdisc_adv);
 
-        newdisc_adv.find ('tbody').empty ();
+        newdisc_adv.find ('table.medium.tbl tbody').empty ();
 
         var discnum = newdisc_bas.find ("h3").find ('span.discnum');
         discnum.text (discs + 1);

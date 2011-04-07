@@ -119,7 +119,6 @@ requires 'Locale::TextDomain' => '1.16';
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
 
-test_requires 'Alien::SeleniumRC';
 test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::HTML5::Sanity';
 test_requires 'LWP::UserAgent::Mockable';

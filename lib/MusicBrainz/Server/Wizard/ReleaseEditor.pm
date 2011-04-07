@@ -676,13 +676,17 @@ sub _edit_release_labels
             else
             {
                 # Edit ReleaseLabel
-                $create_edit->(
-                    $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
+                my %args = (
                     release_label => $old_label,
-                    label => $labels->{ $new_label->{label_id} },
                     catalog_number => $new_label->{catalog_number},
                     as_auto_editor => $data->{as_auto_editor},
-                    );
+                );
+
+                my $label;
+                $label = $labels->{ $new_label->{label_id} } if $new_label->{label_id};
+                $args{label} = $label if $label;
+
+                $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
         elsif ($new_label->{label_id} || $new_label->{catalog_number})

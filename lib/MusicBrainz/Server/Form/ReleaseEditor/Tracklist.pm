@@ -5,6 +5,7 @@ use Text::Trim qw( trim );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Track qw( format_track_length unformat_track_length );
+use Try::Tiny;
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -90,6 +91,19 @@ sub _track_errors {
         return l('An artist is required on track {pos}.', { pos => $pos });
     }
 
+    my $error = try {
+        unformat_track_length ($track->{length});
+        return;
+    }
+    catch {
+        return l(
+            'Track {pos} has an invalid length. Must be in the format MM:SS',
+            { pos => $pos }
+        );
+    };
+
+    return $error if $error;
+
     if ($cdtoc)
     {
         # cdtoc present, so do not allow the user to change track lengths.
@@ -99,17 +113,23 @@ sub _track_errors {
 
         my $details = $medium->tracklist->tracks->[$pos - 1];
 
-        my $distance = abs ($details->length - 
-                            unformat_track_length ($track->{length}));
-
-        # always reset the track length.
-        $track->{length} = format_track_length ($details->length);
-
-        # only warn the user about this if the edited value differs more than 2 seconds.
-        if ($distance > 2000)
+        # if $details is undef the track doesn't exist, presumably the user
+        # is trying to add tracks despite a discid present, this will be
+        # caught later on... here in _track_errors we just ignore it.
+        if ($details)
         {
-            return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
-                     { pos => $pos });
+            my $distance = abs ($details->length -
+                                unformat_track_length ($track->{length}));
+
+            # always reset the track length.
+            $track->{length} = format_track_length ($details->length);
+
+            # only warn the user about this if the edited value differs more than 2 seconds.
+            if ($distance > 2000)
+            {
+                return l('The length of track {pos} cannot be changed since this release has a Disc ID attached to it.',
+                         { pos => $pos });
+            }
         }
     }
 
