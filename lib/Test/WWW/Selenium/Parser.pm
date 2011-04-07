@@ -14,6 +14,7 @@ has test_runner => (
 
 my $tb = Test::Builder->new;
 our %dispatch = (
+    assertElementPresent => 'is_element_present_ok',
     assertValue => 'value_is',
     check => 'check_ok',
     click => 'click_ok',
