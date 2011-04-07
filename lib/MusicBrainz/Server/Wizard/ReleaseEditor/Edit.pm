@@ -11,6 +11,12 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ARTIST
 );
 
+sub add_medium_position {
+    my ($self, $idx, $new) = @_;
+
+    return $idx + 1;
+};
+
 augment 'create_edits' => sub
 {
     my ($self, %opts) = @_;

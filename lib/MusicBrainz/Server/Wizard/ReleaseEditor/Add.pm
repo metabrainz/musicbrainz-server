@@ -90,6 +90,12 @@ around _build_pages => sub {
     ];
 };
 
+sub add_medium_position {
+    my ($self, $idx, $new) = @_;
+
+    return $new->{position};
+};
+
 augment 'create_edits' => sub
 {
     my ($self, %args) = @_;

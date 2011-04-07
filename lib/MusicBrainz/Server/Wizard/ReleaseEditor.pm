@@ -757,8 +757,10 @@ sub _edit_release_track_edits
         {
             # Medium does not exist yet.
 
+            my $add_medium_position = $self->add_medium_position ($medium_idx, $new);
+
             my $opts = {
-                position => $medium_idx + 1,
+                position => $add_medium_position,
                 release => $previewing ? undef : $self->release,
                 as_auto_editor => $data->{as_auto_editor},
             };
@@ -789,14 +791,12 @@ sub _edit_release_track_edits
                 );
             }
 
-            $new_order{$medium_idx + 1} = $new->{position};
-            $re_order ||= ($medium_idx + 1 != $new->{position});
+            $new_order{$add_medium_position} = $new->{position};
+            $re_order ||= ($add_medium_position != $new->{position});
         }
     }
 
     if ($re_order) {
-        # FIXME: this possibly breaks on add release, re-ordering shouldn't
-        # be neccesary there, make sure that is handled correctly. --warp.
         $create_edit->(
             $EDIT_RELEASE_REORDER_MEDIUMS,
             $editnote,
