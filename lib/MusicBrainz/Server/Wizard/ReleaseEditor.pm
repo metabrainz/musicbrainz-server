@@ -31,6 +31,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
+    $EDIT_RELEASE_REORDER_MEDIUMS
 );
 
 extends 'MusicBrainz::Server::Wizard';
@@ -708,6 +709,9 @@ sub _edit_release_track_edits
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
 
+    my %new_order;
+    my $re_order = 0;
+
     my $medium_idx = -1;
     for my $new (@{ $data->{mediums} })
     {
@@ -730,11 +734,15 @@ sub _edit_release_track_edits
             }
             else
             {
+                my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+
+                $new_order{$entity->position} = $new->{position};
+                $re_order ||= ($entity->position != $new->{position});
+
                 # Edit medium
                 my %opts = (
                     name => $new->{name},
                     format_id => $new->{format_id},
-                    position => $new->{position},
                     to_edit => $entity,
                     separate_tracklists => 1,
                     as_auto_editor => $data->{as_auto_editor},
@@ -755,8 +763,10 @@ sub _edit_release_track_edits
         {
             # Medium does not exist yet.
 
+            my $add_medium_position = $self->add_medium_position ($medium_idx, $new);
+
             my $opts = {
-                position => $medium_idx + 1,
+                position => $add_medium_position,
                 release => $previewing ? undef : $self->release,
                 as_auto_editor => $data->{as_auto_editor},
             };
@@ -793,17 +803,19 @@ sub _edit_release_track_edits
                 );
             }
 
-            if ($new->{position} != $medium_idx + 1)
-            {
-                # Disc was inserted at the wrong position, enter an edit to re-order it.
-                $create_edit->(
-                    $EDIT_MEDIUM_EDIT, $editnote,
-                    position => $new->{position},
-                    to_edit => $add_medium->entity,
-                    as_auto_editor => $data->{as_auto_editor},
-                );
-            }
+            $new_order{$add_medium_position} = $new->{position};
+            $re_order ||= ($add_medium_position != $new->{position});
         }
+    }
+
+    if ($re_order) {
+        $create_edit->(
+            $EDIT_RELEASE_REORDER_MEDIUMS,
+            $editnote,
+            release  => $self->release,
+            new_order => \%new_order,
+            as_auto_editor => $data->{as_auto_editor},
+        );
     }
 }
 
