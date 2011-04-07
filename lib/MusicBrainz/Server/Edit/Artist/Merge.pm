@@ -30,9 +30,10 @@ has '+data' => (
     ]
 );
 
-sub accept
+sub do_merge
 {
     my $self = shift;
+
     $self->c->model('Artist')->merge(
         $self->new_entity->{id},
         [ $self->_old_ids ],

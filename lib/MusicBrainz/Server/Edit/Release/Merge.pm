@@ -48,7 +48,7 @@ sub foreign_keys
     }
 }
 
-override 'accept' => sub
+sub do_merge
 {
     my $self = shift;
     $self->c->model('Release')->merge(
