@@ -378,8 +378,8 @@ sub update
     my $row = {};
 
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
-    $row->{entity0} = $values->{entity0_id} if exists $values->{entity0_id};
-    $row->{entity1} = $values->{entity1_id} if exists $values->{entity1_id};
+    $row->{entity0} = $values->{entity0_id} if $values->{entity0_id};
+    $row->{entity1} = $values->{entity1_id} if $values->{entity1_id};
 
     $self->sql->update_row("l_${type0}_${type1}", $row, { id => $id });
 }
