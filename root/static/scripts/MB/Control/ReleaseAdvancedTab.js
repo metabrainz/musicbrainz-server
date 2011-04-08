@@ -68,6 +68,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      */
     self.guessCase = function () {
         self.$title.val (MB.GuessCase.track.guess (self.$title.val ()));
+        self.artist_credit.guessCase ();
     };
 
     /**
@@ -286,6 +287,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             $.each (self.tracks, function (idx, item) {
                 item.artist_credit.enableTarget ();
+                item.artist_credit.$artist_input.removeClass ('column-disabled');
             });
         }
         else
@@ -297,6 +299,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
             $.each (self.tracks, function (idx, item) {
                 item.artist_credit.disableTarget ();
+                item.artist_credit.$artist_input.addClass ('column-disabled');
             });
         }
     };
@@ -513,7 +516,13 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.guessCase = function () {
+        self.guessCaseTitle ();
+
         $.each (self.tracks, function (idx, item) { item.guessCase (); });
+    };
+
+    self.guessCaseTitle = function () {
+        self.$title.val (MB.GuessCase.release.guess (self.$title.val ()));
     };
 
 
@@ -552,7 +561,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$position = $('#id-mediums\\.'+self.number+'\\.position');
     self.$format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
 
-    self.edits = MB.Control.ReleaseEdits ($('#mediums\\.'+self.number+'\\.edits'));
+    self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
+
+    self.edits = MB.Control.ReleaseEdits ($('#id-mediums\\.'+self.number+'\\.edits'));
 
     self.$buttons = $('#mediums\\.'+self.number+'\\.buttons');
 

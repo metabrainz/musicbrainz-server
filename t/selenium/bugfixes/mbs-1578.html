@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>mbs-1578</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">mbs-1578</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.tracklist</td>
+	<td>1. the Love Bug - m-flo♥BoA (4:03)<br />2. the Love Bug (Big Bug NYC remix) - m-flo♥BoA (3:42)<br />3. the Love Bug (cover) - BAGDAD CAFE THE trench town (5:33)<br />4. the love bug (MBS-1578 version) - musicbrainz test artist (feat. warp) (4:04)</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>css=textarea.tracklist</td>
+	<td>blur</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>gc-keepuppercase</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>gc-roman</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>gc-mode</td>
+	<td>label=English</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Guess case</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=table.preview td.title:eq(0)</td>
+	<td>The Love Bug</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=table.preview td.title:eq(3)</td>
+	<td>The Love Bug (MBS-1578 version)</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=table.preview td.artist:eq(0)</td>
+	<td>m-flo♥BoA</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=table.preview td.artist:eq(2)</td>
+	<td>BAGDAD CAFE THE trench town</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=table.preview td.artist:eq(3)</td>
+	<td>Musicbrainz Test Artist (feat. Warp)</td>
+</tr>
+</tbody></table>
+</body>
+</html>

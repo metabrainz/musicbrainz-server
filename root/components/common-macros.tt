@@ -252,7 +252,7 @@ END -%]
 
 [%- MACRO link_freedb(freedb, action, text) BLOCK;
     action = action || 'import';
-    link = c.uri_for_action("/freedb/$action", [ freedb.discid ]);
+    link = c.uri_for_action("/freedb/$action", [ freedb.category, freedb.discid ]);
     text = text || html_escape(freedb.discid);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
@@ -330,9 +330,13 @@ END -%]
 END %]
 
 [% MACRO use_in_relationship(entity) BLOCK;
-    text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
-                                  : l('Use in a relationship');
-    link_entity(entity, 'relate', text);
+    IF c.session.relationship.id == entity.id;
+      l('Please select another entity to relate {name} to', { name => c.session.relationship.name });
+    ELSE;
+      text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
+                                    : l('Use in a relationship');
+      link_entity(entity, 'relate', text);
+    END;
 END %]
 
 [% MACRO relate_to_url(entity) BLOCK;
@@ -350,7 +354,6 @@ END %]
         <input type="hidden" class="gid" value="[% entity.gid %]" />
         <input type="hidden" class="type" value="[% entity_type(entity) %]" />
         <select style="width: 130px; margin-right: 4px;">
-          <option value=""> </option>
           <option value="artist">[% l('Artist') %]</option>
           <option value="label">[% l('Label') %]</option>
           <option value="recording">[% l('Recording') %]</option>

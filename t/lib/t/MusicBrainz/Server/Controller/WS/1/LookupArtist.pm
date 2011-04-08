@@ -364,7 +364,7 @@ ws_test 'artist lookup with artist-relationships',
  <relation-list target-type="Artist">
   <relation direction="backward"
             target="05d83760-08b5-42bb-a8d7-00d80b3bf47c"
-            type="MemberOf Band">
+            type="MemberOfBand">
    <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
     <name>Paul Allgood</name>
     <sort-name>Allgood, Paul</sort-name>

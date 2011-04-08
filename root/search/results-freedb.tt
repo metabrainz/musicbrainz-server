@@ -24,7 +24,7 @@
                             <td>[% result.entity.track_count %]</td>
                             <td>[% result.entity.discid %] / [% result.entity.category %] </td>
                             <td>[% result.entity.year %]</td>
-                            <td>[% link_freedb(result.entity, "import", "import") %]</td>
+                            <td>[% link_freedb(result.entity, 'show', l('import')) %]</td>
                         </tr>
                         [%- END -%]
                     </tbody>

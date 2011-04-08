@@ -10,8 +10,11 @@
 
         "scripts/MB/GuessCase/Utils.js",
         "scripts/MB/GuessCase/Handler/Base.js",
+        "scripts/MB/GuessCase/Handler/Artist.js",
+        "scripts/MB/GuessCase/Handler/Release.js",
         "scripts/MB/GuessCase/Handler/Track.js",
         "scripts/MB/GuessCase/Mode/Base.js",
+        "scripts/MB/GuessCase/Mode/Artist.js",
         "scripts/MB/GuessCase/Mode/Classical.js",
         "scripts/MB/GuessCase/Mode/English.js",
         "scripts/MB/GuessCase/Mode/French.js",
@@ -21,6 +24,8 @@
         "scripts/MB/GuessCase/Flags.js",
         "scripts/MB/GuessCase/Modes.js",
         "scripts/MB/GuessCase/Main.js",
+        "scripts/MB/GuessCase/Artist.js",
+        "scripts/MB/GuessCase/Release.js",
         "scripts/MB/GuessCase/Track.js",
 
         "scripts/MB/Control/ArtistCredit.js",
@@ -39,6 +44,8 @@
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
+
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
     });
 
@@ -160,6 +167,11 @@
                 <div class="row advanced-tracklist" style="display: none;">
                   [% r.label(medium_field.field('name'), l('Title')) %]
                   [% r.text(medium_field.field('name')) %]
+
+                  <input type="button" class="icon guesscase-medium"
+                      title="[% l('Guess case track') %]"
+                      style="background-image: url(/static/images/icons/guesscase.png); width: 16px; height: 16px; border: 0;" />
+
                 </div>
               </div>
             </td>

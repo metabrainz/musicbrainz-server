@@ -120,6 +120,27 @@ sub delete
          )', $cdtoc_id);
 }
 
+sub merge_mediums
+{
+    my ($self, $new_medium, @old_mediums) = @_;
+    my @mediums = ($new_medium, @old_mediums);
+    $self->sql->do(
+        'DELETE FROM medium_cdtoc
+               WHERE id NOT IN (
+                         SELECT DISTINCT ON (cdtoc) id
+                           FROM medium_cdtoc
+                          WHERE medium IN ('.placeholders(@mediums).')
+                     )
+                AND medium IN (' . placeholders(@mediums) . ')',
+        @mediums, @mediums
+    );
+
+    $self->sql->do(
+        'UPDATE medium_cdtoc SET medium = ? WHERE medium IN ('.placeholders(@mediums).')',
+        $new_medium, @mediums
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

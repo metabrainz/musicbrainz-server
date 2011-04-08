@@ -64,6 +64,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.$join.val ('');
         self.$gid.val ('');
         self.$id.val ('');
+        self.updateLookupPerformed ();
 
         self.$credit.attr ('placeholder', '')
             .mb_placeholder (self.placeholder_options);
@@ -72,16 +73,26 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.render = function (data) {
 
         self.$name.val (data.artist_name).removeClass('error');
+        self.container.clearError (self);
         self.$sortname.val (data.sortname);
         self.$join.val (data.join || '');
-        self.$credit.val (data.name);
         self.$gid.val (data.gid);
         self.$id.val (data.id);
+        self.updateLookupPerformed ();
 
-        if (self.$credit.val () === '')
+        if (data.name === '' || data.name === data.artist_name)
         {
-            self.$credit.attr ('placeholder', data.artist_name)
+            self.$credit
+                .val ('')
+                .attr ('placeholder', data.artist_name)
                 .mb_placeholder (self.placeholder_options);
+        }
+        else
+        {
+            self.$credit
+                .removeAttr ('placeholder')
+                .mb_placeholder (self.placeholder_options)
+                .val (data.name);
         }
 
         if (self.$join.val () !== '')
@@ -90,14 +101,47 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         }
     };
 
+    self.guessCase = function () {
+        /* only GuessCase new artists, not those which have already been identified. */
+        if (self.$gid.val () === "" && self.$id.val () === "")
+        {
+            self.$name.val (MB.GuessCase.artist.guess (self.$name.val ()));
+
+            if (self.$credit.val () !== "")
+            {
+                self.$credit.val (MB.GuessCase.artist.guess (self.$credit.val ()));
+            }
+            else if (self.$credit.attr ('placeholder') !== "")
+            {
+                self.$credit.attr (
+                    'placeholder',
+                    MB.GuessCase.artist.guess (self.$credit.attr ('placeholder')));
+            }
+        }
+    };
+
+    self.updateLookupPerformed = function ()
+    {
+        if (self.$gid.val () && self.$id.val ())
+        {
+            self.$name.addClass ('lookup-performed');
+        }
+        else
+        {
+            self.$name.removeClass ('lookup-performed');
+        }
+    };
+
     self.update = function(event, data) {
 
         if (data.name)
         {
             self.$name.val (data.name).removeClass ('error');
+            self.container.clearError (self);
             self.$sortname.val (data.sortname);
             self.$gid.val (data.gid);
             self.$id.val (data.id);
+            self.updateLookupPerformed ();
 
             if (self.$credit.val () === '' || self.$credit.hasClass ('mb_placeholder'))
             {
@@ -118,6 +162,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         if (self.$name.val() !== "" && self.$id.val() === "")
         {
             self.$name.addClass('error');
+            self.container.error (self);
         }
 
         /* if the artist was cleared the user probably wants to delete it,
@@ -126,6 +171,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.$gid.val ('');
             self.$id.val ('');
+            self.updateLookupPerformed ();
         }
 
         /* if the artist credit is empty use the value of $name as
@@ -285,6 +331,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$credit.attr ('placeholder', self.$name.val ())
                 .mb_placeholder (self.placeholder_options);
         }
+
+        self.updateLookupPerformed ();
     }
 
     return self;
@@ -300,6 +348,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     self.$container = $container;
     self.$preview = $container.find ('span.artist-credit-preview');
     self.$add_artist = self.$container.find ('input.add-artist-credit');
+    self.errors = {};
 
     self.initialize = function() {
 
@@ -342,6 +391,20 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         {
             /* multiple artists, disable main artist input. */
             self.disableTarget ();
+        }
+    };
+
+    self.error = function (child) {
+        self.errors[child.boxnumber] = true;
+        self.$artist_input.addClass ('error');
+    };
+
+    self.clearError = function (child) {
+        delete self.errors[child.boxnumber];
+
+        if (MB.utility.keys (self.errors).length === 0)
+        {
+            self.$artist_input.removeClass ('error');
         }
     };
 
@@ -400,15 +463,38 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         var previewText = [];
         var previewHTML = [];
 
+        var lookupPerformed = true;
         $.each (self.box, function (idx, box) {
+            if (!box.$gid.val () || !box.$id.val ())
+            {
+                lookupPerformed = false;
+            }
+
             previewText.push (box.renderPreviewText ());
             previewHTML.push (box.renderPreviewHTML ());
         });
 
         self.$artist_input.val (previewText.join (""));
-        self.$preview.html (previewHTML.join (""));
+        if (self.$artist_input.val () === '')
+        {
+            self.$preview.html ('&nbsp;');
+        }
+        else
+        {
+            self.$preview.html (previewHTML.join (""));
+        }
 
         self.$artist_input.trigger ('artistCreditChanged');
+
+        if (lookupPerformed)
+        {
+            self.$artist_input.addClass ('lookup-performed');
+        }
+        else
+        {
+            self.$artist_input.removeClass ('lookup-performed');
+        }
+
     };
 
     self.render = function (data) {
@@ -423,6 +509,14 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             }
 
             self.box[idx].render (item);
+        });
+
+        self.renderPreview ();
+    };
+
+    self.guessCase = function () {
+        $.each (self.box, function (idx, item) {
+            item.guessCase();
         });
 
         self.renderPreview ();
