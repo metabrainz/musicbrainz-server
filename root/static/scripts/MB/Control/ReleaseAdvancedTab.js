@@ -591,7 +591,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 
-    self.edits = MB.Control.ReleaseEdits ($('#mediums\\.'+self.number+'\\.edits'));
+    self.edits = MB.Control.ReleaseEdits ($('#id-mediums\\.'+self.number+'\\.edits'));
 
     self.$buttons = $('#mediums\\.'+self.number+'\\.buttons');
 

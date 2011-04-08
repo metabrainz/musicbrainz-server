@@ -295,7 +295,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
     var guessCase = function () {
         /* make sure all the input fields on the advanced tab are up-to-date. */
         $.each (self.textareas, function (i, textarea) {
-            textarea.updatePreview (MB.GuessCase.track.guess);
+            textarea.updatePreview ();
         });
 
         /* have the advanced view guess case all the discs. */
