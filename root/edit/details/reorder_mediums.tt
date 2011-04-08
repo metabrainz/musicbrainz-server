@@ -13,7 +13,11 @@
     <th>[% IF loop.index == 0 %][% l('Mediums:') %][% END %]</th>
     <td>
       Disc <span class="new">[% medium_edit.new %]</span>: [% medium_edit.title %]
-      (moved from position <span class="old">[% medium_edit.old %]</span>)
+      [% IF medium_edit.old == "new" %]
+        [% l('(new disc)') %]
+      [% ELSE %]
+        [% l('(moved from position <span class="old">{old}</span>)', old => medium_edit.old) %]
+      [% END %]
     </td>
   </tr>
   [% END %]

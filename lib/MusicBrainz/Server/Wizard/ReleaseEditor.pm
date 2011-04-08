@@ -736,7 +736,14 @@ sub _edit_release_track_edits
             {
                 my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
 
-                $new_order{$entity->position} = $new->{position};
+                if ($previewing)
+                {
+                    $new_order{$entity->position} = $new->{position};
+                }
+                else
+                {
+                    $new_order{$entity->id} = $new->{position};
+                }
                 $re_order ||= ($entity->position != $new->{position});
 
                 # Edit medium
@@ -797,7 +804,14 @@ sub _edit_release_track_edits
                 );
             }
 
-            $new_order{$add_medium_position} = $new->{position};
+            if ($previewing)
+            {
+                $new_order{$add_medium_position} = $new->{position};
+            }
+            else
+            {
+                $new_order{$add_medium->entity_id} = $new->{position};
+            }
             $re_order ||= ($add_medium_position != $new->{position});
         }
     }

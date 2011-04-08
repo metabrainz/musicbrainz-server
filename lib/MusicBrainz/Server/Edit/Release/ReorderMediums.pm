@@ -73,16 +73,36 @@ sub build_display_data {
     my %old = %{ $self->data->{old} };
     my %data;
 
-    my @medium_ids = sort { $new{$old{$a}} <=> $new{$old{$a}} } keys %old;
+    if ($self->preview)
+    {
+        my %old_swapped = map { $old{$_} => $_ } keys %old;
 
-    $data{mediums} = [ map {
-        my $entity = $loaded->{Medium}{ $_ };
-        {
-            old => $old{$_},
-            new => $new{$old{$_}},
-            title => $entity ? $entity->name : ""
-        }
-    } @medium_ids ];
+        $data{mediums} = [
+            map {
+                my $entity = $loaded->{Medium}{ $old_swapped{$_} };
+                {
+                    old => $old_swapped{$_} ? $_ : "new",
+                    new => $new{$_},
+                    title => $entity ? $entity->name : ""
+                }
+            }
+            sort { $new{$a} <=> $new{$b} }
+            keys %new ];
+    }
+    else
+    {
+        $data{mediums} = [
+            map {
+                my $entity = $loaded->{Medium}{ $_ };
+                {
+                    old => $old{$_},
+                    new => $new{$_},
+                    title => $entity ? $entity->name : ""
+                }
+            }
+            sort { $new{$a} <=> $new{$b} }
+            keys %new ];
+    }
 
     $data{release} = $loaded->{Release}{ $self->data->{release}{id} }
         || Release->new( name => $self->data->{release}{name} );
