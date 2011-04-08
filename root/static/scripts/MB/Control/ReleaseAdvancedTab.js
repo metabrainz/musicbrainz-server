@@ -311,14 +311,21 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     /* 'up' is visual, so the disc position decreases. */
     self.moveUp = function (event) {
-        self.parent.moveDisc (self, -1);
+        var oldpos = self.position ()
+        if (oldpos > 1)
+        {
+            self.position (oldpos - 1);
+            self.parent.moveDisc (oldpos, self);
+        }
 
         event.preventDefault ();
     };
 
     /* 'down' is visual, so the disc position increases. */
     self.moveDown = function (event) {
-        self.parent.moveDisc (self, +1);
+        var oldpos = self.position ()
+        self.position (oldpos + 1);
+        self.parent.moveDisc (oldpos, self);
 
         event.preventDefault ();
     };
@@ -331,8 +338,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.tracklist = null;
         self.removeTracks (-1);
 
-        self.$deleted.val (1);
-        self.$fieldset.hide ();
+        self.$deleted.val ("1");
+        self.$fieldset.addClass ('deleted');
 
         self.parent.removeDisc (self);
 
@@ -346,13 +353,16 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         return self.parent.isLastDisc (self);
     };
 
+    self.isDeleted = function () {
+        return self.$deleted.val () == "1";
+    };
+
     self.position = function (val) {
         if (val)
         {
             self.$position.val (val);
             self.$fieldset.find ('span.discnum').text (val);
             self.basic.$basicdisc.find ('span.discnum').text (val);
-            return val;
         }
 
         return parseInt (self.$position.val ());
@@ -593,6 +603,15 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.updateArtistColumn ();
     self.sort ();
 
+    if (self.isDeleted ())
+    {
+        self.$fieldset.addClass ('deleted');
+    }
+    else
+    {
+        self.$fieldset.removeClass ('deleted');
+    }
+
     return self;
 };
 
@@ -752,6 +771,7 @@ MB.Control.ReleaseAdvancedTab = function () {
 
     self.addDisc = function () {
         var discs = self.discs.length;
+        var newposition = discs + 1;
         var lastdisc_bas = $('.basic-disc').last ();
         var lastdisc_adv = $('.advanced-disc').last ();
 
@@ -760,11 +780,8 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         newdisc_adv.find ('table.medium.tbl tbody').empty ();
 
-        var discnum = newdisc_bas.find ("h3").find ('span.discnum');
-        discnum.text (discs + 1);
-
-        discnum = newdisc_adv.find ("legend").find ('span.discnum');
-        discnum.text (discs + 1);
+        newdisc_bas.find ("h3").find ('span.discnum').text (newposition);
+        newdisc_adv.find ("legend").find ('span.discnum').text (newposition);
 
         var mediumid = new RegExp ("mediums.[0-9]+");
         var update_ids = function (idx, element) {
@@ -786,7 +803,7 @@ MB.Control.ReleaseAdvancedTab = function () {
          * new medium and tracklist will be created. */
         $("#id-mediums\\."+discs+"\\.id").val('');
         $("#id-mediums\\."+discs+"\\.name").val('');
-        $("#id-mediums\\."+discs+"\\.position").val(discs + 1);
+        $("#id-mediums\\."+discs+"\\.position").val(newposition);
         $("#id-mediums\\."+discs+"\\.tracklist_id").val('');
         $('#id-mediums\\.'+discs+'\\.deleted').val('0');
         $('#id-mediums\\.'+discs+'\\.edits').val('');
@@ -796,6 +813,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         var new_disc = MB.Control.ReleaseDisc (self, newdisc_adv);
 
         self.discs.push (new_disc);
+        self.positions[new_disc.position()] = new_disc;
 
         /* and scroll down to the new position of the 'Add Disc' button if possible. */
         /* FIXME: this hardcodes the fieldset bottom margin, shouldn't do that. */
@@ -805,25 +823,22 @@ MB.Control.ReleaseAdvancedTab = function () {
         return new_disc;
     };
 
-    self.moveDisc = function (disc, direction) {
-        var position = disc.position ();
-        var idx = position - 1;
+    self.moveDisc = function (oldpos, disc) {
+        var newpos = disc.position ();
+        other = self.positions[newpos];
+        if (!other)
+        {
+            self.positions[newpos] = disc;
+            delete self.positions[oldpos];
 
-        if (direction < 0 && idx === 0)
-            return false;
+            return true;
+        }
 
-        if (direction > 0 && idx === self.discs.length - 1)
-            return false;
+        other.position (oldpos);
+        self.positions[oldpos] = other;
+        self.positions[newpos] = disc;
 
-        var other = self.discs[idx + direction];
-
-        other.position (position)
-        disc.position (position + direction)
-
-        self.discs[idx + direction] = disc;
-        self.discs[idx] = other;
-
-        if (direction < 0)
+        if (newpos < oldpos)
         {
             disc.$fieldset.insertBefore (other.$fieldset);
 
@@ -845,10 +860,8 @@ MB.Control.ReleaseAdvancedTab = function () {
     };
 
     self.removeDisc = function (disc) {
-
-        while (self.moveDisc (disc, +1)) { };
-
-        var deleted = self.discs.pop ();
+//         while (self.moveDisc (disc, +1)) { };
+        console.log ('adv tab removeDisc, no longer needed?');
     };
 
     self.guessCase = function () {
@@ -863,12 +876,15 @@ MB.Control.ReleaseAdvancedTab = function () {
 
     self.$tab = $('div.advanced-tracklist');
     self.discs = [];
+    self.positions = [];
     self.basic = null; // set by MB.Control.ReleaseBasicTab.
 
     self.use_tracklist = MB.Control.ReleaseUseTracklist (self);
 
     self.$tab.find ('fieldset.advanced-disc').each (function (idx, item) {
-        self.discs.push (MB.Control.ReleaseDisc (self, $(item)));
+        var disc = MB.Control.ReleaseDisc (self, $(item));
+        self.discs.push (disc);
+        self.positions[disc.position()] = disc;
     });
 
     $('form.release-editor').bind ('submit.mb', self.submit);
