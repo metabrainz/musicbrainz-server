@@ -84,6 +84,9 @@ MB.GuessCase.Main = function () {
 	var os, handler;
 	gc.init();
 
+        var mode_backup = self.mode;
+        self.mode = self.artistmode;
+
 	if (!self.artistHandler) {
 	    self.artistHandler = MB.GuessCase.Handler.Artist ();
 	}
@@ -99,6 +102,8 @@ MB.GuessCase.Main = function () {
 	    // if it was not a special case, start Guessing
 	    os = handler.process(is);
 	}
+
+        self.mode = mode_backup;
 
 	return os;
     };

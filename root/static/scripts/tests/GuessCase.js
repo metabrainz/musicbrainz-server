@@ -82,12 +82,21 @@ MB.tests.GuessCase.Modes = function() {
             {   input: 'n/a',       expected: '[unknown]'  },
             {   input: 'NONE',      expected: '[unknown]'  },
             {   input: 'unknown',   expected: '[unknown]'  },
-            {   input: 'No Artist', expected: '[unknown]'  }
+            {   input: 'No Artist', expected: '[unknown]'  },
+            {
+                input: "Peggy Sue And The Pirates",
+                expected: "Peggy Sue and The Pirates",
+                bug: "MBS-1370", mode: "Artist"
+            }
+
         ];
 
         $.each(tests, function(idx, test) {
             result = MB.GuessCase.artist.guess (test.input);
-            QUnit.equals(result, test.expected, test.input);
+
+            var prefix = test.bug ? test.bug + ', ' : '';
+
+            QUnit.equals(result, test.expected, prefix + test.input);
         });
 
     });
