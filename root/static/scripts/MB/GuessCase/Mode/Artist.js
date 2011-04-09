@@ -28,7 +28,13 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 MB.GuessCase.Mode.Artist = function () {
     var self = MB.GuessCase.Mode.Base ();
 
+    parentIsLowerCaseWord = self.isLowerCaseWord;
+
     self.setConfig('Artist mode', '', '');
+
+    self.isLowerCaseWord = function (w) {
+        return w === 'the' ? false : parentIsLowerCaseWord (w);
+    };
 
     return self;
 };
