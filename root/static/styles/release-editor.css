@@ -151,7 +151,7 @@ div.guesscase-options,
 
 #release-editor div.basic-disc.deleted,
 #release-editor textarea.tracklist.deleted,
-#release-editor fieldset.advanced-disc.deleted { border: 2px dashed red; }
+#release-editor fieldset.advanced-disc.deleted { display: none; }
 
 #release-editor fieldset.advanced-disc tr.track > td > span > input[type=text],
 #release-editor fieldset.advanced-disc tr.track > td > input[type=text] { border: 1px solid transparent; }

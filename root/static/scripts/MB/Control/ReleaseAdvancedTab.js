@@ -310,24 +310,20 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     /* 'up' is visual, so the disc position decreases. */
-    self.moveUp = function (event) {
+    self.moveUp = function () {
         var oldpos = self.position ()
         if (oldpos > 1)
         {
             self.position (oldpos - 1);
             self.parent.moveDisc (oldpos, self);
         }
-
-        event.preventDefault ();
     };
 
     /* 'down' is visual, so the disc position increases. */
-    self.moveDown = function (event) {
+    self.moveDown = function () {
         var oldpos = self.position ()
         self.position (oldpos + 1);
         self.parent.moveDisc (oldpos, self);
-
-        event.preventDefault ();
     };
 
     self.removeDisc = function (chained) {
@@ -342,6 +338,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.$fieldset.addClass ('deleted');
 
         self.parent.removeDisc (self);
+        self.position (0);
 
         if (!chained)
         {
@@ -358,7 +355,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.position = function (val) {
-        if (val)
+        if (val !== undefined)
         {
             self.$position.val (val);
             self.$fieldset.find ('span.discnum').text (val);
@@ -771,7 +768,18 @@ MB.Control.ReleaseAdvancedTab = function () {
 
     self.addDisc = function () {
         var discs = self.discs.length;
-        var newposition = discs + 1;
+        var newposition = 1;
+        var i;
+
+        for (i = self.positions.length; i >= 0; i--)
+        {
+            if (self.positions[i])
+            {
+                newposition = i + 1;
+                break;
+            }
+        }
+
         var lastdisc_bas = $('.basic-disc').last ();
         var lastdisc_adv = $('.advanced-disc').last ();
 
@@ -860,8 +868,21 @@ MB.Control.ReleaseAdvancedTab = function () {
     };
 
     self.removeDisc = function (disc) {
-//         while (self.moveDisc (disc, +1)) { };
-        console.log ('adv tab removeDisc, no longer needed?');
+        var startpos = disc.position ();
+        var i;
+
+        delete self.positions[startpos];
+
+        for (i = startpos + 1; i < self.positions.length; i++)
+        {
+            disc = self.positions[i];
+            if (!disc)
+            {
+                /* do not move any discs beyond a possible gap. */
+                break;
+            }
+            disc.moveUp ();
+        }
     };
 
     self.guessCase = function () {
