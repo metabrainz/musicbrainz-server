@@ -133,7 +133,7 @@ MB.GuessCase.Handler.Base = function () {
 	    // check them.
 	    var handled = false;
 	    if (!gc.re.SPECIALCASES) {
-		gc.re.SPECIALCASES = /(&|\?|\!|;|:|'|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+		gc.re.SPECIALCASES = /(&|\?|\!|;|:|'|‘|’|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
 	    }
 	    if (gc.i.matchCurrentWord(gc.re.SPECIALCASES)) {
 		handled = true;
@@ -217,7 +217,7 @@ MB.GuessCase.Handler.Base = function () {
 
 		// force capitalization of the last word,
 		// because we are starting a new subtitle
-		gc.o.capitalizeLastWord(true);
+	        gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
 	    }
 
 	    // from next position on, skip spaces and dots.
@@ -358,7 +358,7 @@ MB.GuessCase.Handler.Base = function () {
 	    gc.re.HYPHEN = "-";
 	}
 	if (gc.i.matchCurrentWord(gc.re.HYPHEN)) {
-	    gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: !gc.getMode().isSentenceCaps()});
+	    gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
 	    gc.f.resetContext();
 
 	    // don't capitalize next word after hyphen in sentence mode.
@@ -434,8 +434,9 @@ MB.GuessCase.Handler.Base = function () {
     self.doSingleQuote = function() {
 
 	if (!gc.re.SINGLEQUOTE) {
-	    gc.re.SINGLEQUOTE = "'";
+	    gc.re.SINGLEQUOTE = /['‘’]/;
 	}
+
 	if (gc.i.matchCurrentWord(gc.re.SINGLEQUOTE)) {
 	    gc.f.forceCaps = false;
 	    var a = gc.i.isPreviousWord(" ");
@@ -904,9 +905,6 @@ MB.GuessCase.Handler.Base = function () {
 	       (gc.i.getWordAtIndex(wi).match(gc.re.SPACES_DOTS) != null)) {
 	    wi++;
 	}
-	if (si != wi) {
-
-	}
 
 	var w = (gc.i.getWordAtIndex(wi) || "");
 
@@ -1023,9 +1021,6 @@ MB.GuessCase.Handler.Base = function () {
 	    while ((wi < len-1) &&
 		   (gc.i.getWordAtIndex(wi).match(gc.re.SPACES_DOTS) != null)) {
 		wi++;
-	    }
-	    if (si != wi) {
-
 	    }
 
 	    // test for number, or roman numeral

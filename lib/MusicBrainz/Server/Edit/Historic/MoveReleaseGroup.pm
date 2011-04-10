@@ -25,17 +25,20 @@ sub do_upgrade
 {
     my $self = shift;
     return {
-        entity_id => $self->row_id,
+        entity => {
+            id => $self->row_id,
+            name => '[deleted]'
+        },
         new => {
             artist_credit => [
                 { name => $self->new_value->{name},
-                  id => $self->new_value->{id} },
+                  artist => $self->new_value->{artist_id} },
             ]
         },
         old => {
             artist_credit => [
                 { name => $self->previous_value,
-                  id => $self->artist_id }
+                  artist => $self->artist_id }
             ]
         }
     };
@@ -51,5 +54,12 @@ sub deserialize_new_value
         artist_id => $artist_id
     }
 }
+
+sub deserialize_previous_value
+{
+    my ($self, $value) = @_;
+    return $value;
+}
+
 
 1;

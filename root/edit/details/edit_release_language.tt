@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-release-language">
   <tr>
     <th>[% l('Old:') %]</th>
     <td>

@@ -13,15 +13,12 @@ my $ws_defs = Data::OptList::mkopt([
      },
      work => {
                          method   => 'GET',
-                         linked   => [ qw(artist) ],
-                         inc      => [ qw(artists aliases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ],
+                         inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(limit offset) ],
      },
      work => {
                          method   => 'GET',
-                         inc      => [ qw(artists aliases artist-credits
-                                          _relations tags user-tags ratings user-ratings) ],
+                         inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
      },
 ]);
 
@@ -39,15 +36,6 @@ sub work_toplevel
     my ($self, $c, $stash, $work) = @_;
 
     my $opts = $stash->store ($work);
-
-    if ($c->stash->{inc}->artists)
-    {
-        $c->model('ArtistCredit')->load($work);
-
-        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $work->artist_credit->names };
-
-        $self->linked_artists ($c, $stash, \@artists);
-    }
 
     if ($c->stash->{inc}->has_rels)
     {
@@ -89,14 +77,6 @@ sub work_browse : Private
 
     my $works;
     my $total;
-    if ($resource eq 'artist')
-    {
-        my $artist = $c->model('Artist')->get_by_gid($id);
-        $c->detach('not_found') unless ($artist);
-
-        my @tmp = $c->model('Work')->find_by_artist ($artist->id, $limit, $offset);
-        $works = $self->make_list (@tmp, $offset);
-    }
 
     my $stash = WebServiceStash->new;
 

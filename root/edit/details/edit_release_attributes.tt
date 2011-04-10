@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-release-attributes">
   [% FOR change=edit.display_data.changes %]
   <tr>
     <th>[% l('Releases:') %]</th>

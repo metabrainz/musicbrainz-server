@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details merge-releases">
   [% INCLUDE 'edit/details/merge_common.tt' %]
   <tr>
     <th>[% l('Merge strategy:') %]</th>

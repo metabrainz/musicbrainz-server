@@ -1,4 +1,4 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
 INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name) VALUES (1, 'deu', 'ger', 'de', 'German');
@@ -18,4 +18,4 @@ ALTER SEQUENCE medium_id_seq RESTART 5;
 ALTER SEQUENCE tracklist_id_seq RESTART 4;
 ALTER SEQUENCE track_id_seq RESTART 18;
 
-COMMIT;
+

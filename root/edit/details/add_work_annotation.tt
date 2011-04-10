@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-work-annotation">
   <tr>
     <th>[% l('Work:') %]</th>
     <td>[% link_entity(edit.display_data.work) %]
@@ -7,7 +7,7 @@
     <th>[% l('Changelog:') %]</th>
     <td>
       <a href="[% c.uri_for_action('/work/annotation_revision', [ edit.display_data.work.gid ], edit.display_data.annotation_id) %]">
-        [% edit.display_data.changelog | html %]
+        [% html_escape(edit.display_data.changelog) || l('(no changelog)') %]
       </a>
     </td>
   </tr>

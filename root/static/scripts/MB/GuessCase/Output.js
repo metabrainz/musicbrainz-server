@@ -197,7 +197,6 @@ MB.GuessCase.Output = function () {
      *							the gc.f.forceCaps parameter.
      **/
     self.capitalizeLastWord = function(overrideCaps) {
-	overrideCaps = (overrideCaps != null ? overrideCaps : null);
 	self.capitalizeWordAtIndex(self.getLength()-1, overrideCaps);
     };
 
@@ -241,7 +240,8 @@ MB.GuessCase.Output = function () {
 		// do not register method, such that this message appears as
 		// it were sent from the calling method.
 		if (c.capslast) {
-		    self.capitalizeLastWord(true); // capitalize last word before current
+		    // capitalize last word before current
+	            self.capitalizeLastWord(!gc.getMode().isSentenceCaps());
 		}
 		if (ws.before) {
 		    self.appendSpace();  // preserve whitespace before,

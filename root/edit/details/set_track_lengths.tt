@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details set-track-lengths">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td>

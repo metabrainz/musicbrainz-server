@@ -31,4 +31,8 @@ MB.GuessCase._Work = function () {
     return self;
 };
 
-MB.GuessCase.work = MB.GuessCase._Work ();
+$('document').ready (function () {
+
+    MB.GuessCase.work = MB.GuessCase._Work ();
+
+});

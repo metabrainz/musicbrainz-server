@@ -1,6 +1,6 @@
-<table class="details">
+<table class="details remove-release">
   <tr>
     <th>[% l('Release:') %]</th>
-    <td>[% edit.display_data.name %]</td>
+    <td>[% descriptive_link(edit.display_data.entity) %]</td>
   </tr>
 </table>

@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details convert-release-to-multiple-artists">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">

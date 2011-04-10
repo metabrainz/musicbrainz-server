@@ -22,8 +22,7 @@ MB.Control.WorkEdit = function () {
     var self = MB.Object ();
 
     self.$name = $('#id-edit-work\\.name');
-
-    self.$guesscase = $('input.guesscase');
+    self.$guesscase = $('a[href=#guesscase]');
 
     var guesscase = function (event) {
         self.$name.val (MB.GuessCase.work.guess (self.$name.val ()));

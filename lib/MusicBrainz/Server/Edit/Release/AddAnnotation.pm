@@ -5,7 +5,10 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Translation qw( l ln );
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Add release annotation') }
 sub edit_type { $EDIT_RELEASE_ADD_ANNOTATION }
@@ -19,7 +22,7 @@ has 'release_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity_id} }
+    default => sub { shift->data->{entity}{id} }
 );
 
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -32,9 +35,14 @@ has 'release' => (
 sub foreign_keys
 {
     my $self = shift;
-    return {
-        Release => [ $self->release_id ],
-    };
+    if ($self->preview) {
+        return { };
+    }
+    else {
+        return {
+            Release => [ $self->release_id ],
+        };
+    }
 }
 
 around 'build_display_data' => sub
@@ -43,7 +51,10 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig();
-    $data->{release} = $loaded->{Release}->{ $self->release_id };
+    unless ($self->preview) {
+        $data->{release} = $loaded->{Release}->{ $self->release_id }
+            || Release->new( name => $self->data->{entity}{name} );
+    }
 
     return $data;
 };

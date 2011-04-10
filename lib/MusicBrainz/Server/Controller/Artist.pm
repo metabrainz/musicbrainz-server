@@ -147,6 +147,7 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
+    my $artist = $c->stash->{artist};
     my $release_groups;
     if ($c->stash->{artist}->id == $VARTIST_ID)
     {
@@ -168,7 +169,6 @@ sub show : PathPart('') Chained('load')
         my $show_va = $c->req->query_params->{va};
         if ($show_va) {
             $method = 'find_by_track_artist';
-            $c->stash( show_va => 1 );
         }
 
         $release_groups = $self->_load_paged($c, sub {
@@ -181,8 +181,7 @@ sub show : PathPart('') Chained('load')
                     $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
                 });
             $c->stash(
-                va_only => 1,
-                show_va => 1
+                va_only => 1
             );
         }
 
@@ -195,7 +194,12 @@ sub show : PathPart('') Chained('load')
 
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
-    $c->stash( release_groups => $release_groups );
+    $c->stash(
+        release_groups => $release_groups,
+        show_artists => scalar grep {
+            $_->artist_credit->name ne $artist->name
+        } @$release_groups,
+    );
 }
 
 =head2 works
@@ -208,46 +212,16 @@ browsable (not just paginated)
 sub works : Chained('load')
 {
     my ($self, $c) = @_;
-
     my $artist = $c->stash->{artist};
-    my $works;
-
-    if ($artist->id == $VARTIST_ID)
-    {
-        my $index = $c->req->query_params->{index};
-        if ($index) {
-            $works = $self->_load_paged($c, sub {
-                $c->model('Work')->find_by_name_prefix_va($index, shift,
-                                                                  shift);
-            });
-        }
-        $c->stash(
-            template => 'artist/browse_various_works.tt',
-            index    => $index,
-        );
+    my $grouped_works = $self->_load_paged($c, sub {
+        $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
+    });
+    my @works = map { @{ $_->{works} } } @$grouped_works;
+    $c->model('Artist')->load_for_works(@works);
+    if ($c->user_exists) {
+        $c->model('Work')->rating->load_user_ratings($c->user->id, @works);
     }
-    else
-    {
-        $works = $self->_load_paged($c, sub {
-                $c->model('Work')->find_by_artist($artist->id, shift, shift);
-            });
-
-        $c->model('Work')->load_meta(@$works);
-
-        if ($c->user_exists) {
-            $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
-        }
-
-        $c->stash( template => 'artist/works.tt' );
-    }
-
-    $c->model('ArtistCredit')->load(@$works);
-    $c->stash(
-        works => $works,
-        show_artists => scalar grep {
-            $_->artist_credit->name ne $artist->name
-        } @$works,
-    );
+    $c->stash( grouped_works => $grouped_works );
 }
 
 =head2 recordings

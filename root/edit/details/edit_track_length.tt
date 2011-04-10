@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-track-length">
   [% IF edit.display_data.recording %]
   <tr>
     <th>[% l('Recording:') %]</th>

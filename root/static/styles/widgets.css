@@ -70,8 +70,10 @@
 /* Positive */
 .buttons a.positive,
 .buttons input[type=submit].positive,
+.buttons input[type=button].positive,
 .buttons button.positive { color:#529214; }
 .buttons a.positive:hover,                  .buttons a.positive:focus,
+.buttons input[type=button].positive:hover, .buttons input[type=button].positive:focus,
 .buttons input[type=submit].positive:hover, .buttons input[type=submit].positive:focus,
 .buttons button.positive:hover,             .buttons button.positive:focus {
     background-color:#E6EFC2;
@@ -86,9 +88,11 @@
 
 /* Negative */
 .buttons a.negative,
+.buttons input[type=button].negative,
 .buttons input[type=submit].negative,
 .buttons button.negative { color:#d12f19; }
 .buttons a.negative:hover,                  .buttons a.negative:focus,
+.buttons input[type=button].negative:hover, .buttons input[type=button].negative:focus,
 .buttons input[type=submit].negative:hover, .buttons input[type=submit].negative:focus,
 .buttons button.negative:hover,             .buttons button.negative:focus {
     background:#fbe3e4;
@@ -113,7 +117,9 @@
 
 
 /* buttons inline with an input row in a form. */
-form div.row input[type=button] {
+form div.row input[type=button],
+form input[type=button],
+form input[type=submit] {
 
     color:#565656;
     background-color:#F0F0F0;
@@ -276,6 +282,23 @@ ul.tag-cloud li.tag6 { font-size: 2em; font-weight: bold;}
 ul.tag-cloud li.tag7 { font-size: 2.5em; font-weight: bold; }
 
 /*
+** "Relate to ..." popup.
+*/
+div.relate-to {
+    position: relative;
+    left: -180px;
+    top: 4px;
+    width: 320px;
+    background: #f0f0f0;
+    padding: 10px 7px 7px 10px;
+    border: 1px solid #999;
+    z-index: 3;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+/*
 ** Favicons
 */
 
@@ -313,7 +336,7 @@ ul.favicons a {
     color: #000000;
 }
 
-ul.favicons a:hover { 
+ul.favicons a:hover {
     color: #000000;
     text-decoration: none;
 }

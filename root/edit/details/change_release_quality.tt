@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details change-release-quality">
   <tr>
     <th>[% l('Release:') %]</th>
     <td colspan="2">[% descriptive_link(edit.display_data.release) %]</td>

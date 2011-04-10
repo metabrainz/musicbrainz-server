@@ -42,7 +42,6 @@ sub show : PathPart('') Chained('load')
 
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
 
     # need to call relationships for overview page
     $self->relationships($c);
@@ -56,7 +55,6 @@ for my $action (qw( relationships aliases tags details )) {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
-        $c->model('ArtistCredit')->load($work);
     };
 }
 
@@ -78,39 +76,11 @@ before 'edit' => sub
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
-};
-
-after 'merge' => sub {
-    my ($self, $c) = @_;
-    $c->model('ArtistCredit')->load(
-        $c->stash->{work}, $c->stash->{old}, $c->stash->{new}
-    );
-};
-
-around '_merge_search' => sub {
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-    return $results;
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',
     edit_type => $EDIT_WORK_CREATE,
-    edit_arguments => sub {
-        my ($self, $c) = @_;
-        my $artist_gid = $c->req->query_params->{artist};
-        if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
-            my $rg = MusicBrainz::Server::Entity::Work->new(
-                artist_credit => ArtistCredit->from_artist($artist)
-            );
-            $c->stash( initial_artist => $artist );
-            return ( item => $rg );
-        }
-    }
 };
 
 1;

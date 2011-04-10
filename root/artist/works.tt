@@ -1,16 +1,69 @@
+[% BLOCK layout_head %]
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js'
+    ) %]"></script>
+[% END %]
+
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
     <h2>[% l('Works') %]</h2>
-    [%- IF works.size -%]
-        [%- INCLUDE 'artist/works-list.tt' WRAPPER 'components/with-pager.tt' -%]
-    [%- ELSE -%]
-        <p>[%- l('No works found.') -%]</p>
-    [%- END -%]
 
-    [% IF c.user_exists %]
-    <p>
-      <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
-        [% l('Create a work') %]
-      </a>
-    </p>
+    [% IF grouped_works.size %]
+      [% WRAPPER 'components/with-pager.tt' %]
+      <form action="[% c.uri_for_action('/work/merge_queue') %]"
+            method="post">
+      <table class="tbl">
+        <thead>
+            <tr>
+                [% IF c.user_exists %]
+                <th>
+                <input type="checkbox" />
+                </th>
+                [% END %]
+                <th>[% l('Work') %]</th>
+                <th>[% l('Artists') %]</th>
+                <th>[% l('ISWC') %]</th>
+                <th>[% l('Rating') %]</th>
+            </tr>
+        </thead>
+          [% FOR group = grouped_works %]
+            [% IF group.link_type %]
+            <thead>
+                <tr class="subh">
+                    [% IF c.user_exists %]<th></th>[% END %]
+                    <th colspan="4">[% group.link_type %]</th>
+                </tr>
+            </thead>
+            [% END %]
+            <tbody>
+                [% FOR work IN group.works %]
+                <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+                    [% IF c.user_exists %]
+                    <td>
+                      <input type="checkbox" name="add-to-merge"
+                             value="[% work.id %]" />
+                    </td>
+                    [% END %]
+                    <td>
+                        [% descriptive_link(work) %]
+                    </td>
+                    <td>
+                      <ul>
+                        [% FOR rel_artist=work.artists %]
+                        <li>[% link_entity(rel_artist) %]</li>
+                        [% END %]
+                      </ul>
+                    </td>
+                    <td>[% work.iswc | html %]</td>
+                    <td>[% rating_stars(work) %]</td>
+                </tr>
+                [% END %]
+            </tbody>
+          [% END %]
+      </table>
+      [% END %]
+    [% form_submit(l('Add selected works for merging')) WRAPPER form_row  IF c.user_exists %]
+    </form>
+    [% ELSE %]
+      [% l('This artist is not currently associated with any works.') %]
     [% END %]
 [%- END -%]

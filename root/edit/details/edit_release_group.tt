@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-release-group">
   <tr>
     <th>[% l('Release Group:') %]</th>
     <td>
@@ -24,7 +24,7 @@
 
   [%- IF edit.display_data.type -%]
   <tr>
-    <th>[% l('Work Type:') %]</th>
+    <th>[% l('Release Group Type:') %]</th>
     <td class="old">[% edit.display_data.type.old.name | html %]</td>
     <td class="new">[% edit.display_data.type.new.name | html %]</td>
   </tr>

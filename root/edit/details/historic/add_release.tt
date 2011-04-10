@@ -56,7 +56,7 @@
           [% FOR track=edit.display_data.tracks %]
           <tr>
             <td>[% track.position %]</td>
-            <td>[% link_entity(track.recording, 'show', track.name) %]</td>
+            <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
             <td>[% link_entity(track.artist) %]</td>
             <td>[% track.length | format_length %]</td>
           </tr>
@@ -85,8 +85,8 @@
           <tr>
             <td>[% release_event.date.format %]</td>
             <td>[% release_event.country.name %]</td>
-            <td>[% link_entity(release_event.label) %]</td>
-            <td>[% release_event.catalog_number %]</td>
+            <td>[% link_entity(release_event.label) IF release_event.label %]</td>
+            <td>[% release_event.catalog_number | html %]</td>
             <td>[% release_event.barcode %]</td>
             <td>[% release_event.format.name %]</td>
           </tr>

@@ -78,22 +78,6 @@ sub direct : Private
        $c->model('Search')->search($type, $query, shift, shift);
     }, $form->field('limit')->value);
 
-    my $pager = $c->stash->{pager};
-    if (@$results == 1 && $pager->current_page == 1) {
-        if ($type eq 'artist' || $type eq 'release' ||
-                $type eq 'label' || $type eq 'release-group')
-        {
-            my $redirect;
-            $redirect = $results->[0]->entity->gid;
-
-            my $type_controller = $c->controller(type_to_model($type));
-            my $action = $type_controller->action_for('show');
-
-            $c->res->redirect($c->uri_for($action, [ $redirect ]));
-            $c->detach;
-        }
-    }
-
     my @entities = map { $_->entity } @$results;
 
     use Switch;
@@ -105,6 +89,7 @@ sub direct : Private
             $c->model('ReleaseGroupType')->load(@entities);
         }
         case 'release' {
+            $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
@@ -113,10 +98,13 @@ sub direct : Private
             $c->model('LabelType')->load(@entities);
         }
         case 'recording' {
-            for my $result (@$results) {
-                my @releases = $c->model('Release')->find_by_recording($result->entity->id, 4096);
-                $result->extra($releases[0]);
-            }
+            my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
+                $_->entity->id
+            } @$results);
+            my %result_map = map { $_->entity->id => $_ } @$results;
+
+            $result_map{$_}->extra($recording_releases_map{$_}) for keys %recording_releases_map;
+
             my @releases = map { @{ $_->extra } } @$results;
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
@@ -127,9 +115,12 @@ sub direct : Private
             $c->model('Recording')->load(map { $_->tracklist->all_tracks }
                                          map { $_->all_mediums } @releases);
         }
+        case 'work' {
+            $c->model('Artist')->load_for_works(@entities);
+        }
     }
 
-    if ($type =~ /(recording|work|release|release_group)/)
+    if ($type =~ /(recording|release|release_group)/)
     {
         $c->model('ArtistCredit')->load(@entities);
     }

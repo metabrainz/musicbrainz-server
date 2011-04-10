@@ -32,6 +32,7 @@ sub do_upgrade
         old_entities => [
             { id => $self->row_id, name => $self->previous_value }
         ],
+        rename => 1
     };
 };
 

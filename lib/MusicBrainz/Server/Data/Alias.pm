@@ -11,7 +11,8 @@ extends 'MusicBrainz::Server::Data::Entity';
 has 'parent' => (
     does => 'MusicBrainz::Server::Data::Role::Name',
     is => 'rw',
-    required => 1
+    required => 1,
+    weak_ref => 1
 );
 
 has [qw( table type entity )] => (
@@ -59,6 +60,7 @@ sub _entity_class
 sub find_by_entity_id
 {
     my ($self, @ids) = @_;
+    return [] unless @ids;
 
     my $key = $self->type;
 
@@ -67,7 +69,7 @@ sub find_by_entity_id
                  WHERE $key IN (" . placeholders(@ids) . ")
                  ORDER BY musicbrainz_collate(name.name)";
 
-    return [ query_to_list($self->c->dbh, sub {
+    return [ query_to_list($self->c->sql, sub {
         $self->_new_from_row(@_)
     }, $query, @ids) ];
 }
@@ -76,7 +78,6 @@ sub has_locale
 {
     my ($self, $entity_id, $locale_name, $filter) = @_;
     return unless defined $locale_name;
-    my $sql  = Sql->new($self->c->dbh);
     my $type = $self->type;
     my $query = 'SELECT 1 FROM ' . $self->_table .
         " WHERE $type = ? AND locale = ?";
@@ -85,7 +86,7 @@ sub has_locale
         $query .= ' AND ' . $type . '_alias.id != ?';
         push @args, $filter;
     }
-    return defined $sql->select_single_value($query, @args);
+    return defined $self->sql->select_single_value($query, @args);
 }
 
 sub load
@@ -97,34 +98,31 @@ sub load
 sub delete
 {
     my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = "DELETE FROM " . $self->table .
                 " WHERE id IN (" . placeholders(@ids) . ")";
-    $sql->do($query, @ids);
+    $self->sql->do($query, @ids);
     return 1;
 }
 
 sub delete_entities
 {
     my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $query = "DELETE FROM " . $self->table .
                 " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")";
-    $sql->do($query, @ids);
+    $self->sql->do($query, @ids);
     return 1;
 }
 
 sub insert
 {
     my ($self, @alias_hashes) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
     my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         push @created, $class->new(
-            id => $sql->insert_row($table, {
+            id => $self->sql->insert_row($table, {
                 $type  => $hash->{$type . '_id'},
                 name   => $names{ $hash->{name} },
                 locale => $hash->{locale}
@@ -136,27 +134,25 @@ sub insert
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
-    $sql->do("DELETE FROM $table
+    $self->sql->do("DELETE FROM $table
               WHERE name IN (SELECT name FROM $table WHERE $type = ?) AND
                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-    $sql->do("UPDATE $table SET $type = ?
+    $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
 sub update
 {
     my ($self, $alias_id, $alias_hash) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
     if (exists $alias_hash->{name}) {
         my %names = $self->parent->find_or_insert_names($alias_hash->{name});
         $alias_hash->{name} = $names{ $alias_hash->{name} };
     }
-    $sql->update_row($table, $alias_hash, { id => $alias_id });
+    $self->sql->update_row($table, $alias_hash, { id => $alias_id });
 }
 
 no Moose;

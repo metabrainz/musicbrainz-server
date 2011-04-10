@@ -380,9 +380,9 @@ END -%]
 [%- MACRO rdfa_link_recording_header(recording) BLOCK;
   IF doRDFa;
     link = c.uri_for_action("/recording/show", [ recording.gid ]);
-    '<span class="mp">' IF recording.edits_pending AND action == 'show';
+    '<span class="mp">' IF recording.edits_pending;
     '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="dct:title rdfs:label" xml:lang="" datatype="">' _ html_escape(recording.name) _ '</a>';
-    '</span>' IF recording.edits_pending AND action == 'show';      
+    '</span>' IF recording.edits_pending;
   ELSE;
     link_recording(recording);
   END;
@@ -390,7 +390,11 @@ END -%]
 
 [%- MACRO rdfa_artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
-        [%- opts.plain ? html_escape(name.name) : rdfa_link_maker_artist(name.artist, 'show', name.name) -%]
+        [%- IF name.artist.gid && !opts.plain -%]
+          [%- rdfa_link_maker_artist(name.artist, 'show', name.name) -%]
+        [%- ELSE -%]
+            [%- name.name | html -%]
+        [%- END -%]
         [%- name.join_phrase | html -%]
     [%- END -%]
 [%- END -%]

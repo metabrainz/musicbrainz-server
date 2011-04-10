@@ -1,16 +1,16 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE label CASCADE;
-TRUNCATE label_name CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_label CASCADE;
-TRUNCATE release_name CASCADE;
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -41,10 +41,10 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, date_year)
 INSERT INTO label_name (id, name) VALUES (1, 'Label');
 INSERT INTO label (id, gid, name, sort_name) VALUES (1, '00a23bd0-72db-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO release_label (id, release, label, catno)
+INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 1, 'ABC-123'),
            (2, 1, 1, 'ABC-123-X'),
            (3, 3, 1, '343 960 2'),
            (4, 4, 1, '82796 97772 2');
 
-COMMIT;
+

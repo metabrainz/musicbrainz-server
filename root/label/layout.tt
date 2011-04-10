@@ -49,6 +49,7 @@
                   </a>
                 </li>
                 <li>[% use_in_relationship(label) %]</li>
+                <li>[% relate_to_ellipsis(label) %]</li>
                 <li>[% relate_to_url(label) %]</li>
                 <li>[% link_entity(label, 'edits', l('View editing history')) %]</li>
                 [% IF label.edits_pending %]

@@ -1,10 +1,3 @@
-BEGIN;
-SET client_min_messages TO 'warning';
-
-TRUNCATE artist CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist_alias CASCADE;
-
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist_name (id, name) VALUES (2, 'Empty Artist');
 INSERT INTO artist_name (id, name) VALUES (3, 'Alias 1');
@@ -25,5 +18,3 @@ INSERT INTO artist_alias (id, artist, name) VALUES (3, 3, 4);
 
 ALTER SEQUENCE artist_name_id_seq RESTART 5;
 ALTER SEQUENCE artist_alias_id_seq RESTART 4;
-
-COMMIT;

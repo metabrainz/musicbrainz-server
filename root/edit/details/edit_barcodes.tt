@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-barcodes">
     [% FOR submission=edit.display_data.submissions %]
     <tr>
         <th>[% l('Release:') %]</th>

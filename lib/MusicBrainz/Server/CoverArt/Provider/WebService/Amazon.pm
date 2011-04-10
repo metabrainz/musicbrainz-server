@@ -20,6 +20,25 @@ has '_aws_signature' => (
     lazy_build => 1,
 );
 
+has '_store_map' => (
+    is => 'ro',
+    default => sub {
+        return {
+            'amazon.co.uk' => 'ecs.amazonaws.co.uk',
+            'amazon.com' => 'ecs.amazonaws.com',
+            'amazon.de' => 'ecs.amazonaws.de',
+            'amazon.jp' => 'ecs.amazonaws.jp',
+            'amazon.co.jp' => 'ecs.amazonaws.jp',
+            'amazon.fr' => 'ecs.amazonaws.fr',
+            'amazon.it' => 'ecs.amazonaws.com'
+        }
+    },
+    traits => [ 'Hash' ],
+    handles => {
+        get_store_api => 'get'
+    }
+);
+
 my $last_request_time;
 
 sub _build__aws_signature
@@ -44,15 +63,20 @@ sub lookup_cover_art
     my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
     return unless $asin;
 
-    my @parts = split /\./, $store;
-    my $locale = $parts[-1];
-    my $url = "http://ecs.amazonaws.$locale/onca/xml?" .
+    my $end_point = $self->get_store_api($store);
+
+    unless ($end_point) {
+        warn "$store does not have a known ECS end point";
+        return;
+    }
+
+    my $url = "http://$end_point/onca/xml?" .
                   "Service=AWSECommerceService&" .
                   "Operation=ItemLookup&" .
                   "ItemId=$asin&" .
                   "ResponseGroup=Images";
 
-    my $cover_art = $self->_lookup_coverart($url);
+    my $cover_art = $self->_lookup_coverart($url) or return;
     $cover_art->asin($asin);
     $cover_art->information_uri($uri);
 
@@ -90,6 +114,7 @@ sub _lookup_coverart {
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     my $response = $lwp->get($url) or return;
+    return unless $response->is_success;
     my $xp = XML::XPath->new( xml => $response->decoded_content );
 
     my $image_url = $xp->find(

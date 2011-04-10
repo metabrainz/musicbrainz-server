@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-relationship">
   <tr>
     <th rowspan="2">[% l('Relationship:') %]</th>
 

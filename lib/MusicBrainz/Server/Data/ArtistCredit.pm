@@ -24,7 +24,6 @@ sub get_by_ids
                 "JOIN artist_name n3 ON n3.id=artist.sort_name " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
-    my $sql = Sql->new($self->c->dbh);
     my %result;
     my %counts;
     foreach my $id (@ids) {
@@ -32,9 +31,9 @@ sub get_by_ids
         $result{$id} = $obj;
         $counts{$id} = 0;
     }
-    $sql->select($query, @ids);
+    $self->sql->select($query, @ids);
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my %info = (
             artist_id => $row->{artist},
             name => $row->{name}
@@ -51,7 +50,7 @@ sub get_by_ids
         $result{$id}->add_name($obj);
         $counts{$id} += 1;
     }
-    $sql->finish;
+    $self->sql->finish;
     foreach my $id (@ids) {
         $result{$id}->artist_count($counts{$id});
     }
@@ -80,6 +79,7 @@ sub find_or_insert
         pop @positions;
         pop @artists;
         pop @names;
+        pop @$join_phrases if scalar @$join_phrases > scalar @positions;
     }
 
     my $name = "";
@@ -97,24 +97,23 @@ sub find_or_insert
         $name .= $join_phrases->[$i] if defined $join_phrases->[$i];
     }
 
-    my $sql = Sql->new($self->c->dbh);
     my $query = "SELECT ac.id FROM artist_credit ac " .
                 join(" ", @joins) .
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
     my @args = zip @positions, @artists, @names, @$join_phrases;
     pop @args unless defined $join_phrases->[$#names];
-    my $id = $sql->select_single_value($query, @args, scalar @names);
+    my $id = $self->sql->select_single_value($query, @args, scalar @names);
 
     if(!defined $id)
     {
         my %names_id = $self->c->model('Artist')->find_or_insert_names(@names, $name);
-        $id = $sql->insert_row('artist_credit', {
+        $id = $self->sql->insert_row('artist_credit', {
             name => $names_id{$name},
             artist_count => scalar @names,
         }, 'id');
         for my $i (@positions)
         {
-            $sql->insert_row('artist_credit_name', {
+            $self->sql->insert_row('artist_credit_name', {
                     artist_credit => $id,
                     position => $i,
                     artist => $artists[$i],
@@ -130,16 +129,15 @@ sub find_or_insert
 sub merge_artists
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
-    my $sql = Sql->new($self->c->dbh);
     if ($opts{rename}) {
-        $sql->do(
+        $self->sql->do(
             'UPDATE artist_credit_name acn SET name = artist.name
                FROM artist
               WHERE artist.id = ?
                 AND acn.artist IN (' . placeholders(@$old_ids) . ')',
             $new_id, @$old_ids);
     }
-    $sql->do(
+    $self->sql->do(
         'UPDATE artist_credit_name SET artist = ?
           WHERE artist IN ('.placeholders(@$old_ids).')',
         $new_id, @$old_ids);

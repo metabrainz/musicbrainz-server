@@ -113,7 +113,8 @@ sub search
         $extra_columns = "entity.length,"
             if ($type eq "recording");
 
-        $extra_columns .= 'entity.language, entity.script,'
+        $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
+            entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
 
         my ($join_sql, $where_sql) 
@@ -183,11 +184,10 @@ sub search
     my $fuzzy_search_limit = 10000;
     my $search_timeout = 60 * 1000;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->auto_commit;
-    $sql->do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
-    $sql->auto_commit;
-    $sql->do('SET SESSION statement_timeout TO ?', $search_timeout);
+    $self->sql->auto_commit;
+    $self->sql->do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
+    $self->sql->auto_commit;
+    $self->sql->do('SET SESSION statement_timeout TO ?', $search_timeout);
 
     my @query_args = ();
     push @query_args, $hard_search_limit if $use_hard_search_limit;
@@ -195,12 +195,12 @@ sub search
     push @query_args, @where_args;
     push @query_args, $offset;
 
-    $sql->select($query, $query_str, @query_args);
+    $self->sql->select($query, $query_str, @query_args);
 
     my @result;
     my $pos = $offset + 1;
     while ($limit--) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         my $res = MusicBrainz::Server::Entity::SearchResult->new(
             position => $pos++,
             score => int(100 * $row->{rank}),
@@ -208,8 +208,8 @@ sub search
         );
         push @result, $res;
     }
-    my $hits = $sql->row_count + $offset;
-    $sql->finish;
+    my $hits = $self->sql->row_count + $offset;
+    $self->sql->finish;
 
     return (\@result, $hits);
 
@@ -229,7 +229,6 @@ my %mapping = (
     'title'          => 'name',
     'artist-credit'  => 'artist_credit',
     'status'         => '',
-    'country'        => '',
     'label-code'     => 'label_code',
 );
 
@@ -258,6 +257,12 @@ sub schema_fixup
             $data->{$mapping{$k}} = $data->{$k} if ($mapping{$k});
             delete $data->{$k};
         }
+    }
+
+    if (exists $data->{country})
+    {
+        $data->{country} = $c->model('Country')->find_by_code ($data->{country});
+        delete $data->{country} unless defined $data->{country};
     }
 
     if ($type eq 'artist' && exists $data->{type})

@@ -1,19 +1,20 @@
 [%- BLOCK layout_head -%]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
   <link rel="stylesheet" type="text/css" href="[%-
       c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
 
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
-        "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
         "lib/json/json2.js",
-        "scripts/MB/utility.js",
+        "lib/sha1/sha1.js",
         "scripts/MB/TrackParser.js",
 
         "scripts/MB/GuessCase/Utils.js",
         "scripts/MB/GuessCase/Handler/Base.js",
+        "scripts/MB/GuessCase/Handler/Artist.js",
+        "scripts/MB/GuessCase/Handler/Release.js",
         "scripts/MB/GuessCase/Handler/Track.js",
         "scripts/MB/GuessCase/Mode/Base.js",
+        "scripts/MB/GuessCase/Mode/Artist.js",
         "scripts/MB/GuessCase/Mode/Classical.js",
         "scripts/MB/GuessCase/Mode/English.js",
         "scripts/MB/GuessCase/Mode/French.js",
@@ -23,10 +24,11 @@
         "scripts/MB/GuessCase/Flags.js",
         "scripts/MB/GuessCase/Modes.js",
         "scripts/MB/GuessCase/Main.js",
+        "scripts/MB/GuessCase/Artist.js",
+        "scripts/MB/GuessCase/Release.js",
         "scripts/MB/GuessCase/Track.js",
 
         "scripts/MB/Control/ArtistCredit.js",
-        "scripts/MB/Control/Autocomplete.js",
         "scripts/MB/Control/Bubble.js",
         "scripts/MB/Control/ReleaseEdits.js",
         "scripts/MB/Control/ReleaseBasicTab.js",
@@ -37,9 +39,13 @@
 
     $('document').ready (function () {
 
+       MB.release_artist_json = [% release_artist_json %];
+
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
+
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
     });
 
@@ -73,17 +79,17 @@
     <tr class="artist-credit-box">
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
+          <input type="text" class="name" value="[% artist.name | html %]" />
           <img class="search" src="/static/images/icons/search.png" />
-          <input type="text" class="name" value="[% artist.name %]" />
         </span>
-        <input type="hidden" class="gid" value="[% artist.gid %]" />
+        <input type="hidden" class="gid" value="[% artist.gid | html %]" />
         [% r.hidden (ac.field('artist_id'), class => 'id') %]
       </td>
       <td class="artistcredit">
-        <input type="text" class="credit" value="[% ac.field('name').value %]" />
+        <input type="text" class="credit" value="[% ac.field('name').value | html %]" />
       </td>
       <td class="joinphrase">
-        <input type="text" class="join" value="[% ac.field('join_phrase').value %]" />
+        <input type="text" class="join" value="[% ac.field('join_phrase').value | html %]" />
       </td>
       <td class="icon">
         <input type="button" class="icon remove-artist-credit"
@@ -109,6 +115,10 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
+  [% USE w = Wizard() %]
+  [% information = w.page ('information') %]
+  [% release_artist = information.field('artist_credit') %]
+
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
     [%- r.hidden ('advanced') -%]
@@ -122,7 +132,7 @@
         [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
 
         <input type="hidden" name="various-artists" class="various-artists"
-            value="[% information.field('various_artists').value %]" />
+            value="[% information.field('various_artists').value | html %]" />
 
         <table class="basic-format">
           <tr>
@@ -152,16 +162,33 @@
 
                 <div class="row">
                   [% r.label(medium_field.field('format_id'), l('Format')) %]
-                  [% r.select(medium_field.field('format_id')) %]
+                  [% r.select(medium_field.field('format_id'), class => 'format') %]
                 </div>
                 <div class="row advanced-tracklist" style="display: none;">
                   [% r.label(medium_field.field('name'), l('Title')) %]
                   [% r.text(medium_field.field('name')) %]
+
+                  <input type="button" class="icon guesscase-medium"
+                      title="[% l('Guess case track') %]"
+                      style="background-image: url(/static/images/icons/guesscase.png); width: 16px; height: 16px; border: 0;" />
+
                 </div>
               </div>
             </td>
+            <td class="icon">
+              <input type="button" class="icon remove-disc"
+                title="[% l('Remove disc') %]"
+                style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
+            </td>
           </tr>
         </table>
+        <div style="display: none" class="tracklist-loading">
+          <p>
+            <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+            &nbsp;
+            [% l('Now loading tracklist...') %]
+          </p>
+        </div>
         <textarea style="display: none" class="tracklist"></textarea>
         [% field_errors(form, medium_field.full_name) %]
       </div>
@@ -175,7 +202,7 @@
       <h3>Options</h3>
       <p id="tracklist-options">
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
-      <label for="tracknumbers">[% l('Tracknames start with a number') %]</label>
+      <label for="tracknumbers">[% l('Track names start with a number') %]</label>
       <br />
       <input type="checkbox" name="vinylnumbers" id="vinylnumbers">
       <label for="vinylnumbers">[% l('Enable vinyl track numbers') %]</label>
@@ -187,6 +214,8 @@
     </fieldset>
 
     <div class="guesscase-basic">
+      [%#- FIXME: use guesscase() -%]
+
       <fieldset class="guesscase">
         <legend>Guess case</legend>
         <table style="width: 100%">
@@ -211,6 +240,7 @@
           </tr>
         </table>
       </fieldset>
+
     </div>
 
     <div class="buttons ui-helper-clearfix">
@@ -224,18 +254,15 @@
 
     <h2>Preview</h2>
 
-    [% USE w = Wizard() %]
-    [% information = w.page ('information') %]
-    [% release_artist = information.field('artist_credit') %]
-    <h3>[% information.field('name').value %]</h3>
-    <p>by [% release_artist.fif.name %]</p>
+    <h3>[% information.field('name').value | html %]</h3>
+    <p>by [% release_artist.fif.name | html %]</p>
 
     <div id="preview"> </div>
 
     <div style="float: right; margin: 10px;" class="buttons">
       <a href="#advanced">[% l('Advanced') %]</a>
     </div>
-    <p style="margin: 10px; width: 300px;">[% l('Please use the advanced tracklist editor if this preview seems incorrect.') %]</p>
+    <p style="margin: 10px; width: 300px;">[% l('Use the advanced tracklist editor if this preview seems incorrect.') %]</p>
 
     <br style="clear: right;" />
 
@@ -255,8 +282,8 @@
         </td>
         <td class="artist autocomplete">
           <span class="autocomplete" style="width: 100%">
+            <input type="text" class="track-artist" value="[% release_artist.fif.name | html %]" />
             <img class="search" src="/static/images/icons/search.png" style="top: 1px;"  />
-            <input type="text" class="track-artist" value="[% release_artist.fif.name %]" />
           </span>
         </td>
         <td class="credits-button">
@@ -312,10 +339,21 @@
             <input type="button" class="icon disc-up"
               title="[% l('Move disc up') %]"
               style="background-image: url(/static/images/icons/up.png); width: 16px; height: 16px; border: 0;" />
-
+            <span class="empty-icon" style="display: inline-block; width: 16px; height: 16px;"> </span>
+            <input type="button" class="icon remove-disc"
+              title="[% l('Remove disc') %]"
+              style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
           </td>
         </tr>
       </table>
+
+      <div style="display: none" class="tracklist-loading">
+        <p>
+          <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+          &nbsp;
+          [% l('Now loading tracklist...') %]
+        </p>
+      </div>
 
       <div class="tracklist-padding">
         [% field_errors(form, medium_field.full_name) %]
@@ -381,9 +419,6 @@
         <input type="hidden" class="tracklist-id" />
         <br />
 
-        <div class="tracklist-loading" style="display: none">
-          [% l('Loading...') %]
-        </div>
         <table class="medium tbl" style="display: none">
           <thead>
             <tr>

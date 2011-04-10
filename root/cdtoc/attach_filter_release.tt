@@ -48,7 +48,12 @@
     [%- END -%]
   </form>
 
+  <h2>[% l('Add a new release') %]</h2>
+  <p>[% l("If you don't see the release you are looking for, you can still add a new one,
+    using this disc id.") %]</p>
+
   <form action="[% c.uri_for('/release/add') %]" method="post">
+    <input type="hidden" name="name" value="[% query_release.field('query').value %]" />
     <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
     [% form_submit(l('Add a new release')) %]
   </form>

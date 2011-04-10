@@ -33,6 +33,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Create
+    MusicBrainz::Server::Edit::Recording::Delete
     MusicBrainz::Server::Edit::Recording::Edit
     MusicBrainz::Server::Edit::Recording::RemoveISRC
     MusicBrainz::Server::Edit::Recording::AddISRCs
@@ -68,6 +69,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::AddAlias
     MusicBrainz::Server::Edit::Work::AddAnnotation
     MusicBrainz::Server::Edit::Work::Create
+    MusicBrainz::Server::Edit::Work::Delete
     MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias

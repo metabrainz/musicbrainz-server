@@ -55,6 +55,8 @@ sub update_track_lengths
     }
 }
 
+with 'MusicBrainz::Server::Entity::Role::TOC';
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

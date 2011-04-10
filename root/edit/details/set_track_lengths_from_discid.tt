@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details set-track-lengths-from-discid">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">

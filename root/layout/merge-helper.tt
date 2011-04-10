@@ -30,7 +30,7 @@
         <button type="submit" name="submit" value="merge">[% l('Merge') %]</button>
       [% END %]
       <button type="submit" name="submit" value="remove">
-        [% l('Remove selected releases') %]</button>
+        [% l('Remove selected entities') %]</button>
       <button type="submit" name="submit" value="cancel">[% l('Cancel') %]</button>
     </div>
   </form>

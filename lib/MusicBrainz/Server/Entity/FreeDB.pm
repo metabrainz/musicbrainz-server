@@ -5,34 +5,42 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
 
-has 'discid' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'title' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'artist' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'track_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'year' => (
-    is => 'rw',
-    isa => 'Str'
+has discid => (
+    is => 'ro',
+    isa => 'Str',
 );
 
 has 'category' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has tracks => (
+    is => 'ro',
+);
+
+has title => (
+    isa => 'Str',
+    is => 'ro',
+);
+
+has artist => (
+    isa => 'Str',
+    is => 'ro',
+);
+
+has track_count => (
+    isa => 'Int',
+    is => 'ro',
+);
+
+has year => (
+    is => 'ro'
+);
+
+has looks_like_va => (
+    isa => 'Bool',
+    is => 'ro',
 );
 
 __PACKAGE__->meta->make_immutable;

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000" />
+<title>mbs-1490</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">mbs-1490</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>step_tracklist</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add Disc</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.tracklist:eq(1)</td>
+	<td>1. I do not really want to add this disc (4:45)</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>css=textarea.tracklist:eq(1)</td>
+	<td>blur</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-previous</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#mediums\.1\.basicdisc input.remove-disc</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>step_editnote</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>css=table.add-medium</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

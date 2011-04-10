@@ -56,7 +56,8 @@ __PACKAGE__->config(
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
-            'language' => \&MusicBrainz::Server::Filters::language
+            'language' => \&MusicBrainz::Server::Filters::language,
+            'locale' => \&MusicBrainz::Server::Filters::locale
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
@@ -137,7 +138,7 @@ if (&DBDefs::_RUNNING_TESTS) {
 }
 else {
     push @args, &DBDefs::SESSION_STORE;
-    __PACKAGE__->config->{session} = &DBDefs::SESSION_STORE_ARGS;
+    __PACKAGE__->config->{'Plugin::Session'} = &DBDefs::SESSION_STORE_ARGS;
 }
 
 if (&DBDefs::CATALYST_DEBUG) {
@@ -156,6 +157,14 @@ __PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO
 
 if (&DBDefs::USE_ETAGS) {
     push @args, "Cache::HTTP";
+}
+
+
+if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
+{
+    use MusicBrainz::Server::DatabaseConnectionFactory;
+    MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
+    warn "WARNING: Using test database schema\n";
 }
 
 # Start the application

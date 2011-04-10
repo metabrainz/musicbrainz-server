@@ -6,7 +6,6 @@ use warnings;
 use base 'Class::Accessor::Fast::XS';
 
 use Class::MOP;
-use Encode 'decode';
 use JSON::Any qw( XS JSON );
 use Memoize;
 use MusicBrainz::Server::Data::Utils qw( copy_escape );
@@ -75,7 +74,7 @@ sub for_copy {
         $type = $edit->ngs_class->edit_type;
     }
 
-    return decode('utf8', join("\t",
+    return join("\t",
         $edit->id,
         $edit->editor_id,
         $type,
@@ -85,7 +84,7 @@ sub for_copy {
                 %{ $edit->data },
                 $edit->extra_parameters
             })
-          ),
+        ),
         $edit->yes_votes,
         $edit->no_votes,
         $edit->auto_edit,
@@ -94,7 +93,7 @@ sub for_copy {
         $edit->expires_time,
         '\N',
         1
-    ));
+    );
 }
 
 1;

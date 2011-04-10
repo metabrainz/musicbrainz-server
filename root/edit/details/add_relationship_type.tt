@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-relationship-type">
   <tr>
     <th>[% l('Name:') %]</th>
     <td>[% edit.data.name | html %]</td>

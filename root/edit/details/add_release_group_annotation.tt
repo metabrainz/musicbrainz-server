@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-release-group-annotation">
   <tr>
     <th>[% l('Release group:') %]</th>
     <td>[% link_entity(edit.display_data.release_group) %]

@@ -81,7 +81,7 @@ my %stats = (
     },
     "count.discid" => {
         DESC => "Count of all disc IDs",
-        SQL => "SELECT COUNT(*) FROM medium_cdtoc",
+        SQL => "SELECT COUNT(*) FROM cdtoc",
     },
     "count.edit" => {
         DESC => "Count of all edits",
@@ -150,11 +150,10 @@ my %stats = (
                 - $self->fetch("count.release.various")
         },
     },
-    "count.release.has_discid" => {
-        DESC => "Count of releases with at least one disc ID",
-        SQL => "SELECT COUNT(DISTINCT release)
-                  FROM medium_cdtoc
-                  JOIN medium ON medium.id = medium",
+    "count.medium.has_discid" => {
+        DESC => "Count of media with at least one disc ID",
+        SQL => "SELECT COUNT(DISTINCT medium)
+                  FROM medium_cdtoc",
     },
 
     "count.recording.has_isrc" => {
@@ -395,25 +394,37 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM label_tag_raw",
         DB => 'RAWDATA'
     },
+    "count.tag.raw.releasegroup" => {
+        DESC => "Count of all release-group raw tags",
+        SQL => "SELECT COUNT(*) FROM release_group_tag_raw",
+        DB => 'RAWDATA'
+    },
     "count.tag.raw.release" => {
         DESC => "Count of all release raw tags",
         SQL => "SELECT COUNT(*) FROM release_tag_raw",
         DB => 'RAWDATA'
     },
-    "count.tag.raw.track" => {
-        DESC => "Count of all track raw tags",
+    "count.tag.raw.recording" => {
+        DESC => "Count of all recording raw tags",
         SQL => "SELECT COUNT(*) FROM recording_tag_raw",
+        DB => 'RAWDATA'
+    },
+    "count.tag.raw.work" => {
+        DESC => "Count of all work raw tags",
+        SQL => "SELECT COUNT(*) FROM work_tag_raw",
         DB => 'RAWDATA'
     },
     "count.tag.raw" => {
         DESC => "Count of all raw tags",
-        PREREQ => [qw[ count.tag.raw.artist count.tag.raw.label count.tag.raw.release count.tag.raw.track ]],
+        PREREQ => [qw[ count.tag.raw.artist count.tag.raw.label count.tag.raw.release count.tag.raw.releasegroup count.tag.raw.recording count.tag.raw.work ]],
         CALC => sub {
             my ($self, $sql) = @_;
             return $self->fetch('count.tag.raw.artist') + 
                    $self->fetch('count.tag.raw.label') +
                    $self->fetch('count.tag.raw.release') +
-                   $self->fetch('count.tag.raw.track');
+                   $self->fetch('count.tag.raw.releasegroup') +
+                   $self->fetch('count.tag.raw.work') +
+                   $self->fetch('count.tag.raw.recording');
         },
     },
 
@@ -498,26 +509,48 @@ my %stats = (
         PREREQ => [qw[ count.rating.label ]],
         PREREQ_ONLY => 1,
     },
+    "count.rating.work" => {
+        DESC => "Count of work ratings",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_single_row_array(
+                "SELECT COUNT(*), SUM(rating_count) FROM work_meta WHERE rating_count > 0",
+            );
+
+            +{
+                "count.rating.work"        => $data->[0]   || 0,
+                "count.rating.raw.work"    => $data->[1]   || 0,
+            };
+        },
+    },
+    "count.rating.raw.work" => {
+        DESC => "Count of all work raw ratings",
+        PREREQ => [qw[ count.rating.work ]],
+        PREREQ_ONLY => 1,
+    },
     "count.rating" => {
         DESC => "Count of all ratings",
-        PREREQ => [qw[ count.rating.artist count.rating.label count.rating.releasegroup count.rating.recording ]],
+        PREREQ => [qw[ count.rating.artist count.rating.label count.rating.releasegroup count.rating.recording count.rating.work ]],
         CALC => sub {
             my ($self, $sql) = @_;
             return $self->fetch('count.rating.artist') + 
                    $self->fetch('count.rating.label') +
-                   $self->fetch('count.rating.release') +
-                   $self->fetch('count.rating.track');
+                   $self->fetch('count.rating.releasegroup') +
+                   $self->fetch('count.rating.work') +
+                   $self->fetch('count.rating.recording');
         },
     },
     "count.rating.raw" => {
         DESC => "Count of all raw ratings",
-        PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.releasegroup count.rating.raw.recording ]],
+        PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.releasegroup count.rating.raw.recording count.rating.raw.work ]],
         CALC => sub {
             my ($self, $sql) = @_;
             return $self->fetch('count.rating.raw.artist') + 
                    $self->fetch('count.rating.raw.label') +
-                   $self->fetch('count.rating.raw.release') +
-                   $self->fetch('count.rating.raw.track');
+                   $self->fetch('count.rating.raw.releasegroup') +
+                   $self->fetch('count.rating.raw.work') +
+                   $self->fetch('count.rating.raw.recording');
         },
     },
 
@@ -712,12 +745,12 @@ sub recalculate {
 
     my $db = $definition->{DB} || 'READWRITE';
     my $sql = $db eq 'READWRITE' ? $self->sql
-            : $db eq 'RAWDATA'   ? Sql->new($self->c->raw_dbh)
+            : $db eq 'RAWDATA'   ? $self->c->raw_sql
             : die "Unknown database: $db";
 
     if (my $query = $definition->{SQL}) {
         my $value = $sql->select_single_value($query);
-        $self->insert($statistic => $value);
+		$self->insert($statistic => $value);
         return;
     }
 
@@ -772,17 +805,17 @@ sub get_latest_statistics {
                         value
                    FROM statistic
                   WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
-    my $sql = Sql->new($self->c->dbh);
-    $sql->select($query) or return;
+
+    $self->sql->select($query) or return;
 
     my $stats = MusicBrainz::Server::Entity::Statistics->new();
     while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+        my $row = $self->sql->next_row_hash_ref or last;
         $stats->date_collected($row->{date_collected})
             unless $stats->date_collected;
         $stats->data->{$row->{name}} = $row->{value};
     }
-    $sql->finish;
+    $self->sql->finish;
 
     return $stats;
 }

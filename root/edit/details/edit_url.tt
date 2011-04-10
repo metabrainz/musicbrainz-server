@@ -2,7 +2,7 @@
     <a href="[% url | url %]">[% url | html %]</a>
 [% END %]
 
-<table class="details">
+<table class="details edit-url">
   <tr>
     <th>[% l('URL:') %]</th>
     <td>[% link_entity(edit.display_data.url) %]</td>

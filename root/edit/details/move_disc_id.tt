@@ -1,4 +1,4 @@
-<table>
+<table class="details move-disc-id">
   <tr>
     <th>[% l('Disc ID:') %]</th>
     <td>[% link_cdtoc(edit.display_data.medium_cdtoc.cdtoc) %]</td>

@@ -14,6 +14,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 use aliased 'MusicBrainz::Server::Connector';
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
+use Encode 'decode';
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
@@ -51,7 +52,7 @@ $link_sql->begin;
 
 printf STDERR "Migrating edits (may be slow to start, don't panic)\n";
 
-my ($line, $i) = ('', 0);
+my ($line, $i) = (decode('utf-8', ''), 0);
 while ($dbh->pg_getcopydata($line) >= 0) {
     if(my $fields = $csv->parse($line)) {
         next unless $csv->fields;

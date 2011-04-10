@@ -1,5 +1,5 @@
-[% WRAPPER 'layout.tt' title=l('Link attribute type in use') full_width=1 %]
-  <h2>[% l('Link attribute type still in use') %]</h2>
-  <p>[% l('You cannot delete the link attribute type "{type}" as it is still in use by other
-           link attributes.' { type => link_attr_type.name }) %]</p>
+[% WRAPPER 'layout.tt' title=l('Relationship attribute in use') full_width=1 %]
+  <h2>[% l('Relationship attribute still in use') %]</h2>
+  <p>[% l('You cannot delete the relationship attribute "{type}" as it is still in use by other
+           relationships.' { type => link_attr_type.name }) %]</p>
 [% END %]

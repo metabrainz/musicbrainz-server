@@ -5,6 +5,7 @@ use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -30,7 +31,12 @@ has '+data' => (
             id   => Int,
             name => Str
         ],
-        link_type_id => Int,
+        link_type    => Dict[
+            id => Int,
+            name => Str,
+            link_phrase => Str,
+            reverse_link_phrase => Str
+        ],
         attributes   => Nullable[ArrayRef[Int]],
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],
@@ -42,8 +48,9 @@ has '+data' => (
 sub initialize
 {
     my ($self, %opts) = @_;
-    my $e0 = delete $opts{entity0};
-    my $e1 = delete $opts{entity1};
+    my $e0 = delete $opts{entity0} or die "No entity0";
+    my $e1 = delete $opts{entity1} or die "No entity1";
+    my $lt = delete $opts{link_type} or die "No link type";
 
     $opts{entity0} = {
         id => $e0->id,
@@ -55,6 +62,13 @@ sub initialize
         name => $e1->name,
     };
 
+    $opts{link_type} = {
+        id => $lt->id,
+        name => $lt->name,
+        link_phrase => $lt->link_phrase,
+        reverse_link_phrase => $lt->reverse_link_phrase
+    };
+
     $self->data({ %opts });
 }
 
@@ -62,7 +76,7 @@ sub foreign_keys
 {
     my ($self) = @_;
     my %load = (
-        LinkType                            => [ $self->data->{link_type_id} ],
+        LinkType                            => [ $self->data->{link_type}{id} ],
         LinkAttributeType                   => $self->data->{attributes},
         type_to_model($self->data->{type0}) => [ $self->data->{entity0}{id} ]
     );
@@ -83,7 +97,8 @@ sub build_display_data
     return {
         relationship => Relationship->new(
             link => Link->new(
-                type       => $loaded->{LinkType}{ $self->data->{link_type_id} },
+                type       => $loaded->{LinkType}{ $self->data->{link_type}{id} }
+                    || LinkType->new($self->data->{link_type}),
                 begin_date => partial_date_from_row( $self->data->{begin_date} ),
                 end_date   => partial_date_from_row( $self->data->{end_date} ),
                 attributes => [
@@ -146,7 +161,7 @@ sub insert
             entity0_id   => $self->data->{entity0}{id},
             entity1_id   => $self->data->{entity1}{id},
             attributes   => $self->data->{attributes},
-            link_type_id => $self->data->{link_type_id},
+            link_type_id => $self->data->{link_type}{id},
             begin_date   => $self->data->{begin_date},
             end_date     => $self->data->{end_date},
         });
@@ -160,17 +175,24 @@ sub accept
     my ($self) = @_;
 
     my $link_type = $self->c->model('LinkType')->get_by_id(
-        $self->data->{link_type_id}
+        $self->data->{link_type}{id}
     );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $url = $self->c->model('URL')->get_by_id(
-            $self->data->{entity1}{id}
+        my $release = $self->c->model('Release')->get_by_id(
+            $self->data->{entity0}{id}
         );
 
-        $self->c->model('CoverArt')->cache_cover_art(
-            $self->data->{entity0}{id}, $link_type->name, $url->url
+        my $relationship = $self->c->model('Relationship')->get_by_id(
+            $self->data->{type0}, $self->data->{type1},
+            $self->entity_id
         );
+        $self->c->model('Link')->load($relationship);
+        $self->c->model('LinkType')->load($relationship->link);
+        $self->c->model('Relationship')->load_entities($relationship);
+        $release->add_relationship($relationship);
+
+        $self->c->model('CoverArt')->cache_cover_art($release);
     }
 }
 

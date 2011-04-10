@@ -18,11 +18,26 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Recording';
+
+use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
 sub edit_name { l('Edit recording') }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }
+
+around related_entities => sub {
+    my ($orig, $self, @args) = @_;
+    my %rel = %{ $self->$orig(@args) };
+    if ($self->data->{new}{artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+        push @{ $rel{artist} }, keys(%new), keys(%old);
+    }
+
+    return \%rel;
+};
 
 sub change_fields
 {
@@ -36,7 +51,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         old => change_fields(),
         new => change_fields(),
     ]
@@ -56,7 +74,7 @@ sub foreign_keys
         }
     }
 
-    $relations->{Recording} = { $self->data->{entity_id} => [ 'ArtistCredit' ] };
+    $relations->{Recording} = { $self->data->{entity}{id} => [ 'ArtistCredit' ] };
 
     return $relations;
 }
@@ -80,7 +98,8 @@ sub build_display_data
         }
     }
 
-    $data->{recording} = $loaded->{Recording}{ $self->data->{entity_id} };
+    $data->{recording} = $loaded->{Recording}{ $self->data->{entity}{id} }
+        || Recording->new( name => $self->data->{entity}{name} );
 
     return $data;
 }

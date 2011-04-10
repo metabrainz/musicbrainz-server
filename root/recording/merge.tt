@@ -3,14 +3,10 @@
     <p>[% l('You are about to merge the following recordings into a single recording. Please
              select the recording which you would like other recordings to be merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
-        <ul>
-            [% FOR entity=to_merge %]
-            <li>
-                <input type="radio" name="merge.target" value="[% entity.id %]" />
-                [% descriptive_link(entity) %]
-            </li>
-            [% END %]
-        </ul>
+        [% BLOCK recording_row_prefix %]
+          <td><input type="radio" name="merge.target" value="[% recording.id %]" /></td>
+        [% END %]
+        [% INCLUDE 'artist/recordings-list.tt' recordings=to_merge show_artists=1 %]
         [% field_errors(form, 'target') %]
 
         [% INCLUDE "forms/edit-note.tt" %]

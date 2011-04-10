@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-release-name">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">

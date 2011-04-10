@@ -9,13 +9,12 @@
     tag_links.join(', ');
 END -%]
 
-<script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/utility.js') %]"></script>
 <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
 <script type="text/javascript">
     $(function() {
         MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
             "[% c.uri_for('/tag/') %]",
-            '[% link_entity(entity, 'tags', l('more&hellip;')).replace("'", "\\'") %]');
+            '[% link_entity(entity, 'tags', l('more&hellip;')).replace("'", "\\'").replace('</', '<\/') %]');
     });
 </script>
 

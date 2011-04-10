@@ -1,4 +1,9 @@
-<table class="details">
+<table class="details edit-label">
+  <tr>
+    <th>[% l('Label:') %]</th>
+    <td>[% link_entity(edit.display_data.label) %]</td>
+  </tr>
+
   [% IF edit.display_data.name %]
   <tr>
     <th>[% l('Name:') %]</th>

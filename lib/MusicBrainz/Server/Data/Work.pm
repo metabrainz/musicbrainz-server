@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
     load_subobjects
+    merge_table_attributes
     placeholders
     query_to_list
     query_to_list_limited
@@ -29,9 +30,8 @@ sub _table
 
 sub _columns
 {
-    return 'work.id, gid, type AS type_id, name.name,
-            work.artist_credit AS artist_credit_id, iswc,
-            comment, edits_pending, work.last_updated';
+    return 'work.id, work.gid, work.type AS type_id, name.name,
+            work.iswc, work.comment, work.edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -52,16 +52,50 @@ sub _entity_class
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                     JOIN artist_credit_name acn
-                         ON acn.artist_credit = work.artist_credit
-                 WHERE acn.artist = ?
-                 ORDER BY musicbrainz_collate(name.name)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
+
+    my $query =
+        'SELECT link_type, ' . $self->_columns .'
+           FROM (
+                    -- Select works that are related to recordings for this artist
+                    SELECT entity1 AS work, NULL as link_type
+                      FROM l_recording_work
+                      JOIN recording ON recording.id = entity0
+                      JOIN artist_credit_name acn
+                              ON acn.artist_credit = recording.artist_credit
+                     WHERE acn.artist = ?
+              UNION
+                    -- Select works that this artist is related to
+                    SELECT entity1 AS work, lt.name AS link_type
+                      FROM l_artist_work ar
+                      JOIN link ON ar.link = link.id
+                      JOIN link_type lt ON lt.id = link.link_type
+                     WHERE entity0 = ?
+                ) s, ' . $self->_table .'
+          WHERE work.id = s.work
+       ORDER BY link_type NULLS FIRST, musicbrainz_collate(name.name)
+         OFFSET ?';
+
+    my (%grouped_works, %work_cache);
+
+    # We actually use this for the side effect in the closure
+    my (undef, $hits) = query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub {
+            my $row = shift;
+
+            my $work = $work_cache{ $row->{id} } || do {
+                $work_cache{$row->{id}} = $self->_new_from_row($row);
+            };
+
+            my $group = $row->{link_type} || '';
+            $grouped_works{$group} ||= [];
+            push @{ $grouped_works{$group} }, $work;
+        },
+        $query, $artist_id, $artist_id, $offset || 0);
+
+    return ([ map +{
+        link_type => $_,
+        works => $grouped_works{$_}
+    }, sort keys %grouped_works ], $hits);
 }
 
 sub find_by_iswc
@@ -73,7 +107,7 @@ sub find_by_iswc
                  ORDER BY musicbrainz_collate(name.name)";
 
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $iswc);
 }
 
@@ -86,7 +120,6 @@ sub load
 sub insert
 {
     my ($self, @works) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name} } @works);
     my $class = $self->_entity_class;
     my @created;
@@ -95,7 +128,7 @@ sub insert
         my $row = $self->_hash_to_row($work, \%names);
         $row->{gid} = $work->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->insert_row('work', $row, 'id'),
+            id => $self->sql->insert_row('work', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -105,10 +138,9 @@ sub insert
 sub update
 {
     my ($self, $work_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('work', $row, { id => $work_id });
+    $self->sql->update_row('work', $row, { id => $work_id });
 }
 
 sub delete
@@ -120,8 +152,7 @@ sub delete
     $self->tags->delete($work_id);
     $self->rating->delete($work_id);
     $self->remove_gid_redirects($work_id);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM work WHERE id = ?', $work_id);
+    $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }
 
@@ -136,6 +167,15 @@ sub merge
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
 
+    merge_table_attributes(
+        $self->sql => (
+            table => 'work',
+            columns => [ qw( type iswc comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
     $self->_delete_and_redirect_gids('work', $new_id, @old_ids);
     return 1;
 }
@@ -145,7 +185,7 @@ sub _hash_to_row
     my ($self, $work, $names) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
-        map { $_ => $_ } qw( iswc comment artist_credit )
+        map { $_ => $_ } qw( iswc comment )
     });
 
     $row->{name} = $names->{$work->{name}}

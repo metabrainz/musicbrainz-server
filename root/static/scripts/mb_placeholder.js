@@ -56,7 +56,7 @@
             var classname = 'mb_placeholder';
 
             /* A fix for Internet Explorer caching placeholder form values even
-             * when they are cleared on wndow unload.
+             * when they are cleared on window unload.
              */
             if (!$elem.attr ('defaultValue') && $elem.val () == placeholder_value) {
                 $elem.val ('');
@@ -85,7 +85,7 @@
 
             $elem.parents('form:first').bind ('submit.mb_placeholder', function() {
                 var options = $elem.data ('mb_placeholder');
-                if (options.submit_placeholder_if_empty)
+                if (options && options.submit_placeholder_if_empty)
                     return;
 
                 $elem.triggerHandler('focus');
@@ -116,7 +116,7 @@
             elemdata.bound = true;
             $elem.data ('mb_placeholder', elemdata);
 
-            if ('placeholder' in elem)
+            if ('placeholder' in $elem[0])
             {
                 return placeholderNative ($elem);
             }

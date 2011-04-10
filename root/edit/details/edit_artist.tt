@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details edit-artist">
   <tr>
     <th>[% l('Artist:') %]</th>
     <td>[% link_entity(edit.display_data.artist) %]</td>
@@ -71,8 +71,8 @@
   [% IF edit.display_data.ipi_code %]
   <tr>
     <th>[% l('IPI code:') %]</th>
-    <td class="old">[% edit.display_data.ipi_code.old.name %]</td>
-    <td class="new">[% edit.display_data.ipi_code.new.name %]</td>
+    <td class="old">[% edit.display_data.ipi_code.old %]</td>
+    <td class="new">[% edit.display_data.ipi_code.new %]</td>
   </tr>
   [% END %]
 </table>

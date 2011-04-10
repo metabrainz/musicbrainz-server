@@ -1,32 +1,3 @@
-BEGIN;
-SET client_min_messages TO 'warning';
-
-TRUNCATE annotation CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE country CASCADE;
-TRUNCATE editor CASCADE;
-TRUNCATE label_name CASCADE;
-TRUNCATE label CASCADE;
-TRUNCATE language CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_annotation CASCADE;
-TRUNCATE release_gid_redirect CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_group_type CASCADE;
-TRUNCATE release_label CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE release_packaging CASCADE;
-TRUNCATE release_status CASCADE;
-TRUNCATE track_name CASCADE;
-TRUNCATE track CASCADE;
-TRUNCATE tracklist CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE script CASCADE;
-
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
@@ -38,14 +9,12 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
 INSERT INTO release_name (id, name) VALUES (1, 'Arrival');
 INSERT INTO release_name (id, name) VALUES (2, 'Release #2');
 
-INSERT INTO release_status (id, name) VALUES (1, 'Official');
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
 INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name)
     VALUES (1, 'deu', 'ger', 'de', 'German');
 
-INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
 INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, 'Comment', 2);
 
@@ -71,7 +40,8 @@ INSERT INTO release_gid_redirect (gid, new_id) VALUES ('71dc55d8-0fc6-41c1-94e0-
 
 INSERT INTO artist_name (id, name) VALUES (2, 'Various Artists');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2);
+    VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2),
+           (3, '1a906020-72db-11de-8a39-0800200c9a66', 2, 2);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (2, 2, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (2, 2, 2, 1, NULL);
 
@@ -111,7 +81,7 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
            (7, '7a906020-72db-11de-8a39-0800200c9a71', 7, 1, 1),
            (8, '7a906020-72db-11de-8a39-0800200c9a72', 8, 1, 1),
            (9, '7a906020-72db-11de-8a39-0800200c9a73', 9, 1, 1);
-INSERT INTO tracklist (id, trackcount) VALUES (2, 1), (3, 1), (4, 1), (5, 1);
+INSERT INTO tracklist (id, track_count) VALUES (2, 1), (3, 1), (4, 1), (5, 1);
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (2, '50a772b0-f0cc-11df-98cf-0800200c9a66', 1, 1),
            (3, '5d9cb570-f0cc-11df-98cf-0800200c9a66', 1, 1),
@@ -124,8 +94,27 @@ INSERT INTO medium (id, release, tracklist, position)
     VALUES (2, 6, 2, 1), (3, 7, 3, 1),
            (4, 8, 4, 1), (5, 9, 5, 1);
 
+-- Test for searching by track artist
+INSERT INTO artist_credit (id, name, artist_count) VALUES (3, 2, 2);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+    VALUES (3, 2, 2, 1, NULL),
+           (3, 3, 2, 2, NULL);
+
+-- Both releases contain tracks by artist 3
+-- Release 10 is by artist 1 & 3. Release 11 is by artist 1
+-- Therefore release 11 is the only VA release for artist 3
+INSERT INTO release (id, gid, name, release_group, artist_credit)
+    VALUES (10, '7b906020-72db-11de-8a39-0800200c9a70', 6, 4, 3),
+           (11, '7c906020-72db-11de-8a39-0800200c9a71', 7, 4, 2);
+
+INSERT INTO tracklist (id, track_count) VALUES (6, 1);
+INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
+    VALUES (6, 1, 3, 6, 1, 2);
+INSERT INTO medium (id, release, tracklist, position)
+    VALUES (6, 10, 6, 1), (7, 11, 6, 1);
+
 ALTER SEQUENCE release_name_id_seq RESTART 10;
 ALTER SEQUENCE release_group_id_seq RESTART 5;
-ALTER SEQUENCE release_id_seq RESTART 10;
+ALTER SEQUENCE release_id_seq RESTART 12;
 
-COMMIT;
+

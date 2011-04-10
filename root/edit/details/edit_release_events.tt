@@ -1,4 +1,4 @@
-<table class="tbl">
+<table class="tbl edit-release-events">
   <thead>
     <tr>
       <th>[% l('Release') %]</th>
@@ -23,7 +23,7 @@
       <td>[% re.date.format %]</td>
       <td>[% re.country.name %]</td>
       <td>[% link_entity(re.label) %]</td>
-      <td>[% re.catalog_number %]</td>
+      <td>[% re.catalog_number | html %]</td>
       <td>[% re.barcode %]</td>
       <td>[% re.format.name %]</td>
     </tr>
@@ -44,7 +44,7 @@
       <td>[% re.date.format %]</td>
       <td>[% re.country.name %]</td>
       <td>[% link_entity(re.label) %]</td>
-      <td>[% re.catalog_number %]</td>
+      <td>[% re.catalog_number | html %]</td>
       <td>[% re.barcode %]</td>
       <td>[% re.format.name %]</td>
     </tr>
@@ -77,8 +77,8 @@
         [% link_entity(re.label.new) %]
       </td>
       <td>
-        [% re.catalog_number.old %]<br />
-        [% re.catalog_number.new %]
+        [% re.catalog_number.old | html %]<br />
+        [% re.catalog_number.new | html %]
       </td>
       <td>
         [% re.barcode.old %]<br />

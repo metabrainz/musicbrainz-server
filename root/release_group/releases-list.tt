@@ -1,7 +1,18 @@
+[% BLOCK release_row_prefix %]
+  [% IF c.user_exists %]
+  <td>
+    <input type="checkbox" name="add-to-merge"
+           value="[% release.id %]" />
+  </td>
+  [% END %]
+[% END %]
+
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists %]<th></th>[% END %]
+            [% IF c.user_exists %]<th>
+            <input type="checkbox" />
+            </th>[% END %]
             <th>[% l('Release') %]</th>
             [% IF show_va %]
             <th>[% l('Artist') %]</th>
@@ -25,12 +36,7 @@
     [% END %]
         [%- FOR release=releases -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
-            [% IF c.user_exists %]
-            <td>
-                <input type="checkbox" name="add-to-merge"
-                    value="[% release.id %]" />
-            </td>
-            [% END %]
+           [% PROCESS release_row_prefix %]
             [% IF rdfa_made %]
 	       <td>
              [% rdfa_made_release_link(release) %]

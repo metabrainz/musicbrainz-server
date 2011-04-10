@@ -4,7 +4,10 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw( l ln );
 
+use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
+
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
+with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_name { l('Add release group annotation') }
 sub edit_type { $EDIT_RELEASEGROUP_ADD_ANNOTATION }
@@ -17,7 +20,7 @@ has 'release_group_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity_id} }
+    default => sub { shift->data->{entity}{id} }
 );
 
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
@@ -41,7 +44,8 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig();
-    $data->{release_group} = $loaded->{ReleaseGroup}->{ $self->release_group_id };
+    $data->{release_group} = $loaded->{ReleaseGroup}->{ $self->release_group_id }
+        || ReleaseGroup->new( name => $self->data->{entity}{name} );
 
     return $data;
 };

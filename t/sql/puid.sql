@@ -1,14 +1,14 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE puid CASCADE;
-TRUNCATE track_name CASCADE;
-TRUNCATE clientversion CASCADE;
-TRUNCATE recording_puid CASCADE;
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'ABBA');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -36,4 +36,4 @@ INSERT INTO puid (id, puid, version) VALUES
 INSERT INTO recording_puid (id, recording, puid) VALUES
     (1, 1, 1), (2, 1, 2), (3, 2, 2), (4, 2, 3), (5, 3, 4), (6, 3, 2);
 
-COMMIT;
+

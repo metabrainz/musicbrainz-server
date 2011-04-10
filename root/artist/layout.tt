@@ -9,26 +9,26 @@
                content=html_escape(artist.type_name)
                    IF artist.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
-	       property='foaf:gender'
+               property='foaf:gender'
                content=html_escape(artist.gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
                 [% date_period_label = artist.type_id == 1 ? l('Born:') : l('Active:') %]
                 [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
                     [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &mdash;
-		    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
-                [% IF artist.has_age %]
-                   ([% rdfa_artist_age(display_age (artist.age)) %])
+                    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
+                    [% IF artist.has_age %]
+                      ([% rdfa_artist_age(display_age (artist.age)) %])
+                    [% END %]
                 [% END %]
-            [% END %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-               content=html_escape(artist.ipi_code)
-                   IF artist.ipi_code -%]
             [%- END -%]
-	    [%# TODO model country %]
+            [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(artist.country.name)
                    IF artist.country -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+               content=html_escape(artist.ipi_code)
+                   IF artist.ipi_code -%]
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
@@ -63,6 +63,7 @@
                     <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
                   <li>[% use_in_relationship(artist) %]</li>
+                  <li>[% relate_to_ellipsis(artist) %]</li>
                   <li>[% relate_to_url(artist) %]</li>
                 [% END %]
                 <li>

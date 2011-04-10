@@ -92,7 +92,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
             str += "\n";
         });
 
-        self.textarea.val (str);
+        self.$textarea.val (str);
     };
 
     self.updatePreview = function () {
@@ -112,10 +112,10 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.collapse = function (chained) {
         self.trackparser = null;
-        self.textarea.val ('');
+        self.$textarea.val ('');
 
-        self.textarea.hide ();
-        self.basicdisc.removeClass ('expanded');
+        self.$textarea.hide ();
+        self.$basicdisc.removeClass ('expanded');
         self.$collapse_icon.hide ();
         self.$expand_icon.show ();
 
@@ -128,8 +128,9 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     };
 
     self.expand = function (chained) {
-        self.textarea.show ();
-        self.basicdisc.addClass ('expanded');
+
+        self.$nowloading.show ();
+        self.$basicdisc.addClass ('expanded');
         self.$expand_icon.hide ();
         self.$collapse_icon.show ();
 
@@ -139,20 +140,40 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         }
     };
 
+    self.removeDisc = function (chained) {
+        if (!chained && self.disc.isLastDisc ())
+            return;
+
+        /* FIXME: remove from parent textareas. */
+        self.$textarea.val ('');
+        self.$textarea.hide ();
+        self.$basicdisc.hide ();
+
+        if (!chained)
+        {
+            self.disc.removeDisc (true);
+        }
+
+        /* render preview after the advanced tab has also removed all tracks. */
+        self.preview.render ();
+    };
+
     self.loadTracklist = function (data) {
+        self.$textarea.show ();
+        self.$nowloading.hide ();
         self.render ();
-        self.trackparser = MB.TrackParser.Parser (self.disc, self.textarea, data);
+        self.trackparser = MB.TrackParser.Parser (self.disc, self.$textarea, data);
         self.updatePreview ();
     };
 
     self.lines = function (data) {
         if (data)
         {
-            self.textarea.val (data.join ("\n"));
+            self.$textarea.val (data.join ("\n"));
         }
         else
         {
-            return self.textarea.val ().split ("\n");
+            return self.$textarea.val ().split ("\n");
         }
     };
 
@@ -167,12 +188,14 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.disc = disc;
     self.preview = preview;
 
-    self.basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc');
-    self.textarea = self.basicdisc.find ('textarea.tracklist');
-    self.$expand_icon = self.basicdisc.find ('input.expand-disc');
-    self.$collapse_icon = self.basicdisc.find ('input.collapse-disc');
-    self.$tracklist_id = self.basicdisc.find ('input.tracklist-id');
-    self.$various_artists = self.basicdisc.find ('input.various-artists');
+    self.$basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc');
+    self.$textarea = self.$basicdisc.find ('textarea.tracklist');
+    self.$nowloading = self.$basicdisc.find ('div.tracklist-loading');
+    self.$expand_icon = self.$basicdisc.find ('input.expand-disc');
+    self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
+    self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
+    self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
+    self.$various_artists = self.$basicdisc.find ('input.various-artists');
 
     if (!self.$tracklist_id.length)
     {
@@ -181,13 +204,18 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
+    self.$delete_icon.bind ('click.mb', function (ev) { self.removeDisc (); });
 
-    self.textarea.bind ('keyup', function () {
+    self.$textarea.bind ('keyup.mb', function () {
         var newTimeout = setTimeout (function () {
             self.updatePreview ();
         }, MB.Control._preview_update_timeout);
 
         self.timeout = newTimeout;
+    });
+
+    self.$textarea.bind ('blur.mb', function () {
+        self.updatePreview ();
     });
 
     self.disc.registerBasic (self);
@@ -222,7 +250,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
     var guessCase = function () {
         /* make sure all the input fields on the advanced tab are up-to-date. */
         $.each (self.textareas, function (i, textarea) {
-            textarea.updatePreview (MB.GuessCase.track.guess);
+            textarea.updatePreview ();
         });
 
         /* have the advanced view guess case all the discs. */
@@ -266,7 +294,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     };
 
     var addDisc = function () {
-        return self.tracklist.newDisc (self.adv.addDisc ());
+        return self.tracklist.newDisc (self.adv.addDisc (), true);
     };
 
     $("a[href=#advanced]").click (function () {

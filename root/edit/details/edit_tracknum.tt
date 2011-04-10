@@ -1,3 +1,0 @@
-[% INCLUDE 'moderation/mods/diff_table.tt' changes=[
-    { label=l('Number'), new=new, prev=prev },
-] %]

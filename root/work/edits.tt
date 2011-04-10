@@ -16,9 +16,8 @@
         <h1>[% l('Edits for “{link}”', { link => link_entity(work) }) %]</h1>
         <p class="subheader">
             <span class="prefix">~</span>
-                [% l('{type} by {artist}', {
-                    type = html_escape(work.type_name) or l('Work'),
-                    artist = artist_credit(work.artist_credit)
+                [% l('{type}', {
+                    type = html_escape(work.type_name) or l('Work')
                 })%]
         </p>
     </div>

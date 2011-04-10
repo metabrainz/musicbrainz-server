@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-puids">
   <tr>
     <th>[% l('Client:') %]</th>
     <td>[% edit.data.client_version | html %]</td>

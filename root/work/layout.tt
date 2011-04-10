@@ -1,14 +1,11 @@
-[% main_title = l('{type} “{work}” by {artist}', {
+[% main_title = l('{type} “{work}”', {
     type => work.type_name or l('Work'),
-    work => work.name,
-    artist => artist_credit(work.artist_credit, plain => 1)
+    work => work.name
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-               content=artist_credit(work.artist_credit) %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(work.type.name)
                    IF work.type -%]
@@ -29,9 +26,14 @@
                   [% work.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
                 </a>
               </li>
-               <li>[% link_entity(work, 'merge', l('Merge this work into another')) %]</li>
+               <li>
+                 <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.id }) %]">
+                   [% l('Merge this work with another') %]
+                 </a>
+               </li>
                <li>[% link_entity(work, 'edits', l('View editing history')) %]</li>
                <li>[% use_in_relationship(work) %]</li>
+               <li>[% relate_to_ellipsis(work) %]</li>
                <li>[% relate_to_url(work) %]</li>
                [% IF work.edits_pending %]
                  <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>

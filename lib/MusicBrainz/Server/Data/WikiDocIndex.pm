@@ -16,7 +16,11 @@ has 'c' => (
 Readonly my $CACHE_PREFIX => "wikidoc";
 Readonly my $CACHE_KEY => "wikidoc-index";
 
-sub _index_file { &DBDefs::WIKITRANS_INDEX_FILE }
+has _index_file => (
+    is => 'ro',
+    default => sub { &DBDefs::WIKITRANS_INDEX_FILE }
+);
+
 sub _master_index_url { &DBDefs::WIKITRANS_INDEX_URL }
 
 sub _parse_index
