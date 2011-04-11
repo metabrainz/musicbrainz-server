@@ -13,8 +13,6 @@ my @classes = $mpo->plugins;
 
 push @classes, 't::MusicBrainz::Server::EditRegistry';
 
-@classes = 't::MusicBrainz::Server::Edit::Relationship::Edit';
-
 plan tests => scalar(@classes);
 for (@classes) {
     run_tests($_ => $_)
