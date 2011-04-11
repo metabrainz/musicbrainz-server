@@ -6,6 +6,7 @@ use warnings;
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -22,7 +23,30 @@ our @EXPORT_OK = qw(
     changed_display_data
     edit_status_name
     status_names
+    verify_artist_credits
 );
+
+sub verify_artist_credits
+{
+    my ($c, @credits) = @_;
+    my @artist_ids;
+    for my $ac (grep { defined } @credits) {
+        while(@$ac) {
+            my $artist = shift @$ac;
+            my $join   = shift @$ac;
+
+            push @artist_ids, $artist->{artist};
+        }
+    }
+
+    my @artists = values %{ $c->model('Artist')->get_by_ids(@artist_ids) };
+
+    if (@artists != @artist_ids) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'An artist that is used in the new artist credits has been deleted'
+        )
+    }
+}
 
 sub date_closure
 {
