@@ -95,16 +95,27 @@ print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), 
 
 print localtime() . " : Finding unused artists (using artist credit/AR/edit criteria)\n";
 
-my $query = <<EOF;
-
-    SELECT artist.id, name.name, sort_name.name
-    FROM empty_artists() artist
-    JOIN artist_name name ON artist.name = name.id
-    JOIN artist_name sort_name ON artist.sort_name = sort_name.id
-
-EOF
-
-$sql->select ($query);
+$sql->select(
+    'SELECT artist.id, name.name, sort_name.name
+       FROM artist
+       JOIN artist_name name ON name.id = artist.name
+       JOIN artist_name sort_name ON sort_name.id = artist.sort_name
+      WHERE artist.id = any(?)',
+    $c->raw_sql->select_single_column_array(
+        'SELECT artist.id
+           FROM (SELECT unnest(?::INTEGER[])) artist(id)
+          WHERE NOT EXISTS (
+                SELECT TRUE FROM edit_artist
+                  JOIN edit ON edit.id = edit_artist.edit
+                 WHERE edit_artist.artist = artist.id
+                   AND edit.status = 1
+                )',
+        $sql->select_single_column_array(
+            'SELECT artist.id
+               FROM empty_artists() artist'
+        )
+    )
+);
 
 my $count = 0;
 my $removed = 0;
