@@ -764,13 +764,17 @@ sub _edit_release_track_edits
             $opts->{name} = $new->{name} if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
-            if (my $tracklist_id = $new->{tracklist_id}) {
+            if ($new->{tracks}) {
+                $opts->{tracklist} = $new->{tracks};
+            }
+            elsif (my $tracklist_id = $new->{tracklist_id}) {
                 my $tracklist_entity = $self->c->model('Tracklist')->get_by_id($tracklist_id);
                 $self->c->model('Track')->load_for_tracklists($tracklist_entity);
                 $self->c->model('ArtistCredit')->load($tracklist_entity->all_tracks);
                 $opts->{tracklist} = $tracklist_entity->tracks;
-            } else {
-                $opts->{tracklist} = $new->{tracks};
+            }
+            else {
+                die "Medium data does not contain sufficient information to create a tracklist";
             }
 
             # Add medium
