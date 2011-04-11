@@ -29,12 +29,11 @@
     </tbody>
 </table>
 [%- ELSE -%]
-<p>[% l('No collections found.') -%]</p>
+<p>[% l('{user} has no public collections.', { user => html_escape(user.name) }) -%]</p>
 [%- END -%]
 
-
-<p><a href="[% c.uri_for_action('/collection/create') %]">
-    [% l('Create a new collection') %]
-</a></p>
+[% IF viewing_own_profile %]
+    <p>[% l('{uri|Create a new collection}', { uri => c.uri_for_action('/collection/create') }) %]</p>
+[% END %]
 
 [% END %]

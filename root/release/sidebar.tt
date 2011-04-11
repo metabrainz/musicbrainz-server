@@ -1,11 +1,11 @@
 [%- BLOCK cover_art; %]
-    <p>
+    <div class="cover-art">
         [% IF release.cover_art_url; %]
-            <img src="[% release.cover_art_url %]" alt="[% l('Cover Art') %]" width="150" />
+            <img src="[% release.cover_art_url %]" alt="[% l('Cover Art') %]" />
         [% ELSE %]
             <em>[% l('No cover image available.') %]</em>
         [% END %]
-    </p>
+    </div>
 [% END %]
 
 [%- BLOCK other_versions; %]
