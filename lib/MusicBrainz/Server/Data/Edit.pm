@@ -395,7 +395,7 @@ sub create
             close_time => $edit->close_time
         };
 
-        my $edit_id = $self->c->raw_sql->insert_row('edit', $row, 'edit_id');
+        my $edit_id = $self->c->raw_sql->insert_row('edit', $row, 'id');
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
