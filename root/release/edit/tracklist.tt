@@ -6,6 +6,7 @@
       c.model('FileCache').squash_scripts(
         "lib/json/json2.js",
         "lib/sha1/sha1.js",
+        "lib/jquery.ui/external/jquery.cookie.js",
         "scripts/MB/TrackParser.js",
 
         "scripts/MB/GuessCase/Utils.js",
@@ -121,7 +122,6 @@
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
-    [%- r.hidden ('advanced') -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
 
