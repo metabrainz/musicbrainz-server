@@ -51,7 +51,10 @@ MB.GuessCase.Modes = function (language) {
      * Update the help text displayed when a mode is selected.
      **/
     var updateMode = function (event) {
-        $('#gc-help').html (self.getMode ().getDescription ());
+        var mode = self.getMode ();
+
+        $('#gc-help').html (mode.getDescription ());
+        $.cookie ('guesscase_mode', mode.getName (), { path: '/', expires: 365 });
     };
 
     /**
@@ -69,13 +72,18 @@ MB.GuessCase.Modes = function (language) {
             }
         });
 
+        var selected = $.cookie ('guesscase_mode');
+        if (!selected && self.modes.length)
+        {
+            selected = self.modes[0].getName ();
+        }
+
         $.each (self.modes, function (idx, mode) {
             var option = $('<option>');
             option.text (mode.getName ());
             option.data ('mb.guesscase.mode', mode);
-            if (idx == 0)
+            if (mode.getName () === selected)
             {
-                /* FIXME: get the language code of the release, and use that as the default. */
                 option.attr('selected', true);
             }
 
@@ -84,7 +92,7 @@ MB.GuessCase.Modes = function (language) {
         
         self.dropdown.bind ('change.mb', self.updateMode);
 
-        self.updateMode ();
+        $('#gc-help').html (self.getMode ().getDescription ());
     };
 
     self.getMode = getMode;

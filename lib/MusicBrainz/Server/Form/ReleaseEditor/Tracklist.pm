@@ -19,10 +19,6 @@ has_field 'mediums.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist_id' => ( type => 'Integer' );
 has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
 
-# keep track of advanced or basic view, useful when navigating away from
-# this page and coming back, or when validation failed.
-has_field 'advanced' => ( type => 'Integer' );
-
 sub options_mediums_format_id {
     my ($self) = @_;
 
