@@ -5,6 +5,6 @@
     [% INCLUDE 'cdtoc/info.tt' %]
 
     <h2>[% l('Attached to releases') %]</h2>
-    [% INCLUDE 'cdtoc/list.tt' %]
+    [% INCLUDE 'cdtoc/list.tt' edit_links = 1 %]
 
 [%- END -%]
