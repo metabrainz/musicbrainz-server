@@ -27,13 +27,11 @@ is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 my $label = $c->model('Label')->get_by_id($edit->label_id);
-is($label->edits_pending, 1);
 is($label->name, '!K7');
 is($label->sort_name, '!K7 Recordings');
 is($label->type_id, 1);
 is($label->comment, "Funky record label");
 is($label->label_code, 7306);
-is($label->edits_pending, 1);
 is($label->begin_date->year, 1995);
 is($label->begin_date->month, 1);
 is($label->begin_date->day, 12);
@@ -41,17 +39,8 @@ is($label->end_date->year, 2005);
 is($label->end_date->month, 5);
 is($label->end_date->day, 30);
 
-accept_edit($c, $edit);
-$label = $c->model('Label')->get_by_id($edit->label_id);
-is($label->edits_pending, 0);
-
-# Test rejecting the edit
-$edit = create_edit($c);
-reject_edit($c, $edit);
-
-$edit = $c->model('Edit')->get_by_id($edit->id);
-$label = $c->model('Label')->get_by_id($edit->label_id);
-ok(!defined $label);
+is($edit->status, $STATUS_APPLIED, 'add label edits should be autoedits');
+is($label->edits_pending, 0, 'add label edits should be autoedits');
 
 };
 
