@@ -102,6 +102,7 @@ has 'edit_notes' => (
     traits => [ 'Array' ],
     handles => {
         add_edit_note => 'push',
+        all_edit_notes => 'elements'
     }
 );
 

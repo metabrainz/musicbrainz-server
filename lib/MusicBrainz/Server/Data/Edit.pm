@@ -510,6 +510,16 @@ sub _do_reject
     try {
         $edit->reject;
     }
+    catch (MusicBrainz::Server::Edit::Exceptions::MustApply $err) {
+        $self->c->model('EditNote')->add_note(
+            $edit->id,
+            {
+                editor_id => $EDITOR_MODBOT,
+                text => $err
+            }
+        );
+        return $STATUS_APPLIED;
+    }
     catch ($err) {
         carp("Could not reject " . $edit->id . ": $err");
         return $STATUS_ERROR;
