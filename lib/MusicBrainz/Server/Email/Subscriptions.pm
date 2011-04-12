@@ -101,6 +101,7 @@ sub edits_for_type {
 [%- artist = sub.subscription.artist -%]
 [% artist.name %] ([% artist.comment %]) ([% sub.open.size %] open, [% sub.applied.size %] applied)
 [% self.server %]/artist/[% artist.gid %]/edits
+
 [% END %]
 };
 }
@@ -116,6 +117,7 @@ Changes for by your subscribed editors:
 [% editor.name %] ([% sub.open.size %] open, [% sub.applied.size %] applied)
 Open edits: [% self.server %]/user/[% editor.name %]/edits/open
 All edits: [% self.server %]/user/[% editor.name %]/edits
+
 [% END %]
 };
 }
