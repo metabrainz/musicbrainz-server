@@ -606,9 +606,6 @@ my %duplicate_to_works = (
     label => {
         2 => 1,
     },
-    track => {
-        14 => 1
-    },
     url => {
         3 => 1,
         13 => 1
