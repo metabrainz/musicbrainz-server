@@ -1175,6 +1175,7 @@ $sql->do("INSERT INTO l_recording_work
 
         my @final_attrs = grep { $_ != $TRANSLATED } (@attrs, $cover_attribute_id);
         my ($t0, $t1);
+        my ($e0, $e1);
         my $old_type_id;
         my $link_type_id;
         if (exists $row_attrs{$TRANSLATED}) {
@@ -1182,11 +1183,13 @@ $sql->do("INSERT INTO l_recording_work
             $t1 = 'work';
             my $link_type_key = join("_", $t0, $t1, $OTHER_VERSION);
             $link_type_id = $link_type_map{$link_type_key};
+            ($e0, $e1) = ($row->{link1}, $row->{link0});
         }
         else {
             $t0 = 'recording';
             $t1 = 'work';
             $link_type_id = $recording_work_link_type_id;
+            ($e0, $e1) = ($row->{link0}, $row->{link1});
         }
 
         my $key = join("_", $link_type_id, $begindate, $enddate, @final_attrs);
@@ -1221,7 +1224,7 @@ $sql->do("INSERT INTO l_recording_work
         $sql->do(
             "INSERT INTO l_${t0}_${t1}
                  (link, entity0, entity1) VALUES (?, ?, ?)",
-            $link_id, $row->{link0}, $row->{link1});
+            $link_id, $e0, $e1);
     }
 }
 
@@ -1266,7 +1269,7 @@ $sql->do("INSERT INTO l_recording_work
             $enddate .= "-00";
         }
 
-        for my $ar ([ 'recording', 'recording' ], [ 'work', 'work'])
+        for my $ar ([ 'recording', 'work' ], [ 'work', 'work'])
         {
             my ($t0, $t1) = @$ar;
 
