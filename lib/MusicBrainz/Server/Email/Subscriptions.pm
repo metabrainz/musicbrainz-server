@@ -99,7 +99,7 @@ sub edits_for_type {
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
 [%- artist = sub.subscription.artist -%]
-[% artist.name %] ([% artist.comment %]) ([% sub.open.size %] open, [% sub.applied.size %] applied)
+[% artist.name %] [% '(' _ artist.comment _ ') ' IF artist.comment %]([% sub.open.size %] open, [% sub.applied.size %] applied)
 [% self.server %]/artist/[% artist.gid %]/edits
 
 [% END %]
