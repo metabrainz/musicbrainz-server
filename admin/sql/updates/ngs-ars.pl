@@ -1251,6 +1251,13 @@ $sql->do("INSERT INTO l_recording_work
     for my $row (@$rows) {
         my $id = $row->{id};
 
+        my @attrs;
+        if (exists($attribs{$id})) {
+            my %attrs = map { $_ => 1 } @{$attribs{$id}};
+            @attrs = keys %attrs;
+            @attrs = sort @attrs;
+        }
+
         my $begindate = $row->{begindate} || "0000-00-00";
         my $enddate = $row->{enddate} || "0000-00-00";
         MusicBrainz::Server::Validation::TrimInPlace($begindate);
@@ -1268,7 +1275,7 @@ $sql->do("INSERT INTO l_recording_work
 
             my $link_type_key = join('_', $t0, $t1, $row->{link_type});
             my $link_type_id = $link_type_map{$link_type_key};
-            my $key = join("_", $link_type_id, $begindate, $enddate, @final_attrs);
+            my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
             my $link_id;
             if (!exists($links{$key})) {
                 $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
@@ -1287,8 +1294,8 @@ $sql->do("INSERT INTO l_recording_work
                          ($enddate[0] + 0) || undef,
                          ($enddate[1] + 0) || undef,
                          ($enddate[2] + 0) || undef,
-                         scalar(@final_attrs));
-                foreach my $attr (@final_attrs) {
+                         scalar(@attrs));
+                foreach my $attr (@attrs) {
                     $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
                              $link_id, $attr);
                 }
