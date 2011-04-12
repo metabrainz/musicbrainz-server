@@ -15,7 +15,6 @@
               <tr>
                 [% IF c.user_exists %]<th></th>[% END %]
                 <th>[% l('Release') %]</th>
-                <th>[% l('Artist') %]</th>
                 <th>[% l('Format') %]</th>
                 <th>[% l('Tracks') %]</th>
                 <th>[% l('Date') %]</th>
@@ -57,7 +56,6 @@
                   [% disambiguation(release) %]
                 </td>
 	            [% END %]
-                <td>[% artist_credit(release.artist_credit) %]</td>
                 <td>[% rdfa_release_format(release) or "-" %]</td>
                 <td>[% release.combined_track_count or "-" %]</td>
                 <td>[% rdfa_release_event_date(release) %]</td>
