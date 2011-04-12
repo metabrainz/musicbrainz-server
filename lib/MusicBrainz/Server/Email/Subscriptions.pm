@@ -110,7 +110,7 @@ sub edits_for_editors {
     my $self = shift;
     my $subs = \@_;
     return strip tt q{
-Changes for by your subscribed editors:
+Changes by your subscribed editors:
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
 [%- editor = sub.subscription.subscribed_editor -%]
