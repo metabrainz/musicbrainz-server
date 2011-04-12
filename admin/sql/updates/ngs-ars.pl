@@ -1102,16 +1102,6 @@ my $recording_work_link_id = $sql->select_single_value("SELECT nextval('link_id_
 $sql->do("INSERT INTO link (id, link_type)
    VALUES (?, ?)", $recording_work_link_id, $recording_work_link_type_id);
 
-$sql->do("INSERT INTO l_recording_work
-    (link, entity0, entity1) 
-    SELECT ?, id, id FROM work",
-    $recording_work_link_id);
-
-#printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
-#my $amz_clean_total = 0; ($amz_clean_total += $amz_clean{$_}) for keys %amz_clean;
-#printf STDERR "release-asin disamguation: %d/%d clean\n", $amz_clean_total, $amz_clean_total + $amz_not_clean;
-#printf STDERR " %s: %d\n", $_, $amz_clean{$_} for keys %amz_clean;
-
 # Handle the cover AR, which depends on which attributes are present
 {
     my %links;
@@ -1309,6 +1299,20 @@ $sql->do("INSERT INTO l_recording_work
         }
     }
 }
+
+# Migrate remaining recording-work performances
+printf STDERR "Migrating remaining recording-work performances\n";
+$sql->do("INSERT INTO l_recording_work
+    (link, entity0, entity1)
+    SELECT ?, id, id FROM work
+     WHERE NOT EXISTS (
+       SELECT TRUE FROM l_recording_work ar WHERE ar.entity1 = work.id AND ar.link = ?)",
+    $recording_work_link_id, $recording_work_link_id);
+
+#printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
+#my $amz_clean_total = 0; ($amz_clean_total += $amz_clean{$_}) for keys %amz_clean;
+#printf STDERR "release-asin disamguation: %d/%d clean\n", $amz_clean_total, $amz_clean_total + $amz_not_clean;
+#printf STDERR " %s: %d\n", $_, $amz_clean{$_} for keys %amz_clean;
 
     $sql->commit;
 };
