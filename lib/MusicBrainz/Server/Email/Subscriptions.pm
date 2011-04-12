@@ -114,7 +114,7 @@ Changes for by your subscribed editors:
 [% FOR sub IN subs %]
 [%- editor = sub.subscription.subscribed_editor -%]
 [% editor.name %] ([% sub.open.size %] open, [% sub.applied.size %] applied)
-Open edits: [% self.server %]/user/[% editor.name %]/open-edits
+Open edits: [% self.server %]/user/[% editor.name %]/edits/open
 All edits: [% self.server %]/user/[% editor.name %]/edits
 [% END %]
 };
