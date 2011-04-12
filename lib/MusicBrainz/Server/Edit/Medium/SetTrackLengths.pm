@@ -5,11 +5,14 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Medium';
 
 sub edit_name { 'Set track lengths' }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
@@ -17,13 +20,19 @@ sub edit_type { $EDIT_SET_TRACK_LENGTHS }
 has '+data' => (
     isa => Dict[
         tracklist_id => Int,
-        cdtoc_id => Int,
+        cdtoc => Dict[
+            id => Int,
+            toc => Str
+        ],
         affected_releases => ArrayRef[Dict[
             id => Int,
             name => Str,
         ]],
         length => Dict[
-            old => ArrayRef[Int],
+            # Old track lengths may be undef
+            old => ArrayRef[Nullable[Int]],
+
+            # But new tracks must be set if we have a toc
             new => ArrayRef[Int],
         ]
     ]
@@ -40,14 +49,15 @@ sub foreign_keys {
         Release => {
             map { $_ => [ 'ArtistCredit' ] } $self->release_ids
         },
-        CDTOC => [ $self->data->{cdtoc_id} ]
+        CDTOC => [ $self->data->{cdtoc}{id} ]
     }
 }
 
 sub build_display_data {
     my ($self, $loaded) = @_;
     return {
-        cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc_id} },
+        cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc}{id} }
+            || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} ),
         releases => [
             map {
                 $loaded->{Release}{ $_->{id} } ||
@@ -78,7 +88,10 @@ sub initialize {
 
     $self->data({
         tracklist_id => $tracklist_id,
-        cdtoc_id => $cdtoc_id,
+        cdtoc => {
+            id => $cdtoc_id,
+            toc => $cdtoc->toc
+        },
         affected_releases => [ map +{
             id => $_->id,
             name => $_->name
@@ -94,7 +107,7 @@ sub accept {
     my $self = shift;
     $self->c->model('Tracklist')->set_lengths_to_cdtoc(
         $self->data->{tracklist_id},
-        $self->data->{cdtoc_id}
+        $self->data->{cdtoc}{id}
     );
 }
 

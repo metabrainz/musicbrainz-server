@@ -1,26 +1,3 @@
-<table class="details">
-  <tr>
-    <th>[%- l('Old works:') %]</th>
-    <td>
-      [% IF edit.display_data.old.size == 1 %]
-        [% work = edit.display_data.old.0 %]
-        [% l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) }) %]
-      [% ELSE %]
-      <ul>
-        [% FOR work=edit.display_data.old %]
-        <li>[% l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) }) %]</li>
-        [% END %]
-      </ul>
-      [% END %]
-    </td>
-  </tr>
-
-  <tr>
-    <th>[%- l('New work:') %]</th>
-    <td>
-      [% work = edit.display_data.new;
-         l('{work} by {ac}', { work => link_work(work), ac => artist_credit(work.artist_credit) })
-      %]
-    </td>
-  </tr>
+<table class="details merge-works">
+  [% INCLUDE 'edit/details/merge_common.tt' %]
 </table>

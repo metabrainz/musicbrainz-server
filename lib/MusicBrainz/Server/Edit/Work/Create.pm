@@ -4,14 +4,14 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
-use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition );
-use MusicBrainz::Server::Edit::Utils qw(
-    load_artist_credit_definitions
-    artist_credit_from_loaded_definition
-);
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Work';
+
+use aliased 'MusicBrainz::Server::Entity::Work';
 
 sub edit_name { l('Add work') }
 sub edit_type { $EDIT_WORK_CREATE }
@@ -22,7 +22,6 @@ has '+data' => (
     isa => Dict[
         type_id       => Nullable[Int],
         name          => Str,
-        artist_credit => ArtistCreditDefinition,
         comment       => Nullable[Str],
         iswc          => Nullable[Str],
     ]
@@ -32,7 +31,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        Artist   => { load_artist_credit_definitions($self->data->{artist_credit}) },
+        Work => [ $self->entity_id ],
         WorkType => [ $self->data->{type_id} ]
     };
 }
@@ -41,22 +40,16 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        artist_credit => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         type          => $loaded->{WorkType}->{ $self->data->{type_id} },
         iswc          => $self->data->{iswc},
+        work          => $loaded->{Work}{ $self->entity_id }
+            || Work->new( name => $self->data->{name} )
     };
 }
 
-sub _insert_hash
-{
-    my ($self, $data) = @_;
-    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} });
-    return $data
-}
-
-sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

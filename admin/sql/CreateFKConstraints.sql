@@ -970,11 +970,6 @@ ALTER TABLE work
    REFERENCES work_name(id);
 
 ALTER TABLE work
-   ADD CONSTRAINT work_fk_artist_credit
-   FOREIGN KEY (artist_credit)
-   REFERENCES artist_credit(id);
-
-ALTER TABLE work
    ADD CONSTRAINT work_fk_type
    FOREIGN KEY (type)
    REFERENCES work_type(id);

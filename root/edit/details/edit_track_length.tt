@@ -1,11 +1,9 @@
-<table class="details">
+<table class="details edit-track-length">
   [% IF edit.display_data.recording %]
   <tr>
     <th>[% l('Recording:') %]</th>
     <td colspan="2">
-      [% l('{recording} by {artist}',
-           { recording => link_recording(edit.display_data.recording),
-             artist    => artist_credit(edit.display_data.recording.artist_credit) }) %]
+      [% descriptive_link(edit.display_data.recording) %]
     </td>
   </tr>
   [% END %]

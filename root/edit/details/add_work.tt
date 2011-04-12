@@ -1,12 +1,14 @@
 <table class="details">
+    <tr>
+        <th>[% l('Work:') %]</th>
+        <td>[% link_entity(edit.display_data.work) %]</td>
+    </tr>
+</table>
+
+<table class="details add-work">
   <tr>
     <th>[% l('Name:') %]</th>
     <td>[% edit.display_data.name | html %]</td>
-  </tr>
-
-  <tr>
-    <th>[% l('Artist:') %]</th>
-    <td>[% artist_credit(edit.display_data.artist_credit) %]</td>
   </tr>
 
   [% IF edit.display_data.comment %]

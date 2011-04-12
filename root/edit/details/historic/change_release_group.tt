@@ -1,22 +1,17 @@
-[% MACRO display_rg(rg) IF rg;
-     link_release_group(rg);
-   ELSE; l('(unknown)');
-END; %]
-
 <table class="details">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% link_release(release) %]</li>
+        <li>[% descriptive_link(release) %]</li>
         [% END %]
       </ul>
     </td>
   </tr>
   <tr>
     <th>[% l('Release group:') %]</th>
-    <td class="old">[% display_rg(edit.display_data.release_group.old) %]</td>
-    <td class="new">[% display_rg(edit.display_data.release_group.new) %]</td>
+    <td class="old">[% descriptive_link(edit.display_data.release_group.old) %]</td>
+    <td class="new">[% descriptive_link(edit.display_data.release_group.new) %]</td>
   </tr>
 </table>

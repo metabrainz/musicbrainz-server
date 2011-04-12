@@ -5,11 +5,7 @@ use Sql;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
 with 'MusicBrainz::Server::Data::Role::NewFromRow';
-
-has 'c' => (
-    is => 'rw',
-    isa => 'Object'
-);
+with 'MusicBrainz::Server::Data::Role::Sql';
 
 has 'table' => (
     is => 'ro',
@@ -50,18 +46,17 @@ sub subscribe
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
 
-        return if $sql->select_single_value("
+        return if $self->sql->select_single_value("
             SELECT id FROM $table WHERE editor = ? AND $column = ?",
             $user_id, $id);
 
         my $max_edit_id = $self->c->model('Edit')->get_max_id() || 0;
-        $sql->do("INSERT INTO $table (editor, $column, last_edit_sent)
+        $self->sql->do("INSERT INTO $table (editor, $column, last_edit_sent)
                   VALUES (?, ?, ?)", $user_id, $id, $max_edit_id);
 
-    }, $sql);
+    }, $self->c->sql);
 }
 
 sub unsubscribe
@@ -71,15 +66,14 @@ sub unsubscribe
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
     Sql::run_in_transaction(sub {
 
-        $sql->do("
+        $self->sql->do("
             DELETE FROM $table WHERE editor = ? AND $column IN (".
             placeholders(@ids) . ")",
             $user_id, @ids);
 
-    }, $sql);
+    }, $self->c->sql);
 }
 
 sub check_subscription
@@ -89,8 +83,7 @@ sub check_subscription
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("
+    return $self->sql->select_single_value("
         SELECT 1 FROM $table
         WHERE editor = ? AND $column = ?",
         $user_id, $id) ? 1 : 0;
@@ -111,7 +104,7 @@ sub find_subscribed_editors
         ORDER BY editor.name, editor.id";
 
     return query_to_list(
-        $self->c->dbh, sub { MusicBrainz::Server::Data::Editor->_new_from_row(@_) },
+        $self->c->sql, sub { MusicBrainz::Server::Data::Editor->_new_from_row(@_) },
         $query, $entity_id);
 }
 
@@ -121,9 +114,8 @@ sub get_subscribed_editor_count
 
     my $table = $self->table;
     my $column = $self->column;
-    my $sql = Sql->new($self->c->dbh);
 
-    return $sql->select_single_value("SELECT count(*) FROM $table
+    return $self->sql->select_single_value("SELECT count(*) FROM $table
                                     WHERE $column = ?", $entity_id);
 }
 
@@ -131,7 +123,7 @@ sub get_subscriptions
 {
     my ($self, $editor_id) = @_;
     my $query = 'SELECT * FROM ' . $self->table . ' WHERE editor = ?';
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $editor_id);
 }
 
@@ -142,10 +134,30 @@ sub merge
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do("UPDATE $table SET merged_by_edit = ?
+    $self->sql->do("UPDATE $table SET merged_by_edit = ?
               WHERE $column IN (".placeholders(@ids).")",
               $edit_id, @ids);
+}
+
+sub merge_entities
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    my $column = $self->column;
+    my $table = $self->table;
+
+    $self->sql->do(
+        "INSERT INTO $table (editor, $column, last_edit_sent)
+         SELECT DISTINCT editor, ?::INTEGER, max(last_edit_sent)
+           FROM $table t1
+          WHERE $column IN (" . placeholders(@old_ids) . ")
+            AND NOT EXISTS (
+                SELECT 1 FROM $table t2
+                 WHERE t2.$column = ? AND t2.editor = t1.editor
+                )
+       GROUP BY editor, $column",
+        $new_id, @old_ids, $new_id
+    );
 }
 
 sub delete
@@ -155,8 +167,7 @@ sub delete
     my $table = $self->table;
     my $column = $self->column;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do("UPDATE $table SET deleted_by_edit = ?
+    $self->sql->do("UPDATE $table SET deleted_by_edit = ?
                WHERE $column IN (".placeholders(@ids).")", $edit_id, @ids);
 }
 

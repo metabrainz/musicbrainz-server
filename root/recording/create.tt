@@ -1,17 +1,38 @@
 [%- BLOCK layout_head -%]
-    <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/predicate.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCreditEditor.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/Control/InlineDialog.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/Control/Lookup.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/Control/Overlay.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/Control/ToggleButton.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/MB/Control/TableSorting.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/static/scripts/edit_work.js') %]" type="text/javascript"></script>
-    <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
+
+  <script type="text/javascript" src="[%-
+    c.model('FileCache').squash_scripts(
+      "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
+      "scripts/MB/utility.js",
+      "scripts/MB/GuessCase/Handler/Base.js",
+      "scripts/MB/GuessCase/Handler/Track.js",
+      "scripts/MB/GuessCase/Mode/Base.js",
+      "scripts/MB/GuessCase/Mode/Classical.js",
+      "scripts/MB/GuessCase/Mode/English.js",
+      "scripts/MB/GuessCase/Mode/French.js",
+      "scripts/MB/GuessCase/Mode/Sentence.js",
+      "scripts/MB/GuessCase/Input.js",
+      "scripts/MB/GuessCase/Output.js",
+      "scripts/MB/GuessCase/Flags.js",
+      "scripts/MB/GuessCase/Utils.js",
+      "scripts/MB/GuessCase/Modes.js",
+      "scripts/MB/GuessCase/Main.js",
+      "scripts/MB/GuessCase/Track.js",
+      "scripts/MB/Control/ArtistCredit.js",
+      "scripts/MB/Control/Autocomplete.js",
+      "scripts/MB/Control/Bubble.js",
+      "scripts/MB/Control/GuessCase.js",
+    ) -%]"></script>
+  <script type="text/javascript">
+    $('document').ready(function() {
+
+      var bubbles = MB.Control.BubbleCollection ();
+      MB.Control.initialize_artist_credit (bubbles);
+      MB.Control.initialize_guess_case (bubbles, 'recording');
+
+    });
+  </script>
 [%- END -%]
 
 [% WRAPPER 'layout.tt' title=l('Add a new recording') full_width=1 %]

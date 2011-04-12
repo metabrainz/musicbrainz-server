@@ -9,6 +9,13 @@ sub ngs_class { 'MusicBrainz::Server::Edit::Label::Delete' }
 sub edit_type { 56 }
 sub edit_name { l('Remove label') }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        label => [ $self->data->{entity_id} ]
+    }
+}
+
 sub do_upgrade {
     my $self = shift;
     return {

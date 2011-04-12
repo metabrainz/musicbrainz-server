@@ -77,6 +77,28 @@ sub edit : Chained('load')
     }
 }
 
+sub import : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $cdstub_toc = $c->stash->{cdstub};
+    my $stub = $cdstub_toc->cdstub;
+
+    my $search_query = $stub->artist || 'Various Artists';
+    my $form = $c->form(
+        form => 'Search::Query',
+        item => { query => $search_query }
+    );
+    if($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $search_query = $form->field('query')->value;
+    }
+
+    $c->stash(
+        artists => $self->_load_paged($c, sub {
+            $c->model('Search')->search('artist', $search_query, shift, shift);
+        })
+    );
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

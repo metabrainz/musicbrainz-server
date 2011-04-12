@@ -1,9 +1,15 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1::List;
 use Moose;
 
+use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
+
+has sort => (
+    is => 'ro',
+    predicate => 'can_sort'
+);
 
 has '_element' => (
     is => 'rw',
@@ -29,7 +35,9 @@ around 'serialize' => sub {
     $opts ||= {};
     $opts->{in_list} = 1;
 
-    map { $self->add( serialize_entity($_, $inc, $opts) ) } @$entities;
+    my @ents = $self->can_sort ? sort_by { $self->sort->() } @$entities : @$entities;
+
+    map { $self->add( serialize_entity($_, $inc, $opts) ) } @ents;
 
     $self->$orig($attributes, @_);
 };

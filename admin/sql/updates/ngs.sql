@@ -65,50 +65,47 @@ INSERT INTO release_group_type (id, name) VALUES
     (10, 'Remix'),
     (11, 'Other');
 
-INSERT INTO medium_format (id, name, year, has_discids) VALUES
-    (1, 'CD', 1982, TRUE),
-    (2, 'DVD', 1995, FALSE),
-    (3, 'SACD', 1999, TRUE),
-    (4, 'DualDisc', 2004, TRUE),
-    (5, 'LaserDisc', 1978, FALSE),
-    (6, 'MiniDisc', 1992, FALSE),
-    (7, 'Vinyl', 1895, FALSE),
-    (8, 'Cassette', 1964, FALSE),
-    (9, 'Cartridge', 1962, FALSE),
-    (10, 'Reel-to-reel', 1935, FALSE),
-    (11, 'DAT', 1976, FALSE),
-    (12, 'Digital Media', NULL, FALSE),
-    (13, 'Other', NULL, TRUE),
-    (14, 'Wax Cylinder', 1877, FALSE),
-    (15, 'Piano Roll', 1883, FALSE),
-    (16, 'DCC', 1992, FALSE),
-    (17, 'HD-DVD', NULL, FALSE),
-    (20, 'Blu-ray', NULL, FALSE),
-    (21, 'VHS', NULL, FALSE),
-    (22, 'VCD', NULL, FALSE),
-    (23, 'SVCD', NULL, FALSE),
-    (24, 'Betamax', NULL, FALSE),
-    (25, 'HDCD', NULL, TRUE),
-    (26, 'USB Flash Drive', NULL, FALSE),
-    (27, 'slotMusic', NULL, FALSE),
-    (28, 'UMD', NULL, FALSE);
+INSERT INTO medium_format (id, name, year, has_discids, child_order) VALUES
+    (1, 'CD', 1982, TRUE, 0),
+    (2, 'DVD', 1995, FALSE, 4),
+    (3, 'SACD', 1999, TRUE, 5),
+    (4, 'DualDisc', 2004, TRUE, 6),
+    (6, 'MiniDisc', 1992, FALSE, 7),
+    (7, 'Vinyl', 1895, FALSE, 1),
+    (8, 'Cassette', 1964, FALSE, 3),
+    (12, 'Digital Media', NULL, FALSE, 2),
+    (13, 'Other', NULL, TRUE, 13),
+    (17, 'HD-DVD', NULL, FALSE, 9),
+    (20, 'Blu-ray', NULL, FALSE, 8),
+    (22, 'VCD', NULL, FALSE, 11),
+    (28, 'UMD', NULL, FALSE, 12),
+    (32, 'Videotape', NULL, FALSE, 10);
 
-INSERT INTO medium_format (id, name, year, child_order, parent) VALUES
-    (29, '7"', NULL, 0, 7),
-    (30, '10"', NULL, 1, 7),
-    (31, '12"', NULL, 2, 7),
-    (18, 'DVD-Audio', NULL, 0, 2),
-    (19, 'DVD-Video', NULL, 1, 2);
+INSERT INTO medium_format (id, name, year, has_discids, child_order, parent) VALUES
+    (5, 'LaserDisc', 1978, FALSE, 0, 13),
+    (9, 'Cartridge', 1962, FALSE, 0, 13),
+    (10, 'Reel-to-reel', 1935, FALSE, 0, 13),
+    (11, 'DAT', 1976, FALSE, 0, 13),
+    (14, 'Wax Cylinder', 1877, FALSE, 0, 13),
+    (15, 'Piano Roll', 1883, FALSE, 0, 13),
+    (16, 'DCC', 1992, FALSE, 0, 13),
+    (21, 'VHS', NULL, FALSE, 0, 32),
+    (23, 'SVCD', NULL, FALSE, 0, 22),
+    (24, 'Betamax', NULL, FALSE, 1, 32),
+    (25, 'HDCD', NULL, TRUE, 0, 1),
+    (29, '7" Vinyl', NULL, FALSE, 0, 7),
+    (30, '10" Vinyl', NULL, FALSE, 1, 7),
+    (31, '12" Vinyl', NULL, FALSE, 2, 7),
+    (26, 'USB Flash Drive', NULL, FALSE, 0, 12),
+    (27, 'slotMusic', NULL, FALSE, 1, 12),
+    (18, 'DVD-Audio', NULL, FALSE, 0, 2),
+    (19, 'DVD-Video', NULL, FALSE, 1, 2);
 
 INSERT INTO url
     SELECT id, gid::uuid, url, description, refcount AS ref_count
     FROM public.url;
 
 INSERT INTO replication_control SELECT * FROM public.replication_control;
-INSERT INTO currentstat
-    SELECT id, name, value, lastupdated AS last_updated
-    FROM public.currentstat;
-INSERT INTO historicalstat SELECT * FROM public.historicalstat;
 
 ------------------------
 -- Tags
@@ -394,8 +391,8 @@ FROM (
         SELECT link1 AS id
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('composition', 'composer', 'arranger', 'lyricist', 'instrumentator',
-                             'orchestrator', 'librettist', 'misc')
+            WHERE lt.name IN ('composition', 'composer', 'lyricist', 'instrumentator',
+                             'orchestrator', 'librettist', 'misc', 'writer')
         UNION
         SELECT link1 AS id
             FROM public.l_label_track l
@@ -601,23 +598,23 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
     FROM tmp_release_album re
         JOIN public.album_cdtoc ac ON re.album=ac.album
         JOIN medium m ON m.release=re.release
-    WHERE m.format IS NULL OR m.format IN (1,4); -- Unknown, CD or DualDisc
+    WHERE m.format IS NULL OR m.format IN (SELECT id FROM medium_format WHERE has_discids);
 
 ------------------------
 -- Statistics
 ------------------------
 \echo Stats
 
-INSERT INTO statistic (id, value, date_collected, name)
-    SELECT id, value, lastupdated,
+INSERT INTO statistic (value, date_collected, name)
+    SELECT DISTINCT ON (name, lastupdated) value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'
-        WHEN name = 'count.album.has_discid' THEN 'count.release.has_discid'
+        WHEN name = 'count.album.has_discid' THEN 'count.medium.has_discid'
         WHEN name = 'count.album.nonvarious' THEN 'count.release.nonvarious'
         WHEN name = 'count.album.various' THEN 'count.release.various'
         WHEN name = 'count.moderation' THEN 'count.edit'
         WHEN name = 'count.moderation.applied' THEN 'count.edit.applied'
-        WHEN name = 'count.moderation.deleted' THEN 'count.edit.tobedeleted'
+        WHEN name = 'count.moderation.deleted' THEN 'count.edit.deleted'
         WHEN name = 'count.moderation.error' THEN 'count.edit.error'
         WHEN name = 'count.moderation.evalnochange' THEN 'count.edit.evalnochange'
         WHEN name = 'count.moderation.faileddep' THEN 'count.edit.faileddep'
@@ -635,6 +632,9 @@ INSERT INTO statistic (id, value, date_collected, name)
         WHEN name = 'count.rating.raw.track' THEN 'count.rating.raw.recording'
         WHEN name = 'count.rating.release' THEN 'count.rating.releasegroup'
         WHEN name = 'count.rating.track' THEN 'count.rating.recording'
+        WHEN name = 'count.tag.raw.release' THEN 'count.tag.raw.releasegroup'
+        WHEN name = 'count.tag.raw.track' THEN 'count.tag.raw.recording'
+        WHEN name = 'count.releasegroups' THEN 'count.releasegroup'
         WHEN name = 'count.track.has_isrc' THEN 'count.recording.has_isrc'
         WHEN name = 'count.track.has_puid' THEN 'count.recording.has_puid'
 
@@ -663,9 +663,18 @@ INSERT INTO statistic (id, value, date_collected, name)
         ELSE name
       END AS name
       FROM (
-           SELECT id, value, lastupdated, name FROM public.currentstat
-      UNION ALL
-           SELECT id, value, snapshotdate, name FROM public.historicalstat
+           SELECT value, lastupdated::date, name FROM public.currentstat
+      UNION
+           SELECT value, snapshotdate, name FROM public.historicalstat
       ) s;
+
+INSERT INTO statistic (value, date_collected, name)
+    SELECT DISTINCT ON (name, snapshotdate) value, snapshotdate, 'count.recording'
+    FROM (
+           SELECT value, lastupdated::date AS snapshotdate, name FROM public.currentstat
+      UNION
+           SELECT value, snapshotdate, name FROM public.historicalstat
+      ) s
+    WHERE name = 'count.track';
 
 COMMIT;

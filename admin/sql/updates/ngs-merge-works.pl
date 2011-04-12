@@ -384,4 +384,6 @@ DROP TABLE tmp_work;
     $raw_sql->finish;
     $sql->do("DROP INDEX tmp_work_meta_idx");
 
+    printf STDERR "Unlinking work artist credits\n";
+    $sql->do('UPDATE work SET artist_credit = NULL');
 }, $sql, $raw_sql);

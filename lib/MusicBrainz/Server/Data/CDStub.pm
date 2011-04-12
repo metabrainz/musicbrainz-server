@@ -54,6 +54,8 @@ sub _dbh
     return shift->c->raw_dbh;
 }
 
+sub sql { return shift->c->raw_sql }
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -70,7 +72,7 @@ sub load_top_cdstubs
                  OFFSET ?
                  LIMIT  ?";
     return query_to_list_limited(
-        $self->c->raw_dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->raw_sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $offset || 0, $LIMIT_TOP_CDSTUBS - $offset);
 }
 
@@ -88,7 +90,7 @@ sub get_by_discid
                    FROM ' . $self->_table . '
                    JOIN cdtoc_raw ON cdtoc_raw.release = release_raw.id
                   WHERE discid = ?';
-    return query_to_list($self->c->raw_dbh, sub { $self->_new_from_row(shift) }, $query, $discid);
+    return query_to_list($self->c->raw_sql, sub { $self->_new_from_row(shift) }, $query, $discid);
 }
 
 sub insert
@@ -199,6 +201,20 @@ sub update
     }
 
     $self->sql->commit;
+}
+
+sub delete
+{
+    my ($self, $discid) = @_;
+    my $release_id = $self->sql->select_single_value(
+        'DELETE FROM cdtoc_raw WHERE discid = ? RETURNING release',
+        $discid);
+    $self->sql->do(
+        'DELETE FROM track_raw WHERE release = ?',
+        $release_id);
+    $self->sql->do(
+        'DELETE FROM release_raw WHERE id = ?',
+        $release_id);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -1,17 +1,20 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/Bubble.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseInformation.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <link rel="stylesheet" type="text/css" href="[%-
+      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
+
+  <script type="text/javascript" src="[%-
+      c.model('FileCache').squash_scripts(
+        "scripts/MB/Control/ArtistCredit.js",
+        "scripts/MB/Control/Bubble.js",
+        "scripts/MB/Control/ReleaseInformation.js",
+      )
+  -%]"></script>
   <script type="text/javascript">
     $('document').ready (function () {
 
        MB.Control.ReleaseInformation ();
+
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
     });
   </script>
@@ -33,18 +36,22 @@
     [% r.hidden ('wizard_session_id') %]
     <fieldset>
       <legend>Release information</legend>
-      [% form_row_text (r, 'name', 'Title') %]
+      [% form_row_text (r, 'name') %]
       [% r.hidden ('release_group_id') %]
       <div class="row">
         [% r.label('various_artists', 'Various Artists release') %]
+        <img style="float: right; margin-right: 12px;" id="help-va"
+             src="/static/images/icons/help.png" />
         [% r.checkbox('various_artists') %]
-        [% field_errors(form, 'various_artists') %]
       </div>
 
-      [% WRAPPER form_row %]
-        <label for="release-artist">[% l('Artist') %]</label>
-        <input type="text" id="release-artist" value="[% form.field('artist_credit').fif.name %]" />
-      [% END %]
+      [%- form_row_artist_credit(form, 'release-artist') -%]
+      <div class="row change-track-artists" style="display: none">
+        [% r.label('various_artists', 'Change track artists') %]
+        <img style="float: right; margin-right: 12px;" id="help-cta"
+             src="/static/images/icons/help.png" />
+        [% r.checkbox('change_track_artists') %]
+      </div>
 
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]
@@ -65,24 +72,36 @@
       [% form_row_select (r, 'country_id', 'Country') %]
       [% form_row_select (r, 'packaging_id', 'Packaging') %]
 
-      <div class="label-container">
+      <div class="label-container" style="padding: 0.5em 0">
         [% FOR field=form.field('labels').fields %]
         <div class="release-label">
           [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
 
           [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
-          [%- r.text(field.field('name'), class => 'label-name') -%]
+          <span class="label autocomplete">
+            [%- r.text(field.field('name'), class => 'label-name') -%]
+            <img class="search" src="/static/images/icons/search.png" />
+          </span>
           [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
 
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <span class="ui-icon ui-icon-closethick" title="[% l('Remove Label') %]">[% l('Remove Label') %]</span>
+              <img src="/static/images/icons/delete_row.png" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
             </a>
           </span>
 
         </div>
+        [% END %]
+
+        [% WRAPPER form_row %]
+          <div class="add-label" style="text-align: right; width: 100%; ">
+            <span class="add-label" style="padding: 0 1em;">[% l('Add Label') %]</span>
+            <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
+              <img src="/static/images/icons/add_row.png" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
+            </a>
+          </div>
         [% END %]
       </div>
 
@@ -97,17 +116,32 @@
 
     <div class="buttons ui-helper-clearfix">
         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-        <a href="#add_label">[% l('Add Label') %]</a>
         [% r.submit ('next', l('Next »')) %]
     </div>
   </div>
 
   <div class="documentation">
 
-    <p style="margin: 2em; text-align: right;">
-       <input class="autocomplete-directsearch" type="checkbox" value="0"></input>
-       <label>[%- l('Use direct search') -%]</label>
-    </p>
+    <div class="help-va-container" style="display: none">
+      <div class="help-va bubble">
+        <p>
+          [% l("Check this if not all tracks on this release are credited to the same artist.") %]
+        </p>
+      </div>
+    </div>
+
+    [%# "cta" is "change track artists" %]
+    <div class="help-cta-container" style="display: none">
+      <div class="help-cta bubble">
+        [%# FIXME: this could be worded better. suggestions? --warp. %]
+        <p>
+          [% l("Check this if you want tracks to also use the artist you have just entered.") %]
+        </p>
+        <p>
+          [% l("This will only update those tracks which currently have the same artists as the entire release.") %]
+        </p>
+      </div>
+    </div>
 
     [% artist_credit_table(form) %]
 

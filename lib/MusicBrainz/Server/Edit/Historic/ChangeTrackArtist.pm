@@ -13,6 +13,14 @@ sub edit_name     { l('Change track artist') }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_TRACK_ARTIST }
 sub historic_type { 10 }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        artist    => [ $self->data->{new_artist_id}, $self->data->{old_artist_id} ],
+        recording => [ $self->data->{recording_id} ]
+    }
+}
+
 sub foreign_keys
 {
     my $self = shift;
@@ -28,11 +36,16 @@ sub build_display_data
     return {
         recording => $loaded->{Recording}->{ $self->data->{recording_id} },
         artist => {
-            old => Artist->meta->clone_instance(
-                $loaded->{Artist}->{ $self->data->{old_artist_id} },
-                name => $self->data->{old_artist_name}
-            ),
-            new => $loaded->{Artist}->{ $self->data->{new_artist_id} },
+            old => $loaded->{Artist}->{ $self->data->{old_artist_id} } ||
+                Artist->new(
+                    id => $self->data->{old_artist_id},
+                    name => $self->data->{old_artist_name}
+                ),
+            new => $loaded->{Artist}->{ $self->data->{new_artist_id} } ||
+                Artist->new(
+                    id => $self->data->{new_artist_id},
+                    name => $self->data->{new_artist_name}
+                ),
         }
     }
 }

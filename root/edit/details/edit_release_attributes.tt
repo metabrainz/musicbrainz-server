@@ -1,11 +1,11 @@
-<table class="details">
+<table class="details edit-release-attributes">
   [% FOR change=edit.display_data.changes %]
   <tr>
     <th>[% l('Releases:') %]</th>
     <td>
       <ul>
         [% FOR release=change.releases %]
-        <li>[% link_release(release) %]</li>
+        <li>[% link_entity(release) %]</li>
         [% END %]
       </ul>
     </td>

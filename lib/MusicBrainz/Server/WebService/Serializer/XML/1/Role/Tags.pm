@@ -8,10 +8,12 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $data) = @_;
 
-    $self->add( List->new->serialize($data->{tags}) )
+    $self->add( List->new(sort => sub { $_->tag->name } )
+                    ->serialize($data->{tags}) )
         if $inc && $inc->tags;
 
-    $self->add( List->new->serialize($data->{user_tags}) )
+    $self->add( List->new(sort => sub { $_->tag->name } )
+                    ->serialize($data->{user_tags}) )
         if $inc && $inc->user_tags;
 };
 

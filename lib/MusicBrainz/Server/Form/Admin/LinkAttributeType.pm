@@ -3,6 +3,9 @@ package MusicBrainz::Server::Form::Admin::LinkAttributeType;
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
+with 'MusicBrainz::Server::Form::Role::Edit';
+
+sub edit_field_names { qw( parent_id child_order name description ) }
 
 has '+name' => ( default => 'linkattrtype' );
 

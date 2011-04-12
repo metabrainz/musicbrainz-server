@@ -31,7 +31,7 @@ sub _build_context {
 sub models {
     my @models;
 
-    my @exclude = qw( Alias );
+    my @exclude = qw( Alias EntityAnnotation Rating Utils );
     my $searcher = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Data',
         except      => [ map { "MusicBrainz::Server::Data::$_" } @exclude ]
@@ -52,11 +52,12 @@ sub models {
 sub BUILD {
     my ($self, $args) = @_;
     for my $model ($self->models) {
+        my $dao = $self->data_object($model->[0]);
         Class::MOP::Class->create(
             $model->[1] =>
                 methods => {
                     ACCEPT_CONTEXT => sub {
-                        return $self->data_object($model->[0]);
+                        return $dao
                     }
                 });
     }

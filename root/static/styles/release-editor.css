@@ -21,6 +21,8 @@ h1 span {
     background: #fff;
 }
 
+#release-editor tr.artist-credit-box input[type=text] { width: 200px; }
+
 #release-editor div.release-label { margin: 6px 0; }
 #release-editor div.release-label input.label-name { width: 134px; }
 #release-editor div.release-label label.catno {
@@ -41,33 +43,40 @@ h1 span {
     font-weight: bold;
 }
 
-#release-editor fieldset input,
+#release-editor fieldset input[type=text],
 #release-editor fieldset select {
     font-size: 1em;
     width: 300px;
 }
 
+#release-editor fieldset select.format { width: 150px; }
+
 #release-editor fieldset input[type=checkbox],
-#release-editor fieldset span.partial-date input {
-    width: auto;
-}
+#release-editor fieldset span.partial-date input { width: auto; }
+#release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
 
-#release-editor fieldset.information textarea {
-    height: 10px;
-}
-
+#release-editor fieldset div.tracklist-loading,
 #release-editor fieldset textarea.tracklist {
     height: 250px;
     margin: 0 10px;
     width: 430px;
 }
 
-p.guesscase-options,
+#release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
+#release-editor fieldset div.recordings-loading,
+#release-editor fieldset div.tracklist-loading { padding: 110px 0 0 0; height: 140px; }
+#release-editor fieldset div.recordings-loading,
+#release-editor fieldset div.tracklist-loading p {
+    width: 100%;
+    text-align: center;
+}
+
+div.guesscase-options,
 #tracklist-options {
     margin: 10px 0 10px 10px;
 }
 
-#release-editor fieldset p.guesscase-options select {
+#release-editor fieldset div.guesscase-options select {
     width: 100px;
 }
 
@@ -81,7 +90,7 @@ p.guesscase-options,
     padding: 3px 0 0 4px;
 }
 
-#release-editor ul.tabs li input {
+#release-editor ul.tabs li input[type=submit] {
     border: 0;
     color: #1c94c4;
     background: white;
@@ -90,7 +99,7 @@ p.guesscase-options,
     cursor: pointer;
 }
 
-#release-editor ul.tabs li.current input {
+#release-editor ul.tabs li.current input[type=submit] {
     color: #eb8f00;
 }
 
@@ -140,18 +149,21 @@ p.guesscase-options,
 
 #release-editor #editnote  { height: 70px; }
 
-#release-editor fieldset.advanced-disc .medium.tbl td input { border: 1px solid transparent; }
-#release-editor fieldset.advanced-disc .medium.tbl td input:focus { border: 1px solid #FFBA58; }
+#release-editor fieldset.advanced-disc tr.track > td > span > input[type=text],
+#release-editor fieldset.advanced-disc tr.track > td > input[type=text] { border: 1px solid transparent; }
+#release-editor fieldset.advanced-disc tr.track > td > span > input[type=text]:focus,
+#release-editor fieldset.advanced-disc tr.track > td > input[type=text]:focus { border: 1px solid #FFBA58; }
 
 #release-editor div.tracklist-padding { padding: 0 12px 12px 12px; }
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
+table.medium.tbl tr.deleted { display: none; }
 table.medium.tbl td.position  { width: 2em; }
+table.medium.tbl td.credits-button { width: 4em; text-align: right; }
 table.medium.tbl td.length    { width: 5em; }
-table.medium.tbl td.delete    { width: 2em; }
-table.medium.tbl td.guesscase { width: 2em; }
+table.medium.tbl td.icon      { width: 38px; text-align; right; }
 table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor table.medium.tbl th {
-    background:url("../images/table-header-2.gif") repeat-x scroll 0 50% transparent;
+    background:url("../images/layout/table-header-2.gif") repeat-x scroll 0 50% transparent;
     border-bottom:1px solid #999;
     border-left:1px solid #CCC;
     font-size:95%;
@@ -164,12 +176,15 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     padding: 0 5px;
 }
 
-#release-editor .medium.tbl td input {
+#release-editor .medium.tbl td input[type=text][disabled] { color: #aaa; }
+#release-editor .medium.tbl td input[type=text] {
     background: #fff;
-    border: 1px solid transparent;
     height: 100%;
     width: 100%;
 }
+
+#release-editor .medium.tbl td input[type=text].lookup-performed { background: #bfb; }
+#release-editor .medium.tbl td input[type=text].column-disabled.lookup-performed { background: #fff; }
 
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
@@ -191,7 +206,8 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor div.basic-disc.expanded { margin: 0 0 10px 0; }
 #release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 0; }
 #release-editor table.basic-format h3 { margin: 0; }
-#release-editor table.basic-format td.format { text-align: right; }
+#release-editor table.basic-format td.format { text-align: center; }
+#release-editor table.basic-format td.icon { text-align: right; }
 
 #release-editor div.basic-medium-format-and-title div.row {
     display: inline;
@@ -199,8 +215,16 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor div.basic-medium-format-and-title label { float: none; }
 
-#release-editor .medium.tbl tr.deleted td,
-#release-editor .medium.tbl tr.deleted td input { color: #aaa; text-decoration: line-through; }
+#release-editor table.advanced-format { width: 100%; }
+#release-editor table.advanced-format td { vertical-align: top; }
+#release-editor table.advanced-format td.icon { padding: 10px; }
+
+#release-editor fieldset.advanced-disc div.icon { padding: 10px; }
+#release-editor fieldset.advanced-disc div.add-track input.add-track-count {
+    width: 2em; margin: 0.2em; padding: 0;
+}
+#release-editor fieldset.advanced-disc div.icon { display: none; }
+#release-editor fieldset.advanced-disc.expanded div.icon { display: block; }
 
 #release-editor fieldset legend {
     color: #fc6714;
@@ -211,8 +235,12 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor fieldset {
     border: 1px solid #aaa;
-    background: #f0f0f0;
+    background: #ffffff;
     margin-top: 0;
+
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 #release-editor fieldset.editnote {
@@ -228,49 +256,34 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor .medium.tbl tr.track-artist-credit,
 #release-editor .medium.tbl tr.track-artist-credit th,
-#release-editor .medium.tbl tr.track-artist-credit td { padding: 0; margin: 0; border: 0; }
+#release-editor .medium.tbl tr.track-artist-credit td { margin: 0; border: 0; }
 
 #release-editor .medium.tbl tr.track-artist-credit,
-#release-editor .medium.tbl tr.track-artist-credit > td { background-color: #f0f0f0; }
+#release-editor .medium.tbl tr.track-artist-credit > td { background-color: #fff; }
 #release-editor .medium.tbl tr.track-artist-credit > td { padding: 12px; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 12px; border: 1px solid #999;
-    background: #fff;
+    background: #f0f0f0;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
 }
 
+#release-editor .medium.tbl tr.track-artist-credit td table td {
+    background: #f0f0f0;
+    padding: 2px;
+}
+
+#release-editor .medium.tbl tr.track-artist-credit td table td.icon {
+    padding-left: 10px
+}
+
 #release-editor .documentation div.barcode-container,
 #release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 60px; }
+
 #release-editor div.select-recording { background: #f0f0f0; }
-
-/* little speech balloon "tail" to visibly associate the artist credit
-   editor with the artist input field. (FIXME: move this to Bubble.js --warp). */
-
-tr.track-artist-credit .ac-balloon0 { position: relative; margin-top: 4px; }
-tr.track-artist-credit .ac-balloon1 {
-    width: 42px; height: 14px; background: #fff;
-    padding: 0; margin: 0; position: absolute; left: 550px; bottom: -2px;
-}
-tr.track-artist-credit .ac-balloon2 {
-    width: 20px; height: 12px; float: left; background: #eee;
-    padding: 0; margin: 0;
-    border-style: solid; border-width: 0 1px 1px 0; border-color: #999;
-    -webkit-border-bottom-right-radius: 12px;
-    -moz-border-radius-bottomright: 12px;
-    border-bottom-right-radius: 12px;
-}
-tr.track-artist-credit .ac-balloon3 {
-    width: 20px; height: 12px; float: left; background: #eee;
-    padding: 0; margin: 0;
-    border-style: solid; border-width: 0 0 1px 1px; border-color: #999;
-    -webkit-border-bottom-left-radius: 12px;
-    -moz-border-radius-bottomleft: 12px;
-    border-bottom-left-radius: 12px;
-}
 
 /* __________________________________
 

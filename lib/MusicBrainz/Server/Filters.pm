@@ -9,6 +9,7 @@ use URI::Escape;
 use Encode;
 use Text::WikiFormat;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Try::Tiny;
 
 sub release_date
 {
@@ -69,12 +70,16 @@ sub format_wikitext
 
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;
-    return Text::WikiFormat::format($text, {}, {
-        prefix => "http://wiki.musicbrainz.org/",
-        extended => 1,
-        absolute_links => 1,
-        implicit_links => 0
-    });
+    return decode(
+        'utf-8',
+        Text::WikiFormat::format(
+            encode('utf-8' => $text), {}, {
+                prefix => "http://wiki.musicbrainz.org/",
+                extended => 1,
+                absolute_links => 1,
+                implicit_links => 0
+            })
+      );
 }
 
 sub format_editnote
@@ -143,6 +148,18 @@ sub uri_decode
 sub language
 {
     return code2language(shift);
+}
+
+sub locale
+{
+    my $locale_name = shift;
+    try {
+        my $locale = DateTime::Locale->load($locale_name);
+        return $locale->name
+    }
+    catch {
+        return;
+    }
 }
 
 1;

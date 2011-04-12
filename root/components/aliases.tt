@@ -11,14 +11,16 @@
                             [% l('Actions') %]
                         </td>
                     [% END %]
-                    <th style="width: 5em">[% l('Language') %]</th>
+                    <th style="width: 5em">[% l('Locale') %]</th>
                 </tr>
             </thead>
             <tbody about="[% rdfa_entity_curi(entity) %]">
             [%- FOREACH alias IN aliases -%]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>
+                        [% '<span class="mp">' IF alias.edits_pending %]
                         [% rdfa_alias(alias.name, entity) %]
+                        [% '</span>' IF alias.edits_pending %]
                     </td>
                     [% IF c.user_exists %]
                         <td>
@@ -30,7 +32,7 @@
                             </a>
                         </td>
                     [% END %]
-                    <td>[% IF alias.locale %][% alias.locale | language %][% END %]</td>
+                    <td>[% IF alias.locale %][% alias.locale | locale %][% END %]</td>
                 </tr>
             [%- END -%]
             </tbody>

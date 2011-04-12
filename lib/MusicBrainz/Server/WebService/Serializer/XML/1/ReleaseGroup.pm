@@ -17,7 +17,8 @@ before 'serialize' => sub
     # a special case, used when the release group is included in an artist lookup.
     return if $opts->{'gid-only'};
 
-    $self->attributes->{type} = $entity->type->name;
+    $self->attributes->{type} = $entity->type->name
+        if $entity->type;
 
     $self->add( $self->gen->title($entity->name) );
 

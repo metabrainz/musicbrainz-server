@@ -5,6 +5,13 @@ use warnings;
 use base 'MusicBrainz::Server::Edit::Historic::Label';
 use MusicBrainz::Server::Translation qw ( l ln );
 
+sub related_entities {
+    my $self = shift;
+    return {
+        label => [ $self->row_id ]
+    }
+}
+
 sub edit_name { l('Add label') }
 sub edit_type { 54 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::Create' }

@@ -6,7 +6,7 @@
                              { aliases => doc_link('Label_Alias') })) %]
        [% create_guideline(l("Are you sure you want to remove the alias {alias} , which
                               points to the label {label}?",
-                             { alias => alias.name, label => link_label(label) })) %]
+                             { alias => alias.name, label => link_entity(label) })) %]
        [% create_guideline(l("If you added this alias by mistake, please follow the
                               instructions about {cancel|how to cancel pending edits}, to
                               cancel the pending add track edit. Removing pending edits,

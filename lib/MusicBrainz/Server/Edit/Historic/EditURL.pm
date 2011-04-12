@@ -11,6 +11,13 @@ sub edit_name { l('Edit url') }
 sub edit_type { 59 }
 sub ngs_class { 'MusicBrainz::Server::Edit::URL::Edit' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        url => [ $self->data->{entity_id} ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;
@@ -28,7 +35,10 @@ sub do_upgrade
     remove_equal($old, $new);
 
     return {
-        entity_id => $self->resolve_url_id($self->row_id),
+        entity => {
+            id => $self->resolve_url_id($self->row_id),
+            name => '[deleted]'
+        },
         new => $new,
         old => $old
     }

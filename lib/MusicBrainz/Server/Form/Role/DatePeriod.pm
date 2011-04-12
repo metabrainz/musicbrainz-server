@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::Role::DatePeriod;
 use HTML::FormHandler::Moose::Role;
 
 use Date::Calc;
+use List::MoreUtils 'any';
 use MusicBrainz::Server::Translation qw( l ln );
 
 has_field 'begin_date' => (
@@ -19,8 +20,8 @@ after 'validate' => sub {
     my $begin = $self->field('begin_date')->value;
     my $end   = $self->field('end_date')->value;
 
-    return if $self->field('begin_date')->has_errors;
-    return if $self->field('end_date')->has_errors;
+    return if any { $_->has_errors } map { $_->fields }
+        $self->field('begin_date'), $self->field('end_date');
 
     return 1 unless $begin->{year} && $end->{year};
 

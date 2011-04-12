@@ -1,7 +1,6 @@
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
-      "scripts/MB/utility.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Artist.js",
       "scripts/MB/GuessCase/Mode/Base.js",
@@ -14,10 +13,17 @@
       "scripts/MB/GuessCase/Main.js",
       "scripts/MB/GuessCase/Artist.js",
       "scripts/MB/Control/ArtistEdit.js",
+      "scripts/MB/Control/Bubble.js",
+      "scripts/MB/Control/GuessCase.js",
     ) -%]"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-         MB.Control.ArtistEdit ();
+
+      MB.Control.ArtistEdit ();
+
+      var bubbles = MB.Control.BubbleCollection ();
+      MB.Control.initialize_guess_case (bubbles, 'artist');
+
     });
   </script>
 [% END %]

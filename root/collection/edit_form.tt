@@ -7,6 +7,10 @@
     </fieldset>
 
     <div class="row no-label">
-        [% form_submit(l('Create collection')) %]
+        [% IF c.action.name == "create" %]
+            [% form_submit(l('Create collection')) %]
+        [% ELSE %]
+            [% form_submit(l('Update collection')) %]
+        [% END %]
     </div>
 </form>

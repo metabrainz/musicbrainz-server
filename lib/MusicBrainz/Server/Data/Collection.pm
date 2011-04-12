@@ -49,6 +49,8 @@ sub _entity_class
 sub add_releases_to_collection
 {
     my ($self, $collection_id, @release_ids) = @_;
+    return unless @release_ids;
+
     $self->sql->auto_commit;
 
     my $added = $self->sql->select_single_column_array("SELECT release FROM editor_collection_release
@@ -69,10 +71,10 @@ sub add_releases_to_collection
 sub remove_releases_from_collection
 {
     my ($self, $collection_id, @release_ids) = @_;
+    return unless @release_ids;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->auto_commit;
-    $sql->do("DELETE FROM editor_collection_release
+    $self->sql->auto_commit;
+    $self->sql->do("DELETE FROM editor_collection_release
               WHERE collection = ? AND release IN (" . placeholders(@release_ids) . ")",
               $collection_id, @release_ids);
 }
@@ -81,8 +83,7 @@ sub check_release
 {
     my ($self, $collection_id, $release_id) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    return $sql->select_single_value("
+    return $self->sql->select_single_value("
         SELECT 1 FROM editor_collection_release
         WHERE collection = ? AND release = ?",
         $collection_id, $release_id) ? 1 : 0;
@@ -92,17 +93,15 @@ sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
     # a collection that already contains $new_id)
-    $sql->do("DELETE FROM editor_collection_release
+    $self->sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@old_ids).") AND
                   collection IN (SELECT collection FROM editor_collection_release WHERE release = ?)",
               @old_ids, $new_id);
 
     # Move all remaining joins to the new release
-    $sql->do("UPDATE editor_collection_release SET release = ?
+    $self->sql->do("UPDATE editor_collection_release SET release = ?
               WHERE release IN (".placeholders(@old_ids).")",
               $new_id, @old_ids);
 }
@@ -111,8 +110,7 @@ sub delete_releases
 {
     my ($self, @ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do("DELETE FROM editor_collection_release
+    $self->sql->do("DELETE FROM editor_collection_release
               WHERE release IN (".placeholders(@ids).")", @ids);
 }
 
@@ -130,7 +128,7 @@ sub find_by_editor
     $query .= "ORDER BY musicbrainz_collate(name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $id, $offset || 0);
 }
 
@@ -150,7 +148,7 @@ sub find_all_by_editor
 
     $query .= "ORDER BY musicbrainz_collate(name)";
     return query_to_list(
-        $self->c->dbh, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $id);
 }
 
@@ -170,6 +168,25 @@ sub insert
         );
     }
     return @created > 1 ? @created : $created[0];
+}
+
+sub load_release_count {
+    my ($self, @collections) = @_;
+    my %collection_map = map { $_->id => $_ } grep { defined } @collections;
+    my $query =
+        'SELECT id, coalesce(
+           (SELECT count(release)
+              FROM editor_collection_release
+             WHERE collection = col.id), 0)
+           FROM (
+              VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
+                ) col (id)';
+
+    $self->sql->select($query, keys %collection_map);
+    while (my ($id, $count) = $self->sql->next_row) {
+        $collection_map{$id}->release_count($count);
+    }
+    $self->sql->finish;
 }
 
 sub update

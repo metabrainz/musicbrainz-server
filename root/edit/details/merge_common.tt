@@ -1,0 +1,19 @@
+  <tr>
+    <th>[% l('Merge:') %]</th>
+    <td>
+      [% IF edit.display_data.old.size == 1 %]
+        [% entity = edit.display_data.old.0 %]
+        [% descriptive_link(entity) %]
+      [% ELSE %]
+      <ul>
+        [% FOR entity=edit.display_data.old %]
+        <li>[% descriptive_link(entity) %]</li>
+        [% END %]
+      </ul>
+      [% END %]
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>[% descriptive_link(edit.display_data.new) %]</td>
+  </tr>

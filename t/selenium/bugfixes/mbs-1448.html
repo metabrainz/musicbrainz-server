@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000" />
+<title>mbs-1448</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">mbs-1448</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/release/add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-name</td>
+	<td>MBS-1448 test release</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>open-ac</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-artist_credit.names.0.name</td>
+	<td>MBS-1448 test artist</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id-artist_credit.names.0.name</td>
+	<td>blur</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[name=step_tracklist]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>focus</td>
+	<td>css=textarea.tracklist</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.tracklist</td>
+	<td>1. LOVE (4:56)</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>css=textarea.tracklist</td>
+	<td>blur</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=#preview table.preview td.title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[name=step_editnote]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-missing.artist.0.sort_name</td>
+	<td>test artist, MBS-1448</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-missing.artist.0.comment</td>
+	<td>This is a comment for test artist MBS-1448.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[name=step_editnote]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=.add-release-group td:eq(0)</td>
+	<td>MBS-1448 test release</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=.add-release-group td:eq(1)</td>
+	<td>MBS-1448 test artist</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=.add-release td:eq(0)</td>
+	<td>MBS-1448 test release</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=.add-release td:eq(1)</td>
+	<td>MBS-1448 test artist</td>
+</tr>
+</tbody></table>
+</body>
+</html>

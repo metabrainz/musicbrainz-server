@@ -1,4 +1,4 @@
-<table class="tbl">
+<table class="tbl edit-release-events">
   <thead>
     <tr>
       <th>[% l('Release') %]</th>
@@ -19,11 +19,11 @@
   <tbody>
   [% FOR re=edit.display_data.additions %]
     <tr>
-      <td>[% link_release(re.release) %]</td>
+      <td>[% link_entity(re.release) %]</td>
       <td>[% re.date.format %]</td>
       <td>[% re.country.name %]</td>
-      <td>[% link_label(re.label) %]</td>
-      <td>[% re.catalog_number %]</td>
+      <td>[% link_entity(re.label) %]</td>
+      <td>[% re.catalog_number | html %]</td>
       <td>[% re.barcode %]</td>
       <td>[% re.format.name %]</td>
     </tr>
@@ -40,11 +40,11 @@
   <tbody>
   [% FOR re=edit.display_data.removals %]
     <tr>
-      <td>[% link_release(re.release) %]</td>
+      <td>[% link_entity(re.release) %]</td>
       <td>[% re.date.format %]</td>
       <td>[% re.country.name %]</td>
-      <td>[% link_label(re.label) %]</td>
-      <td>[% re.catalog_number %]</td>
+      <td>[% link_entity(re.label) %]</td>
+      <td>[% re.catalog_number | html %]</td>
       <td>[% re.barcode %]</td>
       <td>[% re.format.name %]</td>
     </tr>
@@ -62,7 +62,7 @@
   [% FOR re=edit.display_data.edits %]
     <tr>
       <td>
-        [% link_release(re.release) %]
+        [% link_entity(re.release) %]
       </td>
       <td>
         [% re.date.old.format %]<br />
@@ -73,12 +73,12 @@
         [% re.country.new.name %]<br />
       </td>
       <td>
-        [% link_label(re.label.old) %]<br />
-        [% link_label(re.label.new) %]
+        [% link_entity(re.label.old) %]<br />
+        [% link_entity(re.label.new) %]
       </td>
       <td>
-        [% re.catalog_number.old %]<br />
-        [% re.catalog_number.new %]
+        [% re.catalog_number.old | html %]<br />
+        [% re.catalog_number.new | html %]
       </td>
       <td>
         [% re.barcode.old %]<br />

@@ -12,7 +12,7 @@ has_field 'url' => (
 );
 
 has_field 'description' => (
-    type => 'Text'
+    type => '+MusicBrainz::Server::Form::Field::Text'
 );
 
 sub edit_field_names { qw( url description ) }

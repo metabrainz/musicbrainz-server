@@ -21,24 +21,24 @@
 /**
  * MB.Control.ReleaseLabel keeps track of the label/catno inputs.
  */
-MB.Control.ReleaseLabel = function(row, parent, labelno) {
+MB.Control.ReleaseLabel = function($row, parent, labelno) {
     var self = MB.Object();
 
-    self.row = row;
+    self.$row = $row;
     self.parent = parent;
     self.labelno = labelno;
 
-    if (!self.row)
+    if (!self.$row)
     {
-        self.catno_message = $('div.catno-container:first').clone ();
-	self.catno_message.insertAfter ($('div.catno-container:last'));
-	self.catno_message.hide ();
+        self.$catno_message = $('div.catno-container:first').clone ();
+        self.$catno_message.insertAfter ($('div.catno-container:last'));
+        self.$catno_message.hide ();
 
-	self.row = $('div.release-label:first').clone ();
-	self.row.find ('input.label-id').val ('');
-	self.row.find ('input.label-name').val ('');
-	self.row.find ('input.catno').val ('');
-	self.row.find ('*').each (function (idx, element) {
+        self.$row = $('div.release-label:first').clone ();
+        self.$row.find ('input.label-id').val ('');
+        self.$row.find ('input.label-name').val ('');
+        self.$row.find ('input.catno').val ('');
+        self.$row.find ('*').each (function (idx, element) {
             var item = $(element);
             if (item.attr ('id'))
             {
@@ -52,92 +52,86 @@ MB.Control.ReleaseLabel = function(row, parent, labelno) {
             }
         });
 
-        self.row.appendTo ($('div.label-container').append ());
+        self.$row.insertAfter ($('div.release-label:last'));
+        self.$row.find ('span.remove-label input').val ('0');
+        self.$row.show ();
     }
 
     /**
-     * toggleDelete (un)marks the track for deletion. Provide a boolean to delete
-     * or undelete a track, or leave it empty to toggle.
+     * markDeleted marks the track for deletion.
      */
-    var toggleDelete = function (value) {
-        var deleted = (value === undefined) ? !parseInt (self.deleted.val ()) : value;
-        if (deleted)
-        {
-            self.deleted.val('1');
-            self.row.addClass('deleted');
-            self.name.attr ('disabled', 'disabled');
-            self.catno.attr ('disabled', 'disabled');
-        }
-        else
-        {
-            self.deleted.val ('0');
-            self.row.removeClass('deleted');
-            self.name.removeAttr ('disabled');
-            self.catno.removeAttr ('disabled');
-        }
-
-        window.toggled = self;
+    self.markDeleted = function () {
+        self.$deleted.val('1');
+        self.$row.hide ();
     };
 
     /**
      * isDeleted returns true if this track is marked for deletion.
      */
-    var isDeleted = function () {
-        return self.deleted.val () === '1';
+    self.isDeleted = function () {
+        return self.$deleted.val () === '1';
     };
 
     /**
      * selected is a callback called by autocomplete when a selection is made.
      */
-    var selected = function (event, data) {
-        self.id.val(data.id);
-        self.name.removeClass('error');
-        self.name.val(data.name);
+    self.selected = function (event, data) {
+        self.$id.val(data.id);
+        self.$name.removeClass('error');
+        self.$name.val(data.name);
+        self.updateLookupPerformed ();
 
         event.preventDefault();
         return false;
     };
 
-    var catnoUpdate = function () {
-
-	if (self.catno.val ().match (/^B00[0-9A-Z]{7}$/))
+    self.updateLookupPerformed = function ()
+    {
+        if (self.$id.val ())
         {
-  	    self.catno.data ('bubble').show ();
+            self.$name.addClass ('lookup-performed');
         }
-	else
+        else
         {
-  	    self.catno.data ('bubble').hide ();
+            self.$name.removeClass ('lookup-performed');
         }
     };
 
-    self.id = self.row.find('input.label-id');
-    self.name = self.row.find('input.label-name');
-    self.catno = self.row.find('input.catno');
-    self.catno_message = $('div.catno').eq(self.labelno);
-    self.deleted = self.row.find ('span.remove-label input');
+    self.catnoUpdate = function () {
 
-    self.parent = parent;
-    self.catnoUpdate = catnoUpdate;
-    self.toggleDelete = toggleDelete;
-    self.isDeleted = isDeleted;
-    self.selected = selected;
+        if (self.$catno.val ().match (/^B00[0-9A-Z]{7}$/))
+        {
+            self.$catno.data ('bubble').show ();
+        }
+        else
+        {
+            self.$catno.data ('bubble').hide ();
+        }
+    };
 
-    self.catno.bind ('change keyup focus', self.catnoUpdate);
+    self.$id = self.$row.find('input.label-id');
+    self.$name = self.$row.find('input.label-name');
+    self.$catno = self.$row.find('input.catno');
+    self.$catno_message = $('div.catno').eq(self.labelno);
+    self.$deleted = self.$row.find ('span.remove-label input');
+
+    self.$catno.bind ('change keyup focus', self.catnoUpdate);
     MB.Control.Autocomplete ({
-        'input': self.name,
+        'input': self.$name,
         'entity': 'label',
         'select': self.selected
     });
 
-    self.row.find ("a[href=#remove_label]").click (function () { self.toggleDelete() });
+    self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
 
     if (self.isDeleted ())
     {
         // if the label is marked as deleted, make sure it is displayed as such
         // after page load.
-        self.toggleDelete (1);
+        self.markDeleted ();
     }
 
+    self.updateLookupPerformed ();
 
     return self;
 };
@@ -151,7 +145,7 @@ MB.Control.ReleaseBarcode = function() {
     self.suggestion = $('p.barcode-suggestion');
     self.count = 0;
 
-    var checkDigit = function (barcode) {
+    self.checkDigit = function (barcode) {
         var weights = [ 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3 ];
 
         if (barcode.length !== 12)
@@ -170,25 +164,29 @@ MB.Control.ReleaseBarcode = function() {
         return checkdigit === 10 ? '0' : '' + checkdigit;
     };
 
-    var validate = function (barcode) {
+    self.validate = function (barcode) {
         return self.checkDigit (barcode.slice (0, 12)) === barcode[12];
     };
 
-    var clean = function () {
-        var barcode = self.input.val ().replace (/[^0-9]/g, '');
+    self.clean = function () {
+        var current = self.input.val ();
+        var barcode = current.replace (/[^0-9]/g, '');
 
-        self.input.val (barcode);
+        if (barcode !== current)
+        {
+            self.input.val (barcode);
+        }
 
         return barcode;
     };
 
-    var update = function () {
+    self.update = function () {
         var barcode = self.clean ();
 
         if (barcode.length === 0)
         {
-            self.message.html ("");
-            self.suggestion.html ("");
+            self.message.html ('');
+            self.suggestion.html ('');
         }
         else if (barcode.length === 11)
         {
@@ -201,7 +199,7 @@ MB.Control.ReleaseBarcode = function() {
             if (self.validate ('0' + barcode))
             {
                 self.message.html (MB.text.Barcode.ValidUPC);
-                self.suggestion.html ("");
+                self.suggestion.html ('');
             }
             else
             {
@@ -221,20 +219,15 @@ MB.Control.ReleaseBarcode = function() {
             else
             {
                 self.message.html (MB.text.Barcode.InvalidEAN);
-                self.suggestion.html (MB.text.DoubleCheck);
+                self.suggestion.html (MB.text.Barcode.DoubleCheck);
             }
         }
         else
         {
             self.message.html (MB.text.Barcode.Invalid);
-            self.suggestion.html (MB.text.DoubleCheck);
+            self.suggestion.html (MB.text.Barcode.DoubleCheck);
         }
     };
-
-    self.checkDigit = checkDigit;
-    self.validate = validate;
-    self.clean = clean;
-    self.update = update;
 
     self.input.bind ('change keyup', self.update);
     self.update ();
@@ -249,32 +242,32 @@ MB.Control.ReleaseDate = function (bubble_collection) {
     self.bubbles = bubble_collection;
 
     self.inputs = [ $('#id-date\\.year'),
-        $('#id-date\\.month'), $('#id-date\\.day') ] 
+        $('#id-date\\.month'), $('#id-date\\.day') ]
     self.message = $('div.date');
 
-    var amazonEpoch = function () {
-	return (self.inputs[0].val () == '1995' &&
-	  self.inputs[1].val () == '10' &&
-          self.inputs[2].val () == '25');
+    self.amazonEpoch = function () {
+        return (self.inputs[0].val () == '1995' &&
+                self.inputs[1].val () == '10' &&
+                self.inputs[2].val () == '25');
     };
 
-    var januaryFirst = function () {
+    self.januaryFirst = function () {
         return (parseInt (self.inputs[1].val (), 10) === 1 &&
                 parseInt (self.inputs[2].val (), 10) === 1);
     };
 
-    var update = function (event) {
+    self.update = function (event) {
         var amazon = self.amazonEpoch ();
         var january = self.januaryFirst ();
 
-	if (amazon || january)
+        if (amazon || january)
         {
-            $(this).data ('bubble').show ();
-	}
-	else
-	{
-            $(this).data ('bubble').hide ();
-	}
+            self.bubble.show ();
+        }
+        else
+        {
+            self.bubble.hide ();
+        }
 
         if (amazon)
         {
@@ -295,16 +288,12 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         }
     };
 
-    self.januaryFirst = januaryFirst;
-    self.amazonEpoch = amazonEpoch;
-    self.update = update;
-
     $.each (self.inputs, function (idx, item) {
-        item.data ('bubble', 
-            MB.Control.BubbleDocBase (self.bubbles, item, self.message));
-
         item.bind ('change keyup focus', self.update);
     });
+
+    self.bubble = self.bubbles.add (
+        self.inputs[0].closest ('span.partial-date'), self.message);
 
     return self;
 };
@@ -315,12 +304,42 @@ MB.Control.ReleaseInformation = function() {
     self.bubbles = MB.Control.BubbleCollection ();
     self.release_date = MB.Control.ReleaseDate (self.bubbles);
 
-    var initialize = function () {
+    self.variousArtistsChecked = function () {
+        if (self.artistcredit.isEmpty ())
+        {
+            var va = {
+                'artist_name': MB.constants.VARTIST_NAME,
+                'sortname': MB.constants.VARTIST_NAME,
+                'name': '',
+                'gid': MB.constants.VARTIST_GID,
+                'id': ''
+            };
 
-        self.bubbles.add ($('#release-artist'), $('div.artist-credit'));
+            self.artistcredit.render ({ names: [ va ] });
+        }
+    };
+
+    self.initialize = function () {
+
+        self.bubbles.add ($('#help-va'), $('div.help-va'));
+        self.bubbles.add ($('#help-cta'), $('div.help-cta'));
+        self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
-        self.bubbles.add ($('#annotation'), $('div.annotation'));
+        self.bubbles.add ($('#id-annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
+
+        $('#id-various_artists').bind ('change', function () {
+            if ($(this).is(':checked'))
+            {
+                self.variousArtistsChecked ();
+            }
+        });
+
+        if ($('div.artist-credit-box:eq(0) input.gid').val () ===
+            MB.constants.VARTIST_GID)
+        {
+            $('#id-various_artists').attr ('checked', 'checked');
+        }
 
         $('div.release-label').each (function () {
             self.addLabel ($(this));
@@ -331,46 +350,39 @@ MB.Control.ReleaseInformation = function() {
             $(this).val (barcode);
         });
 
-        $('a[href=#add_label]').click (function (event) {
+        $('a[href=#add_label]').bind ('click.mb', function (event) {
             self.addLabel ();
-	    self.bubbles.hideAll ();
+            self.bubbles.hideAll ();
             event.preventDefault ();
         });
 
-        var annotation = $('#annotation');
-        annotation.focus (function() { annotation.css('height','70px'); });
-        annotation.blur (function() {
-            if (!annotation.attr('value'))
-            {
-                annotation.css('height','10px');
-            }
-        });
-
         self.artistcredit = MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit')
+            $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
 
+        $('input#release-artist').bind ('artistCreditChanged', function (event) {
+            $('div.row.change-track-artists').show ();
+        });
     };
 
-    var addLabel = function (row) {
+    self.addLabel = function ($row) {
         var labelno = self.labels.length;
-        var l = MB.Control.ReleaseLabel(row, self, labelno);
+        var l = MB.Control.ReleaseLabel($row, self, labelno);
 
         self.labels.push (l);
 
-        MB.Control.BubbleDocBase (self.bubbles, l.catno, l.catno_message);
+        MB.Control.BubbleDocBase (self.bubbles, l.$catno, l.$catno_message);
+
+        return l;
     };
 
-    var submit = function () {
+    self.submit = function () {
         // always submit disabled inputs.
         $('input:disabled').removeAttr ('disabled');
     };
 
     self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
-    self.initialize = initialize;
-    self.addLabel = addLabel;
-    self.submit = submit;
 
     self.initialize ();
 
@@ -378,3 +390,4 @@ MB.Control.ReleaseInformation = function() {
 
     return self;
 }
+

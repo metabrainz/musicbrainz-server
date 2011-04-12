@@ -27,8 +27,7 @@ sub get_by_gid
     }
     my $table = $self->_gid_redirect_table;
     if (defined($table)) {
-        my $sql = Sql->new($self->c->dbh);
-        my $id = $sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
+        my $id = $self->sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
         if (defined($id)) {
             return $self->get_by_id($id);
         }
@@ -39,34 +38,32 @@ sub get_by_gid
 sub find_by_name
 {
     my ($self, $name) = @_;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . " WHERE name.name = ?";
-    return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query, $name);
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
+                  WHERE unaccent(lower(name.name)) = unaccent(lower(?))";
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
 sub remove_gid_redirects
 {
     my ($self, @ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
-    $sql->do("DELETE FROM $table WHERE new_id IN (" . placeholders(@ids) . ')', @ids);
+    $self->sql->do("DELETE FROM $table WHERE new_id IN (" . placeholders(@ids) . ')', @ids);
 }
 
 sub add_gid_redirects
 {
     my ($self, %redirects) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
     my $query = "INSERT INTO $table (gid, new_id) VALUES " .
                 (join ", ", ('(?, ?)') x keys %redirects);
-    $sql->do($query, %redirects);
+    $self->sql->do($query, %redirects);
 }
 
 sub update_gid_redirects
 {
     my ($self, $new_id, @old_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
-    $sql->do("
+    $self->sql->do("
         UPDATE $table SET new_id = ?
         WHERE new_id IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
@@ -79,8 +76,7 @@ sub _delete_and_redirect_gids
     $self->update_gid_redirects($new_id, @old_ids);
 
     # Delete the recording and select current GIDs
-    my $sql = Sql->new($self->c->dbh);
-    my $old_gids = $sql->select_single_column_array('
+    my $old_gids = $self->sql->select_single_column_array('
         DELETE FROM '.$table.'
         WHERE id IN ('.placeholders(@old_ids).')
         RETURNING gid', @old_ids);

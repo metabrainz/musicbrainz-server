@@ -1,5 +1,5 @@
 input { background: #fff; color: #000; }
-.jquery_placeholder { color: #aaa; }
+input:-moz-placeholder, .mb_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {
@@ -24,6 +24,14 @@ form div.row div.label {
     margin-right: 12px;
 }
 
+div.bubble div.row input[type=text] {
+    width: 176px;
+    font-size: 1em;
+}
+
+div.bubble div.row label,
+div.bubble div.row div.label { width: 150px; }
+
 form div.row p { float: none; clear: none; }
 
 form div.no-label,
@@ -46,8 +54,10 @@ span.error {
 
 input.error,
 select.error {
-    background: #ffaaaa;
+    background: #ffaaaa ! important;
 }
+
+input.lookup-performed { background: #bfb; }
 
 form .input-note {
     font-style: italic;
@@ -108,8 +118,20 @@ div.searchform {
 
 /* __________________________________
 
+          Guess Case doc bubble
+   __________________________________ */
+
+div.guesscase-options table td { vertical-align: top; width: 50%; }
+
+/* __________________________________
+
           MB.Control.Autocomplete
    __________________________________ */
+
+span.autocomplete { display: inline-block; position: relative; }
+span.autocomplete img.search { position: absolute; right: 2px; top: 3px; }
+span.autocomplete.disabled img.search { display: none; }
+span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
 
 .ui-autocomplete-loading {
     background: white url(../lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif) right center no-repeat;
@@ -153,9 +175,12 @@ div.documentation {
 }
 
 div.half-width fieldset {
-    background-color: #f0f0f0;
-    border: 1px solid #aaa;
+    border: 1px solid #ddd;
     margin-top: 0;
+
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 div.half-width fieldset.editnote {
@@ -196,6 +221,10 @@ div.half-width fieldset textarea {
     width: 300px;
 }
 
+div.half-width fieldset input.label-code {
+    width: 100px;
+}
+
 div.half-width fieldset h3 {
     margin: 24px 10px 0;
 }
@@ -210,5 +239,6 @@ div.documentation div.bubble {
     border-radius: 12px;
 }
 
-div.documentation div.artist-credit div.row { clear: none; }
+div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
+div.documentation div.container { width: 100%; }
 

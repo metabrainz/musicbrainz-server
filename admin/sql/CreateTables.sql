@@ -74,7 +74,7 @@ CREATE TABLE artist_credit_name (
     position            SMALLINT NOT NULL, -- PK
     artist              INTEGER NOT NULL, -- references artist.id CASCADE
     name                INTEGER NOT NULL, -- references artist_name.id
-    join_phrase         VARCHAR(32)
+    join_phrase         TEXT
 );
 
 CREATE TABLE artist_gid_redirect
@@ -967,7 +967,7 @@ CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references work_name.id
-    artist_credit       INTEGER NOT NULL, -- references artist_credit.id
+    artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),

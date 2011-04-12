@@ -1,45 +1,42 @@
 [%- BLOCK layout_head -%]
-  <script src="[% c.uri_for('/static/lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/utility.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ArtistCredit.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/Autocomplete.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/Bubble.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/static/scripts/MB/Control/ReleaseInformation.js') %]" type="text/javascript"></script>
-  <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/styles/release-editor.css') %]" />
+  <link rel="stylesheet" type="text/css" href="[%-
+      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
+
   <script type="text/javascript">
     $('document').ready (function () {
-
-       MB.Control.ReleaseInformation ();
-
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
     });
   </script>
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
-  <div class="half-width">
-    [% r.hidden ('wizard_session_id') %]
-    <fieldset>
-      <legend>[% l('Similar releases') %]</legend>
-      <p>[% l('Based on the information you have provided, we have found the
-        following similar release to already exist in MusicBrainz. If you wish
-        to base your release on an existing release, select it below.') %]</p>
-      <ul>
-        [% FOR similar=similar_releases %]
-            <li>
-              <input type="radio" name="[% form.field('duplicate_id').html_name %]" value="[% similar.id %]" />
-              [% link_release(similar) %]
-            </li>
-        [% END %]
-      </ul>
-    </fieldset>
-    <div class="buttons ui-helper-clearfix">
-      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-      [% r.submit ('previous', l('« Previous')) %]
-      [% r.submit ('next', l('Next »')) %]
+  [% r.hidden ('wizard_session_id') %]
+  <fieldset>
+    <legend>[% l('Similar releases') %]</legend>
+    <p>[% l('Based on the information you have provided, we have found the
+      following similar release to already exist in MusicBrainz. If you wish
+      to base your release on an existing release, select it below.') %]</p>
+
+    [% BLOCK release_row_prefix %]
+    <td>
+      <input type="radio" name="[% form.field('duplicate_id').html_name %]"
+             value="[% release.id %]" />
+    </td>
+    [% END %]
+    [% INCLUDE 'release_group/releases-list.tt' releases=similar_releases %]
+
+    <div class="row no-label">
+        <input id="no-duplicate" name="[% form.field('duplicate_id').html_name %]"
+               value="" type="radio" checked="checked" />
+        <label for="no-duplicate" class="inline">
+          [% l('Do not use any of the above releases as a starting point') %]
+        </label>
     </div>
+  </fieldset>
+  <div class="buttons ui-helper-clearfix">
+    [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
+    [% r.submit ('previous', l('« Previous')) %]
+    [% r.submit ('next', l('Next »')) %]
   </div>
 [%- END -%]

@@ -1,4 +1,10 @@
-[%- WRAPPER 'layout.tt' full_width=1 edit=1 title='Release Editor (FIXME: change title)' -%]
+[% IF release.name %]
+   [% page_title = l('Edit Release: {name}', { name => release.name }) %]
+[% ELSE %]
+   [% page_title = l('Add Release') %]
+[% END %]
+
+[%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
   <form action="[% c.req.uri %]" method="post" class="release-editor">
 
     <div id="release-editor">
@@ -13,6 +19,16 @@
     [%- IF no_javascript -%]
       [%- warning( l("Javascript needs to be enabled to edit releases.") ) -%]
     [%- END -%]
+
+    [%- IF !hide_errors && form.error_fields.size -%]
+      [%- field_message = "" -%]
+      [%- FOR field=form.error_fields -%]
+        [%- IF loop.index > 0 -%][%- field_message = field_message _ ", " -%][% END %]
+        [%- field_message = field_message _ (field.label || field.name) -%]
+      [% END %]
+      [%- message = l("There were one or more errors, please check the following fields: {fields}", fields => field_message) -%]
+      [%- warning(message) -%]
+    [% END %]
 
     [% content %]
 

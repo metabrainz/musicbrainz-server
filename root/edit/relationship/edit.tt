@@ -1,13 +1,7 @@
 [% BLOCK layout_head %]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-  <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
   <script type="text/javascript" src="[%-
       c.model('FileCache').squash_scripts(
-        "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
         "scripts/MB/html.js",
-        "scripts/MB/utility.js",
-        "scripts/MB/Control/Autocomplete.js",
-        "scripts/MB/Control/AutocompleteRecording.js",
         "scripts/MB/Control/RelationshipEdit.js",
         "scripts/ar.js",
       )
@@ -30,12 +24,15 @@
 [%- MACRO relationship_entity(field, entity, type) BLOCK; -%]
   [%- IF type != 'url' -%]
     [%- r.hidden(field.field('id')) -%]
-    [%- r.text(field.field('name')) -%]
+    <span class="[% type %] autocomplete">
+      [%- r.text(field.field('name'), class => type _ '-name') -%]
+      <img class="search" src="/static/images/icons/search.png" />
+    </span>
     <span class="link">
       [%# NOTE: do not add other classes to the <a> element below, this class is used by javascript to get the entity type. --warp. %]
-      <a tabindex="-1" class="[%- type -%]"
+      <a tabindex="-1" class="[%- type -%]" target="_blank"
         [% IF entity.gid %]
-          href="[% "/" _ type _ "/show/" _  entity.gid %]"
+          href="[% "/" _ type _ "/" _  entity.gid %]"
           title="[% entity.comment %]"
         [% ELSE %]
           href=""
@@ -53,12 +50,6 @@
 var typeInfo = [% type_info %];
 </script>
 
-[%# FIXME: move this checkbox elsewhere. --warp. %]
-<p style="float: right; margin: 16px 1em; text-align: right;">
-    <input style="margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;" class="autocomplete-directsearch" type="checkbox" value="0"></input>
-    <label>[%- l('Use direct search') -%]</label>
-</p>
-
 <fieldset>
     <legend>[% l('Relationship Details') %]</legend>
 
@@ -72,7 +63,7 @@ var typeInfo = [% type_info %];
     <tr>
         <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
         <td colspan="2">
-            [% r.select('link_type_id') %]
+            [% r.select('link_type_id', no_default => 1) %]
             [% field_errors(form, 'link_type_id') %]
             [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
               <span id="change-direction">

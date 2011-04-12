@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details add-track-kv">
     <tr>
         <th>[% l('Title:') %]</th>
         <td>[% new.TrackName %]</td>

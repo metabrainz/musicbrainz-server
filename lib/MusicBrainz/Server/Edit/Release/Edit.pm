@@ -24,11 +24,14 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Release';
+
+use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { l('Edit release') }
 sub _edit_model { 'Release' }
-sub release_id { shift->data->{entity_id} }
+sub release_id { shift->data->{entity}{id} }
 
 sub change_fields
 {
@@ -50,7 +53,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         new => change_fields(),
         old => change_fields()
     ]
@@ -76,6 +82,10 @@ sub foreign_keys
             } qw( new old )
         }
     }
+
+    $relations->{Release} = {
+        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+    };
 
     return $relations;
 }
@@ -111,6 +121,9 @@ sub build_display_data
             old => partial_date_from_row($self->data->{old}{date}),
         };
     }
+
+    $data->{release} = $loaded->{Release}{ $self->data->{entity}{id} }
+        || Release->new( name => $self->data->{entity}{name} );
 
     return $data;
 }

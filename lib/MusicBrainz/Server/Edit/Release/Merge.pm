@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
     -excludes => 'release_ids'
 };
+with 'MusicBrainz::Server::Edit::Release';
 
 has '+data' => (
     isa => Dict[
@@ -45,7 +46,7 @@ sub foreign_keys
     }
 }
 
-override 'accept' => sub
+sub do_merge
 {
     my $self = shift;
     $self->c->model('Release')->merge(

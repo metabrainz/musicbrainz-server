@@ -1,6 +1,5 @@
-<h2>[% l("Relationships") %]</h2>
-
 [%- DEFAULT relationships = source.grouped_relationships -%]
+
 [% IF relationships.size %]
     [% hide_ac = entity_type(source) == 'artist' ? source.name
                : source.artist_credit.defined    ? source.artist_credit.name
@@ -18,9 +17,8 @@
                               rel.target.artist_credit.name != hide_ac %]
                             [% l('{entity} by {artist}', { entity => link_entity(rel.target),
                                                            artist => artist_credit(rel.target.artist_credit) }) %]
-                            [% disambiguation(rel.target) %]
                         [% ELSE %]
-                            [% link_entity(rel.target) %] [% disambiguation(rel.target) %]
+                            [% link_entity(rel.target) %]
                         [% END %]
                         [% IF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
                         ([% rel.link.begin_date.format %]&mdash;[% rel.link.end_date.format %])

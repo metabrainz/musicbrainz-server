@@ -10,6 +10,16 @@ sub edit_name { l('Merge artists') }
 sub edit_type { 6 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Merge' }
 
+sub related_entities {
+    my $self = shift;
+    return {
+        artist => [
+            $self->data->{new_entity}{id},
+            map { $_->{id} } @{ $self->data->{old_entities} }
+        ]
+    }
+}
+
 sub do_upgrade
 {
     my $self = shift;
@@ -22,6 +32,7 @@ sub do_upgrade
         old_entities => [
             { id => $self->row_id, name => $self->previous_value }
         ],
+        rename => 1
     };
 };
 

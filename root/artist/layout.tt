@@ -9,26 +9,26 @@
                content=html_escape(artist.type_name)
                    IF artist.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
-	       property='foaf:gender'
+               property='foaf:gender'
                content=html_escape(artist.gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
                 [% date_period_label = artist.type_id == 1 ? l('Born:') : l('Active:') %]
                 [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
                     [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &mdash;
-		    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
-                [% IF artist.has_age %]
-                   ([% rdfa_artist_age(display_age (artist.age)) %])
+                    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
+                    [% IF artist.has_age %]
+                      ([% rdfa_artist_age(display_age (artist.age)) %])
+                    [% END %]
                 [% END %]
-            [% END %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-               content=html_escape(artist.ipi_code)
-                   IF artist.ipi_code -%]
             [%- END -%]
-	    [%# TODO model country %]
+            [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(artist.country.name)
                    IF artist.country -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+               content=html_escape(artist.ipi_code)
+                   IF artist.ipi_code -%]
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
@@ -44,7 +44,7 @@
                 [% ELSE %]
                     <li><a href="[% c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
                 [% END %]
-                <li>[% link_artist(artist, 'subscribers', l('Subscribers')) %]</li>
+                <li>[% link_entity(artist, 'subscribers', l('Subscribers')) %]</li>
             [% END %]
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
@@ -58,11 +58,12 @@
                       [% l('Merge this artist with another') %]
                     </a>
                   </li>
-                  <li>[% link_artist(artist, 'edits', l('View editing history')) %]</li>
+                  <li>[% link_entity(artist, 'edits', l('View editing history')) %]</li>
                   [% IF artist.edits_pending %]
-                    <li>[% link_artist(artist, 'open_edits', l('Open edits')) %]</li>
+                    <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
                   <li>[% use_in_relationship(artist) %]</li>
+                  <li>[% relate_to_ellipsis(artist) %]</li>
                   <li>[% relate_to_url(artist) %]</li>
                 [% END %]
                 <li>
@@ -87,10 +88,10 @@
                 </li>
                 [% IF watching_artist %]
                     <li>
-                        [% link_artist(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
+                        [% link_entity(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
                     </li>
                 [% ELSE %]
-                    <li>[% link_artist(artist, 'watch', l('Watch this artist for new releases')) %]</li>
+                    <li>[% link_entity(artist, 'watch', l('Watch this artist for new releases')) %]</li>
                 [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Please log in to edit this artist')) %]</li>

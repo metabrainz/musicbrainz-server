@@ -7,13 +7,14 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
-    hash_to_row
     add_partial_date_to_row
+    defined_hash
     generate_gid
+    hash_to_row
+    load_subobjects
+    merge_table_attributes
     partial_date_from_row
     placeholders
-    load_subobjects
     query_to_list_limited
 );
 
@@ -92,7 +93,7 @@ sub find_by_subscribed_editor
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
 }
 
@@ -107,7 +108,7 @@ sub find_by_recording
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $recording_id, $offset || 0);
 }
 
@@ -130,7 +131,7 @@ sub find_by_release
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $release_id, $release_id, $offset || 0);
 }
 
@@ -145,7 +146,7 @@ sub find_by_release_group
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $recording_id, $offset || 0);
 }
 
@@ -160,7 +161,7 @@ sub find_by_work
                  ORDER BY musicbrainz_collate(name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $recording_id, $offset || 0);
 }
 
@@ -173,7 +174,6 @@ sub load
 sub insert
 {
     my ($self, @artists) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @artists);
     my $class = $self->_entity_class;
     my @created;
@@ -184,7 +184,7 @@ sub insert
 
         push @created, $class->new(
             name => $artist->{name},
-            id => $sql->insert_row('artist', $row, 'id'),
+            id => $self->sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -195,17 +195,15 @@ sub update
 {
     my ($self, $artist_id, $update) = @_;
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
-    my $sql = Sql->new($self->c->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('artist', $row, { id => $artist_id });
+    $self->sql->update_row('artist', $row, { id => $artist_id });
 }
 
 sub can_delete
 {
     my ($self, $artist_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-    my $active_credits = $sql->select_single_column_array(
+    my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
         $artist_id
@@ -225,8 +223,7 @@ sub delete
     $self->rating->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do($query, @artist_ids);
+    $self->sql->do($query, @artist_ids);
     return 1;
 }
 
@@ -237,11 +234,20 @@ sub merge
     $self->alias->merge($new_id, @$old_ids);
     $self->tags->merge($new_id, @$old_ids);
     $self->rating->merge($new_id, @$old_ids);
-    $self->subscription->merge($new_id, @$old_ids);
+    $self->subscription->merge_entities($new_id, @$old_ids);
     $self->annotation->merge($new_id, @$old_ids);
     $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
     $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
+
+    merge_table_attributes(
+        $self->sql => (
+            table => 'artist',
+            columns => [ qw( comment ipi_code gender country type ) ],
+            old_ids => $old_ids,
+            new_id => $new_id
+        )
+    );
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
@@ -286,6 +292,100 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
+}
+
+sub load_for_works {
+    my ($self, @works) = @_;
+    return unless @works;
+
+    my %id_to_work = map { $_->id => $_ } @works;
+    my @ids = keys %id_to_work;
+
+    my $cte = '
+WITH works AS (
+    SELECT work.id FROM (
+        VALUES ' .
+            join(',', ('(?::INTEGER)') x @ids)
+        . ') AS work (id)
+),
+work_recordings AS (
+    SELECT entity0 AS recording, entity1 AS work
+      FROM l_recording_work lrw
+      JOIN works ON lrw.entity1 = works.id
+), recordings AS (
+    SELECT row_number() OVER (
+               PARTITION BY work, recording
+               ORDER BY count(recording_ids.recording) DESC
+           ), work, recording
+      FROM (
+           SELECT wr.work, entity1 AS recording
+             FROM l_artist_recording
+             JOIN work_recordings wr ON wr.recording = entity1
+        UNION ALL
+           SELECT wr.work, entity1 AS recording
+             FROM l_label_recording
+             JOIN work_recordings wr ON wr.recording = entity1
+        UNION ALL
+           SELECT wr.work, entity1 AS recording
+             FROM l_recording_recording
+             JOIN work_recordings wr ON wr.recording = entity1
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_recording
+             JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_release
+             JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_release_group
+             JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_url
+             JOIN work_recordings wr ON wr.recording = entity0
+        UNION ALL
+           SELECT wr.work, entity0 AS recording
+             FROM l_recording_work
+             JOIN work_recordings wr ON wr.recording = entity0
+       ) recording_ids
+       GROUP BY work, recording
+),
+popular_recordings AS (
+    SELECT work, recording FROM recordings
+     WHERE row_number <= 3
+)
+';
+
+    my $subq = '(
+    SELECT entity1 AS work, entity0 AS artist
+      FROM l_artist_work
+      JOIN works ON works.id = entity1
+
+UNION
+
+    SELECT pr.work, acn.artist
+      FROM popular_recordings pr
+      JOIN recording r ON pr.recording = r.id
+      JOIN artist_credit_name acn ON r.artist_credit = acn.artist_credit
+) s';
+
+    my $query = $cte .
+        'SELECT s.work, ' . $self->_columns .
+        "  FROM $subq," . $self->_table .
+        '  WHERE s.artist = artist.id';
+
+    $self->sql->select($query, @ids);
+    my %artist_cache;
+
+    while (my $row = $self->sql->next_row_hash_ref) {
+        my $artist = $artist_cache{$row->{id}} || do {
+            $artist_cache{$row->{id}} = $self->_new_from_row($row);
+        };
+
+        $id_to_work{ $row->{work} }->add_artist($artist);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

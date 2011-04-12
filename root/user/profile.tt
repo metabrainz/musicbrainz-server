@@ -12,8 +12,6 @@
     <h2>[% l('General Information') %]</h2>
     <dl class="profileinfo">
 
-        [% html_escape(user.name) WRAPPER property name=l("Name") %]
-
         [% WRAPPER property name=l("Email:") %]
             [% IF user.email %]
                 [% IF viewing_own_profile %]
@@ -115,26 +113,32 @@
 
         <tbody>
         [% WRAPPER statistics name=l("Accepted") %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => '/404' }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => c.uri_for_action('/user/edits/accepted', [ user.name ]) }) %]
         [% END %]
 
         [% WRAPPER statistics name=l("Autoedits") %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_auto_edits), view_url => '/404' }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_auto_edits), view_url => c.uri_for_action('/user/edits/autoedits', [ user.name ]) }) %]
         [% END %]
 
         [% WRAPPER statistics name=l("Voted down") %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.rejected_edits), view_url => '/404' }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(user.rejected_edits), view_url => c.uri_for_action('/user/edits/rejected', [ user.name ]) }) %]
         [% END %]
 
         [% WRAPPER statistics name=l("Failed") %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.failed_edits), view_url => '/404' }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(user.failed_edits), view_url => c.uri_for_action('/user/edits/failed', [ user.name ]) }) %]
         [% END %]
         </tbody>
     </table>
 
     <table class="statistics" summary="[% l('This table shows a summary of votes cast by this editor.') %]">
         <thead>
-        <tr><th colspan="3">[% l('Votes ({view_url|view})', { view_url => '/404' }) %]</th></tr>
+          <tr>
+            <th colspan="3">
+              [% l('Votes ({view_url|view})', {
+                     view_url => c.uri_for_action('/user/edits/votes', [ user.name ])
+                 }) %]
+            </th>
+          </tr>
             <tr>
                 <th id="table_vote_summary_vote"></th>
                 <th id="table_vote_summary_recent">

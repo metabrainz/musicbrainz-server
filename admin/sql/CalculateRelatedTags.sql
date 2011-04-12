@@ -25,7 +25,7 @@ CREATE TEMPORARY TABLE tmp_label_tag_count
     max_count INTEGER NOT NULL
 );
 
-CREATE TEMPORARY TABLE tmp_track_tag_count
+CREATE TEMPORARY TABLE tmp_recording_tag_count
 (
     id INTEGER NOT NULL,
     max_count INTEGER NOT NULL
@@ -41,11 +41,11 @@ GROUP BY a.id;
 
 
 INSERT INTO tmp_release_tag_count SELECT
-    a.id, MAX(t.count) AS max_count
+    r.id, MAX(t.count) AS max_count
 FROM
-    album a
-    JOIN release_tag t ON t.release = a.id
-GROUP BY a.id;
+    release r
+    JOIN release_tag t ON t.release = r.id
+GROUP BY r.id;
 
 
 INSERT INTO tmp_label_tag_count SELECT
@@ -56,18 +56,18 @@ FROM
 GROUP BY a.id;
 
 
-INSERT INTO tmp_track_tag_count SELECT
+INSERT INTO tmp_recording_tag_count SELECT
     a.id, MAX(t.count) AS max_count
 FROM
-    track a
-    JOIN track_tag t ON t.track = a.id
+    recording a
+    JOIN recording_tag t ON t.recording = a.id
 GROUP BY a.id;
 
 
 CREATE UNIQUE INDEX tmp_artist_tag_count_id_idx ON tmp_artist_tag_count (id);
 CREATE UNIQUE INDEX tmp_release_tag_count_id_idx ON tmp_release_tag_count (id);
 CREATE UNIQUE INDEX tmp_label_tag_count_id_idx ON tmp_label_tag_count (id);
-CREATE UNIQUE INDEX tmp_track_tag_count_id_idx ON tmp_track_tag_count (id);
+CREATE UNIQUE INDEX tmp_recording_tag_count_id_idx ON tmp_recording_tag_count (id);
 
 
 ----------------------------------------
@@ -96,7 +96,7 @@ CREATE TEMPORARY TABLE tmp_label_tag_relation
     weight FLOAT NOT NULL
 );
 
-CREATE TEMPORARY TABLE tmp_track_tag_relation
+CREATE TEMPORARY TABLE tmp_recording_tag_relation
 (
     tag1 INTEGER NOT NULL,
     tag2 INTEGER NOT NULL,
@@ -121,7 +121,7 @@ INSERT INTO tmp_release_tag_relation SELECT
     t1.tag, t2.tag,
     SUM(((t1.count + t2.count) / 2.0) / tc.max_count) AS weight
 FROM
-    album a
+    release a
     JOIN release_tag t1 ON t1.release = a.id
     JOIN release_tag t2 ON t2.release = a.id
     LEFT JOIN tmp_release_tag_count tc ON a.id = tc.id
@@ -143,14 +143,14 @@ GROUP BY t1.tag, t2.tag
 HAVING COUNT(*) >= 3;
 
 
-INSERT INTO tmp_track_tag_relation SELECT
+INSERT INTO tmp_recording_tag_relation SELECT
     t1.tag, t2.tag,
     SUM(((t1.count + t2.count) / 2.0) / tc.max_count) AS weight
 FROM
-    track a
-    JOIN track_tag t1 ON t1.track = a.id
-    JOIN track_tag t2 ON t2.track = a.id
-    LEFT JOIN tmp_track_tag_count tc ON a.id = tc.id
+    recording a
+    JOIN recording_tag t1 ON t1.recording = a.id
+    JOIN recording_tag t2 ON t2.recording = a.id
+    LEFT JOIN tmp_recording_tag_count tc ON a.id = tc.id
 WHERE t1.tag < t2.tag
 GROUP BY t1.tag, t2.tag
 HAVING COUNT(*) >= 3;
@@ -165,8 +165,8 @@ CREATE INDEX tmp_release_tag_relation_tag2 ON tmp_release_tag_relation (tag2);
 CREATE INDEX tmp_label_tag_relation_tag1 ON tmp_label_tag_relation (tag1);
 CREATE INDEX tmp_label_tag_relation_tag2 ON tmp_label_tag_relation (tag2);
 
-CREATE INDEX tmp_track_tag_relation_tag1 ON tmp_track_tag_relation (tag1);
-CREATE INDEX tmp_track_tag_relation_tag2 ON tmp_track_tag_relation (tag2);
+CREATE INDEX tmp_recording_tag_relation_tag1 ON tmp_recording_tag_relation (tag1);
+CREATE INDEX tmp_recording_tag_relation_tag2 ON tmp_recording_tag_relation (tag2);
 
 
 ----------------------------------------
@@ -185,7 +185,7 @@ FROM
         ON (r2.tag1 = r1.tag1 AND r2.tag2 = r1.tag2)
     FULL OUTER JOIN tmp_label_tag_relation r3
         ON (r3.tag1 = COALESCE(r1.tag1, r2.tag1) AND r3.tag2 = COALESCE(r1.tag2, r2.tag2))
-    FULL OUTER JOIN tmp_track_tag_relation r4
+    FULL OUTER JOIN tmp_recording_tag_relation r4
         ON (r4.tag1 = COALESCE(r1.tag1, r2.tag1, r3.tag1) AND r4.tag2 = COALESCE(r1.tag2, r2.tag2, r3.tag2));
 
 /*

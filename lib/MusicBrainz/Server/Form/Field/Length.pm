@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( l ln );
+use Try::Tiny;
 
 extends 'HTML::FormHandler::Field::Text';
 
@@ -16,13 +17,13 @@ sub validate
 {
     my $self = shift;
 
-    my $length = MusicBrainz::Server::Track::UnformatTrackLength($self->value);
-    if ($length == -1) {
-        $self->add_error(l('Not a valid time. Must be in the format MM:SS'));
-        return;
+    try {
+        my $length = MusicBrainz::Server::Track::UnformatTrackLength($self->value);
+        $self->_set_value($length);
     }
-
-    $self->_set_value($length);
+    catch {
+        $self->add_error(l('Not a valid time. Must be in the format MM:SS'));
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

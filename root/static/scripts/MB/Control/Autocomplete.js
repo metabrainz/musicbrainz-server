@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010,2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -18,10 +18,8 @@
 
 */
 
-MB.Control.Autocomplete = function (options) {
-    var self = MB.Object();
-
-    var formatItem = function (ul, item) {
+MB.Control.autocomplete_formatters = {
+    "generic": function (ul, item) {
         var a = $("<a>").text (item.name);
 
         var comment = [];
@@ -39,11 +37,49 @@ MB.Control.Autocomplete = function (options) {
         if (comment.length)
         {
             a.append (' <span class="autocomplete-comment">(' +
-                      comment.join (", ") + ')</span>');
+                      MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
-    };
+    },
+
+    "recording": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        a.append (' - <span class="autocomplete-artist">' + 
+                  MB.utility.escapeHTML (item.artist) + '</span>');
+
+        if (item.releasegroups)
+        {
+            var rgs = {};
+            /* don't display the same name multiple times. */
+            $.each (item.releasegroups, function (idx, item) {
+                rgs[item.name] = item.name;
+            });
+
+            a.append ('<br /><span class="autocomplete-appears">appears on: ' +
+                      MB.utility.escapeHTML (MB.utility.keys (rgs).join (", ")) + '</span>');
+        }
+
+        if (item.comment)
+        {
+            a.append ('<br /><span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
+        if (item.isrcs.length)
+        {
+            a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
+                      MB.utility.escapeHTML (item.isrcs.join (", ")) + '</span>');
+        }
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+    }
+};
+
+
+MB.Control.Autocomplete = function (options) {
+    var self = MB.Object();
 
     var formatPager = function (ul, item) {
         self.number_of_pages = item.pages;
@@ -79,7 +115,20 @@ MB.Control.Autocomplete = function (options) {
         return li;
     };
 
-    var pagerButtons = function () {
+    var formatMessage = function (ul, item) {
+
+        var message = $("<a>").text (item.message);
+
+        var li = $('<li>')
+            .data ("item.autocomplete", item)
+            .css ('text-align', 'center')
+            .append (message)
+            .appendTo (ul);
+
+        return li;
+    };
+
+    self.pagerButtons = function () {
         var li = self.pager_menu_item;
 
         if (!li)
@@ -102,10 +151,10 @@ MB.Control.Autocomplete = function (options) {
         next.click (function (event) { self.switchPage (event,  1); });
     };
 
-    var pagerKeyEvent = function (event) {
+    self.pagerKeyEvent = function (event) {
         var menu = self.autocomplete.menu;
 
-	if (!menu.element.is (":visible") ||
+    if (!menu.element.is (":visible") ||
             !self.pager_menu_item ||
             !self.pager_menu_item.hasClass ('ui-state-hover'))
         {
@@ -126,7 +175,7 @@ MB.Control.Autocomplete = function (options) {
         };
     };
 
-    var switchPage = function (event, direction) {
+    self.switchPage = function (event, direction) {
         self.current_page = self.current_page + direction;
 
         if (self.current_page < 1)
@@ -154,8 +203,16 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.search (null, event);
     };
 
-    var close = function (event) { self.input.focus (); };
-    var open = function (event) {
+    self.searchAgain = function (toggle) {
+        if (toggle) {
+            self.indexed_search = ! self.indexed_search;
+        }
+
+        self.autocomplete.search (self.$input.val ());
+    };
+
+    self.close = function (event) { self.$input.focus (); };
+    self.open = function (event) {
         var menu = self.autocomplete.menu;
 
         var newItem;
@@ -180,9 +237,13 @@ MB.Control.Autocomplete = function (options) {
 
         self.pagerButtons ();
 
+        if ($(document).height () > $('body').height ())
+        {
+            $('body').height ($(document).height ());
+        }
     };
 
-    var lookup = function (request, response) {
+    self.lookup = function (request, response) {
         if (request.term != self.page_term)
         {
             /* always reset to first page if we're looking for something new. */
@@ -190,40 +251,83 @@ MB.Control.Autocomplete = function (options) {
             self.page_term = request.term;
         }
 
-        var directsearch = $('input.autocomplete-directsearch:visible').eq(0).is(':checked');
-
         $.ajax(self.lookupHook ({
             url: self.url,
-            data: { q: request.term, page: self.current_page, direct: directsearch },
-            success: response
+            data: { q: request.term, page: self.current_page, direct: !self.indexed_search },
+            success: function (data, result, request) {
+                data.push ({
+                    "action": function () { self.searchAgain (true); },
+                    "message": self.indexed_search ?
+                        MB.text.SwitchToDirectSearch :
+                        MB.text.SwitchToIndexedSearch
+                });
+
+                data = self.resultHook (data);
+
+                return response (data, result, request);
+            }
         }));
     };
 
-    var select = function (event, data) {
-
+    self.select = function (event, data) {
         event.preventDefault ();
 
-        return options.select (event, data.item);
+        return data.item.action ? data.item.action () : options.select (event, data.item);
     };
 
-    var initialize = function () {
+    /* iamfeelinglucky is used in selenium tests.
 
-        self.input.autocomplete ({
-            'source': lookup,
+       Operating the autocomplete menus is very cumbersome and unreliable
+       from selenium, so instead a selenium test can trigger this event.
+       This function will perform a direct search and select the first
+       result (hence the name).
+
+       To use this in selenium do (using release-artist as an example):
+
+       FireEvent        "release-artist"                      "iamfeelinglucky"
+       waitForNotValue  "id-artist_credit.names.0.artist_id"  ""
+
+       Using an empty string with waitForNotValue means we wait for the value
+       to not be the empty string.
+    */
+    self.iamfeelinglucky = function (event) {
+        self.indexed_search = false;
+
+        var fake_event = { preventDefault: function () {} };
+
+        var term = self.$input.val ();
+        self.lookup ({ "term": term }, function (data, result, request) {
+            options.select (fake_event, data[0]);
+        });
+    };
+
+    self.initialize = function () {
+
+        self.changeEntity (options.entity);
+
+        self.$input.autocomplete ({
+            'source': self.lookup,
             'minLength': options.minLength ? options.minLength : 2,
-            'select': select,
+            'select': self.select,
             'close': self.close,
             'open': self.open
         });
 
-        self.autocomplete = self.input.data ('autocomplete');
-        self.input.bind ('keydown.mb', self.pagerKeyEvent);
-        self.input.bind ('propertychange.mb input.mb',
-                         function (event) { self.input.trigger ("keydown"); }
-        );
+        self.autocomplete = self.$input.data ('autocomplete');
+        self.$input.bind ('keydown.mb', self.pagerKeyEvent);
+        self.$input.bind ('propertychange.mb input.mb', function (event) {
+            self.$input.trigger ("keydown");
+        });
+        self.$input.bind ('iamfeelinglucky', self.iamfeelinglucky);
+
+        self.$search.bind ('click.mb', function (event) {
+            self.searchAgain ();
+        });
 
         self.autocomplete._renderItem = function (ul, item) {
-            return item['pages'] ? self.formatPager (ul, item) : self.formatItem (ul, item);
+            return item['pages'] ? self.formatPager (ul, item) :
+                item['message'] ? self.formatMessage (ul, item) :
+                self.formatItem (ul, item);
         };
 
         /* because we're overriding select above we also need to override
@@ -236,24 +340,37 @@ MB.Control.Autocomplete = function (options) {
         self.autocomplete.menu.options.focus = function (event, ui) { };
     };
 
-    self.input = options.input;
-    self.url = options.entity ? "/ws/js/" + options.entity : options.url;
+    self.changeEntity = function (entity) {
+        self.entity = entity;
+        self.url = options.url || "/ws/js/" + self.entity;
+
+        if (options.formatItem)
+        {
+            self.formatItem = options.formatItem;
+        }
+        else
+        {
+            self.formatItem = MB.Control.autocomplete_formatters[self.entity] ||
+                MB.Control.autocomplete_formatters['generic'];
+        }
+    };
+
+    self.$input = options.input;
+    self.$search = self.$input.closest ('span.autocomplete').find('img.search');
+
     self.lookupHook = options.lookupHook || function (r) { return r; };
+    self.resultHook = options.resultHook || function (r) { return r; };
     self.page_term = '';
     self.current_page = 1;
     self.number_of_pages = 1;
     self.selected_item = 0;
+    self.indexed_search = true;
 
     self.formatPager = options.formatPager || formatPager;
-    self.formatItem = options.formatItem || formatItem;
-    self.pagerButtons = pagerButtons;
-    self.pagerKeyEvent = pagerKeyEvent;
-    self.switchPage = switchPage;
-    self.close = close;
-    self.open = open;
-    self.lookup = lookup;
+    self.formatMessage = options.formatMessage || formatMessage;
 
-    initialize ();
+    self.initialize ();
 
     return self;
 };
+

@@ -1,27 +1,4 @@
-BEGIN;
 SET client_min_messages TO 'warning';
-
-TRUNCATE annotation CASCADE;
-TRUNCATE artist CASCADE;
-TRUNCATE artist_alias CASCADE;
-TRUNCATE artist_annotation CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist_type CASCADE;
-TRUNCATE country CASCADE;
-TRUNCATE editor CASCADE;
-TRUNCATE gender CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_group_type CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE tag CASCADE;
-TRUNCATE track_name CASCADE;
-TRUNCATE work CASCADE;
-TRUNCATE work_type CASCADE;
-TRUNCATE work_name CASCADE;
 
 INSERT INTO country (id, iso_code, name) VALUES
     (1, 'GB', 'United Kingdom'),
@@ -39,10 +16,12 @@ INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist
     (id, gid, name, sort_name, type, gender, country,
      begin_date_year, begin_date_month, begin_date_day,
-     end_date_year, end_date_month, end_date_day, comment)
+     end_date_year, end_date_month, end_date_day, comment,
+     last_updated)
     VALUES
     (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1,
-     2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
+     2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist',
+     '2009-07-09');
 
 UPDATE artist_meta SET rating=70, rating_count=4 WHERE id = 3;
 
@@ -54,8 +33,6 @@ INSERT INTO artist_alias (id, name, artist, edits_pending)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 1, NULL);
-
-INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
 
 INSERT INTO release_name (id, name)
     VALUES (1, 'Test RG 1'),
@@ -98,11 +75,8 @@ ALTER SEQUENCE artist_name_id_seq RESTART 5;
 INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work_name (id, name) VALUES (1, 'Test Work');
-INSERT INTO work (id, gid, name, artist_credit, type, iswc) VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1, 'T-000.000.001-0');
-
-
-TRUNCATE TABLE link_attribute_type CASCADE;
+INSERT INTO work (id, gid, name, type, iswc) VALUES
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 'T-000.000.001-0');
 
 INSERT INTO link_attribute_type (id, root, gid, name)
     VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'additional');
@@ -113,35 +87,37 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-TRUNCATE TABLE link_type CASCADE;
-
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
             'performer');
 
-TRUNCATE TABLE link_type_attribute_type CASCADE;
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+    VALUES (2, 'a610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
+            'performed {additional} {instrument} on',
+            'has {additional} {instrument} performed by',
+            'performer');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1);
+
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 2, 1, NULL);
 
-TRUNCATE TABLE link CASCADE;
-
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 1, 2);
+INSERT INTO link (id, link_type, attribute_count) VALUES (3, 2, 0);
 
-TRUNCATE TABLE link_attribute CASCADE;
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 
-TRUNCATE TABLE l_artist_recording CASCADE;
+
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
+INSERT INTO l_artist_work (id, link, entity0, entity1) VALUES (1, 2, 3, 1);
 
 INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
 INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
@@ -150,4 +126,4 @@ ALTER SEQUENCE artist_alias_id_seq RESTART 2;
 ALTER SEQUENCE annotation_id_seq RESTART 2;
 ALTER SEQUENCE tag_id_seq RESTART 3;
 
-COMMIT;
+

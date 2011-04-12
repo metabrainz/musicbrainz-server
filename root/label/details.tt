@@ -3,7 +3,7 @@
 <table class="details" [% rdfa_about_attr(rdfa_label_curi(label)) %]>
   <tr>
     <th>[%- l('Name:') -%]</th>
-    <td>[% link_label(label) %]</td>
+    <td>[% link_entity(label) %]</td>
   </tr>
   <tr>
     <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',

@@ -14,6 +14,27 @@ has 'iso_code' => (
     isa => 'Str'
 );
 
+=method iso_code_for_display
+
+Any iso code starting with 'X' should be considered internal to how
+MusicBrainz operates and never be displayed to the user.  This
+function will output normal iso codes for any valid iso code, but
+output the name for the X* codes -- possibly shortened if the name
+contains a comment about historical usage.
+
+=cut
+
+sub iso_code_for_display {
+    my $self = shift;
+
+    return $self->iso_code unless $self->iso_code =~ m/^X/;
+
+    my $name = $self->name;
+    $name =~ s/ \(historical.*//;
+
+    return $name;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

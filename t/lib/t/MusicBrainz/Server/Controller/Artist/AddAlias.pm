@@ -1,0 +1,46 @@
+package t::MusicBrainz::Server::Controller::Artist::AddAlias;
+use Test::Routine;
+use Test::More;
+use MusicBrainz::Server::Test qw( html_ok );
+
+with 't::Mechanize', 't::Context';
+
+test all => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+
+# Test adding aliases
+$mech->get('/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
+my $response = $mech->submit_form(
+    with_fields => {
+        'edit-alias.name' => 'An alias'
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAlias');
+is_deeply($edit->data, {
+    locale => undef,
+    entity => {
+        id => 3,
+        name => 'Test Artist'
+    },
+    name => 'An alias',
+});
+
+$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
+html_ok($mech->content, '..valid xml');
+
+$mech->content_contains('Test Artist', '..contains artist name');
+$mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '..contains artist link');
+$mech->content_contains('An alias', '..contains alias name');
+
+};
+
+1;

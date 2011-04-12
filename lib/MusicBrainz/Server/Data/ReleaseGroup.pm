@@ -8,6 +8,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
     load_subobjects
+    merge_table_attributes
     partial_date_from_row
     placeholders
     query_to_list
@@ -76,7 +77,7 @@ sub find_by_name_prefix
     $query .= ' ORDER BY name.name OFFSET ?';
 
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row(@_);
             $rg->rating($row->{rating}) if defined $row->{rating};
@@ -127,7 +128,7 @@ sub find_by_artist
                     musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
@@ -164,7 +165,11 @@ sub find_by_track_artist
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?
                  )
-                   AND acn.artist != ?
+                   AND rg.id NOT IN (
+                     SELECT id FROM release_group
+                       JOIN artist_credit_name acn
+                         ON release_group.artist_credit = acn.artist_credit
+                      WHERE acn.artist = ?)
                  ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
@@ -173,7 +178,7 @@ sub find_by_track_artist
                     musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
@@ -210,7 +215,7 @@ sub filter_by_artist
                     rgm.first_release_date_day,
                     musicbrainz_collate(name.name)";
     return query_to_list(
-        $self->c->dbh, sub {
+        $self->c->sql, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
@@ -255,7 +260,7 @@ sub filter_by_track_artist
                     rgm.first_release_date_day,
                     musicbrainz_collate(name.name)";
     return query_to_list(
-        $self->c->dbh, sub {
+        $self->c->sql, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
@@ -286,7 +291,7 @@ sub find_by_release
                     musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c->dbh, $offset, $limit, sub {
+        $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
@@ -313,7 +318,7 @@ sub find_by_release_gids
                     rgm.first_release_date_day,
                     musicbrainz_collate(name.name)";
     return query_to_list(
-        $self->c->dbh, sub {
+        $self->c->sql, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
@@ -337,7 +342,7 @@ sub find_by_recording
                     musicbrainz_collate(name.name)";
 
     return query_to_list(
-        $self->c->dbh, sub {
+        $self->c->sql, sub {
             my $row = $_[0];
             return $self->_new_from_row($row);
         },
@@ -347,7 +352,6 @@ sub find_by_recording
 sub insert
 {
     my ($self, @groups) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my @created;
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names(map { $_->{name} } @groups);
@@ -357,7 +361,7 @@ sub insert
         my $row = $self->_hash_to_row($group, \%names);
         $row->{gid} = $group->{gid} || generate_gid();
         push @created, $class->new(
-            id => $sql->insert_row('release_group', $row, 'id'),
+            id => $self->sql->insert_row('release_group', $row, 'id'),
             gid => $row->{gid}
         );
     }
@@ -367,19 +371,16 @@ sub insert
 sub update
 {
     my ($self, $group_id, $update) = @_;
-    my $sql = Sql->new($self->c->dbh);
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->update_row('release_group', $row, { id => $group_id });
+    $self->sql->update_row('release_group', $row, { id => $group_id });
 }
 
 sub in_use
 {
     my ($self, $release_group_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
-
-    return check_in_use($sql,
+    return check_in_use($self->sql,
         'release                    WHERE release_group = ?' => [ $release_group_id ],
         'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
         'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
@@ -394,9 +395,8 @@ sub in_use
 sub can_delete
 {
     my ($self, $release_group_id) = @_;
-    my $sql = Sql->new($self->c->dbh);
 
-    my $refcount = $sql->select_single_column_array('SELECT 1 FROM release WHERE release_group = ?', $release_group_id);
+    my $refcount = $self->sql->select_single_column_array('SELECT 1 FROM release WHERE release_group = ?', $release_group_id);
     return @$refcount == 0;
 }
 
@@ -410,8 +410,7 @@ sub delete
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
+    $self->sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
 }
 
@@ -425,9 +424,17 @@ sub merge
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
 
+    merge_table_attributes(
+        $self->sql => (
+            table => 'release_group',
+            columns => [ qw( type comment ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
     # Move releases to the new release group
-    my $sql = Sql->new($self->c->dbh);
-    $sql->do('UPDATE release SET release_group = ?
+    $self->sql->do('UPDATE release SET release_group = ?
               WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 
     $self->_delete_and_redirect_gids('release_group', $new_id, @old_ids);

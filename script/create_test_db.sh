@@ -15,6 +15,7 @@ echo `date` : Installing cube extension
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateTables.sql
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateFunctions.sql
 ./admin/psql --profile=test --system READWRITE <./admin/sql/CreateSearchConfiguration.sql
+./admin/psql --profile=test RAWDATA <./admin/sql/vertical/rawdata/CreateFunctions.sql
 
 ./admin/psql --profile=test READWRITE <./admin/sql/CreatePrimaryKeys.sql
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateFKConstraints.sql
@@ -27,5 +28,6 @@ echo `date` : Installing cube extension
 ./admin/psql --profile=test RAWDATA <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql
 ./admin/psql --profile=test RAWDATA <./admin/sql/vertical/rawdata/CreateFKConstraints.sql
 ./admin/psql --profile=test RAWDATA <./admin/sql/vertical/rawdata/CreateIndexes.sql
+./admin/psql --profile=test READWRITE < ./t/sql/initial.sql
 
 # eof

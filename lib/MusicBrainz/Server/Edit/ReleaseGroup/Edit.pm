@@ -19,13 +19,28 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
+
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
+with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { l("Edit release group") }
 sub _edit_model { 'ReleaseGroup' }
-sub release_group_id { shift->data->{entity_id} }
+sub release_group_id { shift->data->{entity}{id} }
+
+around related_entities => sub {
+    my ($orig, $self, @args) = @_;
+    my %rel = %{ $self->$orig(@args) };
+    if ($self->data->{new}{artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+        push @{ $rel{artist} }, keys(%new), keys(%old);
+    }
+
+    return \%rel;
+};
 
 sub change_fields
 {
@@ -39,7 +54,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         new => change_fields(),
         old => change_fields()
     ]
@@ -62,7 +80,7 @@ sub foreign_keys
     }
 
     $relations->{ReleaseGroup} = {
-        $self->data->{entity_id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
     return $relations;
@@ -88,8 +106,8 @@ sub build_display_data
     }
 
     $data->{release_group} = $loaded->{ReleaseGroup}{
-        $self->data->{entity_id}
-    };
+        $self->data->{entity}{id}
+    } || ReleaseGroup->new( name => $self->data->{entity}{name} );
 
     return $data;
 }

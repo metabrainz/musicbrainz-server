@@ -31,13 +31,15 @@
                     [% l('Merge this release group with another') %]
                   </a>
                 </li>
+                <li>[% link_entity(rg, 'edits', l('View editing history')) %]</li>
                 [% IF rg.edits_pending %]
-                    <li>[% link_release_group(rg, 'open_edits', l('Open edits')) %]</li>
+                    <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
                 [% IF can_delete %]
-                    <li>[% link_release_group(rg, 'delete', l('Delete this release group')) %]</li>
+                    <li>[% link_entity(rg, 'delete', l('Delete this release group')) %]</li>
                 [% END %]
                 <li>[% use_in_relationship(rg) %]</li>
+                <li>[% relate_to_ellipsis(rg) %]</li>
                 <li>[% relate_to_url(rg) %]</li>
                 <li>
                   <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">

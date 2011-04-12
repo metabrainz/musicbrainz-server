@@ -30,7 +30,7 @@ sub find_watched_artists {
           WHERE editor = ?';
 
     return query_to_list(
-        $self->c->dbh,
+        $self->c->sql,
         sub { $self->c->model('Artist')->_new_from_row(shift, 'a_') },
         $query, $editor_id
     );
@@ -116,7 +116,7 @@ sub find_new_releases {
                 COALESCE(date_day, '01'), 'YYYY-MM-DD') > (NOW() - ?::INTERVAL)";
 
     return query_to_list(
-        $self->c->dbh, sub { $self->c->model('Release')->_new_from_row(shift) },
+        $self->c->sql, sub { $self->c->model('Release')->_new_from_row(shift) },
         $query, $self->format_duration($past_threshold),
     );
 }
@@ -130,7 +130,7 @@ sub find_editors_to_notify {
           WHERE ewp.notify_via_email = TRUE';
 
     return query_to_list(
-        $self->c->dbh, sub { $self->c->model('Editor')->_new_from_row(shift) },
+        $self->c->sql, sub { $self->c->model('Editor')->_new_from_row(shift) },
         $query);
 }
 
@@ -150,21 +150,23 @@ sub save_preferences {
         'DELETE FROM editor_watch_release_status WHERE editor = ?',
         $editor_id);
 
-    my @types = @{ $preferences->{type_id} };
-    my @type_editors = ($editor_id) x @types;
-    $self->sql->do(
-        'INSERT INTO editor_watch_release_group_type
+    if(my @types = grep { $_ } @{ $preferences->{type_id} }) {
+        my @type_editors = ($editor_id) x @types;
+        $self->sql->do(
+            'INSERT INTO editor_watch_release_group_type
             (editor, release_group_type) VALUES ' .
-        join(', ', ('(?, ?)') x @types),
-        mesh @type_editors, @types);
+                join(', ', ('(?, ?)') x @types),
+            mesh @type_editors, @types);
+    }
 
-    my @status = @{ $preferences->{status_id} };
-    my @status_editors = ($editor_id) x @status;
-    $self->sql->do(
-        'INSERT INTO editor_watch_release_status
-            (editor, release_status) VALUES ' .
-        join(', ', ('(?, ?)') x @status),
-        mesh @status_editors, @status);
+    if(my @status = grep { $_ } @{ $preferences->{status_id} }) {
+        my @status_editors = ($editor_id) x @status;
+        $self->sql->do(
+            'INSERT INTO editor_watch_release_status
+                (editor, release_status) VALUES ' .
+                    join(', ', ('(?, ?)') x @status),
+            mesh @status_editors, @status);
+    }
 
     $self->sql->do(
         'UPDATE editor_watch_preferences SET
@@ -187,7 +189,7 @@ sub load_preferences {
         'SELECT * FROM editor_watch_preferences WHERE editor = ?', $editor_id);
 
     my @types = query_to_list(
-        $self->c->dbh,
+        $self->c->sql,
         sub { $self->c->model('ReleaseGroupType')->_new_from_row(shift) },
         'SELECT id, name FROM release_group_type
            JOIN editor_watch_release_group_type wrgt
@@ -196,7 +198,7 @@ sub load_preferences {
       );
 
     my @statuses = query_to_list(
-        $self->c->dbh,
+        $self->c->sql,
         sub { $self->c->model('ReleaseStatus')->_new_from_row(shift) },
         'SELECT id, name FROM release_status
            JOIN editor_watch_release_status wrs

@@ -1,9 +1,11 @@
 [% BLOCK layout_head %]
-   <script src="[% c.uri_for('/static/scripts/MB.js') %]" type="text/javascript"></script>
-   <script src="[% c.uri_for('/static/scripts/MB/Control/URLCleanup.js') %]"></script>
-   <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
-   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
-   <script src="[% c.uri_for('/static/scripts/ar.js') %]" type="text/javascript"></script>
+   <script type="text/javascript" src="[%-
+     c.model('FileCache').squash_scripts(
+       "scripts/MB/Control/URLCleanup.js",
+       "scripts/MB/html.js",
+       "scripts/ar.js",
+     ) -%]">
+   </script>
    <script type="text/javascript">
     $('document').ready(function() {
       MB.Control.URLCleanup(
@@ -40,7 +42,7 @@
             <tr>
                 <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
                 <td colspan="2">
-                    [% r.select('link_type_id') %]
+                    [% r.select('link_type_id', no_default => 1) %]
                     [% field_errors(form, 'link_type_id') %]
                     <div class="ar-descr" id="type_descr"></div>
                 </td>
@@ -50,6 +52,8 @@
                 <td colspan="2">[% r.text('url', { size => 47 }) %]</td>
             </tr>
         </table>
+
+        [% field_errors(form, 'url') %]
 
     </fieldset>
 

@@ -33,14 +33,16 @@ MB.TrackParser.Artist = function (track, artist) {
             'name': name,
             'id': '',
             'gid': '',
-            'join': null,
+            'join': null
         });
     };
 
     self.addArtistCredit = function (unused, ac) {
         if (unused !== '')
         {
-            if (self.names[self.names.length - 1].join === null)
+            if (self.names.length > 0 &&
+                (self.names[self.names.length - 1].join === null ||
+                 self.names[self.names.length - 1].join === ''))
             {
                 /* the previous entry does not have a join phrase, so the
                    unused string must be the join phrase. */
@@ -73,7 +75,9 @@ MB.TrackParser.Artist = function (track, artist) {
     self.addJoin = function (unused, ac) {
         if (unused !== '')
         {
-            if (self.names[self.names.length - 1].join === null)
+            if (self.names.length > 0 &&
+                (self.names[self.names.length - 1].join === null ||
+                 self.names[self.names.length - 1].join === ''))
             {
                 /* The previous entry is missing the join phrase and
                    we're missing the artist... let's assume the
@@ -117,7 +121,9 @@ MB.TrackParser.Artist = function (track, artist) {
            Otherwise this is probably just a new artist.
         */
 
-        if ((self.names.length > 0) && (self.names[self.names.length - 1].join === null))
+        if (self.names.length > 0 &&
+            (self.names[self.names.length - 1].join === null ||
+             self.names[self.names.length - 1].join === ''))
         {
             self.appendToArtist (unused);
         }
@@ -184,7 +190,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
     self.position = position;
-    self.line = line;
+    self.line = $.trim (line);
     self.parent = parent;
     self.duration = '?:??';
     self.name = '';
@@ -264,7 +270,9 @@ MB.TrackParser.Track = function (position, line, parent) {
         var current = self.parent.disc.getTracksAtPosition (self.position);
         if (original)
         {
-            current.push (original);
+            // FIXME: original is completely different format from the other
+            // tracks.  this will never match anything in original. --warp.
+            // current.push (original);
         }
 
         /* first, try to match the trackname.. if we find a match the rest
@@ -274,7 +282,7 @@ MB.TrackParser.Track = function (position, line, parent) {
             if (trk.isDeleted ())
                 return true;
 
-            var match = self.matchTrack (trk.title.val ());
+            var match = self.matchTrack (trk.$title.val ());
             if (match)
             {
                 self.artist = MB.TrackParser.Artist (trk, match.artist);
@@ -297,7 +305,7 @@ MB.TrackParser.Track = function (position, line, parent) {
             if (trk.isDeleted ())
                 return true;
 
-            var match = self.matchArtist (trk.preview.val ());
+            var match = self.matchArtist (trk.$artist.val ());
             if (match)
             {
                 self.artist = MB.TrackParser.Artist (trk, match.artist);
@@ -319,7 +327,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.clean = function () {
-        self.line = $.trim (self.line)
+        self.title = $.trim (self.title)
             .replace (/(.*),\sThe$/i, "The $1")
             .replace (/\s*,/g, ",");
     };
@@ -383,7 +391,7 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
             var data = {
                 'position': track.position,
                 'length': track.duration,
-                'artist_credit': track.artist,
+                'artist_credit': track.artist
             };
 
             var title = track.title;
@@ -464,19 +472,34 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
         self.fillInData ();
     };
 
+    self.setOptions = function (options) {
+        $.each (options, function (key, value) {
+            var $checkbox = $('#' + key);
+            if ($checkbox.length)
+            {
+                if (value)
+                {
+                    $checkbox.attr ('checked', 'checked');
+                }
+                else
+                {
+                    $checkbox.removeAttr ('checked');
+                }
+            }
+        });
+    };
+
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
     self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
-    self.variousArtists = function () { return self.$various_artists.val() == '1'; };
+    self.variousArtists = function () { return self.disc.isVariousArtists (); };
 
     /* public variables. */
     self.disc = disc;
     self.textarea = textarea;
     self.originals = $.isArray (serialized) ? serialized : [];
-    self.$guesscase = $('#guesscase');
     self.$tracknumbers = $('#tracknumbers');
     self.$vinylnumbers = $('#vinylnumbers');
     self.$tracktimes = $('#tracktimes');
-    self.$various_artists = $('#various-artists');
 
     return self;
 };

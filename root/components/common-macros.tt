@@ -74,27 +74,42 @@ END; -%]
     END -%]
 
 [%- MACRO disambiguation(entity) BLOCK;
-    '<span class="comment">' _ html_escape("(${entity.comment})") _ '</span>' IF entity.comment;
+    ' <span class="comment">' _ html_escape("(${entity.comment})") _ '</span>' IF entity.comment;
 END -%]
 
 [%- MACRO artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
-        [%- opts.plain ? html_escape(name.name) : link_artist(name.artist, 'show', html_escape(name.name)) -%]
+        [%- IF name.artist.gid && !opts.plain -%]
+            [%- link_artist(name.artist, 'show', html_escape(name.name)) -%]
+        [%- ELSE -%]
+            [%- name.name | html -%]
+        [%- END -%]
         [%- name.join_phrase | html -%]
     [%- END -%]
 [%- END -%]
 
 
 [%- MACRO link_entity(entity, action, text) BLOCK;
-    IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
-    ELSIF entity.isa('MusicBrainz::Server::Entity::Editor'); link_editor(entity, action, text);
+    IF entity.gid;
+      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
+      END;
+    ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
+      '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a>';
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
+      link_editor(entity, action, text);
+    ELSE;
+      caption = l("This entity has been deleted, and cannot be displayed correctly.");
+      '<span class="deleted tooltip" title="' _ caption _ '">' _
+        (html_escape(entity.name) || l('[deleted]')) _
+      '</span>';
     END;
+    disambiguation(entity) UNLESS text;
 END -%]
 
 [% MACRO descriptive_link(entity)
@@ -134,8 +149,6 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF label.edits_pending AND action == 'show';
 END -%]
-
-
 
 [%- MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
@@ -239,7 +252,7 @@ END -%]
 
 [%- MACRO link_freedb(freedb, action, text) BLOCK;
     action = action || 'import';
-    link = c.uri_for_action("/freedb/$action", [ freedb.discid ]);
+    link = c.uri_for_action("/freedb/$action", [ freedb.category, freedb.discid ]);
     text = text || html_escape(freedb.discid);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
@@ -288,7 +301,7 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
-    out.push(link_label(label.label)) FOR label=labels;
+    out.push(link_entity(label.label)) FOR label=labels;
     out.join(', ');
 END -%]
 
@@ -317,9 +330,13 @@ END -%]
 END %]
 
 [% MACRO use_in_relationship(entity) BLOCK;
-    text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
-                                  : l('Use in a relationship');
-    link_entity(entity, 'relate', text);
+    IF c.session.relationship.id == entity.id;
+      l('Please select another entity to relate {name} to', { name => c.session.relationship.name });
+    ELSE;
+      text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
+                                    : l('Use in a relationship');
+      link_entity(entity, 'relate', text);
+    END;
 END %]
 
 [% MACRO relate_to_url(entity) BLOCK;
@@ -327,12 +344,39 @@ END %]
                         type => entity_type(entity),
                         entity => entity.gid
                    });
-    l('{uri|Relate to URL}', { uri => uri });
+    l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END %]
+
+[%- MACRO relate_to_ellipsis(entity) BLOCK -%]
+    <a href="#relate_to">[%- l('Relate to ...') -%]</a>
+    <div style="position: absolute;">
+      <div class="relate-to" style="display: none">
+        <input type="hidden" class="gid" value="[% entity.gid %]" />
+        <input type="hidden" class="type" value="[% entity_type(entity) %]" />
+        <select style="width: 130px; margin-right: 4px;">
+          <option value="artist">[% l('Artist') %]</option>
+          <option value="label">[% l('Label') %]</option>
+          <option value="recording">[% l('Recording') %]</option>
+          <option value="release-group">[% l('Release Group') %]</option>
+          <option value="release">[% l('Release') %]</option>
+          <option value="work">[% l('Work') %]</option>
+        </select>
+        <span class="autocomplete">
+          <img class="search" src="/static/images/icons/search.png" />
+          <input type="text" class="entity" value="" style="width: 170px;" />
+        </span>
+        <br />
+        <div class="buttons" style="margin-top: 0.5em; width: 100%;">
+          <input class="negative button cancel" type="button" value="[% l('Cancel') %]" style="float: left;" />
+          <input class="positive button create" type="button" value="[% l('Create relationship') %]" style="float: right;" />
+        </div>
+      </div>
+    </div>
+[%- END -%]
 
 [% MACRO quality_name(quality) SWITCH quality;
     CASE 0;  l('low quality level');
-    CASE 1;
+    CASE 1;  l('default quality level');
     CASE -1; l('default quality level');
     CASE 2;  l('high quality level');
 END %]
@@ -451,6 +495,12 @@ END %]
    <div class="nojavascript warning">
      <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
+   </div>
+[%- END -%]
+
+[%- MACRO notice(message) BLOCK -%]
+   <div class="notice">
+     <p>[% l('<strong>Note</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
 

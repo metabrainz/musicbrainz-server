@@ -61,6 +61,15 @@ has 'puids' => (
     }
 );
 
+sub related_works {
+    my $self = shift;
+    return map {
+        $_->entity1
+    } grep {
+        $_->link && $_->link->type && $_->link->type->entity1_type eq 'work'
+    } $self->all_relationships;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -1,25 +1,5 @@
-<table class="details">
-  <tr>
-    <th>[%- ln('Old release:', 'Old releases:', edit.display_data.old.size) %]</th>
-    <td>
-      <ul>
-        [% FOR release=edit.display_data.old %]
-          <li>[% l('{release} by {artist}',
-               { release => link_release(release),
-                 artist => artist_credit(release.artist_credit)}) %]</li>
-        [% END %]
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <th>[% l('New release:') %]</th>
-    <td>
-      [% l('{release} by {artist}', { release => link_release(edit.display_data.new),
-                                        artist => artist_credit(edit.display_data.new.artist_credit)  }) %]
-    </td>
-  </tr>
-
+<table class="details merge-releases">
+  [% INCLUDE 'edit/details/merge_common.tt' %]
   <tr>
     <th>[% l('Merge strategy:') %]</th>
     <td>

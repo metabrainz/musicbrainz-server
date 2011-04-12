@@ -1,17 +1,10 @@
-<table class="details">
-  [% IF edit.display_data.format %]
+<table class="details edit-medium">
+  [% UNLESS edit.preview %]
   <tr>
-    <th>[% l('Format:') %]</th>
-    <td class="old">[% edit.display_data.format.old.name | html %]</td>
-    <td class="new">[% edit.display_data.format.new.name | html %]</td>
-  </tr>
-  [% END %]
-
-  [% IF edit.display_data.position %]
-  <tr>
-    <th>[% l('Position:') %]</th>
-    <td class="old">[% edit.display_data.position.old %]</td>
-    <td class="new">[% edit.display_data.position.new %]</td>
+    <th>[% l('Release:') %]</th>
+    <td colspan="2">
+      [% descriptive_link(edit.display_data.release) %]
+    </td>
   </tr>
   [% END %]
 
@@ -23,17 +16,24 @@
   </tr>
   [% END %]
 
-  [% UNLESS edit.preview %]
+  [% IF edit.display_data.position %]
   <tr>
-    <th>[% l('Release:') %]</th>
-    <td>
-      [% l('{release} by {artist}', { release => link_release(edit.display_data.release),
-             artist => artist_credit(edit.display_data.release.artist_credit) }) %]
-    </td>
+    <th>[% l('Position:') %]</th>
+    <td class="old">[% edit.display_data.position.old %]</td>
+    <td class="new">[% edit.display_data.position.new %]</td>
   </tr>
   [% END %]
 
-   <tr>
+  [% IF edit.display_data.format %]
+  <tr>
+    <th>[% l('Format:') %]</th>
+    <td class="old">[% edit.display_data.format.old.name | html %]</td>
+    <td class="new">[% edit.display_data.format.new.name | html %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.old.tracklist %]
+  <tr>
      <th>[% l('Old Tracklist:') %]</th>
      <td>
        <table class="tbl">
@@ -44,7 +44,9 @@
        </table>
      </td>
    </tr>
-  
+  [% END %]
+
+  [% IF edit.display_data.new.tracklist %]
    <tr>
      <th>[% l('New Tracklist:') %]</th>
      <td>
@@ -56,4 +58,5 @@
        </table>
      </td>
    </tr>
+  [% END %]
 </table>

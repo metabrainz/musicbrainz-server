@@ -337,25 +337,7 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_work() RETURNS trigger AS $$
 BEGIN
-    PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     INSERT INTO work_meta (id) VALUES (NEW.id);
-    RETURN NULL;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION a_upd_work() RETURNS trigger AS $$
-BEGIN
-    IF NEW.artist_credit != OLD.artist_credit THEN
-        PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
-        PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    END IF;
-    RETURN NULL;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION a_del_work() RETURNS trigger AS $$
-BEGIN
-    PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -487,6 +469,66 @@ BEGIN
            ) AS first WHERE id = release_group_id;
 END;
 $$ LANGUAGE 'plpgsql';
+
+-------------------------------------------------------------------
+-- Find artists that are empty, and have been updated within the
+-- last $interval
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_artists() RETURNS SETOF artist AS
+$BODY$
+DECLARE
+    artist_row artist%rowtype;
+BEGIN
+    FOR artist_row IN
+        SELECT * FROM artist
+        WHERE edits_pending = 0
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM artist_credit_name
+             WHERE artist = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_recording
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_work
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_url
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_artist
+             WHERE entity0 = artist_row.id OR entity1 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_label
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_release
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_release_group WHERE entity0 = artist_row.id
+             LIMIT 1
+        );
+        RETURN NEXT artist_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
 
 COMMIT;
 -- vi: set ts=4 sw=4 et :

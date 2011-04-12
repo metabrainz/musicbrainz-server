@@ -1,6 +1,5 @@
 [% BLOCK layout_head %]
    <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
-   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
    <script src="[% c.uri_for('/static/scripts/ar.js') %]" type="text/javascript"></script>
    <script type="text/javascript">
      $(document).ready (function () {
@@ -21,7 +20,7 @@
    </script>
 [% END %]
 
-[%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Create Relationship') full_width=1 -%]
 
     <h1>[% l('Create Relationship') %]</h1>
 
@@ -51,7 +50,7 @@
             <tr>
                 <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
                 <td colspan="2">
-                    [% r.select('link_type_id') %]
+                    [% r.select('link_type_id', no_default => 1) %]
                     [% field_errors(form, 'link_type_id') %]
                     [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
                       <span id="change-direction">

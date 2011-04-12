@@ -3,11 +3,13 @@ use Moose;
 use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ATTRIBUTE );
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { l('Edit relationship attribute') }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }
@@ -52,6 +54,29 @@ sub build_display_data
     my $data = changed_display_data($self->data, $loaded, %map);
     return $data;
 }
+
+sub accept {
+    my $self = shift;
+    $self->c->model('LinkAttributeType')->update($self->data->{entity_id},
+                                                 $self->data->{new})
+};
+
+sub edit_conditions
+{
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
+}
+
+sub allow_auto_edit { 1 }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

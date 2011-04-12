@@ -1,0 +1,6 @@
+<table class="details remove-recording">
+  <tr>
+    <th>[% l('Recording:') %]</th>
+    <td>[% edit.display_data.name %]</td>
+  </tr>
+</table>

@@ -11,11 +11,16 @@ parameter 'entity_name' => (
     isa => 'Str',
 );
 
+parameter 'arg_count' => (
+    isa => 'Int',
+    default => 1
+);
+
 role
 {
     my $params = shift;
     my %extra = @_;
-    
+
     my $model = $params->model;
     my $entity_name = $params->entity_name || model_to_type($model);
 
@@ -23,7 +28,7 @@ role
 
     $extra{consumer}->name->config(
         action => {
-            load => { Chained => 'base', PathPart => '', CaptureArgs => 1 }
+            load => { Chained => 'base', PathPart => '', CaptureArgs => $params->arg_count }
         },
         model => $model,
         entity_name => $entity_name,
@@ -31,12 +36,12 @@ role
 
     method load => sub
     {
-        my ($self, $c, $gid) = @_;
+        my ($self, $c, @args) = @_;
 
-        my $entity = $self->_load($c, $gid);
+        my $entity = $self->_load($c, @args);
 
         if (!defined $entity) {
-            $self->not_found($c);
+            $self->not_found($c, @args);
             $c->detach;
             return;
         }

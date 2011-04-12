@@ -23,22 +23,48 @@
         [% IF extra_css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
         [% END %]
+        [%- IF c.user_exists -%]
+          <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
+        [%- END -%]
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
         <script type="text/javascript">document.cookie = "javascript=true; path=/";</script>
         [%- UNLESS no_javascript -%]
-            <script type="text/javascript" src="[%-
-                c.model('FileCache').squash_scripts(
-                    "lib/jquery/jquery-1.4.4.min.js",
-                    "lib/jquery.placeholder/jquery.placeholder.min.js",
-                    "scripts/MB.js",
-                    "scripts/global.js"
-                )
-            -%]"></script>
+            [%- IF c.user_exists -%]
+                <script type="text/javascript" src="[%-
+                  c.model('FileCache').squash_scripts(
+                      "lib/jquery/jquery-1.4.4.js",
+                      "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
+                      "scripts/mb_placeholder.js",
+                      "scripts/MB.js",
+                      "scripts/global.js",
+                      "scripts/MB/utility.js",
+                      "scripts/MB/Control/Autocomplete.js",
+                      "scripts/MB/Control/RelateTo.js",
+                  )
+              -%]"></script>
+            [%- ELSE -%]
+                <script type="text/javascript" src="[%-
+                  c.model('FileCache').squash_scripts(
+                      "lib/jquery/jquery-1.4.4.js",
+                      "scripts/mb_placeholder.js",
+                      "scripts/MB.js",
+                      "scripts/global.js",
+                  )
+              -%]"></script>
+            [%- END -%]
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
+        <script type="text/javascript">
+            $(document).ready (function () {
+                $("[placeholder]").mb_placeholder ();
+                [% IF c.user_exists %]
+                    MB.Control.RelateTo ();
+                [%- END -%]
+            });
+        </script>
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
     </head>
@@ -47,7 +73,7 @@
             <div id="header-logo">
                 <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
                 <div>
-                    [%- USE sidebar = FormRenderer(sidebar_search) -%]
+                    [%- USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
                         [% sidebar.text('query', { placeholder => 'search' }) -%]
                         [%- sidebar.select('type') %]

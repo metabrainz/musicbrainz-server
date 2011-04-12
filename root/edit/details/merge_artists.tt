@@ -1,17 +1,3 @@
-<table class="details">
-  <tr>
-    <th>[%- ln('Old artist:', 'Old artists:', edit.display_data.old.size) %]</th>
-    <td>
-      <ul>
-        [% FOR artist=edit.display_data.old %]
-        <li>[% link_artist(artist) %]</li>
-        [% END %]
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <th>[%- l('New artist:') %]</th>
-    <td>[% link_artist(edit.display_data.new) %]</td>
-  </tr>
+<table class="details merge-artists">
+  [% INCLUDE 'edit/details/merge_common.tt' %]
 </table>

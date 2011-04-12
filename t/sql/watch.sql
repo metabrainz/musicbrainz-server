@@ -1,14 +1,14 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE editor CASCADE;
-TRUNCATE editor_watch_artist CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE release_group_type CASCADE;
-TRUNCATE release_status CASCADE;
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name)
     VALUES (1, 'Spor'), (2, 'Break'), (3, 'Tosca');
@@ -18,10 +18,8 @@ INSERT INTO artist (id, gid, name, sort_name)
            (2, '16062b24-e317-4fcf-a898-81c3ac025fb6', 2, 2),
            (3, 'd4d73e91-751c-4faf-be60-3fc169bab517', 3, 3);
 
-INSERT INTO release_group_type (id, name)
-    VALUES (1, 'Non-album tracks'), (2, 'Album');
 INSERT INTO release_status (id, name)
-    VALUES (1, 'Official'), (3, 'Bootleg');
+    VALUES (3, 'Bootleg');
 
 INSERT INTO editor (id, name, password)
     VALUES (1, 'acid2', 'xxx'),
@@ -49,4 +47,4 @@ INSERT INTO release
                 EXTRACT(MONTH FROM NOW() + '@ 1 week'),
                 EXTRACT(DAY FROM NOW() + '@ 1 week'), 1);
 
-COMMIT;
+

@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Form::Alias;
 use HTML::FormHandler::Moose;
 
-use Locale::Language;
+use DateTime::Locale;
+use List::UtilsBy 'sort_by';
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -9,7 +10,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 has '+name' => ( default => 'edit-alias' );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1
 );
 
@@ -47,8 +48,10 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            language2code($_) => $_
-        } sort { $a cmp $b } all_language_names()
+            $_->id => ($_->id =~ /_/ ? "&nbsp;&nbsp;&nbsp;" : '') . $_->name
+        }
+            sort_by { $_->name }
+                map { DateTime::Locale->load($_) } DateTime::Locale->ids
     ];
 }
 

@@ -122,7 +122,7 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     // FIXME Need a "bad" archive.org link
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
-                    'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
+                    'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg'
                 ],
                 [
                     'http://www.jamendo.com/en/album/56372',
@@ -130,12 +130,12 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
                 [
                     'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
-                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
+                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg'
                 ],
                 [
                     // FIXME Need a bad link
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'http://www.mange-disque.tv/fs/md_1643.jpg',
+                    'http://www.mange-disque.tv/fs/md_1643.jpg'
                 ]
             ];
 

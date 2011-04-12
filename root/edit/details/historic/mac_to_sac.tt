@@ -5,7 +5,7 @@
       [% IF edit.display_data.releases.size %]
       <ul>
         [% FOR release=edit.display_data.releases %]
-        <li>[% release.defined ? link_release(release) :
+        <li>[% release.defined ? link_entity(release) :
                                  l('(unknown)') %]</li>
         [% END %]
       </ul>
@@ -17,7 +17,7 @@
 
   <tr>
     <th>[% l('Artist:') %]</th>
-    <td class="old">[% link_artist(edit.display_data.artist.old) %]</td>
-    <td class="new">[% link_artist(edit.display_data.artist.new) %]</td>
+    <td class="old">[% link_entity(edit.display_data.artist.old) %]</td>
+    <td class="new">[% link_entity(edit.display_data.artist.new) %]</td>
   </tr>
 </table>

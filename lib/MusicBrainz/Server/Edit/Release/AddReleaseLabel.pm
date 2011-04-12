@@ -9,67 +9,102 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 sub edit_name { l('Add release label') }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
-sub related_entities { { release => [ shift->release_id ] } }
+
+use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Release';
+
+around related_entities => sub {
+    my ($orig, $self, @args) = @_;
+    return {
+        %{ $self->$orig(@args) },
+        label => [ $self->data->{label}{id} ]
+    }
+};
 
 has '+data' => (
     isa => Dict[
-        release_id => NullableOnPreview[Int],
-        label_id => Nullable[Int],
+        release => NullableOnPreview[Dict[
+            id => Int,
+            name => Str
+        ]],
+        label => Nullable[Dict[
+            id => Int,
+            name => Str
+        ]],
         catalog_number => Nullable[Str]
     ]
 );
 
-sub release_id { shift->data->{release_id} }
-sub label_id { shift->data->{label_id} }
+sub release_id { shift->data->{release}{id} }
 
-after 'initialize' => sub {
-    my $self = shift;
+sub initialize {
+    my ($self, %opts) = @_;
 
-    return if $self->preview;
+    unless ($self->preview) {
+        my $release = delete $opts{release} or die 'Missing "release" argument';
+        $opts{release} = {
+            id => $release->id,
+            name => $release->name
+        };
+    }
 
-    croak "No release_id specified" unless $self->data->{release_id};
+    $opts{label} = {
+        id => $opts{label}->id,
+        name => $opts{label}->name
+    } if $opts{label};
+
+    $self->data(\%opts);
 };
 
 sub foreign_keys
 {
     my $self = shift;
+    my %fk = (
+        Release => { $self->release_id => ['ArtistCredit'] },
+    );
 
-    return {
-        Release => { $self->release_id => [] },
-        Label => { $self->label_id => [] },
-    };
+    if (my $lbl = $self->data->{label}) {
+        $fk{Label} = [ $lbl->{id} ]
+    }
+
+    return \%fk;
 };
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    return {
-        release => $loaded->{Release}->{ $self->release_id },
-        label => $loaded->{Label}->{ $self->label_id },
+    my $data = {
         catalog_number => $self->data->{catalog_number},
     };
+
+    unless ($self->preview) {
+        $data->{release} = $loaded->{Release}->{ $self->release_id }
+            || Release->new( name => $self->data->{release}{name} );
+    }
+
+    if (my $lbl = $self->data->{label}) {
+        $data->{label} = $loaded->{Label}->{ $lbl->{id} } ||
+            Label->new( name => $lbl->{name} );
+    }
+
+    return $data;
 }
-
-sub initialize
-{
-    my ($self, %opts) = @_;
-
-    $self->data({
-        release_id => $opts{release_id},
-        label_id => $opts{label_id},
-        catalog_number => $opts{catalog_number},
-    });
-};
 
 sub accept
 {
     my $self = shift;
-    $self->c->model('ReleaseLabel')->insert($self->data);
+    $self->c->model('ReleaseLabel')->insert({
+        release_id => $self->release_id,
+        label_id   => $self->data->{label}{id},
+        catalog_number => $self->data->{catalog_number}
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

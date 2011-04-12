@@ -8,6 +8,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities' => {
     -excludes => 'release_group_ids',
 };
+with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_name { l("Merge release groups") }
 sub edit_type { $EDIT_RELEASEGROUP_MERGE }

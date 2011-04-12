@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
+use Carp qw( croak );
 
 has '_current' => (
     is => 'rw',
     isa => 'Int',
-    default => 0,
+    default => 0
 );
 
 has '_processed_page' => (
@@ -76,7 +77,12 @@ has $_ => (
     }
 ) for qw( on_cancel on_submit );
 
-sub skip { return 0; }
+sub skip {
+    my $self = shift;
+
+    my $skip = $self->pages->[$self->_current]->{skip};
+    return defined $skip ? &$skip : 0;
+}
 
 sub valid {
     my ($self, $page) = @_;
@@ -106,19 +112,29 @@ sub _create_new_wizard {
 sub process
 {
     my ($self) = @_;
+    my $page;
 
     if ($self->_create_new_wizard($self->c)) {
         $self->_new_session;
         $self->load($self->init_object);
         $self->seed($self->c->req->params)
             if $self->c->form_posted;
+
+        $page = $self->navigate_to_page;
     }
     elsif ($self->c->form_posted) {
         $self->_retrieve_wizard_settings;
-        my $page = $self->_store_page_in_session;
-        $self->_route ($page); 
+        $page = $self->_store_page_in_session;
+        $page = $self->_route ($page);
         $self->_store_wizard_settings;
     }
+    else
+    {
+        # Shouldn't come here.
+        croak "Error processing wizard.";
+    }
+
+    $self->render ($page) if $page;
 }
 
 sub initialize
@@ -138,14 +154,23 @@ sub initialize
     }
 }
 
-sub render
+
+sub navigate_to_page
 {
-    my ($self) = @_;
+    my $self = shift;
+
+    my $prepare = $self->pages->[$self->_current]->{prepare};
+    &$prepare if defined $prepare;
 
     # If we're rendering the same page we processed, re-use the existing form.
     # (otherwise validation errors may get lost).
-    my $page = $self->_has_processed_page ? $self->_processed_page :
+    return $self->_has_processed_page ? $self->_processed_page :
         $self->_load_page ($self->_current);
+}
+
+sub render
+{
+    my ($self, $page) = @_;
 
     my @steps = map {
         { title => $_->{title}, name => 'step_'.$_->{name} }
@@ -162,6 +187,11 @@ sub render
     if (! $self->shown->[$self->_current])
     {
         $page->clear_errors;
+
+        # clear_errors doesn't clear everything, error_fields on the form still
+        # contains the error fields -- so let's set an extra flag so the template
+        # knows wether to show errors or not.
+        $self->c->stash->{hide_errors} = 1;
     }
 
     # mark the current page as having been shown to the user.
@@ -232,12 +262,13 @@ sub _store_page_in_session
 {
     my ($self) = @_;
 
+    my $page = $self->_post_to_page( $self->_current, $self->c->request->params );
+
     # Save the processed page, if we're not navigating away from it we do not
     # want to reload it.
-    my $page = $self->_load_form ($self->_current);
     $self->_processed_page ($page);
 
-    return $self->_post_to_page( $self->_current, $self->c->request->params );
+    return $page;
 }
 
 =method _transform_parameters
@@ -286,38 +317,78 @@ sub _route
 {
     my ($self, $page) = @_;
 
-    my $valid = $self->valid ($page);
-
     my $p = $self->c->request->parameters;
-    if (defined $p->{next} && $valid)
+    my $requested = $self->_current;
+    my $allow_skip = 1;
+    if (defined $p->{next})
     {
-        return $self->find_next_page;
+        return $self->navigate_to_page unless $self->valid ($page);
+        if (my $submit = $self->pages->[$self->_current]->{submit}) {
+            $submit->();
+        }
+        $requested++;
     }
     elsif (defined $p->{previous})
     {
-        return $self->find_previous_page;
+        $requested--;
     }
     elsif (defined $p->{cancel})
     {
-        return $self->on_cancel($self);
+        $self->on_cancel($self);
+        return;
     }
     elsif (defined $p->{save})
     {
-        return $self->submitted(1);
+        $self->submitted(1);
+        return;
     }
-
-    # Don't allow forward movement unless the current page is valid.
-    my $max = $valid ? scalar @{ $self->pages } - 1 : $self->_current;
-
-    for (0..$max)
+    else
     {
-        my $name = 'step_'.$self->pages->[$_]->{name};
-        if (defined $p->{$name})
+        # Only skip pages when using "Previous" and "Next" buttons, do not
+        # allow skipping when a page tab has been clicked directly.
+        $allow_skip = 0;
+        my $max = scalar @{ $self->pages } - 1;
+        for (0..$max)
         {
-            $self->_current ($_);
-            return;
+            $requested = $_;
+            last if defined $p->{'step_'.$self->pages->[$_]->{name}};
         }
     }
+
+    # we are already at the requested position.
+    return $self->navigate_to_page if $requested == $self->_current;
+
+    if ($requested < $self->_current)
+    {
+        # navigate to previous pages, skipping pages which need to be skipped.
+        while ($requested < $self->_current || ($allow_skip && $self->skip))
+        {
+            last unless $self->find_previous_page;
+            $page = $self->navigate_to_page;
+        }
+    }
+    else
+    {
+        # validate each page when moving forward.
+        # - if a page is not valid, stop there.
+        # - if a page should be skipped, skip it.
+        while (($allow_skip && $self->skip) ||
+               ($self->valid ($page) && $requested > $self->_current))
+        {
+            last unless $self->find_next_page;
+            $page = $self->navigate_to_page;
+        }
+    }
+
+    if ($requested != $self->_current)
+    {
+        # The user did not end up on the page s/he requested, perhaps s/he should be
+        # informed of this -- otherwise it may be a bit confusing.
+
+        # FIXME: add notification
+    }
+
+    return $page;
 }
 
 sub find_next_page
@@ -325,22 +396,9 @@ sub find_next_page
     my ($self) = @_;
 
     my $page = $self->_current;
+    $self->_current ($page + 1);
 
-    my $max = scalar @{ $self->pages } - 1;
-
-    while ($page < $max)
-    {
-        $page += 1;
-
-        if (!$self->skip ($page))
-        {
-            $self->_current ($page);
-            return 1;
-        }
-    }
-
-    # FIXME: should probably notify someone that their form is broken.
-    return 0;
+    return $self->_current > $page;
 }
 
 sub find_previous_page
@@ -348,26 +406,15 @@ sub find_previous_page
     my ($self) = @_;
 
     my $page = $self->_current;
+    $self->_current ($page - 1);
 
-    while ($page > 0)
-    {
-        $page -= 1;
-
-        if (!$self->skip ($page))
-        {
-            $self->_current ($page);
-            return 1;
-        }
-    }
-
-    # FIXME: should probably notify someone that their form is broken.
-    return 0;
+    return $self->_current < $page;
 }
 
 around '_current' => sub {
     my ($orig, $self, $value) = @_;
 
-    return $self->$orig () unless $value;
+    return $self->$orig () unless defined $value;
 
     # navigating away from the page just processed, so clear it.
     $self->_clear_processed_page if $self->$orig () ne $value;
@@ -379,17 +426,6 @@ around '_current' => sub {
 
     return $self->$orig ($value);
 };
-
-sub _set_current
-{
-    my ($self, $value, $old_page) = @_;
-
-    if (my $hook = $self->pages->[$old_page]{change_page}) {
-        $hook->($self->c, $self, $value);
-    }
-
-    $self->{_current} = $value;
-}
 
 sub _store
 {

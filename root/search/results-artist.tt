@@ -19,8 +19,7 @@
                         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                             <td>[% result.score %]</td>
                             <td>
-                                [% link_artist(result.entity) %]
-                                [% disambiguation(result.entity) %]
+                                [% link_entity(result.entity) %]
                             </td>
                             <td>[% result.entity.sort_name %]</td>
                             <td>[% result.entity.type_name  %]</td>
@@ -32,8 +31,14 @@
                 </table>
             [% END %]
         [%- ELSE -%]
-            <p>[% l('No results found') %]</p>
+            <p>[% l('No results found. Try refining your search query.') %]</p>
         [%- END -%]
+        <p>
+          [% l('Alternatively, you may {uri|add a new artist}.', {
+                uri => c.uri_for_action('/artist/create', {
+                         'edit-artist.name' => query
+                       }) }) %]
+        </p>
         [%- INCLUDE "search/form.tt" -%]
     </div>
 [% END %]

@@ -7,8 +7,10 @@ use Email::Address;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
+use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape );
 use DBDefs;
+use Try::Tiny;
 
 use MusicBrainz::Server::Types qw( :edit_status );
 use MusicBrainz::Server::Email::Subscriptions;
@@ -20,8 +22,6 @@ has 'c' => (
 
 Readonly our $NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
 Readonly our $SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
-
-our $test_transport = undef;
 
 sub _user_address
 {
@@ -308,7 +308,7 @@ sub send_first_no_vote
 {
     my $self = shift;
     my $email = $self->_create_no_vote_email(@_);
-    return $self->_send_email($email);
+    return try { $self->_send_email($email) }
 }
 
 sub send_message_to_editor
@@ -351,7 +351,7 @@ sub send_subscriptions_digest
         from => $NOREPLY_ADDRESS,
         %opts
     );
-    return $self->_send_email($email->create_email);
+    return try { $self->_send_email($email->create_email) }
 }
 
 sub send_edit_note
@@ -359,7 +359,7 @@ sub send_edit_note
     my ($self, %opts) = @_;
 
     my $email = $self->_create_edit_note_email(%opts);
-    return $self->_send_email($email);
+    return try { $self->_send_email($email) }
 }
 
 has 'transport' => (
@@ -370,7 +370,9 @@ has 'transport' => (
 
 sub get_test_transport
 {
-    return $test_transport;
+    require MusicBrainz::Server::Test;
+    MusicBrainz::Server::Email->import;
+    return MusicBrainz::Server::Test->get_test_transport;
 }
 
 sub _build_transport
@@ -378,14 +380,9 @@ sub _build_transport
     my ($self) = @_;
 
     if (&DBDefs::_RUNNING_TESTS) { # XXX shouldn't be here
-        if (!defined $test_transport) {
-            use Email::Sender::Transport::Test;
-            $test_transport = Email::Sender::Transport::Test->new();
-        }
-        return $test_transport;
+        return $self->get_test_transport;
     }
 
-    use Email::Sender::Transport::SMTP;
     return Email::Sender::Transport::SMTP->new({
         host => &DBDefs::SMTP_SERVER,
     });

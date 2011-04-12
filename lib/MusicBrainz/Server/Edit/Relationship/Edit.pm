@@ -19,6 +19,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { l("Edit relationship") }
@@ -71,7 +72,11 @@ sub foreign_keys
     my %load;
 
     $load{LinkType} = [ $self->data->{link}->{link_type_id} ];
-    $load{LinkAttributeType} = $self->data->{link}->{attributes};
+    $load{LinkAttributeType} = [
+        @{ $self->data->{link}->{attributes} },
+        @{ $self->data->{new}->{attributes} },
+        @{ $self->data->{old}->{attributes} }
+    ];
 
     my $old = $self->data->{old};
     my $new = $self->data->{new};
@@ -153,8 +158,10 @@ sub related_entities
 
     push @{ $result{$type0} }, $old->{entity0_id} if $old->{entity0_id};
     push @{ $result{$type0} }, $new->{entity0_id} if $new->{entity0_id};
+    push @{ $result{$type0} }, $self->data->{link}{entity0_id};
     push @{ $result{$type1} }, $old->{entity1_id} if $old->{entity1_id};
     push @{ $result{$type1} }, $new->{entity1_id} if $new->{entity1_id};
+    push @{ $result{$type1} }, $self->data->{link}{entity1_id};
 
     return \%result;
 }
@@ -192,6 +199,8 @@ sub initialize
         croak ("Cannot change direction unless both endpoints are the same type")
             if ($type0 ne $type1);
 
+        $opts{entity0_id} ||= $relationship->entity0_id;
+        $opts{entity1_id} ||= $relationship->entity1_id;
         ($opts{entity0_id}, $opts{entity1_id}) = ($opts{entity1_id}, $opts{entity0_id});
     }
 

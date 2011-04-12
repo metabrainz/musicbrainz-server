@@ -1,9 +1,8 @@
-<table class="details">
+<table class="details edit-barcodes">
     [% FOR submission=edit.display_data.submissions %]
     <tr>
         <th>[% l('Release:') %]</th>
-        <td>[% l('{release} by {artist}', { release => link_release(submission.release),
-                                            artist => artist_credit(submission.release.artist_credit) }) %]</td>
+        <td>[% descriptive_link(submission.release) %]</td>
     </tr>
     <tr>
         <th>[% l('Barcode:') %]</th>

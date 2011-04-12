@@ -11,7 +11,7 @@ has_field 'type_id' => (
 );
 
 has_field 'name' => (
-    type => 'Text',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
 
@@ -20,12 +20,8 @@ has_field 'iswc' => (
 );
 
 has_field 'comment' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
-);
-
-has_field 'artist_credit' => (
-    type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
 );
 
 sub edit_field_names { qw( type_id name iswc comment artist_credit ) }

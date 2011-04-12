@@ -8,6 +8,7 @@ use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Role::MergeSubscription';
+with 'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { l('Merge artists') }
 sub edit_type { $EDIT_ARTIST_MERGE }
@@ -29,9 +30,10 @@ has '+data' => (
     ]
 );
 
-sub accept
+sub do_merge
 {
     my $self = shift;
+
     $self->c->model('Artist')->merge(
         $self->new_entity->{id},
         [ $self->_old_ids ],

@@ -15,8 +15,14 @@
                         [%- FOR result=results -%]
                         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                             <td>[% result.score %]</td>
-                            <td>[% link_work(result.entity) %]</td>
-                            <td>[% artist_credit(result.entity.artist_credit) %]</td>
+                            <td>[% link_entity(result.entity) %]</td>
+                            <td>
+                              <ul>
+                                [% FOR artist=result.entity.artists %]
+                                <li>[% link_entity(artist) %]</li>
+                                [% END %]
+                              </ul>
+                            </td>
                         </tr>
                         [%- END -%]
                     </tbody>

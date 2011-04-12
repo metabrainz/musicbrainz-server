@@ -1,17 +1,17 @@
-BEGIN;
+
 SET client_min_messages TO 'warning';
 
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE artist_name CASCADE;
-TRUNCATE cdtoc CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE medium_cdtoc CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE release_name CASCADE;
-TRUNCATE tracklist CASCADE;
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Kate Bush');
 INSERT INTO artist (id, name, sort_name, gid) VALUES (1, 1, 1, '51024420-cae8-11de-8a39-0800200c9a66');
@@ -34,4 +34,3 @@ INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_off
 INSERT INTO medium_cdtoc (id, medium, cdtoc) VALUES
     (1, 1, 1);
 
-COMMIT;

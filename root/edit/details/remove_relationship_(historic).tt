@@ -1,4 +1,4 @@
-<table class="details">
+<table class="details remove-relationship-historic">
   <tr>
     <th>[% l('Relationships:') %]</th>
     <td>

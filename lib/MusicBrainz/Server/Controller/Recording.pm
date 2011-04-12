@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
+    $EDIT_RECORDING_DELETE
     $EDIT_RECORDING_EDIT
     $EDIT_RECORDING_MERGE
     $EDIT_RECORDING_ADD_ISRCS
@@ -75,17 +76,12 @@ after 'tags' => sub
     my $recording = $c->stash->{recording};
 };
 
-=head2 relations
+after 'relationships' => sub {
+    my ($self, $c) = @_;
 
-Shows all relations to a given recording
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c, $mbid) = @_;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
-}
+    my $recording = $c->stash->{recording};
+    $c->model('Relationship')->load($recording->related_works);
+};
 
 =head2 details
 
@@ -152,7 +148,7 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
-    form      => 'Recording',
+    form      => 'Recording::Standalone',
     edit_type => $EDIT_RECORDING_CREATE,
     edit_arguments => sub {
         my ($self, $c) = @_;
@@ -167,16 +163,20 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     }
 };
 
-before 'edit' => sub {
-    my ($self, $c) = @_;
-    my $recording = $c->stash->{recording};
+around create => sub {
+    my ($orig, $self, $c, @args) = @_;
+    if ($c->user_exists && !$c->model('Recording')->editor_can_create_recordings($c->user)) {
+        $c->stash( template => 'recording/cannot_add.tt' );
+        $c->detach;
+    }
+    else {
+        $self->$orig($c, @args);
+    }
 };
 
-after 'merge' => sub {
+before '_merge_confirm' => sub {
     my ($self, $c) = @_;
-    $c->model('ArtistCredit')->load(
-        $c->stash->{recording}, $c->stash->{old}, $c->stash->{new}
-    );
+    $c->model('ISRC')->load_for_recordings(@{ $c->stash->{to_merge} });
 };
 
 around '_merge_search' => sub {
@@ -199,9 +199,12 @@ sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
             $c, $form,
             edit_type => $EDIT_RECORDING_ADD_ISRCS,
             isrcs => [ {
-                isrc         => $form->field('isrc')->value,
-                recording_id => $recording->id,
-                source       => 0
+                isrc      => $form->field('isrc')->value,
+                recording => {
+                    id => $recording->id,
+                    name => $recording->name
+                },
+                source    => 0
             } ]
         );
 
@@ -238,6 +241,10 @@ sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
         );
     }
 }
+
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type => $EDIT_RECORDING_DELETE,
+};
 
 =head1 LICENSE
 

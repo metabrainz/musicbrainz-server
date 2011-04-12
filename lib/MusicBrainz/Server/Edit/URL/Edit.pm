@@ -11,6 +11,9 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::URL';
+
+use aliased 'MusicBrainz::Server::Entity::URL';
 
 sub edit_name { l('Edit URL') }
 sub edit_type { $EDIT_URL_EDIT }
@@ -27,7 +30,10 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         old => change_fields(),
         new => change_fields(),
     ]
@@ -48,7 +54,8 @@ sub build_display_data
         uri => 'url',
         description => 'description'
     );
-    $data->{url} = $loaded->{URL}->{ $self->url_id };
+    $data->{url} = $loaded->{URL}->{ $self->url_id }
+        || URL->new( url => $self->data->{entity}{name} );
 
     return $data;
 }

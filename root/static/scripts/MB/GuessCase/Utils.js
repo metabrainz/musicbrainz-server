@@ -111,19 +111,26 @@ MB.GuessCase.Utils = function () {
      *								in post-processing
      * keschte		2005-07-21		added outtake(s),rehearsal,intro,outro
      * lukas		2007-05-10		added orchestral
+     * warp             2011-01-31              MBS-1312, add with and without
+     * warp             2011-01-31              MBS-1313, add early, piano, rap, studio, techno, and trance
      **/
+
     self.getLowerCaseBracketWords = function() {
-	return ["acoustic", "album", "alternate", "bonus", "clean", "dirty", "disc",
-		"extended", "instrumental", "live", "original", "radio", "single",
-		"take", "demo", "club", "dance", "edit", "skit", "mix", "remix",
-		"version", "reprise", "megamix", "maxi", "feat", "interlude", "dub",
-		"dialogue", "cut", "karaoke", "vs", "vocal", "alternative",
-		"disco", "unplugged", "video", "outtake", "outtakes", "rehearsal", "intro",
-		"outro", "long", "short", "main", "remake", "clubmix",
-		"composition", "reinterpreted", "session", "rework", "reworked",
-		"remixed", "reedit", "airplay", "a_cappella", "excerpt", "medley",
-		"orchestral"];
+	return [
+            'a_cappella', 'acoustic', 'airplay', 'album', 'alternate',
+            'alternative', 'bonus', 'clean', 'club', 'clubmix', 'composition',
+            'cut', 'dance', 'demo', 'dialogue', 'dirty', 'disc', 'disco', 'dub',
+            'early', 'edit', 'excerpt', 'extended', 'feat', 'instrumental',
+            'interlude', 'intro', 'karaoke', 'live', 'long', 'main', 'maxi',
+            'medley', 'megamix', 'mix', 'orchestral', 'original', 'outro',
+            'outtake', 'outtakes', 'piano', 'radio', 'rap', 'reedit',
+            'rehearsal', 'reinterpreted', 'remake', 'remix', 'remixed',
+            'reprise', 'rework', 'reworked', 'session', 'short', 'single',
+            'skit', 'studio', 'take', 'techno', 'trance', 'unplugged',
+            'version', 'video', 'vocal', 'vs', 'with', 'without'
+        ];
     };
+
     self.isLowerCaseBracketWord = function(w) {
 
 	if (!self.lowerCaseBracketWords) {

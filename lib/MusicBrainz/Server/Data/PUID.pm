@@ -51,10 +51,9 @@ sub get_by_puids
 sub delete_unused_puids
 {
     my ($self, @puid_ids) = @_;
-    my $sql = Sql->new($self->c->dbh);
     # Remove unreferenced PUIDs
     if (@puid_ids) {
-        $sql->do('
+        $self->sql->do('
             DELETE FROM puid WHERE
                 id IN ('.placeholders(@puid_ids).') AND
                 id NOT IN (

@@ -1,5 +1,0 @@
-[% extra_js = 'release.js jquery/jquery.tablesorter.min.js' %]
-[% extra_css = 'jquery/tablesort.css' %]
-[% WRAPPER 'artist/layout.tt' title=release.name %]
-    [% INCLUDE 'release/full.tt' %]
-[% END %]

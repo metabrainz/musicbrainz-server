@@ -1,17 +1,3 @@
-<table class="details">
-  <tr>
-    <th>[%- ln('Old label:', 'Old labels:', edit.display_data.old.size) %]</th>
-    <td>
-      <ul>
-        [% FOR label=edit.display_data.old %]
-        <li>[% link_label(label) %]</li>
-        [% END %]
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <th>[%- l('New label:') %]</th>
-    <td>[% link_label(edit.display_data.new) %]</td>
-  </tr>
+<table class="details merge-labels">
+  [% INCLUDE 'edit/details/merge_common.tt' %]
 </table>

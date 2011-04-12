@@ -14,9 +14,10 @@ use MusicBrainz::Server::Translation qw ( l ln );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Edit release events') }
+sub edit_name     { l('Edit release events (historic)') }
 sub historic_type { 29 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
+sub edit_template { 'edit_release_events' }
 
 sub _additions { @{ shift->data->{additions} } }
 sub _removals  { @{ shift->data->{removals } } }

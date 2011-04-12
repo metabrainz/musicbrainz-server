@@ -1,13 +1,15 @@
 [% WRAPPER 'layout.tt' l('Attach CDTOC') full_width=1 %]
-  <h2>[% l('Releases by {artist}', { artist => link_artist(artist) }) %]</h2>
+  <h2>[% l('Releases by {artist}', { artist => link_entity(artist) }) %]</h2>
   [% IF releases.size %]
-    <form action="[% c.req.uri.path %]" method="get">
+    <p>[% l('Please select the medium you wish to attach the CDTOC to') %]</p>
+    <form action="[% c.req.uri %]" method="get">
       <input type="hidden" name="toc" value="[% toc %]" />
+      <input type="hidden" name="artist" value="[% c.req.query_params.artist %]" />
+      [% FOR release=releases %]
       <table class="tbl">
-        [% FOR release=releases %]
           <thead>
             <tr>
-              <th colspan="3">[% link_release(release) %]</th>
+              <th colspan="3">[% descriptive_link(release) %]</th>
             </tr>
           </thead>
           <tbody>
@@ -26,16 +28,18 @@
             </tr>
           [% END %]
           </tbody>
-        [% END %]
       </table>
+      [% END %]
       [% form_submit(l('Attach CDTOC')) %]
     </form>
   [% ELSE %]
-    <p>[% l('{artist} has no releases which have {n} tracks.', { artist => link_artist(artist),
+    <p>[% l('{artist} has no releases which have {n} tracks.', { artist => link_entity(artist),
               n => cdtoc.track_count }) %]</p>
   [% END %]
 
-  <form action="[% c.uri_for('/release/add', { artist => artist.gid }) %]" method="post">
+  <form action="[% c.uri_for('/release/add') %]" method="post">
+    <input type="hidden" name="artist_credit.names.0.mbid"
+           value="[% artist.gid %]" />
     <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
     [% form_submit(l('Add a new release')) %]
   </form>

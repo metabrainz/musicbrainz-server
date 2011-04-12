@@ -1,7 +1,7 @@
 <ul class="r">
     [%- IF c.user_exists -%]
-        <li>
-            [% link_editor(c.user) %]
+        <li class="account">
+            [% link_entity(c.user) %]
             <ul>
                 <li>
                     [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
@@ -21,7 +21,7 @@
             </ul>
         </li>
         [% IF c.user_exists && c.user.is_admin %]
-            <li>
+            <li class="admin">
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
                     [% IF c.user.is_relationship_editor %]
@@ -40,7 +40,7 @@
                 </ul>
             </li>
         [% END %]
-        <li>
+        <li class="data">
             [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
             <ul>
                 <li>
@@ -55,6 +55,18 @@
                 <li>
                     [% l('{col|My Watched Artists}', { col => c.uri_for_action('/watch/list') }) %]
                 </li>
+                <li class="separator">
+                    [% l('{edits|My Open Edits}', { edits => c.uri_for_action('/user/edits/open', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{edits|All My Edits}', { edits => c.uri_for_action('/user/edits/all', [ c.user.name ]) }) %]
+                </li>
+                <li>
+                    [% l('{col|Edits for Subscribed Entities}', { col => c.uri_for_action('/edit/subscribed') }) %]
+                </li>
+                <li>
+                    [% l('{col|Edits by Subscribed Editors}', { col => c.uri_for_action('/edit/subscribed_editors') }) %]
+                </li>
             </ul>
         </li>
     [%- ELSE -%]
@@ -64,7 +76,7 @@
 </ul>
 
 <ul>
-    <li>
+    <li class="about">
         [%- l('{doc|About}', {doc => doc_link('About_MusicBrainz')}) -%]
         <ul>
             <li>
@@ -91,15 +103,18 @@
             <li>
                 [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
             </li>
+            <li>
+                [% l('{url|Statistics}', { url => c.uri_for('/statistics') }) %]
+            </li>
         </ul>
     </li>
-    <li>
+    <li class="blog">
         <a href="http://blog.musicbrainz.org" class="internal">
             [% l('Blog') %]
         </a>
     </li>
 
-    <li>
+    <li class="products">
         [%- l('{doc|Products}', {doc => doc_link('Products')}) -%]
         <ul>
             <li>
@@ -128,7 +143,7 @@
             </li>
         </ul>
     </li>
-    <li>
+    <li class="search">
         [% l('{uri|Search}', { uri => c.uri_for('/search') }) %]
         <ul>
             [%- IF c.user_exists -%]
@@ -151,7 +166,7 @@
         </ul>
     </li>
     [%- IF c.user_exists -%]
-        <li>
+        <li class="editing">
             [%- l('{doc|Editing}', {doc => doc_link('How_Editing_Works')}) -%]
             <ul>
                 <li>
@@ -165,7 +180,10 @@
                     [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
                 </li>
                 <li>
-                    [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
+                    [% l('{uri|Add Work}', { uri => c.uri_for_action('/work/create') }) %]
+                </li>
+                <li>
+                    [% l('{uri|Import From Freedb}', { uri => c.uri_for_action('/release_editor/import/freedb') }) %]
                 </li>
                 <li class="separator">
                     [% l('{uri|Vote on Edits}', { uri => c.uri_for('/edit/open') }) %]
@@ -174,12 +192,12 @@
                     [% l('{uri|Editing Suggestions}', { uri => c.uri_for_action('/report/index') }) %]
                 </li>
                 <li class="separator">
-                    [% l('{uri|Edit Conditions}', { uri => c.uri_for('/edit/conditions') }) %]
+                    [% l('{uri|Edit Conditions}', { uri => c.uri_for_action('/edit/edit_types') }) %]
                 </li>
             </ul>
         </li>
     [%- END -%]
-    <li>
+    <li class="documentation">
         [%- l('{doc|Documentation}', {doc => doc_link('MusicBrainz_Documentation')}) -%]
         <ul>
             <li>
@@ -192,11 +210,20 @@
                 [%- l('{doc|FAQs}', {doc => doc_link('Frequently_Asked_Questions')}) -%]
             </li>
             <li class="separator">
+                [%- l('{uri|Relationship Types}', { uri => c.uri_for('/admin/linktype') }) -%]
+            </li>
+            <li>
+                [%- l('{uri|Relationship Attributes}', { uri => c.uri_for('/admin/linkattributetype') }) -%]
+            </li>
+            <li>
+                [%- l('{uri|Instrument Tree}', { uri => c.uri_for('/admin/linkattributetype/instruments') }) -%]
+            </li>
+            <li class="separator">
                 [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
             </li>
         </ul>
     </li>
-    <li>
+    <li class="contact">
         [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
         <ul>
             <li>

@@ -6,6 +6,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT_BARCODES
 );
+use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use TryCatch;
 
@@ -67,7 +68,7 @@ sub release_toplevel
         $c->model('ReleaseLabel')->load($release);
         $c->model('Label')->load($release->all_labels);
 
-        my @labels = map { $_->label } $release->all_labels;
+        my @labels = grep { defined } map { $_->label } $release->all_labels;
 
         $self->linked_labels ($c, $stash, \@labels);
     }
@@ -206,17 +207,17 @@ sub release_submit : Private
 {
     my ($self, $c) = @_;
 
-    my $xp = XML::XPath->new( xml => $c->request->body );
+    my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
     my @submit;
-    for my $node ($xp->find('/metadata/release-list/release')->get_nodelist) {
-        my $id = $node->getAttribute('id') or
+    for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
+        my $id = $xp->find('@mb:id', $node)->string_value or
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
             unless MusicBrainz::Server::Validation::IsGUID($id);
 
-        my $barcode = $node->find('barcode')->string_value;
+        my $barcode = $xp->find('mb:barcode', $node)->string_value or next;
 
         $self->_error($c, "$barcode is not a valid barcode")
             unless MusicBrainz::Server::Validation::IsValidEAN($barcode);
@@ -225,7 +226,7 @@ sub release_submit : Private
     }
 
     my %releases = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
-    my %gid_map = map { $_->gid => $_->id } values %releases;
+    my %gid_map = map { $_->gid => $_ } values %releases;
 
     for my $submission (@submit) {
         my $gid = $submission->{release};
@@ -233,19 +234,24 @@ sub release_submit : Private
             unless exists $gid_map{$gid};
     }
 
-    try {
-        $c->model('Edit')->create(
-            editor_id => $c->user->id,
-            privileges => $c->user->privileges,
-            edit_type => $EDIT_RELEASE_EDIT_BARCODES,
-            submissions => [ map +{
-                release_id => $gid_map{ $_->{release} },
-                barcode => $_->{barcode}
-            }, @submit ]
-        );
-    }
-    catch ($e) {
-        $self->_error($c, "This edit could not be successfully created: $e");
+    if (@submit) {
+        try {
+            $c->model('Edit')->create(
+                editor_id => $c->user->id,
+                privileges => $c->user->privileges,
+                edit_type => $EDIT_RELEASE_EDIT_BARCODES,
+                submissions => [ map +{
+                    release => {
+                        id => $gid_map{ $_->{release} }->id,
+                        name => $gid_map{ $_->{release} }->name
+                    },
+                    barcode => $_->{barcode}
+                }, @submit ]
+            );
+        }
+        catch ($e) {
+            $self->_error($c, "This edit could not be successfully created: $e");
+        }
     }
 
     $c->detach('success');

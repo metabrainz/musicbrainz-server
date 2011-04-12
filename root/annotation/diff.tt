@@ -8,9 +8,9 @@
 
     <div class="annotation-details">
         [% l('Comparing revision by {user_old} on {date_old} with revision by {user_new} on {date_new}.', {
-                user_new => link_editor(new.editor),
+                user_new => link_entity(new.editor),
                 date_new => UserDate.format(new.creation_date),
-                user_old => link_editor(old.editor),
+                user_old => link_entity(old.editor),
                 date_old => UserDate.format(old.creation_date),
         }) %]
 
