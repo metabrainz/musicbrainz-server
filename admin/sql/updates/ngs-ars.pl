@@ -807,7 +807,7 @@ foreach my $orig_t0 (@entity_types) {
         my $rows = $sql->select_list_of_hashes(
             # Skip the cover AR as this is manually handled
             "SELECT * FROM public.link_attribute WHERE link_type='${orig_t0}_${orig_t1}'
-                AND NOT ( link_type = 'track_track' AND link = 5 )"
+                AND NOT ( link_type = 'track_track' AND link IN (5,14) )"
         );
         foreach my $row (@$rows) {
             my $link = $row->{link};
@@ -851,7 +851,7 @@ foreach my $orig_t0 (@entity_types) {
             # Skip the cover AR as this is manually handled
             $query =
                 "SELECT * FROM public.l_${orig_t0}_${orig_t1}
-                 WHERE NOT ('$orig_t0' = 'track' AND '$orig_t1' = 'track' AND link_type = 5)";
+                 WHERE NOT ('$orig_t0' = 'track' AND '$orig_t1' = 'track' AND link_type IN (5,14) )";
         }
 
         $rows = $sql->select_list_of_hashes($query);
@@ -1225,6 +1225,83 @@ $sql->do("INSERT INTO l_recording_work
             "INSERT INTO l_${t0}_${t1}
                  (link, entity0, entity1) VALUES (?, ?, ?)",
             $link_id, $row->{link0}, $row->{link1});
+    }
+}
+
+# Handle the medley AR, which depends on which attributes are present
+{
+    my %links;
+    my %attribs;
+    my $rows = $sql->select_list_of_hashes(
+        # Skip the cover AR as this is manually handled
+        "SELECT * FROM public.link_attribute
+          WHERE link_type = 'track_track'"
+    );
+    foreach my $row (@$rows) {
+        my $link = $row->{link};
+        if (!exists($attribs{$link})) {
+            $attribs{$link} = [];
+        }
+        push @{$attribs{$link}}, $row->{attribute_type};
+    }
+
+    $rows = $sql->select_list_of_hashes(
+        'SELECT * FROM public.l_track_track WHERE link_type = 14'
+    );
+    for my $row (@$rows) {
+        my $id = $row->{id};
+
+        my $begindate = $row->{begindate} || "0000-00-00";
+        my $enddate = $row->{enddate} || "0000-00-00";
+        MusicBrainz::Server::Validation::TrimInPlace($begindate);
+        MusicBrainz::Server::Validation::TrimInPlace($enddate);
+        while (length($begindate) < 10) {
+            $begindate .= "-00";
+        }
+        while (length($enddate) < 10) {
+            $enddate .= "-00";
+        }
+
+        for my $ar ([ 'recording', 'recording' ], [ 'work', 'work']) {
+        {
+            my ($t0, $t1) = @$ar;
+
+            my $link_type_key = join('_', $t0, $t1, $row->{link_type});
+            my $link_type_id = $link_type_map{$link_type_key};
+            my $key = join("_", $link_type_id, $begindate, $enddate, @final_attrs);
+            my $link_id;
+            if (!exists($links{$key})) {
+                $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+                $links{$key} = $link_id;
+                my @begindate = split(/-/, $begindate);
+                my @enddate = split(/-/, $enddate);
+                $sql->do("
+                    INSERT INTO link
+                        (id, link_type, begin_date_year, begin_date_month, begin_date_day,
+                        end_date_year, end_date_month, end_date_day, attribute_count)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ", $link_id, $link_type_id,
+                         ($begindate[0] + 0) || undef,
+                         ($begindate[1] + 0) || undef,
+                         ($begindate[2] + 0) || undef,
+                         ($enddate[0] + 0) || undef,
+                         ($enddate[1] + 0) || undef,
+                         ($enddate[2] + 0) || undef,
+                         scalar(@final_attrs));
+                foreach my $attr (@final_attrs) {
+                    $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                             $link_id, $attr);
+                }
+            }
+            else {
+                $link_id = $links{$key};
+            }
+
+            $sql->do(
+                "INSERT INTO l_${t0}_${t1}
+                 (link, entity0, entity1) VALUES (?, ?, ?)",
+                $link_id, $row->{link0}, $row->{link1});
+        }
     }
 }
 
