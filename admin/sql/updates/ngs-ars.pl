@@ -1266,7 +1266,7 @@ $sql->do("INSERT INTO l_recording_work
             $enddate .= "-00";
         }
 
-        for my $ar ([ 'recording', 'recording' ], [ 'work', 'work']) {
+        for my $ar ([ 'recording', 'recording' ], [ 'work', 'work'])
         {
             my ($t0, $t1) = @$ar;
 
