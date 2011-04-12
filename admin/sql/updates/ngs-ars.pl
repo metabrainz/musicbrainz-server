@@ -677,11 +677,6 @@ foreach my $orig_t0 (@entity_types) {
                         && $track_ar_types{$orig_t0}->{ $row->{id} } ne ($reverse ? $new_t0 : $new_t1)) {
                     next;
                 }
-                elsif ($orig_t0 eq 'track' || $orig_t1 eq 'track') {
-                    next unless
-                        exists $duplicate_to_works{ $orig_t0 } ||
-                        exists $duplicate_to_works{ $orig_t1 };
-                }
 
                 my $id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
