@@ -31,9 +31,10 @@ sub verify_artist_credits
     my ($c, @credits) = @_;
     my @artist_ids;
     for my $ac (grep { defined } @credits) {
-        while(@$ac) {
-            my $artist = shift @$ac;
-            my $join   = shift @$ac;
+        my @ac_clone = @$ac;
+        while(@ac_clone) {
+            my $artist = shift @ac_clone;
+            my $join   = shift @ac_clone;
 
             push @artist_ids, $artist->{artist};
         }
