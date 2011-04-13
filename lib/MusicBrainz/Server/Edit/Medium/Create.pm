@@ -107,7 +107,7 @@ sub _insert_hash {
 
     verify_artist_credits($self->c, map {
         $_->{artist_credit}
-    } $tracklist);
+    } @$tracklist);
 
     for my $track (@$tracklist) {
         $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });

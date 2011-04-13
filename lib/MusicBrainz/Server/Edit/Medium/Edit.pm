@@ -192,7 +192,7 @@ sub accept {
 
         verify_artist_credits($self->c, map {
             $_->{artist_credit}
-        } $data_new_tracklist);
+        } @{ $data_new_tracklist });
 
         # Create related data (artist credits and recordings)
         for my $track (@{ $data_new_tracklist }) {
