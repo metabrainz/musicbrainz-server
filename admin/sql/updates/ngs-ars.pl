@@ -1134,7 +1134,7 @@ $sql->do("INSERT INTO link (id, link_type)
          (id, root, child_order, gid, name, description) VALUES
          (?,  ?, ?, ?, ?, ?)',
         $cover_attribute_id, $cover_attribute_id, 0, $gid,
-        'cover', 'Indicates that one entity is a cover of entity'
+        'cover', 'Indicates that one entity is a cover of another entity'
     );
 
     $rows = $sql->select_list_of_hashes(
@@ -1161,7 +1161,6 @@ $sql->do("INSERT INTO link (id, link_type)
             @attrs = sort keys %row_attrs;
         }
 
-        my @final_attrs = grep { $_ != $TRANSLATED } (@attrs, $cover_attribute_id);
         my ($t0, $t1);
         my ($e0, $e1);
         my $old_type_id;
@@ -1178,9 +1177,10 @@ $sql->do("INSERT INTO link (id, link_type)
             $t1 = 'work';
             $link_type_id = $recording_work_link_type_id;
             ($e0, $e1) = ($row->{link0}, $row->{link1});
+            push @attrs, $cover_attribute_id;
         }
 
-        my $key = join("_", $link_type_id, $begindate, $enddate, @final_attrs);
+        my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
         my $link_id;
         if (!exists($links{$key})) {
             $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
@@ -1199,8 +1199,8 @@ $sql->do("INSERT INTO link (id, link_type)
                      ($enddate[0] + 0) || undef,
                      ($enddate[1] + 0) || undef,
                      ($enddate[2] + 0) || undef,
-                     scalar(@final_attrs));
-            foreach my $attr (@final_attrs) {
+                     scalar(@attrs));
+            foreach my $attr (@attrs) {
                 $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
                          $link_id, $attr);
             }
