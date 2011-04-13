@@ -58,7 +58,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.$remove_artist = self.$row.find ('input.remove-artist-credit');
 
     self.clear = function () {
-        self.$name.val ('');
+        self.$name.val ('').removeClass('error');
         self.$sortname.val ('');
         self.$credit.val ('');
         self.$join.val ('');
@@ -154,6 +154,13 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         event.preventDefault();
         return false;
+    };
+
+    self.lookupHook = function (request) {
+
+        self.$name.removeClass ('error');
+
+        return request;
     };
 
     self.nameBlurred = function(event) {
@@ -312,7 +319,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     MB.Control.Autocomplete ({
         'input': self.$name,
         'entity': 'artist',
-        'select': self.update
+        'select': self.update,
+        'lookupHook': self.lookupHook
     });
 
     if (obj === null)
@@ -366,7 +374,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         MB.Control.Autocomplete ({
             'input': self.$artist_input,
             'entity': 'artist',
-            'select': self.update
+            'select': self.update,
+            'lookupHook': self.lookupHook
         });
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
@@ -411,6 +420,13 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     self.update = function(event, data) {
         event.preventDefault();
         self.box[0].update(event, data);
+    };
+
+    self.lookupHook = function (request) {
+
+        self.$artist_input.removeClass ('error');
+
+        return request;
     };
 
     self.addArtistBox = function () {

@@ -237,6 +237,10 @@ MB.Control.Autocomplete = function (options) {
 
         self.pagerButtons ();
 
+        if ($(document).height () > $('body').height ())
+        {
+            $('body').height ($(document).height ());
+        }
     };
 
     self.lookup = function (request, response) {

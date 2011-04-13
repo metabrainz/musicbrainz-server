@@ -71,9 +71,11 @@ $artist_data->alias->merge(1, 2);
 memory_cycle_ok($artist_data->alias, 'merge doesnt leak');
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
-is(scalar @$alias_set, 2);
+is(scalar @$alias_set, 3);
 is($alias_set->[0]->name, 'Alias 1');
 is($alias_set->[1]->name, 'Alias 2');
+is($alias_set->[2]->name, 'Empty Artist',
+   'has the old artist as an alias');
 
 $alias_set = $artist_data->alias->find_by_entity_id(2);
 is(scalar @$alias_set, 0);
@@ -82,9 +84,12 @@ is(scalar @$alias_set, 0);
 $artist_data->alias->merge(1, 3);
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
-is(scalar @$alias_set, 2);
+is(scalar @$alias_set, 4);
 is($alias_set->[0]->name, 'Alias 1');
 is($alias_set->[1]->name, 'Alias 2');
+is($alias_set->[2]->name, 'Empty Artist');
+is($alias_set->[3]->name, 'Name');
+
 
 $alias_set = $artist_data->alias->find_by_entity_id(3);
 is(scalar @$alias_set, 0);
