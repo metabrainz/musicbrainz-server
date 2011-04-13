@@ -3,6 +3,8 @@ package MusicBrainz::Server::Edit::Utils;
 use strict;
 use warnings;
 
+use List::MoreUtils qw( uniq );
+
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
@@ -42,7 +44,7 @@ sub verify_artist_credits
 
     my @artists = values %{ $c->model('Artist')->get_by_ids(@artist_ids) };
 
-    if (@artists != @artist_ids) {
+    if (@artists != uniq @artist_ids) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'An artist that is used in the new artist credits has been deleted'
         )
