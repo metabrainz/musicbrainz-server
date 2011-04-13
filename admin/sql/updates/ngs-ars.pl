@@ -1257,57 +1257,63 @@ $sql->do("INSERT INTO link (id, link_type)
             $enddate .= "-00";
         }
 
-        for my $ar ([ 'recording', 'work' ], [ 'work', 'work'])
-        {
-            my ($t0, $t1) = @$ar;
+        my ($t0, $t1) = ('recording', 'work');
 
-            my $link_type_key = join('_', $t0, $t1, $row->{link_type});
-            my $link_type_id = $link_type_map{$link_type_key};
-            my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
-            my $link_id;
-            if (!exists($links{$key})) {
-                $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
-                $links{$key} = $link_id;
-                my @begindate = split(/-/, $begindate);
-                my @enddate = split(/-/, $enddate);
-                $sql->do("
+        my $link_type_key = join('_', $t0, $t1, $row->{link_type});
+        my $link_type_id = $link_type_map{$link_type_key};
+        my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
+        my $link_id;
+        if (!exists($links{$key})) {
+            $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+            $links{$key} = $link_id;
+            my @begindate = split(/-/, $begindate);
+            my @enddate = split(/-/, $enddate);
+            $sql->do("
                     INSERT INTO link
                         (id, link_type, begin_date_year, begin_date_month, begin_date_day,
                         end_date_year, end_date_month, end_date_day, attribute_count)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ", $link_id, $link_type_id,
-                         ($begindate[0] + 0) || undef,
-                         ($begindate[1] + 0) || undef,
-                         ($begindate[2] + 0) || undef,
-                         ($enddate[0] + 0) || undef,
-                         ($enddate[1] + 0) || undef,
-                         ($enddate[2] + 0) || undef,
-                         scalar(@attrs));
-                foreach my $attr (@attrs) {
-                    $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
-                             $link_id, $attr);
-                }
+                     ($begindate[0] + 0) || undef,
+                     ($begindate[1] + 0) || undef,
+                     ($begindate[2] + 0) || undef,
+                     ($enddate[0] + 0) || undef,
+                     ($enddate[1] + 0) || undef,
+                     ($enddate[2] + 0) || undef,
+                     scalar(@attrs));
+            foreach my $attr (@attrs) {
+                $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                         $link_id, $attr);
             }
-            else {
-                $link_id = $links{$key};
-            }
-
-            $sql->do(
-                "INSERT INTO l_${t0}_${t1}
-                 (link, entity0, entity1) VALUES (?, ?, ?)",
-                $link_id, $row->{link0}, $row->{link1});
         }
+        else {
+            $link_id = $links{$key};
+        }
+
+        $sql->do(
+            "INSERT INTO l_${t0}_${t1}
+                 (link, entity0, entity1) VALUES (?, ?, ?)",
+            $link_id, $row->{link0}, $row->{link1});
     }
 }
 
 # Migrate remaining recording-work performances
 printf STDERR "Migrating remaining recording-work performances\n";
-$sql->do("INSERT INTO l_recording_work
+$sql->do(
+    "INSERT INTO l_recording_work
     (link, entity0, entity1)
     SELECT ?, id, id FROM work
      WHERE NOT EXISTS (
-       SELECT TRUE FROM l_recording_work ar WHERE ar.entity1 = work.id AND ar.link = ?)",
-    $recording_work_link_id, $recording_work_link_id);
+       SELECT TRUE
+         FROM l_recording_work ar
+         JOIN link ON ar.link = link.id
+         JOIN link_type ON link.link_type = link_type.id
+        WHERE link_type.id IN (?, ?))
+",
+    $recording_work_link_id,
+    $recording_work_link_type_id,
+    $link_type_map{'recording_work_' . 14}
+);
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
 #my $amz_clean_total = 0; ($amz_clean_total += $amz_clean{$_}) for keys %amz_clean;
