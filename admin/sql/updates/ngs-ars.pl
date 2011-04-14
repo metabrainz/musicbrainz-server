@@ -1300,14 +1300,8 @@ $sql->do(
     "INSERT INTO l_recording_work
     (link, entity0, entity1)
     SELECT ?, id, id FROM work
-     WHERE NOT EXISTS (
-       SELECT TRUE
-         FROM l_recording_work ar
-         JOIN link ON ar.link = link.id
-        WHERE link.link_type = ? AND ar.entity1 = work.id
 ",
-    $recording_work_link_id,
-    $recording_work_link_type_id,
+    $recording_work_link_id
 );
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
