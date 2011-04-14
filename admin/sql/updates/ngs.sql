@@ -392,7 +392,7 @@ FROM (
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('composition', 'composer', 'lyricist', 'instrumentator',
-                             'orchestrator', 'librettist', 'misc', 'writer')
+                             'orchestrator', 'librettist', 'misc', 'publishing', 'writer')
         UNION
         SELECT link1 AS id
             FROM public.l_label_track l
