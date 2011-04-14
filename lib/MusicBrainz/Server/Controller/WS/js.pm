@@ -55,6 +55,14 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
+    "cdstub" => {
+        method => 'GET',
+        optional => [ qw(q artist tracks limit page timestamp) ]
+    },
+    "freedb" => {
+        method => 'GET',
+        optional => [ qw(q artist tracks limit page timestamp) ]
+    },
     "associations" => {
         method => 'GET',
     }
@@ -400,8 +408,110 @@ sub tracklist : Chained('root') PathPart Args(1) {
     $c->res->body($c->stash->{serializer}->serialize('generic', $structure));
 }
 
-sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
-    my ($self, $c) = @_;
+sub freedb : Chained('root') PathPart Args(2) {
+    my ($self, $c, $category, $id) = @_;
+
+    my $response = $c->model ('FreeDB')->lookup ($category, $id);
+
+    my @ret = map {
+        {
+            name => $_->{title},
+            artist => $_->{artist},
+            length => format_track_length($_->{length}),
+        }
+    } @{ $response->tracks };
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@ret));
+};
+
+sub cdstub : Chained('root') PathPart Args(1) {
+    my ($self, $c, $id) = @_;
+
+    my @ret;
+    my $toc = $c->model('CDStubTOC')->get_by_discid($id);
+
+    if ($toc)
+    {
+        $c->model('CDStub')->load ($toc);
+        $c->model('CDStubTrack')->load_for_cdstub ($toc->cdstub);
+        $toc->update_track_lengths;
+
+        @ret = map {
+            {
+                name => $_->title,
+                length => format_track_length($_->length),
+            }
+        } $toc->cdstub->all_tracks;
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', \@ret));
+}
+
+sub tracklist_results {
+    my ($self, $c, $results) = @_;
+
+    my @output;
+
+    my @gids = map { $_->entity->gid } @$results;
+
+    my @releases = values %{ $c->model ('Release')->get_by_gids (@gids) };
+    $c->model ('Medium')->load_for_releases (@releases);
+    $c->model ('MediumFormat')->load (map { $_->all_mediums } @releases);
+    $c->model ('ArtistCredit')->load (@releases);
+
+    for my $release ( @releases )
+    {
+        next unless $release;
+
+        my $count = 0;
+        for my $medium ($release->all_mediums)
+        {
+            $count += 1;
+
+            push @output, {
+                gid => $release->gid,
+                name => $release->name,
+                position => $count,
+                format => $medium->format_name,
+                medium => $medium->name,
+                comment => $release->comment,
+                artist => $release->artist_credit->name,
+                tracklist_id => $medium->tracklist_id,
+            };
+        }
+    }
+
+    return @output;
+};
+
+sub disc_results {
+    my ($self, $type, $results) = @_;
+
+    my @output;
+    for (@$results)
+    {
+        my %result = (
+            discid => $_->entity->discid,
+            name => $_->entity->title,
+            artist => $_->entity->artist,
+        );
+
+        $result{year} = $_->entity->year if $type eq 'freedb';
+        $result{category} = $_->entity->category if $type eq 'freedb';
+
+        $result{comment} = $_->entity->comment if $type eq 'cdstub';
+        $result{barcode} = $_->entity->barcode if $type eq 'cdstub';
+
+        push @output, \%result;
+    }
+
+    return @output;
+};
+
+sub disc_search {
+    my ($self, $c, $type) = @_;
 
     my $query = escape_query (trim $c->stash->{args}->{q});
     my $artist = escape_query ($c->stash->{args}->{artist});
@@ -409,17 +519,18 @@ sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
-    unless ($query) {
-        $c->detach('bad_req');
-    }
+    my $title = $type eq 'release' ? "release:($query*)" : "$query*";
+    my @query;
 
-    $query = "release:($query*)";
-    $query .= " AND artist:($artist)" if $artist;
-    $query .= " AND tracks:($tracks)" if $tracks;
+    push @query, $title if $query;
+    push @query, "artist:($artist)" if $artist;
+    push @query, "tracks:($tracks)" if $tracks;
+
+    $query = join (" AND ", @query);
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, 'release', $query, $limit, $page, 1, undef, $no_redirect);
+        $c, $type, $query, $limit, $page, 1, undef, $no_redirect);
 
     my @output;
 
@@ -427,34 +538,9 @@ sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
     {
         my $pager = $response->{pager};
 
-        my @gids = map { $_->{entity}->gid } @{ $response->{results} };
-
-        my @releases = values %{ $c->model ('Release')->get_by_gids (@gids) };
-        $c->model ('Medium')->load_for_releases (@releases);
-        $c->model ('MediumFormat')->load (map { $_->all_mediums } @releases);
-        $c->model ('ArtistCredit')->load (@releases);
-
-        for my $release ( @releases )
-        {
-            next unless $release;
-
-            my $count = 0;
-            for my $medium ($release->all_mediums)
-            {
-                $count += 1;
-
-                push @output, {
-                    gid => $release->gid,
-                    name => $release->name,
-                    position => $count,
-                    format => $medium->format_name,
-                    medium => $medium->name,
-                    comment => $release->comment,
-                    artist => $release->artist_credit->name,
-                    tracklist_id => $medium->tracklist_id,
-                };
-            }
-        }
+        @output = $type eq 'release' ?
+            $self->tracklist_results ($c, $response->{results}) :
+            $self->disc_results ($type, $response->{results});
 
         push @output, {
             pages => $pager->last_page,
@@ -471,7 +557,26 @@ sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
+};
+
+sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
+    my ($self, $c) = @_;
+
+    return $self->disc_search ($c, 'release');
 }
+
+sub cdstub_search : Chained('root') PathPart('cdstub') Args(0) {
+    my ($self, $c) = @_;
+
+    return $self->disc_search ($c, 'cdstub');
+};
+
+sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
+    my ($self, $c) = @_;
+
+    return $self->disc_search ($c, 'freedb');
+};
+
 
 # recording associations
 sub associations : Chained('root') PathPart Args(1) {

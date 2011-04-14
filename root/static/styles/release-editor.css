@@ -80,7 +80,7 @@ div.guesscase-options,
     width: 100px;
 }
 
-#release-editor ul.tabs {
+#release-editor > ul.tabs {
     background: url(../lib/jquery.ui/themes/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -90,7 +90,7 @@ div.guesscase-options,
     padding: 3px 0 0 4px;
 }
 
-#release-editor ul.tabs li input[type=submit] {
+#release-editor > ul.tabs li input[type=submit] {
     border: 0;
     color: #1c94c4;
     background: white;
@@ -99,11 +99,11 @@ div.guesscase-options,
     cursor: pointer;
 }
 
-#release-editor ul.tabs li.current input[type=submit] {
+#release-editor > ul.tabs li.current input[type=submit] {
     color: #eb8f00;
 }
 
-#release-editor ul.tabs li {
+#release-editor > ul.tabs li {
     background: white;
     list-style: none;
     float: left;
@@ -122,7 +122,7 @@ div.guesscase-options,
     border-top-right-radius: 4px;
 }
 
-#release-editor ul.tabs li.current {
+#release-editor > ul.tabs li.current {
     color: #eb8f00;
     margin: 1px 3px 0px 0;
 }
@@ -154,7 +154,6 @@ div.guesscase-options,
 #release-editor fieldset.advanced-disc tr.track > td > span > input[type=text]:focus,
 #release-editor fieldset.advanced-disc tr.track > td > input[type=text]:focus { border: 1px solid #FFBA58; }
 
-#release-editor div.tracklist-padding { padding: 0 12px 12px 12px; }
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
 table.medium.tbl tr.deleted { display: none; }
 table.medium.tbl td.position  { width: 2em; }
@@ -285,6 +284,37 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 60px; }
 
 #release-editor div.select-recording { background: #f0f0f0; }
+
+/* __________________________________
+
+       TRACKLIST TAB, ADD DISC
+   __________________________________ */
+
+.add-disc-dialog {
+    position: absolute;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    padding: 1em;
+    width: 600px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 16px #888;
+    -moz-box-shadow: 0 1px 16px #888;
+    box-shadow: 0 1px 16px #888;
+    z-index: 20;
+}
+
+.add-disc-dialog div.tabs li a { background: #ddd; }
+.add-disc-dialog div.tabs li.sel a { background: #f0f0f0; border-bottom: 1px solid #f0f0f0; }
+
+.add-disc-dialog div.buttons { margin-top: 1em; width: 100%; }
+.add-disc-dialog div.buttons .add-disc { float: right; }
+
+.add-disc-dialog div.tracklist-padding { padding: 0 12px 12px 12px; }
+
+.add-disc-dialog div.import-message { width: 100%; padding-left: 1em; }
+.add-disc-dialog div.import-message p { clear: both; }
 
 /* __________________________________
 

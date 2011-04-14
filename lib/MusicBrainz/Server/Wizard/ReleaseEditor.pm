@@ -718,13 +718,15 @@ sub _edit_release_track_edits
         if ($new->{id})
         {
             # The medium already exists
+            my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+            $entity->release ($self->release);
 
             if ($new->{deleted})
             {
                 # Delete medium
                 $create_edit->(
                     $EDIT_MEDIUM_DELETE, $editnote,
-                    medium => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    medium => $entity,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
@@ -735,7 +737,7 @@ sub _edit_release_track_edits
                     name => $new->{name},
                     format_id => $new->{format_id},
                     position => $new->{position},
-                    to_edit => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    to_edit => $entity,
                     separate_tracklists => 1,
                     as_auto_editor => $data->{as_auto_editor},
                 );
@@ -780,13 +782,15 @@ sub _edit_release_track_edits
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
-            if ($new->{toc}) {
+            my $toc = $self->c->model('CDStubTOC')->get_by_discid ($new->{toc}) if $new->{toc};
+            if ($toc)
+            {
                 $create_edit->(
                     $EDIT_MEDIUM_ADD_DISCID,
                     $editnote,
                     medium_id  => $previewing ? 0 : $add_medium->entity_id,
                     release_id => $previewing ? 0 : $self->release->id,
-                    cdtoc      => $new->{toc},
+                    cdtoc      => $toc->toc,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
@@ -946,6 +950,10 @@ sub _expand_mediums
                 $pos++;
                 $self->_expand_track ($_, $rec);
             } @{ $self->edited_tracklist($json->decode($edits)) } ];
+        }
+        elsif ($disc->{deleted})
+        {
+            $disc->{tracks} = [ ];
         }
         else
         {
