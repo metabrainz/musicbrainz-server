@@ -1213,7 +1213,7 @@ $sql->do("INSERT INTO link (id, link_type)
     }
 }
 
-# Handle the medley AR, which depends on which attributes are present
+# Handle the medley AR
 {
     my %links;
     my %attribs;
@@ -1304,12 +1304,10 @@ $sql->do(
        SELECT TRUE
          FROM l_recording_work ar
          JOIN link ON ar.link = link.id
-         JOIN link_type ON link.link_type = link_type.id
-        WHERE link_type.id IN (?, ?))
+        WHERE link.link_type = ? AND ar.entity1 = work.id
 ",
     $recording_work_link_id,
     $recording_work_link_type_id,
-    $link_type_map{'recording_work_' . 14}
 );
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
