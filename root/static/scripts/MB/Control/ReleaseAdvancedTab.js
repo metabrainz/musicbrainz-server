@@ -104,6 +104,17 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         );
     };
 
+    /* disableTracklistEditing disables the position and duration inputs and
+       disables the remove track button if a CDTOC is present. */
+    self.disableTracklistEditing = function () {
+        if (!self.parent.hasToc ())
+            return;
+
+        self.$position.attr ('disabled', 'disabled');
+        self.$length.attr ('disabled', 'disabled');
+        self.$row.find ("input.remove-track").hide ();
+    };
+
     /**
      * updateVariousArtists will mark the disc as VA if the artist for this
      * track is different from the release artist.
@@ -166,6 +177,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$fieldset = $disc;
     self.parent = parent;
     self.bubble_collection = self.parent.bubble_collection;
+    self.track_count = null;
 
     /**
      * fullTitle returns the disc title prefixed with 'Disc #: '.  Or just
@@ -210,6 +222,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             trk.artist_credit.clear ();
         }
+
+        trk.disableTracklistEditing ();
     };
 
     self.addTrackEvent = function (event) {
@@ -321,6 +335,12 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     /* This function registers the ReleaseTextarea for this disc as self.basic. */
     self.registerBasic = function (basic) {
         self.basic = basic;
+
+        /* the basic disc knows about tocs, so we can now call hasToc. */
+        if (self.hasToc ())
+        {
+            self.$fieldset.find ('div.add-track').hide ();
+        }
     };
 
     /* 'up' is visual, so the disc position decreases. */
@@ -466,6 +486,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             if (chained) {
                 self.basic.loadTracklist (data);
             }
+
+            if (self.hasToc ()) {
+                self.track_count = data.length;
+            }
         };
 
         self.$nowloading.show ();
@@ -546,6 +570,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      */
     self.isVariousArtists = function () {
         return self.basic.isVariousArtists ();
+    };
+
+    self.hasToc = function () {
+        return self.basic.hasToc ();
     };
 
     /**
