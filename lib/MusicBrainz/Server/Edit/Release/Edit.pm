@@ -17,6 +17,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
     clean_submitted_artist_credits
+    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -161,7 +162,11 @@ sub _edit_hash
     return $data;
 }
 
-sub _xml_arguments { return ForceArray => [ 'artist_credit' ] }
+before accept => sub {
+    my ($self) = @_;
+
+    verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+};
 
 sub allow_auto_edit
 {

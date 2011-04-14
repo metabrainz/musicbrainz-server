@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    verify_artist_credits
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Translation 'l';
@@ -107,6 +108,8 @@ sub initialize {
 
 sub accept {
     my $self = shift;
+
+    verify_artist_credits($self->c, $self->data->{new_artist_credit});
 
     my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
         @{ $self->data->{new_artist_credit} }
