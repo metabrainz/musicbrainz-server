@@ -58,6 +58,15 @@ sub edit : Local RequireAuth Edit
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
     my %type_info = build_type_info($tree);
 
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $type0,
+            type1 => $type1
+        );
+        $c->detach;
+    }
+
     $c->stash(
         root => $tree,
         type_info => JSON->new->latin1->encode(\%type_info),
@@ -173,6 +182,15 @@ sub create : Local RequireAuth Edit
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
     my %type_info = build_type_info($tree);
+
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $type0,
+            type1 => $type1
+        );
+        $c->detach;
+    }
 
     $c->stash(
         root      => $tree,
@@ -291,6 +309,15 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
     my $tree = $c->model('LinkType')->get_tree($type => 'recording');
     my %type_info = build_type_info($tree);
 
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $type,
+            type1 => 'recording'
+        );
+        $c->detach;
+    }
+
     $c->stash(
         root      => $tree,
         type_info => JSON->new->latin1->encode(\%type_info),
@@ -372,6 +399,15 @@ sub create_url : Local RequireAuth Edit
 
     my $tree = $c->model('LinkType')->get_tree(@types);
     my %type_info = build_type_info($tree);
+
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $types[0],
+            type1 => $types[1]
+        );
+        $c->detach;
+    }
 
     $c->stash(
         root      => $tree,
