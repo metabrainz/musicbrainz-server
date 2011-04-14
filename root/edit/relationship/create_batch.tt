@@ -5,23 +5,6 @@
       'scripts/ar.js',
     ) %]"></script>
    <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
-   <script type="text/javascript">
-     $(document).ready (function () {
-        var checkbox = $('#id-ar\\.direction');
-        $('#changedirection').click (function (event) {
-             event.preventDefault ();
-
-             var newval = checkbox.val () === "1" ? "0" : "1";
-             checkbox.val (newval);
-
-             var entity0 = $('#entity0').html ();
-             var entity1 = $('#entity1').html ();
-
-             $('#entity0').html (entity1);
-             $('#entity1').html (entity0);
-        });
-     });
-   </script>
 [% END %]
 
 [%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
@@ -56,16 +39,6 @@
                 <td colspan="2">
                     [% r.select('link_type_id') %]
                     [% field_errors(form, 'link_type_id') %]
-                    [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
-                      <span id="change-direction">
-                      [%- IF no_javascript -%]
-                        [% r.checkbox('direction') %] Change direction
-                      [%- ELSE -%]
-                        [% r.hidden('direction') %]
-                        <input type="button" id="changedirection" value="[% l('Change direction') %]" />
-                      [%- END -%]
-                      </span>
-                    [% END %]
                     <div class="ar-descr" id="type_descr"></div>
                 </td>
             </tr>
