@@ -310,52 +310,18 @@ ul.favicons {
 }
 
 ul.favicons li {
-    float: left;
     margin-right: 0.5em;
     margin-bottom: 0.5em;
 }
 
-ul.favicons img {
-    border: 1px solid #999;
+ul.favicons li img {
+    vertical-align: middle;
 }
 
-ul.favicons div {
-    position: relative;
-    background-size: 100%;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 32px;
-    height: 32px;
-    border: 1px solid #FFFFFF;
-}
-
-ul.favicons a {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    color: #000000;
-}
-
-ul.favicons a:hover {
-    color: #000000;
-    text-decoration: none;
-}
-
-ul.favicons span {
-    position: absolute;
-    bottom: 1px;
-    right: 1px;
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-    font-family: ariel;
-    font-size: 9px;
-}
-
-ul.favicons .border {
+ul.favicons img.border {
     border: 1px solid #ccc;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    padding: 1px;
 }
-

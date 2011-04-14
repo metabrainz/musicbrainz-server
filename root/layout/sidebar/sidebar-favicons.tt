@@ -1,20 +1,15 @@
-[% MACRO display_favicon(relationship) BLOCK %]
-    <div title="[% relationship.phrase %]"
-         style="background-image: url('[% favicon_image(relationship.target) %]');"
-         class="border">
-        <a href="[% relationship.target.url %]"> </a>
-    </div>
-[% END %]
-
 [%- favicons = entity.relationships_by_type('url') -%]
-[%- IF favicons.size -%]
+[%- IF favicons -%]
     <p><strong>[% l('External links:') %]</strong></p>
     <ul class="favicons">
-        [%- FOREACH favicon IN favicons -%]
-            [% NEXT UNLESS trusted_domain(favicon.target) %]
-            <li>[% display_favicon(favicon) %]</li>
-        [%- END -%]
+      [%- FOREACH favicon IN favicons -%]
+        [% url=favicon.target %]
+        [% NEXT UNLESS url.does('MusicBrainz::Server::Entity::URL::Sidebar') %]
+        <li>
+          <a href="[% url.url %]">
+            <img src="[% favicon_image(url) %]" class="border"/>
+            [% url.sidebar_name | html %]</a>
+        </li>
+      [%- END -%]
     </ul>
-[%- ELSE -%]
-    <p>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</p>
 [%- END -%]

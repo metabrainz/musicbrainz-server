@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::Twitter;
+package MusicBrainz::Server::Entity::URL::Facebook;
 
 use Moose;
 
@@ -8,13 +8,13 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^http://(?:www.)?twitter.com/([^/]+)/?$}i) {
-        return '@' . $1;
+    if ($self->url =~ m{^http://(?:www.)?facebook.com/([^/]+)/?$}i) {
+        return $1;
     }
     else {
         return super();
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
