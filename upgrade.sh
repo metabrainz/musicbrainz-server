@@ -50,7 +50,7 @@ echo `date` : Fixing refcounts
 
 echo `date` : Migrating edits
 echo This step currently disabled
- ./admin/sql/updates/ngs-migrate-edits.pl
+./admin/sql/updates/ngs-migrate-edits.pl
 
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql

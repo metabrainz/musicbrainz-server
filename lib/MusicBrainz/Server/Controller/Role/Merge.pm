@@ -99,6 +99,8 @@ role {
         $c->detach;
     };
 
+    method _merge_form_arguments => sub { };
+
     method _merge_confirm => sub {
         my ($self, $c) = @_;
         $c->stash(
@@ -116,9 +118,12 @@ role {
         $c->detach
             unless $merger->ready_to_merge;
 
-        my $form = $c->form(form => $params->merge_form);
+        my $form = $c->form(
+            form => $params->merge_form,
+            $self->_merge_form_arguments($c, @entities)
+        );
         if ($form->submitted_and_valid($c->req->params)) {
-            my $new_id = $form->field('target')->value;
+            my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
             my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;
             $self->_insert_edit($c, $form,
                 edit_type => $params->edit_type,

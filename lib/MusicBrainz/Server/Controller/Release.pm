@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
+use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
@@ -316,6 +317,26 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     search_template => 'release/merge_search.tt',
     merge_form => 'Merge::Release',
 };
+
+sub _merge_form_arguments {
+    my ($self, $c, @releases) = @_;
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('Track')->load_for_tracklists(map { $_->tracklist } map { $_->all_mediums } @releases);
+    $c->model('Recording')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
+    $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
+
+    my @mediums =
+        nsort_by { $_->position }
+        map { $_->all_mediums } @releases;
+
+    $c->stash(
+        mediums => \@mediums
+    );
+
+    return (
+        init_object => { medium_positions => { map => \@mediums } }
+    );
+}
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
