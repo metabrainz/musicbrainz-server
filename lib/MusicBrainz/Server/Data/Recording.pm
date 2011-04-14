@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Data::Recording;
 
 use Moose;
+use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Data::Track;
+use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
@@ -240,6 +242,58 @@ sub editor_can_create_recordings {
         DateTime->now - $editor->registration_date,
         DateTime::Duration->new( weeks => 2 )
       ) && $editor->accepted_edits >= 10;
+}
+
+=method appears_on
+
+This method will return a list of release groups the recordings appear
+on. The results are ordered using the type-id (so albums come first,
+then singles, etc..) and then by name.
+
+=cut
+
+sub appears_on
+{
+    my ($self, $limit, @recordings) = @_;
+
+    my @ids = map { $_->id } @recordings;
+
+    my $query =
+        "SELECT DISTINCT ON (recording.id, name.name, type)
+             rg.id, rg.gid, type AS type_id, name.name,
+             rg.artist_credit AS artist_credit_id, recording.id AS recording
+         FROM release_group rg
+           JOIN release_name name ON rg.name=name.id
+           JOIN release ON release.release_group = rg.id
+           JOIN medium ON release.id = medium.release
+           JOIN track ON track.tracklist = medium.tracklist
+           JOIN recording ON recording.id = track.recording
+         WHERE recording.id IN (" . placeholders (@ids) . ")";
+
+    my %map;
+    $self->sql->select ($query, @ids);
+
+    while (my $row = $self->sql->next_row_hash_ref) {
+        my $recording_id = delete $row->{recording};
+        $map{$recording_id} ||= [];
+        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row ($row);
+    }
+
+    for my $rec_id (keys %map)
+    {
+        # A crude ordering of importance.
+        my @rgs = uniq_by { $_->name }
+                  sort { $a->type_id <=> $b->type_id }
+                  sort { $a->name cmp $b->name }
+                  @{ $map{$rec_id} };
+
+        $map{$rec_id} = {
+            hits => scalar @rgs,
+            results => scalar @rgs > $limit ? [ @rgs[ 0 .. ($limit-1) ] ] : \@rgs,
+        }
+    }
+
+    return %map;
 }
 
 __PACKAGE__->meta->make_immutable;

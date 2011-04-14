@@ -99,7 +99,12 @@ MB.Control.RelateTo = function () {
         'entity': self.type (),
         'input': self.$input,
         'select': self.select,
-        'resultHook': self.resultHook
+        'resultHook': self.resultHook,
+        'position': {
+            my: "right top",
+            at: "right bottom",
+            collision: "none"
+        }
     });
 
     return self;

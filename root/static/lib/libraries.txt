@@ -1,9 +1,9 @@
 
--- jquery/jquery-1.4.4.min.js --
+-- jquery/jquery-1.5.1.js --
 
 library:     jQuery
 license:     MIT/GPLv2
-version:     1.4.4
+version:     1.5.1
 author:      John Resig
 url:         http://jquery.com
 
@@ -11,14 +11,14 @@ url:         http://jquery.com
 
 library:     jQuery UI
 license:     MIT/GPLv2
-version:     1.8.6
+version:     1.8.10
 author:      jQuery UI Authors (http://jqueryui.com/about)
 url:         http://jqueryui.com/download
 components:  Autocomplete
 note:        The version included here was created by selecting only
              the components needed for MusicBrainz from the jquery ui
              download page.  The "development-bundle" directory from
-             the resulting jquery-1.8.6-custom.zip is included here as
+             the resulting jquery-1.8.10-custom.zip is included here as
              "jquery.ui".
 
 -- json/json2.js --
