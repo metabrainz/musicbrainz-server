@@ -207,6 +207,33 @@ sub find_for_cdstub {
     );
 }
 
+=method reorder
+
+    reorder
+
+Takes a map of medium ids to their new position, and reorders them. For example:
+
+   reorder( 91 => 1, 92 => 2 )
+
+Will move medium #91 to be in position 1 and medium #92 to be in position 2
+
+=cut
+
+sub reorder {
+    my ($self, %ordering) = @_;
+    my @medium_ids = keys %ordering;
+
+    $self->sql->do(
+        'UPDATE medium SET position =
+                (SELECT position
+                   FROM (VALUES ' . join(', ', ('(?::INTEGER, ?::INTEGER)') x @medium_ids) . ')
+                     AS mpos (medium, position)
+                  WHERE mpos.medium = medium.id)
+          WHERE id IN (' . placeholders(@medium_ids) . ')',
+        %ordering, @medium_ids
+    )
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
