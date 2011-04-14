@@ -294,7 +294,7 @@
             <td class="disc" >
             [% IF multidisc %]
               <h3>
-                [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+                [% l('Disc {num}', { num => '<span class="discnum">' _ medium_field.field('position').value _ '</span>' }) %]
               </h3>
             [% END %]
             </td>
@@ -462,7 +462,7 @@
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
       <legend>
-        [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+        [% l('Disc {num}', { num => '<span class="discnum">' _ (medium_field.field('position').value) _ '</span>' }) %]
       </legend>
 
       <table class="advanced-format">
