@@ -372,6 +372,12 @@ sub create
         my $now = DateTime->now;
         my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
+        # Some edits need the ID when they are accepted, and the accept code
+        # might run before edit insertion (ie, autoedits).
+        $edit->id($self->sql->select_single_value(
+            "SELECT nextval('edit_id_seq')"
+        ));
+
         # Automatically accept auto-edits on insert
         if ($edit->auto_edit) {
             my $st = $self->_do_accept($edit);
@@ -381,6 +387,7 @@ sub create
         };
 
         my $row = {
+            id => $edit->id,
             editor => $edit->editor_id,
             data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
             status => $edit->status,
@@ -393,7 +400,6 @@ sub create
         };
 
         my $edit_id = $self->c->raw_sql->insert_row('edit', $row, 'id');
-        $edit->id($edit_id);
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
