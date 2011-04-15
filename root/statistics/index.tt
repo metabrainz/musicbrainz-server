@@ -1,77 +1,79 @@
-[% WRAPPER 'layout.tt' title=l('Database statistics') %] 
+[% WRAPPER 'layout.tt' title=l('Database Statistics') full_width=1 %] 
 
-[% UserDate.format(stats.date_collected) %]
+<h1>[% l('Database Statistics') %]</h1>
 
-<h3>[% l('Basic metadata') %]</h3>
+<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+
+<h2>[% l('Basic metadata') %]</h2>
 <table>
 <tr>
-    <td>[% l('artists:') %]</td>
+    <td>[% l('Artists:') %]</td>
     <td>[% stats.statistic('count.artist') %]</td>
 </tr>
 <tr>
-    <td>[% l('release groups:') %]</td>
+    <td>[% l('Release groups:') %]</td>
     <td>[% stats.statistic('count.releasegroup') %]</td>
 </tr>
 <tr>
-    <td>[% l('releases:') %]</td>
+    <td>[% l('Releases:') %]</td>
     <td>[% stats.statistic('count.release') %]</td>
 </tr>
 <tr>
-    <td>[% l('disc ids:') %]</td>
+    <td>[% l('Disc IDs:') %]</td>
     <td>[% stats.statistic('count.discid') %]</td>
 </tr>
 <tr>
-    <td>[% l('recordings:') %]</td>
+    <td>[% l('Recordings:') %]</td>
     <td>[% stats.statistic('count.recording') %]</td>
 </tr>
 <tr>
-    <td>[% l('labels:') %]</td>
+    <td>[% l('Labels:') %]</td>
     <td>[% stats.statistic('count.label') %]</td>
 </tr>
 <tr>
-    <td>[% l('works:') %]</td>
+    <td>[% l('Works:') %]</td>
     <td>[% stats.statistic('count.work') %]</td>
 </tr>
 <tr>
-    <td>[% l('links:') %]</td>
+    <td>[% l('Relationships:') %]</td>
     <td>[% stats.statistic('count.ar.links') %]</td>
 </tr>
 <tr>
-    <td>[% l('tags (raw / aggregated):') %]</td>
+    <td>[% l('Tags (raw / aggregated):') %]</td>
     <td>
         [% stats.statistic('count.tag.raw') %] /
         [% stats.statistic('count.tag') %]
     </td>
 </tr>
 <tr>
-    <td>[% l('ratings (raw / aggregated):') %]</td>
+    <td>[% l('Ratings (raw / aggregated):') %]</td>
     <td>
         [% stats.statistic('count.rating.raw') %] /
         [% stats.statistic('count.rating') %]
     </td>
 </tr>
 <tr>
-    <td>[% l('barcodes:') %]</td>
+    <td>[% l('Barcodes:') %]</td>
     <td>[% stats.statistic('count.barcode') %]</td>
 </tr>
 <tr>
-    <td>[% l('puids:') %]</td>
+    <td>[% l('PUIDs:') %]</td>
     <td>[% stats.statistic('count.puid') %]</td>
 </tr>
 <tr>
-    <td>[% l('isrcs:') %]</td>
+    <td>[% l('ISRCs:') %]</td>
     <td>[% stats.statistic('count.isrc') %]</td>
 </tr>
 <tr>
-    <td>[% l('editors:') %]</td>
+    <td>[% l('Editors:') %]</td>
     <td>[% stats.statistic('count.editor') %]</td>
 </tr>
 </table>
 
-<h3>[% l('Releases') %]</h3>
+<h2>[% l('Releases') %]</h2>
 <table>
 <tr>
-    <td>[% l('releases:') %]</td>
+    <td>[% l('Releases:') %]</td>
     <td>[% stats.statistic('count.release') %]</td>
     <td>&nbsp;</td>
 </tr>
@@ -81,100 +83,100 @@
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.various', 'count.release') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('by single artist:') %]</td>
+    <td>&nbsp;&nbsp;[% l('by a single artist:') %]</td>
     <td>[% stats.statistic('count.release.nonvarious') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.nonvarious', 'count.release') }) %]</td>
 </tr>
 </table>
 
-<h3>[% l('Disc Identifiers') %]</h3>
+<h2>[% l('Disc IDs') %]</h2>
 <table>
 <tr>
-    <td>[% l('disc ids:') %]</td>
+    <td>[% l('Disc IDs:') %]</td>
     <td>[% stats.statistic('count.discid') %]</td>
     <td>&nbsp;</td>
 </tr>
 <tr>
-    <td>[% l('releases:') %]</td>
+    <td>[% l('Releases:') %]</td>
     <td>[% stats.statistic('count.release') %]</td>
     <td>&nbsp;</td>
 </tr>
 <tr>
-    <td>[% l('releases with no disc id:') %]</td>
+    <td>[% l('Releases with no disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.0discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.0discids', 'count.release') }) %]</td>
 </tr>
 <tr>
-    <td>[% l('releases with at least one disc id:') %]</td>
+    <td>[% l('Releases with at least one disc ID:') %]</td>
     <td>[% stats.statistic('count.release.has_discid') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.has_discid', 'count.release') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 1 disc id:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 1 disc ID:') %]</td>
     <td>[% stats.statistic('count.release.1discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.1discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 2 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 2 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.2discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.2discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 3 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 3 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.3discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.3discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 4 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 4 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.4discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.4discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 5 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 5 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.5discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.5discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 6 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 6 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.6discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.6discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 7 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 7 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.7discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.7discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 8 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 8 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.8discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.8discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 9 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 9 disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.9discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.9discids', 'count.release.has_discid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 10 disc ids:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 10 or more disc IDs:') %]</td>
     <td>[% stats.statistic('count.release.10discids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.release.10discids', 'count.release.has_discid') }) %]</td>
 </tr>
 </table>
 
-<h3>[% l('Recording Identifiers') %]</h3>
+<h2>[% l('Recordings') %]</h2>
 <table>
 <tr>
-    <td>[% l('recordings:') %]</td>
+    <td>[% l('Recordings:') %]</td>
     <td>[% stats.statistic('count.recording') %]</td>
     <td>&nbsp;</td>
 </tr>
 <tr>
-    <td>[% l('recordings with no PUIDs:') %]</td>
+    <td>[% l('Recordings with no PUIDs:') %]</td>
     <td>[% stats.statistic('count.recording.0puids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.recording.0puids', 'count.recording') }) %]</td>
 </tr>
 <tr>
-    <td>[% l('recordings with at least one PUID:') %]</td>
+    <td>[% l('Recordings with at least one PUID:') %]</td>
     <td>[% stats.statistic('count.recording.has_puid') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.recording.has_puid', 'count.recording') }) %]</td>
 </tr>
@@ -224,13 +226,13 @@
     <td>[% l('{n}%', { n => stats.data.ratio('count.recording.9puids', 'count.recording.has_puid') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with 10 PUIDs:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with 10 or more PUIDs:') %]</td>
     <td>[% stats.statistic('count.recording.10puids') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.recording.10puids', 'count.recording.has_puid') }) %]</td>
 </tr>
 </table>
 
-<h3>[% l('PUID Collisions') %]</h3>
+<h2>[% l('PUIDs') %]</h2>
 <table>
 <tr>
     <td>[% l('PUIDs (on recordings):') %]</td>
@@ -294,39 +296,39 @@
 </tr>
 </table>
 
-<h3>[% l('Release Quality') %]</h3>
+<h2>[% l('Data Quality') %]</h2>
 <table>
 <tr>
-    <td>[% l('releases:') %]</td>
+    <td>[% l('Releases:') %]</td>
     <td>[% stats.statistic('count.release') %]</td>
     <td>&nbsp;</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('high:') %]</td>
+    <td>&nbsp;&nbsp;[% l('High:') %]</td>
     <td>[% stats.statistic('count.quality.release.high') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.quality.release.high', 'count.release') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('normal:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Normal:') %]</td>
     <td>[% stats.statistic('count.quality.release.normal') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.quality.release.normal', 'count.release') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('low:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Low:') %]</td>
     <td>[% stats.statistic('count.quality.release.low') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.quality.release.low', 'count.release') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('unknown:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Unknown:') %]</td>
     <td>[% stats.statistic('count.quality.release.unknown') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.quality.release.unknown', 'count.release') }) %]</td>
 </tr>
 </table>
 
-<h3>[% l('Editors') %]</h3>
+<h2>[% l('Editors') %]</h2>
 <table>
 <tr>
-    <td>[% l('editors:') %]</td>
+    <td>[% l('Editors:') %]</td>
     <td>[% stats.statistic('count.editor') %]</td>
     <td>&nbsp;</td>
 </tr>
@@ -347,72 +349,72 @@
 </tr>
 </table>
 
-<h3>[% l('Edits') %]</h3>
+<h2>[% l('Edits') %]</h2>
 <table>
 <tr>
-    <td>[% l('edits:') %]</td>
+    <td>[% l('Edits:') %]</td>
     <td>[% stats.statistic('count.edit') %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('open:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Open:') %]</td>
     <td>[% stats.statistic('count.edit.open') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.open', 'count.edit') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('applied:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Applied:') %]</td>
     <td>[% stats.statistic('count.edit.applied') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.applied', 'count.edit') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('rejected:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Voted down:') %]</td>
     <td>[% stats.statistic('count.edit.failedvote') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.failedvote', 'count.edit') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('failed (failed dependency):') %]</td>
+    <td>&nbsp;&nbsp;[% l('Failed (failed dependency):') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.failedd', 'count.edit') }) %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.faileddep', 'count.edit') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('failed (failed prerequisite):') %]</td>
+    <td>&nbsp;&nbsp;[% l('Failed (failed prerequisite):') %]</td>
     <td>[% stats.statistic('count.edit.failedprereq') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.failedprereq', 'count.edit') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('failed (internal error):') %]</td>
+    <td>&nbsp;&nbsp;[% l('Failed (internal error):') %]</td>
     <td>[% stats.statistic('count.edit.error') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.error', 'count.edit') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('delete pending:') %]</td>
+    <td>&nbsp;&nbsp;[% l('To be cancelled:') %]</td>
     <td>[% stats.statistic('count.edit.tobedeleted') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.tobedeleted', 'count.edit') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('deleted:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Cancelled:') %]</td>
     <td>[% stats.statistic('count.edit.deleted') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.edit.deleted', 'count.edit') }) %]</td>
 </tr>
 </table>
 
-<h3>[% l('Votes') %]</h3>
+<h2>[% l('Votes') %]</h2>
 <table>
 <tr>
-    <td>[% l('votes:') %]</td>
+    <td>[% l('Votes:') %]</td>
     <td>[% stats.statistic('count.vote') %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('yes:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Yes:') %]</td>
     <td>[% stats.statistic('count.vote.yes') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.vote.yes', 'count.vote') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('no:') %]</td>
+    <td>&nbsp;&nbsp;[% l('No:') %]</td>
     <td>[% stats.statistic('count.vote.no') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.vote.no', 'count.vote') }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('abstain:') %]</td>
+    <td>&nbsp;&nbsp;[% l('Abstain:') %]</td>
     <td>[% stats.statistic('count.vote.abstain') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.vote.abstain', 'count.vote') }) %]</td>
 </tr>
