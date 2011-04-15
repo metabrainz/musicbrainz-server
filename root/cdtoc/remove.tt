@@ -8,7 +8,7 @@
                artist => artist_credit(release.artist_credit) }) %]
       </li>
       <li>
-        [% l('You need to be certain that this disc ID was added to this release erraneously, since a release
+        [% l('You need to be certain that this disc ID was added to this release erroneously, since a release
               can have multiple valid disc IDs, and each disc ID can belong to more than one release. For more
               in-depth information about this topic, please see our {doc|CD Submission document}.',
               { doc => doc_link('DiscSubmission') }) %]
