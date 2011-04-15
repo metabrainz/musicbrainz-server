@@ -34,7 +34,7 @@
         </table>
 
         [% UNLESS c.user_exists %]
-            <p>[% l('Please {login_url|login} to edit these PUIDs.', { login_url => login_url() }) %]</p>
+            <p>[% l('Please {login_url|log in} to edit these PUIDs.', { login_url => login_url() }) %]</p>
         [% END %]
 
     [% ELSE %]

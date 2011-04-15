@@ -1,7 +1,7 @@
 [%- info_links = [
     ['index', rdfa_seeAlso_link_release(release, 'show', l('Release'))],
     ['relationships', link_release(release, 'relationships', l('Relationships'))],
-    ['discids', link_release(release, 'discids', l('DiscIDs'))],
+    ['discids', link_release(release, 'discids', l('Disc IDs'))],
     ['tags', link_release(release, 'tags', l('Tags'))],
     ['details', rdfa_seeAlso_link_release(release, 'details', l('Details'))],
     ['edit', simple_link(c.uri_for_action('/release_editor/edit', [ release.gid ]), l('Edit')) ],

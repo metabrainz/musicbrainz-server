@@ -11,7 +11,7 @@
   </tr>
 
   <tr>
-    <th>[% l('Discid:') %]</th>
+    <th>[% l('Disc ID:') %]</th>
     <td colspan="2">[% link_cdtoc(edit.display_data.cdtoc) %]</td>
   </tr>
 

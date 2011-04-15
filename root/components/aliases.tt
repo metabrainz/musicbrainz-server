@@ -49,6 +49,6 @@
          </a>
        </p>
     [% ELSE %]
-       <p>[% l('Please {log_in|login} to add or edit aliases',
+       <p>[% l('Please {log_in|log in} to add or edit aliases',
                { log_in => login_url() }) %]</p>
     [% END %]

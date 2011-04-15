@@ -116,7 +116,7 @@
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => c.uri_for_action('/user/edits/accepted', [ user.name ]) }) %]
         [% END %]
 
-        [% WRAPPER statistics name=l("Autoedits") %]
+        [% WRAPPER statistics name=l("Auto-edits") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_auto_edits), view_url => c.uri_for_action('/user/edits/autoedits', [ user.name ]) }) %]
         [% END %]
 
