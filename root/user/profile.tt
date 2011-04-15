@@ -158,11 +158,11 @@
                     </th>
                     <td headers="table_vote_summary_recent">
                         [% add_commas(v.recent.count) %]
-                        ([% v.recent.percentage %]%)
+                        ([% l('{percentage}%', { percentage => v.recent.percentage }) %])
                     </td>
                     <td headers="table_vote_summary_overall">
                         [% add_commas(v.all.count) %]
-                        ([% v.all.percentage %]%)
+                        ([% l('{percentage}%', { percentage => v.all.percentage }) %])
                     </td>
                 </tr>
             [% END %]
@@ -175,11 +175,11 @@
                     </th>
                     <th class="totals" headers="table_vote_summary_recent">
                         [% add_commas(totals.recent.count) %]
-                        (100%)
+                        ([% l('100%') %])
                     </th>
                     <th class="totals" headers="table_vote_summary_overall">
                         [% add_commas(totals.all.count) %]
-                        (100%)
+                        ([% l('100%') %])
                     </th>
                 </tr>
         </tfoot>
