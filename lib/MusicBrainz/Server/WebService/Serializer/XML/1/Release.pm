@@ -109,7 +109,9 @@ sub serialize
             ($inc && $inc->labels && @{ $_->labels });
         }
         map {
-            ReleaseEvent->meta->rebless_instance($_)
+            ReleaseEvent->meta->rebless_instance(
+                $entity->meta->clone_object($_)
+            )
         } $entity;
 
         push @body, (
