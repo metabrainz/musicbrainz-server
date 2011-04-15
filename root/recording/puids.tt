@@ -25,7 +25,7 @@
                     [% IF c.user_exists %]
                         <td>
                           <a href="[% c.uri_for_action('/recording/delete_puid', [ recording.gid ], { puid => puid.puid.puid }) %]">
-                            Delete</a>
+                            [% l('Remove') %]</a>
                         </td>
                     [% END %]
                 </tr>

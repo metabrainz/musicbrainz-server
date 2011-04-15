@@ -1,5 +1,5 @@
-[%- WRAPPER 'release/layout.tt' title=l('Delete') full_width=1 -%]
-    <h2>[% l('Delete Release') %]</h2>
+[%- WRAPPER 'release/layout.tt' title=l('Remove') full_width=1 -%]
+    <h2>[% l('Remove Release') %]</h2>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('Please review the {doc_remove|remove release edit-type} documentation before entering this edit.', {doc_remove => doc_link('Remove_Release')})) -%]
     [%- END -%]

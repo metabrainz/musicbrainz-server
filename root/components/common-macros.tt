@@ -104,9 +104,9 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
-      caption = l("This entity has been deleted, and cannot be displayed correctly.");
+      caption = l("This entity has been removed, and cannot be displayed correctly.");
       '<span class="deleted tooltip" title="' _ caption _ '">' _
-        (html_escape(entity.name) || l('[deleted]')) _
+        (html_escape(entity.name) || l('[removed]')) _
       '</span>';
     END;
     disambiguation(entity) UNLESS text;

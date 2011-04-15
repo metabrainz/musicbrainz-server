@@ -36,7 +36,7 @@
                     <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
                 [% END %]
                 [% IF can_delete %]
-                    <li>[% link_entity(rg, 'delete', l('Delete this release group')) %]</li>
+                    <li>[% link_entity(rg, 'delete', l('Remove this release group')) %]</li>
                 [% END %]
                 <li>[% use_in_relationship(rg) %]</li>
                 <li>[% relate_to_ellipsis(rg) %]</li>

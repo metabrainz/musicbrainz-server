@@ -28,7 +28,7 @@
                               [%- l('Edit') -%]
                             </a> |
                             <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
-                              [%- l('Delete') -%]
+                              [%- l('Remove') -%]
                             </a>
                         </td>
                     [% END %]

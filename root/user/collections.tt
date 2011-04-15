@@ -21,7 +21,7 @@
             <td>[% collection.public ? l('Public') : l('Private') %]</td>
             <td>
                 [% link_collection(collection, 'edit', l('Edit')) %] |
-                [% link_collection(collection, 'delete', l('Delete')) %]
+                [% link_collection(collection, 'delete', l('Remove')) %]
             </td>
             [% END %]
         </tr>
