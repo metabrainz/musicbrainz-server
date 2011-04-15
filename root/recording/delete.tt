@@ -1,5 +1,5 @@
 [%- WRAPPER 'recording/layout.tt' title=l('Delete') full_width=1 -%]
-    <h2>Delete Recording</h2>
+    <h2>[% l('Delete Recording') %]</h2>
     [%- IF can_delete -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('Please review the {doc_remove|remove recording edit-type} documentation before entering this edit.', {doc_remove => doc_link('Remove_Recording_Edit')})) -%]

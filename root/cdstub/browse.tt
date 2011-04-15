@@ -1,7 +1,7 @@
 [%- WRAPPER 'layout.tt' title=l('Top CD Stubs') full_width=1 -%]
 [%- USE Age -%]
 
-    <h1>Top CD Stubs</h1>
+    <h1>[% l('Top CD Stubs') %]</h1>
     [% WRAPPER 'components/with-pager.tt' total=1 %]
         <table class="tbl">
             <thead>
@@ -21,8 +21,8 @@
                     <td>[% cdstub.modify_count %]</td>
                 </tr>
                 <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
-                    <td colspan="4" class="lastupdate">Added [%- age(cdstub.date_added) -%], 
-                    last modified [%- age(cdstub.last_modified) -%]</td>
+                    <td colspan="4" class="lastupdate">[%- l('Added {add}, last modified {lastmod}',
+                        { add => age(cdstub.date_added), lastmod => age(cdstub.last_modified) }) -%]</td>
                 </tr>
                 [%- END -%]
             </tbody>

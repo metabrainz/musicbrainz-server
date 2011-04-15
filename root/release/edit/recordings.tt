@@ -160,7 +160,7 @@
               <span class="add-recording" style="display: none">[%- l('(add a new recording)') -%]</span>
             </td>
             <td rowspan="2" class="buttons" style="vertical-align: middle; width: 10%;">
-              <a class="change-recording" href="#change-recording">Change</a>
+              <a class="change-recording" href="#change-recording">[% l('Change') %]</a>
             </td>
           </tr>
 

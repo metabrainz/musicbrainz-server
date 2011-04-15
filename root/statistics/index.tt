@@ -2,7 +2,7 @@
 
 [% UserDate.format(stats.date_collected) %]
 
-<h3>Basic metadata</h3>
+<h3>[% l('Basic metadata') %]</h3>
 <table>
 <tr>
     <td>[% l('artists:') %]</td>
@@ -68,7 +68,7 @@
 </tr>
 </table>
 
-<h3>Releases</h3>
+<h3>[% l('Releases') %]</h3>
 <table>
 <tr>
     <td>[% l('releases:') %]</td>
@@ -87,7 +87,7 @@
 </tr>
 </table>
 
-<h3>Disc Identifiers</h3>
+<h3>[% l('Disc Identifiers') %]</h3>
 <table>
 <tr>
     <td>[% l('disc ids:') %]</td>
@@ -161,7 +161,7 @@
 </tr>
 </table>
 
-<h3>Recording Identifiers</h3>
+<h3>[% l('Recording Identifiers') %]</h3>
 <table>
 <tr>
     <td>[% l('recordings:') %]</td>
@@ -230,7 +230,7 @@
 </tr>
 </table>
 
-<h3>PUID Collisions</h3>
+<h3>[% l('PUID Collisions') %]</h3>
 <table>
 <tr>
     <td>[% l('PUIDs (on recordings):') %]</td>
@@ -294,7 +294,7 @@
 </tr>
 </table>
 
-<h3>Release Quality</h3>
+<h3>[% l('Release Quality') %]</h3>
 <table>
 <tr>
     <td>[% l('releases:') %]</td>
@@ -323,7 +323,7 @@
 </tr>
 </table>
 
-<h3>Editors</h3>
+<h3>[% l('Editors') %]</h3>
 <table>
 <tr>
     <td>[% l('editors:') %]</td>
@@ -347,7 +347,7 @@
 </tr>
 </table>
 
-<h3>Edits</h3>
+<h3>[% l('Edits') %]</h3>
 <table>
 <tr>
     <td>[% l('edits:') %]</td>
@@ -395,7 +395,7 @@
 </tr>
 </table>
 
-<h3>Votes</h3>
+<h3>[% l('Votes') %]</h3>
 <table>
 <tr>
     <td>[% l('votes:') %]</td>
