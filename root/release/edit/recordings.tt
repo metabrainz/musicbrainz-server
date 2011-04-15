@@ -20,7 +20,61 @@
   </script>
 [%- END -%]
 
-[%- MACRO select_recording(name, track, servermatch, recording) BLOCK -%]
+[%- MACRO recording_suggestion(template, checked, name, recording) BLOCK -%]
+  <tr class="servermatch recordingmatch"
+    [%- IF template -%]style="display: none"[% END %]>
+    <td class="select">
+      <input type="radio" class="servermatch recordingmatch"
+        [%- IF checked %] checked="checked"[%- END -%]
+        [%- IF name %] name="[% name %]"[%- END -%] />
+    </td>
+    [%- IF recording -%]
+      <td class="recording">
+        <input type="hidden" class="gid" value="[% recording.gid | html %]" />
+        [% link_entity (recording) %]
+      </td>
+      <td class="artist">[% recording.artist_credit.name | html %]</td>
+      <td class="length">[% recording.length | format_length %]</td>
+    [%- ELSE -%]
+      <td class="recording">
+        <input type="hidden" class="gid" value="" />
+        <a href="" class="name" />
+      </td>
+      <td class="artist"></td>
+      <td class="length"></td>
+    [%- END -%]
+  </tr>
+
+  [%- IF template -%]
+    <tr class="servermatch releaselist" style="display: none">
+      <td> </td>
+      <td colspan="3">[%- l('appears on:') %] <span class="appears"></span></td>
+    </tr>
+  [%- ELSE -%]
+    <tr class="servermatch releaselist">
+      <td> </td>
+      <td colspan="3">
+        [% recording_id = '' _ recording.id %]
+        [%- l('appears on:') %]
+        <span class="appears">
+          [% FOR rg=appears_on.$recording_id %]
+            [% link_entity(rg) -%][%- UNLESS loop.last %], [% END %]
+          [% END %]
+        </span>
+      </td>
+    </tr>
+  [%- END -%]
+
+  <tr class="servermatch comment"
+    [%- UNLESS recording.comment %] style="display: none"[% END %]>
+    <td> </td>
+    <td colspan="3">
+      [%- l('comment:') %]<span class="comment">[%- recording.comment | html -%]</span>
+    </td>
+  </tr>
+[%- END -%]
+
+[%- MACRO select_recording(name, track, suggestions, confirmed) BLOCK -%]
   <div class="select-recording-container [% UNLESS name %]template[% END %]"
     style="display: none" [% IF name %]id="[% name %]"[% END %]>
 
@@ -60,66 +114,30 @@
             <td colspan="3">[%- l('comment:') %] <span class="comment"></span></td>
           </tr>
 
-          <tr class="servermatch recordingmatch"
-            [%- UNLESS servermatch -%]style="display: none"[% END %]>
-            <td class="select">
-              <input type="radio" class="servermatch recordingmatch" 
-                  [%- IF servermatch %] checked="checked"[%- END -%]
-                  [%- IF name %] name="[% name %]"[%- END -%] />
-            </td>
-            [%- IF recording -%][%# FIXME: is this neccesary? %]
-              <td class="recording">
-                <input type="hidden" class="gid" value="[% recording.gid | html %]" />
-                [% link_entity (recording) %]
-              </td>
-              <td class="artist">[% recording.artist_credit.name | html %]</td>
-              <td class="length">[% recording.length | format_length %]</td>
-            [%- ELSE -%]
-              <td class="recording">
-                <input type="hidden" class="gid" value="" />
-                <a href="" class="name" />
-              </td>
-              <td class="artist"></td>
-              <td class="length"></td>
+          [%- addnew = 0 -%]
+          [%- IF suggestions.size -%]
+            [%- FOR recording = suggestions -%]
+              [%- IF recording -%]
+                [%# If the first entry isn't empty it should be selected as the default suggestion. %]
+                [%- recording_suggestion (0, !loop.index, name, recording) -%]
+              [%- ELSE -%]
+                [%# If the first entry isn't empty it should be selected as the default suggestion. %]
+                [%- addnew = 1 -%]
+              [%- END -%]
             [%- END -%]
-          </tr>
-
-          [%- IF servermatch -%]
-            <tr class="servermatch releaselist">
-              <td> </td>
-              <td colspan="3">
-                [%- l('appears on:') %]
-                [% recording_id = '' _ recording.id %]
-                <span class="appears">
-                  [% FOR rg=appears_on.$recording_id %]
-                    [% link_entity(rg) -%][%- UNLESS loop.last %], [% END %]
-                  [% END %]
-                </span>
-              </td>
-            </tr>
           [%- ELSE -%]
-            <tr class="servermatch releaselist" style="display: none">
-              <td> </td>
-              <td colspan="3">[%- l('appears on:') %] <span class="appears"></span></td>
-            </tr>
+            [%- recording_suggestion (1, 0, name) -%]
           [%- END -%]
-
-          <tr class="servermatch comment"
-            [%- UNLESS recording.comment %] style="display: none"[% END %]>
-            <td> </td>
-            <td colspan="3">
-              [%- l('comment:') %]<span class="comment">[%- recording.comment | html -%]</span>
-            </td>
-          </tr>
 
           <tr class="addnew">
             <td class="select">
-              <input type="radio" class="newrecording recordingmatch" 
-                  [%- UNLESS servermatch %] checked="checked"[%- END -%]
+              <input type="radio" class="newrecording recordingmatch"
+                  [%- IF addnew %] checked="checked"[%- END -%]
                   [%- IF name %] name="[% name %]"[%- END -%] />
             </td>
             <td class="recording" colspan="3">[% l('Add a new recording') %]</td>
-            </tr>
+          </tr>
+
         </tbody>
       </table>
     </div>
@@ -224,7 +242,7 @@
             [%- ELSE -%]
               [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
             [%- END -%]
-            [%- recording = suggestions.$medium_idx.$track_idx -%]
+            [%- recording = suggestions.$medium_idx.$track_idx.0 -%]
             <tr class="track">
               <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position | html %]</td>
               <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">[% track.name | html %]</td>
@@ -234,9 +252,15 @@
                 [%- r.hidden (assoc.field('confirmed'), class => 'confirmed') -%]
                 [%- r.hidden (assoc.field('edit_sha1'), class => 'edit_sha1') -%]
 
-                [% addnew = (assoc.field('gid').value == 'new') %]
+                [%- IF assoc.field('confirmed').value -%]
+                  [%- addnew = (assoc.field('gid').value == 'new') -%]
+                  [%- showrec = !addnew -%]
+                [%- ELSE -%]
+                  [%- addnew = 0 -%]
+                  [%- showrec = 0 -%]
+                [%- END -%]
                 <span class="recording"
-                  [%- IF addnew -%]style="display: none"[% END %]>
+                  [%- UNLESS showrec -%]style="display: none"[% END %]>
                   [%- UNLESS addnew -%][% link_entity (recording) %][%- END -%]
                 </span>
                 <span class="add-recording"
@@ -267,7 +291,7 @@
               </td>
               <td style="padding: 0 0 0.5em 0;" >
                 <span class="recording"
-                  [% IF addnew %]style="display: none"[% END %]>
+                  [% UNLESS showrec %]style="display: none"[% END %]>
                   [% l('by') %]
                   <span class="recording-artist">
                     [%- recording.artist_credit.name | html -%]
@@ -275,7 +299,6 @@
                 </span>
               </td>
             </tr>
-
           [%- END -%]
           </tbody>
         </table>
@@ -319,10 +342,9 @@
           [%- ELSE -%]
             [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
           [%- END -%]
-          [%- recording = suggestions.$medium_idx.$track_idx -%]
-
           [% name = "select-recording-$medium_idx-$track_idx" %]
-          [% select_recording (name, track, recording.gid, recording) %]
+          [% confirmed = assoc.field('confirmed').value -%]
+          [% select_recording (name, track, suggestions.$medium_idx.$track_idx, confirmed) %]
         [%- END -%]
 
       [%- END -%]
