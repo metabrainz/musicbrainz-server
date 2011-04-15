@@ -4,7 +4,7 @@
 
 <ul>
     <li>[% l('This report lists artists that are <em>unknown</em> or <em>person</em>,
-              but may be <em>group</em>, based on band "is member of" advanced
+              but may be <em>group</em>, based on band "is member of"
               relationships.') %]</li>
     <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
