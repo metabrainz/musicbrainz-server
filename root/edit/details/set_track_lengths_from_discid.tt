@@ -20,4 +20,4 @@
     <td class="old">[% edit.display_data.lengths.old %]</td>
     <td class="new">[% edit.display_data.lengths.new %]</td>
   </tr>
-</table
+</table>
