@@ -79,67 +79,100 @@
     style="display: none" [% IF name %]id="[% name %]"[% END %]>
 
     <div class="select-recording bubble">
-      <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
-      <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 
-      <p>
-        Search:
-        <span class="autocomplete">
-          <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
-          <img class="search" src="/static/images/icons/search.png" />
-        </span>
-      </p>
+      [%- UNLESS confirmed -%]
+      <div class="confirm-recording">
 
-      <table class="matches">
-        <tbody>
-          <tr class="clientmatch recordingmatch" style="display: none">
-            <td class="select">
-              <input type="radio" class="clientmatch recordingmatch" 
-                  [% IF name %]name="[% name %]"[% END %] />
-            </td>
-            <td class="recording">
-              <input type="hidden" class="gid" value="" />
-              <a class="name" href="/recording"> </a>
-            </td>
-            <td class="artist"></td>
-            <td class="length"></td>
-          </tr>
+        <h3 style="margin-left: 1em">Suggested recording:</h3>
+        [%- recording = suggestions.0 or suggestions.1 -%]
+        <p style="margin: 1em 1em 1em 3em;">
+          [%- link_entity (recording) %] ([%- recording.length | format_length -%])<br />
+          [%- l('by') %] [% artist_credit (recording.artist_credit) -%]<br />
+          [%- l('appears on:') -%]
+          <span class="appears">
+            [% recording_id = '' _ recording.id %]
+            [% FOR rg=appears_on.$recording_id %]
+              [% link_entity(rg) -%][%- UNLESS loop.last %], [% END %]
+            [% END %]
+          </span><br />
+        </p>
 
-          <tr class="clientmatch releaselist" style="display: none">
-            <td> </td>
-            <td colspan="3">[%- l('appears on:') %] <span class="appears"></span></td>
-          </tr>
-          <tr class="clientmatch comment" style="display: none">
-            <td> </td>
-            <td colspan="3">[%- l('comment:') %] <span class="comment"></span></td>
-          </tr>
+        <div class="buttons" style="width: 100%;">
+          <table>
+            <tr>
+              <td style="text-align: left;"><button class="use-suggested">[%- l('Use suggested recording') -%]</button></td>
+              <td style="text-align: center;"><button class="search-recording">[%- l('Search for recordings') -%]</button></td>
+              <td style="text-align: right;"><button class="add-new">[%- l('Add new recording') -%]</button></td>
+            </tr>
+          </table>
+        </div>
 
-          [%- addnew = 0 -%]
-          [%- IF suggestions.size -%]
-            [%- FOR recording = suggestions -%]
-              [%- IF recording -%]
-                [%# If the first entry isn't empty it should be selected as the default suggestion. %]
-                [%- recording_suggestion (0, !loop.index, name, recording) -%]
-              [%- ELSE -%]
-                [%# If the first entry isn't empty it should be selected as the default suggestion. %]
-                [%- addnew = 1 -%]
+      </div>
+      [%- END -%]
+
+      <div class="search-recording" [%- UNLESS confirmed -%]style="display: none"[%- END -%]>
+        <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
+        <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
+
+        <p>
+          Search:
+          <span class="autocomplete">
+            <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
+            <img class="search" src="/static/images/icons/search.png" />
+          </span>
+        </p>
+
+        <table class="matches">
+          <tbody>
+            <tr class="clientmatch recordingmatch" style="display: none">
+              <td class="select">
+                <input type="radio" class="clientmatch recordingmatch" 
+                    [% IF name %]name="[% name %]"[% END %] />
+              </td>
+              <td class="recording">
+                <input type="hidden" class="gid" value="" />
+                <a class="name" href="/recording"> </a>
+              </td>
+              <td class="artist"></td>
+              <td class="length"></td>
+            </tr>
+
+            <tr class="clientmatch releaselist" style="display: none">
+              <td> </td>
+              <td colspan="3">[%- l('appears on:') %] <span class="appears"></span></td>
+            </tr>
+            <tr class="clientmatch comment" style="display: none">
+              <td> </td>
+              <td colspan="3">[%- l('comment:') %] <span class="comment"></span></td>
+            </tr>
+
+            [%- addnew_is_default = 0 -%]
+            [%- IF suggestions.size -%]
+              [%- FOR recording = suggestions -%]
+                [%# The first entry is the the default suggestion. %]
+                [%# If it is empty "add new recording" is selected as default. %]
+                [%- IF recording -%]
+                  [%- recording_suggestion (0, !loop.index, name, recording) -%]
+                [%- ELSE -%]
+                  [%- addnew_is_default = 1 -%]
+                [%- END -%]
               [%- END -%]
+            [%- ELSE -%]
+              [%- recording_suggestion (1, 0, name) -%]
             [%- END -%]
-          [%- ELSE -%]
-            [%- recording_suggestion (1, 0, name) -%]
-          [%- END -%]
 
-          <tr class="addnew">
-            <td class="select">
-              <input type="radio" class="newrecording recordingmatch"
-                  [%- IF addnew %] checked="checked"[%- END -%]
+            <tr class="addnew">
+              <td class="select">
+                <input type="radio" class="newrecording recordingmatch"
+                  [%- IF addnew_is_default %] checked="checked"[%- END -%]
                   [%- IF name %] name="[% name %]"[%- END -%] />
-            </td>
-            <td class="recording" colspan="3">[% l('Add a new recording') %]</td>
-          </tr>
+              </td>
+              <td class="recording" colspan="3">[% l('Add a new recording') %]</td>
+            </tr>
 
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 [%- END -%]
@@ -150,7 +183,7 @@
     [%- r.hidden ('wizard_session_id') -%]
 
     [%- IF confirmation_required -%]
-      [%- notice(l('Some tracks were changed, please confirm that the associated recordings are correct.')) -%]
+      [%- notice(l('Some tracks were changed, please select a recording for each of these tracks.')) -%]
     [%- END -%]
 
     [%- USE w = Wizard() -%]
@@ -275,7 +308,7 @@
                   </a>
                 [%- ELSE -%]
                   <a class="change-recording negative" href="#change-recording">
-                  [%- l('Confirm') -%]
+                  [%- l('Select') -%]
                   </a>
                 [%- END -%]
                 </a>
