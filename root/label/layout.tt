@@ -7,7 +7,7 @@
                    IF label.type -%]
             [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
-                    [% label.begin_date.format or l("present") %] &mdash;
+                    [% label.begin_date.format or l("present") %] &ndash;
                     [% label.end_date.format or l("present") %]
                     [% IF label.has_age %]
                        ([% display_age (label.age) %])
