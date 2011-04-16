@@ -17,7 +17,7 @@
             [% IF section.2 > section.1.size %]
             <li>
               <a href="[% c.uri_for_action(section.3, [ tag.name ]) %]">
-                [%- l('More&hellip;') -%]
+                [%- l('More…') -%]
               </a>
             </li>
             [% END %]
