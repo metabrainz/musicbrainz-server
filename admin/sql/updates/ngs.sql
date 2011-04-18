@@ -402,7 +402,7 @@ FROM (
         SELECT link0 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('other version', 'remaster', 'karaoke', 'cover')
+            WHERE lt.name IN ('other version', 'remaster', 'karaoke')
         UNION
         SELECT link1 AS id
             FROM public.l_track_track l
@@ -413,6 +413,19 @@ FROM (
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
             WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
+        UNION
+        -- Cover ARs that are translated covers created a work at both end point
+        SELECT link0 AS id
+            FROM public.l_track_track l
+                JOIN public.lt_track_track lt ON lt.id = l.link_type
+            WHERE lt.name = 'cover'
+              AND EXISTS (
+                  SELECT TRUE
+                    FROM public.link_attribute la
+                    JOIN public.link_attribute_type lat ON lat.id = la.attribute_type
+                   WHERE lat.mbid = 'ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1' -- translated
+                     AND la.link = l.id
+                         )
 ) t;
 CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
 
