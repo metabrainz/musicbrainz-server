@@ -1165,7 +1165,7 @@ $sql->do("INSERT INTO link (id, link_type)
         my ($e0, $e1);
         my $old_type_id;
         my $link_type_id;
-        if (exists $row_attrs{$TRANSLATED}) {
+        if (exists $row_attrs{$TRANSLATED} || exists $row_attrs{$PARODY}) {
             $t0 = 'work';
             $t1 = 'work';
             my $link_type_key = join("_", $t0, $t1, $OTHER_VERSION);
