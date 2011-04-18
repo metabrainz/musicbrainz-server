@@ -136,7 +136,7 @@ sub search
                 $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit"
                     ." JOIN artist_name ON artist_credit.name = artist_name.id";
                 $where_sql = 'WHERE artist_name.name LIKE ?';
-                push @where_args, lc("%".$where->{artist}."%");
+                push @where_args, "%".$where->{artist}."%";
             }
         }
 
