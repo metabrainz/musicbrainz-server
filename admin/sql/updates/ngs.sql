@@ -414,7 +414,7 @@ FROM (
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
             WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
         UNION
-        -- Cover ARs that are translated covers created a work at both end point
+        -- Cover ARs that are translated/parody covers created a work at both end point
         SELECT link0 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
@@ -423,7 +423,9 @@ FROM (
                   SELECT TRUE
                     FROM public.link_attribute la
                     JOIN public.link_attribute_type lat ON lat.id = la.attribute_type
-                   WHERE lat.mbid = 'ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1' -- translated
+                   WHERE (lat.mbid = 'ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1' -- translated
+                      OR  lat.mbid = 'd73de9d3-934b-419c-8c83-2e48a5773b14' -- parody
+                         )
                      AND la.link = l.id
                          )
 ) t;
