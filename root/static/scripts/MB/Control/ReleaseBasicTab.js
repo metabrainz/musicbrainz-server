@@ -164,6 +164,12 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         self.render ();
         self.trackparser = MB.TrackParser.Parser (self.disc, self.$textarea, data);
         self.updatePreview ();
+
+        if (self.isVariousArtists ())
+        {
+            self.disc.$artist_column_checkbox.attr ('checked', 'checked');
+            self.disc.updateArtistColumn ();
+        }
     };
 
     self.lines = function (data) {
