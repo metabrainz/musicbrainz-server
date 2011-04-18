@@ -80,7 +80,7 @@
 
     <div class="select-recording bubble">
 
-      [%- UNLESS confirmed -%]
+      [%- IF NOT confirmed AND name -%]
       <div class="confirm-recording">
 
         <h3 style="margin-left: 1em">Suggested recording:</h3>
@@ -110,7 +110,8 @@
       </div>
       [%- END -%]
 
-      <div class="search-recording" [%- UNLESS confirmed -%]style="display: none"[%- END -%]>
+      <div class="search-recording"
+        [%- IF NOT confirmed AND name -%]style="display: none"[%- END -%]>
         <p>[% l('Each track in the MusicBrainz database has to be linked to a recording, choose the appropriate recording or look for it in the database.') %]</p>
         <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 

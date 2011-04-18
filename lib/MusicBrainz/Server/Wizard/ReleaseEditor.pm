@@ -297,8 +297,67 @@ sub associate_recordings
     my @ret;
     my @suggestions;
     my @load_recordings;
+    my $trk_edit;
+    my $suggested_tracklist;
 
-    for my $trk_edit (@$edits)
+    # First, try to find a matching tracklist.  For this we will need
+    # to figure out artist_credit ids for all artists.
+    my $look_for_tracklist = 1;
+    TRACKLIST: for $trk_edit (@$edits)
+    {
+        my @artist_joinphrase;
+        for (@{ $trk_edit->{artist_credit}->{names} })
+        {
+            if (!$_->{id})
+            {
+                $look_for_tracklist = 0;
+                last TRACKLIST;
+            }
+
+            push @artist_joinphrase, {
+                name => $_->{name},
+                artist => $_->{id},
+            };
+            push @artist_joinphrase, $_->{join};
+        }
+
+        pop @artist_joinphrase unless $artist_joinphrase[$#artist_joinphrase];
+
+
+        my $id = $self->c->model ('ArtistCredit')->find (@artist_joinphrase);
+        if (!$id)
+        {
+            $look_for_tracklist = 0;
+            last TRACKLIST;
+        }
+
+        $trk_edit->{artist_credit_id} = $id;
+    }
+
+    if ($look_for_tracklist)
+    {
+        my @possible_tracklists = $self->c->model ('Tracklist')->find ([
+            map {
+                {
+                    name => $_->{name},
+                    artist_credit => $_->{artist_credit_id},
+                    position => $_->{position}
+                }
+            } @$edits ]);
+
+        if (scalar @possible_tracklists)
+        {
+            $suggested_tracklist =
+                $self->c->model ('Tracklist')->get_by_id ($possible_tracklists[0]);
+            $self->c->model ('Track')->load_for_tracklists ($suggested_tracklist);
+        }
+    }
+
+    use Data::Dumper;
+    warn Dumper ($suggested_tracklist)."\n";
+
+    my $trackno = 0;
+    for $trk_edit (@$edits)
     {
         my @track_suggestions;
 
@@ -311,6 +370,20 @@ sub associate_recordings
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
             $self->c->stash->{confirmation_required} = 1 unless $rec_edit->{confirmed};
+        }
+
+        # A tracklist is suggested.
+        elsif ($suggested_tracklist)
+        {
+            my $t = $suggested_tracklist->tracks->[$trackno];
+            # if the suggested recording is the same as the previously associated
+            # recording no confirmation is neccesary.
+            my $confirmed = $trk->recording_id == $t->recording_id;
+            my $confirmed = 0;
+
+            push @load_recordings, $t->recording_id;
+            push @ret, { 'id' => $t->recording_id, 'confirmed' => $confirmed };
+            $self->c->stash->{tracklist_confirmation_required} = !$confirmed;
         }
 
         # Track hasn't changed OR track has minor changes (case / punctuation).
@@ -368,8 +441,8 @@ sub associate_recordings
                     push @ret, { 'id' => undef, 'confirmed' => 0 };
                     $self->c->stash->{confirmation_required} = 1;
 
-                    push @track_suggestions, { 
-                        'id' => $results[0]->entity->id, 
+                    push @track_suggestions, {
+                        'id' => $results[0]->entity->id,
                         'recording' => $results[0]->entity
                     };
                 }
@@ -422,6 +495,8 @@ sub associate_recordings
         $ret[$#ret]->{'edit_sha1'} = $trk_edit->{edit_sha1};
 
         push @suggestions, \@track_suggestions;
+
+        $trackno++;
     }
 
     # FIXME: prevent loading recordings/artist credits for those recordings
