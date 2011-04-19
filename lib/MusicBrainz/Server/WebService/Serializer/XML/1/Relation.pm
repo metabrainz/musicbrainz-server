@@ -8,42 +8,61 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'relation'; }
 
-before 'serialize' => sub
-{
+sub attributes {
     my ($self, $entity, $inc, $opts) = @_;
+
+    my @attrs;
 
     my $type = $entity->link->type->name;
     $type =~ s/\s+/_/g;
 
-    $self->attributes->{type}   = camelize($type);
-    $self->attributes->{begin}  = $entity->link->begin_date->format
+    push @attrs, ( type => camelize($type) );
+    push @attrs, ( begin => $entity->link->begin_date->format )
         unless $entity->link->begin_date->is_empty;
 
-    $self->attributes->{end}    = $entity->link->end_date->format
+    push @attrs, ( end => $entity->link->end_date->format )
         unless $entity->link->end_date->is_empty;
 
-    $self->attributes->{direction} = 'backward' if $entity->direction == 2;
+    push @attrs, ( direction => 'backward' )
+        if $entity->direction == 2;
 
-    $self->attributes->{attributes} =
+    push @attrs, ( attributes =>
         join(' ', map {
             my $s = $_->name;
             $s =~ s/^\s*//;
             $s =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
             $s
-        } $entity->link->all_attributes) || undef;
+        } $entity->link->all_attributes) || undef );
 
     if ($entity->target_type eq 'url')
     {
-        $self->attributes->{target} = $entity->target->name;
+        push @attrs, ( target => $entity->target->name );
     }
     elsif ($entity->target_type eq 'artist' ||
            $entity->target_type eq 'label' ||
            $entity->target_type eq 'release' ||
            $entity->target_type eq 'recording')
     {
-        $self->attributes->{target} = $entity->target->gid;
-        $self->add( serialize_entity($entity->target) );
+        push @attrs, ( target => $entity->target->gid );
     }
+
+    return @attrs;
+}
+
+sub serialize
+{
+    my ($self, $entity, $inc, $opts) = @_;
+    my @body;
+
+    if ($entity->target_type eq 'artist' ||
+           $entity->target_type eq 'label' ||
+           $entity->target_type eq 'release' ||
+           $entity->target_type eq 'recording')
+    {
+        push @body, ( serialize_entity($entity->target) );
+    }
+
+    return @body;
 
 #         $self->tracklevelrels / track-level-rels
 

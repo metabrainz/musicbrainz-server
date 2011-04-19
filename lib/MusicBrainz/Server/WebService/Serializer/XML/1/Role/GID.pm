@@ -3,11 +3,12 @@ use Moose::Role;
 
 requires 'serialize';
 
-before 'serialize' => sub 
-{
-    my ($self, $entity, $inc, $opts) = @_;
-
-    $self->attributes->{id} = $entity->gid;
+around attributes => sub {
+    my ($orig, $self, $entity, $inc, $opts) = @_;
+    return (
+        id => $entity->gid,
+        $self->$orig($entity, $inc, $opts)
+    );
 };
 
 no Moose::Role;
