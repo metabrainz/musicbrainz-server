@@ -697,7 +697,7 @@ sub xml_search
                 $query = combine_rules(
                     \%options,
                     DEFAULT => {
-                        parameter => 'track',
+                        parameter => 'title',
                         escape    => 1,
                         process => sub {
                             my $term = shift;
