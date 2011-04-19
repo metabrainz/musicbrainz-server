@@ -1,9 +1,10 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1::RecordingPUID;
 use Moose;
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit';
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
+
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 
 sub element { 'track'; }
 
@@ -21,7 +22,7 @@ before 'serialize' => sub
         if $entity->recording->artist_credit;
 
     $self->add(
-        List->new->serialize(
+        list_of(
             $opts->{recording_release_map}{ $entity->recording->id },
             undef, { track_map => $opts->{track_map} }
         )

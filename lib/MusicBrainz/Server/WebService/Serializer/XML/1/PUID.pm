@@ -5,10 +5,10 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'puid' }
 
-before 'serialize' => sub
+sub attributes
 {
     my ($self, $entity, $inc, $opts) = @_;
-    $self->attributes->{id} = $entity->puid;
+    return ( id => $entity->puid );
 };
 
 __PACKAGE__->meta->make_immutable;

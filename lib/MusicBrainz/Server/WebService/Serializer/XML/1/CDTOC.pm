@@ -5,11 +5,13 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'disc' }
 
-before 'serialize' => sub
+sub attributes
 {
     my ($self, $entity, $inc, $opts) = @_;
-    $self->attributes->{id} = $entity->cdtoc->discid;
-    $self->attributes->{sectors} = $entity->cdtoc->leadout_offset;
+    my @attrs;
+    push @attrs, ( id => $entity->cdtoc->discid );
+    push @attrs, ( sectors => $entity->cdtoc->leadout_offset );
+    return @attrs;
 };
 
 __PACKAGE__->meta->make_immutable;
