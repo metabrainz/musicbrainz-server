@@ -607,10 +607,10 @@ sub xml_search
             }
 
             case 'label' {
-                my $term = escape_query($options{label}) or die 'label is a required parameter';
+                my $term = escape_query($options{name}) or die 'name is a required parameter';
                 $term =~ tr/A-Z/a-z/;
                 $term =~ s/\s*(.*?)\s*$/$1/;
-                $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
+                $query = "label:($term)(sortname:($term) alias:($term) !label:($term))";
             }
 
             case 'release' {
@@ -744,7 +744,7 @@ sub xml_search
             }
         }
     }
-    
+
     my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
                                  DBDefs::LUCENE_SERVER,
                                  $version,
