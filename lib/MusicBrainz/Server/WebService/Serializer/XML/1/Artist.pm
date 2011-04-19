@@ -26,7 +26,7 @@ before 'serialize' => sub
     $self->add( List->new->serialize($opts->{aliases}) )
         if ($inc && $inc->aliases);
 
-    $self->add( List->new->serialize($opts->{releases}, $inc) )
+    $self->add( List->new( sort => sub { $_->gid } )->serialize($opts->{releases}, $inc) )
         if ($inc && $inc->releases);
 
     $self->add( List->new->serialize($opts->{release_groups}) )
