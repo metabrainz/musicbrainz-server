@@ -59,6 +59,19 @@ our %dispatch = (
           $tb->ok(0, 'Could not find: ' . $_[0]);
         }
     },
+    waitForValue => sub {
+        my $sel = shift;
+      WAIT: {
+          for (1..$timeout_in_seconds) {
+              if (eval { $_[1] ne $sel->get_value($_[0]) }) {
+                  $tb->ok(1, $_[0] . ' has value ' . $_[1]);
+                  last WAIT
+              }
+              sleep(1);
+          }
+          $tb->ok(0, $_[0] . ' does not have value ' . $_[1]);
+        }
+    },
     waitForNotValue => sub {
         my $sel = shift;
       WAIT: {
