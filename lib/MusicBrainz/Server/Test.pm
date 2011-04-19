@@ -333,21 +333,17 @@ sub _build_ws_test_xml {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
-    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     my $validator = schema_validator($args->{version});
 
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
         $opts ||= {};
 
+        my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
             }
-            else {
-                $mech->clear_credentials;
-            }
-
 
             $Test->plan(tests => 4);
 
