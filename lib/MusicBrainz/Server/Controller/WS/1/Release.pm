@@ -62,7 +62,7 @@ around 'search' => sub
             $c->model('Language')->load(@releases);
             $c->model('Script')->load(@releases);
             $c->model('Country')->load(@releases);
-            $c->model('Relationship')->load_subset([ 'url '], @releases);
+            $c->model('Relationship')->load_subset([ 'url' ], @releases);
 
             $c->model('Medium')->load_for_releases(@releases);
 
