@@ -259,7 +259,7 @@ ws_test 'artist lookup with release-events',
         <release-event-list>
           <event country="GB" format="2xCD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD">
             <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
-              <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+              <name>Planet Mu</name><sort-name>Planet Mu</sort-name><life-span begin="1995" />
             </label>
           </event>
         </release-event-list>
@@ -269,7 +269,7 @@ ws_test 'artist lookup with release-events',
         <release-event-list>
           <event country="GB" format="CD" date="2007-01-29" barcode="600116817020" catalog-number="ZIQ170CD">
             <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
-              <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+              <name>Planet Mu</name><sort-name>Planet Mu</sort-name><life-span begin="1995" />
             </label>
           </event>
         </release-event-list>
@@ -339,13 +339,13 @@ ws_test 'artist lookup with label-relationships',
      <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelFounder">
        <label id="60a71ab7-a21b-4f25-94e0-1f51a84a9add">
          <name>Frequency Recordings</name>
-         <sort-name>Frequency Recordings</sort-name>
+         <sort-name>Frequency Recordings</sort-name><life-span begin="2001" />
        </label>
      </relation>
      <relation target="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="LabelFounder">
        <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f">
          <name>RAM Records</name>
-         <sort-name>RAM Records</sort-name>
+         <sort-name>RAM Records</sort-name><life-span begin="1992" />
        </label>
      </relation>
     </relation-list>

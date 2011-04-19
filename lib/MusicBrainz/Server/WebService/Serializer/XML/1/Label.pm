@@ -6,6 +6,7 @@ use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
@@ -25,7 +26,12 @@ before 'serialize' => sub
 
     $self->add($self->gen->name($entity->name));
     $self->add($self->gen->sort_name($entity->sort_name));
+    $self->add($self->gen->label_code($entity->label_code)) if $entity->label_code;
+    $self->add($self->gen->disambiguation($entity->comment)) if $entity->comment;
+
     $self->add($self->gen->country($entity->country->iso_code)) if $entity->country;
+
+    $self->add( $self->lifespan ($entity) ) if $self->has_lifespan ($entity);
 
     $self->add( List->new( sort => sub { $_->name } )
                     ->serialize($opts->{aliases}) )
