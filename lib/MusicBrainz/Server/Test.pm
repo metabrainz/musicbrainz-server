@@ -430,7 +430,7 @@ sub compare_body
 Allow the user of an aggregate test file to specify which tests to run.
 
 The "--tests" option can be supplied to a test, it should be followed
-by a comma seperated list of tests to run.  A default $prefix has to
+by a comma separated list of tests to run.  A default $prefix has to
 be specified so that the user does not have to supply the full package
 name of a test.
 
