@@ -715,6 +715,8 @@ sub _edit_release_track_edits
     {
         $medium_idx++;
 
+        my $rec_medium = $data->{rec_mediums}->[$medium_idx];
+
         if ($new->{id})
         {
             # The medium already exists
@@ -740,7 +742,7 @@ sub _edit_release_track_edits
                     as_auto_editor => $data->{as_auto_editor},
                 );
 
-                if ($new->{edits}) {
+                if ($new->{edits} || $rec_medium->{associations}) {
                     $opts{tracklist} = $new->{tracks};
                 }
 
