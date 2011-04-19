@@ -1,13 +1,27 @@
 package MusicBrainz::Server::Controller::WS::1::Tag;
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use Readonly;
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::LoadEntity';
-with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
+
+with 'MusicBrainz::Server::WebService::Validator' => {
+     defs    => Data::OptList::mkopt([
+         tag => {
+             method => 'GET',
+         },
+         tag => {
+             method => 'POST'
+         }
+     ]),
+     version => 1,
+};
+
+our Readonly $MAX_TAGS_PER_REQUEST = 20;
 
 sub tag : Path('/ws/1/tag')
 {
@@ -34,9 +48,17 @@ sub tag : Path('/ws/1/tag')
                 my $id = $c->req->params->{"id.$count"};
                 my $tags = $c->req->params->{"tags.$count"};
 
-                last if (!$entity || !$id || !$tags) || @batch >= 20;
+                last if (!$entity || !$id || !$tags);
 
                 push @batch, { entity => $entity, id => $id, tags => $tags };
+            }
+
+            if (!@batch) {
+                $self->bad_req($c, 'No valid tags were specified in this request');
+            }
+
+            if (@batch > $MAX_TAGS_PER_REQUEST) {
+                $self->bad_req($c, "Too many tags for one request. Max $MAX_TAGS_PER_REQUEST tags per request");
             }
 
             for my $submission (@batch) {
@@ -45,8 +67,8 @@ sub tag : Path('/ws/1/tag')
             }
         }
 
-        $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
-        $c->res->body($self->serializer->xml( '' ));
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->xml( '' ));
     }
     else {
         my ($id, $type)      = ($c->req->query_params->{id}, $c->req->query_params->{entity});
@@ -54,8 +76,8 @@ sub tag : Path('/ws/1/tag')
 
         my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
 
-        $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
-        $c->res->body($self->serializer->xml( List->new->serialize([ map { $_->tag } @tags ]) ));
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->xml( List->new->serialize([ map { $_->tag } @tags ]) ));
     }
 }
 
