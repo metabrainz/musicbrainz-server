@@ -986,8 +986,8 @@ update link_type set
 
 -- name: other version (work-work)
 update link_type set
-	link_phrase = 'later versions', -- is the earliest version of
-	reverse_link_phrase = 'original version' -- is a later version of
+	link_phrase = 'later {translated} {parody} versions', -- is the earliest version of
+	reverse_link_phrase = 'original {translated} {parody} version' -- is a later version of
 	where gid = '7440b539-19ab-4243-8c03-4f5942ca2218';
 
 -- name: parent (artist-artist)
@@ -1004,8 +1004,8 @@ update link_type set
 
 -- name: performance (recording-work)
 update link_type set
-	link_phrase = 'performance of', -- is a performance of
-	reverse_link_phrase = 'performances' -- has performance
+	link_phrase = '{translated} {cover} performance of', -- is a performance of
+	reverse_link_phrase = '{translated} {cover} performances' -- has performance
 	where gid = 'a41ff967-4930-3520-bb4e-6656a1f8f358';
 
 -- name: performance (artist-recording)

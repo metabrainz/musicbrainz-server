@@ -560,11 +560,10 @@ my %track_ar_types = (
 
     },
     'track' => {
-        #1  => # covers and versions => both
         2  => 'recording', # first track release
         3  => 'recording', # remaster
         4  => 'work',      # other version
-        5  => 'recording', # cover
+        5  => 'skip',      # cover
         6  => 'recording', # remixes
         7  => 'recording', # samples material
         8  => 'recording', # mashes up
@@ -798,7 +797,11 @@ foreach my $orig_t0 (@entity_types) {
         print STDERR "Converting $orig_t0 <=> $orig_t1 links\n";
 
         my %attribs;
-        my $rows = $sql->select_list_of_hashes("SELECT * FROM public.link_attribute WHERE link_type='${orig_t0}_${orig_t1}'");
+        my $rows = $sql->select_list_of_hashes(
+            # Skip the cover AR as this is manually handled
+            "SELECT * FROM public.link_attribute WHERE link_type='${orig_t0}_${orig_t1}'
+                AND NOT ( link_type = 'track_track' AND link IN (5,14) )"
+        );
         foreach my $row (@$rows) {
             my $link = $row->{link};
             if (!exists($attribs{$link})) {
@@ -838,7 +841,10 @@ foreach my $orig_t0 (@entity_types) {
             close(AMAZON);
         }
         else {
-            $query = "SELECT * FROM public.l_${orig_t0}_${orig_t1}";
+            # Skip the cover AR as this is manually handled
+            $query =
+                "SELECT * FROM public.l_${orig_t0}_${orig_t1}
+                 WHERE NOT ('$orig_t0' = 'track' AND '$orig_t1' = 'track' AND link_type IN (5,14) )";
         }
 
         $rows = $sql->select_list_of_hashes($query);
@@ -1094,10 +1100,217 @@ my $recording_work_link_id = $sql->select_single_value("SELECT nextval('link_id_
 $sql->do("INSERT INTO link (id, link_type)
    VALUES (?, ?)", $recording_work_link_id, $recording_work_link_type_id);
 
-$sql->do("INSERT INTO l_recording_work
-    (link, entity0, entity1) 
-    SELECT ?, id, id FROM work",
-    $recording_work_link_id);
+# Handle the cover AR, which depends on which attributes are present
+{
+    my %links;
+    my %attribs;
+    my $rows = $sql->select_list_of_hashes(
+        # Skip the cover AR as this is manually handled
+        "SELECT * FROM public.link_attribute
+          WHERE link_type = 'track_track'"
+    );
+    foreach my $row (@$rows) {
+        my $link = $row->{link};
+        if (!exists($attribs{$link})) {
+            $attribs{$link} = [];
+        }
+        push @{$attribs{$link}}, $row->{attribute_type};
+    }
+
+    my $TRANSLATED    = 517;
+    my $PARODY        = 511;
+    my $OTHER_VERSION = 4;
+
+    my $uuid = OSSP::uuid->new;
+    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-attribute-type/cover");
+    my $gid = $uuid->export("str");
+
+    $sql->do("SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type))");
+    my $cover_attribute_id = $sql->select_single_value("SELECT nextval('link_attribute_type_id_seq')");
+    $sql->do(
+        'INSERT INTO link_attribute_type
+         (id, root, child_order, gid, name, description) VALUES
+         (?,  ?, ?, ?, ?, ?)',
+        $cover_attribute_id, $cover_attribute_id, 0, $gid,
+        'cover', 'Indicates that one entity is a cover of another entity'
+    );
+
+    $rows = $sql->select_list_of_hashes(
+        'SELECT * FROM public.l_track_track WHERE link_type = 5'
+    );
+    for my $row (@$rows) {
+        my $id = $row->{id};
+
+        my $begindate = $row->{begindate} || "0000-00-00";
+        my $enddate = $row->{enddate} || "0000-00-00";
+        MusicBrainz::Server::Validation::TrimInPlace($begindate);
+        MusicBrainz::Server::Validation::TrimInPlace($enddate);
+        while (length($begindate) < 10) {
+            $begindate .= "-00";
+        }
+        while (length($enddate) < 10) {
+            $enddate .= "-00";
+        }
+
+        my %row_attrs;
+        my @attrs;
+        if (exists($attribs{$id})) {
+            %row_attrs = map { $_ => 1 } @{$attribs{$id}};
+            @attrs = sort keys %row_attrs;
+        }
+
+        my ($t0, $t1);
+        my ($e0, $e1);
+        my $old_type_id;
+        my $link_type_id;
+        if (exists $row_attrs{$TRANSLATED} || exists $row_attrs{$PARODY}) {
+            $t0 = 'work';
+            $t1 = 'work';
+            my $link_type_key = join("_", $t0, $t1, $OTHER_VERSION);
+            $link_type_id = $link_type_map{$link_type_key};
+            ($e0, $e1) = ($row->{link1}, $row->{link0});
+        }
+        else {
+            $t0 = 'recording';
+            $t1 = 'work';
+            $link_type_id = $recording_work_link_type_id;
+            ($e0, $e1) = ($row->{link0}, $row->{link1});
+            push @attrs, $cover_attribute_id;
+        }
+
+        my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
+        my $link_id;
+        if (!exists($links{$key})) {
+            $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+            $links{$key} = $link_id;
+            my @begindate = split(/-/, $begindate);
+            my @enddate = split(/-/, $enddate);
+            $sql->do("
+                    INSERT INTO link
+                        (id, link_type, begin_date_year, begin_date_month, begin_date_day,
+                        end_date_year, end_date_month, end_date_day, attribute_count)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ", $link_id, $link_type_id,
+                     ($begindate[0] + 0) || undef,
+                     ($begindate[1] + 0) || undef,
+                     ($begindate[2] + 0) || undef,
+                     ($enddate[0] + 0) || undef,
+                     ($enddate[1] + 0) || undef,
+                     ($enddate[2] + 0) || undef,
+                     scalar(@attrs));
+            foreach my $attr (@attrs) {
+                $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                         $link_id, $attr);
+            }
+        }
+        else {
+            $link_id = $links{$key};
+        }
+
+        $sql->do(
+            "INSERT INTO l_${t0}_${t1}
+                 (link, entity0, entity1) VALUES (?, ?, ?)",
+            $link_id, $e0, $e1);
+    }
+}
+
+# Handle the medley AR
+{
+    my %links;
+    my %attribs;
+    my $rows = $sql->select_list_of_hashes(
+        # Skip the cover AR as this is manually handled
+        "SELECT * FROM public.link_attribute
+          WHERE link_type = 'track_track'"
+    );
+    foreach my $row (@$rows) {
+        my $link = $row->{link};
+        if (!exists($attribs{$link})) {
+            $attribs{$link} = [];
+        }
+        push @{$attribs{$link}}, $row->{attribute_type};
+    }
+
+    $rows = $sql->select_list_of_hashes(
+        'SELECT * FROM public.l_track_track WHERE link_type = 14'
+    );
+    for my $row (@$rows) {
+        my $id = $row->{id};
+
+        my @attrs;
+        if (exists($attribs{$id})) {
+            my %attrs = map { $_ => 1 } @{$attribs{$id}};
+            @attrs = keys %attrs;
+            @attrs = sort @attrs;
+        }
+
+        my $begindate = $row->{begindate} || "0000-00-00";
+        my $enddate = $row->{enddate} || "0000-00-00";
+        MusicBrainz::Server::Validation::TrimInPlace($begindate);
+        MusicBrainz::Server::Validation::TrimInPlace($enddate);
+        while (length($begindate) < 10) {
+            $begindate .= "-00";
+        }
+        while (length($enddate) < 10) {
+            $enddate .= "-00";
+        }
+
+        my ($t0, $t1) = ('recording', 'work');
+
+        my $link_type_key = join('_', $t0, $t1, $row->{link_type});
+        my $link_type_id = $link_type_map{$link_type_key};
+        my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
+        my $link_id;
+        if (!exists($links{$key})) {
+            $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+            $links{$key} = $link_id;
+            my @begindate = split(/-/, $begindate);
+            my @enddate = split(/-/, $enddate);
+            $sql->do("
+                    INSERT INTO link
+                        (id, link_type, begin_date_year, begin_date_month, begin_date_day,
+                        end_date_year, end_date_month, end_date_day, attribute_count)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ", $link_id, $link_type_id,
+                     ($begindate[0] + 0) || undef,
+                     ($begindate[1] + 0) || undef,
+                     ($begindate[2] + 0) || undef,
+                     ($enddate[0] + 0) || undef,
+                     ($enddate[1] + 0) || undef,
+                     ($enddate[2] + 0) || undef,
+                     scalar(@attrs));
+            foreach my $attr (@attrs) {
+                $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                         $link_id, $attr);
+            }
+        }
+        else {
+            $link_id = $links{$key};
+        }
+
+        $sql->do(
+            "INSERT INTO l_${t0}_${t1}
+                 (link, entity0, entity1) VALUES (?, ?, ?)",
+            $link_id, $row->{link0}, $row->{link1});
+    }
+}
+
+# Migrate remaining recording-work performances
+printf STDERR "Migrating remaining recording-work performances\n";
+$sql->do(
+    "INSERT INTO l_recording_work
+    (link, entity0, entity1)
+    SELECT ?, id, id FROM work
+     WHERE NOT EXISTS (
+         SELECT TRUE FROM l_recording_work ar
+           JOIN link ON link.id = ar.link
+          WHERE ar.entity0 = work.id
+            AND link.link_type = ?
+     )
+",
+    $recording_work_link_id,
+    $recording_work_link_type_id
+);
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
 #my $amz_clean_total = 0; ($amz_clean_total += $amz_clean{$_}) for keys %amz_clean;
