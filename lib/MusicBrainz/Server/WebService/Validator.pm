@@ -67,7 +67,11 @@ sub load_type_and_status
         lc('va-' . $_->name)=> $_->id,
     ) } @types;
     my @statuses = $c->model('ReleaseStatus')->get_all();
-    %statuses = map { lc($_->name) => $_->id; } @statuses;
+    %statuses = map {
+        lc($_->name) => $_->id,
+        lc('sa-' . $_->name)=> $_->id,
+        lc('va-' . $_->name)=> $_->id,
+    } @statuses;
 
     $types{'nat'} = $types{'non-album tracks'};
 }
