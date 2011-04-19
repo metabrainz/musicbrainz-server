@@ -142,7 +142,8 @@ sub _load_release_groups
 =method name_is_equivalent
 
 Compares two track names, considers them equivalent if there are only
-case changes or changes in punctuation between the two strings.
+case changes, changes in punctuation and/or changes in whitespace between
+the two strings.
 
 =cut
 
@@ -152,6 +153,8 @@ sub name_is_equivalent
 
     $a =~ s/\p{Punctuation}//g;
     $b =~ s/\p{Punctuation}//g;
+    $a =~ s/ //g;
+    $b =~ s/ //g;
 
     return lc($a) eq lc($b);
 }
@@ -353,9 +356,6 @@ sub associate_recordings
         }
     }
 
-    use Data::Dumper;
-    warn Dumper ($suggested_tracklist)."\n";
-
     my $trackno = 0;
     for $trk_edit (@$edits)
     {
@@ -379,11 +379,9 @@ sub associate_recordings
             # if the suggested recording is the same as the previously associated
             # recording no confirmation is neccesary.
             my $confirmed = $trk->recording_id == $t->recording_id;
-            my $confirmed = 0;
 
             push @load_recordings, $t->recording_id;
             push @ret, { 'id' => $t->recording_id, 'confirmed' => $confirmed };
-            $self->c->stash->{tracklist_confirmation_required} = !$confirmed;
         }
 
         # Track hasn't changed OR track has minor changes (case / punctuation).
@@ -394,7 +392,7 @@ sub associate_recordings
         }
 
         # Track is the only track associated with this particular recording.
-        elsif ($trk && $self->c->model ('Recording')->ussage_count ($trk->recording_id) == 1)
+        elsif ($trk && $self->c->model ('Recording')->usage_count ($trk->recording_id) == 1)
         {
             push @load_recordings, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
@@ -414,11 +412,19 @@ sub associate_recordings
         {
             push @load_recordings, $trk->recording_id;
             push @ret, { 'id' => undef, 'confirmed' => 0 };
-
-            # FIXME: suggest existing recording + search for more.
-#             my @track_suggestions = [];
-#             push @ret, { 'id' => $trk->recording_id };
             $self->c->stash->{confirmation_required} = 1;
+
+            # Search for similar recordings.
+            my @results = $self->_search_recordings ($trk_edit->{name}, $trk_edit->{artist_credit}, 3);
+            $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
+
+            push @track_suggestions, { 'id' => $trk->recording_id };
+            push @track_suggestions, map {
+                {
+                    'id' => $_->entity->id,
+                    'recording' => $_->entity,
+                }
+            } grep { $_ } @results;
         }
 
         # Track is new.
