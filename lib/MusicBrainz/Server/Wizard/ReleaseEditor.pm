@@ -143,7 +143,8 @@ sub _load_release_groups
 =method name_is_equivalent
 
 Compares two track names, considers them equivalent if there are only
-case changes or changes in punctuation between the two strings.
+case changes, changes in punctuation and/or changes in whitespace between
+the two strings.
 
 =cut
 
@@ -153,6 +154,8 @@ sub name_is_equivalent
 
     $a =~ s/\p{Punctuation}//g;
     $b =~ s/\p{Punctuation}//g;
+    $a =~ s/ //g;
+    $b =~ s/ //g;
 
     return lc($a) eq lc($b);
 }
@@ -243,6 +246,44 @@ sub recording_edits_from_tracklist
     return %recording_edits;
 }
 
+
+=method _search_recordings
+
+Search for recordings which match the track name and artist credit preview of a
+new track.
+
+=cut
+
+sub _search_recordings
+{
+    my ($self, $track_name, $artist_credit, $limit) = @_;
+
+    my $offset = 0;
+    my $where = { artist => $artist_credit->{names}->[0]->{artist_name} };
+
+    my ($search_results, $hits) = $self->c->model ('Search')->search (
+        'recording', $track_name, $limit, $offset, $where);
+
+    return @$search_results;
+}
+
+
+=method _exact_match
+
+Compare a search_result with a track edit, return true if artist credit
+and track title match exactly.
+
+=cut
+
+sub _exact_match
+{
+    my ($self, $search_result, $trk_edit) = @_;
+
+    return $search_result->entity->name eq $trk_edit->{name} &&
+        $search_result->entity->artist_credit->name eq $trk_edit->{artist_credit}->{preview};
+}
+
+
 =method associate_recordings
 
 For each track edit, suggest whether the existing recording
@@ -255,71 +296,230 @@ about the suggestion and require the user to confirm our choice.
 
 sub associate_recordings
 {
-    my ($self, $edits, $tracklists, $recording_edits) = @_;
+    my ($self, $edits, $tracklist, $recording_edits) = @_;
 
     my @ret;
-    my @recording_ids;
+    my @suggestions;
+    my @load_recordings;
+    my $trk_edit;
+    my $suggested_tracklist;
 
-    my $count = 0;
-    for (@$edits)
+    # First, try to find a matching tracklist.  For this we will need
+    # to figure out artist_credit ids for all artists.
+    my $look_for_tracklist = 1;
+    TRACKLIST: for $trk_edit (@$edits)
     {
-        my $trk = $tracklists->tracks->[$_->{original_position} - 1];
-        my $rec_edit = $recording_edits->{$_->{edit_sha1}};
+        my @artist_joinphrase;
+        for (@{ $trk_edit->{artist_credit}->{names} })
+        {
+            if (!$_->{id})
+            {
+                $look_for_tracklist = 0;
+                last TRACKLIST;
+            }
+
+            push @artist_joinphrase, {
+                name => $_->{name},
+                artist => $_->{id},
+            };
+            push @artist_joinphrase, $_->{join};
+        }
+
+        pop @artist_joinphrase unless $artist_joinphrase[$#artist_joinphrase];
+
+
+        my $id = $self->c->model ('ArtistCredit')->find (@artist_joinphrase);
+        if (!$id)
+        {
+            $look_for_tracklist = 0;
+            last TRACKLIST;
+        }
+
+        $trk_edit->{artist_credit_id} = $id;
+    }
+
+    if ($look_for_tracklist)
+    {
+        my @possible_tracklists = $self->c->model ('Tracklist')->find ([
+            map {
+                {
+                    name => $_->{name},
+                    artist_credit => $_->{artist_credit_id},
+                    position => $_->{position}
+                }
+            } @$edits ]);
+
+        if (scalar @possible_tracklists)
+        {
+            $suggested_tracklist =
+                $self->c->model ('Tracklist')->get_by_id ($possible_tracklists[0]);
+            $self->c->model ('Track')->load_for_tracklists ($suggested_tracklist);
+        }
+    }
+
+    my $trackno = 0;
+    for $trk_edit (@$edits)
+    {
+        my @track_suggestions;
+
+        my $trk = $tracklist->tracks->[$trk_edit->{original_position} - 1];
+        my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}};
 
         # Track edit is already associated with a recording edit.
         if ($rec_edit)
         {
-            push @recording_ids, $rec_edit->{id} if $rec_edit->{id};
+            push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
             $self->c->stash->{confirmation_required} = 1 unless $rec_edit->{confirmed};
         }
 
-        # Track hasn't changed OR track has minor changes (case / punctuation).
-        elsif ($trk && $self->name_is_equivalent ($_->{name}, $trk->name))
+        # A tracklist is suggested.
+        elsif ($suggested_tracklist)
         {
-            push @recording_ids, $trk->recording_id;
+            my $t = $suggested_tracklist->tracks->[$trackno];
+            # if the suggested recording is the same as the previously associated
+            # recording no confirmation is neccesary.
+            my $confirmed = $trk->recording_id == $t->recording_id;
+
+            push @load_recordings, $t->recording_id;
+            push @ret, { 'id' => $t->recording_id, 'confirmed' => $confirmed };
+        }
+
+        # Track hasn't changed OR track has minor changes (case / punctuation).
+        elsif ($trk && $self->name_is_equivalent ($trk_edit->{name}, $trk->name))
+        {
+            push @load_recordings, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
-        # Track changed significantly, but there is only one recording
-        # associated with it.  Keep the recording association, but ask
-        # for confirmation.
-        elsif ($trk && $self->c->model('Recording')->usage_count ($trk->recording_id) == 1)
+        # Track is the only track associated with this particular recording.
+        elsif ($trk && $self->c->model ('Recording')->usage_count ($trk->recording_id) == 1)
         {
-            push @recording_ids, $trk->recording_id;
-            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
-            $self->c->stash->{confirmation_required} = 1;
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
+        }
+
+        # Track is identical or similar to associated recording
+        elsif ($trk && $trk->recording &&
+               $self->name_is_equivalent ($trk_edit->{name}, $trk->recording->name) &&
+               $self->name_is_equivalent ($trk_edit->{artist_credit}->{preview}, $trk->recording->artist_credit->name))
+        {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
         # Track changed.
         elsif ($trk)
         {
+            push @load_recordings, $trk->recording_id;
             push @ret, { 'id' => undef, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
+
+            # Search for similar recordings.
+            my @results = $self->_search_recordings ($trk_edit->{name}, $trk_edit->{artist_credit}, 3);
+            $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
+
+            push @track_suggestions, { 'id' => $trk->recording_id };
+            push @track_suggestions, map {
+                {
+                    'id' => $_->entity->id,
+                    'recording' => $_->entity,
+                }
+            } grep { $_ } @results;
         }
 
         # Track is new.
-        # (FIXME: search for similar existing tracks, suggest those and set
-        #  "confirmed => 0" if found?)
         else
         {
-            push @ret, { 'id' => undef, 'confirmed' => 1 };
+            my @results = $self->_search_recordings ($trk_edit->{name}, $trk_edit->{artist_credit}, 3);
+            $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
+
+            # The new track has one matching recording in the database
+            if (scalar @results == 1)
+            {
+                # The only result is an exact match
+                if ($self->_exact_match ($results[0], $trk_edit))
+                {
+                    push @ret, { 'id' => $results[0]->entity->id, 'confirmed' => 1 };
+                }
+                # The only result is an approximate match
+                else
+                {
+                    push @ret, { 'id' => undef, 'confirmed' => 0 };
+                    $self->c->stash->{confirmation_required} = 1;
+
+                    push @track_suggestions, {
+                        'id' => $results[0]->entity->id,
+                        'recording' => $results[0]->entity
+                    };
+                }
+            }
+
+            # The new track has several matching recordings in the database
+            elsif (scalar @results > 1)
+            {
+                my $exact_match;
+                my $count = 0;
+                for my $search_result (@results)
+                {
+                    if ($self->_exact_match ($search_result, $trk_edit))
+                    {
+                        $exact_match = delete $results[$count];
+                        last;
+                    }
+
+                    $count++;
+                }
+
+                push @ret, { 'id' => undef, 'confirmed' => 0 };
+                $self->c->stash->{confirmation_required} = 1;
+
+                # One or more of the results are an exact match
+                if ($exact_match)
+                {
+                    push @track_suggestions, {
+                        'id' => $exact_match->entity->id,
+                        'recording' => $exact_match->entity,
+                    }
+                }
+
+                # Add the (remaining) exact or approximate matches
+                push @track_suggestions, map {
+                    {
+                        'id' => $_->entity->id,
+                        'recording' => $_->entity,
+                    }
+                } grep { $_ } @results;
+            }
+
+            # The new track has no matching recordings in the database
+            else
+            {
+                push @ret, { 'id' => undef, 'confirmed' => 1 };
+            }
         }
 
-        $ret[$#ret]->{'edit_sha1'} = $_->{edit_sha1};
+        $ret[$#ret]->{'edit_sha1'} = $trk_edit->{edit_sha1};
 
-        $count += 1;
+        push @suggestions, \@track_suggestions;
+
+        $trackno++;
     }
 
-    my $recordings = $self->c->model('Recording')->get_by_ids (@recording_ids);
+    # FIXME: prevent loading recordings/artist credits for those recordings
+    # already loaded.
+    my $recordings = $self->c->model('Recording')->get_by_ids (@load_recordings);
     $self->c->model('ArtistCredit')->load(values %$recordings);
 
-    for (@ret)
+    for (@ret, map { @$_ } grep { $_ } @suggestions)
     {
-        $_->{recording} = $_->{id} ? $recordings->{$_->{id}} : undef;
+        if (!defined $_->{recording})
+        {
+            $_->{recording} = $_->{id} ? $recordings->{$_->{id}} : undef;
+        }
     }
 
-    return @ret;
+    return (\@ret, \@suggestions);
 }
 
 sub prepare_tracklist
@@ -365,14 +565,25 @@ sub prepare_recordings
 
         if (defined $medium->{edits} && defined $medium->{tracklist_id})
         {
+            my $tracklist = $tracklists_by_id->{$medium->{tracklist_id}};
+            $self->c->model ('Recording')->load ($tracklist->all_tracks);
+            $self->c->model ('ArtistCredit')->load (map { $_->recording } $tracklist->all_tracks);
+
             # Tracks were edited, suggest which recordings should be
             # associated with the edited tracks.
-            my @recordings = $self->associate_recordings (
-                $medium->{edits},
-                $tracklists_by_id->{$medium->{tracklist_id}},
-                \%recording_edits);
+            my ($first_suggestions, $extra_suggestions) = $self->associate_recordings (
+                $medium->{edits}, $tracklist, \%recording_edits);
 
-            $suggestions[$count] = [ map { $_->{recording} } @recordings ];
+            my $trackno = 0;
+            $suggestions[$count] = [
+                map {
+                    my @suggestions;
+                    push @suggestions, $_->{recording};
+                    push @suggestions, map { $_->{recording} } @{ $extra_suggestions->[$trackno] };
+
+                    $trackno++;
+                    \@suggestions;
+                } @$first_suggestions ];
 
             # Set confirmed to undef if false, so that the 'required'
             # attribute on the field prevents the page from validating.
@@ -381,7 +592,7 @@ sub prepare_recordings
                     'gid' => ($_->{recording} ? $_->{recording}->gid : "new"),
                     'confirmed' => $_->{confirmed} ? 1 : undef,
                     'edit_sha1' => $_->{edit_sha1}
-                } } @recordings ];
+                } } @$first_suggestions ];
         }
         elsif (defined $medium->{edits})
         {
@@ -409,7 +620,7 @@ sub prepare_recordings
             my @recordings = map { $recordings_by_id->{$_->{id}} } @assoc;
 
             $self->c->model('ArtistCredit')->load (grep { $_ } @recordings);
-            $suggestions[$count] = \@recordings;
+            $suggestions[$count] = [ map { [ $_ ] } @recordings ];
 
             # Also load the tracklist, as tracks cannot be rendered
             # from the (non-existent) track edits.
@@ -433,7 +644,7 @@ sub prepare_recordings
     {
         map {
             $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
-        } grep { $_ } @$medium_recordings;
+        } grep { $_ } map { @$_ } @$medium_recordings;
     }
 
     $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
