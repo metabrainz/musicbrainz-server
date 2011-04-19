@@ -5,7 +5,7 @@ before 'lookup' => sub {
     my ($self, $c) = @_;
 
     return unless $c->stash->{inc}->ratings || $c->stash->{inc}->user_ratings;
-    $c->authenticate({}, 'musicbrainz.org') if $c->stash->{inc}->user_ratings;
+    $c->authenticate({}, 'musicbrainz.org') if !$c->user_exists && $c->stash->{inc}->user_ratings;
 
     my $entity = $c->stash->{entity};
     my $model = $self->model;
