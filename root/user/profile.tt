@@ -75,7 +75,7 @@
 
         [% WRAPPER property name="Subscribers:" %]
             [% IF subscriber_count %]
-                [% l('{count} ({url|view})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
+                [% l('{count} ({url|view list})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
             [% ELSE %]
                 [% l('0') %]
             [% END %]

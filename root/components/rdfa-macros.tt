@@ -371,7 +371,7 @@ END -%]
 
 [%- MACRO rdfa_recording_duration(recording, about) BLOCK -%]
  [%- IF doRDFa -%]
- <span [%- 'about="' _ about _ '" ' IF about -%] property="mo:duration" datatype="xsd:duration" content="[%- recording.length | format_length_xsd -%]">[%- recording.length | format_length -%]</span>
+ <span [%- 'about="' _ about _ '" ' IF about -%] property="mo:duration" datatype="xsd:duration" content="[%- recording.length | format_length_xsd IF recording.length -%]">[%- recording.length | format_length -%]</span>
  [%- ELSE -%]
  [%- recording.length | format_length -%]
  [%- END -%]
